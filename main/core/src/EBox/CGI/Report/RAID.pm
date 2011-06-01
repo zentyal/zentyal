@@ -26,39 +26,39 @@ use EBox::Gettext;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('RAID'),
-				      'template' => '/report/raid.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('RAID'),
+                      'template' => '/report/raid.mas',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $raidInfo = EBox::Report::RAID::info();
+    my $raidInfo = EBox::Report::RAID::info();
 
-	my $array = $self->param('array');
-
-
-	my @templateParams = (
-			      array    => $array,
-			      raidInfo => $raidInfo,
-			     );
+    my $array = $self->param('array');
 
 
-	$self->{params} = \@templateParams;
+    my @templateParams = (
+                  array    => $array,
+                  raidInfo => $raidInfo,
+                 );
+
+
+    $self->{params} = \@templateParams;
 }
 
 # Method: menuFolder
 #
 #   Overrides <EBox::CGI::ClientBase::menuFolder>
-#   to set the menu folder 
+#   to set the menu folder
 sub menuFolder
 {
-    return 'EBox';
+    return 'SysInfo';
 }
 
 1;

@@ -27,37 +27,37 @@ use EBox::Gettext;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Disk Usage'),
-				      'template' => '/report/diskUsage.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Disk Usage'),
+                      'template' => '/report/diskUsage.mas',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
+    my $self = shift;
 
-	my $fileSystems  = EBox::Report::DiskUsage::partitionsFileSystems();
+    my $fileSystems  = EBox::Report::DiskUsage::partitionsFileSystems();
 
-	my $partition = $self->param('partition');
-	my @partitions =   sort keys %{ $fileSystems };
-	# if not partition supplied pick up the first in alphabetical order
-	if (not $partition) {
-	  $partition = $partitions[0];
-	}
+    my $partition = $self->param('partition');
+    my @partitions =   sort keys %{ $fileSystems };
+    # if not partition supplied pick up the first in alphabetical order
+    if (not $partition) {
+      $partition = $partitions[0];
+    }
 
-	my $chartUrl       = EBox::Report::DiskUsage::chart($partition);
+    my $chartUrl       = EBox::Report::DiskUsage::chart($partition);
 
-	my @templateParams = (
-			      partition     => $partition,
-			      partitionAttr => $fileSystems->{$partition},
-			      chartUrl => $chartUrl,
-			      partitions    => \@partitions,
-			     );
+    my @templateParams = (
+                  partition     => $partition,
+                  partitionAttr => $fileSystems->{$partition},
+                  chartUrl => $chartUrl,
+                  partitions    => \@partitions,
+                 );
 
-	$self->{params} = \@templateParams;
+    $self->{params} = \@templateParams;
 }
 
 # Method: menuFolder
@@ -66,7 +66,7 @@ sub _process
 #   to set the menu folder
 sub menuFolder
 {
-    return 'EBox';
+    return 'SysInfo';
 }
 
 1;

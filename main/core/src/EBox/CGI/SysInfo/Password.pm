@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::Password;
+package EBox::CGI::SysInfo::Password;
 
 use strict;
 use warnings;
@@ -28,8 +28,8 @@ sub new # (cgi=?)
     my $class = shift;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
-    $self->{chain} = "EBox/General";
-    $self->{errorchain} = "EBox/General";
+    $self->{chain} = "SysInfo/General";
+    $self->{errorchain} = "SysInfo/General";
     return $self;
 }
 

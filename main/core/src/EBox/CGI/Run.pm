@@ -113,7 +113,7 @@ sub run # (url, namespace)
             $log->error("Unable to import cgi: "
                     . "$classname Eval error: $@");
 
-            my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
+            my $error_cgi = 'EBox::CGI::SysInfo::PageNotFound';
             eval "use $error_cgi";
             $cgi = new $error_cgi('namespace' => $namespace);
         } else {

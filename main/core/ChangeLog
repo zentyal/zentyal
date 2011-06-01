@@ -1,4 +1,5 @@
 HEAD
+	+ Renamed all /EBox/ CGI URLs to /SysInfo/ for menu folder coherency
 	+ Added support for custom actions in DataTables
 	+ Replaced Halt/Reboot CGI with a model
 	+ Message classes can be set from models

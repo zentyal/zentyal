@@ -1,4 +1,4 @@
-# Copyright (C) 2010 eBox Technologies S.L.
+# Copyright (C) 2008-2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,45 +13,44 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::Hostname;
+package EBox::CGI::SysInfo::General;
 
 use strict;
 use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
+use EBox;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Sudo;
-use EBox::Validate;
 
 use Sys::Hostname;
 
-sub new # (cgi=?)
+sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new(@_);
+    my $self = $class->SUPER::new('title' => __('General Configuration'),
+                      'template' => '/general.mas',
+                      @_);
     bless($self, $class);
-    $self->{errorchain} = "EBox/General";
-    $self->{redirect} = "EBox/General";
     return $self;
 }
 
 sub _process
 {
-    my ($self) = @_;
+    my $self = shift;
 
-    if (defined($self->param('sethostname'))) {
-        my $hostname = $self->param('hostname');
-        my $oldHostname = Sys::Hostname::hostname();
-        if ($hostname ne $oldHostname) {
-            EBox::Validate::checkHost($hostname, __('hostname'));
-            my $global = EBox::Global->getInstance();
-            my $apache = $global->modInstance('apache');
-            $apache->set_string('hostname', $hostname);
-            $global->modChange('apache');
-        }
-    }
+    my $global = EBox::Global->getInstance();
+    my $apache = $global->modInstance('apache');
+    my $newHostname = $apache->get_string('hostname');
+
+    my @array = ();
+    push(@array, 'port' => $apache->port());
+    push(@array, 'lang' => EBox::locale());
+    push(@array, 'hostname' => Sys::Hostname::hostname());
+    push(@array, 'newHostname' => $newHostname);
+
+    $self->{params} = \@array;
 }
 
 1;

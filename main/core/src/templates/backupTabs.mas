@@ -11,7 +11,7 @@ my %tabs = (
 	    local => {
 		      component =>  'backup.mas',
 		      title     =>  __('Local'),
-              url       => '/zentyal/EBox/Backup?selected=local',
+              url       => '/zentyal/SysInfo/Backup?selected=local',
 		     },
 	    remote => {
 		      component =>  '/RemoteServices/Backup/index.mas',

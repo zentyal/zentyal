@@ -6,7 +6,7 @@ nobase_perl_DATA = ClientBase.pm ClientRawBase.pm WizardPage.pm \
             Finish.pm Menu.pm Progress.pm ProgressClient.pm Temp.pm \
             Wizard.pm Base.pm Run.pm MenuCSS.pm
 
-SUBDIRS = Dashboard EBox Login Logout Logs Controller View Report ServiceModule t
+SUBDIRS = Dashboard SysInfo Login Logout Logs Controller View Report ServiceModule t
 
 SOURCES = $(nobase_perl_DATA)
 

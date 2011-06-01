@@ -260,9 +260,9 @@ sub toggledElements()
 #   - Summary
 #   - Save/Cancel
 #   - Logout
-#   - EBox/General
-#   - EBox/Backup
-#   - EBox/Halt
+#   - SysInfo/General
+#   - SysInfo/Backup
+#   - SysInfo/Halt
 #
 sub menu
 {
@@ -279,11 +279,11 @@ sub menu
                     'order' => 20));
 
 
-    my $folder = new EBox::Menu::Folder('name' => 'EBox',
+    my $folder = new EBox::Menu::Folder('name' => 'SysInfo',
                         'text' => __('System'),
                         'order' => 30);
 
-    $folder->add(new EBox::Menu::Item('url' => 'EBox/General',
+    $folder->add(new EBox::Menu::Item('url' => 'SysInfo/General',
                       'text' => __('General')));
 
     $folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
@@ -295,7 +295,7 @@ sub menu
             );
 
 
-    $folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
+    $folder->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                       'text' => __('Import/Export Configuration')));
 
     $folder->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',

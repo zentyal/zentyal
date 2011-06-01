@@ -13,47 +13,45 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::Log;
+package EBox::CGI::SysInfo::Hostname;
 
 use strict;
 use warnings;
 
-use EBox;
-use EBox::Config;
-use EBox::Gettext;
-use EBox::Util::BugReport;
-
 use base 'EBox::CGI::ClientBase';
+
+use EBox::Global;
+use EBox::Gettext;
+use EBox::Sudo;
+use EBox::Validate;
+
+use Sys::Hostname;
 
 sub new # (cgi=?)
 {
-
     my $class = shift;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
+    $self->{errorchain} = "SysInfo/General";
+    $self->{redirect} = "SysInfo/General";
     return $self;
 }
 
-sub actuate
+sub _process
 {
     my ($self) = @_;
 
-    $self->{downfilename} = 'zentyal.log';
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    if ($self->{error}) {
-        $self->SUPER::_print;
-        return;
+    if (defined($self->param('sethostname'))) {
+        my $hostname = $self->param('hostname');
+        my $oldHostname = Sys::Hostname::hostname();
+        if ($hostname ne $oldHostname) {
+            EBox::Validate::checkHost($hostname, __('hostname'));
+            my $global = EBox::Global->getInstance();
+            my $apache = $global->modInstance('apache');
+            $apache->set_string('hostname', $hostname);
+            $global->modChange('apache');
+        }
     }
-
-    print ($self->cgi()->header(-type=>'application/octet-stream',
-                                -attachment=>$self->{downfilename}));
-
-    print EBox::Util::BugReport::dumpLog();
 }
 
 1;

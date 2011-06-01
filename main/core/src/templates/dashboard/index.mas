@@ -334,7 +334,7 @@ function updateWidget(widget) {
                             + '</span>';
                         if (item.enabled && !item.nobutton) {
                             var restart_form = "\
-    <form action='/zentyal/EBox/RestartService'>\
+    <form action='/zentyal/SysInfo/RestartService'>\
         <input type='hidden' name='module' value='" + item.module + "'/>\
         <span class='sright'>\
             <input class='inputButtonRestart' type='submit' name='restart' value='"

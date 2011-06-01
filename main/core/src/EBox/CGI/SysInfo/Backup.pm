@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::Backup;
+package EBox::CGI::SysInfo::Backup;
 
 use strict;
 use warnings;
@@ -34,7 +34,7 @@ sub new # (error=?, msg=?, cgi=?)
     my $self = $class->SUPER::new('title' => __('Import/Export Configuration'),
                       'template' => '/backupTabs.mas',
                       @_);
-    $self->{errorchain} = "EBox/Backup";
+    $self->{errorchain} = "SysInfo/Backup";
     bless($self, $class);
     return $self;
 }
@@ -292,7 +292,7 @@ sub  _bugreportAction
     my ($self) = @_;
 
     my $backup = EBox::Backup->new();
-    $self->{errorchain} = "EBox/Bug";
+    $self->{errorchain} = 'SysInfo/Bug';
     $self->{downfile} = $backup->makeBugReport();
     $self->{downfilename} = 'zentyal-configuration-report.tar';
 }

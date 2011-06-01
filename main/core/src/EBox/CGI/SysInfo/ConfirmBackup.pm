@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::ConfirmBackup;
+package EBox::CGI::SysInfo::ConfirmBackup;
 
 use strict;
 use warnings;
@@ -35,7 +35,7 @@ sub new # (error=?, msg=?, cgi=?)
 				      @_);
 	bless($self, $class);
 
-	$self->{errorchain} = "EBox/Backup";
+	$self->{errorchain} = "SysInfo/Backup";
 
 	return $self;
 }
@@ -73,7 +73,7 @@ sub actuate
   my ($self) = @_;
 
   if (defined($self->param('download.x'))) {
-    $self->{chain} = 'EBox/Backup';
+    $self->{chain} = 'SysInfo/Backup';
     return;
   }
 
@@ -88,7 +88,7 @@ sub actuate
 
 
   # otherwise...
-  $self->{redirect} = "EBox/Backup";
+  $self->{redirect} = "SysInfo/Backup";
   return;
 }
 

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/EBox
+perldir = @PERLPATH@/EBox/CGI/SysInfo
 
 nobase_perl_DATA = Backup.pm ConfirmBackup.pm \
  CurrentProgress.pm General.pm Password.pm Port.pm RestartService.pm \
