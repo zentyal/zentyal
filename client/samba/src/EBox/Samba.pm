@@ -1722,7 +1722,7 @@ sub report
     my $report = {};
 
     $report->{'activity'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'COALLESCE(SUM(operations) AS operations, 0)',
+        'select' => 'COALESCE(SUM(operations), 0) AS OPERATIONS',
         'from' => 'samba_access_report'
     });
 
