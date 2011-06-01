@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,38 +13,42 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::EBox::Halt;
+package EBox::Types::Action;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
-
-use EBox::Global;
-use EBox::Gettext;
-use EBox::Sudo;
-
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Halt or Reboot'),
-				      'template' => '/halt.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = {@_};
+
+    bless($self, $class);
 }
 
-sub _process
+sub name()
 {
-	my $self = shift;
+    my ($self) = @_;
+    return $self->{name};
+}
 
-	if (defined($self->param('halt'))) {
-		EBox::Sudo::root('/sbin/halt');
-		$self->{'msg'} = __("Zentyal is going down for halt");
-	} elsif (defined($self->param('reboot'))) {
-		EBox::Sudo::root("/sbin/reboot");
-		$self->{'msg'} = __("Zentyal is going down for reboot");
-	}
+sub printableValue()
+{
+    my ($self) = @_;
+    return $self->{printableValue};
+}
+
+sub message
+{
+    my ($self) = @_;
+    return $self->{message};
+}
+
+sub handle
+{
+    my ($self, %params) = @_;
+    $self->{handler}->($self->{model}, $self, %params);
 }
 
 1;

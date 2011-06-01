@@ -166,6 +166,8 @@ src/EBox/CGI/Report/Makefile
 src/EBox/CGI/t/Makefile
 src/EBox/Util/Makefile
 src/EBox/View/Makefile
+src/EBox/SysInfo/Makefile
+src/EBox/SysInfo/Model/Makefile
 schemas/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile

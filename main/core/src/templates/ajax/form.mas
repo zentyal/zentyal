@@ -55,12 +55,13 @@
 %      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
 %      if ($msg) {
 <& /msg.mas,
-   msg => $msg
+   msg => $msg,
 &>
 %      }
 %      if ( $model->message() ) {
 <& /msg.mas,
-   msg => $model->popMessage()
+   msg => $model->popMessage(),
+   class => $model->messageClass()
 &>
 %      }
 % }
@@ -96,13 +97,32 @@
 <%init>
   # Getting the arguments from the first request
   my $model = $m->caller_args(2)->{model};
+  my $id = $m->caller_args(2)->{editid};
+  my $actions = $model->table()->{actions};
+  my $customActions = $model->customActions();
 </%init>
+% use Data::Dumper;
 <td id="<% 'buttons_' . $model->modelName() %>">
+% if ($actions) {
   <& /input/submit.mas,
      name => 'change',
      value => $model->printableActionName(),
      onclick => $model->changeRowJS(0, 0) . '; return false',
   &>
+% }
+% if ($customActions) {
+%   foreach my $customAction ( @{$customActions} )
+%   {
+    <& /input/submit.mas,
+      class => 'inputButton',
+      name => $customAction->name(),
+      value => $customAction->printableValue(),
+      title => $customAction->printableValue(),
+      onclick => $model->customActionClickedJS($customAction->name(), $id) .
+        '; return false',
+    &>
+%   }
+% }
 </td>
 </%method>
 

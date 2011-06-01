@@ -144,7 +144,8 @@
 %      }
 %      if ( $model->message() ) {
 <& /msg.mas,
-   msg => $model->popMessage()
+   msg => $model->popMessage(),
+   class => $model->messageClass()
 &>
 %      }
 % }
@@ -195,10 +196,12 @@
 <form name="<% $modelName . '_ajaxform' %>">
   <table class="formTable">
     <tbody>
+% if (@formData) {
       <& SELF:editRowFields,
          modelName => $modelName,
          formData => \@formData
       &>
+% }
       <tr>
         <td class="tright"
             id="applyChanges">
@@ -208,12 +211,14 @@
     </tbody>
   </table>
 </form>
+% if (@formData) {
 %   my $customizer = $formData[0]->model()->viewCustomizer();
 %   if ($customizer) {
 <script>
 <%   $customizer->onChangeActionsJS() %>
 </script>
 %    }
+% }
 </%method>
 
 <%doc>

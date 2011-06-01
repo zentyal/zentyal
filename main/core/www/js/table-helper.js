@@ -3,9 +3,8 @@
 //      - Refactor addNewRow and actionClicked, they do almost the same
 //      - Implement a generic function for the onComplete stage
 
-function cleanError(table)
-{
-	$('error_' + table).innerHTML = "";
+function cleanError(table) {
+    $('error_' + table).innerHTML = "";
 }
 
 // Function: setEnableRecursively
@@ -73,114 +72,98 @@ function onFieldChange(event, JSONActions, table) {
                      case 'enable':
                         setEnableRecursively($(fullId), true);
                         break;
-                      case 'disable':
+                     case 'disable':
                         setEnableRecursively($(fullId), false);
                         break;
-                }   
+                }
             }
         }
     );
 }
 
+function encodeFields(table, fields)
+{
+    var pars = [];
+    for (i in fields) {
+        var field = fields[i];
+        var value = inputValue(table + '_' + field);
+        if (value) {
+            pars.push(field + '=' + encodeURIComponent(value));
+        }
+    }
+    return pars.join('&');
+}
+
 function addNewRow(url, table, fields, directory)
 {
-	var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
+    var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
 
     pars += '&page=0';
-  	pars += '&filter=' + inputValue(table + '_filter');
-  	pars += '&pageSize=' + inputValue(table + '_pageSize');
-	
-	cleanError(table);
+    pars += '&filter=' + inputValue(table + '_filter');
+    pars += '&pageSize=' + inputValue(table + '_pageSize');
 
-	for (var i = 0; i < fields.length; i++) {
-		var field = fields[i];
-		//var value = $F(table + '_' + field);
-		var value = inputValue(table + '_' + field);
-		if (value) {
-		  if (pars.length != 0) {
-				pars += '&';
-			}
-			pars += field + '=' + encodeURIComponent(value);
-		}
-	}
+    cleanError(table);
 
-	var MyAjax = new Ajax.Updater(
-		{
-		success: table,
-		failure: 'error_' + table 
-		},
-		url,
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: false,
-			evalScripts: true,
-			onComplete: function(t) {
-			  stripe('dataTable', '#ecf5da', '#ffffff'); 
-			  completedAjaxRequest();
-			},
-			onFailure: function(t) {
-			  restoreHidden('buttons_' + table, table);
-			}
-		});
+    if (fields) pars += '&' + encodeFields(table, fields);
 
-	setLoading('buttons_' + table, table, true);
+    var MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+              stripe('dataTable', '#ecf5da', '#ffffff'); 
+              completedAjaxRequest();
+            },
+            onFailure: function(t) {
+              restoreHidden('buttons_' + table, table);
+            }
+        }
+    );
 
+    setLoading('buttons_' + table, table, true);
 }
 
 function changeRow(url, table, fields, directory, id, page, force)
 {
-	var pars = 'action=edit&tablename=' + table + '&directory='
+    var pars = '&action=edit&tablename=' + table + '&directory='
                    + directory + '&id=' + id + '&';
-	if ( page != undefined ) {
-	   pars += '&page=' + page;
-	 }
-        if ( page != undefined ) {
-          pars += '&page=' + page;
-        }
-  	pars += '&filter=' + inputValue(table + '_filter');
-  	pars += '&pageSize=' + inputValue(table + '_pageSize');
+    if ( page != undefined ) pars += '&page=' + page;
 
-        // If force parameter is ready, show it
-        if ( force ) {
-          pars += '&force=1';
-        }
+    pars += '&filter=' + inputValue(table + '_filter');
+    pars += '&pageSize=' + inputValue(table + '_pageSize');
 
-	cleanError(table);
-	
-	for (var i = 0; i < fields.length; i++) {
-		var field = fields[i];
-		var value = inputValue(table + '_' + field);
-		if (value) {
-			if (pars.length != 0) {
-				pars += '&';
-			}
-			pars += field + '=' + encodeURIComponent(value);
-		}
-	}
+    // If force parameter is ready, show it
+    if ( force ) pars += '&force=1';
 
-	var MyAjax = new Ajax.Updater(
-		{
-			success: table,
-			failure: 'error_' + table 
-		},
-		url,
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: false,
-			evalScripts: true,
-			onComplete: function(t) { 
-			  highlightRow( id, false);
-			  stripe('dataTable', '#ecf5da', '#ffffff');
-			},
-			onFailure: function(t) {
-			  restoreHidden('buttons_' + table, table );
-			}
-		});
+    cleanError(table);
+    if (fields) pars += '&' + encodeFields(table, fields);
 
-	 setLoading('buttons_' + table, table, true);
+    var MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+                highlightRow( id, false);
+                stripe('dataTable', '#ecf5da', '#ffffff');
+            },
+            onFailure: function(t) {
+                restoreHidden('buttons_' + table, table );
+            }
+        });
 
+     setLoading('buttons_' + table, table, true);
 }
 
 
@@ -192,12 +175,12 @@ Function: actionClicked
 Parameters:
 
         url - the CGI URL to call to do the action
-	table - the table's name
+    table - the table's name
         action - the action to do (move, del)
-	rowId  - the affected row identifier
-	paramsAction - an string with the parameters related to the
+    rowId  - the affected row identifier
+    paramsAction - an string with the parameters related to the
                        action E.g.: param1=value1&param2=value2 *(Optional)*
-	directory - the GConf directory where table is stored
+    directory - the GConf directory where table is stored
 
 */
 
@@ -217,25 +200,24 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page)
   pars += '&directory=' + directory + '&tablename=' + table;
 
   cleanError(table);
-	
+    
   var MyAjax = new Ajax.Updater(
-	    {
-		success: table,
-		failure: 'error_' + table 
-	    },
-	    url,
-	    {
-		method: 'post',
-		parameters: pars,
-		asyncrhonous: false,
-		evalScripts: true,
-		onComplete: function(t) {
-		  stripe('dataTable', '#ecf5da', '#ffffff');
-		},
-		onFailure: function(t) {
-		  restoreHidden('actionsCell_' + rowId, table);
-		}
-	    });
+        {
+            success: table,
+            failure: 'error_' + table 
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+                stripe('dataTable', '#ecf5da', '#ffffff');
+            },
+            onFailure: function(t) {
+                restoreHidden('actionsCell_' + rowId, table);
+            }
+        });
 
   if ( action == 'del' ) {
     setLoading('actionsCell_' + rowId, table);
@@ -246,66 +228,103 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page)
 
 }
 
+function customActionClicked(action, url, table, fields, directory, id, page)
+{
+    var pars = '&action=' + action;
+    pars += '&tablename=' + table;
+    pars += '&directory=' + directory;
+    pars += '&id=' + id;
+
+    if (page) pars += '&page=' + page;
+
+    pars += '&filter=' + inputValue(table + '_filter');
+    pars += '&pageSize=' + inputValue(table + '_pageSize');
+
+    cleanError(table);
+
+    if (fields) pars += '&' + encodeFields(table, fields);
+
+    var MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+                highlightRow(id, false);
+                stripe('dataTable', '#ecf5da', '#ffffff');
+            },
+            onFailure: function(t) {
+                restoreHidden('buttons_' + table, table);
+            }
+        }
+    );
+    setLoading('buttons_' + table, table, true);
+}
+
 function changeView(url, table, directory, action, id, page, isFilter)
 {
-	var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
-	
-	pars += '&filter=' + inputValue(table + '_filter');
-  	pars += '&pageSize=' + inputValue(table + '_pageSize');
-	pars += '&page=' + page;
+    var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+    
+    pars += '&filter=' + inputValue(table + '_filter');
+      pars += '&pageSize=' + inputValue(table + '_pageSize');
+    pars += '&page=' + page;
 
-	cleanError(table);
-	
-	var MyAjax = new Ajax.Updater(
-		{
-			success: table,
-			failure: 'error_' + table 
-		},
-		url,
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: false,
-			evalScripts: true,
-			onComplete: function(t) { 
-			  // Highlight the element
+    cleanError(table);
+    
+    var MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table 
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) { 
+              // Highlight the element
                           if (id != undefined) {
-			    highlightRow(id, true);
+                highlightRow(id, true);
                           }
-			  // Stripe again the table
-			  stripe('dataTable', '#ecf5da', '#ffffff');
-			  if ( action == 'changeEdit' ) {
-			    restoreHidden('actionsCell_' + id, table);
-			  }
-			  completedAjaxRequest();
-			},
-			onFailure: function(t) {
-			  if ( action == 'changeAdd' ) {
-			    restoreHidden('creatingForm_' + table, table);
-			  }
-			  else if ( action == 'changeList' ) {
+              // Stripe again the table
+              stripe('dataTable', '#ecf5da', '#ffffff');
+              if ( action == 'changeEdit' ) {
+                restoreHidden('actionsCell_' + id, table);
+              }
+              completedAjaxRequest();
+            },
+            onFailure: function(t) {
+              if ( action == 'changeAdd' ) {
+                restoreHidden('creatingForm_' + table, table);
+              }
+              else if ( action == 'changeList' ) {
                             if (! isFilter ) {
                               restoreHidden('buttons_' + table, table);
                             }
-			  }
-			  else if ( action == 'changeEdit' ) {
-			    restoreHidden('actionsCell_' + id, table);
-			  }
-			}
-			
-		});
+              }
+              else if ( action == 'changeEdit' ) {
+                restoreHidden('actionsCell_' + id, table);
+              }
+            }
+            
+        });
 
-	if ( action == 'changeAdd' ) {
-	  setLoading('creatingForm_' + table, table, true);
-	}
-	else if ( action == 'changeList' ) {
+    if ( action == 'changeAdd' ) {
+      setLoading('creatingForm_' + table, table, true);
+    }
+    else if ( action == 'changeList' ) {
           if ( ! isFilter ) {
             setLoading('buttons_' + table, table, true);
           }
-	}
-	else if ( action == 'changeEdit' ) {
-	  setLoading('actionsCell_' + id, table, true);
-	}
+    }
+    else if ( action == 'changeEdit' ) {
+      setLoading('actionsCell_' + id, table, true);
+    }
 
 }
 
@@ -313,15 +332,15 @@ function changeView(url, table, directory, action, id, page, isFilter)
 Function: hangTable
 
         Hang a table under the given identifier via AJAX request
-	replacing all HTML content. The parameters to the HTTP request
-	are passed by an HTML form.
+    replacing all HTML content. The parameters to the HTTP request
+    are passed by an HTML form.
 
 Parameters:
 
         successId - div identifier where the new table will be on on success
-	errorId - div identifier
+    errorId - div identifier
         url - the URL where the CGI which generates the HTML is placed
-	formId - form identifier which has the parameters to pass to the CGI
+    formId - form identifier which has the parameters to pass to the CGI
         loadingId - String element identifier that it will substitute by the loading image
         *(Optional)* Default: 'loadingTable'
 
@@ -343,9 +362,9 @@ function hangTable(successId, errorId, url, formId, loadingId)
   },
   url,
       {
-	method: 'post',
-	parameters: Form.serialize(formId, true), // The parameters are taken from the form
-	asynchronous: true,
+    method: 'post',
+    parameters: Form.serialize(formId, true), // The parameters are taken from the form
+    asynchronous: true,
     evalScripts: true,
     onComplete: function(t) {
       stripe('dataTable', '#ecf5da', '#ffffff'); 
@@ -355,9 +374,9 @@ function hangTable(successId, errorId, url, formId, loadingId)
           stripe('dataTable', '#ecf5da', '#ffffff'); 
           completedAjaxRequest();
         },
-	onFailure: function(t) {
-	  restoreHidden(loadingId);
-	}
+    onFailure: function(t) {
+      restoreHidden(loadingId);
+    }
       }
   );
  
@@ -373,8 +392,8 @@ Function: selectComponentToHang
 Parameters:
 
         successId - div identifier where the new table will be on on success
-	errorId - div identifier
-	formId - form identifier which has the parameters to pass to the CGI
+    errorId - div identifier
+    formId - form identifier which has the parameters to pass to the CGI
         urls - associative array which contains tthe URL where the CGI which generates the HTML is placed
         loadingId - String element identifier that it will substitute by the loading image
         *(Optional)* Default: 'loadingTable'
@@ -410,16 +429,16 @@ function selectComponentToHang(successId, errorId, formId, urls, loadingId)
   },
   url,
       {
-	method: 'post',
-	parameters: pars,
-	asynchronous: true,
+    method: 'post',
+    parameters: pars,
+    asynchronous: true,
         evalScripts: true,
         onSuccess: function(t) {
           restoreHidden(loadingId);
         },
-	onFailure: function(t) {
-	  restoreHidden(loadingId);
-	}
+    onFailure: function(t) {
+      restoreHidden(loadingId);
+    }
       }
   );
  
@@ -462,8 +481,8 @@ Function: showPort
 Parameters:
 
         protocolSelectId - the select identifier which the protocol is chosen
-	portId   - the identifier where port is going to be set
-	protocols - the list of protocols which need a port to be set
+    portId   - the identifier where port is going to be set
+    protocols - the list of protocols which need a port to be set
 
 */
 function showPort(protocolSelectId, portId, protocols)
@@ -488,10 +507,10 @@ function showPort(protocolSelectId, portId, protocols)
 }
 
 /* TODO: showPortRange and showPort do things in common
-	 like showing/hiding elments depending on which value
-	 is selected elsewhere. We should refactor this
-	 and provide a generic function to do that. Logic should
-	 come from model and translated in javascript.
+     like showing/hiding elments depending on which value
+     is selected elsewhere. We should refactor this
+     and provide a generic function to do that. Logic should
+     come from model and translated in javascript.
 /*
 Function: showPortRange
 
@@ -537,8 +556,8 @@ Parameters:
 
         elementId - the element identifier
         modelName - the model name to distinguish among hiddenDiv tags *(Optional)*
-	isSaved   - boolean to indicate if the inner HTML should be saved
-	at *hiddenDiv_<modelName>* in order to be rescued afterwards *(Optional)*
+    isSaved   - boolean to indicate if the inner HTML should be saved
+    at *hiddenDiv_<modelName>* in order to be rescued afterwards *(Optional)*
         
 
 */
@@ -631,9 +650,9 @@ function disableInput(elementId)
     node = children[idx];
     if ( node.nodeType == 1 /* Node.ELEMENT_NODE */ ) {
       //      if ( typeof node == "HTMLInputElement" ) {
-	
-	node.disable = true;
-	//}
+    
+    node.disable = true;
+    //}
     }
   }
 
@@ -647,8 +666,8 @@ Function: highlightRow
 Parameters:
 
         elementId - the row identifier to highlight
-	enable    - if enables/disables the highlight *(Optional)*
-	            Default value: true
+    enable    - if enables/disables the highlight *(Optional)*
+                Default value: true
 
 */
 function highlightRow(elementId, enable)
@@ -671,24 +690,23 @@ function highlightRow(elementId, enable)
 /*
 Function: inputValue
 
-	Use $F() to return an input value. It firstly checks
-	using $() if the id exits
+    Return an input value. It firstly checks using $() if the id exits
 
 Parameters:
 
-	elementId - the input element to fetch the value from
+    elementId - the input element to fetch the value from
 
 Returns:
 
-	input value if it exits, otherwise empty string
+    input value if it exits, otherwise empty string
 */
 function inputValue(elementId) {
-
-	if ($(elementId)) {
-		return $F(elementId);
-	} else {
-		return '';
-	}
+    var $element = $(elementId);
+    if ($element) {
+        return $element.getValue();
+    } else {
+        return '';
+    }
 }
 
 /*
@@ -724,55 +742,54 @@ Parameters:
 */
 function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
 {
-	startAjaxRequest();
-	cleanError(model);
+    startAjaxRequest();
+    cleanError(model);
 
-	var parameters = new Hash();
-	parameters.set('action', 'editBoolean');
-	parameters.set('model', model);
-	parameters.set('dir', dir);
-	parameters.set('field', field);
-	if ($F(element) == 'on') {
-		parameters.set('value', 1);
-	}
-	parameters.set('id', id);
+    var parameters = new Hash();
+    parameters.set('action', 'editBoolean');
+    parameters.set('model', model);
+    parameters.set('dir', dir);
+    parameters.set('field', field);
+    if ($F(element) == 'on') {
+        parameters.set('value', 1);
+    }
+    parameters.set('id', id);
 
-	hide(element.id);
-	setLoading(element.id + '_loading');
-	
-	var MyAjax = new Ajax.Updater(
+    hide(element.id);
+    setLoading(element.id + '_loading');
+    
+    var MyAjax = new Ajax.Updater(
                 {
                         failure: 'error_' + model 
                 },
-		controller,
-		{
-			method: 'post',
-			parameters: parameters,
-			asyncrhonous: false,
-			onFailure: function(t) {
-			  completedAjaxRequest();
-			  show(element.id);
-			  $(element.id + '_loading').innerHTML = '';
-			  element.checked = ! element.checked;
-			},
-			onSuccess: function(t) {
-			  eval(t.responseText);
-			  completedAjaxRequest();
-			  show(element.id);
-			  $(element.id + '_loading').innerHTML = '';
+        controller,
+        {
+            method: 'post',
+            parameters: parameters,
+            onFailure: function(t) {
+              completedAjaxRequest();
+              show(element.id);
+              $(element.id + '_loading').innerHTML = '';
+              element.checked = ! element.checked;
+            },
+            onSuccess: function(t) {
+              eval(t.responseText);
+              completedAjaxRequest();
+              show(element.id);
+              $(element.id + '_loading').innerHTML = '';
 
-			}
-		});
+            }
+        });
 
 
 }
 /*
 Function: startAjaxRequest
 
-	This function is used to mark we start an ajax request.
-	This is used to help test using selenium, it modifies
-	a dom element -request_cookie- to be able to know when
-	an ajax request starts and stops.
+    This function is used to mark we start an ajax request.
+    This is used to help test using selenium, it modifies
+    a dom element -request_cookie- to be able to know when
+    an ajax request starts and stops.
 
 */
 function startAjaxRequest()
@@ -783,10 +800,10 @@ function startAjaxRequest()
 /*
 Function: completedAjaxRequest
 
-	This function is used to mark we finished an ajax request.
-	This is used to help test using selenium, it modifies
-	a dom element -request_cookie- to be able to know when
-	an ajax request starts and stops.
+    This function is used to mark we finished an ajax request.
+    This is used to help test using selenium, it modifies
+    a dom element -request_cookie- to be able to know when
+    an ajax request starts and stops.
 
 */
 function completedAjaxRequest()

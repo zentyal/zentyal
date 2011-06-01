@@ -29,6 +29,7 @@ use EBox::Gettext;
 use EBox::Types::Port;
 use EBox::Types::Text;
 use EBox::Types::Host;
+use EBox::Types::Select;
 use EBox::Types::Password;
 use EBox::Types::Select;
 

@@ -1,4 +1,7 @@
 HEAD
+	+ Added support for custom actions in DataTables
+	+ Replaced Halt/Reboot CGI with a model
+	+ Message classes can be set from models
 	+ Fixed error in Jabber dispatcher
 	+ Show module name properly in log when restart from the dashboard fails
 	+ Avoid warning when looking for inexistent PID in pidFileRunning

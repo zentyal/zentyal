@@ -103,7 +103,8 @@ use POSIX;
 %      }
 %      if ( $model->message() ) {
 <& /msg.mas,
-   msg => $model->popMessage()
+   msg => $model->popMessage(),
+   class => $model->messageClass()
 &>
 %      }
 % }
@@ -339,6 +340,7 @@ use POSIX;
   my $page   = $m->request_args()->{page};
   my $tpages = $m->request_args()->{tpages};
   my $changeView = $model->action('changeView');
+  my $customActions = $model->customActions();
 
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
@@ -372,6 +374,20 @@ use POSIX;
                       $model->changeRowJS($editid, $page)
                     %>; return false'
     />
+% }
+% if ($customActions)
+% {
+%   foreach my $customAction ( @{$customActions} )
+%   {
+    <& /input/submit.mas,
+      class => 'inputButton',
+      name => $customAction->name(),
+      value => $customAction->printableValue(),
+      title => $customAction->printableValue(),
+      onclick => $model->customActionClickedJS($customAction->name(), $editid) .
+        '; return false',
+    &>
+%   }
 % }
 % if ($changeView)
 % {

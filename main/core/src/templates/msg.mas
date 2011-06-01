@@ -19,4 +19,4 @@ Parameters:
     $class = 'note';
   } 
 </%init>
-<div class='note'><% $msg %></div>
+<div class="<% $class %>"><% $msg %></div>

@@ -160,7 +160,14 @@ sub _setupTable
     unless (defined($self->{'table'}->{'class'})) {
         $self->{'table'}->{'class'} = 'dataTable';
     }
+
+    # Store the custom actions in a hash
+    my $customActions = $self->{'table'}->{'customActions'};
+    my %customActionsHash = map { $_->name() => $_ } @{$customActions};
+    $self->{'customActionsHash'} = \%customActionsHash;
+
     $self->_setDefaultMessages();
+    $self->_setCustomMessages();
 }
 
 # Method: checkTable
@@ -171,11 +178,13 @@ sub checkTable
 {
     my ($self, $table) = @_;
 
-    if (not exists $table->{tableDescription}) {
+    if (not exists $table->{tableDescription} and
+            not exists $table->{customActions}) {
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
-    elsif (@{ $table->{tableDescription} } == 0) {
-        throw EBox::Exceptions::Internal('tableDescription has not any field');
+    elsif (@{ $table->{tableDescription} } == 0 and
+            @{ $table->{customActions} } == 0) {
+        throw EBox::Exceptions::Internal('tableDescription has not any field or custom action');
     }
 
     if (not $table->{tableName}) {
@@ -2054,6 +2063,26 @@ sub action
     }
 }
 
+# Method: customActions
+#
+#       Obtains the definition of the custom actions
+#
+# Returns:
+#
+#       Array ref - List of <EBox::Types::Action>
+#
+sub customActions
+{
+    my ($self, $action) = @_;
+    if ($action) {
+        return undef unless $self->{table}->{customActions};
+        return $self->{customActionsHash}->{$action};
+    } else {
+        return [] unless $self->{table}->{customActions};
+        return $self->{table}->{customActions};
+    }
+}
+
 # Method: printableRowName
 #
 #     Get the printable row name
@@ -2118,6 +2147,12 @@ sub message
     }
 }
 
+sub messageClass
+{
+    my ($self, $action) = @_;
+    return $self->table()->{'messageClass'} or 'note';
+}
+
 # Method: popMessage
 #
 #     Get the message to show and *delete* it afterwards.
@@ -2128,7 +2163,7 @@ sub message
 #
 sub popMessage
 {
-    my ($self, $action) = @_;
+    my ($self) = @_;
 
     my $msg = $self->message();
     $self->setMessage('');
@@ -2147,9 +2182,10 @@ sub popMessage
 #
 sub setMessage
 {
-    my ($self, $newMessage) = @_;
+    my ($self, $newMessage, $messageClass) = @_;
 
     $self->table()->{'message'} = $newMessage;
+    $self->table()->{'messageClass'} = $messageClass if ($messageClass);
 }
 
 # Method: modelDomain
@@ -2960,6 +2996,47 @@ sub actionClickedJS
             $page);
 }
 
+sub actionHandlerUrl
+{
+    my ($self) = @_;
+    return $self->_mainController();
+}
+
+# Method: customActionClickedJS
+#
+#     Return the javascript function for customActionClicked
+#
+# Parameters:
+#
+#     TODO
+#
+# Returns:
+#
+#     string - holding a javascript funcion
+sub customActionClickedJS
+{
+    my ($self, $action, $id, $page) = @_;
+
+    unless ( $self->customActions($action) ) {
+        throw EBox::Exceptions::Internal("Wrong custom action $action");
+    }
+
+    my  $function = 'customActionClicked("%s","%s","%s",%s,"%s","%s",%s)';
+
+    my $table = $self->table();
+    my $fields = $self->_paramsWithSetterJS();
+    $fields =~ s/'/\"/g;
+    $page = 0 unless $page;
+    return  sprintf ($function,
+            $action,
+            $self->actionHandlerUrl(),
+            $table->{'tableName'},
+            $fields,
+            $table->{'gconfdir'},
+            $id,
+            $page);
+}
+
 # Method: backupFiles
 #
 #   Make an actual configuration backup of all the files contained in the
@@ -3112,6 +3189,22 @@ sub _setDefaultMessages
         unless ( exists $table->{'messages'}->{$action} ) {
             $table->{'messages'}->{$action} = $defaultMessages{$action};
         }
+    }
+}
+# Method: _setCustomMessages
+#
+#      Set the custom messages based on possibel custom actions
+#
+sub _setCustomMessages
+{
+    my ($self) = @_;
+    my $table = $self->{'table'};
+    $table->{'messages'} = {} unless ( $table->{'messages'} );
+
+    for my $customAction ( @{$self->customActions()} ) {
+        my $action = $customAction->name();
+        my $message = $customAction->message();
+        $table->{messages}->{$action} = $message;
     }
 }
 
@@ -3613,13 +3706,10 @@ sub _filterRows
     }
 }
 
-# Set the default controller to that actions which do not have a
-# custom controller
-sub _setControllers
+sub _mainController
 {
     my ($self) = @_;
 
-    # Table is already defined
     my $table = $self->{'table'};
 
     my $defAction = $table->{'defaultController'};
@@ -3632,6 +3722,18 @@ sub _setControllers
             $defAction .= '/' . $self->index();
         }
     }
+    return $defAction;
+}
+
+# Set the default controller to that actions which do not have a
+# custom controller
+sub _setControllers
+{
+    my ($self) = @_;
+
+    # Table is already defined
+    my $table = $self->{'table'};
+    my $defAction = $self->_mainController();
     if ($defAction) {
         foreach my $action (@{$table->{'defaultActions'}}) {
             # Do not overwrite existing actions

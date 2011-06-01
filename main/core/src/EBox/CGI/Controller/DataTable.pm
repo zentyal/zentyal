@@ -23,6 +23,7 @@ use base 'EBox::CGI::ClientRawBase';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
 
 # Dependencies
 use Error qw(:try);
@@ -169,6 +170,13 @@ sub editBoolean
     }
 }
 
+sub customAction
+{
+    my ($self, $action) = @_;
+    my $model = $self->{'tableModel'};
+    my $customAction = $model->customActions($action);
+    $customAction->handle($self->getParams());
+}
 
 # Method to refresh the table by calling rows method
 sub refreshTable
@@ -200,7 +208,6 @@ sub refreshTable
     push(@params, 'tpages' => $tpages);
 
     $self->{'params'} = \@params;
-
 }
 
 # Group: Protected methods
@@ -262,6 +269,11 @@ sub _process
     } elsif ($action eq 'editBoolean') {
         delete $self->{template};
         $self->editBoolean();
+    } elsif ($model->customActions($action)) {
+        $self->customAction($action);
+        $self->refreshTable();
+    } else {
+        throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
 }
 
