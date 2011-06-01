@@ -87,6 +87,8 @@ sub _populateOSTypes
 #
 sub _table
 {
+    my $totalMemory = `free -m | awk 'NR==2 { print $2 }'`;
+
     my @tableHeader = (
        new EBox::Types::Select(
                                fieldName     => 'os',
@@ -99,7 +101,7 @@ sub _table
                             printableName => __('Base Memory'),
                             editable      => 1,
                             min           => 1,
-                            max           => 4096, # FIXME: Get total available RAM
+                            max           => $totalMemory / 2,
                             defaultValue  => 512,
                            ),
     );
