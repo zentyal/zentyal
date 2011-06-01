@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed SQL in activity report section
 	+ Removed redundant code _dumpSharesTree and _loadSharesTree
 2.1.2
 	+ Domain names ending in ".local" are no longer allowed
