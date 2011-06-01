@@ -1,5 +1,6 @@
 HEAD
 	+ Root directory can be chosen as directory in FTP and SCP
+	+ Files with unsafe chars are shown in the file list and can be restored
 2.1.1
 	+ Removed configuration backup warning as now it is always done
 	+ Removed unnecessary code from syncRows methods

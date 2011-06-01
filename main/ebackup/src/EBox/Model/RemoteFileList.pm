@@ -160,6 +160,7 @@ sub _table
         new EBox::Types::Text(
             fieldName     => 'file',
             printableName => __('File'),
+            allowUnsafeChars => 1,
         ),
         new EBox::Types::Select(
             fieldName     => 'date',
