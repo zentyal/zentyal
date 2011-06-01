@@ -31,6 +31,10 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
 
+use Filesys::Df;
+
+use constant HDDS_DIR => '/var/lib/zentyal';
+
 # Group: Public methods
 
 # Constructor: new
@@ -87,34 +91,55 @@ sub _table
                              printableName => __('Path'),
                              editable      => 1,
                             ),
-       # TODO: This only makes sense for HDs, hide it with
-       # viewCustomizer if CD is selected
        new EBox::Types::Int(
                             fieldName     => 'size',
                             printableName => __('Size'),
                             editable      => 1,
                             defaultValue  => 8000,
                             min           => 32,
-                            max           => 100000, # TODO: Get free space or remove this limit?
+                            max           => int(df('/')->{bavail}),
                             trailingText  => 'MB',
                            ),
     );
 
     my $dataTable =
     {
-        tableName          => 'DeviceSettings',
-        printableTableName => __('Device Settings'),
-        printableRowName   => __('drive'),
-        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
-        tableDescription   => \@tableHeader,
-        order              => 1,
-        enableProperty     => 1,
-        class              => 'dataTable',
-        help               => __('Here you can define the storage drives of the virtual machine'),
-        modelDomain        => 'Virt',
+        tableName           => 'DeviceSettings',
+        printableTableName  => __('Device Settings'),
+        printableRowName    => __('drive'),
+        defaultActions      => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription    => \@tableHeader,
+        order               => 1,
+        enableProperty      => 1,
+        defaultEnabledValue => 1,
+        class               => 'dataTable',
+        help                => __('Here you can define the storage drives of the virtual machine'),
+        modelDomain         => 'Virt',
     };
 
     return $dataTable;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    $customizer->setOnChangeActions(
+            { type =>
+                {
+                  'cd' => { hide => [ 'size' ] },
+                  'hd' => { show  => [ 'size' ] },
+                }
+            });
+    return $customizer;
 }
 
 1;

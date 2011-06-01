@@ -63,11 +63,26 @@ sub _description
         layout          => 'tabbed',
         name            => 'VMSettings',
         printableName   => __('Virtual Machine Settings'),
-        pageTitle       => __('Virtual Machine Settings'),
         compositeDomain => 'Virt',
     };
 
     return $description;
+}
+
+sub HTMLTitle
+{
+    my ($self) = @_;
+
+    return ([
+             {
+              title => __('Virtual Machines'),
+              link  => '/zentyal/Virt/View/VirtualMachines',
+             },
+             {
+              title => $self->parentRow()->valueByName('name'),
+              link => '',
+             },
+    ]);
 }
 
 1;

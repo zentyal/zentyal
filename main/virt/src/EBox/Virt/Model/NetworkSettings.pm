@@ -111,6 +111,7 @@ sub _table
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         enableProperty     => 1,
+        defaultEnabledValue => 1,
         class              => 'dataTable',
         help               => __('Here you can define the network interfaces of the virtual machine'),
         modelDomain        => 'Virt',
