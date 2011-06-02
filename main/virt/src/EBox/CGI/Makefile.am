@@ -1,11 +1,12 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Virt CGI
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/CGI/Virt
 
-nobase_perl_DATA = Virt.pm
+nobase_perl_DATA = VNC.pm
 
-DISTCLEANFILES =
+SUBDIRS =
+
+SOURCES = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 

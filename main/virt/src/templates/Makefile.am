@@ -2,7 +2,7 @@
 
 templatedir = $(datadir)/zentyal/templates/virt
 
-template_DATA = vmstatus.mas
+template_DATA = vmstatus.mas vncviewer.mas
 
 EXTRA_DIST = $(template_DATA)
 

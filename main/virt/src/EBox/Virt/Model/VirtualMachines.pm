@@ -32,6 +32,7 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Types::Action;
+use EBox::Types::HTML;
 
 # Group: Public methods
 
@@ -70,9 +71,18 @@ sub _table
 {
     my ($self) = @_;
 
+    # FIXME: Replace this with a EBox::Types::Action
+    # when added support for custom javascript
+    my $viewConsoleCaption = __('View Console');
+    my $vncport = 6900;
+    my $viewConsoleURL = "zentyal/Virt/VNC?port=$vncport";
+    my $viewConsoleHTML =
+"<link href=\"/data/css/modalbox.css\" rel=\"stylesheet\" type=\"text/css\" />
+<script type=\"text/javascript\" src=\"/data/js/modalbox.js\">//</script>
+<form><input type=\"submit\" value=\"$viewConsoleCaption\" onclick=\"Modalbox.show($viewConsoleURL, {title: '$viewConsoleCaption', width: 640, height: 435}); return false;\" /></form>";
+
     # TODO: Pause/Resume actions
     # TODO: Fusion start/stop in the same action
-    # TODO: View Console action
     my $customActions = [
         new EBox::Types::Action(
             name => 'start',
@@ -106,6 +116,10 @@ sub _table
                                 view => '/zentyal/Virt/Composite/VMSettings',
                                 backView => '/zentyal/Virt/View/VirtualMachines',
                                ),
+       new EBox::Types::HTML(
+                             fieldName => 'viewconsole',
+                             printableName => $viewConsoleHTML,
+                            ),
        new EBox::Types::Boolean(
                                 fieldName     => 'autostart',
                                 printableName => __('Start on boot'),
