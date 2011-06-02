@@ -106,7 +106,7 @@ sub printableIndex
     my ($self) = @_;
 
     return __x('Log domain {logDomain}',
-	       logDomain => $self->{tableInfo}->{name});
+           logDomain => $self->{tableInfo}->{name});
 
 }
 
@@ -114,11 +114,11 @@ sub printableIndex
 
 # Method: _table
 #
-#	Describe the traffic shaping table
+#   Describe the traffic shaping table
 #
 # Returns:
 #
-# 	hash ref - table's description
+#   hash ref - table's description
 #
 sub _table
 {
@@ -132,12 +132,12 @@ sub _table
 
     foreach my $filter (@filters) {
       push( @tableDesc,
-	    new EBox::Types::Text(
-	         fieldName     => $filter,
-	         printableName => $self->{tableInfo}->{titles}->{$filter},
-		 editable      => 1,
-                 optional      => 1,
-				 ));
+        new EBox::Types::Text(
+             fieldName     => $filter,
+             printableName => $self->{tableInfo}->{titles}->{$filter},
+             editable      => 1,
+             optional      => 1,
+        ));
     }
     # Every event is a selection filter, we always allow the 'any'
     # selection which matches with every event that logger logs
@@ -163,30 +163,30 @@ sub _table
     }
 
     push ( @tableDesc,
-	   new EBox::Types::Select(
-				   fieldName => 'event',
-				   printableName => __('Event'),
-				   editable => 1,
+       new EBox::Types::Select(
+                   fieldName => 'event',
+                   printableName => __('Event'),
+                   editable => 1,
                                    options  => \@eventOptions,
-				   defaultValue => $defaultEventOptionValue,
-				  ));
+                   defaultValue => $defaultEventOptionValue,
+                  ));
 
     my $dataTable = {
-		     'tableName'          => 'LogWatcherFiltering',
-		     'printableTableName' => __x('Filters to apply to notify logs from '
-						 . '{logDomain}',
-						 logDomain => $self->{tableInfo}->{name}),
+             'tableName'          => 'LogWatcherFiltering',
+             'printableTableName' => __x('Filters to apply to notify logs from '
+                         . '{logDomain}',
+                         logDomain => $self->{tableInfo}->{name}),
                      'defaultActions'     =>
                            [ 'add', 'del', 'editField', 'changeView' ],
                      'modelDomain'        => 'Events',
-		     'tableDescription'   => \@tableDesc,
-		     'class'              => 'dataTable',
-		     'help'               => __('Every filter added is cumulative.'
-					       . 'Then every log line which matches '
-					       . 'with any filter given will be notified'),
-		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName'   => __('filter'),
-		    };
+             'tableDescription'   => \@tableDesc,
+             'class'              => 'dataTable',
+             'help'               => __('Every filter added is cumulative.'
+                           . 'Then every log line which matches '
+                           . 'with any filter given will be notified'),
+             'rowUnique'          => 1,  # Set each row is unique
+             'printableRowName'   => __('filter'),
+            };
 
     return $dataTable;
 
