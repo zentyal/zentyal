@@ -148,11 +148,9 @@ sub _setConf
         $self->_setNetworkConf($name, $settings);
         $self->_setDevicesConf($name, $settings);
 
-        if ($autostart) {
-            $self->st_set_string("vncport/$name/vncport", $vncport);
-            $self->_writeUpstartConf($name, $vncport);
-            $vncport++;
-        }
+        $self->st_set_string("vncport/$name/vncport", $vncport);
+        $self->_writeUpstartConf($name, $vncport);
+        $vncport++;
     }
 
     # Delete non-referenced VMs
@@ -161,6 +159,20 @@ sub _setConf
     foreach my $machine (@toDelete) {
         $backend->deleteVM($machine);
     }
+}
+
+sub machineDaemon
+{
+    my ($self, $name) = @_;
+
+    return "zentyal-virt.$name";
+}
+
+sub vncDaemon
+{
+    my ($self, $name) = @_;
+
+    return "zentyal-virt.vnc.$name";
 }
 
 sub _daemons
@@ -173,8 +185,8 @@ sub _daemons
     foreach my $vmId (@{$vms->findAllValue(autostart => 1)}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
-        push (@daemons, { name => "zentyal-virt.$name" });
-        push (@daemons, { name => "zentyal-virt.vnc.$name" });
+        push (@daemons, { name => $self->machineDaemon($name) });
+        push (@daemons, { name => $self->vncDaemon($name) });
     }
 
     return \@daemons;
@@ -259,13 +271,13 @@ sub _writeUpstartConf
     my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
-            "$UPSTART_PATH/zentyal-virt.$name.conf",
+            "$UPSTART_PATH/" . $self->machineDaemon($name) . '.conf',
             '/virt/upstart.mas',
             [ startCmd => $start, stopCmd => $stop, user => $VIRT_USER ],
             { uid => 0, gid => 0, mode => '0644' }
     );
     EBox::Module::Base::writeConfFileNoCheck(
-            "$UPSTART_PATH/zentyal-virt.vnc.$name.conf",
+            "$UPSTART_PATH/" . $self->vncDaemon($name) . '.conf',
             '/virt/vncproxy.mas',
             [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }

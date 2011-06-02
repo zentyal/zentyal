@@ -27,10 +27,11 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Service;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
-# TODO: EBox::Types::ActionButton
+use EBox::Types::Action;
 
 # Group: Public methods
 
@@ -67,6 +68,28 @@ sub new
 #
 sub _table
 {
+    my ($self) = @_;
+
+    # TODO: Pause/Resume actions
+    # TODO: Fusion start/stop in the same action
+    # TODO: View Console action
+    my $customActions = [
+        new EBox::Types::Action(
+            name => 'start',
+            printableValue => __('Start'),
+            model => $self,
+            handler => \&_doStart,
+            message => __('Virtual Machine started'),
+        ),
+        new EBox::Types::Action(
+            name => 'stop',
+            printableValue => __('Stop'),
+            model => $self,
+            handler => \&_doStop,
+            message => __('Virtual Machine stopped'),
+        ),
+    ];
+
     my @tableHeader = (
        new EBox::Types::Text(
                              fieldName     => 'name',
@@ -75,9 +98,6 @@ sub _table
                              unique        => 1,
                              editable      => 1,
                             ),
-       # TODO: ActionButton Start/Stop
-       # TODO: ActionButton Pause/Resume
-       # TODO: ActionButton View Console
        new EBox::Types::HasMany(
                                 fieldName     => 'settings',
                                 printableName => __('Settings'),
@@ -101,6 +121,7 @@ sub _table
         pageTitle          => __('Virtual Machines'),
         printableRowName   => __('virtual machine'),
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        customActions      => $customActions,
         tableDescription   => \@tableHeader,
         help               => __('List of configured Virtual Machines.'),
         modelDomain        => 'Virt',
@@ -108,6 +129,34 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub _doStart
+{
+    my ($self, $action, %params) = @_;
+
+    my $virt = $self->parentModule();
+
+    my $name = $params{name};
+    EBox::Service::manage($virt->machineDaemon($name), 'start');
+    EBox::Service::manage($virt->vncDaemon($name), 'start');
+
+    $self->setMessage($action->message(), 'note');
+    $self->{customActions} = {};
+}
+
+sub _doStop
+{
+    my ($self, $action, %params) = @_;
+
+    my $virt = $self->parentModule();
+
+    my $name = $params{name};
+    EBox::Service::manage($virt->vncDaemon($name), 'stop');
+    EBox::Service::manage($virt->machineDaemon($name), 'stop');
+
+    $self->setMessage($action->message(), 'note');
+    $self->{customActions} = {};
 }
 
 1;

@@ -22,7 +22,7 @@ if ($item->{running}) {
 }
 </%init>
 <tr>
-<td class='summaryKey'><% $item->{printableName} %></td>
+<td class='summaryKey'><% $name %></td>
 <td id='<% $namespace . '_' . $i %>' class='summaryValue'>
 <span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
 <form>
