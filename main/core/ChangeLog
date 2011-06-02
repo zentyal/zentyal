@@ -1,4 +1,5 @@
 HEAD
+	+ Remove wrong optional attribute for read-only fields in Events
 	+ Renamed all /EBox/ CGI URLs to /SysInfo/ for menu folder coherency
 	+ Added support for custom actions in DataTables
 	+ Replaced Halt/Reboot CGI with a model

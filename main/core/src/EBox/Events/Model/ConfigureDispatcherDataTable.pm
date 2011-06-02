@@ -293,7 +293,6 @@ sub _table
             class         => 'tcenter',
             size          => 30,
             unique        => 0,
-            optional      => 1,
             editable      => 0,
             # The value is obtained dynamically
             volatile      => 1,

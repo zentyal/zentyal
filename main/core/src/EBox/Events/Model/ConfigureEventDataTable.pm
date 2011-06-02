@@ -272,7 +272,6 @@ sub _table
              fieldName     => 'description',
              printableName => __('Description'),
              size          => 30,
-             optional      => 1,
              # The value is obtained dynamically
              volatile      => 1,
              filter        => \&filterDescription,
