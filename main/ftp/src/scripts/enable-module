@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p /etc/vsftpd/ssl
+/usr/share/zentyal/create-certificate /etc/vsftpd/ssl
+
+exit 0

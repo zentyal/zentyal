@@ -1,3 +1,7 @@
+HEAD
+	+ Update configuration file
+	+ Added FTP SSL support
+	+ Added option to enable/disable chroot users into their homes
 2.1
 	+ Add service in initialSetup instead of migration
 2.0.1

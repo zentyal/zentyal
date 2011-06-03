@@ -43,6 +43,7 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
 src/Makefile
+src/scripts/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile
 schemas/Makefile

@@ -1,4 +1,4 @@
-# Copyright (C) 2010 eBox Technologies S.L.
+# Copyright (C) 2010-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -34,14 +34,13 @@ sub _create
     my $self = $class->SUPER::_create(name => 'ftp',
                                       printableName => 'FTP',
                                       @_);
-
     bless ($self, $class);
     return $self;
 }
 
 # Method: menu
 #
-#       Add an entry to the menu with this module
+#       Add an entry to the menu with this module.
 #
 # Overrides:
 #
@@ -72,7 +71,8 @@ sub modelClasses
 # Method: initialSetup
 #
 # Overrides:
-#   EBox::Module::Base::initialSetup
+#
+#       <EBox::Module::Base::initialSetup>
 #
 sub initialSetup
 {
@@ -117,9 +117,26 @@ sub _services
     ];
 }
 
+# Method: actions
+#
+#   Override EBox::Module::Service::actions
+#
+sub actions
+{
+    return [
+        {
+            'action' => __('Generate SSL certificates'),
+            'reason' => __('Zentyal will self-signed SSL certificates for FTP service.'),
+            'module' => 'ftp'
+        },
+    ];
+}
+
 # Method: usedFiles
 #
-#   Override EBox::ServiceModule::ServiceInterface::usedFiles
+# Overrides:
+#
+#       <EBox::ServiceModule::ServiceInterface::usedFiles>
 #
 sub usedFiles
 {
@@ -127,11 +144,11 @@ sub usedFiles
 
     push (@usedFiles, { 'file' => '/etc/vsftpd.conf',
                         'module' => 'ftp',
-                        'reason' => __('To configure vsftpd')
+                        'reason' => __('To configure vsftpd.')
                       });
     push (@usedFiles, { 'file' => '/etc/pam.d/vsftpd',
                         'module' => 'ftp',
-                        'reason' => __('To configure vsftpd with LDAP authentication')
+                        'reason' => __('To configure vsftpd with LDAP authentication.')
                       });
 
     return \@usedFiles;
@@ -139,7 +156,7 @@ sub usedFiles
 
 # Function: usesPort
 #
-#       Implements EBox::FirewallObserver interface
+#       Implements EBox::FirewallObserver interface.
 #
 sub usesPort # (protocol, port, iface)
 {
@@ -152,11 +169,41 @@ sub usesPort # (protocol, port, iface)
     return (($port eq 20) or ($port eq 21));
 }
 
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+            {
+             service =>  __('FTP'),
+             path    =>  '/etc/vsftpd/ssl/ssl.pem',
+             user => 'ftp',
+             group => 'ftp',
+             mode => '0440',
+            },
+           ];
+}
+
 # Private functions
 
 # Method: _setConf
 #
-#        Regenerate the configuration
+#        Regenerate the configuration.
 #
 # Overrides:
 #
@@ -169,6 +216,8 @@ sub _setConf
     my $options = $self->model('Options');
     my $anonymous = $options->anonymous();
     my $userHomes = $options->userHomes();
+    my $chrootUsers = $options->chrootUsers();
+    my $ssl = $options->ssl();
 
     $self->writeConfFile('/etc/pam.d/vsftpd',
                          '/ftp/vsftpd.mas',
@@ -177,7 +226,9 @@ sub _setConf
     $self->writeConfFile('/etc/vsftpd.conf',
                          '/ftp/vsftpd.conf.mas',
                          [ anonymous => $anonymous,
-                           userHomes => $userHomes ]);
+                           userHomes => $userHomes,
+                           chrootUsers => $chrootUsers,
+                           ssl => $ssl ]);
 }
 
 sub _daemons
@@ -189,9 +240,9 @@ sub backupDomains
 {
     my $name = 'ftpserver';
     my %attrs  = (
-                  printableName => __('FTP server hosted files'),
-                  description   => __(q{User homes and anonymous directory}),
-                  order        => 300,
+                  printableName => __('Zentyal FTP server files'),
+                  description   => __(q{User homes and global directory.}),
+                  order         => 300,
                  );
 
     return ($name, \%attrs);
@@ -219,7 +270,7 @@ sub backupDomainsFileSelection
                           excludes => \@excludes,
                           # the priority is to avoid clashes with the samba module
                           priority => 20,
-                         };
+                        };
         return $selection;
     }
 

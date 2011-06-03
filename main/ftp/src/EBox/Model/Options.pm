@@ -1,4 +1,4 @@
-# Copyright (C) 2010 eBox Technologies S. L.
+# Copyright (C) 2010-2011 eBox Technologies S. L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,7 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::FTP::Model::Options;
 
 use base 'EBox::Model::DataForm';
@@ -25,6 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Boolean;
+use EBox::View::Customizer;
 use EBox::Exceptions::External;
 
 sub new
@@ -37,7 +37,62 @@ sub new
     return $self;
 }
 
-sub populateAnonymous
+# Method: viewCustomizer
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::viewCustomizer>
+#
+# XXX FIXME not working
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my @fields = ('chrootUsers', 'ssl');
+
+    $customizer->setOnChangeActions(
+            { 'userHomes' =>
+                {
+                  '1' => {
+                        enable  => \@fields,
+                        disable => [],
+                    },
+                  '0' => {
+                        enable  => [],
+                        disable => \@fields,
+                    },
+                }
+            });
+    return $customizer;
+}
+
+# Method: validateTypedRow
+#
+#   Check if configuration is consistent.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    my $anonymous = exists $params_r->{anonymous} ? $params_r->{anonymous}->value() :
+                                                    $actual_r->{anonymous}->value();
+
+    my $userHomes= exists $params_r->{userHomes} ? $params_r->{userHomes}->value() :
+                                                   $actual_r->{userHomes}->value();
+
+   if ($anonymous eq 'disabled' and not $userHomes) {
+        throw EBox::Exceptions::External(__('Your configuration doesn\'t allow anonymous neither authenticated FTP access.'));
+   }
+}
+
+sub _populateAnonymous
 {
     my @values = (
         {
@@ -57,6 +112,16 @@ sub populateAnonymous
     return \@values;
 }
 
+sub _populateSSLsupport
+{
+    my @options = (
+                       { value => 'disabled' , printableValue => __('Disabled')},
+                       { value => 'allowssl', printableValue => __('Allow SSL')},
+                       { value => 'forcessl', printableValue => __('Force SSL')},
+                  );
+    return \@options;
+}
+
 sub _table
 {
     my @tableDesc =
@@ -64,17 +129,32 @@ sub _table
          new EBox::Types::Select(
                 fieldName => 'anonymous',
                 printableName => __('Anonymous access'),
-                populate => \&populateAnonymous,
+                populate => \&_populateAnonymous,
                 editable => 1,
                 defaultValue => 'disabled',
-                help => __('Sets the permissions for the /srv/ftp directory'),
+                help => __('Enable anonymous FTP access to the /srv/ftp directory.'),
                ),
          new EBox::Types::Boolean(
                 fieldName => 'userHomes',
                 printableName => __('Personal directories'),
                 editable => 1,
                 defaultValue => 1,
-                help => __('Enable FTP access for each user to its /home directory'),
+                help => __('Enable authenticated FTP access to each user home directory.'),
+               ),
+         new EBox::Types::Boolean(
+                fieldName => 'chrootUsers',
+                printableName => __('Restrict to personal directories'),
+                editable => 1,
+                defaultValue => 1,
+                help => __('Restrict access to each user home directory. Take into account that this restriction can be circumvented under some conditions.'),
+               ),
+         new EBox::Types::Select(
+                fieldName     => 'ssl',
+                printableName => __('SSL support'),
+                editable      => 1,
+                populate => \&_populateSSLsupport,
+                defaultValue => 'forcessl',
+                help => __('Enable FTP SSL support for authenticated users.'),
                ),
         );
 
@@ -85,7 +165,7 @@ sub _table
                 modelDomain        => 'FTP',
                 defaultActions     => [ 'editField', 'changeView' ],
                 tableDescription   => \@tableDesc,
-                help               => __('The anonymous directory is /srv/ftp, make sure that the files you create there have read permissions for everybody (chmod o+r /srv/ftp/*). If you also want to grant write permissions you need to create a subdirectory with write permissions for everybody, for example: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming'),
+                help               => __('The anonymous directory is /srv/ftp, make sure that the files you create there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If you also want to grant write permissions you need to create a subdirectory with write permissions for everybody, for example: sudo mkdir /srv/ftp/incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won\'t be able to rename or delete files in any case.'),
     };
 
     return $dataForm;
@@ -103,6 +183,20 @@ sub userHomes
     my ($self) = @_;
 
     return $self->row()->valueByName('userHomes');
+}
+
+sub chrootUsers
+{
+    my ($self) = @_;
+
+    return $self->row()->valueByName('chrootUsers');
+}
+
+sub ssl
+{
+    my ($self) = @_;
+
+    return $self->row()->valueByName('ssl');
 }
 
 1;
