@@ -1,7 +1,0 @@
-<%args>
-    $port
-</%args>
-<iframe id="vnc_frame" src=""/>
-<script>
-document.getElementById('view_frame').src='http://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>';
-</script>

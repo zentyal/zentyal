@@ -149,7 +149,7 @@ sub _setConf
         $self->_setDevicesConf($name, $settings);
 
         $self->st_set_string("vncport/$name/vncport", $vncport);
-        $self->_writeUpstartConf($name, $vncport);
+        $self->_writeMachineConf($name, $vncport);
         $vncport++;
     }
 
@@ -259,7 +259,7 @@ sub _setDevicesConf
     }
 }
 
-sub _writeUpstartConf
+sub _writeMachineConf
 {
     my ($self, $name, $vncport) = @_;
 
@@ -280,6 +280,13 @@ sub _writeUpstartConf
             "$UPSTART_PATH/" . $self->vncDaemon($name) . '.conf',
             '/virt/vncproxy.mas',
             [ vncport => $vncport, listenport => $listenport ],
+            { uid => 0, gid => 0, mode => '0644' }
+    );
+    EBox::Module::Base::writeConfFileNoCheck(
+            # FIXME: Custom file for each machine (vncviewer-$name.html)
+            EBox::Config::www() . "/vncviewer.html",
+            '/virt/vncviewer.html.mas',
+            [ port => $listenport, width => 720, height => 455 ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 }

@@ -71,15 +71,18 @@ sub _table
 {
     my ($self) = @_;
 
+    my $width = 720;
+    my $height = 455;
+    my $vncport = 6900;
+
     # FIXME: Replace this with a EBox::Types::Action
     # when added support for custom javascript
     my $viewConsoleCaption = __('View Console');
-    my $vncport = 6900;
-    my $viewConsoleURL = "zentyal/Virt/VNC?port=$vncport";
+    my $viewConsoleURL = "/data/vncviewer.html";
     my $viewConsoleHTML =
 "<link href=\"/data/css/modalbox.css\" rel=\"stylesheet\" type=\"text/css\" />
 <script type=\"text/javascript\" src=\"/data/js/modalbox.js\">//</script>
-<form><input type=\"submit\" value=\"$viewConsoleCaption\" onclick=\"Modalbox.show($viewConsoleURL, {title: '$viewConsoleCaption', width: 640, height: 435}); return false;\" /></form>";
+<form><input type=\"submit\" value=\"$viewConsoleCaption\" onclick=\"Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: $width, height: $height}); return false;\" /></form>";
 
     # TODO: Pause/Resume actions
     # TODO: Fusion start/stop in the same action

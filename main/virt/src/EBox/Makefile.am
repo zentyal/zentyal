@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Virt CGI
+SUBDIRS = Virt
 
 perldir = @PERLPATH@/EBox
 
