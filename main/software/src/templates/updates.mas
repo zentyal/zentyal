@@ -105,4 +105,4 @@ automatically as scheduled') %>
 	<form name='updateList' action='Updates' method='post'>
 		<input type='hidden' name='updatePkgs' value="yes"/>
 	</form>
-	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <%__('Update list')%></button>
+	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>

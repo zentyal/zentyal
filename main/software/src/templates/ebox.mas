@@ -721,7 +721,7 @@ var pkgTable = new Array(
             <div id="installTable"></div>
             <div id="installButtons">
                 <button onclick="sendForm('install', insHtmlId)"><img src="/data/images/install.gif"> <% __('Install') %></button>
-                <button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
+                <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
                 <button style="float:right" onclick="deselectAll(insTable, insHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(insTable, insHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
             </div>
@@ -730,7 +730,7 @@ var pkgTable = new Array(
             <div id="updateTable"></div>
             <div id="updateButtons">
                 <button onclick="sendForm('install', updHtmlId)"><img src="/data/images/install.gif"> <% __('Update') %></button>
-                <button onclick='document.updateList.submit()'><img src="/data/images/reload.gif"> <% __('Update list') %></button>
+                <button onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
                 <button style="float:right" onclick="deselectAll(updTable, updHtmlId)"><img src="/data/images/deny-active.gif"> <% __('Deselect All') %></button>
                 <button style="float:right" onclick="selectAll(updTable, updHtmlId)"><img src="/data/images/apply.gif"> <% __('Select All') %></button>
                 <form name='updateList' action='EBox' method='post'>

@@ -147,7 +147,7 @@
     padding: 9pt 9pt 9pt 33pt;
     color: #484554;
     font-size: 8pt;
-    background: #DFF5FE url("/data/images/help.gif") 6pt 6pt no-repeat;
+    background: #DFF5FE url("/data/images/help.png") 6pt 6pt no-repeat;
     margin: 1em 0px 1em 0px;
 }
 
@@ -157,7 +157,7 @@
     margin-bottom: 10px;
     color: #484554;
     font-size: 8pt;
-    background: #dfef7a url("/data/images/msg.gif") 6pt 6pt no-repeat;
+    background: #dfef7a url("/data/images/msg.png") 6pt 6pt no-repeat;
     margin: 1em 0px 0em 0px;
     margin-bottom: 5px;
 }
@@ -167,7 +167,7 @@
     padding: 9pt 9pt 9pt 33pt;
     color: #484554;
     font-size: 8pt;
-    background: #FDDDD9 url("/data/images/error.gif") 6pt 6pt no-repeat;
+    background: #FDDDD9 url("/data/images/error.png") 6pt 6pt no-repeat;
     margin: 1em 0px 0em 0px;
 }
 
@@ -176,7 +176,7 @@
     padding: 9pt 9pt 9pt 33pt;
     color: #484554;
     font-size: 8pt;
-    background: #f8fea5 url("/data/images/warning.gif") 6pt 6pt no-repeat;
+    background: #f8fea5 url("/data/images/warning.png") 6pt 6pt no-repeat;
     margin: 1em 0px 0em 0px;
     margin-bottom: 10px;
 }
@@ -187,7 +187,7 @@
     text-align: justify;
     margin-left: 30px;
     padding-left: 25px;
-    background: url("../images/help.gif") no-repeat center left;
+    background: url("../images/help.png") no-repeat center left;
 }
 
 .ifname {
