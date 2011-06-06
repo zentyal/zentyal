@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid problems getting parent if the manager is uninitialized
 	+ Rename some icon files with wrong extension
 	+ Remove wrong optional attribute for read-only fields in Events
 	+ Renamed all /EBox/ CGI URLs to /SysInfo/ for menu folder coherency

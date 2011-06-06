@@ -120,6 +120,10 @@ sub parent
         return undef;
     }
 
+    if (EBox::Model::ModelManager->uninitialized()) {
+        return undef;
+    }    
+
     # since we have skipped composites it could only be a DataTable
     my $manager = EBox::Model::ModelManager->instance();
     return $manager->model($parentInfo->{path});
@@ -143,6 +147,10 @@ sub parentComposite
         (not $parentInfo->{composite})) {
         return undef;
     }
+
+    if (EBox::Model::CompositeManager->uninitialized()) {
+        return undef;
+    }    
 
     my $manager = EBox::Model::CompositeManager->Instance();
     return $manager->composite($parentInfo->{path});
