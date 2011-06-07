@@ -1,3 +1,6 @@
+HEAD
+	+ Restore configuration with force dependencies option continues
+	  when modules referenced in the backup are not present
 2.0.20
 	+ Dont call syncRows when the module is read-only
 	+ Fall back to readonly data in config backup if there are unsaved changes

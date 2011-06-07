@@ -1128,7 +1128,7 @@ sub restoreBackup
         $self->_restoreEBoxEtcFiles($tempdir);
 
         # TODO: Make sure we don't open the file more than necessary
-        $self->_preRestoreActions($file);
+        $self->_preRestoreActions($file, %options);
 
         my @modules  = @{ $self->_modInstancesForRestore($file, %options) };
         my @restored = ();
@@ -1370,7 +1370,7 @@ sub _migratePackage
 
 sub _preRestoreActions
 {
-    my ($self, $archive) = @_;
+    my ($self, $archive, %options) = @_;
 
     my $global = EBox::Global->getInstance();
     my @inBackup = @{ $self->_modulesInBackup($archive) };
@@ -1384,7 +1384,7 @@ sub _preRestoreActions
             push (@missing, $modName);
         }
     }
-    if (@missing) {
+    if (@missing and not $options{forceDependencies}) {
         throw EBox::Exceptions::External(
                 __x('The following modules present in the backup are not installed: {mods}. You need to install them before restoring.',
                     'mods' => join (' ', @missing))
