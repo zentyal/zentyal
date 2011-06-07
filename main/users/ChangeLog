@@ -1,6 +1,6 @@
 HEAD
 	+ Allow to specify a base DN to bind to AD
-	+ Add locking to slave-sync to avoid spwan multiple instances in the
+	+ Add locking to slave-sync to avoid spawn multiple instances in the
 	  event of not being able to connect to a slave
 	+ Do not modify users and groups in AD sync if attributes are not changed
 	+ Wipe ignored users in AD sync
