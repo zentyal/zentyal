@@ -184,12 +184,13 @@ sub _acquireRunning
 
 sub _viewConsoleClicked
 {
-    my ($self, $id) = $_;
+    my ($self, $id) = @_;
 
+    my $name = $self->row($id)->valueByName('name');
     my $width = 720;
     my $height = 455;
 
-    my $viewConsoleURL = "/data/vncviewer.html";
+    my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console');
 
     return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: $width, height: $height}); return false",

@@ -304,8 +304,7 @@ sub _writeMachineConf
             { uid => 0, gid => 0, mode => '0644' }
     );
     EBox::Module::Base::writeConfFileNoCheck(
-            # FIXME: Custom file for each machine (vncviewer-$name.html)
-            EBox::Config::www() . "/vncviewer.html",
+            EBox::Config::www() . "/vncviewer-$name.html",
             '/virt/vncviewer.html.mas',
             [ port => $listenport, width => 720, height => 455 ],
             { uid => 0, gid => 0, mode => '0644' }
