@@ -44,7 +44,9 @@ try {
     exit 1;
 };
 
-my $base = baseDnAD();
+my $base = EBox::Config::configkey('adsync_dn');
+
+$base = baseDnAD() unless $base;
 
 my $bindDn = "CN=$username,CN=Users,$base";
 
