@@ -2,7 +2,7 @@
 
 SUBDIRS = t
 templatedir = $(datadir)/zentyal/templates/input
-template_DATA = text.mas checkbox.mas submit.mas select.mas hidden.mas password.mas file.mas
+template_DATA = text.mas checkbox.mas submit.mas select.mas hidden.mas password.mas file.mas action.mas
 
 EXTRA_DIST = $(template_DATA)
 

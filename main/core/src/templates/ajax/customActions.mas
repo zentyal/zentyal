@@ -1,0 +1,19 @@
+<%args>
+    $model
+    $id
+    $type => 'submit'
+</%args>
+%  my $customActions = $model->customActions(undef, $id);
+%  if ($customActions)
+%  {
+<span class="customActions" id="customActions_<% $model->modelName() . '_' . $id %>">
+%    foreach my $customAction ( @{$customActions} )
+%    {
+       <& /input/action.mas,
+         action => $customAction,
+         id => $id,
+         type => $type
+       &>
+%    }
+% }
+</span>

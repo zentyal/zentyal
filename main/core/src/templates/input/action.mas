@@ -1,0 +1,20 @@
+<%args>
+    $action
+    $id => undef
+    $type => 'submit'
+</%args>
+<%init>
+my %attributes = (
+    type => $type,
+    name => $action->name($id),
+    value => $action->printableValue($id),
+    title => $action->printableValue($id),
+    onclick => $action->{model}->customActionClickedJS($action->name($id), $id) . '; return false',
+);
+if ($type eq 'image') {
+    $attributes{src} = $action->image($id);
+    $attributes{alt} = $action->printableValue($id);
+}
+</%init>
+
+<input <& /htmlAttributes.mas, %attributes &> />

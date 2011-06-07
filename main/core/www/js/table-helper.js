@@ -4,7 +4,10 @@
 //      - Implement a generic function for the onComplete stage
 
 function cleanError(table) {
-    $('error_' + table).innerHTML = "";
+    var error = $('error_' + table);
+    if (error) {
+        error.innerHTML = "";
+    }
 }
 
 // Function: setEnableRecursively
@@ -244,6 +247,8 @@ function customActionClicked(action, url, table, fields, directory, id, page)
 
     if (fields) pars += '&' + encodeFields(table, fields);
 
+    var container = 'customActions_' + table + '_' + id;
+
     var MyAjax = new Ajax.Updater(
         {
             success: table,
@@ -259,11 +264,12 @@ function customActionClicked(action, url, table, fields, directory, id, page)
                 stripe('dataTable', '#ecf5da', '#ffffff');
             },
             onFailure: function(t) {
-                restoreHidden('buttons_' + table, table);
+                restoreHidden(container, table);
             }
         }
     );
-    setLoading('buttons_' + table, table, true);
+
+    setLoading(container, table, true);
 }
 
 function changeView(url, table, directory, action, id, page, isFilter)

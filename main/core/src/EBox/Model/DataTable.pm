@@ -161,13 +161,7 @@ sub _setupTable
         $self->{'table'}->{'class'} = 'dataTable';
     }
 
-    # Store the custom actions in a hash
-    my $customActions = $self->{'table'}->{'customActions'};
-    my %customActionsHash = map { $_->name() => $_ } @{$customActions};
-    $self->{'customActionsHash'} = \%customActionsHash;
-
     $self->_setDefaultMessages();
-    $self->_setCustomMessages();
 }
 
 # Method: checkTable
@@ -2063,6 +2057,22 @@ sub action
     }
 }
 
+sub _setupCustomActions
+{
+    my ($self, $id) = @_;
+
+    my $customActions = $self->{'table'}->{'customActions'};
+    if ($customActions) {
+        # Store the custom actions in a list to access in order
+        my @customActionsList = map { $_->action($id) } @{ $customActions };
+        # Store the custom actions in a hash to access by name
+        my %customActionsHash = map { $_->name() => $_ } @customActionsList;
+        $self->{'customActionsList'} = \@customActionsList;
+        $self->{'customActionsHash'} = \%customActionsHash;
+        $self->_setCustomMessages(\@customActionsList, $id);
+    }
+}
+
 # Method: customActions
 #
 #       Obtains the definition of the custom actions
@@ -2073,13 +2083,16 @@ sub action
 #
 sub customActions
 {
-    my ($self, $action) = @_;
+    my ($self, $action, $id) = @_;
+
+    $self->_setupCustomActions($id);
+
     if ($action) {
         return undef unless $self->{table}->{customActions};
         return $self->{customActionsHash}->{$action};
     } else {
         return [] unless $self->{table}->{customActions};
-        return $self->{table}->{customActions};
+        return $self->{customActionsList};
     }
 }
 
@@ -3017,15 +3030,14 @@ sub customActionClickedJS
 {
     my ($self, $action, $id, $page) = @_;
 
-    unless ( $self->customActions($action) ) {
+    unless ( $self->customActions($action, $id) ) {
         throw EBox::Exceptions::Internal("Wrong custom action $action");
     }
 
-    my  $function = 'customActionClicked("%s","%s","%s",%s,"%s","%s",%s)';
+    my $function = "customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
-    $fields =~ s/'/\"/g;
     $page = 0 unless $page;
     return  sprintf ($function,
             $action,
@@ -3197,13 +3209,13 @@ sub _setDefaultMessages
 #
 sub _setCustomMessages
 {
-    my ($self) = @_;
+    my ($self, $actions, $id) = @_;
     my $table = $self->{'table'};
     $table->{'messages'} = {} unless ( $table->{'messages'} );
 
-    for my $customAction ( @{$self->customActions()} ) {
-        my $action = $customAction->name();
-        my $message = $customAction->message();
+    for my $customAction ( @{$actions} ) {
+        my $action = $customAction->name($id);
+        my $message = $customAction->message($id);
         $table->{messages}->{$action} = $message;
     }
 }

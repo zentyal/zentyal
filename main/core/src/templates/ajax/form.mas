@@ -99,9 +99,7 @@
   my $model = $m->caller_args(2)->{model};
   my $id = $m->caller_args(2)->{editid};
   my $actions = $model->table()->{actions};
-  my $customActions = $model->customActions();
 </%init>
-% use Data::Dumper;
 <td id="<% 'buttons_' . $model->modelName() %>">
 % if ($actions) {
   <& /input/submit.mas,
@@ -110,19 +108,7 @@
      onclick => $model->changeRowJS(0, 0) . '; return false',
   &>
 % }
-% if ($customActions) {
-%   foreach my $customAction ( @{$customActions} )
-%   {
-    <& /input/submit.mas,
-      class => 'inputButton',
-      name => $customAction->name(),
-      value => $customAction->printableValue(),
-      title => $customAction->printableValue(),
-      onclick => $model->customActionClickedJS($customAction->name(), $id) .
-        '; return false',
-    &>
-%   }
-% }
+<& /ajax/customActions.mas, model => $model, id => $id &>
 </td>
 </%method>
 

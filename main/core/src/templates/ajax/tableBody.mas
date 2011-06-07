@@ -340,7 +340,6 @@ use POSIX;
   my $page   = $m->request_args()->{page};
   my $tpages = $m->request_args()->{tpages};
   my $changeView = $model->action('changeView');
-  my $customActions = $model->customActions();
 
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
@@ -365,6 +364,7 @@ use POSIX;
 % }
 % elsif ($action eq 'changeEdit')
 % {
+    <& /ajax/customActions.mas, model => $model, id => $editid &>
     <input class='inputButton'
            type='submit'
            name='change'
@@ -374,20 +374,6 @@ use POSIX;
                       $model->changeRowJS($editid, $page)
                     %>; return false'
     />
-% }
-% if ($customActions)
-% {
-%   foreach my $customAction ( @{$customActions} )
-%   {
-    <& /input/submit.mas,
-      class => 'inputButton',
-      name => $customAction->name(),
-      value => $customAction->printableValue(),
-      title => $customAction->printableValue(),
-      onclick => $model->customActionClickedJS($customAction->name(), $editid) .
-        '; return false',
-    &>
-%   }
 % }
 % if ($changeView)
 % {
@@ -488,6 +474,8 @@ $page
 %          $edit_msg = __('Read-only row: edit disabled');
 %          $delete_msg = __('Read-only row: delete disabled');
 %      }
+
+<& /ajax/customActions.mas, model => $model, id => $row->{id}, type => 'image' &>
 
 %      if ($actions->{'del'})
 %      {

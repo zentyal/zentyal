@@ -18,6 +18,8 @@ package EBox::Types::Action;
 use strict;
 use warnings;
 
+use base 'EBox::Types::MultiStateAction';
+
 sub new
 {
     my $class = shift;
@@ -25,30 +27,14 @@ sub new
     my $self = {@_};
 
     bless($self, $class);
+
+    return $self;
 }
 
-sub name()
+sub action
 {
-    my ($self) = @_;
-    return $self->{name};
-}
-
-sub printableValue()
-{
-    my ($self) = @_;
-    return $self->{printableValue};
-}
-
-sub message
-{
-    my ($self) = @_;
-    return $self->{message};
-}
-
-sub handle
-{
-    my ($self, %params) = @_;
-    $self->{handler}->($self->{model}, $self, %params);
+    my ($self, $id) = @_;
+    return $self;
 }
 
 1;

@@ -9,7 +9,7 @@ while (my ($key, $value) = each %ARGS) {
    if ($key eq 'disabled') {
 	$attrString .= 'disabled ' if ($value);
    } else {
-   	$attrString .= qq{$key='$value' };
+   	$attrString .= qq{$key="$value" };
    }
 }
 $m->print($attrString);

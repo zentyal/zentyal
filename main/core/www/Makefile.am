@@ -31,7 +31,7 @@ images = images/delete.gif images/show.gif \
   images/edit-inactive.gif images/delete-inactive.gif \
   images/magnifying-glass.png images/managed.png \
   images/bg.gif images/asc.gif images/desc.gif \
-  images/exclamation.png images/encrypted.png
+  images/exclamation.png images/encrypted.png images/run.gif
 
 css = css/modalbox.css
 

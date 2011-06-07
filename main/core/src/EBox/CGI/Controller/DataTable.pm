@@ -174,8 +174,10 @@ sub customAction
 {
     my ($self, $action) = @_;
     my $model = $self->{'tableModel'};
-    my $customAction = $model->customActions($action);
-    $customAction->handle($self->getParams());
+    my %params = $self->getParams();
+    my $id = $params{id};
+    my $customAction = $model->customActions($action, $id);
+    $customAction->handle($id, %params);
 }
 
 # Method to refresh the table by calling rows method
@@ -269,7 +271,7 @@ sub _process
     } elsif ($action eq 'editBoolean') {
         delete $self->{template};
         $self->editBoolean();
-    } elsif ($model->customActions($action)) {
+    } elsif ($model->customActions($action, $self->param('id'))) {
         $self->customAction($action);
         $self->refreshTable();
     } else {
