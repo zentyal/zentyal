@@ -1,3 +1,5 @@
+HEAD
+	+ Dansguardian is only started when a global filter policy is choosen
 2.1.2
 	+ Removed workarounds on component's parent/child relationship
 	+ Adapted logrotate configuration to new PID file

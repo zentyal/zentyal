@@ -532,33 +532,6 @@ sub _dgNeeded
     if ($self->globalPolicyUsesFilter()) {
         return 1;
     }
-    elsif ($self->_banThresholdActive()) {
-        return 1;
-    }
-
-    my $domainFilter = $self->model('DomainFilter');
-    if ( @{ $domainFilter->banned } )  {
-        return 1;
-    }
-    elsif ( @{ $domainFilter->allowed } ) {
-        return 1;
-    }
-    elsif ( @{ $domainFilter->filtered } ) {
-        return 1;
-    }
-
-    my $domainFilterSettings = $self->model('DomainFilterSettings');
-    if ($domainFilterSettings->blanketBlockValue) {
-        return 1;
-    }
-    elsif ($domainFilterSettings->blockIpValue) {
-        return 1;
-    }
-
-    my $objectPolicy = $self->model('ObjectPolicy');
-    if ( $objectPolicy->existsFilteredObjects() ) {
-        return 1;
-    }
 
     return undef;
 }
