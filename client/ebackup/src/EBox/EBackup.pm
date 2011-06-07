@@ -177,13 +177,19 @@ sub restoreFile
         $rFile = $file;
         $rFile =~ s:^/::; # file must be relative
 
-        # shell quote does not work well for espaces with duplicity...
+        # shell quote does not work well for spaces, {\} and {'} with duplicity
+        $rFile =~ s{\\}{\\\\}g;
+        $rFile =~ s{\'}{\\\'}g;
         $rFile =~ s:\ :\\\ :g;
+
         $rFile = shell_quote($rFile);
     }
 
-    # shell quote does not work well for espaces with duplicity...
+    # shell quote does not work well for spaces, {\} and {'} with duplicity
+    $destination =~ s{\\}{\\\\}g;
+    $destination =~ s{\'}{\\\'}g;
     $destination =~ s:\ :\\\ :g;
+
     $destination = shell_quote($destination);
 
     my $time = Date::Parse::str2time($date);
