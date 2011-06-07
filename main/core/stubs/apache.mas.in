@@ -33,8 +33,8 @@ Parameters:
 </%args>
 
 Timeout 300
-KeepAlive Off
-MaxKeepAliveRequests 100
+KeepAlive On
+MaxKeepAliveRequests 500
 KeepAliveTimeout 15
 AddDefaultCharset utf-8
 
@@ -45,7 +45,7 @@ PidFile <% $tmpdir %>/apache.pid
     MinSpareServers       1
     MaxSpareServers       1
     MaxClients            1
-    MaxRequestsPerChild   200
+    MaxRequestsPerChild   10000
 </IfModule>
 
 # worker MPM
@@ -61,10 +61,10 @@ PidFile <% $tmpdir %>/apache.pid
     MinSpareThreads      1
     MaxSpareThreads      1
     ThreadsPerChild      1
-    MaxRequestsPerChild   200
+    MaxRequestsPerChild   10000
 </IfModule>
 
-PerlInterpMaxRequests 200
+PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load
@@ -214,7 +214,7 @@ PerlSetVar AuthCookieDebug 0
     <IfModule mod_ssl.c>
         SSLOptions +StdEnvVars
     </IfModule>
-    
+
     AuthType EBox::Auth
     AuthName EBox
     PerlAuthenHandler EBox::Auth->authenticate
