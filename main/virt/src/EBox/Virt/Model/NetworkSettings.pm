@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
+use EBox::NetWrappers;
 
 # Group: Public methods
 
@@ -70,10 +71,9 @@ sub _populateIfaceTypes
 
 sub _populateIfaces
 {
-    my $network = EBox::Global->modInstance('network');
-
-    my @values =
-        map { { value => $_, printableValue => $_ } } @{$network->ifaces()};
+    my @values = map {
+                        { value => $_, printableValue => $_ }
+                     } EBox::NetWrappers::list_ifaces();
 
     return \@values;
 }
@@ -113,7 +113,7 @@ sub _table
         enableProperty     => 1,
         defaultEnabledValue => 1,
         class              => 'dataTable',
-        help               => __('Here you can define the network interfaces of the virtual machine'),
+        help               => __('Here you can define the network interfaces of the virtual machine.'),
         modelDomain        => 'Virt',
     };
 
