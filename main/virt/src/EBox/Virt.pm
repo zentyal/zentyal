@@ -327,6 +327,7 @@ sub _vmWidget
         my $running = $backend->vmRunning($name);
 
         $section->add(new EBox::Virt::Dashboard::VMStatus(
+                            id => $vmId,
                             model => $vms,
                             name => $name,
                             running => $running

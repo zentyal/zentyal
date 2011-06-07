@@ -32,7 +32,8 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Types::Action;
-use EBox::Types::HTML;
+use EBox::Types::MultiStateAction;
+use EBox::Types::HTML; # FIXME: Remove this when using Action
 
 # Group: Public methods
 
@@ -87,19 +88,25 @@ sub _table
     # TODO: Pause/Resume actions
     # TODO: Fusion start/stop in the same action
     my $customActions = [
-        new EBox::Types::Action(
-            name => 'start',
-            printableValue => __('Start'),
+        new EBox::Types::MultiStateAction(
+            acquirer => \&_acquire,
             model => $self,
-            handler => \&_doStart,
-            message => __('Virtual Machine started'),
-        ),
-        new EBox::Types::Action(
-            name => 'stop',
-            printableValue => __('Stop'),
-            model => $self,
-            handler => \&_doStop,
-            message => __('Virtual Machine stopped'),
+            states => {
+                stopped => {
+                    name => 'start',
+                    printableValue => __('Start'),
+                    handler => \&_doStart,
+                    message => __('Virtual Machine started'),
+                    image => '/data/images/play.gif',
+                },
+                started => {
+                    name => 'stop',
+                    printableValue => __('Stop'),
+                    handler => \&_doStop,
+                    message => __('Virtual Machine stopped'),
+                    image => '/data/images/stop.gif',
+                },
+            }
         ),
     ];
 
@@ -148,32 +155,45 @@ sub _table
     return $dataTable;
 }
 
-sub _doStart
+sub _acquire
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $id) = @_;
 
+    my $name = $self->row($id)->valueByName('name');
     my $virt = $self->parentModule();
 
-    my $name = $params{name};
+    my $running = EBox::Service::running($virt->machineDaemon($name));
+    return ($running) ? 'started' : 'stopped';
+}
+
+sub _doStart
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $virt = $self->parentModule();
+    my $row = $self->row($id);
+
+    my $name = $row->valueByName('name');
     EBox::Service::manage($virt->machineDaemon($name), 'start');
     EBox::Service::manage($virt->vncDaemon($name), 'start');
 
+    EBox::debug("Virtual machine '$name' started");
     $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
 }
 
 sub _doStop
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $action, $id, %params) = @_;
 
     my $virt = $self->parentModule();
+    my $row = $self->row($id);
 
-    my $name = $params{name};
+    my $name = $row->valueByName('name');
     EBox::Service::manage($virt->vncDaemon($name), 'stop');
     EBox::Service::manage($virt->machineDaemon($name), 'stop');
 
+    EBox::debug("Virtual machine '$name' stopped");
     $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
 }
 
 1;

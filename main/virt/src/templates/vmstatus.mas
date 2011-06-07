@@ -10,6 +10,7 @@ my $status_tip_str;
 my $status_class;
 my $model = $item->{model};
 my $name = $item->{name};
+my $id = $item->{id};
 
 if ($item->{running}) {
     $status_str = __('Running');
@@ -28,11 +29,11 @@ if ($item->{running}) {
 <form>
     <span class='sright'>
 % if ($item->{running}) {
-        <input class="inputButtonRestart" type="submit" name="stop" value="<% __('Stop') %>"
-               onclick="<% $model->customActionClickedJS('stop', $name) %>; return false;"/>
+        <input class="inputButtonRestart" type="submit" value="<% __('Stop') %>"
+               onclick="<% $model->customActionClickedJS('stop', $id) %>; return false;"/>
 % } else {
-        <input class="inputButtonRestart" type="submit" name="start" value="<% __('Start') %>"
-               onclick="<% $model->customActionClickedJS('start', $name) %>; return false;"/>
+        <input class="inputButtonRestart" type="submit" value="<% __('Start') %>"
+               onclick="<% $model->customActionClickedJS('start', $id) %>; return false;"/>
 % }
     </span>
 </form>
