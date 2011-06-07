@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Types::Text;
+use EBox::Virt::Types::Status;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Types::Action;
@@ -89,7 +90,7 @@ sub _table
     # TODO: Fusion start/stop in the same action
     my $customActions = [
         new EBox::Types::MultiStateAction(
-            acquirer => \&_acquire,
+            acquirer => \&_acquireRunning,
             model => $self,
             states => {
                 stopped => {
@@ -108,9 +109,35 @@ sub _table
                 },
             }
         ),
+        new EBox::Types::MultiStateAction(
+            acquirer => \&_acquirePaused,
+            model => $self,
+            states => {
+                unpaused => {
+                    name => 'pause',
+                    printableValue => __('Pause'),
+                    handler => \&_doPause,
+                    message => __('Virtual Machine paused'),
+                    image => '/data/images/pause.gif',
+                },
+                paused => {
+                    name => 'resume',
+                    printableValue => __('Resume'),
+                    handler => \&_doResume,
+                    message => __('Virtual Machine resumed'),
+                    image => '/data/images/play.gif',
+                },
+            }
+        ),
     ];
 
     my @tableHeader = (
+      new EBox::Virt::Types::Status(
+                                    fieldName => 'running',
+                                    printableName => __('Status'),
+                                    # FIXME: use custom icons
+                                    HTMLViewer => '/ajax/viewer/booleanViewer.mas',
+                ),
        new EBox::Types::Text(
                              fieldName     => 'name',
                              printableName => __('Name'),
@@ -155,15 +182,27 @@ sub _table
     return $dataTable;
 }
 
-sub _acquire
+sub _acquireRunning
 {
     my ($self, $id) = @_;
 
     my $name = $self->row($id)->valueByName('name');
     my $virt = $self->parentModule();
 
-    my $running = EBox::Service::running($virt->machineDaemon($name));
+    my $running = $virt->vmRunning($name);
     return ($running) ? 'started' : 'stopped';
+}
+
+sub _acquirePaused
+{
+    my ($self, $id) = @_;
+
+    my $name = $self->row($id)->valueByName('name');
+    my $virt = $self->parentModule();
+
+    #FIXME: implement this: my $paused = $virt->vmPaused($name);
+    my $paused = $virt->vmRunning($name);
+    return ($paused) ? 'paused' : 'unpaused';
 }
 
 sub _doStart
@@ -193,6 +232,34 @@ sub _doStop
     EBox::Service::manage($virt->machineDaemon($name), 'stop');
 
     EBox::debug("Virtual machine '$name' stopped");
+    $self->setMessage($action->message(), 'note');
+}
+
+sub _doPause
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $virt = $self->parentModule();
+    my $row = $self->row($id);
+
+    my $name = $row->valueByName('name');
+    $virt->pauseVM($name);
+
+    EBox::debug("Virtual machine '$name' paused");
+    $self->setMessage($action->message(), 'note');
+}
+
+sub _doResume
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $virt = $self->parentModule();
+    my $row = $self->row($id);
+
+    my $name = $row->valueByName('name');
+    $virt->resumeVM($name);
+
+    EBox::debug("Virtual machine '$name' resumed");
     $self->setMessage($action->message(), 'note');
 }
 

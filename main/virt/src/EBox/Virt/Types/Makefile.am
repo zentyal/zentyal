@@ -1,10 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = Model Composite Dashboard Types
+perldir = @PERLPATH@/EBox/Virt/Types
 
-perldir = @PERLPATH@/EBox/Virt
+nobase_perl_DATA = Status.pm
 
-nobase_perl_DATA = AbstractBackend.pm VBox.pm
+DISTCLEANFILES =
 
 EXTRA_DIST = $(nobase_perl_DATA)
 

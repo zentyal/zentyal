@@ -175,6 +175,27 @@ sub vncDaemon
     return "zentyal-virt.vnc.$name";
 }
 
+sub vmRunning
+{
+    my ($self, $name) = @_;
+
+    return $self->{backend}->vmRunning($name);
+}
+
+sub pauseVM
+{
+    my ($self, $name) = @_;
+
+    return $self->{backend}->pauseVM($name);
+}
+
+sub resumeVM
+{
+    my ($self, $name) = @_;
+
+    return $self->{backend}->resumeVM($name);
+}
+
 sub _daemons
 {
     my ($self) = @_;
