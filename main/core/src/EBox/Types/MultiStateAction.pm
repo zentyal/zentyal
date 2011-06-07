@@ -101,4 +101,21 @@ sub image
     return $image;
 }
 
+sub onclick
+{
+    my ($self, $id) = @_;
+    my $onclick;
+    my $handler = $self->action($id)->{onclick};
+
+    if ($handler) {
+        $onclick = $handler->($self->{model}, $id);
+    }
+
+    unless ($onclick) {
+        $onclick = $self->{model}->customActionClickedJS($self->name($id), $id);
+        $onclick .= '; return false';
+    }
+    return $onclick;
+}
+
 1;

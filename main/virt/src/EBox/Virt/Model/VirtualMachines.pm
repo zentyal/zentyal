@@ -73,22 +73,15 @@ sub _table
 {
     my ($self) = @_;
 
-    my $width = 720;
-    my $height = 455;
-    my $vncport = 6900;
-
-    # FIXME: Replace this with a EBox::Types::Action
-    # when added support for custom javascript
-    my $viewConsoleCaption = __('View Console');
-    my $viewConsoleURL = "/data/vncviewer.html";
-    my $viewConsoleHTML =
-"<link href=\"/data/css/modalbox.css\" rel=\"stylesheet\" type=\"text/css\" />
-<script type=\"text/javascript\" src=\"/data/js/modalbox.js\">//</script>
-<form><input type=\"submit\" value=\"$viewConsoleCaption\" onclick=\"Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: $width, height: $height}); return false;\" /></form>";
-
     # TODO: Pause/Resume actions
-    # TODO: Fusion start/stop in the same action
     my $customActions = [
+        new EBox::Types::Action(
+            model => $self,
+            name => 'viewConsole',
+            printableValue => __('View Console'),
+            onclick => \&_viewConsoleClicked,
+            image => '/data/images/terminal.gif',
+        ),
         new EBox::Types::MultiStateAction(
             acquirer => \&_acquireRunning,
             model => $self,
@@ -153,10 +146,6 @@ sub _table
                                 view => '/zentyal/Virt/Composite/VMSettings',
                                 backView => '/zentyal/Virt/View/VirtualMachines',
                                ),
-       new EBox::Types::HTML(
-                             fieldName => 'viewconsole',
-                             printableName => $viewConsoleHTML,
-                            ),
        new EBox::Types::Boolean(
                                 fieldName     => 'autostart',
                                 printableName => __('Start on boot'),
@@ -191,6 +180,19 @@ sub _acquireRunning
 
     my $running = $virt->vmRunning($name);
     return ($running) ? 'started' : 'stopped';
+}
+
+sub _viewConsoleClicked
+{
+    my ($self, $id) = $_;
+
+    my $width = 720;
+    my $height = 455;
+
+    my $viewConsoleURL = "/data/vncviewer.html";
+    my $viewConsoleCaption = __('View Console');
+
+    return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: $width, height: $height}); return false",
 }
 
 sub _acquirePaused

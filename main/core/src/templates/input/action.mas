@@ -9,7 +9,7 @@ my %attributes = (
     name => $action->name($id),
     value => $action->printableValue($id),
     title => $action->printableValue($id),
-    onclick => $action->{model}->customActionClickedJS($action->name($id), $id) . '; return false',
+    onclick => $action->onclick($id),
 );
 if ($type eq 'image') {
     $attributes{src} = $action->image($id);
