@@ -159,7 +159,7 @@ use POSIX;
   <table class='formTable'>
     <tbody>
      <col width="1*" />
-     <col width="auto" /
+     <col width="auto" />
       <& PARENT:editRowFields,
          modelName => $tableName,
          formData => \@formData
