@@ -59,7 +59,7 @@ sub createDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    system ("$VBOXCMD createhd --filename $file --size $size");
+    _run("$VBOXCMD createhd --filename $file --size $size");
 }
 
 # Method: resizeDisk
@@ -83,7 +83,7 @@ sub resizeDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    system ("$VBOXCMD modifyhd $file --resize $size");
+    _run("$VBOXCMD modifyhd $file --resize $size");
 }
 
 # Method: vmExists
@@ -136,7 +136,7 @@ sub _vmCheck
 {
     my ($self, $name, $list) = @_;
 
-    system ("$VBOXCMD list $list | grep -q '\"$name\"'");
+    _run("$VBOXCMD list $list | grep -q '\"$name\"'");
     return ($? == 0);
 }
 
@@ -162,10 +162,10 @@ sub createVM
     my $os = $params{os};
 
     # TODO: --settingsfile <path> ?
-    system ("$VBOXCMD createvm --name $name --ostype $os --register");
+    _run("$VBOXCMD createvm --name $name --ostype $os --register");
 
     # Add SATA controller
-    system ("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
+    _run("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
 }
 
 # Method: startVMCommand
@@ -271,7 +271,7 @@ sub _controlVM
 {
     my ($self, $name, $command) = @_;
 
-    system ($self->_controlVMCommand($name, $command));
+    _run($self->_controlVMCommand($name, $command));
 }
 
 # Method: deleteVM
@@ -286,7 +286,7 @@ sub deleteVM
 {
     my ($self, $name) = @_;
 
-    system ("$VBOXCMD unregistervm $name --delete");
+    _run("$VBOXCMD unregistervm $name --delete");
 }
 
 # Method: setMemory
@@ -372,7 +372,7 @@ sub _modifyVM
 {
     my ($self, $name, $setting, $value) = @_;
 
-    system ("$VBOXCMD modifyvm $name --$setting $value");
+    _run("$VBOXCMD modifyvm $name --$setting $value");
 }
 
 # Method: attachDevice
@@ -414,7 +414,7 @@ sub attachDevice
         $type = 'dvddrive';
     }
 
-    system ("$VBOXCMD storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
+    _run("$VBOXCMD storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
 }
 
 # FIXME
@@ -423,6 +423,14 @@ sub listHDs
     my $list =  `$VBOXCMD list hdds | grep ^Location | cut -c14-`;
     my @hds = split ("\n", $list);
     return \@hds;
+}
+
+sub _run
+{
+    my ($cmd) = @_;
+
+    EBox::debug("Running: $cmd");
+    system ($cmd);
 }
 
 1;
