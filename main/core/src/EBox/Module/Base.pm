@@ -1189,7 +1189,13 @@ sub _emptyMonthlyQueryData
     my $key = $options->{'key'};
     my @keys;
     if ($key) {
-        my $sql = "SELECT DISTINCT $key FROM "  . $query->{from} . ";";
+        my $select = "SELECT DISTINCT ";
+        if ($options->{keyGenerator}) {
+            $select .= $options->{keyGenerator};
+        } else {
+            $select.= $key;
+        }
+        my $sql = "$select FROM "  . $query->{from} . ";";
         my $res = $db->query($sql);
         @keys = map {  $_->{ $key } }  @{ $res };
 

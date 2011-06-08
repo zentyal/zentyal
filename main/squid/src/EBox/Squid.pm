@@ -1275,8 +1275,15 @@ sub report
                     " AS main_code, SUM(bytes) AS bytes, SUM(hits) AS hits",
         'from' => 'squid_access_report',
         'where' => "event = 'accepted'",
-        'group' => "main_code"
-    }, { 'key' => 'main_code' });
+        'group' => "main_code",
+        'options' => {
+ 
+                     },
+    }, { 
+        key => 'main_code',
+        keyGenerator => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END AS main_code", 
+       }
+                                        );
 
     my $newtraffic;
     for my $fk (keys(%{$traffic})) {

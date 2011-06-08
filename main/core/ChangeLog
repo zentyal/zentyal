@@ -1,4 +1,5 @@
 HEAD
+	+ Added keyGenerator option to report queries
 	+ Tuned apache conf to provide a better user experience
 	+ Actions click handlers can contain custom javascript
 	+ Restore configuration with force dependencies option continues
