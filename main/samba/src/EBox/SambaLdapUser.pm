@@ -695,7 +695,7 @@ sub groupShareDirectories
     my %attrs = (
         base   => $dn,
         filter => '(&(objectclass=posixGroup) (objectclass=eboxGroup))',
-        attrs  => [ 'cn', 'displayResource'],
+        attrs  => [ 'cn', 'displayResource', 'description' ],
         scope  => 'one'
             );
     my $result = $ldap->search(\%attrs);
@@ -704,10 +704,12 @@ sub groupShareDirectories
     foreach my $entry ($result->entries) {
         my $group = $entry->get_value('cn');
         my $name  = $entry->get_value('displayResource');
+        my $comment = $entry->get_value('description');
         ($name) or next;
         push (@share, { path      => BASEPATH . "/groups/$group",
                         groupname => $group,
-                        sharename => $name
+                        sharename => $name,
+                        groupcomment => $comment,
                   });
     }
     return \@share;

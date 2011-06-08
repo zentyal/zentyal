@@ -131,7 +131,11 @@ use EBox::Gettext;
 
 % foreach my $group (@dirgroup) {
 [<% $group->{'sharename'} %>]
+% if ($group->{'groupcomment'}) {
+ comment = "<% $group->{'groupcomment'} %>"
+% } else {
  comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
+% }
  path = <% $group->{'path'} %>
  valid users = @"<% $group->{'groupname'} %>"
  force group = "<% $group->{'groupname'} %>"
