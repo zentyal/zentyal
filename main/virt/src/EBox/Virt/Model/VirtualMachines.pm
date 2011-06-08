@@ -191,7 +191,7 @@ sub _viewConsoleClicked
     my $height = 455;
 
     my $viewConsoleURL = "/data/vncviewer-$name.html";
-    my $viewConsoleCaption = __('View Console');
+    my $viewConsoleCaption = __('View Console') . " ($name)";
 
     return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: $width, height: $height}); return false",
 }
