@@ -133,11 +133,13 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
+    # FIXME: Change enable/disable to show/hide
+    # when supporting it in DataTables in the framework
     $customizer->setOnChangeActions(
             { type =>
                 {
-                  'cd' => { hide => [ 'size' ] },
-                  'hd' => { show  => [ 'size' ] },
+                  'cd' => { disable => [ 'size' ] },
+                  'hd' => { enable  => [ 'size' ] },
                 }
             });
     return $customizer;

@@ -28,8 +28,8 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Types::Boolean;
 use EBox::Types::Select;
+use EBox::Types::Text;
 use EBox::NetWrappers;
 
 # Group: Public methods
@@ -93,14 +93,17 @@ sub _table
                                populate      => \&_populateIfaceTypes,
                                editable      => 1,
                               ),
-       # TODO: Implement viewCustomizer
-       # and add EBox::Types::Text for internal network name
        new EBox::Types::Select(
                                fieldName     => 'iface',
                                printableName => __('Connected to'),
                                populate      => \&_populateIfaces,
                                editable      => 1,
                               ),
+       new EBox::Types::Text(
+                             fieldName     => 'name',
+                             printableName => __('Name'),
+                             editable      => 1,
+                            ),
     );
 
     my $dataTable =
@@ -118,6 +121,30 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    # FIXME: Change enable/disable to show/hide
+    # when supporting it in DataTables in the framework
+    $customizer->setOnChangeActions(
+            { type =>
+                {
+                  'nat' => { disable => [ 'iface', 'name' ] },
+                  'bridged' => { enable  => [ 'iface' ], disable => [ 'name' ] },
+                  'internal' => { enable  => [ 'name' ], disable => [ 'iface' ] },
+                }
+            });
+    return $customizer;
 }
 
 1;
