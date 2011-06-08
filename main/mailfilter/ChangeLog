@@ -1,3 +1,5 @@
+HEAD
+	+ runMonthlyQuery method uses keyGenerator option for consistency
 2.1.1
 	+ Manage MTA-BLOCKED event in the logs
 	+ Removed 'learn from accounts spam folder' feature until serious

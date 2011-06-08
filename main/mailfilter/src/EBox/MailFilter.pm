@@ -824,7 +824,10 @@ sub report
         'select' => 'lower(event) AS event, SUM(messages) AS messages',
         'from' => 'mailfilter_smtp_report',
         'group' => "event"
-    }, { 'key' => 'event'});
+    }, { 
+        'key' => 'event',
+        'keyGenerator' => 'lower(event)',
+       });
 
 
     $report->{'smtp'} = {};
