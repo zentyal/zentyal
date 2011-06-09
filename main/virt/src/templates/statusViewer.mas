@@ -1,0 +1,14 @@
+<%args>
+$data
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+%   my $value = $data->value();
+%   if (defined ($value) and ($value eq 'running')) {
+		<img src="/data/images/running.png" alt="<% __('Running') %>"/>
+%   } elsif (defined ($value) and ($value eq 'paused')) {
+		<img src="/data/images/paused.png" alt="<% __('Paused') %>"/>
+%   } else {
+		<img src="/data/images/stopped.png" alt="<% __('Stopped') %>"/>
+%   }

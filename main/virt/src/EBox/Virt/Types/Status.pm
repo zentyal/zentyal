@@ -20,9 +20,7 @@ package EBox::Virt::Types::Status;
 use strict;
 use warnings;
 
-use base 'EBox::Types::Boolean';
-
-use EBox::Service;
+use base 'EBox::Types::Basic';
 
 sub new
 {
@@ -30,13 +28,34 @@ sub new
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
-
     return $self;
+}
+
+# Method: volatile
+#
+#   Overrides <EBox::Types::Basic::volatile>.
+#
+sub volatile
+{
+    my ($self) = @_;
+
+    return 1;
+}
+
+# Method: editable
+#
+#   Overrides <EBox::Types::Basic::editable>.
+#
+sub editable
+{
+    my ($self) = @_;
+
+    return 0;
 }
 
 # Method: optional
 #
-#   Overrides <EBox::Types::Boolean::optional>.
+#   Overrides <EBox::Types::Basic::optional>.
 #
 sub optional
 {
@@ -47,7 +66,7 @@ sub optional
 
 # Method: value
 #
-#   Overrides <EBox::Types::Boolean::value>.
+#   Overrides <EBox::Types::Basic::value>.
 #
 sub value
 {
@@ -56,17 +75,17 @@ sub value
     my $row = $self->row();
     return undef unless ($row);
 
-    my $id = $row->{id};
-    my $virt = EBox::Global->modInstance('virt');
-    #my $name = $virt->model('VirtualMachines')->row($id)->valueByName('name');
-    my $name = 'foo'; #FIXME!
+    my $model = $self->model();
+    my $virt = $model->parentModule();
+    my $name = $row->valueByName('name');
 
-    return $virt->vmRunning($name);
+    # FIXME: Check also paused state
+    return $virt->vmRunning($name) ? 'running' : 'stopped';
 }
 
 # Method: printableValue
 #
-#   Overrides <EBox::Types::Boolean::printableValue>.
+#   Overrides <EBox::Types::Basic::printableValue>.
 #
 sub printableValue
 {
@@ -77,7 +96,7 @@ sub printableValue
 
 # Method: restoreFromHash
 #
-#   Overrides <EBox::Types::Boolean::restoreFromHash>
+#   Overrides <EBox::Types::Basic::restoreFromHash>
 #
 sub restoreFromHash
 {
@@ -91,6 +110,15 @@ sub restoreFromHash
 sub storeInGConf
 {
 
+}
+
+# Method: HTMLViewer
+#
+#   Overrides <EBox::Types::Basic::HTMLViewer>
+#
+sub HTMLViewer
+{
+    return '/virt/statusViewer.mas';
 }
 
 1;

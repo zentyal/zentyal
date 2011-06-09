@@ -29,8 +29,10 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Types::Text;
+use EBox::Exceptions::External;
 use EBox::Virt::Types::Status;
 use EBox::Types::Boolean;
+use EBox::Types::Status;
 use EBox::Types::HasMany;
 use EBox::Types::Action;
 use EBox::Types::MultiStateAction;
@@ -125,12 +127,6 @@ sub _table
     ];
 
     my @tableHeader = (
-      new EBox::Virt::Types::Status(
-                                    fieldName => 'running',
-                                    printableName => __('Status'),
-                                    # FIXME: use custom icons
-                                    HTMLViewer => '/ajax/viewer/booleanViewer.mas',
-                ),
        new EBox::Types::Text(
                              fieldName     => 'name',
                              printableName => __('Name'),
@@ -138,6 +134,12 @@ sub _table
                              unique        => 1,
                              editable      => 1,
                             ),
+       # FIXME: This needs to be after name in order to access
+       # the value, we should fix this for volatile types in the framework
+       new EBox::Virt::Types::Status(
+                               fieldName => 'status',
+                               printableName => __('Status'),
+                              ),
        new EBox::Types::HasMany(
                                 fieldName     => 'settings',
                                 printableName => __('Settings'),

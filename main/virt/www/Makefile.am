@@ -2,7 +2,7 @@
 
 wwwdir = $(datadir)/zentyal/www
 
-images = images/terminal.gif images/pause.gif images/play.gif images/stop.gif
+images = images/terminal.gif images/pause.gif images/play.gif images/stop.gif images/running.png images/paused.png images/stopped.png
 
 nobase_www_DATA = $(images)
 
