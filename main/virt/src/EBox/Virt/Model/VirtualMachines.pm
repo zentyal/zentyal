@@ -32,11 +32,9 @@ use EBox::Types::Text;
 use EBox::Exceptions::External;
 use EBox::Virt::Types::Status;
 use EBox::Types::Boolean;
-use EBox::Types::Status;
 use EBox::Types::HasMany;
 use EBox::Types::Action;
 use EBox::Types::MultiStateAction;
-use EBox::Types::HTML; # FIXME: Remove this when using Action
 
 # Group: Public methods
 
@@ -127,6 +125,10 @@ sub _table
     ];
 
     my @tableHeader = (
+       new EBox::Virt::Types::Status(
+                                     fieldName => 'status',
+                                     printableName => __('Status'),
+                                    ),
        new EBox::Types::Text(
                              fieldName     => 'name',
                              printableName => __('Name'),
@@ -134,12 +136,6 @@ sub _table
                              unique        => 1,
                              editable      => 1,
                             ),
-       # FIXME: This needs to be after name in order to access
-       # the value, we should fix this for volatile types in the framework
-       new EBox::Virt::Types::Status(
-                               fieldName => 'status',
-                               printableName => __('Status'),
-                              ),
        new EBox::Types::HasMany(
                                 fieldName     => 'settings',
                                 printableName => __('Settings'),

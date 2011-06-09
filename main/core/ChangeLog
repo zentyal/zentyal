@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: volatile types can now calculate their value using other
+	  the value from other elements in the row no matter their position
 2.1.6
 	+ Attach software.log to bug report if there are broken packages
 	+ Added keyGenerator option to report queries

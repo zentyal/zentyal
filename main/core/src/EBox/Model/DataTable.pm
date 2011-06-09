@@ -933,17 +933,35 @@ sub row
     $row->setReadOnly($gconfmod->get_bool("$dir/$id/readOnly"));
     $row->setModel($self);
 
+    # If element is volatile we set its value after the rest
+    # of the table elements are set, as it's typical to have
+    # volatile values calculated from other values of the row
+    my @volatileElements;
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $element = $type->clone();
-        $element->setRow($row);
-        $element->restoreFromHash();
-        if ( (not defined($element->value())) and $element->defaultValue()) {
-            $element->setValue($element->defaultValue());
+        if ($element->volatile()) {
+            push (@volatileElements, $element);
+        } else {
+            _setRowElement($element, $row);
         }
         $row->addElement($element);
     }
+    foreach my $element (@volatileElements) {
+        _setRowElement($element, $row);
+    }
 
     return $row;
+}
+
+sub _setRowElement
+{
+    my ($element, $row) = @_;
+
+    $element->setRow($row);
+    $element->restoreFromHash();
+    if ((not defined($element->value())) and $element->defaultValue()) {
+        $element->setValue($element->defaultValue());
+    }
 }
 
 # Method: isRowReadOnly
