@@ -19,7 +19,7 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Config;
+use EBox::Util::BugReport;
 use EBox::Gettext;
 use File::Slurp;
 use Error qw(:try);
@@ -38,7 +38,6 @@ sub actuate
 {
     my ($self) = @_;
 
-    $self->{downfile} = EBox::Config::log() . 'software.log';
     $self->{downfilename} = 'software.log';
 }
 
@@ -46,7 +45,7 @@ sub _print
 {
     my ($self) = @_;
 
-    if ($self->{error} || not defined($self->{downfile})) {
+    if ($self->{error}) {
         $self->SUPER::_print;
         return;
     }
@@ -54,44 +53,8 @@ sub _print
     print ($self->cgi()->header(-type=>'application/octet-stream',
                                 -attachment=>$self->{downfilename}));
 
-    print "System info\n";
-    print "-----------\n";
-    print `cat /etc/lsb-release`;
-    print `uname -rsmv`;
-    print "\n\n";
-
-    print "Broken packages (if any)\n";
-    print "------------------------\n";
-    try {
-        my $output = EBox::Sudo::root("dpkg -l | grep -v ^ii | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
-        print @{ $output };
-        print "\n\n";
-    } otherwise {
-        my $ex = shift @_;
-        print "Problem getting broken packages: $ex\n";
-    };
-
-    print "/var/log/zentyal/software.log\n";
-    print "-----------------------------\n\n";
-    my @log;
-    my $readLogError;
-    try {
-        @log = read_file($self->{downfile});
-    } otherwise {
-        my $ex = shift @_;
-        $readLogError = "$ex";
-    };
-
-    if (not $readLogError) {
-        if (scalar (@log) <= 5000) {
-            print @log;
-        } else {
-            print @log[-5000..-1];
-        }
-    } else {
-        print "Error reading software log\n";
-        print "Details: $readLogError\n";
-    }
+    my @brokenPackages = EBox::Util::BugReport::brokenPackagesList();
+    print EBox::Util::BugReport::dumpSoftwareLog(@brokenPackages);
 }
 
 1;

@@ -1,4 +1,5 @@
 HEAD
+	+ Log CGI now uses the dumpSoftwareLog method in BugReport
 	+ Candidate versions are now picked using APT priority
 	+ Replace references to reload.gif with reload.png
 2.1.2

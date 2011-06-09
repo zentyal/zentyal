@@ -18,14 +18,17 @@ package EBox::Util::BugReport;
 use strict;
 use warnings;
 
+use EBox::Config;
 use JSON::RPC::Client;
 use MIME::Base64;
 use File::Slurp;
+use Error qw(:try);
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
 use constant MILESTONE => '2.2';
 
-#
+use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
+
 # Method: send
 #
 # Send a bug report to Zentyal trac. It will also attach
@@ -34,6 +37,7 @@ use constant MILESTONE => '2.2';
 # Params:
 #   - author_email - Reporter's email
 #   - description - Text describing what the user was doing
+#   - software - Include also software.log
 #
 # Returns:
 #   Assigned ticket number on trac
@@ -71,26 +75,13 @@ sub send
         my $ticket = $res->result;
         EBox::info('Created trac ticket #' . $ticket);
 
-        my $log = encode_base64(EBox::Util::BugReport::dumpLog());
-        my $callobj = {
-            method  => 'ticket.putAttachment',
-            params  => [
-                $ticket,                                # ticket
-                'zentyal.log',                          # filename
-                'zentyal.log',                          # description
-                {__jsonclass__ => [ 'binary', $log ]},  # file (base64 format)
-                'true',                                 # replace
-            ],
-        };
+        _attach($client, $ticket, 'zentyal.log', EBox::Util::BugReport::dumpLog());
 
-        my $res = $client->call(RPC_URL, $callobj);
-        if ($res) {
-            unless ($res->is_success) {
-                throw EBox::Exceptions::Internal("Error attaching log to #$ticket: " . $res->error_message->{message});
-                return;
+        if (-f SOFTWARE_LOG) {
+            my @brokenPackages = brokenPackagesList();
+            if (@brokenPackages) {
+                _attach($client, $ticket, 'software.log', EBox::Util::BugReport::dumpSoftwareLog(@brokenPackages));
             }
-
-            EBox::info('Attached log to #' . $ticket);
         }
 
         return $ticket;
@@ -99,8 +90,6 @@ sub send
     }
 }
 
-
-#
 # Method: dumpLog
 #
 # Returns a summary log for the server. It contains installed
@@ -120,15 +109,85 @@ sub dumpLog
 
     $res .= "/var/log/zentyal/zentyal.log\n";
     $res .= "----------------------------\n\n";
-
-    if (scalar (@log) <= 1000) {
-        $res .= join('', @log);
-    } else {
-        $res .= join('', @log[-1000..-1]);
-    }
+    $res .= _joinLastLines(1000, @log);
 
     return $res;
 }
 
+sub brokenPackagesList
+{
+    my $output = EBox::Sudo::root("dpkg -l | tail -n +6 | grep -v ^ii | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
+    return @{ $output };
+}
+
+# Method: dumpSoftwareLog
+#
+# Returns a summary log for the installation. It contains some system
+# and broken packages info and last 5000 lines from software.log
+#
+sub dumpSoftwareLog
+{
+    my (@brokenPackages) = @_;
+
+    my @log = read_file(SOFTWARE_LOG) or
+        throw EBox::Exceptions::Internal("Error opening software.log: $!");
+
+    my $res;
+    $res .= "System info\n";
+    $res .= "-----------\n";
+    $res .= `cat /etc/lsb-release`;
+    $res .= `uname -rsmv`;
+    $res .= "\n\n";
+
+    if (@brokenPackages) {
+        $res .= "Broken packages\n";
+        $res .= "---------------\n";
+        $res .= "@brokenPackages\n\n";
+    }
+
+    $res .= "/var/log/zentyal/software.log\n";
+    $res .= "----------------------------\n\n";
+    $res .= _joinLastLines(5000, @log);
+
+    return $res;
+}
+
+sub _joinLastLines
+{
+    my ($num, @lines) = @_;
+
+    if (scalar (@lines) <= $num) {
+        return join('', @lines);
+    } else {
+        return join('', @lines[-$num..-1]);
+    }
+}
+
+sub _attach
+{
+    my ($client, $ticket, $filename, $content) = @_;
+
+    my $log = encode_base64($content);
+    my $callobj = {
+        method  => 'ticket.putAttachment',
+        params  => [
+            $ticket,                                # ticket
+            $filename,                              # filename
+            $filename,                              # description
+            {__jsonclass__ => [ 'binary', $log ]},  # file (base64 format)
+            'true',                                 # replace
+        ],
+    };
+
+    my $res = $client->call(RPC_URL, $callobj);
+    if ($res) {
+        unless ($res->is_success) {
+            throw EBox::Exceptions::Internal("Error attaching log to #$ticket: " . $res->error_message->{message});
+            return;
+        }
+
+        EBox::info("Attached $filename to #$ticket");
+    }
+}
 
 1;

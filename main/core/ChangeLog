@@ -1,4 +1,5 @@
 HEAD
+	+ Attach software.log to bug report if there are broken packages
 	+ Added keyGenerator option to report queries
 	+ Tuned apache conf to provide a better user experience
 	+ Actions click handlers can contain custom javascript
