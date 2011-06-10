@@ -1,4 +1,4 @@
-HEAD
+2.1.7
 	+ Fixed issues with wrong html attributes quotation
 	+ Bugfix: volatile types can now calculate their value using other
 	  the value from other elements in the row no matter their position
