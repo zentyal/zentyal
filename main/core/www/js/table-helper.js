@@ -247,8 +247,6 @@ function customActionClicked(action, url, table, fields, directory, id, page)
 
     if (fields) pars += '&' + encodeFields(table, fields);
 
-    var container = 'customActions_' + table + '_' + id;
-
     var MyAjax = new Ajax.Updater(
         {
             success: table,
@@ -264,12 +262,16 @@ function customActionClicked(action, url, table, fields, directory, id, page)
                 stripe('dataTable', '#ecf5da', '#ffffff');
             },
             onFailure: function(t) {
-                restoreHidden(container, table);
+                $$('.customActions').each(function(e) {
+                    restoreHidden(e, table)
+                });
             }
         }
     );
 
-    setLoading(container, table, true);
+    $$('.customActions').each(function(e) {
+        setLoading(e, table, true)
+    });
 }
 
 function changeView(url, table, directory, action, id, page, isFilter)
