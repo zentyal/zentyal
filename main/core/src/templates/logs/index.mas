@@ -107,8 +107,7 @@ use Data::Dumper;
         <tr>
         <td class='tright'><% __('Refresh logs')  %>:</td>
         <td>
-         <input type='checkbox' name='refresh' id='refresh'  <% $refresh ? 'checked' : '' %>
-        onclick='updateRefresh()' />
+         <input type="checkbox" name="refresh" id="refresh" <% $refresh ? 'checked="checked" ' : '' %>onclick="updateRefresh()" />
         </td>
         </tr>
 

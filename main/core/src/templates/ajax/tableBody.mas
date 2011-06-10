@@ -128,12 +128,12 @@ use POSIX;
 %    {
   <a href='#' class='addNew'
       name='add'
-         onClick='<%
+         onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)
-                %>;return false'><% __('Add new') %></a>
+                %>;return false"><% __('Add new') %></a>
    <br/>
    <br/>
 %    }
@@ -209,17 +209,16 @@ use POSIX;
       name='filter'
       value="<% __('Search') %>"
       title="Apply"
-      onClick='setLoading("<%
+      onClick="setLoading('<%
                              $filterId
-                            %>");
+                            %>');
                 <%
                   $model->changeViewJS( changeType => "changeList",
                      editId => 'undefined',
                      page => 0,
                      isFilter => 1)
                %>;
-
-               return false'
+               return false"
   />
   <span id="<%
               $filterId
@@ -352,43 +351,40 @@ use POSIX;
   <td id="<% 'buttons_' . $model->modelName() %>">
 % if ( $action eq 'changeAdd' )
 % {
-    <input class='inputButton'
-           type='submit'
-           name='add'
-           value='<% __('Add') %>'
-           title="Add"
-           onClick='<%
-                      $model->addNewRowJS($page)
-                    %>; return false'
-    />
+    <& /input/submit.mas,
+        class => 'inputButton',
+        type => 'submit',
+        name => 'add',
+        value => __('Add'),
+        title => 'Add',
+        onclick => $model->addNewRowJS($page) . '; return false'
+    &>
 % }
 % elsif ($action eq 'changeEdit')
 % {
     <& /ajax/customActions.mas, model => $model, id => $editid &>
-    <input class='inputButton'
-           type='submit'
-           name='change'
-           value="<% $model->printableActionName() %>"
-           title="Change"
-           onClick='<%
-                      $model->changeRowJS($editid, $page)
-                    %>; return false'
-    />
+    <& /input/submit.mas,
+        class => 'inputButton',
+        type => 'submit',
+        name => 'change',
+        value => __('Change'),
+        title => 'Change',
+        onclick => $model->changeRowJS($editid, $page) . '; return false'
+    &>
 % }
 % if ($changeView)
 % {
-    <input class='inputButton'
-           type='submit'
-           name='cancel'
-           value="<% __('Cancel') %>"
-           title="Cancel"
-           onClick='<%
-                      $model->changeViewJS( changeType => "changeList",
+    <& /input/submit.mas,
+        class => 'inputButton',
+        type => 'submit',
+        name => 'cancel',
+        value => __('Cancel'),
+        title => 'Cancel',
+        onclick => $model->changeViewJS(changeType => 'changeList',
                           editId => 'undefined',
                           page => $page,
-                          isFilter =>  0)
-                    %>;return false'
-    />
+                          isFilter => 0) . '; return false'
+    &>
 % }
   </td>
 </tr>
@@ -489,12 +485,12 @@ $page
               title="<% $delete_msg %>"
               alt="Del"
               src='/data/images/<% $delete %>.gif'
-              onClick='<%
+              onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
                             '' ,
                             $page)
-                       %>'
+                       %>"
           />
 
 %      }
@@ -509,13 +505,13 @@ $page
               value="edit"
               title="<% $edit_msg %>"
               src='/data/images/<% $edit %>.gif'
-              onClick='<%
+              onClick="<%
                          $model->changeViewJS( changeType => 'changeEdit',
                              editId => $row->{'id'},
                              page => $page,
                              isFilter => 0)
 
-                       %>'
+                       %>"
           />
 %      }
 
@@ -592,12 +588,12 @@ $page
               title="<% $up_msg %>"
               alt="Up"
               src='/data/images/<% $up_icon  %>'
-              onClick='<%
+              onClick="<%
                          $model->actionClickedJS('move',
                              $row->{id},
                             'up',
                             $page)
-                       %>'
+                       %>"
           />
 %       }
 
@@ -610,12 +606,12 @@ $page
               title="<% $down_msg %>"
               alt="Down"
               src='/data/images/<% $down_icon %>'
-              onClick='<%
+              onClick="<%
                          $model->actionClickedJS('move',
                              $row->{id},
                             'down',
                             $page)
-                       %>'
+                       %>"
           />
 %       }
 </%method>

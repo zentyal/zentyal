@@ -58,9 +58,9 @@
 %   if ($page != 0) {
         <input name='tofirst' type='image'
             src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
-	    onClick='setLoading("<% $pagerId %>");<%  $model->changeViewJS( changeType => "changeList", editId => "undefined", page => 0, isFilter => 1) %>; return false'>
+	    onclick="setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" />
 	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
-	    onClick='setLoading("<% $pagerId %>");<%  $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $page - 1, isFilter => 1) %>; return false'>
+	    onclick="setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false" />
 %   } else {
         <input name='tofirst' type='image'
             src='/data/images/non_rw.gif' alt="<% __('first') %>" value="<% __('first') %>"/>
@@ -72,13 +72,13 @@
             src="/data/images/f.gif"
             alt="<% __('next') %>"
             value="<% __('next') %>"
-            onClick='setLoading("<% $pagerId %>");<%
-     	$model->changeViewJS( changeType => "changeList", editId => "undefined", page => $page + 1, isFilter => 1) %>; return false'>
+            onclick="setLoading('<% $pagerId %>');<%
+     	$model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false" />
         <input name='tolast' type='image'
             src="/data/images/ff.gif"
             alt="<% __('last') %>"
             value="<% __('last') %>"
-	    onClick='setLoading("<% $pagerId %>"); <% $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $tpages, isFilter => 1) %>;return false'>
+	    onclick="setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" />
 %   } else {
         <input name='tonext' type='image'
             src="/data/images/non_f.gif"

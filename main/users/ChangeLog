@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed issues with html html attributes quotation
 	+ Allow to specify a base DN to bind to AD
 	+ Add locking to slave-sync to avoid spawn multiple instances in the
 	  event of not being able to connect to a slave

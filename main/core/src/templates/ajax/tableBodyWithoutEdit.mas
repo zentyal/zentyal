@@ -51,12 +51,12 @@ $page
               title="Del"
               alt="Del"
               src='/data/images/delete.gif'
-              onClick='<%
+              onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
                             '' ,
                             $page)
-                       %>'
+                       %>"
           />
 
 </%method>

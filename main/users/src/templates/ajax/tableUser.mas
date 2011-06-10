@@ -72,22 +72,22 @@ use EBox::Model::DataTable;
 %    }
 %    if ($changeView and exists $actions->{'add'}) 
 %    {
-  <input class='inputButton' 
-      type='image' 
-      name='add' 
-      value="Add" 
-      title="Add" 
-         onClick='<%
-                 $model->changeViewJS( changeType => "changeAdd", 
-                      editId => "undefined", 
+  <input class='inputButton'
+      type='image'
+      name='add'
+      value="Add"
+      title="Add"
+         onclick="<%
+                 $model->changeViewJS( changeType => 'changeAdd',
+                      editId => "undefined",
                       page => $page,
-                      isFilter => 0) 
-                %>;return false' 
-   alt="Add" src='/data/images/add.gif' 
+                      isFilter => 0)
+                %>;return false"
+   alt="Add" src='/data/images/add.gif'
   />
   <% __("Add new") %>
 %    }
-  <span id="<% 'creatingForm_' . $tableName %>"></span>   
+  <span id="<% 'creatingForm_' . $tableName %>"></span>
 <br>
 %  }
 
@@ -156,17 +156,17 @@ use EBox::Model::DataTable;
                __('Search') 
              %>" 
       title="Apply" 
-      onClick='setLoading("<% 
-                             $filterId 
-                            %>");
+      onclick="setLoading('<%
+                             $filterId
+                            %>');
                 <%
-                  $model->changeViewJS( changeType => "changeList", 
-                     editId => 'undefined', 
+                  $model->changeViewJS( changeType => 'changeList',
+                     editId => 'undefined',
                      page => 0,
                      isFilter => 1)
-               %>;
-  
-               return false' 
+                %>;
+
+               return false"
   />
   <span id="<% 
               $filterId 

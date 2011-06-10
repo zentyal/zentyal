@@ -2900,8 +2900,7 @@ sub changeViewJS
             $args{isFilter},
             );
 
-    my  $function = 'changeView("%s", "%s", "%s", "%s",'.
-            '"%s", %s, %s)';
+    my  $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
 
     my $table = $self->table();
     return  sprintf ($function,
@@ -2931,11 +2930,10 @@ sub addNewRowJS
 {
     my ($self, $page) = @_;
 
-    my  $function = 'addNewRow("%s", "%s", %s, "%s", %s)';
+    my  $function = "addNewRow('%s','%s',%s,'%s',%s)";
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
-    $fields =~ s/'/\"/g;
     return  sprintf ($function,
             $table->{'actions'}->{'add'},
             $table->{'tableName'},
@@ -2961,12 +2959,10 @@ sub changeRowJS
 {
     my ($self, $editId, $page) = @_;
 
-    my  $function = 'changeRow("%s", "%s", %s, "%s",'.
-            '"%s", %s)';
+    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s)";
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
-    $fields =~ s/'/\"/g;
     return  sprintf ($function,
             $table->{'actions'}->{'editField'},
             $table->{'tableName'},
@@ -3005,8 +3001,7 @@ sub actionClickedJS
         throw EBox::Exceptions::External("Wrong action $direction");
     }
 
-    my  $function = 'actionClicked("%s", "%s", "%s", "%s",'.
-            '"%s", "%s", %s)';
+    my  $function = "actionClicked('%s','%s','%s','%s','%s','%s',%s)";
 
     if ($direction) {
         $direction = "dir=$direction";
@@ -3016,7 +3011,6 @@ sub actionClickedJS
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
-    $fields =~ s/'/\"/g;
     return  sprintf ($function,
             $table->{'actions'}->{$action},
             $table->{'tableName'},
