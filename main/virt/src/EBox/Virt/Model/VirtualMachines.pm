@@ -217,8 +217,16 @@ sub _doStart
     EBox::Service::manage($virt->machineDaemon($name), 'start');
     EBox::Service::manage($virt->vncDaemon($name), 'start');
 
-    EBox::debug("Virtual machine '$name' started");
-    $self->setMessage($action->message(), 'note');
+    my $tries = 30;
+    sleep(1) while ($tries-- and not $virt->vmRunning($name));
+
+    if ($virt->vmRunning($name)) {
+        EBox::debug("Virtual machine '$name' started");
+        $self->setMessage($action->message(), 'note');
+    } else {
+        throw EBox::Exceptions::External(
+            __("Couldn't start '$name' virtual machine"));
+    }
 }
 
 sub _doStop
@@ -232,8 +240,16 @@ sub _doStop
     EBox::Service::manage($virt->vncDaemon($name), 'stop');
     EBox::Service::manage($virt->machineDaemon($name), 'stop');
 
-    EBox::debug("Virtual machine '$name' stopped");
-    $self->setMessage($action->message(), 'note');
+    my $tries = 30;
+    sleep(1) while ($tries-- and $virt->vmRunning($name));
+
+    if (not $virt->vmRunning($name)) {
+        EBox::debug("Virtual machine '$name' stopped");
+        $self->setMessage($action->message(), 'note');
+    } else {
+        throw EBox::Exceptions::External(
+            __("Couldn't stop '$name' virtual machine"));
+    }
 }
 
 sub _doPause
