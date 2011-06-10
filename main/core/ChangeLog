@@ -1,3 +1,5 @@
+HEAD
+	+ All the custom actions are disabled when one is clicked
 2.1.7
 	+ Fixed issues with wrong html attributes quotation
 	+ Bugfix: volatile types can now calculate their value using other
