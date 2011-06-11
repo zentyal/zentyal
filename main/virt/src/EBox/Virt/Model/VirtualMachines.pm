@@ -185,8 +185,8 @@ sub _viewConsoleClicked
     my ($self, $id) = @_;
 
     my $name = $self->row($id)->valueByName('name');
-    my $width = 720;
-    my $height = 455;
+    my $width = 750;
+    my $height = 520;
 
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
