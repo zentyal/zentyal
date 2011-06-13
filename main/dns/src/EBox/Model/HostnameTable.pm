@@ -23,6 +23,7 @@
 #
 package EBox::DNS::Model::HostnameTable;
 
+use EBox::DNS::Types::Hostname;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -130,7 +131,7 @@ sub validateTypedRow
         my $row = $domainModel->row($id);
         for my $id (@{$row->subModel('alias')->ids()}) {
            my $subRow = $row->subModel('alias')->row($id);
-           if ($subRow->elementByName('alias')->isEqualTo($newHostName)) {
+           if ($newHostName->isEqualTo($subRow->elementByName('alias'))) {
                 throw EBox::Exceptions::External(
                     __x('There is an alias with the same name "{name}" '
                         . 'for "{hostname}" in the same domain',
@@ -246,13 +247,13 @@ sub _table
 {
     my @tableHead =
         (
-            new EBox::Types::DomainName
+            new EBox::DNS::Types::Hostname
                             (
                                 'fieldName' => 'hostname',
                                 'printableName' => __('Host name'),
                                 'size' => '20',
-                                'unique' => 1,
-                                'editable' => 1
+                                # 'unique' => 1,
+                                'editable' => 1,
                              ),
             new EBox::Types::HostIP
                             (
@@ -287,7 +288,8 @@ sub _table
             'help' => __('Automatic reverse resolution is done. If you '
                          . 'repeat an IP address in another domain, only '
                          . 'first match will be used by reverse resolution. '
-                         . 'Dynamic zones may erase your manual reverse resolution'),
+                         . 'Dynamic zones may erase your manual reverse '
+                         . 'resolution.'),
             'printableRowName' => __('host name'),
             'sortedBy' => 'hostname',
         };

@@ -46,8 +46,10 @@ AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
 src/EBox/DNS.pm
+src/EBox/Composite/Makefile
 src/EBox/Model/Makefile
 src/EBox/t/Makefile
+src/EBox/Types/Makefile
 src/EBox/View/Makefile
 src/templates/Makefile
 src/scripts/Makefile

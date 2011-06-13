@@ -1,0 +1,127 @@
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Class:
+#
+#   <EBox::DNS::Model::Record>
+#
+#   This class inherits from <EBox::Model::DataTable> and represents
+#   the record with the common methods used by several records in DNS
+#
+package EBox::DNS::Model::Record;
+
+use base 'EBox::Model::DataTable';
+
+use strict;
+use warnings;
+
+use EBox::Exceptions::NotImplemented;
+
+# Method: updatedRowNotify
+#
+#     Override to add to the list of removed of RRs
+#
+# Overrides:
+#
+#     <EBox::Exceptions::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $newRow, $force) = @_;
+
+    # The field is added in validateTypedRow
+    if ( exists $self->{toDelete} ) {
+        $self->_addToDelete($self->{toDelete});
+        delete $self->{toDelete};
+    }
+}
+
+# Method: precondition
+#
+# Overrides:
+#
+#     <EBox::Model::Component::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    if ( $self->parentRow()->readOnly() ) {
+        return 0;
+    }
+    return 1;
+
+}
+
+# Method: preconditionFailMsg
+#
+# Overrides:
+#
+#     <EBox::Model::Component::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __x('The domain is set as read only. You cannot add {what}',
+               what => $self->printableName());
+}
+
+# Method: pageTitle
+#
+# Overrides:
+#
+#     <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->printableValueByName('domain');
+}
+
+# Group: Protected methods
+
+# Method: _table
+#
+# Overrides:
+#
+#     <EBox::Model::DataForm::_table>
+#
+sub _table
+{
+    throws EBox::Exceptions::NotImplemented();
+}
+
+# Group: Private methods
+
+# Add the RR to the deleted list
+sub _addToDelete
+{
+    my ($self, $rr) = @_;
+
+    my $mod = $self->{gconfmodule};
+    my $key = $mod->deletedRRsKey();
+    my @list = ();
+    if ( $mod->st_entry_exists($key) ) {
+        @list = @{$mod->st_get_list($key)};
+    }
+
+    push(@list, $rr);
+    $mod->st_set_list($key, 'string', \@list);
+
+}
+
+1;

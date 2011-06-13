@@ -232,7 +232,16 @@ sub _hostnameModel
     my ($type) = @_;
 
     my $parentRow = $type->model()->parentRow();
-    return $parentRow->subModel('hostnames');
+    if ( defined($parentRow) ) {
+        return $parentRow->subModel('hostnames');
+    } else {
+        # Bug in initialisation code of ModelManager
+        my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
+        my $dir = $type->model()->directory();
+        $dir =~ s:mailExchangers:hostnames:g;
+        $model->setDirectory($dir);
+        return $model;
+    }
 
 }
 

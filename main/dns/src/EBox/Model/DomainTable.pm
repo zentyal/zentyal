@@ -173,6 +173,19 @@ sub viewCustomizer
 
 }
 
+# Method: headTitle
+#
+#     Overrided to not show a title
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::headTitle>
+#
+sub headTitle
+{
+    return undef;
+}
+
 # Group: Protected methods
 
 sub _table
@@ -213,6 +226,22 @@ sub _table
                                 'view' => '/zentyal/DNS/View/NameServer',
                                 'backView' => '/zentyal/DNS/View/DomainTable',
                              ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'txt',
+                                'printableName' => __x('{txt} records', txt => 'TXT'),
+                                'foreignModel' => 'Text',
+                                'view' => '/zentyal/DNS/View/Text',
+                                'backView' => '/zentyal/DNS/View/Text',
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'srv',
+                                'printableName' => __x('Services'),
+                                'foreignModel' => 'Services',
+                                'view' => '/zentyal/DNS/View/Services',
+                                'backView' => '/zentyal/DNS/View/Services',
+                             ),
             new EBox::Types::HostIP
                             (
                                 'fieldName' => 'ipaddr',
@@ -243,11 +272,12 @@ sub _table
                                ),
           );
 
+    my $pageTitle = __('List of Domains');
+
     my $dataTable =
         {
             'tableName' => 'DomainTable',
-            'printableTableName' => __('List of Domains'),
-	    'pageTitle' => __('DNS'),
+            'printableTableName' => $pageTitle,
             'automaticRemove' => 1,
             'defaultController' => '/zentyal/Dns/Controller/DomainTable',
             'HTTPUrlView'=> 'DNS/View/DomainTable',
@@ -256,6 +286,7 @@ sub _table
             'class' => 'dataTable',
             'printableRowName' => __('domain'),
             'sortedBy' => 'domain',
+            'pageTitle' => $pageTitle,
         };
 
     return $dataTable;

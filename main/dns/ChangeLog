@@ -1,3 +1,11 @@
+HEAD
+	+ Give support for Round-Robin records, that is, the same name
+	  points to different IP addresses
+	+ Add transparent cache DNS when firewall module is enabled
+	+ Add forwarders manual configuration
+	+ Add wildcard for hostnames default value
+	+ Add TXT records
+	+ Add SRV records
 2.1.2
 	+ Use public API to get the Hostname model in NameServer and
 	  MailExchanger models

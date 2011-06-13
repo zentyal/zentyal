@@ -1,3 +1,6 @@
+<%args>
+  @forwarders
+</%args>
 options {
 	directory "/var/cache/bind";
 
@@ -13,12 +16,14 @@ options {
 
 	// If your ISP provided one or more IP addresses for stable 
 	// nameservers, you probably want to use them as forwarders.  
-	// Uncomment the following block, and insert the addresses replacing 
-	// the all-0's placeholder.
-
-	//forwarders {
-	//	192.168.0.1;
-	//};
+% if ( @forwarders > 0 ) {
+        forward first;
+	forwarders {
+%    foreach my $forwarder (@forwarders) {
+             <% $forwarder %>;
+%    }
+	};
+% }
 
 	auth-nxdomain no;    # conform to RFC1035
 

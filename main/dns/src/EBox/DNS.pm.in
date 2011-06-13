@@ -34,8 +34,8 @@ use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
-use EBox::DNS::Model::DNSComposite;
 use EBox::Model::ModelManager;
+use EBox::Sudo;
 
 use Error qw(:try);
 use File::Temp;
@@ -59,6 +59,7 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
+use constant DNS_PORT => 53;
 
 sub _create
 {
@@ -100,7 +101,22 @@ sub modelClasses
             },
             'EBox::DNS::Model::MailExchanger',
             'EBox::DNS::Model::NameServer',
+            'EBox::DNS::Model::Text',
+            'EBox::DNS::Model::Services',
+            'EBox::DNS::Model::Forwarder',
+            'EBox::DNS::Model::Settings',
            ];
+}
+
+# Method: compositeClasses
+#
+# Overrides:
+#
+#       <EBox::CompositeProvider::compositeClasses>
+#
+sub compositeClasses
+{
+    return [ 'EBox::DNS::Composite::Global' ];
 }
 
 # Method: _exposedMethods
@@ -185,19 +201,6 @@ sub _exposedMethods
       return \%exposedMethods;
 
   }
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
- return [
-         'EBox::DNS::Model::DNSComposite',
-        ];
-}
 
 # Method: addDomain
 #
@@ -389,15 +392,14 @@ sub createHostDataArray
     my ($self, $hostip, $hostData) = @_;
     my @newHostsDataArray;
 
-# Add host info
+    # Add host info
     my $newHostData;
     $newHostData->{'name'} = $hostData->{'name'};
     $newHostData->{'ip'} = $hostip;
     push(@newHostsDataArray, $newHostData);
 
-# Add all alias info
-    foreach my $aliasData (@{$hostData->{'aliases'}})
-    {
+    # Add all alias info
+    foreach my $aliasData (@{$hostData->{'aliases'}}) {
         my $newHostDataFromAlias;
         $newHostDataFromAlias->{'name'} = $aliasData->{'name'};
         $newHostDataFromAlias->{'ip'} = $hostip;
@@ -521,6 +523,8 @@ sub switchToReverseInfoData
         }
 
         foreach my $hostData (@{$domainData->{'hosts'}}) {
+            # Remove wildcard since it is possible to set a reverse domain
+            next if ($hostData->{'name'} eq '*');
             my @ipblocks = split(/\./, $hostData->{'ip'});
 
             #Set group ip bind format (reverse order)
@@ -720,9 +724,13 @@ sub _setConf
             "dns/named.conf.mas",
             \@array);
 
+    push(@array, 'forwarders' => $self->_forwarders());
+
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
             \@array);
+
+    @array = ();
 
     my @domainIds = @{$self->_domainIds()};
     # Hash to store the keys indexed by name, storing the secret
@@ -810,6 +818,9 @@ sub _setConf
     @array = ( 'keys' => \%keys );
     $self->writeConfFile(KEYSFILE, 'dns/keys.mas', \@array);
 
+    # Set transparent DNS cache
+    $self->_setTransparentCache();
+
 }
 
 sub configureFirewall
@@ -834,10 +845,22 @@ sub configureFirewall
 sub menu
 {
     my ($self, $root) = @_;
-    $root->add(new EBox::Menu::Item('url' => 'DNS/View/DomainTable',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Infrastructure',
-                                    'order' => 420));
+
+    my $folder = new EBox::Menu::Folder('name' => 'DNS',
+                                        'text' => $self->printableName(),
+                                        'separator' => 'Infrastructure',
+                                        'order' => 420);
+
+    $folder->add(
+        new EBox::Menu::Item('url' => 'DNS/View/DomainTable',
+                             'text' => $self->model('DomainTable')->printableName())
+          );
+    $folder->add(
+        new EBox::Menu::Item('url' => 'DNS/Composite/Global',
+                             'text' => $self->composite('Global')->printableName())
+       );
+
+    $root->add($folder);
 }
 
 sub logReportInfo
@@ -1101,6 +1124,108 @@ sub _formatNameServers
     return \@nameservers;
 }
 
+# Method: _formatTXT
+#
+#       Format the TXT records to write configuration settings
+#       properly
+#
+# Parameters:
+#
+#       text - model to iterate over
+#
+#            hostName - String the host's name
+#            id - String the row identifier
+#            txt_data - String the TXT record data
+#
+# Returns:
+#
+#   Array ref of hashes containing the following keys:
+#
+#      hostName
+#      txt_data
+sub _formatTXT
+{
+    my ($self, $txt) = @_;
+
+    my @txtRecords;
+    foreach my $id (@{$txt->ids()}) {
+        my $row = $txt->row($id);
+        my $hostName = $row->valueByName('hostName');
+        if ($row->elementByName('hostName')->selectedType() eq 'domain') {
+            $hostName = $row->parentRow()->valueByName('domain') . '.';
+        } else {
+            $hostName = $row->parentRow()
+               ->subModel('hostnames')
+               ->row($hostName)
+               ->valueByName('hostname');
+        }
+        push (@txtRecords, {
+                hostName => $hostName,
+                txt_data => $row->valueByName('txt_data')
+               });
+    }
+    return \@txtRecords;
+}
+
+# Method: _formatSRV
+#
+#       Format the SRV records to write configuration settings
+#       properly
+#
+# Parameters:
+#
+#       srv - model to iterate over
+#
+#            service_name - String the service's name
+#            protocol - String the protocol
+#            priority - Int the priority
+#            weight - Int the weight
+#            port - Int the target port
+#            id - String the row identifier
+#            hostName - String the target host name
+#
+# Returns:
+#
+#   Array ref of hashes containing the following keys:
+#
+#      service_name
+#      protocol
+#      priority
+#      weight
+#      target_port
+#      target_host
+#
+sub _formatSRV
+{
+    my ($self, $srv) = @_;
+
+    my @srvRecords;
+    foreach my $id (@{$srv->ids()}) {
+        my $row = $srv->row($id);
+        my $targetHost = $row->valueByName('hostName');
+        if ($row->elementByName('hostName')->selectedType() eq 'custom') {
+            unless ( $targetHost =~ m:\.$: ) {
+                $targetHost = $targetHost . '.';
+            }
+        } else {
+            $targetHost = $row->parentRow()
+               ->subModel('hostnames')
+               ->row($targetHost)
+               ->valueByName('hostname');
+        }
+        push (@srvRecords, {
+                service_name => $row->valueByName('service_name'),
+                protocol => $row->valueByName('protocol'),
+                priority => $row->valueByName('priority'),
+                weight => $row->valueByName('weight'),
+                target_port => $row->valueByName('port'),
+                target_host => $targetHost,
+               });
+    }
+    return \@srvRecords;
+}
+
+
 # Method: _completeDomain
 #
 #  Return a structure with all required data to build bind db config files
@@ -1120,6 +1245,8 @@ sub _formatNameServers
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
 #  'mailExchangers' : an array ref returned by <EBox::DNS::_formatMailExchangers>
 #  'nameServers' : an array ref returned by <EBox::DNS::_formatNameServers>
+#  'txt' : an array ref returned by <EBox::DNS::_formatTXT>
+#  'srv' : an array ref returned by <EBox::DNS::_formatSRV>
 #
 sub _completeDomain # (domainId)
 {
@@ -1140,8 +1267,24 @@ sub _completeDomain # (domainId)
     $domdata->{'mailExchangers'} = $self->_formatMailExchangers($subModel);
     $domdata->{'nameServers'} = $self->_formatNameServers($row->subModel('nameServers'),
                                                           $row->subModel('hostnames'));
+    $domdata->{'txt'} = $self->_formatTXT($row->subModel('txt'));
+    $domdata->{'srv'} = $self->_formatSRV($row->subModel('srv'));
 
     return $domdata;
+}
+
+# Return the forwarders, if any
+sub _forwarders
+{
+    my ($self) = @_;
+
+    my $fwdModel = $self->model('Forwarder');
+    my @forwarders = ();
+    foreach my $id (@{$fwdModel->ids()}) {
+        push(@forwarders, $fwdModel->row($id)->valueByName('forwarder'));
+    }
+
+    return \@forwarders;
 }
 
 # Return the domain row ids in an array ref
@@ -1162,6 +1305,8 @@ sub _getRanges
 
     my $dhcp = EBox::Global->modInstance('dhcp');
     my $net  = EBox::Global->modInstance('network');
+
+    return \@ranges unless (defined($dhcp));
 
     foreach my $iface (grep { $net->ifaceMethod($_) eq 'static'} @{$net->allIfaces()}) {
         my $dynDNSRow = $dhcp->dynamicDNSDomains($iface);
@@ -1240,8 +1385,13 @@ sub _updateDynDirectZone
         print $fh "update add $zone 259200 NS $ns\n";
     }
 
+    my %seen = ();
     foreach my $host (@{$domData->{'hosts'}}) {
-        print $fh 'update delete ' . $host->{'name'} . ".$zone A \n";
+        unless ( $seen{$host->{'name'}} ) {
+            # To avoid deleting same name records with different IP addresses
+            print $fh 'update delete ' . $host->{'name'} . ".$zone A \n";
+        }
+        $seen{$host->{'name'}} = 1;
         print $fh 'update add ' . $host->{'name'} . ".$zone 259200 A " . $host->{'ip'} . "\n";
         foreach my $alias (@{$host->{'aliases'}}) {
             print $fh 'update delete ' . $alias->{'name'} . ".$zone CNAME \n";
@@ -1251,12 +1401,30 @@ sub _updateDynDirectZone
     }
 
     print $fh "update delete $zone MX\n";
-    foreach my $mxRR ( @{$domData->{'mailExchangers'}}) {
+    foreach my $mxRR ( @{$domData->{'mailExchangers'}} ) {
         my $mx = $mxRR->{'hostName'};
         if ( $mx !~ m:\.:g ) {
             $mx .= ".$zone";
         }
         print $fh "update add $zone 259200 MX " . $mxRR->{'preference'} . " $mx\n";
+    }
+
+    foreach my $txtRR ( @{$domData->{'txt'}} ) {
+        my $txt = $txtRR->{'hostName'};
+        if ( $txt !~ m:\.:g ) {
+            $txt .= ".$zone";
+        }
+        print $fh "update add $txt 259200 TXT " . $txtRR->{'txt_data'} . "\n";
+    }
+
+    foreach my $srvRR ( @{$domData->{'srv'}} ) {
+        if ( $srvRR->{'target_host'} !~ m:\.:g ) {
+            $srvRR->{'target_host'} .= ".$zone";
+        }
+        print $fh 'update add _' . $srvRR->{'service_name'} . '._'
+                  . $srvRR->{'protocol'} . ".${zone}. 259200 SRV " . $srvRR->{'priority'}
+                  . ' ' . $srvRR->{'weight'} . ' ' . $srvRR->{'target_port'}
+                  . ' ' . $srvRR->{'target_host'} . "\n";
     }
 
     print $fh "send\n";
@@ -1397,6 +1565,45 @@ sub _removeDisjuncFiles
         }
     }
 
+}
+
+# Set configuration for transparent DNS cache
+# TODO: Move FirewallHelper to core to avoid this implementation here without
+# using the framework
+sub _setTransparentCache
+{
+    my ($self) = @_;
+
+    if ( $self->model('Settings')->row()->valueByName('transparent') ) {
+        # The transparent cache DNS setting is enabled
+        my $gl = EBox::Global->getInstance(1);
+        if ( $gl->modExists('firewall') ) {
+            my $fw = $gl->modInstance('firewall');
+            if ( $fw->isEnabled() ) {
+                my @rules = ();
+                my $net = $gl->modInstance('network');
+                eval 'use EBox::FirewallHelper;';
+                my $fwHelper = new EBox::FirewallHelper();
+                foreach my $iface (@{$net->InternalIfaces()}) {
+                    my $addrs = $net->ifaceAddresses($iface);
+                    my $input = $fwHelper->_inputIface($iface);
+                    foreach my $addr ( map { $_->{address} } @{$addrs} ) {
+                        next unless ( defined($addr) and ($addr ne ""));
+                        my $rule = "-t nat -A premodules $input "
+                                   . "! -d $addr -p tcp --dport " . DNS_PORT
+                                   . ' -j REDIRECT --to-ports ' . DNS_PORT;
+                        push(@rules, $rule);
+                        $rule = "-t nat -A premodules $input "
+                                . "! -d $addr -p udp --dport " . DNS_PORT
+                                . ' -j REDIRECT --to-ports ' . DNS_PORT;
+                        push(@rules, $rule);
+                    }
+                }
+                my @cmds = map { '/sbin/iptables ' . $_ } @rules;
+                EBox::Sudo::root(@cmds);
+            }
+        }
+    }
 }
 
 1;
