@@ -263,14 +263,14 @@ function customActionClicked(action, url, table, fields, directory, id, page)
             },
             onFailure: function(t) {
                 $$('.customActions').each(function(e) {
-                    restoreHidden(e, table)
+                    restoreHidden(e.identify(), table)
                 });
             }
         }
     );
 
     $$('.customActions').each(function(e) {
-        setLoading(e, table, true)
+        setLoading(e.identify(), table, true)
     });
 }
 
@@ -569,20 +569,14 @@ Parameters:
         
 
 */
+var savedElements = {};
 function setLoading (elementId, modelName, isSaved)
 {
-
-  var hiddenDivId = 'hiddenDiv';
-  if ( modelName ) {
-    hiddenDivId = hiddenDivId + '_' + modelName;
-    if ( isSaved ) {
-      $(hiddenDivId).innerHTML = $(elementId).innerHTML;
-    }
+  if ( isSaved ) {
+    savedElements[elementId] = $(elementId).innerHTML;
   }
 
-  $(elementId).innerHTML = "<img src='/data/images/ajax-loader.gif' " +
-                           "alt='loading...' class='tcenter'/>";
-
+  $(elementId).innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
 }
 
 /*
@@ -619,23 +613,7 @@ Parameters:
 */
 function restoreHidden (elementId, modelName)
 {
-
-  if ( modelName ) {
-    var hiddenDivId = 'hiddenDiv' + '_' + modelName;
-    if ( $(hiddenDivId).innerHTML != '' ) {
-      $(elementId).innerHTML = $(hiddenDivId).innerHTML;
-    }
-    $(hiddenDivId).innerHTML = '';
-  }
-
-  // Remove the loading image if any
-  if ( $(elementId).firstChild ) {
-    if ( $(elementId).firstChild.alt == 'loading...' ) {
-      $(elementId).innerHTML = '';
-    }
-  }
-
-
+  $(elementId).innerHTML = savedElements[elementId];
 }
 
 /*

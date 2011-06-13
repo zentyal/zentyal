@@ -6,7 +6,7 @@
 %  my $customActions = $model->customActions(undef, $id);
 %  if ($customActions)
 %  {
-<span class="customActions" id="customActions_<% $model->modelName() . '_' . $id %>">
+<span class="customActions" id="customActions_<% $model->modelName() . '_' . $type . '_' . $id %>">
 %    foreach my $customAction ( @{$customActions} )
 %    {
        <& /input/action.mas,
