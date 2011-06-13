@@ -62,8 +62,8 @@ sub action
         printableValue => $state->{printableValue},
         handler => $state->{handler},
         image => $state->{image},
+        message => $state->{message},
         model => $self->{model},
-        message => $self->{message},
     );
 
     return $action;
