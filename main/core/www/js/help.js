@@ -25,6 +25,10 @@ function initHelp() {
             helpbutton.hide();
         }
     } else {
+        var helpbutton = $("helpbutton");
+        if (helpbutton) {
+            helpbutton.show();
+        }
         if (helpShown) {
             showHelp();
         } else {

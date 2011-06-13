@@ -1,4 +1,5 @@
 HEAD
+	+ Help toggler is shown if needed when dynamic content is received
 	+ Fixed issue when disabling several actions at once in a data table view
 	+ All the custom actions are disabled when one is clicked
 2.1.7
