@@ -105,6 +105,11 @@ sub _table
            printableName => __('Server subscription'),
            ),
        new EBox::Types::Text(
+           fieldName     => 'external_server_name',
+           printableName => __('External server name (DynDNS)'),
+           help          => __('Use this name to connect to Zentyal externally'),
+          ),
+       new EBox::Types::Text(
            fieldName     => 'renovation_date',
            printableName => __('Subscription renovation date'),
           ),
@@ -137,8 +142,8 @@ sub _content
 
     my $rs = $self->{gconfmodule};
 
-    my ($serverName, $subs, $renovationDate, $mm) =
-      ( __('None'),
+    my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
+      ( __('None'), __('Not using Zentyal Cloud DynDNS service'),
         __sx('<span>None - {ohb}Get Free Basic Subscription{ch}</span>',
              ohb => '<a href="' . BASIC_URL . '" target="_blank">',
              ch  => '</a>'),
@@ -146,6 +151,11 @@ sub _content
 
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
+
+        my $net = EBox::Global->getInstance(1)->modInstance('network');
+        if ( $net->can('DDNSUsingCloud') and $net->DDNSUsingCloud() ) {
+            $fqdn = $rs->dynamicHostname();
+        }
 
         my %i18nLevels = ( '-1' => __('Unknown'),
                            '0'  => __('Basic'),
@@ -166,10 +176,11 @@ sub _content
     }
 
     return {
-        server_name     => $serverName ,
-        subscription    => $subs,
-        renovation_date => $renovationDate,
-        mm              => $mm,
+        server_name          => $serverName ,
+        external_server_name => $fqdn,
+        subscription         => $subs,
+        renovation_date      => $renovationDate,
+        mm                   => $mm,
        };
 }
 

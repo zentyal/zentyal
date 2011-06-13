@@ -5,7 +5,7 @@ scriptsdir = @DATADIR@/zentyal-network
 scripts_SCRIPTS = dhcp-nameservers.pl dhcp-address.pl \
 	dhcp-clear.pl dhcp-gateway.pl ppp-set-iface.pl \
 	traffic-monitor traffic-monitor-logger flush-fwmarks \
-	setup-wireless bandwidth-test.pl
+	setup-wireless bandwidth-test.pl external-ip.pl
 
 
 dhcpenterdir = /etc/dhcp3/dhclient-enter-hooks.d

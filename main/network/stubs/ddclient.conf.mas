@@ -1,20 +1,19 @@
 <%args>
-$service
 $login
 $password
 $hostname
+$serviceData
+$server
+@gws
+$cmd
 </%args>
 <%init>
-use EBox::Network::Model::DynDNS;
-my %services = %{EBox::Network::Model::DynDNS::SERVICES};
-my $serviceData = $services{$service};
-
 my $protocol = $serviceData->{protocol};
-my $server = $serviceData->{server};
 my $use = $serviceData->{use};
 </%init>
 # /etc/ddclient.conf
 
+# Default global variables
 pid=/var/run/ddclient.pid
 ssl=yes
 
@@ -23,17 +22,23 @@ password='<% $password %>'
 
 protocol=<% $protocol %>
 server=<% $server %>
-% if ($use eq 'web') {
+% if ( scalar(@gws) == 0 ) {
+%    if ($use eq 'web') {
 use=web, web=<% $serviceData->{web} %>, web-skip='<% $serviceData->{web_skip} %>'
 
-% } elsif ($use eq 'if') {
+%    } elsif ($use eq 'if') {
 use=if, if=<% $serviceData->{iface} %>
 
-% } elsif ($use eq 'linksys') {
+%    } elsif ($use eq 'linksys') {
 use=linksys, fw=<% $serviceData->{fw} %>, fw-login=<% $serviceData->{fw_login} %>, fw-password=<% $serviceData->fw_password %>
 
-% } elsif ($use eq 'fw') {
+%    } elsif ($use eq 'fw') {
 use=linksys, fw=<% $serviceData->{fw} %>, fw-skip=<% $serviceData->{fw_skip} %>
 
-% }
+%    }
 <% $hostname %>
+% } else {
+%    foreach my $gw (@gws) {
+use=cmd, cmd='<% "$cmd $gw" %>' <% $hostname %>,<% "${gw}.$hostname" %>
+%    }
+% }

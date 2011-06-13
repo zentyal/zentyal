@@ -373,6 +373,8 @@ sub extractBundle
 #
 #        - Create John home directory (Security audit)
 #        - Set QA updates (QA repository and its preferences)
+#        - Autoconfigure DynamicDNS service
+#        - Install cloud-prof package
 #        - Execute bundle scripts (Alert autoconfiguration)
 #
 # Parameters:
@@ -386,6 +388,7 @@ sub executeBundle
 
     $self->_setUpAuditEnvironment();
     $self->_setQAUpdates($params, $confKeys);
+    $self->_setDDNSConf();
     $self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
 }
@@ -433,6 +436,8 @@ sub deleteData
 
     # Remove QA updates configuration
     $self->_removeQAUpdates();
+    # Remove DDNS autoconfiguration
+    $self->_removeDDNSConf();
     # Remove alert autoconfiguration
     # FIXME: Do by alertAutoconfiguration script?
     my $events = EBox::Global->modInstance('events');
@@ -568,6 +573,22 @@ sub _setQAUpdates
         EBox::info('No software module installed QA updates should be done by hand');
     }
 
+}
+
+# Set the Dynamic DNS configuration only if the service was not
+# enabled before and using other method
+sub _setDDNSConf
+{
+    my ($self) = @_;
+
+    my $networkMod = EBox::Global->modInstance('network');
+    unless ( $networkMod->isDDNSEnabled() ) {
+        my $ddnsModel = $networkMod->model('DynDNS');
+        $ddnsModel->set(enableDDNS => 1,
+                        service    => 'cloud');
+    } else {
+        EBox::info('DynDNS is already in used, so not using Zentyal Cloud service');
+    }
 }
 
 # Install ebox-cloud-prof package in a hour to avoid problems with dpkg
@@ -760,6 +781,22 @@ sub _removeAptQAPreferences
         EBox::Sudo::root("mv '$back' '$path'");
     }
 }
+
+# Remove the Dynamic DNS configuration only if the service is using
+# cloud service
+sub _removeDDNSConf
+{
+    my ($self) = @_;
+
+    my $networkMod = EBox::Global->modInstance('network');
+    if ( $networkMod->DDNSUsingCloud() ) {
+        my $ddnsModel = $networkMod->model('DynDNS');
+        $ddnsModel->set(enableDDNS => 0);
+    } else {
+        EBox::info('DynDNS is using other service, not modifying');
+    }
+}
+
 
 # Check if the ebox-cloud-prof is already installed
 sub _cloudProfInstalled

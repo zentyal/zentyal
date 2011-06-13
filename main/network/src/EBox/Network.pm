@@ -64,6 +64,7 @@ use EBox::Dashboard::GraphRow;
 use EBox::Dashboard::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
+use EBox::Network::Model::DynDNS;
 use EBox::Sudo;
 use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
@@ -2537,13 +2538,36 @@ sub _generateProxyConfig
                         [ proxyConf => $proxyConf ]);
 }
 
+# Method: isDDNSEnabled
+#
+#    Check if the Dynamic DNS service is enabled or not
+#
+# Returns:
+#
+#    Boolean - indicating if the service is enabled or not
 #
 sub isDDNSEnabled
 {
-  my $self = shift;
-  my $ddnsModel = $self->model('DynDNS');
-  my $row = $ddnsModel->row();
-  return $row->valueByName('enableDDNS');
+    my ($self) = @_;
+    my $ddnsModel = $self->model('DynDNS');
+    return $ddnsModel->enableDDNSValue();
+}
+
+# Method: DDNSUsingCloud
+#
+#    Check if the Dynamic DNS service is using Zentyal Cloud or not
+#
+# Returns:
+#
+#    Boolean - indicating if the service is enabled or not
+#
+sub DDNSUsingCloud
+{
+    my ($self) = @_;
+
+    my $ddnsModel = $self->model('DynDNS');
+    return ($ddnsModel->serviceValue() eq 'cloud');
+
 }
 
 # Generate the '/etc/ddclient.conf' configuration file for DynDNS
@@ -2553,19 +2577,59 @@ sub _generateDDClient
 
     my $enabled = $self->isDDNSEnabled();
 
+    my $ddnsModel = $self->model('DynDNS');
+    my $row = $ddnsModel->row();
+    my $serviceData = $EBox::Network::Model::DynDNS::SERVICES{$row->valueByName('service')};
+    my $server = $serviceData->{server};
+    my @hostnames = ( $row->valueByName('hostname') );
+    my $login = $row->valueByName('username');
+    my $password = $row->valueByName('password');
+    my $cmd = EBox::Config::share() . 'zentyal-network/external-ip.pl';
+    my @gws = ();
+
+    if ($enabled) {
+        if ( $row->valueByName('service') eq 'cloud' ) {
+            my $gl = EBox::Global->getInstance(1);
+            if ( $gl->modExists('remoteservices') ) {
+                my $rs = $gl->modInstance('remoteservices');
+                if ( $rs->eBoxSubscribed() and $rs->can('DDNSServerIP') ) {
+                    $login = $rs->subscriberUsername();
+                    $password = '123456'; # Password is useless here
+                    @hostnames = ( $rs->dynamicHostname() );
+                    $server = $rs->DDNSServerIP();
+                    unless ( $server ) {
+                        EBox::warn('Zentyal Cloud cannot be used if we cannot '
+                                   . 'get the DynDNS server');
+                        $enabled = 0;
+                    }
+                    # Check for multi-output gateways
+                    my $gws = $self->gateways();
+                    if ( scalar(@{$gws}) > 1 ) {
+                        # Multigw scenario
+                        @gws = map { $_->{name} } @{$gws};
+                    }
+                } else {
+                    EBox::warn('Zentyal Cloud cannot be used if the host is not subscribed');
+                    $enabled = 0;
+                }
+            }
+        }
+    }
+
     $self->writeConfFile(DEFAULT_DDCLIENT_FILE,
                          'network/ddclient.mas',
                          [ enabled => $enabled ]);
 
-    if ($enabled) {
-        my $ddnsModel = $self->model('DynDNS');
-        my $row = $ddnsModel->row();
+    if ( $enabled ) {
         $self->writeConfFile(DDCLIENT_FILE,
                              'network/ddclient.conf.mas',
-                             [ service  => $row->valueByName('service'),
-                               login => $row->valueByName('username'),
-                               password => $row->valueByName('password'),
-                               hostname => $row->valueByName('hostname') ]);
+                             [ serviceData => $serviceData,
+                               login       => $login,
+                               password    => $password,
+                               hostnames   => \@hostnames,
+                               server      => $server,
+                               cmd         => $cmd,
+                               gws         => \@gws ]);
     }
 }
 

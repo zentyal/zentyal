@@ -1194,6 +1194,57 @@ sub reportAdminPort
     }
 }
 
+# Method: DDNSServerIP
+#
+#     Get the DynDNS Server IP address if the host is connected
+#
+# Returns:
+#
+#     String - the IP address to use. Empty string if this cannot be got
+#
+sub DDNSServerIP
+{
+    my ($self) = @_;
+
+    my $ret = "";
+
+    if ( $self->eBoxSubscribed() ) {
+        my $hostname = $self->_confKeys()->{dynamicDnsServer};
+
+        if ( $hostname ) {
+            try {
+                $ret = $self->queryInternalNS($hostname, 'random');
+            } otherwise { };
+        }
+    }
+    return $ret;
+
+}
+
+# Method: dynamicHostname
+#
+#    Get the Dynamic Hostname for the DynDNS service if the server is
+#    connected
+#
+# Returns:
+#
+#    String - the FQDN for the dynamic DNS hostname. Empty string if
+#             the server is not subscribed
+#
+sub dynamicHostname
+{
+    my ($self) = @_;
+
+    my $ret = "";
+
+    if ( $self->eBoxSubscribed() ) {
+        my $domain = $self->_confKeys()->{dynamicDomain};
+        $ret = $self->eBoxCommonName() . '.' . $domain;
+    }
+    return $ret;
+
+}
+
 # Group: Public methods related to reporting
 
 # Method: logReportInfo
@@ -1558,8 +1609,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $connValue, $connValueType, $subsLevelValue, $DRValue) =
-      ( __('None'), '', 'info', '', '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', '', 'info', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/zentyal/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1578,6 +1629,11 @@ sub _ccConnectionWidget
         }
 
         $serverName = $self->eBoxCommonName();
+        my $gl  = EBox::Global->getInstance(1);
+        my $net = $gl->modInstance('network');
+        if ( $net->can('DDNSUsingCloud') and $net->DDNSUsingCloud() ) {
+            $fqdn = $self->dynamicHostname();
+        }
 
         my %i18nLevels = ( '-1' => __('Unknown'),
                            '0'  => __('Basic'),
@@ -1634,6 +1690,10 @@ sub _ccConnectionWidget
     $section->add(new EBox::Dashboard::Value(__('Server name'), $serverName));
     $section->add(new EBox::Dashboard::Value(__('Connection status'),
                                              $connValue, $connValueType));
+    if ( $fqdn ) {
+        $section->add(new EBox::Dashboard::Value(__('External server name'),
+                                                 $fqdn));
+    }
     $section->add(new EBox::Dashboard::Value(__('Server subscription'),
                                              $subsLevelValue));
     $section->add(new EBox::Dashboard::Value(__('Technical support'),

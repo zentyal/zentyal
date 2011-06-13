@@ -30,9 +30,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Types::IPAddr;
 use EBox::Types::HostIP;
-use EBox::Types::Text;
 
 # Dependencies
 
