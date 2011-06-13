@@ -46,6 +46,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/Backup/Makefile
+src/EBox/CGI/Wizard/Makefile
 src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/RemoteServices/Makefile
@@ -60,9 +61,11 @@ src/scripts/Makefile
 src/templates/Makefile
 src/templates/RemoteServices/Makefile
 src/templates/RemoteServices/Backup/Makefile
+src/templates/RemoteServices/Wizard/Makefile
 schemas/Makefile
-stubs/Makefile
 schemas/sql/Makefile
+stubs/Makefile
+www/Makefile
 Makefile
 ])
 

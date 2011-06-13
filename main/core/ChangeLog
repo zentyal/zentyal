@@ -3,6 +3,8 @@ HEAD
 	+ Help toggler is shown if needed when dynamic content is received
 	+ Fixed issue when disabling several actions at once in a data table view
 	+ All the custom actions are disabled when one is clicked
+	+ Submit wizard pages asynchronously and show loading indicator
+	+ Added carousel.js for slide effects
 2.1.7
 	+ Fixed issues with wrong html attributes quotation
 	+ Bugfix: volatile types can now calculate their value using other

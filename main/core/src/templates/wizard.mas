@@ -11,6 +11,7 @@ var DURATION = 0.5;
 var actualPage = 0;
 var visible = 0;
 var firstLoad = true;
+var isLoading = false;
 var pages = new Array();
 var i=0;
 
@@ -19,13 +20,33 @@ pages[i++] = "./<% $page %>";
 % }
 
 
+// enable/disable next step buttons
+function setLoading(loading) {
+    if (loading) {
+        // Disable more clicks
+        $('wizard-loading1').show();
+        $('wizard-next1').disabled = true;
+        $('wizard-next2').disabled = true;
+        $('wizard-skip1').disabled = true;
+        $('wizard-skip2').disabled = true;
+        isLoading = true;
+    }
+    else {
+        $('wizard-loading1').hide();
+        $('wizard-next1').disabled = false;
+        $('wizard-next2').disabled = false;
+        $('wizard-skip1').disabled = false;
+        $('wizard-skip2').disabled = false;
+        isLoading = false;
+    }
+}
+
+
 // Load a wizard page
 function loadPage(index) {
     if ( index < 0 || index > pages.length ) return;
 
-    // Disable more clicks
-    $('wizard-next1').disabled = true;
-    $('wizard-next2').disabled = true;
+    setLoading(true);
 
     $('wizard_error').hide();
 
@@ -47,6 +68,7 @@ function loadPage(index) {
     if ( index == pages.length ) {
         $('wizard-next1').hide();
         $('wizard-next2').hide();
+        setLoading(false);
         finalPage();
         return;
     }
@@ -60,10 +82,7 @@ function loadPage(index) {
             form.onsubmit = function() { return false; };
         }
 
-        // Configure buttons
-        $('wizard-next1').disabled = index == pages.length;
-        $('wizard-next2').disabled = index == pages.length;
-
+        setLoading(false);
         if ( index == pages.length-1 ) {
             $('wizard-next1').value = "<% __('Finish') %>";
             $('wizard-next2').value = "<% __('Finish') %>";
@@ -89,6 +108,10 @@ function skipStep() {
 
 // Save changes and step into next page
 function nextStep() {
+    // avoid possible mess by page calls to this function
+    if (isLoading) return;
+    setLoading(true);
+
     // Submit form
     var form = $$('#wizardPage' + visible + ' form')[0];
 
@@ -100,16 +123,21 @@ function nextStep() {
         $('wizard_error').appear({
                 duration: 0.5,
                 from: 0, to: 1 });
+
+        setLoading(false);
     };
 
+    var onComplete = function(response) {
+        // Load next page
+        if ( !failed )
+            loadPage(actualPage+1);
+    }
+
     form.request({
-        asynchronous: false,
         onFailure: onFail,
+        onComplete: onComplete,
     });
 
-    // Load next page
-    if ( !failed )
-        loadPage(actualPage+1);
 }
 
 // Shows final page
@@ -141,6 +169,7 @@ Event.observe(window, 'load', function() {
 
 <div id="wizard_error" class="error" style="display: none; margin-bottom: 20px"></div>
 <div style="text-align: right; clear: right">
+    <img src="/data/images/ajax-loader.gif" id="wizard-loading1" />
     <input type="button" id="wizard-skip1" value="<% __('Skip') %>" onclick="skipStep()" />
     <input type="button" id="wizard-next1" value="<% __('Next') %>" onclick="nextStep()" />
 </div>

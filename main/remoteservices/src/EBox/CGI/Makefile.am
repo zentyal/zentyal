@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS=Backup
+SUBDIRS = Backup Wizard
 
 perldir = @PERLPATH@/EBox/CGI/RemoteServices
 

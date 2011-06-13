@@ -194,6 +194,19 @@ sub isEnabled
     return 1;
 }
 
+
+# Method: wizardPages
+#
+# Overrides:
+#
+#       <EBox::Module::Base::wizardPages>
+#
+sub wizardPages
+{
+    my ($self) = @_;
+    return [ '/RemoteServices/Wizard/Subscription' ];
+}
+
 # Group: Public methods
 
 # Method: addModuleStatus
