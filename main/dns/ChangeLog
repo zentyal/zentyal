@@ -1,4 +1,4 @@
-HEAD
+2.1.3
 	+ Give support for Round-Robin records, that is, the same name
 	  points to different IP addresses
 	+ Add transparent cache DNS when firewall module is enabled
