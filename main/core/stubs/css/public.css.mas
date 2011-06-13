@@ -603,6 +603,8 @@ input {
     margin: 0;
 }
 
+#nav li li { display: none; }
+
 #nav li a {
     display: block;
     padding: 8px 10px;

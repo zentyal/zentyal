@@ -54,29 +54,25 @@ sub html
         $html .= "<li id='" . $self->{id} . "'>\n";
     }
 
-    my $name = $self->{name};
-
     if (defined($url)) {
         if ($url eq $current) {
             $show = 1;
         }
         $html .= "<a title='$text' href='/zentyal/$url' class='navarrow' ";
     } else {
-        $html .= "<a title='$text' href='#' class='navarrow' ";
-        $html .= "onclick=\"\$('submenu$name').toggle();return false;\"";
+        $html .= "<a title='$text' href='' class='navarrow' ";
+        $html .= "onclick=\"showMenu('menu$self->{name}');return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";
 
-    my $display = ($self->{name} eq $current);
-    my $style = $display ? 'block' : 'none';
-
-    $html .= "<ul id='submenu$name' class='submenu' style='display:$style'>\n";
+    $html .= "<ul class='submenu'>\n";
 
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
 
     foreach my $item (@sorted) {
-        $item->{style} = "menu$name";
+        $item->{style} = "menu$self->{name}";
+        my $display = ($self->{name} eq  $current);
         $html .= $item->html($display);
     }
 

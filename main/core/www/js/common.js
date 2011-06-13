@@ -35,6 +35,42 @@ function hide(id){
     setDefault();
 }
 
+var shownMenu = "";
+
+function showMenu(name){
+	var inc;
+	if (shownMenu.length != 0) {
+        $$('.' + shownMenu).each(function(e) {
+            e.style.display = 'none'
+        });
+/*
+		elements=getElementByClass(shownMenu);
+		inc=0;
+		while (elements[inc]){
+			elements[inc].style.display="none";
+			inc++;
+		}
+*/
+	}
+
+    if (shownMenu == name) {
+        shownMenu = "";
+	} else {
+        $$('.' + name).each(function(e) {
+            e.style.display = 'inline'
+        });
+/*
+		elements=getElementByClass(name);
+		inc=0;
+		while (elements[inc]){
+			elements[inc].style.display="inline";
+			inc++;
+		}
+*/
+		shownMenu = name;
+	}
+}
+
 /*
 Function: checkAll
 
@@ -45,12 +81,12 @@ Function: checkAll
 Parameters:
 
         id - identifier where all checkboxs should be checked
-        allElementName - name for the all check box
+        allElementName - name for the all check box 
 
 */
 function checkAll(id, allElementName){
 
-    var form = document.getElementById(id);
+        var form = document.getElementById(id);
     var allbox = form.elements[allElementName];
     for (var i=0;i<form.elements.length;i++)
     {
@@ -149,19 +185,4 @@ function show(elementId)
 
   Element.removeClassName(elementId, 'hidden');
 
-}
-
-function showMenu(name)
-{
-    var id = 'submenu' + name;
-    var submenus = $$('.submenu');
-
-    for (var i = 0; i < submenus.length; i++) {
-        var submenu = submenu[i];
-        if (submenu.id == id) {
-            submenu.toggle();
-        } else {
-            submenu.hide();
-        }
-    }
 }

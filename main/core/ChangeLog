@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in menu search
 	+ Fixed missing messages of multi state actions
 	+ Help toggler is shown if needed when dynamic content is received
 	+ Fixed issue when disabling several actions at once in a data table view
