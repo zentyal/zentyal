@@ -3788,7 +3788,7 @@ sub menu
                                       'order' => 60));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/View/DynDNS',
-                                      'text' => 'DynDNS',
+                                      'text' => __('Dynamic DNS'),
                                       'order' => 70));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
