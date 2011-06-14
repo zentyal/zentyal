@@ -246,7 +246,7 @@ sub _message
                 . 'already subscribed your Zentyal server, the provider is Zentyal '
                 . 'Cloud. If not, consider getting the free {ohb}Basic Server Subscription{ch}: '
                 . 'it includes Dynamic DNS feature that gives your server human-readable public '
-                . 'hostname (yourserver.zentyal.me).'
+                . 'hostname (yourserver.zentyal.me).',
                 ohb => '<a href="' . BASIC_URL . '" target="_blank">',
                 ch  => '</a>');
 }
