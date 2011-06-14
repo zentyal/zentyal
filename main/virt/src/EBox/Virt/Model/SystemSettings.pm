@@ -49,6 +49,9 @@ sub new
 
     my $self = $class->SUPER::new(@_);
 
+    my $totalMemory = `free -m | awk 'NR==2 { print \$2 }'`;
+    $self->{maxMem} = $totalMemory / 2;
+
     bless ( $self, $class );
 
     return $self;
@@ -87,7 +90,7 @@ sub _populateOSTypes
 #
 sub _table
 {
-    my $totalMemory = `free -m | awk 'NR==2 { print \$2 }'`;
+    my ($self) = @_;
 
     my @tableHeader = (
        new EBox::Types::Select(
@@ -101,7 +104,7 @@ sub _table
                             printableName => __('Base Memory'),
                             editable      => 1,
                             min           => 1,
-                            max           => $totalMemory / 2,
+                            max           => $self->{maxMem},
                             defaultValue  => 512,
                            ),
     );
