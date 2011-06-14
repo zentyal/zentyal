@@ -20,6 +20,7 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::DomainName;
@@ -151,6 +152,29 @@ sub viewCustomizer
 
 }
 
+# Method: validateTypedRow
+#
+#   Check the used service requires info from form
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if ( $allFields->{enableDDNS}->value()
+         and $SERVICES{$allFields->{service}->value()}->{require_info} ) {
+        # Check the username, password and domain name are set
+        foreach my $field (qw(username password hostname)) {
+            unless ( $allFields->{$field}->value() ) {
+                throw EBox::Exceptions::MissingArgument( $allFields->{$field}->printableName() );
+            }
+        }
+    }
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -180,16 +204,19 @@ sub _table
            'fieldName'     => 'username',
            'printableName' => __('Username'),
            'editable'      => 1,
+           'optional'      => 1,
            ),
        new EBox::Types::Password(
            'fieldName'     => 'password',
            'printableName' => __('Password'),
            'editable'      => 1,
+           'optional'      => 1,
            ),
        new EBox::Types::DomainName(
            'fieldName'     => 'hostname',
            'printableName' => __('Hostname'),
            'editable'      => 1,
+           'optional'      => 1,
            ),
       );
 
