@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-pkgdata_SCRIPTS = enable-module
+pkgdata_SCRIPTS = enable-module purge-module
 
 MAINTAINERCLEANFILES = Makefile.in
 
