@@ -846,21 +846,10 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'DNS',
-                                        'text' => $self->printableName(),
-                                        'separator' => 'Infrastructure',
-                                        'order' => 420);
-
-    $folder->add(
-        new EBox::Menu::Item('url' => 'DNS/View/DomainTable',
-                             'text' => $self->model('DomainTable')->printableName())
-          );
-    $folder->add(
-        new EBox::Menu::Item('url' => 'DNS/Composite/Global',
-                             'text' => $self->composite('Global')->printableName())
-       );
-
-    $root->add($folder);
+    $root->add(new EBox::Menu::Item('text' => $self->printableName(),
+                                    'url' => 'DNS/Composite/Global',
+                                    'separator' => 'Infrastructure',
+                                    'order' => 420));
 }
 
 sub logReportInfo

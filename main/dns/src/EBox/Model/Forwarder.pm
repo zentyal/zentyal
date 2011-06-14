@@ -88,7 +88,7 @@ sub _table
             tableDescription => \@tableDesc,
             class => 'dataTable',
             help => __('The server will send the queries to the forwarders first, '
-                       . 'and if not answered it will attempt to answer the query'),
+                       . 'and if not answered it will attempt to answer the query.'),
             printableRowName => __('forwarder'),
             order => 1,
             insertPosition => 'back',

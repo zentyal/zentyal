@@ -57,16 +57,14 @@ sub new
 #
 sub _description
 {
-
-    my $dns = EBox::Global->modInstance('dns');
-
-    my $pageTitle = __('Global Settings');
+    my $pageTitle = 'DNS';
 
     my $description =
       {
        components      => [
-           '/' . $dns->name() . '/Settings',
+           '/dns/Settings',
            'Forwarder',
+           'DomainTable',
           ],
        layout          => 'top-bottom',
        name            => 'Global',
@@ -77,6 +75,5 @@ sub _description
 
     return $description;
 }
-
 
 1;

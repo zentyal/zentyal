@@ -56,19 +56,6 @@ sub new
     return $self;
 }
 
-# Method: headTitle
-#
-#     Overrided to not show a title
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::headTitle>
-#
-sub headTitle
-{
-    return undef;
-}
-
 # Group: Protected methods
 
 # Method: _table
@@ -94,9 +81,6 @@ sub _table
               printableName => __('Enable transparent DNS cache'),
               editable      => $fwEnabled,
               unique        => 1,
-              help          => __('Every DNS query will be redirected to local '
-                                  . 'DNS server to reply with the queried result, '
-                                  . 'if any.'),
              ),
       );
 
@@ -108,10 +92,11 @@ sub _table
             defaultActions => [ 'editField',  'changeView' ],
             tableDescription => \@tableDesc,
             messages => { update => __('Settings changed') },
+            help     => __('Every DNS query will be redirected to local '
+                         . 'DNS server if transparent mode is enabled.'),
         };
 
     return $dataTable;
 }
-
 
 1;

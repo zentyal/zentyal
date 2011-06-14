@@ -117,7 +117,7 @@ sub addDomain
     return unless (defined($hostnames) and @{$hostnames} > 0);
 
     my $hostnameModel =
-   		EBox::Model::ModelManager::instance()->model('HostnameTable');
+		EBox::Model::ModelManager::instance()->model('HostnameTable');
 
     $hostnameModel->setDirectory($self->{'directory'} . "/$id/hostnames");
     foreach my $hostname (@{$hostnames}) {
@@ -171,19 +171,6 @@ sub viewCustomizer
     $customizer->setModel($self);
     return $customizer;
 
-}
-
-# Method: headTitle
-#
-#     Overrided to not show a title
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::headTitle>
-#
-sub headTitle
-{
-    return undef;
 }
 
 # Group: Protected methods
@@ -272,12 +259,10 @@ sub _table
                                ),
           );
 
-    my $pageTitle = __('List of Domains');
-
     my $dataTable =
         {
             'tableName' => 'DomainTable',
-            'printableTableName' => $pageTitle,
+            'printableTableName' => __('Domains'),
             'automaticRemove' => 1,
             'defaultController' => '/zentyal/Dns/Controller/DomainTable',
             'HTTPUrlView'=> 'DNS/View/DomainTable',
@@ -286,7 +271,9 @@ sub _table
             'class' => 'dataTable',
             'printableRowName' => __('domain'),
             'sortedBy' => 'domain',
-            'pageTitle' => $pageTitle,
+            'help' => __('Here you can add the domains for this DNS server. '
+                       . 'Each domain can have different hostnames with aliases '
+                       . ' (A and CNAME) and other special records (MX, NS, TXT and SRV).'),
         };
 
     return $dataTable;
