@@ -2581,7 +2581,7 @@ sub _generateDDClient
     my $row = $ddnsModel->row();
     my $serviceData = $EBox::Network::Model::DynDNS::SERVICES{$row->valueByName('service')};
     my $server = $serviceData->{server};
-    my @hostnames = ( $row->valueByName('hostname') );
+    my $hostname = $row->valueByName('hostname');
     my $login = $row->valueByName('username');
     my $password = $row->valueByName('password');
     my $cmd = EBox::Config::share() . 'zentyal-network/external-ip.pl';
@@ -2595,7 +2595,7 @@ sub _generateDDClient
                 if ( $rs->eBoxSubscribed() and $rs->can('DDNSServerIP') ) {
                     $login = $rs->subscriberUsername();
                     $password = '123456'; # Password is useless here
-                    @hostnames = ( $rs->dynamicHostname() );
+                    $hostname = $rs->dynamicHostname();
                     $server = $rs->DDNSServerIP();
                     unless ( $server ) {
                         EBox::warn('Zentyal Cloud cannot be used if we cannot '
@@ -2626,7 +2626,7 @@ sub _generateDDClient
                              [ serviceData => $serviceData,
                                login       => $login,
                                password    => $password,
-                               hostnames   => \@hostnames,
+                               hostname    => $hostname,
                                server      => $server,
                                cmd         => $cmd,
                                gws         => \@gws ]);
