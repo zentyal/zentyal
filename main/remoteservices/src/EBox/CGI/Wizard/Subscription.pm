@@ -28,8 +28,7 @@ use SOAP::Lite;
 use Error qw(:try);
 
 use constant SOAP_URI => 'http://www.zentyal.com';
-# FIXME: switch to a secure point
-use constant SOAP_PROXY => 'http://www.zentyal.com/api/';
+use constant SOAP_PROXY => 'https://api.zentyal.com/';
 
 sub new # (cgi=?)
 {
