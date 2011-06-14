@@ -27,6 +27,10 @@ use EBox::Types::Password;
 use EBox::Types::Select;
 use EBox::Types::Text;
 
+use constant STORE_URL => 'http://store.zentyal.com/';
+use constant UTM       => '?utm_source=zentyal&utm_medium=network&utm_campaign=dynamicdns';
+use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
+
 our %SERVICES = (
     dyndns => {
         printableValue => 'DynDNS',
