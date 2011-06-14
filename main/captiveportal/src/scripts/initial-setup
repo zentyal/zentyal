@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+if ! getent group zentyal-captiveportal > /dev/null 2>&1
+then
+    addgroup --system zentyal-captiveportal
+fi
+if ! getent passwd zentyal-captiveportal > /dev/null 2>&1
+then
+    adduser --system --home /var/lib/zentyal-captiveportal/ \
+        --disabled-password --ingroup zentyal-captiveportal zentyal-captiveportal
+fi
+
+CPORTAL_LOG="/var/log/zentyal-captiveportal/"
+test -d $CPORTAL_LOG || mkdir $CPORTAL_LOG
+chown -R zentyal-captiveportal:zentyal-captiveportal $CPORTAL_LOG
+
+# create user session dir
+test -d /var/lib/zentyal-captiveportal/sessions || mkdir -p /var/lib/zentyal-captiveportal/sessions
+chown -R zentyal-captiveportal:zentyal-captiveportal /var/lib/zentyal-captiveportal
+
+# create apache certificates
+/usr/share/zentyal/create-certificate /var/lib/zentyal-captiveportal/ssl > /dev/null 2>&1 || true
+

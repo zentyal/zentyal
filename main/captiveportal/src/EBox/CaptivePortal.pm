@@ -74,17 +74,6 @@ sub actions
 #}
 
 
-# Method: initialSetup
-#
-# Overrides:
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-}
-
 sub modelClasses
 {
     return [
