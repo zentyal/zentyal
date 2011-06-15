@@ -4,7 +4,7 @@ SUBDIRS = CaptivePortal
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = CaptivePortal.pm
+nobase_perl_DATA = CaptivePortal.pm CaptivePortalFirewall.pm
 
 DISTCLEANFILES =
 

@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/captiveportal
 
-#nobase_Stub_DATA = upstart.mas
+nobase_Stub_DATA = captiveportal-apache2.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

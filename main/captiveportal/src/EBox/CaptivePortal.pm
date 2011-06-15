@@ -28,10 +28,9 @@ use EBox::Gettext;
 use EBox::Menu::Item;
 use Error qw(:try);
 use EBox::Sudo;
+use EBox::CaptivePortalFirewall;
 
-use constant VNC_PORT => 5900;
-
-my $UPSTART_PATH= '/etc/init/';
+use constant APACHE_CONF => '/var/lib/zentyal-captiveportal/apache2.conf';
 
 sub _create
 {
@@ -104,13 +103,27 @@ sub menu
 sub _setConf
 {
     my ($self) = @_;
+    my $settings = $self->model('Settings');
+
+    # Apache conf file
+    EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
+        "captiveportal/captiveportal-apache2.conf.mas",
+        [
+            http_port => $settings->http_portValue(),
+            https_port => $settings->https_portValue(),
+        ])
+
 }
 
 sub _daemons
 {
     my ($self) = @_;
 
-    return [];
+    return [
+        {
+            'name' => 'zentyal.apache2-captiveportal'
+        },
+    ];
 }
 
 # Method: widgets
@@ -124,6 +137,18 @@ sub _daemons
 #sub widgets
 #{
 #}
+
+
+sub firewallHelper
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled()) {
+        return new EBox::CaptivePortalFirewall();
+    }
+    return undef;
+}
+
 
 
 # Function: usesPort
@@ -143,6 +168,50 @@ sub usesPort # (protocol, port, iface)
     ($port eq $model->https_portValue()) and return 1;
 
     return undef;
+}
+
+
+# Function: httpPort
+#
+#   Returns the port where captive portal HTTP redirection resides
+#
+sub httpPort
+{
+    my ($self) = @_;
+    my $settings = $self->model('Settings');
+    return $settings->http_portValue(),
+}
+
+
+# Function: httpsPort
+#
+#   Returns the port where captive portal resides
+#
+sub httpsPort
+{
+    my ($self) = @_;
+    my $settings = $self->model('Settings');
+    return $settings->https_portValue(),
+}
+
+
+# Function: ifaces
+#
+#   Interfaces where captive portal is enabled
+#
+sub ifaces
+{
+    my ($self) = @_;
+    my $model = $self->model('Interfaces');
+    my $ids = $model->ids();
+    my @ifaces;
+    for my $id (@{$ids}) {
+        my $row = $model->row($id);
+        if($row->valueByName('enabled')) {
+            push(@ifaces, $row->valueByName('interface'));
+        }
+    }
+    return \@ifaces;
 }
 
 
