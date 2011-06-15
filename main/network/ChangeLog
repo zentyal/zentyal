@@ -1,4 +1,5 @@
 HEAD
+	+ Group sudo commands when adding routes and cleaning VLANs
 	+ Added new Zentyal Cloud service for DynDNS
 	+ Fixed DynDNS help string
 2.1.2

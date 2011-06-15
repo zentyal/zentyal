@@ -551,14 +551,16 @@ sub _cleanupVlanIfaces
 {
     my $self = shift;
     my @iflist = list_ifaces();
+    my @cmds;
     foreach my $iface (@iflist) {
         if ($iface =~ /^vlan/) {
             $iface =~ s/^vlan//;
             unless ($self->dir_exists("vlans/$iface")) {
-                EBox::Sudo::root("/sbin/vconfig rem vlan$iface");
+                push (@cmds, "/sbin/vconfig rem vlan$iface");
             }
         }
     }
+    EBox::Sudo::root(@cmds);
 }
 
 # given a list of network interfaces appends to it any existing bridged interface
@@ -2765,14 +2767,13 @@ sub _generateRoutes
     my @routes = @{$self->routes()};
     $self->_removeRoutes(\@routes);
     (@routes) or return;
+    my @cmds;
     foreach (@routes) {
         my $net = $_->{network};
         my $router = $_->{gateway};
-#         if (route_is_up($net, $router)) {
-#             EBox::Sudo::root("/sbin/ip route del $net via $router");
-#         }
-        EBox::Sudo::silentRoot("/sbin/ip route add $net via $router table main");
+        push (@cmds, "/sbin/ip route add $net via $router table main");
     }
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 # Write cron file
