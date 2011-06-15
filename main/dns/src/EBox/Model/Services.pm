@@ -272,17 +272,18 @@ sub _hostnameModel
 {
     my ($type) = @_;
 
-    my $parentRow = $type->model()->parentRow();
-    if ( defined($parentRow) ) {
-        return $parentRow->subModel('hostnames');
-    } else {
+    # FIXME: We cannot use API until the bug in parent deep recursion is fixed
+    # my $parentRow = $type->model()->parentRow();
+    # if ( defined($parentRow) ) {
+    #     return $parentRow->subModel('hostnames');
+    # } else {
         # Bug in initialisation code of ModelManager
         my $model = EBox::Global->modInstance('dns')->model('HostnameTable');
         my $dir = $type->model()->directory();
         $dir =~ s:srv:hostnames:g;
         $model->setDirectory($dir);
         return $model;
-    }
+    # }
 }
 
 sub _protocols
