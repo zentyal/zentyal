@@ -36,6 +36,13 @@ sub new
     return $self;
 }
 
+
+sub chains
+{
+    return { 'filter' => ['icaptive', 'fcaptive'] };
+}
+
+
 sub prerouting
 {
     my ($self) = @_;
@@ -53,10 +60,13 @@ sub prerouting
     return \@rules;
 }
 
+
 sub postrouting
 {
-#    my ($self) = @_;
-#    my @rules = ();
+    my ($self) = @_;
+    my @rules = ();
+
+    return \@rules;
 #
 #    my $port = $self->{captiveportal}->httpPort();
 #    my $ifaces = $self->{captiveportal}->ifaces();
@@ -74,19 +84,15 @@ sub postrouting
 #    return \@rules;
 }
 
+
 sub input
 {
     my ($self) = @_;
     my @rules = ();
 
-    # TODO
-    return;
-
     my $port = $self->{captiveportal}->httpPort();
+    my $captiveport = $self->{captiveportal}->httpsPort();
     my $ifaces = $self->{captiveportal}->ifaces();
-
-    my $usercorner = EBox::Global->modInstance('usercorner');
-    my $ucport = $usercorner->port();
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -95,21 +101,22 @@ sub input
         $r = "$input -j icaptive";
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
-        my $users = EBox::CaptivePortalHelper::currentUsers();
-        for my $user (@{$users}) {
-            my $ip = $user->{'ip'};
-            my $name = $user->{'user'};
-            $r = "-s $ip -j RETURN -m comment --comment 'user:$name'";
-            push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        }
+#        my $users = EBox::CaptivePortalHelper::currentUsers();
+#        for my $user (@{$users}) {
+#            my $ip = $user->{'ip'};
+#            my $name = $user->{'user'};
+#            $r = "-s $ip -j RETURN -m comment --comment 'user:$name'";
+#            push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+#        }
 
+        # Allow DNS and Captive portal access
         $r = "$input -p tcp --dport 53 -j ACCEPT";
         push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         $r = "$input -p udp --dport 53 -j ACCEPT";
         push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         $r = "$input -p tcp --dport $port -j ACCEPT";
         push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-        $r = "$input -p tcp --dport $ucport -j ACCEPT";
+        $r = "$input -p tcp --dport $captiveport -j ACCEPT";
         push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         $r = "$input -p tcp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
@@ -119,17 +126,15 @@ sub input
     return \@rules;
 }
 
+
 sub forward
 {
     my ($self) = @_;
     my @rules = ();
 
-    # TODO
-    return;
-
-    my $captiveportal = EBox::Global->modInstance('captiveportal');
-    my $port = $captiveportal->port();
-    my $ifaces = $captiveportal->ifaces();
+    my $port = $self->{captiveportal}->httpPort();
+    my $captiveport = $self->{captiveportal}->httpPort();
+    my $ifaces = $self->{captiveportal}->ifaces();
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -138,21 +143,22 @@ sub forward
         $r = "$input -j fcaptive";
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
-        my $users = EBox::CaptivePortalHelper::currentUsers();
-        for my $user (@{$users}) {
-            my $ip = $user->{'ip'};
-            my $name = $user->{'user'};
-            $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
-            push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        }
+#        my $users = EBox::CaptivePortalHelper::currentUsers();
+#        for my $user (@{$users}) {
+#            my $ip = $user->{'ip'};
+#            my $name = $user->{'user'};
+#            $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
+#            push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+#        }
 
+        # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        $r = "$input $ifc -p udp --dport 53 -j ACCEPT";
+        $r = "$input -p udp --dport 53 -j ACCEPT";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        $r = "$input $ifc -p tcp -j DROP";
+        $r = "$input -p tcp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-        $r = "$input $ifc -p udp -j DROP";
+        $r = "$input -p udp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
     }
     return \@rules;
