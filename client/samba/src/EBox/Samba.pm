@@ -1071,7 +1071,7 @@ sub _printerNotFound
     }
 }
 
-sub _addUsersToPrinter # (printer, users)
+sub _setPrinterUsers
 {
     my ($self, $printer, $users) = @_;
 
@@ -1080,14 +1080,15 @@ sub _addUsersToPrinter # (printer, users)
         return;
     }
 
-    for my $username (@{$users}) {
-        _checkUserExists($username);
-    }
+    my $usermod = EBox::Global->modInstance('users');
+    my @okUsers = grep {
+        $usermod->userExists($_)
+    } @{ $users };
 
-    $self->set_list("printers/$printer/users", "string", $users);
+    $self->set_list("printers/$printer/users", "string", \@okUsers);
 }
 
-sub _addGroupsToPrinter # (printer, groups)
+sub _setPrinterGroups
 {
     my ($self, $printer, $groups) = @_;
 
@@ -1097,13 +1098,11 @@ sub _addGroupsToPrinter # (printer, groups)
     }
 
     my $groupmod = EBox::Global->modInstance('users');
+    my @okGroups = grep {
+        $groupmod->groupExists($_)
+    } @{ $groups };
 
-    my @existingGroups;
-    for my $group (@{$groups}) {
-        push (@existingGroups, $group) if ($groupmod->groupExists($group));
-    }
-
-    $self->set_list("printers/$printer/groups", "string", $groups);
+    $self->set_list("printers/$printer/groups", "string", \@okGroups);
 }
 
 sub _printerUsers # (printer)
@@ -1166,77 +1165,52 @@ sub _printersForGroup # (user)
     return \@printers;
 }
 
-sub setPrintersForUser # (user, printers)
+sub setPrintersForUser
 {
     my ($self, $user, $newconf) = @_;
+    _checkUserExists($user);
 
-    my %currconf;
-    for my $conf (@{$self->_printersForUser($user)}) {
-        $currconf{$conf->{'name'}} = $conf->{'allowed'};
-    }
-    my @changes;
-    for my $conf (@{$newconf}) {
-        if ($currconf{$conf->{'name'}} xor $conf->{'allowed'}) {
-            push (@changes, $conf);
+    my %newConf = map {
+        $_->{name} => $_->{allowed}
+    } @{ $newconf };
+
+    my @printers = @{ $self->printers() };
+    foreach my $printer (@printers) {
+        my @printerUsers = @{$self->_printerUsers($printer)};
+        my $userAllowed = grep { $user eq $_ } @printerUsers;
+        my $allowed = exists $newConf{$printer} ? $newConf{$printer} : 0;
+        if ($allowed and (not $userAllowed)) {
+            push @printerUsers, $user;
+            $self->_setPrinterUsers($printer, \@printerUsers)
+        } elsif (not $allowed and $userAllowed) {
+            @printerUsers = grep { $user ne $_ } @printerUsers;
+            $self->_setPrinterUsers($printer, \@printerUsers)
         }
-    }
-
-    for my $printer (@changes) {
-        my @users;
-        my $new = undef;
-        my $name = $printer->{'name'};
-        if ($printer->{'allowed'}) {
-            @users = @{$self->_printerUsers($name)};
-            next if (grep(/^$user$/, @users));
-            push (@users, $user);
-            $new = 1;
-        } else {
-            my @ousers = @{$self->_printerUsers($name)};
-            @users = grep (!/^$user$/, @ousers);
-            if (@users != @ousers) {
-                $new = 1;
-            }
-        }
-
-        $self->_addUsersToPrinter($name, \@users) if ($new);
     }
 }
 
-sub setPrintersForGroup # (user, printers)
+sub setPrintersForGroup
 {
     my ($self, $group, $newconf) = @_;
 
     _checkGroupExists($group);
 
-    my %currconf;
-    for my $conf (@{$self->_printersForGroup($group)}) {
-        $currconf{$conf->{'name'}} = $conf->{'allowed'};
-    }
-    my @changes;
-    for my $conf (@{$newconf}) {
-        if ($currconf{$conf->{'name'}} xor $conf->{'allowed'}) {
-            push (@changes, $conf);
-        }
-    }
+    my %newConf = map {
+        $_->{name} => $_->{allowed}
+    } @{ $newconf };
 
-    for my $printer (@changes) {
-        my @groups;
-        my $new = undef;
-        my $name = $printer->{'name'};
-        if ($printer->{'allowed'}) {
-            @groups = @{$self->_printerGroups($name)};
-            next if (grep(/^$group$/, @groups));
-            push (@groups, $group);
-            $new = 1;
-        } else {
-            my @ogroups = @{$self->_printerGroups($name)};
-            @groups = grep (!/^$group$/, @ogroups);
-            if (@groups != @ogroups) {
-                $new = 1;
-            }
+    my @printers = @{ $self->printers() };
+    foreach my $printer (@printers) {
+        my @printerGroups = @{$self->_printerGroups($printer)};
+        my $groupAllowed = grep { $group eq $_ } @printerGroups;
+        my $allowed = exists $newConf{$printer} ? $newConf{$printer} : 0;
+        if ($allowed and (not $groupAllowed)) {
+            push @printerGroups, $group;
+            $self->_setPrinterGroups($printer, \@printerGroups)
+        } elsif (not $allowed and $groupAllowed) {
+            @printerGroups = grep { $group ne $_ } @printerGroups;
+            $self->_setPrinterGroups($printer, \@printerGroups)
         }
-
-        $self->_addGroupsToPrinter($name, \@groups) if ($new);
     }
 }
 
