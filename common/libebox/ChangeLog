@@ -1,3 +1,5 @@
+HEAD
+	+ Improved performance of the NetWrappers::list_ifaces method
 2.0.10
 	+ Added new NotConnected exception
 	+ Properly encode sudo command list to avoid wide character errors

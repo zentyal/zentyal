@@ -26,6 +26,7 @@ use Perl6::Junction qw(any);
 use EBox::Validate;
 use EBox::Sysfs;
 use IO::Socket::INET;
+use IO::Interface::Simple;
 
 BEGIN {
 	use Exporter ();
@@ -76,8 +77,7 @@ sub iface_exists #(iface)
 #
 sub list_ifaces
 {
-        my @devices = `ls /sys/class/net/`;
-        chomp(@devices);
+        my @devices = map { $_->{name} } IO::Interface::Simple->interfaces;
         @devices = sort @devices;
         return @devices;
 }
