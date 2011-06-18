@@ -1,4 +1,6 @@
 HEAD
+	+ Now deleted users and groups are removed correctly from printers
+	  permissions lists
 	+ Show group comment if exists as share description
 	+ Fixed SQL in activity report section
 	+ Removed redundant code _dumpSharesTree and _loadSharesTree
