@@ -9,7 +9,7 @@ use POSIX qw(:signal_h);
 try {
     use EBox::CGI::Run;
     use EBox;
-    EBox::initLogger('user-eboxlog.conf');
+    EBox::initLogger('usercorner-log.conf');
 
     # Workaround to clear Apache2's process mask
     my $sigset = POSIX::SigSet->new();

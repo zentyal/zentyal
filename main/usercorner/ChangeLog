@@ -1,3 +1,5 @@
+HEAD
+	+ Move users/conf/user-eboxlog.conf to usercorner/conf/usercorner-log.conf
 2.1.1
 	+ Show title on login screen to avoid confusions
 	+ User corner cannot longer be enabled in a slave server

@@ -42,6 +42,8 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
+conf/Makefile
+conf/usercorner-log.conf
 src/Makefile
 src/cgi/Makefile
 src/EBox/Makefile

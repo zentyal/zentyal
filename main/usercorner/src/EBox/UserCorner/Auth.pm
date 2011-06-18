@@ -185,14 +185,14 @@ sub updatePassword
 
 # Method: authen_cred
 #
-#   	Overriden method from <Apache2::AuthCookie>.
+#	Overriden method from <Apache2::AuthCookie>.
 #
 sub authen_cred  # (request, user, password)
 {
     my ($self, $r, $user, $passwd) = @_;
 
     unless ($self->checkPassword($user, $passwd)) {
-        EBox::initLogger('user-eboxlog.conf');
+        EBox::initLogger('usercorner-log.conf');
         my $log = EBox->logger();
         my $ip  = $r->connection->remote_host();
         $log->warn("Failed login from: $ip");

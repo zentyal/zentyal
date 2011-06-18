@@ -44,7 +44,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
 conf/Makefile
-conf/user-eboxlog.conf
 src/Makefile
 src/EBox/Makefile
 src/EBox/Migration/Makefile
