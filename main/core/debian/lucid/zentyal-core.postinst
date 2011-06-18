@@ -15,19 +15,19 @@ case "$1" in
         ZENTYAL_HOME=/var/lib/zentyal/
         ZENTYAL_LOGS_DIR=/var/log/zentyal
         FIRST_FILE=$ZENTYAL_HOME/.first
-        
+
         # create log directory
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
         chmod 750 $ZENTYAL_LOGS_DIR
-        
+
         # create Zentyal apache certificates
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1
-        
+
         # add the ebox group and user
         if ! getent group ebox > /dev/null 2>&1
         then
             addgroup --system ebox
-        
+
             # create the .first file only if we are on the first install
             touch $FIRST_FILE
         fi
@@ -43,12 +43,12 @@ case "$1" in
         fi
         # to allow PAM authentication
         adduser ebox shadow > /dev/null 2>&1
-        
+
         chown ebox:adm $ZENTYAL_LOGS_DIR
         chown -R ebox:adm $ZENTYAL_HOME/tmp
         chown -R ebox:adm $ZENTYAL_HOME/conf
         chown -R ebox:adm $ZENTYAL_HOME/log
-        
+
         # create and set permissions for ebox.sid
         EBOX_SID="$ZENTYAL_HOME/conf/ebox.sid"
         if [ ! -e $EBOX_SID ]; then
@@ -56,23 +56,23 @@ case "$1" in
         fi
         chown ebox:ebox $EBOX_SID
         chmod 0600 $EBOX_SID
-        
+
         # add the stderr file needed by sudo
         STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
         touch ${STDERR_FILE}
         chmod 0600 ${STDERR_FILE}
         chown ebox:ebox ${STDERR_FILE}
-        
+
         # add the dynamic-www- and downloads directories
         DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()}); print " "; print EBox::Config::downloads;  1;');
         for DIR in $DYNAMIC_WWW_DIRS; do
             mkdir -p $DIR
             chown -R ebox:ebox $DIR
         done
-        
+
         # change owner of $ZENTYAL_HOME
         chown ebox:ebox $ZENTYAL_HOME
-        
+
         # setup random redis password
         REDIS_PASS="$ZENTYAL_HOME/conf/redis.passwd"
         if [ ! -f $REDIS_PASS ]; then
@@ -81,15 +81,15 @@ case "$1" in
             chown ebox:ebox $REDIS_PASS
             tr -dc A-Za-z0-9 < /dev/urandom | head -c8 > $REDIS_PASS
         fi
-        
+
         # launch redis-server on first install (needed by EBox::init)
         if [ -f $FIRST_FILE -a -z "$2" ]; then
             /usr/bin/sudo -u ebox /usr/bin/redis-server $ZENTYAL_HOME/conf/redis.first
         fi
-        
+
         # sudo configuration
         /usr/share/zentyal/sudoers-friendly
-        
+
         # FIXME: apache is already restarted in the trigger
         # change this to set_ebox_port only?
         # The redis configuration is written here,
@@ -99,28 +99,28 @@ case "$1" in
             set_ebox_port
             invoke-rc.d zentyal apache start || true
         fi
-        
+
         # setup logs and events modules
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart events $2
-        
+
         # remove initial redis config and stop server
         if [ -f $FIRST_FILE -a -z "$2" ]; then
             redis-cli -p 6380 save > /dev/null 2>&1
             kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
         fi
         rm -f $ZENTYAL_HOME/conf/redis.first
-        
+
         dpkg-trigger --no-await zentyal-core
     ;;
     triggered)
         # remove the menu cache
         rm -f $ZENTYAL_HOME/tmp/menucache
-        
+
         invoke-rc.d zentyal apache restart || true
         invoke-rc.d zentyal logs restart || true
         invoke-rc.d zentyal events restart || true
-        
+
         # FIXME: this is not deleted after installation finishes
         # Probably there is another process that creates it again
         # having the DPKG_RUNNING env variable set to 1 ?
