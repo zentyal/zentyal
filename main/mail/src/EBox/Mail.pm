@@ -248,30 +248,30 @@ sub _serviceRules
 {
     return [
              {
-              'name' => 'Mail system',
-              'description' => __('Zentyal Mail System'),
+              'name' => 'SMTP',
+              'description' => __('Outgoing Mail (SMTP protocol).'),
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
-              'destinationPorts' => [ 25, 110, 143, 465, 993, 995 ],
+              'destinationPorts' => [ 25, 465  ],
               'rules' => { 'external' => 'accept', 'internal' => 'accept' },
              },
              {
-              'name' => 'Mail submission',
-              'description' => __('Mail submission from users'),
+              'name' => 'Incoming Mail',
+              'description' => __('POP, IMAP and SIEVE protocols'),
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
-              'destinationPorts' => [ 587 ],
+              'destinationPorts' => [ 110, 143,  993, 995, 4190 ],
               'rules' => { 'external' => 'deny', 'internal' => 'accept' },
              },
              {
-              'name' => 'ManageSieve',
-              'description' => 'Sieve',
+              'name' => 'Mail Submission',
+              'description' => __('Outgoing Mail (Submission protocol).'),
               'internal' => 1,
-              'protocol'   => 'tcp',
+              'protocol' => 'tcp',
               'sourcePort' => 'any',
-              'destinationPorts' => [ 4190 ],
+              'destinationPorts' => [  587 ],
               'rules' => { 'external' => 'deny', 'internal' => 'accept' },
              },
     ];
@@ -299,17 +299,6 @@ sub enableModDepends
 {
     my ($self) = @_;
     my @depends =  ('network', 'users');
-
-    if ($self->service('filter') ) {
-        my $name = $self->externalFilter();
-        if ($name ne 'custom') { # we cannot get deps from a custom module
-            my $filterMod = $self->_filterAttr($name, 'module', 0);
-            if ($filterMod) {
-                push @depends, $filterMod;
-            }
-        }
-    }
-
     return \@depends;
 }
 
@@ -322,7 +311,6 @@ sub enableModDepends
 sub modelClasses
 {
     return [
-            'EBox::Mail::Model::SMTPAuth',
             'EBox::Mail::Model::SMTPOptions',
             'EBox::Mail::Model::RetrievalServices',
             'EBox::Mail::Model::ObjectPolicy',
@@ -445,8 +433,6 @@ sub _setMailConf
     push(@array, 'usersDN', $users->usersDn());
     push(@array, 'uidvmail', $self->{musers}->uidvmail());
     push(@array, 'gidvmail', $self->{musers}->gidvmail());
-    push(@array, 'sasl', $self->service('sasl'));
-    push(@array, 'smtptls', $self->tlsSmtp());
     push(@array, 'popssl', $self->pop3s());
     push(@array, 'imapssl', $self->imaps());
     push(@array, 'ldap', $ldap->ldapConf());
@@ -464,7 +450,6 @@ sub _setMailConf
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
-    push(@array, 'smtptls', $self->tlsSmtp);
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'fwport', $self->fwport());
     push(@array, 'ipfilter', $self->ipfilter());
@@ -1010,14 +995,8 @@ sub _dovecotIsRunning
     if ($subService) {
         if (not $self->$subService()) {
             # ignore dovecot running status if it is needed for another service
-            if ( @{ $self->_retrievalProtocols } > 0 ) {
-                return 0;
-            }
-
-            # dovecot is also needed for smtp auth
-            if ($self->saslService()) {
-                return 0;
-            }
+            #   -> dovecot is  needed for smtp auth ad this is always active
+            return 0;
         }
 
     }
@@ -1035,23 +1014,6 @@ sub _postfixIsRunning
     return undef;
 }
 
-# Method: externalFiltersFromModules
-#
-#  return a list with all the external filters provided by Zentyal modules
-#
-sub externalFiltersFromModules
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance;
-    my %filters = map {
-        my ($name, $attrs) = $_->mailFilter();
-        defined $name ? ($name => $attrs) : ();
-    } @{ $global->modInstancesOfType('EBox::Mail::FilterProvider') };
-
-    return \%filters;
-
-}
 
 
 
@@ -1062,63 +1024,38 @@ sub externalFiltersFromModules
 sub externalFilter
 {
     my ($self) = @_;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    if ($mailfilter and $mailfilter->isEnabled()) {
+        return 'zentyal-mailfilter';
+    }
+
+
     my $filterModel = $self->model('ExternalFilter');
-    return $filterModel->externalFilter();
+    return $filterModel->row()->valueByName('externalFilter');
 }
 
-sub _assureCustomFilter
+sub customFilterInUse
 {
     my ($self) = @_;
-    if ($self->externalFilter ne 'custom') {
-        throw EBox::Exceptions::External(
-                    __('Cannot change this parameter for a non-custom filter'));
-    }
-
+    return $self->externalFilter() eq 'custom';
 }
 
-sub _filterAttr
+
+
+sub _zentyalMailfilterAttr
 {
-    my ($self, $name, $attr, $onlyActive) = @_;
-    defined $onlyActive
-      or$onlyActive = 1;
+    my ($self, $attr) = @_;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    $mailfilter or
+        throw EBox::Exceptions::Internal('Mailfilter not installed');
 
-    my $filters_r = $self->externalFiltersFromModules();
-
-    exists $filters_r->{$name}
-      or throw EBox::Exceptions::External(
-        __(
-'The mail filter does not exist. Please set another mail filter or disable it'
-        )
-      );
-
-    my $value =  $filters_r->{$name}->{$attr};
-    defined $value
-      or throw EBox::Exceptions::Internal(
-                                "Cannot found attribute $attr in filter $name");
-
-    return $value;
+    my ($name, $attrs) = $mailfilter->mailFilter();
+    exists $attrs->{$attr}
+      or throw EBox::Exceptions::Internal("Attribute $attr does not exist");
+    return $attrs->{$attr};
 }
 
-sub _assureFilterIsActive
-{
-    my ($self, $name) = @_;
-    my $filters_r = $self->externalFiltersFromModules();
 
-    exists $filters_r->{$name}
-      or throw EBox::Exceptions::External(
-        __(
-'The mail filter does not exist. Please set another mail filter or disable it'
-        )
-      );
-
-    if (not $filters_r->{$name}->{active}) {
-        throw EBox::Exceptions::External(
-            __(
-'The mail filter $name is not active. Please set another mail filter or disable it'
-            )
-        );
-    }
-}
 
 # returns wether we must use the filter attr instead of the stored in the
 # module's cponfgiuration
@@ -1144,10 +1081,10 @@ sub _useFilterAttr
 #
 sub ipfilter
 {
-    my $self = shift;
+    my ($self) = @_;
 
     if ($self->_useFilterAttr) {
-        return $self->_filterAttr($self->externalFilter, 'address');
+        return $self->_zentyalMailfilterAttr('address');
     }
 
     my $filterModel = $self->model('ExternalFilter');
@@ -1162,10 +1099,10 @@ sub ipfilter
 #
 sub portfilter
 {
-    my $self = shift;
+    my ($self) = @_;
 
     if ($self->_useFilterAttr) {
-        return $self->_filterAttr($self->externalFilter, 'port');
+        return $self->_zentyalMailfilterAttr('port');
     }
 
     my $filterModel = $self->model('ExternalFilter');
@@ -1179,10 +1116,10 @@ sub portfilter
 #
 sub fwport
 {
-    my $self = shift;
+    my ($self) = @_;
 
     if ($self->_useFilterAttr) {
-        return $self->_filterAttr($self->externalFilter, 'forwardPort');
+        return $self->_zentyalMailfilterAttr('forwardPort');
     }
 
     my $filterModel = $self->model('ExternalFilter');
@@ -1234,22 +1171,6 @@ sub getMaxMsgSize
     my $smtpOptions = $self->model('SMTPOptions');
     return $smtpOptions->maxMsgSize();
 }
-
-
-
-
-# Method: tlsSmtp
-#
-#  This method returns if tls on smtp is active
-#
-sub tlsSmtp
-{
-    my ($self) = @_;
-
-    my $smtpAuth = $self->model('SMTPAuth');
-    return $smtpAuth->tls();
-}
-
 
 sub _sslRetrievalServices
 {
@@ -1419,7 +1340,7 @@ sub service
         return $self->isEnabled();
     }
     elsif ($service eq 'sasl') {
-        return $self->saslService();
+        return $self->isEnabled();
     }
     elsif ($service eq 'pop') { # that e
         return $self->model('RetrievalServices')->pop3Value() or
@@ -1438,13 +1359,7 @@ sub service
 }
 
 
-sub saslService
-{
-    my ($self) = @_;
 
-    my $smtpAuth = $self->model('SMTPAuth');
-    return $smtpAuth->sasl();
-}
 
 
 #
@@ -1600,7 +1515,7 @@ sub _filterDashboardSection
     }else {
         $section->add(
                 new EBox::Dashboard::Value(
-                    __('Filter type') => $self->_filterAttr($filter,
+                    __('Filter type') => $self->_zentyalMailfilterAttr($filter,
                         'prettyName')
                     )
                 );

@@ -15,8 +15,7 @@
         $usersDN
         $uidvmail
         $gidvmail
-        $sasl
-        $smtptls
+
         $ldap
         $filter
         $ipfilter
@@ -34,13 +33,10 @@
 use EBox::Gettext;
 
 my $smtpRecipientRestrictions;
-if ($sasl) {
-    $smtpRecipientRestrictions .= 'permit_sasl_authenticated, ';
-}
-
+$smtpRecipientRestrictions .= 'permit_sasl_authenticated, ';
 $smtpRecipientRestrictions .=  'permit_mynetworks, ';
-# at his point all mail for whom the server isn't the final point or the
-# forwarder has been rejected so the next restrictions only applies in this two cases
+#at his point all mail for whom the server isn't the final point or the
+#forwarder has been rejected so the next restrictions only applies in this two cases
 $smtpRecipientRestrictions .= 'reject_unauth_destination, ';
 
 $smtpRecipientRestrictions .= 'reject_non_fqdn_sender, ';
@@ -58,11 +54,8 @@ if ($greylist) {
 
 # submission is only for local domain users and objects with relay
 # no need to greylist or to do more checks
-my $submissionRecipientRestrictions = 'reject_non_fqdn_sender, reject_non_fqdn_recipient' ;
-if ($sasl) {
-    $submissionRecipientRestrictions .= 'permit_sasl_authenticated, ';
-}
-$submissionRecipientRestrictions .=  'permit_mynetworks, reject';
+my $submissionRecipientRestrictions = 'reject_non_fqdn_sender, reject_non_fqdn_recipient, ';
+$submissionRecipientRestrictions .= 'permit_sasl_authenticated, permit_mynetworks, reject';
 
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
@@ -154,21 +147,18 @@ virtual_minimum_uid = 100
 virtual_uid_maps = static:<% $uidvmail %>
 virtual_gid_maps = static:<% $gidvmail %>
 
-
-% if (($smtptls) or ($sasl)){
-## TLS/SSL
+# TLS/SSL
 smtpd_use_tls = yes
 smtpd_tls_note_starttls = yes
 smtpd_tls_key_file  = <% $keyFile  %>
 smtpd_tls_cert_file = <% $certFile %>
 smtpd_tls_loglevel = 1
-% }
 
+# recipient restrictions
 smtpd_recipient_restrictions = <% $smtpRecipientRestrictions %>
 submission_recipient_restrictions = <% $submissionRecipientRestrictions %>
 smtpd_restriction_classes = submission_recipient_restrictions
 
-% if ($sasl) {
 #SASL authentication
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
@@ -178,7 +168,7 @@ smtpd_tls_auth_only = yes
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 smtpd_sasl_local_domain =  $myorigin
-% }
+
 
 % if ($filter) {
 content_filter=smtp-amavis:<% $ipfilter %>:<% $portfilter %>

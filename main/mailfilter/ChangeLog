@@ -1,4 +1,5 @@
 HEAD
+	+ Do not enable when mail module has a custom filter in use
 	+ runMonthlyQuery method uses keyGenerator option for consistency
 2.1.1
 	+ Manage MTA-BLOCKED event in the logs

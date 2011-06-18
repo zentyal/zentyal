@@ -164,6 +164,25 @@ sub _serviceRules
 
 # Method: enableActions
 #
+#       Override EBox::Module::Service::enableService
+#
+sub enableService
+{
+    my ($self, $status) = @_;
+    if ($status) {
+        my $mail = EBox::Global->modInstance('mail');
+        if ($mail and $mail->customFilterInUse()) {
+            throw EBox::Exceptions::External(
+__('Mail server has a custom filter set, unset it before enabling Zentyal Mail Filter module')
+                                            );
+        }
+    }
+
+    $self->SUPER::enableService($status);
+}
+
+# Method: enableActions
+#
 #       Override EBox::Module::Service::enableActions
 #
 sub enableActions
@@ -824,7 +843,7 @@ sub report
         'select' => 'lower(event) AS event, SUM(messages) AS messages',
         'from' => 'mailfilter_smtp_report',
         'group' => "event"
-    }, { 
+    }, {
         'key' => 'event',
         'keyGenerator' => 'lower(event)',
        });

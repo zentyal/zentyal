@@ -160,22 +160,6 @@ sub _availableFilters
                        { value => 'custom'   , printableValue => __('custom')},
                   );
 
-    my $mail = EBox::Global->modInstance('mail');
-    my %availableFilters = %{ $mail->externalFiltersFromModules() };
-    while (my ($name, $properties) = each %availableFilters) {
-        my $option = {
-                      value => $name,
-                      printableValue => $properties->{prettyName},
-                     };
-
-        if (not $properties->{active}) {
-            $option->{disabled} = 'disabled';
-        }
-
-        push @options, $option;
-
-    };
-
     return \@options;
 }
 
@@ -203,6 +187,24 @@ sub _checkFWPort
       return;
   $firewall->availablePort('tcp', $params_r->{fwport}->value());
 }
+
+sub precondition
+{
+    my ($self) = @_;
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    if (not $mailfilter) {
+        return 1;
+    }
+
+    return not $mailfilter->isEnabled();
+}
+
+
+sub preconditionFailMsg
+{
+    return __('As long mailfilter module is enabled the mail server will use the filter it provides');
+}
+
 
 1;
 

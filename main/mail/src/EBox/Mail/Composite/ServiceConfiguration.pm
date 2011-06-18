@@ -78,7 +78,6 @@ sub _description
       my $description =
         {
          components      => [
-                             'SMTPAuth',
                              'SMTPOptions',
                              'RetrievalServices',
                             ],
