@@ -30,7 +30,8 @@ use Error qw(:try);
 use EBox::Sudo;
 use EBox::CaptivePortalFirewall;
 
-use constant APACHE_CONF => '/var/lib/zentyal-captiveportal/apache2.conf';
+use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
+use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 
 sub _create
 {

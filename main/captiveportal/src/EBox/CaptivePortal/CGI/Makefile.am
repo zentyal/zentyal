@@ -1,5 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = EBox scripts templates cgi
+perldir = @PERLPATH@/EBox/CaptivePortal/CGI
+
+SUBDIRS = Login
 
 MAINTAINERCLEANFILES = Makefile.in
+

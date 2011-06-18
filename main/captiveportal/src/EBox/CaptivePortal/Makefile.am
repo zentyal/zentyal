@@ -1,11 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = Model Composite
+SUBDIRS = Model Composite CGI
 
-perldir = @PERLPATH@/EBox/CaptivePortal.pm
+perldir = @PERLPATH@/EBox/CaptivePortal
 
-#nobase_perl_DATA =
+nobase_perl_DATA = Auth.pm
 
-#EXTRA_DIST = $(nobase_perl_DATA)
+EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

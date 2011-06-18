@@ -9,6 +9,7 @@ AM_MAINTAINER_MODE
 
 AC_DEFINE_DIR(DATADIR, datadir)
 AC_DEFINE_DIR(LIBDIR, libdir)
+AC_DEFINE_DIR(LOCALSTATEDIR, localstatedir)
 
 AC_ARG_ENABLE([runtime-tests],
 	[ --disable-runtime-tests	Do not try to test runtime dependencies],
@@ -41,13 +42,18 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
+conf/Makefile
+conf/captiveportal-log.conf
 src/Makefile
 src/EBox/Makefile
 src/EBox/CaptivePortal/Makefile
 src/EBox/CaptivePortal/Model/Makefile
 src/EBox/CaptivePortal/Composite/Makefile
+src/EBox/CaptivePortal/CGI/Makefile
+src/EBox/CaptivePortal/CGI/Login/Makefile
 src/scripts/Makefile
 src/templates/Makefile
+src/cgi/Makefile
 stubs/Makefile
 schemas/Makefile
 Makefile
