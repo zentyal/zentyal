@@ -264,7 +264,8 @@ sub _message
     return __('Only those object members whose IP address is a host (/32), a '
               . 'valid MAC, the IP address is not used by the available range '
               . 'and whose name is unique as fixed address will be used') . '. '
-         . __('Members whose name is not a valid hostname will not be used.');
+         . __('Members whose name is not a valid hostname will be modified to '
+              . 'become a valid domain name.');
 }
 
 1;

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::DHCP::Model::General
+# Class: EBox::DHCP::Composite::General
 #
 #   This class is used to display the ebox dhcp module as in a whole
 #   allowing configure a DHCP server to configure in every static
@@ -38,7 +38,7 @@ use EBox::Global;
 #
 # Returns:
 #
-#       <EBox::DHCP::Model::General> - a
+#       <EBox::DHCP::Composite::General> - a
 #       general dhcp composite
 #
 sub new

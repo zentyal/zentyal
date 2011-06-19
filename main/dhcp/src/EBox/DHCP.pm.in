@@ -1791,6 +1791,7 @@ sub _nStaticIfaces
 # given interface
 # It should match the following criteria:
 #  * The member name must be a valid hostname
+#    - If not, then the member name is become to a valid one
 #  * Be a valid host IP address
 #  * Have a valid MAC address
 #  * The IP address must be in range available for the given interface
@@ -1804,7 +1805,7 @@ sub _allowedMemberInFixedAddress
     my ($self, $iface, $member, $objId, $readOnly) = @_;
 
     unless (EBox::Validate::checkDomainName($member->{'name'})) {
-        return 0;
+        $member->{'name'} =~ s/[^a-z0-9\-]/-/g;
     }
 
     if ($member->{mask} != 32 or (not defined($member->{macaddr}))) {
@@ -1876,13 +1877,12 @@ sub _allowedMemberInFixedAddress
     }
 
     # Check for the same MAC address
-    # FIXME: 2.1 have objects with unique MAC address so we must check
-    # only different objects
     my $fixedAddrModel = $self->_getModel('fixedAddrModel', $iface);
     my $ids = $fixedAddrModel->ids();
     foreach my $id ( @{$ids} ) {
         my $row = $fixedAddrModel->row($id);
         my $otherObjId = $row->valueByName('object');
+        next if ( $otherObjId eq $objId ); # Check done by unique MAC address property
         my $mbs = $objs->objectMembers($otherObjId);
         my @matches = grep {
             defined($_->{macaddr})
