@@ -1,3 +1,6 @@
+HEAD
+	+ Dynamic DNS: Transform gateway names when multigw is on to send
+	  only valid domain names
 2.1.4
 	+ Group sudo commands when adding routes and cleaning VLANs
 	+ Added new Zentyal Cloud service for DynDNS

@@ -2607,8 +2607,12 @@ sub _generateDDClient
                     # Check for multi-output gateways
                     my $gws = $self->gateways();
                     if ( scalar(@{$gws}) > 1 ) {
-                        # Multigw scenario
+                        # Multigw scenario, use a domain-like name for subdomains
+                        # One per gateway
                         @gws = map { $_->{name} } @{$gws};
+                        foreach my $gwName (@gws) {
+                            $gwName =~ s/[^a-z0-9\-]/-/g; # Transform to domains
+                        }
                     }
                 } else {
                     EBox::warn('Zentyal Cloud cannot be used if the host is not subscribed');
