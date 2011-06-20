@@ -37,7 +37,7 @@ use MIME::Base64;
 use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
-use YAML::Tiny;
+use YAML::XS;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
@@ -111,13 +111,13 @@ sub _savesession
     truncate($sidFile, 0);
 
     if (defined($sid)) {
-        my $data = YAML::Tiny->new;
-        $data->[0]->{sid} = $sid;
-        $data->[0]->{encodedcryptedpass} = $encodedcryptedpass;
-        $data->[0]->{time} = time();
-        $data->[0]->{user} = $user;
-        $data->[0]->{ip} = $ip;
-        print $sidFile $data->write_string();
+        my $data = {};
+        $data->{sid} = $sid;
+        $data->{encodedcryptedpass} = $encodedcryptedpass;
+        $data->{time} = time();
+        $data->{user} = $user;
+        $data->{ip} = $ip;
+        print $sidFile YAML::XS::Dump($data);
     }
 
     # Release the lock
@@ -149,9 +149,9 @@ sub _updatesession
 
     # Update session time
     if (defined($sess_info)) {
-        my $data = YAML::Tiny->read_string($sess_info);
-        $data->[0]->{time} = time();
-	    print $sidFile $data->write_string();
+        my $data = YAML::XS::Load($sess_info);
+        $data->{time} = time();
+	    print $sidFile YAML::XS::Dump($data);
     }
 
     # Release the lock
@@ -238,11 +238,11 @@ sub authen_ses_key  # (request, session_key)
           or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
 
         my $sess_info = join('', <$sidFile>);
-        my $data = YAML::Tiny->read_string($sess_info);
+        my $data = YAML::XS::Load($sess_info);
 
         if (defined($data)) {
-            $expired = _timeExpired($data->[0]->{time});
-            if ($session_key eq $data->[0]->{sid}) {
+            $expired = _timeExpired($data->{time});
+            if ($session_key eq $data->{sid}) {
                 $user = basename($sess_file);
             }
         }
