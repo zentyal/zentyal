@@ -1,4 +1,4 @@
-HEAD
+2.1.9
 	+ Safer way to delete rows, deleting its id reference first
 	+ Delete no longer needed workaround for gconf with "removed" attribute
 	+ Fixed regression in port range setter
