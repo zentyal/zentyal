@@ -16,7 +16,7 @@ CPORTAL_LOG="/var/log/zentyal-captiveportal/"
 test -d $CPORTAL_LOG || mkdir $CPORTAL_LOG
 chown -R zentyal-captiveportal:zentyal-captiveportal $CPORTAL_LOG
 
-# create user session dir
+# create user session dirs
 test -d /var/lib/zentyal-captiveportal/sessions || mkdir -p /var/lib/zentyal-captiveportal/sessions
 chown -R zentyal-captiveportal:zentyal-captiveportal /var/lib/zentyal-captiveportal
 

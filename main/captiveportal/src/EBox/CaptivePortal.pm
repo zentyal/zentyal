@@ -28,10 +28,12 @@ use EBox::Gettext;
 use EBox::Menu::Item;
 use Error qw(:try);
 use EBox::Sudo;
+use EBox::Ldap;
 use EBox::CaptivePortalFirewall;
 
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
+use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
 
 sub _create
 {
@@ -105,6 +107,7 @@ sub _setConf
 {
     my ($self) = @_;
     my $settings = $self->model('Settings');
+    my $users = EBox::Global->modInstance('users');
 
     # Apache conf file
     EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
@@ -112,8 +115,15 @@ sub _setConf
         [
             http_port => $settings->http_portValue(),
             https_port => $settings->https_portValue(),
-        ])
+        ]);
 
+    # Ldap connection (for auth) config file
+    EBox::Module::Base::writeConfFileNoCheck(LDAP_CONF,
+        "captiveportal/ldap.conf.mas",
+        [
+            ldap_url => EBox::Ldap::LDAPI,
+            bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn,
+        ]);
 }
 
 sub _daemons

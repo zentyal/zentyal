@@ -21,14 +21,13 @@ use warnings;
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;
-use EBox::CGI::Run;
 use EBox::Config;
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
 use EBox::LogAdmin;
+use Error qw(:try);
 use Crypt::Rijndael;
 use Apache2::Connection;
 use Apache2::RequestUtil;
@@ -41,10 +40,10 @@ use File::Basename;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
-# By now, the expiration time for a script session
-use constant MAX_SCRIPT_SESSION => 10; # In seconds
 # Session files dir
-use constant SIDS_DIR => '/var/lib/zentyal-captiveportal/sids';
+use constant SIDS_DIR => '/var/lib/zentyal-captiveportal/sessions/';
+use constant LDAP_CONF => '/var/lib/zentyal-captiveportal/ldap.conf';
+
 
 sub new
 {
@@ -143,7 +142,7 @@ sub _updatesession
 
 # Method: checkPassword
 #
-#   	Check if a given password matches the stored one after md5 it
+#   Check if a given password matches the stored
 #
 # Parameters:
 #
@@ -159,10 +158,22 @@ sub _updatesession
 #       <EBox::Exceptions::Internal> - when password's file cannot be opened
 sub checkPassword # (user, password)
 {
-    my ($self, $user, $passwd) = @_;
+    my ($self, $user, $password) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return $users->authUser($user, $passwd);
+    my $authorized = 0;
+    my $url = EBox::Config::configkeyFromFile('ldap_url', LDAP_CONF);
+    my $bind = EBox::Config::configkeyFromFile('bindstring', LDAP_CONF);
+
+    #replace usrename in bind string
+    $bind =~ s/{USERNAME}/$user/g;
+    try {
+        my $ldap = EBox::Ldap::safeConnect($url);
+        EBox::Ldap::safeBind($ldap, $bind, $password);
+        $authorized = 1; # auth ok
+    } otherwise {
+        $authorized = 0; # auth failed
+    };
+    return $authorized;
 }
 
 # Method: updatePassword
@@ -186,16 +197,16 @@ sub updatePassword
 
 # Method: authen_cred
 #
-#   	Overriden method from <Apache2::AuthCookie>.
+#   Overriden method from <Apache2::AuthCookie>.
 #
 sub authen_cred  # (request, user, password)
 {
     my ($self, $r, $user, $passwd) = @_;
 
     unless ($self->checkPassword($user, $passwd)) {
-        EBox::initLogger('user-eboxlog.conf');
+        EBox::initLogger('captiveportal-log.conf');
         my $log = EBox->logger();
-        my $ip  = $r->connection->remote_host();
+        my $ip  = $r->connection->remote_ip();
         $log->warn("Failed login from: $ip");
         return;
     }
@@ -288,8 +299,6 @@ sub authen_ses_key  # (request, session_key)
         defined($user) and last;
     }
     if(defined($user) and !$expired) {
-        my $ldap = EBox::Ldap->instance();
-        $ldap->refreshLdap();
         _updatesession($user);
         return $user;
     } elsif (defined($user) and $expired) {

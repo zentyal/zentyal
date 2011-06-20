@@ -1,0 +1,11 @@
+<%args>
+    $ldap_url
+    $bindstring
+</%args>
+
+# LDAP connection URL
+ldap_url = <% $ldap_url %>
+
+# bind dn with {USERNAME} token
+bindstring = <% $bindstring %>
+
