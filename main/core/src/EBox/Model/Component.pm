@@ -32,10 +32,17 @@ use EBox::Exceptions::MissingArgument;
 use Encode;
 use Error qw(:try);
 
-
 use EBox::Config::Redis;
-# XXX maybe we should move this to another place
-my $redis = EBox::Config::Redis->new();
+
+my $redis = undef;
+
+sub _redis
+{
+    unless ($redis) {
+       $redis = EBox::Config::Redis->new();
+    }
+    return $redis;
+}
 
 use constant ORDER_PREFIX => '/ebox/componentOrder';
 
@@ -122,7 +129,7 @@ sub parent
 
     if (EBox::Model::ModelManager->uninitialized()) {
         return undef;
-    }    
+    }
 
     # since we have skipped composites it could only be a DataTable
     my $manager = EBox::Model::ModelManager->instance();
@@ -150,7 +157,7 @@ sub parentComposite
 
     if (EBox::Model::CompositeManager->uninitialized()) {
         return undef;
-    }    
+    }
 
     my $manager = EBox::Model::CompositeManager->Instance();
     return $manager->composite($parentInfo->{path});
@@ -227,18 +234,18 @@ sub setParent
     my $parentPath = $parent->contextName();
     my $parentComposite = $parent->isa('EBox::Model::Composite');
 
-    $redis->set_string("$key/parent", $parentPath);
-    $redis->set_bool("$key/parentComposite", $parentComposite);
+    _redis()->set_string("$key/parent", $parentPath);
+    _redis()->set_bool("$key/parentComposite", $parentComposite);
 }
 
 sub _parentInfo
 {
     my ($self, $path) = @_;
     my $key = $self->_orderKey($path);
-    my $parentPath = $redis->get_string("$key/parent");
+    my $parentPath = _redis()->get_string("$key/parent");
     defined $parentPath or
         return undef;
-    my $composite =  $redis->get_bool("$key/parentComposite");
+    my $composite = _redis()->get_bool("$key/parentComposite");
     return {
             path => $parentPath,
             composite => $composite,
