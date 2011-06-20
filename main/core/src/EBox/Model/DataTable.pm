@@ -1103,19 +1103,15 @@ sub removeRow
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
 
-    # Workaround: It seems that deleting a dir in gconf doesn't work
-    # ok sometimes and it keeps available after deleting it for a while.
-    # To workaround this issue we mark the row with "removed"
-    $self->{'gconfmodule'}->set_bool("$self->{'directory'}/$id/removed", 1);
-
-    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
-    $self->_setCacheDirty();
-
     if ($self->table()->{'order'}) {
         $self->_removeOrderId($id);
     } else {
         $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
     }
+
+    $self->_setCacheDirty();
+
+    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
 
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user
@@ -1663,13 +1659,6 @@ sub _rows
     my @rows;
     for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
         my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-        # TODO: Check how this behavior has changed with redis
-        # Workaround: It seems that deleting a dir in gconf
-        # doesn't work  ok sometimes and it keeps available after
-        # deleting it for a while.
-        # To workaround this issue we skip those rows marked with
-        # "removed" key
-        next if (exists $hash->{'removed'});
 
         my $row = $self->row($id);
         if (%order) {
