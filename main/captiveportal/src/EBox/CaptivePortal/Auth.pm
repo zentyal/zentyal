@@ -27,23 +27,24 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
 use EBox::LogAdmin;
+
 use Error qw(:try);
 use Crypt::Rijndael;
 use Apache2::Connection;
 use Apache2::RequestUtil;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
-
 use MIME::Base64;
 use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
+use YAML::Tiny;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
 # Session files dir
 use constant SIDS_DIR => '/var/lib/zentyal-captiveportal/sessions/';
 use constant LDAP_CONF => '/var/lib/zentyal-captiveportal/ldap.conf';
-
+use constant UMASK => 0027;
 
 sub new
 {
@@ -57,6 +58,7 @@ sub new
 #
 #   - user name
 #   - password
+#   - ip: client ip
 #   - session id: if the id is undef, it creates a new one
 #   - key: key for rijndael, if sid is undef creates a new one
 # Exceptions:
@@ -64,7 +66,7 @@ sub new
 #   - When session file cannot be opened to write
 sub _savesession
 {
-	my ($user, $passwd, $sid, $key) = @_;
+	my ($user, $passwd, $ip, $sid, $key) = @_;
 
     if(not defined($sid)) {
         my $rndStr;
@@ -96,16 +98,28 @@ sub _savesession
     my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
 	my $sidFile;
 	my $filename = SIDS_DIR . $user;
-    unless  ( open ( $sidFile, '>', $filename )){
+    umask(UMASK);
+    unless (open($sidFile, '>', $filename)){
         throw EBox::Exceptions::Internal(
                 "Could not open to write ".  $filename);
     }
+
     # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
     # Truncate the file after locking
     truncate($sidFile, 0);
-	print $sidFile $sid . "\t" . $encodedcryptedpass . "\t" . time if defined $sid;
+
+    if (defined($sid)) {
+        my $data = YAML::Tiny->new;
+        $data->[0]->{sid} = $sid;
+        $data->[0]->{encodedcryptedpass} = $encodedcryptedpass;
+        $data->[0]->{time} = time();
+        $data->[0]->{user} = $user;
+        $data->[0]->{ip} = $ip;
+        print $sidFile $data->write_string();
+    }
+
     # Release the lock
     flock($sidFile, LOCK_UN);
 	close($sidFile);
@@ -113,9 +127,10 @@ sub _savesession
     return $sid . $key;
 }
 
+# update session time
 sub _updatesession
 {
-    my ($user) = @_;
+    my ($user, $ip) = @_;
 
     my $sidFile;
     my $sess_file = SIDS_DIR . $user;
@@ -126,14 +141,19 @@ sub _updatesession
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
 
-    my $sess_info = <$sidFile>;
-    my ($sid, $cryptedpass, $lastime);
-    ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
+    my $sess_info = join('', <$sidFile>);
 
     # Truncate the file
     truncate($sidFile, 0);
     seek($sidFile, 0, 0);
-	print $sidFile $sid . "\t" . $cryptedpass . "\t" . time if defined $sid;
+
+    # Update session time
+    if (defined($sess_info)) {
+        my $data = YAML::Tiny->read_string($sess_info);
+        $data->[0]->{time} = time();
+	    print $sidFile $data->write_string();
+    }
+
     # Release the lock
     flock($sidFile, LOCK_UN);
 	close($sidFile);
@@ -176,25 +196,6 @@ sub checkPassword # (user, password)
     return $authorized;
 }
 
-# Method: updatePassword
-#
-#   Updates the current session information with the new password
-#
-# Parameters:
-#
-#       passwd - string containing the plain password
-#
-sub updatePassword
-{
-    my ($self, $user, $passwd) = @_;
-    my $r = Apache2::RequestUtil->request();
-
-    my $session_info = EBox::CaptivePortal::Auth->key($r);
-    my $sid = substr($session_info, 0, 32);
-    my $key = substr($session_info, 32, 32);
-    _savesession($user, $passwd, $sid, $key);
-}
-
 # Method: authen_cred
 #
 #   Overriden method from <Apache2::AuthCookie>.
@@ -211,53 +212,7 @@ sub authen_cred  # (request, user, password)
         return;
     }
 
-    return _savesession($user, $passwd);
-}
-
-# Method: credentials
-#
-#   gets the current user and password
-#
-sub credentials
-{
-    my $r = Apache2::RequestUtil->request();
-
-    my $user = $r->user();
-
-    my $session_info = EBox::CaptivePortal::Auth->key($r);
-    return _credentials($user, $session_info);
-}
-
-sub _credentials
-{
-    my ($user, $session_info) = @_;
-
-    my $key = substr($session_info, 32, 32);
-
-    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
-
-    my $SID_F;
-    my $sess_file  = SIDS_DIR . $user;
-    unless (open ($SID_F,  $sess_file)) {
-        throw EBox::Exceptions::Internal("Could not open $sess_file");
-    }
-    # Lock in shared mode for reading
-    flock($SID_F, LOCK_SH)
-        or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
-
-    my $sess_info = <$SID_F>;
-    my ($sid, $cryptedpass, $lastime);
-    ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
-
-    # Release the lock
-    flock($SID_F, LOCK_UN);
-    close($SID_F);
-
-    my $decodedcryptedpass = MIME::Base64::decode($cryptedpass);
-    my $pass = $cipher->decrypt($decodedcryptedpass);
-    $pass =~ tr/\x00//d;
-
-    return { 'user' => $user, 'pass' => $pass };
+    return _savesession($user, $passwd, $r->connection->remote_ip());
 }
 
 # Method: authen_ses_key
@@ -269,37 +224,37 @@ sub authen_ses_key  # (request, session_key)
     my ($self, $r, $session_data) = @_;
 
     my $session_key = substr($session_data, 0, 32);
-
-    my $SID_F; # sid file handle
+    my $sidFile; # sid file handle
 
     my $user = undef;
     my $expired;
 
     for my $sess_file (glob(SIDS_DIR . '*')) {
-        unless (open ($SID_F,  $sess_file)) {
+        unless (open ($sidFile,  $sess_file)) {
             throw EBox::Exceptions::Internal("Could not open $sess_file");
         }
         # Lock in shared mode for reading
-        flock($SID_F, LOCK_SH)
+        flock($sidFile, LOCK_SH)
           or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
 
-        my $sess_info = <$SID_F>;
-        my ($sid, $cryptedpass, $lastime);
-        ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
+        my $sess_info = join('', <$sidFile>);
+        my $data = YAML::Tiny->read_string($sess_info);
 
-        $expired = _timeExpired($lastime);
-        if ($session_key eq $sid) {
-            $user = basename($sess_file);
+        if (defined($data)) {
+            $expired = _timeExpired($data->[0]->{time});
+            if ($session_key eq $data->[0]->{sid}) {
+                $user = basename($sess_file);
+            }
         }
 
         # Release the lock
-        flock($SID_F, LOCK_UN);
-        close($SID_F);
+        flock($sidFile, LOCK_UN);
+        close($sidFile);
 
         defined($user) and last;
     }
     if(defined($user) and !$expired) {
-        _updatesession($user);
+        _updatesession($user, $r->connection->remote_ip());
         return $user;
     } elsif (defined($user) and $expired) {
         $r->subprocess_env(LoginReason => "Expired");
@@ -316,9 +271,7 @@ sub _timeExpired
     my ($lastime) = @_;
 
     my $expires = $lastime + EXPIRE;
-
-    my $expired = (time() > $expires);
-    return $expired;
+    return (time() > $expires);
 }
 
 # Method: logout

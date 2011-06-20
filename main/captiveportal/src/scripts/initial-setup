@@ -11,6 +11,7 @@ then
     adduser --system --home /var/lib/zentyal-captiveportal/ \
         --disabled-password --ingroup zentyal-captiveportal zentyal-captiveportal
 fi
+adduser ebox zentyal-captiveportal
 
 CPORTAL_LOG="/var/log/zentyal-captiveportal/"
 test -d $CPORTAL_LOG || mkdir $CPORTAL_LOG
@@ -18,7 +19,8 @@ chown -R zentyal-captiveportal:zentyal-captiveportal $CPORTAL_LOG
 
 # create user session dirs
 test -d /var/lib/zentyal-captiveportal/sessions || mkdir -p /var/lib/zentyal-captiveportal/sessions
-chown -R zentyal-captiveportal:zentyal-captiveportal /var/lib/zentyal-captiveportal
+chown -R zentyal-captiveportal:zentyal-captiveportal /var/lib/zentyal-captiveportal/sessions
+chmod 750 /var/lib/zentyal-captiveportal/sessions
 
 # create apache certificates
 /usr/share/zentyal/create-certificate /var/lib/zentyal-captiveportal/ssl > /dev/null 2>&1 || true
