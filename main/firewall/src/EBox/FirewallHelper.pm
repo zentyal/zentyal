@@ -145,6 +145,22 @@ sub externalInput
     return [];
 }
 
+
+# Method: chains
+#
+#   Chains returned by this method are created and can be referenced on this helper
+#   defined rules
+#
+# Returns:
+#
+#   hash ref - containing table-chain name pairs. Example:
+#       { nat => ['chain1', 'chain2'], filter => ['chain3'] }
+sub chains
+{
+    return {}
+}
+
+
 # Method: _outputIface
 #
 #   Returns iptables rule part for output interface selection

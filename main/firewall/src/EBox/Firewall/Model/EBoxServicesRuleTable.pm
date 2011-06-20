@@ -63,7 +63,6 @@ sub syncRows
     my $iptables = new EBox::Iptables();
 
     my %newRules = map { $_->{'rule'} => $_ } @{$iptables->moduleRules()};
-
     my %currentRules =
         map { $self->row($_)->valueByName('rule') => $_ } @{$currentRows};
 
@@ -74,9 +73,25 @@ sub syncRows
 
     foreach my $rule (@rulesToAdd) {
         my $module = $newRules{$rule}->{'module'}->{'printableName'};
-        my ($table, $chain, $condition, $decision) =
-            $rule =~ /-t ([a-z]+) -A ([a-z]+) (.*) -j (.*)/;
-        my $type = $RULE_TYPES{$chain};
+
+        my ($table, $chain, $condition, $decision, $type);
+        if ($rule =~ m/-A/) {
+            # common firewall rule
+            ($table, $chain, $condition, $decision) =
+                $rule =~ /-t ([a-z]+) -A ([a-z]+) (.*) -j (.*)/;
+
+            if (defined($RULE_TYPES{$chain})) {
+                $type = $RULE_TYPES{$chain};
+            } else {
+                $type = $chain;
+            }
+        } else {
+            ($table, $chain) = $rule =~ /-t ([a-z]+) -N ([a-z]+)/;
+            $condition = '';
+            $decision = $chain;
+            $type = __('Chain creation');
+        }
+
         $self->add(rule => $rule,
                    type => $type,
                    module => $module,

@@ -1,3 +1,5 @@
+HEAD
+	+ Added chains method to firewall helpers (lets them create custom chains)
 2.1.1
 	+ Added SNAT option in Port Forwarding rules
 	+ Remove unnecessary code from EBoxServicesRuleTable::syncRows

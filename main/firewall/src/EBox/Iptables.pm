@@ -611,6 +611,11 @@ sub moduleRules
     foreach my $mod (@mods) {
         my $helper = $mod->firewallHelper();
         ($helper) or next;
+
+        # Create chains
+        push(@modRules, @{$self->_createChains($mod)});
+
+        # add rules
         push(@modRules,
                 @{$self->_doRuleset($mod, 'nat', 'premodules', $helper->prerouting())}
             );
@@ -645,6 +650,24 @@ sub _loadIptModules
     my @commands;
     foreach my $module (IPT_MODULES) {
         push(@commands, "modprobe $module || true");
+    }
+    return \@commands;
+}
+
+sub _createChains
+{
+    my ($self, $module) = @_;
+
+    my $helper = $module->firewallHelper();
+    my @commands;
+    my %chains = %{$helper->chains()};
+    foreach my $table ( keys %chains ) {
+        my @tchains = @{$chains{$table}};
+        foreach my $chain (@tchains) {
+            my $pfrule = "-t $table -N $chain";
+            my $r = { 'module' => $module, 'priority' => 1, 'rule' => $pfrule };
+            push(@commands, $r);
+        }
     }
     return \@commands;
 }
