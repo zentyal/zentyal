@@ -1,4 +1,4 @@
-HEAD
+2.1.4
 	+ Always add zarafa repository to avoid situations with broken packages
 2.1.3
 	+ Log CGI now uses the dumpSoftwareLog method in BugReport

@@ -1,5 +1,5 @@
 #!/bin/sh
 
 # Add zarafa repository to avoid broken packages
-ZARAFA_SOURCES=/etc/apt/sources.list.d/zentyal-zarafa
+ZARAFA_SOURCES=/etc/apt/sources.list.d/zentyal-zarafa.list
 echo "deb http://archive.canonical.com/ubuntu lucid partner" > $ZARAFA_SOURCES
