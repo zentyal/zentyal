@@ -32,6 +32,7 @@ use EBox::Ldap;
 use EBox::CaptivePortalFirewall;
 
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
+use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
 
@@ -81,6 +82,7 @@ sub modelClasses
     return [
         'EBox::CaptivePortal::Model::Interfaces',
         'EBox::CaptivePortal::Model::Settings',
+        'EBox::CaptivePortal::Model::Users',
     ];
 }
 
