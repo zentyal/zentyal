@@ -125,7 +125,7 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
 
     PerlModule EBox::CaptivePortal::Auth
     PerlSetVar EBoxPath /
-    PerlSetVar EBoxLoginScript /zentyal/Login/Index
+    PerlSetVar EBoxLoginScript /zentyal/Login
     PerlSetVar EBoxSatisfy Any
     PerlSetVar AuthCookieDebug 0
 

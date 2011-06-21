@@ -2,7 +2,11 @@
 
 perldir = @PERLPATH@/EBox/CaptivePortal/CGI
 
-SUBDIRS = Login
+nobase_perl_DATA = Login.pm
+
+SOURCES = $(nobase_perl_DATA)
+
+EXTRA_DIST = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CaptivePortal::CGI::Login::Index;
+package EBox::CaptivePortal::CGI::Login;
 
 use strict;
 use warnings;
@@ -102,8 +102,8 @@ sub _requestDestination
 
   defined $destination or return $DEFAULT_DESTINATION;
 
-  if ($destination =~ m{^/*zentyal/+Login/+Index$}) {
-    # /Login/Index is the standard location from login, his destination must be the default destination
+  if ($destination =~ m{^/*zentyal/+Login$}) {
+    # /Login is the standard location from login, his destination must be the default destination
     return $DEFAULT_DESTINATION;
   }
   elsif (not $destination =~ m{^/*zentyal}) {
