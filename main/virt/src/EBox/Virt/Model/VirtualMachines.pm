@@ -146,7 +146,7 @@ sub _table
                                ),
        new EBox::Types::Boolean(
                                 fieldName     => 'autostart',
-                                printableName => __('Start on boot'),
+                                printableName => __('Autostart'),
                                 editable      => 1,
                                 defaultValue  => 0,
                                ),

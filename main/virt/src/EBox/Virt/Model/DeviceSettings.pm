@@ -108,7 +108,7 @@ sub _table
         tableName           => 'DeviceSettings',
         printableTableName  => __('Device Settings'),
         printableRowName    => __('drive'),
-        defaultActions      => [ 'add', 'del', 'editField', 'changeView' ],
+        defaultActions      => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         tableDescription    => \@tableHeader,
         order               => 1,
         enableProperty      => 1,
