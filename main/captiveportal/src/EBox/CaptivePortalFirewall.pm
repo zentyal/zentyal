@@ -39,7 +39,10 @@ sub new
 
 sub chains
 {
-    return { 'filter' => ['icaptive', 'fcaptive'] };
+    return {
+        'nat' => [ 'captive' ],
+        'filter' => ['icaptive', 'fcaptive']
+    };
 }
 
 
@@ -54,8 +57,15 @@ sub prerouting
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
-        my $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
-        push(@rules, $r);
+
+        my $r;
+        $r = "$input -j captive";
+        push(@rules, { 'priority' => 5, 'rule' => $r });
+
+        push(@rules, @{$self->_usersRules('captive')});
+
+        $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
+        push(@rules, { 'rule' => $r, 'chain' => 'captive' });
     }
     return \@rules;
 }
@@ -66,22 +76,21 @@ sub postrouting
     my ($self) = @_;
     my @rules = ();
 
+    my $port = $self->{captiveportal}->httpPort();
+    my $ifaces = $self->{captiveportal}->ifaces();
+    my $net = EBox::Global->modInstance('network');
+
+    foreach my $ifc (@{$ifaces}) {
+        my $input = $self->_inputIface($ifc);
+
+        foreach my $add (@{$net->ifaceAddresses($ifc)}) {
+            my $ip = $add->{'address'};
+            my $r = "$input -p tcp --sport $port -j SNAT --to-source $ip:$port";
+            push(@rules, $r);
+        }
+    }
+
     return \@rules;
-#
-#    my $port = $self->{captiveportal}->httpPort();
-#    my $ifaces = $self->{captiveportal}->ifaces();
-#
-#    foreach my $ifc (@{$ifaces}) {
-#        my $input = $self->_inputIface($ifc);
-#
-#        foreach my $add (@{$net->ifaceAddresses($ifc)}) {
-#            my $ip = $add->{'address'};
-#            my $r = "$input -p tcp --sport $port -j SNAT --to-source $ip:$port";
-#            push(@rules, $r);
-#        }
-#    }
-#
-#    return \@rules;
 }
 
 
@@ -101,13 +110,7 @@ sub input
         $r = "$input -j icaptive";
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
-#        my $users = EBox::CaptivePortalHelper::currentUsers();
-#        for my $user (@{$users}) {
-#            my $ip = $user->{'ip'};
-#            my $name = $user->{'user'};
-#            $r = "-s $ip -j RETURN -m comment --comment 'user:$name'";
-#            push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
-#        }
+        push(@rules, @{$self->_usersRules('icaptive')});
 
         # Allow DNS and Captive portal access
         $r = "$input -p tcp --dport 53 -j ACCEPT";
@@ -143,13 +146,7 @@ sub forward
         $r = "$input -j fcaptive";
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
-#        my $users = EBox::CaptivePortalHelper::currentUsers();
-#        for my $user (@{$users}) {
-#            my $ip = $user->{'ip'};
-#            my $name = $user->{'user'};
-#            $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
-#            push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
-#        }
+        push(@rules, @{$self->_usersRules('fcaptive')});
 
         # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
@@ -160,6 +157,23 @@ sub forward
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
         $r = "$input -p udp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+    }
+    return \@rules;
+}
+
+
+# create logged users rules on firewall restart
+sub _usersRules
+{
+    my ($self, $chain) = @_;
+
+    my @rules;
+    my $users = $self->{captiveportal}->currentUsers();
+    for my $user (@{$users}) {
+        my $ip = $user->{'ip'};
+        my $name = $user->{'user'};
+        my $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
+        push(@rules, { 'rule' => $r, 'chain' => $chain });
     }
     return \@rules;
 }

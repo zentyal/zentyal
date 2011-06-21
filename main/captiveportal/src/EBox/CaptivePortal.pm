@@ -228,4 +228,36 @@ sub ifaces
 }
 
 
+# Function: currentUsers
+#
+#   Current logged in users array:
+#
+# Returns:
+#
+#   Array ref with this layout:
+#
+#   [
+#      {
+#          user => 'username',
+#          ip   => 'X.X.X.X',
+#      },
+#      ...
+#   ]
+sub currentUsers
+{
+    my ($self) = @_;
+    my $model = $self->model('Users');
+    my $ids = $model->ids();
+    my @users;
+    for my $id (@{$ids}) {
+        my $row = $model->row($id);
+        push(@users, {
+            user => $row->valueByName('user'),
+            ip => $row->valueByName('ip'),
+        });
+    }
+    return \@users;
+}
+
+
 1;
