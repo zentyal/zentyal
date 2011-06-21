@@ -135,6 +135,10 @@ sub syncRows
     my @sessionsToDel = grep { not exists $sessions->{$_} } keys %currentSessions;
     my @sessionsToModify = grep { exists $sessions->{$_} } keys %currentSessions;
 
+    unless (@sessionsToAdd + @sessionsToDel + @sessionsToModify) {
+        return 0;
+    }
+
     foreach my $sid (@sessionsToAdd) {
         $self->add(
             sid => $sid,
