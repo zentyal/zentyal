@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CaptivePortal/CGI
 
-nobase_perl_DATA = Login.pm
+nobase_perl_DATA = Login.pm PopupLaunch.pm Popup.pm
 
 SOURCES = $(nobase_perl_DATA)
 

@@ -2,7 +2,7 @@
 
 templatedir = $(datadir)/zentyal/templates/captiveportal
 
-template_DATA = login.mas
+template_DATA = login.mas popupLaunch.mas popup.mas
 
 EXTRA_DIST = $(template_DATA)
 

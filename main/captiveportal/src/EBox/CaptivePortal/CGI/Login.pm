@@ -23,8 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use Apache2::RequestUtil;
 
-use Readonly;
-Readonly::Scalar my $DEFAULT_DESTINATION => '/zentyal/Dashboard/Index';
+use constant DEFAULT_DESTINATION => '/zentyal/PopupLaunch';
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -100,15 +99,15 @@ sub _requestDestination
 
   my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
 
-  defined $destination or return $DEFAULT_DESTINATION;
+  defined $destination or return DEFAULT_DESTINATION;
 
   if ($destination =~ m{^/*zentyal/+Login$}) {
     # /Login is the standard location from login, his destination must be the default destination
-    return $DEFAULT_DESTINATION;
+    return DEFAULT_DESTINATION;
   }
   elsif (not $destination =~ m{^/*zentyal}) {
     # url wich does not follow the normal zentyal pattern must use the default destination
-    return $DEFAULT_DESTINATION;
+    return DEFAULT_DESTINATION;
   }
 
   return $destination;
