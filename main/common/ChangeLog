@@ -1,3 +1,5 @@
+HEAD
+	+ Use all user groups on EBox::init() gid change
 2.1.2
 	+ Improved performance of the NetWrappers::list_ifaces method
 2.1.1

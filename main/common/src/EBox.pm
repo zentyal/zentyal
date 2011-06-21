@@ -124,11 +124,7 @@ sub init
     POSIX::setlocale(LC_ALL, EBox::locale());
     POSIX::setlocale(LC_NUMERIC, 'C');
 
-    my @groups = @{EBox::Config::groups()};
-    my $gids = '';
-    for my $group (@groups) {
-        $gids .= getgrnam($group) . ' ';
-    }
+    my $gids = EBox::Config::gids();
     $GID = $EGID = getgrnam(EBox::Config::group()) . " $gids";
 
     my $user = EBox::Config::user();

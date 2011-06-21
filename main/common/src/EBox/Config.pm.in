@@ -154,22 +154,15 @@ sub user
     return $user;
 }
 
-sub groups
-{
-    my @values = @{configkeys('group')};
-    @values or throw EBox::Exceptions::External('The ebox group has not ' .
-            'been set in the config file.');
-    my @groups;
-    for my $group (@values) {
-        if ($group =~ m/:/) {
-            push (@groups, split(':', $group));
-        } else {
-            push (@groups, $group);
-        }
-    }
 
-    return \@groups;
+sub gids
+{
+    my $user = user();
+    my $gids = `id -G $user`;
+    chomp ($gids);
+    return $gids;
 }
+
 
 sub group
 {
