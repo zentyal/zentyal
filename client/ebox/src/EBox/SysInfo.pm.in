@@ -21,6 +21,7 @@ use warnings;
 use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
+use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
@@ -130,6 +131,7 @@ sub processesWidget
     for my $p (@processes) {
         chomp($p);
         my ($pid, $name) = split(' ', $p);
+        encode_entities($name);
         my $foopid = 'a' . $pid;
         push(@{$ids}, $foopid);
         $rows->{$foopid} = [$pid,$name];
