@@ -1,4 +1,4 @@
-HEAD
+2.0.21
 	+ Security [ZSN-2-1]: Avoid XSS in process list widget
 	+ Restore configuration with force dependencies option continues
 	  when modules referenced in the backup are not present
