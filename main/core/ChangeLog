@@ -1,3 +1,5 @@
+HEAD
+	+ Security [ZSN-2-1]: Avoid XSS in process list widget
 2.1.9
 	+ Do not try to initialize redis client before EBox::init()
 	+ Safer way to delete rows, deleting its id reference first
