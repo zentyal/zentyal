@@ -56,11 +56,11 @@ sub viewCustomizer
     $customizer->setOnChangeActions(
             { 'userHomes' =>
                 {
-                  '1' => {
+                  'on' => {
                         enable  => \@fields,
                         disable => [],
                     },
-                  '0' => {
+                  'off' => {
                         enable  => [],
                         disable => \@fields,
                     },
