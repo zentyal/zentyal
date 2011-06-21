@@ -27,6 +27,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
 use EBox::LogAdmin;
+use EBox::CaptivePortal;
 
 use Error qw(:try);
 use Crypt::Rijndael;
@@ -42,8 +43,6 @@ use YAML::XS;
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
 # Session files dir
-use constant SIDS_DIR => '/var/lib/zentyal-captiveportal/sessions/';
-use constant LDAP_CONF => '/var/lib/zentyal-captiveportal/ldap.conf';
 use constant UMASK => 0027;
 
 sub new
@@ -97,7 +96,7 @@ sub _savesession
     my $cryptedpass = $cipher->encrypt($passwd);
     my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
 	my $sidFile;
-	my $filename = SIDS_DIR . $user;
+	my $filename = EBox::CaptivePortal->SIDS_DIR . $user;
     umask(UMASK);
     unless (open($sidFile, '>', $filename)){
         throw EBox::Exceptions::Internal(
@@ -133,7 +132,7 @@ sub _updatesession
     my ($user, $ip) = @_;
 
     my $sidFile;
-    my $sess_file = SIDS_DIR . $user;
+    my $sess_file = EBox::CaptivePortal->SIDS_DIR . $user;
     unless (open ($sidFile, '+<', $sess_file)) {
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
@@ -181,8 +180,8 @@ sub checkPassword # (user, password)
     my ($self, $user, $password) = @_;
 
     my $authorized = 0;
-    my $url = EBox::Config::configkeyFromFile('ldap_url', LDAP_CONF);
-    my $bind = EBox::Config::configkeyFromFile('bindstring', LDAP_CONF);
+    my $url = EBox::Config::configkeyFromFile('ldap_url', EBox::CaptivePortal->LDAP_CONF);
+    my $bind = EBox::Config::configkeyFromFile('bindstring', EBox::CaptivePortal->LDAP_CONF);
 
     #replace usrename in bind string
     $bind =~ s/{USERNAME}/$user/g;
@@ -229,7 +228,7 @@ sub authen_ses_key  # (request, session_key)
     my $user = undef;
     my $expired;
 
-    for my $sess_file (glob(SIDS_DIR . '*')) {
+    for my $sess_file (glob(EBox::CaptivePortal->SIDS_DIR . '*')) {
         unless (open ($sidFile,  $sess_file)) {
             throw EBox::Exceptions::Internal("Could not open $sess_file");
         }
@@ -258,7 +257,7 @@ sub authen_ses_key  # (request, session_key)
         return $user;
     } elsif (defined($user) and $expired) {
         $r->subprocess_env(LoginReason => "Expired");
-        unlink(SIDS_DIR . $user);
+        unlink(EBox::CaptivePortal->SIDS_DIR . $user);
     } else {
         $r->subprocess_env(LoginReason => "NotLoggedIn");
     }
@@ -282,7 +281,7 @@ sub logout # (request)
 {
     my ($self, $r) = @_;
 
-	my $filename = SIDS_DIR . $r->user;
+	my $filename = EBox::CaptivePortal->SIDS_DIR . $r->user;
     unlink($filename);
 
     $self->SUPER::logout($r);
