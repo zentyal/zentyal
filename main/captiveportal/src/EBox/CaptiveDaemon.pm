@@ -141,9 +141,9 @@ sub _addRule
     EBox::debug("Adding user $name with IP $ip");
 
     my @rules;
-    push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ /$ip/);
-    push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ /$ip/);
-    push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ /$ip/);
+    push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
+    push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
+    push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ / $ip /);
     return \@rules;
 }
 
