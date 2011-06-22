@@ -1,4 +1,5 @@
 HEAD
+	+ Tuned apache conf for better performance
 	+ Moved redis_port_usercorner key to /etc/zentyal/usercorner.conf
 	+ Move users/conf/user-eboxlog.conf to usercorner/conf/usercorner-log.conf
 2.1.1

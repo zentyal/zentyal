@@ -3,19 +3,19 @@
 </%args>
 
 Timeout 300
-KeepAlive Off
-MaxKeepAliveRequests 100
+KeepAlive On
+MaxKeepAliveRequests 500
 KeepAliveTimeout 15
 AddDefaultCharset utf-8
 
 PidFile /var/lib/zentyal-usercorner/user-apache.pid
 
 <IfModule mpm_prefork_module>
-    StartServers          1
-    MinSpareServers       1
-    MaxSpareServers       1
-    MaxClients            2
-    MaxRequestsPerChild   20
+    StartServers             1
+    MinSpareServers          0
+    MaxSpareServers          5
+    MaxClients              10
+    MaxRequestsPerChild  10000
 </IfModule>
 
 # worker MPM
@@ -26,15 +26,16 @@ PidFile /var/lib/zentyal-usercorner/user-apache.pid
 # ThreadsPerChild: constant number of worker threads in each server process
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
-    StartServers         1
-    MaxClients           5
-    MinSpareThreads      1
-    MaxSpareThreads      1
-    ThreadsPerChild      1
-    MaxRequestsPerChild   20
+    StartServers             1
+    MinSpareThreads          5
+    MaxSpareThreads         15
+    ThreadLimit             16
+    ThreadsPerChild         25
+    MaxClients              30
+    MaxRequestsPerChild  10000
 </IfModule>
 
-PerlInterpMaxRequests 20
+PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load

@@ -41,11 +41,11 @@ AddDefaultCharset utf-8
 PidFile <% $tmpdir %>/apache.pid
 
 <IfModule mpm_prefork_module>
-    StartServers          1
-    MinSpareServers       1
-    MaxSpareServers       1
-    MaxClients            1
-    MaxRequestsPerChild   10000
+    StartServers             1
+    MinSpareServers          0
+    MaxSpareServers          1
+    MaxClients               2
+    MaxRequestsPerChild  10000
 </IfModule>
 
 # worker MPM
@@ -56,12 +56,12 @@ PidFile <% $tmpdir %>/apache.pid
 # ThreadsPerChild: constant number of worker threads in each server process
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
-    StartServers         1
-    MaxClients           1
-    MinSpareThreads      1
-    MaxSpareThreads      1
-    ThreadsPerChild      1
-    MaxRequestsPerChild   10000
+    StartServers             1
+    MinSpareThreads          0
+    MaxSpareThreads          1
+    ThreadsPerChild          1
+    MaxClients               2
+    MaxRequestsPerChild  10000
 </IfModule>
 
 PerlInterpMaxRequests 10000

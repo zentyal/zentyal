@@ -1,3 +1,5 @@
+HEAD
+	+ Raise MaxClients to 2 to prevent apache slowness
 2.1.10
 	+ Security [ZSN-2-1]: Avoid XSS in process list widget
 2.1.9
