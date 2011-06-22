@@ -34,7 +34,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 
 </%init>
 <div class='note'>
-    <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>') %>
+    <% __x('Those modules which have not been enabled for first time in the {openref}Module Status{closeref} section will be ignored in both backup and restore operations.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>') %>
 </div>
 <h3><% __('Backup the Current State') %></h3>
 <div class='help'>
