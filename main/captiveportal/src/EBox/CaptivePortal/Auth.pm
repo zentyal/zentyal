@@ -47,10 +47,10 @@ use constant UMASK => 0027;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Parameters:
@@ -65,7 +65,7 @@ sub new
 #   - When session file cannot be opened to write
 sub _savesession
 {
-	my ($user, $passwd, $ip, $sid, $key) = @_;
+    my ($user, $passwd, $ip, $sid, $key) = @_;
 
     if(not defined($sid)) {
         my $rndStr;
@@ -95,15 +95,15 @@ sub _savesession
 
     my $cryptedpass = $cipher->encrypt($passwd);
     my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
-	my $sidFile;
-	my $filename = EBox::CaptivePortal->SIDS_DIR . $user;
+    my $sidFile;
+    my $filename = EBox::CaptivePortal->SIDS_DIR . $user;
     umask(UMASK);
     unless (open($sidFile, '>', $filename)){
         throw EBox::Exceptions::Internal(
                 "Could not open to write ".  $filename);
     }
 
-    # Lock the file in exclusive mode
+# Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
     # Truncate the file after locking
@@ -121,12 +121,12 @@ sub _savesession
 
     # Release the lock
     flock($sidFile, LOCK_UN);
-	close($sidFile);
+    close($sidFile);
 
     return $sid . $key;
 }
 
-# update session time
+# update session time and ip
 sub _updatesession
 {
     my ($user, $ip) = @_;
@@ -146,16 +146,17 @@ sub _updatesession
     truncate($sidFile, 0);
     seek($sidFile, 0, 0);
 
-    # Update session time
+    # Update session time and ip
     if (defined($sess_info)) {
         my $data = YAML::XS::Load($sess_info);
         $data->{time} = time();
-	    print $sidFile YAML::XS::Dump($data);
+        $data->{ip} = $ip;
+        print $sidFile YAML::XS::Dump($data);
     }
 
     # Release the lock
     flock($sidFile, LOCK_UN);
-	close($sidFile);
+    close($sidFile);
 }
 
 
@@ -281,7 +282,7 @@ sub logout # (request)
 {
     my ($self, $r) = @_;
 
-	my $filename = EBox::CaptivePortal->SIDS_DIR . $r->user;
+    my $filename = EBox::CaptivePortal->SIDS_DIR . $r->user;
     unlink($filename);
 
     $self->SUPER::logout($r);
