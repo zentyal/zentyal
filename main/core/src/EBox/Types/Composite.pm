@@ -22,7 +22,7 @@
 #       This type is useful in the following use case. You may require
 #       to have 3 subtypes within a Union type and one of them is
 #       complex, that is, it's comprised more than one type. For this
-#       reason, Composite type is crated.
+#       reason, Composite type is created.
 #
 
 package EBox::Types::Composite;

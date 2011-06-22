@@ -1,4 +1,6 @@
 HEAD
+	+ Union type: Use selected subtype on trailingText property if the
+	  major type does not have the property
 	+ Raise MaxClients to 2 to prevent apache slowness
 2.1.10
 	+ Security [ZSN-2-1]: Avoid XSS in process list widget

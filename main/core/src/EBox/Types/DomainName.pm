@@ -31,11 +31,11 @@ use EBox::Gettext;
 
 # Constructor: new
 #
-#      The constructor for the <EBox::Types::MACAddr>
+#      The constructor for the <EBox::Types::DomainName>
 #
 # Returns:
 #
-#      the recently created <EBox::Types::MACAddr> object
+#      the recently created <EBox::Types::DomainName> object
 #
 sub new
 {
