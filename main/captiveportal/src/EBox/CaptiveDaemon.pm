@@ -30,16 +30,19 @@ use warnings;
 use EBox::Config;
 use EBox::Global;
 use EBox::CaptivePortal;
+use EBox::Sudo;
+use EBox::Util::Lock;
 
-use constant INTERVAL => 60;
+# iptables command
+use constant IPTABLES => '/sbin/iptables';
 
 sub new
 {
     my ($class) = @_;
     my $self = {};
 
-    $self->{module} = EBox::Global->modInstance('captiveportal');
-    $self->{users} = $self->{module}->model('Users');
+    # Sessions already added to iptables (to trac ip changes)
+    $self->{sessions} = {};
 
     bless ($self, $class);
     return $self;
@@ -53,18 +56,112 @@ sub run
 {
     my ($self) = @_;
 
-    while (1) {
-        my @ids = @{$self->{users}->ids()};
+    my $captiveportal = EBox::Global->modInstance('captiveportal');
 
-        my @allowedIPs;
-        foreach my $id (@ids) {
-            my $user = $self->{users}->row($id);
-            push (@allowdIPs, $user->valueByName('ip'));
+    while (1) {
+        EBox::Util::Lock::lock('firewall');
+
+        my @users = @{$captiveportal->currentUsers()};
+        $self->_updateSessions($captiveportal, \@users);
+
+        EBox::Util::Lock::unlock('firewall');
+
+        # Sleep expiration interval
+        sleep(EBox::CaptivePortal->EXPIRATION_TIME-1);
+    }
+}
+
+# Method: _updateSessions
+#
+#   Init/finish user sessions and manage
+#   firewall rules for them
+#
+sub _updateSessions
+{
+    my ($self, $captiveportal, $currentUsers) = @_;
+    my @rules;
+
+    EBox::debug("Updating captiveportal sessions...");
+
+    # firewall inserted rules, checked to avoid duplicates
+    my $iptablesRules = {
+        captive  => join('', @{EBox::Sudo::root(IPTABLES . ' -t nat -n -L captive')}),
+        icaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L icaptive')}),
+        fcaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L fcaptive')}),
+    };
+
+    foreach my $user (@{$currentUsers}) {
+        my $sid = $user->{sid};
+        my $new = 0;
+
+        # New sessions
+        if (not exists($self->{sessions}->{$sid})) {
+            $self->{sessions}->{$sid} = $user;
+            push (@rules, @{$self->_addRule($user, $iptablesRules)});
+            $new = 1;
         }
 
-        # Sleep interval
-        sleep(INTERVAL);
+        # Expired
+        if ($captiveportal->sessionExpired($user->{time})) {
+            $captiveportal->removeSession($user->{user});
+            delete $self->{sessions}->{$sid};
+            push (@rules, @{$self->_removeRule($user)});
+            next;
+        }
+
+
+        # Check for IP change
+        unless ($new) {
+            my $oldip = $self->{sessions}->{$sid}->{ip};
+            my $newip = $user->{ip};
+            unless ($oldip eq $newip) {
+                # Ip changed, update rules
+                push (@rules, @{$self->_addRule($user)});
+                push (@rules, @{$self->_removeRule($self->{sessions}->{$sid})});
+
+                # update ip
+                $self->{sessions}->{$sid}->{ip} = $newip;
+            }
+        }
     }
+
+    EBox::Sudo::root(@rules);
+    EBox::debug("DONE");
+}
+
+
+sub _addRule
+{
+    my ($self, $user, $current) = @_;
+
+    my $ip = $user->{ip};
+    my $name = $user->{user};
+    my $rule = "-s $ip -m comment --comment 'user:$name' -j RETURN";
+
+    EBox::debug("Adding user $name with IP $ip");
+
+    my @rules;
+    push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ /$ip/);
+    push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ /$ip/);
+    push (@rules, IPTABLES . " -I icaptive $rule") unless($current->{icaptive} =~ /$ip/);
+    return \@rules;
+}
+
+sub _removeRule
+{
+    my ($self, $user) = @_;
+    my $ip = $user->{ip};
+    my $name = $user->{user};
+
+    EBox::debug("Removing user $name with IP $ip");
+
+    my $rule = "-s $ip -m comment --comment 'user:$name' -j RETURN";
+    my @rules;
+    push (@rules, IPTABLES . " -t nat -D captive $rule");
+    push (@rules, IPTABLES . " -D fcaptive $rule");
+    push (@rules, IPTABLES . " -D icaptive $rule");
+
+    return \@rules;
 }
 
 
@@ -73,6 +170,8 @@ sub run
 ###############
 
 EBox::init();
+
+EBox::info('Starting Captive Portal Daemon');
 my $captived = new EBox::CaptiveDaemon();
 $captived->run();
 

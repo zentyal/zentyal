@@ -30,11 +30,13 @@ use Error qw(:try);
 use EBox::Sudo;
 use EBox::Ldap;
 use EBox::CaptivePortalFirewall;
+use EBox::Exceptions::External;
 
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
 use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
+use constant EXPIRATION_TIME => 60;
 
 sub _create
 {
@@ -228,6 +230,9 @@ sub ifaces
 }
 
 
+# Session manage methods:
+
+
 # Function: currentUsers
 #
 #   Current logged in users array:
@@ -240,6 +245,7 @@ sub ifaces
 #      {
 #          user => 'username',
 #          ip   => 'X.X.X.X',
+#          sid  => 'session id',
 #      },
 #      ...
 #   ]
@@ -254,9 +260,40 @@ sub currentUsers
         push(@users, {
             user => $row->valueByName('user'),
             ip => $row->valueByName('ip'),
+            sid => $row->valueByName('sid'),
+            time => $row->valueByName('time'),
         });
     }
     return \@users;
+}
+
+
+# Function: sessionExpired
+#
+#   returns 1 if the session has expired
+#
+# Parameters:
+#   time - session time value
+#
+sub sessionExpired
+{
+    my ($self, $time) = @_;
+
+    return time() > ($time + EXPIRATION_TIME);
+}
+
+
+# Function: removeSession
+#
+#   Removes the session file for the given user
+#
+sub removeSession
+{
+    my ($self, $user) = @_;
+
+    unless (unlink(SIDS_DIR . $user)) {
+        throw EBox::Exceptions::External(_("Couldn't remove session file"));
+    }
 }
 
 

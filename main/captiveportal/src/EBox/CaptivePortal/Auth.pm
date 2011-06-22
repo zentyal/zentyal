@@ -42,8 +42,9 @@ use YAML::XS;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
-# Session files dir
-use constant UMASK => 0027;
+
+# Session files dir, +rw for captiveportal & zentyal
+use constant UMASK => 0007; # (Bond, James Bond)
 
 sub new
 {
