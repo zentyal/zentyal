@@ -1083,15 +1083,18 @@ sub prepareRestoreBackup
 #
 #       file - backup's file (as positional parameter)
 #       progressIndicator - Progress indicator associated
-#                       with htis operation (optional )
-# fullRestore - wether do a full restore or restore only configuration (default: false)
-#       dataRestore - wether do a data-only restore
-#       forceDependencies - wether ignore dependency errors between modules
-#        deleteBackup      - deletes the backup after resroting it or if the process is aborted
+#                           with this operation (optional)
+#       fullRestore - whether to do a full restore or restore only
+#                     configuration (default: false)
+#       dataRestore - whether do a data-only restore
+#       forceDependencies - whether ignore dependency errors between modules
+#       deleteBackup      - deletes the backup after restoring it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
-#                              when a module restoration fail
+#                               when a module restoration fails
 #       continueOnModuleFail - wether continue when a module fails to restore
 #                              (default: false)
+#
+#       modsToRestore - Array ref the module names to restore
 #
 # Exceptions:
 #

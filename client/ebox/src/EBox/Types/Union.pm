@@ -224,7 +224,25 @@ sub paramExist
     return 0;
 }
 
+# Method: trailingText
+#
+#    Overrides to show the trailing text from the selected subtype
+#
+# Overrides:
+#
+#    <EBox::Types::Abstract::trailingText>
+#
+sub trailingText
+{
+    my ($self) = @_;
 
+    my $trailing = $self->SUPER::trailingText();
+    unless ( $trailing ) {
+        $AUTOLOAD = 'trailingText';
+        $trailing = $self->AUTOLOAD();
+    }
+    return $trailing;
+}
 
 sub printableValue
 {
