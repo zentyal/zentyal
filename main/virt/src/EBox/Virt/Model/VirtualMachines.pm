@@ -61,6 +61,18 @@ sub new
     return $self;
 }
 
+sub precondition
+{
+    my ($self) = @_;
+
+    return $self->parentModule()->isEnabled();
+}
+
+sub preconditionFailMsg
+{
+    return __x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it if you want to use it.', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>');
+}
+
 # Group: Private methods
 
 # Method: _table
