@@ -103,7 +103,7 @@ sub _updateSessions
 
         # Expired
         if ($captiveportal->sessionExpired($user->{time})) {
-            $captiveportal->removeSession($user->{user});
+            $captiveportal->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@rules, @{$self->_removeRule($user)});
             next;

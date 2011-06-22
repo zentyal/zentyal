@@ -97,7 +97,7 @@ sub _savesession
     my $cryptedpass = $cipher->encrypt($passwd);
     my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
     my $sidFile;
-    my $filename = EBox::CaptivePortal->SIDS_DIR . $user;
+    my $filename = EBox::CaptivePortal->SIDS_DIR . $sid;
     umask(UMASK);
     unless (open($sidFile, '>', $filename)){
         throw EBox::Exceptions::Internal(
@@ -130,10 +130,10 @@ sub _savesession
 # update session time and ip
 sub _updatesession
 {
-    my ($user, $ip) = @_;
+    my ($sid, $ip) = @_;
 
     my $sidFile;
-    my $sess_file = EBox::CaptivePortal->SIDS_DIR . $user;
+    my $sess_file = EBox::CaptivePortal->SIDS_DIR . $sid;
     unless (open ($sidFile, '+<', $sess_file)) {
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
@@ -230,36 +230,34 @@ sub authen_ses_key  # (request, session_key)
     my $user = undef;
     my $expired;
 
-    for my $sess_file (glob(EBox::CaptivePortal->SIDS_DIR . '*')) {
-        unless (open ($sidFile,  $sess_file)) {
-            throw EBox::Exceptions::Internal("Could not open $sess_file");
-        }
-        # Lock in shared mode for reading
-        flock($sidFile, LOCK_SH)
-          or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
+    my $sess_file = EBox::CaptivePortal->SIDS_DIR . $session_key;
+    return unless (-r $sess_file);
 
-        my $sess_info = join('', <$sidFile>);
-        my $data = YAML::XS::Load($sess_info);
-
-        if (defined($data)) {
-            $expired = _timeExpired($data->{time});
-            if ($session_key eq $data->{sid}) {
-                $user = basename($sess_file);
-            }
-        }
-
-        # Release the lock
-        flock($sidFile, LOCK_UN);
-        close($sidFile);
-
-        defined($user) and last;
+    unless (open ($sidFile,  $sess_file)) {
+        throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
+    # Lock in shared mode for reading
+    flock($sidFile, LOCK_SH)
+        or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
+
+    my $sess_info = join('', <$sidFile>);
+    my $data = YAML::XS::Load($sess_info);
+
+    if (defined($data)) {
+        $expired = _timeExpired($data->{time});
+        $user = $data->{user};
+    }
+
+    # Release the lock
+    flock($sidFile, LOCK_UN);
+    close($sidFile);
+
     if(defined($user) and !$expired) {
-        _updatesession($user, $r->connection->remote_ip());
+        _updatesession($session_key, $r->connection->remote_ip());
         return $user;
     } elsif (defined($user) and $expired) {
         $r->subprocess_env(LoginReason => "Expired");
-        unlink(EBox::CaptivePortal->SIDS_DIR . $user);
+        unlink(EBox::CaptivePortal->SIDS_DIR . $session_key);
     } else {
         $r->subprocess_env(LoginReason => "NotLoggedIn");
     }
@@ -283,6 +281,7 @@ sub logout # (request)
 {
     my ($self, $r) = @_;
 
+    # TODO make this work with session files
     my $filename = EBox::CaptivePortal->SIDS_DIR . $r->user;
     unlink($filename);
 

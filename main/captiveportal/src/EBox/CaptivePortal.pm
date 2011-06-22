@@ -285,13 +285,13 @@ sub sessionExpired
 
 # Function: removeSession
 #
-#   Removes the session file for the given user
+#   Removes the session file for the given session id
 #
 sub removeSession
 {
-    my ($self, $user) = @_;
+    my ($self, $sid) = @_;
 
-    unless (unlink(SIDS_DIR . $user)) {
+    unless (unlink(SIDS_DIR . $sid)) {
         throw EBox::Exceptions::External(_("Couldn't remove session file"));
     }
 }
