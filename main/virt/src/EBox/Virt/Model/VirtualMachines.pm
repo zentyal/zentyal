@@ -70,7 +70,7 @@ sub precondition
 
 sub preconditionFailMsg
 {
-    return __x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it if you want to use it.', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>');
+    return __x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it if you want to use it.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>');
 }
 
 # Group: Private methods
