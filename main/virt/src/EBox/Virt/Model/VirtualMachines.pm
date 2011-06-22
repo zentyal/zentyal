@@ -73,7 +73,6 @@ sub _table
 {
     my ($self) = @_;
 
-    # TODO: Pause/Resume actions
     my $customActions = [
         new EBox::Types::Action(
             model => $self,
@@ -118,7 +117,7 @@ sub _table
                     printableValue => __('Resume'),
                     handler => \&_doResume,
                     message => __('Virtual Machine resumed'),
-                    image => '/data/images/play.gif',
+                    image => '/data/images/resume.gif',
                 },
             }
         ),
