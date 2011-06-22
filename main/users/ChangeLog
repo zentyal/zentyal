@@ -1,4 +1,5 @@
 HEAD
+	+ Moved redis_port_usercorner key to usercorner.conf in zentyal-usercorner
 	+ Move users/conf/user-eboxlog.conf to usercorner/conf/usercorner-log.conf
 2.1.3
 	+ Fixed issues with html html attributes quotation
