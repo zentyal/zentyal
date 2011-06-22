@@ -32,6 +32,7 @@ use EBox::Global;
 use EBox::CaptivePortal;
 use EBox::Sudo;
 use EBox::Util::Lock;
+use Linux::Inotify2;
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -58,6 +59,18 @@ sub run
 
     my $captiveportal = EBox::Global->modInstance('captiveportal');
 
+
+    # Setup iNotify to detect logins
+    my $notifier = Linux::Inotify2->new()
+        or die "unable to create new inotify object: $!";
+
+    $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CLOSE_WRITE, sub {
+        # do nothing, just wakeup
+    });
+
+    # Don't die on ALARM signal
+    local $SIG{ALRM} = sub {};
+
     while (1) {
         EBox::Util::Lock::lock('firewall');
 
@@ -67,7 +80,8 @@ sub run
         EBox::Util::Lock::unlock('firewall');
 
         # Sleep expiration interval
-        sleep(EBox::CaptivePortal->EXPIRATION_TIME-1);
+        alarm(EBox::CaptivePortal->EXPIRATION_TIME-1);
+        $notifier->poll; # execution stalls here until alarm or login event
     }
 }
 
