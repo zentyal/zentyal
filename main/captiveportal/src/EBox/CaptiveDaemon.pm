@@ -80,7 +80,7 @@ sub run
         EBox::Util::Lock::unlock('firewall');
 
         # Sleep expiration interval
-        alarm(EBox::CaptivePortal->EXPIRATION_TIME-1);
+        alarm(EBox::CaptivePortal->EXPIRATION_TIME);
         $notifier->poll; # execution stalls here until alarm or login event
     }
 }
