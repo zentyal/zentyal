@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -55,6 +55,7 @@ use EBox::Monitor::Measure::Manager;
 use Error qw(:try);
 use File::Spec;
 use File::Slurp;
+use JSON;
 
 # Constants
 use constant COLLECTD_INIT        => 'collectd';
@@ -64,6 +65,7 @@ use constant THRESHOLDS_CONF_FILE => '/etc/collectd/thresholds.conf';
 use constant SERVICE_STOPPED_FILE => EBox::Config::tmp() . 'monitor_stopped';
 use constant DEFAULT_COLLECTD_FILE => '/etc/default/collectd';
 use constant RUNTIME_MEASURES     => EBox::Config::conf() . 'monitor/plugins';
+use constant NOTIFICATION_CONF    => EBox::Config::conf() . 'monitor/notif.conf';
 
 # Method: _create
 #
@@ -562,6 +564,7 @@ sub _setThresholdConf
 
     my $measureWatchersModel = $self->model('MeasureWatchers');
     my %thresholds = ();
+    my %persistAfterThresholds;
 
     my $gl = EBox::Global->getInstance(1);
     if ( $gl->modExists('events') ) {
@@ -573,10 +576,15 @@ sub _setThresholdConf
                 try {
                     my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
                     foreach my $confRow (@{$confModel->findDumpThresholds()}) {
+                        my $persistElement = $confRow->elementByName('persist');
+                        my $persist = 1;
+                        if ( $persistElement->selectedType() eq 'persist_once' ) {
+                            $persist = 0;
+                        }
                         my %threshold = ( measure => $measureInstance->plugin(),
                                           type    => $measureInstance->plugin(),
                                           invert  => $confRow->valueByName('invert'),
-                                          persist => $confRow->valueByName('persist'),
+                                          persist => $persist,
                                          );
                         if ( $confRow->valueByName('measureInstance') ne 'none' ) {
                             $threshold{instance} = $confRow->valueByName('measureInstance');
@@ -601,6 +609,14 @@ sub _setThresholdConf
                             $thresholds{$key} = [];
                         }
                         push(@{$thresholds{$key}}, \%threshold);
+                        # Add threshold to the persist_after list if required
+                        if ( $threshold{persist} and $persistElement->selectedType('persist_after') ) {
+                            my $after = $persistElement->value();
+                            $threshold{instance} = '' unless ( $threshold{instance} );
+                            $threshold{typeInstance} = '' unless ( $threshold{typeInstance} );
+                            $persistAfterThresholds{$threshold{measure}}->{$threshold{instance}}->{$threshold{type}}->{$threshold{typeInstance}}->{warn}->{after} = $after;
+                            $persistAfterThresholds{$threshold{measure}}->{$threshold{instance}}->{$threshold{type}}->{$threshold{typeInstance}}->{error}->{after} = $after;
+                        }
                     }
                 } catch EBox::Exceptions::DataNotFound with {
                     # The measure has disappear in some moment, we ignore their thresholds them
@@ -615,6 +631,14 @@ sub _setThresholdConf
     }
     if (keys(%thresholds) > 0) {
         $self->{thresholdConfigured} = 1;
+    }
+
+    if (keys(%persistAfterThresholds) > 0 ) {
+        unless ( -d EBox::Config::conf() . 'monitor' ) {
+            mkdir(EBox::Config::conf() . 'monitor');
+        }
+        File::Slurp::write_file(NOTIFICATION_CONF,
+                                encode_json(\%persistAfterThresholds));
     }
 
     $self->writeConfFile(THRESHOLDS_CONF_FILE,

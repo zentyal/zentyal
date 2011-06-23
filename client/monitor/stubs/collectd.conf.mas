@@ -37,7 +37,9 @@ FQDNLookup false
 #BaseDir "/var/lib/collectd"
 #PluginDir "/usr/lib/collectd"
 #TypesDB "/usr/lib/collectd/types.db" "/etc/collectd/my_types.db"
+% if ( -d '/etc/collectd/conf.d' ) {
 Include "/etc/collectd/conf.d"
+% }
 Interval <% $interval %>
 #ReadThreads 5
 
