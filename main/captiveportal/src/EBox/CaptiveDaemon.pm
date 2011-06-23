@@ -64,7 +64,7 @@ sub run
     my $notifier = Linux::Inotify2->new()
         or die "unable to create new inotify object: $!";
 
-    $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CLOSE_WRITE, sub {
+    $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {
         # do nothing, just wakeup
     });
 
