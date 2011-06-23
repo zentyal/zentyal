@@ -50,6 +50,7 @@ src/EBox/CaptivePortal/Makefile
 src/EBox/CaptivePortal/Model/Makefile
 src/EBox/CaptivePortal/Composite/Makefile
 src/EBox/CaptivePortal/CGI/Makefile
+src/EBox/CaptivePortal/CGI/Dashboard/Makefile
 src/scripts/Makefile
 src/templates/Makefile
 src/cgi/Makefile

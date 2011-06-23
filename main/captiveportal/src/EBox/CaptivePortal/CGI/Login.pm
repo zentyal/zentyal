@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use Apache2::RequestUtil;
 
-use constant DEFAULT_DESTINATION => '/zentyal/PopupLaunch';
+use constant DEFAULT_DESTINATION => '/zentyal/Dashboard/Index';
 
 sub new # (error=?, msg=?, cgi=?)
 {

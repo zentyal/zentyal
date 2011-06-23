@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CaptivePortal/CGI
+perldir = @PERLPATH@/EBox/CaptivePortal/CGI/Dashboard
 
-SUBDIRS = Dashboard
-
-nobase_perl_DATA = Login.pm Popup.pm
+nobase_perl_DATA = Index.pm
 
 SOURCES = $(nobase_perl_DATA)
 
