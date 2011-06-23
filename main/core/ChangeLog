@@ -1,4 +1,4 @@
-HEAD
+2.1.11
 	+ Fixed bug which setted bad directory to models in tab view
 	+ Union type: Use selected subtype on trailingText property if the
 	  major type does not have the property
