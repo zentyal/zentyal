@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,7 +25,9 @@
 #    - warningMax - Float the maximum value to start notifying a warning
 #    - failureMax - Float the maximum value to start notifying a failure
 #    - invert - Boolean the change the meaning of the bounds
-#    - persist - Boolean the notification must be constantly sent or not
+#    - persist - Union the notification must be constantly sent or
+#                once after level change or after X seconds
+#
 #
 # These ones are dependant on the measure, that is the parent model
 #
@@ -44,6 +46,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 use EBox::Monitor::Exceptions::ThresholdOverride;
 use EBox::Gettext;
@@ -52,6 +55,9 @@ use EBox::Monitor::Configuration;
 use EBox::Monitor::Types::MeasureAttribute;
 use EBox::Types::Boolean;
 use EBox::Types::Float;
+use EBox::Types::Int;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 
 # Core modules
 use Error qw(:try);
@@ -202,6 +208,17 @@ sub validateTypedRow
         }
     }
 
+    if ( exists $changedFields->{persist}
+         and $changedFields->{persist}->selectedType() eq 'persist_after' ) {
+        unless ( ($changedFields->{persist}->value() % EBox::Monitor::Configuration::QueryInterval()) == 0 ) {
+            throw EBox::Exceptions::InvalidData(
+                data   => $changedFields->{persist}->printableName(),
+                value  => $changedFields->{persist}->value(),
+                advice => __x('It should be a multiple of {interval}',
+                              interval => EBox::Monitor::Configuration::QueryInterval()));
+        }
+    }
+
 }
 
 # Method: findDumpThresholds
@@ -283,15 +300,31 @@ sub _table
                                   . 'not okay.', fmin => __('failure minimum'), fmax => __('failure maximum'),
                                   wmin => __('warning minimum'), wmax => __('warning maximum')),
              ),
-          new EBox::Types::Boolean(
+          new EBox::Types::Union(
               fieldName     => 'persist',
-              printableName => __('Persistent'),
-              defaultValue  => 1,
+              printableName => __('Send events'),
+              help          =>
+                __('If set to Always, an event will be dispatched '
+                   . 'for each value that is out of the acceptable range.'),
+              subtypes      => [
+                  new EBox::Types::Union::Text(
+                      fieldName     => 'persist_always',
+                      printableName => __('Always'),
+                      ),
+                  new EBox::Types::Union::Text(
+                      fieldName     => 'persist_once',
+                      printableName => __('After a change in event level'),
+                      ),
+                  new EBox::Types::Int(
+                      fieldName     => 'persist_after',
+                      printableName => __('After'),
+                      trailingText  => 's',
+                      min           => EBox::Monitor::Configuration::QueryInterval(),
+                      editable      => 1,
+                      size          => 8,
+                     ),
+                 ],
               editable      => 1,
-              help          => __('If set to true, an event will be dispatched '
-                                  . 'for each value that is out of the acceptable range. '
-                                  . 'If set to false, only a change from an acceptable '
-                                  . 'value to an unacceptable one will be dispatched'),
              ),
           new EBox::Monitor::Types::MeasureAttribute(
               fieldName     => 'measureInstance',

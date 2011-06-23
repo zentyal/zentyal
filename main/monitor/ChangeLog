@@ -1,3 +1,7 @@
+HEAD
+	+ Added persist after X seconds to send an event when the value is
+	  in the notification area for more than X seconds
+	+ Include conf.d directory only if this exists
 2.1.1
 	+ Monitor is now a submenu of the new Maintenance menu
 	+ Removed unnecessary code from MeasureWatchers::syncRows
