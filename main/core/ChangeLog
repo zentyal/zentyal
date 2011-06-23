@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bug which setted bad directory to models in tab view
 	+ Union type: Use selected subtype on trailingText property if the
 	  major type does not have the property
 	+ Raise MaxClients to 2 to prevent apache slowness

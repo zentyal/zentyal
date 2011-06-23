@@ -985,7 +985,7 @@ sub setComponentDirectory
     my ($self, $comp) = @_;
     my $compositeDir = $self->directory();
 
-    return if (not defined($compositeDir) or $compositeDir eq '');
+    return if not $compositeDir;
 
     my $compDir = '' ;
 
@@ -994,17 +994,11 @@ sub setComponentDirectory
         #  before the composites never have directory so we
         # must take care to not set nested directories here
         $compDir = $compositeDir;
-    }
-    elsif ($compositeDir) {
+    } else {
         $compDir = $compositeDir . '/' . $comp->name();
-    }
-    else {
-        $compDir =  $comp->name();
     }
 
     $comp->setDirectory($compDir);
-
-
 }
 
 # Method: filesPaths
@@ -1022,7 +1016,6 @@ sub filesPaths
         }
     }
 
-
     return \@paths;
 }
 
@@ -1033,14 +1026,13 @@ sub filesPaths
 #   components. This backup will used to discard cahnges if needed
 sub backupFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
     foreach my $comp (@{ $self->components() }) {
         if ($comp->can('backupFiles')) {
             $comp->backupFiles();
         }
     }
-
 }
 
 # Method: restoreFiles
@@ -1056,7 +1048,6 @@ sub restoreFiles
             $comp->restoreFiles();
         }
     }
-
 }
 
 sub pageTitle
@@ -1091,9 +1082,11 @@ sub HTMLTitle
 	return undef unless ($pageTitle);
 
 	return [
-            {title => $pageTitle,
-             link  => undef
-            }];
+             {
+               title => $pageTitle,
+               link  => undef
+             }
+           ];
 }
 
 1;

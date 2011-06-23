@@ -74,22 +74,23 @@ use EBox::Gettext;
   for ( my $idx = 0; $idx < scalar(@{$models}); $idx++) {
       my $modelElement = ${$models}[$idx];
       my $name         = $modelElement->name();
-      my $action       =  $modelElement->action('changeView');
+      my $action       = $modelElement->action('changeView');
+      my $modelDir     = $modelElement->directory();
 </%perl>
   modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'] = new Object();
   modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].action = '<% $action %>';
-  modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].directory = '<% $directory %>';
+  modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].directory = '<% $modelDir %>';
 % }
-  var tabMenu_<% $tabName | hu %> = new EBox.Tabs( 
-     '<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %> 
-  ); 
-  var url = location.href.split('#'); 
-  if ( url[1] ) { 
-     var activeTab = tabMenu_<% $tabName | hu %>.tabs.detect( 
-        function (t) { 
-             return t.href.split('#')[1] == url[1]; 
-        }             
-     ); 
-     tabMenu_<% $tabName | hu %>.showActiveTab(activeTab); 
-  }  
+  var tabMenu_<% $tabName | hu %> = new EBox.Tabs(
+     '<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>
+  );
+  var url = location.href.split('#');
+  if ( url[1] ) {
+     var activeTab = tabMenu_<% $tabName | hu %>.tabs.detect(
+        function (t) {
+             return t.href.split('#')[1] == url[1];
+        }
+     );
+     tabMenu_<% $tabName | hu %>.showActiveTab(activeTab);
+  }
 </script>
