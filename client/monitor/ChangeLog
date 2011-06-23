@@ -1,4 +1,4 @@
-HEAD
+2.0.3
 	+ Added persist after X seconds to send an event when the value is
 	  in the notification area for more than X seconds
 	+ Include conf.d directory only if this exists
