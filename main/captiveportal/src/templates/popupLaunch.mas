@@ -16,8 +16,7 @@ use EBox::Gettext;
   </script>
 </head>
 <body onload="launch()">
-  <div>
   Launching popup window!
-  </div>
+  <p><a href="/zentyal/Logout">Logout</a></p>
 </body>
 </html>

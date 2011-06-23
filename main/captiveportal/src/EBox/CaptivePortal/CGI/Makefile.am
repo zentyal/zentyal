@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/CaptivePortal/CGI
 
 SUBDIRS = Dashboard
 
-nobase_perl_DATA = Login.pm Popup.pm
+nobase_perl_DATA = Login.pm Logout.pm Popup.pm
 
 SOURCES = $(nobase_perl_DATA)
 

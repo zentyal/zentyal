@@ -40,9 +40,6 @@ use Fcntl qw(:flock);
 use File::Basename;
 use YAML::XS;
 
-# By now, the expiration time for session is hardcoded here
-use constant EXPIRE => 3600; #In seconds  1h
-
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007; # (Bond, James Bond)
 
@@ -104,7 +101,7 @@ sub _savesession
                 "Could not open to write ".  $filename);
     }
 
-# Lock the file in exclusive mode
+    # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
         or throw EBox::Exceptions::Lock('EBox::CaptivePortal::Auth');
     # Truncate the file after locking
@@ -130,7 +127,9 @@ sub _savesession
 # update session time and ip
 sub _updatesession
 {
-    my ($sid, $ip) = @_;
+    my ($sid, $ip, $time) = @_;
+
+    defined($time) or $time = time();
 
     my $sidFile;
     my $sess_file = EBox::CaptivePortal->SIDS_DIR . $sid;
@@ -150,7 +149,7 @@ sub _updatesession
     # Update session time and ip
     if (defined($sess_info)) {
         my $data = YAML::XS::Load($sess_info);
-        $data->{time} = time();
+        $data->{time} = $time;
         $data->{ip} = $ip;
         print $sidFile YAML::XS::Dump($data);
     }
@@ -244,7 +243,6 @@ sub authen_ses_key  # (request, session_key)
     my $data = YAML::XS::Load($sess_info);
 
     if (defined($data)) {
-        $expired = _timeExpired($data->{time});
         $user = $data->{user};
     }
 
@@ -252,7 +250,7 @@ sub authen_ses_key  # (request, session_key)
     flock($sidFile, LOCK_UN);
     close($sidFile);
 
-    if(defined($user) and !$expired) {
+    if(defined($user)) {
         _updatesession($session_key, $r->connection->remote_ip());
         return $user;
     } elsif (defined($user) and $expired) {
@@ -265,13 +263,6 @@ sub authen_ses_key  # (request, session_key)
     return;
 }
 
-sub _timeExpired
-{
-    my ($lastime) = @_;
-
-    my $expires = $lastime + EXPIRE;
-    return (time() > $expires);
-}
 
 # Method: logout
 #
@@ -281,9 +272,12 @@ sub logout # (request)
 {
     my ($self, $r) = @_;
 
-    # TODO make this work with session files
-    my $filename = EBox::CaptivePortal->SIDS_DIR . $r->user;
-    unlink($filename);
+    # expire session
+    my $session_key = substr($self->key($r), 0, 32);
+    _updatesession($session_key, $r->connection->remote_ip(), 0);
+
+    # notify captive daemon
+    system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);
 
     $self->SUPER::logout($r);
 }

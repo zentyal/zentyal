@@ -61,12 +61,18 @@ sub run
 
 
     # Setup iNotify to detect logins
-    my $notifier = Linux::Inotify2->new()
-        or die "unable to create new inotify object: $!";
+    my $notifier = Linux::Inotify2->new();
 
-    $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {
-        # do nothing, just wakeup
-    });
+    unless (defined($notifier)) {
+        throw EBox::Exceptions::External('Unable to create inotify listener');
+    }
+
+    # Create logout file
+    EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
+
+    # wakeup on new session and logout events
+    $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
+    $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
 
     # Don't die on ALARM signal
     local $SIG{ALRM} = sub {};
@@ -81,7 +87,7 @@ sub run
 
         # Sleep expiration interval
         alarm(EBox::CaptivePortal->EXPIRATION_TIME);
-        $notifier->poll; # execution stalls here until alarm or login event
+        $notifier->poll; # execution stalls here until alarm or login/out event
     }
 }
 

@@ -34,6 +34,7 @@ use EBox::Exceptions::External;
 
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
 use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
+use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
 use constant EXPIRATION_TIME => 60;
