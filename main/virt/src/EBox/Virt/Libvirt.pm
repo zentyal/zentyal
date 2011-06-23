@@ -127,7 +127,7 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    return system ("$VIRTCMD list | grep running | cut -f2 -d' ' | grep -q ^$name\$") == 0;
+    return system ("$VIRTCMD list | grep running | cut -d' ' -f4 | grep -q ^$name\$") == 0;
 }
 
 # FIXME: doc

@@ -13,6 +13,7 @@
         <type arch='i686' machine='pc'>hvm</type>
         <boot dev='hd'/>
     </os>
+    <features><acpi/></features>
     <clock sync='localtime'/>
     <on_poweroff>destroy</on_poweroff>
     <on_reboot>restart</on_reboot>
@@ -21,7 +22,7 @@
         <emulator>/usr/bin/kvm</emulator>
 % foreach my $disk (@disks) {
         <disk type='file' device='disk'>
-                <source file='<% $disk %>'/>
+            <source file='<% $disk %>'/>
             <target dev='hda' bus='ide'/>
         </disk>
 % }
