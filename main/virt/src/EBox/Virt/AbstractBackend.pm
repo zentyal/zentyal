@@ -228,6 +228,10 @@ sub setIface
     throw Ebox::Exceptions::NotImplemented();
 }
 
+sub initDeviceNumbers
+{
+}
+
 # Method: attachDevice
 #
 #   Attach a device to a VM.
@@ -243,6 +247,18 @@ sub setIface
 sub attachDevice
 {
     throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: writeConf
+#
+#   Writes configuration file for a VM if needed.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub writeConf
+{
 }
 
 1;

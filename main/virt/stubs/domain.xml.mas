@@ -1,0 +1,32 @@
+<%args>
+    $name
+    $memory
+    @ifaces
+    @disks
+    $vncport
+</%args>
+<domain type='kvm'>
+    <name><% $name %></name>
+    <memory><% $memory * 1024 %></memory>
+    <vcpu>1</vcpu>
+    <os>
+        <type arch='i686' machine='pc'>hvm</type>
+        <boot dev='hd'/>
+    </os>
+    <clock sync='localtime'/>
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>restart</on_crash>
+    <devices>
+        <emulator>/usr/bin/kvm</emulator>
+% foreach my $disk (@disks) {
+        <disk type='file' device='disk'>
+                <source file='<% $disk %>'/>
+            <target dev='hda' bus='ide'/>
+        </disk>
+% }
+% # FIXME: $ifaces
+% # FIXME: Use same keyboard layout as the host the system
+        <graphics type='vnc' port='<% $vncport %>' keymap='es'/>
+    </devices>
+</domain>

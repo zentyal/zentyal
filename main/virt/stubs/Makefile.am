@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/virt
 
-nobase_Stub_DATA = upstart.mas vncproxy.mas vncviewer.html.mas
+nobase_Stub_DATA = upstart.mas vncproxy.mas vncviewer.html.mas domain.xml.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

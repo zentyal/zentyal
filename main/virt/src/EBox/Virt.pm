@@ -28,13 +28,13 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use Error qw(:try);
 use EBox::Sudo;
-use EBox::Virt::VBox;
 use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
 
 use constant VNC_PORT => 5900;
+use constant LIBVIRT_BIN => '/usr/bin/virsh';
 
-my $UPSTART_PATH= '/etc/init/';
+my $UPSTART_PATH = '/etc/init/';
 
 # TODO: move this to /etc/zentyal/virt.conf ?
 my $VIRT_USER = 'ebox';
@@ -47,7 +47,15 @@ sub _create
                                       @_);
     bless($self, $class);
 
-    $self->{backend} = new EBox::Virt::VBox();
+    # Autodetect which virtualization suite is installed,
+    # libvirt has priority if both are installed
+    if (-x LIBVIRT_BIN) {
+        eval 'use EBox::Virt::Libvirt';
+        $self->{backend} = new EBox::Virt::Libvirt();
+    } else {
+        eval 'use EBox::Virt::VBox';
+        $self->{backend} = new EBox::Virt::VBox();
+    }
 
     return $self;
 }
@@ -151,6 +159,9 @@ sub _setConf
         $self->st_set_string("vncport/$name/vncport", $vncport);
         $self->_writeMachineConf($name, $vncport);
         $vncport++;
+
+        # Only used for libvirt
+        $backend->writeConf($name);
     }
 
     # Delete non-referenced VMs
@@ -222,10 +233,7 @@ sub _createMachine
     my $memory = $system->valueByName('memory');
     my $os = $system->valueByName('os');
 
-    unless ($backend->vmExists($name)) {
-        $backend->createVM(name => $name, os => $os);
-    }
-
+    $backend->createVM(name => $name, os => $os);
     $backend->setMemory($name, $memory);
 }
 
@@ -261,6 +269,7 @@ sub _setDevicesConf
 
     my $backend = $self->{backend};
 
+    # Only used for vbox
     $backend->initDeviceNumbers();
 
     # TODO: Manage deleted disks...

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Virt::VBox;
+package EBox::Virt::Libvirt;
 
 use base 'EBox::Virt::AbstractBackend';
 
@@ -21,14 +21,15 @@ use strict;
 use warnings;
 
 use EBox::Exceptions::MissingArgument;
+use File::Basename;
 
-my $VBOXCMD = 'vboxmanage -nologo';
-my $IDE_CTL = 'idectl';
-my $SATA_CTL = 'satactl';
+my $VM_PATH = '/var/lib/zentyal/machines';
+my $VM_FILE = 'domain.xml';
+my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
 
-# Class: EBox::Virt::VBox
+# Class: EBox::Virt::Libvirt
 #
-#   Backend implementation for VirtualBox
+#   Backend implementation for libvirt
 #
 
 sub new
@@ -36,6 +37,9 @@ sub new
     my $class = shift;
     my $self = {};
     bless ($self, $class);
+
+    $self->{vmConf} = {};
+
     return $self;
 }
 
@@ -60,7 +64,8 @@ sub createDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    _run("$VBOXCMD createhd --filename $file --size $size");
+    # FIXME: faster if we use qemu-img ?
+    _run("dd if=/dev/zero of=$file bs=1M count=$size");
 }
 
 # Method: resizeDisk
@@ -84,7 +89,7 @@ sub resizeDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    _run("$VBOXCMD modifyhd $file --resize $size");
+    # TODO: Implement this with cat (only enlarge)
 }
 
 # Method: vmExists
@@ -103,7 +108,7 @@ sub vmExists
 {
     my ($self, $name) = @_;
 
-    $self->_vmCheck($name, 'vms');
+    return (-e "$VM_PATH/$name/$VM_FILE");
 }
 
 # Method: vmRunning
@@ -122,23 +127,16 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    $self->_vmCheck($name, 'runningvms');
+    return system ("$VIRTCMD list | grep running | cut -f2 -d' ' | grep -q ^$name\$") == 0;
 }
 
 # FIXME: doc
 sub listVMs
 {
-    my $list =  `$VBOXCMD list vms | cut -d'"' -f2`;
-    my @vms = split ("\n", $list);
+    my @dirs = glob ("$VM_PATH/*");
+    @dirs = grep { -e "$_/$VM_FILE" } @dirs;
+    my @vms = map { basename($_) } @dirs;
     return \@vms;
-}
-
-sub _vmCheck
-{
-    my ($self, $name, $list) = @_;
-
-    _run("$VBOXCMD list $list | grep -q '\"$name\"'");
-    return ($? == 0);
 }
 
 # Method: createVM
@@ -160,16 +158,15 @@ sub createVM
         throw EBox::Exceptions::MissingArgument('os');
 
     my $name = $params{name};
-    my $os = $params{os};
+    my $os = $params{os}; # FIXME: is this needed?
 
-    return if $self->vmExists($name);
+    my $conf = {};
+    $conf->{ifaces} = [];
+    $conf->{disks} = [];
 
-    # TODO: --settingsfile <path> ?
-    _run("$VBOXCMD createvm --name $name --ostype $os --register");
+    $self->{vmConf}->{$name} = $conf;
 
-    # Add IDE and SATA controllers
-    _run("$VBOXCMD storagectl $name --name $IDE_CTL --add ide");
-    _run("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
+    _run("mkdir -p $VM_PATH/$name");
 }
 
 # Method: startVMCommand
@@ -196,8 +193,9 @@ sub startVMCommand
 
     my $name = $params{name};
     my $port = $params{port};
+    $self->{vmConf}->{$name}->{port} = $port;
 
-    return ("vboxheadless --vnc --vncport $port --startvm $name");
+    return ("$VIRTCMD create $VM_PATH/$name/$VM_FILE");
 }
 
 # Method: shutdownVM
@@ -212,7 +210,7 @@ sub shutdownVM
 {
     my ($self, $name) = @_;
 
-    $self->_controlVM($name, 'poweroff');
+    _run($self->shutdownVMCommand($name));
 }
 
 # Method: shutdownVMCommand
@@ -231,7 +229,7 @@ sub shutdownVMCommand
 {
     my ($self, $name) = @_;
 
-    return $self->_controlVMCommand($name, 'poweroff');
+    return "$VIRTCMD shutdown $name";
 }
 
 # Method: pauseVM
@@ -246,7 +244,7 @@ sub pauseVM
 {
     my ($self, $name) = @_;
 
-    $self->_controlVM($name, 'pause');
+    # FIXME: Is this supported by libvirt?
 }
 
 # Method: resumeVM
@@ -261,21 +259,7 @@ sub resumeVM
 {
     my ($self, $name) = @_;
 
-    $self->_controlVM($name, 'resume');
-}
-
-sub _controlVMCommand
-{
-    my ($self, $name, $command) = @_;
-
-    return ("$VBOXCMD controlvm $name $command");
-}
-
-sub _controlVM
-{
-    my ($self, $name, $command) = @_;
-
-    _run($self->_controlVMCommand($name, $command));
+    # FIXME: Is this supported by libvirt?
 }
 
 # Method: deleteVM
@@ -290,7 +274,7 @@ sub deleteVM
 {
     my ($self, $name) = @_;
 
-    _run("$VBOXCMD unregistervm $name --delete");
+    _run("rm -rf $VM_PATH/$name");
 }
 
 # Method: setMemory
@@ -306,7 +290,7 @@ sub setMemory
 {
     my ($self, $name, $size) = @_;
 
-    $self->_modifyVM($name, 'memory', $size);
+    $self->{vmConf}->{$name}->{memory} = $size;
 }
 
 # Method: setOS
@@ -322,7 +306,7 @@ sub setOS
 {
     my ($self, $name, $os) = @_;
 
-    $self->_modifyVM($name, 'ostype', $os);
+    # TODO: Is this needed?
 }
 
 # Method: setIface
@@ -369,22 +353,8 @@ sub setIface
     }
     my $setting = $type . $iface;
 
-    $self->_modifyVM($name, $setting, $arg);
-}
-
-sub _modifyVM
-{
-    my ($self, $name, $setting, $value) = @_;
-
-    _run("$VBOXCMD modifyvm $name --$setting $value");
-}
-
-sub initDeviceNumbers
-{
-    my ($self) = @_;
-
-    $self->{sataDeviceNumber} = 0;
-    $self->{ideDeviceNumber} = 0;
+    # FIXME
+    #push (@{$self->{vmConf}->{$name}->{ifaces}}, $file);
 }
 
 # Method: attachDevice
@@ -412,27 +382,33 @@ sub attachDevice
     my $type = $params{type};
     my $file = $params{file};
 
-    my ($port, $device, $ctl);
-    if ($type eq 'hd') {
-        $type = 'hdd';
-        $ctl = $SATA_CTL;
-        $port = $self->{sataDeviceNumber}++;
-        $device = 0;
-    } elsif ($type eq 'cd') {
-        $type = 'dvddrive';
-        $ctl = $IDE_CTL;
-        $port = $self->{ideDeviceNumber} / 2;
-        $device = $self->{ideDeviceNumber} % 2;
-        $self->{ideDeviceNumber}++;
-    }
-
-    _run("$VBOXCMD storageattach $name --storagectl $ctl --port $port --device $device --type $type --medium $file");
+    # TODO: CD/DVD support
+    push (@{$self->{vmConf}->{$name}->{disks}}, $file);
 }
 
-# FIXME
+sub writeConf
+{
+    my ($self, $name) = @_;
+
+    my $vmConf = $self->{vmConf}->{$name};
+
+    EBox::Module::Base::writeConfFileNoCheck(
+        "$VM_PATH/$name/$VM_FILE",
+        '/virt/domain.xml.mas',
+        [
+         name => $name,
+         memory => $vmConf->{memory},
+         ifaces => $vmConf->{ifaces},
+         disks => $vmConf->{disks},
+         vncport => $vmConf->{port},
+        ],
+        { uid => 0, gid => 0, mode => '0644' }
+    );
+}
+
 sub listHDs
 {
-    my $list =  `$VBOXCMD list hdds | grep ^Location | cut -c14-`;
+    my $list =  `find $VM_PATH -name '*.img'`;
     my @hds = split ("\n", $list);
     return \@hds;
 }
