@@ -1,4 +1,5 @@
 <%args>
+  $interval
 </%args>
 <%init>
 use EBox::Gettext;
