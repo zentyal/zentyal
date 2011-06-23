@@ -21,8 +21,8 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
+use EBox::CaptivePortal;
 use Apache2::RequestUtil;
-
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -38,6 +38,7 @@ sub _print
 {
 	my $self = shift;
 	print($self->cgi()->header(-charset=>'utf-8'));
+    $self->{params} = [ interval => EBox::CaptivePortal->EXPIRATION_TIME ];
 	$self->_body;
 }
 
