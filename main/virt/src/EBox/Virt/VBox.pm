@@ -23,6 +23,7 @@ use warnings;
 use EBox::Exceptions::MissingArgument;
 
 my $VBOXCMD = 'vboxmanage -nologo';
+my $IDE_CTL = 'idectl';
 my $SATA_CTL = 'satactl';
 
 # Class: EBox::Virt::VBox
@@ -164,7 +165,8 @@ sub createVM
     # TODO: --settingsfile <path> ?
     _run("$VBOXCMD createvm --name $name --ostype $os --register");
 
-    # Add SATA controller
+    # Add IDE and SATA controllers
+    _run("$VBOXCMD storagectl $name --name $IDE_CTL --add ide");
     _run("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
 }
 
@@ -375,6 +377,14 @@ sub _modifyVM
     _run("$VBOXCMD modifyvm $name --$setting $value");
 }
 
+sub initDeviceNumbers
+{
+    my ($self) = @_;
+
+    $self->{sataDeviceNumber} = 0;
+    $self->{ideDeviceNumber} = 0;
+}
+
 # Method: attachDevice
 #
 #   Attach a device to a VM.
@@ -382,8 +392,6 @@ sub _modifyVM
 # Parameters:
 #
 #   name   - virtual machine name
-#   port   - port number
-#   device - device number
 #   type   - hd | cd | none
 #   file   - path of the ISO or VDI file
 #
@@ -393,28 +401,30 @@ sub attachDevice
 
     exists $params{name} or
         throw EBox::Exceptions::MissingArgument('name');
-    exists $params{port} or
-        throw EBox::Exceptions::MissingArgument('port');
-    exists $params{device} or
-        throw EBox::Exceptions::MissingArgument('device');
     exists $params{type} or
         throw EBox::Exceptions::MissingArgument('type');
     exists $params{file} or
         throw EBox::Exceptions::MissingArgument('file');
 
     my $name = $params{name};
-    my $port = $params{port};
-    my $device = $params{device};
     my $type = $params{type};
     my $file = $params{file};
 
+    my ($port, $device, $ctl);
     if ($type eq 'hd') {
         $type = 'hdd';
+        $ctl = $SATA_CTL;
+        $port = $self->{sataDeviceNumber}++;
+        $device = 0;
     } elsif ($type eq 'cd') {
         $type = 'dvddrive';
+        $ctl = $IDE_CTL;
+        $port = $self->{ideDeviceNumber} / 2;
+        $device = $self->{ideDeviceNumber} % 2;
+        $self->{ideDeviceNumber}++;
     }
 
-    _run("$VBOXCMD storageattach $name --storagectl $SATA_CTL --port $port --device $device --type $type --medium $file");
+    _run("$VBOXCMD storageattach $name --storagectl $ctl --port $port --device $device --type $type --medium $file");
 }
 
 # FIXME

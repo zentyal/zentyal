@@ -31,10 +31,13 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::View::Customizer;
+use EBox::Exceptions::External;
 
 use Filesys::Df;
 
 use constant HDDS_DIR => '/var/lib/zentyal';
+use constant MAX_CD_NUM => 4;
+use constant MAX_HD_NUM => 30;
 
 # Group: Public methods
 
@@ -62,7 +65,6 @@ sub new
 }
 
 # Group: Private methods
-
 
 sub _populateDriveTypes
 {
@@ -119,6 +121,38 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    my $numCDs = 0;
+    my $numHDs = 0;
+
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+
+        my $type = $row->elementByName('type')->value();
+
+        if ($type eq 'cd') {
+            $numCDs++;
+            if ($numCDs == MAX_CD_NUM) {
+                throw EBox::Exceptions::External(__x('A maximum of {num} CD/DVD drives are allowed', num => MAX_CD_NUM));
+            }
+        } elsif ($type eq 'hd') {
+            $numHDs++;
+            if ($numHDs == MAX_HD_NUM) {
+                throw EBox::Exceptions::External(__x('A maximum of {num} Hard Disk drives are allowed', num => MAX_HD_NUM));
+            }
+        }
+    }
 }
 
 # Method: viewCustomizer

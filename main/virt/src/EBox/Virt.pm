@@ -260,7 +260,8 @@ sub _setDevicesConf
     my ($self, $name, $settings) = @_;
 
     my $backend = $self->{backend};
-    my $deviceNumber = 0;
+
+    $backend->initDeviceNumbers();
 
     # TODO: Manage deleted disks...
     my $devices = $settings->componentByName('DeviceSettings');
@@ -274,9 +275,7 @@ sub _setDevicesConf
             $backend->createDisk(file => $file, size => $size);
         }
 
-        $backend->attachDevice(name => $name, port => 0,
-                               device => $deviceNumber++,
-                               type => $type, file => $file);
+        $backend->attachDevice(name => $name, type => $type, file => $file);
     }
 }
 
