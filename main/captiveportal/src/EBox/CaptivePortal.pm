@@ -138,6 +138,9 @@ sub _daemons
         {
             'name' => 'zentyal.apache2-captiveportal'
         },
+        {
+            'name' => 'zentyal.captivedaemon'
+        },
     ];
 }
 
