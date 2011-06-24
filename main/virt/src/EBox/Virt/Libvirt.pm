@@ -432,4 +432,11 @@ sub _run
     system ($cmd);
 }
 
+sub diskFile
+{
+    my ($machine, $disk) = @_;
+
+    return "$VM_PATH/$machine/$disk.img";
+}
+
 1;

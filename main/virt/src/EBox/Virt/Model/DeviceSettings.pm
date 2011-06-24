@@ -107,19 +107,22 @@ sub _table
                              fieldName     => 'name',
                              printableName => __('Name'),
                              editable      => 1,
+                             optional      => 1,
                             ),
        new EBox::Types::Text(
                              fieldName     => 'path',
                              printableName => __('Path'),
                              editable      => 1,
+                             optional      => 1,
                             ),
        new EBox::Types::Int(
                             fieldName     => 'size',
                             printableName => __('Size'),
                             editable      => 1,
                             defaultValue  => 8000,
-                            min           => 32,
-                            max           => int(df('/')->{bavail}),
+                            # TODO: Move these checks to validateRow
+                            #min           => 32,
+                            #max           => int(df('/')->{bavail}),
                             trailingText  => 'MB',
                            ),
     );
@@ -172,6 +175,49 @@ sub validateTypedRow
             }
         }
     }
+}
+
+# Method: addedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    $self->_cleanOptionalValues($row);
+}
+
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+
+    $self->_cleanOptionalValues($row);
+}
+
+sub _cleanOptionalValues
+{
+    my ($self, $row) = @_;
+
+    if ($row->valueByName('type') eq 'hd' and
+        $row->valueByName('disk_action') eq 'create') {
+        $row->elementByName('path')->setValue('');
+    } else {
+        my $file = $row->valueByName('path');
+        my $size = int ((-s $file) / (1024 * 1024));
+        my $sizeElement = $row->elementByName('size');
+        $sizeElement->setValue($size);
+        $row->elementByName('name')->setValue('');
+    }
+    $row->store();
 }
 
 # Method: viewCustomizer

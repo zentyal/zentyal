@@ -100,6 +100,14 @@ sub menu
                                     'order' => 445));
 }
 
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    # FIXME: Do this only if needed? (disk have changed, etc)
+    $self->_stopService();
+}
+
 sub _setConf
 {
     my ($self) = @_;
@@ -252,12 +260,22 @@ sub _setDevicesConf
     my $devices = $settings->componentByName('DeviceSettings');
     foreach my $deviceId (@{$devices->enabledRows()}) {
         my $device = $devices->row($deviceId);
-        my $file = $device->valueByName('path');
-        my $size = $device->valueByName('size');
+        my $file;
         my $type = $device->valueByName('type');
+        my $disk_action;
+        if ($type eq 'hd') {
+            $disk_action = $device->valueByName('disk_action');
+        }
 
-        unless (-f $file) {
-            $backend->createDisk(file => $file, size => $size);
+        if ($disk_action eq 'create') {
+            my $disk_name = $device->valueByName('name');
+            my $size = $device->valueByName('size');
+            $file = $backend->diskFile($disk_name, $name);
+            unless (-f $file) {
+                $backend->createDisk(file => $file, size => $size);
+            }
+        } else {
+            $file = $device->valueByName('path');
         }
 
         $backend->attachDevice(name => $name, type => $type, file => $file);

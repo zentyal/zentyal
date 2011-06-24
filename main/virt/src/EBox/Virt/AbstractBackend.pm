@@ -262,6 +262,21 @@ sub systemTypes
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: diskFile
+#
+#   Returns the path for a disk file.
+#
+# Parameters:
+#
+#   disk    - disk name
+#   machine - *optional* VM name
+#
+sub diskFile
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+
 # Method: writeConf
 #
 #   Writes configuration file for a VM if needed.

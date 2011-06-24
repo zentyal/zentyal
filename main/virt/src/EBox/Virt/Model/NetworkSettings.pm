@@ -75,6 +75,8 @@ sub _populateIfaces
                         { value => $_, printableValue => $_ }
                      } EBox::NetWrappers::list_ifaces();
 
+    unshift (@values, { value => 'none', printableValue => __('None') });
+
     return \@values;
 }
 
@@ -103,6 +105,7 @@ sub _table
                              fieldName     => 'name',
                              printableName => __('Name'),
                              editable      => 1,
+                             optional      => 1,
                             ),
     );
 

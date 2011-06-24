@@ -458,6 +458,14 @@ sub listHDs
     return \@hds;
 }
 
+sub diskFile
+{
+    my ($disk) = @_;
+
+    # By default it is created on /var/lib/zentyal/.VirtualBox/HardDisks/$disk.vdi
+    return $disk;
+}
+
 sub _run
 {
     my ($cmd) = @_;
