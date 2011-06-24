@@ -134,14 +134,12 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
-    # FIXME: Change enable/disable to show/hide
-    # when supporting it in DataTables in the framework
     $customizer->setOnChangeActions(
             { type =>
                 {
-                  'nat' => { disable => [ 'iface', 'name' ] },
-                  'bridged' => { enable  => [ 'iface' ], disable => [ 'name' ] },
-                  'internal' => { enable  => [ 'name' ], disable => [ 'iface' ] },
+                  'nat' => { hide => [ 'iface', 'name' ] },
+                  'bridged' => { show  => [ 'iface' ], hide => [ 'name' ] },
+                  'internal' => { show  => [ 'name' ], hide => [ 'iface' ] },
                 }
             });
     return $customizer;

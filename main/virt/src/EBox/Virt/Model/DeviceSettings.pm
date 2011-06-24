@@ -186,19 +186,17 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
-    # FIXME: Change enable/disable to show/hide
-    # when supporting it in DataTables in the framework
     $customizer->setOnChangeActions(
             {
               type =>
                 {
-                  'cd' => { disable => [ 'disk_action', 'name', 'size' ], enable => [ 'path' ] },
-                  'hd' => { enable  => [ 'disk_action', 'name', 'size' ], disable => [ 'path' ] },
+                  'cd' => { show => [ 'path' ], hide => [ 'disk_action', 'name', 'size' ] },
+                  'hd' => { show  => [ 'disk_action', 'name', 'size' ], hide => [ 'path' ] },
                 },
               disk_action =>
                 {
-                  'create' => { disable => [ 'path' ], enable => [ 'name', 'size' ] },
-                  'use' => { enable  => [ 'path' ], disable => [ 'name', 'size' ] },
+                  'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
+                  'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
                 },
             });
     return $customizer;
