@@ -61,25 +61,9 @@ sub new
 
 sub _populateOSTypes
 {
-    # FIXME: This is VBox-specific, we need to implement it using
-    # the AbstractBackend
-    my $output = `vboxmanage list ostypes`;
-    my @lines = split ("\n", $output);
+    my ($self) = @_;
 
-    my @values;
-    for (my $i = 0; $i < @lines; $i++) {
-        my $line = $lines[$i];
-        my ($id) = $line =~ /^ID:\s+(.*)/;
-        if ($id) {
-            $line = $lines[++$i];
-            my ($desc) = $line =~ /^Description:\s+(.*)/;
-            if ($desc) {
-                push (@values, { value => $id, printableValue => $desc });
-                $i++; # Skip blank line
-            }
-        }
-    }
-    return \@values;
+    return EBox::Global->modInstance('virt')->systemTypes();
 }
 
 # Method: _table

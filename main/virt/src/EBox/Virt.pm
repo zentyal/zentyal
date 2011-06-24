@@ -207,6 +207,13 @@ sub resumeVM
     return $self->{backend}->resumeVM($name);
 }
 
+sub systemTypes
+{
+    my ($self, $name) = @_;
+
+    return $self->{backend}->systemTypes();
+}
+
 sub _daemons
 {
     my ($self) = @_;

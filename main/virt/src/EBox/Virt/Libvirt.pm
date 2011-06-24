@@ -20,6 +20,7 @@ use base 'EBox::Virt::AbstractBackend';
 use strict;
 use warnings;
 
+use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 use File::Basename;
 
@@ -384,6 +385,12 @@ sub attachDevice
 
     # TODO: CD/DVD support
     push (@{$self->{vmConf}->{$name}->{disks}}, $file);
+}
+
+sub systemTypes
+{
+    return [ { value => 'i686', printableValue => __('i686 compatible') },
+             { value => 'x86_64', printableValue => __('amd64 compatible') } ]
 }
 
 sub writeConf

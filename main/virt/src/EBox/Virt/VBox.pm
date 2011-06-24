@@ -429,6 +429,27 @@ sub attachDevice
     _run("$VBOXCMD storageattach $name --storagectl $ctl --port $port --device $device --type $type --medium $file");
 }
 
+sub systemTypes
+{
+    my $output = `$VBOXCMD list ostypes`;
+    my @lines = split ("\n", $output);
+
+    my @values;
+    for (my $i = 0; $i < @lines; $i++) {
+        my $line = $lines[$i];
+        my ($id) = $line =~ /^ID:\s+(.*)/;
+        if ($id) {
+            $line = $lines[++$i];
+            my ($desc) = $line =~ /^Description:\s+(.*)/;
+            if ($desc) {
+                push (@values, { value => $id, printableValue => $desc });
+                $i++; # Skip blank line
+            }
+        }
+    }
+    return \@values;
+}
+
 # FIXME
 sub listHDs
 {

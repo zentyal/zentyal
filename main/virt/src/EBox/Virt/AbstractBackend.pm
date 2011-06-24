@@ -249,6 +249,19 @@ sub attachDevice
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: systemTypes
+#
+#   Returns system types supported by the virtualizer
+#
+# Returns:
+#
+#   [ { value => 'foo', printableValue => 'Foo' }, ... ]
+#
+sub systemTypes
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
 # Method: writeConf
 #
 #   Writes configuration file for a VM if needed.
