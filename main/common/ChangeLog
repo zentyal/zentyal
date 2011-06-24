@@ -1,4 +1,5 @@
 HEAD
+	+ Call EBox::Config::refreshConfFiles only when needed
 	+ Use all user groups on EBox::init() gid change
 2.1.2
 	+ Improved performance of the NetWrappers::list_ifaces method

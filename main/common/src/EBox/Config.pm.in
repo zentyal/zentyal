@@ -39,7 +39,6 @@ $ref->{perlpath} = "@PERLPATH@";
 
 my @confFiles;
 my %cachedFiles;
-refreshConfFiles();
 
 sub refreshConfFiles
 {
@@ -89,6 +88,10 @@ sub configkey # (key)
 {
     my ($key) = @_;
 
+    unless (@confFiles) {
+        refreshConfFiles();
+    }
+
     my $value = undef;
     foreach my $file (@confFiles) {
         $value = configkeyFromFile($key, $file);
@@ -104,6 +107,10 @@ sub configkey # (key)
 sub configkeys # (key)
 {
     my ($key) = @_;
+
+    unless (@confFiles) {
+        refreshConfFiles();
+    }
 
     my @values;
     foreach my $file (@confFiles) {
