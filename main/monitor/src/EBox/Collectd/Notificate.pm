@@ -106,7 +106,8 @@ sub ebox_notify
         $level  = 'warn';
         $aLevel = 'error';
     } else {
-        $level = 'info';
+        $level  = 'info';
+        $aLevel = 'warn';
     }
 
     $not->{plugin_instance} = '' unless defined($not->{plugin_instance});
