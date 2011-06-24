@@ -34,7 +34,6 @@ function setEnableRecursively(element, state) {
     );
 }
 
-
 // Function: onFieldChange
 //  
 //  Function called from onChange events on form and table fields.
@@ -69,8 +68,8 @@ function onFieldChange(event, JSONActions, table) {
                     case 'show':
                         show(fullId);
                         break;
-                    case 'show':
-                        show(fullId);
+                    case 'hide':
+                        hide(fullId);
                         break;
                      case 'enable':
                         setEnableRecursively($(fullId), true);
