@@ -399,6 +399,9 @@ sub writeConf
 
     my $vmConf = $self->{vmConf}->{$name};
 
+    # FIXME: there should be a better way to get the keyboard layout...
+    my ($keymap) = split(/_/, $ENV{LANG});
+
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
         '/virt/domain.xml.mas',
@@ -408,6 +411,7 @@ sub writeConf
          ifaces => $vmConf->{ifaces},
          disks => $vmConf->{disks},
          vncport => $vmConf->{port},
+         keymap => $keymap,
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );

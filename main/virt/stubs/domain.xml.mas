@@ -4,6 +4,7 @@
     @ifaces
     @disks
     $vncport
+    $keymap
 </%args>
 <domain type='kvm'>
     <name><% $name %></name>
@@ -27,7 +28,6 @@
         </disk>
 % }
 % # FIXME: $ifaces
-% # FIXME: Use same keyboard layout as the host the system
-        <graphics type='vnc' port='<% $vncport %>' keymap='es'/>
+        <graphics type='vnc' port='<% $vncport %>' keymap='<% $keymap %>'/>
     </devices>
 </domain>
