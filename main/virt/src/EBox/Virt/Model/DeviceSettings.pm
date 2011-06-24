@@ -74,6 +74,14 @@ sub _populateDriveTypes
     ];
 }
 
+sub _populateDiskAction
+{
+    return [
+            { value => 'create', printableValue => __('Create a new disk') },
+            { value => 'use', printableValue => __('Use a existing image file') },
+    ];
+}
+
 # Method: _table
 #
 # Overrides:
@@ -85,10 +93,21 @@ sub _table
     my @tableHeader = (
        new EBox::Types::Select(
                                fieldName     => 'type',
-                               printableName => __('Type'),
+                               printableName => __('Drive Type'),
                                populate      => \&_populateDriveTypes,
                                editable      => 1,
                               ),
+       new EBox::Types::Select(
+                               fieldName     => 'disk_action',
+                               printableName => __('Action'),
+                               populate      => \&_populateDiskAction,
+                               editable      => 1,
+                              ),
+       new EBox::Types::Text(
+                             fieldName     => 'name',
+                             printableName => __('Name'),
+                             editable      => 1,
+                            ),
        new EBox::Types::Text(
                              fieldName     => 'path',
                              printableName => __('Path'),
@@ -170,11 +189,17 @@ sub viewCustomizer
     # FIXME: Change enable/disable to show/hide
     # when supporting it in DataTables in the framework
     $customizer->setOnChangeActions(
-            { type =>
+            {
+              type =>
                 {
-                  'cd' => { disable => [ 'size' ] },
-                  'hd' => { enable  => [ 'size' ] },
-                }
+                  'cd' => { disable => [ 'disk_action', 'name', 'size' ], enable => [ 'path' ] },
+                  'hd' => { enable  => [ 'disk_action', 'name', 'size' ], disable => [ 'path' ] },
+                },
+              disk_action =>
+                {
+                  'create' => { disable => [ 'path' ], enable => [ 'name', 'size' ] },
+                  'use' => { enable  => [ 'path' ], disable => [ 'name', 'size' ] },
+                },
             });
     return $customizer;
 }
