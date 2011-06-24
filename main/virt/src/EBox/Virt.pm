@@ -60,37 +60,6 @@ sub _create
     return $self;
 }
 
-# Method: actions
-#
-#   Override EBox::Module::Service::actions
-#
-sub actions
-{
-    return [
-        {
-            'action' => __('FIXME'),
-            'reason' => __('Zentyal will take care of FIXME'),
-            'module' => 'virt'
-        }
-    ];
-}
-
-# TODO: Implement this when using libvirt?
-# Method: usedFiles
-#
-#   Override EBox::Module::Service::usedFiles
-#
-#sub usedFiles
-#{
-#    return [
-#            {
-#             'file' => '/tmp/FIXME',
-#             'module' => 'virt',
-#             'reason' => __('FIXME configuration file')
-#            }
-#           ];
-#}
-
 # Method: initialSetup
 #
 # Overrides:
