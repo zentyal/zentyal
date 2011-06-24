@@ -32,19 +32,74 @@ use EBox::Exceptions::MissingArgument;
 use Encode;
 use Error qw(:try);
 
-use EBox::Config::Redis;
-
-my $redis = undef;
-
-sub _redis
+# Method: setParentComposite
+#
+#   Set the parent composite of this composite object
+#
+# Parameters:
+#
+#      component - an instance of <EBox::Model::Composite>
+sub setParentComposite
 {
-    unless ($redis) {
-       $redis = EBox::Config::Redis->new();
+    my ($self, $composite) = @_;
+
+    defined ( $composite ) or
+      throw EBox::Exceptions::MissingArgument('composite');
+
+    unless ( $composite->isa('EBox::Model::Composite') ) {
+        throw EBox::Exceptions::InvalidType( $composite,
+                'EBox::Model::DataTable '
+                );
     }
-    return $redis;
+
+    $self->{'parentComposite'} = $composite;
 }
 
-use constant ORDER_PREFIX => '/ebox/componentOrder';
+# Method: parentComposite
+#
+#   Return the parent composite of this component object
+#
+# Returns:
+#
+#      component - an instance of <EBox::Model::Composite>
+#      or undef if there's any
+sub parentComposite
+{
+    my ($self) = @_;
+
+    if (exists $self->{'parentComposite'}) {
+        return $self->{'parentComposite'};
+    } else {
+        return undef;
+    }
+}
+
+# Method: topParentComposite
+#
+#   Return the top parent of the composite hierarchy where this component is
+#   containded
+#
+# Returns:
+#
+#      component - an instance of <EBox::Model::Composite>
+#      or undef if there's any
+sub topParentComposite
+{
+    my ($self) = @_;
+
+    my $parentComposite = $self->parentComposite();
+    if (not defined $parentComposite) {
+        return undef;
+    }
+
+    while (1) {
+        my $newParent = $parentComposite->parentComposite();
+        if (not defined $newParent) {
+            return $parentComposite;
+        }
+        $parentComposite = $newParent;
+    }
+}
 
 # Method: pageTitle
 #
@@ -99,12 +154,11 @@ sub help
 sub keywords
 {
     my ($self) = @_;
+
     my $help = $self->help();
     Encode::_utf8_on($help);
     return [split('\W+', lc($help))];
 }
-
-
 
 # Method: parent
 #
@@ -121,90 +175,12 @@ sub keywords
 sub parent
 {
     my ($self) = @_;
-    my $path = $self->contextName();
-    my $parentInfo = $self->_parentInfoSkippingComposite($path);
-    if (not $parentInfo) {
-        return undef;
-    }
-
-    if (EBox::Model::ModelManager->uninitialized()) {
-        return undef;
-    }
-
-    # since we have skipped composites it could only be a DataTable
-    my $manager = EBox::Model::ModelManager->instance();
-    return $manager->model($parentInfo->{path});
-}
-
-
-# Method: parentComposite
-#
-#   Return the parent composite of this component object
-#
-# Returns:
-#
-#      component - an instance of <EBox::Model::Composite>
-#      or undef if there's any
-sub parentComposite
-{
-    my ($self) = @_;
-    my $path = $self->contextName();
-    my $parentInfo = $self->_parentInfo($path);
-    if ((not $parentInfo) or
-        (not $parentInfo->{composite})) {
-        return undef;
-    }
-
-    if (EBox::Model::CompositeManager->uninitialized()) {
-        return undef;
-    }
-
-    my $manager = EBox::Model::CompositeManager->Instance();
-    return $manager->composite($parentInfo->{path});
-}
-
-# Method: topParentComposite
-#
-#   Return the top parent of the composite hierarchy where this component is
-#   containded
-#
-# Returns:
-#
-#      component - an instance of <EBox::Model::Composite>
-#      or undef if there's any
-sub topParentComposite
-{
-    my ($self) = @_;
-
     my $parentComposite = $self->parentComposite();
-    if (not defined $parentComposite) {
-        return undef;
+    if ($parentComposite) {
+        return $parentComposite->parent();
     }
 
-    my $newParent;
-    while ($newParent = $parentComposite->parentComposite() ) {
-        $parentComposite = $newParent;
-    }
-
-    return $parentComposite;
-}
-
-sub parentComponent
-{
-    my ($self) = @_;
-    my $path = $self->contextName();
-    my $parentInfo = $self->_parentInfo($path);
-    if (not $parentInfo) {
-        return undef;
-    }
-
-    if ($parentInfo->{composite}) {
-        my $manager = EBox::Model::CompositeManager->instance();
-        return $manager->composite($parentInfo->{path});
-    } else {
-        my $manager = EBox::Model::ModelManager->instance();
-        return $manager->model($parentInfo->{path});
-    }
+    return $self->{'parent'};
 }
 
 
@@ -223,101 +199,18 @@ sub setParent
 {
     my ($self, $parent) = @_;
 
-    if (defined($parent) and (not $parent->isa('EBox::Model::Component'))) {
+    if (defined($parent) and (not $parent->isa('EBox::Model::DataTable'))) {
         throw EBox::Exceptions::InvalidType( 'argument' => 'parent',
                                              'type' => ref $parent);
     }
 
-    my $path = $self->contextName();
-    my $key = $self->_orderKey($path);
-
-    my $parentPath = $parent->contextName();
-    my $parentComposite = $parent->isa('EBox::Model::Composite');
-
-    _redis()->set_string("$key/parent", $parentPath);
-    _redis()->set_bool("$key/parentComposite", $parentComposite);
-}
-
-sub _parentInfo
-{
-    my ($self, $path) = @_;
-    my $key = $self->_orderKey($path);
-    my $parentPath = _redis()->get_string("$key/parent");
-    defined $parentPath or
-        return undef;
-    my $composite = _redis()->get_bool("$key/parentComposite");
-    return {
-            path => $parentPath,
-            composite => $composite,
-           };
-}
-
-sub parentRow
-{
-    my ($self) = @_;
-
-    my $parentInfo = $self->_parentInfo($self->contextName());
-    if (not $parentInfo) {
-        return undef;
-    }
-
-    my $dirsToRowId;
-    if ($parentInfo->{composite}) {
-        $dirsToRowId = 3;
-    }
-    else {
-        $dirsToRowId = 2;
-    }
-
-    my $dir = $self->directory();
-    my @parts = split '/', $dir;
-    my $rowId = $parts[-$dirsToRowId];
-
-    my $parent = $self->parent();
-    $parent or
-        return undef;
-    my $row =  $parent->row($rowId);
-    $row or
-        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite:" . $parentInfo->{composite});
-
-    return $row;
-}
-
-sub _parentInfoSkippingComposite
-{
-    my ($self, $key) = @_;
-
-    my $parentInfo;
-    while ($parentInfo = $self->_parentInfo($key)) {
-        if ($parentInfo->{composite} ) {
-            $key = $self->_orderKey($parentInfo->{path});
-        } else {
-            return $parentInfo;
-        }
-    }
-
-    return undef;
-}
-
-sub _orderKey
-{
-    my ($self, $name) = @_;
-    if (not $name) {
-        EBox::error("Component has not context name");
-        return undef;
-    }
-
-    if (not $name =~ m{^/}) {
-        $name = '/' . $name;
-    }
-
-    return ORDER_PREFIX . $name;
+    $self->{'parent'} = $parent;
 }
 
 # Method: menuFolder
 #
-#       Override this function if you model is placed within a folder
-#       from other module
+#   Override this function if you model is placed within a folder
+#   from other module
 sub menuFolder
 {
     return undef;

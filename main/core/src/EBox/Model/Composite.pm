@@ -869,11 +869,11 @@ sub _lookupComponent
       if (ref $components eq 'ARRAY') {
           foreach my $comp (@{ $components }) {
               $self->setComponentDirectory($comp);
-              $comp->setParent($self);
+              $comp->setParentComposite($self);
           }
       } else {
           $self->setComponentDirectory($components);
-          $components->setParent($self);
+          $components->setParentComposite($self);
       }
 
       return $components;
@@ -922,8 +922,6 @@ sub keywords
     return [@{$self->SUPER::keywords()}, map { @{$_->keywords()} } @{$self->components()}];
 }
 
-
-
 # XXX seemes neccesary
 # Method: setDirectory
 #
@@ -951,11 +949,9 @@ sub setDirectory
         return;
     }
 
-
     foreach my $component (@{ $self->components() }) {
         $self->setComponentDirectory($component);
     }
-
 }
 
 
@@ -970,9 +966,9 @@ sub setDirectory
 sub directory
 {
     my ($self) = @_;
+
     return $self->{'gconfdir'};
 }
-
 
 # Method: setComponentDirectory
 #
@@ -1001,6 +997,32 @@ sub setComponentDirectory
     $comp->setDirectory($compDir);
 }
 
+#  Method: parentRow
+#
+#    if the composite is a submodel of a DataTable (or nested inside one),
+#    return the row where the submodel resides
+#
+#   Returns:
+#       row object or undef if there is not
+#
+#   Warning:
+#      this method is affected fby the bug in ::Composite::parent()
+sub parentRow
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    if (not $parent) {
+        return undef;
+    }
+
+    my $dir = $self->directory();
+    my @parts = split '/', $dir;
+    my $rowId = $parts[-2];
+
+    return $parent->row($rowId);
+}
+
 # Method: filesPaths
 #
 #   Returns:
@@ -1018,7 +1040,6 @@ sub filesPaths
 
     return \@paths;
 }
-
 
 # Method: backupFiles
 #
@@ -1041,7 +1062,7 @@ sub backupFiles
 #  changes in files
 sub restoreFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
     foreach my $comp (@{ $self->components() }) {
         if ($comp->can('restoreFiles')) {

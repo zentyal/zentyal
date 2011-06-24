@@ -40,14 +40,12 @@ use constant MAX_INT => 32767;
 
 # Singleton variable
 my $_instance = undef;
-my $_startingUp;
 
 sub _new
 {
     my $class = shift;
-    my $self = {};
 
-    $_startingUp = 1;
+    my $self = {};
 
     $self->{'notifyActions'} = {};
     bless($self, $class);
@@ -55,7 +53,6 @@ sub _new
     $self->{'version'} = $self->_version();
     $self->_setUpModels();
     $self->_setRelationship();
-    $_startingUp = 0;
 
     return $self;
 }
@@ -68,21 +65,14 @@ sub _new
 # Returns:
 #
 #   object of class <EBox::ModelManager>
+#
 sub instance
 {
-    my ($class) = @_;
-
     unless(defined($_instance)) {
         $_instance = EBox::Model::ModelManager->_new();
     }
 
     return $_instance;
-}
-
-sub uninitialized
-{
-    my ($class) = @_;
-    return $_startingUp
 }
 
 # Method: model
@@ -326,11 +316,11 @@ sub modelsUsingId
 
 # Method: modelActionTaken
 #
-#   This method is used to let models know when other model has
-#   taken an action.
+#	This method is used to let models know when other model has
+#	taken an action.
 #
-#   It will automatically call the model in which descrption they
-#   request to be warned about the current action and model.
+#	It will automatically call the model in which descrption they
+#	request to be warned about the current action and model.
 #
 #
 # Parameters:
@@ -339,7 +329,7 @@ sub modelsUsingId
 #
 #   model - <EBox::Model::DataTable> model name where the action took place
 #   action - string represting the action:
-#            [ add, del, edit, moveUp, moveDown ]
+#   	     [ add, del, edit, moveUp, moveDown ]
 #
 #   row  - <EBox::Model::Row> row modified
 #
@@ -520,13 +510,13 @@ sub warnOnChangeOnId
     if ($tablesUsing) {
         throw EBox::Exceptions::DataInUse(
                   __('The data you are modifying is being used by
-            the following sections:') . '<br>' . $tablesUsing);
+			the following sections:') . '<br>' . $tablesUsing);
     }
 }
 
 # Method: markAsChanged
 #
-#   (PUBLIC)
+# 	(PUBLIC)
 #
 #   Mark the model manager as changed. This is done when a change is
 #   done in the models to allow interprocess coherency.
@@ -549,10 +539,10 @@ sub markAsChanged
 
 # Method: _setUpModels
 #
-#   (PRIVATE)
+# 	(PRIVATE)
 #
-#   Fetch models from all classes implementing the interface
-#   <EBox::Model::ModelProvider> and creates it dependencies.
+# 	Fetch models from all classes implementing the interface
+# 	<EBox::Model::ModelProvider> and creates it dependencies.
 sub _setUpModels
 {
     my ($self) = @_;
@@ -718,7 +708,7 @@ sub _modelsWithHasOneRelation
 
 # Method: _fetchDependentTypes
 #
-#   (PRIVATE)
+# 	(PRIVATE)
 #
 #   Given a table description it returns  types which depends on other
 #   modules. Those are:
@@ -767,7 +757,7 @@ sub _fetchDependentTypes
 
 # Method: _oneToOneDependencies
 #
-#   (PRIVATE)
+# 	(PRIVATE)
 #
 #   Given a model, it returns which models depends on it.
 #
@@ -781,7 +771,7 @@ sub _fetchDependentTypes
 #
 #  hash refs containing pairs of:
 #
-#   model name => field name which references
+#  	model name => field name which references
 #
 sub _oneToOneDependencies
 {
@@ -797,7 +787,7 @@ sub _oneToOneDependencies
 
 # Method: _inferModuleFromModel
 #
-#   (PRIVATE)
+# 	(PRIVATE)
 #
 #   Given a model, it returns from which module the model belongs
 #   to. It will return a value only if one module has the model and no
@@ -852,7 +842,7 @@ sub _inferModuleFromModel
 
 # Method: _chooseModelUsingParameters
 #
-#   (PRIVATE)
+# 	(PRIVATE)
 #
 #   Given a bunch of model instances, choose one using the given run
 #   parameters.
@@ -894,7 +884,7 @@ sub _chooseModelUsingParameters
 
 # Method: _hasChanged
 #
-#   (PRIVATE)
+# 	(PRIVATE)
 #
 #   Mark the model manager as changed. This is done when a change is
 #   done in the models to allow interprocess coherency.

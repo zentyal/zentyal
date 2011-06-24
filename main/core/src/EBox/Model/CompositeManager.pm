@@ -36,7 +36,6 @@ use constant MAX_INT => 32767;
 
 # Singleton variable
 my $_instance = undef;
-my $_startingUp = 0;
 
 # Group: Public methods
 
@@ -54,17 +53,11 @@ sub Instance
 {
     my ($class) = @_;
 
-    unless (defined ($_instance)) {
+    unless ( defined ( $_instance )) {
         $_instance = $class->_new();
     }
 
     return $_instance;
-}
-
-sub uninitialized
-{
-    my ($class) = @_;
-    return $_startingUp
 }
 
 # Method: composite
@@ -106,15 +99,15 @@ sub composite
 {
     my ($self, $path) = @_;
 
-    # Check arguments
-    unless ( defined ( $path )) {
-        throw EBox::Exceptions::MissingArgument('composite');
-    }
-
     # Re-read from the modules if the model manager has changed
     if ( $self->_hasChanged() ) {
         $self->_setUpComposites();
         $self->{'version'} = $self->_version();
+    }
+
+    # Check arguments
+    unless ( defined ( $path )) {
+        throw EBox::Exceptions::MissingArgument('composite');
     }
 
     my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
@@ -308,10 +301,8 @@ sub _new
       my $self = {};
       bless ($self, $class);
 
-      $_startingUp = 1;
       $self->{version} = $self->_version();
       $self->_setUpComposites();
-      $_startingUp = 0;
 
       return $self;
 
