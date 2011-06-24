@@ -46,7 +46,7 @@ use JSON;
 use constant EVENTS_INCOMING_DIR       => '/var/run/ebox/events/incoming/';
 use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
 use constant EVENTS_FIFO               => '/var/lib/ebox/tmp/events-fifo';
-use constant NOTIFICATION_CONF         => '/var/lib/zentyal/conf/monitor/notif.conf';
+use constant NOTIFICATION_CONF         => '/var/lib/ebox/conf/monitor/notif.conf';
 use constant EBOX_USER                 => 'ebox';
 
 our %persistConf = ();
@@ -106,7 +106,8 @@ sub ebox_notify
         $level  = 'warn';
         $aLevel = 'error';
     } else {
-        $level = 'info';
+        $level  = 'info';
+        $aLevel = 'warn';
     }
 
     $not->{plugin_instance} = '' unless defined($not->{plugin_instance});
