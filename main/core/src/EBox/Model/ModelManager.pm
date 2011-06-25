@@ -134,11 +134,10 @@ sub model
 
     # Re-read from the modules if the model manager has changed
 
-    if ( $self->_hasChanged() ) {
+    if ($self->_hasChanged()) {
         $self->_setUpModels();
         $self->{'version'} = $self->_version();
         $self->_setRelationship();
-
     }
 
     unless ( defined ( $modelName )) {
@@ -164,7 +163,6 @@ sub model
         throw EBox::Exceptions::DataNotFound( data  => 'model',
                                               value => $path);
     }
-
 }
 
 # Method: addModel
@@ -197,7 +195,6 @@ sub addModel
 
     $self->markAsChanged();
     $self->{'version'} = $self->_version();
-
 }
 
 # Method: removeModel
@@ -219,7 +216,6 @@ sub addModel
 #
 sub removeModel
 {
-
     my ($self, $path) = @_;
 
     my ($modName, $modelName, @parameters) = grep { $_ ne '' } split ('/', $path);
@@ -248,7 +244,6 @@ sub removeModel
 
     $self->markAsChanged();
     $self->{'version'} = $self->_version();
-
 }
 
 
@@ -329,7 +324,7 @@ sub modelsUsingId
 #
 #   model - <EBox::Model::DataTable> model name where the action took place
 #   action - string represting the action:
-#   	     [ add, del, edit, moveUp, moveDown ]
+#	     [ add, del, edit, moveUp, moveDown ]
 #
 #   row  - <EBox::Model::Row> row modified
 #
@@ -370,7 +365,6 @@ sub modelActionTaken
     }
 
     return $strToRet;
-
 }
 
 # Method: removeRowsUsingId
@@ -421,7 +415,7 @@ sub removeRowsUsingId
                 $rowsDeleted{$id} = 1;
             }
         }
-        if ( $deletedNum > 0 ) {
+        if ($deletedNum > 0) {
             $strToShow .= $modelDep->automaticRemoveMsg($deletedNum);
         }
     }
@@ -431,7 +425,6 @@ sub removeRowsUsingId
     }
 
     return $strToShow;
-
 }
 
 # Method: warnIfIdIsUsed
@@ -491,7 +484,6 @@ sub warnIfIdIsUsed
 #
 sub warnOnChangeOnId
 {
-
     my ($self, $modelName, $id, $changeData, $oldRow) = @_;
 
     my $tablesUsing;
@@ -516,14 +508,13 @@ sub warnOnChangeOnId
 
 # Method: markAsChanged
 #
-# 	(PUBLIC)
+#	(PUBLIC)
 #
 #   Mark the model manager as changed. This is done when a change is
 #   done in the models to allow interprocess coherency.
 #
 sub markAsChanged
 {
-
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance();
@@ -532,17 +523,16 @@ sub markAsChanged
     $oldVersion = 0 unless ( defined ( $oldVersion ));
     $oldVersion = ($oldVersion + 1) % MAX_INT;
     $gl->st_set_int('model_manager/version', $oldVersion);
-
 }
 
 # Group: Private methods
 
 # Method: _setUpModels
 #
-# 	(PRIVATE)
+#	(PRIVATE)
 #
-# 	Fetch models from all classes implementing the interface
-# 	<EBox::Model::ModelProvider> and creates it dependencies.
+#	Fetch models from all classes implementing the interface
+#	<EBox::Model::ModelProvider> and creates it dependencies.
 sub _setUpModels
 {
     my ($self) = @_;
@@ -589,8 +579,6 @@ sub _setRelationship
 
         $child->setParent($parent);
     }
-
-
 }
 
 # Method: _setUpModelsFromProvider
@@ -679,7 +667,6 @@ sub _setUpModelsFromProvider
             }
         }
     }
-
 }
 
 # Method: _modelsWithHasOneRelation
@@ -705,10 +692,9 @@ sub _modelsWithHasOneRelation
     return $self->{'hasOneReverse'}->{$modelName};
 }
 
-
 # Method: _fetchDependentTypes
 #
-# 	(PRIVATE)
+#	(PRIVATE)
 #
 #   Given a table description it returns  types which depends on other
 #   modules. Those are:
@@ -733,18 +719,19 @@ sub _fetchDependentTypes
     my @selectTypes;
     my @hasManyTypes;
     foreach my $type (@{$tableDescription}) {
-        if ($type->type() eq 'union') {
+        my $typeName = $type->type();
+        if ($typeName eq 'union') {
             for my $subtype (@{$type->subtypes()}) {
-                 if ($subtype->type() eq 'select') {
+                my $subtypeName = $subtype->type();
+                if ($subtypeName eq 'select') {
                     push (@selectTypes, $subtype);
-                }
-                if ($subtype->type() eq 'hasMany') {
+                } elsif ($subtypeName eq 'hasMany') {
                     push (@hasManyTypes, $subtype);
                 }
             }
-        } elsif ($type->type() eq 'select') {
+        } elsif ($typeName eq 'select') {
             push (@selectTypes, $type);
-        } elsif ($type->type() eq 'hasMany') {
+        } elsif ($typeName eq 'hasMany') {
             push (@hasManyTypes, $type);
         }
     }
@@ -753,11 +740,9 @@ sub _fetchDependentTypes
              'hasMany' => \@hasManyTypes };
 }
 
-
-
 # Method: _oneToOneDependencies
 #
-# 	(PRIVATE)
+#	(PRIVATE)
 #
 #   Given a model, it returns which models depends on it.
 #
@@ -771,7 +756,7 @@ sub _fetchDependentTypes
 #
 #  hash refs containing pairs of:
 #
-#  	model name => field name which references
+#	model name => field name which references
 #
 sub _oneToOneDependencies
 {
@@ -782,12 +767,11 @@ sub _oneToOneDependencies
     }
 
     return $self->{'hasOneReverse'}->{$model};
-
 }
 
 # Method: _inferModuleFromModel
 #
-# 	(PRIVATE)
+#	(PRIVATE)
 #
 #   Given a model, it returns from which module the model belongs
 #   to. It will return a value only if one module has the model and no
@@ -813,7 +797,6 @@ sub _oneToOneDependencies
 #
 sub _inferModuleFromModel
 {
-
     my ($self, $modelName) = @_;
 
     my $models = $self->{'models'};
@@ -837,12 +820,11 @@ sub _inferModuleFromModel
     }
 
     return $returningModule;
-
 }
 
 # Method: _chooseModelUsingParameters
 #
-# 	(PRIVATE)
+#	(PRIVATE)
 #
 #   Given a bunch of model instances, choose one using the given run
 #   parameters.
@@ -879,12 +861,11 @@ sub _chooseModelUsingParameters
     # No coincidence
     throw EBox::Exceptions::DataNotFound(data => 'modelInstance',
                                          value => $path);
-
 }
 
 # Method: _hasChanged
 #
-# 	(PRIVATE)
+#	(PRIVATE)
 #
 #   Mark the model manager as changed. This is done when a change is
 #   done in the models to allow interprocess coherency.
@@ -922,13 +903,9 @@ sub _hasChanged
 #
 sub _version
 {
-
     my $gl = EBox::Global->getInstance();
 
     return $gl->st_get_int('model_manager/version');
-
 }
 
 1;
-
-
