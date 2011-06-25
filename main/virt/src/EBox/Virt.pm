@@ -105,7 +105,13 @@ sub _preSetConf
     my ($self) = @_;
 
     # FIXME: Do this only if needed? (disk have changed, etc)
-    $self->_stopService();
+    # The try is needed because this is also executed before
+    # the upstart files for the machines are created, if
+    # we made this code more intelligent probably it won't
+    # be needed.
+    try {
+        $self->_stopService();
+    } otherwise {};
 }
 
 sub _setConf

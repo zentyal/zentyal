@@ -177,19 +177,6 @@ sub validateTypedRow
     }
 }
 
-# Method: addedRowNotify
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::addedRowNotify>
-#
-sub addedRowNotify
-{
-    my ($self, $row) = @_;
-
-    $self->_cleanOptionalValues($row);
-}
-
 # Method: updatedRowNotify
 #
 # Overrides:
