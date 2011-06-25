@@ -333,7 +333,7 @@ sub setOS
 #
 #   name    - virtual machine name
 #   iface   - iface number
-#   type    - iface type (nat, bridged, internal)
+#   type    - iface type (none, nat, bridged, internal)
 #   arg     - iface arg (bridged => devicename, internal => networkname)
 #
 sub setIface
@@ -357,19 +357,25 @@ sub setIface
         $arg = $params{arg};
     }
 
+    if ($type eq 'internal') {
+        $type = 'intnet';
+    }
+
     $self->_modifyVM($name, "nic$iface", $type);
 
-    if ($type eq 'nat') {
+    if ($type eq 'none') {
+        return;
+    } elsif ($type eq 'nat') {
         $type = 'natnet';
         $arg = 'default';
     } elsif ($type eq 'bridged') {
-        $type = 'bridgedadapter';
-    } elsif ($type eq 'internal') {
-        $type = 'intnet';
+        $type = 'bridgeadapter';
     }
-    my $setting = $type . $iface;
 
-    $self->_modifyVM($name, $setting, $arg);
+    unless ($type eq 'none') {
+        my $setting = $type . $iface;
+        $self->_modifyVM($name, $setting, $arg);
+    }
 }
 
 sub _modifyVM

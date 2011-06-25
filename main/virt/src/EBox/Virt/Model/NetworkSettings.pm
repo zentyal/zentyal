@@ -32,6 +32,8 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::NetWrappers;
 
+use constant MAX_IFACES => 8;
+
 # Group: Public methods
 
 # Constructor: new
@@ -97,13 +99,13 @@ sub _table
                               ),
        new EBox::Types::Select(
                                fieldName     => 'iface',
-                               printableName => __('Connected to'),
+                               printableName => __('Bridged to'),
                                populate      => \&_populateIfaces,
                                editable      => 1,
                               ),
        new EBox::Types::Text(
                              fieldName     => 'name',
-                             printableName => __('Name'),
+                             printableName => __('Inernal Network Name'),
                              editable      => 1,
                              optional      => 1,
                             ),
@@ -114,8 +116,9 @@ sub _table
         tableName          => 'NetworkSettings',
         printableTableName => __('Network Settings'),
         printableRowName   => __('interface'),
-        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         tableDescription   => \@tableHeader,
+        order              => 1,
         enableProperty     => 1,
         defaultEnabledValue => 1,
         class              => 'dataTable',
@@ -124,6 +127,21 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if (@{$self->ids()} >= MAX_IFACES) {
+        throw EBox::Exceptions::External(__x('A maximum of {num} network interfaces are allowed', num => MAX_IFACES));
+    }
 }
 
 # Method: viewCustomizer

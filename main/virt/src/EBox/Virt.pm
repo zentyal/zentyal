@@ -30,6 +30,7 @@ use Error qw(:try);
 use EBox::Sudo;
 use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
+use EBox::Virt::Model::NetworkSettings;
 
 use constant VNC_PORT => 5900;
 use constant LIBVIRT_BIN => '/usr/bin/virsh';
@@ -237,19 +238,27 @@ sub _setNetworkConf
     my $ifaces = $settings->componentByName('NetworkSettings');
     foreach my $ifaceId (@{$ifaces->ids()}) {
         my $iface = $ifaces->row($ifaceId);
-
         my $enabled = $iface->valueByName('enabled');
-        my $type = $iface->valueByName('type');
-        my $ifaceName = $iface->valueByName('iface');
 
-        unless ($enabled) {
-            $type = 'none';
+        my $type = 'none';
+        my $arg = undef;
+        if ($enabled) {
+            $type = $iface->valueByName('type');
+            if ($type eq 'bridged') {
+                $arg = $iface->valueByName('iface');
+            } elsif ($type eq 'internal') {
+                $arg = $iface->valueByName('name');
+            }
         }
 
-        $backend->setIface(name => $name,
-                           iface => $ifaceNumber++,
-                           type => $type,
-                           arg => $ifaceName);
+        $backend->setIface(name => $name, iface => $ifaceNumber++,
+                           type => $type, arg => $arg);
+    }
+
+    # Unset the rest of the interfaces to prevent they stay from an old conf
+    while ($ifaceNumber <= EBox::Virt::Model::NetworkSettings::MAX_IFACES()) {
+        $backend->setIface(name => $name, iface => $ifaceNumber++,
+                           type => 'none');
     }
 }
 
