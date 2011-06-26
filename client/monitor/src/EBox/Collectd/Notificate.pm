@@ -29,6 +29,8 @@ package EBox::Collectd::Notificate;
 
 use strict;
 use warnings;
+use threads;
+use threads::shared;
 
 # Core
 #use Errno;
@@ -49,7 +51,7 @@ use constant EVENTS_FIFO               => '/var/lib/ebox/tmp/events-fifo';
 use constant NOTIFICATION_CONF         => '/var/lib/ebox/conf/monitor/notif.conf';
 use constant EBOX_USER                 => 'ebox';
 
-our %persistConf = ();
+our $persistConf : shared;
 
 plugin_register(TYPE_INIT, 'init', 'ebox_init_notify');
 plugin_register(TYPE_NOTIF, 'notificate', 'ebox_notify');
@@ -68,7 +70,7 @@ sub ebox_init_notify
 {
     if ( -r NOTIFICATION_CONF ) {
         my $content = File::Slurp::read_file(NOTIFICATION_CONF);
-        %persistConf = %{decode_json($content)};
+        $persistConf = shared_clone(decode_json($content));
     }
 
     return 1;
@@ -113,22 +115,49 @@ sub ebox_notify
     $not->{plugin_instance} = '' unless defined($not->{plugin_instance});
     $not->{type_instance}   = '' unless defined($not->{type_instance});
 
-    if ( exists $persistConf{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}} ) {
-        my $measureConf  = $persistConf{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$level};
-        my $aMeasureConf = $persistConf{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$aLevel};
-        if ( $measureConf->{first} ) {
+    # open(my $fh, '>>', '/tmp/bar');
+    # $Data::Dumper::Indent = 0;
+    # print $fh Dumper($not);
+    if ( exists $persistConf->{$not->{plugin}}
+         and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}
+         and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}
+         and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}} ) {
+        my $measureConf : shared;
+        if ( exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$level} ) {
+            $measureConf = $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$level};
+        }
+        my $aMeasureConf : shared;
+        if ( exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$aLevel} ) {
+            $aMeasureConf = $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$aLevel};
+        }
+        if ( defined($measureConf) and $measureConf->{first} ) {
             if ( $measureConf->{first} + $measureConf->{after} < $not->{time} ) {
                 $measureConf->{first} = 0;
+                # print $fh "Send ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
+                # close($fh);
             } else {
                 # Nothing new under the sun
+                # print $fh "In interval ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
+                # close($fh);
                 return 1;
             }
         } else {
             # First valid value
-            $measureConf->{first}  = $not->{time};
+            if ( defined($measureConf) ) {
+                $measureConf->{first}  = shared_clone($not->{time});
+            }
             # Switching from this level to the contrary (clear counters)
-            $aMeasureConf->{first} = 0;
-            return 1;
+            if ( defined($aMeasureConf) ) {
+                $aMeasureConf->{first} = 0;
+            }
+            # print $fh "First ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
+            # close($fh);
+            unless ( $level eq 'info' ) {
+                # This is required, since collectd only send the info
+                # messages once although persist configuration setting
+                # is on
+                return 1;
+            }
         }
     }
 

@@ -581,6 +581,7 @@ sub _setThresholdConf
                         if ( $persistElement->selectedType() eq 'persist_once' ) {
                             $persist = 0;
                         }
+
                         my %threshold = ( measure => $measureInstance->plugin(),
                                           type    => $measureInstance->plugin(),
                                           invert  => $confRow->valueByName('invert'),
@@ -612,8 +613,8 @@ sub _setThresholdConf
                         # Add threshold to the persist_after list if required
                         if ( $threshold{persist} and $persistElement->selectedType('persist_after') ) {
                             my $after = $persistElement->value();
-                            $threshold{instance} = '' unless ( $threshold{instance} );
-                            $threshold{typeInstance} = '' unless ( $threshold{typeInstance} );
+                            $threshold{instance} = '' unless ( defined($threshold{instance}) );
+                            $threshold{typeInstance} = '' unless ( defined($threshold{typeInstance}) );
                             $persistAfterThresholds{$threshold{measure}}->{$threshold{instance}}->{$threshold{type}}->{$threshold{typeInstance}}->{warn}->{after} = $after;
                             $persistAfterThresholds{$threshold{measure}}->{$threshold{instance}}->{$threshold{type}}->{$threshold{typeInstance}}->{error}->{after} = $after;
                         }
