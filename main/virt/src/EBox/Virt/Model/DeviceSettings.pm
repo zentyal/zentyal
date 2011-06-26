@@ -155,6 +155,8 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    # TODO: If creating a new disk, check if the name is available
+
     my $numCDs = 0;
     my $numHDs = 0;
 

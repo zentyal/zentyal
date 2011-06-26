@@ -290,4 +290,18 @@ sub writeConf
 {
 }
 
+# Method: attachedDevices
+#
+#   Returns the number of attached devices for a VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   type    - type of devices (values: hd | cd)
+#
+sub attachedDevices
+{
+    return 0;
+}
+
 1;

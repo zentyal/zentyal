@@ -25,7 +25,9 @@ use EBox::Exceptions::MissingArgument;
 my $VBOXCMD = 'vboxmanage -nologo';
 my $IDE_CTL = 'idectl';
 my $SATA_CTL = 'satactl';
-my $HD_PATH = '/var/lib/zentyal/.VirtualBox/HardDisks';
+my $ROOT_PATH = '/var/lib/zentyal/.VirtualBox';
+my $VM_PATH = "$ROOT_PATH/Machines";
+my $HD_PATH = "$ROOT_PATH/HardDisks";
 
 # Class: EBox::Virt::VBox
 #
@@ -470,6 +472,30 @@ sub diskFile
     my ($self, $disk) = @_;
 
     return "$HD_PATH/$disk.vdi";
+}
+
+# Method: attachedDevices
+#
+#   Returns the number of attached devices for a VM.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#   type    - type of devices (values: hd | cd)
+#
+sub attachedDevices
+{
+    my ($self, $name, $type) = @_;
+
+    my $machineFile = "$VM_PATH/$name/$name.xml";
+    if ($type eq 'cd') {
+        $type = 'DVD';
+    } else {
+        $type = 'HardDisk';
+    }
+    # FIXME: use read_file + perl regex?
+    my @devices = `grep '<AttachedDevice' $machineFile | grep 'type=\"$type\"'`;
+    return scalar (@devices);
 }
 
 sub _run
