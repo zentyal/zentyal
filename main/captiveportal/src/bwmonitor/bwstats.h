@@ -17,15 +17,15 @@
 
 #include <netinet/ip.h>
 #include <map>
+#include <vector>
 
 using namespace std;
-
 
 /* Bandwidth usage container */
 class BWSummary {
   public:
-    void addPacket(struct ip*);
-  private:
+    void addPacket(const struct ip* ip);
+
     unsigned long long totalSent;
     unsigned long long totalRecv;
     // per protocol:
@@ -38,7 +38,7 @@ class BWSummary {
 /* Bandwidth usage stats for a IP */
 class HostStats {
   public:
-    void addPacket(struct ip*);
+    void addPacket(const struct ip* ip);
 
   private:
     in_addr ip;
@@ -48,19 +48,37 @@ class HostStats {
     BWSummary external;
 };
 
+// network struct
+struct network {
+    in_addr_t ip;
+    in_addr_t mask;
+};
 
 // hosts map
-typedef map<in_addr, HostStats> hostsmap;
+typedef map<in_addr_t, HostStats*> hostsmap;
+
+// Vector of networks
+typedef vector<network> netvector;
 
 /* Bandwidth stats store for all the clients */
 class BWStats {
   public:
-    BWStats();
-    void addPacket(struct ip*);
+    // Add the network to the internal networks list
+    void addInternalNet(in_addr_t ip, in_addr_t mask);
+
+    // Process the packet and summarize it
+    void addPacket(const struct ip* ip);
 
   private:
+    // returns a pointer to a host (creates it if doesn't exists)
+    HostStats* getHost(in_addr_t ip);
+
+    bool isInternal(in_addr_t ip);
+
     // <IP -> stats> map
     hostsmap data;
-};
 
+    // Internal networks (to distingish internal and external traffic)
+    vector<struct network> inets;
+};
 

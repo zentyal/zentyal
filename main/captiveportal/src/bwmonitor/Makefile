@@ -1,9 +1,9 @@
 
 all : bwmonitor.cpp bwstats
-	g++ -lpcap bwmonitor.cpp -o bwmonitor
+	g++ -Wall -lpcap bwmonitor.cpp bwstats.o -o bwmonitor
 
 bwstats : bwstats.h bwstats.cpp
-	g++ -c bwstats.cpp
+	g++ -Wall -c bwstats.cpp
 
 clean :
 	rm *.o bwmonitor
