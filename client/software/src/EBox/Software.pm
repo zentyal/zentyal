@@ -770,7 +770,11 @@ sub _getInfoEBoxPkgs
             } else {
                 $data{'removable'} = 1;
             }
-            $data{'avail'} = $self->_candidateVersion($cache->{$pack})->{version};
+            my $candidateVersion = $self->_candidateVersion($cache->{$pack});
+            if ($candidateVersion) {
+                $data{'avail'} =  $candidateVersion->{version};
+            }
+
             if ($cache->{$pack}{CurrentVer}) {
                 $data{'version'} = $cache->{$pack}{CurrentVer}{VerStr};
             }
@@ -804,9 +808,11 @@ sub _getUpgradablePkgs
         $data{'name'} = $pkgCache->{Name};
         $data{'description'} = $pkgCache->{ShortDesc};
         my $candidateVerInfo = $self->_candidateVersion($cache->{$pack});
-        $data{'security'}    = $candidateVerInfo->{security};
-        $data{'ebox-qa'}     = $candidateVerInfo->{qa};
-        $data{'version'}     = $candidateVerInfo->{version};
+        if ($candidateVerInfo) {
+            $data{'security'}    = $candidateVerInfo->{security};
+            $data{'ebox-qa'}     = $candidateVerInfo->{qa};
+            $data{'version'}     = $candidateVerInfo->{version};
+        }
         next if ($data{'version'} eq $currentVerObj->{VerStr});
 
         push(@list, \%data);
@@ -825,6 +831,8 @@ sub _candidateVersion
 
     my $policy = $self->_cache()->policy();
     my $verObj = $policy->candidate($pkgObj);
+    defined $verObj or
+        return undef;
     foreach my $verFile (@{$verObj->FileList()}) {
         my $file = $verFile->File();
         # next if the archive is missing or installed using dpkg
