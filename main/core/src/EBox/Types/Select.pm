@@ -71,7 +71,8 @@ sub new
                                         );
     }
     if ( $self->optional()
-             and not $self->isa('EBox::Types::InverseMatchSelect') ) {
+             and not $self->isa('EBox::Types::InverseMatchSelect')
+             and not $self->isa('EBox::Types::MultiSelect') ) {
         throw EBox::Exceptions::Internal('Select ' . $self->fieldName() .
                                          ' must be compulsory');
     }

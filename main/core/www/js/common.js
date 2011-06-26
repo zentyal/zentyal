@@ -186,3 +186,24 @@ function show(elementId)
   Element.removeClassName(elementId, 'hidden');
 
 }
+
+function toggleClass(name, class1, class2)
+{
+    var element = $(name);
+    if (element.hasClassName(class1)) {
+        element.removeClassName(class1);
+        element.addClassName(class2);
+    } else if (element.hasClassName(class2)) {
+        element.removeClassName(class2);
+        element.addClassName(class1);
+    } else {
+        element.addClassName(class1);
+    }
+}
+
+function toggleWithToggler(name)
+{
+    var togglername = name + '_toggler';
+    toggleClass(togglername, 'minBox', 'maxBox');
+    Effect.toggle(name, 'blind', {duration: 0.5});
+}

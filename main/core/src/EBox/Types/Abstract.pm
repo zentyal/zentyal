@@ -51,11 +51,15 @@ sub new
         $self->{printableName} = $self->{fieldName};
     }
 
-
     if (defined($self->{'hidden'}) and $self->{'hidden'}) {
         $self->{'HTMLViewer'} = undef;
         $self->{'HTMLSetter'} = undef;
+    } elsif (defined($self->{'hiddenOnSetter'}) and $self->{'hiddenOnSetter'}) {
+        $self->{'HTMLSetter'} = undef;
+    } elsif (defined($self->{'hiddenOnViewer'}) and $self->{'hiddenOnViewer'}) {
+        $self->{'HTMLViewer'} = undef;
     }
+
     bless($self, $class);
 
     if ( defined ( $self->{'defaultValue'} )) {
@@ -172,6 +176,12 @@ sub fields
     my ($self) = @_;
 
     return ($self->fieldName());
+}
+
+sub section
+{
+    my ($self) = @_;
+    return $self->{'section'};
 }
 
 sub printableName
@@ -641,6 +651,14 @@ sub HTMLViewer
 
     return undef unless (exists $self->{'HTMLViewer'});
     return $self->{'HTMLViewer'};
+}
+
+sub typeRowLayout
+{
+    my ($self) = @_;
+
+    return '/ajax/typeRowLayout.mas' unless (exists $self->{'typeRowLayout'});
+    return $self->{'typeRowLayout'};
 }
 
 # Group: Protected methods

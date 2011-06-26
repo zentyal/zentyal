@@ -210,6 +210,20 @@ sub _table
     throw EBox::Exceptions::NotImplemented('_table');
 }
 
+# Method
+#
+#    Override this method to define sections for thsi model
+#    XXX: define sections format
+#
+# Returns:
+#
+#    Sections description
+#
+sub sections
+{
+    return [];
+}
+
 # Method: modelName
 #
 #    Return the model name which is set by the key 'tableName' when
@@ -1062,6 +1076,30 @@ sub _reorderCachedRows
     $self->{'cachedVersion'} = $storedVersion;
 }
 
+# Method: _removeRow
+#
+#    Removes a row in the configuration backend, override it when removing
+#    a row stored in other places
+#
+# Parameters:
+#
+#     'id' - row id
+#
+sub _removeRow
+{
+    my ($self, $id) = @_;
+
+    if ($self->table()->{'order'}) {
+        $self->_removeOrderId($id);
+    } else {
+        $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
+    }
+
+    $self->_setCacheDirty();
+
+    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
+}
+
 # TODO Split into removeRow and removeRowForce
 #
 
@@ -1103,15 +1141,7 @@ sub removeRow
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
 
-    if ($self->table()->{'order'}) {
-        $self->_removeOrderId($id);
-    } else {
-        $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
-    }
-
-    $self->_setCacheDirty();
-
-    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
+    $self->_removeRow($id);
 
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user

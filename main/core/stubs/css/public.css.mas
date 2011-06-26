@@ -346,6 +346,14 @@ select {
     font-family: Verdana, sans-serif;
 }
 
+.multiselect {
+    margin: 2px;
+    height: 10em;
+    padding: 2px;
+    overflow: auto;
+    border: 2px inset;
+}
+
 .inputText, .inputTextError {
     color: #000000;
     font-size: 11px;

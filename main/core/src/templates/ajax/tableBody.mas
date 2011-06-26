@@ -155,19 +155,11 @@ use POSIX;
 <& PARENT:title, title => $editingStr &>
 %   }
 
-<form name="<% $tableName . '_ajaxform' %>">
-  <table class='formTable'>
-    <tbody>
-     <col width="1*" />
-     <col width="auto" />
-      <& PARENT:editRowFields,
-         modelName => $tableName,
-         formData => \@formData
-      &>
-      <& SELF:buttons &>
-    </tbody>
-  </table>
-</form>
+<& PARENT:editForm,
+    modelName => $tableName,
+    formData => \@formData,
+    sections => $model->sections(),
+&>
 
 %   my $customizer = $formData[0]->model()->viewCustomizer();
 %   if ($customizer) {

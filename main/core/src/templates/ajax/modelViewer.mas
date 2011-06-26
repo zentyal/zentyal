@@ -177,6 +177,54 @@
 </%method>
 
 <%doc>
+  Method: editFormSection
+
+    Show a section of an edit form
+
+  Parameters:
+
+    name - String with the name
+    formData - array containing <EBox::Types::Abstract> which form the
+    table row
+
+</%doc>
+<%method editFormSection>
+<%args>
+  $name
+  @formData
+  $section => undef
+</%args>
+<%init>
+  my @data;
+  my $title;
+  if ($section) {
+    @data = grep {  $_->section() and ($_->section() eq $section->{'name'}) }
+        @formData;
+  } else {
+    @data = grep { not $_->section() } @formData;
+  }
+</%init>
+% if ($section) {
+%     my $sectionId = 'form_section_' . $section->{'name'};
+      <tr><td colspan="2">
+        <a id="<% $sectionId %>_toggler" href="#" onclick="toggleWithToggler('<% $sectionId %>'); return false;" class="maxBox"><span class="hidden">Toggle</span></a>
+        <h3 style="display: inline;">
+          <% $section->{'title'} %>
+        </h3>
+      </td></tr>
+      <tbody id="<% $sectionId %>" style="display: none;">
+% }
+      <& SELF:editRowFields,
+         modelName => $name,
+         formData => \@data
+      &>
+% if ($section) {
+      </tbody>
+% }
+</%method>
+
+
+<%doc>
   Method: editForm
 
     Show the form to edit the fields from a row
@@ -192,14 +240,22 @@
 <%args>
   $modelName
   @formData
+  @sections => ()
 </%args>
 <form name="<% $modelName . '_ajaxform' %>">
   <table class="formTable">
     <tbody>
-% if (@formData) {
-      <& SELF:editRowFields,
-         modelName => $modelName,
-         formData => \@formData
+      <& SELF:editFormSection,
+         name => $modelName,
+         formData => \@formData,
+      &>
+    </tbody>
+% foreach my $section (@sections)
+% {
+      <& SELF:editFormSection,
+         name => $modelName,
+         formData => \@formData,
+         section => $section
       &>
 % }
       <tr>
@@ -208,7 +264,6 @@
         </td>
         <& SELF:buttons &>
       </tr>
-    </tbody>
   </table>
 </form>
 % if (@formData) {
@@ -254,29 +309,15 @@
         }
     }
 </%perl>
-<tr id="<% $modelName . '_' . $type->fieldName() . '_row' %>" <% $displayRow %> >
 
-  <td class='tright'>
-    <% $type->printableName() %>:
-% if ($type->optional()) {
-    <div class='optional_field'>
-        <% __('Optional') %>
-    </div>
+<& $type->typeRowLayout(),
+    'modelName' => $modelName,
+    'type' => $type,
+    'displayRow' => $displayRow,
+    'disableSetter' => $disableSetter,
+&>
 % }
-  </td>
-  <td>
-    <&
-      $type->HTMLSetter(),
-      'data' => $type,
-      'tableName' => "$modelName",
-      'disabled' =>  $disableSetter
-    &>
-    <div class="field_help">
-    <% $type->help() %>
-    </div>
-  </td>
-</tr>
-% }
+
 </%method>
 
 <%doc>

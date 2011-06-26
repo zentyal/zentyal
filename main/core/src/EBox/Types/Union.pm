@@ -313,6 +313,8 @@ sub HTMLSetter
 {
     my ($self) = @_;
 
+    return undef if $self->{'hiddenOnSetter'} or $self->{'hidden'};
+
     my $definedSetter = 0;
     foreach my $type (@{$self->{'subtypes'}}) {
         next unless ( defined ( $type->HTMLSetter() ));
@@ -332,10 +334,11 @@ sub HTMLViewer
 {
     my ($self) = @_;
 
+    return undef if $self->{'hiddenOnViewer'} or $self->{'hidden'};
+
     # Call AUTOLOAD method in order not to repeat code
     $AUTOLOAD = 'HTMLViewer';
     return $self->AUTOLOAD();
-
 }
 
 # Function: AUTOLOAD

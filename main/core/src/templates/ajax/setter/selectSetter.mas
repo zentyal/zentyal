@@ -5,7 +5,6 @@ $cssClass => ''
 $disabled => undef
 </%args>
 <%init>
-  use Data::Dumper;
 use Perl6::Junction qw(any);
 
 #########################

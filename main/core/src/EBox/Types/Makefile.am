@@ -5,7 +5,7 @@ SUBDIRS = Union File Text t
 perldir = @PERLPATH@/EBox/Types
 
 nobase_perl_DATA = Abstract.pm  Basic.pm  Boolean.pm  Int.pm  Text.pm \
-                   Select.pm \
+                   Select.pm MultiSelect.pm\
                    IPAddr.pm IPNetwork.pm Host.pm IPRange.pm\
                    Union.pm MACAddr.pm Service.pm \
                    HasMany.pm PortRange.pm InverseMatchSelect.pm \

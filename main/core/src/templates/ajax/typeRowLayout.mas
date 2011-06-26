@@ -1,0 +1,29 @@
+<%args>
+    $modelName
+    $type
+    $displayRow
+    $disableSetter
+</%args>
+
+<tr id="<% $modelName . '_' . $type->fieldName() . '_row' %>" <% $displayRow %> >
+
+  <td class='tright'>
+    <% $type->printableName() %>:
+% if ($type->optional()) {
+    <div class='optional_field'>
+        <% __('Optional') %>
+    </div>
+% }
+  </td>
+  <td>
+    <&
+      $type->HTMLSetter(),
+      'data' => $type,
+      'tableName' => "$modelName",
+      'disabled' =>  $disableSetter
+    &>
+    <div class="field_help">
+    <% $type->help() %>
+    </div>
+  </td>
+</tr>

@@ -44,10 +44,13 @@ sub new
     my %opts = @_;
 
     unless (exists $opts{'HTMLSetter'}) {
-        $opts{'HTMLSetter'} ='/ajax/setter/passwordSetter.mas';
+        $opts{'HTMLSetter'} = '/ajax/setter/passwordSetter.mas';
     }
     unless (exists $opts{'HTMLViewer'}) {
-        $opts{'HTMLViewer'} ='/ajax/viewer/passwordViewer.mas';
+        $opts{'HTMLViewer'} = '/ajax/viewer/passwordViewer.mas';
+    }
+    unless (exists $opts{'typeRowLayout'}) {
+        $opts{'typeRowLayout'} = '/ajax/passwordRowLayout.mas';
     }
 
     $opts{'type'} = 'password';
@@ -55,6 +58,9 @@ sub new
 
     $self->{'minLength'} = 0 unless defined ( $self->{'minLength'} );
     $self->{'maxLength'} = 0 unless defined ( $self->{'maxLength'} );
+    $self->{'confirm'} = 0 unless defined ( $self->{'confirm'} );
+    $self->{'confirmPrintableName'} = '' unless defined (
+        $self->{'confirmPrintableName'} );
     $self->{'allowUnsafeChars'} = 1;
     bless($self, $class);
     return $self;
@@ -69,13 +75,10 @@ sub new
 #      Int - the minimum length. 0 if no minimum length is not set
 #
 sub minLength
-  {
-
-      my ($self) = @_;
-
-      return $self->{minLength};
-
-  }
+{
+    my ($self) = @_;
+    return $self->{minLength};
+}
 
 # Method: maxLength
 #
@@ -86,13 +89,41 @@ sub minLength
 #      Int - the maximum length. 0 if no maximum length is not set
 #
 sub maxLength
-  {
+{
+    my ($self) = @_;
+    return $self->{maxLength};
+}
 
-      my ($self) = @_;
+# Method: confirmPrintableName
+#
+#      Get the printable name for the confirmation field.
+#
+# Returns:
+#
+#      String - the printable name for the confirmation field
+#
+sub confirmPrintableName
+{
+    my ($self) = @_;
+    return $self->{confirmPrintableName};
+}
 
-      return $self->{maxLength};
+# Method: fields
+#
+#    Get the list of fields of interest for the type
+#
+# Overrides:
+#
+#    <EBox::Types::Abstract::fields>
+#
+sub fields
+{
+    my ($self) = @_;
 
-  }
+    my @fields = ($self->fieldName());
+    push @fields, $self->fieldName() . '_confirm' if $self->{'confirm'};
+    return @fields;
+}
 
 # Group: Protected methods
 
@@ -149,8 +180,19 @@ sub _paramIsValid
         }
     }
 
-    return 1;
+    if ( $self->{'confirm'} ) {
+        my $confirmValue = $params->{$self->fieldName() . '_confirm'};
+        if ( $confirmValue ne $value ) {
+            throw EBox::Exceptions::InvalidData(
+                data   => $self->printableName(),
+                value  => '****',
+                advice => __x('Password mismatch, make sure passwords are ' .
+                       'identical')
+            );
+        }
+    }
 
+    return 1;
 }
 
 

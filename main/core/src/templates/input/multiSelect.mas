@@ -1,0 +1,24 @@
+<%init>
+use Perl6::Junction qw(any);
+
+my $name = delete $ARGS{name};
+$name or die 'select control needs at least the name parameter';
+my $value = exists $ARGS{value} ? delete $ARGS{value} : '';
+
+my @options = exists $ARGS{options} ? @{  delete $ARGS{options} } : ();
+</%init>
+
+% if (@options == 0) {
+<em><% __("No options") %></em>
+% } else {
+<div class="multiselect">
+% foreach my $option (@options) {
+<label>
+% my $checked = '';
+% $checked = 'checked="checked"' if $option->{value} eq any(@{$value});
+<input type="checkbox" id="<% $name . "_" . $option->{value} %>" name="<% $name %>" value="<% $option->{value} %>"<% $checked %> />
+<% $option->{printableValue} %>
+</label><br />
+% }
+</div>
+% }
