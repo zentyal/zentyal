@@ -229,8 +229,13 @@ sub setIface
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: initDeviceNumbers
+#
+#   Do the required initialization for drive order assignment
+#
 sub initDeviceNumbers
 {
+    throw Ebox::Exceptions::NotImplemented();
 }
 
 # Method: attachDevice

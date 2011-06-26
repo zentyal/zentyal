@@ -166,7 +166,7 @@ sub createVM
 
     my $conf = {};
     $conf->{ifaces} = [];
-    $conf->{disks} = [];
+    $conf->{devices} = [];
 
     $self->{vmConf}->{$name} = $conf;
 
@@ -345,7 +345,8 @@ sub setIface
         $arg = $params{arg};
     }
 
-    $self->_modifyVM($name, "nic$iface", $type);
+    #FIXME
+    #$self->_modifyVM($name, "nic$iface", $type);
 
     if ($type eq 'nat') {
         $type = 'natnet';
@@ -384,10 +385,16 @@ sub attachDevice
 
     my $name = $params{name};
     my $type = $params{type};
-    my $file = $params{file};
 
-    # TODO: CD/DVD support
-    push (@{$self->{vmConf}->{$name}->{disks}}, $file);
+    return if ($type eq 'none');
+
+    my $device = {};
+    $device->{file} = $params{file};
+    $device->{type} = $type eq 'cd' ? 'cdrom' : 'disk';
+    $device->{letter} = $self->{driveLetter};
+    $self->{driveLetter} = chr (ord ($self->{driveLetter}) + 1);
+
+    push (@{$self->{vmConf}->{$name}->{devices}}, $device);
 }
 
 sub systemTypes
@@ -412,7 +419,7 @@ sub writeConf
          name => $name,
          memory => $vmConf->{memory},
          ifaces => $vmConf->{ifaces},
-         disks => $vmConf->{disks},
+         devices => $vmConf->{devices},
          vncport => $vmConf->{port},
          keymap => $keymap,
         ],
@@ -425,6 +432,13 @@ sub listHDs
     my $list =  `find $VM_PATH -name '*.img'`;
     my @hds = split ("\n", $list);
     return \@hds;
+}
+
+sub initDeviceNumbers
+{
+    my ($self) = @_;
+
+    $self->{driveLetter} = 'a';
 }
 
 sub _run

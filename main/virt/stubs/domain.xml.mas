@@ -2,7 +2,7 @@
     $name
     $memory
     @ifaces
-    @disks
+    @devices
     $vncport
     $keymap
 </%args>
@@ -12,6 +12,7 @@
     <vcpu>1</vcpu>
     <os>
         <type arch='i686' machine='pc'>hvm</type>
+        <boot dev='cdrom'/>
         <boot dev='hd'/>
     </os>
     <features><acpi/></features>
@@ -21,10 +22,12 @@
     <on_crash>restart</on_crash>
     <devices>
         <emulator>/usr/bin/kvm</emulator>
-% foreach my $disk (@disks) {
-        <disk type='file' device='disk'>
-            <source file='<% $disk %>'/>
-            <target dev='hda' bus='ide'/>
+% foreach my $device (@devices) {
+        <disk type='file' device='<% $device->{type} %>'>
+            <source file='<% $device->{file} %>'/>
+            # FIXME: cdrom only seems to boot with ide
+            # try if we can use scsi for disks? what about virtio?
+            <target dev='hd<% $device->{letter} %>' bus='ide'/>
         </disk>
 % }
 % # FIXME: $ifaces
