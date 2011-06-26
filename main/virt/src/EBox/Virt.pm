@@ -269,10 +269,8 @@ sub _setDevicesConf
 
     my $backend = $self->{backend};
 
-    # Only used for vbox
+    # Clean all devices first (only needed for vbox)
     $backend->initDeviceNumbers();
-
-    # Clean all devices first
     for (1 .. EBox::Virt::Model::DeviceSettings::MAX_CD_NUM()) {
         $backend->attachDevice(name => $name, type => 'cd', file => 'none');
     }
@@ -281,6 +279,7 @@ sub _setDevicesConf
     }
     # TODO: Manage deleted disks...
 
+    $backend->initDeviceNumbers();
     my $devices = $settings->componentByName('DeviceSettings');
     foreach my $deviceId (@{$devices->enabledRows()}) {
         my $device = $devices->row($deviceId);
@@ -296,7 +295,8 @@ sub _setDevicesConf
             my $size = $device->valueByName('size');
             $file = $backend->diskFile($disk_name, $name);
             unless (-f $file) {
-                $backend->createDisk(file => $file, size => $size);
+                $backend->createDisk(name => $name,
+                                     disk => $disk_name, size => $size);
             }
         } else {
             $file = $device->valueByName('path');

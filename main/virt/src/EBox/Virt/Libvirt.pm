@@ -50,19 +50,22 @@ sub new
 #
 # Parameters:
 #
-#   file    - filename of the disk image
+#   machine - name of the virtual machine
+#   disk    - name of the disk image
 #   size    - size of the disk in megabytes
 #
 sub createDisk
 {
     my ($self, %params) = @_;
 
-    exists $params{file} or
-        throw EBox::Exceptions::MissingArgument('file');
+    exists $params{machine} or
+        throw EBox::Exceptions::MissingArgument('machine');
+    exists $params{disk} or
+        throw EBox::Exceptions::MissingArgument('disk');
     exists $params{size} or
         throw EBox::Exceptions::MissingArgument('size');
 
-    my $file = $params{file};
+    my $file = $self->diskFile($params{disk}, $params{machine});
     my $size = $params{size};
 
     # FIXME: faster if we use qemu-img ?

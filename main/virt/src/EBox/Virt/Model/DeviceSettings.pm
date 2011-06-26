@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
+use EBox::Types::Int;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
 

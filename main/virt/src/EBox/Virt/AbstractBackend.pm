@@ -31,7 +31,8 @@ use EBox::Exceptions::NotImplemented;
 #
 # Parameters:
 #
-#   file    - filename of the disk image
+#   machine - name of the virtual machine
+#   disk    - name of the disk image
 #   size    - size of the disk in megabytes
 #
 sub createDisk

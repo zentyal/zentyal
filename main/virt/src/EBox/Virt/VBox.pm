@@ -25,6 +25,7 @@ use EBox::Exceptions::MissingArgument;
 my $VBOXCMD = 'vboxmanage -nologo';
 my $IDE_CTL = 'idectl';
 my $SATA_CTL = 'satactl';
+my $HD_PATH = '/var/lib/zentyal/.VirtualBox/HardDisks';
 
 # Class: EBox::Virt::VBox
 #
@@ -45,22 +46,22 @@ sub new
 #
 # Parameters:
 #
-#   file    - filename of the disk image
+#   disk    - name of the disk image
 #   size    - size of the disk in megabytes
 #
 sub createDisk
 {
     my ($self, %params) = @_;
 
-    exists $params{file} or
-        throw EBox::Exceptions::MissingArgument('file');
+    exists $params{disk} or
+        throw EBox::Exceptions::MissingArgument('disk');
     exists $params{size} or
         throw EBox::Exceptions::MissingArgument('size');
 
-    my $file = $params{file};
+    my $disk = $params{disk};
     my $size = $params{size};
 
-    _run("$VBOXCMD createhd --filename $file --size $size");
+    _run("$VBOXCMD createhd --filename $disk --size $size");
 }
 
 # Method: resizeDisk
@@ -427,7 +428,7 @@ sub attachDevice
     } elsif ($type eq 'cd') {
         $type = 'dvddrive';
         $ctl = $IDE_CTL;
-        $port = $self->{ideDeviceNumber} / 2;
+        $port = int ($self->{ideDeviceNumber} / 2);
         $device = $self->{ideDeviceNumber} % 2;
         $self->{ideDeviceNumber}++;
     }
@@ -466,10 +467,9 @@ sub listHDs
 
 sub diskFile
 {
-    my ($disk) = @_;
+    my ($self, $disk) = @_;
 
-    # By default it is created on /var/lib/zentyal/.VirtualBox/HardDisks/$disk.vdi
-    return $disk;
+    return "$HD_PATH/$disk.vdi";
 }
 
 sub _run
