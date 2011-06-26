@@ -509,7 +509,7 @@ sub saveAllModules
 
     my $log = EBox::logger();
 
-    my $failed = "";
+    my $failed = '';
 
     my $progress = $options{progress};
     if (not $progress) {
@@ -581,7 +581,12 @@ sub saveAllModules
 
         try {
             $mod->save();
-        } catch EBox::Exceptions::Internal with {
+        } catch EBox::Exceptions::External with {
+            my $ex = shift;
+            $ex->throw();
+        } otherwise {
+            my $ex = shift;
+            EBox::error("Failed to save changes in module $name: $ex");
             $failed .= "$name ";
         };
     }
@@ -598,12 +603,18 @@ sub saveAllModules
         my $mod = $self->modInstance('apache');
         try {
             $mod->save();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "apache";
+        }  catch EBox::Exceptions::External with {
+            my $ex = shift;
+            $ex->throw();
+        } otherwise {
+            my $ex = shift;
+            EBox::error("Failed to save changes in module apache: $ex");
+            $failed .= "apache ";
         };
-
     }
-    if ($failed eq "") {
+
+
+    if (not $failed) {
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
         # Store a timestamp with the time of the ending
         $self->st_set_int(TIMESTAMP_KEY, time());
