@@ -31,6 +31,7 @@ use EBox::Sudo;
 use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
 use EBox::Virt::Model::NetworkSettings;
+use EBox::Virt::Model::DeviceSettings;
 
 use constant VNC_PORT => 5900;
 use constant LIBVIRT_BIN => '/usr/bin/virsh';
@@ -271,7 +272,15 @@ sub _setDevicesConf
     # Only used for vbox
     $backend->initDeviceNumbers();
 
+    # Clean all devices first
+    for (1 .. EBox::Virt::Model::DeviceSettings::MAX_CD_NUM()) {
+        $backend->attachDevice(name => $name, type => 'cd', file => 'none');
+    }
+    for (1 .. EBox::Virt::Model::DeviceSettings::MAX_HD_NUM()) {
+        $backend->attachDevice(name => $name, type => 'hd', file => 'none');
+    }
     # TODO: Manage deleted disks...
+
     my $devices = $settings->componentByName('DeviceSettings');
     foreach my $deviceId (@{$devices->enabledRows()}) {
         my $device = $devices->row($deviceId);

@@ -98,10 +98,11 @@ sub _table
                                editable      => 1,
                               ),
        new EBox::Types::Select(
-                               fieldName     => 'disk_action',
-                               printableName => __('Action'),
-                               populate      => \&_populateDiskAction,
-                               editable      => 1,
+                               fieldName      => 'disk_action',
+                               printableName  => __('Action'),
+                               populate       => \&_populateDiskAction,
+                               editable       => 1,
+                               hiddenOnViewer => 1,
                               ),
        new EBox::Types::Text(
                              fieldName     => 'name',
@@ -116,14 +117,12 @@ sub _table
                              optional      => 1,
                             ),
        new EBox::Types::Int(
-                            fieldName     => 'size',
-                            printableName => __('Size'),
-                            editable      => 1,
-                            defaultValue  => 8000,
-                            # TODO: Move these checks to validateRow
-                            #min           => 32,
-                            #max           => int(df('/')->{bavail}),
-                            trailingText  => 'MB',
+                            fieldName      => 'size',
+                            printableName  => __('Size'),
+                            editable       => 1,
+                            defaultValue   => 8000,
+                            trailingText   => 'MB',
+                            hiddenOnViewer => 1,
                            ),
     );
 
@@ -157,6 +156,10 @@ sub validateTypedRow
 
     my $numCDs = 0;
     my $numHDs = 0;
+
+    # TODO: Check these boundaries when creating a new disk
+    #min           => 32,
+    #max           => int(df('/')->{bavail}),
 
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
@@ -197,14 +200,8 @@ sub _cleanOptionalValues
     if ($row->valueByName('type') eq 'hd' and
         $row->valueByName('disk_action') eq 'create') {
         $row->elementByName('path')->setValue('');
-    } else {
-        my $file = $row->valueByName('path');
-        my $size = int ((-s $file) / (1024 * 1024));
-        my $sizeElement = $row->elementByName('size');
-        $sizeElement->setValue($size);
-        $row->elementByName('name')->setValue('');
+        $row->store();
     }
-    $row->store();
 }
 
 # Method: viewCustomizer
