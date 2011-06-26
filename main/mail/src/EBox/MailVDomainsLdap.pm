@@ -221,6 +221,9 @@ sub vdomainExists
 {
     my ($self, $vdomain) = @_;
 
+    $vdomain or
+        return undef;
+
     my %attrs = (
                  base => $self->vdomainDn,
                  filter => "&(objectclass=*)(dc=$vdomain)",
