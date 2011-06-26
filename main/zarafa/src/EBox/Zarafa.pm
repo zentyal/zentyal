@@ -176,6 +176,39 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    unless ($version) {
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall or
+            return;
+        $firewall->addServiceRules($self->_serviceRules());
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _serviceRules
+{
+    return [
+             {
+              'name' => 'Groupware',
+              'description' => __('Groupware services (Zarafa)'),
+              'internal' => 1,
+              'protocol' => 'tcp',
+              'sourcePort' => 'any',
+              'destinationPorts' => [ 236, 8080, 8443 ],
+              'rules' => { 'external' => 'deny', 'internal' => 'accept' },
+             },
+    ];
+}
+
 # Method: modelClasses
 #
 # Overrides:
