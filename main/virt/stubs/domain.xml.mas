@@ -22,6 +22,11 @@
     <on_crash>restart</on_crash>
     <devices>
         <emulator>/usr/bin/kvm</emulator>
+% foreach my $iface (@ifaces) {
+        <interface type='<% $iface->{type} %>'>
+            <source <% $iface->{type} %>='<% $iface->{source} %>'/>
+        </interface>
+% }
 % foreach my $device (@devices) {
         <disk type='file' device='<% $device->{type} %>'>
             <source file='<% $device->{file} %>'/>
@@ -30,7 +35,6 @@
             <target dev='hd<% $device->{letter} %>' bus='ide'/>
         </disk>
 % }
-% # FIXME: $ifaces
         <graphics type='vnc' port='<% $vncport %>' keymap='<% $keymap %>'/>
     </devices>
 </domain>

@@ -320,7 +320,6 @@ sub setOS
 # Parameters:
 #
 #   name    - virtual machine name
-#   iface   - iface number
 #   type    - iface type (nat, bridged, internal)
 #   arg     - iface arg (bridged => devicename, internal => networkname)
 #
@@ -330,36 +329,31 @@ sub setIface
 
     exists $params{name} or
         throw EBox::Exceptions::MissingArgument('name');
-    exists $params{iface} or
-        throw EBox::Exceptions::MissingArgument('iface');
     exists $params{type} or
         throw EBox::Exceptions::MissingArgument('type');
 
     my $name = $params{name};
-    my $iface = $params{iface};
     my $type = $params{type};
-    my $arg = '';
-    if (($type eq 'bridged') or ($type eq 'internal')) {
+
+    my $source = '';
+    if ($type eq 'none') {
+        return;
+    } elsif ($type eq 'nat') {
+        $source = 'default';
+    } else {
         exists $params{arg} or
             throw EBox::Exceptions::MissingArgument('arg');
-        $arg = $params{arg};
+        $source = $params{arg};
     }
 
-    #FIXME
-    #$self->_modifyVM($name, "nic$iface", $type);
+    # FIXME: This is not enough, currently only NAT will work
+    # we need to create bridges either for real ifaces or internal networks
+    # Another possibility is to use brX ifaces created in zentyal-network
+    my $iface = {};
+    $iface->{type} = $type eq 'bridged' ? 'bridge' : 'network';
+    $iface->{source} = $source;
 
-    if ($type eq 'nat') {
-        $type = 'natnet';
-        $arg = 'default';
-    } elsif ($type eq 'bridged') {
-        $type = 'bridgedadapter';
-    } elsif ($type eq 'internal') {
-        $type = 'intnet';
-    }
-    my $setting = $type . $iface;
-
-    # FIXME
-    #push (@{$self->{vmConf}->{$name}->{ifaces}}, $file);
+    push (@{$self->{vmConf}->{$name}->{ifaces}}, $iface);
 }
 
 # Method: attachDevice
