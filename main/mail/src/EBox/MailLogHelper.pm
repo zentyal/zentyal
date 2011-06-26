@@ -138,9 +138,9 @@ sub processLine
 
         $self->_insert($dbengine, $values);
 
-    } elsif ($line =~ m/cleanup.*message-id=/) {
+    } elsif ($line =~ m/cleanup.*\smessage-id=/) {
         # cleanup: removed for the queue and mail gets a message id
-        # sometimes there is no <> arround message-id. maybe a postfix bug?
+        # sometimes there is no <> arround message-id bz client bug
         # example:
         #Apr  4 06:34:26 kif postfix/cleanup[20543]: 3691F3D7C0: message-id=6c2f8b0c6950bfc961be936e5b33f1a2
         my ($qid, $msg_id) = $line =~ m/.*: ([0-9A-F]+): message\-id=<?(\S*?)[,\s>]/;

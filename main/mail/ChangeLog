@@ -1,4 +1,5 @@
 HEAD
+	+ Removed unwanted matching in the logs in some rare circumstances
 	+ SASL and TLS are always enabled
 	+ As long as mailfilter module is enabled, the mail module will
 	  use the filter it provides
