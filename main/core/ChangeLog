@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed regresion in page size selector on DataTables
 2.1.14
 	+ Fixed regresion with double quotes in HTML templates
 	+ Fixed problems with libredis-perl version dependency

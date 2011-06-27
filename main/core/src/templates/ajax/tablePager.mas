@@ -39,7 +39,7 @@
        'value'       => $model->pageSize(),
        'options'     => \@sizeOptions,
        'id'          => $tableName . '_pageSize',
-       'onchange'    => qq{setLoading("$pageSizeId"); $changeViewJS;return false}
+       'onchange'    => qq{setLoading('$pageSizeId'); $changeViewJS;return false}
   &>
 
      <span id="<% $pageSizeId %>"></span>&nbsp;
