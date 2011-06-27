@@ -1,3 +1,7 @@
+HEAD
+	+ Set custom AppArmor profile configuration in local subdirectory
+	  to be less invasive
+	+ Use new AppArmor profile management by the framework
 2.1
 	+ Use new initial-setup script for post-install setup
 	+ All obsolete migrations removed

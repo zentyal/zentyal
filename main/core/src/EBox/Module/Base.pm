@@ -39,6 +39,10 @@ use Time::Local;
 use File::Slurp;
 use Perl6::Junction qw(any);
 
+# Constants:
+use constant APPARMOR_PARSER => '/sbin/apparmor_parser';
+use constant APPARMOR_D      => '/etc/apparmor.d/';
+
 # Method: _create
 #
 #   Base constructor for a module
@@ -779,6 +783,40 @@ sub wizardPages
     return [];
 }
 
+# Method: appArmorProfiles
+#
+#    Return the AppArmor profiles for this module
+#
+#    There are two possible kinds of solutions:
+#
+#      - Overwrite the distro AppArmor profile using a mason template
+#
+#      - Use local/binary not to overwrite the distro AppArmor profile
+#        but adding, normally, new directories to access/write/execute
+#
+# Returns:
+#
+#    Array ref - containing hash ref as elements with the following
+#    keys:
+#
+#      binary - String the binary to set an AppArmor profile
+#
+#      local - Boolean indicating if we use local implementation or
+#              overwrite the distro one
+#
+#      file - String the path for the new AppArmor profile. If it is a
+#             template, it is relative to stubs path. If not, then it
+#             is relative to schemas path
+#
+#      params - Array ref the parameters if it is a mason template
+#
+#    Default implementation is to have no profiles
+#
+sub appArmorProfiles
+{
+    return [];
+}
+
 # Method: pidRunning
 #
 #   Checks if a PID is running
@@ -878,6 +916,43 @@ sub _setConf
     # needed
 }
 
+# Method: _setAppArmorProfiles
+#
+#   Set the apparmor profiles if AppArmor is installed and the module
+#   has configured profiles overriding <appArmorProfiles>
+#
+sub _setAppArmorProfiles
+{
+    my ($self) = @_;
+
+    if ( -x APPARMOR_PARSER ) {
+        foreach my $profile ( @{$self->appArmorProfiles()} ) {
+            $profile->{params} = [] unless ($profile->{params});
+
+            my $targetProfile = APPARMOR_D . $profile->{binary};
+            if ( $profile->{local} ) {
+                $targetProfile = APPARMOR_D . 'local/' . $profile->{binary};
+            }
+
+            if ( $profile->{file} =~ /\.mas$/ ) {
+                if ( $self->can('writeConfFile') ) {
+                    $self->writeConfFile($targetProfile, $profile->{file},
+                                         $profile->{params});
+                } else {
+                    writeConfFileNoCheck($targetProfile, $profile->{file},
+                                         $profile->{params});
+                }
+            } else {
+                my $baseDir = EBox::Config::scripts() . 'apparmor/';
+                EBox::Sudo::root("install -m 0644 $baseDir $targetProfile");
+            }
+            # Reload the parser
+            EBox::Sudo::root(APPARMOR_PARSER . ' --write-cache --replace '
+                             . APPARMOR_D . $profile->{binary});
+        }
+    }
+}
+
 # Method: _regenConfig
 #
 #   Base method to regenerate configuration. It should be overriden
@@ -893,6 +968,7 @@ sub _regenConfig
     $self->_preSetConf(@params);
     $self->_preSetConfHook();
     $self->_setConf(@params);
+    $self->_setAppArmorProfiles();
     $self->_postSetConfHook();
 }
 

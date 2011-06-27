@@ -44,12 +44,14 @@ use constant {
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',
   FRESHCLAM_CRON_FILE           => '/etc/cron.d/clamav-freshclam',
   FRESHCLAM_DIR                 => '/var/lib/clamav/',
-  FRESHCLAM_APPARMOR_PROFILE    => '/etc/apparmor.d/usr.bin.freshclam.zentyal',
   FRESHCLAM_USER                => 'clamav',
-
-  APPARMOR_SERVICE              => '/etc/init.d/apparmor',
 };
 
+use constant APPARMOR_D => '/etc/apparmor.d/';
+use constant {
+    APPARMOR_FRESHCLAM => APPARMOR_D . 'local/usr.bin.freshclam',
+    APPARMOR_CLAMD     => APPARMOR_D . 'usr.sbin.clamd',
+};
 
 # Group: Protected methods
 
@@ -141,6 +143,32 @@ sub enableService
     }
 }
 
+# Method: appArmorProfiles
+#
+#   Overrides to set the local AppArmor profile to allow freshclam
+#   notification to Antivirus package
+#
+# Overrides:
+#
+#    <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    my $observerScript = EBox::Config::share() . 'zentyal-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
+
+    my @params = ( 'observerScript' => $observerScript);
+
+    return [
+        { 'binary' => 'usr.bin.freshclam',
+          'local'  => 1,
+          'file'   => 'antivirus/freshclam.profile.mas',
+          'params' => \@params },
+       ];
+}
+
+
 sub usedFiles
 {
     return [
@@ -152,6 +180,19 @@ sub usedFiles
         {
             file => FRESHCLAM_CONF_FILE,
             reason => __('To schedule the launch of the updater'),
+            module => 'antivirus',
+        },
+        {
+            file   => APPARMOR_FRESHCLAM,
+            reason => __x('Custom {app} profile configuration '
+                          . 'for {bin} binary',
+                          app => 'AppArmor', bin => 'freshclam'),
+            module => 'antivirus',
+        },
+        {
+            file   => APPARMOR_CLAMD,
+            reason => __x('Disable {app} profile for {bin} binary',
+                          app => 'AppArmor', bin => 'clamd'),
             module => 'antivirus',
         },
     ];
@@ -193,7 +234,7 @@ sub _setConf
 
     $self->disableApparmorProfile('usr.sbin.clamd');
 
-    my $observerScript = EBox::Config::share() . '/zentyal-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
+    my $observerScript = EBox::Config::share() . 'zentyal-antivirus/' . FRESHCLAM_OBSERVER_SCRIPT;
 
     my $network = EBox::Global->modInstance('network');
     my $proxy = $network->model('Proxy');
@@ -214,14 +255,6 @@ sub _setConf
                          'antivirus/clamav-freshclam.cron.mas',
                          [ enabled => $self->isEnabled() ]);
 
-    if ((-f APPARMOR_SERVICE) and not (-f FRESHCLAM_APPARMOR_PROFILE)) {
-        my @profileParams = (
-            observerScript  => $observerScript
-           );
-        $self->writeConfFile(FRESHCLAM_APPARMOR_PROFILE,
-                'antivirus/freshclam.profile.mas', \@profileParams);
-        EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
-    }
 }
 
 # Method: freshclamState

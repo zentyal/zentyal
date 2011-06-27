@@ -1,4 +1,6 @@
 HEAD
+	+ Use new AppArmor profile management by the framework
+	+ Apparmor profile now works without DNS module installed
 	+ Transform member names in fixed address to avoid user confusion
 	+ Do not check for MAC unity for the same object in fixed address
 	  since it is already done by the member model

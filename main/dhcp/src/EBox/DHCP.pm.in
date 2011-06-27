@@ -69,15 +69,14 @@ use Text::DHCPLeases;
 use constant DHCPCONFFILE => "@DHCPDCONF@";
 use constant LEASEFILE => "@DHCPDLEASES@";
 use constant PIDFILE => "@DHCPDPID@";
-use constant APPARMOR_PROFILE => '/etc/apparmor.d/usr.sbin.dhcpd3.zentyal';
 use constant DHCP_SERVICE => "@DHCPD_SERVICE@";
 use constant TFTP_SERVICE => "tftpd-hpa";
-use constant APPARMOR_SERVICE => '/etc/init.d/apparmor';
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 use constant INCLUDE_DIR => EBox::Config::etc() . 'dhcp/';
+use constant APPARMOR_DHCPD => '/etc/apparmor.d/usr.sbin.dhcpd3';
 
 # Group: Public and protected methods
 
@@ -111,7 +110,12 @@ sub usedFiles
              'file' => DHCPCONFFILE,
              'module' => 'dhcp',
              'reason' => __x('{server} configuration file', server => 'dhcpd'),
-            }
+            },
+            {
+             'file'   => APPARMOR_DHCPD,
+             'module' => 'dhcp',
+             'reason' => __x('AppArmor profile for {server} daemon', server => 'dhcpd'),
+            },
            ];
 }
 
@@ -149,6 +153,30 @@ sub initialSetup
 
         mkdir (CONF_DIR, 0755);
     }
+}
+
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile to allow Dynamic DNS to
+#   work and LSTP configuration using /etc/zentyal/dhcp/...
+#
+# Overrides:
+#
+#    <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    my @params = ( 'keysFile' => $self->_keysFile(),
+                   'confDir'  => $self->IncludeDir() );
+
+    return [
+        { 'binary' => 'usr.sbin.dhcpd3',
+          'local'  => 0,
+          'file'   => 'dhcp/apparmor-dhcpd.profile.mas',
+          'params' => \@params }
+       ];
 }
 
 # Method: actions
@@ -1405,13 +1433,6 @@ sub _setDHCPConf
 
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 
-    # Write apparmor profile if needed
-    if ( not -f APPARMOR_PROFILE ) {
-        $self->writeConfFile(APPARMOR_PROFILE, "dhcp/apparmor-dhcpd.profile.mas",
-                             [ ( 'keysFile' => $self->_keysFile(),
-                                 'confDir'  => $self->IncludeDir() ) ]);
-        EBox::Sudo::root(APPARMOR_SERVICE . ' restart');
-    }
 }
 
 # Method: _setTFTPDConf
