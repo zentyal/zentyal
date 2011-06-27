@@ -286,21 +286,26 @@ sub menu
                         'order' => 30);
 
     $folder->add(new EBox::Menu::Item('url' => 'SysInfo/General',
+                      'order' => 10,
                       'text' => __('General')));
 
     $folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
+                      'order' => 30,
                       'text' => __('Disk Usage')));
 
     $folder->add(new EBox::Menu::Item(
              'url' => 'Report/RAID',
+             'order' => 40,
              'text' => __('RAID'))
             );
 
 
     $folder->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
+                      'order' => 50,
                       'text' => __('Import/Export Configuration')));
 
     $folder->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
+                      'order' => 60,
                       'text' => __('Halt/Reboot')));
 
     $root->add($folder);

@@ -86,7 +86,7 @@ sub _process
 #   to set the menu folder
 sub menuFolder
 {
-    return 'EBox';
+    return 'SysInfo';
 }
 
 1;

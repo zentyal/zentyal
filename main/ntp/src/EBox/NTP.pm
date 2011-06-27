@@ -437,13 +437,16 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'EBox',
+    my $folder = new EBox::Menu::Folder('name' => 'SysInfo',
+                                        'order' => 30,
                                         'text' => __('System'));
 
     $folder->add(new EBox::Menu::Item('url' => 'NTP/Datetime',
+                                      'order' => 20,
                                       'text' => __('Date/Time')));
 
     $folder->add(new EBox::Menu::Item('url' => 'NTP/Timezone',
+                                      'order' => 21,
                                       'text' => __('Time Zone')));
     $root->add($folder);
 }
