@@ -133,6 +133,7 @@ sub ebox_notify
         if ( defined($measureConf) and $measureConf->{first} ) {
             if ( $measureConf->{first} + $measureConf->{after} < $not->{time} ) {
                 $measureConf->{first} = 0;
+                $measureConf->{sent}  = 1;
                 # print $fh "Send ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
                 # close($fh);
             } else {
@@ -152,10 +153,18 @@ sub ebox_notify
             }
             # print $fh "First ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
             # close($fh);
-            unless ( $level eq 'info' ) {
+            my $return = 1;
+            if ( $level eq 'info' and (defined($aMeasureConf) and $aMeasureConf->{sent}) ) {
                 # This is required, since collectd only send the info
                 # messages once although persist configuration setting
-                # is on
+                # is on. We send the info message if a warn message
+                # was sent previously
+                $return = 0;
+                $aMeasureConf->{sent} = 0; # Mark it again as non
+                                           # send, to send it again
+                                           # when warn threshold is up again
+            }
+            if ( $return ) {
                 return 1;
             }
         }
