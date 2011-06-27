@@ -62,11 +62,11 @@ foreach my $component (@{$components}) {
      name    => 'selection_' . $compName,
      options => \@selectOptions,
      id      => 'selection_' . $compName,
-     onchange => qq/selectComponentToHang( "selectData_$compName",
-                                           "errorSelectData_$compName",
-                                           "selector_$compName",
+     onchange => qq/selectComponentToHang( 'selectData_$compName',
+                                           'errorSelectData_$compName',
+                                           'selector_$compName',
                                            actions_$compName,
-                                           "loadingTable_$compName");
+                                           'loadingTable_$compName');
                    /,
   &>
   <span id="<% qq{loadingTable_$compName} | h %>"></span>

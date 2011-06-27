@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regresion with double quotes in HTML templates
 	+ Fixed problems with libredis-perl version dependency
 	+ Adding new apparmor profile management
 2.1.13
