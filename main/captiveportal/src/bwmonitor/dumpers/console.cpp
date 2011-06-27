@@ -27,12 +27,12 @@ void ConsoleBWStatsDumper::dumpHost(HostStats *host) {
     BWSummary* internal = host->getInternalBW();
     BWSummary* external = host->getExternalBW();
 
-    cout << "IP: " << ip << endl;
-    cout << "Internal sent: " << internal->totalSent/1024 << " kbytes" << endl;
-    cout << "Internal recv: " << internal->totalRecv/1024 << " kbytes" << endl;
+    cout << "IP=" << ip;
+    cout << " INT_SENT=" << internal->totalSent/1024;
+    cout << " INT_RECV=" << internal->totalRecv/1024;
 
-    cout << "External sent: " << external->totalSent/1024 << " kbytes" << endl;
-    cout << "External recv: " << external->totalRecv/1024 << " kbytes" << endl;
-    cout << "---------------" << endl;
+    cout << " EXT_SENT=" << external->totalSent/1024;
+    cout << " EXT_RECV=" << external->totalRecv/1024;
+    cout << endl;
 }
 

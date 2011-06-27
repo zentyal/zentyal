@@ -16,6 +16,7 @@
 */
 #include <iostream>
 #include <pcap.h>
+#include <time.h>
 #include <netinet/ether.h>
 #include <netinet/ip.h>
 #include <arpa/inet.h>
@@ -34,14 +35,30 @@ const int TO_MS = 1000;
 // Packet capture size (big enough to decode headers)
 const int CAPTURE_SIZE = 64;
 
+// Dump stats each X seconds
+const int DUMP_RATE = 2;
+
 // Global packet stats
 BWStats stats;
+
+// Dump result (by now here, of course this is dummy)
+ConsoleBWStatsDumper dumper;
+
 
 // Process a packet, update counters and store valuable info
 void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char* packet)
 {
     static int count = 1;
+    static int lastDump = time(NULL);
     count++;
+
+    if ((time(NULL) - lastDump) > DUMP_RATE) {
+        // Dump current status
+        // This should not take too long
+        // if it does some problems will appear (packet loss)
+        stats.dump(&dumper);
+        lastDump = time(NULL);
+    }
 
     const struct ether_header *eth;
     const struct ip *ip;
@@ -126,10 +143,6 @@ int main ()
     }
 
     pcap_loop(descr, -1, processPkt, NULL);
-
-    // Dump result (by now here, of course this is dummy)
-    ConsoleBWStatsDumper dumper;
-    stats.dump(&dumper);
 
     return 0;
 }
