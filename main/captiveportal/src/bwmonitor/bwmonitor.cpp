@@ -104,6 +104,9 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
 
 int main ()
 {
+    // Setup stats object conf
+    stats.addInternalNet(inet_addr("192.168.1.0"), inet_addr("255.255.255.0"));
+
     // Get available devices
     pcap_if_t* alldevs;
     if (pcap_findalldevs(&alldevs, ERROR_BUF) < 0) {
@@ -113,6 +116,7 @@ int main ()
 
     // keep first dev to listen there
     string dev = alldevs->name;
+    dev = "wlan0";
 
     cout << "Available devices:" << endl;
     while(alldevs) {
@@ -120,10 +124,10 @@ int main ()
         alldevs = alldevs->next;
     }
 
-    // Put the device in promiscous mode and ready to capture
+    // Enable capture on the device
     // TODO take into account other layers than ethernet (WiFi, PPoE?)
     cout << "Listening on " << dev << endl;
-    pcap_t* descr = pcap_open_live(dev.c_str(), CAPTURE_SIZE, 1, TO_MS, ERROR_BUF);
+    pcap_t* descr = pcap_open_live(dev.c_str(), CAPTURE_SIZE, 0, TO_MS, ERROR_BUF);
 
     // Configure the filter
     // Capture everything and pass it to the handler
