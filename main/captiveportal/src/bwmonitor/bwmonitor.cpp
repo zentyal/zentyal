@@ -19,9 +19,12 @@
 #include <netinet/ether.h>
 #include <netinet/ip.h>
 #include <arpa/inet.h>
+#include "bwstats.h"
+#include "dumpers/console.h"
+
+#define DEBUG 0
 
 using namespace std;
-
 
 char ERROR_BUF[PCAP_ERRBUF_SIZE];
 
@@ -30,6 +33,9 @@ const int TO_MS = 1000;
 
 // Packet capture size (big enough to decode headers)
 const int CAPTURE_SIZE = 64;
+
+// Global packet stats
+BWStats stats;
 
 // Process a packet, update counters and store valuable info
 void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char* packet)
@@ -45,6 +51,9 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
 
     if (ip->ip_v != 4) return; // TODO IPv6 support
 
+    stats.addPacket(ip);
+
+#if DEBUG
     char src_ip[INET_ADDRSTRLEN];
     char dst_ip[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &(ip->ip_src), src_ip, INET_ADDRSTRLEN);
@@ -73,6 +82,7 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
     }
     cout << endl;
     cout << "--------" << endl;
+#endif //DEBUG
 }
 
 int main ()
@@ -116,6 +126,10 @@ int main ()
     }
 
     pcap_loop(descr, -1, processPkt, NULL);
+
+    // Dump result (by now here, of course this is dummy)
+    ConsoleBWStatsDumper dumper;
+    stats.dump(&dumper);
 
     return 0;
 }
