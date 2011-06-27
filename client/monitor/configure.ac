@@ -1,4 +1,4 @@
-AC_INIT([EBox-monitor], [2.0.3])
+AC_INIT([EBox-monitor], [2.0.4])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Monitor.pm])
