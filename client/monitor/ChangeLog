@@ -1,3 +1,6 @@
+HEAD
+	+ Do not send info events when using persist after if the warn
+	  events was not sent previously
 2.0.3
 	+ Added persist after X seconds to send an event when the value is
 	  in the notification area for more than X seconds
