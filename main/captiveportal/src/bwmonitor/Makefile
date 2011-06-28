@@ -1,6 +1,6 @@
 
 all : bwmonitor.cpp bwstats dumpers
-	g++ -Wall -lpcap bwstats.o console.o bwmonitor.cpp -o bwmonitor
+	g++ -Wall -lpcap -lconfig bwstats.o console.o bwmonitor.cpp -o bwmonitor
 
 bwstats : bwstats.h bwstats.cpp
 	g++ -Wall -c bwstats.cpp

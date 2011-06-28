@@ -22,10 +22,12 @@
 #include <arpa/inet.h>
 #include "bwstats.h"
 #include "dumpers/console.h"
+#include <libconfig.h++>
 
 #define DEBUG 0
 
 using namespace std;
+using namespace libconfig;
 
 char ERROR_BUF[PCAP_ERRBUF_SIZE];
 
@@ -102,32 +104,56 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
 #endif //DEBUG
 }
 
-int main ()
+int main (int argc,char *argv[])
 {
-    // Setup stats object conf
-    stats.addInternalNet(inet_addr("192.168.1.0"), inet_addr("255.255.255.0"));
+    config_t config;
 
-    // Get available devices
-    pcap_if_t* alldevs;
-    if (pcap_findalldevs(&alldevs, ERROR_BUF) < 0) {
-        perror("pcap_findalldevs");
+    // Process conf file
+    if (argc != 2) {
+        cerr << "A parameter is required: configuration file" << endl;
         return 1;
     }
 
-    // keep first dev to listen there
-    string dev = alldevs->name;
-    dev = "wlan0";
-
-    cout << "Available devices:" << endl;
-    while(alldevs) {
-        cout << " - " << alldevs->name << endl;
-        alldevs = alldevs->next;
+    // Init config
+    config_init(&config);
+    if (!config_read_file(&config, argv[1])) {
+        cerr << config_error_line(&config) << " - ";
+        cerr << config_error_text(&config) << endl;
+        config_destroy(&config);
+        return 1;
     }
+
+    // Device to listen on
+    const char *dev = NULL;
+    config_lookup_string(&config, "dev", &dev);
+
+    // Configure internal networks
+    config_setting_t *networks = config_lookup(&config, "internal_networks");
+    if (networks == NULL) {
+        cerr << "internal_networks parameter is required in config file!" << endl;
+        return 1;
+    }
+
+    config_setting_t *network;
+    int i=0;
+    while ((network = config_setting_get_elem(networks, i++)) != NULL) {
+        const char *ip, *mask;
+        ip = config_setting_get_string_elem(network, 0);
+        mask = config_setting_get_string_elem(network, 1);
+        cout << "Adding " << ip << "/" << mask << " as internal network" << endl;
+        stats.addInternalNet(inet_addr(ip), inet_addr(mask));
+    }
+
 
     // Enable capture on the device
     // TODO take into account other layers than ethernet (WiFi, PPoE?)
     cout << "Listening on " << dev << endl;
-    pcap_t* descr = pcap_open_live(dev.c_str(), CAPTURE_SIZE, 0, TO_MS, ERROR_BUF);
+    pcap_t* descr = pcap_open_live(dev, CAPTURE_SIZE, 0, TO_MS, ERROR_BUF);
+
+    if (descr == NULL) {
+        cerr << "Error opening " << dev << ". Are you root?" << endl;
+        return 1;
+    }
 
     // Configure the filter
     // Capture everything and pass it to the handler
@@ -135,7 +161,7 @@ int main ()
     struct bpf_program fp;
     bpf_u_int32 netp;
     bpf_u_int32 maskp;
-    pcap_lookupnet(dev.c_str(), &netp, &maskp, ERROR_BUF);
+    pcap_lookupnet(dev, &netp, &maskp, ERROR_BUF);
     if (pcap_compile(descr, &fp, "ip", 0, netp) < 0) {
         perror("pcap_compile");
         return 1;
