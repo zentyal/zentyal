@@ -1,4 +1,5 @@
 HEAD
+	+ Filename when downloading a conf backup now contains hostname
 	+ Fixed bug in RAID template
 	+ Set proper menu order in System menu (fixes NTP position)
 	+ Fixed regresion in page size selector on DataTables

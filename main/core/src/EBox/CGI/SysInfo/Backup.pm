@@ -26,7 +26,7 @@ use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
-
+use Sys::Hostname;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -271,7 +271,7 @@ sub  _downloadAction
                 __("The input contains invalid characters"));
     }
     $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
-    $self->{downfilename} = "$id.tar";
+    $self->{downfilename} = hostname() . "_$id.tar";
 }
 
 sub  _deleteAction
