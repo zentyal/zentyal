@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: list_ifaces() only returns real ifaces now
 	+ Call EBox::Config::refreshConfFiles only when needed
 	+ Use all user groups on EBox::init() gid change
 2.1.2

@@ -77,6 +77,7 @@ sub iface_exists
 sub list_ifaces
 {
     my @devices = map { $_->{name} } IO::Interface::Simple->interfaces;
+    @devices = grep (!/:/, @devices);
     @devices = sort @devices;
     return @devices;
 }
