@@ -101,9 +101,7 @@ sub _updateSessions
     my ($self, $captiveportal, $currentUsers) = @_;
     my @rules;
 
-    EBox::debug("Updating captiveportal sessions...");
-
-    # firewall inserted rules, checked to avoid duplicates
+    # firewall already inserted rules, checked to avoid duplicates
     my $iptablesRules = {
         captive  => join('', @{EBox::Sudo::root(IPTABLES . ' -t nat -n -L captive')}),
         icaptive => join('', @{EBox::Sudo::root(IPTABLES . ' -n -L icaptive')}),
@@ -146,7 +144,6 @@ sub _updateSessions
     }
 
     EBox::Sudo::root(@rules);
-    EBox::debug("DONE");
 }
 
 
