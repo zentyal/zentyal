@@ -1,6 +1,6 @@
 <%args>
-$array  
-$raidInfo 
+$array
+$raidInfo
 </%args>
 <%once>
 my %tabPrintableNames = (
@@ -64,13 +64,13 @@ $selected
 </%init>
 <div class='ifaces'>
 % foreach  my $tab (@tabs) {
-%   my $printableTab = exists $tabPrintableNames{$tab} ? 
+%   my $printableTab = exists $tabPrintableNames{$tab} ?
 %                              $tabPrintableNames{$tab} : $tab;
 %   if ($tab eq $selected) {
      <span class='selected'><% $printableTab %></span>
 %   } else {
     <a href='RAID?array=<% $tab | u %>'><% $printableTab %></a>
-%   } 
+%   }
 % }
 </div>
 </%def>
@@ -127,12 +127,12 @@ my @raidProperties     = (
        }
       ],
       [
-       'type', 
-       __('Type'), 
-       sub { 
-	 my ($v) = @_;   
-	 if (exists $raidTypePrintableValue{$v} ) { 
-	   return $raidTypePrintableValue{$v} 
+       'type',
+       __('Type'),
+       sub {
+	 my ($v) = @_;
+	 if (exists $raidTypePrintableValue{$v} ) {
+	   return $raidTypePrintableValue{$v}
 	 }
 	 else {
 	   return $v;
@@ -141,15 +141,15 @@ my @raidProperties     = (
       ],
      ['activeDevices', __('Active RAID devices') ],
      ['activeDevicesNeeded',  __('Active RAID devices needed') ],
-     ['blocks',  __('Size in blocks') ],	
+     ['blocks',  __('Size in blocks') ],
      ['chunkSize', __('Chunk size')],
      [
-      'algorithm', 
+      'algorithm',
       __('Parity algorithm'),
-       sub { 
-	 my ($v) = @_;   
-	 if (exists $algorithmPrintableValue{$v} ) { 
-	   return $algorithmPrintableValue{$v} 
+       sub {
+	 my ($v) = @_;
+	 if (exists $algorithmPrintableValue{$v} ) {
+	   return $algorithmPrintableValue{$v}
 	 }
 	 else {
 	   return $v;
@@ -157,7 +157,7 @@ my @raidProperties     = (
        }
 
      ],
-     ['bitmap', __('Bitmap;)],
+     ['bitmap', __('Bitmap')],
 );
 
 
@@ -206,9 +206,9 @@ my @rows;
 push @rows, [ __('Operation type') => $opPrintableName ];
 push @rows,
   [ __('Percentage completed') => $properties{operationPercentage} ];
-push @rows, 
+push @rows,
   [ __('Estimated time left') => $properties{operationEstimatedTime} ];
-push @rows, 
+push @rows,
   [ __('Operation speed') => $properties{operationSpeed} ];
 
 my @titles = (__('Current operation'), '');
