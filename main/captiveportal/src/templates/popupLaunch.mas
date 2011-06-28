@@ -9,6 +9,7 @@ use EBox::Gettext;
 <head>
   <title>Zentyal</title>
   <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
+  <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
   <script type="text/javascript">
     function launch() {
         window.open("/zentyal/Popup", "zentyal-captiveportal", "resizable=1,width=350,height=250");
@@ -16,7 +17,17 @@ use EBox::Gettext;
   </script>
 </head>
 <body onload="launch()">
-  Launching popup window!
-  <p><a href="/zentyal/Logout">Logout</a></p>
+   <div id='login'>
+     <div id='loginin' style="text-align: center; padding: 15px">
+       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block"/>
+       <div style="padding: 15px">
+         <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.',
+                hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
+       </div>
+     </div>
+   </div>
+
+  <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>eBox Technologies</a>") %></div>
 </body>
 </html>
+
