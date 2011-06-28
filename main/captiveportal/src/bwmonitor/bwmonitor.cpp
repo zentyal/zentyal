@@ -38,7 +38,7 @@ const int TO_MS = 1000;
 const int CAPTURE_SIZE = 64;
 
 // Dump stats each X seconds
-const int DUMP_RATE = 2;
+long int DUMP_RATE = 600;
 
 // Global packet stats
 BWStats stats;
@@ -126,6 +126,9 @@ int main (int argc,char *argv[])
     // Device to listen on
     const char *dev = NULL;
     config_lookup_string(&config, "dev", &dev);
+
+    // Dump rate (optional)
+    config_lookup_int(&config, "dump_rate", &DUMP_RATE);
 
     // Configure internal networks
     config_setting_t *networks = config_lookup(&config, "internal_networks");
