@@ -89,7 +89,7 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
 <VirtualHost *:<% $http_port %>>
     ServerAdmin webmaster@localhost
     RewriteEngine On
-    RewriteRule ^(.*) https://%{SERVER_ADDR}:<% $https_port %>/ [L]
+    RewriteRule ^(.*)$ https://%{SERVER_ADDR}:<% $https_port %>/?redirect=%{HTTP_HOST}$1?%{QUERY_STRING} [L]
 </VirtualHost>
 
 

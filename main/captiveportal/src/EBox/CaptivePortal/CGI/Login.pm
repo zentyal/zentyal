@@ -113,6 +113,17 @@ sub _requestDestination
   return $destination;
 }
 
+
+sub _validateReferer
+{
+    my ($self) = @_;
+
+    # Disable referer for GET method (safe because takes no action)
+    return if ($self->{cgi}->request_method() eq 'GET');
+
+    $self->SUPER::_validateReferer(@_);
+}
+
 sub _top
 {
 }
