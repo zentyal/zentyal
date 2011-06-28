@@ -266,16 +266,9 @@ sub _fieldDescription
                 'foreignModel' => \&objectModel,
                 'foreignField' => 'name',
                 'editable' => 1),
-
             ]);
 
     push (@tableHead, $origDest);
-
-    my $external_port = new EBox::Types::PortRange(
-            'fieldName' => 'external_port',
-            'printableName' => __('Original destination port'),
-            );
-    push (@tableHead, $external_port);
 
     my $protocol = new EBox::Types::Select(
             'fieldName' => 'protocol',
@@ -283,6 +276,12 @@ sub _fieldDescription
             'populate' => \&protocol,
             'editable' => 1);
     push (@tableHead, $protocol);
+
+    my $external_port = new EBox::Types::PortRange(
+            'fieldName' => 'external_port',
+            'printableName' => __('Original destination port'),
+            );
+    push (@tableHead, $external_port);
 
     my $source = new EBox::Types::Union(
             'fieldName' => 'source',
