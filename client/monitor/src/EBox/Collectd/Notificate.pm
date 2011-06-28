@@ -71,6 +71,8 @@ sub ebox_init_notify
     if ( -r NOTIFICATION_CONF ) {
         my $content = File::Slurp::read_file(NOTIFICATION_CONF);
         $persistConf = shared_clone(decode_json($content));
+    } else {
+        $persistConf = shared_clone({});
     }
 
     return 1;

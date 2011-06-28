@@ -1,3 +1,5 @@
+HEAD
+	+ Do not break if there is no configuration with persist after
 2.0.4
 	+ Do not send info events when using persist after if the warn
 	  events was not sent previously
