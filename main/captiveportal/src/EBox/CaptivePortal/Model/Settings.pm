@@ -100,9 +100,12 @@ sub validateTypedRow
             throw EBox::Exceptions::External(__('HTTP and HTTPS ports should be different'));
         }
 
+        my $oldHttp = $self->http_portValue();
+        my $oldHttps = $self->https_portValue();
+
         # Available?
-        $self->_checkPortAvailable($http_port);
-        $self->_checkPortAvailable($https_port);
+        $self->_checkPortAvailable($http_port) unless ($oldHttp eq $http_port);
+        $self->_checkPortAvailable($https_port) unless ($oldHttps eq $https_port);
     }
 }
 
