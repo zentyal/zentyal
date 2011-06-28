@@ -25,7 +25,7 @@ use EBox::Gettext;
                 <div class="warning" id="capsWarning" style="display: none">
                   <% __('Warning: Caps Lock is enabled')%>
                 </div>
-                <center><h2 style="color: #333"><% __('User Corner') %></h2></center>
+                <center><h2 style="color: #333"><% __('Captive portal') %></h2></center>
 		<dl>
 			<dt><% __('User name') %>:</dt>
 			<dd><input  class='inputTextLogin' type='text'
