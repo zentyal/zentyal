@@ -249,6 +249,7 @@ sub ifaces
 #      {
 #          user => 'username',
 #          ip   => 'X.X.X.X',
+#          mac   => 'XX:XX:XX:XX:XX:XX', (optional, if known)
 #          sid  => 'session id',
 #      },
 #      ...
@@ -264,11 +265,32 @@ sub currentUsers
         push(@users, {
             user => $row->valueByName('user'),
             ip => $row->valueByName('ip'),
+            mac => $row->valueByName('mac'),
             sid => $row->valueByName('sid'),
             time => $row->valueByName('time'),
         });
     }
     return \@users;
+}
+
+
+# method: userFirewallRule
+#
+#   Parameters:
+#     - User session data
+#
+#   Returns:
+#     - Iptables rule part with matching and decision (RETURN);
+sub userFirewallRule
+{
+    my ($self, $user) = @_;
+
+    my $ip = $user->{ip};
+    my $name = $user->{user};
+    my $mac = $user->{mac};
+    my $macSrc = '';
+    $macSrc = "-m mac --mac-source $mac" if defined($mac);
+    return "-s $ip $macSrc -m comment --comment 'user:$name' -j RETURN";
 }
 
 

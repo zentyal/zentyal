@@ -28,6 +28,7 @@ use EBox::Exceptions::Lock;
 use EBox::Ldap;
 use EBox::LogAdmin;
 use EBox::CaptivePortal;
+use EBox::NetWrappers qw(ip_mac);
 
 use Error qw(:try);
 use Crypt::Rijndael;
@@ -114,6 +115,7 @@ sub _savesession
         $data->{time} = time();
         $data->{user} = $user;
         $data->{ip} = $ip;
+        $data->{mac} = ip_mac($ip);
         print $sidFile YAML::XS::Dump($data);
     }
 
@@ -151,6 +153,7 @@ sub _updatesession
         my $data = YAML::XS::Load($sess_info);
         $data->{time} = $time;
         $data->{ip} = $ip;
+        $data->{mac} = ip_mac($ip);
         print $sidFile YAML::XS::Dump($data);
     }
 

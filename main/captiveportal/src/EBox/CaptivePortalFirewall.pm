@@ -168,11 +168,9 @@ sub _usersRules
     my ($self, $chain) = @_;
 
     my @rules;
-    my $users = $self->{captiveportal}->currentUsers();
+    my $users = $self->{captiveportal}->currentUers();
     for my $user (@{$users}) {
-        my $ip = $user->{'ip'};
-        my $name = $user->{'user'};
-        my $r = "-s $ip -m comment --comment 'user:$name' -j RETURN";
+        my $r = $self->{captiveportal}->userFirewallRule($user);
         push(@rules, { 'rule' => $r, 'chain' => $chain });
     }
     return \@rules;

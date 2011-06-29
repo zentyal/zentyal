@@ -73,8 +73,15 @@ sub _table
         ),
         new EBox::Types::HostIP(
             'fieldName' => 'ip',
-            'printableName' => __('IP'),
+            'printableName' => __('IP address'),
             'editable' => 0,
+        ),
+        new EBox::Types::Text(
+            'fieldName' => 'mac',
+            'printableName' => __('MAC address'),
+            'editable' => 0,
+            'hidden' => 1,
+            'optional' => 1,
         ),
     );
 
@@ -145,6 +152,7 @@ sub syncRows
             user => $sessions->{$sid}->{user},
             time => $sessions->{$sid}->{time},
             ip => $sessions->{$sid}->{ip},
+            mac => $sessions->{$sid}->{mac},
         );
     }
 

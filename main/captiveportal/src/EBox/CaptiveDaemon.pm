@@ -44,6 +44,7 @@ sub new
 
     # Sessions already added to iptables (to trac ip changes)
     $self->{sessions} = {};
+    $self->{module} = EBox::Global->modInstance('captiveportal');
 
     bless ($self, $class);
     return $self;
@@ -56,9 +57,6 @@ sub new
 sub run
 {
     my ($self) = @_;
-
-    my $captiveportal = EBox::Global->modInstance('captiveportal');
-
 
     # Setup iNotify to detect logins
     my $notifier = Linux::Inotify2->new();
@@ -80,8 +78,8 @@ sub run
     while (1) {
         EBox::Util::Lock::lock('firewall');
 
-        my @users = @{$captiveportal->currentUsers()};
-        $self->_updateSessions($captiveportal, \@users);
+        my @users = @{$self->{module}->currentUsers()};
+        $self->_updateSessions(\@users);
 
         EBox::Util::Lock::unlock('firewall');
 
@@ -98,7 +96,7 @@ sub run
 #
 sub _updateSessions
 {
-    my ($self, $captiveportal, $currentUsers) = @_;
+    my ($self, $currentUsers) = @_;
     my @rules;
 
     # firewall already inserted rules, checked to avoid duplicates
@@ -120,8 +118,8 @@ sub _updateSessions
         }
 
         # Expired
-        if ($captiveportal->sessionExpired($user->{time})) {
-            $captiveportal->removeSession($user->{sid});
+        if ($self->{module}->sessionExpired($user->{time})) {
+            $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@rules, @{$self->_removeRule($user)});
             next;
@@ -153,10 +151,9 @@ sub _addRule
 
     my $ip = $user->{ip};
     my $name = $user->{user};
-    my $rule = "-s $ip -m comment --comment 'user:$name' -j RETURN";
-
     EBox::debug("Adding user $name with IP $ip");
 
+    my $rule = $self->{module}->userFirewallRule($user);
     my @rules;
     push (@rules, IPTABLES . " -t nat -I captive $rule") unless($current->{captive} =~ / $ip /);
     push (@rules, IPTABLES . " -I fcaptive $rule") unless($current->{fcaptive} =~ / $ip /);
@@ -167,12 +164,12 @@ sub _addRule
 sub _removeRule
 {
     my ($self, $user) = @_;
+
     my $ip = $user->{ip};
     my $name = $user->{user};
-
     EBox::debug("Removing user $name with IP $ip");
 
-    my $rule = "-s $ip -m comment --comment 'user:$name' -j RETURN";
+    my $rule = $self->{module}->userFirewallRule($user);
     my @rules;
     push (@rules, IPTABLES . " -t nat -D captive $rule");
     push (@rules, IPTABLES . " -D fcaptive $rule");
