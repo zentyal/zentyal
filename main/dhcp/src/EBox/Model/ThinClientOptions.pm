@@ -234,6 +234,7 @@ sub _table
                              fieldName     => 'remoteFilename',
                              printableName => __('File path in next server'),
                              editable      => 1,
+                             optional      => 1,
                             ),
        new EBox::Types::Union(
                               fieldName      => 'hosts',

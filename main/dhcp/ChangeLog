@@ -1,4 +1,6 @@
 HEAD
+	+ Make TFPT path optional
+	+ Add option tftp-server-name if next-server is defined
 	+ Use new AppArmor profile management by the framework
 	+ Apparmor profile now works without DNS module installed
 	+ Transform member names in fixed address to avoid user confusion

@@ -146,6 +146,9 @@
 </%args>
 % if (values(%options) > 0) {
                    next-server <% $options{nextServer} %>;
+                   option tftp-server-name "<% $options{nextServer} %>";
+% if ( $options{filename} ) {
                    filename    "<% $options{filename} %>";
+% }
 % }
 </%def>
