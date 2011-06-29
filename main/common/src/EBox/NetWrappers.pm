@@ -38,7 +38,7 @@ BEGIN {
                     iface_netmask iface_addresses iface_addresses_with_netmask iface_by_address
                     iface_mac_address list_routes
                     list_local_addresses list_local_addresses_with_netmask
-                    route_is_up ip_network ip_broadcast
+                    route_is_up ip_network ip_broadcast ip_mac
                     bits_from_mask mask_from_bits to_network_with_mask to_network_without_mask
                 } ],
             );
@@ -360,6 +360,27 @@ sub ip_broadcast
     my $net_bits = pack("CCCC", split(/\./, $address));
     my $mask_bits = pack("CCCC", split(/\./, $netmask));
     return join(".", unpack("CCCC", $net_bits | (~$mask_bits)));
+}
+
+# Function: ip_mac
+#
+#   Returns the mac address for a given IP
+#
+# Parameters:
+#
+#   address - IPv4 address
+#
+# Returns:
+#
+#   The mac address if found or undef
+#
+sub ip_mac
+{
+    my ($address) = @_;
+    my $output = `arp -an $address`;
+
+    my ($mac) = ($output =~ /(([0-9a-f]{2}:){5}[0-9a-f]{2})/i);
+    return $mac;
 }
 
 # Function: bits_from_mask

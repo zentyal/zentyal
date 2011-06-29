@@ -1,3 +1,5 @@
+HEAD
+	+ Added ip_mac method to NetWrappers
 2.1.3
 	+ Bugfix: list_ifaces() only returns real ifaces now
 	+ Call EBox::Config::refreshConfFiles only when needed
