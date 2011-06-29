@@ -53,16 +53,16 @@ sub _create
 #
 #   Override EBox::Module::Service::actions
 #
-sub actions
-{
-    return [
-        {
-            'action' => __('FIXME'),
-            'reason' => __('Zentyal will take care of FIXME'),
-            'module' => 'activeportal'
-        }
-    ];
-}
+#sub actions
+#{
+#    return [
+#        {
+#            'action' => __('FIXME'),
+#            'reason' => __('Zentyal will take care of FIXME'),
+#            'module' => 'cactiveportal'
+#        }
+#    ];
+#}
 
 # Method: usedFiles
 #
