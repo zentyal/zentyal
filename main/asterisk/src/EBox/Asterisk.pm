@@ -478,6 +478,9 @@ sub _setSIP
     my $additional_codecs = EBox::Config::configkey('asterisk_additional_codecs');
     push (@params, additional_codecs => $additional_codecs);
 
+    my $dtmfmode = EBox::Config::configkey('asterisk_dtmfmode');
+    push (@params, dtmfmode => $dtmfmode);
+
     $model = $self->model('Phones');
     push (@params, phones => $model->getPhones());
 

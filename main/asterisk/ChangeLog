@@ -1,5 +1,8 @@
 HEAD
 	+ Include asterisk.conf in /etc/zentyal
+	+ Allow to customize phone extensions range
+	+ Use custom codecs on provider SIP connection too
+	+ Allow to customize DTMF mode
 2.1.1
 	+ New Phones section to configure phone lines instead of users
 	  between 4000 and 7999

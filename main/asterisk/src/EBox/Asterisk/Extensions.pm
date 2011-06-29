@@ -32,8 +32,6 @@ use EBox::Asterisk;
 use constant MINEXTN             => 1000;
 use constant MAXEXTN             => 3999;
 #use constant VMDFTLEXTN          => 8000;
-use constant PHONEMINEXTN        => 4000;
-use constant PHONEMAXEXTN        => 7999;
 use constant MEETINGMINEXTN      => 8001;
 use constant MEETINGMAXEXTN      => 8999;
 use constant QUEUEMINEXTN        => 9001;

@@ -27,6 +27,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
@@ -105,8 +106,8 @@ sub _table
                             editable      => 1,
                             optional      => 0,
                             help          => __x('A number between {min} and {max}.',
-                                                 min => EBox::Asterisk::Extensions->PHONEMINEXTN,
-                                                 max => EBox::Asterisk::Extensions->PHONEMAXEXTN
+                                                 min => EBox::Config::configkey('asterisk_phone_min_extn'),
+                                                 max => EBox::Config::configkey('asterisk_phone_max_extn'),
                                                 ),
                            ),
        new EBox::Types::Password(

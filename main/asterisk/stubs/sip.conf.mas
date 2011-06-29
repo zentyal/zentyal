@@ -11,6 +11,7 @@
     $server
     $incoming
     $additional_codecs
+    $dtmfmode
     @phones
 </%args>
 ;
@@ -59,7 +60,9 @@ secret=<% $password %>
 host=<% $server %>
 fromuser=<% $username %>
 context=default
-allow=alaw,ulaw,gsm
+disallow=all
+allow=<% $additional_codecs %>alaw,ulaw,gsm
+dtmfmode=<% $dtmfmode %>
 trustrpid = yes
 sendrpid = yes
 canreinvite = no
@@ -76,8 +79,7 @@ host=dynamic
 context=users
 disallow=all
 allow=<% $additional_codecs %>alaw,ulaw
-dtmfmode=auto
-progressinband=no
+dtmfmode=<% $dtmfmode %>
 mailbox=<% $phone->{'exten'} %>@default
 nat=yes
 qualify=yes
