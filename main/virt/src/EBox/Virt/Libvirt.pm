@@ -23,6 +23,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 use File::Basename;
+use String::ShellQuote;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $VM_FILE = 'domain.xml';
@@ -50,8 +51,7 @@ sub new
 #
 # Parameters:
 #
-#   machine - name of the virtual machine
-#   disk    - name of the disk image
+#   file    - path of the disk image file
 #   size    - size of the disk in megabytes
 #
 sub createDisk
@@ -65,7 +65,7 @@ sub createDisk
     exists $params{size} or
         throw EBox::Exceptions::MissingArgument('size');
 
-    my $file = $self->diskFile($params{disk}, $params{machine});
+    my $file = $params{file};
     my $size = $params{size};
 
     # FIXME: faster if we use qemu-img ?
@@ -447,7 +447,7 @@ sub diskFile
 {
     my ($machine, $disk) = @_;
 
-    return "$VM_PATH/$machine/$disk.img";
+    return shell_quote("$VM_PATH/$machine/$disk.img");
 }
 
 1;

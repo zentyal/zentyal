@@ -21,13 +21,12 @@ use strict;
 use warnings;
 
 use EBox::Exceptions::MissingArgument;
+use String::ShellQuote;
 
 my $VBOXCMD = 'vboxmanage -nologo';
 my $IDE_CTL = 'idectl';
 my $SATA_CTL = 'satactl';
-my $ROOT_PATH = '/var/lib/zentyal/.VirtualBox';
-my $VM_PATH = "$ROOT_PATH/Machines";
-my $HD_PATH = "$ROOT_PATH/HardDisks";
+my $VM_PATH = '/var/lib/zentyal/VirtualBox VMs';
 
 # Class: EBox::Virt::VBox
 #
@@ -48,22 +47,22 @@ sub new
 #
 # Parameters:
 #
-#   disk    - name of the disk image
+#   file    - path of the disk image file
 #   size    - size of the disk in megabytes
 #
 sub createDisk
 {
     my ($self, %params) = @_;
 
-    exists $params{disk} or
-        throw EBox::Exceptions::MissingArgument('disk');
+    exists $params{file} or
+        throw EBox::Exceptions::MissingArgument('file');
     exists $params{size} or
         throw EBox::Exceptions::MissingArgument('size');
 
-    my $disk = $params{disk};
+    my $file = $params{file};
     my $size = $params{size};
 
-    _run("$VBOXCMD createhd --filename $disk --size $size");
+    _run("$VBOXCMD createhd --filename $file --size $size");
 }
 
 # Method: resizeDisk
@@ -469,9 +468,9 @@ sub listHDs
 
 sub diskFile
 {
-    my ($self, $disk) = @_;
+    my ($self, $disk, $machine) = @_;
 
-    return "$HD_PATH/$disk.vdi";
+    return shell_quote("$VM_PATH/$machine/$disk.vdi");
 }
 
 # Method: attachedDevices
@@ -487,7 +486,7 @@ sub attachedDevices
 {
     my ($self, $name, $type) = @_;
 
-    my $machineFile = "$VM_PATH/$name/$name.xml";
+    my $machineFile = shell_quote("$VM_PATH/$name/$name.vbox");
     if ($type eq 'cd') {
         $type = 'DVD';
     } else {

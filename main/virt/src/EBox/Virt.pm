@@ -295,8 +295,7 @@ sub _setDevicesConf
             my $size = $device->valueByName('size');
             $file = $backend->diskFile($disk_name, $name);
             unless (-f $file) {
-                $backend->createDisk(name => $name,
-                                     disk => $disk_name, size => $size);
+                $backend->createDisk(file => $file, size => $size);
             }
         } else {
             $file = $device->valueByName('path');
