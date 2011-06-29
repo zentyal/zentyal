@@ -18,7 +18,7 @@ images/package-icons/zentyal-ntp.png images/package-icons/zentyal-mailfilter.png
 images/package-icons/zentyal-remoteservices.png images/package-icons/zentyal-ftp.png images/package-icons/zentyal-ebackup.png \
 images/package-icons/zentyal-zarafa.png images/package-icons/zentyal-asterisk.png images/package-icons/zentyal-ids.png \
 images/package-icons/zentyal-firewall.png images/package-icons/zentyal-webmail.png images/package-icons/zentyal-dhcp.png \
-images/package-icons/zentyal-captiveportal.png
+images/package-icons/zentyal-captiveportal.png images/package-icons/zentyal-pptp.png images/package-icons/zentyal-ipsec.png
 
 nobase_www_DATA =  $(images)
 
