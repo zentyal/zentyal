@@ -9,13 +9,39 @@ use EBox::Gettext;
 <head>
   <title>Zentyal</title>
   <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
-  <meta http-equiv="refresh" content="<% $interval %>" />
+  <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
+  <script src="/data/js/prototype.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    function logout() {
+        // Set loading
+        $('logout').replace('<img src="/data/images/ajax-loader.gif" />');
+
+        // Ajax logout
+        new Ajax.Request('/zentyal/Logout', {
+
+            onComplete: function(response) {
+                if (403 == response.status) {
+                    // logout successful, close popup
+                    window.close();
+                    return;
+                }
+                // Error, try without ajax:
+                location.href = "/zentyal/Logout";
+            }
+        });
+    }
+  </script>
 </head>
-<body>
-
-Do not close this window!
-
-<p><a href="/zentyal/Logout">Logout</a></p>
-
+<body style="margin: 0">
+   <div id='login' style="margin: 5px; width: auto">
+     <div id='loginin' style="text-align: center; padding: 15px">
+       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block"/>
+       <div style="padding: 15px">
+         <% __('Keep this window open while using your Internet connection.') %>
+       </div>
+       <div id="logout"><a href="#" onclick="logout()"><% __('Logout') %></a></div>
+     </div>
+   </div>
 </body>
 </html>
+
