@@ -1560,6 +1560,13 @@ sub syncRows
     return 0;
 }
 
+sub isSyncRowsOverriden
+{
+    my ($self) = @_;
+
+    return __PACKAGE__->can('syncRows') == $self->can('syncRows');
+}
+
 # Method: ids
 #
 #
@@ -3319,8 +3326,11 @@ sub _find
         $index .= '.idx';
     }
 
+    my @rows;
     # sync rows
-    my @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
+    if ($self->isSyncRowsOverriden() and not $nosync) {
+    	@rows = @{$self->ids()};
+    }
 
     my $indexRows;
     my $firstIndexation = 0;
@@ -3332,6 +3342,7 @@ sub _find
         return [] unless @rows;
     } else {
         # No index found, we search on the entire table
+        @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
         # From now on, the index will be updated when storing values
         $conf->create_index($index);
         unless (@rows) {
