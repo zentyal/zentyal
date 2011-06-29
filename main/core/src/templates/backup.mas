@@ -187,7 +187,7 @@ my %printableTypeById = (
 			  imgName => __('delete') }
 		       );
 </%perl>
-<& legendTable.mas, elements => \@legendElements, nColumns => 2 &>
+<& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
 </%def>
 
