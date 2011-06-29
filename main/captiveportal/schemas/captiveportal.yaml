@@ -3,6 +3,8 @@ class: 'EBox::CaptivePortal'
 depends:
     - objects
     - network
+    - firewall
+    - users
 
 enabledepends:
     - firewall
