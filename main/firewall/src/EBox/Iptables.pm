@@ -613,7 +613,7 @@ sub moduleRules
         ($helper) or next;
 
         # Create chains
-        push(@modRules, @{$self->_createChains($mod)});
+        push(@modRules, @{$self->_createChains($mod, $helper)});
 
         # add rules
         push(@modRules,
@@ -656,9 +656,8 @@ sub _loadIptModules
 
 sub _createChains
 {
-    my ($self, $module) = @_;
+    my ($self, $module, $helper) = @_;
 
-    my $helper = $module->firewallHelper();
     my @commands;
     my %chains = %{$helper->chains()};
     foreach my $table ( keys %chains ) {
