@@ -54,6 +54,7 @@ src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
 schemas/Makefile
 schemas/sql/Makefile
+schemas/urls/Makefile
 Makefile
 ])
 

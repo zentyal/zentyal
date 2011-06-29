@@ -1051,11 +1051,17 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item(
-            'url' => 'EBackup/Composite/Remote',
+    my $system = new EBox::Menu::Folder('name' => 'SysInfo',
+                        'text' => __('System'),
+                        'order' => 30);
+
+    $system->add(new EBox::Menu::Item(
+            'url' => 'SysInfo/EBackup',
             'separator' => 'Core',
-            'order' => 95,
+            'order' => 40,
             'text' => $self->printableName()));
+
+    $root->add($system);
 }
 
 # Method: lock
