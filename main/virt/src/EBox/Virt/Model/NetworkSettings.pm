@@ -105,7 +105,7 @@ sub _table
                               ),
        new EBox::Types::Text(
                              fieldName     => 'name',
-                             printableName => __('Inernal Network Name'),
+                             printableName => __('Internal Network Name'),
                              editable      => 1,
                              optional      => 1,
                             ),
