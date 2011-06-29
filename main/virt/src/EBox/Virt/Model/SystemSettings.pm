@@ -76,6 +76,11 @@ sub _table
 {
     my ($self) = @_;
 
+    my $maxMem = $self->{maxMem};
+    my $defaultMem = 512;
+    if ($defaultMem > $maxMem) {
+        $defaultMem = $maxMem;
+    }
     my @tableHeader = (
        new EBox::Types::Select(
                                fieldName     => 'os',
@@ -88,8 +93,8 @@ sub _table
                             printableName => __('Base Memory'),
                             editable      => 1,
                             min           => 1,
-                            max           => $self->{maxMem},
-                            defaultValue  => 512,
+                            max           => $maxMem,
+                            defaultValue  => $defaultMem,
                            ),
     );
 
