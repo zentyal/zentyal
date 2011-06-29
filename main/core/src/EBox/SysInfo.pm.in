@@ -281,34 +281,37 @@ sub menu
                     'order' => 20));
 
 
-    my $folder = new EBox::Menu::Folder('name' => 'SysInfo',
+    my $system = new EBox::Menu::Folder('name' => 'SysInfo',
                         'text' => __('System'),
                         'order' => 30);
 
-    $folder->add(new EBox::Menu::Item('url' => 'SysInfo/General',
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/General',
                       'order' => 10,
                       'text' => __('General')));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-                      'order' => 30,
-                      'text' => __('Disk Usage')));
-
-    $folder->add(new EBox::Menu::Item(
-             'url' => 'Report/RAID',
-             'order' => 40,
-             'text' => __('RAID'))
-            );
-
-
-    $folder->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                       'order' => 50,
                       'text' => __('Import/Export Configuration')));
 
-    $folder->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
                       'order' => 60,
                       'text' => __('Halt/Reboot')));
 
-    $root->add($folder);
+    $root->add($system);
+
+    my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
+                                        'text' => __('Maintenance'),
+                                        'separator' => 'Core',
+                                        'order' => 70);
+
+    $maint->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
+                                     'order' => 40,
+                                     'text' => __('Disk Usage')));
+
+    $maint->add(new EBox::Menu::Item('url' => 'Report/RAID',
+                                     'order' => 50,
+                                     'text' => __('RAID')));
+    $root->add($maint);
 }
 
 sub logReportInfo

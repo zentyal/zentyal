@@ -1,4 +1,5 @@
 HEAD
+	+ Move Disk Usage and RAID to the new Maintenance menu
 	+ Always call syncRows on find (avoid data inconsistencies)
 	+ Filename when downloading a conf backup now contains hostname
 	+ Fixed bug in RAID template

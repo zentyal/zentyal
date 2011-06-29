@@ -66,7 +66,7 @@ sub _process
 #   to set the menu folder
 sub menuFolder
 {
-    return 'SysInfo';
+    return 'Maintenance';
 }
 
 1;
