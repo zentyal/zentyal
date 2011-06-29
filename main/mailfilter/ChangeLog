@@ -1,4 +1,4 @@
-HEAD
+2.1.2
 	+ Do not enable when mail module has a custom filter in use
 	+ runMonthlyQuery method uses keyGenerator option for consistency
 2.1.1

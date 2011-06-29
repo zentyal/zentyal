@@ -1,4 +1,4 @@
-HEAD
+2.1.4
 	+ Check for undefined vdomain in vdomainExists method
 	+ Removed unwanted matching in the logs in some rare circumstances
 	+ SASL and TLS are always enabled

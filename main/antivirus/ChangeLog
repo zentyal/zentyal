@@ -1,4 +1,4 @@
-HEAD
+2.1.1
 	+ Set custom AppArmor profile configuration in local subdirectory
 	  to be less invasive
 	+ Use new AppArmor profile management by the framework
