@@ -183,7 +183,7 @@ use EBox::CA::DN;
 	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->attribute('commonName')
 	| u%>"
 	>
-	  <img src="/data/images/reload.gif"
+	  <img src="/data/images/reload.png"
 	       alt="<% __('Renew') %>" />
 	</a>
         <img src="/data/images/sep.gif" alt="-" />
@@ -195,7 +195,7 @@ use EBox::CA::DN;
 	href="ShowForm?action=reissue&cn=<%$cert->{'dn'}->attribute('commonName')
 	| u%>"
 	>
-	  <img src="/data/images/reload.gif"
+	  <img src="/data/images/reload.png"
 	       alt="<% __('Reissue') %>" />
 	</a>
 %	}
@@ -212,7 +212,7 @@ use EBox::CA::DN;
 			  imgName => __("Revoke") },
 			{ imgFile => "/data/images/install.gif",
 			  imgName => __("Download Key(s) and Certificate") },
-			{ imgFile => "/data/images/reload.gif",
+			{ imgFile => "/data/images/reload.png",
 			  imgName => __("Renew or reissue") }
 		       );
 </%perl>
