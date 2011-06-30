@@ -50,7 +50,7 @@ sub new
     my $self = $class->SUPER::new(@_);
 
     my $totalMemory = `free -m | awk 'NR==2 { print \$2 }'`;
-    $self->{maxMem} = $totalMemory / 2;
+    $self->{maxMem} = int ($totalMemory / 2);
 
     bless ( $self, $class );
 
