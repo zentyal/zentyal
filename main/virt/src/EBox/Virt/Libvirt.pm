@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use File::Basename;
 use String::ShellQuote;
@@ -58,10 +59,8 @@ sub createDisk
 {
     my ($self, %params) = @_;
 
-    exists $params{machine} or
-        throw EBox::Exceptions::MissingArgument('machine');
-    exists $params{disk} or
-        throw EBox::Exceptions::MissingArgument('disk');
+    exists $params{file} or
+        throw EBox::Exceptions::MissingArgument('file');
     exists $params{size} or
         throw EBox::Exceptions::MissingArgument('size');
 
@@ -131,7 +130,8 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    return system ("$VIRTCMD list | grep running | cut -d' ' -f4 | grep -q ^$name\$") == 0;
+    EBox::Sudo::silentRoot("$VIRTCMD list | grep running | cut -d' ' -f4 | grep -q ^$name\$");
+    return $? == 0;
 }
 
 # FIXME: doc
@@ -233,7 +233,11 @@ sub shutdownVMCommand
 {
     my ($self, $name) = @_;
 
-    return "$VIRTCMD shutdown $name";
+    # FIXME: "shutdown" only works when a SO with acpi enabled is running
+    # is there any way to detect this? In the meanwhile the only possibility
+    # seems to be use "destroy"
+    #return "$VIRTCMD shutdown $name";
+    return "$VIRTCMD destroy $name";
 }
 
 # Method: pauseVM
@@ -439,8 +443,8 @@ sub _run
 {
     my ($cmd) = @_;
 
-    EBox::debug("Running: $cmd");
-    system ($cmd);
+    #EBox::debug("Running: $cmd");
+    EBox::Sudo::rootWithoutException($cmd);
 }
 
 sub diskFile
