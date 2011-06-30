@@ -612,7 +612,11 @@ Parameters:
 */
 function restoreHidden (elementId, modelName)
 {
-  $(elementId).innerHTML = savedElements[elementId];
+    if (savedElements[elementId] != null) {
+        $(elementId).innerHTML = savedElements[elementId];
+    } else {
+        $(elementId).innerHTML = '';
+    }
 }
 
 /*

@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid 'undefined' message in selectors
 2.1.15
 	+ Move Disk Usage and RAID to the new Maintenance menu
 	+ Always call syncRows on find (avoid data inconsistencies)
