@@ -1515,8 +1515,7 @@ sub _filterDashboardSection
     }else {
         $section->add(
                 new EBox::Dashboard::Value(
-                    __('Filter type') => $self->_zentyalMailfilterAttr($filter,
-                        'prettyName')
+                    __('Filter type') => $self->_zentyalMailfilterAttr('prettyName')
                     )
                 );
 
