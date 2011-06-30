@@ -1519,11 +1519,12 @@ sub _filterDashboardSection
                     )
                 );
 
-        my $global = EBox::Global->getInstance(1);
-        my ($filterInstance) =
-          grep {$_->mailFilterName eq $filter}
-          @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
-        $filterInstance->mailFilterDashboard($section);
+# FIXME: this crashes, and maybe it's not needed
+#        my $global = EBox::Global->getInstance(1);
+#        my ($filterInstance) =
+#          grep {$_->mailFilterName eq $filter}
+#          @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
+#        $filterInstance->mailFilterDashboard($section);
     }
 
     return $section;
