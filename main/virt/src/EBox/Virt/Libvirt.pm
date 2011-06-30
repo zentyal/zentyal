@@ -449,7 +449,7 @@ sub _run
 
 sub diskFile
 {
-    my ($machine, $disk) = @_;
+    my ($self, $machine, $disk) = @_;
 
     return shell_quote("$VM_PATH/$machine/$disk.img");
 }
