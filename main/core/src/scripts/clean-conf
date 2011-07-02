@@ -13,9 +13,13 @@ EBox::init();
 my $global = EBox::Global->instance();
 
 my $globalConf = "/ebox/modules/global/modules/$module";
+my $globalState = "/ebox/state/global/ServiceModule/$module";
 my $moduleConf = "/ebox/modules/$module";
+my $moduleState = "/ebox/state/$module";
 
 $global->delete_dir($globalConf);
+$global->{redis}->delete_dir($globalState);
 $global->{redis}->delete_dir($moduleConf);
+$global->{redis}->delete_dir($moduleState);
 
 1;

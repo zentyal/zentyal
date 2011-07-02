@@ -1,6 +1,7 @@
 HEAD
 	+ Do not show incompatible navigator warning on Google Chrome
 	+ Fixed syncRows override detection on DataTable find
+	+ clean-conf script now deletes also state data
 	+ Avoid 'undefined' message in selectors
 2.1.15
 	+ Move Disk Usage and RAID to the new Maintenance menu
