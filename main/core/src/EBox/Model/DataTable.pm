@@ -1560,13 +1560,6 @@ sub syncRows
     return 0;
 }
 
-sub isSyncRowsOverriden
-{
-    my ($self) = @_;
-
-    return __PACKAGE__->can('syncRows') != $self->can('syncRows');
-}
-
 # Method: ids
 #
 #
@@ -3278,6 +3271,13 @@ sub _volatile
 
 # Group: Private helper functions
 
+sub _isSyncRowsOverriden
+{
+    my ($self) = @_;
+
+    return __PACKAGE__->can('syncRows') != $self->can('syncRows');
+}
+
 # Method: _find
 #
 #    (PRIVATE)
@@ -3328,8 +3328,8 @@ sub _find
 
     my @rows;
     # sync rows
-    if ($self->isSyncRowsOverriden() and not $nosync) {
-    	@rows = @{$self->ids()};
+    if ($self->_isSyncRowsOverriden() and not $nosync) {
+        @rows = @{$self->ids()};
     }
 
     my $indexRows;
