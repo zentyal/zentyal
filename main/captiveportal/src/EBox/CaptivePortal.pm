@@ -305,7 +305,7 @@ sub sessionExpired
 {
     my ($self, $time) = @_;
 
-    return time() > ($time + EXPIRATION_TIME + 5);
+    return time() > ($time + EXPIRATION_TIME + 30);
 }
 
 

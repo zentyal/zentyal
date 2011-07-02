@@ -1,5 +1,5 @@
 HEAD
-	+ Do not automatically logout on window close
-	  (may cause problems in some browsers)
+	+ Increased session grace time to avoid session losses on slow requests
+	+ Do not automatically logout on window close (may cause problems in some browsers)
 2.1
 	+ Initial release
