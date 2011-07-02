@@ -39,10 +39,6 @@ EBox::debug("router: $router");
 try {
     $network->setDHCPGateway($iface, $router);
 
-    # FIXME: This workaround is needed to force the call to syncRows
-    # due to a possible bug in DataTable::_find
-    $network->model('GatewayTable')->ids();
-
     # Do not call regenGateways if we are restarting changes, they
     # are already going to be regenerated and also this way we
     # avoid nested lock problems
