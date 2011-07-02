@@ -19,7 +19,8 @@ function checkBrowser() {
         document.getElementById("ieWarning").style.display="block";
         document.getElementById("credential_0").disabled="disabled";
         document.getElementById("loginButton").disabled="disabled";
-    } else if (!/Firefox/.test(navigator.userAgent)) {
+    } else if (!/Firefox/.test(navigator.userAgent) and
+               !/Chrome/.test(navigator.userAgent)) {
         document.getElementById("ffWarning").style.display="block";
     }
 }
