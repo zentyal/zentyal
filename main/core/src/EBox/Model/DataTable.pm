@@ -1564,7 +1564,7 @@ sub isSyncRowsOverriden
 {
     my ($self) = @_;
 
-    return __PACKAGE__->can('syncRows') == $self->can('syncRows');
+    return __PACKAGE__->can('syncRows') != $self->can('syncRows');
 }
 
 # Method: ids
