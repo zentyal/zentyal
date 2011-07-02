@@ -1,4 +1,4 @@
-HEAD
+2.1.16
 	+ Do not show incompatible navigator warning on Google Chrome
 	+ Fixed syncRows override detection on DataTable find
 	+ clean-conf script now deletes also state data
