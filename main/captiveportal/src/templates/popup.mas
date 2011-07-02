@@ -31,9 +31,6 @@ use EBox::Gettext;
             }
         });
     }
-
-    // Logout on window close
-    window.onbeforeunload = logout;
   </script>
 </head>
 <body style="margin: 0">

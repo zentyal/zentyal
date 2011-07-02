@@ -1,2 +1,5 @@
+HEAD
+	+ Do not automatically logout on window close
+	  (may cause problems in some browsers)
 2.1
 	+ Initial release
