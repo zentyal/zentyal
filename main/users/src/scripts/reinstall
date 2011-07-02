@@ -7,7 +7,7 @@ read
 
 INSTALLED_MODULES=`dpkg -l | grep 'zentyal-' | grep ^ii | cut -d' ' -f3| xargs`
 
-UNCONFIGURE_MODULES="asterisk egroupware ftp jabber mail samba squid webmail zarafa users"
+UNCONFIGURE_MODULES="asterisk egroupware ftp jabber mail samba squid webmail zarafa captiveportal users"
 
 for mod in $UNCONFIGURE_MODULES
 do
