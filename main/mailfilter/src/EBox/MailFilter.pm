@@ -814,7 +814,8 @@ sub consolidateReportQueries
                 'select' => 'event, action, split_part(from_address, \'@\', 2) AS from_domain, split_part(to_address, \'@\', 2) AS to_domain, COUNT(*) as messages',
                 'from' => 'mailfilter_smtp',
                 'group' => 'event, action, from_domain, to_domain'
-            }
+            },
+            'quote' => { from_domain => 1, to_domain => 1 },
         },
         {
             'target_table' => 'mailfilter_pop_report',
@@ -822,7 +823,8 @@ sub consolidateReportQueries
                 'select' => 'event, address, clientconn, SUM(clean) as clean, SUM(spam) as spam, SUM(virus) AS virus',
                 'from' => 'mailfilter_pop',
                 'group' => 'event, address, clientconn'
-            }
+            },
+           'quote' => { address => 1},
         }
     ];
 }

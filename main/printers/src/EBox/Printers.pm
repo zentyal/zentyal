@@ -327,6 +327,7 @@ sub consolidateReportQueries
                          'from' => 'printers_jobs',
                          'group' => 'printer,event',
                         },
+             'quote' => { printer => 1 },
             },
             {
              'target_table' => 'printers_jobs_by_user_report',
@@ -335,6 +336,7 @@ sub consolidateReportQueries
                          'from' => 'printers_jobs',
                          'group' => 'username,event',
                         },
+             'quote' => { username => 1 },
             },
             {
              target_table => 'printers_usage_report',
@@ -343,7 +345,8 @@ sub consolidateReportQueries
                           'from' => 'printers_pages,printers_jobs',
                           'group' => 'printers_jobs.printer',
                           'where' => q{(printers_jobs.job = printers_pages.job) and(event='queued')}
-                        }
+                        },
+             'quote' => { printer => 1 },
             }
            ];
 }

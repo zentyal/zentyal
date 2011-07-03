@@ -1677,6 +1677,10 @@ sub consolidate
 
     my $spec=  {
             consolidateColumns => {
+                quote => {
+                          to_address => 1,
+                          from_address => 1,
+                         },
                 event => {
                     accummulate => sub {
                         my ($value, $row) = @_;
@@ -1878,7 +1882,8 @@ sub consolidateReportQueries
                 'select' => 'client_host_ip, split_part(from_address, \'@\', 1) AS user_from, split_part(from_address, \'@\', 2) AS domain_from, split_part(to_address, \'@\', 1) AS user_to, split_part(to_address, \'@\', 2) AS domain_to, SUM(COALESCE(message_size,0)) as bytes, COUNT(*) as messages, message_type, status, event',
                 'from' => 'mail_message',
                 'group' => 'client_host_ip, user_from, domain_from, user_to, domain_to, message_type, event, status'
-            }
+            },
+          'quote' => {  user_from => 1, user_to => 1, domain_to => 1, domain_from => 1 },
         }
     ];
 }

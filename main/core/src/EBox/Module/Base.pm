@@ -1465,6 +1465,7 @@ sub _consolidateReportFromDB
 
     for my $q (@{$queries}) {
         my $target_table = $q->{'target_table'};
+        my %quote = exists $q->{quote} ? %{ $q->{quote} } : ();
         my $query = $q->{'query'};
 
         my $date = $self->_consolidateReportStartDate($db,
@@ -1520,7 +1521,13 @@ sub _consolidateReportFromDB
 
                     for my $f (@identityFields) {
                         if (exists $r->{$f} and defined $r->{$f}) {
-                            push(@where, $f . " = '" . $r->{$f} . "'");
+                            my $value;
+                            if ($quote{$f}) {
+                                $value = $db->quote($r->{$f});
+                            } else {
+                                $value = q{'} . $r->{$f} . q{'};
+                            }
+                            push(@where, "$f=$value");
                         }
 
                         # try to detect another required 'from' this will
@@ -1665,7 +1672,8 @@ sub _lastConsolidationValuesForMonth
 #                 'select' => 'username, COUNT(event) AS operations',
 #                 'from' => 'samba_access',
 #                 'group' => 'username'
-#             }
+#             },
+#            'quote' => { username => 1},
 #         },
 #
 #
@@ -1687,6 +1695,9 @@ sub _lastConsolidationValuesForMonth
 #
 #  - sum: the non-key field are added tohether (default)
 #  - overwrite: the non-key fields are overwritten with the last value
+#
+# 'quote' means which fields should be quoted to escape special characters
+# in strigns. No present fields default to false
 #
 #  This data will be used to call consolidateReportFromLogs
 sub consolidateReportQueries

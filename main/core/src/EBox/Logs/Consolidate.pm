@@ -222,7 +222,8 @@ sub _consolidateTable
 
         $self->_addConsolidatedRow($dbengine, $table,
                                    \%consRow,
-                                   \%accummulator);
+                                   \%accummulator,
+                                   $conf->{quote});
     }
 
     $self->_clearRows(
@@ -288,7 +289,8 @@ sub _reconsolidateTable
 
         $self->_addConsolidatedRow($dbengine, $table,
                                    \%consRow,
-                                   \%accummulator);
+                                   \%accummulator,
+                                   $conf->{quote});
     }
 
     $self->_clearRows(
@@ -484,13 +486,11 @@ sub _hourlyDate
     return $timeStamp;
 }
 
-
-
 sub _addConsolidatedRow
 {
-    my ($self, $dbengine, $table, $row, $accummulator_r) = @_;
-
-
+    my ($self, $dbengine, $table, $row, $accummulator_r, $quote) = @_;
+    defined $quote or
+        $quote = {};
 
     my $setPortion = '';
     while (my ($column, $amount) = each %{ $accummulator_r }) {
@@ -510,7 +510,13 @@ sub _addConsolidatedRow
 
     my $wherePortion = '(';
     while (my ($col, $value) = each %{ $row }) {
-        $wherePortion .= "$col = '$value' AND ";
+        if ($quote->{$col}) {
+            $value = $dbengine->quote($value);
+        }  else {
+            $value = "'$value'";
+        }
+
+        $wherePortion .= "$col = $value AND ";
     }
     $wherePortion =~ s/ AND $//; # remove last AND
     $wherePortion .= ')';

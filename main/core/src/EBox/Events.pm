@@ -882,7 +882,7 @@ sub consolidateReportQueries
                          'from' => 'events',
                          'group' => 'source,level',
                         },
-
+             'quote' => { source => 1 },
             },
            ];
 }

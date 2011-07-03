@@ -1178,7 +1178,10 @@ sub _consolidateConfiguration
                                      return $event . '_size';
                                  }
                                 },
-                     }
+                     },
+                   quote => {
+                             'rfc931' => 1,
+                            }
                   };
 
     return {
@@ -1443,7 +1446,11 @@ sub consolidateReportQueries
                 'select' => 'rfc931 AS username, remotehost AS ip, domain_from_url(url) AS domain, event, code, SUM(bytes) AS bytes, COUNT(event) AS hits',
                 'from' => 'squid_access',
                 'group' => 'username, ip, domain, event, code'
-            }
+            },
+            quote => {
+                      username => 1,
+                      domain => 1,
+                     },
         }
     ];
 }

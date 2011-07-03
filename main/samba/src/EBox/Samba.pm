@@ -1726,7 +1726,8 @@ sub consolidateReportQueries
                 'select' => 'username, COUNT(event) AS operations',
                 'from' => 'samba_access',
                 'group' => 'username'
-            }
+            },
+            quote => { username => 1 },
         },
         {
             'target_table' => 'samba_virus_report',
@@ -1734,7 +1735,8 @@ sub consolidateReportQueries
                 'select' => 'client, COUNT(event) AS virus',
                 'from' => 'samba_virus',
                 'group' => 'client'
-            }
+            },
+            quote => { client => 1 },           
         },
         {
             'target_table' => 'samba_disk_usage_report',
@@ -1744,6 +1746,7 @@ sub consolidateReportQueries
                 'group' => 'share, type'
 
             },
+            quote => { share => 1 },
         },
         {
             'target_table' => 'samba_virus_share_report',
@@ -1755,6 +1758,7 @@ sub consolidateReportQueries
             },
             'rowConversor' => \&_virusShareReportRowConversor,
             'targetGroupFields' => ['share'],
+            quote => { share => 1 },
         },
     ];
 }

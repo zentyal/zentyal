@@ -105,6 +105,10 @@ sub enableLog
 #       - filter: refrence to a method used to filter out rows, the method will
 #                 be supplied to a reference to a hash with the row values and
 #                 if it returns false the row would be excluded
+#       - quote: hash ref which signals which columns should be quoted
+#                to protect special string characters. The columns should
+#                contain strings.
+#                Not present columns default to false.
 #
 #   Warning:
 #    -use lowercase in column names

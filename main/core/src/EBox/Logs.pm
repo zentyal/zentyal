@@ -453,7 +453,8 @@ sub _checkValidDate # (date)
 #         the returned value of <EBox::Logs::getTableInfo> with
 #         parameter <EBox::Logs::search::index>.
 #
-sub search {
+sub search 
+{
     my ($self, $from, $to, $index,
         $pagesize, $page, $timecol, $filters) = @_;
 

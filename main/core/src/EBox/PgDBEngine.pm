@@ -455,6 +455,19 @@ sub tables
     return \@tables;
 }
 
+# Method: quote
+#
+#   returns a quoted version of the string
+#
+# Warning:
+#  it only can quote string values used in SQL statement, 
+#   it can not quote the SQL statement itself
+sub quote
+{
+    my ($self, $string) = @_;
+    return $self->{dbh}->quote($string);
+}
+
 sub backupDB
 {
     my ($self, $dir, $basename, %args) = @_;
