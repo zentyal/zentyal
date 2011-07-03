@@ -1,3 +1,7 @@
+2.0-4
+    + Avoid create LVM question when disk is empty
+    + Autopartitioner no longer separates /home
+      to avoid fast filling of the root partition
 2.0-3
     + Disaster recovery support
     + Replace slim with lxdm

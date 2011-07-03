@@ -21,11 +21,12 @@ d-i partman-lvm/vgdelete_confirm boolean true
 d-i partman-md/device_remove_md boolean true
 d-i partman-lvm/confirm boolean true
 d-i partman-auto-lvm/guided_size string max
-d-i partman-auto/choose_recipe select home
+d-i partman-auto/choose_recipe select atomic
 d-i partman/confirm_write_new_label boolean true
 d-i partman/choose_partition select finish
 d-i partman/confirm boolean true
 d-i partman/confirm_nooverwrite boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
 
 ### ebox custom
 #d-i partman-auto/disk string /dev/sda
