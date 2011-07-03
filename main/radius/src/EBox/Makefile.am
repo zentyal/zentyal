@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox
 
 SUBDIRS = Model Composite
 
-nobase_perl_DATA = Radius.pm
+nobase_perl_DATA = Radius.pm RadiusLogHelper.pm
 
 DISTCLEANFILES =
 

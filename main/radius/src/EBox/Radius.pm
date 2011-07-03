@@ -21,7 +21,8 @@ package EBox::Radius;
 #
 
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::FirewallObserver);
+            EBox::Model::CompositeProvider EBox::FirewallObserver
+            EBox::LogObserver);
 
 use strict;
 use warnings;
@@ -30,9 +31,11 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Ldap;
+use EBox::RadiusLogHelper;
 
 use constant USERSCONFFILE => '/etc/freeradius/users';
 use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
+use constant RADIUSDCONFFILE => '/etc/freeradius/radiusd.conf';
 use constant CLIENTSCONFFILE => '/etc/freeradius/clients.conf';
 use constant EAPCONFFILE => '/etc/freeradius/eap.conf';
 use constant DEFAULTSRVCONFFILE => '/etc/freeradius/sites-available/default';
@@ -101,6 +104,12 @@ sub actions
                        'in /etc/freeradius/certs/.'),
         'module' => 'radius'
     },
+    {
+        'action' => __('Allow others to read /var/log/freeradius'),
+        'reason' => __('Zentyal will change default permissions on RADIUS log ' .
+                       'directory to allow to read the logs.'),
+        'module' => 'radius'
+    },
     ];
 }
 
@@ -122,6 +131,10 @@ sub usedFiles
                       { 'file' => LDAPCONFFILE,
                         'module' => 'radius',
                         'reason' => __('To configure RADIUS LDAP module.')
+                      },
+                      { 'file' => RADIUSDCONFFILE,
+                        'module' => 'radius',
+                        'reason' => __('To configure RADIUS daemon.')
                       },
                       { 'file' => CLIENTSCONFFILE,
                         'module' => 'radius',
@@ -216,6 +229,8 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->writeConfFile(RADIUSDCONFFILE, "radius/radiusd.conf.mas",
+                         undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
     $self->writeConfFile(DEFAULTSRVCONFFILE, "radius/default.mas",
                          undef, { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
     $self->writeConfFile(INNERTUNNELSRVCONFFILE, "radius/inner-tunnel.mas",
@@ -359,6 +374,42 @@ sub certificates
              mode => '0440',
             },
            ];
+}
+
+sub logHelper
+{
+    my ($self) = @_;
+
+    return (new EBox::RadiusLogHelper);
+}
+
+sub tableInfo
+{
+    my ($self) = @_;
+
+    my $titles = { 'timestamp' => __('Date'),
+                   'event'     => __('Event'),
+                   'login'      => __('User'),
+                   'client'    => __('Client'),
+                   'port'      => __('Port'),
+                   'mac'       => __('MAC'),
+                 };
+    my @order = ( 'timestamp', 'event', 'login', 'client',
+                  'mac');
+
+    my $events = { 'Login OK' => __('Login OK'),
+                   'Login incorrect' => __('Login incorrect'),
+                   'User not found' => __('User not found') };
+    return [{
+            'name' => __('RADIUS'),
+            'index' => 'radius',
+            'titles' => $titles,
+            'order' => \@order,
+            'tablename' => 'radius_auth',
+            'filter' => ['login', 'client', 'mac'],
+            'events' => $events,
+            'eventcol' => 'event',
+           }];
 }
 
 1;

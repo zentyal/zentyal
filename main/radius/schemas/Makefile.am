@@ -1,9 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
-moduledir   = @DATADIR@/zentyal/modules
-module_DATA = radius.yaml
-pkgdata_DATA =
+SUBDIRS = sql
 
-EXTRA_DIST = $(module_DATA) $(pkgdata_DATA)
+moduledir   = @DATADIR@/zentyal/modules
+
+module_DATA = radius.yaml
+
+EXTRA_DIST = $(module_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

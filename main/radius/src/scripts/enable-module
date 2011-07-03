@@ -16,3 +16,5 @@ then
     chown root:freerad /etc/freeradius/certs/freeradius.pem
     chmod 440 /etc/freeradius/certs/freeradius.pem
 fi
+
+chmod 755 /var/log/freeradius
