@@ -1,4 +1,6 @@
 HEAD
+	+ Set connected gateway as warn level event and minor improvements
+	  in the messages
 	+ Added report for bandwidth tests
 2.0.9
 	+ Bug fix: Traffic monitor didn't work in non-English installations

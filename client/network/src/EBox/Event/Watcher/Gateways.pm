@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -160,8 +160,8 @@ sub run
             $row->store();
             $needSave = 1;
             if ($enable) {
-                my $event = new EBox::Event(message => __x("Gateway {gw} connected", gw => $gwName),
-                                    level   => 'info',
+                my $event = new EBox::Event(message => __x("Gateway {gw} connected again.", gw => $gwName),
+                                    level   => 'warn',
                                     source  => 'WAN Failover');
                 push (@{$self->{eventList}}, $event);
             }
@@ -299,12 +299,12 @@ sub _testRule # (row)
         my $wasEnabled = $self->{gateways}->row($gw)->valueByName('enabled');
         return unless ($wasEnabled);
 
-        my $event = new EBox::Event(message => __x("Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' failed, max={maxFailRatio}%)",
-                                             gw => $gwName,
-                                             failRatio => $failRatio*100,
-                                             type => $typeName,
-                                             host => $host,
-                                             maxFailRatio => $maxFailRatio*100),
+        my $disconnectMsg = __x('Gateway {gw} disconnected', gw => $gwName);
+        my $reason =__x("'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%.",
+                        failRatio => sprintf("%.2f", $failRatio*100),
+                        type => $typeName, host => $host, maxFailRatio => $maxFailRatio*100);
+        my $explanation = __('Gateway will be connected again if the test are passed.');
+        my $event = new EBox::Event(message => "$disconnectMsg\n\n$reason\n$explanation",
                                     level   => 'error',
                                     source  => 'WAN Failover');
         push (@{$self->{eventList}}, $event);
