@@ -1,3 +1,6 @@
+HEAD
+	+ Better implementation of EBox::FileSystem::dirFileSystem more
+	  straightforward and without symlink problems
 2.1.4
 	+ Added ip_mac method to NetWrappers
 2.1.3

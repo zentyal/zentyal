@@ -23,6 +23,7 @@ our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem)
 use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
+use EBox::Sudo;
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';
@@ -315,42 +316,20 @@ sub _fileSystems
 #  Returns:
 #     the file system in which the directory resides
 #
-#  Note:
-#    - doesn't follow symlinks
-#    - remember that subdirectories may be in anothe file system
 sub dirFileSystem
 {
   my ($dir) = @_;
   (-d $dir) or
     throw EBox::Exceptions::External(__x('Directory not found: {d}', d=>$dir));
 
-  my %fileSystems = %{  fileSystems() };
+  my $dfOutput = EBox::Sudo::root("df $dir");
+  my $infoLine =$dfOutput->[1];
+  chomp $infoLine;
+  my ($fs) = split '\s+', $infoLine;
+  defined $fs or
+      throw EBox::Exceptions::Internal("Cannot find file system for directory $dir");
 
-  my $fsMatch     = undef;
-  my $matchPoints = 0;
-
-
-  while (my ($fs, $attrs) = each %fileSystems) {
-    my $mp = $attrs->{mountPoint};
-    next if $mp eq'none';
-
-    if (isSubdir($dir, $mp)) {
-      my $points = length $mp; # lengt of mount point == more components in
-                               # common. (Remember we don't follow symlinks)
-
-      if ($points > $matchPoints) {
-	$matchPoints = $points;
-	$fsMatch     = $fs;
-      }
-
-    }
-
-  }
-
-  defined $fsMatch or
-    throw EBox::Exceptions::Internal("Cannot found file system for directory $dir");
-
-  return $fsMatch;
+  return $fs;
 }
 
 1;
