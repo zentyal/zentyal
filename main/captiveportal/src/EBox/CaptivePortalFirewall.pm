@@ -107,20 +107,22 @@ sub input
         my $input = $self->_inputIface($ifc);
 
         my $r;
-        $r = "$input -j icaptive";
-        push(@rules, { 'priority' => 5, 'rule' => $r });
-
-        push(@rules, @{$self->_usersRules('icaptive')});
 
         # Allow DNS and Captive portal access
         $r = "$input -p tcp --dport 53 -j ACCEPT";
-        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        push(@rules, { 'rule' => $r, priority => 5 });
         $r = "$input -p udp --dport 53 -j ACCEPT";
-        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        push(@rules, { 'rule' => $r, priority => 5 });
         $r = "$input -p tcp --dport $port -j ACCEPT";
-        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        push(@rules, { 'rule' => $r, priority => 5 });
         $r = "$input -p tcp --dport $captiveport -j ACCEPT";
-        push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
+        push(@rules, { 'rule' => $r, priority => 5 });
+
+        $r = "$input -j icaptive";
+        push(@rules, { 'priority' => 6, 'rule' => $r });
+
+        push(@rules, @{$self->_usersRules('icaptive')});
+
         $r = "$input -p tcp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'icaptive' });
         $r = "$input -p udp -j DROP";

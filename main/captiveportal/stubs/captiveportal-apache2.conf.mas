@@ -4,7 +4,7 @@
 </%args>
 
 Timeout 300
-KeepAlive Off
+KeepAlive On
 MaxKeepAliveRequests 100
 KeepAliveTimeout 15
 AddDefaultCharset utf-8
@@ -14,9 +14,9 @@ PidFile /var/lib/zentyal-captiveportal/captive-apache.pid
 <IfModule mpm_prefork_module>
     StartServers          1
     MinSpareServers       1
-    MaxSpareServers       1
-    MaxClients            2
-    MaxRequestsPerChild   20
+    MaxSpareServers       8
+    MaxClients            5
+    MaxRequestsPerChild   10000
 </IfModule>
 
 # worker MPM
@@ -30,12 +30,12 @@ PidFile /var/lib/zentyal-captiveportal/captive-apache.pid
     StartServers         1
     MaxClients           5
     MinSpareThreads      1
-    MaxSpareThreads      1
-    ThreadsPerChild      1
-    MaxRequestsPerChild  20
+    MaxSpareThreads      8
+    ThreadsPerChild      2
+    MaxRequestsPerChild  10000
 </IfModule>
 
-PerlInterpMaxRequests 20
+PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load
