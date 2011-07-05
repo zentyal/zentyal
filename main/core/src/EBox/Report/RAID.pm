@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Report::RAID;
-#
+
 use strict;
 use warnings;
 
@@ -42,7 +42,21 @@ use constant PROC_MDSTAT => '/proc/mdstat';
 #
 sub enabled
 {
-    return (-r PROC_MDSTAT)
+    my ($raidInfo) = @_;
+    defined $raidInfo or
+        $raidInfo = info();
+
+    my $nEntries = keys %{ $raidInfo };
+    if ($nEntries > 1) {
+        return 1;
+    } elsif ($nEntries == 1) {
+        if (exists $raidInfo->{unusedDevices}) {
+            return @{ $raidInfo->{unusedDevices} } > 0;
+        }
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 # Function: info
@@ -146,8 +160,9 @@ sub info
 
 sub _mdstatContents
 {
-    enabled()
-        or return [];
+    if (not -r PROC_MDSTAT) {
+        return [];
+    }
 
     my $contents_r = read_file(PROC_MDSTAT, array_ref => 1);
     return $contents_r;
