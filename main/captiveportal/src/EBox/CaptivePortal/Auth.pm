@@ -183,12 +183,32 @@ sub checkPassword # (user, password)
 {
     my ($self, $user, $password) = @_;
 
-    my $authorized = 0;
-    my $url = EBox::Config::configkeyFromFile('ldap_url', EBox::CaptivePortal->LDAP_CONF);
-    my $bind = EBox::Config::configkeyFromFile('bindstring', EBox::CaptivePortal->LDAP_CONF);
+    my $CONF_FILE = EBox::CaptivePortal->LDAP_CONF;
 
-    #replace usrename in bind string
+    my $url = EBox::Config::configkeyFromFile('ldap_url', $CONF_FILE);
+    my $bind = EBox::Config::configkeyFromFile('ldap_bindstring', $CONF_FILE);
+
+    return 1 if ($self->_checkLdapPassword($user, $password, $url, $bind));
+
+    # Test secondary ldap if it exists in configuration file
+    my $url2 = EBox::Config::configkeyFromFile('ldap2_url', $CONF_FILE);
+    my $bind2 = EBox::Config::configkeyFromFile('ldap2_bindstring', $CONF_FILE);
+
+    if (defined($url2) and defined($bind2)) {
+        return 1 if ($self->_checkLdapPassword($user, $password, $url2, $bind2));
+    }
+
+    # not authorized
+    return 0;
+}
+
+sub _checkLdapPassword
+{
+    my ($self, $user, $password, $url, $bind) = @_;
+
+    # replace usrename in bind string
     $bind =~ s/{USERNAME}/$user/g;
+    my $authorized = 0;
     try {
         my $ldap = EBox::Ldap::safeConnect($url);
         EBox::Ldap::safeBind($ldap, $bind, $password);
@@ -196,6 +216,7 @@ sub checkPassword # (user, password)
     } otherwise {
         $authorized = 0; # auth failed
     };
+
     return $authorized;
 }
 
@@ -208,10 +229,8 @@ sub authen_cred  # (request, user, password)
     my ($self, $r, $user, $passwd) = @_;
 
     unless ($self->checkPassword($user, $passwd)) {
-        EBox::initLogger('captiveportal-log.conf');
-        my $log = EBox->logger();
         my $ip  = $r->connection->remote_ip();
-        $log->warn("Failed login from: $ip");
+        EBox::warn("Failed login from: $ip");
         return;
     }
 

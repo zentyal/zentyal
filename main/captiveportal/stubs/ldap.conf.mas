@@ -7,5 +7,11 @@
 ldap_url = <% $ldap_url %>
 
 # bind dn with {USERNAME} token
-bindstring = <% $bindstring %>
+ldap_bindstring = <% $bindstring %>
+
+# Secondary LDAP URL (Optional)
+# ldap2_url =
+
+# Secondary LDAP bind dn
+# ldap2_bindstring =
 
