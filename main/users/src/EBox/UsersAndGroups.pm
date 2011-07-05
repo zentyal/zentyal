@@ -1388,9 +1388,10 @@ sub userInfo # (user, entry)
                     homeDirectory => $entry->get_value('homeDirectory'),
                     uid => $entry->get_value('uidNumber'),
                     group => $entry->get_value('gidNumber'),
-                    quota => $entry->get_value('quota'),
                     extra_passwords => {}
                    };
+    my $quota = $entry->get_value('quota');
+    $userinfo->{quota} = defined ($quota) ? $quota : 0;
 
     foreach my $attr ($entry->attributes) {
         if ($attr =~ m/^ebox(.*)Password$/) {

@@ -1,4 +1,5 @@
 HEAD
+	+ userInfo() tolerates missing quota LDAP attribute
 	+ Added captiveportal to the list of modules in the reinstall script
 2.1.4
 	+ Moved redis_port_usercorner key to usercorner.conf in zentyal-usercorner
