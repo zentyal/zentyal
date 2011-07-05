@@ -146,15 +146,16 @@ sub forward
         my $r;
 
         $r = "$input -j fcaptive";
-        push(@rules, { 'priority' => 5, 'rule' => $r });
+        push(@rules, { 'priority' => 6, 'rule' => $r });
 
         push(@rules, @{$self->_usersRules('fcaptive')});
 
         # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
-        push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        push(@rules, { 'rule' => $r, priority => 5 });
         $r = "$input -p udp --dport 53 -j ACCEPT";
-        push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+        push(@rules, { 'rule' => $r, priority => 5 });
+
         $r = "$input -p tcp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
         $r = "$input -p udp -j DROP";
