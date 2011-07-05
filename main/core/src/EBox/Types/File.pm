@@ -512,13 +512,11 @@ sub _storeInGConf
 
     my $keyField = "$key/" . $self->fieldName() . '_path';
 
-
     if ($self->path() and $self->userPath()) {
-        $gconfmod->set_string($keyField, $self->path());
-
         # Do actually move
         $self->_moveToPath();
 
+        $gconfmod->set_string($keyField, $self->path());
     } elsif ($self->{remove}) {
         $gconfmod->unset($keyField);
         if ( not $self->userPath() ) {
