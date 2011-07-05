@@ -60,6 +60,7 @@ sub _table
                                              fieldName => 'virus',
                                              printableName => __('Virus policy'),
                                              defaultValue  => 'D_DISCARD',
+                                             noBounce  => 1,
                                              editable => 1,
                                             ),
          new EBox::MailFilter::Types::Policy(
@@ -67,6 +68,7 @@ sub _table
                                              printableName => __('Spam policy'),
                                              defaultValue  => 'D_PASS',
                                              editable => 1,
+                                             help => __('Bounce policy will be ignored for high-score spam messages'),
                                             ),
          new  EBox::MailFilter::Types::Policy(
                                               fieldName => 'banned',
@@ -90,7 +92,6 @@ sub _table
                       modelDomain        => 'MailFilter',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
-
                      };
 
 

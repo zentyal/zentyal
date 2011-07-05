@@ -28,9 +28,14 @@ my $allPolicies = all qw(D_PASS D_REJECT D_BOUNCE D_DISCARD);
 sub new
 {
     my ($class, %params) = @_;
-
     $params{editable} = 1;
-    $params{populate} = \&_populate;
+    my $noBounce = $params{noBounce};
+
+    if ($noBounce) {
+        $params{populate} = \&_populateWithoutBounce;
+    } else {
+        $params{populate} = \&_populate;
+    }
 
     my $self = $class->SUPER::new(%params);
 
@@ -38,13 +43,23 @@ sub new
     return $self;
 }
 
-
 sub _populate
 {
     my @elements = (
                     { value => 'D_PASS',    printableValue => __('Pass') },
                     { value => 'D_REJECT',  printableValue => __('Reject') },
                     { value => 'D_BOUNCE',  printableValue => __('Bounce') },
+                    { value => 'D_DISCARD', printableValue => __('Discard') },
+                   );
+
+    return \@elements;
+}
+
+sub _populateWithoutBounce
+{
+    my @elements = (
+                    { value => 'D_PASS',    printableValue => __('Pass') },
+                    { value => 'D_REJECT',  printableValue => __('Reject') },
                     { value => 'D_DISCARD', printableValue => __('Discard') },
                    );
 
@@ -70,6 +85,5 @@ sub checkPolicy
                                        );
     }
 }
-
 
 1;

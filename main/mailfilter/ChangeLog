@@ -1,4 +1,6 @@
 HEAD
+	+ Adapted to changes in amavis bounce policies and changed labels in
+	  vdomain policies
 	+ Use quote column option for periodic and report log consolidation
 2.1.2
 	+ Do not enable when mail module has a custom filter in use

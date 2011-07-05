@@ -156,7 +156,7 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
   my $dataTable =
     {
      tableName          => __PACKAGE__->nameFromClass,
-     printableTableName => __(q{Virtual Domains}),
+     printableTableName => __(q{Virtual Domains specific policies}),
      modelDomain        => 'mail',
      'defaultController' => '/zentyal/MailFilter/Controller/VDomains',
      'defaultActions' => [
@@ -167,7 +167,7 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
      tableDescription   => \@tableHeader,
      class              => 'dataTable',
      order              => 0,
-     printableRowName   => __("virtual domain"),
+     printableRowName   => __("virtual domain policy"),
      help               =>'',
     };
 
