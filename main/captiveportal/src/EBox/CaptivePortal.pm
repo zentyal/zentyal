@@ -115,7 +115,7 @@ sub _setConf
     my $users = EBox::Global->modInstance('users');
 
     # Apache conf file
-    $self->writeConfFile(APACHE_CONF,
+    EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
         "captiveportal/captiveportal-apache2.conf.mas",
         [
             http_port => $settings->http_portValue(),
@@ -123,7 +123,7 @@ sub _setConf
         ]);
 
     # Ldap connection (for auth) config file
-    $self->writeConfFile(LDAP_CONF,
+    EBox::Module::Base::writeConfFileNoCheck(LDAP_CONF,
         "captiveportal/ldap.conf.mas",
         [
             ldap_url => EBox::Ldap::LDAPI,
