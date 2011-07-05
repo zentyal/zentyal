@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2010 eBox Technologies S.L.
+# Copyright (C) 2009-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -28,10 +28,6 @@ use EBox::Validate;
 use EBox::Exceptions::Lock;
 
 use Error qw(:try);
-
-# TODO: Remove this once we change the debug behavior
-# to log only if debug = yes
-my $debug = EBox::Config::configkey('debug') eq 'yes';
 
 # Group: Public methods
 
@@ -96,7 +92,7 @@ sub run
 {
     my ($self) = @_;
 
-    logIfDebug('Entering failover event...');
+    EBox::debug('Entering failover event...');
 
     $self->{eventList} = [];
     $self->{failed} = {};
@@ -118,7 +114,7 @@ sub run
     return [] unless @enabledRules;
 
     foreach my $id (@enabledRules) {
-        logIfDebug("Testing rules for gateway with id $id...");
+        EBox::debug("Testing rules for gateway with id $id...");
         my $row = $rules->row($id);
         $self->_testRule($row);
     }
@@ -132,7 +128,7 @@ sub run
         $gateways = $network->model('GatewayTable');
     }
 
-    logIfDebug('Applying changes in the gateways table...');
+    EBox::debug('Applying changes in the gateways table...');
 
     my $needSave = 0;
     foreach my $id (@{$gateways->ids()}) {
@@ -146,7 +142,7 @@ sub run
             $enable = not($self->{failed}->{$id})
         };
 
-        logIfDebug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
+        EBox::debug("Properties for gateway $gwName ($id): enabled=$enabled, enable=$enable");
 
         # We don't do anything if the previous state is the same
         if ($enable xor $enabled) {
@@ -156,8 +152,8 @@ sub run
                 $needSave = 1;
             }
             if ($enable) {
-                my $event = new EBox::Event(message => __x('Gateway {gw} connected', gw => $gwName),
-                                            level   => 'info',
+                my $event = new EBox::Event(message => __x("Gateway {gw} connected again.", gw => $gwName),
+                                            level   => 'warn',
                                             source  => 'WAN Failover');
                 push (@{$self->{eventList}}, $event);
             }
@@ -167,7 +163,7 @@ sub run
     if ($readonly) {
         EBox::warn('Leaving failover event without doing anything due to unsaved changes on the Zentyal interface.');
         foreach my $event (@{$self->{eventList}}) {
-            $event->{message} .= ' ' .  __('but changes are not going to be applied due to unsaved changes on the administration interface.');
+            $event->{message} = __('WARNING: These changes are not applied due to unsaved changes on the administration interface.') . "\n\n" . $event->{message};
         }
         return $self->{eventList};
     }
@@ -178,7 +174,7 @@ sub run
     unless ($default and $default->valueByName('enabled')) {
         # If the original default gateway is alive, restore it
         my $originalId = $network->selectedDefaultGateway();
-        logIfDebug("The preferred default gateway is $originalId");
+        EBox::debug("The preferred default gateway is $originalId");
         my $original = $gateways->row($originalId);
         if ($original and $original->valueByName('enabled')) {
             if ( $default ) {
@@ -187,10 +183,10 @@ sub run
             }
             $original->elementByName('default')->setValue(1);
             $original->store();
-            logIfDebug('The original default gateway has been restored');
+            EBox::debug('The original default gateway has been restored');
             $needSave = 1;
         } else {
-            logIfDebug('Checking if there is another enabled gateway to set as default');
+            EBox::debug('Checking if there is another enabled gateway to set as default');
             # Check if we can find another enabled to set it as default
             my $other = $gateways->findValue('enabled' => 1);
             if ($other) {
@@ -201,14 +197,14 @@ sub run
                 $other->elementByName('default')->setValue(1);
                 $other->store();
                 my $otherName = $other->valueByName('name');
-                logIfDebug("The gateway $otherName is now the default");
+                EBox::debug("The gateway $otherName is now the default");
                 $needSave = 1;
             }
         }
     }
 
     if ($needSave) {
-        logIfDebug('Regenerating rules for the gateways');
+        EBox::debug('Regenerating rules for the gateways');
         $network->regenGateways();
 
         # Workaround for squid problem
@@ -229,10 +225,10 @@ sub run
             }
         }
     } else {
-        logIfDebug('No need to regenerate the rules for the gateways');
+        EBox::debug('No need to regenerate the rules for the gateways');
     }
 
-    logIfDebug('Leaving failover event...');
+    EBox::debug('Leaving failover event...');
 
     return $self->{eventList};
 }
@@ -248,7 +244,7 @@ sub _testRule # (row)
     my $iface = $self->{gateways}->row($gw)->valueByName('interface');
     my $wasEnabled = $self->{gateways}->row($gw)->valueByName('enabled');
 
-    logIfDebug("Entering _testRule for gateway $gwName...");
+    EBox::debug("Entering _testRule for gateway $gwName...");
 
     # First test on this gateway, initialize its entry on the hash
     unless (exists $self->{failed}->{$gw}) {
@@ -258,15 +254,15 @@ sub _testRule # (row)
     # If a test for this gw has already failed we don't test any other
     return if ($self->{failed}->{$gw});
 
-    logIfDebug("Running $typeName tests for gateway $gwName...");
+    EBox::debug("Running $typeName tests for gateway $gwName...");
 
     if ( $network->ifaceMethod($iface) eq 'ppp' ) {
-        logIfDebug("It is a PPPoe gateway");
+        EBox::debug("It is a PPPoe gateway");
 
         $ppp_iface = $network->realIface($iface);
         $iface_up = !($ppp_iface eq $iface);
 
-        logIfDebug("Iface $ppp_iface up? = $iface_up");
+        EBox::debug("Iface $ppp_iface up? = $iface_up");
 
         if (!$iface_up) {
             # PPP interface down, do not make test (not needed)
@@ -299,11 +295,11 @@ sub _testRule # (row)
 
     for (1..$probes) {
         if ($self->_runTest($type, $host)) {
-            logIfDebug("Probe number $_ succeded.");
+            EBox::debug("Probe number $_ succeded.");
             $successes++;
             last if ($successes >= $neededSuccesses);
         } else {
-            logIfDebug("Probe number $_ failed.");
+            EBox::debug("Probe number $_ failed.");
             $fails++;
             last if ($fails >= $maxFails);
         }
@@ -320,12 +316,12 @@ sub _testRule # (row)
         # Only generate event if gateway was not already disabled
         return unless ($wasEnabled);
 
-        my $event = new EBox::Event(message => __x("Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' failed, max={maxFailRatio}%)",
-                                             gw => $gwName,
-                                             failRatio => $failRatio*100,
-                                             type => $typeName,
-                                             host => $host,
-                                             maxFailRatio => $maxFailRatio*100),
+        my $disconnectMsg = __x('Gateway {gw} disconnected', gw => $gwName);
+        my $reason =__x("'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%.",
+                        failRatio => sprintf("%.2f", $failRatio*100),
+                        type => $typeName, host => $host, maxFailRatio => $maxFailRatio*100);
+        my $explanation = __('This gateway will be connected again if the test are passed.');
+        my $event = new EBox::Event(message => "$disconnectMsg\n\n$reason\n$explanation",
                                     level   => 'error',
                                     source  => 'WAN Failover');
         push (@{$self->{eventList}}, $event);
@@ -418,15 +414,6 @@ sub _name
 sub _description
 {
     return __('Check if gateways are connected or disconnected.');
-}
-
-sub logIfDebug # (msg)
-{
-    my ($msg) = @_;
-
-    if ($debug) {
-        EBox::debug($msg);
-    }
 }
 
 1;

@@ -1,4 +1,6 @@
 HEAD
+	+ Set connected gateway as warn level event and minor improvements
+	  in the failover messages
 	+ Added maxfail option to PPP configuration files to retry lost connections
 	+ Added logic to manage PPP gateways in failover tests
 	+ Failover tests are now ran with a read-only instance even if there are
