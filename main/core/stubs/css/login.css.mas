@@ -6,9 +6,26 @@
 </%args>
 
 #login {
-    width: 400px;
-    margin: 60px auto 20px auto;
-    min-width: inherit;
+    margin: 0px auto 20px auto;
+    min-width: 400px;
+    border: 10px solid <% $main_color %>;
+    padding: <% $loginin_padding_style %>;
+    background: #fff;
+    text-align: left;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+}
+
+fieldset#loginfieldset {
+    border: none;
+    padding-left: 15%;
+}
+
+fieldset#loginfieldset label {
+    float: left;
+    width: 88px;
+    font-size: 14px;
+    line-height: 24px;
 }
 
 #reason {
@@ -18,7 +35,7 @@
     border-top: 1px solid #fa601d;
     padding: 5px;
     font-size: 11px;
-    margin: 0 0 4px 90px;
+    margin: 0 0 4px 0px;
     background: #fdddd9;
     color: #484554;
 }
@@ -30,13 +47,9 @@
     border-top: 1px solid #fa601d;
     padding: 5px;
     font-size: 11px;
-    margin: 0 0 4px 90px;
+    margin: 0 0 4px 0px;
     background: #dfef7a;
     color: #484554;
-}
-
-#logo {
-    <% $logo_style %>
 }
 
 body {
@@ -47,30 +60,14 @@ body {
     margin-top: 90px;
 }
 
-dl { margin: 20px 0 0 90px; }
+td#logotd {
+    padding-right: 25px;
+}
 
-dt {
-    float: left;
-    width: 88px;
+td.labeltd {
+    min-width: 88px;
     font-size: 14px;
     line-height: 24px;
-}
-
-dd {
-    margin: 0 0 5px 90px;
-    font-size: 11px;
-    line-height: 24px;
-    color: #666;
-    margin-left: 88px;
-}
-
-#loginin {
-    border: 10px solid <% $main_color %>;
-    padding: <% $loginin_padding_style %>;
-    background: #fff;
-    text-align: left;
-    border-radius: 20px;
-    -moz-border-radius: 20px;
 }
 
 #footer {

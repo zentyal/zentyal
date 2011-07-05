@@ -1,3 +1,5 @@
+HEAD
+	+ Reuse login/index.mas from zentyal-core customizing the title
 2.1.2
 	+ Tuned apache conf for better performance
 	+ Moved redis_port_usercorner key to /etc/zentyal/usercorner.conf

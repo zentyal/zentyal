@@ -30,7 +30,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => '',
-				      'template' => '/usercorner/login/index.mas',
+				      'template' => '/login/index.mas',
 				      @_);
 	bless($self, $class);
 	return $self;
@@ -75,10 +75,13 @@ sub _process
 		$reason = __('You are not logged in');
 	}
 
+    my $global = EBox::Global->getInstance();
 
 	my @htmlParams = (
+              'title'       => __('User Corner'),
 			  'destination' => $destination,
 			  'reason'      => $reason,
+                %{ $global->theme() }
 			 );
 
 	$self->{params} = \@htmlParams;

@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed login page style with some languages
+	+ Login page template can now be reused accepting title as parameter
 	+ EBox::Types::File does not write on redis when it fails to
 	  move the fail to its final destination
 	+ Added quote column option for periodic log consolidation and

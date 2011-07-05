@@ -1,7 +1,5 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = login
-
 templatedir = $(datadir)/zentyal/templates/usercorner
 template_DATA = headTitle.mas
 
