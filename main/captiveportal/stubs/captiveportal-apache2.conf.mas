@@ -15,7 +15,7 @@ PidFile /var/lib/zentyal-captiveportal/captive-apache.pid
     StartServers          1
     MinSpareServers       1
     MaxSpareServers       8
-    MaxClients            5
+    MaxClients            8
     MaxRequestsPerChild   10000
 </IfModule>
 
@@ -28,9 +28,9 @@ PidFile /var/lib/zentyal-captiveportal/captive-apache.pid
 # MaxRequestsPerChild: maximum number of requests a server process serves
 <IfModule mpm_worker_module>
     StartServers         1
-    MaxClients           5
-    MinSpareThreads      1
-    MaxSpareThreads      8
+    MaxClients           15
+    MinSpareThreads      5
+    MaxSpareThreads      15
     ThreadsPerChild      2
     MaxRequestsPerChild  10000
 </IfModule>
