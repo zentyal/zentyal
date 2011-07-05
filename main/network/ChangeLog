@@ -1,4 +1,8 @@
 HEAD
+	+ Added maxfail option to PPP configuration files to retry lost connections
+	+ Added logic to manage PPP gateways in failover tests
+	+ Failover tests are now ran with a read-only instance even if there are
+	  unsaved changes on the interface and the generated events notify this
 	+ Removed unused EnableBalanceTraffic CGI
 2.1.6
 	+ Mark DHCP interfaces as changed in the Wizard to get IP on first save

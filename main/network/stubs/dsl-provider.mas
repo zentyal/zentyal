@@ -81,6 +81,9 @@ noaccomp
 # Asynchronous-Control-Character-Map (ACCM)
 default-asyncmap
 
+# Always retry on fail
+maxfail 0
+
 # Added for eBox
 # Used to pass the name of the ethernet interface to the ip-up.d script
 ipparam <% $iface %>

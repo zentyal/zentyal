@@ -101,16 +101,11 @@ sub run
     $self->{eventList} = [];
     $self->{failed} = {};
 
-    my $global = EBox::Global->getInstance();
+    # Getting readonly instance to test the gateways
+    my $global = EBox::Global->getInstance(1);
     my $network = $global->modInstance('network');
 
     return [] unless $network->isEnabled();
-
-    # We don't do anything if there are unsaved changes
-    if ($global->modIsChanged('network')) {
-        EBox::warn('Failover event disabled due to unsaved changes on the Zentyal interface.');
-        return [];
-    }
 
     my $rules = $network->model('WANFailoverRules');
     my $gateways = $network->model('GatewayTable');
@@ -128,11 +123,13 @@ sub run
         $self->_testRule($row);
     }
 
-    # We don't do anything if there are unsaved changes
-    return [] if $global->modIsChanged('network');
-    if ($global->modIsChanged('network')) {
-        EBox::warn('Leaving failover event without doing anything due to unsaved changes on the Zentyal interface.');
-        return [];
+    # We won't do anything if there are unsaved changes
+    my $readonly = $global->modIsChanged('network');
+
+    unless ($readonly) {
+        # Getting read/write instance to apply the changes
+        $network = EBox::Global->modInstance('network');
+        $gateways = $network->model('GatewayTable');
     }
 
     logIfDebug('Applying changes in the gateways table...');
@@ -153,16 +150,26 @@ sub run
 
         # We don't do anything if the previous state is the same
         if ($enable xor $enabled) {
-            $row->elementByName('enabled')->setValue($enable);
-            $row->store();
-            $needSave = 1;
+            unless ($readonly) {
+                $row->elementByName('enabled')->setValue($enable);
+                $row->store();
+                $needSave = 1;
+            }
             if ($enable) {
-                my $event = new EBox::Event(message => __x("Gateway {gw} connected", gw => $gwName),
-                                    level   => 'info',
-                                    source  => 'WAN Failover');
+                my $event = new EBox::Event(message => __x('Gateway {gw} connected', gw => $gwName),
+                                            level   => 'info',
+                                            source  => 'WAN Failover');
                 push (@{$self->{eventList}}, $event);
             }
         }
+    }
+
+    if ($readonly) {
+        EBox::warn('Leaving failover event without doing anything due to unsaved changes on the Zentyal interface.');
+        foreach my $event (@{$self->{eventList}}) {
+            $event->{message} .= ' ' .  __('but changes are not going to be applied due to unsaved changes on the administration interface.');
+        }
+        return $self->{eventList};
     }
 
     # Check if default gateway has been disabled and choose another
@@ -235,8 +242,11 @@ sub _testRule # (row)
     my ($self, $row) = @_;
 
     my $gw = $row->valueByName('gateway');
+    my $network = EBox::Global->modInstance('network');
 
     my $gwName = $self->{gateways}->row($gw)->valueByName('name');
+    my $iface = $self->{gateways}->row($gw)->valueByName('interface');
+    my $wasEnabled = $self->{gateways}->row($gw)->valueByName('enabled');
 
     logIfDebug("Entering _testRule for gateway $gwName...");
 
@@ -249,6 +259,21 @@ sub _testRule # (row)
     return if ($self->{failed}->{$gw});
 
     logIfDebug("Running $typeName tests for gateway $gwName...");
+
+    if ( $network->ifaceMethod($iface) eq 'ppp' ) {
+        logIfDebug("It is a PPPoe gateway");
+
+        $ppp_iface = $network->realIface($iface);
+        $iface_up = !($ppp_iface eq $iface);
+
+        logIfDebug("Iface $ppp_iface up? = $iface_up");
+
+        if (!$iface_up) {
+            # PPP interface down, do not make test (not needed)
+            $self->{failed}->{$gw} = 1;
+            return;
+        }
+    }
 
     my $type = $row->valueByName('type');
     my $typeName = $row->printableValueByName('type');
@@ -293,7 +318,6 @@ sub _testRule # (row)
         $self->{failed}->{$gw} = 1;
 
         # Only generate event if gateway was not already disabled
-        my $wasEnabled = $self->{gateways}->row($gw)->valueByName('enabled');
         return unless ($wasEnabled);
 
         my $event = new EBox::Event(message => __x("Gateway {gw} disconnected ({failRatio}% of '{type}' tests to host '{host}' failed, max={maxFailRatio}%)",
