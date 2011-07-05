@@ -28,63 +28,63 @@ Readonly::Scalar my $DEFAULT_DESTINATION => '/zentyal/Dashboard/Index';
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => '',
-				      'template' => '/login/index.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => '',
+                      'template' => '/login/index.mas',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _print
 {
-	my $self = shift;
-	print($self->cgi()->header(-charset=>'utf-8'));
-	$self->_body;
+    my $self = shift;
+    print($self->cgi()->header(-charset=>'utf-8'));
+    $self->_body;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $r = Apache2::RequestUtil->request;
-	my $envre;
-	my $authreason;
+    my $self = shift;
+    my $r = Apache2::RequestUtil->request;
+    my $envre;
+    my $authreason;
 
-	if ($r->prev){
-		$envre = $r->prev->subprocess_env("LoginReason");
-		$authreason = $r->prev->subprocess_env('AuthCookieReason');
-	}
+    if ($r->prev){
+        $envre = $r->prev->subprocess_env("LoginReason");
+        $authreason = $r->prev->subprocess_env('AuthCookieReason');
+    }
 
-	my $destination = _requestDestination($r);
+    my $destination = _requestDestination($r);
 
-	my $reason;
-	if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
-	  $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
-		       'Please, wait patiently until it is done');
-	}
-	elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
-		$reason = __('Incorrect password');
-	}
-	elsif ((defined $envre) and ($envre eq 'Expired')){
-		$reason = __('For security reasons your session ' .
-			     'has expired due to inactivity');
-	}elsif ((defined $envre and $envre eq 'Already')){
-		$reason = __('You have been logged out because ' .
-			     'a new session has been opened');
-	}elsif ((defined $envre and $envre eq 'NotLoggedIn')){
-		$reason = __('You are not logged in');
-	}
+    my $reason;
+    if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
+      $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
+               'Please, wait patiently until it is done');
+    }
+    elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
+        $reason = __('Incorrect password');
+    }
+    elsif ((defined $envre) and ($envre eq 'Expired')){
+        $reason = __('For security reasons your session ' .
+                 'has expired due to inactivity');
+    }elsif ((defined $envre and $envre eq 'Already')){
+        $reason = __('You have been logged out because ' .
+                 'a new session has been opened');
+    }elsif ((defined $envre and $envre eq 'NotLoggedIn')){
+        $reason = __('You are not logged in');
+    }
 
     my $global = EBox::Global->getInstance();
 
-	my @htmlParams = (
+    my @htmlParams = (
               'title'       => __('User Corner'),
-			  'destination' => $destination,
-			  'reason'      => $reason,
+              'destination' => $destination,
+              'reason'      => $reason,
                 %{ $global->theme() }
-			 );
+             );
 
-	$self->{params} = \@htmlParams;
+    $self->{params} = \@htmlParams;
 }
 
 
@@ -123,12 +123,12 @@ sub _top
 
 sub _loggedIn
 {
-	return 1;
+    return 1;
 }
 
 sub _menu
 {
-	return;
+    return;
 }
 
 1;
