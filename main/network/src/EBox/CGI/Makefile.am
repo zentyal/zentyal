@@ -4,7 +4,7 @@ SUBDIRS = Wizard
 perldir = @PERLPATH@/EBox/CGI/Network
 
 nobase_perl_DATA = Diag.pm Iface.pm Ifaces.pm \
-	VIface.pm Vlan.pm EnableBalanceTraffic.pm
+	VIface.pm Vlan.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

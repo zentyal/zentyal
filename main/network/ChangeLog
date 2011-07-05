@@ -1,3 +1,5 @@
+HEAD
+	+ Removed unused EnableBalanceTraffic CGI
 2.1.6
 	+ Mark DHCP interfaces as changed in the Wizard to get IP on first save
 	+ Removed unnecessary call to ids() in DHCP hook
