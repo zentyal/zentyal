@@ -28,6 +28,7 @@ EBox::init();
 # process cli
 my $progressId = undef;
 my @modsToRestore = ();
+my @modsToExclude = ();
 
 my $configRestore = 0;
 my $fullRestore   = 0;
@@ -44,6 +45,7 @@ my $info = 0;
 
 my $optionsOk = GetOptions(
                'module:s' => \@modsToRestore,
+               'exclude:s' => \@modsToExclude,
                'progress-id:i' => \$progressId,
                'config-restore' => \$configRestore,
                'full-restore'  => \$fullRestore,
@@ -99,7 +101,9 @@ if ($progressId) {
 if (@modsToRestore) {
   $restoreParams{modsToRestore} = \@modsToRestore;
 }
-
+if (@modsToExclude) {
+  $restoreParams{modsToExclude} = \@modsToExclude;
+}
 
 $restoreParams{fullRestore}       = $fullRestore;
 $restoreParams{dataRestore}       = $dataRestore;
@@ -149,7 +153,7 @@ sub usage
 {
   print <<END;
   Usage:
-  $0  [OPTION\]... [--module NAME]...   ARCHIVE_FILE
+  $0  [OPTION\]... [--module NAME]...  [--exclude NAME]...  ARCHIVE_FILE
   $0  --info ARCHIVE_FILE
   $0  --help
 

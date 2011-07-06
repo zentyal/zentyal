@@ -7,6 +7,7 @@ HEAD
 	  move the fail to its final destination
 	+ Added quote column option for periodic log consolidation and
 	  report consolidation
+	+ Added exclude module option to backup restore
 2.1.16
 	+ Do not show incompatible navigator warning on Google Chrome
 	+ Fixed syncRows override detection on DataTable find

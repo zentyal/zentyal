@@ -98,7 +98,7 @@ sub initChangedState
 # we override aroundRestoreconfig to save gconf data before dump module config
 sub aroundRestoreConfig
 {
-  my ($self, $dir) = @_;
+  my ($self, $dir, @extraOptions) = @_;
 
   $self->_load_from_file($dir);
 
@@ -106,7 +106,7 @@ sub aroundRestoreConfig
     $self->restoreFilesFromArchive($dir);
   }
 
-  $self->restoreConfig($dir);
+  $self->restoreConfig($dir, @extraOptions);
 }
 
 # load config entries from a file

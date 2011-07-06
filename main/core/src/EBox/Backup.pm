@@ -1088,6 +1088,8 @@ sub prepareRestoreBackup
 #                              when a module restoration fail
 #       continueOnModuleFail - wether continue when a module fails to restore
 #                              (default: false)
+#       modsToRestore      - names of modules to restore (default: all)
+#       modsToExclude      - name of modules to exclude fro the restore (default:none)
 #
 # Exceptions:
 #
@@ -1100,7 +1102,8 @@ sub restoreBackup
         throw EBox::Exceptions::MissingArgument('Backup file');
     exists $options{revokeAllOnModuleFail}
         or $options{revokeAllOnModuleFail} = 1;
-
+    exists $options{modsToExclude} or
+        $options{modsToExclude} = [];
     my $progress = $options{progress};
     if (not $progress) {
         $progress = EBox::ProgressIndicator::Dummy->create;
@@ -1334,8 +1337,7 @@ sub _restoreModule
         # guaranteed that a failed backup will not
         # change state
         $mod->restoreBackup("$tempdir/eboxbackup",
-                fullRestore => $options_r->{fullRestore},
-                dataRestore => $options_r->{dataRestore},
+                            %{ $options_r }
                 );
 
     $mod->migrate();
@@ -1433,6 +1435,8 @@ sub _modInstancesForRestore
 
     my @modules = @{ $self->_configuredModInstances };
 
+    my $anyToExclude = any(@{ $options{modsToExclude}});
+
     # if we have a module list we check it and only keep those modules
     if (exists $options{modsToRestore}) {
         my @modsToRestore =  @{ $options{modsToRestore} };
@@ -1444,6 +1448,14 @@ sub _modInstancesForRestore
                             'm' => $m
                            )
                         );
+            }   
+            if ($m eq $anyToExclude) {
+                throw EBox::Exceptions::External(
+                        __x(
+                            'Module {m} is in both exclude and include lists',
+                            'm' => $m
+                           )
+                        );
             }
         }
 
@@ -1452,9 +1464,10 @@ sub _modInstancesForRestore
     }
 
     # we restore the intersection between the installed modules AND the modules in
-    # the backup archive
+    # the backup archive. We remove the excluded modules
     @modules = grep {
-        $_->name eq $anyModuleInBackup
+        my $name = $_->name();
+        ($name eq $anyModuleInBackup) and not ($name eq $anyToExclude)
     } @modules;
 
     # we remove global module because it will not  be restored

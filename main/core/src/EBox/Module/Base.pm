@@ -415,7 +415,7 @@ sub restoreBackup # (dir, %options)
     (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
 
     if (not $options{dataRestore}) {
-        $self->aroundRestoreConfig($backupDir);
+        $self->aroundRestoreConfig($backupDir, %options);
     }
 
     if ($options{fullRestore} or $options{dataRestore}) {
@@ -532,9 +532,9 @@ sub restoreConfig
 #
 sub aroundRestoreConfig
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, @extraOptions) = @_;
 
-    $self->restoreConfig($dir);
+    $self->restoreConfig($dir, @extraOptions);
 }
 
 # Method: initChangedState
