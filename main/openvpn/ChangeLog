@@ -1,3 +1,6 @@
+HEAD
+	+ Remove remoteservices clients on backup restore if remoteservices
+	  module is excluded
 2.1.2
 	+ Improved precondition fail message
 	+ Fixed problem with quagga automatic updates

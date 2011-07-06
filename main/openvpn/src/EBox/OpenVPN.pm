@@ -1608,7 +1608,7 @@ sub dumpConfig
 
 sub restoreConfig
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, %extraParams) = @_;
 
     # restore client certificates
     my $certificatesDir = $self->_backupClientCertificatesDir($dir);
@@ -1617,7 +1617,33 @@ sub restoreConfig
     foreach my $client (@clients) {
         $client->restoreCertificates($certificatesDir);
     }
+
+    my $rsExcluded = 0;
+    if ($extraParams{modsToExclude}) {
+        $rsExcluded = grep {
+            $_ eq 'remoteservices'
+        } @{ $extraParams{modsToExclude} };
+    }
+
+    if ($rsExcluded) {
+        $self->removeRSClients();
+    }
 }
+
+sub removeRSClients
+{
+    my ($self) = @_;
+    my $prefix = 'R_D_SRVS_';
+    my @names = grep {
+        $_ =~ m/^$prefix/
+    } $self->clientsNames();
+
+
+    foreach my $name (@names) {
+        $self->deleteClient($name);
+    }
+}
+
 
 # log observer stuff
 
