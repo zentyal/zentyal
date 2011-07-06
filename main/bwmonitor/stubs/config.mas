@@ -1,0 +1,22 @@
+<%args>
+$interface
+$networks
+$dump_rate => 600
+</%args>
+# Device to listen on
+dev = "<% $interface %>";
+
+# Internal networks (IP, MASK) pairs
+internal_networks = (
+% foreach my $network (@{$networks}) {
+%   if ($network == @{$networks}[-1]) {
+    ("<% $network->{ip} %>", "<% $network->{netmask} %>")
+%   } else {
+    ("<% $network->{ip} %>", "<% $network->{netmask} %>"),
+%   }
+% }
+);
+
+# Dump status each X seconds
+dump_rate = <% $dump_rate %>;
+

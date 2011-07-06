@@ -1,2 +1,6 @@
 #!/bin/bash
 
+LOG_DIR="/var/log/zentyal/bwmonitor"
+test -d $LOG_DIR || mkdir $LOG_DIR
+chown -R ebox:ebox $LOG_DIR
+

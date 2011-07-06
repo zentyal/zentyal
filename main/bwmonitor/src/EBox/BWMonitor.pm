@@ -23,6 +23,7 @@ use base qw(EBox::Module::Service
             EBox::FirewallObserver);
 
 use EBox;
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
 use Error qw(:try);
@@ -66,16 +67,35 @@ sub _setConf
 {
     my ($self) = @_;
 
+    my $network = EBox::Global->modInstance('network');
+
+    # Get internal networks list
+    my @internalNetworks;
+    for my $iface (@{$network->InternalIfaces()}) {
+        push (@internalNetworks, {
+            ip => $network->ifaceNetwork($iface),
+            netmask => $network->ifaceNetmask($iface)
+        });
+    }
+
+    # Create confdir if it doesn't exists
+    if (not -d CONF_DIR) {
+        mkdir (CONF_DIR, 0755);
+    }
+
+
     # Write daemon upstart and config files
     foreach my $iface (@{$self->ifaces()}) {
         EBox::Module::Base::writeConfFileNoCheck(UPSTART_DIR . "zentyal.bwmonitor-$iface.conf",
             "bwmonitor/upstart.mas",
             [ interface => $iface ]);
 
-#        EBox::Module::Base::writeConfFileNoCheck(CONF_DIR . 'TODOCONFFILE.foo',
-#            "bwmonitor/upstart.mas",
-#            [
-#            ]);
+        EBox::Module::Base::writeConfFileNoCheck(CONF_DIR . "bwmonitor-$iface.conf",
+            "bwmonitor/config.mas",
+            [
+                interface => $iface,
+                networks => \@internalNetworks
+            ]);
     }
 }
 

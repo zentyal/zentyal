@@ -4,6 +4,6 @@ Upstart script for bandwidth monitor on a network interface
 <%args>
 $interface
 </%args>
-exec /usr/share/zentyal-bwmonitor/bwmonitor /var/lib/zentyal/conf/bwmonitor/bwmonitor-<% $interface %>.conf
+exec /usr/share/zentyal-bwmonitor/bwmonitor /var/lib/zentyal/conf/bwmonitor/bwmonitor-<% $interface %>.conf 2>&1 >> /var/log/zentyal/bwmonitor/<% $interface %>.log
 respawn
 
