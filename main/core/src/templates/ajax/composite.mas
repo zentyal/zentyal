@@ -21,20 +21,29 @@
 <& .headTitle,
    title => $model->headTitle()
 &>
-% if ( $model->precondition() ) {
+% if ($model->precondition()) {
 %    # Define the components when we are sure the precondition is
 %    # matched
 %    my $componentsRef = $model->components();
 %    # Print the help if any
-%    if ( $model->help() ) {
+%    my $help = $model->help();
+%    if ($help) {
 <div class="help">
   <% $model->help() %>
 </div>
 %    }
+%    # Print the disabled module warning if needed
+%    my $disabledModuleWarning = $model->disabledModuleWarning();
+%    if ($disabledModuleWarning) {
+<div class="warning">
+  <% $disabledModuleWarning %>
+</div>
+%    }
 %    # Print the permanent message if any
-%    if ( $model->permanentMessage() ) {
+%    my $permanentMessage = $model->permanentMessage();
+%    if ($permanentMessage) {
 <div class="note">
-  <% $model->permanentMessage() %>
+  <% $permanentMessage %>
 </div>
 %    }
 %    if ( $model->layout() eq 'tabbed' )
@@ -90,7 +99,7 @@
   $crumbs => undef
 </%args>
 <& /title.mas,
-    crumbs => $crumbs 
+    crumbs => $crumbs
 &>
 </%def>
 

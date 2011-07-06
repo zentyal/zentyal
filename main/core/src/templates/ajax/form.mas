@@ -66,9 +66,16 @@
 %      }
 % }
 
-% if ($model->help()) {
+% my $help = $model->help();
+% if ($help) {
 <div class="help">
-  <% $model->help() %>
+  <% $help %>
+</div>
+% }
+% my $disabledModuleWarning = $model->disabledModuleWarning();
+% if ($disabledModuleWarning) {
+<div class="warning">
+  <% $disabledModuleWarning %>
 </div>
 % }
 

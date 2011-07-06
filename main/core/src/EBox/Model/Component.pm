@@ -24,11 +24,10 @@ package EBox::Model::Component;
 use strict;
 use warnings;
 
-# EBox uses
+use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 
-# Other modules uses
 use Encode;
 use Error qw(:try);
 
@@ -214,6 +213,50 @@ sub setParent
 sub menuFolder
 {
     return undef;
+}
+
+# Method: disabledModuleWarning
+#
+#       Return the warn message to inform if the parent module is disabled
+#
+# Returns:
+#
+#       String - The warn message if the module is disabled
+#
+#       Empty string - if module is enabled
+#
+sub disabledModuleWarning
+{
+    my ($self) = @_;
+
+    my $pageTitle = $self->pageTitle();
+    my $module;
+
+    if ($self->isa('EBox::Model::DataTable')) {
+        my $htmlTitle = @{$self->viewCustomizer()->HTMLTitle()};
+        # Do not show warning on nested components
+        unless ($pageTitle or $htmlTitle) {
+            return '';
+        }
+        $module = $self->parentModule();
+    } elsif ($self->isa('EBox::Model::Composite') and $pageTitle) {
+        $module = EBox::Global->modInstance(lc($self->compositeDomain()));
+    } else {
+        return '';
+    }
+
+    unless (defined ($module) and $module->isa('EBox::Module::Service')) {
+        return '';
+    }
+
+    if ($module->isEnabled()) {
+        return '';
+    } else {
+        # TODO: If someday we implement the auto-enable for dependencies with one single click
+        # we could replace the Module Status link with a "Click here to enable it" one
+        return __x("{mod} module is disabled. Don't forget to enable it on the {oh}Module Status{ch} section, otherwise your changes won't take any effect.",
+                   mod => $module->printableName(), oh => '<a href="/zentyal/ServiceModule/StatusView">', ch => '</a>');
+    }
 }
 
 1;
