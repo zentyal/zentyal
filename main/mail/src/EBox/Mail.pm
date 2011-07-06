@@ -1794,36 +1794,6 @@ sub _storageMailDirs
     return  (qw(/var/mail /var/vmail));
 }
 
-sub _backupMailArchive
-{
-    my ($self, $dir) = @_;
-    return "$dir/mailArchive.tar.bz2";
-}
-
-
-# kept only for comapibility with old full backups
-sub extendedRestore
-{
-    my ($self, %options) = @_;
-    my $dir     = $options{dir};
-
-    # erasing actual mail archives
-    my @dirsToClean =  $self->_storageMailDirs();
-    EBox::info("Files in @dirsToClean will be erased and replaced with backup's mail archive");
-    EBox::Sudo::root("rm -rf @dirsToClean");
-
-    # restoring backup's mail archives
-    my $tarFile = $self->_backupMailArchive($dir);
-
-    if (-e $tarFile) {
-        my $tarCommand =
-"/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
-        EBox::Sudo::root($tarCommand);
-    }else {
-        EBox::error("Mail's messages archive not found at $tarFile. Mail's messages will NOT be restored.\n Resuming restoring process..");
-    }
-}
-
 # Overrides:
 #   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
 sub _facilitiesForDiskUsage
