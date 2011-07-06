@@ -1,4 +1,5 @@
 HEAD
+	+ Always depend on samba-vscan
 	+ Use quote column option for periodic and report log consolidation
 2.1.3
 	+ Now deleted users and groups are removed correctly from printers

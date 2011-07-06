@@ -134,13 +134,14 @@ sub _goAhead
 sub showConfirmationPage
 {
     my ($self, $action, $packages_r) = @_;
+
     my $software = EBox::Global->modInstance('software');
 
     $self->{errorchain} = 'Software/EBox';
 
     my $actpackages;
-    my $descactpackages ;
-    if($action eq 'install') {
+    my $descactpackages;
+    if ($action eq 'install') {
         $actpackages = $software->listPackageInstallDepends($packages_r);
         $descactpackages = $software->listPackageDescription($actpackages);
     } elsif ($action eq 'remove') {
@@ -155,7 +156,6 @@ sub showConfirmationPage
     my @array;
     push(@array, 'action' => $action);
     push(@array, 'packages' => $packages_r);
-    push(@array, 'actpackages' => $actpackages);
     push(@array, 'descactpackages' => $descactpackages);
     $self->{params} = \@array;
 }

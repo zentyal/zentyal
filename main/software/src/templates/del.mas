@@ -3,7 +3,6 @@
 <%args>
     $action
     @packages
-    @actpackages
     @descactpackages
 </%args>
 <%init>
@@ -20,43 +19,6 @@ var check = new Array();
 % if (EBox::Global->first()) {
 %   $packages_auto = EBox::Config::configkey('auto_select_packages');
 % }
-% if ($action eq 'install') {
-%   foreach my $pkg (@actpackages) {
-%       if ( $pkg eq 'zentyal-samba' ) {
-            check[<% $i %>] = 'chksamba';
-%           $i++;
-            var Achksamba = new Array();
-            Achksamba[0] = 'samba-vscan';
-            Achksamba[1] = 'zentyal-antivirus';
-%       }
-%       if ( $pkg eq 'zentyal-asterisk' ) {
-            check[<% $i %>] = 'chkdadhi';
-%           $i++;
-            var Achkdadhi = new Array();
-            Achkdadhi[0] = 'dadhi';
-
-%            my @headers = @{ EBox::Util::SystemKernel::kernels() };
-%           my $h = 0;
-%           foreach my $head (@headers) {
-                Achkdadhi[<% $h %>] = '<% $head %>';
-%               $h++;
-%           }
-
-%       }
-%       if ( $pkg eq 'zentyal-trafficshaping' ) {
-            check[<% $i %>] = 'chkl7protocols';
-            var Achkl7protocols = new Array();
-            Achkl7protocols[0] =  'zentyal-l7-protocols';
-%           $i++;
-%       }
-%   }
-
-
-%   unless ($i) {
-        document.getElementById('recommended').hide();
-%   }
-% }
-
 
     function sendForm() {
         for(var i = 0; i < check.length; i++){
@@ -86,8 +48,6 @@ var check = new Array();
     padding: 4 4 4 4px;
     margin-right: 270px;
 }
-
-
 </style>
 
 
@@ -142,23 +102,3 @@ var check = new Array();
     <input class='inputButton' onclick='sendForm()' type='button' value="<% __('Ok') %>" />
     <input class='inputButton' type='submit' name='cancel' value="<% __('Cancel') %>" />
 </form>
-<br/>
-<br/>
-% if ($action eq 'install') {
-<div id='recommended'>
-%   if ($i) {
-<h3><% __('You may want to install also the following recommended packages:') %></h3>
-%       foreach my $pkg (@actpackages) {
-%           if ( $pkg eq 'zentyal-trafficshaping' ) {
-    <input type='checkbox' id='chkl7protocols' name='pkg_zentyal-l7-protocols'><label for="chkl7protocols"><% __('Layer 7 filtering for Traffic Shaping (zentyal-l7-protocols)') %></label><br/>
-%           }
-%           if ( $pkg eq 'zentyal-samba' ) {
-    <input type='checkbox' id='chksamba' name='pkg_samba-vscan'><label for="chksamba"><% __('Virus scanning for File Sharing (zentyal-antivirus and samba-vscan)') %></label><br/>
-%           }
-%           if ( $pkg eq 'zentyal-asterisk' ) {
-    <input type='checkbox' id='chkdadhi' name='pkg_dadhi'><label for="chkdadhi"><% __('VoIP meetings support (dahdi and linux-headers)') %></label><br/>
-%           }
-%       }
-%   }
-</div>
-% }
