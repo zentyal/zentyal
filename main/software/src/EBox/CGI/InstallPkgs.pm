@@ -97,14 +97,14 @@ sub _packages
     defined $allPackages or $allPackages = 0;
 
     my @pkgs;
-    if (not  $allPackages) {
+    if (not $allPackages) {
         @pkgs = grep(s/^pkg-//, @{$self->params()});
         (@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
     } else {
         # Take the name from upgradable package list excluding Zentyal pkgs
         my $software = EBox::Global->modInstance('software');
         foreach my $pkg (@{$software->listUpgradablePkgs(0, 1)}) {
-            push (@pkgs, $pkg->{name} );
+            push (@pkgs, $pkg->{name});
         }
     }
 
@@ -150,13 +150,20 @@ sub showConfirmationPage
     }  else {
         throw EBox::Exceptions::Internal("Bad action: $action");
     }
+    my @actPkgInfo;
+    my $i = 0;
+    for my $name (@{$actpackages}) {
+        my $desc = $descactpackages->[$i++];
+        $desc =~ s/^Zentyal - //;
+        push (@actPkgInfo, { name => $name, description => $desc });
+    }
 
     $self->{'template'} = 'software/del.mas',
 
     my @array;
     push(@array, 'action' => $action);
     push(@array, 'packages' => $packages_r);
-    push(@array, 'descactpackages' => $descactpackages);
+    push(@array, 'actpkginfo' => \@actPkgInfo);
     $self->{params} = \@array;
 }
 
