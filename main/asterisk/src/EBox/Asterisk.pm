@@ -363,7 +363,7 @@ sub _getUsers
         my $extensions = new EBox::Asterisk::Extensions;
         my $extn = $extensions->getUserExtension($user->{'username'});
         next unless $extn; # if user doesn't have an extension we are done
-        
+
         my $userextn = {};
         $userextn->{'username'} = $user->{'username'};
         $userextn->{'extn'} = $extn;
@@ -797,33 +797,6 @@ sub _backupArchiveFile
 {
     my ($self, $dir) = @_;
     return "$dir/asterisk.tar";
-}
-
-sub extendedBackup
-{
-    my ($self, %params) = @_;
-    my $dir = $params{dir};
-    my $archiveFile = $self->_backupArchiveFile($dir);
-
-    my @dirsToBackup = map { "'$_'"  } (
-                           VOICEMAIL_DIR,
-                       );
-
-    my $tarCmd= "/bin/tar -cf $archiveFile  --atime-preserve --absolute-names --preserve --same-owner @dirsToBackup";
-    EBox::Sudo::root($tarCmd)
-}
-
-sub extendedRestore
-{
-    my ($self, %params) = @_;
-    my $dir = $params{dir};
-    my $archiveFile = $self->_backupArchiveFile($dir);
-    if (not -e $archiveFile) {
-        return;
-    }
-
-    my $tarCmd = "/bin/tar -xf $archiveFile --atime-preserve --absolute-names --preserve --same-owner";
-    EBox::Sudo::root($tarCmd);
 }
 
 1;
