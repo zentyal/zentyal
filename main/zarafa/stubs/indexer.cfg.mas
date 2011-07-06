@@ -68,10 +68,6 @@ log_timestamp       =   1
 ##############################################################
 # ADVANCED INDEXER SETTINGS
 
-# Synchronization method, enabling this option will stream
-# messages from server for faster synchronization.
-index_sync_stream	=	yes
-
 # Indexing interval (in minutes)
 index_interval      =   5
 
@@ -115,7 +111,7 @@ index_attachment_parser = /etc/zarafa/indexerscripts/attachments_parser
 # If this maximum is exceeded the parser will be killed
 index_attachment_parser_max_memory = 0 
 
-# Maximim amount of CPU time which a parser may spend on parsing (set to 0 for unlimited)
+# Maximim amount of CPU time (in seconds) which a parser may spend on parsing (set to 0 for unlimited)
 # If this maximum is exceeded the parser will be killed
 index_attachment_parser_max_cputime = 0
 

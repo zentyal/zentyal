@@ -1,3 +1,10 @@
+HEAD
+	+ Update for Zarafa 7: stubs and enable script
+	+ Bugfix: set server.cfg to 640 perms
+	+ Manage dagent daemon for LMTP delivery
+	+ Optimize LDAP user query
+	+ Bugfix: fix iCal SSL configuration
+	+ Bugfix: groups member where not properly populated.
 2.1.2
 	+ Added groupware firewall service
 2.1.1

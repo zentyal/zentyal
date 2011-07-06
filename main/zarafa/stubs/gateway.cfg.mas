@@ -56,12 +56,14 @@ imap_public_folders	=	yes
 # IMAP clients may use IDLE command
 imap_capability_idle = yes
 
-# Enable if you have problems reading mail (mostly happens in Mac Mail clients).
-# However, this will make the gateway much slower.
-imap_always_generate = no
-
 # The maximum size of an email that can be uploaded to the gateway
 imap_max_messagesize = 134217728
+
+# Override the e-mail charset and generate using utf-8 (when imap data is not present on the item)
+imap_generate_utf8 = no
+
+# Internally issue the expunge command to directly delete e-mail marked for deletion in IMAP.
+imap_expunge_on_delete = no
 
 # File with RSA key for SSL
 ssl_private_key_file	=	/etc/zarafa/ssl/ssl.pem
@@ -88,7 +90,7 @@ log_method	=	file
 # Loglevel (0=no logging, 5=full logging)
 log_level	=	2
 
-# Logfile for log_method = file, use '-' for stderr
+# Logfile for log_method = file
 log_file	=	/var/log/zarafa/gateway.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode

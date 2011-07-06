@@ -80,7 +80,7 @@ license_timeout = 10
 # Logging method (syslog, file), syslog facility is 'mail'
 log_method		= file
 
-# Logfile (for log_method = file, '-' for stderr)
+# Logfile (for log_method = file
 log_file		= /var/log/zarafa/server.log
 
 # Loglevel (0=no logging, 5=full logging)
@@ -96,10 +96,10 @@ log_timestamp		= 1
 audit_log_enabled	= no
 
 # Audit logging method (syslog, file), syslog facility is 'authpriv'
-audit_log_method	= syslog
+audit_log_method	= file
 
-# Audit logfile (for log_method = file, '-' for stderr)
-audit_log_file		= /var/log/zarafa/audit.log
+# Audit logfile (for log_method = file
+audit_log_file		= /var/log/zarafa/server.log
 
 # Audit loglevel (0=no logging, 1=full logging)
 audit_log_level		= 1
@@ -121,6 +121,10 @@ mysql_user		= <% $mysql_user %>
 
 # The password for the user (leave empty for no password)
 mysql_password		= <% $mysql_password %>
+
+# Override the default MySQL socket to access mysql locally
+# Works only if the mysql_host value is empty or 'localhost'
+mysql_socket		=
 
 # Database to connect to
 mysql_database		= zarafa
@@ -273,7 +277,7 @@ quota_soft		= <% $quota_soft %>
 quota_hard		= <% $quota_hard %>
 
 # The default Warning Quota Level. Set to 0 to disable this level.
-# The company administrator will receive an email when this level is reached. Value is in Mb. Default value is 0.
+# The tenant administrator will receive an email when this level is reached. Value is in Mb. Default value is 0.
 companyquota_warn      = 0
 
 
@@ -282,7 +286,7 @@ companyquota_warn      = 0
 
 # Name of the plugin that handles users
 # Required, default = ldap
-# Values: ldap, unix, db
+# Values: ldap, unix, db, ldapms (available in enterprise license)
 user_plugin		= ldap
 
 # configuration file of the user plugin, examples can be found in /usr/share/zarafa/example-config
@@ -313,15 +317,15 @@ user_safe_mode = no
 # WARNING: Do not set too small, your server WILL crash
 thread_stacksize = 512
 
-# Enable multi-company environment
-# When set to true it is possible to create companies within the
+# Enable multi-tenancy environment
+# When set to true it is possible to create tenants within the
 # zarafa instance and assign all users and groups to particular
-# companies.
-# When set to false, the normal single-company environment is created.
+# tenants.
+# When set to false, the normal single-tenancy environment is created.
 enable_hosted_zarafa = false
 
 # Enable multi-server environment
-# When set to true it is possible to place users and companies on
+# When set to true it is possible to place users and tenants on
 # specific servers.
 # When set to false, the normal single-server environment is created.
 enable_distributed_zarafa = false
@@ -330,22 +334,22 @@ enable_distributed_zarafa = false
 # Allowed variables:
 #  %u Username
 #  %f Fullname
-#  %c Companyname
+#  %c Teantname
 # default: %f
 storename_format = %f
 
-# Loginname format (for Hosted installations)
+# Loginname format (for Multi-tenancy installations)
 # When the user does not login through a system-wide unique
 # username (like the email address) a unique name is created
-# by combining the username and the companyname.
+# by combining the username and the tenantname.
 # With this configuration option you can set how the
 # loginname should be built up.
 #
 # Note: Do not use the = character in the format.
 #
 # Allowed variables:
-#  %u username
-#  %c companyname
+#  %u Username
+#  %c Teantname 
 #
 # default: %u
 loginname_format = %u
@@ -388,3 +392,7 @@ enable_enhanced_ics = yes
 # Synchronize GAB users on every open of the GAB (otherwise, only on 
 # zarafa-admin --sync)
 sync_gab_realtime = yes
+
+# Disable features for users. Default all features are enabled. This
+# list is space separated. Currently valid values: imap
+disabled_features = 

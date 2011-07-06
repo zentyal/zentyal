@@ -31,7 +31,7 @@ log_method	=	file
 # Loglevel (0=no logging, 5=full logging)
 log_level	=	3
 
-# Logfile for log_method = file, use '-' for stderr
+# Logfile for log_method = file
 log_file	=	/var/log/zarafa/spooler.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode
@@ -74,7 +74,8 @@ fax_international = 00
 
 # Set this value to 'yes' to let the spooler always send emails with
 # delegates (other user than yourself in the From: header)
-# In installations before 6.20, this value was always 'yes'
+# In installations before 6.20, this value was always 'yes'.
+# IMPORTANT: This feature overrides "send-as" functionality.
 always_send_delegates = <% $always_send_delegates %>
 
 # Set this value to 'no' if you do NOT want to allow redirected e-mails
@@ -90,13 +91,17 @@ copy_delegate_mails = yes
 allow_delegate_meeting_request = yes
 
 ##############################################################
-# SPOOLER MEETING REQUEST SETTINGS
+# SPOOLER OUTPUT SETTINGS
 
 # Set this value to 'yes' to always send meeting request information
 # using TNEF method (winmail.dat attachments)
 # Otherwise, the meeting request information is sent using
 # iCalendar (calendar.ics attachment).
 always_send_tnef = no
+
+# Send all e-mail always using the UTF-8 charset.
+# Normally, the requested charset is used, which can be any charset.
+always_send_utf8 = no
 
 ##############################################################
 # SPOOLER GROUP EXPANSION
