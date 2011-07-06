@@ -1,4 +1,4 @@
-HEAD
+2.1.2
 	+ Allow a secondary LDAP server for authentication (via config file)
 	+ Better configuration values por apache
 	+ Fixed firewall helper to avoid session loss
