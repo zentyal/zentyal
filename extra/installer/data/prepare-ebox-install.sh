@@ -4,7 +4,7 @@ export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/zentyal/2.0/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
-ZARAFA_SOURCES="deb http://archive.canonical.com/ubuntu lucid partner"
+ZARAFA_SOURCES="deb http://archive.zentyal.com/zentyal 2.1 extra"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 

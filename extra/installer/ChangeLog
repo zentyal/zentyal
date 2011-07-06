@@ -1,4 +1,7 @@
 HEAD
+    + Replaced partner zarafa repository with the Zentyal one
+2.1-2
+    + New beta logo
     + Use zentyal as default certificate CN
 2.1-1
     + Avoid create LVM question when disk is empty
