@@ -1,5 +1,0 @@
-class: 'EBox::CaptivePortal'
-depends:
-    - firewall
-enabledepends:
-    - firewall

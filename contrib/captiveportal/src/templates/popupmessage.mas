@@ -1,6 +1,0 @@
-<%args>
-</%args>
-<%init>
-use EBox::Gettext;
-</%init>
-<% __("Keep this window open to maintain your captive portal session active") %>
