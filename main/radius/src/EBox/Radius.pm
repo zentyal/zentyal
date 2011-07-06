@@ -343,7 +343,7 @@ sub menu
             'url' => 'Radius/Composite/General',
             'separator' => 'Gateway',
             'order' => 225,
-            'text' => __('RADIUS')));
+            'text' => 'RADIUS'));
 }
 
 # Method: certificates
