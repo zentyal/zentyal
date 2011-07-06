@@ -180,7 +180,7 @@ sub viewCustomizer
         my $custom =  $self->SUPER::viewCustomizer();
         $custom->setHTMLTitle([
                 {
-                title => __d('Packet Filter', 'ebox-firewall'),
+                title => __('Packet Filter'),
                 link  => '/zentyal/Firewall/Filter',
                 },
                 {

@@ -1,3 +1,5 @@
+HEAD
+	+ Removed obsolete gettext calls
 2.1.2
 	+ Changed RedirectRules table order (Protocol before Port)
 	+ Added chains method to firewall helpers (lets them create custom chains)
