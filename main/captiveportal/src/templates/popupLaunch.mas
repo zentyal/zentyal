@@ -9,7 +9,7 @@ use EBox::Gettext;
 <head>
   <title>Zentyal</title>
   <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
-  <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
+  <link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript">
     function launch() {
         window.open("/zentyal/Popup", "zentyal-captiveportal", "resizable=1,width=350,height=250");

@@ -8,7 +8,7 @@ use EBox::Gettext;
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Zentyal</TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
+<link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 </head>
 <body onload="document.getElementById('credential_0').focus();">
@@ -26,21 +26,29 @@ use EBox::Gettext;
                   <% __('Warning: Caps Lock is enabled')%>
                 </div>
                 <center><h2 style="color: #333"><% __('Captive portal') %></h2></center>
-		<dl>
-			<dt><% __('User name') %>:</dt>
-			<dd><input  class='inputTextLogin' type='text'
+		<table>
+			<tr>
+              <td><% __('User name') %>:</td>
+			  <td><input  class='inputTextLogin' type='text'
 					name='credential_0'
 					id='credential_0'
-					size='14' /></dd>
-			<dt><% __('Password') %>:</dt>
-			<dd><input  class='inputTextLogin' type='password'
+					size='14' /></td>
+            </tr>
+            <tr>
+			  <td><% __('Password') %>:</td>
+			  <td><input  class='inputTextLogin' type='password'
 					name='credential_1'
 					id='credential_1'
-					size='14' /></dd>
+					size='14' /></td>
 				<input  type='hidden' name='destination'
 					value='<% $destination %>' />
-		<dd><input class='inputButton' type='submit' value="<% __('Enter') %>"/></dd>
-		</dl>
+              </td>
+            </tr>
+		    <tr>
+              <td></td>
+              <td><input class='inputButton' type='submit' value="<% __('Enter') %>"/></td>
+		    </tr>
+       </table>
 	</form>
 	</div>
 	</div>

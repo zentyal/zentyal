@@ -129,7 +129,31 @@ sub _setConf
             ldap_url => EBox::Ldap::LDAPI,
             bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn,
         ]);
+
+    # Write css file
+    $self->_writeCSS();
 }
+
+
+sub _writeCSS
+{
+    my ($self) = @_;
+
+    my $path = EBox::Config::dynamicwww() . '/css';
+    unless (-d $path) {
+        mkdir $path;
+    }
+
+    my $global = EBox::Global->getInstance();
+    my $theme = $global->theme();
+    my %params = %{ $theme };
+
+    EBox::Module::Base::writeConfFileNoCheck("$path/captiveportal.css",
+                                             "css/captiveportal.css.mas",
+                                             [ %params ],
+                                             { mode => '0644' });
+}
+
 
 sub _daemons
 {

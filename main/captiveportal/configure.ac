@@ -55,6 +55,7 @@ src/scripts/Makefile
 src/templates/Makefile
 src/cgi/Makefile
 stubs/Makefile
+stubs/css/Makefile
 schemas/Makefile
 Makefile
 ])
