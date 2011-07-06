@@ -1,0 +1,8 @@
+class: 'EBox::BWMonitor'
+
+depends:
+    - network
+
+enabledepends:
+    - network
+

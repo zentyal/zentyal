@@ -1,0 +1,9 @@
+<%doc>
+Upstart script for bandwidth monitor on a network interface
+</%doc>
+<%args>
+$interface
+</%args>
+exec /usr/share/zentyal-bwmonitor/bwmonitor /var/lib/zentyal/conf/bwmonitor/bwmonitor-<% $interface %>.conf
+respawn
+
