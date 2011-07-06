@@ -30,7 +30,6 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
-use EBox::LogAdmin qw(:all);
 
 sub _create
 {
@@ -210,7 +209,7 @@ sub objectMembers # (object)
 #       there are no addresses in the object
 #       In case mask is wanted the elements of the array would be  [ip, mask]
 #
-sub objectAddresses 
+sub objectAddresses
 {
     my ($self, $id, @params) = @_;
 

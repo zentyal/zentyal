@@ -26,7 +26,6 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
-use EBox::LogAdmin;
 use EBox::CaptivePortal;
 use EBox::NetWrappers qw(ip_mac);
 

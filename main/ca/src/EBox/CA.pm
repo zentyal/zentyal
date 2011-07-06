@@ -29,7 +29,6 @@ use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Module::Service);
 use EBox::CA::DN;
 use EBox::Gettext;
 use EBox::Config;
-#use EBox::LogAdmin qw ( :all );
 use EBox::Menu::Item;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Exceptions::External;
@@ -117,9 +116,6 @@ sub _create
 					  @_);
 
 	bless($self, $class);
-
-	# Setting admin actions
-#	$self->_setLogAdminActions();
 
 	# OpenSSL environment stuff
 	$self->{tmpDir} = TEMPDIR;
@@ -332,10 +328,10 @@ sub createCA
     # Generate CRL
     $self->generateCRL();
 
-    # Logging the action
-    #  logAdminNow($self->name, "createCA",
-    #	      "orgName=". $self->{dn}->attribute('orgName') . ",days=" . $args{days}
-    #	      );
+    # TODO: logAudit call
+    # action: createCA
+    # orgName: $self->{dn}->attribute('orgName')
+    # days: $arg{days}
 
     #unlink (CAREQ);
     $self->_setPasswordRequired(defined($self->{caKeyPassword}));
@@ -370,10 +366,9 @@ sub destroyCA
                 . $!);
     }
 
-    # Logging the action
-    #    logAdminNow($self->name, "destroyCA",
-    #		"orgName=". $self->{dn}->attribute('orgName')
-    #	       );
+    # TODO: audit logging
+    # action: destroyCA
+    # orgName: $self->{dn}->attribute('orgName')
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
@@ -485,10 +480,10 @@ sub revokeCACertificate
 
     $self->{caExpirationDate} = undef;
 
-    # Logging the action
-    #    logAdminNow($self->name, "revokeCACertificate",
-    #		"reason=" . $args{reason} . ",force=$force"
-    #	       );
+    # TODO: audit logging
+    # action: revokeCACertificate
+    # reason: $args{reason}
+    # force:  $force
 
     return $retVal;
 }
@@ -563,10 +558,10 @@ sub issueCACertificate
     # Expiration CA certificate
     $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
-    # Logging the action
-    #    logAdminNow($self->name, "issueCACertificate",
-    #		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
-    #	       );
+    # TODO: audit logging
+    # action: issueCACertificate
+    # orgName: $self->{dn}->attribute("orgName")
+    # days: $args{days}
 
     $self->_setPasswordRequired( defined( $args{caKeyPassword} ));
 
@@ -649,9 +644,10 @@ sub renewCACertificate
     }
 
     # Logging the action
-    #    logAdminNow($self->name, "reneweCACertificate",
-    #		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
-    #	       );
+    # TODO: audit logging
+    # action: reneweCACertificate",
+    # orgName: $self->{dn}->attribute("orgName")
+    # days: $args{days}
 
     return $renewedCert;
 }
@@ -869,11 +865,11 @@ sub issueCertificate
         $self->_generateP12Store($privKey, $self->getCertificateMetadata(cn => $args{commonName}), $args{keyPassword});
     }
 
-    # Logging the action
-    #  logAdminNow($self->name, "issueCertificate",
-    #		"cn=" . $args{commonName} . ",days=" . $args{days}
-    #	       );
-    #
+    # TODO: audit logging
+    # action: issueCertificate
+    # cn: $args{commonName}
+    # days: $args{days}
+
     return $self->_findCertFile($args{"commonName"});
 
 }
@@ -979,10 +975,11 @@ sub revokeCertificate
     # Mark this module as changed
     $self->setAsChanged();
 
-    # Logging the action
-    #  logAdminNow($self->name, "revokeCertificate",
-    #		"cn=" . $args{commonName} . ",reason=" . $args{reason} . ",force=$force"
-    #	       );
+    # TODO: audit logging
+    # action: revokeCertificate
+    # cn: $args{commonName}
+    # reason: $args{reason}
+    # force: $force
 
     return undef;
 }
@@ -1581,10 +1578,10 @@ sub renewCertificate
         $newCertFile = $self->_findCertFile($userDN->attribute('commonName'));
     }
 
-    # Logging the action
-    #    logAdminNow($self->name, "renewCertificate",
-    #		"cn=" . $args{commonName} . ",days=" . $args{days}
-    #	       );
+    # TODO: audit logging
+    # action: renewCertificate
+    # cn: $args{commonName}
+    # days:  $args{days}
 
     # Tells other modules the following certs have been renewed
     my $isCACert = 0;
@@ -1664,11 +1661,6 @@ sub updateDB
     if ($retVal eq "ERROR") {
         throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output));
     }
-
-    # Logging the action
-    #    logAdminNow($self->name, "updateDB",
-    #		"number=" . scalar(@diff)
-    #	       );
 
     return undef;
 }
@@ -2552,34 +2544,6 @@ sub _setPasswordRequired # (required)
     my ($self, $required) = @_;
 
     $self->set_bool('pass_required', $required);
-}
-
-# Setting logAdmin actions
-sub _setLogAdminActions
-{
-    my ($self) = @_;
-
-    $self->{actions} = {};
-    $self->{actions}->{createCA} =
-        __n("Created Certification Authority with organization name {orgName} and validity for {days} days");
-    $self->{actions}->{destroyCA} =
-        __n("Destroyed Certification Authority with organization name {orgName}");
-    $self->{actions}->{revokeCACertificate} =
-        __n("Revoked CA certificate because of {reason} forced: {force}");
-    $self->{actions}->{issueCACertificate} =
-        __n("Issued CA certificate with organization name {orgName} and validity for {days} days");
-    $self->{actions}->{renewCACertificate} =
-        __n("Renewed CA certificate with organization name {orgName} and validity for {days} days");
-    $self->{actions}->{issueCertificate} =
-        __n("Issued certificate with common name {cn} and validity for {days} days");
-    $self->{actions}->{revokeCertificate} =
-        __n("Revoked certificate with common name {cn} because of {reason} forced: {force}");
-    $self->{actions}->{renewCertificate} =
-        __n("Renewed certificate with common name {cn} and validity for {days} days");
-    $self->{actions}->{updateDB} =
-        __n("Updated certificate database. {number} certificates have expired");
-
-    return;
 }
 
 # Check if a date is later than CA certificate date

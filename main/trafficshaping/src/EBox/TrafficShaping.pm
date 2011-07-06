@@ -51,7 +51,6 @@ use EBox::Gettext;
 
 use EBox::Global;
 use EBox::Validate qw( checkProtocol checkPort );
-use EBox::LogAdmin qw ( :all );
 
 # Used exceptions
 use EBox::Exceptions::InvalidData;
@@ -103,8 +102,6 @@ sub _create
 
     $self->{network} = EBox::Global->modInstance('network');
     $self->{objects} = EBox::Global->modInstance('objects');
-
-#    $self->_setLogAdminActions();
 
     bless($self, $class);
 
@@ -1676,60 +1673,6 @@ sub _removeIfNotEnoughRemainderModels
 
 }
 
-
-###
-# Log Admin related functions
-###
-
-# Admin log related to update rule
-# References to the old dir and new dir are passed
-sub _logUpdate # (new_ref)
-  {
-    my ($self, $new_ref) = @_;
-
-    # Strings to print to log
-    my $newValues = q{};
-
-    $newValues .= " " . __("Protocol") . " " . $new_ref->{protocol};
-    $newValues .= " " . __("Port") . " " . $new_ref->{port};
-    $newValues .= " " . __("Guaranteed Rate") . " " . $new_ref->{guaranteedRate};
-    $newValues .= " " . __("Limited Rate") . " " . $new_ref->{limitedRate};
-    $newValues .= " " . __("Priority") . " " . $new_ref->{priority};
-
-#    logAdminDeferred("trafficshaping", "updateRule",
-#		     "values=$newValues");
-
-  }
-
-# Set the actions to log
-sub _setLogAdminActions
-  {
-
-    my ($self) = @_;
-
-    $self->{actions} = {};
-#    $self->{actions}->{addRule} = __n("Added rule under interface: {iface} with protocol: " .
-#				      "{protocol} port: {port} guaranteed " .
-#				      "rate: {gRate} limited rate to: {lRate} ".
-#				      "priority: {priority} enabled: {enabled}");
-#    $self->{actions}->{removeRule} = __n("Removed rule under interface: {iface} with protocol: " .
-#					 "{protocol} port: {port} guaranteed " .
-#					 "rate: {gRate} limited rate to: {lRate} ".
-#					 "priority: {priority} enabled: {enabled}");
-#    $self->{actions}->{enableRule} = __n("Enabled rule under interface: {iface} with protocol: " .
-#					 "{protocol} port: {port} guaranteed " .
-#					 "rate: {gRate} limited rate to: {lRate} ".
-#					 "priority: {priority}");
-#    $self->{actions}->{disableRule} = __n("Disabled rule under interface: {iface} with protocol: " .
-#					 "{protocol} port: {port} guaranteed " .
-#					 "rate: {gRate} limited rate to: {lRate} ".
-#					 "priority: {priority}");
-#
-#    $self->{actions}->{updateRule} = __n("Update rule under interface: {iface} for the following " .
-#					 "values:{values}");
-
-  }
-
 ###################################
 # Iptables related functions
 ###################################
@@ -1737,7 +1680,6 @@ sub _setLogAdminActions
 # Delete TrafficShaping filter chain in Iptables Linux kernel struct
 sub _deleteChains # (iface)
 {
-
     my ( $self, $iface ) = @_;
 
     my @cmds;
@@ -1747,12 +1689,10 @@ sub _deleteChains # (iface)
     push (@cmds, "$iptablesCmd -t mangle -F EBOX-L7SHAPER-$iface");
     push (@cmds, "$iptablesCmd -t mangle -X EBOX-L7SHAPER-$iface");
     EBox::Sudo::silentRoot(@cmds);
-
 }
 
 sub _deletePostroutingChain # (iface)
 {
-
     my ($self) = @_;
 
     my @cmds;

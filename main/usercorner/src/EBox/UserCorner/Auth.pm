@@ -28,7 +28,6 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
-use EBox::LogAdmin;
 use EBox::UserCorner;
 use Crypt::Rijndael;
 use Apache2::Connection;

@@ -67,7 +67,6 @@ use EBox::Menu::Folder;
 use EBox::Network::Model::DynDNS;
 use EBox::Sudo;
 use EBox::Gettext;
-#use EBox::LogAdmin qw( :all );
 use File::Basename;
 use EBox::Common::Model::EnableForm;
 use EBox::Util::Lock;
@@ -1366,7 +1365,6 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
             action => 'postchange'
         );
     }
-    #logAdminDeferred('network',"set_iface_static","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
 sub _checkStatic # (iface, force)
@@ -1479,8 +1477,6 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
                 action => 'postchange'
             );
     }
-
-    #logAdminDeferred('network',"set_iface_ppp","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
 # Method: setIfaceTrunk

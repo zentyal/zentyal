@@ -6,6 +6,7 @@ HEAD
 	+ Failover tests are now ran with a read-only instance even if there are
 	  unsaved changes on the interface and the generated events notify this
 	+ Removed unused EnableBalanceTraffic CGI
+	+ Removed use of obsolete LogAdmin
 2.1.6
 	+ Mark DHCP interfaces as changed in the Wizard to get IP on first save
 	+ Removed unnecessary call to ids() in DHCP hook
