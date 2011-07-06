@@ -42,7 +42,7 @@ use constant PROC_MDSTAT => '/proc/mdstat';
 #
 sub enabled
 {
-    my ($raidInfo) = @_;
+    my ($self, $raidInfo) = @_;
     defined $raidInfo or
         $raidInfo = info();
 
@@ -121,7 +121,6 @@ sub info
         $line =~ s/\s*$//;
         next if $line =~ m/^\s*$/;
 
-
         my @parts =  split '\s*:\s*', $line, 2;
         if (@parts == 2) { # begins a new section
             my @sectionInfo = @{
@@ -140,7 +139,6 @@ sub info
         else {
             push @currentSectionData, $line;
         }
-
     }
 
     foreach my $dev (keys %info) {

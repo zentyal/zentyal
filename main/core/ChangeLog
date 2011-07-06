@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed RAID event crash
 	+ Added warning on models and composites when the module is disabled
 	+ Fixed login page style with some languages
 	+ Login page template can now be reused accepting title as parameter
