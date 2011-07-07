@@ -95,7 +95,6 @@ sub _pendingActions
             $message = __x('A new {rowName} "{r}" has been added',
                            rowName => $rowName, r => $id);
         } elsif ($event eq 'set') {
-            # TODO: separate id/field into "field foo in row id"
             my ($row, $field) = split (/\//, $id);
             if (defined ($row) and defined ($field)) {
                 $message = __x('The field "{f}" in the {rowName} "{r}" has been changed from "{x}" to "{y}"',
@@ -111,7 +110,8 @@ sub _pendingActions
             $message = __x('The {rowName} "{r}" has been moved from {x} to {y} position',
                            rowName => $rowName, r => $id, x => $oldvalue, y => $value);
         } elsif ($event eq 'action') {
-            $message = __x('The action "{a}" has been executed', a => $id);
+            my $action = $value ? "$id($value)" : $id;
+            $message = __x('The action "{a}" has been executed', a => $action);
         }
         $action->{'message'} = $message;
         push(@{$actions}, $action);

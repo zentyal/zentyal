@@ -220,10 +220,11 @@ sub logModelAction
 
 sub logAction
 {
-    my $self = shift;
+    my ($self, $module, $section, $action, $arg, $temporal) = @_;
+
     return unless $self->isEnabled();
 
-    $self->_log(@_);
+    $self->_log($module, $section, 'action', $action, $arg, undef, $temporal);
 }
 
 sub _log
