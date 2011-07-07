@@ -17,6 +17,7 @@
 
 #include "console.h"
 #include <arpa/inet.h>
+#include <time.h>
 
 using namespace std;
 
@@ -24,10 +25,14 @@ void ConsoleBWStatsDumper::dumpHost(HostStats *host) {
     char ip[INET_ADDRSTRLEN];
     inet_ntop(AF_INET, &(host->getIP()), ip, INET_ADDRSTRLEN);
 
+    time_t rawtime;
+    time(&rawtime);
+
     BWSummary* internal = host->getInternalBW();
     BWSummary* external = host->getExternalBW();
 
     cout << "IP=" << ip;
+    cout << " TIMESTMAP=" << rawtime;
     cout << " INT_SENT=" << internal->totalSent/1024;
     cout << " INT_RECV=" << internal->totalRecv/1024;
     cout << " INT_TCP="  << internal->TCP/1024;
