@@ -1,2 +1,3 @@
 var/log/zentyal
 var/lib/zentyal/conf/ssl-ca
+var/lib/zentyal/purge-module

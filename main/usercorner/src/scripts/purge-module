@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf /var/log/zentyal-usercorner/
+
+exit 0

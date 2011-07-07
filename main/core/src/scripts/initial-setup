@@ -35,6 +35,14 @@ EBox::init();
 
 EBox::Util::SQL::createModuleTables($modname);
 
+# Copy purge-module script if exists
+my $purgeSrc = "/usr/share/zentyal-$modname/purge-module";
+if (-f $purgeSrc) {
+    my $purgeDst = "/var/lib/zentyal/purge-module/$modname";
+    EBox::Sudo::root("cp $purgeSrc $purgeDst");
+    chmod (0750, $purgeDst);
+}
+
 my $module = EBox::Global->modInstance($modname);
 
 $module->initialSetup($version);

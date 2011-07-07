@@ -1,3 +1,5 @@
 #!/bin/bash
 
 rm /etc/init/zentyal-virt.*
+
+exit 0

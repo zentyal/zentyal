@@ -1,4 +1,5 @@
 HEAD
+	+ Added purge-module script to clean logs directory
 	+ Reuse login/index.mas from zentyal-core customizing the title
 	+ Removed use of obsolete LogAdmin
 2.1.2

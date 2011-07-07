@@ -20,6 +20,7 @@
 use EBox;
 use EBox::Config;
 use EBox::Global;
+use EBox::Sudo;
 use EBox::Util::SQL;
 use Error qw(:try);
 
@@ -29,6 +30,16 @@ EBox::init();
 
 cleanModuleConf($modname);
 EBox::Util::SQL::dropModuleTables($modname);
+
+my $purgeModule = "/var/lib/zentyal/purge-module/$modname";
+if (-x $purgeModule) {
+    try {
+        EBox::Sudo::root($purgeModule);
+        unlink ($purgeModule);
+    } otherwise {
+        EBox::warn("Purge of module $modname failed");
+    };
+}
 
 exit 0;
 

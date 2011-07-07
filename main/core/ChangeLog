@@ -1,4 +1,6 @@
 HEAD
+	+ Each module can have now its customized purge-module script
+	  that will be executed after the package is removed
 	+ Added Administration Audit Logging to log sessions, configuration
 	  changes, and show pending actions in save changes confirmation
 	+ User name is stored in session
