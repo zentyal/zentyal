@@ -1,3 +1,6 @@
+HEAD
+	+ Changes in package preselections, mainly RADIUS is no longer
+	  selected by default and L7Filter replaces it
 2.1.7
 	+ Improved visual style of the confirmation page
 	+ Remove package recommendations

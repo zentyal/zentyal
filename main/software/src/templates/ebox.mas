@@ -46,12 +46,12 @@ my $first = EBox::Global->first();
     }
 
     var suites =  {
-        'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-radius'  ],
-        'UTM' : [ 'zentyal-network', 'zentyal-ids', 'zentyal-squid', 'zentyal-openvpn', 'zentyal-mailfilter', 'zentyal-antivirus' ],
+        'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols' ],
+        'UTM' : [ 'zentyal-network', 'zentyal-ids', 'zentyal-squid', 'zentyal-openvpn', 'zentyal-antivirus' ],
         'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
                              'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp' ],
         'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus' ],
-        'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-asterisk', 'zentyal-mailfilter', 'zentyal-antivirus'  ]
+        'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-asterisk', 'zentyal-mailfilter' ]
     };
 
     function showInfo(id){
