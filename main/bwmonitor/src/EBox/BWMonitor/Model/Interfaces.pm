@@ -88,16 +88,24 @@ sub syncRows
 
     my $ifaces = EBox::Global->modInstance('network')->InternalIfaces();
 
-    my %currentIfaces = map { $self->row($_)->valueByName('interface') => 1 }
+    my %currentIfaces = map { $self->row($_)->valueByName('interface') => $_ }
     @{$currentRows};
+
+    my %realIfaces = map { $_ => 1 } @{$ifaces};
 
     # Check if there is any module that has not been added yet
     my @ifacesToAdd = grep { not exists $currentIfaces{$_} } @{$ifaces};
+    my @ifacesToDel = grep { not exists $realIfaces{$_} } keys %currentIfaces;
 
-    return 0 unless (@ifacesToAdd);
+    return 0 unless (@ifacesToAdd + @ifacesToDel);
 
     for my $iface (@ifacesToAdd) {
         $self->add(interface => $iface, enabled => 0);
+    }
+
+    foreach my $iface (@ifacesToDel) {
+        my $id = $currentIfaces{$iface};
+        $self->removeRow($id, 1);
     }
 
     return 1;
