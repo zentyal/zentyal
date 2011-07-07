@@ -20,7 +20,9 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
-            EBox::FirewallObserver);
+            EBox::FirewallObserver
+            EBox::LogObserver
+            EBox::LogHelper);
 
 use EBox;
 use EBox::Global;
@@ -31,6 +33,7 @@ use EBox::Exceptions::External;
 
 use constant CONF_DIR => EBox::Config::conf() . '/bwmonitor/';
 use constant UPSTART_DIR => '/etc/init/';
+use constant LOGS_DIR => '/var/log/zentyal/bwmonitor/';
 
 sub _create
 {
@@ -107,6 +110,7 @@ sub _daemons
     return [];
 }
 
+
 # Function: ifaces
 #
 #   Interfaces where bandwidth monitor is enabled
@@ -125,5 +129,120 @@ sub ifaces
     return \@ifaces;
 }
 
+
+# Implement LogHelper interface
+sub tableInfo
+{
+    my ($self) = @_;
+
+    my $titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'interface' => __('Interface'),
+#        'username' => __('User'),
+        'extTotalRecv' => __('External recv'),
+        'extTotalSent' => __('External sent'),
+        'intTotalRecv' => __('Internal recv'),
+        'intTotalSent' => __('Internal sent'),
+    };
+
+    my @order = qw(timestamp client externalRecv externalSent internalRecv internalSent);
+
+#   TODO consolidation...
+#    my $consolidation = {
+#
+#    };
+
+    return [{
+        'name' => __('Bandwidth usage'),
+        'index' => 'bwmonitor_usage',
+        'titles' => $titles,
+        'order' => \@order,
+        'events' => {},
+        'eventcol' => 'timestamp',
+        'tablename' => 'bwmonitor_usage',
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'interface'],
+    }];
+}
+
+
+sub logHelper
+{
+    my ($self) = @_;
+    return $self;
+}
+
+
+# Method: logFiles
+#
+#   This function must return the file or files to be read from.
+#
+# Returns:
+#
+#   array ref - containing the whole paths
+#
+sub logFiles
+{
+    my ($self) = @_;
+
+    my @files;
+    my $ifaces = $self->ifaces();
+    foreach my $iface (@{$ifaces}) {
+       push (@files, LOGS_DIR . "$iface.log");
+    }
+
+    return \@files;
+}
+
+# Method: processLine
+#
+#   This fucntion will be run every time a new line is recieved in
+#   the associated file. You must parse the line, and generate
+#   the messages which will be logged to ebox through an object
+#   implementing EBox::AbstractLogger interface.
+#
+# Parameters:
+#
+#   file - file name
+#   line - string containing the log line
+#   dbengine- An instance of class implemeting AbstractDBEngineinterface
+#
+sub processLine
+{
+    my ($self, $file, $line, $dbengine) = @_;
+
+    unless ($line =~ /^IP=(\d+\.\d+\.\d+\.\d+)( [A-Z_]+=\w+)+/) {
+        return;
+    }
+
+    # retrive iface from log file
+    my ($iface) = $file =~ /([^\/]+)\.log$/;
+
+    # Parse log line
+    my $data = { $line =~ /([A-Z_]+)=([0-9.]+)+/g };
+
+    my ($sec,$min,$hour,$mday,$mon,$year) = (localtime($data->{TIMESTAMP}))[0..5];
+    ($mon,$year) = ($mon+1,$year+1900);
+
+    my %dataToInsert;
+    $dataToInsert{timestamp} = "$year-$mon-$mday $hour:$min:$sec";
+    $dataToInsert{client} = $data->{IP};
+
+    $dataToInsert{intTotalRecv} = $data->{INT_RECV};
+    $dataToInsert{intTotalSent} = $data->{INT_SENT};
+    $dataToInsert{intICMP} = $data->{INT_ICMP};
+    $dataToInsert{intUDP} = $data->{INT_UDP};
+    $dataToInsert{intTCP} = $data->{INT_TCP};
+
+    $dataToInsert{extTotalRecv} = $data->{EXT_RECV};
+    $dataToInsert{extTotalSent} = $data->{EXT_SENT};
+    $dataToInsert{extICMP} = $data->{EXT_ICMP};
+    $dataToInsert{extUDP} = $data->{EXT_UDP};
+    $dataToInsert{extTCP} = $data->{EXT_TCP};
+
+    # Insert into db
+    $dbengine->insert('bwmonitor_usage', \%dataToInsert);
+}
 
 1;
