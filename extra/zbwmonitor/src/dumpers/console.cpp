@@ -32,7 +32,7 @@ void ConsoleBWStatsDumper::dumpHost(HostStats *host) {
     BWSummary* external = host->getExternalBW();
 
     cout << "IP=" << ip;
-    cout << " TIMESTMAP=" << rawtime;
+    cout << " TIMESTAMP=" << rawtime;
     cout << " INT_SENT=" << internal->totalSent/1024;
     cout << " INT_RECV=" << internal->totalRecv/1024;
     cout << " INT_TCP="  << internal->TCP/1024;
