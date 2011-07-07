@@ -312,6 +312,36 @@ sub update
     }
 }
 
+# Method: delete
+#
+#     This function performs a delete in the database.
+#
+# Parameters:
+#   $table: The table name to insert data.
+#   $where: An array ref with conditions for the where
+#
+sub delete
+{
+    my ($self, $table, $where) = @_;
+    my $sql = "DELETE FROM $table ";
+
+    $sql .= ' WHERE ' . join(' AND ', @{$where});
+
+    $self->_prepare($sql);
+    my $err = $self->{'sthinsert'}->execute();
+    if (!$err) {
+        #throw exception
+        EBox::debug ("Error deleting data: $sql\n" .
+                     $self->{dbh}->errstr .
+                     " \n"
+                    );
+        throw EBox::Exceptions::Internal ("Error deleting data: $sql\n" .
+                                          $self->{dbh}->errstr .
+                                          " \n"
+                                         );
+    }
+}
+
 # Method: query
 #
 #       This function do the necessary operations to create and establish a query

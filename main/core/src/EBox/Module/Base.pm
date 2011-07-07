@@ -404,7 +404,6 @@ sub _createBackupDir
 # Parameters:
 #  dir - directory used for the restore operation
 #  (named parameters following)
-#  fullRestore - wether we want to do a full restore as opposed a configuration-only restore (default: false)
 #
 sub restoreBackup # (dir, %options)
 {
@@ -416,10 +415,6 @@ sub restoreBackup # (dir, %options)
 
     if (not $options{dataRestore}) {
         $self->aroundRestoreConfig($backupDir, %options);
-    }
-
-    if ($options{fullRestore} or $options{dataRestore}) {
-        $self->extendedRestore(dir => $backupDir, %options);
     }
 }
 
@@ -438,13 +433,6 @@ sub restoreBackupPreCheck
     my ($self, $dir, %options) = @_;
 
     # default: no check
-}
-
-# default implementation: do nothing
-sub extendedRestore
-{
-  # my %params = @_;
-  # my $dir = $params{dir};
 }
 
 sub _bak_file_from_dir

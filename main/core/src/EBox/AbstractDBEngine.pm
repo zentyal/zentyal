@@ -15,8 +15,8 @@
 
 # Class: EBox::AbstractEngine
 #
-#	This class exposes the interface to be implemented by a new database backend
-#	module.
+#   This class exposes the interface to be implemented by a new database backend
+#   module.
 #
 package EBox::AbstractDBEngine;
 
@@ -27,10 +27,10 @@ use DBI;
 use EBox::Exceptions::NotImplemented;
 
 sub new {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _dbname
@@ -38,7 +38,7 @@ sub new {
 #  This function returns the database name.
 #
 sub _dbname {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _dbuser
@@ -46,7 +46,7 @@ sub _dbname {
 #  This function returns the database user.
 #
 sub _dbuser {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _dbpass
@@ -54,31 +54,45 @@ sub _dbuser {
 #  This function returns the database user password.
 #
 sub _dbpass {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _connect
 #
-#	This function do the necessary operations to establish a connection with the
-#	database.
+#   This function do the necessary operations to establish a connection with the
+#   database.
 #
 sub _connect  {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: _disconnect
 #
-#	This function do the necessary operations to get disconnected from the
-#	database.
+#   This function do the necessary operations to get disconnected from the
+#   database.
 #
 sub _disconnect {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
+}
+
+# Method: update
+#
+#     This function performs an update in the database.
+#
+# Parameters:
+#   $table: The table name to insert data.
+#   $values: A hash ref with database fields name and values pairs that do you
+#   want to update
+#   $where: An array ref with conditions for the where
+#
+sub update {
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: insert
 #
-#	This function do the necessary operations to create and establish an insert
-#	operation to a table form the database.
+#   This function do the necessary operations to create and establish an insert
+#   operation to a table form the database.
 #
 # Parameters:
 #   $table: The table name to insert data.
@@ -86,16 +100,28 @@ sub _disconnect {
 #   want to insert to.the table name passed as parameter too.
 #
 sub insert {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
+}
+
+# Method: delete
+#
+#     This function performs a delete in the database.
+#
+# Parameters:
+#   $table: The table name to insert data.
+#   $where: An array ref with conditions for the where
+#
+sub delete {
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: query
 #
-#	This function do the necessary operations to create and establish a query
-#	operation to a table form the database.
+#   This function do the necessary operations to create and establish a query
+#   operation to a table form the database.
 #
 sub query {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: dumpDB

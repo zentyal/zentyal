@@ -1,3 +1,8 @@
+HEAD
+	+ Added Administration Audit Logging to log sessions, configuration
+	  changes, and show pending actions in save changes confirmation
+	+ User name is stored in session
+	+ Remove deprecated extendedRestore from the old Full Backup
 2.1.17
 	+ Fixed RAID event crash
 	+ Added warning on models and composites when the module is disabled

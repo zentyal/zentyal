@@ -354,21 +354,6 @@ sub getLogDomains
     return \%logdomains;
 }
 
-
-
-# keept for coapmibilty with old extended backups
-sub extendedRestore
-{
-  my ($self, %params) = @_;
-  my $dir    = $params{dir};
-
-  my $dbengine = EBox::DBEngineFactory::DBEngine();
-  my $dumpFileBasename = 'eboxlogs';
-
-  $dbengine->restoreDB($dir, $dumpFileBasename);
-}
-
-
 sub backupDomains
 {
     my $name = 'logs';
@@ -453,7 +438,7 @@ sub _checkValidDate # (date)
 #         the returned value of <EBox::Logs::getTableInfo> with
 #         parameter <EBox::Logs::search::index>.
 #
-sub search 
+sub search
 {
     my ($self, $from, $to, $index,
         $pagesize, $page, $timecol, $filters) = @_;

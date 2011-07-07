@@ -72,12 +72,32 @@ sub getParams
     return %params;
 }
 
+sub _auditLog
+{
+    my ($self, $event, $id, $value, $oldValue) = @_;
+
+    unless (defined $self->{audit}) {
+        $self->{audit} = EBox::Global->modInstance('audit');
+    }
+
+    return unless $self->{audit}->isEnabled();
+
+    my $model = $self->{tableModel};
+    $value = '' unless defined $value;
+    $oldValue = '' unless defined $oldValue;
+    $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
+}
+
 sub addRow
 {
     my $self = shift;
 
     my $model = $self->{'tableModel'};
-    $model->addRow($self->getParams());
+    my %params = $self->getParams();
+    my $id = $model->addRow(%params);
+
+    $self->_auditLog('add', $id);
+    # TODO: log also the new values
 }
 
 sub moveRow
@@ -92,14 +112,18 @@ sub moveRow
     my $id = $self->param('id');
     my $dir = $self->param('dir');
 
+    my $before = $model->_rowOrder($id);
     if ($dir eq 'up') {
         $model->moveUp($id);
     } else {
         $model->moveDown($id);
     }
+    my $after = $model->_rowOrder($id);
+
+    $self->_auditLog('move', $id, $before, $after);
 }
 
-sub removeRow()
+sub removeRow
 {
     my $self = shift;
 
@@ -110,6 +134,8 @@ sub removeRow()
     my $force = $self->param('force');
 
     $model->removeRow($id, $force);
+
+    $self->_auditLog('del', $id);
 }
 
 sub editField
@@ -119,14 +145,41 @@ sub editField
     my $model = $self->{'tableModel'};
     my %params = $self->getParams();
     my $force = $self->param('force');
+    my $tableDesc = $model->table()->{'tableDescription'};
+
+    my $id = $params{id};
+    my $row = $model->row($id);
+
+    # Store old and new values before setting the row for audit log
+    my %changedValues;
+    my @fieldNames = map { $_->{fieldName} } @{$tableDesc};
+    for my $fieldName (@fieldNames) {
+        next unless $params{$fieldName};
+
+        my $newValue = $params{$fieldName};
+        my $oldValue = $row->valueByName($fieldName);
+
+        next if ($newValue eq $oldValue);
+
+        $changedValues{$fieldName} = {
+            id => $id ? "$id/$fieldName" : $fieldName,
+            new => $newValue,
+            old => $oldValue,
+        };
+    }
+
     $model->setRow($force, %params);
+
+    for my $fieldName (keys %changedValues) {
+        my $value = $changedValues{$fieldName};
+        $self->_auditLog('set', $value->{id}, $value->{new}, $value->{old});
+    }
 
     my $editField = $self->param('editfield');
     if (not $editField) {
         return;
     }
 
-    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
     foreach my $field (@{$tableDesc}) {
         my $fieldName = $field->{'fieldName'};
         if ($editField ne $fieldName) {
@@ -137,7 +190,6 @@ sub editField
             $self->{'to_print'} = $params{$fieldName};
         }
     }
-
 }
 
 
@@ -154,6 +206,7 @@ sub editBoolean
     }
 
     my $currentRow = $model->row($id);
+    my $oldValue = $currentRow->valueByName($field);
     my $element = $currentRow->elementByName($field);
     $element->setValue($value);
     $model->setTypedRow( $id, { $field => $element},
@@ -168,6 +221,8 @@ sub editBoolean
     if ($global->unsaved()) {
         print '$("changes_menu").className = "changed"';
     }
+
+    $self->_auditLog('set', "$id/$field", $value, $oldValue);
 }
 
 sub customAction
@@ -178,6 +233,8 @@ sub customAction
     my $id = $params{id};
     my $customAction = $model->customActions($action, $id);
     $customAction->handle($id, %params);
+
+    $self->_auditLog('action', $id, $action);
 }
 
 # Method to refresh the table by calling rows method

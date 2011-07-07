@@ -23,7 +23,6 @@ use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::LogAdmin qw(:all);
 use EBox::ServiceManager;
 
 sub new # (error=?, msg=?, cgi=?)
@@ -42,7 +41,6 @@ sub _process
 
     my $global = EBox::Global->getInstance();
 
-
     if (defined($self->param('save'))) {
         $self->saveAllModulesAction();
     } elsif (defined($self->param('cancel'))) {
@@ -55,13 +53,71 @@ sub _process
             push(@array, 'unsaved' => 'yes');
             push(@array, 'askPermission' => $askPermission);
             push(@array, 'disabledModules' => _disabledModules());
-            #FIXME: uncomment to enable logadmin stuff
-            #push(@array, 'actions' => pendingActions());
+            push(@array, 'actions' => _pendingActions());
             $self->{params} = \@array;
         }
     }
 }
 
+sub _pendingActions
+{
+    my $global = EBox::Global->getInstance(1);
+    my $audit = EBox::Global->modInstance('audit');
+    my $ret = $audit->queryPending();
+
+    my $actions = [];
+    foreach my $action (@{$ret}) {
+        my $modname = $action->{'module'};
+        my $model = $action->{'model'};
+        my $rowName;
+        if($global->modExists($modname)) {
+            my $mod = EBox::Global->modInstance($modname);
+            $action->{'modtitle'} = $mod->title();
+            my $modelInstance = $mod->model($model);
+            if ($modelInstance) {
+                $action->{'modeltitle'} = $modelInstance->printableName();
+                $rowName = $modelInstance->printableRowName();
+            } else {
+                $action->{'modeltitle'} = $action->{'model'};
+            }
+        } else {
+            $action->{'modtitle'} = $modname;
+        }
+        my $event = $action->{'event'};
+        my $id = $action->{'id'};
+        my $value = $action->{'value'};
+        my $oldvalue = $action->{'oldvalue'};
+        unless ($rowName) {
+            $rowName = __('row');
+        }
+        my $message;
+        if ($event eq 'add') {
+            $message = __x('A new {rowName} "{r}" has been added',
+                           rowName => $rowName, r => $id);
+        } elsif ($event eq 'set') {
+            # TODO: separate id/field into "field foo in row id"
+            my ($row, $field) = split (/\//, $id);
+            if (defined ($row) and defined ($field)) {
+                $message = __x('The field "{f}" in the {rowName} "{r}" has been changed from "{x}" to "{y}"',
+                               f => $field, rowName => $rowName, r => $row, x => $oldvalue, y => $value);
+            } else {
+                $message = __x('The value of "{id}" has been changed from "{x}" to "{y}"',
+                               id => $id, x => $oldvalue, y => $value);
+            }
+        } elsif ($event eq 'del') {
+            $message = __x('The {rowName} "{r}" has been deleted',
+                           rowName => $rowName, r => $id);
+        } elsif ($event eq 'move') {
+            $message = __x('The {rowName} "{r}" has been moved from {x} to {y} position',
+                           rowName => $rowName, r => $id, x => $oldvalue, y => $value);
+        } elsif ($event eq 'action') {
+            $message = __x('The action "{a}" has been executed', a => $id);
+        }
+        $action->{'message'} = $message;
+        push(@{$actions}, $action);
+    }
+    return $actions;
+}
 
 sub saveAllModulesAction
 {

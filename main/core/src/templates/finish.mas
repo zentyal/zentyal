@@ -40,7 +40,7 @@ function acceptConfFile(id, totalFiles)
         return;
     }
 
-    acceptedFiles.push(id); 
+    acceptedFiles.push(id);
 
     new Effect.Fade(id);
 
@@ -57,7 +57,7 @@ function rejectConfFile(id, totalFiles)
     if (rejectedFiles.indexOf(id) != -1) {
         return;
     }
-    
+
     rejectedFiles.push(id);
 
     new Effect.Fade(id);
@@ -81,10 +81,10 @@ function sendAcceptedFiles()
 }
 
 % my $title = __('Warning');
-        Modalbox.show('/zentyal/ServiceModule/View', 
-                      { title: '<% $title %>', 
+        Modalbox.show('/zentyal/ServiceModule/View',
+                      { title: '<% $title %>',
                        loadingString: 'Loding.. Please wait',
-                       inactiveFade: false, 
+                       inactiveFade: false,
                        width: 600,
                        height: 400});
         Modalbox.deactivate();
@@ -110,12 +110,16 @@ function sendAcceptedFiles()
 	<%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
 </div>
 % if (@actions) {
+<div class='note'>
+<% __('The following changes are pending. You can save or discard them.') %>
+</div>
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
 			<th class='tleft'><% __('Date') %></th>
 			<th class='tleft'><% __('Module') %></th>
-			<th class='tleft'><% __('Message') %></th>
+			<th class='tleft'><% __('Section') %></th>
+			<th class='tleft'><% __('Description') %></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -123,6 +127,7 @@ function sendAcceptedFiles()
 	<tr>
 		<td><% $action->{'timestamp'} %></td>
 		<td><% $action->{'modtitle'} %></td>
+		<td><% $action->{'modeltitle'} %></td>
 		<td><% $action->{'message'} %></td>
 	</tr>
 %	}
@@ -141,5 +146,3 @@ function sendAcceptedFiles()
 <% __('There are no unsaved changes.') %>
 </div>
 % }
-
-

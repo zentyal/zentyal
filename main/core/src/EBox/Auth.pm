@@ -27,7 +27,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
-use EBox::LogAdmin;
 use Apache2::Connection;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
@@ -59,7 +58,7 @@ sub new
 #       - When session file cannot be opened to write
 sub _savesession # (session_id)
 {
-    my ($sid) = @_;
+    my ($sid, $user) = @_;
     my $sidFile;
     my $openMode = '>';
     if ( -f EBox::Config->sessionid() ) {
@@ -75,7 +74,8 @@ sub _savesession # (session_id)
         or throw EBox::Exceptions::Lock('EBox::Auth');
     # Truncate the file after locking
     truncate($sidFile, 0);
-    print $sidFile $sid . "\t" . time if defined $sid;
+    my $time = time();
+    print $sidFile "$sid\t$time\t$user" if defined $sid;
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
@@ -130,7 +130,9 @@ sub setPassword
 
     print $pipe "$username:$password\n";
     close($pipe);
-    EBox::LogAdmin::logAdminNow('ebox',__n('Password changed'),'');
+
+    my $audit = EBox::Global->modInstance('audit');
+    $audit->logAction('core', 'Auth', 'Password changed', $username, '*', '*', 0);
 }
 
 # Method: authen_cred
@@ -149,15 +151,19 @@ sub authen_cred  # (request, $user, password, fromCC)
         return;
     }
 
+    my $ip  = $r->connection->remote_ip();
+    my $audit = EBox::Global->modInstance('audit');
     # Unless it is a CC session or password does
     if ( not (defined($fromCC) and $fromCC) ) {
         unless ($self->checkValidUser($user, $passwd)) {
             my $log = EBox->logger();
-            my $ip  = $r->connection->remote_ip();
             $log->warn("Failed login from: $ip");
+            $audit->logSessionEvent($user, $ip, 'fail');
             return;
         }
     }
+    $r->user($user);
+    $audit->logSessionEvent($user, $ip, 'login');
 
     my $rndStr;
     for my $i (1..64) {
@@ -166,7 +172,7 @@ sub authen_cred  # (request, $user, password, fromCC)
     my $md5 = Digest::MD5->new();
     $md5->add($rndStr);
     my $sid = $md5->hexdigest();
-    _savesession($sid);
+    _savesession($sid, $user);
 
     my $global = EBox::Global->getInstance();
     $global->revokeAllModules();
@@ -183,7 +189,7 @@ sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_key) = @_;
 
-    my ($sid, $lastime) = _currentSessionId();
+    my ($sid, $lastime, $user) = _currentSessionId();
 
     my $expired =  _timeExpired($lastime);
 
@@ -192,10 +198,17 @@ sub authen_ses_key  # (request, session_key)
         _savesession(undef);
     }
     elsif(($session_key eq $sid) and (!$expired )){
-        _savesession($sid);
-        return "admin";
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->setUsername($user);
+
+        _savesession($sid, $user);
+        return $user;
     }
     elsif ($expired) {
+        my $audit = EBox::Global->modInstance('audit');
+        my $ip = $r->connection->remote_ip();
+        $audit->logSessionEvent($user, $ip, 'expired');
+
         $r->subprocess_env(LoginReason => "Expired");
         _savesession(undef);
     }
@@ -246,12 +259,28 @@ sub loginCC
 sub alreadyLogged
 {
     my ($self) = @_;
-    my ($sid, $lastime) = _currentSessionId();
+    my ($sid, $lastime, $user) = _currentSessionId();
 
     return 0 if !defined $sid;
     return 0 if _timeExpired($lastime);
 
     return 1;
+}
+
+# Method: logout
+#
+#       Overriden method from <Apache2::AuthCookie>.
+#
+sub logout
+{
+    my ($self,$r) = @_;
+
+    $self->SUPER::logout($r);
+
+    my $audit = EBox::Global->modInstance('audit');
+    my $ip = $r->connection->remote_ip();
+    my $user = $r->user();
+    $audit->logSessionEvent($user, $ip, 'logout');
 }
 
 # scalar mode: return the sessionid
@@ -279,15 +308,14 @@ sub _currentSessionId
         or throw EBox::Exceptions::Lock('EBox::Auth');
 
     $_ = <$SID_F>;
-    my ($sid, $lastime);
-    ($sid, $lastime) = split /\t/ if defined $_;
+    my ($sid, $lastime, $user) = split /\t/ if defined $_;
 
     # Release the lock
     flock($SID_F, LOCK_UN);
     close($SID_F);
 
     if (wantarray()) {
-        return ($sid, $lastime) ;
+        return ($sid, $lastime, $user);
     }
     else {
         return $sid;
