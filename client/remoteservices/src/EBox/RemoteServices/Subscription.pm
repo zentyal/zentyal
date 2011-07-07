@@ -776,7 +776,16 @@ sub _checkWSConnectivity
     $host or throw EBox::Exceptions::External('WS key not found');
 
     my $counter = EBox::RemoteServices::Configuration::eBoxServicesMirrorCount();
-    $counter or throw EBox::Exceptions::Internal('Mirror count not found');
+    $counter or 
+        throw EBox::Exceptions::Internal('Mirror count not found');
+
+
+    my $network = EBox::Global->modInstance('network');
+    my $proxyModel = $network->model('Proxy');
+    my $proxy     = $proxyModel->serverValue();
+    my $proxyPort = $proxyModel->portValue();
+    my $proxyUser = $proxyModel->usernameValue();
+    my $proxyPass =$proxyModel->passwordValue();
 
     my $proto = 'tcp';
     my $port = 443;
@@ -785,8 +794,24 @@ sub _checkWSConnectivity
     foreach my $no ( 1 .. $counter ) {
         my $site = $host;
         $site =~ s:\.:$no.:;
+        my $url = 'https://' . $site . '/check';
+        my $cmd = "curl --insecure ";
+        if ($proxy) {
+            $cmd .= "--proxy $proxy:$proxyPort ";
+            if ($proxyUser) {
+                $cmd .= " --proxy-user $proxyUser:$proxyPass ";
+            }
+        }
+        $cmd .= $url;
+
         try {
-            $ok = _checkHostPort($host, $proto, $port);
+            my $output = EBox::Sudo::root($cmd);
+            foreach my $line (@{ $output }) {
+                if ($line =~ m/A prudent question is one-half of wisdom/) {
+                    $ok =1;
+                    last;
+                }
+            }
         } catch EBox::Exceptions::External with {
             $ok = 0;
         };

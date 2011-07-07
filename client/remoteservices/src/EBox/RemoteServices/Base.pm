@@ -216,8 +216,11 @@ sub _nameservers
     }
 
     my @nameservers = split(',', $eboxServicesDns);
-    return \@nameservers;
+    # add system nameservers 
+    my $network = EBox::Global->modInstance('network');
+    push @nameservers, @{ $network->nameservers() };
 
+    return \@nameservers;
 }
 
 # Method: _queryServicesNameserver

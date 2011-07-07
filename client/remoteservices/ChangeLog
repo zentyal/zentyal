@@ -1,3 +1,6 @@
+2.0.17
+	+ Use system configured NS if the Cloud NS is not available
+	+ User HTTP instead of ping for check Cloud WS server
 2.0.16
 	+ Pass new fallbackToRO option when making a configuration backup
 	+ Added Cloud DNS connection check
