@@ -62,7 +62,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'Interfaces',
-        printableTableName => __('Montiored Interfaces'),
+        printableTableName => __('Monitored Interfaces'),
         printableRowName   => __('interface'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
