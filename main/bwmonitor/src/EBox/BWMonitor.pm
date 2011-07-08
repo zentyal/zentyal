@@ -106,8 +106,38 @@ sub _daemons
 {
     my ($self) = @_;
 
-    # TODO
-    return [];
+    my @daemons;
+
+    foreach my $iface (@{$self->ifaces()}) {
+        push (@daemons, {
+            name => "zentyal.bwmonitor-$iface"
+        });
+    }
+
+    return \@daemons;
+}
+
+# Override _enforceServiceState to stop disabled daemons
+sub _enforceServiceState
+{
+    my ($self) = @_;
+
+    $self->_stopService();
+    $self->_startService() if($self->isEnabled());
+}
+
+
+# Stop all daemons (also interfaces disabled in the GUI)
+sub _stopService
+{
+    my ($self) = @_;
+
+    my $model = $self->model('Interfaces');
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $iface = $row->valueByName('interface');
+        $self->_stopDaemon({ name => "zentyal.bwmonitor-$iface" });
+    }
 }
 
 
