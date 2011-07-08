@@ -170,13 +170,13 @@ sub tableInfo
         'client' => __('Client address'),
         'interface' => __('Interface'),
 #        'username' => __('User'),
-        'extTotalRecv' => __('External recv'),
-        'extTotalSent' => __('External sent'),
-        'intTotalRecv' => __('Internal recv'),
-        'intTotalSent' => __('Internal sent'),
+        'exttotalrecv' => __('External recv'),
+        'exttotalsent' => __('External sent'),
+        'inttotalrecv' => __('Internal recv'),
+        'inttotalsent' => __('Internal sent'),
     };
 
-    my @order = qw(timestamp client externalRecv externalSent internalRecv internalSent);
+    my @order = qw(timestamp client interface exttotalrecv exttotalsent inttotalrecv inttotalsent);
 
 #   TODO consolidation...
 #    my $consolidation = {
@@ -258,6 +258,7 @@ sub processLine
     my %dataToInsert;
     $dataToInsert{timestamp} = "$year-$mon-$mday $hour:$min:$sec";
     $dataToInsert{client} = $data->{IP};
+    $dataToInsert{interface} = $iface;
 
     $dataToInsert{intTotalRecv} = $data->{INT_RECV};
     $dataToInsert{intTotalSent} = $data->{INT_SENT};
