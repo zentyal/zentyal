@@ -24,6 +24,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::ServiceManager;
+use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -73,13 +74,13 @@ sub _pendingActions
         if($global->modExists($modname)) {
             my $mod = EBox::Global->modInstance($modname);
             $action->{'modtitle'} = $mod->title();
-            my $modelInstance = $mod->model($model);
-            if ($modelInstance) {
+            try {
+                my $modelInstance = $mod->model($model);
                 $action->{'modeltitle'} = $modelInstance->printableName();
                 $rowName = $modelInstance->printableRowName();
-            } else {
+            } otherwise {
                 $action->{'modeltitle'} = $action->{'model'};
-            }
+            };
         } else {
             $action->{'modtitle'} = $modname;
         }

@@ -37,8 +37,6 @@ sub _create
         printableName => __('Audit Logging')
     );
 
-    $self->{enabled} = 0;
-
     bless ($self, $class);
     return $self;
 }
@@ -75,14 +73,15 @@ sub enableLog
 {
     my ($self, $enable) = @_;
 
-    $self->{enabled} = $enable;
+    $self->set_bool('logging', $enable);
 }
 
 sub isEnabled
 {
     my ($self) = @_;
 
-    return $self->{enabled};
+    # Get readonly value to avoid disable of logging before saving changes
+    return $self->{redis}->get_bool('/ebox-ro/modules/audit/logging');
 }
 
 # Method: tableInfo
