@@ -1,4 +1,5 @@
 HEAD
+	+ Add support for LOGIN in authenticated mail relay
 	+ Delete deprecated extendedRestore method
 	+ Use quote column option for periodic and report log consolidation
 2.1.5

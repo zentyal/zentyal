@@ -28,6 +28,7 @@ use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Password;
 use EBox::Types::Boolean;
+use EBox::Types::Select;
 use EBox::Types::Host;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
@@ -106,6 +107,12 @@ sub _table
                                               size => 12,
                                               editable => 1,
                                               allowUnsafeChars => 1,
+                                                                  ),
+                                             new EBox::Types::Select(
+                                              fieldName => 'auth',
+                                              printableName => __('Authentication'),
+                                              editable => 1,
+                                              populate => \&_populateAuth,
                                                                   ),
 
                                             ],
@@ -251,6 +258,15 @@ sub _table
     return $dataForm;
 }
 
+sub _populateAuth
+{
+    my @options;
+
+    push (@options, { value => 'PLAIN', printableValue => 'PLAIN' });
+    push (@options, { value => 'LOGIN', printableValue => 'LOGIN' });
+
+    return \@options;
+}
 
 #
 # Method: maxMsgSize
