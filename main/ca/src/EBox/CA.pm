@@ -39,6 +39,7 @@ use EBox;
 use EBox::CA::Certificates;
 use EBox::Validate;
 use EBox::Sudo;
+use EBox::AuditLogging;
 
 use constant TEMPDIR     => "/tmp"; # EBox::Config->tmp();
 use constant OPENSSLPATH => "/usr/bin/openssl";
@@ -110,35 +111,37 @@ if ( defined $ENV{OPENSSL} ) {
 #      A recent EBox::CA object
 sub _create
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'ca',
-					  printableName => __n('Certification Authority'),
-					  @_);
+    my $class = shift;
+    my $self = $class->SUPER::_create(name => 'ca',
+                      printableName => __n('Certification Authority'),
+                      @_);
 
-	bless($self, $class);
+    bless($self, $class);
 
-	# OpenSSL environment stuff
-	$self->{tmpDir} = TEMPDIR;
-	$self->{shell} = OPENSSLPATH;
-	# The CA DN
-	$self->{dn} = $self->_obtain(CACERT, 'DN');
-	# Reasons to revoke
-	$self->{reasons} = ["unspecified",
-			    "keyCompromise",
-			    "CACompromise",
-			    "affiliationChanged",
-			    "superseded",
-			    "cessationOfOperation",
-			    "certificateHold",
-			    "removeFromCRL"];
-	# Expiration CA certificate
-	$self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+    # OpenSSL environment stuff
+    $self->{tmpDir} = TEMPDIR;
+    $self->{shell} = OPENSSLPATH;
+    # The CA DN
+    $self->{dn} = $self->_obtain(CACERT, 'DN');
+    # Reasons to revoke
+    $self->{reasons} = ["unspecified",
+                "keyCompromise",
+                "CACompromise",
+                "affiliationChanged",
+                "superseded",
+                "cessationOfOperation",
+                "certificateHold",
+                "removeFromCRL"];
+    # Expiration CA certificate
+    $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
-	# Set a maximum to establish the certificate expiration
-	# Related to Year 2038 bug
-	$self->{maxDays} = $self->_maxDays();
+    # Set a maximum to establish the certificate expiration
+    # Related to Year 2038 bug
+    $self->{maxDays} = $self->_maxDays();
 
-	return $self;
+    $self->{audit} = EBox::Global->modInstance('audit');
+
+    return $self;
 }
 
 # Method: modelClasses
@@ -289,9 +292,9 @@ sub createCA
 
     # Sign the selfsign certificate
     # $self->_signRequest(userReqFile  => CAREQ,
-    #		      days         => $args{days},
-    #		      userCertFile => CACERT,
-    #		      selfsigned   => "1");
+    #             days         => $args{days},
+    #             userCertFile => CACERT,
+    #             selfsigned   => "1");
 
     # OpenSSL v. 0.9.7
     # We should create the serial
@@ -328,10 +331,7 @@ sub createCA
     # Generate CRL
     $self->generateCRL();
 
-    # TODO: logAudit call
-    # action: createCA
-    # orgName: $self->{dn}->attribute('orgName')
-    # days: $arg{days}
+    $self->_audit('createCA', $self->{dn}->attribute('orgName'));
 
     #unlink (CAREQ);
     $self->_setPasswordRequired(defined($self->{caKeyPassword}));
@@ -366,9 +366,7 @@ sub destroyCA
                 . $!);
     }
 
-    # TODO: audit logging
-    # action: destroyCA
-    # orgName: $self->{dn}->attribute('orgName')
+    $self->_audit('destroyCA', $self->{dn}->attribute('orgName'));
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
@@ -480,10 +478,7 @@ sub revokeCACertificate
 
     $self->{caExpirationDate} = undef;
 
-    # TODO: audit logging
-    # action: revokeCACertificate
-    # reason: $args{reason}
-    # force:  $force
+    $self->_audit('revokeCACertificate', "reason: $args{reason}");
 
     return $retVal;
 }
@@ -558,10 +553,7 @@ sub issueCACertificate
     # Expiration CA certificate
     $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
-    # TODO: audit logging
-    # action: issueCACertificate
-    # orgName: $self->{dn}->attribute("orgName")
-    # days: $args{days}
+    $self->_audit('issueCACertificate', $self->{dn}->attribute('orgName'));
 
     $self->_setPasswordRequired( defined( $args{caKeyPassword} ));
 
@@ -643,11 +635,7 @@ sub renewCACertificate
         }
     }
 
-    # Logging the action
-    # TODO: audit logging
-    # action: reneweCACertificate",
-    # orgName: $self->{dn}->attribute("orgName")
-    # days: $args{days}
+    $self->_audit('renewCACertificate', $self->{dn}->attribute('orgName'));
 
     return $renewedCert;
 }
@@ -865,10 +853,7 @@ sub issueCertificate
         $self->_generateP12Store($privKey, $self->getCertificateMetadata(cn => $args{commonName}), $args{keyPassword});
     }
 
-    # TODO: audit logging
-    # action: issueCertificate
-    # cn: $args{commonName}
-    # days: $args{days}
+    $self->_audit('issueCertificate', $args{commonName});
 
     return $self->_findCertFile($args{"commonName"});
 
@@ -1542,7 +1527,7 @@ sub renewCertificate
                 userCertFile => $newCertFile,
                 selfsigned   => $selfsigned,
                 createSerial => 0,
-                # Not in OpenSSL 0.9.7			newSubject   => $newSubject,
+                # Not in OpenSSL 0.9.7          newSubject   => $newSubject,
                 endDate      => $userExpDay,
                 subjAltNames => $subjAltNames,
                 );
@@ -1578,10 +1563,7 @@ sub renewCertificate
         $newCertFile = $self->_findCertFile($userDN->attribute('commonName'));
     }
 
-    # TODO: audit logging
-    # action: renewCertificate
-    # cn: $args{commonName}
-    # days:  $args{days}
+    $self->_audit('renewCertificate', $args{commonName});
 
     # Tells other modules the following certs have been renewed
     my $isCACert = 0;
@@ -2612,6 +2594,14 @@ sub _generateExtFile
     return $tmpFile->filename();
 }
 
+sub _audit
+{
+    my ($self, $action, $arg) = @_;
+
+    $self->{audit}->logAction('ca', 'Certification Authority', $action, $arg);
+}
+
+
 ## OpenSSL execution environment provided by OpenCA::OpenSSL
 ## through OpenCA application
 ## Modificated to adapt to OpenSSL environment
@@ -2667,7 +2657,7 @@ sub _generateExtFile
 ##
 ## Contributions by:
 ##          Martin Leung <ccmartin@ust.hk>
-##	    Uwe Gansert <ug@suse.de>
+##      Uwe Gansert <ug@suse.de>
 
 ##############################################################
 ##             OpenSSL execution environment                ##
@@ -2750,8 +2740,8 @@ sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
         if (open FD, "$self->{tmpDir}/${$}_stderr.log")
         {
             while( my $tmp = <FD> ) {
-	        $ret .= $tmp;
-#		EBox::debug( $tmp );
+            $ret .= $tmp;
+#       EBox::debug( $tmp );
             }
             close(FD);
         }
@@ -2772,7 +2762,7 @@ sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
         $ret = "";
         while( my $tmp = <FD> ) {
             $ret .= $tmp;
-	  }
+      }
         close(FD);
         $ret =~ s/^(OpenSSL>\s)*//s;
         $ret =~ s/OpenSSL>\s$//s;
