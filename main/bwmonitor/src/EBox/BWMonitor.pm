@@ -41,6 +41,9 @@ sub _create
     my $self = $class->SUPER::_create(name => 'bwmonitor',
                                       printableName => __('Bandwidth Monitor'),
                                       @_);
+
+    $self->{usermap} = $self->model('UserIPMap');
+
     bless($self, $class);
     return $self;
 }
@@ -49,6 +52,7 @@ sub modelClasses
 {
     return [
         'EBox::BWMonitor::Model::Interfaces',
+        'EBox::BWMonitor::Model::UserIPMap',  # FIXME? this should reside in state
     ];
 }
 
@@ -65,6 +69,54 @@ sub menu
                                     'separator' => 'Gateway',
                                     'order' => 230));
 }
+
+
+# Method: addUserIP
+#
+#   Match an user with the given IP. Until further notice
+#   from/to that IP will be assigned to the given user.
+#   An user can have many assigned IPs so removeUserIP does not
+#   modify previous calls (see removeUserIP)
+#
+#   Params:
+#       - username
+#       - ip
+#
+#   Throws Internal exception if the user-ip pair already exists
+#
+sub addUserIP
+{
+    my ($self, $username, $ip) = @_;
+
+    my $changed = $self->changed();
+    $self->{usermap}->add(username => $username, ip => $ip);
+    $self->setAsChanged(0) unless ($changed);
+}
+
+
+# Method: removeUserIP
+#
+#   Ends a previously created match between user and IP if it exists
+#
+#   Params:
+#       - username
+#       - ip
+#
+sub removeUserIP
+{
+    my ($self, $username, $ip) = @_;
+
+    my $row = $self->{usermap}->find(ip => $ip);
+    return unless (defined($row));
+
+    if ($row->valueByName('username') eq $username) {
+        my $changed = $self->changed();
+        $self->{usermap}->removeRow($row->id(), 1);
+        $self->setAsChanged(0) unless ($changed);
+    }
+}
+
+
 
 sub _setConf
 {
@@ -169,14 +221,14 @@ sub tableInfo
         'timestamp' => __('Date'),
         'client' => __('Client address'),
         'interface' => __('Interface'),
-#        'username' => __('User'),
+        'username' => __('User'),
         'exttotalrecv' => __('External recv'),
         'exttotalsent' => __('External sent'),
         'inttotalrecv' => __('Internal recv'),
         'inttotalsent' => __('Internal sent'),
     };
 
-    my @order = qw(timestamp client interface exttotalrecv exttotalsent inttotalrecv inttotalsent);
+    my @order = qw(timestamp interface client username exttotalrecv exttotalsent inttotalrecv inttotalsent);
 
 #   TODO consolidation...
 #    my $consolidation = {
@@ -252,6 +304,7 @@ sub processLine
     # Parse log line
     my $data = { $line =~ /([A-Z_]+)=([0-9.]+)+/g };
 
+
     my ($sec,$min,$hour,$mday,$mon,$year) = (localtime($data->{TIMESTAMP}))[0..5];
     ($mon,$year) = ($mon+1,$year+1900);
 
@@ -271,6 +324,11 @@ sub processLine
     $dataToInsert{extICMP} = $data->{EXT_ICMP};
     $dataToInsert{extUDP} = $data->{EXT_UDP};
     $dataToInsert{extTCP} = $data->{EXT_TCP};
+
+    # Retrieve username
+    my $row = $self->{usermap}->find(ip => $data->{IP});
+    $dataToInsert{username} = $row->valueByName('username') if (defined($row));
+
 
     # Insert into db
     $dbengine->insert('bwmonitor_usage', \%dataToInsert);

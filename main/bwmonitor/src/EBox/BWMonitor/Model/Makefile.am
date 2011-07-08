@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/BWMonitor/Model
 
-nobase_perl_DATA = Interfaces.pm
+nobase_perl_DATA = Interfaces.pm UserIPMap.pm
 
 DISTCLEANFILES =
 

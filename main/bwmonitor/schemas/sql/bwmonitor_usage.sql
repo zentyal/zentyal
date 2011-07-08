@@ -1,7 +1,6 @@
 CREATE TABLE bwmonitor_usage (
     client INET,
-/*    username VARCHAR(24), */
-
+    username VARCHAR(255),
     interface     VARCHAR(30),
 
     /* internal traffic */
