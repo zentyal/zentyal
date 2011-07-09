@@ -1,4 +1,6 @@
 HEAD
+	+ Improve smb.conf template: delete use_client_driver and allow include
+	  per client
 	+ Always depend on samba-vscan
 	+ Use quote column option for periodic and report log consolidation
 2.1.3
