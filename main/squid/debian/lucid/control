@@ -11,7 +11,7 @@ Vcs-Svn: http://svn.zentyal.org/zentyal/trunk/
 Package: zentyal-squid
 Architecture: all
 Replaces: ebox-squid (<< 2.0.100)
-Depends: zentyal-core (>= 2.1), zentyal-core (<< 2.1.100), zentyal-firewall, zentyal-objects, zentyal-users, squid, dansguardian (>= 2.9), adduser, clamav-daemon (>= 0.94), ${misc:Depends}
+Depends: zentyal-core (>= 2.1), zentyal-core (<< 2.1.100), zentyal-firewall, zentyal-objects, zentyal-users, squid, dansguardian (>= 2.9), adduser, clamav-daemon (>= 0.94), adzapper, ${misc:Depends}
 Description: Zentyal - HTTP Proxy (Cache and Content Filter) Service
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

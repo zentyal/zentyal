@@ -12,7 +12,8 @@ nobase_Stub_DATA = squid.conf.mas squid.logrotate  \
 	clamdscan.conf.mas \
 	pics.mas \
     ipgroups.mas \
-	dansguardian.logrotate template.html.mas
+	dansguardian.logrotate template.html.mas \
+    adzapper.conf.mas
 
 
 EXTRA_DIST = $(nobase_Stub_DATA)

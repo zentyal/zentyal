@@ -58,6 +58,13 @@ sub _table
                     defaultValue   => 0,
                     help => _transparentHelp()
                 ),
+            new EBox::Types::Boolean(
+                    fieldName => 'removeAds',
+                    printableName => __('Ad Blocking'),
+                    editable => 1,
+                    defaultValue   => 0,
+                    help => __('Remove advertisments from all HTTP traffic')
+                ),
             new EBox::Types::Port(
                     fieldName => 'port',
                     printableName => __('Port'),
@@ -91,10 +98,8 @@ sub _table
                       },
                      };
 
-
     return $dataForm;
 }
-
 
 sub validateTypedRow
 {

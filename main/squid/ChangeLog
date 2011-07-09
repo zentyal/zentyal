@@ -1,4 +1,5 @@
 HEAD
+	+ Added global ad-blocking option
 	+ Use quote column option for periodic and report log consolidation
 2.1.3
 	+ Dansguardian is only started when a global filter policy is choosen

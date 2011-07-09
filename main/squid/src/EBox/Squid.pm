@@ -55,15 +55,19 @@ use File::Basename;
 use EBox::NetWrappers qw(to_network_with_mask);
 
 #Module local conf stuff
-use constant SQUIDCONFFILE => '/etc/squid/squid.conf';
-use constant MAXDOMAINSIZ => 255;
-use constant SQUIDPORT => '3128';
-use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
-use constant DGLISTSDIR => DGDIR . '/lists';
-use constant DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian';
-use constant SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid';
-use constant CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf';
+use constant {
+    SQUIDCONFFILE => '/etc/squid/squid.conf',
+    MAXDOMAINSIZ => 255,
+    SQUIDPORT => '3128',
+    DGPORT => '3129',
+    DGLISTSDIR => DGDIR . '/lists',
+    DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian',
+    SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid',
+    CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf',
+    BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
+    ADZAPPER_CONF => '/etc/adzapper.conf',
+};
 
 sub _create
 {
@@ -280,6 +284,11 @@ sub usedFiles
              'file' =>    DGLISTSDIR . '/authplugins/ipgroups',
              'module' => 'squid',
              'reason' => __('Filter groups per IP'),
+            },
+            {
+             'file' =>    ADZAPPER_CONF,
+             'module' => 'squid',
+             'reason' => __('Configuration of adzapper'),
             },
            ];
 }
@@ -628,7 +637,9 @@ sub _writeSquidConf
     my $groupsPolicies = $self->model('GlobalGroupPolicy')->groupsPolicies();
     my $objectsPolicies = $self->model('ObjectPolicy')->objectsPolicies();
 
-    my $cacheDirSize = $self->model('GeneralSettings')->cacheDirSizeValue();
+    my $generalSettings = $self->model('GeneralSettings');
+    my $cacheDirSize = $generalSettings->cacheDirSizeValue();
+    my $removeAds    = $generalSettings->removeAdsValue();
 
     my $users = EBox::Global->modInstance('users');
     my $network = EBox::Global->modInstance('network');
@@ -664,6 +675,10 @@ sub _writeSquidConf
     if ( $global->modExists('remoteservices') ) {
         my $rs = EBox::Global->modInstance('remoteservices');
         push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed() ));
+    }
+    if ($removeAds) {
+        push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
+        $self->writeConfFile(ADZAPPER_CONF, "squid/adzapper.conf.mas", \@writeParam);
     }
 
     $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
@@ -1280,11 +1295,11 @@ sub report
         'where' => "event = 'accepted'",
         'group' => "main_code",
         'options' => {
- 
+
                      },
-    }, { 
+    }, {
         key => 'main_code',
-        keyGenerator => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END AS main_code", 
+        keyGenerator => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END AS main_code",
        }
                                         );
 
