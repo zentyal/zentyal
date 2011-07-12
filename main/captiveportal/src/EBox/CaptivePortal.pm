@@ -273,8 +273,9 @@ sub ifaces
 #      {
 #          user => 'username',
 #          ip   => 'X.X.X.X',
-#          mac   => 'XX:XX:XX:XX:XX:XX', (optional, if known)
+#          mac  => 'XX:XX:XX:XX:XX:XX', (optional, if known)
 #          sid  => 'session id',
+#          time => X,                   (last session update timestamp)
 #      },
 #      ...
 #   ]

@@ -40,7 +40,9 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    bless ( $self, $class );
+    $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
+
+    bless($self, $class);
     return $self;
 }
 
@@ -84,6 +86,15 @@ sub _table
             'optional' => 1,
         ),
     );
+
+    if ($self->_bwmonitor()) {
+        push (@tableHeader, new EBox::Types::Int(
+            'fieldName' => 'bwusage',
+            'printableName' => 'Month Bandwidth usage (KB)',
+            'editable' => 0,
+            'optional' => 0)
+        );
+    }
 
     my $dataTable =
     {
@@ -147,13 +158,20 @@ sub syncRows
     }
 
     foreach my $sid (@sessionsToAdd) {
-        $self->add(
-            sid => $sid,
-            user => $sessions->{$sid}->{user},
-            time => $sessions->{$sid}->{time},
-            ip => $sessions->{$sid}->{ip},
-            mac => $sessions->{$sid}->{mac},
-        );
+        my @user;
+
+        my $user = $sessions->{$sid}->{user};
+        push (@user, sid => $sid);
+        push (@user, user => $user);
+        push (@user, time => $sessions->{$sid}->{time});
+        push (@user, ip => $sessions->{$sid}->{ip});
+        push (@user, mac => $sessions->{$sid}->{mac});
+
+        if ($self->_bwmonitor()) {
+            push (@user, bwusage => $self->_bwusage($user));
+        }
+
+        $self->add(@user);
     }
 
     foreach my $sid (@sessionsToDel) {
@@ -166,12 +184,39 @@ sub syncRows
         my $row = $self->row($id);
         my $time = $sessions->{$sid}->{time};
         my $ip = $sessions->{$sid}->{ip};
+        my $user = $sessions->{$sid}->{user};
         $row->elementByName('time')->setValue($time);
         $row->elementByName('ip')->setValue($ip);
+        if ($self->_bwmonitor()) {
+            $row->elementByName('bwusage')->setValue($self->_bwusage($user));
+        }
         $row->store();
     }
 
     return 1;
+}
+
+# return 1 if bwmonitor is enabled
+sub _bwmonitor
+{
+    my ($self) = @_;
+
+    return defined($self->{bwmonitor}) and
+           $self->{bwmonitor}->isEnabled();
+}
+
+
+sub _bwusage
+{
+    my ($self, $user) = @_;
+
+    my @localtime = localtime();
+    my $month = $localtime[4] + 1;
+    my $year = $localtime[5] + 1900;
+
+    EBox::debug("year: $year, month: $month");
+
+    return int($self->{bwmonitor}->userExtBWUsage($user, $year, $month) / 1024);
 }
 
 
