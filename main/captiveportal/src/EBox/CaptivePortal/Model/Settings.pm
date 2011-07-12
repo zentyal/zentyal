@@ -34,7 +34,12 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    bless ( $self, $class );
+    # Use bwmonitor if it exists
+    if (EBox::Global->modExists('bwmonitor')) {
+        $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
+    }
+
+    bless ($self, $class);
     return $self;
 }
 
@@ -46,20 +51,49 @@ sub new
 #
 sub _table
 {
-    my @tableHeader = (
+    my ($self) = @_;
+
+    my @tableHeader;
+    if ($self->{bwmonitor}) {
+        my $enabled = $self->{bwmonitor}->isEnabled();
+
+        push (@tableHeader,
+            new EBox::Types::Boolean(
+                fieldName     => 'limitBW',
+                printableName => __('Limit bandwidth usage'),
+                editable      => $enabled,
+                defaultValue  => 0,
+                )
+        );
+
+        push (@tableHeader,
+            new EBox::Types::Int(
+                fieldName     => 'defaultQuota',
+                printableName => __('Default bandwidth quota (MB/month)'),
+                editable      => $enabled,
+                help          => __('Default maximum bandwidth usage per month. 0 means no limit.'),
+                defaultValue  => 0,
+                )
+        );
+    }
+
+    push (@tableHeader,
        new EBox::Types::Port(
            fieldName     => 'http_port',
            printableName => __('HTTP port'),
            editable      => 1,
            defaultValue  => 4444,
-           ),
-       new EBox::Types::Port(
+           )
+       );
+
+    push (@tableHeader,
+        new EBox::Types::Port(
            fieldName     => 'https_port',
            printableName => __('HTTPS port'),
            editable      => 1,
            defaultValue  => 4443,
            ),
-       );
+      );
 
     my $dataTable =
     {
