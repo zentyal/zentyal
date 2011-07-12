@@ -4,8 +4,20 @@ $data
 $cssClass => ''
 </%args>
 <%init>
+my $id = $tableName . '_' . $data->fieldName();
+my $loadingId = $id . '_loading';
+my $formId    = $id . '_form';
+my $onChange = << "JS_END";
+var fileUpload = new EBox.FileUpload( 
+   { formId :   '$formId', 
+     onStart :    function() { setLoading('$loadingId'); }, 
+     onComplete : function()  { setDone('$loadingId') ; },
+   }
+);
+return fileUpload.submit();
+JS_END
 </%init>
-% my $id = $tableName . '_' . $data->fieldName();
+
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
 </form>
@@ -17,12 +29,7 @@ $cssClass => ''
        name => $id . '_path',
        printableName => $data->printableName(),
        id   => $id . '_path',
-       onchange => q{var fileUpload = new EBox.FileUpload( }
-                   . q/{ formId : "/ . $id . q{_form", onStart : }
-                   . q/ function() { setLoading("/ . $id
-                   . q/_loading"); }, onComplete : function() {/
-                   . q/setDone("/ . $id
-                   . q/_loading");}}); return fileUpload.submit();/
+       onchange => $onChange,
     &>
     <span id="<% $id . '_loading'%>">
     </span>

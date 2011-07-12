@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed EBox::Types::File JavaScript setter code
 	+ Added support for "Add new..." modal boxes in foreign selectors
 	+ Each module can have now its customized purge-module script
 	  that will be executed after the package is removed
