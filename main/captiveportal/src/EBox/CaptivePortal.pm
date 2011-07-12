@@ -21,7 +21,8 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
-            EBox::FirewallObserver);
+            EBox::FirewallObserver
+            EBox::LdapModule);
 
 use EBox;
 use EBox::Gettext;
@@ -30,6 +31,7 @@ use Error qw(:try);
 use EBox::Sudo;
 use EBox::Ldap;
 use EBox::CaptivePortalFirewall;
+use EBox::CaptivePortal::LdapUser;
 use EBox::Exceptions::External;
 
 use constant CAPTIVE_DIR => '/var/lib/zentyal-captiveportal/';
@@ -53,32 +55,16 @@ sub _create
 #
 #   Override EBox::Module::Service::actions
 #
-#sub actions
-#{
-#    return [
-#        {
-#            'action' => __('FIXME'),
-#            'reason' => __('Zentyal will take care of FIXME'),
-#            'module' => 'cactiveportal'
-#        }
-#    ];
-#}
-
-# Method: usedFiles
-#
-#   Override EBox::Module::Service::usedFiles
-#
-#sub usedFiles
-#{
-#    return [
-#            {
-#             'file' => '/tmp/FIXME',
-#             'module' => 'captiveportal',
-#             'reason' => __('FIXME configuration file')
-#            }
-#           ];
-#}
-
+sub actions
+{
+    return [
+        {
+            'action' => __('Add LDAP schemas'),
+            'reason' => __('Zentyal will use this schema to store user sessions info.'),
+            'module' => 'captiveportal'
+        },
+    ];
+}
 
 sub modelClasses
 {
@@ -107,6 +93,22 @@ sub menu
                                     'separator' => 'Gateway',
                                     'order' => 226));
 }
+
+
+# Method: enableActions
+#
+#       Override EBox::Module::Service::enableActions
+#
+sub enableActions
+{
+    my ($self) = @_;
+
+    $self->performLDAPActions();
+
+    # Execute enable-module script
+    $self->SUPER::enableActions();
+}
+
 
 sub _setConf
 {
@@ -192,6 +194,12 @@ sub firewallHelper
     return undef;
 }
 
+# LdapModule implmentation
+sub _ldapModImplementation
+{
+    my ($self) = @_;
+    new EBox::CaptivePortal::LdapUser();
+}
 
 
 # Function: usesPort
