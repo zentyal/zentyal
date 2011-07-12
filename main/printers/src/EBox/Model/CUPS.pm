@@ -89,8 +89,10 @@ sub syncRows
     my $modified = 0;
 
     my @ifacesToAdd = grep { not exists $currentIfaces{$_} } @{$ifaces};
+
     foreach my $iface (@ifacesToAdd) {
-        $self->add(iface => $iface, enabled => 0);
+        my $enabled = not $net->ifaceIsExternal($iface);
+        $self->add(iface => $iface, enabled => $enabled);
         $modified = 1;
     }
 
@@ -138,16 +140,18 @@ sub preconditionFailMsg
 
 sub _table
 {
+    my ($self) = @_;
+
     my @tableDesc = (
          new EBox::Types::Text(
              'fieldName' => 'iface',
              'printableName' => __('Interface'),
              'unique' => 1,
-             'editable' => 0),
+             'editable' => 0
+         ),
          new EBox::Types::Boolean(
              'fieldName' => 'enabled',
              'printableName' => __('Listen'),
-             'defaultValue' => 0,
              'editable' => 1
         ),
     );
