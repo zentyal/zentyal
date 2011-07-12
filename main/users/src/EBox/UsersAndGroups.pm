@@ -830,10 +830,10 @@ sub initUser
 {
     my ($self, $user, $password) = @_;
 
+    my $userInfo = $self->userInfo($user);
     my $mk_home = EBox::Config::configkey('mk_home');
     $mk_home = 'yes' unless $mk_home;
     if ($mk_home eq 'yes') {
-        my $userInfo = $self->userInfo($user);
         my $home = $userInfo->{'homeDirectory'};
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
             my @cmds;
@@ -844,7 +844,7 @@ sub initUser
             push(@cmds, "mkdir -p `dirname $qhome`");
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             push(@cmds, "chown -R $quser:$group $qhome");
-    
+
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
             push(@cmds, "chmod $perms $qhome");
@@ -852,7 +852,7 @@ sub initUser
             EBox::Sudo::root(@cmds);
         }
     }
-    
+
     my $uid = $userInfo->{'uid'};
 
     my $quota = $userInfo->{'quota'};
