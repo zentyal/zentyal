@@ -1,4 +1,5 @@
 HEAD
+	+ Match users in bwmonitor if installed
 	+ Removed use of obsolete LogAdmin
 2.1.3
 	+ Added custom style for captive portal css pages

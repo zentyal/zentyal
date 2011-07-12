@@ -31,6 +31,8 @@ use EBox::Config;
 use EBox::Global;
 use EBox::CaptivePortal;
 use EBox::Sudo;
+use Error qw(:try);
+use EBox::Exceptions::DataExists;
 use EBox::Util::Lock;
 use Linux::Inotify2;
 
@@ -45,6 +47,11 @@ sub new
     # Sessions already added to iptables (to trac ip changes)
     $self->{sessions} = {};
     $self->{module} = EBox::Global->modInstance('captiveportal');
+
+    # Use bwmonitor if it exists
+    if (EBox::Global->modExists('bwmonitor')) {
+        $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
+    }
 
     bless ($self, $class);
     return $self;
@@ -114,6 +121,10 @@ sub _updateSessions
         if (not exists($self->{sessions}->{$sid})) {
             $self->{sessions}->{$sid} = $user;
             push (@rules, @{$self->_addRule($user, $iptablesRules)});
+
+            # bwmonitor...
+            $self->_matchUser($user);
+
             $new = 1;
         }
 
@@ -122,6 +133,10 @@ sub _updateSessions
             $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@rules, @{$self->_removeRule($user)});
+
+            # bwmonitor...
+            $self->_unmatchUser($user);
+
             next;
         }
 
@@ -134,6 +149,10 @@ sub _updateSessions
                 # Ip changed, update rules
                 push (@rules, @{$self->_addRule($user)});
                 push (@rules, @{$self->_removeRule($self->{sessions}->{$sid})});
+
+                # bwmonitor...
+                $self->_matchUser($user);
+                $self->_unmatchUser($self->{sessions}->{$sid});
 
                 # update ip
                 $self->{sessions}->{$sid}->{ip} = $newip;
@@ -176,6 +195,30 @@ sub _removeRule
     push (@rules, IPTABLES . " -D icaptive $rule");
 
     return \@rules;
+}
+
+
+# Match the user in bwmonitor module
+sub _matchUser
+{
+    my ($self, $user) = @_;
+
+    if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
+        try {
+            $self->{bwmonitor}->addUserIP($user->{user}, $user->{ip});
+        } catch EBox::Exceptions::DataExists with {}; # already in
+    }
+}
+
+
+# Unmatch the user in bwmonitor module
+sub _unmatchUser
+{
+    my ($self, $user) = @_;
+
+    if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
+        $self->{bwmonitor}->removeUserIP($user->{user}, $user->{ip});
+    }
 }
 
 
