@@ -63,6 +63,7 @@ use constant HOMEPATH       => '/home';
 use constant MAXUSERLENGTH  => 128;
 use constant MAXGROUPLENGTH => 128;
 use constant MAXPWDLENGTH   => 512;
+use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 use constant LIBNSSLDAPFILE => '/etc/ldap.conf';
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant LDAPCONFDIR    => '/etc/ldap/';
@@ -177,6 +178,11 @@ sub usedFiles
             'reason' => __('To add quota support to /home partition.'),
             'module' => 'users'
         },
+        {
+            'file' => CRONFILE,
+            'reason' => __('To configure LDAP slaves and Active Directory synchronization frequency.'),
+            'module' => 'users'
+        },
     );
 
     if ($mode ne 'slave') {
@@ -212,6 +218,14 @@ sub initialSetup
     unless ($version) {
         my $fw = EBox::Global->modInstance('firewall');
 
+        $fw->addInternalService(
+                'name' => 'adsync',
+                'description' => 'Active Directory password synchronization',
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => EBox::Config::configkey('adsync_port'),
+                'target'  => 'deny',
+                );
         $fw->addInternalService(
                 'name' => 'ldap',
                 'description' => 'LDAP',
@@ -310,16 +324,6 @@ sub _setConf
         $apache->save();
     }
 
-    if ( $mode eq 'ad-slave' ) {
-        my @cmds;
-        push (@cmds, 'rm -f /etc/cron.d/ebox-ad-sync');
-        if ($self->adsyncEnabled()) {
-            my $cronFile = EBox::Config::share() . '/zentyal-users/ad-sync.cron';
-            push (@cmds, "install -m 0644 -o root -g root $cronFile /etc/cron.d/ebox-ad-sync");
-        }
-        EBox::Sudo::root(@cmds);
-    }
-
     my @array = ();
     my $dn;
     if ( $mode eq 'slave' ) {
@@ -345,6 +349,14 @@ sub _setConf
     push(@array, 'computersdn' => 'ou=Computers,' . $dn);
 
     $self->writeConfFile(LIBNSSLDAPFILE, "users/ldap.conf.mas",
+            \@array);
+
+    @array = ();
+    push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
+    push(@array, 'adsync'     => $self->adsyncEnabled());
+    push(@array, 'adsync_time' => EBox::Config::configkey('adsync_time'));
+
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas",
             \@array);
 
     $self->_setupNSSPAM();
@@ -818,26 +830,29 @@ sub initUser
 {
     my ($self, $user, $password) = @_;
 
-    my $userInfo = $self->userInfo($user);
+    my $mk_home = EBox::Config::configkey('mk_home');
+    $mk_home = 'yes' unless $mk_home;
+    if ($mk_home eq 'yes') {
+        my $userInfo = $self->userInfo($user);
+        my $home = $userInfo->{'homeDirectory'};
+        if ($home and ($home ne '/dev/null') and (not -e $home)) {
+            my @cmds;
 
-    my $home = $userInfo->{'homeDirectory'};
-    if ($home and ($home ne '/dev/null') and (not -e $home)) {
-        my @cmds;
+            my $quser = shell_quote($user);
+            my $qhome = shell_quote($home);
+            my $group = DEFAULTGROUP;
+            push(@cmds, "mkdir -p `dirname $qhome`");
+            push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
+            push(@cmds, "chown -R $quser:$group $qhome");
+    
+            my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
+            my $perms = sprintf("%#o", 00777 &~ $dir_umask);
+            push(@cmds, "chmod $perms $qhome");
 
-        my $quser = shell_quote($user);
-        my $qhome = shell_quote($home);
-        my $group = DEFAULTGROUP;
-        push(@cmds, "mkdir -p `dirname $qhome`");
-        push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-        push(@cmds, "chown -R $quser:$group $qhome");
-
-        my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
-        my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-        push(@cmds, "chmod $perms $qhome");
-
-        EBox::Sudo::root(@cmds);
+            EBox::Sudo::root(@cmds);
+        }
     }
-
+    
     my $uid = $userInfo->{'uid'};
 
     my $quota = $userInfo->{'quota'};

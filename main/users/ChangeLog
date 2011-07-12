@@ -1,4 +1,10 @@
 HEAD
+	+ Manage zentyal-users cronjob with configuration keys for sync times instead
+	  of debian/lucid/zentyal-users.cron.d and src/scripts/ad-sync.cron
+	+ Configuration key to not to create homes (usefull on LDAP master servers)
+	+ New ad-sync-info to show info of ADsync configuration
+	+ Allow multiple BDC for ADsync mode with adsync_bdc confkey
+	+ Add ADsync service by default and move port value to a confkey
 	+ userInfo() tolerates missing quota LDAP attribute
 	+ Added captiveportal to the list of modules in the reinstall script
 2.1.4

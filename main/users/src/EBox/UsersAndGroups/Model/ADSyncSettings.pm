@@ -24,7 +24,6 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Text;
-use EBox::Types::Port;
 use EBox::Types::Password;
 use EBox::Types::Boolean;
 
@@ -80,13 +79,6 @@ sub _table
             printableName => __('AD password'),
             editable => 1,
             help => __('Password for the above user')
-        ),
-        new EBox::Types::Port (
-            fieldName => 'port',
-            printableName => __('Listen port'),
-            defaultValue => '6677',
-            editable => 1,
-            help => __('Port for listening password sync notifications from Windows')
         ),
         new EBox::Types::Password (
             fieldName => 'secret',
