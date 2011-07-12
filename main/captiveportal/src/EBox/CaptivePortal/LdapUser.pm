@@ -77,10 +77,26 @@ sub isQuotaOverridden
 }
 
 
-sub setQuotaOverridden
+# Method: setQuota
+#
+#   Configures user quota, if overrides default configured quota
+#   a second parameters is needed. Quota in Mb. If not, default quota
+#   will be used.
+#
+#   Parameters:
+#       - username
+#       - override default?
+#       - overridden quota in Mb
+#
+sub setQuota
 {
-    my ($self, $username, $overridden) = @_;
-    my $global = EBox::Global->getInstance();
+    my ($self, $username, $overridden, $quota) = @_;
+    my $global = EBox::Global->getInstance(1);
+
+    # Quota parameter is optional if it's not overridden
+    unless ($overridden) {
+        $quota = 0;
+    }
 
     # Convert to LDAP format
     $overridden = $overridden ? 'TRUE' : 'FALSE';
@@ -92,20 +108,21 @@ sub setQuotaOverridden
     my $ldap = $users->{ldap};
 
     my %args = (base => $dn,
-            filter => "uid=$username");
+            filter => "objectClass=captiveUser");
     my $mesg = $ldap->search(\%args);
 
     if ($mesg->count == 0){
         my %attrs = (
-              changes => [
+                changes => [
                     add => [
-                        'objectClass' => ['captiveUser'],
+                        'objectclass' => 'captiveUser',
                         'captiveQuotaOverride' => $overridden,
-                        'captiveQuota' => 0,
-                        ]
-                    ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
+                        'captiveQuota' => $quota,
+                    ],
+                ]
+            );
+
+        my $result = $ldap->modify($dn, \%attrs);
 
         if ($result->is_error) {
             throw EBox::Exceptions::Internal("Error updating user: $username\n\n");
@@ -113,10 +130,11 @@ sub setQuotaOverridden
     } else {
         my %attrs = (
               changes => [
-                   replace => [
-                           'captiveQuotaOverride' => $overridden
-                           ]
-                   ]
+                  replace => [
+                          'captiveQuotaOverride' => $overridden,
+                          'captiveQuota' => $quota,
+                      ]
+                  ]
               );
         my $result = $ldap->modify($dn, \%attrs );
 
@@ -131,15 +149,23 @@ sub setQuotaOverridden
 
 sub _addUser
 {
-   my ($self, $user, $password) = @_;
+    my ($self, $user, $password) = @_;
 
-   unless ($self->{captiveportal}->configured()) {
-       return;
-   }
+    return unless ($self->{captiveportal}->configured());
 
-   #my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
-   #$self->setHasAccount($user, $model->enabledValue());
-   #$self->setHasContact($user, $model->contactValue());
+    my $model = $self->{captiveportal}->model('CaptiveUser');
+    my $row = $model->row();
+    my $defaultQuota = $row->elementByName('defaultQuota');
+
+    if ($defaultQuota->selectedType() eq 'defaultQuota_default') {
+        $self->setQuota($user, 0);
+    } else {
+        my $quota = 0;
+        if ($defaultQuota->selectedType() eq 'defaultQuota_size') {
+            $quota = $defaultQuota->value();
+        }
+        $self->setQuota($user, 1, $quota);
+    }
 }
 
 
@@ -150,7 +176,7 @@ sub _addUser
 #
 sub defaultUserModel
 {
-    return 'zarafa/ZarafaUser';
+    return 'captiveportal/CaptiveUser';
 }
 
 1;

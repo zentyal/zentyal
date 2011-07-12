@@ -72,6 +72,7 @@ sub modelClasses
         'EBox::CaptivePortal::Model::Interfaces',
         'EBox::CaptivePortal::Model::Settings',
         'EBox::CaptivePortal::Model::Users',
+        'EBox::CaptivePortal::Model::CaptiveUser',
     ];
 }
 
