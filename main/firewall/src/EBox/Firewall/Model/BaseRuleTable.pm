@@ -133,6 +133,7 @@ sub _fieldDescription
                                  'printableName' => __('Source object'),
                                  'foreignModel' => \&objectModel,
                                  'foreignField' => 'name',
+                                 'foreignNextPageField' => 'members',
                                  'editable' => 1),
                              ],
                          'unique' => 1,
@@ -160,6 +161,7 @@ sub _fieldDescription
                                  'printableName' => __('Destination object'),
                                  'foreignModel' => \&objectModel,
                                  'foreignField' => 'name',
+                                 'foreignNextPageField' => 'members',
                                  'editable' => 1),
                              ],
                          'unique' => 1,
@@ -175,6 +177,7 @@ sub _fieldDescription
                 'printableName' => __('Service'),
                 'foreignModel' => \&serviceModel,
                 'foreignField' => 'name',
+                'foreignNextPageField' => 'configuration',
                 'editable' => 1,
                 'help' => __('If inverse match is ticked, any ' .
                     'service but the selected one will match this rule')

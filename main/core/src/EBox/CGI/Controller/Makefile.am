@@ -7,7 +7,7 @@ perldir = @PERLPATH@/EBox/CGI/Controller
 nobase_perl_DATA = Composite.pm DataTable.pm DataTableAdd.pm \
 		  DataTableUpdate.pm DataTableMove.pm \
 		  DataTableDel.pm DataMultiTable.pm \
-		  Uploader.pm
+		  Uploader.pm Modal.pm
 
 SOURCES = $(nobase_perl_DATA)
 

@@ -25,6 +25,7 @@ use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
 use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
+use EBox::CGI::Controller::Modal;
 use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Composite;
 use CGI;
@@ -193,7 +194,8 @@ sub lookupModel
     my ($model, $action) = (undef, undef);
 
     if ( ($namespace eq 'View') or
-            ($namespace eq 'Controller')) {
+            ($namespace eq 'Controller') or
+             ($namespace eq 'ModalController')) {
 
         if ( defined ( $namespaces[$pos+3] ) ) {
             # Set as model name, the context name
@@ -271,6 +273,10 @@ sub _lookupViewController
                         'namespace' => $cginamespace);
             } elsif ( $namespace eq 'Controller' ) {
                     $cgi = EBox::CGI::Controller::DataTable->new(
+                        'tableModel' => $model,
+                        'namespace' => $cginamespace);
+           } elsif ( $namespace eq 'ModalController' ) {
+                    $cgi = EBox::CGI::Controller::Modal->new(
                         'tableModel' => $model,
                         'namespace' => $cginamespace);
             } elsif ( $namespace eq 'Composite' ) {

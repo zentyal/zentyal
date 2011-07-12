@@ -1,0 +1,9 @@
+<%args>
+$parentElementId
+$parentElementValue
+</%args>
+<script language="JavaScript">
+var element = parent.getElementById("<% $parentElementId %>");
+element.value = "<% $parentElementValue %>";
+%#document.close();
+</script>

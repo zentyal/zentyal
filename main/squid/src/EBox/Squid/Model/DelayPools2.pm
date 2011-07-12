@@ -159,6 +159,7 @@ sub _table
                  printableName => __('Network object'),
                  foreignModel  => \&_objectModel,
                  foreignField  => 'name',
+                 foreignNextPageField => 'members',                                     
                  editable      => 1,
                  unique        => 1,
              ),

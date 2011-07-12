@@ -1,5 +1,5 @@
 <%flags>
-  inherit => '/ajax/modelViewer.mas'
+  inherit => '/ajax/tableModal.mas'
 </%flags>
 <%args>
   $model
@@ -16,11 +16,12 @@ use EBox::Gettext;
 use EBox::Model::DataTable;
 use POSIX;
 </%init>
-<& PARENT:view,
+<& SELF:view,
    model      => $model,
-   hasChanged => $hasChanged,
    action     => $action,
 &>
+<& .doneButton &>
+
 
 <%doc>
   Method: _body
@@ -53,7 +54,7 @@ use POSIX;
   my $actions = $model->table()->{'actions'};
   my $changeView = $model->action('changeView');
   my $printableRowName = $model->table()->{'printableRowName'};
-  my $tableName = $model->table()->{'tableName'};
+  my $tableName = $model->table()->{'tableName'} . '_modal';
   my $printableTableName = $model->table()->{'printableTableName'};
   my @ids;
   if (not $model->customFilter()) {
@@ -93,11 +94,10 @@ my $pageSize = $model->pageSize();
 $pageSize or 
     $pageSize = 10;
 </%init>
-<& .pageTitle,
-   crumbs => $model->viewCustomizer()->HTMLTitle()
-&>
+<& .pageTitle &> 
 
-% if ( $model->pageTitle() ) {
+% if (0) {
+% #if ( $model->pageTitle() ) {
 %      my $viewCustomizer = $model->viewCustomizer();
 %      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
 %      if ($msg) {
@@ -114,16 +114,9 @@ $pageSize or
 % }
 
 
-% my $help = $model->help();
-% if ($help) {
+% if ($model->help()) {
 <div class="help">
-  <% $help %>
-</div>
-% }
-% my $disabledModuleWarning = $model->disabledModuleWarning();
-% if ($disabledModuleWarning) {
-<div class="warning">
-  <% $disabledModuleWarning %>
+  <% $model->help() %>
 </div>
 % }
 
@@ -140,7 +133,7 @@ $pageSize or
   <a href='#' class='addNew'
       name='add'
          onClick="<%
-                 $model->changeViewJS( changeType => "changeAdd",
+                 $model->modalChangeViewJS( changeType => "changeAdd",
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)
@@ -151,22 +144,31 @@ $pageSize or
   <span id="<% 'creatingForm_' . $tableName %>"></span>
 %  }
 
-%  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
+%  if ( $action eq 'changeAdd' or $action eq 'changeEdit' ) {
 %   if ( $action eq 'changeAdd' )  {
 %     my $addingStr = __x('Adding a new {row}', row => $printableRowName);
 <& PARENT:title, title => $addingStr &>
-%    } elsif ( $action eq 'changeEdit' )  {
+%    }
+%   elsif ( $action eq 'changeEdit' )  {
 <h3>
 
 %     my $editingStr = __x('Editing {row}', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
 %   }
 
-<& PARENT:editForm,
-    modelName => $tableName,
-    formData => \@formData,
-    sections => $model->sections(),
-&>
+<form name="<% $tableName . '_form' %>">
+  <table class='formTable'>
+    <tbody>
+     <col width="1*" />
+     <col width="auto" />
+      <& PARENT:editRowFields,
+         modelName => $tableName,
+         formData => \@formData
+      &>
+      <& SELF:buttons, forceAction => $action &>
+    </tbody>
+  </table>
+</form>
 
 %   my $customizer = $formData[0]->model()->viewCustomizer();
 %   if ($customizer) {
@@ -187,7 +189,6 @@ $pageSize or
   %>
 </h3>
 %    }
-
 <table class="bDataTable">
     <tr>
         <td>
@@ -212,7 +213,7 @@ $pageSize or
                              $filterId
                             %>');
                 <%
-                  $model->changeViewJS( changeType => "changeList",
+                  $model->modalChangeViewJS( changeType => "changeList",
                      editId => 'undefined',
                      page => 0,
                      isFilter => 1)
@@ -224,7 +225,7 @@ $pageSize or
             %>"
   ></span>
 </form>
-        </td>
+	</td>
     </tr>
 </table>
 <table class='<%
@@ -247,12 +248,18 @@ $pageSize or
         }
       } else {
         $matches++;
-        unless ($matches > ($pageSize * $page)) { next;}
+        unless ($matches > ($pageSize * $page)) { 
+            
+            next;
+        }
         $displayRows++;
-      if ($displayRows > $pageSize) { next; };
+      if ($displayRows > $pageSize) { 
+            next; 
+        };
         $row = $model->row($ids[$idx]);
       }
 </%perl>
+
       <tr class='border'
           id="<%
                 $row->id()
@@ -279,10 +286,12 @@ $pageSize or
                     ids => \@ids,
 
                     changeView => $changeView,
-                    page => $page
+                    page => $page,
+
+                    modal => 1,
                     &>
       </tr>
-%     if ($displayRows == $pageSize and not (defined($filter) and length($filter) > 0) ) {
+%     if ($displayRows == $model->pageSize() and not (defined($filter) and length($filter) > 0) ) {
 %       $matches = scalar(@ids);
 %       last;
 %     }
@@ -306,7 +315,7 @@ $pageSize or
 
 % } else {
 <input type="hidden"
-  id="<% $model->tableName() . '_pageSize' %>"
+  id="<% $tableName . '_pageSize' %>"
   value="<% $model->pageSize() %>"
 >
 % }
@@ -314,7 +323,7 @@ $pageSize or
 % if ( $action eq 'changeEdit' and $editid ) {
 <script>highlightRow('<% $editid %>', 1);</script>
 % }
-
+<& .doneButton &>
 % # End body method
 </%method>
 
@@ -329,6 +338,9 @@ $pageSize or
 
 </%doc>
 <%method buttons>
+<%args>
+$forceAction => undef
+</%args>
 <%init>
   # Getting the arguments from the first request
   my $requestArgs = $m->request_args();
@@ -340,15 +352,20 @@ $pageSize or
   my $tpages = $requestArgs->{tpages};
   my $changeView = $model->action('changeView');
 
+
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
       $action = 'changeEdit' if ( $editid );
+  }
+
+  if ($forceAction) {
+      $action = $forceAction;
   }
 </%init>
 <tr>
   <td id="applyChanges">
   </td>
-  <td id="<% 'buttons_' . $model->modelName() %>">
+  <td id="<% 'buttons_' . $model->modelName() . '_modal'%>">
 % if ( $action eq 'changeAdd' )
 % {
     <& /input/submit.mas,
@@ -357,11 +374,9 @@ $pageSize or
         name => 'add',
         value => __('Add'),
         title => 'Add',
-        onclick => $model->addNewRowJS($page) . '; return false'
+        onclick => $model->modalAddNewRowJS($page) . '; return false'
     &>
-% }
-% elsif ($action eq 'changeEdit')
-% {
+% } elsif ($action eq 'changeEdit') {
     <& /ajax/customActions.mas, model => $model, id => $editid &>
     <& /input/submit.mas,
         class => 'inputButton',
@@ -369,7 +384,7 @@ $pageSize or
         name => 'change',
         value => __('Change'),
         title => 'Change',
-        onclick => $model->changeRowJS($editid, $page) . '; return false'
+        onclick => $model->changeRowJS($editid,  $page, 1) . '; return false'
     &>
 % }
 % if ($changeView)
@@ -380,7 +395,7 @@ $pageSize or
         name => 'cancel',
         value => __('Cancel'),
         title => 'Cancel',
-        onclick => $model->changeViewJS(changeType => 'changeList',
+        onclick => $model->modalChangeViewJS(changeType => 'changeList',
                           editId => 'undefined',
                           page => $page,
                           isFilter => 0) . '; return false'
@@ -393,40 +408,6 @@ $pageSize or
 
 </%method>
 
-
-
-<%method tableHead>
-<%doc>
-Method: tableHead
-
-  Print the header of the table
-
-Parameteres:
-  @tableHead - list with the types of the fields of the tale's rows
-</%doc>
-<%args>
-@tableHead
-</%args>
-    <thead>
-%    foreach my $th (@tableHead)
-%    {
-%      next unless ($th->HTMLViewer());
-      <th class='<%
-                   $th->class()
-                  %>'>
-        <%
-          $th->printableName()
-        %>
-      </th>
-%    }
-
-      <th class='thOptions'>
-        <%
-          __('Action')
-        %>
-      </th>
-    </thead>
-</%method>
 
 <%method actionCell>
 <%doc>
@@ -488,13 +469,16 @@ $page
               onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
-                              '',
-                              $page)
+                            '' ,
+                            $page,
+                            1)
                        %>"
           />
 
 %      }
 %      if ($changeView)   {
+
+
           <input  class='inputButton'
               <%
                 $disabled
@@ -504,13 +488,13 @@ $page
               value="edit"
               title="<% $edit_msg %>"
               src='/data/images/<% $edit %>.gif'
-              onClick="<% 
-                       $model->changeViewJS( 
-                             changeType => 'changeEdit',
+              onClick="<%  
+                          $model->modalChangeViewJS( 
+                            changeType => 'changeEdit',
                              editId => $row->{'id'},
                              page => $page,
                              isFilter => 0)
-                       %>"
+                          %>"
           />
 %      }
 
@@ -538,6 +522,7 @@ $idx
 @ids
 
 $page
+$modal => undef
 </%args>
 
 <%perl>
@@ -591,7 +576,7 @@ $page
                          $model->actionClickedJS('move',
                              $row->{id},
                             'up',
-                            $page)
+                            $page, 1)
                        %>"
           />
 %       }
@@ -609,11 +594,13 @@ $page
                          $model->actionClickedJS('move',
                              $row->{id},
                             'down',
-                            $page)
+                            $page, 1)
                        %>"
           />
 %       }
 </%method>
+
+
 
 <%doc>
   Method: pageTitle
@@ -635,3 +622,17 @@ $page
     crumbs => $crumbs
 &>
 </%def>
+
+
+<%def .doneButton>
+<p>
+    <& /input/submit.mas,
+        class => 'inputButton',
+        type => 'submit',
+        name => 'done',
+        value => __('Done'),
+        title => 'Done',
+        onclick => 'Modalbox.hide(); return false'
+    &>
+</%def>
+

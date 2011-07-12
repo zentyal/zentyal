@@ -123,6 +123,7 @@ sub _table
                     'printableName' => __('Source object'),
                     'foreignModel' => \&objectModel,
                     'foreignField' => 'name',
+                    'foreignNextPageField' => 'members',
                     'editable' => 1),
                 new EBox::Types::Union::Text(
                     'fieldName' => 'source_ebox',
@@ -150,6 +151,7 @@ sub _table
                     'printableName' => __('Destination object'),
                     'foreignModel' => \&objectModel,
                     'foreignField' => 'name',
+                    'foreignNextPageField' => 'members',
                     'editable' => 1)
                 ],
             'size' => '16',
@@ -161,6 +163,7 @@ sub _table
                 'printableName' => __('Service'),
                 'foreignModel' => \&serviceModel,
                 'foreignField' => 'name',
+                'foreignNextPageField' => 'configuration',
                 'editable' => 1,
             ),
         new EBox::Types::Select(

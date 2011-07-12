@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Controller::DataTable;
+package EBox::CGI::Controller::Modal;
 
 use strict;
 use warnings;
 
 use base 'EBox::CGI::ClientRawBase';
 
+
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
-
 
 # Dependencies
 use Error qw(:try);
@@ -37,19 +37,20 @@ sub new # (cgi=?)
     my $tableModel = delete $params{'tableModel'};
     my $template;
     if (defined($tableModel)) {
-        $template = $tableModel->Viewer();
+        $template = $tableModel->modalViewer();        
     }
-
     my $self = $class->SUPER::new('template' => $template,
             @_);
     $self->{'tableModel'} = $tableModel;
+
+
     bless($self, $class);
     return  $self;
 }
 
 sub getParams
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
 
@@ -64,7 +65,7 @@ sub getParams
             }
             # TODO Review code to see if we are actually checking
             # types which are not optional
-                    $params{$fieldName} = $value;
+            $params{$fieldName} = $value;
         }
     }
 
@@ -74,38 +75,12 @@ sub getParams
     return %params;
 }
 
-sub _auditLog
-{
-    my ($self, $event, $id, $value, $oldValue) = @_;
-
-    unless (defined $self->{audit}) {
-        $self->{audit} = EBox::Global->modInstance('audit');
-    }
-
-    return unless $self->{audit}->isEnabled();
-
-    my $model = $self->{tableModel};
-    $value = '' unless defined $value;
-    $oldValue = '' unless defined $oldValue;
-    $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
-}
-
 sub addRow
 {
-    my ($self) = @_;
+    my $self = shift;
 
     my $model = $self->{'tableModel'};
-    my %params = $self->getParams();
-
-    if ($self->{json}) {
-        $self->{json}->{callParams} = \%params;
-    }
-
-    my $id = $model->addRow(%params);
-    # TODO: log also the new values
-    $self->_auditLog('add', $id);
-
-    return $id;
+    $model->addRow($self->getParams());
 }
 
 sub moveRow
@@ -120,15 +95,11 @@ sub moveRow
     my $id = $self->param('id');
     my $dir = $self->param('dir');
 
-    my $before = $model->_rowOrder($id);
     if ($dir eq 'up') {
         $model->moveUp($id);
     } else {
         $model->moveDown($id);
     }
-    my $after = $model->_rowOrder($id);
-
-    $self->_auditLog('move', $id, $before, $after);
 }
 
 sub removeRow
@@ -142,8 +113,6 @@ sub removeRow
     my $force = $self->param('force');
 
     $model->removeRow($id, $force);
-
-    $self->_auditLog('del', $id);
 }
 
 sub editField
@@ -153,41 +122,14 @@ sub editField
     my $model = $self->{'tableModel'};
     my %params = $self->getParams();
     my $force = $self->param('force');
-    my $tableDesc = $model->table()->{'tableDescription'};
-
-    my $id = $params{id};
-    my $row = $model->row($id);
-
-    # Store old and new values before setting the row for audit log
-    my %changedValues;
-    my @fieldNames = map { $_->{fieldName} } @{$tableDesc};
-    for my $fieldName (@fieldNames) {
-        next unless $params{$fieldName};
-
-        my $newValue = $params{$fieldName};
-        my $oldValue = $row->valueByName($fieldName);
-
-        next if ($newValue eq $oldValue);
-
-        $changedValues{$fieldName} = {
-            id => $id ? "$id/$fieldName" : $fieldName,
-            new => $newValue,
-            old => $oldValue,
-        };
-    }
-
     $model->setRow($force, %params);
-
-    for my $fieldName (keys %changedValues) {
-        my $value = $changedValues{$fieldName};
-        $self->_auditLog('set', $value->{id}, $value->{new}, $value->{old});
-    }
 
     my $editField = $self->param('editfield');
     if (not $editField) {
         return;
     }
 
+    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
     foreach my $field (@{$tableDesc}) {
         my $fieldName = $field->{'fieldName'};
         if ($editField ne $fieldName) {
@@ -198,6 +140,7 @@ sub editField
             $self->{'to_print'} = $params{$fieldName};
         }
     }
+
 }
 
 
@@ -214,7 +157,6 @@ sub editBoolean
     }
 
     my $currentRow = $model->row($id);
-    my $oldValue = $currentRow->valueByName($field);
     my $element = $currentRow->elementByName($field);
     $element->setValue($value);
     $model->setTypedRow( $id, { $field => $element},
@@ -229,8 +171,6 @@ sub editBoolean
     if ($global->unsaved()) {
         print '$("changes_menu").className = "changed"';
     }
-
-    $self->_auditLog('set', "$id/$field", $value, $oldValue);
 }
 
 sub customAction
@@ -241,38 +181,45 @@ sub customAction
     my $id = $params{id};
     my $customAction = $model->customActions($action, $id);
     $customAction->handle($id, %params);
-
-    $self->_auditLog('action', $id, $action);
 }
-
+ 
 # Method to refresh the table by calling rows method
 sub refreshTable
 {
-    my $self = shift;
+    my ($self, $showTable, $action, @extraParams) = @_;
 
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
-    my $filter = $self->param('filter');
-    my $page = $self->param('page');
+    my $rows = undef;
+
+    my $page     = $self->param('page');
     my $pageSize = $self->param('pageSize');
-    if ( defined ( $pageSize )) {
+    if ( defined $pageSize) {
         $model->setPageSize($pageSize);
     }
-#    my $rows = $model->rows($filter, $page);
-#    my $tpages = $model->pages($filter);
-    my $rows = undef;
+
+    my $filter = $self->param('filter');
+    if (not defined $filter) {
+        $filter = '';
+    }
+
     my $tpages = 1000;
-    my @params;
-    push(@params, 'data' => $rows);
-    push(@params, 'dataTable' => $model->table());
-    push(@params, 'model' => $model);
-    push(@params, 'action' => $self->{'action'});
-    push(@params, 'editid' => $self->param('editid'));
-    push(@params, 'hasChanged' => $global->unsaved());
-    push(@params, 'filter' => $filter);
-    push(@params, 'page' => $page);
-    push(@params, 'tpages' => $tpages);
+    $self->{template} = $model->modalViewer($showTable);
+
+
+    my @params = (
+        'data' => $rows,
+        'dataTable' => $model->table(),
+        'model' => $model,
+        'action' => $action,
+        'editid' => $self->param('editid'),
+        'hasChanged' => $global->unsaved(),
+        'filter' => $filter,
+        'page' => $page,
+        'tpages' => $tpages,
+       );
+    push @params, @extraParams;
 
     $self->{'params'} = \@params;
 }
@@ -281,113 +228,74 @@ sub refreshTable
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
 
     $self->_requireParam('action');
     my $action = $self->param('action');
-    $self->{'action'} = $action;
+    my $firstShow = $self->param('firstShow');
 
-    my $model = $self->{'tableModel'};
+    my $selectCallerId = $self->param('selectCaller');
+    my $selectForeignField = $self->param('selectForeignField');
+
+    my $nextPageContextName = $self->param('nextPageContextName');
+    my $foreignNextPageField    = $self->param('foreignNextPageField');
 
     my $directory = $self->param('directory');
+
+    my $model = $self->{'tableModel'};
     if ($directory) {
         $model->setDirectory($directory);
-    }
-
-    my $json = $self->param('json');
-    if ($json) {
-        $self->{json} = { success => 0  };
     }
 
     if ($action eq 'edit') {
 
         $self->editField();
-        $self->refreshTable();
+        $self->refreshTable(1, $action);
 
     } elsif ($action eq 'add') {
-        my $rowId = $self->addRow();
-        if ($json) {
-            $self->{json}->{rowId} = $rowId;
-            $self->{json}->{directory} = $directory;
-            $self->{json}->{success} = 1;
-        } else {
-            $self->refreshTable();            
-        }
+        $self->addRow();
+        $self->refreshTable(1, $action);
     } elsif ($action eq 'del') {
-
         $self->removeRow();
-        $self->refreshTable();
-
+        $self->refreshTable(1, $action);
     } elsif ($action eq 'move') {
 
         $self->moveRow();
-        $self->refreshTable();
+        $self->refreshTable(1, $action);
+   } elsif ($action eq 'changeAdd') {
+        my $showTable = not $firstShow;
+        my @extraParams;
+        if ($selectCallerId and $firstShow) {
+            @extraParams = (selectCallerId => $selectCallerId,
+                            selectForeignField => $selectForeignField,
+                            foreignNextPageField => $foreignNextPageField,
+                            nextPageContextName => $nextPageContextName,
+                           );
+        }
 
-    } elsif ($action eq 'changeAdd') {
-
-        $self->refreshTable();
-
+        $self->refreshTable($showTable, $action, @extraParams);                        
     } elsif ($action eq 'changeList') {
-
-        $self->refreshTable();
-
+        $self->refreshTable(1, $action);
     } elsif ($action eq 'changeEdit') {
-
-        $self->refreshTable();
+        $self->refreshTable(1, $action);
 
     } elsif ($action eq 'view') {
         # This action will show the whole table (including the
         # table header similarly View Base CGI but inheriting
         # from ClientRawBase instead of ClientBase
-        $self->{template} = $model->Viewer();
-        $self->refreshTable();
-    } elsif ($action eq 'editBoolean') {
-        delete $self->{template};
-        $self->editBoolean();
-    } elsif ($model->customActions($action, $self->param('id'))) {
-        $self->customAction($action);
-        $self->refreshTable();
+        $self->{template} = '/ajax/tableModalView.mas';
+        $self->refreshTable(1, $action);
+     } elsif ($action eq 'editBoolean') {
+         delete $self->{template};
+         $self->editBoolean();
+#     } elsif ($model->customActions($action, $self->param('id'))) {
+#         $self->customAction($action);
+#         $self->refreshTable();
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
 
-    # json mode should not put messages in UI
-    if ($self->{json}) {
-        $model->setMessage('');
-    }
 }
-
-sub _redirect
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    return unless (defined($model));
-
-    return $model->popRedirection();
-}
-
-# TODO: Move this function to the proper place
-sub _printRedirect
-{
-    my $self = shift;
-    my $url = $self->_redirect();
-    return unless (defined($url));
-    print "<script>window.location.href='$url'</script>";
-}
-
-sub _print
-{
-    my $self = shift;
-    $self->SUPER::_print();
-    unless ($self->{json}) {
-        $self->_printRedirect;
-    }
-
-}
-
-
 
 
 1;

@@ -217,6 +217,26 @@ sub foreignModel
 
 }
 
+
+sub foreignField
+{
+    my ($self) = @_;
+    if (not exists $self->{foreignField}) {
+        return undef;
+    }
+    return $self->{foreignField};
+}
+
+
+sub foreignNextPageField
+{
+    my ($self) = @_;
+    if (not exists $self->{foreignNextPageField}) {
+        return undef;
+    }
+    return $self->{foreignNextPageField};
+}
+
 # Method: populate
 #
 #       Get the function pointer which populate options within the
@@ -472,6 +492,5 @@ sub _filterOptions
     return \@filteredOptions;
 
 }
-
 
 1;

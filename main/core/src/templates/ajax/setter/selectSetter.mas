@@ -5,8 +5,10 @@ $cssClass => ''
 $disabled => undef
 </%args>
 <%init>
+use EBox::Gettext;
 use Perl6::Junction qw(any);
 
+my $id = $tableName . '_' . $data->fieldName();
 #########################
 # EVIL HACK
 #########################
@@ -20,10 +22,11 @@ use Perl6::Junction qw(any);
 # that. Time constraints make us do this crap. Sorry.
 
 my $options = $data->options();
+my $empty = @{ $options } == 0;
 my @filteredOptions;
 my @optionsAlreadyModel = ();
 
-if ( $data->unique() ) {
+if ($data->unique() ) {
     # Filter the options in other just to show the ones allowed
     my $model = $data->model();
 
@@ -55,10 +58,62 @@ if ( $data->unique() ) {
         $options = \@filteredOptions;
     }
 }
+
+my @extraParams;
+my $addNewJS;
+my $addNewModalValue = '_addNew';
+my $foreignModel = $data->foreignModel();
+if ($foreignModel and $data->foreignNextPageField())  {
+
+   my $alreadyAdded = grep {$_->{value} eq $addNewModalValue } @{ $options  };
+   if (not $alreadyAdded) {
+       unshift @{ $options }, (
+           {
+               printableValue => __('Add new...'),
+               value => $addNewModalValue,
+           },
+           {
+               printableValue => '<hr/>',
+               disabled => 1,
+               value => 'separator',
+           },
+          );
+   }
+
+   my $nextPageField = $data->foreignNextPageField();
+
+   my ($nextPageType) = grep {
+       $_->fieldName() eq $nextPageField
+   } @{ $foreignModel->table()->{tableDescription} };
+   EBox::debug("nextPageType $nextPageType");
+   my $modelManager = EBox::Model::ModelManager->instance();
+   my $nextPageModel = $modelManager->model($nextPageType->foreignModel());
+   EBox::debug("nextPageModel $nextPageModel");
+   my $nextPageModelContextName = $nextPageModel->contextName();
+   EBox::debug("nextPageContextName $nextPageModelContextName");
+   $addNewJS = $foreignModel->modalChangeViewJS(
+       changeType => "changeAdd",
+       editId => "undefined",
+       selectCaller => $id,
+       selectForeignField => $data->foreignField(),
+       nextPageContextName => $nextPageModelContextName,
+       foreignNextPageField => $nextPageField,
+       firstShow => 1,
+     );
+
+    my $onChangeJS = << "ENDJS";
+    if (this.options[this.selectedIndex].value == '$addNewModalValue') {
+          $addNewJS
+    } ; return false;
+ENDJS
+
+    push @extraParams, onChange => $onChangeJS;
+    if ($empty) {
+        push @extraParams, style => 'display:none';
+   }
+}
 </%init>
-% my $id = $tableName . '_' . $data->fieldName();
-% # my $onChange = "eval('OnChangeOn$id(this)')";
-% my $onChange = "OnChangeOn$id(this)";
+
 <& /input/select.mas,
    'name'    => "$id" ,
    'value'   => $data->value(),
@@ -66,7 +121,13 @@ if ( $data->unique() ) {
    'id'      => "$id",
    'class'   => "$cssClass",
    'disabled' => $disabled,
+   @extraParams
 &>
+
+% if ($addNewJS and $empty) {
+<div id="<% $id %>_empty">
+<% __('No elements found. ') %><a href="#" class="addNew" name="add" onclick="<% $addNewJS %>;return false"><% __('Add a new one') %></a>
+<p>
+</div>
+% }
 <% $data->trailingText() %>
-
-

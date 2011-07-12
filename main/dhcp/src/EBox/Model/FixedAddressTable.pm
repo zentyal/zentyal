@@ -222,6 +222,8 @@ sub _table
                                fieldName     => 'object',
                                foreignModel  => \&objectModel,
                                foreignField  => 'name',
+                               foreignNextPageField => 'members',
+
                                printableName => __('Object'),
                                unique        => 1,
                                editable      => 1,

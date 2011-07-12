@@ -10,9 +10,9 @@ template_DATA = composite.mas form.mas modelViewer.mas selector.mas \
 	        tabMenu.mas tablePager.mas \
 	        image.mas imageControl.mas \
             graph.mas tableBodyWithoutEdit.mas customActions.mas \
-            typeRowLayout.mas passwordRowLayout.mas
+            typeRowLayout.mas passwordRowLayout.mas setParent.mas \
+            tableModal.mas tableModalView.mas
 
 EXTRA_DIST = $(template_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
-

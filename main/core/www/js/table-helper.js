@@ -1,4 +1,4 @@
-// TODO 
+// TODO
 //      - Use Form.serialize stuff to get params
 //      - Refactor addNewRow and actionClicked, they do almost the same
 //      - Implement a generic function for the onComplete stage
@@ -10,13 +10,20 @@ function cleanError(table) {
     }
 }
 
+function setError(table, html) {
+    var error = $('error_' + table);
+    if (error) {
+        error.innerHTML = html;
+    }
+}
+
 // Function: setEnableRecursively
-//  
+//
 //  Disable or enable recursively all child elements of a given elment
 //
 // Parameters:
-//  
-//  element - Parent HTMLElement object 
+//
+//  element - Parent HTMLElement object
 //  state - boolean, true to enable, false to disable
 //
 function setEnableRecursively(element, state) {
@@ -34,14 +41,15 @@ function setEnableRecursively(element, state) {
     );
 }
 
+
 // Function: onFieldChange
-//  
+//
 //  Function called from onChange events on form and table fields.
 //
 // Parameters:
 //
 //  Event - Event prototype
-//  JSONACtions - JSON Object containing the actions to take
+//  JSONActions - JSON Object containing the actions to take
 //
 function onFieldChange(event, JSONActions, table) {
     var actions = new Hash(JSONActions);
@@ -55,7 +63,7 @@ function onFieldChange(event, JSONActions, table) {
     }
     var onValue = new Hash(actions.get(selectedValue));
     var supportedActions = new Array('show', 'hide', 'enable', 'disable');
-    supportedActions.each ( 
+    supportedActions.each (
         function (action) {
             if (onValue.get(action) == undefined) {
                 return;
@@ -96,6 +104,111 @@ function encodeFields(table, fields)
     return pars.join('&');
 }
 
+
+
+
+function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
+{
+    var title = '';
+    var selectForeignField;
+    var parentSelectId;
+    var nextPageContextName;
+    var pars = 'action=add&tablename=' + table + '&directory=' + directory ;
+    if (nextPage){
+     pars +=  '&json=1';
+    } else {
+        pars += '&page=0';
+        pars += '&filter=' + inputValue(table + '_filter');
+        pars += '&pageSize=' + inputValue(table + '_pageSize');
+    }
+    if (extraParams) {
+      parentSelectId        = extraParams['selectCallerId'];
+      selectForeignField    = extraParams['selectForeignField'];
+      nextPageContextName = extraParams['nextPageContextName'];
+    }
+
+    cleanError(table);
+
+    if (fields) {
+      pars += '&' + encodeFields(table, fields);
+    }
+
+    var MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+              stripe('dataTable', '#ecf5da', '#ffffff');
+              completedAjaxRequest();
+              if (nextPage && nextPageContextName) {
+                var json = t.responseText.evalJSON(true);
+                if (json.success) {
+                  var nextDirectory = json.directory;
+                  var rowId = json.rowId;
+                  if (parentSelectId && selectForeignField){
+                    var printableValue = json.callParams[selectForeignField];
+                    addSelectChoice(parentSelectId, rowId, printableValue, true);
+                    // hide 'Add a new one' element
+                    var newLink  = document.getElementById(parentSelectId + '_empty');
+                    if (newLink) {
+                      newLink.style.display = 'none';
+                      document.getElementById(parentSelectId).style.display ='inline';
+                    }
+                  }
+
+                  if (rowId && directory) {
+                    var nameParts = nextPageContextName.split('/');
+                    var nextPageUrl = '/zentyal/' + nameParts[1] + '/';
+                    nextPageUrl += 'ModalController/' + nameParts[2];
+                    nextPageUrl += '?directory=' + nextDirectory + '/keys/';
+                    nextPageUrl += rowId + '/' + nextPage;
+                    nextPageUrl += '&firstShow=0';
+                    nextPageUrl += '&action=view';
+                    Modalbox.show(nextPageUrl, {
+                                                transitions: false
+                                               }
+                                                 );
+                  } else {
+                    setError(table, 'Cannot get next page URL');
+                    restoreHidden('buttons_' + table, table);
+                    Modalbox.resizeToContent();
+                  }
+
+                } else {
+                  var error = json.error;
+                  if (!error) {
+                    error = 'Unknown error';
+                  }
+                  setModalError(error);
+                  restoreHidden('buttons_' + table, table);
+                  Modalbox.resizeToContent();
+                }
+
+              } else {
+                 // no JSON
+                Modalbox.resizeToContent();
+                restoreHidden('buttons_' + table, table);
+              }
+
+            },
+            onFailure: function(t) {
+              restoreHidden('buttons_' + table, table);
+              Modalbox.resizeToContent();
+            }
+        }
+    );
+
+    setLoading('buttons_' + table, table, true);
+
+}
+
+
 function addNewRow(url, table, fields, directory)
 {
     var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
@@ -119,7 +232,7 @@ function addNewRow(url, table, fields, directory)
             parameters: pars,
             evalScripts: true,
             onComplete: function(t) {
-              stripe('dataTable', '#ecf5da', '#ffffff'); 
+              stripe('dataTable', '#ecf5da', '#ffffff');
               completedAjaxRequest();
             },
             onFailure: function(t) {
@@ -131,7 +244,9 @@ function addNewRow(url, table, fields, directory)
     setLoading('buttons_' + table, table, true);
 }
 
-function changeRow(url, table, fields, directory, id, page, force)
+
+
+function changeRow(url, table, fields, directory, id, page, force, resizeModalbox)
 {
     var pars = '&action=edit&tablename=' + table + '&directory='
                    + directory + '&id=' + id + '&';
@@ -159,9 +274,16 @@ function changeRow(url, table, fields, directory, id, page, force)
             onComplete: function(t) {
                 highlightRow( id, false);
                 stripe('dataTable', '#ecf5da', '#ffffff');
+                if (resizeModalbox) {
+                  Modalbox.resizeToContent();
+                }
             },
             onFailure: function(t) {
                 restoreHidden('buttons_' + table, table );
+                if (resizeModalbox) {
+                  Modalbox.resizeToContent();
+                }
+
             }
         });
 
@@ -202,11 +324,11 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page)
   pars += '&directory=' + directory + '&tablename=' + table;
 
   cleanError(table);
-    
+
   var MyAjax = new Ajax.Updater(
         {
             success: table,
-            failure: 'error_' + table 
+            failure: 'error_' + table
         },
         url,
         {
@@ -262,38 +384,38 @@ function customActionClicked(action, url, table, fields, directory, id, page)
             },
             onFailure: function(t) {
                 $$('.customActions').each(function(e) {
-                    restoreHidden(e.identify(), table)
+                        restoreHidden(e.identify(), table);
                 });
             }
         }
     );
 
     $$('.customActions').each(function(e) {
-        setLoading(e.identify(), table, true)
+            setLoading(e.identify(), table, true);
     });
 }
 
 function changeView(url, table, directory, action, id, page, isFilter)
 {
     var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
-    
+
     pars += '&filter=' + inputValue(table + '_filter');
-      pars += '&pageSize=' + inputValue(table + '_pageSize');
+    pars += '&pageSize=' + inputValue(table + '_pageSize');
     pars += '&page=' + page;
 
     cleanError(table);
-    
+
     var MyAjax = new Ajax.Updater(
         {
             success: table,
-            failure: 'error_' + table 
+            failure: 'error_' + table
         },
         url,
         {
             method: 'post',
             parameters: pars,
             evalScripts: true,
-            onComplete: function(t) { 
+            onComplete: function(t) {
               // Highlight the element
                           if (id != undefined) {
                 highlightRow(id, true);
@@ -318,7 +440,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
                 restoreHidden('actionsCell_' + id, table);
               }
             }
-            
+
         });
 
     if ( action == 'changeAdd' ) {
@@ -331,6 +453,107 @@ function changeView(url, table, directory, action, id, page, isFilter)
     }
     else if ( action == 'changeEdit' ) {
       setLoading('actionsCell_' + id, table, true);
+    }
+
+}
+
+function modalChangeView(url, table, directory, action, id, extraParams)
+{
+    var title = '';
+    var page = 1;
+    var firstShow = false;
+    var isFilter= false;
+    var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+    for (name in extraParams) {
+      if (name == 'title') {
+        title = extraParams['title'];
+      } else if (name == 'page') {
+        page = extraParams['page'];
+      } else if (name == 'firstShow') {
+        firstShow = extraParams['firstShow'];
+        pars += '&firstShow=' + extraParams['firstShow'];
+      } else {
+        pars += '&' + name + '=' + extraParams[name];
+      }
+
+    }
+
+  if (! firstShow ) {
+        pars += '&firstShow=0';
+   }
+
+    pars += '&filter=' + inputValue(table + '_filter');
+    pars += '&pageSize=' + inputValue(table + '_pageSize');
+    pars += '&page=' + page;
+
+  if (firstShow) {
+      Modalbox.show(url, {title: title,
+                          params: pars,
+                          transitions: false,
+                          afterLoad: function() {
+                               // fudge for pootle bug
+                               var badText = document.getElementById('ServiceTable_modal_name');
+                               if (badText){
+                                badText.value = '';
+                                }
+                              }
+                          }
+          );
+
+  } else {
+      cleanError(table);
+       var MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table
+        },
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+              // Highlight the element
+                          if (id != undefined) {
+                highlightRow(id, true);
+                          }
+              // Stripe again the table
+              stripe('dataTable', '#ecf5da', '#ffffff');
+              if ( action == 'changeEdit' ) {
+                restoreHidden('actionsCell_' + id, table);
+              }
+              completedAjaxRequest();
+              Modalbox.resizeToContent();
+            },
+            onFailure: function(t) {
+              if ( action == 'changeAdd' ) {
+                restoreHidden('creatingForm_' + table, table);
+              }
+              else if ( action == 'changeList' ) {
+                            if (! isFilter ) {
+                              restoreHidden('buttons_' + table, table);
+                            }
+              }
+              else if ( action == 'changeEdit' ) {
+                restoreHidden('actionsCell_' + id, table);
+              }
+                Modalbox.resizeToContent();
+            }
+
+        });
+
+
+     if ( action == 'changeAdd' ) {
+        setLoading('creatingForm_' + table, table, true);
+      }
+      else if ( action == 'changeList' ) {
+        if ( ! isFilter ) {
+          setLoading('buttons_' + table, table, true);
+        }
+      }
+      else if ( action == 'changeEdit' ) {
+        setLoading('actionsCell_' + id, table, true);
+      }
     }
 
 }
@@ -362,10 +585,10 @@ function hangTable(successId, errorId, url, formId, loadingId)
     loadingId = 'loadingTable';
   }
 
-  var ajaxUpdate = new Ajax.Updater( 
+  var ajaxUpdate = new Ajax.Updater(
   {
   success: successId,
-  failure: errorId 
+  failure: errorId
   },
   url,
       {
@@ -374,11 +597,11 @@ function hangTable(successId, errorId, url, formId, loadingId)
     asynchronous: true,
     evalScripts: true,
     onComplete: function(t) {
-      stripe('dataTable', '#ecf5da', '#ffffff'); 
+      stripe('dataTable', '#ecf5da', '#ffffff');
       completedAjaxRequest();
     },
         onComplete: function(t) {
-          stripe('dataTable', '#ecf5da', '#ffffff'); 
+          stripe('dataTable', '#ecf5da', '#ffffff');
           completedAjaxRequest();
         },
     onFailure: function(t) {
@@ -386,9 +609,9 @@ function hangTable(successId, errorId, url, formId, loadingId)
     }
       }
   );
- 
+
   setLoading(loadingId);
- 
+
 }
 
 /*
@@ -425,14 +648,14 @@ function selectComponentToHang(successId, errorId, formId, urls, loadingId)
       select = children[i];
     }
   }
-  var url = urls[ $F(select.id) ]
+  var url = urls[ $F(select.id) ];
 
   var pars = "action=view"; // FIXME: maybe the directory could be sent
 
-  var ajaxUpdate = new Ajax.Updater( 
+  var ajaxUpdate = new Ajax.Updater(
   {
   success: successId,
-  failure: errorId 
+  failure: errorId
   },
   url,
       {
@@ -448,9 +671,9 @@ function selectComponentToHang(successId, errorId, formId, urls, loadingId)
     }
       }
   );
- 
+
   setLoading(loadingId);
- 
+
 }
 
 
@@ -461,14 +684,14 @@ Function: showSelected
 
 Parameters:
 
-        selectElement - HTMLSelectElement 
+        selectElement - HTMLSelectElement
 
 */
 function showSelected (selectElement)
 {
 
-   selectedValue = $F(selectElement) 
-   var options = selectElement.options; 
+   var selectedValue = $F(selectElement);
+   var options = selectElement.options;
    for (var i = 0; i < options.length; i++) {
      var option = options[i].value;
      var childId = selectElement.id + "_" + option + "_container";
@@ -477,7 +700,7 @@ function showSelected (selectElement)
      } else {
        hide(childId);
      }
-   }   
+   }
 }
 
 /*
@@ -518,6 +741,7 @@ function showPort(protocolSelectId, portId, protocols)
      is selected elsewhere. We should refactor this
      and provide a generic function to do that. Logic should
      come from model and translated in javascript.
+*/
 /*
 Function: showPortRange
 
@@ -565,7 +789,7 @@ Parameters:
         modelName - the model name to distinguish among hiddenDiv tags *(Optional)*
     isSaved   - boolean to indicate if the inner HTML should be saved
     at *hiddenDiv_<modelName>* in order to be rescued afterwards *(Optional)*
-        
+
 
 */
 var savedElements = {};
@@ -587,7 +811,7 @@ Function: setDone
 Parameters:
 
         elementId - String the element identifier
-        
+
 
 */
 function setDone (elementId)
@@ -639,7 +863,7 @@ function disableInput(elementId)
     node = children[idx];
     if ( node.nodeType == 1 /* Node.ELEMENT_NODE */ ) {
       //      if ( typeof node == "HTMLInputElement" ) {
-    
+
     node.disable = true;
     //}
     }
@@ -717,7 +941,7 @@ function markFileToRemove(id)
 /*
 Function: sendInPlaceBooleanValue
 
-    This function is used to send the value change of a boolean type with in-place 
+    This function is used to send the value change of a boolean type with in-place
     edtion
 
 Parameters:
@@ -746,10 +970,10 @@ function sendInPlaceBooleanValue(controller, model, id, dir, field, element)
 
     hide(element.id);
     setLoading(element.id + '_loading');
-    
+
     var MyAjax = new Ajax.Updater(
                 {
-                        failure: 'error_' + model 
+                        failure: 'error_' + model
                 },
         controller,
         {
@@ -798,6 +1022,21 @@ Function: completedAjaxRequest
 function completedAjaxRequest()
 {
     $('ajax_request_cookie').value = 0;
+}
+
+
+function addSelectChoice(id, value, printableValue, selected)
+{
+    var selectControl = document.getElementById(id);
+    if (!selectControl) {
+      return;
+    }
+    var newChoice = new Option(printableValue, value);
+
+    selectControl.options.add(newChoice);
+    if (selected) {
+        selectControl.options.selectedIndex = selectControl.options.length -1;
+    }
 }
 
 

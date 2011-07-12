@@ -265,6 +265,7 @@ sub _fieldDescription
                 'printableName' => __('Object'),
                 'foreignModel' => \&objectModel,
                 'foreignField' => 'name',
+                foreignNextPageField => 'members',                                     
                 'editable' => 1),
             ]);
 
@@ -300,6 +301,7 @@ sub _fieldDescription
                 'printableName' => __('Source object'),
                 'foreignModel' => \&objectModel,
                 'foreignField' => 'name',
+                foreignNextPageField => 'members',                                     
                 'editable' => 1),
             ],
             'unique' => 1,

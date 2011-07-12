@@ -2799,6 +2799,18 @@ sub Viewer
     return '/ajax/tableBody.mas';
 }
 
+
+sub modalViewer
+{
+    my ($self, $showTable) = @_;
+    if ($showTable) {
+        return  '/ajax/tableModalView.mas';
+    } else {
+        return '/ajax/tableModal.mas';        
+    }
+
+}
+
 # Method: automaticRemoveMsg
 #
 #       Get the i18ned string to show when an automatic remove is done
@@ -2933,6 +2945,59 @@ sub changeViewJS
             );
 }
 
+# Method: changeViewJS
+#
+#     Return the javascript function to change view to
+#     add a row
+#
+# Parameters:
+#
+#    (NAMED)
+#    changeType - changeAdd or changeList
+#    editId - edit id
+#     page - page number
+#       isFilter - boolean indicating if comes from filtering
+#
+#
+# Returns:
+#
+#     string - holding a javascript funcion
+sub modalChangeViewJS
+{
+    my ($self, %args) = @_;
+    my $actionType = delete $args{changeType};
+    my $editId     = delete $args{editId};
+    if (not $args{title}) {
+        $args{title} = __x('New {name}', 
+                           name => $self->printableRowName()
+                          );
+    }
+
+    my $extraParamString = '{';
+    while (my ($name, $value) = each %args) {
+        $extraParamString .= "'$name'" . ': '  . "'$value'" . ', ';
+    }
+    $extraParamString .= '}';
+
+    my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
+
+    my $table = $self->table();
+    my $url = $table->{'actions'}->{'changeView'}; # url
+    $url =~ s/Controller/ModalController/; 
+    my $tableId = $table->{'tableName'} . '_modal';
+
+    my $js =  sprintf ($function,
+            $url,         
+            $tableId,
+            $table->{'gconfdir'},
+            $actionType,
+            $editId,
+            $extraParamString,
+            );
+
+    return $js;
+}
+
 # Method: addNewRowJS
 #
 #     Return the javascript function for addNewRow
@@ -2961,6 +3026,39 @@ sub addNewRowJS
             $page);
 }
 
+sub modalAddNewRowJS
+{
+    my ($self, $page, $nextPage, %extraParams) = @_;
+    $nextPage or 
+        $nextPage = '';
+
+    my  $function = "modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
+
+    my $table = $self->table();
+    my $url = $table->{'actions'}->{'add'};
+    if (not $nextPage) {
+        $url =~ s/Controller/ModalController/;
+    }
+
+    my $extraParamString = '{';
+    while (my ($name, $value) = each %extraParams) {
+        $extraParamString .= "'$name'" . ': '  . "'$value'" . ', ';
+    }
+    $extraParamString .= '}';
+
+    my $tableId = $table->{'tableName'} . '_modal';
+
+     my $fields = $self->_paramsWithSetterJS();
+     return  sprintf ($function,
+             $url,
+             $tableId,
+             $fields,
+             $table->{'gconfdir'},
+             $nextPage,
+             $extraParamString);
+}
+
+
 # Method: changeRowJS
 #
 #     Return the javascript function for changeRow
@@ -2976,19 +3074,32 @@ sub addNewRowJS
 #     string - holding a javascript funcion
 sub changeRowJS
 {
-    my ($self, $editId, $page) = @_;
+    my ($self, $editId, $page, $modal) = @_;
 
-    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s)";
+    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
 
     my $table = $self->table();
+    my $tablename =  $table->{'tableName'};
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+    my $modalResize = 0;
+    if ($modal) {
+        $tablename .= '_modal';
+        $actionUrl =~ s/Controller/ModalController/;
+        $modalResize = 1;
+    }
+
+    my $force =0;
+
     my $fields = $self->_paramsWithSetterJS();
     return  sprintf ($function,
-            $table->{'actions'}->{'editField'},
-            $table->{'tableName'},
+            $actionUrl,
+            $tablename,
             $fields,
             $table->{'gconfdir'},
             $editId,
-            $page);
+            $page,
+            $force,
+            $modalResize);
 }
 
 # Method: actionClicked
@@ -3008,7 +3119,7 @@ sub changeRowJS
 #     string - holding a javascript funcion
 sub actionClickedJS
 {
-    my ($self, $action, $editId, $direction, $page) = @_;
+    my ($self, $action, $editId, $direction, $page, $modal) = @_;
 
     unless ($action eq 'move' or $action eq 'del') {
         throw EBox::Exceptions::External("Wrong action $action");
@@ -3029,10 +3140,17 @@ sub actionClickedJS
     }
 
     my $table = $self->table();
+    my $actionUrl = $table->{'actions'}->{$action};
+    my $tablename = $table->{'tableName'};
+    if ($modal) {
+        $actionUrl =~ s/Controller/ModalController/;
+        $tablename .= '_modal';
+    }
+
     my $fields = $self->_paramsWithSetterJS();
     return  sprintf ($function,
-            $table->{'actions'}->{$action},
-            $table->{'tableName'},
+            $actionUrl,
+            $tablename,
             $action,
             $editId,
             $direction,

@@ -171,18 +171,26 @@ sub run
             $self->_process();
         } catch EBox::Exceptions::DataInUse with {
             my $e = shift;
-            $self->_print_warning($e->text());
-            $finish = 1;
-        } catch EBox::Exceptions::DataInUse with {
-            my $e = shift;
-            $self->_print_warning($e->text());
+            if ($self->{json}) {
+                $self->setErrorFromException($e);
+            } else {
+                $self->_print_warning($e->text());                
+            }
+
             $finish = 1;
         } otherwise {
             my $e = shift;
             $self->setErrorFromException($e);
-            $self->_error();
+            if (not $self->{json}) {
+                $self->_error();
+            }
             $finish = 1;
         };
+    }
+
+    if ($self->{json}) {
+        $self->JSONReply($self->{json});
+        return;
     }
 
 

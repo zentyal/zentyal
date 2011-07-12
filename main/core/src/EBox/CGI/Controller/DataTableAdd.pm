@@ -43,5 +43,4 @@ sub _process
 	$self->refreshTable();
 }
 
-
 1;

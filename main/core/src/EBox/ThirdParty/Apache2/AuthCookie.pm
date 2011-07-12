@@ -147,7 +147,7 @@ sub _convert_to_get {
 
 sub escape_uri {
     my ($r, $string) = @_;
-    return EBox::ThirdParty::Apache2::AuthCookie::Util::escape_path($string, $r->pool);
+    return EBox::ThirdParty::Apache2::AuthCookie::Util::escape_destination($string, $r->pool);
 }
 
 # get GET or POST data and return hash containing the data.

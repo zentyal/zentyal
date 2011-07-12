@@ -36,6 +36,7 @@ use File::Temp qw(tempfile);
 use File::Basename;
 use Apache2::Connection;
 use Apache2::RequestUtil;
+use JSON::XS;
 
 ## arguments
 ##      title [optional]
@@ -162,7 +163,14 @@ sub _footer
 
 sub _print
 {
-    my $self = shift;
+    my ($self) = @_;
+    
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
     $self->_header;
     $self->_top;
     $self->_menu;
@@ -924,5 +932,19 @@ sub menuNamespace
     }
 
 }
+
+sub JSONReply
+{
+    my ($self, $data_r) = @_;
+    print$self->cgi()->header(-charset=>'utf-8',
+                              -type => 'application/JSON',
+                             );    
+    my $error = $self->{error};
+    if ($error and not $data_r->{error}) {
+        $data_r->{error} = $error;
+    }
+    print encode_json($data_r);
+}
+
 
 1;
