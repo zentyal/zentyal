@@ -117,6 +117,39 @@ sub removeUserIP
 }
 
 
+# Method: userBWUsage
+#
+#   Returns total user bandwidth usage in bytes
+#
+#   Parameters:
+#       - username
+#       - year
+#       - month
+#
+sub userExtBWUsage
+{
+    my ($self, $username, $year, $month) = @_;
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my $beg = "$year-$month-01 00:00:00"; $month = $month+1;
+    my $end = "$year-$month-01 00:00:00";
+
+    my $res = $db->query_hash({
+            'select' => 'SUM(exttotalrecv) as recv, SUM(exttotalsent) as sent',
+            'from' => 'bwmonitor_usage',
+            'where' => qq{username='$username' and timestamp>'$beg' and timestamp<'$end'},
+            'group' => 'username'
+        });
+
+    if ( @{$res} ) {
+        return $res->[0]->{recv} + $res->[0]->{sent};
+    } else {
+        return 0;
+    }
+}
+
+
 
 sub _setConf
 {
