@@ -82,6 +82,10 @@ sub protocols
                  'printableValue' => 'UDP'
                  },
                  {
+                 'value' => 'ah',
+                 'printableValue' => 'AH'
+                 },
+                 {
                  'value' => 'esp',
                  'printableValue' => 'ESP'
                  },
@@ -122,6 +126,7 @@ sub viewCustomizer
                 icmp => { disable => [qw/source destination/] },
                 gre => { disable => [qw/source destination/] },
                 esp => { disable => [qw/source destination/] },
+                ah => { disable => [qw/source destination/] },
                 tcp => { enable => [qw/source destination/] },
                 udp => { enable => [qw/source destination/] },
                 'tcp/udp' => { enable => [qw/source destination/] },
@@ -187,7 +192,7 @@ sub validateTypedRow()
     if ($action eq 'add' or $action eq 'update') {
         return unless (exists $parms->{'protocol'});
         my $type = $parms->{'protocol'}->value();
-        if ($type eq any ('gre', 'icmp', 'esp', 'any') ) {
+        if ($type eq any ('gre', 'icmp', 'esp', 'ah', 'any') ) {
             my $source = $parms->{'source'};
             my $destination = $parms->{'destination'};
             for my $port ($source, $destination) {

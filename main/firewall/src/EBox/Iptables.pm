@@ -79,7 +79,7 @@ sub pf # (options)
     return "/sbin/iptables $opts";
 }
 
-# Method: startIPForward
+# Method: _startIPForward
 #
 #       Change kernel to do IPv4 forwarding (default)
 #
@@ -103,6 +103,33 @@ sub _startIPForward
 sub _stopIPForward
 {
     return [ '/sbin/sysctl -q -w net.ipv4.ip_forward="0"' ];
+}
+
+# Method: _setKernelParameters
+#
+#       Set kernel parameters for increased security
+#
+# Returns:
+#
+#       array ref - the output of sysctl command in an array
+#
+sub _setKernelParameters
+{
+    my @commands;
+    # enable TCP SYN cookie protection
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.tcp_syncookies="1"');
+    # don't log spoofed, source-routed, or redirect packets
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.conf.all.log_martians="0"');
+    # disable ICMP redirects
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.conf.all.accept_redirects="0"');
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.conf.all.send_redirects="0"');
+    # drop source-routed packets
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.conf.all.accept_source_route="0"');
+    # enable bad error message protection
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.icmp_ignore_bogus_error_responses="1"');
+    # enable ICMP broadcast echo protection
+    push(@commands, '/sbin/sysctl -q -w net.ipv4.icmp_echo_ignore_broadcasts="1"');
+    return \@commands;
 }
 
 # Method: _clearTables
@@ -578,6 +605,8 @@ sub start
     push(@commands, @{$self->_localRedirects()});
 
     push(@commands, @{_startIPForward()});
+
+    push(@commands, @{_setKernelParameters()});
 
     my @modRules = @{$self->moduleRules()};
 
