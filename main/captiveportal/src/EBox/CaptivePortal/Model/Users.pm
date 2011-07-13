@@ -72,6 +72,7 @@ sub _table
             'fieldName' => 'time',
             'printableName' => __('Time'),
             'editable' => 0,
+            'hidden' => 1,
         ),
         new EBox::Types::HostIP(
             'fieldName' => 'ip',
@@ -90,7 +91,7 @@ sub _table
     if ($self->_bwmonitor()) {
         push (@tableHeader, new EBox::Types::Int(
             'fieldName' => 'bwusage',
-            'printableName' => 'Month Bandwidth usage (KB)',
+            'printableName' => 'Month Bandwidth usage (MB)',
             'editable' => 0,
             'optional' => 0)
         );
@@ -216,7 +217,7 @@ sub _bwusage
 
     EBox::debug("year: $year, month: $month");
 
-    return int($self->{bwmonitor}->userExtBWUsage($user, $year, $month) / 1024);
+    return int($self->{bwmonitor}->userExtBWUsage($user, $year, $month) / (1024*1024));
 }
 
 
