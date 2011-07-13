@@ -78,7 +78,10 @@ sub modelClasses
 
 sub compositeClasses
 {
-    return [ 'EBox::CaptivePortal::Composite::General' ];
+    return [
+        'EBox::CaptivePortal::Composite::GeneralSettings',
+        'EBox::CaptivePortal::Composite::General',
+    ];
 }
 
 # Method: menu

@@ -55,7 +55,7 @@ sub _table
 
     my @tableHeader;
     if ($self->{bwmonitor}) {
-        my $enabled = $self->{bwmonitor}->isEnabled();
+        my $enabled = EBox::Global->modInstance('bwmonitor')->isEnabled();
 
         push (@tableHeader,
             new EBox::Types::Boolean(

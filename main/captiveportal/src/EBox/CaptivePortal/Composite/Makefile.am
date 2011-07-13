@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CaptivePortal/Composite
 
-nobase_perl_DATA = General.pm
+nobase_perl_DATA = General.pm GeneralSettings.pm
 
 DISTCLEANFILES =
 

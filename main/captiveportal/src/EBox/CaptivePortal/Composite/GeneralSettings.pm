@@ -13,57 +13,47 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-use strict;
-use warnings;
-
-package EBox::CaptivePortal::Composite::General;
+package EBox::CaptivePortal::Composite::GeneralSettings;
 
 use base 'EBox::Model::Composite';
 
-use EBox::Gettext;
+use strict;
+use warnings;
+
 use EBox::Global;
+use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#     Constructor for the Gateway composite.
-#
 sub new
 {
-    my ($class, @params) = @_;
+    my ($class) = @_;
+    my $self = $class->SUPER::new();
 
-    my $self = $class->SUPER::new(@params);
     return $self;
 }
+
 
 # Method: _description
 #
 # Overrides:
 #
-#     <EBox::Model::Composite::_description>
+#       <EBox::Model::Composite::_description>
 #
 sub _description
 {
-    my ($self) = @_;
-
-    my @components;
-    push (@components, 'captiveportal/GeneralSettings');
-
-    if (EBox::Global->modInstance('captiveportal')->isEnabled()) {
-        push (@components, 'captiveportal/Users');
-    }
-
-    my $description = {
-        components      => \@components,
-        layout          => 'tabbed',
-        name            => 'General',
-        pageTitle       => __('Captive Portal'),
-        headTitle       => undef,
+    my $description =
+    {
+        components      => [
+                               'captiveportal/Settings',
+                               'captiveportal/Interfaces',
+                           ],
+        layout          => 'top-bottom',
+        name            => 'GeneralSettings',
+        printableName   => __('Settings'),
         compositeDomain => 'CaptivePortal',
     };
 
     return $description;
 }
+
 
 1;
