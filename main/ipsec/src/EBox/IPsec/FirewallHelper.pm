@@ -37,6 +37,7 @@ sub new
 sub isEnabled
 {
     my ($self) = @_;
+
     return $self->{service};
 }
 
@@ -54,13 +55,13 @@ sub postrouting
     $self->isEnabled() or return [];
 
     my $network = EBox::Global->modInstance('network');
-    my @internalIfaces = @{ $network->InternalIfaces()  };
+    my @externalIfaces = @{$network->ExternalIfaces()};
 
-    my @networksNoToMasquerade = @{ $self->networksNoToMasquerade() };
+    my @networksNoToMasquerade = @{$self->networksNoToMasquerade()};
 
     my @rules;
     foreach my $network (@networksNoToMasquerade) {
-        foreach my $iface (@internalIfaces) {
+        foreach my $iface (@externalIfaces) {
             my $output = $self->_outputIface($iface);
             # don't NAT connections going thru IPsec VPN
             push @rules, "$output --destination $network -j ACCEPT";

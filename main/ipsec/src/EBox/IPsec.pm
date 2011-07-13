@@ -49,6 +49,7 @@ sub _create
                                       printableName => 'IPsec');
 
     bless($self, $class);
+
     return $self;
 }
 
@@ -119,6 +120,58 @@ sub _daemons
     ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#
+#      <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'IPsec';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __('IPsec VPN'),
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setExternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _services
+{
+    return [
+             {
+                 'protocol' => 'esp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => 'any',
+             },
+             {
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '500',
+             },
+             {
+                 'protocol' => 'udp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '4500',
+             },
+    ];
+}
+
 # Method: _setConf
 #
 # Overrides:
@@ -162,6 +215,7 @@ sub tunnels
     my ($self) = @_;
 
     my $vpn = $self->model('Connections');
+
     return $vpn->tunnels();
 }
 
@@ -170,13 +224,12 @@ sub firewallHelper
     my ($self) = @_;
 
     my $enabled = $self->isEnabled();
-# FIXME
-#    my @activeServers = @{$self->model('VPN')->getServers()};
+
+    my @activeTunnels = @{$self->tunnels()};
     my @networksNoToMasquerade = ();
-#    foreach my $server (@activeServers) {
-#         EBox::debug(Dumper $server);
-#         push(@networksNoToMasquerade, $server->{'right_subnet'});
-#    }
+    foreach my $tunnel (@activeTunnels) {
+         push(@networksNoToMasquerade, $tunnel->{'right_subnet'});
+    }
 
     my $firewallHelper = new EBox::IPsec::FirewallHelper(
         service => $enabled,
@@ -204,7 +257,7 @@ sub menu
     $folder->add(
                  new EBox::Menu::Item(
                                       'url' => 'VPN/IPsec',
-                                      'text' => __('IPsec Connections'),
+                                      'text' => __('IPsec'),
                                       'order' => 30
                                      )
     );

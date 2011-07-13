@@ -1,3 +1,6 @@
+HEAD
+	+ Added IPsec service with needed protocols and firewall rule
+	+ Fix firewallHelper to not to NAT IPsec destinations
 2.1.1
 	+ Removed workarounds on component's parent/child relationship
 2.1
