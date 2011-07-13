@@ -50,6 +50,11 @@ sub _description
     my @components;
     push (@components, 'captiveportal/GeneralSettings');
 
+    # show secondary ldap configuration if enabled
+    if (EBox::Config::configkey('captive_secondary_ldap')) {
+        push (@components, 'captiveportal/SecondaryLDAP');
+    }
+
     if (EBox::Global->modInstance('captiveportal')->isEnabled()) {
         push (@components, 'captiveportal/Users');
     }

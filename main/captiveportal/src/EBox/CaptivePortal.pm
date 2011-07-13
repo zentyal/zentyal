@@ -73,6 +73,7 @@ sub modelClasses
         'EBox::CaptivePortal::Model::Settings',
         'EBox::CaptivePortal::Model::Users',
         'EBox::CaptivePortal::Model::CaptiveUser',
+        'EBox::CaptivePortal::Model::SecondaryLDAP',
     ];
 }
 
@@ -118,6 +119,7 @@ sub _setConf
 {
     my ($self) = @_;
     my $settings = $self->model('Settings');
+    my $sldap = $self->model('SecondaryLDAP');
     my $users = EBox::Global->modInstance('users');
 
     # Apache conf file
@@ -129,12 +131,18 @@ sub _setConf
         ]);
 
     # Ldap connection (for auth) config file
+    my @params;
+    push (@params, ldap_url => EBox::Ldap::LDAPI);
+    push (@params, ldap_bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn);
+
+    if ($sldap->enabledValue()) {
+        push (@params, ldap2_url => $sldap->urlValue());
+        push (@params, ldap2_bindstring => $sldap->binddnValue());
+    }
+
     EBox::Module::Base::writeConfFileNoCheck(LDAP_CONF,
         "captiveportal/ldap.conf.mas",
-        [
-            ldap_url => EBox::Ldap::LDAPI,
-            bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn,
-        ]);
+        \@params);
 
     # Write css file
     $self->_writeCSS();
