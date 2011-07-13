@@ -69,9 +69,9 @@ sub _table
         push (@tableHeader,
             new EBox::Types::Int(
                 fieldName     => 'defaultQuota',
-                printableName => __('Default bandwidth quota (MB/month)'),
+                printableName => __('Bandwidth quota'),
                 editable      => $enabled,
-                help          => __('Default maximum bandwidth usage per month. 0 means no limit.'),
+                help          => __('MB/month. Maximum bandwidth usage per month. 0 means no limit.'),
                 defaultValue  => 0,
                 )
         );
