@@ -13,8 +13,6 @@ use Error qw(:try);
 EBox::init();
 
 my %params = @ARGV;
-(exists $params{'--progress-id'}) or
-    die 'no progress indicator id supplied';
 
 my $action = $params{'--action'};
 $action or
@@ -24,31 +22,36 @@ if (($action ne 'saveAllModules') and ($action ne 'revokeAllModules')) {
     throw EBox::Exceptions::Internal("Bad action: $action");
 }
 
+my @callParams;
+my $progress;
+
 my $progressId = delete $params{'--progress-id'};
-
-my $progress = EBox::ProgressIndicator->retrieve($progressId);
-
-# put progress indicator param
+if ($progressId) {
+    $progress = EBox::ProgressIndicator->retrieve($progressId);
+    @callParams = (progress => $progress);
+}
 
 try {
     my $global = EBox::Global->getInstance();
     my $audit = $global->modInstance('audit');
 
     if ($action eq 'saveAllModules') {
-        $global->saveAllModules(progress => $progress);
+        $global->saveAllModules(@callParams);
         $audit->commit();
     } elsif ($action eq 'revokeAllModules') {
-        $global->revokeAllModules(progress => $progress);
+        $global->revokeAllModules(@callParams);
         $audit->discard();
     }
 } otherwise {
     my $ex = shift @_;
 
-    my $errorTxt = $ex->text();
-    if (EBox::Config::configkey('debug') eq 'yes') {
-        $errorTxt .= "\n" . $ex->stacktrace();
+    if ($progress) {
+        my $errorTxt = $ex->text();
+        if (EBox::Config::configkey('debug') eq 'yes') {
+            $errorTxt .= "\n" . $ex->stacktrace();
+        }
+        $progress->setAsFinished(1, $errorTxt);
     }
-    $progress->setAsFinished(1, $errorTxt);
 
     $ex->throw();
 };
