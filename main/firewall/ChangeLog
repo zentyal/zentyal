@@ -1,4 +1,5 @@
 HEAD
+	+ Added help images to each firewall filtering table
 	+ Improve kernel settings for increased firewall security
 	+ Use the new "Add new..." option in the object selectors
 	+ Removed obsolete gettext calls

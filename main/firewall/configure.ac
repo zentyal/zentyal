@@ -59,6 +59,7 @@ src/scripts/Makefile
 schemas/Makefile
 schemas/sql/Makefile
 schemas/sql/period/Makefile
+www/Makefile
 Makefile
 ])
 
