@@ -185,11 +185,11 @@ sub validateTypedRow
                     throw EBox::Exceptions::External(
                             __x('Path not allowed. It cannot be under {dir}',
                                 dir => $normalized
-                               ) 
+                               )
                     );
                 }
             }
-            EBox::Validate::checkAbsoluteFilePath($path,
+            EBox::Validate::checkAbsoluteFilePath($parms->{'path'}->value(),
                                            __('Samba share absolute path')
                                                 );
         } else {
