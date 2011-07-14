@@ -4,44 +4,46 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-05-10 20:16+0200\n"
-"PO-Revision-Date: 2007-02-02 19:14+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2011-05-19 17:13+0200\n"
+"Last-Translator: bix <nineu@bingenmarkes.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
-#, fuzzy
 msgid "Mail Filter"
-msgstr "PostaIragazki sistema"
+msgstr "Posta-Iragazki sistema"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "clamav erabiltzalea amavis taldera gehitu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
+"Clamav posta modu egokian eskaneatzeko Amavis eremutara atzitu beharra du"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "clamav erabiltzailea p3scan taldera gehitu"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Clamav POP Proxya modu egokian eskaneatzeko p3scan taldera atzitu beharra du"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Gehitu erabiltzaileak spam eta ham sistemara"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""

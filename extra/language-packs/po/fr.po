@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-05-10 20:16+0200\n"
-"PO-Revision-Date: 2011-02-24 17:37+0200\n"
-"Last-Translator: qmic <gilles.qmic@gmail.com>\n"
+"PO-Revision-Date: 2011-06-23 17:56+0200\n"
+"Last-Translator: mezian <ahoamezian@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -30,8 +30,8 @@ msgstr "Ajouter l'utilisateur clamav au groupe amavis"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
 msgstr ""
-"Clamav doit accéder au champs d'amavis pour analyser convenablement les "
-"courriers"
+"Clamav doit accéder au champs d'amavis pour analyser adéquatement le "
+"courrier"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
@@ -40,12 +40,12 @@ msgstr "Ajouter l'utilisateur clamav au groupe p3scan"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
-"Clamav doit accéder au champs de p3scan pour analyser convenablement le "
+"Clamav doit accéder au groupe p3scan pour analyser adéquatement dans le "
 "proxy POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr "Ajouter les utilisateurs du système filtrage anti-pourriel"
+msgstr "Ajouter des utilisateurs système spam et cabotins"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
@@ -71,7 +71,8 @@ msgstr "Protocole POP3"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:403
 msgid "Cannot proceed because the filter is in use"
-msgstr "Impossible d'exécuter l'opération car le filtre est utilisé"
+msgstr ""
+"Impossible d'exécuter l'opération car le filtre est en cours d'utilisation"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
 msgid "Mail filter"
@@ -802,15 +803,14 @@ msgstr "Type MIME"
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:84
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
 #: ../../main/samba/src/templates/samba.mas:105
-#, fuzzy
 msgid "Allow"
 msgstr ""
 "#-#-#-#-#  fr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Permis\n"
+"Autoriser\n"
 "#-#-#-#-#  fr.po (ebox-squid 0.12)  #-#-#-#-#\n"
 "Autoriser\n"
 "#-#-#-#-#  fr.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Permettre"
+"Autoriser"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
@@ -840,8 +840,8 @@ msgid ""
 "MIME types which are not listed below are allowed. MIME types aren't used by "
 "POP transparent proxy"
 msgstr ""
-"Les types MIME qui ne sont pas listés ci dessous sont permis. Les types MIME "
-"ne sont pas utilisés par le proxy transparent POP"
+"Les types MIME qui ne sont pas listés ci dessous sont autorisés. Les types "
+"MIME ne sont pas utilisés par le proxy transparent POP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterGraph.pm:51
 msgid "Mail filter graph"

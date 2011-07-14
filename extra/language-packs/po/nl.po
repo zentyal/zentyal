@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-05-10 20:16+0200\n"
-"PO-Revision-Date: 2011-03-08 16:16+0200\n"
-"Last-Translator: robb <r_bosch@gmx.net>\n"
+"PO-Revision-Date: 2011-05-25 18:36+0200\n"
+"Last-Translator: Maurice <mmullenders@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -26,23 +26,25 @@ msgstr "MailFilter systeem"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "Clamav gebruiker toevoegen aan de groep amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:80
 msgid "Clamav need access to amavis fields to properly scan mail"
-msgstr ""
+msgstr "Clamav heeft toegang nodig tot amavis velden om mail te kunnen scannen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:84
 msgid "Add clamav user to p3scan group"
-msgstr ""
+msgstr "Voeg clamav toe aan p3scan groep"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:85
 msgid "Clamav need access to p3scan group to properly scan in the POP Proxy"
 msgstr ""
+"Clamav heeft toegang nodig tot de p3scan groep om in de POP Proxy te kunnen "
+"scannen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:89
 msgid "Add spam and ham system users"
-msgstr ""
+msgstr "Voeg spam en ham systeem gebruikers toe"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:91
 msgid ""
@@ -51,15 +53,15 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:96
 msgid "Update LDAP"
-msgstr ""
+msgstr "LDAP bijwerken"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
 msgid "Add amavis specific classes and fields"
-msgstr ""
+msgstr "Voeg specifieke amavis klassen en velden toe"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:146
 msgid "POP transparent proxy"
-msgstr ""
+msgstr "POP transparante proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:155
 msgid "POP3 protocol"
@@ -67,12 +69,11 @@ msgstr "POP3 protocol"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:403
 msgid "Cannot proceed because the filter is in use"
-msgstr ""
+msgstr "Kan niet doorgaan omdat het filter in gebruik is"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:558
-#, fuzzy
 msgid "Mail filter"
-msgstr "MailFilter systeem"
+msgstr "Mail Filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:580
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:626
@@ -124,15 +125,8 @@ msgstr "Datum"
 #: ../../main/mail/src/templates/qmanager.mas:23
 #: ../../main/mail/src/templates/alias.mas:39
 #: ../../main/mail/src/templates/groupalias.mas:25
-#, fuzzy
 msgid "Action"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Aktie\n"
-"#-#-#-#-#  nl.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Actie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Actie"
+msgstr "Actie"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:583
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:630
@@ -149,15 +143,15 @@ msgstr "Gebeurtenis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:585
 msgid "Sender address"
-msgstr ""
+msgstr "Afzender adres"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:586
 msgid "Recipient address"
-msgstr ""
+msgstr "Ontvangst adres"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:588
 msgid "Spam hits"
-msgstr ""
+msgstr "Spam meldingen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:593
 msgid "Bad header found"
@@ -165,7 +159,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:594
 msgid "Spam found"
-msgstr ""
+msgstr "Spam gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:595
 msgid "Forbidden attached file found"
@@ -173,11 +167,11 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:596
 msgid "Address in blacklist found"
-msgstr ""
+msgstr "Adres in zwarte lijst gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:597
 msgid "Virus found"
-msgstr ""
+msgstr "Virus gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:598
 msgid "Clean message"

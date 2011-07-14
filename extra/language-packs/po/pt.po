@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-05-10 20:16+0200\n"
-"PO-Revision-Date: 2011-03-31 20:15+0200\n"
-"Last-Translator: vcbranco <vcbranco@gmail.com>\n"
+"PO-Revision-Date: 2011-06-09 18:10+0200\n"
+"Last-Translator: luismorgado <luisammorgado@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,7 @@ msgstr ""
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
+#, fuzzy
 msgid "Mail Filter"
 msgstr "Filtro de correio"
 
@@ -180,9 +181,8 @@ msgid "Clean message"
 msgstr "Limpar mensagem"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:599
-#, fuzzy
 msgid "Unable to reinject in the mail server"
-msgstr "Não é possível ligar ao servidor de correio electrónico {smtp} "
+msgstr "Não é possível reinserir no servidor de correio electrónico"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:608
 msgid "SMTP filter"
@@ -580,7 +580,7 @@ msgstr "Anti-vírus activo"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:75
 msgid "Antispam enabled"
-msgstr "Anti-spam activado"
+msgstr "Anti-spam activo"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:82
 msgid "Service's port"
@@ -2062,12 +2062,12 @@ msgstr "Máscara de rede"
 #: ../../main/network/src/EBox/Network.pm:1087
 #, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr ""
+msgstr "Já existe um interface chamado {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1099
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr ""
+msgstr "Já existe um interface com o nome {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1504
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -2193,15 +2193,16 @@ msgid "Diagnostic Tools"
 msgstr "Ferramentas de diagnostico"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
-#, fuzzy
 msgid "Gateways Configuration"
-msgstr "Configuração geral"
+msgstr "Configuração das gateways"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:61
 msgid ""
 "Here you can configure all the settings related to the way Zentyal provides "
 "Internet connection for your network"
 msgstr ""
+"Aqui pode configurar todas as definições relacionadas com o modo como a "
+"Zentyal disponibiliza ligação à Internet à sua rede"
 
 #: ../../main/network/src/EBox/Network/Composite/ByteRate.pm:73
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:134
@@ -3326,16 +3327,14 @@ msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "A Zentyal necessita disto para entregar correio em Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:77
-#, fuzzy
 msgid "Create MySQL Zarafa database"
-msgstr "Criar base de dados MySQL Zarafa"
+msgstr "Cria base de dados MySQL Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:78
 msgid "This database will store the data needed by Zarafa."
 msgstr "Esta base de dados armazenará os dados de Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:82
-#, fuzzy
 msgid "Create default SSL key/certificates"
 msgstr "Criar chaves/certificados SSL pré-definidos"
 
@@ -3349,14 +3348,13 @@ msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:87
 msgid "Enable Zarafa dagent daemon"
-msgstr ""
+msgstr "Activar rotina Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid "Enable dagent daemon on /etc/default/zarafa-dagent for LMTP delivery."
-msgstr ""
+msgstr "Activar rotina Zarafa em /etc/default/zarafa-dagent para entrega LMTP"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:92
-#, fuzzy
 msgid "Add zarafa link to www data directory"
 msgstr "Adicionar a ligação Zarafa ao directório www"
 
@@ -3397,9 +3395,8 @@ msgid "To properly configure Zarafa indexing server."
 msgstr "Para configurar correctamente a indexação Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:151
-#, fuzzy
 msgid "To properly configure Zarafa dagent LMTP delivering server."
-msgstr "Para configurar correctamente a distribuição de correio Zarafa"
+msgstr "Para configurar correctamente a o servidor de distribuição Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:558
 msgid "Zarafa Gateway Server"
@@ -3503,14 +3500,12 @@ msgid "Enable IMAPS gateway"
 msgstr "Activar gateway IMAPS"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:175
-#, fuzzy
 msgid "Enable iCAL gateway"
-msgstr "Activar gateway IMAP"
+msgstr "Activar gateway iCAL"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:181
-#, fuzzy
 msgid "Enable iCAL SSL gateway"
-msgstr "Activar gateway IMAPS"
+msgstr "Activar gateway SSL iCAL"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:191
 msgid "Zarafa gateways configuration settings"
@@ -3904,27 +3899,26 @@ msgstr ""
 "talvez a sincronização tenha falhado o não tenha terminado"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:52
-#, fuzzy
 msgid "Default user quota"
-msgstr "Quota por omissão"
+msgstr "Quota pré-definida para o utlizador"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:58
 msgid "Mb"
 msgstr "Mb"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:72
-#, fuzzy
 msgid "Default account settings"
-msgstr "Definições da conta de correio"
+msgstr "Definições pré-definidas da conta de correio"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:77
-#, fuzzy
 msgid "On this page you can configure the default settings for user accounts"
-msgstr "Nesta página pode usar definições gerais diferentes no Samba"
+msgstr ""
+"Nesta página pode configurar as definições pré-definidas para as contas de "
+"utilizador"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
-msgstr ""
+msgstr "Definir a quota pré-definida como zero é o mesmo que a desactivar"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
@@ -4177,13 +4171,13 @@ msgid "Username already exists on the system"
 msgstr "O nome de utilizador já existe no sistema"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:967
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
 "move or remove it before creating this user"
 msgstr ""
-"Não é possível restaurar porque o utilizador já existe utilizador do "
-"sistema. Apague ou renomeie o utilizador e tente de novo"
+"Não é possível criar o utilizador porque o directório {dir} já existe no "
+"sistema. Apague ou renomeie-o antes de criar este utilizador"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1063
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1725
@@ -4203,13 +4197,14 @@ msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr "UID de sistema incorrecto {uid}. UID deve ser menor que {max}"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1251
-#, fuzzy
 msgid "user quota"
-msgstr "Quota personalizada"
+msgstr "Quota do utilizador"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1254
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
+"A quota do utilizador deve ser um número inteiro. Para definir quota "
+"ilimitada introduza zero"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1650
 #, perl-brace-format
@@ -4263,13 +4258,13 @@ msgid "AD Sync Settings"
 msgstr "Definições de sincronização do AD"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2693
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
-"Não é possível restaurar porque o utilizador já existe utilizador do "
-"sistema. Apague ou renomeie o utilizador e tente de novo"
+"Não é possível restaurar o utilizador LDAP porque já existe como utilizador "
+"/etc/passw. Apague ou renomeie este utilizador e tente de novo"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2960
 #, perl-brace-format
@@ -4326,7 +4321,7 @@ msgstr "Não é possível abrir o ficheiro de configuração {file}"
 
 #: ../../main/common/src/EBox/Config.pm.in:153
 msgid "The ebox user has not been set in the config file."
-msgstr "O utilizador eBox não foi definido no ficheiro de configuração"
+msgstr "O utilizador Zentyal não foi definido no ficheiro de configuração"
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:34
 #, perl-brace-format
@@ -4349,9 +4344,9 @@ msgid "{data} is empty."
 msgstr "{data} está vazio"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
-#, fuzzy
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
-msgstr "Não é possível contactar o {host}. Verifique a sua ligação à Internet"
+msgstr ""
+"Não é possível ligar à nuvem Zentyal. Verifique a sua ligação à Internet"
 
 #: ../../main/common/src/EBox/Validate.pm:390
 #: ../../main/common/src/EBox/Validate.pm:404
@@ -4875,8 +4870,8 @@ msgid ""
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
 "Permitir/negar o tráfego HTTP dos ficheiros definidos.\n"
-" Extensões que não estão listadas são permitidas.\n"
-" O filtro da extensão necessita de uma politica de filtros definida"
+"Extensões que não estão listadas são permitidas.\n"
+"O filtro da extensão necessita de uma política de filtros definida"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
@@ -4905,9 +4900,9 @@ msgid ""
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
-"Permitir/negar o trafego HTTP dos ficheiros com os tipos de MIME permitidos. "
+"Permitir/negar o tráfego HTTP dos ficheiros com os tipos de MIME permitidos. "
 "Os tipos de MIM que não estiverem listados são permitidos.\n"
-" O filtro da extensão necessita de uma politica de filtragem em uso"
+"O filtro da extensão necessita de uma política de filtragem em uso"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
@@ -5209,21 +5204,21 @@ msgstr "Politica de grupos actualizada"
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
-"As politicas de grupo de utilizadores não são compatíveis co o modo de proxy "
-"transparente "
+"As políticas de grupo de utilizadores não são compatíveis com o modo de "
+"proxy transparente "
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
 msgstr ""
-"O objecto necessita de ser definido com uma politica de autorização para "
-"permitir o uso de politicas de grupo"
+"O objecto necessita de ser definido com uma política de autorização para "
+"permitir o uso de políticas de grupo"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
 #, perl-brace-format
 msgid "Configure object {ob} user groups policies"
-msgstr "Configurar politicas de objectos {ob} de grupos de utilizadores"
+msgstr "Configurar políticas de objectos {ob} de grupos de utilizadores"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
 msgid ""
@@ -5231,11 +5226,11 @@ msgid ""
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
 "Período horário em que o acesso é permitido. É ignorado se o grupo tiver uma "
-"politica de bloqueamento"
+"política de bloqueamento"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 msgid "Group policies"
-msgstr "Politica de grupo"
+msgstr "Política de grupo"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 msgid ""
@@ -5249,7 +5244,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
 msgstr ""
-"A politica de grupos global necessita de uma politica de global com "
+"A política de grupos global necessita de uma política de global com "
 "autenticação"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:35
@@ -5600,11 +5595,11 @@ msgstr "Autorizar e bloquear"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:104
 msgid "Squid's policy"
-msgstr "Politica do Squid"
+msgstr "Política do Squid"
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
-msgstr "Politica do domínio Squid"
+msgstr "Política do domínio Squid"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
@@ -5762,7 +5757,6 @@ msgid "{pkg} must be installed to use this feature"
 msgstr "{pkg} deverá ser instalado para usar este recurso"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:235
-#, fuzzy
 msgid "DNS module must be enabled to make this feature work."
 msgstr "O módulo DNS deve estar activo para fazer este recurso funcionar."
 
@@ -5770,7 +5764,7 @@ msgstr "O módulo DNS deve estar activo para fazer este recurso funcionar."
 #, perl-brace-format
 msgid ""
 "Dynamic DNS feature has been disabled in DHCP module in {iface} interface."
-msgstr ""
+msgstr "O DNS dinâmico foi desactivado no módulo DHCP no interface {iface}"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:304
 msgid "Dynamic domain"
@@ -5822,14 +5816,14 @@ msgstr ""
 "só de leitura"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:365
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain \"{domain}\" set as dynamic in DNS section"
-msgstr "Domínio \"{domain}\" adicionado na secção DNS"
+msgstr "Domínio \"{domain}\" definido como dinâmico na secção DNS"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:379
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain \"{domain}\" set as static in DNS section"
-msgstr "Domínio \"{domain}\" adicionado na secção DNS"
+msgstr "Domínio \"{domain}\" definido como estático na secção DNS"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:240
 msgid "Fixed addresses"
@@ -5845,15 +5839,18 @@ msgid ""
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
+"Somente os objectos membros cujo endereço IP é uma máquina (/32), um "
+"endereço MAC válido, o endereço IP não será usado pelo âmbito disponível "
+"assim como os nomes que são únicos serão usados "
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:267
 msgid "Members whose name is not a valid hostname will not be used."
-msgstr ""
+msgstr "Membros cujo nome não é um nome de máquina válido não serão usados"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Remove thin client options from {model}{br}"
-msgstr "Remover dados de {model}{br}"
+msgstr "Remover as opções do terminal {model}{br}"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:222
 msgid "Next server"
@@ -5865,9 +5862,8 @@ msgstr "Caminho do ficheiro no próximo servidor"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:254
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:80
-#, fuzzy
 msgid "Range"
-msgstr "Âmbitos"
+msgstr "Âmbito"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:265
 msgid "Thin client"
@@ -5883,9 +5879,8 @@ msgstr ""
 "incluir todos os ficheiros que necessitar no directório {path}"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:275
-#, fuzzy
 msgid "thin client option"
-msgstr "Terminal"
+msgstr "Opções do terminal"
 
 #: ../../main/dhcp/src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
@@ -6121,7 +6116,7 @@ msgstr ""
 "{oldTo}"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:178
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} includes fixed address from the object member \"{name}\": "
 "{fixedIP}"
@@ -6254,7 +6249,7 @@ msgstr ""
 "adicionar um interface virtual que o use"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1100
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by a DHCP fixed address from object member '{fixed}' in the interface "
@@ -6262,8 +6257,9 @@ msgid ""
 "it."
 msgstr ""
 "O endereço IP do interface virtual que esta a tentar adicionar já está a ser "
-"usado pelo endereço fixo '{fixed}' no interface '{iface}'. Remova-o antes de "
-"tentar adicionar um interface virtual que o use."
+"usado pelo endereço fixo DHCP do objecto membro '{fixed}' no interface "
+"'{iface}'. Remova-o antes de tentar adicionar um interface virtual que o "
+"use."
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1275
 #: ../../main/dns/src/templates/edit.mas:17
@@ -6272,7 +6268,7 @@ msgstr "IP"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1279
 msgid "Leased"
-msgstr "Alugado"
+msgstr "Disponibilizado"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1279
 msgid "Released"
@@ -6284,7 +6280,7 @@ msgstr "DHCP"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1369
 msgid "DHCP leases"
-msgstr "Alugueres DHCP"
+msgstr "Endereços DHCP disponibilizados"
 
 #: ../../main/software/src/EBox/Software.pm:56
 msgid "Software Management"
@@ -6295,11 +6291,13 @@ msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
+"Não pode usar o gestor de pacotes de software. Provavelmente está a ser "
+"usado por outro processo. Pode esperar ou matar o processo"
 
 #: ../../main/software/src/EBox/Software.pm:456
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
-msgstr ""
+msgstr "Não pode usar o gestor de pacotes de software. Erro de saída: {err}"
 
 #: ../../main/software/src/EBox/Software.pm:546
 #, perl-brace-format
@@ -6584,105 +6582,94 @@ msgstr "continente"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
-#, fuzzy
 msgid "ESP Authentication"
-msgstr "Autenticação"
+msgstr "Autenticação ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:131
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:131
 msgid "AES-256"
-msgstr ""
+msgstr "AES-256"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:132
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:132
 msgid "3DES"
-msgstr ""
+msgstr "3DES"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:140
 msgid "SHA-1"
-msgstr ""
+msgstr "SHA-1"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:141
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:141
 msgid "MD5"
-msgstr ""
+msgstr "MD5"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:166
-#, fuzzy
 msgid "ESP Encryption"
-msgstr "Cifra"
+msgstr "Cifra ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
 msgid "ESP DH Group"
-msgstr ""
+msgstr "Grupo ESP DH"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
 msgid "ESP Keylife"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
-#, fuzzy
 msgid "Enable PFS"
-msgstr "Activar PAM"
+msgstr "Activar PFS"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:202
 msgid "Phase 2"
-msgstr ""
+msgstr "Fase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
-#, fuzzy
 msgid "Local IP Address"
-msgstr "Endereço local"
+msgstr "Endereço IP local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:82
-#, fuzzy
 msgid "Zentyal public IP address."
-msgstr "Endereço IP do interface"
+msgstr "Endereço IP do interface Zentyal"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:86
-#, fuzzy
 msgid "Local Subnet"
-msgstr "Rede local"
+msgstr "Sub-rede local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:89
 msgid "Local subnet available through the tunnel."
-msgstr ""
+msgstr "Sub-rede local disponível através do túnel"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:93
-#, fuzzy
 msgid "Remote IP Address"
-msgstr "Endereço IP"
+msgstr "Endereço IP remoto"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:96
 msgid "Remote endpoint public IP address."
-msgstr ""
+msgstr "Último endereço IP publico remoto"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:100
-#, fuzzy
 msgid "Remote Subnet"
-msgstr "IP remoto"
+msgstr "Sub-rede remota"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:103
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:109
 msgid "Remote subnet available through the tunnel."
-msgstr ""
+msgstr "Sub-rede remota disponível através do túnel"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:107
-#, fuzzy
 msgid "PSK Shared Secret"
-msgstr "Segredo partilhado"
+msgstr "Chave PSK partilhada"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
-#, fuzzy
 msgid "IKE Authentication"
-msgstr "Autenticação"
+msgstr "Autenticação IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:157
-#, fuzzy
 msgid "IKE Encryption"
-msgstr "Cifra"
+msgstr "Encriptação IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:169
 msgid "IKE Keylife"
@@ -6690,7 +6677,7 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:181
 msgid "Phase 1"
-msgstr ""
+msgstr "Fase 1"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:117
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
@@ -6705,14 +6692,12 @@ msgstr "Comentário"
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:81
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:91
 #: ../../main/ipsec/src/EBox/IPsec.pm:207
-#, fuzzy
 msgid "IPsec Connections"
-msgstr "Ligações exteriores"
+msgstr "Ligações IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
-#, fuzzy
 msgid "IPsec connection"
-msgstr "Tipo de conexão IMAP"
+msgstr "Ligação IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:67
 #: ../../main/mail/src/EBox/Mail/Model/SMTPAuth.pm:82
@@ -6720,14 +6705,12 @@ msgid "Authentication"
 msgstr "Autenticação"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:95
-#, fuzzy
 msgid "To configure OpenSwan IPsec."
-msgstr "Para configurar o renattach"
+msgstr "Para configurar OpenSwan IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:100
-#, fuzzy
 msgid "To configure OpenSwan IPsec passwords."
-msgstr "Configurar os módulos ligados e desligados"
+msgstr "Para configurar palavras-passe OpenSwan IPsec"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:62
 msgid "Internal networks"
@@ -6751,7 +6734,7 @@ msgstr "Destino original"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:276
 msgid "Original destination port"
-msgstr "Porto de destino original"
+msgstr "Porta de destino de origem"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:323
 msgid "Same"
@@ -6762,9 +6745,8 @@ msgid "Other"
 msgstr "Outro"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:334
-#, fuzzy
 msgid "Replace source address"
-msgstr "Endereço IP do interface"
+msgstr "Substituir endereço fonte"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 msgid ""
@@ -6772,6 +6754,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Substitui o endereço fonte original da ligação pelo endereço da Zentyal. "
+"Pode ser necessário quando o destino não tem uma rota de retorno ou tem "
+"regras restrictivas na firewall"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:343
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -6944,19 +6929,19 @@ msgstr "Firewall"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:81
 msgid "Flush previous firewall rules"
-msgstr "Descarregue as regras prévias da firewall"
+msgstr "Descarte as regras prévias da firewall"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:82
 msgid ""
 "The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
-"A firewall da Zentyal descarregará todas as regras que foram adicionadas "
+"A firewall da Zentyal descartará todas as regras que foram adicionadas "
 "manualmente ou por outra ferramenta"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:87
 msgid "Secure by default"
-msgstr "Segurar por omissão"
+msgstr "Segurança pré-definida"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:88
 msgid ""
@@ -7691,7 +7676,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:108
 msgid "Domain name cannot end in '.local'"
-msgstr ""
+msgstr "O nome de domínio não pode acabar em \".local\""
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:119
 msgid "Enable PDC"
@@ -7950,7 +7935,7 @@ msgstr "Servidores de Nomes"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 msgid "Dynamic"
-msgstr "Dinâmico "
+msgstr "Dinâmico"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:231
 msgid "A domain is dynamic when the DHCP server updates the domain"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-05-10 20:16+0200\n"
-"PO-Revision-Date: 2011-02-16 13:04+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2011-07-06 18:45+0200\n"
+"Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -180,9 +180,8 @@ msgid "Clean message"
 msgstr "Mensaje limpio"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:599
-#, fuzzy
 msgid "Unable to reinject in the mail server"
-msgstr "El servidor {smtp} no puede ser contactado"
+msgstr "Imposible reinyectar en el servidor de correo"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:608
 msgid "SMTP filter"
@@ -1935,12 +1934,12 @@ msgstr "Máscara de red"
 #: ../../main/network/src/EBox/Network.pm:1087
 #, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr ""
+msgstr "Ya existe una interfaz llamada {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1099
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr ""
+msgstr "Ya existe una interfaz con el alias {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1504
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -2067,15 +2066,16 @@ msgid "Diagnostic Tools"
 msgstr "Herramientas de diagnóstico"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
-#, fuzzy
 msgid "Gateways Configuration"
-msgstr "Configuración General"
+msgstr "Configuración de Puertas de Enlace"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:61
 msgid ""
 "Here you can configure all the settings related to the way Zentyal provides "
 "Internet connection for your network"
 msgstr ""
+"Aquí se puede configurar todo lo relacionado con la forma en que Zentyal "
+"proporciona acceso a internet para tu red"
 
 #: ../../main/network/src/EBox/Network/Composite/ByteRate.pm:73
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:134
@@ -2722,12 +2722,11 @@ msgstr "Contraseña de tunel de servidores"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Puerto de vínculo para el cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Negar almacenamiento en caché del dominio"
+msgstr "Dirección de vínculo para el cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
@@ -3204,7 +3203,6 @@ msgid "Zentyal will need this to deliver mail to Zarafa."
 msgstr "Zentyal necesitará esto para entegar correo a Zarafa."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:77
-#, fuzzy
 msgid "Create MySQL Zarafa database"
 msgstr "Crear base de datos MySQL para Zarafa"
 
@@ -3213,7 +3211,6 @@ msgid "This database will store the data needed by Zarafa."
 msgstr "Esta base de datos almacenará los datos necesitados por Zarafa."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:82
-#, fuzzy
 msgid "Create default SSL key/certificates"
 msgstr "Crear claves y certificados SSL por defecto"
 
@@ -3226,14 +3223,14 @@ msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:87
 msgid "Enable Zarafa dagent daemon"
-msgstr ""
+msgstr "Habilitar demonio dagent para Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:88
 msgid "Enable dagent daemon on /etc/default/zarafa-dagent for LMTP delivery."
 msgstr ""
+"Habilitar demonio dagent en /etc/default/zarafa-dagent para entrega LMTP"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:92
-#, fuzzy
 msgid "Add zarafa link to www data directory"
 msgstr "Añadir enlace de zarafa al directorio de datos www."
 
@@ -3274,9 +3271,8 @@ msgid "To properly configure Zarafa indexing server."
 msgstr "Configurar adecuadamente servidor de indexado de Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:151
-#, fuzzy
 msgid "To properly configure Zarafa dagent LMTP delivering server."
-msgstr "Configurar adecuadamente servidor de entrega de correo de Zarafa"
+msgstr "Configurar adecuadamente servidor de entrega  LMTP dagent de Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:558
 msgid "Zarafa Gateway Server"
@@ -3377,14 +3373,12 @@ msgid "Enable IMAPS gateway"
 msgstr "Habilitar pasarela IMAPS"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:175
-#, fuzzy
 msgid "Enable iCAL gateway"
-msgstr "Habilitar pasarela IMAP"
+msgstr "Habilitar pasarela iCAL"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:181
-#, fuzzy
 msgid "Enable iCAL SSL gateway"
-msgstr "Habilitar pasarela IMAPS"
+msgstr "Habilitar pasarela iCAL SSL"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:191
 msgid "Zarafa gateways configuration settings"
@@ -3761,27 +3755,26 @@ msgstr ""
 "proceso de sincronización ha fallado o no ha terminado todavía."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:52
-#, fuzzy
 msgid "Default user quota"
-msgstr "Cuota por defecto"
+msgstr "Cuota de usuario por defecto"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:58
 msgid "Mb"
 msgstr "Mb"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:72
-#, fuzzy
 msgid "Default account settings"
-msgstr "Características de la cuenta de correo"
+msgstr "Opciones de cuenta por defecto"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:77
-#, fuzzy
 msgid "On this page you can configure the default settings for user accounts"
-msgstr "En esta página puedes establecer la configuración general de Samba"
+msgstr ""
+"En esta página puedes establecer la configuración por defecto para cuentas "
+"de usuario"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:94
 msgid "Setting default quota to zero is equivalent to disable it"
-msgstr ""
+msgstr "Establecer la cuota por defecto a cero equivale a deshabilitarla"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
@@ -4030,13 +4023,13 @@ msgid "Username already exists on the system"
 msgstr "El nombre de usuario ya existe en el sistema"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:967
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
 "move or remove it before creating this user"
 msgstr ""
-"No se puede restaurar porque el usuario {user} ya existe como usuario de "
-"sistema. Debe borrarse o renombrarse antes de intentar de nuevo."
+"No se puede crear el usuario porque el directorio {dir} ya existe. Por "
+"favor, muévelo o bórralo antes de crear el usuario"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1063
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1725
@@ -4057,13 +4050,14 @@ msgstr ""
 "UID incorrecto {uid} para el usuario de sistema. UID debe ser menor de {max}"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1251
-#, fuzzy
 msgid "user quota"
-msgstr "Cuota personalizada"
+msgstr "cuota de usuario"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1254
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
+"La cuota de usuario debe ser un entero. Para establecer una cuota ilimitada, "
+"introducir cero"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1650
 #, perl-brace-format
@@ -4202,9 +4196,8 @@ msgid "{data} is empty."
 msgstr "Dato vacío: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
-#, fuzzy
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
-msgstr "No se puede contactar con {host}. Comprueba tu conexión a Internet"
+msgstr "No se puede conectar a Zentyal Cloud. Comprueba tu conexión a Internet."
 
 #: ../../main/common/src/EBox/Validate.pm:390
 #: ../../main/common/src/EBox/Validate.pm:404
@@ -5618,10 +5611,10 @@ msgid "{pkg} must be installed to use this feature"
 msgstr "{pkg} debe estar instalado para usar está característica"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:235
-#, fuzzy
 msgid "DNS module must be enabled to make this feature work."
 msgstr ""
-"Módulo DNS debe estar habilitado para hacer funcionar esta característica."
+"El módulo DNS debe estar habilitado para hacer funcionar esta "
+"característica."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:280
 #, perl-brace-format
@@ -5678,14 +5671,16 @@ msgstr ""
 "Los dominios se añadirán automáticamente al módulo DNS en modo sólo lectura"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:365
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain \"{domain}\" set as dynamic in DNS section"
-msgstr "El dominio \"{domain}\" se añadido a la sección de DNS"
+msgstr ""
+"El dominio \"{domain}\" se ha establecido como dinámico en la sección de DNS"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:379
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain \"{domain}\" set as static in DNS section"
-msgstr "El dominio \"{domain}\" se añadido a la sección de DNS"
+msgstr ""
+"El dominio \"{domain}\" se ha establecido como estático en la sección de DNS"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:240
 msgid "Fixed addresses"
@@ -5721,9 +5716,8 @@ msgstr "Ruta del fichero en el siguiente servidor"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:254
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:80
-#, fuzzy
 msgid "Range"
-msgstr "Rangos"
+msgstr "Rango"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:265
 msgid "Thin client"
@@ -5739,9 +5733,8 @@ msgstr ""
 "incluir todos los ficheros que necesites en el directorio {path}"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:275
-#, fuzzy
 msgid "thin client option"
-msgstr "Cliente ligero"
+msgstr "opción de cliente ligero"
 
 #: ../../main/dhcp/src/EBox/Model/RangeInfo.pm:142
 msgid "Interface IP address"
@@ -6433,9 +6426,8 @@ msgstr "continente"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
-#, fuzzy
 msgid "ESP Authentication"
-msgstr "Autenticación"
+msgstr "Autenticación ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:131
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:131
@@ -6458,31 +6450,28 @@ msgid "MD5"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:166
-#, fuzzy
 msgid "ESP Encryption"
-msgstr "Cifrado"
+msgstr "Cifrado ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
 msgid "ESP DH Group"
-msgstr ""
+msgstr "Grupo ESP DH"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
 msgid "ESP Keylife"
-msgstr ""
+msgstr "Vida de clave ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
-#, fuzzy
 msgid "Enable PFS"
-msgstr "Habilitar PAM"
+msgstr "Habilitar PFS"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:202
 msgid "Phase 2"
-msgstr ""
+msgstr "Fase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
-#, fuzzy
 msgid "Local IP Address"
-msgstr "Dirección local"
+msgstr "Dirección IP local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:82
 #, fuzzy
@@ -6490,27 +6479,24 @@ msgid "Zentyal public IP address."
 msgstr "Dirección IP del interfaz"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:86
-#, fuzzy
 msgid "Local Subnet"
-msgstr "Red local"
+msgstr "Subed local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:89
 msgid "Local subnet available through the tunnel."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:93
-#, fuzzy
 msgid "Remote IP Address"
-msgstr "Dirección IP"
+msgstr "Dirección IP Remota"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:96
 msgid "Remote endpoint public IP address."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:100
-#, fuzzy
 msgid "Remote Subnet"
-msgstr "IP remota"
+msgstr "Subred Remota"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:103
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:109
@@ -6518,20 +6504,17 @@ msgid "Remote subnet available through the tunnel."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:107
-#, fuzzy
 msgid "PSK Shared Secret"
-msgstr "Contraseña"
+msgstr "Secreto Compartido PSK"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
-#, fuzzy
 msgid "IKE Authentication"
-msgstr "Autenticación"
+msgstr "Autenticación IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:157
-#, fuzzy
 msgid "IKE Encryption"
-msgstr "Cifrado"
+msgstr "Cifrado IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:169
 msgid "IKE Keylife"
@@ -6539,7 +6522,7 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:181
 msgid "Phase 1"
-msgstr ""
+msgstr "Fase 1"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:117
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
@@ -6554,14 +6537,12 @@ msgstr "Comentario"
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:81
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:91
 #: ../../main/ipsec/src/EBox/IPsec.pm:207
-#, fuzzy
 msgid "IPsec Connections"
-msgstr "Conexiones externas"
+msgstr "Conexiones IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
-#, fuzzy
 msgid "IPsec connection"
-msgstr "Tipo de conexión IMAP"
+msgstr "conexión IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:67
 #: ../../main/mail/src/EBox/Mail/Model/SMTPAuth.pm:82
@@ -6569,9 +6550,8 @@ msgid "Authentication"
 msgstr "Autenticación"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:95
-#, fuzzy
 msgid "To configure OpenSwan IPsec."
-msgstr "Configurar renattach"
+msgstr "Para configurar OpenSwan IPsec."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:100
 #, fuzzy
@@ -7545,7 +7525,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:108
 msgid "Domain name cannot end in '.local'"
-msgstr ""
+msgstr "El nombre de dominio no puede acabar en '.local'"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:119
 msgid "Enable PDC"
@@ -8073,7 +8053,7 @@ msgstr "Sistema Voz IP de Zentyal"
 #: ../../main/asterisk/src/EBox/Asterisk.pm:554
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:153
 msgid "Phones"
-msgstr ""
+msgstr "Teléfonos"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:558
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:165
@@ -8199,7 +8179,6 @@ msgid "NAT configuration"
 msgstr "Configuración NAT"
 
 #: ../../main/asterisk/src/EBox/Model/NAT.pm:120
-#, fuzzy
 msgid "NAT Asterisk server configuration."
 msgstr "Configuración NAT del servidor Asterisk"
 

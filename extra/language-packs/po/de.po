@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-05-10 20:16+0200\n"
-"PO-Revision-Date: 2010-09-06 19:46+0200\n"
-"Last-Translator: Thomas Zajetz <t.zajetz@iqsoft.at>\n"
+"PO-Revision-Date: 2011-05-23 17:08+0200\n"
+"Last-Translator: catweazle <mm@unipre.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:61
 msgid "Mail Filter"
@@ -309,7 +310,7 @@ msgstr "Externer Mailserver"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "IP address of the server"
-msgstr ""
+msgstr "IP-Adresse des Servers"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:74
@@ -2033,27 +2034,30 @@ msgid "These options affect to all the tests."
 msgstr "Diese Optionen beeinflussen alle Tests."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:89
-#, fuzzy
 msgid "Proxy server"
-msgstr "Name-Server"
+msgstr "Proxy-Server"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:95
 msgid "Proxy port"
-msgstr ""
+msgstr "Proxy-Server Port"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:103
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy-Server"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:107
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
+"Diese Einstellung wird benutzt, um Zentyal den Zugriff auf das Internet zu "
+"erlauben, falls ein HTTP Proxy erforderlich ist."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:129
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"Benutzername und Passwort des Proxy-Servers werden für alle Systembenutzer "
+"sichtbar sein."
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
@@ -2165,12 +2169,12 @@ msgstr "Netzmaske"
 #: ../../main/network/src/EBox/Network.pm:1087
 #, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr ""
+msgstr "Es existiert bereits eine Schnittstelle mit dem Namen {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1099
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr ""
+msgstr "Es existiert bereits eine Schnittstelle mit dem Alias {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1504
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -16755,11 +16759,16 @@ msgid ""
 "You will need to restart all the services or reboot the system to apply the "
 "hostname change."
 msgstr ""
+"Alle Dienste müssen neu gestartet werden oder ein Neustart des Systems "
+"durchgeführt werden, um die Änderung des Rechnernamens wirksam werden zu "
+"lassen."
 
 #: ../../main/core/src/templates/hostname.mas:13
 #, perl-brace-format
 msgid "The hostname will be changed to {newHostname} after saving changes."
 msgstr ""
+"Der Rechnername wird nach dem Speichern der Änderungen geändert in "
+"{newHostname}."
 
 #: ../../main/core/src/templates/confirm-backup.mas:102
 msgid "Full Restore"
