@@ -143,7 +143,7 @@ sub _table
                  printableName => __('Network object'),
                  foreignModel  => \&_objectModel,
                  foreignField  => 'name',
-                 foreignNextPageField => 'members',                                     
+                 foreignNextPageField => 'members',
                  editable      => 1,
                  unique        => 1,
              ),
@@ -152,7 +152,7 @@ sub _table
                  printableName => __('Network Rate'),
                  size          => 3,
                  editable      => 1,
-                 trailingText  => __('Bytes/s'),
+                 trailingText  => __('KB/s'),
                  defaultValue  => 0,
                  min           => -1,
                  help => __('Maximum download bandwidth rate for this network. Use -1 to disable this option.')
@@ -162,7 +162,7 @@ sub _table
                  printableName => __('Network Maximum Size'),
                  size          => 3,
                  editable      => 1,
-                 trailingText  => __('Bytes'),
+                 trailingText  => __('KB'),
                  defaultValue  => 0,
                  min           => -1,
                  help => __('Maximum unthrottled download size for this network. Use -1 to disable this option.')

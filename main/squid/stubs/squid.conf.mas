@@ -422,9 +422,9 @@ delay_access 1 allow eboxlocalnets
 %     $id++;
 delay_class <% $id %> <% $objPool->{class} %>
 %     if ( $objPool->{class} eq '1' ) {
-delay_parameters <% $id %> <% $objPool->{rate} %>/<% $objPool->{size} %>
+delay_parameters <% $id %> <% $objPool->{rate} * 1024 %>/<% $objPool->{size} * 1024 %>
 %     } elsif ( $objPool->{class} eq '2' ) {
-delay_parameters <% $id %> <% $objPool->{rate} %>/<% $objPool->{size} %> <% $objPool->{clt_rate} %>/<% $objPool->{clt_size} %>
+delay_parameters <% $id %> <% $objPool->{rate} * 1024 %>/<% $objPool->{size} * 1024 %> <% $objPool->{clt_rate} * 1024 %>/<% $objPool->{clt_size} * 1024 %>
 %     }
 delay_initial_bucket_level 90
 delay_access <% $id %> allow <% $objPool->{object} %>
