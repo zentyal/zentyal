@@ -44,6 +44,7 @@ sub _description
     {
         components      => [
                                'captiveportal/Settings',
+                               'captiveportal/BWSettings',
                                'captiveportal/Interfaces',
                            ],
         layout          => 'top-bottom',

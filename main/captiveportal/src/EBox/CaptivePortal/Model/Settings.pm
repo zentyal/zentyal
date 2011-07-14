@@ -34,11 +34,6 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    # Use bwmonitor if it exists
-    if (EBox::Global->modExists('bwmonitor')) {
-        $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
-    }
-
     bless ($self, $class);
     return $self;
 }
@@ -54,29 +49,6 @@ sub _table
     my ($self) = @_;
 
     my @tableHeader;
-    if ($self->{bwmonitor}) {
-        my $enabled = EBox::Global->modInstance('bwmonitor')->isEnabled();
-
-        push (@tableHeader,
-            new EBox::Types::Boolean(
-                fieldName     => 'limitBW',
-                printableName => __('Limit bandwidth usage'),
-                editable      => $enabled,
-                defaultValue  => 0,
-                )
-        );
-
-        push (@tableHeader,
-            new EBox::Types::Int(
-                fieldName     => 'defaultQuota',
-                printableName => __('Bandwidth quota'),
-                editable      => $enabled,
-                help          => __('MB/month. Maximum bandwidth usage per month. 0 means no limit.'),
-                defaultValue  => 0,
-                )
-        );
-    }
-
     push (@tableHeader,
        new EBox::Types::Port(
            fieldName     => 'http_port',

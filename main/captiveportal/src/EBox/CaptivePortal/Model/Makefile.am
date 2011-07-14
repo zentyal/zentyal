@@ -2,7 +2,8 @@
 
 perldir = @PERLPATH@/EBox/CaptivePortal/Model
 
-nobase_perl_DATA = Interfaces.pm Settings.pm Users.pm CaptiveUser.pm SecondaryLDAP.pm
+nobase_perl_DATA = Interfaces.pm Settings.pm Users.pm CaptiveUser.pm \
+SecondaryLDAP.pm BWSettings.pm
 
 DISTCLEANFILES =
 

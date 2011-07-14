@@ -71,6 +71,7 @@ sub modelClasses
     return [
         'EBox::CaptivePortal::Model::Interfaces',
         'EBox::CaptivePortal::Model::Settings',
+        'EBox::CaptivePortal::Model::BWSettings',
         'EBox::CaptivePortal::Model::Users',
         'EBox::CaptivePortal::Model::CaptiveUser',
         'EBox::CaptivePortal::Model::SecondaryLDAP',
