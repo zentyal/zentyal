@@ -1,4 +1,4 @@
-HEAD
+2.1.2
 	+ Added IPsec service with needed protocols and firewall rule
 	+ Fix firewallHelper to not to NAT IPsec destinations
 2.1.1
