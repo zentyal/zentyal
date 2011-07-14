@@ -236,7 +236,7 @@ sub _doStart
         $self->setMessage($action->message(), 'note');
     } else {
         throw EBox::Exceptions::External(
-            __("Couldn't start '$name' virtual machine"));
+            __x("Couldn't start virtual machine '{vm}'", vm => $name));
     }
 }
 
@@ -259,7 +259,7 @@ sub _doStop
         $self->setMessage($action->message(), 'note');
     } else {
         throw EBox::Exceptions::External(
-            __("Couldn't stop '$name' virtual machine"));
+            __x("Couldn't stop virtual machine '{vm}'", vm => $name));
     }
 }
 
