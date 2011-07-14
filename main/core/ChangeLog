@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed wrong unit labels in Disk Usage
+	+ Fixed wrong Mb unit labels in Disk Usage and use GB when > 1024 MB
 	+ Now global-action script can be called without progress indicator
 	+ Fixed EBox::Types::File JavaScript setter code
 	+ Added support for "Add new..." modal boxes in foreign selectors

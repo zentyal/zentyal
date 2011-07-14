@@ -344,23 +344,34 @@ sub _chartDatasets
   # we don't translate the strings: 'Free space' and 'System' to avoid
   # problems with special characters in some lenguages
   push @labels, 'Free space';
-  push @diskUsage, $freeSpace . ' MB';
+  push @diskUsage, _sizeLabelWithUnit($freeSpace);
 
   push @labels,    'System';
-  push @diskUsage, $systemUsage . ' MB';
+  push @diskUsage, _sizeLabelWithUnit($systemUsage);
 
   while (my ($facilityName, $facilityUsage) = each %usageByFacility ) {
-    ($facilityUsage >= $minSizeToAppear) or
-      next;
+      ($facilityUsage >= $minSizeToAppear) or
+          next;
 
-    push @labels, $facilityName;
-    push @diskUsage, $facilityUsage . ' MB';
+      push @labels, $facilityName;
+      push @diskUsage, _sizeLabelWithUnit($facilityUsage);
   }
 
   return [
           \@labels,
           \@diskUsage,
          ];
+}
+
+sub _sizeLabelWithUnit
+{
+    my ($size) = @_;
+
+    if ($size > 1024) {
+        return sprintf ('%.2f GB', $size / 1024);
+    } else {
+        return "$size MB";
+    }
 }
 
 1;
