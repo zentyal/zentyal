@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = sql
+SUBDIRS = sql urls
 
 moduledir   = @DATADIR@/zentyal/modules
 

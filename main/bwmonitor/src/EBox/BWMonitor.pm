@@ -64,10 +64,15 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'BWMonitor/View/Interfaces',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Gateway',
-                                    'order' => 230));
+    my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'text' => __('Network'),
+                                        'separator' => 'Core',
+                                        'order' => 40);
+
+    $folder->add(new EBox::Menu::Item('url' => 'Network/BWMonitor',
+                                     'text' => $self->printableName(),
+                                     'order' => 90));
+    $root->add($folder);
 }
 
 

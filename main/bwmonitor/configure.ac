@@ -50,6 +50,7 @@ src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
 schemas/sql/Makefile
+schemas/urls/Makefile
 Makefile
 ])
 

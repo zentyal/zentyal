@@ -62,6 +62,7 @@ sub _table
     my $dataTable =
     {
         tableName          => 'Interfaces',
+        pageTitle          => __('Bandwidth Monitor'),
         printableTableName => __('Monitored Interfaces'),
         printableRowName   => __('interface'),
         defaultActions     => [ 'editField', 'changeView' ],
