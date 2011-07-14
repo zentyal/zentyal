@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/pptp
 
-nobase_Stub_DATA = pptpd.conf.mas pptpd-options.mas chap-secrets.mas
+nobase_Stub_DATA = pptpd.conf.mas pptpd-options.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

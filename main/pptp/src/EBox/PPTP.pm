@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use Net::IP;
+use File::Slurp;
 
 use constant PPTPDCONFFILE => '/etc/pptpd.conf';
 use constant OPTIONSCONFFILE => '/etc/ppp/pptpd-options';
@@ -184,8 +185,15 @@ sub _setUsers
 
     push (@params, users => $model->getUsers());
 
-    $self->writeConfFile(CHAPSECRETSFILE, "pptp/chap-secrets.mas", \@params,
-                            { 'uid' => 'root', 'gid' => 'root', mode => '640' });
+    my $pptpConf = '';
+    foreach my $user (@{$model->getUsers()}) {
+        $user->{ipaddr} = '*' unless $user->{ipaddr};
+        $pptpConf .= "$user->{user} pptpd $user->{passwd} $user->{ipaddr}\n";
+    }
+    my $file = read_file(CHAPSECRETSFILE);
+    my $mark = '# PPTP_CONFIG #';
+    $file =~ s/$mark.*$mark/$mark\n$pptpConf$mark/sm;
+    write_file(CHAPSECRETSFILE, $file);
 }
 
 

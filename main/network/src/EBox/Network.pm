@@ -67,10 +67,11 @@ use EBox::Menu::Folder;
 use EBox::Network::Model::DynDNS;
 use EBox::Sudo;
 use EBox::Gettext;
-use File::Basename;
 use EBox::Common::Model::EnableForm;
 use EBox::Util::Lock;
 use EBox::DBEngineFactory;
+use File::Basename;
+use File::Slurp;
 
 # XXX uncomment when DynLoader bug with locales is fixed
 # use EBox::Network::Report::ByteRate;
@@ -2655,17 +2656,32 @@ sub _generatePPPConfig
                              ]);
     }
 
-    $self->writeConfFile(CHAP_SECRETS_FILE,
-                         'network/chap-secrets.mas',
-                         [ passwords  => $pppSecrets ],
-                         { mode => '0600' }
-                        );
-
     $self->writeConfFile(PAP_SECRETS_FILE,
                          'network/pap-secrets.mas',
                          [ passwords  => $pppSecrets ],
                          { mode => '0600' }
                         );
+
+    # Do not overwrite the entire chap-secrets file every time
+    # to avoid conflicts with the PPTP module
+    my $mark = '# PPPOE_CONFIG #';
+    my $file;
+    try {
+        $file = read_file(CHAP_SECRETS_FILE);
+    } otherwise {
+        # Write it with permissions for ebox if we can't read it
+        my $gid = getgrnam('ebox');
+        $self->writeConfFile(CHAP_SECRETS_FILE,
+                             'network/chap-secrets.mas', [],
+                             { mode => '0660', gid => $gid });
+        $file = read_file(CHAP_SECRETS_FILE);
+    };
+    my $pppoeConf = '';
+    foreach my $user (keys %{$pppSecrets}) {
+        $pppoeConf .= "$user * $pppSecrets->{$user}\n";
+    }
+    $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
+    write_file(CHAP_SECRETS_FILE, $file);
 }
 
 sub generateInterfaces
