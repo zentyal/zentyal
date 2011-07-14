@@ -196,10 +196,11 @@ http_reply_access allow all
 
 # <EBOX> TAG_DELAYPOOLS #
 
+% if (@localnets) {
 <& .localnetsACLs,
                   localnets => \@localnets,
 &>
-
+% }
 <& .delayPools,
                   objectsDelayPools => \@objectsDelayPools,
 &>
