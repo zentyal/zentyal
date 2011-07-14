@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed cmp and isEqualTo methods for EBox::Types::IPAddr
 	+ Fixed wrong Mb unit labels in Disk Usage and use GB when > 1024 MB
 	+ Now global-action script can be called without progress indicator
 	+ Fixed EBox::Types::File JavaScript setter code

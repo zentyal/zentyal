@@ -83,7 +83,11 @@ sub cmp
         return undef;
     }
     my $ipA = new Net::IP($self->printableValue());
+    defined $ipA or
+        return undef;
     my $ipB = new Net::IP($compareType->printableValue());
+    defined $ipB or
+        return undef;
 
     if ( $ipA->bincomp('lt', $ipB) ) {
         return -1;
@@ -296,11 +300,20 @@ sub _setValue # (value)
 # Helper funcionts
 sub _ipNetmask
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return ($self->{'ip'}, $self->{'mask'});
-
+    return ($self->{'ip'}, $self->{'mask'});
 }
 
+sub isEqualTo
+{
+    my ($self, $other) = @_;
+    if (not $other->isa(__PACKAGE__)) {
+        return undef;
+    }
+
+    return ($self->ip() eq $other->ip()) and
+           ($self->mask() eq $other->mask());
+}
 
 1;
