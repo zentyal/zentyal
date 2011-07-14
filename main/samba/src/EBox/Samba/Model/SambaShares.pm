@@ -180,22 +180,23 @@ sub validateTypedRow
         if ($path eq 'system') {
             # Check if it is an allowed system path
             my $normalized = abs_path($parms->{'path'}->value());
-            for my $filterPath (FILTER_PATH) {
+            foreach my $filterPath (FILTER_PATH) {
                 if ($normalized =~ /^$filterPath/) {
                     throw EBox::Exceptions::External(
-                            __('Path not allowed') .
-                            ' (' . join (', ', FILTER_PATH) . ')'
+                            __x('Path not allowed. It cannot be under {dir}',
+                                dir => $normalized
+                               ) 
                     );
                 }
             }
+            EBox::Validate::checkAbsoluteFilePath($path,
+                                           __('Samba share absolute path')
+                                                );
         } else {
             # Check if it is a valid directory
             my $dir = $parms->{'path'}->value();
-            unless ($dir =~ /^\w+$/) {
-                throw EBox::Exceptions::External(
-                        __('Only alphanumeric characters plus '
-                            . '_ are valid for a path'));
-            }
+            EBox::Validate::checkFilePath($dir,
+                                         __('Samba share directory'));
         }
     }
 

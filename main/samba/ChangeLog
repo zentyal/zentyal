@@ -1,4 +1,5 @@
 HEAD
+	+ Better validation of samba shares paths
 	+ Improve smb.conf template: delete use_client_driver and allow include
 	  per client
 	+ Always depend on samba-vscan
