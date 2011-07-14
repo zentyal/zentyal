@@ -204,13 +204,13 @@ sub _calcGraphSize
 # Returns:
 #    reference to a hash with the filesystem  as keys
 #    and a hash with the disk usage in blocks by facility or pseudo-facility  as
-#    value. Block's size unit is 1Mb
+#    value. Block's size unit is 1MB
 #
 sub usage
 {
   my (%params) = @_;
 
-  my $blockSize = 1048576; # 1 Mb block size
+  my $blockSize = 1048576; # 1 MB block size
   my $fileSystemToScan = $params{fileSystem};
 
   my $fileSystems = partitionsFileSystems();
@@ -344,17 +344,17 @@ sub _chartDatasets
   # we don't translate the strings: 'Free space' and 'System' to avoid
   # problems with special characters in some lenguages
   push @labels, 'Free space';
-  push @diskUsage, $freeSpace . ' Mb';
+  push @diskUsage, $freeSpace . ' MB';
 
   push @labels,    'System';
-  push @diskUsage, $systemUsage . ' Mb';
+  push @diskUsage, $systemUsage . ' MB';
 
   while (my ($facilityName, $facilityUsage) = each %usageByFacility ) {
     ($facilityUsage >= $minSizeToAppear) or
       next;
 
     push @labels, $facilityName;
-    push @diskUsage, $facilityUsage . ' Mb';
+    push @diskUsage, $facilityUsage . ' MB';
   }
 
   return [
@@ -362,9 +362,5 @@ sub _chartDatasets
           \@diskUsage,
          ];
 }
-
-
-
-
 
 1;
