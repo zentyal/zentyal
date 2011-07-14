@@ -1,6 +1,6 @@
 HEAD
-	+ Manage zentyal-users cronjob with configuration keys for sync times instead
-	  of debian/lucid/zentyal-users.cron.d and src/scripts/ad-sync.cron
+	+ Manage zentyal-users cronjob with configuration keys for sync times
+	  instead of debian/lucid/zentyal-users.cron.d and src/scripts/ad-sync.cron
 	+ Configuration key to not to create homes (usefull on LDAP master servers)
 	+ New ad-sync-info to show info of ADsync configuration
 	+ Allow multiple BDC for ADsync mode with adsync_bdc confkey
@@ -19,6 +19,7 @@ HEAD
 	+ Wipe ignored users in AD sync
 	+ Allow contacts synchronization in AD sync
 	+ New checks in AD sync to avoid warnings
+	+ Added update package list command to reinstall script
 2.1.2
 	+ Non-editable user fields in slaves no longer appear as editable inputs
 	+ Numeric 0 is accepted as value for LDAP users attributes

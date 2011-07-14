@@ -21,6 +21,7 @@ sudo rm -rf /var/lib/ldap* /etc/ldap*
 
 echo "Removal complete. Reinstalling the removed Zentyal modules..."
 
+sudo apt-get update
 sudo apt-get -y --force-yes install $INSTALLED_MODULES || exit 1
 
 echo "Done."
