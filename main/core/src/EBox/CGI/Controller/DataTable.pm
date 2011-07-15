@@ -102,8 +102,15 @@ sub addRow
     }
 
     my $id = $model->addRow(%params);
-    # TODO: log also the new values
-    $self->_auditLog('add', $id);
+
+    # We don't want to include filter in the audit log
+    # as it has no value (it's a function reference)
+    delete $params{'filter'};
+    foreach my $field (keys %params) {
+        my $value = $params{$field};
+        next unless defined ($value);
+        $self->_auditLog('add', "$id/$field", $value);
+    }
 
     return $id;
 }
@@ -311,7 +318,7 @@ sub _process
             $self->{json}->{directory} = $directory;
             $self->{json}->{success} = 1;
         } else {
-            $self->refreshTable();            
+            $self->refreshTable();
         }
     } elsif ($action eq 'del') {
 

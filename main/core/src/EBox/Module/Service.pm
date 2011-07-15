@@ -25,6 +25,7 @@ use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Sudo;
+use EBox::AuditLogging;
 
 use Error qw(:try);
 
@@ -477,6 +478,10 @@ sub enableService
     return unless ($self->isEnabled() xor $status);
 
     $self->set_bool('_serviceModuleStatus', $status);
+
+    my $audit = EBox::Global->modInstance('audit');
+    my $action = $status ? 'enableService' : 'disableService';
+    $audit->logAction('global', 'Module Status', $action, $self->{name});
 }
 
 # Method: defaultStatus
@@ -719,6 +724,9 @@ sub restartService
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1);
+
+        my $audit = $global->modInstance('audit');
+        $audit->logAction('global', 'Module Status', 'restartService', $self->{name});
     } otherwise  {
         my ($ex) = @_;
         $log->error("Error restarting service: $ex");
