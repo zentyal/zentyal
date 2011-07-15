@@ -28,6 +28,8 @@ use warnings;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Int;
+use EBox::Types::Union;
+use EBox::Types::Text;
 
 sub new
 {
@@ -73,18 +75,43 @@ sub _table
                 printableName => __('Limit bandwidth usage'),
                 defaultValue  => 0,
                 editable      => 1,
-                )
-         );
+                ),
 
-    push (@tableHeader,
             new EBox::Types::Int(
                 fieldName     => 'defaultQuota',
                 printableName => __('Bandwidth quota'),
-                help          => __('MB/month. Maximum bandwidth usage per month. 0 means no limit.'),
+                help          => __('MB/period. Maximum bandwidth usage for defined period. 0 means no limit.'),
                 defaultValue  => 0,
                 editable      => 1,
+                size          => 7,
                 )
          );
+
+
+    my @options = (
+        {
+            value => 'day',
+            printableValue => __('Day')
+        },
+        {
+            value => 'week',
+            printableValue => __('Week')
+        },
+        {
+            value => 'month',
+            printableValue => __('Month'),
+        }
+    );
+
+    push (@tableHeader,
+           new EBox::Types::Select(
+               fieldName => 'defaultQuotaPeriod',
+               printableName => __('Period'),
+               editable => 1,
+               options  => \@options,
+               defaultValue => 'month',
+               ));
+
 
     my $dataTable =
     {

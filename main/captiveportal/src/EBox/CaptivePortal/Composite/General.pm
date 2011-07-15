@@ -55,6 +55,8 @@ sub _description
         push (@components, 'captiveportal/SecondaryLDAP');
     }
 
+    # FIXME this code is wrong, table description is cached so
+    # this tab will not show up until apache restart
     if (EBox::Global->modInstance('captiveportal')->isEnabled()) {
         push (@components, 'captiveportal/Users');
     }
