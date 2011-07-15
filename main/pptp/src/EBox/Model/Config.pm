@@ -31,6 +31,12 @@ use EBox::Gettext;
 use EBox::Types::Host;
 use EBox::Types::IPNetwork;
 
+use List::Util;
+
+use constant START_ADDRESS_PREFIX => '192.168.';
+use constant FROM_RANGE => 210;
+use constant TO_RANGE => 250;
+
 # Group: Public methods
 
 # Constructor: new
@@ -66,17 +72,21 @@ sub new
 #
 sub _table
 {
+    my ($self) = @_;
+
     my @tableHeader =
       (
          new EBox::Types::IPNetwork(
              fieldName => 'network',
              printableName => __('VPN Network Address'),
              editable => 1,
+             defaultValue  => $self->_defaultNetwork(),
              ),
          new EBox::Types::Host(
              fieldName => 'nameserver1',
              printableName => __('Primay Nameserver'),
              editable => 1,
+             defaultValue  => $self->_primaryNS(),
              ),
          new EBox::Types::Host(
              fieldName => 'nameserver2',
@@ -113,6 +123,39 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub _primaryNS
+{
+    my ($self) = @_;
+
+    my $network = EBox::Global->modInstance('network');
+    my $nsOne = $network->nameserverOne();
+
+    ($nsOne) or return undef;
+    return $nsOne;
+}
+
+sub _defaultNetwork
+{
+    my ($self) = @_;
+
+    my $netMod = EBox::Global->modInstance('network');
+    my @addresses;
+    for my $iface (@{$netMod->allIfaces()}) {
+        my $address = $netMod->ifaceAddress($iface);
+        push (@addresses, $address) if ($address);
+    }
+
+    my $network;
+    for my $postfix (FROM_RANGE .. TO_RANGE) {
+        my $net = START_ADDRESS_PREFIX . $postfix;
+        next if (List::Util::first {$_ =~ /^$net.*/ } @addresses);
+        $network= "${net}.0/24";
+        last;
+    }
+
+    return $network;
 }
 
 1;

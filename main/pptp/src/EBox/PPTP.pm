@@ -28,7 +28,11 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
+use EBox::Dashboard::Section;
+use EBox::Dashboard::Value;
+
 use Net::IP;
+use Error qw(:try);
 use File::Slurp;
 
 use constant PPTPDCONFFILE => '/etc/pptpd.conf';
@@ -129,6 +133,52 @@ sub _daemons
     ];
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#
+#      <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'PPTP';
+        unless($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __('PPTP VPN'),
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => $self->_services(),
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setExternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
+}
+
+sub _services
+{
+    return [
+             {
+                 'protocol' => 'gre',
+                 'sourcePort' => 'any',
+                 'destinationPort' => 'any',
+             },
+             {
+                 'protocol' => 'tcp',
+                 'sourcePort' => 'any',
+                 'destinationPort' => '1723',
+             },
+    ];
+}
 
 # Method: _setConf
 #
@@ -180,6 +230,17 @@ sub _setUsers
     my ($self) = @_;
 
     my @params = ();
+    my $pppSecrets = {};
+
+    my $network = EBox::Global->modInstance('network');
+
+    foreach my $iface (@{$network->pppIfaces()}) {
+        my $user = $network->ifacePPPUser($iface);
+        my $pass = $network->ifacePPPPass($iface);
+        $pppSecrets->{$user} = $pass;
+    }
+
+    push (@params, pppoe => $pppSecrets);
 
     my $model = $self->model('Users');
 
@@ -223,6 +284,87 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+# Method: widgets
+#
+# Overrides:
+#
+#      <EBox::Module::widgets>
+#
+sub widgets
+{
+    my ($self) = @_;
+
+    if (not $self->isEnabled()) {
+        return {};
+    }
+
+    my $widget = {
+        'pptpusers' => {
+            'title' => __('PPTP Connected Users'),
+            'widget' => \&pptpWidget,
+            'order' => 13,
+            'default' => 1
+        }
+    };
+
+    return $widget;
+}
+
+sub _who
+{
+    my ($self) = @_;
+
+    return [] unless ($self->isEnabled());
+
+    my $users = [];
+    my @output;
+    my $error;
+    try {
+        @output= @{ EBox::Sudo::root("who") };
+    } otherwise {
+        $error = 1;
+    };
+
+    return [] if ($error);
+
+    for my $line (@output) {
+        chomp($line);
+        # test     ppp0         2011-07-11 22:50 (192.168.86.2)
+        if ( $line =~ m/(\w+)\s+(\w+)\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\s+\((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\)/ ) {
+            my ($username, $iface, $date, $ipaddr) = ($1, $2, $3, $4);
+            my $user = {};
+            $user->{'username'} = $username;
+            $user->{'iface'} = $iface;
+            $user->{'date'} = $date;
+            $user->{'ipaddr'} = $ipaddr;
+            push(@{$users}, $user);
+        }
+    }
+
+    return $users;
+}
+
+sub pptpWidget
+{
+    my ($self, $widget) = @_;
+
+    my $section = new EBox::Dashboard::Section('pptpusers');
+    $widget->add($section);
+    my $titles = [__('User'),  __('Interface'), __('Connected since'), __('Local IP address')];
+
+    my $users = $self->_who();
+
+    my $rows = {};
+    foreach my $user (@{$users}) {
+       my $id = $user->{'username'} . '_' . $user->{'ipaddr'};
+       $rows->{$id} = [$user->{'username'}, $user->{'iface'},
+                       $user->{'date'}, $user->{'ipaddr'}];
+    }
+    my $ids = [sort keys %{$rows}];
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
+                  __('No users connected.')));
 }
 
 1;
