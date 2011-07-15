@@ -1,3 +1,5 @@
+HEAD
+	+ Use Unix socket for LDAP connections on standalone and slave without PAM
 2.1.5
 	+ Manage zentyal-users cronjob with configuration keys for sync times
 	  instead of debian/lucid/zentyal-users.cron.d and src/scripts/ad-sync.cron
