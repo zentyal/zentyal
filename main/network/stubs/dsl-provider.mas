@@ -18,6 +18,8 @@
 # (There should be a matching entry in /etc/ppp/pap-secrets with the password.)
 user <% $ppp_user %>
 
+name pppoe
+
 # Use the pppoe program to send the ppp packets over the Ethernet link
 # This line should work fine if this computer is the only one accessing
 # the Internet through this DSL connection. This is the right line to use

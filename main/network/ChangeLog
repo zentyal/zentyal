@@ -1,4 +1,5 @@
 2.1.7
+	+ Use pppoe name on chap-secrets
 	+ Now chap-secrets configuration for pptp module is not overwritten
 	+ Use the new "Add new..." option in the object selectors
 	+ Set connected gateway as warn level event and minor improvements

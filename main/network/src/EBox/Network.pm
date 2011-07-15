@@ -2678,7 +2678,7 @@ sub _generatePPPConfig
     };
     my $pppoeConf = '';
     foreach my $user (keys %{$pppSecrets}) {
-        $pppoeConf .= "$user * $pppSecrets->{$user}\n";
+        $pppoeConf .= "$user pppoe $pppSecrets->{$user}\n";
     }
     $file =~ s/$mark.*$mark/$mark\n$pppoeConf$mark/sm;
     write_file(CHAP_SECRETS_FILE, $file);
