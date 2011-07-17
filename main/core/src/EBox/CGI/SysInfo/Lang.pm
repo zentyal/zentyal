@@ -42,10 +42,13 @@ sub _process
     my $self = shift;
 
     if (defined($self->param('setlang'))) {
-        EBox::setLocale($self->param('lang'));
+        my $lang = $self->param('lang');
+        EBox::setLocale($lang);
         POSIX::setlocale(LC_ALL, EBox::locale());
         EBox::Menu::regenCache();
         EBox::Global->getInstance()->modChange('apache');
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('sysinfo', 'General', 'changeLanguage', $lang);
     }
 }
 
