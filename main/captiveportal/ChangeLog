@@ -1,3 +1,5 @@
+HEAD
+	+ Calculate users bandwidth usage based on configured period
 2.1.4
 	+ New secondary LDAP configuration tab (enabled via confkey)
 	+ Added current users tab

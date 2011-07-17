@@ -42,6 +42,30 @@ sub new
 
     $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
 
+    $self->{bwmonitor_enabled} = defined($self->{bwmonitor}) and
+                                 $self->{bwmonitor}->isEnabled();
+
+    my $global = EBox::Global->getInstance(1);
+    my $captiveportal = $global->modInstance('captiveportal');
+    my $model = $captiveportal->model('BWSettings');
+
+    my $period = $model->defaultQuotaPeriodValue();
+
+    if ($period eq 'day') {
+        $self->{period} = 3600*24;
+        $self->{period_name} = __('Day bandwidth usage (MB)')
+    }
+    if ($period eq 'week') {
+        $self->{period} = 3600*24*7;
+        $self->{period_name} = __('Week bandwidth usage (MB)')
+    }
+
+    if ($period eq 'month') {
+        $self->{period} = 3600*24*30;
+        $self->{period_name} = __('Month bandwidth usage (MB)')
+    }
+
+
     bless($self, $class);
     return $self;
 }
@@ -91,7 +115,7 @@ sub _table
     if ($self->_bwmonitor()) {
         push (@tableHeader, new EBox::Types::Int(
             'fieldName' => 'bwusage',
-            'printableName' => 'Month Bandwidth usage (MB)',
+            'printableName' => $self->{period_name},
             'editable' => 0,
             'optional' => 0)
         );
@@ -201,23 +225,17 @@ sub syncRows
 sub _bwmonitor
 {
     my ($self) = @_;
-
-    return defined($self->{bwmonitor}) and
-           $self->{bwmonitor}->isEnabled();
+    return $self->{bwmonitor_enabled};
 }
 
 
+# BW usage for configured period
 sub _bwusage
 {
     my ($self, $user) = @_;
 
-    my @localtime = localtime();
-    my $month = $localtime[4] + 1;
-    my $year = $localtime[5] + 1900;
-
-    EBox::debug("year: $year, month: $month");
-
-    return int($self->{bwmonitor}->userExtBWUsage($user, $year, $month) / (1024*1024));
+    my $since = time() - $self->{period};
+    return int($self->{bwmonitor}->userExtBWUsage($user, $since) / (1024*1024));
 }
 
 

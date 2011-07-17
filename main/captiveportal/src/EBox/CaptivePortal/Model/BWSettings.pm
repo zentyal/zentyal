@@ -80,7 +80,7 @@ sub _table
             new EBox::Types::Int(
                 fieldName     => 'defaultQuota',
                 printableName => __('Bandwidth quota'),
-                help          => __('MB/period. Maximum bandwidth usage for defined period. 0 means no limit.'),
+                help          => __('Maximum bandwidth usage for defined period. 0 means no limit.'),
                 defaultValue  => 0,
                 editable      => 1,
                 size          => 7,
