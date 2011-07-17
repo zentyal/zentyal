@@ -379,8 +379,6 @@ sub quotaExceeded
 
     my $quota = $self->{ldap}->getQuota($username);
 
-    EBox::debug("Checking quota $quota vs $bwusage!");
-
     # No limit
     return 0 if ($quota == 0);
 
