@@ -1,4 +1,5 @@
 HEAD
+	+ Added forceEnabled option for logHelpers
 	+ Moved carousel.js to wizard template
 	+ Add ordering option to wizard pages
 	+ Fixed cmp and isEqualTo methods for EBox::Types::IPAddr

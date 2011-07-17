@@ -144,8 +144,6 @@ sub syncRows
           $_->{'disabledByDefault'}
         } @tableInfos;
 
-
-
         $self->addRow(domain => $domain,
                       enabled => $enabled,
                       lifeTime => 168);
@@ -168,6 +166,38 @@ sub syncRows
 #
 #   Override <EBox::Model::DataTable::validateTypedRow>
 #
+sub validateTypedRow
+{
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    if (exists $params_r->{enabled} or exists $params_r->{enabled}) {
+        my $enabled = exists $params_r->{enabled} ?
+                             $params_r->{enabled}->value() :
+                             $actual_r->{enabled}->value();
+        my $domain = exists $params_r->{domain} ?
+                            $params_r->{domain}->value() :
+                            $actual_r->{domain}->value();
+
+
+        if (not $enabled) {
+            my $logs = EBox::Global->modInstance('logs');
+            foreach my $mod (@{$logs->getLogsModules()}) {
+                if ($mod->name eq $domain) {
+                    my @tableInfos = @{ $mod->tableInfo() };
+
+                    my $force = grep { $_->{'forceEnabled'} } @tableInfos;
+
+                    throw EBox::Exceptions::External(
+                        __x('This log is forced by its module. You can only disable it by disabling {module} module', module => $mod->printableName)
+                    ) if ($force);
+
+                    return;
+                }
+            }
+        }
+    }
+}
+
 sub updatedRowNotify
 {
   my ($self, $row) = @_;

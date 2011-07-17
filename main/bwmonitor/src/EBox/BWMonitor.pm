@@ -289,6 +289,7 @@ sub tableInfo
         'tablename' => 'bwmonitor_usage',
         'timecol' => 'timestamp',
         'filter' => ['client', 'interface'],
+        'forceEnabled' => 1,
     }];
 }
 
