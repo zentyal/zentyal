@@ -757,13 +757,23 @@ sub package
 
 # Method: wizardPages
 #
-#   Return the an array containin the wizard pages for the module. It should
+#   Return an array ref containin the wizard pages for the module. It should
 #   be overriden by subclasses as needed
 #
 # Returns:
 #
-#   An array ref of URL's of ordered wizard pages for this module. This pages
+#   An array ref of URL's of wizard pages for this module. This pages
 #   must be implemented using WizardPage as base class.
+#
+#   Example:
+#       [
+#           {
+#               page => '/Module/Wizard/Page'
+#               order => 201
+#           },
+#           ....
+#       ]
+#
 #
 sub wizardPages
 {

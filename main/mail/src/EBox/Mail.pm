@@ -1598,7 +1598,7 @@ sub wizardPages
 {
     my ($self) = @_;
 
-    return [ '/Mail/Wizard/VirtualDomain' ];
+    return [{ page => '/Mail/Wizard/VirtualDomain', order => 400 }];
 }
 
 

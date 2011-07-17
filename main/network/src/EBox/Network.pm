@@ -310,8 +310,10 @@ sub wizardPages
 {
     my ($self) = @_;
 
-    return [ '/Network/Wizard/Ifaces',
-             '/Network/Wizard/Network' ];
+    return [
+        { page => '/Network/Wizard/Ifaces', order => 100 },
+        { page => '/Network/Wizard/Network', order => 101 },
+    ];
 }
 
 

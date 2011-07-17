@@ -1,4 +1,6 @@
 HEAD
+	+ Moved carousel.js to wizard template
+	+ Add ordering option to wizard pages
 	+ Fixed cmp and isEqualTo methods for EBox::Types::IPAddr
 	+ Fixed wrong Mb unit labels in Disk Usage and use GB when > 1024 MB
 	+ Now global-action script can be called without progress indicator

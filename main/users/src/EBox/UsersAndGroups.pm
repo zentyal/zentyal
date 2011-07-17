@@ -295,7 +295,7 @@ sub wizardPages
 {
     my ($self) = @_;
 
-    return [ '/UsersAndGroups/Wizard/Users' ];
+    return [{ page => '/UsersAndGroups/Wizard/Users', order => 300 }];
 }
 
 

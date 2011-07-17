@@ -51,17 +51,19 @@ sub _modulesWizardPages
     my $global = EBox::Global->getInstance();
     my @pages = ();
 
-    my $mgr = EBox::ServiceManager->new();
-    my @modules = @{$mgr->_dependencyTree()};
+    my @modules = @{$global->modInstancesOfType('EBox::Module::Service')};
 
-    foreach my $name ( @modules ) {
-        my $module = $global->modInstance($name);
+    foreach my $module ( @modules ) {
         if ($module->firstInstall()) {
             push (@pages, @{$module->wizardPages()});
         }
     }
 
-    return \@pages;
+    # Sort and get pages
+    my @sortedPages = sort { $a->{order} <=> $b->{order} } @pages;
+    @sortedPages = map { $_->{page} } @sortedPages;
+
+    return \@sortedPages;
 }
 
 sub _menu

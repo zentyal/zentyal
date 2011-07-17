@@ -204,7 +204,7 @@ sub isEnabled
 sub wizardPages
 {
     my ($self) = @_;
-    return [ '/RemoteServices/Wizard/Subscription' ];
+    return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
 }
 
 # Group: Public methods

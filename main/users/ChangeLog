@@ -1,4 +1,5 @@
 HEAD
+	+ Update wizard pages with new order option
 	+ Use Unix socket for LDAP connections on standalone and slave without PAM
 2.1.5
 	+ Manage zentyal-users cronjob with configuration keys for sync times
