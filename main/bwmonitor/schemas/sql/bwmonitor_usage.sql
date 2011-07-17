@@ -21,3 +21,5 @@ CREATE TABLE bwmonitor_usage (
 
 CREATE INDEX bwmonitor_usage_timestamp_i on bwmonitor_usage(timestamp);
 CREATE INDEX bwmonitor_usage_client_i on bwmonitor_usage(client);
+CREATE INDEX bwmonitor_usage_username_i on bwmonitor_usage(username);
+
