@@ -47,6 +47,9 @@ sub _create
     my $self = $class->SUPER::_create(name => 'captiveportal',
                                       printableName => __('Captive Portal'),
                                       @_);
+
+    $self->{ldap} = new EBox::CaptivePortal::LdapUser();
+
     bless($self, $class);
     return $self;
 }
@@ -211,7 +214,7 @@ sub firewallHelper
 sub _ldapModImplementation
 {
     my ($self) = @_;
-    new EBox::CaptivePortal::LdapUser();
+    return $self->{ldap};
 }
 
 
@@ -308,12 +311,19 @@ sub currentUsers
     my @users;
     for my $id (@{$ids}) {
         my $row = $model->row($id);
+        my $bwusage = 0;
+
+        if ($self->_bwmonitor()) {
+            $bwusage = $row->valueByName('bwusage');
+        }
+
         push(@users, {
             user => $row->valueByName('user'),
             ip => $row->valueByName('ip'),
             mac => $row->valueByName('mac'),
             sid => $row->valueByName('sid'),
             time => $row->valueByName('time'),
+            bwusage => $bwusage,
         });
     }
     return \@users;
@@ -355,6 +365,30 @@ sub sessionExpired
 }
 
 
+# Function: quotaExceeded
+#
+#   returns 1 if user has exceeded his quota
+#
+# Parameters:
+#   - username
+#   - bwusage, bandwidth usage in MB
+#
+sub quotaExceeded
+{
+    my ($self, $username, $bwusage) = @_;
+
+    my $quota = $self->{ldap}->getQuota($username);
+
+    EBox::debug("Checking quota $quota vs $bwusage!");
+
+    # No limit
+    return 0 if ($quota == 0);
+
+    # check quota
+    return $bwusage > $quota;
+}
+
+
 # Function: removeSession
 #
 #   Removes the session file for the given session id
@@ -366,6 +400,12 @@ sub removeSession
     unless (unlink(SIDS_DIR . $sid)) {
         throw EBox::Exceptions::External(_("Couldn't remove session file"));
     }
+}
+
+
+sub _bwmonitor {
+    my $bwmonitor = EBox::Global->modInstance('bwmonitor');
+    return defined($bwmonitor) and $bwmonitor->isEnabled();
 }
 
 

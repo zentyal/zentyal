@@ -128,8 +128,10 @@ sub _updateSessions
             $new = 1;
         }
 
-        # Expired
-        if ($self->{module}->sessionExpired($user->{time})) {
+        # Expired or quota exceeded
+        if ($self->{module}->sessionExpired($user->{time}) or
+            $self->{module}->quotaExceeded($user->{user}, $user->{bwusage})) {
+
             $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
             push (@rules, @{$self->_removeRule($user)});

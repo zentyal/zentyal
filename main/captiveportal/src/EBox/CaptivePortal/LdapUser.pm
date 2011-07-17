@@ -31,7 +31,7 @@ sub new
     my $class = shift;
     my $self  = {};
     $self->{ldap} = EBox::Ldap->instance();
-    $self->{captiveportal} = EBox::Global->modInstance('captiveportal');
+
     bless($self, $class);
     return $self;
 }
@@ -156,6 +156,14 @@ sub getQuota
     my ($self, $username) = @_;
     my $global = EBox::Global->getInstance(1);
     my $users = $global->modInstance('users');
+    my $cportal = $global->modInstance('captiveportal');
+    my $model = $cportal->model('BWSettings');
+
+    # Quotas disabled, no limit:
+    unless ($model->limitBWValue()) {
+        return 0;
+    }
+
     my $dn = $users->usersDn;
 
     $users->{ldap}->ldapCon;
@@ -181,9 +189,6 @@ sub getQuota
     }
 
     # Not overriden:
-    my $cportal = $global->modInstance('captiveportal');
-    my $model = $cportal->model('BWSettings');
-
     return $model->defaultQuotaValue();
 }
 
@@ -192,9 +197,11 @@ sub _addUser
 {
     my ($self, $user, $password) = @_;
 
-    return unless ($self->{captiveportal}->configured());
+    my $captiveportal = EBox::Global->modInstance('captiveportal');
 
-    my $model = $self->{captiveportal}->model('CaptiveUser');
+    return unless ($captiveportal->configured());
+
+    my $model = $captiveportal->model('CaptiveUser');
     my $row = $model->row();
     my $defaultQuota = $row->elementByName('defaultQuota');
 
