@@ -124,26 +124,32 @@ sub removeUserIP
 
 # Method: userBWUsage
 #
-#   Returns total user bandwidth usage in bytes
+#   Returns total user bandwidth usage in bytes since the given timestmap
 #
 #   Parameters:
 #       - username
-#       - year
-#       - month
+#       - since (timestamp)
 #
 sub userExtBWUsage
 {
-    my ($self, $username, $year, $month) = @_;
+    my ($self, $username, $since) = @_;
 
     my $db = EBox::DBEngineFactory::DBEngine();
 
-    my $beg = "$year-$month-01 00:00:00"; $month = $month+1;
-    my $end = "$year-$month-01 00:00:00";
+    my @localtime = localtime($since);
+    my $year = $localtime[5] + 1900;
+    my $month = $localtime[4] + 1;
+    my $mday = $localtime[3];
+    my $hour = $localtime[2];
+    my $min = $localtime[1];
+    my $sec = $localtime[0];
+
+    my $beg = "$year-$month-$mday $hour:$min:$sec";
 
     my $res = $db->query_hash({
             'select' => 'SUM(exttotalrecv) as recv, SUM(exttotalsent) as sent',
             'from' => 'bwmonitor_usage',
-            'where' => qq{username='$username' and timestamp>'$beg' and timestamp<'$end'},
+            'where' => qq{username='$username' and timestamp>'$beg'},
             'group' => 'username'
         });
 
