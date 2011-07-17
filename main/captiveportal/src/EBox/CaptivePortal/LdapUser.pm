@@ -48,12 +48,6 @@ sub localAttributes
 }
 
 
-#sub indexes
-#{
-#    return [ ];
-#}
-
-
 sub isQuotaOverridden
 {
     my ($self, $username) = @_;
@@ -144,6 +138,53 @@ sub setQuota
     }
 
     return 0;
+}
+
+
+# Method: getQuota
+#
+#   Returns quota in Mb for the given user, it will depend on
+#   default settings or overriden ones.
+#
+#   0 means unlimited.
+#
+#   Parameters:
+#       - username
+#
+sub getQuota
+{
+    my ($self, $username) = @_;
+    my $global = EBox::Global->getInstance(1);
+    my $users = $global->modInstance('users');
+    my $dn = $users->usersDn;
+
+    $users->{ldap}->ldapCon;
+    my $ldap = $users->{ldap};
+
+    my %args = (base => $dn,
+        filter => "uid=$username");
+    my $mesg = $ldap->search(\%args);
+
+    if ($mesg->count != 0) {
+        foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}) {
+            if ($item->{'type'} eq 'captiveQuotaOverride' and
+                shift(@{$item->{'vals'}}) eq 'TRUE') {
+
+                # Overriden:
+                foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}) {
+                    if ($item->{'type'} eq 'captiveQuota') {
+                        return shift(@{$item->{'vals'}});
+                    }
+                }
+            }
+        }
+    }
+
+    # Not overriden:
+    my $cportal = $global->modInstance('captiveportal');
+    my $model = $cportal->model('BWSettings');
+
+    return $model->defaultQuotaValue();
 }
 
 
