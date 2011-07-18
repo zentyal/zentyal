@@ -26,37 +26,40 @@ use Error qw(:try);
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
+    my $self = shift;
+    my $net = EBox::Global->modInstance('network');
 
-	$self->_requireParam("ifname", __("network interface"));
-	my $iface = $self->param("ifname");
-        $self->_requireParam("vlanid", __("VLAN Id"));
-        my $vlanId = $self->param('vlanid');
+    $self->_requireParam("ifname", __("network interface"));
+    my $iface = $self->param("ifname");
+    $self->_requireParam("vlanid", __("VLAN Id"));
+    my $vlanId = $self->param('vlanid');
 
-	$self->{redirect} = "Network/Ifaces?iface=$iface";
-	$self->{errorchain} = "Network/Ifaces";
+    $self->{redirect} = "Network/Ifaces?iface=$iface";
+    $self->{errorchain} = "Network/Ifaces";
 
-	$self->keepParam('iface');
-	$self->cgi()->param(-name=>'iface', -value=>$iface);
+    my $audit = EBox::Global->modInstance('audit');
 
-        if ($self->param('cancel')) {
-            return;
-        }
+    $self->keepParam('iface');
+    $self->cgi()->param(-name=>'iface', -value=>$iface);
 
+    if ($self->param('cancel')) {
+        return;
+    }
 
-	if (defined($self->param('del'))) {
+    if (defined($self->param('del'))) {
             try {
                 my $force = $self->param('force');
                 $net->removeVlan($vlanId, $force);
+
+                $audit->logAction('Network', 'Interfaces', 'removeVlan', "$iface, $vlanId", 1);
            } catch EBox::Exceptions::DataInUse with {
                $self->{template} = 'network/confirmVlanDel.mas';
                $self->{redirect} = undef;
@@ -66,11 +69,11 @@ sub _process
                $self->{params} = \@masonParams;
            };
 
-	} elsif (defined($self->param('add'))) {
-		$net->createVlan($vlanId,
-				 $self->param('vlandesc'),
-				 $iface);
-	}
+    } elsif (defined($self->param('add'))) {
+        $net->createVlan($vlanId, $self->param('vlandesc'), $iface);
+
+        $audit->logAction('Network', 'Interfaces', 'createVlan', "$iface, $vlanId", 1);
+    }
 }
 
 1;

@@ -27,58 +27,64 @@ use Error qw(:try);
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
+    my $self = shift;
+    my $net = EBox::Global->modInstance('network');
 
-	$self->{errorchain} = "Network/Ifaces";
-	$self->_requireParam("ifname", __("network interface"));
-	$self->_requireParam("ifaction", __("virtual interface action"));
+    $self->{errorchain} = "Network/Ifaces";
+    $self->_requireParam("ifname", __("network interface"));
+    $self->_requireParam("ifaction", __("virtual interface action"));
 
-	my $iface = $self->param("ifname");
-	my $ifaction = $self->param("ifaction");
+    my $iface = $self->param("ifname");
+    my $ifaction = $self->param("ifaction");
 
-	my $force = undef;
+    my $force = undef;
 
-	$self->{redirect} = "Network/Ifaces?iface=$iface";
+    $self->{redirect} = "Network/Ifaces?iface=$iface";
 
-	if (defined($self->param("cancel"))) {
-		return;
-	} elsif (defined($self->param("force"))) {
-		$force = 1;
-	}
+    if (defined($self->param("cancel"))) {
+        return;
+    } elsif (defined($self->param("force"))) {
+        $force = 1;
+    }
 
-	$self->keepParam('iface');
-	$self->cgi()->param(-name=>'iface', -value=>$iface);
-	if ($ifaction eq 'add'){
-		$self->_requireParam("vif_address", __("IP address"));
-		$self->_requireParam("vif_netmask", __("netmask"));
-		$self->_requireParam("vif_name", __("virtual interface name"));
-		my $name = $self->param("vif_name");
-		my $address = $self->param("vif_address");
-		my $netmask = $self->param("vif_netmask");
-		$net->setViface($iface, $name, $address,  $netmask);
-	} elsif ($ifaction eq 'delete')  {
-		$self->_requireParam("vif_name", __("virtual interface name"));
-		my $viface = $self->param("vif_name");
-		try {
-			$net->removeViface($iface, $viface, $force);
-		} catch EBox::Exceptions::DataInUse with {
-			$self->{template} = 'network/confirmremove.mas';
-			$self->{redirect} = undef;
-			my @array = ();
-			push(@array, 'iface' => $iface);
-			push(@array, 'viface' => $viface);
-			$self->{params} = \@array;
-		};
-	}
+    my $audit = EBox::Global->modInstance('audit');
 
+    $self->keepParam('iface');
+    $self->cgi()->param(-name=>'iface', -value=>$iface);
+    if ($ifaction eq 'add'){
+        $self->_requireParam("vif_address", __("IP address"));
+        $self->_requireParam("vif_netmask", __("netmask"));
+        $self->_requireParam("vif_name", __("virtual interface name"));
+        my $name = $self->param("vif_name");
+        my $address = $self->param("vif_address");
+        my $netmask = $self->param("vif_netmask");
+        $net->setViface($iface, $name, $address, $netmask);
+
+        $audit->logAction('Network', 'Interfaces', 'setViface', "$iface:$name, $address/$netmask", 1);
+    } elsif ($ifaction eq 'delete')  {
+        $self->_requireParam("vif_name", __("virtual interface name"));
+        my $viface = $self->param("vif_name");
+        try {
+            $net->removeViface($iface, $viface, $force);
+
+            $audit->logAction('Network', 'Interfaces', 'removeViface', "$iface:$viface", 1);
+        } catch EBox::Exceptions::DataInUse with {
+            $self->{template} = 'network/confirmremove.mas';
+            $self->{redirect} = undef;
+            my @array = ();
+            push(@array, 'iface' => $iface);
+            push(@array, 'viface' => $viface);
+            $self->{params} = \@array;
+        };
+    }
 }
+
 1;
