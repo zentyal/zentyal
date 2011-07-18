@@ -1,4 +1,4 @@
-AC_INIT([zentyal-bwmonitor], [2.1])
+AC_INIT([zentyal-bwmonitor], [2.1.1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/BWMonitor.pm])
