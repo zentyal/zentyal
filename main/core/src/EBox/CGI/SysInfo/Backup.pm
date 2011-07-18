@@ -175,7 +175,7 @@ sub _backupAction
 
     $self->_showBackupProgress($progressIndicator);
 
-    $self->{audit}->logAction('sysinfo', 'Backup', 'exportConfiguration', $description);
+    $self->{audit}->logAction('System', 'Backup', 'exportConfiguration', $description);
 }
 
 sub  _restoreFromFileAction
@@ -187,7 +187,7 @@ sub  _restoreFromFileAction
     $filename =~ s{%2F}{/}g;
     $self->_restore($filename);
 
-    $self->{audit}->logAction('sysinfo', 'Backup', 'importConfiguration', $filename);
+    $self->{audit}->logAction('System', 'Backup', 'importConfiguration', $filename);
 }
 
 sub _restoreFromIdAction
@@ -202,7 +202,7 @@ sub _restoreFromIdAction
 
     $self->_restore(EBox::Config::conf ."/backups/$id.tar");
 
-    $self->{audit}->logAction('sysinfo', 'Backup', 'importConfiguration', $id);
+    $self->{audit}->logAction('System', 'Backup', 'importConfiguration', $id);
 }
 
 sub _restore
@@ -282,7 +282,7 @@ sub  _downloadAction
     $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
     $self->{downfilename} = hostname() . "_$id.tar";
 
-    $self->{audit}->logAction('sysinfo', 'Backup', 'downloadConfigurationBackup', $id);
+    $self->{audit}->logAction('System', 'Backup', 'downloadConfigurationBackup', $id);
 }
 
 sub  _deleteAction
@@ -297,7 +297,7 @@ sub  _deleteAction
     my $backup = EBox::Backup->new();
     $backup->deleteBackup($id);
 
-    $self->{audit}->logAction('sysinfo', 'Backup', 'deleteConfigurationBackup', $id);
+    $self->{audit}->logAction('System', 'Backup', 'deleteConfigurationBackup', $id);
 }
 
 sub  _bugreportAction
@@ -309,7 +309,7 @@ sub  _bugreportAction
     $self->{downfile} = $backup->makeBugReport();
     $self->{downfilename} = 'zentyal-configuration-report.tar';
 
-    $self->{audit}->logAction('sysinfo', 'Backup', 'downloadConfigurationReport');
+    $self->{audit}->logAction('System', 'Backup', 'downloadConfigurationReport');
 }
 
 1;

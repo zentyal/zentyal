@@ -54,6 +54,9 @@ sub _process
     try {
         $mod->restartService();
         $self->{msg} = __('The module was restarted correctly.');
+
+        my $audit = $global->modInstance('audit');
+        $audit->logAction('Dashboard', 'Module Status', 'restartService', $name);
     } catch EBox::Exceptions::Lock with {
         EBox::error("Restart of $name from dashboard failed because it was locked");
         $self->{msg} = __x('Service {mod} is locked by another process. Please wait its end and then try again.',

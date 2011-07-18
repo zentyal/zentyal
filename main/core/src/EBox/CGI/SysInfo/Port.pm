@@ -44,7 +44,7 @@ sub _process
         my $port = $self->param('port');
 		$apache->setPort($port);
         my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('sysinfo', 'General', 'setAdminPort', $port);
+        $audit->logAction('System', 'General', 'setAdminPort', $port);
 	}
 }
 

@@ -710,7 +710,7 @@ sub _regenConfig
 #
 sub restartService
 {
-    my $self = shift;
+    my ($self) = @_;
 
     $self->_lock();
     my $global = EBox::Global->getInstance();
@@ -724,9 +724,6 @@ sub restartService
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1);
-
-        my $audit = $global->modInstance('audit');
-        $audit->logAction('global', 'Module Status', 'restartService', $self->{name});
     } otherwise  {
         my ($ex) = @_;
         $log->error("Error restarting service: $ex");

@@ -48,7 +48,7 @@ sub _process
         EBox::Menu::regenCache();
         EBox::Global->getInstance()->modChange('apache');
         my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('sysinfo', 'General', 'changeLanguage', $lang);
+        $audit->logAction('System', 'General', 'changeLanguage', $lang);
     }
 }
 

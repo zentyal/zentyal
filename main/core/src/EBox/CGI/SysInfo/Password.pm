@@ -71,7 +71,7 @@ sub _process
         $self->{msg} = __('The password was changed successfully.');
 
         my $audit = EBox::Global->modInstance('audit');
-        $audit->logAction('sysinfo', 'General', 'changePassword', $username);
+        $audit->logAction('System', 'General', 'changePassword', $username);
     }
 }
 
