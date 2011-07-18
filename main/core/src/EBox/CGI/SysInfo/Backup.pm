@@ -35,6 +35,9 @@ sub new # (error=?, msg=?, cgi=?)
                       'template' => '/backupTabs.mas',
                       @_);
     $self->{errorchain} = "SysInfo/Backup";
+
+    $self->{audit} = EBox::Global->modInstance('audit');
+
     bless($self, $class);
     return $self;
 }
@@ -147,7 +150,7 @@ sub masonParameters
     return \@params;
 }
 
-sub  _backupAction
+sub _backupAction
 {
     my ($self, %params) = @_;
 
@@ -171,6 +174,8 @@ sub  _backupAction
     $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
 
     $self->_showBackupProgress($progressIndicator);
+
+    $self->{audit}->logAction('sysinfo', 'Backup', 'exportConfiguration', $description);
 }
 
 sub  _restoreFromFileAction
@@ -181,6 +186,8 @@ sub  _restoreFromFileAction
     # poor man decode html entity for '/'
     $filename =~ s{%2F}{/}g;
     $self->_restore($filename);
+
+    $self->{audit}->logAction('sysinfo', 'Backup', 'importConfiguration', $filename);
 }
 
 sub _restoreFromIdAction
@@ -194,6 +201,8 @@ sub _restoreFromIdAction
     }
 
     $self->_restore(EBox::Config::conf ."/backups/$id.tar");
+
+    $self->{audit}->logAction('sysinfo', 'Backup', 'importConfiguration', $id);
 }
 
 sub _restore
@@ -272,6 +281,8 @@ sub  _downloadAction
     }
     $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
     $self->{downfilename} = hostname() . "_$id.tar";
+
+    $self->{audit}->logAction('sysinfo', 'Backup', 'downloadConfigurationBackup', $id);
 }
 
 sub  _deleteAction
@@ -285,6 +296,8 @@ sub  _deleteAction
     }
     my $backup = EBox::Backup->new();
     $backup->deleteBackup($id);
+
+    $self->{audit}->logAction('sysinfo', 'Backup', 'deleteConfigurationBackup', $id);
 }
 
 sub  _bugreportAction
@@ -295,6 +308,8 @@ sub  _bugreportAction
     $self->{errorchain} = 'SysInfo/Bug';
     $self->{downfile} = $backup->makeBugReport();
     $self->{downfilename} = 'zentyal-configuration-report.tar';
+
+    $self->{audit}->logAction('sysinfo', 'Backup', 'downloadConfigurationReport');
 }
 
 1;

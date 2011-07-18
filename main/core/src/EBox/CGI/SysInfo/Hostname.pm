@@ -49,6 +49,8 @@ sub _process
             my $global = EBox::Global->getInstance();
             my $apache = $global->modInstance('apache');
             $apache->set_string('hostname', $hostname);
+            my $audit = EBox::Global->modInstance('audit');
+            $audit->logAction('sysinfo', 'General', 'changeHostname', $hostname);
             $global->modChange('apache');
         }
     }

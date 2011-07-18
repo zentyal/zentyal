@@ -69,6 +69,9 @@ sub _process
         }
         EBox::Auth->setPassword($username, $newpwd1);
         $self->{msg} = __('The password was changed successfully.');
+
+        my $audit = EBox::Global->modInstance('audit');
+        $audit->logAction('sysinfo', 'General', 'changePassword', $username);
     }
 }
 
