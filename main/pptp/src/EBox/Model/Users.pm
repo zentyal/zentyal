@@ -116,6 +116,7 @@ sub _table
                                    printableName => __('IP Address'),
                                    editable => 1,
                                    optional => 1,
+                                   help => __('IP Address asigned to this user within the VPN network.'),
                                 ),
         );
 
@@ -130,6 +131,7 @@ sub _table
         modelDomain => 'PPTP',
         enableProperty => 1,
         defaultEnabledValue => 1,
+        help => __('Users allowed to connect using the PPTP VPN. This list is independant of LDAP users defined on Users and Groups.'),
     };
 
     return $dataTable;

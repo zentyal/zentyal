@@ -81,6 +81,7 @@ sub _table
              printableName => __('VPN Network Address'),
              editable => 1,
              defaultValue  => $self->_defaultNetwork(),
+             help => __('This address should be different from any other internal or VPN network.'),
              ),
          new EBox::Types::Host(
              fieldName => 'nameserver1',
@@ -120,6 +121,9 @@ sub _table
                                   update => __('PPTP server configuration updated'),
                               },
         modelDomain        => 'PPTP',
+        help               => __('PPTP VPN is used for connecting Microsoft ' .
+                                 'Windows clients without any third party client ' .
+                                 'and mobile devices like iPhone and Android.'),
     };
 
     return $dataTable;

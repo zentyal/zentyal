@@ -125,6 +125,7 @@ sub _table
     my $dataTable =
     {
         tableName => 'Connections',
+        pageTitle => __('IPsec Connections'),
         printableTableName => __('IPsec Connections'),
         printableRowName => __('IPsec connection'),
         defaultActions => ['add', 'del', 'editField', 'changeView' ],
@@ -133,6 +134,9 @@ sub _table
         modelDomain => 'IPsec',
         enableProperty => 1,
         defaultEnabledValue => 1,
+        help => __('IPsec connections allow to deploy secure tunnels between ' . 
+                   'different subnetworks. This protocol is vendor independant ' .
+                   'and will connect Zentyal with other security devices.'),
     };
 
     return $dataTable;

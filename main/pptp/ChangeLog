@@ -1,4 +1,5 @@
 HEAD
+	+ Added some help messages
 	+ Default values for PPTP network and nameservers
 	+ Dashboard widget with connected users
 	+ Now chap-secrets configuration for PPPoE is not overwritten
