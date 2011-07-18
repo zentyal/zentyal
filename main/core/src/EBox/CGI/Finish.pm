@@ -92,19 +92,7 @@ sub _pendingActions
             $rowName = __('row');
         }
         my $message;
-        if ($event eq 'add') {
-            $message = __x('A new {rowName} "{r}" has been added',
-                           rowName => $rowName, r => $id);
-        } elsif ($event eq 'set') {
-            my ($row, $field) = split (/\//, $id);
-            if (defined ($row) and defined ($field)) {
-                $message = __x('The field "{f}" in the {rowName} "{r}" has been changed from "{x}" to "{y}"',
-                               f => $field, rowName => $rowName, r => $row, x => $oldvalue, y => $value);
-            } else {
-                $message = __x('The value of "{id}" has been changed from "{x}" to "{y}"',
-                               id => $id, x => $oldvalue, y => $value);
-            }
-        } elsif ($event eq 'del') {
+        if ($event eq 'del') {
             $message = __x('The {rowName} "{r}" has been deleted',
                            rowName => $rowName, r => $id);
         } elsif ($event eq 'move') {
@@ -113,6 +101,29 @@ sub _pendingActions
         } elsif ($event eq 'action') {
             my $action = $value ? "$id($value)" : $id;
             $message = __x('The action "{a}" has been executed', a => $action);
+        } else {
+            my ($parent, $row, $field) = split (/\//, $id);
+            if (defined ($parent) and defined ($row)) {
+                if (defined ($field)) {
+                    $row = "$parent/$row";
+                } else {
+                    ($row, $field) = ($parent, $row);
+                }
+                if ($event eq 'add') {
+                    $message = __x('A new {rowName} "{r}" has been added with "{f}" set to "{x}"',
+                                   f => $field, rowName => $rowName, r => $row, x => $value);
+                } elsif ($event eq 'set') {
+                    $message = __x('The field "{f}" in the {rowName} "{r}" has been changed from "{x}" to "{y}"',
+                                   f => $field, rowName => $rowName, r => $row, x => $oldvalue, y => $value);
+                }
+            } else {
+                if (($event eq 'set') and defined ($oldvalue)) {
+                    $message = __x('The value of "{id}" has been changed from "{x}" to "{y}"',
+                                   id => $id, x => $oldvalue, y => $value);
+                } else {
+                    $message = __x('The value of "{id}" has been set to "{x}"', id => $id, x => $oldvalue);
+                }
+            }
         }
         $action->{'message'} = $message;
         push(@{$actions}, $action);

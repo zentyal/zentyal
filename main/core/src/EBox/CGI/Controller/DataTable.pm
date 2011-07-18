@@ -103,13 +103,15 @@ sub addRow
 
     my $id = $model->addRow(%params);
 
+    my $auditId = $self->_getAuditId($id);
+
     # We don't want to include filter in the audit log
     # as it has no value (it's a function reference)
     delete $params{'filter'};
     foreach my $field (keys %params) {
         my $value = $params{$field};
         next unless defined ($value);
-        $self->_auditLog('add', "$id/$field", $value);
+        $self->_auditLog('add', "$auditId/$field", $value);
     }
 
     return $id;
@@ -135,7 +137,7 @@ sub moveRow
     }
     my $after = $model->_rowOrder($id);
 
-    $self->_auditLog('move', $id, $before, $after);
+    $self->_auditLog('move', $self->_getAuditId($id), $before, $after);
 }
 
 sub removeRow
@@ -150,7 +152,7 @@ sub removeRow
 
     $model->removeRow($id, $force);
 
-    $self->_auditLog('del', $id);
+    $self->_auditLog('del', $self->_getAuditId($id));
 }
 
 sub editField
@@ -164,6 +166,7 @@ sub editField
 
     my $id = $params{id};
     my $row = $model->row($id);
+    my $auditId = $self->_getAuditId($id);
 
     # Store old and new values before setting the row for audit log
     my %changedValues;
@@ -177,7 +180,7 @@ sub editField
         next if ($newValue eq $oldValue);
 
         $changedValues{$fieldName} = {
-            id => $id ? "$id/$fieldName" : $fieldName,
+            id => $id ? "$auditId/$fieldName" : $fieldName,
             new => $newValue,
             old => $oldValue,
         };
@@ -237,6 +240,7 @@ sub editBoolean
         print '$("changes_menu").className = "changed"';
     }
 
+    my $auditId = $self->_getAuditId($id);
     $self->_auditLog('set', "$id/$field", $value, $oldValue);
 }
 
@@ -394,7 +398,19 @@ sub _print
 
 }
 
+sub _getAuditId
+{
+    my ($self, $id) = @_;
 
-
+    # Get parentRow id if any
+    my $row = $self->{'tableModel'}->row($id);
+    if (defined $row) {
+        my $parentRow = $row->parentRow();
+        if ($parentRow) {
+            return $parentRow->id() . "/$id";
+        }
+    }
+    return $id;
+}
 
 1;
