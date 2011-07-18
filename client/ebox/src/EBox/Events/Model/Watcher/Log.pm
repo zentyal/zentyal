@@ -192,7 +192,7 @@ sub syncRows
     }
 
     if ($anyChange and (not $modChanged)) {
-        $self->{gconfodule}->_saveConfig();
+        $self->{gconfmodule}->_saveConfig();
         EBox::Global->getInstance()->modRestarted('logs');
     }
 
