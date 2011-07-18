@@ -1,4 +1,4 @@
-HEAD
+2.0.22
 	+ Union type: Use selected subtype on trailingText property if the
 	  major type does not have the property
 	+ Fixed typo for log watcher model
