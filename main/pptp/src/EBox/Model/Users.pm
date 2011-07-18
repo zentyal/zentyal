@@ -116,7 +116,7 @@ sub _table
                                    printableName => __('IP Address'),
                                    editable => 1,
                                    optional => 1,
-                                   help => __('IP Address asigned to this user within the VPN network.'),
+                                   help => __('IP address assigned to this user within the VPN network.'),
                                 ),
         );
 
