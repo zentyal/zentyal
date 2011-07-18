@@ -249,7 +249,7 @@ sub skipField
 #
 sub  onChangeActionOnFieldJS
 {
-    my ($self, $fieldName) = @_;
+    my ($self, $tableName, $fieldName) = @_;
 
     unless (defined($fieldName)) {
         throw EBox::Exceptions::MissingArgument('fieldName');
@@ -266,7 +266,7 @@ sub  onChangeActionOnFieldJS
                         out_method => \$output);
     my $comp = $interp->make_component(comp_file => $filename);
     my @params = ();
-    push(@params, tableName => $self->_modelName(),
+    push(@params, tableName => $tableName,
         JSONActions => objToJson($actions),
         fieldName => $fieldName);
 
@@ -286,11 +286,17 @@ sub  onChangeActionOnFieldJS
 #
 sub  onChangeActionsJS
 {
-    my ($self) = @_;
-
+    my ($self, %params) = @_;
+    my $modal = $params{modal};
+    
+    my $tableName = $self->model()->table()->{'tableName'};
+    if ($modal) {
+        $tableName .= '_modal';
+    }
+    
     my $jsCode;
     for my $fieldName (@{$self->model()->fields()}) {
-        $jsCode .= $self->onChangeActionOnFieldJS($fieldName);
+        $jsCode .= $self->onChangeActionOnFieldJS($tableName, $fieldName);
     }
     return $jsCode;
 }

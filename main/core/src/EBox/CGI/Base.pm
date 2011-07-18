@@ -230,6 +230,8 @@ sub _requireParam # (param, display)
     my ($self, $param, $display) = @_;
 
     unless (defined($self->param($param)) && $self->param($param) ne "") {
+        $display or
+            $display = $param;
         throw EBox::Exceptions::DataMissing(data => $display);
     }
 }

@@ -85,16 +85,13 @@ if ($foreignModel and $data->foreignNextPageField())  {
    my ($nextPageType) = grep {
        $_->fieldName() eq $nextPageField
    } @{ $foreignModel->table()->{tableDescription} };
-   EBox::debug("nextPageType $nextPageType");
    my $modelManager = EBox::Model::ModelManager->instance();
    my $nextPageModel = $modelManager->model($nextPageType->foreignModel());
-   EBox::debug("nextPageModel $nextPageModel");
    my $nextPageModelContextName = $nextPageModel->contextName();
-   EBox::debug("nextPageContextName $nextPageModelContextName");
    $addNewJS = $foreignModel->modalChangeViewJS(
        changeType => "changeAdd",
        editId => "undefined",
-       selectCaller => $id,
+       selectCallerId => $id,
        selectForeignField => $data->foreignField(),
        nextPageContextName => $nextPageModelContextName,
        foreignNextPageField => $nextPageField,

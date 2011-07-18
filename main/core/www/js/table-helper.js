@@ -111,7 +111,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
 {
     var title = '';
     var selectForeignField;
-    var parentSelectId;
+    var selectCallerId;
     var nextPageContextName;
     var pars = 'action=add&tablename=' + table + '&directory=' + directory ;
     if (nextPage){
@@ -122,7 +122,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
         pars += '&pageSize=' + inputValue(table + '_pageSize');
     }
     if (extraParams) {
-      parentSelectId        = extraParams['selectCallerId'];
+      selectCallerId        = extraParams['selectCallerId'];
       selectForeignField    = extraParams['selectForeignField'];
       nextPageContextName = extraParams['nextPageContextName'];
     }
@@ -132,6 +132,9 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
     if (fields) {
       pars += '&' + encodeFields(table, fields);
     }
+    if (selectCallerId) {
+     pars += '&selectCallerId=' + selectCallerId;
+   }
 
     var MyAjax = new Ajax.Updater(
         {
@@ -151,29 +154,33 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
                 if (json.success) {
                   var nextDirectory = json.directory;
                   var rowId = json.rowId;
-                  if (parentSelectId && selectForeignField){
+                  if (selectCallerId && selectForeignField){
                     var printableValue = json.callParams[selectForeignField];
-                    addSelectChoice(parentSelectId, rowId, printableValue, true);
+                    addSelectChoice(selectCallerId, rowId, printableValue, true);
                     // hide 'Add a new one' element
-                    var newLink  = document.getElementById(parentSelectId + '_empty');
+                    var newLink  = document.getElementById(selectCallerId + '_empty');
                     if (newLink) {
                       newLink.style.display = 'none';
-                      document.getElementById(parentSelectId).style.display ='inline';
+                      document.getElementById(selectCallerId).style.display ='inline';
                     }
                   }
 
                   if (rowId && directory) {
                     var nameParts = nextPageContextName.split('/');
-                    var nextPageUrl = '/zentyal/' + nameParts[1] + '/';
-                    nextPageUrl += 'ModalController/' + nameParts[2];
-                    nextPageUrl += '?directory=' + nextDirectory + '/keys/';
-                    nextPageUrl += rowId + '/' + nextPage;
+                    var baseUrl = '/zentyal/' + nameParts[1] + '/';
+                    baseUrl += 'ModalController/' + nameParts[2];
+                    var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
+                    var nextPageUrl = baseUrl;
+                    nextPageUrl += '?directory=' + newDirectory;
                     nextPageUrl += '&firstShow=0';
-                    nextPageUrl += '&action=view';
+                    nextPageUrl += '&action=viewAndAdd';
+                    nextPageUrl += "&selectCallerId=" + selectCallerId;
+
                     Modalbox.show(nextPageUrl, {
-                                                transitions: false
-                                               }
-                                                 );
+                                            transitions: false,
+                                            overlayClose : false
+                                            }
+                                 );
                   } else {
                     setError(table, 'Cannot get next page URL');
                     restoreHidden('buttons_' + table, table);
@@ -246,7 +253,7 @@ function addNewRow(url, table, fields, directory)
 
 
 
-function changeRow(url, table, fields, directory, id, page, force, resizeModalbox)
+function changeRow(url, table, fields, directory, id, page, force, resizeModalbox, extraParams)
 {
     var pars = '&action=edit&tablename=' + table + '&directory='
                    + directory + '&id=' + id + '&';
@@ -259,7 +266,13 @@ function changeRow(url, table, fields, directory, id, page, force, resizeModalbo
     if ( force ) pars += '&force=1';
 
     cleanError(table);
-    if (fields) pars += '&' + encodeFields(table, fields);
+    if (fields) {
+      pars += '&' + encodeFields(table, fields);
+    }
+    for (name in extraParams) {
+        pars += '&' + name + '=' + extraParams[name];
+    }
+
 
     var MyAjax = new Ajax.Updater(
         {
@@ -308,7 +321,7 @@ Parameters:
 
 */
 
-function actionClicked(url, table, action, rowId, paramsAction, directory, page) {
+function actionClicked(url, table, action, rowId, paramsAction, directory, page, extraParams) {
 
   var pars = '&action=' + action + '&id=' + rowId;
 
@@ -322,6 +335,10 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page)
   pars += '&filter=' + inputValue(table + '_filter');
   pars += '&pageSize=' + inputValue(table + '_pageSize');
   pars += '&directory=' + directory + '&tablename=' + table;
+  for (name in extraParams) {
+    pars += '&' + name + '=' + extraParams[name];
+  }
+
 
   cleanError(table);
 
@@ -490,6 +507,7 @@ function modalChangeView(url, table, directory, action, id, extraParams)
       Modalbox.show(url, {title: title,
                           params: pars,
                           transitions: false,
+                          overlayClose: false,
                           afterLoad: function() {
                                // fudge for pootle bug
                                var badText = document.getElementById('ServiceTable_modal_name');
@@ -1041,3 +1059,23 @@ function addSelectChoice(id, value, printableValue, selected)
 
 
 
+function removeSelectChoice(id, value, selectedIndex)
+{
+    var selectControl = document.getElementById(id);
+    if (!selectControl) {
+      return;
+    }
+
+    var options = selectControl.options;
+    for(var i=0;i< options.length;i++){
+      if(options[i].value==value){
+        options[i] = null;
+        break;
+      }
+    }
+
+   if (selectedIndex) {
+     options.selectedIndex = selectedIndex;
+   }
+
+}

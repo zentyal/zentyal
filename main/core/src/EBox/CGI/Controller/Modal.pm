@@ -35,12 +35,8 @@ sub new # (cgi=?)
     my $class = shift;
     my %params = @_;
     my $tableModel = delete $params{'tableModel'};
-    my $template;
-    if (defined($tableModel)) {
-        $template = $tableModel->modalViewer();        
-    }
-    my $self = $class->SUPER::new('template' => $template,
-            @_);
+
+    my $self = $class->SUPER::new(@_);
     $self->{'tableModel'} = $tableModel;
 
 
@@ -182,7 +178,7 @@ sub customAction
     my $customAction = $model->customActions($action, $id);
     $customAction->handle($id, %params);
 }
- 
+
 # Method to refresh the table by calling rows method
 sub refreshTable
 {
@@ -204,9 +200,10 @@ sub refreshTable
         $filter = '';
     }
 
+    my $selectCallerId = $self->param('selectCallerId');
+
     my $tpages = 1000;
     $self->{template} = $model->modalViewer($showTable);
-
 
     my @params = (
         'data' => $rows,
@@ -219,9 +216,31 @@ sub refreshTable
         'page' => $page,
         'tpages' => $tpages,
        );
+
+    if ($selectCallerId) {
+        push @params, (selectCallerId => $selectCallerId);
+    }
+
     push @params, @extraParams;
 
     $self->{'params'} = \@params;
+}
+
+
+sub cancelAdd
+{
+    my ($self, $model) = @_;
+    my %params = $self->getParams();
+    $self->{json} = {
+        callParams => \%params,
+        success => 0,
+    };
+
+    my $parent    = $model->parent();
+    my $id = $model->parentRow()->id();
+    $parent->removeRow($id);
+    $self->{json}->{success} = 1;
+    $self->{json}->{rowId} = $id;
 }
 
 # Group: Protected methods
@@ -234,7 +253,7 @@ sub _process
     my $action = $self->param('action');
     my $firstShow = $self->param('firstShow');
 
-    my $selectCallerId = $self->param('selectCaller');
+    my $selectCallerId = $self->param('selectCallerId');
     my $selectForeignField = $self->param('selectForeignField');
 
     my $nextPageContextName = $self->param('nextPageContextName');
@@ -248,10 +267,8 @@ sub _process
     }
 
     if ($action eq 'edit') {
-
         $self->editField();
         $self->refreshTable(1, $action);
-
     } elsif ($action eq 'add') {
         $self->addRow();
         $self->refreshTable(1, $action);
@@ -266,14 +283,14 @@ sub _process
         my $showTable = not $firstShow;
         my @extraParams;
         if ($selectCallerId and $firstShow) {
-            @extraParams = (selectCallerId => $selectCallerId,
+            @extraParams = (
                             selectForeignField => $selectForeignField,
                             foreignNextPageField => $foreignNextPageField,
                             nextPageContextName => $nextPageContextName,
                            );
         }
-
-        $self->refreshTable($showTable, $action, @extraParams);                        
+        $self->setMsg('');
+        $self->refreshTable($showTable, $action, @extraParams);
     } elsif ($action eq 'changeList') {
         $self->refreshTable(1, $action);
     } elsif ($action eq 'changeEdit') {
@@ -283,11 +300,14 @@ sub _process
         # This action will show the whole table (including the
         # table header similarly View Base CGI but inheriting
         # from ClientRawBase instead of ClientBase
-        $self->{template} = '/ajax/tableModalView.mas';
         $self->refreshTable(1, $action);
      } elsif ($action eq 'editBoolean') {
          delete $self->{template};
          $self->editBoolean();
+    } elsif ($action eq 'viewAndAdd') {
+        $self->refreshTable(1, $action);
+    } elsif ($action eq 'cancelAdd') {
+        $self->cancelAdd($model);
 #     } elsif ($model->customActions($action, $self->param('id'))) {
 #         $self->customAction($action);
 #         $self->refreshTable();

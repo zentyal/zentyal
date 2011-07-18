@@ -2945,10 +2945,9 @@ sub changeViewJS
             );
 }
 
-# Method: changeViewJS
+# Method: modalChangeViewJS
 #
-#     Return the javascript function to change view to
-#     add a row
+#     Return the javascript function to change view 
 #
 # Parameters:
 #
@@ -2973,11 +2972,8 @@ sub modalChangeViewJS
                           );
     }
 
-    my $extraParamString = '{';
-    while (my ($name, $value) = each %args) {
-        $extraParamString .= "'$name'" . ': '  . "'$value'" . ', ';
-    }
-    $extraParamString .= '}';
+    my $extraParamsJS = _paramsToJSON(%args);
+
 
     my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
 
@@ -2992,11 +2988,36 @@ sub modalChangeViewJS
             $table->{'gconfdir'},
             $actionType,
             $editId,
-            $extraParamString,
+            $extraParamsJS,
             );
 
     return $js;
 }
+
+
+sub modalCancelAddJS
+{
+    my ($self, %params) = @_;
+    my $table = $self->table();
+    my $url = $table->{'actions'}->{'changeView'}; # url
+    $url =~ s/Controller/ModalController/; 
+
+    my $directory = $self->directory();
+    my $params =  "action=cancelAdd&directory=$directory";
+    my $selectCallerId = $params{selectCallerId};
+    my $onSuccess='';    
+    if ($selectCallerId) {
+        $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
+    }
+
+    my $js = "new Ajax.Request('$url', { method: 'post',  parameters: '$params'";
+    if ($onSuccess) {
+        $js .= ", onSuccess: $onSuccess";
+    }
+    $js.= '});';
+    return $js;
+}
+
 
 # Method: addNewRowJS
 #
@@ -3028,7 +3049,7 @@ sub addNewRowJS
 
 sub modalAddNewRowJS
 {
-    my ($self, $page, $nextPage, %extraParams) = @_;
+    my ($self, $page, $nextPage, @extraParams) = @_;
     $nextPage or 
         $nextPage = '';
 
@@ -3040,11 +3061,7 @@ sub modalAddNewRowJS
         $url =~ s/Controller/ModalController/;
     }
 
-    my $extraParamString = '{';
-    while (my ($name, $value) = each %extraParams) {
-        $extraParamString .= "'$name'" . ': '  . "'$value'" . ', ';
-    }
-    $extraParamString .= '}';
+    my $extraParamsJS = _paramsToJSON(@extraParams);
 
     my $tableId = $table->{'tableName'} . '_modal';
 
@@ -3055,7 +3072,7 @@ sub modalAddNewRowJS
              $fields,
              $table->{'gconfdir'},
              $nextPage,
-             $extraParamString);
+             $extraParamsJS);
 }
 
 
@@ -3074,9 +3091,9 @@ sub modalAddNewRowJS
 #     string - holding a javascript funcion
 sub changeRowJS
 {
-    my ($self, $editId, $page, $modal) = @_;
+    my ($self, $editId, $page, $modal, @extraParams) = @_;
 
-    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
+    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s, %s, %s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
@@ -3089,7 +3106,7 @@ sub changeRowJS
     }
 
     my $force =0;
-
+    my $extraParamsJS = _paramsToJSON(@extraParams);
     my $fields = $self->_paramsWithSetterJS();
     return  sprintf ($function,
             $actionUrl,
@@ -3099,8 +3116,21 @@ sub changeRowJS
             $editId,
             $page,
             $force,
-            $modalResize);
+            $modalResize,
+            $extraParamsJS);
 }
+
+sub _paramsToJSON
+{
+    my (%params) = @_;
+    my $paramString = '{';
+    while (my ($name, $value) = each %params) {
+        $paramString .= "'$name'" . ': '  . "'$value'" . ', ';
+    }
+    $paramString .= '}';
+    return $paramString;
+}
+
 
 # Method: actionClicked
 #
@@ -3119,7 +3149,7 @@ sub changeRowJS
 #     string - holding a javascript funcion
 sub actionClickedJS
 {
-    my ($self, $action, $editId, $direction, $page, $modal) = @_;
+    my ($self, $action, $editId, $direction, $page, $modal, @extraParams) = @_;
 
     unless ($action eq 'move' or $action eq 'del') {
         throw EBox::Exceptions::External("Wrong action $action");
@@ -3131,7 +3161,7 @@ sub actionClickedJS
         throw EBox::Exceptions::External("Wrong action $direction");
     }
 
-    my  $function = "actionClicked('%s','%s','%s','%s','%s','%s',%s)";
+    my  $function = "actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
 
     if ($direction) {
         $direction = "dir=$direction";
@@ -3147,6 +3177,8 @@ sub actionClickedJS
         $tablename .= '_modal';
     }
 
+    my $extraParamsJS =  _paramsToJSON(@extraParams);
+
     my $fields = $self->_paramsWithSetterJS();
     return  sprintf ($function,
             $actionUrl,
@@ -3155,7 +3187,8 @@ sub actionClickedJS
             $editId,
             $direction,
             $table->{'gconfdir'},
-            $page);
+            $page,
+            $extraParamsJS);
 }
 
 sub actionHandlerUrl
