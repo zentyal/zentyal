@@ -1,4 +1,6 @@
 HEAD
+	+ Default CA expiration set to 10 years and certificates expiration
+	  set by default to the same value of the CA expiration
 	+ Log actions with AuditLogging
 	+ Removed use of obsolete LogAdmin
 2.1.2

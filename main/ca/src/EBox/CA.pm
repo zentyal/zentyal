@@ -1711,6 +1711,23 @@ sub getCurrentCRL
     }
 }
 
+# Method: caExpirationDays
+#
+#       Return the CA expiration date in days since the current date
+#
+# Returns:
+#
+#       Number of days until CA expiration
+#
+sub caExpirationDays
+{
+    my ($self) = @_;
+
+    my ($curY, $curM, $curD) = Date::Calc::Today();
+    my ($exY, $exM, $exD) = $self->{caExpirationDate}->date();
+
+    return Date::Calc::Delta_Days($curY, $curM, $curD, $exY, $exM, $exD);
+}
 
 # Method: menu
 #

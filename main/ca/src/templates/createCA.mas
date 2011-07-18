@@ -17,6 +17,7 @@
                        optional => 1 ],
                      [ name => 'expiryDays', input => 'text',
                        printableName => __('Days to expire'),
+                       value => '3650',
                        size => '5' ],
               #       [ name => 'caPassphrase', input => 'password',
               #         printableName => __('Passphrase') ],
@@ -30,7 +31,7 @@
 <div class="note">
   <% __("This page only appears once at starting up the Certification
   Authority.\nChanges take effect immediately.") %>
-</div> 
+</div>
 <h3><% __('Create Certification Authority Certificate') %></h3>
 <form action='CreateCA' method='POST'>
   <& formTable.mas, rows => \@createTable &>
