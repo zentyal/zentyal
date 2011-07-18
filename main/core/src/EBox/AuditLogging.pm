@@ -179,7 +179,7 @@ sub discard
     return unless $self->isEnabled();
 
     $self->_db()->{multiInsert}->{TABLE_ACTIONS} = [];
-    $self->_db()->delete(TABLE_ACTIONS, qw{temporal = TRUE});
+    $self->_db()->delete(TABLE_ACTIONS, ['temporal = TRUE']);
 }
 
 sub _timestamp
@@ -245,7 +245,6 @@ sub _log
     );
 
     $self->_db()->unbufferedInsert(TABLE_ACTIONS, \%data);
-    $self->setAsChanged();
 }
 
 sub logSessionEvent
