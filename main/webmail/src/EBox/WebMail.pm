@@ -64,10 +64,9 @@ use constant {
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(
-            name => 'webmail',
-            printableName => __n('Webmail'),
-            );
+    my $self = $class->SUPER::_create(name => 'webmail',
+                                      printableName => __('Webmail'),
+                                      @_);
     bless($self, $class);
     return $self;
 }

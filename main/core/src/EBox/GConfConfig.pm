@@ -85,29 +85,4 @@ sub _key
     return $ret;
 }
 
-# ! this also marks the module as changed
-sub backup
-{
-    my ($self) = @_;
-
-    if ($self->isReadOnly) {
-        throw EBox::Exceptions::Internal("Cannot change a read only ".
-                         "module instance");
-    }
-    my $global = EBox::Global->getInstance();
-    $global->modIsChanged($self->{mod}->name) and return;
-
-    $self->{mod}->_dump_to_file;
-
-    $global->modChange($self->{mod}->name);
-
-    # FIXME: check possible consequences of this
-    # XXX I had placed this after the modChange mark bz otherway i get a
-    # infintie loop. It would be better untangle the problem and had it
-    # before the changed mark
-    if ($self->{mod}->isa('EBox::Model::ModelProvider')) {
-        $self->{mod}->modelsBackupFiles();
-    }
-}
-
 1;

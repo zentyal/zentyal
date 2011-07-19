@@ -46,7 +46,8 @@ sub _create
     my $class = shift;
 
     my $self = $class->SUPER::_create(name => 'ipsec',
-                                      printableName => 'IPsec');
+                                      printableName => 'IPsec',
+                                      @_);
 
     bless($self, $class);
 

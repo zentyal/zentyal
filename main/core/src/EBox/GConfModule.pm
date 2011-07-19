@@ -38,10 +38,8 @@ sub _create # (name)
     my %opts = @_;
     my $ro = delete $opts{ro};
     my $self = $class->SUPER::_create(@_);
-    my $ebox = "ebox";
     if (($self->name ne "global") && $ro) {
         $self->{ro} = 1;
-        $ebox = "ebox-ro";
     }
     bless($self, $class);
     $self->{redis} = EBox::Config::Redis->new();
@@ -51,13 +49,6 @@ sub _create # (name)
     $self->{state} = new EBox::GConfState($self, $self->{ro});
     $self->{config} = new EBox::GConfConfig($self, $self->{ro});
     $self->{helper} = $self->{config};
-    if ($self->name ne "global" && $ro) {
-        my $global = EBox::Global->getInstance($ro);
-        unless ($global->modIsChanged($self->name)) {
-            $self->_dump_to_file;
-        }
-        $self->_load_from_file;
-    }
 
     return $self;
 }
@@ -79,21 +70,6 @@ sub _state
     my $self = shift;
     $self->{helper} = $self->{state};
 }
-
-
-sub initChangedState
-{
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    $global->modIsChanged($self->name) and
-        throw EBox::Exceptions::Internal($self->name .
-                                          ' module already has changed state');
-
-    $self->_dump_to_file();
-}
-
-
 
 # we override aroundRestoreconfig to save gconf data before dump module config
 sub aroundRestoreConfig
@@ -162,16 +138,6 @@ sub _dump_to_file # (dir?)
     $self->{redis}->export_dir_to_yaml($key, $file);
 }
 
-
-# we had to call _backup before continue the normal restoreBackup process
-sub restoreBackup
-{
-  my $self = shift;
-  $self->_backup();
-
-  $self->SUPER::restoreBackup(@_);
-}
-
 sub isReadOnly
 {
     my $self = shift;
@@ -184,7 +150,11 @@ sub isReadOnly
 #
 sub revokeConfig
 {
-    my $self = shift;
+    my ($self) = @_;
+
+    # No sense to revoke config on a read-only instance
+    return if ($self->{ro});
+
     my $global = EBox::Global->getInstance();
 
     $global->modIsChanged($self->name) or return;
@@ -197,18 +167,7 @@ sub revokeConfig
 
     $global->modRestarted($self->name);
 
-    my $ro = $self->{ro};
-    $self->{ro} = undef;
-    $self->_load_from_file();
-
-    $self->{ro} = $ro;
-}
-
-
-sub scheduleRestart
-{
-    my $self = shift;
-    $self->_backup;
+    $self->_copy_from_ro();
 }
 
 sub _saveConfig
@@ -233,25 +192,33 @@ sub _copy_to_ro
 {
     my ($self) = @_;
 
+    $self->_copy('ebox', 'ebox-ro');
+}
+
+sub _copy_from_ro
+{
+    my ($self) = @_;
+
+    $self->_copy('ebox-ro', 'ebox');
+}
+
+sub _copy
+{
+    my ($self, $src, $dst) = @_;
+
     $self->_config();
-    my $key = "/ebox/modules/" . $self->name;
-    $self->{redis}->backup_dir($key, '/ebox-ro/modules/' . $self->name);
+    my $key = "/$src/modules/" . $self->name;
+    $self->{redis}->backup_dir($key, "/$dst/modules/" . $self->name);
 }
 
-sub _backup
+sub _change
 {
-    my $self = shift;
-    $self->_helper->backup();
-}
+    my ($self) = @_;
 
-# Returns:
-#
-#       Gnome2::GConf object
-#
-sub gconf
-{
-    my $self = shift;
-    EBox::debug("Deprecated");
+    return if ($self->{ro});
+
+    my $global = EBox::Global->getInstance();
+    $global->modChange($self->name);
 }
 
 sub _key # (key)
@@ -534,7 +501,6 @@ sub _set_bool # (key, value)
 {
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
-    $self->_backup;
     $self->redis->set_bool($key, $val);
 }
 
@@ -552,6 +518,7 @@ sub set_bool # (key, value)
     my ($self, $key, $val) = @_;
     $self->_config;
     $self->_set_bool($key, $val);
+    $self->_change();
 }
 
 sub st_set_bool # (key, value)
@@ -603,7 +570,6 @@ sub _set_int # (key, value)
 {
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
-    $self->_backup;
     $self->redis->set_int($key, $val);
 }
 
@@ -622,6 +588,7 @@ sub set_int # (key, value)
     my ($self, $key, $val) = @_;
     $self->_config;
     $self->_set_int($key, $val);
+    $self->_change();
 }
 
 sub st_set_int # (key, value)
@@ -673,7 +640,6 @@ sub _set_string # (key, value)
 {
     my ($self, $key, $val) = @_;
     $key = $self->_key($key);
-    $self->_backup;
     $self->redis->set_string($key, $val);
 }
 
@@ -691,6 +657,7 @@ sub set_string # (key, value)
     my ($self, $key, $val) = @_;
     $self->_config;
     $self->_set_string($key, $val);
+    $self->_change();
 }
 
 sub st_set_string # (key, value)
@@ -789,7 +756,6 @@ sub _set_hash_value
     my ($self, $key, $field, $value) = @_;
 
     $key = $self->_key($key);
-    $self->_backup;
     if (defined ($value)) {
         if (keys %{$value}) {
             $self->redis->set_hash_value($key, $field => encode_json($value));
@@ -836,7 +802,6 @@ sub _hash_delete
     my ($self, $key, $field) = @_;
 
     $key = $self->_key($key);
-    $self->_backup;
     $self->redis->hash_delete($key, $field);
 }
 
@@ -940,7 +905,6 @@ sub _unset # (key)
 {
     my ($self, $key) = @_;
     $key = $self->_key($key);
-    $self->_backup;
     $self->redis->unset($key);
 }
 
@@ -959,6 +923,7 @@ sub unset # (key)
     my ($self, $key) = @_;
     $self->_config;
     $self->_unset($key);
+    $self->_change();
 }
 
 sub st_unset # (key)
@@ -974,8 +939,8 @@ sub _set_list # (key, type, value)
 {
     my ($self, $key, $type, $val) = @_;
     $key = $self->_key($key);
-    $self->_backup;
     $self->redis->set_list($key, $val);
+    $self->_change();
 }
 
 #
@@ -1093,7 +1058,6 @@ sub st_array_from_dir # (key)
 sub _delete_dir # (key)
 {
     my ($self, $dir) = @_;
-    $self->_backup;
     $dir = $self->_key($dir);
     $self->_delete_dir_internal($dir);
 }
@@ -1112,6 +1076,7 @@ sub delete_dir # (key)
     my ($self, $dir) = @_;
     $self->_config;
     $self->_delete_dir($dir);
+    $self->_change();
 }
 
 sub st_delete_dir # (key)

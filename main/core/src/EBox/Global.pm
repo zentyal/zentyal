@@ -248,8 +248,6 @@ sub modChange # (module)
     my $mod = $self->modInstance($name);
     defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
 
-    $mod->initChangedState();
-
     $self->set_bool("modules/$name/changed", 1);
 }
 

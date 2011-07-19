@@ -623,11 +623,6 @@ sub _moveToPath
 {
     my ($self) = @_;
 
-#     # assure we have backuped the current config
-#     my $gconfmod = $self->model()->{gconfmodule};
-#     $gconfmod->_backup();
-
-
     my $path   = $self->path();
 
     my $tmpPath = $self->tmpPath();

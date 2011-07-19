@@ -58,7 +58,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'mailfilter',
-                                      printableName => __n('Mail Filter'));
+                                      printableName => __('Mail Filter'),
+                                      @_);
     bless($self, $class);
 
     $self->{smtpFilter} = new EBox::MailFilter::Amavis();

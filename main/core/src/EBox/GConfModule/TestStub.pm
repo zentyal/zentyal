@@ -38,7 +38,6 @@ sub fake
     Test::MockObject->fake_module('EBox::GConfModule',
 		 '_gconf_wrapper' => \&_mockedGConfWrapper,
 		 '_delete_dir_internal' => \&_mockedDeleteDirInternal ,
-		 '_backup' => sub {} ,
 		 'hash_from_dir' => \&_mockedHashFromDir,
 		 '_all_entries'    => sub {
 		                         my ($self, $key) = @_;

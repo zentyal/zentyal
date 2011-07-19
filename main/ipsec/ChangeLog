@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed argument passing in constructor, readonly instances now work
 	+ Added some help messages
 2.1.2
 	+ Added IPsec service with needed protocols and firewall rule

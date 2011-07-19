@@ -39,7 +39,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'printers',
-                                      printableName => __n('Printer Sharing'));
+                                      printableName => __('Printer Sharing'),
+                                      @_);
     bless($self, $class);
     $self->{'cups'} = new Net::CUPS;
     return $self;
