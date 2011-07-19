@@ -54,7 +54,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo apache events global logs);
+use constant CORE_MODULES => qw(sysinfo apache events global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
