@@ -233,7 +233,7 @@ sub dn
         my $attr = ($entry->attributes)[0];
         $self->{dn} = $entry->get_value($attr);
     }
-    return $self->{dn};
+    return defined ($self->{dn}) ? $self->{dn} : '';
 }
 
 # Method: clearConn
