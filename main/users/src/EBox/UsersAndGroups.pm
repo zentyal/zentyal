@@ -352,7 +352,7 @@ sub _setConf
             \@array);
 
     @array = ();
-    my $adsync = $self->adsyncEnabled() and ($mode eq 'ad-slave');
+    my $adsync = ($self->adsyncEnabled() and ($mode eq 'ad-slave'));
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
     push(@array, 'adsync'     => $adsync);
     push(@array, 'adsync_time' => EBox::Config::configkey('adsync_time'));
