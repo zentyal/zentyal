@@ -5,10 +5,24 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::Global;
+my ($pkglang) = split (/_/, $lang); 
+if (($pkglang eq 'pt') or ($pkglang eq 'zh')) {
+    ($pkglang) = split (/\./, $lang); 
+    $pkglang =~ tr/_/-/;
+    $pkglang =~ tr/[A-Z]/[a-z]/;
+    $pkglang = 'pt' if ($pkglang eq 'pt-pt'); 
+}
+my $package = "language-pack-zentyal-$pkglang";
 my $langs = langs();
+my $pkgInstalled = $lang eq 'C' ? 1 : EBox::Global::_packageInstalled($package);
 </%init>
-<h3><% __d('Language Selection','libebox') %></h3>
-<div class="help"><% __d("Language changes happen automatically, saving the configuration it's not needed.", 'libebox') %></div>
+<h3><% __('Language Selection') %></h3>
+<div class="help"><% __('You need to save changes in order to apply all the language changes and probably also reload the page on your browser.') %></div>
+% unless ($pkgInstalled) {
+<div class="warning"><% __x('The language pack for {l} is missing, you can install it by running the following command: {c}', l => $langs->{$lang},
+                            c => "<br/><br/><b>sudo apt-get install $package</b>") %></div>
+% }
 	<form action='Lang' method='POST'>
 		<select name='lang'>
 %	foreach my $l (sort keys %{$langs}) {

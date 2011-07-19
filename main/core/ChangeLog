@@ -1,4 +1,5 @@
 HEAD
+	+ Show warning when a language-pack is not installed
 	+ Removed unnecessary dump/load operations to .bak yaml files
 	+ AuditLogging and Logs constructor now receive the 'ro' parameter
 2.1.18
