@@ -1,4 +1,5 @@
 HEAD
+	+ Set submenu items order for integration with the User Corner menu
 	+ Avoid undefined dn warning
 2.1.6
 	+ Fix adsync mode check for zentyal-users cronjob

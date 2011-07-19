@@ -2583,41 +2583,41 @@ sub menu
 
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
-                                              'text' => __('Users')));
+                                              'text' => __('Users'), order => 10));
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
-                                              'text' => __('Groups')));
+                                              'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
-                                              'text' => __('User Template')));
+                                              'text' => __('User Template'), order => 30));
         } else {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/View/Users',
-                        'text' => __('Users')));
+                        'text' => __('Users'), order => 10));
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/View/Groups',
-                        'text' => __('Groups')));
+                        'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
-                                              'text' => __('User Template')));
+                                              'text' => __('User Template'), order => 30));
         }
 
         $folder->add(new EBox::Menu::Item(
                     'url' => 'Users/Composite/Settings',
-                    'text' => __('LDAP Settings')));
+                    'text' => __('LDAP Settings'), order => 40));
 
         if ($mode eq 'master' or $mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
-                        'text' => __('Slave Status')));
+                        'text' => __('Slave Status'), order => 50));
         }
         if ($mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/View/ADSyncSettings',
-                        'text' => __('AD Sync Settings')));
+                        'text' => __('AD Sync Settings'), order => 60));
         }
 
         $root->add($folder);
     } else {
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                          'text' => __('Mode')));
+                                          'text' => __('Mode'), order => 10));
         $root->add($folder);
     }
 }
