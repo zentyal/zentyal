@@ -1,4 +1,4 @@
-AC_INIT([zentyal-ca], [2.1.2])
+AC_INIT([zentyal-ca], [2.1.3])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/CA.pm])

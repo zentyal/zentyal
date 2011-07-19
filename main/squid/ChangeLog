@@ -1,4 +1,4 @@
-HEAD
+2.1.5
 	+ No longer use custom upstart scripts and custom logrotate conf
 2.1.4
 	+ Humanize units in Delay Pools (from Bytes to KB)

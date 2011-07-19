@@ -1,4 +1,4 @@
-HEAD
+2.1.6
 	+ Fix adsync mode check for zentyal-users cronjob
 	+ Removed bad default value for adsync_dn option
 	+ Update wizard pages with new order option
