@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bug which unallowed changing some protocols in service configuration
 2.1.2
 	+ Add support for AH in service protocols
 2.1.1

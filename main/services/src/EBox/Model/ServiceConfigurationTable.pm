@@ -196,6 +196,8 @@ sub validateTypedRow()
             my $source = $parms->{'source'};
             my $destination = $parms->{'destination'};
             for my $port ($source, $destination) {
+                $port or 
+                    next;
                 if ($port->single() or $port->from() or $port->to()) {
                     throw EBox::Exceptions::External(
                         __('This protocol does not use ports'));
