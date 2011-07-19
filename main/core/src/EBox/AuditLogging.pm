@@ -34,7 +34,8 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'audit',
-        printableName => __('Audit Logging')
+        printableName => __('Audit Logging'),
+        @_
     );
 
     bless ($self, $class);

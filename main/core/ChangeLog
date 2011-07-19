@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: AuditLogging constructor now receives the 'ro' parameter
 2.1.18
 	+ New unificated zentyal-core.logrotate for all the internal logs
 	+ Added forceEnabled option for logHelpers
