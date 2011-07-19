@@ -233,13 +233,17 @@ sub _setConf
 sub menu
 {
     my ($self, $root) = @_;
-    my $item = new EBox::Menu::Item(name => 'UserCorner',
-                                    text => $self->printableName(),
-                                    separator => 'Office',
-                                    url => 'UserCorner/View/Settings',
-                                    order => 530
-    );
-    $root->add($item);
+
+    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+                                        'text' => __('Users and Groups'),
+                                        'separator' => 'Office',
+                                        'order' => 510);
+
+    my $item = new EBox::Menu::Item(text => $self->printableName(),
+                                    url => 'UsersAndGroups/UserCorner',
+                                    order => 100);
+    $folder->add($item);
+    $root->add($folder);
 }
 
 # Method: port

@@ -56,6 +56,7 @@ src/EBox/UserCorner/Model/Makefile
 src/templates/Makefile
 src/scripts/Makefile
 schemas/Makefile
+schemas/urls/Makefile
 stubs/Makefile
 Makefile
 ])
