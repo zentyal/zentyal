@@ -1,4 +1,5 @@
 HEAD
+	+ New unificated zentyal-core.logrotate for all the internal logs
 	+ Added forceEnabled option for logHelpers
 	+ Moved carousel.js to wizard template
 	+ Add ordering option to wizard pages

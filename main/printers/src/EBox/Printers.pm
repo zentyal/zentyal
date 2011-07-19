@@ -198,7 +198,9 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.cups'
+            'name' => 'cups',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/cups/cupsd.pid'],
         }
     ];
 }

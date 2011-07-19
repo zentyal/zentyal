@@ -45,7 +45,6 @@ use Error qw(:try);
 
 # Constants
 use constant VHOST_PREFIX => 'ebox-';
-use constant WEB_SERVICE  => 'ebox.apache2-user';
 use constant CONF_DIR     => EBox::WebServer::PlatformPath::ConfDirPath();
 use constant PORTS_FILE   => CONF_DIR . '/ports.conf';
 use constant ENABLED_MODS_DIR   => CONF_DIR . '/mods-enabled/';
@@ -317,7 +316,9 @@ sub _daemons
 {
     return [
         {
-            'name' => WEB_SERVICE
+            'name' => 'apache2',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/apache2.pid'],
         }
     ];
 }

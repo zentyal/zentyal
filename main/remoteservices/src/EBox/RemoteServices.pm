@@ -1621,7 +1621,7 @@ sub _ccConnectionWidget
 
     if ( $self->eBoxSubscribed() ) {
         $connValue = __x('Not connected. Check VPN logs in {path}',
-                         path => EBox::Config::log() . 'openvpn/');
+                         path => '/var/log/openvpn/');
         $connValueType = 'warning';
         if ( $self->isConnected() ) {
             $connValue     = __('Connected');

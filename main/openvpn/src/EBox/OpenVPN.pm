@@ -57,6 +57,7 @@ use constant GROUP => 'nogroup';
 use constant DH_PATH => '/etc/openvpn/ebox-dh1024.pem';
 use constant OPENVPN_BIN => '/usr/sbin/openvpn';
 use constant CONF_DIR    => '/etc/openvpn';
+use constant LOG_DIR => '/var/log/openvpn';
 
 my @daemonTypes   =
   qw(server client); # in the daemons method they will appear in this order
@@ -260,25 +261,6 @@ sub _prepareLogFiles
                              "chmod 0640 '$file'");
         }
     }
-
-    # recreate log rotate configuration file
-    my @logFiles = map {
-        $_->logFile()
-    } $self->daemons();
-
-    my  $fileMode = {
-                     uid  => 0,
-                     gid  => 0,
-                     mode => '0644',
-    };
-
-    EBox::Module::Base::writeConfFileNoCheck('/etc/logrotate.d/ebox-openvpn',
-                         '/openvpn/logrotate.mas',
-                         [
-                          logFiles => \@logFiles,
-                         ],
-                         $fileMode,
-                        )
 }
 
 sub _cleanupDeletedDaemons
@@ -745,8 +727,7 @@ sub logDir
 {
     my ($class) = @_;
 
-    my $dir = EBox::Config::log() . 'openvpn';
-    return $dir;
+    return LOG_DIR;
 }
 
 #

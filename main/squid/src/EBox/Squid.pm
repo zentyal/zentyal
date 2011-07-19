@@ -175,7 +175,7 @@ sub compositeClasses
 
 sub isRunning
 {
-    return EBox::Service::running('ebox.squid');
+    return EBox::Service::running('squid');
 }
 
 sub DGIsRunning
@@ -194,11 +194,6 @@ sub usedFiles
              'file' => '/etc/squid/squid.conf',
              'module' => 'squid',
              'reason' => __('HTTP Proxy configuration file')
-            },
-            {
-             'file' => SQUID_LOGROTATE_CONF,
-             'module' => 'squid',
-             'reason' => __(q{HTTP Proxy's log rotation configuration}),
             },
             {
              'file' => DGDIR . '/dansguardian.conf',
@@ -682,17 +677,8 @@ sub _writeSquidConf
     }
 
     $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
-    $self->_writeSquidLogrotate();
 }
 
-
-sub _writeSquidLogrotate
-{
-    my ($self) = @_;
-    $self->writeConfFile(SQUID_LOGROTATE_CONF,
-                        'squid/squid.logrotate',
-                        []);
-}
 
 sub _objectsDelayPools
 {
@@ -1116,7 +1102,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.squid'
+            'name' => 'squid'
         },
         {
             'name' => 'ebox.dansguardian',

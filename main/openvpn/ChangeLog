@@ -1,4 +1,5 @@
 HEAD
+	+ VPN logs are stored now under /var/log/openvpn and properly rotated
 	+ Remove remoteservices clients on backup restore if remoteservices
 	  module is excluded
 2.1.2

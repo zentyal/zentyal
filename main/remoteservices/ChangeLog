@@ -1,4 +1,5 @@
 HEAD
+	+ Use new path for openvpn logs at /var/log/openvpn
 	+ Update wizard pages with new order option
 2.1.3
 	+ Use system configured NS if the Cloud NS is not available

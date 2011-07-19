@@ -1,9 +1,4 @@
-<%args>
-@logFiles
-</%args>
-
-% foreach my $file (@logFiles) {
-<% $file %> {
+/var/log/openvpn/*.log {
         rotate 7
         size 10M
         compress
@@ -11,4 +6,3 @@
         missingok
         notifempty
 }
-% }

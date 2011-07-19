@@ -173,8 +173,6 @@ schemas/sql/Makefile
 schemas/sql/period/Makefile
 schemas/urls/Makefile
 conf/Makefile
-conf/logrotate/ebox
-conf/logrotate/Makefile
 conf/hooks/Makefile
 migration/Makefile
 migration/logs/Makefile

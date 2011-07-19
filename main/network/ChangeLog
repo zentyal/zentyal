@@ -1,4 +1,5 @@
 HEAD
+	+ Remove pppoe debug in hooks
 	+ Allowed '/' character in proxy username
 	+ Manual log of audit actions in Iface, VIface and Vlan CGIs
 	+ Update wizard pages with new order option

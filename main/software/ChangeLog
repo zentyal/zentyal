@@ -1,3 +1,5 @@
+HEAD
+	+ Rotate software.log
 2.1.8
 	+ Changes in package preselections, mainly RADIUS is no longer
 	  selected by default and L7Filter replaces it

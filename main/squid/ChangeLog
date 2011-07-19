@@ -1,3 +1,5 @@
+HEAD
+	+ No longer use custom upstart scripts and custom logrotate conf
 2.1.4
 	+ Humanize units in Delay Pools (from Bytes to KB)
 	+ Use the new "Add new..." option in the object selectors

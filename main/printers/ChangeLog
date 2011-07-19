@@ -1,3 +1,5 @@
+HEAD
+	+ Use upstream init.d script instead of custom upstart one
 2.1.2
 	+ Enable CUPS by default on internal interfaces
 	+ Use quote column option for periodic and report log consolidation

@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = logrotate hooks
+SUBDIRS = hooks
 
 Etcdir = $(sysconfdir)/zentyal
 Etc_DATA = events.conf logs.conf core.conf
