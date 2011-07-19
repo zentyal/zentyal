@@ -480,8 +480,10 @@ sub enableService
     $self->set_bool('_serviceModuleStatus', $status);
 
     my $audit = EBox::Global->modInstance('audit');
-    my $action = $status ? 'enableService' : 'disableService';
-    $audit->logAction('global', 'Module Status', $action, $self->{name});
+    if (defined ($audit)) {
+        my $action = $status ? 'enableService' : 'disableService';
+        $audit->logAction('global', 'Module Status', $action, $self->{name});
+    }
 }
 
 # Method: defaultStatus
