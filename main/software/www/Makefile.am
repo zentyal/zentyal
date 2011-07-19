@@ -20,7 +20,7 @@ images/package-icons/zentyal-zarafa.png images/package-icons/zentyal-asterisk.pn
 images/package-icons/zentyal-firewall.png images/package-icons/zentyal-webmail.png images/package-icons/zentyal-dhcp.png \
 images/package-icons/zentyal-captiveportal.png images/package-icons/zentyal-pptp.png images/package-icons/zentyal-ipsec.png \
 images/package-icons/zentyal-trafficshaping.png images/package-icons/zentyal-l7-protocols.png images/package-icons/zentyal-radius.png \
-images/package-icons/zentyal-virt.png
+images/package-icons/zentyal-virt.png images/package-icons/zentyal-usercorner.png
 
 nobase_www_DATA =  $(images)
 
