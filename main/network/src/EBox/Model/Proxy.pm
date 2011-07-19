@@ -76,6 +76,7 @@ sub _table
            'size'          => 18,
            'editable'      => 1,
            'optional'      => 1,
+           'allowUnsafeChars' => 1,
        ),
        new EBox::Types::Password(
            'fieldName'     => 'password',
@@ -130,6 +131,21 @@ sub viewCustomizer
         $customizer->setPermanentMessage($msg);
     }
     return $customizer;
+}
+
+
+sub validateTypedRow
+{
+    my ($self, $action, $newValues_r) = @_;
+    if (exists $newValues_r->{username}) {
+        my $username = $newValues_r->{username}->value();
+        if (not $username =~ m{^[\\\w /.?&+:\-\@]*$}) {
+            throw EBox::Exceptions::External(__('The username input contains invalid ' .
+            'characters. All alphanumeric characters, plus these non ' .
+            'alphanumeric chars: \/.?&+:-@ and spaces are allowed.'));
+        }
+
+    }
 }
 
 1;

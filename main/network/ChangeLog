@@ -1,4 +1,5 @@
 HEAD
+	+ Allowed '/' character in proxy username
 	+ Manual log of audit actions in Iface, VIface and Vlan CGIs
 	+ Update wizard pages with new order option
 	+ Use pppoe name on chap-secrets
