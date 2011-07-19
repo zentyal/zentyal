@@ -46,12 +46,19 @@ use constant HTTPD_ZARAFA_WEBACCESS_DIR => '/var/www/webaccess';
 
 use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
 
+use constant FIRST_RUN_FILE => '/var/lib/zentyal/conf/zentyal-zarafa.first';
+
 sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'zarafa',
                       printableName => 'Groupware',
                       @_);
+
+    my $output = `zarafa-admin -V`;
+    my ($version) = $output =~ /Product version:\s+(\d+),/;
+    $self->{version} = $version;
+
     bless($self, $class);
     return $self;
 }
@@ -369,6 +376,8 @@ sub _setConf
 
     my @array = ();
 
+    my $zarafa7 = $self->{'version'} eq 7;
+
     my $users = EBox::Global->modInstance('users');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
@@ -380,6 +389,7 @@ sub _setConf
         push(@array, 'ldapport', $ldapconf->{'translucentport'});
     }
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
+    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFALDAPCONFFILE,
                  "zarafa/ldap.openldap.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -399,6 +409,7 @@ sub _setConf
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
     push(@array, 'indexer' => $zarafa_indexer);
+    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '640' });
@@ -408,6 +419,7 @@ sub _setConf
     push(@array, 'pop3s' => $self->model('Gateways')->pop3sValue() ? 'yes' : 'no');
     push(@array, 'imap' => $self->model('Gateways')->imapValue() ? 'yes' : 'no');
     push(@array, 'imaps' => $self->model('Gateways')->imapsValue() ? 'yes' : 'no');
+    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFAGATEWAYCONFFILE,
                  "zarafa/gateway.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -420,6 +432,7 @@ sub _setConf
     @array = ();
     my $always_send_delegates = EBox::Config::configkey('zarafa_always_send_delegates');
     push(@array, 'always_send_delegates' => $always_send_delegates);
+    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFASPOOLERCONFFILE,
                  "zarafa/spooler.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -438,12 +451,34 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
+    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFADAGENTCONFFILE,
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
+}
+
+# Method: _postServiceHook
+#
+#     Override this method to setup shared folders.
+#
+# Overrides:
+#
+#     <EBox::Module::Service::_postServiceHook>
+#
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and -f FIRST_RUN_FILE) {
+        my $cmd = 'zarafa-admin -s';
+        EBox::Sudo::root($cmd);
+        unlink FIRST_RUN_FILE;
+    }
+
+    return $self->SUPER::_postServiceHook($enabled);
 }
 
 sub _hostname

@@ -9,6 +9,7 @@
   $quota_soft
   $quota_hard
   $indexer
+  $zarafa7
 </%args>
 ##############################################################
 # SERVER SETTINGS
@@ -122,10 +123,12 @@ mysql_user		= <% $mysql_user %>
 # The password for the user (leave empty for no password)
 mysql_password		= <% $mysql_password %>
 
+% if ($zarafa7) {
 # Override the default MySQL socket to access mysql locally
 # Works only if the mysql_host value is empty or 'localhost'
 mysql_socket		=
 
+% }
 # Database to connect to
 mysql_database		= zarafa
 
@@ -393,6 +396,9 @@ enable_enhanced_ics = yes
 # zarafa-admin --sync)
 sync_gab_realtime = yes
 
+% if ($zarafa7) {
 # Disable features for users. Default all features are enabled. This
 # list is space separated. Currently valid values: imap
 disabled_features = 
+
+% }

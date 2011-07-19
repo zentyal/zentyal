@@ -1,4 +1,5 @@
 <%args>
+    $zarafa7
 </%args>
 ##############################################################
 # DAGENT SETTINGS
@@ -34,12 +35,14 @@ log_file	=	-
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode
 log_timestamp	=	0
 
+% if ($zarafa7) {
 # Log raw message to a file
 log_raw_message = no
 
 # Log raw messages path
 log_raw_message_path = /tmp
 
+% }
 ##############################################################
 # DAGENT LMTP SETTINGS
 #  start dagent with -d to create an lmtp daemon of the zarafa-dagent

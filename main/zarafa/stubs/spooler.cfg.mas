@@ -1,5 +1,6 @@
 <%args>
     $always_send_delegates
+    $zarafa7
 </%args>
 ##############################################################
 # SPOOLER SETTINGS
@@ -99,10 +100,12 @@ allow_delegate_meeting_request = yes
 # iCalendar (calendar.ics attachment).
 always_send_tnef = no
 
+% if ($zarafa7) {
 # Send all e-mail always using the UTF-8 charset.
 # Normally, the requested charset is used, which can be any charset.
 always_send_utf8 = no
 
+% }
 ##############################################################
 # SPOOLER GROUP EXPANSION
 

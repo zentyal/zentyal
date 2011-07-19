@@ -20,8 +20,18 @@ FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 mkdir -p /etc/zarafa/ssl
 /usr/share/zentyal/create-certificate /etc/zarafa/ssl
 
-DAGENT_DFLT='/etc/default/zarafa'
+DAGENT_DFLT='/etc/default/zarafa-dagent'
+if [ -f $DAGENT_DFLT ]
+then
+    sed -i "s/DAGENT_ENABLED=no/DAGENT_ENABLED=yes/g" $DAGENT_DFLT
+fi
+DAGENT_DFLT_7='/etc/default/zarafa'
+if [ -f $DAGENT_DFLT_7 ]
+then
+    sed -i "s/DAGENT_ENABLED=no/DAGENT_ENABLED=yes/g" $DAGENT_DFLT_7
+fi
 
-sed -i "s/DAGENT_ENABLED=no/DAGENT_ENABLED=yes/g" $DAGENT_DFLT
+FIRST_RUN_FILE='/var/lib/zentyal/conf/zentyal-zarafa.first'
+touch $FIRST_RUN_FILE
 
 exit 0

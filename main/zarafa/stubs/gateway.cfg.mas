@@ -3,6 +3,7 @@
     $pop3s
     $imap
     $imaps
+    $zarafa7
 </%args>
 ##############################################################
 # GATEWAY SETTINGS
@@ -59,12 +60,14 @@ imap_capability_idle = yes
 # The maximum size of an email that can be uploaded to the gateway
 imap_max_messagesize = 134217728
 
+% if ($zarafa7) {
 # Override the e-mail charset and generate using utf-8 (when imap data is not present on the item)
 imap_generate_utf8 = no
 
 # Internally issue the expunge command to directly delete e-mail marked for deletion in IMAP.
 imap_expunge_on_delete = no
 
+% }
 # File with RSA key for SSL
 ssl_private_key_file	=	/etc/zarafa/ssl/ssl.pem
 

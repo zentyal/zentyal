@@ -1,4 +1,7 @@
 HEAD
+	+ Create shared folders for the first time zarafa-server
+	  is configured
+	+ Add support for both Zarafa 6 and Zarafa 7
 	+ Change default attachments storage to files
 	+ Update for Zarafa 7: stubs and enable script
 	+ Bugfix: set server.cfg to 640 perms
