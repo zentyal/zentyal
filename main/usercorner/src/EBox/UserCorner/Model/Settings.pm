@@ -63,7 +63,7 @@ sub _table
         'modelDomain' => 'UserCorner',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
-        'help' => '', # FIXME
+        'help' => __('This module enables an https webserver to allow the users to change their own data like their password. Here you can choose the port used to accept https connections.'),
     };
 
     return $dataTable;
