@@ -4,7 +4,12 @@ zentyal-infrastructure
 zentyal-office
 zentyal-security
 zentyal-communication
+zentyal-zarafa
 zentyal-ipsec
+zentyal-pptp
+zentyal-captiveportal
+zentyal-virt
+zentyal-bwmonitor
 language-packs-zentyal-all
 samba-vscan
 dahdi
@@ -23,5 +28,4 @@ evince
 policykit-1
 plymouth-theme-ubuntu-logo
 acpid
-zentyal-zarafa
 zenity
