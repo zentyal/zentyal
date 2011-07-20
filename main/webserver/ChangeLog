@@ -1,4 +1,7 @@
 HEAD
+	+ Generate default SSL certificate for out of the box HTTPS support
+	+ Allow custom CN on Web Server service certificate
+	+ Bugfix: fix all known issues with HTTPS vhosts
 	+ Bugfix: mark ca as restarted after issueCertificate to avoid red button
 	+ Use upstream apache2 init script instead of custom upstart one
 	+ Removed warning when no sites configured

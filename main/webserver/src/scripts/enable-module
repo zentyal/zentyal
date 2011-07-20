@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p /etc/apache2/ssl
+/usr/share/zentyal/create-certificate /etc/apache2/ssl
+
+exit 0

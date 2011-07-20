@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,18 +24,20 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-use Error qw(:try);
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::DataNotFound;
-use EBox::Gettext;
 use EBox::Global;
+use EBox::Gettext;
+
+use EBox::Types::Port;
+use EBox::Types::Boolean;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-use EBox::Types::Boolean;
-use EBox::Types::Port;
-use EBox::Validate;
 
-# Constant
+use EBox::Validate;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataNotFound;
+
+use Error qw(:try);
+
 use constant PUBLIC_DIR => 'public_html';
 
 # Group: Public methods
@@ -62,7 +64,6 @@ sub new
     bless ( $self, $class );
 
     return $self;
-
 }
 
 # Method: validateTypedRow
@@ -101,34 +102,29 @@ sub validateTypedRow
     }
 
     if (exists $changedFields->{ssl} and
-               $changedFields->{ssl}->selectedType() eq 'ssl_port') {
+        $changedFields->{ssl}->selectedType() eq 'ssl_port') {
         my $portNumberSSL = $changedFields->{ssl}->value();
         if ($portNumber eq $portNumberSSL) {
             throw EBox::Exceptions::DataExists(
-                    'data'  => __('Listening port'),
+                    'data'  => __('Listening SSL port'),
                     'value' => $portNumberSSL,
                     );
         }
         if ($apache->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
-                    __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.', ohref => '<a href="/zentyal/EBox/General">', chref => '</a>')
+                    __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
+                        ohref => '<a href="/zentyal/EBox/General">', chref => '</a>')
                     );
         }
-        unless ($firewall->availablePort('tcp', $portNumberSSL)) {
-            throw EBox::Exceptions::DataExists(
-                    'data'  => __('Listening port'),
-                    'value' => $portNumberSSL,
-                    );
+        # Only check availablePort if our port it not already in our service
+        unless ($services->serviceFromPort('tcp', $portNumberSSL) eq 'http') {
+            unless ($firewall->availablePort('tcp', $portNumberSSL)) {
+                throw EBox::Exceptions::DataExists(
+                        'data'  => __('Listening SSL port'),
+                        'value' => $portNumberSSL,
+                        );
+            }
         }
-        my $ca = $global->modInstance('ca');
-        my $certificates = $ca->model('Certificates');
-        unless ($certificates->isEnabledService('Web Server')) {
-            throw EBox::Exceptions::External(
-                    __x('You need a Service Certificate for the Web Server module, enable it on {ohref}Certification Authority -> Service Certificates{chref}.', ohref => '<a href="/zentyal/CA/View/Certificates">', chref => '</a>')
-                    );
-        }
-        $certificates->updateCN('Web Server', $self->parentModule()->_fqdn());
-        $certificates->setServiceRO('Web Server', 1);
     }
 
     if (exists $changedFields->{enableDir} and

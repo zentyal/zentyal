@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,13 +15,8 @@
 
 # Class: EBox::WebService::Model::GeneralComposite
 #
-#   This class represents the three configuration items for the web
-#   service.
 #
-#    - Enable/Disable the service through a simple form
-#    - Configuration setting within a simple form
-#    - A table with the user defined virtual hosts
-#
+
 package EBox::WebServer::Composite::General;
 
 use base 'EBox::Model::Composite';
@@ -36,20 +31,20 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the general web service composite.
+#       Constructor for the general webserver composite.
 #
 # Returns:
 #
 #       <EBox::WebService::Model::GeneralComposite> - the
-#       web service general composite.
+#       recently created composite.
 #
 sub new
 {
-      my ($class) = @_;
+     my ($class) = @_;
 
-      my $self = $class->SUPER::new();
+     my $self = $class->SUPER::new();
 
-      return $self;
+     return $self;
 }
 
 # Group: Protected methods
@@ -76,8 +71,8 @@ sub _description
        printableName   => __('Configuration'),
        pageTitle       => __('Web Server'),
        compositeDomain => 'Web',
-       help            => __('The Zentyal web service allows you ' .
-                             'to host Web pages in plain HTML ' .
+       help            => __('The Zentyal webserver allows you ' .
+                             'to host HTTP and HTTPS pages ' .
                              'within different virtual hosts.'),
       };
 

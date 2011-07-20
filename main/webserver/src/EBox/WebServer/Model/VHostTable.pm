@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,20 +27,19 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::External;
-use EBox::Gettext;
 use EBox::Global;
-use EBox::Types::Boolean;
+use EBox::Gettext;
+
 use EBox::Types::Text;
 use EBox::Types::Select;
-use EBox::Validate;
+use EBox::Types::Boolean;
 
-####################
-# Dependencies
-####################
-use Perl6::Junction qw(none);
+use EBox::Validate;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
+
 use Error qw(:try);
+use Perl6::Junction qw(none);
 
 # Group: Public methods
 
@@ -101,10 +100,20 @@ sub validateTypedRow
     if (exists $changedFields->{ssl}) {
         # SSL checking
         my $settings = $self->parentModule()->model('GeneralSettings');
-        if (($changedFields->{ssl}->value() ne 'disabled') and
-            ($settings->row()->elementByName('ssl')->selectedType() eq 'ssl_disabled')) {
-            throw EBox::Exceptions::External(
-                __('SSL support is disabled. Enable it before adding a SSL virtual host.'));
+        my $ca = EBox::Global->modInstance('ca');
+        my $certificates = $ca->model('Certificates');
+        if ($changedFields->{ssl}->value() ne 'disabled') {
+            if ($settings->row()->elementByName('ssl')->selectedType() eq 'ssl_disabled') {
+                throw EBox::Exceptions::External(
+                    __('You need to enable Listening SSL port.')
+                );
+            }
+            unless ($certificates->isEnabledService('Web Server')) {
+                throw EBox::Exceptions::External(
+                    __x('You need to enable Web Server on {ohref}Services Certificates{chref} to enable SSL on a virtal host.',
+                        ohref => '<a href="/zentyal/CA/View/Certificates">', chref => '</a>')
+                    );
+            }
         }
     }
 }
@@ -252,7 +261,7 @@ sub getWebServerSAN
 sub _populateSSLsupport
 {
     my @options = (
-                       { value => 'disabled' , printableValue => __('Disabled')},
+                       { value => 'disabled', printableValue => __('Disabled')},
                        { value => 'allowssl', printableValue => __('Allow SSL')},
                        { value => 'forcessl', printableValue => __('Force SSL')},
                   );
@@ -281,13 +290,13 @@ sub _table
                                 fieldName     => 'ssl',
                                 printableName => __('SSL support'),
                                 editable      => 1,
-                                populate => \&_populateSSLsupport,
-                                defaultValue => 'disabled'
+                                populate      => \&_populateSSLsupport,
+                                defaultValue  => 'disabled',
                              ),
          new EBox::Types::Text(
                                 fieldName     => 'name',
                                 printableName => __('Name'),
-                                size          => 12,
+                                size          => 24,
                                 unique        => 1,
                                 editable      => 1,
                              ),
@@ -331,7 +340,7 @@ sub _dnsNoActiveWarning
     }
 
     return __x(
-'{open}The DNS module is disabled. The added mapping or domains will not have any effect until you enable it',
+'{open}The DNS module is disabled. The added mapping or domains will not have any effect until you enable it.',
        open => q{<br/></div><div class='warning'>}, # attentions to the close
                                                     # div trick!
         );
