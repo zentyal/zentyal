@@ -1,0 +1,78 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+</%init>
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
+    <h3><% __('Captive Portal') %></h3>
+
+    <& .captiveportalDisabledWarning, $params &>
+
+    <form action="/zentyal/CaptivePortal/UserOptions" method="post">
+        <input type="hidden" name="username" value="<% $params->{'username'} %>">
+  <table class="formTable">
+    <tbody>
+<tr id="CaptiveUser_defaultQuota_row"  >
+  <td class='tright'><% __('Bandwidth quota') %>:</td>
+  <td><span class=''>
+
+% my $default = (not $params->{overridden}) ? 'selected="selected"' : '';
+% my $nolimit = ($params->{overridden} and $params->{quota} == 0) ? 'selected="selected"' : '';
+% my $limited = ($params->{overridden} and $params->{quota} > 0) ? 'selected="selected"' : '';
+% my $lhidden = ($params->{overridden} and $params->{quota} > 0) ? '' : 'class="hidden"';
+
+
+  <select name="CaptiveUser_defaultQuota_selected" onchange="showSelected(this);" id="CaptiveUser_defaultQuota_selected">
+<option value="defaultQuota_default" <% $default %>>
+<% __('Use default') %>
+</option>
+<option value="defaultQuota_disabled" <% $nolimit %>>
+<% __('No limit') %>
+</option>
+<option value="defaultQuota_size" <% $limited %>>
+<% __('Limited to') %>
+</option>
+</select>
+
+  <span id="selectValues_CaptiveUser_defaultQuota_selected">
+      </span>
+      </span>
+      <span id='CaptiveUser_defaultQuota_selected_defaultQuota_size_container' <% $lhidden %>>
+<input type="text" class="inputText "
+% if ($params->{quota} == 0) {
+ value="1000"
+% } else {
+ value="<% $params->{quota} %>"
+% }
+
+ size="7" id='CaptiveUser_defaultQuota_size' name='CaptiveUser_defaultQuota_size'  />
+Mb
+      </span>
+    </span>
+</span>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+        <input class="inputButton" type="submit" name="change"
+               value="<% __('Change') %>"
+               alt="<% __('Change') %>" />
+    </td>
+    </tr>
+    </form>
+    </table>
+
+<%def .captiveportalDisabledWarning>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+</%init>
+<div class="warning">
+<% __(
+       q{The following settings will take effect only when the Captive Portal module is enabled.},
+     )
+%>
+</div>
+</%def>

@@ -48,6 +48,34 @@ sub localAttributes
 }
 
 
+sub _userAddOns
+{
+    my ($self, $username) = @_;
+
+    my $cportal = EBox::Global->modInstance('captiveportal');
+    return unless ($cportal->configured());
+
+
+    my $overridden = $self->isQuotaOverridden($username);
+    my $quota = $self->getQuota($username);
+
+    EBox::debug("OVERRIDDEN: $overridden");
+    EBox::debug("QUOTA: $quota");
+
+    my @args;
+    my $args = {
+        'username'   => $username,
+        'overridden' => $overridden,
+        'quota'      => $quota,
+        'service'    => $cportal->isEnabled(),
+    };
+
+    return { path => '/captiveportal/useraddon.mas',
+             params => $args };
+}
+
+
+
 sub isQuotaOverridden
 {
     my ($self, $username) = @_;

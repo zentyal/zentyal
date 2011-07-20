@@ -46,8 +46,8 @@ sub _table
     my @tableHead = (
             new EBox::Types::Union(
                 fieldName => 'defaultQuota',
-                printableName => __('Monthly bandwidth quota'),
-                help => __('Default external bandwidth usage limit per month'),
+                printableName => __('Bandwidth quota'),
+                help => __('Default external bandwidth usage limit'),
                 subtypes => [
                     new EBox::Types::Union::Text(
                         fieldName => 'defaultQuota_default',

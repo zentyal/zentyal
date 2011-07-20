@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = CaptivePortal
+SUBDIRS = CaptivePortal CGI
 
 perldir = @PERLPATH@/EBox
 
