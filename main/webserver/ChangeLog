@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: save changes on ca to avoid red button
 	+ Use upstream apache2 init script instead of custom upstart one
 	+ Removed warning when no sites configured
 2.1.1

@@ -793,6 +793,9 @@ sub _checkCertificate
     } else {
         $self->_issueCertificate();
     }
+
+    my $global = EBox::Global->getInstance();
+    $global->modRestarted('ca');
 }
 
 sub backupDomains
