@@ -1,4 +1,5 @@
 HEAD
+	+ Integration with roundcube 0.5.3
 	+ Fixed argument passing in constructor, readonly instances now work
 2.1.1
 	+ Make mail and webserver enabledepends instead of depends
