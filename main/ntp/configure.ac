@@ -44,9 +44,9 @@ AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
 src/EBox/NTP/Makefile
+src/EBox/NTP/Model/Makefile
+src/EBox/NTP/Composite/Makefile
 src/EBox/t/Makefile
-src/EBox/CGI/Makefile
-src/templates/Makefile
 src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile

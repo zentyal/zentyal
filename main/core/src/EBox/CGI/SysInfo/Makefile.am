@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/SysInfo
 
-nobase_perl_DATA = Backup.pm ConfirmBackup.pm \
+nobase_perl_DATA = Backup.pm ConfirmBackup.pm ChangeDate.pm ChangeTimeZone.pm \
  CurrentProgress.pm General.pm Password.pm Port.pm RestartService.pm \
  Log.pm Hostname.pm Lang.pm PageNotFound.pm CreateReport.pm
 

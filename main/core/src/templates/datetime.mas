@@ -1,20 +1,36 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	$title
 	@date
 </%args>
-	<form action='ChangeDate' method='POST'>
-		<h3><%$title %></h3>
-		<div class='note'>
+<%init>
+	my $ntp = EBox::Global->modInstance('ntp');
+    my $ntpsync = (defined ($ntp) and ($ntp->isEnabled) and ($ntp->synchronized()));
+    my $disabled = $ntpsync ? 'disabled="disabled"' : '';
+</%init>
+<h3><% __('Date and Time') %></h3>
+<div>
+% if ($ntpsync) {
+		<div class='help'>
+			<% __('As the NTP synchronization with external servers is enabled, you cannot change the date or time.') %>
+		</div>
+% } else {
+		<div class='help'>
 			<% __('A change in the date or time will cause all Zentyal services to be restarted.')%>
 		</div>
-		<br />
+% }
+	<form action='ChangeDate' method='POST'>
 		<table class='formTable'>
+% if ($ntpsync) {
+		<tr>
+			<td class='tright'><span class='ftitle'><% __('NTP')%>:</span></td>
+			<td><b><% __('Synchronization enabled') %></b></td>
+		</tr>
+% }
 		<tr>
 			<td class='tright'><span class='ftitle'><% __('Date')%>:</span></td>
 			<td>
-				<select name="day">
+				<select name="day" <% $disabled %>>
 %					for (my $i=1; $i<=31; $i++) {
 						<option
 %							if ($i == $date[0]) {
@@ -26,7 +42,7 @@
 
 				 /
 
-				<select name="month">
+				<select name="month" <% $disabled %>>
 %					my @months = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
 %					my $i=1;
 %					foreach my $month(@months) {
@@ -40,7 +56,7 @@
 
 				 /
 
-				<select name="year">
+				<select name="year" <% $disabled %>>
 %					for (my $i=1990; $i<2020; $i++) {
 						<option
 %						if ($i == $date[2]) {
@@ -54,7 +70,7 @@
 		<tr>
 			<td class='tright'><span class='ftitle'><% __('Time')%>:</span></td>
 			<td>
-				<select name="hour">
+				<select name="hour" <% $disabled %>>
 %					for (my $i=0; $i<24; $i++) {
 						<option
 %						if ($i == $date[3]) {
@@ -66,7 +82,7 @@
 
 				 /
 
-				<select name="minute">
+				<select name="minute" <% $disabled %>>
 %					for (my $i=0; $i<=59; $i++) {
 						<option
 %						if ($i == $date[4]) {
@@ -78,7 +94,7 @@
 
 				 /
 
-				<select name="second">
+				<select name="second" <% $disabled %>>
 %					for (my $i=0; $i<=59; $i++) {
 						<option
 %						if ($i == $date[5]) {
@@ -89,6 +105,7 @@
 				</select>
 			</td>
 		</tr>
+% unless ($ntpsync) {
 		<tr>
 			<td></td>
 			<td>
@@ -98,4 +115,6 @@
 				</form>
 			</td>
 		</tr>
+% }
 	</table>
+</div>

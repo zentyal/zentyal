@@ -100,7 +100,8 @@ case "$1" in
             invoke-rc.d zentyal apache start || true
         fi
 
-        # setup logs and events modules
+        # setup core modules
+        /usr/share/zentyal/initial-setup sysinfo $2
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart events $2
 

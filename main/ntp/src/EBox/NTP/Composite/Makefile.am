@@ -1,12 +1,11 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = NTP t
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/NTP/Composite
 
-nobase_perl_DATA = NTP.pm
+nobase_perl_DATA = General.pm
 
 DISTCLEANFILES =
 
-MAINTAINERCLEANFILES = Makefile.in
-
 EXTRA_DIST = $(nobase_perl_DATA)
+
+MAINTAINERCLEANFILES = Makefile.in

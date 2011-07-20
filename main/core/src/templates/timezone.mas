@@ -1,7 +1,6 @@
 <!-- vim: ts=4 sw=4 filetype=mason
 -->
 <%args>
-	@zonea
 	%table
 	$oldcontinent
 	$oldcountry
@@ -9,9 +8,10 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<h3><% __('Time Zone') %></h3>
 <div>
 	<form name='timezone' action='ChangeTimeZone' method='POST'>
-		<div class='note'>
+		<div class='help'>
 			<% __("You will probably have to restart some services after
             changing the time zone.")%>
 		</div>

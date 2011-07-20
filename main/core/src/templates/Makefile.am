@@ -8,9 +8,9 @@ template_DATA = backup.mas confirm-backup.mas backupTabs.mas \
  halt.mas password.mas port.mas progress.mas pageNotFound.mas \
  header.mas headTitle.mas footer.mas headerWithRefresh.mas\
  dataInUse.mas configurationFiles.mas configureView.mas moduleStatus.mas \
- moduleStatusTable.mas notConfigured.mas wizard.mas \
+ moduleStatusTable.mas notConfigured.mas wizard.mas datetime.mas timezone.mas \
  links-widget.mas enable.mas error.mas language.mas msg.mas title.mas formTable.mas \
- legendTable.mas dataTable.mas presentationTable.mas  table.mas \
+ legendTable.mas dataTable.mas presentationTable.mas table.mas \
  link.mas componentCall.mas htmlAttributes.mas readOnlyForm.mas cgiError.html
 
 EXTRA_DIST = $(template_DATA)

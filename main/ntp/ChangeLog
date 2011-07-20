@@ -1,3 +1,7 @@
+HEAD
+	+ NTP settings are now top-level under Infrastructure
+	+ Date/Time and Timezone are now under System -> General
+	+ Modelized CGIs and move DateTime and Timezone to core
 2.1.2
 	+ Set proper menu order
 2.1.1

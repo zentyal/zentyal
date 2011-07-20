@@ -40,15 +40,52 @@ sub _process
 {
     my $self = shift;
 
-    my $global = EBox::Global->getInstance();
-    my $apache = $global->modInstance('apache');
+    # Get hostname
+    my $apache = EBox::Global->modInstance('apache');
     my $newHostname = $apache->get_string('hostname');
 
+    # Get current date
+    my ($second,$minute,$hour,$day,$month,$year) = localtime(time);
+    $day = sprintf ("%02d", $day);
+    $month = sprintf ("%02d", ++$month);
+    $year = sprintf ("%04d", ($year+1900));
+    $hour = sprintf ("%02d", $hour);
+    $minute= sprintf ("%02d", $minute);
+    $second = sprintf ("%02d", $second);
+    my @date = ($day,$month,$year,$hour,$minute,$second);
+
+    # Get timezones table
+    my @zonedata = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|cut -d '/' -f1|sort -u`;
+    my %b;
+    my @zonea;
+    foreach (@zonedata) {
+        push (@zonea, $_) unless($b{$_}++);
+    }
+    my @list = ();
+    my %table;
+    foreach my $item (@zonea) {
+        chomp $item;
+        @list = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|grep \"^$item\"|sed -e 's/$item\\///'| sort -u`;
+        foreach my $elem (@list) {
+            chomp $elem;
+            push(@{$table{$item}}, $elem);
+        }
+    }
+
+    # Get current timezone
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $oldcontinent = $sysinfo->get_string('continent');
+    my $oldcountry = $sysinfo->get_string('country');
+
     my @array = ();
-    push(@array, 'port' => $apache->port());
-    push(@array, 'lang' => EBox::locale());
-    push(@array, 'hostname' => Sys::Hostname::hostname());
-    push(@array, 'newHostname' => $newHostname);
+    push (@array, 'port' => $apache->port());
+    push (@array, 'lang' => EBox::locale());
+    push (@array, 'hostname' => Sys::Hostname::hostname());
+    push (@array, 'newHostname' => $newHostname);
+    push (@array, 'date' => \@date);
+    push (@array, 'table' => \%table);
+    push (@array, 'oldcontinent' => $oldcontinent);
+    push (@array, 'oldcountry' => $oldcountry);
 
     $self->{params} = \@array;
 }

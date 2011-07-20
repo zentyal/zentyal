@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::NTP::ChangeTimeZone;
+package EBox::CGI::SysInfo::ChangeTimeZone;
 
 use strict;
 use warnings;
@@ -24,28 +24,31 @@ use EBox::Global;
 use EBox::Gettext;
 
 ## arguments:
-##	title [required]
+##  title [required]
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'NTP', @_);
-	$self->{redirect} = "NTP/Timezone";
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    $self->{redirect} = 'SysInfo/General';
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $ntp = EBox::Global->modInstance('ntp');
+    my $self = shift;
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
 
-	$self->_requireParam('country', __('country'));
-	$self->_requireParam('continent', __('continent'));
+    $self->_requireParam('country', __('country'));
+    $self->_requireParam('continent', __('continent'));
 
-	my $continent = $self->param('continent');
-	my $country = $self->param('country');
+    my $continent = $self->param('continent');
+    my $country = $self->param('country');
 
-	$ntp->setNewTimeZone($continent, $country);
+    $sysinfo->setNewTimeZone($continent, $country);
+
+    my $audit = EBox::Global->modInstance('audit');
+    $audit->logAction('System', 'General', 'changeTimezone', "$continent/$country");
 }
 
 1;

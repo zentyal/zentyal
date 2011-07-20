@@ -28,6 +28,7 @@ use Sys::CpuLoad;
 use File::Slurp qw(read_file);
 use Filesys::Df;
 use List::Util qw(sum);
+use Error qw(:try);
 
 use EBox::Config;
 use EBox::Gettext;
@@ -57,6 +58,20 @@ sub _create
     return $self;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Import timezone only if installing the first time
+    unless ($version) {
+        $self->importTimezone();
+    }
+}
 
 sub _facilitiesForDiskUsage
 {
@@ -254,7 +269,25 @@ sub toggledElements()
     return $self->st_hash_from_dir("toggled");
 }
 
+# Method: setNewTimeZone
 #
+#   Sets the system's time zone
+#
+# Parameters:
+#
+#   continent
+#   country
+#
+sub setNewTimeZone
+{
+    my ($self, $continent, $country) = @_;
+
+    $self->set_string('continent', $continent);
+    $self->set_string('country', $country);
+    EBox::Sudo::root("echo $continent/$country > /etc/timezone");
+    EBox::Sudo::root("cp -f /usr/share/zoneinfo/$continent/$country /etc/localtime");
+}
+
 # Method: menu
 #
 #   Overriden method that returns the core menu entries:
@@ -380,6 +413,79 @@ sub report
     }
 
     return $report;
+}
+
+# Method: setNewDate
+#
+#   Sets the system date
+#
+# Parameters:
+#
+#   day
+#   month
+#   year
+#   hour
+#   minute
+#   second
+#
+sub setNewDate
+{
+    my ($self, $day, $month, $year, $hour, $minute, $second) = @_;
+
+    my $newdate = "$year-$month-$day $hour:$minute:$second";
+    my $command = "/bin/date --set \"$newdate\"";
+    EBox::Sudo::root($command);
+
+    my $global = EBox::Global->getInstance(1);
+    $self->_restartAllServices;
+}
+
+sub _restartAllServices
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $failed = '';
+    EBox::info('Restarting all modules');
+    foreach my $mod (@{$global->modInstancesOfType('EBox::Module::Service')}) {
+        my $name = $mod->name();
+        next if ($name eq 'network') or
+                ($name eq 'firewall');
+        try {
+            $mod->restartService();
+        } catch EBox::Exceptions::Internal with {
+            $failed .= "$name ";
+        };
+    }
+    if ($failed ne "") {
+        throw EBox::Exceptions::Internal("The following modules " .
+            "failed while being restarted, their state is " .
+            "unknown: $failed");
+    }
+
+    EBox::info('Restarting system logs');
+    try {
+        EBox::Sudo::root('service rsyslog restart',
+                         'service cron restart');
+    } catch EBox::Exceptions::Internal with {
+    };
+}
+
+# Method: importTimezone
+#
+#   Reads timezone from /etc/timezone and saves it into the module config
+#
+sub importTimezone
+{
+    my ($self) = @_;
+
+    my $timezone = `cat /etc/timezone`;
+    chomp($timezone);
+
+    my ($continent, $country) = split ('/', $timezone);
+
+    $self->set_string('continent', $continent);
+    $self->set_string('country', $country);
 }
 
 1;
