@@ -1,0 +1,67 @@
+#!/usr/bin/perl
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Minimalistic perlconsole clone with Zentyal environment preloaded
+
+use warnings;
+use strict;
+
+use Term::ReadLine;
+use Lexical::Persistence;
+use Data::Dumper;
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $PROMPT = 'zentyal> ';
+
+my $term = new Term::ReadLine $PROMPT;
+my $lex = new Lexical::Persistence;
+
+my $globalInit = code_with_lex_environ('my $global = EBox::Global->getInstance()');
+&$globalInit();
+
+while (defined (my $line = $term->readline($PROMPT))) {
+    last if ($line eq 'exit');
+    my $code = code_with_lex_environ($line);
+    next unless defined $code;
+    my $ret = eval { &$code(); };
+    print $@ if $@;
+    if ((ref ($ret) eq 'ARRAY') or (ref ($ret) eq 'HASH')) {
+        print Dumper($ret);
+    } else {
+        print "$ret\n" if ($ret);
+    }
+}
+
+sub code_with_lex_environ
+{
+    my ($code) = @_;
+
+    my $vars = '';
+    foreach my $var (keys %{$lex->get_context('_')}) {
+        $vars .= "my $var;";
+    }
+    my $sub = "sub {$vars $code}";
+    my $ref = eval $sub;
+    if ($@) {
+        print $@;
+        return undef;
+    }
+    return $lex->wrap($ref);
+}
