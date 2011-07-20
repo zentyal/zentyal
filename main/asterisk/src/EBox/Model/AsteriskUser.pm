@@ -58,7 +58,6 @@ sub _table
         'modelDomain' => 'Asterisk',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
-        'help' => '', # FIXME
     };
 
     return $dataTable;
