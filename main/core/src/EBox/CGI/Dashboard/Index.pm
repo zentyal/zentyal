@@ -26,6 +26,10 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use Error qw(:try);
 
+# TODO: Currently we can't have more than two dashboards because of
+# the design of the interface, but this could be incremented in the future
+my $NUM_DASHBOARDS = 2;
+
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
@@ -50,63 +54,77 @@ sub masonParameters
 
     my $global = EBox::Global->getInstance(1);
     my $sysinfo = $global->modInstance('sysinfo');
-    my @modNames = @{$global->modNames};
+    my @modNames = @{$global->modNames()};
     my $widgets = {};
     foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
         my $wnames = $mod->widgets();
-        for my $wname (keys(%{$wnames})) {
-            my $widget = $mod->widget($wname);
-            defined($widget) or next;
-            $widgets->{$name . ':' . $wname} = $widget;
+        for my $wname (keys (%{$wnames})) {
+            $widgets->{"$name:$wname"} = $wnames->{$wname};
         }
     }
 
-    #put the widgets in the dashboards according to the last configuration
-    my @dashboard1 = ();
-    for my $wname (@{$sysinfo->getDashboard('dashboard1')}) {
-        my $widget = delete $widgets->{$wname};
-        if ($widget) {
-            push(@dashboard1, $widget);
-        }
-    }
+    # put the widgets in the dashboards according to the last configuration
+    my @dashboards;
+    for my $i (1 .. $NUM_DASHBOARDS) {
+        my @dashboard;
+        for my $wname (@{$sysinfo->getDashboard("dashboard$i")}) {
+            if (delete $widgets->{$wname}) {
+                my ($module, $name) = split (/:/, $wname);
 
-    my @dashboard2 = ();
-    for my $wname (@{$sysinfo->getDashboard('dashboard2')}) {
-        my $widget = delete $widgets->{$wname};
-        if ($widget) {
-            push(@dashboard2, $widget);
+                my $mod = EBox::Global->modInstance($module);
+                next unless defined ($mod);
+
+                my $widget = $mod->widget($name);
+                next unless defined ($widget);
+
+                push (@dashboard, $widget);
+            }
         }
+        $dashboards[$i - 1] = \@dashboard;
     }
 
     my @orderedWidgets =
         sort { $widgets->{$a}->{order} <=> $widgets->{$b}->{order} }
         keys %{$widgets};
 
-    #put the remaining widgets in the dashboards trying to balance them
+    # put the remaining widgets in the dashboards trying to balance them
     foreach my $wname (@orderedWidgets) {
-        if (!$sysinfo->isWidgetKnown($wname)) {
-            $sysinfo->addKnownWidget($wname);
-            my $widget = delete $widgets->{$wname};
-            if ($widget->{'default'}) {
-                if (scalar(@dashboard1) <= scalar(@dashboard2)) {
-                    push(@dashboard1, $widget);
-                } else {
-                    push(@dashboard2, $widget);
-                }
+        next if $sysinfo->isWidgetKnown($wname);
+
+        $sysinfo->addKnownWidget($wname);
+        my $winfo = delete $widgets->{$wname};
+        next unless (defined ($winfo) and $winfo->{default});
+
+        my ($module, $name) = split (/:/, $wname);
+
+        my $mod = EBox::Global->modInstance($module);
+        next unless defined ($mod);
+
+        my $widget = $mod->widget($name);
+        next unless defined ($widget);
+
+        # Find the dashboard with less items and add the widget to it
+        my $minValue = 0;
+        my $minIndex = 0;
+        for my $i (1 .. $NUM_DASHBOARDS) {
+            my $size_i = scalar @{$dashboards[$i - 1]};
+            if ($size_i < $minValue) {
+                $minValue = $size_i;
+                $minIndex = $i - 1;
             }
         }
+        push (@{$dashboards[$minIndex]}, $widget);
     }
 
-    #save the current state
-    my @dash_widgets1 = map { $_->{'module'} . ":" . $_->{'name'} } @dashboard1;
-    $sysinfo->setDashboard('dashboard1', \@dash_widgets1);
-    my @dash_widgets2 = map { $_->{'module'} . ":" . $_->{'name'} } @dashboard2;
-    $sysinfo->setDashboard('dashboard2', \@dash_widgets2);
+    my @params;
+    for my $i (1 .. $NUM_DASHBOARDS) {
+        #save the current state
+        my @dash_widgets = map { $_->{'module'} . ":" . $_->{'name'} } @{$dashboards[$i-1]};
+        $sysinfo->setDashboard("dashboard$i", \@dash_widgets);
 
-    my @params = ();
-    push(@params, 'dashboard1' => \@dashboard1);
-    push(@params, 'dashboard2' => \@dashboard2);
+        push(@params, "dashboard$i" => \@{$dashboards[$i-1]});
+    }
     push(@params, 'toggled' => $sysinfo->toggledElements());
 
     push(@params, 'brokenPackages' => $global->brokenPackages());
