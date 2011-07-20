@@ -535,9 +535,9 @@ sub saveAllModules
             $progress->notifyTick();
 
             next if ($name eq 'dhcp'); # Skip dhcp module
-                next if ($name eq 'users'); # Skip usersandgroups
+            next if ($name eq 'users'); # Skip usersandgroups
 
-                my $module = $self->modInstance($name);
+            my $module = EBox::Global->modInstance($name);
             $module->setInstalled();
             $module->setConfigured(1);
             $module->enableService(1);
@@ -564,7 +564,7 @@ sub saveAllModules
                     modName => $name));
         $progress->notifyTick();
 
-        my $mod = $self->modInstance($name);
+        my $mod = EBox::Global->modInstance($name);
         my $class = 'EBox::Module::Service';
 
         if ($mod->isa($class)) {
@@ -598,7 +598,7 @@ sub saveAllModules
                     modName => 'apache'));
         $progress->notifyTick();
 
-        my $mod = $self->modInstance('apache');
+        my $mod = EBox::Global->modInstance('apache');
         try {
             $mod->save();
         }  catch EBox::Exceptions::External with {
@@ -646,7 +646,7 @@ sub restartAllModules
     }
 
     foreach my $name (@names) {
-        my $mod = $self->modInstance($name);
+        my $mod = EBox::Global->modInstance($name);
         try {
             $mod->restartService();
         } catch EBox::Exceptions::Internal with {
@@ -679,7 +679,7 @@ sub stopAllModules
     }
 
     foreach my $name (@names) {
-        my $mod = $self->modInstance($name);
+        my $mod = EBox::Global->modInstance($name);
         try {
             $mod->stopService();
         } catch EBox::Exceptions::Internal with {
@@ -830,7 +830,7 @@ sub modInstance # (module)
     if (defined($modInstance)) {
         if (not ($global->isReadOnly() xor $modInstance->{'ro'})) {
             return $modInstance;
-                    }
+        }
     }
 
     $global->modExists($name) or return undef;
