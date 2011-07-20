@@ -1,4 +1,4 @@
-HEAD
+2.1.19
 	+ Fixed wrong instance retrieval during save changes process
 	+ Date/Time and Timezone moved from NTP to core under System -> General
 	+ Do not instance hidden widgets to improve dashboard performance
