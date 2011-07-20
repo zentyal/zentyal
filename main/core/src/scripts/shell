@@ -38,6 +38,8 @@ my $globalInit = code_with_lex_environ('my $global = EBox::Global->getInstance()
 
 while (defined (my $line = $term->readline($PROMPT))) {
     last if ($line eq 'exit');
+    $line = parse_internal_commands($line);
+    next unless defined $line;
     my $code = code_with_lex_environ($line);
     next unless defined $code;
     my $ret = eval { &$code(); };
@@ -47,6 +49,21 @@ while (defined (my $line = $term->readline($PROMPT))) {
     } else {
         print "$ret\n" if ($ret);
     }
+}
+
+sub parse_internal_commands
+{
+    my ($cmd) = @_;
+
+    my ($mod) = $cmd =~ /^instance (\w+);*/;
+    if ($mod) {
+        unless (EBox::Global->modExists($mod)) {
+            print "Error: Module '$mod' not found\n";
+            return undef;
+        }
+        return "my \$$mod = \$global->modInstance('$mod');";
+    }
+    return $cmd;
 }
 
 sub code_with_lex_environ
