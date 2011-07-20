@@ -65,6 +65,17 @@ sub showModuleStatus
     return undef;
 }
 
+# Method: addModuleStatus
+#
+# Overrides:
+#   EBox::Module::Service::addModuleStatus
+#
+sub addModuleStatus
+{
+    # we don't want it to appear in the dashboard widget
+    return undef;
+}
+
 # Method: enableLog
 #
 #   Overrides <EBox::LogObserver::enableLog>

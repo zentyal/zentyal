@@ -3,6 +3,7 @@ HEAD
 	+ Show warning when a language-pack is not installed
 	+ Removed unnecessary dump/load operations to .bak yaml files
 	+ AuditLogging and Logs constructor now receive the 'ro' parameter
+	+ Do not show Audit Logging in Module Status widget
 2.1.18
 	+ New unificated zentyal-core.logrotate for all the internal logs
 	+ Added forceEnabled option for logHelpers
