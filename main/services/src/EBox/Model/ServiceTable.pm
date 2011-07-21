@@ -497,7 +497,7 @@ sub setMultipleService
 
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
     my @ids = @{$serviceConf->ids()};
-    unless (@ids) {
+    unless (@ids or $params{'allowEmpty'}) {
         throw EBox::Exceptions::External(
                 "This service has no protocols configured");
     }
