@@ -105,7 +105,7 @@ sub masonParameters
         next unless defined ($widget);
 
         # Find the dashboard with less items and add the widget to it
-        my $minValue = 0;
+        my $minValue = scalar (@orderedWidgets);
         my $minIndex = 0;
         for my $i (1 .. $NUM_DASHBOARDS) {
             my $size_i = scalar @{$dashboards[$i - 1]};
