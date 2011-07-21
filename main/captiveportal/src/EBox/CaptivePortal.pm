@@ -48,7 +48,7 @@ sub _create
                                       printableName => __('Captive Portal'),
                                       @_);
 
-    $self->{ldap} = new EBox::CaptivePortal::LdapUser();
+    $self->{cpldap} = new EBox::CaptivePortal::LdapUser();
 
     bless($self, $class);
     return $self;
@@ -214,7 +214,7 @@ sub firewallHelper
 sub _ldapModImplementation
 {
     my ($self) = @_;
-    return $self->{ldap};
+    return $self->{cpldap};
 }
 
 
@@ -377,7 +377,7 @@ sub quotaExceeded
 {
     my ($self, $username, $bwusage) = @_;
 
-    my $quota = $self->{ldap}->getQuota($username);
+    my $quota = $self->{cpldap}->getQuota($username);
 
     # No limit
     return 0 if ($quota == 0);
