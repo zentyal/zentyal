@@ -1,4 +1,4 @@
-HEAD
+2.1.2
 	+ Generate default SSL certificate for out of the box HTTPS support
 	+ Allow custom CN on Web Server service certificate
 	+ Bugfix: fix all known issues with HTTPS vhosts
