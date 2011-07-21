@@ -1,3 +1,5 @@
+2.1.6
+	+ Set debug=no by default for the release candidates and the final 2.2
 2.1.5
 	+ Better implementation of EBox::FileSystem::dirFileSystem more
 	  straightforward and without symlink problems
