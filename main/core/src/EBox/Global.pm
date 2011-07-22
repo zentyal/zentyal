@@ -56,6 +56,13 @@ sub getInstance
     return EBox::Global->new($ro);
 }
 
+# TODO: This method should never be called directly, but
+# as there are lots of call along the code, we need to wrap it
+sub instance
+{
+    return EBox::Global->new();
+}
+
 sub AUTOLOAD
 {
     my ($self, @params) = @_;
