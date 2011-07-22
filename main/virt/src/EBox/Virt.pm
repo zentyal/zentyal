@@ -20,19 +20,20 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
-
+            EBox::Model::CompositeProvider
+            EBox::Report::DiskUsageProvider);
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use Error qw(:try);
 use EBox::Sudo;
 use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
 use EBox::Virt::Model::NetworkSettings;
 use EBox::Virt::Model::DeviceSettings;
+use Error qw(:try);
+use String::ShellQuote;
 
 use constant DEFAULT_VNC_PORT => 5900;
 use constant LIBVIRT_BIN => '/usr/bin/virsh';
@@ -209,6 +210,29 @@ sub vmRunning
     return $self->{backend}->vmRunning($name);
 }
 
+sub startVM
+{
+    my ($self, $name) = @_;
+
+    $self->_manageVM($name, 'start');
+}
+
+sub stopVM
+{
+    my ($self, $name) = @_;
+
+    $self->_manageVM($name, 'stop');
+}
+
+sub _manageVM
+{
+    my ($self, $name, $action) = @_;
+
+    my $manageScript = $self->manageScript($name);
+    $manageScript = shell_quote($manageScript);
+    EBox::Sudo::root("$manageScript $action");
+}
+
 sub pauseVM
 {
     my ($self, $name) = @_;
@@ -230,6 +254,13 @@ sub systemTypes
     return $self->{backend}->systemTypes();
 }
 
+sub manageScript
+{
+    my ($self, $name) = @_;
+
+    return $self->{backend}->manageScript($name);
+}
+
 sub _daemons
 {
     my ($self) = @_;
@@ -237,11 +268,13 @@ sub _daemons
     my @daemons;
 
     my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->findAllValue(autostart => 1)}) {
+    foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
-        push (@daemons, { name => $self->machineDaemon($name) });
         push (@daemons, { name => $self->vncDaemon($name) });
+        if ($vm->valueByName('autostart')) {
+            push (@daemons, { name => $self->machineDaemon($name) });
+        }
     }
 
     return \@daemons;
@@ -344,7 +377,6 @@ sub _writeMachineConf
 
     my $start = $backend->startVMCommand(name => $name, port => $vncport, pass => $vncpass);
     my $stop = $backend->shutdownVMCommand($name);
-    # TODO: Check if port is free
     my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
@@ -361,11 +393,12 @@ sub _writeMachineConf
     );
     my $width = $self->consoleWidth();
     my $height = $self->consoleHeight();
+    my $gid = getgrnam('ebox'); # The Zentyal apache needs to read it
     EBox::Module::Base::writeConfFileNoCheck(
             EBox::Config::www() . "/vncviewer-$name.html",
             '/virt/vncviewer.html.mas',
             [ port => $listenport, password => $vncpass, width => $width, height => $height ],
-            { uid => 0, gid => 0, mode => '0644' }
+            { uid => 0, gid => $gid, mode => '0640' }
     );
 }
 
@@ -411,6 +444,55 @@ sub consoleHeight
 
     my $vncport = EBox::Config::configkey('view_console_height');
     return $vncport ? $vncport : 600;
+}
+
+sub backupDomains
+{
+    my $name = 'machines';
+    my %attrs  = (
+                  printableName => __('Virtual Machines'),
+                  description   => __(q{Disk images of the virtual machines}),
+                 );
+
+    return ($name, \%attrs);
+}
+
+sub backupDomainsFileSelection
+{
+    my ($self, %enabled) = @_;
+
+    return {} unless $enabled{machines};
+
+    my @files;
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+        my $name = $vm->valueByName('name');
+        my $settings = $vm->subModel('settings');
+        my $devices = $settings->componentByName('DeviceSettings');
+        foreach my $deviceId (@{$devices->enabledRows()}) {
+            my $device = $devices->row($deviceId);
+            my $file = $device->valueByName('path');
+            unless ($file) {
+                my $disk_name = $device->valueByName('name');
+                next unless ($disk_name);
+                $file = $self->{backend}->diskFile($disk_name, $name);
+            }
+            push (@files, $file);
+        }
+    }
+
+    return { includes => \@files };
+}
+
+sub _facilitiesForDiskUsage
+{
+    my ($self) = @_;
+
+    my $name  = __('Virtual Machines');
+    my $vmsPath = $self->{backend}->vmPath();
+
+    return { $name => [ $vmsPath ] };
 }
 
 sub _vmWidget

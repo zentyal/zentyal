@@ -136,7 +136,7 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    EBox::Sudo::silentRoot("$VIRTCMD list | grep running | cut -d' ' -f4 | grep -q ^$name\$");
+    EBox::Sudo::silentRoot("$VIRTCMD list | grep running | cut -d' ' -f3 | grep -q ^$name\$");
     return $? == 0;
 }
 
@@ -210,7 +210,10 @@ sub startVMCommand
     $self->{vmConf}->{$name}->{port} = $port;
     $self->{vmConf}->{$name}->{password} = $pass;
 
-    return ("$VIRTCMD create $VM_PATH/$name/$VM_FILE");
+    my $cmd = "$VIRTCMD create $VM_PATH/$name/$VM_FILE";
+    $self->{vmConf}->{$name}->{startCmd} = $cmd;
+
+    return $cmd;
 }
 
 # Method: shutdownVM
@@ -247,8 +250,12 @@ sub shutdownVMCommand
     # FIXME: "shutdown" only works when a SO with acpi enabled is running
     # is there any way to detect this? In the meanwhile the only possibility
     # seems to be use "destroy"
-    #return "$VIRTCMD shutdown $name";
-    return "$VIRTCMD destroy $name";
+    #my $cmd = "$VIRTCMD shutdown $name";
+    my $cmd = "$VIRTCMD destroy $name";
+
+    $self->{vmConf}->{$name}->{stopCmd} = $cmd;
+
+    return $cmd;
 }
 
 # Method: pauseVM
@@ -412,12 +419,27 @@ sub systemTypes
              { value => 'x86_64', printableValue => __('amd64 compatible') } ]
 }
 
+sub manageScript
+{
+    my ($self, $name) = @_;
+
+    return "$VM_PATH/$name/manage.sh";
+}
+
 sub writeConf
 {
     my ($self, $name) = @_;
 
     my $vmConf = $self->{vmConf}->{$name};
 
+    EBox::Module::Base::writeConfFileNoCheck(
+            $self->manageScript($name),
+            '/virt/manage.sh.mas',
+            [ startCmd => $vmConf->{startCmd},
+              stopCmd => $vmConf->{stopCmd},
+              user => $self->{vmUser} ],
+            { uid => 0, gid => 0, mode => '0755' }
+    );
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
         '/virt/domain.xml.mas',
@@ -484,6 +506,11 @@ sub _vncKeymap
         return $lang1 if ($validKeymaps{$lang1});
         return $DEFAULT_KEYMAP;
     }
+}
+
+sub vmsPath
+{
+    return $VM_PATH;
 }
 
 1;

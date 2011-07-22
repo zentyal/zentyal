@@ -261,8 +261,7 @@ sub _doStart
     my $row = $self->row($id);
 
     my $name = $row->valueByName('name');
-    EBox::Service::manage($virt->machineDaemon($name), 'start');
-    EBox::Service::manage($virt->vncDaemon($name), 'start');
+    $virt->startVM($name);
 
     my $tries = 30;
     sleep(1) while ($tries-- and not $virt->vmRunning($name));
@@ -284,8 +283,7 @@ sub _doStop
     my $row = $self->row($id);
 
     my $name = $row->valueByName('name');
-    EBox::Service::manage($virt->vncDaemon($name), 'stop');
-    EBox::Service::manage($virt->machineDaemon($name), 'stop');
+    $virt->stopVM($name);
 
     my $tries = 30;
     sleep(1) while ($tries-- and $virt->vmRunning($name));

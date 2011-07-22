@@ -1,0 +1,21 @@
+<%args>
+$startCmd
+$stopCmd
+$user => ''
+</%args>
+#!/bin/bash
+
+ACTION=$1
+
+if [ "$ACTION" == "stop" ]
+then
+    CMD="<% $stopCmd %>"
+else
+    CMD="<% $startCmd %>"
+fi
+
+% if ($user) {
+sudo -u <% $user %> -H $CMD
+% } else {
+$CMD
+% }

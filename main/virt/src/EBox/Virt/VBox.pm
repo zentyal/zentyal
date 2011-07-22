@@ -38,6 +38,9 @@ sub new
     my $class = shift;
     my $self = {};
     bless ($self, $class);
+
+    $self->{vmConf} = {};
+
     return $self;
 }
 
@@ -166,12 +169,15 @@ sub createVM
 
     return if $self->vmExists($name);
 
-    # TODO: --settingsfile <path> ?
+    $self->{vmConf}->{$name} = {};
+
     _run("$VBOXCMD createvm --name $name --ostype $os --register");
 
     # Add IDE and SATA controllers
     _run("$VBOXCMD storagectl $name --name $IDE_CTL --add ide");
     _run("$VBOXCMD storagectl $name --name $SATA_CTL --add sata");
+
+    $self->_modifyVM($name, 'mouse', 'usb');
 }
 
 # Method: startVMCommand
@@ -201,7 +207,9 @@ sub startVMCommand
     my $port = $params{port};
     my $pass = $params{pass};
 
-    return ("vboxheadless --vnc --vncport $port --vncpass $pass --startvm $name");
+    $self->{vmConf}->{$name}->{startCmd} = "start zentyal-virt.$name";
+
+    return "vboxheadless --vnc --vncport $port --vncpass $pass --startvm $name";
 }
 
 # Method: shutdownVM
@@ -234,6 +242,8 @@ sub shutdownVM
 sub shutdownVMCommand
 {
     my ($self, $name) = @_;
+
+    $self->{vmConf}->{$name}->{stopCmd} = "stop zentyal-virt.$name";
 
     return $self->_controlVMCommand($name, 'poweroff');
 }
@@ -460,10 +470,9 @@ sub systemTypes
     return \@values;
 }
 
-# FIXME
 sub listHDs
 {
-    my $list =  `$VBOXCMD list hdds | grep ^Location | cut -c14-`;
+    my $list =  `find $VM_PATH -name '*.vdi'`;
     my @hds = split ("\n", $list);
     return \@hds;
 }
@@ -473,6 +482,28 @@ sub diskFile
     my ($self, $disk, $machine) = @_;
 
     return shell_quote("$VM_PATH/$machine/$disk.vdi");
+}
+
+sub manageScript
+{
+    my ($self, $name) = @_;
+
+    return "$VM_PATH/$name/manage.sh";
+}
+
+sub writeConf
+{
+    my ($self, $name) = @_;
+
+    my $vmConf = $self->{vmConf}->{$name};
+
+    EBox::Module::Base::writeConfFileNoCheck(
+            $self->manageScript($name),
+            '/virt/manage.sh.mas',
+            [ startCmd => $vmConf->{startCmd},
+              stopCmd => $vmConf->{stopCmd} ],
+            { uid => 0, gid => 0, mode => '0755' }
+    );
 }
 
 # Method: attachedDevices
@@ -505,6 +536,11 @@ sub _run
 
     EBox::debug("Running: $cmd");
     system ($cmd);
+}
+
+sub vmsPath
+{
+    return $VM_PATH;
 }
 
 1;

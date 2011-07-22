@@ -1,4 +1,5 @@
 HEAD
+	+ Integration with Backup and Disk Usage
 	+ Check if keymap is supported and default to US english if not
 	+ Allow to customize keymap and console size in virt.conf
 	+ VNC on libvirt now can listen to external connections

@@ -267,6 +267,15 @@ sub systemTypes
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: vmsPath
+#
+#   Returns the path where VMs are stored.
+#
+sub vmsPath
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
 # Method: diskFile
 #
 #   Returns the path for a disk file.
@@ -277,6 +286,19 @@ sub systemTypes
 #   machine - *optional* VM name
 #
 sub diskFile
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+# Method: manageScript
+#
+#   Returns the path for the manage script used to start/stop VMs
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub manageScript
 {
     throw Ebox::Exceptions::NotImplemented();
 }
