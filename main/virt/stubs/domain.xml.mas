@@ -37,7 +37,7 @@
             <target dev='hd<% $device->{letter} %>' bus='ide'/>
         </disk>
 % }
-        <input type='tablet' bus='usb'/>
-        <graphics type='vnc' port='<% $vncport %>' password='<% $vncpass %>' keymap='<% $keymap %>'/>
+        <input type='mouse' bus='usb'/>
+        <graphics type='vnc' listen='0.0.0.0' port='<% $vncport %>' passwd='<% $vncpass %>' keymap='<% $keymap %>'/>
     </devices>
 </domain>

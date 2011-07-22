@@ -1,4 +1,5 @@
 HEAD
+	+ VNC on libvirt now can listen to external connections
 	+ Fixed VNC mouse position offset with libvirt
 	+ Autodetection of hardware support to choose between KVM/QEMU
 	+ Clean leftover vncviewer files
