@@ -34,9 +34,13 @@ cat main_WITHOUT_VERSIONS_$ARCH extras_WITHOUT_VERSIONS_$ARCH | sort | uniq -c |
 
 for i in `cat DUPLICATED_PACKAGES_$ARCH`
 do
+    # XXX Skip false positives
+    if [ "$i" == "samba" ] || [ "$i" == "libapache2-mod-perl2" ]
+    then
+        continue
+    fi
 	MAIN_VERSION=`grep $i main_WITH_VERSIONS_$ARCH | cut -d' ' -f2| head -1`
 	EXTRA_VERSION=`grep $i extras_WITH_VERSIONS_$ARCH | cut -d' ' -f2 | head -1`
-	# FIXME: Probably there is a bug here (false positive with samba)
 	if [ $EXTRA_VERSION \> $MAIN_VERSION ]
 	then
 		# extras version newer than main one but may be unsafe to remove
@@ -66,3 +70,5 @@ done
 rm DUPLICATED_PACKAGES_$ARCH
 
 echo "for i in \`cat FINAL_REMOVE_$ARCH\` ; do rm extras-$ARCH/\${i}_*.deb ; done"
+
+rm REMOVE_* NO_REMOVE_*
