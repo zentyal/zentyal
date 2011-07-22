@@ -316,6 +316,19 @@ sub writeConf
 {
 }
 
+# Method: daemons
+#
+#   Returns daemons to manage needed by the virtualization backend
+#
+# Return:
+#
+#   arrayref - same format as EBox::Module::Service::_daemons
+#
+sub daemons
+{
+    return [];
+}
+
 # Method: attachedDevices
 #
 #   Returns the number of attached devices for a VM.

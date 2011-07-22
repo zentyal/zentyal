@@ -1,9 +1,10 @@
 HEAD
+	+ Better management of manual and automatic start/stop of machines
 	+ Integration with Backup and Disk Usage
 	+ Check if keymap is supported and default to US english if not
 	+ Allow to customize keymap and console size in virt.conf
 	+ VNC on libvirt now can listen to external connections
-	+ Fixed VNC mouse position offset with libvirt
+	+ Reduce the effect of VNC mouse position problem  offset with libvirt
 	+ Autodetection of hardware support to choose between KVM/QEMU
 	+ Clean leftover vncviewer files
 	+ Create sparse disk images to reduce disk usage

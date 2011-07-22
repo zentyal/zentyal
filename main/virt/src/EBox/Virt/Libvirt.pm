@@ -136,7 +136,7 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    EBox::Sudo::silentRoot("$VIRTCMD list | grep running | cut -d' ' -f3 | grep -q ^$name\$");
+    EBox::Sudo::silentRoot("$VIRTCMD list | grep running | awk '{ print \$2 }' | grep -q ^$name\$");
     return $? == 0;
 }
 
@@ -511,6 +511,11 @@ sub _vncKeymap
 sub vmsPath
 {
     return $VM_PATH;
+}
+
+sub daemons
+{
+    return [ { name => 'libvirt-bin' } ];
 }
 
 1;

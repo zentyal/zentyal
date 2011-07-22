@@ -137,12 +137,17 @@ sub _preSetConf
 {
     my ($self) = @_;
 
-    # FIXME: Do this only if needed? (disk have changed, etc)
     # The try is needed because this is also executed before
     # the upstart files for the machines are created, if
     # we made this code more intelligent probably it won't
     # be needed.
     try {
+        my $vms = $self->model('VirtualMachines');
+        foreach my $vmId (@{$vms->ids()}) {
+            my $vm = $vms->row($vmId);
+            $self->startVM($vm->valueByName('name'));
+        }
+
         $self->_stopService();
     } otherwise {};
 }
@@ -267,17 +272,36 @@ sub _daemons
 
     my @daemons;
 
+    # Add virtualizer-specific daemons to manage, if any
+    # Currently this is only the case of libvirt-bin
+    push (@daemons, @{$self->{backend}->daemons()});
+
+    # Add VNC websockets-proxy daemons
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
         push (@daemons, { name => $self->vncDaemon($name) });
-        if ($vm->valueByName('autostart')) {
-            push (@daemons, { name => $self->machineDaemon($name) });
-        }
     }
 
     return \@daemons;
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled) {
+        # Start machines marked as autostart
+        my $vms = $self->model('VirtualMachines');
+        foreach my $vmId (@{$vms->findAll('autostart' => 1)}) {
+            my $vm = $vms->row($vmId);
+            $self->startVM($vm->valueByName('name'));
+        }
+    }
+
+    # Call /etc hooks if any
+    $self->SUPER::_postServiceHook($enabled);
 }
 
 sub _createMachine
