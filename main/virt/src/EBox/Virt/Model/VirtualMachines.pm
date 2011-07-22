@@ -32,6 +32,7 @@ use EBox::Types::Text;
 use EBox::Exceptions::External;
 use EBox::Virt::Types::Status;
 use EBox::Types::Boolean;
+use EBox::Types::Port;
 use EBox::Types::HasMany;
 use EBox::Types::Action;
 use EBox::Types::MultiStateAction;
@@ -178,6 +179,40 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub addedRowNotify
+{
+    my ($self) = @_;
+    $self->_updateService();
+}
+
+sub deletedRowNotify
+{
+    my ($self) = @_;
+    $self->_updateService();
+}
+
+sub _updateService
+{
+    my ($self) = @_;
+
+    my @vncservices;
+
+    my $vncport = $self->parentModule()->firstVNCPort();
+    my $maxport = $vncport + scalar @{$self->ids()} - 1;
+    foreach my $vncport ($vncport .. $maxport) {
+            push (@vncservices, { protocol => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => $vncport });
+    }
+
+    my $servMod = EBox::Global->modInstance('services');
+    $servMod->setMultipleService(name => 'vnc-virt',
+                                 description => __('VNC connections for VMs'),
+                                 allowEmpty => 1,
+                                 internal => 1,
+                                 services => \@vncservices);
 }
 
 sub _acquireRunning

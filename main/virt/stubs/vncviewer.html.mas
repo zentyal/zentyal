@@ -1,9 +1,10 @@
 <%args>
     $port
+    $password
     $width
     $height
 </%args>
 <iframe id="vnc_frame" src="" width="<% $width %>" height="<% $height %>">This browser does not support frames</iframe>
 <script>
-document.getElementById('vnc_frame').src='http://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>';
+document.getElementById('vnc_frame').src='http://' + document.domain + ':<% $port %>/vnc_auto.html?host=' + document.domain + '&port=<% $port %>&password=<% $password %>';
 </script>

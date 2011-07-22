@@ -50,6 +50,7 @@ src/EBox/Virt/Composite/Makefile
 src/EBox/Virt/Dashboard/Makefile
 src/scripts/Makefile
 src/templates/Makefile
+conf/Makefile
 www/Makefile
 stubs/Makefile
 schemas/Makefile

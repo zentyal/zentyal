@@ -1,4 +1,11 @@
 HEAD
+	+ Fixed VNC mouse position offset with libvirt
+	+ Autodetection of hardware support to choose between KVM/QEMU
+	+ Clean leftover vncviewer files
+	+ Create sparse disk images to reduce disk usage
+	+ Allow to customize user and initial VNC port in virt.conf
+	+ Protect VNC sessions with password
+	+ Create service and firewall rules for VNC
 	+ Upstart files are properly purged now
 2.1
 	+ Initial release

@@ -182,6 +182,7 @@ sub createVM
 #
 #   name    - virtual machine name
 #   port    - VNC port
+#   pass    - VNC password
 #
 # Returns:
 #
@@ -198,8 +199,9 @@ sub startVMCommand
 
     my $name = $params{name};
     my $port = $params{port};
+    my $pass = $params{pass};
 
-    return ("vboxheadless --vnc --vncport $port --startvm $name");
+    return ("vboxheadless --vnc --vncport $port --vncpass $pass --startvm $name");
 }
 
 # Method: shutdownVM

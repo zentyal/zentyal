@@ -41,6 +41,10 @@ sub new
     my $self = {};
     bless ($self, $class);
 
+    # Choose between kvm or qemu according to the HW capabilities
+    system ("egrep '^flags.* (vmx|svm)' /proc/cpuinfo");
+    $self->{emulator} = ($? == 0) ? 'kvm' : 'qemu';
+
     $self->{vmConf} = {};
 
     return $self;
@@ -67,8 +71,7 @@ sub createDisk
     my $file = $params{file};
     my $size = $params{size};
 
-    # FIXME: faster if we use qemu-img ?
-    _run("dd if=/dev/zero of=$file bs=1M count=$size");
+    _run("qemu-img create -f qcow2 $file ${size}M");
 }
 
 # Method: resizeDisk
@@ -181,6 +184,7 @@ sub createVM
 #
 #   name    - virtual machine name
 #   port    - VNC port
+#   pass    - VNC password
 #
 # Returns:
 #
@@ -194,10 +198,14 @@ sub startVMCommand
         throw EBox::Exceptions::MissingArgument('name');
     exists $params{port} or
         throw EBox::Exceptions::MissingArgument('port');
+    exists $params{pass} or
+        throw EBox::Exceptions::MissingArgument('pass');
 
     my $name = $params{name};
     my $port = $params{port};
+    my $pass = $params{pass};
     $self->{vmConf}->{$name}->{port} = $port;
+    $self->{vmConf}->{$name}->{password} = $pass;
 
     return ("$VIRTCMD create $VM_PATH/$name/$VM_FILE");
 }
@@ -415,10 +423,12 @@ sub writeConf
         '/virt/domain.xml.mas',
         [
          name => $name,
+         emulator => $self->{emulator},
          memory => $vmConf->{memory},
          ifaces => $vmConf->{ifaces},
          devices => $vmConf->{devices},
          vncport => $vmConf->{port},
+         vncpass => $vmConf->{password},
          keymap => $keymap,
         ],
         { uid => 0, gid => 0, mode => '0644' }
@@ -449,7 +459,7 @@ sub _run
 
 sub diskFile
 {
-    my ($self, $machine, $disk) = @_;
+    my ($self, $disk, $machine) = @_;
 
     return shell_quote("$VM_PATH/$machine/$disk.img");
 }

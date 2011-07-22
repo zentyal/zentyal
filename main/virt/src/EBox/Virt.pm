@@ -23,6 +23,7 @@ use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider);
 
 use EBox;
+use EBox::Config;
 use EBox::Gettext;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
@@ -33,13 +34,13 @@ use EBox::Virt::Dashboard::VMStatus;
 use EBox::Virt::Model::NetworkSettings;
 use EBox::Virt::Model::DeviceSettings;
 
-use constant VNC_PORT => 5900;
+use constant DEFAULT_VNC_PORT => 5900;
 use constant LIBVIRT_BIN => '/usr/bin/virsh';
+use constant DEFAULT_VIRT_USER => 'ebox';
 
 my $UPSTART_PATH = '/etc/init/';
+my $WWW_PATH = EBox::Config::www();
 
-# TODO: move this to /etc/zentyal/virt.conf ?
-my $VIRT_USER = 'ebox';
 
 sub _create
 {
@@ -59,6 +60,12 @@ sub _create
         $self->{backend} = new EBox::Virt::VBox();
     }
 
+    my $user = EBox::Config::configkey('vm_user');
+    unless ($user) {
+        $user = DEFAULT_VIRT_USER;
+    }
+    $self->{vmUser} = $user;
+
     return $self;
 }
 
@@ -71,6 +78,29 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    # Create default service only if installing the first time
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'vnc-virt';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'description' => __('VNC connections for VMs'),
+                'internal' => 1,
+                'readOnly' => 1,
+                'services' => [ { protocol => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => DEFAULT_VNC_PORT } ],
+            );
+        }
+
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->setExternalService($serviceName, 'deny');
+        $firewall->setInternalService($serviceName, 'accept');
+
+        $firewall->saveConfigRecursive();
+    }
 }
 
 sub modelClasses
@@ -122,12 +152,14 @@ sub _setConf
 
     my $backend = $self->{backend};
 
-    # Clean all upstart files, the current ones will be regenerated
+    # Clean all upstart and novnc files, the current ones will be regenerated
     EBox::Sudo::silentRoot("rm -rf $UPSTART_PATH/zentyal-virt.*.conf");
+    EBox::Sudo::silentRoot("rm -rf $WWW_PATH/vncviewer-*.html");
 
     my %currentVMs;
 
-    my $vncport = VNC_PORT;
+    my $vncport = $self->firstVNCPort();
+
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
@@ -141,8 +173,7 @@ sub _setConf
         $self->_setNetworkConf($name, $settings);
         $self->_setDevicesConf($name, $settings);
 
-        $self->st_set_string("vncport/$name/vncport", $vncport);
-        $self->_writeMachineConf($name, $vncport);
+        $self->_writeMachineConf($name, $vncport, _randPassVNC());
         $vncport++;
 
         # Only used for libvirt
@@ -194,7 +225,7 @@ sub resumeVM
 
 sub systemTypes
 {
-    my ($self, $name) = @_;
+    my ($self) = @_;
 
     return $self->{backend}->systemTypes();
 }
@@ -307,11 +338,11 @@ sub _setDevicesConf
 
 sub _writeMachineConf
 {
-    my ($self, $name, $vncport) = @_;
+    my ($self, $name, $vncport, $vncpass) = @_;
 
     my $backend = $self->{backend};
 
-    my $start = $backend->startVMCommand(name => $name, port => $vncport);
+    my $start = $backend->startVMCommand(name => $name, port => $vncport, pass => $vncpass);
     my $stop = $backend->shutdownVMCommand($name);
     # TODO: Check if port is free
     my $listenport = $vncport + 1000;
@@ -319,7 +350,7 @@ sub _writeMachineConf
     EBox::Module::Base::writeConfFileNoCheck(
             "$UPSTART_PATH/" . $self->machineDaemon($name) . '.conf',
             '/virt/upstart.mas',
-            [ startCmd => $start, stopCmd => $stop, user => $VIRT_USER ],
+            [ startCmd => $start, stopCmd => $stop, user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0644' }
     );
     EBox::Module::Base::writeConfFileNoCheck(
@@ -331,7 +362,7 @@ sub _writeMachineConf
     EBox::Module::Base::writeConfFileNoCheck(
             EBox::Config::www() . "/vncviewer-$name.html",
             '/virt/vncviewer.html.mas',
-            [ port => $listenport, width => 720, height => 455 ],
+            [ port => $listenport, password => $vncpass, width => 720, height => 455 ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 }
@@ -354,6 +385,18 @@ sub widgets
             'default' => 1
         },
     };
+}
+
+sub firstVNCPort
+{
+    my ($self) = @_;
+
+    my $vncport = EBox::Config::configkey('first_vnc_port');
+    if ($vncport) {
+        return $vncport
+    } else {
+        return DEFAULT_VNC_PORT;
+    }
 }
 
 sub _vmWidget
@@ -379,6 +422,11 @@ sub _vmWidget
                       )
         );
     }
+}
+
+sub _randPassVNC
+{
+    return join ('', map +(0..9,'a'..'z','A'..'Z')[rand(10+26*2)], 1..8);
 }
 
 1;
