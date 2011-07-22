@@ -112,4 +112,36 @@ sub _table
     return $dataTable;
 }
 
+# XXX: workaround for bad directory problem
+sub parent
+{
+    my ($self) = @_;
+
+    my $virt = $self->parentModule();
+    my $parent = $virt->model('VirtualMachines');
+    my $dir = $parent->directory();
+    $dir =~ s{/keys$}{};
+    $parent->setDirectory($dir);
+
+    return $parent;
+}
+
+# XXX this method is only overriden to make the parentComposite fudge for view
+# customizer possible
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    unless ($self->{viewCustomizer}) {
+        # XXX workaround for parentComposite with viewCustomizer bug
+        my $composite  = $self->{gconfmodule}->composite('VMSettings');
+        $self->setParentComposite($composite);
+
+        my $viewCustom = new EBox::View::Customizer();
+        $viewCustom->setModel($self);
+        $self->{viewCustomizer} = $viewCustom;
+    }
+    return $self->{viewCustomizer};
+}
+
 1;
