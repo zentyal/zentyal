@@ -3,14 +3,14 @@ use strict;
 use warnings;
 use EBox;
 use EBox::Config;
-use EBox::Global;
+use EBox::GlobalImpl;
 
 my ($module) = @ARGV;
 $module or die "You must supply the name of a Zentyal module";
 
 EBox::init();
 
-my $global = EBox::Global->instance();
+my $global = EBox::GlobalImpl->instance();
 
 my $globalConf = "/ebox/modules/global/modules/$module";
 my $globalState = "/ebox/state/global/ServiceModule/$module";

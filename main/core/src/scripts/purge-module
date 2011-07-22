@@ -19,7 +19,7 @@
 
 use EBox;
 use EBox::Config;
-use EBox::Global;
+use EBox::GlobalImpl;
 use EBox::Sudo;
 use EBox::Util::SQL;
 use Error qw(:try);
@@ -50,7 +50,7 @@ sub cleanModuleConf
     my $globalConf = "/ebox/modules/global/modules/$module";
     my @moduleConfs = ("/ebox/modules/$module", "/ebox/state/$module");
 
-    my $global = EBox::Global->instance();
+    my $global = EBox::GlobalImpl->instance();
     $global->delete_dir($globalConf);
     foreach my $moduleConf (@moduleConfs) {
         $global->{redis}->delete_dir($moduleConf);

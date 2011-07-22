@@ -18,11 +18,11 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Global;
+use EBox::GlobalImpl;
 
 EBox::init();
 
-my $global = EBox::Global->instance();
+my $global = EBox::GlobalImpl->instance();
 
 # Re-adds all the keys to regenerate the directory sets
 $global->{redis}->regen_all_dirs();
