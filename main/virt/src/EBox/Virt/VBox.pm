@@ -130,7 +130,26 @@ sub vmRunning
     $self->_vmCheck($name, 'runningvms');
 }
 
-# FIXME: doc
+# Method: vmPaused
+#
+#   Checks if a VM with the given name is running
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+# Returns:
+#
+#   boolean - true if paused, false if running
+#
+sub vmPaused
+{
+    my ($self, $name) = @_;
+
+    _run("$VBOXCMD showvminfo \"$name\" | grep ^State: | grep paused");
+    return ($? == 0);
+}
+
 sub listVMs
 {
     my $list =  `$VBOXCMD list vms | cut -d'"' -f2`;

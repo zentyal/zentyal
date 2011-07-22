@@ -80,7 +80,7 @@ sub value
     my $virt = $model->parentModule();
     my $name = $row->valueByName('name');
 
-    # FIXME: Check also paused state
+    return 'paused' if $virt->vmPaused($name);
     return $virt->vmRunning($name) ? 'running' : 'stopped';
 }
 

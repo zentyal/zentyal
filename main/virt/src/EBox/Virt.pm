@@ -215,6 +215,13 @@ sub vmRunning
     return $self->{backend}->vmRunning($name);
 }
 
+sub vmPaused
+{
+    my ($self, $name) = @_;
+
+    return $self->{backend}->vmPaused($name);
+}
+
 sub startVM
 {
     my ($self, $name) = @_;

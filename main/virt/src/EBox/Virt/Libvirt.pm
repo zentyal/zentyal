@@ -136,11 +136,36 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    EBox::Sudo::silentRoot("$VIRTCMD list | grep running | awk '{ print \$2 }' | grep -q ^$name\$");
+    $self->_checkStatus('running', $name);
+}
+
+# Method: vmPaused
+#
+#   Checks if a VM with the given name is paused
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+# Returns:
+#
+#   boolean - true if paused, false if running
+#
+sub vmPaused
+{
+    my ($self, $name) = @_;
+
+    $self->_checkStatus('paused', $name);
+}
+
+sub _checkStatus
+{
+    my ($self, $status, $name) = @_;
+
+    EBox::Sudo::silentRoot("$VIRTCMD list | grep $status | awk '{ print \$2 }' | grep -q ^$name\$");
     return $? == 0;
 }
 
-# FIXME: doc
 sub listVMs
 {
     my @dirs = glob ("$VM_PATH/*");
@@ -168,11 +193,12 @@ sub createVM
         throw EBox::Exceptions::MissingArgument('os');
 
     my $name = $params{name};
-    my $os = $params{os}; # FIXME: is this needed?
+    my $os = $params{os};
 
     my $conf = {};
     $conf->{ifaces} = [];
     $conf->{devices} = [];
+    $conf->{arch} = $os;
 
     $self->{vmConf}->{$name} = $conf;
 
@@ -270,7 +296,7 @@ sub pauseVM
 {
     my ($self, $name) = @_;
 
-    # FIXME: Is this supported by libvirt?
+    _run("$VIRTCMD suspend $name");
 }
 
 # Method: resumeVM
@@ -285,7 +311,7 @@ sub resumeVM
 {
     my ($self, $name) = @_;
 
-    # FIXME: Is this supported by libvirt?
+    _run("$VIRTCMD resume $name");
 }
 
 # Method: deleteVM
@@ -446,6 +472,7 @@ sub writeConf
         [
          name => $name,
          emulator => $self->{emulator},
+         arch => $vmConf->{arch},
          memory => $vmConf->{memory},
          ifaces => $vmConf->{ifaces},
          devices => $vmConf->{devices},

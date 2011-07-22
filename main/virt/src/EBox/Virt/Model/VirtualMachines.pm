@@ -248,8 +248,7 @@ sub _acquirePaused
     my $name = $self->row($id)->valueByName('name');
     my $virt = $self->parentModule();
 
-    #FIXME: implement this: my $paused = $virt->vmPaused($name);
-    my $paused = $virt->vmRunning($name);
+    my $paused = $virt->vmPaused($name);
     return ($paused) ? 'paused' : 'unpaused';
 }
 

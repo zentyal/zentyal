@@ -276,6 +276,16 @@ sub vmsPath
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: listVMs
+#
+#   Returns the list of names of found VMs referenced
+#   by Zentyal config or not.
+#
+sub listVMs
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
 # Method: diskFile
 #
 #   Returns the path for a disk file.

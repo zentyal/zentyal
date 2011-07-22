@@ -1,4 +1,6 @@
 HEAD
+	+ Pause and Resume actions now work
+	+ Architecture of virtualized machines with KVM is now properly set
 	+ Better management of manual and automatic start/stop of machines
 	+ Integration with Backup and Disk Usage
 	+ Check if keymap is supported and default to US english if not

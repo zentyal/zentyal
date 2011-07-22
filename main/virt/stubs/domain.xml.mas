@@ -7,13 +7,14 @@
     $vncport
     $vncpass
     $keymap
+    $arch
 </%args>
 <domain type='<% $emulator %>'>
     <name><% $name %></name>
     <memory><% $memory * 1024 %></memory>
     <vcpu>1</vcpu>
     <os>
-        <type arch='i686' machine='pc'>hvm</type>
+        <type arch='<% $arch %>' machine='pc'>hvm</type>
         <boot dev='cdrom'/>
         <boot dev='hd'/>
     </os>
