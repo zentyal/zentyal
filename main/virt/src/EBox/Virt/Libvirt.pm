@@ -27,8 +27,10 @@ use File::Basename;
 use String::ShellQuote;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
+my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
+my $DEFAULT_KEYMAP = 'en-us';
 
 # Class: EBox::Virt::Libvirt
 #
@@ -44,6 +46,7 @@ sub new
     # Choose between kvm or qemu according to the HW capabilities
     system ("egrep '^flags.* (vmx|svm)' /proc/cpuinfo");
     $self->{emulator} = ($? == 0) ? 'kvm' : 'qemu';
+    $self->{keymap} = _vncKeymap();
 
     $self->{vmConf} = {};
 
@@ -415,9 +418,6 @@ sub writeConf
 
     my $vmConf = $self->{vmConf}->{$name};
 
-    # FIXME: there should be a better way to get the keyboard layout...
-    my ($keymap) = split(/_/, $ENV{LANG});
-
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
         '/virt/domain.xml.mas',
@@ -429,7 +429,7 @@ sub writeConf
          devices => $vmConf->{devices},
          vncport => $vmConf->{port},
          vncpass => $vmConf->{password},
-         keymap => $keymap,
+         keymap => $self->{keymap},
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );
@@ -462,6 +462,28 @@ sub diskFile
     my ($self, $disk, $machine) = @_;
 
     return shell_quote("$VM_PATH/$machine/$disk.img");
+}
+
+sub _vncKeymap
+{
+    my %validKeymaps = map { $_ => 1 } glob ("$KEYMAP_PATH/*");
+
+    my $keymap = EBox::Config::configkey('vnc_keymap');
+    if (defined ($keymap)) {
+        if ($validKeymaps{$keymap}) {
+            return $keymap;
+        } else {
+            EBox::warn("VNC keymap '$keymap' is not valid, defaulting to '$DEFAULT_KEYMAP'");
+            return $DEFAULT_KEYMAP;
+        }
+    } else {
+        # Autodetect if not defined
+        my ($lang1, $lang2) = split(/_/, $ENV{LANG});
+        $keymap = "$lang1-" . lc($lang2);
+        return $keymap if ($validKeymaps{$keymap});
+        return $lang1 if ($validKeymaps{$lang1});
+        return $DEFAULT_KEYMAP;
+    }
 }
 
 1;

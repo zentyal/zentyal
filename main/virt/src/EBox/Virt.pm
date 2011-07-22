@@ -359,10 +359,12 @@ sub _writeMachineConf
             [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }
     );
+    my $width = $self->consoleWidth();
+    my $height = $self->consoleHeight();
     EBox::Module::Base::writeConfFileNoCheck(
             EBox::Config::www() . "/vncviewer-$name.html",
             '/virt/vncviewer.html.mas',
-            [ port => $listenport, password => $vncpass, width => 720, height => 455 ],
+            [ port => $listenport, password => $vncpass, width => $width, height => $height ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 }
@@ -392,11 +394,23 @@ sub firstVNCPort
     my ($self) = @_;
 
     my $vncport = EBox::Config::configkey('first_vnc_port');
-    if ($vncport) {
-        return $vncport
-    } else {
-        return DEFAULT_VNC_PORT;
-    }
+    return $vncport ? $vncport : DEFAULT_VNC_PORT;
+}
+
+sub consoleWidth
+{
+    my ($self) = @_;
+
+    my $vncport = EBox::Config::configkey('view_console_width');
+    return $vncport ? $vncport : 800;
+}
+
+sub consoleHeight
+{
+    my ($self) = @_;
+
+    my $vncport = EBox::Config::configkey('view_console_height');
+    return $vncport ? $vncport : 600;
 }
 
 sub _vmWidget

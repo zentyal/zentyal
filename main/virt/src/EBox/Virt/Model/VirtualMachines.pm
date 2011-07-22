@@ -230,9 +230,10 @@ sub _viewConsoleClicked
 {
     my ($self, $id) = @_;
 
+    my $virt = $self->parentModule();
     my $name = $self->row($id)->valueByName('name');
-    my $width = 750;
-    my $height = 520;
+    my $width = $virt->consoleWidth() + 30;
+    my $height = $virt->consoleHeight() + 65;
 
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
