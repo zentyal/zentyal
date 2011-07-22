@@ -1,5 +1,6 @@
 2.1.19
-	+ Fixed wrong instance retrieval during save changes process
+	+ Throw exceptions when calling methods not aplicable to RO instances
+	+ Fixed problems when mixing read/write and read-only instances
 	+ Date/Time and Timezone moved from NTP to core under System -> General
 	+ Do not instance hidden widgets to improve dashboard performance
 	+ New command shell with Zentyal environment at /usr/share/zentyal/shell

@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox
 
 mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
 	Events.pm EventDaemon.pm GConfConfig.pm GConfHelper.pm \
-	GConfModule.pm GConfState.pm Global.pm Html.pm \
+	GConfModule.pm GConfState.pm GlobalImpl.pm Global.pm Html.pm \
 	Logs.pm LogHelper.pm LogObserver.pm Loggerd.pm \
 	Menu.pm Order.pm ProgressIndicator.pm ServiceManager.pm \
 	PgDBEngine.pm Service.pm SysInfo.pm Test.pm \

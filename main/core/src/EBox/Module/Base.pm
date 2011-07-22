@@ -86,7 +86,7 @@ sub _create # (name)
 sub info
 {
     my ($self) = @_;
-    return EBox::Global::readModInfo($self->{name});
+    return EBox::Global->readModInfo($self->{name});
 }
 
 # Method: depends
