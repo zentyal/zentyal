@@ -1,4 +1,6 @@
 2.1.19
+	+ Disable KeepAlive as it seems to give performance problems with Firefox
+	  and set MaxClients value back to 1 in apache.conf
 	+ Throw exceptions when calling methods not aplicable to RO instances
 	+ Fixed problems when mixing read/write and read-only instances
 	+ Date/Time and Timezone moved from NTP to core under System -> General
