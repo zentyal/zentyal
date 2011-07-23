@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed get of DPKG_RUNNING_FILE in new GlobalImpl class
+	+ Updated version reference in slides text
 2.1.9
 	+ Rotate software.log
 	+ Added some new package icons
