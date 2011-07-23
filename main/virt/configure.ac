@@ -1,4 +1,4 @@
-AC_INIT([zentyal-virt], [2.1])
+AC_INIT([zentyal-virt], [2.1.1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Virt.pm])
