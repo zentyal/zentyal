@@ -159,6 +159,8 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
 
+    $customizer->setHTMLTitle([]);
+
     $customizer->setOnChangeActions(
             { type =>
                 {

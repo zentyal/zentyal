@@ -155,15 +155,38 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    # TODO: If creating a new disk, check if the name is available
+    my $type = exists $changedFields->{type} ? $changedFields->{type}->value() :
+                                               $allFields->{type}->value();
+    my $path = exists $changedFields->{path} ? $changedFields->{path}->value() :
+                                               $allFields->{path}->value();
+    if ($type eq 'cd') {
+        unless ($path) {
+            throw EBox::Exceptions::External(__('You need to provide the path of a ISO image'));
+        }
+        unless (-f $path) {
+            throw EBox::Exceptions::External(__x("ISO image '{img}' does not exist", img => $path));
+        }
+    } else {
+        my $disk_action = exists $changedFields->{disk_action} ? $changedFields->{disk_action}->value() :
+                                                                 $allFields->{disk_action}->value();
+        if ($disk_action eq 'use') {
+            unless ($path) {
+                throw EBox::Exceptions::External(__('You need to provide the path of a hard disk image'));
+            }
+            unless (-f $path) {
+                throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", path => $path));
+            }
+        } else {
+            my $name = exists $changedFields->{name} ? $changedFields->{name}->value() :
+                                                       $allFields->{name}->value();
+            unless ($name) {
+                throw EBox::Exceptions::External(__('You need to specify a name for the new hard disk'));
+            }
+        }
+    }
 
     my $numCDs = 0;
     my $numHDs = 0;
-
-    # TODO: Check these boundaries when creating a new disk
-    #min           => 32,
-    #max           => int(df('/')->{bavail}),
-
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
 
@@ -222,6 +245,8 @@ sub viewCustomizer
     $self->setParentComposite($composite);
 
     $customizer->setModel($self);
+
+    $customizer->setHTMLTitle([]);
 
     $customizer->setOnChangeActions(
             {

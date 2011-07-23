@@ -139,8 +139,10 @@ sub viewCustomizer
 
         my $viewCustom = new EBox::View::Customizer();
         $viewCustom->setModel($self);
+        $viewCustom->setHTMLTitle([]);
         $self->{viewCustomizer} = $viewCustom;
     }
+
     return $self->{viewCustomizer};
 }
 

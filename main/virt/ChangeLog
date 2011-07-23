@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed wrong nested headers and show help links inside tabs
+	+ Validate paths and names when adding a new device
 	+ Pause and Resume actions now work
 	+ Architecture of virtualized machines with KVM is now properly set
 	+ Better management of manual and automatic start/stop of machines
