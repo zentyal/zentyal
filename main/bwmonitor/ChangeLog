@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: do not crash trying to stop unexistent daemons
 2.1.1
 	+ Force bwmonitor log to enabled
 	+ Changed users bandwidth usage method parameters

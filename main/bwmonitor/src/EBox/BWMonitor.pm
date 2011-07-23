@@ -182,7 +182,6 @@ sub _setConf
         mkdir (CONF_DIR, 0755);
     }
 
-
     # Write daemon upstart and config files
     foreach my $iface (@{$self->ifaces()}) {
         EBox::Module::Base::writeConfFileNoCheck(UPSTART_DIR . "zentyal.bwmonitor-$iface.conf",
@@ -218,7 +217,9 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    $self->_stopService();
+    try {
+        $self->_stopService();
+    } otherwise {};
     $self->_startService() if($self->isEnabled());
 }
 
