@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed crash when zentyal-firewall is not installed depending on it
 2.1.2
 	+ Bugfix: do not crash trying to stop unexistent daemons
 2.1.1
