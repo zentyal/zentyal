@@ -1,3 +1,5 @@
+HEAD
+	+ Added defaultSelectedType argument to PortRange
 2.1.19
 	+ Disable KeepAlive as it seems to give performance problems with Firefox
 	  and set MaxClients value back to 1 in apache.conf

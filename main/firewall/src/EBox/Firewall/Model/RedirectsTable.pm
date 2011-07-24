@@ -265,7 +265,7 @@ sub _fieldDescription
                 'printableName' => __('Object'),
                 'foreignModel' => \&objectModel,
                 'foreignField' => 'name',
-                foreignNextPageField => 'members',                                     
+                'foreignNextPageField' => 'members',
                 'editable' => 1),
             ]);
 
@@ -281,6 +281,7 @@ sub _fieldDescription
     my $external_port = new EBox::Types::PortRange(
             'fieldName' => 'external_port',
             'printableName' => __('Original destination port'),
+            'defaultSelectedType' => 'single',
             );
     push (@tableHead, $external_port);
 
@@ -301,7 +302,7 @@ sub _fieldDescription
                 'printableName' => __('Source object'),
                 'foreignModel' => \&objectModel,
                 'foreignField' => 'name',
-                foreignNextPageField => 'members',                                     
+                'foreignNextPageField' => 'members',
                 'editable' => 1),
             ],
             'unique' => 1,

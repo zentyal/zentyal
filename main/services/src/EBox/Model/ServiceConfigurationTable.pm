@@ -155,6 +155,7 @@ sub _table
                          'fieldName' => 'destination',
                          'printableName' => __('Destination port'),
                          'editable' => 1,
+                         'defaultSelectedType' => 'single',
                          )
                );
 
@@ -196,7 +197,7 @@ sub validateTypedRow()
             my $source = $parms->{'source'};
             my $destination = $parms->{'destination'};
             for my $port ($source, $destination) {
-                $port or 
+                $port or
                     next;
                 if ($port->single() or $port->from() or $port->to()) {
                     throw EBox::Exceptions::External(

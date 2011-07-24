@@ -76,8 +76,9 @@ sub new
 
     my $self = $class->SUPER::new(%opts);
 
-    # PortRange cannot be optional since you may select any
-    $self->{'range_type'} = 'any' unless defined ( $self->{'range_type'} );
+    my $selectedDefault = $opts{'defaultSelectedType'};
+    $selectedDefault = 'any' unless defined ($selectedDefault);
+    $self->{'range_type'} = $selectedDefault unless defined ($self->{'range_type'});
     bless($self, $class);
     return $self;
 }
