@@ -53,7 +53,6 @@ src/EBox/IPsec/Composite/Makefile
 schemas/Makefile
 schemas/urls/Makefile
 stubs/Makefile
-src/scripts/Makefile
 Makefile
 ])
 
