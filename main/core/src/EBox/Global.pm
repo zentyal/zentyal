@@ -79,13 +79,13 @@ sub AUTOLOAD
     my $global = $self->{'global'};
 
     unless ($global->can($methodName)) {
-        EBox::debug(Devel::StackTrace()->new()->as_string());
+        EBox::debug((new Devel::StackTrace)->as_string());
         throw EBox::Exceptions::Internal("Undefined method EBox::GlobalImpl::$methodName");
     }
 
     my $ro = $self->{'ro'};
     if ($ro and $rw_only_methods{$methodName}) {
-        EBox::debug(Devel::StackTrace()->new()->as_string());
+        EBox::debug((new Devel::StackTrace)->as_string());
         throw EBox::Exceptions::Internal("Cannot call $methodName method on a read-only instance");
     }
 
