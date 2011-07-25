@@ -1420,6 +1420,8 @@ sub notifyAntispamACL
 sub mailServicesWidget
 {
     my ($self, $widget) = @_;
+
+    $widget->{size} = 1.5;
     my $section = new EBox::Dashboard::Section('mailservices', 'Services');
     $widget->add($section);
 

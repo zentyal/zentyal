@@ -88,9 +88,12 @@ sub modulesWidget
     my $global = EBox::Global->getInstance();
     my $typeClass = 'EBox::Module::Service';
     my %moduleStatus;
+    my $numModules = 0;
     for my $class (@{$global->modInstancesOfType($typeClass)}) {
         $class->addModuleStatus($section);
+        $numModules++;
     }
+    $widget->{size} = $numModules * 0.15;
 }
 
 sub generalWidget

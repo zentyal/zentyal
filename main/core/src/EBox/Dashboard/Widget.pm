@@ -27,6 +27,7 @@ sub new # (title?)
 	$self->{title} = $title;
 	$self->{module} = $module;
 	$self->{name} = $name;
+	$self->{size} = 1;
 	bless($self, $class);
 	return $self;
 }

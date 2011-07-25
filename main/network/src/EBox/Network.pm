@@ -3667,7 +3667,12 @@ sub resolv # (host)
 sub interfacesWidget
 {
     my ($self, $widget) = @_;
-    my $ifaces = $self->ifacesWithRemoved;
+
+    my @ifaces = @{$self->ifacesWithRemoved()};
+    my $size = scalar (@ifaces) * 1.25;
+    $size = 0.1 unless defined ($size);
+    $widget->{size} = $size;
+
     my $linkstatus = {};
     EBox::Sudo::silentRoot('/sbin/mii-tool > ' . EBox::Config::tmp . 'linkstatus');
     if (open(LINKF, EBox::Config::tmp . 'linkstatus')) {
@@ -3683,7 +3688,7 @@ sub interfacesWidget
             }
         }
     }
-    foreach my $iface (@{$ifaces}) {
+    foreach my $iface (@ifaces) {
         iface_exists($iface) or next;
         my $upStr = __("down");
         my $section = new EBox::Dashboard::Section($self->ifaceAlias($iface),

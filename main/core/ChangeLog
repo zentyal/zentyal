@@ -1,4 +1,5 @@
 HEAD
+	+ Better default balance of the dashboard based on the size of the widgets
 	+ Added defaultSelectedType argument to PortRange
 2.1.19
 	+ Disable KeepAlive as it seems to give performance problems with Firefox

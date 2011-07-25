@@ -24,6 +24,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
+use POSIX qw(INT_MAX);
+use List::Util qw(sum);
 use Error qw(:try);
 
 # TODO: Currently we can't have more than two dashboards because of
@@ -105,10 +107,10 @@ sub masonParameters
         next unless defined ($widget);
 
         # Find the dashboard with less items and add the widget to it
-        my $minValue = scalar (@orderedWidgets);
+        my $minValue = INT_MAX;
         my $minIndex = 0;
         for my $i (1 .. $NUM_DASHBOARDS) {
-            my $size_i = scalar @{$dashboards[$i - 1]};
+            my $size_i = sum(map { $_->{size} } @{$dashboards[$i - 1]});
             if ($size_i < $minValue) {
                 $minValue = $size_i;
                 $minIndex = $i - 1;
