@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing touch and minsize options in /etc/zentyal/samba.conf for Recycle Bin
 2.1.4
 	+ Better validation of samba shares paths
 	+ Improve smb.conf template: delete use_client_driver and allow include

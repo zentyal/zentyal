@@ -433,7 +433,7 @@ sub recycleConfig
     my ($self) = @_;
 
     my $conf = {};
-    my @keys = ('repository', 'directory_mode', 'keeptree', 'versions',
+    my @keys = ('repository', 'directory_mode', 'keeptree', 'versions', 'touch', 'minsize',
                 'maxsize', 'exclude', 'excludedir', 'noversions');
 
     foreach my $key (@keys) {
@@ -1736,7 +1736,7 @@ sub consolidateReportQueries
                 'from' => 'samba_virus',
                 'group' => 'client'
             },
-            quote => { client => 1 },           
+            quote => { client => 1 },
         },
         {
             'target_table' => 'samba_disk_usage_report',
