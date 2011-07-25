@@ -1,4 +1,4 @@
-AC_INIT([zentyal-network], [2.1.8])
+AC_INIT([zentyal-network], [2.1.9])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Network.pm])
