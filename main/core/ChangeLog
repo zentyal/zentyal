@@ -1,4 +1,5 @@
 HEAD
+	+ Check new dump_exceptions confkey instead of the debug one in CGIs
 	+ Explicit conversion to int those values stored in our database
 	  for correct dumping in reporting
 	+ Quote values in update overwrite while consolidating for reporting

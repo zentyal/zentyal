@@ -164,7 +164,7 @@ sub _footer
 sub _print
 {
     my ($self) = @_;
-    
+
     my $json = $self->{json};
     if ($json) {
         $self->JSONReply($json);
@@ -541,9 +541,9 @@ sub setError
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
-    my $debug = EBox::Config::configkey('debug');
+    my $dump = EBox::Config::configkey('dump_exceptions');
 
-    if ($debug eq 'yes') {
+    if (defined ($dump) and ($dump eq 'yes')) {
       $self->{error} = $ex->stringify() if $ex->can('stringify');
       $self->{error} .= "<br/>\n";
       $self->{error} .= "<pre>\n";
@@ -940,7 +940,7 @@ sub JSONReply
     my ($self, $data_r) = @_;
     print$self->cgi()->header(-charset=>'utf-8',
                               -type => 'application/JSON',
-                             );    
+                             );
     my $error = $self->{error};
     if ($error and not $data_r->{error}) {
         $data_r->{error} = $error;
