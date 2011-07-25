@@ -53,6 +53,7 @@ src/templates/Makefile
 src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
+schemas/sql/Makefile
 Makefile
 ])
 

@@ -2,6 +2,8 @@
 
 moduledir   = @DATADIR@/zentyal/modules
 
+SUBDIRS = sql
+
 module_DATA = zarafa.yaml
 pkgdata_DATA = zarafa.ldif
 

@@ -18,6 +18,8 @@ package EBox::Zarafa;
 use strict;
 use warnings;
 
+use feature qw(switch);
+
 use base qw(EBox::Module::Service EBox::Model::ModelProvider
             EBox::Model::CompositeProvider EBox::LdapModule
             );
@@ -29,7 +31,9 @@ use EBox::ZarafaLdapUser;
 use EBox::Exceptions::DataExists;
 use EBox::WebServer;
 
+use Encode;
 use Error qw(:try);
+use Storable;
 
 use constant ZARAFACONFFILE => '/etc/zarafa/server.cfg';
 use constant ZARAFALDAPCONFFILE => '/etc/zarafa/ldap.openldap.cfg';
@@ -47,6 +51,7 @@ use constant HTTPD_ZARAFA_WEBACCESS_DIR => '/var/www/webaccess';
 use constant ZARAFA_LICENSED_INIT => '/etc/init.d/zarafa-licensed';
 
 use constant FIRST_RUN_FILE => '/var/lib/zentyal/conf/zentyal-zarafa.first';
+use constant STATS_CMD      => '/usr/bin/zarafa-stats';
 
 sub _create
 {
@@ -366,7 +371,6 @@ sub licensedEnabled
 }
 
 # Method: _setConf
-# Method: _setConf
 #
 #       Overrides base method. It writes the Zarafa service configuration
 #
@@ -479,6 +483,166 @@ sub _postServiceHook
     }
 
     return $self->SUPER::_postServiceHook($enabled);
+}
+
+# Group: Report methods
+
+# Method: logReportInfo
+#
+# Overrides:
+#
+#     <EBox::Module::Base::logReportInfo>
+#
+sub logReportInfo
+{
+    my ($self) = @_;
+
+    return [] unless ($self->isEnabled());
+
+    my $users = $self->_stats();
+
+    my @reportData;
+    foreach my $user (values(%{$users})) {
+        my $entry = {
+            table  => 'zarafa_user_storage',
+            values => $user,
+            };
+        push(@reportData, $entry);
+    }
+
+    return \@reportData;
+}
+
+# Method: consolidateReportInfoQueries
+#
+# Overrides:
+#
+#     <EBox::Module::Base::consolidateReportInfoQueries>
+#
+sub consolidateReportInfoQueries
+{
+    return [
+        {
+            'target_table' => 'zarafa_user_storage_report',
+            'query'        => {
+                'select' => 'username, fullname, email, soft_quota, hard_quota, size',
+                'from'   => 'zarafa_user_storage',
+                'key'    => 'username',
+            },
+            'quote' => { username => 1,
+                         fullname => 1,
+                         email    => 1, },
+        },
+     ];
+
+}
+
+# Method: report
+#
+# Overrides:
+#
+#   <EBox::Module::Base::report>
+sub report
+{
+    my ($self, $beg, $end, $options) = @_;
+
+    my $report = {};
+
+    $report->{storage_size} = $self->runMonthlyQuery(
+        $beg, $end,
+        {
+            select => 'SUM(size) AS size_bytes',
+            from   => 'zarafa_user_storage_report',
+        },
+       );
+
+    my $maxTop = 5;
+    if (exists $options->{'max_top_user_zarafa_storage'}) {
+        $maxTop = $options->{'max_top_user_zarafa_storage'};
+    }
+
+    $report->{top_storage_usage} = $self->runQuery(
+        $beg, $end,
+        {
+            select => 'username, CAST ( AVG(size) AS BIGINT) AS size_bytes',
+            from   => 'zarafa_user_storage_report',
+            group  => 'username',
+            limit  => $maxTop,
+            order  => 'size DESC',
+        });
+
+    $report->{latest_storage_usage} = $self->runQuery(
+        $end, $end,
+        {
+            select => 'username, fullname, email, soft_quota AS soft_quota_bytes, hard_quota AS hard_quota_bytes, size AS size_bytes',
+            from   => 'zarafa_user_storage_report',
+            order  => 'size DESC'
+        });
+
+    return $report;
+}
+
+# Get the data from zarafa stats command
+sub _stats
+{
+    my ($self) = @_;
+
+    my $statsStr = EBox::Sudo::root(STATS_CMD . ' --users');
+
+    # Results in a hash by username
+    my %result;
+    my $user = {};
+    foreach my $line (@{$statsStr}) {
+        chomp($line);
+        given ( $line ) {
+            when (m/^0x6701001E: (.*)$/) {
+                $user->{username} = $1;
+            }
+            when (m/^0x3001001E: (.*)$/) {
+                my $fullname = $1;
+                # Try to decode from Windows-1252 if zarafa 6, or do nothing if zarafa 7 (UTF-8)
+                if ( $self->{'version'} < 7 ) {
+                    $fullname = Encode::decode('windows-1252', $fullname, Encode::FB_CROAK);
+                }
+                $user->{fullname} = $fullname;
+            }
+            when (m/^0x39FE001E: (.*)$/) {
+                $user->{email} = $1;
+            }
+            when (m/^0x67210003: (.*)$/) {
+                $user->{soft_quota} = $1;
+            }
+            when (m/^0x67220003: (.*)$/) {
+                $user->{hard_quota} = $1;
+            }
+            when (m/^0x0E080014: (.*)$/) {
+                $user->{size} = $1;
+            }
+            when (not $line ) {
+                $result{$user->{username}} = Storable::dclone($user);
+                while( my ($k, $v) = each(%{$result{$user->{username}}})) {
+                    if ( $v =~ m/^error: 0x/ ) {
+                        # Not valid value, then set to -1
+                        $result{$user->{username}}->{$k} = -1;
+                    }
+                    given ( $k ) {
+                        when ( ['soft_quota', 'hard_quota'] ) {
+                            if ( $v != -1 ) {
+                                # Store the result in bytes
+                                $result{$user->{username}}->{$k} = $v * 1024;
+                            }
+                        }
+                    }
+                }
+                unless ( exists $result{$user->{username}}->{size} ) {
+                    $result{$user->{username}}->{size} = 0;
+                }
+                $user = {};
+            }
+        }
+    }
+
+    return \%result;
 }
 
 sub _hostname

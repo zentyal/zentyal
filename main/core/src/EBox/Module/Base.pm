@@ -38,6 +38,7 @@ use Error qw(:try);
 use Time::Local;
 use File::Slurp;
 use Perl6::Junction qw(any);
+use Scalar::Util;
 
 # Constants:
 use constant APPARMOR_PARSER => '/sbin/apparmor_parser';
@@ -1187,6 +1188,9 @@ sub runMonthlyQuery
                     for my $f (@fields) {
                         my $val = $r->{$f};
                         if (defined $val) {
+                            if ( Scalar::Util::looks_like_number($val) ) {
+                                $val = $val + 0;
+                            }
                             $data->{$keyname}->{$f}->[$nMonth] = $val;
                         }
 
@@ -1197,9 +1201,11 @@ sub runMonthlyQuery
                     for my $f (@fields) {
                         my $val = $r->{$f};
                         if (defined $val) {
+                            if ( Scalar::Util::looks_like_number($val) ) {
+                                $val = $val + 0;
+                            }
                             $data->{$f}->[$nMonth] = $val;
                         }
-
                     }
                 }
             }
@@ -1318,7 +1324,11 @@ sub runQuery
 
         for my $r (@{$results}) {
             for my $f (@fields) {
-                push(@{$data->{$f}}, $r->{$f});
+                my $val = $r->{$f};
+                if ( Scalar::Util::looks_like_number($val) ) {
+                    $val = $val + 0;
+                }
+                push(@{$data->{$f}}, $val);
             }
         }
         return $data;
@@ -1376,7 +1386,11 @@ sub runCompositeQuery
 
             for my $r (@{$results}) {
                 for my $f (@fields) {
-                    push(@{$data->{$k}->{$f}}, $r->{$f});
+                    my $val = $r->{$f};
+                    if ( Scalar::Util::looks_like_number($val) ) {
+                        $val = $val + 0;
+                    }
+                    push(@{$data->{$k}->{$f}}, $val);
                 }
             }
         }
@@ -1537,7 +1551,11 @@ sub _consolidateReportFromDB
                         for my $k (keys %$r) {
                             if (!grep(/^$k$/, @identityFields)) {
                                 if ($updateOverwrite) {
-                                    $new_row->{$k} =  $r->{$k};
+                                    my $newValue = $r->{$k};
+                                    if ( $quote{$k} ) {
+                                        $newValue = $db->quote($newValue);
+                                    }
+                                    $new_row->{$k} = $newValue;
                                 } else {
                                     # sum values
                                     $new_row->{$k} = $row->{$k} + $r->{$k};
@@ -1706,7 +1724,7 @@ sub logReportInfo
 # consolidateReportInfoQueries is that the last one only takes the latest value
 # or the latest value for each of the values of the 'key' field.
 #
-# Another difference is that the queries have s default update mode the 'overwrite'
+# Another difference is that the queries have default update mode the 'overwrite'
 # mode instead o 'add'
 sub consolidateReportInfoQueries
 {

@@ -680,6 +680,12 @@ sub _archive
 
 }
 
+# Get the suite of archives to set preferences
+sub _suite
+{
+    return 'zentyal-qa';
+}
+
 # Set the QA apt repository public key
 sub _setQAAptPubKey
 {
@@ -703,7 +709,7 @@ sub _setQAAptPreferences
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
     my $comp   = $interp->make_component(comp_file  => $preferencesTmpl);
-    $interp->exec($comp, ( (archive => $self->_archive(_ubuntuVersion())) ));
+    $interp->exec($comp, ( (archive => $self->_suite() )));
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     my $tmpFile = $fh->filename();

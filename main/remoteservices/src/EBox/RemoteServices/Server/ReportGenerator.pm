@@ -95,6 +95,9 @@ sub generateReport
     $class->_setReportAsGenerated();
 
     my $retValue = YAML::XS::Dump($full_report);
+    # Convert the raw UTF-8 bytes to character strings in Perl (with
+    # UTF8 flag on)
+    utf8::decode($retValue);
     return $class->_soapResult($retValue, 'string');
 }
 
