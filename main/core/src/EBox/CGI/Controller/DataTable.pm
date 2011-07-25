@@ -213,7 +213,7 @@ sub editField
 
 sub editBoolean
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $model = $self->{'tableModel'};
     my $id = $self->param('id');
@@ -237,12 +237,22 @@ sub editBoolean
     #     a json object { changes_menu: true } and get it evaled
     #     using prototype. That's the right way :)
     if ($global->unsaved()) {
-        print '$("changes_menu").className = "changed"';
+        $self->_responseToEnableChangesMenuElement();
     }
 
     my $auditId = $self->_getAuditId($id);
     $self->_auditLog('set', "$id/$field", $value, $oldValue);
 }
+
+# prints a HTML response to enable the 'Save changes' web element
+# don't p[ritn any other HTML if you use this
+sub _responseToEnableChangesMenuElement
+{
+    my ($self) = @_;
+    $self->_header();
+    print '$("changes_menu").className = "changed"';
+}
+
 
 sub customAction
 {

@@ -165,7 +165,7 @@ sub editBoolean
     #     a json object { changes_menu: true } and get it evaled
     #     using prototype. That's the right way :)
     if ($global->unsaved()) {
-        print '$("changes_menu").className = "changed"';
+        $self->_responseToEnableChangesMenuElement();
     }
 }
 
