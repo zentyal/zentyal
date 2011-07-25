@@ -190,9 +190,9 @@ sub dirDiskUsage
   (-d $dir) or
     throw EBox::Exceptions::External(__x('Directory not found: {d}', d => $dir));
 
-  my $duCommand  ="/usr/bin/du --summarize --block-size=$blockSize $dir";
+  my $duCommand = "/usr/bin/du --summarize --block-size=$blockSize $dir";
 
-  my @duOutput = @{ EBox::Sudo::root($duCommand) };
+  my @duOutput = @{ EBox::Sudo::silentRoot($duCommand) };
 
   my ($blockCount) = split '\s', $duOutput[0], 2; # du outputs the block count first
   return $blockCount;

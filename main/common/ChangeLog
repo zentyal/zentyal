@@ -1,4 +1,5 @@
 2.1.7
+	+ Do not crash when "du" gives permission denied on mount points like .gvfs
 	+ Added new dump_exceptions confkey disabled by default so the debug
 	  confkey can be set to yes again to harvest useful info in the logs
 2.1.6
