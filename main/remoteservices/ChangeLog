@@ -1,4 +1,4 @@
-HEAD
+2.1.5
 	+ Bugfix with YAML::XS to decode UTF8 strings to let SOAP::Lite
 	  perform the proper encoding
 	+ Set proper suite in preferences with QA updates

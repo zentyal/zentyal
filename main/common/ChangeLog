@@ -1,4 +1,4 @@
-HEAD
+2.1.7
 	+ Added new dump_exceptions confkey disabled by default so the debug
 	  confkey can be set to yes again to harvest useful info in the logs
 2.1.6
