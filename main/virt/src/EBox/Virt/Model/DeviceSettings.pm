@@ -276,18 +276,4 @@ sub viewCustomizer
     return $customizer;
 }
 
-# XXX: workaround for bad directory problem
-sub parent
-{
-    my ($self) = @_;
-
-    my $virt = $self->parentModule();
-    my $parent = $virt->model('VirtualMachines');
-    my $dir = $parent->directory();
-    $dir =~ s{/keys$}{};
-    $parent->setDirectory($dir);
-
-    return $parent;
-}
-
 1;

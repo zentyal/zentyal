@@ -1,4 +1,5 @@
 HEAD
+	+ Removed no longer necessary parent workarounds after parentRow fix
 	+ Fixed problems with autostart VMs during save changes
 	+ Do not show incorrect "Optional" labels on non-optional fields
 	+ Do not allow to modify disk size once disk is created

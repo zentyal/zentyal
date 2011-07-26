@@ -245,26 +245,11 @@ sub parentRow
 {
     my ($self) = @_;
 
-    unless ($self->model()) {
+    my $model = $self->model();
+    unless ($model) {
         return undef;
     }
-    my $parentModel = $self->model()->parent();
-
-    unless (defined ($parentModel)) {
-        return undef;
-        }
-
-    # TODO Do this more robust using directory info from models
-    my @dirs = split('/', $self->dir());
-    splice (@dirs, -2);
-    my $parentId = pop @dirs;
-    pop @dirs;
-    my $directory = join('/', @dirs);
-    if (length($directory) > 1) {
-        $parentModel->setDirectory($directory);
-    }
-
-    return $parentModel->row($parentId);
+    return $model->parentRow();
 }
 
 # Method: order
