@@ -177,19 +177,12 @@ sub restoreFile
         $rFile = $file;
         $rFile =~ s:^/::; # file must be relative
 
-        # shell quote does not work well for spaces, {\} and {'} with duplicity
-        $rFile =~ s{\\}{\\\\}g;
-        $rFile =~ s{\'}{\\\'}g;
-        $rFile =~ s:\ :\\\ :g;
-
+        # Escape metacharacters
+        $rFile =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
         $rFile = shell_quote($rFile);
     }
 
-    # shell quote does not work well for spaces, {\} and {'} with duplicity
-    $destination =~ s{\\}{\\\\}g;
-    $destination =~ s{\'}{\\\'}g;
-    $destination =~ s:\ :\\\ :g;
-
+    $destination =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $destination = shell_quote($destination);
 
     my $time = Date::Parse::str2time($date);
@@ -207,7 +200,7 @@ sub restoreFile
         EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift;
-        my $error = join "\n", @{  $ex->error() };
+        my $error = join "\n", @{ $ex->error() };
         if ($error =~ m/not found in archive, no files restored/) {
             throw EBox::Exceptions::External(
                 __x(
