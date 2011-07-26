@@ -182,6 +182,13 @@ sub validateTypedRow
             unless ($name) {
                 throw EBox::Exceptions::External(__('You need to specify a name for the new hard disk'));
             }
+
+            my $vmRow = $self->parentRow();
+            my $vmName = $vmRow->valueByName('name');
+            if ($self->parentModule()->diskExists($vmName, $name) and exists $changedFields->{size}) {
+                throw EBox::Exceptions::External(__('You cannot modify an already created disk. ' .
+                                                    'You need to delete it and add a new one if you want to change the size.'));
+            }
         }
     }
 

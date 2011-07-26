@@ -1,4 +1,5 @@
 HEAD
+	+ Do not allow to modify disk size once disk is created
 	+ Updated running, paused and stopped icons
 	+ Fix viewCustomizer problems overriding the initHTMLStateOrder method
 	+ Check precondition when trying to start a machine and remove general

@@ -222,6 +222,13 @@ sub vmPaused
     return $self->{backend}->vmPaused($name);
 }
 
+sub diskExists
+{
+    my ($self, $vmName, $diskName) = @_;
+
+    return (-f $self->{backend}->diskFile($diskName, $vmName));
+}
+
 sub startVM
 {
     my ($self, $name) = @_;
