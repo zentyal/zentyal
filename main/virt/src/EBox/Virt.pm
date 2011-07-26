@@ -145,7 +145,7 @@ sub _preSetConf
         my $vms = $self->model('VirtualMachines');
         foreach my $vmId (@{$vms->ids()}) {
             my $vm = $vms->row($vmId);
-            $self->startVM($vm->valueByName('name'));
+            $self->stopVM($vm->valueByName('name'));
         }
 
         $self->_stopService();
