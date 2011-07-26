@@ -1,4 +1,6 @@
 HEAD
+	+ Added initHTMLStateOrder to View::Customizer to avoid incorrect
+	  initial states
 	+ Improved exceptions info in CGIs to help bug reporting
 	+ Do not show customActions when editing row on DataTables
 2.1.21

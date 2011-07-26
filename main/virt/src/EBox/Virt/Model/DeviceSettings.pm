@@ -261,6 +261,9 @@ sub viewCustomizer
                   'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
                 },
             });
+
+    $customizer->setInitHTMLStateOrder(['type', 'disk_action']);
+
     return $customizer;
 }
 

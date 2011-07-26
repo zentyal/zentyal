@@ -1,4 +1,5 @@
 HEAD
+	+ Fix viewCustomizer problems overriding the initHTMLStateOrder method
 	+ Check precondition when trying to start a machine and remove general
 	  unnecessary precondition, now it also checks for unsaved changes
 	+ Remove annoying vncKeymap warning when not defined

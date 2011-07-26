@@ -46,7 +46,7 @@ use EBox::Exceptions::Internal;
 sub new
 {
     my $class = shift;
-    my $self = { };
+    my $self = {};
     bless ($self, $class);
     return $self;
 }
@@ -288,12 +288,12 @@ sub  onChangeActionsJS
 {
     my ($self, %params) = @_;
     my $modal = $params{modal};
-    
+
     my $tableName = $self->model()->table()->{'tableName'};
     if ($modal) {
         $tableName .= '_modal';
     }
-    
+
     my $jsCode;
     for my $fieldName (@{$self->model()->fields()}) {
         $jsCode .= $self->onChangeActionOnFieldJS($tableName, $fieldName);
@@ -334,15 +334,19 @@ sub initHTMLStateField
     my $actions = $self->onChangeActions();
     return 'show' unless (defined($actions));
 
-    for my $trigger (keys %{$actions}) {
+    my @triggers = @{ $self->initHTMLStateOrder() };
+    if (not @triggers) {
+        @triggers = keys %{$actions};
+    }
+
+    for my $trigger (@triggers) {
         next if ($trigger eq $fieldName);
         for my $value (keys %{$actions->{$trigger}}) {
             for my $action (keys %{$actions->{$trigger}->{$value}}) {
-                next if ($action eq 'show');
                 for my $field (@{$actions->{$trigger}->{$value}->{$action}}) {
                     if ($field eq $fieldName) {
                         for my $f (@{$fields}) {
-                            if ($f->fieldName() eq $trigger and
+                            if (($f->fieldName() eq $trigger) and
                                     $self->_hasTriggerValue($f, $value)) {
                                 return $action;
                             }
@@ -354,6 +358,19 @@ sub initHTMLStateField
     }
 
     return 'show';
+}
+
+sub initHTMLStateOrder
+{
+    my ($self) = @_;
+    my $order = $self->{initHTMLStateOrder};
+    return (defined ($order) ? $order : []);
+}
+
+sub setInitHTMLStateOrder
+{
+    my ($self, $order) = @_;
+    $self->{initHTMLStateOrder} = $order;
 }
 
 sub setHTMLTitle
