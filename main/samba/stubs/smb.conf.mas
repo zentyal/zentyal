@@ -25,9 +25,9 @@
 use EBox::Gettext;
 </%init>
 [global]
- workgroup = "<% $workgroup %>"
- netbios name = "<% $netbios %>"
- server string = "<% $desc %>"
+ workgroup = <% $workgroup %>
+ netbios name = <% $netbios %>
+ server string = <% $desc %>
  enable privileges = yes
  interfaces = <% $ifaces %>
  bind interfaces only = yes
@@ -105,7 +105,7 @@ use EBox::Gettext;
 % }
 
 [homes]
- comment = "<% __('Home Directories') %>"
+ comment = <% __('Home Directories') %>
  valid users = %S
  read only = no
  browseable = no
@@ -179,7 +179,7 @@ use EBox::Gettext;
 
 % foreach my $share (@shares) {
 [<% $share->{share} %>]
- comment = "<% $share->{comment} %>"
+ comment = <% $share->{comment} %>
  path = <% $share->{path} %>
  browseable = yes
  read only = no
