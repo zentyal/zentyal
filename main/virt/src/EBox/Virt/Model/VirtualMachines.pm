@@ -62,18 +62,6 @@ sub new
     return $self;
 }
 
-sub precondition
-{
-    my ($self) = @_;
-
-    return $self->parentModule()->isEnabled();
-}
-
-sub preconditionFailMsg
-{
-    return __x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it if you want to use it.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>');
-}
-
 # Group: Private methods
 
 # Method: _table
@@ -257,8 +245,16 @@ sub _doStart
     my ($self, $action, $id, %params) = @_;
 
     my $virt = $self->parentModule();
-    my $row = $self->row($id);
 
+    # Start machine precondition: module enable and without unsaved changes
+    unless ($virt->isEnabled()) {
+        throw EBox::Exceptions::External(__x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it prior to try to start any machine.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>'));
+    }
+    if ($virt->changed()) {
+        throw EBox::Exceptions::External(__('Virtual machines cannot be started if there are pending unsaved changes on the Virtual Machines module, please save changes first and try again.'));
+    }
+
+    my $row = $self->row($id);
     my $name = $row->valueByName('name');
     $virt->startVM($name);
 
