@@ -1,4 +1,4 @@
-HEAD
+2.1.22
 	+ Fixed parentRow method in EBox::Types::Row
 	+ Added new optionalLabel flag to EBox::Types::Abstract to avoid
 	  show the label on non-optional values that need to be set as

@@ -1,4 +1,4 @@
-HEAD
+2.1.2
 	+ Removed no longer necessary parent workarounds after parentRow fix
 	+ Fixed problems with autostart VMs during save changes
 	+ Do not show incorrect "Optional" labels on non-optional fields
