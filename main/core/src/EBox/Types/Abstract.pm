@@ -288,6 +288,14 @@ sub optional
     return $self->{'optional'};
 }
 
+sub optionalLabel
+{
+    my ($self) = @_;
+
+    return defined ($self->{'optionalLabel'}) ?  $self->{'optionalLabel'} :
+                                                 $self->{'optional'};
+}
+
 # Method: disabled
 #
 #      An instanced type is disabled when it must appear to be

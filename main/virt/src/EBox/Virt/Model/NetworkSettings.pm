@@ -108,6 +108,7 @@ sub _table
                              printableName => __('Internal Network Name'),
                              editable      => 1,
                              optional      => 1,
+                             optionalLabel => 0,
                             ),
     );
 

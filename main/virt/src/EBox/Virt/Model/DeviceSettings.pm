@@ -110,12 +110,14 @@ sub _table
                              printableName => __('Name'),
                              editable      => 1,
                              optional      => 1,
+                             optionalLabel => 0,
                             ),
        new EBox::Types::Text(
                              fieldName     => 'path',
                              printableName => __('Path'),
                              editable      => 1,
                              optional      => 1,
+                             optionalLabel => 0,
                             ),
        new EBox::Types::Int(
                             fieldName      => 'size',

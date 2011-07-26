@@ -1,4 +1,7 @@
 HEAD
+	+ Added new optionalLabel flag to EBox::Types::Abstract to avoid
+	  show the label on non-optional values that need to be set as
+	  optional when using show/hide viewCustomizers
 	+ Added initHTMLStateOrder to View::Customizer to avoid incorrect
 	  initial states
 	+ Improved exceptions info in CGIs to help bug reporting
