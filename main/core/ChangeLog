@@ -1,4 +1,5 @@
 HEAD
+	+ Improved exceptions info in CGIs to help bug reporting
 	+ Do not show customActions when editing row on DataTables
 2.1.21
 	+ Fixed bug printing traces at Global.pm

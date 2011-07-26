@@ -541,37 +541,50 @@ sub setError
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
-    my $dump = EBox::Config::configkey('dump_exceptions');
 
+    my $dump = EBox::Config::configkey('dump_exceptions');
     if (defined ($dump) and ($dump eq 'yes')) {
-      $self->{error} = $ex->stringify() if $ex->can('stringify');
-      $self->{error} .= "<br/>\n";
-      $self->{error} .= "<pre>\n";
-      $self->{error} .= Dumper($ex);
-      $self->{error} .= "</pre>\n";
-      $self->{error} .= "<br/>\n";
+        $self->{error} = $ex->stringify() if $ex->can('stringify');
+        $self->{error} .= "<br/>\n";
+        $self->{error} .= "<pre>\n";
+        $self->{error} .= Dumper($ex);
+        $self->{error} .= "</pre>\n";
+        $self->{error} .= "<br/>\n";
+        return;
     }
-    elsif ($ex->isa('EBox::Exceptions::External')) {
-      $self->{error} = $ex->stringify();
+
+    if ($ex->isa('EBox::Exceptions::External')) {
+        $self->{error} = $ex->stringify();
+        return;
     }
-    elsif ($ex->isa('EBox::Exceptions::Internal')) {
-      $self->{error} = __("An internal error has ".
-              "occurred. This is most probably a ".
-              "bug, relevant information can be ".
-              "found in the logs.");
+
+    my $debug = EBox::Config::configkey('debug');
+    if ($debug eq 'yes') {
+        my $log = '';
+        $log = $ex->stringify() if $ex->can('stringify');
+        $log .= Dumper($ex);
+        EBox::debug($log);
     }
-    elsif ($ex->isa('EBox::Exceptions::Base')) {
-      $self->{error} = __("An unexpected internal ".
-              "error has occurred. This is a bug, ".
-              "relevant information can be found ".
-              "in the logs.");
+
+    if ($ex->isa('EBox::Exceptions::Internal')) {
+        $self->{error} = __("An internal error has ".
+                "occurred. This is most probably a ".
+                "bug, relevant information can be ".
+                "found in the logs.");
+    } elsif ($ex->isa('EBox::Exceptions::Base')) {
+        $self->{error} = __("An unexpected internal ".
+                "error has occurred. This is a bug, ".
+                "relevant information can be found ".
+                "in the logs.");
+    } else {
+        $self->{error} = __('Sorry, you have just hit a bug in Zentyal.');
     }
-    else {
-    $self->{error} = __("You have just hit a bug ".
-                "in Zentyal. Please seek technical ".
-                "support.");
-    }
+
+    my $reportHelp = __x('Please look for the details in the {f} file and take a minute to {oh}submit a bug report{ch} so we can fix the issue as soon as possible.',
+                         f => '/var/log/zentyal/zentyal.log', oh => '<a href="http://trac.zentyal.org/newticket">', ch => '</a>');
+    $self->{error} .= " $reportHelp";
 }
+
 # Method: setRedirect
 #    sets the redirect attribute. If redirect is set to some value, the parent class will do an HTTP redirect after the _process method returns.
 #
