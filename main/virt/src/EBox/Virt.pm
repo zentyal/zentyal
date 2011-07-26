@@ -521,7 +521,7 @@ sub _facilitiesForDiskUsage
     my ($self) = @_;
 
     my $name  = __('Virtual Machines');
-    my $vmsPath = $self->{backend}->vmPath();
+    my $vmsPath = $self->{backend}->vmsPath();
 
     return { $name => [ $vmsPath ] };
 }
