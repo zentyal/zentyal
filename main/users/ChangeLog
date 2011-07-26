@@ -1,3 +1,5 @@
+HEAD
+	+ Ignore users also in pwdsync-server, not only in the ad-sync script
 2.1.7
 	+ Set submenu items order for integration with the User Corner menu
 	+ Avoid undefined dn warning

@@ -23,12 +23,14 @@ use EBox::Config;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
+use File::Slurp;
 
 use IO::Socket;
 use IO::Select;
 use MIME::Base64;
 use Crypt::Rijndael;
 
+use constant IGNORED_USERS => EBox::Config::etc() . 'ad-sync_ignore.users';
 use constant INT_SIZE => 4;
 
 EBox::init();
@@ -43,6 +45,15 @@ my $port = EBox::Config::configkey('adsync_port');
 my @dcs = ();
 push(@dcs, $remote);
 push(@dcs, split(',', EBox::Config::configkey('adsync_bdc')));
+
+my %usersToIgnore;
+# Read ignore users file, but ignore errors for example
+# if the file does not exists or does not have proper permissions
+try {
+    my @ignoredUsers = read_file(IGNORED_USERS);
+    chomp (@ignoredUsers);
+    %usersToIgnore = map { $_ => 1 } @ignoredUsers;
+} otherwise {};
 
 $SIG{PIPE} = 'IGNORE';
 
@@ -127,7 +138,11 @@ sub handleRequest
     my $username = substr ($data, 0, $userLength - 1);
     my $password = substr ($data, $userLength, $passLength - 1);
     EBox::debug("[ad-pwdsync] username = $username");
-    #EBox::debug("[ad-pwdsync] password = $password");
+
+    if (exists $usersToIgnore{$username}) {
+        EBox::debug("[ad-pwdsync] username $username is on the ignore list, the password won't be updated");
+        return 1;
+    }
 
     my $ok = 1;
     try {
