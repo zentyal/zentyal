@@ -1,3 +1,5 @@
+HEAD
+	+ Do not show customActions when editing row on DataTables
 2.1.21
 	+ Fixed bug printing traces at Global.pm
 	+ Check new dump_exceptions confkey instead of the debug one in CGIs

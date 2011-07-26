@@ -90,7 +90,7 @@ use POSIX;
   }
 
 my $pageSize = $model->pageSize();
-$pageSize or 
+$pageSize or
     $pageSize = 10;
 </%init>
 <& .pageTitle,
@@ -362,7 +362,6 @@ $pageSize or
 % }
 % elsif ($action eq 'changeEdit')
 % {
-    <& /ajax/customActions.mas, model => $model, id => $editid &>
     <& /input/submit.mas,
         class => 'inputButton',
         type => 'submit',
@@ -504,8 +503,8 @@ $page
               value="edit"
               title="<% $edit_msg %>"
               src='/data/images/<% $edit %>.gif'
-              onClick="<% 
-                       $model->changeViewJS( 
+              onClick="<%
+                       $model->changeViewJS(
                              changeType => 'changeEdit',
                              editId => $row->{'id'},
                              page => $page,
