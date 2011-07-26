@@ -1,4 +1,5 @@
 HEAD
+	+ Remove annoying vncKeymap warning when not defined
 	+ Fixed bug getting path for disk usage facilities
 2.1.1
 	+ Fixed wrong nested headers and show help links inside tabs

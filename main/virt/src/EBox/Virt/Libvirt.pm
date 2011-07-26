@@ -518,7 +518,7 @@ sub _vncKeymap
     my %validKeymaps = map { $_ => 1 } glob ("$KEYMAP_PATH/*");
 
     my $keymap = EBox::Config::configkey('vnc_keymap');
-    if (defined ($keymap)) {
+    if ($keymap) {
         if ($validKeymaps{$keymap}) {
             return $keymap;
         } else {
