@@ -126,7 +126,7 @@ sub _savesession
 }
 
 # update session time and ip
-sub _updatesession
+sub updateSession
 {
     my ($sid, $ip, $time) = @_;
 
@@ -272,7 +272,7 @@ sub authen_ses_key  # (request, session_key)
     close($sidFile);
 
     if(defined($user)) {
-        _updatesession($session_key, $r->connection->remote_ip());
+        updateSession($session_key, $r->connection->remote_ip());
         return $user;
     } elsif (defined($user) and $expired) {
         $r->subprocess_env(LoginReason => "Expired");
@@ -295,7 +295,7 @@ sub logout # (request)
 
     # expire session
     my $session_key = substr($self->key($r), 0, 32);
-    _updatesession($session_key, $r->connection->remote_ip(), 0);
+    updateSession($session_key, $r->connection->remote_ip(), 0);
 
     # notify captive daemon
     system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);

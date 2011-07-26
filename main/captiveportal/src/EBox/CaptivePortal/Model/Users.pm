@@ -29,8 +29,10 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
+use EBox::Types::Action;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::CaptivePortal::Auth;
 
 use Fcntl qw(:flock);
 use YAML::XS;
@@ -45,10 +47,11 @@ sub new
     $self->{bwmonitor_enabled} = defined($self->{bwmonitor}) and
                                  $self->{bwmonitor}->isEnabled();
 
-    my $global = EBox::Global->getInstance(1);
-    my $captiveportal = $global->modInstance('captiveportal');
-    my $model = $captiveportal->model('BWSettings');
 
+    my $global = EBox::Global->getInstance(1);
+    $self->{captiveportal} = $global->modInstance('captiveportal');
+
+    my $model = $self->{captiveportal}->model('BWSettings');
     my $period = $model->defaultQuotaPeriodValue();
 
     if ($period eq 'day') {
@@ -112,6 +115,17 @@ sub _table
         ),
     );
 
+    my @customActions = (
+        new EBox::Types::Action(
+            name => 'kick',
+            printableValue => __('Kick user'),
+            model => $self,
+            handler => \&_kickUser,
+            message => __('Finish user session in Captive Portal'),
+            image => '/data/images/deny-active.gif',
+        ),
+    );
+
     if ($self->_bwmonitor()) {
         push (@tableHeader, new EBox::Types::Int(
             'fieldName' => 'bwusage',
@@ -128,6 +142,7 @@ sub _table
         printableRowName   => __('user'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
+        customActions      => \@customActions,
         help               => __('List of current logged in users.'),
         modelDomain        => 'CaptivePortal',
         defaultEnabledValue => 0,
@@ -220,6 +235,25 @@ sub syncRows
 
     return 1;
 }
+
+sub _kickUser
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $row = $self->row($id);
+    my $sid = $row->valueByName('sid');
+    my $ip = $row->valueByName('ip');
+    my $username= $row->valueByName('user');
+
+    # End session
+    EBox::CaptivePortal::Auth::updateSession($sid, $ip, 0);
+
+    # notify captive daemon
+    system('cat ' . EBox::CaptivePortal->LOGOUT_FILE);
+
+    $self->setMessage(__x('Closing session for user {user}.', user => $username), 'note');
+}
+
 
 # return 1 if bwmonitor is enabled
 sub _bwmonitor
