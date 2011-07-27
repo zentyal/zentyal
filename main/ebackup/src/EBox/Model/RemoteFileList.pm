@@ -184,6 +184,7 @@ sub _table
         modelDomain        => 'EBackup',
         defaultEnabledValue => 1,
         customFilter       => 1,
+        help               => __('To restore files just edit the row of the file or directory you want to restore, select a backup date and click the restore button'),
     };
 
     return $dataTable;

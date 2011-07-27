@@ -331,6 +331,7 @@ sub _table
                 update => __('General backup server configuration updated'),
         },
         modelDomain        => 'EBackup',
+        help               => __('Here you have can choose the backup method, configure the frequency and other options'),
     };
 
     return $dataTable;
@@ -755,7 +756,7 @@ sub _validateTargetForFtpAndScp
     if (defined $port) {
         EBox::Validate::checkPort($port, __('port'));
     }
-    
+
     if (($dir eq '/') and not $rootAllowed) {
         throw EBox::Exceptions::InvalidData(
              data => __('target'),
