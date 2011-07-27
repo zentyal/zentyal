@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-14 03:25+0200\n"
-"PO-Revision-Date: 2011-07-06 18:45+0200\n"
-"Last-Translator: mburillo <mburillo@zentyal.com>\n"
+"PO-Revision-Date: 2011-07-14 23:27+0200\n"
+"Last-Translator: Ivanoz <ivan.guag@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -373,11 +373,11 @@ msgstr "Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Blqueo de Propagandas"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Borrar publicidad de todo el trafico HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -1358,9 +1358,8 @@ msgid "HTTP Proxy configuration file"
 msgstr "Fichero de configuración de Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:201
-#, fuzzy
 msgid "HTTP Proxy's log rotation configuration"
-msgstr "Configuración de la rotación de los registros de Dansguardian"
+msgstr "Configuración de la rotación de los registros del Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:206
 msgid "Content filter configuration file"
@@ -1431,9 +1430,8 @@ msgid "Filter groups per IP"
 msgstr "Filtrar grupos por IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:291
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Backup de configuración"
+msgstr "configuración de adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:305
 msgid "Overwrite blocked page templates"
@@ -1636,15 +1634,15 @@ msgid "server"
 msgstr "Servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Necesitas un certificado válido de CA para usar este módulo. "
-"{closepar}{openpar}Por favor, vaya al {openhref}módulo de autoridad de "
-"certificación{closehref} y renovalo.{closepar}"
+"{openpar}Necesitas un certificado válido de CA para usar los servidores VPN. "
+"{closepar}{openpar}Por favor, vaya al  módulo {openhref} de autoridad de "
+"certificación{closehref} y renúevalo.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
 #, fuzzy, perl-brace-format
@@ -2848,9 +2846,8 @@ msgid "Other"
 msgstr "Otro"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:335
-#, fuzzy
 msgid "Replace source address"
-msgstr "Dirección IP del interfaz"
+msgstr "Remplazar la dirección de origen"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:338
 msgid ""
@@ -2858,6 +2855,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Reemplaza la dirección de origen inicial de la conexión con la dirección de "
+"Zentyal. Esto puede ser necesario cuando el destino no tiene una ruta de "
+"retorno o tiene reglas de firewall restrictivas"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -2906,9 +2906,8 @@ msgid "NAT postrouting"
 msgstr "Post-enrutado NAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Configuración del cliente"
+msgstr "Creación de cadena"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
@@ -3268,6 +3267,8 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
+"No se puede crear un nombre de host por encargo para el mismo dominio. Use "
+"la opción \"Este dominio\" en su lugar"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:144
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -3338,25 +3339,24 @@ msgid "Mail exchanger record"
 msgstr "Registro intercambiador de correo"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:76
-#, fuzzy
 msgid "Forwarder"
-msgstr "Redirección"
+msgstr "Redireccionador"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
-msgstr "Redirección"
+msgstr "Redireccionadores"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"El servidor enviará las consultas primero a los redireccionadores, y si no "
+"hay respuesta, intentará responder la consulta."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
-#, fuzzy
 msgid "forwarder"
-msgstr "Redirección"
+msgstr "redireccionador"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Hostnames"
@@ -3374,7 +3374,7 @@ msgstr "Servidores de nombres"
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "registros {txt}"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
@@ -3392,9 +3392,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un dominio es dinámico cuando el servidor DHCP actualiza el dominio"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Dominio"
+msgstr "Dominios"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3407,6 +3406,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Aquí podrás añadir los dominios para este servidor de DNS. Cada dominio "
+"puede tener diferentes nombres de host con aliases (A y CNAME) y otros "
+"archivos especiales (MX, NS, TXT y SRV)."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3443,6 +3445,9 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
+"Se hizo la resolución reversa automática, si repite una dirección IP en otro "
+"dominio, sólo se utilizará el primer resultado para la resolución reversa. "
+"Las zonas dinámicas pueden borrar su resolución reversa manual"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
 #: ../../main/network/src/EBox/Network.pm:3656
@@ -3451,9 +3456,8 @@ msgid "host name"
 msgstr "nombre de máquina"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
-#, fuzzy
 msgid "Enable transparent DNS cache"
-msgstr "Caché Transparente"
+msgstr "Habilite el caché de DNS transparente"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:628
@@ -3469,27 +3473,28 @@ msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Toda consulta de DNS será redirigida al servidor de DNS local si está "
+"habilitado el modo transparente."
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
 msgstr ""
-"El dominio está configurado como sólo lectura. No se pueden añadir nombres "
-"de máquina"
+"El dominio está configurado como sólo lectura. No se puede añadir {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "El servicio no está habilitado en Zentyal"
+msgstr "El servicio seleccionado no está en {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"El nombre de máquina introducido no es un nombre de dominio completamente "
-"cualificado (FQDN). ¿Quizá debería ser ns.{name}?"
+"El nombre de host dado, no es un nombre de dominio completamente calificado "
+"(FQDN). ¿Quizá debería ser {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
@@ -3498,7 +3503,7 @@ msgstr "Nombre del servicio"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "valor más bajo es de prioridad más alta"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3510,24 +3515,23 @@ msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 indica sin peso y un valor más alto con oportunidades a ser seleccionado "
+"con prioridad igual."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
-#, fuzzy
 msgid "Target port"
-msgstr "Puerto del servidor"
+msgstr "Puerto destino"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
-#, fuzzy
 msgid "Target"
-msgstr "destino"
+msgstr "Destino"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:230
-#, fuzzy
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Si se elige \"Personalizado\", se necesita un nombre de dominio "
-"completamente cualificado (FQDN)."
+"Si elige \"Personalizado\", se necesita un nombre de dominio completamente "
+"calificado (FQDN)."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:259
 msgid ""
@@ -3536,9 +3540,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "registro de servidor de nombres"
+msgstr "{srv} registro"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -3578,9 +3582,8 @@ msgstr ""
 "cualificado (FQDN). ¿Quizá debería ser ns.{name}?"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
-#, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "registro de servidor de nombres"
+msgstr "el último nombre de servidor, No puede ser borrado"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
@@ -3602,34 +3605,35 @@ msgid "name server record"
 msgstr "registro de servidor de nombres"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "El nombre de Netbios no puede superar los 15 caracteres"
+msgstr "El {name} no puede tener más de {value} caracteres"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Si selecciona el Dominio, entonces, está eligiendo la zona"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "{txt} datos"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
-#, fuzzy
 msgid "Any data could be provided"
-msgstr "Se debe proporcionar un nombre para el directorio compartido."
+msgstr "cualquier dato puede ser proporcionado"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr ""
+"Administra los registros TXT para este dominio. Son útiles en los protocolos "
+"antispam SPF o DKIM "
 
 #: ../../main/dns/src/EBox/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "{txt} registro"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:562
 msgid "main bind9 configuration file"
@@ -3668,12 +3672,12 @@ msgstr "Permitir que demonio bind sea actualizado automáticamente"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "Un nombre de dominio válido o un comodín (*) deben ser proporcionados"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:91
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
-msgstr ""
+msgstr "Su configuración no permite autenticación anónima o por usuarios FTP"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3701,29 +3705,28 @@ msgid "Anonymous access"
 msgstr "Acceso anónimo"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Activa el acceso FTP de cada usuario a su directorio /home"
+msgstr "Activa el acceso FTP anónimo al directorio /srv/ftp."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
 msgstr "Directorios personales"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Activa el acceso FTP de cada usuario a su directorio /home"
+msgstr "Activa el acceso FTP de cada usuario autenticado a su directorio /home"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Directorios personales"
+msgstr "Restringe a los directorios personales"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Restringe el acceso al directorio home de cada usuario. Tome en cuenta que "
+"esta restricción puede ser eludida bajo ciertas condiciones."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:119
@@ -3733,7 +3736,7 @@ msgstr "Soporte SSL"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:157
 msgid "Enable FTP SSL support for authenticated users."
-msgstr ""
+msgstr "Activa el soporte SSL para los usuarios autenticados en FTP."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:163
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
@@ -3767,28 +3770,24 @@ msgid "Zentyal FTP Server"
 msgstr "Servidor FTP de Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:128
-#, fuzzy
 msgid "Generate SSL certificates"
-msgstr "Crear certificados"
+msgstr "Genera certificados SSL"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
-#, fuzzy
 msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr "Zentyal creará los certificados del servicio de correo"
+msgstr "Zentyal firmará los certificados SSL para el servicio de FTP."
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
-#, fuzzy
 msgid "To configure vsftpd."
-msgstr "Configurar vsftpd"
+msgstr "Para Configurar vsftpd"
 
 #: ../../main/ftp/src/EBox/FTP.pm:151
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
-msgstr "Configurar vsftpd con autenticación LDAP"
+msgstr "Para Configurar vsftpd con autenticación LDAP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:243
 #, fuzzy
@@ -3796,9 +3795,8 @@ msgid "Zentyal FTP server files"
 msgstr "Servidor FTP de Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:244
-#, fuzzy
 msgid "User homes and global directory."
-msgstr "Directorios personales de los usuarios y el directorio anónimo"
+msgstr "Directorios personales y globales de los usuarios."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:79
@@ -3856,9 +3854,8 @@ msgid "You can only use MAC addresses with hosts"
 msgstr "Sólo puedes usar direcciones MAC con máquinas"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:139
-#, fuzzy
 msgid "You cannot use MAC addresses with IP ranges"
-msgstr "Sólo puedes usar direcciones MAC con máquinas"
+msgstr "No puede utilizar direcciones MAC con rangos IP"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:148
 #, perl-brace-format
@@ -3942,11 +3939,13 @@ msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
+"No puede usar el administrador de paquetes de software. Probablemente esta "
+"siendo utilizado por otro proceso. Usted puede esperar o matar el proceso."
 
 #: ../../main/software/src/EBox/Software.pm:445
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
-msgstr ""
+msgstr "No puede usar el administrador de paquetes de software. Error: {err}"
 
 #: ../../main/software/src/EBox/Software.pm:535
 #, perl-brace-format
@@ -4121,29 +4120,25 @@ msgid "Subscription"
 msgstr "Suscripción"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:261
-#, fuzzy
 msgid "Server Subscription"
-msgstr "Suscripción"
+msgstr "Suscripción del Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:266
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:71
-#, fuzzy
 msgid "Technical Support"
-msgstr "Soporte Comercial"
+msgstr "Soporte Técnico"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:270
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
-#, fuzzy
 msgid "Advanced Security Updates"
-msgstr "Actualización de seguridad"
+msgstr "Actualización de seguridad Avazadas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:274
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:175
-#, fuzzy
 msgid "Disaster Recovery"
-msgstr "recuperación"
+msgstr "Recuperación de Desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:334
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:68
@@ -4200,7 +4195,7 @@ msgstr "Ninguno"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr ""
+msgstr "Deshabilitado - {oh}Habilitado{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1623
 #, perl-brace-format
@@ -4237,61 +4232,58 @@ msgstr "Desconocido"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:206
 msgid "Basic"
-msgstr ""
+msgstr "Básico"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:170
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:162
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:162
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:207
-#, fuzzy
 msgid "Professional"
-msgstr "Permisos"
+msgstr "Profesional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1641
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:163
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:208
-#, fuzzy
 msgid "Enterprise"
-msgstr "SSL Profesional"
+msgstr "Empresarial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:176
 msgid "Essential"
-msgstr ""
+msgstr "Esencial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
 msgid "Standard"
-msgstr ""
+msgstr "Estándar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1648
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1655
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Last update: {date}"
-msgstr "La fecha del último backup fue: {date}"
+msgstr "- La última actualización: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1668
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Latest backup: {date}"
-msgstr "La fecha del último backup fue: {date}"
+msgstr "- El último backup fue: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1671
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:211
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr "Backup de configuración"
+msgstr "Backup de configuración habilitado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1674
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Latest conf backup: {date}"
-msgstr "La fecha del último backup fue: {date}"
+msgstr "El último backup de configuración fue: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1690
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -4299,51 +4291,45 @@ msgstr "La fecha del último backup fue: {date}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:137
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:56
-#, fuzzy
 msgid "Server name"
-msgstr "Servidor {name}"
+msgstr "Nombre del Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1691
-#, fuzzy
 msgid "Connection status"
-msgstr "Blanco de la conexión"
+msgstr "Estado de la conexión"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1694
-#, fuzzy
 msgid "External server name"
-msgstr "Conexion a servidor externo"
+msgstr "Nombre del Servidor Externo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1697
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:123
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:141
-#, fuzzy
 msgid "Server subscription"
-msgstr "Suscripción"
+msgstr "Suscripción del Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1699
-#, fuzzy
 msgid "Technical support"
-msgstr "Soporte Comercial"
+msgstr "Soporte Técnico"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1723
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:230
 msgid "No data backup has been done yet"
-msgstr ""
+msgstr "No se hizo aún un backup de los datos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:127
 msgid "Support package"
-msgstr ""
+msgstr "paquetes de soporte"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:131
-#, fuzzy
 msgid "Support available via"
-msgstr "disponible"
+msgstr "Soporte disponible vía"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:135
 msgid "Service Level Agreement"
-msgstr ""
+msgstr "Acuerdo de Nivel de Servicio"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
 msgid "Allow remote access to Zentyal staff"
@@ -4431,23 +4417,21 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
-#, fuzzy
 msgid "QA software updates"
-msgstr "Actualizaciones automáticas de software"
+msgstr "QA actualizaciones de software"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:93
-#, fuzzy
 msgid "Latest QA software update"
-msgstr "Actualizaciones automáticas de software"
+msgstr "última actualización de software QA"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:129
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{date}. {num} updated packages"
-msgstr "Actualizar todos los paquetes"
+msgstr "{date}.{num} paquetes actualizados"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:134
 msgid "No update has been done"
-msgstr ""
+msgstr "No se hizo ninguna actualización"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
 msgid "Unable to get it (Upgrade your software module)"
@@ -4460,67 +4444,59 @@ msgstr "El módulo de compartición de ficheros no está habilitado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "Alertas generadas durante el último mes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
-#, fuzzy
 msgid "Information-level alerts"
-msgstr "Informativo"
+msgstr "Alertas de nivel informativo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
-msgstr ""
+msgstr "Alertas de nivel de advertencia"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:101
 msgid "Error-level alerts"
-msgstr ""
+msgstr "Alertas de nivel de error"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:105
 msgid "Fatal-level alerts"
-msgstr ""
+msgstr "Alertas de nivel fatal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:111
-#, fuzzy
 msgid "Alerts"
-msgstr "Alerta"
+msgstr "Alertas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-#, fuzzy
 msgid "External server name (DynDNS)"
-msgstr "Conexion a servidor externo"
+msgstr "Nombre del servidor externo (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
-msgstr ""
+msgstr "Use este nombre para conectarse a Zentyal de forma externa"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-#, fuzzy
 msgid "Subscription renovation date"
-msgstr "Suscripciones & Servicios"
+msgstr "Fecha de renovación de suscripción"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 msgid "Central monitoring & management"
-msgstr ""
+msgstr "Central de monitoreo y administración"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-#, fuzzy
 msgid "Server subcription info"
-msgstr "Creación de servidor"
+msgstr "Información de la suscripción del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-#, fuzzy
 msgid "Not using Zentyal Cloud DynDNS service"
-msgstr "Remoto en Zentyal Cloud"
+msgstr "No esta usando el servicio de DynDNS de Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:169
-#, fuzzy
 msgid "Unlimited"
-msgstr "Tamaño ilimitado"
+msgstr "Ilimitado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:128
-#, fuzzy
 msgid "Latest security update"
-msgstr "Actualización de seguridad"
+msgstr "Ultima actualización de seguridad"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
 msgid ""
@@ -4664,111 +4640,102 @@ msgstr "Razón"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:93
 msgid "Latest generated report"
-msgstr ""
+msgstr "Último informe generado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:97
-#, fuzzy
 msgid "Download latest report"
-msgstr "Descargar el fichero con el informe de configuración"
+msgstr "Descarga el último informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:103
-#, fuzzy
 msgid "Reports"
-msgstr "Informes completos"
+msgstr "Informes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:108
 msgid ""
 "The download link is for the latest available report for a group where this "
 "zentyal belongs to"
 msgstr ""
+"El enlace de descarga es para el último informe disponible para el grupo al "
+"que este Zentyal pertenece"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:134
 #, perl-brace-format
 msgid "{oh}Download sample{ch}"
-msgstr ""
+msgstr "{oh}Descarga la muestra{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}Download{ch}"
-msgstr "Descargar"
+msgstr "{oh}Descarga{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:150
 msgid "No report generated yet"
-msgstr ""
+msgstr "Ningún informe generado aún"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:145
-#, fuzzy
 msgid "Disaster recovery"
-msgstr "recuperación"
+msgstr "Recuperación de desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:149
-#, fuzzy
 msgid "Remote storage space available"
-msgstr "Uso del almacenamiento remoto"
+msgstr "Espacio disponible para almacenamiento remoto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:153
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr "Restaurando la copia de seguridad de la configuración Zentyal"
+msgstr "Backup de la última configuración"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:157
-#, fuzzy
 msgid "Latest data backup"
-msgstr "Backup de datos"
+msgstr "Backup de los últimos datos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:161
-#, fuzzy
 msgid "Data backed up"
-msgstr "Backup de datos"
+msgstr "Datos respaldados"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:165
-#, fuzzy
 msgid "Estimated backup size"
-msgstr "Tiempo estimado que queda"
+msgstr "tamaño estimado del backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:169
-#, fuzzy
 msgid "Estimated time to recover from a disaster"
-msgstr "Tiempo estimado que queda"
+msgstr "Tiempo estimado de recuperación de un desastre"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:222
 msgid "Full Disaster Recovery enabled"
-msgstr ""
+msgstr "Recuperación de desastres habilitado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:236
 #, perl-brace-format
 msgid "{num} GB, left: {per}"
-msgstr ""
+msgstr "{num} GB, disponibles: {per}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:263
 #, perl-brace-format
 msgid "{time} hours - Full Disaster Recovery"
-msgstr ""
+msgstr "{time} horas - Recuperación de desastres completo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:265
 #, perl-brace-format
 msgid "{size} MB"
-msgstr ""
+msgstr "{size} MB"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:268
-#, fuzzy
 msgid "No backup done yet"
-msgstr "Backup eliminado"
+msgstr "No se hizo ningún backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:280
 #, perl-brace-format
 msgid "Install {mod} module to start using Disaster Recovery"
-msgstr ""
+msgstr "Instale el módulo {mod} para empezar a usar la recuperación de desastre"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{time} minutes - Configuration Backup Only"
-msgstr "Backup de la configuración"
+msgstr "{time} minutos - Sólo configuración del backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:292
-#, fuzzy
 msgid "No configuration backup has been done yet"
-msgstr "¡Su backup de configuración ha sido restaurado!"
+msgstr "no existe configuración para backups"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -4881,6 +4848,8 @@ msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
+"no se pudo conectar al servidor WS \"{addr}:{port}/{proto}\". Revisa tu "
+"resolución de nombres y el firewall de tu red"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:892
 #, perl-brace-format
@@ -4888,6 +4857,8 @@ msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
 msgstr ""
+"No se pudo conectar al servidor VPN  \"{addr}:{port}/{proto}\". Revisa el "
+"firewall de tu red"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid ""
@@ -4916,9 +4887,9 @@ msgid "No ebox-services DNS key found"
 msgstr "Clave para los servicios DNS de Zentyal Cloud no encontrada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:264
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot connect to any of the Cloud nameservers: {ns}"
-msgstr "El servidor {smtp} no puede ser contactado"
+msgstr "no se puede conectar con cualquier servidor de nombre de la Nube: {ns}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:279
 #, perl-brace-format
@@ -5085,9 +5056,8 @@ msgid "Remote system backups"
 msgstr "Sistema remoto de backups"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:54
-#, fuzzy
 msgid "Email Address"
-msgstr "dirección de correo"
+msgstr "dirección de correo electrónico"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:61
 #: ../../main/users/src/templates/users.mas:25
@@ -5102,45 +5072,44 @@ msgid "Last name"
 msgstr "Apellido"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:63
-#, fuzzy
 msgid "Country"
-msgstr "país"
+msgstr "País"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:64
-#, fuzzy
 msgid "Phone number"
-msgstr "una hora"
+msgstr "Número de Teléfono"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:65
-#, fuzzy
 msgid "Repeated password"
-msgstr "Confirme contraseña"
+msgstr "Contraseña Repetida"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:68
-#, fuzzy
 msgid "Introduced passwords do not match"
-msgstr "Las contraseñas nuevas no coinciden."
+msgstr "Las contraseñas introducidas no coinciden."
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:103
 msgid "An unknown error ocurred registering the subscription"
-msgstr ""
+msgstr "Un error desconocido sucedió registrando la suscripción"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:108
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
 msgstr ""
+"Un usuario con esa dirección de correo electrónico ya está registrado. Puede "
+"revisar los datos de la cuenta en"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:110
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
 msgstr ""
+"Lo siento, una excepción desconocida ocurrió. Intente de nuevo mas tarde o "
+"contáctese con info@zentyal.com"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
-#, fuzzy
 msgid "Bandwidth Monitor"
-msgstr "Limitación de Ancho de Banda"
+msgstr "Monitor de Ancho de Banda"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:255
 #: ../../main/samba/src/EBox/Samba.pm:1500
@@ -16384,7 +16353,6 @@ msgid "Percentage completed"
 msgstr "Porcentaje completado"
 
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Estimated time left"
 msgstr "Tiempo estimado para finalizar: {time}."
 

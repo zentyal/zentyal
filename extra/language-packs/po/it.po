@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-14 03:25+0200\n"
-"PO-Revision-Date: 2011-04-15 13:18+0200\n"
+"PO-Revision-Date: 2011-07-19 09:42+0200\n"
 "Last-Translator: lemorragia <lemorragia@yahoo.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: it\n"
@@ -373,12 +373,13 @@ msgid "Transparent Proxy"
 msgstr "Proxy Trasparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
+#, fuzzy
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Filtro pubblicita"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Rimuovi dal traffico HTTP gli annunci pubblicitari"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -1434,9 +1435,8 @@ msgid "Filter groups per IP"
 msgstr "Filtra gruppi per IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:291
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Backup configurazione"
+msgstr "Configurazione di adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:305
 msgid "Overwrite blocked page templates"
@@ -1571,7 +1571,7 @@ msgstr "Accettato"
 
 #: ../../main/squid/src/EBox/Squid.pm:1145
 msgid "Denied"
-msgstr "Bloccato"
+msgstr "Negato"
 
 #: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filtered"
@@ -1673,8 +1673,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:303
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
-"Impossibile creare il server,in quanto non è presente un certificato CA"
+msgstr "Impossibile creare il server, dato che non è presente un certificato CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:329
 #, perl-brace-format
@@ -2862,6 +2861,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Sostituisci l'indirizzo sorgente della connessione con l'indirizzo del "
+"server Zentyal. Questo puo' rendersi necessario quando la destinazione non "
+"ha una rotta di ritorno o ha regole di firewall molto restrittive"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:344
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -3386,7 +3388,7 @@ msgstr "Server DNS"
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "record {txt}"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
@@ -3404,9 +3406,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un dominio è dinamico quando il server DHCP aggiorna il dominio"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Dominio"
+msgstr "Domini"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3419,6 +3420,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Qui puoi aggiungere domini a questo server DNS. Ogni dominio puo' avere "
+"differenti host con vari alias (A e CNAME) e altri record speciali (MX, NS, "
+"TXT e SRV)"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3464,7 +3468,7 @@ msgstr "nome host"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
 msgid "Enable transparent DNS cache"
-msgstr ""
+msgstr "Abilita cache DNS trasparente"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:628
@@ -3480,18 +3484,20 @@ msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Ogni query DNS sara' rediretta al DNS locale se la modalita' trasparente del "
+"server DNS è abilitata."
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
 msgstr ""
 "Questo dominio è configurato in sola lettura. Non è possibile aggiungere "
-"host names"
+"{what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
 #, fuzzy, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "Il servizio non è abilitato in Zentyal"
+msgstr "Il servizio non è "
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
 #, fuzzy, perl-brace-format
@@ -3509,7 +3515,7 @@ msgstr "Nome servizio"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Valori inferiori rappresentano una priorità più alta"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3544,11 +3550,13 @@ msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Gestisce i record SRV per questo dominio. Sono utili per selezionare un host "
+"in base alla priorità di un servizo."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "voce name server"
+msgstr "record {srv}"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -3606,7 +3614,7 @@ msgstr "Gestisce il registro name server (NS) per questo dominio"
 #: ../../main/dns/src/EBox/Model/NameServer.pm:270
 #, fuzzy
 msgid "name server record"
-msgstr "voce name server"
+msgstr "record name server"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
 #, fuzzy, perl-brace-format
@@ -16382,7 +16390,6 @@ msgid "Percentage completed"
 msgstr "Percentuale di completamento"
 
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Estimated time left"
 msgstr "Tempo di completamento stimato: {time}"
 

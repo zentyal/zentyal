@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-14 03:25+0200\n"
-"PO-Revision-Date: 2011-04-07 16:36+0200\n"
+"PO-Revision-Date: 2011-07-16 00:38+0200\n"
 "Last-Translator: Michal <formanek.michal@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: cs\n"
@@ -23,27 +23,27 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
-msgstr ""
+msgstr "Použít výchozí konfiguraci profilu"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
-msgstr ""
+msgstr "Použít výchozí profil pro MIME filtrování"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
-msgstr ""
+msgstr "rozšíření"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
-msgstr ""
+msgstr "Nastavit zásady pro všechna rozšíření"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
-msgstr ""
+msgstr "Žádosti"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
@@ -71,7 +71,7 @@ msgstr "Uživatel"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
-msgstr ""
+msgstr "Přijato žádostí"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113

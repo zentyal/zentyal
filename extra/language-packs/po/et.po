@@ -4,19 +4,20 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-14 03:25+0200\n"
-"PO-Revision-Date: 2010-05-06 16:48+0200\n"
-"Last-Translator: Priit-A. Heinsalu <priit.heinsalu@gmail.com>\n"
+"PO-Revision-Date: 2011-07-15 13:33+0200\n"
+"Last-Translator: pisipoleng <pisipoleng@hotmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
@@ -391,11 +392,11 @@ msgstr "Läbipaistev puhverserver"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Reklaamide blokeerimine"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Eemalda reklaamid kogu HTTP liiklusest"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -492,9 +493,8 @@ msgstr "Filtreeri"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:81
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:51
-#, fuzzy
 msgid "Always deny"
-msgstr "Keela kõik"
+msgstr "Keela alati"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
 msgid "Ignore"
@@ -955,7 +955,7 @@ msgstr "Maksimaalne filtri gruppide arv on täis"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Profiilinimedes ei ole tühikud lubatud"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
@@ -2073,7 +2073,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Zentyalist Zentyali tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:182
 msgid ""
@@ -16902,7 +16902,6 @@ msgid "Percentage completed"
 msgstr "Edenemine protsentides"
 
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Estimated time left"
 msgstr "Hinnanguline kestus lõpuni: {time}."
 

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-14 03:25+0200\n"
-"PO-Revision-Date: 2011-04-14 05:12+0200\n"
+"PO-Revision-Date: 2011-07-22 16:46+0200\n"
 "Last-Translator: MarcusF <Contact@marcusfernstrom.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sv\n"
@@ -369,11 +369,11 @@ msgstr "Transparent Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Reklam Blockering"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Ta bort reklam från all HTTP trafik"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -949,7 +949,7 @@ msgstr "Max antal filter uppnått"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Mellanslag är ej tillåtet i profil namn"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
@@ -1183,11 +1183,11 @@ msgstr "Policy för Squid"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
@@ -1443,33 +1443,30 @@ msgid "Filter groups per IP"
 msgstr "Filtergrupper per IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:291
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Säkerhetskopia av konfiguration"
+msgstr "Konfiguration av adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:305
 msgid "Overwrite blocked page templates"
 msgstr "Skriv över templates för blockerade sidor"
 
 #: ../../main/squid/src/EBox/Squid.pm:306
-#, fuzzy
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
-"Dansguardians templates för blockerade sidor kommer att skrivas över med "
-"skräddarsydda eBox templates."
+"Dansguardians mallar för blockerade sidor kommer att skrivas över med "
+"skräddarsydda Zentyal mallar."
 
 #: ../../main/squid/src/EBox/Squid.pm:334
-#, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
-msgstr "Du måste ställa in cache_mem variabeln i eBox konfigurationsfil"
+msgstr "Du måste ställa in cache_mem variabeln i Zentyal konfigurationsfil"
 
 #: ../../main/squid/src/EBox/Squid.pm:343
-#, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
-msgstr "Du måste ställa in max_object_size variabeln i eBox konfigurationsfil"
+msgstr ""
+"Du måste ställa in max_object_size variabeln i Zentyals konfigurationsfil"
 
 #: ../../main/squid/src/EBox/Squid.pm:1045
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
@@ -1652,26 +1649,26 @@ msgid "server"
 msgstr "Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Du behöver en giltig CA-certifikat för att använda denna modul. "
-"{closepar}{openpar}Vänligen gå till {openhref}Certifikathanteraren"
-"{closehref} och skapa ett{closepar}"
+"{openpar}Du behöver ett giltigt CA-certifikat för att köra VPN servrar. "
+"{closepar}{openpar}Vänligen gå till "
+"{openhref}Certifikathanteraren{closehref} och skapa ett.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Du kan inte skapa VPN servers eftersom det inte finns ett CA "
-"certifikat {closepar}{openpar}Vänligen gå till {openhref}Certifikathanteraren"
-"{closehref} och skapa ett{closepar}"
+"{openpar}Du måste skapa ett CA certifikat för att köra VPN servrar. "
+"{closepar}{openpar}Vänligen gå till "
+"{openhref}Certifikathanteraren{closehref} och skapa ett.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -1911,9 +1908,8 @@ msgid "Bind port for client"
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Undantag adress från cachning."
+msgstr "Bind address för klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
@@ -2477,12 +2473,11 @@ msgid "Flush previous firewall rules"
 msgstr "Spola föregående brandväggsregler"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:82
-#, fuzzy
 msgid ""
 "The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
-"eBox brandvägg kommer att spola alla föregående brandväggsregler som har "
+"Zentyals brandvägg kommer att rensa alla föregående brandväggsregler som har "
 "lagts till manuellt eller med annat verktyg "
 
 #: ../../main/firewall/src/EBox/Firewall.pm:87
@@ -2748,9 +2743,8 @@ msgid "Packet traffic details"
 msgstr "Pakettrafik detaljer"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:63
-#, fuzzy
 msgid "Internal networks to Zentyal"
-msgstr "Interna nätverk till eBox"
+msgstr "Interna nätverk till Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
@@ -2892,9 +2886,8 @@ msgid "forwarding"
 msgstr "vidarebefordring"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:65
-#, fuzzy
 msgid "External networks to Zentyal"
-msgstr "Externa nätverk till eBox"
+msgstr "Externa nätverk till Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
@@ -2953,14 +2946,12 @@ msgstr "Villkor"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:156
 #: ../../main/firewall/src/templates/filter.mas:51
-#, fuzzy
 msgid "Rules added by Zentyal services (Advanced)"
-msgstr "Regler tillagda av eBox tjänster (Avancerat)"
+msgstr "Regler tillagda av Zentyals tjänster (Avancerat)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:64
-#, fuzzy
 msgid "Traffic coming out from Zentyal"
-msgstr "Trafik som går ut från eBox"
+msgstr "Trafik som går ut från Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
@@ -3019,15 +3010,15 @@ msgstr "Regler listas per nätverksgränssnitt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload"
-msgstr ""
+msgstr "Ladda upp"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Uppladdnings hastiget i Kbit/s genom nätverksgränssnitt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
 msgid "Download rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Nerladdnings hastighet i Kbit/s genom nätverksgränssnitt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
@@ -3040,7 +3031,7 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Du behöver mins ett internt och ett externt nätverksgränssnitt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:176
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
@@ -3070,6 +3061,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"Objekt {object} har inga medlemmar. Vänligen lägg till minst ett för att "
+"kunna lägga till regler för detta objekt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:238
 msgid "If service is any, some source or destination should be provided"
@@ -3077,7 +3070,7 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:379
 msgid "Port based service"
-msgstr ""
+msgstr "Port-baserad service"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:445
 #: ../../main/dns/src/EBox/Model/Services.pm:203
@@ -3087,7 +3080,7 @@ msgstr "Prioritet"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "Lägsta prioritet: 7 Högsta prioritet: 0"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:453
 msgid "Guaranteed Rate"
@@ -3103,6 +3096,8 @@ msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
+"Notera att total summa av alla garanterade hastigheter ej kan överstiga din "
+"totala bandbredd. 0 betyder ej garanterad hastighet."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Limited Rate"
@@ -3113,15 +3108,17 @@ msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:479
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr "Regler listas per nätverksgränssnitt"
+msgstr "Regel lista för {printableIndex}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"Notera att om nätverksgränsnittet är internt, flyter trafik från internet "
+"till insida nätverket och externt är motsatt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:554
 #, perl-brace-format
@@ -3147,12 +3144,12 @@ msgstr ""
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:674
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:693
 msgid "Application based service"
-msgstr ""
+msgstr "Applikations baserad service"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:683
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:701
 msgid "Application based service group"
-msgstr ""
+msgstr "Applikations baserad service grupp"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
 #, perl-brace-format
@@ -3208,7 +3205,7 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:141
 msgid "Add tc rules"
-msgstr ""
+msgstr "Lägg till tc regler"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:142
 #, fuzzy
@@ -3220,9 +3217,8 @@ msgid "Rules"
 msgstr "Regler"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:461
-#, fuzzy
 msgid "Interface Rates"
-msgstr "Garanterad hastighet"
+msgstr "Gränssnitts Hastighet"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:549
 #, perl-brace-format
@@ -3233,7 +3229,7 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1195
 msgid "type"
-msgstr ""
+msgstr "typ"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1218
 #, perl-brace-format
@@ -3392,9 +3388,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "En domän är dynamisk när DHCP servern uppdaterar domänen."
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Domän"
+msgstr "Domäner"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3451,7 +3446,7 @@ msgstr "värdnamn"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
 msgid "Enable transparent DNS cache"
-msgstr ""
+msgstr "Aktivera transparent DNS cache"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:628
@@ -3469,24 +3464,24 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
 msgstr ""
-"Domänen är satt till att vara endast läsbar. Du kan inte lägga till värdnamn"
+"Domänen är satt till att endast vara läsbar. Du kan inte lägga till {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "Tjänsten är ej aktiverad i eBox"
+msgstr "Tjänsten finns ej i {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
 "Det angivna värdnamnet är inte ett fullständigt kvalificerat domännamn "
-"(FQDN). Menar du ns.{name}?"
+"(FQDN). Menar du {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
@@ -3495,7 +3490,7 @@ msgstr "Tjänstenamn"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Lägre värde har högre prioritet"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3509,14 +3504,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
-#, fuzzy
 msgid "Target port"
-msgstr "Server port"
+msgstr "Mål port"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
-#, fuzzy
 msgid "Target"
-msgstr "mål"
+msgstr "Mål"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:230
 #, fuzzy
@@ -3572,9 +3565,8 @@ msgstr ""
 "(FQDN). Menar du ns.{name}?"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
-#, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "namnserver förteckning"
+msgstr "Sista namn server kan ej tas bort"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
@@ -3593,9 +3585,9 @@ msgid "name server record"
 msgstr "namnserver förteckning"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "Netbios namnet kan inte vara längre än 15 tecken"
+msgstr "{name} kan ej vara längre än {value}"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
@@ -3604,7 +3596,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "{txt} data"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
 #, fuzzy
@@ -3765,9 +3757,8 @@ msgid "Zentyal FTP Server"
 msgstr "Zentyal FTP server"
 
 #: ../../main/ftp/src/EBox/FTP.pm:128
-#, fuzzy
 msgid "Generate SSL certificates"
-msgstr "Skapa certifikat"
+msgstr "Skapa SSL certifikat"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
 #, fuzzy
@@ -16431,7 +16422,6 @@ msgid "Percentage completed"
 msgstr "Procent klart"
 
 #: ../../main/core/src/templates/report/raid.mas:210
-#, fuzzy
 msgid "Estimated time left"
 msgstr "Beräknas vara klar: {time}"
 
