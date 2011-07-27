@@ -112,9 +112,9 @@
 				<input class='inputButton' type='submit' name='change'
 					value="<% __('Change') %>"
 					alt="<% __('Change') %>">
-				</form>
 			</td>
 		</tr>
 % }
 	</table>
+  </form>
 </div>
