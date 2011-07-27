@@ -90,9 +90,14 @@ sub initialSetup
                 'description' => __('VNC connections for VMs'),
                 'internal' => 1,
                 'readOnly' => 1,
-                'services' => [ { protocol => 'tcp',
+                'services' => [
+                                { protocol => 'tcp',
                                   sourcePort => 'any',
-                                  destinationPort => DEFAULT_VNC_PORT } ],
+                                  destinationPort => DEFAULT_VNC_PORT },
+                                { protocol => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => DEFAULT_VNC_PORT + 1000 }
+                              ],
             );
         }
 

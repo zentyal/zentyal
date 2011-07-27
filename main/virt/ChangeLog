@@ -1,4 +1,5 @@
 HEAD
+	+ Include also VNC WS proxy ports in the service
 	+ Do not try to pause stopped machines
 2.1.2
 	+ Removed no longer necessary parent workarounds after parentRow fix

@@ -189,7 +189,8 @@ sub _updateService
 
     my $vncport = $self->parentModule()->firstVNCPort();
     my $maxport = $vncport + scalar @{$self->ids()} - 1;
-    foreach my $vncport ($vncport .. $maxport) {
+    foreach my $vncport ($vncport .. $maxport,
+                         $vncport + 1000 .. $maxport + 1000) {
             push (@vncservices, { protocol => 'tcp',
                                   sourcePort => 'any',
                                   destinationPort => $vncport });
