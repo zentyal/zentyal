@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed problems saving changes after disable
+	+ Remove obsolete setService and _configureFirewall methods
 2.1.3
 	+ NTP settings are now top-level under Infrastructure
 	+ Date/Time and Timezone are now under System -> General

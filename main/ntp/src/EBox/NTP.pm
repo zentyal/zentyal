@@ -141,74 +141,35 @@ sub initialSetup
     }
 }
 
-sub _enforceServiceState
+sub _syncDate
 {
     my ($self) = @_;
-
-    if (($self->isEnabled() or $self->synchronized) and $self->isRunning()) {
-        EBox::Service::manage('ebox.ntpd','stop');
-        sleep 2;
-        if ($self->synchronized) {
-            my $exserver = $self->firstServer();
-            try {
-                EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
-            } catch EBox::Exceptions::Internal with {
-                EBox::warn("Couldn't execute ntpdate $exserver");
-            };
-        }
-        EBox::Service::manage('ebox.ntpd','start');
-    } elsif ($self->isEnabled() or $self->synchronized) {
-        if ($self->synchronized) {
-            my $exserver = $self->firstServer();
-            try {
-                EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
-            } catch EBox::Exceptions::Internal with {
-                EBox::warn("Couldn't execute ntpdate $exserver");
-            };
-        }
-        EBox::Service::manage('ebox.ntpd','start');
-    } elsif ($self->isRunning) {
-        EBox::Service::manage('ebox.ntpd','stop');
-        if ($self->synchronized) {
-            EBox::Service::manage('ebox.ntpd','start');
-        }
-    }
-}
-
-sub _stopService
-{
-    EBox::Service::manage('ebox.ntpd','stop');
-}
-
-sub _configureFirewall
-{
-    my ($self) = @_;
-
-    my $fw = EBox::Global->modInstance('firewall');
 
     if ($self->synchronized) {
-        $fw->addOutputRule('udp', 123);
-    } else {
-        $fw->removeOutputRule('udp', 123);
+        my $exserver = $self->firstServer();
+        return unless $exserver;
+        try {
+            EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
+        } catch EBox::Exceptions::Internal with {
+            EBox::warn("Couldn't execute ntpdate $exserver");
+        };
     }
 }
 
-# Method: setService
-#
-#       Enable/Disable the ntp service
-#
-# Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setService # (active)
+sub _preSetConf
 {
-    my ($self, $active) = @_;
+    my ($self) = @_;
 
-    ($active and $self->isEnabled()) and return;
-    (!$active and !$self->isEnabled()) and return;
-    $self->enableService($active);
-    $self->_configureFirewall;
+    try {
+        $self->_stopService();
+        sleep 2;
+        $self->_syncDate();
+    } otherwise {};
+}
+
+sub _daemons
+{
+    return [ { name => 'ebox.ntpd' } ];
 }
 
 # Method: synchronized
