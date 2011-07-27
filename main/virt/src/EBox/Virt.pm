@@ -34,10 +34,12 @@ use EBox::Virt::Model::NetworkSettings;
 use EBox::Virt::Model::DeviceSettings;
 use Error qw(:try);
 use String::ShellQuote;
+use File::Slurp;
 
 use constant DEFAULT_VNC_PORT => 5900;
 use constant LIBVIRT_BIN => '/usr/bin/virsh';
 use constant DEFAULT_VIRT_USER => 'ebox';
+use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 
 my $UPSTART_PATH = '/etc/init/';
 my $WWW_PATH = EBox::Config::www();
@@ -171,6 +173,19 @@ sub _setConf
 
     my $vncport = $self->firstVNCPort();
 
+    my %vncPasswords;
+    # Syntax of the vnc passwords file:
+    # machinename:password
+    if (-f VNC_PASSWD_FILE) {
+        my @lines = read_file(VNC_PASSWD_FILE);
+        chomp(@lines);
+        foreach my $line (@lines) {
+            my ($machine, $pass) = split(/:/, $line);
+            next unless ($machine and $pass);
+            $vncPasswords{$machine} = $pass;
+        }
+    }
+
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
@@ -184,7 +199,11 @@ sub _setConf
         $self->_setNetworkConf($name, $settings);
         $self->_setDevicesConf($name, $settings);
 
-        $self->_writeMachineConf($name, $vncport, _randPassVNC());
+        my $vncpass = exists $vncPasswords{$name} ?
+                             $vncPasswords{$name} :
+                             _randPassVNC();
+
+        $self->_writeMachineConf($name, $vncport, $vncpass);
         $vncport++;
 
         # Only used for libvirt
