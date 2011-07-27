@@ -144,11 +144,11 @@ sub viewCustomizer
     $customizer->setOnChangeActions(
             { method =>
                 {
-                cloud => { disable => $allFields },
-                file => { disable => $userPass , enable => ['target'] },
-                rsync => { enable => $allFields },
-                scp => { enable => $allFields },
-                ftp => { enable => $allFields },
+                cloud => { hide => $allFields },
+                file => { hide => $userPass , show => ['target'] },
+                rsync => { show => $allFields },
+                scp => { show => $allFields },
+                ftp => { show => $allFields },
                 }
             });
 
