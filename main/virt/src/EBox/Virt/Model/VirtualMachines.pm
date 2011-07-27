@@ -300,6 +300,11 @@ sub _doPause
     my $row = $self->row($id);
 
     my $name = $row->valueByName('name');
+
+    unless ($virt->vmRunning($name)) {
+        throw EBox::Exceptions::External(__('Cannot pause a stopped machine. You have to start it first.'));
+    }
+
     $virt->pauseVM($name);
 
     EBox::debug("Virtual machine '$name' paused");
