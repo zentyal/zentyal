@@ -221,6 +221,11 @@ sub _viewConsoleClicked
 
     my $virt = $self->parentModule();
     my $name = $self->row($id)->valueByName('name');
+
+    unless ($virt->vmRunning($name)) {
+        return "return false";
+    }
+
     my $width = $virt->consoleWidth() + 30;
     my $height = $virt->consoleHeight() + 65;
 
@@ -246,6 +251,12 @@ sub _doStart
     my ($self, $action, $id, %params) = @_;
 
     my $virt = $self->parentModule();
+    my $row = $self->row($id);
+    my $name = $row->valueByName('name');
+
+    if ($virt->vmPaused($name)) {
+        return $self->_doResume($action, $id, %params);
+    }
 
     # Start machine precondition: module enable and without unsaved changes
     unless ($virt->isEnabled()) {
@@ -255,8 +266,6 @@ sub _doStart
         throw EBox::Exceptions::External(__('Virtual machines cannot be started if there are pending unsaved changes on the Virtual Machines module, please save changes first and try again.'));
     }
 
-    my $row = $self->row($id);
-    my $name = $row->valueByName('name');
     $virt->startVM($name);
 
     my $tries = 30;

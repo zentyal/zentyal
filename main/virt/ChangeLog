@@ -1,4 +1,6 @@
 HEAD
+	+ Start button also resumes paused machines
+	+ Do not pop up console if the machine is not running
 	+ Allow to specify VNC passwords in /var/lib/zentyal/conf/vnc-passwd
 	+ Include also VNC WS proxy ports in the service
 	+ Do not try to pause stopped machines
