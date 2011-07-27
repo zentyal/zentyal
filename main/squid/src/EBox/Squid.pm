@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2010 eBox Technologies S.L.
+# Copyright (C) 2008-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1317,7 +1317,7 @@ sub report
             "GROUP BY domain) AS m " .
             "USING (domain)",
         'limit' => $options->{'max_top_domains'},
-        'order' => 'traffic_bytes DESC',
+        'order' => 'hits DESC',
         'options' => {
             'no_date_in_where' => 1
         }
