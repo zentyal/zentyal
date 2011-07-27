@@ -1,3 +1,5 @@
+HEAD
+	+ Use printableActionName in DataTable setter
 2.1.22
 	+ Fixed parentRow method in EBox::Types::Row
 	+ Added new optionalLabel flag to EBox::Types::Abstract to avoid

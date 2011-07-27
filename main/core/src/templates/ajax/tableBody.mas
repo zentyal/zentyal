@@ -366,7 +366,7 @@ $pageSize or
         class => 'inputButton',
         type => 'submit',
         name => 'change',
-        value => __('Change'),
+        value => $model->printableActionName(),
         title => 'Change',
         onclick => $model->changeRowJS($editid, $page) . '; return false'
     &>
