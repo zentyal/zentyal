@@ -322,10 +322,10 @@ sub _process
     }
 
     $self->{crumbs} = [
-        {title => __('Query Logs'),
-            link => '/zentyal/Logs/View/SelectLog'
+        {   title => __('Query Logs'),
+            link => '/zentyal/Maintenance/Logs'
         },
-        {title => __('Full Reports'),
+        {   title => __('Full Reports'),
             link => "/zentyal/Logs/Index?selected=$selected&refresh=1"
         },
     ];

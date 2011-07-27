@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed breadcrumb destination for full log query page
 	+ Use printableActionName in DataTable setter
 2.1.22
 	+ Fixed parentRow method in EBox::Types::Row
