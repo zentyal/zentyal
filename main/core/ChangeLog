@@ -1,4 +1,5 @@
 HEAD
+	+ Depend on libterm-readline-gnu-perl for history support in shells
 	+ Fixed error trying to change the admin port with NTP enabled
 	+ Fixed breadcrumb destination for full log query page
 	+ Use printableActionName in DataTable setter
