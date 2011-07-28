@@ -68,7 +68,7 @@ sub _description
         pageTitle => __('Logs'),
         headTitle => undef,
         compositeDomain => 'Logs',
-        help            => __('Logs module allows you to register and query' .
+        help            => __('Logs module allows you to register and query ' .
                               'information about the Zentyal services'),
     };
 
