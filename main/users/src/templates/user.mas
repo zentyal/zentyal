@@ -49,6 +49,9 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                     <span class='ftitle'>
                         <% __('Comment') %>:
                     </span>
+                    <div class="optional_field">
+                        <% __('Optional') %>
+                    </div>
                 </td>
                 <td>
                   <& masterSlaveUserAttr,

@@ -1,4 +1,5 @@
 HEAD
+	+ Make the optional 'comment' field to also appear as optional on the UI
 	+ Ignore users also in pwdsync-server, not only in the ad-sync script
 2.1.7
 	+ Set submenu items order for integration with the User Corner menu
