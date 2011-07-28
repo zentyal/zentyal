@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-28 23:34+0200\n"
-"PO-Revision-Date: 2011-07-28 23:06+0200\n"
+"PO-Revision-Date: 2011-07-28 23:46+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -5265,6 +5265,8 @@ msgstr "Lista de usuarios registrados en este momento."
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:162
 msgid "Captive portal must be enabled in order to see current users list."
 msgstr ""
+"El módulo Portal Cautivo debe habilitarse para poder ver la lista de "
+"usuarios actuales."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:265
 #, perl-brace-format
@@ -5405,6 +5407,7 @@ msgstr "Lista de interfaces donde el Portal Cautivo está activado."
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:59
 msgid "Only users in this group will be allowed to login."
 msgstr ""
+"Únicamente los usuarios pertenecientes a este grupo podrán iniciar sesión."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
 msgid "HTTP port"
@@ -11512,7 +11515,6 @@ msgid "Configure Logs"
 msgstr "Configurar los registros"
 
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:71
-#, fuzzy
 msgid ""
 "Logs module allows you to register and query information about the Zentyal "
 "services"
@@ -11529,7 +11531,7 @@ msgstr ""
 "e inténtelo de nuevo"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:122
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "No schema file found in this backup. Try another date or force restore "
 "without schema changing the relevant key in {cf}. Schemas change "
