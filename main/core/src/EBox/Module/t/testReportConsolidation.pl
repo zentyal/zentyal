@@ -1,4 +1,4 @@
-# Copyright (C) 2010 EBox Technologies S.L.
+# Copyright (C) 2010-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -101,51 +101,51 @@ sub _setupDB
                  subject => 'elmo',
                  food => 'peanut',
                  amount => 1,
-                },          
+                },
                 {
                  timestamp => '2010-02-24 12:34:05',
                  subject => 'elmo',
                  food => 'peanut',
                  amount => 4,
-                },          
+                },
                 {
                  timestamp => '2010-02-24 22:14:14',
                  subject => 'jenny',
                  food => 'apple skin',
                  amount => 4,
-                },   
+                },
                 {
                  timestamp => '2010-07-05 06:06:06',
                  subject => 'elmo',
                  food => 'ant',
                  amount => 4,
-                },   
+                },
                 # dupicat enrtry to cchek ther arent problems with that
                 {
                  timestamp => '2010-07-05 06:06:06',
                  subject => 'elmo',
                  food => 'ant',
                  amount => 4,
-                },       
+                },
                 {
                  timestamp => '2010-07-05 06:06:06',
                  subject => 'jack',
                  food => 'peanut',
                  amount => 7,
-                },         
+                },
                 {
                  timestamp => '2010-07-12 09:06:06',
                  subject => 'jack',
                  food => 'bettle',
                  amount => 3,
-                },         
+                },
                 # upper time limit value
                 {
                  timestamp => '2010-07-23 17:45:05',
                  subject => 'james',
                  food => 'grass',
                  amount => 2,
-                },    
+                },
                );
 
 
@@ -176,26 +176,26 @@ sub _setupDB
                  timestamp => '2010-02-18 22:34:05',
                  subject => 'elmo',
                  location => 'lake',
-                },          
+                },
                 {
                  timestamp => '2010-02-24 12:34:05',
                  subject => 'elmo',
                  location => 'lake',
-                },          
+                },
                 {
                  timestamp => '2010-02-24 22:14:14',
                  subject => 'jenny',
                  location => 'hill',
-                },   
+                },
                 {
                  timestamp => '2010-07-05 06:06:06',
                  subject => 'elmo',
                  location => 'tree',
-                },   
-                            
+                },
+
  #                # if we have two entries with the same keys in both tables we
  #                # get duplicates entries i am not sure if this is fixable or
- #                # not.. 
+ #                # not..
 #                 # However it shouldnt be a common event so we left it as known
 #                 limitation
 
@@ -205,18 +205,18 @@ sub _setupDB
                  timestamp => '2010-07-05 06:06:06',
                  subject => 'jack',
                  location => 'lake',
-                },         
+                },
                 {
                  timestamp => '2010-07-12 09:06:06',
                  subject => 'jack',
                  location => 'hill',
-                },         
+                },
                 # upper time limit value
                 {
                  timestamp => '2010-07-23 17:45:05',
                  subject => 'james',
                  location => 'lake',
-                },    
+                },
                );
 
     foreach my $values (@locationData) {
@@ -255,7 +255,7 @@ sub moduleConsolidateReportQueries
                          'group' => 'subject,food',
                         },
               },
-              
+
             {
              'target_table' => 'food_survey_variety_report',
              'query' => {
@@ -263,7 +263,7 @@ sub moduleConsolidateReportQueries
                          'from' => 'food_survey',
                          'group' => 'subject',
                         },
-            },       
+            },
 
             {
              'target_table' => 'food_by_location_report',
@@ -299,39 +299,39 @@ sub firstRoundExpectedTables
                  subject => 'elmo',
                  food => 'peanut',
                  total => 5,
-                },          
-     
+                },
+
                 {
                  date => '2010-02-01',
                  subject => 'jenny',
                  food => 'apple skin',
                  total => 4,
-                },   
+                },
                 {
                  date => '2010-07-01',
                  subject => 'elmo',
                  food => 'ant',
                  total => 8,
-                },   
+                },
                 {
                  date => '2010-07-01',
                  subject => 'jack',
                  food => 'bettle',
                  total => 3,
-                },      
+                },
                 {
                  date => '2010-07-01',
                  subject => 'jack',
                  food => 'peanut',
                  total => 7,
-                },         
-   
+                },
+
                 {
                  date => '2010-07-01',
                  subject => 'james',
                  food => 'grass',
                  total => 2,
-                },    
+                },
                );
 
     my @expectedVariety = (
@@ -349,30 +349,30 @@ sub firstRoundExpectedTables
                  date => '2010-02-01',
                  subject => 'elmo',
                  variety => 1,
-                },          
-     
+                },
+
                 {
                  date => '2010-02-01',
                  subject => 'jenny',
                  variety => 1,
-                },   
+                },
                 {
                  date => '2010-07-01',
                  subject => 'elmo',
                  variety => 1,
-                },   
+                },
                 {
                  date => '2010-07-01',
                  subject => 'jack',
                  variety => 2,
-                },      
-       
-   
+                },
+
+
                 {
                  date => '2010-07-01',
                  subject => 'james',
                  variety => 1,
-                },  
+                },
                           );
 
 
@@ -389,47 +389,47 @@ sub firstRoundExpectedTables
                  food  => 'banana',
                  total => 5,
                 },
-       
+
                 {
                  date => '2010-02-01',
                  location => 'hill',
                  food => 'apple skin',
                  total => 4,
-                },   
+                },
                 {
                  date => '2010-02-01',
                  location => 'lake',
                  food     => 'peanut',
                  total => 5,
-                },   
+                },
 
                 {
                  date => '2010-07-01',
                  location => 'hill',
                  food => 'bettle',
                  total => 3,
-                },  
- 
+                },
+
 
                 {
                  date => '2010-07-01',
                  location => 'lake',
                  food => 'grass',
                  total => 2,
-                }, 
+                },
                 {
                  date => '2010-07-01',
                  location => 'lake',
                  food => 'peanut',
                  total => 7,
-                },         
+                },
                   {
                  date => '2010-07-01',
                  location => 'tree',
                  food => 'ant',
                  total => 8,
                 },
- 
+
 
 
                                  );
@@ -457,25 +457,25 @@ sub _consolidationReportFirstRound
     my $expectedTables = firstRoundExpectedTables();
 
     my $totals = _allRecords($db, 'food_survey_total_report', ['date', 'subject', 'food']);
-    eq_or_diff( $totals, $expectedTables->{total}, 
+    eq_or_diff( $totals, $expectedTables->{total},
                 'checkign total by food consolidation');
-    _checkLastConsolidationDate($db, 'food_survey_total_report', 
+    _checkLastConsolidationDate($db, 'food_survey_total_report',
                                $firstRoundTime);
 
 
-   
+
 
     my $variety = _allRecords($db, 'food_survey_variety_report', ['date', 'subject']);
-    eq_or_diff( $variety, $expectedTables->{variety}, 
+    eq_or_diff( $variety, $expectedTables->{variety},
                 'checking variety');
-    _checkLastConsolidationDate($db, 'food_survey_variety_report', 
+    _checkLastConsolidationDate($db, 'food_survey_variety_report',
                                 $firstRoundTime);
 
 
     my $foodByLocation = _allRecords($db, 'food_by_location_report', ['date', 'location', 'food']);
-    eq_or_diff( $foodByLocation, $expectedTables->{foodByLocation}, 
+    eq_or_diff( $foodByLocation, $expectedTables->{foodByLocation},
                 'checking food_by_location');
-    _checkLastConsolidationDate($db, 'food_by_location_report', 
+    _checkLastConsolidationDate($db, 'food_by_location_report',
                                 $firstRoundTime);
 }
 
@@ -523,7 +523,7 @@ sub _prepareSecondRound
                  food => 'ant',
                  amount => 1,
 
-                },           
+                },
              );
 
 
@@ -544,14 +544,14 @@ sub _prepareSecondRound
                  timestamp => '2010-07-23 17:45:06',
                  subject => 'babalish',
                  location => 'asgard',
-                },      
+                },
 
 
                 {
                  timestamp => '2010-07-28 10:34:05',
                  subject => 'jack',
                  location => 'tree',
-                 
+
                 },
                 {
                  timestamp => '2010-07-29 13:54:23',
@@ -567,8 +567,8 @@ sub _prepareSecondRound
                  timestamp => '2010-08-18 22:34:05',
                  subject => 'jenny',
                  location => 'lake',
-                },      
-    
+                },
+
                );
 
     foreach my $values (@locationData) {
@@ -604,25 +604,25 @@ sub _consolidationReportSecondRound
                  subject => 'jack',
                  food => 'bettle',
                  total => 3,
-                },                                        
+                },
                 {
                  date => '2010-07-01',
                  subject => 'jack',
                  food => 'peanut',
                  total => 7,
-                },         
+                },
                 {
                  date => '2010-07-01',
                  subject => 'jack',
                  food => 'worm',
                  total => 1,
-                },       
+                },
                 {
                  date => '2010-07-01',
                  subject => 'james',
                  food => 'grass',
                  total => 2,
-                },   
+                },
                 {
                  date => '2010-07-01',
                  subject => 'mongo',
@@ -634,14 +634,14 @@ sub _consolidationReportSecondRound
                  subject => 'jenny',
                  food => 'ant',
                  total => 1,
-                },    
+                },
                 {
                  date => '2010-08-01',
                  subject => 'jenny',
                  food => 'banana',
                  total => 5,
                 },
- 
+
                                        );
 
     splice @{$expectedTables->{variety}}, -2;
@@ -650,12 +650,12 @@ sub _consolidationReportSecondRound
                  date => '2010-07-01',
                  subject => 'jack',
                  variety => 4,
-                },                        
+                },
                {
                  date => '2010-07-01',
                  subject => 'james',
                  variety => 1,
-                },                        
+                },
                 {
                  date => '2010-07-01',
                  subject => 'mongo',
@@ -665,7 +665,7 @@ sub _consolidationReportSecondRound
                  date => '2010-08-01',
                  subject => 'jenny',
                  variety => 2,
-                },     
+                },
 
                                          );
 
@@ -678,32 +678,32 @@ sub _consolidationReportSecondRound
                  location => 'bush',
                  food => 'worm',
                  total => 1,
-                },  
+                },
                 {
                  date => '2010-07-01',
                  location => 'hill',
                  food => 'bettle',
                  total => 3,
-                },  
+                },
                  {
                  date => '2010-07-01',
                  location => 'lake',
                  food => 'butterfly',
                  total => 6,
-                }, 
+                },
 
                 {
                  date => '2010-07-01',
                  location => 'lake',
                  food => 'grass',
                  total => 2,
-                }, 
+                },
                 {
                  date => '2010-07-01',
                  location => 'lake',
                  food => 'peanut',
                  total => 7,
-                },         
+                },
                 {
                  date => '2010-07-01',
                  location => 'tree',
@@ -728,24 +728,24 @@ sub _consolidationReportSecondRound
 
 
     my $totals = _allRecords($db, 'food_survey_total_report', ['date', 'subject', 'food']);
-    eq_or_diff( $totals, $expectedTables->{total}, 
+    eq_or_diff( $totals, $expectedTables->{total},
                 'checkign total by food consolidation');
-    _checkLastConsolidationDate($db, 'food_survey_total_report', 
+    _checkLastConsolidationDate($db, 'food_survey_total_report',
                                $secondRoundTime);
 
 
-   
+
 
     my $variety = _allRecords($db, 'food_survey_variety_report', ['date', 'subject']);
-    eq_or_diff( $variety, $expectedTables->{variety}, 
+    eq_or_diff( $variety, $expectedTables->{variety},
                 'checking variety');
-    _checkLastConsolidationDate($db, 'food_survey_variety_report', 
+    _checkLastConsolidationDate($db, 'food_survey_variety_report',
                                 $secondRoundTime);
 
     my $foodByLocation = _allRecords($db, 'food_by_location_report', ['date', 'location', 'food']);
-    eq_or_diff( $foodByLocation, $expectedTables->{foodByLocation}, 
+    eq_or_diff( $foodByLocation, $expectedTables->{foodByLocation},
                 'checking food_by_location');
-    _checkLastConsolidationDate($db, 'food_by_location_report', 
+    _checkLastConsolidationDate($db, 'food_by_location_report',
                                 $secondRoundTime);
 }
 

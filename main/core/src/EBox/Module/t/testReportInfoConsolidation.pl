@@ -1,4 +1,4 @@
-# Copyright (C) 2010 EBox Technologies S.L.
+# Copyright (C) 2010-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -83,7 +83,7 @@ sub _setupDB
      $createTableSql = q{CREATE TABLE  test_disk_usage_report (date DATE, mountpoint VARCHAR(40), free INT, used INT  ); };
     $db->do($createTableSql);
 
- 
+
     my @data = (
                 {
                  timestamp => '2009-09-23 10:34:05',
@@ -102,50 +102,50 @@ sub _setupDB
                  mountpoint => '/media/hda2',
                  free => 161,
                  used => 1273,
-                },          
+                },
                 {
                  timestamp => '2010-02-24 12:34:05',
                  mountpoint => '/media/hda2',
                  free => 412,
                  used => 3973,
-                },          
+                },
                 {
                  timestamp => '2010-02-24 22:14:14',
                  mountpoint => '/media/hdc1',
                  free => 124,
                  used => 3913,
-                },   
+                },
                 {
                  timestamp => '2010-07-05 06:06:06',
                  mountpoint => '/media/hda2',
                  free => 124,
                  used => 2173,
-                },   
+                },
                 {
                  timestamp => '2010-07-05 06:06:07',
                  mountpoint => '/media/hda2',
                  free => 412,
                  used => 2500,
-                },       
+                },
                 {
                  timestamp => '2010-07-05 06:06:06',
                  mountpoint => '/media/hda1',
                  free => 2347,
                  used => 2373,
-                },         
+                },
                 {
                  timestamp => '2010-07-12 09:06:06',
                  mountpoint => '/media/hda1',
                  free => 33,
                  used => 3233,
-                },         
+                },
                 # upper time limit value
                 {
                  timestamp => '2010-07-23 17:45:05',
                  mountpoint => '/media/hdc2',
                  free => 342,
                  used => 3273,
-                },    
+                },
                );
 
 
@@ -213,33 +213,33 @@ sub firstRoundExpectedTables
                  mountpoint => '/media/hda2',
                  free => 412,
                  used => 3973,
-                },          
+                },
                 {
                  date => '2010-02-01',
                   mountpoint => '/media/hdc1',
                  free => 124,
                  used => 3913,
-                },   
- 
+                },
+
                 {
                  date => '2010-07-01',
                  mountpoint => '/media/hda1',
                  free => 33,
                  used => 3233,
-                },      
+                },
                 {
                  date => '2010-07-01',
                  mountpoint => '/media/hda2',
                  free => 412,
                  used => 2500,
-                },  
+                },
                 {
                  date => '2010-07-01',
                  mountpoint => '/media/hdc2',
                  free => 342,
                  used => 3273,
-                },         
-   
+                },
+
 
                );
 
@@ -265,13 +265,13 @@ sub _consolidationInfoReportFirstRound
     my $expectedTables = firstRoundExpectedTables();
 
     my $diskUsage = _allRecords($db, 'test_disk_usage_report', ['date', 'mountpoint']);
-    eq_or_diff( $diskUsage, $expectedTables->{disk_usage}, 
+    eq_or_diff( $diskUsage, $expectedTables->{disk_usage},
                 'checkign  disk usage report');
-    _checkLastConsolidationDate($db, 'test_disk_usage_report', 
+    _checkLastConsolidationDate($db, 'test_disk_usage_report',
                                $firstRoundTime);
 
 }
-   
+
 
 sub _prepareSecondRound
 {
@@ -285,19 +285,19 @@ sub _prepareSecondRound
                  mountpoint => '/media/hda1',
                  free => 2347,
                  used => 2373,
-                },         
+                },
                 {
                  timestamp => '2010-07-26 09:06:06',
                  mountpoint => '/media/hdc2',
                  free => 707,
                  used => 421,
-                },         
+                },
                 {
                  timestamp => '2010-07-30 17:45:05',
                  mountpoint => '/media/hdc2',
                  free => 915,
                  used =>  8089,
-                },    
+                },
 
                 #2010-08 values
                 {
@@ -305,19 +305,19 @@ sub _prepareSecondRound
                  mountpoint => '/media/hda1',
                  free => 2347,
                  used => 2373,
-                },         
+                },
                 {
                  timestamp => '2010-08-05 06:06:06',
                  mountpoint => '/media/hdc2',
                  free => 2156,
                  used => 33434,
-                },    
+                },
                 {
                  timestamp => '2010-08-28 10:45:05', # upper bound
                  mountpoint => '/media/hda1',
                  free => 7332,
                  used => 122,
-                },   
+                },
              );
 
 
@@ -348,19 +348,19 @@ sub _consolidationInfoReportSecondRound
                  mountpoint => '/media/hda1',
                  free => 2347,
                  used => 2373,
-                },      
+                },
                 {
                  date => '2010-07-01',
                  mountpoint => '/media/hda2',
                  free => 412,
                  used => 2500,
-                },  
+                },
                 {
                  date => '2010-07-01',
                  mountpoint => '/media/hdc2',
                  free => 915,
                  used =>  8089,
-                },            
+                },
 
 
                 {
@@ -368,22 +368,22 @@ sub _consolidationInfoReportSecondRound
                  mountpoint => '/media/hda1',
                  free => 7332,
                  used => 122,
-                }, 
+                },
                 {
                  date => '2010-08-01',
                  mountpoint => '/media/hdc2',
                  free => 2156,
                  used => 33434,
-                },    
-  
- 
+                },
+
+
                                        );
 
 
     my $diskUsage = _allRecords($db, 'test_disk_usage_report', ['date', 'mountpoint']);
-    eq_or_diff( $diskUsage, $expectedTables->{disk_usage}, 
+    eq_or_diff( $diskUsage, $expectedTables->{disk_usage},
                 'checkign  disk usage report');
-    _checkLastConsolidationDate($db, 'test_disk_usage_report', 
+    _checkLastConsolidationDate($db, 'test_disk_usage_report',
                                $secondRoundTime);
 
 
