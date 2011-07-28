@@ -127,7 +127,7 @@ sub _content
             if ( defined( $stats ) ) {
                 $latest = __x('{date}. {num} updated packages',
                         date => POSIX::strftime("%c",
-                            localtime($stats->{timestamp})),
+                                                localtime($stats->{timestamp})),
                         num  => $stats->{packageNum})
             } else {
                 $latest = __('No update has been done');
