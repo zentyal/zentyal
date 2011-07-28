@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-27 10:55+0200\n"
-"PO-Revision-Date: 2011-07-26 17:41+0200\n"
+"PO-Revision-Date: 2011-07-28 17:14+0200\n"
 "Last-Translator: Paps <fabien@openswiss.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
@@ -214,7 +214,7 @@ msgstr "Taux"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KO/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -233,7 +233,7 @@ msgstr "Taille maximum"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KO"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -1662,15 +1662,15 @@ msgid "server"
 msgstr "Serveur"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Vous devez créer un certificat CA pour utiliser ce module. "
-"{closepar}{openpar}Veuillez vous rendre {openhref}au module de certificats "
-"d'autorité{closehref} et en créer un.{closepar}"
+"{openpar}Vous avez besoin d'un certificat CA valide pour utiliser le serveur "
+"VPN. {closepar}{openpar}Veuillez vous rendre {openhref}dans le module de "
+"certificats d'autorité{closehref} et renouvelez le.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -2364,7 +2364,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:180
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Pour désactiver l'auto-démarrage des serveurs VPN du système"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:646
 #, perl-brace-format
@@ -2895,9 +2895,8 @@ msgid "Other"
 msgstr "Autre"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:336
-#, fuzzy
 msgid "Replace source address"
-msgstr "Adresse IP de l'interface"
+msgstr "Remplacer l'adresse source"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid ""
@@ -2905,6 +2904,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Remplacer la source originale de l'adresse par l'adresse propre de Zentyal. "
+"Ceci peut être nécessaire si la destination n'a pas de route de retour ou a "
+"des règles de pare-feu restrictives"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:345
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -3412,10 +3414,13 @@ msgid "Forwarders"
 msgstr "Transfert"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
+#, fuzzy
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"Ce serveur enverra les requêtes premièrement aux expéditeurs, si aucune "
+"réponse n'est donnée, il essaiera de répondre aux requêtes."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
 #, fuzzy
@@ -3504,11 +3509,16 @@ msgid "Host names"
 msgstr "Noms d'hôtes"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:288
+#, fuzzy
 msgid ""
 "Automatic reverse resolution is done. If you repeat an IP address in another "
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
+"La résolution inverse automatique a été effectuée. Si vous répétez une "
+"adresse IP pour un autre domaine, seulement la première entrée sera utilisée "
+"par la résolution inverse. Les zones dynamiques peuvent éventuellement "
+"effacer la résolution inverse saisie manuellement."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
 #: ../../main/network/src/EBox/Network.pm:3658
@@ -3543,25 +3553,24 @@ msgstr ""
 "mode transparent est activé."
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
 msgstr ""
-"Le domaine est défini en lecture-seule. Vous ne pouvez pas ajouter de noms "
-"d'hôtes"
+"Le domaine est défini en lecture-seule. Vous ne pouvez pas ajouter {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "Le service n'est pas activé dans Zentyal"
+msgstr "Le service choisi n'est pas activé dans {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"Le nom de domaine fournit n'est pas un fully qualified domain name (FQDN). "
-"Voulez-vous dire ns.{name}?"
+"Le nom de domaine renseigné n'est pas un nom de domaine complet (FQDN). "
+"Vouliez-vous dire {srv}.{name} ?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
@@ -3570,7 +3579,7 @@ msgstr "Nom du service"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "La valeur la plus basse est prioritaire"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3578,10 +3587,13 @@ msgid "Weight"
 msgstr "Poids"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:217
+#, fuzzy
 msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 indique aucun poids et une valeur plus grande aura plus de chances d'être "
+"sélectionnée avec une priorité égale"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
 msgid "Target port"
@@ -3599,10 +3611,13 @@ msgstr ""
 "domaine complet"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:259
+#, fuzzy
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Il gère les enregistrements SRV pour ce domaine. Ils sont utiles pour "
+"sélectionner un hôte par la priorité du service."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
 #, perl-brace-format
@@ -3648,7 +3663,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
 #, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "Nom du serveur d'enregistrement"
+msgstr "Le dernier serveur de noms ne peut pas être supprimé"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
@@ -3673,8 +3688,9 @@ msgid "The {name} cannot be longer than {value} characters"
 msgstr "Le nom {name} ne peut être plus long que {value} caractères"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
+#, fuzzy
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Si vous sélectionnez le domaine, vous choisissez la zone"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
@@ -3684,7 +3700,7 @@ msgstr "Données {txt}"
 #: ../../main/dns/src/EBox/Model/Text.pm:170
 #, fuzzy
 msgid "Any data could be provided"
-msgstr "Un nom doit être fourni pour le partage"
+msgstr "N'importe quel données peuvent être renseignées"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
@@ -3855,11 +3871,13 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
-"Le répertoire pour les accès anonyme est /srv/ftp, vérifier que les fichiers "
-"qui y sont placés aient des droits d'accès en lecture pour tous (chmod o+r /"
-"srv/ftp/*). Si vous souhaitez permettre un droit d'accès en écriture, vous "
+"Le répertoire pour les accès anonyme est /srv/ftp, vérifiez que les fichiers "
+"qui y sont placés aient des droits d'accès en lecture pour tous (chmod o+r "
+"/srv/ftp/*). Si vous souhaitez permettre un droit d'accès en écriture, vous "
 "devez créer un sous-répertoire avec des droits en écriture pour tous, par "
-"exemple: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
+"exemple: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming. Dans tous "
+"les cas, les fichiers ne pourront pas être renommés ou supprimés en "
+"utilisant l'accès anonyme."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
@@ -3870,20 +3888,16 @@ msgid "Generate SSL certificates"
 msgstr "Créer des certificats SSL"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
-#, fuzzy
 msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr ""
-"Zentyal va générer des certificats qui seront utilisés par les services de "
-"courrier"
+msgstr "Zentyal va auto-générer les certificats SSL pour le service FTP."
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
 msgid "To configure vsftpd."
 msgstr "Pour configurer vsftpd."
 
 #: ../../main/ftp/src/EBox/FTP.pm:151
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
-msgstr "Pour configurer vsftpd avec l'authentification LDAP"
+msgstr "Pour configurer vsftpd avec l'authentification LDAP."
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
@@ -3896,7 +3910,7 @@ msgstr "Serveur de fichiers FTP de Zentyal"
 #: ../../main/ftp/src/EBox/FTP.pm:244
 #, fuzzy
 msgid "User homes and global directory."
-msgstr "Le fichier existe et n'est pas un répertoire"
+msgstr "Répertoires personnels et global."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:106
@@ -3944,6 +3958,9 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
+"Pour les adresses IP, vous pouvez utiliser une notation CIDR (adresse/masque "
+"de réseau) ou spécifier la première et la dernière adresse d'une plage qui "
+"contiendra aussi toutes les adresses IP entre celles-ci."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:107
 msgid "member"
@@ -4235,7 +4252,7 @@ msgstr "Souscription"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:261
 #, fuzzy
 msgid "Server Subscription"
-msgstr "Souscription"
+msgstr "Souscription du serveur"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:266
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
@@ -4404,9 +4421,8 @@ msgstr "- Dernière sauvegarde : {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1671
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:211
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr "Configuration des sauvegardes"
+msgstr "Sauvegarde des configurations activées"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1674
 #, perl-brace-format
@@ -4438,7 +4454,7 @@ msgstr "Connexion extrerne au serveur"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:141
 #, fuzzy
 msgid "Server subscription"
-msgstr "Souscription"
+msgstr "Souscription du serveur"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1699
 msgid "Technical support"
@@ -4450,8 +4466,9 @@ msgid "No data backup has been done yet"
 msgstr "Aucune sauvegarde des données n'a été effectuée"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:127
+#, fuzzy
 msgid "Support package"
-msgstr ""
+msgstr "Option de support"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:131
 msgid "Support available via"
@@ -4470,16 +4487,15 @@ msgid "Allow access from any internet address"
 msgstr "Autoriser l'accès depuis n'importe quelle adresse internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
-#, fuzzy
 msgid ""
 "By default, the access is only granted to hosts inside the Zentyal Cloud "
 "private network. If you enable this option, the access is granted from any "
 "address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
 "Par défaut, l'accès est uniquement accordé aux hôtes à l'intérieur du réseau "
-"privé de Zentyal Cloud. Si vous l'activez, cette option autorisera l'accès à "
-"toutes les adresses IP. Utilisez cette option seulement si vous n'arrivez "
-"pas vous connecter à Zentyal Cloud"
+"privé de Zentyal Cloud. Si vous l'activez, cette option autorisera l'accès "
+"depuis toutes les adresses IP. Utilisez cette option seulement si vous "
+"n'arrivez pas vous connecter à Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
 msgid "Enable Remote Support Access"
@@ -4497,6 +4513,8 @@ msgstr ""
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
 msgstr ""
+"Pour autoriser le support à distance depuis toutes les adresses IP vous ne "
+"devez pas être connecté au {cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
 msgid ""
@@ -4508,7 +4526,7 @@ msgstr ""
 "autorisez l'accès depuis toutes adresses"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Enabling remote support will allow Zentyal staff to freely access your "
 "computer.\n"
@@ -4518,14 +4536,15 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
-"Activer le support distant permettra à l'équipe de Zentyal d'accéder à votre "
-"ordinateur.\n"
-"Vous pouvez utiliser l'écran de commande pour modifier les options de "
-"console. Pour autoriser cette fonctionnalité, le bit SUID de l'écran "
-"programme doit être activé. Cette fonctionnalité est annulée quand cette "
+"L'activation du support à distance permettra à l'équipe de Zentyal d'accéder "
+"à votre ordinateur.\n"
+"Vous pouvez utiliser la commande 'écran' pour rejoindre les options de leur "
+"console. Pour autoriser cette fonctionnalité, le bit SUID du programme "
+"'écran' doit être activé. Cette fonctionnalité est annulée quand cette "
 "option est désactivée\n"
-"Pour rejoindre la session distante, authentifiez-vous dans la console comme "
-"utilisateur appartenant au groupe 'adm' et utilisez la commande: '{cmd}'."
+"Pour rejoindre la session à distance, authentifiez-vous dans la console "
+"comme un utilisateur appartenant au groupe 'adm' et utilisez la commande: "
+"'{cmd}'."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
 msgid ""
@@ -4536,10 +4555,13 @@ msgstr ""
 "en a besoin pour autoriser les connexions à distances."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
+#, fuzzy
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
 msgstr ""
+"Aucune instance du démon ssh écoute les interfaces trouvée. L'accès à "
+"distance a besoin d'un démon ssh qui écoute toutes les interfaces."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
 #, perl-brace-format
@@ -4905,13 +4927,12 @@ msgid "Key for proxy backup service not found"
 msgstr "La clé pour le proxy du service de sauvegarde n'a pas été trouvée"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:68
-#, fuzzy
 msgid ""
 "Cannot get the restricted addresses for remote support. Check VPN logs for "
 "details"
 msgstr ""
-"Impossible d'utiliser une adresse restreinte pour le support à distance. "
-"Consultez le journal du VPN pour les détails"
+"Impossible d'utiliser les adresses restreintes pour le support à distance. "
+"Consultez le journal du VPN pour plus de détails"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:140
 #, perl-brace-format
@@ -4982,7 +5003,7 @@ msgid "Key for web subscription service not found"
 msgstr "La clé pour l'inscription web au service n'a pas été trouvée"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot retrieve VPN settings needed for subscription. Check your {openurl}"
 "{brand} profile{closeurl} to check your VPN server settings."
@@ -4997,13 +5018,13 @@ msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Contact à {host} impossible. Vérifiez votre connexion à internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:872
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 "Impossible de se connecter au serveur WS \"{addr}:{port}/{proto}\". Veuillez "
-"vérifier la résolution du nom et le pare-feu de votre réseau"
+"vérifier la résolution des noms et le pare-feu de votre réseau"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:898
 #, perl-brace-format
@@ -5015,7 +5036,6 @@ msgstr ""
 "Veuillez vérifier votre pare-feu réseau"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
-#, fuzzy
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
 "characters"
@@ -5245,7 +5265,6 @@ msgid "Remote system backups"
 msgstr "Système de sauvegardes distante"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:54
-#, fuzzy
 msgid "Email Address"
 msgstr "Courriel"
 
@@ -5282,16 +5301,14 @@ msgid "An unknown error ocurred registering the subscription"
 msgstr "Une erreur inconnue est survenue lors de l'inscription"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:108
-#, fuzzy
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
 msgstr ""
 "Un utilisateur avec ce courriel est déjà enregistré. Vous pouvez consulter "
-"les informations du compte à "
+"les informations de votre compte sur "
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:110
-#, fuzzy
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
@@ -5301,9 +5318,8 @@ msgstr ""
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Bandwidth Monitor"
-msgstr "Moniteur de la bande passante"
+msgstr "Moniteur de bande passante"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:267
 #: ../../main/samba/src/EBox/Samba.pm:1500
@@ -5312,7 +5328,6 @@ msgid "Client address"
 msgstr "Adresse client"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:270
-#, fuzzy
 msgid "External recv"
 msgstr "recv externe"
 
@@ -5357,7 +5372,7 @@ msgstr "Adresses IP assignées aux utilisateurs"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:72
 #, fuzzy
 msgid "useripmap"
-msgstr "courrier de l'utilisateur"
+msgstr "Plan des adresses IP par utilisateur"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:75
 msgid "List of IPs assigned to each user."
@@ -5403,19 +5418,16 @@ msgstr ""
 "utilisateurs."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:59
-#, fuzzy
 msgid "Day bandwidth usage (MB)"
-msgstr "Utilisation de la bande passante"
+msgstr "Utilisation journalière de la bande passante (MO)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:63
-#, fuzzy
 msgid "Week bandwidth usage (MB)"
-msgstr "Utilisation de la bande passante"
+msgstr "Utilisation hebdomadaire de la bande passante (MO)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:68
-#, fuzzy
 msgid "Month bandwidth usage (MB)"
-msgstr "Quota mensuel de bande passante"
+msgstr "Utilisation mensuel de la bande passante (MO)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm.in:130
@@ -5424,13 +5436,12 @@ msgid "Time"
 msgstr "Heure"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:121
-#, fuzzy
 msgid "Kick user"
-msgstr "Utilisateur Active Directory"
+msgstr "Expulser l'utilisateur"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:124
 msgid "Finish user session in Captive Portal"
-msgstr ""
+msgstr "Terminer la session utilisateur dans le Portail Captif"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:141
 msgid "Current users"
@@ -5457,21 +5468,20 @@ msgstr "Liste des utilisateurs actuellement connectés."
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:254
 #, perl-brace-format
 msgid "Closing session for user {user}."
-msgstr ""
+msgstr "Session en cours de fermeture pour l'utilisateur {user}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:54
-#, fuzzy
 msgid "Use secondary LDAP"
-msgstr "Utiliser un serveur LDAP secondaire"
+msgstr "Utiliser le serveur LDAP secondaire"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:60
-#, fuzzy
 msgid "LDAP URL"
-msgstr "LDAP DN"
+msgstr "URL LDAP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:69
+#, fuzzy
 msgid "Bind DN"
-msgstr ""
+msgstr "Lier le DN"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:70
 #, fuzzy, perl-brace-format
@@ -5479,12 +5489,10 @@ msgid "Bind DN pattern. {x} will be replaced with the username"
 msgstr "Lier la paterne DN. {x} sera remplacé par le nom d'utilisateur"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:81
-#, fuzzy
 msgid "Secondary LDAP"
-msgstr "Serveur secondaire"
+msgstr "Serveur LDAP secondaire"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:85
-#, fuzzy
 msgid ""
 "Here you can configure a secondary LDAP. If login fails as Zentyal user this "
 "LDAP will be used."
@@ -5498,6 +5506,8 @@ msgid ""
 "If you want to limit bandwidth usage install and enable Bandwidth Monitor "
 "module."
 msgstr ""
+"Si vous désirez limiter l'utilisation de la bande passante, vous devez "
+"installer et activer le module de Surveillance de bande passante."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:58
 #, perl-brace-format
@@ -5505,6 +5515,9 @@ msgid ""
 "If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}"
 "Module Status{enda} section."
 msgstr ""
+"Si vous désirez limiter l'utilisation de la bande passante, vous devez "
+"activer la Surveillance de bande passante dans la section {begina}Statut du "
+"module{enda}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:75
 msgid "Limit bandwidth usage"
@@ -5518,21 +5531,20 @@ msgid "Bandwidth quota"
 msgstr "Limitation de Bande passante"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
-#, fuzzy
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
 msgstr ""
-"MO/mois. Utilisation maximale de la bande passante par mois. 0 correspond à "
-"aucune limite."
+"Utilisation maximale de la bande passante par mois. 0 correspond à aucune "
+"limite."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:94
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:42
 msgid "Day"
 msgstr "Jour"
 
+# Weekly = hebdomadaire
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:98
-#, fuzzy
 msgid "Week"
-msgstr "Hebdomadaire"
+msgstr "Semaine"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:43
@@ -5541,22 +5553,21 @@ msgstr "Mois"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:109
 msgid "Period"
-msgstr ""
+msgstr "Période"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:119
-#, fuzzy
 msgid "Bandwidth Settings"
-msgstr "Limitation de Bande passante"
+msgstr "Paramètres de la Bande passante"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:123
-#, fuzzy
 msgid "Here you can setup bandwidth usage quota for captive portal users."
-msgstr "Ici vous pouvez définir les paramètres généraux du Portail Captif."
+msgstr ""
+"Ici vous pouvez définir la limite de la bande passante pour les utilisateurs "
+"du Portail Captif."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:50
-#, fuzzy
 msgid "Default external bandwidth usage limit"
-msgstr "Limite mensuel de la bande passante externe par défaut "
+msgstr "Limite externe de la bande passante par défaut "
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:54
 #: ../../main/captiveportal/src/templates/useraddon.mas:28
@@ -5685,7 +5696,7 @@ msgstr "nom d'utilisateur"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:119
 msgid "IP address assigned to this user within the VPN network."
-msgstr ""
+msgstr "Adresse IP assignée à cet utilisateur à l'intérieur du réseau VPN"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:126
 msgid "PPTP Users"
@@ -5696,6 +5707,9 @@ msgid ""
 "Users allowed to connect using the PPTP VPN. This list is independant of "
 "LDAP users defined on Users and Groups."
 msgstr ""
+"Utilisateurs autorisés à se connecter au service VPN PPTP. Cette liste est "
+"indépendante des utilisateurs LDAP saisi dans le module Groupes et "
+"Utilisateurs."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:81
 msgid "VPN Network Address"
@@ -5705,6 +5719,8 @@ msgstr "adresse réseau VPN"
 msgid ""
 "This address should be different from any other internal or VPN network."
 msgstr ""
+"Cette adresse doit être différentes de toutes les adresses internes ou "
+"celles du réseau VPN."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:88
 msgid "Primay Nameserver"
@@ -5739,10 +5755,14 @@ msgid "PPTP server configuration updated"
 msgstr "Configuration du serveur PPTP mise à jour"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:124
+#, fuzzy
 msgid ""
 "PPTP VPN is used for connecting Microsoft Windows clients without any third "
 "party client and mobile devices like iPhone and Android."
 msgstr ""
+"Le protocole VPN PPTP est utilisé pour se connecter sans logiciel "
+"supplémentaire depuis Microsoft Windows et les appareils mobiles sous "
+"Android ou iOS. "
 
 #: ../../main/pptp/src/EBox/Composite/General.pm:64
 msgid "PPTP"
@@ -5762,19 +5782,16 @@ msgid "To configure PPTP users."
 msgstr "Pour configurer les utilisateurs ayant accès au serveur PPTP."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:153
-#, fuzzy
 msgid "PPTP VPN"
-msgstr "PPTP"
+msgstr "VPN PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:305
-#, fuzzy
 msgid "PPTP Connected Users"
-msgstr "Connecté depuis"
+msgstr "Utilisateurs PPTP connectés"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:355
-#, fuzzy
 msgid "Local IP address"
-msgstr "Adresse locale"
+msgstr "Adresse IP locale"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:367
 #: ../../main/asterisk/src/EBox/Asterisk.pm:600
@@ -5922,6 +5939,8 @@ msgid ""
 "Here you have can choose the backup method, configure the frequency and "
 "other options"
 msgstr ""
+"Ici vous pouvez choisir la méthode de sauvegarde, en configurer la fréquence "
+"ainsi que d'autres options"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:344
 msgid "on Monday"
@@ -6046,8 +6065,11 @@ msgid "host"
 msgstr "hôte"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:764
+#, fuzzy
 msgid "Root directory ('/') not allowed in target specification"
 msgstr ""
+"Le répertoire Root ('/') n'est pas autorisé dans la spécification de la "
+"cible"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:768
 msgid "directory"
@@ -6185,6 +6207,9 @@ msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
 msgstr ""
+"Pour restaurer des fichiers éditer la ligne du fichier ou du répertoire que "
+"vous voulez restaurer, sélectionnez une date de sauvegarde et cliquez sur le "
+"bouton restaurer"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:207
 msgid "File already exists if you continue the current will be deleted"
@@ -6241,9 +6266,8 @@ msgid "Domains to back up"
 msgstr "Domaine à sauvegarder"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:166
-#, fuzzy
 msgid "Backup domain"
-msgstr "Sauvegarder un domaine"
+msgstr "Sauvegarder le domaine"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:167
 msgid "Select the domains you want to back up."
@@ -6323,10 +6347,13 @@ msgid ""
 "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
 "setting{chref}."
 msgstr ""
+"Impossible de se désinscrire car le module de sauvegarde est configuré pour "
+"utiliser le Zentyal Cloud. Si vous désirez vous désinscrire, vous devez "
+"changer ce {ohref}paramètre{chref}."
 
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Notify the result of scheduled backups."
-msgstr ""
+msgstr "Notifier le résultat des sauvegardes programmées."
 
 #: ../../main/ebackup/src/EBox/EBackup/DBRestore.pm:50
 #, perl-brace-format
@@ -6415,41 +6442,38 @@ msgid "Directory not found: {d}"
 msgstr "Dossier non trouvé : {d}"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:97
-#, fuzzy
 msgid "To configure OpenSwan IPsec."
-msgstr "Configurer renattach"
+msgstr "Pour configurer OpenSwan IPsec."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:102
-#, fuzzy
 msgid "To configure OpenSwan IPsec passwords."
-msgstr "Pour configurer les modules activés ou désactivés"
+msgstr "Pour configurer les mots de passe OpenSwan IPsec."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:141
 msgid "IPsec VPN"
-msgstr ""
+msgstr "VPN IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:261
 msgid "IPsec"
-msgstr ""
+msgstr "IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
-#, fuzzy
 msgid "ESP Authentication"
-msgstr "Authentification"
+msgstr "Authentification ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:166
-#, fuzzy
 msgid "ESP Encryption"
-msgstr "Cryptage"
+msgstr "Cryptage ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
 msgid "ESP DH Group"
-msgstr ""
+msgstr "Groupe ESP DH"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
+#, fuzzy
 msgid "ESP Keylife"
-msgstr ""
+msgstr "Durée de vie de la clé ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
 #, fuzzy
@@ -6458,50 +6482,47 @@ msgstr "Activer PAM"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
-msgstr ""
+msgstr "Phase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
-#, fuzzy
 msgid "Local IP Address"
-msgstr "Adresse locale"
+msgstr "Adresse IP locale"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:82
-#, fuzzy
 msgid "Zentyal public IP address."
-msgstr "Adresse IP de l'interface"
+msgstr "Adresse IP publique de Zentyal."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:86
-#, fuzzy
 msgid "Local Subnet"
-msgstr "Réseau local"
+msgstr "Sous-Réseau local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:89
+#, fuzzy
 msgid "Local subnet available through the tunnel."
-msgstr ""
+msgstr "Sous-réseau local disponible à travers le tunnel."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:93
 #, fuzzy
 msgid "Remote IP Address"
-msgstr "Adresse IP"
+msgstr "Adresse IP distante"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:96
+#, fuzzy
 msgid "Remote endpoint public IP address."
-msgstr ""
+msgstr "Adresse IP publique distante de fin."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:100
-#, fuzzy
 msgid "Remote Subnet"
-msgstr "IP distante"
+msgstr "Sous-réseau distant"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:103
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:109
 msgid "Remote subnet available through the tunnel."
-msgstr ""
+msgstr "Sous-réseau distant disponible à travers le tunnel."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:107
-#, fuzzy
 msgid "PSK Shared Secret"
-msgstr "Secret Partagé"
+msgstr "Secret PSK Partagé "
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:117
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
@@ -6516,14 +6537,12 @@ msgstr "Commentaire"
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:81
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:91
-#, fuzzy
 msgid "IPsec Connections"
-msgstr "Connexions externes"
+msgstr "Connexions IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:130
-#, fuzzy
 msgid "IPsec connection"
-msgstr "Type de connexion IMAP"
+msgstr "Connexion IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:137
 msgid ""
@@ -6531,25 +6550,28 @@ msgid ""
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
+"LEs connexions IPsec permettent de déployer des connexions entre des "
+"sous-réseaux différents à travers des tunnels sécurisés. Ce protocole est "
+"indépendant de tout vendeur et permettra de connecter Zentyal avec d'autres "
+"appareils de sécurité."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
-#, fuzzy
 msgid "IKE Authentication"
-msgstr "Authentification"
+msgstr "Authentification IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:157
-#, fuzzy
 msgid "IKE Encryption"
-msgstr "Cryptage"
+msgstr "Cryptage IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:169
+#, fuzzy
 msgid "IKE Keylife"
-msgstr ""
+msgstr "Durée de vie de la clé IKE"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:180
 msgid "Phase 1"
-msgstr ""
+msgstr "Phase 1"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:67
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:113
@@ -6606,6 +6628,9 @@ msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
+"Vous devez sélectionner votre fournisseur d'accès de puis la liste et "
+"renseigner les informations de votre compte. Vous devez aussi l'activé pour "
+"qu'il fonctionne."
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:150
 msgid "IP or network address"
@@ -6888,16 +6913,17 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/Proxy.pm:130
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
+"Le nom d'utilisateur et le mot de passe du Proxy seront visibles par tous "
+"les utilisateurs du système."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:143
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
 msgstr ""
 "L'entrée contient des caractères invalides. Tous les caractères "
-"alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
-"espaces."
+"alphanumériques, les caractères non-alphanumériques suivants: \\/.?&+:-@ et "
+"les espaces sont permis."
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
@@ -7023,12 +7049,12 @@ msgstr "Masque de sous-réseau"
 #: ../../main/network/src/EBox/Network.pm:1092
 #, perl-brace-format
 msgid "There is already an interface called {al}"
-msgstr ""
+msgstr "Il y a déjà une interface qui s'appelle {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1104
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
-msgstr ""
+msgstr "Il y a déjà une interface avec l'alias {al}"
 
 #: ../../main/network/src/EBox/Network.pm:1506
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -7167,9 +7193,8 @@ msgid "Gateways"
 msgstr "Passerelles"
 
 #: ../../main/network/src/EBox/Network.pm:3815
-#, fuzzy
 msgid "Dynamic DNS"
-msgstr "Dynamique"
+msgstr "DNS Dynamique"
 
 #: ../../main/network/src/EBox/Network.pm:3819
 msgid "Diagnostic Tools"
@@ -7180,7 +7205,6 @@ msgid "Balance Traffic"
 msgstr "Équilibrage du trafic"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:83
-#, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
@@ -7203,6 +7227,8 @@ msgid ""
 "Here you can configure all the settings related to the way Zentyal provides "
 "Internet connection for your network"
 msgstr ""
+"Ici vous pouvez configurer les paramètres qui concernent la façon par "
+"laquelle Zentyal fournira la connexion à Internet à votre réseau"
 
 #: ../../main/network/src/EBox/Network/Composite/Gateway.pm:56
 msgid "Gateways and Proxy"
@@ -7319,32 +7345,34 @@ msgid "Traffic rate from {src} for {service}"
 msgstr "Taux de trafic depuis {src} pour {service}"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:155
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected again."
-msgstr "Passerelle {gw} connectée"
+msgstr "Passerelle {gw} connectée à nouveau."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:166
 msgid ""
 "WARNING: These changes are not applied due to unsaved changes on the "
 "administration interface."
 msgstr ""
+"Avertissement: Les changements ne sont pas appliqués parce que les "
+"changements dans l'interface d'administration n'ont pas été sauvés."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:319
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} disconnected"
-msgstr "Passerelle {gw} connectée"
+msgstr "Passerelle {gw} déconnectée"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:320
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
 msgstr ""
-"Passerelle {gw} déconnectée({failRatio}% de '{type}' tests sur l'hôte "
-"'{host}' échou, max={maxFailRatio}%)"
+"'{type}' test sur l'hôte '{host}' a échoué {failRatio}%, max={maxFailRatio}%"
+"."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:323
 msgid "This gateway will be connected again if the test are passed."
-msgstr ""
+msgstr "Cette passerelle sera connectée à nouveau si le test est passé."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:416
 msgid "Check if gateways are connected or disconnected."
@@ -7435,6 +7463,9 @@ msgid ""
 "own data like their password. Here you can choose the port used to accept "
 "https connections."
 msgstr ""
+"Ce module active un serveur HTTPS pour autoriser les utilisateurs à changer "
+"leurs données comme leur mot de passe. Ici vous pouvez choisir le port "
+"utilisé pour accepter les connexions HTTPS."
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:96
 msgid "listening port"
@@ -7442,7 +7473,7 @@ msgstr "Port en écoute"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:135
 msgid "User Corner is not supported on slave servers."
-msgstr ""
+msgstr "Le coin de l'utilisateur n'est pas supporté sur un serveur esclave."
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:84
 msgid "Migrate configured modules"
@@ -7469,9 +7500,10 @@ msgid "User Corner Web Server"
 msgstr "Serveur web de l'espace utilisateur"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:142
-#, fuzzy
 msgid "User corner is only available in master or standalone servers"
-msgstr "Le basculement WAN n'est disponible que pour des interfaces statiques"
+msgstr ""
+"Le coin de l'utilisateur est disponible uniquement sur les serveurs maîtres "
+"et les serveurs autonomes"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:238
 #: ../../main/users/src/EBox/UsersAndGroups.pm:83
@@ -7487,20 +7519,17 @@ msgstr "Serveur web de l'espace utilisateur"
 #: ../../main/virt/src/EBox/Virt.pm:491 ../../main/virt/src/EBox/Virt.pm:530
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
-#, fuzzy
 msgid "Virtual Machines"
-msgstr "Domaines virtuels"
+msgstr "Machines virtuelles"
 
 #: ../../main/virt/src/EBox/Virt.pm:90
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:200
-#, fuzzy
 msgid "VNC connections for VMs"
-msgstr "Erreur de connexion"
+msgstr "Connexions VNC pour les machines virtuelles"
 
 #: ../../main/virt/src/EBox/Virt.pm:492
-#, fuzzy
 msgid "Disk images of the virtual machines"
-msgstr "Liste des esclaves"
+msgstr "Images disque des machines virtuelles"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:69
 #: ../../main/network/src/templates/ifaces.mas:80
@@ -7509,33 +7538,29 @@ msgid "Bridged"
 msgstr "Pontée (Bridged)"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:70
-#, fuzzy
 msgid "Internal Network"
-msgstr "Réseaux internes"
+msgstr "Réseau interne"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:102
-#, fuzzy
 msgid "Bridged to"
-msgstr "Pontée (Bridged)"
+msgstr "Pontée (Bridged) à"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:108
-#, fuzzy
 msgid "Internal Network Name"
-msgstr "Réseaux internes"
+msgstr "Nom du réseau interne"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:118
-#, fuzzy
 msgid "Network Settings"
-msgstr "Paramètres généraux"
+msgstr "Paramètres réseau"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:126
 msgid "Here you can define the network interfaces of the virtual machine."
-msgstr ""
+msgstr "Ici vous pouvez définir les interfaces réseaux des machines virtuelles."
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:144
 #, perl-brace-format
 msgid "A maximum of {num} network interfaces are allowed"
-msgstr ""
+msgstr "Un maximum de {num} interfaces réseaux sont autorisées"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:227
@@ -7550,9 +7575,8 @@ msgid "Start"
 msgstr "Démarrer"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:93
-#, fuzzy
 msgid "Virtual Machine started"
-msgstr "Domaines virtuels"
+msgstr "Machines virtuelles démarrées"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:98
 #: ../../main/virt/src/templates/vmstatus.mas:32
@@ -7561,90 +7585,87 @@ msgid "Stop"
 msgstr "Stoppé"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:100
-#, fuzzy
 msgid "Virtual Machine stopped"
-msgstr "Domaines virtuels"
+msgstr "Machines virtuelles stoppées"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:111
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:113
-#, fuzzy
 msgid "Virtual Machine paused"
-msgstr "Domaines virtuels"
+msgstr "Machine virtuelle en pause"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:118
 msgid "Resume"
-msgstr ""
+msgstr "Reprendre"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:120
-#, fuzzy
 msgid "Virtual Machine resumed"
-msgstr "Domaines virtuels"
+msgstr "Machine virtuelle reprise"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:149
-#, fuzzy
 msgid "Autostart"
-msgstr "Auto-apprentissage"
+msgstr "Auto-démarrage"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:158
-#, fuzzy
 msgid "List of Virtual Machines"
-msgstr "Liste des esclaves"
+msgstr "Liste des machines virtuelles"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:160
-#, fuzzy
 msgid "virtual machine"
-msgstr "domaine virtuel"
+msgstr "machine virtuelle"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:164
-#, fuzzy
 msgid "List of configured Virtual Machines."
-msgstr "Pour configurer l'hôte virtuel par défaut"
+msgstr "Liste des machines virtuelles configurées."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:251
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
 "Status{closeref} section and enable it prior to try to start any machine."
 msgstr ""
-"Avant de configurer les imprimantes vous devez activer le module dans la "
-"section {openref}Statut des Modules{closeref} et sauvegarder les "
-"modifications ensuite."
+"Le module des Machines Virtuelles n'est pas activé, veuillez vous rendre "
+"dans {openref} la section état du module{closeref} et l'activé avant "
+"d'essayer de démarrer une machine."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:254
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
+"Les machines virtuelles ne peuvent pas être démarrées s'il y a des "
+"changements en attentes d'être sauvés dans le module des Machines "
+"Virtuelles. Veuillez sauver les changement d'abord et essayer ensuite."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:269
-#, perl-brace-format
+#, perl-brace-format, fuzzy
 msgid "Couldn't start virtual machine '{vm}'"
-msgstr ""
+msgstr "Impossible de démarrer la machine virtuelle '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:291
-#, perl-brace-format
+#, perl-brace-format, fuzzy
 msgid "Couldn't stop virtual machine '{vm}'"
-msgstr ""
+msgstr "Impossible de stopper la machine virtuelle '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:305
 msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr ""
+"Impossible de mettre en pause une machine stoppée. Vous devez d'abord la "
+"démarrer."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:73
 msgid "Hard Disk"
-msgstr ""
+msgstr "Disque dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:81
-#, fuzzy
 msgid "Create a new disk"
-msgstr "Créer alias de courrier"
+msgstr "Créer un nouveau disque"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:82
 msgid "Use a existing image file"
-msgstr ""
+msgstr "Utiliser un fichier image existant"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:97
 #, fuzzy
@@ -7653,95 +7674,92 @@ msgstr "Lettre du disque (Drive letter)"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:117
 msgid "Path"
-msgstr ""
+msgstr "Chemin"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:124
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:135
-#, fuzzy
 msgid "Device Settings"
-msgstr "Paramètres LDAP"
+msgstr "Paramètres du périphérique"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:136
 msgid "drive"
-msgstr ""
+msgstr "disque"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:143
 msgid "Here you can define the storage drives of the virtual machine"
-msgstr ""
+msgstr "Ici vous pouvez définir les disques de stockage de la machine virtuelle"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
 msgid "You need to provide the path of a ISO image"
-msgstr ""
+msgstr "Vous devez fournir le chemin vers une image ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "ISO image '{img}' does not exist"
-msgstr "Le client {c} n'existe pas"
+msgstr "L'image ISO '{img}' n'existe pas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
 msgid "You need to provide the path of a hard disk image"
-msgstr ""
+msgstr "Vous devez fournir le chemin de l'image d'un disque dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Hard disk image '{img}' does not exist"
-msgstr "Le domaine de courrier {d} n'existe pas"
+msgstr "L'image du disque dur '{img}' n'existe pas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:185
-#, fuzzy
 msgid "You need to specify a name for the new hard disk"
-msgstr ""
-"Vous devez spécifier le chemin de l'image de boot sur le serveur distant"
+msgstr "Vous devez spécifier un nom pour le nouveau disque dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:191
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
 msgstr ""
+"Vous ne pouvez pas modifier un disque déjà existant. Vous devez l'effacer et "
+"en créer un nouveau si vous voulez changer la taille."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:207
 #, perl-brace-format
 msgid "A maximum of {num} CD/DVD drives are allowed"
-msgstr ""
+msgstr "Un maximum de {num} lecteurs CD/DVD sont autorisés"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:212
 #, perl-brace-format
 msgid "A maximum of {num} Hard Disk drives are allowed"
-msgstr ""
+msgstr "Un maximum de {num} disques dur sont autorisés"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:87
-#, fuzzy
 msgid "Operating System"
-msgstr "Type d'opération"
+msgstr "Système d'exploitation"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:93
 msgid "Base Memory"
-msgstr ""
+msgstr "Mémoire de base"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
-#, fuzzy
 msgid "System Settings"
-msgstr "Paramètres de synchronisation AD"
+msgstr "Paramètres du système"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:108
 msgid "Here you can define the basic hardware configuration of the machine"
 msgstr ""
+"Ici vous pouvez définir la configuration matérielle de base de la machine"
 
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:65
-#, fuzzy
 msgid "Virtual Machine Settings"
-msgstr "Paramètres de domaine virtuel"
+msgstr "Paramètres de la machine virtuelle"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:444
 msgid "i686 compatible"
-msgstr ""
+msgstr "Compatible i686"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:445
 msgid "amd64 compatible"
-msgstr ""
+msgstr "Compatible amd64"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:91
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:95
