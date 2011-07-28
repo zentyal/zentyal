@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-07-27 10:55+0200\n"
+"POT-Creation-Date: 2011-07-28 23:34+0200\n"
 "PO-Revision-Date: 2011-07-02 13:44+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
@@ -404,7 +404,7 @@ msgid "Settings changed"
 msgstr "Nustatymai pakeisti"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:136
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:125
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "{port} jau naudojamas. Pasirinkite kitą"
@@ -590,12 +590,13 @@ msgstr ""
 "juodam sąrašui"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:211
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:51
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
-#: ../../main/users/src/templates/users.mas:88
+#: ../../main/users/src/templates/users.mas:89
 msgid "Group"
 msgstr "Grupė"
 
@@ -4369,20 +4370,16 @@ msgstr "QA programų atnaujinimai"
 msgid "Latest QA software update"
 msgstr "Naujausi QA programų atnaujinimai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:129
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:128
 #, perl-brace-format
 msgid "{date}. {num} updated packages"
 msgstr "{date}. {num} atnaujinti paketai"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
 msgstr "Nebuvo jokių atnaujinimų"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
-msgid "Unable to get it (Upgrade your software module)"
-msgstr "Nepavyko gauti ( Atnaujinkite programos modulį)"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:141
 msgid "Software module is not installed"
 msgstr "Programos modulis neįdiegtas"
 
@@ -4519,11 +4516,11 @@ msgstr "Pasirinkite serverio vardą kuris yra galiojantis jūsų srityje"
 #: ../../main/users/src/EBox/UsersAndGroups.pm:998
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2634
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
-#: ../../main/captiveportal/src/templates/login.mas:38
+#: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
 #: ../../main/core/src/templates/login/index.mas:67
-#: ../../main/users/src/templates/users.mas:49
-#: ../../main/users/src/templates/user.mas:65
+#: ../../main/users/src/templates/users.mas:50
+#: ../../main/users/src/templates/user.mas:68
 msgid "Password"
 msgstr "Slaptažodis"
 
@@ -5096,6 +5093,7 @@ msgstr "Pralaidumo valdymas"
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:43
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
+#: ../../main/captiveportal/src/templates/login.mas:37
 #: ../../main/core/src/templates/login/index.mas:60
 #: ../../main/core/src/templates/password.mas:11
 msgid "Username"
@@ -5141,7 +5139,7 @@ msgstr "Sąrašas sukonfigūruotų Virtualių Mašinų"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:68
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:64
 #: ../../main/captiveportal/src/templates/useraddon.mas:8
 msgid "Captive Portal"
 msgstr ""
@@ -5210,7 +5208,11 @@ msgstr "vartotojas"
 msgid "List of current logged in users."
 msgstr "Jūs neprisijungę"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:254
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:162
+msgid "Captive portal must be enabled in order to see current users list."
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:265
 #, perl-brace-format
 msgid "Closing session for user {user}."
 msgstr ""
@@ -5346,29 +5348,39 @@ msgstr "Sąsajos"
 msgid "List of interfaces where Captive Portal is enabled."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:55
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:59
+msgid "Only users in this group will be allowed to login."
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
 #, fuzzy
 msgid "HTTP port"
 msgstr "bet kuris TCP portas"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:64
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:69
 #, fuzzy
 msgid "HTTPS port"
 msgstr "bet kuris TCP portas"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:73
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:78
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 #, fuzzy
 msgid "General Settings"
 msgstr "Pagrindiniai Nustatymai"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:77
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:82
 #, fuzzy
 msgid "Here you can define general settings for captive portal."
 msgstr ""
 "Šiame puslapyje galite nustatyti skirtingus pagrindinius nustatymus Samba"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:96
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
+#: ../../main/radius/src/EBox/Model/Auth.pm:103
+msgid "All users"
+msgstr "Visi vartotojai"
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:132
 msgid "HTTP and HTTPS ports should be different"
 msgstr ""
 
@@ -7114,20 +7126,20 @@ msgstr "Vartotojai ir grupės"
 msgid "User Corner web server"
 msgstr "Vartotojo kampo web serveris"
 
-#: ../../main/virt/src/EBox/Virt.pm:50 ../../main/virt/src/EBox/Virt.pm:455
-#: ../../main/virt/src/EBox/Virt.pm:491 ../../main/virt/src/EBox/Virt.pm:530
+#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:479
+#: ../../main/virt/src/EBox/Virt.pm:515 ../../main/virt/src/EBox/Virt.pm:554
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
 msgid "Virtual Machines"
 msgstr "Virtualios Mašinos"
 
-#: ../../main/virt/src/EBox/Virt.pm:90
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:200
+#: ../../main/virt/src/EBox/Virt.pm:92
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
 #, fuzzy
 msgid "VNC connections for VMs"
 msgstr "Ryšio klaida"
 
-#: ../../main/virt/src/EBox/Virt.pm:492
+#: ../../main/virt/src/EBox/Virt.pm:516
 #, fuzzy
 msgid "Disk images of the virtual machines"
 msgstr "Sąrašas Virtualių Mašinų"
@@ -7168,7 +7180,7 @@ msgid "A maximum of {num} network interfaces are allowed"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:227
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:233
 msgid "View Console"
 msgstr ""
 
@@ -7230,7 +7242,7 @@ msgstr "virtuali mašina"
 msgid "List of configured Virtual Machines."
 msgstr "Sąrašas sukonfigūruotų Virtualių Mašinų"
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:251
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
 #, fuzzy, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
@@ -7239,23 +7251,23 @@ msgstr ""
 "Norint konfigūruoti spausdintuvus turite įjungti modulį {openref}Modulio "
 "Statusas{closeref} ir išsaugoti nustatymus."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:254
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:269
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
 #, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:291
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:301
 #, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:305
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
 msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr ""
 
@@ -8444,7 +8456,7 @@ msgstr "Įjungti MUC (Multi User Chat)"
 msgid "General Jabber server configuration settings updated."
 msgstr "Pagrindiniai Jabber serverio parametrų nustatymai atnaujinti."
 
-#: ../../main/jabber/src/EBox/JabberLdapUser.pm:260
+#: ../../main/jabber/src/EBox/JabberLdapUser.pm:264
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -8610,11 +8622,6 @@ msgstr "Pagrindiniai nustatymai"
 msgid "On this page you can set different general settings for Samba"
 msgstr ""
 "Šiame puslapyje galite nustatyti skirtingus pagrindinius nustatymus Samba"
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
-#: ../../main/radius/src/EBox/Model/Auth.pm:103
-msgid "All users"
-msgstr "Visi vartotojai"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:92
@@ -8902,7 +8909,7 @@ msgstr "Atsijungti"
 #: ../../main/mail/src/templates/qmanager.mas:54
 #: ../../main/mail/src/templates/qmanager.mas:55
 #: ../../main/users/src/templates/group.mas:61
-#: ../../main/users/src/templates/user.mas:137
+#: ../../main/users/src/templates/user.mas:140
 msgid "Remove"
 msgstr "Pašalinti"
 
@@ -10598,8 +10605,8 @@ msgstr "{row} nuleista žemyn"
 #: ../../main/asterisk/src/templates/user.mas:49
 #: ../../main/users/src/templates/group.mas:25
 #: ../../main/users/src/templates/group.mas:26
-#: ../../main/users/src/templates/user.mas:97
-#: ../../main/users/src/templates/user.mas:98
+#: ../../main/users/src/templates/user.mas:100
+#: ../../main/users/src/templates/user.mas:101
 msgid "Change"
 msgstr "Keisti"
 
@@ -11084,8 +11091,8 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:335
 #: ../../main/samba/src/templates/samba.mas:82
 #: ../../main/samba/src/templates/samba.mas:83
-#: ../../main/users/src/templates/users.mas:69
 #: ../../main/users/src/templates/users.mas:70
+#: ../../main/users/src/templates/users.mas:71
 #: ../../main/users/src/templates/groups.mas:41
 #: ../../main/users/src/templates/groups.mas:42
 msgid "Add"
@@ -11113,7 +11120,7 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:146
 #: ../../main/core/src/EBox/Html.pm:40
 #: ../../main/core/src/EBox/CGI/Logout/Index.pm:29
-#: ../../main/captiveportal/src/templates/popup.mas:43
+#: ../../main/captiveportal/src/templates/popup.mas:42
 #: ../../main/usercorner/src/templates/headTitle.mas:11
 msgid "Logout"
 msgstr "Išsiregistruoti"
@@ -11342,8 +11349,9 @@ msgid "Configure Logs"
 msgstr "Konfigūruoti žurnalus"
 
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:71
+#, fuzzy
 msgid ""
-"Logs module allows you to register and queryinformation about the Zentyal "
+"Logs module allows you to register and query information about the Zentyal "
 "services"
 msgstr ""
 "Žurnalų modulis leidžia registruoti ir užklausti informacijos apie Zentyal "
@@ -11358,11 +11366,11 @@ msgstr ""
 "bandyti dar kartą"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:122
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "No schema file found in this backup. Try another date or force restore "
 "without schema changing the relevant key in {cf}. Schemas change "
-"unfrequently so it oculd be safe to use a older one"
+"unfrequently so it could be safe to use a older one"
 msgstr ""
 "Nerastas shemos failas šiai kopijai. Pabandykite kitą datą arba priverskite "
 "atstatyti be shemos pakeičiant atitinkamą raktą {cf}, Shemos keičiasi "
@@ -15146,7 +15154,7 @@ msgstr "Įveskite vartotoja ir slaptažodį"
 msgid "Created by {href}"
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/login.mas:26
+#: ../../main/captiveportal/src/templates/login.mas:19
 #: ../../main/core/src/templates/login/index.mas:49
 msgid "Warning: Caps Lock is enabled"
 msgstr "Perspėjimas: Caps Lock įjungtas"
@@ -15155,18 +15163,12 @@ msgstr "Perspėjimas: Caps Lock įjungtas"
 msgid "Captive portal"
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/login.mas:31
-#: ../../main/network/src/templates/ifaces.mas:189
-#: ../../main/users/src/templates/users.mas:17
-msgid "User name"
-msgstr "Vartotojas"
-
-#: ../../main/captiveportal/src/templates/login.mas:49
+#: ../../main/captiveportal/src/templates/login.mas:56
 #: ../../main/core/src/templates/login/index.mas:79
 msgid "Enter"
 msgstr "Įvesti"
 
-#: ../../main/captiveportal/src/templates/popup.mas:41
+#: ../../main/captiveportal/src/templates/popup.mas:40
 msgid "Keep this window open while using your Internet connection."
 msgstr ""
 
@@ -15218,6 +15220,11 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:168
 msgid "Bridge"
 msgstr "Tiltas"
+
+#: ../../main/network/src/templates/ifaces.mas:189
+#: ../../main/users/src/templates/users.mas:17
+msgid "User name"
+msgstr "Vartotojas"
 
 #: ../../main/network/src/templates/ifaces.mas:224
 msgid "VLAN List"
@@ -15916,6 +15923,8 @@ msgstr "atvirkštinis sutapimas"
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:14
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:34
 #: ../../main/core/src/templates/formTable.mas:85
+#: ../../main/users/src/templates/users.mas:42
+#: ../../main/users/src/templates/user.mas:53
 msgid "Optional"
 msgstr "Nebūtinas"
 
@@ -16620,13 +16629,13 @@ msgstr "Sekantys nustatymai bus įjungti tik įjungus Asterik modulį."
 msgid "Add User"
 msgstr "Įkelti vartotoją"
 
-#: ../../main/users/src/templates/users.mas:56
-#: ../../main/users/src/templates/user.mas:75
+#: ../../main/users/src/templates/users.mas:57
+#: ../../main/users/src/templates/user.mas:78
 msgid "Retype password"
 msgstr "Įveskite dar kartą"
 
-#: ../../main/users/src/templates/users.mas:73
 #: ../../main/users/src/templates/users.mas:74
+#: ../../main/users/src/templates/users.mas:75
 #: ../../main/users/src/templates/groups.mas:38
 #: ../../main/users/src/templates/groups.mas:39
 msgid "Add and Edit"
@@ -16707,8 +16716,8 @@ msgstr "Vartotojai ne grupėje"
 
 #: ../../main/users/src/templates/group.mas:51
 #: ../../main/users/src/templates/group.mas:92
-#: ../../main/users/src/templates/user.mas:129
-#: ../../main/users/src/templates/user.mas:164
+#: ../../main/users/src/templates/user.mas:132
+#: ../../main/users/src/templates/user.mas:167
 msgid "Empty list"
 msgstr "Šarašas tusčias"
 
@@ -16718,8 +16727,8 @@ msgstr "Pašalinti vartotojus iš grupės"
 
 #: ../../main/users/src/templates/group.mas:75
 #: ../../main/users/src/templates/group.mas:78
-#: ../../main/users/src/templates/user.mas:148
 #: ../../main/users/src/templates/user.mas:151
+#: ../../main/users/src/templates/user.mas:154
 msgid "Add users to group"
 msgstr "Įkelti vartotojus į grupę"
 
@@ -16737,35 +16746,38 @@ msgstr ""
 "Ši operacija ištrins grupę su jai visais priklausančiais duomenimis pvz kaip "
 "bendras katalogas ir k.t."
 
-#: ../../main/users/src/templates/user.mas:85
+#: ../../main/users/src/templates/user.mas:88
 msgid "User quota"
 msgstr "vartotojo kvota"
 
-#: ../../main/users/src/templates/user.mas:111
+#: ../../main/users/src/templates/user.mas:114
 msgid "User groups"
 msgstr "Vartotojo grupės"
 
-#: ../../main/users/src/templates/user.mas:113
+#: ../../main/users/src/templates/user.mas:116
 msgid "Other groups"
 msgstr "Kitos grupės"
 
-#: ../../main/users/src/templates/user.mas:140
+#: ../../main/users/src/templates/user.mas:143
 msgid "Remove groups from user"
 msgstr "Pašalinti grupes iš vartotojo"
 
-#: ../../main/users/src/templates/user.mas:182
-#: ../../main/users/src/templates/user.mas:190
-#: ../../main/users/src/templates/user.mas:191
+#: ../../main/users/src/templates/user.mas:185
+#: ../../main/users/src/templates/user.mas:193
+#: ../../main/users/src/templates/user.mas:194
 msgid "Delete user"
 msgstr "Ištrinti vartotoją"
 
-#: ../../main/users/src/templates/user.mas:184
+#: ../../main/users/src/templates/user.mas:187
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
 "Ši operacija ištrins vartotoją ir jo visas priklausomybes pvz kaip pašto "
 "paskyrą, vartotojo failus, ir k.t."
+
+#~ msgid "Unable to get it (Upgrade your software module)"
+#~ msgstr "Nepavyko gauti ( Atnaujinkite programos modulį)"
 
 #~ msgid "Bytes/s"
 #~ msgstr "Baitai/s"

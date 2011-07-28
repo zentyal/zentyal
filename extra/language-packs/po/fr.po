@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-07-27 10:55+0200\n"
+"POT-Creation-Date: 2011-07-28 23:34+0200\n"
 "PO-Revision-Date: 2011-07-28 17:14+0200\n"
 "Last-Translator: Paps <fabien@openswiss.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -405,7 +405,7 @@ msgid "Settings changed"
 msgstr "Paramètres modifiés"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:136
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:125
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "{port} est déjà utilisé. Veuillez en choisir un autre"
@@ -596,12 +596,13 @@ msgstr ""
 "listes noires (blacklists) classées"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:211
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:51
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
-#: ../../main/users/src/templates/users.mas:88
+#: ../../main/users/src/templates/users.mas:89
 msgid "Group"
 msgstr "Groupe"
 
@@ -3872,8 +3873,8 @@ msgid ""
 "able to rename or delete files in any case."
 msgstr ""
 "Le répertoire pour les accès anonyme est /srv/ftp, vérifiez que les fichiers "
-"qui y sont placés aient des droits d'accès en lecture pour tous (chmod o+r "
-"/srv/ftp/*). Si vous souhaitez permettre un droit d'accès en écriture, vous "
+"qui y sont placés aient des droits d'accès en lecture pour tous (chmod o+r /"
+"srv/ftp/*). Si vous souhaitez permettre un droit d'accès en écriture, vous "
 "devez créer un sous-répertoire avec des droits en écriture pour tous, par "
 "exemple: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming. Dans tous "
 "les cas, les fichiers ne pourront pas être renommés ou supprimés en "
@@ -4583,20 +4584,16 @@ msgstr "Mise-à-jour logicielle automatique"
 msgid "Latest QA software update"
 msgstr "Mise-à-jour logicielle automatique"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:129
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:128
 #, fuzzy, perl-brace-format
 msgid "{date}. {num} updated packages"
 msgstr "Actualiser tous les paquets"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
 msgstr "Aucune mise à jour n'a été effectuée"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
-msgid "Unable to get it (Upgrade your software module)"
-msgstr "Impossible de les obtenir (Mettez à jour le module logiciel)"
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:141
 msgid "Software module is not installed"
 msgstr "Le module logiciel n'est pas installé"
 
@@ -4738,11 +4735,11 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups.pm:998
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2634
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
-#: ../../main/captiveportal/src/templates/login.mas:38
+#: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
 #: ../../main/core/src/templates/login/index.mas:67
-#: ../../main/users/src/templates/users.mas:49
-#: ../../main/users/src/templates/user.mas:65
+#: ../../main/users/src/templates/users.mas:50
+#: ../../main/users/src/templates/user.mas:68
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -5353,6 +5350,7 @@ msgstr "Utilisation de la bande passante"
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:43
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
+#: ../../main/captiveportal/src/templates/login.mas:37
 #: ../../main/core/src/templates/login/index.mas:60
 #: ../../main/core/src/templates/password.mas:11
 msgid "Username"
@@ -5396,7 +5394,7 @@ msgstr "Liste des interfaces réseau surveillées."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:68
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:64
 #: ../../main/captiveportal/src/templates/useraddon.mas:8
 msgid "Captive Portal"
 msgstr "Portail captif "
@@ -5465,7 +5463,11 @@ msgstr "utilisateur"
 msgid "List of current logged in users."
 msgstr "Liste des utilisateurs actuellement connectés."
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:254
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:162
+msgid "Captive portal must be enabled in order to see current users list."
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:265
 #, perl-brace-format
 msgid "Closing session for user {user}."
 msgstr "Session en cours de fermeture pour l'utilisateur {user}."
@@ -5606,24 +5608,34 @@ msgstr "Interfaces captives"
 msgid "List of interfaces where Captive Portal is enabled."
 msgstr "Liste des interfaces où le Portail Captif est activé."
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:55
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:59
+msgid "Only users in this group will be allowed to login."
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
 msgid "HTTP port"
 msgstr "Port HTTP"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:64
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:69
 msgid "HTTPS port"
 msgstr "Port HTTPS"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:73
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:78
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 msgid "General Settings"
 msgstr "Paramètres généraux"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:77
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:82
 msgid "Here you can define general settings for captive portal."
 msgstr "Ici vous pouvez définir les paramètres généraux du Portail Captif."
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:96
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
+#: ../../main/radius/src/EBox/Model/Auth.pm:103
+msgid "All users"
+msgstr "Tous les utilisateurs"
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:132
 msgid "HTTP and HTTPS ports should be different"
 msgstr "Les ports HTTP et HTTPS doivent être différents"
 
@@ -6068,8 +6080,7 @@ msgstr "hôte"
 #, fuzzy
 msgid "Root directory ('/') not allowed in target specification"
 msgstr ""
-"Le répertoire Root ('/') n'est pas autorisé dans la spécification de la "
-"cible"
+"Le répertoire Root ('/') n'est pas autorisé dans la spécification de la cible"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:768
 msgid "directory"
@@ -6550,8 +6561,8 @@ msgid ""
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
-"LEs connexions IPsec permettent de déployer des connexions entre des "
-"sous-réseaux différents à travers des tunnels sécurisés. Ce protocole est "
+"LEs connexions IPsec permettent de déployer des connexions entre des sous-"
+"réseaux différents à travers des tunnels sécurisés. Ce protocole est "
 "indépendant de tout vendeur et permettra de connecter Zentyal avec d'autres "
 "appareils de sécurité."
 
@@ -7367,8 +7378,7 @@ msgstr "Passerelle {gw} déconnectée"
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
 msgstr ""
-"'{type}' test sur l'hôte '{host}' a échoué {failRatio}%, max={maxFailRatio}%"
-"."
+"'{type}' test sur l'hôte '{host}' a échoué {failRatio}%, max={maxFailRatio}%."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:323
 msgid "This gateway will be connected again if the test are passed."
@@ -7515,19 +7525,19 @@ msgstr "Utilisateurs et Groupes"
 msgid "User Corner web server"
 msgstr "Serveur web de l'espace utilisateur"
 
-#: ../../main/virt/src/EBox/Virt.pm:50 ../../main/virt/src/EBox/Virt.pm:455
-#: ../../main/virt/src/EBox/Virt.pm:491 ../../main/virt/src/EBox/Virt.pm:530
+#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:479
+#: ../../main/virt/src/EBox/Virt.pm:515 ../../main/virt/src/EBox/Virt.pm:554
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
 msgid "Virtual Machines"
 msgstr "Machines virtuelles"
 
-#: ../../main/virt/src/EBox/Virt.pm:90
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:200
+#: ../../main/virt/src/EBox/Virt.pm:92
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
 msgid "VNC connections for VMs"
 msgstr "Connexions VNC pour les machines virtuelles"
 
-#: ../../main/virt/src/EBox/Virt.pm:492
+#: ../../main/virt/src/EBox/Virt.pm:516
 msgid "Disk images of the virtual machines"
 msgstr "Images disque des machines virtuelles"
 
@@ -7555,7 +7565,8 @@ msgstr "Paramètres réseau"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:126
 msgid "Here you can define the network interfaces of the virtual machine."
-msgstr "Ici vous pouvez définir les interfaces réseaux des machines virtuelles."
+msgstr ""
+"Ici vous pouvez définir les interfaces réseaux des machines virtuelles."
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:144
 #, perl-brace-format
@@ -7563,7 +7574,7 @@ msgid "A maximum of {num} network interfaces are allowed"
 msgstr "Un maximum de {num} interfaces réseaux sont autorisées"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:227
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:233
 msgid "View Console"
 msgstr ""
 
@@ -7620,7 +7631,7 @@ msgstr "machine virtuelle"
 msgid "List of configured Virtual Machines."
 msgstr "Liste des machines virtuelles configurées."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:251
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
 #, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
@@ -7630,7 +7641,7 @@ msgstr ""
 "dans {openref} la section état du module{closeref} et l'activé avant "
 "d'essayer de démarrer une machine."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:254
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
@@ -7639,17 +7650,17 @@ msgstr ""
 "changements en attentes d'être sauvés dans le module des Machines "
 "Virtuelles. Veuillez sauver les changement d'abord et essayer ensuite."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:269
-#, perl-brace-format, fuzzy
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
+#, fuzzy, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
 msgstr "Impossible de démarrer la machine virtuelle '{vm}'"
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:291
-#, perl-brace-format, fuzzy
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:301
+#, fuzzy, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
 msgstr "Impossible de stopper la machine virtuelle '{vm}'"
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:305
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
 msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr ""
 "Impossible de mettre en pause une machine stoppée. Vous devez d'abord la "
@@ -7690,7 +7701,8 @@ msgstr "disque"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:143
 msgid "Here you can define the storage drives of the virtual machine"
-msgstr "Ici vous pouvez définir les disques de stockage de la machine virtuelle"
+msgstr ""
+"Ici vous pouvez définir les disques de stockage de la machine virtuelle"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
 msgid "You need to provide the path of a ISO image"
@@ -8895,7 +8907,7 @@ msgstr "Activer MUC (Multi User Chat)"
 msgid "General Jabber server configuration settings updated."
 msgstr "Paramètres de configuration générale du serveur Jabber mis à jour."
 
-#: ../../main/jabber/src/EBox/JabberLdapUser.pm:260
+#: ../../main/jabber/src/EBox/JabberLdapUser.pm:264
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -9065,11 +9077,6 @@ msgid "On this page you can set different general settings for Samba"
 msgstr ""
 "Sur cette page vous pouvez définir des paramètres généraux différents pour "
 "Samba"
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
-#: ../../main/radius/src/EBox/Model/Auth.pm:103
-msgid "All users"
-msgstr "Tous les utilisateurs"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:92
@@ -9367,7 +9374,7 @@ msgstr "Déconnecter"
 #: ../../main/mail/src/templates/qmanager.mas:54
 #: ../../main/mail/src/templates/qmanager.mas:55
 #: ../../main/users/src/templates/group.mas:61
-#: ../../main/users/src/templates/user.mas:137
+#: ../../main/users/src/templates/user.mas:140
 #, fuzzy
 msgid "Remove"
 msgstr ""
@@ -11135,8 +11142,8 @@ msgstr "{row} descendue(s)"
 #: ../../main/asterisk/src/templates/user.mas:49
 #: ../../main/users/src/templates/group.mas:25
 #: ../../main/users/src/templates/group.mas:26
-#: ../../main/users/src/templates/user.mas:97
-#: ../../main/users/src/templates/user.mas:98
+#: ../../main/users/src/templates/user.mas:100
+#: ../../main/users/src/templates/user.mas:101
 #, fuzzy
 msgid "Change"
 msgstr ""
@@ -11649,8 +11656,8 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:335
 #: ../../main/samba/src/templates/samba.mas:82
 #: ../../main/samba/src/templates/samba.mas:83
-#: ../../main/users/src/templates/users.mas:69
 #: ../../main/users/src/templates/users.mas:70
+#: ../../main/users/src/templates/users.mas:71
 #: ../../main/users/src/templates/groups.mas:41
 #: ../../main/users/src/templates/groups.mas:42
 msgid "Add"
@@ -11677,7 +11684,7 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:146
 #: ../../main/core/src/EBox/Html.pm:40
 #: ../../main/core/src/EBox/CGI/Logout/Index.pm:29
-#: ../../main/captiveportal/src/templates/popup.mas:43
+#: ../../main/captiveportal/src/templates/popup.mas:42
 #: ../../main/usercorner/src/templates/headTitle.mas:11
 msgid "Logout"
 msgstr "Déconnexion"
@@ -11905,7 +11912,7 @@ msgstr "Configurer les journaux d'activité"
 
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:71
 msgid ""
-"Logs module allows you to register and queryinformation about the Zentyal "
+"Logs module allows you to register and query information about the Zentyal "
 "services"
 msgstr ""
 
@@ -11920,7 +11927,7 @@ msgstr ""
 msgid ""
 "No schema file found in this backup. Try another date or force restore "
 "without schema changing the relevant key in {cf}. Schemas change "
-"unfrequently so it oculd be safe to use a older one"
+"unfrequently so it could be safe to use a older one"
 msgstr ""
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:148
@@ -15859,7 +15866,7 @@ msgstr "Utilisateur et mot de passe"
 msgid "Created by {href}"
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/login.mas:26
+#: ../../main/captiveportal/src/templates/login.mas:19
 #: ../../main/core/src/templates/login/index.mas:49
 #, fuzzy
 msgid "Warning: Caps Lock is enabled"
@@ -15873,13 +15880,7 @@ msgstr ""
 msgid "Captive portal"
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/login.mas:31
-#: ../../main/network/src/templates/ifaces.mas:189
-#: ../../main/users/src/templates/users.mas:17
-msgid "User name"
-msgstr "Nom d'utilisateur"
-
-#: ../../main/captiveportal/src/templates/login.mas:49
+#: ../../main/captiveportal/src/templates/login.mas:56
 #: ../../main/core/src/templates/login/index.mas:79
 #, fuzzy
 msgid "Enter"
@@ -15889,7 +15890,7 @@ msgstr ""
 "#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
 "Se connecter"
 
-#: ../../main/captiveportal/src/templates/popup.mas:41
+#: ../../main/captiveportal/src/templates/popup.mas:40
 msgid "Keep this window open while using your Internet connection."
 msgstr ""
 
@@ -15941,6 +15942,11 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:168
 msgid "Bridge"
 msgstr "Pont"
+
+#: ../../main/network/src/templates/ifaces.mas:189
+#: ../../main/users/src/templates/users.mas:17
+msgid "User name"
+msgstr "Nom d'utilisateur"
 
 #: ../../main/network/src/templates/ifaces.mas:224
 msgid "VLAN List"
@@ -16701,6 +16707,8 @@ msgstr "Critère inverse"
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:14
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:34
 #: ../../main/core/src/templates/formTable.mas:85
+#: ../../main/users/src/templates/users.mas:42
+#: ../../main/users/src/templates/user.mas:53
 msgid "Optional"
 msgstr "Optionnel"
 
@@ -17425,13 +17433,13 @@ msgstr ""
 msgid "Add User"
 msgstr "Ajouter un utilisateur"
 
-#: ../../main/users/src/templates/users.mas:56
-#: ../../main/users/src/templates/user.mas:75
+#: ../../main/users/src/templates/users.mas:57
+#: ../../main/users/src/templates/user.mas:78
 msgid "Retype password"
 msgstr "Réécrire le mot de passe"
 
-#: ../../main/users/src/templates/users.mas:73
 #: ../../main/users/src/templates/users.mas:74
+#: ../../main/users/src/templates/users.mas:75
 #: ../../main/users/src/templates/groups.mas:38
 #: ../../main/users/src/templates/groups.mas:39
 msgid "Add and Edit"
@@ -17515,8 +17523,8 @@ msgstr "Utilisateurs PAS dans groupe"
 
 #: ../../main/users/src/templates/group.mas:51
 #: ../../main/users/src/templates/group.mas:92
-#: ../../main/users/src/templates/user.mas:129
-#: ../../main/users/src/templates/user.mas:164
+#: ../../main/users/src/templates/user.mas:132
+#: ../../main/users/src/templates/user.mas:167
 msgid "Empty list"
 msgstr "Liste vide"
 
@@ -17526,8 +17534,8 @@ msgstr "Supprimer les utilisateurs du groupe"
 
 #: ../../main/users/src/templates/group.mas:75
 #: ../../main/users/src/templates/group.mas:78
-#: ../../main/users/src/templates/user.mas:148
 #: ../../main/users/src/templates/user.mas:151
+#: ../../main/users/src/templates/user.mas:154
 msgid "Add users to group"
 msgstr "Ajouter les utilisateurs au groupe"
 
@@ -17545,36 +17553,39 @@ msgstr ""
 "Cette opération entraînera la suppression du groupe et de toutes les données "
 "liées comme les répertoires partagés, etc."
 
-#: ../../main/users/src/templates/user.mas:85
+#: ../../main/users/src/templates/user.mas:88
 #, fuzzy
 msgid "User quota"
 msgstr "Le quota utilisateur a été dépassé"
 
-#: ../../main/users/src/templates/user.mas:111
+#: ../../main/users/src/templates/user.mas:114
 msgid "User groups"
 msgstr "Groupes d'utilisateurs"
 
-#: ../../main/users/src/templates/user.mas:113
+#: ../../main/users/src/templates/user.mas:116
 msgid "Other groups"
 msgstr "Autres groupes"
 
-#: ../../main/users/src/templates/user.mas:140
+#: ../../main/users/src/templates/user.mas:143
 msgid "Remove groups from user"
 msgstr "Supprimer les groupes de l'utilisateur"
 
-#: ../../main/users/src/templates/user.mas:182
-#: ../../main/users/src/templates/user.mas:190
-#: ../../main/users/src/templates/user.mas:191
+#: ../../main/users/src/templates/user.mas:185
+#: ../../main/users/src/templates/user.mas:193
+#: ../../main/users/src/templates/user.mas:194
 msgid "Delete user"
 msgstr "Supprimer l'utilisateur"
 
-#: ../../main/users/src/templates/user.mas:184
+#: ../../main/users/src/templates/user.mas:187
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
 "Cette opération entraînera la suppression de l'utilisateur et de toutes ses "
 "données liées comme les comptes de courrier, fichiers utilisateurs, etc."
+
+#~ msgid "Unable to get it (Upgrade your software module)"
+#~ msgstr "Impossible de les obtenir (Mettez à jour le module logiciel)"
 
 #~ msgid "Bytes/s"
 #~ msgstr "Octets/s"

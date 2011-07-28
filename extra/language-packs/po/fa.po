@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-07-27 10:55+0200\n"
+"POT-Creation-Date: 2011-07-28 23:34+0200\n"
 "PO-Revision-Date: 2008-12-04 10:37+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -378,7 +378,7 @@ msgid "Settings changed"
 msgstr "تنظیمات تغییر یافت"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:136
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:125
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr ""
@@ -551,12 +551,13 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:211
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:51
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
-#: ../../main/users/src/templates/users.mas:88
+#: ../../main/users/src/templates/users.mas:89
 msgid "Group"
 msgstr "گروه"
 
@@ -4340,20 +4341,16 @@ msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
 msgid "Latest QA software update"
 msgstr "به‌روزرسانی‌های خودکار نرم‌افزار"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:129
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:128
 #, fuzzy, perl-brace-format
 msgid "{date}. {num} updated packages"
 msgstr "به‌روزرسانی "
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:134
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
-msgid "Unable to get it (Upgrade your software module)"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:141
 #, fuzzy
 msgid "Software module is not installed"
 msgstr "ماجول اشتراک‌گذاری فایل"
@@ -4486,11 +4483,11 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups.pm:998
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2634
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
-#: ../../main/captiveportal/src/templates/login.mas:38
+#: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
 #: ../../main/core/src/templates/login/index.mas:67
-#: ../../main/users/src/templates/users.mas:49
-#: ../../main/users/src/templates/user.mas:65
+#: ../../main/users/src/templates/users.mas:50
+#: ../../main/users/src/templates/user.mas:68
 #, fuzzy
 msgid "Password"
 msgstr ""
@@ -5128,6 +5125,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:43
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
+#: ../../main/captiveportal/src/templates/login.mas:37
 #: ../../main/core/src/templates/login/index.mas:60
 #: ../../main/core/src/templates/password.mas:11
 #, fuzzy
@@ -5178,7 +5176,7 @@ msgstr "واسط شبکه"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:68
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:64
 #: ../../main/captiveportal/src/templates/useraddon.mas:8
 msgid "Captive Portal"
 msgstr ""
@@ -5242,7 +5240,11 @@ msgstr "کاربر"
 msgid "List of current logged in users."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:254
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:162
+msgid "Captive portal must be enabled in order to see current users list."
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:265
 #, perl-brace-format
 msgid "Closing session for user {user}."
 msgstr ""
@@ -5372,27 +5374,41 @@ msgstr "واسط ها"
 msgid "List of interfaces where Captive Portal is enabled."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:55
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:59
+msgid "Only users in this group will be allowed to login."
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
 #, fuzzy
 msgid "HTTP port"
 msgstr "هر پورت TCP"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:64
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:69
 #, fuzzy
 msgid "HTTPS port"
 msgstr "هر پورت TCP"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:73
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:78
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 #, fuzzy
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:77
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:82
 msgid "Here you can define general settings for captive portal."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:106
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:96
+#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
+#: ../../main/radius/src/EBox/Model/Auth.pm:103
+#, fuzzy
+msgid "All users"
+msgstr ""
+"#-#-#-#-#  fa.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
+"#-#-#-#-#  fa.po (ebox-samba 0.12.100)  #-#-#-#-#\n"
+"کاربر"
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:132
 msgid "HTTP and HTTPS ports should be different"
 msgstr ""
 
@@ -7177,8 +7193,8 @@ msgstr "کاربران در گروه"
 msgid "User Corner web server"
 msgstr "نام کاربری"
 
-#: ../../main/virt/src/EBox/Virt.pm:50 ../../main/virt/src/EBox/Virt.pm:455
-#: ../../main/virt/src/EBox/Virt.pm:491 ../../main/virt/src/EBox/Virt.pm:530
+#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:479
+#: ../../main/virt/src/EBox/Virt.pm:515 ../../main/virt/src/EBox/Virt.pm:554
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
 #, fuzzy
@@ -7189,13 +7205,13 @@ msgstr ""
 "#-#-#-#-#  fa.po (ebox-webserver 0.12.100)  #-#-#-#-#\n"
 "میزبان‌های مجازی"
 
-#: ../../main/virt/src/EBox/Virt.pm:90
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:200
+#: ../../main/virt/src/EBox/Virt.pm:92
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
 #, fuzzy
 msgid "VNC connections for VMs"
 msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
-#: ../../main/virt/src/EBox/Virt.pm:492
+#: ../../main/virt/src/EBox/Virt.pm:516
 #, fuzzy
 msgid "Disk images of the virtual machines"
 msgstr "لیست سرویس ها"
@@ -7235,7 +7251,7 @@ msgid "A maximum of {num} network interfaces are allowed"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:227
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:233
 msgid "View Console"
 msgstr ""
 
@@ -7315,30 +7331,30 @@ msgstr "نام واسط مجازی"
 msgid "List of configured Virtual Machines."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:251
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
 #, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
 "Status{closeref} section and enable it prior to try to start any machine."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:254
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:269
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
 #, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:291
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:301
 #, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:305
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
 msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr ""
 
@@ -8485,7 +8501,7 @@ msgstr ""
 msgid "General Jabber server configuration settings updated."
 msgstr ""
 
-#: ../../main/jabber/src/EBox/JabberLdapUser.pm:260
+#: ../../main/jabber/src/EBox/JabberLdapUser.pm:264
 msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
@@ -8647,15 +8663,6 @@ msgstr "تنظیمات عمومی"
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:169
 msgid "On this page you can set different general settings for Samba"
 msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
-#: ../../main/radius/src/EBox/Model/Auth.pm:103
-#, fuzzy
-msgid "All users"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-samba 0.12.100)  #-#-#-#-#\n"
-"کاربر"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:92
@@ -8965,7 +8972,7 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:54
 #: ../../main/mail/src/templates/qmanager.mas:55
 #: ../../main/users/src/templates/group.mas:61
-#: ../../main/users/src/templates/user.mas:137
+#: ../../main/users/src/templates/user.mas:140
 msgid "Remove"
 msgstr "حذف"
 
@@ -10612,8 +10619,8 @@ msgstr ""
 #: ../../main/asterisk/src/templates/user.mas:49
 #: ../../main/users/src/templates/group.mas:25
 #: ../../main/users/src/templates/group.mas:26
-#: ../../main/users/src/templates/user.mas:97
-#: ../../main/users/src/templates/user.mas:98
+#: ../../main/users/src/templates/user.mas:100
+#: ../../main/users/src/templates/user.mas:101
 msgid "Change"
 msgstr "تغییر"
 
@@ -11090,8 +11097,8 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:335
 #: ../../main/samba/src/templates/samba.mas:82
 #: ../../main/samba/src/templates/samba.mas:83
-#: ../../main/users/src/templates/users.mas:69
 #: ../../main/users/src/templates/users.mas:70
+#: ../../main/users/src/templates/users.mas:71
 #: ../../main/users/src/templates/groups.mas:41
 #: ../../main/users/src/templates/groups.mas:42
 msgid "Add"
@@ -11118,7 +11125,7 @@ msgstr ""
 #: ../../main/core/src/EBox/AuditLogging.pm:146
 #: ../../main/core/src/EBox/Html.pm:40
 #: ../../main/core/src/EBox/CGI/Logout/Index.pm:29
-#: ../../main/captiveportal/src/templates/popup.mas:43
+#: ../../main/captiveportal/src/templates/popup.mas:42
 #: ../../main/usercorner/src/templates/headTitle.mas:11
 msgid "Logout"
 msgstr "خروج"
@@ -11349,7 +11356,7 @@ msgstr "پیکربندی مشاهده‌گر ثبت‌وقایع"
 
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:71
 msgid ""
-"Logs module allows you to register and queryinformation about the Zentyal "
+"Logs module allows you to register and query information about the Zentyal "
 "services"
 msgstr ""
 
@@ -11364,7 +11371,7 @@ msgstr ""
 msgid ""
 "No schema file found in this backup. Try another date or force restore "
 "without schema changing the relevant key in {cf}. Schemas change "
-"unfrequently so it oculd be safe to use a older one"
+"unfrequently so it could be safe to use a older one"
 msgstr ""
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:148
@@ -15077,7 +15084,7 @@ msgstr "گذرواژه کاربر"
 msgid "Created by {href}"
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/login.mas:26
+#: ../../main/captiveportal/src/templates/login.mas:19
 #: ../../main/core/src/templates/login/index.mas:49
 msgid "Warning: Caps Lock is enabled"
 msgstr "اخطار: Caps Lock روشن است"
@@ -15086,23 +15093,12 @@ msgstr "اخطار: Caps Lock روشن است"
 msgid "Captive portal"
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/login.mas:31
-#: ../../main/network/src/templates/ifaces.mas:189
-#: ../../main/users/src/templates/users.mas:17
-#, fuzzy
-msgid "User name"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
-"نام میزبان\n"
-"#-#-#-#-#  fa.po (ebox-usersandgroups 0.12.100Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-
-#: ../../main/captiveportal/src/templates/login.mas:49
+#: ../../main/captiveportal/src/templates/login.mas:56
 #: ../../main/core/src/templates/login/index.mas:79
 msgid "Enter"
 msgstr "ورود"
 
-#: ../../main/captiveportal/src/templates/popup.mas:41
+#: ../../main/captiveportal/src/templates/popup.mas:40
 msgid "Keep this window open while using your Internet connection."
 msgstr ""
 
@@ -15148,6 +15144,16 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:168
 msgid "Bridge"
 msgstr ""
+
+#: ../../main/network/src/templates/ifaces.mas:189
+#: ../../main/users/src/templates/users.mas:17
+#, fuzzy
+msgid "User name"
+msgstr ""
+"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
+"نام میزبان\n"
+"#-#-#-#-#  fa.po (ebox-usersandgroups 0.12.100Report-Msgid-Bugs-To: "
+"developers@zentyal.org)  #-#-#-#-#\n"
 
 #: ../../main/network/src/templates/ifaces.mas:224
 msgid "VLAN List"
@@ -15812,6 +15818,8 @@ msgstr "تطابق معکوس"
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:14
 #: ../../main/core/src/templates/ajax/passwordRowLayout.mas:34
 #: ../../main/core/src/templates/formTable.mas:85
+#: ../../main/users/src/templates/users.mas:42
+#: ../../main/users/src/templates/user.mas:53
 msgid "Optional"
 msgstr "انتخابی"
 
@@ -16509,13 +16517,13 @@ msgstr ""
 msgid "Add User"
 msgstr ""
 
-#: ../../main/users/src/templates/users.mas:56
-#: ../../main/users/src/templates/user.mas:75
+#: ../../main/users/src/templates/users.mas:57
+#: ../../main/users/src/templates/user.mas:78
 msgid "Retype password"
 msgstr ""
 
-#: ../../main/users/src/templates/users.mas:73
 #: ../../main/users/src/templates/users.mas:74
+#: ../../main/users/src/templates/users.mas:75
 #: ../../main/users/src/templates/groups.mas:38
 #: ../../main/users/src/templates/groups.mas:39
 msgid "Add and Edit"
@@ -16586,8 +16594,8 @@ msgstr "کاربران ناموجو در گروه"
 
 #: ../../main/users/src/templates/group.mas:51
 #: ../../main/users/src/templates/group.mas:92
-#: ../../main/users/src/templates/user.mas:129
-#: ../../main/users/src/templates/user.mas:164
+#: ../../main/users/src/templates/user.mas:132
+#: ../../main/users/src/templates/user.mas:167
 msgid "Empty list"
 msgstr "فهرست خالی"
 
@@ -16597,8 +16605,8 @@ msgstr ""
 
 #: ../../main/users/src/templates/group.mas:75
 #: ../../main/users/src/templates/group.mas:78
-#: ../../main/users/src/templates/user.mas:148
 #: ../../main/users/src/templates/user.mas:151
+#: ../../main/users/src/templates/user.mas:154
 msgid "Add users to group"
 msgstr "افزودن کاربران به گروه"
 
@@ -16614,32 +16622,32 @@ msgid ""
 "such as shared directory, etc."
 msgstr ""
 
-#: ../../main/users/src/templates/user.mas:85
+#: ../../main/users/src/templates/user.mas:88
 #, fuzzy
 msgid "User quota"
 msgstr "سهمیه"
 
-#: ../../main/users/src/templates/user.mas:111
+#: ../../main/users/src/templates/user.mas:114
 #, fuzzy
 msgid "User groups"
 msgstr "کاربران در گروه"
 
-#: ../../main/users/src/templates/user.mas:113
+#: ../../main/users/src/templates/user.mas:116
 #, fuzzy
 msgid "Other groups"
 msgstr "حذف گروه"
 
-#: ../../main/users/src/templates/user.mas:140
+#: ../../main/users/src/templates/user.mas:143
 msgid "Remove groups from user"
 msgstr ""
 
-#: ../../main/users/src/templates/user.mas:182
-#: ../../main/users/src/templates/user.mas:190
-#: ../../main/users/src/templates/user.mas:191
+#: ../../main/users/src/templates/user.mas:185
+#: ../../main/users/src/templates/user.mas:193
+#: ../../main/users/src/templates/user.mas:194
 msgid "Delete user"
 msgstr "حذف کاربر"
 
-#: ../../main/users/src/templates/user.mas:184
+#: ../../main/users/src/templates/user.mas:187
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
