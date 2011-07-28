@@ -119,7 +119,7 @@ sub slicedRestore
             EBox::error('No schema file found in this backup. Forcing restore without schema restore');
         } else {
             throw EBox::Exceptions::External(
-  __x('No schema file found in this backup. Try another date or force restore without schema changing the relevant key in {cf}. Schemas change unfrequently so it oculd be safe to use a older one',
+  __x('No schema file found in this backup. Try another date or force restore without schema changing the relevant key in {cf}. Schemas change unfrequently so it could be safe to use a older one',
        cf => CONF_FILE)
                                             );
         }
