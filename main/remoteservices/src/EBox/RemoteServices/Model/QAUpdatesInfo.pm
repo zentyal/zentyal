@@ -116,25 +116,21 @@ sub _content
     my ($self) = @_;
 
 
-    my ($qaEnabled, $latest) = 
+    my ($qaEnabled, $latest) =
       ( __('Disabled'), __('Disabled') );
 
-    if ( EBox::Global->modExists('software') ) { 
+    if ( EBox::Global->modExists('software') ) {
         my $soft = EBox::Global->modInstance('software');
         if ( $soft->QAUpdates() ) {
             $qaEnabled = __('Enabled');
-            if ( $soft->can('autoUpgradeStats') ) {
-                my $stats = $soft->autoUpgradeStats();
-                if ( defined( $stats ) ) {
-                    $latest = __x('{date}. {num} updated packages',
-                                  date => POSIX::strftime("%c",
-                                                          localtime($stats->{timestamp})),
-                                  num  => $stats->{packageNum})
-                } else {
-                    $latest = __('No update has been done');
-                }
+            my $stats = $soft->autoUpgradeStats();
+            if ( defined( $stats ) ) {
+                $latest = __x('{date}. {num} updated packages',
+                        date => POSIX::strftime("%c",
+                            localtime($stats->{timestamp})),
+                        num  => $stats->{packageNum})
             } else {
-                $latest = __('Unable to get it (Upgrade your software module)');
+                $latest = __('No update has been done');
             }
         }
     } else {
