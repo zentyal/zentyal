@@ -186,8 +186,10 @@ sub checkPassword # (user, password)
 
     my $url = EBox::Config::configkeyFromFile('ldap_url', $CONF_FILE);
     my $bind = EBox::Config::configkeyFromFile('ldap_bindstring', $CONF_FILE);
+    my $group = EBox::Config::configkeyFromFile('ldap_group', $CONF_FILE);
+    my $groupsdn = EBox::Config::configkeyFromFile('ldap_groupsdn', $CONF_FILE);
 
-    return 1 if ($self->_checkLdapPassword($user, $password, $url, $bind));
+    return 1 if ($self->_checkLdapPassword($user, $password, $url, $bind, $group, $groupsdn));
 
     # Test secondary ldap if it exists in configuration file
     my $url2 = EBox::Config::configkeyFromFile('ldap2_url', $CONF_FILE);
@@ -203,7 +205,7 @@ sub checkPassword # (user, password)
 
 sub _checkLdapPassword
 {
-    my ($self, $user, $password, $url, $bind) = @_;
+    my ($self, $user, $password, $url, $bind, $group, $groupsdn) = @_;
 
     # replace usrename in bind string
     $bind =~ s/{USERNAME}/$user/g;
@@ -212,6 +214,21 @@ sub _checkLdapPassword
         my $ldap = EBox::Ldap::safeConnect($url);
         EBox::Ldap::safeBind($ldap, $bind, $password);
         $authorized = 1; # auth ok
+
+        if ($authorized and $group) {
+            # we have not finished
+            $authorized = 0;
+
+            # check also the group for the user
+            my %attrs = (
+                base => $groupsdn,
+                filter => "&(memberUid=$user)(cn=$group)",
+                scope => 'one'
+            );
+
+            my $result = $ldap->search(%attrs);
+            $authorized = ($result->count > 0);
+        }
     } otherwise {
         $authorized = 0; # auth failed
     };

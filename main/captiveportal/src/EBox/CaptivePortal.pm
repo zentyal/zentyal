@@ -139,6 +139,13 @@ sub _setConf
     push (@params, ldap_url => EBox::Ldap::LDAPI);
     push (@params, ldap_bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn);
 
+    my $group = $settings->groupValue();
+
+    if ($group ne '__all__') {
+        push (@params, ldap_group => $group);
+        push (@params, ldap_groupsdn => $users->groupsDn());
+    }
+
     if ($sldap->enabledValue()) {
         push (@params, ldap2_url => $sldap->urlValue());
         push (@params, ldap2_bindstring => $sldap->binddnValue());

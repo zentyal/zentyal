@@ -48,17 +48,22 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHeader;
-    push (@tableHeader,
+    my @tableHeader = (
+        new EBox::Types::Select(
+            fieldName     => 'group',
+            printableName => __('Group'),
+            populate      => \&populateGroups,
+            editable      => 1,
+            disableCache  => 1,
+            defaultValue  => '__all__',
+            help          => __('Only users in this group will be allowed to login.'),
+            ),
        new EBox::Types::Port(
            fieldName     => 'http_port',
            printableName => __('HTTP port'),
            editable      => 1,
            defaultValue  => 4444,
-           )
-       );
-
-    push (@tableHeader,
+           ),
         new EBox::Types::Port(
            fieldName     => 'https_port',
            printableName => __('HTTPS port'),
@@ -80,6 +85,27 @@ sub _table
 
     return $dataTable;
 }
+
+
+sub populateGroups
+{
+    my $userMod = EBox::Global->modInstance('users');
+    my @groups = (
+        {
+            value          => '__all__',
+            printableValue => __('All users'),
+        }
+    );
+    push (@groups, map (
+            {
+               value            => $_->{account},
+               printableValue   => $_->{account},
+            }, $userMod->groups()
+         )
+    );
+    return \@groups;
+}
+
 
 
 # Method: validateTypedRow
