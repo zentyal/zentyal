@@ -1,4 +1,4 @@
-HEAD
+2.1.23
 	+ Removed some warnings during consolidation process
 	+ Depend on libterm-readline-gnu-perl for history support in shells
 	+ Fixed error trying to change the admin port with NTP enabled
