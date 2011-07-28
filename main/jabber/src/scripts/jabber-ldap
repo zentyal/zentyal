@@ -7,7 +7,7 @@ use EBox::UsersAndGroups;
 
 EBox::init();
 
-my $global = EBox::Global->getInstance(1);
+my $global = EBox::Global->getInstance();
 my $users = $global->modInstance('users');
 $users->{ldap}->ldapCon();
 
@@ -26,8 +26,8 @@ sub update
 
 		if (!$mesg->count()){
 			print "Adding Jabber account for user $username\n";
-			my %attrs = ( 
-				changes => [ 
+			my %attrs = (
+				changes => [
 					add => [
 						objectClass => 'userJabberAccount',
 						jabberUid   => $username,
@@ -35,7 +35,7 @@ sub update
 						]
 					]
 				);
-			my $result = $ldap->modify($dn, \%attrs ); 
+			my $result = $ldap->modify($dn, \%attrs );
 			($result->is_error()) and warn "Error updating user: $username\n";
 		} else {
 			print "User $username already has a Jabber account\n";

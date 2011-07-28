@@ -29,210 +29,214 @@ use EBox::Model::ModelManager;
 
 sub new
 {
-	my $class = shift;
-	my $self  = {};
-	$self->{ldap} = EBox::Ldap->instance();
-	$self->{jabber} = EBox::Global->modInstance('jabber');
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self  = {};
+    $self->{ldap} = EBox::Ldap->instance();
+    $self->{jabber} = EBox::Global->modInstance('jabber');
+    bless($self, $class);
+    return $self;
 }
 
 sub _userAddOns
 {
-	my ($self, $username) = @_;
+    my ($self, $username) = @_;
 
-	return unless ($self->{jabber}->configured());
+    return unless ($self->{jabber}->configured());
 
-	my $active = 'no';
-	$active = 'yes' if ($self->hasAccount($username));
+    my $active = 'no';
+    $active = 'yes' if ($self->hasAccount($username));
 
-	my $is_admin = 0;
-	$is_admin = 1 if ($self->isAdmin($username));
+    my $is_admin = 0;
+    $is_admin = 1 if ($self->isAdmin($username));
 
-	my @args;
-	my $args = {
-		    'username' => $username,
-	             'active'   => $active,
-		     'is_admin' => $is_admin,
+    my @args;
+    my $args = {
+            'username' => $username,
+                 'active'   => $active,
+             'is_admin' => $is_admin,
 
-		     'service' => $self->{jabber}->isEnabled(),
-		   };
+             'service' => $self->{jabber}->isEnabled(),
+           };
 
-	return { path => '/jabber/jabber.mas',
-		 params => $args };
+    return { path => '/jabber/jabber.mas',
+         params => $args };
 }
 
 sub schemas
 {
-	return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
+    return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
 }
 
 sub localAttributes
 {
         my @attrs = qw( jabberUid jabberAdmin );
-	return \@attrs;
+    return \@attrs;
 }
 
 sub isAdmin #($username)
 {
     my ($self, $username) = @_;
-	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('users');
-	my $dn = $users->usersDn;
-	my $active = '';
-	my $is_admin = 0;
+    my $global = EBox::Global->getInstance();
+    my $users = $global->modInstance('users');
+    my $dn = $users->usersDn;
+    my $active = '';
+    my $is_admin = 0;
 
-	$users->{ldap}->ldapCon;
-	my $ldap = $users->{ldap};
+    $users->{ldap}->ldapCon;
+    my $ldap = $users->{ldap};
 
-	my %args = (base => $dn,
-		    filter => "jabberUid=$username");
-	my $mesg = $ldap->search(\%args);
+    my %args = (base => $dn,
+            filter => "jabberUid=$username");
+    my $mesg = $ldap->search(\%args);
 
-	if ($mesg->count != 0){
-	    foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}){
-		return 1 if (($item->{'type'} eq 'jabberAdmin') &&
-			     (shift(@{$item->{'vals'}}) eq 'TRUE'));
-	    }
-	}
-	return 0;
+    if ($mesg->count != 0){
+        foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}){
+        return 1 if (($item->{'type'} eq 'jabberAdmin') &&
+                 (shift(@{$item->{'vals'}}) eq 'TRUE'));
+        }
+    }
+    return 0;
 }
 
 sub setIsAdmin #($username, [01]) 0=disable, 1=enable
 {
-        my ($self, $username, $option) = @_;
-	my $global = EBox::Global->getInstance(1);
+    my ($self, $username, $option) = @_;
 
-	return unless ($self->isAdmin($username) xor $option);
+    my $global = EBox::Global->getInstance();
 
-	my $users = $global->modInstance('users');
-	my $dn = "uid=$username,".$users->usersDn;
+    return unless ($self->isAdmin($username) xor $option);
 
-	$users->{ldap}->ldapCon;
-	my $ldap = $users->{ldap};
+    my $users = $global->modInstance('users');
+    my $dn = "uid=$username,".$users->usersDn;
 
-	my %args = (base => $dn,
-		    filter => "jabberUid=$username");
-	my $mesg = $ldap->search(\%args);
+    $users->{ldap}->ldapCon;
+    my $ldap = $users->{ldap};
 
-	if ($mesg->count != 0){
-	    if ($option){
-	    	my %attrs = (
-		      changes => [
-				   replace => [
-					       jabberAdmin => 'TRUE'
-					       ]
-				   ]
-		      );
-		my $result = $ldap->modify($dn, \%attrs );
-		($result->is_error) and
-		    throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-		$global->modChange('jabber');
-	    } else {
-	        my %attrs = (
-			      changes => [
-					   replace => [
-						       jabberAdmin => 'FALSE'
-						       ]
-					   ]
-			      );
-		my $result = $ldap->modify($dn, \%attrs );
-		($result->is_error) and
-		    throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-		$global->modChange('jabber');
-	    }
-	}
+    my %args = (base => $dn,
+            filter => "jabberUid=$username");
+    my $mesg = $ldap->search(\%args);
 
-	return 0;
+    if ($mesg->count != 0){
+        if ($option){
+            my %attrs = (
+              changes => [
+                   replace => [
+                           jabberAdmin => 'TRUE'
+                           ]
+                   ]
+              );
+        my $result = $ldap->modify($dn, \%attrs );
+        ($result->is_error) and
+            throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+        $global->modChange('jabber');
+        } else {
+            my %attrs = (
+                  changes => [
+                       replace => [
+                               jabberAdmin => 'FALSE'
+                               ]
+                       ]
+                  );
+        my $result = $ldap->modify($dn, \%attrs );
+        ($result->is_error) and
+            throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+        $global->modChange('jabber');
+        }
+    }
+
+    return 0;
 }
 
 sub hasAccount #($username)
 {
-        my ($self, $username) = @_;
-	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('users');
-	my $dn = $users->usersDn;
+    my ($self, $username) = @_;
 
-	$users->{ldap}->ldapCon;
-	my $ldap = $users->{ldap};
+    my $global = EBox::Global->getInstance();
+    my $users = $global->modInstance('users');
+    my $dn = $users->usersDn;
 
-	my %args = (base => $dn,
-		    filter => "jabberUid=$username");
-	my $mesg = $ldap->search(\%args);
+    $users->{ldap}->ldapCon;
+    my $ldap = $users->{ldap};
 
-	return 1 if ($mesg->count != 0);
-	return 0;
+    my %args = (base => $dn,
+            filter => "jabberUid=$username");
+    my $mesg = $ldap->search(\%args);
+
+    return 1 if ($mesg->count != 0);
+    return 0;
 }
 
 sub setHasAccount #($username, [01]) 0=disable, 1=enable
 {
-        my ($self, $username, $option) = @_;
-	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('users');
-	my $dn = "uid=$username," . $users->usersDn;
+    my ($self, $username, $option) = @_;
 
-	$users->{ldap}->ldapCon;
-	my $ldap = $users->{ldap};
+    my $global = EBox::Global->getInstance();
+    my $users = $global->modInstance('users');
+    my $dn = "uid=$username," . $users->usersDn;
 
-	my %args = (base => $dn,
-		    filter => "jabberUid=$username");
-	my $mesg = $ldap->search(\%args);
+    $users->{ldap}->ldapCon;
+    my $ldap = $users->{ldap};
 
-	if (!$mesg->count and ($option)){
-	    my %attrs = (
-			  changes => [
-				       add => [
-					       objectClass => 'userJabberAccount',
-					       jabberUid   => $username,
-					       jabberAdmin => 'FALSE'
-					       ]
-				       ]
-			  );
-	    my $result = $ldap->modify($dn, \%attrs );
-	    ($result->is_error) and
-		throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-	} elsif ($mesg->count and not ($option)) {
-	    my %attrs = (
-			  changes => [
-				       delete => [
-						  objectClass => ['userJabberAccount'],
-						  jabberUid   => [$username],
-						  jabberAdmin => []
-						  ]
-				       ]
-			  );
-	    my $result = $ldap->modify($dn, \%attrs );
-	    ($result->is_error) and
-		throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-	}
+    my %args = (base => $dn,
+            filter => "jabberUid=$username");
+    my $mesg = $ldap->search(\%args);
 
-	return 0;
+    if (!$mesg->count and ($option)){
+        my %attrs = (
+              changes => [
+                       add => [
+                           objectClass => 'userJabberAccount',
+                           jabberUid   => $username,
+                           jabberAdmin => 'FALSE'
+                           ]
+                       ]
+              );
+        my $result = $ldap->modify($dn, \%attrs );
+        ($result->is_error) and
+        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+    } elsif ($mesg->count and not ($option)) {
+        my %attrs = (
+              changes => [
+                       delete => [
+                          objectClass => ['userJabberAccount'],
+                          jabberUid   => [$username],
+                          jabberAdmin => []
+                          ]
+                       ]
+              );
+        my $result = $ldap->modify($dn, \%attrs );
+        ($result->is_error) and
+        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+    }
+
+    return 0;
 }
 
 sub getJabberAdmins
 {
-        my $self = shift;
-	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('users');
-	my $dn = $users->usersDn;
-	my @admins = ();
+    my $self = shift;
 
-	$users->{ldap}->ldapCon;
-	my $ldap = $users->{ldap};
+    my $global = EBox::Global->getInstance();
+    my $users = $global->modInstance('users');
+    my $dn = $users->usersDn;
+    my @admins = ();
 
-	my %args = (base => $dn,
-		    filter => "jabberAdmin=TRUE");
-	my $mesg = $ldap->search(\%args);
+    $users->{ldap}->ldapCon;
+    my $ldap = $users->{ldap};
 
-	foreach my $entry ($mesg->entries) {
-	    foreach my $attrib (@{$entry->{'asn'}->{'attributes'}}){
-		if ($attrib->{'type'} eq 'jabberUid'){
-		    push (@admins, pop(@{$attrib->{'vals'}}));
-		}
-	    }
-	}
+    my %args = (base => $dn,
+            filter => "jabberAdmin=TRUE");
+    my $mesg = $ldap->search(\%args);
 
-	return \@admins;
+    foreach my $entry ($mesg->entries) {
+        foreach my $attrib (@{$entry->{'asn'}->{'attributes'}}){
+        if ($attrib->{'type'} eq 'jabberUid'){
+            push (@admins, pop(@{$attrib->{'vals'}}));
+        }
+        }
+    }
+
+    return \@admins;
 }
 
 
