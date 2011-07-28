@@ -1,4 +1,6 @@
 HEAD
+	+ Always show current users tab and show a precondition message
+	  if module is not enabled
 	+ Added group option to configure authorized users
 2.1.7
 	+ Added a custom action to kick logged users

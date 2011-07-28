@@ -152,6 +152,17 @@ sub _table
 }
 
 
+sub precondition
+{
+    return EBox::Global->modInstance('captiveportal')->isEnabled();
+}
+
+sub preconditionFailMsg
+{
+    return __('Captive portal must be enabled in order to see current users list.');
+}
+
+
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
