@@ -80,7 +80,7 @@ FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
     LTEXT           "Zentyal AD Password Sync Version 2.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2009-2010 eBox Technologies S.L.",IDC_STATIC,40,25,176,8
+    LTEXT           "Copyright (C) 2009-2011 eBox Technologies S.L.",IDC_STATIC,40,25,176,8
     DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
 END
 
