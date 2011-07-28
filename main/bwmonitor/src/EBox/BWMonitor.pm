@@ -20,6 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::LogHelper);
@@ -53,8 +54,17 @@ sub modelClasses
     return [
         'EBox::BWMonitor::Model::Interfaces',
         'EBox::BWMonitor::Model::UserIPMap',  # FIXME? this should reside in state
+        'EBox::BWMonitor::Model::BWUsage',
     ];
 }
+
+sub compositeClasses
+{
+    return [
+        'EBox::BWMonitor::Composite::General',
+    ];
+}
+
 
 # Method: menu
 #
@@ -161,6 +171,43 @@ sub userExtBWUsage
 }
 
 
+# Method: allUsersBWUsage
+#
+#   Returns total bandwidth usage in bytes since the given timestmap
+#   for every user
+#
+#   Parameters:
+#       - since (timestamp)
+#
+sub allUsersExtBWUsage
+{
+    my ($self, $since) = @_;
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    my @localtime = localtime($since);
+    my $year = $localtime[5] + 1900;
+    my $month = $localtime[4] + 1;
+    my $mday = $localtime[3];
+    my $hour = $localtime[2];
+    my $min = $localtime[1];
+    my $sec = $localtime[0];
+
+    my $beg = "$year-$month-$mday $hour:$min:$sec";
+
+    my $res = $db->query_hash({
+            'select' => 'client as ip,' .
+                        'SUM(exttotalrecv) as extrecv, SUM(exttotalsent) as extsent,' .
+                        'SUM(inttotalrecv) as intrecv, SUM(inttotalsent) as intsent',
+            'from' => 'bwmonitor_usage',
+            'where' => qq{timestamp>'$beg'},
+            'group' => 'client'
+        });
+
+    return $res;
+}
+
+
 
 sub _setConf
 {
@@ -181,6 +228,7 @@ sub _setConf
     if (not -d CONF_DIR) {
         mkdir (CONF_DIR, 0755);
     }
+
 
     # Write daemon upstart and config files
     foreach my $iface (@{$self->ifaces()}) {

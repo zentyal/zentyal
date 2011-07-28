@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/BWMonitor/Model
+perldir = @PERLPATH@/EBox/BWMonitor/Composite
 
-nobase_perl_DATA = Interfaces.pm UserIPMap.pm BWUsage.pm
+nobase_perl_DATA = General.pm
 
 DISTCLEANFILES =
 

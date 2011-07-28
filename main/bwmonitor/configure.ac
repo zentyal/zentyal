@@ -46,6 +46,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/BWMonitor/Makefile
 src/EBox/BWMonitor/Model/Makefile
+src/EBox/BWMonitor/Composite/Makefile
 src/scripts/Makefile
 stubs/Makefile
 schemas/Makefile
