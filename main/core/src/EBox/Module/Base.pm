@@ -1557,8 +1557,10 @@ sub _consolidateReportFromDB
                                     }
                                     $new_row->{$k} = $newValue;
                                 } else {
-                                    # sum values
-                                    $new_row->{$k} = $row->{$k} + $r->{$k};
+                                    # sum values avoiding undef warnings
+                                    $new_row->{$k} = 0;
+                                    $new_row->{$k} += $row->{$k} if defined $row->{$k};
+                                    $new_row->{$k} += $r->{$k} if defined $r->{$k};
                                 }
                             }
                         }
