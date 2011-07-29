@@ -1,4 +1,4 @@
-HEAD
+2.1.3
 	+ Start button also resumes paused machines
 	+ Do not pop up console if the machine is not running
 	+ Allow to specify VNC passwords in /var/lib/zentyal/conf/vnc-passwd
