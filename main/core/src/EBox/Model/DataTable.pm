@@ -390,6 +390,26 @@ sub preconditionFailMsg
     return '';
 }
 
+# Method: noDataMsg
+#
+#       Return the fail message to inform that there are no rows
+#       in the table
+#
+# Returns:
+#
+#       String - the i18ned message to inform user that the table
+#       is empty
+#
+#       Default value: empty string
+#
+sub noDataMsg
+{
+    my ($self) = @_;
+
+    my $table = $self->{table};
+    return (exists $table->{noDataMsg} ? $table->{noDataMsg} : '');
+}
+
 # Method: customFilter
 #
 #       Return whether a custom filter should be used or not.
@@ -2806,9 +2826,8 @@ sub modalViewer
     if ($showTable) {
         return  '/ajax/tableModalView.mas';
     } else {
-        return '/ajax/tableModal.mas';        
+        return '/ajax/tableModal.mas';
     }
-
 }
 
 # Method: automaticRemoveMsg
@@ -2947,7 +2966,7 @@ sub changeViewJS
 
 # Method: modalChangeViewJS
 #
-#     Return the javascript function to change view 
+#     Return the javascript function to change view
 #
 # Parameters:
 #
@@ -2967,7 +2986,7 @@ sub modalChangeViewJS
     my $actionType = delete $args{changeType};
     my $editId     = delete $args{editId};
     if (not $args{title}) {
-        $args{title} = __x('New {name}', 
+        $args{title} = __x('New {name}',
                            name => $self->printableRowName()
                           );
     }
@@ -2979,11 +2998,11 @@ sub modalChangeViewJS
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
-    $url =~ s/Controller/ModalController/; 
+    $url =~ s/Controller/ModalController/;
     my $tableId = $table->{'tableName'} . '_modal';
 
     my $js =  sprintf ($function,
-            $url,         
+            $url,
             $tableId,
             $table->{'gconfdir'},
             $actionType,
@@ -3000,12 +3019,12 @@ sub modalCancelAddJS
     my ($self, %params) = @_;
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
-    $url =~ s/Controller/ModalController/; 
+    $url =~ s/Controller/ModalController/;
 
     my $directory = $self->directory();
     my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $onSuccess='';    
+    my $onSuccess='';
     if ($selectCallerId) {
         $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
     }
@@ -3050,7 +3069,7 @@ sub addNewRowJS
 sub modalAddNewRowJS
 {
     my ($self, $page, $nextPage, @extraParams) = @_;
-    $nextPage or 
+    $nextPage or
         $nextPage = '';
 
     my  $function = "modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";

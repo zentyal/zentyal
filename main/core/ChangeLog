@@ -1,3 +1,6 @@
+HEAD
+	+ Added noDataMsg attribute on DataTable to show a message when
+	  there are no rows
 2.1.23
 	+ Removed some warnings during consolidation process
 	+ Depend on libterm-readline-gnu-perl for history support in shells

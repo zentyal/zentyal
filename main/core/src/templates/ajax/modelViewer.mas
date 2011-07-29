@@ -64,12 +64,19 @@
 <& SELF:header,
    model => $model
 &>
-% if ( $model->precondition() ) {
+% if ($model->precondition()) {
+%   my $noDataMsg = $model->noDataMsg();
+%   if ($noDataMsg and not @{$model->ids()}) {
+<div class="note">
+  <% $noDataMsg %>
+</div>
+%   } else {
 <div id="<% $model->modelName() %>">
   <& SELF:body,
      model      => $model
   &>
 </div>
+%   }
 % }
 % else
 % {
