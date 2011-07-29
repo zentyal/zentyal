@@ -94,7 +94,7 @@ sub isEnabled
 
     # Get readonly value to avoid disable of logging before saving changes
     my $globalRO = EBox::Global->getInstance(1);
-    return $globalRO->modInstance('audit')->get_bool('logging');
+    return $globalRO->modInstance('audit')->get_bool('logging') ? 1 : 0;
 }
 
 # Method: tableInfo

@@ -1,4 +1,6 @@
 HEAD
+	+ Always return a number in EBox::AuditLogging::isEnabled to avoid
+	  issues when returning the module status
 	+ Added noDataMsg attribute on DataTable to show a message when
 	  there are no rows
 2.1.23
