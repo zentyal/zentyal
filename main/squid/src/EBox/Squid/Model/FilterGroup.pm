@@ -450,6 +450,7 @@ sub antivirusNeeded
     foreach my $rowId ( @{ $self->ids() } ) {
         my $antivirusModel;
         my $row = $self->row($rowId);
+        next unless defined ($row);
         my $policy =
             $row->elementByName('filterPolicy')->foreignModelInstance();
 

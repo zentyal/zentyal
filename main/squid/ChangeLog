@@ -1,4 +1,5 @@
 HEAD
+	+ Added guard against missing rows in antivirusNeeded method
 	+ Order top domains by visits instead of traffic bytes in
 	  reporting
 2.1.6
