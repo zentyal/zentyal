@@ -44,7 +44,7 @@ sub new
     bless ($self, $class);
 
     # Choose between kvm or qemu according to the HW capabilities
-    system ("egrep '^flags.* (vmx|svm)' /proc/cpuinfo");
+    system ("egrep -q '^flags.* (vmx|svm)' /proc/cpuinfo");
     $self->{emulator} = ($? == 0) ? 'kvm' : 'qemu';
     $self->{keymap} = _vncKeymap();
 
