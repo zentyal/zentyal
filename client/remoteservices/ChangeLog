@@ -1,3 +1,5 @@
+HEAD
+	+ Add at package as dependency
 2.0.17
 	+ Use system configured NS if the Cloud NS is not available
 	+ User HTTP instead of ping for check Cloud WS server
