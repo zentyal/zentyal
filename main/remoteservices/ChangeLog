@@ -1,4 +1,5 @@
 HEAD
+	+ Add at package as dependency
 	+ Remove unnecessary check for old 2.0.X versions of zentyal-software
 2.1.5
 	+ Bugfix with YAML::XS to decode UTF8 strings to let SOAP::Lite
