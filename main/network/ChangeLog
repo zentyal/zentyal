@@ -1,3 +1,5 @@
+HEAD
+	+ Send only gw.hostname.dyndomain.tld to avoid ddclient go nuts
 2.1.9
 	+ Calculate interfaces widget size for a better default dashboard balance
 2.1.8
