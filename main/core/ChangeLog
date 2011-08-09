@@ -1,6 +1,6 @@
 HEAD
 	+ Fixed bug in disk usage when we have both values greater and
-	  lesser than 1024 MB
+	  lower than 1024 MB
 	+ Always return a number in EBox::AuditLogging::isEnabled to avoid
 	  issues when returning the module status
 	+ Added noDataMsg attribute on DataTable to show a message when
