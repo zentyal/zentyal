@@ -302,10 +302,13 @@ sub dumpExtraData
                                  destination => $filename,
                                  fallbackToRO => 1,
                                 );
-        # XXX Some modules such as events are marked as changed after
-        #     running ebox-make-backup.
-        #     This is a temporary workaround
-        $global->revokeAllModules();
+        if (not $readOnlyGlobal) {
+            # XXX Some modules such as events are marked as changed after
+            #     running ebox-make-backup.
+            #     This is a temporary workaround
+            $global->revokeAllModules();
+        }
+
         EBox::Sudo::command("mv $bakFile $extraDataDir");
 
         push @domainsDumped, 'configuration';

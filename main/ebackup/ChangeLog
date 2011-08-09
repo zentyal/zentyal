@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed revokeAlModules call on read-only global instances when
+	  dumping extra backup data
 2.1.5
 	+ Use show/hide in viewCustomizer to simplify the interface
 	+ Added missing help
