@@ -1,4 +1,8 @@
 HEAD
+	+ Include quota schema in slaves LDAP (fixes replication)
+	+ Do not stop slapd daemons after slave enable
+	+ Fixed users and groups retrieval if module is disabled
+	+ Manage slapd daemon in master mode
 	+ Make the optional 'comment' field to also appear as optional on the UI
 	+ Ignore users also in pwdsync-server, not only in the ad-sync script
 2.1.7

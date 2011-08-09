@@ -37,6 +37,7 @@ include: file:///etc/ldap/schema/cosine.ldif
 include: file:///etc/ldap/schema/nis.ldif
 include: file:///etc/ldap/schema/inetorgperson.ldif
 include: file://<% $schemadir %>/passwords.ldif
+include: file://<% $schemadir %>/quota.ldif
 
 # Frontend settings
 dn: olcDatabase={-1}frontend,cn=config

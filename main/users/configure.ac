@@ -46,7 +46,6 @@ AC_CONFIG_FILES([
 conf/Makefile
 src/Makefile
 src/EBox/Makefile
-src/EBox/Migration/Makefile
 src/EBox/UsersAndGroups/Makefile
 src/EBox/UsersAndGroups/Model/Makefile
 src/EBox/UsersAndGroups/Composite/Makefile

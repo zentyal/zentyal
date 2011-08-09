@@ -44,7 +44,6 @@ use POSIX;
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
-use constant INIT_SCRIPT   => '/etc/init.d/slapd';
 use constant DATA_DIR      => '/var/lib/ldap';
 use constant LDAP_USER     => 'openldap';
 use constant LDAP_GROUP    => 'openldap';
@@ -435,7 +434,6 @@ sub delObjectclass # (dn, objectclass);
 
     my %attrexist = map {$_ => 1} $msg->pop_entry->attributes;
 
-
     $msg = $self->search(
             { base => $dn, scope => 'base',
             attrs => ['objectClass'],
@@ -749,14 +747,16 @@ sub dataDir
 sub stop
 {
     my ($self) = @_;
-    EBox::Sudo::root(INIT_SCRIPT . ' stop');
+    my $users = EBox::Global->modInstance('users');
+    $users->_manageService('stop');
     return  $self->refreshLdap();
 }
 
-sub  start
+sub start
 {
     my ($self) = @_;
-    EBox::Sudo::root(INIT_SCRIPT . ' start');
+    my $users = EBox::Global->modInstance('users');
+    $users->_manageService('start');
     return  $self->refreshLdap();
 }
 
@@ -911,7 +911,7 @@ sub restoreLdapMaster
                 'password' => $self->getPassword()
             ]);
         EBox::Sudo::root('chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' /var/lib/ldap');
-        EBox::Sudo::root('/etc/init.d/slapd start');
+        $self->start();
         sleep(1);
         EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
             EBox::Config::tmp() . "slapd-master-upgrade-ebox.ldif");
@@ -1087,24 +1087,6 @@ sub _execute
     };
 }
 
-sub _tryToStartSlapd
-{
-    # FIXME: We need to know the real mode here, but as some models may
-    # require to ask for the mode when being setted up, we cannot use
-    # the model manager, we'd enter in infinite recursion.
-
-    # my $users = EBox::Global->modInstance('users');
-    # my $mode = $users->mode();
-    #
-    # if ($mode ne 'slave') {
-    #    EBox::Sudo::root('/etc/init.d/slapd start');
-    #}
-
-    if (! -d '/etc/ldap/slapd-replica.d') { # not slave
-        EBox::Sudo::root('/etc/init.d/slapd start');
-    }
-}
-
 sub safeConnect
 {
     my ($ldapurl) = @_;
@@ -1116,7 +1098,6 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to LDAP');
     };
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
-        _tryToStartSlapd();
         EBox::error("Couldn't connect to LDAP server $ldapurl, retrying");
         sleep(1);
     }

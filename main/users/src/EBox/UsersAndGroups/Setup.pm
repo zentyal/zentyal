@@ -102,12 +102,6 @@ sub master
     my $model = EBox::Model::ModelManager->instance()->model('Mode');
     my $dn = $model->dnValue();
 
-    my @commands;
-    push (@commands, 'cp ' . EBox::Config::share() .
-        '/zentyal-users/slapd.default /etc/default/slapd');
-    push (@commands, 'invoke-rc.d slapd restart');
-    EBox::Sudo::root(@commands);
-
     my $pass = new_pass();
     my $tmp = EBox::Config::tmp();
 
@@ -127,7 +121,7 @@ sub master
           'password' => $pass
         ]);
 
-    @commands = ();
+    my @commands;
     push (@commands,
         "ldapadd -H 'ldapi://' -Y EXTERNAL -c -f $tmp/slapd-master.ldif");
     push (@commands,
