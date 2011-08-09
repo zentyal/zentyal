@@ -68,14 +68,14 @@ sub _process
         my $netmask = $self->param("vif_netmask");
         $net->setViface($iface, $name, $address, $netmask);
 
-        $audit->logAction('Network', 'Interfaces', 'setViface', "$iface:$name, $address/$netmask", 1);
+        $audit->logAction('network', 'Interfaces', 'setViface', "$iface:$name, $address/$netmask", 1);
     } elsif ($ifaction eq 'delete')  {
         $self->_requireParam("vif_name", __("virtual interface name"));
         my $viface = $self->param("vif_name");
         try {
             $net->removeViface($iface, $viface, $force);
 
-            $audit->logAction('Network', 'Interfaces', 'removeViface', "$iface:$viface", 1);
+            $audit->logAction('network', 'Interfaces', 'removeViface', "$iface:$viface", 1);
         } catch EBox::Exceptions::DataInUse with {
             $self->{template} = 'network/confirmremove.mas';
             $self->{redirect} = undef;

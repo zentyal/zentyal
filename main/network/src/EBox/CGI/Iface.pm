@@ -86,7 +86,7 @@ sub setIface
         if (defined($alias)) {
             $net->setIfaceAlias($iface,$alias);
 
-            $audit->logAction('Network', 'Interfaces', 'setIfaceAlias', "$iface, $alias", 1) if ($iface ne $alias);
+            $audit->logAction('network', 'Interfaces', 'setIfaceAlias', "$iface, $alias", 1) if ($iface ne $alias);
         }
         if ($method eq 'static') {
             $self->_requireParam('if_address', __('ip address'));
@@ -96,7 +96,7 @@ sub setIface
             $net->setIfaceStatic($iface, $address, $netmask,
                     $external, $force);
 
-            $audit->logAction('Network', 'Interfaces', 'setIfaceStatic', "$iface, $address, $netmask, $extStr", 1);
+            $audit->logAction('network', 'Interfaces', 'setIfaceStatic', "$iface, $address, $netmask, $extStr", 1);
         } elsif ($method eq 'ppp') {
             $self->_requireParam('if_ppp_user', __('user name'));
             $self->_requireParam('if_ppp_pass', __('password'));
@@ -106,25 +106,25 @@ sub setIface
                     $external, $force);
 
             my $extStr = $external ? 'external' : 'internal';
-            $audit->logAction('Network', 'Interfaces', 'setIfacePPP', "$iface, user=$ppp_user, pass=$ppp_pass, $extStr", 1);
+            $audit->logAction('network', 'Interfaces', 'setIfacePPP', "$iface, user=$ppp_user, pass=$ppp_pass, $extStr", 1);
         } elsif ($method eq 'dhcp') {
             $net->setIfaceDHCP($iface, $external, $force);
 
-            $audit->logAction('Network', 'Interfaces', 'setIfaceDHCP', "$iface, $extStr", 1);
+            $audit->logAction('network', 'Interfaces', 'setIfaceDHCP', "$iface, $extStr", 1);
         } elsif ($method eq 'trunk') {
             $net->setIfaceTrunk($iface, $force);
 
-            $audit->logAction('Network', 'Interfaces', 'setIfaceTrunk', $iface, 1);
+            $audit->logAction('network', 'Interfaces', 'setIfaceTrunk', $iface, 1);
         } elsif ($method eq 'bridged') {
             $self->_requireParam('bridge', __('bridge'));
             $bridge = $self->param('bridge');
             $net->setIfaceBridged($iface, $external, $bridge, $force);
 
-            $audit->logAction('Network', 'Interfaces', 'setIfaceBridged', "$iface, $bridge, $extStr", 1);
+            $audit->logAction('network', 'Interfaces', 'setIfaceBridged', "$iface, $bridge, $extStr", 1);
         } elsif ($method eq 'notset') {
             $net->unsetIface($iface, $force);
 
-            $audit->logAction('Network', 'Interfaces', 'unsetIface', $iface, 1);
+            $audit->logAction('network', 'Interfaces', 'unsetIface', $iface, 1);
         }
     } catch EBox::Exceptions::DataInUse with {
         $self->{template} = 'network/confirm.mas';

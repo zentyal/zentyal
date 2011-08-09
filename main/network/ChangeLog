@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed module name in actions logging
 	+ Send only gw.hostname.dyndomain.tld to avoid ddclient go nuts
 2.1.9
 	+ Calculate interfaces widget size for a better default dashboard balance

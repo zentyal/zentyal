@@ -59,7 +59,7 @@ sub _process
                 my $force = $self->param('force');
                 $net->removeVlan($vlanId, $force);
 
-                $audit->logAction('Network', 'Interfaces', 'removeVlan', "$iface, $vlanId", 1);
+                $audit->logAction('network', 'Interfaces', 'removeVlan', "$iface, $vlanId", 1);
            } catch EBox::Exceptions::DataInUse with {
                $self->{template} = 'network/confirmVlanDel.mas';
                $self->{redirect} = undef;
@@ -72,7 +72,7 @@ sub _process
     } elsif (defined($self->param('add'))) {
         $net->createVlan($vlanId, $self->param('vlandesc'), $iface);
 
-        $audit->logAction('Network', 'Interfaces', 'createVlan', "$iface, $vlanId", 1);
+        $audit->logAction('network', 'Interfaces', 'createVlan', "$iface, $vlanId", 1);
     }
 }
 
