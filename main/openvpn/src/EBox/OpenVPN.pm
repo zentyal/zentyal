@@ -1546,7 +1546,6 @@ sub openVPNDaemonsWidget
 sub widgets
 {
     my ($self) = @_;
-    my @openvpns = $self->daemons();
 
     my $widgets = {
         'openvpndaemons' => {
@@ -1556,7 +1555,9 @@ sub widgets
             'default' => 1
         }
     };
-    foreach my $ovpn (@openvpns) {
+
+    my @servers = $self->servers();
+    foreach my $ovpn (@servers) {
         unless ( $ovpn->internal() ) {
             my $widget = {
                 'title' => $ovpn->name(),
