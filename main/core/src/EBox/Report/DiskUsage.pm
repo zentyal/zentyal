@@ -341,20 +341,33 @@ sub _chartDatasets
   # we put free space and system usage first bz we want they have always the
   # same colors
 
+  # choose correct unit
+  my $unit = 'MB';
+  if ($freeSpace > 1024 or $systemUsage > 1024) {
+      $unit = 'GB';
+  } else {
+      foreach my $size (values %usageByFacility) {
+          if ($size > 1024) {
+              $unit = 'GB';
+              last;
+          }
+      }
+  }
+
   # we don't translate the strings: 'Free space' and 'System' to avoid
   # problems with special characters in some lenguages
   push @labels, 'Free space';
-  push @diskUsage, _sizeLabelWithUnit($freeSpace);
+  push @diskUsage, _sizeLabelWithUnit($freeSpace, $unit);
 
   push @labels,    'System';
-  push @diskUsage, _sizeLabelWithUnit($systemUsage);
+  push @diskUsage, _sizeLabelWithUnit($systemUsage, $unit);
 
   while (my ($facilityName, $facilityUsage) = each %usageByFacility ) {
       ($facilityUsage >= $minSizeToAppear) or
           next;
 
       push @labels, $facilityName;
-      push @diskUsage, _sizeLabelWithUnit($facilityUsage);
+      push @diskUsage, _sizeLabelWithUnit($facilityUsage, $unit);
   }
 
   return [
@@ -365,12 +378,14 @@ sub _chartDatasets
 
 sub _sizeLabelWithUnit
 {
-    my ($size) = @_;
+    my ($size, $unit) = @_;
 
-    if ($size > 1024) {
-        return sprintf ('%.2f GB', $size / 1024);
-    } else {
+    if ($unit eq 'GB') {
+        return sprintf ('%.2f GB', $size / 1024);        
+    } elsif ($unit eq 'MB') {
         return "$size MB";
+    } else {
+        throw EBox::Exceptions::Internal("Unknown unit: $unit");
     }
 }
 
