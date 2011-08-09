@@ -618,18 +618,16 @@ sub _normalize
 # Throw InvalidData if it's not a positive number
 sub _checkRate # (rate, printableName)
 {
-
     my ($self, $rate, $printableName) = @_;
 
     if ( $rate->value() < 0 ) {
         throw EBox::Exceptions::InvalidData(
                 'data'  => $printableName,
-                'value' => $rate,
+                'value' => $rate->value(),
                 );
     }
 
     return 1;
-
 }
 
 # Get the rate stored by state in order to work when interface rate changes
