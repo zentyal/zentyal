@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,7 +38,12 @@ sub _process
     my $self = shift;
 
     my @array = ();
-    push(@array, 'pages' => $self->_modulesWizardPages);
+
+    if ($self->param('page')) {
+        push(@array, 'pages' => [ $self->param('page') ]);
+    } else {
+        push(@array, 'pages' => $self->_modulesWizardPages);
+    }
     $self->{params} = \@array;
 }
 
