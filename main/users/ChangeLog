@@ -1,4 +1,4 @@
-HEAD
+2.1.8
 	+ Include quota schema in slaves LDAP (fixes replication)
 	+ Do not stop slapd daemons after slave enable
 	+ Fixed users and groups retrieval if module is disabled

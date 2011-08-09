@@ -1,4 +1,4 @@
-HEAD
+2.1.6
 	+ Fixed revokeAlModules call on read-only global instances when
 	  dumping extra backup data
 2.1.5

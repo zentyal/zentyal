@@ -1,4 +1,4 @@
-HEAD
+2.1.7
 	+ HTTPS works both for banned domains and block blanket options
 	+ Added guard against missing rows in antivirusNeeded method
 	+ Order top domains by visits instead of traffic bytes in
