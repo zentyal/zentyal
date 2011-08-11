@@ -29,10 +29,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Constants
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices';
-use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
+use constant SUBS_WIZARD_URL => '/zentyal/Wizard?page=RemoteServices/Wizard/Subscription';
 
 # Group: Public methods
 
@@ -100,7 +97,7 @@ sub _commercialMsg
                 . 'some cloud-based extra features such as: Remote configuration '
                 . 'backup, basic alerts, Dynamic DNS (human-readable public hostname) '
                 . 'or Zentyal server name in the web browser tab.',
-                ohb => '<a href="' . BASIC_URL . '" target="_blank">',
+                ohb => '<a href="' . SUBS_WIZARD_URL . '">',
                 ch  => '</a>');
 }
 
