@@ -123,7 +123,8 @@ ENDJS
 
 % if ($addNewJS and $empty) {
 <div id="<% $id %>_empty">
-<% __('No elements found. ') %><a href="#" class="addNew" name="add" onclick="<% $addNewJS %>;return false"><% __('Add a new one') %></a>
+<% __('No elements found. ') %>
+<a href="#" class="addNew" name="add" onclick="<% $addNewJS %>;return false"><% __('Add a new one') %></a>
 <p>
 </div>
 % }
