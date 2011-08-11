@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-07-28 23:34+0200\n"
+"POT-Creation-Date: 2011-08-11 20:30+0200\n"
 "PO-Revision-Date: 2011-07-02 13:44+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
@@ -49,7 +49,7 @@ msgstr "Užklausos"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 #: ../../main/squid/src/EBox/Squid.pm:1121
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:269
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:427
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:95
 #: ../../main/pptp/src/EBox/Model/Users.pm:104
 #: ../../main/pptp/src/EBox/PPTP.pm:355
@@ -107,10 +107,10 @@ msgstr "Filtruoto srauto dydis (Kb))"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 #: ../../main/squid/src/EBox/Squid.pm:1119
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1642
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1643
 #: ../../main/firewall/src/EBox/Firewall.pm:1008
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:266
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1300
 #: ../../main/printers/src/EBox/Printers.pm:299
@@ -123,7 +123,7 @@ msgstr "Filtruoto srauto dydis (Kb))"
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:646
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:93
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:68
-#: ../../main/core/src/EBox/Logs.pm:718 ../../main/mail/src/EBox/Mail.pm:1611
+#: ../../main/core/src/EBox/Logs.pm:718 ../../main/mail/src/EBox/Mail.pm:1613
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:62
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:298 ../../main/radius/src/EBox/Radius.pm:390
@@ -1451,7 +1451,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:152
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
-#: ../../main/core/src/EBox/Model/DataTable.pm:4691
+#: ../../main/core/src/EBox/Model/DataTable.pm:4710
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:268
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:368
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
@@ -1491,7 +1491,7 @@ msgstr "Klausančioji prieiga"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/ca/src/EBox/CA.pm:1750
 #: ../../main/core/src/EBox/SysInfo.pm.in:326
-#: ../../main/mail/src/EBox/Mail.pm:1549
+#: ../../main/mail/src/EBox/Mail.pm:1551
 #: ../../main/asterisk/src/EBox/Asterisk.pm:553
 msgid "General"
 msgstr "Bendra"
@@ -1527,7 +1527,7 @@ msgid "Mime/type"
 msgstr "Mime/tipas"
 
 #: ../../main/squid/src/EBox/Squid.pm:1125
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1643
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1304
 #: ../../main/printers/src/EBox/Printers.pm:300
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
@@ -1535,7 +1535,7 @@ msgstr "Mime/tipas"
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:168
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:141
-#: ../../main/mail/src/EBox/Mail.pm:1621 ../../main/ids/src/EBox/IDS.pm:304
+#: ../../main/mail/src/EBox/Mail.pm:1623 ../../main/ids/src/EBox/IDS.pm:304
 #: ../../main/radius/src/EBox/Radius.pm:391
 #: ../../main/asterisk/src/EBox/Asterisk.pm:769
 #: ../../main/core/src/templates/logs/index.mas:182
@@ -1883,6 +1883,7 @@ msgstr "Kliento konfigūracija"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:157
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:86
 #: ../../main/radius/src/EBox/Model/Clients.pm:127
 msgid "client"
 msgstr "klientas"
@@ -2177,7 +2178,7 @@ msgid "VPN interface address"
 msgstr "VPN sąsajos adresas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:52
-#: ../../main/mail/src/EBox/Mail.pm:1499
+#: ../../main/mail/src/EBox/Mail.pm:1501
 msgid "disabled"
 msgstr "išjungta"
 
@@ -2345,7 +2346,7 @@ msgstr "Bendras vardas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1485
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1518
 #: ../../main/asterisk/src/EBox/Asterisk.pm:586
 msgid "Address"
 msgstr "Adresas"
@@ -2360,11 +2361,11 @@ msgstr "Prisijungta nuo"
 msgid "No users connected to the VPN"
 msgstr "Nėra prisijungusių VPN klientų"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1553
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1552
 msgid "OpenVPN daemons"
 msgstr "OpenVPN tarnybos"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1645
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1646
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:132
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:81
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:139
@@ -2376,47 +2377,47 @@ msgstr "OpenVPN tarnybos"
 msgid "Type"
 msgstr "Tipas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1646
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1647
 msgid "Remote IP"
 msgstr "Nutolęs IP"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1647
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1648
 msgid "Remote Certificate"
 msgstr "Nuotoliniai sertifikatai"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1652
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1653
 msgid "Initialization sequence completed"
 msgstr "Pradinė seka užbaigta"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1654
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1655
 msgid "Certificate issuer not authorized"
 msgstr "Sertifikato iniciatorius neautorizuotas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1655
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1656
 msgid "Certificate common name not authorized"
 msgstr "Sertifikato bendras pavadinimas neautorizuotas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1656
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1657
 msgid "Certificate verification failed"
 msgstr "Sertifikato tikrinimas nepavyko"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1658
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1659
 msgid "Client connection initiated"
 msgstr "Kliento prisijungimas inicijuotas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1659
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1660
 msgid "Client connection terminated"
 msgstr "Kliento prisijungimas nutrauktas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1661
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1662
 msgid "Connection to server initiated"
 msgstr "Prisijungimas į serverį inicijuotas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1662
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1663
 msgid "Server connection terminated"
 msgstr "Serverio prisijungimas nutrauktas"
 
-#: ../../main/openvpn/src/EBox/OpenVPN.pm:1691
+#: ../../main/openvpn/src/EBox/OpenVPN.pm:1692
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Turite nustatyti insecure_rip_conf taip arba ne"
 
@@ -2730,7 +2731,7 @@ msgstr "Prieštaringa taisyklė rasta. Prašome pirma pašalinti"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:535
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:687
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1105
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:268
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:426
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:57
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:57
 #: ../../main/pptp/src/EBox/PPTP.pm:355
@@ -3090,7 +3091,7 @@ msgstr ""
 "tas pačias proporcijas bei {removeNum} buvo ištrintos nes garantuoas dažnis "
 "buvo mažesnis už leidžiamą mažiausią."
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:658
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:656
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
@@ -3100,13 +3101,13 @@ msgstr ""
 "tuo metu aplikacijos paremti protokolai yra lėtesni bet efektyvesni todėl "
 "kad tikrina kiekvieną paketą ar atitinką servisą"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:674
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:693
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:672
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:691
 msgid "Application based service"
 msgstr "Aplikacijomis paremtas servisas"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:683
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:701
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:681
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:699
 msgid "Application based service group"
 msgstr "Aplikacija paremto serviso grupė"
 
@@ -3265,7 +3266,7 @@ msgstr "Ši sritis"
 #: ../../main/dhcp/src/EBox/Model/Options.pm:417
 #: ../../main/dhcp/src/EBox/Model/Options.pm:431
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:324
-#: ../../main/mail/src/EBox/Mail.pm:1514
+#: ../../main/mail/src/EBox/Mail.pm:1516
 msgid "Custom"
 msgstr "Papildomas"
 
@@ -3873,7 +3874,7 @@ msgid "Removed {nname} from object {object}"
 msgstr "Pašalintas {nname} iš objekto {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:394
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:68
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
 #: ../../main/network/src/EBox/Network.pm:84
 #: ../../main/network/src/EBox/Network.pm:3794
@@ -4087,7 +4088,7 @@ msgid "Disaster Recovery"
 msgstr "Nelaimės atstatymas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:334
-#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:68
+#: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:65
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:147
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:160
 msgid "Zentyal Cloud"
@@ -4513,8 +4514,8 @@ msgstr "Pasirinkite serverio vardą kuris yra galiojantis jūsų srityje"
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:74
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:78
-#: ../../main/users/src/EBox/UsersAndGroups.pm:998
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2634
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1004
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2631
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
 #: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
@@ -4560,7 +4561,7 @@ msgstr "moduliai"
 #: ../../main/core/src/EBox/Model/Composite.pm:643
 #: ../../main/core/src/EBox/Model/Composite.pm:658
 #: ../../main/core/src/EBox/Model/DataMultiTable.pm:168
-#: ../../main/core/src/EBox/Model/DataTable.pm:2092
+#: ../../main/core/src/EBox/Model/DataTable.pm:2112
 #: ../../main/core/src/EBox/Logs.pm:721
 #: ../../main/core/src/EBox/AuditLogging.pm:123
 #: ../../main/dns/src/templates/index.mas:24
@@ -5050,39 +5051,39 @@ msgid ""
 "info@zentyal.com"
 msgstr ""
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
-#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:43
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:58
 #, fuzzy
 msgid "Bandwidth Monitor"
 msgstr "Pralaidumo valdymas"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:267
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:425
 #: ../../main/samba/src/EBox/Samba.pm:1500
 #: ../../main/samba/src/EBox/Samba.pm:1520
 msgid "Client address"
 msgstr "kliento adresas"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:270
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:428
 #, fuzzy
 msgid "External recv"
 msgstr "Išorinė sąsaja"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:271
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:429
 #, fuzzy
 msgid "External sent"
 msgstr "Išorinė įvestis"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:272
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:430
 #, fuzzy
 msgid "Internal recv"
 msgstr "Vidininis"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:273
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:431
 #, fuzzy
 msgid "Internal sent"
 msgstr "Vidininis"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:284
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:442
 #, fuzzy
 msgid "Bandwidth usage"
 msgstr "Pralaidumo valdymas"
@@ -5100,6 +5101,7 @@ msgid "Username"
 msgstr "Vartotojas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:57
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
 #: ../../main/core/src/EBox/AuditLogging.pm:140
 #: ../../main/dns/src/templates/edit.mas:17
@@ -5119,12 +5121,12 @@ msgstr "vartotojo paštas"
 msgid "List of IPs assigned to each user."
 msgstr ""
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
 #, fuzzy
-msgid "Monitored Interfaces"
+msgid "Configure interfaces"
 msgstr "Tinklo sąsajos"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:67
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:119
 #: ../../main/printers/src/EBox/Model/CUPS.pm:167
@@ -5132,10 +5134,47 @@ msgstr "Tinklo sąsajos"
 msgid "interface"
 msgstr "sąsaja"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:70
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:69
 #, fuzzy
 msgid "List of monitored interfaces."
 msgstr "Sąrašas sukonfigūruotų Virtualių Mašinų"
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
+#, fuzzy
+msgid "External in"
+msgstr "Išorinė įvestis"
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:67
+#, fuzzy
+msgid "External out"
+msgstr "Išorinė paskyra"
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:72
+#, fuzzy
+msgid "Internal in"
+msgstr "Vidininis"
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:77
+#, fuzzy
+msgid "Internal out"
+msgstr "Vidininis"
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:85
+#, fuzzy
+msgid "Last hour bandwidth usage"
+msgstr "Pralaidumo valdymas"
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:89
+msgid "There is no data to show yet, the values are updated every 10 minutes"
+msgstr ""
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
+msgid "Bandwidth usage for each connected client."
+msgstr ""
+
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:104
+msgid "Bandwidth Monitor must be enabled in order to get data."
+msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
@@ -6017,15 +6056,15 @@ msgstr ""
 "Nėra kopijų archyvo. Gal būt jie buvo ištrinti? Paleiskite '/etc/init.d/"
 "zentyal ebackup restart'  atnaujinti kopijos informacijai."
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:410
+#: ../../main/ebackup/src/EBox/EBackup.pm:413
 msgid "Other files"
 msgstr "Kiti failai"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:411
+#: ../../main/ebackup/src/EBox/EBackup.pm:414
 msgid "Extra data manually included in the backup"
 msgstr "Papildomi duomenys rankiniu būdu įtraukti į kopiją"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:732
+#: ../../main/ebackup/src/EBox/EBackup.pm:735
 msgid ""
 "Could not get backup collection status, check whether the parameters and "
 "passwords are correct"
@@ -6033,24 +6072,24 @@ msgstr ""
 "Nepavyko gauti kopijos surinkimo statuso, patikrinkite ar parametrai ar "
 "slaptažodžiai teisingi"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1048
+#: ../../main/ebackup/src/EBox/EBackup.pm:1051
 #: ../../main/core/src/EBox/SysInfo.pm.in:321
 msgid "System"
 msgstr "Sistema"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1135
+#: ../../main/ebackup/src/EBox/EBackup.pm:1138
 msgid "You need to have the disaster recovery add-on to use this backup method"
 msgstr ""
 "Turite turėti nelaimingo atstatymo papildymą kad naudoti šį kopijavimo metodą"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1142
+#: ../../main/ebackup/src/EBox/EBackup.pm:1145
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 "Nepavyko atsiųsti kopijos informacijos, patikrinkite prisijungimą prie "
 "Zentyal debesies"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1244
+#: ../../main/ebackup/src/EBox/EBackup.pm:1247
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -6797,7 +6836,7 @@ msgstr "nėra ryšio"
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:89
-#: ../../main/mail/src/EBox/Mail.pm:1501 ../../main/mail/src/EBox/Mail.pm:1620
+#: ../../main/mail/src/EBox/Mail.pm:1503 ../../main/mail/src/EBox/Mail.pm:1622
 #: ../../main/asterisk/src/EBox/Asterisk.pm:586
 #: ../../main/core/src/templates/moduleStatusTable.mas:60
 #: ../../main/core/src/templates/report/raid.mas:104
@@ -7043,16 +7082,16 @@ msgstr "ip adresas"
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
-#: ../../main/users/src/EBox/UsersAndGroups.pm:970
 #: ../../main/users/src/EBox/UsersAndGroups.pm:976
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1261
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1328
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1380
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1842
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1920
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2021
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2055
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2126
+#: ../../main/users/src/EBox/UsersAndGroups.pm:982
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1268
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1335
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1387
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1851
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1929
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2033
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2067
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2138
 #: ../../main/users/src/EBox/CGI/AddUser.pm:44
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:40
 msgid "user name"
@@ -7451,7 +7490,7 @@ msgstr ""
 "{fixedIP}"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:217
-#: ../../main/mail/src/EBox/Mail.pm:1613
+#: ../../main/mail/src/EBox/Mail.pm:1615
 #: ../../main/asterisk/src/EBox/Asterisk.pm:762
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:23
@@ -7459,7 +7498,7 @@ msgid "From"
 msgstr "Nuo"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:223
-#: ../../main/mail/src/EBox/Mail.pm:1614
+#: ../../main/mail/src/EBox/Mail.pm:1616
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:99
 #: ../../main/asterisk/src/EBox/Asterisk.pm:763
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:21
@@ -9000,13 +9039,13 @@ msgstr "{g} grupė neegzistuoja"
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:803
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:44
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1679
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1684
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1876
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2026
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2060
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2177
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2280
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1688
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1693
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1885
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2038
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2072
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2189
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2292
 #: ../../main/users/src/EBox/CGI/ModifyGroup.pm:39
 #: ../../main/users/src/EBox/CGI/AddGroup.pm:45
 msgid "group name"
@@ -10275,7 +10314,7 @@ msgstr ""
 
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2620
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2617
 msgid "Mode"
 msgstr "Būdas"
 
@@ -10516,62 +10555,62 @@ msgstr "{model} {module} modulyje"
 msgid "at"
 msgstr "apie"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:515
+#: ../../main/core/src/EBox/Model/DataTable.pm:535
 msgid "field"
 msgstr "laukas"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:1456
+#: ../../main/core/src/EBox/Model/DataTable.pm:1476
 msgid "page"
 msgstr "puslapis"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:1459
+#: ../../main/core/src/EBox/Model/DataTable.pm:1479
 msgid "Page must be a number equal or greater than zero"
 msgstr "Puslapio numeris turi būti lygus arba didesnis už nulį"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2827
+#: ../../main/core/src/EBox/Model/DataTable.pm:2846
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Pašalinti {num} eilutes {rowName} iš {model}{br}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2897
+#: ../../main/core/src/EBox/Model/DataTable.pm:2916
 msgid "Page size"
 msgstr "Puslapio dydis"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2900
+#: ../../main/core/src/EBox/Model/DataTable.pm:2919
 msgid "Must be either a positive number or zero"
 msgstr "Turi būti teigiamas skaičius arba nulis"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2970
+#: ../../main/core/src/EBox/Model/DataTable.pm:2989
 #, fuzzy, perl-brace-format
 msgid "New {name}"
 msgstr "Serveris {name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3375
+#: ../../main/core/src/EBox/Model/DataTable.pm:3394
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} pridėta"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3376
+#: ../../main/core/src/EBox/Model/DataTable.pm:3395
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} ištrinta"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3377
+#: ../../main/core/src/EBox/Model/DataTable.pm:3396
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} atnaujinta"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3378
+#: ../../main/core/src/EBox/Model/DataTable.pm:3397
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} pakelta aukštyn"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3379
+#: ../../main/core/src/EBox/Model/DataTable.pm:3398
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} nuleista žemyn"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4535
+#: ../../main/core/src/EBox/Model/DataTable.pm:4554
 #: ../../main/captiveportal/src/templates/useraddon.mas:60
 #: ../../main/captiveportal/src/templates/useraddon.mas:61
 #: ../../main/network/src/templates/ifaces.mas:216
@@ -11445,8 +11484,8 @@ msgstr "Veikimo laikas"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:136
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2586
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2594
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2583
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2591
 #: ../../main/users/src/EBox/CGI/Users.pm:31
 #: ../../main/users/src/EBox/CGI/Users.pm:55
 #: ../../main/users/src/EBox/CGI/Groups.pm:51
@@ -12300,8 +12339,8 @@ msgstr "bet kuris TCP portas"
 msgid "eBox administration"
 msgstr "eBox administravimas"
 
-#: ../../main/mail/src/EBox/Mail.pm:96 ../../main/mail/src/EBox/Mail.pm:1484
-#: ../../main/mail/src/EBox/Mail.pm:1646
+#: ../../main/mail/src/EBox/Mail.pm:96 ../../main/mail/src/EBox/Mail.pm:1486
+#: ../../main/mail/src/EBox/Mail.pm:1648
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:144
 msgid "Mail"
@@ -12401,138 +12440,138 @@ msgstr "mazgo pašto vardas"
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "Pašto vardas ir virtuali pašto sritis yra tokios pačios"
 
-#: ../../main/mail/src/EBox/Mail.pm:1430
+#: ../../main/mail/src/EBox/Mail.pm:1432
 msgid "SMTP service"
 msgstr "SMTP servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1437
+#: ../../main/mail/src/EBox/Mail.pm:1439
 msgid "POP3 service"
 msgstr "POP3 servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1443
+#: ../../main/mail/src/EBox/Mail.pm:1445
 msgid "POP3S service"
 msgstr "POP3S servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1449
+#: ../../main/mail/src/EBox/Mail.pm:1451
 msgid "IMAP service"
 msgstr "IMAP servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1455
+#: ../../main/mail/src/EBox/Mail.pm:1457
 msgid "IMAPS service"
 msgstr "IMAPS servisas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1499
+#: ../../main/mail/src/EBox/Mail.pm:1501
 msgid "enabled"
 msgstr "įjungta"
 
-#: ../../main/mail/src/EBox/Mail.pm:1504
+#: ../../main/mail/src/EBox/Mail.pm:1506
 msgid "Mail server's filter"
 msgstr "Pašto serverio filtrai"
 
-#: ../../main/mail/src/EBox/Mail.pm:1513 ../../main/mail/src/EBox/Mail.pm:1520
+#: ../../main/mail/src/EBox/Mail.pm:1515 ../../main/mail/src/EBox/Mail.pm:1522
 msgid "Filter type"
 msgstr "Filtro tipas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1556
+#: ../../main/mail/src/EBox/Mail.pm:1558
 msgid "Virtual Mail Domains"
 msgstr "Virtualios pašto vardų sritys"
 
-#: ../../main/mail/src/EBox/Mail.pm:1562
+#: ../../main/mail/src/EBox/Mail.pm:1564
 msgid "Greylist"
 msgstr "Greylist"
 
-#: ../../main/mail/src/EBox/Mail.pm:1568
+#: ../../main/mail/src/EBox/Mail.pm:1570
 #: ../../main/mail/src/EBox/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Užklausų Tvarkymas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1595
+#: ../../main/mail/src/EBox/Mail.pm:1597
 msgid "Mail retrieval from external accounts"
 msgstr "Laiškų gavimas iš išorinės dėžutės"
 
-#: ../../main/mail/src/EBox/Mail.pm:1612
+#: ../../main/mail/src/EBox/Mail.pm:1614
 msgid "Message ID"
 msgstr "Žinutės ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1615
+#: ../../main/mail/src/EBox/Mail.pm:1617
 msgid "From hostname"
 msgstr "Iš vardo"
 
-#: ../../main/mail/src/EBox/Mail.pm:1616
+#: ../../main/mail/src/EBox/Mail.pm:1618
 msgid "From host ip"
 msgstr "Iš ip"
 
-#: ../../main/mail/src/EBox/Mail.pm:1617
+#: ../../main/mail/src/EBox/Mail.pm:1619
 #: ../../main/mail/src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Dydis (bitais)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1618
+#: ../../main/mail/src/EBox/Mail.pm:1620
 msgid "Relay"
 msgstr "Perdavimas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1619
+#: ../../main/mail/src/EBox/Mail.pm:1621
 msgid "Message type"
 msgstr "Žinutės tipas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1622
+#: ../../main/mail/src/EBox/Mail.pm:1624
 msgid "Additional Info"
 msgstr "Papildoma informacija"
 
-#: ../../main/mail/src/EBox/Mail.pm:1633
+#: ../../main/mail/src/EBox/Mail.pm:1635
 msgid "Successful messages"
 msgstr "Sėkmingos žinutės"
 
-#: ../../main/mail/src/EBox/Mail.pm:1634
+#: ../../main/mail/src/EBox/Mail.pm:1636
 msgid "Maximum message size exceeded"
 msgstr "Pasiektas maksimalus laiško dydis"
 
-#: ../../main/mail/src/EBox/Mail.pm:1635
+#: ../../main/mail/src/EBox/Mail.pm:1637
 msgid "User quota exceeded"
 msgstr "Pasiekta vartotojo kvota"
 
-#: ../../main/mail/src/EBox/Mail.pm:1636
+#: ../../main/mail/src/EBox/Mail.pm:1638
 msgid "Relay access denied"
 msgstr "Perdavimo prieiga draudžiama"
 
-#: ../../main/mail/src/EBox/Mail.pm:1637
+#: ../../main/mail/src/EBox/Mail.pm:1639
 msgid "Account does not exist"
 msgstr "Paskyra neegzistuoja"
 
-#: ../../main/mail/src/EBox/Mail.pm:1638
+#: ../../main/mail/src/EBox/Mail.pm:1640
 msgid "Host unreachable"
 msgstr "Mazgas nepasiekiamas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1639
+#: ../../main/mail/src/EBox/Mail.pm:1641
 msgid "Authentication error"
 msgstr "Autentifikacijos klaida"
 
-#: ../../main/mail/src/EBox/Mail.pm:1640
+#: ../../main/mail/src/EBox/Mail.pm:1642
 msgid "Greylisted"
 msgstr "Užlaikytas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1641
+#: ../../main/mail/src/EBox/Mail.pm:1643
 msgid "Relay rejected by the smarthost"
 msgstr "Perdavimas atmestas pagal smarthost"
 
-#: ../../main/mail/src/EBox/Mail.pm:1642
+#: ../../main/mail/src/EBox/Mail.pm:1644
 msgid "Other events"
 msgstr "Kiti įvykiai"
 
-#: ../../main/mail/src/EBox/Mail.pm:1774 ../../main/mail/src/EBox/Mail.pm:1805
+#: ../../main/mail/src/EBox/Mail.pm:1776 ../../main/mail/src/EBox/Mail.pm:1807
 msgid "Mailboxes"
 msgstr "Dėžutės"
 
-#: ../../main/mail/src/EBox/Mail.pm:1775
+#: ../../main/mail/src/EBox/Mail.pm:1777
 msgid "Mail messages from users and group alias"
 msgstr "Laiškai iš vartotojų ir grupių aliasų"
 
-#: ../../main/mail/src/EBox/Mail.pm:1831
+#: ../../main/mail/src/EBox/Mail.pm:1833
 msgid "Mail SMTP server"
 msgstr "Pašto SMTP serveris"
 
-#: ../../main/mail/src/EBox/Mail.pm:1838
+#: ../../main/mail/src/EBox/Mail.pm:1840
 msgid "Mail POP/IMAP server"
 msgstr "Pašto POP/IMAP serveris"
 
@@ -14283,8 +14322,8 @@ msgid "The secret key needs to have 16 characters."
 msgstr "Slaptas raktas turi turėti 16 simbolių."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:76
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2588
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2597
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2585
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2594
 #: ../../main/users/src/EBox/CGI/Groups.pm:42
 #: ../../main/users/src/EBox/CGI/Group.pm:64
 msgid "Groups"
@@ -14477,7 +14516,7 @@ msgstr ""
 "informaciją."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2609
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2606
 msgid "Slave Status"
 msgstr "Antrinio statusas"
 
@@ -14487,13 +14526,13 @@ msgid ""
 msgstr "Šios konfigūracijos opcijos naudojamos kai kuriamas naujas vartotojas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:74
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2590
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2599
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2587
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2596
 msgid "User Template"
 msgstr "Vartotojo šablonas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2604
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2601
 msgid "LDAP Settings"
 msgstr "LDAP nustatymai"
 
@@ -14569,11 +14608,11 @@ msgid ""
 "To configure LDAP slaves and Active Directory synchronization frequency."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:192
+#: ../../main/users/src/EBox/UsersAndGroups.pm:191
 msgid "To make LDAP listen on TCP and Unix sockets."
 msgstr "LDAP klausyti TCP ir Unix soketų."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:197
+#: ../../main/users/src/EBox/UsersAndGroups.pm:196
 msgid ""
 "To copy LDAP admin password generated by Zentyal and allow other modules to "
 "access LDAP."
@@ -14581,16 +14620,16 @@ msgstr ""
 "Kopijuoti LDAP admin slaptažodį sugeneruotą Zentyal ir leisti kitiems "
 "moduliams prieiti prie LDAP."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:959
+#: ../../main/users/src/EBox/UsersAndGroups.pm:965
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Vartotojo vardas negali būti ilgesnis nei {maxuserlength} simbolių."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:966
+#: ../../main/users/src/EBox/UsersAndGroups.pm:972
 msgid "Username already exists on the system"
 msgstr "Vartotojo vardas jau egzistuoja sistemoje"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:983
+#: ../../main/users/src/EBox/UsersAndGroups.pm:989
 #, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
@@ -14599,65 +14638,65 @@ msgstr ""
 "Nepavyko sukurti vartotojo nes namų katalogas {dir} jau egzistuoja. Prašome "
 "perkelti ar ištrinti prieš kuriant šį vartotoją"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1079
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1742
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1086
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1751
 msgid "Maximum number of system users reached"
 msgstr "Maksimalus skaičius vartotojų sistemoje pasiektas"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1096
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1103
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 "Neteisingas UID {uid} vartotojui. UID turi būti lygis arba didesnis už {min}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1107
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1114
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Neteisingas UID {uid} sisteminiam vartotojui. UID turi būti mežesnis už {max}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1267
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1274
 msgid "user quota"
 msgstr "vartotojo kvota"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1270
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1277
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 "Vartotojo kvota turi būti skaičius. Nustatyti neribotą kvotą, įrašykite nulį."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1667
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1676
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "Grupės pavadinimas negali būti ilgesnis nei {maxGroupLength} simbulių"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1673
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1682
 msgid "The group name is not valid because it is used internally"
 msgstr "Grupės pavadinimas negalimas nes yra naudojamas lokaliai"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1759
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1768
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr ""
 "Neteisingas GID {gid} grupei. GID turi būti lygus arba didesnis nei {min}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1769
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1778
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Neteisingas GID {gid} sisteminei grupei. GID turi būti mažesnis nei {max}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2368
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2380
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Slaptažodis negali būti ilgesnis nei {maxPwdLength} simbolių"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2614
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2611
 msgid "AD Sync Settings"
 msgstr "AD Sync nustatymai"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2710
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2707
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -14666,12 +14705,12 @@ msgstr ""
 "Nepavyko atstatyti nes LDAP vartotojas {user} jau egzistuoja /etc/passwd "
 "vartotoju. Ištrinkite arba pervadinkite šį vartotoją ir bandykite dar kartą"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2977
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2974
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
 msgstr "Mašina su vardu {host} jau užregistruota šiame Zentyal"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:3104
+#: ../../main/users/src/EBox/UsersAndGroups.pm:3100
 msgid "Replication failed"
 msgstr "Replikacija nesėkminga"
 
@@ -15910,6 +15949,11 @@ msgid "Add new..."
 msgstr "Įkelti naują"
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:126
+#, fuzzy
+msgid "No elements found. "
+msgstr "Nerasta"
+
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:127
 #, fuzzy
 msgid "Add a new one"
 msgstr "Įkeliama naujas {row}"
