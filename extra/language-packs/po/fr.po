@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-07-28 23:34+0200\n"
-"PO-Revision-Date: 2011-07-28 17:14+0200\n"
-"Last-Translator: Paps <fabien@openswiss.org>\n"
+"PO-Revision-Date: 2011-08-09 22:13+0200\n"
+"Last-Translator: MagicFab <magicfab@legoutdulibre.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -1921,14 +1921,14 @@ msgstr "Clef privée du client"
 msgid "Server tunnel password"
 msgstr "Mot de passe du serveur tunnel"
 
+# Dans ce contexte c'est un parametre de configuration avec une valeur (ex: 1194, le port par defaut VPN), pas une option booleenne
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Port du client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Ne pas mettre l'adresse en cache"
+msgstr "Adresse du client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
