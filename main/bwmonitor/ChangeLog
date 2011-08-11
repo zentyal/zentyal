@@ -1,4 +1,6 @@
 HEAD
+	+ Include reports for bwmonitor: Top client usage, top user usage
+	  and transport protocol distribution
 	+ Show message if there is no data in the BWUsage model
 2.1.4
 	+ Last hour bandwidth usage table added

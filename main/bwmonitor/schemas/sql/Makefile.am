@@ -2,7 +2,7 @@
 
 Sqldir = @DATADIR@/zentyal-bwmonitor/sql/
 
-nobase_Sql_DATA = bwmonitor_usage.sql
+nobase_Sql_DATA = bwmonitor_usage.sql bwmonitor_usage_report.sql
 
 EXTRA_DIST = $(nobase_Sql_DATA)
 
