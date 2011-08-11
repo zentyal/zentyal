@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-07-28 23:46+0200\n"
+"PO-Revision-Date: 2011-08-11 22:50+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -5183,9 +5183,8 @@ msgid "List of IPs assigned to each user."
 msgstr "Lista de IPs asignadas a cada usuario."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Configure interfaces"
-msgstr "Interfaces monitorizadas"
+msgstr "Configurar interfaces"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
@@ -5200,44 +5199,39 @@ msgid "List of monitored interfaces."
 msgstr "Lista de interfaces monitorizadas."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
-#, fuzzy
 msgid "External in"
-msgstr "Enviados externa"
+msgstr "Ent. Externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:67
-#, fuzzy
 msgid "External out"
-msgstr "Cuenta externa"
+msgstr "Sal. Externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:72
-#, fuzzy
 msgid "Internal in"
-msgstr "Interno"
+msgstr "Ent. Interna"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:77
-#, fuzzy
 msgid "Internal out"
-msgstr "Enviados interna"
+msgstr "Sal. Interna"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:85
-#, fuzzy
 msgid "Last hour bandwidth usage"
-msgstr "Limitar uso de ancho de banda"
+msgstr "Uso de ancho de banda en la última hora"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:89
 msgid "There is no data to show yet, the values are updated every 10 minutes"
 msgstr ""
+"Todavía no hay datos para mostrar, los valores se actualizan cada 10 minutos"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "Bandwidth usage for each connected client."
-msgstr ""
+msgstr "Uso de ancho de banda para cada cliente conectado."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:104
-#, fuzzy
 msgid "Bandwidth Monitor must be enabled in order to get data."
 msgstr ""
-"El módulo Portal Cautivo debe habilitarse para poder ver la lista de "
-"usuarios actuales."
+"El módulo de monitorización de ancho de banda debe habilitarse para poder "
+"obtener datos."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
@@ -16200,9 +16194,8 @@ msgid "Add new..."
 msgstr "Añadir nuevo..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:126
-#, fuzzy
 msgid "No elements found. "
-msgstr "No encontrado"
+msgstr "No hay elementos. "
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:127
 msgid "Add a new one"
