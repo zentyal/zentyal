@@ -688,15 +688,14 @@ sub _postServiceHook
 #
 sub _regenConfig
 {
-    my ($self) = @_;
+    my $self = shift;
 
-    my @params = (@_);
-    shift(@params);
+    return unless $self->configured();
 
-    $self->SUPER::_regenConfig(@params);
+    $self->SUPER::_regenConfig(@_);
     my $enabled = ($self->isEnabled() or 0);
     $self->_preServiceHook($enabled);
-    $self->_enforceServiceState(@params);
+    $self->_enforceServiceState(@_);
     $self->_postServiceHook($enabled);
 }
 

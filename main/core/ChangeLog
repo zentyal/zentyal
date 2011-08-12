@@ -1,4 +1,5 @@
 HEAD
+	+ Do not try to generate config for unconfigured services
 	+ Remove unnecessary redis call getting _serviceConfigured value
 	+ Safer sizes for audit log fields
 	+ Fix non-translatable "show help" string
