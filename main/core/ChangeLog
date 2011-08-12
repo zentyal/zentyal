@@ -1,4 +1,4 @@
-HEAD
+2.1.24
 	+ Do not try to generate config for unconfigured services
 	+ Remove unnecessary redis call getting _serviceConfigured value
 	+ Safer sizes for audit log fields
