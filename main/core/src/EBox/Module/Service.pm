@@ -232,10 +232,6 @@ sub configured
         return -f (EBox::Config::conf() . "configured/" . $self->name());
     }
 
-    unless ($self->st_get_bool('_serviceConfigured')) {
-        return undef;
-    }
-
     return $self->st_get_bool('_serviceConfigured');
 }
 
