@@ -5,8 +5,8 @@ CREATE TABLE audit_actions(
     username    VARCHAR(40),
     module      VARCHAR(40),
     event       audit_event,
-    model       VARCHAR(40),
-    id          VARCHAR(40),
+    model       VARCHAR(60),
+    id          VARCHAR(120),
     value       TEXT,
     oldvalue    TEXT,
     temporal    BOOLEAN DEFAULT TRUE
