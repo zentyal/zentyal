@@ -138,6 +138,7 @@ sub _format
     my ($n, $units) = $self->_bytes($bytes);
 
     return '0' if ($n == 0);
+    return "$bytes B" if ($units eq 'B');
     return sprintf("%.1f $units", $n);
 }
 

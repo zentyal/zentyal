@@ -1,4 +1,5 @@
 HEAD
+	+ Do not show decimals in bytes counter
 	+ Include reports for bwmonitor: Top client usage, top user usage
 	  and transport protocol distribution
 	+ Show message if there is no data in the BWUsage model
