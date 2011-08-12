@@ -628,7 +628,7 @@ msgstr "Período de tiempo"
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
-msgstr "Periodo de tiempo cuando se permite el acceso"
+msgstr "Periodo de tiempo autorizado. Será ignorado si la política es 'Denegar'"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
