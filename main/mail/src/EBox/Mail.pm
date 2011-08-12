@@ -1304,6 +1304,8 @@ sub _regenConfig
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     $self->_preSetConfHook();
     if ($self->service) {
         $self->_setMailConf;
@@ -1317,7 +1319,6 @@ sub _regenConfig
 }
 
 
-#
 # Method: service
 #
 #  Returns the state of the service passed as parameter
