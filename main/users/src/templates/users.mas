@@ -10,7 +10,7 @@ use EBox::Global;
 my $usersModel = EBox::Global->modInstance('users')->model('Users');
 </%init>
 <h3><% __('Add User') %></h3>
-	<form action='AddUser' method='POST'>
+	<form action='AddUser' method='POST' autocomplete='off'>
 	<table class='formTable'>
 		<tr>
 			<td class='tright'>

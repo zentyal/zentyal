@@ -1,3 +1,5 @@
+HEAD
+	+ Disable autocompletion in user form
 2.1.8
 	+ Include quota schema in slaves LDAP (fixes replication)
 	+ Do not stop slapd daemons after slave enable

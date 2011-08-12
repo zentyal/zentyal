@@ -12,7 +12,7 @@ use EBox::Gettext;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
 <h3><% __('Administration of user') %> <span class='stitle'><% $user->{'username'} %></span></h3>
-        <form action='ModifyUser' method='POST'>
+        <form action='ModifyUser' method='POST' autocomplete='off'>
         <input type="hidden" name="username" value="<% $user->{'username'} %>">
         <table class='formTable'>
         <tbody>
