@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::Squid::Model::GeneralSettings;
 use base 'EBox::Model::DataForm';
 
@@ -34,6 +32,8 @@ use EBox::Squid::Types::Policy;
 use EBox::Sudo;
 
 use EBox::Exceptions::External;
+
+use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=HTTP_proxy_general_settings&utm_campaign=advanced_security_updates';
 
 sub new
 {
@@ -63,7 +63,7 @@ sub _table
                     printableName => __('Ad Blocking'),
                     editable => 1,
                     defaultValue   => 0,
-                    help => __('Remove advertisments from all HTTP traffic')
+                    help => __('Remove advertisements from all HTTP traffic')
                 ),
             new EBox::Types::Port(
                     fieldName => 'port',
@@ -99,6 +99,33 @@ sub _table
                      };
 
     return $dataForm;
+}
+
+# Method: viewCustomizer
+#
+#      To display a permanent message
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    my $securityUpdatesAddOn = 0;
+    if ( EBox::Global->modExists('remoteservices') ) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
+    }
+
+    unless ( $securityUpdatesAddOn ) {
+        $customizer->setPermanentMessage($self->_commercialMsg());
+    }
+
+    return $customizer;
 }
 
 sub validateTypedRow
@@ -204,8 +231,21 @@ sub _transparentHelp
     return  __('Note that you cannot proxy HTTPS ' .
                'transparently. You will need to add ' .
                'a firewall rule if you enable this mode.');
+}
 
- }
+sub _commercialMsg
+{
+    return __sx(
+        'Get Ad blocking updates to keep your HTTP proxy aware of the '
+        . 'latest adverts to remove them from your browsing. The Ad-blocking '
+        . 'updates are integrated in the {oh}Advanced Security Updates{ch} '
+        . 'add-on that guarantees that the Antispam, Intrusion Detection '
+        . 'System, Content filtering system and Antivirus installed on your '
+        . 'Zentyal server are updated on daily basis based on the information '
+        . 'provided by the most trusted IT experts.',
+        oh => '<a href="' . STORE_URL . '" target="_blank">',
+        ch => '</a>');
+}
 
 1;
 

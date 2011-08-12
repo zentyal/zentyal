@@ -1,3 +1,6 @@
+<%args>
+   $postMatch => ''
+</%args>
 # Configfile for adzapper.
 #
 #   by Paul van Tilburg <paulvt@debian.org>.
@@ -36,7 +39,7 @@ ZAP_PREMATCH=
 #   Pathname of extra pattern file for patterns in addition to the stock
 #   patterns of adzapper itself. This is the one to which you
 #   should add new adzap patterns.
-ZAP_POSTMATCH=
+ZAP_POSTMATCH=<% $postMatch %>
 
 # STUBURL_*
 #

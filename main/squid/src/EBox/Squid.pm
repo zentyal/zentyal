@@ -66,6 +66,7 @@ use constant {
     SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid',
     CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf',
     BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
+    BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper',
     ADZAPPER_CONF => '/etc/adzapper.conf',
 };
 
@@ -525,6 +526,58 @@ sub banThreshold
     return $model->contentFilterThresholdValue();
 }
 
+# Method: getAdBlockPostMatch
+#
+#     Get the file with the ad-blocking post match
+#
+# Returns:
+#
+#     String - the ad-block file path postmatch
+#
+sub getAdBlockPostMatch
+{
+    my ($self) = @_;
+
+    if ( $self->entry_exists('ad_block_post_match') ) {
+        return $self->get_string('ad_block_post_match');
+    } else {
+        return '';
+    }
+}
+
+# Method: setAdBlockPostMatch
+#
+#     Set the file with the ad-blocking post match
+#
+# Parameters:
+#
+#     file - String the ad-block file path postmatch
+#
+sub setAdBlockPostMatch
+{
+    my ($self, $file) = @_;
+
+    $self->set_string('ad_block_post_match', $file);
+}
+
+# Method: setAdBlockExecFile
+#
+#     Set the adblocker exec file
+#
+# Parameters:
+#
+#     file - String the ad-block exec file
+#
+sub setAdBlockExecFile
+{
+    my ($self, $file) = @_;
+
+    if ( $file ) {
+        EBox::Sudo::root("cp -f $file " . BLOCK_ADS_EXEC_FILE);
+    }
+
+}
+
 sub _dgNeeded
 {
     my ($self) = @_;
@@ -673,7 +726,9 @@ sub _writeSquidConf
     }
     if ($removeAds) {
         push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
-        $self->writeConfFile(ADZAPPER_CONF, "squid/adzapper.conf.mas", \@writeParam);
+        my @adsParams = ();
+        push(@adsParams, ('postMatch' => $self->getAdBlockPostMatch()));
+        $self->writeConfFile(ADZAPPER_CONF, "squid/adzapper.conf.mas", \@adsParams);
     }
 
     $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);

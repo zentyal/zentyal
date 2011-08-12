@@ -1,3 +1,6 @@
+HEAD
+	+ Give support for setting a new adblocking redirector
+	+ Give support for adding postmatch patterns in Ad-blocking
 2.1.7
 	+ HTTPS works both for banned domains and block blanket options
 	+ Added guard against missing rows in antivirusNeeded method
