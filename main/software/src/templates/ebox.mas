@@ -46,12 +46,16 @@ my $first = EBox::Global->first();
     }
 
     var suites =  {
-        'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols' ],
-        'UTM' : [ 'zentyal-network', 'zentyal-ids', 'zentyal-squid', 'zentyal-openvpn', 'zentyal-antivirus' ],
+        'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
+                      'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
+        'UTM' : [ 'zentyal-network', 'zentyal-ids', 'zentyal-firewall', 'zentyal-squid', 'zentyal-ca', 'zentyal-openvpn',
+                  'zentyal-antivirus', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-users' ],
         'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
-                             'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp' ],
-        'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus' ],
-        'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-asterisk', 'zentyal-mailfilter' ]
+                             'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
+        'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
+                     'zentyal-network', 'zentyal-remoteservices', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
+        'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-asterisk', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
+                             'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
     };
 
     function showInfo(id){
