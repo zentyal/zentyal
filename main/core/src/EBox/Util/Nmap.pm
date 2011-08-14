@@ -33,11 +33,10 @@ use Nmap::Parser;
 # Named parameters:
 #
 #     host - String the hostname
-#
-#     protocol - String the protocol (tcp/udp)
-#                *(Optional)* Default value: 'tcp'
-#
+#     proto - protocol
 #     port - Int the port number
+#     interface - interface to use (default value: auto)
+#     priviliged - use priviliged mode (default value: no)
 #
 # Returns:
 #
@@ -62,20 +61,36 @@ sub singlePortScan
                 value => $proto,
                 advice => __(q{Only 'tcp' and 'udp' are supported}));
     }
-
     defined $proto or
         $proto = 'tcp';
-
     my $port = $args{port};
     defined $port or
-        throw EBox::Exceptions::MissingArgument('port');
+        throw EBox::Exceptions::MissingArgument('port');        
+    my $interface = $args{interface};
+    my $privileged = $args{privileged};
 
     my @nmapArgs;
     if ($proto eq 'udp') {
+        if (not $privileged) {
+            throw EBox::Exceptions::Internal('UDP scan needs priviliged mode');
+        }
         push @nmapArgs, '-sU';
+    } else {
+        push @nmapArgs, '-sT'; # connect scan
     }
 
+
     push @nmapArgs, "-p$port";
+
+    if ($interface) {
+        push @nmapArgs, "-e$interface";
+    }
+    if ($privileged) {
+        push @nmapArgs, '--privileged';
+    } else {
+        push @nmapArgs, '--unprivileged';        
+    }
+
     push @nmapArgs, $host;
 
 

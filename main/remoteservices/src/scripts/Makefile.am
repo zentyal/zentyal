@@ -4,7 +4,7 @@ scriptsdir = @DATADIR@/zentyal-remoteservices
 
 scripts_SCRIPTS = initial-setup automatic-conf-backup cronjob-runner get-cronjobs \
 		  finish-script-session notify-job reload-bundle \
-		  runnerd start-script-session unsubscribe
+		  route-up-support-access runnerd start-script-session unsubscribe
 
 helperscriptsdir = @DATADIR@/zentyal-remoteservices
 

@@ -75,6 +75,45 @@ sub lport
     return $self->_configAttr('lport');
 }
 
+sub routeUpCmd
+{
+    my ($self) = @_;
+    return $self->_configAttr('routeUpCmd');
+}
+
+sub setRouteUpCmd
+{
+    my ($self, $cmd) = @_;
+    my $conf = $self->{row}->subModel('configuration');
+    my $configRow = $conf->row();
+    $configRow->elementByName('routeUpCmd')->setValue($cmd);
+    $configRow->store();
+}
+
+# Method: setLocalAddrAndPort
+#
+#    Set the local address and local port to bind for the VPN client
+#
+# Parameters:
+#
+#     newLocalAddr - String the new local IP address
+#
+#     newLocalPort - Int the new local port
+#
+sub setLocalAddrAndPort
+{
+    my ($self, $newLocalAddr, $newLocalPort) = @_;
+
+    $newLocalAddr = undef unless ( $newLocalAddr );
+    $newLocalPort = undef unless ( $newLocalPort );
+
+    my $conf = $self->{row}->subModel('configuration');
+    my $configRow = $conf->row();
+    $configRow->elementByName('localAddr')->setValue($newLocalAddr);
+    $configRow->elementByName('lport')->setValue($newLocalPort);
+    $configRow->store();
+}
+
 sub _filePath
 {
     my ($self, $name) = @_;
@@ -213,7 +252,7 @@ sub confFileParams
     push @templateParams, (dev => $self->iface);
 
     my @paramsNeeded = qw(name caCertificate certificate certificateKey
-                          proto user group dh localAddr lport);
+                          proto user group dh localAddr lport routeUpCmd);
     foreach my $param (@paramsNeeded) {
         my $accessor_r = $self->can($param);
         defined $accessor_r or die "Cannot found accessor for param $param";

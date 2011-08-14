@@ -70,14 +70,12 @@ sub new
 #
 sub connection
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if (exists $self->{connection}) {
+    unless (exists $self->{connection}) {
+        $self->_connect();
+    }
     return $self->{connection};
-  }
-  else {
-    return $self->_assureConnection();
-  }
 }
 
 # Method: soapCall
@@ -137,23 +135,6 @@ sub serviceHostName
 }
 
 # Group: Protected methods
-
-# Method: _assureConnection
-#
-#      Try to establish the connection
-#
-# Returns:
-#
-#      <EBox::RemoteServices::SOAPClient> - the SOAP client
-#
-sub _assureConnection
-{
-    my ($self) = @_;
-
-    $self->_connect();
-    return $self->{connection};
-
-}
 
 # Method: _connect
 #
@@ -248,23 +229,6 @@ sub _queryServicesNameserver
     my ($self, $hostname, $nameservers) = @_;
 
     $nameservers = $self->_nameservers() unless (defined($nameservers));
-    # check that we have route to the nameservers
-    my $routeToNS = 0;
-    foreach my $ns (@{ $nameservers }) {
-        my $pingCmd = "ping  -c 2 $ns 2>&1 > /dev/null";
-        system $pingCmd;
-        if ($? == 0) {
-            $routeToNS = 1;
-            last;
-        }
-    }
-
-    unless ($routeToNS) {
-        throw EBox::Exceptions::External(
-            __x('Cannot connect to any of the Cloud nameservers: {ns}',
-                ns => join ', ', @{ $nameservers })
-        );
-    }
 
     my $resolver = Net::DNS::Resolver->new(
           nameservers => $nameservers,
@@ -276,9 +240,10 @@ sub _queryServicesNameserver
     if (not defined $response) {
         throw EBox::Exceptions::External(
             __x(
-                'Server {s} not found via DNS server {d}',
+                'Server {s} not found via DNS server {d}. Reason: {r}',
                 'd' => join(',', @{$nameservers}),
                 's' => $hostname,
+                'r' => $resolver->errorstring(),
                )
            )
     }
@@ -400,6 +365,34 @@ sub _servicesServer
                  __('No domain key found for this service')
 				    );
   return $self->_queryServicesNameserver($serviceHostName);
+}
+
+
+# Check given host and port is reachable using nmap tool
+sub _checkHostPort
+{
+    my ($self, $host, $proto, $port) = @_;
+    $proto = lc $proto;
+
+    my $res = EBox::Util::Nmap::singlePortScan(host => $host,
+                                               protocol => $proto,
+                                               port => $port,
+                                               );
+    if ($res eq 'open') {
+        return 1;
+    }
+
+    if (($proto eq 'udp') ) {
+        # in UDP packets this could be open or not. We treat this as open to
+        # avoid false negatives (but we will have false positives)
+        if (($res eq 'open/filtered') or ($res eq 'filtered')) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+    return 0;
 }
 
 1;

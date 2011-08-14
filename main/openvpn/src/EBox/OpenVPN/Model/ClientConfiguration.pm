@@ -143,6 +143,13 @@ sub _table
                  editable => 1,
                  hidden => 1,
                  ),
+         new EBox::Types::Text(
+                 fieldName  => 'routeUpCmd',
+                 printableName => __('Command to execute after routes are set'),
+                 optional => 1,
+                 editable => 1,
+                 hidden => 1,
+                 ),
         );
 
     my $dataTable =

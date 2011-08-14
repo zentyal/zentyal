@@ -1,3 +1,6 @@
+HEAD
+	+ Optional values can be unset
+	+ Minor improvements on nmap scan
 2.1.24
 	+ Do not try to generate config for unconfigured services
 	+ Remove unnecessary redis call getting _serviceConfigured value
@@ -148,7 +151,8 @@
 2.1.4
 	+ Changed Component's parent/child relationships implementation
 	+ Fixed WikiFormat on automatic bug report tickets
-	+ Do not show available community version in Dashboard with QA updates
+	+ Do not show available community version in Dashboard with QA
+ 	  updates
 2.1.3
 	+ Fall back to readonly data in config backup if there are unsaved changes
 	+ Allow to automatically send a report in the unexpected error page

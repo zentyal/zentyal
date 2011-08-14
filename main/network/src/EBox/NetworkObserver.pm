@@ -30,7 +30,6 @@ sub new
 
 #
 # Method: staticIfaceAddressChanged
-#
 #	Invoked when the address of an static network interface is going to
 #	be changed, this method receives the old and new addresses and masks
 #	as arguments. Returning a true value means that this
@@ -55,6 +54,31 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 {
         return undef;
 }
+
+#
+# Method: staticIfaceAddressChangedDone
+#
+#   Invoked when the change in the adddress of a static inteface has taken
+#   place.
+#
+#   Iit will be called after freeIface, ifaceMethodChanged and staticIfaceAddressChanged
+#   when the configuration changes have already been set.
+#
+# Parameters:
+#
+#       iface - interface name
+#       oldaddr - old address
+#       oldmask - old mask
+#       newaddr - new address
+#       newmask - new mask
+#
+
+sub staticIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
+{
+        # default empty implementation. Subclasses should override this as
+        # needed.
+}
+
 
 #
 # Method: ifaceMethodChanged
@@ -86,7 +110,7 @@ sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 #   Invoked when a method configuration change has taken place.
 #
 #   Note that it will be called after freeIface and ifaceMethodChanged
-#   when the configuration changes have already commited
+#   when the configuration changes have already been set.
 #
 #   Parameteres:
 #
