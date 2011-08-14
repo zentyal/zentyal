@@ -38,7 +38,7 @@ sub new
         $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
     }
 
-    $opts{'type'} = 'text';
+    $opts{'type'} = 'text' unless defined ($opts{'type'});
     my $self = $class->SUPER::new(%opts);
 
     bless($self, $class);
