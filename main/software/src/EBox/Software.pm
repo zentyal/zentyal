@@ -1012,7 +1012,7 @@ sub firstTimeMenu
 
     print "<div id='menu'><ul id='nav'>\n";
 
-    print "<li><div class='separator'>" . __('Welcome') . "</div></li>\n";
+    print "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
 
     $self->_printMenuItem(__('Package Selection'), 0, $current);
     $self->_printMenuItem(__('Confirmation'), 1, $current);

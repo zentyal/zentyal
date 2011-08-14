@@ -1,4 +1,5 @@
 HEAD
+	+ Updated some string for better understanding
 	+ Added missing metapackage dependencies
 2.1.10
 	+ Fixed get of DPKG_RUNNING_FILE in new GlobalImpl class
