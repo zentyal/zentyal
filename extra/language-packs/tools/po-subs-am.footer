@@ -112,12 +112,12 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	if test -n "$(POTFILES_TMPL)"; \
 	then \
 		for tmpl in $(POTFILES_TMPL); do \
-			target=`dirname $$tmpl | sed 's/^\.\././'` ; \
+			target=`dirname $$tmpl | sed 's/^\.\.\/\.\././'` ; \
 	        	mkdir -p templates/$$target ; \
-	        	../../tools/extract-perl-from-mason dump ../../$$tmpl > \
+	        	../../tools/extract-perl-from-mason dump ../$$tmpl > \
 		        	templates/$$target/`basename $$tmpl` ; \
 		done; \
-		$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates/remoteservices \
+		$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates/main/remoteservices \
 		  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  	--copyright-holder='$(COPYRIGHT_HOLDER)' \
 	  	--msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
