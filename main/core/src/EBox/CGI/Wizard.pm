@@ -44,6 +44,7 @@ sub _process
     } else {
         push(@array, 'pages' => $self->_modulesWizardPages);
     }
+    push(@array, 'first' => EBox::Global->first());
     $self->{params} = \@array;
 }
 
