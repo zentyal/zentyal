@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: subscription 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-14 13:51+0200\n"
-"PO-Revision-Date: 2010-08-19 15:48+0200\n"
-"Last-Translator: Enrique J. Hernández <ejhernandez@ebox-platform.com>\n"
+"PO-Revision-Date: 2011-08-14 20:39+0100\n"
+"Last-Translator: Mateo Burillo <mburillo@zentyal.com>\n"
 "Language-Team: none\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,302 +19,153 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:239
 #, fuzzy, perl-brace-format
-msgid ""
-"Get Ad blocking updates to keep your HTTP proxy aware of the latest adverts "
-"to remove them from your browsing. The Ad-blocking updates are integrated in "
-"the {oh}Advanced Security Updates{ch} add-on that guarantees that the "
-"Antispam, Intrusion Detection System, Content filtering system and Antivirus "
-"installed on your Zentyal server are updated on daily basis based on the "
-"information provided by the most trusted IT experts."
-msgstr ""
-"¡Obtén las actualizaciones del Sistema de Filtrado de Contenidos para "
-"mantener tu proxy HTTP al tanto de las últimas amenazas como el malware, "
-"phishing y los bots! Las actualizaciones del Sistema de Filtrado de "
-"Contenidos están incluidas en la suscripción de {openhref}Actualizaciones "
-"Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, "
-"Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y "
-"Antivirus instalados en su servidor están actualizados a diario basados en "
-"los datos proporcionados por los expertos TIC de mayor confianza."
+msgid "Get Ad blocking updates to keep your HTTP proxy aware of the latest adverts to remove them from your browsing. The Ad-blocking updates are integrated in the {oh}Advanced Security Updates{ch} add-on that guarantees that the Antispam, Intrusion Detection System, Content filtering system and Antivirus installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts."
+msgstr "¡Obtén las actualizaciones del Sistema de Filtrado de Contenidos para mantener tu proxy HTTP al tanto de las últimas amenazas como el malware, phishing y los bots! Las actualizaciones del Sistema de Filtrado de Contenidos están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor están actualizados a diario basados en los datos proporcionados por los expertos TIC de mayor confianza."
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:494
 #, perl-brace-format
-msgid ""
-"Get Content Filtering updates to keep your HTTP proxy aware of the latest "
-"threats such as malware, phishing and bots! The Content Filtering updates "
-"are integrated in the {openhref}Advanced Security Updates{closehref} "
-"subscription that guarantees that the Antispam, Intrusion Detection System, "
-"Content filtering system and Antivirus installed on your Zentyal server are "
-"updated on daily basis based on the information provided by the most trusted "
-"IT experts."
-msgstr ""
-"¡Obtén las actualizaciones del Sistema de Filtrado de Contenidos para "
-"mantener tu proxy HTTP al tanto de las últimas amenazas como el malware, "
-"phishing y los bots! Las actualizaciones del Sistema de Filtrado de "
-"Contenidos están incluidas en la suscripción de {openhref}Actualizaciones "
-"Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, "
-"Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y "
-"Antivirus instalados en su servidor están actualizados a diario basados en "
-"los datos proporcionados por los expertos TIC de mayor confianza."
+msgid "Get Content Filtering updates to keep your HTTP proxy aware of the latest threats such as malware, phishing and bots! The Content Filtering updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription that guarantees that the Antispam, Intrusion Detection System, Content filtering system and Antivirus installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts."
+msgstr "¡Obtén las actualizaciones del Sistema de Filtrado de Contenidos para mantener tu proxy HTTP al tanto de las últimas amenazas como el malware, phishing y los bots! Las actualizaciones del Sistema de Filtrado de Contenidos están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor están actualizados a diario basados en los datos proporcionados por los expertos TIC de mayor confianza."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1689
 #, perl-brace-format
 msgid "Not subscribed - {oh}Subscribe now!{ch}"
-msgstr ""
+msgstr "No suscrito - {oh}¡Suscríbase ahora!{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1692
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "None - {oh}Get Free Basic Subscription!{ch}"
-msgstr "Suscripción Básica GRATIS"
+msgstr "Ninguna - {ohb}Consigue una Suscripción Básica gratuita{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1695
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr ""
+msgstr "Desactivado - {oh}Activar{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1711
 msgid "Advanced Security Updates"
-msgstr ""
+msgstr "Actualizaciones de Seguridad Avanzadas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1713
 msgid "Disaster Recovery"
-msgstr ""
+msgstr "Recuperación de Desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:183
 #, perl-brace-format
 msgid "{oh}On-line Support Platform{ch}"
-msgstr ""
+msgstr "{oh}Plataforma de Soporte en línea{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:186
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, IRC, Phone upon request{cs}"
-msgstr ""
+msgstr "{os}{oh}Plataforma de soporte en línea{ch}, IRC, Teléfono si se requiere{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:192
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, IRC, Phone{cs}"
-msgstr ""
+msgstr "{os}{oh}Plataforma de soporte en línea{ch}, IRC, Teléfono{cs}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:201
 msgid "Next Business Day"
-msgstr ""
+msgstr "Siguiente día laborable"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:202
 msgid "4 hours"
-msgstr ""
+msgstr "4 horas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:203
 msgid "1 hour"
-msgstr ""
+msgstr "1 hora"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:222
 #, perl-brace-format
-msgid ""
-"Get your support directly from the Zentyal Support Team! Three yearly "
-"support packages - {ohl}Essential{ch}, {ohs}Standard{ch} and {ohm}Premium"
-"{ch} - with unlimited number of issues and service delivery times from 1 "
-"hour up to next business day, grant you with vendor-level support. To obtain "
-"a support package your server must have {ohp}Professional{ch} or {ohe}"
-"Enterprise Server Subscription{ch}."
-msgstr ""
+msgid "Get your support directly from the Zentyal Support Team! Three yearly support packages - {ohl}Essential{ch}, {ohs}Standard{ch} and {ohm}Premium{ch} - with unlimited number of issues and service delivery times from 1 hour up to next business day, grant you with vendor-level support. To obtain a support package your server must have {ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
+msgstr "¡Recibe soporte directamente del equipo de soporte de Zentyal! Tres paquetes de soporte anuales  - {ohl}Essential{ch}, {ohs}Standard{ch} y {ohm}Premium{ch} - número ilimitado de incidencias y tiempos de cumplimiento del servicio desde 1 hora hasta el siguiente día laborable, garantizándole soporte proporcionado por el mismo equipo de desarrollo. Para obtener un paquete de soporte, tu servidor debe contar con una suscripción {ohp}Profesional{ch} o {ohe}Empresarial{ch}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:147
 #, perl-brace-format
 msgid "<span>None - {ohb}Get Free Basic Subscription{ch}</span>"
-msgstr ""
+msgstr "<span>Ninguna - {ohb}Consigue una Suscripción Básica gratuita{ch}</span>"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:188
 #, perl-brace-format
-msgid ""
-"Enterprise-level security for your network! The {oha}Advanced Security "
-"Updates{ch} guarantee that the content filtering lists, IDS threat analysis "
-"ruleset, Antivirus signatures and Antispam detection rules in your Zentyal "
-"servers are verified daily by the most trusted IT experts. To obtain these "
-"updates, your server must have {ohp}Professional{ch} or {ohe}Enterprise "
-"Server Subscription{ch}."
-msgstr ""
+msgid "Enterprise-level security for your network! The {oha}Advanced Security Updates{ch} guarantee that the content filtering lists, IDS threat analysis ruleset, Antivirus signatures and Antispam detection rules in your Zentyal servers are verified daily by the most trusted IT experts. To obtain these updates, your server must have {ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
+msgstr "¡Seguridad de nivel empresarial para tu red! Las {oha}Actualizaciones de Seguridad Avanzadas{ch} garantizan que las listas de filtrado de contenido, las reglas de análisis de amenazas del IDS, las firmas del Antivirus y las reglas de detección de spam son revisadas diariamente por los más prestigiosos expertos en IT. Para obtener estas actualizaciones, tu servidor debe contar con una suscripción {ohp}Profesional{ch} o {ohe}Empresarial{ch}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:264
-msgid ""
-"To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one "
-"of the Server Subscriptions (Basic, Professional or Enterprise) from the "
-"Zentyal On-line Store. Once you have obtained one of these subscriptions, "
-"you will be sent a user name and password you can use below to subscribe "
-"your server to Zentyal Cloud."
-msgstr ""
+msgid "To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one of the Server Subscriptions (Basic, Professional or Enterprise) from the Zentyal On-line Store. Once you have obtained one of these subscriptions, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud."
+msgstr "Para subscribir tu Servidor Zentyal a Zentyal Cloud, necesitas obtener una de las Suscripciones del Servidor (Básica, Profesional o Empresarial) de la tienda On-line de Zentyal. Una vez te registres en una de estas suscripciones, recibirás un nombre de usuario y contraseña que puedes usar en el formulario situado debajo para suscribir tu servidor a Zentyal Cloud."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:595
 #, fuzzy, perl-brace-format
-msgid ""
-"For full, enterprise-level services, obtain {openhrefp}Professional"
-"{closehref} or {openhrefe}Enterprise Server Subscription{closehref} - These "
-"offer Quality Assured software updates, Alerts, Reports and Centralised "
-"monitoring and management of your Zentyal servers!"
-msgstr ""
-"Obtén accesso completo a informes frequentes basados en estos logs "
-"adquiriendo la Suscripción al Servidor del nivel {openhrefp}Profesional"
-"{closehref} o {openhrefe}Empresarial{closehref}. Puedes consultar un informe "
-"de muestra {openhrefr}aquí{closehref}."
+msgid "For full, enterprise-level services, obtain {openhrefp}Professional{closehref} or {openhrefe}Enterprise Server Subscription{closehref} - These offer Quality Assured software updates, Alerts, Reports and Centralised monitoring and management of your Zentyal servers!"
+msgstr "Obtén accesso completo a informes frequentes basados en estos logs adquiriendo la Suscripción al Servidor del nivel {openhrefp}Profesional{closehref} o {openhrefe}Empresarial{closehref}. Puedes consultar un informe de muestra {openhrefr}aquí{closehref}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:178
-msgid ""
-"As to the estimated time to recover from a disaster, estimation consists of "
-"45 minutes to install Zentyal server, upper bound of the backup size and "
-"average download time obtained from the latest Network report statistics."
-msgstr ""
+msgid "As to the estimated time to recover from a disaster, estimation consists of 45 minutes to install Zentyal server, upper bound of the backup size and average download time obtained from the latest Network report statistics."
+msgstr "Sobre el tiempo estimado para la recuperación de un desastre, la estimación comprende 45 minutos para instalar el servidor Zentyal, más el tiempo medio calculado para descargar la copia de seguridad, dependiendo de su tamaño y la velocidad de descarga."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:314
 #, perl-brace-format
-msgid ""
-"The {ohd}Disaster Recovery{ch} service ensures the availability of your "
-"business critical data! Take a look and try out the free {ohb}Basic "
-"Subscription{ch} which allows you to store your configuration backup "
-"remotely."
-msgstr ""
+msgid "The {ohd}Disaster Recovery{ch} service ensures the availability of your business critical data! Take a look and try out the free {ohb}Basic Subscription{ch} which allows you to store your configuration backup remotely."
+msgstr "El servicio de {ohd}Recuperación de Desastres{ch} asegura la disponibilidad de los datos críticos para tu organización. Pruébalo tu mismo obteniendo la {ohb}Suscripción Básica{ch}, con la que podrás guardar la copia de seguridad de tu configuración remotamente."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:326
 #, perl-brace-format
-msgid ""
-"The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees "
-"that besides the system configuration, your most critical data is backed up, "
-"secured, monitored and recovered quickly, in trusted repositories and "
-"following strict processes. To obtain this service, your server must have "
-"{ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
-msgstr ""
+msgid "The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees that besides the system configuration, your most critical data is backed up, secured, monitored and recovered quickly, in trusted repositories and following strict processes. To obtain this service, your server must have {ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
+msgstr "El servicio {ohd}Recuperación de Desastres{ch} de calidad empresarial garantiza que adicionalmente a la configuración de tu sistema, los datos críticos de tu negocio son respaldados, asegurados, monitorizados y recuperados rápidamente desde almacenamientos confiables y siguiendo los más estrictos procesos. Para obtener este servicio, tu servidor debe contar con una suscripción {ohp}Profesional{ch} o {ohe}Empresarial{ch}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:94
 #, perl-brace-format
-msgid ""
-"Server subscriptions help to keep your Zentyal server secure and up-to-date! "
-"Take a look and try out the free {ohb}Basic Server Subscription{ch} - It "
-"gives you access to some cloud-based extra features such as: Remote "
-"configuration backup, basic alerts, Dynamic DNS (human-readable public "
-"hostname) or Zentyal server name in the web browser tab."
-msgstr ""
+msgid "Server subscriptions help to keep your Zentyal server secure and up-to-date! Take a look and try out the free {ohb}Basic Server Subscription{ch} - It gives you access to some cloud-based extra features such as: Remote configuration backup, basic alerts, Dynamic DNS (human-readable public hostname) or Zentyal server name in the web browser tab."
+msgstr "¡Las Subscripciones del Servidor ayudan a mantener tu servidor Zentyal seguro y actualizado! Pruébalo tu mismo y obtén una {ohb}Suscripción Básica{ch}, con la que tendrás acceso a algunas de las funcionalidades extra basadas en la nube como: Copia de seguridad remota de la configuración, alertas básicas, DNS Dinámico (nombre de host público) o contar con el nombre de tu servidor específico en la pestaña del navegador."
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
 #, perl-brace-format
-msgid ""
-"Choosing {brand} method you will use the {ohref}{service} service{chref}. "
-"This service guarantees your most critical data is backed up, secured, "
-"monitored and recovered easily quickly in case of a disaster. You gain "
-"access to this service by obtaining the {service} service and Professional "
-"or Enterprise Server Subscription."
-msgstr ""
+msgid "Choosing {brand} method you will use the {ohref}{service} service{chref}. This service guarantees your most critical data is backed up, secured, monitored and recovered easily quickly in case of a disaster. You gain access to this service by obtaining the {service} service and Professional or Enterprise Server Subscription."
+msgstr "Si escoges el método {brand}, usarás el servicio {ohref}{service}{chref}. Este servicio garantiza que los datos más críticos de tu organización están respaldados, asegurados, monitorizados, pudiendo ser recuperados rápidamente en caso de desastre. Para obtener este servicio, tu servidor debe contar con una suscripción {ohp}Profesional{ch} o {ohe}Empresarial{ch}"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:276
 #, perl-brace-format
-msgid ""
-"You can configure your Dynamic DNS provider here. If you have already "
-"subscribed your Zentyal server, the provider is Zentyal Cloud. If not, "
-"consider getting the free {ohb}Basic Server Subscription{ch}: it includes "
-"Dynamic DNS feature that gives your server human-readable public hostname "
-"(yourserver.zentyal.me)."
-msgstr ""
+msgid "You can configure your Dynamic DNS provider here. If you have already subscribed your Zentyal server, the provider is Zentyal Cloud. If not, consider getting the free {ohb}Basic Server Subscription{ch}: it includes Dynamic DNS feature that gives your server human-readable public hostname (yourserver.zentyal.me)."
+msgstr "Puedes configurar tu proveedor de DNS Dinámico aquí. Si tu servidor Zentyal está suscrito actualmente, tu proveedor es el Zentyal Cloud. Si no, considera obtener la {ohb}Suscripción Básica{ch} gratuita: incluye la funcionalidad de DNS Dinámico, gracias a la cual puedes asignar un nombre público a tu servidor (tuservidor.zentyal.me)."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:111
 #, perl-brace-format
-msgid ""
-"Get daily Antispam updates keep spam out of your mail servers! The Antispam "
-"updates are integrated in the {openhref}Advanced Security Updates{closehref} "
-"subscription that guarantees that the Antispam, Intrusion Detection System, "
-"Content filtering system and Antivirus installed on your Zentyal server are "
-"updated on daily basis based on the information provided by the most trusted "
-"IT experts."
-msgstr ""
-"¡Obtén las actualizaciones diarias de Antispam y evita recibir spam en tus "
-"servidores de correo! Las actualizaciones de Antispam están incluidas en la "
-"suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. "
-"Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, "
-"Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor "
-"están actualizados a diario basados en los datos proporcionados por los "
-"expertos TIC de mayor confianza."
+msgid "Get daily Antispam updates keep spam out of your mail servers! The Antispam updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription that guarantees that the Antispam, Intrusion Detection System, Content filtering system and Antivirus installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts."
+msgstr "¡Obtén las actualizaciones diarias de Antispam y evita recibir spam en tus servidores de correo! Las actualizaciones de Antispam están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor están actualizados a diario basados en los datos proporcionados por los expertos TIC de mayor confianza."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:195
 #, perl-brace-format
-msgid ""
-"Get Antivirus updates to protect your system against scams, spear phishing, "
-"frauds and other junk! The Antivirus updates are integrated in the {openhref}"
-"Advanced Security Updates{closehref} subscription that guarantees that the "
-"Antispam, Intrusion Detection System, Content filtering system and Antivirus "
-"installed on your Zentyal server are updated on daily basis based on the "
-"information provided by the most trusted IT experts."
-msgstr ""
-"¡Obtén las actualizaciones de Antivirus para proteger tu sistema contra las "
-"estafas, phishing, fraudes y otras amenazas! Las actualizaciones Antivirus "
-"están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de "
-"Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de "
-"Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus "
-"instalados en su servidor están actualizados a diario basados en los datos "
-"proporcionados por los expertos TIC de mayor confianza."
+msgid "Get Antivirus updates to protect your system against scams, spear phishing, frauds and other junk! The Antivirus updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription that guarantees that the Antispam, Intrusion Detection System, Content filtering system and Antivirus installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts."
+msgstr "¡Obtén las actualizaciones de Antivirus para proteger tu sistema contra las estafas, phishing, fraudes y otras amenazas! Las actualizaciones Antivirus están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor están actualizados a diario basados en los datos proporcionados por los expertos TIC de mayor confianza."
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:548
 #, perl-brace-format
-msgid ""
-"Receive automatic alerts by purchasing a {openhrefp}Professional{closehref} "
-"or {openhrefe}Enterprise Server Subscription{closehref}. You have a full "
-"list of available alerts {openhrefr}here{closehref}."
-msgstr ""
-"Recibe alertas automáticas adquiriendo la Suscripción al Servidor {openhrefp}"
-"Profesional{closehref} o {openhrefe}Empresarial{closehref}. Consulta la "
-"lista completa de alertas disponibles {openhrefr}aquí{closehref}."
+msgid "Receive automatic alerts by purchasing a {openhrefp}Professional{closehref} or {openhrefe}Enterprise Server Subscription{closehref}. You have a full list of available alerts {openhrefr}here{closehref}."
+msgstr "Recibe alertas automáticas adquiriendo la Suscripción al Servidor {openhrefp}Profesional{closehref} o {openhrefe}Empresarial{closehref}. Consulta la lista completa de alertas disponibles {openhrefr}aquí{closehref}."
 
 #: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:219
 #, perl-brace-format
-msgid ""
-"Gain full access to frequent reports based on these logs by purchasing a "
-"{openhrefp}Professional{closehref} or {openhrefe}Enterprise Server "
-"Subscription{closehref}. You can see a sample of these reports {openhrefr}"
-"here{closehref}."
-msgstr ""
-"Obtén accesso completo a informes frequentes basados en estos logs "
-"adquiriendo la Suscripción al Servidor del nivel {openhrefp}Profesional"
-"{closehref} o {openhrefe}Empresarial{closehref}. Puedes consultar un informe "
-"de muestra {openhrefr}aquí{closehref}."
+msgid "Gain full access to frequent reports based on these logs by purchasing a {openhrefp}Professional{closehref} or {openhrefe}Enterprise Server Subscription{closehref}. You can see a sample of these reports {openhrefr}here{closehref}."
+msgstr "Obtén accesso completo a informes frequentes basados en estos logs adquiriendo la Suscripción al Servidor del nivel {openhrefp}Profesional{closehref} o {openhrefe}Empresarial{closehref}. Puedes consultar un informe de muestra {openhrefr}aquí{closehref}."
 
 #: ../../main/ids/src/EBox/Composite/General.pm:114
 #, perl-brace-format
-msgid ""
-"Get IDS updates to protect your system against the latest security threats "
-"such as hacking attempts and attacks on security vulnerabilities! The IDS "
-"updates are integrated in the {openhref} Advanced Security Updates"
-"{closehref} subscription that guarantees that the Antispam, Intrusion "
-"Detection System, Content filtering system and Antivirus installed on your "
-"Zentyal server are updated on daily basis based on the information provided "
-"by the most trusted IT experts."
-msgstr ""
-"¡Obtén las actualizaciones del Sistema de Detección de Intrusos para "
-"proteger tu sistema contra las últimas amenazas de seguridad como intentos "
-"de hacking y ataques a vulnerabilidades de seguridad! Las actualizaciones "
-"del Sistema de Detección de Intrusos están incluidas en la suscripción de "
-"{openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio "
-"garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de "
-"Filtrado de Contenidos y Antivirus instalados en su servidor están "
-"actualizados a diario basados en los datos proporcionados por los expertos "
-"TIC de mayor confianza."
+msgid "Get IDS updates to protect your system against the latest security threats such as hacking attempts and attacks on security vulnerabilities! The IDS updates are integrated in the {openhref} Advanced Security Updates{closehref} subscription that guarantees that the Antispam, Intrusion Detection System, Content filtering system and Antivirus installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts."
+msgstr "¡Obtén las actualizaciones del Sistema de Detección de Intrusos para proteger tu sistema contra las últimas amenazas de seguridad como intentos de hacking y ataques a vulnerabilidades de seguridad! Las actualizaciones del Sistema de Detección de Intrusos están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor están actualizados a diario basados en los datos proporcionados por los expertos TIC de mayor confianza."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2066
-msgid ""
-"If you had Zentyal Disaster Recovery, you would have been able to restore "
-"module data as well as the configuration you are about to recover"
-msgstr ""
-"Si tuviese Zentyal Disaster Recovery, tendría la posibilidad de recuperar "
-"también los datos de los distintos módulos además de la configuración que se "
-"va a restaurar"
+msgid "If you had Zentyal Disaster Recovery, you would have been able to restore module data as well as the configuration you are about to recover"
+msgstr "Si tuviese Zentyal Disaster Recovery, tendría la posibilidad de recuperar también los datos de los distintos módulos además de la configuración que se va a restaurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2167
 msgid "Your configuration backup is now restored!"
 msgstr "¡Su backup de configuración ha sido restaurado!"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2168
-msgid ""
-"Perhaps you were interested in the Zentyal Disaster Recovery service? It "
-"allows you to store critical data easily and safely in a remote location, as "
-"well as to restore this data and system configuration in case of a disaster."
-msgstr ""
-"¿Quizá está interesado en el servicio Zentyal Disaster Recovery? Este "
-"permite almacenar datos críticos de forma fácil y segura en servidores "
-"remotos, así como restaurar estos datos junto con la configuración del "
-"sistema en caso de que ocurra un desastre."
+msgid "Perhaps you were interested in the Zentyal Disaster Recovery service? It allows you to store critical data easily and safely in a remote location, as well as to restore this data and system configuration in case of a disaster."
+msgstr "¿Quizá está interesado en el servicio Zentyal Disaster Recovery? Este permite almacenar datos críticos de forma fácil y segura en servidores remotos, así como restaurar estos datos junto con la configuración del sistema en caso de que ocurra un desastre."
 
 #~ msgid ""
 #~ "{brand}: make low-cost VoIP calls to mobile phones and landlines directly "
