@@ -1,4 +1,6 @@
 HEAD
+	+ Better error message when registering a subscription without
+	  connectivity
 	+ Disable wrong user/password autocompletion in Subscription form
 	+ Remove innecesary checks for nameserver and web servers prior to
 	  exchanging data with them

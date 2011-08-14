@@ -82,7 +82,10 @@ sub _register
 
     my $user = $self->param('username');
     EBox::info("Registering a new basic subscription ($user)");
-    my $result = SOAP::Lite
+
+    my $result;
+    try {
+        $result  = SOAP::Lite
              ->uri(SOAP_URI)
              ->proxy(SOAP_PROXY)
              ->autotype(0)
@@ -94,6 +97,9 @@ sub _register
                               $self->param('password'),
                               $self->param('phone'),
                               $self->param('company'));
+    } otherwise {
+        throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
+    };
 
     if (not $result or $result->fault) {
         if ($result) {
