@@ -28,6 +28,9 @@ cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-a
 
 sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-ebox.cfg.template > $CD_BUILD_DIR/isolinux/isolinux.cfg
 
+USB_SUPPORT="cdrom-detect\/try-usb=true"
+sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
+
 test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
 
 rm -rf $CD_EBOX_DIR/*
