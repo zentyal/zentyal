@@ -1916,7 +1916,7 @@ sub firewallHelper
 {
     my ($self) = @_;
 
-    my $enabled = $self->isEnabled();
+    my $enabled = $self->eBoxSubscribed();
     if (not $enabled) {
         return undef;
     }
