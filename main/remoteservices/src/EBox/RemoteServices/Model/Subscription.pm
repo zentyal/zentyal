@@ -388,6 +388,7 @@ sub _table
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
                     printableActionName => $actionName,
+                    disableAutocomplete => 1,
                    };
 
     return $dataForm;

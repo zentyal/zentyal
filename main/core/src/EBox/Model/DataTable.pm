@@ -4557,6 +4557,21 @@ sub printableActionName
     return $self->table()->{'printableActionName'};
 }
 
+# Method: disableAutocomplete
+#
+#       Return if the autocompletion in the add/edit forms
+#       must be disabled
+#
+# Returns:
+#
+#       boolean - true if autocompletion is disabled, false otherwise
+#
+sub disableAutocomplete
+{
+    my ($self) = @_;
+
+    return $self->{table}->{'disableAutocomplete'};
+}
 
 # Method: viewCustomizer
 #

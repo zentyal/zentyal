@@ -249,7 +249,11 @@
   @formData
   @sections => ()
 </%args>
-<form name="<% $modelName . '_ajaxform' %>">
+%  my $formAttrs = '';
+%  if ($formData[0]->model()->disableAutocomplete()) {
+%    $formAttrs = 'autocomplete="off"';
+%  }
+<form name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
   <table class="formTable">
     <tbody>
       <& SELF:editFormSection,

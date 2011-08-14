@@ -1,4 +1,5 @@
 HEAD
+	+ Disable wrong user/password autocompletion in Subscription form
 	+ Remove innecesary checks for nameserver and web servers prior to
 	  exchanging data with them
 	+ Remove route is up checking for remote support since it is not
