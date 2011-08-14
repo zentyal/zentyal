@@ -11,12 +11,17 @@ d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.1-ppa.asc
 # linux-generic-pae will be removed when generating the 64bit installer
 d-i base-installer/kernel/override-image string linux-generic-pae
 
+# support installations from USB
+d-i cdrom-detect/try-usb boolean true
+
 # only install basic language packs
 d-i pkgsel/language-pack-patterns string
 # no language support packages
 d-i pkgsel/install-language-support boolean false
-# install ssh, bc, zentyal and X environment
-d-i pkgsel/include string ssh bc zentyal xorg firefox lxdm lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver evince policykit-1 plymouth-theme-ubuntu-logo acpid
+
+# install zentyal core, ssh, bc, acpid, nano, and X environment with LXDE
+# ntp also to avoid apache session expiration if installed during 2nd stage
+d-i pkgsel/include string ssh bc zentyal xorg firefox lxdm lxde xdg-user-dirs gksu libnss3-tools nano xscreensaver evince policykit-1 plymouth-theme-ubuntu-logo acpid ntp
 
 # disable automatic updates, eBox will take care of that
 d-i pkgsel/update-policy select none

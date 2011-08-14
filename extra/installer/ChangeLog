@@ -1,4 +1,7 @@
 HEAD
+    + Support installation from USB drives
+    + Install ntp on first stage to avoid expiration of apache session
+2.2-rc1
     + Replaced partner zarafa repository with the Zentyal one
 2.1-2
     + New beta logo
