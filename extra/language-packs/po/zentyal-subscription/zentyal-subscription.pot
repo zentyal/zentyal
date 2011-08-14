@@ -8,41 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-14 12:06+0200\n"
+"POT-Creation-Date: 2011-08-14 13:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:548
-#, perl-brace-format
-msgid ""
-"Receive automatic alerts by purchasing a {openhrefp}Professional{closehref} "
-"or {openhrefe}Enterprise Server Subscription{closehref}. You have a full "
-"list of available alerts {openhrefr}here{closehref}."
-msgstr ""
-
-#: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:219
-#, perl-brace-format
-msgid ""
-"Gain full access to frequent reports based on these logs by purchasing a "
-"{openhrefp}Professional{closehref} or {openhrefe}Enterprise Server "
-"Subscription{closehref}. You can see a sample of these reports {openhrefr}"
-"here{closehref}."
-msgstr ""
-
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:195
-#, perl-brace-format
-msgid ""
-"Get Antivirus updates to protect your system against scams, spear phishing, "
-"frauds and other junk! The Antivirus updates are integrated in the {openhref}"
-"Advanced Security Updates{closehref} subscription that guarantees that the "
-"Antispam, Intrusion Detection System, Content filtering system and Antivirus "
-"installed on your Zentyal server are updated on daily basis based on the "
-"information provided by the most trusted IT experts."
-msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:239
 #, perl-brace-format
@@ -67,82 +40,27 @@ msgid ""
 "IT experts."
 msgstr ""
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:111
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1689
 #, perl-brace-format
-msgid ""
-"Get daily Antispam updates keep spam out of your mail servers! The Antispam "
-"updates are integrated in the {openhref}Advanced Security Updates{closehref} "
-"subscription that guarantees that the Antispam, Intrusion Detection System, "
-"Content filtering system and Antivirus installed on your Zentyal server are "
-"updated on daily basis based on the information provided by the most trusted "
-"IT experts."
+msgid "Not subscribed - {oh}Subscribe now!{ch}"
 msgstr ""
 
-#: ../../main/ids/src/EBox/Composite/General.pm:114
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1692
 #, perl-brace-format
-msgid ""
-"Get IDS updates to protect your system against the latest security threats "
-"such as hacking attempts and attacks on security vulnerabilities! The IDS "
-"updates are integrated in the {openhref} Advanced Security Updates"
-"{closehref} subscription that guarantees that the Antispam, Intrusion "
-"Detection System, Content filtering system and Antivirus installed on your "
-"Zentyal server are updated on daily basis based on the information provided "
-"by the most trusted IT experts."
+msgid "None - {oh}Get Free Basic Subscription!{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:264
-msgid ""
-"To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one "
-"of the Server Subscriptions (Basic, Professional or Enterprise) from the "
-"Zentyal On-line Store. Once you have obtained one of these subscriptions, "
-"you will be sent a user name and password you can use below to subscribe "
-"your server to Zentyal Cloud."
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:594
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1695
 #, perl-brace-format
-msgid ""
-"For full, enterprise-level services, obtain {openhrefp}Professional"
-"{closehref} or {openhrefe}Enterprise Server Subscription{closehref} - These "
-"offer Quality Assured software updates, Alerts, Reports and Centralised "
-"monitoring and management of your Zentyal servers!"
+msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:178
-msgid ""
-"As to the estimated time to recover from a disaster, estimation consists of "
-"45 minutes to install Zentyal server, upper bound of the backup size and "
-"average download time obtained from the latest Network report statistics."
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1711
+msgid "Advanced Security Updates"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:314
-#, perl-brace-format
-msgid ""
-"The {ohd}Disaster Recovery{ch} service ensures the availability of your "
-"business critical data! Take a look and try out the free {ohb}Basic "
-"Subscription{ch} which allows you to store your configuration backup "
-"remotely."
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:326
-#, perl-brace-format
-msgid ""
-"The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees "
-"that besides the system configuration, your most critical data is backed up, "
-"secured, monitored and recovered quickly, in trusted repositories and "
-"following strict processes. To obtain this service, your server must have "
-"{ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:188
-#, perl-brace-format
-msgid ""
-"Enterprise-level security for your network! The {oha}Advanced Security "
-"Updates{ch} guarantee that the content filtering lists, IDS threat analysis "
-"ruleset, Antivirus signatures and Antispam detection rules in your Zentyal "
-"servers are verified daily by the most trusted IT experts. To obtain these "
-"updates, your server must have {ohp}Professional{ch} or {ohe}Enterprise "
-"Server Subscription{ch}."
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1713
+msgid "Disaster Recovery"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:183
@@ -188,6 +106,61 @@ msgstr ""
 msgid "<span>None - {ohb}Get Free Basic Subscription{ch}</span>"
 msgstr ""
 
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:188
+#, perl-brace-format
+msgid ""
+"Enterprise-level security for your network! The {oha}Advanced Security "
+"Updates{ch} guarantee that the content filtering lists, IDS threat analysis "
+"ruleset, Antivirus signatures and Antispam detection rules in your Zentyal "
+"servers are verified daily by the most trusted IT experts. To obtain these "
+"updates, your server must have {ohp}Professional{ch} or {ohe}Enterprise "
+"Server Subscription{ch}."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:264
+msgid ""
+"To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one "
+"of the Server Subscriptions (Basic, Professional or Enterprise) from the "
+"Zentyal On-line Store. Once you have obtained one of these subscriptions, "
+"you will be sent a user name and password you can use below to subscribe "
+"your server to Zentyal Cloud."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:595
+#, perl-brace-format
+msgid ""
+"For full, enterprise-level services, obtain {openhrefp}Professional"
+"{closehref} or {openhrefe}Enterprise Server Subscription{closehref} - These "
+"offer Quality Assured software updates, Alerts, Reports and Centralised "
+"monitoring and management of your Zentyal servers!"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:178
+msgid ""
+"As to the estimated time to recover from a disaster, estimation consists of "
+"45 minutes to install Zentyal server, upper bound of the backup size and "
+"average download time obtained from the latest Network report statistics."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:314
+#, perl-brace-format
+msgid ""
+"The {ohd}Disaster Recovery{ch} service ensures the availability of your "
+"business critical data! Take a look and try out the free {ohb}Basic "
+"Subscription{ch} which allows you to store your configuration backup "
+"remotely."
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:326
+#, perl-brace-format
+msgid ""
+"The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees "
+"that besides the system configuration, your most critical data is backed up, "
+"secured, monitored and recovered quickly, in trusted repositories and "
+"following strict processes. To obtain this service, your server must have "
+"{ohp}Professional{ch} or {ohe}Enterprise Server Subscription{ch}."
+msgstr ""
+
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:94
 #, perl-brace-format
 msgid ""
@@ -198,27 +171,14 @@ msgid ""
 "hostname) or Zentyal server name in the web browser tab."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1689
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
 #, perl-brace-format
-msgid "Not subscribed - {oh}Subscribe now!{ch}"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1692
-#, perl-brace-format
-msgid "None - {oh}Get Free Basic Subscription!{ch}"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1695
-#, perl-brace-format
-msgid "Disabled - {oh}Enable{ch}"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1711
-msgid "Advanced Security Updates"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1713
-msgid "Disaster Recovery"
+msgid ""
+"Choosing {brand} method you will use the {ohref}{service} service{chref}. "
+"This service guarantees your most critical data is backed up, secured, "
+"monitored and recovered easily quickly in case of a disaster. You gain "
+"access to this service by obtaining the {service} service and Professional "
+"or Enterprise Server Subscription."
 msgstr ""
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:276
@@ -231,14 +191,55 @@ msgid ""
 "(yourserver.zentyal.me)."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:111
 #, perl-brace-format
 msgid ""
-"Choosing {brand} method you will use the {ohref}{service} service{chref}. "
-"This service guarantees your most critical data is backed up, secured, "
-"monitored and recovered easily quickly in case of a disaster. You gain "
-"access to this service by obtaining the {service} service and Professional "
-"or Enterprise Server Subscription."
+"Get daily Antispam updates keep spam out of your mail servers! The Antispam "
+"updates are integrated in the {openhref}Advanced Security Updates{closehref} "
+"subscription that guarantees that the Antispam, Intrusion Detection System, "
+"Content filtering system and Antivirus installed on your Zentyal server are "
+"updated on daily basis based on the information provided by the most trusted "
+"IT experts."
+msgstr ""
+
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:195
+#, perl-brace-format
+msgid ""
+"Get Antivirus updates to protect your system against scams, spear phishing, "
+"frauds and other junk! The Antivirus updates are integrated in the {openhref}"
+"Advanced Security Updates{closehref} subscription that guarantees that the "
+"Antispam, Intrusion Detection System, Content filtering system and Antivirus "
+"installed on your Zentyal server are updated on daily basis based on the "
+"information provided by the most trusted IT experts."
+msgstr ""
+
+#: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:548
+#, perl-brace-format
+msgid ""
+"Receive automatic alerts by purchasing a {openhrefp}Professional{closehref} "
+"or {openhrefe}Enterprise Server Subscription{closehref}. You have a full "
+"list of available alerts {openhrefr}here{closehref}."
+msgstr ""
+
+#: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:219
+#, perl-brace-format
+msgid ""
+"Gain full access to frequent reports based on these logs by purchasing a "
+"{openhrefp}Professional{closehref} or {openhrefe}Enterprise Server "
+"Subscription{closehref}. You can see a sample of these reports {openhrefr}"
+"here{closehref}."
+msgstr ""
+
+#: ../../main/ids/src/EBox/Composite/General.pm:114
+#, perl-brace-format
+msgid ""
+"Get IDS updates to protect your system against the latest security threats "
+"such as hacking attempts and attacks on security vulnerabilities! The IDS "
+"updates are integrated in the {openhref} Advanced Security Updates"
+"{closehref} subscription that guarantees that the Antispam, Intrusion "
+"Detection System, Content filtering system and Antivirus installed on your "
+"Zentyal server are updated on daily basis based on the information provided "
+"by the most trusted IT experts."
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:2066
