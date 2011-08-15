@@ -154,7 +154,7 @@ sub requeueMail
 {
     my ($qid) = @_;
 
-    root("/usr/sbin/postsuper -r $qid");
+    EBox::Sudo::root("/usr/sbin/postsuper -r $qid");
 }
 
 #
