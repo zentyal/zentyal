@@ -281,7 +281,12 @@ sub _fieldDescription
     my $external_port = new EBox::Types::PortRange(
             'fieldName' => 'external_port',
             'printableName' => __('Original destination port'),
-            'defaultSelectedType' => 'single',
+            # FIXME: this usability improvement cannot be
+            # implemented because PortRange type cannot be
+            # optional, maybe we should fix viewCustomizer to
+            # automatically ignore hidden values even
+            # if not marked as optional
+            #'defaultSelectedType' => 'single',
             );
     push (@tableHead, $external_port);
 
