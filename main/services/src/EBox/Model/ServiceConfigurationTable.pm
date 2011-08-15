@@ -155,7 +155,12 @@ sub _table
                          'fieldName' => 'destination',
                          'printableName' => __('Destination port'),
                          'editable' => 1,
-                         'defaultSelectedType' => 'single',
+                         # FIXME: this usability improvement cannot be
+                         # implemented because PortRange type cannot be
+                         # optional, maybe we should fix viewCustomizer to
+                         # automatically ignore hidden values even
+                         # if not marked as optional
+                         # 'defaultSelectedType' => 'single',
                          )
                );
 
@@ -173,39 +178,12 @@ sub _table
                 'menuNamespace' => 'Services/View/ServiceConfigurationTable',
                 'HTTPUrlView' => 'Services/View/ServiceConfigurationTable',
                 'class' => 'dataTable',
-                'help' => '', # FIXME
                 'rowUnique' => 1,
                 'printableRowName' => __('service'),
                 'insertPosition' => 'back',
         };
 
         return $dataTable;
-}
-
-# Method: validateRow
-#
-#      Override <EBox::Model::DataTable::validateRow> method
-#
-sub validateTypedRow()
-{
-    my ($self, $action, $parms)  = @_;
-
-    if ($action eq 'add' or $action eq 'update') {
-        return unless (exists $parms->{'protocol'});
-        my $type = $parms->{'protocol'}->value();
-        if ($type eq any ('gre', 'icmp', 'esp', 'ah', 'any') ) {
-            my $source = $parms->{'source'};
-            my $destination = $parms->{'destination'};
-            for my $port ($source, $destination) {
-                $port or
-                    next;
-                if ($port->single() or $port->from() or $port->to()) {
-                    throw EBox::Exceptions::External(
-                        __('This protocol does not use ports'));
-                }
-            }
-        }
-    }
 }
 
 # Method: pageTitle
