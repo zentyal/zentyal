@@ -30,6 +30,7 @@ use EBox::Exceptions::MissingArgument;
 
 use Encode;
 use Error qw(:try);
+use POSIX qw(getuid);
 
 # Method: setParentComposite
 #
@@ -228,6 +229,9 @@ sub menuFolder
 sub disabledModuleWarning
 {
     my ($self) = @_;
+
+    # Avoid to show warning if running in usercorner's apache
+    return '' unless (getuid() == getpwnam(EBox::Config::user()));
 
     my $pageTitle = $self->pageTitle();
     my $module;
