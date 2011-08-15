@@ -1,4 +1,4 @@
-HEAD
+2.1.10
 	+ Avoid duplicated restart during postinst
 	+ Added staticIfaceAddressChangedDone notification
 	+ Fixed module name in actions logging

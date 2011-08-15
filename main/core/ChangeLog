@@ -1,4 +1,4 @@
-HEAD
+2.1.25
 	+ Do not show disabled module warnings in usercorner
 	+ Mask passwords and unify boolean values in audit log
 	+ Do not override type attribute for EBox::Types::Text subtypes

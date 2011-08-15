@@ -1,4 +1,4 @@
-HEAD
+2.1.5
 	+ Avoid duplicated restart during postinst
 	+ Added route up command option to vpn clients
 	+ Added mssfix option for UDP connections
