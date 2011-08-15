@@ -175,7 +175,7 @@ sub infoMail
 
     my $writeon = 0;
     my @info;
-    foreach (@{root("/usr/sbin/postcat -q $qid")}) {
+    foreach (@{EBox::Sudo::root("/usr/sbin/postcat -q $qid")}) {
         chomp;
         if ($writeon) { push(@info, $_);}
         if ($_ =~ m/^\*\*\* MESSAGE CONTENTS.*$/) { $writeon    = 1; }

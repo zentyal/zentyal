@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed error executing requeue command
+	+ Fixed errors executing mail queue commands
 	+ Do not generate config if module is not configured
 2.1.8
 	+ Set widget size to 2 for a better default dashboard balance
