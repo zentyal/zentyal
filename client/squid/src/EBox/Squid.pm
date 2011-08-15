@@ -1287,22 +1287,56 @@ sub aroundDumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    my $bugReport = $options{bug};
-    if (not $bugReport) {
-        $self->SUPER::aroundDumpConfig($dir, %options);
-        return
+    my $backupCategorizedDomainLists = 1;
+    my $confKeyValue = EBox::Config::configkey('backup_domain_categorized_lists');
+    if (defined $confKeyValue) {
+        $confKeyValue = lc $confKeyValue;
+        if (($confKeyValue eq 'no') or  
+             ($confKeyValue eq 'false') or
+             ($confKeyValue eq '0')) {
+            $backupCategorizedDomainLists = 0;
+        }
     }
 
-    # for bug report we dont save archive files
-    $self->_dump_to_file($dir);
+    my $bugReport = $options{bug};
+    if (not $bugReport and $backupCategorizedDomainLists) {
+        $self->SUPER::aroundDumpConfig($dir, %options);
+    } else {
+        # we don't save archive files
+        $self->_dump_to_file($dir);
+        $self->dumpConfig($dir, %options);
+    }
 
-    $self->dumpConfig($dir, %options);
+}
+
+
+sub aroundRestoreConfig
+{
+    my ($self, $dir, %options) = @_;
+    my $archive = $self->_filesArchive($dir);
+    my $archiveExists = (-r $archive);
+    if ($archiveExists) {
+        # normal procedure with restore files
+        $self->SUPER::aroundRestoreConfig($dir, %options);
+    } else {
+        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
+        $self->_load_from_file($dir);      
+        $options{removeCategorizedDomainLists} = 1;
+        $self->restoreConfig($dir, %options);
+    }
+
 }
 
 sub restoreConfig
 {
-    my ($self, $dir) = @_;
-    # to regenerate categorized domain files
+    my ($self, $dir, %options) = @_;
+    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
+    if ($removeCategorizedDomainLists) {
+        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
+            $domainFilterFiles->removeAll();
+        }
+    }
+
     $self->_cleanDomainFilterFiles(orphanedCheck => 1);
 }
 
