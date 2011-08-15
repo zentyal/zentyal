@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid duplicated restart during postinst
 	+ Added staticIfaceAddressChangedDone notification
 	+ Fixed module name in actions logging
 	+ Send only gw.hostname.dyndomain.tld to avoid ddclient go nuts
