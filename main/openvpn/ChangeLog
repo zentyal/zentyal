@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid duplicated restart during postinst
 	+ Added route up command option to vpn clients
 	+ Added mssfix option for UDP connections
 	+ Added new setRouteUpCmd in EBox::OpenVPN::Client used by
