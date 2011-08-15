@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid duplicated restart during postinst
 	+ Give support for setting a new adblocking redirector
 	+ Give support for adding postmatch patterns in Ad-blocking
 2.1.7
