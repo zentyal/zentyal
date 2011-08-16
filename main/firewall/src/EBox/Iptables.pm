@@ -401,9 +401,9 @@ sub _nospoof # (interface, \@addresses)
         my $addr = $_->{address};
         my $mask = $_->{netmask};
         push(@commands,
-                pf("-A fnospoof -s $addr/$mask -i ! $iface -j fdrop"),
-                pf("-A inospoof -s $addr/$mask -i ! $iface -j idrop"),
-               # pf("-A inospoof -i ! $iface -d $addr -j idrop"),
+                pf("-A fnospoof -s $addr/$mask ! -i $iface -j fdrop"),
+                pf("-A inospoof -s $addr/$mask ! -i $iface -j idrop"),
+               # pf("-A inospoof ! -i $iface -d $addr -j idrop"),
             );
     }
     return \@commands;
@@ -431,7 +431,7 @@ sub _localRedirects
             (defined($addr) && $addr ne "") or next;
             push(@commands,
                     pf("-t nat -A PREROUTING -i $ifc -p $protocol ".
-                        "-d ! $addr --dport $eport " .
+                        "! -d $addr --dport $eport " .
                         "-j REDIRECT --to-ports $dport")
                 );
         }
@@ -502,9 +502,9 @@ sub start
             my $address = $member->{ipaddr};
             push(@commands,
                     pf("-A inospoof -m mac -s $address " .
-                        "--mac-source ! $mac -j idrop"),
+                        "! --mac-source $mac -j idrop"),
                     pf("-A fnospoof -m mac -s $address " .
-                        "--mac-source ! $mac -j fdrop"),
+                        "! --mac-source $mac -j fdrop"),
                 );
         }
     }
@@ -558,7 +558,7 @@ sub start
                 $src = "$addr/$mask";
             }
             push(@commands,
-                pf("-t nat -A POSTROUTING -s ! $src $output " .
+                pf("-t nat -A POSTROUTING ! -s $src $output " .
                    "-j SNAT --to $addr")
             );
         } elsif (($method eq 'dhcp') or ($method eq 'ppp')) {
