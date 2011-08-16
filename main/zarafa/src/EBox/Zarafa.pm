@@ -478,7 +478,7 @@ sub _postServiceHook
 
     if ($enabled and -f FIRST_RUN_FILE) {
         my $cmd = 'zarafa-admin -s';
-        EBox::Sudo::root($cmd);
+        EBox::Sudo::rootWithoutException($cmd);
         unlink FIRST_RUN_FILE;
     }
 

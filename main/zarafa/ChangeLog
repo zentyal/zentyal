@@ -1,3 +1,6 @@
+HEAD
+	+ Bugfix: create shared folters will fail if for some reason they where
+	  already created, like on a backup restore, run that on a try
 2.1.4
 	+ Added report support: Top user storage, mail storage along the time,
 	  last snapshot of user storage usage
