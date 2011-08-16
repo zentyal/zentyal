@@ -1,6 +1,7 @@
 HEAD
+	+ HTTPS works both for banned domains and block blanket options
 	+ Added configuration file key to omit domain categorized files
-	from backup
+	  from backup
 2.0.7
 	+ Adapted logrotate configuration to new PID file
 	+ Added guard against empty fileList_path keys

@@ -17,7 +17,6 @@
 #List other sites to block:
 % foreach my $domain (@domains) {
 <% $domain %>
-	
 % }
 
 
@@ -26,12 +25,14 @@
 # the # from the next line to leave only a '**':
 % if ($blanketBlock) {
 **
+**s
 % }
 
 #Blanket IP Block.  To block all sites specified only as an IP
 #remove the # from the next line to leave only a '*ip':
 % if ($blockIp) {
 *ip
+*ips
 % }
 
 #Remove the # from the following and edit as needed to use a stock
