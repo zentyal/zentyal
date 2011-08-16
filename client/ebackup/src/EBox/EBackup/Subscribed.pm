@@ -314,6 +314,14 @@ sub metaFilenameFromDate
     return $filename;
 }
 
+
+sub _dataDir
+{
+    my ($credentials) = @_;
+    my $commonName = $credentials->{commonName};
+    return "$commonName/data";
+}
+
 sub _metadataDir
 {
     my ($credentials) = @_;
@@ -395,6 +403,37 @@ sub deleteOrphanMetadata
         @filesToDelete = map { _metadataDir($credentials) . $_ } @filesToDelete;
         _sshCommand($credentials, 'rm -f ' . join(' ', @filesToDelete));
     }
+}
+
+
+sub collectionEncrypted
+{
+    my ($credentials) = @_;
+    my $dir = _dataDir($credentials);
+    my $cmd = "ls -1 $dir";
+    my $output;
+    try {
+       $output  = _sshCommand($credentials, $cmd);
+   } catch EBox::Exceptions::Sudo::Command with {
+       my $ex =shift;
+       # probably a file not exists error (or permission..), benign
+       $output = [];
+   };
+    
+    my $encrypted = undef;
+    foreach my $line (@{ $output }) {
+        chomp $line;
+        if ($line =~ m/^duplicity-full-signatures.*sigtar\.gpg$/) {
+            $encrypted = 1;
+            last ;
+        } elsif ($line =~ m/^duplicity-full-signatures.*sigtar\.gz$/) {
+            $encrypted = 0;
+            last;
+        }
+
+    }
+
+    return $encrypted;
 }
 
 1;

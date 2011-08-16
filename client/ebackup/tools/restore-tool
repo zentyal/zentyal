@@ -87,6 +87,17 @@ try {
                                       $serverCN,
                                      );
 
+        unless ( $credentials->{type} eq 'basic' ) {
+            getEncryption(
+                $credentials,
+                undef,
+                symmetricPassword => $symmetricPassword,
+                encryptionKey     => $encryptKey,
+                keyPassphrase     => $keyPassphrase,
+                noEncryption      => $noEncryption,
+               );
+        }
+
         # Restore last backup for basic users always
         $restoreLast = ($restoreLast or ($credentials->{type} eq 'basic'));
 
@@ -116,14 +127,14 @@ try {
                 next; # Start all over again, retry
             }
 
-            getEncryption(
-                $credentials,
-                $metadata,
-                symmetricPassword => $symmetricPassword,
-                encryptionKey     => $encryptKey,
-                keyPassphrase     => $keyPassphrase,
-                noEncryption      => $noEncryption,
-               );
+            # getEncryption(
+            #     $credentials,
+            #     $metadata,
+            #     symmetricPassword => $symmetricPassword,
+            #     encryptionKey     => $encryptKey,
+            #     keyPassphrase     => $keyPassphrase,
+            #     noEncryption      => $noEncryption,
+            #    );
         }
     }
 
@@ -2105,7 +2116,7 @@ sub getEncryption
         (not defined $symmetricPassword) and
         (not defined $encryptionKey) )  {
 
-        if (_backupUsesEncryption($metadata)) {
+        if (_backupUsesEncryption($credentials, $metadata)) {
             my $dialogMsg =  __x(
                   'Enter password used to encrypt back up {ser}',
                    ser => $credentials->{commonName});
@@ -2127,10 +2138,13 @@ sub getEncryption
 
 sub _backupUsesEncryption
 {
-    my ($metadata) = @_;
-    my $encType = $metadata->{encryptionType};
+    my ($credentials, $metadata) = @_;
+    if ($metadata) {
+        my $encType = $metadata->{encryptionType};
+        return ($encType eq 'symmetric');
+    }
 
-    return ($encType eq 'symmetric');
+    return EBox::EBackup::Subscribed::collectionEncrypted($credentials);
 }
 
 sub metadata
