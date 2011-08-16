@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: certificate name is ssl.pem and not apache.pem
 2.1.2
 	+ Generate default SSL certificate for out of the box HTTPS support
 	+ Allow custom CN on Web Server service certificate

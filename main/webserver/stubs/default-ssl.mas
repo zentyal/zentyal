@@ -55,7 +55,7 @@ NameVirtualHost *:<% $sslportNumber %>
 	#   SSLCertificateFile directive is needed.
 	#SSLCertificateFile    /etc/ssl/certs/ssl-cert-snakeoil.pem
 	#SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
-	SSLCertificateFile    /etc/apache2/ssl/apache.pem
+	SSLCertificateFile    /etc/apache2/ssl/ssl.pem
 
 	#   Server Certificate Chain:
 	#   Point SSLCertificateChainFile at a file containing the
