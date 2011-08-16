@@ -7,7 +7,7 @@ set -e
 case "$1" in
     configure)
         # initial setup
-        /usr/share/zentyal/initial-setup samba $2
+        /usr/share/zentyal/initial-setup --no-restart samba $2
 
         # restart module
         invoke-rc.d zentyal samba restart || true

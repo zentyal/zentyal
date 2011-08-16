@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid duplicated restart during postinst
 2.1.5
 	+ Removed wrong quotes in smb.conf
 	+ Added missing touch and minsize options in /etc/zentyal/samba.conf
