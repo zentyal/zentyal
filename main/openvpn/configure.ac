@@ -63,6 +63,7 @@ src/EBox/OpenVPN/Client/t/testdata/Makefile
 src/EBox/OpenVPN/LogHelper/Makefile
 src/EBox/OpenVPN/t/Makefile
 src/scripts/Makefile
+src/scripts/installer/Makefile
 schemas/Makefile
 schemas/urls/Makefile
 stubs/Makefile

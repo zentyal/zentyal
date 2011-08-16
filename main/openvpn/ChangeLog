@@ -1,3 +1,5 @@
+HEAD
+	+ Include again OpenVPN for Windows installer
 2.1.5
 	+ Avoid duplicated restart during postinst
 	+ Added route up command option to vpn clients
