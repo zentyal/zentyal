@@ -69,8 +69,8 @@ sub masonParameters
             push( @array, 'caNeeded' => 1);
         } else {
             push( @array, 'passRequired' => $ca->passwordRequired() );
+            push( @array, 'caExpirationDays' => $ca->caExpirationDays() );
         }
-        push( @array, 'caExpirationDays' => $ca->caExpirationDays() );
     } else {
         $self->{'template'} = "ca/createCA.mas";
     }
