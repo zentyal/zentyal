@@ -1,6 +1,7 @@
 HEAD
-	+ Bugfix: create shared folters will fail if for some reason they where
-	  already created, like on a backup restore, run that on a try
+	+ Bugfix: create shared folders will fail if for some reason they were
+	  already created, like on a backup restore, run that without raising
+	  exception
 2.1.4
 	+ Added report support: Top user storage, mail storage along the time,
 	  last snapshot of user storage usage
