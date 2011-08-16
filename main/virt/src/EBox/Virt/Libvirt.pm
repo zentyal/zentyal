@@ -23,6 +23,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
+use EBox::NetWrappers;
 use File::Basename;
 use String::ShellQuote;
 
@@ -427,11 +428,13 @@ sub attachDevice
 
     my $name = $params{name};
     my $type = $params{type};
+    my $file = $params{file};
 
     return if ($type eq 'none');
 
     my $device = {};
-    $device->{file} = $params{file};
+    $device->{file} = $file;
+    $device->{block} = ($file =~ /^\/dev\//);
     $device->{type} = $type eq 'cd' ? 'cdrom' : 'disk';
     $device->{letter} = $self->{driveLetter};
     $self->{driveLetter} = chr (ord ($self->{driveLetter}) + 1);
@@ -543,6 +546,14 @@ sub vmsPath
 sub daemons
 {
     return [ { name => 'libvirt-bin' } ];
+}
+
+sub ifaces
+{
+    my $network = EBox::Global->modInstance('network');
+    my @ifaces = EBox::NetWrappers::list_ifaces();
+    @ifaces = grep { $network->ifaceIsBridge($_) } @ifaces;
+    return @ifaces;
 }
 
 1;

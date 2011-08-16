@@ -165,7 +165,7 @@ sub validateTypedRow
         unless ($path) {
             throw EBox::Exceptions::External(__('You need to provide the path of a ISO image'));
         }
-        unless (-f $path) {
+        unless (-e $path) {
             throw EBox::Exceptions::External(__x("ISO image '{img}' does not exist", img => $path));
         }
     } else {
@@ -175,7 +175,7 @@ sub validateTypedRow
             unless ($path) {
                 throw EBox::Exceptions::External(__('You need to provide the path of a hard disk image'));
             }
-            unless (-f $path) {
+            unless (-e $path) {
                 throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", path => $path));
             }
         } else {

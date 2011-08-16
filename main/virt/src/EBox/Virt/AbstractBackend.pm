@@ -276,6 +276,16 @@ sub vmsPath
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method: ifaces
+#
+#   Returns array with the names of the interfaces that can be
+#   used to create bridged interfaces with the current virtualizer
+#
+sub ifaces
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
 # Method: listVMs
 #
 #   Returns the list of names of found VMs referenced

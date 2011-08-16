@@ -31,10 +31,9 @@
         </interface>
 % }
 % foreach my $device (@devices) {
-        <disk type='file' device='<% $device->{type} %>'>
-            <source file='<% $device->{file} %>'/>
-            # FIXME: cdrom only seems to boot with ide
-            # try if we can use scsi for disks? what about virtio?
+% my $block = $device->{block};
+        <disk type='<% $block ? 'block' : 'file' %>' device='<% $device->{type} %>'>
+            <source <% $block ? 'dev' : 'file' %>='<% $device->{file} %>'/>
             <target dev='hd<% $device->{letter} %>' bus='ide'/>
         </disk>
 % }

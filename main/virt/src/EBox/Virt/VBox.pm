@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use EBox::Exceptions::MissingArgument;
+use EBox::NetWrappers;
 use String::ShellQuote;
 
 my $VBOXCMD = 'vboxmanage -nologo';
@@ -465,6 +466,10 @@ sub attachDevice
         $self->{ideDeviceNumber}++;
     }
 
+    if ($file =~ /^\/dev\//) {
+        $file = "host:$file";
+    }
+
     _run("$VBOXCMD storageattach $name --storagectl $ctl --port $port --device $device --type $type --medium $file");
 }
 
@@ -560,6 +565,11 @@ sub _run
 sub vmsPath
 {
     return $VM_PATH;
+}
+
+sub ifaces
+{
+    return EBox::NetWrappers::list_ifaces();
 }
 
 1;

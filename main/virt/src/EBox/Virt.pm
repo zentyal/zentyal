@@ -297,6 +297,13 @@ sub systemTypes
     return $self->{backend}->systemTypes();
 }
 
+sub ifaces
+{
+    my ($self) = @_;
+
+    return $self->{backend}->ifaces();
+}
+
 sub manageScript
 {
     my ($self, $name) = @_;

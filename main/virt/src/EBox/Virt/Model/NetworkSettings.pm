@@ -30,7 +30,6 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
-use EBox::NetWrappers;
 
 use constant MAX_IFACES => 8;
 
@@ -73,9 +72,11 @@ sub _populateIfaceTypes
 
 sub _populateIfaces
 {
+    my $virt = EBox::Global->modInstance('virt');
+
     my @values = map {
                         { value => $_, printableValue => $_ }
-                     } EBox::NetWrappers::list_ifaces();
+                     } $virt->ifaces();
 
     unshift (@values, { value => 'none', printableValue => __('None') });
 
@@ -101,6 +102,7 @@ sub _table
                                fieldName     => 'iface',
                                printableName => __('Bridged to'),
                                populate      => \&_populateIfaces,
+                               disableCache  => 1,
                                editable      => 1,
                               ),
        new EBox::Types::Text(

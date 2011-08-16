@@ -1,4 +1,6 @@
 HEAD
+	+ Real devices like /dev/cdrom are now recognised as valid
+	+ Only bridged interfaces appear in Select when using libvirt
 	+ Do not generate console output when checking for VMX extensions
 2.1.3
 	+ Start button also resumes paused machines
