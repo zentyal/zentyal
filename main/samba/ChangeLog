@@ -1,4 +1,5 @@
 HEAD
+	+ Added maximum limits to PDC options
 	+ Avoid duplicated restart during postinst
 2.1.5
 	+ Removed wrong quotes in smb.conf

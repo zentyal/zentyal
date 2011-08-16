@@ -96,6 +96,7 @@ sub _table
                     'trailingText' => __('characters'),
                     'size' => 2,
                     'defaultValue' => 5,
+                    'max' => 99,
                     'editable' => 1,
                 ),
             ],
@@ -114,6 +115,7 @@ sub _table
                     'trailingText' => __('days'),
                     'size' => 3,
                     'defaultValue' => 90,
+                    'max' => 7300, # 10 years..
                     'editable' => 1,
                 ),
             ],
@@ -132,6 +134,7 @@ sub _table
                     'trailingText' => __('passwords remebered'),
                     'size' => 2,
                     'defaultValue' => 5,
+                    'max' => 99,
                     'editable' => 1,
                 ),
             ],
