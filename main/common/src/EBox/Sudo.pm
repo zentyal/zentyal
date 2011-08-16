@@ -158,7 +158,7 @@ sub _root
 {
     my ($wantError, @cmds) = @_;
 
-    my $commands = join("\n", @cmds);
+    my $commands = join("\n", 'set -e', @cmds);
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
