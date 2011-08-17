@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid duplicated restart during postinst
 2.1.4
 	+ Workaround for parent deep-recursion problem
 	+ Combine all models in the DNS menu entry and added missing help
