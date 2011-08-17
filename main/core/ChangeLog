@@ -1,3 +1,5 @@
+HEAD
+	+ EBox::DataTable::enabledRows returns rows in proper order
 2.1.25
 	+ Do not show disabled module warnings in usercorner
 	+ Mask passwords and unify boolean values in audit log

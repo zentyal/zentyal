@@ -1532,11 +1532,13 @@ sub enabledRows
     my ($self) = @_;
 
     my $fields = $self->fields();
-    unless ( grep { $_ eq 'enabled' } @{$fields}) {
+    unless (grep { $_ eq 'enabled' } @{$fields}) {
         return $self->ids();
     }
 
-    return $self->_find('enabled' => 1, 1);
+    my @rows = @{$self->ids()};
+    @rows = grep { $self->row($_)->valueByName('enabled') } @rows;
+    return \@rows;
 }
 
 # Method: size
