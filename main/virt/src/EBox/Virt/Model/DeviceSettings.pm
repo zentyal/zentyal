@@ -215,30 +215,6 @@ sub validateTypedRow
     }
 }
 
-# Method: updatedRowNotify
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::updatedRowNotify>
-#
-sub updatedRowNotify
-{
-    my ($self, $row) = @_;
-
-    $self->_cleanOptionalValues($row);
-}
-
-sub _cleanOptionalValues
-{
-    my ($self, $row) = @_;
-
-    if ($row->valueByName('type') eq 'hd' and
-        $row->valueByName('disk_action') eq 'create') {
-        $row->elementByName('path')->setValue('');
-        $row->store();
-    }
-}
-
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer>
