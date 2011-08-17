@@ -229,7 +229,9 @@ sub firewallHelper
     my @activeTunnels = @{$self->tunnels()};
     my @networksNoToMasquerade = ();
     foreach my $tunnel (@activeTunnels) {
-         push(@networksNoToMasquerade, $tunnel->{'right_subnet'});
+        my $subnet = $tunnel->{'right_subnet'};
+        next unless $subnet;
+        push(@networksNoToMasquerade, $subnet);
     }
 
     my $firewallHelper = new EBox::IPsec::FirewallHelper(
