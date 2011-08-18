@@ -206,8 +206,16 @@ sub vpnClientForServices
             }
         }
 
-        my $localAddr = $self->_vpnClientLocalAddress($vpnServerName);
-        my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
+        my @localParams;
+        my $localAddr = $self->_vpnClientLocalAddress($address);
+        if ($localAddr) {
+            my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
+            @localParams = (
+                            localAddr  => $localAddr,
+                            lport  => $localPort,
+                           );
+        }
+
 
         $client = $openvpn->newClient(
             $clientName,
@@ -221,9 +229,7 @@ sub vpnClientForServices
             certificate    => $self->{certificate},
             certificateKey => $self->{certificateKey},
             ripPasswd      => '123456', # Not used
-
-            localAddr  => $localAddr,
-            lport  => $localPort,
+            @localParams,
            );
         $openvpn->save();
     }
@@ -231,6 +237,48 @@ sub vpnClientForServices
     return $client;
 }
 
+# Method: vpnClientAdjustLocalAddress
+#
+#     Adjust local address and port for VPN client if there is any
+#     change in the network configuration to reach VPN server
+#
+# Parameters:
+#
+#     client - <EBox::OpenVPN::Client> the VPN client to adjust
+#
+sub vpnClientAdjustLocalAddress
+{
+    my ($self, $client) = @_;
+    my ($server_r) = @{ $client->servers() };
+    my ($serverAddr, $serverPort) = @{ $server_r };
+    my $localAddr = $client->localAddr();
+
+    my $newLocalAddr = $self->_vpnClientLocalAddress($serverAddr);
+    my $newLocalPort;
+    if ($newLocalAddr) {
+        if ($localAddr and ($localAddr eq $newLocalAddr)) {
+            # no changes
+            return;
+        }
+
+        $newLocalPort = EBox::NetWrappers::getFreePort($client->proto(), $newLocalAddr);
+    } else {
+        if (not $localAddr) {
+            # no changes
+            return;
+        }
+        $newLocalAddr = undef;
+        $newLocalPort = undef;
+    }
+
+    # There are changes
+    $client->setLocalAddrAndPort($newLocalAddr, $newLocalPort);
+    my $openvpnMod = EBox::Global->modInstance('openvpn');
+    $openvpnMod->save();
+
+}
+
+# get local address for connect with server
 sub _vpnClientLocalAddress
 {
     my ($self, $serverAddr) = @_;
@@ -240,13 +288,10 @@ sub _vpnClientLocalAddress
     my ($ifaceGw , $gw) = $network->_defaultGwAndIface();
     # check first external ifaces..
     my @ifaces = ( @{ $network->ExternalIfaces() }, @{ $network->InternalIfaces()}  );
-    # add interfaces not managed by Zentyal
-    my %systemIfaces = map { $_ => 1 } EBox::NetWrappers::list_ifaces();
-    delete $systemIfaces{lo};
-    foreach my $iface (@ifaces) {
-        delete $systemIfaces{$iface};
-    }
-    push @ifaces, keys %systemIfaces;
+    # remove ifaces configured via dhcp
+    @ifaces = grep {
+        $network->ifaceMethod($_) ne 'dhcp'
+    } @ifaces;
 
     my @addresses;
     foreach my $iface ( @ifaces ) {
@@ -261,7 +306,8 @@ sub _vpnClientLocalAddress
 
     # look whether address can connect to the VPN server
     foreach my $addr (@addresses) {
-        my $pingCmd = "ping -I $addr -c 1 $serverAddr 2>&1 > /dev/null";
+        # Change this... to use nmap check
+        my $pingCmd = "ping -w 3 -I $addr -c 1 $serverAddr 2>&1 > /dev/null";
         system $pingCmd;
         if ($? == 0) {
             return $addr;
@@ -269,9 +315,7 @@ sub _vpnClientLocalAddress
     }
 
     # no address found
-    throw EBox::Exceptions::External(
-        __('Cannot found a valid address to connect with the Cloud. Please check your network configuration.')
-    );
+    return undef;
 }
 
 # Method: vpnLocation
@@ -376,38 +420,6 @@ sub _disconnect
     $self->SUPER::_disconnect();
     $self->_vpnDisconnect();
 
-}
-
-# Method: _assureConnection
-#
-#
-# Overrides:
-#
-#      <EBox::RemoteServices::Base::_assureConnection>
-#
-sub _assureConnection
-{
-    my ($self) = @_;
-
-    if (not $self->{connection}) {
-        $self->_connect();
-        # Trying to connect avoiding sleep
-        my $timeout = 1;
-        while ( $timeout < 10 ) {
-            my $sock = new IO::Socket::INET(PeerAddr => $self->_servicesServer(),
-                                            PeerPort => 443,
-                                            Timeout  => 1);
-            sleep(1);
-            if ( $sock ) {
-                $timeout = 10;
-                close($sock);
-            } else {
-                $timeout++;
-            }
-        }
-    }
-
-    return $self->{connection};
 }
 
 # Method: _nameservers

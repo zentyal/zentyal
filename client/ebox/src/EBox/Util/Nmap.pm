@@ -1,4 +1,4 @@
-# Copyright (C) 2010 EBox Technologies S.L.
+# Copyright (C) 2010-2011 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,10 +16,7 @@
 use strict;
 use warnings;
 
-# if needed for more modules move this module to main core package (remember
-# dependencies in control file)
-
-package EBox::RemoteServices::Nmap;
+package EBox::Util::Nmap;
 
 
 use EBox::Sudo;
@@ -36,11 +33,10 @@ use Nmap::Parser;
 # Named parameters:
 #
 #     host - String the hostname
-#
-#     protocol - String the protocol (tcp/udp)
-#                *(Optional)* Default value: 'tcp'
-#
+#     proto - protocol
 #     port - Int the port number
+#     interface - interface to use (default value: auto)
+#     priviliged - use priviliged mode (default value: no)
 #
 # Returns:
 #
@@ -63,23 +59,38 @@ sub singlePortScan
         throw EBox::Exceptions::InvalidData(
                 data => __('protocol'),
                 value => $proto,
-                advice => __(q{ Only is supported 'tcp and 'udp})
-                                           );
+                advice => __(q{Only 'tcp' and 'udp' are supported}));
     }
-
     defined $proto or
         $proto = 'tcp';
-
     my $port = $args{port};
     defined $port or
-        throw EBox::Exceptions::MissingArgument('port');
+        throw EBox::Exceptions::MissingArgument('port');        
+    my $interface = $args{interface};
+    my $privileged = $args{privileged};
 
     my @nmapArgs;
     if ($proto eq 'udp') {
+        if (not $privileged) {
+            throw EBox::Exceptions::Internal('UDP scan needs priviliged mode');
+        }
         push @nmapArgs, '-sU';
+    } else {
+        push @nmapArgs, '-sT'; # connect scan
     }
 
+
     push @nmapArgs, "-p$port";
+
+    if ($interface) {
+        push @nmapArgs, "-e$interface";
+    }
+    if ($privileged) {
+        push @nmapArgs, '--privileged';
+    } else {
+        push @nmapArgs, '--unprivileged';        
+    }
+
     push @nmapArgs, $host;
 
 
@@ -96,7 +107,6 @@ sub singlePortScan
                                         );
     }
 
-
     if (@hosts > 1) {
         throw EBox::Exceptions::Internal('More than one host scanned');
     }
@@ -112,7 +122,6 @@ sub singlePortScan
     } elsif ($proto eq 'udp') {
         return $hostResult->udp_port_state($port);
     }
-
 }
 
 
@@ -134,6 +143,5 @@ sub _nmap
     $np->parse($nmapXml);
     return $np;
 }
-
 
 1;

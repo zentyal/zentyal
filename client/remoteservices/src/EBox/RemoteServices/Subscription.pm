@@ -34,7 +34,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
-use EBox::RemoteServices::Nmap;
 
 use AptPkg::Cache;
 use Archive::Tar;
@@ -771,6 +770,7 @@ sub _cloudProfInstalled
 # Check the Web Services connectivity
 sub _checkWSConnectivity
 {
+    my ($self) = @_;
 
     my $host = EBox::RemoteServices::Configuration::PublicWebServer();
     $host or throw EBox::Exceptions::External('WS key not found');
@@ -835,15 +835,19 @@ sub _checkWSConnectivity
 sub _checkVPNConnectivity
 {
     my ($self, $host, $proto, $port) = @_;
+    my $skip = EBox::Config::configkey('subscription_skip_vpn_scan');
+    if ($skip eq 'true') {
+        return;
+    }
 
     my $ok = 0;
     if ( $proto eq 'tcp' ) {
-        $ok = _checkHostPort($host, $proto, $port);
+        $ok = $self->_checkHostPort($host, $proto, $port);
     } else {
-        # UDP nmap is not working with routing in default table
-        # instead of main table so we use Net::Ping
-        $ok = $self->_checkUDPService($host, $proto, $port);
+        # we use echo service to make sure no firewall stands on our way
+         $ok = $self->_checkUDPEchoService($host, $proto, $port);
     }
+
     if (not $ok) {
         throw EBox::Exceptions::External(
             __x(
@@ -857,29 +861,9 @@ sub _checkVPNConnectivity
     }
 }
 
-# Check given host and port is reachable using nmap tool
-sub _checkHostPort
-{
-    my ($host, $proto, $port) = @_;
-    my $res = EBox::RemoteServices::Nmap::singlePortScan(
-                                                         host => $host,
-                                                         protocol => $proto,
-                                                         port => $port,
-                                                        );
-    if ($res eq 'open') {
-        return 1;
-    }
 
-    if ($res eq 'open/filtered') {
-        # in UDP packets this could be open or not. We treat this as open to
-        # avoid false negatives (but we will have false positives)
-        return 1;
-    }
-    return 0;
-}
-
-# Check UDP service using Net::Ping
-sub _checkUDPService
+# Check UDP echo service using Net::Ping
+sub _checkUDPEchoService
 {
     my ($self, $host, $proto, $port) = @_;
 

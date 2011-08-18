@@ -409,8 +409,11 @@ sub setMemValue
             $self->_setMemValue($params);
         } else {
             if ( $self->optional() ) {
-                # Nothing to set in the type
-                return;
+                # set type to empty
+                if ($self->memValue()) {
+                    $self->_setMemValue($params);
+                }
+
             } else {
                 throw EBox::Exceptions::MissingArgument( $self->printableName() );
             }

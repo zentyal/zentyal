@@ -1313,6 +1313,14 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
             newMethod => 'static',
             action => 'postchange'
         );
+    } else {
+        foreach my $obs (@observers) {
+            $obs->staticIfaceAddressChangedDone($name,
+                                                $oldaddr,
+                                                $oldmask,
+                                                $address,
+                                                $netmask);
+        }
     }
     #logAdminDeferred('network',"set_iface_static","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }

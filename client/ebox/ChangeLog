@@ -1,3 +1,6 @@
+HEAD
+	+ Optional values can be unset
+	+ Minor improvements on nmap scan
 2.0.22
 	+ Union type: Use selected subtype on trailingText property if the
 	  major type does not have the property

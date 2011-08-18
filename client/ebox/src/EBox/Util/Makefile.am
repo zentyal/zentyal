@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Util
 
-mods = Lock.pm Version.pm SystemKernel.pm
+mods = Lock.pm Nmap.pm Version.pm SystemKernel.pm
 
 nobase_perl_DATA = $(mods)
 

@@ -31,6 +31,9 @@ use constant USER_NAME => 'ebox-remote-support';
 use constant USER_COMMENT => 'user for Zentyal remote support';
 use constant SCREEN_BIN => '/usr/bin/screen';
 use constant SCREEN_RUN_DIR => '/var/run/screen';
+use constant STD_SSH_PORT => 22;
+use constant LISTEN_ALL => '0.0.0.0';
+use constant ROUTEUP_SCRIPT => EBox::Config::share() . 'ebox-remoteservices/route-up-support-access';
 
 sub setEnabled
 {
@@ -95,14 +98,8 @@ sub remoteAccessUserAddress
     # we assume that is only one address/netmask
     my $vpnSI = $rs->confKey('vpnSIAddress');
     if ( defined($vpnSI) ) {
-        my @routes = EBox::NetWrappers::list_routes();
-        my $is_up  = grep { $vpnSI eq $_->{network} } @routes;
-        if ( $is_up ) {
-            ($network) = split(/\//, $vpnSI);
-            $network =~ s/(\.0)+$/.*/;
-        } else {
-            return undef;
-        }
+        ($network) = split(/\//, $vpnSI);
+        $network =~ s/(\.0)+$/.*/;
     } else {
         # Backwards compatible. Get the data from dnsServer key
         my $dnsServer = $rs->confKey('dnsServer');
@@ -250,6 +247,83 @@ sub _setScreenSUID
     }
 }
 
+sub sshListening
+{
+    my ($self) = @_;
 
+    my @sshd;
+    # TODO: Can't we use a faster way?
+    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
+    foreach my $line (@{ $netstatLines }) {
+        if ($line =~ m{\/sshd\s*$}) {
+            my @parts = split '\s+', $line;
+            if ($parts[0] eq 'tcp6') {
+                # no tcp6 support
+                next;
+            }
+            my $local = $parts[3];
+            my ($addr, $port) = split ':', $local;
+            push (@sshd, { address => $addr, port => $port });
+        }
+    }
+
+    return \@sshd;
+}
+
+sub sshRedirect
+{
+    my ($self) = @_;
+    my ($sshAddr, $sshPort);
+    my @sshListening = @{ $self->sshListening };
+    foreach my $ssh (@sshListening) {
+        my $addr = $ssh->{address};
+        my $port = $ssh->{port};
+        if (($addr eq LISTEN_ALL) and ($port == STD_SSH_PORT)) {
+            # standard port and address, no redirection needed
+            return undef;
+        }
+        if (not $sshAddr or ($sshAddr ne LISTEN_ALL)) {
+            $sshAddr = $addr;
+            $sshPort = $port;
+        }
+    }
+
+    if (not $sshAddr) {
+        # no ssh servers
+        return undef;
+    }
+
+    return {address => $sshAddr, port => $sshPort  };
+}
+
+# Method: setClientRouteUp
+#
+#      Set the route-up script for the VPN client
+#
+# Parameters:
+#
+#      supportAccess - Boolean indicating if the support access is
+#                      enabled or not to set default route-up script
+#                      or disable it
+#
+#      vpnClient - <EBox::OpenVPN::Client> the VPN client to configure
+#                  the route-up script
+#
+sub setClientRouteUp
+{
+    my ($self, $supportAccess, $vpnClient)  = @_;
+    my $routeUpCmd = '';
+    if ($supportAccess) {
+        $routeUpCmd = ROUTEUP_SCRIPT;
+    }
+
+    if ($vpnClient->routeUpCmd() eq $routeUpCmd) {
+        return;
+    }
+
+    $vpnClient->setRouteUpCmd($routeUpCmd);
+    my $openvpnMod = EBox::Global->modInstance('openvpn');
+    $openvpnMod->save();
+}
 
 1;

@@ -1,4 +1,16 @@
 HEAD
+	+ Remove innecesary checks for nameserver and web servers prior to
+	  exchanging data with them
+	+ Remove route is up checking for remote support since it is not
+	  neccesary
+	+ Added subscription_skip_vpn_scan configuration key to skip VPN
+	  check while subscribing
+	+ Added VPN client local address adjustment
+	+ Improvements in subscriptions checks
+	+ Added firewall helper to open and redirect ports for remote
+	  access
+	+ Added script for persist firewall rules when openvpn client restarts
+	+ Add at package as dependency
 	+ Added missing OverwriteRemoteBackup module
 	+ Add at package as dependency
 2.0.17

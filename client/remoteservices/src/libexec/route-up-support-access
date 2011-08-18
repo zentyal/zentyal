@@ -1,0 +1,49 @@
+#!/usr/bin/perl
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+my $global = EBox::Global->getInstance(1);
+my $remoteservices = $global->modInstance('remoteservices');
+my $fhelper = $remoteservices->firewallHelper();
+if (not $fhelper) {
+     exit 0;
+}
+
+
+foreach my $input ( @{ $fhelper->input() } ) {
+    my $rule = '-A imodules ' . $input;
+    _addIfNew('filter', $rule);
+}
+
+foreach my $input ( @{ $fhelper->prerouting() } ) {
+    my $rule = '-A premodules ' . $input;
+    _addIfNew('nat', $rule);
+}
+
+
+sub _addIfNew
+{
+    my ($table, $rule) = @_;
+    # remove table parameter because it doesnt appear in iptables-save
+    $rule =~ s/-t $table\s+//;
+
+    my $dumpCmd = "iptables-save -t $table";
+    my $output = EBox::Sudo::root($dumpCmd);
+    foreach my $line (@{ $output }) {
+        # iptabes-save ends the line with space + "\n" -> 2 chops needed
+        chop $line;
+        chop $line;
+        # better check XXX
+        if ($line eq $rule) {
+            return;
+        }
+    }
+
+    # not found, add the rule
+    $rule =~ s/-A /-I /; # better isnert 
+    EBox::Sudo::root("iptables -t $table $rule");
+}
+
+1;

@@ -1,3 +1,10 @@
+HEAD
+	+ Added route up command option to vpn clients
+	+ Added mssfix option for UDP connections
+	+ Added new setRouteUpCmd in EBox::OpenVPN::Client used by
+	  EBox::RemoteServices::SupportAccess class
+	+ Added new setLocalAddressAndPort in EBox::OpenVPN::Client used
+	  by EBox::RemoteServices::Auth class
 2.0.10
 	+ Fixed problem with quagga automatic updates
 2.0.9

@@ -9,7 +9,8 @@ scripts_SCRIPTS = ebox-automatic-conf-backup ebox-cronjob-runner ebox-get-cronjo
 helperscriptsdir = @DATADIR@/ebox-remoteservices
 
 helperscripts_SCRIPTS = john-wrapper rrd-dumper remote-support.keys \
-			password-checker.pl subs-level valid-users.pl
+			password-checker.pl subs-level valid-users.pl \
+			route-up-support-access
 
 MAINTAINERCLEANFILES = Makefile.in
 

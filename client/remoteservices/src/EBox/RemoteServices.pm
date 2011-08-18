@@ -23,6 +23,8 @@ package EBox::RemoteServices;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
+            EBox::NetworkObserver
+            EBox::FirewallObserver
            );
 
 use strict;
@@ -53,6 +55,7 @@ use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
+use  EBox::RemoteServices::FirewallHelper;
 use EBox::Sudo;
 use EBox::Validate;
 use Error qw(:try);
@@ -147,6 +150,7 @@ sub _setConf
 
     if ($self->eBoxSubscribed()) {
         $self->_confSOAPService();
+        $self->_vpnClientAdjustLocalAddress();
         $self->_establishVPNConnection();
         $self->_writeCronFile();
         $self->_startupTasks();
@@ -173,8 +177,15 @@ sub _setRemoteSupportAccessConf
         return;
     }
 
-
     EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
+    if ($self->eBoxSubscribed()) {
+        my $authRS = new EBox::RemoteServices::Backup();
+        my $vpnClient = $authRS->vpnClientForServices();
+        if ($vpnClient) {
+            EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
+        }
+    }
+
     EBox::Sudo::root('/usr/share/ebox/ebox-sudoers-friendly');
 }
 
@@ -1808,6 +1819,61 @@ sub clearCache
     foreach my $dir (@cacheDirs) {
         $self->st_delete_dir($dir);
     }
+}
+
+sub staticIfaceAddressChangedDone
+{
+    my ($self) = @_;
+    $self->setAsChanged();
+}
+
+sub ifaceMethodChangeDone
+{
+    my ($self) = @_;
+    $self->setAsChanged();
+}
+
+sub freeIface
+{
+    my ($self) = @_;
+    $self->setAsChanged();
+}
+
+sub freeViface
+{
+    my ($self) = @_;
+    $self->setAsChanged();
+}
+
+sub _vpnClientAdjustLocalAddress
+{
+    my ($self) = @_;
+    if (not $self->eBoxSubscribed()) {
+        return;
+    }
+
+    my $authRS = new EBox::RemoteServices::Backup();
+    my $vpnClient = $authRS->vpnClientForServices();
+    $authRS->vpnClientAdjustLocalAddress($vpnClient);
+
+}
+
+sub firewallHelper
+{
+    my ($self) = @_;
+
+    my $enabled = $self->eBoxSubscribed();
+    if (not $enabled) {
+        return undef;
+    }
+
+    my $remoteSupport =  $self->model('RemoteSupportAccess')->allowRemoteValue();
+
+    return EBox::RemoteServices::FirewallHelper->new(
+        remoteSupport => $remoteSupport,
+        vpnInterface => $self->ifaceVPN(),
+        sshRedirect => EBox::RemoteServices::SupportAccess->sshRedirect(),
+       );
 }
 
 1;

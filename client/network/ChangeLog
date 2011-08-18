@@ -1,4 +1,5 @@
 HEAD
+	+ Added staticIfaceAddressChangedDone notification
 	+ Set connected gateway as warn level event and minor improvements
 	  in the messages
 	+ Added report for bandwidth tests
