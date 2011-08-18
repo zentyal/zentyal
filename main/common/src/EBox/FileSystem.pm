@@ -97,7 +97,7 @@ sub cleanDir
                 throw EBox::Exceptions::Internal("$dir exists and is not a directory");
             }
 
-            system "rm -rf $dir/*";
+            system "rm -rf '$dir'/*";
             if ($? != 0) {
                 throw EBox::Exceptions::Internal "Error cleaning $dir: $!";
             }
@@ -183,7 +183,7 @@ sub dirDiskUsage
     (-d $dir) or
         throw EBox::Exceptions::External(__x('Directory not found: {d}', d => $dir));
 
-    my $duCommand = "/usr/bin/du --summarize --block-size=$blockSize $dir";
+    my $duCommand = "/usr/bin/du --summarize --block-size=$blockSize '$dir'";
 
     my @duOutput = @{ EBox::Sudo::silentRoot($duCommand) };
 
@@ -314,7 +314,7 @@ sub dirFileSystem
     (-d $dir) or
         throw EBox::Exceptions::External(__x('Directory not found: {d}', d=>$dir));
 
-    my $dfOutput = EBox::Sudo::root("df $dir");
+    my $dfOutput = EBox::Sudo::root("df '$dir'");
     my $infoLine =$dfOutput->[1];
     chomp $infoLine;
     my ($fs) = split '\s+', $infoLine;
