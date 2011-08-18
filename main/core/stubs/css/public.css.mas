@@ -233,7 +233,7 @@
     vertical-align: center;
 }
 
-.summaryValue {
+.summary_value {
     padding-left: 15px;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -241,10 +241,21 @@
     background-color: #F4F4F4;
 }
 
-.summaryWarning {
-    background: #FFEECC;
+.summary_good, .summary_good a {
+    color: #BBDF39;
+}
+
+.summary_warning, .summary_warning a {
+    color: #EDAE08;
+}
+
+.summary_error, .summary_error a {
     color: #DD0000;
     font-weight: bold;
+}
+
+.summary_error a, .summary_warning a, .summary_good a {
+    text-decoration: none;
 }
 
 .summaryKey {

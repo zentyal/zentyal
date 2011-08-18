@@ -6,10 +6,10 @@
 <tr>
   <td class='summaryKey'><% $item->{key} %></td>
   <td id='<% $namespace . '_' . $i %>'
-% if ($item->{value_type} eq 'warning') {
-      class='summaryValue summaryWarning'
+% if ($item->{value_type} ne 'info') {
+      class='summary_value summary_<% $item->{value_type} %>'
 % } else {
-      class='summaryValue'
+      class='summary_value'
 % }
      >
       <% $item->{value} %>

@@ -1611,7 +1611,7 @@ sub _caLinkPath
     return CA_DIR . "${hashValue}.0";
 }
 
-# Return the Control Center connection widget to be shown in the dashboard
+# Return the Zentyal Cloud connection widget to be shown in the dashboard
 sub _ccConnectionWidget
 {
     my ($self, $widget) = @_;
@@ -1632,7 +1632,7 @@ sub _ccConnectionWidget
     if ( $self->eBoxSubscribed() ) {
         $connValue = __x('Not connected. Check VPN logs in {path}',
                          path => '/var/log/openvpn/');
-        $connValueType = 'warning';
+        $connValueType = 'error';
         if ( $self->isConnected() ) {
             $connValue     = __('Connected');
             $connValueType = 'info';

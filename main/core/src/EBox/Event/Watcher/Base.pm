@@ -146,6 +146,29 @@ sub Able
     return 1;
 }
 
+# Method: HiddenIfNotAble
+#
+#      Check if the event watcher must be hidden if the watcher is not
+#      able to watch and monitor an event.
+#
+# Example:
+#
+#      Hidden events only available in a level of subscription
+#
+# Returns:
+#
+#      boolean - indicating if the event watcher must be hidden or not
+#      when it is unable
+#
+# Default value:
+#
+#      false
+#
+sub HiddenIfNotAble
+{
+    return 0;
+}
+
 # Method: configurationSubModel
 #
 #   Fetch the configuration submodel for a given

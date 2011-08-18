@@ -35,7 +35,7 @@ if ( $item->{statusStr} ) {
 </%init>
 <tr>
 <td class='summaryKey'><% $item->{printableName} %></td>
-<td id='<% $namespace . '_' . $i %>' class='summaryValue'>
+<td id='<% $namespace . '_' . $i %>' class='summary_value'>
 <span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
 % if ($item->{enabled} and not $item->{nobutton}) {
 <form action='/zentyal/SysInfo/RestartService'>

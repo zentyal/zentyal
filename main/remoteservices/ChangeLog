@@ -1,4 +1,7 @@
 HEAD
+	+ When subscribing modify other modules after saving new
+	  subscription state
+	+ Enable updates watcher after subscribing
 	+ Include missing OverwriteRemoteBackup module
 	+ Depend always on zentyal-software (needed for the automatic QA updates)
 2.1.6

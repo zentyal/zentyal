@@ -96,7 +96,7 @@ sub new
 #      This method is overridden since the showed data is managed
 #      differently.
 #
-#      - The data is already available from the eBox installation
+#      - The data is already available from the Zentyal installation
 #
 #      - The adding/removal of event watchers is done dynamically
 #      reading the directories where the event watchers are placed
@@ -141,7 +141,11 @@ sub syncRows
         if ( exists ( $currentEventWatchers{$stored} )) {
             # Check its ability
             my $able = $self->_checkWatcherAbility($stored);
-            $self->setTypedRow($id, undef, readOnly => not $able);
+            if ( not $able and $self->_checkWatcherHidden($stored) ) {
+                $self->removeRow($id);
+            } else {
+                $self->setTypedRow($id, undef, readOnly => not $able);
+            }
         } else {
             $self->removeRow( $id );
         }
@@ -152,8 +156,10 @@ sub syncRows
     foreach my $watcher (keys ( %currentEventWatchers )) {
         next if ( exists ( $storedEventWatchers{$watcher} ));
         eval "use $watcher";
+        my $able = $self->_checkWatcherAbility($watcher);
+        next if ( not $able and $self->_checkWatcherHidden($watcher) );
         my $enabled = not $watcher->DisabledByDefault();
-        # Those dispatchers that are enabled by default must be enabled
+        # Those watchers that are enabled by default must be enabled
         if ( $enabled ) {
             $self->parentModule()->enableEventElement('watcher', $watcher, 1);
         }
@@ -163,7 +169,7 @@ sub syncRows
                 'enabled'      => $enabled,
                 'configuration_selected' => 'configuration_'
                 . $watcher->ConfigurationMethod(),
-                'readOnly'     => not $self->_checkWatcherAbility($watcher),
+                'readOnly'     => not $able,
                 );
         if ( $watcher->ConfigurationMethod() eq 'none' ) {
             $params{configuration_none} = '';
@@ -440,6 +446,34 @@ sub acquireURL
     return $className->ConfigureURL();
 }
 
+# Method: viewCustomizer
+#
+#      Return a custom view customizer to set a permanent message
+#      if needed
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $subscriptionLevel = -1;
+
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $subscriptionLevel = $rs->subscriptionLevel();
+    }
+    unless ($subscriptionLevel > 0) {
+        $customizer->setPermanentMessage($self->_commercialMsg());
+    }
+
+    return $customizer;
+}
 
 # Group: Private methods
 
@@ -505,41 +539,16 @@ sub _checkWatcherAbility # (watcherClassName)
 {
     my ($self, $watcherClassName) = @_;
 
-    eval "use $watcherClassName";
-    if ( $@ ) {
-        return 0;
-    }
-
     return $watcherClassName->Able();
 }
 
-# Method: viewCustomizer
-#
-#      Return a custom view customizer to set a permanent message
-#      if needed
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::viewCustomizer>
-#
-sub viewCustomizer
+# This method checks if the event watcher must be hidden if not able
+# to watch the events in order to not confuse the user
+sub _checkWatcherHidden # (watcherClassName)
 {
-    my ($self) = @_;
+    my ($self, $watcherClassName) = @_;
 
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    my $subscriptionLevel = -1;
-
-    if (EBox::Global->modExists('remoteservices')) {
-        my $rs = EBox::Global->modInstance('remoteservices');
-        $subscriptionLevel = $rs->subscriptionLevel();
-    }
-    unless ($subscriptionLevel > 0) {
-        $customizer->setPermanentMessage($self->_commercialMsg());
-    }
-
-    return $customizer;
+    return $watcherClassName->HiddenIfNotAble();
 }
 
 # Return the commercial message

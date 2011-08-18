@@ -43,6 +43,7 @@ use EBox::Menu::Folder;
 use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
 use EBox::Util::Version;
+use EBox::Util::Software;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
 
@@ -110,26 +111,52 @@ sub generalWidget
     read ($fh, $lastVersion, 16);
     chomp($lastVersion);
     close ($fh);
+
+    my $qaUpdates = 0;
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $qaUpdates = $rs->subscriptionLevel() > 0;
+    }
+
+    my $url = 'http://update.zentyal.org/updates';
     if (EBox::Util::Version::compare($lastVersion, $version) == 1) {
-        my $qaUpdates = 0;
-        if (EBox::Global->modExists('remoteservices')) {
-            my $rs = EBox::Global->modInstance('remoteservices');
-            $qaUpdates = $rs->subscriptionLevel() > 0;
-        }
         unless ($qaUpdates) {
-            my $url = 'http://update.zentyal.org/updates';
             my $available = __('available');
             $version .=
                 " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
         }
     }
 
+    my $updatesStr  = __('No updates');
+    my $updatesType = 'good';
+    if ( $qaUpdates ) {
+        my $msg = $self->_secureMsg();
+        $updatesStr = qq{<a title="$msg">$updatesStr</a>};
+    } else {
+        # [ updates, sec_updates]
+        my $updates = EBox::Util::Software::upgradablePkgsNum();
+        if ( $updates->[1] > 0 ) {
+            $updatesType = 'error';
+            $updatesStr = __x('{n} security updates', n => $updates->[1]);
+        } elsif ( $updates->[0] > 0 ) {
+            $updatesType = 'warning';
+            $updatesStr = __x('{n} system updates', n => $updates->[0]);
+        }
+        my $href = $url;
+        if ( EBox::Global->modExists('software') ) {
+            $href = '/Software/Updates';
+        }
+        my $msg = $self->_commercialMsg();
+        $updatesStr = qq{<a href="$href" title="$msg">$updatesStr</a>};
+    }
+
     my $uptime_output=`uptime`;
     my ($uptime, $users, $la1, $la2, $la3) = $uptime_output =~ /.*up  *(.*),  (.*)users?,  load average: (.*), (.*), (.*)/;
 
-    $section->add(new EBox::Dashboard::Value(__("Time"), $time));
-    $section->add(new EBox::Dashboard::Value(__("Hostname"), hostname));
-    $section->add(new EBox::Dashboard::Value(__("Core version"), $version));
+    $section->add(new EBox::Dashboard::Value(__('Time'), $time));
+    $section->add(new EBox::Dashboard::Value(__('Hostname'), hostname));
+    $section->add(new EBox::Dashboard::Value(__('Core version'), $version));
+    $section->add(new EBox::Dashboard::Value(__('Software'), $updatesStr, $updatesType));
     $section->add(new EBox::Dashboard::Value(
         __("System load"), join(', ', Sys::CpuLoad::load)));
     $section->add(new EBox::Dashboard::Value(__("Uptime"), $uptime));
@@ -489,6 +516,26 @@ sub importTimezone
 
     $self->set_string('continent', $continent);
     $self->set_string('country', $country);
+}
+
+# Return commercial message for QA updates
+sub _commercialMsg
+{
+    return __s('Warning: The updates are community based and there is no guarantee that your '
+               . 'server will work properly after applying them. Quality Assured Updates are '
+               . 'only included in commercial subscriptions and they guarantee that all the '
+               . 'upgrades, bugfixes and security updates '
+               . "are extensively tested by the Zentyal Development Team and you won't "
+               . 'be introducing any regressions on your already working system. '
+               . 'Purchase a Professional or Enterprise Server Subscription to gain access '
+               . 'to QA updates.');
+
+}
+
+sub _secureMsg
+{
+    return __s('As you are enjoying a Commercial Server Subscription the updates are '
+               . 'Quality Assured by the Zentyal Development Team and automatically applied.');
 }
 
 1;

@@ -5,7 +5,7 @@ SUBDIRS= t
 perldir = @PERLPATH@/EBox/Event/Watcher
 
 nobase_perl_DATA = Base.pm DiskFreeSpace.pm Log.pm RAID.pm \
-	Runit.pm State.pm
+	Runit.pm State.pm Updates.pm
 
 SOURCES = $(nobase_perl_DATA)
 

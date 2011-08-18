@@ -140,11 +140,6 @@ sub setTypedRow
             $self->{gconfmodule}->st_set_bool('just_subscribed', 1);
         }
     }
-    $self->_manageEvents(not $subs);
-    $self->_manageMonitor(not $subs);
-    $self->_manageLogs(not $subs);
-    $self->_manageSquid(not $subs);
-
     # Call the parent method to store data in our conf storage
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
@@ -152,6 +147,11 @@ sub setTypedRow
     $self->{gconfmodule}->setAsChanged();
 
     $self->{gconfmodule}->st_set_bool('subscribed', not $subs);
+
+    $self->_manageEvents(not $subs);
+    $self->_manageMonitor(not $subs);
+    $self->_manageLogs(not $subs);
+    $self->_manageSquid(not $subs);
 
     my $modManager = EBox::Model::ModelManager->instance();
     $modManager->markAsChanged();
@@ -444,11 +444,17 @@ sub _manageEvents # (subscribing)
         $self->_configureAndEnable($eventMod);
 
     }
+
+    # Enable Cloud dispatcher
     my $model = $eventMod->configureDispatcherModel();
     my $rowId = $model->findId( eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter' );
     $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
                                 $subscribing);
+
+    # Enable software updates alert
+    # Read-only feature depends on subscription level
+    $eventMod->enableWatcher('EBox::Event::Watcher::Updates', $subscribing );
 
 }
 

@@ -15,6 +15,29 @@
 
 package EBox::Util::Version;
 
+use strict;
+use warnings;
+
+# Function: compare
+#
+#        Compare two versions given its strings
+#
+# Parameters:
+#
+#        v1 - String first version
+#
+#        v2 - String second version
+#
+# Returns:
+#
+#        The same as built-in cmp does.
+#
+# Examples:
+#
+#        compare('1.2', '1.2')   => 0
+#        compare('1.3', '1.3.1') => -1
+#        compare('2.0', '1.9.9') => 1
+#
 sub compare
 {
     my ($v1, $v2) = @_;

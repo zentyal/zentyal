@@ -1,4 +1,11 @@
 HEAD
+	+ Added HiddenIfNotAble property to event watchers to be hidden if
+	  it is unabled to monitor the event
+	+ Dashboard values can be now error and good as well
+	+ Include a new software updates widget
+	+ Include a new alert for basic subscriptions informing about
+	  software updates
+	+ Add update-notifier-common to dependencies
 	+ EBox::DataTable::enabledRows returns rows in proper order
 2.1.25
 	+ Do not show disabled module warnings in usercorner

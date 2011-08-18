@@ -30,9 +30,9 @@ use EBox::Gettext;
 #      name  - String the key name
 #      value - String the value related to that key
 #
-#      value_type - String the value type, it could one of the
-#      following values: info, warning *(Optional)*
-#           Default value: info
+#      value_type - String the value type to display in the UI accordingly,
+#                   it could one of the following values: good, info, warning, error
+#                   *(Optional)* Default value: info
 #
 # Returns:
 #
