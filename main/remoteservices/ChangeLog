@@ -1,4 +1,5 @@
 HEAD
+	+ Include missing OverwriteRemoteBackup module
 	+ Depend always on zentyal-software (needed for the automatic QA updates)
 2.1.6
 	+ Better error message when registering a subscription without
