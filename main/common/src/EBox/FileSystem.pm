@@ -47,20 +47,19 @@ use constant MTAB_PATH => '/etc/mtab';
 #		   cannot be created.
 sub makePrivateDir # (path)
 {
-  my ($dir) = @_;
-  validate_pos(@_, 1);
+    my ($dir) = @_;
+    validate_pos(@_, 1);
 
-  if (-e $dir) {
-    if (  not -d $dir) {
-      throw EBox::Exceptions::Internal( "Cannot create private directory $dir: file exists");
+    if (-e $dir) {
+        if (  not -d $dir) {
+            throw EBox::Exceptions::Internal( "Cannot create private directory $dir: file exists");
+        }
+        else {
+            return EBox::Validate::isPrivateDir($dir, 1);
+        }
     }
-    else {
-      return EBox::Validate::isPrivateDir($dir, 1);
-    }
-  }
 
-  mkdir($dir, 0700) or throw EBox::Exceptions::Internal("Could not create directory: $dir");
-
+    mkdir($dir, 0700) or throw EBox::Exceptions::Internal("Could not create directory: $dir");
 }
 
 # Procedure: cleanDir
@@ -75,40 +74,37 @@ sub makePrivateDir # (path)
 #
 sub cleanDir
 {
-  my @dirs = @_;
-  if (@dirs == 0) {
-    throw EBox::Exceptions::Internal('cleanDir must be supplied at least a dir as parameter');
-  }
-
-  EBox::Validate::checkFilePath($_, 'directory')  foreach  (@dirs);
-
-  foreach my $d (@dirs) {
-    my $dir;
-    my $mode = 0700;
-
-    if (ref $d eq 'HASH' ) {
-      $dir  = $d->{name};
-      $mode = $d->{mode}
-    }
-    else {
-      $dir = $d;
+    my @dirs = @_;
+    if (@dirs == 0) {
+        throw EBox::Exceptions::Internal('cleanDir must be supplied at least a dir as parameter');
     }
 
-    if ( -e $dir) {
-      if (! -d $dir) {
-	throw EBox::Exceptions::Internal("$dir exists and is not a directory");
-      }
+    EBox::Validate::checkFilePath($_, 'directory')  foreach  (@dirs);
 
-      system "rm -rf $dir/*";
-      if ($? != 0) {
-	throw EBox::Exceptions::Internal "Error cleaning $dir: $!";
-      }
-    }
-    else {
-      mkdir ($dir, $mode) or  throw EBox::Exceptions::Internal("Could not create directory: $dir");
-    }
+    foreach my $d (@dirs) {
+        my $dir;
+        my $mode = 0700;
 
-  }
+        if (ref $d eq 'HASH' ) {
+            $dir  = $d->{name};
+            $mode = $d->{mode}
+        } else {
+            $dir = $d;
+        }
+
+        if (-e $dir) {
+            if (! -d $dir) {
+                throw EBox::Exceptions::Internal("$dir exists and is not a directory");
+            }
+
+            system "rm -rf $dir/*";
+            if ($? != 0) {
+                throw EBox::Exceptions::Internal "Error cleaning $dir: $!";
+            }
+        } else {
+            mkdir ($dir, $mode) or  throw EBox::Exceptions::Internal("Could not create directory: $dir");
+        }
+    }
 }
 
 # Function: isSubdir
@@ -130,23 +126,21 @@ sub cleanDir
 #
 sub isSubdir
 {
-  my ($subDir, $parentDir) = @_;
+    my ($subDir, $parentDir) = @_;
 
-  foreach ($subDir, $parentDir) {
-    if (! EBox::Validate::checkAbsoluteFilePath($_)) {
-      throw EBox::Exceptions::Internal("isSubdir can only called with absolute paths. Argumentes were ($subDir, $parentDir)))");
+    foreach ($subDir, $parentDir) {
+        if (! EBox::Validate::checkAbsoluteFilePath($_)) {
+            throw EBox::Exceptions::Internal("isSubdir can only called with absolute paths. Argumentes were ($subDir, $parentDir)))");
+        }
     }
-  }
 
+    # normalize paths
+    $subDir .= '/';
+    $parentDir .= '/';
+    $subDir =~ s{/+}{/}g;
+    $parentDir =~ s{/+}{/}g;
 
-  # normalize paths
-  $subDir .= '/';
-  $parentDir .= '/';
-  $subDir =~ s{/+}{/}g;
-  $parentDir =~ s{/+}{/}g;
-
-  return $subDir =~ m/^$parentDir/;
-
+    return $subDir =~ m/^$parentDir/;
 }
 
 # Function: permissionsFromStat
@@ -160,10 +154,9 @@ sub isSubdir
 #
 sub permissionsFromStat
 {
-  my ($stat) = @_;
-  return sprintf("%04o", $stat->mode & 07777);
+    my ($stat) = @_;
+    return sprintf("%04o", $stat->mode & 07777);
 }
-
 
 # Function: dirDiskUsage
 #
@@ -181,21 +174,21 @@ sub permissionsFromStat
 #
 sub dirDiskUsage
 {
-  my ($dir, $blockSize) = @_;
-  defined $dir or
-    throw EBox::Exceptions::MissingArgument('dir');
-  defined $blockSize or
-    $blockSize = 1024;
+    my ($dir, $blockSize) = @_;
+    defined $dir or
+        throw EBox::Exceptions::MissingArgument('dir');
+    defined $blockSize or
+        $blockSize = 1024;
 
-  (-d $dir) or
-    throw EBox::Exceptions::External(__x('Directory not found: {d}', d => $dir));
+    (-d $dir) or
+        throw EBox::Exceptions::External(__x('Directory not found: {d}', d => $dir));
 
-  my $duCommand = "/usr/bin/du --summarize --block-size=$blockSize $dir";
+    my $duCommand = "/usr/bin/du --summarize --block-size=$blockSize $dir";
 
-  my @duOutput = @{ EBox::Sudo::silentRoot($duCommand) };
+    my @duOutput = @{ EBox::Sudo::silentRoot($duCommand) };
 
-  my ($blockCount) = split '\s', $duOutput[0], 2; # du outputs the block count first
-  return $blockCount;
+    my ($blockCount) = split '\s', $duOutput[0], 2; # du outputs the block count first
+        return $blockCount;
 }
 
 
@@ -215,7 +208,7 @@ sub dirDiskUsage
 #
 sub staticFileSystems
 {
-  return _fileSystems(FSTAB_PATH);
+    return _fileSystems(FSTAB_PATH);
 }
 
 
@@ -230,7 +223,7 @@ sub staticFileSystems
 #      The properties have the same format that the fields in the fstab file
 sub fileSystems
 {
-  return _fileSystems(MTAB_PATH);
+    return _fileSystems(MTAB_PATH);
 }
 
 #  Function: partitionsFileSystems
@@ -275,7 +268,6 @@ sub partitionsFileSystems
     return \%fileSys;
 }
 
-
 # Group: Private procedures
 
 sub _fileSystems
@@ -318,18 +310,18 @@ sub _fileSystems
 #
 sub dirFileSystem
 {
-  my ($dir) = @_;
-  (-d $dir) or
-    throw EBox::Exceptions::External(__x('Directory not found: {d}', d=>$dir));
+    my ($dir) = @_;
+    (-d $dir) or
+        throw EBox::Exceptions::External(__x('Directory not found: {d}', d=>$dir));
 
-  my $dfOutput = EBox::Sudo::root("df $dir");
-  my $infoLine =$dfOutput->[1];
-  chomp $infoLine;
-  my ($fs) = split '\s+', $infoLine;
-  defined $fs or
-      throw EBox::Exceptions::Internal("Cannot find file system for directory $dir");
+    my $dfOutput = EBox::Sudo::root("df $dir");
+    my $infoLine =$dfOutput->[1];
+    chomp $infoLine;
+    my ($fs) = split '\s+', $infoLine;
+    defined $fs or
+        throw EBox::Exceptions::Internal("Cannot find file system for directory $dir");
 
-  return $fs;
+    return $fs;
 }
 
 1;
