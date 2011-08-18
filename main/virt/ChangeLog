@@ -1,4 +1,5 @@
 HEAD
+	+ Properly define the boot device with KVM
 	+ Real devices like /dev/cdrom are now recognised as valid
 	+ Only bridged interfaces appear in Select when using libvirt
 	+ Do not generate console output when checking for VMX extensions

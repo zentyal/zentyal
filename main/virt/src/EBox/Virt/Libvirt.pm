@@ -469,6 +469,14 @@ sub writeConf
               user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0755' }
     );
+
+    # Set boot device according to the first device in the list
+    my $bootDev = 'hd';
+    my @devices = @{$vmConf->{devices}};
+    if (@devices and ($devices[0]->{type} eq 'cdrom')) {
+        $bootDev = 'cdrom';
+    }
+
     EBox::Module::Base::writeConfFileNoCheck(
         "$VM_PATH/$name/$VM_FILE",
         '/virt/domain.xml.mas',
@@ -482,6 +490,7 @@ sub writeConf
          vncport => $vmConf->{port},
          vncpass => $vmConf->{password},
          keymap => $self->{keymap},
+         boot => $bootDev,
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );

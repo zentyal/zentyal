@@ -8,6 +8,7 @@
     $vncpass
     $keymap
     $arch
+    $boot
 </%args>
 <domain type='<% $emulator %>'>
     <name><% $name %></name>
@@ -15,8 +16,7 @@
     <vcpu>1</vcpu>
     <os>
         <type arch='<% $arch %>' machine='pc'>hvm</type>
-        <boot dev='cdrom'/>
-        <boot dev='hd'/>
+        <boot dev='<% $boot %>'/>
     </os>
     <features><acpi/></features>
     <clock sync='localtime'/>
