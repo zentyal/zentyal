@@ -1,4 +1,4 @@
-HEAD
+2.1.4
 	+ Properly define the boot device with KVM
 	+ Real devices like /dev/cdrom are now recognised as valid
 	+ Only bridged interfaces appear in Select when using libvirt
