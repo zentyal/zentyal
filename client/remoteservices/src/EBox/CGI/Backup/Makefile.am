@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/RemoteServices/Backup
 
-nobase_perl_DATA = Index.pm MakeRemoteBackup.pm RestoreRemoteBackup.pm DeleteRemoteBackup.pm DownloadRemoteBackup.pm Confirm.pm \
+nobase_perl_DATA = Index.pm MakeRemoteBackup.pm RestoreRemoteBackup.pm DeleteRemoteBackup.pm DownloadRemoteBackup.pm Confirm.pm OverwriteRemoteBackup.pm \
  ProxyBase.pm Proxy.pm DownloadProxyRemoteBackup.pm RestoreProxyRemoteBackup.pm
 
 
