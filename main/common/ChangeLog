@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::FileSystem::partitionsFileSystems more tolerant to avoid
+	  false negatives
 	+ Fixed problems in FileSystem with directories containing spaces
 	+ EBox::Sudo::root fails when any command fails, not only the last one
 2.1.7

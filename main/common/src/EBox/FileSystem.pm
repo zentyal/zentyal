@@ -32,19 +32,19 @@ use constant MTAB_PATH => '/etc/mtab';
 
 # Procedure: makePrivateDir
 #
-#	Creates  a  directory owned by the user running this
-#	process and with private permissions.
+#       Creates  a  directory owned by the user running this
+#       process and with private permissions.
 #
 # Parameters:
 #
-#	path - The path of the directory to be created, if it exists it must
-#	       already have proper ownership and permissions.
+#       path - The path of the directory to be created, if it exists it must
+#              already have proper ownership and permissions.
 #
 # Exceptions:
 #
-#	Internal & External - The path exists and is not a directory or has wrong
-#		   ownership or permissions. Or it does not exist and
-#		   cannot be created.
+#       Internal & External - The path exists and is not a directory or has wrong
+#                  ownership or permissions. Or it does not exist and
+#                  cannot be created.
 sub makePrivateDir # (path)
 {
     my ($dir) = @_;
@@ -150,7 +150,7 @@ sub isSubdir
 #      $stat - stat result object
 #
 # Returns:
-#	the permissions as string
+#       the permissions as string
 #
 sub permissionsFromStat
 {
@@ -170,7 +170,7 @@ sub permissionsFromStat
 #
 # Returns:
 #
-#	Int - the space used in block size units
+#       Int - the space used in block size units
 #
 sub dirDiskUsage
 {
@@ -247,12 +247,11 @@ sub partitionsFileSystems
 
     foreach my $fs (keys %fileSys) {
         # remove non-device filesystems
-        if (not $fs =~ m{^/dev/}) {
-            # exclude remote mount filesystems
-            unless ($fs =~ m{^.+:.+$}) {
+        if (($fs eq 'none') or
+             ($fs eq 'proc'))    {
                 delete $fileSys{$fs};
                 next;
-            }
+
         }
 
         if (not $includeRemovable) {
