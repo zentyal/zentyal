@@ -47,31 +47,47 @@ sub new
     $self->{bwmonitor_enabled} = defined($self->{bwmonitor}) and
                                  $self->{bwmonitor}->isEnabled();
 
-
     my $global = EBox::Global->getInstance(1);
     $self->{captiveportal} = $global->modInstance('captiveportal');
+
+    bless($self, $class);
+    return $self;
+}
+
+
+sub periodInfo
+{
+    my ($self) = @_;
+
+    if (exists $self->{periodInfo} and defined $self->{periodInfo}) {
+        return $self->{periodInfo};
+    }
+
+    my $info = {};
 
     my $model = $self->{captiveportal}->model('BWSettings');
     my $period = $model->defaultQuotaPeriodValue();
 
     if ($period eq 'day') {
-        $self->{period} = 3600*24;
-        $self->{period_name} = __('Day bandwidth usage (MB)')
-    }
-    if ($period eq 'week') {
-        $self->{period} = 3600*24*7;
-        $self->{period_name} = __('Week bandwidth usage (MB)')
+        $info->{period} = 3600*24;
+        $info->{period_name} = __('Day bandwidth usage (MB)')
+    } elsif ($period eq 'week') {
+        $info->{period} = 3600*24*7;
+        $info->{period_name} = __('Week bandwidth usage (MB)')
+    } elsif ($period eq 'month') {
+        $info->{period} = 3600*24*30;
+        $info->{period_name} = __('Month bandwidth usage (MB)')
+    } else {
+        EBox::error("Unknown period: $period. Using 'day' as default");
+        $info->{period} = 3600*24;
+        $info->{period_name} = __('Day bandwidth usage (MB)')
     }
 
-    if ($period eq 'month') {
-        $self->{period} = 3600*24*30;
-        $self->{period_name} = __('Month bandwidth usage (MB)')
-    }
-
-
-    bless($self, $class);
-    return $self;
+    
+    $self->{periodInfo} = $info;
+    return $info;
 }
+
 
 # Method: _table
 #
@@ -126,10 +142,10 @@ sub _table
         ),
     );
 
-    if ($self->_bwmonitor()) {
+    if ($self->_bwmonitorEnabled()) {
         push (@tableHeader, new EBox::Types::Int(
             'fieldName' => 'bwusage',
-            'printableName' => $self->{period_name},
+            'printableName' => $self->periodInfo()->{period_name},
             'editable' => 0,
             'optional' => 0)
         );
@@ -218,7 +234,7 @@ sub syncRows
         push (@user, ip => $sessions->{$sid}->{ip});
         push (@user, mac => $sessions->{$sid}->{mac});
 
-        if ($self->_bwmonitor()) {
+        if ($self->_bwmonitorEnabled()) {
             push (@user, bwusage => $self->_bwusage($user));
         }
 
@@ -238,7 +254,7 @@ sub syncRows
         my $user = $sessions->{$sid}->{user};
         $row->elementByName('time')->setValue($time);
         $row->elementByName('ip')->setValue($ip);
-        if ($self->_bwmonitor()) {
+        if ($self->_bwmonitorEnabled()) {
             $row->elementByName('bwusage')->setValue($self->_bwusage($user));
         }
         $row->store();
@@ -267,7 +283,7 @@ sub _kickUser
 
 
 # return 1 if bwmonitor is enabled
-sub _bwmonitor
+sub _bwmonitorEnabled
 {
     my ($self) = @_;
     return $self->{bwmonitor_enabled};
@@ -279,7 +295,7 @@ sub _bwusage
 {
     my ($self, $user) = @_;
 
-    my $since = time() - $self->{period};
+    my $since = time() - $self->periodInfo()->{period};
     return int($self->{bwmonitor}->userExtBWUsage($user, $since) / (1024*1024));
 }
 

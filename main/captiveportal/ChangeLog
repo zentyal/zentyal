@@ -1,3 +1,6 @@
+HEAD
+	+ Moved model() call out of Users constructor to avoid problems
+	  with configuration backup.
 2.1.8
 	+ Fixed captive portal pages layout and styling
 	+ Always show current users tab and show a precondition message
