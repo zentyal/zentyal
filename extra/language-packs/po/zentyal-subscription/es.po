@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: subscription 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-14 13:51+0200\n"
-"PO-Revision-Date: 2011-08-14 20:39+0100\n"
+"PO-Revision-Date: 2011-08-19 14:01+0100\n"
 "Last-Translator: Mateo Burillo <mburillo@zentyal.com>\n"
 "Language-Team: none\n"
 "Language: \n"
@@ -18,9 +18,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:239
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Get Ad blocking updates to keep your HTTP proxy aware of the latest adverts to remove them from your browsing. The Ad-blocking updates are integrated in the {oh}Advanced Security Updates{ch} add-on that guarantees that the Antispam, Intrusion Detection System, Content filtering system and Antivirus installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts."
-msgstr "¡Obtén las actualizaciones del Sistema de Filtrado de Contenidos para mantener tu proxy HTTP al tanto de las últimas amenazas como el malware, phishing y los bots! Las actualizaciones del Sistema de Filtrado de Contenidos están incluidas en la suscripción de {openhref}Actualizaciones Avanzadas de Seguridad{closehref}. Este servicio garantiza que el Antispam, Sistema de Detección de Intrusos, Sistema de Filtrado de Contenidos y Antivirus instalados en su servidor están actualizados a diario basados en los datos proporcionados por los expertos TIC de mayor confianza."
+msgstr "Obtén las actualizaciones del sistema de Ad blocking para mantener tu proxy HTTP al corriente de las últimas incidencias de anuncios y elimínalos de tu navegación. Las actualizaciones del sistema de Ad blocking están integradas en el añadido {oh}Actualizaciones de Seguridad Avanzadas{ch} el cual garantiza que los sistemas de Antispam, Intrusion Detection System, Filtrado de Contenidos y Antivirus instalados en tu servidor Zentyal son actualizados diariamente de acuerdo a la información recogida por los expertos en IT de mayor renombre."
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:494
 #, perl-brace-format
@@ -97,9 +97,9 @@ msgid "To subscribe your Zentyal Server to Zentyal Cloud, you need to get first 
 msgstr "Para subscribir tu Servidor Zentyal a Zentyal Cloud, necesitas obtener una de las Suscripciones del Servidor (Básica, Profesional o Empresarial) de la tienda On-line de Zentyal. Una vez te registres en una de estas suscripciones, recibirás un nombre de usuario y contraseña que puedes usar en el formulario situado debajo para suscribir tu servidor a Zentyal Cloud."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:595
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "For full, enterprise-level services, obtain {openhrefp}Professional{closehref} or {openhrefe}Enterprise Server Subscription{closehref} - These offer Quality Assured software updates, Alerts, Reports and Centralised monitoring and management of your Zentyal servers!"
-msgstr "Obtén accesso completo a informes frequentes basados en estos logs adquiriendo la Suscripción al Servidor del nivel {openhrefp}Profesional{closehref} o {openhrefe}Empresarial{closehref}. Puedes consultar un informe de muestra {openhrefr}aquí{closehref}."
+msgstr "Para obtener una funcionalidad completa de nivel empresarial, adquiera la  {openhrefp}Suscripción del Servidor Profesional{closehref} o {openhrefe}Empresarial{closehref}. ¡Podrás las disfrutar de Actualizaciones con Garantía de Calidad, Alertas, Informes además de la monitorización y gestión centralizada de todos tus servidores Zentyal!"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:178
 msgid "As to the estimated time to recover from a disaster, estimation consists of 45 minutes to install Zentyal server, upper bound of the backup size and average download time obtained from the latest Network report statistics."
