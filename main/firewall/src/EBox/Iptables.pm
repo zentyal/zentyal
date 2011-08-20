@@ -608,17 +608,10 @@ sub start
 
     push(@commands, @{_setKernelParameters()});
 
-    my @modRules = @{$self->moduleRules()};
-
-    my $model = $self->{firewall}->{'EBoxServicesRuleTable'};
-    my %enabledRules =
-        map { $model->row($_)->valueByName('rule') => 1 } @{$model->enabledRows()};
-
-    my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @modRules;
-    push(@commands, map { my $r = $_->{'rule'};
-                          pf($r) if $enabledRules{$r} } @sortedRules);
-
     EBox::Sudo::root(@commands);
+
+    # Create rules by modules firewall helpers
+    $self->_executeModuleRules();
 }
 
 # Method: moduleRules
@@ -645,30 +638,7 @@ sub moduleRules
         push(@modRules, @{$self->_createChains($mod, $helper)});
 
         # add rules
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'nat', 'premodules', $helper->prerouting())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'nat', 'postmodules', $helper->postrouting())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'filter', 'fnospoofmodules', $helper->forwardNoSpoof())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'filter', 'inospoofmodules', $helper->inputNoSpoof())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'filter', 'fmodules', $helper->forward())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'filter', 'iexternalmodules', $helper->externalInput())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'filter', 'imodules', $helper->input())}
-            );
-        push(@modRules,
-                @{$self->_doRuleset($mod, 'filter', 'omodules', $helper->output())}
-            );
+        push(@modRules, @{$self->_modRules($mod, $helper)});
     }
 
     return \@modRules;
@@ -682,6 +652,71 @@ sub _loadIptModules
     }
     return \@commands;
 }
+
+
+# Execute firewall helper rules for each module
+sub _executeModuleRules
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $model = $self->{firewall}->{'EBoxServicesRuleTable'};
+    my %enabledRules =
+        map { $model->row($_)->valueByName('rule') => 1 } @{$model->enabledRows()};
+
+    my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
+    my @modRules;
+    foreach my $mod (@mods) {
+        my $helper = $mod->firewallHelper();
+        ($helper) or next;
+
+        my $modRules = $self->_modRules($mod, $helper);
+
+        my @sortedRules = sort { $a->{'priority'} <=> $b->{'priority'} } @{$modRules};
+        my @commands = map { my $r = $_->{'rule'}; pf($r) if $enabledRules{$r} } @sortedRules;
+
+        try {
+            EBox::Sudo::root(@commands);
+        } otherwise {
+            EBox::error('Error executing firewall rules for module ' . $mod->name());
+        };
+    }
+}
+
+# Helper rules for one module
+sub _modRules
+{
+    my ($self, $mod, $helper) = @_;
+    my @modRules;
+
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'nat', 'premodules', $helper->prerouting())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'nat', 'postmodules', $helper->postrouting())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'filter', 'fnospoofmodules', $helper->forwardNoSpoof())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'filter', 'inospoofmodules', $helper->inputNoSpoof())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'filter', 'fmodules', $helper->forward())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'filter', 'iexternalmodules', $helper->externalInput())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'filter', 'imodules', $helper->input())}
+        );
+    push(@modRules,
+            @{$self->_doRuleset($mod, 'filter', 'omodules', $helper->output())}
+        );
+
+    return \@modRules;
+}
+
 
 sub _createChains
 {
