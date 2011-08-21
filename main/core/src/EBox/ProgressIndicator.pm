@@ -274,7 +274,9 @@ sub finished
 #          - >0 : mean something wrong happened
 #          - otherwise: undocumented
 #
-#     errorMessage - String the error message if retValue > 0
+#     errorMessage - String the error message
+#          - if retValue == 0 this message is treated as a warning
+#          - if retValue > 0 this message is treated as an error
 #                    *(Optional)* Default value: ''
 #
 sub setAsFinished
@@ -290,9 +292,9 @@ sub setAsFinished
     }
 
     $self->setConfBool('finished', 1);
-
     $self->setRetValue($retValue);
-    if ( $retValue > 0 and defined($errorMsg)) {
+
+    if (defined($errorMsg)) {
         $self->setConfString('errorMsg', $errorMsg);
     }
 }
@@ -374,10 +376,10 @@ sub stateAsHash
         elsif ($retValue != 0 ) {
             $status = 'error';
             $statevars->{retValue} = $retValue;
-            my $errorMsg = $self->errorMsg();
-            if ($errorMsg) {
-                $statevars->{errorMsg} = $errorMsg;
-            }
+        }
+        my $errorMsg = $self->errorMsg();
+        if ($errorMsg) {
+            $statevars->{errorMsg} = $errorMsg;
         }
     }
     else {

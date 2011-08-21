@@ -1,4 +1,5 @@
 HEAD
+	+ Added framework to show warning messages after save changes
 	+ Added HiddenIfNotAble property to event watchers to be hidden if
 	  it is unabled to monitor the event
 	+ Dashboard values can be now error and good as well

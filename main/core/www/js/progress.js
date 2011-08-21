@@ -31,12 +31,23 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
             }
         }
         else if (response.state == 'done') {
-            Element.hide('progressing');
-            Element.show('done');
             pe.stop();
             if ( nextStepTimeout > 0 ) {
                 setTimeout ( "location.href='" + nextStepUrl + "';", nextStepTimeout*1000 );
             }
+
+            if ( 'errorMsg' in response.statevars ) {
+                $('warning-progress-messages').update(
+                    response.statevars.errorMsg);
+
+                $('done').removeClassName('note');
+                $('done').addClassName('warning');
+                $('warning-progress').show();
+                $('warning-progress-messages').show();
+            }
+
+            Element.hide('progressing');
+            Element.show('done');
 
             // Used to tell selenium we are done
             // with saving changes

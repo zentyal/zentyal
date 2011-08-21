@@ -71,6 +71,9 @@ sub _new_instance
     bless($self, $class);
     $self->{'mod_instances_rw'} = {};
     $self->{'mod_instances_ro'} = {};
+
+    # Messages produced during save changes process
+    $self->{save_messages} = [];
     return $self;
 }
 
@@ -509,6 +512,9 @@ sub saveAllModules
 
     my $failed = '';
 
+    # Reset save messages array
+    $self->{save_messages} = [];
+
     my $progress = $options{progress};
     if (not $progress) {
         $progress = EBox::ProgressIndicator::Dummy->create();
@@ -616,7 +622,13 @@ sub saveAllModules
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
         # Store a timestamp with the time of the ending
         $self->st_set_int(TIMESTAMP_KEY, time());
-        $progress->setAsFinished();
+
+        my @messages = @{$self->saveMessages()};
+        my $message;
+        if (@messages) {
+            $message = '<ul><li>' . join("</li><li>", @messages) . '</li></ul>';
+        }
+        $progress->setAsFinished(0, $message);
 
         return;
     }
@@ -1014,6 +1026,33 @@ sub deleteFirst
     if (-f FIRST_FILE) {
         unlink (FIRST_FILE);
     }
+}
+
+# Method: saveMessages
+#
+# Returns:
+#
+#     Array ref - messages produced by modules during saveAllModules process
+#
+sub saveMessages
+{
+    my ($self) = @_;
+
+    return $self->{save_messages};
+}
+
+# Method: addSaveMessage
+#
+# Parameters:
+#
+#     String - message to add to saveMessages list
+#
+sub addSaveMessage
+{
+    my ($self, $message) = @_;
+
+    my $messages = $self->{save_messages};
+    push (@{$messages}, $message);
 }
 
 # Method: _runExecFromDir
