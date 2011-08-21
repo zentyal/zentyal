@@ -24,7 +24,7 @@ use EBox::Gettext;
 use Apache2::RequestUtil;
 
 use Readonly;
-Readonly::Scalar my $DEFAULT_DESTINATION => '/zentyal/Dashboard/Index';
+Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -105,12 +105,8 @@ sub _requestDestination
 
   defined $destination or return $DEFAULT_DESTINATION;
 
-  if ($destination =~ m{^/*ebox/+Login/+Index$}) {
+  if ($destination =~ m{^/*Login/+Index$}) {
     # /Login/Index is the standard location from login, his destination must be the default destination
-    return $DEFAULT_DESTINATION;
-  }
-  elsif (not $destination =~ m{^/*ebox}) {
-    # url wich does not follow the normal ebox pattern must use the default destination
     return $DEFAULT_DESTINATION;
   }
 

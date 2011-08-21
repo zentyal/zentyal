@@ -80,6 +80,11 @@ sub permanentMessage
     return $self->{permanentMessage};
 }
 
+sub permanentMessageType
+{
+    return 'ad';
+}
+
 # Group: Protected methods
 
 # Method: _description

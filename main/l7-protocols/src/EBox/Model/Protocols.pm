@@ -60,7 +60,7 @@ sub _table
         'automaticRemove' => 1,
         'printableTableName' => __('Layer 7 protocols'),
         'defaultController' =>
-            '/zentyal/L7-Protocols/Controller/Protocols',
+            '/L7-Protocols/Controller/Protocols',
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,

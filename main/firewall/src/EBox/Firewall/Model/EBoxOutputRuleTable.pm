@@ -64,7 +64,7 @@ sub _table
           __('Traffic coming out from Zentyal'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/zentyal/Firewall/Controller/EBoxOutputRuleTable',
+            '/Firewall/Controller/EBoxOutputRuleTable',
         'defaultActions' =>
             [ 'add', 'del', 'move',  'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('destination' => 1),

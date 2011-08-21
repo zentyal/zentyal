@@ -247,7 +247,7 @@ sub loginCC
                 my $sessionKey = $self->authen_cred($req, '', '',1);
                 $self->send_cookie($req, $sessionKey);
                 $self->handle_cache($req);
-                $req->headers_out()->set('Location' => '/zentyal/');
+                $req->headers_out()->set('Location' => '/');
                 return HTTP_MOVED_TEMPORARILY;
             }
         }

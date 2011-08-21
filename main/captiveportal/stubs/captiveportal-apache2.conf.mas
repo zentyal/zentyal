@@ -125,7 +125,7 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
 
     PerlModule EBox::CaptivePortal::Auth
     PerlSetVar EBoxPath /
-    PerlSetVar EBoxLoginScript /zentyal/Login
+    PerlSetVar EBoxLoginScript /Login
     PerlSetVar EBoxSatisfy Any
     PerlSetVar AuthCookieDebug 0
 
@@ -154,16 +154,19 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
     </Directory>
 
     RewriteEngine On
-    # From /zentyal to /zentyal/ and redirect
-    RewriteRule ^/zentyal$ /zentyal/
-    # From / to /zentyal and redirect
-    RewriteRule ^/$ /zentyal/
+
     # Map /zentyal/ebox.cgi to the right Perl CGI and redirect
-    RewriteRule ^/zentyal/ebox.cgi$ /zentyal/
+    RewriteRule ^/ebox.cgi$ /
+
+    # skip rewrites for favicon and login
+    RewriteCond %{REQUEST_FILENAME} ^/favicon.ico$ [OR]
+    RewriteCond %{REQUEST_FILENAME} ^/LOGIN$
+    RewriteRule .? - [S=100]
+
     # From /data/ to / and finish
     RewriteRule ^/data(.*) $1 [L]
     # From /dynamic-data/ to the right directory in FS and finish
     RewriteRule ^/dynamic-data(.*) /var/lib/zentyal/dynamicwww$1 [L]
-    RewriteRule ^/zentyal/(.*) /usr/share/zentyal/cgi/captiveportal.cgi [E=script:$1,L]
+    RewriteRule ^/(.*) /usr/share/zentyal/cgi/captiveportal.cgi [E=script:$1,L]
 </VirtualHost>
 

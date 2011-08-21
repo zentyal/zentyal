@@ -1,4 +1,5 @@
 HEAD
+	+ Removed /zentyal prefix from URLs
 	+ Avoid duplicated restart during postinst
 2.1.4
 	+ Workaround for parent deep-recursion problem

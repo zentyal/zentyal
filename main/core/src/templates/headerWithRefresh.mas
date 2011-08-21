@@ -2,6 +2,7 @@
 $title
 $refreshTime => 60
 $destination
+$favicon => /favicon.ico
 </%args>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -9,6 +10,7 @@ $destination
 <head>
 <title>Zentyal - <% $title %></title>
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="<% $favicon %>" />
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript">

@@ -77,7 +77,7 @@ sub viewCustomizer
     }
 
     unless ( $securityUpdatesAddOn ) {
-        $customizer->setPermanentMessage($self->_commercialMsg());
+        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
 
     return $customizer;
@@ -96,7 +96,7 @@ sub _table
         pageTitle         => __('Filter profiles'),
         printableTableName => __('List of profiles'),
         modelDomain        => 'Squid',
-        'defaultController' => '/zentyal/Squid/Controller/FilterGroup',
+        'defaultController' => '/Squid/Controller/FilterGroup',
         'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => $self->tableHeader(),
         class              => 'dataTable',
@@ -129,8 +129,8 @@ sub tableHeader
                 foreignModel => 'squid/FilterGroupSettings',
                 foreignModelIsComposite => 1,
 
-                'view' => '/zentyal/Squid/Composite/FilterGroupSettings',
-                'backView' => '/zentyal/Squid/View/FilterGroup',
+                'view' => '/Squid/Composite/FilterGroupSettings',
+                'backView' => '/Squid/View/FilterGroup',
                 ),
             );
 
@@ -171,8 +171,8 @@ sub _initDefaultRow
                                  foreignModel => 'squid/FilterSettings',
                                  foreignModelIsComposite => 1,
 
-                                 'view' => '/zentyal/Squid/Composite/FilterSettings',
-                                 'backView' => '/zentyal/squid/View/FilterGroup',
+                                 'view' => '/Squid/Composite/FilterSettings',
+                                 'backView' => '/squid/View/FilterGroup',
                                 );
 
     $defaultRow->addElement($nameElement);

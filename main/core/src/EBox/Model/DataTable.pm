@@ -2675,7 +2675,7 @@ sub HTTPLink
 {
     my ($self) = @_;
 
-    my $link = '/zentyal/' . $self->_HTTPUrlView();
+    my $link = '/' . $self->_HTTPUrlView();
     my $parentRow = $self->parentRow();
     if ($parentRow) {
         $link .= '?directory=' . $self->directory();
@@ -3943,7 +3943,7 @@ sub _mainController
     if ( (not defined ( $defAction )) and defined ( $self->modelDomain() )) {
         # If it is not a defaultController, we try to guess it from
         # the model domain and its name
-        $defAction = '/zentyal/' . $self->modelDomain() . '/Controller/' .
+        $defAction = '/' . $self->modelDomain() . '/Controller/' .
             $self->{'table'}->{'tableName'};
         if ( $self->index() ne '' ) {
             $defAction .= '/' . $self->index();

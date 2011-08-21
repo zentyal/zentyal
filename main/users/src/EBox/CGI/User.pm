@@ -63,7 +63,7 @@ sub _process
     if ($editable) {
         $self->{crumbs} = [
             {title => __('Users'),
-                link => '/zentyal/UsersAndGroups/Users'
+                link => '/UsersAndGroups/Users'
             },
             {title => $user,
                 link => undef,

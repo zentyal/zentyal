@@ -1,3 +1,6 @@
+HEAD
+	+ Differentiate ads from notes
+	+ Removed /zentyal prefix from URLs
 2.1.4
 	+ Fixed argument passing in constructor, readonly instances now work
 2.1.3

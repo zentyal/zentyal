@@ -1,3 +1,5 @@
+HEAD
+	+ Removed /zentyal prefix from URLs
 2.1.2
 	+ Do not send info events when using persist after if the warn
 	  events was not sent previously

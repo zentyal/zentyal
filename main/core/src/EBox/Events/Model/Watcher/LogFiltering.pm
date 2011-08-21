@@ -209,11 +209,11 @@ sub viewCustomizer
     $custom->setHTMLTitle([
             {
             title => __('Events'),
-            link  => '/zentyal/Events/Composite/GeneralComposite',
+            link  => '/Events/Composite/GeneralComposite',
             },
             {
             title => __('Log Observer Watcher'),
-            link  => "/zentyal/Events/View/LogWatcherConfiguration?directory=$parentDir",
+            link  => "/Events/View/LogWatcherConfiguration?directory=$parentDir",
             },
             {
             title => $self->{tableInfo}->{name},

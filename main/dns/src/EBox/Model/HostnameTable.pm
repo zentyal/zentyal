@@ -268,9 +268,9 @@ sub _table
                                 'fieldName' => 'alias',
                                 'printableName' => __('Alias'),
                                 'foreignModel' => 'AliasTable',
-                                'view' => '/zentyal/DNS/View/AliasTable',
+                                'view' => '/DNS/View/AliasTable',
 
-                                'backView' => '/zentyal/DNS/View/AliasTable',
+                                'backView' => '/DNS/View/AliasTable',
                                 'size' => '1',
                              )
           );
@@ -280,7 +280,7 @@ sub _table
             'tableName' => 'HostnameTable',
             'printableTableName' => __('Host names'),
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/Dns/Controller/HostnameTable',
+            'defaultController' => '/Dns/Controller/HostnameTable',
             'HTTPUrlView'       => 'DNS/View/HostnameTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,

@@ -46,7 +46,11 @@ sub new
 #
 sub title
 {
-    return EBox::Html::makeHtml('usercorner/headTitle.mas');
+    my $global = EBox::Global->getInstance();
+    my $image_title = $global->theme()->{'image_title'};
+
+    return EBox::Html::makeHtml('usercorner/headTitle.mas',
+                                image_title => $image_title);
 }
 
 # Method: menu

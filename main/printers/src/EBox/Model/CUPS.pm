@@ -132,7 +132,7 @@ sub preconditionFailMsg
     return __x('Prior to configure printers you need to enable '
                . 'the module in the {openref}Module Status{closeref} '
                . ' section and save changes after that.',
-               openref => '<a href="/zentyal/ServiceModule/StatusView">',
+               openref => '<a href="/ServiceModule/StatusView">',
                closeref => '</a>');
 }
 

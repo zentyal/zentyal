@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/zentyal/Firewall/Composite/PacketTrafficReport';
+    return '/Firewall/Composite/PacketTrafficReport';
 }
 
 

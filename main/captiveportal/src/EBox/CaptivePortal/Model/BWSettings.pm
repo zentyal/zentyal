@@ -55,7 +55,7 @@ sub preconditionFailMsg
     }
 
     # Not enabled:
-    return __x('If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}Module Status{enda} section.', begina => '<a href="/zentyal/ServiceModule/StatusView">', enda => '</a>');
+    return __x('If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}Module Status{enda} section.', begina => '<a href="/ServiceModule/StatusView">', enda => '</a>');
 }
 
 # Method: _table

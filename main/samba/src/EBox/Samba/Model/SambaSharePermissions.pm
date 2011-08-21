@@ -163,7 +163,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Shares'),
-                link  => '/zentyal/Samba/Composite/General#SambaShares',
+                link  => '/Samba/Composite/General#SambaShares',
                 },
                 {
                 title => $self->parentRow()->valueByName('share'),

@@ -100,7 +100,7 @@ sub _table
         {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Transparent POP proxy traffic details'),
-            'defaultController' => '/zentyal/Mail/Controller/POPProxyTraffic',
+            'defaultController' => '/Mail/Controller/POPProxyTraffic',
             'defaultActions' => [ 'changeView', 'editField' ],
             'tableDescription' => $tableHead,
             'class' => 'dataTable',

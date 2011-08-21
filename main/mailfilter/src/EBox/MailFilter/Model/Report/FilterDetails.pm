@@ -115,7 +115,7 @@ sub _table
         {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Filter traffic details'),
-            'defaultController' => '/zentyal/Mail/Controller/FilterTraffic',
+            'defaultController' => '/Mail/Controller/FilterTraffic',
             'defaultActions' => [ 'changeView', 'editField' ],
             'tableDescription' => $tableHead,
             'class' => 'dataTable',

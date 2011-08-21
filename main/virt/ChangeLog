@@ -1,3 +1,5 @@
+HEAD
+	+ Removed /zentyal prefix from URLs
 2.1.4
 	+ Properly define the boot device with KVM
 	+ Real devices like /dev/cdrom are now recognised as valid

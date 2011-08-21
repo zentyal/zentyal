@@ -12,7 +12,6 @@ use EBox::Gettext;
 
 % if ($askPermission) {
 
-<link href="/data/css/modalbox.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js?load=effects">//</script>
 <script type="text/javascript" src="/data/js/modalbox.js">//</script>
@@ -68,7 +67,7 @@ function rejectConfFile(id, totalFiles)
 function sendAcceptedFiles()
 {
  var MyAjax = new Ajax.Request(
-                "/zentyal/ServiceModule/Controller",
+                "/ServiceModule/Controller",
                 {
                         method: 'get',
                         parameters: {'acceptedFiles':acceptedFiles, 'rejectedFiles':rejectedFiles},
@@ -81,7 +80,7 @@ function sendAcceptedFiles()
 }
 
 % my $title = __('Warning');
-        Modalbox.show('/zentyal/ServiceModule/View',
+        Modalbox.show('/ServiceModule/View',
                       { title: '<% $title %>',
                        loadingString: 'Loding.. Please wait',
                        inactiveFade: false,
@@ -96,7 +95,7 @@ function sendAcceptedFiles()
 
 <div class='warning'>
 %   if (@disabledModules) {
-        <% __x('The following modules have unsaved changes but are <b>disabled</b>. If you need to enable them go to {openref}Module Status{closeref}.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>') %>
+        <% __x('The following modules have unsaved changes but are <b>disabled</b>. If you need to enable them go to {openref}Module Status{closeref}.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
         <ul>
 %      for my $module (@disabledModules) {
          <li><% $module %></li>

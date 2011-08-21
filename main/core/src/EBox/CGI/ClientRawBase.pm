@@ -163,7 +163,7 @@ sub run
 
     my $finish = 0;
     if (not $self->_loggedIn) {
-        $self->{redirect} = "/zentyal/Login/Index";
+        $self->{redirect} = "/Login/Index";
     }
     else {
         try {

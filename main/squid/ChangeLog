@@ -1,4 +1,6 @@
 HEAD
+	+ Differentiate ads from notes
+	+ Removed /zentyal prefix from URLs
 	+ Added configuration key to omit domain categorized files from backup
 	+ Avoid duplicated restart during postinst
 	+ Give support for setting a new adblocking redirector

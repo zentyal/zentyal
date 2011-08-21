@@ -44,6 +44,9 @@ sub _masonParameters
     my ($self) = @_;
 
     my @params = ();
+    my $global = EBox::Global->getInstance();
+    my $image = $global->theme()->{'image_title'};
+    push (@params, image_title => $image);
     return \@params;
 }
 

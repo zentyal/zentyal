@@ -76,7 +76,7 @@ sub _table
           tableName          => 'FilterGroupDomainFilterFiles',
           printableTableName => __('Domains lists files for filter group'),
           modelDomain        => 'Squid',
-          'defaultController' => '/zentyal/Squid/Controller/FilterGroupDomainFilterFiles',
+          'defaultController' => '/Squid/Controller/FilterGroupDomainFilterFiles',
           'defaultActions' =>
               [
               'add', 'del',
@@ -142,12 +142,12 @@ sub categoryForeignModel
 
 sub categoryForeignModelView
 {
-    return '/zentyal/Squid/View/FilterGroupDomainFilterCategories';
+    return '/Squid/View/FilterGroupDomainFilterCategories';
 }
 
 sub categoryBackView
 {
-    return '/zentyal/Squid/Composite/FilterGroupSettings';
+    return '/Squid/Composite/FilterGroupSettings';
 }
 
 # Method: viewCustomizer

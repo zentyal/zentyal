@@ -255,7 +255,7 @@ sub _fieldDescription
             [
             new EBox::Types::Union::Text(
                 'fieldName' => 'origDest_ebox',
-                'printableName' => 'Zentyal'),
+                'printableName' => __('Zentyal')),
             new EBox::Types::IPAddr(
                 'fieldName' => 'origDest_ipaddr',
                 'printableName' => __('IP Address'),
@@ -375,7 +375,7 @@ sub _table
         'pageTitle' => __('Port Forwarding'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/zentyal/Firewall/Controller/RedirectsTable',
+            '/Firewall/Controller/RedirectsTable',
         'defaultActions' =>
             [ 'add', 'del', 'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),

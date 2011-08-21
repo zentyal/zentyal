@@ -244,7 +244,7 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     if ( $self->{gconfmodule}->subscriptionLevel() < 1) {
-        $customizer->setPermanentMessage($self->_commercialMsg());
+        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
     return $customizer;
 }

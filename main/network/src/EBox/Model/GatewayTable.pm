@@ -224,7 +224,7 @@ sub _table
             'enableProperty' => 1,
             'defaultEnabledValue' => 1,
             'defaultController' =>
-                '/zentyal/Network/Controller/GatewayTable',
+                '/Network/Controller/GatewayTable',
             'defaultActions' =>
                 [
                 'add', 'del',

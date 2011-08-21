@@ -296,7 +296,7 @@ sub _table
              new EBox::Types::HasMany(
                  fieldName            => 'configuration_model',
                  foreignModelAcquirer => \&acquireConfModel,
-                 backView             => '/zentyal/Events/Composite/GeneralComposite',
+                 backView             => '/Events/Composite/GeneralComposite',
                  ),
              new EBox::Types::Union::Text(
                  fieldName        => 'configuration_none',
@@ -311,8 +311,8 @@ sub _table
         tableName           => 'ConfigureEventDataTable',
         printableTableName  => __('Configure Events'),
         actions => {
-            editField  => '/zentyal/Events/Controller/ConfigureEventDataTable',
-            changeView => '/zentyal/Events/Controller/ConfigureEventDataTable',
+            editField  => '/Events/Controller/ConfigureEventDataTable',
+            changeView => '/Events/Controller/ConfigureEventDataTable',
         },
         tableDescription    => \@tableHeader,
         class               => 'dataTable',
@@ -549,6 +549,21 @@ sub _checkWatcherHidden # (watcherClassName)
     my ($self, $watcherClassName) = @_;
 
     return $watcherClassName->HiddenIfNotAble();
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $subscriptionLevel = -1;
+
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $subscriptionLevel = $rs->subscriptionLevel();
+    }
+    unless ($subscriptionLevel > 0) {
+        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
+    }
+
+    return $customizer;
 }
 
 # Return the commercial message

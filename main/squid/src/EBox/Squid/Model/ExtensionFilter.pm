@@ -64,7 +64,7 @@ sub _table
         tableName          => 'ExtensionFilter',
         printableTableName => __('Configure allowed file extensions'),
         modelDomain        => 'Squid',
-        defaultController  => '/zentyal/Squid/Controller/ExtensionFilter',
+        defaultController  => '/Squid/Controller/ExtensionFilter',
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => $self->_tableHeader(),
         class              => 'dataTable',

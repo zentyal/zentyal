@@ -27,6 +27,7 @@ use EBox::Exceptions::Base;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
+use EBox::Util::GPG;
 use POSIX qw(setlocale LC_ALL);
 use Error qw(:try);
 use Encode qw(:all);
@@ -132,6 +133,16 @@ sub _body
     defined($self->{template}) or return;
 
     my $filename = EBox::Config::templates . $self->{template};
+    if (-f "$filename.custom") {
+        # Check signature
+        if (EBox::Util::GPG::checkSignature("$filename.custom")) {
+            $filename = "$filename.custom";
+            EBox::info("Using custom $filename");
+        } else {
+            EBox::warn("Invalid signature in $filename");
+        }
+
+    }
     my $interp = $self->_masonInterp();
     my $comp = $interp->make_component(comp_file => $filename);
     $interp->exec($comp, @{$self->{params}});
@@ -256,7 +267,7 @@ sub run
     my $self = shift;
 
     if (not $self->_loggedIn) {
-        $self->{redirect} = "/zentyal/Login/Index";
+        $self->{redirect} = "/Login/Index";
     }
     else {
       try {
@@ -327,7 +338,7 @@ sub run
         } else {
             $protocol = 'http';
         }
-        my $url = "$protocol://${host}/zentyal/" . $self->{redirect};
+        my $url = "$protocol://${host}/" . $self->{redirect};
         print($self->cgi()->redirect($url));
         return;
     }

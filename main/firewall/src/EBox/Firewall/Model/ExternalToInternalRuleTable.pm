@@ -64,7 +64,7 @@ sub _table
           __('External networks to internal networks'),
         'automaticRemove' => 1,
         'defaultController' =>
-            '/zentyal/Firewall/Controller/ExternalToInternalRuleTable',
+            '/Firewall/Controller/ExternalToInternalRuleTable',
         'defaultActions' =>
             [ 'add', 'del', 'move',  'editField', 'changeView' ],
         'tableDescription' => $self->_fieldDescription('source' => 1,

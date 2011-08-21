@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/zentyal/Events/Composite/EventsReport';
+    return '/Events/Composite/EventsReport';
 }
 
 

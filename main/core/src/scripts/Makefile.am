@@ -11,6 +11,8 @@ pkgdata_SCRIPTS = loggerd kill-pid apache2ctl apache-restart \
  consolidate-reportinfo gather-reportinfo initial-setup \
  purge-logs configuration-report create-db purge-module
 
+pkgdata_DATA = keyring.gpg
+
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkgdata_SCRIPTS)
+EXTRA_DIST = $(pkgdata_SCRIPTS) $(pkgdata_DATA)

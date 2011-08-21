@@ -76,7 +76,7 @@ sub _table
         'tableName' => 'PendingSync',
         'printableTableName' => __('List of pending operations on slaves'),
         'defaultController' =>
-            '/zentyal/Users/Controller/PendingSync',
+            '/Users/Controller/PendingSync',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,

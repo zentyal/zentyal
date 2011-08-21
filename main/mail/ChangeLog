@@ -1,4 +1,5 @@
 HEAD
+	+ Removed /zentyal prefix from URLs
 	+ Fixed errors executing mail queue commands
 	+ Do not generate config if module is not configured
 2.1.8

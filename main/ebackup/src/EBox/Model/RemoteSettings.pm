@@ -155,7 +155,7 @@ sub viewCustomizer
     try {
         my $disasterAddon = EBox::EBackup::Subscribed->isSubscribed();
         if (not $disasterAddon ) {
-            $customizer->setPermanentMessage(_message());
+            $customizer->setPermanentMessage(_message(), 'ad');
         }
     } catch EBox::Exceptions::NotConnected with {
         my ($ex) = @_;

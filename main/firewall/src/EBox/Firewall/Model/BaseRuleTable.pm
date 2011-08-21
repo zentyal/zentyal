@@ -214,7 +214,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Packet Filter'),
-                link  => '/zentyal/Firewall/Filter',
+                link  => '/Firewall/Filter',
                 },
                 {
                 title => $self->printableName(),

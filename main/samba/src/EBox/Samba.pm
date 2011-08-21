@@ -553,6 +553,9 @@ sub _setConf
     $ldapconf->{'users'} = EBox::UsersAndGroups::USERSDN;
     $ldapconf->{'groups'} = EBox::UsersAndGroups::GROUPSDN;
 
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless defined ($prefix);
+
     my @array = ();
     push(@array, 'netbios'   => $self->netbios);
     push(@array, 'desc'      => $self->description);
@@ -567,6 +570,7 @@ sub _setConf
     push(@array, 'roaming' => $self->roamingProfiles());
     push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
     push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
+    push(@array, 'prefix' => $prefix);
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
     my $guestShares = 0;

@@ -149,7 +149,7 @@ sub viewCustomizer
     $custom->setHTMLTitle([
         {
             title => __('Events'),
-            link  => '/zentyal/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+            link  => '/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
         },
         {
             title => __('Jabber Dispatcher'),

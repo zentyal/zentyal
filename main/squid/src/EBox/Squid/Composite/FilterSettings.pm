@@ -91,7 +91,7 @@ sub HTMLTitle
         return ([
                 {
                 title => __('Filter Profiles'),
-                link  => '/zentyal/Squid/View/FilterGroup',
+                link  => '/Squid/View/FilterGroup',
                 },
                 {
                 title => 'default',

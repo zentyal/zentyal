@@ -11,17 +11,17 @@ my %tabs = (
 	    local => {
 		      component =>  'backup.mas',
 		      title     =>  __('Local'),
-              url       => '/zentyal/SysInfo/Backup?selected=local',
+              url       => '/SysInfo/Backup?selected=local',
 		     },
 	    remote => {
 		      component =>  '/RemoteServices/Backup/index.mas',
 		      title     =>  __('Remote in Zentyal Cloud'),
-              url       => '/zentyal/RemoteServices/Backup/Index?selected=remote',
+              url       => '/RemoteServices/Backup/Index?selected=remote',
 		     },
 	    proxy => {
 		      component =>  '/RemoteServices/Backup/proxy.mas',
 		      title     =>  __('Remote in Zentyal Cloud from other subscribed hosts'),
-              url       => '/zentyal/RemoteServices/Backup/Proxy?selected=proxy',
+              url       => '/RemoteServices/Backup/Proxy?selected=proxy',
 		     },
 	   );
 my @tabsOrder;

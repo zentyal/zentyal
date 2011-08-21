@@ -49,10 +49,12 @@ sub title
 
     # Display control panel button only if the eBox is subscribed
     my $remoteServicesURL = '';
-    if ( $global->modExists('remoteservices') ) {
+    if ($global->modExists('remoteservices')) {
         my $remoteServicesMod = $global->modInstance('remoteservices');
-        if ( $remoteServicesMod->eBoxSubscribed() ) {
-            $remoteServicesURL = $remoteServicesMod->controlPanelURL();
+        if ($remoteServicesMod->eBoxSubscribed()) {
+            unless (defined EBox::Config::configkey('hide_cloud_link')) {
+                $remoteServicesURL = $remoteServicesMod->controlPanelURL();
+            }
         }
     }
     my $image_title = $global->theme()->{'image_title'};
@@ -156,7 +158,8 @@ sub header # (title)
 
     $title = "$serverName - $title";
 
-    my $html = makeHtml('header.mas', title => $title );
+    my $favicon = $global->theme()->{'favicon'};
+    my $html = makeHtml('header.mas', title => $title, favicon => $favicon );
     return $html;
 
 }

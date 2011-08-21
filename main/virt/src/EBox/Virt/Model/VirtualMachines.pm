@@ -141,8 +141,8 @@ sub _table
                                 printableName => __('Settings'),
                                 foreignModel  => 'virt/VMSettings',
                                 foreignModelIsComposite => 1,
-                                view => '/zentyal/Virt/Composite/VMSettings',
-                                backView => '/zentyal/Virt/View/VirtualMachines',
+                                view => '/Virt/Composite/VMSettings',
+                                backView => '/Virt/View/VirtualMachines',
                                ),
        new EBox::Types::Boolean(
                                 fieldName     => 'autostart',
@@ -260,7 +260,7 @@ sub _doStart
 
     # Start machine precondition: module enable and without unsaved changes
     unless ($virt->isEnabled()) {
-        throw EBox::Exceptions::External(__x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it prior to try to start any machine.', openref => '<a href="/zentyal/ServiceModule/StatusView">', closeref => '</a>'));
+        throw EBox::Exceptions::External(__x('The Virtual Machines module is not enabled, please go to the {openref}Module Status{closeref} section and enable it prior to try to start any machine.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>'));
     }
     if ($virt->changed()) {
         throw EBox::Exceptions::External(__('Virtual machines cannot be started if there are pending unsaved changes on the Virtual Machines module, please save changes first and try again.'));

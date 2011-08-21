@@ -112,7 +112,7 @@ sub _table
         {
             'tableName' => 'StaticTestForm',
             'printableTableName' => 'Read only test form',
-	    'defaultController' => '/zentyal/Test/Controller/StaticTestForm',
+	    'defaultController' => '/Test/Controller/StaticTestForm',
             'defaultActions' => [ 'changeView' ],
             'tableDescription' => \@tableHead,
             'modelDomain' => 'Logs',

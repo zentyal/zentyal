@@ -157,7 +157,7 @@ sub _table
         'automaticRemove' => 1,
         'sortedBy' => 'type',
         'defaultController' =>
-            '/zentyal/Firewall/Controller/EBoxServicesRuleTable',
+            '/Firewall/Controller/EBoxServicesRuleTable',
         'defaultActions' => [ 'editField', 'changeView' ],
         'tableDescription' => \@tableHeader,
         'menuNamespace' => 'Firewall/View/EBoxServicesRuleTable',
@@ -181,7 +181,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Packet Filter'),
-                link  => '/zentyal/Firewall/Filter',
+                link  => '/Firewall/Filter',
                 },
                 {
                 title => $self->printableName(),

@@ -139,7 +139,7 @@ sub _table
                                printableName => __('Access control'),
                                'foreignModel' => 'SambaSharePermissions',
                                'view' =>
-                                   '/zentyal/Samba/View/SambaSharePermissions'
+                                   '/Samba/View/SambaSharePermissions'
                               )
 
       );

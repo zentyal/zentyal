@@ -59,7 +59,7 @@ sub _table
           tableName          => 'FilterGroupDomainFilterCategories',
           printableTableName => __('Domains list categories'),
           modelDomain        => 'Squid',
-          'defaultController' => '/zentyal/Squid/Controller/FilterGroupDomainFilterCategories',
+          'defaultController' => '/Squid/Controller/FilterGroupDomainFilterCategories',
           'defaultActions' =>
               [
               'editField',
@@ -94,11 +94,11 @@ sub viewCustomizer
     $custom->setHTMLTitle([
             {
             title => __('Filter Profiles'),
-            link  => '/zentyal/Squid/View/FilterGroup',
+            link  => '/Squid/View/FilterGroup',
             },
             {
             title => $profile,
-            link  => "/zentyal/Squid/Composite/FilterGroupSettings?directory=$dir" .
+            link  => "/Squid/Composite/FilterGroupSettings?directory=$dir" .
             "#FilterGroupDomains",
             },
             {

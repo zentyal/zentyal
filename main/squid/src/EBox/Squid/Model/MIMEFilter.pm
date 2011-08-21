@@ -49,7 +49,7 @@ sub _table
      tableName          => 'MIMEFilter',
      modelDomain        => 'Squid',
      printableTableName => __('Configure allowed MIME types'),
-     'defaultController' => '/zentyal/Squid/Controller/MIMEFilter',
+     'defaultController' => '/Squid/Controller/MIMEFilter',
      'defaultActions' =>
      [
       'add', 'del',

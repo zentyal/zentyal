@@ -109,8 +109,8 @@ sub _table
                                    foreignModel => 'ipsec/Conf',
                                    foreignModelIsComposite => 1,
 
-                                   view => '/zentyal/IPsec/Composite/Conf',
-                                   backView => '/zentyal/IPsec/View/Connections',
+                                   view => '/IPsec/Composite/Conf',
+                                   backView => '/IPsec/View/Connections',
                               ),
          new EBox::Types::Text(
                                    fieldName => 'comment',

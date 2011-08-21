@@ -97,7 +97,7 @@ sub ConfigurationMethod
 sub ConfigureURL
 {
 
-    return '/zentyal/RemoteServices/View/Subscription';
+    return '/RemoteServices/View/Subscription';
 
 }
 

@@ -1,4 +1,6 @@
 HEAD
+	+ Better integration with core theme
+	+ Removed /zentyal prefix from URLs
 	+ Avoid errors deleting non-existent gateways
 2.1.10
 	+ Avoid duplicated restart during postinst

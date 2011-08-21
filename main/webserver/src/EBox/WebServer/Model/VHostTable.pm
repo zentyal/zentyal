@@ -111,7 +111,7 @@ sub validateTypedRow
             unless ($certificates->isEnabledService('Web Server')) {
                 throw EBox::Exceptions::External(
                     __x('You need to enable Web Server on {ohref}Services Certificates{chref} to enable SSL on a virtal host.',
-                        ohref => '<a href="/zentyal/CA/View/Certificates">', chref => '</a>')
+                        ohref => '<a href="/CA/View/Certificates">', chref => '</a>')
                     );
             }
         }

@@ -312,7 +312,7 @@ sub _table
                ),
                new EBox::Types::HasMany(
                    fieldName            => 'configuration_model',
-                   backView             => '/zentyal/Events/Composite/GeneralComposite',
+                   backView             => '/Events/Composite/GeneralComposite',
                    size                 => 1,
                    trailingText         => '',
                    foreignModelAcquirer => \&acquireConfModel,
@@ -330,8 +330,8 @@ sub _table
         tableName          => 'ConfigureDispatcherDataTable',
         printableTableName => __('Configure Dispatchers'),
         actions => {
-            editField  => '/zentyal/Events/Controller/ConfigureDispatcherDataTable',
-            changeView => '/zentyal/Events/Controller/ConfigureDispatcherDataTable',
+            editField  => '/Events/Controller/ConfigureDispatcherDataTable',
+            changeView => '/Events/Controller/ConfigureDispatcherDataTable',
         },
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

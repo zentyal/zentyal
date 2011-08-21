@@ -1,4 +1,6 @@
 HEAD
+	+ Added config key to set Zentyal folders and default domain prefix
+	+ Removed /zentyal prefix from URLs
 	+ Added maximum limits to PDC options
 	+ Avoid duplicated restart during postinst
 2.1.5

@@ -1,4 +1,6 @@
 HEAD
+	+ Hide help with link in wizard if custom_prefix defined
+	+ Removed /zentyal prefix from URLs
 	+ Disable autocompletion in user form
 	+ Avoid duplicated restart during postinst
 2.1.8

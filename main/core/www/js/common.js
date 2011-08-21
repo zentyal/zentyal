@@ -100,30 +100,13 @@ function checkAll(id, allElementName){
 
 /*
  */
-function stripe(theclass,evenColor,oddColor) {
-    var tables = getElementByClass(theclass);
-
-    for (var n=0; n<tables.length; n++) {
-        var even = false;
-        var table = tables[n];
-        var tbodies = table.getElementsByTagName("tbody");
-
-        for (var h = 0; h < tbodies.length; h++) {
-            var trs = tbodies[h].getElementsByTagName("tr");
-            for (var i = 0; i < trs.length; i++) {
-          if (! trs[i].style.backgroundColor && (trs[i].className.indexOf("highlight") == -1)) {
-        var tds = trs[i].getElementsByTagName("td");
-        for (var j = 0; j < tds.length; j++) {
-          var mytd = tds[j];
-          if (! mytd.style.backgroundColor) {
-            mytd.style.backgroundColor = even ? evenColor : oddColor;
-          }
-        }
-          }
-          even =  ! even;
-            }
-        }
-    }
+function stripe(theclass,evenClass,oddClass) {
+    $$('.' + theclass + ' tbody tr:nth-child(even)').each(function(tr) {
+        tr.addClassName(evenClass);
+    });
+    $$('.' + theclass + ' tbody tr:nth-child(odd)').each(function(tr) {
+        tr.addClassName(oddClass);
+    });
 }
 
 /*

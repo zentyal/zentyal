@@ -91,7 +91,7 @@ sub preconditionFailMsg
 
     return __x('You must create a Certification Authority first. '
               . 'Go to {openhref}Certification Authority{closehref} to do so',
-              openhref  => qq{<a href='/zentyal/CA/Index'>},
+              openhref  => qq{<a href='/CA/Index'>},
               closehref => qq{</a>});
 }
 

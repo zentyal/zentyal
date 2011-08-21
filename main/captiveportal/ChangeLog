@@ -1,4 +1,5 @@
 HEAD
+	+ Removed /zentyal prefix from URLs
 	+ Moved model() call out of Users constructor to avoid problems
 	  with configuration backup.
 2.1.8

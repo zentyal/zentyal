@@ -56,7 +56,7 @@ sub _table
             'tableName'              => __PACKAGE__->name(),
             'printableTableName' => __('Deleted daemons'),
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/OpenVPN/Controller/DeletedDaemons',
+            'defaultController' => '/OpenVPN/Controller/DeletedDaemons',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

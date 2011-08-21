@@ -12,7 +12,7 @@ use EBox::Gettext;
   <link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript">
     function launch() {
-        window.open("/zentyal/Popup", "zentyal-captiveportal", "resizable=1,width=350,height=250");
+        window.open("/Popup", "zentyal-captiveportal", "resizable=1,width=350,height=250");
     }
   </script>
 </head>

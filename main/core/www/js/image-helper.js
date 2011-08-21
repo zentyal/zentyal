@@ -23,7 +23,7 @@ function reloadGraph(url, target, tableName, directory, action)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) { 
-			  stripe('dataTable', '#ecf5da', '#ffffff');
+			  stripe('dataTable', 'even', 'odd');
 
 			},
 		});

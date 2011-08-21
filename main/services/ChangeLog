@@ -1,3 +1,5 @@
+HEAD
+	+ Removed /zentyal prefix from URLs
 2.1.6
 	+ Fixed problems adding portless protocols such as ICMP
 	+ Removed validateTypedRow as it is unnecessary with viewCustomizer

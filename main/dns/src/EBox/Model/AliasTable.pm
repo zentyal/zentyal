@@ -198,7 +198,7 @@ sub _table
             'tableName' => 'AliasTable',
             'printableTableName' => __('Alias'),
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/Dns/Controller/AliasTable',
+            'defaultController' => '/Dns/Controller/AliasTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

@@ -99,7 +99,7 @@ sub _table
             'tableName' => 'MemberTable',
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/Objects/Controller/MemberTable',
+            'defaultController' => '/Objects/Controller/MemberTable',
             'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

@@ -222,7 +222,7 @@ sub _table
         {
             'tableName' => 'TestForm',
             'printableTableName' => 'Test form',
-	    'defaultController' => '/zentyal/Test/Controller/TestForm',
+	    'defaultController' => '/Test/Controller/TestForm',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'modelDomain' => 'Logs',

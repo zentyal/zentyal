@@ -75,7 +75,7 @@ sub _table
         'tableName' => 'Groups',
         'printableTableName' => __('Groups'),
         'defaultController' =>
-            '/zentyal/Users/Controller/Groups',
+            '/Users/Controller/Groups',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,
@@ -174,7 +174,7 @@ sub row
     my $gidName = $users->gidGroup($id);
     my $groupInfo  = $users->groupInfo($gidName);
     my $desc = $groupInfo->{comment};
-    my $link = "/zentyal/UsersAndGroups/Group?group=$gidName";
+    my $link = "/UsersAndGroups/Group?group=$gidName";
     my $row = $self->_setValueRow(name => $gidName,
             description => defined($desc) ? $desc : '-',
             edit => $link);

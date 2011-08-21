@@ -68,7 +68,7 @@ sub _table
                         'tableName' => 'VDomainAliases',
                         'printableTableName' => __('List of Aliases'),
                         'defaultController' =>
-            '/zentyal/Mail/Controller/VDomainAliases',
+            '/Mail/Controller/VDomainAliases',
                         'defaultActions' =>
                                 ['add', 'del', 'changeView'],
                         'tableDescription' => \@tableHead,

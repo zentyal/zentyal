@@ -81,6 +81,7 @@ sub _description
     my $rs = EBox::Global->modInstance('remoteservices');
     unless ( $rs->eBoxSubscribed() ) {
         $description->{permanentMessage} = _commercialMsg();
+        $description->{permanentMessageType} = 'ad';
     }
 
     return $description;

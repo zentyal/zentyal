@@ -78,7 +78,7 @@ sub _table
             'printableTableName' => __('Packet traffic details'),
             'defaultActions' => [ 'changeView', 'editField' ],
         'defaultController' =>
-         '/zentyal/Firewall/Controller/PacketTrafficReport',
+         '/Firewall/Controller/PacketTrafficReport',
             'tableDescription' => $tableHead,
             'class' => 'dataTable',
             'order' => 0,

@@ -19,6 +19,7 @@
     %recycle_exceptions
     $recycle_config
     $drive
+    $prefix
     $logon_script => 'zentyal-logon.bat'
 </%args>
 <%init>
@@ -216,7 +217,7 @@ use EBox::Gettext;
 %
 % }
 
-[zentyal-internal-backups]
+[<% $prefix %>-internal-backups]
  path = <% $backup_path %>
  browseable = yes
  read only = yes
@@ -225,7 +226,7 @@ use EBox::Gettext;
  force group = ebox
  force user = ebox
 
-[zentyal-quarantine]
+[<% $prefix %>-quarantine]
  path = <% $quarantine_path %>
  browseable = yes
  read only = no

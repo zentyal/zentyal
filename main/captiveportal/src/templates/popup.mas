@@ -18,7 +18,7 @@ use EBox::Gettext;
         $('logout').replace('<img src="/data/images/ajax-loader.gif" />');
 
         // Ajax logout
-        new Ajax.Request('/zentyal/Logout', {
+        new Ajax.Request('/Logout', {
 
             onComplete: function(response) {
                 if (403 == response.status) {
@@ -27,7 +27,7 @@ use EBox::Gettext;
                     return;
                 }
                 // Error, try without ajax:
-                location.href = "/zentyal/Logout";
+                location.href = "/Logout";
             }
         });
     }

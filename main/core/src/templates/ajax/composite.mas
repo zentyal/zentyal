@@ -41,8 +41,9 @@
 %    }
 %    # Print the permanent message if any
 %    my $permanentMessage = $model->permanentMessage();
+%    my $permanentMessageType = $model->permanentMessageType();
 %    if ($permanentMessage) {
-<div class="note">
+<div class="<% $permanentMessageType %>">
   <% $permanentMessage %>
 </div>
 %    }

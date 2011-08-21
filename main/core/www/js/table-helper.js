@@ -147,7 +147,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
             parameters: pars,
             evalScripts: true,
             onComplete: function(t) {
-              stripe('dataTable', '#ecf5da', '#ffffff');
+              stripe('dataTable', 'even', 'odd');
               completedAjaxRequest();
               if (nextPage && nextPageContextName) {
                 var json = t.responseText.evalJSON(true);
@@ -167,7 +167,7 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
 
                   if (rowId && directory) {
                     var nameParts = nextPageContextName.split('/');
-                    var baseUrl = '/zentyal/' + nameParts[1] + '/';
+                    var baseUrl = '/' + nameParts[1] + '/';
                     baseUrl += 'ModalController/' + nameParts[2];
                     var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
                     var nextPageUrl = baseUrl;
@@ -239,7 +239,7 @@ function addNewRow(url, table, fields, directory)
             parameters: pars,
             evalScripts: true,
             onComplete: function(t) {
-              stripe('dataTable', '#ecf5da', '#ffffff');
+              stripe('dataTable', 'even', 'odd');
               completedAjaxRequest();
             },
             onFailure: function(t) {
@@ -286,7 +286,7 @@ function changeRow(url, table, fields, directory, id, page, force, resizeModalbo
             evalScripts: true,
             onComplete: function(t) {
                 highlightRow( id, false);
-                stripe('dataTable', '#ecf5da', '#ffffff');
+                stripe('dataTable', 'even', 'odd');
                 if (resizeModalbox) {
                   Modalbox.resizeToContent();
                 }
@@ -353,7 +353,7 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page,
             parameters: pars,
             evalScripts: true,
             onComplete: function(t) {
-                stripe('dataTable', '#ecf5da', '#ffffff');
+                stripe('dataTable', 'even', 'odd');
             },
             onFailure: function(t) {
                 restoreHidden('actionsCell_' + rowId, table);
@@ -397,7 +397,7 @@ function customActionClicked(action, url, table, fields, directory, id, page)
             evalScripts: true,
             onComplete: function(t) {
                 highlightRow(id, false);
-                stripe('dataTable', '#ecf5da', '#ffffff');
+                stripe('dataTable', 'even', 'odd');
             },
             onFailure: function(t) {
                 $$('.customActions').each(function(e) {
@@ -438,7 +438,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
                 highlightRow(id, true);
                           }
               // Stripe again the table
-              stripe('dataTable', '#ecf5da', '#ffffff');
+              stripe('dataTable', 'even', 'odd');
               if ( action == 'changeEdit' ) {
                 restoreHidden('actionsCell_' + id, table);
               }
@@ -536,7 +536,7 @@ function modalChangeView(url, table, directory, action, id, extraParams)
                 highlightRow(id, true);
                           }
               // Stripe again the table
-              stripe('dataTable', '#ecf5da', '#ffffff');
+              stripe('dataTable', 'even', 'odd');
               if ( action == 'changeEdit' ) {
                 restoreHidden('actionsCell_' + id, table);
               }
@@ -615,11 +615,11 @@ function hangTable(successId, errorId, url, formId, loadingId)
     asynchronous: true,
     evalScripts: true,
     onComplete: function(t) {
-      stripe('dataTable', '#ecf5da', '#ffffff');
+      stripe('dataTable', 'even', 'odd');
       completedAjaxRequest();
     },
         onComplete: function(t) {
-          stripe('dataTable', '#ecf5da', '#ffffff');
+          stripe('dataTable', 'even', 'odd');
           completedAjaxRequest();
         },
     onFailure: function(t) {

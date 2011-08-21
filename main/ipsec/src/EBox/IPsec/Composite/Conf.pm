@@ -79,7 +79,7 @@ sub HTMLTitle
             return ([
                     {
                         title => __('IPsec Connections'),
-                        link  => '/zentyal/VPN/IPsec',
+                        link  => '/VPN/IPsec',
                     },
             ]);
         }
@@ -89,7 +89,7 @@ sub HTMLTitle
         return ([
                 {
                     title => __('IPsec Connections'),
-                    link  => '/zentyal/VPN/IPsec',
+                    link  => '/VPN/IPsec',
                 },
                 {
                     title => $vpn,

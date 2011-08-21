@@ -171,7 +171,7 @@ sub _table
                 'tableName' => 'ServiceConfigurationTable',
                 'printableTableName' => __('Service configuration'),
                 'defaultController' =>
-                        '/zentyal/Services/Controller/ServiceConfigurationTable',
+                        '/Services/Controller/ServiceConfigurationTable',
                 'defaultActions' =>
                         [	'add', 'del', 'move',  'editField', 'changeView' ],
                 'tableDescription' => \@tableHead,

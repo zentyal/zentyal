@@ -91,12 +91,16 @@ sub model
 # Parameters:
 #
 #   string - string to show
+#   type - (Optional) note, ad, warning
 #
 sub setPermanentMessage
 {
-    my ($self, $msg) = @_;
+    my ($self, $msg, $type) = @_;
 
-    $self->{permanentMessage}= $msg;
+    defined($type) or $type = 'note';
+
+    $self->{permanentMessage} = $msg;
+    $self->{permanentMessageType} = $type;
 }
 
 # Method: permanentMessage
@@ -114,6 +118,21 @@ sub permanentMessage
     my ($self) = @_;
 
     return $self->{permanentMessage};
+}
+
+# Method: permanentMessageType
+#
+#   Return the type for the defined permanent message
+#
+# Returns:
+#
+#   string - note, ad or warning
+#
+sub permanentMessageType
+{
+    my ($self) = @_;
+
+    return $self->{permanentMessageType};
 }
 
 # Method: setOnChangeActions

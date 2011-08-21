@@ -44,7 +44,7 @@ use Data::Dumper;
 
 <div class='endForm'>
 <form id='acceptChanges' method='post'
-    action='/zentyal/ServiceModule/ConfigureModuleController'
+    action='/ServiceModule/ConfigureModuleController'
     onsubmit='$("accept").hide(); $("accept_loading").show()'>
 
     <input class='inputButton' type='submit' name='accept' id='accept'

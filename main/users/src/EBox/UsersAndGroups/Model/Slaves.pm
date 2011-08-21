@@ -66,7 +66,7 @@ sub _table
         'tableName' => 'Slaves',
         'printableTableName' => __('List of slaves'),
         'defaultController' =>
-            '/zentyal/Users/Controller/Slaves',
+            '/Users/Controller/Slaves',
         'defaultActions' =>
             ['changeView', 'del'],
         'tableDescription' => \@tableHead,

@@ -109,7 +109,7 @@ sub ConfigurationMethod
 #
 sub ConfigureURL
 {
-    return '/zentyal/Monitor/View/MeasureWatchers';
+    return '/Monitor/View/MeasureWatchers';
 }
 
 # Method: Able

@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/zentyal/MailFilter/Composite/POPProxyReport';
+    return '/MailFilter/Composite/POPProxyReport';
 }
 
 

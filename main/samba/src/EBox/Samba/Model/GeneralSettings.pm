@@ -94,7 +94,7 @@ sub validateTypedRow
 
     if ($pam and $pdc) {
         throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
-            ohref => q{<a href='/zentyal/Users/Composite/Settings/'>},
+            ohref => q{<a href='/Users/Composite/Settings/'>},
             chref => q{</a>}));
     }
 }
@@ -112,6 +112,9 @@ sub _checkDomainName
 
 sub _table
 {
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless defined ($prefix);
+
     my @tableHead =
     (
         new EBox::Types::Boolean(
@@ -123,7 +126,7 @@ sub _table
         new EBox::Types::DomainName(
             'fieldName' => 'workgroup',
             'printableName' => __('Domain name'),
-            'defaultValue' => 'ZENTYAL-DOMAIN',
+            'defaultValue' => uc($prefix) . '-DOMAIN',
             'editable' => 1,
         ),
         new EBox::Types::Text(
@@ -135,7 +138,7 @@ sub _table
         new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'defaultValue' => 'Zentyal File Server',
+            'defaultValue' => ucfirst($prefix) . ' File Server',
             'editable' => 1,
         ),
         new EBox::Types::Boolean(

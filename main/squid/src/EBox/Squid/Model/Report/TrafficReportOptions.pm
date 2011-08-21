@@ -48,7 +48,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/zentyal/Squid/Composite/TrafficReport';
+    return '/Squid/Composite/TrafficReport';
 }
 
 

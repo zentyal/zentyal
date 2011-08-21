@@ -74,7 +74,7 @@ sub _table
                         'tableName' => 'ExternalAliases',
                         'printableTableName' => __('External Aliases'),
                         'defaultController' =>
-            '/zentyal/Mail/Controller/ExternalAliases',
+            '/Mail/Controller/ExternalAliases',
                         'defaultActions' =>
                                 ['add', 'del', 'changeView'],
                         'tableDescription' => \@tableHead,

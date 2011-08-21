@@ -76,7 +76,7 @@ sub _table
         'tableName' => 'Users',
         'printableTableName' => __('Users'),
         'defaultController' =>
-            '/zentyal/Users/Controller/Users',
+            '/Users/Controller/Users',
         'defaultActions' =>
             ['changeView'],
         'tableDescription' => \@tableHead,
@@ -173,7 +173,7 @@ sub row
         my $userInfo  = $users->userInfo($id);
         my $userName = $userInfo->{'username'};
         my $full = $userInfo->{'fullname'};
-        my $link = "/zentyal/UsersAndGroups/User?username=$userName";
+        my $link = "/UsersAndGroups/User?username=$userName";
         my $row = $self->_setValueRow(name => $userName,
                 fullname => $full,
                 'edit' => $link);

@@ -76,7 +76,7 @@ sub HTMLTitle
     return ([
              {
               title => __('Virtual Machines'),
-              link  => '/zentyal/Virt/View/VirtualMachines',
+              link  => '/Virt/View/VirtualMachines',
              },
              {
               title => $self->parentRow()->valueByName('name'),

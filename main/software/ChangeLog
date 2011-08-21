@@ -1,4 +1,7 @@
 HEAD
+	+ Better integration with core theme
+	+ Removed /zentyal prefix from URLs
+	+ Moved CSS styles to core
 	+ Updated some strings for better understanding
 	+ Added missing metapackage dependencies
 2.1.10

@@ -1,12 +1,15 @@
+<%args>
+$image_title
+</%args>
 <%init>
 use EBox::Gettext;
 </%init>
 <div id="top"></div>
 	<div id="header">
           <a href="/zentyal">
-            <img src="/data/images/title.png" alt="title"/>
+            <img src="<% $image_title %>" alt="title"/>
           </a>
         </div>
 	<div id="hmenu">
-	  <a id="m" href="/zentyal/Logout/Index"><% __('Logout') %></a>
+	  <a id="m" href="/Logout/Index"><% __('Logout') %></a>
 	</div>

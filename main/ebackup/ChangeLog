@@ -1,3 +1,6 @@
+HEAD
+	+ Better integration with core theme
+	+ Removed /zentyal prefix from URLs
 2.1.6
 	+ Fixed revokeAlModules call on read-only global instances when
 	  dumping extra backup data

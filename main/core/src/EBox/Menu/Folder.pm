@@ -58,7 +58,7 @@ sub html
         if ($url eq $current) {
             $show = 1;
         }
-        $html .= "<a title='$text' href='/zentyal/$url' class='navarrow' ";
+        $html .= "<a title='$text' href='/$url' class='navarrow' ";
     } else {
         $html .= "<a title='$text' href='' class='navarrow' ";
         $html .= "onclick=\"showMenu('menu$self->{name}');return false;\"";

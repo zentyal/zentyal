@@ -48,7 +48,7 @@ sub _table
         tableName          => 'FilterGroupExtensionFilter',
         printableTableName => __('Configure allowed file extensions'),
         modelDomain        => 'Squid',
-        defaultController  => '/zentyal/Squid/Controller/FilterGroupExtensionFilter',
+        defaultController  => '/Squid/Controller/FilterGroupExtensionFilter',
         defaultActions     =>
             [
             'add', 'del',

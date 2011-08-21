@@ -113,7 +113,7 @@ sub validateTypedRow
         if ($apache->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
                     __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
-                        ohref => '<a href="/zentyal/EBox/General">', chref => '</a>')
+                        ohref => '<a href="/EBox/General">', chref => '</a>')
                     );
         }
         # Only check availablePort if our port it not already in our service

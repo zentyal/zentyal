@@ -553,6 +553,23 @@ sub permanentMessage
     return $self->{permanentMessage};
 }
 
+
+# Method: permanentMessageType
+#
+#   Return the type for the defined permanent message
+#
+# Returns:
+#
+#   string - note, ad or warning
+#
+sub permanentMessageType
+{
+    my ($self) = @_;
+
+    return $self->{permanentMessageType};
+}
+
+
 # Method: selectMessage
 #
 #     Get the string message shown when the must select one of the
@@ -734,6 +751,9 @@ sub Viewer
 #       permanentMessage - String the permanent message to be shown
 #       always as a side note in the composite *(Optional)*
 #
+#       permanentMessage - Type of permanent message: note (default),
+#       ad, warning *(Optional)*
+#
 #
 sub _description
 {
@@ -770,6 +790,7 @@ sub _setDescription
       $self->{printableName} = '';
       $self->{help} = '';
       $self->{permanentMessage} = '';
+      $self->{permanentMessageType} = 'note';
       $self->{selectMessage} = __('Choose one of the following:');
       $self->{compositeDomain} = delete ( $description->{compositeDomain} );
       $self->{menuNamespace} = delete ($description->{menuNamespace});
@@ -798,7 +819,7 @@ sub _setDescription
       }
 
       # String properties
-      foreach my $property (qw(printableName help permanentMessage)) {
+      foreach my $property (qw(printableName help permanentMessage permanentMessageType)) {
           if ( exists ($description->{$property})) {
               $self->{$property} = delete ( $description->{$property} );
           }
@@ -892,7 +913,7 @@ sub _setDefaultActions
       $actionsRef = {} unless defined ($actionsRef);
       if ( defined ( $self->compositeDomain() )) {
           unless ( exists $actionsRef->{view} ) {
-              $actionsRef->{view} = '/zentyal/' . $self->compositeDomain() .
+              $actionsRef->{view} = '/' . $self->compositeDomain() .
                 '/Composite/' . $self->name();
               if ( $self->index() ) {
                   # Append the index
@@ -900,7 +921,7 @@ sub _setDefaultActions
               }
           }
           unless ( exists $actionsRef->{changeView} ) {
-              $actionsRef->{changeView} = '/zentyal/' . $self->compositeDomain() .
+              $actionsRef->{changeView} = '/' . $self->compositeDomain() .
                 '/Composite/' . $self->name();
               if ( $self->index() ) {
                   $actionsRef->{changeView} .= '/' . $self->index();

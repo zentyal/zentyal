@@ -193,7 +193,7 @@ sub reportUrls
     my @urls;
     foreach my $tableInfo  (@tableInfos) {
       my $index = $tableInfo->{index};
-      my $rawUrl = "/zentyal/Logs/Index?selected=$index&refresh=1";
+      my $rawUrl = "/Logs/Index?selected=$index&refresh=1";
 
 
       if (not $tableInfo->{consolidate}) {
@@ -219,7 +219,7 @@ sub reportUrls
           my $compName = $comp->name();
           my %compUrls =(
                          domain => $tableInfo->{name},
-                         summary => "/zentyal/$urlModName/Composite/$compName",
+                         summary => "/$urlModName/Composite/$compName",
                       );
           if ($first) {
               $compUrls{raw} = $rawUrl;

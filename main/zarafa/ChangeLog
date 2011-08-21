@@ -1,4 +1,5 @@
 HEAD
+	+ Removed /zentyal prefix from URLs
 	+ Bugfix: create shared folders will fail if for some reason they were
 	  already created, like on a backup restore, run that without raising
 	  exception

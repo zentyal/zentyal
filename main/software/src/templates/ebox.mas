@@ -158,93 +158,6 @@ my $first = EBox::Global->first();
     margin-bottom: 2px;
 }
 
-.feature {
-      display:inline;
-      float:left;
-      padding-left:10px;
-      width: 355px;
-      height: 250px;
-}
-
-.image:hover {
-    filter: alpha(opacity=50);
-    -moz-opacity: 0.5;
-    KhtmlOpacity: .5;
-    opacity: .5;
-    cursor: pointer;
-}
-
-.info {
-    background-color:#ecf5da;
-    padding: 15px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
-
-.close_button {
-    float: right;
-    font-size: 1.4em;
-    text-decoration: none;
-    color: #A6C733;
-    font-weight: bold;
-}
-
-#packages {
-    margin: 20px 0 10px 0;
-    border: 1px solid #CCC;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
-    padding: 10px 0;
-}
-
-.package {
-    text-align: center;
-    margin: 8px;
-    display: inline-block;
-    width: 80px;
-    height: 70px;
-    overflow: hidden;
-    padding: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    vertical-align: middle;
-}
-
-.package:hover {
-    background: #ECF5DA;
-    cursor: pointer;
-}
-
-.package img {
-    height: 32px;
-    width: 32px;
-    margin-top: 5px;
-}
-
-.package p {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
-}
-
-.package_installed, .package_selected, .package_selected:hover {
-    background: #D3EF6A;
-}
-
-.selected {
-    background:none repeat scroll 0 0 #FFFFFF;
-    border-color:#787878 #787878 #FFFFFF;
-    border-style:solid;
-    border-width:1px;
-    color:#000000;
-    padding:5px 10px;
-    font-weight:normal;
-}
-
-
 h3 {
     margin-top: 0;
 }
@@ -339,7 +252,7 @@ var pkgTable = new Array(
            ofhref => '<a href="http://forum.zentyal.org/" target="_blank">', chref => '</a>') %>
 </div>
 % } else {
-<div style="padding: 15px 0">
+<div id="software" style="padding: 15px 0">
 <div id="basic">
 % unless ($first) {
     <a href='#' onclick="Effect.Fade('basic', { duration: 0.3 }); Effect.Appear('advanced', { duration: 0.3, queue: 'end' })"><%__('View advanced mode')%></a>
@@ -680,7 +593,7 @@ var pkgTable = new Array(
        <div style="text-align: right">
         <button onclick="sendFormBasic()"><img src="/data/images/install.gif"> <% __('Install') %></button>
 % if ($first) {
-        <button onclick="document.location.href='/zentyal/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
+        <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/right.gif"> <% __('Skip install') %> </button>
 % }
        </div>
 

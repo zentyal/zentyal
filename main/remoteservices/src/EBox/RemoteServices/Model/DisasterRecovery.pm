@@ -114,7 +114,7 @@ sub viewCustomizer
         $msg .= '<br/><br/>' if ($msg);
         $msg .= _DRmessage();
     }
-    $customizer->setPermanentMessage($msg) if ($msg);
+    $customizer->setPermanentMessage($msg, 'ad') if ($msg);
     return $customizer;
 }
 

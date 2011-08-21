@@ -87,7 +87,7 @@ sub _table
           tableName          => 'NoCacheDomains',
           printableTableName => __('Cache exemptions'),
           modelDomain        => 'Squid',
-          'defaultController' => '/zentyal/Squid/Controller/NoCacheDomains',
+          'defaultController' => '/Squid/Controller/NoCacheDomains',
           'defaultActions' =>
               [
               'add', 'del',

@@ -75,7 +75,7 @@ sub _table
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{Sender policy}),
      modelDomain        => 'MailFilter',
-     'defaultController' => '/zentyal/MailFilter/Controller/AntispamACL',
+     'defaultController' => '/MailFilter/Controller/AntispamACL',
      'defaultActions' => [
                           'add', 'del',
                           'editField',
@@ -162,7 +162,7 @@ sub viewCustomizer
 		$custom->setHTMLTitle([
 			{
 			title => __('Virtual Domains'),
-			link  => '/zentyal/MailFilter/Composite/Amavis#VDomains'
+			link  => '/MailFilter/Composite/Amavis#VDomains'
 			},
 			{
 			title => $self->parentRow()->printableValueByName('vdomain'),

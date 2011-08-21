@@ -223,7 +223,7 @@ sub _table
                               editable      => 1,
                               subtypes      =>
                               [new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
-                                                            printableName => 'Zentyal',
+                                                            printableName => __('Zentyal'),
                                                            ),
                                new EBox::Types::Host(fieldName     => 'nextServerHost',
                                                      printableName => __('Host'),

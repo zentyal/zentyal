@@ -81,7 +81,7 @@ sub _table
      tableName          => __PACKAGE__->nameFromClass,
      printableTableName => __(q{External mail servers}),
      modelDomain        => 'Mail',
-     'defaultController' => '/zentyal/MailFilter/Controller/ExternalMTA',
+     'defaultController' => '/MailFilter/Controller/ExternalMTA',
      'defaultActions' => [
                           'add', 'del',
                           'editField',

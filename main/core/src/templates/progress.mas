@@ -10,10 +10,10 @@ $currentItemCaption => undef
 $itemsLeftMessage   => undef
 $endNote            => undef
 $errorNote          => undef
-$currentItemUrl => '/zentyal/SysInfo/CurrentProgress'
+$currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
-$nextStepUrl => '/zentyal/Dashboard/Index'
+$nextStepUrl => '/Dashboard/Index'
 $nextStepText => 'Click here to return to the Dashboard'
 $nextStepTimeout => 0
 </%args>
@@ -153,8 +153,8 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <br/>
 <div id="progress_bar">
 	<div class="percent" id="percentValue"></div>
-    <div style="height: 20px; width: 780px; margin: 5px 0; background-color: #e4f88e; -moz-border-radius: 5px; border-radius: 5px">
-        <div id="progressValue" style="height: 20px; width: 0; background-color: #bbdf39; -moz-border-radius: 5px; border-radius: 5px"></div>
+    <div class="bar">
+        <div id="progressValue"></div>
     </div>
 </div>
 <br/>

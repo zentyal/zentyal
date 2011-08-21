@@ -95,7 +95,7 @@ sub viewCustomizer
     $customizer->setModel($self);
     my $rs = $self->{gconfmodule};
     if ( $rs->technicalSupport() < 0 ) {
-        $customizer->setPermanentMessage(_message());
+        $customizer->setPermanentMessage(_message(), 'ad');
     }
     return $customizer;
 }

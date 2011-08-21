@@ -34,9 +34,7 @@ images = images/delete.gif images/show.gif \
   images/bg.gif images/asc.gif images/desc.gif \
   images/exclamation.png images/encrypted.png images/run.gif
 
-css = css/modalbox.css
-
-nobase_www_DATA = $(images) $(css) $(js) default.theme favicon.ico
+nobase_www_DATA = $(images) $(js) default.theme favicon.ico
 
 EXTRA_DIST = $(nobase_www_DATA)
 

@@ -70,8 +70,8 @@ sub _table
                                 'fieldName' => 'members',
                                 'printableName' => __('Members'),
                                 'foreignModel' => 'MemberTable',
-                                'view' => '/zentyal/Objects/View/MemberTable',
-                                'backView' => '/zentyal/Objects/View/MemberTable',
+                                'view' => '/Objects/View/MemberTable',
+                                'backView' => '/Objects/View/MemberTable',
                              )
 
           );
@@ -82,7 +82,7 @@ sub _table
             'pageTitle' => __('Objects'),
             'printableTableName' => __('Objects List'),
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/Objects/Controller/ObjectTable',
+            'defaultController' => '/Objects/Controller/ObjectTable',
             'HTTPUrlView'   => 'Objects/View/ObjectTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,

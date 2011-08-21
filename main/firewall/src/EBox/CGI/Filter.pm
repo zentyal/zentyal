@@ -21,6 +21,7 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
+use EBox::Config;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -28,8 +29,14 @@ sub new # (error=?, msg=?, cgi=?)
 	my $self = $class->SUPER::new('title' => ('Packet Filter'),
 				      'template' => '/firewall/filter.mas',
 				      @_);
-	bless($self, $class);
-	return $self;
+
+    my $hideImages = EBox::Config::configkey('hide_firewall_images');
+    if (defined ($hideImages)) {
+        $self->{params} = [ showImages => 0 ];
+    }
+
+    bless($self, $class);
+    return $self;
 }
 
 1;

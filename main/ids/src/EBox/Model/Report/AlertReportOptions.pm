@@ -42,7 +42,7 @@ sub modelDomain
 
 sub reportUrl
 {
-    return '/zentyal/IDS/Composite/AlertReport';
+    return '/IDS/Composite/AlertReport';
 }
 
 1;

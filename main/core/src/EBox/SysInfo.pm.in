@@ -106,30 +106,34 @@ sub generalWidget
     my $time = `$time_command`;
 
     my $version = $self->{version};
-    my $lastVersion;
-    open (my $fh, LATEST_VERSION);
-    read ($fh, $lastVersion, 16);
-    chomp($lastVersion);
-    close ($fh);
 
     my $qaUpdates = 0;
+    my $url = 'http://update.zentyal.org/updates';
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $qaUpdates = $rs->subscriptionLevel() > 0;
     }
 
-    my $url = 'http://update.zentyal.org/updates';
-    if (EBox::Util::Version::compare($lastVersion, $version) == 1) {
-        unless ($qaUpdates) {
-            my $available = __('available');
-            $version .=
-                " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
+    my $ignore = EBox::Config::configkey('widget_ignore_updates');
+    unless (defined ($ignore) and ($ignore eq 'yes')) {
+        my $lastVersion;
+        open (my $fh, LATEST_VERSION);
+        read ($fh, $lastVersion, 16);
+        chomp($lastVersion);
+        close ($fh);
+
+        if (EBox::Util::Version::compare($lastVersion, $version) == 1) {
+            unless ($qaUpdates) {
+                my $available = __('available');
+                $version .=
+                    " (<a target='_blank' href='$url'>$lastVersion $available</a>)";
+            }
         }
     }
 
     my $updatesStr  = __('No updates');
     my $updatesType = 'good';
-    if ( $qaUpdates ) {
+    if ($qaUpdates) {
         my $msg = $self->_secureMsg();
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
     } else {
@@ -143,11 +147,13 @@ sub generalWidget
             $updatesStr = __x('{n} system updates', n => $updates->[0]);
         }
         my $href = $url;
-        if ( EBox::Global->modExists('software') ) {
+        if (EBox::Global->modExists('software')) {
             $href = '/Software/Updates';
         }
-        my $msg = $self->_commercialMsg();
-        $updatesStr = qq{<a href="$href" title="$msg">$updatesStr</a>};
+        unless ($ignore) {
+            my $msg = $self->_commercialMsg();
+            $updatesStr = qq{<a href="$href" title="$msg">$updatesStr</a>};
+        }
     }
 
     my $uptime_output=`uptime`;

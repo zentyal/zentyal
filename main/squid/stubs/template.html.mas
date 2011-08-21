@@ -6,7 +6,7 @@ use EBox::Gettext;
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>
-      Zentyal - <% __d('Access Denied', 'squid') %>
+      Zentyal - <% __('Access Denied') %>
     </title>
     <style type="text/css" media="screen">
     body {background: #fff url(http://static.zentyal.org/img/ebox-bg.png) repeat-x top left; font-family: Helvetica, Arial, sans-serif; color: #222;}
@@ -27,24 +27,24 @@ use EBox::Gettext;
           <td align="center" class="head">
             <img src="http://static.zentyal.org/img/zentyal.png" align="left" alt="Zentyal" />
             <h1>
-              <% __d('Access has been Denied', 'squid') %>
+              <% __('Access has been Denied') %>
             </h1>
           </td>
         </tr>
         <tr>
           <td width="550" bgcolor="#FFFFFF" align="left" valign="top" id="content">
             <div id="main">
-              <p><% __dx("Access to the page: {page} has been denied for the following reason", 'squid', page => '<a href="-URL-" class="blockedurl">-URL-</a>') %>:</p>
+              <p><% __x("Access to the page: {page} has been denied for the following reason", page => '<a href="-URL-" class="blockedurl">-URL-</a>') %>:</p>
               <p class="reason">-REASONGIVEN-</p>
-              <p><% __d('Categories', 'squid') %>:</p>
+              <p><% __('Categories') %>:</p>
               <p class="categories">-CATEGORIES-</p>
-              <p><% __d('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.', 'squid') %></p>
-              <p><% __d('If you have any queries contact your ICT Coordinator or Network Manager.', 'squid') %></p>
+              <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
+              <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
             </div>
           </td>
         </tr>
       </table>
-      <div class="foot"><% __d('Powered by', 'squid') %> <a href="http://www.zentyal.org/">Zentyal</a></div>
+      <div class="foot"><% __('Powered by') %> <a href="http://www.zentyal.org/">Zentyal</a></div>
 
 <!--
 The available variables are as follows:

@@ -24,6 +24,7 @@ use Error qw(:try);
 
 use constant LOG_FILE => EBox::Config::log() . 'software.log';
 my $DPKG_RUNNING_FILE = EBox::GlobalImpl::DPKG_RUNNING_FILE;
+my $customPrefix = EBox::Config::configkey('custom_prefix');
 
 my ($command, @packages) = @ARGV;
 
@@ -82,6 +83,9 @@ try {
         }
 
         if ($out) {
+            if ($customPrefix) {
+                $out =~ s/zentyal-/$customPrefix-/;
+            }
             print $write $out;
         }
     }

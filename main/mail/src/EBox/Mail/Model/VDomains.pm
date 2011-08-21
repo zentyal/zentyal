@@ -63,22 +63,22 @@ sub _table
                       fieldName => 'aliases',
                        printableName => __('Virtual domain aliases'),
                       foreignModel => 'mail/VDomainAliases',
-                      'view' => '/zentyal/Mail/View/VDomainAliases',
-                      'backView' => '/zentyal/Mail/View/VDomains',
+                      'view' => '/Mail/View/VDomainAliases',
+                      'backView' => '/Mail/View/VDomains',
                      ),
                new EBox::Types::HasMany(
                       fieldName => 'externalAliases',
                        printableName => __('External accounts aliases'),
                       foreignModel => 'mail/ExternalAliases',
-                      'view' => '/zentyal/Mail/View/ExternalAliases',
-                      'backView' => '/zentyal/Mail/View/VDomains',
+                      'view' => '/Mail/View/ExternalAliases',
+                      'backView' => '/Mail/View/VDomains',
                      ),
                new EBox::Types::HasMany(
                       fieldName => 'settings',
                        printableName => __('Settings'),
                       foreignModel => 'mail/VDomainSettings',
-                      'view' => '/zentyal/Mail/View/VDomainSettings',
-                      'backView' => '/zentyal/Mail/View/VDomains',
+                      'view' => '/Mail/View/VDomainSettings',
+                      'backView' => '/Mail/View/VDomains',
                      ),
 
 
@@ -91,7 +91,7 @@ sub _table
                         'pageTitle'         => __('Virtual Domains'),
                         'HTTPUrlView'       => 'Mail/View/VDomains',
                         'defaultController' =>
-            '/zentyal/Mail/Controller/VDomains',
+            '/Mail/Controller/VDomains',
                         'defaultActions' =>
                                 ['add', 'del', 'changeView'],
                         'tableDescription' => \@tableHead,

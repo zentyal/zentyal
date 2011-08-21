@@ -40,6 +40,7 @@ use YAML::XS;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 use Perl6::Junction qw(any all);
+use EBox::Util::GPG;
 
 use Digest::MD5;
 use AptPkg::Cache;
@@ -113,9 +114,16 @@ sub theme
 sub _readTheme
 {
     my $path = EBox::Config::share() . 'zentyal/www';
-    my $theme = "$path/custom.theme";
-    unless (-f $theme) {
-        $theme = "$path/default.theme";
+    my $theme = "$path/default.theme";
+    my $custom = "$path/custom.theme";
+    if (-f $custom) {
+        # Check theme's signature
+        if (EBox::Util::GPG::checkSignature($custom)) {
+            $theme = $custom;
+            EBox::info('Using custom default.theme');
+        } else {
+            EBox::warn('Invalid signature in custom.theme, fallbacking to default.theme');
+        }
     }
     my ($yaml) = YAML::XS::LoadFile($theme);
     return $yaml;

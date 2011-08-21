@@ -326,10 +326,10 @@ sub acquireEventConfURL
     };
 
     if ( $logFilteringWatcher ) {
-        return '/zentyal/' . $logFilteringWatcher->menuNamespace()
+        return '/' . $logFilteringWatcher->menuNamespace()
           . "?directory=$filterDirectory";
     } else {
-        return '/zentyal/';
+        return '/';
     }
 
 }
@@ -390,7 +390,7 @@ sub _table
         {
             'tableName' => 'ConfigureLogTable',
             'printableTableName' => __('Current configuration'),
-            'defaultController' => '/zentyal/Logs/Controller/ConfigureLogTable',
+            'defaultController' => '/Logs/Controller/ConfigureLogTable',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

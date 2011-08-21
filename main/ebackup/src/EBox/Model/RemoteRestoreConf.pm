@@ -142,10 +142,9 @@ sub formSubmitted
 
     my $backupFile = $self->_backupFile($date);
 
-    my $url = '/zentyal/EBox/Backup?restoreFromFile=1&mode=configurationRestore&backupfile=' . $backupFile  ;
+    my $url = "/EBox/Backup?restoreFromFile=1&mode=configurationRestore&backupfile=$backupFile";
 
     $self->pushRedirection($url)
-
 }
 
 

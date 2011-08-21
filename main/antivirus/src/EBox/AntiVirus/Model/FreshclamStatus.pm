@@ -65,7 +65,7 @@ sub viewCustomizer
     }
 
     unless ( $securityUpdatesAddOn ) {
-        $customizer->setPermanentMessage($self->_commercialMsg());
+        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
 
     return $customizer;

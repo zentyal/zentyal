@@ -13,7 +13,7 @@
 %   }
 
     <table class="formTable">
-    <form action="/zentyal/Asterisk/AsteriskUserOptions" method="POST">
+    <form action="/Asterisk/AsteriskUserOptions" method="POST">
         <input type="hidden" name="username" value="<% $params->{'username'} %>">
         <tr>
         <td class="tright">

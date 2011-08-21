@@ -193,8 +193,8 @@ sub _table
                                 'fieldName' => 'hostnames',
                                 'printableName' => __('Hostnames'),
                                 'foreignModel' => 'HostnameTable',
-                                'view' => '/zentyal/DNS/View/HostnameTable',
-                                'backView' => '/zentyal/DNS/View/DomainTable',
+                                'view' => '/DNS/View/HostnameTable',
+                                'backView' => '/DNS/View/DomainTable',
                                 'size' => '1',
                              ),
             new EBox::Types::HasMany
@@ -202,32 +202,32 @@ sub _table
                                 'fieldName' => 'mailExchangers',
                                 'printableName' => __('Mail Exchangers'),
                                 'foreignModel' => 'MailExchanger',
-                                'view' => '/zentyal/DNS/View/MailExchanger',
-                                'backView' => '/zentyal/DNS/View/DomainTable',
+                                'view' => '/DNS/View/MailExchanger',
+                                'backView' => '/DNS/View/DomainTable',
                              ),
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'nameServers',
                                 'printableName' => __('Name Servers'),
                                 'foreignModel' => 'NameServer',
-                                'view' => '/zentyal/DNS/View/NameServer',
-                                'backView' => '/zentyal/DNS/View/DomainTable',
+                                'view' => '/DNS/View/NameServer',
+                                'backView' => '/DNS/View/DomainTable',
                              ),
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'txt',
                                 'printableName' => __x('{txt} records', txt => 'TXT'),
                                 'foreignModel' => 'Text',
-                                'view' => '/zentyal/DNS/View/Text',
-                                'backView' => '/zentyal/DNS/View/Text',
+                                'view' => '/DNS/View/Text',
+                                'backView' => '/DNS/View/Text',
                              ),
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'srv',
                                 'printableName' => __x('Services'),
                                 'foreignModel' => 'Services',
-                                'view' => '/zentyal/DNS/View/Services',
-                                'backView' => '/zentyal/DNS/View/Services',
+                                'view' => '/DNS/View/Services',
+                                'backView' => '/DNS/View/Services',
                              ),
             new EBox::Types::HostIP
                             (
@@ -264,7 +264,7 @@ sub _table
             'tableName' => 'DomainTable',
             'printableTableName' => __('Domains'),
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/Dns/Controller/DomainTable',
+            'defaultController' => '/Dns/Controller/DomainTable',
             'HTTPUrlView'=> 'DNS/View/DomainTable',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,

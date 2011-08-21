@@ -92,7 +92,7 @@ sub viewCustomizer
     $customizer->setModel($self);
     my $rs = $self->{gconfmodule};
     unless ( $rs->securityUpdatesAddOn() ) {
-        $customizer->setPermanentMessage(_message());
+        $customizer->setPermanentMessage(_message(), 'ad');
     }
     return $customizer;
 }

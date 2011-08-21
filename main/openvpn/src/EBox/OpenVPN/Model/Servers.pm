@@ -83,8 +83,8 @@ sub _table
                                 'fieldName' => 'configuration',
                                 'printableName' => __('Configuration'),
                                 'foreignModel' => 'ServerConfiguration',
-                                'view' => '/zentyal/OpenVPN/View/ServerConfiguration',
-                                'backView' => '/zentyal/OpenVPN/View/Servers',
+                                'view' => '/OpenVPN/View/ServerConfiguration',
+                                'backView' => '/OpenVPN/View/Servers',
                                 'size' => '1',
                              ),
             new EBox::Types::HasMany
@@ -92,8 +92,8 @@ sub _table
                                 'fieldName' => 'advertisedNetworks',
                                 'printableName' => __('Advertised networks'),
                                 'foreignModel' => 'ExposedNetworks',
-                                'view' => '/zentyal/OpenVPN/View/ExposedNetworks',
-                                'backView' => '/zentyal/OpenVPN/View/Servers',
+                                'view' => '/OpenVPN/View/ExposedNetworks',
+                                'backView' => '/OpenVPN/View/Servers',
                                 'size' => '1',
                              ),
             new EBox::Types::HasMany
@@ -101,8 +101,8 @@ sub _table
                                 'fieldName' => 'download',
                                 'printableName' => __('Download client bundle'),
                                 'foreignModel' => 'DownloadClientBundle',
-                                'view' => '/zentyal/OpenVPN/View/DownloadClientBundle',
-                                'backView' => '/zentyal/OpenVPN/View/Servers',
+                                'view' => '/OpenVPN/View/DownloadClientBundle',
+                                'backView' => '/OpenVPN/View/Servers',
                                 'size' => '1',
                              ),
                              __PACKAGE__->interfaceFields(),
@@ -115,7 +115,7 @@ sub _table
             'pageTitle' => __('VPN servers'),
             'HTTPUrlView' => 'OpenVPN/View/Servers',
             'automaticRemove' => 1,
-            'defaultController' => '/zentyal/OpenVPN/Controller/Servers',
+            'defaultController' => '/OpenVPN/Controller/Servers',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
@@ -169,14 +169,14 @@ sub preconditionFailMsg
             . 'VPN servers. {closepar}{openpar}Please, go to the {openhref} '
             . 'certification authority module{closehref} and renew it.'
             . '{closepar}',
-            openhref => qq{<a href='/zentyal/CA/Index'>}, closehref => qq{</a>},
+            openhref => qq{<a href='/CA/Index'>}, closehref => qq{</a>},
             openpar => '<p>', closepar => '</p>');
     } else {
         return  __x('{openpar}You need to create a CA certificate to run '
             .'VPN servers. {closepar}{openpar}Please, go to the {openhref}'
             .'certification authority module{closehref} and create it.'
             .'{closepar}',
-            openhref => qq{<a href='/zentyal/CA/Index'>}, closehref => qq{</a>},
+            openhref => qq{<a href='/CA/Index'>}, closehref => qq{</a>},
             openpar => '<p>', closepar => '</p>');
     }
 }

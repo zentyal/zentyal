@@ -214,6 +214,9 @@ sub isEnabled
 sub wizardPages
 {
     my ($self) = @_;
+
+    return [] if defined (EBox::Config::configkey('hide_subscription_wizard'));
+
     return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
 }
 
@@ -1623,10 +1626,10 @@ sub _ccConnectionWidget
       ( __('None'), '', '', 'info', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
-                       oh => '<a href="/zentyal/RemoteServices/View/AdvancedSecurityUpdates">',
+                       oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
                        ch => '</a>');
     my $supportValue = __x('Disabled - {oh}Enable{ch}',
-                           oh => '<a href="/zentyal/RemoteServices/Composite/Technical">',
+                           oh => '<a href="/RemoteServices/Composite/Technical">',
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
@@ -1687,13 +1690,13 @@ sub _ccConnectionWidget
 
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
-                               oh => '<a href="/zentyal/RemoteServices/Composite/General">',
+                               oh => '<a href="/RemoteServices/Composite/General">',
                                ch => '</a>');
         $subsLevelValue = __sx('None - {oh}Get Free Basic Subscription!{ch}',
-                               oh => '<a href="/zentyal/RemoteServices/Composite/General">',
+                               oh => '<a href="/RemoteServices/Composite/General">',
                                ch => '</a>');
         $DRValue        = __sx('Disabled - {oh}Enable{ch}',
-                               oh => '<a href="/zentyal/RemoteServices/View/DisasterRecovery">',
+                               oh => '<a href="/RemoteServices/View/DisasterRecovery">',
                                ch => '</a>');
     }
 

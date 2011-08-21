@@ -106,11 +106,11 @@ sub viewCustomizer
     $custom->setHTMLTitle( [
         {
          title => __('Events'),
-         link  => '/zentyal/Events/Composite/GeneralComposite',
+         link  => '/Events/Composite/GeneralComposite',
         },
         {
          title => __('Monitor Watcher'),
-         link  => '/zentyal/Monitor/View/MeasureWatchers',
+         link  => '/Monitor/View/MeasureWatchers',
         },
         {
          title => __('Threshold Configuration'),
@@ -358,7 +358,7 @@ sub _table
                                      . 'resolution: {nSec} seconds', nSec => RESOLUTION) . '.<br>'
                                . __x('Take into account this configuration will be '
                                      . 'only applied if monitor {openhref}event watcher is enabled{closehref}',
-                                     openhref  => '<a href="/zentyal/Events/Composite/GeneralComposite">',
+                                     openhref  => '<a href="/Events/Composite/GeneralComposite">',
                                      closehref => '</a>')
                                ,
         enableProperty      => 1,

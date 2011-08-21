@@ -125,7 +125,7 @@ sub _table
         printableTableName => __('External mail accounts'),
         printableRowName    => __('external mail account'),
 #                         'defaultController' =>
-#             '/zentyal/Mail/Controller/ExternalAccounts',
+#             '/Mail/Controller/ExternalAccounts',
         defaultActions     => ['add', 'editField', 'del', 'changeView' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',

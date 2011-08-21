@@ -1,5 +1,13 @@
 HEAD
 	+ Added framework to show warning messages after save changes
+	+ Change caption of remote services link to Zentyal Cloud
+	+ Do not show Cloud link if hide_cloud_link config key is defined
+	+ Added widget_ignore_updates key to hide updates in the dashboard
+	+ Differentiate ads from notes
+	+ Allow custom message type on permanentMessage
+	+ Only allow custom themes signed by Zentyal
+	+ Removed /zentyal prefix from URLs
+	+ Caps lock detection on login page now works again
 	+ Added HiddenIfNotAble property to event watchers to be hidden if
 	  it is unabled to monitor the event
 	+ Dashboard values can be now error and good as well

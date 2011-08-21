@@ -261,7 +261,7 @@ sub _header
     }
 
 
-    my $destination = "/zentyal/Logs/Index?";
+    my $destination = "/Logs/Index?";
 
     my %params = %{ $self->paramsAsHash() };
     $params{refresh} = 1; # to assure the refresh parameter is active
@@ -277,12 +277,15 @@ sub _header
     }
     $destination =~ s/&$//;
 
+    my $global = EBox::Global->getInstance();
+    my $favicon = $global->theme()->{'favicon'};
 
     print($self->cgi()->header(-charset=>'utf-8'));
     my $html = EBox::Html::makeHtml(
                                      'headerWithRefresh.mas',
                                      title => $self->{title},
-                                     destination => $destination
+                                     destination => $destination,
+                                     favicon => $favicon,
                                     );
     print $html;
 }
@@ -323,10 +326,10 @@ sub _process
 
     $self->{crumbs} = [
         {   title => __('Query Logs'),
-            link => '/zentyal/Maintenance/Logs'
+            link => '/Maintenance/Logs'
         },
         {   title => __('Full Reports'),
-            link => "/zentyal/Logs/Index?selected=$selected&refresh=1"
+            link => "/Logs/Index?selected=$selected&refresh=1"
         },
     ];
 

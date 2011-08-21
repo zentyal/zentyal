@@ -79,7 +79,7 @@ our %SERVICES = (
         require_info => 1,
     },
     cloud => {
-        printableValue => 'Zentyal Cloud',
+        printableValue => __('Zentyal Cloud'),
         protocol => 'dyndns2',
         use => 'web',
         web => 'checkip.dyndns.com',
@@ -145,7 +145,7 @@ sub viewCustomizer
 
     $customizer->setOnChangeActions( { service => $serviceAction } );
     unless ( $self->_isSubscribed() ) {
-        $customizer->setPermanentMessage(_message());
+        $customizer->setPermanentMessage(_message(), 'ad');
     }
 
     return $customizer;

@@ -1,4 +1,5 @@
 <%args>
+   $image_title
 </%args>
 <%init>
 use EBox::Gettext;
@@ -62,7 +63,7 @@ th {
 <h3><% __s('Zentyal Cloud Subscription') %></h3>
 <form method="post" style="text-align: center" action="./RemoteServices/Wizard/Subscription">
       <div class="subscription">
-        <div><img src="/data/images/title.png" style="margin: 20px" /></div>
+        <div><img src="<% $image_title %>" style="margin: 20px" /></div>
         <h4><% __s('Subscribe to Zentyal Cloud') %></h4>
         <div style="margin: 10px">
            <div id="subscription_form">

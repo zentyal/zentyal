@@ -9,7 +9,7 @@
 
     <& .captiveportalDisabledWarning, $params &>
 
-    <form action="/zentyal/CaptivePortal/UserOptions" method="post">
+    <form action="/CaptivePortal/UserOptions" method="post">
         <input type="hidden" name="username" value="<% $params->{'username'} %>">
   <table class="formTable">
     <tbody>

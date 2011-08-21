@@ -17,6 +17,27 @@
     $a_notchanged_hover_color
     $data_table_bg_color
     $additional_footer_style
+    $help_color
+    $help_background
+    $help_border
+    $note_color
+    $note_background
+    $note_border
+    $error_color
+    $error_background
+    $error_border
+    $warn_color
+    $warn_background
+    $warn_border
+    $ad_color
+    $ad_background
+    $ad_border
+    $ad_extra_style
+    $data_table_bg_even
+    $data_table_bg_highlight
+    $data_table_bg_highlight_hover
+    $dashboard_thead_bg_color
+    $image_note
 </%args>
 
 #header {
@@ -143,42 +164,50 @@
 
 .help {
     display: none;
-    border-bottom: 1px solid #1d4efa;
+    border-bottom: 1px solid <% $help_border %>;
     padding: 9pt 9pt 9pt 33pt;
-    color: #484554;
+    color: <% $help_color %>;
     font-size: 8pt;
-    background: #DFF5FE url("/data/images/help.png") 6pt 6pt no-repeat;
+    background: <% $help_background %> url("/data/images/help.png") 6pt 6pt no-repeat;
     margin: 1em 0px 1em 0px;
 }
 
-.note {
-    border-bottom: 1px solid #a9c500;
+.note, .ad {
+    border-bottom: 1px solid <% $note_border %>;
     padding: 9pt 9pt 9pt 33pt;
     margin-bottom: 10px;
-    color: #484554;
+    color: <% $note_color %>;
     font-size: 8pt;
-    background: #dfef7a url("/data/images/msg.png") 6pt 6pt no-repeat;
+    background: <% $note_background %> url("<% $image_note %>") 6pt 6pt no-repeat;
     margin: 1em 0px 0em 0px;
     margin-bottom: 5px;
 }
 
+.ad {
+    <% $ad_extra_style %>
+}
+
 .error {
-    border-bottom: 1px solid #fa601d;
+    border-bottom: 1px solid <% $error_border %>;
     padding: 9pt 9pt 9pt 33pt;
-    color: #484554;
+    color: <% $error_color %>;
     font-size: 8pt;
-    background: #FDDDD9 url("/data/images/error.png") 6pt 6pt no-repeat;
+    background: <% $error_background %> url("/data/images/error.png") 6pt 6pt no-repeat;
     margin: 1em 0px 0em 0px;
 }
 
-.warning {
-    border-bottom: 1px solid  #ebfa1d;
+.warning, .adwarning {
+    border-bottom: 1px solid  <% $warn_border %>;
     padding: 9pt 9pt 9pt 33pt;
-    color: #484554;
+    color: <% $warn_color %>;
     font-size: 8pt;
-    background: #f8fea5 url("/data/images/warning.png") 6pt 6pt no-repeat;
+    background: <% $warn_background %> url("/data/images/warning.png") 6pt 6pt no-repeat;
     margin: 1em 0px 0em 0px;
     margin-bottom: 10px;
+}
+
+.adwarning {
+    <% $ad_extra_style %>
 }
 
 .helptd {
@@ -311,9 +340,11 @@
     color: <% $secondary_color %>;
 }
 
-.dataTable tr.highlight { background: #E58A22; }
+.dataTable tr.even { background: <% $data_table_bg_even %>; }
+.dataTable tr.odd  { background: #FFF; }
 
-.dataTable tr.highlight:hover { background: #F2A349; }
+.dataTable tr.highlight { background: <% $data_table_bg_highlight %>; }
+.dataTable tr.highlight:hover { background: <% $data_table_bg_highlight_hover %>; }
 
 .iptable {
     font-size: 11px;
@@ -1040,7 +1071,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 
 .dashboardTable thead {
     color: white;
-    background-color: #808000;
+    background-color: <% $dashboard_thead_bg_color %>;
 }
 
 .dashboardTable th {
@@ -1105,3 +1136,209 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     margin-left: -18px;
     margin-top: -8px;
 }
+
+
+/* Progress bar */
+
+#progress_bar .bar {
+    height: 20px;
+    width: 780px;
+    margin: 5px 0;
+    background-color: #e4f88e;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+#progressValue {
+    height: 20px;
+    width: 0;
+    background-color: #bbdf39;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* Software styles */
+
+#software .feature {
+      display:inline;
+      float:left;
+      padding-left:10px;
+      width: 355px;
+      height: 250px;
+}
+
+#software .image:hover {
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    KhtmlOpacity: .5;
+    opacity: .5;
+    cursor: pointer;
+}
+
+#software .info {
+    background-color:#ecf5da;
+    padding: 15px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#software .close_button {
+    float: right;
+    font-size: 1.4em;
+    text-decoration: none;
+    color: #A6C733;
+    font-weight: bold;
+}
+
+#software #packages {
+    margin: 20px 0 10px 0;
+    border: 1px solid #CCC;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+    padding: 10px 0;
+}
+
+#software .package {
+    text-align: center;
+    margin: 8px;
+    display: inline-block;
+    width: 80px;
+    height: 70px;
+    overflow: hidden;
+    padding: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+#software .package:hover {
+    background: #ECF5DA;
+    cursor: pointer;
+}
+
+#software .package img {
+    height: 32px;
+    width: 32px;
+    margin-top: 5px;
+}
+
+#software .package p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+#software .package_installed, #software .package_selected, #software .package_selected:hover {
+    background: #D3EF6A;
+}
+
+#software .selected {
+    background:none repeat scroll 0 0 #FFFFFF;
+    border-color:#787878 #787878 #FFFFFF;
+    border-style:solid;
+    border-width:1px;
+    color:#000000;
+    padding:5px 10px;
+    font-weight:normal;
+}
+
+/* modalbox.js stuff */
+
+#MB_overlay {
+	position: absolute;
+	margin: auto;
+	top: 0;	left: 0;
+	width: 100%; height: 100%;
+	z-index: 9999;
+	background-color: #000!important;
+}
+#MB_overlay[id] { position: fixed; }
+
+#MB_window {
+	position: absolute;
+	top: 0;
+	border: 0 solid;
+	text-align: left;
+	z-index: 10000;
+}
+#MB_window[id] { position: fixed!important; }
+
+#MB_frame {
+	position: relative;
+	background-color: #fff;
+	height: 100%;
+}
+
+#MB_header {
+	margin: 0;
+	padding: 0;
+}
+
+#MB_content {
+	padding: 6px .75em;
+	overflow: auto;
+}
+
+#MB_caption {
+	font: bold 100% "Lucida Grande", Arial, sans-serif;
+	padding: .5em 2em .5em .75em;
+	margin: 0;
+	text-align: left;
+	font-size: 15px;
+}
+
+#MB_close {
+	display: block;
+	position: absolute;
+	right: 5px; top: 4px;
+	padding: 2px 3px;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 13px;
+}
+#MB_close:hover {
+	background: transparent;
+}
+
+#MB_loading {
+	padding: 1.5em;
+	text-indent: -10000px;
+	background: transparent url(/data/images/spinner.gif) 50% 0 no-repeat;
+}
+
+/* Color scheme */
+#MB_frame {
+	padding-bottom: 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+}
+#MB_window {
+	background-color: #FFF;
+	color: #000;
+	-webkit-box-shadow: 0 8px 64px #000;
+	-moz-box-shadow: 0 0 64px #000;
+	box-shadow: 0 0 64px #000;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+}
+#MB_header {
+  background-color: <% $main_color %>;
+  color: #fff;
+}
+#MB_caption { color: #fff }
+#MB_close { color: #777 }
+#MB_close:hover { color: #000 }
+
+/* Alert message */
+.MB_alert {
+	margin: 10px 0;
+	text-align: center;
+}
+
+/* end modalbox.js stuff */
+

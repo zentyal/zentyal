@@ -39,6 +39,10 @@ sub _process
 
     my @array = ();
 
+    my $global = EBox::Global->getInstance();
+    my $image = $global->theme()->{'image_title'};
+    push (@array, image_title => $image);
+
     if ($self->param('page')) {
         push(@array, 'pages' => [ $self->param('page') ]);
     } else {

@@ -1,6 +1,7 @@
 <%args>
   @pages
   $first => 0
+  $image_title => '/data/images/title.png'
 </%args>
 <%init>
 use EBox::Gettext;
@@ -147,7 +148,7 @@ function finalPage() {
     actualPage = pages.length;
     var showed = "wizardPage" + visible;
     content = '<div style="text-align: center; padding: 40px">';
-    content += '<div><img src="/data/images/title.png" alt="title" /></div>';
+    content += '<div><img src="<% $image_title %>" alt="title" /></div>';
 % if ($first) {
     content += '<h4><% __('Congratulations!') %></h4>';
     content += '<div><% __('Now you are ready to save changes and start using your Zentyal server') %></div>';

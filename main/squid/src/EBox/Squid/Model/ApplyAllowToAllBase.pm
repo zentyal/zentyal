@@ -159,7 +159,7 @@ sub changeRowJS
     my $onCompleteJS =  <<END;
     function(t) {
         highlightRow( id, false);
-        stripe("dataTable", "#ecf5da", "#ffffff");
+        stripe("dataTable", "even", "odd");
         $changeViewListJS;
     }
 END

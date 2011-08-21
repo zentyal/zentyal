@@ -100,9 +100,11 @@ $pageSize or
 % if ( $model->pageTitle() ) {
 %      my $viewCustomizer = $model->viewCustomizer();
 %      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
+%      my $type = $viewCustomizer ? $viewCustomizer->permanentMessageType() : undef;
 %      if ($msg) {
 <& /msg.mas,
-   msg => $msg
+   msg => $msg,
+   class => $type,
 &>
 %      }
 %      if ( $model->message() ) {

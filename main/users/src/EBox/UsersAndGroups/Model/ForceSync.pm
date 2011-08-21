@@ -68,7 +68,7 @@ sub formSubmitted
         EBox::Sudo::root(EBox::Config::scripts('users') . 'slave-sync');
     } otherwise {
     };
-    $self->pushRedirection('/zentyal/Users/Composite/SlaveInfo');
+    $self->pushRedirection('/Users/Composite/SlaveInfo');
 }
 
 # Group: Protected methods
