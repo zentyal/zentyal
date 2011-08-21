@@ -252,7 +252,7 @@
   @sections => ()
 </%args>
 %  my $formAttrs = '';
-%  if ($formData[0]->model()->disableAutocomplete()) {
+%  if (@formData and $formData[0]->model()->disableAutocomplete()) {
 %    $formAttrs = 'autocomplete="off"';
 %  }
 <form name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>

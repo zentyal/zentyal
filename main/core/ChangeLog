@@ -1,4 +1,5 @@
 HEAD
+	+ System -> Halt/Reboot works again after regression in 2.1.25
 	+ Added framework to show warning messages after save changes
 	+ Change caption of remote services link to Zentyal Cloud
 	+ Do not show Cloud link if hide_cloud_link config key is defined
