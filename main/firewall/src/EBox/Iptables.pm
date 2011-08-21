@@ -666,6 +666,7 @@ sub _executeModuleRules
 
     my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
     my @modRules;
+    my @failedMods;
     foreach my $mod (@mods) {
         my $helper = $mod->firewallHelper();
         ($helper) or next;
@@ -679,7 +680,17 @@ sub _executeModuleRules
             EBox::Sudo::root(@commands);
         } otherwise {
             EBox::error('Error executing firewall rules for module ' . $mod->name());
+            push(@failedMods, $mod->name());
         };
+    }
+
+    if (@failedMods) {
+        my $message = __('Firewall failed to add rules for the following modules: ');
+        $message .= join(', ', @failedMods) . '. ';
+
+        $message .= __('Probably this is caused by a lack of connectivity, ' .
+                       'check your configuration or disable those modules');
+        $global->addSaveMessage($message);
     }
 }
 

@@ -1,5 +1,5 @@
 HEAD
-	+ Do not crash when a firewall helper rule fails
+	+ Do not crash when a firewall helper rule fails and inform the user
 2.1.4
 	+ Fixed deprecated use of iptables command
 2.1.3
