@@ -22,6 +22,8 @@ do
     test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
     test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1
 
+    cp images/* $CD_BUILD_DIR/isolinux/
+
     pushd $SCRIPTS_DIR
 
     ./gen_locales.pl $DATA_DIR || (echo "locales files autogeneration failed.";
