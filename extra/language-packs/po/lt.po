@@ -6882,10 +6882,10 @@ msgstr "Balancuoti srautą"
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:83
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Norėdami naudotį šią galimybę turite turėti bent dvejus vartus. Galite "
-"įkelti <a href=\"/zentyal/Network/View/GatewayTable\">čia</a>"
+"įkelti <a href=\"/Network/View/GatewayTable\">čia</a>"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
 msgid "Gateways Configuration"

@@ -6842,10 +6842,10 @@ msgstr "Balanceig de trànsit"
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:83
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Per poder utilitzar aquesta funcionalitat necessita almenys dues "
-"passarel·les habilitades. Pot afegir-les <a href=\"/ebox/Network/View/"
+"passarel·les habilitades. Pot afegir-les <a href=\"/Network/View/"
 "GatewayTable\">aquí</a> primer."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

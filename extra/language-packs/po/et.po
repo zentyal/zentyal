@@ -7179,10 +7179,10 @@ msgstr "Liikluse tasakaalustamine"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Liikluse tasakaalustamise kasutamiseks läheb sul vaja vähemalt kahte lubatud "
-"lüüsi. Sa saad neid lisada <a href=\"/ebox/Network/View/GatewayTable\">siin</"
+"lüüsi. Sa saad neid lisada <a href=\"/Network/View/GatewayTable\">siin</"
 "a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

@@ -7175,10 +7175,10 @@ msgstr "Del Trafikk"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "For å bruke denne funksjonen trenger du minst to aktiverte gatewayer. Du kan "
-"legge dem til  <a href=\"/ebox/Network/View/GatewayTable\">her</a> først."
+"legge dem til  <a href=\"/Network/View/GatewayTable\">her</a> først."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
 #, fuzzy

@@ -6754,9 +6754,9 @@ msgstr "均衡流量"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"要启用该项功能，至少需要两个网关，点击<a href=\"/ebox/Network/View/"
+"要启用该项功能，至少需要两个网关，点击<a href=\"/Network/View/"
 "GatewayTable\">此处</a>添加网关。"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

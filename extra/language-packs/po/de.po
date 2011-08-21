@@ -7152,10 +7152,10 @@ msgstr "Netzverkehr verteilen"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Um diese Funktion verwenden zu können, brauchen sie mindestens zwei "
-"aktivierte Gateways. Sie können diese <a href=\"/ebox/Network/View/"
+"aktivierte Gateways. Sie können diese <a href=\"/Network/View/"
 "GatewayTable\">hier</a> hinzufügen"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

@@ -6938,10 +6938,10 @@ msgstr "Балансировка траффика"
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:83
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Для включения этой функции Вам необходимо, как минимум, два включеных шлюза. "
-"Необходимо сначала  добавить их <a href=\"/zentyal/Network/View/GatewayTable"
+"Необходимо сначала  добавить их <a href=\"/Network/View/GatewayTable"
 "\">здесь</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

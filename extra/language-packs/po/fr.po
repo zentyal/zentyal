@@ -7258,10 +7258,10 @@ msgstr "Équilibrage du trafic"
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:83
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Pour pouvoir utiliser cette fonctionnalité, vous devez avoir au moins deux "
-"passerelles activées. Vous pouvez les ajouter <a href=\"/ebox/Network/View/"
+"passerelles activées. Vous pouvez les ajouter <a href=\"/Network/View/"
 "GatewayTable\">ici</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

@@ -7203,10 +7203,10 @@ msgstr "Równoważenie ruchu sieciowego"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Aby skorzystać z tej opcji musisz ustawić przynajmniej dwie bramy. Możesz "
-"dodać bramy <a href=\"/ebox/Network/View/GatewayTable\">here</a>"
+"dodać bramy <a href=\"/Network/View/GatewayTable\">here</a>"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
 #, fuzzy

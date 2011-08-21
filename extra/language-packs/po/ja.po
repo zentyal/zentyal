@@ -6942,9 +6942,9 @@ msgstr "トラフィック調整"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/ebox/"
+"この機能を使うには、少なくとも2つのゲートウェイが必要です。<a href=\"/"
 "Network/View/GatewayDataTable\">ここから</a>追加できます。"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58

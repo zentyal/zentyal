@@ -7036,10 +7036,10 @@ msgstr "Bilancia traffico"
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:83
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Per poter usare questa funzione, hai bisogno almeno di due gateway. Puoi "
-"aggiungerli da <a href=\"/ebox/Network/View/GatewayDataTable\">qui</a>."
+"aggiungerli da <a href=\"/Network/View/GatewayDataTable\">qui</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
 #, fuzzy

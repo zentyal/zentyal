@@ -6936,10 +6936,10 @@ msgstr "Echilibrare trafic"
 #, fuzzy
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
-"can add them <a href=\"/zentyal/Network/View/GatewayTable\">here</a> first."
+"can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
 "Pentru a putea utiliza această optiune e nevoie de cel puţin două gateway-"
-"uri active. Le puteţi activa acum <a href=\"/ebox/Network/View/GatewayTable"
+"uri active. Le puteţi activa acum <a href=\"/Network/View/GatewayTable"
 "\">aici</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
