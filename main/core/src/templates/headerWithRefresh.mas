@@ -8,7 +8,7 @@ $favicon => /favicon.ico
 		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Zentyal - <% $title %></title>
+<title><% __('Zentyal') %> - <% $title %></title>
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="<% $favicon %>" />
 <script type="text/javascript" src="/data/js/common.js">//</script>
