@@ -20,25 +20,15 @@ use warnings;
 use strict;
 
 use EBox;
-use EBox::Global;
+use EBox::Util::Init;
 use Error qw(:try);
 
 my $dir = '/ebox';
 
 EBox::init();
 
-my $global = EBox::Global->getInstance();
-
 foreach my $modName (qw(apache logs events)) {
-    my $mod = $global->modInstance($modName);
-    my $error = 0;
-    try {
-        $mod->save();
-    } otherwise {
-        $error = 1;
-    };
-    system(". /lib/lsb/init-functions; " .
-            " log_begin_msg \"Restarting Zentyal module: $modName\"; log_end_msg $error");
+    EBox::Util::Init::moduleRestart($modName);
 }
 
 1;
