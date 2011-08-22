@@ -634,9 +634,6 @@ sub moduleRules
         my $helper = $mod->firewallHelper();
         ($helper) or next;
 
-        # Create chains
-        push(@modRules, @{$self->_createChains($mod, $helper)});
-
         # add rules
         push(@modRules, @{$self->_modRules($mod, $helper)});
     }
@@ -665,7 +662,6 @@ sub _executeModuleRules
         map { $model->row($_)->valueByName('rule') => 1 } @{$model->enabledRows()};
 
     my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
-    my @modRules;
     my @failedMods;
     foreach my $mod (@mods) {
         my $helper = $mod->firewallHelper();
@@ -699,6 +695,8 @@ sub _modRules
 {
     my ($self, $mod, $helper) = @_;
     my @modRules;
+
+    push(@modRules, @{$self->_createChains($mod, $helper)});
 
     push(@modRules,
             @{$self->_doRuleset($mod, 'nat', 'premodules', $helper->prerouting())}
