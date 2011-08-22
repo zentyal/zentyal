@@ -82,7 +82,7 @@ our %SERVICES = (
         printableValue => __('Zentyal Cloud'),
         protocol => 'dyndns2',
         use => 'web',
-        web => 'checkip.dyndns.com',
+        web => 'svc.joker.com/nic/checkip',
         web_skip => 'Current IP Address:',
         require_info => 0,
     },

@@ -1,4 +1,5 @@
 HEAD
+	+ Change provider for getting the public IP address in DynDNS
 	+ Better integration with core theme
 	+ Removed /zentyal prefix from URLs
 	+ Avoid errors deleting non-existent gateways
