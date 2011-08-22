@@ -125,16 +125,18 @@ sub loadAds
 {
     my $path = EBox::Config::share() . 'zentyal-software/ads';
     my $file = "$path/ads_" + EBox::locale();
-    EBox::info("Try load ads from: $file");
     unless (-f $file) {
-        $file =  "$path/ads_" . substr (EBox::locale(),0,2) ;
-        EBox::info("File $file doesn't exists, loading default ads");
-        unless(-f $file) {
-            $file = "$path/ads_EN_en";
+        $file =  "$path/ads_" . substr (EBox::locale(), 0, 2);
+        unless (-f $file) {
+            $file = "$path/ads_en";
         }
     }
-    my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error opening ads: $!");
-    my $text = "";
+    if (-f "$file.custom") {
+        $file = "$file.custom";
+    }
+    EBox::debug("Loading ads from: $file");
+    my @ads = read_file($file) or throw EBox::Exceptions::Internal("Error loading ads: $!");
+    my $text = '';
     foreach my $line (@ads) {
         $text .= $line . "\n";
     }

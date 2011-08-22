@@ -17,6 +17,7 @@ HEAD
 	  software updates
 	+ Add update-notifier-common to dependencies
 	+ EBox::DataTable::enabledRows returns rows in proper order
+	+ Use custom ads when available
 2.1.25
 	+ Do not show disabled module warnings in usercorner
 	+ Mask passwords and unify boolean values in audit log

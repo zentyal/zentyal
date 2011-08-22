@@ -2,7 +2,7 @@
 
 adsdir = $(datadir)/zentyal-software/ads
 
-ads_DATA = ads_EN_en ads_es
+ads_DATA = ads_en ads_es
 
 EXTRA_DIST = $(ads_DATA)
 
