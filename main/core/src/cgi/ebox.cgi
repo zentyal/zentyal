@@ -61,29 +61,36 @@ try {
 
     # template params
     my $theme = EBox::Global::_readTheme();
+    my $templateFile;
     my $params = {};
     $params->{image_title} = $theme->{image_title};
-    $params->{title} = __('Sorry, an unexpected error has occurred');
-    $params->{show_details} = __('Show technical details');
-    $params->{report} = __('Report the problem');
-    $params->{cancel} = __('Cancel');
-    $params->{go_back} = __('Go back');
     $params->{actions} = __('Actions');
-    $params->{email} = __('Email (you will receive updates on the report)');
-    $params->{description} = __('Describe in English what you where doing');
-    $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
-    $params->{report_error} = __("Couldn't send the report");
-    $params->{report_sent} = __('The report has been successfully sent, you can keep track of it in the following ticket:');
+    $params->{go_back} = __('Go back');
+    $params->{title} = __('Sorry, an unexpected error has occurred');
+    if ($theme->{hide_bug_report}) {
+        $params->{title} .= '. ' . __('Please contact support.');
+        $templateFile = 'cgiErrorNoReport.html';
+    } else {
+        $params->{show_details} = __('Show technical details');
+        $params->{report} = __('Report the problem');
+        $params->{cancel} = __('Cancel');
+        $params->{email} = __('Email (you will receive updates on the report)');
+        $params->{description} = __('Describe in English what you where doing');
+        $params->{newticket_url} = 'http://trac.zentyal.org/newticket';
+        $params->{report_error} = __("Couldn't send the report");
+        $params->{report_sent} = __('The report has been successfully sent, you can keep track of it in the following ticket:');
 
-    my $instructions = '<strong>' . __('To do a manual report, please follow these instructions:') . '</strong>';
-    $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
-    $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
-    $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
-    $instructions .= '<li>' . __('Download the log file with additional information by clicking') . ' <a class="nvac" href="/SysInfo/Log" id="log">' . __('here') . '</a>.</li>';
-    $instructions .= '<li>' . __('Attach the downloaded file in the ticket') . '.</li></ol>';
-    $instructions .= '<form action="Backup" method="POST" id="formreport"><input type="hidden" name="bugreport" value="a" /></form></div></div>';
+        my $instructions = '<strong>' . __('To do a manual report, please follow these instructions:') . '</strong>';
+        $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
+        $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
+        $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
+        $instructions .= '<li>' . __('Download the log file with additional information by clicking') . ' <a class="nvac" href="/SysInfo/Log" id="log">' . __('here') . '</a>.</li>';
+        $instructions .= '<li>' . __('Attach the downloaded file in the ticket') . '.</li></ol>';
+        $instructions .= '<form action="Backup" method="POST" id="formreport"><input type="hidden" name="bugreport" value="a" /></form></div></div>';
 
-    $params->{report_instructions} = $instructions;
+        $params->{report_instructions} = $instructions;
+        $templateFile = 'cgiError.html';
+    }
 
     my $error;
     if ( $ex->can('text') ) {
@@ -104,7 +111,7 @@ try {
     $params->{stacktrace} = $stacktrace;
 
     # Fill HTML template values
-    my $html = read_file(EBox::Config::templates . 'cgiError.html');
+    my $html = read_file(EBox::Config::templates . $templateFile);
     foreach my $key (%{$params}) {
         my $value = $params->{$key};
         $html =~ s/{{ $key }}/$value/g;
