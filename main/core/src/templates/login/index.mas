@@ -11,7 +11,8 @@
 use EBox::Gettext;
 </%init>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Zentyal</TITLE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD><TITLE><% __('Zentyal') %></TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <link rel="shortcut icon" href="<% $favicon %>" />
 <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
