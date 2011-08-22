@@ -23,8 +23,6 @@ use EBox;
 use EBox::Util::Init;
 use Error qw(:try);
 
-my $dir = '/ebox';
-
 EBox::init();
 
 foreach my $modName (qw(apache logs events)) {
