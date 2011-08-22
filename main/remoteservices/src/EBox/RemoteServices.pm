@@ -215,7 +215,7 @@ sub wizardPages
 {
     my ($self) = @_;
 
-    return [] if defined (EBox::Config::configkey('hide_subscription_wizard'));
+    return [] if EBox::Config::configkey('hide_subscription_wizard');
 
     return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
 }

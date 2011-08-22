@@ -52,7 +52,7 @@ sub title
     if ($global->modExists('remoteservices')) {
         my $remoteServicesMod = $global->modInstance('remoteservices');
         if ($remoteServicesMod->eBoxSubscribed()) {
-            unless (defined EBox::Config::configkey('hide_cloud_link')) {
+            unless (EBox::Config::configkey('hide_cloud_link')) {
                 $remoteServicesURL = $remoteServicesMod->controlPanelURL();
             }
         }
