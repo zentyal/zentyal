@@ -147,7 +147,7 @@ sub header # (title)
 {
     my ($title) = @_;
 
-    my $serverName = 'Zentyal';
+    my $serverName = __('Zentyal');
     my $global = EBox::Global->getInstance();
     if ( $global->modExists('remoteservices') ) {
         my $remoteServicesMod = $global->modInstance('remoteservices');

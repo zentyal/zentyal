@@ -44,7 +44,7 @@ try {
     print STDERR Dumper($ex);
 
     print header;
-    print start_html(-title => 'Zentyal',
+    print start_html(-title => __('Zentyal'),
        -script => [
             {-type => 'text/javascript',
              -src  => '/data/js/common.js'},
