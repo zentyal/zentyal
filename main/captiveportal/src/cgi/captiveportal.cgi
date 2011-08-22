@@ -4,12 +4,14 @@ use warnings;
 
 use EBox::Gettext;
 use Error qw(:try);
-use POSIX qw(:signal_h);
+use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
 
 try {
     use EBox::CGI::Run;
     use EBox;
     EBox::initLogger('captiveportal-log.conf');
+    POSIX::setlocale(LC_ALL, EBox::locale());
+    POSIX::setlocale(LC_NUMERIC, 'C');
 
     # Workaround to clear Apache2's process mask
     my $sigset = POSIX::SigSet->new();
