@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-22 13:29+0200\n"
+"POT-Creation-Date: 2011-08-22 23:38+0200\n"
 "PO-Revision-Date: 2011-07-22 16:46+0200\n"
 "Last-Translator: MarcusF <Contact@marcusfernstrom.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -416,7 +416,7 @@ msgid "Settings changed"
 msgstr "Inställningar ändrade"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:150
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "{port} används redan. Vänligen använd en annan."
@@ -2612,25 +2612,25 @@ msgstr "LOGGA"
 msgid "REDIRECT"
 msgstr "OMDIRIGERA"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:688
+#: ../../main/firewall/src/EBox/Iptables.pm:684
 msgid "Firewall failed to add rules for the following modules: "
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:691
+#: ../../main/firewall/src/EBox/Iptables.pm:687
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:938
-#: ../../main/firewall/src/EBox/Iptables.pm:975
+#: ../../main/firewall/src/EBox/Iptables.pm:936
+#: ../../main/firewall/src/EBox/Iptables.pm:973
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "Du måste sätta iptables_log_limit variabeln i eBox konfigurationsfil"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:944
-#: ../../main/firewall/src/EBox/Iptables.pm:981
+#: ../../main/firewall/src/EBox/Iptables.pm:942
+#: ../../main/firewall/src/EBox/Iptables.pm:979
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
@@ -2845,7 +2845,10 @@ msgid "Original destination"
 msgstr "Ursprunglig destination"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:258
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:49
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:49
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
+#: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
 #, fuzzy
 msgid "Zentyal"
@@ -5325,6 +5328,139 @@ msgstr ""
 msgid "Bandwidth Monitor must be enabled in order to get data."
 msgstr ""
 
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:69
+#: ../../main/core/src/cgi/ebox.cgi:67
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
+#: ../../main/ca/src/templates/index.mas:103
+#: ../../main/core/src/templates/backup.mas:133
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:70
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:70
+#: ../../main/core/src/cgi/ebox.cgi:68
+#, fuzzy
+msgid "Go back"
+msgstr "säkerhetskopia"
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:71
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:71
+#: ../../main/core/src/cgi/ebox.cgi:69
+msgid "Sorry, an unexpected error has occurred"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:73
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:73
+#: ../../main/core/src/cgi/ebox.cgi:71
+msgid "Please contact support."
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:76
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:76
+#: ../../main/core/src/cgi/ebox.cgi:74
+msgid "Show technical details"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:77
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:77
+#: ../../main/core/src/cgi/ebox.cgi:75
+#, fuzzy
+msgid "Report the problem"
+msgstr "Tidsperiod för rapport"
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:78
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:78
+#: ../../main/core/src/cgi/ebox.cgi:76
+#: ../../main/software/src/templates/del.mas:96
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
+#: ../../main/network/src/templates/confirm.mas:39
+#: ../../main/network/src/templates/confirmVlanDel.mas:24
+#: ../../main/network/src/templates/confirmremove.mas:26
+#: ../../main/samba/src/templates/delete.mas:21
+#: ../../main/ca/src/templates/forceRevoke.mas:45
+#: ../../main/core/src/templates/confirm-backup.mas:66
+#: ../../main/core/src/templates/dataInUse.mas:41
+#: ../../main/mail/src/templates/warnusermdsize.mas:26
+#: ../../main/mail/src/templates/warnvdmdsize.mas:36
+#: ../../main/mail/src/templates/warnvd.mas:32
+#: ../../main/users/src/templates/del.mas:46
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:79
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:79
+#: ../../main/core/src/cgi/ebox.cgi:77
+msgid "Email (you will receive updates on the report)"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:80
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:80
+#: ../../main/core/src/cgi/ebox.cgi:78
+msgid "Describe in English what you where doing"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:82
+#: ../../main/core/src/cgi/ebox.cgi:80
+msgid "Couldn't send the report"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:83
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:83
+#: ../../main/core/src/cgi/ebox.cgi:81
+msgid ""
+"The report has been successfully sent, you can keep track of it in the "
+"following ticket:"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:85
+#: ../../main/core/src/cgi/ebox.cgi:83
+msgid "To do a manual report, please follow these instructions:"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:86
+#: ../../main/core/src/cgi/ebox.cgi:84
+msgid "Create a new ticket in the Zentyal trac by clicking "
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:86
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:89
+#: ../../main/core/src/cgi/ebox.cgi:84 ../../main/core/src/cgi/ebox.cgi:87
+msgid "here"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:87
+#: ../../main/core/src/cgi/ebox.cgi:85
+msgid "Write a short description of the problem in the summary field"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:88
+#: ../../main/core/src/cgi/ebox.cgi:86
+msgid ""
+"Write a detailed report of what you were doing before this problem ocurred "
+"in the description field"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:89
+#: ../../main/core/src/cgi/ebox.cgi:87
+msgid "Download the log file with additional information by clicking"
+msgstr ""
+
+#: ../../main/captiveportal/src/cgi/captiveportal.cgi:90
+#: ../../main/usercorner/src/cgi/user-ebox.cgi:90
+#: ../../main/core/src/cgi/ebox.cgi:88
+msgid "Attach the downloaded file in the ticket"
+msgstr ""
+
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:64
@@ -5536,38 +5672,38 @@ msgstr "Gränssnitt"
 msgid "List of interfaces where Captive Portal is enabled."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:59
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:58
 msgid "Only users in this group will be allowed to login."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:62
 #, fuzzy
 msgid "HTTP port"
 msgstr "någon TCP-port"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:69
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:68
 #, fuzzy
 msgid "HTTPS port"
 msgstr "någon TCP-port"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:78
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:77
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 #, fuzzy
 msgid "General Settings"
 msgstr "Generella inställningar"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:82
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:81
 #, fuzzy
 msgid "Here you can define general settings for captive portal."
 msgstr "På denna sida kan du ställa in allmänna inställningar för Samba"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:96
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:95
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:225
 #: ../../main/radius/src/EBox/Model/Auth.pm:103
 msgid "All users"
 msgstr "Alla användare"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:132
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:131
 msgid "HTTP and HTTPS ports should be different"
 msgstr ""
 
@@ -10871,7 +11007,7 @@ msgstr "{row} nedflyttad"
 #: ../../main/core/src/templates/dataInUse.mas:34
 #: ../../main/core/src/templates/enable.mas:28
 #: ../../main/core/src/templates/enable.mas:29
-#: ../../main/core/src/templates/language.mas:43
+#: ../../main/core/src/templates/language.mas:44
 #: ../../main/core/src/templates/password.mas:67
 #: ../../main/core/src/templates/timezone.mas:33
 #: ../../main/core/src/templates/timezone.mas:34
@@ -15369,22 +15505,6 @@ msgstr "Följande paket kommer att tas bort"
 msgid "Ok"
 msgstr "Ok"
 
-#: ../../main/software/src/templates/del.mas:96
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
-#: ../../main/network/src/templates/confirm.mas:39
-#: ../../main/network/src/templates/confirmVlanDel.mas:24
-#: ../../main/network/src/templates/confirmremove.mas:26
-#: ../../main/samba/src/templates/delete.mas:21
-#: ../../main/ca/src/templates/forceRevoke.mas:45
-#: ../../main/core/src/templates/confirm-backup.mas:66
-#: ../../main/core/src/templates/dataInUse.mas:41
-#: ../../main/mail/src/templates/warnusermdsize.mas:26
-#: ../../main/mail/src/templates/warnvdmdsize.mas:36
-#: ../../main/mail/src/templates/warnvd.mas:32
-#: ../../main/users/src/templates/del.mas:46
-msgid "Cancel"
-msgstr "Avbryt"
-
 #: ../../main/software/src/templates/updates.mas:35
 msgid "Updates are available for the following system components"
 msgstr "Uppdateringar finns tillgängliga för följande systemkomponenter"
@@ -15499,13 +15619,6 @@ msgstr ""
 #: ../../main/core/src/templates/backup.mas:132
 msgid "Archive size"
 msgstr "Arkivstorlek"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
-#: ../../main/ca/src/templates/index.mas:103
-#: ../../main/core/src/templates/backup.mas:133
-msgid "Actions"
-msgstr "Åtgärder"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:161
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:91
@@ -16881,11 +16994,11 @@ msgstr "Nästa"
 msgid "No options"
 msgstr "Globala alternativ"
 
-#: ../../main/core/src/templates/language.mas:26
+#: ../../main/core/src/templates/language.mas:27
 msgid "Language Selection"
 msgstr "Språkval"
 
-#: ../../main/core/src/templates/language.mas:27
+#: ../../main/core/src/templates/language.mas:28
 msgid ""
 "You need to save changes in order to apply all the language changes and "
 "probably also reload the page on your browser."
