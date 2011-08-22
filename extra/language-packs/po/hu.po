@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-02-23 17:07+0200\n"
-"Last-Translator: akoscomp <reg@pecska.ro>\n"
+"PO-Revision-Date: 2011-08-12 22:31+0200\n"
+"Last-Translator: László <soma-sk8@freemail.hu>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,7 @@ msgstr "Szűrt kérések"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr "Szűrt forgalom mérete (kB)"
+msgstr "Szűrt forgalom mérete (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 #: ../../main/squid/src/EBox/Squid.pm:1119
@@ -174,8 +174,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
-"A(z) {object} üres. Kérem adjon hozzá legalább egy tagot, hogy használhassa "
-"az objektumot."
+"A(z) {object} objektum üres. Kérem adjon hozzá legalább egy szabályt, hogy "
+"használhassa az objektumot."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -213,7 +213,7 @@ msgstr "Átvitel"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -231,7 +231,7 @@ msgstr "Maximális méret"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -369,11 +369,11 @@ msgstr "Transzparens proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Reklám Blokkolás"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Hirdetések eltávolítása az összes HTTP forgalomból"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -721,8 +721,8 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
 msgstr ""
-"Globális csoport házirend szükséges a globális házirend azonosításhoz "
-"(authentication)."
+"Globális csoport házirendre van szükséges a globális házirend "
+"hitelesítéséhez"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
 msgid "Network Rate"
@@ -1097,7 +1097,7 @@ msgstr "Kiterjesztés"
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
-msgstr "HTTP proxxy forgalom riport (jelentés)"
+msgstr "HTTP proxy forgalom jelentés"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
@@ -1375,7 +1375,7 @@ msgstr "Honlap kivétel lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:231
 msgid "Content filter grey site list"
-msgstr "Honlap (szürke) kivétel lista a tartalomszűrőhöz"
+msgstr "Tartalomszűrő szürke kivétellista"
 
 #: ../../main/squid/src/EBox/Squid.pm:236
 msgid "Content filter banned site list"
@@ -1387,7 +1387,7 @@ msgstr "URL kivétel lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:246
 msgid "Content filter grey URL list"
-msgstr "URL (szürke) kivétel lista a tartalomszűrőhöz"
+msgstr "Tartalomszűrő szürke URL lista"
 
 #: ../../main/squid/src/EBox/Squid.pm:251
 msgid "Content filter banned URL list"
@@ -1395,11 +1395,11 @@ msgstr "Letiltott URL lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:256
 msgid "Forbidden phrases list"
-msgstr "Liltott kifejezések (szavak, mondatok) listája"
+msgstr "Tiltott kifejezések listája"
 
 #: ../../main/squid/src/EBox/Squid.pm:261
 msgid "Exception phrases list"
-msgstr "Kivételként kezelt kifejezések (szavak, mondatok) listája"
+msgstr "Kivétel kifejezések listája"
 
 #: ../../main/squid/src/EBox/Squid.pm:266
 msgid "PICS ratings configuration"
@@ -1627,15 +1627,15 @@ msgid "server"
 msgstr "kiszolgáló"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Létre kell hoznia egy CA tanúsítványt, a modul használatához. "
-"{closepar}{openpar}Kérem menjen a {openhref}tanúsító hatóság modulba"
-"{closehref} és újítsa meg.{closepar}"
+"{openpar}Szüksége van egy érvényes CA tanúsítványra a VPN szerverek "
+"futtatásához. {closepar}{openpar}Kérem menjen a {openhref} "
+"hitelesítésszolgáltató modulba{closehref} és újítsa meg azt.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
 #, fuzzy, perl-brace-format
@@ -1726,11 +1726,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:105
 msgid "Network Address Translation"
-msgstr "Network Address Translation (NAT)"
+msgstr "Hálózati Címfordítás (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Enable it if you only have one network interface"
-msgstr "Ha csak egy hálózati csatolót (interface) akar bekapcsolni."
+msgstr "Engedélyezze, ha csak egy hálózati csatolója van"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:112
 msgid "Allow client-to-client connections"
@@ -1762,7 +1762,7 @@ msgstr "Kiszolgáló beállításai"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:206
 msgid "All network interfaces"
-msgstr "összes hálózati csatoló (interface)"
+msgstr "Összes hálózati csatoló"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:259
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
@@ -1785,12 +1785,12 @@ msgstr "Ez a port nem elérhető: {p}."
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:414
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr "A csatoló (interface) {iface} nem létezik."
+msgstr "A csatoló {iface} nem létezik."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr "A csatoló (interface) {iface} nincs beállítva."
+msgstr "A csatoló {iface} nincs beállítva."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:440
 msgid ""
@@ -1884,12 +1884,11 @@ msgstr "Kiszolgáló csatorna jelszava"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Bind port a kliensnek"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Nem gyorsítótárazott címek"
+msgstr "Bind cím a kliensnek"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
 msgid "Client configuration"
@@ -1919,15 +1918,15 @@ msgstr "Kliensek listája"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:95
 msgid "VPN Clients"
-msgstr "VPN kliensek (ügyfelek)"
+msgstr "VPN kliensek"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
-"Nem lehet aktiválni a klienst (ügyfelet), mert nincs teljes körűen beállítva "
-"(konfigurálva). Állítsd be és próbáld újra."
+"Nem lehet aktiválni a klienst, mert nincs teljes körűen beállítva; állítsd "
+"be és próbáld újra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
@@ -2102,11 +2101,13 @@ msgstr ""
 "A {name} szerver kulcs nem elérhető mivel nincs tanúsítvány hozzárendelve"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:450
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
-msgstr "Ennek a csatolónak (interface) nincs IP címe: {iface} {name}."
+msgstr ""
+"A VPN szervert {name} nem lehet beállítani, nem található IP cím a "
+"csatolóhoz {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:556
 msgid "OpenVPN servers cannot be used for internal services"
@@ -2825,9 +2826,8 @@ msgid "Other"
 msgstr "Másik"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:336
-#, fuzzy
 msgid "Replace source address"
-msgstr "Csatoló IP-címe"
+msgstr "Forrás cím csere"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid ""
@@ -2883,9 +2883,8 @@ msgid "NAT postrouting"
 msgstr "NAT postrouting"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Kliens beállítás"
+msgstr "Lánc létrehozása"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
@@ -3321,9 +3320,8 @@ msgid "Forwarder"
 msgstr "Átirányítás"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
-msgstr "Átirányítás"
+msgstr "Átirányítások"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
 msgid ""
@@ -17018,7 +17016,7 @@ msgstr "Alapértelmezett kvóta"
 
 #: ../../main/mail/src/templates/alias.mas:123
 msgid "Custom quota"
-msgstr "Személyre szabott kvóta"
+msgstr "Egyedi kvóta"
 
 #: ../../main/mail/src/templates/alias.mas:130
 msgid "Quota type"
@@ -17034,11 +17032,11 @@ msgstr "Zarafa fiók"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:45
 msgid "Zarafa takes quota settings from mail account settings."
-msgstr "A Zarafa a levelező fiók quota beállításait használja."
+msgstr "A Zarafa a levelező fiók kvóta beállításait használja."
 
 #: ../../main/zarafa/src/templates/zarafa.mas:52
 msgid "Groupware contact"
-msgstr "Groupware kapcsolat"
+msgstr "Csoportmunka kapcsolat"
 
 #: ../../main/asterisk/src/templates/group.mas:7
 msgid "Asterisk group queue"
@@ -17141,7 +17139,7 @@ msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
-"A kitörölni kívánt csoport adatai vannak a következő modulokban. Kérem "
+"A kitörölni kívánt csoportnak adatai vannak a következő modulokban. Kérem "
 "erősítse meg ha törölni akarja ezekkel együtt"
 
 #: ../../main/users/src/templates/group.mas:14
@@ -17154,11 +17152,11 @@ msgstr ""
 
 #: ../../main/users/src/templates/group.mas:33
 msgid "Users in group"
-msgstr "A felhasználó tagja a csoportnak."
+msgstr "Csoporton kívüli felhasználok"
 
 #: ../../main/users/src/templates/group.mas:35
 msgid "Users not in group"
-msgstr "A felhasználó NEM tagja a csoportnak."
+msgstr "Csoporton kívüli felhasználók"
 
 #: ../../main/users/src/templates/group.mas:51
 #: ../../main/users/src/templates/group.mas:92
@@ -17189,13 +17187,12 @@ msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
-"adatát is: postafiók, megosztott mappa, stb."
+"Ez a művelet törli a csoportot, valamint minden vele összefüggő adatot is, "
+"megosztott mappa, stb."
 
 #: ../../main/users/src/templates/user.mas:88
-#, fuzzy
 msgid "User quota"
-msgstr "Túllépte a felhasználói méretkorlátot"
+msgstr "Felhasználói kvóta"
 
 #: ../../main/users/src/templates/user.mas:114
 msgid "User groups"
@@ -17207,13 +17204,13 @@ msgstr "Egyéb csoportok"
 
 #: ../../main/users/src/templates/user.mas:143
 msgid "Remove groups from user"
-msgstr "Csoport törlése a felhasználótól"
+msgstr "Csoportok törlése a felhasználótól"
 
 #: ../../main/users/src/templates/user.mas:185
 #: ../../main/users/src/templates/user.mas:193
 #: ../../main/users/src/templates/user.mas:194
 msgid "Delete user"
-msgstr "Ffelhasználó törlése"
+msgstr "Felhasználó törlése"
 
 #: ../../main/users/src/templates/user.mas:187
 msgid ""

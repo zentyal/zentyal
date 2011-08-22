@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-06-19 21:53+0200\n"
-"Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
+"PO-Revision-Date: 2011-08-19 22:35+0200\n"
+"Last-Translator: miquel <miquel@acsat.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Establir política per totes les extensions"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
-msgstr ""
+msgstr "Peticions"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
@@ -72,37 +72,37 @@ msgstr "Usuari"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
-msgstr ""
+msgstr "Peticions acceptades"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Volum de tràfic acceptat (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
-msgstr ""
+msgstr "Peticions denegades"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Volum del tràfic denegat"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 msgid "Filtered requests"
-msgstr ""
+msgstr "Peticions filtrades"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Volum del tràfic filtrat"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 #: ../../main/squid/src/EBox/Squid.pm:1119
@@ -141,7 +141,7 @@ msgstr "Data"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
-msgstr ""
+msgstr "Detalls del trànsit web"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
@@ -149,23 +149,23 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:98
 msgid "traffic"
-msgstr "trànsit"
+msgstr "tràfic"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Gràfic del volum de tràfic de Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr ""
+msgstr "Volum de tràfic"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Gràfic de peticions de tràfic de Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr ""
+msgstr "Peticions d'accés"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
@@ -174,8 +174,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
-"L'objecte {object} no té membres. Si us plau, afegir almenys un per afegir "
-"regles utilitzant aquest objecte."
+"L'objecte {object} no té membres. Si us plau, afegir almenys un per poder "
+"afegir regles utilitzant aquest objecte."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -184,7 +184,7 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
-"L'objecte {object} té una {row} en {table}. Esborra-la primer allà per "
+"L'objecte {object} té una {row} en {table}. Esborri-la primer allà per "
 "afegir-la aquí"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
@@ -214,7 +214,7 @@ msgstr "Ratio"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -222,7 +222,7 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
-"Màxima ràtio d'amplada de banda de baixada per aquesta xarxa. Utilitza -1 "
+"Màxima ràtio d'amplada de banda de baixada per aquesta xarxa. Utilitzi -1 "
 "per desactivar aquesta opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
@@ -233,7 +233,7 @@ msgstr "Mida màxima"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -241,7 +241,7 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
-"Màxima mida no limitada per aquesta xarxa. Utilitza -1 per desactivar "
+"Màxima mida no limitada per aquesta xarxa. Utilitzi -1 per desactivar "
 "aquesta opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
@@ -252,7 +252,7 @@ msgstr "Ràtio del client"
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
-"Màxima ràtio d'amplada de banda de baixada per client. Utilitza -1 per "
+"Màxima ràtio d'amplada de banda de baixada per client. Utilitzi -1 per "
 "desactivar aquesta opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
@@ -263,11 +263,12 @@ msgstr "Mida Màxima de Client"
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
-"Màxima mida no limitada per client. Utilitza -1 per desactivar aquesta opció."
+"Màxima mida no limitada per client. Utilitzi -1 per desactivar aquesta "
+"opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Delay Pools Class 2"
-msgstr "Delay Pools de Classe 2"
+msgstr "Retard Pools de Classe 2"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
 #, perl-brace-format
@@ -303,7 +304,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 msgid "Domain or URL added"
-msgstr "Domini o URL afegido"
+msgstr "Domini o URL afegit"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
@@ -317,7 +318,7 @@ msgstr "Domini o URL actualitzat"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:49
 msgid "Use antivirus"
-msgstr ""
+msgstr "Fer servir l'antivirus"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:91
 #, perl-brace-format
@@ -326,6 +327,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"No es pot activar el filtre antivirus perque el mòdul antivirus està "
+"inhabilitat. Si vol filtrar els virus, abans {openhref}activi el "
+"mòdul{closehref} i torni aquí"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
 #, perl-brace-format
@@ -334,6 +338,9 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"No es pot activar l'antivirus perque el mòdul antivirus no s'ha instal.lat. "
+"Si vol filtrar els virus, abans ha d'instal.lar i {openhref}activar el "
+"mòdul{closehref} i tornar aquí"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
@@ -341,7 +348,7 @@ msgstr "Utilitzar el perfil predeterminat per l'extensió de filtrat"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 msgid "Block not listed domains and URLs"
-msgstr ""
+msgstr "Bloquejar dominis i URLs no llistats"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 msgid ""
@@ -349,10 +356,13 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
+"Si aquesta opció està habilitada, qualsevol domini o URL que no estigui "
+"llistat a la secció <i>Regles de dominis</i> ni a <i>Fitxers de llistes de "
+"dominis</i> sota serà prohibit."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Bloquejar els llocs especificats només com a IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Transparent Proxy"
@@ -360,11 +370,11 @@ msgstr "Servidor intermediari Transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Bloqueig de propaganda"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Eliminar publicitat de tot el tràfic HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -435,6 +445,8 @@ msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Fixi's que no pot fer servir el servidor intermediari de forma transparent. "
+"Cal afegir una regla al firewall per habilitar aquest mode."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
@@ -566,7 +578,7 @@ msgstr "Arxiu"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
 msgid "You must supply a domains list"
-msgstr "Heu de proporcionar una llista de dominis"
+msgstr "Ha de proporcionar una llista de dominis"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
 msgid "Inexistent archive file"
@@ -577,7 +589,7 @@ msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
 msgstr ""
-"Plana de les llistes de no admesos: només són permesos fitxers comprimits de "
+"No s'admeten llistes planes: només són permesos fitxers comprimits de "
 "llistes negres classificades"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
@@ -805,35 +817,35 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:72
 msgid "Domain Name Address"
-msgstr ""
+msgstr "Adreça del nom de domini"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:79
 msgid "Exempt address from caching"
-msgstr ""
+msgstr "Direccions que no s'han de guardar a la memòria cau"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
-msgstr ""
+msgstr "Excepcions a la memòria cau"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:101
 msgid "domain name address"
-msgstr ""
+msgstr "nom de domini"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "You can exempt some addresses from caching"
-msgstr ""
+msgstr "Pot fer que algunes adreces no es guardin a la memòria cau"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:104
 msgid "Address added"
-msgstr ""
+msgstr "Adreça afegida"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address removed"
-msgstr ""
+msgstr "Adreça eliminada"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:106
 msgid "Address updated"
-msgstr ""
+msgstr "Adreça actualitzada"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:62
@@ -1091,16 +1103,16 @@ msgstr "Extensió"
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
-msgstr ""
+msgstr "Informe de tràfic del servidor intermediari"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
-msgstr ""
+msgstr "Filtrat de dominis per al grup de filtres"
 
 #: ../../main/squid/src/EBox/Squid/Composite/MIME.pm:91
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
-msgstr ""
+msgstr "Filtrat de tipus MIME"
 
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:75
 #: ../../main/squid/src/EBox/Squid.pm:76
@@ -1111,7 +1123,7 @@ msgstr "Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
-msgstr ""
+msgstr "Configuració del filtre"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1082
@@ -1126,31 +1138,35 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"Els 'pools' de classe 1 permeten restringir l'ample de banda per grans "
+"baixades, mentres que els de classe 2 permeten fixar l'un index sostingut. "
+"Si un objecte de xarxa no coincideix amb cap regla, no se li aplica cap "
+"limitació d'ample de banda."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
-msgstr ""
+msgstr "Filtrat d'extensions de fitxer"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:92
 msgid "Domains filtering"
-msgstr ""
+msgstr "Filtrat de dominis"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:82
 msgid "Authorize and allow"
-msgstr ""
+msgstr "Autoritzar i permetre"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and filter"
-msgstr ""
+msgstr "Autoritzar i filtrar"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and deny"
-msgstr ""
+msgstr "Autoritzar i denegar"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:104
 msgid "Squid's policy"
-msgstr ""
+msgstr "Política de Squid"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
@@ -1158,112 +1174,113 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
-msgstr ""
+msgstr "M"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
-msgstr ""
+msgstr "X"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
-msgstr ""
+msgstr "J"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
-msgstr ""
+msgstr "V"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
-msgstr ""
+msgstr "S"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
-msgstr ""
+msgstr "U"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
-msgstr ""
+msgstr "Dilluns"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "Tuesday"
-msgstr ""
+msgstr "Dimarts"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Wednesday"
-msgstr ""
+msgstr "Dimecres"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Thursday"
-msgstr ""
+msgstr "Dijous"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Friday"
-msgstr ""
+msgstr "Divendres"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Saturday"
-msgstr ""
+msgstr "Dissabte"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Sunday"
-msgstr ""
+msgstr "Diumenge"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:132
 msgid "All time"
-msgstr ""
+msgstr "Sempre"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:214
 msgid "All week"
-msgstr ""
+msgstr "Tota la setmana"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
-msgstr ""
+msgstr "Cap de setmana"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
-msgstr ""
+msgstr "Dies feiners"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:486
 msgid "From hour.."
-msgstr ""
+msgstr "Des de les..."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:489
 msgid "to hour.."
-msgstr ""
+msgstr "fins a les..."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:493
 msgid "You must specify two diffrent hours to the range"
 msgstr ""
+"Ha d'especificar dues hores diferentes per establir un interval de temps"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:510
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr ""
+msgstr "Valor d'hora incorrecte: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:516
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr ""
+msgstr "Format d'hora erroni: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:523
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr ""
+msgstr "Valor incorrecte per als minuts: {m}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr ""
+msgstr "Format erroni per als minuts: {m}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:542
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:548
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "El final de l'interval és major que l'inici"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:572
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "El període de temps ha d'estar actiu al menys un dia"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 #: ../../main/squid/src/EBox/Squid.pm:1033
@@ -1308,31 +1325,31 @@ msgstr "Deshabilitat"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
-msgstr ""
+msgstr "Molt permissiu"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
-msgstr ""
+msgstr "Permissiu"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
-msgstr ""
+msgstr "Mitjà"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
-msgstr ""
+msgstr "Estricte"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
-msgstr ""
+msgstr "Molt estricte"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "Això especifica com d'estricte ha de ser el filtre"
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
-msgstr ""
+msgstr "Política de dominis de Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:196
 msgid "HTTP Proxy configuration file"
@@ -1407,9 +1424,8 @@ msgid "Filter groups per IP"
 msgstr "Filtrar grups per IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:286
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Còpies de seguretat de la configuració"
+msgstr "Configuració de adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:300
 msgid "Overwrite blocked page templates"
@@ -1612,7 +1628,7 @@ msgid "server"
 msgstr "servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
@@ -1620,18 +1636,18 @@ msgid ""
 msgstr ""
 "{openpar}Necessita crear un certificat vàlid de CA per utilitzar aquest "
 "mòdul. {closepar}{openpar}Si us plau, vagi al {openhref}mòdul d'autoritat de "
-"certificació{closehref} i renoveu-lo.{closepar}"
+"certificació{closehref} i renovi'l.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
 "{openpar}Necessita crear un certificat de CA per utilitzar aquest mòdul. "
-"{closepar}{openpar}Si us plau, aneu al {openhref}mòdul d'autoritat de "
-"certificació{closehref} i creeu-lo.{closepar}"
+"{closepar}{openpar}Si us plau, vagi al {openhref}mòdul d'autoritat de "
+"certificació{closehref} i crei'l.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -1669,12 +1685,12 @@ msgid ""
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
 "{openpar}Pot configurar servidors openVPN per connectar oficines remotes o "
-"usuaris amb facilitat.{closepar}{openpar}Faci click en {openit}Configuración"
-"{closeit} per configurar els paràmetres de VPN.{closepar}{openpar}{openit}"
-"Les xarxes anunciades{closeit} li permeten configurar aquelles xarxes que "
-"vol fer accessibles a usuaris remots.{openpar}Un cop s'hagi acabat la "
-"configuració podrà descarregar-se un paquet de configuració pel sistema "
-"operatiu dels seus clients."
+"usuaris amb facilitat.{closepar}{openpar}Faci click en "
+"{openit}Configuració{closeit} per configurar els paràmetres de "
+"VPN.{closepar}{openpar}{openit}Les xarxes anunciades{closeit} li permeten "
+"configurar aquelles xarxes que vol fer accessibles a usuaris "
+"remots.{openpar}Un cop s'hagi acabat la configuració podrà descarregar-se un "
+"paquet de configuració pel sistema operatiu dels seus clients."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
@@ -1916,7 +1932,7 @@ msgid ""
 "configuration and retry"
 msgstr ""
 "No es pot activar el client perquè no està completament configurat; si us "
-"plau, editeu la configuració i intenteu-lo de nou"
+"plau, editi la configuració i intenti-ho de nou"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
@@ -1976,7 +1992,8 @@ msgid ""
 "edit the configuration and retry"
 msgstr ""
 "No es pot fer un paquet de configuració de client perquè el servidor no està "
-"completament configurat; si us plau editi la configuració i intenteu de nou"
+"completament configurat; si us plau editi la configuració i intenti-ho de "
+"nou"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:197
 msgid "Cannot use for the bundle the server's certificate"
@@ -2099,7 +2116,7 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
-"El servidor VPN {name} no es va poder configurar, no es va trobar adreça IP "
+"El servidor VPN {name} no s'ha pogut configurar, no s'ha trobat adreça IP "
 "per la interfície {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:556
@@ -2236,7 +2253,7 @@ msgstr "Adreça del servidor"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Has de subministrar al menys una adreça pel servidor {name}"
+msgstr "Ha de subministrar al menys una adreça pel servidor {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
 msgid "Can't get address for this server: no external interfaces present"
@@ -2305,14 +2322,14 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
-"{name} nom incorrecte. Només caràcters alfanumèric i  '-', '_', '.' són "
-"permesos"
+"{name} nom incorrecte. Només es permeten caràcters alfanumèrics, '-', '_' i "
+"'.'"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:659
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
-"No pot utilitzar-se el nom {n} perquè hi ha un client amb el mateix nom"
+"No pot utilitzar-se el nom {n} perquè ja hi ha un client amb el mateix nom"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:670
 #, perl-brace-format
@@ -2461,11 +2478,11 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
-"Només un nombre petit de connexions estan permeses per defecte. Assegura't "
-"d'afegir les regles correctes en l'entrada i sortida per fer que el teu "
-"sistema funcioni com esperes. Normalment, totes les connexions de fora són "
-"denegades per defecte, i solament connexions entrants de SSH i HTTPS es "
-"permeten."
+"Només un nombre petit de connexions estan permeses per defecte. Asseguri's "
+"d'afegir les regles correctes en l'entrada i sortida per fer que el seu "
+"sistema funcioni com espera. Normalment, totes les connexions de fora són "
+"denegades per defecte, i unicament es permeten les connexions entrants per "
+"SSH i HTTPS."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:304
 msgid "action"
@@ -2582,7 +2599,7 @@ msgstr "REDIRECCIONAR"
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
-"Has d'establir la variable iptables_log_limit en el fitxer de configuració "
+"Ha d'establir la variable iptables_log_limit en el fitxer de configuració "
 "d'eBox"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:898
@@ -2591,7 +2608,7 @@ msgstr ""
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
-"Has d'establir la variable iptables_log_burst en el fitxer de configuració "
+"Ha d'establir la variable iptables_log_burst en el fitxer de configuració "
 "d'eBox"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:66
@@ -2652,7 +2669,7 @@ msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
-"Si està marcat la opció inversa, qualsevol servei excepte aquest coincidirà "
+"Si la opció inversa està marcada, qualsevol servei excepte aquest coincidirà "
 "amb la regla"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:188
@@ -2706,7 +2723,7 @@ msgstr "Tràfic de paquets"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr "Paquests esborrats"
+msgstr "Paquets esborrats"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
@@ -2823,9 +2840,8 @@ msgid "Other"
 msgstr "Un altre"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:336
-#, fuzzy
 msgid "Replace source address"
-msgstr "Adreça IP de la interfície"
+msgstr "Reemplaçar l'adreça d'origen"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid ""
@@ -2833,6 +2849,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Reemplaça l'adreça d'origen inicial de la connexió amb la direcció de "
+"Zentyal. Això pot ser necessari quan la destinació no te una ruta de retorn "
+"o si té regles restrictives al tallafocs"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:345
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -2881,9 +2900,8 @@ msgid "NAT postrouting"
 msgstr "post-enrutat NAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Configuració del client"
+msgstr "Creació de cadena"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
@@ -2912,7 +2930,7 @@ msgstr "Regles afegides pels serveis de Zentyal (Avançat)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:64
 msgid "Traffic coming out from Zentyal"
-msgstr "Trànsit sortint de Zentyal"
+msgstr "Tràfic sortint de Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
@@ -2925,7 +2943,7 @@ msgstr "Informe del tràfic de paquets del tallafocs"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr ""
+msgstr "L'índex garantit excedeix del màxim permès: {rate} kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
@@ -2933,6 +2951,8 @@ msgstr ""
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
+"L'índex garantit ha d'estar en aquest interval: ( {minRate}, {maxRate} ) "
+"kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
@@ -2940,6 +2960,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
+"L'índex límit {lR} kbit/s ha de ser superior que l'índex garantit {gR} "
+"kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
 #, perl-brace-format
@@ -2947,11 +2969,13 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
+"L'índex límit {lR} kbit/s ha de ser menor que {maxLR} kbit/s o ha "
+"d'incrementar el tráfic màximo de pujada associat a interfícies externes"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
+msgstr "Índex garantit excedeix el permes: {rate}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
 #, perl-brace-format
@@ -2959,39 +2983,41 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
+"L'índex límit {IR} kbit/s ha de ser més petit que {maxLR} o ha d'incrementar "
+"el màxim tràfic permès"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "Identificador de la classe fulla"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
 msgid "External Interface"
-msgstr ""
+msgstr "Interfície externa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload"
-msgstr ""
+msgstr "Pujada"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Índex de pujada de dades en Kbits/s a través d'aquesta interfície"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
 msgid "Download rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Índex de baixada en Kbits/s a través d'aquesta interfície"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
 msgid "External Interface Rates"
-msgstr ""
+msgstr "Índexos d'interfície externa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid "rate"
-msgstr ""
+msgstr "Índex"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
-msgstr ""
+msgstr "Cal al menys una interfície interna i una externa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:176
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
@@ -3007,11 +3033,11 @@ msgstr "{iface} (interfície externa)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:205
 msgid "Guaranteed rate"
-msgstr ""
+msgstr "Índex garantit"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:210
 msgid "Limited rate"
-msgstr ""
+msgstr "Índex limitat"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:221
 #, perl-brace-format
@@ -3019,14 +3045,17 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"L'objecte {object} no te membres. Si us plau, afegeixi'n al menys un per "
+"afegir regles fent servir aquest objecte."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:238
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
+"Si el servei és qualsevol, s'ha de proporcionar algún orígen o destinació"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:379
 msgid "Port based service"
-msgstr ""
+msgstr "Servei bassat en port"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:445
 #: ../../main/dns/src/EBox/Model/Services.pm:203
@@ -3036,46 +3065,50 @@ msgstr "Prioritat"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "Prioritat més baixa: 7 Prioritat més alta: 0"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:453
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "Índex garantit"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:456
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:470
 msgid "Kbit/s"
-msgstr ""
+msgstr "Kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:458
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
+"Fixi's que la suma de tots els amples de banda garantits no pot sobrepassar "
+"el total d'ample de banda disponble. 0 vol dir índex no garantit."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Limited Rate"
-msgstr ""
+msgstr "Índex limitat"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:472
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr ""
+msgstr "El tràfic no superarà aquest índex. 0 vol dir index il.limitat."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:479
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr ""
+msgstr "Llista de regles per {printableIndex}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"Recordi que si la interfície és interna, el fluxe de tràfic ve des "
+"d'Internet cap a l'interior i el tràfic exterior és a la inversa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:554
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr ""
+msgstr "Eliminar {num} regles de {modelName}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:601
 #, perl-brace-format
@@ -3085,6 +3118,10 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
+"Normalitzant índexos: {limitNum} regles han baixat l'índex límit a "
+"{limitRate}. {guaranNum} regles han normalitzat el seu índex garantit per "
+"mantenir la mateixa proporció d'abans i {removeNum} s'han eliminat perque el "
+"seu índex garantit resultava menor que el mínim permès."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:656
 msgid ""
@@ -3092,16 +3129,20 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Els protocols bassats en port fan servir el número de port per determinar si "
+"coincideixen amb algún servei, mentres que els bassats en aplicació son més "
+"lents però més efectius ja que comproven el contingut de cada paquet per "
+"determinar la coincidencia amb serveis."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:672
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:691
 msgid "Application based service"
-msgstr ""
+msgstr "Servei bassat en aplicació"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:681
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:699
 msgid "Application based service group"
-msgstr ""
+msgstr "Grup de serveis bassats en aplicació"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
 #, perl-brace-format
@@ -3110,6 +3151,9 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
+"El modelat de tràfic s'aplica quan Zential actua com a porta d'enllaç. Per "
+"aconseguir-ho, cal al menys una interfície interna i una altra externa. "
+"Comprovi si està ben configurat a {openhref}Xarxa->Interfícies{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -3119,45 +3163,52 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
+"El modelat de tráfic únicament s'aplica a interfícies externes que tenen un "
+"índex màxim de pujada associat. Per això, s'ha de crear una porta d'enllaç a "
+"{openhref}Xarxa->Portes d'enllaç{closehref} seleccionant una interfície "
+"externa."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:115
 msgid "Rules list per interface"
-msgstr ""
+msgstr "Llista de regles per interfície"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:126
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
+"Seleccionar una interfície per afegir regles de modelat de tràfic. Recordi "
+"que si està modelant una interfície interna, està modelant el tràfic "
+"d'entrada"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "Esculli una interfície per modelar"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:69
 msgid "options"
-msgstr ""
+msgstr "opcions"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:100
 #: ../../main/l7-protocols/src/EBox/L7Protocols.pm:91
 msgid "Traffic Shaping"
-msgstr ""
+msgstr "Modelat de tràfic"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:136
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "Afegir regles d'iptables per completar la taula"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:137
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "Per marcar paquets amb diverses prioritats i índexos"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:141
 msgid "Add tc rules"
-msgstr ""
+msgstr "Afegir regles de tc"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:142
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "Per implementar les regles de modelat de tràfic"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:459
 msgid "Rules"
@@ -3165,7 +3216,7 @@ msgstr "Regles"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:461
 msgid "Interface Rates"
-msgstr ""
+msgstr "Índex d'interfície"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:549
 #, perl-brace-format
@@ -3173,10 +3224,12 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
+"S'ha arribat al màxim {max} de regles, n'ha d'esborrar al menys una per "
+"poder afegir-ne una de nova"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1195
 msgid "type"
-msgstr ""
+msgstr "tipus"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1218
 #, perl-brace-format
@@ -3184,6 +3237,8 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
+"La interfície {iface} ha de tenir un índex màxim d'ample de banda per fer "
+"modelat de tràfic"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -3206,6 +3261,8 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
+"No es pot crear un nom de host personalitzat des del mateix domini. Faci "
+"servir la opció \"Aquest domini\""
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:144
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -3274,25 +3331,24 @@ msgid "Mail exchanger record"
 msgstr "Camp d'intercanviador de correu"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:76
-#, fuzzy
 msgid "Forwarder"
-msgstr "Redirecció"
+msgstr "Redireccionador"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
-msgstr "Redirecció"
+msgstr "Redireccionadors"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"El servidor primer enviarà les consultes als redireccionadors, i si no hi ha "
+"resposta, mirarà de respondre la consulta."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
-#, fuzzy
 msgid "forwarder"
-msgstr "Redirecció"
+msgstr "Redireccionador"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Hostnames"
@@ -3310,7 +3366,7 @@ msgstr "Servidors de noms"
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "resistres {txt}"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
@@ -3328,9 +3384,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Un domini és dinàmic quan el servidor DHCP l'actualitza"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Domini"
+msgstr "Dominis"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3343,6 +3398,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Aquí es poden afegir els dominis per aquest servidor de DNS. Cada domini pot "
+"tenir diversos noms de host amb àlies (A i CNAME) i altres registres "
+"especials (MX, NS, TXT i SRV)."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3370,7 +3428,7 @@ msgstr "Àlies"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:281
 msgid "Host names"
-msgstr "Noms dels host"
+msgstr "Noms de màquines"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:288
 msgid ""
@@ -3378,6 +3436,9 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
+"S'ha fet la resolució reversa automàtica. Si repeteix una direcció IP en un "
+"altre domini, només es farà servir el primer resultat per a la resolució "
+"reversa. Les zones dinàmiques poden eliminar la resolució reversa manual."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
 #: ../../main/network/src/EBox/Network.pm:3658
@@ -3387,7 +3448,7 @@ msgstr "nom de màquina"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
 msgid "Enable transparent DNS cache"
-msgstr ""
+msgstr "Habilita la memòria cau de DNS transparent"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:628
@@ -3396,27 +3457,28 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:78
 #: ../../main/software/src/templates/config.mas:19
 msgid "Settings"
-msgstr "Configuracions"
+msgstr "Configuració"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:95
 msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Totes les consultes DNS es redirigiràn al servidor de DNS local si està "
+"habilitat el mode transparent"
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
-msgstr ""
-"El domini està definit com a només lectura. No pots afegir noms de host"
+msgstr "El domini està definit com a només lectura. No pot afegir {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "El servei no està habilitat a Zentyal"
+msgstr "El servei seleccionat no és a {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
@@ -3431,7 +3493,7 @@ msgstr "Nom del servei"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Valor més baix és prioritat més alta"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3443,40 +3505,40 @@ msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 vol dir sense pes i un valor més alt més oportunitats de ser seleccionat "
+"amb igual prioritat"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
-#, fuzzy
 msgid "Target port"
-msgstr "Port del servidor"
+msgstr "Port de destinació"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
-#, fuzzy
 msgid "Target"
-msgstr "destí"
+msgstr "destinació"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:230
-#, fuzzy
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
-msgstr "Si escull \"Personaltizar\", ha de tenir un nom de domini qualificat ."
+msgstr "Si escull \"Personaltizar\", caldrà un nom de domini qualificat ."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:259
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Gestiona els registres SRV per aquest domini. Això és util per a seleccionar "
+"un host en funció de la prioritat d'un servei."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "camp del servidor de noms"
+msgstr "registre {srv}"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
-"Un àlies no pot ser un nom de host \"{ns}\". Fes servir el nom del host."
+msgstr "Un àlies no pot ser un nom de host \"{ns}\". Faci servir el nom del host."
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
@@ -3507,9 +3569,8 @@ msgstr ""
 "{name}?"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
-#, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "camp del servidor de noms"
+msgstr "L'últim nom de servidor no es pot eliminar"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
@@ -3529,33 +3590,35 @@ msgid "name server record"
 msgstr "camp del servidor de noms"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "El nom d'usuari no pot ser més llarg de {maxuserlength} caràcters "
+msgstr "El {name} no pot ser tenir més de {value} caràcters "
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Si selecciona el domini, estarà seleccionant la zona"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "{txt} dades"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
 msgid "Any data could be provided"
-msgstr ""
+msgstr "Es pot proporcionar qualsevol dada"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr ""
+"Controla els registres TXT per aquest domini. Son útils en els protocols "
+"antispam SPF o DKIM"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "registre {txt}"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:562
 msgid "main bind9 configuration file"
@@ -3587,7 +3650,7 @@ msgstr "arxiu de configuració per la resolució inversa de la zona {zone}"
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
 msgstr ""
-"Canvia els permisos del directori {dir} per permetre escriu-re al grup bind"
+"Canvia els permisos del directori {dir} per permetre escriure al grup bind"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:630
 msgid "Let the bind daemon to be dynamically updated"
@@ -3595,12 +3658,12 @@ msgstr "Permet que el dimoni de bind s'actualitzi dinàmicament"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "S'ha de proporcionar un nom de domini vàlid o un comodí (*)"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:91
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
-msgstr ""
+msgstr "La configuració no permet ni accés anònim ni usuaris FTP autenticats"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3628,29 +3691,29 @@ msgid "Anonymous access"
 msgstr "Accés anònim"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Activa l'accés FTP per cada usuari dins el seu directori /home"
+msgstr "Activa l'accés FTP anònim al directori /srv/ftp."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
 msgstr "Directoris personals"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Activa l'accés FTP per cada usuari dins el seu directori /home"
+msgstr ""
+"Activa l'accés FTP per cada usuari autenticat dins el seu directori /home"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Directoris personals"
+msgstr "Restringeix als directoris personals"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Restringeix l'accés al directori home de cada usuari. Pensi que aquesta "
+"restricció es pot eludir sota certes condicions."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:119
@@ -3674,7 +3737,6 @@ msgid "FTP Server"
 msgstr "Servidor FTP"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -3683,49 +3745,44 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
-"El directori anònim es /srv/ftp, ha d'estar segur que els arxius creats dins "
-"tenen permisos de lectura per tothom (chmod o+r /srv/ftp/*). Si vol donar-li "
-"permisos d'escriptura necessitarà crear un subdirectori amb permisos "
-"d'escriptura per tothom, per exemple: mkdir /srv/ftp/incoming ; chmod o+rwx /"
-"srv/ftp/incoming"
+"El directori anònim és /srv/ftp, Asseguri's que els arxius creats dins tenen "
+"permisos de lectura per a tothom (sudo chmod o+r /srv/ftp/*). Si a més vol "
+"donar-li permisos d'escriptura necessitarà crear un subdirectori amb "
+"permisos d'escriptura per a tothom, per exemple: sudo mkdir "
+"/srv/ftp/incoming ; sudo chmod o+rwx /srv/ftp/incoming. Accedint de manera "
+"anònima, no es podra canviar el nom ni eliminar cap fitxer."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
 msgstr "Servidor FTP de Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:128
-#, fuzzy
 msgid "Generate SSL certificates"
-msgstr "Crea certificats"
+msgstr "Crea certificats SSL"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
-#, fuzzy
 msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr "Zentyal crearà els certificats per utilitzar en els serveis de correu"
+msgstr "Zentyal signarà els certificats pel servei FTP."
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
-#, fuzzy
 msgid "To configure vsftpd."
-msgstr "Per configurar l'vsftpd"
+msgstr "Per a configurar el vsftpd"
 
 #: ../../main/ftp/src/EBox/FTP.pm:151
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
-msgstr "Per configurar l'vsftpd amb autentificació LDAP"
+msgstr "Per a configurar el vsftpd amb autentificació LDAP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:243
-#, fuzzy
 msgid "Zentyal FTP server files"
-msgstr "Servidor FTP de Zentyal"
+msgstr "Fitxers del servidor FTP de Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:244
-#, fuzzy
 msgid "User homes and global directory."
-msgstr "Directoris personals i el directori anònim"
+msgstr "Directoris personals i global dels usuaris."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:106
@@ -3751,9 +3808,8 @@ msgstr "Adreça IP"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:80
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:255
-#, fuzzy
 msgid "Range"
-msgstr "Rangs"
+msgstr "Rang"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:88
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
@@ -3774,6 +3830,9 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
+"Per a la adreces IP es pot fer servir la notació CIDR (adreça/màscara de "
+"xarxa) o especficiar la primera i la última adreça d'un rang que inclourà "
+"també totes les adreces entre elles."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:107
 msgid "member"
@@ -3781,7 +3840,7 @@ msgstr "membre"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:132
 msgid "You can only use MAC addresses with hosts"
-msgstr "Només es pot fer servir adreces MAC amb els hosts"
+msgstr "Només es poden fer servir adreces MAC amb els hosts"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:139
 msgid "You cannot use MAC addresses with IP ranges"
@@ -3863,18 +3922,20 @@ msgstr "Xarxa"
 
 #: ../../main/software/src/EBox/Software.pm:56
 msgid "Software Management"
-msgstr ""
+msgstr "Gestió del software"
 
 #: ../../main/software/src/EBox/Software.pm:443
 msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
+"No pot fer servir l'administrador de paquets de software. Possiblement un "
+"altre procés l'està fent servir. Pot esperar o matar l'altre procés."
 
 #: ../../main/software/src/EBox/Software.pm:445
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
-msgstr ""
+msgstr "No pot fer servir l'administrador de paquets de software. Error {err}"
 
 #: ../../main/software/src/EBox/Software.pm:535
 #, perl-brace-format
@@ -3882,44 +3943,49 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"No es pot modificar l'actualització automàtica fent servir actualitzacions "
+"QA des de la interfície web. Per a inhabilitar les actualitzacions "
+"automàtiques, editi {conf} i deshabiliti la clau {key}."
 
 #: ../../main/software/src/EBox/Software.pm:624
 msgid "Zentyal Components"
-msgstr ""
+msgstr "Components de Zentyal"
 
 #: ../../main/software/src/EBox/Software.pm:626
 msgid "System Updates"
-msgstr ""
+msgstr "Actualitzacions del sistema"
 
 #: ../../main/software/src/EBox/Software.pm:854
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"La gestió de software actualment està bloquejada per {locker}. Si us plau, "
+"provi-ho més tard"
 
 #: ../../main/software/src/EBox/Software.pm:1015
 msgid "Welcome"
-msgstr ""
+msgstr "Benvingut"
 
 #: ../../main/software/src/EBox/Software.pm:1017
 msgid "Package Selection"
-msgstr ""
+msgstr "Selecció de paquets"
 
 #: ../../main/software/src/EBox/Software.pm:1018
 msgid "Confirmation"
-msgstr ""
+msgstr "Confirmació"
 
 #: ../../main/software/src/EBox/Software.pm:1019
 msgid "Installation"
-msgstr ""
+msgstr "Instal.lació"
 
 #: ../../main/software/src/EBox/Software.pm:1020
 msgid "Initial Configuration"
-msgstr ""
+msgstr "Configuració inicial"
 
 #: ../../main/software/src/EBox/Software.pm:1021
 msgid "Save Changes"
-msgstr ""
+msgstr "Guardar els canvis"
 
 #: ../../main/software/src/EBox/CGI/CurrentPackage.pm:31
 #: ../../main/core/src/EBox/CGI/SysInfo/CurrentProgress.pm:36
@@ -3928,15 +3994,15 @@ msgstr "Actualitzant"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:102
 msgid "There were no packages to update"
-msgstr ""
+msgstr "No hi ha paquets per a actualitzar"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:176
 msgid "Installing"
-msgstr ""
+msgstr "Instal.lant"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid "Installing packages"
-msgstr ""
+msgstr "Instal.lant paquets"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:178
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:203
@@ -3947,7 +4013,7 @@ msgstr "Operació actual"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
 msgid "actions done"
-msgstr ""
+msgstr "operacions realitzades"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:180
 msgid ""
@@ -3962,18 +4028,20 @@ msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"La instal.lació dels paquets no s'ha completat correctament. Més informació "
+"als logs"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid "Removing package"
-msgstr ""
+msgstr "Eliminant paquet"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Eliminant el paquet seleccionat i les seves dependències"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
 msgid "packages left to remove"
-msgstr ""
+msgstr "Paquets pendents d'eliminar"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:205
 msgid ""
@@ -3981,102 +4049,109 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"L'eliminació de paquets ha acabat correctament. La interfície "
+"d'administració podría no respondre durant alguns segons. Si us plau, esperi "
+"fins que el sistema s'hagi reiniciat completament"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:209
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"La eliminació dels paquets no ha acabat correctament. Més informació als "
+"logs"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "Configuració de les actualitzacions automàtiques"
 
 #: ../../main/software/src/EBox/CGI/Updates.pm:32
 msgid "System updates"
-msgstr ""
+msgstr "Actualitzacions del sistema"
 
 #: ../../main/software/src/EBox/CGI/Updates.pm:58
 msgid "The system components are up to date."
-msgstr ""
+msgstr "Els components del sistema estàn actualitzats."
 
 #: ../../main/software/src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
-msgstr ""
+msgstr "Paràmetres de la gestió de software"
 
 #: ../../main/software/src/EBox/CGI/Config.pm:40
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Actualitzacions automàtiques de software"
 
 #: ../../main/software/src/EBox/CGI/EBox.pm:33
 msgid "Choose Zentyal packages to install"
-msgstr ""
+msgstr "Seleccioni els paquets de Zential que vol instal.lar"
 
 #: ../../main/software/src/EBox/CGI/EBox.pm:37
 msgid "Zentyal components"
-msgstr ""
+msgstr "Components de Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Client de Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:222
 msgid "Not subscribed"
-msgstr ""
+msgstr "No subscrit"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:224
 msgid "Subscribed"
-msgstr ""
+msgstr "Subscrit"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:256
 msgid "Subscription"
-msgstr ""
+msgstr "Subscripció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:261
-#, fuzzy
 msgid "Server Subscription"
-msgstr "Creació de servidor"
+msgstr "Subscripció del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:266
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:71
 msgid "Technical Support"
-msgstr ""
+msgstr "Suport tècnic"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:270
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
 msgid "Advanced Security Updates"
-msgstr ""
+msgstr "Actualitzacions de seguretat avançades"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:274
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:175
-#, fuzzy
 msgid "Disaster Recovery"
-msgstr "recupera"
+msgstr "Recuperació de desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:334
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:65
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:147
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:160
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:448
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Cloud"
 msgstr ""
+"El nom de subscripció no està disponible si el servidor no està subscrit a "
+"Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:477
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Cloud"
 msgstr ""
+"Les adreces IP només estàn disponibles si el host està subscrit a Zentyal "
+"Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:622
 msgid "Zentyal must be subscribed to reload the bundle"
-msgstr ""
+msgstr "Zentyal ha d'estar subscrit per a recarregar el paquet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1613
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:162
@@ -4106,16 +4181,16 @@ msgstr "Cap"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr ""
+msgstr "Inhabilitat - {oh}Habilitar{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1623
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "No connectat. Comprovi els logs de VPN a {path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1627
 msgid "Connected"
-msgstr ""
+msgstr "Connectat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1638
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1644
@@ -4142,7 +4217,7 @@ msgstr "Desconegut"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:206
 msgid "Basic"
-msgstr ""
+msgstr "Bàsic"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:170
@@ -4150,52 +4225,50 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:162
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:207
 msgid "Professional"
-msgstr ""
+msgstr "Professional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1641
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:171
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:163
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:208
-#, fuzzy
 msgid "Enterprise"
-msgstr "Entrar"
+msgstr "Empresarial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1646
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:176
 msgid "Essential"
-msgstr ""
+msgstr "Essencial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1647
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
 msgid "Standard"
-msgstr ""
+msgstr "Estàndard"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1648
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1655
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Last update: {date}"
-msgstr "L'última actualització ha fallat."
+msgstr "- Última actualització: {date}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1668
 #, perl-brace-format
 msgid "- Latest backup: {date}"
-msgstr ""
+msgstr "- Última còpia de seguretat: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1671
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:211
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr "Còpies de seguretat de la configuració"
+msgstr "Còpies de seguretat de la configuració habilitades"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1674
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
-msgstr ""
+msgstr "- Última còpia de la configuració: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1690
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -4203,58 +4276,53 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:137
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:56
-#, fuzzy
 msgid "Server name"
-msgstr "Servidor {name}"
+msgstr "Nom del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1691
-#, fuzzy
 msgid "Connection status"
-msgstr "Connexió de destinació"
+msgstr "Estat de la connexió"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1694
-#, fuzzy
 msgid "External server name"
-msgstr "Conexió externa al servidor"
+msgstr "Nom del servidor extern"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1697
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:123
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:141
-#, fuzzy
 msgid "Server subscription"
-msgstr "Creació de servidor"
+msgstr "Subscripció del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1699
 msgid "Technical support"
-msgstr ""
+msgstr "Suport tècnic"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1723
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:230
 msgid "No data backup has been done yet"
-msgstr ""
+msgstr "Encara no s'han fet còpies de les dades"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:127
 msgid "Support package"
-msgstr ""
+msgstr "Paquets de suport"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:131
-#, fuzzy
 msgid "Support available via"
-msgstr "Disponible"
+msgstr "Suport disponible vía"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:135
 msgid "Service Level Agreement"
-msgstr ""
+msgstr "Acord de Nivell de Servei"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
 msgid "Allow remote access to Zentyal staff"
-msgstr ""
+msgstr "Permetre l'accés remot al personal de Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:79
 msgid "Allow access from any internet address"
-msgstr ""
+msgstr "Permet l'accés des de qualsevol adreça d'internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
 msgid ""
@@ -4262,27 +4330,37 @@ msgid ""
 "private network. If you enable this option, the access is granted from any "
 "address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
+"Per defecte, l'accés únicament es permet a màquines dins la xarxa privada de "
+"Zentyal Cloud. Si s'activa aquesta opció, l'accés serà possible des de "
+"qualsevol adreça. Faci servir aquesta opció unicament si no es pot connectar "
+"a Zentyal Cloud."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
 msgid "Enable Remote Support Access"
-msgstr ""
+msgstr "Habilita l'accés de suport remot"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:134
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"L'accés des de qualsevol adreça requereix que el suport d'accés estigui "
+"activat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
 msgstr ""
+"Per permetre qualsevol adreça de suport remot, s'ha destar connectat a "
+"{cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
+"Per a restringir adreces cal que el servidor estigui suscrit a Zentyal "
+"Cloud. Pot suscriure'l o permetre l'accés des de qualsevol adreça"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
 #, perl-brace-format
@@ -4295,18 +4373,30 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
+"Habilitant el suport remot permetrà al personal accedir lliurement al "
+"servidor.\n"
+"Pot fer servir la commanda 'screen' per unir-se a la sessió. Per permetre "
+"això, s'activa el bit SUID del programa 'screen'. Aquest canvi és temporal, "
+"fins que es deshabiliti aquesta opció.\n"
+"Per a unir-se a la sessió remota, registri's al shell com a un usuari que "
+"pertany al grup 'adm' i faci servir la commanda: '{cmd}'"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
 msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
 msgstr ""
+"No s'ha trobat cap instància del dimoni ssh executant-se. L'accés per a "
+"suport necessita una instància en execució que permeti connexions remotes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
 msgid ""
 "Not ssh daemon instance listening on all interfaces found. Support access "
 "need a ssh daemon whom listens on all interfaces."
 msgstr ""
+"No hi ha cap instància del dimoni ssh escoltant a totes les interfícies. "
+"L'accés per a suport necessita un dimoni que escolti a totes les "
+"interfícies."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:197
 #, perl-brace-format
@@ -4314,63 +4404,62 @@ msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
 "support which port(s) are used by ssh daemon."
 msgstr ""
+"Hi ha un dimoni ssh escoltant en un o més ports no estàndard. Notifiqui al "
+"suport quin port està fent servir el dimoni ssh."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
 msgid "QA software updates"
-msgstr ""
+msgstr "Actualitzacions de software QA"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:93
 msgid "Latest QA software update"
-msgstr ""
+msgstr "Última actualització del software QA"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:128
 #, perl-brace-format
 msgid "{date}. {num} updated packages"
-msgstr ""
+msgstr "{date}. {num} paquets actualitzats"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
-msgstr ""
+msgstr "No s'ha fet cap actualització"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
 msgid "Software module is not installed"
-msgstr ""
+msgstr "El mòdul de software no està instal.lat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "Alertes generades l'últim mes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
-#, fuzzy
 msgid "Information-level alerts"
-msgstr "Informatiu"
+msgstr "Alertes de nivell informatiu"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
-msgstr ""
+msgstr "Alertes de nivell d'avís"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:101
 msgid "Error-level alerts"
-msgstr ""
+msgstr "Alertes de nivell d'error"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:105
 msgid "Fatal-level alerts"
-msgstr ""
+msgstr "Alertes de nivell fatal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:111
-#, fuzzy
 msgid "Alerts"
-msgstr "Alerta"
+msgstr "Alertes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:109
-#, fuzzy
 msgid "External server name (DynDNS)"
-msgstr "Conexió externa al servidor"
+msgstr "Nom del servidor extern (DynDNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:110
 msgid "Use this name to connect to Zentyal externally"
-msgstr ""
+msgstr "Faci servir aquest nom per a connectar-se a Zentyal externament"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
 msgid "Subscription renovation date"
@@ -4378,25 +4467,23 @@ msgstr "Data de renovació de la subscripció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 msgid "Central monitoring & management"
-msgstr ""
+msgstr "Central de monitorització i gestió"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:124
-#, fuzzy
 msgid "Server subcription info"
-msgstr "Creació de servidor"
+msgstr "Informació de la subscripció del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:146
-#, fuzzy
 msgid "Not using Zentyal Cloud DynDNS service"
-msgstr "Remot en el núvol de Zentyal"
+msgstr "No està fent servir el servei DynDNS de Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:169
 msgid "Unlimited"
-msgstr "Il·limitada "
+msgstr "Il·limitat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:128
 msgid "Latest security update"
-msgstr ""
+msgstr "Última actualització de seguretat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:131
 msgid ""
@@ -4405,14 +4492,18 @@ msgid ""
 "start using the cloud based services you are entitled to with your "
 "subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
+"La subscripció s'ha fet correctament. Guardi els canvis i esperi "
+"aproximadament un minut, fins que el sistema hagi fet tot el procés. A "
+"continuació ja podrà a fer servir els serveis que inclou la subscripció "
+"(còpies remotes, actualitzacions, alertes, etc.)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:137
 msgid "Subscription data retrieved correctly."
-msgstr ""
+msgstr "Dades de la subscripció recuperats correctament"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:139
 msgid "Please, save changes"
-msgstr ""
+msgstr "Si us plau, guardi esl canvis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:171
 #: ../../main/core/src/EBox/Model/DataForm.pm:682
@@ -4426,24 +4517,28 @@ msgid ""
 "can take a while. Please do not touch anything until the subscription "
 "process is correctly finished."
 msgstr ""
+"Tengui en compte que el procés de subscripció a Zentyal Cloud pot tardar "
+"alguns minuts. Si us plau, no toqui res fins que el procés finalitzi."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:322
 msgid ""
 "Prior to make a subscription on remote services, save or discard changes in "
 "the OpenVPN module"
 msgstr ""
+"Abans de fer una subscripció als serveis remots, habiliti el mòdul VPN i "
+"guardi o descarti els canvis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:347
 msgid "User Name or Email Address"
-msgstr ""
+msgstr "Nom d'usuari o adreça de correu"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:355
 msgid "Server Name"
-msgstr ""
+msgstr "Nom del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr ""
+msgstr "Esculli un nom per al seu servidor que sigui un nom de sotsdomini vàlid"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:368
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:55
@@ -4474,31 +4569,31 @@ msgstr "Contrasenya"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:376
 msgid "Zentyal subscription details"
-msgstr ""
+msgstr "Detalls de la subscripció a Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:377
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Borrar-se"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:380
 msgid "Subscription to Zentyal Cloud"
-msgstr ""
+msgstr "Subscripció a Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:381
 msgid "Subscribe"
-msgstr "Registra"
+msgstr "Subscriure's"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:539
 msgid " module"
-msgstr ""
+msgstr " mòdul"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:545
 msgid " and "
-msgstr ""
+msgstr " i "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:545
 msgid " modules"
-msgstr ""
+msgstr "mòduls"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:562
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:103
@@ -4530,138 +4625,135 @@ msgstr "Raó"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:93
 msgid "Latest generated report"
-msgstr ""
+msgstr "Últim informe generat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:97
-#, fuzzy
 msgid "Download latest report"
-msgstr "Descarrega un fitxer d'informe de configuració"
+msgstr "Descarrega l'últim informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:103
-#, fuzzy
 msgid "Reports"
-msgstr "Informes complets"
+msgstr "Informes"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:108
 msgid ""
 "The download link is for the latest available report for a group where this "
 "zentyal belongs to"
 msgstr ""
+"L'enllaç de baixada és per l'últim informe disponible per al grup al qual "
+"pertany aquest Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:134
 #, perl-brace-format
 msgid "{oh}Download sample{ch}"
-msgstr ""
+msgstr "{oh}Baixar la mostra{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:146
 #, perl-brace-format
 msgid "{oh}Download{ch}"
-msgstr "{oh}Descarregar{ch}"
+msgstr "{oh}Baixar{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:150
 msgid "No report generated yet"
-msgstr ""
+msgstr "Encara no s'ha generat cap informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:145
-#, fuzzy
 msgid "Disaster recovery"
-msgstr "recupera"
+msgstr "Recuperació de desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:149
-#, fuzzy
 msgid "Remote storage space available"
-msgstr "Espai lliure d'emmagatzematge"
+msgstr "Espai disponible per a emmagatzematge remot"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:153
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr "Restaura la configuració de Zentyal des de la còpia de seguretat"
+msgstr "Còpia de la última configuració"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:157
 msgid "Latest data backup"
-msgstr ""
+msgstr "Última còpia de les dades"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:161
-#, fuzzy
 msgid "Data backed up"
-msgstr "Error a la base de dades"
+msgstr "Dades copiades"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:165
-#, fuzzy
 msgid "Estimated backup size"
-msgstr "Temps restant estimat"
+msgstr "Mida estimada de la còpia"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:169
-#, fuzzy
 msgid "Estimated time to recover from a disaster"
-msgstr "Temps restant estimat"
+msgstr "Temps estimat de recuperació d'un desastre"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:222
 msgid "Full Disaster Recovery enabled"
-msgstr ""
+msgstr "Habilitada la recuperació total de desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:236
 #, perl-brace-format
 msgid "{num} GB, left: {per}"
-msgstr ""
+msgstr "{num} GB, realitzat: {per}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:263
 #, perl-brace-format
 msgid "{time} hours - Full Disaster Recovery"
-msgstr ""
+msgstr "{time} hores - Recuperació total del desastre"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:265
 #, perl-brace-format
 msgid "{size} MB"
-msgstr ""
+msgstr "{size} MB"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:268
 msgid "No backup done yet"
-msgstr ""
+msgstr "Encara no s'ha fet cap copia"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:280
 #, perl-brace-format
 msgid "Install {mod} module to start using Disaster Recovery"
 msgstr ""
+"Instal.li el mòdul {mod} per començar a fer servir la recuperació de "
+"desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{time} minutes - Configuration Backup Only"
-msgstr "Còpies de seguretat de la configuració"
+msgstr "time} minutes - Només còpies de la configuració"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:292
-#, fuzzy
 msgid "No configuration backup has been done yet"
-msgstr "Còpies de seguretat de la configuració"
+msgstr "Encara no s'ha fet cap còpia de la configuració"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
-msgstr ""
+msgstr "Accés des del plafó de control sense contrassenya"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
 msgid "Access settings"
-msgstr ""
+msgstr "Paràmetres d'accés"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:203
 #, perl-brace-format
 msgid "No backups in server for host: {h}"
-msgstr ""
+msgstr "No hi ha còpies en el servidor per a la màquina: {h}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:208
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:259
 #, perl-brace-format
 msgid "Inexistent backup: {n}"
-msgstr ""
+msgstr "Còpia inexistenta: {n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/ProxyBackup.pm:243
 msgid "Key for proxy backup service not found"
-msgstr ""
+msgstr "No s'ha trobat la clau per al servei de còpies del proxy"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:68
 msgid ""
 "Cannot get the restricted addresses for remote support. Check VPN logs for "
 "details"
 msgstr ""
+"No es poden rebre les adreces restringides per al suport remot. Comprovi els "
+"detalls als logs de la VPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:140
 #, perl-brace-format
@@ -4670,27 +4762,32 @@ msgid ""
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
+"Ja hi ha un usuari {u} i no sembla creat per Zentyal. No es pot configurar "
+"l'accés per supor remot fins que no elimini aquest usuari o li canvii el nom"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:126
 #, perl-brace-format
 msgid "Cannot retrieve service URN; key \"{key}\" not found in {file}"
 msgstr ""
+"No es pot recuperar el URN del servei; clau \"{key }\" no trobada a {file}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:166
 #, perl-brace-format
 msgid "Value for key {k} not found"
-msgstr ""
+msgstr "Valor per a la clau {k} no trobat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:273
 msgid ""
 "Cannot found a valid address to connect with the Cloud. Please check your "
 "network configuration."
 msgstr ""
+"No hi ha cap adreça vàlida per connectar amb el Cloud. Si us plau, comprovi "
+"la configuració de la Xarxa."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CSV.pm:78
 #, perl-brace-format
 msgid "Skipping bad formed line: {l}"
-msgstr ""
+msgstr "Omitint línia mal formada: {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
@@ -4700,25 +4797,25 @@ msgstr "sistema"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:291
 msgid "average"
-msgstr ""
+msgstr "mitjana"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:295
 msgid "weak"
-msgstr ""
+msgstr "dèbil"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:400
 #, perl-brace-format
 msgid "No {level} passwords were found in users"
-msgstr ""
+msgstr "No s'han trobat contrassenyes de {level} als usuaris"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:405
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr ""
+msgstr "Els següents usuaris ténen contrassenyes de {level}: {users}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:112
 msgid "Key for web subscription service not found"
-msgstr ""
+msgstr "No s'ha trobat la clau per a la web de subscripció"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:188
 #, perl-brace-format
@@ -4726,11 +4823,14 @@ msgid ""
 "Cannot retrieve VPN settings needed for subscription. Check your {openurl}"
 "{brand} profile{closeurl} to check your VPN server settings."
 msgstr ""
+"No es pot recuperar la configuració de VPN necessària per a la subscripción. "
+"Comprovi el perfil {openurl}{brand} per revisar els paràmetres del servidor "
+"VPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:493
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
-msgstr ""
+msgstr "No es pot contactar amb {host}. Comprovi la connexió a internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:872
 #, perl-brace-format
@@ -4738,6 +4838,8 @@ msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
+"No s'ha pogut connectar amb el servidor WS \"{addr}:{port}/{proto}\". Comprovi "
+"la resolució de noms i el tallafocs"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:898
 #, perl-brace-format
@@ -4745,67 +4847,71 @@ msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
 msgstr ""
+"No s'ha pogut connectar al servidor \"{addr}:{port}/{proto}\". Comprovi el "
+"tallafocs"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid ""
 "It must be a valid subdomain name. It can only contain alphanumeric and - "
 "characters"
 msgstr ""
+"Ha de ser un nom de sotsdomini vàlid. Únicament pot tenir caràcters "
+"alfanumèrics i el caràcter -"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:59
 #, perl-brace-format
 msgid "It cannot contain \"{char}\" character"
-msgstr ""
+msgstr "No pot tenir el caràcter {char}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:62
 #, perl-brace-format
 msgid "It cannot be greater than {n} characters"
-msgstr ""
+msgstr "No pot tenir més de {n} caràcters"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/DisasterRecoveryProxy.pm:118
 msgid "Key for disaster recovery service not found"
-msgstr ""
+msgstr "La clau per al servei de recuperació de desastres no s'ha trobat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:214
 msgid "No ebox-services DNS key found"
-msgstr ""
+msgstr "La clau per als serveis DNS de Zentyal Cloud no s'ha trobat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:264
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot connect to any of the Cloud nameservers: {ns}"
-msgstr "No es pot connectar amb el servidor de correu {smtp}"
+msgstr "No es pot connectar amb cap servidor de noms del Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:279
 #, perl-brace-format
 msgid "Server {s} not found via DNS server {d}"
-msgstr ""
+msgstr "Servidor {s} no trobat via servidor de DNS {d}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:386
 msgid "Cannot create SOAP connection"
-msgstr ""
+msgstr "No es pot crear la connexió SOAP"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:400
 msgid "No domain key found for this service"
-msgstr ""
+msgstr "La clau de domini per aquest servei no s'ha trobat"
 
 #: ../../main/remoteservices/src/EBox/CGI/NoConnection.pm:31
 msgid "Connection error"
-msgstr ""
+msgstr "Error de connexió"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:72
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:81
 msgid "Restoring remote backup"
-msgstr ""
+msgstr "Restaurant la còpia remota"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:73
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:82
 msgid "Restoring modules from remote backup"
-msgstr ""
+msgstr "Restaurant mòduls des de la còpia remota"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:75
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:84
 msgid "modules left to restore"
-msgstr ""
+msgstr "mòduls que queden per restaurar"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
@@ -4815,15 +4921,15 @@ msgstr "Restauració satisfactòria"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
-msgstr ""
+msgstr "Còpia eliminada"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:70
 msgid "Making remote backup"
-msgstr ""
+msgstr "Fent còpia remota"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:71
 msgid "Backing up modules "
-msgstr ""
+msgstr "Copiant mòduls"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
@@ -4839,19 +4945,19 @@ msgstr "Operacions que resten per acabar la còpia"
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:252
 msgid "Backup successful"
-msgstr "Còpia de seguretat"
+msgstr "Còpia de seguretat satisfactòria"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:35
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:182
 msgid "Configuration backup"
-msgstr "Còpies de seguretat de la configuració"
+msgstr "Còpia de seguretat de la configuració"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:86
-#, fuzzy
 msgid ""
 "Please confirm that you want to restore the configuration using the "
 "following remote backup:"
-msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
+msgstr ""
+"Confirmi que vol restablir la configuració fent servir aquesta còpia remota:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:92
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:105
@@ -4869,10 +4975,11 @@ msgid ""
 "Please confirm that you want to restore the configuraction using the "
 "following remote backup:"
 msgstr ""
+"Confirmi que vol restablir la configuració fent servir aquesta copia remota:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:111
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "Confirmi que vol eliminar aquesta còpia remota:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:117
 #: ../../main/core/src/EBox/AuditLogging.pm:121
@@ -4912,31 +5019,29 @@ msgid "Delete"
 msgstr "Esborrar"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:123
-#, fuzzy
 msgid ""
 "Please confirm that you want to overwrite the following remote backup with a "
 "new one"
-msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
+msgstr "Confirmi que vol sobreescriure aquesta copia remota amb una de nova"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:129
 msgid "Overwrite"
-msgstr ""
+msgstr "Sobreescriure"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:171
 #, perl-brace-format
 msgid "Inexistent action: {a}"
-msgstr ""
+msgstr "Acció inexistent: {a}"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Proxy.pm:35
 msgid "Remote system backups proxy"
-msgstr ""
+msgstr "Proxy del sistema de còpies remotes"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Index.pm:36
 msgid "Remote system backups"
-msgstr ""
+msgstr "Copies del sistema remot"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:54
-#, fuzzy
 msgid "Email Address"
 msgstr "Adreça de correu"
 
@@ -4953,77 +5058,69 @@ msgid "Last name"
 msgstr "Cognom"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:63
-#, fuzzy
 msgid "Country"
-msgstr "país "
+msgstr "País"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:64
-#, fuzzy
 msgid "Phone number"
-msgstr "una hora"
+msgstr "Número de telèfon"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:65
-#, fuzzy
 msgid "Repeated password"
-msgstr "Torni a escriu-re la clau d'accés"
+msgstr "Contrassenya repetida"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:68
-#, fuzzy
 msgid "Introduced passwords do not match"
-msgstr "Les contrasenyes noves no coincideixen."
+msgstr "Les contrasenyes no coincideixen."
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:103
 msgid "An unknown error ocurred registering the subscription"
-msgstr ""
+msgstr "Hi ha hagut un error desconegut entregistrant la subscripció"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:108
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
-msgstr ""
+msgstr "Ja hi ha un usuari amb aquest correu. Revisi les dades del compte a "
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:110
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
 msgstr ""
+"Hi ha hagut una excepció desconeguda. Provi-ho més tard o contacti amb "
+"info@zentyal.com"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:43
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:58
-#, fuzzy
 msgid "Bandwidth Monitor"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Monitor d'Ample de Banda"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:425
 #: ../../main/samba/src/EBox/Samba.pm:1500
 #: ../../main/samba/src/EBox/Samba.pm:1520
 msgid "Client address"
-msgstr ""
+msgstr "Adreça del client"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:428
-#, fuzzy
 msgid "External recv"
-msgstr "Compte extern"
+msgstr "Rebut extern"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:429
-#, fuzzy
 msgid "External sent"
-msgstr "Entrada externa"
+msgstr "Enviat extern"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:430
-#, fuzzy
 msgid "Internal recv"
-msgstr "Intern"
+msgstr "Rebut intern"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:431
-#, fuzzy
 msgid "Internal sent"
-msgstr "Intern"
+msgstr "Enviat intern"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:442
-#, fuzzy
 msgid "Bandwidth usage"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Ús d'Ample de Banda"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
 #: ../../main/network/src/EBox/Model/DynDNS.pm:205
@@ -5047,21 +5144,19 @@ msgstr "IP"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:71
 msgid "IPs assigned to users"
-msgstr ""
+msgstr "IPs assignades a usuaris"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:72
-#, fuzzy
 msgid "useripmap"
-msgstr "correu de l'usuari"
+msgstr "useripmap"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:75
 msgid "List of IPs assigned to each user."
-msgstr ""
+msgstr "Llista de IPs assignades a cada usuari."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Configure interfaces"
-msgstr "Interfícies de xarxa"
+msgstr "Configurar interfícies"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
@@ -5072,79 +5167,71 @@ msgid "interface"
 msgstr "interfície"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:69
-#, fuzzy
 msgid "List of monitored interfaces."
-msgstr "Per configurar el host virtual per defecte."
+msgstr "Llista de interfícies monitoritzades"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
-#, fuzzy
 msgid "External in"
 msgstr "Entrada externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:67
-#, fuzzy
 msgid "External out"
-msgstr "Compte extern"
+msgstr "Sortida externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:72
-#, fuzzy
 msgid "Internal in"
-msgstr "Intern"
+msgstr "Entrada interna"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:77
-#, fuzzy
 msgid "Internal out"
-msgstr "Intern"
+msgstr "Sortida externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:85
-#, fuzzy
 msgid "Last hour bandwidth usage"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Ús d'ample de banda la última hora"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:89
 msgid "There is no data to show yet, the values are updated every 10 minutes"
 msgstr ""
+"Encara no hi ha dades per mostrar, els valors s'actualitzen cada 10 minuts"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "Bandwidth usage for each connected client."
-msgstr ""
+msgstr "Ús d'ample de banda per a cada client connectat"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:104
 msgid "Bandwidth Monitor must be enabled in order to get data."
-msgstr ""
+msgstr "El monitor d'ample de banda s'ha d'habilitar per poder rebre dades"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/General.pm:64
 #: ../../main/captiveportal/src/templates/useraddon.mas:8
 msgid "Captive Portal"
-msgstr ""
+msgstr "Portal Captiu"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:65
 #: ../../main/samba/src/EBox/Samba.pm:120 ../../main/mail/src/EBox/Mail.pm:142
 msgid "Add LDAP schemas"
-msgstr "Afegeix esquemes a LDAP"
+msgstr "Afegir esquemes a LDAP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:66
-#, fuzzy
 msgid "Zentyal will use this schema to store user sessions info."
 msgstr ""
-"Zentyal necessita aquest esquema per emmagatzemar els usuaris de Jabber."
+"Zentyal farà servir aquest esquema per emmagatzemar informació de les "
+"sessions dels usuaris."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:59
-#, fuzzy
 msgid "Day bandwidth usage (MB)"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Ús d'ample de banda l'últim dia (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:63
-#, fuzzy
 msgid "Week bandwidth usage (MB)"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Ús d'ample de banda la última setmana (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:68
-#, fuzzy
 msgid "Month bandwidth usage (MB)"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Ús d'ample de banda l'últim mes (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm.in:130
@@ -5153,18 +5240,16 @@ msgid "Time"
 msgstr "Hora"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:121
-#, fuzzy
 msgid "Kick user"
-msgstr "usuari AD"
+msgstr "Fer fora usuari"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:124
 msgid "Finish user session in Captive Portal"
-msgstr ""
+msgstr "Finalitzar la sessió de l'usuari al Portal Captiu"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:141
-#, fuzzy
 msgid "Current users"
-msgstr "Mòdul actual"
+msgstr "Usuaris actuals"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:142
 #: ../../main/pptp/src/EBox/Model/Users.pm:127
@@ -5181,53 +5266,56 @@ msgid "user"
 msgstr "usuari"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:146
-#, fuzzy
 msgid "List of current logged in users."
-msgstr "No està validat"
+msgstr "Llista d'usuaris registrats actualment."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:162
 msgid "Captive portal must be enabled in order to see current users list."
 msgstr ""
+"Per poder veure la llista d'usuaris actualitzada s'ha d'habilitar el mòdul "
+"Portal Captiu"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:265
 #, perl-brace-format
 msgid "Closing session for user {user}."
-msgstr ""
+msgstr "Tancant la sessió de l'usuari {user}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:54
 msgid "Use secondary LDAP"
-msgstr ""
+msgstr "Fer servir el LDAP secundari"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:60
-#, fuzzy
 msgid "LDAP URL"
-msgstr "LDAP DN"
+msgstr "URL de LDAP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:69
 msgid "Bind DN"
-msgstr ""
+msgstr "Bind DN"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:70
 #, perl-brace-format
 msgid "Bind DN pattern. {x} will be replaced with the username"
-msgstr ""
+msgstr "Patró per a Bind DN. {x} serà reemplaçat pel nom d'usuari "
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:81
-#, fuzzy
 msgid "Secondary LDAP"
-msgstr "Servidor secundari"
+msgstr "LDAP secundari"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:85
 msgid ""
 "Here you can configure a secondary LDAP. If login fails as Zentyal user this "
 "LDAP will be used."
 msgstr ""
+"Aquí pot configurar un LDAP secundari. Si falla el registre com a usuari "
+"Zentyal, es farà servir aquest LDAP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:54
 msgid ""
 "If you want to limit bandwidth usage install and enable Bandwidth Monitor "
 "module."
 msgstr ""
+"Si vol limitar l'ample de banda, instal.li i activi el mòdul Monitor d'ample "
+"de banda."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:58
 #, perl-brace-format
@@ -5235,21 +5323,23 @@ msgid ""
 "If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}"
 "Module Status{enda} section."
 msgstr ""
+"Si vol limitar l'ús de l'ample de banda, activi el Monitor d'Ample de Banda "
+"a la secció {begina}Estat dels mòduls{enda}"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:75
 msgid "Limit bandwidth usage"
-msgstr ""
+msgstr "Limitar l'ús de l'ample de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:82
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:49
 #: ../../main/captiveportal/src/templates/useraddon.mas:17
-#, fuzzy
 msgid "Bandwidth quota"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Quota d'ample de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
 msgstr ""
+"Màxim ús de l'ample de banda per al periode definit. 0 vol dir no limitat."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:94
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:42
@@ -5257,9 +5347,8 @@ msgid "Day"
 msgstr "Dia"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:98
-#, fuzzy
 msgid "Week"
-msgstr "Setmanal "
+msgstr "Setmana"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:43
@@ -5268,31 +5357,31 @@ msgstr "Mes"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:109
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:119
-#, fuzzy
 msgid "Bandwidth Settings"
-msgstr "Limitació d'Ample de Banda"
+msgstr "Paràmetres d'ample de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:123
 msgid "Here you can setup bandwidth usage quota for captive portal users."
 msgstr ""
+"Aquí es pot configurar una quota d'us d'ample de banda per als usuaris del "
+"portal captiu."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:50
 msgid "Default external bandwidth usage limit"
-msgstr ""
+msgstr "Límit d'ús d'ample de banda per defecte"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:54
 #: ../../main/captiveportal/src/templates/useraddon.mas:28
-#, fuzzy
 msgid "Use default"
-msgstr "per defecte"
+msgstr "Fer servir el valor per defecte"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:58
 #: ../../main/captiveportal/src/templates/useraddon.mas:31
 msgid "No limit"
-msgstr ""
+msgstr "Sense límit"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:62
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:95
@@ -5314,37 +5403,33 @@ msgid "Setting default quota to zero is equivalent to disable it"
 msgstr "Establir la quota per defecte a zero és equivalent a inhabilitar-la"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Captive Interfaces"
-msgstr "Interfícies"
+msgstr "Interfícies captives"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:69
 msgid "List of interfaces where Captive Portal is enabled."
-msgstr ""
+msgstr "Llista d'interfícies amb el Portal Captiu activat."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:59
 msgid "Only users in this group will be allowed to login."
-msgstr ""
+msgstr "Els usuaris d'aquest grup son els únics que podràn iniciar sessió."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
-#, fuzzy
 msgid "HTTP port"
-msgstr "qualsevol port TCP"
+msgstr "port HTTP"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:69
-#, fuzzy
 msgid "HTTPS port"
-msgstr "qualsevol port TCP"
+msgstr "port HTTPS"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:78
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
-msgstr "Configuració General"
+msgstr "Paràmetres generals"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:82
 msgid "Here you can define general settings for captive portal."
-msgstr ""
+msgstr "Aquí pot definir els paràmetres per al portal captiu."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:96
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:222
@@ -5354,7 +5439,7 @@ msgstr "Tots els usuaris"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:132
 msgid "HTTP and HTTPS ports should be different"
-msgstr ""
+msgstr "Els ports HTTP i HTTPS han de ser diferents"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/Login.pm:61
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Login/Index.pm:62
@@ -5404,48 +5489,45 @@ msgstr "nom d'usuari"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:119
 msgid "IP address assigned to this user within the VPN network."
-msgstr ""
+msgstr "Adreça IP assignada a l'usuari dins la xarxa VPN"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:126
-#, fuzzy
 msgid "PPTP Users"
-msgstr "Usuaris"
+msgstr "Usuaris de PPTP"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:134
 msgid ""
 "Users allowed to connect using the PPTP VPN. This list is independant of "
 "LDAP users defined on Users and Groups."
 msgstr ""
+"Usuaris autoritzats per a connectar-se fent servir la VPN PPTP. Aquesta "
+"llista és independent dels usuaris LDAP definits a Usuaris i Grups"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:81
-#, fuzzy
 msgid "VPN Network Address"
-msgstr "adreça de xarxa"
+msgstr "Adreça de la xarxa VPN"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:84
 msgid ""
 "This address should be different from any other internal or VPN network."
 msgstr ""
+"Aquesta adreça ha de ser diferent de qualsevol altra xarxa interna o VPN."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:88
-#, fuzzy
 msgid "Primay Nameserver"
 msgstr "Servidor de noms primari"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:94
-#, fuzzy
 msgid "Secondary Nameserver"
 msgstr "Servidor de noms secundari"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:100
-#, fuzzy
 msgid "Primary WINS"
-msgstr "Servidor primari"
+msgstr "Servidor WINS primari"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:106
-#, fuzzy
 msgid "Secondary WINS"
-msgstr "Servidor secundari"
+msgstr "Servidor WINS secundari"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:115
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
@@ -5456,51 +5538,46 @@ msgid "General configuration"
 msgstr "Configuració general"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:119
-#, fuzzy
 msgid "PPTP server configuration"
-msgstr "Configuració del servidor"
+msgstr "Configuració del servidor PPTP"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:121
-#, fuzzy
 msgid "PPTP server configuration updated"
-msgstr "Configuració del servidor RADIUS actualitzada"
+msgstr "S'ha actualitzat la configuració del servidor PPTP"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:124
 msgid ""
 "PPTP VPN is used for connecting Microsoft Windows clients without any third "
 "party client and mobile devices like iPhone and Android."
 msgstr ""
+"PPTP VPN es fa servir per a connectar clients de Microsoft Windows sense un "
+"client de tercers i dispossitus mòbils com iPhone i Android."
 
 #: ../../main/pptp/src/EBox/Composite/General.pm:64
 msgid "PPTP"
-msgstr ""
+msgstr "PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:104
-#, fuzzy
 msgid "To configure PPTP server."
-msgstr "Per configurar el comportament del DTMF"
+msgstr "Per configurar el servidor PPTP."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:108
-#, fuzzy
 msgid "To configure PPTP options."
-msgstr "Configurar postfix"
+msgstr "Per configurar les opcions de PPTP."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:112
-#, fuzzy
 msgid "To configure PPTP users."
-msgstr "Per configurar les conferències"
+msgstr "Per configurar els usuaris de PPTP."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:153
 msgid "PPTP VPN"
-msgstr ""
+msgstr "VPN PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:305
-#, fuzzy
 msgid "PPTP Connected Users"
-msgstr "Connectat des de"
+msgstr "Usuaris connectats a PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:355
-#, fuzzy
 msgid "Local IP address"
 msgstr "Adreça IP local"
 
@@ -5589,26 +5666,25 @@ msgstr "Freqüència de còpia completa "
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:236
 msgid "Only the first time"
-msgstr ""
+msgstr "Només el primer cop"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:241
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:273
 msgid "Daily"
-msgstr "Diària "
+msgstr "Cada dia"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:246
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:278
 msgid "Weekly"
-msgstr "Setmanal "
+msgstr "Cada setmana"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:252
-#, fuzzy
 msgid "Twice a month"
-msgstr "1 mes"
+msgstr "Dos cops al mes"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:258
 msgid "Monthly"
-msgstr "Mensual"
+msgstr "Cada mes"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:268
 msgid "Incremental Backup Frequency"
@@ -5616,7 +5692,7 @@ msgstr "Freqüència de la còpia incremental"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:294
 msgid "Backup process starts at"
-msgstr "El procés de còpia comença a"
+msgstr "El procés de còpia comença a les"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:300
 msgid "Keep previous full copies"
@@ -6119,22 +6195,20 @@ msgid "Directory not found: {d}"
 msgstr "Directori no trobat: {d}"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:97
-#, fuzzy
 msgid "To configure OpenSwan IPsec."
-msgstr "Configurar renattach"
+msgstr "Per a configurar OpenSwan IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:102
-#, fuzzy
 msgid "To configure OpenSwan IPsec passwords."
-msgstr "Per configurar mòduls actius i inactius"
+msgstr "Per configurar les contrassenyes d'OpenSwan IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:141
 msgid "IPsec VPN"
-msgstr ""
+msgstr "VPN IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:261
 msgid "IPsec"
-msgstr ""
+msgstr "IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
@@ -6147,11 +6221,11 @@ msgstr "Xifrat ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
 msgid "ESP DH Group"
-msgstr ""
+msgstr "Grup ESP DH"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:184
 msgid "ESP Keylife"
-msgstr ""
+msgstr "Vida de la clau ESP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
 msgid "Enable PFS"
@@ -6159,7 +6233,7 @@ msgstr "Habilitar PFS"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
-msgstr ""
+msgstr "Fase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
 msgid "Local IP Address"
@@ -6531,7 +6605,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:183
 msgid "Multigateway rules"
-msgstr "Regles de múltiples passarel·les"
+msgstr "Regles de múltiples passarel.les"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:196
 msgid ""
@@ -6541,11 +6615,11 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
-"Pots decidir quin tipus de trànsit surt per cadascuna de les passarel·les. "
-"D'aquesta manera pots forçar que una subxarxa, servei, adreça de destí, etc. "
-"utilitzi l'encaminador triat. Si us plau, tingues en compte que les regles "
-"s'apliquen en ordre, de dalt a baix. Pots reordenar-les un cop hagin sigut "
-"afegides. Si no configures un port o una adreça IP, aleshores la regla "
+"Pot decidir quin tipus de trànsit surt per cadascuna de les passarel·les. "
+"D'aquesta manera pot forçar que una subxarxa, servei, adreça de destí, etc. "
+"utilitzi l'encaminador triat. Si us plau, tingui en compte que les regles "
+"s'apliquen en ordre, de dalt a baix. Pot reordenar-les un cop hagin sigut "
+"afegides. Si no configura un port o una adreça IP, aleshores la regla "
 "acceptarà a tots ells"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:90
@@ -6639,8 +6713,8 @@ msgid ""
 "the default routes you must execute: "
 msgstr ""
 "Això es necessari per treballar amb una configuració de múltiples "
-"passarel·les. Tingues en compte que per la llista de rutes predeterminades "
-"has d'executar:"
+"passarel·les. Tingui en compte que per la llista de rutes predeterminades ha "
+"d'executar:"
 
 #: ../../main/network/src/EBox/Network.pm:108
 msgid "Enable Zentyal DHCP hook"
@@ -6827,9 +6901,8 @@ msgid "Gateways"
 msgstr "Passarel·les"
 
 #: ../../main/network/src/EBox/Network.pm:3815
-#, fuzzy
 msgid "Dynamic DNS"
-msgstr "Dinàmic"
+msgstr "DNS Dinàmic"
 
 #: ../../main/network/src/EBox/Network.pm:3819
 msgid "Diagnostic Tools"
@@ -6975,32 +7048,32 @@ msgid "Traffic rate from {src} for {service}"
 msgstr "Taxa de trànsit des de {src} per {service}"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:155
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} connected again."
-msgstr "Passarel·la {gw} connectada"
+msgstr "Passarel·la {gw} connectada altra vegada"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:166
 msgid ""
 "WARNING: These changes are not applied due to unsaved changes on the "
 "administration interface."
 msgstr ""
+"AVÍS: Aquests canvis no s'aplicaràn perque hi ha canvis sense guardar a la "
+"interfície d'administració."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:319
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Gateway {gw} disconnected"
-msgstr "Passarel·la {gw} connectada"
+msgstr "Passarel·la {gw} desconnectada"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:320
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
-msgstr ""
-"Passarel·la {gw} desconnectada ({failRatio}% de '{type}' proves de "
-"màquina'{host}' fallaren, max={maxFailRatio}%)"
+msgstr "'{type}' proves de màquina'{host}' fallaren, max={maxFailRatio}%)"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:323
 msgid "This gateway will be connected again if the test are passed."
-msgstr ""
+msgstr "Aquesta porta es tornarà a connectar si passa les proves."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:416
 msgid "Check if gateways are connected or disconnected."
@@ -7079,6 +7152,9 @@ msgid ""
 "own data like their password. Here you can choose the port used to accept "
 "https connections."
 msgstr ""
+"Aquest mòdul habilita un servidor https per permetre als usuaris canviar les "
+"seves pròpies dades, com la seva contrassenya. Aquí pot elegir el port que "
+"es farà servir per acceptar les connexions HTTPS"
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:96
 msgid "listening port"
@@ -7136,14 +7212,12 @@ msgstr "Màquines virtuals"
 
 #: ../../main/virt/src/EBox/Virt.pm:92
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
-#, fuzzy
 msgid "VNC connections for VMs"
-msgstr "Connexió de destinació"
+msgstr "Connexions VNC per a les màquines virtuals"
 
 #: ../../main/virt/src/EBox/Virt.pm:516
-#, fuzzy
 msgid "Disk images of the virtual machines"
-msgstr "Llista d'esclaus"
+msgstr "Imatges de disc de les màquines virtuals"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:69
 #: ../../main/network/src/templates/ifaces.mas:80
@@ -7152,38 +7226,34 @@ msgid "Bridged"
 msgstr "En pont de xarxa"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:70
-#, fuzzy
 msgid "Internal Network"
-msgstr "Xarxes internes"
+msgstr "Xarxa interna"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:102
-#, fuzzy
 msgid "Bridged to"
-msgstr "En pont de xarxa"
+msgstr "En pont de xarxa amb"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:108
-#, fuzzy
 msgid "Internal Network Name"
-msgstr "Xarxes internes"
+msgstr "Nom de la Xarxa Interna"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:118
-#, fuzzy
 msgid "Network Settings"
-msgstr "Objecte de xarxa"
+msgstr "Paràmetres de la xarxa"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:126
 msgid "Here you can define the network interfaces of the virtual machine."
-msgstr ""
+msgstr "Aquí es poden definir les interfícies de xarxa de la màquina virtual."
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:144
 #, perl-brace-format
 msgid "A maximum of {num} network interfaces are allowed"
-msgstr ""
+msgstr "Es permet un màxim de {num} xarxes"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:233
 msgid "View Console"
-msgstr ""
+msgstr "Veure la consola"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:91
 #: ../../main/virt/src/templates/vmstatus.mas:35
@@ -7193,196 +7263,185 @@ msgid "Start"
 msgstr "Inicia"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:93
-#, fuzzy
 msgid "Virtual Machine started"
-msgstr "Màquines virtuals"
+msgstr "Màquina virtual iniciada"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:98
 #: ../../main/virt/src/templates/vmstatus.mas:32
-#, fuzzy
 msgid "Stop"
-msgstr "Aturat"
+msgstr "Aturar"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:100
-#, fuzzy
 msgid "Virtual Machine stopped"
-msgstr "Màquines virtuals"
+msgstr "Màquines virtuals aturades"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:111
 msgid "Pause"
-msgstr ""
+msgstr "Pausa"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:113
-#, fuzzy
 msgid "Virtual Machine paused"
-msgstr "Màquines virtuals"
+msgstr "Màquines virtuals pausades"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:118
 msgid "Resume"
-msgstr ""
+msgstr "Reempendre"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:120
-#, fuzzy
 msgid "Virtual Machine resumed"
-msgstr "Màquines virtuals"
+msgstr "Màquina virtual reempresa"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:149
-#, fuzzy
 msgid "Autostart"
-msgstr "Autoaprenentatge"
+msgstr "Autoinici"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:158
-#, fuzzy
 msgid "List of Virtual Machines"
-msgstr "Llista d'esclaus"
+msgstr "Llista de màquines virtuals"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:160
-#, fuzzy
 msgid "virtual machine"
-msgstr "domini virtual"
+msgstr "màquina virtual"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:164
-#, fuzzy
 msgid "List of configured Virtual Machines."
-msgstr "Per configurar el host virtual per defecte."
+msgstr "Llista de màquines virtuals configurades."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
 "Status{closeref} section and enable it prior to try to start any machine."
 msgstr ""
-"Abans de configurar les impresores necessita activar el mòdul a la secció  "
-"{openref}Estat dels mòduls{closeref} i desar els canvis després."
+"El mòdul de Màquines Virtuals no està habilitat. Vagi a la secció "
+"{openref}Estat dels mòduls{closeref} i habiliti'l abans d'iniciar cap "
+"màquina."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
+"Les màquines virtuals no es poden iniciar si hi ha canvis sense guardar al "
+"mòdul de Màquines virtuals. Guardi els canvis i torni a provar-ho."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
 #, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
-msgstr ""
+msgstr "La màquina virtual '{vm}' no es pot iniciar"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:301
 #, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
-msgstr ""
+msgstr "No s'ha pogut aturar la màquina virtual '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
 msgid "Cannot pause a stopped machine. You have to start it first."
-msgstr ""
+msgstr "No es pot pausar una màquina virtual aturada. Abans s'ha d'iniciar."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:73
 msgid "Hard Disk"
-msgstr ""
+msgstr "Disc Dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:81
-#, fuzzy
 msgid "Create a new disk"
-msgstr "Crear àlies de correu"
+msgstr "Crear un nou disc"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:82
 msgid "Use a existing image file"
-msgstr ""
+msgstr "Fer servir un fitxer d'imatge existent"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:97
 msgid "Drive Type"
-msgstr ""
+msgstr "Tipus de dispossitiu"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:117
 msgid "Path"
-msgstr ""
+msgstr "Ruta"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:124
 msgid "Size"
-msgstr ""
+msgstr "Mida"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:135
-#, fuzzy
 msgid "Device Settings"
-msgstr "Configuració LDAP"
+msgstr "Configuració del dispossitiu"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:136
 msgid "drive"
-msgstr ""
+msgstr "unitat"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:143
 msgid "Here you can define the storage drives of the virtual machine"
-msgstr ""
+msgstr "Aquí pot definir les unitats d'emmagatzemament de l a màquina virtual"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
 msgid "You need to provide the path of a ISO image"
-msgstr ""
+msgstr "Ha de proporcionar la ruta d'una imatge ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "ISO image '{img}' does not exist"
-msgstr "El client {c} no existeix"
+msgstr "La imagte ISO '{img}' no existeix"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
 msgid "You need to provide the path of a hard disk image"
-msgstr ""
+msgstr "Ha de proporcionar la ruta d'una imatge de disc dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Hard disk image '{img}' does not exist"
-msgstr "El domini de correu {d} no existeix"
+msgstr "La imatge de disc dur '{img}' no existeix"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:185
-#, fuzzy
 msgid "You need to specify a name for the new hard disk"
-msgstr ""
-"Necessita especificar la ruta de la imatge d'arrencada al servidor remot"
+msgstr "Ha d'especificar el nom del nou disc dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:191
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
 msgstr ""
+"No es pot modificar un disc existent. Per poder modificar la mida s'ha "
+"d'eliminar i tornar a crear."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:207
 #, perl-brace-format
 msgid "A maximum of {num} CD/DVD drives are allowed"
-msgstr ""
+msgstr "Es permeten un màxim de {num} dispossitius CD/DVD"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:212
 #, perl-brace-format
 msgid "A maximum of {num} Hard Disk drives are allowed"
-msgstr ""
+msgstr "Es permeten un màxim de {num} unitats de disc dur"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:87
-#, fuzzy
 msgid "Operating System"
-msgstr "Tipus d'operació"
+msgstr "Sistema operatiu"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:93
 msgid "Base Memory"
-msgstr ""
+msgstr "Memòria base"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
-#, fuzzy
 msgid "System Settings"
-msgstr "Configuració Sincronització AD"
+msgstr "Paràmetres del sistema"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:108
 msgid "Here you can define the basic hardware configuration of the machine"
-msgstr ""
+msgstr "Aquí pot definir la configuració del hardware bàsic de la màquina"
 
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:65
-#, fuzzy
 msgid "Virtual Machine Settings"
-msgstr "Configuracions de domini virtual"
+msgstr "Paràmetres de la Màquina Virtual"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:444
 msgid "i686 compatible"
-msgstr ""
+msgstr "compatible amb i686"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:445
 msgid "amd64 compatible"
-msgstr ""
+msgstr "compatible amb amd64"
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:91
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:95
@@ -7412,12 +7471,17 @@ msgid ""
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
+"Unicament es faràn servir aquells objectes la IP dels quals sigui un host "
+"(/32), tenguin una MAC vàlida, una direcció IP no utilitzada per cap "
+"interval disponible i un nom únic com adreça estàtica."
 
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:269
 msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
 msgstr ""
+"Els membres que no tenguin un nom de host vàlid es modificaràn per "
+"convertir-los en un nom de domini vàlid."
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:117
 #, perl-brace-format
@@ -7442,11 +7506,13 @@ msgstr ""
 "El Rang {newFrom}-{newTo} es solapa amb el rang '{range}': {oldFrom}-{oldTo}"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:178
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} includes fixed address from the object member \"{name}\": "
 "{fixedIP}"
-msgstr "El rang {from} - {to} inclou una adreça fixa '{name}': {fixedIP}"
+msgstr ""
+"El rang {from} - {to} inclou l'assignació estàtica del membre '{name}': "
+"{fixedIP}"
 
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:217
 #: ../../main/mail/src/EBox/Mail.pm:1615
@@ -7490,9 +7556,9 @@ msgid "DHCP ranges"
 msgstr "Rangs DHCP"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Remove thin client options from {model}{br}"
-msgstr "Elimina les dades del {model} {br}"
+msgstr "Elimina les dades del client lleuger {model} {br}"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:222
 msgid "Next server"
@@ -7516,9 +7582,8 @@ msgstr ""
 "d'incloure tots els arxius requerits sota el directori a la ruta {path}"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:276
-#, fuzzy
 msgid "thin client option"
-msgstr "Client lleuger"
+msgstr "opció de client lleuger"
 
 #: ../../main/dhcp/src/EBox/Model/Options.pm:156
 #, perl-brace-format
@@ -7644,10 +7709,10 @@ msgid ""
 "domains on Zentyal might be chosen. All fields are optionals setting its "
 "value as \"None\" or leaving blank."
 msgstr ""
-"Si selecciones \"configurats\" com a porta d'enllaç predeterminada, has "
-"d'escollir una porta d'enllaç configurada. Com a valor de \"cerca de domini"
-"\", s'ha de triar un dels dominis de DNS configurats a Zentyal. En tots els "
-"camps es opcional definir-los com a \"None\" o deixar-los en blanc."
+"Si selecciona \"configurats\" com a porta d'enllaç predeterminada, ha "
+"d'escollir una porta d'enllaç configurada. Com a valor de \"cerca de domini\", "
+"s'ha de triar un dels dominis de DNS configurats a Zentyal. En tots els "
+"camps és opcional definir-los com a \"None\" o deixar-los en blanc."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:209
 msgid "DNS module must be configured to work with this feature"
@@ -7660,27 +7725,26 @@ msgid "{pkg} must be installed to use this feature"
 msgstr "{pkg} ha d'estar instal·lat per fer servir aquesta funcionalitat"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:235
-#, fuzzy
 msgid "DNS module must be enabled to make this feature work."
-msgstr "S'ha d'activar el mòdul DNS per a que aquesta funcionalitat funcioni. "
+msgstr "S'ha d'activar el mòdul DNS per a que aquesta característica funcioni. "
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:280
 #, perl-brace-format
 msgid ""
 "Dynamic DNS feature has been disabled in DHCP module in {iface} interface."
-msgstr ""
+msgstr "El DNS dinàmic s'ha desactivat al mòdul DHCP per la interfície {iface}."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:304
 msgid "Dynamic domain"
-msgstr "Domini dinamic"
+msgstr "Domini dinàmic"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:306
 msgid ""
 "Domain name appended to the hostname from those clients whose leased IP "
 "address comes from a range"
 msgstr ""
-"Nom del domini adjunt al nom del host del clients els quals la seva IP "
-"assignada prové d'un rang establert."
+"El nom del domini s'adjunta al nom de host d'aquells clients la IP dels "
+"quals prové d'un rang establert."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:313
 msgid "Static domain"
@@ -7691,12 +7755,11 @@ msgid ""
 "Domain name appended to the hostname from those clients with a fixed address "
 "mapping"
 msgstr ""
-"Nom del domini adjunt al nom del host del clients els quals tenen una IP "
-"fixa reservada."
+"S'ha afegit el nom de host al nom de domini dels clients amb IP estàtica."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:320
 msgid "Same as Dynamic Domain"
-msgstr "Igual que un domini dinpamic"
+msgstr "Igual que un Domini Dinàmic"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:334
 msgid "Dynamic DNS Options"
@@ -7708,14 +7771,14 @@ msgstr ""
 "Els dominis s'afegiran automàticament al mòdul DNS en mode només lectura"
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:365
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain \"{domain}\" set as dynamic in DNS section"
-msgstr "El domini \"{domain}\" s'ha afegit a la secció DNS."
+msgstr "El domini \"{domain}\" s'ha establert com dinàmic a la secció DNS."
 
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:379
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Domain \"{domain}\" set as static in DNS section"
-msgstr "El domini \"{domain}\" s'ha afegit a la secció DNS."
+msgstr "El domini \"{domain}\" s'ha afegit com a estàtic a la secció DNS."
 
 #: ../../main/dhcp/src/EBox/Model/LeaseTimes.pm:131
 msgid "Default leased time must be higher than 0 seconds"
@@ -7776,12 +7839,12 @@ msgid ""
 "so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
 "La interfície ha d'estar configurada en mode estàtic per configurar-li el "
-"servei DHCP sobre ella. Per fer-ho, {openhref}configuració d'interfícies"
-"{closehref} al mòdul de xarxa"
+"servei DHCP sobre ella. Per fer-ho, vagi a {openhref}configuració "
+"d'interfícies{closehref} al mòdul de xarxa"
 
 #: ../../main/dhcp/src/EBox/Composite/Interfaces.pm:107
 msgid "Choose a static interface to configure:"
-msgstr "Escull una interfície estàtica a configurar:"
+msgstr "Esculli una interfície estàtica a configurar:"
 
 #: ../../main/dhcp/src/EBox/Composite/Interfaces.pm:108
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:167
@@ -7803,9 +7866,9 @@ msgid "{server} configuration file"
 msgstr "Arxiu de configuració {server} "
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:117
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "AppArmor profile for {server} daemon"
-msgstr "El perfil de l'Apparmor serà desactivat"
+msgstr "Pperfil d'Apparmor per al dimoni {server}"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:138
 msgid "Trivial File Transfer Protocol"
@@ -7835,7 +7898,7 @@ msgstr "Zentyal s'encarregarà d'iniciar i aturar el servei"
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:892
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr "{iface} no es estatic"
+msgstr "{iface} no es estàtica"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:764
 msgid "Not a valid action: add, set and del are available"
@@ -7853,7 +7916,7 @@ msgstr ""
 "elimini-la abans per poder afegir una interfície virtual que la faci servir."
 
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
 "used by a DHCP fixed address from object member '{fixed}' in the interface "
@@ -7905,9 +7968,8 @@ msgstr "Fitxer de configuració per defecte {daemon}"
 #: ../../main/core/src/EBox/Logs.pm:702
 #: ../../main/core/src/EBox/SysInfo.pm.in:339
 #: ../../main/core/src/EBox/Events.pm:151
-#, fuzzy
 msgid "Maintenance"
-msgstr "interfície"
+msgstr "Manteniment"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:77
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:108
@@ -7946,7 +8008,7 @@ msgstr "mesura"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:169
 msgid "Every measure may have several thresholds to monitor"
-msgstr "Cada mesura pot tenir varis llindars a monitorar"
+msgstr "Cada mesura pot tenir diversos llindars a monitorar"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:116
 msgid "Threshold Configuration"
@@ -7961,9 +8023,9 @@ msgid "This threshold rule will override the current ones"
 msgstr "Aquesta regla de llindar sobreescriurà les existents"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:217
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "It should be a multiple of {interval}"
-msgstr "Hauria de ser un dels següents valors: {values}"
+msgstr "Hauría de ser un múltiple de {interval}"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:261
 msgid "Failure minimum"
@@ -7987,8 +8049,8 @@ msgid ""
 "If the value is less than this value and greater than {fmin} a warn event is "
 "sent"
 msgstr ""
-"Si el valor és menor que aquest valor i més gran que {fmin} un esdeveniment "
-"d'avís és enviat"
+"Si el valor és menor que aquest valor i més gran que {fmin} s'enviarà un "
+"esdeveniment d'avís"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:274
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
@@ -8005,8 +8067,8 @@ msgid ""
 "If the value is greater than this value and less than {fmax} a warn event is "
 "sent"
 msgstr ""
-"Si el valor és més que aquest valor i menor que {fmax} un esdeveniment "
-"d'avís és enviat"
+"Si el valor és més que aquest valor i menor que {fmax} s'enviarà un "
+"esdeveniment d'avís"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:283
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:300
@@ -8047,32 +8109,28 @@ msgid "warning maximum"
 msgstr "màxim per avís"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:305
-#, fuzzy
 msgid "Send events"
-msgstr "Altres events"
+msgstr "Enviar events"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:307
-#, fuzzy
 msgid ""
 "If set to Always, an event will be dispatched for each value that is out of "
 "the acceptable range."
 msgstr ""
-"Si s'activa, un esdeveniment serà emès per cada valor fora del rang "
-"acceptable. Si no, només un canvi d'un valor acceptable a un inacceptable "
-"serà notificat"
+"Si es configura com a Sempre, s'enviarà un event per cada valor fora de "
+"l'interval acceptable."
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
-#, fuzzy
 msgid "Always"
-msgstr "Sempre denegar"
+msgstr "Sempre"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:316
 msgid "After a change in event level"
-msgstr ""
+msgstr "Després d'un canvi en el nivell d'esveniment"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
 msgid "After"
-msgstr ""
+msgstr "Després"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:331
 msgid "Measure instance"
@@ -8134,9 +8192,8 @@ msgid ""
 "executing user code, executing system code, waiting for IO operations and "
 "being idle"
 msgstr ""
-"Recull la quantitat de temps emprada per la CPU en varis estats, els més "
-"notables són executant codi d'usuari, de sistema, esperant una operació E/S "
-"i inactiu"
+"Recull la quantitat de temps emprada per la CPU en diversos estats, sobretot "
+"executant codi d'usuari, de sistema, esperant una operació d'E/S i inactiu"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:73
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:82
@@ -8156,7 +8213,7 @@ msgstr "nice"
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:77
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:83
 msgid "soft interrupt"
-msgstr "interrupció soft"
+msgstr "interrupció software"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:78
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:83

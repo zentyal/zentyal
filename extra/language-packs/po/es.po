@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-08-11 22:50+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2011-08-18 01:20+0200\n"
+"Last-Translator: miquel <miquel@acsat.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Peticiones aceptadas"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr "Volumen de tráfico aceptado"
+msgstr "Volumen de tráfico aceptado (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
@@ -174,8 +174,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
-"El objeto {object} no tiene miembros. Por favor, añade al menos uno para "
-"agregar reglas a este objeto."
+"El objeto {object} no tiene miembros. Por favor, añada al menos uno para "
+"poder agregar reglas a este objeto."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -184,7 +184,7 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
-"El objeto {object} tiene una {row} en {table}. Bórrallo allí antes de "
+"El objeto {object} tiene una {row} en {table}. Bórrello allí antes de "
 "añadirlo aquí"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
@@ -222,8 +222,8 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
-"Máximo ratio de ancho de banda de bajada para esta red. Usa -1 to desactivar "
-"esta opción."
+"Máximo ratio de ancho de banda de bajada para esta red. Use -1 para "
+"desactivar esta opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 msgid "Maximum Size"
@@ -241,7 +241,7 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
-"Máximo tamaño no limitado para esta red. Usa -1 para desactivar esta opción."
+"Máximo tamaño no limitado para esta red. Use -1 para desactivar esta opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
 msgid "Client Rate"
@@ -251,7 +251,7 @@ msgstr "Ratio del Cliente"
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
-"Máximo ratio de ancho de banda de bajada por cliente. Usa -1 to desactivar "
+"Máximo ratio de ancho de banda de bajada por cliente. Use -1 para desactivar "
 "esta opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
@@ -262,7 +262,7 @@ msgstr "Tamaño Máximo de Cliente"
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
-"Tamaño máximo no limitado de bajada por cliente. Usa -1 para desactivar esta "
+"Tamaño máximo no limitado de bajada por cliente. Use -1 para desactivar esta "
 "opción."
 
 # Textual, no hay traducción
@@ -343,7 +343,7 @@ msgid ""
 msgstr ""
 "No se puede activar el filtro antivirus porque el módulo antivirus no se ha "
 "instalado. Si desea filtrar los virus, primero debe instalarlo, luego "
-"{openhref}activate the module{closehref} y volver"
+"{openhref}activar el módulo{closehref} y regresar aquí"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
@@ -359,9 +359,9 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
-"Si esta opción está habilitada, cualquier dominio que no esté en la sección "
-"<i>Reglas de dominios</i>, ni en <i>Ficheros de listas de dominios</i> "
-"debajo será prohibido."
+"Si esta opción está habilitada, cualquier dominio o URL que no esté en la "
+"sección <i>Reglas de dominios</i>, ni en <i>Ficheros de listas de "
+"dominios</i> debajo será prohibido."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
@@ -373,7 +373,7 @@ msgstr "Proxy Transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr "Blqueo de Propagandas"
+msgstr "Blqueo de Propaganda"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
@@ -405,13 +405,13 @@ msgstr "Configuración General"
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 msgid "Settings changed"
-msgstr "Configuracion cambiada"
+msgstr "Configuración cambiada"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:136
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr "{port} está actualmente en uso. Por favor selecciona otro"
+msgstr "{port} está actualmente en uso. Por favor seleccione otro"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
 msgid "Transparent proxy option is not compatible with authorization policy"
@@ -637,7 +637,7 @@ msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
-"No existen grupos de usuarios en el sistema. {open}Create{close} al menos un "
+"No existen grupos de usuarios en el sistema. {open}Cree{close} al menos un "
 "grupo si quiere configurar una política de grupo"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
@@ -792,8 +792,8 @@ msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
 "would occur if the object policy requires it"
 msgstr ""
-"Aquí puede denegar o permitir acceso dependiendo del grupo de usuarios. "
-"Filtrado ocurriría si la política de objeto lo requiere."
+"Aquí puede denegar o permitir acceso dependiendo del grupo de usuarios. El "
+"filtrado ocurriría si la política de objeto lo requiere."
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
 msgid ""
@@ -883,7 +883,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:96
 msgid "Filter profiles"
-msgstr "Filtrar perfiles"
+msgstr "Perfiles de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:97
 msgid "List of profiles"
@@ -891,24 +891,24 @@ msgstr "Lista de perfiles"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:105
 msgid "filter profile"
-msgstr "Filtrar perfil"
+msgstr "Perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:107
 msgid "Added filter profile"
-msgstr "Añadir perfil de filtrado"
+msgstr "Añadido perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Removed filter profile"
-msgstr "Eliminar perfil de filtrado"
+msgstr "Eliminado perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:109
 msgid "Updated filter profile"
-msgstr "Actualizar perfil de filtrado"
+msgstr "Actualizado perfil de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:122
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:162
 msgid "Filter group"
-msgstr "Filtrar grupo"
+msgstr "Grupo de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:127
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:84
@@ -931,7 +931,7 @@ msgstr "Configuración"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:169
 msgid "Filter group policy"
-msgstr "Política de filtrado de grupo"
+msgstr "Política de grupos de filtrado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:217
 msgid "Maximum number of filter groups reached"
@@ -939,7 +939,7 @@ msgstr "Máximo número de grupos de filtrado alcanzado"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr "No se permites espacios en los nombres de los perfiles"
+msgstr "No se permiten espacios en los nombres de los perfiles"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
@@ -1009,11 +1009,12 @@ msgstr ""
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
-"No puede elegir política sin autorización si tiene alguna política de grupo"
+"No puede elegir una política sin autorización si tiene alguna política de "
+"grupo"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
-msgstr "Sólo puedes usar un perfil personalizado con la política 'Filtro'"
+msgstr "Sólo puede usar un perfil personalizado con la política 'Filtro'"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
@@ -1021,8 +1022,8 @@ msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
 msgstr ""
-"No existen objetos de red en el sistema. Se debe {open}añadir{close} al "
-"menos un objeto si quiere establecer una política de objeto. "
+"No existen objetos de red en el sistema. Debe {open}añadir{close} al menos "
+"un objeto si quiere establecer una política de objeto. "
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:145
@@ -1138,11 +1139,11 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
-"'Pools' de clase 1 te permite registrir el ratio de ancho de banda para "
-"grandes descargas, mientras que 'pools' de clase 2 te permite fijar el uso "
-"de ancho de banda a un ratio constante. Las 'pools' de clase 1 tiene mayor "
-"prioridad que las de clase 2. Si un objeto de red not coincide con ninguna "
-"regla, entonces no se le limita el ancho de banda."
+"Los 'pools' de clase 1 permiten restringir el ancho de banda para grandes "
+"descargas, mientras que los de clase 2 permiten fijar el uso de ancho de "
+"banda a un ratio constante. Los 'pools' de clase 1 tienen mayor prioridad "
+"que los de clase 2. Si un objeto de red no coincide con ninguna regla, "
+"entonces no se le limita el ancho de banda."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -1636,9 +1637,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Necesitas un certificado válido de CA para usar los servidores VPN. "
-"{closepar}{openpar}Por favor, vaya al  módulo {openhref} de autoridad de "
-"certificación{closehref} y renúevalo.{closepar}"
+"{openpar}Necesita un certificado de CA válido para usar los servidores VPN. "
+"{closepar}{openpar}Por favor, vaya al módulo de {openhref}autoridad de "
+"certificación{closehref} y renúevelo.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -2119,8 +2120,8 @@ msgid ""
 "VPN server {name} couldn't be configured, no IP address found for interface "
 "{iface}"
 msgstr ""
-"El servidor VPN {name} no puedo ser configurado, no se encontró dirección IP "
-"para la interfaz {iface}"
+"El servidor VPN {name} no se ha podido configurar, no se ha encontrado "
+"ninguna dirección IP para la interfaz {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:556
 msgid "OpenVPN servers cannot be used for internal services"
@@ -2327,8 +2328,8 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
-"{name} es un nombre incorrecto. Solo caracteres alfanuméricos y guiones "
-"bajos (_) están permitidos."
+"{name} es un nombre incorrecto. Solo se permiten caracteres alfanuméricos, "
+"'-', '_' y '.'"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:659
 #, perl-brace-format
@@ -2483,11 +2484,11 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
-"Sólo un número pequeño de conexiones están permitidas por defecto. Asegurate "
-"de añadir las reglas correctas en la entrada y salida para hacer que tu "
-"sistema funcione como esperas. Normalmente, todas las conexiones de fuera "
-"son denegadas por defecto, y sólo conexiones entrantes de SSH y HTTPS se "
-"permiten."
+"Sólo un número pequeño de conexiones están permitidas por defecto. Asegúrese "
+"de añadir las reglas correctas en la entrada y salida para hacer que su "
+"sistema funcione como espera. Normalmente, todas las conexiones de fuera son "
+"denegadas por defecto, y sólo se permiten las conexiones entrantes por SSH "
+"y HTTPS."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:304
 msgid "action"
@@ -2604,7 +2605,7 @@ msgstr "REDIRIGIR"
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
-"Debes establecer la variable iptables_log_limit en el fichero de "
+"Debe establecer la variable iptables_log_limit en el fichero de "
 "configuración de Zentyal"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:898
@@ -2613,7 +2614,7 @@ msgstr ""
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
-"Debes establecer la variable iptables_log_burst en el fichero de "
+"Debe establecer la variable iptables_log_burst en el fichero de "
 "configuración de Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:66
@@ -2948,7 +2949,7 @@ msgstr "Informe de tráfico de paquetes del cortafuegos"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "La tasa garantizada excede de la tasa permitida mxima: {rate} kbit/s"
+msgstr "La tasa garantizada excede del máximo permitido: {rate} kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
@@ -2974,7 +2975,7 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
-"La tasa límite {lR} kbit/s debe ser menor que {maxLR} kbit/s o debes "
+"La tasa límite {lR} kbit/s debe ser menor que {maxLR} kbit/s o debe "
 "incrementar el tráfico máximo de subida asociado a interfaces externas"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
@@ -2988,8 +2989,8 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
-"La tasa límite {lR} kbit/s debe ser menor que {maxLR} o debes incrementar el "
-"mximo trfico permitido"
+"La tasa límite {lR} kbit/s debe ser menor que {maxLR} o debe incrementar el "
+"máximo tráfico permitido"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
 msgid "Leaf class identifier"
@@ -3050,12 +3051,12 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
-"El objeto {object} no tiene miembros. Aada al menos un miembro para aadir "
-"reglas para usar este objeto."
+"El objeto {object} no tiene miembros. Añada al menos un miembro para añadir "
+"reglas usando este objeto."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:238
 msgid "If service is any, some source or destination should be provided"
-msgstr "Si el servicio es cualquiera, se debe dar algn origen o destino"
+msgstr "Si el servicio es cualquiera, se debe indicar algún origen o destino"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:379
 msgid "Port based service"
@@ -3069,7 +3070,7 @@ msgstr "Prioridad"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr "Prioridad más baja: 7 Prioridad ms alta: 0"
+msgstr "Prioridad más baja: 7 Prioridad más alta: 0"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:453
 msgid "Guaranteed Rate"
@@ -3094,7 +3095,7 @@ msgstr "Tasa limitada"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:472
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
-msgstr "El trfico no superar esta tasa. 0 significa tasa ilimitada."
+msgstr "El tráfico no superará esta tasa. 0 significa tasa ilimitada."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:479
 #, perl-brace-format
@@ -3106,8 +3107,8 @@ msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
-"Tenga en cuenta que si la interfaz es interna, el flujo del trfico procede "
-"desde Internet para el interior y el trfico exterior es a la inversa"
+"Tenga en cuenta que si la interfaz es interna, el flujo del tráfico procede "
+"desde Internet para el interior y el tráfico exterior es a la inversa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:554
 #, perl-brace-format
@@ -3122,10 +3123,10 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
-"Normalizando tasas: {limitNum} reglas han bajado su tasa lmite a "
+"Normalizando tasas: {limitNum} reglas han bajado su tasa límite a "
 "{limitRate}, {guaranNum} reglas han normalizado su tasa garantizada para "
-"mantener la misma proporcin que exista antes y {removeNum} se han borrado "
-"porque su tasa garantizada resultante era menor que la mnima permitida"
+"mantener la misma proporción que existía antes y {removeNum} se han borrado "
+"porque su tasa garantizada resultante era menor que la mínima permitida"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:656
 msgid ""
@@ -3133,20 +3134,20 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
-"Los protocolos basados en puertos usan el nmero de puerto para comprobar si "
-"coincide con un servicio, mientras que los protocolos basados en aplicacin "
-"son ms lentos pero ms eficaces, ya que comprueban el contenido de cualquier "
-"paquete para comprobar si coincide con un servicio."
+"Los protocolos basados en puertos usan el número de puerto para comprobar si "
+"coincide con un servicio, mientras que los protocolos basados en aplicación "
+"son más lentos pero más eficaces, ya que comprueban el contenido de "
+"cualquier paquete para comprobar si coincide con un servicio."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:672
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:691
 msgid "Application based service"
-msgstr "Servicio basado en aplicacin"
+msgstr "Servicio basado en aplicación"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:681
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:699
 msgid "Application based service group"
-msgstr "Grupo de servicios basados en aplicacin"
+msgstr "Grupo de servicios basados en aplicación"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
 #, perl-brace-format
@@ -3155,10 +3156,10 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"El moldeado de tráfico se aplica cuando Zentyal actua como una puerta de "
+"El moldeado de tráfico se aplica cuando Zentyal actúa como una puerta de "
 "enlace. Para conseguirlo, se requiere al menos una interfaz interna y otra "
-"externa. Comprueba que tu configuración es correcta en {openhref}Red-"
-">Interfaces{closehref}"
+"externa. Compruebe que su configuración es correcta en "
+"{openhref}Red->Interfaces{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -3182,13 +3183,13 @@ msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
-"Seleccionar una interfaz para añadir reglas de moldeado de trfico. Ten en "
-"cuenta que si ests moldeando un interfaz interno, ests haciendo moldeado de "
-"trfico de entrada."
+"Seleccionar una interfaz para añadir reglas de moldeado de tráfico. Tenga en "
+"cuenta que si está moldeando un interfaz interno, está haciendo moldeado de "
+"tráfico de entrada."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 msgid "Choose an interface to shape"
-msgstr "Elije un interfaz para moldear"
+msgstr "Elija un interfaz para moldear"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:69
 msgid "options"
@@ -3201,7 +3202,7 @@ msgstr "Moldeado de tráfico"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:136
 msgid "Add iptables rules to mangle table"
-msgstr "Aadir reglas de iptables para la tabla mangle"
+msgstr "Añadir reglas de iptables para completar la tabla"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:137
 msgid "To mark packets with different priorities and rates"
@@ -3209,7 +3210,7 @@ msgstr "Para marcar paquetes con distintas prioridades y tasas"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:141
 msgid "Add tc rules"
-msgstr "Aadir reglas de tc"
+msgstr "Añadir reglas de tc"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:142
 msgid "To implement the traffic shaping rules"
@@ -3229,7 +3230,7 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
-"El máximo número de reglas {max} se ha alcanzado, por favor borra al menos "
+"El máximo número de reglas {max} se ha alcanzado, por favor borre al menos "
 "una para añadir una nueva"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1195
@@ -3242,7 +3243,7 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
-"Interfaz {iface} debe tener una tasa máxima de ancho de banda para hacer "
+"El interfaz {iface} debe tener una tasa máxima de ancho de banda para hacer "
 "moldeado de tráfico"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:86
@@ -3266,7 +3267,7 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
-"No se puede crear un nombre de host por encargo para el mismo dominio. Use "
+"No se puede crear un nombre de host personalizdo desde el mismo dominio. Use "
 "la opción \"Este dominio\" en su lugar"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:144
@@ -3405,9 +3406,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
-"Aquí podrás añadir los dominios para este servidor de DNS. Cada dominio "
-"puede tener diferentes nombres de host con aliases (A y CNAME) y otros "
-"archivos especiales (MX, NS, TXT y SRV)."
+"Aquí podrá añadir los dominios para este servidor de DNS. Cada dominio puede "
+"tener diferentes nombres de host con aliases (A y CNAME) y otros registros "
+"especiales (MX, NS, TXT y SRV)."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3514,8 +3515,8 @@ msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
-"0 indica sin peso y un valor más alto con oportunidades a ser seleccionado "
-"con prioridad igual."
+"0 indica sin peso y un valor más alto más oportunidades para ser "
+"seleccionado con prioridad igual."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
 msgid "Target port"
@@ -3551,7 +3552,7 @@ msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
 "Un alias no puede ser el nombre de la máquina que es servidora de nombres "
-"\"{ns}\". Usa un nombre de máquina"
+"\"{ns}\". Use un nombre de máquina"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
@@ -3584,13 +3585,13 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
 msgid "Last name server cannot be removed"
-msgstr "el último nombre de servidor, No puede ser borrado"
+msgstr "El último nombre de servidor no se puede eliminar"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
 msgstr ""
-"El dominio está establecido como de sólo lectura. No puedes añadir "
-"servidores de nombres"
+"El dominio está establecido como de sólo lectura. No puede añadir servidores "
+"de nombres"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:263
 msgid "Name servers"
@@ -3621,7 +3622,7 @@ msgstr "{txt} datos"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
 msgid "Any data could be provided"
-msgstr "cualquier dato puede ser proporcionado"
+msgstr "Se puede proporcionar cualquier dato"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
@@ -3634,7 +3635,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr "{txt} registro"
+msgstr "registro {txt}"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:562
 msgid "main bind9 configuration file"
@@ -3665,20 +3666,22 @@ msgstr "fichero de configuración para zona de resolución inversa {zone}"
 #: ../../main/dns/src/EBox/DNS.pm.in:628
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr "Cambiar los permisos de {dir} para permitir escritura al grupo bind"
+msgstr ""
+"Cambiar los permisos de {dir} para dar permisos de escritura al grupo bind"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:630
 msgid "Let the bind daemon to be dynamically updated"
-msgstr "Permitir que demonio bind sea actualizado automáticamente"
+msgstr "Permitir que el demonio bind se actualice automáticamente"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr "Un nombre de dominio válido o un comodín (*) deben ser proporcionados"
+msgstr "Se debe proporcionar un nombre de dominio válido o un comodín (*)"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:91
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
-msgstr "Su configuración no permite autenticación anónima o por usuarios FTP"
+msgstr ""
+"Su configuración no permite ni acceso anónimo ni usuarios FTP autenticados"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3726,7 +3729,7 @@ msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
-"Restringe el acceso al directorio home de cada usuario. Tome en cuenta que "
+"Restringe el acceso al directorio home de cada usuario. Tenga en cuenta que "
 "esta restricción puede ser eludida bajo ciertas condiciones."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
@@ -3759,12 +3762,12 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
-"El directorio anónimo es /srv/ftp, asegúrate de que los archivos que crees "
-"en él tienen permisos de lectura para todos (chmod o+r /srv/ftp/*). Si "
-"también quieres permisos de escritura, necesitas crear un subdirectorio con "
-"permisos de escritura para todos los usuarios, por ejemplo: mkdir /srv/ftp/"
-"incoming ; chmod o+rwx /srv/ftp/incoming. Los usuarios que accedan de manera "
-"anónima no podrán renombrar o borrar ficheros en ningún caso."
+"El directorio anónimo es /srv/ftp, Asegúrese de que los archivos que cree en "
+"él tienen permisos de lectura para todos (chmod o+r /srv/ftp/*). Si también "
+"desea conceder permisos de escritura, deberá crear un subdirectorio con "
+"permisos de escritura para todos los usuarios, por ejemplo: mkdir "
+"/srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming. Los usuarios que accedan "
+"de manera anónima no podrán renombrar o borrar ficheros en ningún caso."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
@@ -3844,9 +3847,9 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
-"Para las direcciones IP puedes usar notación CIDR (dirección/máscara de "
-"red), o bien especificar la primera y última dirección de un rango que "
-"incluirá también todas las direcciones IP contenidas entre ellas."
+"Para las direcciones IP puede usar notación CIDR (dirección/máscara de red), "
+"o bien especificar la primera y última dirección de un rango que incluirá "
+"también todas las direcciones IP contenidas entre ellas."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:107
 msgid "member"
@@ -3854,7 +3857,7 @@ msgstr "miembro"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:132
 msgid "You can only use MAC addresses with hosts"
-msgstr "Sólo puedes usar direcciones MAC con máquinas"
+msgstr "Sólo puede usar direcciones MAC con máquinas"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:139
 msgid "You cannot use MAC addresses with IP ranges"
@@ -3957,13 +3960,13 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
-"Usted no puede modificar la actualización automática usando actualizaciones "
-"QA desde la interface Web UI. Para deshabilitar actualizaciones automáticas, "
-"edite la llave {conf} y deshabilite la llave {key}."
+"No se puede modificar la actualización automática usando actualizaciones QA "
+"desde la interface Web UI. Para deshabilitar actualizaciones automáticas, "
+"edite {conf} y deshabilite la clave {key}."
 
 #: ../../main/software/src/EBox/Software.pm:624
 msgid "Zentyal Components"
-msgstr "Componentes Zentyal"
+msgstr "Componentes de Zentyal"
 
 #: ../../main/software/src/EBox/Software.pm:626
 msgid "System Updates"
@@ -3999,7 +4002,7 @@ msgstr "Configuración inicial"
 
 #: ../../main/software/src/EBox/Software.pm:1021
 msgid "Save Changes"
-msgstr "Guardar cambios"
+msgstr "Guardar los cambios"
 
 #: ../../main/software/src/EBox/CGI/CurrentPackage.pm:31
 #: ../../main/core/src/EBox/CGI/SysInfo/CurrentProgress.pm:36
@@ -4105,7 +4108,7 @@ msgstr "Seleccione los paquetes de Zentyal a instalar"
 
 #: ../../main/software/src/EBox/CGI/EBox.pm:37
 msgid "Zentyal components"
-msgstr "Componentes Zentyal"
+msgstr "Componentes de Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
 msgid "Zentyal Cloud Client"
@@ -4137,7 +4140,7 @@ msgstr "Soporte Técnico"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
 msgid "Advanced Security Updates"
-msgstr "Actualización de seguridad Avazadas"
+msgstr "Actualizaciones de seguridad Avazadas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:274
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:175
@@ -4199,7 +4202,7 @@ msgstr "Ninguno"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1618
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr "Deshabilitado - {oh}Habilitado{ch}"
+msgstr "Deshabilitado - {oh}Habilitar{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1623
 #, perl-brace-format
@@ -4350,7 +4353,7 @@ msgid ""
 msgstr ""
 "Por defecto, el acceso está sólo garantizado a máquinas dentro de la red "
 "privada de Zentyal Cloud. Si se activa esta opción está permitido desde "
-"cualquier dirección. Usa esta opción sólo si no puedes conectarte a Zentyal "
+"cualquier dirección. Use esta opción sólo si no puede conectarse a Zentyal "
 "Cloud."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
@@ -4377,8 +4380,9 @@ msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
-"Para restringir direcciones necesitas que tu Zentyal esté suscrita a Zentyal "
-"Cloud. Puedes suscribirla o permitir acceso desde cualquier dirección"
+"Para restringir direcciones necesita que su servidor Zentyal esté suscrito a "
+"Zentyal Cloud. Puede suscribirlo o permitir el acceso desde cualquier "
+"dirección"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
 #, perl-brace-format
@@ -4391,22 +4395,22 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
-"Habilitar el soporte remoto permitirá al personal de Zentyal acceder "
-"libremente a tu servidor.\n"
-"Podrás utilizar el comando 'screen' para unirte a su sesión de shell. Para "
+"Habilitando el soporte remoto permitirá al personal de Zentyal acceder "
+"libremente a su servidor.\n"
+"Podrá utilizar el comando 'screen' para unirse a su sesión de shell. Para "
 "permitir esto, se activa el bit SUID del programa 'screen'. Este cambio es "
-"revertido cuando se deshabilita esta opción.\n"
-"Para unirte a la sesión remota, regístrate en el shell como un usuario "
-"perteneciente al grupo 'adm' y utiliza el comando: '{cmd}'."
+"temporal, hasta que se deshabilita esta opción.\n"
+"Para unirse a la sesión remota, registrese en el shell como un usuario "
+"perteneciente al grupo 'adm' y utilice el comando: '{cmd}'."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
 msgid ""
 "No running ssh daemon instance found.  Support access need a running "
 "instance to allow remote connections."
 msgstr ""
-"No se ha encontrado una instancia del demonio ssh en ejecución. El acceso "
-"para soporte necesita un instancia en ejecución que permita conexiones "
-"remotas."
+"No se ha encontrado ninguna instancia del demonio ssh en ejecución. El "
+"acceso para soporte necesita una instancia en ejecución que permita "
+"conexiones remotas."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:192
 msgid ""
@@ -4423,18 +4427,18 @@ msgid ""
 "ssh daemon found listening on non-standard port(s): {p}. Make sure to notify "
 "support which port(s) are used by ssh daemon."
 msgstr ""
-"El demonio ssh se encuentra escuchando en un puerto(s) diferente al por "
-"defecto: {p}. Asegúrate de notificar al soporte que puerto(s) está siendo "
-"usado por el demonio ssh."
+"El demonio ssh se encuentra escuchando en uno o más puertos no estándar: "
+"{p}. Asegúrese de notificar al soporte que puerto(s) está siendo usado por "
+"el demonio ssh."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:89
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:99
 msgid "QA software updates"
-msgstr "QA actualizaciones de software"
+msgstr "actualizaciones de software QA"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:93
 msgid "Latest QA software update"
-msgstr "última actualización de software QA"
+msgstr "ultima actualización de software QA"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:128
 #, perl-brace-format
@@ -4512,10 +4516,10 @@ msgid ""
 "start using the cloud based services you are entitled to with your "
 "subscription (remote backup, updates, alerts, etc.)"
 msgstr ""
-"La subscripción se hizo correctamente. Guarda cambios y luego, espera un "
+"La subscripción se hizo correctamente. Guarde los cambios y luego, espere un "
 "minuto para garantizar que el sistema realiza el proceso de suscripción. "
-"Posteriormente puedes empezar a usar los servicios de la nube que posees con "
-"tu suscripción (backup remoto, actualizaciones, alertas, etc.)"
+"Posteriormente puede empezar a usar los servicios de la nube que posee con "
+"su suscripción (backup remoto, actualizaciones, alertas, etc.)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:137
 msgid "Subscription data retrieved correctly."
@@ -4537,8 +4541,9 @@ msgid ""
 "can take a while. Please do not touch anything until the subscription "
 "process is correctly finished."
 msgstr ""
-"Ten en cuenta que suscribir tu servidor Zentyal podría llevar unos minutos. "
-"Por favor, no toques nada hasta que el proceso de subscripción haya acabado."
+"Tenga en cuenta que suscribir su servidor Zentyal podría llevar unos "
+"minutos. Por favor, no toque nada hasta que el proceso de subscripción haya "
+"acabado."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:322
 msgid ""
@@ -4558,8 +4563,7 @@ msgstr "Nombre del servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:360
 msgid "Choose a name for your server which is a valid subdomain name"
-msgstr ""
-"Elige un nombre para tu servidor que sea un nombre de subdominio válido"
+msgstr "Elija un nombre para su servidor que sea un nombre de subdominio válido"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:368
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:55
@@ -4845,14 +4849,14 @@ msgid ""
 "Cannot retrieve VPN settings needed for subscription. Check your {openurl}"
 "{brand} profile{closeurl} to check your VPN server settings."
 msgstr ""
-"No se puede obtener la configuración de VPN necesaria para la suscripción.  "
-"Comprueba tu {openurl}{brand} perfil{closeurl} para revisar la configuración "
-"de tu servidor VPN."
+"No se puede obtener la configuración de VPN necesaria para la suscripción. "
+"Compruebe su {openurl}{brand} perfil{closeurl} para revisar la configuración "
+"de su servidor VPN."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:493
 #, perl-brace-format
 msgid "Cannot contact to {host}. Check your connection to the Internet"
-msgstr "No se puede contactar con {host}. Comprueba tu conexión a Internet"
+msgstr "No se puede contactar con {host}. Compruebe su conexión a Internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:872
 #, perl-brace-format
@@ -4860,8 +4864,8 @@ msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
-"no se pudo conectar al servidor WS \"{addr}:{port}/{proto}\". Revisa tu "
-"resolución de nombres y el firewall de tu red"
+"No se pudo conectar al servidor WS \"{addr}:{port}/{proto}\". Revise su "
+"resolución de nombres y el firewall de su red"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:898
 #, perl-brace-format
@@ -4869,8 +4873,8 @@ msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
 "network firewall"
 msgstr ""
-"No se pudo conectar al servidor VPN  \"{addr}:{port}/{proto}\". Revisa el "
-"firewall de tu red"
+"No se pudo conectar al servidor VPN  \"{addr}:{port}/{proto}\". Revise el "
+"firewall de su red"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:56
 msgid ""
@@ -4901,7 +4905,7 @@ msgstr "Clave para los servicios DNS de Zentyal Cloud no encontrada"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:264
 #, perl-brace-format
 msgid "Cannot connect to any of the Cloud nameservers: {ns}"
-msgstr "no se puede conectar con cualquier servidor de nombre de la Nube: {ns}"
+msgstr "No se puede conectar con cualquier servidor de nombres de la Nube: {ns}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:279
 #, perl-brace-format
@@ -5336,7 +5340,7 @@ msgid ""
 "Here you can configure a secondary LDAP. If login fails as Zentyal user this "
 "LDAP will be used."
 msgstr ""
-"Aquí puedes configurar un LDAP secundario. Si tu registro como usuario de "
+"Aquí puede configurar un LDAP secundario. Si su registro como usuario de "
 "Zentyal falla, se usará este LDAP."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:54
@@ -5344,7 +5348,7 @@ msgid ""
 "If you want to limit bandwidth usage install and enable Bandwidth Monitor "
 "module."
 msgstr ""
-"Si deseas limitar el uso de ancho de banda, instala y habilita el módulo "
+"Si desea limitar el uso de ancho de banda, instale y habilite el módulo "
 "Monitor de Ancho de Banda."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:58
@@ -5353,7 +5357,7 @@ msgid ""
 "If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}"
 "Module Status{enda} section."
 msgstr ""
-"Si quieres limitar el uso de ancho de banda, activa el Monitor de Ancho de "
+"Si quiere limitar el uso de ancho de banda, active el Monitor de Ancho de "
 "Banda en la sección {begina}Estado del módulo{enda}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:75
@@ -5754,7 +5758,7 @@ msgid ""
 "Here you have can choose the backup method, configure the frequency and "
 "other options"
 msgstr ""
-"Aquí puedes escoger el modo de respaldo, configurar la frecuencia y otras "
+"Aquí puede escoger el modo de respaldo, configurar la frecuencia y otras "
 "opciones"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:344
@@ -5856,9 +5860,9 @@ msgid ""
 "the original encryption options. You must remove previous backup to change "
 "the encryption options"
 msgstr ""
-"No puedes cambiar de opciones de cifrado cuando hay backup existentes con "
-"las opciones de cifrado originales. Debes borrar los backup previos para "
-"cambiar las opciones de cifrado"
+"No puede cambiar de opciones de cifrado cuando hay backup existentes con las "
+"opciones de cifrado originales. Debe borrar los backup previos para cambiar "
+"las opciones de cifrado"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:735
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
@@ -5934,7 +5938,7 @@ msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
 msgstr ""
-"Debes habilitar los backup incrementales cuando habilitas la frencuencia "
+"Debe habilitar los backup incrementales cuando habilita la frencuencia "
 "completa de backup 'Sólo la primera vez'"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:861
@@ -5951,7 +5955,7 @@ msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
 msgstr ""
-"Ha cambiado el método para el backup o destino; debes guardar cambios para "
+"Ha cambiado el método para el backup o destino; debe guardar cambios para "
 "actualizar la lista de backups"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:885
@@ -6084,7 +6088,7 @@ msgstr "Dominio de backup"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:167
 msgid "Select the domains you want to back up."
-msgstr "Selecciona los dominios que quieres guardar copia de seguridad."
+msgstr "Seleccione los dominios que quiere guardar en la copia de seguridad."
 
 #: ../../main/ebackup/src/EBox/Composite/Remote.pm:66
 #: ../../main/ebackup/src/EBox/EBackup.pm:69
@@ -6141,14 +6145,14 @@ msgstr "Sistema"
 #: ../../main/ebackup/src/EBox/EBackup.pm:1138
 msgid "You need to have the disaster recovery add-on to use this backup method"
 msgstr ""
-"Necesitas tener el add-on de Disaster Recovery para usar este método de "
+"Necesita tener el add-on de Disaster Recovery para usar este método de "
 "backup"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1145
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
-"No se pueden obtener las credenciales del backup, comprueba tu conexión a "
+"No se pueden obtener las credenciales del backup, compruebe su conexión a "
 "Zentyal Cloud"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1247
@@ -6158,9 +6162,9 @@ msgid ""
 "Zentyal Cloud. If you want to unsubscribe, you must change this {ohref}"
 "setting{chref}."
 msgstr ""
-"No puedes desuscribir ya que el módulo de backup está configurado para usar "
-"Zentyal Cloud. Si quieres desuscribir, debes cambiar este {ohref}parámetro"
-"{chref}."
+"No se puede desuscribir ya que el módulo de backup está configurado para "
+"usar Zentyal Cloud. Si quiere desuscribir, debe cambiar este "
+"{ohref}parámetro{chref}."
 
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:129
 msgid "Notify the result of scheduled backups."
@@ -6172,7 +6176,7 @@ msgid ""
 "Logs backup data not found in backup for {d}. Maybe you could try another "
 "date?"
 msgstr ""
-"No se han encontrado data de logs de copias de seguridad para {d}. Podrías "
+"No se han encontrado data de logs de copias de seguridad para {d}. Podría "
 "probar con otra fecha?"
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:34
@@ -6187,8 +6191,7 @@ msgstr "Dato vacío: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
-msgstr ""
-"No se puede conectar a Zentyal Cloud. Comprueba tu conexión a Internet."
+msgstr "No se puede conectar a Zentyal Cloud. Compruebe su conexión a Internet."
 
 #: ../../main/common/src/EBox/Exceptions/DataExists.pm:35
 #, perl-brace-format
@@ -6428,8 +6431,8 @@ msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
 msgstr ""
-"Selecciona tu proveedor de la lista e introduce los datos de tu cuenta. "
-"También necesitarás habilitarlo para que comience a funcionar."
+"Seleccione su proveedor de la lista e introduzca los datos de su cuenta. "
+"También necesitará habilitarlo para que comience a funcionar."
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:150
 msgid "IP or network address"
@@ -6515,9 +6518,9 @@ msgid ""
 "configure interfaces as DHCP or PPPoE their gateways are added here "
 "automatically."
 msgstr ""
-"Puedes añadir tantas puertas de enlace como desees. Es útil si quieres "
-"dividir el tráfico hacia Internet en varias conexiones. Ten en cuenta que si "
-"configuras interfaces como DHCP o PPPoE sus puertas de enlace se añadirán "
+"Puede añadir tantas puertas de enlace como desees. Es útil si quiere dividir "
+"el tráfico hacia Internet en varias conexiones. Tenga en cuenta que si "
+"configura interfaces como DHCP o PPPoE sus puertas de enlace se añadirán "
 "aquí de forma automática."
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:240
@@ -6538,7 +6541,7 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:46
 msgid "Select traffic graphic"
-msgstr "Selecciona el gráfico de tráfico"
+msgstr "Selección del gráfico de tráfico"
 
 #: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:57
 msgid ""
@@ -6623,9 +6626,9 @@ msgid ""
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"<p>Aquí puedes añadir los traductores de servidores de nombres que Zentyal "
-"usará.</p><p>Ten en cuenta que esta configuración puede ser anulada si tiene "
-"alguna interfaz de red configurada a través de DHCP</p>"
+"<p>Aquí puede añadir los traductores de servidores de nombres que Zentyal "
+"usará.</p><p>Tenga en cuenta que esta configuración puede ser anulada si "
+"tiene alguna interfaz de red configurada a través de DHCP</p>"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:79
 msgid "Interface to listen"
@@ -6637,7 +6640,7 @@ msgstr "Configuración de la monitorización de tasa de tráfico"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:92
 msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "Los cambios serán aplicados a la monitorización inmediatamente"
+msgstr "Los cambios en la monitorización serán aplicados inmediatamente"
 
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:128
 msgid "all"
@@ -6656,8 +6659,8 @@ msgid ""
 "Incoming interface to match packets. If you  want to match a whole subnet "
 "you can  select the interface of that subnet"
 msgstr ""
-"Interfaz de entrada para seleccionar paquetes. Si quieres seleccionar una "
-"subred entera, puedes seleccionar el interfaz de esa subred"
+"Interfaz de entrada para seleccionar paquetes. Si quiere seleccionar una "
+"subred entera, puede seleccionar el interfaz de esa subred"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:175
 msgid "Gateway to route packets matching this rule"
@@ -6676,11 +6679,11 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
-"Puedes decidir qué tipo de tráfico sale por cada una de las puertas de "
-"enlace. De esta forma puedes forzar que una subred, servicio, dirección de "
-"destino, etc a usar el rooter elegido. Por favor, ten en cuenta que las "
-"reglas se aplican en orden, de arriba abajo. Puedes reordenarlas una vez que "
-"hayan sido añadidas. Si no configuras un puerto o una dirección IP, entonces "
+"Puede decidir qué tipo de tráfico sale por cada una de las puertas de "
+"enlace. De esta forma puede forzar que una subred, servicio, dirección de "
+"destino, etc a usar el rooter elegido. Por favor, tenga en cuenta que las "
+"reglas se aplican en orden, de arriba abajo. Puede reordenarlas una vez que "
+"hayan sido añadidas. Si no configura un puerto o una dirección IP, entonces "
 "la regla aceptará todos sus valores"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:90
@@ -6756,9 +6759,10 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
-"Puedes definir diferentes reglas para probar si una puerta de enlace está "
+"Puede definir diferentes reglas para probar si una puerta de enlace está "
 "funcionando correctamente. Si una de las pruebas falla, se deshabilitará la "
-"puerta de enlace. Será habilitada de nuevo cuando se pasen todas las pruebas."
+"puerta de enlace. Será habilitada de nuevo cuando se pasen todas las "
+"pruebas."
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:182
 msgid "Invalid value for Host"
@@ -6774,7 +6778,7 @@ msgid ""
 "the default routes you must execute: "
 msgstr ""
 "Esto será necesario para trabajar con una configuración de múltiples puertas "
-"de enlace. Ten en cuenta que parar añadir las rutas predeterminadas debes "
+"de enlace. Tenga en cuenta que parar añadir las rutas predeterminadas debes "
 "ejecutar: "
 
 # enganche/hook? hook
@@ -6872,7 +6876,7 @@ msgstr "Identificador de VLAN"
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
-"Last interfaces de red deben ponerse en modo trunk antes de poder añadirles "
+"Las interfaces de red deben ponerse en modo trunk antes de poder añadirles "
 "vlans."
 
 #: ../../main/network/src/EBox/Network.pm:3266
@@ -6977,9 +6981,9 @@ msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them <a href=\"/Network/View/GatewayTable\">here</a> first."
 msgstr ""
-"Para poder usar esta funcionalidad, necesitarás al menos dos puertas de "
-"enlace habilitadas. Puedes añadirlas <a href=\"/Network/View/"
-"GatewayDataTable\">aquí</a>."
+"Para poder usar esta funcionalidad, necesitará al menos dos puertas de "
+"enlace habilitadas. Puede añadirlas <a "
+"href=\"/Network/View/GatewayDataTable\">aquí</a>."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:58
 msgid "Gateways Configuration"
@@ -7017,7 +7021,7 @@ msgid ""
 "Events module is not enabled. You have to enable it and also enable the WAN "
 "Failover event in order to use this feature."
 msgstr ""
-"El módulo Eventos no se ha habilitado. Una vez activado, debes activar "
+"El módulo Eventos no se ha habilitado. Una vez activado, debe activar "
 "también el evento WAN failover para poder usar esta característica."
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:82
@@ -7025,7 +7029,7 @@ msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
-"El evento WAN failover no está habilitado. Debes activarlo para usar esta "
+"El evento WAN failover no está habilitado. Debe activarlo para usar esta "
 "característica."
 
 #: ../../main/network/src/EBox/Network/Report/ByteRate.pm:756
@@ -7225,7 +7229,7 @@ msgid ""
 "https connections."
 msgstr ""
 "Este módulo hace posible que un servidor web https permita a los usuarios "
-"cambiar sus propios datos, como su contraseña. Aquí puedes escoger el puerto "
+"cambiar sus propios datos, como su contraseña. Aquí puede escoger el puerto "
 "por el que se aceptarán las conexiones https."
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:96
@@ -7264,7 +7268,7 @@ msgstr "Servidor Web del Rincón del usuario"
 #: ../../main/usercorner/src/EBox/UserCorner.pm:142
 msgid "User corner is only available in master or standalone servers"
 msgstr ""
-"El rincón del usuario solo esta soportados en servidores maestro o "
+"El rincón del usuario solo esta disponible en servidores maestro o "
 "independientes"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:238
@@ -7388,8 +7392,8 @@ msgid ""
 "Status{closeref} section and enable it prior to try to start any machine."
 msgstr ""
 "El módulo de Máquinas Virtuales no esta habilitado, por favor vaya a la "
-"sección  {openref}Estado del módulo{closeref} y habilítelo antes de arrancar "
-"una máquina.  "
+"sección {openref}Estado de los módulos{closeref} y habilítelo antes de "
+"arrancar una máquina.  "
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid ""
@@ -7412,7 +7416,7 @@ msgstr "No se pudo para la máquina virtual '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
 msgid "Cannot pause a stopped machine. You have to start it first."
-msgstr "No se puede pausar una máquina parada. La debes iniciar primero"
+msgstr "No se puede pausar una máquina parada. Antes debe iniciarla."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:73
 msgid "Hard Disk"
@@ -7448,12 +7452,11 @@ msgstr "unidad"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:143
 msgid "Here you can define the storage drives of the virtual machine"
-msgstr ""
-"Aquí puedes definir las unidades de almacenamiento de la máquina virtual"
+msgstr "Aquí puede definir las unidades de almacenamiento de la máquina virtual"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
 msgid "You need to provide the path of a ISO image"
-msgstr "Necesitas proveer la ruta de una imagen ISO"
+msgstr "Debe proporcionar la ruta de una imagen ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
 #, perl-brace-format
@@ -7462,7 +7465,7 @@ msgstr "La imagen ISO '{img}' no existe"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
 msgid "You need to provide the path of a hard disk image"
-msgstr "Necesitas proveer la ruta de una imagen de disco duro"
+msgstr "Necesita proveer la ruta de una imagen de disco duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:179
 #, perl-brace-format
@@ -7471,15 +7474,15 @@ msgstr "La imagen de disco duro '{img}' no existe"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:185
 msgid "You need to specify a name for the new hard disk"
-msgstr "Necesitas especificar el nombre del nuevo disco duro"
+msgstr "Necesita especificar el nombre del nuevo disco duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:191
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
 msgstr ""
-"No puedes modificar un disco ya creado. Necesitas borrarlo y añadir uno "
-"nuevo si quieres cambiar el tamaño."
+"No puede modificar un disco ya creado. Necesita borrarlo y añadir uno nuevo "
+"si quieres cambiar el tamaño."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:207
 #, perl-brace-format
@@ -7505,7 +7508,7 @@ msgstr "Configuración del sistema"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:108
 msgid "Here you can define the basic hardware configuration of the machine"
-msgstr "Aquí puedes definir la configuración básica del hardware de la máquina"
+msgstr "Aquí puede definir la configuración básica del hardware de la máquina"
 
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:65
 msgid "Virtual Machine Settings"
@@ -7656,8 +7659,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
-"Quizá quieras adaptar tus opciones de cliente ligero. Para hacerlo, deberías "
-"incluir todos los ficheros que necesites en el directorio {path}"
+"Quizá quiera adaptar sus opciones de cliente ligero. Para hacerlo, debería "
+"incluir todos los ficheros que necesite en el directorio {path}"
 
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:276
 msgid "thin client option"
@@ -7914,7 +7917,7 @@ msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
-"Para servir direcciones IP en una interfaz externa, debes permitir el "
+"Para servir direcciones IP en una interfaz externa, debe permitir el "
 "servicio en {openhref}módulo de cortafuegos{closehref}"
 
 #: ../../main/dhcp/src/EBox/Composite/General.pm:78
@@ -7929,7 +7932,7 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/Composite/Interfaces.pm:107
 msgid "Choose a static interface to configure:"
-msgstr "Elije un interfaz estático para configurar"
+msgstr "Elija un interfaz estático para configurar"
 
 #: ../../main/dhcp/src/EBox/Composite/Interfaces.pm:108
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:167
@@ -8468,10 +8471,9 @@ msgid ""
 "{openhref}Save changes{closehref} section. In case it is already enabled you "
 "must wait for a few seconds to collect the first monitor data"
 msgstr ""
-"Se necesita {openhref}salvar los cambios{closehref} en estado de los módulos "
-"para ver gráficas de monitorazión. En caso de que ya haya sido habilitado, "
-"quizá haya que esperar unos segundos a que se recogan los datos de "
-"monitorización"
+"Debe {openhref}guardar los cambios{closehref} en estado de los módulos para "
+"ver las gráficas de monitorización. Si ya lo ha hecho, quizá haya que "
+"esperar unos segundos a que se recojan los datos de monitorización"
 
 #: ../../main/printers/src/EBox/Model/CUPS.pm:132
 #, perl-brace-format
@@ -8570,11 +8572,11 @@ msgstr "Impresoras"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:55
 msgid "Add Jabber LDAP schema"
-msgstr "Añadir schema LDAP de Jabber"
+msgstr "Añadir esquema LDAP de Jabber"
 
 #: ../../main/jabber/src/EBox/Jabber.pm:56
 msgid "Zentyal will need this schema to store Jabber users."
-msgstr "Zentyal necesitará este schema para almacenar los usuarios Jabber."
+msgstr "Zentyal necesitará este esquema para almacenar los usuarios Jabber."
 
 #: ../../main/jabber/src/EBox/Jabber.pm:72
 msgid "To properly configure ejabberd."
@@ -8618,8 +8620,9 @@ msgid ""
 "This user has a jabber account. If the user currently connected it will "
 "continue connected until jabber authorization is again required."
 msgstr ""
-"Este usuario tiene una cuenta de Jabber. Si el usuario está correctamente "
-"conectado, continuará así así que la autorización le sea requerida de nuevo."
+"Este usuario tiene una cuenta de Jabber. Si el usuario está conectado "
+"actualmente, continuará así hasta que la autorización le sea requerida de "
+"nuevo."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:101
 msgid "Share name"
@@ -8662,7 +8665,7 @@ msgstr "recurso compartido"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:186
 #, perl-brace-format
 msgid "Path not allowed. It cannot be under {dir}"
-msgstr "Ruta no permitira. No puede estar bajo el directorio {dir}"
+msgstr "Ruta no permitida. No puede estar bajo el directorio {dir}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:193
 msgid "Samba share absolute path"
@@ -8685,7 +8688,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:248
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr "El directorio no está vacío. ¿Estás seguro que quieres borrarlo?"
+msgstr "El directorio no está vacío. ¿Está seguro que quiere borrarlo?"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:340
 #, perl-brace-format
@@ -8733,7 +8736,7 @@ msgid ""
 "A slave server can not act as PDC if PAM is enabled. You can do disable PAM "
 "at {ohref}LDAP Settings{chref}."
 msgstr ""
-"Un servidor esclavo no puede actuar como PDC si PAM está habilitado. Puedes "
+"Un servidor esclavo no puede actuar como PDC si PAM está habilitado. Puede "
 "deshabilitar PAM en {ohref}Opciones de configuración de LDAP{chref}."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:108
@@ -8772,7 +8775,7 @@ msgid ""
 "every hour"
 msgstr ""
 "Sólo los usuarios que pertenecen a este grupo tendrán una cuenta de Samba. "
-"Sincronización ocurre cada hora."
+"La sincronización tiene lugar cada hora."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:165
 msgid "General settings"
@@ -8780,7 +8783,7 @@ msgstr "Configuración general"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:169
 msgid "On this page you can set different general settings for Samba"
-msgstr "En esta página puedes establecer la configuración general de Samba"
+msgstr "En esta página puede establecer la configuración general de Samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:92
@@ -8927,8 +8930,8 @@ msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
 "read and write any file in the share."
 msgstr ""
-"Ten cuidado con dar permisos de <i>administrador</i>. El usuario podrá leer "
-"y escribir cualquier fichero del recurso compartido"
+"Tenga cuidado al conceder permisos de <i>administrador</i>. El usuario podrá "
+"leer y escribir cualquier fichero del recurso compartido"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
 msgid " (user))"
@@ -9222,7 +9225,7 @@ msgid ""
 "Here you can specify which external mail domains can connect to the mail "
 "filter"
 msgstr ""
-"Aquí puedes especificar qué dominio de correo externo puedes conectar al "
+"Aquí puede especificar qué dominio de correo externo puede conectar al "
 "filtro de correo"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:113
@@ -9397,8 +9400,8 @@ msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
-"Aquí puedes especificar qué servidores de correo externo pueden conectarse "
-"al filtro de correo"
+"Aquí puede especificar qué servidores de correo externo pueden conectarse al "
+"filtro de correo"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
@@ -9498,7 +9501,7 @@ msgstr "Auto-aprendizaje"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:92
 msgid "Feedback the learning system with messages that reach the threshold"
 msgstr ""
-"Realimentar el systema de aprendizaje con mensajes  que alcanzan el umbral"
+"Realimentar el systema de aprendizaje con mensajes que alcanzan el umbral"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:97
 msgid "Autolearn spam threshold"
@@ -9532,13 +9535,13 @@ msgstr "Configuración de antispam"
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
-"Debes definir un umbral de aprendizaje de spam si la opción de auto-"
+"Debe definir un umbral de aprendizaje de spam si la opción de auto-"
 "aprendizaje está activa"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:172
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
-"Debes definir un umbral de aprendizaje de ham si la opción de auto-"
+"Debe definir un umbral de aprendizaje de ham si la opción de auto-"
 "aprendizaje está activa"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:178
@@ -9600,8 +9603,8 @@ msgid ""
 "filter"
 msgstr ""
 "Una dirección (ham@dominio) será creada para este dominio. Los mensajes ham "
-"clasificados de forma incorrecta podrían ser reenviados a esta dirección "
-"para entrenar el filtro"
+"clasificados de forma incorrecta pueden reenviarse a esta dirección para "
+"entrenar el filtro"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:136
 msgid "Learning spam account"
@@ -9614,7 +9617,7 @@ msgid ""
 "filter"
 msgstr ""
 "Una dirección (spam@dominio) será creada para este dominio. Los mensajes de "
-"spam clasificados de forma incorrecta como ham serán reenviado a estar "
+"spam clasificados de forma incorrecta como ham pueden ser reenviados a esta "
 "dirección para entrenar el filtro"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:148
@@ -9623,7 +9626,7 @@ msgstr "Política antispam para el emisor"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:159
 msgid "Virtual Domains specific policies"
-msgstr "Políticas específicas de los Dominios Virtuales "
+msgstr "Políticas específicas de los Dominios Virtuales"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:170
 msgid "virtual domain policy"
@@ -9635,8 +9638,8 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
-"No hay dominios virtuales gestionados por este servidor. Puedes crear "
-"algunos en {openA}virtual domains mail page{closeA}."
+"No hay dominios virtuales gestionados por este servidor. Puede crear algunos "
+"en la página {openA}dominios virtuales de correo{closeA}."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
 msgid "Filter spam"
@@ -9652,7 +9655,7 @@ msgid ""
 "it processes your email for SPAM."
 msgstr ""
 "Esta opción permite definir la cadena de caracteres utilizada\n"
-" por tu ISP cuando procesa el email en busca de SPAM."
+"por su ISP cuando procesa el email en busca de SPAM."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:781
@@ -9664,8 +9667,8 @@ msgid ""
 "The POP transparent proxy must scan for something to be useful. If you do "
 "not need either antivirus of spam scan we suggest you turn it off"
 msgstr ""
-"El proxy transparente POP debe buscar algo para ser útil. Si no necesitas "
-"buscar antivirus o spam, te sugerimos que lo desactives"
+"El proxy transparente POP debe buscar algo para ser útil. Si no necesita "
+"buscar antivirus o spam, le sugerimos que lo desactive"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:61
 msgid "Virus policy"
@@ -9678,7 +9681,8 @@ msgstr "Pólitica de Spam"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:71
 msgid "Bounce policy will be ignored for high-score spam messages"
 msgstr ""
-"La política Bounce será ignorada para mensajes de spam con puntuación alta"
+"La política para rechazar (bounce) será ignorada para mensajes de spam con "
+"puntuación alta"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisPolicy.pm:75
 msgid "Banned files policy"
@@ -10404,7 +10408,7 @@ msgstr "Gestionar el uso de TLS de sieve"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:153
 msgid "External server connection"
-msgstr "Conexion a servidor externo"
+msgstr "Conexión a servidor externo"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:171
 msgid "unencrypted"
@@ -10466,7 +10470,7 @@ msgid ""
 "another one now."
 msgstr ""
 "El host virtual eliminado estaba seleccionado para el Webmail. Tal vez "
-"quieras seleccionar otro ahora."
+"quiera seleccionar otro ahora."
 
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
@@ -10501,11 +10505,11 @@ msgstr "Configurar webmail Roundcube"
 # Mange sieve o Managesieve  (Junto o separado)
 #: ../../main/webmail/src/EBox/WebMail.pm:292
 msgid "To configure managesieve Roundcube webmail plugin."
-msgstr "Configure el plugin managesieve de Roundcube"
+msgstr "Configurar el plugin managesieve de Roundcube"
 
 #: ../../main/webmail/src/EBox/WebMail.pm:299
 msgid "To configure the webmail on the webserver."
-msgstr "Para configurar el webmail en el servidor web"
+msgstr "Configurar el webmail en el servidor web"
 
 #: ../../main/webmail/src/EBox/WebMail.pm:315
 msgid "Create PostgreSQL Roundcube webmail database."
@@ -10533,7 +10537,7 @@ msgid ""
 "service. You can enable it at {openurl}Mail -> General{closeurl}."
 msgstr ""
 "El módulo Webmail necesita tener habilitado el servicio IMAP o IMAPS para "
-"usar el servicio de correo de Zentyal. Puedes habilitarlo en {openurl}Correo "
+"usar el servicio de correo de Zentyal. Puede habilitarlo en {openurl}Correo "
 "-> General{closeurl}"
 
 #: ../../main/webmail/src/EBox/WebMail.pm:402
@@ -10541,7 +10545,7 @@ msgid ""
 "You cannot disable both IMAP and IMAPS service because they are used by "
 "Webmail module."
 msgstr ""
-"No puedes deshabilitar IMAP e IMAPS a la vez porque están siendo usados por "
+"No puede deshabilitar IMAP e IMAPS a la vez porque están siendo usados por "
 "el modulo webmail"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:177
@@ -10574,8 +10578,8 @@ msgstr "Estado de actualización de la base de datos de virus"
 msgid ""
 "The antivirus database has not been updated since the module was enabled."
 msgstr ""
-"La base de datos de virus no ha sido actualizada desde que el módulo  fue "
-"instalado"
+"La base de datos de virus no ha sido actualizada desde que el módulo fue "
+"instalado."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:162
 msgid "The last update failed."
@@ -10592,21 +10596,21 @@ msgid ""
 "The antivirus module is not configured. Enable it first in Module Status "
 "section."
 msgstr ""
-"El módulo de antivirus no está configurado. Habilitalo primero en la sección "
-"de Estado de Módulos."
+"El módulo de antivirus no está configurado. Habilítelo primero en la sección "
+"de Estado de los Módulos."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:169
 msgid ""
 "The antivirus module is not enabled. Enable it first to know the antivirus "
 "status."
 msgstr ""
-"El módulo de antivirus no está habilitado. Habilitalo primero para saber el "
+"El módulo de antivirus no está habilitado. Habilítelo primero para saber el "
 "estado del antivirus."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:171
 #, perl-brace-format
 msgid "Unknown event {event}."
-msgstr "Evento  desconocido {event}"
+msgstr "Evento desconocido {event}"
 
 #: ../../main/ntp/src/EBox/NTP.pm:90
 msgid "Remove ntp init script links"
@@ -10626,7 +10630,7 @@ msgstr "Servidores NTP"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:61
 msgid "Here you can add external NTP servers to synchronize with."
-msgstr "Aquí puedes añadir servidores de NTP externos con los que sincronizar"
+msgstr "Aquí puede añadir servidores de NTP externos con los que sincronizar"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
 msgid "Enable synchronization with external servers"
@@ -10638,8 +10642,8 @@ msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
-"Aquí puedes activar o desactivar la sincronización con servidores externos. "
-"Recuerda configurar tu zona horaria para que la sincronización se comporte "
+"Aquí puede activar o desactivar la sincronización con servidores externos. "
+"Recuerde configurar su zona horaria para que la sincronización se comporte "
 "correctamente."
 
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:63
@@ -10671,8 +10675,8 @@ msgid ""
 "{mod} module is disabled. Don't forget to enable it on the {oh}Module Status"
 "{ch} section, otherwise your changes won't have any effect."
 msgstr ""
-"El módulo {mod} está desactivado. No olvides activarlo en la sección {oh}"
-"Estado del módulo{ch} para que tus cambios se efectúen."
+"El módulo {mod} está desactivado. No olvide activarlo en la sección "
+"{oh}Estado de los módulos{ch} para que sus cambios se efectúen."
 
 #: ../../main/core/src/EBox/Model/Composite.pm:361
 #, perl-brace-format
@@ -10693,7 +10697,7 @@ msgid ""
 "The data you are removing is being used by\n"
 "                    the following sections:"
 msgstr ""
-"Los datos que estás borrando están siendo usados por\n"
+"Los datos que está borrando están siendo usados por\n"
 "                    las siguientes secciones:"
 
 #: ../../main/core/src/EBox/Model/ModelManager.pm:504
@@ -10701,13 +10705,13 @@ msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
-"Los datos que estás modificando están siendo usados por\n"
+"Los datos que está modificando están siendo usados por\n"
 "\t\t\tlas siguientes secciones:"
 
 #: ../../main/core/src/EBox/Model/DataForm.pm:552
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
-msgstr "Borra datos de {model}{br}"
+msgstr "Borrar datos de {model}{br}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:306
 #, perl-brace-format
@@ -10833,7 +10837,7 @@ msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
 msgstr ""
-"Para habilitar un emisor de eventos configurable, debes configurarlo primero"
+"Para habilitar un emisor de eventos configurable, debe configurarlo primero"
 
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:51
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:80
@@ -10971,7 +10975,7 @@ msgid ""
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
-"¡Cuidado! No hay un observador de registros habilitados. Por favor, ve a "
+"¡Cuidado! No hay un monitor de registros habilitado. Por favor, vaya a "
 "'Configuración' para habilitar al menos uno de ellos para ser notificado "
 "cuando un registro en este dominio ocurra."
 
@@ -10989,11 +10993,11 @@ msgstr ""
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:112
 msgid "Configure disk free space watcher"
-msgstr "Configurar el observador de espacio de disco libre"
+msgstr "Configurar el monitor de espacio de disco libre"
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:140
 msgid "Free Disk Space Watcher"
-msgstr "Configurar el observador de espacio libre de disco"
+msgstr "Monitor de espacio libre de disco"
 
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:108
 #, perl-brace-format
@@ -11126,11 +11130,11 @@ msgstr "Volcando configuración del módulo {m}"
 
 #: ../../main/core/src/EBox/Backup.pm:320
 msgid "Could not create backup archive"
-msgstr "No se pudo agregar datos al archivo de backup"
+msgstr "No se puede crear el archivo de backup"
 
 #: ../../main/core/src/EBox/Backup.pm:327
 msgid "Could not append data to backup archive"
-msgstr "No se pudo agregar datos al archivo de backup"
+msgstr "No se pueden añadir datos al archivo de backup"
 
 #: ../../main/core/src/EBox/Backup.pm:527
 #, perl-brace-format
@@ -11153,7 +11157,7 @@ msgid ""
 "you must save or discard them"
 msgstr ""
 "Los siguientes módulos tienen cambios sin guardar: {mods}. Antes de hacer el "
-"backup debes guardarlos o descartarlos"
+"backup debe guardarlos o descartarlos"
 
 #: ../../main/core/src/EBox/Backup.pm:883
 msgid "Incorrect or corrupt backup file"
@@ -11209,7 +11213,7 @@ msgid ""
 "need to install them before restoring."
 msgstr ""
 "Los siguientes módulos presentes en el backup no están instalados: {mods}. "
-"Necesitas instalarlos antes de restaurarlos."
+"Necesita instalarlos antes de restaurarlos."
 
 #: ../../main/core/src/EBox/Backup.pm:1412
 #, perl-brace-format
@@ -11352,8 +11356,8 @@ msgstr ""
 msgid ""
 "You are using sliced backup mode and this backup was made in no-sliced mode"
 msgstr ""
-"Estás usando el modo de backup por partes y este backup fue hecho sin el "
-"modo por partes"
+"Está usando el modo de backup por partes y este backup fue hecho sin el modo "
+"por partes"
 
 #: ../../main/core/src/EBox/PgDBEngine.pm:543
 msgid ""
@@ -11514,7 +11518,7 @@ msgid ""
 "This log is forced by its module. You can only disable it by disabling "
 "{module} module"
 msgstr ""
-"Este registro es requerido por su módulo. Solo lo puedes desactivar "
+"Este registro es requerido por su módulo. Solo lo puede desactivar "
 "desactivando el módulo {module}"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
@@ -11556,8 +11560,8 @@ msgid ""
 "Logs module allows you to register and query information about the Zentyal "
 "services"
 msgstr ""
-"El módulo de registros te permite registrar y consultar información sobre "
-"los servicios de Zentyal"
+"El módulo de registros permite registrar y consultar información sobre los "
+"servicios de Zentyal"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:107
 #, perl-brace-format
@@ -11574,9 +11578,9 @@ msgid ""
 "without schema changing the relevant key in {cf}. Schemas change "
 "unfrequently so it could be safe to use a older one"
 msgstr ""
-"No se ha encontrado fichero de esquema en esta copia. Prueba con otra fecha "
-"o fuerza la restauración sin esquema cambiando la clave correspondiente en "
-"{cf}. Los esquemas no cambian habitualmente asíq ue debería ser seguro usar "
+"No se ha encontrado fichero de esquema en esta copia. Pruebe con otra fecha "
+"o fuerce la restauración sin esquema cambiando la clave correspondiente en "
+"{cf}. Los esquemas no cambian habitualmente así que debería ser seguro usar "
 "uno anterior."
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:148
@@ -11661,7 +11665,7 @@ msgstr "Usuarios"
 #: ../../main/core/src/EBox/SysInfo.pm.in:190
 #: ../../main/core/src/EBox/SysInfo.pm.in:315
 msgid "Module Status"
-msgstr "Estado de los  Módulos"
+msgstr "Estado de los Módulos"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:196
 msgid "General Information"
@@ -11758,7 +11762,7 @@ msgstr "La contraseña debe tener como mucho {maxLength} caracteres"
 #: ../../main/core/src/EBox/Types/Password.pm:189
 msgid "Password mismatch, make sure passwords are identical"
 msgstr ""
-"Las contraseñas no coinciden, asegúrate de que ambas contraseñas son "
+"Las contraseñas no coinciden, asegúrese de que ambas contraseñas son "
 "idénticas"
 
 #: ../../main/core/src/EBox/Types/Int.pm:154
@@ -12246,8 +12250,8 @@ msgid ""
 "Service {mod} is locked by another process. Please wait its end and then try "
 "again."
 msgstr ""
-"El servicio {mod} está bloqueado por otro proceso. Por favor, espera a que "
-"termine e inténtalo de nuevo."
+"El servicio {mod} está bloqueado por otro proceso. Por favor, espere a que "
+"termine e inténtelo de nuevo."
 
 #: ../../main/core/src/EBox/CGI/SysInfo/RestartService.pm:68
 #, perl-brace-format
@@ -12569,7 +12573,7 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail.pm:179
 msgid "To configure postfix"
-msgstr "Para configurar postfix"
+msgstr "Configurar postfix"
 
 #: ../../main/mail/src/EBox/Mail.pm:185
 msgid "To define how client programs connect to services in  postfix"
@@ -12581,15 +12585,15 @@ msgstr "Configurar nombre de host de correo"
 
 #: ../../main/mail/src/EBox/Mail.pm:197
 msgid "To configure postfix aliases"
-msgstr "Para configurar los alias de postfix"
+msgstr "Configurar los alias de postfix"
 
 #: ../../main/mail/src/EBox/Mail.pm:204
 msgid "To configure dovecot"
-msgstr "Para configurar dovecot"
+msgstr "Configurar dovecot"
 
 #: ../../main/mail/src/EBox/Mail.pm:209
 msgid "To configure dovecot to authenticate against LDAP"
-msgstr "Configura dovecot para que valide los usuarios a través de LDAP"
+msgstr "Configurar dovecot para que valide los usuarios a través de LDAP"
 
 #: ../../main/mail/src/EBox/Mail.pm:214
 msgid "To configure smart host authentication"
@@ -12601,7 +12605,7 @@ msgstr "Correo saliente (protocolo SMTP)."
 
 #: ../../main/mail/src/EBox/Mail.pm:261
 msgid "POP, IMAP and SIEVE protocols"
-msgstr "Protocolos  POP, IMAP y SIEVE"
+msgstr "Protocolos POP, IMAP y SIEVE"
 
 #: ../../main/mail/src/EBox/Mail.pm:270
 msgid "Outgoing Mail (Submission protocol)."
@@ -12626,7 +12630,7 @@ msgstr "Nombre de la máquina de correo"
 
 #: ../../main/mail/src/EBox/Mail.pm:790
 msgid "The mail name and virtual mail domain name are equal"
-msgstr "El nombre de correo el dominio virtual de correo son iguales"
+msgstr "El nombre de correo y el dominio virtual de correo son iguales"
 
 #: ../../main/mail/src/EBox/Mail.pm:1432
 msgid "SMTP service"
@@ -12937,7 +12941,7 @@ msgid ""
 "need to enable the mail service on Zentyal."
 msgstr ""
 "Este emisor enviará los eventos a una cuenta de correo. Para poder usarlo "
-"necesitas habilitar el servicio de correo electrónico de Zentyal."
+"necesita habilitar el servicio de correo electrónico de Zentyal."
 
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:115
 msgid "Mail dispatcher configuration updated."
@@ -12995,8 +12999,8 @@ msgid ""
 "The alias account should be provided without domain portion. It will be "
 "appended automatically"
 msgstr ""
-"La cuenta de alias debería ser proporcionada sin porción de dominio. Será "
-"añadida automáticamente"
+"La cuenta de alias debe ser proporcionada sin el dominio. Este será añadido "
+"automáticamente"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:245
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:133
@@ -13004,7 +13008,7 @@ msgstr ""
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
-"Debes habilitar el módulo de correo en la sección de Estado de módulo para "
+"Debe habilitar el módulo de correo en la sección de Estado de módulo para "
 "usarlos"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:61
@@ -13033,9 +13037,9 @@ msgid ""
 "delivered to their local account. External account can be configured in the "
 "user's corner."
 msgstr ""
-"Permite al usuario recuperar correo de cuentas externas, el correo sería "
-"enviado a cuentas locales. Las cuentas externas pueden ser configuradas en "
-"el user's corner."
+"Permite al usuario recuperar el correo desde cuentas externas y entregarlo a "
+"las cuentas locales. Las cuentas externas pueden ser configuradas en el "
+"\"Rincón del usuario\"."
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:92
 msgid "Manage Sieve scripts"
@@ -13099,7 +13103,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:204
 msgid "'sieve' is a reserved name in this context, please choose another name"
 msgstr ""
-"\"sieve\" es un nombre reservado en este contexto, por favor escoge otro "
+"\"sieve\" es un nombre reservado en este contexto, por favor escoja otro "
 "nombre"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:211
@@ -13226,7 +13230,7 @@ msgstr "Política de retransmisión de objetos"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:121
 msgid "You may allow mail relay per network object"
-msgstr "Puedes permitir la retransmisión de correos por objeto de red"
+msgstr "Puede permitir la retransmisión de correos por objeto de red"
 
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:222
 #, perl-brace-format
@@ -13725,7 +13729,7 @@ msgid ""
 "The deleted virtual host was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
-"El virtual host borrado estaba seleccionado para Zarafa. Quizá quieras "
+"El virtual host borrado estaba seleccionado para Zarafa. Quizá quiera "
 "seleccionar otro ahora."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:95
@@ -13806,7 +13810,7 @@ msgid ""
 "The deleted virtual domain was selected for Zarafa. Maybe you want to select "
 "another one now."
 msgstr ""
-"El dominio virtual borrado estaba seleccionado para Zarafa. Quizá quieras "
+"El dominio virtual borrado estaba seleccionado para Zarafa. Quizá quiera "
 "seleccionar otro ahora."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomain.pm:158
@@ -13925,7 +13929,7 @@ msgstr "Configurar adecuadamente servidor de indexado de Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:163
 msgid "To properly configure Zarafa dagent LMTP delivering server."
-msgstr "Configurar adecuadamente servidor de entrega  LMTP dagent de Zarafa"
+msgstr "Configurar adecuadamente servidor de entrega LMTP dagent de Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:214
 msgid "Groupware services (Zarafa)"
@@ -13947,7 +13951,7 @@ msgid ""
 "Zentyal Administration is running on this port, change it on {ohref}System -"
 "> General{chref}."
 msgstr ""
-"La administración de Zentyal está escuchando en este puerto, cámbialo en "
+"La administración de Zentyal está escuchando en este puerto, cámbielo en "
 "{ohref}Sistema -> General{chref}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:135
@@ -13988,7 +13992,7 @@ msgid ""
 "should be loaded from {dirName} directory from their home directories."
 msgstr ""
 "Configuración general del Servidor Web. El puerto de escucha no debe estar "
-"siendo utilizado por otro servicio. Si permites a los usuarios publicar sus "
+"siendo utilizado por otro servicio. Si permite a los usuarios publicar sus "
 "propias páginas html, las páginas deberán ser cargadas desde el directorio "
 "{dirName} en sus directorios de inicio de Samba."
 
@@ -14002,7 +14006,7 @@ msgstr "Nombre del host virtual"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
 msgid "You need to enable Listening SSL port."
-msgstr "Necesitas habilitar el puerto de escucha SSL."
+msgstr "Necesita habilitar el puerto de escucha SSL."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
 #, perl-brace-format
@@ -14010,8 +14014,8 @@ msgid ""
 "You need to enable Web Server on {ohref}Services Certificates{chref} to "
 "enable SSL on a virtal host."
 msgstr ""
-"Necesitas activar el servidor web en  {ohref}Certificados de los Servicios"
-"{chref} para activar SSL en un host virtual."
+"Necesita activar el servidor web en {ohref}Certificados de los "
+"Servicios{chref} para activar SSL en un host virtual."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:181
 #, perl-brace-format
@@ -14019,7 +14023,7 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip}. {noDnsWarning} "
 msgstr ""
-"Host Virtual {vhost} añadido. Un dominio  {domain} ha sido creado con el "
+"Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado con el "
 "nombre de mapeo {name} - Dirección IP {ip}. {noDnsWarning}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:200
@@ -14028,7 +14032,7 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain."
 msgstr ""
-"Agretado el host virtual {vhost}. Un nombre de mapeo {name} - dirección IP "
+"Agregado el host virtual {vhost}. Un nombre de mapeo {name} - dirección IP "
 "{ip} ha sido añadido al dominio {domain}."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:214
@@ -14597,8 +14601,8 @@ msgstr "Opciones de cuenta por defecto"
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:77
 msgid "On this page you can configure the default settings for user accounts"
 msgstr ""
-"En esta página puedes establecer la configuración por defecto para cuentas "
-"de usuario"
+"En esta página puede establecer la configuración por defecto para cuentas de "
+"usuario"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:68
 msgid "Parameter"
@@ -14863,7 +14867,7 @@ msgid ""
 "move or remove it before creating this user"
 msgstr ""
 "No se puede crear el usuario porque el directorio {dir} ya existe. Por "
-"favor, muévelo o bórralo antes de crear el usuario"
+"favor, muévalo o bórrelo antes de crear el usuario"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1086
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1751
@@ -15009,7 +15013,7 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
-"Estás viendo este error porque el sitio al que estás intentando acceder "
+"Está viendo este error porque el sitio al que estás intentando acceder "
 "parece contener, o está etiquetado como tal, material que ha sido calificado "
 "como inapropiado."
 
@@ -15017,8 +15021,8 @@ msgstr ""
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
-"Si tienes alguna duda, contacta con tu coordinador de internet y "
-"comunicaciones o tu gestor de red."
+"Si tiene alguna duda, contacte con su coordinador de internet y "
+"comunicaciones o con su gestor de red."
 
 #: ../../main/squid/stubs/template.html.mas:47
 msgid "Powered by"
@@ -15033,8 +15037,8 @@ msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
-"Estas reglas te permiten controlar el acceso desde redes internas a "
-"servicios que corren en tu máquina Zentyal"
+"Estas reglas le permiten controlar el acceso desde redes internas a "
+"servicios que corren en su máquina Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:16
 #: ../../main/firewall/src/templates/filter.mas:31
@@ -15055,9 +15059,9 @@ msgid ""
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your Zentyal services, you must use the above section."
 msgstr ""
-"Estas reglas te permiten controlar el acceso desde tus redes internas a "
-"Internet, y el tráfico entre tus redes internas. Si deseas dar acceso a los "
-"servicios de Zentyal, debes usar la sección superior."
+"Estas reglas le permiten controlar el acceso desde sus redes internas a "
+"Internet, y el tráfico entre sus redes internas. Si desea dar acceso a los "
+"servicios de Zentyal, debe usar la sección superior."
 
 #: ../../main/firewall/src/templates/filter.mas:41
 msgid "Filtering rules from external networks to Zentyal"
@@ -15068,8 +15072,8 @@ msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
-"Estas reglas te permiten controlar el acceso desde redes externas a "
-"servicios que corren en tu máquina Zentyal."
+"Estas reglas le permiten controlar el acceso desde redes externas a "
+"servicios que corren en su máquina Zentyal."
 
 #: ../../main/firewall/src/templates/filter.mas:46
 #: ../../main/firewall/src/templates/filter.mas:64
@@ -15078,9 +15082,9 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing."
 msgstr ""
-"Debes saber que añadiendo reglas a esta sección puedes estar comprometiendo "
-"la seguridad de tu red, permitiendo el acceso desde redes no confiables. Por "
-"favor, hazlo sólo si sabes lo que estás haciendo."
+"Debe saber que añadiendo reglas a esta sección puede estar comprometiendo la "
+"seguridad de su red, permitiendo el acceso desde redes no confiables. Por "
+"favor, hágalo sólo si sabe lo que está haciendo."
 
 #: ../../main/firewall/src/templates/filter.mas:59
 msgid "Filtering rules from external networks to internal networks"
@@ -15091,7 +15095,7 @@ msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
-"Estas reglas te permiten controlar el acceso desde redes externas a redes "
+"Estas reglas le permiten controlar el acceso desde redes externas a redes "
 "internas"
 
 #: ../../main/firewall/src/templates/filter.mas:76
@@ -15103,7 +15107,7 @@ msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
-"Estas reglas te permiten control el acceso desde Zentyal a servicios "
+"Estas reglas permiten controlar el acceso desde Zentyal a servicios "
 "externos."
 
 #: ../../main/firewall/src/templates/filter.mas:92
@@ -15116,7 +15120,7 @@ msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
-"Puedes deshabilitar estas reglas, pero debes estar seguro de lo que estas "
+"Puede deshabilitar estas reglas, pero debe estar seguro de lo que está "
 "haciendo o algunos servicios podrían detenerse."
 
 #: ../../main/dns/src/templates/index.mas:16
@@ -15163,7 +15167,7 @@ msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
-"Error actualizando la lista de paquetes. Por favor, ejecuta el siguiente "
+"Error actualizando la lista de paquetes. Por favor, ejecute el siguiente "
 "comando en una consola para averiguar el problema: sudo apt-get update"
 
 #: ../../main/software/src/templates/ebox.mas:304
@@ -15171,7 +15175,7 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
-"Los siguientes paquetes no se instalaron correctamente. Necesitas arreglar "
+"Los siguientes paquetes no se instalaron correctamente. Necesita arreglar "
 "esto antes de intentar usarlos o instalar nuevos módulos."
 
 #: ../../main/software/src/templates/ebox.mas:311
@@ -15189,7 +15193,7 @@ msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
-"Para arreglar esta situación, por favor ejecuta el siguiente comando en la "
+"Para arreglar esta situación, por favor ejecute el siguiente comando en la "
 "consola:"
 
 #: ../../main/software/src/templates/ebox.mas:341
@@ -15312,8 +15316,8 @@ msgid ""
 "server at {url2}"
 msgstr ""
 "Esta característica está sólo disponible con una suscripción de Zentyal. "
-"Puedes conseguirla en {url1}. Si ya la tienes, puedes suscribir este "
-"servidor en {url2}"
+"Puede conseguirla en {url1}. Si ya la tiene, puede suscribir este servidor "
+"en {url2}"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoActive.mas:14
 msgid "subscription page"
@@ -15329,25 +15333,25 @@ msgstr ""
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:9
 msgid "Your computer has not internet connection"
-msgstr "Tu máquina no tiene conectividad con Internet"
+msgstr "Su máquina no tiene conectividad con Internet"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:10
 msgid "Firewall is blocking the connection. Try to restart firewall module"
 msgstr ""
-"El cortafuegos está bloqueando la conexión. Prueba a reiniciar el módulo de "
+"El cortafuegos está bloqueando la conexión. Pruebe a reiniciar el módulo de "
 "firewall"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:11
 msgid "Your computer has not a correct system date"
-msgstr "Tu máquina no tiene una hora del sistema correcta"
+msgstr "Su máquina no tiene una hora de sistema correcta"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:12
 msgid "You are using the wrong certificates"
-msgstr "Estás usando certificados incorrectos"
+msgstr "Está usando certificados incorrectos"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:13
 msgid "This server has been removed from your registered ones"
-msgstr "Este servidor ha sido borrado de tu lista de servidores registrados"
+msgstr "Este servidor ha sido borrado de su lista de servidores registrados"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:56
 msgid "Back up"
@@ -15364,7 +15368,7 @@ msgid ""
 "save or discard them to be able to backup the configuration"
 msgstr ""
 "El backup está deshabilitado porque hay cambios de configuración que no se "
-"han guardado. Por favor, guárdalos o descártalos para poder realizar el "
+"han guardado. Por favor, guárdelos o descártelos para poder realizar el "
 "backup de la configuración"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:94
@@ -15373,8 +15377,8 @@ msgid ""
 "configuration backup. If you make a new configuration backup, the previous "
 "backup will be overwritten."
 msgstr ""
-"Por favor, ten en cuenta que la suscripción Basic sólo permite almacenar un "
-"backup de configuración remoto. Si se genera uno nuevo, el anterior será "
+"Por favor, tenga en cuenta que la suscripción Básica sólo permite almacenar "
+"un backup de configuración remoto. Si se genera uno nuevo, el anterior será "
 "sobrescrito."
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:121
@@ -15450,7 +15454,7 @@ msgstr "Entrar"
 
 #: ../../main/captiveportal/src/templates/popup.mas:40
 msgid "Keep this window open while using your Internet connection."
-msgstr "Mantén esta ventana abierta mientras uses la conexión a Internet."
+msgstr "Mantenga esta ventana abierta mientras use la conexión a Internet."
 
 #: ../../main/network/src/templates/ifaces.mas:13
 msgid ""
@@ -15494,8 +15498,8 @@ msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
 msgstr ""
-"Comprueba si estás usando Zentyal como gateway y este interfaz está conetado "
-"a tu router a Internet"
+"Marque aquí si está usando Zentyal como gateway y este interfaz está "
+"conetado a su router a Internet"
 
 #: ../../main/network/src/templates/ifaces.mas:168
 msgid "Bridge"
@@ -15569,9 +15573,9 @@ msgid ""
 "interface will delete the relevant parts of their configuration. Choose "
 "\"Cancel\" if you are not sure about this."
 msgstr ""
-"Si eliges continuar, todos los módulos que usan esta interfaz de red "
-"borrarán las partes más relevantes de su configuración. Elige \"Cancelar\" "
-"si no estás seguro."
+"Si elige continuar, todos los módulos que usan esta interfaz de red borrarán "
+"las partes más relevantes de su configuración. Elija \"Cancelar\" si no está "
+"seguro."
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:7
 #: ../../main/network/src/templates/Wizard/network.mas:31
@@ -15595,7 +15599,7 @@ msgstr "Configurar red para interfaces externos"
 
 #: ../../main/network/src/templates/Wizard/network.mas:35
 msgid "Now you can set IP addresses and networks for each interface"
-msgstr "Ahora puedes configurar direcciones IP y redes para cada interfaz"
+msgstr "Ahora puede configurar direcciones IP y redes para cada interfaz"
 
 #: ../../main/network/src/templates/Wizard/network.mas:51
 msgid "Don't configure"
@@ -15823,7 +15827,7 @@ msgid ""
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
 "Esta revocación puede afecar a la funcionalidad de otros módulos, por favor "
-"confirma que estás seguro de revocar toda la autoridad de certificación de "
+"confirme que está seguro de revocar toda la autoridad de certificación de "
 "{on} y dejar posiblemente servicios inestables o deshabilitados"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:24
@@ -15833,8 +15837,8 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the service"
 "(s) unstable or disabled"
 msgstr ""
-"El certificado cuyo nombre común es {cn} que has tratado de revocar está "
-"siendo usado por otro módulo, por favor confirma que estás seguro de revocar "
+"El certificado cuyo nombre común es {cn} que ha tratado de revocar está "
+"siendo usado por otro módulo, por favor confirme que está seguro de revocar "
 "y dejar dicho(s) servicio(s) inestables o apagados"
 
 #: ../../main/ca/src/templates/formRevoke.mas:10
@@ -15891,8 +15895,8 @@ msgid ""
 "you are very sure to renew the whole certification authority from {on} and "
 "leave the service(s) unstable or disabled"
 msgstr ""
-"Esta renovación puede afecar a la funcionalidad de otros módulos, por favor "
-"confirma que estás seguro de renovar toda la autoridad de certificación de "
+"Esta renovación puede afectar a la funcionalidad de otros módulos, por favor "
+"confirme que está seguro de renovar toda la autoridad de certificación de "
 "{on} y dejar posiblemente servicios inestables o deshabilitados"
 
 #: ../../main/ca/src/templates/forceRenew.mas:53
@@ -15902,8 +15906,8 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the service"
 "(s) unstable or disabled"
 msgstr ""
-"El certificado cuyo nombre común es {cn} que has tratado de revocar está "
-"siendo usado por otro módulo, por favor confirma que estás seguro de revocar "
+"El certificado cuyo nombre común es {cn} que ha tratado de revocar está "
+"siendo usado por otro módulo, por favor confirme que está seguro de revocar "
 "y dejar dicho(s) servicio(s) inestables o apagados"
 
 #: ../../main/ca/src/templates/formRenew.mas:28
@@ -15968,8 +15972,8 @@ msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
 msgstr ""
-"Navega por los widgets disponibles en el menú de la izquierda y arrástralos "
-"y suéltalos en el dashboard"
+"Navegue por los widgets disponibles en el menú de la izquierda y arrástrelos "
+"y suéltelos en el dashboard"
 
 #: ../../main/core/src/templates/dashboard/list.mas:43
 msgid "No entries in this list"
@@ -16006,7 +16010,7 @@ msgstr ""
 #: ../../main/core/src/templates/finish.mas:114
 msgid "The following changes are pending. You can save or discard them."
 msgstr ""
-"Los siguientes cambios están pendientes de guardado. Puedes guardarlos o "
+"Los siguientes cambios están pendientes de guardado. Puede guardarlos o "
 "descartarlos."
 
 #: ../../main/core/src/templates/finish.mas:139
@@ -16125,25 +16129,25 @@ msgstr "último"
 
 #: ../../main/core/src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr "Elije una de las opciones para mostrar la tabla asociada"
+msgstr "Elija una de las opciones para mostrar la tabla asociada"
 
 #: ../../main/core/src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
-msgstr "Elije una..."
+msgstr "Elija una..."
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:147
 #: ../../main/core/src/templates/ajax/tableModalView.mas:154
 #: ../../main/core/src/templates/ajax/tableModal.mas:179
 #: ../../main/users/src/templates/ajax/tableUser.mas:88
 msgid "Add new"
-msgstr "Añadir nuevo"
+msgstr "Añadir nuevo/a"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:156
 #: ../../main/core/src/templates/ajax/tableModalView.mas:164
 #: ../../main/core/src/templates/ajax/tableModal.mas:190
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr "Añadiendo una nueva {row}"
+msgstr "Añadiendo un/a nuevo/a {row}"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:161
 #: ../../main/core/src/templates/ajax/tableModalView.mas:169
@@ -16195,7 +16199,7 @@ msgstr "Añadir nuevo..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:126
 msgid "No elements found. "
-msgstr "No hay elementos. "
+msgstr "No hay elementos."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:127
 msgid "Add a new one"
@@ -16234,7 +16238,7 @@ msgid ""
 "change the date or time."
 msgstr ""
 "Dado que la sincronización con servidor NTP externo está habilitada, no "
-"puedes cambiar la fecha u hora."
+"puede cambiar la fecha u hora."
 
 #: ../../main/core/src/templates/datetime.mas:19
 msgid ""
@@ -16373,15 +16377,15 @@ msgstr "Página principal de Zentyal"
 
 #: ../../main/core/src/templates/pageNotFound.mas:7
 msgid "If you typed the URL manually, please check it"
-msgstr "Si has escrito la URL manualmente, por favor compruébala"
+msgstr "Si ha escrito la URL manualmente, por favor compruébela"
 
 #: ../../main/core/src/templates/pageNotFound.mas:8
 msgid ""
 "Maybe a change in the Zentyal configuration or software made no longer "
 "available the requested page"
 msgstr ""
-"Quizá un cambio en la configuración de Zentyal o en su software ha hecho que "
-"la página solicitada no esté más disponible"
+"Quizás un cambio en la configuración de Zentyal o en su software ha hecho "
+"que la página solicitada ya no esté disponible"
 
 #: ../../main/core/src/templates/pageNotFound.mas:9
 #, perl-brace-format
@@ -16389,7 +16393,7 @@ msgid ""
 "If you need more help, you may want visit {homepage} for documentation and "
 "mailing lists"
 msgstr ""
-"Si necesitas más ayuda, puedes visitar {homepage} para documentación y "
+"Si necesita más ayuda, puede visitar {homepage} para documentación y las "
 "listas de correo"
 
 #: ../../main/core/src/templates/pageNotFound.mas:12
@@ -16416,9 +16420,9 @@ msgid ""
 "supported. Please, take into consideration that you might face some issues "
 "while navigating on Zentyal UI."
 msgstr ""
-"Aviso: Estás usando un navegador que no es {url}, que es el único "
-"oficialmente soportado. Por favor, ten en cuenta que puedes encontrarte con "
-"algún problema usando la interfaz de Zentyal."
+"Aviso: Está usando un navegador que no es {url}, que es el único "
+"oficialmente soportado. Por favor, tenga en cuenta que se puede encontrar "
+"con algún problema usando la interfaz de Zentyal."
 
 #: ../../main/core/src/templates/backupTabs.mas:13
 msgid "Local"
@@ -16594,16 +16598,16 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:78
 msgid "Restore Backup from File"
-msgstr "Restaura backup desde un archivo"
+msgstr "Restaurar backup desde un archivo"
 
 #: ../../main/core/src/templates/backup.mas:80
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
 msgstr ""
-"Puedes subir un fichero de backup desde tu ordenador. Cuando se suben "
-"ficheros debes tener en cuenta que algunos navegadores web no pueden manejar "
-"ficheros muy grandes (>= 1Gb)"
+"Puede subir un fichero de backup desde su ordenador. Al subir ficheros debe "
+"tener en cuenta que algunos navegadores web no pueden manejar ficheros muy "
+"grandes (>= 1Gb)"
 
 #: ../../main/core/src/templates/backup.mas:88
 msgid "Backup file"
@@ -16638,9 +16642,9 @@ msgid ""
 "You can generate a file with information about the state of your system. "
 "This file can be useful if you want to report a problem or seek for support."
 msgstr ""
-"Puedes generar un fichero con información sobre el estado de tu sistema. "
-"Este fichero puede ser de utilidad si deseas enviar un informe de error o "
-"recibir soporte."
+"Puede generar un fichero con información sobre el estado de su sistema. Este "
+"fichero puede ser de utilidad si desea enviar un informe de error o recibir "
+"soporte."
 
 #: ../../main/core/src/templates/backup.mas:202
 msgid "Generate and Download report file"
@@ -16652,8 +16656,7 @@ msgstr "Dominio de registro"
 
 #: ../../main/core/src/templates/logs/index.mas:22
 msgid "Last hour logs will be showed when selecting a component"
-msgstr ""
-"Los logs de la última hora se mostrarán cuando se selecciona un componente"
+msgstr "Los logs de la última hora se mostrarán al seleccionar un componente"
 
 #: ../../main/core/src/templates/logs/index.mas:23
 msgid "Select available full reports"
@@ -16675,7 +16678,7 @@ msgstr "Desde la fecha:"
 
 #: ../../main/core/src/templates/logs/index.mas:108
 msgid "Refresh logs"
-msgstr "Refresca los registros"
+msgstr "Refrescar los registros"
 
 #: ../../main/core/src/templates/logs/index.mas:115
 msgid "To date:"
@@ -16732,8 +16735,8 @@ msgid ""
 "You need to save changes in order to apply all the language changes and "
 "probably also reload the page on your browser."
 msgstr ""
-"Necesitas guardar cambios para aplicar todos los cambios de idioma, se "
-"recomienda también recargar la página en tu navegador."
+"Ha de guardar los cambios para aplicar las modificaciones del idioma y "
+"posiblemente también recargar la página en el navegador."
 
 #: ../../main/core/src/templates/password.mas:4
 msgid "Change Password"
@@ -16741,7 +16744,7 @@ msgstr "Cambiar contraseña"
 
 #: ../../main/core/src/templates/password.mas:5
 msgid "Your password must be at least 6 characters long."
-msgstr "Tu contraseña debe tener al menos 6 caracteres."
+msgstr "La contraseña debe tener al menos 6 caracteres."
 
 #: ../../main/core/src/templates/password.mas:25
 msgid "Current password"
@@ -16798,7 +16801,7 @@ msgstr "Configurar el dominio virtual de correo"
 
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:8
 msgid "This will be the domain for your mail accounts"
-msgstr "Este será el dominio para tus cuentas de correo"
+msgstr "Este será el dominio para sus cuentas de correo"
 
 #: ../../main/mail/src/templates/qmanager.mas:20
 msgid "Sender"
@@ -16942,15 +16945,15 @@ msgstr "Añadir y Editar"
 
 #: ../../main/users/src/templates/Wizard/users.mas:7
 msgid "Select the type of the server"
-msgstr "Selecciona el tipo de servidor"
+msgstr "Seleccionar el tipo de servidor"
 
 #: ../../main/users/src/templates/Wizard/users.mas:8
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
 msgstr ""
-"Escoge stand-alone a no ser que quieras replicación LDAP o sincronización "
-"con Active Directory."
+"Escoja stand-alone a no ser que quiera replicación LDAP o sincronización con "
+"Active Directory."
 
 #: ../../main/users/src/templates/Wizard/users.mas:10
 msgid "Standalone server"

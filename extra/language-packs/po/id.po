@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-06-08 03:32+0200\n"
-"Last-Translator: nurohman <maman.nurohman@gmail.com>\n"
+"PO-Revision-Date: 2011-08-19 10:50+0200\n"
+"Last-Translator: Priyo <psanyoto@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -23,27 +23,27 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
-msgstr ""
+msgstr "Gunakan configurasi profil baku"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
-msgstr ""
+msgstr "Gunakan profil baku untuk penyaringan MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
-msgstr ""
+msgstr "ekstensi"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
-msgstr ""
+msgstr "Atur kebijakan untuk seluruh ekstensi"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
-msgstr ""
+msgstr "Permintaan-permintaan"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
@@ -72,37 +72,37 @@ msgstr "Pengguna"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
-msgstr ""
+msgstr "Permintaan yang diterima"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Ukuran trafik yang diterima (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
-msgstr ""
+msgstr "Permintaan yang ditolak"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Ukuran trafik yang ditolak (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 msgid "Filtered requests"
-msgstr ""
+msgstr "Permintaan yang disaring"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Ukuran trafik yang disaring (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 #: ../../main/squid/src/EBox/Squid.pm:1119
@@ -141,7 +141,7 @@ msgstr "Tanggal"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
-msgstr ""
+msgstr "Detail trafik web"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
@@ -149,23 +149,23 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:98
 msgid "traffic"
-msgstr "traffic"
+msgstr "trafik"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Grafik besar trafik Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr ""
+msgstr "Besar trafik"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Grafik permintaan trafik Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr ""
+msgstr "Permintaan akses"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
@@ -174,6 +174,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"Obyek {object} tidak memiliki anggota. Silakan tambahkan paling tidak satu "
+"buah untuk menambah aturan yang menggunakan obyek ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -182,6 +184,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
+"Obyek {object} memiliki sebuah {row} yang aktif pada tabel {table}. Hapus "
+"dulu dari sana lalu tambahkan disini"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:116
@@ -189,26 +193,28 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
+"Jika {first} diatur tak terbatas, maka {second} harus diatur menjadi tak "
+"terbatas juga"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
-msgstr ""
+msgstr "{clt_rate} lebih besar dari {net_rate}"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:159
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:143
 msgid "Network object"
-msgstr ""
+msgstr "Obyek jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
 msgid "Rate"
-msgstr ""
+msgstr "Tingkat"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -216,16 +222,18 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Tingkat lebarpita pengunduhan maksimum untuk jaringan ini. Gunakan -1 untuk "
+"menonaktifkan pilihan ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 msgid "Maximum Size"
-msgstr ""
+msgstr "Besar maksimum"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -233,28 +241,34 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Besar unduhan maksimum yang tidak dibatasi pada jaringan ini. Gunakan -1 "
+"untuk menonaktifkan opsi ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
 msgid "Client Rate"
-msgstr ""
+msgstr "Tingkatan klien"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
+"Tingkat lebarpita pengunduhan maksimum tiap klien. Gunakan -1 untuk "
+"menonaktifkan opsi ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Ukuran maksimum klien"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Besar unduhan maksimum yang tak dibatasi untuk tiap klien. Gunakan -1 untuk "
+"menonaktifkan opsi ini"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Delay Pools Class 2"
-msgstr ""
+msgstr "Kelompok Penundaan Kelas 2"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
 #, perl-brace-format
@@ -262,46 +276,49 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
+"Sekali permintaan melampaui batas maksimum {max} maka HTTP Proxy akan "
+"mengurangi lebarpita pengunduhan pada tingkatan yang ditentukan, yaitu "
+"{rate}. Jumlah klien dibatasi sampai dengan 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:223
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:187
 msgid "pool"
-msgstr ""
+msgstr "kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 msgid "Domains and URL rules"
-msgstr ""
+msgstr "Aturan untuk Domain dan URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 msgid "internet domain or URL"
-msgstr ""
+msgstr "domain internet atau URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
-msgstr ""
+msgstr "Ijinkan/Tolak trafik HTTP dari/ke daftar domain internet atau URL."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 msgid "Domain or URL added"
-msgstr ""
+msgstr "Domain atau URL ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 msgid "Domain or URL removed"
-msgstr ""
+msgstr "Domain atau URL dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 msgid "Domain or URL updated"
-msgstr ""
+msgstr "Domain atau URL diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:49
 msgid "Use antivirus"
-msgstr ""
+msgstr "Menggunakan antivirus"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:91
 #, perl-brace-format
@@ -310,6 +327,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"Anda tidak dapat mengaktifkan penyaringan antivirus karena modul antivirus "
+"tidak aktif. Jika anda ingin menggunakan penyaringan virus, pertamakali "
+"{openhref}aktifkan modul antivirus{closehref} dan kembali lagi kesini"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
 #, perl-brace-format
@@ -318,14 +338,17 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"Anda tidak dapat mengaktifkan penyaringan antivirus karena modul antivirus "
+"tidak dipasang. Jika anda ingin menyaring virus, pertamakali "
+"{openhref}aktifkan modul antivirus{closehref} dan kembali lagi kesini"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
-msgstr ""
+msgstr "Gunakan profil baku untuk penyaringan ekstensi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 msgid "Block not listed domains and URLs"
-msgstr ""
+msgstr "Hadang domain dan URL yang tidak terdaftar"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 msgid ""
@@ -333,22 +356,25 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
+"Jika ini diaktifkan, tiap domain atau URL yang ada baik itu dalam bagian "
+"<i>Aturan Domain dan URL</i> maupun yang ada di dalam <i>Arsip daftar "
+"Domain</i> dibawah ini akan dilarang."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Hadang situs-situs yang disebutkan hanya sebagai IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Transparent Proxy"
-msgstr ""
+msgstr "Proxy transparant"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Penghadangan Iklan"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Buang iklan-iklan dari seluruh trafik HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -362,55 +388,64 @@ msgstr "Port"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:76
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "Besar file cache (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:84
 msgid "Default policy"
-msgstr ""
+msgstr "Kebijakan baku"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "General Settings "
-msgstr ""
+msgstr "Pengaturan Umum"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 msgid "Settings changed"
-msgstr ""
+msgstr "Pengaturan telah diubah"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:136
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "{port} telah digunakan. Silakan pilih yang lain"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
 msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr ""
+msgstr "Pilihan proxy transparant tidak sesuai dengan kebijakan otorisasi"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:170
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
+"Proxy transparant tidak sesuai dengan kebijakan otorisasi yang ditemukan "
+"dalam beberapa obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:188
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
 msgstr ""
+"Sebuah kebijakan otorisasi diperlukan karena anda hanya menggunakan "
+"kebijakan kelompok secara global"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:197
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
 msgstr ""
+"<i>Penyaringan</i> berarti bahwa setiap permintaan HTTP akan melalui "
+"penyaringan isi dan mungkin saja akan ditolak jika isinya dianggap tidak "
+"valid."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:204
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Catatan bahwa anda tidak dapat melakukan proxy transparant pada HTTPS. Anda "
+"perlu menambahkan aturan firewall jika mengaktifkan modus ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
@@ -425,36 +460,36 @@ msgstr "Kebijakan"
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:79
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:49
 msgid "Always allow"
-msgstr ""
+msgstr "Selalu ijinkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:96
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:80
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:50
 #: ../../main/squid/src/EBox/Squid.pm:1042
 msgid "Filter"
-msgstr ""
+msgstr "Penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:81
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:51
 msgid "Always deny"
-msgstr ""
+msgstr "Selalu ditolak"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
 msgid "Ignore"
-msgstr ""
+msgstr "Abaikan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
 msgid "This list has not categories"
-msgstr ""
+msgstr "Daftar ini bukanlah kategori"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:35
 msgid "Domain or URL"
-msgstr ""
+msgstr "Domain atau URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:76
 msgid "Domain or IP address part of URL"
-msgstr ""
+msgstr "Domain atau bagian IP Address dari URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:86
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:186
@@ -469,23 +504,23 @@ msgstr "Domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "Anda jangan memberi awalan pada domain dengan www."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:92
 msgid "Domain or IP address"
-msgstr ""
+msgstr "Domain atau IP Address"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:65
 msgid "Configure allowed file extensions"
-msgstr ""
+msgstr "Mengkonfigurasi ekstensi file yang diijinkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:73
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:82
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:89
 msgid "extension"
-msgstr "extension"
+msgstr "Ekstensi"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:74
@@ -494,62 +529,68 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Ijinkan/Tolak trafik HTTP dari file-file yang memiliki ekstensi tertentu. \n"
+"Ekstensi yang tidak terdaftar disini diijinkan. \n"
+"Penyaringan ekstensi memerlukan sebuah kebijakan 'penyaringan' agar dapat "
+"bekerja"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
 msgid "Extension added"
-msgstr ""
+msgstr "Ekstensi ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:77
 msgid "Extension removed"
-msgstr ""
+msgstr "Ekstensi dibuang"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:78
 msgid "Extension updated"
-msgstr ""
+msgstr "Ekstensi diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
 msgid "Using default profile configuration"
-msgstr ""
+msgstr "Menggunakan konfigurasi profil baku"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
-msgstr ""
+msgstr "Menggunakan profil baku untuk penyaringan domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
-msgstr ""
+msgstr "Penyaringan virus"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
 #: ../../main/squid/stubs/template.html.mas:39
 msgid "Categories"
-msgstr ""
+msgstr "Kategori"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:583
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
-msgstr ""
+msgstr "File"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
 msgid "You must supply a domains list"
-msgstr ""
+msgstr "Anda harus menyediakan sebuah daftar domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
 msgid "Inexistent archive file"
-msgstr ""
+msgstr "Ketiadaan file arsip"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
 msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
 msgstr ""
+"Daftar datar tidak diijinkan: hanya diijinkan arsip terkompresi dari daftar "
+"hitam rahasia"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
@@ -560,7 +601,7 @@ msgstr ""
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
 #: ../../main/users/src/templates/users.mas:89
 msgid "Group"
-msgstr ""
+msgstr "Kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:84
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:64
@@ -575,17 +616,19 @@ msgstr "Ijinkan"
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: ../../main/squid/src/EBox/Squid.pm:1040
 msgid "Deny"
-msgstr ""
+msgstr "Tolak"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Time period"
-msgstr ""
+msgstr "Rentang waktu"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr ""
+"Rentang waktu akses yang diijinkan. Hal ini diabaikan dengan kebijakan "
+"penolakan"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
@@ -594,26 +637,28 @@ msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
+"Tidak ada kelompok pengguna dalam sistem. {open}Buatlah{close} paling tidak "
+"satu kelompok  jika anda ingin menetapkan sebuah kebijakan kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
-msgstr ""
+msgstr "Menggunakan ambang profil baku"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
 msgid "Threshold"
-msgstr ""
+msgstr "Ambang"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
 msgid "Content filter threshold"
-msgstr ""
+msgstr "Ambang penyaringan isi"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
 msgid "Content filter threshold changed"
-msgstr ""
+msgstr "Ambang penyaringan isi telah diubah"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
@@ -624,69 +669,76 @@ msgstr "Tipe-tipe MIME"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
 msgid "Set policy for all MIME types"
-msgstr ""
+msgstr "Atur kebijakan untuk seluruh tipe MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 msgid "Group policies"
-msgstr ""
+msgstr "Kebijakan kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:70
 msgid "List of groups"
-msgstr ""
+msgstr "Daftar kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
 msgid "group's policy"
-msgstr ""
+msgstr "Kebijakan milik kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
+"Disini anda secara global dapat mengijinkan atau memblokir akses bagi "
+"kelompok pengguna. Opsi-opsi penyaringan akan menggunakan kebijakan secara "
+"global atau menggukanan kebijakan obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
 msgid "Added group's policy"
-msgstr ""
+msgstr "Kebijakan kelompok ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
 msgid "Removed group's policy"
-msgstr ""
+msgstr "Kebijakan kelompok dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
 msgid "Updated group's policy"
-msgstr ""
+msgstr "Kebijakan kelompok diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Filter profile"
-msgstr ""
+msgstr "Profil penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
+"Kebijakan-kebijakan kelompok user tidak sesuai dengan modus proxy "
+"transparant"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
 msgstr ""
+"Kebijakan kelompok global memerlukan sebuah kebijakan global dengan "
+"otentikasi"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
 msgid "Network Rate"
-msgstr ""
+msgstr "Laju jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Besar maksimum jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Delay Pools Class 1"
-msgstr ""
+msgstr "Tundaan Kelompok Kelas 1"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 #, perl-brace-format
@@ -694,109 +746,118 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
+"Sekali permintaan melampaui nilai {max} maka proxy HTTP akan menurunkan "
+"lebarpita unduh ke kecepatan {rate}."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
 msgid "Domain filter settings"
-msgstr ""
+msgstr "Pengaturan penyaringan domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "Pengaturan penyaringan telah diubah"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
 msgid "Domains lists files for filter group"
-msgstr ""
+msgstr "File daftar domain bagi kelompok penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:96
 msgid "internet domain list"
-msgstr ""
+msgstr "daftar domain internet"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
 msgid "You can upload files whith lists of domains"
-msgstr ""
+msgstr "Anda dapat mengunggah file daftar putih domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:99
 msgid "Domain list added"
-msgstr ""
+msgstr "Daftar domain ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:100
 msgid "Domain list removed"
-msgstr ""
+msgstr "Daftar domain dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:101
 msgid "Domain list updated"
-msgstr ""
+msgstr "Daftar domain diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
 "would occur if the object policy requires it"
 msgstr ""
+"Disini anda dapat menolak atau mengijinkan akses berdasarkan kelompok "
+"pengguna. Penyaringan akan dilakukan jika kebijakan obyek memang "
+"memerlukannya"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
 msgstr ""
+"Obyek perlu untuk diatur kedalam sebuah kebijakan dengan otorisasi agar "
+"dapat menggunakan kebjakan kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
 #, perl-brace-format
 msgid "Configure object {ob} user groups policies"
-msgstr ""
+msgstr "Mengkonfigurasi obyek {ob} dari kebijakan kelompok user"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
 msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
+"Rentang waktu akses diijinkan. Hal ini diabaikan jika kelompok memiliki "
+"kebijakan penolakan, batasan waktu dari obyek induk yang selalu diabaikan"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:72
 msgid "Domain Name Address"
-msgstr ""
+msgstr "Alamat Nama Domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:79
 msgid "Exempt address from caching"
-msgstr ""
+msgstr "Bebaskan alamat dari caching"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
-msgstr ""
+msgstr "Pembebasan caching"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:101
 msgid "domain name address"
-msgstr ""
+msgstr "alamat nama domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "You can exempt some addresses from caching"
-msgstr ""
+msgstr "Anda dapat membebaskan beberapa alamat dari caching"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:104
 msgid "Address added"
-msgstr ""
+msgstr "Alamat ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address removed"
-msgstr ""
+msgstr "Alamat dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:106
 msgid "Address updated"
-msgstr ""
+msgstr "Alamat diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:62
 msgid "Domains list categories"
-msgstr ""
+msgstr "Kategori daftar domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:74
 msgid "category"
-msgstr ""
+msgstr "kategori"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:96
@@ -804,49 +865,50 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:93
 #: ../../main/squid/src/EBox/Squid.pm:1091
 msgid "Filter Profiles"
-msgstr ""
+msgstr "Profil Penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
 msgid "elements"
-msgstr ""
+msgstr "elemen-elemen"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
 #, perl-brace-format
 msgid "Allow all {elements}"
-msgstr ""
+msgstr "Ijinkan seluruh {elements}"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
+"Gunakan field ini untuk mengubah nilai dari seluruh baris dalam satu waktu"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:96
 msgid "Filter profiles"
-msgstr ""
+msgstr "Profil Penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:97
 msgid "List of profiles"
-msgstr ""
+msgstr "Daftar profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:105
 msgid "filter profile"
-msgstr ""
+msgstr "profil penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:107
 msgid "Added filter profile"
-msgstr ""
+msgstr "Profil penyaringan ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Removed filter profile"
-msgstr ""
+msgstr "Profil penyaringan dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:109
 msgid "Updated filter profile"
-msgstr ""
+msgstr "Profil penyaringan diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:122
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:162
 msgid "Filter group"
-msgstr ""
+msgstr "Kelompok penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:127
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:84
@@ -869,23 +931,23 @@ msgstr "Konfigurasi"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:169
 msgid "Filter group policy"
-msgstr ""
+msgstr "Kebijakan kelompok penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:217
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "Jumlah kelompok penyaringan telah mencapai maksimum"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Tidak boleh ada spasi pada nama profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
-msgstr ""
+msgstr "File daftar domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:97
 msgid "You can upload files with lists of domains"
-msgstr ""
+msgstr "Anda dapat mengunggah file berisi daftar domain"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:78
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:265
@@ -895,60 +957,64 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:160
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
-msgstr ""
+msgstr "Obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
-msgstr ""
+msgstr "Rentang waktu yang diijinkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:96
 msgid "Group policy"
-msgstr ""
+msgstr "Kebijakan kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "Object Policies"
-msgstr ""
+msgstr "Kebijakan-kebijakan obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "List of objects"
-msgstr ""
+msgstr "Daftar obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "object's policy"
-msgstr ""
+msgstr "Kebijakan obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "Here you can establish a custom policy per network object"
-msgstr ""
+msgstr "Disini anda dapat menetapkan kebijakan khusus pada tiap obyek jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Added object's policy"
-msgstr ""
+msgstr "Kebijakan obyek ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Removed object's policy"
-msgstr ""
+msgstr "Kebijakan obyek dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Updated object's policy"
-msgstr ""
+msgstr "Kebijakan obyek diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "Kebijakan otorisasi tidak sesuai dengan modus proxy transparant"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
-msgstr ""
+msgstr "Kebijakan penyaringan tidak sesuai dengan rentang waktu terbatas"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:238
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
+"Anda tidak dapat memilih sebuah kebijakan tanpa otorisasi jika anda memiliki "
+"kebijakan kelompok"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
 msgstr ""
+"Anda hanya dapat menggunakan sebuah kebijakan khusus dengan kebijakan "
+"'Penyaringan'"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
@@ -956,6 +1022,8 @@ msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
 msgstr ""
+"Tidak ada obyek jaringan dalam sistem. {open}Buatlah{close} setidaknya satu "
+"obyek jika anda ingin mengatur sebuah kebijakan obyek"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:145
@@ -967,22 +1035,22 @@ msgstr "Tipe MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:147
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr ""
+msgstr "Sebuah Tipe MIME harus mengikuti penulisan berikut: type/subtype"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:156
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
-msgstr ""
+msgstr "{type} bukanlah sebuah tipe IANA yang valid"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:167
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr ""
+msgstr "subtipe {t} memiliki penulisan yang keliru"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
 msgid "Configure allowed MIME types"
-msgstr ""
+msgstr "Mengkonfigurasi tipe MIME yang diijinkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
@@ -998,21 +1066,24 @@ msgid ""
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Ijinkan/Tolak trafik HTTP dari file dengan tipe MIME tertentu. Tipe MIME "
+"yang tidak terdaftar disini adalah yang diijinkan.\n"
+"Penyaringan memerlukan sebuah kebijakan 'penyaringan' agar dapat bekerja"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
 msgid "MIME type added"
-msgstr ""
+msgstr "Tipe MIME ditambahkan"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
 msgid "MIME type removed"
-msgstr ""
+msgstr "Tipe MIME dihapus"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
 msgid "MIME type updated"
-msgstr ""
+msgstr "Tipe MIME diperbaharui"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
@@ -1032,32 +1103,32 @@ msgstr "Extension"
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
-msgstr ""
+msgstr "Laporan trafik proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
-msgstr ""
+msgstr "Penyaringan domain bagi kelompok penyaring"
 
 #: ../../main/squid/src/EBox/Squid/Composite/MIME.pm:91
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
-msgstr ""
+msgstr "Penyaringan tipe MIME"
 
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:75
 #: ../../main/squid/src/EBox/Squid.pm:76
 #: ../../main/squid/src/EBox/Squid.pm:1058
 #: ../../main/squid/src/EBox/Squid.pm:1134
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
-msgstr ""
+msgstr "Pengaturan penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1082
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Pembatasan lebarpita"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
 msgid ""
@@ -1067,144 +1138,150 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"Kelompok kelas 1 memungkinkan Anda untuk membatasi laju lebarpita untuk "
+"pengunduhan besar sedangkan kelompok kelas 2 memungkinkan Anda untuk "
+"mengatur penggunaan lebarpita pada tingkat berkelanjutan. Kelompok kelas 1 "
+"memiliki prioritas lebih dari kelompok kelas 2 dan kesesuaian pertama dari "
+"sumber dilakukan. Jika objek jaringan tidak cocok aturan apa pun, maka tidak "
+"ada pengurangan lebarpita yang dilakukan untuk itu"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
-msgstr ""
+msgstr "Penyaringan ekstensi file"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:92
 msgid "Domains filtering"
-msgstr ""
+msgstr "Penyaringan domain"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:82
 msgid "Authorize and allow"
-msgstr ""
+msgstr "Mengesahkan dan mengijinkan"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and filter"
-msgstr ""
+msgstr "Mengesahkan dan menyaring"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and deny"
-msgstr ""
+msgstr "Mengesahkan dan menolak"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:104
 msgid "Squid's policy"
-msgstr ""
+msgstr "Kebijakan Squid"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
-msgstr ""
+msgstr "Senin"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "Tuesday"
-msgstr ""
+msgstr "Selasa"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Wednesday"
-msgstr ""
+msgstr "Rabu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Thursday"
-msgstr ""
+msgstr "Kamis"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Friday"
-msgstr ""
+msgstr "Jum'at"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Saturday"
-msgstr ""
+msgstr "Sabtu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Sunday"
-msgstr ""
+msgstr "Minggu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:132
 msgid "All time"
-msgstr ""
+msgstr "Sepanjang waktu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:214
 msgid "All week"
-msgstr ""
+msgstr "Sepanjang minggu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
-msgstr ""
+msgstr "Akhir minggu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
-msgstr ""
+msgstr "Hari kerja"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:486
 msgid "From hour.."
-msgstr ""
+msgstr "Mulai jam.."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:489
 msgid "to hour.."
-msgstr ""
+msgstr "sampai jam.."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:493
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "Anda harus tentukan dua jam yang berbeda untuk membuat jangka waktu"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:510
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr ""
+msgstr "Nilai jam buruk hari ini: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:516
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr ""
+msgstr "Susunan jam buruk hari ini: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:523
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr ""
+msgstr "Nilai menit buruk: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr ""
+msgstr "Susunan menit buruk: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:542
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:548
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "Nilai akhir kisaran lebih dari dari nilai awalnya"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:572
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "Jangka waktu harus setidaknya aktif pada satu hari"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 #: ../../main/squid/src/EBox/Squid.pm:1033
@@ -1244,137 +1321,134 @@ msgstr ""
 #: ../../main/asterisk/src/templates/group.mas:31
 #: ../../main/asterisk/src/templates/user.mas:25
 #: ../../main/asterisk/src/templates/user.mas:28
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  id.po (ebox-asterisk 1.3.12)  #-#-#-#-#\n"
-"Dinonaktifkan\n"
-"#-#-#-#-#  id.po (ebox-webmail 1.3.12)  #-#-#-#-#\n"
-"nonaktifkan"
+msgstr "nonaktifkan"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
-msgstr ""
+msgstr "Sangat diperbolehkan"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
-msgstr ""
+msgstr "Diperbolehkan"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
-msgstr ""
+msgstr "Sedang"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
-msgstr ""
+msgstr "Ketat"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
-msgstr ""
+msgstr "Sangat ketat"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "Ini menentukan seberapa ketat penyaringan isi dilakukan"
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
-msgstr ""
+msgstr "Kebijakan domain Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:196
 msgid "HTTP Proxy configuration file"
-msgstr ""
+msgstr "File konfigurasi proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:201
 msgid "Content filter configuration file"
-msgstr ""
+msgstr "File konfigurasi penyaringan isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:206
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "Konfigursi kelompok penyaringan baku"
 
 #: ../../main/squid/src/EBox/Squid.pm:211
 msgid "Filter groups membership"
-msgstr ""
+msgstr "Keanggotaan kelompok penyaringan"
 
 #: ../../main/squid/src/EBox/Squid.pm:216
 msgid "Content filter banned extension list"
-msgstr ""
+msgstr "Daftar ekstensi yang dilarang oleh penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:221
 msgid "Content filter banned mime type list"
-msgstr ""
+msgstr "Daftar tipe MIME yang dilarang oleh penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:226
 msgid "Content filter exception site list"
-msgstr ""
+msgstr "Daftar situs yang dikecualikan oleh penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:231
 msgid "Content filter grey site list"
-msgstr ""
+msgstr "Daftar situs abu-abu penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:236
 msgid "Content filter banned site list"
-msgstr ""
+msgstr "Daftar situs yang dilarang oleh penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:241
 msgid "Content filter exception URL list"
-msgstr ""
+msgstr "Daftar URL pengecualian oleh penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:246
 msgid "Content filter grey URL list"
-msgstr ""
+msgstr "Daftar URL abu-abu penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:251
 msgid "Content filter banned URL list"
-msgstr ""
+msgstr "Daftar URL yang dilarang oleh penyaring isi"
 
 #: ../../main/squid/src/EBox/Squid.pm:256
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "Daftar frasa terlarang"
 
 #: ../../main/squid/src/EBox/Squid.pm:261
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Daftar frasa yand dikecualikan"
 
 #: ../../main/squid/src/EBox/Squid.pm:266
 msgid "PICS ratings configuration"
-msgstr ""
+msgstr "Konfigurasi peringkat PICS"
 
 #: ../../main/squid/src/EBox/Squid.pm:271
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Konfigurasi rotasi log dari Dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:276
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr ""
+msgstr "Konfigurasi pemindai antivirus dari Dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:281
 msgid "Filter groups per IP"
-msgstr ""
+msgstr "Kelompok penyaring tiap IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:286
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Konfigurasi"
+msgstr "Konfigurasi dari adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:300
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Timpa contoh halaman pemblokiran"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
+"Contoh halaman pemblokiran dari Dansguardian akan ditimpa oleh contoh "
+"halaman yang disesuaikan bagi Zentyal"
 
 #: ../../main/squid/src/EBox/Squid.pm:329
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
-msgstr ""
+msgstr "Anda harus mengatur variabel cache_mem pada file konfigurasi Zentyal"
 
 #: ../../main/squid/src/EBox/Squid.pm:338
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
+"Anda harus mengatur variabel max_object_size pada file konfigurasi Zentyal"
 
 #: ../../main/squid/src/EBox/Squid.pm:1031
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
@@ -1411,17 +1485,17 @@ msgstr "Diaktifkan"
 
 #: ../../main/squid/src/EBox/Squid.pm:1035
 msgid "Transparent proxy"
-msgstr ""
+msgstr "Proxy transparant"
 
 #: ../../main/squid/src/EBox/Squid.pm:1045
 msgid "Global policy"
-msgstr ""
+msgstr "Kebijakan global"
 
 #: ../../main/squid/src/EBox/Squid.pm:1047
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:225
 msgid "Listening port"
-msgstr ""
+msgstr "Port yang mendengarkan"
 
 #: ../../main/squid/src/EBox/Squid.pm:1079
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
@@ -1435,11 +1509,11 @@ msgstr "Umum"
 
 #: ../../main/squid/src/EBox/Squid.pm:1085
 msgid "Objects' Policy"
-msgstr ""
+msgstr "Kebijakan obyek"
 
 #: ../../main/squid/src/EBox/Squid.pm:1088
 msgid "Groups' Policy"
-msgstr ""
+msgstr "Kebijakan kelompok"
 
 #: ../../main/squid/src/EBox/Squid.pm:1120
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
@@ -1481,15 +1555,15 @@ msgstr "Kejadian"
 
 #: ../../main/squid/src/EBox/Squid.pm:1130
 msgid "Accepted"
-msgstr ""
+msgstr "Diterima"
 
 #: ../../main/squid/src/EBox/Squid.pm:1131
 msgid "Denied"
-msgstr ""
+msgstr "Ditolak"
 
 #: ../../main/squid/src/EBox/Squid.pm:1132
 msgid "Filtered"
-msgstr ""
+msgstr "Disaring"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
@@ -1532,19 +1606,19 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:93
 msgid "Advertised networks"
-msgstr ""
+msgstr "Jaringan yang diiklankan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:102
 msgid "Download client bundle"
-msgstr ""
+msgstr "Download bundel klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "List of servers"
-msgstr ""
+msgstr "Daftar server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:115
 msgid "VPN servers"
-msgstr ""
+msgstr "Server VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:122
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:152
@@ -1559,30 +1633,36 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
+"{openpar}Anda perlu sebuah sertifikat CA yang valid untuk menjalankan server "
+"VPN. {closepar}{openpar}Silakan mengunjungi {openhref}modul otoritas "
+"sertifikasi{closehref} and memperbaharuinya.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"Anda harus membuat Otoritas Sertifikasi pertama. lanjutkan {openhref}"
-"Certification Authority{closehref}untuk melakukannya"
+"{openpar}Anda perlu membuat sebuah sertifikat CA menjalankan server VPN. "
+"{closepar}{openpar}Silakan mengunjungi {openhref}modul otoritas "
+"sertifikasi{closehref} dan membuatnya.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
-msgstr ""
+msgstr "Pembuatan server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:295
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Tidak dapat mengaktifkan server karena  tidak sepenuhnya dikonfigurasi; "
+"silakan mengedit konfigurasi dan mencobanya lagi "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:303
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "Tidak dapat membuat server karena tidak ada sertifikat CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:329
 #, perl-brace-format
@@ -1590,6 +1670,8 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"{act} tidak mungkin dilakukan karena ketiadaan sertifikat. Silakan menuju ke "
+"modul otoritas sertifikat dan membuat sertifikat baru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 #, perl-brace-format
@@ -1601,27 +1683,35 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Anda dapat mengkonfigurasi server OpenVPN untuk menghubungkan "
+"kantor atau pengguna yang jauh dengan mudah. {closepar}{openpar}Klik pada "
+"{openit}Konfigurasi{closeit} to mengatur parameter VPN. "
+"{closepar}{openpar}{openit}Jaringan yang diiklankan{closeit} mengijinkan "
+"anda untuk mengkonfigurasi jaringan mana yang anda inginkan untuk dapat "
+"diakses oleh pengguna jarak jauh.{closepar} Begitu anda selesai "
+"mengkonfigurasi anda dapat mengunduh bundel file untuk sistem operasi yang "
+"digunakan oleh klien anda."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
 msgid "Server port"
-msgstr ""
+msgstr "Port server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "VPN address"
-msgstr ""
+msgstr "Alamat VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:81
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Gunakan alamat jaringan yang tidak digunakan oleh mesin ini"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:87
 msgid "Server certificate"
-msgstr ""
+msgstr "Sertifikat server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:94
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "Otorisasi klien menggunakan nama umum"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:96
 msgid ""
@@ -1629,6 +1719,9 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Jika dinonaktifkan, setiap klien dengan sertifikat yang dihasilkan oleh "
+"Zentyal akan dapat terhubung. Jika diaktifkan, maka hanya sertifikat yang "
+"nama umumnya dimulai dengan nilai yang dipilih saja yang dapat terhubung."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:105
 msgid "Network Address Translation"
@@ -1636,31 +1729,34 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Enable it if you only have one network interface"
-msgstr ""
+msgstr "Aktifkan ini jika anda hanya memiliki satu antarmuka jaringan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:112
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "Mengijinkan koneksi klien ke klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:115
 msgid "Enable it to allow client machines of this VPN to see each other"
 msgstr ""
+"Aktifkan untuk mengijinkan mesin klien dari VPN ini untuk dapat melihat satu "
+"sama lain"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:120
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Mengijinkan terowongan Zentyal-ke-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:123
 msgid "Enable it if this VPN is used to connect to another Zentyal"
 msgstr ""
+"Aktifkan jika VPN ini digunakan untuk berhubungan dengan Zentyal yang lain"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:128
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "Kata kunci terowongan Zentyal-ke-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:136
 msgid "Interface to listen on"
-msgstr ""
+msgstr "Antarmuka untuk mendengarkan pada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 msgid "Server configuration"
@@ -1668,20 +1764,22 @@ msgstr "Konfigurasi Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:206
 msgid "All network interfaces"
-msgstr ""
+msgstr "Seluruh antarmuka jaringan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:259
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr ""
+msgstr "Opsi terowongan Zentyal ke Zentyal memerlukan kata kunci RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:279
 msgid ""
 "The VPN address could not be the same than one of its advertised networks"
 msgstr ""
+"Alamat VPN tidak boleh sama dengan yang digunakan oleh jaringan yang "
+"diiklankan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:308
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Server lain mendengarkan pada port yang sama"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:355
 #, perl-brace-format
@@ -1691,50 +1789,60 @@ msgstr "Port {p} tidak tersedia"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:414
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "Antarmuka {iface} tidak ada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "Antarmuka {iface} tidak dikonfigurasi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:440
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Tidak dapat menggunakan Network Address Translation karena memerlukan modul "
+"firewall. Modul tersebut tidak terpasang atau tidak diaktifkan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:447
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Tidak dapat menggunakan Network Address Translation karena memerlukan modul "
+"firewall yang aktif. Silakan aktifkan dulu dan cobalah lagi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:479
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Diperlukan setidaknya sebuah antarmuka eksternal untuk terkoneksi ke server "
+"kecuali opsi network address translation diaktifkan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:488
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
 msgstr ""
+"Antarmuka haruslah sebuah antarmuka eksternal, kecual opsi Network Address "
+"Translation aktif"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
 msgid "Advertised network"
-msgstr ""
+msgstr "Jaringan diiklankan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
 msgid "List of Advertised Networks"
-msgstr ""
+msgstr "Daftar jaringan yang diiklankan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
 msgid ""
 "The advertised network address could not be the same than the VPN address"
 msgstr ""
+"Alamat jaringan yang diiklankan tidak boleh sama dengan alamat yang "
+"digunakan oleh VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
@@ -1743,18 +1851,22 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
+"{openpar}Anda dapat menambahkan disini jaringan-jaringan yang anda inginkan "
+"tersedia bagi klien-klien yang terkoneksi ke VPN "
+"ini.{closepar}{openpar}Biasanya, anda akan ijinkan akses ke LAN anda dengan "
+"menyebutkan alamat jaringannya disini{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:65
 msgid "Manual Configuration"
-msgstr ""
+msgstr "Konfigurasi manual"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 msgid "Zentyal bundle"
-msgstr ""
+msgstr "Bundel Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:74
 msgid "Upload configuration's bundle"
-msgstr ""
+msgstr "Unggah bundel konfigurasi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
@@ -1764,20 +1876,20 @@ msgstr "Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
 msgid "CA's certificate"
-msgstr ""
+msgstr "Sertifikat CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:104
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:70
 msgid "Client's certificate"
-msgstr ""
+msgstr "Sertifikat klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Client's private key"
-msgstr ""
+msgstr "Kunci pribadi klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:126
 msgid "Server tunnel password"
-msgstr "Password server tunnel"
+msgstr "Kata kunci tembusan server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
@@ -1801,62 +1913,66 @@ msgstr "klien"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:285
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
-msgstr ""
+msgstr "Tidak ada file yang disediakan atau sudah dilakukan pengaturan bagi {f}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
 #: ../../main/ca/src/EBox/Model/Certificates.pm:277
 msgid "Enable"
-msgstr "aktifkan"
+msgstr "Aktifkan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "List of Clients"
-msgstr ""
+msgstr "Daftar klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:95
 msgid "VPN Clients"
-msgstr ""
+msgstr "Klien-klien VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Tidak dapat mengaktifkan klien karena tidak sepenuhnya dikonfigurasi, "
+"silakan lakukan penyuntingan konfigurasi dan cobalah lagi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "Kata kunci RIP harus ada atau diisi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's type"
-msgstr ""
+msgstr "Tipe klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Tambahkan penginstalasi OpenVPN ke bundel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:78
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "Penginstalasi OpenVPN bagi Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
 msgid "Server address"
-msgstr ""
+msgstr "Alamat server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:84
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Ini adalah alamat yang akan digunakan oleh klien anda untuk terhubung ke "
+"server. Biasanya ini adalah IP atau nama host publik"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:90
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:96
 msgid "Additional server address (optional)"
-msgstr ""
+msgstr "Tambahan alamat server (opsional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:105
 msgid "Download Client Bundle"
-msgstr ""
+msgstr "Unduh bundel klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
@@ -1867,86 +1983,100 @@ msgstr ""
 #: ../../main/core/src/templates/backup.mas:163
 #: ../../main/core/src/templates/backup.mas:164
 msgid "Download"
-msgstr ""
+msgstr "Unduh"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Terowongan Zentyal ke Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:182
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Tidak dapat membuat bundel karena  belum sepenuhnya dikonfigurasi; silakan "
+"konfigurasi dulu dan cobalah lagi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:197
 msgid "Cannot use for the bundle the server's certificate"
-msgstr ""
+msgstr "Tidak dapat digunakan untuk bundel sertifikat server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:217
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Tipe klien tidak valid: server tidak mengijinkan terowongan Zentyal-ke-"
+"Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:226
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Tipe klien tidak valid: server dimaksudkan bagi terowongan Zentyal-ke-"
+"Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:254
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Penginstalasi hanya tersedia bagi klien-klien Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
 msgid ""
 "A client bundle is a file which contains a ready to use configuration for "
 "your clients"
 msgstr ""
+"Sebuah bundel klien adalah file yang berisi konfigurasi siap pakai bagai "
+"klien-klien anda"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:362
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "complete the configuration and retry"
 msgstr ""
+"Tidak dapat membuat bundel karena server  tidak dikonfigurasi sepenuhnya; "
+"silakan lengkapi konfigurasinya dan coba lagi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
 msgid "Inexistent CA's certificate file {p}"
-msgstr ""
+msgstr "Ketiadaan file sertifikat CA {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:53
 #, perl-brace-format
 msgid "Inexistent client's certificate file {p}"
-msgstr ""
+msgstr "Ketiadaan file sertifikat klien {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:60
 #, perl-brace-format
 msgid "Inexistent certificate's private key file {p}"
-msgstr ""
+msgstr "Ketiadaan file kunci pribadi sertifikat {p}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:83
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "File yang disediakan sebagai sertifikat CA tidak sah"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:99
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "File yang disediakan sebagai sertifikat klien tidak sah"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:114
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "File yang disediakan sebagai kunci pribadi klien tidak sah"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:127
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"File yang disediakan sebagai sertifikat klien tidak cocok dengan file yang "
+"disediakan sebagai sertifikat CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:156
 msgid ""
 "File supplied as client's certificate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"File yang disediakan sebagai sertifikat klien tidak cocok dengan file yang "
+"disediakan sebagai kunci pribadi sertifikat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:130
 #, perl-brace-format
@@ -1971,7 +2101,7 @@ msgstr "Sertifikat {cn} sudah dicabut"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:253
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "Server {name} tidak memiliki sertifikat yang dapat digunakan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:274
 #, perl-brace-format
@@ -1979,6 +2109,8 @@ msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
+"Tidak dapat memperoleh kunci dari server {name} karena tidak memiliki "
+"sertifikat yang dapat digunakan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:450
 #, perl-brace-format
@@ -1996,12 +2128,12 @@ msgstr "Server open VPN tidak dapat digunakan untuk layanan internal"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:583
 #, perl-brace-format
 msgid "Unsupported client type: {ct}"
-msgstr ""
+msgstr "Tipe klien tidak didukung: {ct}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:780
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "Server {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:783
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:413
@@ -2013,7 +2145,7 @@ msgstr ""
 #: ../../main/ca/src/EBox/Model/Certificates.pm:265
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
 msgid "Service"
-msgstr "Service"
+msgstr "Layanan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:785
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:415
@@ -2024,7 +2156,7 @@ msgstr "Service"
 #: ../../main/core/src/templates/dashboard/index.mas:23
 #: ../../main/core/src/templates/dashboard/status.mas:17
 msgid "Running"
-msgstr ""
+msgstr "Berjalan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:785
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:415
@@ -2033,16 +2165,16 @@ msgstr ""
 #: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:21
 msgid "Stopped"
-msgstr ""
+msgstr "Berhenti"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:786
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:416
 msgid "Daemon status"
-msgstr ""
+msgstr "Status daemon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:791
 msgid "All external interfaces"
-msgstr ""
+msgstr "Seluruh antarmuka eksternal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:793
 msgid "Not found"
@@ -2054,11 +2186,11 @@ msgstr "Alamat lokal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:803
 msgid "VPN subnet"
-msgstr ""
+msgstr "Subnet VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:806
 msgid "VPN network interface"
-msgstr ""
+msgstr "Antarmuka jaringang VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:809
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:430
@@ -2069,46 +2201,56 @@ msgstr "Tidak aktif"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:428
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:430
 msgid "VPN interface address"
-msgstr ""
+msgstr "Alamat antarmuka VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:52
 #: ../../main/mail/src/EBox/Mail.pm:1501
 msgid "disabled"
-msgstr ""
+msgstr "tidak aktif"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:132
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot "
 "unpack it)"
 msgstr ""
+"Bundel ini bukanlah bundel konfigurasi Zentyal-ke-Zentyal yang benar. (Tidak "
+"dapat membongkarnya)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:168
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "server configuration file)"
 msgstr ""
+"Bundel ini bukanlah bundel konfigurasi Zentyal-ke-Zentyal yang benar. (File "
+"konfigurasi server hilang)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:175
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "CA certificate file)"
 msgstr ""
+"Bundel ini bukanlah bundel konfigurasi Zentyal-ke-Zentyal yang benar. (File "
+"sertifikat CA hilang)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:182
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate file)"
 msgstr ""
+"Bundel ini bukanlah bundel konfigurasi Zentyal-ke-Zentyal yang benar. (File "
+"sertifikat hilang)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:189
 msgid ""
 "This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing "
 "certificate private key file)"
 msgstr ""
+"Bundel ini bukanlah bundel konfigurasi Zentyal-ke-Zentyal yang benar. (File "
+"kunci pribadi sertifikat hilang)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Alamat server-server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
@@ -2118,10 +2260,11 @@ msgstr "Anda harus menyediakan setidaknya satu alamat untuk server {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
 msgid "Can't get address for this server: no external interfaces present"
 msgstr ""
+"Tidak dapat memperoleh alamat server ini: tidak terdapat antarmuka eksternal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:214
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
+msgstr "Sertifikat klien tidak boleh sama dengan yang digunakan oleh server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:254
 #, perl-brace-format
@@ -2129,6 +2272,8 @@ msgid ""
 "VPN client should not be configured to connect to the address {addr} because "
 "is a address of the localhost itsef"
 msgstr ""
+"Klien VPN seharusnya tidak dikonfigurasi untuk terkoneksi ke alamat {addr} "
+"karena ini adalah alamat dari host lokal itu sendiri"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:271
 #, perl-brace-format
@@ -2142,7 +2287,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:410
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "Klien {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:424
 msgid "Connection target"
@@ -2154,23 +2299,26 @@ msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:156
 msgid "To configure Quagga to run ripd and zebra"
-msgstr ""
+msgstr "Mengkonfigurasi Quagga untuk menjalankan ripd dan zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:162
 msgid "To configure Quagga to listen on the given interfaces"
 msgstr ""
+"Mengkonfigurasi Quagga untuk mendengarkan pada antarmuka yang telah "
+"ditentukan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:167
 msgid "Main zebra configuration file"
-msgstr ""
+msgstr "File konfigurasi utama zebra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:173
 msgid "To configure ripd to exchange routes with client to client connections"
-msgstr ""
+msgstr "Mengkonfigurasi ripd untuk bertukar rute dengan koneksi klien ke klien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:180
 msgid "To remove system-wide VPN servers autostart"
 msgstr ""
+"Untuk menghapus mulai-otomatis server-server VPN secara keseluruhan sistem"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:646
 #, perl-brace-format
@@ -2178,16 +2326,22 @@ msgid ""
 "Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are "
 "allowed"
 msgstr ""
+"Nama {name} tidak sah. Hanya alfanumerik  dan karakter '-', '_', '.' yang "
+"diperbolehkan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:659
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a client with the same name"
 msgstr ""
+"Tidak dapat menggunakan nama {n} karena ada sebuah klien dengan nama yang "
+"sama"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:670
 #, perl-brace-format
 msgid "Cannot use the name {n} because there is a server with the same name"
 msgstr ""
+"Tidak dapat menggunakan nama {n} karena ada sebuah server dengan nama yang "
+"sama"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:692
 #, perl-brace-format
@@ -2195,6 +2349,8 @@ msgid ""
 "Invalid name {name}. Name which begins with the prefix {pf} are reserved for "
 "internal use"
 msgstr ""
+"Nama {name} tidak sah. Nama yang dimulai dengan {pf} dicadangkan untuk "
+"keperluan internal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:701
 #, perl-brace-format
@@ -2202,11 +2358,13 @@ msgid ""
 "Invalid name {name}. A internal daemon must have a name which begins with "
 "the prefix {pf}"
 msgstr ""
+"Nama {name} tidak sah. Sebuah daemon internal harus memiliki nama yang "
+"dimulai dengan awalan {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1436
 #, perl-brace-format
 msgid "Client {c} does not exists"
-msgstr ""
+msgstr "Klien {c} tidak ada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1464
 msgid "Servers"
@@ -2240,7 +2398,7 @@ msgstr "Tidak ada pengguna yang terhubung ke VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1552
 msgid "OpenVPN daemons"
-msgstr ""
+msgstr "Daemon-daemon OpenVPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1646
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:132
@@ -2252,27 +2410,27 @@ msgstr ""
 #: ../../main/core/src/templates/report/diskUsage.mas:30
 #: ../../main/core/src/templates/report/raid.mas:131
 msgid "Type"
-msgstr ""
+msgstr "Tipe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1647
 msgid "Remote IP"
-msgstr ""
+msgstr "IP remote"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1648
 msgid "Remote Certificate"
-msgstr ""
+msgstr "Sertifikat remote"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1653
 msgid "Initialization sequence completed"
-msgstr "Inisialisasi urutan selesai"
+msgstr "Urutan inisialisasi sudah selesai"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1655
 msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Penerbit sertifikat tidak disahkan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1656
 msgid "Certificate common name not authorized"
-msgstr ""
+msgstr "Nama umum sertifikat tidak disahkan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1657
 msgid "Certificate verification failed"
@@ -2280,7 +2438,7 @@ msgstr "Verifikasi sertifikat gagal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1659
 msgid "Client connection initiated"
-msgstr ""
+msgstr "Koneksi klien dimulai"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1660
 msgid "Client connection terminated"
@@ -2288,7 +2446,7 @@ msgstr "Koneksi klien dihentikan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1662
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "Koneksi ke server dimulai"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1663
 msgid "Server connection terminated"
@@ -2296,26 +2454,28 @@ msgstr "Koneksi server dihentikan"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1692
 msgid "You must set insecure_rip_conf to yes or no"
-msgstr ""
+msgstr "Anda harus mengisi insecure_rip_conf dengan yes atau no"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:55
 #: ../../main/firewall/src/EBox/Firewall.pm:1024
 msgid "Firewall"
-msgstr ""
+msgstr "Firewall"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:81
 msgid "Flush previous firewall rules"
-msgstr ""
+msgstr "Bilas kaidah-kaidah firewall sebelumnya"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:82
 msgid ""
 "The Zentyal firewall will flush any previous firewall rules which have been "
 "added manually or by another tool"
 msgstr ""
+"Firewall Zentyal akan membilas setiap kaidah firewal sebelumnya baik itu "
+"yang ditambahkan secara manual atau dengan alat bantu lainnya"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:87
 msgid "Secure by default"
-msgstr ""
+msgstr "Aman secara baku"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:88
 msgid ""
@@ -2324,17 +2484,21 @@ msgid ""
 "all outcoming connections are denied by default, and only SSH and HTTPS "
 "incoming connections are allowed."
 msgstr ""
+"Hanya sedikit koneksi yang secara baku diijinkan. Pastikan anda menambahkan "
+"kaidah keluar dan masuk yang benar agar sistem anda bekerja sesuai dengan "
+"yang diharapkan. Biasanya, seluruh koneksi yang masuk akan ditolak dan hanya "
+"koneksi SSH dan HTTPS saja yang diijinkan."
 
 #: ../../main/firewall/src/EBox/Firewall.pm:304
 msgid "action"
-msgstr ""
+msgstr "aksi"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:456
 #: ../../main/firewall/src/EBox/Firewall.pm:501
 #: ../../main/firewall/src/EBox/Firewall.pm:525
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "Nama '{name}' tidak sah"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:457
 #: ../../main/firewall/src/EBox/Firewall.pm:636
@@ -2346,7 +2510,7 @@ msgstr ""
 #: ../../main/services/src/EBox/Services.pm:482
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:25
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:635
 #: ../../main/firewall/src/EBox/Firewall.pm:660
@@ -2354,26 +2518,26 @@ msgstr ""
 #: ../../main/l7-protocols/src/EBox/Model/Protocols.pm:69
 #: ../../main/core/src/EBox/Util/Nmap.pm:61
 msgid "protocol"
-msgstr ""
+msgstr "protokol"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:850
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:216
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:183
 msgid "Packet Filter"
-msgstr ""
+msgstr "Penyaringan paket"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:853
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:370
 msgid "Port Forwarding"
-msgstr ""
+msgstr "Penerusan Port"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1009
 msgid "Input interface"
-msgstr ""
+msgstr "Antarmuka masuk"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1010
 msgid "Output interface"
-msgstr ""
+msgstr "Antarmuka keluar"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1011
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:121
@@ -2385,7 +2549,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:74
 #: ../../main/core/src/EBox/Events.pm:815 ../../main/ids/src/EBox/IDS.pm:301
 msgid "Source"
-msgstr ""
+msgstr "Asal"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1012
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:148
@@ -2393,7 +2557,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:138
 #: ../../main/ids/src/EBox/IDS.pm:302
 msgid "Destination"
-msgstr ""
+msgstr "Tujuan"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1013
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:276
@@ -2403,36 +2567,36 @@ msgstr ""
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:144
 #: ../../main/ids/src/EBox/IDS.pm:303
 msgid "Protocol"
-msgstr ""
+msgstr "Protokol"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1014
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:150
 msgid "Source port"
-msgstr ""
+msgstr "Port asal"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1015
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:156
 msgid "Destination port"
-msgstr ""
+msgstr "Port tujuan"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1016
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:147
 msgid "Decision"
-msgstr ""
+msgstr "Keputusan"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1021
 msgid "DROP"
-msgstr ""
+msgstr "LURUH"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1021
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:70
 msgid "LOG"
-msgstr ""
+msgstr "CATAT"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1021
 msgid "REDIRECT"
-msgstr ""
+msgstr "ALIHKAN"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:892
 #: ../../main/firewall/src/EBox/Iptables.pm:929
@@ -2440,6 +2604,7 @@ msgstr ""
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
+"Anda harus mengatur variabel iptables_log_limit pada file konfigurasi ebox"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:898
 #: ../../main/firewall/src/EBox/Iptables.pm:935
@@ -2447,14 +2612,15 @@ msgstr ""
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
+"Anda harus mengatur variabel iptables_log_burst pada file konfigurasi ebox"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "TERIMA"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "TOLAK"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:126
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:153
@@ -2472,40 +2638,42 @@ msgstr ""
 #: ../../main/core/src/EBox/Types/PortRange.pm:290
 #: ../../main/core/src/templates/logs/index.mas:184
 msgid "Any"
-msgstr ""
+msgstr "Semua"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:298
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:400
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:118
 msgid "Source IP"
-msgstr ""
+msgstr "IP asal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:302
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:412
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:123
 msgid "Source object"
-msgstr ""
+msgstr "Obyek asal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:156
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:314
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:430
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:146
 msgid "Destination IP"
-msgstr ""
+msgstr "IP tujuan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:161
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:435
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:151
 msgid "Destination object"
-msgstr ""
+msgstr "Obyek tujuan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:182
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
 msgstr ""
+"Jika kecocokan kebalikan yang dicentang, semua layanan kecuali yang dipilih "
+"akan sesuai dengan aturan ini"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:188
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:352
@@ -2532,41 +2700,41 @@ msgstr ""
 #: ../../main/core/src/templates/backup.mas:56
 #: ../../main/core/src/templates/backup.mas:130
 msgid "Description"
-msgstr "Deskripsi"
+msgstr "Penjelasan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:230
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:197
 msgid "Configure Rules"
-msgstr ""
+msgstr "Mengkonfigurasi Aturan-aturan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:245
 msgid "'any service' cannot have a inverse march"
-msgstr ""
+msgstr "'setiap layanan' tidak dapat memiliki sebuah kecocokan kebalikan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:52
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:46
 msgid "packets dropped"
-msgstr ""
+msgstr "Paket yang diluruhkan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:64
 msgid "Firewall packet traffic chart"
-msgstr ""
+msgstr "Grafik trafik paket firewall"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficGraph.pm:86
 msgid "Packet traffic"
-msgstr ""
+msgstr "Trafik paket"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:66
 msgid "Packets dropped"
-msgstr ""
+msgstr "Paket yang diluruhkan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:78
 msgid "Packet traffic details"
-msgstr ""
+msgstr "Rincian trafik paket"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:63
 msgid "Internal networks to Zentyal"
-msgstr ""
+msgstr "Jaringa internal terhadap Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
@@ -2579,19 +2747,20 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:198
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
 msgid "rule"
-msgstr ""
+msgstr "aturan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:62
 msgid "Internal networks"
-msgstr ""
+msgstr "Jaringan-jaringan internal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:64
 msgid "External networks to internal networks"
-msgstr ""
+msgstr "Jaringan-jaringan eksternal terhadap jaringan-jaringan internal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:142
 msgid "Contradictory rule found. Remove it first"
 msgstr ""
+"Ditemukan aturan yang saling bertolakbelakang. Hapus dulu aturan tersebut"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:246
 #: ../../main/trafficshaping/src/EBox/TC.pm:104
@@ -2648,11 +2817,11 @@ msgstr ""
 #: ../../main/printers/src/EBox/Model/CUPS.pm:148
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
 msgid "Interface"
-msgstr ""
+msgstr "Antarmuka"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:253
 msgid "Original destination"
-msgstr ""
+msgstr "Tujuan asli"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -2664,20 +2833,19 @@ msgstr "Alamat IP"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 msgid "Original destination port"
-msgstr ""
+msgstr "Port tujuan asli"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:325
 msgid "Same"
-msgstr ""
+msgstr "Sama"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:328
 msgid "Other"
-msgstr ""
+msgstr "Lain"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:336
-#, fuzzy
 msgid "Replace source address"
-msgstr "Alamat penerima"
+msgstr "Ganti alamat asal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:339
 msgid ""
@@ -2685,61 +2853,63 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Gantilah alamat asal asli koneksi dengan alamat milik Zentyal. Hal ini perlu "
+"saat tujuan tidak memiliki rute balik atau memiliki aturan firewal yang "
+"sangat ketat"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:345
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
 msgid "Log"
-msgstr ""
+msgstr "Catatan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:347
 msgid "Log new forwarded connections"
-msgstr ""
+msgstr "Catat koneksi terbaru yang diteruskan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:369
 msgid "List of forwarded ports"
-msgstr ""
+msgstr "Daftar port yang diteruskan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:378
 msgid "forwarding"
-msgstr ""
+msgstr "penerusan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:65
 msgid "External networks to Zentyal"
-msgstr ""
+msgstr "Jaringan eksternal ke Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
-msgstr ""
+msgstr "Masukan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:38
 msgid "External Input"
-msgstr ""
+msgstr "Masukan eksternal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 #: ../../main/network/src/templates/diag.mas:38
 msgid "Output"
-msgstr ""
+msgstr "Keluaran"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
 msgid "Forward"
-msgstr ""
+msgstr "Penerusan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "Prerouting NAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "Postrouting NAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Konfigurasi klien"
+msgstr "Pembuatan rantaian"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
-msgstr ""
+msgstr "Aturan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:137
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
@@ -2751,33 +2921,35 @@ msgstr ""
 #: ../../main/core/src/templates/finish.mas:120
 #: ../../main/core/src/templates/moduleStatusTable.mas:58
 msgid "Module"
-msgstr "Module"
+msgstr "Modul"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:142
 msgid "Condition"
-msgstr ""
+msgstr "Kondisi"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:156
 #: ../../main/firewall/src/templates/filter.mas:90
 msgid "Rules added by Zentyal services (Advanced)"
 msgstr ""
+"Aturan-aturan yang ditambahakan oleh layanan-layanan Zentyal (tingkat "
+"lanjut)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:64
 msgid "Traffic coming out from Zentyal"
-msgstr ""
+msgstr "Trafik yang keluar dari Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:69
 msgid "Packet traffic report"
-msgstr ""
+msgstr "Laporan trafik packet"
 
 #: ../../main/firewall/src/EBox/Firewall/Composite/Report/PacketTrafficReport.pm:70
 msgid "Firewall packet traffic report"
-msgstr ""
+msgstr "Laporan trafik paket firewall"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr ""
+msgstr "Kecepatan yang dijamin melebihi yang diijinkan: {rate} kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
@@ -2785,6 +2957,8 @@ msgstr ""
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
+"Kecepatan yang dijamin haruslah berada dalam kisaran: ( {minRate}, {maxRate} "
+") kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
@@ -2792,6 +2966,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
+"Kecepatan terbatas {lR} kbit/s seharusnya lebih tinggi dari Kecepatan yang "
+"dijamin {gR}kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
 #, perl-brace-format
@@ -2799,11 +2975,14 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
+"Kecepatan terbatas {lR} kbit/s seharusnya lebih rendah dari {maxLR}kbit/s "
+"atau anda sebaiknya menaikkan trafik penunggahan maksimum terkait dengan "
+"antarmuka eksternal"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
+msgstr "Kecepatan yang dijamin melebihi yang diijinkan: {rate}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
 #, perl-brace-format
@@ -2811,59 +2990,63 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
+"Kecepatan terbatas {lR} kbit/s seharusnya lebih rendah dari {maxLR} atau "
+"sebaiknya anda menaikkan trafik maksimum yang diijinkan"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "Pengenal kelas daun"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
 msgid "External Interface"
-msgstr ""
+msgstr "Antarmuka eksternal"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload"
-msgstr ""
+msgstr "Unggah"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Kecepatan unggah dalam Kbits/s melalui antarmuka ini"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:115
 msgid "Download rate in Kbits/s through this interface"
-msgstr ""
+msgstr "Kecepatan unduh dalam Kbits/s melalui antarmuka ini"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
 msgid "External Interface Rates"
-msgstr ""
+msgstr "Kecepatan antarmuka eksternal"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid "rate"
-msgstr ""
+msgstr "kecepatan"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
 msgstr ""
+"Anda perlu setidaknya sebuah antarmuka internal dan sebuah antarmuka "
+"eksternal"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:176
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
 #, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr ""
+msgstr "{iface} (antarmuka internal)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:179
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:121
 #, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr ""
+msgstr "{iface} (antarmuka eksternal)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:205
 msgid "Guaranteed rate"
-msgstr ""
+msgstr "Kecepatan yang dijamin"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:210
 msgid "Limited rate"
-msgstr ""
+msgstr "Kecetapan terbatas"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:221
 #, perl-brace-format
@@ -2871,63 +3054,72 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"Obyek {object} tidak memiliki anggota. Tambahkan satu anggota saja untuk "
+"menambahkan aturan yang menggunakan obyek ini"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:238
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
+"Jika layanan adalah seluruhnya, maka beberapa asal atau tujuan seharusnya "
+"disediakan"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:379
 msgid "Port based service"
-msgstr ""
+msgstr "Layanan berbasis port"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:445
 #: ../../main/dns/src/EBox/Model/Services.pm:203
 #: ../../main/ids/src/EBox/IDS.pm:299
 msgid "Priority"
-msgstr ""
+msgstr "Prioritas"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
 msgid "Lowest priotiry: 7 Highest priority: 0"
-msgstr ""
+msgstr "7: Prioritas terendah; 0: Prioritas tertinggi"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:453
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "Kecepatan yang dijamin"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:456
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:470
 msgid "Kbit/s"
-msgstr ""
+msgstr "Kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:458
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
+"Perlu dicatat bahwa jumlah keseluruhan kecepatan yang dijamin tidak dapat "
+"melebihi total lebar pita anda. 0 berarti kecepatan tidak terjamin."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:465
 msgid "Limited Rate"
-msgstr ""
+msgstr "Kecepatan terbatas"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:472
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
+"Trafik tidak akan melebihi kecepatan ini. 0 berarti kecepatan tanpa batas."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:479
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr ""
+msgstr "Daftar aturan untuk {printableIndex}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:488
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
 msgstr ""
+"Catatan bahwa jika antarmuka adalah internal, maka trafik akan mengalir dari "
+"internet masuk kedalam dan keluar adalah sebaliknya"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:554
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr ""
+msgstr "Hapus aturan {num} pada {modelName}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:601
 #, perl-brace-format
@@ -2937,6 +3129,11 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
+"Normalisasi kecepatan: aturan {limitNum} telah menurunkan batas kecepatan ke "
+"{limitRate}, aturan {guaranNum} telah menormalisasi kecepatan yang "
+"dijaminnya untuk menjaga perbandingan yang sama dengan yang dimiliki "
+"sebelumnya serta {removeNum} telah dihapus karena kecepatan yang dijaminnya "
+"lebih rendah dari batas minimal yang diijinkan"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:656
 msgid ""
@@ -2944,16 +3141,20 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Protokol berbasis port menggunakan nomor port untuk mencocokkan sebuah "
+"layanan, sementara protokol berbasis aplikasi jauh lebih lambat meskipun "
+"lebih effektif karena melakukan pemeriksaan isi dari tiap paket untuk "
+"dicocokkan dengan sebuah layanan."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:672
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:691
 msgid "Application based service"
-msgstr ""
+msgstr "Layanan berbasis aplikasi"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:681
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:699
 msgid "Application based service group"
-msgstr ""
+msgstr "Kelompok layanan berbasis aplikasi"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
 #, perl-brace-format
@@ -2962,6 +3163,10 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
+"Pembentukan trafik dilakukan saat Zentyal berfungsi sebagai sebuah gateway. "
+"Untuk mencapai hal ini, anda setidaknya perlu sebuah antarmuka internal juga "
+"eksternal. Periksa konfigurasi antarmuka agar cocok di "
+"{openhref}Network->Interfaces{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -2971,53 +3176,60 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
+"Pembentukan trafik diaplikasikan hanya jika ada gateway dengan kecepatan "
+"unggah yang diatur sesuai dengan antarmuka eksternal. Untuk melakukannya, "
+"buatlah sebuah gateway pada konfigurasi "
+"{openhref}Network->Gateways{closehref} sebagai antarmuka eksternal."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:115
 msgid "Rules list per interface"
-msgstr ""
+msgstr "Daftar aturan untuk tiap antarmuka"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:126
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
+"Pilih sebuah antarmuka untuk menambahkan aturan pembentukan trafik. Patut "
+"diingat, jika anda melakukan pembentukan trafik pada antarmuka internal, "
+"maka anda sedang melakukan pembentukan internal"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:128
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "Pilih antarmuka yang akan dibentuk"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:69
 msgid "options"
-msgstr ""
+msgstr "pilihan-pilihan"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:100
 #: ../../main/l7-protocols/src/EBox/L7Protocols.pm:91
 msgid "Traffic Shaping"
-msgstr ""
+msgstr "Pembentukan Trafik"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:136
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "Tambahkan aturan-aturan iptables ke dalam tabel mangle"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:137
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "Untuk menandai paket-paket yang berbeda prioritas dan kecepatannya"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:141
 msgid "Add tc rules"
-msgstr ""
+msgstr "Menambah aturan tc"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:142
 msgid "To implement the traffic shaping rules"
-msgstr ""
+msgstr "Untuk mengimplementasikan aturan pembentukan trafik"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:459
 msgid "Rules"
-msgstr ""
+msgstr "Aturan-aturan"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:461
 msgid "Interface Rates"
-msgstr ""
+msgstr "Kecepatan antarmuka"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:549
 #, perl-brace-format
@@ -3025,10 +3237,12 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
+"Jumlah maksimal aturan {max} telah tercapai, hapuslah satu saja untuk dapat "
+"menambahkan sebuah aturan baru"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1195
 msgid "type"
-msgstr ""
+msgstr "tipe"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1218
 #, perl-brace-format
@@ -3036,11 +3250,13 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
+"Antarmuka {iface} seharusnya memiliki kecepatan lebar pita maksimum agar "
+"dapat melakukan pembentukan trafik"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
 msgid "Invalid preference number. Allowed range: ({min}, {max})"
-msgstr ""
+msgstr "Jumlah pilihan salah. Kisaran yang diijinkan: ({min}, {max})"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:96
 #, perl-brace-format
@@ -3048,6 +3264,8 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "mx.{name}?"
 msgstr ""
+"Nama host yang diberikan bukanlah Nama Domain yang memenuhi syarat "
+"sepenuhnya (FQDN). Mungkin yang anda maksud mx.{name}?"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:108
 #: ../../main/dns/src/EBox/Model/Services.pm:131
@@ -3056,10 +3274,14 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
+"Nama host pesanan tidak dapat diatur dari domain yang sama, sebaiknya "
+"gunakan opsi \"Domain ini\""
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:144
 msgid "The domain is set as read only. You cannot add mail exchangers"
 msgstr ""
+"Domain name diatur sebagai hanya-baca. Anda tidak dapat menambahkan mal "
+"exchanger"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:163
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:253
@@ -3070,19 +3292,21 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
 #: ../../main/dns/src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "Nama host"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:166
 #: ../../main/dns/src/EBox/Model/NameServer.pm:238
 msgid "If you choose \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
+"Jika anda pilih \"Pesanan\", itu seharusnya nama domain yang sepenuhnya "
+"memenuhi syarat"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:172
 #: ../../main/dns/src/EBox/Model/Services.pm:236
 #: ../../main/dns/src/EBox/Model/NameServer.pm:244
 #: ../../main/dns/src/EBox/Model/Text.pm:155
 msgid "This domain"
-msgstr ""
+msgstr "Domain ini"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:180
 #: ../../main/dns/src/EBox/Model/Services.pm:243
@@ -3094,15 +3318,15 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:324
 #: ../../main/mail/src/EBox/Mail.pm:1516
 msgid "Custom"
-msgstr "custom"
+msgstr "Pesanan"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:188
 msgid "Preference"
-msgstr ""
+msgstr "Preferensi"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:197
 msgid "Mail exchangers"
-msgstr ""
+msgstr "Mail exchangers"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:203
 #, perl-brace-format
@@ -3112,66 +3336,73 @@ msgid ""
 "an MX lookup for the domain name. Allowed preference number interval = "
 "({min}, {max})"
 msgstr ""
+"Angka preferensi terkecil memiliki prioritas tertinggi  dan itu adalah "
+"server pertama yang akan dicoba jika ada sebuah klien jarak jauh (umumnya "
+"server mail lain) benar-benar memiliki sebuah pencari MX bagi nama domain "
+"tersebut. Kisaran angka preferensi yang diijinkan = ({min},{min})"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:209
 msgid "Mail exchanger record"
-msgstr ""
+msgstr "Record mail exchanger"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:76
 msgid "Forwarder"
-msgstr ""
+msgstr "Penerus"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
 msgid "Forwarders"
-msgstr ""
+msgstr "Banyak penerus"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"Server akan mengirimkan pertanyaan ke penerus pertama dan jika tidak "
+"terjawab maka dia akan terus berusaha untuk menjawab pertanyaan ini."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
 msgid "forwarder"
-msgstr ""
+msgstr "penerus"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Hostnames"
-msgstr ""
+msgstr "Hostnames"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:203
 msgid "Mail Exchangers"
-msgstr ""
+msgstr "Mail Exchangers"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:211
 msgid "Name Servers"
-msgstr ""
+msgstr "Name Servers"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:219
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "{txt} records"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:136
 #: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
-msgstr ""
+msgstr "Layanan-layanan"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:243
 msgid "Dynamic"
-msgstr ""
+msgstr "Dinamis"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:247
 msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr ""
+"Sebuah domain dikatakan dinamis jika server DHCP yang memperbaharui domain "
+"tersebut"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Domain"
+msgstr "Domain-domain"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3184,6 +3415,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Disini anda dapat menambahkan domain untuk DNS server. Tiap domain dapat "
+"memiliki hostname yang berbeda dengan alias-aliasnya  (record A dan record "
+"CNAME) serta juga record-record khusus lainnya (MX, NS, TXT dan SRV)."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3191,10 +3425,12 @@ msgid ""
 "There is an alias with the same name \"{name}\" for \"{hostname}\" in the "
 "same domain"
 msgstr ""
+"Terdapat sebuah alias yang sama dengan nama \"{name}\" untuk \"{hostname}\" "
+"dalam domain yang sama"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:235
 msgid "The domain is set as read only. You cannot add host names"
-msgstr ""
+msgstr "Domain diatur menjadi baca-saja. Anda tidak dapat menambahkan nama-nama"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:269
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:189
@@ -3204,11 +3440,11 @@ msgstr ""
 #: ../../main/dns/src/templates/edit.mas:64
 #: ../../main/dns/src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:281
 msgid "Host names"
-msgstr ""
+msgstr "Nama-nama host"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:288
 msgid ""
@@ -3216,16 +3452,20 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
+"Resolusi terbalik otomatis telah dilaksanakan. Jika anda mengulang sebuah "
+"alamat IP di domain lain, hanya yang pertamakali cocok akan digunakan oleh "
+"resolusi terbalik. Zona-zona dinamis mungkin saja menghapus resolusi "
+"terbalik yang anda atur secara manual."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
 #: ../../main/network/src/EBox/Network.pm:3658
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 msgid "host name"
-msgstr ""
+msgstr "nama host"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
 msgid "Enable transparent DNS cache"
-msgstr ""
+msgstr "Aktifkan cache DNS trasparant"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:628
@@ -3234,23 +3474,26 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:78
 #: ../../main/software/src/templates/config.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Pengaturan-pengaturan"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:95
 msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Setiap pertanyaan DNS akan dilanjutkan ke server DNS local jika modus "
+"transparant diaktifkan."
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
 #, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
 msgstr ""
+"Domain dikonfigurasi menjadi baca-saja. Anda tidak dapat menambahkan {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
 #, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr ""
+msgstr "Layanan yang dipilih tidak terdapat dalam {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
 #, perl-brace-format
@@ -3258,61 +3501,71 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
+"Nama host yang diberikan bukanlah sebuah nama domain yang memenuhi syarat "
+"penuh. Apakah yang anda maksud adalah {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
 msgid "Service name"
-msgstr ""
+msgstr "Nama layanan"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Nilai lebih rendah memiliki prioritas lebih besar"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
 msgid "Weight"
-msgstr ""
+msgstr "Bobot"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:217
 msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 menunjukkan tidak ada pembototan dan sebuah nilai yang lebih besar akan "
+"memiliki kesempatan lebih banyak untuk dipilih dengan prioritas yang sama"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
 msgid "Target port"
-msgstr ""
+msgstr "Port sasaran"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
 msgid "Target"
-msgstr ""
+msgstr "Sasaran"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:230
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
+"Jika anda memilih \"Pesanan\", maka seharusnya harus berupa nama domain yang "
+"memenuhi syarat lengkap"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:259
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Ini yang mengatur record SRV untuk domain ini. Mereka berguna untuk memilih "
+"sebuah host berdasarkan prioritas untuk layanan."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
 #, perl-brace-format
 msgid "{srv} record"
-msgstr ""
+msgstr "record {srv}"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
-msgstr ""
+msgstr "Sebuah alias tidak boleh berupa nama host dari nameserver \"{ns}\". "
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:93
 #, perl-brace-format
 msgid "There is a hostname with the same name \"{name}\" in the same domain"
 msgstr ""
+"Ada sebuah hostname dengan nama yang sama dengan \"{name}\" dalam domain yang "
+"sama"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:102
 #, perl-brace-format
@@ -3320,11 +3573,13 @@ msgid ""
 "There is an alias for {hostname} hostname with the same name \"{name}\" in "
 "the same domain"
 msgstr ""
+"Sudah ada sebuah alias bagi {hostname} hostname dengan nama yang sama "
+"\"{name}\" dalam domain yang sama"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:206
 #: ../../main/mail/src/EBox/CGI/DelGroupAlias.pm:43
 msgid "alias"
-msgstr ""
+msgstr "alias"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:77
 #, perl-brace-format
@@ -3332,55 +3587,60 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "ns.{name}?"
 msgstr ""
+"Nama host yang diberikan bukanlah nama domain yang memenuhi syarat penuh "
+"(FQDN). Apakah yang anda maksudkan adalah ns.{name}?"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
 msgid "Last name server cannot be removed"
-msgstr ""
+msgstr "Nameserver terakhir tidak dapat dihapus"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
 msgstr ""
+"Domain diatur menjadi baca-saja. Anda tidak dapat menambahkan nameserver."
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:263
 msgid "Name servers"
-msgstr ""
+msgstr "Nameserver-nameserver"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:269
 msgid "It manages the name server (NS) records for this domain"
-msgstr ""
+msgstr "Ini yang mengatur record-record nameserver (NS) pada domain ini"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:270
 msgid "name server record"
-msgstr ""
+msgstr "Record nameserver"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
 #, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr ""
+msgstr "{name} tidak boleh lebih panjang dari {value} karakter"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Jika anda memilih Domain, maka anda sedang memilih zona"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
 msgid "{txt} data"
-msgstr ""
+msgstr "data {txt}"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
 msgid "Any data could be provided"
-msgstr ""
+msgstr "Data apapun dapat disediakan"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr ""
+"Ini mengatur record TXT pada domain ini. Mereka sangat berguna pada protokol "
+"antispam SPF atau DKIM"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "Record {txt}"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:562
 msgid "main bind9 configuration file"
@@ -3388,11 +3648,11 @@ msgstr "file konfigurasi utama bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:567
 msgid "bind9 options configuration file"
-msgstr "file opsi konfigurasi bind9"
+msgstr "file konfigurasi opsional bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:572
 msgid "local bind9 configuration file"
-msgstr "file lokal konfigurasi bind9 "
+msgstr "file konfigurasi lokal bind9 "
 
 #: ../../main/dns/src/EBox/DNS.pm.in:577
 msgid "Keys configuration file"
@@ -3406,16 +3666,16 @@ msgstr "file konfigurasi untuk zona {zone}"
 #: ../../main/dns/src/EBox/DNS.pm.in:610
 #, perl-brace-format
 msgid "configuration file for reverse resolution zone {zone}"
-msgstr "file konfigurasi untuk zona reverse resolusi {zone}"
+msgstr "file konfigurasi untuk zona resolusi terbalik {zone}"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:628
 #, perl-brace-format
 msgid "Change the permissions for {dir} to allow writing to bind group"
-msgstr "Merubah permisi {dir} untuk diperbolehkan menulis pada group bind"
+msgstr "Merubah akses {dir} untuk diperbolehkan menulis pada kelompok bind"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:630
 msgid "Let the bind daemon to be dynamically updated"
-msgstr "mengijinkan \"bind daemon\" menjadi terupdate secara dinamis"
+msgstr "mengijinkan bind daemon diperbaharui secara dinamis"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -3425,66 +3685,70 @@ msgstr ""
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
 msgstr ""
+"Konfigurasi anda tidak mengijikan akses FTP baik itu terotentikasi atau "
+"anonim."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
 msgid "Read only"
-msgstr ""
+msgstr "Baca-saja"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:108
 msgid "Read/Write"
-msgstr ""
+msgstr "Baca/Tulis"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:119
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:93
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:265
 msgid "Allow SSL"
-msgstr ""
+msgstr "Ijinkan SSL"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:120
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:94
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:266
 msgid "Force SSL"
-msgstr ""
+msgstr "Paksa menggunakan SSL"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:131
 msgid "Anonymous access"
-msgstr ""
+msgstr "Akses anonim"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Mengaktifkan akses FTP untuk setiap pengguna ke direktori /home"
+msgstr "Aktifkan akses FTP anonim ke direktori /srv/ftp"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
 msgstr "Direktori pribadi"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Mengaktifkan akses FTP untuk setiap pengguna ke direktori /home"
+msgstr ""
+"Aktifkan akses FTP yang terotentikasi ke tiap-tiap direktori pribadi "
+"pengguna."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Direktori pribadi"
+msgstr "Membatasi akses hanya ke direktori pribadi"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Membatasi akses ke tiap-tiap direktori pribadi pengguna. Perlu "
+"diperhitungkan bahwa pembatasan ini dapat dielakkan dibawah beberapa "
+"kondisi."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:119
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:291
 msgid "SSL support"
-msgstr ""
+msgstr "Dukungan SSL"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:157
 msgid "Enable FTP SSL support for authenticated users."
-msgstr ""
+msgstr "Aktifkan dukungan FTP SSL untuk pengguna yang terotentikasi"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:163
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
@@ -3506,42 +3770,44 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
+"Direktori anonim adalah /srv/ftp, pastikan bahwa file-file yang anda buat "
+"disana memiliki ijin baca untuk setiap orang (sudo chmod o+r /srv/ftp/*). "
+"Jika anda juga ingin memberikan ijin penulisan maka anda perlu membuat "
+"sebuah subdirektori dengan ijin menulis bagi setiap orang, sebagai contoh: "
+"sudo mkdir /srv/ftp/incoming; sudo chmod o+rwx /srv/ftp/incoming. Akses "
+"anonim tidak akan dapat mengubah atau menghapus file-file tersebut."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
 msgstr "FTP Server Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:128
-#, fuzzy
 msgid "Generate SSL certificates"
-msgstr "certificate"
+msgstr "Hasilkan sertifikat SSL"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
 msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr ""
+msgstr "Zentyal akan menandai sendiri sertifikat SSL untuk layanan FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
-#, fuzzy
 msgid "To configure vsftpd."
 msgstr "Untuk mengkonfigurasi vsftpd"
 
 #: ../../main/ftp/src/EBox/FTP.pm:151
-#, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
 msgstr "Untuk mengkonfigurasi vsftpd dengan otentikasi LDAP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:243
-#, fuzzy
 msgid "Zentyal FTP server files"
-msgstr "FTP Server Zentyal"
+msgstr "File-file server FTP Zentyal"
 
 #: ../../main/ftp/src/EBox/FTP.pm:244
 msgid "User homes and global directory."
-msgstr ""
+msgstr "Direktori global dan direktori pribadi pengguna"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:106
@@ -3567,9 +3833,8 @@ msgstr "Alamat IP"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:80
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:255
-#, fuzzy
 msgid "Range"
-msgstr "Ubah"
+msgstr "Kisaran"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:88
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
@@ -3582,7 +3847,7 @@ msgstr "Alamat MAC"
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:100
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:71
 msgid "Members"
-msgstr ""
+msgstr "Anggota"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:106
 msgid ""
@@ -3590,40 +3855,43 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
+"Untuk alamat IP anda dapat gunakan penulisan CIDR (alamat/netmask) atau "
+"tentukan alamat awal dan akhir dari sebuah kisaran yang juga memasukkan "
+"seluruh alamat IP yang ada diantara keduanya."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:107
 msgid "member"
-msgstr ""
+msgstr "anggota"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:132
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Anda hanya dapat mengguna alamat MAC pada host"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:139
 msgid "You cannot use MAC addresses with IP ranges"
-msgstr ""
+msgstr "Anda tidak dapat menggunakan alamat MAC dengan kisaran IP"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:148
 #, perl-brace-format
 msgid "{ip} overlaps with the address or another object's member"
-msgstr ""
+msgstr "{ip} tumpang-tindih dengan alamat atau anggota obyek yang lain"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:82
 #: ../../main/objects/src/EBox/Objects.pm:38
 msgid "Objects"
-msgstr ""
+msgstr "Obyek-obyek"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:83
 msgid "Objects List"
-msgstr ""
+msgstr "Daftar obyek"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:91
 msgid "object"
-msgstr ""
+msgstr "obyek"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:113
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Obyek sedang digunakan oleh modul yang lain"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:197
 msgid ""
@@ -3631,37 +3899,42 @@ msgid ""
 "used in other modules. Any change on an object is automatically synched in "
 "all the modules using it"
 msgstr ""
+"Obyek adalah sebuah abstraksi dari alamat-alamat mesin dan jaringan yand "
+"kemudian dapat digunakan pada modul yang lain.Tiap perubahan pada sebuah "
+"obyek otomatis disinkronkan dengan seluruh modul yang menggunakannya"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:208
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
 msgstr ""
+"'Any' adalah kata tercadang yang tidak dapat digunakan sebagai nama obyek "
+"untuk menghindari kerancuan."
 
 #: ../../main/objects/src/EBox/Objects.pm:42
 #, perl-brace-format
 msgid "Added object {object}"
-msgstr ""
+msgstr "Menambahkan obyek {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:44
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
-msgstr ""
+msgstr "Menambahkan {nname} ({ip}/{mask} [{mac}]) ke obyek {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:45
 #, perl-brace-format
 msgid "Removed object {object}"
-msgstr ""
+msgstr "Menghapus obyek {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
-msgstr ""
+msgstr "Penghapusan secara paksa obyek {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:49
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
-msgstr ""
+msgstr "Menghapus {nname} dari obyek {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:394
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
@@ -3670,22 +3943,27 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:3794
 #: ../../main/services/src/EBox/Services.pm:642
 msgid "Network"
-msgstr ""
+msgstr "Jaringan"
 
 #: ../../main/software/src/EBox/Software.pm:56
 msgid "Software Management"
-msgstr ""
+msgstr "Manajemen Perangkat Lunak"
 
 #: ../../main/software/src/EBox/Software.pm:443
 msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
+"Tidak dapat menggunakan pengelola paket perangkat lunak. Mungkin saat ini "
+"sedang digunakan oleh proses yang lain. Anda dapat menunggu atau "
+"menghentikan proses yang menggunakannya."
 
 #: ../../main/software/src/EBox/Software.pm:445
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
 msgstr ""
+"Tidak dapat menggunakan pengelola paket perangkat lunak. Ada kesalahan: "
+"{err}"
 
 #: ../../main/software/src/EBox/Software.pm:535
 #, perl-brace-format
@@ -3693,72 +3971,77 @@ msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
+"Anda tidak mengubah pembaharuan otomatis menggunakan pembaharuan QA dari Web "
+"UI. Untuk menonaktifkan pembaharuan otomatis, edit {conf} dan nonaktifkan "
+"kunci {key}."
 
 #: ../../main/software/src/EBox/Software.pm:624
 msgid "Zentyal Components"
-msgstr ""
+msgstr "Komponen-komponen Zentyal"
 
 #: ../../main/software/src/EBox/Software.pm:626
 msgid "System Updates"
-msgstr ""
+msgstr "Pembaharuan Sistem"
 
 #: ../../main/software/src/EBox/Software.pm:854
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr ""
+"Pengelola perangkat lunak saat ini sedang  dikunci oleh {locker}. Cobalah "
+"sebentar lagi"
 
 #: ../../main/software/src/EBox/Software.pm:1015
 msgid "Welcome"
-msgstr ""
+msgstr "Selamat datang"
 
 #: ../../main/software/src/EBox/Software.pm:1017
 msgid "Package Selection"
-msgstr ""
+msgstr "Pemilihan paket"
 
 #: ../../main/software/src/EBox/Software.pm:1018
 msgid "Confirmation"
-msgstr ""
+msgstr "Konfirmasi"
 
 #: ../../main/software/src/EBox/Software.pm:1019
 msgid "Installation"
-msgstr ""
+msgstr "Instalasi"
 
 #: ../../main/software/src/EBox/Software.pm:1020
 msgid "Initial Configuration"
-msgstr ""
+msgstr "Konfigurasi awal"
 
 #: ../../main/software/src/EBox/Software.pm:1021
 msgid "Save Changes"
-msgstr ""
+msgstr "Menyimpan perubahan"
 
 #: ../../main/software/src/EBox/CGI/CurrentPackage.pm:31
 #: ../../main/core/src/EBox/CGI/SysInfo/CurrentProgress.pm:36
 msgid "Upgrading"
-msgstr ""
+msgstr "Peningkatan"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:102
 msgid "There were no packages to update"
-msgstr ""
+msgstr "TIdak paket untuk diperbaharui"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:176
 msgid "Installing"
-msgstr ""
+msgstr "Melakukan instalasi"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid "Installing packages"
-msgstr ""
+msgstr "Melakukan instalasi paket"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:178
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:203
 #: ../../main/core/src/EBox/CGI/Finish.pm:147
 #: ../../main/core/src/templates/report/raid.mas:214
 msgid "Current operation"
-msgstr ""
+msgstr "Operasi saat ini"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
 msgid "actions done"
-msgstr ""
+msgstr "kegiatan selesai"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:180
 msgid ""
@@ -3767,24 +4050,30 @@ msgid ""
 "until the system has been fully configured. You will be automatically "
 "redirected to the next step"
 msgstr ""
+"Instalasi paket berhasil diselesaikan. Antarmuka administrasi mungkin "
+"menjadi kurang tanggap untuk beberapa detik. Tunggulah dengan sabar sampai "
+"sistem telah dikonfigurasi sepenuhnya. Anda akan otomatis diarahkan ke "
+"langkah selanjutnya"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr ""
+"Instalasi paket tidak selesai dengan baik. Informasi lebih lanjut silakan "
+"lihat di catatan"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
 msgid "Removing package"
-msgstr ""
+msgstr "Membuang paket"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing the selected package and its dependent packages"
-msgstr ""
+msgstr "Membuang paket yang dipilih beserta paket-paket yang tergantung padanya"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
 msgid "packages left to remove"
-msgstr ""
+msgstr "sisa paket untuk dibuang"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:205
 msgid ""
@@ -3792,40 +4081,45 @@ msgid ""
 "may become unresponsive for a few seconds. Please wait patiently until the "
 "system has been fully restarted"
 msgstr ""
+"Pembuangan paket selesai dengan baik. Antarmuka administrasi mungkin menjadi "
+"kurang tanggap untuk beberapa saat. Silakan tunggu dengan sabar sampai "
+"sistem restart dengan sempurna"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:209
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
 msgstr ""
+"Pembuangan paket tidak selesai dengan baik. Informasi lebih lanjut bisa "
+"dilihat di catatan"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "konfigurasi pembaharuan otomatis"
 
 #: ../../main/software/src/EBox/CGI/Updates.pm:32
 msgid "System updates"
-msgstr ""
+msgstr "Pembaharuan sistem"
 
 #: ../../main/software/src/EBox/CGI/Updates.pm:58
 msgid "The system components are up to date."
-msgstr ""
+msgstr "Komponen-komponen sistem telah terbarukan"
 
 #: ../../main/software/src/EBox/CGI/Config.pm:31
 msgid "Software management settings"
-msgstr ""
+msgstr "Pengaturan pengelola perangkat lunak"
 
 #: ../../main/software/src/EBox/CGI/Config.pm:40
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Pembaharuan perangkat lunak otomatis"
 
 #: ../../main/software/src/EBox/CGI/EBox.pm:33
 msgid "Choose Zentyal packages to install"
-msgstr ""
+msgstr "Pilih paket-paket Zentyal yang akan diinstalasi"
 
 #: ../../main/software/src/EBox/CGI/EBox.pm:37
 msgid "Zentyal components"
-msgstr ""
+msgstr "Komponen-komponen Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
 msgid "Zentyal Cloud Client"

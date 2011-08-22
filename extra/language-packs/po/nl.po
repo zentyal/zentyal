@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-05-25 18:36+0200\n"
-"Last-Translator: Maurice <mmullenders@gmail.com>\n"
+"PO-Revision-Date: 2011-08-21 18:32+0200\n"
+"Last-Translator: robb <r_bosch@gmx.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -23,27 +23,27 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
-msgstr ""
+msgstr "Gebruik standaard profiel instelling"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
-msgstr ""
+msgstr "Gebruik standaard profiel voor MIME filtering"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
-msgstr ""
+msgstr "extensies"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
-msgstr ""
+msgstr "Stel beleid in voor alle extensies"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
-msgstr ""
+msgstr "Aanvragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
@@ -72,37 +72,37 @@ msgstr "Gebruiker"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
-msgstr ""
+msgstr "Geaccepteerde aanvragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Geaccepteerde verkeer grootte (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
-msgstr ""
+msgstr "Verworpen aanvragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Verworpen verkeer grootte (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 msgid "Filtered requests"
-msgstr ""
+msgstr "Gefilterde aanvragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Gefilterde verkeer grootte (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
 #: ../../main/squid/src/EBox/Squid.pm:1119
@@ -141,7 +141,7 @@ msgstr "Datum"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
-msgstr ""
+msgstr "Web verkeer details"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
@@ -153,19 +153,19 @@ msgstr "verkeer"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Squid verkeer grootte grafiek"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
-msgstr ""
+msgstr "Verkeer grootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Squid verkeer aanvragen grafiek"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
-msgstr ""
+msgstr "Toegang aanvragen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
@@ -174,6 +174,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"Object {object} heeft geen leden. Voeg ten minste één lid toe aan regels "
+"toevoegen met dit object."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -182,6 +184,8 @@ msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
 "to add it here"
 msgstr ""
+"Object {object} heeft een actieve {regel} in {table}. Verwijder deze eerst "
+"om hier toe te voegen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:116
@@ -189,26 +193,28 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
+"Als {first} op oneindig is ingesteld, dan moet {second} ook op oneindig "
+"ingesteld worden"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
-msgstr ""
+msgstr "{clt_rate} is groter dan {net_rate}"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:159
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:143
 msgid "Network object"
-msgstr ""
+msgstr "Netwerk object"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
 msgid "Rate"
-msgstr ""
+msgstr "Snelheid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -216,16 +222,18 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Maximum download snelheid voor dit netwerk. Gebruik -1 om deze optie uit te "
+"schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 msgid "Maximum Size"
-msgstr ""
+msgstr "Maximum grootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -233,24 +241,30 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Maximum niet gelimiteerde download grootte voor dit netwerk. Gebruik -1 om "
+"deze optie uit te schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
 msgid "Client Rate"
-msgstr ""
+msgstr "Client Snelheid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
+"Maximum download snelheid per client. Gebruik -1 om deze optie uit te "
+"schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Maximum Client Grootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Maximum niet gelimiteerde grootte per client. Gebruik -1 om deze optie uit "
+"te schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Delay Pools Class 2"
@@ -262,6 +276,9 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}. The client number is limited to 256."
 msgstr ""
+"Zodra de aanvraag groter is dan {max} zal de HTTP Proxy de daownload "
+"snelheid limiteren tot de bepaalde {rate}. Het clientnummer is geperkt tot "
+"256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:223
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:187
@@ -271,37 +288,39 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 msgid "Domains and URL rules"
-msgstr ""
+msgstr "Domeinen en URL regels"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 msgid "internet domain or URL"
-msgstr ""
+msgstr "internet domein of URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
+"Toestaan/Verbieden van de HTTP traffic van/naar de opgesomde domeinen en "
+"URL's."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 msgid "Domain or URL added"
-msgstr ""
+msgstr "Domein of URL toegevoegd"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 msgid "Domain or URL removed"
-msgstr ""
+msgstr "Domein of URL verwijderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 msgid "Domain or URL updated"
-msgstr ""
+msgstr "Domein of URL ververst"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:49
 msgid "Use antivirus"
-msgstr ""
+msgstr "Gebruik antivirus"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:91
 #, perl-brace-format
@@ -310,6 +329,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"Je kan het antivirus filter niet activeren omdat de antivirus module "
+"uitgeschakeld is. Als je virussen wilt filteren, {openhref}activeer de "
+"module{closehref} eerst en kom dan hier terug"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
 #, perl-brace-format
@@ -318,14 +340,17 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"U kunt het antivirus filter niet activeren omdat de antivirus module niet is "
+"geïnstalleerd. Als u virussen wilt filteren, installeer het eerst, "
+"{openhref}activeer de module{closehref} en kom dan hier terug"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
-msgstr ""
+msgstr "Gebruik standaard profiel voor extensie filtering"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 msgid "Block not listed domains and URLs"
-msgstr ""
+msgstr "Blokkeer niet geregistreerde domeinen en URL's"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 msgid ""
@@ -333,22 +358,25 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
+"Als dit geactiveerd is zal geen domein of URL dat niet aanwezig is in de "
+"<i>Domeinen en URLregels</i> noch in de de <i>Domein lijst bestanden</i> "
+"secties hieronder verboden zijn."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Blokkeer gespecificeerde pagina's alleen als IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Transparent Proxy"
-msgstr ""
+msgstr "Transparante Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Advertenties Blokkeren"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Verwijder advertenties uit alle HTTP verkeer"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -362,55 +390,63 @@ msgstr "Poort"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:76
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "Cache bestand grootte (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:84
 msgid "Default policy"
-msgstr ""
+msgstr "Standaard beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "General Settings "
-msgstr ""
+msgstr "Algemene Instellingen"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
 #: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 msgid "Settings changed"
-msgstr ""
+msgstr "Instellingen veranderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:136
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:151
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "{port} is al in gebruik. Kies alstublieft een andere"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
 msgid "Transparent proxy option is not compatible with authorization policy"
-msgstr ""
+msgstr "Transparante proxy beleid is niet verenigbaar met autorisatie beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:170
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr ""
+"Transparante proxy beleid is onverenigbaar met het gevonden autorisatie "
+"beleid in sommige objecten"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:188
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
 msgstr ""
+"Een autorisatie beleid is noodzakelijk omdat u globaal groeps beleid "
+"gebruikt"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:197
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
 msgstr ""
+"<i>Filter</i> betekent dat HTTP verzoeken door het inhouds filter gaan en "
+"mogelijk geweigerd worden als de inhoud niet valide wordt beschouwd."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:204
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Merk op dat u HTTPS niet transparant via de proxy kan laten lopen. U moet "
+"een regel in de firewall toevoegen als u deze mode activeert."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
@@ -419,42 +455,42 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 msgid "Policy"
-msgstr ""
+msgstr "Beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:95
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:79
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:49
 msgid "Always allow"
-msgstr ""
+msgstr "Altijd toestaan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:96
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:80
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:50
 #: ../../main/squid/src/EBox/Squid.pm:1042
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:81
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:51
 msgid "Always deny"
-msgstr ""
+msgstr "Altijd verbieden"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
 msgid "Ignore"
-msgstr ""
+msgstr "Negeer"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
 msgid "This list has not categories"
-msgstr ""
+msgstr "Deze lijst heeft geen categorieën"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:35
 msgid "Domain or URL"
-msgstr ""
+msgstr "Domein of URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:76
 msgid "Domain or IP address part of URL"
-msgstr ""
+msgstr "Domein of IP-adres gedeelte van de URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:86
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:186
@@ -469,16 +505,16 @@ msgstr "Domein"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "U moet geen www voor het domein zetten"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:92
 msgid "Domain or IP address"
-msgstr ""
+msgstr "Domein of IP-adres"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:65
 msgid "Configure allowed file extensions"
-msgstr ""
+msgstr "Stel toegestane bestands extensie"
 
 # very fuzzy as toestel also means device as in hardware
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
@@ -495,42 +531,45 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Sta toe/Verbied het HTTP verkeer van de bestanden met de gegeven extensies.\n"
+"Niet vermelde extensies worden toegestaan.\n"
+"Het extensie filter heeft een 'filter' beleid nodig om geactiveerd te zijn"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
 msgid "Extension added"
-msgstr ""
+msgstr "Extensie toegevoegd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:77
 msgid "Extension removed"
-msgstr ""
+msgstr "Extensie verwijderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:78
 msgid "Extension updated"
-msgstr ""
+msgstr "Extensie aangepast"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
 msgid "Using default profile configuration"
-msgstr ""
+msgstr "Gebruikmakend van de standaard profiel configuratie"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
-msgstr ""
+msgstr "Gebruik standaard profiel voor domein filtering"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
-msgstr ""
+msgstr "Filter virus"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
 #: ../../main/squid/stubs/template.html.mas:39
 msgid "Categories"
-msgstr ""
+msgstr "Categorieën"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:583
@@ -540,11 +579,11 @@ msgstr "Bestand"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
 msgid "You must supply a domains list"
-msgstr ""
+msgstr "U moet een domein lijst leveren"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
 msgid "Inexistent archive file"
-msgstr ""
+msgstr "Niet bestaand archief bestand"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
 msgid ""

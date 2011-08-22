@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-11 20:30+0200\n"
-"PO-Revision-Date: 2011-07-16 12:56+0200\n"
-"Last-Translator: Lueghi <lueghi@web.de>\n"
+"PO-Revision-Date: 2011-08-18 17:59+0200\n"
+"Last-Translator: Robin <commi1993@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgstr "Datenrate"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -232,7 +232,7 @@ msgstr "maximale Größe"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -281,7 +281,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:223
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:187
 msgid "pool"
-msgstr ""
+msgstr "Pool"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
@@ -375,7 +375,7 @@ msgstr "Sperre hinzufügen"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisments from all HTTP traffic"
-msgstr ""
+msgstr "Entferne Werbung vom gesamten HTTP-Traffic"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -746,6 +746,8 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
+"Wenn die max. Anzahl von Anfragen {max} überschritten ist, wird die "
+"Downloadrate des HTTP Proxy auf {rate} reduziert."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -1107,13 +1109,12 @@ msgstr "Dateiendung"
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:700
 #: ../../main/asterisk/src/templates/group.mas:40
 #: ../../main/asterisk/src/templates/user.mas:37
-#, fuzzy
 msgid "Extension"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-squid 0.12)  #-#-#-#-#\n"
 "Erweiterung\n"
 "#-#-#-#-#  de.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Durchwahl"
+"Erweiterung\n"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
@@ -1153,6 +1154,12 @@ msgid ""
 "match from the source is done. If a network object does not match any rule, "
 "then no bandwidth throttling is done to it"
 msgstr ""
+"Klasse 1-Pools ermöglicht es Ihnen die Bandbreite für große Downloads zu "
+"drosseln, wobei Klasse 2-Pools es Ihnen ermöglicht die Bandbreite für große "
+"Downloads auf eine feste Downloadrate zu setzen. Klasse 1-Pools haben eine "
+"höhere Priorität als Klasse 2-Pools und der erste Treffer... . Falls eine "
+"Regel für kein Netzwerkobjekt zutrifft, dann wird die Bandbreite nicht "
+"gedrosselt."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -2340,7 +2347,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:180
 msgid "To remove system-wide VPN servers autostart"
-msgstr ""
+msgstr "Entferne den Autostart des systemweiten VPN-Servers"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:646
 #, perl-brace-format
@@ -2610,7 +2617,7 @@ msgstr "Entscheidung"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1021
 msgid "DROP"
-msgstr "LÖSCHEN"
+msgstr "VERWERFEN"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1021
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:70
@@ -2620,7 +2627,7 @@ msgstr "PROTOKOLLIEREN"
 # oder besser umleiten?
 #: ../../main/firewall/src/EBox/Firewall.pm:1021
 msgid "REDIRECT"
-msgstr "weiterleiten"
+msgstr "UMLEITEN"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:892
 #: ../../main/firewall/src/EBox/Iptables.pm:929
@@ -2888,6 +2895,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Ersetzen Sie die ursprüngliche Quelladresse der Verbindung durch die Zentyal "
+"Adresse. Dies kann notwendig werden, wenn das Ziel keine Rückroute oder "
+"restriktive Firewallregeln hat"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:345
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -2929,11 +2939,11 @@ msgstr "weiterleiten"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr ""
+msgstr "NAT prerouting"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr ""
+msgstr "NAT postrouting"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
 #, fuzzy
@@ -3053,7 +3063,7 @@ msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid "rate"
-msgstr ""
+msgstr "Rate"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
@@ -3189,7 +3199,7 @@ msgid "Application based service group"
 msgstr "Anwendungsbasierter Dienste-Gruppe"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:83
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "this, you need at least an internal and an external interface. Check your "
@@ -3197,8 +3207,8 @@ msgid ""
 msgstr ""
 "Die Bandbreitenbegrenzung wird angewendet, wenn Zentyal als Gateway "
 "fungiert. Um diese Funktion verwenden zu können, brauchen Sie eine interne "
-"und eine externe Netzwerkkarte. Ändern Sie wenn nötig die Einstellungen in "
-"{openhref}Netzwerk->Netzwerkkarten{closehref} eine Netzwerkkarte als extern"
+"und eine externe Netzwerkkarte. Prüfen Sie wenn nötig die Einstellungen in "
+"{openhref}Netzwerk->Netzwerkkarten{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -3307,6 +3317,8 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
+"Ein benutzerdefinierte Hostname kann nicht aus der selben Domain definiert "
+"werden. Benutzen Sie die \"diese Domain\" Option dafür"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:144
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -3555,6 +3567,8 @@ msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 für keine Gewichtung, größere Werte erlauben mehr Änderungen bei gleicher "
+"Priorität"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
 msgid "Target port"
@@ -3576,6 +3590,8 @@ msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Verwaltung des SRV Eintrages für diese Domaine. Das ist hilfreich um "
+"Serviceprioritäten auf dem Host zu vergeben."
 
 # in german speaking countries 'mail exchanger' is rarely used. more common is 'MX', 'MX record' or 'MX Eintrag'.
 #: ../../main/dns/src/EBox/Model/Services.pm:262
@@ -3651,7 +3667,7 @@ msgstr "Der {name} darf nicht länger als {value} Zeichen sein"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
-msgstr ""
+msgstr "Wenn Sie eine Domaine auswählen, dann wählen Sie bitte die Zone "
 
 #: ../../main/dns/src/EBox/Model/Text.pm:168
 #, perl-brace-format
@@ -3659,9 +3675,8 @@ msgid "{txt} data"
 msgstr "{txt} Daten"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
-#, fuzzy
 msgid "Any data could be provided"
-msgstr "Für die Freigabe sollte ein Name angegeben werden."
+msgstr "Für die Freigabe sollte ein Name angegeben werden"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
@@ -3892,6 +3907,8 @@ msgid ""
 "the first and last addresses of a range that will also include all the IP "
 "addresses between them."
 msgstr ""
+"Für die IP Adressen können Sie die CIDR-Schreibweise (Adresse/Netzmaske) "
+"nutzen oder Sie legen einen Bereich mit der ersten und letzten Adresse fest."
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:107
 msgid "member"
@@ -3938,7 +3955,6 @@ msgstr ""
 "automatisch in allen Modulen, die dieses Objekt beinhalten, übernommen"
 
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:208
-#, fuzzy
 msgid ""
 "'Any' is a reserved word that could not be used as object name to avoid "
 "confusions"
@@ -3989,21 +4005,25 @@ msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
+"Der Softwarepaket Manager kann nicht genutzt werden. Vielleicht wird er zur "
+"Zeit von einem anderen Prozess genutzt. Sie können warten oder müssen den "
+"Prozess löschen (kill)."
 
 #: ../../main/software/src/EBox/Software.pm:445
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
 msgstr ""
+"Der Softwarepaket Manager kann nicht genutzt werden. Fehlermeldung: {err}"
 
 #: ../../main/software/src/EBox/Software.pm:535
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 "Sie können die automatische Aktualisierung nicht mit QA Aktualisierungen "
-"über die Weboberfläche modifizieren, ändern Sie {conf} und deaktivieren Sie "
-"{key} Schlüssel."
+"über die Weboberfläche modifizieren Bearbeiten Sie {conf} und deaktivieren "
+"Sie Schlüssel {key}, um automatische Aktualisierungen zu deaktivieren."
 
 #: ../../main/software/src/EBox/Software.pm:624
 msgid "Zentyal Components"
@@ -4158,7 +4178,7 @@ msgstr "Zentyal Komponenten"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Zentyal Cloud Client"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:222
 msgid "Not subscribed"
@@ -4181,7 +4201,7 @@ msgstr "Server Abonnement"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:71
 msgid "Technical Support"
-msgstr ""
+msgstr "Technischer Support"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:270
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
@@ -4391,7 +4411,7 @@ msgstr "Es wurde noch kein Datenbackup erzeugt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:127
 msgid "Support package"
-msgstr ""
+msgstr "Support Paket"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:131
 msgid "Support available via"
@@ -4399,7 +4419,7 @@ msgstr "Unterstützung verfügbar über"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:135
 msgid "Service Level Agreement"
-msgstr ""
+msgstr "Vereinbarung der Servicestufe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
 msgid "Allow remote access to Zentyal staff"
@@ -4853,11 +4873,12 @@ msgid "Key for proxy backup service not found"
 msgstr "Der Schlüssel für den Backup Proxy Dienst konnte nicht gefunden werden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:68
-#, fuzzy
 msgid ""
 "Cannot get the restricted addresses for remote support. Check VPN logs for "
 "details"
-msgstr "Erhalte keine restritiven Adressen für die Fernunterstützung"
+msgstr ""
+"Erhalte keine restritiven Adressen für die Fernunterstützung. Überprüfen Sie "
+"die VPN Logdateien für Details."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/SupportAccess.pm:140
 #, fuzzy, perl-brace-format
@@ -5359,19 +5380,16 @@ msgid "Zentyal will use this schema to store user sessions info."
 msgstr "Zentyal benötigt dieses Schema um Jabber-Benutzer zu speichern"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:59
-#, fuzzy
 msgid "Day bandwidth usage (MB)"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Bandbreitenbegrenzung pro Tag (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:63
-#, fuzzy
 msgid "Week bandwidth usage (MB)"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Bandbreitenbegrenzung pro Woche (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:68
-#, fuzzy
 msgid "Month bandwidth usage (MB)"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Bandbreitenbegrenzung pro Monat (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:100
 #: ../../main/core/src/EBox/SysInfo.pm.in:130
@@ -5426,9 +5444,8 @@ msgid "Use secondary LDAP"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:60
-#, fuzzy
 msgid "LDAP URL"
-msgstr "LDAP Domänenname"
+msgstr "LDAP URL"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:69
 msgid "Bind DN"
@@ -5440,9 +5457,8 @@ msgid "Bind DN pattern. {x} will be replaced with the username"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:81
-#, fuzzy
 msgid "Secondary LDAP"
-msgstr "Zweiter Server"
+msgstr "Zweiter LDAP Server"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:85
 msgid ""
@@ -5563,14 +5579,12 @@ msgid "Only users in this group will be allowed to login."
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:63
-#, fuzzy
 msgid "HTTP port"
-msgstr "alle TCP-Ports"
+msgstr "HTTP Port"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:69
-#, fuzzy
 msgid "HTTPS port"
-msgstr "alle TCP-Ports"
+msgstr "HTTPS Port"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:78
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
@@ -5657,9 +5671,8 @@ msgid "IP address assigned to this user within the VPN network."
 msgstr ""
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:126
-#, fuzzy
 msgid "PPTP Users"
-msgstr "Benutzer"
+msgstr "PPTP Benutzer"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:134
 msgid ""
@@ -5668,9 +5681,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:81
-#, fuzzy
 msgid "VPN Network Address"
-msgstr "Netzwerkadresse"
+msgstr "VPN Netzwerkadresse"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:84
 msgid ""
@@ -5688,14 +5700,12 @@ msgid "Secondary Nameserver"
 msgstr "Zweiter Nameserver"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:100
-#, fuzzy
 msgid "Primary WINS"
-msgstr "Erster NTP-Server"
+msgstr "Primärer WINS"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:106
-#, fuzzy
 msgid "Secondary WINS"
-msgstr "Zweiter Server"
+msgstr "Sekundärer WINS"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:115
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:62
@@ -5713,14 +5723,12 @@ msgstr ""
 "Konfiguration"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:119
-#, fuzzy
 msgid "PPTP server configuration"
-msgstr "Server-Konfiguration"
+msgstr "PPTP Serverkonfiguration"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:121
-#, fuzzy
 msgid "PPTP server configuration updated"
-msgstr "RADIUS Server Konfiguration geändert"
+msgstr "PPTP Serverkonfiguration aktualisiert"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:124
 msgid ""
@@ -5733,33 +5741,28 @@ msgid "PPTP"
 msgstr ""
 
 #: ../../main/pptp/src/EBox/PPTP.pm:104
-#, fuzzy
 msgid "To configure PPTP server."
-msgstr "Konfigurieren des DTMF-Verhalten"
+msgstr "Um den PPTP Server zu konfigurieren"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:108
-#, fuzzy
 msgid "To configure PPTP options."
-msgstr "Um postfix zu konfigurieren"
+msgstr "Um die PPTP Optionen zu konfigurieren"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:112
-#, fuzzy
 msgid "To configure PPTP users."
-msgstr "Konfigurieren der Konferenzen"
+msgstr "Um PPTP Benutzer zu konfigurieren"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:153
 msgid "PPTP VPN"
 msgstr ""
 
 #: ../../main/pptp/src/EBox/PPTP.pm:305
-#, fuzzy
 msgid "PPTP Connected Users"
-msgstr "Verbunden seit"
+msgstr "Über PPTP verbundene Benutzer"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:355
-#, fuzzy
 msgid "Local IP address"
-msgstr "Lokale Adresse"
+msgstr "Lokale IP Adresse"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:367
 #: ../../main/asterisk/src/EBox/Asterisk.pm:600
@@ -6412,14 +6415,12 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
-#, fuzzy
 msgid "ESP Authentication"
-msgstr "Authentifizierung"
+msgstr "ESP Authentifizierung"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:166
-#, fuzzy
 msgid "ESP Encryption"
-msgstr "Verschlüsselung"
+msgstr "ESP Verschlüsselung"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:178
 msgid "ESP DH Group"
@@ -6430,18 +6431,16 @@ msgid "ESP Keylife"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:192
-#, fuzzy
 msgid "Enable PFS"
-msgstr "PAM aktivieren"
+msgstr "PFS aktivieren"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
-#, fuzzy
 msgid "Local IP Address"
-msgstr "Lokale Adresse"
+msgstr "Lokale IP Adresse"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:82
 #, fuzzy
@@ -6657,14 +6656,13 @@ msgid "Gateways List"
 msgstr "Liste der Gateways"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:238
-#, fuzzy
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your Internet traffic through several links. Note that if you "
 "configure interfaces as DHCP or PPPoE their gateways are added here "
 "automatically."
 msgstr ""
-"Sie können soviele Gateways wie Sie möchten hinzufügen. Dies ist sehr "
+"Sie können soviele Gateways hinzufügen wie Sie möchten. Dies ist sehr "
 "nützlich, falls Sie Ihren Internetverkehr auf mehrere Leitungen verteilen "
 "möchten"
 
@@ -7136,9 +7134,8 @@ msgid "Gateways"
 msgstr "Gateways"
 
 #: ../../main/network/src/EBox/Network.pm:3815
-#, fuzzy
 msgid "Dynamic DNS"
-msgstr "Dynamisch"
+msgstr "Dynamisches DNS"
 
 #: ../../main/network/src/EBox/Network.pm:3819
 msgid "Diagnostic Tools"
@@ -7458,9 +7455,8 @@ msgstr ""
 
 #: ../../main/virt/src/EBox/Virt.pm:92
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
-#, fuzzy
 msgid "VNC connections for VMs"
-msgstr "Verbindungsfehler"
+msgstr "VNC Verbindungen für VMs"
 
 #: ../../main/virt/src/EBox/Virt.pm:516
 #, fuzzy
@@ -7661,9 +7657,9 @@ msgid "You need to provide the path of a ISO image"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "ISO image '{img}' does not exist"
-msgstr "Der Client {c} ist nicht vorhanden"
+msgstr "ISO Datei '{img}' ist nicht vorhanden"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
 msgid "You need to provide the path of a hard disk image"
@@ -8930,9 +8926,9 @@ msgid "Only ASCII characters are valid for a share name"
 msgstr "Es sind nur alphanumerische Zeichen und _ für Pfade erlaubt"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:216
-#, fuzzy
 msgid "Only ASCII characters are valid for a share description"
-msgstr "Es sind nur alphanumerische Zeichen und _ für Pfade erlaubt"
+msgstr ""
+"Es sind nur alphanumerische Zeichen und _ für Freigabebeschreibungen erlaubt"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:248
 msgid "The directory is not empty. Are you sure you want to remove it?"
