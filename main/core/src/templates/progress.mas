@@ -166,7 +166,7 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 <br/>
 <div class ="note" id="done" style="display:none;">
    <p><% $endNote %></p>
-   <p id="warning-progress"><% __('The process produced some warning messages:') %></p>
+   <p id="warning-progress" style="display:none"><% __('The process produced some warning messages:') %></p>
    <p id="warning-progress-messages"></p>
    <a href="<% $nextStepUrl %>"> <%__($nextStepText) %></a>
 </div>

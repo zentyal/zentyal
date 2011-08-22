@@ -118,9 +118,8 @@ case "$1" in
         # remove the menu cache
         rm -f $ZENTYAL_HOME/tmp/menucache
 
-        invoke-rc.d zentyal apache restart || true
-        invoke-rc.d zentyal logs restart || true
-        invoke-rc.d zentyal events restart || true
+        # Call restart script (apache, logs, events)
+        /usr/share/zentyal/restart-trigger
 
         # FIXME: this is not deleted after installation finishes
         # Probably there is another process that creates it again
