@@ -55,7 +55,6 @@ sub _table
             populate      => \&populateGroups,
             editable      => 1,
             disableCache  => 1,
-            defaultValue  => '__all__',
             help          => __('Only users in this group will be allowed to login.'),
             ),
        new EBox::Types::Port(

@@ -1,4 +1,5 @@
 HEAD
+	+ Removed default value for group setting (avoid crashes in user corner)
 	+ Set locale properly in captive portal
 	+ Removed /zentyal prefix from URLs
 	+ Moved model() call out of Users constructor to avoid problems
