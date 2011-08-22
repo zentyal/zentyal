@@ -136,39 +136,7 @@ sub __expand # (translation, %arguments)
     return $translation;
 }
 
-my $langs;
-$langs->{'an_ES.UTF-8'} = 'Aragonés';
-$langs->{'bn_BD.UTF-8'} = 'Bengali';
-$langs->{'bg_BG.UTF-8'} = 'Български';
-$langs->{'es_ES.UTF-8'} = 'Español';
-$langs->{'et_EE.UTF-8'} = 'Eesti';
-$langs->{'ca_ES.UTF-8'} = 'Català';
-$langs->{'cs_CZ.UTF-8'} = 'Czech';
-$langs->{'da_DK.UTF-8'} = 'Dansk';
-$langs->{'de_DE.UTF-8'} = 'Deutsch';
-$langs->{'el_GR.UTF-8'} = 'ελληνικά';
-$langs->{'C'} = 'English';
-$langs->{'eu_ES.UTF-8'} = 'Euskara';
-$langs->{'fa_IR.UTF-8'} = 'فارسی';
-$langs->{'fr_FR.UTF-8'} = 'Français';
-$langs->{'gl_ES.UTF-8'} = 'Galego';
-$langs->{'hu_HU.UTF-8'} = 'Magyar';
-$langs->{'it_IT.UTF-8'} = 'Italiano';
-$langs->{'ja_JP.UTF-8'} = '日本語';
-$langs->{'lt_LT.UTF-8'} = 'Lietuvių';
-$langs->{'nb_NO.UTF-8'} = 'Norsk (bokmål)';
-$langs->{'nl_BE.UTF-8'} = 'Nederlands';
-$langs->{'pl_PL.UTF-8'} = 'Polski';
-$langs->{'pt_BR.UTF-8'} = 'Português do Brasil';
-$langs->{'pt_PT.UTF-8'} = 'Português';
-$langs->{'ro_RO.UTF-8'} = 'Română';
-$langs->{'ru_RU.UTF-8'} = 'Русский';
-$langs->{'sv_SE.UTF-8'} = 'Svenska';
-$langs->{'th_TH.UTF-8'} = 'ภาษาไทย';
-$langs->{'tr_TR.UTF-8'} = 'Türkçe';
-$langs->{'uk_UA.UTF-8'} = 'украї́нська';
-$langs->{'zh_CN.UTF-8'} = '汉字';
-$langs->{'zh_TW.UTF-8'} = '繁體中文';
+my $langs = undef;
 
 # Method:  langname
 #
@@ -182,10 +150,11 @@ sub langname # (locale)
 {
     my ($locale) = @_;
 
-    return $langs->{$locale};
+    return langs()->{$locale};
 }
 
 # Method: langs
+#
 #   gathers the available languages
 #
 # Returns:
@@ -196,6 +165,46 @@ sub langname # (locale)
 #
 sub langs
 {
+    unless (defined $langs) {
+        $langs = {};
+        $langs->{'an_ES.UTF-8'} = 'Aragonés';
+        $langs->{'bn_BD.UTF-8'} = 'Bengali';
+        $langs->{'bg_BG.UTF-8'} = 'Български';
+        $langs->{'es_ES.UTF-8'} = 'Español';
+        $langs->{'et_EE.UTF-8'} = 'Eesti';
+        $langs->{'ca_ES.UTF-8'} = 'Català';
+        $langs->{'cs_CZ.UTF-8'} = 'Czech';
+        $langs->{'da_DK.UTF-8'} = 'Dansk';
+        $langs->{'de_DE.UTF-8'} = 'Deutsch';
+        $langs->{'el_GR.UTF-8'} = 'ελληνικά';
+        if (EBox::Config::configkey('english_locale')) {
+            $langs->{'en_US.UTF-8'} = 'English';
+        } else {
+            $langs->{'C'} = 'English';
+        }
+        $langs->{'eu_ES.UTF-8'} = 'Euskara';
+        $langs->{'fa_IR.UTF-8'} = 'فارسی';
+        $langs->{'fr_FR.UTF-8'} = 'Français';
+        $langs->{'gl_ES.UTF-8'} = 'Galego';
+        $langs->{'hu_HU.UTF-8'} = 'Magyar';
+        $langs->{'it_IT.UTF-8'} = 'Italiano';
+        $langs->{'ja_JP.UTF-8'} = '日本語';
+        $langs->{'lt_LT.UTF-8'} = 'Lietuvių';
+        $langs->{'nb_NO.UTF-8'} = 'Norsk (bokmål)';
+        $langs->{'nl_BE.UTF-8'} = 'Nederlands';
+        $langs->{'pl_PL.UTF-8'} = 'Polski';
+        $langs->{'pt_BR.UTF-8'} = 'Português do Brasil';
+        $langs->{'pt_PT.UTF-8'} = 'Português';
+        $langs->{'ro_RO.UTF-8'} = 'Română';
+        $langs->{'ru_RU.UTF-8'} = 'Русский';
+        $langs->{'sv_SE.UTF-8'} = 'Svenska';
+        $langs->{'th_TH.UTF-8'} = 'ภาษาไทย';
+        $langs->{'tr_TR.UTF-8'} = 'Türkçe';
+        $langs->{'uk_UA.UTF-8'} = 'украї́нська';
+        $langs->{'zh_CN.UTF-8'} = '汉字';
+        $langs->{'zh_TW.UTF-8'} = '繁體中文';
+    }
+
     return $langs;
 }
 
