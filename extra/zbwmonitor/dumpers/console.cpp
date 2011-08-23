@@ -33,17 +33,17 @@ void ConsoleBWStatsDumper::dumpHost(HostStats *host) {
 
     cout << "IP=" << ip;
     cout << " TIMESTAMP=" << rawtime;
-    cout << " INT_SENT=" << internal->totalSent/1024;
-    cout << " INT_RECV=" << internal->totalRecv/1024;
-    cout << " INT_TCP="  << internal->TCP/1024;
-    cout << " INT_UDP="  << internal->UDP/1024;
-    cout << " INT_ICMP=" << internal->ICMP/1024;
+    cout << " INT_SENT=" << internal->totalSent;
+    cout << " INT_RECV=" << internal->totalRecv;
+    cout << " INT_TCP="  << internal->TCP;
+    cout << " INT_UDP="  << internal->UDP;
+    cout << " INT_ICMP=" << internal->ICMP;
 
-    cout << " EXT_SENT=" << external->totalSent/1024;
-    cout << " EXT_RECV=" << external->totalRecv/1024;
-    cout << " EXT_TCP="  << external->TCP/1024;
-    cout << " EXT_UDP="  << external->UDP/1024;
-    cout << " EXT_ICMP=" << external->ICMP/1024;
+    cout << " EXT_SENT=" << external->totalSent;
+    cout << " EXT_RECV=" << external->totalRecv;
+    cout << " EXT_TCP="  << external->TCP;
+    cout << " EXT_UDP="  << external->UDP;
+    cout << " EXT_ICMP=" << external->ICMP;
     cout << endl;
 }
 
