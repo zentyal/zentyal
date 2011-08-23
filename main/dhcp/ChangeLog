@@ -1,4 +1,5 @@
 HEAD
+	+ Do not check fixed addresses of unconfigured vifaces
 	+ Removed /zentyal prefix from URLs
 	+ Avoid duplicated restart during postinst
 2.1.5
