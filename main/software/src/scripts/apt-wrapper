@@ -84,7 +84,7 @@ try {
 
         if ($out) {
             if ($customPrefix) {
-                $out =~ s/zentyal-/$customPrefix-/;
+                $out =~ s/zentyal-/$customPrefix-/g;
             }
             print $write $out;
         }
