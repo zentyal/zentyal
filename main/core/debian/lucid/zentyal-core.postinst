@@ -10,11 +10,11 @@ set -e
 
 #DEBHELPER#
 
+ZENTYAL_HOME=/var/lib/zentyal/
 FIRST_FILE=$ZENTYAL_HOME/.first
 
 case "$1" in
     configure)
-        ZENTYAL_HOME=/var/lib/zentyal/
         ZENTYAL_LOGS_DIR=/var/log/zentyal
 
         # create log directory
@@ -122,10 +122,6 @@ case "$1" in
         fi
         rm -f $ZENTYAL_HOME/conf/redis.first
 
-        # FIXME: this is not deleted after installation finishes
-        # Probably there is another process that creates it again
-        # having the DPKG_RUNNING env variable set to 1 ?
-        # remove dpkg running flag
         rm -f $ZENTYAL_HOME/dpkg_running
     ;;
 esac

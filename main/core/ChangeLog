@@ -1,4 +1,6 @@
 HEAD
+	+ Detection of broken packages works again after proper deletion
+	  of dpkg_running file
 	+ Keep first install redis server running until trigger
 	+ Unified module restart for package trigger and init.d
 	+ Use restart-trigger script in postinst for faster daemons restarting
