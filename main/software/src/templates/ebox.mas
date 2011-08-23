@@ -772,7 +772,8 @@ var pkgTable = new Array(
             return;
 
         for(var i = 0; i < htmlIds.length; i++){
-            if(document.getElementById(htmlIds[i]).checked){
+            element = document.getElementById(htmlIds[i]);
+            if(element && element.checked){
                 var inputPkg = document.createElement('input');
                 inputPkg.setAttribute('type', 'text');
                 inputPkg.setAttribute('name', 'pkg-'+htmlIds[i].substring(4));
