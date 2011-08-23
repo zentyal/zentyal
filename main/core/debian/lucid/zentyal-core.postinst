@@ -10,11 +10,12 @@ set -e
 
 #DEBHELPER#
 
+FIRST_FILE=$ZENTYAL_HOME/.first
+
 case "$1" in
     configure)
         ZENTYAL_HOME=/var/lib/zentyal/
         ZENTYAL_LOGS_DIR=/var/log/zentyal
-        FIRST_FILE=$ZENTYAL_HOME/.first
 
         # create log directory
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
@@ -115,7 +116,7 @@ case "$1" in
         /usr/share/zentyal/restart-trigger
 
         # remove initial redis config and stop server
-        if [ -f $FIRST_FILE -a -z "$2" ]; then
+        if [ -f $FIRST_FILE ]; then
             redis-cli -p 6380 save > /dev/null 2>&1
             kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
         fi
