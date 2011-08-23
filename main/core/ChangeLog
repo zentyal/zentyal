@@ -1,4 +1,5 @@
 HEAD
+	+ Keep first install redis server running until trigger
 	+ Unified module restart for package trigger and init.d
 	+ Use restart-trigger script in postinst for faster daemons restarting
 	+ System -> Halt/Reboot works again after regression in 2.1.25

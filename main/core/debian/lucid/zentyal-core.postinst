@@ -105,13 +105,6 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart logs $2
         /usr/share/zentyal/initial-setup --no-restart events $2
 
-        # remove initial redis config and stop server
-        if [ -f $FIRST_FILE -a -z "$2" ]; then
-            redis-cli -p 6380 save > /dev/null 2>&1
-            kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
-        fi
-        rm -f $ZENTYAL_HOME/conf/redis.first
-
         dpkg-trigger --no-await zentyal-core
     ;;
     triggered)
@@ -120,6 +113,13 @@ case "$1" in
 
         # Call restart script (apache, logs, events)
         /usr/share/zentyal/restart-trigger
+
+        # remove initial redis config and stop server
+        if [ -f $FIRST_FILE -a -z "$2" ]; then
+            redis-cli -p 6380 save > /dev/null 2>&1
+            kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
+        fi
+        rm -f $ZENTYAL_HOME/conf/redis.first
 
         # FIXME: this is not deleted after installation finishes
         # Probably there is another process that creates it again
