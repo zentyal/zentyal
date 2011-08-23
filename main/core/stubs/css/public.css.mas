@@ -271,11 +271,12 @@
 }
 
 .summary_good, .summary_good a {
-    color: #BBDF39;
+    color: #339933;
 }
 
 .summary_warning, .summary_warning a {
-    color: #EDAE08;
+    color: #FF8C00;
+    font-weight: bold;
 }
 
 .summary_error, .summary_error a {
