@@ -113,7 +113,7 @@ sub _checkDomainName
 sub _table
 {
     my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless defined ($prefix);
+    $prefix = 'zentyal' unless $prefix;
 
     my @tableHead =
     (

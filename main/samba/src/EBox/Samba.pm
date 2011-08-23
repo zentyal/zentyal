@@ -554,7 +554,7 @@ sub _setConf
     $ldapconf->{'groups'} = EBox::UsersAndGroups::GROUPSDN;
 
     my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless defined ($prefix);
+    $prefix = 'zentyal' unless $prefix;
 
     my @array = ();
     push(@array, 'netbios'   => $self->netbios);
