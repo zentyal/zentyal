@@ -12,6 +12,7 @@ set -e
 
 ZENTYAL_HOME=/var/lib/zentyal/
 FIRST_FILE=$ZENTYAL_HOME/.first
+REDIS_FIRST=$ZENTYAL_HOME/conf/redis.first
 
 case "$1" in
     configure)
@@ -85,7 +86,8 @@ case "$1" in
 
         # launch redis-server on first install (needed by EBox::init)
         if [ -f $FIRST_FILE -a -z "$2" ]; then
-            /usr/bin/sudo -u ebox /usr/bin/redis-server $ZENTYAL_HOME/conf/redis.first
+            cp /usr/share/zentyal/redis.first $REDIS_FIRST
+            /usr/bin/sudo -u ebox /usr/bin/redis-server $REDIS_FIRST
         fi
 
         # sudo configuration
@@ -116,11 +118,11 @@ case "$1" in
         /usr/share/zentyal/restart-trigger
 
         # remove initial redis config and stop server
-        if [ -f $FIRST_FILE ]; then
+        if [ -f $REDIS_FIRST ]; then
             redis-cli -p 6380 save > /dev/null 2>&1
             kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
+            rm $REDIS_FIRST
         fi
-        rm -f $ZENTYAL_HOME/conf/redis.first
 
         rm -f $ZENTYAL_HOME/dpkg_running
     ;;

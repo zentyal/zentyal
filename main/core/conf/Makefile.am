@@ -12,9 +12,12 @@ Postsavedir = $(Etcdir)/post-save
 Postsave_DATA =
 
 Confdir = $(localstatedir)/lib/zentyal/conf
-Conf_DATA = ebox.passwd redis.first
+Conf_DATA = ebox.passwd
 
-EXTRA_DIST = $(Conf_DATA) $(Etc_DATA)
+pkgdatadir = @DATADIR@/zentyal
+pkgdata_DATA = redis.first
+
+EXTRA_DIST = $(Conf_DATA) $(Etc_DATA) $(pkgdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
