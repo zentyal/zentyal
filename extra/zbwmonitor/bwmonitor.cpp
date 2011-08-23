@@ -59,6 +59,7 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
         // This should not take too long
         // if it does some problems will appear (packet loss)
         stats.dump(&dumper);
+        stats.clear();
         lastDump = time(NULL);
     }
 

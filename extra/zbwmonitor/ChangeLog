@@ -1,4 +1,5 @@
 HEAD
+	+ Clear stats after each dump
 	+ Dump packets stats in bytes (instead of kbytes)
 0.1
 	+ Initial release

@@ -52,6 +52,9 @@ class HostStats {
     // Add external traffic package to this host
     void addExtPacket(const struct ip* ipp);
 
+    // Reset data counters to 0
+    void clear();
+
     in_addr getIP() { return ip; }
     BWSummary* getInternalBW() { return &internal; }
     BWSummary* getExternalBW() { return &external; }
@@ -98,6 +101,9 @@ class BWStats {
 
     // Dump current stats using the given dumper
     void dump(IBWStatsDumper *dumper);
+
+    // Reset counters for all the hosts
+    void clear();
 
   private:
     // returns a pointer to a host (creates it if doesn't exists)
