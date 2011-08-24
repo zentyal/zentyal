@@ -3699,8 +3699,7 @@ sub interfacesWidget
     foreach my $iface (@ifaces) {
         iface_exists($iface) or next;
         my $upStr = __("down");
-        my $section = new EBox::Dashboard::Section($self->ifaceAlias($iface),
-            $self->ifaceAlias($iface));
+        my $section = new EBox::Dashboard::Section($iface, $self->ifaceAlias($iface));
         $widget->add($section);
 
         if (iface_is_up($iface)) {
