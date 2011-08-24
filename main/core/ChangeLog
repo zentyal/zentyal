@@ -1,4 +1,4 @@
-HEAD
+2.1.27
 	+ Do not create tables during Disaster Recovery installation
 	+ Added new EBox::Util::Debconf::value to get debconf values
 	+ DataTable controller does no longer try to get a deleted row
