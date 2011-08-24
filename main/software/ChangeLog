@@ -1,4 +1,5 @@
 HEAD
+	+ Removed useless regex match from apt-wrapper
 	+ Fixed javascript error when installing after package search
 	+ Better integration with core theme
 	+ Removed /zentyal prefix from URLs

@@ -74,8 +74,6 @@ try {
             $out = 'ins' . ($1+$2) . "\nrem$3\n";
         } elsif ($text =~ /(Unpacking\s.*)/) {
             $out = " $1\n";
-        } elsif ($text =~ /([0-9]+%).*/) {
-            $out = "$1\n";
         } elsif ($text =~ /(Setting up\s.*)/) {
             $out = " $1\n";
         } elsif ($text =~ /(Removing\s.*)/) {
