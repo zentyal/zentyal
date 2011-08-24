@@ -1,4 +1,6 @@
 HEAD
+	+ Do not create tables during Disaster Recovery installation
+	+ Added new EBox::Util::Debconf::value to get debconf values
 	+ DataTable controller does no longer try to get a deleted row
 	  for gather elements values for audit log
 	+ Check if Updates watcher can be enabled if the subscription

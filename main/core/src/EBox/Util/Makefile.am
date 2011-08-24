@@ -2,7 +2,7 @@
 perldir = @PERLPATH@/EBox/Util
 
 mods = BugReport.pm Lock.pm Nmap.pm Version.pm Software.pm SQL.pm SystemKernel.pm \
-       GPG.pm Init.pm
+       GPG.pm Init.pm Debconf.pm
 
 nobase_perl_DATA = $(mods)
 
