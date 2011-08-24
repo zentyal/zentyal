@@ -1,3 +1,6 @@
+HEAD
+	+ Check if Updates watcher can be enabled if the subscription
+	  level is yet unknown
 2.1.26
 	+ Detection of broken packages works again after proper deletion
 	  of dpkg_running file

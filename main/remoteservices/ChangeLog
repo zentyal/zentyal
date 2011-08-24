@@ -1,3 +1,5 @@
+HEAD
+	+ Catch when the updates watcher is not available to enable
 2.1.7
 	+ Do not show subscription wizard if hide_subscription_wizard key defined
 	+ Better integration with core theme

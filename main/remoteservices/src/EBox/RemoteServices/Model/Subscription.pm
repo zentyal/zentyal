@@ -452,9 +452,16 @@ sub _manageEvents # (subscribing)
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
                                 $subscribing);
 
-    # Enable software updates alert
-    # Read-only feature depends on subscription level
-    $eventMod->enableWatcher('EBox::Event::Watcher::Updates', $subscribing );
+
+    if ( $subscribing ) {
+        try {
+            # Enable software updates alert
+            # Read-only feature depends on subscription level
+            $eventMod->enableWatcher('EBox::Event::Watcher::Updates', $subscribing );
+        } catch EBox::Exceptions::DataNotFound with {
+            # Ignore when the event watcher is not there
+        };
+    }
 
 }
 

@@ -91,6 +91,13 @@ sub Able
         my $rs = $gl->modInstance('remoteservices');
         my $subsLevel = $rs->subscriptionLevel();
         $retVal = ($subsLevel == 0); # Only for basic
+        if ( $rs->eBoxSubscribed() and ($subsLevel == -1) ) {
+            # We don't know yet the subscription level
+            if ( $gl->modExists('software') ) {
+                my $software = $gl->modInstance('software');
+                $retVal = (not $software->QAUpdates());
+            }
+        }
     }
 
     return $retVal;
