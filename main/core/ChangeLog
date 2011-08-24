@@ -1,4 +1,4 @@
-HEAD
+2.1.26
 	+ Detection of broken packages works again after proper deletion
 	  of dpkg_running file
 	+ Keep first install redis server running until trigger

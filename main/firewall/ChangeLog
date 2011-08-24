@@ -1,4 +1,4 @@
-HEAD
+2.1.5
 	+ Do not crash when a firewall helper rule fails and inform the user
 	+ Hide explanatory images in the GUI if hide_firewall_images key defined
 	+ Removed /zentyal prefix from URLs

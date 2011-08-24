@@ -1,4 +1,4 @@
-HEAD
+2.1.9
 	+ Bug report form appears now if captiveportal crashes
 	+ Removed default value for group setting (avoid crashes in user corner)
 	+ Set locale properly in captive portal

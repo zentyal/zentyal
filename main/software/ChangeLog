@@ -1,4 +1,4 @@
-HEAD
+2.1.11
 	+ Removed useless regex match from apt-wrapper
 	+ Fixed javascript error when installing after package search
 	+ Better integration with core theme
