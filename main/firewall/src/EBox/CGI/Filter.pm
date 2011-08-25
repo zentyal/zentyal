@@ -31,7 +31,7 @@ sub new # (error=?, msg=?, cgi=?)
 				      @_);
 
     my $hideImages = EBox::Config::configkey('hide_firewall_images');
-    if (defined ($hideImages)) {
+    if ($hideImages eq 'yes') {
         $self->{params} = [ showImages => 0 ];
     }
 
