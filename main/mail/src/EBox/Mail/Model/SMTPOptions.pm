@@ -35,6 +35,7 @@ use EBox::Types::Union::Text;
 use EBox::Types::Port;
 use EBox::Types::Composite;
 use EBox::Types::MailAddress;
+use Error qw(:try);
 
 use EBox::Exceptions::External;
 
@@ -139,7 +140,7 @@ sub _table
                               fieldName => 'postmasterAddress',
                               printableName =>
                                 __('Postmaster address'),
-                              help => 
+                              help =>
                       __('Address used to report mail problems'),
                               subtypes => [
                               new EBox::Types::Union::Text(
@@ -157,7 +158,7 @@ sub _table
                               fieldName => 'mailboxQuota',
                               printableName =>
                                 __('Maximum mailbox size allowed'),
-                              help => 
+                              help =>
  __('When a mailbox reaches this size futher messages will be rejected. This can be overidden by account'),
                               subtypes => [
                               new EBox::Types::Union::Text(
@@ -328,7 +329,7 @@ sub _expiration
     my ($self, $element, $neverTypeName) = @_;
     my $expiration = $self->row()->elementByName($element);
     if ($expiration->selectedType eq $neverTypeName) {
-        # 0 means unlimited 
+        # 0 means unlimited
         return 0;
     }
 
@@ -364,10 +365,10 @@ sub _validateSmarthost
         my ($host, $port) = split ':', $smarthost;
         EBox::Validate::checkHost($host, __(q{Smarthost's address}));
         EBox::Validate::checkPort($port, __(q{Smarthost's port}));
-        
+
     }else {
         EBox::Validate::checkHost($smarthost, __(q{Smarthost's address}));
-        
+
     }
 
 
@@ -436,14 +437,21 @@ sub viewCustomizer
     $customizer->setModel($self);
 
     my $mail = EBox::Global->modInstance('mail');
-    my $mailname = $mail->mailname();
-    if (not $mailname =~ m/\./) {
+
+    my $mailname;
+    try {
+        $mail->mailname();
+    } catch EBox::Exceptions::Internal with {
+        $mailname = undef;
+    };
+
+    if ((not defined $mailname) or (not $mailname =~ m/\./)) {
         my $msg;
-        if ($mailname eq $mail->_fqdn()) {
+        if ((not defined $mailname) or $mailname eq $mail->_fqdn()) {
             $msg = __(
-q{The mailname is set to the server's hostname and the hostname is not } .
-'fully qualified. '
-                     );
+                q{The mailname is set to the server's hostname and the hostname is not } .
+                    'fully qualified. '
+                   );
         } else {
             $msg = __('The selected mailname is not a fully qualified hostname. ')
         }
@@ -451,16 +459,12 @@ q{The mailname is set to the server's hostname and the hostname is not } .
         $msg .= __(
 'Not having a fully qualified hostname could lead to some mail servers to reject ' .
 'the mail and incorrect reply addresses from system users'
-
-                  );
+                );
 
         $customizer->setPermanentMessage($msg);
     }
 
     return $customizer;
-
 }
 
-
 1;
-
