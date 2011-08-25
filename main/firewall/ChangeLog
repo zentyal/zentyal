@@ -1,4 +1,4 @@
-HEAD
+2.1.6
 	+ Fixed check of hide_firewall_images config key
 2.1.5
 	+ Do not crash when a firewall helper rule fails and inform the user
