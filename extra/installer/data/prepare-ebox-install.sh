@@ -105,10 +105,14 @@ ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.p
 
 if [ -f /tmp/RECOVER_MODE ]
 then
+    # Set DR flag for second stage
     DISASTER_FILE=/var/tmp/zentyal/.disaster-recovery
     touch $DISASTER_FILE
     chown :admin $DISASTER_FILE
     chown g+w $DISASTER_FILE
+
+    # Clean DR flag for first stage
+    echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
 fi
 
 sed -i 's/start on/start on zentyal-lxdm and/' /etc/init/lxdm.conf

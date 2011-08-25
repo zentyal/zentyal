@@ -82,8 +82,9 @@ ddclient    ddclient/service    select  www.dyndns.com
 
 snort    snort/interface   string  
 
-# eBox answers
+# Zentyal
 zentyal-core zentyal-core/port string 443
+zentyal-core zentyal-core/dr_install boolean false
 
 # No boot splash screen.
 #d-i debian-installer/splash boolean false
