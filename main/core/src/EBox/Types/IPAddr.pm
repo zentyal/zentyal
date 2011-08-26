@@ -136,6 +136,13 @@ sub fields
         return ($ip, $mask);
 }
 
+
+sub value
+{
+    my ($self) = @_;
+    return $self->_ipNetmask();
+}
+
 sub ip
 {
         my ($self) = @_;

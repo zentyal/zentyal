@@ -213,7 +213,7 @@ sub filter
     if ($filterFunc) {
         return (&$filterFunc($self));
     } else {
-        return $self->{'value'};
+        return $self->value();
     }
 }
 
