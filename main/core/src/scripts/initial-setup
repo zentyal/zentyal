@@ -32,11 +32,14 @@ if ($ARGV[0] eq '--no-restart') {
 
 my ($modname, $version) = @ARGV;
 
+# We need to get this as root to avoid warning on console
+my $drInstall = EBox::Util::Debconf::value('zentyal-core/dr_install');
+
 EBox::init();
 
 # Do not create tables if we are on the first stage of the DR installer
 # they will be created later before launching restore-tool
-unless (EBox::Util::Debconf::value('zentyal-core/dr_install') eq 'true') {
+unless ($drInstall eq 'true') {
     EBox::Util::SQL::createModuleTables($modname);
 }
 

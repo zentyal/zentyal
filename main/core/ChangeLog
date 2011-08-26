@@ -1,4 +1,5 @@
 HEAD
+	+ Do not show debconf warning when installing packages
 	+ EBox::Types::IPAddr (and IPNetwork) now works with defaultValue
 2.1.27
 	+ Do not create tables during Disaster Recovery installation
