@@ -842,9 +842,7 @@ sub _checkWSConnectivity
 
     my $ok;
     foreach my $no (1 .. $counter) {
-        my $site = $host;
-        $site =~ s{\.}{$no.};
-        my $url = 'https://' . $site . '/check';
+        my $url = 'https://' . $host . '/check';
         my $cmd = "curl --insecure ";
         if ($proxy) {
             $cmd .= "--proxy $proxy:$proxyPort ";
