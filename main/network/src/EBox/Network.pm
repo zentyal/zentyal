@@ -2777,6 +2777,11 @@ sub generateInterfaces
             print IFACES "\tbridge_waitport 5\n";
         }
 
+        my $mtu = EBox::Config::configkey("mtu_$ifname");
+        if ($mtu) {
+            print IFACES "\tmtu $mtu\n";
+        }
+
         print IFACES "\n";
     }
     close(IFACES);

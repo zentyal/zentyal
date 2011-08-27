@@ -1,4 +1,5 @@
 HEAD
+	+ Added custom mtu configuration for the interfaces in /etc/zentyal/network.conf
 	+ Improved texts in configure interfaces wizard
 	+ Fixed dashboard network graphs for interfaces with strange characters
 2.1.11
