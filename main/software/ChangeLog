@@ -1,3 +1,9 @@
+HEAD
+	+ Implement Software/Updates#tabname to go directly to the given
+	  tabname using hash property in URL
+	+ Refresh upgradable list after the user click on update list
+	+ Return to the system updates when the user has not made any
+	  selection
 2.1.11
 	+ Removed useless regex match from apt-wrapper
 	+ Fixed javascript error when installing after package search

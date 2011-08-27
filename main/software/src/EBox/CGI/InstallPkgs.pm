@@ -47,13 +47,14 @@ sub _process
     }
 
     if (defined($self->param('cancel'))) {
-        $self->{chain} = "Software/EBox";
+        $self->{chain} = 'Software/Updates';
         return;
     }
 
     if (defined($self->param('upgrade'))) {
         $action = 'install';
         $doit = 'yes';
+        $self->{chain} = 'Software/Updates';
     } elsif (defined($self->param('install'))) {
         $action = 'install';
     } elsif (defined($self->param('remove'))) {

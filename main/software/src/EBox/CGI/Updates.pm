@@ -53,7 +53,8 @@ sub _process
             }
         }
         my @array = ();
-        my $upg = $software->listUpgradablePkgs(0, 1);
+        # Clear list if the user has clicked on update pkg list
+        my $upg = $software->listUpgradablePkgs(($updateList == 1), 1);
         if (@{$upg} == 0) {
             $self->{msg} = __('The system components are up to date.');
             $self->{params} = [

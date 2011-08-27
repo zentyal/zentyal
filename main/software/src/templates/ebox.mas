@@ -141,6 +141,14 @@ my $first = EBox::Global->first();
 
     document.observe("dom:loaded", function() {
         selectPackage('zentyal-remoteservices');
+        switch(location.hash) {
+           case "#update":
+                tab2();
+                break;
+           case "#delete":
+                tab3();
+                break;
+        }
     });
 </script>
 

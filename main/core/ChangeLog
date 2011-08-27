@@ -1,4 +1,6 @@
 HEAD
+	+ Show n components update when only zentyal packages are left to
+	  upgrade in the system widget
 	+ Do not show debconf warning when installing packages
 	+ EBox::Types::IPAddr (and IPNetwork) now works with defaultValue
 2.1.27

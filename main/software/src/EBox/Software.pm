@@ -209,6 +209,12 @@ sub removePkgs # (@pkgs)
 #
 #   Update the package list
 #
+# Returns:
+#
+#       1 - if the update goes fancy well
+#
+#       0 - An error has ocurred
+#
 # Exceptions:
 #
 #       <EBox::Exceptions::External> - thrown if the module is locked
