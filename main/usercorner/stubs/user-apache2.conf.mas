@@ -12,7 +12,7 @@ PidFile /var/lib/zentyal-usercorner/user-apache.pid
 
 <IfModule mpm_prefork_module>
     StartServers             1
-    MinSpareServers          0
+    MinSpareServers          1
     MaxSpareServers          5
     MaxClients              10
     MaxRequestsPerChild  10000
