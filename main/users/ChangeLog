@@ -1,3 +1,5 @@
+HEAD
+	+ Start slapd daemon when a module fails to connect
 2.1.9
 	+ Hide help with link in wizard if custom_prefix defined
 	+ Removed /zentyal prefix from URLs

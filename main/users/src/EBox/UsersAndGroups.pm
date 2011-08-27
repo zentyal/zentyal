@@ -437,9 +437,6 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    # Clear LDAP connection
-    $self->ldap->clearConn();
-
     my $mode = mode();
 
     # FIXME: This method should not be overrided
@@ -453,6 +450,9 @@ sub _enforceServiceState
     }
 
     $self->SUPER::_enforceServiceState();
+
+    # Clear LDAP connection
+    $self->ldap->clearConn();
 
     if ($mode eq 'slave') {
         my ($ldap, $dn) = $self->_connRemoteLDAP();

@@ -1098,6 +1098,8 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to LDAP');
     };
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
+        my $users = EBox::Global->modInstance('users');
+        $users->_manageService('start');
         EBox::error("Couldn't connect to LDAP server $ldapurl, retrying");
         sleep(1);
     }
