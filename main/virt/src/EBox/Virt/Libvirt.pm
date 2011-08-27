@@ -540,9 +540,13 @@ sub _vncKeymap
     } else {
         # Autodetect if not defined
         my ($lang1, $lang2) = split(/_/, $ENV{LANG});
-        $keymap = "$lang1-" . lc($lang2);
-        return $keymap if ($validKeymaps{$keymap});
-        return $lang1 if ($validKeymaps{$lang1});
+        if ($lang1) {
+            if ($lang2) {
+                $keymap = "$lang1-" . lc($lang2);
+                return $keymap if ($validKeymaps{$keymap});
+            }
+            return $lang1 if ($validKeymaps{$lang1});
+        }
         return $DEFAULT_KEYMAP;
     }
 }
