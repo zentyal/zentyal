@@ -24,51 +24,52 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my %opts = @_;
-	my $self = $class->SUPER::new(@_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub html
 {
-	my ($self, $current) = @_;
-	my $text = $self->{text};
-	my $html = '';
-	my $show = 0;
+    my ($self, $current) = @_;
 
-	if (defined($self->{style})) {
-		$html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
-	} else {
-		$html .= "<li id='" . $self->{id} . "'>\n";
-	}
+    my $text = $self->{text};
+    my $html = '';
+    my $show = 0;
+
+    if (defined($self->{style})) {
+        $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
+    } else {
+        $html .= "<li id='" . $self->{id} . "'>\n";
+    }
 
     $html .= "<div class='separator'>$text</div>\n";
 
-	$html .= "</li>\n";
+    $html .= "</li>\n";
 
-	return $html;
+    return $html;
 }
 
 sub _compare # (node)
 {
-	my ($self, $node) = @_;
-	defined($node) or return undef;
-	$node->isa('EBox::Menu::Separator') or return undef;
-	if ($node->{text} eq $self->{text}) {
-		return 1;
-	}
-	return undef;
+    my ($self, $node) = @_;
+    defined($node) or return undef;
+    $node->isa('EBox::Menu::Separator') or return undef;
+    if ($node->{text} eq $self->{text}) {
+        return 1;
+    }
+    return undef;
 }
 
 sub _merge # (node)
 {
-	my ($self, $node) = @_;
+    my ($self, $node) = @_;
 
-	if (defined($self->{text}) and (length($self->{text}) != 0)) {
-		$node->{text} = $self->{text};
-	}
+    if (defined($self->{text}) and (length($self->{text}) != 0)) {
+        $node->{text} = $self->{text};
+    }
 }
 
 1;
