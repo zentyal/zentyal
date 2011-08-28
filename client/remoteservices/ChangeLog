@@ -1,4 +1,4 @@
-HEAD
+2.0.18
 	+ Remove innecesary checks for nameserver and web servers prior to
 	  exchanging data with them
 	+ Remove route is up checking for remote support since it is not
