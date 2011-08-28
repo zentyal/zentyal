@@ -1,4 +1,5 @@
 HEAD
+	+ Warning about language-packs installed works again after Global changes
 	+ Show n components update when only zentyal packages are left to
 	  upgrade in the system widget
 	+ Do not show debconf warning when installing packages
