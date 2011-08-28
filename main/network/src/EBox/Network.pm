@@ -73,10 +73,6 @@ use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
 
-# XXX uncomment when DynLoader bug with locales is fixed
-# use EBox::Network::Report::ByteRate;
-
-
 sub _create
 {
     my $class = shift;
@@ -214,18 +210,6 @@ sub modelClasses
                          ],
           },
           'EBox::Network::Model::MultiGwRulesOptions',
-
-# XXX uncomment when DynLoader bug with locales is fixed
-#          {
-#            class      => 'EBox::Network::Model::ByteRateEnableForm',
-#            parameters => [
-#                           enableTitle  => __('Activate traffic rate monitor'),
-#                           modelDomain  => 'Network',
-#                          ],
-#           },
-#     'EBox::Network::Model::ByteRateSettings',
-#     'EBox::Network::Model::ByteRateGraph',
-#     'EBox::Network::Model::ByteRateGraphControl',
           'EBox::Network::Model::StaticRoute',
           'EBox::Network::Model::DeletedStaticRoute',
           'EBox::Network::Model::DNSResolver',
@@ -247,9 +231,6 @@ sub compositeClasses
         'EBox::Network::Composite::WANFailover',
         'EBox::Network::Composite::Gateway',
         'EBox::Network::Composite::GatewaysGeneral',
-
-# XXX uncomment when DynLoader bug with locales is fixed
-#          'EBox::Network::Composite::ByteRate',
         ];
 
 }
@@ -3178,10 +3159,6 @@ sub _enforceServiceState
     EBox::Sudo::root('/sbin/ip route flush cache');
 
     $self->SUPER::_enforceServiceState();
-
-    # XXX uncomment when DynLoader bug with locales is fixed
-#   # regenerate config for the bit rate report
-#   EBox::Network::Report::ByteRate->_regenConfig();
 }
 
 
@@ -3209,9 +3186,6 @@ sub _stopService
 {
     my ($self) = @_;
 
-    # XXX uncomment when DynLoader bug with locales is fixed
-    # EBox::Network::Report::ByteRate->stopService();
-
     return unless ($self->configured());
 
     my @cmds;
@@ -3231,9 +3205,6 @@ sub _stopService
     }
 
     EBox::Sudo::root(@cmds);
-
-# XXX uncomment when DynLoader bug with locales is fixed
-#   EBox::Network::Report::ByteRate->stopService();
 
     $self->SUPER::_stopService();
 }
@@ -3773,12 +3744,6 @@ sub interfacesWidget
             $rx_bytes,
             'small'));
     }
-
-# XXX uncomment when DynLoader bug with locales is fixed
-#         my $monSummary = EBox::Network::Report::ByteRate->summary();
-#         if ( defined($monSummary) ) {
-#             $composite->add($monSummary);
-#         }
 }
 
 sub widgets
@@ -3830,11 +3795,6 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
                                       'text' => __('Diagnostic Tools'),
                                       'order' => 80));
-
-# XXX uncomment when DynLoader bug with locales is fixed
-#   $folder->add(new EBox::Menu::Item('url' =>
-#                       'Network/Composite/ByteRate',
-#                     'text' => __('Traffic rate monitor')));
 
     $root->add($folder);
 }

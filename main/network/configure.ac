@@ -44,9 +44,6 @@ AC_CONF_EBOX($enable_runtime_tests)
 AC_CONFIG_FILES([
 src/EBox/Network/Makefile
 src/EBox/Network/Composite/Makefile
-src/EBox/Network/Report/Makefile
-src/EBox/Network/Report/t/Makefile
-src/EBox/Network/Report/ByteRate/Makefile
 src/EBox/t/Makefile
 src/Makefile
 src/EBox/Makefile

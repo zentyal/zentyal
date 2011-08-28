@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Report Composite
+SUBDIRS = Composite
 
 perldir = @PERLPATH@/EBox/Network
 
