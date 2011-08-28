@@ -27,6 +27,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::SOAPClient;
+use EBox::Util::Nmap;
 use EBox::Config;
 
 use Date::Calc::Object;
@@ -197,7 +198,7 @@ sub _nameservers
     }
 
     my @nameservers = split(',', $eboxServicesDns);
-    # add system nameservers 
+    # add system nameservers
     my $network = EBox::Global->modInstance('network');
     push @nameservers, @{ $network->nameservers() };
 
