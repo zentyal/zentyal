@@ -1,4 +1,5 @@
 HEAD
+	+ Components table is now fully translatable
 	+ Implement Software/EBox#tabname to go directly to the given
 	  tabname using hash property in URL
 	+ Refresh upgradable list after the user click on update list

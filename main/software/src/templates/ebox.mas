@@ -183,22 +183,22 @@ h3 {
 var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %       my $eboxupg = 'no';
-        {"Component":"<%__($pkg->{description})%>",
+        {"<% __('Component') %>":"<% __($pkg->{description}) %>",
 %       if ($pkg->{version}) {
 %           if ($pkg->{version} ne $pkg->{avail}) {
 %               $eboxupg = __('Update');
 %               $eboxupgbutton = 'yes';
 %               $upgpkgs = 1;
 %           }
-           "Installed Version":"<%$pkg->{version}%>",
+           "<% __('Installed Version') %>":"<% $pkg->{version} %>",
 %       } else {
 %           $eboxupg = __('Install');
 %           $eboxupgbutton = 'yes';
-            "Installed Version":"",
+            "<% __('Installed Version') %>":"",
 %      }
-        "Latest Version":"<%$pkg->{avail}%>",
-        "Name": "<%$pkg->{name}%>",
-        "Removable": "<%$pkg->{removable}%>"
+        "<% __('Latest Version') %>":"<% $pkg->{avail} %>",
+        "Name": "<% $pkg->{name} %>",
+        "Removable": "<% $pkg->{removable} %>"
 %   if ($pkg == $eboxpkgs[-1]) {
         }
 %   } else {
@@ -623,14 +623,14 @@ var pkgTable = new Array(
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
             <li>
-                <a id="installTab" href="#" class="current" onclick="tab1()"> Install </a>
+                <a id="installTab" href="#" class="current" onclick="tab1()"><% __('Install') %></a>
             </li>
 % if ($first) {
             <li style="display:none">
 % } else {
             <li>
 % }
-               <a id="updateTab" href="#" onclick="tab2()"> <% __('Update') %><span id="updNumber">(0)</span>  </a>
+               <a id="updateTab" href="#" onclick="tab2()"><% __('Update') %>&nbsp;<span id="updNumber">(0)</span>  </a>
             </li>
 % if ($first) {
             <li style="display:none">
@@ -688,23 +688,23 @@ var pkgTable = new Array(
     var obj;
 
     for(var i = 0; i< pkgTable.length; i++){
-        if(pkgTable[i]['Component'] .indexOf("Suite") != -1){
+        if(pkgTable[i]['<% __('Component') %>'] .indexOf("Suite") != -1){
             continue;
         }
-        if(pkgTable[i]['Component'] .indexOf("All Modules") != -1){
+        if(pkgTable[i]['<% __('Component') %>'] .indexOf("All Modules") != -1){
             continue;
         }
-        if (pkgTable[i]['Installed Version'] == ""){
+        if (pkgTable[i]['<% __('Installed Version') %>'] == ""){
             obj = new Object();
-            obj['Component'] = pkgTable[i]['Component'];
-            obj['Latest Version'] = pkgTable[i]['Latest Version'];
+            obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
+            obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
 %   if ($first) {
             if (pkgTable[i]['Name'] == 'zentyal-remoteservices')
-                obj['Select'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' checked id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
             else
-                obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
 %   } else {
-            obj['Select'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
+            obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'ins_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"insTableOrderer\", \""+'ins_'+pkgTable[i]['Name']+"\")'></center>";
 %   }
             insHtmlId[insHtmlId.length] = 'ins_'+pkgTable[i]['Name'];
             insTable[insTable.length] = obj;
@@ -712,30 +712,45 @@ var pkgTable = new Array(
             if(pkgTable[i]['Removable'] == "1"){
                 if (pkgTable[i]['Name'] != 'zentyal-software'){
                     obj = new Object();
-                    obj['Component'] = pkgTable[i]['Component'];
-                    obj['Installed Version'] = pkgTable[i]['Latest Version'];
-                    obj['Select'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";
+                    obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
+                    obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
+                    obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'del_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"delTableOrderer\", \""+'del_'+pkgTable[i]['Name']+"\")'></center>";
                     delHtmlId[delHtmlId.length]  = 'del_'+pkgTable[i]['Name'];
                     delTable[delTable.length] = obj;
                 }
             }
-            if((pkgTable[i]['Latest Version'] != "")&&(pkgTable[i]['Latest Version'] != pkgTable[i]['Installed Version'])){
+            if((pkgTable[i]['<% __('Latest Version') %>'] != "")&&(pkgTable[i]['<% __('Latest Version') %>'] != pkgTable[i]['<% __('Installed Version') %>'])){
                 obj = new Object();
-                obj['Component'] = pkgTable[i]['Component'];
-                obj['Installed Version'] = pkgTable[i]['Installed Version'];
-                obj['Latest Version'] = pkgTable[i]['Latest Version'];
-                obj['Select'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";
+                obj['<% __('Component') %>'] = pkgTable[i]['<% __('Component') %>'];
+                obj['<% __('Installed Version') %>'] = pkgTable[i]['<% __('Installed Version') %>'];
+                obj['<% __('Latest Version') %>'] = pkgTable[i]['<% __('Latest Version') %>'];
+                obj['<% __('Select') %>'] = "<center><input type='checkbox' id='"+'upd_'+pkgTable[i]['Name']+"' onclick='changeCheck(\"updTableOrderer\", \""+'upd_'+pkgTable[i]['Name']+"\")'></center>";
                 updHtmlId[updHtmlId.length]  = 'upd_'+pkgTable[i]['Name'];
                 updTable[updTable.length] = obj;
             }
         }
     }
 
-
-
-    var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['Select']});
-    var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['Select']});
-    var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['Select']});
+    var customMsgs = {
+         loading: '<% __('Loading') %>...',
+         emptyResults: '<% __('No packages found') %>',
+         errorURL: 'invalid data',
+         errorData: 'no data',
+         searchLabel: '<% __('Search') %> : ',
+         filterLabel: 'Filter Column : ',
+         paginationOf: ' <% __('of') %> ',
+         paginationPages: ' <% __('pages') %> ',
+         paginationFirst: '<<',
+         paginationPrev: '<',
+         paginationNext: '>',
+         paginationLast: '>>'
+    };
+    var insTableOrderer = new TableOrderer('installTable',{data: insTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
+    insTableOrderer.msgs = customMsgs;
+    var updTableOrderer = new TableOrderer('updateTable',{data: updTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
+    updTableOrderer.msgs = customMsgs;
+    var delTableOrderer = new TableOrderer('deleteTable',{data: delTable, search:'top', unsortedColumn : ['<% __('Select') %>']});
+    delTableOrderer.msgs = customMsgs;
 
     document.getElementById('updNumber').innerHTML = '(' +updTable.length +')';
 % if ($first) {
@@ -745,9 +760,9 @@ var pkgTable = new Array(
 % }
     document.getElementById('updateBox').hide();
     document.getElementById('deleteBox').hide();
-    insTableOrderer.orderRow('Component', 'asc');
-    updTableOrderer.orderRow('Component', 'asc');
-    delTableOrderer.orderRow('Component', 'asc');
+    insTableOrderer.orderRow('<% __('Component') %>', 'asc');
+    updTableOrderer.orderRow('<% __('Component') %>', 'asc');
+    delTableOrderer.orderRow('<% __('Component') %>', 'asc');
 
     function selectAll(items, htmlIds){
         if(!isArray(items)||!isArray(htmlIds))
