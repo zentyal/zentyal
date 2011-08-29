@@ -25,26 +25,26 @@ use EBox::Gettext;
 
 sub new # (data=>string,  value=>string, advice => string)
 {
-	my $class = shift;
-	my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-	my $data   = delete $opts{data};
-	my $value  = delete $opts{value};
-	my $advice = delete $opts{advice};
+    my $data   = delete $opts{data};
+    my $value  = delete $opts{value};
+    my $advice = delete $opts{advice};
 
-	my $error = __x("Invalid value for {data}: {value}.", data => $data,
-							 value => $value);
-	if (defined $advice) {
-	    $error .= "\n$advice";
-	}
+    my $error = __x("Invalid value for {data}: {value}.", data => $data,
+                             value => $value);
+    if (defined $advice) {
+        $error .= "\n$advice";
+    }
 
-	local $Error::Depth = $Error::Depth + 1;
-	local $Error::Debug = 1;
+    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Debug = 1;
 
-	$Log::Log4perl::caller_depth++;
-	$self = $class->SUPER::new($error, @_);
-	$Log::Log4perl::caller_depth--;
-	bless ($self, $class);
-	return $self;
+    $Log::Log4perl::caller_depth++;
+    $self = $class->SUPER::new($error, @_);
+    $Log::Log4perl::caller_depth--;
+    bless ($self, $class);
+    return $self;
 }
 1;

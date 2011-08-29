@@ -26,21 +26,21 @@ use EBox::Gettext;
 
 sub new # (data=>string)
 {
-	my $class = shift;
-	my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
 
-	my $data = delete $opts{data};
+    my $data = delete $opts{data};
 
-	my $error = __x("{data} is empty.", data => $data);
+    my $error = __x("{data} is empty.", data => $data);
 
-	local $Error::Depth = $Error::Depth + 1;
-	local $Error::Debug = 1;
+    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Debug = 1;
 
-	$Log::Log4perl::caller_depth++;
-	$self = $class->SUPER::new($error, @_);
-	$Log::Log4perl::caller_depth--;
-	bless ($self, $class);
-	return $self;
+    $Log::Log4perl::caller_depth++;
+    $self = $class->SUPER::new($error, @_);
+    $Log::Log4perl::caller_depth--;
+    bless ($self, $class);
+    return $self;
 }
 1;
