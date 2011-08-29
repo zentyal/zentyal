@@ -39,7 +39,7 @@ EBox::init();
 
 # Do not create tables if we are on the first stage of the DR installer
 # they will be created later before launching restore-tool
-unless ($drInstall eq 'true') {
+unless (defined ($drInstall) and ($drInstall eq 'true')) {
     EBox::Util::SQL::createModuleTables($modname);
 }
 
