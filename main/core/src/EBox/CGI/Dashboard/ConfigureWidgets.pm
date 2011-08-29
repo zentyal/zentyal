@@ -26,11 +26,11 @@ use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_, title => __('Configure Widgets'),
+    my $class = shift;
+    my $self = $class->SUPER::new(@_, title => __('Configure Widgets'),
                     'template' => '/dashboard/configurewidgets.mas');
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: masonParameters
