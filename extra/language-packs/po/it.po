@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-22 23:38+0200\n"
+"POT-Creation-Date: 2011-08-29 19:04+0200\n"
 "PO-Revision-Date: 2011-07-19 09:42+0200\n"
 "Last-Translator: lemorragia <lemorragia@yahoo.it>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -61,7 +61,7 @@ msgstr "Richieste"
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:139
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:100
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:101
 #: ../../main/radius/src/EBox/Radius.pm:392
 #: ../../main/asterisk/src/EBox/Asterisk.pm:586
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -111,7 +111,7 @@ msgstr "Dimensione traffico filtrato (Kb))"
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1300
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
 #: ../../main/printers/src/EBox/Printers.pm:299
 #: ../../main/samba/src/EBox/Samba.pm:1503
 #: ../../main/samba/src/EBox/Samba.pm:1523
@@ -406,7 +406,6 @@ msgstr "Impostazioni Generali"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 msgid "Settings changed"
 msgstr "Impostazioni modificate"
 
@@ -578,7 +577,7 @@ msgid "Categories"
 msgstr "Categorie"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:590
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:597
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "File"
@@ -1508,7 +1507,7 @@ msgstr "Porta di ascolto"
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/ca/src/EBox/CA.pm:1750
-#: ../../main/core/src/EBox/SysInfo.pm.in:359
+#: ../../main/core/src/EBox/SysInfo.pm.in:371
 #: ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/asterisk/src/EBox/Asterisk.pm:553
 msgid "General"
@@ -1546,7 +1545,7 @@ msgstr "Tipo MIME"
 
 #: ../../main/squid/src/EBox/Squid.pm:1180
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1304
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1305
 #: ../../main/printers/src/EBox/Printers.pm:300
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:650
@@ -2149,7 +2148,6 @@ msgstr "Server {name}"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:177
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:374
 #: ../../main/network/src/EBox/Model/DynDNS.pm:199
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:117
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:163
 #: ../../main/ca/src/EBox/Model/Certificates.pm:265
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
@@ -2159,7 +2157,6 @@ msgstr "Servizio"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:785
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:454
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1665
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:136
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
 #: ../../main/core/src/templates/dashboard/index.mas:22
@@ -2513,8 +2510,8 @@ msgstr "Il name '{name}' non e' valido"
 #: ../../main/firewall/src/EBox/Firewall.pm:457
 #: ../../main/firewall/src/EBox/Firewall.pm:636
 #: ../../main/firewall/src/EBox/Firewall.pm:661
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:757
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:799
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:748
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:790
 #: ../../main/core/src/EBox/Apache.pm:283
 #: ../../main/core/src/EBox/Apache.pm:292
 #: ../../main/services/src/EBox/Services.pm:482
@@ -2553,7 +2550,6 @@ msgstr "Interfaccia di output"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:295
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:392
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:111
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:110
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:74
@@ -2710,7 +2706,7 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:153
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:116
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:63
-#: ../../main/software/src/templates/ebox.mas:229
+#: ../../main/software/src/templates/ebox.mas:237
 #: ../../main/software/src/templates/updates.mas:44
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:51
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:120
@@ -2797,35 +2793,35 @@ msgstr "Regola contrastante. Rimuovila"
 #: ../../main/common/src/EBox/NetWrappers.pm:229
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:194
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:101
-#: ../../main/network/src/EBox/Network.pm:1024
-#: ../../main/network/src/EBox/Network.pm:1056
-#: ../../main/network/src/EBox/Network.pm:1130
-#: ../../main/network/src/EBox/Network.pm:1166
-#: ../../main/network/src/EBox/Network.pm:1191
-#: ../../main/network/src/EBox/Network.pm:1275
-#: ../../main/network/src/EBox/Network.pm:1420
-#: ../../main/network/src/EBox/Network.pm:1509
-#: ../../main/network/src/EBox/Network.pm:1597
-#: ../../main/network/src/EBox/Network.pm:1603
-#: ../../main/network/src/EBox/Network.pm:1930
-#: ../../main/network/src/EBox/Network.pm:2000
-#: ../../main/network/src/EBox/Network.pm:2033
-#: ../../main/network/src/EBox/Network.pm:2060
-#: ../../main/network/src/EBox/Network.pm:2087
-#: ../../main/network/src/EBox/Network.pm:2115
-#: ../../main/network/src/EBox/Network.pm:2177
-#: ../../main/network/src/EBox/Network.pm:2216
-#: ../../main/network/src/EBox/Network.pm:2249
-#: ../../main/network/src/EBox/Network.pm:3382
-#: ../../main/network/src/EBox/Network.pm:3402
-#: ../../main/network/src/EBox/Network.pm:3422
-#: ../../main/network/src/EBox/Network.pm:3443
-#: ../../main/network/src/EBox/Network.pm:3462
-#: ../../main/network/src/EBox/Network.pm:3518
-#: ../../main/network/src/EBox/Network.pm:3539
-#: ../../main/network/src/EBox/Network.pm:3559
-#: ../../main/network/src/EBox/Network.pm:3580
-#: ../../main/network/src/EBox/Network.pm:3603
+#: ../../main/network/src/EBox/Network.pm:1005
+#: ../../main/network/src/EBox/Network.pm:1037
+#: ../../main/network/src/EBox/Network.pm:1111
+#: ../../main/network/src/EBox/Network.pm:1147
+#: ../../main/network/src/EBox/Network.pm:1172
+#: ../../main/network/src/EBox/Network.pm:1256
+#: ../../main/network/src/EBox/Network.pm:1401
+#: ../../main/network/src/EBox/Network.pm:1490
+#: ../../main/network/src/EBox/Network.pm:1578
+#: ../../main/network/src/EBox/Network.pm:1584
+#: ../../main/network/src/EBox/Network.pm:1911
+#: ../../main/network/src/EBox/Network.pm:1981
+#: ../../main/network/src/EBox/Network.pm:2014
+#: ../../main/network/src/EBox/Network.pm:2041
+#: ../../main/network/src/EBox/Network.pm:2068
+#: ../../main/network/src/EBox/Network.pm:2096
+#: ../../main/network/src/EBox/Network.pm:2158
+#: ../../main/network/src/EBox/Network.pm:2197
+#: ../../main/network/src/EBox/Network.pm:2230
+#: ../../main/network/src/EBox/Network.pm:3358
+#: ../../main/network/src/EBox/Network.pm:3378
+#: ../../main/network/src/EBox/Network.pm:3398
+#: ../../main/network/src/EBox/Network.pm:3419
+#: ../../main/network/src/EBox/Network.pm:3438
+#: ../../main/network/src/EBox/Network.pm:3494
+#: ../../main/network/src/EBox/Network.pm:3515
+#: ../../main/network/src/EBox/Network.pm:3535
+#: ../../main/network/src/EBox/Network.pm:3556
+#: ../../main/network/src/EBox/Network.pm:3579
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:498
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:534
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:584
@@ -2834,7 +2830,7 @@ msgstr "Regola contrastante. Rimuovila"
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:772
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:826
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:886
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1302
 #: ../../main/printers/src/EBox/Model/CUPS.pm:148
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
 msgid "Interface"
@@ -3060,13 +3056,11 @@ msgid "You need at least one internal interface and one external interface"
 msgstr "Hai bisogno almeno di un interfaccia interna e un interfaccia esterna"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:176
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
 #, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr "{iface} (interfaccia interna)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:179
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:121
 #, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr "{iface} (interfaccia esterna)"
@@ -3319,9 +3313,9 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:253
 #: ../../main/dns/src/EBox/Model/NameServer.pm:235
 #: ../../main/dns/src/EBox/Model/Text.pm:147
-#: ../../main/network/src/EBox/Network.pm:3625
-#: ../../main/network/src/EBox/Network.pm:3646
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
+#: ../../main/network/src/EBox/Network.pm:3601
+#: ../../main/network/src/EBox/Network.pm:3622
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 #: ../../main/dns/src/templates/edit.mas:20
 msgid "Host name"
 msgstr "Nome host"
@@ -3485,7 +3479,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
-#: ../../main/network/src/EBox/Network.pm:3666
+#: ../../main/network/src/EBox/Network.pm:3642
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 msgid "host name"
 msgstr "nome host"
@@ -3495,7 +3489,7 @@ msgid "Enable transparent DNS cache"
 msgstr "Abilita cache DNS trasparente"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
-#: ../../main/software/src/EBox/Software.pm:628
+#: ../../main/software/src/EBox/Software.pm:634
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/GeneralSettings.pm:52
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:141
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:78
@@ -3846,17 +3840,17 @@ msgstr "Cartelle home degli utenti e cartelle anonime"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:122
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:187
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:262
-#: ../../main/network/src/EBox/Network.pm:934
-#: ../../main/network/src/EBox/Network.pm:939
-#: ../../main/network/src/EBox/Network.pm:1279
-#: ../../main/network/src/EBox/Network.pm:1300
-#: ../../main/network/src/EBox/Network.pm:3384
-#: ../../main/network/src/EBox/Network.pm:3400
-#: ../../main/network/src/EBox/Network.pm:3426
-#: ../../main/network/src/EBox/Network.pm:3583
-#: ../../main/network/src/EBox/Network.pm:3742
+#: ../../main/network/src/EBox/Network.pm:915
+#: ../../main/network/src/EBox/Network.pm:920
+#: ../../main/network/src/EBox/Network.pm:1260
+#: ../../main/network/src/EBox/Network.pm:1281
+#: ../../main/network/src/EBox/Network.pm:3360
+#: ../../main/network/src/EBox/Network.pm:3376
+#: ../../main/network/src/EBox/Network.pm:3402
+#: ../../main/network/src/EBox/Network.pm:3559
+#: ../../main/network/src/EBox/Network.pm:3717
 #: ../../main/network/src/EBox/CGI/VIface.pm:63
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:153
 #: ../../main/network/src/templates/ifaces.mas:119
 #: ../../main/network/src/templates/ifaces.mas:287
@@ -3872,9 +3866,9 @@ msgstr "Intervalli"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:88
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:127
-#: ../../main/network/src/EBox/Network.pm:3736
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1302
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
+#: ../../main/network/src/EBox/Network.pm:3711
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 msgid "MAC address"
 msgstr "Indirizzo MAC"
 
@@ -3971,8 +3965,8 @@ msgstr "Eliminato {nname} dall'oggetto {object}"
 #: ../../main/objects/src/EBox/Objects.pm:394
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
-#: ../../main/network/src/EBox/Network.pm:84
-#: ../../main/network/src/EBox/Network.pm:3802
+#: ../../main/network/src/EBox/Network.pm:80
+#: ../../main/network/src/EBox/Network.pm:3771
 #: ../../main/services/src/EBox/Services.pm:642
 msgid "Network"
 msgstr "Rete"
@@ -3981,18 +3975,18 @@ msgstr "Rete"
 msgid "Software Management"
 msgstr "Gestione software"
 
-#: ../../main/software/src/EBox/Software.pm:443
+#: ../../main/software/src/EBox/Software.pm:449
 msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:445
+#: ../../main/software/src/EBox/Software.pm:451
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:535
+#: ../../main/software/src/EBox/Software.pm:541
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
@@ -4002,15 +3996,15 @@ msgstr ""
 "da interfaccia web.Per disabilitare gli aggiornamenti automatici modifica "
 "{conf} e disabilita la chiave {key} ."
 
-#: ../../main/software/src/EBox/Software.pm:624
+#: ../../main/software/src/EBox/Software.pm:630
 msgid "Zentyal Components"
 msgstr "componenti di Zentyal"
 
-#: ../../main/software/src/EBox/Software.pm:626
+#: ../../main/software/src/EBox/Software.pm:632
 msgid "System Updates"
 msgstr "Aggiornamenti di sistema"
 
-#: ../../main/software/src/EBox/Software.pm:854
+#: ../../main/software/src/EBox/Software.pm:860
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
@@ -4018,28 +4012,28 @@ msgstr ""
 "La gestione del software management è attualmente bloccata da {locker}. "
 "Prego riprova più tardi"
 
-#: ../../main/software/src/EBox/Software.pm:1015
+#: ../../main/software/src/EBox/Software.pm:1021
 #, fuzzy
 msgid "Installation steps"
 msgstr "Installazione"
 
-#: ../../main/software/src/EBox/Software.pm:1017
+#: ../../main/software/src/EBox/Software.pm:1023
 msgid "Package Selection"
 msgstr "Selezione dei pacchetti"
 
-#: ../../main/software/src/EBox/Software.pm:1018
+#: ../../main/software/src/EBox/Software.pm:1024
 msgid "Confirmation"
 msgstr "Conferma"
 
-#: ../../main/software/src/EBox/Software.pm:1019
+#: ../../main/software/src/EBox/Software.pm:1025
 msgid "Installation"
 msgstr "Installazione"
 
-#: ../../main/software/src/EBox/Software.pm:1020
+#: ../../main/software/src/EBox/Software.pm:1026
 msgid "Initial Configuration"
 msgstr "Configurazione iniziale"
 
-#: ../../main/software/src/EBox/Software.pm:1021
+#: ../../main/software/src/EBox/Software.pm:1027
 msgid "Save Changes"
 msgstr "Registra Modifiche"
 
@@ -4048,30 +4042,30 @@ msgstr "Registra Modifiche"
 msgid "Upgrading"
 msgstr "In aggiornamento"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:102
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:103
 msgid "There were no packages to update"
 msgstr "Non ci sono pacchetti da aggiornare"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:176
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 msgid "Installing"
 msgstr "Installando"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:178
 msgid "Installing packages"
 msgstr "Installando pacchetti"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:178
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:203
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/EBox/CGI/Finish.pm:147
 #: ../../main/core/src/templates/report/raid.mas:214
 msgid "Current operation"
 msgstr "Operazione corrente"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:180
 msgid "actions done"
 msgstr "operazioni completate"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:180
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:181
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
@@ -4083,7 +4077,7 @@ msgstr ""
 "attendi che il sistema sia completamente configurato.Sarai rediretto "
 "automaticamente ai passaggi successivi dell'installazione"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:186
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
@@ -4091,19 +4085,19 @@ msgstr ""
 "L'installazione dei pacchetti non è andata a buon fine. Ulteriori "
 "informazioni nei log"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
 msgstr "Rimuovo il pacchetto"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:203
 msgid "Removing the selected package and its dependent packages"
 msgstr "Rimuovo il pacchetto selezionato e le sue dipendenze"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:205
 msgid "packages left to remove"
 msgstr "pacchetti rimasti da rimuovere"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:205
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:206
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -4113,7 +4107,7 @@ msgstr ""
 "amministrazione potrebbe restare congelata per qualche secondo. Per favore "
 "attendere la completa ripartenza del sistema"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:209
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:210
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -4129,7 +4123,7 @@ msgstr "configurazione aggiornamenti automatici"
 msgid "System updates"
 msgstr "Aggiornamenti di sistema"
 
-#: ../../main/software/src/EBox/CGI/Updates.pm:58
+#: ../../main/software/src/EBox/CGI/Updates.pm:59
 msgid "The system components are up to date."
 msgstr "I componenti del sistema sono aggiornati."
 
@@ -4239,7 +4233,7 @@ msgstr "Zentyal deve essere iscritto, per ricaricare il bundle software"
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:322
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:65
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:303
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:90
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:91
 msgid "None"
 msgstr "Nessuno"
 
@@ -4634,7 +4628,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:108
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:94
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:106
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:107
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:115
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:109
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
@@ -4667,19 +4661,19 @@ msgstr "Sottoscrizione alla Zentyal Cloud"
 msgid "Subscribe"
 msgstr "Sottoscrivi"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:546
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:553
 msgid " module"
 msgstr "modulo"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:552
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:559
 msgid " and "
 msgstr "e"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:552
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:559
 msgid " modules"
 msgstr "moduli"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:569
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:576
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:103
 #: ../../main/samba/src/EBox/Samba.pm:1506
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:602
@@ -4700,8 +4694,8 @@ msgstr "moduli"
 msgid "Action"
 msgstr "Azione"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:570
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:591
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:577
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:598
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:67
 msgid "Reason"
@@ -4917,7 +4911,7 @@ msgstr ""
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr "Impossibile connettersi a {host}. Controlla la connessione ad internet"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:874
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:872
 #, perl-brace-format
 msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
@@ -4927,7 +4921,7 @@ msgstr ""
 "firewall della tua rete e se viene effettuata una corretta risoluzione dei "
 "nomi di dominio"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:904
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:902
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -4958,20 +4952,20 @@ msgstr "Non puo essere più lunga di {n} caratteri"
 msgid "Key for disaster recovery service not found"
 msgstr "Chiave per il servizio di backup remoto non trovata"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:195
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:196
 msgid "No ebox-services DNS key found"
 msgstr "Chiave DNS ebox-services non trovata"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:243
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:244
 #, fuzzy, perl-brace-format
 msgid "Server {s} not found via DNS server {d}. Reason: {r}"
 msgstr "Non trovo il server {s} tramite il DNS {d}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:351
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:352
 msgid "Cannot create SOAP connection"
 msgstr "Impossibile creare una connessione SOAP"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:365
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:366
 msgid "No domain key found for this service"
 msgstr "Nessuna chiave di dominio trovata per questo servizio"
 
@@ -5073,8 +5067,8 @@ msgstr "Prego conferma di voler eliminare il seguente backup remoto:"
 #: ../../main/dns/src/templates/edit.mas:55
 #: ../../main/dns/src/templates/edit.mas:93
 #: ../../main/dns/src/templates/edit.mas:94
-#: ../../main/software/src/templates/ebox.mas:632
-#: ../../main/software/src/templates/ebox.mas:661
+#: ../../main/software/src/templates/ebox.mas:640
+#: ../../main/software/src/templates/ebox.mas:669
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:147
 #: ../../main/network/src/templates/ifaces.mas:266
 #: ../../main/network/src/templates/ifaces.mas:267
@@ -5234,7 +5228,7 @@ msgstr "Nome utente"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:57
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1304
 #: ../../main/core/src/EBox/AuditLogging.pm:140
 #: ../../main/dns/src/templates/edit.mas:17
 msgid "IP"
@@ -5475,7 +5469,7 @@ msgid "Month bandwidth usage (MB)"
 msgstr "Restrizioni di banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:116
-#: ../../main/core/src/EBox/SysInfo.pm.in:162
+#: ../../main/core/src/EBox/SysInfo.pm.in:174
 #: ../../main/core/src/templates/datetime.mas:71
 msgid "Time"
 msgstr "Ora"
@@ -6020,59 +6014,59 @@ msgstr "nell'ultimo giorno"
 msgid "File System"
 msgstr "File System"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:596
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:587
 msgid "1 week"
 msgstr "1 settimana"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:600
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:591
 msgid "2 weeks"
 msgstr "2 settimane"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:604
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:595
 msgid "3 weeks"
 msgstr "3 settimane"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:608
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:599
 msgid "1 month"
 msgstr "1 mese"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:612
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:603
 msgid "2 months"
 msgstr "2 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:616
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:607
 msgid "3 months"
 msgstr "3 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:620
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:611
 msgid "4 months"
 msgstr "4 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:624
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:615
 msgid "6 months"
 msgstr "6 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:628
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:619
 msgid "9 months"
 msgstr "9 mesi"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:632
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:623
 msgid "1 year"
 msgstr "1 anno"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:636
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:627
 msgid "1 year and half"
 msgstr "1 anno e mezzo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:640
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:631
 msgid "2 years"
 msgstr "2 anni"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:644
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:635
 msgid "3 years"
 msgstr "3 anni"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:710
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:701
 msgid ""
 "You cannot switch encryption options when there are existent backups with "
 "the original encryption options. You must remove previous backup to change "
@@ -6082,35 +6076,35 @@ msgstr ""
 "con altra opzioni di cifratura.Devi rimuovere i backup precedenti per "
 "cambiare le opzioni di cifratura."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:735
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:726
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr ""
 "La destinazione deve essere nel formato: \"altro.host[:port]/cartella\""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:746
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:762
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:788
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:737
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:753
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:779
 msgid "target"
 msgstr "Obiettivo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:748
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:739
 msgid "Must be a like 'other.host[:port]/some_dir'"
 msgstr "Deve essere nel formato: \"altro.host[:port]/cartella\""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:755
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:797
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:746
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:788
 msgid "host"
 msgstr "host"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:764
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:755
 msgid "Root directory ('/') not allowed in target specification"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:768
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:759
 msgid "directory"
 msgstr "percorso"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:777
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:768
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
@@ -6119,7 +6113,7 @@ msgstr ""
 "rispettare la seguente sintassi: 'altro.host[:porta]/relativo_percorso' "
 "oppure 'altro.host[:porta]/percorso_assoluto'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:791
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:782
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
@@ -6127,29 +6121,29 @@ msgstr ""
 "Deve rispettare la seguente sintassi: 'altro.host[:porta]/relativo_percorso' "
 "oppure 'altro.host[:porta]/percorso_assoluto'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:802
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:793
 msgid "absolute directory"
 msgstr "percorso assoluto"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:804
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:795
 msgid "relative directory"
 msgstr "percorso relativo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:806
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr "Il metodo \"File system\" necessita di un percorso di sistema"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:820
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:824
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:811
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
 msgid "Directory for backup"
 msgstr "Percorso per il backup"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:818
 msgid "File exists and it is not a directory"
 msgstr "Il file esiste e non è una directory"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:841
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:832
 msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
@@ -6157,16 +6151,16 @@ msgstr ""
 "Devi abilitare i backp incrementali quando abiliti una frequenza di backup "
 "\"solo la prima volta\""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:861
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "Il backup incrementale deve essere più frequente del backup completo"
 
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:865
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:874
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:883
 msgid "General backup configuration updated."
 msgstr "Configurazione generale di backup aggiornata."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:875
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:866
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
@@ -6174,7 +6168,7 @@ msgstr ""
 "Metodi di backup o file interessati dai backup modificati; devi salvare le "
 "modifiche e aggiornare la lista di backup"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:885
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:876
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
@@ -6352,7 +6346,7 @@ msgstr ""
 "password siano correti"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1051
-#: ../../main/core/src/EBox/SysInfo.pm.in:354
+#: ../../main/core/src/EBox/SysInfo.pm.in:366
 msgid "System"
 msgstr "Sistema"
 
@@ -6606,28 +6600,9 @@ msgid "Phase 1"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:67
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:113
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:114
 msgid "Authentication"
 msgstr "Autenticazione"
-
-#: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:70
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr ""
-"Avvio il monitoraggio del traffico. Attendi pazientemente finché non appare "
-"il grafico"
-
-#: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:73
-msgid "Stopping traffic rate monitoring"
-msgstr "Interrompo il monitoraggio del traffico"
-
-#: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:86
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr ""
-"Il monitoraggio del traffico viene avviato/interrotto su richiesta senza "
-"necessità di registrare prima le modifiche"
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
@@ -6646,7 +6621,7 @@ msgid "Enable Dynamic DNS"
 msgstr "Abilita il DNS dinamico"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:217
-#: ../../main/core/src/EBox/SysInfo.pm.in:163
+#: ../../main/core/src/EBox/SysInfo.pm.in:175
 msgid "Hostname"
 msgstr "Nome host"
 
@@ -6673,7 +6648,7 @@ msgid "Static Routes List"
 msgstr "Lista route statiche"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:171
-#: ../../main/network/src/EBox/Network.pm:3819
+#: ../../main/network/src/EBox/Network.pm:3788
 msgid "Static Routes"
 msgstr "Route statiche"
 
@@ -6755,47 +6730,6 @@ msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 "I gateway aggiunti automaticamente non possono essere cancellati manualmente"
 
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "Seleziona grafico traffico"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"Vengono mostrate diverse viste in base ai parametri selezionati. A seconda "
-"del tipo di grafico, possono essere richiesti l'indirizzo IP di un host ed "
-"un servizio, che devono corrispondere al testo sulla legenda del grafico in "
-"base al file /etc/services. La vista del flusso verrà modificata di "
-"conseguenza"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "Tipo grafico"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "Tutto il traffico attivo per sorgente"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "Tutto il traffico attivo per servizio"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "Traffico per sorgente selezionata"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "Traffico per servizio selezionato"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "Traffico per sorgente e servizio"
-
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
 msgstr "Bilanciamento traffico"
@@ -6844,23 +6778,6 @@ msgstr ""
 "<p>Qui puoi aggiungere i name server resolvers che Zentyal userà.</p><p>Nota "
 "che queste impostazioni possono essere prevalicate se hai altre interfacce "
 "configurate via DHCP</p>"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:79
-msgid "Interface to listen"
-msgstr "Interfaccia da ascoltare"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:88
-msgid "Traffic rate monitor settings"
-msgstr "Impostazioni monitoraggio traffico"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:92
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr ""
-"Le modifiche verranno applicate immediatamente al monitoraggio del traffico"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:128
-msgid "all"
-msgstr "tutte"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:77
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:134
@@ -6979,11 +6896,11 @@ msgstr ""
 msgid "Invalid value for Host"
 msgstr "Valore non valido per l'host"
 
-#: ../../main/network/src/EBox/Network.pm:101
+#: ../../main/network/src/EBox/Network.pm:97
 msgid "Add default routers to the default table"
 msgstr "Aggiungi router di default a tabella di default"
 
-#: ../../main/network/src/EBox/Network.pm:102
+#: ../../main/network/src/EBox/Network.pm:98
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
@@ -6991,11 +6908,11 @@ msgstr ""
 "Questo è necessario per lavorare in configurazione multigateway. Nota che "
 "per elencare le routes di default devi eseguire:"
 
-#: ../../main/network/src/EBox/Network.pm:108
+#: ../../main/network/src/EBox/Network.pm:104
 msgid "Enable Zentyal DHCP hook"
 msgstr "Abilita DHCP hook di Zentyal"
 
-#: ../../main/network/src/EBox/Network.pm:109
+#: ../../main/network/src/EBox/Network.pm:105
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
@@ -7003,71 +6920,71 @@ msgstr ""
 "Si occuperà di aggiungere la route di default data da un server DHCP nella "
 "tabella delle route di default"
 
-#: ../../main/network/src/EBox/Network.pm:127
+#: ../../main/network/src/EBox/Network.pm:123
 msgid "Zentyal will set your network configuration"
 msgstr "Zentyal imposterà la configurazione di rete"
 
-#: ../../main/network/src/EBox/Network.pm:132
+#: ../../main/network/src/EBox/Network.pm:128
 msgid "Zentyal will set your DNS configuration"
 msgstr "Zentyal configurera' i DNS"
 
-#: ../../main/network/src/EBox/Network.pm:137
+#: ../../main/network/src/EBox/Network.pm:133
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "Zentyal imposterà la configurazione del client DHCP"
 
-#: ../../main/network/src/EBox/Network.pm:142
-#: ../../main/network/src/EBox/Network.pm:147
+#: ../../main/network/src/EBox/Network.pm:138
+#: ../../main/network/src/EBox/Network.pm:143
 msgid "Zentyal will set your ddclient configuration"
 msgstr "Zentyal imposterà la configurazione del ddclient "
 
-#: ../../main/network/src/EBox/Network.pm:152
-#: ../../main/network/src/EBox/Network.pm:157
+#: ../../main/network/src/EBox/Network.pm:148
+#: ../../main/network/src/EBox/Network.pm:153
 msgid "Zentyal will store your PPPoE passwords"
 msgstr "Zentyal salverà le tue password PPPoE"
 
-#: ../../main/network/src/EBox/Network.pm:164
+#: ../../main/network/src/EBox/Network.pm:160
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
 msgstr "Zentyal aggiungerà la configurazione PPPoE del tuo provider"
 
-#: ../../main/network/src/EBox/Network.pm:171
+#: ../../main/network/src/EBox/Network.pm:167
 msgid "Zentyal will set HTTP proxy for all users"
 msgstr "Zentyal configurera' il proxy HTTP per tutti gli utenti"
 
-#: ../../main/network/src/EBox/Network.pm:174
+#: ../../main/network/src/EBox/Network.pm:170
 msgid "Zentyal will set HTTP proxy for APT"
 msgstr "Zentyal configurera' il proxy HTTP per APT"
 
-#: ../../main/network/src/EBox/Network.pm:931
-#: ../../main/network/src/EBox/Network.pm:935
+#: ../../main/network/src/EBox/Network.pm:912
+#: ../../main/network/src/EBox/Network.pm:916
 msgid "Virtual interface name"
 msgstr "Nome interfaccia virtuale"
 
-#: ../../main/network/src/EBox/Network.pm:934
-#: ../../main/network/src/EBox/Network.pm:1279
-#: ../../main/network/src/EBox/Network.pm:3384
+#: ../../main/network/src/EBox/Network.pm:915
+#: ../../main/network/src/EBox/Network.pm:1260
+#: ../../main/network/src/EBox/Network.pm:3360
 #: ../../main/network/src/templates/ifaces.mas:132
 #: ../../main/network/src/templates/ifaces.mas:288
 #: ../../main/network/src/templates/Wizard/network.mas:65
 msgid "Netmask"
 msgstr "Maschera di rete"
 
-#: ../../main/network/src/EBox/Network.pm:1092
+#: ../../main/network/src/EBox/Network.pm:1073
 #, perl-brace-format
 msgid "There is already an interface called {al}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1104
+#: ../../main/network/src/EBox/Network.pm:1085
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1514
+#: ../../main/network/src/EBox/Network.pm:1495
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 "Questa interfaccia non può essere messa in modalità trunk, è un'interfaccia "
 "vlan."
 
-#: ../../main/network/src/EBox/Network.pm:1569
+#: ../../main/network/src/EBox/Network.pm:1550
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -7076,21 +6993,21 @@ msgstr ""
 "configurazioni di interfacce vlan associate prima di modificarne la modalità "
 "di configurazione."
 
-#: ../../main/network/src/EBox/Network.pm:1697
-#: ../../main/network/src/EBox/Network.pm:1726
+#: ../../main/network/src/EBox/Network.pm:1678
+#: ../../main/network/src/EBox/Network.pm:1707
 #: ../../main/network/src/EBox/CGI/Vlan.pm:42
 #: ../../main/network/src/templates/ifaces.mas:229
 msgid "VLAN Id"
 msgstr "Id VLAN"
 
-#: ../../main/network/src/EBox/Network.pm:1706
+#: ../../main/network/src/EBox/Network.pm:1687
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 "Le interfacce di rete devono essere in modalità trunk prima di aggiungervi "
 "vlan."
 
-#: ../../main/network/src/EBox/Network.pm:3274
+#: ../../main/network/src/EBox/Network.pm:3250
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -7098,13 +7015,13 @@ msgstr ""
 "L'operazione richiesta renderà uno dei router configurati non raggiungibile. "
 "Prego rimuovilo prima se desideri realmente effettuare questa modifica."
 
-#: ../../main/network/src/EBox/Network.pm:3339
+#: ../../main/network/src/EBox/Network.pm:3315
 #: ../../main/network/src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "Gateway {gw} non raggiungibile"
 
-#: ../../main/network/src/EBox/Network.pm:3342
+#: ../../main/network/src/EBox/Network.pm:3318
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -7113,33 +7030,32 @@ msgstr ""
 "Il gateway {gw} deve essere raggiungibile da un'interfaccia statica. "
 "Attualmente è raggiungibile da {iface} che non è statica"
 
-#: ../../main/network/src/EBox/Network.pm:3701
+#: ../../main/network/src/EBox/Network.pm:3677
 msgid "down"
 msgstr "giù"
 
-#: ../../main/network/src/EBox/Network.pm:3707
+#: ../../main/network/src/EBox/Network.pm:3682
 #: ../../main/core/src/templates/report/raid.mas:232
 msgid "up"
 msgstr "su"
 
-#: ../../main/network/src/EBox/Network.pm:3712
+#: ../../main/network/src/EBox/Network.pm:3687
 msgid "external"
 msgstr "esterna"
 
-#: ../../main/network/src/EBox/Network.pm:3714
+#: ../../main/network/src/EBox/Network.pm:3689
 msgid "internal"
 msgstr "interna"
 
-#: ../../main/network/src/EBox/Network.pm:3720
+#: ../../main/network/src/EBox/Network.pm:3695
 msgid "link ok"
 msgstr "collegamento ok"
 
-#: ../../main/network/src/EBox/Network.pm:3722
+#: ../../main/network/src/EBox/Network.pm:3697
 msgid "no link"
 msgstr "nessun collegamento"
 
-#: ../../main/network/src/EBox/Network.pm:3731
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:136
+#: ../../main/network/src/EBox/Network.pm:3706
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:130
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
@@ -7152,34 +7068,34 @@ msgstr "nessun collegamento"
 msgid "Status"
 msgstr "Stato"
 
-#: ../../main/network/src/EBox/Network.pm:3757
+#: ../../main/network/src/EBox/Network.pm:3732
 msgid "Tx bytes"
 msgstr "Tx bytes"
 
-#: ../../main/network/src/EBox/Network.pm:3767
+#: ../../main/network/src/EBox/Network.pm:3742
 msgid "Rx bytes"
 msgstr "Rx bytes"
 
-#: ../../main/network/src/EBox/Network.pm:3784
+#: ../../main/network/src/EBox/Network.pm:3753
 #: ../../main/network/src/EBox/CGI/Ifaces.pm:29
 msgid "Network Interfaces"
 msgstr "Interfacce di rete"
 
-#: ../../main/network/src/EBox/Network.pm:3807
+#: ../../main/network/src/EBox/Network.pm:3776
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:131
 msgid "Interfaces"
 msgstr "Interfacce"
 
-#: ../../main/network/src/EBox/Network.pm:3811
+#: ../../main/network/src/EBox/Network.pm:3780
 msgid "Gateways"
 msgstr "Gateway"
 
-#: ../../main/network/src/EBox/Network.pm:3823
+#: ../../main/network/src/EBox/Network.pm:3792
 #, fuzzy
 msgid "Dynamic DNS"
 msgstr "Dinamico"
 
-#: ../../main/network/src/EBox/Network.pm:3827
+#: ../../main/network/src/EBox/Network.pm:3796
 msgid "Diagnostic Tools"
 msgstr "Utilità di diagnostica"
 
@@ -7214,11 +7130,6 @@ msgstr "Gateway e proxy"
 msgid "Domain Name Server Resolver"
 msgstr "Name server resolver"
 
-#: ../../main/network/src/EBox/Network/Composite/ByteRate.pm:73
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:134
-msgid "Traffic rate monitoring"
-msgstr "Monitoraggio livelli di traffico"
-
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:61
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:400
 msgid "WAN Failover"
@@ -7239,86 +7150,6 @@ msgid ""
 msgstr ""
 "L'evento WAN Failover non è abilitato. Devi abilitarlo per usare questa "
 "parte."
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:756
-msgid "bytes/second"
-msgstr "byte/secondo"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:823
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:929
-msgid "Traffic data for source"
-msgstr "Dati di traffico per sorgente"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:843
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr "Traffic di rete da {src}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:877
-msgid "Traffic data not found for service"
-msgstr "Dati di traffico non trovati per servizio"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:887
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr "Traffico di rete per {service}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:937
-msgid "Traffic data for service"
-msgstr "Dati di traffico per servizio"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:946
-msgid "Traffic data not found for source and service pair"
-msgstr "Dati di traffico non trovati per sorgente e servizio"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:948
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr "sorgente {src} e servizio {service}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:962
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr "Traffico di rete dalla sorgente {src} e per il servizio {service}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:989
-msgid "All active services"
-msgstr "Tutti i servizi attivi"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:994
-msgid "Traffic data for "
-msgstr "Dati di traffico per"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:995
-msgid "all services"
-msgstr "tutti i servizi"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1040
-msgid "All active sources"
-msgstr "Tutti i servizi attivi"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1045
-msgid "Traffic data for"
-msgstr "Dati di traffico per"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1046
-msgid "all sources"
-msgstr "tutte le sorgenti"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1084
-#, perl-brace-format
-msgid "Total traffic rate from {src}"
-msgstr "Traffico totale da {src}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1099
-#, perl-brace-format
-msgid "Total traffic rate for {service}"
-msgstr "Traffico totale per {service}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1123
-#, perl-brace-format
-msgid "Traffic rate from {src} for {service}"
-msgstr "Traffico totale da {src} per {service}"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:155
 #, fuzzy, perl-brace-format
@@ -8208,7 +8039,7 @@ msgstr ""
 "rimuovilo prima di provare ad aggiungere un'interfaccia virtuale che lo "
 "utilizzi."
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1128
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1129
 #, fuzzy, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -8221,19 +8052,19 @@ msgstr ""
 "Prego rimuovilo prima di provare ad aggiungere un'interfaccia virtuale che "
 "lo utilizzi."
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1307
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1308
 msgid "Leased"
 msgstr "Assegnato"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1307
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1308
 msgid "Released"
 msgstr "Rilasciato"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1310
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1311
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1397
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1398
 msgid "DHCP leases"
 msgstr "Leases DHCP"
 
@@ -8259,7 +8090,7 @@ msgstr "{daemon} file di configurazione di default"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:155
 #: ../../main/core/src/EBox/Logs.pm:702
-#: ../../main/core/src/EBox/SysInfo.pm.in:372
+#: ../../main/core/src/EBox/SysInfo.pm.in:384
 #: ../../main/core/src/EBox/Events.pm:151
 #, fuzzy
 msgid "Maintenance"
@@ -8584,7 +8415,7 @@ msgid "used"
 msgstr "usato"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:55
-#: ../../main/core/src/EBox/SysInfo.pm.in:167
+#: ../../main/core/src/EBox/SysInfo.pm.in:179
 msgid "System load"
 msgstr "Carico del sistema"
 
@@ -9055,8 +8886,8 @@ msgid "Maximum password age"
 msgstr "Massima scadenza password"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:115
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:209
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:228
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:210
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:229
 msgid "days"
 msgstr "giorni"
 
@@ -10602,7 +10433,7 @@ msgid "Same user and password than IMAP"
 msgstr "Stesso utente e password dell'IMAP"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:109
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:94
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:95
 msgid "User and password"
 msgstr "Utente e password"
 
@@ -11865,30 +11696,35 @@ msgstr "disponibile"
 msgid "No updates"
 msgstr "aggiorna"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:144
+#: ../../main/core/src/EBox/SysInfo.pm.in:145
 #, fuzzy, perl-brace-format
 msgid "{n} security updates"
 msgstr "Aggiornamento di sicurezza"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:147
+#: ../../main/core/src/EBox/SysInfo.pm.in:148
 #, fuzzy, perl-brace-format
 msgid "{n} system updates"
 msgstr "Aggiornamenti di sistema"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:164
+#: ../../main/core/src/EBox/SysInfo.pm.in:153
+#, fuzzy, perl-brace-format
+msgid "{n} component updates"
+msgstr "Aggiornamento di sicurezza"
+
+#: ../../main/core/src/EBox/SysInfo.pm.in:176
 msgid "Core version"
 msgstr "Versione core"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:165
+#: ../../main/core/src/EBox/SysInfo.pm.in:177
 #, fuzzy
 msgid "Software"
 msgstr "Software HTTP"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:168
+#: ../../main/core/src/EBox/SysInfo.pm.in:180
 msgid "Uptime"
 msgstr "Tempo di uptime"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:169
+#: ../../main/core/src/EBox/SysInfo.pm.in:181
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2583
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2591
@@ -11900,43 +11736,43 @@ msgstr "Tempo di uptime"
 msgid "Users"
 msgstr "Utenti"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:223
-#: ../../main/core/src/EBox/SysInfo.pm.in:348
+#: ../../main/core/src/EBox/SysInfo.pm.in:235
+#: ../../main/core/src/EBox/SysInfo.pm.in:360
 msgid "Module Status"
 msgstr "Stato Moduli"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:229
+#: ../../main/core/src/EBox/SysInfo.pm.in:241
 msgid "General Information"
 msgstr "Informazioni generali"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:235
+#: ../../main/core/src/EBox/SysInfo.pm.in:247
 msgid "Process List"
 msgstr "Elenco processi"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:242
+#: ../../main/core/src/EBox/SysInfo.pm.in:254
 msgid "Resources & Services"
 msgstr "Risorse e servizi"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:343
+#: ../../main/core/src/EBox/SysInfo.pm.in:355
 #: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:38
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:363
+#: ../../main/core/src/EBox/SysInfo.pm.in:375
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:34
 msgid "Import/Export Configuration"
 msgstr "Importa/Esporta configurazione"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:367
+#: ../../main/core/src/EBox/SysInfo.pm.in:379
 msgid "Halt/Reboot"
 msgstr "Spegni/Riavvia"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:378
+#: ../../main/core/src/EBox/SysInfo.pm.in:390
 #: ../../main/core/src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "Utilizzo Disco"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:382
+#: ../../main/core/src/EBox/SysInfo.pm.in:394
 msgid "RAID"
 msgstr "RAID"
 
@@ -12308,26 +12144,26 @@ msgstr "difettoso"
 msgid "spare"
 msgstr "riserva"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:174
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:181
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:187
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:194
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:224
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:231
 #, fuzzy
 msgid "Security software updates"
 msgstr "Aggiornamenti software automatici"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:239
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:246
 msgid "Check if there is any security software update."
 msgstr ""
 
@@ -13150,7 +12986,7 @@ msgid "none"
 msgstr "nessuno"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:160
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:133
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:134
 msgid "custom"
 msgstr "personalizzato"
 
@@ -13481,47 +13317,47 @@ msgstr ""
 "Non ci sono oggetti di rete nel sistema. Puoi crearne nella {openurl}pagina "
 "dell'Oggetto{closeurl}"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:73
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
 msgstr "Smarthost per l'invio della posta"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:76
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:77
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr "Il formato è host[:porta], la porta di default è la 25"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:82
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:83
 msgid "Smarthost authentication"
 msgstr "Autenticazione smarthost"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:125
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:126
 msgid "Server mailname"
 msgstr "Nome mail server"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:129
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:130
 msgid "FQDN hostname"
 msgstr "Nome host FQDN"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:141
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:142
 msgid "Postmaster address"
 msgstr "Indirizzo postmaster"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:143
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:144
 msgid "Address used to report mail problems"
 msgstr "Indirizzo email usato per segnalare problemi di posta"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:147
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:148
 msgid "Local root account"
 msgstr "Account root locale"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:151
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:152
 msgid "Custom address"
 msgstr "Indirizzo personalizzato"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:159
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:160
 msgid "Maximum mailbox size allowed"
 msgstr "Dimensione massima della casella di posta"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:161
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:162
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
@@ -13530,65 +13366,65 @@ msgstr ""
 "successivi saranno respinti. Questa impostazione può essere sovrascritta "
 "nelle impostazioni dell'account"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:165
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:184
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:166
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:185
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:81
 #: ../../main/mail/src/templates/createaccount.mas:71
 msgid "Unlimited size"
 msgstr "Dimensioni illimitate"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:169
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:188
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:170
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:189
 msgid "limited to"
 msgstr "Limitata a"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:180
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:181
 msgid "Maximum message size accepted"
 msgstr "Dimensione massima del singolo messaggio"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:200
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:201
 msgid "Expiration period for deleted mails"
 msgstr "Periodo di scadenza per i messaggi eliminati"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:204
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:223
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:205
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:224
 msgid "Never"
 msgstr "Mai"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:208
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:227
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:209
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:228
 msgid "expired in"
 msgstr "scade in"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:219
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:220
 msgid "Expiration period for spam mails"
 msgstr "Periodo di scadenza per i messaggi spam"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:238
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:239
 #, fuzzy
 msgid "Period for polling external mail accounts"
 msgstr "account di posta esterno"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:239
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:240
 #, fuzzy
 msgid "minutes"
 msgstr "Minuti"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:249
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:250
 #: ../../main/core/src/templates/report/diskUsage.mas:31
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:365
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:369
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:366
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:370
 msgid "Smarthost's address"
 msgstr "Indirizzo dello smarthost"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:366
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:367
 msgid "Smarthost's port"
 msgstr "Porta dello smarthost"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:444
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
@@ -13596,11 +13432,11 @@ msgstr ""
 "Il nome posta è impostato al nome host del server e quest'ultimo non è fully "
 "qualified."
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:448
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:456
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr "Il nome posta selezionato non è un nome host fully qualified."
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:460
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
@@ -15388,25 +15224,34 @@ msgstr "elimina"
 msgid "Host list for domain {domain}"
 msgstr "Lista di host per il dominio {domain}"
 
-#: ../../main/software/src/templates/ebox.mas:181
-#: ../../main/software/src/templates/ebox.mas:625
-#: ../../main/software/src/templates/ebox.mas:649
+#: ../../main/software/src/templates/ebox.mas:189
+#: ../../main/software/src/templates/ebox.mas:633
+#: ../../main/software/src/templates/ebox.mas:657
 #: ../../main/software/src/templates/updates.mas:46
 msgid "Update"
 msgstr "Aggiornamento"
 
-#: ../../main/software/src/templates/ebox.mas:187
-#: ../../main/software/src/templates/ebox.mas:594
-#: ../../main/software/src/templates/ebox.mas:640
+#: ../../main/software/src/templates/ebox.mas:195
+#: ../../main/software/src/templates/ebox.mas:602
+#: ../../main/software/src/templates/ebox.mas:626
+#: ../../main/software/src/templates/ebox.mas:648
 msgid "Install"
 msgstr "Installa"
 
-#: ../../main/software/src/templates/ebox.mas:210
+#: ../../main/software/src/templates/ebox.mas:197
+#: ../../main/software/src/templates/ebox.mas:697
+#: ../../main/software/src/templates/ebox.mas:722
+#: ../../main/software/src/templates/ebox.mas:725
+#, fuzzy
+msgid "Installed Version"
+msgstr "Installazione"
+
+#: ../../main/software/src/templates/ebox.mas:218
 #: ../../main/software/src/templates/updates.mas:21
 msgid "Package list updated successfully"
 msgstr "Lista pacchetti aggiornata con successo"
 
-#: ../../main/software/src/templates/ebox.mas:214
+#: ../../main/software/src/templates/ebox.mas:222
 #: ../../main/software/src/templates/updates.mas:25
 msgid ""
 "Error updating package list. Please try to execute the following command in "
@@ -15416,7 +15261,7 @@ msgstr ""
 "seguente comando in una console per controllare quale sia il problema: sudo "
 "apt-get update"
 
-#: ../../main/software/src/templates/ebox.mas:221
+#: ../../main/software/src/templates/ebox.mas:229
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
@@ -15424,17 +15269,25 @@ msgstr ""
 "I seguenti pacchetti non sono correttamente installati.Devi risolvere questa "
 "situazione prima di usarli o installare nuovi moduli."
 
-#: ../../main/software/src/templates/ebox.mas:228
+#: ../../main/software/src/templates/ebox.mas:236
+#: ../../main/software/src/templates/ebox.mas:691
+#: ../../main/software/src/templates/ebox.mas:694
+#: ../../main/software/src/templates/ebox.mas:699
+#: ../../main/software/src/templates/ebox.mas:715
+#: ../../main/software/src/templates/ebox.mas:724
+#: ../../main/software/src/templates/ebox.mas:763
+#: ../../main/software/src/templates/ebox.mas:764
+#: ../../main/software/src/templates/ebox.mas:765
 #: ../../main/software/src/templates/updates.mas:43
 msgid "Component"
 msgstr "Componente"
 
-#: ../../main/software/src/templates/ebox.mas:230
+#: ../../main/software/src/templates/ebox.mas:238
 #: ../../main/software/src/templates/updates.mas:45
 msgid "Version"
 msgstr "Versione"
 
-#: ../../main/software/src/templates/ebox.mas:244
+#: ../../main/software/src/templates/ebox.mas:252
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
@@ -15442,35 +15295,82 @@ msgstr ""
 "Per risolvere questa situazione, prova a eseguire il seguente comando "
 "all'interno di una console:"
 
-#: ../../main/software/src/templates/ebox.mas:258
+#: ../../main/software/src/templates/ebox.mas:266
 msgid "View advanced mode"
 msgstr "Visualizza modalità Esperto"
 
-#: ../../main/software/src/templates/ebox.mas:596
+#: ../../main/software/src/templates/ebox.mas:604
 msgid "Skip install"
 msgstr "Tralascia installazione"
 
-#: ../../main/software/src/templates/ebox.mas:614
+#: ../../main/software/src/templates/ebox.mas:622
 msgid "View basic mode"
 msgstr "Visualizza modalita normale"
 
-#: ../../main/software/src/templates/ebox.mas:641
-#: ../../main/software/src/templates/ebox.mas:650
+#: ../../main/software/src/templates/ebox.mas:649
+#: ../../main/software/src/templates/ebox.mas:658
 #: ../../main/software/src/templates/updates.mas:108
 msgid "Update list"
 msgstr "Aggiorna lista"
 
-#: ../../main/software/src/templates/ebox.mas:642
-#: ../../main/software/src/templates/ebox.mas:651
-#: ../../main/software/src/templates/ebox.mas:662
+#: ../../main/software/src/templates/ebox.mas:650
+#: ../../main/software/src/templates/ebox.mas:659
+#: ../../main/software/src/templates/ebox.mas:670
 msgid "Deselect All"
 msgstr "Deseleziona tutto"
 
-#: ../../main/software/src/templates/ebox.mas:643
-#: ../../main/software/src/templates/ebox.mas:652
-#: ../../main/software/src/templates/ebox.mas:663
+#: ../../main/software/src/templates/ebox.mas:651
+#: ../../main/software/src/templates/ebox.mas:660
+#: ../../main/software/src/templates/ebox.mas:671
 msgid "Select All"
 msgstr "Seleziona tutto"
+
+#: ../../main/software/src/templates/ebox.mas:700
+#: ../../main/software/src/templates/ebox.mas:716
+#: ../../main/software/src/templates/ebox.mas:726
+#, fuzzy
+msgid "Latest Version"
+msgstr "Versione"
+
+#: ../../main/software/src/templates/ebox.mas:703
+#: ../../main/software/src/templates/ebox.mas:705
+#: ../../main/software/src/templates/ebox.mas:707
+#: ../../main/software/src/templates/ebox.mas:717
+#: ../../main/software/src/templates/ebox.mas:727
+#: ../../main/software/src/templates/ebox.mas:748
+#: ../../main/software/src/templates/ebox.mas:750
+#: ../../main/software/src/templates/ebox.mas:752
+#, fuzzy
+msgid "Select"
+msgstr "Seleziona tutto"
+
+#: ../../main/software/src/templates/ebox.mas:735
+#, fuzzy
+msgid "Loading"
+msgstr "Regole di inoltro"
+
+#: ../../main/software/src/templates/ebox.mas:736
+#, fuzzy
+msgid "No packages found"
+msgstr "Non trovato"
+
+#: ../../main/software/src/templates/ebox.mas:739
+#: ../../main/core/src/templates/ajax/tableBody.mas:211
+#: ../../main/core/src/templates/ajax/tableModalView.mas:234
+#: ../../main/core/src/templates/logs/index.mas:202
+#: ../../main/core/src/templates/logs/index.mas:203
+msgid "Search"
+msgstr "Cerca"
+
+#: ../../main/software/src/templates/ebox.mas:741
+#: ../../main/core/src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr "di"
+
+#: ../../main/software/src/templates/ebox.mas:742
+#, fuzzy
+msgid "pages"
+msgstr "pagina"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -15804,15 +15704,17 @@ msgid "Network interfaces"
 msgstr "Interfacce di rete"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:10
-msgid "Select external network interfaces"
-msgstr "Seleziona l'interfaccia di rete per le connessioni esterne"
+#, fuzzy
+msgid "Configure interface types"
+msgstr "Interfacce di rete"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:11
 msgid ""
-"You will not be able to connect to Zentyal administration page through them"
+"External interfaces connect to networks that are not under you control "
+"(tipically the Internet), traffic coming from external networks is not "
+"trusted by default, thus, you will not be able to connect to Zentyal "
+"administration page through them"
 msgstr ""
-"Non sarai in grado di connetterti all'interfaccia di amministrazione di "
-"Zentyal attraverso di esse"
 
 #: ../../main/network/src/templates/Wizard/network.mas:34
 msgid "Configure network for external interfaces"
@@ -16309,10 +16211,6 @@ msgstr "Modalità di ripristino"
 msgid "Page"
 msgstr "Pagina"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr "di"
-
 #: ../../main/core/src/templates/ajax/tablePager.mas:60
 #: ../../main/core/src/templates/ajax/tablePager.mas:66
 #: ../../main/core/src/templates/logs/dbtable.mas:86
@@ -16381,13 +16279,6 @@ msgstr "Aggiungo un nuovo {row}"
 #, perl-brace-format
 msgid "Editing {row}"
 msgstr "Modifico {row}"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:211
-#: ../../main/core/src/templates/ajax/tableModalView.mas:234
-#: ../../main/core/src/templates/logs/index.mas:202
-#: ../../main/core/src/templates/logs/index.mas:203
-msgid "Search"
-msgstr "Cerca"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:471
 #: ../../main/core/src/templates/ajax/tableModalView.mas:476
@@ -17316,6 +17207,136 @@ msgid ""
 msgstr ""
 "Questa operazione causerà l'eliminazione dell'utente e di tutti i dati "
 "correlati come account di mail, file personali, ecc."
+
+#~ msgid ""
+#~ "Starting traffic rate monitoring. Wait patiently until the graph appears"
+#~ msgstr ""
+#~ "Avvio il monitoraggio del traffico. Attendi pazientemente finché non "
+#~ "appare il grafico"
+
+#~ msgid "Stopping traffic rate monitoring"
+#~ msgstr "Interrompo il monitoraggio del traffico"
+
+#~ msgid ""
+#~ "The traffic rate monitor is start/stop on demand without requiring to "
+#~ "save changes first"
+#~ msgstr ""
+#~ "Il monitoraggio del traffico viene avviato/interrotto su richiesta senza "
+#~ "necessità di registrare prima le modifiche"
+
+#~ msgid "Select traffic graphic"
+#~ msgstr "Seleziona grafico traffico"
+
+#~ msgid ""
+#~ "Several views are showed depending on the parameter selection. An host IP "
+#~ "address and a service, which must match the text given by the graphs "
+#~ "legend based on /etc/services, may be required by the graph type. The "
+#~ "flow view will change accordingly"
+#~ msgstr ""
+#~ "Vengono mostrate diverse viste in base ai parametri selezionati. A "
+#~ "seconda del tipo di grafico, possono essere richiesti l'indirizzo IP di "
+#~ "un host ed un servizio, che devono corrispondere al testo sulla legenda "
+#~ "del grafico in base al file /etc/services. La vista del flusso verrà "
+#~ "modificata di conseguenza"
+
+#~ msgid "Graph type"
+#~ msgstr "Tipo grafico"
+
+#~ msgid "All active traffic by source"
+#~ msgstr "Tutto il traffico attivo per sorgente"
+
+#~ msgid "All active traffic by service"
+#~ msgstr "Tutto il traffico attivo per servizio"
+
+#~ msgid "Traffic by selected source"
+#~ msgstr "Traffico per sorgente selezionata"
+
+#~ msgid "Traffic by selected service"
+#~ msgstr "Traffico per servizio selezionato"
+
+#~ msgid "Traffic by source and service"
+#~ msgstr "Traffico per sorgente e servizio"
+
+#~ msgid "Interface to listen"
+#~ msgstr "Interfaccia da ascoltare"
+
+#~ msgid "Traffic rate monitor settings"
+#~ msgstr "Impostazioni monitoraggio traffico"
+
+#~ msgid "Changes will be applied immediately to the traffic rate monitor"
+#~ msgstr ""
+#~ "Le modifiche verranno applicate immediatamente al monitoraggio del "
+#~ "traffico"
+
+#~ msgid "all"
+#~ msgstr "tutte"
+
+#~ msgid "Traffic rate monitoring"
+#~ msgstr "Monitoraggio livelli di traffico"
+
+#~ msgid "bytes/second"
+#~ msgstr "byte/secondo"
+
+#~ msgid "Traffic data for source"
+#~ msgstr "Dati di traffico per sorgente"
+
+#~ msgid "Network traffic from {src}"
+#~ msgstr "Traffic di rete da {src}"
+
+#~ msgid "Traffic data not found for service"
+#~ msgstr "Dati di traffico non trovati per servizio"
+
+#~ msgid "Network traffic for {service}"
+#~ msgstr "Traffico di rete per {service}"
+
+#~ msgid "Traffic data for service"
+#~ msgstr "Dati di traffico per servizio"
+
+#~ msgid "Traffic data not found for source and service pair"
+#~ msgstr "Dati di traffico non trovati per sorgente e servizio"
+
+#~ msgid "source {src} and service {service}"
+#~ msgstr "sorgente {src} e servizio {service}"
+
+#~ msgid "Network traffic from source {src} and for service {service}"
+#~ msgstr "Traffico di rete dalla sorgente {src} e per il servizio {service}"
+
+#~ msgid "All active services"
+#~ msgstr "Tutti i servizi attivi"
+
+#~ msgid "Traffic data for "
+#~ msgstr "Dati di traffico per"
+
+#~ msgid "all services"
+#~ msgstr "tutti i servizi"
+
+#~ msgid "All active sources"
+#~ msgstr "Tutti i servizi attivi"
+
+#~ msgid "Traffic data for"
+#~ msgstr "Dati di traffico per"
+
+#~ msgid "all sources"
+#~ msgstr "tutte le sorgenti"
+
+#~ msgid "Total traffic rate from {src}"
+#~ msgstr "Traffico totale da {src}"
+
+#~ msgid "Total traffic rate for {service}"
+#~ msgstr "Traffico totale per {service}"
+
+#~ msgid "Traffic rate from {src} for {service}"
+#~ msgstr "Traffico totale da {src} per {service}"
+
+#~ msgid "Select external network interfaces"
+#~ msgstr "Seleziona l'interfaccia di rete per le connessioni esterne"
+
+#~ msgid ""
+#~ "You will not be able to connect to Zentyal administration page through "
+#~ "them"
+#~ msgstr ""
+#~ "Non sarai in grado di connetterti all'interfaccia di amministrazione di "
+#~ "Zentyal attraverso di esse"
 
 #~ msgid "Welcome"
 #~ msgstr "Benvenuto"

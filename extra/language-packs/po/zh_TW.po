@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-22 23:38+0200\n"
+"POT-Creation-Date: 2011-08-29 19:04+0200\n"
 "PO-Revision-Date: 2009-08-04 06:08+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -60,7 +60,7 @@ msgstr "請求"
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:109
 #: ../../main/core/src/EBox/AuditLogging.pm:139
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:100
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:101
 #: ../../main/radius/src/EBox/Radius.pm:392
 #: ../../main/asterisk/src/EBox/Asterisk.pm:586
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
@@ -110,7 +110,7 @@ msgstr "已過濾的流量大小 (Kb)"
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1300
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
 #: ../../main/printers/src/EBox/Printers.pm:299
 #: ../../main/samba/src/EBox/Samba.pm:1503
 #: ../../main/samba/src/EBox/Samba.pm:1523
@@ -384,7 +384,6 @@ msgstr "一般設定值 "
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:95
 #, fuzzy
 msgid "Settings changed"
 msgstr ""
@@ -575,7 +574,7 @@ msgid "Categories"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:590
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:597
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
 msgid "File"
 msgstr "檔案"
@@ -1597,7 +1596,7 @@ msgstr ""
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/ca/src/EBox/CA.pm:1750
-#: ../../main/core/src/EBox/SysInfo.pm.in:359
+#: ../../main/core/src/EBox/SysInfo.pm.in:371
 #: ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/asterisk/src/EBox/Asterisk.pm:553
 msgid "General"
@@ -1636,7 +1635,7 @@ msgstr "Mime/類型"
 
 #: ../../main/squid/src/EBox/Squid.pm:1180
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1304
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1305
 #: ../../main/printers/src/EBox/Printers.pm:300
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:650
@@ -2212,7 +2211,6 @@ msgstr "伺服器 {name}"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:177
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:374
 #: ../../main/network/src/EBox/Model/DynDNS.pm:199
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:117
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:163
 #: ../../main/ca/src/EBox/Model/Certificates.pm:265
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
@@ -2222,7 +2220,6 @@ msgstr "服務"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:785
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:454
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1665
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:136
 #: ../../main/virt/src/templates/vmstatus.mas:16
 #: ../../main/virt/src/templates/statusViewer.mas:9
 #: ../../main/core/src/templates/dashboard/index.mas:22
@@ -2555,8 +2552,8 @@ msgstr "名稱 '{name}' 是無效的"
 #: ../../main/firewall/src/EBox/Firewall.pm:457
 #: ../../main/firewall/src/EBox/Firewall.pm:636
 #: ../../main/firewall/src/EBox/Firewall.pm:661
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:757
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:799
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:748
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:790
 #: ../../main/core/src/EBox/Apache.pm:283
 #: ../../main/core/src/EBox/Apache.pm:292
 #: ../../main/services/src/EBox/Services.pm:482
@@ -2595,7 +2592,6 @@ msgstr "連出介面"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:295
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:392
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:111
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:110
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:74
@@ -2792,7 +2788,7 @@ msgstr "假如勾選反向符合,任何服務除了所選擇的都將符合這�
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:153
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:116
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:63
-#: ../../main/software/src/templates/ebox.mas:229
+#: ../../main/software/src/templates/ebox.mas:237
 #: ../../main/software/src/templates/updates.mas:44
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:51
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:120
@@ -2901,35 +2897,35 @@ msgstr "發現互相矛盾的規則。請優先移除它"
 #: ../../main/common/src/EBox/NetWrappers.pm:229
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:194
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:101
-#: ../../main/network/src/EBox/Network.pm:1024
-#: ../../main/network/src/EBox/Network.pm:1056
-#: ../../main/network/src/EBox/Network.pm:1130
-#: ../../main/network/src/EBox/Network.pm:1166
-#: ../../main/network/src/EBox/Network.pm:1191
-#: ../../main/network/src/EBox/Network.pm:1275
-#: ../../main/network/src/EBox/Network.pm:1420
-#: ../../main/network/src/EBox/Network.pm:1509
-#: ../../main/network/src/EBox/Network.pm:1597
-#: ../../main/network/src/EBox/Network.pm:1603
-#: ../../main/network/src/EBox/Network.pm:1930
-#: ../../main/network/src/EBox/Network.pm:2000
-#: ../../main/network/src/EBox/Network.pm:2033
-#: ../../main/network/src/EBox/Network.pm:2060
-#: ../../main/network/src/EBox/Network.pm:2087
-#: ../../main/network/src/EBox/Network.pm:2115
-#: ../../main/network/src/EBox/Network.pm:2177
-#: ../../main/network/src/EBox/Network.pm:2216
-#: ../../main/network/src/EBox/Network.pm:2249
-#: ../../main/network/src/EBox/Network.pm:3382
-#: ../../main/network/src/EBox/Network.pm:3402
-#: ../../main/network/src/EBox/Network.pm:3422
-#: ../../main/network/src/EBox/Network.pm:3443
-#: ../../main/network/src/EBox/Network.pm:3462
-#: ../../main/network/src/EBox/Network.pm:3518
-#: ../../main/network/src/EBox/Network.pm:3539
-#: ../../main/network/src/EBox/Network.pm:3559
-#: ../../main/network/src/EBox/Network.pm:3580
-#: ../../main/network/src/EBox/Network.pm:3603
+#: ../../main/network/src/EBox/Network.pm:1005
+#: ../../main/network/src/EBox/Network.pm:1037
+#: ../../main/network/src/EBox/Network.pm:1111
+#: ../../main/network/src/EBox/Network.pm:1147
+#: ../../main/network/src/EBox/Network.pm:1172
+#: ../../main/network/src/EBox/Network.pm:1256
+#: ../../main/network/src/EBox/Network.pm:1401
+#: ../../main/network/src/EBox/Network.pm:1490
+#: ../../main/network/src/EBox/Network.pm:1578
+#: ../../main/network/src/EBox/Network.pm:1584
+#: ../../main/network/src/EBox/Network.pm:1911
+#: ../../main/network/src/EBox/Network.pm:1981
+#: ../../main/network/src/EBox/Network.pm:2014
+#: ../../main/network/src/EBox/Network.pm:2041
+#: ../../main/network/src/EBox/Network.pm:2068
+#: ../../main/network/src/EBox/Network.pm:2096
+#: ../../main/network/src/EBox/Network.pm:2158
+#: ../../main/network/src/EBox/Network.pm:2197
+#: ../../main/network/src/EBox/Network.pm:2230
+#: ../../main/network/src/EBox/Network.pm:3358
+#: ../../main/network/src/EBox/Network.pm:3378
+#: ../../main/network/src/EBox/Network.pm:3398
+#: ../../main/network/src/EBox/Network.pm:3419
+#: ../../main/network/src/EBox/Network.pm:3438
+#: ../../main/network/src/EBox/Network.pm:3494
+#: ../../main/network/src/EBox/Network.pm:3515
+#: ../../main/network/src/EBox/Network.pm:3535
+#: ../../main/network/src/EBox/Network.pm:3556
+#: ../../main/network/src/EBox/Network.pm:3579
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:498
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:534
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:584
@@ -2938,7 +2934,7 @@ msgstr "發現互相矛盾的規則。請優先移除它"
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:772
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:826
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:886
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1302
 #: ../../main/printers/src/EBox/Model/CUPS.pm:148
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
 msgid "Interface"
@@ -3159,7 +3155,6 @@ msgid "You need at least one internal interface and one external interface"
 msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:176
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:114
 #, fuzzy, perl-brace-format
 msgid "{iface} (internal interface)"
 msgstr ""
@@ -3170,7 +3165,6 @@ msgstr ""
 "{iface} (內部介面)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:179
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:121
 #, fuzzy, perl-brace-format
 msgid "{iface} (external interface)"
 msgstr ""
@@ -3404,9 +3398,9 @@ msgstr "網域被設定為唯讀模式. 您不能修改郵件伺服器"
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:253
 #: ../../main/dns/src/EBox/Model/NameServer.pm:235
 #: ../../main/dns/src/EBox/Model/Text.pm:147
-#: ../../main/network/src/EBox/Network.pm:3625
-#: ../../main/network/src/EBox/Network.pm:3646
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
+#: ../../main/network/src/EBox/Network.pm:3601
+#: ../../main/network/src/EBox/Network.pm:3622
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 #: ../../main/dns/src/templates/edit.mas:20
 msgid "Host name"
 msgstr "主機名稱"
@@ -3582,7 +3576,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
-#: ../../main/network/src/EBox/Network.pm:3666
+#: ../../main/network/src/EBox/Network.pm:3642
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 msgid "host name"
 msgstr "主機名稱"
@@ -3592,7 +3586,7 @@ msgid "Enable transparent DNS cache"
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
-#: ../../main/software/src/EBox/Software.pm:628
+#: ../../main/software/src/EBox/Software.pm:634
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/GeneralSettings.pm:52
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:141
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:78
@@ -3916,17 +3910,17 @@ msgstr "檔案存在，這不是目錄"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:122
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:187
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:262
-#: ../../main/network/src/EBox/Network.pm:934
-#: ../../main/network/src/EBox/Network.pm:939
-#: ../../main/network/src/EBox/Network.pm:1279
-#: ../../main/network/src/EBox/Network.pm:1300
-#: ../../main/network/src/EBox/Network.pm:3384
-#: ../../main/network/src/EBox/Network.pm:3400
-#: ../../main/network/src/EBox/Network.pm:3426
-#: ../../main/network/src/EBox/Network.pm:3583
-#: ../../main/network/src/EBox/Network.pm:3742
+#: ../../main/network/src/EBox/Network.pm:915
+#: ../../main/network/src/EBox/Network.pm:920
+#: ../../main/network/src/EBox/Network.pm:1260
+#: ../../main/network/src/EBox/Network.pm:1281
+#: ../../main/network/src/EBox/Network.pm:3360
+#: ../../main/network/src/EBox/Network.pm:3376
+#: ../../main/network/src/EBox/Network.pm:3402
+#: ../../main/network/src/EBox/Network.pm:3559
+#: ../../main/network/src/EBox/Network.pm:3717
 #: ../../main/network/src/EBox/CGI/VIface.pm:63
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:153
 #: ../../main/network/src/templates/ifaces.mas:119
 #: ../../main/network/src/templates/ifaces.mas:287
@@ -3942,9 +3936,9 @@ msgstr "範圍"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:88
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:127
-#: ../../main/network/src/EBox/Network.pm:3736
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1302
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1370
+#: ../../main/network/src/EBox/Network.pm:3711
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 msgid "MAC address"
 msgstr "MAC 位址"
 
@@ -4038,8 +4032,8 @@ msgstr "已移除 {nname} 從單位 {object}"
 #: ../../main/objects/src/EBox/Objects.pm:394
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
-#: ../../main/network/src/EBox/Network.pm:84
-#: ../../main/network/src/EBox/Network.pm:3802
+#: ../../main/network/src/EBox/Network.pm:80
+#: ../../main/network/src/EBox/Network.pm:3771
 #: ../../main/services/src/EBox/Services.pm:642
 msgid "Network"
 msgstr "網路"
@@ -4048,63 +4042,63 @@ msgstr "網路"
 msgid "Software Management"
 msgstr "軟體管理"
 
-#: ../../main/software/src/EBox/Software.pm:443
+#: ../../main/software/src/EBox/Software.pm:449
 msgid ""
 "Cannot use software package manager. Probably is currently being used by "
 "another process. You can either wait or kill the process."
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:445
+#: ../../main/software/src/EBox/Software.pm:451
 #, perl-brace-format
 msgid "Cannot use software package manager. Error output: {err}"
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:535
+#: ../../main/software/src/EBox/Software.pm:541
 #, perl-brace-format
 msgid ""
 "You cannot modify the automatic update using QA updates from Web UI. To "
 "disable automatic updates, edit {conf} and disable {key} key."
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:624
+#: ../../main/software/src/EBox/Software.pm:630
 #, fuzzy
 msgid "Zentyal Components"
 msgstr "eBox 元件"
 
-#: ../../main/software/src/EBox/Software.pm:626
+#: ../../main/software/src/EBox/Software.pm:632
 msgid "System Updates"
 msgstr "系統更新"
 
-#: ../../main/software/src/EBox/Software.pm:854
+#: ../../main/software/src/EBox/Software.pm:860
 #, perl-brace-format
 msgid ""
 "Software management is currently  locked by {locker}. Please, try again later"
 msgstr "軟體管理目前是被 {locker} 鎖定.請稍後再試"
 
-#: ../../main/software/src/EBox/Software.pm:1015
+#: ../../main/software/src/EBox/Software.pm:1021
 #, fuzzy
 msgid "Installation steps"
 msgstr "安裝"
 
-#: ../../main/software/src/EBox/Software.pm:1017
+#: ../../main/software/src/EBox/Software.pm:1023
 msgid "Package Selection"
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:1018
+#: ../../main/software/src/EBox/Software.pm:1024
 msgid "Confirmation"
 msgstr ""
 
-#: ../../main/software/src/EBox/Software.pm:1019
+#: ../../main/software/src/EBox/Software.pm:1025
 #, fuzzy
 msgid "Installation"
 msgstr "安裝"
 
-#: ../../main/software/src/EBox/Software.pm:1020
+#: ../../main/software/src/EBox/Software.pm:1026
 #, fuzzy
 msgid "Initial Configuration"
 msgstr "自動更新設置"
 
-#: ../../main/software/src/EBox/Software.pm:1021
+#: ../../main/software/src/EBox/Software.pm:1027
 msgid "Save Changes"
 msgstr ""
 
@@ -4118,33 +4112,33 @@ msgstr ""
 "#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
 "正在更新"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:102
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:103
 msgid "There were no packages to update"
 msgstr "沒有套件需要更新"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:176
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
 #, fuzzy
 msgid "Installing"
 msgstr "安裝"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:177
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:178
 #, fuzzy
 msgid "Installing packages"
 msgstr "更新套件中"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:178
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:203
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/EBox/CGI/Finish.pm:147
 #: ../../main/core/src/templates/report/raid.mas:214
 msgid "Current operation"
 msgstr "目前操作"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:180
 #, fuzzy
 msgid "actions done"
 msgstr "動作"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:180
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:181
 #, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
@@ -4155,25 +4149,25 @@ msgstr ""
 "套件安裝已成功完成.管理介面可能會幾秒鐘沒有回應.請耐心等待讓系統完全的重新啟"
 "動"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:185
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:186
 msgid ""
 "The packages installation has not finished correctly . More information on "
 "the logs"
 msgstr "套件安裝並沒有完成.在日誌上會有更多的資訊"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:201
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
 msgstr "移除套件"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:203
 msgid "Removing the selected package and its dependent packages"
 msgstr "移除所選擇的套件及相依性套件"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:205
 msgid "packages left to remove"
 msgstr "套件移除"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:205
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:206
 msgid ""
 "The packages removal has finished successfully. The administration interface "
 "may become unresponsive for a few seconds. Please wait patiently until the "
@@ -4182,7 +4176,7 @@ msgstr ""
 "套件移除已經成功完成.管理介面可能會有幾秒鐘沒有回應.請耐心等待讓系統完全重新"
 "啟動"
 
-#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:209
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:210
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs"
@@ -4196,7 +4190,7 @@ msgstr "自動更新設置"
 msgid "System updates"
 msgstr "系統更新"
 
-#: ../../main/software/src/EBox/CGI/Updates.pm:58
+#: ../../main/software/src/EBox/CGI/Updates.pm:59
 #, fuzzy
 msgid "The system components are up to date."
 msgstr "系統已經是最新的"
@@ -4306,7 +4300,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:322
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:65
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:303
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:90
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:91
 msgid "None"
 msgstr "沒有"
 
@@ -4672,7 +4666,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:108
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:48
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:94
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:106
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:107
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:115
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:109
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
@@ -4708,21 +4702,21 @@ msgstr "訂閱遠端服務"
 msgid "Subscribe"
 msgstr "訂閱"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:546
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:553
 #, fuzzy
 msgid " module"
 msgstr "模組"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:552
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:559
 msgid " and "
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:552
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:559
 #, fuzzy
 msgid " modules"
 msgstr "模組"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:569
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:576
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:103
 #: ../../main/samba/src/EBox/Samba.pm:1506
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:602
@@ -4743,8 +4737,8 @@ msgstr "模組"
 msgid "Action"
 msgstr "動作"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:570
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:591
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:577
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:598
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
 #: ../../main/ca/src/templates/formRevoke.mas:67
 msgid "Reason"
@@ -4949,14 +4943,14 @@ msgstr ""
 msgid "Cannot contact to {host}. Check your connection to the Internet"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:874
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:872
 #, perl-brace-format
 msgid ""
 "Could not connect to WS server \"{addr}:{port}/{proto}\". Check your name "
 "resolution and firewall in your network"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:904
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:902
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -4984,20 +4978,20 @@ msgstr ""
 msgid "Key for disaster recovery service not found"
 msgstr "找不到代理伺服器備份服務的設定鍵"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:195
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:196
 msgid "No ebox-services DNS key found"
 msgstr "找不到 ebox-服務 DNS 設定鍵"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:243
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:244
 #, fuzzy, perl-brace-format
 msgid "Server {s} not found via DNS server {d}. Reason: {r}"
 msgstr "無法透過 DNS 伺服器 {d} 找到伺服器 {s}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:351
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:352
 msgid "Cannot create SOAP connection"
 msgstr "不能建立 SOAP 連線"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:365
+#: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:366
 msgid "No domain key found for this service"
 msgstr "找不到這個服務的網域設定鍵"
 
@@ -5096,8 +5090,8 @@ msgstr "請確認您想要刪除下列遠端備份檔："
 #: ../../main/dns/src/templates/edit.mas:55
 #: ../../main/dns/src/templates/edit.mas:93
 #: ../../main/dns/src/templates/edit.mas:94
-#: ../../main/software/src/templates/ebox.mas:632
-#: ../../main/software/src/templates/ebox.mas:661
+#: ../../main/software/src/templates/ebox.mas:640
+#: ../../main/software/src/templates/ebox.mas:669
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:147
 #: ../../main/network/src/templates/ifaces.mas:266
 #: ../../main/network/src/templates/ifaces.mas:267
@@ -5261,7 +5255,7 @@ msgstr ""
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:62
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:57
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1304
 #: ../../main/core/src/EBox/AuditLogging.pm:140
 #: ../../main/dns/src/templates/edit.mas:17
 msgid "IP"
@@ -5502,7 +5496,7 @@ msgid "Month bandwidth usage (MB)"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:116
-#: ../../main/core/src/EBox/SysInfo.pm.in:162
+#: ../../main/core/src/EBox/SysInfo.pm.in:174
 #: ../../main/core/src/templates/datetime.mas:71
 #, fuzzy
 msgid "Time"
@@ -6074,93 +6068,93 @@ msgstr "最後一天"
 msgid "File System"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:596
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:587
 msgid "1 week"
 msgstr "一週"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:600
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:591
 msgid "2 weeks"
 msgstr "兩週"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:604
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:595
 msgid "3 weeks"
 msgstr "三週"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:608
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:599
 msgid "1 month"
 msgstr "一個月"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:612
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:603
 msgid "2 months"
 msgstr "兩個月"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:616
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:607
 msgid "3 months"
 msgstr "三個月"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:620
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:611
 msgid "4 months"
 msgstr "四個月"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:624
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:615
 msgid "6 months"
 msgstr "六個月"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:628
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:619
 msgid "9 months"
 msgstr "九個月"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:632
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:623
 msgid "1 year"
 msgstr "一年"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:636
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:627
 msgid "1 year and half"
 msgstr "一年半"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:640
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:631
 msgid "2 years"
 msgstr "兩年"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:644
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:635
 msgid "3 years"
 msgstr "三年"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:710
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:701
 msgid ""
 "You cannot switch encryption options when there are existent backups with "
 "the original encryption options. You must remove previous backup to change "
 "the encryption options"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:735
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:726
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr "目標位置必須以這種格式表示'other.host[:port]/some_dir'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:746
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:762
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:788
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:737
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:753
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:779
 msgid "target"
 msgstr "目標"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:748
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:739
 msgid "Must be a like 'other.host[:port]/some_dir'"
 msgstr "必須以這種格式表示'other.host[:port]/some_dir'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:755
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:797
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:746
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:788
 msgid "host"
 msgstr "主機"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:764
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:755
 msgid "Root directory ('/') not allowed in target specification"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:768
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:759
 msgid "directory"
 msgstr "目錄"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:777
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:768
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
@@ -6168,7 +6162,7 @@ msgstr ""
 "RSYNC目標位置必須以'other.host[:port]/relative_path'或'other.host[:port]/"
 "absolute_path'格式表示"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:791
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:782
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
@@ -6176,51 +6170,51 @@ msgstr ""
 "必須以'other.host[:port]/relative_path'或'other.host[:port]/absolute_path'格"
 "式表示"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:802
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:793
 msgid "absolute directory"
 msgstr "絕對目錄"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:804
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:795
 msgid "relative directory"
 msgstr "相對目錄"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:806
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr "檔案系統模式須以目錄路徑表示"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:820
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:824
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:811
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
 msgid "Directory for backup"
 msgstr "備份檔目錄"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:818
 msgid "File exists and it is not a directory"
 msgstr "檔案存在，這不是目錄"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:841
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:832
 msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:861
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "增量備份必須比完整備份頻繁"
 
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:865
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:874
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:883
 #, fuzzy
 msgid "General backup configuration updated."
 msgstr "一般備份伺服器組態已更新"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:875
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:866
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:885
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:876
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
@@ -6388,7 +6382,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1051
-#: ../../main/core/src/EBox/SysInfo.pm.in:354
+#: ../../main/core/src/EBox/SysInfo.pm.in:366
 msgid "System"
 msgstr "系統"
 
@@ -6628,24 +6622,9 @@ msgid "Phase 1"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:67
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:113
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:114
 msgid "Authentication"
 msgstr "驗證"
-
-#: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:70
-msgid ""
-"Starting traffic rate monitoring. Wait patiently until the graph appears"
-msgstr "啟動流量監控.圖形運算中請稍等一下"
-
-#: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:73
-msgid "Stopping traffic rate monitoring"
-msgstr "停止流量監控"
-
-#: ../../main/network/src/EBox/Model/ByteRateEnableForm.pm:86
-msgid ""
-"The traffic rate monitor is start/stop on demand without requiring to save "
-"changes first"
-msgstr "流量監控的啟動/停止是在背景執行不需要先儲存變更"
 
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:79
 msgid "Search Domain"
@@ -6663,7 +6642,7 @@ msgid "Enable Dynamic DNS"
 msgstr "啟用動態 DNS"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:217
-#: ../../main/core/src/EBox/SysInfo.pm.in:163
+#: ../../main/core/src/EBox/SysInfo.pm.in:175
 msgid "Hostname"
 msgstr "主機名稱"
 
@@ -6690,7 +6669,7 @@ msgid "Static Routes List"
 msgstr "靜態路由列表"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:171
-#: ../../main/network/src/EBox/Network.pm:3819
+#: ../../main/network/src/EBox/Network.pm:3788
 msgid "Static Routes"
 msgstr "靜態路由"
 
@@ -6769,44 +6748,6 @@ msgstr ""
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:46
-msgid "Select traffic graphic"
-msgstr "選擇流量圖"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:57
-msgid ""
-"Several views are showed depending on the parameter selection. An host IP "
-"address and a service, which must match the text given by the graphs legend "
-"based on /etc/services, may be required by the graph type. The flow view "
-"will change accordingly"
-msgstr ""
-"根據參數的選擇會顯示多個檢視.而主機 IP 和服務,必須符合在 /etc/services 的圖形"
-"基礎上,可能需要圖形類型.且會因流量而有所改變"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:78
-msgid "Graph type"
-msgstr "圖形類型"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:85
-msgid "All active traffic by source"
-msgstr "依來源顯示所有啟動流量"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:89
-msgid "All active traffic by service"
-msgstr "依服務顯示所有啟動流量"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:93
-msgid "Traffic by selected source"
-msgstr "依選擇的來源顯示流量"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:99
-msgid "Traffic by selected service"
-msgstr "依選擇的服務顯示流量"
-
-#: ../../main/network/src/EBox/Model/ByteRateGraphControl.pm:105
-msgid "Traffic by source and service"
-msgstr "依選擇的來源和服務顯示流量"
-
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
 msgstr "流量平衡"
@@ -6854,22 +6795,6 @@ msgid ""
 msgstr ""
 "<p>這裡您可以新增名稱伺服器解析給 eBox 使用.</p><p>注意假如您有任何網路介面設"
 "置從 DHCP 那這些設定可能會覆寫</p>"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:79
-msgid "Interface to listen"
-msgstr "要監聽的介面"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:88
-msgid "Traffic rate monitor settings"
-msgstr "流量監控設定"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:92
-msgid "Changes will be applied immediately to the traffic rate monitor"
-msgstr "流量監控的套用變更是即時的"
-
-#: ../../main/network/src/EBox/Model/ByteRateSettings.pm:128
-msgid "all"
-msgstr "全部"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:77
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:134
@@ -6981,95 +6906,95 @@ msgstr ""
 msgid "Invalid value for Host"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:101
+#: ../../main/network/src/EBox/Network.pm:97
 msgid "Add default routers to the default table"
 msgstr "新增預設路由到預設 table"
 
-#: ../../main/network/src/EBox/Network.pm:102
+#: ../../main/network/src/EBox/Network.pm:98
 msgid ""
 "This is needed to work with a multigateway configuration. Note that to list "
 "the default routes you must execute: "
 msgstr "多線路由能動作是需要設置的.提示這些列出來的預設路由您必須要執行:"
 
-#: ../../main/network/src/EBox/Network.pm:108
+#: ../../main/network/src/EBox/Network.pm:104
 #, fuzzy
 msgid "Enable Zentyal DHCP hook"
 msgstr "啟用 eBox DHCP hook"
 
-#: ../../main/network/src/EBox/Network.pm:109
+#: ../../main/network/src/EBox/Network.pm:105
 msgid ""
 "It will take care of adding the default route given by a DHCP server to the "
 "default route table. "
 msgstr "把透過 DHCP 伺服器配發的預設路由加到預設路由表要特別小心。"
 
-#: ../../main/network/src/EBox/Network.pm:127
+#: ../../main/network/src/EBox/Network.pm:123
 #, fuzzy
 msgid "Zentyal will set your network configuration"
 msgstr "eBox 會設定您的網路組態"
 
-#: ../../main/network/src/EBox/Network.pm:132
+#: ../../main/network/src/EBox/Network.pm:128
 #, fuzzy
 msgid "Zentyal will set your DNS configuration"
 msgstr "eBox 會設定您的 DNS 組態"
 
-#: ../../main/network/src/EBox/Network.pm:137
+#: ../../main/network/src/EBox/Network.pm:133
 #, fuzzy
 msgid "Zentyal will set your DHCP client configuration"
 msgstr "eBox 會設定您的 ddclient 組態"
 
-#: ../../main/network/src/EBox/Network.pm:142
-#: ../../main/network/src/EBox/Network.pm:147
+#: ../../main/network/src/EBox/Network.pm:138
+#: ../../main/network/src/EBox/Network.pm:143
 #, fuzzy
 msgid "Zentyal will set your ddclient configuration"
 msgstr "eBox 會設定您的 ddclient 組態"
 
-#: ../../main/network/src/EBox/Network.pm:152
-#: ../../main/network/src/EBox/Network.pm:157
+#: ../../main/network/src/EBox/Network.pm:148
+#: ../../main/network/src/EBox/Network.pm:153
 msgid "Zentyal will store your PPPoE passwords"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:164
+#: ../../main/network/src/EBox/Network.pm:160
 #, fuzzy
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
 msgstr "eBox 會設定您的 DNS 組態"
 
-#: ../../main/network/src/EBox/Network.pm:171
+#: ../../main/network/src/EBox/Network.pm:167
 msgid "Zentyal will set HTTP proxy for all users"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:174
+#: ../../main/network/src/EBox/Network.pm:170
 msgid "Zentyal will set HTTP proxy for APT"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:931
-#: ../../main/network/src/EBox/Network.pm:935
+#: ../../main/network/src/EBox/Network.pm:912
+#: ../../main/network/src/EBox/Network.pm:916
 msgid "Virtual interface name"
 msgstr "虛擬介面名稱"
 
-#: ../../main/network/src/EBox/Network.pm:934
-#: ../../main/network/src/EBox/Network.pm:1279
-#: ../../main/network/src/EBox/Network.pm:3384
+#: ../../main/network/src/EBox/Network.pm:915
+#: ../../main/network/src/EBox/Network.pm:1260
+#: ../../main/network/src/EBox/Network.pm:3360
 #: ../../main/network/src/templates/ifaces.mas:132
 #: ../../main/network/src/templates/ifaces.mas:288
 #: ../../main/network/src/templates/Wizard/network.mas:65
 msgid "Netmask"
 msgstr "子網路遮罩"
 
-#: ../../main/network/src/EBox/Network.pm:1092
+#: ../../main/network/src/EBox/Network.pm:1073
 #, perl-brace-format
 msgid "There is already an interface called {al}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1104
+#: ../../main/network/src/EBox/Network.pm:1085
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1514
+#: ../../main/network/src/EBox/Network.pm:1495
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr "這個介面不能放在 trunk 模式中，它是一個 vlan 介面。"
 
-#: ../../main/network/src/EBox/Network.pm:1569
+#: ../../main/network/src/EBox/Network.pm:1550
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -7077,19 +7002,19 @@ msgstr ""
 "這個介面處於 trunk 模式，在改變其組態模式前您應該先解除這個 trunk 中所有的 "
 "vlan 介面的設定。"
 
-#: ../../main/network/src/EBox/Network.pm:1697
-#: ../../main/network/src/EBox/Network.pm:1726
+#: ../../main/network/src/EBox/Network.pm:1678
+#: ../../main/network/src/EBox/Network.pm:1707
 #: ../../main/network/src/EBox/CGI/Vlan.pm:42
 #: ../../main/network/src/templates/ifaces.mas:229
 msgid "VLAN Id"
 msgstr "VLAN Id"
 
-#: ../../main/network/src/EBox/Network.pm:1706
+#: ../../main/network/src/EBox/Network.pm:1687
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr "在將 vlan 加入網路介面前需要先把它們設為 trunk 模式。"
 
-#: ../../main/network/src/EBox/Network.pm:3274
+#: ../../main/network/src/EBox/Network.pm:3250
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
@@ -7098,48 +7023,47 @@ msgstr ""
 "這個要求的操作會造成已設定的\n"
 "路由之一變得無法使用。如果您真的想要進行這項變更請先將它移除。"
 
-#: ../../main/network/src/EBox/Network.pm:3339
+#: ../../main/network/src/EBox/Network.pm:3315
 #: ../../main/network/src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "通訊閘 {gw} 不能連線"
 
-#: ../../main/network/src/EBox/Network.pm:3342
+#: ../../main/network/src/EBox/Network.pm:3318
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
 "reachable by {iface} which is not static"
 msgstr "通訊閘 {gw} 無法以靜態介面連接。目前可連接它的 {iface} 不是靜態介面"
 
-#: ../../main/network/src/EBox/Network.pm:3701
+#: ../../main/network/src/EBox/Network.pm:3677
 msgid "down"
 msgstr "下"
 
-#: ../../main/network/src/EBox/Network.pm:3707
+#: ../../main/network/src/EBox/Network.pm:3682
 #: ../../main/core/src/templates/report/raid.mas:232
 msgid "up"
 msgstr "上"
 
-#: ../../main/network/src/EBox/Network.pm:3712
+#: ../../main/network/src/EBox/Network.pm:3687
 #, fuzzy
 msgid "external"
 msgstr "外部"
 
-#: ../../main/network/src/EBox/Network.pm:3714
+#: ../../main/network/src/EBox/Network.pm:3689
 #, fuzzy
 msgid "internal"
 msgstr "外部"
 
-#: ../../main/network/src/EBox/Network.pm:3720
+#: ../../main/network/src/EBox/Network.pm:3695
 msgid "link ok"
 msgstr "連線正常"
 
-#: ../../main/network/src/EBox/Network.pm:3722
+#: ../../main/network/src/EBox/Network.pm:3697
 msgid "no link"
 msgstr "沒有連線"
 
-#: ../../main/network/src/EBox/Network.pm:3731
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:136
+#: ../../main/network/src/EBox/Network.pm:3706
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:130
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
@@ -7152,34 +7076,34 @@ msgstr "沒有連線"
 msgid "Status"
 msgstr "狀態"
 
-#: ../../main/network/src/EBox/Network.pm:3757
+#: ../../main/network/src/EBox/Network.pm:3732
 msgid "Tx bytes"
 msgstr "Tx 位元組"
 
-#: ../../main/network/src/EBox/Network.pm:3767
+#: ../../main/network/src/EBox/Network.pm:3742
 msgid "Rx bytes"
 msgstr "Rx 位元組"
 
-#: ../../main/network/src/EBox/Network.pm:3784
+#: ../../main/network/src/EBox/Network.pm:3753
 #: ../../main/network/src/EBox/CGI/Ifaces.pm:29
 msgid "Network Interfaces"
 msgstr "網路介面"
 
-#: ../../main/network/src/EBox/Network.pm:3807
+#: ../../main/network/src/EBox/Network.pm:3776
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:131
 msgid "Interfaces"
 msgstr "介面"
 
-#: ../../main/network/src/EBox/Network.pm:3811
+#: ../../main/network/src/EBox/Network.pm:3780
 msgid "Gateways"
 msgstr "通訊閘"
 
-#: ../../main/network/src/EBox/Network.pm:3823
+#: ../../main/network/src/EBox/Network.pm:3792
 #, fuzzy
 msgid "Dynamic DNS"
 msgstr "動態"
 
-#: ../../main/network/src/EBox/Network.pm:3827
+#: ../../main/network/src/EBox/Network.pm:3796
 msgid "Diagnostic Tools"
 msgstr "診斷工具"
 
@@ -7216,11 +7140,6 @@ msgstr "通訊閘"
 msgid "Domain Name Server Resolver"
 msgstr "名稱伺服器解析"
 
-#: ../../main/network/src/EBox/Network/Composite/ByteRate.pm:73
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:134
-msgid "Traffic rate monitoring"
-msgstr "流量速率監控"
-
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:61
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:400
 msgid "WAN Failover"
@@ -7237,86 +7156,6 @@ msgid ""
 "WAN Failover event is not enabled. You have to enable it in order to use "
 "this feature"
 msgstr ""
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:756
-msgid "bytes/second"
-msgstr "位元組/秒"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:823
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:929
-msgid "Traffic data for source"
-msgstr "來源的流量資料"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:843
-#, perl-brace-format
-msgid "Network traffic from {src}"
-msgstr "從 {src} 網路流量"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:877
-msgid "Traffic data not found for service"
-msgstr "沒有找到依服務的流量資料"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:887
-#, perl-brace-format
-msgid "Network traffic for {service}"
-msgstr "依 {service} 的網路流量"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:937
-msgid "Traffic data for service"
-msgstr "服務的流量資料"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:946
-msgid "Traffic data not found for source and service pair"
-msgstr "沒有找到依來源和服務的流量資料"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:948
-#, perl-brace-format
-msgid "source {src} and service {service}"
-msgstr "來源 {src} 和服務 {service}"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:962
-#, perl-brace-format
-msgid "Network traffic from source {src} and for service {service}"
-msgstr "從來源 {src} 和服務 {service} 的網路流量"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:989
-msgid "All active services"
-msgstr "所有啟用的服務"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:994
-msgid "Traffic data for "
-msgstr "流量資料"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:995
-msgid "all services"
-msgstr "所有服務"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1040
-msgid "All active sources"
-msgstr "所有啟用的來源"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1045
-msgid "Traffic data for"
-msgstr "流量資料"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1046
-msgid "all sources"
-msgstr "所有來源"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1084
-#, perl-brace-format
-msgid "Total traffic rate from {src}"
-msgstr "{src} 的總流量"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1099
-#, perl-brace-format
-msgid "Total traffic rate for {service}"
-msgstr "{service} 的總流量"
-
-#: ../../main/network/src/EBox/Network/Report/ByteRate.pm:1123
-#, perl-brace-format
-msgid "Traffic rate from {src} for {service}"
-msgstr "{src} 到 {service} 的總流量"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:155
 #, fuzzy, perl-brace-format
@@ -8213,7 +8052,7 @@ msgstr ""
 "您試著要新增到虛擬介面上的 IP 位址已經在介面 '{iface}' 的 DHCP 範圍 "
 "'{range}' 中.請在試著新增虛擬介面使用前移除它."
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1128
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1129
 #, fuzzy, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -8224,19 +8063,19 @@ msgstr ""
 "您試著要新增到虛擬介面上的 IP 位址已經在介面 '{iface}' 的 DHCP 實體位址 "
 "'{fixed}' 中.請在試著新增虛擬介面使用前移除它."
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1307
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1308
 msgid "Leased"
 msgstr "租約"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1307
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1308
 msgid "Released"
 msgstr "釋出"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1310
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1311
 msgid "DHCP"
 msgstr "DHCP"
 
-#: ../../main/dhcp/src/EBox/DHCP.pm.in:1397
+#: ../../main/dhcp/src/EBox/DHCP.pm.in:1398
 msgid "DHCP leases"
 msgstr "DHCP 保留"
 
@@ -8262,7 +8101,7 @@ msgstr "收集的主要組態檔案"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:155
 #: ../../main/core/src/EBox/Logs.pm:702
-#: ../../main/core/src/EBox/SysInfo.pm.in:372
+#: ../../main/core/src/EBox/SysInfo.pm.in:384
 #: ../../main/core/src/EBox/Events.pm:151
 #, fuzzy
 msgid "Maintenance"
@@ -8571,7 +8410,7 @@ msgid "used"
 msgstr "已用"
 
 #: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:55
-#: ../../main/core/src/EBox/SysInfo.pm.in:167
+#: ../../main/core/src/EBox/SysInfo.pm.in:179
 msgid "System load"
 msgstr "系統負載"
 
@@ -9026,8 +8865,8 @@ msgid "Maximum password age"
 msgstr "最大密碼更換時間"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:115
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:209
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:228
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:210
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:229
 msgid "days"
 msgstr "天"
 
@@ -10544,7 +10383,7 @@ msgid "Same user and password than IMAP"
 msgstr ""
 
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:109
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:94
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:95
 msgid "User and password"
 msgstr "使用者與密碼"
 
@@ -11810,32 +11649,37 @@ msgstr ""
 msgid "No updates"
 msgstr "更新"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:144
+#: ../../main/core/src/EBox/SysInfo.pm.in:145
 #, fuzzy, perl-brace-format
 msgid "{n} security updates"
 msgstr "系統更新"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:147
+#: ../../main/core/src/EBox/SysInfo.pm.in:148
 #, fuzzy, perl-brace-format
 msgid "{n} system updates"
 msgstr "系統更新"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:164
+#: ../../main/core/src/EBox/SysInfo.pm.in:153
+#, fuzzy, perl-brace-format
+msgid "{n} component updates"
+msgstr "系統更新"
+
+#: ../../main/core/src/EBox/SysInfo.pm.in:176
 #, fuzzy
 msgid "Core version"
 msgstr "eBox 版本"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:165
+#: ../../main/core/src/EBox/SysInfo.pm.in:177
 #, fuzzy
 msgid "Software"
 msgstr "HTTP 軟體"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:168
+#: ../../main/core/src/EBox/SysInfo.pm.in:180
 #, fuzzy
 msgid "Uptime"
 msgstr "時刻"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:169
+#: ../../main/core/src/EBox/SysInfo.pm.in:181
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2583
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2591
@@ -11847,45 +11691,45 @@ msgstr "時刻"
 msgid "Users"
 msgstr "使用者"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:223
-#: ../../main/core/src/EBox/SysInfo.pm.in:348
+#: ../../main/core/src/EBox/SysInfo.pm.in:235
+#: ../../main/core/src/EBox/SysInfo.pm.in:360
 msgid "Module Status"
 msgstr "模組狀態"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:229
+#: ../../main/core/src/EBox/SysInfo.pm.in:241
 msgid "General Information"
 msgstr "一般資訊"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:235
+#: ../../main/core/src/EBox/SysInfo.pm.in:247
 msgid "Process List"
 msgstr "程序清單"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:242
+#: ../../main/core/src/EBox/SysInfo.pm.in:254
 #, fuzzy
 msgid "Resources & Services"
 msgstr "遠端服務"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:343
+#: ../../main/core/src/EBox/SysInfo.pm.in:355
 #: ../../main/core/src/EBox/CGI/Dashboard/Index.pm:38
 msgid "Dashboard"
 msgstr "儀表板"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:363
+#: ../../main/core/src/EBox/SysInfo.pm.in:375
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:34
 #, fuzzy
 msgid "Import/Export Configuration"
 msgstr "目前設置"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:367
+#: ../../main/core/src/EBox/SysInfo.pm.in:379
 msgid "Halt/Reboot"
 msgstr "關機/重新開機"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:378
+#: ../../main/core/src/EBox/SysInfo.pm.in:390
 #: ../../main/core/src/EBox/CGI/Report/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "磁碟使用量"
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:382
+#: ../../main/core/src/EBox/SysInfo.pm.in:394
 msgid "RAID"
 msgstr "磁碟陣列"
 
@@ -12243,26 +12087,26 @@ msgstr "故障"
 msgid "spare"
 msgstr "備用"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:174
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:181
 #, perl-brace-format
 msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:187
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:194
 #, perl-brace-format
 msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:224
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:231
 #, fuzzy
 msgid "Security software updates"
 msgstr "自動軟體更新"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:239
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:246
 msgid "Check if there is any security software update."
 msgstr ""
 
@@ -13114,7 +12958,7 @@ msgid "none"
 msgstr "沒有"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalFilter.pm:160
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:133
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:134
 msgid "custom"
 msgstr "自訂"
 
@@ -13420,127 +13264,127 @@ msgid ""
 "{openurl}Object's page{closeurl}"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:73
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:74
 msgid "Smarthost to send mail"
 msgstr "用 smarthost 來寄送郵件"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:76
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:77
 msgid "The format is host[:port] being port set to 25 if none is supplied"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:82
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:83
 msgid "Smarthost authentication"
 msgstr "Smarthost 驗證"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:125
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:126
 msgid "Server mailname"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:129
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:130
 #, fuzzy
 msgid "FQDN hostname"
 msgstr "從主機名稱"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:141
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:142
 #, fuzzy
 msgid "Postmaster address"
 msgstr "自訂過濾器的 IP 位址"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:143
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:144
 msgid "Address used to report mail problems"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:147
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:148
 #, fuzzy
 msgid "Local root account"
 msgstr "郵件帳號"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:151
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:152
 #, fuzzy
 msgid "Custom address"
 msgstr "自訂過濾器的 IP 位址"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:159
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:160
 #, fuzzy
 msgid "Maximum mailbox size allowed"
 msgstr "允許最大的郵件大小"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:161
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:162
 msgid ""
 "When a mailbox reaches this size futher messages will be rejected. This can "
 "be overidden by account"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:165
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:184
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:166
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:185
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:81
 #: ../../main/mail/src/templates/createaccount.mas:71
 msgid "Unlimited size"
 msgstr "不限大小"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:169
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:188
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:170
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:189
 #, fuzzy
 msgid "limited to"
 msgstr "不限大小"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:180
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:181
 msgid "Maximum message size accepted"
 msgstr "允許最大的郵件大小"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:200
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:201
 msgid "Expiration period for deleted mails"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:204
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:223
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:205
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:224
 msgid "Never"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:208
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:227
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:209
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:228
 msgid "expired in"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:219
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:220
 msgid "Expiration period for spam mails"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:238
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:239
 #, fuzzy
 msgid "Period for polling external mail accounts"
 msgstr "建立郵件帳號"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:239
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:240
 #, fuzzy
 msgid "minutes"
 msgstr "分"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:249
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:250
 #: ../../main/core/src/templates/report/diskUsage.mas:31
 msgid "Options"
 msgstr "選項"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:365
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:369
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:366
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:370
 msgid "Smarthost's address"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:366
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:367
 msgid "Smarthost's port"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:444
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:448
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:456
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:460
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
@@ -15291,84 +15135,152 @@ msgstr "刪除"
 msgid "Host list for domain {domain}"
 msgstr "網域的主機列表 {domain}"
 
-#: ../../main/software/src/templates/ebox.mas:181
-#: ../../main/software/src/templates/ebox.mas:625
-#: ../../main/software/src/templates/ebox.mas:649
+#: ../../main/software/src/templates/ebox.mas:189
+#: ../../main/software/src/templates/ebox.mas:633
+#: ../../main/software/src/templates/ebox.mas:657
 #: ../../main/software/src/templates/updates.mas:46
 msgid "Update"
 msgstr "更新"
 
-#: ../../main/software/src/templates/ebox.mas:187
-#: ../../main/software/src/templates/ebox.mas:594
-#: ../../main/software/src/templates/ebox.mas:640
+#: ../../main/software/src/templates/ebox.mas:195
+#: ../../main/software/src/templates/ebox.mas:602
+#: ../../main/software/src/templates/ebox.mas:626
+#: ../../main/software/src/templates/ebox.mas:648
 msgid "Install"
 msgstr "安裝"
 
-#: ../../main/software/src/templates/ebox.mas:210
+#: ../../main/software/src/templates/ebox.mas:197
+#: ../../main/software/src/templates/ebox.mas:697
+#: ../../main/software/src/templates/ebox.mas:722
+#: ../../main/software/src/templates/ebox.mas:725
+#, fuzzy
+msgid "Installed Version"
+msgstr "安裝"
+
+#: ../../main/software/src/templates/ebox.mas:218
 #: ../../main/software/src/templates/updates.mas:21
 msgid "Package list updated successfully"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:214
+#: ../../main/software/src/templates/ebox.mas:222
 #: ../../main/software/src/templates/updates.mas:25
 msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:221
+#: ../../main/software/src/templates/ebox.mas:229
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:228
+#: ../../main/software/src/templates/ebox.mas:236
+#: ../../main/software/src/templates/ebox.mas:691
+#: ../../main/software/src/templates/ebox.mas:694
+#: ../../main/software/src/templates/ebox.mas:699
+#: ../../main/software/src/templates/ebox.mas:715
+#: ../../main/software/src/templates/ebox.mas:724
+#: ../../main/software/src/templates/ebox.mas:763
+#: ../../main/software/src/templates/ebox.mas:764
+#: ../../main/software/src/templates/ebox.mas:765
 #: ../../main/software/src/templates/updates.mas:43
 msgid "Component"
 msgstr "元件"
 
-#: ../../main/software/src/templates/ebox.mas:230
+#: ../../main/software/src/templates/ebox.mas:238
 #: ../../main/software/src/templates/updates.mas:45
 msgid "Version"
 msgstr "版本"
 
-#: ../../main/software/src/templates/ebox.mas:244
+#: ../../main/software/src/templates/ebox.mas:252
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:258
+#: ../../main/software/src/templates/ebox.mas:266
 msgid "View advanced mode"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:596
+#: ../../main/software/src/templates/ebox.mas:604
 #, fuzzy
 msgid "Skip install"
 msgstr "安裝"
 
-#: ../../main/software/src/templates/ebox.mas:614
+#: ../../main/software/src/templates/ebox.mas:622
 msgid "View basic mode"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:641
-#: ../../main/software/src/templates/ebox.mas:650
+#: ../../main/software/src/templates/ebox.mas:649
+#: ../../main/software/src/templates/ebox.mas:658
 #: ../../main/software/src/templates/updates.mas:108
 #, fuzzy
 msgid "Update list"
 msgstr "更新"
 
-#: ../../main/software/src/templates/ebox.mas:642
-#: ../../main/software/src/templates/ebox.mas:651
-#: ../../main/software/src/templates/ebox.mas:662
+#: ../../main/software/src/templates/ebox.mas:650
+#: ../../main/software/src/templates/ebox.mas:659
+#: ../../main/software/src/templates/ebox.mas:670
 msgid "Deselect All"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:643
-#: ../../main/software/src/templates/ebox.mas:652
-#: ../../main/software/src/templates/ebox.mas:663
+#: ../../main/software/src/templates/ebox.mas:651
+#: ../../main/software/src/templates/ebox.mas:660
+#: ../../main/software/src/templates/ebox.mas:671
 msgid "Select All"
 msgstr ""
+
+#: ../../main/software/src/templates/ebox.mas:700
+#: ../../main/software/src/templates/ebox.mas:716
+#: ../../main/software/src/templates/ebox.mas:726
+#, fuzzy
+msgid "Latest Version"
+msgstr "版本"
+
+#: ../../main/software/src/templates/ebox.mas:703
+#: ../../main/software/src/templates/ebox.mas:705
+#: ../../main/software/src/templates/ebox.mas:707
+#: ../../main/software/src/templates/ebox.mas:717
+#: ../../main/software/src/templates/ebox.mas:727
+#: ../../main/software/src/templates/ebox.mas:748
+#: ../../main/software/src/templates/ebox.mas:750
+#: ../../main/software/src/templates/ebox.mas:752
+#, fuzzy
+msgid "Select"
+msgstr "選擇報告"
+
+#: ../../main/software/src/templates/ebox.mas:735
+#, fuzzy
+msgid "Loading"
+msgstr ""
+"#-#-#-#-#  zh_TW.po (ebox-software 0.12.99)  #-#-#-#-#\n"
+"更新中\n"
+"#-#-#-#-#  zh_TW.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
+"正在更新"
+
+#: ../../main/software/src/templates/ebox.mas:736
+#, fuzzy
+msgid "No packages found"
+msgstr "找不到頁面"
+
+#: ../../main/software/src/templates/ebox.mas:739
+#: ../../main/core/src/templates/ajax/tableBody.mas:211
+#: ../../main/core/src/templates/ajax/tableModalView.mas:234
+#: ../../main/core/src/templates/logs/index.mas:202
+#: ../../main/core/src/templates/logs/index.mas:203
+msgid "Search"
+msgstr "搜尋"
+
+#: ../../main/software/src/templates/ebox.mas:741
+#: ../../main/core/src/templates/ajax/tablePager.mas:47
+msgid "of"
+msgstr ""
+
+#: ../../main/software/src/templates/ebox.mas:742
+#, fuzzy
+msgid "pages"
+msgstr "頁"
 
 #: ../../main/software/src/templates/config.mas:8
 #, fuzzy
@@ -15698,12 +15610,15 @@ msgstr "網路介面"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:10
 #, fuzzy
-msgid "Select external network interfaces"
+msgid "Configure interface types"
 msgstr "網路介面"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:11
 msgid ""
-"You will not be able to connect to Zentyal administration page through them"
+"External interfaces connect to networks that are not under you control "
+"(tipically the Internet), traffic coming from external networks is not "
+"trusted by default, thus, you will not be able to connect to Zentyal "
+"administration page through them"
 msgstr ""
 
 #: ../../main/network/src/templates/Wizard/network.mas:34
@@ -16209,10 +16124,6 @@ msgstr "還原模式"
 msgid "Page"
 msgstr "變更"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:47
-msgid "of"
-msgstr ""
-
 #: ../../main/core/src/templates/ajax/tablePager.mas:60
 #: ../../main/core/src/templates/ajax/tablePager.mas:66
 #: ../../main/core/src/templates/logs/dbtable.mas:86
@@ -16315,13 +16226,6 @@ msgstr ""
 #, perl-brace-format
 msgid "Editing {row}"
 msgstr ""
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:211
-#: ../../main/core/src/templates/ajax/tableModalView.mas:234
-#: ../../main/core/src/templates/logs/index.mas:202
-#: ../../main/core/src/templates/logs/index.mas:203
-msgid "Search"
-msgstr "搜尋"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:471
 #: ../../main/core/src/templates/ajax/tableModalView.mas:476
@@ -17237,6 +17141,121 @@ msgid ""
 msgstr ""
 "這個操作會造成移除使用者及所有他用到的功能；例如郵件帳戶、使用者資料..."
 
+#~ msgid ""
+#~ "Starting traffic rate monitoring. Wait patiently until the graph appears"
+#~ msgstr "啟動流量監控.圖形運算中請稍等一下"
+
+#~ msgid "Stopping traffic rate monitoring"
+#~ msgstr "停止流量監控"
+
+#~ msgid ""
+#~ "The traffic rate monitor is start/stop on demand without requiring to "
+#~ "save changes first"
+#~ msgstr "流量監控的啟動/停止是在背景執行不需要先儲存變更"
+
+#~ msgid "Select traffic graphic"
+#~ msgstr "選擇流量圖"
+
+#~ msgid ""
+#~ "Several views are showed depending on the parameter selection. An host IP "
+#~ "address and a service, which must match the text given by the graphs "
+#~ "legend based on /etc/services, may be required by the graph type. The "
+#~ "flow view will change accordingly"
+#~ msgstr ""
+#~ "根據參數的選擇會顯示多個檢視.而主機 IP 和服務,必須符合在 /etc/services 的"
+#~ "圖形基礎上,可能需要圖形類型.且會因流量而有所改變"
+
+#~ msgid "Graph type"
+#~ msgstr "圖形類型"
+
+#~ msgid "All active traffic by source"
+#~ msgstr "依來源顯示所有啟動流量"
+
+#~ msgid "All active traffic by service"
+#~ msgstr "依服務顯示所有啟動流量"
+
+#~ msgid "Traffic by selected source"
+#~ msgstr "依選擇的來源顯示流量"
+
+#~ msgid "Traffic by selected service"
+#~ msgstr "依選擇的服務顯示流量"
+
+#~ msgid "Traffic by source and service"
+#~ msgstr "依選擇的來源和服務顯示流量"
+
+#~ msgid "Interface to listen"
+#~ msgstr "要監聽的介面"
+
+#~ msgid "Traffic rate monitor settings"
+#~ msgstr "流量監控設定"
+
+#~ msgid "Changes will be applied immediately to the traffic rate monitor"
+#~ msgstr "流量監控的套用變更是即時的"
+
+#~ msgid "all"
+#~ msgstr "全部"
+
+#~ msgid "Traffic rate monitoring"
+#~ msgstr "流量速率監控"
+
+#~ msgid "bytes/second"
+#~ msgstr "位元組/秒"
+
+#~ msgid "Traffic data for source"
+#~ msgstr "來源的流量資料"
+
+#~ msgid "Network traffic from {src}"
+#~ msgstr "從 {src} 網路流量"
+
+#~ msgid "Traffic data not found for service"
+#~ msgstr "沒有找到依服務的流量資料"
+
+#~ msgid "Network traffic for {service}"
+#~ msgstr "依 {service} 的網路流量"
+
+#~ msgid "Traffic data for service"
+#~ msgstr "服務的流量資料"
+
+#~ msgid "Traffic data not found for source and service pair"
+#~ msgstr "沒有找到依來源和服務的流量資料"
+
+#~ msgid "source {src} and service {service}"
+#~ msgstr "來源 {src} 和服務 {service}"
+
+#~ msgid "Network traffic from source {src} and for service {service}"
+#~ msgstr "從來源 {src} 和服務 {service} 的網路流量"
+
+#~ msgid "All active services"
+#~ msgstr "所有啟用的服務"
+
+#~ msgid "Traffic data for "
+#~ msgstr "流量資料"
+
+#~ msgid "all services"
+#~ msgstr "所有服務"
+
+#~ msgid "All active sources"
+#~ msgstr "所有啟用的來源"
+
+#~ msgid "Traffic data for"
+#~ msgstr "流量資料"
+
+#~ msgid "all sources"
+#~ msgstr "所有來源"
+
+#~ msgid "Total traffic rate from {src}"
+#~ msgstr "{src} 的總流量"
+
+#~ msgid "Total traffic rate for {service}"
+#~ msgstr "{service} 的總流量"
+
+#~ msgid "Traffic rate from {src} for {service}"
+#~ msgstr "{src} 到 {service} 的總流量"
+
+#, fuzzy
+#~ msgid "Select external network interfaces"
+#~ msgstr "網路介面"
+
 #, fuzzy
 #~ msgid "Cannot connect to any of the Cloud nameservers: {ns}"
 #~ msgstr "無法連線到 {smtp} 郵件伺服器"
@@ -17591,9 +17610,6 @@ msgstr ""
 
 #~ msgid "It should follow the pattern 'user@domain[/resource]'"
 #~ msgstr "應該用以下的樣式 'user@domain[/resource]'"
-
-#~ msgid "Select report"
-#~ msgstr "選擇報告"
 
 #~ msgid "Logs configuration"
 #~ msgstr "日誌設置"
