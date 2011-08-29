@@ -543,6 +543,17 @@ sub _restoreFromHash
     $self->{filePath} = $hash->{$pathField};
 }
 
+# Method: allowUnsafeChars
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::allowUnsafeChars>
+#
+sub allowUnsafeChars
+{
+    return 1;
+}
+
 # Method: _paramIsValid
 #
 #       Every file which exists (defined by

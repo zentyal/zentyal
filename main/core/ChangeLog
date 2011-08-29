@@ -1,4 +1,5 @@
 HEAD
+	+ Allow unsafe chars in EBox::Types::File to avoid problems in some browsers
 	+ Reviewed some subscription strings
 	+ Warning about language-packs installed works again after Global changes
 	+ Show n components update when only zentyal packages are left to
