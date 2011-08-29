@@ -1,4 +1,5 @@
 HEAD
+	+ Make MissingArgument exception text translatable
 	+ Avoid UTF8 double-encoding problems in some exceptions
 2.1.8
 	+ EBox::Gettext::langs() inits now languages if requested instead

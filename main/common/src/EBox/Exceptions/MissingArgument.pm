@@ -35,18 +35,22 @@ use EBox::Gettext;
 #
 sub new
 {
-	my $class = shift;
-	my $arg = shift;
+    my $class = shift;
+    my $arg = shift;
+    utf8::decode($arg);
 
-	local $Error::Depth = $Error::Depth + 1;
-	local $Error::Debug = 1;
+    my $error = __x('Missing argument: {data}', data => $arg);
 
-	$Log::Log4perl::caller_depth++;
-	$self = $class->SUPER::new("Missing argument: $arg", @_);
-	$Log::Log4perl::caller_depth--;
+    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Debug = 1;
 
-	bless ($self, $class);
+    $Log::Log4perl::caller_depth++;
+    $self = $class->SUPER::new($error, @_);
+    $Log::Log4perl::caller_depth--;
 
-	return $self;
+    bless ($self, $class);
+
+    return $self;
 }
+
 1;
