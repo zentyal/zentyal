@@ -35,6 +35,8 @@ sub html
 {
     my ($self, $current) = @_;
 
+    return '' if EBox::Config::configkey('hide_menu_separators');
+
     my $text = $self->{text};
     my $html = '';
     my $show = 0;

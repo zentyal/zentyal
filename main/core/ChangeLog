@@ -4,6 +4,7 @@ HEAD
 	  upgrade in the system widget
 	+ Do not show debconf warning when installing packages
 	+ EBox::Types::IPAddr (and IPNetwork) now works with defaultValue
+	+ Allow to hide menu items, separators and dashboard widgets via conf keys
 2.1.27
 	+ Do not create tables during Disaster Recovery installation
 	+ Added new EBox::Util::Debconf::value to get debconf values

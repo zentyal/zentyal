@@ -38,15 +38,27 @@ sub new
     return $self;
 }
 
+my $foldersToHide = undef;
+
 sub html
 {
     my ($self, $current) = @_;
+
+    unless (defined $foldersToHide) {
+        $foldersToHide = {
+            map { $_ => 1 } split (/,/, EBox::Config::configkey('menu_folders_to_hide'))
+        };
+    }
+
+    my $name = $self->{name};
     my $text = $self->{text};
     my $url = $self->{url};
     my $html = '';
     my $show = 0;
 
-    (scalar(@{$self->items()}) == 0) and return;
+    if ($foldersToHide->{$name} or (scalar(@{$self->items()}) == 0)) {
+        return $html;
+    }
 
     if (defined($self->{style})) {
         $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
@@ -61,7 +73,7 @@ sub html
         $html .= "<a title='$text' href='/$url' class='navarrow' ";
     } else {
         $html .= "<a title='$text' href='' class='navarrow' ";
-        $html .= "onclick=\"showMenu('menu$self->{name}');return false;\"";
+        $html .= "onclick=\"showMenu('menu$name');return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";
@@ -71,8 +83,8 @@ sub html
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
 
     foreach my $item (@sorted) {
-        $item->{style} = "menu$self->{name}";
-        my $display = ($self->{name} eq  $current);
+        $item->{style} = "menu$name";
+        my $display = ($name eq  $current);
         $html .= $item->html($display);
     }
 

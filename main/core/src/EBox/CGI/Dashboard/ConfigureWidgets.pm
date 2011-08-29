@@ -33,6 +33,8 @@ sub new # (error=?, msg=?, cgi=?)
     return $self;
 }
 
+my $widgetsToHide = undef;
+
 # Method: masonParameters
 #
 # Overrides:
@@ -56,6 +58,12 @@ sub masonParameters
         $present_widgets->{$wname} = 1;
     }
 
+    unless (defined $widgetsToHide) {
+        $widgetsToHide = {
+            map { $_ => 1 } split (/,/, EBox::Config::configkey('widgets_to_hide'))
+        };
+    }
+
     foreach my $name (@modNames) {
         my $mod = $global->modInstance($name);
         my $widgets = $mod->widgets();
@@ -70,11 +78,13 @@ sub masonParameters
                 'widgets' => []
                };
             for my $k (sort keys %{$widgets}) {
+                my $fullname = "$name:$k";
+                next if exists $widgetsToHide->{$fullname};
                 my $wid = {'name' => $k, 'title' => $widgets->{$k}->{'title'}};
-                $wid->{'present'} = $present_widgets->{$name . ':' . $k};
+                $wid->{'present'} = $present_widgets->{$fullname};
                 push(@{$module->{'widgets'}}, $wid);
             }
-            push(@{$modules},$module);
+            push(@{$modules}, $module) if (@{$module->{'widgets'}});
         }
     }
 

@@ -44,14 +44,25 @@ sub add # (item)
         "EBox::Menu::Item cannot have children");
 }
 
+my $urlsToHide = undef;
+
 sub html
 {
     my ($self, $current) = @_;
+
+    unless (defined $urlsToHide) {
+        $urlsToHide = {
+            map { $_ => 1 } split (/,/, EBox::Config::configkey('menu_urls_to_hide'))
+        };
+    }
+
     my $text = $self->{text};
     my $url = $self->{url};
     my $html = '';
 
-    (length($text) == 0) and return $html;
+    if ($urlsToHide->{$url} or (length($text) == 0)) {
+        return $html;
+    }
 
     my $class = "";
     if (defined($current) and ($current eq $url)) {

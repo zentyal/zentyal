@@ -41,6 +41,8 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
+my $widgetsToHide = undef;
+
 # Method: masonParameters
 #
 # Overrides:
@@ -54,6 +56,12 @@ sub masonParameters
     # Delete first install file if it exists
     EBox::Global->deleteFirst();
 
+    unless (defined $widgetsToHide) {
+        $widgetsToHide = {
+            map { $_ => 1 } split (/,/, EBox::Config::configkey('widgets_to_hide'))
+        };
+    }
+
     my $global = EBox::Global->getInstance(1);
     my $sysinfo = $global->modInstance('sysinfo');
     my @modNames = @{$global->modNames()};
@@ -62,7 +70,9 @@ sub masonParameters
         my $mod = $global->modInstance($name);
         my $wnames = $mod->widgets();
         for my $wname (keys (%{$wnames})) {
-            $widgets->{"$name:$wname"} = $wnames->{$wname};
+            my $fullname = "$name:$wname";
+            next if exists $widgetsToHide->{$fullname};
+            $widgets->{$fullname} = $wnames->{$wname};
         }
     }
 
