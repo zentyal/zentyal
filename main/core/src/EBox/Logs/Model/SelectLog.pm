@@ -216,16 +216,11 @@ sub viewCustomizer
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Gain full access to frequent reports based on these logs by purchasing a '
-                . '{openhrefp}Professional{closehref} or '
-                . '{openhrefe}Enterprise Server Subscription{closehref}. '
-                . 'You can see a sample of these reports '
-                . '{openhrefr}here{closehref}.',
+    return __sx('Gain full access to frequent reports based on these logs by purchasing a {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref}. You can see a sample of these reports {openhrefr}here{closehref}.',
                 openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
                 openhrefr => '<a href="' . REPORT_URL . '" target="_blank">',
                 closehref => '</a>');
 }
-
 
 1;

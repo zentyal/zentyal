@@ -273,11 +273,7 @@ sub _isSubscribed
 
 sub _message
 {
-    return __sx('You can configure your Dynamic DNS provider here. If you have '
-                . 'already subscribed your Zentyal server, the provider is Zentyal '
-                . 'Cloud. If not, consider getting the free {ohb}Basic Server Subscription{ch}: '
-                . 'it includes Dynamic DNS feature that gives your server human-readable public '
-                . 'hostname (yourserver.zentyal.me).',
+    return __sx('You can configure your Dynamic DNS provider here. If you have already subscribed your Zentyal server, the provider is Zentyal Cloud. If not, get the free {ohb}Basic Subscription{ch}: it includes Dynamic DNS feature that gives zentyal.me subdomain for your server (yourserver.zentyal.me).',
                 ohb => '<a href="' . BASIC_URL . '" target="_blank">',
                 ch  => '</a>');
 }

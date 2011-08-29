@@ -569,11 +569,7 @@ sub _checkWatcherHidden # (watcherClassName)
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Receive automatic alerts by purchasing a '
-                . '{openhrefp}Professional{closehref} or '
-                . '{openhrefe}Enterprise Server Subscription{closehref}. '
-                . 'You have a full list of available alerts '
-                . '{openhrefr}here{closehref}.',
+    return __sx('Receive automatic alerts by purchasing a {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref}. You have a full list of available alerts {openhrefr}here{closehref}.',
                 openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
                 openhrefr => '<a href="' . ALERTS_URL . '" target="_blank">',

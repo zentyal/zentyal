@@ -2063,9 +2063,7 @@ sub getCredentials
                                        );
 
     if ($credentials->{type} eq 'basic') {
-        my $infoMsg = __s('If you had Zentyal Disaster Recovery, ' .
-                 'you would have been able to restore module data as well as ' .
-                 'the configuration you are about to recover');
+        my $infoMsg = __s('If you had purchased the Zentyal Disaster Recovery service, besides the configuration you are about to recover, you could have restored the data of the modules.');
         info($infoMsg);
     }
 
@@ -2165,10 +2163,7 @@ sub finishedMessage
     my $msg = '';
     if ( $credentials->{type} eq 'basic' ) {
         $msg = __s('Your configuration backup is now restored!') . "\n\n" .
-               __s('Perhaps you were interested in the Zentyal Disaster Recovery ' .
-                   'service? It allows you to store critical data easily and ' .
-                   'safely in a remote location, as well as to restore this data ' .
-                   'and system configuration in case of a disaster.');
+               __s('Perhaps you could be interested in the Zentyal Disaster Recovery service? This service guarantees that your most business critical data will be stored in a safe remote location and can be recovered easily in case of a disaster.');
     } else {
         $msg = __('Your full backup is now successfully restored!');
     }

@@ -185,21 +185,10 @@ sub _content
 
 sub _message
 {
-    return __sx('Enterprise-level security for your network! The '
-                . '{oha}Advanced Security Updates{ch} guarantee that the '
-                . 'content filtering lists, IDS threat analysis ruleset, '
-                . 'Antivirus signatures and Antispam detection rules in your '
-                . 'Zentyal servers are verified daily by the most trusted IT '
-                . 'experts. To obtain these updates, your server must have '
-                . '{ohp}Professional{ch} or '
-                . '{ohe}Enterprise Server Subscription{ch}.',
-                ch => '</a>',
-                oha => '<a href="' . ASU_URL . '" target="_blank">',
+    return __sx('Enterprise-level security for your network! The {oha}Advanced Security Updates{ch} add-on guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts. To obtain these updates, your server must have {ohp}Professional{ch} or {ohe}Enterprise Subscription{ch}.',
+                ch => '</a>', oha => '<a href="' . ASU_URL . '" target="_blank">',
                 ohp => '<a href="' . PROF_URL . '" target="_blank">',
                 ohe => '<a href="' . ENTE_URL . '" target="_blank">');
-
 }
 
-
 1;
-

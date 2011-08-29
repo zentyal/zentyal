@@ -574,18 +574,9 @@ sub _gpgKeys
 
 sub _message
 {
-    my $backupmsg =  __sx(
-        'Choosing {brand} method you will use the {ohref}{service} service{chref}. '
-        . 'This service guarantees your most critical data is backed up, '
-        . 'secured, monitored and recovered easily quickly in case of a disaster. '
-        . 'You gain access to this service by obtaining the {service} service '
-        . 'and Professional or Enterprise Server Subscription.',
-        brand   => 'Zentyal Cloud',
-        service => 'Zentyal Disaster Recovery',
-        ohref   => '<a href="' . URL . '" target="_blank">',
-        chref   => '</a>',
-    );
-    return $backupmsg;
+    return __sx('Choosing {brand} method you will use the {ohref}{service} service{chref}. This service guarantees that your most business critical data will be stored in a safe remote location and can be recovered easily in case of a disaster. You gain access to this service by obtaining the {service} service and Professional or Enterprise Subscription.',
+                brand => __s('Zentyal Cloud'), service => __s('Zentyal Disaster Recovery'),
+                ohref => '<a href="' . URL . '" target="_blank">', chref => '</a>');
 }
 
 

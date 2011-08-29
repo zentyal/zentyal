@@ -311,30 +311,16 @@ sub _content
 
 sub _CBmessage
 {
-    return __sx('The {ohd}Disaster Recovery{ch} service ensures the '
-                . 'availability of your business critical data! Take a look '
-                . 'and try out the free {ohb}Basic Subscription{ch} which '
-                . 'allows you to store your configuration backup remotely.',
-                ch => '</a>',
-                ohd => '<a href="' . DR_URL . '" target="_blank">',
-                ohb => '<a href="' . BASIC_URL . '" target="_blank">',
-               );
+    return __sx('The {ohd}Disaster Recovery{ch} service ensures the availability of your business critical data! Take a look and try out the free {ohb}Basic Subscription{ch} which allows you to store one configuration backup remotely.',
+                ch => '</a>', ohd => '<a href="' . DR_URL . '" target="_blank">', ohb => '<a href="' . BASIC_URL . '" target="_blank">');
 }
 
 sub _DRmessage
 {
-    return __sx('The full, enterprise-level {ohd}Disaster Recovery{ch} service '
-                . 'guarantees that besides the system configuration, your most '
-                . 'critical data is backed up, secured, monitored and recovered '
-                . 'quickly, in trusted repositories and following strict processes. '
-                . 'To obtain this service, your server must have '
-                . '{ohp}Professional{ch} or '
-                . '{ohe}Enterprise Server Subscription{ch}.',
-                ch => '</a>',
-                ohd => '<a href="' . DR_URL . '" target="_blank">',
+    return __sx('The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees that besides the system configuration, you can store your business critical data easily in a safe remote location. To obtain this service, your server must have {ohp}Professional{ch} or {ohe}Enterprise Subscription{ch}.',
+                ch => '</a>', ohd => '<a href="' . DR_URL . '" target="_blank">',
                 ohp => '<a href="' . PROF_URL . '" target="_blank">',
                 ohe => '<a href="' . ENTE_URL . '" target="_blank">');
-
 }
 
 # Estimate the backup size using volume number

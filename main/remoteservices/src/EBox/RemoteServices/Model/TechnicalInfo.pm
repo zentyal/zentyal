@@ -183,8 +183,7 @@ sub _content
             my %i18nVia = ( '0'  => __sx('{oh}On-line Support Platform{ch}',
                                          oh => '<a href="https://support.zentyal.com" target="_blank">',
                                          ch => '</a>'),
-                            '1'  => __sx('{os}{oh}On-line Support Platform{ch}, IRC'
-                                         . ', Phone upon request{cs}',
+                            '1'  => __sx('{os}{oh}On-line Support Platform{ch}, IRC and Phone upon request{cs}',
                                          oh => '<a href="https://support.zentyal.com" target="_blank">',
                                          ch => '</a>',
                                          os => '<span>',
@@ -219,21 +218,12 @@ sub _content
 
 sub _message
 {
-    return __sx('Get your support directly from the Zentyal Support Team! '
-                . 'Three yearly support packages - {ohl}Essential{ch}, '
-                . '{ohs}Standard{ch} and {ohm}Premium{ch} - with unlimited '
-                . 'number of issues and service delivery times from 1 hour '
-                . 'up to next business day, grant you with vendor-level '
-                . 'support. To obtain a support package your server must '
-                . 'have {ohp}Professional{ch} '
-                . 'or {ohe}Enterprise Server Subscription{ch}.',
-                ch => '</a>',
-                ohl => '<a href="' . ESSE_URL . '" target="_blank">',
+    return __sx('Get your support directly from the Zentyal Team! Three yearly support packages - {ohl}Essential{ch}, {ohs}Standard{ch} and {ohm}Premium{ch} - with unlimited number of issues and service delivery times from 1 hour up to next business day, grant you with vendor-level support. To obtain a support package your server must have {ohp}Professional{ch} or {ohe}Enterprise Subscription{ch}.',
+                ch => '</a>', ohl => '<a href="' . ESSE_URL . '" target="_blank">',
                 ohs => '<a href="' . STD_URL . '" target="_blank">',
                 ohm => '<a href="' . PREM_URL . '" target="_blank">',
                 ohp => '<a href="' . PROF_URL . '" target="_blank">',
                 ohe => '<a href="' . ENTE_URL . '" target="_blank">');
-
 }
 
 

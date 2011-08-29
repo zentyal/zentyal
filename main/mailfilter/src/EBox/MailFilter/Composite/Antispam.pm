@@ -110,17 +110,8 @@ sub _description
 # Commercial message
 sub _commercialMsg
 {
-    return __sx(
-        'Get daily Antispam updates keep spam out of your mail servers! '
-        . 'The Antispam updates are integrated in the {openhref}Advanced '
-        . 'Security Updates{closehref} subscription that guarantees that '
-        . 'the Antispam, Intrusion Detection System, Content filtering '
-        . 'system and Antivirus installed on your Zentyal server are '
-        . 'updated on daily basis based on the information provided by '
-        . 'the most trusted IT experts.',
-        openhref  => '<a href="' . STORE_URL . '" target="_blank">',
-        closehref => '</a>');
-
+    return __sx('Get Antispam updates to keep spam out of your mail servers! The Antispam updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription add-on. It guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
+                openhref  => '<a href="' . STORE_URL . '" target="_blank">', closehref => '</a>');
 }
 
 1;

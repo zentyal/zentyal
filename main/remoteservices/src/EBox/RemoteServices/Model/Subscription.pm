@@ -261,7 +261,7 @@ sub help
 
     my $msg = '';
     if (not $self->eBoxSubscribed()) {
-        $msg = __s('To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one of the Server Subscriptions (Basic, Professional or Enterprise) from the Zentyal On-line Store. Once you have obtained one of these subscriptions, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
+        $msg = __s('To subscribe your Zentyal server to Zentyal Cloud, you need to get first one of the Server Subscriptions (Basic, Professional or Enterprise) from the Zentyal On-line Store. Once you have obtained one of these subscriptions, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
         $msg .= '<br/><br/>';
 
         #my $modChanges = $self->_modulesToChange();
@@ -605,16 +605,10 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('For full, enterprise-level services, obtain '
-                . '{openhrefp}Professional{closehref} or '
-                . '{openhrefe}Enterprise Server Subscription{closehref} - '
-                . 'These offer Quality Assured software updates, Alerts, '
-                . 'Reports and Centralised monitoring and management of your '
-                . 'Zentyal servers!',
+    return __sx('For Zentyal servers in production environments, get {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref} - These give you access to Quality Assured software updates, Alerts, Reports and Centralised monitoring and management of your Zentyal servers!',
                 openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
                 closehref => '</a>');
 }
 
 1;
-

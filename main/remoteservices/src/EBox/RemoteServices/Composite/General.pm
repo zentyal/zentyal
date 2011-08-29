@@ -92,14 +92,8 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Server subscriptions help to keep your Zentyal server secure '
-                . 'and up-to-date! Take a look and try out the free '
-                . '{ohb}Basic Server Subscription{ch} - It gives you access to '
-                . 'some cloud-based extra features such as: Remote configuration '
-                . 'backup, basic alerts, Dynamic DNS (human-readable public hostname) '
-                . 'or Zentyal server name in the web browser tab.',
-                ohb => '<a href="' . SUBS_WIZARD_URL . '">',
-                ch  => '</a>');
+    return __sx('Server subscriptions help to keep your Zentyal server secure and up-to-date! Take a look and try out the free {ohb}Basic Subscription{ch} - It gives you access to some cloud-based extra features such as: Remote configuration backup, basic alerts, reports, monitoring and jobs, Dynamic DNS (zentyal.me subdomain for your server) or Zentyal server name in the web browser tab.',
+                ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
 }
 
 1;

@@ -235,16 +235,8 @@ sub _transparentHelp
 
 sub _commercialMsg
 {
-    return __sx(
-        'Get Ad blocking updates to keep your HTTP proxy aware of the '
-        . 'latest adverts to remove them from your browsing. The Ad-blocking '
-        . 'updates are integrated in the {oh}Advanced Security Updates{ch} '
-        . 'add-on that guarantees that the Antispam, Intrusion Detection '
-        . 'System, Content filtering system and Antivirus installed on your '
-        . 'Zentyal server are updated on daily basis based on the information '
-        . 'provided by the most trusted IT experts.',
-        oh => '<a href="' . STORE_URL . '" target="_blank">',
-        ch => '</a>');
+    return __sx('Get Ad blocking updates to keep your HTTP proxy aware of the latest ads to remove them from the websites you browse. The Ad-blocking updates are integrated in the {oh}Advanced Security Updates{ch} add-on that guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
+                oh => '<a href="' . STORE_URL . '" target="_blank">', ch => '</a>');
 }
 
 1;
