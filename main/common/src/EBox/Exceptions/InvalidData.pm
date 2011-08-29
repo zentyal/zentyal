@@ -29,6 +29,7 @@ sub new # (data=>string,  value=>string, advice => string)
     my %opts = @_;
 
     my $data   = delete $opts{data};
+    utf8::decode($data);
     my $value  = delete $opts{value};
     my $advice = delete $opts{advice};
 

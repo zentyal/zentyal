@@ -30,6 +30,7 @@ sub new # (data=>string,  value=>string)
 
 
     my $data = delete $opts{data};
+    utf8::decode($data);
     my $value = delete $opts{value};
 
     my $error = __x("{data} {value} already exists.", data => $data,

@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid UTF8 double-encoding problems in some exceptions
 2.1.8
 	+ EBox::Gettext::langs() inits now languages if requested instead
 	  of doing it on everytime the module is load, also use english
