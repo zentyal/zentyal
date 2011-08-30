@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-29 19:04+0200\n"
+"POT-Creation-Date: 2011-08-30 12:41+0200\n"
 "PO-Revision-Date: 2009-08-04 06:08+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -126,6 +126,7 @@ msgstr "已過濾的流量大小 (Kb)"
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:298 ../../main/radius/src/EBox/Radius.pm:390
 #: ../../main/asterisk/src/EBox/Asterisk.pm:761
+#: ../../main/ebackup/src/scripts/restore-tool:1304
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:119
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:32
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:39
@@ -1951,6 +1952,7 @@ msgstr "上傳組態的預裝程式"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:116
+#: ../../main/ebackup/src/scripts/restore-tool:283
 msgid "Server"
 msgstr "伺服器"
 
@@ -6328,6 +6330,7 @@ msgid "Domains to back up"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:166
+#: ../../main/ebackup/src/scripts/restore-tool:316
 #, fuzzy
 msgid "Backup domain"
 msgstr "備份日期"
@@ -6414,26 +6417,31 @@ msgid ""
 "date?"
 msgstr "{d}未發現備份紀錄。是否要查詢其他日期？"
 
-#: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:34
+#: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} 不存在."
 
-#: ../../main/common/src/EBox/Exceptions/DataMissing.pm:35
+#: ../../main/common/src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} 是空白的."
+
+#: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
+#, perl-brace-format
+msgid "Missing argument: {data}"
+msgstr ""
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
 msgstr ""
 
-#: ../../main/common/src/EBox/Exceptions/DataExists.pm:35
+#: ../../main/common/src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} 已經存在."
 
-#: ../../main/common/src/EBox/Exceptions/InvalidData.pm:35
+#: ../../main/common/src/EBox/Exceptions/InvalidData.pm:36
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "無效的 {data} 值: {value}."
@@ -14990,6 +14998,440 @@ msgstr "配額"
 msgid "Edit group"
 msgstr "編輯群組"
 
+#: ../../main/ebackup/src/scripts/restore-tool:93
+#, fuzzy
+msgid ""
+"No backups found in this server. Do you want to retry with a different one?"
+msgstr "{d}的備份中未發現備份設定。是否要尋找另一個日期？"
+
+#: ../../main/ebackup/src/scripts/restore-tool:106
+#, fuzzy
+msgid ""
+"There is not configuration backup from this date. Do you want to retry with "
+"another date?"
+msgstr "{d}的備份中未發現備份設定。是否要尋找另一個日期？"
+
+#: ../../main/ebackup/src/scripts/restore-tool:186
+#, perl-brace-format
+msgid "You can only specify one of the encryption options: {sy}, {no}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:202
+msgid "Zenity package not found. Falling back to terminal mode"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:215
+#, fuzzy
+msgid "User for the authentication"
+msgstr "驗證"
+
+#: ../../main/ebackup/src/scripts/restore-tool:217
+msgid ""
+"Password for the authentication. This password will be shown both in the "
+"command line and in the process list so only use this option when security "
+"is not a concern"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:221
+msgid "Server from which its backup date the restore will be done"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:223
+msgid "Use the last backup done for the restore"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:225
+msgid "Backup domain to restore. It could be repeated several times"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:227
+msgid ""
+"Check if we use the no encryption or a symmetric encryption with password "
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:229
+#, fuzzy
+msgid "Do not use graphical interface"
+msgstr "所有的外部介面"
+
+#: ../../main/ebackup/src/scripts/restore-tool:254
+#, perl-brace-format
+msgid "Module {mod} should be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:260
+#, perl-brace-format
+msgid "Module {mod} should be configured"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:272
+msgid ""
+"Could not automatically update system hour. Some restoration operations "
+"could fail if the date is not correct"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:282
+#, fuzzy
+msgid "Choose the server to restore"
+msgstr "Cups 印表機伺服器連接埠"
+
+#: ../../main/ebackup/src/scripts/restore-tool:287
+#, fuzzy
+msgid "Server to restore: "
+msgstr "伺服器連接埠"
+
+#: ../../main/ebackup/src/scripts/restore-tool:315
+msgid "Select backup domains to restore"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:325
+#, perl-brace-format
+msgid "Backup domains available in the server {cn}: {l}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:343
+msgid "No backup domain selected to restore. Doing nothing"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:355
+msgid "Retrieving registered servers list"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:395
+#, fuzzy
+msgid "No key passphrase"
+msgstr "CA 密語"
+
+#: ../../main/ebackup/src/scripts/restore-tool:402
+msgid "No password in retrieved credentials"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:414
+msgid "Retrieving account information"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:481
+msgid "No registered Zentyal Servers"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:487
+#, fuzzy
+msgid "Registered Zentyal Servers"
+msgstr "NTP 伺服器"
+
+#: ../../main/ebackup/src/scripts/restore-tool:543
+#, fuzzy
+msgid "Restoring files"
+msgstr "還原備份檔"
+
+#: ../../main/ebackup/src/scripts/restore-tool:566
+#, perl-brace-format
+msgid ""
+"Cannot restore file {file} requested by backup domains. Reason: {reason}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:584
+#, fuzzy
+msgid "Restoring all backed-up files"
+msgstr "正在還原備份"
+
+#: ../../main/ebackup/src/scripts/restore-tool:632
+#, fuzzy, perl-brace-format
+msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgstr "檔案存在，這不是目錄"
+
+#: ../../main/ebackup/src/scripts/restore-tool:656
+#, perl-brace-format
+msgid "Error restoring file or directory {dst}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:671
+msgid "Backup log data not found, log database will not be restored"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:675
+#, fuzzy
+msgid "Restoring log database"
+msgstr "還原紀錄資料庫"
+
+#: ../../main/ebackup/src/scripts/restore-tool:696
+#, fuzzy
+msgid "Restoring configuration backup"
+msgstr "從備份中還原eBox設定"
+
+#: ../../main/ebackup/src/scripts/restore-tool:701
+msgid ""
+"The configuration restore failed. We will continue the process to try to "
+"restore as much as possible but your system will need manual tweaking"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:716
+#, fuzzy
+msgid "Checking configuration compability"
+msgstr "只有組態"
+
+#: ../../main/ebackup/src/scripts/restore-tool:768
+#, perl-brace-format
+msgid ""
+"Cannot restore backup because there are less interfaces than there are "
+"available. The missing interfaces are: {missing}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:811
+#, fuzzy
+msgid "Updating software package lists"
+msgstr "更新所有套件"
+
+#: ../../main/ebackup/src/scripts/restore-tool:838
+msgid "Installing Zentyal components and their dependencies"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:854
+msgid "Installing missing modules..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:860
+#, perl-brace-format
+msgid ""
+"Error installing packages: {err}. You can continue but you would not restore "
+"any data for the missing packages"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:908
+msgid ""
+"Updating package list to allow access to exclusive Zentyal Cloud packages"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:910
+#, fuzzy
+msgid "Install cloud packages"
+msgstr "更新套件中"
+
+#: ../../main/ebackup/src/scripts/restore-tool:928
+#, fuzzy
+msgid "Downloading subscription data"
+msgstr "eBox 訂閱詳細資料"
+
+#: ../../main/ebackup/src/scripts/restore-tool:946
+msgid ""
+"Connection error when retrieving subscription bundle. Zentyal Cloud "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:949
+msgid ""
+"Cannot retrieve bundle because either installed zentyal-remoteservices is "
+"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:954
+msgid ""
+"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+"packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1005
+#, fuzzy
+msgid "Configuring modules"
+msgstr "設置規則"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1029
+#, fuzzy, perl-brace-format
+msgid "Configuring modules: Current module {mod}"
+msgstr "設定模組： {module}"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1033
+#, fuzzy, perl-brace-format
+msgid "Configuring modules {p} done. Current module {mod}"
+msgstr "設定模組： {module}"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1052
+#, perl-brace-format
+msgid ""
+"Failed to configure module {name}: {err}. This could affect to the restore "
+"from other modules"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1075
+#, fuzzy
+msgid "Finishing new modules configuration"
+msgstr "使用預設的設定檔組態"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1112
+msgid "Downloading backup metadata..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1131
+#, fuzzy
+msgid "Downloading the backup data and configuration"
+msgstr "一般組態"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1171
+#, fuzzy
+msgid "Downloading configuration"
+msgstr "一般組態"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1195
+msgid "Retrieving backup collection status ..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1224
+#: ../../main/ebackup/src/scripts/restore-tool:1285
+#, fuzzy, perl-brace-format
+msgid "Last backup date was: {date}"
+msgstr "上次的更新失敗了。"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1250
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were made for the server {s}"
+msgstr "組態備份"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1301
+#, perl-brace-format
+msgid "Choose date to restore the backup from server {cn}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1325
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were done for the server {s}"
+msgstr "組態備份"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1342
+#, fuzzy, perl-brace-format
+msgid "No configuration backups were made for the date {d} in {s} server"
+msgstr "組態備份"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1374
+#, fuzzy, perl-brace-format
+msgid "The server {server} is not registered in Zentyal Cloud"
+msgstr "eBox 已啟動並執行中"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1433
+msgid "Please, enter a value"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1458
+msgid "Please answer yes or no"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1484
+#, fuzzy, perl-brace-format
+msgid "Backup dates for server {cn}"
+msgstr "服務的流量資料"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1495
+msgid "Enter backup date to restore:"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1498
+#, perl-brace-format
+msgid "Invalid date: {d}. Try again"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1604
+msgid "This entry is mandatory to continue the restoring process. Retry"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1652
+#, fuzzy
+msgid "Selection"
+msgstr "加密"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1691
+msgid ""
+"This entry is mandatory to carry on the restoring process. Choose from the "
+"list"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1812
+#, fuzzy
+msgid "Please wait"
+msgstr "請等待..."
+
+#: ../../main/ebackup/src/scripts/restore-tool:1826
+msgid "Finished"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1886
+#, fuzzy
+msgid "Restoring process aborted upon user request"
+msgstr "還原紀錄資料庫"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1914
+#, fuzzy
+msgid "Saving configuration changes"
+msgstr "只有組態"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1931
+msgid ""
+"Error saving configuration changes; some Zentyal modules would remain in a "
+"unknown state"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1945
+msgid "Regenerating file list cache"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1953
+msgid ""
+"Cannot connect to the Cloud to regenerate backup list. Please try again "
+"later."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2016
+#, fuzzy
+msgid "Zentyal Cloud User"
+msgstr "控制中心"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2019
+#, fuzzy
+msgid "Zentyal Cloud Password"
+msgstr "控制中心"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2034
+#, perl-brace-format
+msgid "The account {user} do not have any registered Zentyal servers"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2093
+#, perl-brace-format
+msgid "Enter password used to encrypt back up {ser}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2149
+#, perl-brace-format
+msgid ""
+"The following backup domains could not be restored from a basic "
+"subscription: {domains}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2168
+msgid "Your full backup is now successfully restored!"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2170
+msgid ""
+"You can go now to the Zentyal administration interface to manage your "
+"recovered host."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2211
+#, fuzzy, perl-brace-format
+msgid "Warning: {msg}"
+msgstr "警告"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2237
+msgid ""
+"Sorry, an unexpected error has occurred. Please contact support and check "
+"the /var/log/zentyal/zentyal.log file for further details."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2257
+#, fuzzy
+msgid "Restore process aborted"
+msgstr "還原紀錄資料庫"
+
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr ""
@@ -17213,9 +17655,6 @@ msgstr ""
 #~ msgid "Network traffic for {service}"
 #~ msgstr "依 {service} 的網路流量"
 
-#~ msgid "Traffic data for service"
-#~ msgstr "服務的流量資料"
-
 #~ msgid "Traffic data not found for source and service pair"
 #~ msgstr "沒有找到依來源和服務的流量資料"
 
@@ -17335,10 +17774,6 @@ msgstr ""
 #~ msgid "The {userDirConfFile} is missing! Please recover it."
 #~ msgstr "此 {userDirConfFile} 已遺失!請回復"
 
-#, fuzzy
-#~ msgid "External NTP Servers"
-#~ msgstr "NTP 伺服器"
-
 #~ msgid ""
 #~ "Language changes happen automatically, saving the configuration it's not "
 #~ "needed."
@@ -17369,10 +17804,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "TLS for SMTP server"
 #~ msgstr "郵件 SMTP 伺服器"
-
-#, fuzzy
-#~ msgid "Require authentication"
-#~ msgstr "驗證"
 
 #~ msgid ""
 #~ "Users will have to authenticate to be able to send mails through this "
@@ -17537,10 +17968,6 @@ msgstr ""
 #~ msgid "Remote Support Access"
 #~ msgstr "遠端服務"
 
-#, fuzzy
-#~ msgid "Zentyal Cloud Connection"
-#~ msgstr "控制中心"
-
 #~ msgid "Control panel"
 #~ msgstr "控制面板"
 
@@ -17665,32 +18092,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Zentyal Administration port"
 #~ msgstr "eBox 管理埠"
-
-#, fuzzy
-#~ msgid ""
-#~ "There is not configuration backup from this date. Do you want to retry "
-#~ "with another date?"
-#~ msgstr "{d}的備份中未發現備份設定。是否要尋找另一個日期？"
-
-#, fuzzy
-#~ msgid "Restoring files"
-#~ msgstr "還原備份檔"
-
-#, fuzzy
-#~ msgid "Restoring log database"
-#~ msgstr "還原紀錄資料庫"
-
-#, fuzzy
-#~ msgid "Downloading configuration"
-#~ msgstr "一般組態"
-
-#, fuzzy
-#~ msgid "Please wait"
-#~ msgstr "請等待..."
-
-#, fuzzy
-#~ msgid "Restore process aborted"
-#~ msgstr "還原紀錄資料庫"
 
 #, fuzzy
 #~ msgid "Usage:"

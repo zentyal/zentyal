@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-29 19:04+0200\n"
+"POT-Creation-Date: 2011-08-30 12:41+0200\n"
 "PO-Revision-Date: 2011-08-12 22:31+0200\n"
 "Last-Translator: László <soma-sk8@freemail.hu>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -127,6 +127,7 @@ msgstr "Szűrt forgalom mérete (Kb)"
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:298 ../../main/radius/src/EBox/Radius.pm:390
 #: ../../main/asterisk/src/EBox/Asterisk.pm:761
+#: ../../main/ebackup/src/scripts/restore-tool:1304
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:119
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:32
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:39
@@ -1861,6 +1862,7 @@ msgstr "Feltöltés beállításának csomagja"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:116
+#: ../../main/ebackup/src/scripts/restore-tool:283
 msgid "Server"
 msgstr "Kiszolgáló"
 
@@ -6318,6 +6320,7 @@ msgid "Domains to back up"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:166
+#: ../../main/ebackup/src/scripts/restore-tool:316
 #, fuzzy
 msgid "Backup domain"
 msgstr "Biztonsági mentés ideje"
@@ -6407,27 +6410,32 @@ msgid ""
 msgstr ""
 "A mentés adatai nem találhatók a {d} mentésben. Talán próbálja más dátumon."
 
-#: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:34
+#: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} nem létezik."
 
-#: ../../main/common/src/EBox/Exceptions/DataMissing.pm:35
+#: ../../main/common/src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "Üres adat: {data}"
+
+#: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
+#, perl-brace-format
+msgid "Missing argument: {data}"
+msgstr ""
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 #, fuzzy
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
 msgstr "A {host} nem elérhető. Ellenőrizze az internetkapcsolatát"
 
-#: ../../main/common/src/EBox/Exceptions/DataExists.pm:35
+#: ../../main/common/src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} már létezik."
 
-#: ../../main/common/src/EBox/Exceptions/InvalidData.pm:35
+#: ../../main/common/src/EBox/Exceptions/InvalidData.pm:36
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Érvénytelen érték: {data}: {value}."
@@ -15131,6 +15139,461 @@ msgstr "kvóta"
 msgid "Edit group"
 msgstr "Csoport szerkesztése"
 
+#: ../../main/ebackup/src/scripts/restore-tool:93
+#, fuzzy
+msgid ""
+"No backups found in this server. Do you want to retry with a different one?"
+msgstr ""
+"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+"dátumot."
+
+#: ../../main/ebackup/src/scripts/restore-tool:106
+#, fuzzy
+msgid ""
+"There is not configuration backup from this date. Do you want to retry with "
+"another date?"
+msgstr ""
+"A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
+"dátumot."
+
+#: ../../main/ebackup/src/scripts/restore-tool:186
+#, perl-brace-format
+msgid "You can only specify one of the encryption options: {sy}, {no}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:202
+msgid "Zenity package not found. Falling back to terminal mode"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:215
+#, fuzzy
+msgid "User for the authentication"
+msgstr "Bejelentkezés szükséges"
+
+#: ../../main/ebackup/src/scripts/restore-tool:217
+msgid ""
+"Password for the authentication. This password will be shown both in the "
+"command line and in the process list so only use this option when security "
+"is not a concern"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:221
+msgid "Server from which its backup date the restore will be done"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:223
+msgid "Use the last backup done for the restore"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:225
+msgid "Backup domain to restore. It could be repeated several times"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:227
+msgid ""
+"Check if we use the no encryption or a symmetric encryption with password "
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:229
+#, fuzzy
+msgid "Do not use graphical interface"
+msgstr "Összes külső csatoló"
+
+#: ../../main/ebackup/src/scripts/restore-tool:254
+#, perl-brace-format
+msgid "Module {mod} should be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:260
+#, perl-brace-format
+msgid "Module {mod} should be configured"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:272
+msgid ""
+"Could not automatically update system hour. Some restoration operations "
+"could fail if the date is not correct"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:282
+#, fuzzy
+msgid "Choose the server to restore"
+msgstr "Szolgáltatások visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:287
+#, fuzzy
+msgid "Server to restore: "
+msgstr "Szolgáltatások visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:315
+msgid "Select backup domains to restore"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:325
+#, perl-brace-format
+msgid "Backup domains available in the server {cn}: {l}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:343
+msgid "No backup domain selected to restore. Doing nothing"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:355
+msgid "Retrieving registered servers list"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:395
+#, fuzzy
+msgid "No key passphrase"
+msgstr "CA jelmondat"
+
+#: ../../main/ebackup/src/scripts/restore-tool:402
+msgid "No password in retrieved credentials"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:414
+msgid "Retrieving account information"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:481
+msgid "No registered Zentyal Servers"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:487
+#, fuzzy
+msgid "Registered Zentyal Servers"
+msgstr "Zentyal FTP szerver"
+
+#: ../../main/ebackup/src/scripts/restore-tool:543
+#, fuzzy
+msgid "Restoring files"
+msgstr "Fájlok visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:566
+#, perl-brace-format
+msgid ""
+"Cannot restore file {file} requested by backup domains. Reason: {reason}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:584
+#, fuzzy
+msgid "Restoring all backed-up files"
+msgstr "Biztonsági mentés visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:632
+#, fuzzy, perl-brace-format
+msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgstr "A fájl létezik és nem egy mappa"
+
+#: ../../main/ebackup/src/scripts/restore-tool:656
+#, perl-brace-format
+msgid "Error restoring file or directory {dst}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:671
+msgid "Backup log data not found, log database will not be restored"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:675
+#, fuzzy
+msgid "Restoring log database"
+msgstr "Naplóadatbázisok visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:696
+#, fuzzy
+msgid "Restoring configuration backup"
+msgstr "Zentyal beállítások visszaállítása mentésből"
+
+#: ../../main/ebackup/src/scripts/restore-tool:701
+msgid ""
+"The configuration restore failed. We will continue the process to try to "
+"restore as much as possible but your system will need manual tweaking"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:716
+#, fuzzy
+msgid "Checking configuration compability"
+msgstr "Csak beállítások"
+
+#: ../../main/ebackup/src/scripts/restore-tool:768
+#, perl-brace-format
+msgid ""
+"Cannot restore backup because there are less interfaces than there are "
+"available. The missing interfaces are: {missing}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:811
+#, fuzzy
+msgid "Updating software package lists"
+msgstr "Minden csomag frissítése"
+
+#: ../../main/ebackup/src/scripts/restore-tool:838
+#, fuzzy
+msgid "Installing Zentyal components and their dependencies"
+msgstr ""
+"A Zentyalra faló feliratkozás következtében be lesznek állítva a(z) {mods} "
+"modul és annak függőségei "
+
+#: ../../main/ebackup/src/scripts/restore-tool:854
+msgid "Installing missing modules..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:860
+#, perl-brace-format
+msgid ""
+"Error installing packages: {err}. You can continue but you would not restore "
+"any data for the missing packages"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:908
+msgid ""
+"Updating package list to allow access to exclusive Zentyal Cloud packages"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:910
+#, fuzzy
+msgid "Install cloud packages"
+msgstr "Csomagok telepítése"
+
+#: ../../main/ebackup/src/scripts/restore-tool:928
+#, fuzzy
+msgid "Downloading subscription data"
+msgstr "Zentyal feliratkozás részletei"
+
+#: ../../main/ebackup/src/scripts/restore-tool:946
+msgid ""
+"Connection error when retrieving subscription bundle. Zentyal Cloud "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:949
+msgid ""
+"Cannot retrieve bundle because either installed zentyal-remoteservices is "
+"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:954
+msgid ""
+"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+"packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1005
+#, fuzzy
+msgid "Configuring modules"
+msgstr "Beállítás és állapot"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1029
+#, fuzzy, perl-brace-format
+msgid "Configuring modules: Current module {mod}"
+msgstr "Beállítás és állapot"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1033
+#, fuzzy, perl-brace-format
+msgid "Configuring modules {p} done. Current module {mod}"
+msgstr "Beállítás és állapot"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1052
+#, perl-brace-format
+msgid ""
+"Failed to configure module {name}: {err}. This could affect to the restore "
+"from other modules"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1075
+#, fuzzy
+msgid "Finishing new modules configuration"
+msgstr "Alapértelmezett profilbeállítás használata"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1112
+msgid "Downloading backup metadata..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1131
+#, fuzzy
+msgid "Downloading the backup data and configuration"
+msgstr "Általános beállítások"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1171
+#, fuzzy
+msgid "Downloading configuration"
+msgstr "Általános beállítások"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1195
+msgid "Retrieving backup collection status ..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1224
+#: ../../main/ebackup/src/scripts/restore-tool:1285
+#, fuzzy, perl-brace-format
+msgid "Last backup date was: {date}"
+msgstr "Az utolsó frissítés meghiúsult."
+
+#: ../../main/ebackup/src/scripts/restore-tool:1250
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were made for the server {s}"
+msgstr ""
+"#-#-#-#-#  hu.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+"Beállítások mentése\n"
+"#-#-#-#-#  hu.po (ebox-ebox 1.1)  #-#-#-#-#\n"
+"Beállítások mentés"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1301
+#, perl-brace-format
+msgid "Choose date to restore the backup from server {cn}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1325
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were done for the server {s}"
+msgstr ""
+"#-#-#-#-#  hu.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+"Beállítások mentése\n"
+"#-#-#-#-#  hu.po (ebox-ebox 1.1)  #-#-#-#-#\n"
+"Beállítások mentés"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1342
+#, fuzzy, perl-brace-format
+msgid "No configuration backups were made for the date {d} in {s} server"
+msgstr ""
+"#-#-#-#-#  hu.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
+"Beállítások mentése\n"
+"#-#-#-#-#  hu.po (ebox-ebox 1.1)  #-#-#-#-#\n"
+"Beállítások mentés"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1374
+#, fuzzy, perl-brace-format
+msgid "The server {server} is not registered in Zentyal Cloud"
+msgstr "A szolgáltatás jelenleg nincs bekapcsolva a Zentyalban."
+
+#: ../../main/ebackup/src/scripts/restore-tool:1433
+msgid "Please, enter a value"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1458
+msgid "Please answer yes or no"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1484
+#, fuzzy, perl-brace-format
+msgid "Backup dates for server {cn}"
+msgstr "A szolgáltatás hálózati forgalma."
+
+#: ../../main/ebackup/src/scripts/restore-tool:1495
+#, fuzzy
+msgid "Enter backup date to restore:"
+msgstr "Szolgáltatások visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1498
+#, perl-brace-format
+msgid "Invalid date: {d}. Try again"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1604
+msgid "This entry is mandatory to continue the restoring process. Retry"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1652
+#, fuzzy
+msgid "Selection"
+msgstr "Kódolás"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1691
+msgid ""
+"This entry is mandatory to carry on the restoring process. Choose from the "
+"list"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1812
+#, fuzzy
+msgid "Please wait"
+msgstr "Kérem várjon..."
+
+#: ../../main/ebackup/src/scripts/restore-tool:1826
+#, fuzzy
+msgid "Finished"
+msgstr "Vége"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1886
+#, fuzzy
+msgid "Restoring process aborted upon user request"
+msgstr "Naplóadatbázisok visszaállítása"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1914
+#, fuzzy
+msgid "Saving configuration changes"
+msgstr "Beállítás és állapot"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1931
+msgid ""
+"Error saving configuration changes; some Zentyal modules would remain in a "
+"unknown state"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1945
+msgid "Regenerating file list cache"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1953
+msgid ""
+"Cannot connect to the Cloud to regenerate backup list. Please try again "
+"later."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2016
+#, fuzzy
+msgid "Zentyal Cloud User"
+msgstr "Zentyal Cloud"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2019
+#, fuzzy
+msgid "Zentyal Cloud Password"
+msgstr "Zentyal Cloud"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2034
+#, perl-brace-format
+msgid "The account {user} do not have any registered Zentyal servers"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2093
+#, perl-brace-format
+msgid "Enter password used to encrypt back up {ser}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2149
+#, perl-brace-format
+msgid ""
+"The following backup domains could not be restored from a basic "
+"subscription: {domains}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2168
+msgid "Your full backup is now successfully restored!"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2170
+msgid ""
+"You can go now to the Zentyal administration interface to manage your "
+"recovered host."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2211
+#, fuzzy, perl-brace-format
+msgid "Warning: {msg}"
+msgstr "Figyelmeztetés"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2237
+msgid ""
+"Sorry, an unexpected error has occurred. Please contact support and check "
+"the /var/log/zentyal/zentyal.log file for further details."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2257
+#, fuzzy
+msgid "Restore process aborted"
+msgstr "Naplóadatbázisok visszaállítása"
+
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr "A hét napjai"
@@ -17375,9 +17838,6 @@ msgstr ""
 #~ msgid "Network traffic for {service}"
 #~ msgstr "A {service} szolgáltatás hálózati forgalma."
 
-#~ msgid "Traffic data for service"
-#~ msgstr "A szolgáltatás hálózati forgalma."
-
 #~ msgid "Traffic data not found for source and service pair"
 #~ msgstr ""
 #~ "Forgalomadatok nem elérhetőek a forrás és szolgáltatás páros esetén."
@@ -17561,9 +18021,6 @@ msgstr ""
 
 #~ msgid "TLS for SMTP server"
 #~ msgstr "Az SMTP szerver TLS értéke"
-
-#~ msgid "Require authentication"
-#~ msgstr "Bejelentkezés szükséges"
 
 #~ msgid ""
 #~ "Users will have to authenticate to be able to send mails through this "
@@ -17789,11 +18246,6 @@ msgstr ""
 #~ msgid "Control panel"
 #~ msgstr "Vezérlőfelület"
 
-#~ msgid "Subscribing Zentyal will configure the {mods} and its dependencies "
-#~ msgstr ""
-#~ "A Zentyalra faló feliratkozás következtében be lesznek állítva a(z) "
-#~ "{mods} modul és annak függőségei "
-
 #~ msgid ""
 #~ "Subscribing Zentyal will enable the {mods} and its dependencies.<br/>"
 #~ msgstr ""
@@ -17938,46 +18390,6 @@ msgstr ""
 
 #~ msgid "protocol for editing SIEVE filters"
 #~ msgstr "a SIEVE szűrő módosítására szolgáló protokoll"
-
-#, fuzzy
-#~ msgid ""
-#~ "There is not configuration backup from this date. Do you want to retry "
-#~ "with another date?"
-#~ msgstr ""
-#~ "A beállítások mentése nem található a {d} mentésben. Talán próbáljon más "
-#~ "dátumot."
-
-#, fuzzy
-#~ msgid "Server to restore: "
-#~ msgstr "Szolgáltatások visszaállítása"
-
-#, fuzzy
-#~ msgid "Restoring files"
-#~ msgstr "Fájlok visszaállítása"
-
-#, fuzzy
-#~ msgid "Restoring log database"
-#~ msgstr "Naplóadatbázisok visszaállítása"
-
-#, fuzzy
-#~ msgid "Configuring modules"
-#~ msgstr "Beállítás és állapot"
-
-#, fuzzy
-#~ msgid "Configuring modules: Current module {mod}"
-#~ msgstr "Beállítás és állapot"
-
-#, fuzzy
-#~ msgid "Downloading configuration"
-#~ msgstr "Általános beállítások"
-
-#, fuzzy
-#~ msgid "Please wait"
-#~ msgstr "Kérem várjon..."
-
-#, fuzzy
-#~ msgid "Restore process aborted"
-#~ msgstr "Naplóadatbázisok visszaállítása"
 
 #, fuzzy
 #~ msgid "Usage:"

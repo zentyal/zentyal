@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-29 19:04+0200\n"
+"POT-Creation-Date: 2011-08-30 12:41+0200\n"
 "PO-Revision-Date: 2011-05-12 02:10+0200\n"
 "Last-Translator: Ovidiu <ovidiu.creanga@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -128,6 +128,7 @@ msgstr ""
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:298 ../../main/radius/src/EBox/Radius.pm:390
 #: ../../main/asterisk/src/EBox/Asterisk.pm:761
+#: ../../main/ebackup/src/scripts/restore-tool:1304
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:119
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:32
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:39
@@ -1765,6 +1766,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:116
+#: ../../main/ebackup/src/scripts/restore-tool:283
 msgid "Server"
 msgstr "Server"
 
@@ -6189,6 +6191,7 @@ msgid "Domains to back up"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:166
+#: ../../main/ebackup/src/scripts/restore-tool:316
 #, fuzzy
 msgid "Backup domain"
 msgstr "Data backup-ului"
@@ -6280,26 +6283,31 @@ msgstr ""
 "Backup-ul jurnalelor nu a fost gasit in backup-ul pentru {d}. Puteţi încerca "
 "să utilizaţi o alta dată?"
 
-#: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:34
+#: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr ""
 
-#: ../../main/common/src/EBox/Exceptions/DataMissing.pm:35
+#: ../../main/common/src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
+msgstr ""
+
+#: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
+#, perl-brace-format
+msgid "Missing argument: {data}"
 msgstr ""
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
 msgstr ""
 
-#: ../../main/common/src/EBox/Exceptions/DataExists.pm:35
+#: ../../main/common/src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr ""
 
-#: ../../main/common/src/EBox/Exceptions/InvalidData.pm:35
+#: ../../main/common/src/EBox/Exceptions/InvalidData.pm:36
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr ""
@@ -14877,6 +14885,449 @@ msgstr ""
 msgid "Edit group"
 msgstr "Editare grup"
 
+#: ../../main/ebackup/src/scripts/restore-tool:93
+#, fuzzy
+msgid ""
+"No backups found in this server. Do you want to retry with a different one?"
+msgstr ""
+"Backup-ul configuratiei nu a fost gasit in backup pentru {d}. Poate "
+"incercati o alta data?"
+
+#: ../../main/ebackup/src/scripts/restore-tool:106
+#, fuzzy
+msgid ""
+"There is not configuration backup from this date. Do you want to retry with "
+"another date?"
+msgstr ""
+"Backup-ul configuratiei nu a fost gasit in backup pentru {d}. Poate "
+"incercati o alta data?"
+
+#: ../../main/ebackup/src/scripts/restore-tool:186
+#, perl-brace-format
+msgid "You can only specify one of the encryption options: {sy}, {no}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:202
+msgid "Zenity package not found. Falling back to terminal mode"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:215
+#, fuzzy
+msgid "User for the authentication"
+msgstr "Autentificare SMTP"
+
+#: ../../main/ebackup/src/scripts/restore-tool:217
+msgid ""
+"Password for the authentication. This password will be shown both in the "
+"command line and in the process list so only use this option when security "
+"is not a concern"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:221
+msgid "Server from which its backup date the restore will be done"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:223
+msgid "Use the last backup done for the restore"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:225
+msgid "Backup domain to restore. It could be repeated several times"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:227
+msgid ""
+"Check if we use the no encryption or a symmetric encryption with password "
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:229
+#, fuzzy
+msgid "Do not use graphical interface"
+msgstr "Toate interfeţele externe"
+
+#: ../../main/ebackup/src/scripts/restore-tool:254
+#, perl-brace-format
+msgid "Module {mod} should be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:260
+#, perl-brace-format
+msgid "Module {mod} should be configured"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:272
+msgid ""
+"Could not automatically update system hour. Some restoration operations "
+"could fail if the date is not correct"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:282
+#, fuzzy
+msgid "Choose the server to restore"
+msgstr "Restaurarea serviciilor"
+
+#: ../../main/ebackup/src/scripts/restore-tool:287
+#, fuzzy
+msgid "Server to restore: "
+msgstr "Restaurarea serviciilor"
+
+#: ../../main/ebackup/src/scripts/restore-tool:315
+msgid "Select backup domains to restore"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:325
+#, perl-brace-format
+msgid "Backup domains available in the server {cn}: {l}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:343
+msgid "No backup domain selected to restore. Doing nothing"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:355
+msgid "Retrieving registered servers list"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:395
+#, fuzzy
+msgid "No key passphrase"
+msgstr "Parola autorității de certificare"
+
+#: ../../main/ebackup/src/scripts/restore-tool:402
+msgid "No password in retrieved credentials"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:414
+msgid "Retrieving account information"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:481
+msgid "No registered Zentyal Servers"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:487
+#, fuzzy
+msgid "Registered Zentyal Servers"
+msgstr "Server FTP Zentyal"
+
+#: ../../main/ebackup/src/scripts/restore-tool:543
+#, fuzzy
+msgid "Restoring files"
+msgstr "Restaureaza Fisiere"
+
+#: ../../main/ebackup/src/scripts/restore-tool:566
+#, perl-brace-format
+msgid ""
+"Cannot restore file {file} requested by backup domains. Reason: {reason}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:584
+#, fuzzy
+msgid "Restoring all backed-up files"
+msgstr "Restaurare back-up"
+
+#: ../../main/ebackup/src/scripts/restore-tool:632
+#, fuzzy, perl-brace-format
+msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgstr "Fisierul exista si nu este un director"
+
+#: ../../main/ebackup/src/scripts/restore-tool:656
+#, perl-brace-format
+msgid "Error restoring file or directory {dst}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:671
+msgid "Backup log data not found, log database will not be restored"
+msgstr ""
+
+# se refera la jurnale sau la restaurari ???
+#: ../../main/ebackup/src/scripts/restore-tool:675
+#, fuzzy
+msgid "Restoring log database"
+msgstr "Restaureaza baza de date jurnal"
+
+#: ../../main/ebackup/src/scripts/restore-tool:696
+#, fuzzy
+msgid "Restoring configuration backup"
+msgstr "Restaureaza configuratia Zentyal din backup"
+
+#: ../../main/ebackup/src/scripts/restore-tool:701
+msgid ""
+"The configuration restore failed. We will continue the process to try to "
+"restore as much as possible but your system will need manual tweaking"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:716
+#, fuzzy
+msgid "Checking configuration compability"
+msgstr "Numai configuratie"
+
+#: ../../main/ebackup/src/scripts/restore-tool:768
+#, perl-brace-format
+msgid ""
+"Cannot restore backup because there are less interfaces than there are "
+"available. The missing interfaces are: {missing}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:811
+#, fuzzy
+msgid "Updating software package lists"
+msgstr "Actualizarea tuturor pachetelor"
+
+#: ../../main/ebackup/src/scripts/restore-tool:838
+msgid "Installing Zentyal components and their dependencies"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:854
+msgid "Installing missing modules..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:860
+#, perl-brace-format
+msgid ""
+"Error installing packages: {err}. You can continue but you would not restore "
+"any data for the missing packages"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:908
+msgid ""
+"Updating package list to allow access to exclusive Zentyal Cloud packages"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:910
+#, fuzzy
+msgid "Install cloud packages"
+msgstr "Se instalează pachetele"
+
+#: ../../main/ebackup/src/scripts/restore-tool:928
+#, fuzzy
+msgid "Downloading subscription data"
+msgstr "Descriere"
+
+#: ../../main/ebackup/src/scripts/restore-tool:946
+msgid ""
+"Connection error when retrieving subscription bundle. Zentyal Cloud "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:949
+msgid ""
+"Cannot retrieve bundle because either installed zentyal-remoteservices is "
+"outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
+"exclusive packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:954
+msgid ""
+"Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
+"packages will not be installed"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1005
+#, fuzzy
+msgid "Configuring modules"
+msgstr "Configuratia si status"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1029
+#, fuzzy, perl-brace-format
+msgid "Configuring modules: Current module {mod}"
+msgstr "Configuratia si status"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1033
+#, fuzzy, perl-brace-format
+msgid "Configuring modules {p} done. Current module {mod}"
+msgstr "Configuratia si status"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1052
+#, perl-brace-format
+msgid ""
+"Failed to configure module {name}: {err}. This could affect to the restore "
+"from other modules"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1075
+#, fuzzy
+msgid "Finishing new modules configuration"
+msgstr "Configurare fus orar"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1112
+msgid "Downloading backup metadata..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1131
+#, fuzzy
+msgid "Downloading the backup data and configuration"
+msgstr "Backup complet, date si configuratie"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1171
+#, fuzzy
+msgid "Downloading configuration"
+msgstr "Configurare jurnale"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1195
+msgid "Retrieving backup collection status ..."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1224
+#: ../../main/ebackup/src/scripts/restore-tool:1285
+#, fuzzy, perl-brace-format
+msgid "Last backup date was: {date}"
+msgstr "Ultima actualizare a eșuat"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1250
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were made for the server {s}"
+msgstr "Configurare Backup"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1301
+#, perl-brace-format
+msgid "Choose date to restore the backup from server {cn}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1325
+#, fuzzy, perl-brace-format
+msgid "No automatic configuration backups were done for the server {s}"
+msgstr "Configurare Backup"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1342
+#, fuzzy, perl-brace-format
+msgid "No configuration backups were made for the date {d} in {s} server"
+msgstr "Configurare Backup"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1374
+#, fuzzy, perl-brace-format
+msgid "The server {server} is not registered in Zentyal Cloud"
+msgstr "Serviciul nu este activat în Zentyal"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1433
+msgid "Please, enter a value"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1458
+msgid "Please answer yes or no"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1484
+#, fuzzy, perl-brace-format
+msgid "Backup dates for server {cn}"
+msgstr "Date de trafic pt. serviciu(l)"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1495
+#, fuzzy
+msgid "Enter backup date to restore:"
+msgstr "Restaurarea serviciilor"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1498
+#, perl-brace-format
+msgid "Invalid date: {d}. Try again"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1604
+msgid "This entry is mandatory to continue the restoring process. Retry"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1652
+#, fuzzy
+msgid "Selection"
+msgstr "Criptare"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1691
+msgid ""
+"This entry is mandatory to carry on the restoring process. Choose from the "
+"list"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1812
+#, fuzzy
+msgid "Please wait"
+msgstr "Asteptati va rog..."
+
+#: ../../main/ebackup/src/scripts/restore-tool:1826
+#, fuzzy
+msgid "Finished"
+msgstr "Terminat"
+
+# se refera la jurnale sau la restaurari ???
+#: ../../main/ebackup/src/scripts/restore-tool:1886
+#, fuzzy
+msgid "Restoring process aborted upon user request"
+msgstr "Restaureaza baza de date jurnal"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1914
+#, fuzzy
+msgid "Saving configuration changes"
+msgstr "Configuratia si status"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1931
+msgid ""
+"Error saving configuration changes; some Zentyal modules would remain in a "
+"unknown state"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1945
+msgid "Regenerating file list cache"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1953
+msgid ""
+"Cannot connect to the Cloud to regenerate backup list. Please try again "
+"later."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2016
+#, fuzzy
+msgid "Zentyal Cloud User"
+msgstr "Serviciu mail Zentyal"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2019
+#, fuzzy
+msgid "Zentyal Cloud Password"
+msgstr "Zentyal va înregistra parolele PPPoE"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2034
+#, perl-brace-format
+msgid "The account {user} do not have any registered Zentyal servers"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2093
+#, perl-brace-format
+msgid "Enter password used to encrypt back up {ser}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2149
+#, perl-brace-format
+msgid ""
+"The following backup domains could not be restored from a basic "
+"subscription: {domains}"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2168
+msgid "Your full backup is now successfully restored!"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2170
+msgid ""
+"You can go now to the Zentyal administration interface to manage your "
+"recovered host."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2211
+#, fuzzy, perl-brace-format
+msgid "Warning: {msg}"
+msgstr "Avertizare"
+
+#: ../../main/ebackup/src/scripts/restore-tool:2237
+msgid ""
+"Sorry, an unexpected error has occurred. Please contact support and check "
+"the /var/log/zentyal/zentyal.log file for further details."
+msgstr ""
+
+# se refera la jurnale sau la restaurari ???
+#: ../../main/ebackup/src/scripts/restore-tool:2257
+#, fuzzy
+msgid "Restore process aborted"
+msgstr "Restaureaza baza de date jurnal"
+
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
 msgstr ""
@@ -17048,9 +17499,6 @@ msgstr ""
 #~ msgid "Network traffic for {service}"
 #~ msgstr "Trafic reţea pentru {service}"
 
-#~ msgid "Traffic data for service"
-#~ msgstr "Date de trafic pt. serviciu(l)"
-
 #~ msgid "Traffic data not found for source and service pair"
 #~ msgstr "Nu sunt date de trafic pt. perechea sursă/serviciu"
 
@@ -17141,9 +17589,6 @@ msgstr ""
 
 #~ msgid "external synchronize status"
 #~ msgstr "stare sincronizare externă"
-
-#~ msgid "Time Zone Configuration"
-#~ msgstr "Configurare fus orar"
 
 #~ msgid "Date and Time Configuration"
 #~ msgstr "Configurare dată şi oră"
@@ -17430,9 +17875,6 @@ msgstr ""
 #~ msgid "Select report"
 #~ msgstr "Selectare raport"
 
-#~ msgid "Logs configuration"
-#~ msgstr "Configurare jurnale"
-
 #~ msgid "Configuration report"
 #~ msgstr "Raport de configurare"
 
@@ -17477,44 +17919,6 @@ msgstr ""
 
 #~ msgid "Zentyal Administration port"
 #~ msgstr "Port administrare Zentyal"
-
-#, fuzzy
-#~ msgid ""
-#~ "There is not configuration backup from this date. Do you want to retry "
-#~ "with another date?"
-#~ msgstr ""
-#~ "Backup-ul configuratiei nu a fost gasit in backup pentru {d}. Poate "
-#~ "incercati o alta data?"
-
-#, fuzzy
-#~ msgid "Server to restore: "
-#~ msgstr "Restaurarea serviciilor"
-
-#, fuzzy
-#~ msgid "Restoring files"
-#~ msgstr "Restaureaza Fisiere"
-
-# se refera la jurnale sau la restaurari ???
-#, fuzzy
-#~ msgid "Restoring log database"
-#~ msgstr "Restaureaza baza de date jurnal"
-
-#, fuzzy
-#~ msgid "Configuring modules"
-#~ msgstr "Configuratia si status"
-
-#, fuzzy
-#~ msgid "Configuring modules: Current module {mod}"
-#~ msgstr "Configuratia si status"
-
-#, fuzzy
-#~ msgid "Please wait"
-#~ msgstr "Asteptati va rog..."
-
-# se refera la jurnale sau la restaurari ???
-#, fuzzy
-#~ msgid "Restore process aborted"
-#~ msgstr "Restaureaza baza de date jurnal"
 
 #, fuzzy
 #~ msgid "Usage:"
