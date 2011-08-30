@@ -7,6 +7,7 @@ echo ""
 echo ""
 echo -n "POTFILES_PL = "
 find $codepath \( -path ./src/scripts -prune -o -path ./doc -prune -o -name "*.pm" -o -name "*.cgi" -o -name "*.pm.in" -o -wholename "./migration/*.pl" \) -type f -exec echo -ne \\\\\\\n {}" " \;
+echo -n " ${codepath}/ebackup/src/scripts/restore-tool"
 echo ""
 echo ""
 echo -n "POTFILES = "
