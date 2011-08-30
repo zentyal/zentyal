@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 12:41+0200\n"
+"POT-Creation-Date: 2011-08-30 15:36+0200\n"
 "PO-Revision-Date: 2011-06-09 18:10+0200\n"
 "Last-Translator: luismorgado <luisammorgado@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -15420,7 +15420,7 @@ msgstr "A restaurar cópia de segurança"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
 #, fuzzy, perl-brace-format
-msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr "O ficheiro existe e não é um directório"
 
 #: ../../main/ebackup/src/scripts/restore-tool:656

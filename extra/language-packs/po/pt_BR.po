@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 12:41+0200\n"
+"POT-Creation-Date: 2011-08-30 15:36+0200\n"
 "PO-Revision-Date: 2011-08-23 19:46+0200\n"
 "Last-Translator: goks <jmsjr85@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -5227,8 +5227,7 @@ msgstr "Uso de banda na última hora"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:89
 msgid "There is no data to show yet, the values are updated every 10 minutes"
 msgstr ""
-"Não há dados para mostrar ainda, os valores são atualizados a cada 10 "
-"minutos"
+"Não há dados para mostrar ainda, os valores são atualizados a cada 10 minutos"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "Bandwidth usage for each connected client."
@@ -15079,7 +15078,7 @@ msgstr "Restaurando backup"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
 #, fuzzy, perl-brace-format
-msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr "Existe um arquivo e não um diretório"
 
 #: ../../main/ebackup/src/scripts/restore-tool:656

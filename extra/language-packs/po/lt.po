@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 12:41+0200\n"
+"POT-Creation-Date: 2011-08-30 15:36+0200\n"
 "PO-Revision-Date: 2011-08-24 23:12+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
@@ -1632,9 +1632,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Turite sukurti CA sertifikatą norėdami naudotis šiuo "
-"moduliu.{closepar}{openpar}Eikite {openhref} sertifikatų modulį {closehref} "
-"ir sukurkite jį.{closepar}"
+"{openpar}Turite sukurti CA sertifikatą norėdami naudotis šiuo moduliu."
+"{closepar}{openpar}Eikite {openhref} sertifikatų modulį {closehref} ir "
+"sukurkite jį.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -3465,8 +3465,7 @@ msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"Duotas vardas yra nepilnai kvalifikuotas (FQDN). Turite omenyje "
-"{srv}.{name}?"
+"Duotas vardas yra nepilnai kvalifikuotas (FQDN). Turite omenyje {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
@@ -14945,7 +14944,7 @@ msgstr "Atsatomi duomenys"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
 #, fuzzy, perl-brace-format
-msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr "Byla egzistuoja ir tai ne direktorija"
 
 #: ../../main/ebackup/src/scripts/restore-tool:656

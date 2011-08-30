@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 12:41+0200\n"
+"POT-Creation-Date: 2011-08-30 15:36+0200\n"
 "PO-Revision-Date: 2011-04-23 13:56+0200\n"
 "Last-Translator: eniac111 <eniac111@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -14414,7 +14414,7 @@ msgstr "Протича възстановяване от архива."
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
 #, perl-brace-format
-msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:656

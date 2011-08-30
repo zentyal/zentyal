@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 12:41+0200\n"
+"POT-Creation-Date: 2011-08-30 15:36+0200\n"
 "PO-Revision-Date: 2011-08-28 01:30+0200\n"
 "Last-Translator: Sina <sina.momenpour@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -194,8 +194,8 @@ msgstr ""
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
-"اگر {first} به‌صورت نامحدود تعیین شده باشد، بنابراین {second} نیز باید "
-"به‌صورت صحیح نامحدود تعیین گردد"
+"اگر {first} به‌صورت نامحدود تعیین شده باشد، بنابراین {second} نیز باید به‌صورت "
+"صحیح نامحدود تعیین گردد"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
@@ -14859,7 +14859,7 @@ msgstr "بازیابی پشتیبان"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
 #, perl-brace-format
-msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:656

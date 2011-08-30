@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 12:41+0200\n"
+"POT-Creation-Date: 2011-08-30 15:36+0200\n"
 "PO-Revision-Date: 2011-08-26 21:53+0200\n"
 "Last-Translator: miquel <miquel@acsat.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -4787,8 +4787,7 @@ msgid ""
 "remote support access"
 msgstr ""
 "Ja hi ha un usuari {u} i no sembla creat per Zentyal. No es pot configurar "
-"l'accés per suport remot fins que no elimini aquest usuari o li canvii el "
-"nom"
+"l'accés per suport remot fins que no elimini aquest usuari o li canvii el nom"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:126
 #, perl-brace-format
@@ -6233,9 +6232,8 @@ msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
 "ebackup restart' to refresh backup's information."
 msgstr ""
-"No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi "
-"'/etc/init.d/ebox ebackup restart' per refrescar la informació de les "
-"còpies."
+"No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi '/etc/init."
+"d/ebox ebackup restart' per refrescar la informació de les còpies."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:413
 msgid "Other files"
@@ -6683,9 +6681,9 @@ msgid ""
 "p><p>Note that these settings may be overriden if you have any network "
 "interface configured via DHCP</p>"
 msgstr ""
-"Aquí pot afegir els traductors de servidors de noms que Zentyal "
-"utilitzarà.Tingui en compte que aquesta configuració pot ser sobreescrita si "
-"hi ha alguna interfície de xarxa configurada mitjançant DHCP"
+"Aquí pot afegir els traductors de servidors de noms que Zentyal utilitzarà."
+"Tingui en compte que aquesta configuració pot ser sobreescrita si hi ha "
+"alguna interfície de xarxa configurada mitjançant DHCP"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:77
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:134
@@ -8628,8 +8626,8 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 "{openit}Directori sota Zentyal{closeit} crearà automàticament el directori "
-"compartit share.directory a /home/samba/shares {br}{openit}File system "
-"path{closeit} permet compartir un directori existent al sistema de fitxers."
+"compartit share.directory a /home/samba/shares {br}{openit}File system path"
+"{closeit} permet compartir un directori existent al sistema de fitxers."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:353
 msgid ""
@@ -11070,8 +11068,6 @@ msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
 "you must save or discard them"
 msgstr ""
-"El mòdul {mod} no ha desat els canvis. Abans de fer el backup els hauria de "
-"desar o descartar."
 
 #: ../../main/core/src/EBox/Backup.pm:883
 msgid "Incorrect or corrupt backup file"
@@ -11497,9 +11493,9 @@ msgid ""
 "unfrequently so it could be safe to use a older one"
 msgstr ""
 "No s'ha trobat cap fitxer d'esquema en aquesta còpia. Provi una altra data o "
-"forci la restauració sense esquema canviant la clau corresponent a {cf}. "
-"Els esquemes no canvien habitualment, de manera que hauría de ser segur fer-"
-"ne servir un d'anterior."
+"forci la restauració sense esquema canviant la clau corresponent a {cf}. Els "
+"esquemes no canvien habitualment, de manera que hauría de ser segur fer-ne "
+"servir un d'anterior."
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:148
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:156
@@ -12310,7 +12306,8 @@ msgstr "La acció \"{a}\" s'ha executat"
 #: ../../main/core/src/EBox/CGI/Finish.pm:113
 #, perl-brace-format
 msgid "A new {rowName} \"{r}\" has been added with \"{f}\" set to \"{x}\""
-msgstr "Una nova {rowName} \"{r}\" s'ha afegit amb \"{f}\" establit com \"{x}\""
+msgstr ""
+"Una nova {rowName} \"{r}\" s'ha afegit amb \"{f}\" establit com \"{x}\""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:116
 #, perl-brace-format
@@ -12961,8 +12958,8 @@ msgstr ""
 msgid ""
 "You must enable the mail module in module status section in order to use it."
 msgstr ""
-"Ha d'habilitar el mòdul de correu a la secció d'estat dels mòduls per tal d"
-"'utilitzar-lo."
+"Ha d'habilitar el mòdul de correu a la secció d'estat dels mòduls per tal "
+"d'utilitzar-lo."
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:61
 msgid "POP3 service enabled"
@@ -15087,7 +15084,7 @@ msgstr "Restaurant la còpia de seguretat"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
 #, fuzzy, perl-brace-format
-msgid "Could no restore {dst}, it already exists nad it is not a directory"
+msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr "L'arxiu existeix i no es un directori"
 
 #: ../../main/ebackup/src/scripts/restore-tool:656
@@ -15575,8 +15572,8 @@ msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
-"Els següents paquets no s'han instal.lat correctament. No es podràn "
-"instal.lar nous mòduls fins que això no es solucioni."
+"Els següents paquets no s'han instal.lat correctament. No es podràn instal."
+"lar nous mòduls fins que això no es solucioni."
 
 #: ../../main/software/src/templates/ebox.mas:236
 #: ../../main/software/src/templates/ebox.mas:691
