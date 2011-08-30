@@ -114,7 +114,7 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 		for tmpl in $(POTFILES_TMPL); do \
 			target=`dirname $$tmpl | sed 's/^\.\.\/\.\././'` ; \
 	        	mkdir -p templates/$$target ; \
-	        	../../tools/extract-perl-from-mason dump ../$$tmpl > \
+	        	../../tools/extract-perl-from-mason dump ../../$$tmpl > \
 		        	templates/$$target/`basename $$tmpl` ; \
 		done; \
 		$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates/main/remoteservices \
