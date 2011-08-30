@@ -60,6 +60,7 @@ use constant CORE_MODULES => qw(sysinfo apache events global logs audit);
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
 my $_brokenPackages = {};
+my $_installedPackages = {};
 
 #redefine inherited method to create own constructor
 #for Singleton pattern
@@ -1162,11 +1163,11 @@ sub _packageInstalled
 {
     my ($name) = @_;
 
-    my $cache = packageCache();
-
-    if (exists $_brokenPackages->{$name}) {
-        return 0;
+    if (exists $_installedPackages->{$name}) {
+        return 1;
     }
+
+    my $cache = packageCache();
 
     my $installed = 0;
     if ($cache->exists($name)) {
@@ -1174,7 +1175,10 @@ sub _packageInstalled
         if ($pkg->{SelectedState} == AptPkg::State::Install) {
             $installed = ($pkg->{InstState} == AptPkg::State::Ok and
                           $pkg->{CurrentState} == AptPkg::State::Installed);
-            unless ($installed) {
+
+            if ($installed) {
+                $_installedPackages->{$name} = 1;
+            } else {
                 $_brokenPackages->{$name} = 1;
             }
         }

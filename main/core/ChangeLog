@@ -1,4 +1,5 @@
 HEAD
+	+ Added code to mitigate false positives on module existence
 	+ Avoid error in logs full summary due to incorrect syntax in template
 	+ Allow unsafe chars in EBox::Types::File to avoid problems in some browsers
 	+ Reviewed some subscription strings
