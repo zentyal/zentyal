@@ -1,4 +1,5 @@
 HEAD
+	+ PPPoE works again after regression by PPTP changes
 	+ Reviewed some subscription strings
 	+ Removed all the obsolete traffic monitoring stuff using jnettop and rrdtool
 	+ Added custom mtu configuration for the interfaces in /etc/zentyal/network.conf
