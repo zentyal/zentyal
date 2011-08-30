@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 12:41+0200\n"
-"PO-Revision-Date: 2011-08-21 18:32+0200\n"
+"PO-Revision-Date: 2011-08-28 11:54+0200\n"
 "Last-Translator: robb <r_bosch@gmx.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
@@ -269,7 +269,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Delay Pools Class 2"
-msgstr ""
+msgstr "Uitstel Verzameling Klasse 2"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
 #, perl-brace-format
@@ -284,7 +284,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:223
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:187
 msgid "pool"
-msgstr ""
+msgstr "verzameling"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
@@ -590,6 +590,8 @@ msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
 msgstr ""
+"Tekst lijsten niet toegestaan: alleen gecomprimeerde archieven van "
+"geclassificeerde zwarte lijsten"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
@@ -615,17 +617,19 @@ msgstr "Toestaan"
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: ../../main/squid/src/EBox/Squid.pm:1095
 msgid "Deny"
-msgstr ""
+msgstr "Afwijzing"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Time period"
-msgstr ""
+msgstr "Tijds periode"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr ""
+"Tijds periode wanneer toegang is toegestaan. Dit wordt genegeerd met een "
+"verbods beleid."
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
@@ -634,99 +638,104 @@ msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
+"Er zijn gebruikers groepen in het systeem. {open} Creëer{close} ten minste 1 "
+"groep als je een groep beleid wilt instellen."
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
-msgstr ""
+msgstr "Gebruik standaard profiel drempel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
 msgid "Threshold"
-msgstr ""
+msgstr "Drempel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
 msgid "Content filter threshold"
-msgstr ""
+msgstr "Inhoud filter drempel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
 msgid "Content filter threshold changed"
-msgstr ""
+msgstr "Inhoud filter drempel veranderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 msgid "MIME types"
-msgstr ""
+msgstr "MIME types"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
 msgid "Set policy for all MIME types"
-msgstr ""
+msgstr "Stel beleid in voor alle MIME types"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 msgid "Group policies"
-msgstr ""
+msgstr "Groeps beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:70
 msgid "List of groups"
-msgstr ""
+msgstr "Lijst van groepen"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
 msgid "group's policy"
-msgstr ""
+msgstr "groeps beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
 msgstr ""
+"Hier kan je globaal toegang per gebruikersgroep toestaan of blokkeren. "
+"Filter opties zullen via globaal beleid of via object beleid plaatsvinden"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
 msgid "Added group's policy"
-msgstr ""
+msgstr "Toegevoegde groeps beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
 msgid "Removed group's policy"
-msgstr ""
+msgstr "Verwijderde groeps beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
 msgid "Updated group's policy"
-msgstr ""
+msgstr "Ververste groeps beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Filter profile"
-msgstr ""
+msgstr "Filter profiel"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
+"Gebruikers groep beleid zijn niet verenigbaar met transparante proxy modus"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
-msgstr ""
+msgstr "Globaal groeps beleid heeft een globaal beleid met authenticatie nodig"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
 msgid "Network Rate"
-msgstr ""
+msgstr "Netwerk snelheid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Netwerk maximum grootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Delay Pools Class 1"
-msgstr ""
+msgstr "Uitstel Verzameling Klasse 1"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 #, perl-brace-format
@@ -734,109 +743,118 @@ msgid ""
 "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
 "download bandwidth to the given {rate}."
 msgstr ""
+"Zodra het verzoek {max} overtreft zal de HTTP Proxy de download bandbreedte "
+"beperken tot de gegeven {rate}"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
 msgid "Domain filter settings"
-msgstr ""
+msgstr "Domein filter instellingen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "Filter instellingen veranderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
 msgid "Domains lists files for filter group"
-msgstr ""
+msgstr "Domein lijst bestanden voor filter groep"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:96
 msgid "internet domain list"
-msgstr ""
+msgstr "internet domein lijst"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
 msgid "You can upload files whith lists of domains"
-msgstr ""
+msgstr "Je kan bestanden uploaden met lijsten van domeinen"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:99
 msgid "Domain list added"
-msgstr ""
+msgstr "Domein lijst toegevoegd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:100
 msgid "Domain list removed"
-msgstr ""
+msgstr "Domein lijst verwijderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:101
 msgid "Domain list updated"
-msgstr ""
+msgstr "Domein lijst ververst"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
 "would occur if the object policy requires it"
 msgstr ""
+"Hier kan je toegang toestaan of verbieden op basis van gebruikersgroep. "
+"Filtering zal gebeuren als het object beleid dit vereist"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
 msgstr ""
+"Het object moet met een autorisatie beleid ingesteld worden om groeps beleid "
+"te kunnen gebruiken"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
 #, perl-brace-format
 msgid "Configure object {ob} user groups policies"
-msgstr ""
+msgstr "Stel object {ob} gebruiker groeps beleid in"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
 msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
+"Tijdsperiode wanneer toegang is toegestaan. Het wordt genegeerd als de groep "
+"een verbods beleid heeft. Tijdbeperking van bovenliggend object worden "
+"altijd genegeerd."
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:72
 msgid "Domain Name Address"
-msgstr ""
+msgstr "Domein naam adres"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:79
 msgid "Exempt address from caching"
-msgstr ""
+msgstr "Adres vrijstellen van opslag"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
-msgstr ""
+msgstr "Opslag vrijstellingen"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:101
 msgid "domain name address"
-msgstr ""
+msgstr "domein naam adres"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "You can exempt some addresses from caching"
-msgstr ""
+msgstr "Je kan een aantal adressen vrijstellen van opslag"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:104
 msgid "Address added"
-msgstr ""
+msgstr "Adres toegevoegd"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address removed"
-msgstr ""
+msgstr "Adres verwijderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:106
 msgid "Address updated"
-msgstr ""
+msgstr "Adres ververst"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:62
 msgid "Domains list categories"
-msgstr ""
+msgstr "Domein lijst categorieën "
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:74
 msgid "category"
-msgstr ""
+msgstr "categorie"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:96
@@ -844,49 +862,51 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:93
 #: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Filter Profiles"
-msgstr ""
+msgstr "Filter profielen"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
 msgid "elements"
-msgstr ""
+msgstr "elementen"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
 #, perl-brace-format
 msgid "Allow all {elements}"
-msgstr ""
+msgstr "Sta all {elements} toe"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
+"Gebruik dit veld om alle waarden van bovenliggende rijen tegelijk te "
+"veranderen"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:96
 msgid "Filter profiles"
-msgstr ""
+msgstr "Filter profielen"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:97
 msgid "List of profiles"
-msgstr ""
+msgstr "Lijst van profielen"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:105
 msgid "filter profile"
-msgstr ""
+msgstr "filter profiel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:107
 msgid "Added filter profile"
-msgstr ""
+msgstr "toegevoegde filter profiel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Removed filter profile"
-msgstr ""
+msgstr "Verwijderd filter profiel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:109
 msgid "Updated filter profile"
-msgstr ""
+msgstr "Ververst filter profiel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:122
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:162
 msgid "Filter group"
-msgstr ""
+msgstr "Filter groep"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:127
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:84
@@ -904,13 +924,12 @@ msgstr ""
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:67
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:71
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:101
-#, fuzzy
 msgid "Configuration"
 msgstr ""
 "#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
 "Instellingen\n"
 "#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Configuratie\n"
+"Instellingen\n"
 "#-#-#-#-#  nl.po (ebox-jabber 0.12)  #-#-#-#-#\n"
 "Instellingen"
 

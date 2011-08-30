@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 12:41+0200\n"
-"PO-Revision-Date: 2011-07-17 08:30+0200\n"
-"Last-Translator: Jorge <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2011-08-23 19:46+0200\n"
+"Last-Translator: goks <jmsjr85@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -215,7 +215,7 @@ msgstr "Taxa"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -234,7 +234,7 @@ msgstr "Tamanho Máximo"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -1895,7 +1895,7 @@ msgstr "Endereço de ligação para o cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:148
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Comando a ser executado depois das rotas definidas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:158
 msgid "Client configuration"
@@ -2591,13 +2591,15 @@ msgstr "REDIRECIONAR"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:684
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "Firewall não conseguiu adicionar regras para os seguintes módulos:"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:687
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Provavelmente isso é causado por uma falta de conectividade, verifique a "
+"configuração ou desative os módulos"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:936
 #: ../../main/firewall/src/EBox/Iptables.pm:973
@@ -2831,9 +2833,8 @@ msgstr "Destino original"
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "Host Zentyal"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -3989,9 +3990,8 @@ msgstr ""
 "novamente mais tarde"
 
 #: ../../main/software/src/EBox/Software.pm:1021
-#, fuzzy
 msgid "Installation steps"
-msgstr "Instalação"
+msgstr "Etapas da Instalação"
 
 #: ../../main/software/src/EBox/Software.pm:1023
 msgid "Package Selection"
@@ -4904,9 +4904,9 @@ msgid "No ebox-services DNS key found"
 msgstr "A chave para o serviço DNS não foi encontrada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:244
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Server {s} not found via DNS server {d}. Reason: {r}"
-msgstr "Servidor {s} não encontrado via servidor DNS {d}"
+msgstr "Servidor {s} não encontrado via servidor DNS {d}. Motivo: {r}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:352
 msgid "Cannot create SOAP connection"
@@ -5098,11 +5098,12 @@ msgid "Introduced passwords do not match"
 msgstr "As novas senhas não conferem"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:104
-#, fuzzy
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
-msgstr "Um erro desconhecido ocorreu enquanto registrando sua subscrição"
+msgstr ""
+"Ocorreu um erro ao registrar a assinatura, por favor verifique sua conexão "
+"com a Internet."
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:112
 msgid "An unknown error ocurred registering the subscription"
@@ -5188,9 +5189,8 @@ msgid "List of IPs assigned to each user."
 msgstr "Lista de IPs associados a cada usuário"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Configure interfaces"
-msgstr "Interfaces Monitoradas"
+msgstr "Configurar interfaces"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
@@ -5205,41 +5205,38 @@ msgid "List of monitored interfaces."
 msgstr "Lista de interfaces monitoradas"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
-#, fuzzy
 msgid "External in"
-msgstr "Externa env"
+msgstr "Entrada Externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:67
-#, fuzzy
 msgid "External out"
-msgstr "Conta externa"
+msgstr "Saída Externa"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:72
-#, fuzzy
 msgid "Internal in"
-msgstr "Interno"
+msgstr "Entrada interna"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:77
-#, fuzzy
 msgid "Internal out"
-msgstr "Interna env"
+msgstr "Saída interna"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:85
-#, fuzzy
 msgid "Last hour bandwidth usage"
-msgstr "Limite de uso de banda"
+msgstr "Uso de banda na última hora"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:89
 msgid "There is no data to show yet, the values are updated every 10 minutes"
 msgstr ""
+"Não há dados para mostrar ainda, os valores são atualizados a cada 10 "
+"minutos"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "Bandwidth usage for each connected client."
-msgstr ""
+msgstr "Uso de banda para cada cliente conectado."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:104
 msgid "Bandwidth Monitor must be enabled in order to get data."
-msgstr ""
+msgstr "Monitor de banda deve estar habilitado a fim de obter dados."
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
@@ -5254,35 +5251,32 @@ msgstr "Ações"
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:70
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:70
 #: ../../main/core/src/cgi/ebox.cgi:68
-#, fuzzy
 msgid "Go back"
-msgstr "backup"
+msgstr "Voltar"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:71
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:71
 #: ../../main/core/src/cgi/ebox.cgi:69
 msgid "Sorry, an unexpected error has occurred"
-msgstr ""
+msgstr "Desculpe, houve um erro inesperado"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:73
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:73
 #: ../../main/core/src/cgi/ebox.cgi:71
-#, fuzzy
 msgid "Please contact support."
-msgstr "Suporte Técnico"
+msgstr "Favor contate o Suporte Técnico"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:76
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:76
 #: ../../main/core/src/cgi/ebox.cgi:74
 msgid "Show technical details"
-msgstr ""
+msgstr "Mostrar detalhes técnicos"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:77
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:77
 #: ../../main/core/src/cgi/ebox.cgi:75
-#, fuzzy
 msgid "Report the problem"
-msgstr "Relatório de período de tempo"
+msgstr "Relatar o de problema"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:78
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:78
@@ -5307,19 +5301,19 @@ msgstr "Cancelar"
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
 #: ../../main/core/src/cgi/ebox.cgi:77
 msgid "Email (you will receive updates on the report)"
-msgstr ""
+msgstr "E-mail (você receberá atualizações sobre o relatório)"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:80
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:80
 #: ../../main/core/src/cgi/ebox.cgi:78
 msgid "Describe in English what you where doing"
-msgstr ""
+msgstr "Descrever em inglês o que você está fazendo"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:82
 #: ../../main/core/src/cgi/ebox.cgi:80
 msgid "Couldn't send the report"
-msgstr ""
+msgstr "Não foi possível enviar o relatório"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:83
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:83
@@ -5328,18 +5322,20 @@ msgid ""
 "The report has been successfully sent, you can keep track of it in the "
 "following ticket:"
 msgstr ""
+"O relatório foi enviada com sucesso, você pode acompanhar isso no ticket a "
+"seguir:"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:85
 #: ../../main/core/src/cgi/ebox.cgi:83
 msgid "To do a manual report, please follow these instructions:"
-msgstr ""
+msgstr "Para fazer um relatório manual, por favor, siga estas instruções:"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
 #: ../../main/core/src/cgi/ebox.cgi:84
 msgid "Create a new ticket in the Zentyal trac by clicking "
-msgstr ""
+msgstr "Criar um novo ticket no trac Zentyal clicando"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
@@ -5347,13 +5343,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
 #: ../../main/core/src/cgi/ebox.cgi:84 ../../main/core/src/cgi/ebox.cgi:87
 msgid "here"
-msgstr ""
+msgstr "aqui"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:87
 #: ../../main/core/src/cgi/ebox.cgi:85
 msgid "Write a short description of the problem in the summary field"
-msgstr ""
+msgstr "Escreva uma breve descrição do problema no campo de resumo"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
@@ -5362,6 +5358,8 @@ msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
 msgstr ""
+"Escrever um relatório detalhado do que você estava fazendo antes deste "
+"problema ocorrer no campo de descrição"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89

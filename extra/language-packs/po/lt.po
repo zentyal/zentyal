@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 12:41+0200\n"
-"PO-Revision-Date: 2011-07-02 13:44+0200\n"
+"PO-Revision-Date: 2011-08-24 23:12+0200\n"
 "Last-Translator: Basas <vytautas@basas.lt>\n"
 "Language-Team: none\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
@@ -216,7 +216,7 @@ msgstr "Dažnis"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -235,7 +235,7 @@ msgstr "Maksimalus dydis"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -370,11 +370,11 @@ msgstr "Permatomas Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Reklamų blokavimas"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "Pašalinti reklamas iš viso HTTP srauto"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -1414,9 +1414,8 @@ msgid "Filter groups per IP"
 msgstr "Filtruoti grupes per IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:287
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Nustatymai atsarginės kopijos"
+msgstr "Nustatymai adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
@@ -1616,26 +1615,26 @@ msgid "server"
 msgstr "serveris"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
 "{openpar} Jums reikalingas galiojantis CA sertifikatas norint naudotis šiuo "
-"moduliu.{closepar}{openpar}Eikite {openhref} sertifikatų modulį {closehref} "
+"moduliu.{closepar}{openpar}Eikite{openhref} sertifikatų modulį {closehref} "
 "ir atnaujinkite jį.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Turite sukurti CA sertifikatą norėdami naudotis šiuo moduliu. "
-"{closepar}{openpar}Eikite {openhref} sertifikatų modulį {closehref} ir "
-"sukurkite jį.{closepar}"
+"{openpar}Turite sukurti CA sertifikatą norėdami naudotis šiuo "
+"moduliu.{closepar}{openpar}Eikite {openhref} sertifikatų modulį {closehref} "
+"ir sukurkite jį.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -1880,7 +1879,7 @@ msgstr "Surišti adresą klientui"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:148
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Komanda kurią įvykdyti po maršrutų nustatymo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:158
 msgid "Client configuration"
@@ -2567,13 +2566,15 @@ msgstr "NUKREIPTI"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:684
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "Ugnesienė nesėkningai bandė įkelti taisykles sekantiems moduliams:"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:687
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Tikriausiai tai lėmė nebuvimas ryšio, patikrinkite visas konfigūracijas arba "
+"išjunkite šiuos modulius"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:936
 #: ../../main/firewall/src/EBox/Iptables.pm:973
@@ -2805,9 +2806,8 @@ msgstr "Orginali paskirtis"
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "Zentyal mazgas"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -2890,9 +2890,8 @@ msgid "NAT postrouting"
 msgstr "NAT pomaršrutis"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Kliento konfigūracija"
+msgstr "Grandinės kūrimas"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
@@ -3316,25 +3315,24 @@ msgid "Mail exchanger record"
 msgstr "Pašto keitėjų įrašas"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:76
-#, fuzzy
 msgid "Forwarder"
-msgstr "Peršiuntimas"
+msgstr "Persiuntėjas"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
-msgstr "Peršiuntimas"
+msgstr "Periuntėjai"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:90
 msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"Serveris pirmiausiai siųs užklausas į persiuntėjus, ir jei negaus atsakymo "
+"bandys atsakyti į užklausą."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
-#, fuzzy
 msgid "forwarder"
-msgstr "Peršiuntimas"
+msgstr "persiuntėjas"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Hostnames"
@@ -3352,7 +3350,7 @@ msgstr "Vardų Serveriai"
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "{txt} įrašai"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
@@ -3370,9 +3368,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Sritis yra dinaminė kai DHCP serveris atnaujina sritį"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Vardų sritis"
+msgstr "Sritys"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3385,6 +3382,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Čia galite įkelti sritis šiam DNS serveriui. Kiekviena sritis gali turėti "
+"skirtingus mazgo vardus su aliasais  (A ir CNAME) ir kitus specialius įrašus "
+"(MX,NS,TXT ir SRV)."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3430,7 +3430,7 @@ msgstr "vardas"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:81
 msgid "Enable transparent DNS cache"
-msgstr ""
+msgstr "Įjungti permatomą DNS kešą"
 
 #: ../../main/dns/src/EBox/Model/Settings.pm:90
 #: ../../main/software/src/EBox/Software.pm:634
@@ -3446,24 +3446,27 @@ msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Visos DNS užklausos bus persiunčiamos į vidinį DNS serverį jei permatoma "
+"būsena įjungta."
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
-msgstr "Vardų sritis nustatytai kaip tik skaitoma. Jūs negalite įkelti vardų"
+msgstr "Vardų sritis nustatyta kaip tik skaitoma. Jūs negalite įkelti {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "Ši tarnyba neįjungta Zentyal sistemoje"
+msgstr "Pasirinktas servisas neegzistuoja {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"Duotas vardas yra nepilnai kvalifikuotas (FQDN). Turite omenyje ns.{name}?"
+"Duotas vardas yra nepilnai kvalifikuotas (FQDN). Turite omenyje "
+"{srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
@@ -3472,7 +3475,7 @@ msgstr "Serviso pavadinimas"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "žemesnė reikšmė turi didenį prioritetą"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3484,6 +3487,8 @@ msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 neduoda jokio svorio ir didesnė reikšmė turi daugiau šansų pasirinti su "
+"lygiu prioritetu"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
 #, fuzzy
@@ -3491,28 +3496,28 @@ msgid "Target port"
 msgstr "Serverio jungtis"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
-#, fuzzy
 msgid "Target"
-msgstr "paskirtis"
+msgstr "Paskirtis"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:230
-#, fuzzy
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
 "Jei pasirinkote \"Pritaikytas\", tuomet turi būti pilnas vardų srities "
-"pavadinimas"
+"pavadinimas(FQDN)"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:259
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Tai valdo SRV įrašus šiai sričiai. Jie naudingi pasirenkant mazgo pagrindu "
+"paremtu prioritetu servisui."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "vardų serverio įrašas"
+msgstr "{srv} įrašas"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -3570,9 +3575,9 @@ msgid "name server record"
 msgstr "vardų serverio įrašas"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "Netbios vardas negali būti ilgesnis nei 15 simbolių"
+msgstr "{name} vardas negali būti ilgesnis nei {value} simbolių"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"

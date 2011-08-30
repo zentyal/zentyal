@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 12:41+0200\n"
-"PO-Revision-Date: 2011-08-09 22:13+0200\n"
-"Last-Translator: MagicFab <magicfab@legoutdulibre.com>\n"
+"PO-Revision-Date: 2011-08-26 21:59+0200\n"
+"Last-Translator: miquel <miquel@acsat.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -374,7 +374,6 @@ msgid "Ad Blocking"
 msgstr "Blocage des publicités"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
-#, fuzzy
 msgid "Remove advertisements from all HTTP traffic"
 msgstr "Supprimer les publicités pour tout le trafic HTTP"
 
@@ -1435,9 +1434,8 @@ msgid "Filter groups per IP"
 msgstr "Groupe de filtrage par IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:287
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Configuration des sauvegardes"
+msgstr "Configuration d'adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
@@ -1567,27 +1565,8 @@ msgstr "Mime/type"
 #: ../../main/radius/src/EBox/Radius.pm:391
 #: ../../main/asterisk/src/EBox/Asterisk.pm:769
 #: ../../main/core/src/templates/logs/index.mas:182
-#, fuzzy
 msgid "Event"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Évènement\n"
-"#-#-#-#-#  fr.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Événement\n"
-"#-#-#-#-#  fr.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Événement\n"
-"#-#-#-#-#  fr.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Évènement\n"
-"#-#-#-#-#  fr.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Evènement\n"
-"#-#-#-#-#  fr.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Événement\n"
-"#-#-#-#-#  fr.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Événement\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"Événement\n"
-"#-#-#-#-#  fr.po (ebox-printers 0.12)  #-#-#-#-#\n"
-"Événement"
+msgstr "Événement"
 
 #: ../../main/squid/src/EBox/Squid.pm:1185
 msgid "Accepted"
@@ -1934,7 +1913,7 @@ msgstr "Adresse du client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:148
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Commande à executer depuis que toutes les routes sont définies"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:158
 msgid "Client configuration"
@@ -1955,15 +1934,8 @@ msgstr "Aucun fichier fourni ou fichier déjà utilisé pour {f}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
 #: ../../main/ca/src/EBox/Model/Certificates.pm:277
-#, fuzzy
 msgid "Enable"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Activer\n"
-"#-#-#-#-#  fr.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Activer\n"
-"#-#-#-#-#  fr.po (ebox-ca 0.12)  #-#-#-#-#\n"
-"Activé"
+msgstr "Activer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "List of Clients"
@@ -2200,15 +2172,8 @@ msgstr "Service"
 #: ../../main/virt/src/templates/statusViewer.mas:9
 #: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:17
-#, fuzzy
 msgid "Running"
-msgstr ""
-"#-#-#-#-#  fr.po (ebox-network 0.12)  #-#-#-#-#\n"
-"En marche\n"
-"#-#-#-#-#  fr.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Fonctionne\n"
-"#-#-#-#-#  fr.po (ebox 0.12)  #-#-#-#-#\n"
-"En fonction"
+msgstr "En cours d'execution"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:785
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:454
@@ -2229,9 +2194,8 @@ msgid "All external interfaces"
 msgstr "Toutes les interfaces externes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:793
-#, fuzzy
 msgid "Not found"
-msgstr "La page n'a pas pu être trouvée"
+msgstr "Ne pas trouvée"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:795
 msgid "Local address"

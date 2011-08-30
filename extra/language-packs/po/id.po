@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 12:41+0200\n"
-"PO-Revision-Date: 2011-08-19 10:50+0200\n"
+"PO-Revision-Date: 2011-08-25 11:15+0200\n"
 "Last-Translator: Priyo <psanyoto@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
@@ -374,7 +374,6 @@ msgid "Ad Blocking"
 msgstr "Penghadangan Iklan"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
-#, fuzzy
 msgid "Remove advertisements from all HTTP traffic"
 msgstr "Buang iklan-iklan dari seluruh trafik HTTP"
 
@@ -2602,13 +2601,15 @@ msgstr "ALIHKAN"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:684
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "Firewall gagal menambahkan aturan bagi modul berikut ini: "
 
 #: ../../main/firewall/src/EBox/Iptables.pm:687
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Ini mungkin disebabkan oleh kurangnya konektivitas, periksa lagi konfigurasi "
+"atau nonaktifkan modul-modul tersebut"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:936
 #: ../../main/firewall/src/EBox/Iptables.pm:973
@@ -4143,41 +4144,40 @@ msgstr "Komponen-komponen Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:95
 msgid "Zentyal Cloud Client"
-msgstr ""
+msgstr "Klien Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:235
 msgid "Not subscribed"
-msgstr ""
+msgstr "Tidak terdaftar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:237
 msgid "Subscribed"
-msgstr ""
+msgstr "Terdaftar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:269
 msgid "Subscription"
-msgstr ""
+msgstr "Berlangganan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:274
-#, fuzzy
 msgid "Server Subscription"
-msgstr "Deskripsi"
+msgstr "Berlangganan Server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:279
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:71
 msgid "Technical Support"
-msgstr ""
+msgstr "Dukungan Teknis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:283
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:134
 msgid "Advanced Security Updates"
-msgstr ""
+msgstr "Pembaharuan Keamanan Termutakhir"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:287
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:175
 msgid "Disaster Recovery"
-msgstr ""
+msgstr "Pemulihan Bencana"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:65
@@ -4186,23 +4186,25 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/DynDNS.pm:82
 #: ../../main/core/src/templates/headTitle.mas:20
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Cloud"
-msgstr ""
+msgstr "Hostname terdaftar hanya ada jika host di daftarkan ke Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:490
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Cloud"
 msgstr ""
+"Pemantau pengumpul alamat IP hanya tersedia jika host berlangganan Cloud "
+"Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:635
 msgid "Zentyal must be subscribed to reload the bundle"
-msgstr ""
+msgstr "Zentyal harus terdaftar untuk isi-ulang bundel"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1626
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:162
@@ -4232,16 +4234,16 @@ msgstr "Kosong"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1631
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
-msgstr ""
+msgstr "Tidak Aktif - {oh}Aktif{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1636
 #, perl-brace-format
 msgid "Not connected. Check VPN logs in {path}"
-msgstr ""
+msgstr "Tidak tersambung. Periksa log VPN di {path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1640
 msgid "Connected"
-msgstr ""
+msgstr "Terhubung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1651
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1657
@@ -4260,7 +4262,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:79
 #: ../../main/core/src/EBox/Backup.pm:475
 msgid "Unknown"
-msgstr ""
+msgstr "Tak diketahui"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:169
@@ -4268,7 +4270,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:206
 msgid "Basic"
-msgstr ""
+msgstr "Dasar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:170
@@ -4276,7 +4278,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:162
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:207
 msgid "Professional"
-msgstr ""
+msgstr "Profesional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1654
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:171
@@ -4284,43 +4286,42 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:163
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:208
 msgid "Enterprise"
-msgstr ""
+msgstr "Perusahaan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1659
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:176
 msgid "Essential"
-msgstr ""
+msgstr "Penting"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1660
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
 msgid "Standard"
-msgstr ""
+msgstr "Baku"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1661
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1668
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Last update: {date}"
-msgstr "Update terakhir gagal"
+msgstr "- Pembaharuan terakhir: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1681
 #, perl-brace-format
 msgid "- Latest backup: {date}"
-msgstr ""
+msgstr "- Cadangan terakhir: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1684
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:211
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr "Konfigurasi"
+msgstr "Cadangan konfigurasi diaktifkan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1687
 #, perl-brace-format
 msgid "- Latest conf backup: {date}"
-msgstr ""
+msgstr "- Cadangan konfigurasi terakhir: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1703
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
@@ -4328,57 +4329,53 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:137
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:59
-#, fuzzy
 msgid "Server name"
-msgstr "Server"
+msgstr "Nama Server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1704
-#, fuzzy
 msgid "Connection status"
-msgstr "Koneksi target"
+msgstr "Status koneksi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1707
-#, fuzzy
 msgid "External server name"
-msgstr "koneksi server eksternal"
+msgstr "Nama server eksternal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1710
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:123
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:141
-#, fuzzy
 msgid "Server subscription"
-msgstr "Deskripsi"
+msgstr "Langganan server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1712
 msgid "Technical support"
-msgstr ""
+msgstr "Dukungan teknis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1736
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:230
 msgid "No data backup has been done yet"
-msgstr ""
+msgstr "Tidak ada cadangan data yang telah dilakukan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:127
 msgid "Support package"
-msgstr ""
+msgstr "Paket dukungan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:131
 msgid "Support available via"
-msgstr ""
+msgstr "Dukungan tersedia melalui"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:135
 msgid "Service Level Agreement"
-msgstr ""
+msgstr "Perjanjian Tingkat Layanan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:73
 msgid "Allow remote access to Zentyal staff"
-msgstr ""
+msgstr "Ijinkan akses jarak jauh ke staf Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:79
 msgid "Allow access from any internet address"
-msgstr ""
+msgstr "Ijinkan akses dari semua alamat internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
 msgid ""
@@ -4386,27 +4383,38 @@ msgid ""
 "private network. If you enable this option, the access is granted from any "
 "address. Use this option only if you could not connect to the Zentyal Cloud"
 msgstr ""
+"Secara baku, akses hanya diberikan ke host-host di dalam jaringan private "
+"Zentyal Cloud. Jika anda mengaktifkan opsi ini, maka akses diberikan dari "
+"semua alamat. Gunakan opsi ini hanya jika anda dapat terhubung ke Zentyal "
+"Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:89
 msgid "Enable Remote Support Access"
-msgstr ""
+msgstr "Aktifkan Akses Dukungan Jarak Jauh"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:134
 msgid ""
 "Remote access from any address requires that remote access support is enabled"
 msgstr ""
+"Akses jarak jauh dari semua alamat memerlukan dukungan akses jarak jauh "
+"diaktifkan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:139
 #, perl-brace-format
 msgid ""
 "To allow any address remote support, you must not be connected to {cloud}"
 msgstr ""
+"Untuk mengijinkan dukungan jarak jauh dari semua alamat, anda seharusnya "
+"tidak terhubung ke {cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:147
 msgid ""
 "To restrict addresses you need that your Zentyal Server is subscribed to "
 "Zentyal Cloud. Either subscribe it or allow access from any address"
 msgstr ""
+"Untuk membatasi alamat yang anda perlukan adalah Server Zentyal anda "
+"terdaftar ke Zentyal Cloud. Apakah itu mendaftarkannya atau mengijinkannya "
+"diakses dari semua alamat"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:158
 #, perl-brace-format
@@ -4419,6 +4427,12 @@ msgid ""
 "To join the remote session, login in the shell as a user belonging to the "
 "'adm' group and use the command: '{cmd}'."
 msgstr ""
+"Mengaktifkan dukungan jarak jauh akan mengijinkan staf Zentyal secara bebas "
+"mengakses komputer anda. Anda dapat menggunakan perintah 'screen' untuk "
+"bergabung ke opsi shell mereka. Untuk melakukannya, bit SUID dari program "
+"'screen' diaktifkan. Perubahan ini tidak terjadi jika opsi ini tidak "
+"diaktifkan. Untuk bergabung ke sesi jarak jauh, login ke shell sebagai "
+"pengguna dari kelompok 'adm' dan gunakan perintah: '{cmd}'."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:187
 msgid ""
