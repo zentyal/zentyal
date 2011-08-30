@@ -629,7 +629,7 @@ sub _restoreFile
     if (EBox::Sudo::fileTest('-e', $dst)) {
         if (EBox::Sudo::fileTest('-d' , $dst)) {
             if (not EBox::Sudo::fileTest('-d', $src)) {
-                error(__x('Could no restore {dst}, it already exists nad it is not a directory',
+                error(__x('Could no restore {dst}, it already exists and it is not a directory',
                       dst => $dst));
                 next;
             }
