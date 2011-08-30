@@ -1,4 +1,4 @@
-HEAD
+2.1.9
 	+ Do not use set -e in EBox::Sudo::root when there is only one command
 	+ Make MissingArgument exception text translatable
 	+ Avoid UTF8 double-encoding problems in some exceptions

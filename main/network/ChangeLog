@@ -1,4 +1,4 @@
-HEAD
+2.1.12
 	+ PPPoE works again after regression by PPTP changes
 	+ Reviewed some subscription strings
 	+ Removed all the obsolete traffic monitoring stuff using jnettop and rrdtool
