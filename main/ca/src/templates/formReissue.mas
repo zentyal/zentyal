@@ -5,7 +5,7 @@
 <%init>
   use EBox::Gettext;
 
-  my $subjAltNamesStr = join(', ', map { "$_->{type}:$_->{value}" } @{$metaDataCert->{'subjAltNames'}});
+  my $subjAltNamesStr = join(',', map { "$_->{type}:$_->{value}" } @{$metaDataCert->{'subjAltNames'}});
   my @reissueTable = (
 		    [ name  => 'name', input => 'hidden',
 		      value => $metaDataCert->{dn}->attribute('commonName') ],

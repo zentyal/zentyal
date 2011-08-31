@@ -41,8 +41,10 @@ use EBox::Validate;
 use EBox::Sudo;
 use EBox::AuditLogging;
 
-use constant TEMPDIR     => "/tmp"; # EBox::Config->tmp();
 use constant OPENSSLPATH => "/usr/bin/openssl";
+
+my $output_shell = EBox::Config->tmp() . 'openssl-shell.out';
+my $error_shell = EBox::Config->tmp() . 'openssl-shell.err';
 
 use constant CATOPDIR => EBox::Config->home() . "CA/";
 
@@ -118,9 +120,6 @@ sub _create
 
     bless($self, $class);
 
-    # OpenSSL environment stuff
-    $self->{tmpDir} = TEMPDIR;
-    $self->{shell} = OPENSSLPATH;
     # The CA DN
     $self->{dn} = $self->_obtain(CACERT, 'DN');
     # Reasons to revoke
@@ -947,7 +946,7 @@ sub revokeCertificate
     # Tell openssl to revoke
     $ENV{'PASS'} = $self->{caKeyPassword}
     if (defined($self->{caKeyPassword}));
-    my ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retValue, $output) = $self->_executeCommand(command => $cmd);
     delete ($ENV{'PASS'});
 
     # If any error is shown from revocation, the result is got back
@@ -993,7 +992,7 @@ sub generateCRL
 
     $ENV{'PASS'} = $self->{caKeyPassword}
       if (defined($self->{caKeyPassword}));
-    my ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retValue, $output) = $self->_executeCommand(command => $cmd);
     delete ($ENV{'PASS'});
 
     throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
@@ -1615,7 +1614,7 @@ sub updateDB
     }
 
     $ENV{'PASS'} = $self->{caKeyPassword} if defined($self->{caKeyPassword});
-    my ($retVal, $output) = $self->_executeCommand( COMMAND => $cmd );
+    my ($retVal, $output) = $self->_executeCommand( command => $cmd );
     delete( $ENV{'PASS'} );
 
     my @expiredCertsAfter = @{$self->listCertificates(state => 'E')};
@@ -1996,7 +1995,7 @@ sub _getPubKey # (privKeyFile, pubKeyFile, password?)
 
     my ($self, $privKeyFile, $pubKeyFile, $password)  = @_;
 
-    $pubKeyFile = TEMPDIR . "pubKey.pem" unless (defined ($pubKeyFile));
+    $pubKeyFile = EBox::Config->tmp() . "pubKey.pem" unless (defined ($pubKeyFile));
 
     my $cmd = "rsa ";
     $cmd .= "-in \'$privKeyFile\' ";
@@ -2009,7 +2008,7 @@ sub _getPubKey # (privKeyFile, pubKeyFile, password?)
 
     $ENV{'PASS'} = $password
         if (defined($password));
-    my ($retVal) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal) = $self->_executeCommand(command => $cmd);
     delete( $ENV{'PASS'} );
 
     return undef if ($retVal eq "ERROR");
@@ -2037,7 +2036,7 @@ sub _generateP12Store
 
     $ENV{'PASS'} = $password
       if (defined($password));
-    my ($retVal) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal) = $self->_executeCommand(command => $cmd);
     delete( $ENV{'PASS'} );
 
     return undef if ($retVal eq "ERROR");
@@ -2122,7 +2121,7 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
     # password
     $ENV{'PASS'} = $args{keyPassword} if ( defined($args{keyPassword}));
     # Execute the command
-    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(command => $cmd);
     delete( $ENV{'PASS'} );
 
     return $output if ($retVal eq 'ERROR');
@@ -2199,7 +2198,7 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
 
     $ENV{'PASS'} = $self->{caKeyPassword}
     if(defined($self->{caKeyPassword}));
-    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(command => $cmd);
     delete ( $ENV{'PASS'} );
 
     # Remove ext file if exists
@@ -2241,7 +2240,7 @@ sub _signSelfSignRequest # (userReqFile, days?, userCertFile,
 
     $ENV{'PASS'} = $self->{caKeyPassword}
     if (defined($self->{caKeyPassword}));
-    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(command => $cmd);
     delete ( $ENV{'PASS'} );
 
     return $output if ($retVal eq "ERROR");
@@ -2291,7 +2290,7 @@ sub _obtain # (certFile, attribute)
     }
     my $cmd = "x509 " . $arg . " -in \'$certFile\' -noout";
 
-    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(command => $cmd);
 
     return undef if ($retVal ne "OK");
 
@@ -2449,7 +2448,7 @@ sub _writeDownNextSerial # (certFile)
     $cmd .= "-next_serial ";
     $cmd .= "-out " . SERIALNOFILE;
 
-    $self->_executeCommand(COMMAND => $cmd);
+    $self->_executeCommand(command => $cmd);
 }
 
 # Write down the serial attribute file
@@ -2618,188 +2617,91 @@ sub _audit
     $self->{audit}->logAction('ca', 'Certification Authority', $action, $arg);
 }
 
-
-## OpenSSL execution environment provided by OpenCA::OpenSSL
-## through OpenCA application
-## Modificated to adapt to OpenSSL environment
-
-## Copyright (C) 1998-2001 Massimiliano Pala (madwolf@openca.org)
-## All rights reserved.
-##
-## This library is free for commercial and non-commercial use as long as
-## the following conditions are aheared to.  The following conditions
-## apply to all code found in this distribution, be it the RC4, RSA,
-## lhash, DES, etc., code; not just the SSL code.  The documentation
-## included with this distribution is covered by the same copyright terms
-##
-## // Copyright remains Massimiliano Pala's, and as such any Copyright notices
-## in the code are not to be removed.
-## If this package is used in a product, Massimiliano Pala should be given
-## attribution as the author of the parts of the library used.
-## This can be in the form of a textual message at program startup or
-## in documentation (online or textual) provided with the package.
-##
-## Redistribution and use in source and binary forms, with or without
-## modification, are permitted provided that the following conditions
-## are met:
-## 1. Redistributions of source code must retain the copyright
-##    notice, this list of conditions and the following disclaimer.
-## 2. Redistributions in binary form must reproduce the above copyright
-##    notice, this list of conditions and the following disclaimer in the
-##    documentation and/or other materials provided with the distribution.
-## 3. All advertising materials mentioning features or use of this software
-##    must display the following acknowledgement:
-## //   "This product includes OpenCA software written by Massimiliano Pala
-## //    (madwolf@openca.org) and the OpenCA Group (www.openca.org)"
-## 4. If you include any Windows specific code (or a derivative thereof) from
-##    some directory (application code) you must include an acknowledgement:
-##    "This product includes OpenCA software (www.openca.org)"
-##
-## THIS SOFTWARE IS PROVIDED BY OPENCA DEVELOPERS ``AS IS'' AND
-## ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-## IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-## ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
-## FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-## DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-## OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-## HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-## LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-## OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-## SUCH DAMAGE.
-##
-## The licence and distribution terms for any publically available version or
-## derivative of this code cannot be changed.  i.e. this code cannot simply be
-## copied and put under another distribution licence
-## [including the GNU Public Licence.]
-##
-## Contributions by:
-##          Martin Leung <ccmartin@ust.hk>
-##      Uwe Gansert <ug@suse.de>
-
-##############################################################
-##             OpenSSL execution environment                ##
-##                        BEGIN                             ##
-##############################################################
-
+#####
+# OpenSSL shell management
+#####
 sub _startShell
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    my $keys = { @_ };
+    return if ( $self->{shell} );
 
-    return 1 if ($self->{OPENSSL});
+    my $open = '| ' . OPENSSLPATH
+               . " 1>$output_shell"
+               . " 2>$error_shell";
 
-    my $open = "| ".$self->{shell}.
-               " 1>$self->{tmpDir}/${$}_stdout.log".
-               " 2>$self->{tmpDir}/${$}_stderr.log";
-
-    if (not open $self->{OPENSSL}, $open) {
+    if ( not open($self->{shell}, $open) ) {
         throw EBox::Exceptions::Internal(__x("Cannot start OpenSSL shell. ({errval})", errval => $!));
-        return undef;
     }
-
-    return 1;
 }
 
 sub _stopShell
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    return 1 if (not $self->{OPENSSL});
+    return if (not $self->{shell} );
 
-    print {$self->{OPENSSL}} "exit\n";
-    close $self->{OPENSSL};
-    $self->{OPENSSL} = undef;
-
-    return 1;
+    print {$self->{shell}} "exit\n";
+    close($self->{shell});
+    undef($self->{shell});
 }
 
 # Return two values into an array
 # (OK or ERROR, output)
-sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
+sub _executeCommand # (command, input, hide_output)
 {
-    my $self = shift;
+    my ($self, %params) = @_;
 
-    my $keys = { @_ };
+    # Initialise the shell, launch exception if it is not possible
+    $self->_startShell();
 
-    ## initialize openssl
+    my $command = $params{command};
+    # EBox::debug("OpenSSL command: $command");
 
-    return ("ERROR", "Error starting shell") if (not $self->_startShell());
-
-    ## run command
-
-    my $command = $keys->{COMMAND};
-#   EBox::debug("Command: $command") ;
-
-    my $input  = undef;
-    $input   = $keys->{INPUT} if (exists $keys->{INPUT});
     $command =~ s/\n*$//;
     $command .= "\n";
 
-    if (not print {$self->{OPENSSL}} $command) {
+    # Send the command
+    if (not print {$self->{shell}} $command) {
         throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell. ({errval})", errval => $!);
-        return ("ERROR", "Error writing to the shell");
     }
 
-    ## send the input
-    if ($input and not print {$self->{OPENSSL}} $input."\x00") {
+    my $input;
+    $input = $params{input} if (exists $params{input});
+    # Send the input
+    if ($input and not print {$self->{shell}} $input . "\x00") {
         throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell. ({errval})", errval => $!);
-        return ("ERROR", "Error writing to the shell");
     }
 
-    return ("ERROR", "Error stopping shell") if (not $self->_stopShell());
+    # Close the shell
+    $self->_stopShell();
 
-    ## check for errors
-    if (-e "$self->{tmpDir}/${$}_stderr.log") {
-
-        ## there was an error
-        my $ret = "";
-        if (open FD, "$self->{tmpDir}/${$}_stderr.log")
-        {
-            while( my $tmp = <FD> ) {
-            $ret .= $tmp;
-#       EBox::debug( $tmp );
-            }
-            close(FD);
-        }
-        unlink ("$self->{tmpDir}/${$}_stderr.log");
-        if ($ret =~ /error/i)
-        {
-            unlink ("$self->{tmpDir}/${$}_stdout.log");
-            return ("ERROR", $ret);
+    # check for errors
+    if (-e $error_shell) {
+        # There was an error
+        my $ret = File::Slurp::read_file($error_shell);
+        unlink($error_shell);
+        if ( $ret =~ /error/i ) {
+            unlink($output_shell);
+            EBox::error("Error: $ret");
+            return ('ERROR', $ret);
         }
     }
-    ## load the output
 
+    # Load the output
     my $ret = 1;
-    if (-e "$self->{tmpDir}/${$}_stdout.log" and
-        open FD, "$self->{tmpDir}/${$}_stdout.log")
-    {
-        ## there was an output
-        $ret = "";
-        while( my $tmp = <FD> ) {
-            $ret .= $tmp;
-      }
-        close(FD);
-        $ret =~ s/^(OpenSSL>\s)*//s;
-        $ret =~ s/OpenSSL>\s$//s;
+    if ( -e $output_shell ) {
+        $ret = File::Slurp::read_file($output_shell);
+        # $ret =~ s/^(OpenSSL>\s)*//s;
+        $ret =~ s/^OpenSSL>\s*//gm;
         $ret = 1 if ($ret eq "");
     }
-    unlink ("$self->{tmpDir}/${$}_stdout.log");
+    unlink($output_shell);
 
     my $msg = $ret;
-    $msg = "<NOT LOGGED>" if ($keys->{HIDE_OUTPUT});
+    $msg = "<NOT LOGGED>" if ($params{hide_output});
 
-    return ("OK", $ret);
+    return ('OK', $ret);
 }
-
-##############################################################
-##                         END                              ##
-##             OpenSSL execution environment                ##
-##############################################################
-
-##############################################################
-# End OpenCA code
-##############################################################
 
 1;

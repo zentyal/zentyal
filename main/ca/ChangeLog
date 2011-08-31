@@ -1,3 +1,7 @@
+HEAD
+	+ Reissue with Subject Alternative Names is now direct
+	+ Reissue is only possible with expired and revoked certificates
+	+ Use own code for launching OpenSSL commands
 2.1.4
 	+ Removed /zentyal prefix from URLs
 	+ Avoid call to caExpirationDays when CA certifcate is revoked

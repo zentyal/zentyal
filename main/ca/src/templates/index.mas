@@ -74,6 +74,10 @@ use EBox::CA::DN;
             value => __('Issue'),
             input => 'submit' ]
        );
+
+  # Set the list of suitable certificates to reissue
+  my %validCerts = map { $_->{'dn'}->attribute('commonName') => 1 } grep { $_->{state} eq 'V' } @{$certs};
+
 </%perl>
 <div class="help">
   <% __("Certificate changes will take effect immediately.") %>
@@ -190,9 +194,10 @@ use EBox::CA::DN;
     </a>
         <img src="/data/images/sep.gif" alt="-" />
 %   }
-%   if (($cert->{'state'} eq 'E' or $cert->{'state'} eq 'R') and
-%        not $caNeeded and
-%        $cert->{'dn'}->attribute('commonName') ne $caCertName) {
+%   if (($cert->{'state'} eq 'E' or $cert->{'state'} eq 'R')
+%        and not $caNeeded
+%        and ($cert->{'dn'}->attribute('commonName') ne $caCertName)
+%        and (not exists($validCerts{$cert->{'dn'}->attribute('commonName')})) ) {
         <a
     href="ShowForm?action=reissue&cn=<%$cert->{'dn'}->attribute('commonName')
     | u%>"

@@ -26,7 +26,6 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::CA;
 
 use File::Temp qw(tempfile);
 
