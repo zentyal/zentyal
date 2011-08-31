@@ -252,13 +252,15 @@ sub members
 #
 # Parameters:
 #
-#       mask - return alse addresses' mask (named optional, default false)
+#       mask - return also addresses' mask (named optional, default false)
 #
 # Returns:
 #
-#       array ref - containing an ip, empty array if
-#       there are no addresses in the table
-#       In case mask is wanted the elements of the array would be  [ip, mask]
+#       array ref - containing an ip addresses
+#                   empty array if there are no addresses in the table
+#
+#       If mask parameter is on, the elements of the array would be [ip_without_mask, mask]
+#
 sub addresses
 {
     my ($self, %params) = @_;
@@ -271,7 +273,9 @@ sub addresses
         my $type = $_->{type};
         if ($type eq 'ipaddr') {
             if ($mask) {
-                [$_->{'ipaddr'} =>  $_->{'mask'}]
+                my $ipAddr = $_->{'ipaddr'};
+                $ipAddr =~ s:/.*$::g;
+                [ $ipAddr =>  $_->{'mask'}]
             } else {
                $_->{'ipaddr'}
            }
