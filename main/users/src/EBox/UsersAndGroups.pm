@@ -95,7 +95,7 @@ sub actions
 {
     my ($self) = @_;
 
-    my $mode = mode();
+    my $mode = $self->mode();
     my @actions;
 
     if ($mode eq 'slave') {
@@ -158,8 +158,9 @@ sub actions
 #
 sub usedFiles
 {
+    my ($self) = @_;
     my @files = ();
-    my $mode = mode();
+    my $mode = $self->mode();
 
     push(@files,
         {
@@ -259,7 +260,7 @@ sub enableActions
         'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
     );
 
-    my $mode = mode();
+    my $mode = $self->mode();
 
     if ($mode eq 'slave') {
         $self->disableApparmorProfile('usr.sbin.slapd');
@@ -305,7 +306,7 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $mode = mode();
+    my $mode = $self->mode();
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
@@ -407,7 +408,7 @@ sub _daemons
 {
     my ($self) = @_;
 
-    my $mode = mode();
+    my $mode = $self->mode();
 
     if ($mode eq 'master') {
         return [
@@ -437,7 +438,7 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    my $mode = mode();
+    my $mode = $self->mode();
 
     # FIXME: This method should not be overrided
     # the good way to do this would be to have
@@ -1793,7 +1794,7 @@ sub updateGroup
     my ($self, $group, @params) = @_;
 
     $self->updateGroupLocal($group, @params);
-    if (mode() ne 'slave') {
+    if ($self->mode() ne 'slave') {
         $self->_updateGroupSlaves($group, @params);
     }
 }
@@ -2641,7 +2642,7 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    my $mode = mode();
+    my $mode = $self->mode();
 
     if ($mode eq 'master' or $mode eq 'ad-slave') {
         $self->ldap->dumpLdapMaster($dir);
@@ -2715,7 +2716,7 @@ sub restoreBackupPreCheck
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-    my $mode = mode();
+    my $mode = $self->mode();
 
     if ($mode eq 'master' or $mode eq 'ad-slave') {
         EBox::UsersAndGroups::Setup::createDefaultGroupIfNeeded();
@@ -3074,7 +3075,7 @@ sub waitSync
 {
     my ($self) = @_;
 
-    unless (mode() eq 'slave') {
+    unless ($self->mode() eq 'slave') {
         return;
     }
 
@@ -3336,9 +3337,12 @@ sub deleteSlave
 
 sub mode
 {
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-    my $mode = $model->modeValue();
+    my ($self) = @_;
 
+    # Do not use module manager here to avoid ModelManager recursion
+    # on automatic LDAP servers start
+    my $mode = $self->get_string('Mode/mode');
+    return 'master' unless defined($mode);
     return $mode;
 }
 

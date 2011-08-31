@@ -1,3 +1,5 @@
+HEAD
+	+ Use a safer mode() implementation to avoid recursions with ModelManager
 2.1.10
 	+ Start slapd daemon when a module fails to connect
 	+ Help in wizard is show again if no custom_prefix defined
