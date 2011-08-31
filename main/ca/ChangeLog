@@ -1,4 +1,4 @@
-HEAD
+2.1.5
 	+ Reissue with Subject Alternative Names is now direct
 	+ Reissue is only possible with expired and revoked certificates
 	+ Use own code for launching OpenSSL commands

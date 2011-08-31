@@ -1,4 +1,4 @@
-HEAD
+2.1.4
 	+ Remove mask from CIDR members in
 	  EBox::Objects::Model::MemberTable::addresses when mask parameter
 	  is set to 1
