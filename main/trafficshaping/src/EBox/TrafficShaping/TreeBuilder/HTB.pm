@@ -21,6 +21,7 @@ use warnings;
 # Its parent class is AbstractTreeBuilder
 use base 'EBox::TrafficShaping::TreeBuilder::Abstract';
 
+use EBox::Config;
 use EBox::TrafficShaping::Class;
 use EBox::TrafficShaping::QDisc::Base;
 use EBox::TrafficShaping::QDisc::Root;
@@ -37,7 +38,8 @@ use EBox::Gettext;
 # Dependencies
 use Clone;
 
-use constant R2Q => 5;
+use constant R2Q => EBox::Config::configkey('r2q');
+
 # We assume an MTU of 1500 Bytes
 use constant MTU => 1500;
 # Maximum rate allowed by the network card (Ex. 1Gb/s)

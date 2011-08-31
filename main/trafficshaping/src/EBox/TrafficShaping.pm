@@ -1472,11 +1472,11 @@ sub _buildObjMembers
     # Get the object's addresses
     my $objs = $self->{'objects'};
 
-    my $addreses_r = $objs->objectAddresses($objectName, mask => 1);
+    my $addresses_r = $objs->objectAddresses($objectName, mask => 1);
 
     # Set a different filter identifier for each object's member
     my $filterId = $ruleRelated;
-    foreach my $addr_r (@{$addreses_r}) {
+    foreach my $addr_r (@{$addresses_r}) {
         my ($memberIP, $memberMask) = @{ $addr_r };
 
         my $ip = new EBox::Types::IPAddr(

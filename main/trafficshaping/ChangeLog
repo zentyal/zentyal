@@ -1,3 +1,6 @@
+HEAD
+	+ R2Q constant now is configurable through conf key to allow
+	  greater guaranteed rates for better upload links
 2.1.3
 	+ Removed /zentyal prefix from URLs
 	+ Better message in exception from _checkRate
