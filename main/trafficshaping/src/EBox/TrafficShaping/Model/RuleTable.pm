@@ -379,6 +379,7 @@ sub _table
                     printableName   => __('Port based service'),
                     foreignModel    => \&_serviceModel,
                     foreignField    => 'name',
+                    foreignNextPageField => 'configuration',
                     editable        => 1,
                     cmpContext      => 'port',
                     ),
@@ -412,7 +413,8 @@ sub _table
                      printableName => __('Source object'),
                      editable      => 1,
                      foreignModel => \&_objectModel,
-                     foreignField => 'name'
+                     foreignField => 'name',
+                     foreignNextPageField => 'members',
                      )
                  ],
              editable => 1,
@@ -436,6 +438,7 @@ sub _table
                      type          => 'select',
                      foreignModel => \&_objectModel,
                      foreignField => 'name',
+                     foreignNextPageField => 'members',
                      editable      => 1 ),
                  ],
               editable => 1,
@@ -502,7 +505,6 @@ sub _table
     };
 
     return $dataTable;
-
 }
 
 ####################################################
