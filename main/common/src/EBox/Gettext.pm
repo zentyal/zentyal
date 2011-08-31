@@ -23,7 +23,7 @@ BEGIN {
     our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
     @ISA = qw(Exporter);
-    @EXPORT = qw{ __ __n __x __d __dx __s __sx settextdomain gettextdomain langs };
+    @EXPORT = qw{ __ __n __x __d __dx __s __sx __p __px settextdomain gettextdomain langs };
     %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
     @EXPORT_OK = qw();
     $VERSION = EBox::Config::version;
@@ -33,6 +33,7 @@ my $cur_domain = 'zentyal';
 my $old_domain;
 
 use constant SUBS_DOMAIN => 'zentyal-subscription';
+use constant PROF_DOMAIN => 'zentyal-prof';
 
 # Method: settextdomain
 #
@@ -125,6 +126,20 @@ sub __sx # (text, %variables)
     my ($text, %vars) = @_;
 
     return __dx($text, SUBS_DOMAIN, %vars);
+}
+
+sub __p # (text)
+{
+    my ($text) = @_;
+    return __d($text, PROF_DOMAIN);
+
+}
+
+sub __px # (text, %variables)
+{
+    my ($text, %vars) = @_;
+
+    return __dx($text, PROF_DOMAIN, %vars);
 }
 
 sub __expand # (translation, %arguments)
