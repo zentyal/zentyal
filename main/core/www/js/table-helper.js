@@ -1079,3 +1079,14 @@ function removeSelectChoice(id, value, selectedIndex)
    }
 
 }
+
+
+// Detect session loss on ajax request:
+Ajax.Responders.register({
+    onComplete: function(x,response) {
+        if (response.status == 403) {
+            location.reload(true);
+        }
+    }
+});
+

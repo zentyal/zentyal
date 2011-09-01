@@ -1,3 +1,5 @@
+HEAD
+	+ Detect session loss on AJAX requests
 2.1.29
 	+ Startup does not fail if SIGPIPE received
 2.1.28
