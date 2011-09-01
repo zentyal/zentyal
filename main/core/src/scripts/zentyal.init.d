@@ -16,6 +16,8 @@ use EBox::Util::Init;
 
 EBox::init();
 
+$SIG{PIPE} = 'IGNORE';
+
 sub usage {
 	print "Usage: $0 start|stop|restart\n";
 	print "       $0 <module> start|stop|status|enabled|restart\n";
