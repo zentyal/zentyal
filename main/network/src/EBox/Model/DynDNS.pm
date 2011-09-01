@@ -222,6 +222,7 @@ sub _table
 
       my $dataTable = {
                        tableName          => 'DynDNS',
+                       disableAutocomplete => 1,
                        pageTitle          => ('Dynamic DNS'),
                        printableTableName => __('Configuration'),
                        defaultActions     => [ 'editField', 'changeView' ],
