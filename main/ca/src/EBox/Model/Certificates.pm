@@ -259,9 +259,9 @@ sub _table
                                 filter => sub {
                                     my ($self)  = @_;
                                     my $modName = $self->value();
-                                    # return modname if the module was uninstalled
-                                    return $modName unless EBox::Global->modInstance($modName);
                                     my $mod = EBox::Global->modInstance($modName);
+                                    # return modname if the module was uninstalled
+                                    return $modName unless defined ($mod);
                                     return $mod->title();
                                 },
                                ),
