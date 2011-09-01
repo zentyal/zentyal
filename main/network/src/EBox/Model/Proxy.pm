@@ -101,6 +101,7 @@ sub _table
 
       my $dataTable = {
                        tableName          => 'Proxy',
+                       disableAutocomplete => 1,
                        printableTableName => __('Proxy'),
                        defaultActions     => [ 'editField', 'changeView' ],
                        tableDescription   => \@tableHeader,
