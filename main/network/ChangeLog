@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid duplicated gateway due to network wizard
 2.1.12
 	+ PPPoE works again after regression by PPTP changes
 	+ Reviewed some subscription strings

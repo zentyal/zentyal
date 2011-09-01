@@ -64,6 +64,10 @@ sub _processWizard
     my ($self) = @_;
 
     my $net = EBox::Global->modInstance('network');
+    my $gwModel = $net->model('GatewayTable');
+
+    # Remove possible gateways introduced by network-import script
+    $gwModel->removeAll();
 
     foreach my $iface ( @{$net->ifaces} ) {
         my $method = $self->param($iface . '_method');
@@ -87,7 +91,7 @@ sub _processWizard
 
             if ($gw ne '') {
                 try {
-                    my $gwModel = $net->model('GatewayTable');
+
                     $gwModel->add(name      => $gw,
                             ip        => $gw,
                             interface => $iface,
