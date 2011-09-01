@@ -1,4 +1,4 @@
-HEAD
+2.1.11
 	+ Use a safer mode() implementation to avoid recursions with ModelManager
 2.1.10
 	+ Start slapd daemon when a module fails to connect

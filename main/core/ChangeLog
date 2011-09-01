@@ -1,4 +1,4 @@
-HEAD
+2.1.29
 	+ Startup does not fail if SIGPIPE received
 2.1.28
 	+ Added code to mitigate false positives on module existence
