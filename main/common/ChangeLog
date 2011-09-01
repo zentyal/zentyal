@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid wrong translations of empty strings
 	+ Add the __p and __px for zentyal-prof gettext domain
 2.1.9
 	+ Do not use set -e in EBox::Sudo::root when there is only one command

@@ -96,7 +96,10 @@ sub __x # (text, %variables)
 
 sub __d # (text,domain)
 {
-    my ($string,$domain) = @_;
+    my ($string, $domain) = @_;
+
+    return '' unless ($string);
+
     bindtextdomain($domain, EBox::Config::locale());
     textdomain($domain);
     $string = gettext($string);
@@ -106,7 +109,10 @@ sub __d # (text,domain)
 
 sub __dx # (text,domain, %variables)
 {
-    my ($string,$domain, %vars) = @_;
+    my ($string, $domain, %vars) = @_;
+
+    return '' unless ($string);
+
     bindtextdomain($domain, EBox::Config::locale());
     textdomain($domain);
     $string = gettext($string);
