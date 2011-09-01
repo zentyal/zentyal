@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid service certificates errors when a module is uninstalled
 2.1.5
 	+ Reissue with Subject Alternative Names is now direct
 	+ Reissue is only possible with expired and revoked certificates

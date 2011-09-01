@@ -128,8 +128,11 @@ sub syncRows
 
     my %srvsToAdd = map { $_->{service} => 1 } @srvs;
     for my $id (@{$currentRows}) {
-        my $currentService = $self->row($id)->valueByName('service');
-        unless (exists $srvsToAdd{$currentService}) {
+        my $row = $self->row($id);
+        my $service = $row->valueByName('service');
+        my $module = $row->valueByName('module');
+        if (not exists $srvsToAdd{$service} or
+                not  EBox::Global->modExists($module)) {
             $self->removeRow($id);
             $modified = 1;
         }
@@ -256,6 +259,8 @@ sub _table
                                 filter => sub {
                                     my ($self)  = @_;
                                     my $modName = $self->value();
+                                    # return modname if the module was uninstalled
+                                    return $modName unless EBox::Global->modInstance($modName);
                                     my $mod = EBox::Global->modInstance($modName);
                                     return $mod->title();
                                 },
