@@ -199,23 +199,6 @@ sub validateTypedRow
                                          __('Samba share directory'));
         }
     }
-
-    # FIXME: Remove these checkings if configuration is written in UTF-8
-    if (exists $parms->{'share'}) {
-        my $shareName = $parms->{'share'}->value();
-        unless ($shareName =~ /^[\0-\x7f]+$/) {
-            throw EBox::Exceptions::External(
-                __('Only ASCII characters are valid for a share name'));
-        }
-    }
-
-    if (exists $parms->{'comment'}) {
-        my $comment = $parms->{'comment'}->value();
-        unless ($comment =~ /^[\0-\x7f]+$/) {
-            throw EBox::Exceptions::External(
-                __('Only ASCII characters are valid for a share description'));
-        }
-    }
 }
 
 # Method: removeRow
