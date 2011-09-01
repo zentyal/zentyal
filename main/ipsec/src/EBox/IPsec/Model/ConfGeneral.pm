@@ -113,6 +113,7 @@ sub _table
     my $dataTable =
     {
         tableName => 'ConfGeneral',
+        disableAutocomplete => 1,
         printableTableName => __('General'),
         defaultActions => [ 'editField', 'changeView' ],
         tableDescription => \@tableHeader,
