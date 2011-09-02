@@ -435,9 +435,15 @@ sub attachDevice
     my $device = {};
     $device->{file} = $file;
     $device->{block} = ($file =~ /^\/dev\//);
-    $device->{type} = $type eq 'cd' ? 'cdrom' : 'disk';
-    $device->{letter} = $self->{driveLetter};
-    $self->{driveLetter} = chr (ord ($self->{driveLetter}) + 1);
+    if ($type eq 'cd') {
+        $device->{type} = 'cdrom';
+        $device->{letter} = $self->{ideDriveLetter};
+        $self->{ideDriveLetter} = chr (ord ($self->{ideDriveLetter}) + 1);
+    } else {
+        $device->{type} = 'disk';
+        $device->{letter} = $self->{scsiDriveLetter};
+        $self->{scsiDriveLetter} = chr (ord ($self->{scsiDriveLetter}) + 1);
+    }
 
     push (@{$self->{vmConf}->{$name}->{devices}}, $device);
 }
@@ -507,7 +513,8 @@ sub initDeviceNumbers
 {
     my ($self) = @_;
 
-    $self->{driveLetter} = 'a';
+    $self->{ideDriveLetter} = 'a';
+    $self->{scsiDriveLetter} = 'a';
 }
 
 sub _run

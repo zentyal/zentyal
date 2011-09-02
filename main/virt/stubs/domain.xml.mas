@@ -32,9 +32,16 @@
 % }
 % foreach my $device (@devices) {
 % my $block = $device->{block};
-        <disk type='<% $block ? 'block' : 'file' %>' device='<% $device->{type} %>'>
+% my $type = $device->{type};
+% my $letter = $device->{letter};
+        <disk type='<% $block ? 'block' : 'file' %>' device='<% $type %>'>
+% if ($type eq 'disk') {
+            <driver name='qemu' type='qcow2'/>
+            <target dev='sd<% $letter %>' bus='scsi'/>
+% } else {
+            <target dev='hd<% $letter %>' bus='ide'/>
+% }
             <source <% $block ? 'dev' : 'file' %>='<% $device->{file} %>'/>
-            <target dev='hd<% $device->{letter} %>' bus='ide'/>
         </disk>
 % }
         <input type='mouse' bus='usb'/>

@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed problems with sparse disk images in KVM and use scsi bus
 	+ Avoid undefined concatenation warnings during boot
 2.1.5
 	+ Removed /zentyal prefix from URLs
