@@ -689,7 +689,6 @@ sub _setDescription
         $self->{printableLabels} = $description->{printableLabels};
     }
 
-    my $baseDir = EBox::Monitor::Configuration->RRDBaseDirPath();
     my $prefix = $self->plugin();
     $self->{instances} = [];
     if ( exists($description->{instances}) ) {
@@ -697,18 +696,8 @@ sub _setDescription
             throw EBox::Exceptions::InvalidType($description->{instances}, 'array ref');
         }
         foreach my $instance (@{$description->{instances}}) {
-#            if ( -d "${baseDir}${prefix}-$instance" ) {
-                push(@{$self->{instances}}, $instance);
-#             } else {
-#                 throw EBox::Exceptions::Internal("Subdirectory ${baseDir}${prefix}-$instance "
-#                                                    . 'does not exist');
-#             }
+            push(@{$self->{instances}}, $instance);
         }
-    } else {
-#         unless ( -d "${baseDir}$prefix" ) {
-#             throw EBox::Exceptions::Internal(
-#                 "Subdirectory ${baseDir}${prefix} does not exist");
-#         }
     }
 
     $self->{types} = [ $self->plugin() ];
@@ -725,43 +714,7 @@ sub _setDescription
             throw EBox::Exceptions::InvalidType($description->{typeInstances}, 'array ref');
         }
         foreach my $typeInstance (@{$description->{typeInstances}}) {
-            if (@{$self->{instances}}) {
-                foreach my $instance (@{$self->{instances}}) {
-                    my $instanceDir = "${baseDir}${prefix}-${instance}/";
-                    foreach my $type ( @{$self->{types}} ) {
-                        my $rrdPath = "${instanceDir}${type}-${typeInstance}.rrd";
-#                         unless ( -f $rrdPath ) {
-#                             throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
-#                         }
-                    }
-                }
-            } else {
-                # Testing against the prefix
-                foreach my $type ( @{$self->{types}} ) {
-                    my $rrdPath = "$baseDir$prefix/${type}-${typeInstance}.rrd";
-#                     unless ( -f $rrdPath ) {
-#                         throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
-#                     }
-                }
-            }
             push(@{$self->{typeInstances}}, $typeInstance);
-        }
-    } else {
-        if (@{$self->{instances}}) {
-            foreach my $instance (@{$self->{instances}}) {
-                foreach my $type ( @{$self->{types}} ) {
-                    my $rrdPath = "${baseDir}${prefix}-$instance/${type}.rrd";
-#                     unless (-f $rrdPath) {
-#                         throw EBox::Exceptions::Internal("RRD file $rrdPath does not exist");
-#                     }
-                }
-            }
-        } else {
-            foreach my $type (@{$self->{types}}) {
-#                 unless ( -f "${baseDir}${prefix}/${type}.rrd" ) {
-#                     throw EBox::Exceptions::Internal("RRD file ${baseDir}${prefix}/${prefix}.rrd does not exist");
-#                 }
-            }
         }
     }
 

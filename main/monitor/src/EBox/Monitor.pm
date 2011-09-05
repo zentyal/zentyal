@@ -650,9 +650,9 @@ sub _linkRRDs
 
     if ( $subscribedHostname ) {
         my $subDirPath = "$parentPath/$subscribedHostname";
-        unless ( -e $subDirPath ) {
+        if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
             EBox::Sudo::root("ln -s $rrdBaseDirPath $subDirPath");
-        }
+        } # else, collectd creates the directory
     } else {
         opendir(my $dh, $parentPath);
         while ( defined(my $subdir = readdir($dh)) ) {

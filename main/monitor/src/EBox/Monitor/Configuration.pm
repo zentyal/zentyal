@@ -28,6 +28,7 @@ use EBox::Config;
 use EBox::Gettext;
 
 # Core modules
+use Net::Domain;
 use Sys::Hostname;
 
 # Constants
@@ -98,7 +99,18 @@ sub QueryInterval
 sub RRDBaseDirPath
 {
     my $baseDir = RRD_BASE_DIR;
-    return "$baseDir" . hostname() . '/';
+    my $firstAttempt = $baseDir . hostname() . '/';
+    if ( -d $firstAttempt ) {
+        return $firstAttempt;
+    } else {
+        my $secondAttempt = $baseDir . Net::Domain::hostfqdn() . '/';
+        if ( -d $secondAttempt ) {
+            return $secondAttempt;
+        } else {
+            EBox::warn("Neither $firstAttempt and $secondAttempt still exists. Did Collectd never run?");
+            return $firstAttempt;
+        }
+    }
 }
 
 # Method: TimePeriods
