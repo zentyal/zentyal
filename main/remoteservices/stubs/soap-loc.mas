@@ -31,9 +31,9 @@
 <IfModule mod_rewrite.c>
    RewriteLock <% $confDirPath %>rewrite.lck
 
-   RewriteCond %{HTTP:Via}   dynamic
+   RewriteCond %{HTTP:Via}    .
    RewriteCond %{HTTP_COOKIE} !Auth_EBox
-   RewriteRule .?           /LOGIN_CC [L]
+   RewriteRule /ebox           /LOGIN_CC [L]
 
    RewriteRule /soap        -  [L]
 </IfModule>

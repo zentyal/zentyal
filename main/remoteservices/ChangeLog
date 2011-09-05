@@ -1,3 +1,8 @@
+HEAD
+	+ Set script session starting code in
+	  EBox::RemoteServices::Job::Helper to add audit support for jobs
+	+ Allow remote access from the cloud with no dynamic host
+	+ Bugfix: Typo in passwordless default value
 2.1.9
 	+ Reviewed some subscription strings
 	+ WS check now is load-balanced

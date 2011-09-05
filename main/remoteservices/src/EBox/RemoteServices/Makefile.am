@@ -13,6 +13,6 @@ SOURCES = $(nobase_perl_DATA)
 
 EXTRA_DIST = $(mods)
 
-SUBDIRS = Audit Composite Model Server t Types
+SUBDIRS = Audit Composite Job Model Server t Types
 
 MAINTAINERCLEANFILES = Makefile.in

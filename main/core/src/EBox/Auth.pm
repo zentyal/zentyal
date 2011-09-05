@@ -38,9 +38,9 @@ use Fcntl qw(:flock);
 use constant EXPIRE => 3600; #In seconds  1h
 # By now, the expiration time for a script session
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
-# CC cookie
-use constant CC_COOKIE_NAME => 'EBox_Services_Remote_Access';
-use constant CC_DOMAIN => 'dynamic.ebox-services.com';
+
+# Remote access constants
+use constant CC_USER => '__remote_access__';
 
 sub new
 {
@@ -59,12 +59,15 @@ sub new
 sub _savesession # (session_id)
 {
     my ($sid, $user) = @_;
+
+    my $sessionPath = EBox::Config->sessionid();
+
     my $sidFile;
     my $openMode = '>';
-    if ( -f EBox::Config->sessionid() ) {
+    if ( -f $sessionPath ) {
         $openMode = '+<';
     }
-    unless  ( open ( $sidFile, $openMode, EBox::Config->sessionid() )){
+    unless  ( open ( $sidFile, $openMode, $sessionPath )){
         throw EBox::Exceptions::Internal(
                 "Could not open to write ".
                 EBox::Config->sessionid);
@@ -197,7 +200,7 @@ sub authen_ses_key  # (request, session_key)
         $r->subprocess_env(LoginReason => 'Script active');
         _savesession(undef);
     }
-    elsif(($session_key eq $sid) and (!$expired )){
+    elsif ( ($session_key eq $sid) and (!$expired) ) {
         my $audit = EBox::Global->modInstance('audit');
         $audit->setUsername($user);
 
@@ -244,7 +247,7 @@ sub loginCC
             if ( $remoteServMod->eBoxSubscribed()
                  and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
                 # Do what login does
-                my $sessionKey = $self->authen_cred($req, '', '',1);
+                my $sessionKey = $self->authen_cred($req, CC_USER, '', 1);
                 $self->send_cookie($req, $sessionKey);
                 $self->handle_cache($req);
                 $req->headers_out()->set('Location' => '/');
@@ -288,16 +291,16 @@ sub logout
 sub _currentSessionId
 {
     my $SID_F; # sid file handle
-
-    unless(-e EBox::Config->sessionid()) {
-        unless (open ($SID_F,  ">". EBox::Config->sessionid())) {
+    my $sessionPath = EBox::Config->sessionid();
+    unless(-e $sessionPath) {
+        unless (open ($SID_F,  ">". $sessionPath)) {
             throw EBox::Exceptions::Internal("Could not create  " .
                                              EBox::Config->sessionid);
         }
         close($SID_F);
         return;
     }
-    unless (open ($SID_F,  EBox::Config->sessionid())) {
+    unless (open ($SID_F, $sessionPath)) {
         throw EBox::Exceptions::Internal(
                 "Could not open ".
                 EBox::Config->sessionid);

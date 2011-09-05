@@ -53,6 +53,7 @@ src/EBox/RemoteServices/Makefile
 src/EBox/RemoteServices/t/Makefile
 src/EBox/RemoteServices/Audit/Makefile
 src/EBox/RemoteServices/Composite/Makefile
+src/EBox/RemoteServices/Job/Makefile
 src/EBox/RemoteServices/Model/Makefile
 src/EBox/RemoteServices/Server/Makefile
 src/EBox/RemoteServices/Server/t/Makefile

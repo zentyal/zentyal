@@ -1,4 +1,5 @@
 HEAD
+	+ Set a user for remote access for audit reasons
 	+ Detect session loss on AJAX requests
 2.1.29
 	+ Startup does not fail if SIGPIPE received

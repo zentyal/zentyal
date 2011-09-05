@@ -78,7 +78,7 @@ sub _table
                                 fieldName     => 'passwordless',
                                 printableName => __('Access from control panel without password'),
                                 editable      => 1,
-                                default       => 1,
+                                defaultValue  => 1,
                                ),
       );
 
