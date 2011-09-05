@@ -51,7 +51,7 @@ sub new
 {
     my ($class) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->getInstance(1)->modInstance('network');
     my $options = $network->model('WANFailoverOptions')->row();
     my $period = $options->valueByName('period');
 
@@ -120,7 +120,7 @@ sub run
     }
 
     # We won't do anything if there are unsaved changes
-    my $readonly = $global->modIsChanged('network');
+    my $readonly = EBox::Global->getInstance()->modIsChanged('network');
 
     unless ($readonly) {
         # Getting read/write instance to apply the changes
