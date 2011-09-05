@@ -15,7 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# TODO: Check we have root permissions, ask to execute with sudo otherwise
+if [ ! "$UID" -eq "0" ] ; then
+    echo Sorry, you must be root to run this script >&2
+    exit 1
+fi
 
 ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
 sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.1/g" /etc/apt/sources.list
