@@ -5,6 +5,8 @@ echo "All your LDAP data and the Zentyal modules depending on it are going to be
 echo "Press Control-C now if you are not sure of what you are doing."
 read
 
+invoke-rc.d zentyal users stop
+
 INSTALLED_MODULES=`dpkg -l | grep 'zentyal-' | grep ^ii | cut -d' ' -f3| xargs`
 
 UNCONFIGURE_MODULES="asterisk egroupware ftp jabber mail samba squid webmail zarafa captiveportal users"

@@ -1,3 +1,5 @@
+HEAD
+	+ Stop old ldap daemons in reinstall script, needed before changing mode
 2.1.11
 	+ Use a safer mode() implementation to avoid recursions with ModelManager
 2.1.10
