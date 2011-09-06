@@ -1,4 +1,5 @@
 HEAD
+	+ UsersAndGroups::lastUid() now takes also into account non-ldap users
 	+ Stop old ldap daemons in reinstall script, needed before changing mode
 2.1.11
 	+ Use a safer mode() implementation to avoid recursions with ModelManager

@@ -691,45 +691,36 @@ sub uidExists # (uid)
 #
 # Parameters:
 #
-#       system - boolan: if true, it returns the last uid for system users,
-#       otherwise the last uid for normal users
+#       system - boolean: if true, it returns the last uid for system users,
+#                         otherwise the last uid for normal users
 #
 # Returns:
 #
 #       string - last uid
 #
-sub lastUid # (system)
+sub lastUid
 {
     my ($self, $system) = @_;
 
-    my %args = (
-                base =>  $self->ldap->dn(),
-                filter => '(objectclass=posixAccount)',
-                scope => 'sub',
-                attrs => ['uidNumber']
-               );
+    my $lastUid = -1;
+    while (my ($name, undef, $uid) = getpwent()) {
+        next if ($name eq 'nobody');
 
-    my $result = $self->ldap->search(\%args);
-
-    my @users = $result->sorted('uidNumber');
-
-    my $uid = -1;
-    foreach my $user (@users) {
-        my $curruid = $user->get_value('uidNumber');
         if ($system) {
-            last if ($curruid >= MINUID);
+            last if ($uid >= MINUID);
         } else {
-            next if ($curruid < MINUID);
+            next if ($uid < MINUID);
         }
-        if ( $curruid > $uid){
-            $uid = $curruid;
+        if ($uid > $lastUid) {
+            $lastUid = $uid;
         }
     }
+    endpwent();
 
     if ($system) {
-        return ($uid < SYSMINUID ?  SYSMINUID : $uid);
+        return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {
-        return ($uid < MINUID ?  MINUID : $uid);
+        return ($lastUid < MINUID ? MINUID : $lastUid);
     }
 }
 
