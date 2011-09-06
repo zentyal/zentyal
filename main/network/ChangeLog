@@ -1,4 +1,4 @@
-HEAD
+2.1.13
 	+ Proper use of ro/rw instances on failover event
 	+ Avoid duplicated gateway due to network wizard
 	+ Disable autocomplete in gateway proxy configuration
