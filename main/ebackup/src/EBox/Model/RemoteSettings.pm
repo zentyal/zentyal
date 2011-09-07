@@ -930,34 +930,6 @@ sub configurationIsComplete
     return 1;
 }
 
-# Method: setCloudMethod
-#
-#      Set the cloud method
-#
-# Parameters:
-#
-#      firstTime - Boolean the first time that is called
-#
-sub setCloudMethod
-{
-    my ($self, $firstTime) = @_;
-
-    if (not EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
-        EBox::warn("setCloudMethod called without disaster recovery subscription");
-        return;
-    }
-
-    my $row = $self->row();
-    $row->elementByName('method')->setValue('cloud');
-    if ($firstTime) {
-        my $fullElement = $row->elementByName('full');
-        $fullElement->setValue({'full_once' => ''});
-        my $incrElement = $row->elementByName('incremental');
-        $incrElement->setValue({'incremental_weekly' => 0 });
-    }
-
-    $row->store();
-}
 
 sub usedEncryptionMode
 {

@@ -38,6 +38,7 @@ use Date::Parse;
 use DateTime;
 use String::ShellQuote;
 use YAML::XS;
+use File::Basename;
 
 use constant NTP_SERVER     => 'pool.ntp.org';
 
@@ -84,6 +85,17 @@ try {
                                       $serverCN,
                                      );
 
+        unless ( $credentials->{type} eq 'basic' ) {
+            getEncryption(
+                $credentials,
+                undef,
+                symmetricPassword => $symmetricPassword,
+                encryptionKey     => $encryptKey,
+                keyPassphrase     => $keyPassphrase,
+                noEncryption      => $noEncryption,
+               );
+        }
+
         # Restore last backup for basic users always
         $restoreLast = ($restoreLast or ($credentials->{type} eq 'basic'));
 
@@ -112,15 +124,6 @@ try {
                 undef($date);
                 next; # Start all over again, retry
             }
-
-            getEncryption(
-                $credentials,
-                $metadata,
-                symmetricPassword => $symmetricPassword,
-                encryptionKey     => $encryptKey,
-                keyPassphrase     => $keyPassphrase,
-                noEncryption      => $noEncryption,
-               );
         }
     }
 
@@ -131,18 +134,16 @@ try {
     # Stop any interrupting process
     _stopInterruptingProcesses();
 
-    _downloadBackupData($credentials, $date);
-
-    my $configBackup = _getConfigBackup($credentials, $date);
+    my $configBackup = _getConfigBackup($credentials, $metadata, $date);
 
     _installMissingModules($configBackup);
-
-
 
     doRestore(credentials => $credentials,
               toRestore   => $toRestore,
               configBackup => $configBackup,
-              date         => $date);
+              date         => $date,
+              metadata     => $metadata,
+             );
 
     saveChanges();
 
@@ -441,6 +442,8 @@ sub backupCredentials
 
     $credentials->{commonName} = $params{serverCN};
 
+    $credentials->{confBackupDir} = EBox::EBackup::Subscribed::confBackupDir($credentials->{commonName});
+
     if (not exists $credentials->{method}) {
         $credentials->{method} = 'scp';
     }
@@ -518,6 +521,13 @@ sub doRestore
         # finished
         return;
     }
+
+    if (keys %toRestore == 0) {
+        # only requested configuration restore, finished
+        return;
+    }
+
+    _downloadBackupData($credentials, $date, \%toRestore, $metadata);
 
     my $ebackup = EBox::Global->modInstance('ebackup');
 
@@ -623,8 +633,6 @@ sub _restoreFile
 {
     my ($src, $dst) = @_;
 
-    # my $tmpDst;
-
     my $srcArg = $src;
     if (EBox::Sudo::fileTest('-e', $dst)) {
         if (EBox::Sudo::fileTest('-d' , $dst)) {
@@ -642,16 +650,27 @@ sub _restoreFile
                 $srcEmpty = 1;
             };
             if ($srcEmpty) {
-                # no files to copy to laready existent directory..
+                # no files to copy to already existent directory..
                 next;
             }
         }
+    }
+
+    my $dstDir = File::Basename::dirname($dst);
+    if ($dstDir ne '/') {
+       my $dstDirExists = EBox::Sudo::fileTest('-e', $dstDir);
+       if (not $dstDirExists) {
+           my $srcDir = File::Basename::dirname($src);
+           _restoreDirTree($srcDir, $dstDir);
+       }
     }
 
     my $restoreCmd = "cp -rpf $srcArg $dst";
     try {
         EBox::Sudo::root($restoreCmd);
     } otherwise {
+        my $ex = shift;
+        EBox::error("Restore file command failed $restoreCmd");
         error(__x(
             'Error restoring file or directory {dst}',
             dst => $dst
@@ -659,18 +678,52 @@ sub _restoreFile
     };
 }
 
+sub _restoreDirTree
+{
+     my ($src, $dst) = @_;
+     my @dirs = ( [$src, $dst] );
+
+     my $newDst = File::Basename::dirname($dst);
+     my $newSrc = $src;
+     while (($newDst ne '/') and not  EBox::Sudo::fileTest('-e', $newDst)) {
+         my $newSrc = File::Basename::dirname($src);
+         unshift @dirs, [$newSrc, $newDst];
+         $newDst  = File::Basename::dirname($newSrc);
+     }
+
+     foreach  my $dirPair (@dirs) {
+         my ($srcDir, $dstDir)  = @{ $dirPair };
+         try {
+             EBox::Sudo::root("mkdir $dstDir");
+             EBox::Sudo::root("chmod --reference=$srcDir $dstDir");
+             EBox::Sudo::root("chown --reference=$srcDir $dstDir");
+         } catch EBox::Exceptions::Sudo::Command with {
+             my $ex = shift;
+             my $msg = __x('Error restoring directory {d}. This could make fail some files or domains restore processes. Error {e}',
+                           d => $dstDir,
+                           e => join '', @{ $ex->error }
+                          );
+             warning($msg);
+         };
+     }
+}
+
 # sliced-mode is not supported
 sub _restoreLogs
 {
     my ($date) = @_;
 
-    my $dir = _fileFromBackup( EBox::EBackup::DBRestore::backupDir());
+    my $dir = EBox::EBackup::DBRestore::backupDir();
     my $dumpFile =  $dir . '/' . EBox::EBackup::DBRestore::dumpBasename() . '.dump';
+    my $src = _fileFromBackup($dumpFile);
 
-    if (not  EBox::Sudo::fileTest('-r', $dumpFile) ) {
-        warning(__('Backup log data not found, log database will not be restored'));
+
+    if (not  EBox::Sudo::fileTest('-r', $src) ) {
+        warning(__('Backup log data not found in the fiels from the backup, log database will not be restored'));
         return;
     }
+
+    _restoreFile($src, $dumpFile);
 
     my $msg = __('Restoring log database');
     my $pulsatePid = _showUnanticipatedProgress($msg);
@@ -968,7 +1021,7 @@ sub _debPackagesInBackup
         open (my $FH, "<", $file) or
             die "Error opening installed packages file $!";
         while (my $line = <$FH>) {
-            # lines ae like: ii apache2.2-common 2.2.14-1 Apache HTTP Server
+            # lines are like: ii apache2.2-common 2.2.14-1 Apache HTTP Server
             if ($line =~ m/\Aii\s+(.*?)\s/) {
                 push @packages, $1;
             }
@@ -1096,6 +1149,54 @@ sub _stopInterruptingProcesses
     } otherwise { };
 }
 
+sub _createFilesTmpDir
+{
+    my $filesTmpDir = filesTmpDir();
+    if (not -d $filesTmpDir) {
+        mkdir $filesTmpDir or
+            throw EBox::Exceptions::Internal("Cannot create directory $filesTmpDir: $!");
+    }
+
+    my @dirsToCreate = (
+        '/bin',
+        '/boot',
+        '/etc',
+        '/home',
+        '/lib',
+        '/opt',
+        '/root',
+        '/sbin',
+        '/selinux',
+        '/srv',
+        '/sys',
+        '/tmp',
+
+        '/usr/bin',
+        '/usr/etc',
+        '/usr/games',
+        '/usr/include',
+        '/usr/lib',
+        '/usr/lib32',
+        '/usr/lib64',
+        '/usr/local',
+        '/usr/sbin',
+        '/usr/share',
+        '/usr/src',
+
+        '/var/cache',
+        '/var/spool',
+    );
+
+    my @cmds;
+    foreach my $dir (@dirsToCreate) {
+        my $d = $filesTmpDir . $dir;
+        push (@cmds, "mkdir -p --mode=755 $d");
+    }
+    EBox::Sudo::root(@cmds);
+
+    return $filesTmpDir;
+}
+
 sub _downloadBackupMetadata
 {
     my ($credentials, $date) = @_;
@@ -1119,31 +1220,151 @@ sub _downloadBackupMetadata
     };
 }
 
+sub _fullDownload
+{
+    my ($toRestore, $metadata) = @_;
+    my $fullDownload = 0;
+    if ($metadata->{version} < 2) {
+        # don't have size metadata so we use full
+        return 1;
+    }
+
+    if ($toRestore->{filesIncludes}) {
+        $fullDownload = 1;
+    } else {
+        my $total = 0;
+        my $sizeToRestore;
+        foreach my $domain (keys %{ $metadata->{backupDomains} }) {
+            if (exists $metadata->{backupDomains}->{$domain}->{size}) {
+                my $size = $metadata->{backupDomains}->{$domain}->{size};
+                $total += $size;
+                if ($toRestore->{$domain}) {
+                    $sizeToRestore += $size;
+                }
+            }
+        }
+        my $threshold = $total/3;
+        if (defined $sizeToRestore) {
+            $fullDownload =  ($sizeToRestore >= $threshold);
+        } else {
+            # play safe
+            $fullDownload = 1;
+        }
+    }
+
+    return $fullDownload;
+}
+
+
+sub _pathsToRestoreByDomain
+{
+    my ($metadata, %toRestore) = @_;
+
+    my $ebackup = EBox::Global->getInstance()->modInstance('ebackup');
+    my %pathsByDomain;
+    foreach my $domain (keys %toRestore ) {
+        my $extraData =  $metadata->{backupDomains}->{$domain}->{extraDataDump};
+        my $selections = $ebackup->_rawModulesBackupDomainsFileSelections($domain => 1);
+        my @paths = map {
+                if (exists $_->{includes}) {
+                    @{  $_->{includes} };
+                } else {
+                    ()
+                }
+            } @{  $selections };
+        if ($extraData) {
+            push @paths, $ebackup->extraDataDir() . '/' . $domain;
+        }
+
+        $pathsByDomain{$domain} = \@paths;
+    }
+
+    return \%pathsByDomain;
+}
+
+
 sub _downloadBackupData
 {
-    my ($credentials, $date) = @_;
+    my ($credentials, $date, $toRestore, $metadata) = @_;
     my $basic = $credentials->{type} eq 'basic';
     if ($basic) {
         return;
     }
 
-    my $dstDir = filesTmpDir();
-    my $msg = __('Downloading the backup data and configuration');
     my $urlParams = _remoteUrlParamsFromCredentials($credentials, 'data');
 
-    _downloadDuplicityFiles($urlParams, $date, $dstDir, $msg);
+    my $dstDir = _createFilesTmpDir();
+
+    if (_fullDownload($toRestore, $metadata)) {
+        my $msg = __('Downloading the backup data');
+        # restore all files, this is done to sepepd-up the process
+        _downloadDuplicityFiles($urlParams, $date, '/',  $dstDir, $msg);
+    } else {
+        my %downloaded;
+        my $pathsByDomain = _pathsToRestoreByDomain($metadata, %{ $toRestore });
+        foreach my $domain (keys %{ $toRestore }) {
+            my $printableName =  $metadata->{backupDomains}->{$domain}->{printableName};
+            $printableName or
+                $printableName = $domain;
+
+            my @srcs = sort @{  $pathsByDomain->{$domain} };
+            foreach my $src (@srcs) {
+                if ($downloaded{$src}) {
+                    next;
+                }
+                $downloaded{$src} = 1;
+
+                my $msg =  __x('Downloading  {src} backup data for {dom}',
+                               src => $src,
+                               dom => $printableName);
+
+                # adjust src and dst if needed
+                my $dst = $dstDir . '/' . $src;
+                while (($src ne '/') and not EBox::Sudo::fileTest('-d',  File::Basename::dirname($dst))) {
+                    $src = File::Basename::dirname($src);
+                    $dst = $dstDir . '/' . $src;
+                }
+
+                try {
+                    _downloadDuplicityFiles($urlParams, $date, $src,  $dst, $msg);
+                } otherwise {
+                    my $errorMsg = __x('Error downloading data for backup domain: {dom}. The domain will not be fully restored',
+                                       dom => $printableName,
+                                 );
+                    warning($errorMsg);
+                };
+            }
+         }
+    }
 }
+
+sub _downloadConfigurationBackup
+{
+    my ($credentials, $date, $file, $dst) = @_;
+    my $basic = $credentials->{type} eq 'basic';
+    if ($basic) {
+        return;
+    }
+
+    my $msg = __('Downloading the backup configuration');
+    my $urlParams = _remoteUrlParamsFromCredentials($credentials, 'data');
+
+    _downloadDuplicityFiles($urlParams, $date, $file, $dst, $msg);
+}
+
 
 sub _downloadDuplicityFiles
 {
-    my ($urlParams, $date, $dstDir, $msg) = @_;
+    my ($urlParams, $date, $src, $dstDir, $msg) = @_;
 
     my $pulsatePid = _showUnanticipatedProgress($msg);
     try {
-        my $ebackup = EBox::Global->modInstance('ebackup');
-
-        # restore all files, this is done to sepepd-up the process
-        $ebackup->restoreFile('/', $date, $dstDir, $urlParams);
+        my $ebackup = EBox::Global->getInstance()->modInstance('ebackup');
+        $ebackup->restoreFile($src, $date, $dstDir, $urlParams);
+    } otherwise {
+        my $ex = shift @_;
+        EBox::error("Error restoring file $src to $dstDir: $ex");
+        $ex->throw();
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
     };
@@ -1157,25 +1378,36 @@ sub _fileFromBackup
 
 sub _getConfigBackup
 {
-    my ($credentials, $date) = @_;
-
-    my $basic = $credentials->{type} eq 'basic';
-
-    if (not $basic) {
-        my $ebackup = EBox::Global->modInstance('ebackup');
-        my $backupFile =  $ebackup->includedConfigBackupPath();
-        return _fileFromBackup($backupFile);
-    }
+    my ($credentials, $metadata, $date) = @_;
 
     my $dstFile = tmpDir() . '/backup-config';
-    my $msg =  __('Downloading configuration');;
-    my $pulsatePid = _showUnanticipatedProgress($msg);
-    try {
-        _downloadBasicConfigurationBackup($credentials, $date, $dstFile);
-    } finally {
-        _finishUnanticipatedProgress($pulsatePid);
-    };
 
+    my $basic = $credentials->{type} eq 'basic';
+    if ($basic) {
+        my $msg =  __('Downloading configuration');;
+        my $pulsatePid = _showUnanticipatedProgress($msg);
+        try {
+            _downloadBasicConfigurationBackup($credentials, $date, $dstFile);
+        } finally {
+            _finishUnanticipatedProgress($pulsatePid);
+        };
+
+        return $dstFile;
+    }
+
+    if ($metadata->{version} >= 2) {
+        my $bakFile = EBox::EBackup::Subscribed::downloadConfigurationBackup($credentials, $date, $dstFile);
+        if ($bakFile and (-e $bakFile)) {
+            return $bakFile;
+        } else {
+            fatal("Cannot found stored configuration fire in cloud");
+        }
+    }
+
+    # XXX version 1 compability and fallback. Remove in the future
+    my $ebackup = EBox::Global->modInstance('ebackup');
+    my $backupFile =  $ebackup->includedConfigBackupPath();
+    _downloadConfigurationBackup($credentials, $date, $backupFile, $dstFile);
     return $dstFile;
 }
 
@@ -1187,7 +1419,7 @@ sub askBackupDate
         return _basicBackupDate($credentials, $restoreLast);
     }
 
-    # extractions of date coudl take a logn time, maybe we can put a progress
+    # extractions of date could take a long time, maybe we can put a progress
     # widget there
     my $commonName = $credentials->{commonName};
     my $ebackup = EBox::Global->modInstance('ebackup');
@@ -1915,6 +2147,10 @@ sub saveChanges
     defined($retry) or $retry = 1;
 
     my $global = EBox::Global->getInstance();
+    if (not $global->unsaved()) {
+        return;
+    }
+
     my $progressIndicator = $global->prepareSaveAllModules();
 
     my $retValue = progress($progressIndicator, $msg);
@@ -2088,7 +2324,7 @@ sub getEncryption
         (not defined $symmetricPassword) and
         (not defined $encryptionKey) )  {
 
-        if (_backupUsesEncryption($metadata)) {
+        if (_backupUsesEncryption($credentials, $metadata)) {
             my $dialogMsg =  __x(
                   'Enter password used to encrypt back up {ser}',
                    ser => $credentials->{commonName});
@@ -2110,10 +2346,13 @@ sub getEncryption
 
 sub _backupUsesEncryption
 {
-    my ($metadata) = @_;
-    my $encType = $metadata->{encryptionType};
+    my ($credentials, $metadata) = @_;
+    if ($metadata) {
+        my $encType = $metadata->{encryptionType};
+        return ($encType eq 'symmetric');
+    }
 
-    return ($encType eq 'symmetric');
+    return EBox::EBackup::Subscribed::collectionEncrypted($credentials);
 }
 
 sub metadata

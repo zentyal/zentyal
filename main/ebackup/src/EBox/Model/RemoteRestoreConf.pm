@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
+use EBox::EBackup::Subscribed;
 
 use Error qw(:try);
 
@@ -142,22 +143,30 @@ sub formSubmitted
 
     my $backupFile = $self->_backupFile($date);
 
-    my $url = "/EBox/Backup?restoreFromFile=1&mode=configurationRestore&backupfile=$backupFile";
+    my $url = "/SysInfo/Backup?restoreFromFile=1&mode=configurationRestore&backupfile=$backupFile";
 
     $self->pushRedirection($url)
 }
-
 
 sub _backupFile
 {
     my ($self, $date) = @_;
     my $ebackup  = EBox::Global->modInstance('ebackup');
+    my $settings = $ebackup->model('RemoteSettings');
+    my $usingCloud = $settings->row()->valueByName('method') eq 'cloud';
 
-    my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
+
     my $tmpFile = EBox::Config::tmp() . 'eboxbackup-tmp.tar';
 
     try {
-        $ebackup->restoreFile($bakFile, $date, $tmpFile);
+        if ($usingCloud) {
+            my $credentials = EBox::EBackup::Subscribed::credentials();
+            $credentials->{encSelected}  = $settings->row()->elementByName('encryption')->selectedType();
+            EBox::EBackup::Subscribed::downloadConfigurationBackup($credentials, $date, $tmpFile);
+        } else {
+            my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
+            $ebackup->restoreFile($bakFile, $date, $tmpFile);
+        }
     } catch EBox::Exceptions::External with {
         my $ex = shift;
         my $text = $ex->stringify();

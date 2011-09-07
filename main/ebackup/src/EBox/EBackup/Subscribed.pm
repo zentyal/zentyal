@@ -118,6 +118,8 @@ sub credentials
     # quota must be in Mb
     $credentials->{quota} *= 1024;
 
+    $credentials->{confBackupDir} = confBackupDir($commonName);
+
     return $credentials;
 }
 
@@ -154,9 +156,10 @@ sub createStructure
     my $server  = $credentials->{server};
     $dataDir =~ s:$server/::;
     $metaDir =~ s:$server/::;
+    my $confBackupDir = $credentials->{confBackupDir};
 
     try {
-        foreach my $dir (($dataDir, $metaDir)) {
+        foreach my $dir (($dataDir, $metaDir, $confBackupDir)) {
             my $mkdirCmd = "mkdir -p $dir";
             _sshCommand($credentials, $mkdirCmd);
         }
@@ -164,7 +167,6 @@ sub createStructure
         # Network failure, do nothing
     };
 }
-
 
 # executes a command in the remote server using ssh
 sub _sshCommand
@@ -193,6 +195,46 @@ sub _sshpassCommandAsString
     return $fullCmd;
 }
 
+sub _scppassCommandAsString
+{
+    my ($credentials, $src, $dst) = @_;
+
+    my $password = $credentials->{password};
+    EBox::EBackup::Password::setPasswdFile($password);
+    my $passwdFile = EBox::EBackup::Password->PASSWD_FILE;
+
+    my $fullCmd =  qq{ sshpass -f $passwdFile scp  } .
+               q{-o GlobalKnownHostsFile=} . FINGERPRINT_FILE . " $src $dst";
+
+
+    return $fullCmd;
+}
+
+sub _scppassCloudPath
+{
+    my ($credentials, $path) = @_;
+    my $server = $credentials->{server};
+    my $username = $credentials->{username};
+    return $username . '@' . $server . ':' .  $path;
+}
+
+
+sub configuredEncryptionMode
+{
+    my $ebackup =  EBox::Global->getInstance()->modInstance('ebackup');
+    my $remoteSettings = $ebackup->model('RemoteSettings');
+    my $encryptionType = $remoteSettings->usedEncryptionMode();
+    return $encryptionType;
+}
+
+sub configuredEncryptionPassword
+{
+    my $ebackup =  EBox::Global->getInstance()->modInstance('ebackup');
+    my $remoteSettings = $ebackup->model('RemoteSettings');
+    return $remoteSettings->row()->valueByName('symmetric');
+}
+
+
 # Method: writeDRMetadata
 #
 #   write to the remote server the backup metadata
@@ -209,7 +251,7 @@ sub writeDRMetadata
 {
     my %options =  @_;
 
-
+    my $credentials = $options{credentials};
     my $date = $options{date};
     my $backupType = $options{backupType};
     my $backupDomains = $options{backupDomains};
@@ -233,9 +275,16 @@ sub writeDRMetadata
         }
     }
 
-    my $ebackup =  EBox::Global->modInstance('ebackup');
-    my $remoteSettings = $ebackup->model('RemoteSettings');
-    my $encryptionType = $remoteSettings->usedEncryptionMode();
+    # add size to backup domains
+    my $sizeByDomain = backupDomainsSize();
+    foreach my $domain (keys %{ $backupDomains }) {
+        if (exists $sizeByDomain->{$domain}) {
+            $backupDomains->{$domain}->{size} = $sizeByDomain->{$domain};
+        }
+    }
+
+
+    my $encryptionType = configuredEncryptionMode();
     my $filename = metaFilenameFromDate($date);
 
     my @modsInBackup =  map {
@@ -258,20 +307,116 @@ sub writeDRMetadata
     my $tmpFile = EBox::Config::tmp() . $filename;
     YAML::XS::DumpFile($tmpFile, $yaml);
 
-    my $credentials = credentials();
-
     my $metadataDir = _metadataDir($credentials);
     my $metadataFile = "$metadataDir/$filename";
     _uploadFileToCloud($credentials, $tmpFile, $metadataFile);
     unlink $tmpFile;
 }
 
+sub confBackupDir
+{
+    my ($commonName) = @_;
+    return $commonName . '/confBak';
+}
+
+sub uploadConfigurationBackup
+{
+    my ($credentials, $date, $file) = @_;
+    my $toUpload;
+    # TODO encrypt if needed
+    my $encrypt = configuredEncryptionMode();
+    if ($encrypt eq 'disabled') {
+        $toUpload = $file;
+    } elsif ($encrypt eq 'symmetric') {
+        my $pass = configuredEncryptionPassword();
+        $toUpload = $file . '.gpg';
+        _callGPG(
+            gpgArgs => "-c -o $toUpload $file",
+            password => $pass,
+           );
+    } else {
+        EBox::error("Unknown encryption mode '$encrypt'. Configuration bakcup will NOT be uploaded" );
+        return;
+    }
+
+    my $remotePath = _configurationBackupRemotePath($credentials, $date);
+    _uploadFileToCloud($credentials, $toUpload, $remotePath);
+}
+
+
+sub downloadConfigurationBackup
+{
+    my ($credentials, $date, $dst) = @_;
+
+    my $remotePath = _configurationBackupRemotePath($credentials, $date);
+    _downloadFileFromCloud($credentials, $remotePath, $dst);
+    EBox::Sudo::root("chown ebox.ebox $dst");
+
+    my $encryption = exists $credentials->{encSelected} ?
+                            $credentials->{encSelected} :
+                            'none';
+    if (($encryption eq 'none') or ($encryption eq 'disabled')) {
+        # no decrypt needed
+        return $dst;
+    } elsif ($encryption eq 'symmetric') {
+        my $pass = $credentials->{encValue};
+        my $decDst = $dst . '.clear';
+        _callGPG(
+            gpgArgs => "-d -o $decDst $dst",
+            password => $pass,
+           );
+        return $decDst;
+    } else {
+        throw EBox::Exceptions::Internal("No decryption supported for method '$encryption'. Configuration backup not decrypted" );
+    }
+
+}
+
+sub _configurationBackupRemotePath
+{
+    my ($credentials, $date) = @_;
+    $date =~ s/\s/-/g;
+    my $path = $credentials->{confBackupDir};
+    $path .= '/conf-' . $date .  '.tar';
+    return $path;
+}
+
+
+sub _callGPG
+{
+    my (%params) = @_;
+    my $gpgArgs = $params{gpgArgs};
+    my $pass    = $params{password};
+
+    my $gpgDir = EBox::Config::home() . '.gnupg';
+    EBox::Sudo::root("chown -R ebox.ebox $gpgDir");
+
+    my $gpg = "gpg --passphrase-fd 0 --no-tty $gpgArgs";
+    open my $GPG_PROC, "|$gpg" or
+        throw EBox::Exceptions::Internal("Error opening process $gpg");
+    print $GPG_PROC "$pass/n" or
+        throw EBox::Exceptions::Internal("Error piping to process $gpg");
+    close $GPG_PROC or
+        throw EBox::Exceptions::Internal("Error closing process $gpg");
+
+}
+
+
 sub _uploadFileToCloud
 {
-    my ($credentials, $localPath, $remotePath) = @_;
-    my $ddCmd = qq{dd of=$remotePath};
-    my $cmd =  "cat $localPath | " .  _sshpassCommandAsString($credentials, $ddCmd);
-    EBox::Sudo::command($cmd);
+    my ($credentials, $fromLocalPath, $toCloudPath) = @_;
+    my $scpTo = _scppassCloudPath($credentials, $toCloudPath);
+    my $cmd = _scppassCommandAsString($credentials, $fromLocalPath, $scpTo);
+    EBox::Sudo::root($cmd);
+}
+
+
+sub _downloadFileFromCloud
+{
+    my ($credentials, $fromCloudPath, $toLocalPath) = @_;
+    my $scpFrom = _scppassCloudPath($credentials, $fromCloudPath);
+    my $cmd = _scppassCommandAsString($credentials, $scpFrom, $toLocalPath);
+    EBox::Sudo::root($cmd);
 }
 
 # Method: downloadDRMetadata
@@ -289,12 +434,7 @@ sub downloadDRMetadata
     my $filename = metaFilenameFromDate($date);
     my $fromPath = _metadataDir($credentials) . '/' . $filename;
     my $toPath = "$dir/$filename";
-
-    my $catCmd = qq{cat $fromPath};
-    my $cmd = _sshpassCommandAsString($credentials, $catCmd);
-
-    my $output = EBox::Sudo::command($cmd);
-    File::Slurp::write_file($toPath, $output);
+    _downloadFileFromCloud($credentials, $fromPath, $toPath);
 }
 
 # Method: metaFilenameFromDate
@@ -313,6 +453,13 @@ sub metaFilenameFromDate
     return $filename;
 }
 
+sub _dataDir
+{
+    my ($credentials) = @_;
+    my $commonName = $credentials->{commonName};
+    return "$commonName/data";
+}
+
 sub _metadataDir
 {
     my ($credentials) = @_;
@@ -327,7 +474,7 @@ sub _metadataDir
 #
 sub drDataVersion
 {
-    return 1;
+    return 2;
 }
 
 # Method: deleteAll
@@ -394,6 +541,116 @@ sub deleteOrphanMetadata
         @filesToDelete = map { _metadataDir($credentials) . $_ } @filesToDelete;
         _sshCommand($credentials, 'rm -f ' . join(' ', @filesToDelete));
     }
+}
+
+sub collectionEncrypted
+{
+    my ($credentials) = @_;
+    my $dir = _dataDir($credentials);
+    my $cmd = "ls -1 $dir";
+    my $output;
+    try {
+       $output  = _sshCommand($credentials, $cmd);
+   } catch EBox::Exceptions::Sudo::Command with {
+       my $ex =shift;
+       # probably a file not exists error (or permission..), benign
+       $output = [];
+   };
+
+    my $encrypted = undef;
+    foreach my $line (@{ $output }) {
+        chomp $line;
+        if ($line =~ m/^duplicity-full-signatures.*sigtar\.gpg$/) {
+            $encrypted = 1;
+            last ;
+        } elsif ($line =~ m/^duplicity-full-signatures.*sigtar\.gz$/) {
+            $encrypted = 0;
+            last;
+        }
+
+    }
+
+    return $encrypted;
+}
+
+# in Kbs
+sub backupDomainsSize
+{
+    my ($globalRO) = @_;
+
+    my $global  = EBox::Global->getInstance($globalRO);
+    my $ebackup =  $global->modInstance('ebackup');
+
+    my %sizeByDomain;
+    my @domains = keys %{ $ebackup->_enabledBackupDomains(0) };
+    foreach my $domain (@domains) {
+        my $selection = $ebackup->_rawModulesBackupDomainsFileSelections($domain => 1);
+        my $size = 0;
+
+        my %dirs;
+        foreach my $sel (@{ $selection }) {
+            foreach my $ex (@{ $sel->{excludes} }) {
+                my $alreadyMatched = 0;
+                foreach my $dir (keys %dirs) {
+                    if (EBox::FileSystem::isSubdir($ex, $dir)) {
+                        $alreadyMatched = 1;
+                        last;
+                    } elsif (EBox::FileSystem::isSubdir($dir, $ex)) {
+                        # we remove it to avoid counting same files more than
+                        # one time
+                        delete $dirs{$dir};
+                    }
+                }
+                if (not $alreadyMatched) {
+                    $dirs{$ex} = undef;
+                }
+            }
+
+            foreach my $inc (@{ $sel->{includes} }) {
+                my $alreadyMatched = 0;
+                my $dirSize = 0;
+                foreach my $dir (keys %dirs) {
+                    if (EBox::FileSystem::isSubdir($inc, $dir)) {
+                        $alreadyMatched = 1;
+                        last;
+                    } elsif (EBox::FileSystem::isSubdir($dir, $inc)) {
+                        if (not defined $dirs{$dir}) {
+                            # lazy initialzation exclude
+                            if (EBox::Sudo::fileTest('-e', $dir)) {
+                                $dirs{$dir} = EBox::FileSystem::dirDiskUsage($dir);
+                            } else {
+                                $dirs{$dir} = 0;
+                            }
+
+                        }
+                        # either should not be added or is already added, so i
+                        # neither case we remove the,
+                        $size -= $dirs{$dir};
+                    }
+                }
+                if (not $alreadyMatched) {
+                    if (EBox::Sudo::fileTest('-e', $inc)) {
+                        $dirSize  += EBox::FileSystem::dirDiskUsage($inc);
+                    }
+                    $dirs{$inc} = $dirSize;
+                    $size += $dirSize
+                }
+            }
+        }
+
+        # add size from extra data
+        foreach my $mod (@{ $global->modInstances() }) {
+            if ($mod->can('dumpExtraBackupDataSize')) {
+                my $dir =   $ebackup->extraDataDir() . '/' . $mod->name();
+                $size += $mod->dumpExtraBackupDataSize($dir, $domain => 1);
+            }
+        }
+
+        $sizeByDomain{$domain} = $size;
+        # next domain...
+    }
+
+    return \%sizeByDomain;
 }
 
 1;

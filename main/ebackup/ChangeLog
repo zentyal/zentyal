@@ -1,4 +1,12 @@
 HEAD
+	+ Use new version 2 of the disaster recovery metadata
+	+ Do not store configuration backup using duplicity
+	+ Restore configuration backup before downloading data
+	+ Fixed regression in restore configuration button
+	+ Support for partial downloads in restore-tool
+	+ Raise error when the path needed to restore a file does not exists
+	+ Fixed encryption detection in restore-tool
+	+ Moved default duplicity cache to /var/cache/zentyal/duplicity
 	+ Reviewed some subscription strings
 2.1.7
 	+ Better integration with core theme

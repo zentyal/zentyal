@@ -35,6 +35,7 @@ use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Service;
 use EBox::Logs::SlicedBackup;
+use EBox::FileSystem;
 
 use POSIX qw(ceil);
 
@@ -367,22 +368,39 @@ sub backupDomains
     return ($name, \%attrs);
 }
 
-
 sub dumpExtraBackupData
 {
     my ($self, $dir, %backupDomains) = @_;
 
     my @domainsDumped;
     if ($backupDomains{logs} ) {
+        my $logsDir = $dir . '/logs';
+        if (not -d $logsDir) {
+            mkdir $logsDir or
+                throw EBox::Exceptions::Internal("Cannot create $logsDir: $!");
+        }
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         my $dumpFileBasename = "eboxlogs";
 
-        $dbengine->backupDB($dir, $dumpFileBasename);
+        $dbengine->backupDB($logsDir, $dumpFileBasename);
         push @domainsDumped, 'logs';
     }
 
     return \@domainsDumped;
 }
+
+sub dumpExtraBackupDataSize
+{
+    my ($self, $dir, %backupDomains) = @_;
+
+    my $size = 0;
+    if ($backupDomains{logs} ) {
+         $size += EBox::FileSystem::dirDiskUsage($dir);
+    }
+
+    return $size;
+}
+
 
 sub _checkValidDate # (date)
 {

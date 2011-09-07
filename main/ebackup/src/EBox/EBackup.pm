@@ -167,6 +167,26 @@ sub restoreFile
 
     $destination or
         $destination = $file;
+    my $destinationDir = File::Basename::dirname($destination);
+    if ($destinationDir ne '/') {
+        if (not EBox::Sudo::fileTest('-e', $destinationDir)) {
+            throw EBox::Exceptions::External(
+                __x('Cannot restore to {d}: {dd} does not exists',
+                    d => $destination,
+                    dd => $destinationDir,
+                   )
+               );
+        }
+        if (not EBox::Sudo::fileTest('-d', $destinationDir)) {
+            throw EBox::Exceptions::External(
+                __x('Cannot restore to {d}: {dd} is not a directory',
+                    d => $destination,
+                    dd => $destinationDir,
+
+                   )
+               );
+        }
+    }
 
     my $rFile;
     if ($file eq '/') {
@@ -255,12 +275,13 @@ sub lastBackupDate
 #   String contaning the arguments for duplicy
 sub remoteArguments
 {
-    my ($self, $type, $urlParams) = @_;
+    my ($self, $type, $urlParams, %extraParams) = @_;
     defined $urlParams or
         $urlParams = {};
+    my $toCloud = $extraParams{toCloud};
 
     my $volSize = $self->_volSize();
-    my $fileArgs = $self->remoteFileSelectionArguments();
+    my $fileArgs = $self->remoteFileSelectionArguments($toCloud);
     my $cmd =  DUPLICITY_WRAPPER .  " $type " .
             "--volsize $volSize " .
             "$fileArgs " .
@@ -281,12 +302,15 @@ sub dumpExtraData
     my @domainsDumped;
 
     my $extraDataDir = $self->extraDataDir();
-    system "rm -rf $extraDataDir";
-    system "mkdir -p $extraDataDir";
+    EBox::Sudo::root("rm -rf $extraDataDir");
+    system "mkdir -p $extraDataDir" ;
+    ($? == 0) or
+        throw EBox::Exceptions::Internal("Cannot create directory $extraDataDir. $!");
     if (not -w $extraDataDir) {
         EBox::error("Cannot write in extra backup data directory $extraDataDir");
         return;
     }
+
     my $global = EBox::Global->getInstance($readOnlyGlobal);
 
     # create backup domain files
@@ -317,21 +341,12 @@ sub dumpExtraData
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     };
 
-    my %enabled;
-    if ($self->_fullMachineBackup()) {
-        %enabled = (full => 1);
-    } else {
-        %enabled  = %{ $self->_enabledBackupDomains() };
-    }
+    my %enabled = %{ $self->_enabledBackupDomains() };
 
     foreach my $mod (@{ $global->modInstances() }) {
         if ($mod->can('dumpExtraBackupData')) {
-            my $dir = $extraDataDir . '/' . $mod->name();
-            mkdir $dir; # this directory could be empty if the next call
-                        # doesn't write any file on it
-
             try {
-                my $dumped = $mod->dumpExtraBackupData($dir, %enabled);
+                my $dumped = $mod->dumpExtraBackupData($extraDataDir, %enabled);
                 if ($dumped) {
                     push @domainsDumped, @{ $dumped };
                 }
@@ -410,8 +425,8 @@ sub availableBackupDomains
     # special filesIncludes ebackup domain
     $backupDomains{filesIncludes} = {
         enabled => 1,
-        printableName => __('Other files'),
-        description   => __(q{Extra data manually included in the backup}),
+        printableName => __('All files in backup'),
+        description   => __(q{All files included in the backup}),
     };
 
     return \%backupDomains;
@@ -434,12 +449,6 @@ sub _enabledBackupDomains
     defined $filesIncludesDomain or
         $filesIncludesDomain = 1;
 
-    if ($self->_fullMachineBackup()) {
-        # we add logs, otherwise it would be required to stop the postgre
-        # database to have a correct backup
-        return { full => 1, logs => 1};
-    }
-
     my $domainsModel = $self->model('BackupDomains');
     my $enabled =  $domainsModel->enabled();
 
@@ -451,28 +460,19 @@ sub _enabledBackupDomains
     return $enabled;
 }
 
-
-sub _fullMachineBackup
-{
-    # XXX TODO
-    return 0;
-}
-
-
 sub backupDomainsFileSelectionsRowPrefix
 {
     return 'ds';
 }
 
-# Method: modulesBackupDomainsFileSelections
-#
-#  Returns:
-#   list with all file selections for the enabled backup domains in the system
-sub modulesBackupDomainsFileSelections
+sub _rawModulesBackupDomainsFileSelections
 {
-    my ($self) = @_;
+    my ($self, %enabled) = @_;
 
-    my %enabled = %{ $self->_enabledBackupDomains(0) };
+    if (not keys %enabled) {
+        %enabled = %{ $self->_enabledBackupDomains(0) };
+    }
+
     if (not keys %enabled) {
         return [];
     }
@@ -494,7 +494,18 @@ sub modulesBackupDomainsFileSelections
                                        $b->{priority} : 1;
                        $pA <=> $pB
                      } @domainSelections ;
+    return \@domainSelections;
+}
 
+# Method: modulesBackupDomainsFileSelections
+#
+#  Returns:
+#   list with all file selections for the enabled backup domains in the system
+
+sub modulesBackupDomainsFileSelections
+{
+    my ($self, %enabled) = @_;
+    my @domainSelections = @{ $self->_rawModulesBackupDomainsFileSelections(%enabled) };
 
     my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
     my @selections;
@@ -534,49 +545,15 @@ sub _backupDomainsFileSelectionArguments
     return $args;
 }
 
-
-
-sub _fullMachineBackupSelectionArguments
-{
-    my ($self) = @_;
-
-    # here we only excldue things that has no sense in any scenario
-
-    my $args = $self->_autoExcludesArguments();
-
-    # temp directories
-    $args .= ' --exclude=/tmp ';
-
-    # special directories
-    $args .= ' --exclude=/dev ';
-    $args .= ' --exclude=/proc ';
-    $args .= ' --exclude=/sys ';
-    $args .= ' --exclude=**/lost+found';
-
-    # use (--delete excluded) ? It seems that some devices
-    # are not automatically created under /dev
-
-    # Include
-    # + /dev/console
-    # + /dev/initctl
-    # + /dev/null
-    # + /dev/zero
-
-    # external devices directory
-    $args .= ' --exclude=/media ';
-
-    return $args;
-}
-
 sub remoteFileSelectionArguments
 {
-    my ($self) = @_;
-
-    if ($self->_fullMachineBackup()) {
-        return $self->_fullMachineBackupSelectionArguments();
-    }
+    my ($self, $toCloud) = @_;
 
     my $args = '';
+    if ($toCloud) {
+        # exclude configuration bakcup it will be stored as idependent file
+        $args .= ' --exclude='. $self->includedConfigBackupPath() . ' ';
+    }
     # Include configuration backup
     $args .= ' --include=' . $self->extraDataDir . ' ';
 
@@ -1225,7 +1202,7 @@ sub tempdir
 # Method: archivedir
 #
 #  Returns:
-#    temporal directory for duplicity (default: /tmp)
+#    arhcive dir for dupliciry
 sub archivedir
 {
     my $archivedir = EBox::Config::configkeyFromFile('archive_dir',
@@ -1234,7 +1211,7 @@ sub archivedir
         return $archivedir;
     }
 
-    return EBox::Config::home() . '.cache/duplicity';
+    return '/var/cache/zentyal/duplicity';
 }
 
 sub canUnsubscribeFromCloud

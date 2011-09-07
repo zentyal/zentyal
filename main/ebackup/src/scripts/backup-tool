@@ -379,12 +379,19 @@ sub _afterSuccessCloudActions
     }
 
     EBox::info('Writing Disaster Recovery metadata');
+    my $credentials = EBox::EBackup::Subscribed::credentials();
+    my $date = $ebackup->lastBackupDate();
     EBox::EBackup::Subscribed::writeDRMetadata(
-                                               date                => $ebackup->lastBackupDate(),
+                                               credentials         => $credentials,
+                                               date                => $date,
                                                backupType          => $type,
                                                backupDomains       => \%backupDomains,
-                                               extraDataDumped       => $extraDataDumped,
+                                               extraDataDumped      => $extraDataDumped,
                                               );
+
+    # upload configuration backup
+    my $confBackup = $ebackup->includedConfigBackupPath();
+    EBox::EBackup::Subscribed::uploadConfigurationBackup($credentials, $date, $confBackup);
 }
 
 my $type = 'full';
@@ -473,7 +480,7 @@ try {
         EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
     };
 
-    my $backupCmd = $ebackup->remoteArguments($type);
+    my $backupCmd = $ebackup->remoteArguments($type, {}, toCloud => $usingCloud);
     ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
 
     if ( $success and $usingCloud) {

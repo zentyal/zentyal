@@ -362,8 +362,8 @@ sub _insertPos
 
     my $ebackup  = $self->{'gconfmodule'};
     my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
-    my $prefixRe =~ qr/^$prefix/;
-    if ($id =~ m/$prefixRe/) {
+    my $prefixRe = qr/^$prefix/;
+    if ($id =~ $prefixRe) {
         # is a system row, nothing to do
         return $self->SUPER::_insertPos($id, $pos);
     }
@@ -380,7 +380,7 @@ sub _insertPos
             next;
         }
 
-        if ($order[$n] =~ m/$prefixRe/) {
+        if ($order[$n] =~ $prefixRe) {
             next;
         } else {
             $newPos = $n;
