@@ -300,7 +300,7 @@ sub _defaultChannelLink
             $idx++;
         } while ( not $ip and $idx < scalar(@ifaces));
         if ( $ip ) {
-            return "https://$ip/ebox";
+            return "https://$ip/";
         }
     }
 

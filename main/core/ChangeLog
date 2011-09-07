@@ -1,4 +1,5 @@
 HEAD
+	+ Removed obsolete /ebox URL from RSS link
 	+ Changed methods related with extra backup data in modules logs
 	  to play along with changes in ebackup module
 	+ Set a user for remote access for audit reasons
