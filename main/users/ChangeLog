@@ -1,4 +1,4 @@
-HEAD
+2.1.12
 	+ UsersAndGroups::lastUid() now takes also into account non-ldap users
 	+ Stop old ldap daemons in reinstall script, needed before changing mode
 2.1.11
