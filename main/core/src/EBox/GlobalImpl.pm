@@ -553,6 +553,16 @@ sub saveAllModules
             next if ($name eq 'users'); # Skip usersandgroups
 
             my $module = EBox::GlobalImpl->modInstance($ro, $name);
+
+            # Do not enable this module if dependencies were not enabled
+            my $enable = 1;
+            foreach my $dep (@{$module->enableModDepends()}) {
+                unless (EBox::Global->modEnabled($dep)) {
+                    $enable = 0;
+                }
+            }
+            next unless ($enable);
+
             $module->setInstalled();
             $module->setConfigured(1);
             $module->enableService(1);
