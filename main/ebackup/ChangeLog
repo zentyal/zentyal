@@ -1,4 +1,4 @@
-HEAD
+2.1.8
 	+ Better validation of target in file system method
 	+ Gentle handling of file not found error when generating cache list
 	+ Use new version 2 of the disaster recovery metadata
