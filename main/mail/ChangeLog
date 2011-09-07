@@ -1,4 +1,4 @@
-HEAD
+2.1.10
 	+ Fixed error in SMTPOPtions model when system hostname is not a FQDN
 2.1.9
 	+ Removed /zentyal prefix from URLs
