@@ -69,6 +69,7 @@ _xauthEBox($xauthCookie);
 
 my $metadata;
 try {
+    EBox::info("Starting restore-tool");
     clearTmpDir();
     createTmpDir();
     modPreConditions();
@@ -130,7 +131,7 @@ try {
     my $toRestore = getBackupDomainsToRestore($credentials,
                                               $metadata,
                                               \@toRestoreCli);
-
+    _logStartProcess($credentials, $date, $toRestore);
     # Stop any interrupting process
     _stopInterruptingProcesses();
 
@@ -632,6 +633,10 @@ sub _restoreAllFiles
 sub _restoreFile
 {
     my ($src, $dst) = @_;
+    if (not EBox::Sudo::fileTest('-e', $src)) {
+        EBox::error("Cannot restore $dst. Source path $src does not exists");
+        return;
+    }
 
     my $srcArg = $src;
     if (EBox::Sudo::fileTest('-e', $dst)) {
@@ -2393,6 +2398,17 @@ sub getBackupDomainsToRestore
 
     return $domains;
 }
+
+
+sub _logStartProcess
+{
+    my ($credentials, $date, $toRestore) = @_;
+    my $commonName = $credentials->{commonName};
+    my $domains = join ', ', keys %{ $toRestore };
+    my $msg = "Restore process started. Using data from $commonName at $date. Backup domains: $domains";
+    EBox::info($msg);
+}
+
 
 # The last message to finish the restore
 sub finishedMessage
