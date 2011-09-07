@@ -39,6 +39,7 @@ use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
 use EBox::Exceptions::NotConnected;
+use File::Basename;
 use Error qw(:try);
 
 # Constants
@@ -810,12 +811,32 @@ sub _validateTargetForFile
     EBox::Validate::checkAbsoluteFilePath($target,
                                  __('Directory for backup'));
 
+    if ($target eq '/') {
+        throw EBox::Exceptions::InvalidData(
+                                            data => __('Directory for backup'),
+                                            value => $target,
+                                            advice =>
+                                    __('Cannot use the / directory as target')
+                                           );
+    }
+
     if ((-e $target) and (not -d $target)) {
         throw EBox::Exceptions::InvalidData(
                                             data => __('Directory for backup'),
                                             value => $target,
                                             advice =>
                                     __('File exists and it is not a directory')
+                                           );
+    }
+
+    my $parentDir = dirname($target);
+    if (($parentDir ne '/') and (not -d $parentDir) ) {
+        throw EBox::Exceptions::InvalidData(
+                                            data => __('Directory for backup'),
+                                            value => $target,
+                                            advice =>
+                                    __x('Cannot read parent directory {d}',
+                                         d => $parentDir)
                                            );
     }
 }
