@@ -1,4 +1,5 @@
 HEAD
+	+ Gentle handling of file not found error when generating cache list
 	+ Use new version 2 of the disaster recovery metadata
 	+ Do not store configuration backup using duplicity
 	+ Restore configuration backup before downloading data

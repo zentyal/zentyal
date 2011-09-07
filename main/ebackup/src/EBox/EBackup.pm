@@ -669,7 +669,10 @@ sub remoteGenerateListFile
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift;
         my $error = join "\n", @{ $ex->error() };
-        if ($error =~ m/No signature chains found/) {
+        # check if there is a no-backup yet error
+        if ($error =~ m/No signature chains found/ or
+            $error =~ m/No such file or directory/
+           ) {
             $success = 0;
         } else {
             $ex->throw();
