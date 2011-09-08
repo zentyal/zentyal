@@ -1,3 +1,6 @@
+HEAD
+	+ Read keymap when writing conf instead of when initializing
+	+ Avoid warning when LANG environment variable is not defined
 2.1.6
 	+ Fixed problems with sparse disk images in KVM and use scsi bus
 	+ Avoid undefined concatenation warnings during boot

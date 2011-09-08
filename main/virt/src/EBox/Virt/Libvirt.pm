@@ -47,7 +47,6 @@ sub new
     # Choose between kvm or qemu according to the HW capabilities
     system ("egrep -q '^flags.* (vmx|svm)' /proc/cpuinfo");
     $self->{emulator} = ($? == 0) ? 'kvm' : 'qemu';
-    $self->{keymap} = _vncKeymap();
 
     $self->{vmConf} = {};
 
@@ -495,7 +494,7 @@ sub writeConf
          devices => $vmConf->{devices},
          vncport => $vmConf->{port},
          vncpass => $vmConf->{password},
-         keymap => $self->{keymap},
+         keymap => _vncKeymap();
          boot => $bootDev,
         ],
         { uid => 0, gid => 0, mode => '0644' }
@@ -546,13 +545,15 @@ sub _vncKeymap
         }
     } else {
         # Autodetect if not defined
-        my ($lang1, $lang2) = split(/_/, $ENV{LANG});
-        if ($lang1) {
-            if ($lang2) {
-                $keymap = "$lang1-" . lc($lang2);
-                return $keymap if ($validKeymaps{$keymap});
+        if ($ENV{LANG}) {
+            my ($lang1, $lang2) = split(/_/, $ENV{LANG});
+            if ($lang1) {
+                if ($lang2) {
+                    $keymap = "$lang1-" . lc($lang2);
+                    return $keymap if ($validKeymaps{$keymap});
+                }
+                return $lang1 if ($validKeymaps{$lang1});
             }
-            return $lang1 if ($validKeymaps{$lang1});
         }
         return $DEFAULT_KEYMAP;
     }
