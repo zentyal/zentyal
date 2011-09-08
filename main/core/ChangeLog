@@ -1,4 +1,4 @@
-HEAD
+2.1.31
 	+ Do not start managed daemons on boot if the module is disabled
 	+ Better message on redis error
 	+ Watch for dependencies before automatic enable of modules on first install
