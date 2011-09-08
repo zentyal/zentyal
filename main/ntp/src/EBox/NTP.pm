@@ -87,7 +87,7 @@ sub actions
 {
     return [
     {
-        'action' => __('Remove ntp init script link and if-up.d hook'),
+        'action' => __('Remove ntp init script link and networking hooks (if-up.d and dhclient)'),
         'reason' => __('Zentyal will take care of starting and stopping ' .
                         'the services.'),
         'module' => 'ntp'
