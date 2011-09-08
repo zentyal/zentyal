@@ -40,6 +40,7 @@ use EBox::DBEngineFactory;
 use EBox::EBackup::Subscribed;
 use EBox::EBackup::Password;
 
+use MIME::Base64;
 use String::ShellQuote;
 use Date::Parse;
 use Error qw(:try);
@@ -514,10 +515,9 @@ sub modulesBackupDomainsFileSelections
             my $typeList = $type . 's';
             if ($ds->{$typeList}) {
                 foreach my $value (@{ $ds->{$typeList} }) {
-                        my $escapedValue = $value;
-                        $escapedValue =~ s{/}{R}g;
+                        my $encodedValue = encode_base64($value, '');
                         my $id =  $prefix .  '_' .
-                            $ds->{mod} . '_' . $type . '_' .$escapedValue;
+                            $ds->{mod} . '_' . $type . '_' .$encodedValue;
                         push @selections, {
                                            id   => $id,
                                            type => $type,
