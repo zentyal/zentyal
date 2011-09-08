@@ -1,3 +1,5 @@
+HEAD
+	+ Disable ntp daemon executed by Ubuntu networking services during boot
 2.1.5
 	+ Avoid duplicated restart during postinst
 2.1.4

@@ -6,3 +6,5 @@ update-rc.d -f ntp remove
 # stop ntp  if it's running as a normal service
 invoke-rc.d ntp stop
 
+# disable ntp daemon executed by Ubuntu networking services during boot
+chmod -x /etc/network/if-up.d/ntpdate
