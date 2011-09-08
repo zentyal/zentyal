@@ -1,4 +1,6 @@
 HEAD
+	+ Solved problem with automatic inclusions with no-redis
+	  characters in its keys
 	+ Fixed problem restoring filenames with shell metacharacters
 	+ Files with unsafe chars are shown in the file list and can be
 	restored
