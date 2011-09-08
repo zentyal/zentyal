@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# stop daemons 
-invoke-rc.d squid stop
-invoke-rc.d dansguardian stop || true # if dansguardian has not been configured 
+# stop daemons
+service squid stop
+invoke-rc.d dansguardian stop || true # if dansguardian has not been configured
                                       # it will fail always the first time
+
+# remove startup links
+update-rc.d -f dansguardian remove

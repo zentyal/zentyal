@@ -302,6 +302,12 @@ sub actions
              'reason' => __('Dansguardian blocked page templates will be overwritten with Zentyal'
                            . ' customized templates.'),
              'module' => 'squid'
+            },
+            {
+             'action' => __('Remove dansguardian init script link'),
+             'reason' => __('Zentyal will take care of starting and stopping ' .
+                        'the services.'),
+             'module' => 'squid'
             }
            ];
 }
