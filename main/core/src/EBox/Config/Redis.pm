@@ -713,7 +713,8 @@ sub _redis_call
                 if ($conProblem) {
                     throw EBox::Exceptions::Internal('Cannot connect to redis server');
                 } else {
-                    throw EBox::Exceptions::Internal($ret);
+                    my $error = "Redis command '$command @args' failed: $ret";
+                    throw EBox::Exceptions::Internal($error);
                 }
             }
         }

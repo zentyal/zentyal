@@ -1,4 +1,5 @@
 HEAD
+	+ Better message on redis error
 	+ Watch for dependencies before automatic enable of modules on first install
 2.1.30
 	+ Removed obsolete /ebox URL from RSS link
