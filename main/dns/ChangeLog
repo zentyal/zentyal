@@ -1,3 +1,5 @@
+HEAD
+	+ Prevent start of bind9 daemon after module is disabled
 2.1.5
 	+ Removed /zentyal prefix from URLs
 	+ Avoid duplicated restart during postinst

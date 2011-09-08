@@ -628,9 +628,15 @@ sub actions
         { 'action' => __x('Change the permissions for {dir} to allow writing to bind group',
                           dir => BIND9CONFDIR),
           'reason' => __('Let the bind daemon to be dynamically updated'),
-          'module' => 'dns' },
-        ];
-
+          'module' => 'dns'
+        },
+        {
+          'action' => __('Remove bind9 init script link'),
+          'reason' => __('Zentyal will take care of starting and stopping ' .
+                        'the services.'),
+          'module' => 'ntp'
+        }
+    ];
 }
 
 # Method: initialSetup
