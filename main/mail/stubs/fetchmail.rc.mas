@@ -23,7 +23,8 @@ $localAccount
 % foreach my $account (@externalAccounts) { 
 % my $optionStr = exists $account->{options} ? 
 %                   join ' ', @{ $account->{options} } : '';
-poll <% $account->{server} %> proto <% $account->{mailProtocol} %> port <% $account->{port} %>:
+% my $uidl = $account->{mailProtocol} eq 'pop3';
+poll <% $account->{server} %> proto <% $account->{mailProtocol} %> <% $uidl ? 'uidl' : '' %> port <% $account->{port} %>:
    user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% $optionStr %>;
 % }
 
