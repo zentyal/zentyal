@@ -713,11 +713,6 @@ sub restartService
     my $global = EBox::Global->getInstance();
     my $log = EBox::logger;
 
-    if (not $self->isEnabled()) {
-        $log->info("Skipping restart for $self->{name} as it's disabled");
-        return;
-    }
-
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1);
