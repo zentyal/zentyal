@@ -392,12 +392,17 @@ sub _insertPos
 }
 
 # XXX fudge to avoid duplicate rows, this is not the ideal solution
+# XXX added fudge to avoid undefined rows. I have seen this once 
 sub ids
 {
     my ($self, @args) = @_;
     my %seen;
     my @noDupIds;
     foreach my $id (@{ $self->SUPER::ids(@args) }) {
+        if (not defined $id) {
+            EBox::error("Found undefined id in RemoteExcludes model");
+            next;
+        }
         if (exists $seen{$id}) {
             # duplicate!
             next;

@@ -1,4 +1,5 @@
 HEAD
+	+ Added guard against undefined rows in RemoteExcludes model
 	+ Solved problem with automatic inclusions with no-redis
 	  characters in its keys
 	+ Use a permanent warning for 'Cannot connect to cloud' message
