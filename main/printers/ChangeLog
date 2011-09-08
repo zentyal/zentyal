@@ -1,3 +1,5 @@
+HEAD
+	+ General CUPS parameters set in the CUPS web interface are preserved
 2.1.5
 	+ Removed /zentyal prefix from URLs
 	+ Avoid duplicated restart during postinst

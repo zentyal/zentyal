@@ -115,6 +115,24 @@ sub initialSetup
     }
 }
 
+# Method: enableActions
+#
+#   Override EBox::Module::Service::enableActions
+#
+sub enableActions
+{
+    my ($self) = @_;
+
+    # Execute enable-module script
+    $self->SUPER::enableActions();
+
+    # Write conf file for the first time using the template,
+    # next times only some lines will be overwritten to
+    # avoid conflicts with CUPS interface
+    $self->writeConfFile(CUPSD, 'printers/cupsd.conf.mas',
+                         [ addresses => $self->_ifaceAddresses() ]);
+}
+
 # Method: enableService
 #
 # Overrides:
@@ -172,11 +190,28 @@ sub firewallHelper
     return undef;
 }
 
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    try {
+        # Stop CUPS in order to force it to dump the conf to disk
+        $self->_stopService();
+    } otherwise {};
+}
+
 # Method: _setConf
 #
 #   Override EBox::Module::Base::_setConf
 #
 sub _setConf
+{
+    my ($self) = @_;
+
+    $self->_mangleConfFile(CUPSD, addresses => $self->_ifaceAddresses());
+}
+
+sub _ifaceAddresses
 {
     my ($self) = @_;
 
@@ -190,10 +225,43 @@ sub _setConf
         push (@addresses, $address);
     }
 
-    $self->writeConfFile(CUPSD,
-                         'printers/cupsd.conf.mas',
-                         [ addresses => \@addresses ]);
+    return \@addresses;
 }
+
+sub _mangleConfFile
+{
+    my ($self, $path, %params) = @_;
+
+    my $newContents = '';
+    my @oldContents = File::Slurp::read_file($path);
+
+    foreach my $line (@oldContents) {
+        if ($line =~ m{^\s*Listen\s}) {
+            # listen statement, removing
+            next;
+        }  elsif ($line =~ m{^\s*SSLListen\s}) {
+            # ssllisten statement, removing
+            next;
+        } elsif ($line =~m/ by Zentyal,/) {
+            # zentyal added skipping
+            next;
+        }
+
+        $newContents .= $line;
+    }
+
+    $newContents .= <<END;
+# Added by Zentyal, don't modify or add more Liste/SSLListen statements
+Listen localhost:631
+Listen /var/run/cups/cups.sock
+END
+    foreach my $address (@{ $params{addresses} }) {
+        $newContents .= "SSLListen $address:631\n";
+    }
+
+    EBox::Module::Base::writeFile($path, $newContents);
+}
+
 
 sub _daemons
 {
