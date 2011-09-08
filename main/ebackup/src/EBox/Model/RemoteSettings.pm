@@ -160,8 +160,7 @@ sub viewCustomizer
         }
     } catch EBox::Exceptions::NotConnected with {
         my ($ex) = @_;
-        $customizer->setPermanentMessage("$ex");
-
+        $customizer->setPermanentMessage("$ex", 'warning');
     };
 
     return $customizer;
