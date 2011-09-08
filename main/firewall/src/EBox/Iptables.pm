@@ -297,11 +297,11 @@ sub _setDNS # (dns)
     my ($self, $dns) = @_;
 
     my @commands = (
-            pf("-A ointernal $statenew -p udp --dport 53 -d $dns -j ACCEPT"),
-            pf("-A ointernal $statenew -p tcp --dport 53 -d $dns -j ACCEPT"),
-            pf("-A fdns $statenew -p udp --dport 53 -d $dns -j ACCEPT"),
-            pf("-A fdns $statenew -p tcp --dport 53 -d $dns -j ACCEPT"),
-            );
+        pf("-A ointernal $statenew -p udp --dport 53 -d $dns -j ACCEPT || true"),
+        pf("-A ointernal $statenew -p tcp --dport 53 -d $dns -j ACCEPT || true"),
+        pf("-A fdns $statenew -p udp --dport 53 -d $dns -j ACCEPT || true"),
+        pf("-A fdns $statenew -p tcp --dport 53 -d $dns -j ACCEPT || true"),
+    );
     return \@commands;
 }
 
@@ -345,32 +345,34 @@ sub _setRemoteServices
                 push(@commands,
                      pf("-A ointernal $statenew -p $vpnSettings{protocol} "
                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
-            );
-            } catch EBox::Exceptions::External with {
-                # Cannot contact eBox CC
-                my ($exc) = @_;
-                EBox::error("Cannot contact Zentyal Cloud: $exc");
-            };
-            # Allow communications between ns and www
-            eval "use EBox::RemoteServices::Configuration";
-            my ($dnsServer, $publicWebServer, $mirrorCount) = (
-                EBox::RemoteServices::Configuration->DNSServer(),
-                EBox::RemoteServices::Configuration->PublicWebServer(),
-                EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
-               );
-            # We are assuming just one name server
-            push(@commands,
-                pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j ACCEPT"),
-
-            );
-            # Public WWW servers to connect to
-            for my $no ( 1 .. $mirrorCount ) {
-                my $site = $publicWebServer;
-                $site =~ s:\.:$no.:;
-                push(@commands,
-                    pf("-A ointernal $statenew -p tcp -d $site --dport 443 -j ACCEPT")
                 );
-            }
+
+                # Allow communications between ns and www
+                eval "use EBox::RemoteServices::Configuration";
+                my ($dnsServer, $publicWebServer, $mirrorCount) = (
+                        EBox::RemoteServices::Configuration->DNSServer(),
+                        EBox::RemoteServices::Configuration->PublicWebServer(),
+                        EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
+                        );
+                # We are assuming just one name server
+                push(@commands,
+                    pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j ACCEPT || true"),
+                );
+                # Public WWW servers to connect to
+                for my $no ( 1 .. $mirrorCount ) {
+                    my $site = $publicWebServer;
+                    $site =~ s:\.:$no.:;
+                    push(@commands,
+                        pf("-A ointernal $statenew -p tcp -d $site --dport 443 -j ACCEPT || true")
+                    );
+                }
+            } catch EBox::Exceptions::External with {
+                # Cannot contact eBox CC, no DNS?
+                my ($exc) = @_;
+                my $msg = "Cannot contact Zentyal Cloud: $exc";
+                EBox::error($msg);
+                $gl->addSaveMessage($msg);
+            };
         }
     }
     return \@commands;
