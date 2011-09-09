@@ -1,3 +1,5 @@
+HEAD
+	+ Better logging of failed modules on restore
 2.1.31
 	+ Do not start managed daemons on boot if the module is disabled
 	+ Better message on redis error

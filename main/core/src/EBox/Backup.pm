@@ -1131,7 +1131,7 @@ sub restoreBackup
 
         my @modules  = @{ $self->_modInstancesForRestore($file, %options) };
         my @restored = ();
-
+        my @failed   = ();
         # run pre-checks
         foreach my $mod (@modules) {
             $self->_restoreModulePreCheck($mod, $tempdir, \%options);
@@ -1156,6 +1156,8 @@ sub restoreBackup
                 };
                 if ($restoreOk) {
                     push @restored, $mod->name();
+                } else {
+                    push @failed, $mod->name();
                 }
 
             }
@@ -1186,7 +1188,9 @@ sub restoreBackup
         if (@restored == @modules) {
             EBox::info('Restore successful');
         } else {
-            EBox::info("Restore finished. Not all modules have been successfuly restored. Modules which were restored without errors: @restored");
+            @restored = sort @restored;
+            @failed = sort @failed;
+            EBox::info("Restore finished. The following modules have been successfuly restored: @restored. But the following ones have failed: @failed.");
         }
 
         $progress->setAsFinished();
@@ -1448,7 +1452,7 @@ sub _modInstancesForRestore
                             'm' => $m
                            )
                         );
-            }   
+            }
             if ($m eq $anyToExclude) {
                 throw EBox::Exceptions::External(
                         __x(
