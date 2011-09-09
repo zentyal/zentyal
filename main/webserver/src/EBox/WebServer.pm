@@ -136,6 +136,12 @@ sub actions
         'module' => 'webserver',
         'reason' => __('To serve pages over HTTPS.')
     },
+    {
+        'action' => __('Remove apache2 init script link'),
+        'reason' => __('Zentyal will take care of starting and stopping ' .
+                       'the services.'),
+        'module' => 'webserver'
+    }
     ];
 }
 
