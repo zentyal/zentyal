@@ -96,10 +96,12 @@ sub _daemon # (action)
     my $self = shift;
     my $action = shift;
     my $pid;
-    my $fork = undef;
-    exists $ENV{"MOD_PERL"} and $fork = 1;
 
-    if ($fork) {
+    if ($action eq 'stop') {
+        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl stop');
+    } elsif ($action eq 'start') {
+        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl start');
+    } elsif ($action eq 'restart') {
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
         }
@@ -108,30 +110,14 @@ sub _daemon # (action)
             return; # parent returns inmediately
         }
         cleanupForExec();
-    }
 
-    if ($action eq 'stop') {
-        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl stop');
-    } elsif ($action eq 'start') {
-        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl start');
-    } elsif ($action eq 'restart') {
-        my $restartCmd = EBox::Config::scripts() . 'apache-restart';
-        if ($fork) {
-            exec($restartCmd);
-        }
-        else {
-            EBox::Sudo::root($restartCmd);
-        }
-
+        exec(EBox::Config::scripts() . 'apache-restart');
+        exit 0;
     }
 
     if ($action eq 'stop') {
         # Stop redis server
         $self->{redis}->stopRedis();
-    }
-
-    if ($fork) {
-        exit 0;
     }
 }
 
