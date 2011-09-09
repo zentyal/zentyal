@@ -71,13 +71,13 @@ sub start() {
 }
 
 sub stop() {
-    my $global = EBox::Global->getInstance(1);
-    my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
+    my $serviceManager = new EBox::ServiceManager;
+    my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'apache' } @names;
     push(@names, 'apache');
 
-    foreach my $modname (@names) {
+    foreach my $modname (reverse @names) {
         moduleAction($modname, 'stopService', 'stop');
     }
 }
