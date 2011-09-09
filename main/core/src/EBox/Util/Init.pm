@@ -75,7 +75,7 @@ sub stop() {
     my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'apache' } @names;
-    push(@names, 'apache');
+    unshift(@names, 'apache');
 
     foreach my $modname (reverse @names) {
         moduleAction($modname, 'stopService', 'stop');
