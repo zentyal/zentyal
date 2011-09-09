@@ -634,7 +634,7 @@ sub actions
           'action' => __('Remove bind9 init script link'),
           'reason' => __('Zentyal will take care of starting and stopping ' .
                         'the services.'),
-          'module' => 'ntp'
+          'module' => 'dns'
         }
     ];
 }
