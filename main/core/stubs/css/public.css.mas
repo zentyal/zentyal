@@ -17,6 +17,8 @@
     $a_notchanged_hover_color
     $data_table_bg_color
     $additional_footer_style
+    $progress_bar_bg_color
+    $progress_bar_fg_color
     $help_color
     $help_background
     $help_border
@@ -1145,7 +1147,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     height: 20px;
     width: 780px;
     margin: 5px 0;
-    background-color: #e4f88e;
+    background-color: <% $progress_bar_bg_color %>;
     -moz-border-radius: 5px;
     border-radius: 5px
 }
@@ -1153,7 +1155,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 #progressValue {
     height: 20px;
     width: 0;
-    background-color: #bbdf39;
+    background-color: <% $progress_bar_fg_color %>;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
