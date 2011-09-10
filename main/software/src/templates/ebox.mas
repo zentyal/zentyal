@@ -398,7 +398,7 @@ var pkgTable = new Array(
                 <img src='/data/software/images/filter.png' alt='Content Filter' />
                 <h4><% __s('Web Content Filter') %></h4>
                 <p><strong><% __s("Secure working environment!") %></strong><br />
-                <% __s('Block inappropriate content, restrict access to certain sites or allow access to specific sites only. Control user browsing and enforce your organization’s Internet usage policy.') %></p>
+                <% __s("Block inappropriate content, restrict access to certain sites or allow access to specific sites only. Control user browsing and enforce your organization's Internet usage policy.") %></p>
             </div>
 
             <div class="full-features">
