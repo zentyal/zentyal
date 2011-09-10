@@ -183,12 +183,12 @@ sub _content
             my %i18nVia = ( '0'  => __sx('{oh}On-line Support Platform{ch}',
                                          oh => '<a href="https://support.zentyal.com" target="_blank">',
                                          ch => '</a>'),
-                            '1'  => __sx('{os}{oh}On-line Support Platform{ch}, IRC and Phone upon request{cs}',
+                            '1'  => __sx('{os}{oh}On-line Support Platform{ch}, Chat and Phone upon request{cs}',
                                          oh => '<a href="https://support.zentyal.com" target="_blank">',
                                          ch => '</a>',
                                          os => '<span>',
                                          cs => '</span>'),
-                            '2'  => __sx('{os}{oh}On-line Support Platform{ch}, IRC'
+                            '2'  => __sx('{os}{oh}On-line Support Platform{ch}, Chat'
                                          . ', Phone{cs}',
                                          oh => '<a href="https://support.zentyal.com" target="_blank">',
                                          ch => '</a>',

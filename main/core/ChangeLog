@@ -1,4 +1,5 @@
 HEAD
+	+ Reviewed some subscription strings
 	+ Always fork before apache restart to avoid port change problems
 	+ Stop modules in the correct order (inverse dependencies order)
 	+ Better logging of failed modules on restore

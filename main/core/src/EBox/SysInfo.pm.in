@@ -552,8 +552,8 @@ sub _commercialMsg
 
 sub _secureMsg
 {
-    return __s('As you are enjoying a Commercial Server Subscription the updates are '
-               . 'Quality Assured by the Zentyal Development Team and automatically applied.');
+    return __s('As your server has a commercial server subscription, these updates are '
+               . 'quality assured and automatically applied to your system.');
 }
 
 1;

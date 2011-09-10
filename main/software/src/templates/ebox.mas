@@ -378,40 +378,39 @@ var pkgTable = new Array(
             <h3><% __s('Zentyal Gateway features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/cache.png' alt='Transparent caching' />
-                <h4><% __s('Transparent caching') %></h4>
-                <p><strong><% __s('Make your connection faster!') %></strong><br />
-                <% __s('If your employees visit the same sites, the data will be downloaded only once, freeing your connection for more important tasks.') %></p>
+                <h4><% __s('Transparent Caching') %></h4>
+                <p><strong><% __s('Faster Internet connection!') %></strong><br />
+                <% __s('When your users visit the same web pages, data will be downloaded only once. This increases browsing speed and reduces bandwidth usage.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/qos.png' alt='Traffic control' />
-                <h4><% __s('Traffic control') %></h4>
-                <p><strong><% __s('Business class for data.') %></strong><br />
-                <% __s('An overloaded Internet connection is a thing of the past. Make sure your most critical traffic is served properly, regardless of network load.') %></p>
+                <h4><% __s('Traffic Shaping and QoS') %></h4>
+                <p><strong><% __s('Business class critical traffic!') %></strong><br />
+                <% __s('Prioritize selected traffic or users making sure that the most critical traffic is always served properly, regardless of the network load. Moreover, you can avoid P2P or large downloads that consume all your bandwidth.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/loadbalance.png' alt='Load balancing and availability' />
-                <h4><% __s('Load balancing and availability') %> </h4>
-                <p><strong><% __s("Your connection can't fail.") %></strong><br />
-                <% __s('If you have more than one connection to the Internet, Zentyal can distribute transparently your clients and make sure you are connected, even if one of the connections is down.') %></p>
+                <h4><% __s('Load Balancing and Availability') %> </h4>
+                <p><strong><% __s("Always connected!") %></strong><br />
+                <% __s('If you have multiple Internet connections, distribute the traffic transparently and stay connected even if one of the connections is down. You can also define specific connections for VoIP, between offices, etc.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/filter.png' alt='Content Filter' />
-                <h4><% __s('Content Filter') %></h4>
-                <p><strong><% __s("Don't waste time at your office.") %></strong><br />
-                <% __s('You can restrict access to certain sites, or allow access only to sites you specify. This feature allows you to restrict inappropriate surfing and enforce Internet usage policies in your organization.') %></p>
+                <h4><% __s('Web Content Filter') %></h4>
+                <p><strong><% __s("Secure working environment!") %></strong><br />
+                <% __s('Block inappropriate content, restrict access to certain sites or allow access to specific sites only. Control user browsing and enforce your organization’s Internet usage policy.') %></p>
             </div>
 
             <div class="full-features">
                 <h3><% __s('Full feature list') %></h3>
                 <ul>
-                    <li><% __s('Configurable network interfaces (Ethernet, Wi-Fi, PPPoE and VLAN)') %></li>
-                    <li><% __s('Advanced firewall (NAT, redirections, DMZ, etc.)') %></li>
-                    <li><% __s('Advanced Routing') %></li>
-                    <li><% __s('QoS through traffic shaping (application layer L7) and load balance') %></li>
-                    <li><% __s('Multi-gateway with WAN fail-over') %></li>
-                    <li><% __s('HTTP proxy with cache, content filtering and anti-virus') %></li>
-                    <li><% __s('Policies according to users, groups and sub-networks') %></li>
-                    <li><% __s('RADIUS authentication server') %></li>
+                    <li><% __s('Configurable network interfaces: Static, DHCP, VLAN, PPPoE, Bridge.') %></li>
+                    <li><% __s('Advanced firewall: Advanced filtering, DMZ, Port forwarding (NAT).') %></li>
+                    <li><% __s('Advanced Routing: Policy routing, Load balancing, Automatic fail-over.') %></li>
+                    <li><% __s('Traffic Shaping and QoS: Traffic shaping, Application layer (L7) classification.') %></li>
+                    <li><% __s('Advanced HTTP proxy: Internet cache, Content filtering with antivirus, Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker.') %></li>
+                    <li><% __s('Captive Portal: Secure authentication, Source, destination and service exceptions, Secure client filtering, Client idle timeout, Maximum no. of connections.') %></li>
+                    <li><% __s('RADIUS: Network authentication and authorization.') %></li>
                 </ul>
             </div>
         </div>
@@ -421,37 +420,36 @@ var pkgTable = new Array(
             <h3><% __s('Zentyal UTM features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/filter.png' alt='Content Filtering' />
-                <h4><% __s('Content Filtering') %></h4>
-                <p><strong><% __s('Let the badware out.') %></strong><br />
-                <% __s("Internet is a wonderful thing, and it's filled with great and useful content. But there are tons of threats, like spam, viruses, phising... Our content filter acts on your email, web visits and shared files so you only get the content you want.") %></p>
+                <h4><% __s('Content Filter') %></h4>
+                <p><strong><% __s('Keep malware out!') %></strong><br />
+                <% __s("Internet is filled with great and useful content, but unfortunately it comes with tons of threats like spam, viruses or phishing. The content filter acts on email, web traffic and shared files, giving your users only the content they want.") %></p>
                 </div>
             <div class='feature'>
                 <img src='/data/software/images/vpn.png' alt='Virtual Private Networks' />
                 <h4><% __s('Virtual Private Networks') %></h4>
-                <p><strong><% __s('Your office everywhere you go.') %></strong><br />
-                <% __s('Enjoy the same level of security in your communications wherever you are. You will be in your office network even at home or when traveling. If you have multiple offices around the world, you can also connect them securely, and have only one virtual office.') %></p>
+                <p><strong><% __s('Your office everywhere you go!') %></strong><br />
+                <% __s('Allow remote users, teleworkers or sales people, to connect in a secure way to the corporate network via Internet. Or if you have offices in different locations, connect them in the same network to save time and resources.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/firewall.png' alt='Firewall' />
                 <h4><% __s('Firewall') %></h4>
-                <p><strong><% __s('Security starts at the front desk.') %></strong><br />
-                <% __s('There are different layers of security, but all starts with a good firewall. Allowing only the traffic you need makes a great first sieve against unwanted attackers.') %></p>
+                <p><strong><% __s('Security starts with a good firewall!.') %></strong><br />
+                <% __s('Zentyal server offers an easy and efficient way of configuring traffic policies. By allowing only the traffic that you need, makes a great first line of defense against unwanted attackers.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/ids.png' alt='Intruder detection' />
-                <h4><% __s('Intruder detection') %></h4>
-                <p><strong><% __s('Be one step ahead.') %></strong><br />
-                <% __s('We hope you never need to detect an intrusion, but no security system is perfect. If yours is broken you need to know, and fast. Our IDS will inform you of any suspicious attempts, and let you analyze them afterwards to evaluate possible damages.') %></p>
+                <h4><% __s('Intrusion Detection') %></h4>
+                <p><strong><% __s('Always one step ahead!') %></strong><br />
+                <% __s('Intrusion detection system (IDS) alerts you of any potential attacks or intrusions to your servers, computers and network. It helps you to prevent attacks, as well as to analyze them in case an attack has already taken place.') %></p>
             </div>
             <div class="full-features">
                 <h3><% __s('Full feature list') %></h3>
                 <ul>
-                    <li><% __s('Advanced firewall') %></li>
-                    <li><% __s('Mailfilter (antivirus, antispam, greylisting)') %></li>
-                    <li><% __s('Web filtering (content analysis, white lists and black lists, antivirus)') %></li>
-                    <li><% __s('Virtual Private Networks (VPN)') %></li>
-
-            <li><% __s('Intrusion Detection System (IDS)') %></li>
+                    <li><% __s('Advanced firewall: Advanced filtering, DMZ, Port forwarding (NAT).') %></li>
+                    <li><% __s('Advanced HTTP proxy: Internet cache, Content filtering with antivirus, Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker.') %></li>
+                    <li><% __s('Virtual Private Network: SSL VPN, Branch office connections, Roadwarriors, IPSec, PPTP.') %></li>
+                    <li><% __s('Intrusion Detection System: IDS') %></li>
+                    <li><% __s('Mail filter: Advanced SMTP filter, Antispam capabilities, Antivirus capabilities, Greylisting.') %></li>
                 </ul>
             </div>
         </div>
@@ -460,38 +458,39 @@ var pkgTable = new Array(
             <a href="#" class="close_button" onclick="hideInfo('Infrastructure'); return false">X</a>
             <h3><% __s('Zentyal Infrastructure features') %></h3>
             <div class='feature'>
-                <img src='/data/software/images/objects.png' alt='Network objects' />
-                <h4><% __s('Network objects') %></h4>
-                <p><strong><% __s('One or many, manage them.') %></strong><br />
-                <% __s('You choose the level of detail that you want when managing your network with Zentyal. You can change a setting for the whole network, one department, or just a single computer.') %></p>
+                <img src='/data/software/images/objects.png' alt='DHCP server' />
+                <h4><% __s('DHCP Server') %></h4>
+                <p><strong><% __s('Automatic network configuration!') %></strong><br />
+                <% __s('Configure all the basic settings as devices are connected to the LAN: IP, mask, gateway, DNS, NTP, WINS servers and advanced setups like static leases with PXE for thin clients or VoIP phones.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/dns.png' alt='DNS server' />
-                <h4><% __s('DNS server') %></h4>
-                <p><strong><% __s('People remember names better.') %></strong><br />
-                <% __s("You can assign every computer in your network a fixed address and name, so everyone can remember what to put in their browsers when they want to browse the Intranet. It's much easier to remember calendar.mycompany.com than 10.0.13.27") %></p>
+                <h4><% __s('DNS Server') %></h4>
+                <p><strong><% __s('People remember names better!') %></strong><br />
+                <% __s('Assign every server on your network a domain name to ease internal communications. You can also give domain names to dynamic clients that will be updated as these change their IP address.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/www.png' alt='Web Server' />
                 <h4><% __s('Web Server') %></h4>
-                <p><strong><% __s('Powered by Apache.') %></strong><br />
-                <% __s('Zentyal includes the Apache web server, used by more than half of the known websites. You can use it as the perfect ground for all your Intranet applications.') %></p>
+                <p><strong><% __s('Powered by Apache!') %></strong><br />
+                <% __s('Zentyal server integrates the Apache web server, one of the most popular on the Internet. This module will help you to deploy all kind of internal web applications on your network.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/cert.png' alt='Enterprise-grade SSL' />
-                <h4><% __s('Enterprise-grade SSL') %></h4>
-                <p><strong><% __s('Create your own certificates.') %></strong><br />
-                <% __s("When you are dealing with your customers, you might need an external certification authority to build trust. But internally, you don't need to spend hundreds of dollars every year to have security. With Zentyal you can create your own SSL certificates and use them for internal email or websites.") %></p>
+                <h4><% __s('Certification Authority') %></h4>
+                <p><strong><% __s('Create your own certificates!') %></strong><br />
+                <% __s('Give your users secure access to internal services such as VPN or mail and deploy trusted certificates for your Zentyal managed services.') %></p>
             </div>
             <div class="full-features">
                 <h3><% __s('Full feature list') %></h3>
                 <ul>
-                    <li><% __s('Network interfaces on several VLANs') %></li>
-                    <li><% __s('DHCP server') %></li>
-                    <li><% __s('DNS server') %></li>
-                    <li><% __s('Certification Authority and Virtual Private Networks') %></li>
-                    <li><% __s('Web server') %></li>
-                    <li><% __s('NTP server') %></li>
+                    <li><% __s('DHCP server: Dynamic and static leases, Integration with DNS, PXE support.') %></li>
+                    <li><% __s('DNS server: DNS cache server, DNS authoritative server, Integration with DHCP.') %></li>
+                    <li><% __s('NTP server: NTP server.') %></li>
+                    <li><% __s('Certification Authority: Certificate management, Zentyal service integration.') %></li>
+                    <li><% __s('Web server: HTTP and HTTPS support, Multiple virtual hosts, Integration with DNS.') %></li>
+                    <li><% __s('FTP server: Anonymous FTP, Authenticated FTP.') %></li>
+                    <li><% __s('VM management') %></li>
                 </ul>
             </div>
         </div>
@@ -501,38 +500,36 @@ var pkgTable = new Array(
             <h3><% __s('Zentyal Office features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/directory.png' alt='Open Directory' />
-                <h4><% __s('Open Directory') %></h4>
-                <p><strong><% __s('Your users in one place.') %></strong><br />
-                <% __s('Zentyal Office lets you manage all your users and resources from a central point. You can decide who gets access to what. Zentyal is based in open standards like LDAP, so you can easily integrate current applications and services.') %></p>
+                <h4><% __s('Directory Service') %></h4>
+                <p><strong><% __s('All your users in one place!') %></strong><br />
+                <% __s('Manage users, groups and privileges from a single point. Replicate the directory over multiple servers for service distribution and high availability or synchronize against an existing Active Directory.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/cal.png' alt='Calendar, contacts and tasks' />
-                <h4><% __s('Calendar, contacts and tasks') %></h4>
-                <p><strong><% __s('Easy collaboration tools.') %></strong><br />
-                <% __s("Zentyal includes a groupware solution to share your calendar, contacts and tasks with the rest of your team. Don't waste time trying to find customers phone number, or if the meeting room is available on Friday morning.") %></p>
+                <h4><% __s('Groupware') %></h4>
+                <p><strong><% __s('Easy on-line collaboration!') %></strong><br />
+                <% __s('Allow your users to access their email, share their calendars, contacts and tasks. Help the employees to work together while located remotely and enable more effective team collaboration. The perfect Exchange replacement!') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/sharing.png' alt='File and printer sharing' />
-                <h4><% __s('File and printer sharing') %></h4>
-                <p><strong><% __s('Sharing is easy.') %></strong><br />
-                <% __s("Are you still exchanging files by email? It's a solution, but having a shared document repository is more efficient. You can easily share folders with Zentyal and use them whether you are Windows, Linux or Mac user.") %></p>
+                <h4><% __s('File and Printer Sharing') %></h4>
+                <p><strong><% __s('Sharing is easy!') %></strong><br />
+                <% __s('Create shared folders and printers over your network and let your users access them seamlessly from any operating system. Replace your Windows server with Zentyal without any disruption to your users.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/backup.png' alt='Data Backup' />
                 <h4><% __s('Data Backup') %></h4>
-                <p><strong><% __s('Some catastrophes you can prevent.') %></strong><br />
-                <% __s("Centralized document storage and sharing can be really useful, but it also offers a single point of failure. You can automatize backups of your data so you don't have to worry about failing disks or users deleting a file by mistake.") %></p>
+                <p><strong><% __s('A catastrophe you can prevent!') %></strong><br />
+                <% __s('Hardware or software failures and human errors are common and can cause irreparable damage. Having a proper procedure to perform, check and restore configuration and data backups will save you from a disaster.') %></p>
             </div>
             <div class="full-features">
                 <h3><% __s('Full feature list') %></h3>
                 <ul>
-                    <li><% __s('LDAP server (centralized administration of users and groups, master/slave architecture)') %></li>
-                    <li><% __s('Centralized authentication including Primary Domain Controller (PDC) and Active Directory synchronization (AD)') %></li>
-                    <li><% __s('Calendar, contacts and tasks sharing (Groupware)') %></li>
-                    <li><% __s('Files and folders sharing') %></li>
-                    <li><% __s('Printers sharing') %></li>
-                    <li><% __s('Roaming profiles') %></li>
-                    <li><% __s('Data backup') %></li>
+                    <li><% __s('LDAP Directory server: Central management of users and groups, Master/slave architecture, Windows Active Directory synchronization.') %></li>
+                    <li><% __s('File sharing: Windows file sharing (CIFS), Primary Domain Controller (PDC), Advanced password policies, Roaming profiles, Windows 7 support.') %></li>
+                    <li><% __s('Printer sharing: Printer management, Windows printer sharing, IPP support.') %></li>
+                    <li><% __s('Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile devices synchronization.') %></li>
+                    <li><% __s('Backup: Incremental and full backup, Advanced backup policy, Disaster recovery.') %></li>
                 </ul>
             </div>
         </div>
@@ -541,35 +538,36 @@ var pkgTable = new Array(
             <a href="#" class="close_button" onclick="hideInfo('Communications'); return false">X</a>
             <h3><% __s('Zentyal Unified Communications features') %></h3>
             <div class='feature'>
-                <img src='/data/software/images/users.png' alt='User management' />
-                <h4><% __s('User management') %></h4>
-                <p><strong><% __s('One user name, one password.') %></strong><br />
-                <% __s("Zentyal lets you manage all your users and resources from a central point. They won't have to remember different user names and passwords for every service. Also, providing a user with an email, IM or VoIP account is easy and fast.") %></p>
-            </div>
-            <div class='feature'>
                 <img src='/data/software/images/email.png' alt='Email' />
                 <h4><% __s('Email') %></h4>
-                <p><strong><% __s('With your favorite email client.') %></strong><br />
-                <% __s('Zentyal provides an integrated email solution, with antispam and antivirus technologies. It supports all the usual standards so you can keep using your favorite email clients.') %></p>
+                <p><strong><% __s('With your favorite email client!') %></strong><br />
+                <% __s('Zentyal includes a complete email solution, with antispam and antivirus, as well as webmail. All the current standards are supported, so your users can keep using their favorite email clients.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/im.png' alt='Instant messaging' />
-                <h4><% __s('Instant messaging') %></h4>
-                <p><strong><% __s('When email is not enough.') %></strong><br />
-                <% __s('Sometimes you just need more fluid conversations. Zentyal provides instant messaging based on the Jabber/XMPP protocol, so you can use any of the existing clients on any platform, even on cell phones.') %></p>
+                <h4><% __s('Instant Messaging') %></h4>
+                <p><strong><% __s('When email is not enough!') %></strong><br />
+                <% __s('Allow your users to communicate quickly, efficiently and safely with colleagues and customers. The XMPP/Jabber protocol used allows the use of any of the existing clients on most platforms, even on cell phones.') %></p>
             </div>
             <div class='feature'>
-                <img src='/data/software/images/backup.png' alt='VoIP' />
+                <img src='/data/software/images/voip.png' alt='VoIP' />
                 <h4><% __s('VoIP') %></h4>
-                <p><strong><% __s('When you need to call.') %></strong><br />
-                <% __s('With Zentyal you can provide your employees with their own extension and make internal calls and conferences easily. With third-party providers, you can also get real phone numbers and route them to your Zentyal to make and receive calls at very low prices.') %></p>
+                <p><strong><% __s('When you need to call!') %></strong><br />
+                <% __s('Provide your employees with extensions and make internal calls and conferences easily. With third-party providers, you can also get real phone numbers to make and receive external calls at very low prices.') %></p>
+            </div>
+            <div class='feature'>
+                <img src='/data/software/images/cal.png' alt='Groupware' />
+                <h4><% __s('Groupware') %></h4>
+                <p><strong><% __s('Your data everywhere!') %></strong><br />
+                <% __s('Thanks to the groupware service your users can access email and other data wherever they go no matter the device they use: email client, web browser or mobile devices. Migrating from Exchange was never this easy!') %></p>
             </div>
             <div class="full-features">
                 <h3><% __s('Full feature list') %></h3>
                 <ul>
-                    <li><% __s('E-mail: SMTP and POP3/IMAP4 with SSL/TLS. Antispam, antivirus and relay policies. Webmail. SIEVE server-side filters.') %></li>
-                    <li><% __s('Instant Messaging (IM)') %></li>
-                    <li><% __s('VoIP: Internet based calls to mobile phones and landlines, call transfers, call parking, voicemail, conference rooms, etc.') %></li>
+                    <li><% __s('Mail server: SMTP with TLS, POP3-IMAP4 with SSL, Webmail, Server side filtering (SIEVE), External mail retrieval, Antispam, Antivirus, Greylisting, Virtual domains, User quota support.') %></li>
+                    <li><% __s('Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile devices synchronization.)') %></li>
+                    <li><% __s('Instant Messaging server: XMPP/Jabber server, Conference rooms.)') %></li>
+                    <li><% __s('Voice over IP server: SIP users and phones, Calls through an external provider, Conference rooms, Voicemail, Call transfers and parking, Music on hold, Queues, Logs.') %></li>
                 </ul>
             </div>
         </div>

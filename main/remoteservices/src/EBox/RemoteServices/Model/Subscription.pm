@@ -605,7 +605,7 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('For Zentyal servers in production environments, get {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref} - These give you access to Quality Assured software updates, Alerts, Reports and Centralised monitoring and management of your Zentyal servers!',
+    return __sx('For Zentyal servers in production environments, get {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref} - These give you access to Quality Assured software updates, Alerts, Reports and Remote monitoring and management features of your Zentyal servers!',
                 openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
                 openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
                 closehref => '</a>');

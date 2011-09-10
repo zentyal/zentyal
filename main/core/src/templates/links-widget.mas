@@ -26,7 +26,7 @@
             <li><a target="_blank" href="http://www.zentyal.com/services/support/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=support"
                    title="<% __s('Get your commercial support directly from the Zentyal developers.') %>"><% __s('Commercial Support') %></a></li>
             <li><a target="_blank" href="http://www.zentyal.com/products/cloud/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=control.center"
-                   title="<% __s('Administer and monitor multiple Zentyal servers from a central point.') %>">Zentyal Cloud</a></li>
+                   title="<% __s('Remotely monitor and manage multiple Zentyal servers from a central point.') %>">Zentyal Cloud</a></li>
             <li><a target="_blank" href="http://www.zentyal.com/training/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=training"
                    title="<% __s('Learn to use all Zentyal based network services in production environments.') %>"><% __s('Certified Training') %></a></li>
             <li><a target="_blank" href="http://store.zentyal.com/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=store"

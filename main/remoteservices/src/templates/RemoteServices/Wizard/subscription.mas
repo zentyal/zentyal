@@ -123,7 +123,7 @@ th {
         </div>
      </div>
      <div class="subscription_basic">
-        <p><% __sx("If you don\'t have a Zentyal Cloud Subscription you can get a {bo}Basic Subscription for Free!{bc}. You will benefit from the following features:", bo => '<strong>', bc => '</strong>') %></p>
+        <p><% __sx("If you don\'t have a Zentyal Cloud Subscription you can get a {bo}Basic Subscription for Free!{bc} You will benefit from the following features:", bo => '<strong>', bc => '</strong>') %></p>
         <ul class="features">
           <li id="backuplink">
             <img src="/data/images/backup.png" width="32" height="32" alt="Remote backup" />
@@ -132,6 +132,18 @@ th {
           <li id="alertslink">
             <img src="/data/images/alerts.png" width="32" height="32" alt="Basic alerts" />
             <p><% __s('Basic alerts') %></p>
+          </li>
+          <li id="reportslink">
+            <img src="/data/images/reports.png" width="32" height="32" alt="Basic reports" />
+            <p><% __s('Basic reports') %></p>
+          </li>
+          <li id="monitorlink">
+            <img src="/data/images/monitor.png" width="32" height="32" alt="Basic monitor" />
+            <p><% __s('Basic monitoring') %></p>
+          </li>
+          <li id="jobslink">
+            <img src="/data/images/jobs.png" width="32" height="32" alt="Basic jobs" />
+            <p><% __s('Basic jobs') %></p>
           </li>
           <li id="zentyalmelink">
             <img src="/data/images/zentyalme.png" width="32" height="32" alt="zentyal.me" />
@@ -146,7 +158,10 @@ th {
           <div id="explanation">
              <div class="slide" id="backup"><% __s('Remote backup of your Zentyal server configuration') %></div>
              <div class="slide" id="alerts"><% __s('Basic alerts: Connectivity of your Zentyal server, available updates or failed automatic backup') %></div>
-             <div class="slide" id="zentyalme"><% __s('Dynamic DNS: Human-readable public hostname  (yourserver.zentyal.me). Grant easy access to your company network from  any location or give a personal touch to services such as your email or  website.') %></div>
+             <div class="slide" id="reports"><% __s('Get basic reports on your hardware performance.') %></div>
+             <div class="slide" id="monitor"><% __s('Monitor remotely the basic hardware parameters.') %></div>
+             <div class="slide" id="jobs"><% __s('Test how to run preconfigured basic jobs.') %></div>
+             <div class="slide" id="zentyalme"><% __s('Dynamic DNS: zentyal.me subdomain for your server (e.g. yourserver.zentyal.me with up to 3 additional aliases.') %></div>
              <div class="slide" id="browsertab"><% __s('You can distinguish Zentyal servers by their name in the web browser tab.') %></div>
           </div>
         </div>
@@ -168,6 +183,9 @@ th {
         function afterMove() {
             $('backuplink').removeClassName('highlight');
             $('alertslink').removeClassName('highlight');
+            $('reportslink').removeClassName('highlight');
+            $('monitorlink').removeClassName('highlight');
+            $('jobslink').removeClassName('highlight');
             $('zentyalmelink').removeClassName('highlight');
             $('browsertablink').removeClassName('highlight');
             current = car.current.readAttribute('id');
@@ -209,8 +227,11 @@ th {
         Element.observe($('radio_subscribe'), 'change', update_form);
         Element.observe($('radio_register'), 'change', update_form);
 
-        initLink('alertslink', 'alerts');
         initLink('backuplink', 'backup');
+        initLink('alertslink', 'alerts');
+        initLink('reportslink', 'reports');
+        initLink('monitorlink', 'monitor');
+        initLink('jobslink', 'jobs');
         initLink('zentyalmelink', 'zentyalme');
         initLink('browsertablink', 'browsertab');
      </script>

@@ -198,13 +198,9 @@ sub run
         # Commercial msg
         $msg .= "\n\n";
         $msg .= __s('Warning: The updates are community based and there is no guarantee that your '
-                    . 'server will work properly after applying them. Quality Assured Updates are '
-                    . 'only included in commercial subscriptions and they guarantee that all the '
-                    . 'upgrades, bugfixes and security updates '
-                    . "are extensively tested by the Zentyal Development Team and you won't "
-                    . 'be introducing any regressions on your already working system. '
-                    . 'Purchase a Professional or Enterprise Server Subscription to gain access '
-                    . 'to QA updates.');
+                    . 'server will work properly after applying them. Servers in production '
+                    . 'environments should have quality assured (QA) software updates. Purchase a '
+                    . 'Professional or Enterprise Subscription to gain access to QA updates.');
         return [
             new EBox::Event(message => $msg,
                             source  => 'security software update',
