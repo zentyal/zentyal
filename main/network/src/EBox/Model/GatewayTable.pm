@@ -253,8 +253,11 @@ sub validateRow()
 
     my $currentRow = $self->row($params{'id'});
     my $auto = 0;
-    $auto = $currentRow->valueByName('auto') if ($currentRow);
-
+    my $oldIP = '';
+    if ($currentRow) {
+        $auto = $currentRow->valueByName('auto');
+        $oldIP = $currentRow->valueByName('ip');
+    }
     my $network = EBox::Global->modInstance('network');
 
     # Do not check for valid IP in case of auto-added ifaces
@@ -267,9 +270,11 @@ sub validateRow()
         checkIP($ip, $printableName);
 
         # Check uniqueness
-        if ($self->find('ip' => $ip)) {
-            throw EBox::Exceptions::DataExists('data' => $printableName,
-                                               'value' => $ip);
+        if ($oldIP ne $ip) {
+            if ($self->find('ip' => $ip)) {
+                throw EBox::Exceptions::DataExists('data' => $printableName,
+                                                   'value' => $ip);
+            }
         }
     }
 
