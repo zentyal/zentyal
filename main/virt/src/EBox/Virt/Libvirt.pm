@@ -494,7 +494,7 @@ sub writeConf
          devices => $vmConf->{devices},
          vncport => $vmConf->{port},
          vncpass => $vmConf->{password},
-         keymap => _vncKeymap();
+         keymap => _vncKeymap(),
          boot => $bootDev,
         ],
         { uid => 0, gid => 0, mode => '0644' }
