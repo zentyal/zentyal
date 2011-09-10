@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-10 04:22+0200\n"
-"PO-Revision-Date: 2011-09-04 11:51+0200\n"
-"Last-Translator: miquel <miquel@acsat.net>\n"
+"PO-Revision-Date: 2011-09-10 04:45+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1443,9 +1443,8 @@ msgstr ""
 "plantillas personalizadas de Zentyal."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Borrar enlaces al script de inicio de ntp"
+msgstr "Borrar enlaces al script de inicio de dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
 #: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
@@ -3707,9 +3706,8 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr "Permitir que el demonio bind se actualice automáticamente"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:634
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Borrar enlaces al script de inicio de ntp"
+msgstr "Borrar enlaces al script de inicio de bind9"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -5543,9 +5541,8 @@ msgid "Bandwidth quota"
 msgstr "Cuota de ancho de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
-#, fuzzy
 msgid "MB"
-msgstr "L"
+msgstr "MB"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:84
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
@@ -6109,18 +6106,17 @@ msgid "Directory for backup"
 msgstr "Directorio para el backup"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:818
-#, fuzzy
 msgid "Cannot use the / directory as target"
-msgstr "No puede crear el directorio {dir}"
+msgstr "No se puede usar el directorio / como destino"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
 msgid "File exists and it is not a directory"
 msgstr "El fichero existe y no es un directorio"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:837
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot read parent directory {d}"
-msgstr "No puede crear el directorio {dir}"
+msgstr "No se puede leer el directorio padre {d}"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
 msgid ""
@@ -6297,14 +6293,14 @@ msgid "Services Restore"
 msgstr "Restauración de servicios"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} does not exists"
-msgstr "El cliente {c} no existe"
+msgstr "No se puede restaurar a {d}: {dd} no existe"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} is not a directory"
-msgstr "El fichero existe y no es un directorio"
+msgstr "No se puede restaurar a {d}: {dd} no es un directorio"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:226
 #, perl-brace-format
@@ -6322,14 +6318,12 @@ msgstr ""
 "sobre las copias de seguridad."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:429
-#, fuzzy
 msgid "All files in backup"
-msgstr "Restaurando el backup"
+msgstr "Todos los ficheros del backup"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:430
-#, fuzzy
 msgid "All files included in the backup"
-msgstr "Datos extra incluidos manualmente en la copia"
+msgstr "Datos extra incluidos en la copia"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:715
 msgid ""
@@ -10648,6 +10642,7 @@ msgstr "Evento desconocido {event}"
 #: ../../main/ntp/src/EBox/NTP.pm:90
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
 msgstr ""
+"Borrar enlaces al script de ntp y hooks de networking (if-up.d y dhclient)"
 
 #: ../../main/ntp/src/EBox/NTP.pm:109
 msgid "NTP configuration file"
@@ -14201,9 +14196,8 @@ msgid "To serve pages over HTTPS."
 msgstr "Servir páginas a través de HTTPS."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Borrar enlaces al script de inicio de ntp"
+msgstr "Borrar enlaces al script de inicio de apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:166
 msgid "HyperText Transport Protocol"
@@ -15226,14 +15220,15 @@ msgid ""
 "Error restoring directory {d}. This could make fail some files or domains "
 "restore processes. Error {e}"
 msgstr ""
+"Error restaurando el directorio {d}. Esto puede hacer fallar la restauración "
+"de algunos ficheros o dominios. Error: {e}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:727
-#, fuzzy
 msgid ""
 "Backup log data not found in the fiels from the backup, log database will "
 "not be restored"
 msgstr ""
-"Los datos de registro de backup no se encuentran, la base de datos de "
+"La copia de los registros no se encuentra en el backup, la base de datos de "
 "registros no será restaurada"
 
 #: ../../main/ebackup/src/scripts/restore-tool:733
@@ -15360,14 +15355,13 @@ msgid "Downloading backup metadata..."
 msgstr "Descargando los metadatos de la copia de seguridad..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1304
-#, fuzzy
 msgid "Downloading the backup data"
-msgstr "Descargando los metadatos de la copia de seguridad..."
+msgstr "Descargando datos del backup"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1322
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Downloading  {src} backup data for {dom}"
-msgstr "Descargando los datos de backup y configuración"
+msgstr "Descargando datos {src} para {dom}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1336
 #, perl-brace-format
@@ -15375,11 +15369,12 @@ msgid ""
 "Error downloading data for backup domain: {dom}. The domain will not be "
 "fully restored"
 msgstr ""
+"Error descargando datos para el dominio: {dom}. El dominio no podrá ser "
+"completamente restaurado"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1354
-#, fuzzy
 msgid "Downloading the backup configuration"
-msgstr "Descargando los datos de backup y configuración"
+msgstr "Descargando el backup de la configuración"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1392
 msgid "Downloading configuration"
