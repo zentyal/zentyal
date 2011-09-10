@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed UTF8 double-encoding on unexpected error CGI
 	+ Added units to bandwidth quota label
 2.1.9
 	+ Bug report form appears now if captiveportal crashes

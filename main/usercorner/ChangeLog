@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed UTF8 double-encoding on unexpected error CGI
 	+ Set MinSpareServers to 1 to avoid apache warning
 2.1.5
 	+ Bug report form appears now when usercorner crashes
