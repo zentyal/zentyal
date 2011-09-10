@@ -1,4 +1,4 @@
-HEAD
+2.1.7
 	+ Disable also ntp daemon on dhclient hook
 2.1.6
 	+ Disable ntp daemon executed by Ubuntu networking services during boot

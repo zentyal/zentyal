@@ -1,4 +1,4 @@
-HEAD
+2.1.7
 	+ Read keymap when writing conf instead of when initializing
 	+ Avoid warning when LANG environment variable is not defined
 2.1.6

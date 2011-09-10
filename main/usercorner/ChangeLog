@@ -1,4 +1,4 @@
-HEAD
+2.1.6
 	+ Fixed UTF8 double-encoding on unexpected error CGI
 	+ Set MinSpareServers to 1 to avoid apache warning
 2.1.5

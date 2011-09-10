@@ -1,4 +1,4 @@
-HEAD
+2.1.32
 	+ Added progress bar colors to theme definition
 	+ Remove no longer correct UTF8 decode in ProgressIndicator
 	+ Fixed UTF8 double-encoding on unexpected error CGI
