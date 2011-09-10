@@ -215,8 +215,7 @@ sub setMessage
 sub message
 {
     my ($self) = @_;
-    # We need to decode this if we encode redis responses
-    return decode('UTF-8', $self->getConfString('message'));
+    return $self->getConfString('message');
 }
 
 sub id
