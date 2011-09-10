@@ -1,4 +1,4 @@
-AC_INIT([language-packs-zentyal], [2.1.4])
+AC_INIT([language-packs-zentyal], [2.1.5])
 
 AC_CONFIG_AUX_DIR([config])
 
