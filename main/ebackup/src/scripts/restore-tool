@@ -724,7 +724,7 @@ sub _restoreLogs
 
 
     if (not  EBox::Sudo::fileTest('-r', $src) ) {
-        warning(__('Backup log data not found in the fiels from the backup, log database will not be restored'));
+        warning(__('Backup log data not found in the files from the backup, log database will not be restored'));
         return;
     }
 
