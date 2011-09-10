@@ -1,4 +1,4 @@
-HEAD
+2.1.8
 	+ Added guard against undefined rows in RemoteExcludes model
 	+ Solved problem with automatic inclusions with no-redis
 	  characters in its keys
