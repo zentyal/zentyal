@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 15:36+0200\n"
-"PO-Revision-Date: 2011-04-04 15:36+0200\n"
-"Last-Translator: vabue <val.budkin@gmail.com>\n"
+"PO-Revision-Date: 2011-09-08 09:31+0200\n"
+"Last-Translator: xcod <xcod@mail.ru>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
@@ -216,7 +216,7 @@ msgstr "Скорость"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "КБ/с"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -235,7 +235,7 @@ msgstr "Максимальный размер"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "КБ"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -340,9 +340,9 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
-"Вы не можете  активировать антивирусный фильтр пока антивирусный модуль не "
-"установлен. Если вы хотите фильтровать вирусы, сначала установите его и  "
-"{openhref}активируйте его{closehref} затем возращайтесь сюда."
+"Вы не можете активировать антивирусный фильтр пока не установлен "
+"антивирусный модуль. Если вы хотите фильтровать вирусы, сначала установите и "
+"{openhref}активируйте модуль{closehref}, затем возращайтесь сюда."
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
@@ -371,11 +371,11 @@ msgstr "Прозрачный прокси"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Блокировка рекламы"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "Удаление рекламы из всего HTTP трафика"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -1417,9 +1417,8 @@ msgid "Filter groups per IP"
 msgstr "Группы фильтрации по IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:287
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Резервное копирование настроек"
+msgstr "Конфигурация блокировщика рекламы adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
@@ -1619,26 +1618,26 @@ msgid "server"
 msgstr "сервер"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need a valid CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Вам необходим действительный сертификат CA для использования этого "
-"модуля.{closepar}{openpar}Пожалуйста, перейдите {openhref}в модуль менеджера "
-"сертификатов{closehref} и обновите его.{closepar}"
+"{openpar}Вам необходим действительный сертификат CA для использования VPN "
+"серверов.{closepar}{openpar}Пожалуйста, перейдите {openhref}в модуль "
+"менеджера сертификатов{closehref} и обновите его.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Вам необходимо создать сертификат CA для использования этого модуля."
-"{closepar}{openpar}Пожалуйста, перейдите {openhref} в модуль менеджера "
-"сертификатов{closehref} и создайте его.{closepar}"
+"{openpar}Вам необходимо создать сертификат CA для использования VPN "
+"серверов.{closepar}{openpar}Пожалуйста, перейдите {openhref} в модуль "
+"менеджера сертификатов{closehref} и создайте его.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -1879,12 +1878,11 @@ msgstr "Пароль туннеля сервера"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Привязать порт к клиенту"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
-#, fuzzy
 msgid "Bind address for client"
-msgstr "Запретить кэширование для адреса"
+msgstr "Привязать адрес к клиенту"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:148
 msgid "Command to execute after routes are set"
@@ -2579,13 +2577,15 @@ msgstr "ПЕРЕНАПРАВИТЬ"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:684
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "Брандмауэру не удалось добавить правила для следующих модулей:"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:687
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Вероятно, это вызвано отсутствием подключения, проверьте настройки или "
+"отключите эти модули"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:936
 #: ../../main/firewall/src/EBox/Iptables.pm:973
@@ -2819,9 +2819,8 @@ msgstr "Первоначальное назначение"
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "Хост Zentyal"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -2854,6 +2853,9 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Заменяет оригинальный адрес источника в соединении на собственный адрес "
+"Zentyal. Это может быть необходимо, если пункт назначения не имеет обратного "
+"маршрута или имеет ограничительные правила брандмауэра"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:350
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
@@ -2902,9 +2904,8 @@ msgid "NAT postrouting"
 msgstr "NAT после маршрутизации"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Конфигурация клиента"
+msgstr "Создание цепочки"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
@@ -3039,7 +3040,7 @@ msgstr "Гарантируемая скорость"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:210
 msgid "Limited rate"
-msgstr "Ограниченная скорось"
+msgstr "Ограниченная скорость"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:221
 #, perl-brace-format
@@ -3154,8 +3155,8 @@ msgid ""
 msgstr ""
 "Управление трафиком применяется, если Zentyal используется в качестве шлюза. "
 "Для этого необходимо как минимум по одному внешнему и  внутреннему "
-"интерфейсу. Проверте настройки интерфейсов {openhref}Network->Interfaces"
-"{closehref}"
+"интерфейсу. Проверьте настройки интерфейсов "
+"{openhref}Network->Interfaces{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -3165,9 +3166,9 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
-"Управление трафиком применяется, если скорость загрузки шлюзов ассоцированы "
-"с внешним интерфесом. Для этого необходимо: создать шлюз {openhref}Network-"
-">Gateways{closehref} и настроить интерфейс как внешний"
+"Управление трафиком применяется, если скорость загрузки шлюзов ассоциированы "
+"с внешним интерфейсом. Для этого необходимо: создать шлюз "
+"{openhref}Network->Gateways{closehref} и настроить интерфейс как внешний"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:115
 msgid "Rules list per interface"
@@ -3192,7 +3193,7 @@ msgstr "настройки"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:100
 #: ../../main/l7-protocols/src/EBox/L7Protocols.pm:91
 msgid "Traffic Shaping"
-msgstr "Управление трафиком ( приоретизация трафика)"
+msgstr "Управление трафиком (приоритизация трафика)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:136
 msgid "Add iptables rules to mangle table"
@@ -3364,7 +3365,7 @@ msgstr "Сервера имен"
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "{txt} записи"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
@@ -3382,9 +3383,8 @@ msgid "A domain is dynamic when the DHCP server updates the domain"
 msgstr "Домен является динамическим, когда сервер DHCP обновляет домен"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:265
-#, fuzzy
 msgid "Domains"
-msgstr "Домен"
+msgstr "Домены"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:272
 #: ../../main/dns/src/EBox/DNS.pm.in:277
@@ -3457,24 +3457,23 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain is set as read only. You cannot add {what}"
-msgstr ""
-"Домен имеет разрешение только для чтения. Вы не можете добавлять имена узлов"
+msgstr "Домен имеет разрешение только для чтения. Вы не можете добавлять {what}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:109
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The chosen service is not in {file}"
-msgstr "Эта служба не включена в Zentyal"
+msgstr "Выбранная служба не включена в {file}"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:119
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The given host name is not a fully qualified domain name (FQDN). Do you mean "
 "{srv}.{name}?"
 msgstr ""
-"Имя хоста не является полным доменным именем (FQDN). Вы имеете в виду ns."
-"{name}?"
+"Указанное имя хоста не является полным доменным именем (FQDN). Вы имеете в "
+"виду {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:192
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
@@ -3483,7 +3482,7 @@ msgstr "Имя службы"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:208
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "Меньшее значение имеет более высокий приоритет"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:212
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:201
@@ -3495,34 +3494,36 @@ msgid ""
 "0 indicates no weighting and a greater value more chances to be selected "
 "with equal priority"
 msgstr ""
+"0 обозначает отсутствие веса, при равном приоритете вероятнее будет выбрано "
+"большее значение"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
-#, fuzzy
 msgid "Target port"
-msgstr "Порт сервера"
+msgstr "Целевой порт"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
-#, fuzzy
 msgid "Target"
-msgstr "место назначения"
+msgstr "Место назначения"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:230
-#, fuzzy
 msgid ""
 "If you select the \"Custom\", it should be a Fully Qualified Domain Name"
 msgstr ""
-"Если вы выбираете \"Общие\", тогда оно должно быть полным доменным именем"
+"Если вы выбираете \"Пользовательское\", тогда оно должно быть полным доменным "
+"именем"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:259
 msgid ""
 "It manages the SRV records for this domain. They are useful to select a host "
 "based on the priority for a service."
 msgstr ""
+"Управляет SRV записями для этого домена. Полезно при выборе хоста исходя из "
+"приоритета для сервиса."
 
 #: ../../main/dns/src/EBox/Model/Services.pm:262
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{srv} record"
-msgstr "Запись сервера имен"
+msgstr "Запись сервера имен {srv}"
 
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:80
 #, perl-brace-format
@@ -3558,9 +3559,8 @@ msgstr ""
 "{name}?"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:171
-#, fuzzy
 msgid "Last name server cannot be removed"
-msgstr "Запись сервера имен"
+msgstr "Последний сервер имен не может быть удален"
 
 #: ../../main/dns/src/EBox/Model/NameServer.pm:203
 msgid "The domain is set as read only. You cannot add name servers"
@@ -3581,9 +3581,9 @@ msgid "name server record"
 msgstr "Запись сервера имен"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "Netbios имя ресурса не может быть длиннее 15 символов"
+msgstr "Имя {name} не может быть длиннее {value} символов"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
@@ -3595,20 +3595,21 @@ msgid "{txt} data"
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Text.pm:170
-#, fuzzy
 msgid "Any data could be provided"
-msgstr "Ресурс должен иметь имя."
+msgstr "Могут быть указаны любые данные."
 
 #: ../../main/dns/src/EBox/Model/Text.pm:184
 msgid ""
 "It manages the TXT records for this domain. They are useful to in SPF or "
 "DKIM antispam protocols"
 msgstr ""
+"Управляет TXT записями для этого домена. Они полезны при использовании "
+"антиспам протоколов SPF или DKIM"
 
 #: ../../main/dns/src/EBox/Model/Text.pm:185
 #, perl-brace-format
 msgid "{txt} record"
-msgstr ""
+msgstr "{txt} запись"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:562
 msgid "main bind9 configuration file"
@@ -3647,12 +3648,13 @@ msgstr "Разрешить демону bind автоматическ обнов
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
-msgstr ""
+msgstr "Должно быть указано валидное имя домена или шаблон (*)."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:91
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
 msgstr ""
+"Ваша конфигурация запрещает анонимный или аутентифицированный доступ к FTP."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3680,29 +3682,29 @@ msgid "Anonymous access"
 msgstr "Анонимный доступ"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Включить FTP доступ пользователям к их каталогам /home"
+msgstr "Включить анонимный FTP доступ к каталогу /srv/ftp."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
 msgstr "Личные каталоги"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Включить FTP доступ пользователям к их каталогам /home"
+msgstr ""
+"Включить пользователям авторизованный FTP доступ к их домашним каталогам."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Личные каталоги"
+msgstr "Ограничить личными каталогами"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Ограниченный доступ пользователей к их домашним каталогам. Учтите, что "
+"данное ограничение может быть обойдено при некоторых условиях."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:119
@@ -3712,7 +3714,7 @@ msgstr "Поддержка SSL"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:157
 msgid "Enable FTP SSL support for authenticated users."
-msgstr ""
+msgstr "Включить поддержку FTP через SSL для авторизованных пользователей."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:163
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
@@ -3726,7 +3728,6 @@ msgid "FTP Server"
 msgstr "Сервер FTP"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -3736,19 +3737,19 @@ msgid ""
 "able to rename or delete files in any case."
 msgstr ""
 "Анонимным каталогом является /srv/ftp, убедитесь, что файлы, которые вы там "
-"создаёте имеют разрешение на чтение для всех (chmod o+r /srv/ftp/*). Если вы "
-"хотите дать разрешение на запись, вам необходимо сделать подкаталог с с "
-"разрешениями на запись для всех, например: mkdir /srv/ftp/incoming ; chmod o"
-"+rwx /srv/ftp/incoming"
+"создаёте имеют разрешение на чтение для всех (sudo chmod o+r /srv/ftp/*). "
+"Если вы хотите дать разрешение на запись, вам необходимо сделать подкаталог "
+"с разрешениями на запись для всех, например: sudo mkdir /srv/ftp/incoming ; "
+"sudo chmod o+rwx /srv/ftp/incoming. В любом случае анонимные пользователи не "
+"смогут переименовывать или удалять файлы."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
 msgstr "FTP сервер Zentyal "
 
 #: ../../main/ftp/src/EBox/FTP.pm:128
-#, fuzzy
 msgid "Generate SSL certificates"
-msgstr "Создать сертификаты"
+msgstr "Сгенерировать SSL сертификаты"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
 #, fuzzy
@@ -3878,7 +3879,7 @@ msgid ""
 "confusions"
 msgstr ""
 "'Any' - это зарезервированное слово которое во избежании путаницы нельзя "
-"использовать в качестве названия обьекта"
+"использовать в качестве названия объекта"
 
 #: ../../main/objects/src/EBox/Objects.pm:42
 #, perl-brace-format
@@ -4207,7 +4208,7 @@ msgstr "Подключено"
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:79
 #: ../../main/core/src/EBox/Backup.pm:475
 msgid "Unknown"
-msgstr "Неизвестноый"
+msgstr "Неизвестный"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1652
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:169
@@ -8139,14 +8140,13 @@ msgid "Send events"
 msgstr "Другие события"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:307
-#, fuzzy
 msgid ""
 "If set to Always, an event will be dispatched for each value that is out of "
 "the acceptable range."
 msgstr ""
 "Если установлено в true, то для каждого значения вне диапазона будет "
 "отмечено событие. Если установлено false, то будут отмечены изменение от "
-"примлемого значения к непремлемому"
+"приемлемого значения к неприемлемому."
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:312
 #, fuzzy
@@ -8159,7 +8159,7 @@ msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:320
 msgid "After"
-msgstr ""
+msgstr "После"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:331
 msgid "Measure instance"
@@ -14795,7 +14795,7 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1676
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr "Имя группы не должно быть длинее {maxGroupLength} символов"
+msgstr "Имя группы не должно быть длиннее {maxGroupLength} символов"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1682
 msgid "The group name is not valid because it is used internally"

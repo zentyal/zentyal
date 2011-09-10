@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 15:36+0200\n"
-"PO-Revision-Date: 2011-08-23 19:46+0200\n"
-"Last-Translator: goks <jmsjr85@gmail.com>\n"
+"PO-Revision-Date: 2011-09-06 03:18+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -373,7 +373,6 @@ msgid "Ad Blocking"
 msgstr "Bloqueio de anúncios"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
-#, fuzzy
 msgid "Remove advertisements from all HTTP traffic"
 msgstr "Remover anúncios de todo o tráfego HTTP"
 
@@ -5364,13 +5363,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
 #: ../../main/core/src/cgi/ebox.cgi:87
 msgid "Download the log file with additional information by clicking"
-msgstr ""
+msgstr "Download o arquivo com informações adicionais clicando"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:90
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:90
 #: ../../main/core/src/cgi/ebox.cgi:88
 msgid "Attach the downloaded file in the ticket"
-msgstr ""
+msgstr "Anexar o arquivo recebido no ticket"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:48
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
@@ -5392,19 +5391,16 @@ msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:73
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:83
-#, fuzzy
 msgid "Day bandwidth usage (MB)"
-msgstr "Uso da largura da banda"
+msgstr "Largura da banda por dia (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:76
-#, fuzzy
 msgid "Week bandwidth usage (MB)"
-msgstr "Uso da largura da banda"
+msgstr "Largura da banda por semana (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:79
-#, fuzzy
 msgid "Month bandwidth usage (MB)"
-msgstr "Quota de banda mensal"
+msgstr "Largura da banda por mês (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:116
 #: ../../main/core/src/EBox/SysInfo.pm.in:174
@@ -5413,13 +5409,12 @@ msgid "Time"
 msgstr "Hora"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:137
-#, fuzzy
 msgid "Kick user"
-msgstr "Usuário do Active Directory"
+msgstr "Usuário inicial"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:140
 msgid "Finish user session in Captive Portal"
-msgstr ""
+msgstr "Finalizar a sessão do usuário no Captive Portal"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:157
 msgid "Current users"
@@ -5446,11 +5441,12 @@ msgstr "Lista de usuários conectados"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:178
 msgid "Captive portal must be enabled in order to see current users list."
 msgstr ""
+"O Captive Portal deve estar habilitado para ver a lista de usuários ativos"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:281
 #, perl-brace-format
 msgid "Closing session for user {user}."
-msgstr ""
+msgstr "Fechando a sessão para o usuário {user}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/SecondaryLDAP.pm:54
 msgid "Use secondary LDAP"
@@ -5486,6 +5482,8 @@ msgid ""
 "If you want to limit bandwidth usage install and enable Bandwidth Monitor "
 "module."
 msgstr ""
+"Se você desejar limitar o uso da banda, instale e habilite o módulo "
+"Monitoramento de largura de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:58
 #, perl-brace-format
@@ -5493,6 +5491,8 @@ msgid ""
 "If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}"
 "Module Status{enda} section."
 msgstr ""
+"Se você desejar limitar o uso da banda habilite o Monitoramento de largura "
+"de banda na seção {begina}Estado dos módulos{enda}."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:75
 msgid "Limit bandwidth usage"
@@ -5505,7 +5505,6 @@ msgid "Bandwidth quota"
 msgstr "Quota de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
-#, fuzzy
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
 msgstr "MB/mês. Uso máximo de banda por mês. 0 significa sem limite."
 
@@ -5515,9 +5514,8 @@ msgid "Day"
 msgstr "Dia"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:98
-#, fuzzy
 msgid "Week"
-msgstr "Semanalmente"
+msgstr "Semana"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:43
@@ -5526,22 +5524,21 @@ msgstr "Mês"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:109
 msgid "Period"
-msgstr ""
+msgstr "Período"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:119
-#, fuzzy
 msgid "Bandwidth Settings"
-msgstr "Estrangulamento de Largura de banda"
+msgstr "Configurações de largura de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:123
-#, fuzzy
 msgid "Here you can setup bandwidth usage quota for captive portal users."
-msgstr "Aqui você pode definir configurações gerais para o portal de captura"
+msgstr ""
+"Aqui você pode definir configurações de largura de banda para o captive "
+"portal"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:50
-#, fuzzy
 msgid "Default external bandwidth usage limit"
-msgstr "Limite de uso por mês da banda externa padrão"
+msgstr "Limite padrão de uso pda banda externa"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:54
 #: ../../main/captiveportal/src/templates/useraddon.mas:28
@@ -5582,7 +5579,7 @@ msgstr "Lista de interfaces onde o Portal de Captura está habilitado."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:58
 msgid "Only users in this group will be allowed to login."
-msgstr ""
+msgstr "Somente usuários neste grupo podem conectar"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:62
 msgid "HTTP port"
@@ -5659,7 +5656,7 @@ msgstr "usuário"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:119
 msgid "IP address assigned to this user within the VPN network."
-msgstr ""
+msgstr "Endereço IP associado para este usuário dentro da rede VPN"
 
 #: ../../main/pptp/src/EBox/Model/Users.pm:126
 msgid "PPTP Users"
@@ -5670,6 +5667,8 @@ msgid ""
 "Users allowed to connect using the PPTP VPN. This list is independant of "
 "LDAP users defined on Users and Groups."
 msgstr ""
+"Usuários com permissão para conectar usando a VPN PPTP. A lista é "
+"independentes dos usuários definidos no módulo Usuários e Grupos."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:81
 msgid "VPN Network Address"
@@ -5678,7 +5677,7 @@ msgstr "Endereço de rede da VPN"
 #: ../../main/pptp/src/EBox/Model/Config.pm:84
 msgid ""
 "This address should be different from any other internal or VPN network."
-msgstr ""
+msgstr "Este endereço deve ser diferente de outras redes internas ou VPN."
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:88
 msgid "Primay Nameserver"
@@ -5717,6 +5716,8 @@ msgid ""
 "PPTP VPN is used for connecting Microsoft Windows clients without any third "
 "party client and mobile devices like iPhone and Android."
 msgstr ""
+"A VPN PPTP é usada para conectar máquinas Windows e dispositivos móveis como "
+"iPhone e Android sem a necessidade de softwares de terceiros."
 
 #: ../../main/pptp/src/EBox/Composite/General.pm:64
 msgid "PPTP"
@@ -5735,19 +5736,16 @@ msgid "To configure PPTP users."
 msgstr "Para configurar usuários PPTP."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:153
-#, fuzzy
 msgid "PPTP VPN"
-msgstr "PPTP"
+msgstr "VPN PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:305
-#, fuzzy
 msgid "PPTP Connected Users"
-msgstr "Conectado desde"
+msgstr "Usuários PPTP conectados"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:355
-#, fuzzy
 msgid "Local IP address"
-msgstr "Endereço IP Local"
+msgstr "Endereço IP local"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:367
 #: ../../main/asterisk/src/EBox/Asterisk.pm:600
@@ -5888,6 +5886,8 @@ msgid ""
 "Here you have can choose the backup method, configure the frequency and "
 "other options"
 msgstr ""
+"Aqui você pode escolher o mêtodo de backup, configurar a frequência e outras "
+"opções"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:344
 msgid "on Monday"
@@ -6146,6 +6146,8 @@ msgid ""
 "To restore files just edit the row of the file or directory you want to "
 "restore, select a backup date and click the restore button"
 msgstr ""
+"Para restaurar arquivos edite a linha do arquivo ou diretório que você "
+"deseja, selecione uma data do backup e clique no botão restaurar."
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:207
 msgid "File already exists if you continue the current will be deleted"
@@ -6311,7 +6313,7 @@ msgstr "{data} está vazio."
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Faltando argumento: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
@@ -6485,6 +6487,9 @@ msgid ""
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
 "with other security devices."
 msgstr ""
+"Conexões IPsec permitem a criação de túneis seguros com diferentes subredes. "
+"Este protocolo é independente e compatível com vários fabricantes de "
+"equipamentos de segurança."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:163
@@ -6750,7 +6755,6 @@ msgstr ""
 "Usuário do proxy e senha irão estar visíveis para todos usuários do sistema."
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:143
-#, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
@@ -7166,6 +7170,9 @@ msgid ""
 "own data like their password. Here you can choose the port used to accept "
 "https connections."
 msgstr ""
+"Este módulo habilita um servidor web https para permitir aos usuários "
+"alterar suas senhas. Aqui você pode escolher a porta usada para aceitar "
+"conexões https."
 
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:96
 msgid "listening port"
@@ -7221,14 +7228,12 @@ msgstr "Máquinas Virtuais"
 
 #: ../../main/virt/src/EBox/Virt.pm:92
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
-#, fuzzy
 msgid "VNC connections for VMs"
-msgstr "Erro de conexão"
+msgstr "Conexões VNC para VMs"
 
 #: ../../main/virt/src/EBox/Virt.pm:523
-#, fuzzy
 msgid "Disk images of the virtual machines"
-msgstr "Lista de Máquinas Virtuais"
+msgstr "Imagens de disco de máquinas virtuais"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:68
 #: ../../main/network/src/templates/ifaces.mas:80
@@ -7319,19 +7324,21 @@ msgid "List of configured Virtual Machines."
 msgstr "Lista de Máquinas Virtuais configuradas."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
 "Status{closeref} section and enable it prior to try to start any machine."
 msgstr ""
-"O módulo Máquinas Virtuais não está habilitado, vá em {openref}Status dos "
-"Módulos{closeref} e habilite o mesmo."
+"O módulo Máquinas Virtuais não está habilitado, vá em {openref}Estado dos "
+"Módulos{closeref} e habilite o mesmo antes de tentar iniciar alguma máquina."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
+"Máquinas virtuais não podem ser iniciadas se existem alterações não salvas "
+"no módulo Máquinas Virtuais, salve as alterações e tente novamente."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
 #, perl-brace-format
@@ -7345,7 +7352,7 @@ msgstr "Não foi possível parar a máquina virtual '{vm}'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
 msgid "Cannot pause a stopped machine. You have to start it first."
-msgstr ""
+msgstr "Não é possível pausar uma máquina parada. Você deve iniciá-la primeiro."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:73
 msgid "Hard Disk"
@@ -7385,33 +7392,33 @@ msgstr "Aqui você pode definir os drives de armazenamento da máquina virtual"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
 msgid "You need to provide the path of a ISO image"
-msgstr ""
+msgstr "Voce deve fornecer o caminho da imagem ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "ISO image '{img}' does not exist"
-msgstr "O cliente {c} não existe"
+msgstr "Imagem ISO i '{img}' inexistente"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
 msgid "You need to provide the path of a hard disk image"
-msgstr ""
+msgstr "Você deve fornecer o caminho da imagem do disco"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Hard disk image '{img}' does not exist"
-msgstr "Domínio de correio {d} não existe"
+msgstr "Imagem do disco '{img}' inexistente"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:185
-#, fuzzy
 msgid "You need to specify a name for the new hard disk"
-msgstr ""
-"Você precisa especificar o caminho para a imagem de boot no servidor remoto"
+msgstr "Você precisa especificar um nome para o novo disco"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:191
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
 msgstr ""
+"Você não pode modificar um disco já criado. Você precisa apagá-lo e "
+"adicionar um novo para alterar o tamanho."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:207
 #, perl-brace-format
@@ -8587,16 +8594,15 @@ msgstr "compartilhamento"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:186
 #, perl-brace-format
 msgid "Path not allowed. It cannot be under {dir}"
-msgstr ""
+msgstr "Caminho não permitido. Isto não pdoe estar abaixo de {dir}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:193
 msgid "Samba share absolute path"
-msgstr ""
+msgstr "Caminho absoluto do compartilhamento samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:199
-#, fuzzy
 msgid "Samba share directory"
-msgstr "diretório compartilhado {group}"
+msgstr "Diretório do compartilhamento samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:208
 msgid "Only ASCII characters are valid for a share name"
@@ -10526,35 +10532,34 @@ msgid "NTP configuration file"
 msgstr "Arquivo de configuração NTP"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:56
-#, fuzzy
 msgid "NTP Servers"
 msgstr "Servidores NTP"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:61
 msgid "Here you can add external NTP servers to synchronize with."
 msgstr ""
+"Aqui você pode adicionar servidores NTP externos com os quais deseja "
+"sincronizar."
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:47
-#, fuzzy
 msgid "Enable synchronization with external servers"
-msgstr "Sincronização de horário com os Servidores NTP"
+msgstr "Permitir sincronização com servidores externos"
 
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:60
-#, fuzzy
 msgid ""
 "Here you can enable or disable time synchronization with external servers. "
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
-"Você deve se lembrar de configurar o seu fuso horário para que a "
-"sincronização funcione corretamente"
+"Aqui você pode habilitar ou desabilitar a sincronização de hora. Lembre de "
+"configurar o seu fuso horário para que a sincronização funcione "
+"corretamente."
 
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:63
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:64
 #: ../../main/core/src/templates/datetime.mas:26
-#, fuzzy
 msgid "NTP"
-msgstr "FTP"
+msgstr "NTP"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -11422,6 +11427,8 @@ msgid ""
 "This log is forced by its module. You can only disable it by disabling "
 "{module} module"
 msgstr ""
+"Este log é forçado para este módulo. Você só pode desabilitá-lo se "
+"desabilitar o módulo {module}"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:256
 msgid "never purge"
@@ -11458,12 +11465,12 @@ msgid "Configure Logs"
 msgstr "Configurar Logs"
 
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:71
-#, fuzzy
 msgid ""
 "Logs module allows you to register and query information about the Zentyal "
 "services"
 msgstr ""
-"Módulo logs permite a você registrar e pesquisar sobre os serviços Zentyal"
+"O módulo logs permite a você registrar e pesquisar informações sobre os "
+"serviços Zentyal"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:107
 #, perl-brace-format
@@ -11474,7 +11481,7 @@ msgstr ""
 "tente novamente"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:122
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "No schema file found in this backup. Try another date or force restore "
 "without schema changing the relevant key in {cf}. Schemas change "
@@ -11482,7 +11489,7 @@ msgid ""
 msgstr ""
 "Esquema não encontrado neste backup. Tente outra data ou force a restauração "
 "sem esquema alterando a chave em {cf}. Alterações de esquema não são "
-"frequentes e pode ser seguro usar um mais antigo."
+"frequentes e é seguro usar um mais antigo."
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:148
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:156
@@ -11545,33 +11552,31 @@ msgid "available"
 msgstr "disponível"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:134
-#, fuzzy
 msgid "No updates"
-msgstr "atualizar"
+msgstr "Sem atualizações"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:145
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} security updates"
-msgstr "Atualizações de segurança"
+msgstr "{n} atualizações de segurança"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:148
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} system updates"
-msgstr "Atualizações do sistema"
+msgstr "{n} atualizações do sistema"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} component updates"
-msgstr "Atualizações de segurança"
+msgstr "{n} atualizações de componentes"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:176
 msgid "Core version"
 msgstr "Versão do núcleo"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:177
-#, fuzzy
 msgid "Software"
-msgstr "Programa HTTP"
+msgstr "Programa"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:180
 msgid "Uptime"
@@ -12010,6 +12015,8 @@ msgid ""
 "There are {nSecUpdates} security updates. The affected packages are: "
 "{packages}."
 msgstr ""
+"Existem {nSecUpdates} atualizações de segurança. Os pacotes afetados são: "
+"{packages}."
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:194
 #, perl-brace-format
@@ -12017,15 +12024,16 @@ msgid ""
 "Additionally, there are {nUpdates} more. The upgradable packages are: "
 "{packages}."
 msgstr ""
+"Adicionalmente, existem mais {nUpdates}. Os pacotes atualizáveis são: "
+"{packages}."
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:231
-#, fuzzy
 msgid "Security software updates"
-msgstr "Atualizações com software QA (qualidade assegurada)"
+msgstr "Atualizações de software de segurança"
 
 #: ../../main/core/src/EBox/Event/Watcher/Updates.pm:246
 msgid "Check if there is any security software update."
-msgstr ""
+msgstr "Checar se existem atualizações de software de segurança"
 
 #: ../../main/core/src/EBox/Event/Watcher/Log.pm:194
 msgid "Log observer"
@@ -12279,9 +12287,9 @@ msgid "row"
 msgstr "linha"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:96
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {rowName} \"{r}\" has been deleted"
-msgstr "Uma nova {rowName} \"{r}\" foi adicionada"
+msgstr "A {rowName} \"{r}\" foi apagada"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:99
 #, perl-brace-format
@@ -12294,9 +12302,9 @@ msgid "The action \"{a}\" has been executed"
 msgstr "A ação \"{a}\" foi executada"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:113
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A new {rowName} \"{r}\" has been added with \"{f}\" set to \"{x}\""
-msgstr "Uma nova {rowName} \"{r}\" foi adicionada"
+msgstr "A nova {rowName} \"{r}\" foi adicionada com \"{f}\" configurado para \"{x}\""
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:116
 #, perl-brace-format
@@ -12380,9 +12388,8 @@ msgstr ""
 "podem ser encontradas nos logs."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:591
-#, fuzzy
 msgid "Sorry, you have just hit a bug in Zentyal."
-msgstr "Você encontrou um BUG no Zentyal. Por favor procure o suporte técnico."
+msgstr "Sinto muito, você encontrou um bug no Zentyal. "
 
 #: ../../main/core/src/EBox/CGI/Base.pm:594
 #, perl-brace-format
@@ -12390,6 +12397,8 @@ msgid ""
 "Please look for the details in the {f} file and take a minute to {oh}submit "
 "a bug report{ch} so we can fix the issue as soon as possible."
 msgstr ""
+"Cheque por detalhes no arquivo {f} e leve um minuto para {oh}submeter um "
+"relato de bug{ch} para que possamos corrigí-lo logo que for possível."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:680
 msgid ""
@@ -13950,9 +13959,8 @@ msgid "Virtual host name"
 msgstr "Nome do virtual host"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
-#, fuzzy
 msgid "You need to enable Listening SSL port."
-msgstr "Para definir a porta em que o servidor web irá rodar."
+msgstr "Você precisa permitir a escuta da porta SSL."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
 #, perl-brace-format
@@ -13960,6 +13968,8 @@ msgid ""
 "You need to enable Web Server on {ohref}Services Certificates{chref} to "
 "enable SSL on a virtal host."
 msgstr ""
+"Você precisa habilitar o servidor web em {ohref}Certificados de "
+"Serviços{chref} para permitir SSL em um host virtual."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:181
 #, perl-brace-format
@@ -14020,13 +14030,13 @@ msgstr ""
 "adicionar precisa ser colocada no diretório {userConf}."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:343
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
 "any effect until you enable it."
 msgstr ""
-"{open} O módulo DNS está desabilitado. Os domínios ou mapeamentos "
-"adicionados não terão efeito até que você habilite o módulo DNS."
+"{open}O módulo DNS está desabilitado. Os domínios ou mapeamentos adicionados "
+"não terão efeito até que você habilite o módulo DNS."
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:72
 #: ../../main/webserver/src/EBox/WebServer.pm:72
@@ -14034,13 +14044,12 @@ msgid "Web Server"
 msgstr "Servidor Web"
 
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:74
-#, fuzzy
 msgid ""
 "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
 "different virtual hosts."
 msgstr ""
-"O serviço web do Zentyal permite que você hospede páginas HTML dentro de "
-"diferentes virtual hosts."
+"O servidor web do Zentyal permite que você hospede páginas HTTP e HTTPS "
+"dentro de diferentes hosts virtuais."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:90
 msgid "To set webserver listening port."
@@ -15027,9 +15036,9 @@ msgid "Select backup domains to restore"
 msgstr "Selecione domínios de backup para restaurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:325
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
-msgstr "Salas de encontro disponíveis no servidor."
+msgstr "Backup de domínios disponíveis no servidor {cn}: {l}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:343
 msgid "No backup domain selected to restore. Doing nothing"
@@ -15072,19 +15081,18 @@ msgstr ""
 "domínios. Razão: {reason}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:584
-#, fuzzy
 msgid "Restoring all backed-up files"
-msgstr "Restaurando backup"
+msgstr "Restaurando todos arquivos backupeados"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could no restore {dst}, it already exists and it is not a directory"
-msgstr "Existe um arquivo e não um diretório"
+msgstr "Não foi possível restaurar {dst}, iisto já existe e não é um diretório"
 
 #: ../../main/ebackup/src/scripts/restore-tool:656
 #, perl-brace-format
 msgid "Error restoring file or directory {dst}"
-msgstr ""
+msgstr "Erro restaurando o arquivo ou diretório {dst}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:671
 msgid "Backup log data not found, log database will not be restored"
@@ -15097,9 +15105,8 @@ msgid "Restoring log database"
 msgstr "Restaurando o banco de dados de log"
 
 #: ../../main/ebackup/src/scripts/restore-tool:696
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr "Último backup de configuração"
+msgstr "Restaurando backup da configuração"
 
 #: ../../main/ebackup/src/scripts/restore-tool:701
 msgid ""
@@ -15168,15 +15175,14 @@ msgstr ""
 "Zentyal Cloud não serão instalados"
 
 #: ../../main/ebackup/src/scripts/restore-tool:949
-#, fuzzy
 msgid ""
 "Cannot retrieve bundle because either installed zentyal-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
 "exclusive packages will not be installed"
 msgstr ""
-"Não foi possível recuperar pacote porque o ebox-remoteservices está "
+"Não foi possível recuperar pacote porque o zentyal-remoteservices está "
 "desatualizado ou porque somente pacotes desatualizados estão disponíveis na "
-"nuvem. Pacotes exclusivos Zentyal Cloud  não serão instalados"
+"nuvém. Pacotes exclusivos Zentyal Cloud  não serão instalados"
 
 #: ../../main/ebackup/src/scripts/restore-tool:954
 msgid ""
@@ -15231,9 +15237,9 @@ msgstr "Recuperando o status do backup ..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1224
 #: ../../main/ebackup/src/scripts/restore-tool:1285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Last backup date was: {date}"
-msgstr "- Última atualização: {date}"
+msgstr "Última data de backup foi: {date}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1250
 #, perl-brace-format
@@ -15246,7 +15252,7 @@ msgid "Choose date to restore the backup from server {cn}"
 msgstr "Escolha a data para restaurar o backup do servidor {cn}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1325
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
 msgstr "Não existe backup de configuração automático para o servidor {s}"
 
@@ -15290,9 +15296,8 @@ msgstr ""
 "novamente"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1652
-#, fuzzy
 msgid "Selection"
-msgstr "Seção"
+msgstr "Seleção"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1691
 msgid ""
@@ -15315,9 +15320,8 @@ msgid "Restoring process aborted upon user request"
 msgstr "Processo de restauração abortado a pedido do usuário"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1914
-#, fuzzy
 msgid "Saving configuration changes"
-msgstr "Alterações de configuração"
+msgstr "Salvando alterações de configuração"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1931
 msgid ""
@@ -15336,6 +15340,8 @@ msgid ""
 "Cannot connect to the Cloud to regenerate backup list. Please try again "
 "later."
 msgstr ""
+"Impossível conectar para a nuvém para regerar a lista backup. Tente "
+"novamente depois."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2016
 msgid "Zentyal Cloud User"
@@ -15386,6 +15392,8 @@ msgid ""
 "Sorry, an unexpected error has occurred. Please contact support and check "
 "the /var/log/zentyal/zentyal.log file for further details."
 msgstr ""
+"Sinto muito, um erro inesperado ocorreu. Por favor contacte o suporte e "
+"verifique o /var/log/zentyal/zentyal.log para mais detalhes."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2257
 msgid "Restore process aborted"
@@ -15559,9 +15567,8 @@ msgstr "Instalar"
 #: ../../main/software/src/templates/ebox.mas:697
 #: ../../main/software/src/templates/ebox.mas:722
 #: ../../main/software/src/templates/ebox.mas:725
-#, fuzzy
 msgid "Installed Version"
-msgstr "Instalação"
+msgstr "Versão Instalada"
 
 #: ../../main/software/src/templates/ebox.mas:218
 #: ../../main/software/src/templates/updates.mas:21
@@ -15643,9 +15650,8 @@ msgstr "Selecionar Todos"
 #: ../../main/software/src/templates/ebox.mas:700
 #: ../../main/software/src/templates/ebox.mas:716
 #: ../../main/software/src/templates/ebox.mas:726
-#, fuzzy
 msgid "Latest Version"
-msgstr "Versão"
+msgstr "Última Versão"
 
 #: ../../main/software/src/templates/ebox.mas:703
 #: ../../main/software/src/templates/ebox.mas:705
@@ -15655,19 +15661,16 @@ msgstr "Versão"
 #: ../../main/software/src/templates/ebox.mas:748
 #: ../../main/software/src/templates/ebox.mas:750
 #: ../../main/software/src/templates/ebox.mas:752
-#, fuzzy
 msgid "Select"
-msgstr "Selecionar Todos"
+msgstr "Selecionar"
 
 #: ../../main/software/src/templates/ebox.mas:735
-#, fuzzy
 msgid "Loading"
-msgstr "encaminhamento"
+msgstr "Carregando"
 
 #: ../../main/software/src/templates/ebox.mas:736
-#, fuzzy
 msgid "No packages found"
-msgstr "Não encontrado"
+msgstr "Nenhum pacote encontrado"
 
 #: ../../main/software/src/templates/ebox.mas:739
 #: ../../main/core/src/templates/ajax/tableBody.mas:211
@@ -15683,9 +15686,8 @@ msgid "of"
 msgstr "de"
 
 #: ../../main/software/src/templates/ebox.mas:742
-#, fuzzy
 msgid "pages"
-msgstr "página"
+msgstr "páginas"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -16017,9 +16019,8 @@ msgid "Network interfaces"
 msgstr "Interfaces de rede"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Configure interface types"
-msgstr "Interfaces Monitoradas"
+msgstr "Configurar tipos de interface"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:11
 msgid ""
@@ -16028,6 +16029,10 @@ msgid ""
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
 msgstr ""
+"Interfaces externas se conectam com redes que não estão sob o seu controle "
+"(tipicamente a internet), tráfego vindo de interfaces extenas não é "
+"confiável por padrão, você não deve permitir acesso à console de "
+"administração por ele."
 
 #: ../../main/network/src/templates/Wizard/network.mas:34
 msgid "Configure network for external interfaces"
@@ -16481,7 +16486,7 @@ msgstr " de "
 
 #: ../../main/core/src/templates/progress.mas:169
 msgid "The process produced some warning messages:"
-msgstr ""
+msgstr "O processo produziu algumas mensagens de aviso"
 
 #: ../../main/core/src/templates/configureView.mas:12
 msgid ""
@@ -16625,9 +16630,8 @@ msgid "Add new..."
 msgstr "Adicionar novo..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:126
-#, fuzzy
 msgid "No elements found. "
-msgstr "Não encontrado"
+msgstr "Nenhum elemento encontrado "
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:127
 msgid "Add a new one"
@@ -16657,15 +16661,16 @@ msgid "Configure module: {module}"
 msgstr "Configurar módulo: {module}"
 
 #: ../../main/core/src/templates/datetime.mas:11
-#, fuzzy
 msgid "Date and Time"
-msgstr "Mudar Data e Hora"
+msgstr "Data e Hora"
 
 #: ../../main/core/src/templates/datetime.mas:15
 msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
 msgstr ""
+"Como a sincronização com servidores externos está habilitada, você não pode "
+"alterar a data ou hora."
 
 #: ../../main/core/src/templates/datetime.mas:19
 msgid ""
@@ -16674,9 +16679,8 @@ msgstr ""
 "Uma mudança na data ou hora fará com que o Zentyal reinicie todos os serviços"
 
 #: ../../main/core/src/templates/datetime.mas:27
-#, fuzzy
 msgid "Synchronization enabled"
-msgstr "Backup da Configuração habilitado"
+msgstr "Sincronização habilitada"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
@@ -17136,17 +17140,15 @@ msgstr ""
 "servidor Zentyal."
 
 #: ../../main/core/src/templates/wizard.mas:156
-#, fuzzy
 msgid "Installation finished"
-msgstr "Instalação"
+msgstr "Instalação finalizada"
 
 #: ../../main/core/src/templates/wizard.mas:157
-#, fuzzy
 msgid ""
 "Now you are ready to save changes and start using your new installed modules"
 msgstr ""
-"Agora você está pronto para salvar suas alterações e iniciar o uso do seu "
-"servidor Zentyal."
+"Agora você está pronto para salvar suas alterações e iniciar o uso dos novos "
+"módulos instalados"
 
 #: ../../main/core/src/templates/wizard.mas:181
 #: ../../main/core/src/templates/wizard.mas:191
@@ -17171,6 +17173,8 @@ msgid ""
 "You need to save changes in order to apply all the language changes and "
 "probably also reload the page on your browser."
 msgstr ""
+"Você precisa salvar as alterações para aplicar todas as alterações de idioma "
+"e também recarregar a página no seu navegador."
 
 #: ../../main/core/src/templates/password.mas:4
 msgid "Change Password"

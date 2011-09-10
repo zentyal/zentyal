@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 15:36+0200\n"
-"PO-Revision-Date: 2011-08-23 03:09+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2011-09-04 11:51+0200\n"
+"Last-Translator: miquel <miquel@acsat.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -2261,7 +2261,7 @@ msgstr "Dirección del servidor"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr "Debes suministrar al menos una dirección para el servidor {name}"
+msgstr "Debe suministrar al menos una dirección para el servidor {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:102
 msgid "Can't get address for this server: no external interfaces present"
@@ -6348,7 +6348,7 @@ msgstr "Dato vacío: {data}"
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Falta argumento: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
@@ -11656,9 +11656,9 @@ msgid "{n} system updates"
 msgstr "{n} actualizaciones del sistema"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} component updates"
-msgstr "{n} actualizaciones de seguridad"
+msgstr "{n} actualizaciones de componentes"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:176
 msgid "Core version"
@@ -15127,9 +15127,9 @@ msgid "Select backup domains to restore"
 msgstr "Selecciona los dominios de backup a restaurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:325
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
-msgstr "Salas de meeting disponibles en el servidor."
+msgstr "Dominios de backup disponibles en el servidor {cn}: {l} "
 
 #: ../../main/ebackup/src/scripts/restore-tool:343
 msgid "No backup domain selected to restore. Doing nothing"
@@ -15172,19 +15172,18 @@ msgstr ""
 "backup. Razón: {reason}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:584
-#, fuzzy
 msgid "Restoring all backed-up files"
-msgstr "Restaurando el backup"
+msgstr "Restaurando todos los ficheros guardados"
 
 #: ../../main/ebackup/src/scripts/restore-tool:632
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could no restore {dst}, it already exists and it is not a directory"
-msgstr "El fichero existe y no es un directorio"
+msgstr "No se puede restaurar {dst}, ya existe y no es un directorio"
 
 #: ../../main/ebackup/src/scripts/restore-tool:656
 #, perl-brace-format
 msgid "Error restoring file or directory {dst}"
-msgstr ""
+msgstr "Error al restaurar el archivo o directorio {dst}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:671
 msgid "Backup log data not found, log database will not be restored"
@@ -15197,9 +15196,8 @@ msgid "Restoring log database"
 msgstr "Restaurando la base de datos de logs"
 
 #: ../../main/ebackup/src/scripts/restore-tool:696
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr "Backup de la última configuración"
+msgstr "Restaurando el backup de la configuración"
 
 #: ../../main/ebackup/src/scripts/restore-tool:701
 msgid ""
@@ -15268,14 +15266,13 @@ msgstr ""
 "paquetes exclusivos de Zentyal Cloud no se instalarán."
 
 #: ../../main/ebackup/src/scripts/restore-tool:949
-#, fuzzy
 msgid ""
 "Cannot retrieve bundle because either installed zentyal-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
 "exclusive packages will not be installed"
 msgstr ""
-"No se puede obtener el bundle porque o bien ebox-remoteservices está "
-"desactualizado o sólo un bundle desactualizado está disponible en la nubeLos "
+"No se puede obtener el bundle porque o bien zentyal-remoteservices no está "
+"actualizado o sólo hay disponible un bundle no actualizado en la nube. Los "
 "paquetes exclusivos de Zentyal Cloud no se instalarán. "
 
 #: ../../main/ebackup/src/scripts/restore-tool:954
@@ -15331,9 +15328,9 @@ msgstr "Obteniendo el estado del backup..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1224
 #: ../../main/ebackup/src/scripts/restore-tool:1285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Last backup date was: {date}"
-msgstr "- La última actualización: {date}"
+msgstr "La última copia de seguridad se realizó: {date}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1250
 #, perl-brace-format
@@ -15389,9 +15386,8 @@ msgstr ""
 "Reintentar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1652
-#, fuzzy
 msgid "Selection"
-msgstr "Sección"
+msgstr "Selección"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1691
 msgid ""
@@ -15414,9 +15410,8 @@ msgid "Restoring process aborted upon user request"
 msgstr "Proceso de restauración abortado por petición del usuario"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1914
-#, fuzzy
 msgid "Saving configuration changes"
-msgstr "Cambios en la configuración"
+msgstr "Guardando cambios en la configuración"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1931
 msgid ""
@@ -15435,6 +15430,8 @@ msgid ""
 "Cannot connect to the Cloud to regenerate backup list. Please try again "
 "later."
 msgstr ""
+"No se puede conectar al Cloud para regenerar la lista de copias de "
+"seguridad. Por favor, intenténtelo más tarde."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2016
 msgid "Zentyal Cloud User"
@@ -15485,6 +15482,8 @@ msgid ""
 "Sorry, an unexpected error has occurred. Please contact support and check "
 "the /var/log/zentyal/zentyal.log file for further details."
 msgstr ""
+"Lo sentimos, ha ocurrido un error inesperado. Por favor, contacte al soporte "
+"y consulte el fichero /var/log/zentyal/zentyal.log para más detalles."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2257
 msgid "Restore process aborted"
@@ -15660,9 +15659,8 @@ msgstr "Instalar"
 #: ../../main/software/src/templates/ebox.mas:697
 #: ../../main/software/src/templates/ebox.mas:722
 #: ../../main/software/src/templates/ebox.mas:725
-#, fuzzy
 msgid "Installed Version"
-msgstr "Instalación"
+msgstr "Versión instalada"
 
 #: ../../main/software/src/templates/ebox.mas:218
 #: ../../main/software/src/templates/updates.mas:21
@@ -15745,9 +15743,8 @@ msgstr "Seleccionar todo"
 #: ../../main/software/src/templates/ebox.mas:700
 #: ../../main/software/src/templates/ebox.mas:716
 #: ../../main/software/src/templates/ebox.mas:726
-#, fuzzy
 msgid "Latest Version"
-msgstr "Versión"
+msgstr "Versión más reciente"
 
 #: ../../main/software/src/templates/ebox.mas:703
 #: ../../main/software/src/templates/ebox.mas:705
@@ -15757,19 +15754,16 @@ msgstr "Versión"
 #: ../../main/software/src/templates/ebox.mas:748
 #: ../../main/software/src/templates/ebox.mas:750
 #: ../../main/software/src/templates/ebox.mas:752
-#, fuzzy
 msgid "Select"
-msgstr "Seleccionar todo"
+msgstr "Seleccionar"
 
 #: ../../main/software/src/templates/ebox.mas:735
-#, fuzzy
 msgid "Loading"
-msgstr "redirección"
+msgstr "Cargando"
 
 #: ../../main/software/src/templates/ebox.mas:736
-#, fuzzy
 msgid "No packages found"
-msgstr "No encontrado"
+msgstr "No se han encontrado paquetes"
 
 #: ../../main/software/src/templates/ebox.mas:739
 #: ../../main/core/src/templates/ajax/tableBody.mas:211
@@ -15785,9 +15779,8 @@ msgid "of"
 msgstr "de"
 
 #: ../../main/software/src/templates/ebox.mas:742
-#, fuzzy
 msgid "pages"
-msgstr "página"
+msgstr "páginas"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -16123,9 +16116,8 @@ msgid "Network interfaces"
 msgstr "Interfaces de Red"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Configure interface types"
-msgstr "Configurar interfaces"
+msgstr "Configurar tipos de interfaces"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:11
 msgid ""
@@ -16134,6 +16126,10 @@ msgid ""
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
 msgstr ""
+"Las interfaces externas conectan con redes que no están bajo tu control "
+"(generalmente Internet), el tráfico proveniente de estas redes se considera "
+"no fiable por defecto, por lo que no será posible acceder a la interfaz de "
+"administración de Zentyal a través de ellas."
 
 #: ../../main/network/src/templates/Wizard/network.mas:34
 msgid "Configure network for external interfaces"

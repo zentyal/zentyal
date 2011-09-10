@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-08-30 15:36+0200\n"
-"PO-Revision-Date: 2011-04-06 14:31+0200\n"
+"PO-Revision-Date: 2011-09-09 12:23+0200\n"
 "Last-Translator: Cirion <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nb\n"
@@ -170,11 +170,13 @@ msgstr "Tilgangs forespørsler"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
-#, perl-brace-format
+#, perl-brace-format, fuzzy
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
+"Objektet {object} har ingen medlemmer. Vennligst legg til minst et for å "
+"legge til regler med dette objektet."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -209,7 +211,7 @@ msgstr "Rate"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
@@ -217,16 +219,18 @@ msgid ""
 "Maximum download bandwidth rate for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Maksimum nedlastings båndbredde rate for dette netverket. Bruk -1 for å "
+"deaktivere dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 msgid "Maximum Size"
-msgstr ""
+msgstr "Maksimum Størrelse"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
@@ -234,24 +238,30 @@ msgid ""
 "Maximum unthrottled download size for this network. Use -1 to disable this "
 "option."
 msgstr ""
+"Maksimum nedlastings størrelse for dette netverket. Bruk -1 for å deaktivere "
+"dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
 msgid "Client Rate"
-msgstr ""
+msgstr "Klient Rate"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 msgid ""
 "Maximum download bandwidth rate per client. Use -1 to disable this option."
 msgstr ""
+"Maksimum nedlastings båndbredde rate per klient. Bruk -1 for å deaktivere "
+"dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
 msgid "Client Maximum Size"
-msgstr ""
+msgstr "Klient Maksimum Størrelse"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 msgid ""
 "Maximum unthrottled download size per client. Use -1 to disable this option."
 msgstr ""
+"Maksimum ubegrenset nedlastings størrelse per klient. Bruk -1 for å "
+"deaktivere dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Delay Pools Class 2"
@@ -384,13 +394,8 @@ msgstr "Generelle Instillinger"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
-#, fuzzy
 msgid "Settings changed"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-network 0.12.99)  #-#-#-#-#\n"
-"Innstillinger endret\n"
-"#-#-#-#-#  nb.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"Instillinger endret"
+msgstr "Instillinger endret"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:150
@@ -508,13 +513,8 @@ msgstr "Konfigurer tillatte fil etternavn"
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:73
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:82
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:89
-#, fuzzy
 msgid "extension"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"etternavn\n"
-"#-#-#-#-#  nb.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"nummer"
+msgstr "innvalgsnummer"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:74
@@ -717,11 +717,11 @@ msgstr "Global gruppe instruks trenger en global instruks med autentisering"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
 msgid "Network Rate"
-msgstr ""
+msgstr "Nettverks Rate"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
 msgid "Network Maximum Size"
-msgstr ""
+msgstr "Nettverks Maksimum Størrelse"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Delay Pools Class 1"
@@ -922,7 +922,7 @@ msgstr "Maksimum antall filter grupper nådd"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Ingen mellomrom er tillatt i profil navn"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
@@ -996,7 +996,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
-msgstr ""
+msgstr "Du kan kun bruke en egendefinert profil med 'Filter' politikken"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
@@ -1012,13 +1012,8 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:153
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:164
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:75
-#, fuzzy
 msgid "MIME Type"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
-"MIME Type\n"
-"#-#-#-#-#  nb.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"MIME Typer"
+msgstr "MIME Type"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:147
 msgid "A MIME Type must follow this syntax: type/subtype"
@@ -1084,13 +1079,8 @@ msgstr "Fil etternavn"
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:700
 #: ../../main/asterisk/src/templates/group.mas:40
 #: ../../main/asterisk/src/templates/user.mas:37
-#, fuzzy
 msgid "Extension"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"Etternavn\n"
-"#-#-#-#-#  nb.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Nummer"
+msgstr "Innvalgsnummer"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
@@ -1120,7 +1110,7 @@ msgstr "Filter innstillinger"
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1137
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Båndbredde Fordeling"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
 msgid ""
