@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-08-30 15:36+0200\n"
+"POT-Creation-Date: 2011-09-10 04:22+0200\n"
 "PO-Revision-Date: 2008-01-08 15:49+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -46,14 +46,14 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
-#: ../../main/squid/src/EBox/Squid.pm:1176
+#: ../../main/squid/src/EBox/Squid.pm:1182
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:427
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
 #: ../../main/pptp/src/EBox/Model/Users.pm:104
 #: ../../main/pptp/src/EBox/PPTP.pm:355
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:195
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
-#: ../../main/printers/src/EBox/Printers.pm:298
+#: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:206
 #: ../../main/samba/src/EBox/Samba.pm:752
 #: ../../main/samba/src/EBox/Samba.pm:1505
@@ -106,14 +106,14 @@ msgid "Filtered traffic size (Kb))"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
-#: ../../main/squid/src/EBox/Squid.pm:1174
+#: ../../main/squid/src/EBox/Squid.pm:1180
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1643
 #: ../../main/firewall/src/EBox/Firewall.pm:1008
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
-#: ../../main/printers/src/EBox/Printers.pm:299
+#: ../../main/printers/src/EBox/Printers.pm:367
 #: ../../main/samba/src/EBox/Samba.pm:1503
 #: ../../main/samba/src/EBox/Samba.pm:1523
 #: ../../main/samba/src/EBox/Samba.pm:1533
@@ -123,16 +123,16 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:646
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:93
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:68
-#: ../../main/core/src/EBox/Logs.pm:718 ../../main/mail/src/EBox/Mail.pm:1612
+#: ../../main/core/src/EBox/Logs.pm:736 ../../main/mail/src/EBox/Mail.pm:1612
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:62
 #: ../../main/ids/src/EBox/Model/Report/AlertDetails.pm:52
 #: ../../main/ids/src/EBox/IDS.pm:298 ../../main/radius/src/EBox/Radius.pm:390
 #: ../../main/asterisk/src/EBox/Asterisk.pm:761
-#: ../../main/ebackup/src/scripts/restore-tool:1304
+#: ../../main/ebackup/src/scripts/restore-tool:1541
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:119
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:32
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:39
-#: ../../main/ca/src/templates/index.mas:102
+#: ../../main/ca/src/templates/index.mas:106
 #: ../../main/core/src/templates/finish.mas:118
 #: ../../main/core/src/templates/confirm-backup.mas:28
 #: ../../main/core/src/templates/datetime.mas:31
@@ -463,7 +463,7 @@ msgstr "常に許可"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:96
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:80
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:50
-#: ../../main/squid/src/EBox/Squid.pm:1097
+#: ../../main/squid/src/EBox/Squid.pm:1103
 msgid "Filter"
 msgstr "フィルタ"
 
@@ -570,7 +570,7 @@ msgstr ""
 "フィルタされました"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
-#: ../../main/squid/stubs/template.html.mas:39
+#: ../../main/squid/stubs/template.html.mas:40
 msgid "Categories"
 msgstr ""
 
@@ -614,7 +614,7 @@ msgstr "グループ"
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:84
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
-#: ../../main/squid/src/EBox/Squid.pm:1093
+#: ../../main/squid/src/EBox/Squid.pm:1099
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:85
 #: ../../main/samba/src/templates/samba.mas:105
@@ -622,7 +622,7 @@ msgid "Allow"
 msgstr "許可"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:88
-#: ../../main/squid/src/EBox/Squid.pm:1095
+#: ../../main/squid/src/EBox/Squid.pm:1101
 msgid "Deny"
 msgstr "拒否"
 
@@ -867,7 +867,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:96
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:93
-#: ../../main/squid/src/EBox/Squid.pm:1146
+#: ../../main/squid/src/EBox/Squid.pm:1152
 #, fuzzy
 msgid "Filter Profiles"
 msgstr "フィルタされました"
@@ -921,10 +921,10 @@ msgstr "フィルタ"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:84
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:60
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
-#: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:220
-#: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:221
+#: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:262
+#: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:263
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:108
-#: ../../main/network/src/EBox/Model/DynDNS.pm:226
+#: ../../main/network/src/EBox/Model/DynDNS.pm:227
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:303
@@ -1125,8 +1125,8 @@ msgstr "MIMEタイプフィルタ"
 
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:75
 #: ../../main/squid/src/EBox/Squid.pm:77
-#: ../../main/squid/src/EBox/Squid.pm:1113
-#: ../../main/squid/src/EBox/Squid.pm:1189
+#: ../../main/squid/src/EBox/Squid.pm:1119
+#: ../../main/squid/src/EBox/Squid.pm:1195
 msgid "HTTP Proxy"
 msgstr "HTTPプロキシ"
 
@@ -1135,7 +1135,7 @@ msgid "Filter settings"
 msgstr "フィルタ設定"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
-#: ../../main/squid/src/EBox/Squid.pm:1137
+#: ../../main/squid/src/EBox/Squid.pm:1143
 msgid "Bandwidth Throttling"
 msgstr ""
 
@@ -1288,7 +1288,7 @@ msgid "The time period must be at least active on one day"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
-#: ../../main/squid/src/EBox/Squid.pm:1088
+#: ../../main/squid/src/EBox/Squid.pm:1094
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:782
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:451
 #: ../../main/ftp/src/EBox/Model/Options.pm:100
@@ -1455,18 +1455,30 @@ msgid ""
 "customized templates."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid.pm:330
+#: ../../main/squid/src/EBox/Squid.pm:307
+#, fuzzy
+msgid "Remove dansguardian init script link"
+msgstr "NTP起動スクリプトのリンクを削除"
+
+#: ../../main/squid/src/EBox/Squid.pm:308
+#: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
+#: ../../main/webserver/src/EBox/WebServer.pm:141
+#, fuzzy
+msgid "Zentyal will take care of starting and stopping the services."
+msgstr "eBoxがサービスの開始と停止をします"
+
+#: ../../main/squid/src/EBox/Squid.pm:336
 #, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "eBox設定ファイルの cache_mem 変数を設定する必要があります"
 
-#: ../../main/squid/src/EBox/Squid.pm:339
+#: ../../main/squid/src/EBox/Squid.pm:345
 #, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "eBox設定ファイルの cache_mem 変数を設定する必要があります"
 
-#: ../../main/squid/src/EBox/Squid.pm:1086
+#: ../../main/squid/src/EBox/Squid.pm:1092
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:782
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:451
@@ -1499,24 +1511,24 @@ msgstr "eBox設定ファイルの cache_mem 変数を設定する必要があり
 msgid "Enabled"
 msgstr "有効"
 
-#: ../../main/squid/src/EBox/Squid.pm:1090
+#: ../../main/squid/src/EBox/Squid.pm:1096
 msgid "Transparent proxy"
 msgstr "透過プロキシ"
 
-#: ../../main/squid/src/EBox/Squid.pm:1100
+#: ../../main/squid/src/EBox/Squid.pm:1106
 msgid "Global policy"
 msgstr "グローバルポリシー"
 
-#: ../../main/squid/src/EBox/Squid.pm:1102
+#: ../../main/squid/src/EBox/Squid.pm:1108
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:225
 msgid "Listening port"
 msgstr "受信ポート"
 
-#: ../../main/squid/src/EBox/Squid.pm:1134
-#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:116
+#: ../../main/squid/src/EBox/Squid.pm:1140
+#: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
-#: ../../main/ca/src/EBox/CA.pm:1750
+#: ../../main/ca/src/EBox/CA.pm:1749
 #: ../../main/core/src/EBox/SysInfo.pm.in:371
 #: ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/asterisk/src/EBox/Asterisk.pm:553
@@ -1532,16 +1544,16 @@ msgstr ""
 "#-#-#-#-#  ja.po (ebox 0.12)  #-#-#-#-#\n"
 "一般的"
 
-#: ../../main/squid/src/EBox/Squid.pm:1140
+#: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Objects' Policy"
 msgstr "オブジェクトのポリシー"
 
-#: ../../main/squid/src/EBox/Squid.pm:1143
+#: ../../main/squid/src/EBox/Squid.pm:1149
 #, fuzzy
 msgid "Groups' Policy"
 msgstr "オブジェクトのポリシー"
 
-#: ../../main/squid/src/EBox/Squid.pm:1175
+#: ../../main/squid/src/EBox/Squid.pm:1181
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
 #: ../../main/network/src/EBox/CGI/Diag.pm:50
 #: ../../main/network/src/EBox/CGI/Diag.pm:57
@@ -1551,22 +1563,22 @@ msgstr "オブジェクトのポリシー"
 msgid "Host"
 msgstr "ホスト"
 
-#: ../../main/squid/src/EBox/Squid.pm:1177
+#: ../../main/squid/src/EBox/Squid.pm:1183
 msgid "URL"
 msgstr "URL"
 
-#: ../../main/squid/src/EBox/Squid.pm:1178
+#: ../../main/squid/src/EBox/Squid.pm:1184
 msgid "Bytes"
 msgstr "バイト"
 
-#: ../../main/squid/src/EBox/Squid.pm:1179
+#: ../../main/squid/src/EBox/Squid.pm:1185
 msgid "Mime/type"
 msgstr "MIME/タイプ"
 
-#: ../../main/squid/src/EBox/Squid.pm:1180
+#: ../../main/squid/src/EBox/Squid.pm:1186
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1305
-#: ../../main/printers/src/EBox/Printers.pm:300
+#: ../../main/printers/src/EBox/Printers.pm:368
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:650
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:168
@@ -1579,15 +1591,15 @@ msgstr "MIME/タイプ"
 msgid "Event"
 msgstr "イベント"
 
-#: ../../main/squid/src/EBox/Squid.pm:1185
+#: ../../main/squid/src/EBox/Squid.pm:1191
 msgid "Accepted"
 msgstr "許可されました"
 
-#: ../../main/squid/src/EBox/Squid.pm:1186
+#: ../../main/squid/src/EBox/Squid.pm:1192
 msgid "Denied"
 msgstr "拒否されました"
 
-#: ../../main/squid/src/EBox/Squid.pm:1187
+#: ../../main/squid/src/EBox/Squid.pm:1193
 msgid "Filtered"
 msgstr "フィルタされました"
 
@@ -1618,7 +1630,7 @@ msgstr "フィルタされました"
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:38
 #: ../../main/network/src/templates/ifaces.mas:34
 #: ../../main/network/src/templates/ifaces.mas:286
-#: ../../main/ca/src/templates/index.mas:100
+#: ../../main/ca/src/templates/index.mas:104
 msgid "Name"
 msgstr "名前"
 
@@ -1872,7 +1884,7 @@ msgstr "クライアント {name} の設定が更新されました"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:116
-#: ../../main/ebackup/src/scripts/restore-tool:283
+#: ../../main/ebackup/src/scripts/restore-tool:285
 msgid "Server"
 msgstr "サーバ"
 
@@ -1927,7 +1939,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
-#: ../../main/ca/src/EBox/Model/Certificates.pm:277
+#: ../../main/ca/src/EBox/Model/Certificates.pm:282
 #, fuzzy
 msgid "Enable"
 msgstr ""
@@ -2147,7 +2159,7 @@ msgstr "サーバ {name}"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:374
 #: ../../main/network/src/EBox/Model/DynDNS.pm:199
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:163
-#: ../../main/ca/src/EBox/Model/Certificates.pm:265
+#: ../../main/ca/src/EBox/Model/Certificates.pm:270
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
 msgid "Service"
 msgstr "サービス"
@@ -2374,7 +2386,7 @@ msgid "Common name"
 msgstr "クライアント名"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1485
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:624
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:626
 #: ../../main/mail/src/EBox/Mail.pm:1517
 #: ../../main/asterisk/src/EBox/Asterisk.pm:586
 msgid "Address"
@@ -2503,8 +2515,8 @@ msgstr "名前 '{name}' は無効です"
 #: ../../main/firewall/src/EBox/Firewall.pm:661
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:748
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:790
-#: ../../main/core/src/EBox/Apache.pm:283
-#: ../../main/core/src/EBox/Apache.pm:292
+#: ../../main/core/src/EBox/Apache.pm:269
+#: ../../main/core/src/EBox/Apache.pm:278
 #: ../../main/services/src/EBox/Services.pm:482
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:25
 msgid "port"
@@ -2540,7 +2552,7 @@ msgstr "出力インタフェース"
 #: ../../main/firewall/src/EBox/Firewall.pm:1011
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:121
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:295
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:392
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:393
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:110
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:50
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:74
@@ -2550,7 +2562,7 @@ msgstr "送信元"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1012
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:148
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:422
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:424
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:138
 #: ../../main/ids/src/EBox/IDS.pm:302
 msgid "Destination"
@@ -2595,25 +2607,25 @@ msgstr ""
 msgid "REDIRECT"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:684
+#: ../../main/firewall/src/EBox/Iptables.pm:686
 msgid "Firewall failed to add rules for the following modules: "
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:687
+#: ../../main/firewall/src/EBox/Iptables.pm:689
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:936
-#: ../../main/firewall/src/EBox/Iptables.pm:973
+#: ../../main/firewall/src/EBox/Iptables.pm:938
+#: ../../main/firewall/src/EBox/Iptables.pm:975
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "eBox設定ファイルの iptables_log_limit 変数を設定する必要があります"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:942
-#: ../../main/firewall/src/EBox/Iptables.pm:979
+#: ../../main/firewall/src/EBox/Iptables.pm:944
+#: ../../main/firewall/src/EBox/Iptables.pm:981
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
@@ -2630,8 +2642,8 @@ msgstr "拒否"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:126
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:153
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:300
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:397
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:427
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:398
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:429
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:130
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:139
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:130
@@ -2656,27 +2668,27 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:303
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:400
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:401
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:118
 msgid "Source IP"
 msgstr "送信元IP"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:133
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:307
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:412
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:413
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:123
 msgid "Source object"
 msgstr "送信元オブジェクト"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:156
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:319
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:430
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:432
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:146
 msgid "Destination IP"
 msgstr "送信先IP"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:161
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:435
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:437
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:151
 msgid "Destination object"
 msgstr "送信先オブジェクト"
@@ -2757,7 +2769,7 @@ msgstr "内部ネットワークからeBoxへのフィルタルール"
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:164
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:493
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:496
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:68
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:198
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
@@ -2811,16 +2823,16 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:2158
 #: ../../main/network/src/EBox/Network.pm:2197
 #: ../../main/network/src/EBox/Network.pm:2230
-#: ../../main/network/src/EBox/Network.pm:3358
-#: ../../main/network/src/EBox/Network.pm:3378
-#: ../../main/network/src/EBox/Network.pm:3398
-#: ../../main/network/src/EBox/Network.pm:3419
-#: ../../main/network/src/EBox/Network.pm:3438
-#: ../../main/network/src/EBox/Network.pm:3494
-#: ../../main/network/src/EBox/Network.pm:3515
-#: ../../main/network/src/EBox/Network.pm:3535
-#: ../../main/network/src/EBox/Network.pm:3556
-#: ../../main/network/src/EBox/Network.pm:3579
+#: ../../main/network/src/EBox/Network.pm:3362
+#: ../../main/network/src/EBox/Network.pm:3382
+#: ../../main/network/src/EBox/Network.pm:3402
+#: ../../main/network/src/EBox/Network.pm:3423
+#: ../../main/network/src/EBox/Network.pm:3442
+#: ../../main/network/src/EBox/Network.pm:3498
+#: ../../main/network/src/EBox/Network.pm:3519
+#: ../../main/network/src/EBox/Network.pm:3539
+#: ../../main/network/src/EBox/Network.pm:3560
+#: ../../main/network/src/EBox/Network.pm:3583
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:498
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:534
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:584
@@ -2955,8 +2967,8 @@ msgstr "ルール"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:137
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:74
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:83
-#: ../../main/ca/src/EBox/Model/Certificates.pm:253
-#: ../../main/core/src/EBox/Logs.pm:720
+#: ../../main/ca/src/EBox/Model/Certificates.pm:256
+#: ../../main/core/src/EBox/Logs.pm:738
 #: ../../main/core/src/EBox/AuditLogging.pm:110
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:266
 #: ../../main/core/src/templates/finish.mas:119
@@ -2986,13 +2998,13 @@ msgstr ""
 msgid "Firewall packet traffic report"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:220
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:222
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
 msgstr "保証するレートが許可されたレートを超えています: {rate} kbit/s"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:227
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:412
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:414
 #, perl-brace-format
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
@@ -3000,8 +3012,8 @@ msgstr ""
 "保証するレートは次の範囲内である必要があります: ( {minRate}, {maxRate} ) "
 "kbit/s"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:239
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:241
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:426
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
@@ -3009,7 +3021,7 @@ msgstr ""
 "制限するレート {lR} kbit/s は保証するレート {gR}kbit/s より大きい値を取る必要"
 "があります"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:246
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:248
 #, fuzzy, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
@@ -3019,12 +3031,12 @@ msgstr ""
 "フェースに関連付けられたゲートウェイへのアップロードトラフィック最大値を増加"
 "させる必要があります"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:403
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:405
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
 msgstr "保証するレートが許可されたレートを超えています: {rate}"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:432
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:434
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
@@ -3033,7 +3045,7 @@ msgstr ""
 "制限するレート {lR} kbit/s を {maxLR} より小さくするか、許可するトラフィック"
 "の最大値を増加させる必要があります"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:620
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Leaf class identifier"
 msgstr "末端クラス識別子"
 
@@ -3103,45 +3115,45 @@ msgstr "どのサービスにおいても、何らかの送信先、送信元を
 msgid "Port based service"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:445
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:448
 #: ../../main/dns/src/EBox/Model/Services.pm:203
 #: ../../main/ids/src/EBox/IDS.pm:299
 msgid "Priority"
 msgstr "優先順位"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:449
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:452
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:453
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:456
 msgid "Guaranteed Rate"
 msgstr "保証するレート"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:456
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:470
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:459
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:473
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:458
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:461
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:465
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:468
 msgid "Limited Rate"
 msgstr "制限されたレート"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:472
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:475
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:479
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:482
 #, perl-brace-format
 msgid "Rules list for {printableIndex}"
 msgstr "{printableIndex} のためのルール一覧"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:488
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:491
 #, fuzzy
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
@@ -3151,12 +3163,12 @@ msgstr ""
 "い。もしインタフェースが内部に存在する場合トラフィックフローはインターネット"
 "から内部にやってきます。外部インタフェースの場合は反対方向になります。"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:554
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:556
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "{num} 個のルールを {modelName} から削除"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:601
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:603
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -3169,20 +3181,20 @@ msgstr ""
 "レートを正規化しました。また、保証するレートが許可された最小値を下回ったため "
 "{removeNum} 個のルールが削除されました。"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:656
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:658
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:672
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:691
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:674
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:693
 msgid "Application based service"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:681
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:699
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:683
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:701
 msgid "Application based service group"
 msgstr ""
 
@@ -3313,8 +3325,8 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:253
 #: ../../main/dns/src/EBox/Model/NameServer.pm:235
 #: ../../main/dns/src/EBox/Model/Text.pm:147
-#: ../../main/network/src/EBox/Network.pm:3601
-#: ../../main/network/src/EBox/Network.pm:3622
+#: ../../main/network/src/EBox/Network.pm:3605
+#: ../../main/network/src/EBox/Network.pm:3626
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 #: ../../main/dns/src/templates/edit.mas:20
 msgid "Host name"
@@ -3474,7 +3486,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
-#: ../../main/network/src/EBox/Network.pm:3642
+#: ../../main/network/src/EBox/Network.pm:3646
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 msgid "host name"
 msgstr "ホスト名"
@@ -3679,6 +3691,11 @@ msgstr ""
 msgid "Let the bind daemon to be dynamically updated"
 msgstr ""
 
+#: ../../main/dns/src/EBox/DNS.pm.in:634
+#, fuzzy
+msgid "Remove bind9 init script link"
+msgstr "NTP起動スクリプトのリンクを削除"
+
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
 msgstr ""
@@ -3815,11 +3832,11 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:920
 #: ../../main/network/src/EBox/Network.pm:1260
 #: ../../main/network/src/EBox/Network.pm:1281
-#: ../../main/network/src/EBox/Network.pm:3360
-#: ../../main/network/src/EBox/Network.pm:3376
-#: ../../main/network/src/EBox/Network.pm:3402
-#: ../../main/network/src/EBox/Network.pm:3559
-#: ../../main/network/src/EBox/Network.pm:3717
+#: ../../main/network/src/EBox/Network.pm:3364
+#: ../../main/network/src/EBox/Network.pm:3380
+#: ../../main/network/src/EBox/Network.pm:3406
+#: ../../main/network/src/EBox/Network.pm:3563
+#: ../../main/network/src/EBox/Network.pm:3721
 #: ../../main/network/src/EBox/CGI/VIface.pm:63
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:153
@@ -3837,7 +3854,7 @@ msgstr "範囲"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:88
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:127
-#: ../../main/network/src/EBox/Network.pm:3711
+#: ../../main/network/src/EBox/Network.pm:3715
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1371
 msgid "MAC address"
@@ -3934,7 +3951,7 @@ msgstr "オブジェクト {object} から {nname} が削除されました"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
 #: ../../main/network/src/EBox/Network.pm:80
-#: ../../main/network/src/EBox/Network.pm:3771
+#: ../../main/network/src/EBox/Network.pm:3775
 #: ../../main/services/src/EBox/Services.pm:642
 msgid "Network"
 msgstr "ネットワーク"
@@ -4572,8 +4589,8 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:74
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:78
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1004
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2631
+#: ../../main/users/src/EBox/UsersAndGroups.pm:996
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2623
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
 #: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
@@ -4620,7 +4637,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Model/Composite.pm:675
 #: ../../main/core/src/EBox/Model/DataMultiTable.pm:168
 #: ../../main/core/src/EBox/Model/DataTable.pm:2114
-#: ../../main/core/src/EBox/Logs.pm:721
+#: ../../main/core/src/EBox/Logs.pm:739
 #: ../../main/core/src/EBox/AuditLogging.pm:123
 #: ../../main/dns/src/templates/index.mas:24
 #: ../../main/dns/src/templates/edit.mas:23
@@ -4983,8 +5000,8 @@ msgstr ""
 #: ../../main/dns/src/templates/edit.mas:55
 #: ../../main/dns/src/templates/edit.mas:93
 #: ../../main/dns/src/templates/edit.mas:94
-#: ../../main/software/src/templates/ebox.mas:640
-#: ../../main/software/src/templates/ebox.mas:669
+#: ../../main/software/src/templates/ebox.mas:638
+#: ../../main/software/src/templates/ebox.mas:667
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:147
 #: ../../main/network/src/templates/ifaces.mas:266
 #: ../../main/network/src/templates/ifaces.mas:267
@@ -5247,7 +5264,7 @@ msgstr ""
 #: ../../main/core/src/cgi/ebox.cgi:67
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
-#: ../../main/ca/src/templates/index.mas:103
+#: ../../main/ca/src/templates/index.mas:107
 #: ../../main/core/src/templates/backup.mas:133
 msgid "Actions"
 msgstr "アクション"
@@ -5507,33 +5524,37 @@ msgid "Bandwidth quota"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
+msgid "MB"
+msgstr ""
+
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:84
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:94
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:95
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:42
 msgid "Day"
 msgstr "日"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:98
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:99
 msgid "Week"
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:102
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:103
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:43
 msgid "Month"
 msgstr "月"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:109
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:110
 msgid "Period"
 msgstr ""
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:119
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:120
 #, fuzzy
 msgid "Bandwidth Settings"
 msgstr "設定"
 
-#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:123
+#: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:124
 msgid "Here you can setup bandwidth usage quota for captive portal users."
 msgstr ""
 
@@ -6065,35 +6086,46 @@ msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:811
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:824
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:834
 msgid "Directory for backup"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:818
+msgid "Cannot use the / directory as target"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
 msgid "File exists and it is not a directory"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:832
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:837
+#, fuzzy, perl-brace-format
+msgid "Cannot read parent directory {d}"
+msgstr "{group}共有ディレクトリ"
+
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
 msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:872
 msgid "Incremental backup must be more frequent than full backup"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:865
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:874
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:885
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:894
 msgid "General backup configuration updated."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:866
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:886
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:876
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:896
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
@@ -6129,14 +6161,14 @@ msgid "backup"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:143
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:74
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:75
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:121
 msgid "There are not backed up files yet"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:167
 #: ../../main/ebackup/src/EBox/Model/RemoteRestoreLogs.pm:94
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:91
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:92
 msgid "Backup Date"
 msgstr ""
 
@@ -6175,19 +6207,19 @@ msgstr ""
 msgid "Restores the Zentyal logs found in the selected backup"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:102
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:103
 msgid "Restore Zentyal configuration from backup"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:109
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:110
 msgid "Loads the configuration found in the backup"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:111
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:112
 msgid "Please wait..."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:166
+#: ../../main/ebackup/src/EBox/Model/RemoteRestoreConf.pm:175
 #, perl-brace-format
 msgid ""
 "Configuration backup not found in backup for {d}. Maybe you could try "
@@ -6204,7 +6236,7 @@ msgid "Domains to back up"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:166
-#: ../../main/ebackup/src/scripts/restore-tool:316
+#: ../../main/ebackup/src/scripts/restore-tool:318
 msgid "Backup domain"
 msgstr ""
 
@@ -6213,7 +6245,7 @@ msgid "Select the domains you want to back up."
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Composite/Remote.pm:66
-#: ../../main/ebackup/src/EBox/EBackup.pm:69
+#: ../../main/ebackup/src/EBox/EBackup.pm:70
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
 #: ../../main/core/src/EBox/Backup.pm:751
 #: ../../main/core/src/templates/backup.mas:68
@@ -6228,47 +6260,57 @@ msgstr ""
 msgid "Services Restore"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:205
+#: ../../main/ebackup/src/EBox/EBackup.pm:175
+#, fuzzy, perl-brace-format
+msgid "Cannot restore to {d}: {dd} does not exists"
+msgstr "インタフェース{iface}は存在しません"
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:183
+#, perl-brace-format
+msgid "Cannot restore to {d}: {dd} is not a directory"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:226
 #, perl-brace-format
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:212
+#: ../../main/ebackup/src/EBox/EBackup.pm:233
 msgid ""
 "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
 "ebackup restart' to refresh backup's information."
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:413
+#: ../../main/ebackup/src/EBox/EBackup.pm:429
 #, fuzzy
-msgid "Other files"
-msgstr "ユーザのファイル"
+msgid "All files in backup"
+msgstr "バックアップからリストアしています"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:414
-msgid "Extra data manually included in the backup"
+#: ../../main/ebackup/src/EBox/EBackup.pm:430
+msgid "All files included in the backup"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:735
+#: ../../main/ebackup/src/EBox/EBackup.pm:715
 msgid ""
 "Could not get backup collection status, check whether the parameters and "
 "passwords are correct"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1051
+#: ../../main/ebackup/src/EBox/EBackup.pm:1031
 #: ../../main/core/src/EBox/SysInfo.pm.in:366
 msgid "System"
 msgstr "システム"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1138
+#: ../../main/ebackup/src/EBox/EBackup.pm:1118
 msgid "You need to have the disaster recovery add-on to use this backup method"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1145
+#: ../../main/ebackup/src/EBox/EBackup.pm:1125
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1247
+#: ../../main/ebackup/src/EBox/EBackup.pm:1227
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -6316,7 +6358,7 @@ msgstr "{data} {value} はすでに存在します。"
 msgid "Invalid value for {data}: {value}."
 msgstr "値が無効です。 {data}: {value}"
 
-#: ../../main/common/src/EBox/Sudo.pm:265
+#: ../../main/common/src/EBox/Sudo.pm:266
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "{user} による '{cmd}' コマンドの実行に失敗しました。"
@@ -6529,7 +6571,7 @@ msgstr ""
 msgid "Hostname"
 msgstr "ホスト名"
 
-#: ../../main/network/src/EBox/Model/DynDNS.pm:230
+#: ../../main/network/src/EBox/Model/DynDNS.pm:231
 msgid ""
 "You should select your provider from the list and enter your account data. "
 "You also need to enable it in order to work."
@@ -6554,7 +6596,7 @@ msgid "Static Routes List"
 msgstr "静的経路"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:171
-#: ../../main/network/src/EBox/Network.pm:3788
+#: ../../main/network/src/EBox/Network.pm:3792
 #, fuzzy
 msgid "Static Routes"
 msgstr "静的経路"
@@ -6735,21 +6777,21 @@ msgstr "ネームサーバ"
 msgid "Proxy port"
 msgstr ""
 
-#: ../../main/network/src/EBox/Model/Proxy.pm:104
+#: ../../main/network/src/EBox/Model/Proxy.pm:105
 msgid "Proxy"
 msgstr ""
 
-#: ../../main/network/src/EBox/Model/Proxy.pm:108
+#: ../../main/network/src/EBox/Model/Proxy.pm:109
 msgid ""
 "This settings will be used to allow Zentyal to access the Internet if an "
 "HTTP proxy is needed."
 msgstr ""
 
-#: ../../main/network/src/EBox/Model/Proxy.pm:130
+#: ../../main/network/src/EBox/Model/Proxy.pm:131
 msgid "Proxy username and password will be visible by all system users."
 msgstr ""
 
-#: ../../main/network/src/EBox/Model/Proxy.pm:143
+#: ../../main/network/src/EBox/Model/Proxy.pm:144
 #, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
@@ -6873,7 +6915,7 @@ msgstr "バーチャルインタフェース名"
 
 #: ../../main/network/src/EBox/Network.pm:915
 #: ../../main/network/src/EBox/Network.pm:1260
-#: ../../main/network/src/EBox/Network.pm:3360
+#: ../../main/network/src/EBox/Network.pm:3364
 #: ../../main/network/src/templates/ifaces.mas:132
 #: ../../main/network/src/templates/ifaces.mas:288
 #: ../../main/network/src/templates/Wizard/network.mas:65
@@ -6918,7 +6960,7 @@ msgstr ""
 "VLANを追加する前にネットワークインタフェースはトランクモードになっている必要"
 "があります。"
 
-#: ../../main/network/src/EBox/Network.pm:3250
+#: ../../main/network/src/EBox/Network.pm:3254
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways to become "
@@ -6927,13 +6969,13 @@ msgstr ""
 "リクエストされた操作によって設定済みのルータに到達できなくなります。変更を適"
 "用する前にルータを削除してください。"
 
-#: ../../main/network/src/EBox/Network.pm:3315
+#: ../../main/network/src/EBox/Network.pm:3319
 #: ../../main/network/src/EBox/NetworkUtil.pm:55
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "ゲートウェイ {gw} に到達できません"
 
-#: ../../main/network/src/EBox/Network.pm:3318
+#: ../../main/network/src/EBox/Network.pm:3322
 #, fuzzy, perl-brace-format
 msgid ""
 "Gateway {gw} must be reachable by a static interface. Currently it is "
@@ -6942,34 +6984,34 @@ msgstr ""
 "ゲートウェイ {gw} は静的インタフェースから到達できる場所に存在する必要があり"
 "ます。 現在は静的でないインタフェース {iface} から到達可能です。"
 
-#: ../../main/network/src/EBox/Network.pm:3677
+#: ../../main/network/src/EBox/Network.pm:3681
 msgid "down"
 msgstr "停止"
 
-#: ../../main/network/src/EBox/Network.pm:3682
+#: ../../main/network/src/EBox/Network.pm:3686
 #: ../../main/core/src/templates/report/raid.mas:232
 msgid "up"
 msgstr "正常"
 
-#: ../../main/network/src/EBox/Network.pm:3687
+#: ../../main/network/src/EBox/Network.pm:3691
 #, fuzzy
 msgid "external"
 msgstr "外部"
 
-#: ../../main/network/src/EBox/Network.pm:3689
+#: ../../main/network/src/EBox/Network.pm:3693
 #, fuzzy
 msgid "internal"
 msgstr "外部"
 
-#: ../../main/network/src/EBox/Network.pm:3695
+#: ../../main/network/src/EBox/Network.pm:3699
 msgid "link ok"
 msgstr "正常なリンク"
 
-#: ../../main/network/src/EBox/Network.pm:3697
+#: ../../main/network/src/EBox/Network.pm:3701
 msgid "no link"
 msgstr "リンクなし"
 
-#: ../../main/network/src/EBox/Network.pm:3706
+#: ../../main/network/src/EBox/Network.pm:3710
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:130
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
@@ -6982,35 +7024,35 @@ msgstr "リンクなし"
 msgid "Status"
 msgstr "状態"
 
-#: ../../main/network/src/EBox/Network.pm:3732
+#: ../../main/network/src/EBox/Network.pm:3736
 msgid "Tx bytes"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:3742
+#: ../../main/network/src/EBox/Network.pm:3746
 msgid "Rx bytes"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:3753
+#: ../../main/network/src/EBox/Network.pm:3757
 #: ../../main/network/src/EBox/CGI/Ifaces.pm:29
 #, fuzzy
 msgid "Network Interfaces"
 msgstr "ネットワークインタフェース"
 
-#: ../../main/network/src/EBox/Network.pm:3776
+#: ../../main/network/src/EBox/Network.pm:3780
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:131
 msgid "Interfaces"
 msgstr "インタフェース"
 
-#: ../../main/network/src/EBox/Network.pm:3780
+#: ../../main/network/src/EBox/Network.pm:3784
 msgid "Gateways"
 msgstr "ゲートウェイ"
 
-#: ../../main/network/src/EBox/Network.pm:3792
+#: ../../main/network/src/EBox/Network.pm:3796
 #, fuzzy
 msgid "Dynamic DNS"
 msgstr "検索ドメイン"
 
-#: ../../main/network/src/EBox/Network.pm:3796
+#: ../../main/network/src/EBox/Network.pm:3800
 #, fuzzy
 msgid "Diagnostic Tools"
 msgstr "診断"
@@ -7138,16 +7180,16 @@ msgstr "IPアドレス"
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
-#: ../../main/users/src/EBox/UsersAndGroups.pm:976
-#: ../../main/users/src/EBox/UsersAndGroups.pm:982
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1268
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1335
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1387
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1851
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1929
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2033
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2067
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2138
+#: ../../main/users/src/EBox/UsersAndGroups.pm:968
+#: ../../main/users/src/EBox/UsersAndGroups.pm:974
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1260
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1327
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1379
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1843
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1921
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2025
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2059
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2130
 #: ../../main/users/src/EBox/CGI/AddUser.pm:44
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:40
 msgid "user name"
@@ -7498,11 +7540,11 @@ msgstr ""
 msgid "Virtual Machine Settings"
 msgstr "バーチャルドメイン名"
 
-#: ../../main/virt/src/EBox/Virt/Libvirt.pm:447
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:452
 msgid "i686 compatible"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Libvirt.pm:448
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:453
 msgid "amd64 compatible"
 msgstr ""
 
@@ -8046,7 +8088,7 @@ msgid "{daemon} default configuration file"
 msgstr ""
 
 #: ../../main/monitor/src/EBox/Monitor.pm:155
-#: ../../main/core/src/EBox/Logs.pm:702
+#: ../../main/core/src/EBox/Logs.pm:720
 #: ../../main/core/src/EBox/SysInfo.pm.in:384
 #: ../../main/core/src/EBox/Events.pm:151
 #, fuzzy
@@ -8232,19 +8274,19 @@ msgid ""
 "{openhref}event watcher is enabled{closehref}"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:121
+#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:133
 msgid "Last hour"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:127
+#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:139
 msgid "Last day"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:133
+#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:145
 msgid "Last month"
 msgstr ""
 
-#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:139
+#: ../../main/monitor/src/EBox/Monitor/Configuration.pm:151
 msgid "Last year"
 msgstr ""
 
@@ -8506,28 +8548,28 @@ msgstr "プリンタが設定されていません"
 msgid "Cups printer server port"
 msgstr "CUPSプリンタサーバポート"
 
-#: ../../main/printers/src/EBox/Printers.pm:296
+#: ../../main/printers/src/EBox/Printers.pm:364
 msgid "Job ID"
 msgstr "ジョブID"
 
-#: ../../main/printers/src/EBox/Printers.pm:297
+#: ../../main/printers/src/EBox/Printers.pm:365
 #: ../../main/samba/src/templates/samba.mas:104
 msgid "Printer"
 msgstr "プリンタ"
 
-#: ../../main/printers/src/EBox/Printers.pm:304
+#: ../../main/printers/src/EBox/Printers.pm:372
 msgid "Queued"
 msgstr "キューに入力"
 
-#: ../../main/printers/src/EBox/Printers.pm:305
+#: ../../main/printers/src/EBox/Printers.pm:373
 msgid "Completed"
 msgstr ""
 
-#: ../../main/printers/src/EBox/Printers.pm:306
+#: ../../main/printers/src/EBox/Printers.pm:374
 msgid "Canceled"
 msgstr "キャンセル"
 
-#: ../../main/printers/src/EBox/Printers.pm:310
+#: ../../main/printers/src/EBox/Printers.pm:378
 #: ../../main/samba/src/templates/samba.mas:90
 msgid "Printers"
 msgstr "プリンタ"
@@ -8643,19 +8685,11 @@ msgstr ""
 msgid "Samba share directory"
 msgstr "{group}共有ディレクトリ"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:208
-msgid "Only ASCII characters are valid for a share name"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:216
-msgid "Only ASCII characters are valid for a share description"
-msgstr ""
-
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:248
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:231
 msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:340
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:323
 #, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
@@ -8663,7 +8697,7 @@ msgid ""
 "allow you to share an existing directory within your file system"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:353
+#: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:336
 msgid ""
 "Here you can create shares with more fine-grained permission control. You "
 "can use an existing directory or pick a name and let Zentyal create it for "
@@ -9150,13 +9184,13 @@ msgstr "グループ{g}は存在しません"
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:803
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:44
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1688
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1693
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1885
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2038
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2072
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2189
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2292
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1680
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1685
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1877
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2030
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2064
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2181
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2284
 #: ../../main/users/src/EBox/CGI/ModifyGroup.pm:39
 #: ../../main/users/src/EBox/CGI/AddGroup.pm:45
 msgid "group name"
@@ -10052,8 +10086,8 @@ msgid "Application Protocols"
 msgstr ""
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:154
-#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:233
-#: ../../main/ca/src/EBox/CA.pm:517
+#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:232
+#: ../../main/ca/src/EBox/CA.pm:516
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
 #: ../../main/ca/src/templates/index.mas:23
 #: ../../main/ca/src/templates/formRevoke.mas:22
@@ -10062,7 +10096,7 @@ msgstr ""
 msgid "Organization Name"
 msgstr "組織名"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:532
+#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:531
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -10073,10 +10107,10 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/TestStub.pm:438
 #: ../../main/ca/src/EBox/CA/TestStub.pm:516
 #: ../../main/ca/src/EBox/CA/TestStub.pm:642
-#: ../../main/ca/src/EBox/Model/Certificates.pm:271
-#: ../../main/ca/src/EBox/CA.pm:731 ../../main/ca/src/EBox/CA.pm:902
-#: ../../main/ca/src/EBox/CA.pm:1242 ../../main/ca/src/EBox/CA.pm:1312
-#: ../../main/ca/src/EBox/CA.pm:1406
+#: ../../main/ca/src/EBox/Model/Certificates.pm:276
+#: ../../main/ca/src/EBox/CA.pm:730 ../../main/ca/src/EBox/CA.pm:901
+#: ../../main/ca/src/EBox/CA.pm:1241 ../../main/ca/src/EBox/CA.pm:1311
+#: ../../main/ca/src/EBox/CA.pm:1405
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:76
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:103
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
@@ -10098,7 +10132,7 @@ msgstr "ユーザ {commonName} は存在しません"
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "日数に許容最大値が設定されました: 2038年バグ"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2562
+#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2561
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "CA証明書期限よりも後に有効期限が設定されています"
 
@@ -10109,32 +10143,32 @@ msgid ""
 "Certification Authority{closehref} to do so"
 msgstr ""
 
-#: ../../main/ca/src/EBox/Model/Certificates.pm:279
+#: ../../main/ca/src/EBox/Model/Certificates.pm:284
 msgid "Generate the certificate using CA with the common name set above"
 msgstr ""
 
-#: ../../main/ca/src/EBox/Model/Certificates.pm:294
-#: ../../main/ca/src/EBox/CA.pm:1753
+#: ../../main/ca/src/EBox/Model/Certificates.pm:299
+#: ../../main/ca/src/EBox/CA.pm:1752
 #, fuzzy
 msgid "Services Certificates"
 msgstr "証明書を無効化しています"
 
-#: ../../main/ca/src/EBox/Model/Certificates.pm:295
+#: ../../main/ca/src/EBox/Model/Certificates.pm:300
 #, fuzzy
 msgid "certificate"
 msgstr "証明書ファイル"
 
-#: ../../main/ca/src/EBox/Model/Certificates.pm:301
+#: ../../main/ca/src/EBox/Model/Certificates.pm:306
 msgid ""
 "Here you may set certificates from this CA for those secure services managed "
 "by Zentyal"
 msgstr ""
 
-#: ../../main/ca/src/EBox/Model/Certificates.pm:315
+#: ../../main/ca/src/EBox/Model/Certificates.pm:320
 msgid "This service does not allow to change the  certifcate  common name"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:116 ../../main/ca/src/EBox/CGI/CreateCA.pm:42
+#: ../../main/ca/src/EBox/CA.pm:118 ../../main/ca/src/EBox/CGI/CreateCA.pm:42
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:42
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:49
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:40
@@ -10145,72 +10179,72 @@ msgstr ""
 msgid "Certification Authority"
 msgstr "認証局の管理"
 
-#: ../../main/ca/src/EBox/CA.pm:276 ../../main/ca/src/EBox/CA.pm:749
-#: ../../main/ca/src/EBox/CA.pm:1385
+#: ../../main/ca/src/EBox/CA.pm:275 ../../main/ca/src/EBox/CA.pm:748
+#: ../../main/ca/src/EBox/CA.pm:1384
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "日数に許容最大値が設定されました {days}: 2038年バグ"
 
-#: ../../main/ca/src/EBox/CA.pm:365
+#: ../../main/ca/src/EBox/CA.pm:364
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "削除できません。理由:"
 
-#: ../../main/ca/src/EBox/CA.pm:915 ../../main/ca/src/EBox/CA.pm:1253
+#: ../../main/ca/src/EBox/CA.pm:914 ../../main/ca/src/EBox/CA.pm:1252
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "共通名 {cn} を持つ証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:919
+#: ../../main/ca/src/EBox/CA.pm:918
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr "理由 {reason} は無効です。オプション:"
 
-#: ../../main/ca/src/EBox/CA.pm:1064
+#: ../../main/ca/src/EBox/CA.pm:1063
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1161
+#: ../../main/ca/src/EBox/CA.pm:1160
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "共通名、識別名、あるいはシリアルナンバーのいずれかが渡されました"
 
-#: ../../main/ca/src/EBox/CA.pm:1407
+#: ../../main/ca/src/EBox/CA.pm:1406
 msgid "or"
 msgstr "または"
 
-#: ../../main/ca/src/EBox/CA.pm:1408
+#: ../../main/ca/src/EBox/CA.pm:1407
 msgid "Certificate file"
 msgstr "証明書ファイル"
 
-#: ../../main/ca/src/EBox/CA.pm:1430
+#: ../../main/ca/src/EBox/CA.pm:1429
 msgid "The certificate to renew does NOT exist"
 msgstr "更新する証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:1470
+#: ../../main/ca/src/EBox/CA.pm:1469
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "このCAには共通名 {cn} を持つ証明書が存在しません"
 
-#: ../../main/ca/src/EBox/CA.pm:1866
+#: ../../main/ca/src/EBox/CA.pm:1865
 msgid "Not created"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1868
+#: ../../main/ca/src/EBox/CA.pm:1867
 msgid "Available"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1870
+#: ../../main/ca/src/EBox/CA.pm:1869
 msgid "Created but not available"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:1953
+#: ../../main/ca/src/EBox/CA.pm:1952
 #, fuzzy
 msgid "String"
 msgstr "制限"
 
-#: ../../main/ca/src/EBox/CA.pm:1958
+#: ../../main/ca/src/EBox/CA.pm:1957
 #, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
@@ -10219,38 +10253,38 @@ msgstr ""
 "入力に無効な文字が含まれています。半角英数字、半角スペース、そして次の記号の"
 "み使用できます: .?&+:\\@"
 
-#: ../../main/ca/src/EBox/CA.pm:2476
+#: ../../main/ca/src/EBox/CA.pm:2475
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "署名できません。CAパスフレーズが誤っているか、プライベート鍵をなくしていませ"
 "んか？"
 
-#: ../../main/ca/src/EBox/CA.pm:2478
+#: ../../main/ca/src/EBox/CA.pm:2477
 msgid "Database corruption"
 msgstr "データベース破損"
 
-#: ../../main/ca/src/EBox/CA.pm:2480
+#: ../../main/ca/src/EBox/CA.pm:2479
 msgid "Identifier duplicated in Database"
 msgstr "データベースで識別子が重複しています"
 
-#: ../../main/ca/src/EBox/CA.pm:2482
+#: ../../main/ca/src/EBox/CA.pm:2481
 msgid "Certificate already revoked"
 msgstr "証明書はすでに無効化されています"
 
-#: ../../main/ca/src/EBox/CA.pm:2485
+#: ../../main/ca/src/EBox/CA.pm:2484
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1フィールドが長すぎます。最大値:"
 
-#: ../../main/ca/src/EBox/CA.pm:2487
+#: ../../main/ca/src/EBox/CA.pm:2486
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "不明なエラーです。OpenSSLの出力:"
 
-#: ../../main/ca/src/EBox/CA.pm:2592
+#: ../../main/ca/src/EBox/CA.pm:2591
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
 
-#: ../../main/ca/src/EBox/CA.pm:2697
+#: ../../main/ca/src/EBox/CA.pm:2634
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSLシェルを開始できません。({errval})"
@@ -10475,7 +10509,7 @@ msgstr ""
 
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2617
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2609
 msgid "Mode"
 msgstr ""
 
@@ -10599,13 +10633,8 @@ msgid "Unknown event {event}."
 msgstr ""
 
 #: ../../main/ntp/src/EBox/NTP.pm:90
-msgid "Remove ntp init script links"
-msgstr "NTP起動スクリプトのリンクを削除"
-
-#: ../../main/ntp/src/EBox/NTP.pm:91
-#, fuzzy
-msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBoxがサービスの開始と停止をします"
+msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
+msgstr ""
 
 #: ../../main/ntp/src/EBox/NTP.pm:109
 msgid "NTP configuration file"
@@ -11079,43 +11108,43 @@ msgstr ""
 "無効なファイルシステムです: {f} 。正常なリムーバブルメディアのファイルシステ"
 "ムだけが利用できます。"
 
-#: ../../main/core/src/EBox/Logs.pm:56 ../../main/core/src/EBox/Logs.pm:362
+#: ../../main/core/src/EBox/Logs.pm:57 ../../main/core/src/EBox/Logs.pm:363
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:67
 #: ../../main/core/src/EBox/Logs/Composite/General.pm:68
 #: ../../main/core/src/EBox/CGI/Logs/Index.pm:35
 msgid "Logs"
 msgstr "ログ"
 
-#: ../../main/core/src/EBox/Logs.pm:363
+#: ../../main/core/src/EBox/Logs.pm:364
 msgid "Zentyal Server logs database"
 msgstr ""
 
-#: ../../main/core/src/EBox/Logs.pm:455
+#: ../../main/core/src/EBox/Logs.pm:473
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "テーブル {table} は存在しません"
 
-#: ../../main/core/src/EBox/Logs.pm:719
+#: ../../main/core/src/EBox/Logs.pm:737
 msgid "Client Address"
 msgstr "クライアントのアドレス"
 
-#: ../../main/core/src/EBox/Logs.pm:722
+#: ../../main/core/src/EBox/Logs.pm:740
 msgid "Params"
 msgstr "パラメタ"
 
-#: ../../main/core/src/EBox/Logs.pm:723
+#: ../../main/core/src/EBox/Logs.pm:741
 msgid "Committed"
 msgstr "コミット"
 
-#: ../../main/core/src/EBox/Logs.pm:728
+#: ../../main/core/src/EBox/Logs.pm:746
 msgid "Admin"
 msgstr "管理者"
 
-#: ../../main/core/src/EBox/Logs.pm:822
+#: ../../main/core/src/EBox/Logs.pm:840
 msgid "Log messages"
 msgstr "ログメッセージ"
 
-#: ../../main/core/src/EBox/Logs.pm:849
+#: ../../main/core/src/EBox/Logs.pm:867
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr "ライフタイムパラメタは正の数で表される時間でなくてはなりません"
 
@@ -11142,7 +11171,7 @@ msgid "Could not extract the requested backup files: {files}"
 msgstr "リクエストされたバックアップファイルを展開できませんでした: {files}"
 
 #: ../../main/core/src/EBox/Backup.pm:530
-#: ../../main/core/src/EBox/Backup.pm:1216
+#: ../../main/core/src/EBox/Backup.pm:1220
 msgid "Could not unpack the backup"
 msgstr "バックアップを展開できませんでした"
 
@@ -11204,38 +11233,38 @@ msgstr ""
 "復元のために十分なハードディスクの空き容量がありません。{size} Kbが必要です。"
 "十分なディスク容量を準備してから再度行ってください"
 
-#: ../../main/core/src/EBox/Backup.pm:1240
+#: ../../main/core/src/EBox/Backup.pm:1244
 #, fuzzy
 msgid "Could not unpack the etc files archive backup"
 msgstr "バックアップを展開できませんでした"
 
-#: ../../main/core/src/EBox/Backup.pm:1384
+#: ../../main/core/src/EBox/Backup.pm:1388
 #, perl-brace-format
 msgid ""
 "The following modules present in the backup are not installed: {mods}. You "
 "need to install them before restoring."
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1412
+#: ../../main/core/src/EBox/Backup.pm:1416
 #, perl-brace-format
 msgid "Cannot restore backup, error enabling module {m}: {err}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1447
+#: ../../main/core/src/EBox/Backup.pm:1451
 #, perl-brace-format
 msgid "No module {m} found in backup"
 msgstr "モジュール{m}がバックアップから見つかりません"
 
-#: ../../main/core/src/EBox/Backup.pm:1455
+#: ../../main/core/src/EBox/Backup.pm:1459
 #, perl-brace-format
 msgid "Module {m} is in both exclude and include lists"
 msgstr ""
 
-#: ../../main/core/src/EBox/Backup.pm:1478
+#: ../../main/core/src/EBox/Backup.pm:1482
 msgid "No modules to restore"
 msgstr "復元するモジュールはありません"
 
-#: ../../main/core/src/EBox/Backup.pm:1530
+#: ../../main/core/src/EBox/Backup.pm:1534
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -11244,7 +11273,7 @@ msgstr ""
 "モジュール {topModule} の依存関係が復元できません: {modName} がインストールさ"
 "れていません"
 
-#: ../../main/core/src/EBox/Backup.pm:1551
+#: ../../main/core/src/EBox/Backup.pm:1555
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:200
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:280
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:295
@@ -11252,7 +11281,7 @@ msgstr ""
 msgid "The input contains invalid characters"
 msgstr "入力は無効な文字を含んでいます"
 
-#: ../../main/core/src/EBox/Backup.pm:1572
+#: ../../main/core/src/EBox/Backup.pm:1576
 #, fuzzy
 msgid "Backup archives"
 msgstr "バックアップアーカイブ"
@@ -11368,18 +11397,18 @@ msgid ""
 "made in sliced mode?"
 msgstr ""
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:547
+#: ../../main/core/src/EBox/GlobalImpl.pm:548
 #, fuzzy, perl-brace-format
 msgid "Enabling {modName} module"
 msgstr "{modName}モジュールを保存"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:577
-#: ../../main/core/src/EBox/GlobalImpl.pm:611
+#: ../../main/core/src/EBox/GlobalImpl.pm:588
+#: ../../main/core/src/EBox/GlobalImpl.pm:622
 #, perl-brace-format
 msgid "Saving {modName} module"
 msgstr "{modName}モジュールを保存"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1112
+#: ../../main/core/src/EBox/GlobalImpl.pm:1123
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "{scriptName}スクリプトを実行"
@@ -11596,7 +11625,7 @@ msgstr ""
 msgid "Slices timeline"
 msgstr ""
 
-#: ../../main/core/src/EBox/Apache.pm:621
+#: ../../main/core/src/EBox/Apache.pm:607
 #: ../../main/services/src/EBox/Services.pm:112
 #: ../../main/services/src/EBox/Services.pm:485
 #, fuzzy
@@ -11690,8 +11719,8 @@ msgstr "時間"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:181
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2575
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2583
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2591
 #: ../../main/users/src/EBox/CGI/Users.pm:31
 #: ../../main/users/src/EBox/CGI/Users.pm:55
 #: ../../main/users/src/EBox/CGI/Groups.pm:51
@@ -12124,12 +12153,12 @@ msgid ""
 "{packages}."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:231
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:227
 #, fuzzy
 msgid "Security software updates"
 msgstr "自動ソフトウェアアップデート"
 
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:246
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:242
 msgid "Check if there is any security software update."
 msgstr ""
 
@@ -12172,7 +12201,7 @@ msgstr "eBoxは停止しています"
 
 #: ../../main/core/src/EBox/Event/Watcher/State.pm:136
 #: ../../main/ca/src/templates/index.mas:48
-#: ../../main/ca/src/templates/index.mas:101
+#: ../../main/ca/src/templates/index.mas:105
 #: ../../main/ca/src/templates/createCA.mas:16
 #: ../../main/core/src/templates/report/raid.mas:227
 msgid "State"
@@ -14206,16 +14235,21 @@ msgstr "Apache LDAPユーザモジュールを有効化"
 msgid "To serve pages over HTTPS."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer.pm:160
+#: ../../main/webserver/src/EBox/WebServer.pm:140
+#, fuzzy
+msgid "Remove apache2 init script link"
+msgstr "NTP起動スクリプトのリンクを削除"
+
+#: ../../main/webserver/src/EBox/WebServer.pm:166
 msgid "HyperText Transport Protocol"
 msgstr "ハイパーテキストトランスポートプロトコル"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:778
+#: ../../main/webserver/src/EBox/WebServer.pm:784
 #, fuzzy
 msgid "Web server hosted files"
 msgstr "Webサービスの状態"
 
-#: ../../main/webserver/src/EBox/WebServer.pm:779
+#: ../../main/webserver/src/EBox/WebServer.pm:785
 #, fuzzy
 msgid "Virtual hosts data"
 msgstr "バーチャルホスト"
@@ -14625,8 +14659,8 @@ msgid "The secret key needs to have 16 characters."
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:76
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2585
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2594
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2577
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2586
 #: ../../main/users/src/EBox/CGI/Groups.pm:42
 #: ../../main/users/src/EBox/CGI/Group.pm:64
 msgid "Groups"
@@ -14821,7 +14855,7 @@ msgstr ""
 "があります。"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2606
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2598
 msgid "Slave Status"
 msgstr ""
 
@@ -14831,14 +14865,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:74
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2587
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2596
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2579
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2588
 #, fuzzy
 msgid "User Template"
 msgstr "ユーザ名"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2601
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2593
 msgid "LDAP Settings"
 msgstr ""
 
@@ -14886,123 +14920,123 @@ msgstr ""
 msgid "Zentyal will give LDAP users system account."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:167
+#: ../../main/users/src/EBox/UsersAndGroups.pm:168
 msgid ""
 "To make NSS use LDAP resolution for user and group accounts. Needed for "
 "Samba PDC configuration."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:173
+#: ../../main/users/src/EBox/UsersAndGroups.pm:174
 msgid "To let NSS know how to access LDAP accounts."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:178
+#: ../../main/users/src/EBox/UsersAndGroups.pm:179
 #, fuzzy
 msgid "To add quota support to /home partition."
 msgstr "/homeパーティションにクォータサポートを追加"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:183
+#: ../../main/users/src/EBox/UsersAndGroups.pm:184
 msgid ""
 "To configure LDAP slaves and Active Directory synchronization frequency."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:191
+#: ../../main/users/src/EBox/UsersAndGroups.pm:192
 #, fuzzy
 msgid "To make LDAP listen on TCP and Unix sockets."
 msgstr "OpenLDAPがTCPソケットやUnixソケットに応答するように設定"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:196
+#: ../../main/users/src/EBox/UsersAndGroups.pm:197
 msgid ""
 "To copy LDAP admin password generated by Zentyal and allow other modules to "
 "access LDAP."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:965
+#: ../../main/users/src/EBox/UsersAndGroups.pm:957
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "ユーザ名は {maxuserlength} 文字を超えてはなりません"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:972
+#: ../../main/users/src/EBox/UsersAndGroups.pm:964
 msgid "Username already exists on the system"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:989
+#: ../../main/users/src/EBox/UsersAndGroups.pm:981
 #, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
 "move or remove it before creating this user"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1086
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1751
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1078
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1743
 msgid "Maximum number of system users reached"
 msgstr "システムが扱える最大ユーザ数に達しました"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1103
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1095
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr "{uid}は誤ったUIDです。ユーザのUIDは{min}以上に設定する必要があります"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1114
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1106
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "{uid}は誤ったUIDです。システムユーザのUIDは{max}以上に設定する必要があります"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1274
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1266
 #, fuzzy
 msgid "user quota"
 msgstr "カスタム"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1277
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1269
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1676
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1668
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "グループ名は {maxGroupLength} 文字を超えてはなりません"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1682
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1674
 msgid "The group name is not valid because it is used internally"
 msgstr "グループ名はシステム内部で使われているため利用できません"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1768
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1760
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr "{gid}は誤ったGIDです。グループのGIDは{min}以上に設定する必要があります"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1778
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1770
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "{gid}は誤ったGIDです。システムグループのGIDは{max}より小さい値に設定する必要"
 "があります"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2380
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2372
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "パスワードは {maxPwdLength} 文字を超えてはなりません"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2611
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2603
 msgid "AD Sync Settings"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2707
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2699
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2974
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2966
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:3100
+#: ../../main/users/src/EBox/UsersAndGroups.pm:3092
 msgid "Replication failed"
 msgstr ""
 
@@ -15050,432 +15084,458 @@ msgstr "クォータ"
 msgid "Edit group"
 msgstr "グループを編集"
 
-#: ../../main/ebackup/src/scripts/restore-tool:93
+#: ../../main/ebackup/src/scripts/restore-tool:106
 msgid ""
 "No backups found in this server. Do you want to retry with a different one?"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:106
+#: ../../main/ebackup/src/scripts/restore-tool:119
 msgid ""
 "There is not configuration backup from this date. Do you want to retry with "
 "another date?"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:186
+#: ../../main/ebackup/src/scripts/restore-tool:188
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {no}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:202
+#: ../../main/ebackup/src/scripts/restore-tool:204
 msgid "Zenity package not found. Falling back to terminal mode"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:215
+#: ../../main/ebackup/src/scripts/restore-tool:217
 #, fuzzy
 msgid "User for the authentication"
 msgstr "認証エラー"
 
-#: ../../main/ebackup/src/scripts/restore-tool:217
+#: ../../main/ebackup/src/scripts/restore-tool:219
 msgid ""
 "Password for the authentication. This password will be shown both in the "
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:221
+#: ../../main/ebackup/src/scripts/restore-tool:223
 msgid "Server from which its backup date the restore will be done"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:223
+#: ../../main/ebackup/src/scripts/restore-tool:225
 msgid "Use the last backup done for the restore"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:225
+#: ../../main/ebackup/src/scripts/restore-tool:227
 msgid "Backup domain to restore. It could be repeated several times"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:227
+#: ../../main/ebackup/src/scripts/restore-tool:229
 msgid ""
 "Check if we use the no encryption or a symmetric encryption with password "
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:229
+#: ../../main/ebackup/src/scripts/restore-tool:231
 #, fuzzy
 msgid "Do not use graphical interface"
 msgstr "全ての外部インタフェース"
 
-#: ../../main/ebackup/src/scripts/restore-tool:254
+#: ../../main/ebackup/src/scripts/restore-tool:256
 #, perl-brace-format
 msgid "Module {mod} should be installed"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:260
+#: ../../main/ebackup/src/scripts/restore-tool:262
 #, perl-brace-format
 msgid "Module {mod} should be configured"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:272
+#: ../../main/ebackup/src/scripts/restore-tool:274
 msgid ""
 "Could not automatically update system hour. Some restoration operations "
 "could fail if the date is not correct"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:282
+#: ../../main/ebackup/src/scripts/restore-tool:284
 #, fuzzy
 msgid "Choose the server to restore"
 msgstr "CUPSプリンタサーバポート"
 
-#: ../../main/ebackup/src/scripts/restore-tool:287
+#: ../../main/ebackup/src/scripts/restore-tool:289
 #, fuzzy
 msgid "Server to restore: "
 msgstr "サーバのポート"
 
-#: ../../main/ebackup/src/scripts/restore-tool:315
+#: ../../main/ebackup/src/scripts/restore-tool:317
 msgid "Select backup domains to restore"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:325
+#: ../../main/ebackup/src/scripts/restore-tool:327
 #, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:343
+#: ../../main/ebackup/src/scripts/restore-tool:345
 msgid "No backup domain selected to restore. Doing nothing"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:355
+#: ../../main/ebackup/src/scripts/restore-tool:357
 msgid "Retrieving registered servers list"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:395
+#: ../../main/ebackup/src/scripts/restore-tool:397
 #, fuzzy
 msgid "No key passphrase"
 msgstr "CAパスフレーズ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:402
+#: ../../main/ebackup/src/scripts/restore-tool:404
 msgid "No password in retrieved credentials"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:414
+#: ../../main/ebackup/src/scripts/restore-tool:416
 msgid "Retrieving account information"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:481
+#: ../../main/ebackup/src/scripts/restore-tool:485
 msgid "No registered Zentyal Servers"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:487
+#: ../../main/ebackup/src/scripts/restore-tool:491
 #, fuzzy
 msgid "Registered Zentyal Servers"
 msgstr "NTPサーバ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:543
+#: ../../main/ebackup/src/scripts/restore-tool:554
 #, fuzzy
 msgid "Restoring files"
 msgstr "バックアップからモジュールをリストアしています"
 
-#: ../../main/ebackup/src/scripts/restore-tool:566
+#: ../../main/ebackup/src/scripts/restore-tool:577
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:584
+#: ../../main/ebackup/src/scripts/restore-tool:595
 #, fuzzy
 msgid "Restoring all backed-up files"
 msgstr "バックアップからリストアしています"
 
-#: ../../main/ebackup/src/scripts/restore-tool:632
+#: ../../main/ebackup/src/scripts/restore-tool:645
 #, perl-brace-format
 msgid "Could no restore {dst}, it already exists and it is not a directory"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:656
+#: ../../main/ebackup/src/scripts/restore-tool:680
 #, perl-brace-format
 msgid "Error restoring file or directory {dst}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:671
-msgid "Backup log data not found, log database will not be restored"
+#: ../../main/ebackup/src/scripts/restore-tool:707
+#, perl-brace-format
+msgid ""
+"Error restoring directory {d}. This could make fail some files or domains "
+"restore processes. Error {e}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:675
+#: ../../main/ebackup/src/scripts/restore-tool:727
+msgid ""
+"Backup log data not found in the fiels from the backup, log database will "
+"not be restored"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:733
 #, fuzzy
 msgid "Restoring log database"
 msgstr "バックアップからモジュールをリストアしています"
 
-#: ../../main/ebackup/src/scripts/restore-tool:696
+#: ../../main/ebackup/src/scripts/restore-tool:754
 #, fuzzy
 msgid "Restoring configuration backup"
 msgstr "設定のバックアップ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:701
+#: ../../main/ebackup/src/scripts/restore-tool:759
 msgid ""
 "The configuration restore failed. We will continue the process to try to "
 "restore as much as possible but your system will need manual tweaking"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:716
+#: ../../main/ebackup/src/scripts/restore-tool:774
 #, fuzzy
 msgid "Checking configuration compability"
 msgstr "設定のみ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:768
+#: ../../main/ebackup/src/scripts/restore-tool:826
 #, perl-brace-format
 msgid ""
 "Cannot restore backup because there are less interfaces than there are "
 "available. The missing interfaces are: {missing}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:811
+#: ../../main/ebackup/src/scripts/restore-tool:869
 #, fuzzy
 msgid "Updating software package lists"
 msgstr "全てアップデート"
 
-#: ../../main/ebackup/src/scripts/restore-tool:838
+#: ../../main/ebackup/src/scripts/restore-tool:896
 msgid "Installing Zentyal components and their dependencies"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:854
+#: ../../main/ebackup/src/scripts/restore-tool:912
 msgid "Installing missing modules..."
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:860
+#: ../../main/ebackup/src/scripts/restore-tool:918
 #, perl-brace-format
 msgid ""
 "Error installing packages: {err}. You can continue but you would not restore "
 "any data for the missing packages"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:908
+#: ../../main/ebackup/src/scripts/restore-tool:966
 msgid ""
 "Updating package list to allow access to exclusive Zentyal Cloud packages"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:910
+#: ../../main/ebackup/src/scripts/restore-tool:968
 #, fuzzy
 msgid "Install cloud packages"
 msgstr "パッケージをアップグレードしています"
 
-#: ../../main/ebackup/src/scripts/restore-tool:928
+#: ../../main/ebackup/src/scripts/restore-tool:986
 #, fuzzy
 msgid "Downloading subscription data"
 msgstr "内容"
 
-#: ../../main/ebackup/src/scripts/restore-tool:946
+#: ../../main/ebackup/src/scripts/restore-tool:1004
 msgid ""
 "Connection error when retrieving subscription bundle. Zentyal Cloud "
 "exclusive packages will not be installed"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:949
+#: ../../main/ebackup/src/scripts/restore-tool:1007
 msgid ""
 "Cannot retrieve bundle because either installed zentyal-remoteservices is "
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
 "exclusive packages will not be installed"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:954
+#: ../../main/ebackup/src/scripts/restore-tool:1012
 msgid ""
 "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
 "packages will not be installed"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1005
+#: ../../main/ebackup/src/scripts/restore-tool:1063
 #, fuzzy
 msgid "Configuring modules"
 msgstr "ルールを設定"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1029
+#: ../../main/ebackup/src/scripts/restore-tool:1087
 #, fuzzy, perl-brace-format
 msgid "Configuring modules: Current module {mod}"
 msgstr "設定モジュール: {module}"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1033
+#: ../../main/ebackup/src/scripts/restore-tool:1091
 #, fuzzy, perl-brace-format
 msgid "Configuring modules {p} done. Current module {mod}"
 msgstr "設定モジュール: {module}"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1052
+#: ../../main/ebackup/src/scripts/restore-tool:1110
 #, perl-brace-format
 msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "from other modules"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1075
+#: ../../main/ebackup/src/scripts/restore-tool:1133
 #, fuzzy
 msgid "Finishing new modules configuration"
 msgstr "アンチスパムオプション"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1112
+#: ../../main/ebackup/src/scripts/restore-tool:1218
 msgid "Downloading backup metadata..."
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1131
+#: ../../main/ebackup/src/scripts/restore-tool:1304
 #, fuzzy
-msgid "Downloading the backup data and configuration"
+msgid "Downloading the backup data"
 msgstr "全データと設定のバックアップ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1171
+#: ../../main/ebackup/src/scripts/restore-tool:1322
+#, fuzzy, perl-brace-format
+msgid "Downloading  {src} backup data for {dom}"
+msgstr "全データと設定のバックアップ"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1336
+#, perl-brace-format
+msgid ""
+"Error downloading data for backup domain: {dom}. The domain will not be "
+"fully restored"
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:1354
+#, fuzzy
+msgid "Downloading the backup configuration"
+msgstr "全データと設定のバックアップ"
+
+#: ../../main/ebackup/src/scripts/restore-tool:1392
 #, fuzzy
 msgid "Downloading configuration"
 msgstr "クライアント設定"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1195
+#: ../../main/ebackup/src/scripts/restore-tool:1432
 msgid "Retrieving backup collection status ..."
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1224
-#: ../../main/ebackup/src/scripts/restore-tool:1285
+#: ../../main/ebackup/src/scripts/restore-tool:1461
+#: ../../main/ebackup/src/scripts/restore-tool:1522
 #, fuzzy, perl-brace-format
 msgid "Last backup date was: {date}"
 msgstr "状態: {state}"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1250
+#: ../../main/ebackup/src/scripts/restore-tool:1487
 #, fuzzy, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
 msgstr "設定のバックアップ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1301
+#: ../../main/ebackup/src/scripts/restore-tool:1538
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1325
+#: ../../main/ebackup/src/scripts/restore-tool:1562
 #, fuzzy, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
 msgstr "設定のバックアップ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1342
+#: ../../main/ebackup/src/scripts/restore-tool:1579
 #, fuzzy, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
 msgstr "設定のバックアップ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1374
+#: ../../main/ebackup/src/scripts/restore-tool:1611
 #, fuzzy, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
 msgstr "eBoxは動作中です"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1433
+#: ../../main/ebackup/src/scripts/restore-tool:1670
 msgid "Please, enter a value"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1458
+#: ../../main/ebackup/src/scripts/restore-tool:1695
 msgid "Please answer yes or no"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1484
+#: ../../main/ebackup/src/scripts/restore-tool:1721
 #, fuzzy, perl-brace-format
 msgid "Backup dates for server {cn}"
 msgstr "サービスへのトラフィックデータ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1495
+#: ../../main/ebackup/src/scripts/restore-tool:1732
 msgid "Enter backup date to restore:"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1498
+#: ../../main/ebackup/src/scripts/restore-tool:1735
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1604
+#: ../../main/ebackup/src/scripts/restore-tool:1841
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1652
+#: ../../main/ebackup/src/scripts/restore-tool:1889
 #, fuzzy
 msgid "Selection"
 msgstr "アクション"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1691
+#: ../../main/ebackup/src/scripts/restore-tool:1928
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1812
+#: ../../main/ebackup/src/scripts/restore-tool:2049
 msgid "Please wait"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1826
+#: ../../main/ebackup/src/scripts/restore-tool:2063
 msgid "Finished"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1886
+#: ../../main/ebackup/src/scripts/restore-tool:2123
 msgid "Restoring process aborted upon user request"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1914
+#: ../../main/ebackup/src/scripts/restore-tool:2151
 #, fuzzy
 msgid "Saving configuration changes"
 msgstr "設定のみ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:1931
+#: ../../main/ebackup/src/scripts/restore-tool:2172
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1945
+#: ../../main/ebackup/src/scripts/restore-tool:2186
 msgid "Regenerating file list cache"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:1953
+#: ../../main/ebackup/src/scripts/restore-tool:2194
 msgid ""
 "Cannot connect to the Cloud to regenerate backup list. Please try again "
 "later."
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2016
+#: ../../main/ebackup/src/scripts/restore-tool:2257
 #, fuzzy
 msgid "Zentyal Cloud User"
 msgstr "eBox ホームページ"
 
-#: ../../main/ebackup/src/scripts/restore-tool:2019
+#: ../../main/ebackup/src/scripts/restore-tool:2260
 #, fuzzy
 msgid "Zentyal Cloud Password"
 msgstr "パスワード"
 
-#: ../../main/ebackup/src/scripts/restore-tool:2034
+#: ../../main/ebackup/src/scripts/restore-tool:2275
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2093
+#: ../../main/ebackup/src/scripts/restore-tool:2334
 #, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2149
+#: ../../main/ebackup/src/scripts/restore-tool:2393
 #, perl-brace-format
 msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2168
+#: ../../main/ebackup/src/scripts/restore-tool:2423
 msgid "Your full backup is now successfully restored!"
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2170
+#: ../../main/ebackup/src/scripts/restore-tool:2425
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2211
+#: ../../main/ebackup/src/scripts/restore-tool:2466
 #, fuzzy, perl-brace-format
 msgid "Warning: {msg}"
 msgstr "警告"
 
-#: ../../main/ebackup/src/scripts/restore-tool:2237
+#: ../../main/ebackup/src/scripts/restore-tool:2492
 msgid ""
 "Sorry, an unexpected error has occurred. Please contact support and check "
 "the /var/log/zentyal/zentyal.log file for further details."
 msgstr ""
 
-#: ../../main/ebackup/src/scripts/restore-tool:2257
+#: ../../main/ebackup/src/scripts/restore-tool:2512
 msgid "Restore process aborted"
 msgstr ""
 
@@ -15483,33 +15543,33 @@ msgstr ""
 msgid "Days of the week"
 msgstr ""
 
-#: ../../main/squid/stubs/template.html.mas:9
+#: ../../main/squid/stubs/template.html.mas:10
 #, fuzzy
 msgid "Access Denied"
 msgstr "拒否されました"
 
-#: ../../main/squid/stubs/template.html.mas:30
+#: ../../main/squid/stubs/template.html.mas:31
 msgid "Access has been Denied"
 msgstr ""
 
-#: ../../main/squid/stubs/template.html.mas:37
+#: ../../main/squid/stubs/template.html.mas:38
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
 msgstr ""
 
-#: ../../main/squid/stubs/template.html.mas:41
+#: ../../main/squid/stubs/template.html.mas:42
 msgid ""
 "You are seeing this error because what you attempted to access appears to "
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
 
-#: ../../main/squid/stubs/template.html.mas:42
+#: ../../main/squid/stubs/template.html.mas:43
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
 
-#: ../../main/squid/stubs/template.html.mas:47
+#: ../../main/squid/stubs/template.html.mas:48
 msgid "Powered by"
 msgstr ""
 
@@ -15635,23 +15695,23 @@ msgid "Host list for domain {domain}"
 msgstr "ドメイン {domain} のホスト一覧"
 
 #: ../../main/software/src/templates/ebox.mas:189
-#: ../../main/software/src/templates/ebox.mas:633
-#: ../../main/software/src/templates/ebox.mas:657
+#: ../../main/software/src/templates/ebox.mas:631
+#: ../../main/software/src/templates/ebox.mas:655
 #: ../../main/software/src/templates/updates.mas:46
 msgid "Update"
 msgstr "アップデート"
 
 #: ../../main/software/src/templates/ebox.mas:195
-#: ../../main/software/src/templates/ebox.mas:602
-#: ../../main/software/src/templates/ebox.mas:626
-#: ../../main/software/src/templates/ebox.mas:648
+#: ../../main/software/src/templates/ebox.mas:600
+#: ../../main/software/src/templates/ebox.mas:624
+#: ../../main/software/src/templates/ebox.mas:646
 msgid "Install"
 msgstr "インストール"
 
 #: ../../main/software/src/templates/ebox.mas:197
-#: ../../main/software/src/templates/ebox.mas:697
-#: ../../main/software/src/templates/ebox.mas:722
-#: ../../main/software/src/templates/ebox.mas:725
+#: ../../main/software/src/templates/ebox.mas:695
+#: ../../main/software/src/templates/ebox.mas:720
+#: ../../main/software/src/templates/ebox.mas:723
 #, fuzzy
 msgid "Installed Version"
 msgstr "インストール"
@@ -15675,14 +15735,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:236
-#: ../../main/software/src/templates/ebox.mas:691
-#: ../../main/software/src/templates/ebox.mas:694
-#: ../../main/software/src/templates/ebox.mas:699
-#: ../../main/software/src/templates/ebox.mas:715
-#: ../../main/software/src/templates/ebox.mas:724
+#: ../../main/software/src/templates/ebox.mas:689
+#: ../../main/software/src/templates/ebox.mas:692
+#: ../../main/software/src/templates/ebox.mas:697
+#: ../../main/software/src/templates/ebox.mas:713
+#: ../../main/software/src/templates/ebox.mas:722
+#: ../../main/software/src/templates/ebox.mas:761
+#: ../../main/software/src/templates/ebox.mas:762
 #: ../../main/software/src/templates/ebox.mas:763
-#: ../../main/software/src/templates/ebox.mas:764
-#: ../../main/software/src/templates/ebox.mas:765
 #: ../../main/software/src/templates/updates.mas:43
 msgid "Component"
 msgstr "コンポーネント"
@@ -15702,54 +15762,54 @@ msgstr ""
 msgid "View advanced mode"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:604
+#: ../../main/software/src/templates/ebox.mas:602
 #, fuzzy
 msgid "Skip install"
 msgstr "インストール"
 
-#: ../../main/software/src/templates/ebox.mas:622
+#: ../../main/software/src/templates/ebox.mas:620
 msgid "View basic mode"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:649
-#: ../../main/software/src/templates/ebox.mas:658
+#: ../../main/software/src/templates/ebox.mas:647
+#: ../../main/software/src/templates/ebox.mas:656
 #: ../../main/software/src/templates/updates.mas:108
 #, fuzzy
 msgid "Update list"
 msgstr "アップデート"
 
-#: ../../main/software/src/templates/ebox.mas:650
-#: ../../main/software/src/templates/ebox.mas:659
-#: ../../main/software/src/templates/ebox.mas:670
+#: ../../main/software/src/templates/ebox.mas:648
+#: ../../main/software/src/templates/ebox.mas:657
+#: ../../main/software/src/templates/ebox.mas:668
 msgid "Deselect All"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:651
-#: ../../main/software/src/templates/ebox.mas:660
-#: ../../main/software/src/templates/ebox.mas:671
+#: ../../main/software/src/templates/ebox.mas:649
+#: ../../main/software/src/templates/ebox.mas:658
+#: ../../main/software/src/templates/ebox.mas:669
 msgid "Select All"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:700
-#: ../../main/software/src/templates/ebox.mas:716
-#: ../../main/software/src/templates/ebox.mas:726
+#: ../../main/software/src/templates/ebox.mas:698
+#: ../../main/software/src/templates/ebox.mas:714
+#: ../../main/software/src/templates/ebox.mas:724
 #, fuzzy
 msgid "Latest Version"
 msgstr "eBox バージョン"
 
+#: ../../main/software/src/templates/ebox.mas:701
 #: ../../main/software/src/templates/ebox.mas:703
 #: ../../main/software/src/templates/ebox.mas:705
-#: ../../main/software/src/templates/ebox.mas:707
-#: ../../main/software/src/templates/ebox.mas:717
-#: ../../main/software/src/templates/ebox.mas:727
+#: ../../main/software/src/templates/ebox.mas:715
+#: ../../main/software/src/templates/ebox.mas:725
+#: ../../main/software/src/templates/ebox.mas:746
 #: ../../main/software/src/templates/ebox.mas:748
 #: ../../main/software/src/templates/ebox.mas:750
-#: ../../main/software/src/templates/ebox.mas:752
 #, fuzzy
 msgid "Select"
 msgstr "バグ報告"
 
-#: ../../main/software/src/templates/ebox.mas:735
+#: ../../main/software/src/templates/ebox.mas:733
 #, fuzzy
 msgid "Loading"
 msgstr ""
@@ -15758,12 +15818,12 @@ msgstr ""
 "#-#-#-#-#  ja.po (ebox 0.12)  #-#-#-#-#\n"
 "アップグレード中"
 
-#: ../../main/software/src/templates/ebox.mas:736
+#: ../../main/software/src/templates/ebox.mas:734
 #, fuzzy
 msgid "No packages found"
 msgstr "ページが見つかりませんでした"
 
-#: ../../main/software/src/templates/ebox.mas:739
+#: ../../main/software/src/templates/ebox.mas:737
 #: ../../main/core/src/templates/ajax/tableBody.mas:211
 #: ../../main/core/src/templates/ajax/tableModalView.mas:234
 #: ../../main/core/src/templates/logs/index.mas:202
@@ -15771,12 +15831,12 @@ msgstr "ページが見つかりませんでした"
 msgid "Search"
 msgstr "検索"
 
-#: ../../main/software/src/templates/ebox.mas:741
+#: ../../main/software/src/templates/ebox.mas:739
 #: ../../main/core/src/templates/ajax/tablePager.mas:47
 msgid "of"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:742
+#: ../../main/software/src/templates/ebox.mas:740
 #, fuzzy
 msgid "pages"
 msgstr "予備"
@@ -16270,29 +16330,29 @@ msgstr ""
 msgid "Issue"
 msgstr "発行"
 
-#: ../../main/ca/src/templates/index.mas:79
+#: ../../main/ca/src/templates/index.mas:83
 #, fuzzy
 msgid "Certificate changes will take effect immediately."
 msgstr "証明書の変更はすぐに適用されます"
 
-#: ../../main/ca/src/templates/index.mas:81
+#: ../../main/ca/src/templates/index.mas:85
 msgid "The CA passphrase is optional"
 msgstr "CAパスフレーズの入力は任意です"
 
-#: ../../main/ca/src/templates/index.mas:85
+#: ../../main/ca/src/templates/index.mas:89
 msgid "Issue the Certification Authority Certificate"
 msgstr "CA証明書を発行"
 
-#: ../../main/ca/src/templates/index.mas:87
+#: ../../main/ca/src/templates/index.mas:91
 #, fuzzy
 msgid "Issue a New Certificate"
 msgstr "証明書を発行"
 
-#: ../../main/ca/src/templates/index.mas:94
+#: ../../main/ca/src/templates/index.mas:98
 msgid "Current Certificate List"
 msgstr "現在の証明書一覧"
 
-#: ../../main/ca/src/templates/index.mas:96
+#: ../../main/ca/src/templates/index.mas:100
 msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
@@ -16300,52 +16360,52 @@ msgstr ""
 "日付は、有効期限の有効/期限切れ、無効化された証明書が無効化した日の順に表示さ"
 "れています"
 
-#: ../../main/ca/src/templates/index.mas:122
+#: ../../main/ca/src/templates/index.mas:126
 msgid "from"
 msgstr "from"
 
-#: ../../main/ca/src/templates/index.mas:133
+#: ../../main/ca/src/templates/index.mas:137
 msgid "Valid"
 msgstr "有効"
 
-#: ../../main/ca/src/templates/index.mas:135
+#: ../../main/ca/src/templates/index.mas:139
 msgid "Expired"
 msgstr "期限切れ"
 
-#: ../../main/ca/src/templates/index.mas:137
+#: ../../main/ca/src/templates/index.mas:141
 msgid "Revoked"
 msgstr "無効化"
 
-#: ../../main/ca/src/templates/index.mas:142
+#: ../../main/ca/src/templates/index.mas:146
 #, perl-brace-format
 msgid "Reason: {reason}"
 msgstr ""
 
-#: ../../main/ca/src/templates/index.mas:170
-#: ../../main/ca/src/templates/index.mas:214
+#: ../../main/ca/src/templates/index.mas:174
+#: ../../main/ca/src/templates/index.mas:219
 #: ../../main/ca/src/templates/forceRevoke.mas:42
 #: ../../main/ca/src/templates/formRevoke.mas:81
 msgid "Revoke"
 msgstr "無効化"
 
-#: ../../main/ca/src/templates/index.mas:179
-#: ../../main/ca/src/templates/index.mas:216
+#: ../../main/ca/src/templates/index.mas:183
+#: ../../main/ca/src/templates/index.mas:221
 msgid "Download Key(s) and Certificate"
 msgstr "鍵と証明書をダウンロード"
 
-#: ../../main/ca/src/templates/index.mas:189
+#: ../../main/ca/src/templates/index.mas:193
 #: ../../main/ca/src/templates/forceRenew.mas:27
 #: ../../main/ca/src/templates/formRenew.mas:23
 msgid "Renew"
 msgstr "更新"
 
-#: ../../main/ca/src/templates/index.mas:201
+#: ../../main/ca/src/templates/index.mas:206
 #: ../../main/ca/src/templates/formReissue.mas:26
 #, fuzzy
 msgid "Reissue"
 msgstr "発行"
 
-#: ../../main/ca/src/templates/index.mas:218
+#: ../../main/ca/src/templates/index.mas:223
 msgid "Renew or reissue"
 msgstr ""
 
@@ -17629,6 +17689,10 @@ msgid ""
 msgstr ""
 "この操作を行うと、メールアカウントやユーザの所有するデータなど関連するデータ"
 "とともにユーザが削除されます。"
+
+#, fuzzy
+#~ msgid "Other files"
+#~ msgstr "ユーザのファイル"
 
 #~ msgid ""
 #~ "Starting traffic rate monitoring. Wait patiently until the graph appears"
