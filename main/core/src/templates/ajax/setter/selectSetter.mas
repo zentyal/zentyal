@@ -22,11 +22,12 @@ my $id = $tableName . '_' . $data->fieldName();
 # that. Time constraints make us do this crap. Sorry.
 
 my $options = $data->options();
-my $empty = @{ $options } == 0;
+my $empty;
 my @filteredOptions;
 my @optionsAlreadyModel = ();
 
-if ($data->unique() ) {
+my $value  = $data->value();
+if ($data->unique()) {
     # Filter the options in other just to show the ones allowed
     my $model = $data->model();
 
@@ -56,7 +57,10 @@ if ($data->unique() ) {
         }
 
         $options = \@filteredOptions;
+        $empty = (@filteredOptions == 0);
     }
+} else {
+    $empty = @{ $options } == 0;  
 }
 
 my @extraParams;
@@ -107,13 +111,14 @@ ENDJS
     push @extraParams, onChange => $onChangeJS;
     if ($empty) {
         push @extraParams, style => 'display:none';
-   }
+    } 
 }
+
 </%init>
 
 <& /input/select.mas,
    'name'    => "$id" ,
-   'value'   => $data->value(),
+   'value'   => $value,
    'options' => $options,
    'id'      => "$id",
    'class'   => "$cssClass",
