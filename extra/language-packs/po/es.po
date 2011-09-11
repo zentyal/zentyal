@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2011-09-10 04:45+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2011-09-12 00:49+0200\n"
+"Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -208,9 +208,8 @@ msgid "Network object"
 msgstr "Objeto de red"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Ratio de Red"
+msgstr "Velocidad de descarga de la red"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -219,16 +218,14 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Máximo ratio de ancho de banda de bajada para esta red. Use -1 para "
-"desactivar esta opción."
+"Máxima velocidad de descarga para esta red. Use -1 para desactivar esta "
+"opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Máximo Tamaño de Red"
+msgstr "Máximo tamaño de fichero"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -238,54 +235,50 @@ msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Máximo tamaño no limitado para esta red. Use -1 para desactivar esta opción."
-
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
-msgid "Client download rate"
-msgstr "Dirección del cliente"
-
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
-msgid "Maximum download rate per client. Use -1 to disable this option."
-msgstr ""
-"Máximo ratio de ancho de banda de bajada por cliente. Use -1 para desactivar "
+"Máximo tamaño de fichero no limitado para esta red. Use -1 para desactivar "
 "esta opción."
 
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
+msgid "Client download rate"
+msgstr "Velocidad de descarga del cliente"
+
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
+msgid "Maximum download rate per client. Use -1 to disable this option."
+msgstr ""
+"Máxima velocidad de descarga por cliente. Use -1 para desactivar esta "
+"opción."
+
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Tamaño Máximo de Cliente"
+msgstr "Tamaño de fichero por cliente"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
-"Tamaño máximo no limitado de bajada por cliente. Use -1 para desactivar esta "
-"opción."
+"Tamaño máximo de fichero no limitado por cliente. Use -1 para desactivar "
+"esta opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Reglas de ancho de banda por cliente (delay pools de clase 2)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"Una vez la petición exceda el {max}, entonces el Proxy HTTP limiltará el "
-"ancho de banda al {rate} prefijado. El número de clientes está limitado a "
-"256."
+"Una vez la descarga excesa el tamaño de fichero, el Proxy HTTP ralentizará "
+"la conexión hasta la velocidad indicada. Ambos parámetros pueden ser "
+"definidos tanto para toda la red como para los clientes individuales. El "
+"número de clientes está limitado a 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -744,24 +737,22 @@ msgstr ""
 "Política de grupo global requiere una política global con autenticación"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Descargar"
+msgstr "Velocidad de descarga"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Máximo tamaño no limitado para esta red. Use -1 para desactivar esta opción."
+"Máxima velocidad de descarga para esta red. Use -1 para desactivar esta "
+"opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Sistema de ficheros"
+msgstr "Tamaño de fichero"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr ""
+msgstr "Reglas de ancho de banda de la red (delay pools de clase 1)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -769,6 +760,9 @@ msgid ""
 "connection to the specified download rate. The clients on this network will "
 "have to share the available bandwidth."
 msgstr ""
+"En cuando una descarga exceda el tamaño de fichero, el Proxy HTTP "
+"ralentizará la conexión hasta la velocidad de descarga especificada. Los "
+"clientes de esta red tendrán que compartir el ancho de banda disponible."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -1153,7 +1147,6 @@ msgid "Bandwidth Throttling"
 msgstr "Limitación de Ancho de Banda"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
@@ -1163,11 +1156,15 @@ msgid ""
 "and the first rule to match is applied. If a connection doesn't match any "
 "rule, then no bandwidth throttling is applied."
 msgstr ""
-"Los 'pools' de clase 1 permiten restringir el ancho de banda para grandes "
-"descargas, mientras que los de clase 2 permiten fijar el uso de ancho de "
-"banda a un ratio constante. Los 'pools' de clase 1 tienen mayor prioridad "
-"que los de clase 2. Si un objeto de red no coincide con ninguna regla, "
-"entonces no se le limita el ancho de banda."
+"La limitación de ancho de banda permite controlar las velocidades de "
+"descarga de las conexiones que pasan a través del proxy HTTP. Las reglas de "
+"ancho de banda por red (delay pools de clase 1) nos permiten limitar la "
+"velocidad de descarga para toda la red mientras que las reglas de ancho de "
+"banda por cliente (delay pools de clase 2) nos permiten controlar la "
+"velocidad de descarga para los clientes individuales. Las 'delay pools' de "
+"clase 1 tienen mas prioridad que las de clase 2. La primera regla que sea "
+"aplicable se hará efectiva. Si una conexión no coincide con ninguna de las "
+"reglas, no se aplicacará limitación de ancho de banda."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -6333,7 +6330,7 @@ msgstr "Todos los ficheros del backup"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:430
 msgid "All files included in the backup"
-msgstr "Datos extra incluidos en la copia"
+msgstr "Todos los ficheros incluidos en la copia"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:715
 msgid ""
@@ -15115,7 +15112,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:223
 msgid "Server from which its backup date the restore will be done"
-msgstr "Servidor desde que su fecha de backup se realizará la restauración"
+msgstr "Servidor desde el que se restaurará la copia"
 
 #: ../../main/ebackup/src/scripts/restore-tool:225
 msgid "Use the last backup done for the restore"
@@ -15234,7 +15231,6 @@ msgstr ""
 "de algunos ficheros o dominios. Error: {e}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:727
-#, fuzzy
 msgid ""
 "Backup log data not found in the files from the backup, log database will "
 "not be restored"

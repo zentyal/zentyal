@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2011-08-26 21:53+0200\n"
+"PO-Revision-Date: 2011-09-10 20:43+0200\n"
 "Last-Translator: miquel <miquel@acsat.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -1466,9 +1466,8 @@ msgstr ""
 "amb plantilles personalitzades de Zentyal."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Suprimir els links dels scripts d'inici ntp"
+msgstr "Suprimir els enllaços dels scripts d'inici dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
 #: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
@@ -3702,9 +3701,8 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr "Permet que el dimoni de bind s'actualitzi dinàmicament"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:634
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Suprimir els links dels scripts d'inici ntp"
+msgstr "Eliminar l'enllaç de l'script d'inici de bind9"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -5522,9 +5520,8 @@ msgid "Bandwidth quota"
 msgstr "Quota d'ample de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:83
-#, fuzzy
 msgid "MB"
-msgstr "L"
+msgstr "MB"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:84
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
@@ -6083,18 +6080,17 @@ msgid "Directory for backup"
 msgstr "Directori per la còpia de seguretat"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:818
-#, fuzzy
 msgid "Cannot use the / directory as target"
-msgstr "directori relatiu"
+msgstr "No es pot fer servir el directori / com destí"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
 msgid "File exists and it is not a directory"
 msgstr "L'arxiu existeix i no es un directori"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:837
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot read parent directory {d}"
-msgstr "directori relatiu"
+msgstr "No es pot llegir el directori pare {d}"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
 msgid ""
@@ -6270,14 +6266,14 @@ msgid "Services Restore"
 msgstr "Restauració de serveis"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} does not exists"
-msgstr "El client {c} no existeix"
+msgstr "No es pot restablir {d}: {dd} no existeix"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} is not a directory"
-msgstr "L'arxiu existeix i no es un directori"
+msgstr "No es pot restablir a {d}: {dd} no és un directori"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:226
 #, perl-brace-format
@@ -6293,14 +6289,12 @@ msgstr ""
 "d/ebox ebackup restart' per refrescar la informació de les còpies."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:429
-#, fuzzy
 msgid "All files in backup"
-msgstr "Restaurant la còpia de seguretat"
+msgstr "Tots els fitxers de la còpia"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:430
-#, fuzzy
 msgid "All files included in the backup"
-msgstr "Dades incloses manualment a la còpia"
+msgstr "Tots els fitxers inclosos a la còpia"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:715
 msgid ""
@@ -6364,7 +6358,7 @@ msgstr "{data} és buida."
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:42
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Falta argument: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:29
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
@@ -10576,6 +10570,7 @@ msgstr "Esdeveniment desconegut {event}."
 #: ../../main/ntp/src/EBox/NTP.pm:90
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
 msgstr ""
+"Eliminar enllaç a l'script de ntp i vínculs de xarxa (if-up.d i dhclient)"
 
 #: ../../main/ntp/src/EBox/NTP.pm:109
 msgid "NTP configuration file"
@@ -11113,6 +11108,8 @@ msgid ""
 "The following modules have unsaved changes: {mods}. Before doing the backup "
 "you must save or discard them"
 msgstr ""
+"Els següents mòduls tenen canvis sense guardar: {mods}. Abans de fer la "
+"copia, els ha de guardar o descartar"
 
 #: ../../main/core/src/EBox/Backup.pm:883
 msgid "Incorrect or corrupt backup file"
@@ -11616,9 +11613,9 @@ msgid "{n} system updates"
 msgstr "{n} actualitzacions del sistema"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} component updates"
-msgstr "Última actualització de seguretat"
+msgstr "{n} actualitzacions de components"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:176
 msgid "Core version"
@@ -14131,9 +14128,8 @@ msgid "To serve pages over HTTPS."
 msgstr "Per servir pàgines en HTTPS"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Suprimir els links dels scripts d'inici ntp"
+msgstr "Eliminar el link de l'script d'inici d'apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:166
 msgid "HyperText Transport Protocol"
@@ -14992,35 +14988,30 @@ msgid "Edit group"
 msgstr "Editar grup"
 
 #: ../../main/ebackup/src/scripts/restore-tool:106
-#, fuzzy
 msgid ""
 "No backups found in this server. Do you want to retry with a different one?"
-msgstr ""
-"No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
-"altra data?"
+msgstr "No s'ha trobat cap còpia a aquest servidor. Ho vol provar amb un altre?"
 
 #: ../../main/ebackup/src/scripts/restore-tool:119
-#, fuzzy
 msgid ""
 "There is not configuration backup from this date. Do you want to retry with "
 "another date?"
 msgstr ""
-"No es troba la còpia de la configuració a la còpia de {d}. Pot provar una "
+"No hi ha cap còpia de la configuració des d'aquesta data. Vol provar una "
 "altra data?"
 
 #: ../../main/ebackup/src/scripts/restore-tool:188
 #, perl-brace-format
 msgid "You can only specify one of the encryption options: {sy}, {no}"
-msgstr ""
+msgstr "Unicament pot especificar una d'aquestes opcions de xifrat: {sy}, {no}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:204
 msgid "Zenity package not found. Falling back to terminal mode"
-msgstr ""
+msgstr "El paquet zenity no s'ha trobat. Passant al mode terminal"
 
 #: ../../main/ebackup/src/scripts/restore-tool:217
-#, fuzzy
 msgid "User for the authentication"
-msgstr "Requereix autentificació"
+msgstr "Usuari per l'autenticació"
 
 #: ../../main/ebackup/src/scripts/restore-tool:219
 msgid ""
@@ -15028,119 +15019,120 @@ msgid ""
 "command line and in the process list so only use this option when security "
 "is not a concern"
 msgstr ""
+"Contrassenya per l'autenticació. Aquesta contrassenya es mostrarà tant a la "
+"línia de comandes com a la llista de processos, faci-la servir unicament si "
+"la seguretat no és una preocupació"
 
 #: ../../main/ebackup/src/scripts/restore-tool:223
 msgid "Server from which its backup date the restore will be done"
-msgstr ""
+msgstr "Servidor des del qual es restablirà la copia"
 
 #: ../../main/ebackup/src/scripts/restore-tool:225
 msgid "Use the last backup done for the restore"
-msgstr ""
+msgstr "Restablir la última copia feta"
 
 #: ../../main/ebackup/src/scripts/restore-tool:227
 msgid "Backup domain to restore. It could be repeated several times"
-msgstr ""
+msgstr "Domini de còpia a restaurar. Es pot repetir diverses vegades"
 
 #: ../../main/ebackup/src/scripts/restore-tool:229
 msgid ""
 "Check if we use the no encryption or a symmetric encryption with password "
 msgstr ""
+"Comprovi si no estem fent servir cap xifrat o un esquema simètric amb "
+"contrassenya  "
 
 #: ../../main/ebackup/src/scripts/restore-tool:231
-#, fuzzy
 msgid "Do not use graphical interface"
-msgstr "Totes les interfícies externes"
+msgstr "No faci servir l'interfície gràfica"
 
 #: ../../main/ebackup/src/scripts/restore-tool:256
 #, perl-brace-format
 msgid "Module {mod} should be installed"
-msgstr ""
+msgstr "S'ha d'instal.lar el mòdul {mod} "
 
 #: ../../main/ebackup/src/scripts/restore-tool:262
 #, perl-brace-format
 msgid "Module {mod} should be configured"
-msgstr ""
+msgstr "El mòdul {mod} s'ha de configurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:274
 msgid ""
 "Could not automatically update system hour. Some restoration operations "
 "could fail if the date is not correct"
 msgstr ""
+"No s'ha pogut actualitzar correctament l'hora del sistema. Algunes "
+"operacions de restabliment poden fallar si la data no és correcta"
 
 #: ../../main/ebackup/src/scripts/restore-tool:284
-#, fuzzy
 msgid "Choose the server to restore"
-msgstr "Restauració de serveis"
+msgstr "Elegeixi el servidor a restablir"
 
 #: ../../main/ebackup/src/scripts/restore-tool:289
-#, fuzzy
 msgid "Server to restore: "
-msgstr "Restauració de serveis"
+msgstr "Servidor a restablir"
 
 #: ../../main/ebackup/src/scripts/restore-tool:317
 msgid "Select backup domains to restore"
-msgstr ""
+msgstr "Seleccioni els dominis de còpies a restaurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:327
 #, perl-brace-format
 msgid "Backup domains available in the server {cn}: {l}"
-msgstr ""
+msgstr "Dominis de còpia disponibles al servidor {cn}: {l}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:345
 msgid "No backup domain selected to restore. Doing nothing"
-msgstr ""
+msgstr "No s'ha seleccionat cap domini per restablir. No es fà res"
 
 #: ../../main/ebackup/src/scripts/restore-tool:357
 msgid "Retrieving registered servers list"
-msgstr ""
+msgstr "Recuperant la llista de servidors registrats"
 
 #: ../../main/ebackup/src/scripts/restore-tool:397
-#, fuzzy
 msgid "No key passphrase"
-msgstr "Contrasenya del CA"
+msgstr "No hi ha contrassenya per a la clau"
 
 #: ../../main/ebackup/src/scripts/restore-tool:404
 msgid "No password in retrieved credentials"
-msgstr ""
+msgstr "No hi ha contrassenya en els credencials recuperats"
 
 #: ../../main/ebackup/src/scripts/restore-tool:416
 msgid "Retrieving account information"
-msgstr ""
+msgstr "Recuperant l'informació del compte"
 
 #: ../../main/ebackup/src/scripts/restore-tool:485
 msgid "No registered Zentyal Servers"
-msgstr ""
+msgstr "No hi ha servidors Zentyal registrats"
 
 #: ../../main/ebackup/src/scripts/restore-tool:491
-#, fuzzy
 msgid "Registered Zentyal Servers"
-msgstr "Servidor FTP de Zentyal"
+msgstr "Servidors Zentyal registrats"
 
 #: ../../main/ebackup/src/scripts/restore-tool:554
-#, fuzzy
 msgid "Restoring files"
-msgstr "Recuperar arxius"
+msgstr "Recuperant arxius"
 
 #: ../../main/ebackup/src/scripts/restore-tool:577
 #, perl-brace-format
 msgid ""
 "Cannot restore file {file} requested by backup domains. Reason: {reason}"
 msgstr ""
+"No es pot restablir el fitxer {file} pels dominis de còpia. Motiu: {reason}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:595
-#, fuzzy
 msgid "Restoring all backed-up files"
-msgstr "Restaurant la còpia de seguretat"
+msgstr "Restaurant tots els fitxers de la còpia"
 
 #: ../../main/ebackup/src/scripts/restore-tool:645
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could no restore {dst}, it already exists and it is not a directory"
-msgstr "L'arxiu existeix i no es un directori"
+msgstr "No es pot restablir {dst}, ja existeix i no és un directori"
 
 #: ../../main/ebackup/src/scripts/restore-tool:680
 #, perl-brace-format
 msgid "Error restoring file or directory {dst}"
-msgstr ""
+msgstr "Error al restablir el fitxer o directori {dst}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:707
 #, perl-brace-format
@@ -15148,33 +15140,36 @@ msgid ""
 "Error restoring directory {d}. This could make fail some files or domains "
 "restore processes. Error {e}"
 msgstr ""
+"Error restablint el directori {d}. Això pot fer fallar el restabliment "
+"d'alguns fitxers o dominis. Error {e}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:727
 msgid ""
 "Backup log data not found in the files from the backup, log database will "
 "not be restored"
 msgstr ""
+"Els registres no son a la còpia, la basse de dades de registres no es "
+"restablirà"
 
 #: ../../main/ebackup/src/scripts/restore-tool:733
-#, fuzzy
 msgid "Restoring log database"
-msgstr "Restaura la base de dades de logs"
+msgstr "Restaurant la base de dades de logs"
 
 #: ../../main/ebackup/src/scripts/restore-tool:754
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr "Còpia de la última configuració"
+msgstr "Restablint la còpia de la configuració"
 
 #: ../../main/ebackup/src/scripts/restore-tool:759
 msgid ""
 "The configuration restore failed. We will continue the process to try to "
 "restore as much as possible but your system will need manual tweaking"
 msgstr ""
+"El restabliment de la configuració ha fallat. S'intentarà recuperar el màxim "
+"possible, pero caldrà ajustar el sistema manualment"
 
 #: ../../main/ebackup/src/scripts/restore-tool:774
-#, fuzzy
 msgid "Checking configuration compability"
-msgstr "Només configuració"
+msgstr "Comprovant la compatibilitat de la configuració"
 
 #: ../../main/ebackup/src/scripts/restore-tool:826
 #, perl-brace-format
@@ -15182,18 +15177,20 @@ msgid ""
 "Cannot restore backup because there are less interfaces than there are "
 "available. The missing interfaces are: {missing}"
 msgstr ""
+"No es pot restablir la copia perque hi ha menys interfícies que les "
+"disponibles. Les interfícies que falten son: {missing}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:869
 msgid "Updating software package lists"
-msgstr ""
+msgstr "Actualitzant la llista de paquets de software"
 
 #: ../../main/ebackup/src/scripts/restore-tool:896
 msgid "Installing Zentyal components and their dependencies"
-msgstr ""
+msgstr "Instal.lant els components de Zentyal i les seves dependències"
 
 #: ../../main/ebackup/src/scripts/restore-tool:912
 msgid "Installing missing modules..."
-msgstr ""
+msgstr "Instal.lant els mòduls que faltaven..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:918
 #, perl-brace-format
@@ -15201,27 +15198,31 @@ msgid ""
 "Error installing packages: {err}. You can continue but you would not restore "
 "any data for the missing packages"
 msgstr ""
+"Error instal.lant els paquets: {err}. Pot continuar però no es restablirà "
+"cap dada dels paquets que falten"
 
 #: ../../main/ebackup/src/scripts/restore-tool:966
 msgid ""
 "Updating package list to allow access to exclusive Zentyal Cloud packages"
 msgstr ""
+"Actualitzant la llista de paquets per permetre l'accés als paquets exclusius "
+"de Zentyal Cloud"
 
 #: ../../main/ebackup/src/scripts/restore-tool:968
-#, fuzzy
 msgid "Install cloud packages"
-msgstr "Instal.lant paquets"
+msgstr "Instal.lant els paquets del núvol"
 
 #: ../../main/ebackup/src/scripts/restore-tool:986
-#, fuzzy
 msgid "Downloading subscription data"
-msgstr "Detalls de la subscripció a Zentyal"
+msgstr "Baixant les dades de la subscripció"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1004
 msgid ""
 "Connection error when retrieving subscription bundle. Zentyal Cloud "
 "exclusive packages will not be installed"
 msgstr ""
+"Error de connexió quan s'estava obtenint el paquet de subscripció. Els "
+"paquets exclusius de Zentyal no s'instal.laràn"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1007
 msgid ""
@@ -15229,27 +15230,31 @@ msgid ""
 "outdated or only outdated bundle is available in the cloud. Zentyal Cloud  "
 "exclusive packages will not be installed"
 msgstr ""
+"No es pot obtenir el paquet perque, o bé els serveis remots de zentyal no "
+"estàn actualitzats o no hi ha paquets al núvol. Els paquets exclusius de "
+"Zentyal Cloud no s'instal.laràn"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1012
 msgid ""
 "Unknown error retrieving subscription bundle. Zentyal Cloud exclusive "
 "packages will not be installed"
 msgstr ""
+"Error desconegut recuperant el paquet de subscripció. Els paquets exclusius "
+"de Zentyal Cloud no s'instal.laràn"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1063
-#, fuzzy
 msgid "Configuring modules"
-msgstr "Configuració i estat"
+msgstr "Configurant els mòduls"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1087
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuring modules: Current module {mod}"
-msgstr "Configuració i estat"
+msgstr "Configurant els mòduls: mòdul actual {mod]"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1091
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Configuring modules {p} done. Current module {mod}"
-msgstr "Configuració i estat"
+msgstr "Configurant els mòduls {p} llest. Mòdul actual {mod}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1110
 #, perl-brace-format
@@ -15257,25 +15262,25 @@ msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "from other modules"
 msgstr ""
+"Ha fallat la configuració del mòdul {name}: {err}. Això podria afectar el "
+"restabliment dels altres mòduls"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1133
-#, fuzzy
 msgid "Finishing new modules configuration"
-msgstr "Utilitzant la configuració de perfil predeterminada"
+msgstr "Finalitzant la configuració dels nous mòduls"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1218
 msgid "Downloading backup metadata..."
-msgstr ""
+msgstr "Baixant les metadades de la copia de seguretat..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1304
-#, fuzzy
 msgid "Downloading the backup data"
-msgstr "Configuració general"
+msgstr "Baixant les dades de la còpia de seguretat"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1322
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Downloading  {src} backup data for {dom}"
-msgstr "Configuració general"
+msgstr "Baixant les dades {src} per {dom}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1336
 #, perl-brace-format
@@ -15283,145 +15288,147 @@ msgid ""
 "Error downloading data for backup domain: {dom}. The domain will not be "
 "fully restored"
 msgstr ""
+"Error baixant les dades per al domini: {dom}. El domini no es restablirà "
+"completament"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1354
-#, fuzzy
 msgid "Downloading the backup configuration"
-msgstr "Configuració general"
+msgstr "Baixant la còpia de la configuració"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1392
-#, fuzzy
 msgid "Downloading configuration"
-msgstr "Configuració general"
+msgstr "Baixant la configuració"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1432
 msgid "Retrieving backup collection status ..."
-msgstr ""
+msgstr "Recuperant l'estat de les còpies"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1461
 #: ../../main/ebackup/src/scripts/restore-tool:1522
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Last backup date was: {date}"
-msgstr "- Última actualització: {date}."
+msgstr "La última còpia es va fer: {date}."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1487
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were made for the server {s}"
-msgstr "Encara no s'ha fet cap còpia de la configuració"
+msgstr "No s'ha fet cap còpia automàtica de la configuració del servidor {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1538
 #, perl-brace-format
 msgid "Choose date to restore the backup from server {cn}"
-msgstr ""
+msgstr "Elegeixi la data per restablir la còpia des del servidor {cn}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1562
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No automatic configuration backups were done for the server {s}"
-msgstr "Encara no s'ha fet cap còpia de la configuració"
+msgstr "No hi ha cap còpia automàtica de la configuració per al servidor {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1579
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "No configuration backups were made for the date {d} in {s} server"
-msgstr "Encara no s'ha fet cap còpia de la configuració"
+msgstr "El dia {d} no es va fer cap còpia al servidor {s}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1611
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The server {server} is not registered in Zentyal Cloud"
-msgstr "El servei no està habilitat a Zentyal"
+msgstr "El servidor {server} no està registrat al Zentyal Cloud"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1670
 msgid "Please, enter a value"
-msgstr ""
+msgstr "Si us plau, introdueixi un valor"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1695
 msgid "Please answer yes or no"
-msgstr ""
+msgstr "Si us plau, respongui sí o no"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1721
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Backup dates for server {cn}"
-msgstr "Dades de trànsit pel servei"
+msgstr "Dades de les còpies per al servidor {cn}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1732
-#, fuzzy
 msgid "Enter backup date to restore:"
-msgstr "Restauració de serveis"
+msgstr "Introdueixi la data de la còpia a restaurar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1735
 #, perl-brace-format
 msgid "Invalid date: {d}. Try again"
-msgstr ""
+msgstr "Data invàlida: {d}. Provi altra vegada"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1841
 msgid "This entry is mandatory to continue the restoring process. Retry"
 msgstr ""
+"Aquesta entrada és obligatoria per continuar amb el procés de restabliment. "
+"Torni a provar"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1889
-#, fuzzy
 msgid "Selection"
-msgstr "Encriptació"
+msgstr "Seleecció"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1928
 msgid ""
 "This entry is mandatory to carry on the restoring process. Choose from the "
 "list"
 msgstr ""
+"Aquesta entrada és obligatoria per continuar amb el restabliment. Elegeixi "
+"de la llista"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2049
-#, fuzzy
 msgid "Please wait"
 msgstr "Si us plau, esperi..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2063
-#, fuzzy
 msgid "Finished"
-msgstr "Acabar"
+msgstr "Acabat"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2123
-#, fuzzy
 msgid "Restoring process aborted upon user request"
-msgstr "Restaura la base de dades de logs"
+msgstr "Procès de restabliment avortat per l'usuari"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2151
-#, fuzzy
 msgid "Saving configuration changes"
-msgstr "Configuració i estat"
+msgstr "Guardant els canvis a la configuració"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2172
 msgid ""
 "Error saving configuration changes; some Zentyal modules would remain in a "
 "unknown state"
 msgstr ""
+"Error guardant els canvis a la configuració; alguns mòduls de Zentyal "
+"quedaràn en un estat desconegut"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2186
 msgid "Regenerating file list cache"
-msgstr ""
+msgstr "Regenerant el cau de la llista de fitxers"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2194
 msgid ""
 "Cannot connect to the Cloud to regenerate backup list. Please try again "
 "later."
 msgstr ""
+"No es pot connectar al núvol per regenerar la llista de còpies. Torni a "
+"provar més tard."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2257
-#, fuzzy
 msgid "Zentyal Cloud User"
-msgstr "Zentyal Cloud"
+msgstr "Usuari de Zentyal Cloud"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2260
-#, fuzzy
 msgid "Zentyal Cloud Password"
-msgstr "Zentyal Cloud"
+msgstr "Contrassenya a Zentyal Cloud"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2275
 #, perl-brace-format
 msgid "The account {user} do not have any registered Zentyal servers"
-msgstr ""
+msgstr "El compte {user} no té subscrit cap servidor Zentyal"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2334
 #, perl-brace-format
 msgid "Enter password used to encrypt back up {ser}"
 msgstr ""
+"Introdueixi la contrassenya que es va fer servir per encriptar la còpia "
+"{ser}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2393
 #, perl-brace-format
@@ -15429,32 +15436,37 @@ msgid ""
 "The following backup domains could not be restored from a basic "
 "subscription: {domains}"
 msgstr ""
+"Els següents dominis no es podràn restablir des d'una subscripció bàsica: "
+"{domains}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2423
 msgid "Your full backup is now successfully restored!"
-msgstr ""
+msgstr "Tota la còpia s'ha restaurat correctament!"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2425
 msgid ""
 "You can go now to the Zentyal administration interface to manage your "
 "recovered host."
 msgstr ""
+"Ara pot anar a l'interfície d'adminsitració de Zentyal i ajustar la màquina "
+"recuperada"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2466
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Warning: {msg}"
-msgstr "Atenció"
+msgstr "Avís: {msg}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2492
 msgid ""
 "Sorry, an unexpected error has occurred. Please contact support and check "
 "the /var/log/zentyal/zentyal.log file for further details."
 msgstr ""
+"Hi ha hagut un error inesperat. Si us plau, contacti amb el suport i "
+"comprovi el fitxer /var/log/zentyal/zentyal.log"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2512
-#, fuzzy
 msgid "Restore process aborted"
-msgstr "Restaura la base de dades de logs"
+msgstr "Procés de restauració avortat"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
@@ -15625,9 +15637,8 @@ msgstr "Instal.lar"
 #: ../../main/software/src/templates/ebox.mas:695
 #: ../../main/software/src/templates/ebox.mas:720
 #: ../../main/software/src/templates/ebox.mas:723
-#, fuzzy
 msgid "Installed Version"
-msgstr "Instal.lació"
+msgstr "Versió Instal.lada"
 
 #: ../../main/software/src/templates/ebox.mas:218
 #: ../../main/software/src/templates/updates.mas:21
@@ -15708,9 +15719,8 @@ msgstr "Seleccionar-ho tot"
 #: ../../main/software/src/templates/ebox.mas:698
 #: ../../main/software/src/templates/ebox.mas:714
 #: ../../main/software/src/templates/ebox.mas:724
-#, fuzzy
 msgid "Latest Version"
-msgstr "Versió d'Ebox"
+msgstr "Última versió"
 
 #: ../../main/software/src/templates/ebox.mas:701
 #: ../../main/software/src/templates/ebox.mas:703
@@ -15720,19 +15730,16 @@ msgstr "Versió d'Ebox"
 #: ../../main/software/src/templates/ebox.mas:746
 #: ../../main/software/src/templates/ebox.mas:748
 #: ../../main/software/src/templates/ebox.mas:750
-#, fuzzy
 msgid "Select"
-msgstr "Escull l'informe"
+msgstr "Seleccionar"
 
 #: ../../main/software/src/templates/ebox.mas:733
-#, fuzzy
 msgid "Loading"
-msgstr "redirigint"
+msgstr "Carregant"
 
 #: ../../main/software/src/templates/ebox.mas:734
-#, fuzzy
 msgid "No packages found"
-msgstr "No trobat"
+msgstr "No s'ha trobat cap paquet"
 
 #: ../../main/software/src/templates/ebox.mas:737
 #: ../../main/core/src/templates/ajax/tableBody.mas:211
@@ -15748,9 +15755,8 @@ msgid "of"
 msgstr "de"
 
 #: ../../main/software/src/templates/ebox.mas:740
-#, fuzzy
 msgid "pages"
-msgstr "pàgina"
+msgstr "pàgines"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -16082,9 +16088,8 @@ msgid "Network interfaces"
 msgstr "Interfícies de xarxa"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:10
-#, fuzzy
 msgid "Configure interface types"
-msgstr "Configurar interfícies"
+msgstr "Configurar tipus d'interfície"
 
 #: ../../main/network/src/templates/Wizard/interfaces.mas:11
 msgid ""
@@ -16093,6 +16098,10 @@ msgid ""
 "trusted by default, thus, you will not be able to connect to Zentyal "
 "administration page through them"
 msgstr ""
+"Les interfícies externes es connecten amb xarxes que no estàn sota control "
+"(generalment Internet). i el tràfic que vé des d'elles es considera insegur "
+"per defecte, així que no podrà accedir a la pàgina d'administració de "
+"Zentyal a través d'aquestes"
 
 #: ../../main/network/src/templates/Wizard/network.mas:34
 msgid "Configure network for external interfaces"
