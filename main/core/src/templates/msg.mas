@@ -5,8 +5,8 @@
 Parameters:
 
   msg - String the message itself
-  
-  class - String the message kind (note, warning) are the
+
+  class - String the message kind (note, warning, ad, adwarning) are the
   possibilites. Optional. Default value: note
 
 </%doc>
@@ -15,8 +15,9 @@ Parameters:
   $class => 'note'
 </%args>
 <%init>
-  if ( $class ne 'note' and $class ne 'warning' ) {
+  if ($class ne 'note' and $class ne 'warning' and
+      $class ne 'ad' and $class ne 'adwarning') {
     $class = 'note';
-  } 
+  }
 </%init>
 <div class="<% $class %>"><% $msg %></div>
