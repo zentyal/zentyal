@@ -270,12 +270,13 @@ sub enableActions
         $self->_manageService('start');
         my $password = remotePassword();
         EBox::UsersAndGroups::Setup::master($password);
-        $self->performLDAPActions();
-
     } else {
         throw EBox::Exceptions::Internal(
             "Trying to enable users with unknown LDAP mode: $mode");
     }
+
+    # Perform LDAP actions (schemas, indexes, etc)
+    $self->performLDAPActions();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
