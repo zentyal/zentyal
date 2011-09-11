@@ -469,7 +469,7 @@ sub viewCustomizer
         $subscriptionLevel = $rs->subscriptionLevel();
     }
     unless ($subscriptionLevel > 0) {
-        $customizer->setPermanentMessage($self->_commercialMsg());
+        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
 
     return $customizer;
