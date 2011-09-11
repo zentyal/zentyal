@@ -265,7 +265,24 @@ sub enableActions
     if ($mode eq 'slave') {
         $self->disableApparmorProfile('usr.sbin.slapd');
         $self->_setupSlaveLDAP();
+        $self->_setConf();
 
+        my $soapfile = EBox::Config::conf() . "/apache-soap-slave";
+        if( ( $mode eq 'slave' ) and ( not -f $soapfile ) ) {
+            $self->disableApparmorProfile('usr.sbin.slapd');
+            my $apache = EBox::Global->modInstance('apache');
+            EBox::Module::Base::writeConfFileNoCheck($soapfile,
+                    'users/soap-slave.mas',
+                    [ 'cert' => CERT ]
+                    );
+            $apache->addInclude($soapfile);
+            $apache->setAsChanged();
+        }
+
+        # Init users
+        for my $user ($self->users()) {
+            $self->initUser($user->{'username'});
+        }
     } elsif ($mode eq 'master' or $mode eq 'ad-slave') {
         $self->_manageService('start');
         my $password = remotePassword();
@@ -311,18 +328,6 @@ sub _setConf
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
-
-    my $soapfile = EBox::Config::conf() . "/apache-soap-slave";
-    if( ( $mode eq 'slave' ) and ( not -f $soapfile ) ) {
-        $self->disableApparmorProfile('usr.sbin.slapd');
-        my $apache = EBox::Global->modInstance('apache');
-        EBox::Module::Base::writeConfFileNoCheck($soapfile,
-            'users/soap-slave.mas',
-            [ 'cert' => CERT ]
-        );
-        $apache->addInclude($soapfile);
-        $apache->save();
-    }
 
     my @array = ();
     my $dn;

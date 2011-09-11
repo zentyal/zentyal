@@ -1,4 +1,6 @@
 HEAD
+	+ Moved apache soap configuration from setConf to enableActions
+	+ Init slave users on enable
 	+ Create LDAP indexes during slave enable
 2.1.12
 	+ UsersAndGroups::lastUid() now takes also into account non-ldap users
