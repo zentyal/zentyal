@@ -12,6 +12,7 @@ function cleanError(table) {
 
 function setError(table, html) {
     var error = $('error_' + table);
+    error.className = 'error';
     if (error) {
         error.innerHTML = html;
     }
@@ -113,8 +114,13 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
     var selectForeignField;
     var selectCallerId;
     var nextPageContextName;
+    var MyAjax;
+    var AjaxParams;
     var pars = 'action=add&tablename=' + table + '&directory=' + directory ;
+    var wantJSON = 0;
+
     if (nextPage){
+     wantJSON = 1;
      pars +=  '&json=1';
     } else {
         pars += '&page=0';
@@ -136,80 +142,96 @@ function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
      pars += '&selectCallerId=' + selectCallerId;
    }
 
-    var MyAjax = new Ajax.Updater(
-        {
-            success: table,
-            failure: 'error_' + table
-        },
-        url,
-        {
+
+   AjaxParams =  {
             method: 'post',
             parameters: pars,
             evalScripts: true,
             onComplete: function(t) {
               stripe('dataTable', 'even', 'odd');
               completedAjaxRequest();
+
+              if (!wantJSON) {
+                Modalbox.resizeToContent();
+                return;
+              }
+
+              var json = t.responseText.evalJSON(true);
+              if (!json.success) {
+                 var error = json.error;
+                 if (!error) {
+                   error = 'Unknown error';
+                 }
+                 setError(table, error);
+                 restoreHidden('buttons_' + table, table);
+                 Modalbox.resizeToContent();
+                 return;
+              }
+
               if (nextPage && nextPageContextName) {
-                var json = t.responseText.evalJSON(true);
-                if (json.success) {
-                  var nextDirectory = json.directory;
-                  var rowId = json.rowId;
-                  if (selectCallerId && selectForeignField){
-                    var printableValue = json.callParams[selectForeignField];
-                    addSelectChoice(selectCallerId, rowId, printableValue, true);
-                    // hide 'Add a new one' element
-                    var newLink  = document.getElementById(selectCallerId + '_empty');
-                    if (newLink) {
-                      newLink.style.display = 'none';
-                      document.getElementById(selectCallerId).style.display ='inline';
-                    }
+                var nextDirectory = json.directory;
+                var rowId = json.rowId;
+                if (selectCallerId && selectForeignField){
+                  var printableValue = json.callParams[selectForeignField];
+                  addSelectChoice(selectCallerId, rowId, printableValue, true);
+                  // hide 'Add a new one' element
+                  var newLink  = document.getElementById(selectCallerId + '_empty');
+                  if (newLink) {
+                    newLink.style.display = 'none';
+                    document.getElementById(selectCallerId).style.display ='inline';
                   }
+                }
 
-                  if (rowId && directory) {
-                    var nameParts = nextPageContextName.split('/');
-                    var baseUrl = '/' + nameParts[1] + '/';
-                    baseUrl += 'ModalController/' + nameParts[2];
-                    var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
-                    var nextPageUrl = baseUrl;
-                    nextPageUrl += '?directory=' + newDirectory;
-                    nextPageUrl += '&firstShow=0';
-                    nextPageUrl += '&action=viewAndAdd';
-                    nextPageUrl += "&selectCallerId=" + selectCallerId;
+                if (rowId && directory) {
+                  var nameParts = nextPageContextName.split('/');
+                  var baseUrl = '/zentyal/' + nameParts[1] + '/';
+                  baseUrl += 'ModalController/' + nameParts[2];
+                  var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
+                  var nextPageUrl = baseUrl;
+                  nextPageUrl += '?directory=' + newDirectory;
+                  nextPageUrl += '&firstShow=0';
+                  nextPageUrl += '&action=viewAndAdd';
+                  nextPageUrl += "&selectCallerId=" + selectCallerId;
 
-                    Modalbox.show(nextPageUrl, {
-                                            transitions: false,
-                                            overlayClose : false
-                                            }
-                                 );
-                  } else {
-                    setError(table, 'Cannot get next page URL');
-                    restoreHidden('buttons_' + table, table);
-                    Modalbox.resizeToContent();
-                  }
-
+                  Modalbox.show(nextPageUrl, {
+                                  transitions: false,
+                                  overlayClose : false
+                                }
+                               );
                 } else {
-                  var error = json.error;
-                  if (!error) {
-                    error = 'Unknown error';
-                  }
-                  setModalError(error);
+                  setError(table, 'Cannot get next page URL');
                   restoreHidden('buttons_' + table, table);
                   Modalbox.resizeToContent();
                 }
-
-              } else {
-                 // no JSON
-                Modalbox.resizeToContent();
-                restoreHidden('buttons_' + table, table);
+                return;
               }
 
+              //sucesss and not next page
+              restoreHidden('buttons_' + table, table);
+              Modalbox.resizeToContent();
             },
             onFailure: function(t) {
               restoreHidden('buttons_' + table, table);
               Modalbox.resizeToContent();
             }
-        }
+   };
+
+  if (nextPage) {
+    MyAjax = new Ajax.Request(
+      url,
+      AjaxParams
     );
+  } else {
+    MyAjax = new Ajax.Updater(
+        {
+            success: table,
+            failure: 'error_' + table
+        },
+      url,
+      AjaxParams
+    );
+  }
+
 
     setLoading('buttons_' + table, table, true);
 
@@ -1080,13 +1102,11 @@ function removeSelectChoice(id, value, selectedIndex)
 
 }
 
-
 // Detect session loss on ajax request:
 Ajax.Responders.register({
-    onComplete: function(x,response) {
-        if (response.status == 403) {
-            location.reload(true);
+ onComplete: function(x,response) {
+    if (response.status == 403) {
+      location.reload(true);
         }
-    }
+ }
 });
-

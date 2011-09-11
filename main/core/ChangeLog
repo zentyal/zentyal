@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed error management in the first screen of modal add
 	+ Unify software selection and progress colors in CSS
 	+ Set proper message type in Configure Events model
 	+ Fixed error checking permanentMessage types in templates/msg.mas
