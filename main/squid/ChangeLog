@@ -1,4 +1,5 @@
 HEAD
+	+ Improved bandwidth throttling texts
 	+ Set proper message type in General Settings model
 2.1.10
 	+ Remove dansguardian startup link to avoid start when disabled

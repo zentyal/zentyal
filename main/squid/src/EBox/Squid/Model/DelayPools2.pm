@@ -165,62 +165,58 @@ sub _table
              ),
          new EBox::Types::Int(
                  fieldName     => 'rate',
-                 printableName => __('Rate'),
+                 printableName => __('Newtork download rate'),
                  size          => 3,
                  editable      => 1,
                  trailingText  => __('KB/s'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximum download bandwidth rate for this network. Use -1 to disable this option.')
+                 help => __('Maximum download rate for this network. Use -1 to disable this option.')
              ),
          new EBox::Types::Int(
                  fieldName     => 'size',
-                 printableName => __('Maximum Size'),
+                 printableName => __('Network file size'),
                  size          => 3,
                  editable      => 1,
                  trailingText  => __('KB'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximum unthrottled download size for this network. Use -1 to disable this option.')
+                 help => __('Maximum unthrottled download file size for this network. Use -1 to disable this option.')
              ),
          new EBox::Types::Int(
                  fieldName     => 'clt_rate',
-                 printableName => __('Client Rate'),
+                 printableName => __('Client download rate'),
                  size          => 3,
                  editable      => 1,
                  trailingText  => __('KB/s'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximum download bandwidth rate per client. Use -1 to disable this option.')
+                 help => __('Maximum download rate per client. Use -1 to disable this option.')
              ),
          new EBox::Types::Int(
                  fieldName     => 'clt_size',
-                 printableName => __('Client Maximum Size'),
+                 printableName => __('Client file size'),
                  size          => 3,
                  editable      => 1,
                  trailingText  => __('KB'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximum unthrottled download size per client. Use -1 to disable this option.')
+                 help => __('Maximum unthrottled download file size per client. Use -1 to disable this option.')
              ),
       );
 
     my $dataTable = {
         'tableName'          => 'DelayPools2',
-        'printableTableName' => __x('Delay Pools Class 2'),
+        'printableTableName' => __x('Client bandwidth rules (class 2 delay pools)'),
         'defaultActions'     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         'modelDomain'        => 'Squid',
         'tableDescription'   => \@tableHead,
         'class'              => 'dataTable',
         # Priority field set the ordering through _order function
         'order'              => 1,
-        'help'               => __x('Once the request exceeds the {max} then the '.
-                                   'HTTP Proxy will throttle the download bandwidth to '.
-                                   'the given {rate}. The client number is limited to 256.',
-                                   max  => $tableHead[2]->printableName(),
-                                   rate => $tableHead[1]->printableName()),
+        'help'               => __('Once the download exceeds the file size then the HTTP Proxy will slow down the connection to the specified download rate. Both parameters can be defined for the whole network and on a per client basis. The client number is limited to 256.'),
         'rowUnique'          => 1,
-        'printableRowName'   => __('pool'),
+        'printableRowName'   => __('rule'),
         'automaticRemove'    => 1,
         'enableProperty'      => 1,
         'defaultEnabledValue' => 1,

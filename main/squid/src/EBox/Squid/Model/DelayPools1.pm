@@ -149,42 +149,38 @@ sub _table
              ),
          new EBox::Types::Int(
                  fieldName     => 'rate',
-                 printableName => __('Network Rate'),
+                 printableName => __('Download rate'),
                  size          => 3,
                  editable      => 1,
                  trailingText  => __('KB/s'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximum download bandwidth rate for this network. Use -1 to disable this option.')
+                 help => __('Maximum download speed for this network. Use -1 to disable this option.')
              ),
          new EBox::Types::Int(
                  fieldName     => 'size',
-                 printableName => __('Network Maximum Size'),
+                 printableName => __('File size'),
                  size          => 3,
                  editable      => 1,
                  trailingText  => __('KB'),
                  defaultValue  => 0,
                  min           => -1,
-                 help => __('Maximum unthrottled download size for this network. Use -1 to disable this option.')
+                 help => __('Maximum unthrottled download file size for this network. Use -1 to disable this option.')
              ),
       );
 
     my $dataTable = {
         'tableName'          => 'DelayPools1',
-        'printableTableName' => __x('Delay Pools Class 1'),
+        'printableTableName' => __x('Network bandwidth rules (class 1 delay pools)'),
         'defaultActions'     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         'modelDomain'        => 'Squid',
         'tableDescription'   => \@tableHead,
         'class'              => 'dataTable',
         # Priority field set the ordering through _order function
         'order'              => 1,
-        'help'               => __x('Once the request exceeds the {max} then the '.
-                                   'HTTP Proxy will throttle the download bandwidth to '.
-                                   'the given {rate}.',
-                                    max  => $tableHead[2]->printableName(),
-                                    rate => $tableHead[1]->printableName()),
+        'help'               => __('Once a download exceeds the file size then the HTTP Proxy will slow down the connection to the specified download rate. The clients on this network will have to share the available bandwidth.'),
         'rowUnique'          => 1,
-        'printableRowName'   => __('pool'),
+        'printableRowName'   => __('rule'),
         'automaticRemove'    => 1,
         'enableProperty'      => 1,
         'defaultEnabledValue' => 1,

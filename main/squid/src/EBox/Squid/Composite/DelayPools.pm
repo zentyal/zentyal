@@ -68,15 +68,10 @@ sub _description
          name            => 'DelayPools',
          pageTitle       => __('Bandwidth Throttling'),
          compositeDomain => 'Squid',
-         help            => __('Class 1 pools allow you to restrict the bandwidth rate for large downloads whereas '
-                              . 'class 2 pools allow you to set the bandwidth usage to a sustained rate. '
-                              . 'The class 1 pools have more priority than class 2 ones and the first '
-                              . 'match from the source is done. If a network object does not match '
-                              . 'any rule, then no bandwidth throttling is done to it'),
+         help            => __("Bandwith throttling allows you to control download rates for connections going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) allow you to limit the download rate for the whole network whereas client bandwidth rules (class 2 delay pools) allow you to limit the download rate on a per client basis. Class 1 pools have more priority than class 2 pools and the first rule to match is applied. If a connection doesn't match any rule, then no bandwidth throttling is applied."),
         };
 
     return $description;
-
 }
 
 1;
