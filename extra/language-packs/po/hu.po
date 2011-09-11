@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-09-10 04:22+0200\n"
+"POT-Creation-Date: 2011-09-11 23:13+0200\n"
 "PO-Revision-Date: 2011-08-12 22:31+0200\n"
 "Last-Translator: László <soma-sk8@freemail.hu>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -22,26 +22,37 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
 msgstr "Alapértelmezett profil beállításainak használata"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
 msgstr "alapértelmezett profil MIME szűréssel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
 msgstr "kiterjesztések"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
 msgstr "összes kiterjesztés házirendjének beállítása"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
 msgstr "Kérések"
 
@@ -54,6 +65,9 @@ msgstr "Kérések"
 #: ../../main/pptp/src/EBox/PPTP.pm:355
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:195
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1182
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:206
 #: ../../main/samba/src/EBox/Samba.pm:752
@@ -71,36 +85,54 @@ msgstr "Felhasználó"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:54
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
 msgstr "Elfogadott kérések"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
 msgstr "Engedélyezett forgalom mérete (kB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
 msgstr "Tiltott kérések"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
 msgstr "Tiltott forgalom mérete (kB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 msgid "Filtered requests"
 msgstr "Szűrt kérések"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
 msgstr "Szűrt forgalom mérete (Kb)"
 
@@ -112,6 +144,8 @@ msgstr "Szűrt forgalom mérete (Kb)"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1180
 #: ../../main/printers/src/EBox/Printers.pm:367
 #: ../../main/samba/src/EBox/Samba.pm:1503
 #: ../../main/samba/src/EBox/Samba.pm:1523
@@ -141,11 +175,13 @@ msgid "Date"
 msgstr "Dátum"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
 msgstr "Webforgalom részletei"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:98
@@ -153,23 +189,29 @@ msgid "traffic"
 msgstr "forgalom"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
 msgstr "Squid forgalom méretének grafikonja"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
 msgstr "Forgalom mérete"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
 msgstr "Squid forgalom kérések grafikonja"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
 msgstr "Hozzáférési kérések"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:87
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:85
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
@@ -180,6 +222,8 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:102
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:100
 #, perl-brace-format
 msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
@@ -190,6 +234,8 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:116
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:119
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:116
 #, perl-brace-format
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
@@ -197,105 +243,150 @@ msgstr ""
 "Ha {first} korlátlanra van állítva, akkor a {second} is korlátlan kell legyen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
 msgstr "{clt_rate} nagyobb mint {net_rate}"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:159
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:143
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:159
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:143
 msgid "Network object"
 msgstr "Hálózati objektum"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-msgid "Rate"
-msgstr "Átvitel"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:168
+#, fuzzy
+msgid "Newtork download rate"
+msgstr "Hálózati átvitel"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:171
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:191
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-msgid ""
-"Maximum download bandwidth rate for this network. Use -1 to disable this "
-"option."
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:174
+#, fuzzy
+msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
 "A hálózat maximális átviteli sebessége. Írjon -1-et ha nem szeretné megadni."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-msgid "Maximum Size"
-msgstr "Maximális méret"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:178
+#, fuzzy
+msgid "Network file size"
+msgstr "Hálózat maximális mérete"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:181
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:201
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
 msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:184
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:168
+#, fuzzy
 msgid ""
-"Maximum unthrottled download size for this network. Use -1 to disable this "
-"option."
+"Maximum unthrottled download file size for this network. Use -1 to disable "
+"this option."
 msgstr ""
 "Maximális letöltési sebesség ezen a hálózaton. Írjon -1-et ha ki szeretné "
 "kapcsolni az opciót."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-msgid "Client Rate"
-msgstr "Felhasználói sebesség"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:188
+#, fuzzy
+msgid "Client download rate"
+msgstr "Kliens címe"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-msgid ""
-"Maximum download bandwidth rate per client. Use -1 to disable this option."
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:194
+#, fuzzy
+msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
 "Felhasználónkénti maximális letöltési sebesség. Írjon -1-et ha ki szeretné "
 "kapcsolni az opciót."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-msgid "Client Maximum Size"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:198
+#, fuzzy
+msgid "Client file size"
 msgstr "Felhasználónkénti maximális méret"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:204
+#, fuzzy
 msgid ""
-"Maximum unthrottled download size per client. Use -1 to disable this option."
+"Maximum unthrottled download file size per client. Use -1 to disable this "
+"option."
 msgstr ""
 "Felhasználónkénti maximális letöltési sebesség. Írjon -1-et ha ki szeretné "
 "kapcsolni az opciót."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
-msgid "Delay Pools Class 2"
-msgstr "Class 2 osztályú késleltetési szabály"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:210
+msgid "Client bandwidth rules (class 2 delay pools)"
+msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, perl-brace-format
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:217
+#, fuzzy
 msgid ""
-"Once the request exceeds the {max} then the HTTP Proxy will throttle the "
-"download bandwidth to the given {rate}. The client number is limited to 256."
+"Once the download exceeds the file size then the HTTP Proxy will slow down "
+"the connection to the specified download rate. Both parameters can be "
+"defined for the whole network and on a per client basis. The client number "
+"is limited to 256."
 msgstr ""
 "Ha a kérések száma túllépi a {max} számot, a HTTP proxy a megadott {rate} "
 "értékre fogja korlátozni a sávszélességet. A felhasználók maximális száma "
 "256 lehet."
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:223
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:187
-msgid "pool"
-msgstr "pool"
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
+#: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
+#: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
+#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:76
+#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:164
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:496
+#: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:68
+#: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:198
+#: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:219
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:183
+msgid "rule"
+msgstr "szabály"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:65
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 msgid "Domains and URL rules"
 msgstr "Tartomány és hivatkozás szabályok"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:78
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 msgid "internet domain or URL"
 msgstr "internettartomány vagy hivatkozás"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
@@ -304,24 +395,32 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:81
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 msgid "Domain or URL added"
 msgstr "Tartomány vagy hivatkozás hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 msgid "Domain or URL removed"
 msgstr "Tartomány vagy hivatkozás törölve"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:83
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 msgid "Domain or URL updated"
 msgstr "Tartomány vagy hivatkozás frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/AntiVirusBase.pm:49
 msgid "Use antivirus"
 msgstr "Vírusirtó használata"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/AntiVirusBase.pm:91
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is "
@@ -332,6 +431,7 @@ msgstr ""
 "kapcsolva. Először {openhref}aktiváld{closehref}, majd gyere vissza ide."
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/AntiVirusBase.pm:97
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is not "
@@ -343,14 +443,17 @@ msgstr ""
 "gyere vissza ide."
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
 msgstr "alapértelmezett profil kiterjesztés szűréssel"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 msgid "Block not listed domains and URLs"
 msgstr "Blokkolja a listában nem szereplő hivatkozásokat"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
@@ -361,18 +464,22 @@ msgstr ""
 "elérhetetlen lesz."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
 msgstr "Blokkolt oldalak megadása IP alapján."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Transparent Proxy"
 msgstr "Transzparens proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
 msgstr "Reklám Blokkolás"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:66
 #, fuzzy
 msgid "Remove advertisements from all HTTP traffic"
 msgstr "Hirdetések eltávolítása az összes HTTP forgalomból"
@@ -381,6 +488,7 @@ msgstr "Hirdetések eltávolítása az összes HTTP forgalomból"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:325
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:89
 #: ../../main/radius/src/EBox/Radius.pm:394
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:60
@@ -388,35 +496,42 @@ msgid "Port"
 msgstr "Port"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:76
 msgid "Cache files size (MB)"
 msgstr "Gyorsítótár állományainak mérete (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:84
 msgid "Default policy"
 msgstr "Alapértelmezett házirend"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "General Settings "
 msgstr "Általános beállítások "
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:97
 msgid "Settings changed"
 msgstr "Beállítások módosítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:150
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:163
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "A {port} port már használatban van. Válasszon másikat."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:190
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:190
 msgid "Transparent proxy option is not compatible with authorization policy"
 msgstr ""
 "A transzparens proxy egyik opciója nem kompatibilis az engedélyezett "
 "házirenddel."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:197
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:197
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
@@ -425,6 +540,7 @@ msgstr ""
 "néhány objektummal."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:215
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:215
 msgid ""
 "An authorization policy is required because you are using global group "
 "policies"
@@ -433,6 +549,7 @@ msgstr ""
 "használata."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:224
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:224
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
@@ -441,6 +558,7 @@ msgstr ""
 "melyik lesz elvetve ha a tartalma nem felel meg a kritériumoknak."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:231
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:231
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
@@ -452,6 +570,10 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:85
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:42
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:85
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 msgid "Policy"
@@ -460,6 +582,9 @@ msgstr "Szabály"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:95
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:79
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:49
 msgid "Always allow"
 msgstr "Mindig engedélyez"
 
@@ -467,28 +592,39 @@ msgstr "Mindig engedélyez"
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:80
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:50
 #: ../../main/squid/src/EBox/Squid.pm:1103
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:80
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:50
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1103
 msgid "Filter"
 msgstr "Szűrő"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:81
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:81
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:51
 msgid "Always deny"
 msgstr "Mindig tilt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
 msgid "Ignore"
 msgstr "Mellőz"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
 msgid "This list has not categories"
 msgstr "Ez a lista nincs kategorizálva"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:35
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:35
 msgid "Domain or URL"
 msgstr "Tartomány vagy hivatkozás"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:76
 msgid "Domain or IP address part of URL"
 msgstr "URL-ben található tartomány vagy IP cím"
 
@@ -496,6 +632,7 @@ msgstr "URL-ben található tartomány vagy IP cím"
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:186
 #: ../../main/dns/src/EBox/Model/Text.pm:162
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:86
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
 #: ../../main/core/src/EBox/Events/Model/Watcher/Log.pm:256
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:360
@@ -504,20 +641,26 @@ msgid "Domain"
 msgstr "Tartomány"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
 msgstr "Itt kell beállítani, ha nem kell a domainhez a www előtag."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:92
 msgid "Domain or IP address"
 msgstr "Tartomány vagy IP cím"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:65
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:65
 msgid "Configure allowed file extensions"
 msgstr "engedélyezett fájl kiterjesztések beállítása"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:73
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:73
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:82
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:89
 msgid "extension"
@@ -525,6 +668,8 @@ msgstr "kiterjesztés"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:74
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:74
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given extensions.\n"
 "Extensions not listed here are allowed.\n"
@@ -537,36 +682,49 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:76
 msgid "Extension added"
 msgstr "Kiterjesztés hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:77
 msgid "Extension removed"
 msgstr "Kiterjesztés eltávolítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:78
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:78
 msgid "Extension updated"
 msgstr "Kiterjesztés frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
 msgid "Using default profile configuration"
 msgstr "Alapértelmezett profilbeállítás használata"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
 msgstr "Alapértelmezett profil tartomány szűréssel"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
 msgstr "Vírus szűrése"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
 #: ../../main/squid/stubs/template.html.mas:40
 msgid "Categories"
 msgstr "Kategóriák"
@@ -574,18 +732,22 @@ msgstr "Kategóriák"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:597
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 msgid "File"
 msgstr "Fájl"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
 msgid "You must supply a domains list"
 msgstr "Meg kell adjon egy tartománylistát"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
 msgid "Inexistent archive file"
 msgstr "Nem létező csomagolt fájl"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
 msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
@@ -593,6 +755,7 @@ msgstr "Sima listák nem megengedettek: csak csomagolt fájlok megengedettek"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:211
@@ -606,6 +769,10 @@ msgstr "Csoport"
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
 #: ../../main/squid/src/EBox/Squid.pm:1099
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1099
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:85
 #: ../../main/samba/src/templates/samba.mas:105
@@ -614,15 +781,20 @@ msgstr "Engedélyez"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: ../../main/squid/src/EBox/Squid.pm:1101
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:88
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1101
 msgid "Deny"
 msgstr "Tilt"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Time period"
 msgstr "Idő intervallum"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:90
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:90
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr ""
@@ -631,6 +803,8 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:228
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:235
 #, perl-brace-format
 msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
@@ -640,52 +814,69 @@ msgstr ""
 "legalább egyet, ha csoporthoz rendelt szabályt hozna létre"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
 msgstr "Alapértelmezett profil határértékének használata"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 msgid "Threshold"
 msgstr "Határérték"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
 msgid "Content filter threshold"
 msgstr "Tartalomszűrő határérték"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
 msgid "Content filter threshold changed"
 msgstr "Tartalomszűrő határértékének módosítása"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 msgid "MIME types"
 msgstr "MIME típusok"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
 msgid "Set policy for all MIME types"
 msgstr "összes MIME típus házirendjének megadása"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 msgid "Group policies"
 msgstr "Csoport házirendek"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:70
 msgid "List of groups"
 msgstr "Csoportok listája"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
 msgid "group's policy"
 msgstr "Csoportok házirendje"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
 "will be by global policy or by object policy"
@@ -695,95 +886,133 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
 msgid "Added group's policy"
 msgstr "Csoportok házirendje hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
 msgid "Removed group's policy"
 msgstr "Csoportok házirendje törölve"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
 msgid "Updated group's policy"
 msgstr "Csoportok házirendje frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:104
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Filter profile"
 msgstr "Szűrő profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
 "A felhasználói csoport házirend nem kompatibilis a transzparens üzemmóddal."
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
 msgstr ""
 "Globális csoport házirendre van szükséges a globális házirend hitelesítéséhez"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-msgid "Network Rate"
-msgstr "Hálózati átvitel"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:152
+#, fuzzy
+msgid "Download rate"
+msgstr "Letöltés"
+
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:158
+#, fuzzy
+msgid "Maximum download speed for this network. Use -1 to disable this option."
+msgstr ""
+"Maximális letöltési sebesség ezen a hálózaton. Írjon -1-et ha ki szeretné "
+"kapcsolni az opciót."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-msgid "Network Maximum Size"
-msgstr "Hálózat maximális mérete"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:162
+#, fuzzy
+msgid "File size"
+msgstr "Oldalméret"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
-msgid "Delay Pools Class 1"
-msgstr "Class 1 osztályú késleltetési szabály"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:174
+msgid "Network bandwidth rules (class 1 delay pools)"
+msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
-#, perl-brace-format
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
-"Once the request exceeds the {max} then the HTTP Proxy will throttle the "
-"download bandwidth to the given {rate}."
+"Once a download exceeds the file size then the HTTP Proxy will slow down the "
+"connection to the specified download rate. The clients on this network will "
+"have to share the available bandwidth."
 msgstr ""
-"Ha a kérések száma túllépi a {max} számot, a HTTP proxy a megadott {rate} "
-"értékre fogja korlátozni letöltési sebességet."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettings.pm:70
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
 msgid "Domain filter settings"
 msgstr "Tartományszűrő beállítások"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettings.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
 msgid "Filtering settings changed"
 msgstr "Szűrő beállítások módosítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
 msgid "Domains lists files for filter group"
 msgstr "Tartománylista fájlok a csoportok szűréséhez"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:96
 msgid "internet domain list"
 msgstr "internetes tartománylista"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
 msgid "You can upload files whith lists of domains"
 msgstr "Itt tölthetőek fel a tartománylisták"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:99
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:99
 msgid "Domain list added"
 msgstr "Tartománylista hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:100
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:100
 msgid "Domain list removed"
 msgstr "Tartománylista törölve"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:101
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:101
 msgid "Domain list updated"
 msgstr "Tartománylista frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
 "would occur if the object policy requires it"
@@ -793,6 +1022,7 @@ msgstr ""
 "akkor egy szűrő volna itt (?)."
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
 "group policies"
@@ -801,11 +1031,13 @@ msgstr ""
 "csoportszabályok alkalmazásához"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
 #, perl-brace-format
 msgid "Configure object {ob} user groups policies"
 msgstr "A(z) {ob} objektum felhasználói csoportjának beállítása"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
 msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
@@ -814,44 +1046,56 @@ msgstr ""
 "esetén nem lesz figyelembe véve"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:72
 msgid "Domain Name Address"
 msgstr "Tartomány IP címe"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:79
 msgid "Exempt address from caching"
 msgstr "Nem gyorsítótárazott címek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:88
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
 msgstr "Gyorsítótár kivételek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:101
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:101
 msgid "domain name address"
 msgstr "tartomány IP címek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:102
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:102
 msgid "You can exempt some addresses from caching"
 msgstr "Itt adhatóak meg a gyorsítótárból kivételezett címek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:104
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:104
 msgid "Address added"
 msgstr "Cím hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:105
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:105
 msgid "Address removed"
 msgstr "Cím törölve"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:106
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:106
 msgid "Address updated"
 msgstr "Cím frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:62
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategories.pm:62
 msgid "Domains list categories"
 msgstr "Tartománylista kategóriák"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:74
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategories.pm:74
 msgid "category"
 msgstr "kategória"
 
@@ -860,48 +1104,64 @@ msgstr "kategória"
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:93
 #: ../../main/squid/src/EBox/Squid.pm:1152
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategories.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupSettings.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterSettings.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1152
 msgid "Filter Profiles"
 msgstr "Szűrőprofilok"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
 msgid "elements"
 msgstr "elemek"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
 #, perl-brace-format
 msgid "Allow all {elements}"
 msgstr "Mind engedélyezve: {elements}"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
 msgid "Use this field to change the value of all the above rows at once"
 msgstr "Használja ezt a mezőt a fenti sorok értékeinek felülírására"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:96
 msgid "Filter profiles"
 msgstr "Szűrőprofilok"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:97
 msgid "List of profiles"
 msgstr "Profilok listája"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:105
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:105
 msgid "filter profile"
 msgstr "szűrőprofil"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:107
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:107
 msgid "Added filter profile"
 msgstr "Szűrőprofil hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Removed filter profile"
 msgstr "Szűrőprofil eltávolítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:109
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:109
 msgid "Updated filter profile"
 msgstr "Szűrőprofil frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:122
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:162
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:122
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:162
 msgid "Filter group"
 msgstr "Csoportszűrő"
 
@@ -913,6 +1173,7 @@ msgstr "Csoportszűrő"
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:263
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:108
 #: ../../main/network/src/EBox/Model/DynDNS.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:127
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:303
@@ -925,22 +1186,27 @@ msgid "Configuration"
 msgstr "Beállítások"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:169
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:169
 msgid "Filter group policy"
 msgstr "Csoportszűrő házirend"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:217
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:217
 msgid "Maximum number of filter groups reached"
 msgstr "A csoportszűrő hatókörének maximális értéke"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
 msgstr "A szünet nem megengedett a profilnevekben"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
 msgstr "Tartománylista állományok"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:97
 msgid "You can upload files with lists of domains"
 msgstr "Itt tölthető fel a tartományok listája"
 
@@ -949,57 +1215,70 @@ msgstr "Itt tölthető fel a tartományok listája"
 #: ../../main/objects/src/EBox/Objects.pm:254
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:227
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:246
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:78
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:160
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:90
 msgid "Object"
 msgstr "Objektum"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:89
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
 msgstr "Engedélyezett idő intervallum"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:96
 msgid "Group policy"
 msgstr "Csoport házirend"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:117
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "Object Policies"
 msgstr "Objektum házirendek"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:118
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "List of objects"
 msgstr "Objektumok listája"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:133
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "object's policy"
 msgstr "objektumok házirendje"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:134
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "Here you can establish a custom policy per network object"
 msgstr "Itt meghatározhat egy saját szabályt minden hálózati objektumra"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:136
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Added object's policy"
 msgstr "Objektumok házirendje hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:137
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Removed object's policy"
 msgstr "Objektumok házirendje eltávolítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:138
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Updated object's policy"
 msgstr "Objektumok házirendje frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:189
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
 "Az azonosítási házirend nem kompatibilis a transzparens proxy üzemmóddal."
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:212
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr "A szűrő házirend inkompatibilis a korlátozott idő intervallummal."
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:238
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:238
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
@@ -1007,10 +1286,12 @@ msgstr ""
 "csoportházirend"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:264
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
 msgstr "Ön csak saját profilt használhat a 'Szűrő' házirenddel"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:528
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
@@ -1023,31 +1304,42 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:145
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:153
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:164
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:145
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:153
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:164
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:75
 msgid "MIME Type"
 msgstr "MIME típus"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:147
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:147
 msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "A MIME típust így kell megadni: típus/altípus."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:156
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:156
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
 msgstr "{type} nem érvényes IANA típus."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:167
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:167
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
 msgstr "{t} altípusnak rossz a szintaxisa"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
 msgid "Configure allowed MIME types"
 msgstr "Engedélyezett MIME típusok beállítása"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
 msgid "MIME type"
@@ -1055,6 +1347,8 @@ msgstr "MIME típus"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
 "types not listed here are allowed.\n"
@@ -1066,25 +1360,33 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
 msgid "MIME type added"
 msgstr "MIME típus hozzáadva"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:68
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
 msgid "MIME type removed"
 msgstr "MIME típus eltávolítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
 msgid "MIME type updated"
 msgstr "MIME típus frissítve"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 msgid "File extension"
 msgstr "Fájl kiterjesztés"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:110
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilterBase.pm:110
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:103
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:134
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:320
@@ -1096,15 +1398,20 @@ msgstr "Kiterjesztés"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
 msgstr "HTTP proxy forgalom jelentés"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
 msgstr "Tartományok szűrése csoportszűrőnek"
 
 #: ../../main/squid/src/EBox/Squid/Composite/MIME.pm:91
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/MIME.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
 msgstr "MIME típus szűrés"
 
@@ -1112,25 +1419,36 @@ msgstr "MIME típus szűrés"
 #: ../../main/squid/src/EBox/Squid.pm:77
 #: ../../main/squid/src/EBox/Squid.pm:1119
 #: ../../main/squid/src/EBox/Squid.pm:1195
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/General.pm:75
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1119
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1195
 msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
 msgstr "Szűrő beállítások"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1143
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/DelayPools.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1143
 msgid "Bandwidth Throttling"
 msgstr "Sávszélesség gyorsítása"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/DelayPools.pm:71
+#, fuzzy
 msgid ""
-"Class 1 pools allow you to restrict the bandwidth rate for large downloads "
-"whereas class 2 pools allow you to set the bandwidth usage to a sustained "
-"rate. The class 1 pools have more priority than class 2 ones and the first "
-"match from the source is done. If a network object does not match any rule, "
-"then no bandwidth throttling is done to it"
+"Bandwith throttling allows you to control download rates for connections "
+"going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
+"allow you to limit the download rate for the whole network whereas client "
+"bandwidth rules (class 2 delay pools) allow you to limit the download rate "
+"on a per client basis. Class 1 pools have more priority than class 2 pools "
+"and the first rule to match is applied. If a connection doesn't match any "
+"rule, then no bandwidth throttling is applied."
 msgstr ""
 "A Class 1 típusú szabályok lehetővé teszik a nagy méretű letöltések "
 "korlátozását addig a Class 2 típusúakkal a tartós korlátozásokat lehet "
@@ -1140,139 +1458,174 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
 msgstr "Fájlkiterjesztések szűrése"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Domains.pm:92
 msgid "Domains filtering"
 msgstr "Tartományok szűrése"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:82
 msgid "Authorize and allow"
 msgstr "Azonosít és engedélyez"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:83
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and filter"
 msgstr "Azonosít és szűr"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and deny"
 msgstr "Azonosít és tilt"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:104
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:104
 msgid "Squid's policy"
 msgstr "Squid házirend"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
 msgstr "H"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:42
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
 msgstr "K"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
 msgstr "Sze"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
 msgstr "Cs"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
 msgstr "P"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
 msgstr "Szo"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
 msgstr "V"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
 msgstr "Hétfő"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:52
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "Tuesday"
 msgstr "Kedd"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:53
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Wednesday"
 msgstr "Szerda"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Thursday"
 msgstr "Csütörtök"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Friday"
 msgstr "Péntek"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Saturday"
 msgstr "Szombat"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Sunday"
 msgstr "Vasárnap"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:132
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:132
 msgid "All time"
 msgstr "Bármikor"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:214
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:214
 msgid "All week"
 msgstr "Egész héten"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:222
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
 msgstr "Hétvége"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
 msgstr "Munkanap"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:486
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:486
 msgid "From hour.."
 msgstr "Órától"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:489
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:489
 msgid "to hour.."
 msgstr "óráig"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:493
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:493
 msgid "You must specify two diffrent hours to the range"
 msgstr "Itt adhat meg két eltérő órát a tartományon belül."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:510
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:510
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
 msgstr "Rossz óra érték a nap értékén belül: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:516
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:516
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
 msgstr "Rossz óra érték a nap formátumán belül: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:523
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:523
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
 msgstr "Rossz perc érték: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:529
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
 msgstr "Rossz perc formátum: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:542
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:548
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:542
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:548
 msgid "The end of the range is greater than the begin"
 msgstr "A tartomány végének nagyobbnak kell lennie mint a kezdőértékének!"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:572
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:572
 msgid "The time period must be at least active on one day"
 msgstr "Az időtartamnak legalább egy napnak kell lennie"
 
@@ -1289,6 +1642,8 @@ msgstr "Az időtartamnak legalább egy napnak kell lennie"
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:210
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:284
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:562
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1094
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:91
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:110
@@ -1318,106 +1673,132 @@ msgid "Disabled"
 msgstr "Kikapcsolva"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
 msgstr "Nagyon megengedő"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
 msgstr "Megengedő"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
 msgstr "Közepes"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
 msgstr "Szigorú"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
 msgstr "Nagyon szigorú"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
 msgstr "Itt adhatjuk meg a tartalomszűrő érzékenységét."
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
 msgstr "Squid tartomány házirend"
 
 #: ../../main/squid/src/EBox/Squid.pm:197
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:197
 msgid "HTTP Proxy configuration file"
 msgstr "HTTP Proxy beállító fájl"
 
 #: ../../main/squid/src/EBox/Squid.pm:202
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:202
 msgid "Content filter configuration file"
 msgstr "Tartalomszűrő beállító fájl"
 
 #: ../../main/squid/src/EBox/Squid.pm:207
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
 msgstr "Alapértelmezett csoportra vonatkozó szűrő beállítások"
 
 #: ../../main/squid/src/EBox/Squid.pm:212
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:212
 msgid "Filter groups membership"
 msgstr "Csoporttagság szűrő"
 
 #: ../../main/squid/src/EBox/Squid.pm:217
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:217
 msgid "Content filter banned extension list"
 msgstr "Letiltott kiterjesztéslista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:222
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:222
 msgid "Content filter banned mime type list"
 msgstr "Letiltott MIME lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:227
 msgid "Content filter exception site list"
 msgstr "Honlap kivétel lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:232
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:232
 msgid "Content filter grey site list"
 msgstr "Tartalomszűrő szürke kivétellista"
 
 #: ../../main/squid/src/EBox/Squid.pm:237
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:237
 msgid "Content filter banned site list"
 msgstr "Letiltott honlap lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:242
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:242
 msgid "Content filter exception URL list"
 msgstr "URL kivétel lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:247
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:247
 msgid "Content filter grey URL list"
 msgstr "Tartalomszűrő szürke URL lista"
 
 #: ../../main/squid/src/EBox/Squid.pm:252
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:252
 msgid "Content filter banned URL list"
 msgstr "Letiltott URL lista a tartalomszűrőhöz"
 
 #: ../../main/squid/src/EBox/Squid.pm:257
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:257
 msgid "Forbidden phrases list"
 msgstr "Tiltott kifejezések listája"
 
 #: ../../main/squid/src/EBox/Squid.pm:262
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:262
 msgid "Exception phrases list"
 msgstr "Kivétel kifejezések listája"
 
 #: ../../main/squid/src/EBox/Squid.pm:267
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:267
 msgid "PICS ratings configuration"
 msgstr "PICS teljesítmény beállítása"
 
 #: ../../main/squid/src/EBox/Squid.pm:272
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:272
 msgid "Dansguardian's log rotation configuration"
 msgstr "DansGuardian naplózás forgatásának (időszakos cseréjének?) beállítása"
 
 #: ../../main/squid/src/EBox/Squid.pm:277
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:277
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr "A DansGuardian vírusirtó beállítása"
 
 #: ../../main/squid/src/EBox/Squid.pm:282
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:282
 msgid "Filter groups per IP"
 msgstr "IP alapú csoportszűrés"
 
 #: ../../main/squid/src/EBox/Squid.pm:287
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:287
 #, fuzzy
 msgid "Configuration of adzapper"
 msgstr ""
@@ -1427,10 +1808,12 @@ msgstr ""
 "Beállítások mentés"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
 msgstr "Blokkolt lapok sablonjának felülírása"
 
 #: ../../main/squid/src/EBox/Squid.pm:302
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
@@ -1439,22 +1822,27 @@ msgstr ""
 "személyreszabott sablonjával"
 
 #: ../../main/squid/src/EBox/Squid.pm:307
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:307
 #, fuzzy
 msgid "Remove dansguardian init script link"
 msgstr "Az ntp init szkript linkek törlése"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
-#: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
+#: ../../main/dns/src/EBox/DNS.pm.in:635
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:308
+#: ../../main/ntp/src/EBox/NTP.pm:91
 #: ../../main/webserver/src/EBox/WebServer.pm:141
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "A Zentyal gondoskodik a szolgáltatások indításáról és leállításáról."
 
 #: ../../main/squid/src/EBox/Squid.pm:336
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:336
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
 "Itt kell megadni a cache_mem változó értékét a Zentyal beállító fájlhoz."
 
 #: ../../main/squid/src/EBox/Squid.pm:345
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:345
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
@@ -1471,6 +1859,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:175
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:168
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:152
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1092
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
 #: ../../main/core/src/EBox/Model/DataTable.pm:4727
@@ -1495,14 +1884,17 @@ msgid "Enabled"
 msgstr "Bekapcsolva"
 
 #: ../../main/squid/src/EBox/Squid.pm:1096
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1096
 msgid "Transparent proxy"
 msgstr "Transzparens proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:1106
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1106
 msgid "Global policy"
 msgstr "Globális házirend"
 
 #: ../../main/squid/src/EBox/Squid.pm:1108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1108
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:225
 msgid "Listening port"
@@ -1510,6 +1902,7 @@ msgstr "Figyelő port"
 
 #: ../../main/squid/src/EBox/Squid.pm:1140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1140
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/ca/src/EBox/CA.pm:1749
 #: ../../main/core/src/EBox/SysInfo.pm.in:371
@@ -1519,10 +1912,12 @@ msgid "General"
 msgstr "Általános"
 
 #: ../../main/squid/src/EBox/Squid.pm:1146
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1146
 msgid "Objects' Policy"
 msgstr "Objektumok házirendje"
 
 #: ../../main/squid/src/EBox/Squid.pm:1149
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1149
 msgid "Groups' Policy"
 msgstr "Csoportok házirendje"
 
@@ -1531,26 +1926,31 @@ msgstr "Csoportok házirendje"
 #: ../../main/network/src/EBox/CGI/Diag.pm:50
 #: ../../main/network/src/EBox/CGI/Diag.pm:57
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:229
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1181
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
 msgid "Host"
 msgstr "Gép"
 
 #: ../../main/squid/src/EBox/Squid.pm:1183
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1183
 msgid "URL"
 msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:1184
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1184
 msgid "Bytes"
 msgstr "Bájt"
 
 #: ../../main/squid/src/EBox/Squid.pm:1185
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1185
 msgid "Mime/type"
 msgstr "MIME típus"
 
 #: ../../main/squid/src/EBox/Squid.pm:1186
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1305
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1186
 #: ../../main/printers/src/EBox/Printers.pm:368
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:650
@@ -1565,14 +1965,17 @@ msgid "Event"
 msgstr "Esemény"
 
 #: ../../main/squid/src/EBox/Squid.pm:1191
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1191
 msgid "Accepted"
 msgstr "Elfogadott"
 
 #: ../../main/squid/src/EBox/Squid.pm:1192
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1192
 msgid "Denied"
 msgstr "Tiltott"
 
 #: ../../main/squid/src/EBox/Squid.pm:1193
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1193
 msgid "Filtered"
 msgstr "Szűrt"
 
@@ -2742,19 +3145,6 @@ msgstr "Csomagforgalom részletezve"
 msgid "Internal networks to Zentyal"
 msgstr "A belső hálózatból a Zentyal fele haladó szűrő szabályok"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
-#: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
-#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:76
-#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:164
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:496
-#: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:68
-#: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:198
-#: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
-msgid "rule"
-msgstr "szabály"
-
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:62
 msgid "Internal networks"
 msgstr "Belső hálózatok"
@@ -3807,7 +4197,7 @@ msgstr "Felhasználói és anonymous mappák"
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:122
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:187
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:262
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:265
 #: ../../main/network/src/EBox/Network.pm:915
 #: ../../main/network/src/EBox/Network.pm:920
 #: ../../main/network/src/EBox/Network.pm:1260
@@ -4604,8 +4994,8 @@ msgstr "Válasszon egy valós tartománynevet a Zentyalnak"
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:74
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:78
-#: ../../main/users/src/EBox/UsersAndGroups.pm:996
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2623
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1002
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2629
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
 #: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
@@ -6792,11 +7182,11 @@ msgstr ""
 msgid "gateway"
 msgstr "átjáró"
 
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:280
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr "DHCP vagy PPPoE csatolók esetében kézileg nem állíthatja be az átjárót"
 
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:339
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
 msgstr "Automatikusan hozzáadott átjárók nem törölhető kézileg"
 
@@ -7292,16 +7682,16 @@ msgstr "ip cím"
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
-#: ../../main/users/src/EBox/UsersAndGroups.pm:968
 #: ../../main/users/src/EBox/UsersAndGroups.pm:974
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1260
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1327
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1379
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1843
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1921
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2025
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2059
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2130
+#: ../../main/users/src/EBox/UsersAndGroups.pm:980
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1266
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1333
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1385
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1849
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1927
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2031
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2065
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2136
 #: ../../main/users/src/EBox/CGI/AddUser.pm:44
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:40
 msgid "user name"
@@ -9281,13 +9671,13 @@ msgstr "A {g} csoport nem létezik"
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:803
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:44
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1680
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1685
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1877
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2030
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2064
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2181
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2284
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1686
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1691
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1883
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2036
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2070
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2187
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2290
 #: ../../main/users/src/EBox/CGI/ModifyGroup.pm:39
 #: ../../main/users/src/EBox/CGI/AddGroup.pm:45
 msgid "group name"
@@ -10582,7 +10972,7 @@ msgstr ""
 
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2609
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2615
 msgid "Mode"
 msgstr "Mód"
 
@@ -11557,15 +11947,15 @@ msgstr "nullánál nagyobbnak kell lennie"
 msgid "Executable has not been run"
 msgstr "A végrehajtás nem futtatható"
 
-#: ../../main/core/src/EBox/ProgressIndicator.pm:290
+#: ../../main/core/src/EBox/ProgressIndicator.pm:289
 msgid "The executable has not run"
 msgstr "A végrehajtás nem fut"
 
-#: ../../main/core/src/EBox/ProgressIndicator.pm:432
+#: ../../main/core/src/EBox/ProgressIndicator.pm:431
 msgid "The executable has already been started"
 msgstr "A végrehajtás elindult"
 
-#: ../../main/core/src/EBox/ProgressIndicator.pm:436
+#: ../../main/core/src/EBox/ProgressIndicator.pm:435
 msgid "The executable has already finished"
 msgstr "A végrehajtás leállt"
 
@@ -11814,8 +12204,8 @@ msgstr "Rendszeridő"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:181
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2575
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2583
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2581
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2589
 #: ../../main/users/src/EBox/CGI/Users.pm:31
 #: ../../main/users/src/EBox/CGI/Users.pm:55
 #: ../../main/users/src/EBox/CGI/Groups.pm:51
@@ -14725,8 +15115,8 @@ msgid "The secret key needs to have 16 characters."
 msgstr "A titkos kulcshoz 16 karakter szükséges."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:76
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2577
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2586
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2583
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2592
 #: ../../main/users/src/EBox/CGI/Groups.pm:42
 #: ../../main/users/src/EBox/CGI/Group.pm:64
 msgid "Groups"
@@ -14922,7 +15312,7 @@ msgstr ""
 "megtekintéséhez."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2598
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2604
 msgid "Slave Status"
 msgstr "Slave Status"
 
@@ -14933,13 +15323,13 @@ msgstr ""
 "Ezek a beállítások új felhasználók létrehozása esetén lesznek alkalmazva."
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:74
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2579
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2588
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2585
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2594
 msgid "User Template"
 msgstr "Felhasználói sablon"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2593
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2599
 msgid "LDAP Settings"
 msgstr "LDAP beállítások"
 
@@ -15028,16 +15418,16 @@ msgstr ""
 "Hogy lemásolja az LDAP Zentyal által generált admin jelszavát más modulok "
 "LDAP eléréséhez."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:957
+#: ../../main/users/src/EBox/UsersAndGroups.pm:963
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "A felhasználónév nem lehet hosszabb {maxuserlength} karakternél!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:964
+#: ../../main/users/src/EBox/UsersAndGroups.pm:970
 msgid "Username already exists on the system"
 msgstr "A felhasználónév már létezik a rendszerben"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:981
+#: ../../main/users/src/EBox/UsersAndGroups.pm:987
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
@@ -15047,12 +15437,12 @@ msgstr ""
 "rendszerfelhasználóként. Törölje ki vagy nevezze át ezt a felhasználót, majd "
 "próbálja újra"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1078
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1743
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1084
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1749
 msgid "Maximum number of system users reached"
 msgstr "rendszergazdák maximális száma"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1095
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1101
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -15060,32 +15450,32 @@ msgstr ""
 "Érvénytelen felhasználói UID: {uid}.\n"
 "Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1106
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1112
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Érvénytelen rendszergazdai UID: {uid}.\n"
 "Ennek az értéknek kisebbnek kell lenni mint {max}."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1266
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1272
 #, fuzzy
 msgid "user quota"
 msgstr "Személyre szabott kvóta"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1269
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1275
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1668
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1674
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "A csoportnév nem lehet hosszabb {maxGroupLength} karakternél!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1674
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1680
 msgid "The group name is not valid because it is used internally"
 msgstr "Csoportnév érvénytelen, mert már belső használatban van!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1760
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1766
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
@@ -15093,23 +15483,23 @@ msgstr ""
 "Érvénytelen csoport GID: {gid}.\n"
 "Ennek az értéknek egyenlőnek vagy nagyobbnak kell lenni mint {min}."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1770
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1776
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr ""
 "Érvénytelen rendszer csoporti GID: {gid}.\n"
 "Ennek az értéknek kisebbnek kell lenni mint {max}."
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2372
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2378
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél!"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2603
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2609
 msgid "AD Sync Settings"
 msgstr "AD Sync beállítások"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2699
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2705
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -15119,12 +15509,12 @@ msgstr ""
 "rendszerfelhasználóként. Törölje ki vagy nevezze át ezt a felhasználót, majd "
 "próbálja újra"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2966
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2972
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
 msgstr "A(z) {host} nevű gép már regisztrálva van a Zentyalban"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:3092
+#: ../../main/users/src/EBox/UsersAndGroups.pm:3098
 msgid "Replication failed"
 msgstr "A replikáció meghiúsult"
 
@@ -15331,7 +15721,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:727
 msgid ""
-"Backup log data not found in the fiels from the backup, log database will "
+"Backup log data not found in the files from the backup, log database will "
 "not be restored"
 msgstr ""
 
@@ -16924,17 +17314,17 @@ msgstr ""
 msgid "Move down"
 msgstr ""
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:72
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:88
 #, fuzzy
 msgid "Add new..."
 msgstr "Új hozzáadása"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:126
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:143
 #, fuzzy
 msgid "No elements found. "
 msgstr "Nincs találat"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:127
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 #, fuzzy
 msgid "Add a new one"
 msgstr "Új hozzáadása"
@@ -17818,6 +18208,31 @@ msgid ""
 msgstr ""
 "Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
 "adatát is: postafiók, saját fájlok, stb."
+
+#~ msgid "Rate"
+#~ msgstr "Átvitel"
+
+#~ msgid "Maximum Size"
+#~ msgstr "Maximális méret"
+
+#~ msgid "Client Rate"
+#~ msgstr "Felhasználói sebesség"
+
+#~ msgid "Delay Pools Class 2"
+#~ msgstr "Class 2 osztályú késleltetési szabály"
+
+#~ msgid "pool"
+#~ msgstr "pool"
+
+#~ msgid "Delay Pools Class 1"
+#~ msgstr "Class 1 osztályú késleltetési szabály"
+
+#~ msgid ""
+#~ "Once the request exceeds the {max} then the HTTP Proxy will throttle the "
+#~ "download bandwidth to the given {rate}."
+#~ msgstr ""
+#~ "Ha a kérések száma túllépi a {max} számot, a HTTP proxy a megadott {rate} "
+#~ "értékre fogja korlátozni letöltési sebességet."
 
 #, fuzzy
 #~ msgid "Other files"

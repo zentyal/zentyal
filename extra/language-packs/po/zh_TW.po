@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-09-10 04:22+0200\n"
+"POT-Creation-Date: 2011-09-11 23:13+0200\n"
 "PO-Revision-Date: 2009-08-04 06:08+0200\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -21,26 +21,37 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:57
 msgid "Use default profile configuration"
 msgstr "使用預設的設定檔組態"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:66
 msgid "Use default profile for MIME filtering"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:42
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:41
 msgid "extensions"
 msgstr "副檔名"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllExtensions.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:48
 msgid "Set policy for all extensions"
 msgstr "設定政策給所有副檔名"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:103
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:58
 msgid "Requests"
 msgstr "請求"
 
@@ -53,6 +64,9 @@ msgstr "請求"
 #: ../../main/pptp/src/EBox/PPTP.pm:355
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:195
 #: ../../main/usercorner/src/EBox/UserCorner/CGI/Dashboard/Index.pm:30
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1182
 #: ../../main/printers/src/EBox/Printers.pm:366
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:206
 #: ../../main/samba/src/EBox/Samba.pm:752
@@ -70,36 +84,54 @@ msgstr "使用者"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:54
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:62
 msgid "Accepted requests"
 msgstr "已接受的請求"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:58
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
 msgstr "已接受的流量大小 (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:69
 msgid "Denied requests"
 msgstr "已拒絕的請求"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:124
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:66
 msgid "Denied traffic size (Kb)"
 msgstr "已拒絕的流量大小 (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:130
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:74
 msgid "Filtered requests"
 msgstr "已過濾的請求"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:135
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:72
 msgid "Filtered traffic size (Kb))"
 msgstr "已過濾的流量大小 (Kb)"
 
@@ -111,6 +143,8 @@ msgstr "已過濾的流量大小 (Kb)"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1180
 #: ../../main/printers/src/EBox/Printers.pm:367
 #: ../../main/samba/src/EBox/Samba.pm:1503
 #: ../../main/samba/src/EBox/Samba.pm:1523
@@ -140,11 +174,13 @@ msgid "Date"
 msgstr "日期"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:144
 msgid "Web traffic details"
 msgstr "網頁流量詳細資料"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:86
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficDetails.pm:151
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:125
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:110
 #: ../../main/mail/src/EBox/Mail/Model/Report/TrafficDetails.pm:98
@@ -152,23 +188,29 @@ msgid "traffic"
 msgstr "流量"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:48
 msgid "Squid traffic size graph"
 msgstr "Squid 流量大小圖表"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:99
 msgid "Traffic size"
 msgstr "流量大小"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:48
 msgid "Squid traffic requests graph"
 msgstr "Squid 流量請求圖表"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/Report/RequestsGraph.pm:100
 msgid "Access requests"
 msgstr "存取請求"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:87
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:85
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
@@ -177,6 +219,8 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:102
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:100
 #, perl-brace-format
 msgid ""
 "Object {object} has an enabled {row} in {table}. Delete it first from there "
@@ -185,105 +229,145 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:119
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:116
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:119
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:116
 #, perl-brace-format
 msgid ""
 "If {first} is set unlimited, then {second} must be set to unlimited as well"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:134
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:134
 #, perl-brace-format
 msgid "{clt_rate} is greater than {net_rate}"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:159
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:143
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:159
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:143
 #, fuzzy
 msgid "Network object"
 msgstr "對象列表"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
-msgid "Rate"
-msgstr "日期"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:168
+msgid "Newtork download rate"
+msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:171
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:191
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-msgid ""
-"Maximum download bandwidth rate for this network. Use -1 to disable this "
-"option."
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:174
+msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-msgid "Maximum Size"
-msgstr ""
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:178
+#, fuzzy
+msgid "Network file size"
+msgstr "網路介面"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:181
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:201
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:184
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:168
 msgid ""
-"Maximum unthrottled download size for this network. Use -1 to disable this "
-"option."
+"Maximum unthrottled download file size for this network. Use -1 to disable "
+"this option."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-msgid "Client Rate"
-msgstr ""
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:188
+#, fuzzy
+msgid "Client download rate"
+msgstr "客戶端位址"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-msgid ""
-"Maximum download bandwidth rate per client. Use -1 to disable this option."
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:194
+msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-msgid "Client Maximum Size"
-msgstr ""
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:198
+#, fuzzy
+msgid "Client file size"
+msgstr "快取檔案大小 (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:204
 msgid ""
-"Maximum unthrottled download size per client. Use -1 to disable this option."
+"Maximum unthrottled download file size per client. Use -1 to disable this "
+"option."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
-msgid "Delay Pools Class 2"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:210
+msgid "Client bandwidth rules (class 2 delay pools)"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, perl-brace-format
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:217
 msgid ""
-"Once the request exceeds the {max} then the HTTP Proxy will throttle the "
-"download bandwidth to the given {rate}. The client number is limited to 256."
+"Once the download exceeds the file size then the HTTP Proxy will slow down "
+"the connection to the specified download rate. Both parameters can be "
+"defined for the whole network and on a per client basis. The client number "
+"is limited to 256."
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:223
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:187
-msgid "pool"
-msgstr ""
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
+#: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
+#: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
+#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:76
+#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:164
+#: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:496
+#: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:68
+#: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:198
+#: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools2.pm:219
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:183
+msgid "rule"
+msgstr "規則"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:65
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:50
 #, fuzzy
 msgid "Domains and URL rules"
 msgstr "網域規則"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:78
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:63
 #, fuzzy
 msgid "internet domain or URL"
 msgstr "網際網域"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:64
 #, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
@@ -291,27 +375,35 @@ msgstr "允許/拒絕 HTTP 流量從/到已列出網際網域."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:81
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
 #, fuzzy
 msgid "Domain or URL added"
 msgstr "網域已新增"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:67
 #, fuzzy
 msgid "Domain or URL removed"
 msgstr "網域已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilter.pm:83
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:68
 #, fuzzy
 msgid "Domain or URL updated"
 msgstr "網域已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/AntiVirusBase.pm:49
 msgid "Use antivirus"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/AntiVirusBase.pm:91
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is "
@@ -320,6 +412,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/AntiVirusBase.pm:97
 #, perl-brace-format
 msgid ""
 "You cannot activate antivirus filter because the antivirus module is not "
@@ -328,16 +421,19 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:66
 msgid "Use default profile for extension filtering"
 msgstr "使用預設的設定檔做延伸檔名過濾"
 
 # It was "阻擋未列出的網域", which is misleading. 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:40
 #, fuzzy
 msgid "Block not listed domains and URLs"
 msgstr "阻擋未列表的網域"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:43
 #, fuzzy
 msgid ""
 "If this is enabled, any domain or URL which is neither present neither in "
@@ -346,18 +442,22 @@ msgid ""
 msgstr "如果啟用此項，任何沒有列在下面<i>網域清單</i>中的網域都會被禁用。"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettingsBase.pm:51
 msgid "Block sites specified only as IP"
 msgstr "阻擋只以 IP 指定的網站"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:56
 msgid "Transparent Proxy"
 msgstr "通透式代理服務器"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisements from all HTTP traffic"
 msgstr ""
 
@@ -365,6 +465,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:325
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:89
 #: ../../main/radius/src/EBox/Radius.pm:394
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:60
@@ -372,19 +473,23 @@ msgid "Port"
 msgstr "連接埠"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:76
 msgid "Cache files size (MB)"
 msgstr "快取檔案大小 (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:84
 msgid "Default policy"
 msgstr "預設政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:92
 msgid "General Settings "
 msgstr "一般設定值 "
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:97
 #: ../../main/dns/src/EBox/Model/Settings.pm:94
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:97
 #, fuzzy
 msgid "Settings changed"
 msgstr ""
@@ -395,21 +500,25 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:163
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:150
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:163
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
 msgstr "{port} 已使用，請選擇其他的"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:190
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:190
 msgid "Transparent proxy option is not compatible with authorization policy"
 msgstr "通透式代理伺服器選項與驗證原則不相容"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:197
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:197
 msgid ""
 "Transparent proxy is incompatible with the authorization policy found in "
 "some objects"
 msgstr "通透式代理伺服器與在部分物件發現的驗證原則不相容"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:215
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:215
 #, fuzzy
 msgid ""
 "An authorization policy is required because you are using global group "
@@ -417,6 +526,7 @@ msgid ""
 msgstr "您需要使用全域群組原則的驗證原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:224
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:224
 msgid ""
 "<i>Filter</i> means that HTTP requests will go through the content filter "
 "and they might be rejected if the content is not considered valid."
@@ -425,6 +535,7 @@ msgstr ""
 "被拒絕。"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:231
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GeneralSettings.pm:231
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
@@ -435,6 +546,10 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:85
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:42
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:85
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamACL.pm:67
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:67
 msgid "Policy"
@@ -443,6 +558,9 @@ msgstr "政策"
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:95
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:79
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:49
 msgid "Always allow"
 msgstr "永遠允許"
 
@@ -450,29 +568,40 @@ msgstr "永遠允許"
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:80
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:50
 #: ../../main/squid/src/EBox/Squid.pm:1103
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:80
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:50
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1103
 msgid "Filter"
 msgstr "過濾條件"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:81
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:81
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:51
 msgid "Always deny"
 msgstr "永遠拒絕"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:98
 msgid "Ignore"
 msgstr "忽略"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:113
 msgid "This list has not categories"
 msgstr "這個列表沒有分類"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:35
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:35
 #, fuzzy
 msgid "Domain or URL"
 msgstr "網域"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:76
 #, fuzzy
 msgid "Domain or IP address part of URL"
 msgstr "網域已新增"
@@ -481,6 +610,7 @@ msgstr "網域已新增"
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:186
 #: ../../main/dns/src/EBox/Model/Text.pm:162
 #: ../../main/network/src/EBox/Model/SearchDomain.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:86
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:68
 #: ../../main/core/src/EBox/Events/Model/Watcher/Log.pm:256
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:360
@@ -502,21 +632,27 @@ msgstr ""
 "網域"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
 msgstr "您不可在網域前加上www"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterBase.pm:92
 #, fuzzy
 msgid "Domain or IP address"
 msgstr "網域已新增"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:65
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:65
 msgid "Configure allowed file extensions"
 msgstr "設定允許的副檔名"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:73
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:62
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:73
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:82
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:89
 #, fuzzy
@@ -529,6 +665,8 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:74
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:74
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given extensions.\n"
 "Extensions not listed here are allowed.\n"
@@ -540,36 +678,49 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:76
 msgid "Extension added"
 msgstr "副檔名已加入"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:77
 msgid "Extension removed"
 msgstr "副檔名已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:78
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:68
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilter.pm:78
 msgid "Extension updated"
 msgstr "副檔名已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:86
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:86
 msgid "Using default profile configuration"
 msgstr "使用預設的設定檔組態"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/UseDefaultDomainFilter.pm:67
 msgid "Use default profile for domain filtering"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
 #: ../../main/squid/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupAntiVirus.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DefaultAntiVirus.pm:49
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:69
 msgid "Filter virus"
 msgstr "過濾病毒"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
 #: ../../main/squid/stubs/template.html.mas:40
 msgid "Categories"
 msgstr ""
@@ -577,19 +728,23 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:597
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 msgid "File"
 msgstr "檔案"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:169
 #, fuzzy
 msgid "You must supply a domains list"
 msgstr "您不可在網域前加上www"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:202
 msgid "Inexistent archive file"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFilesBase.pm:259
 msgid ""
 "Plain lists not allowed: is only allowed compressed archives of classified "
 "black lists"
@@ -597,6 +752,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:68
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:102
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:211
@@ -610,6 +766,10 @@ msgstr "群組"
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
 #: ../../main/squid/src/EBox/Squid.pm:1099
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilterBase.pm:117
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1099
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:85
 #: ../../main/samba/src/templates/samba.mas:105
@@ -618,15 +778,20 @@ msgstr "允許"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:88
 #: ../../main/squid/src/EBox/Squid.pm:1101
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:88
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1101
 msgid "Deny"
 msgstr "拒絕"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:97
 msgid "Time period"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:108
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:90
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:90
 #, fuzzy
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
@@ -634,6 +799,8 @@ msgstr "允許存取的期間"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:228
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GroupPolicyBase.pm:235
 #, perl-brace-format
 msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
@@ -641,6 +808,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
 msgstr "使用預設設定檔界限"
 
@@ -649,6 +817,8 @@ msgstr "使用預設設定檔界限"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #, fuzzy
 msgid "Threshold"
 msgstr ""
@@ -659,42 +829,56 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
 msgid "Content filter threshold"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:85
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ContentFilterThreshold.pm:82
 msgid "Content filter threshold changed"
 msgstr "內容過濾門檻已變更"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:41
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:90
 msgid "MIME types"
 msgstr "MIME 類型"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupApplyAllowToAllMIME.pm:48
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:48
 msgid "Set policy for all MIME types"
 msgstr "設定政策給所有 MIME 類型"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:77
 #, fuzzy
 msgid "Group policies"
 msgstr "群組政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:78
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:70
 msgid "List of groups"
 msgstr "群組列表"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89
 msgid "group's policy"
 msgstr "群組原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:93
 #, fuzzy
 msgid ""
 "Here you can globally block or allow access by user group. Filter options "
@@ -705,101 +889,139 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:92
 msgid "Added group's policy"
 msgstr "已加入的群組原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:93
 msgid "Removed group's policy"
 msgstr "已移除的群組原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:94
 msgid "Updated group's policy"
 msgstr "已更新的群組原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:104
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:113
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:104
 msgid "Filter profile"
 msgstr "過濾器設定檔"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:161
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr "使用者群組原則與通透式代理伺服器模式不相容"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-msgid "Network Rate"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:152
+#, fuzzy
+msgid "Download rate"
+msgstr "下載"
+
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:158
+msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-msgid "Network Maximum Size"
-msgstr ""
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:162
+#, fuzzy
+msgid "File size"
+msgstr "頁面大小"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
-msgid "Delay Pools Class 1"
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:174
+msgid "Network bandwidth rules (class 1 delay pools)"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
-#, perl-brace-format
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
-"Once the request exceeds the {max} then the HTTP Proxy will throttle the "
-"download bandwidth to the given {rate}."
+"Once a download exceeds the file size then the HTTP Proxy will slow down the "
+"connection to the specified download rate. The clients on this network will "
+"have to share the available bandwidth."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettings.pm:70
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
 msgid "Domain filter settings"
 msgstr "網域過濾條件設定值"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:77
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterSettings.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:60
 msgid "Filtering settings changed"
 msgstr "過濾條件設定值已改變"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:77
 msgid "Domains lists files for filter group"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:90
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:96
 #, fuzzy
 msgid "internet domain list"
 msgstr "網際網域"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:91
 msgid "You can upload files whith lists of domains"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:99
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:99
 #, fuzzy
 msgid "Domain list added"
 msgstr "網域已新增"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:100
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:94
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:100
 #, fuzzy
 msgid "Domain list removed"
 msgstr "網域已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:101
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterFiles.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:101
 #, fuzzy
 msgid "Domain list updated"
 msgstr "網域已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:90
 msgid ""
 "Here you can deny or allow access depending on the user group. Filtering "
 "would occur if the object policy requires it"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:147
 #, fuzzy
 msgid ""
 "The object needs to be set to a policy with authorization in order to to use "
@@ -807,61 +1029,75 @@ msgid ""
 msgstr "如果沒有任何群組原則就不能選擇沒有驗證的原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:162
 #, fuzzy, perl-brace-format
 msgid "Configure object {ob} user groups policies"
 msgstr "設置網路對象的政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectGroupPolicy.pm:174
 msgid ""
 "Time period when the access is allowed. It is ignored if the group has a "
 "deny policy, time constraints of parent object are always ignored"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:72
 #, fuzzy
 msgid "Domain Name Address"
 msgstr "網域已新增"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:79
 #, fuzzy
 msgid "Exempt address from caching"
 msgstr "排除快取的網域"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:88
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
 msgstr "快取排除"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:101
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:101
 #, fuzzy
 msgid "domain name address"
 msgstr "網域已新增"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:102
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:102
 #, fuzzy
 msgid "You can exempt some addresses from caching"
 msgstr "您可以將某些網域排除在快取之外"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:104
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:104
 msgid "Address added"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:105
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:105
 #, fuzzy
 msgid "Address removed"
 msgstr "副檔名已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:106
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/NoCacheDomains.pm:106
 #, fuzzy
 msgid "Address updated"
 msgstr "副檔名已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:62
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategories.pm:62
 msgid "Domains list categories"
 msgstr "網域列表分類"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:74
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:72
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategories.pm:74
 msgid "category"
 msgstr "分類"
 
@@ -870,51 +1106,67 @@ msgstr "分類"
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupSettings.pm:95
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:93
 #: ../../main/squid/src/EBox/Squid.pm:1152
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupDomainFilterCategories.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterCategories.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupSettings.pm:95
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterSettings.pm:93
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1152
 #, fuzzy
 msgid "Filter Profiles"
 msgstr "已過濾的請求"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:71
 msgid "elements"
 msgstr "內容"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:79
 #, perl-brace-format
 msgid "Allow all {elements}"
 msgstr "允許所有 {elements}"
 
 #: ../../main/squid/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ApplyAllowToAllBase.pm:89
 #, fuzzy
 msgid "Use this field to change the value of all the above rows at once"
 msgstr "使用這個欄位來一次改變所有上面各列的數值"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:96
 msgid "Filter profiles"
 msgstr "過濾器設定檔"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:97
 #, fuzzy
 msgid "List of profiles"
 msgstr "群組列表"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:105
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:105
 msgid "filter profile"
 msgstr "過濾器設定檔"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:107
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:107
 msgid "Added filter profile"
 msgstr "已加入的過濾器設定檔"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:108
 msgid "Removed filter profile"
 msgstr "已移除的過濾器設定檔"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:109
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:109
 msgid "Updated filter profile"
 msgstr "已更新的過濾器設定檔"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:122
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:162
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:122
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:162
 msgid "Filter group"
 msgstr "過濾器群組"
 
@@ -926,6 +1178,7 @@ msgstr "過濾器群組"
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:263
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:108
 #: ../../main/network/src/EBox/Model/DynDNS.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:127
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:303
@@ -947,23 +1200,28 @@ msgstr ""
 "設置"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:169
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:169
 msgid "Filter group policy"
 msgstr "過濾器群組原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:217
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:217
 msgid "Maximum number of filter groups reached"
 msgstr "已達到過濾器群的最大數量"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 #, fuzzy
 msgid "Domains lists files"
 msgstr "網域列表"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:97
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/DomainFilterFiles.pm:97
 msgid "You can upload files with lists of domains"
 msgstr ""
 
@@ -974,6 +1232,7 @@ msgstr ""
 #: ../../main/objects/src/EBox/Objects.pm:254
 #: ../../main/dhcp/src/EBox/Model/FixedAddressTable.pm:227
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:246
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:78
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:160
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:90
 #, fuzzy
@@ -991,60 +1250,74 @@ msgstr ""
 "單位"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:89
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
 msgstr "允許的期間"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:96
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:96
 msgid "Group policy"
 msgstr "群組政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:117
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:117
 #, fuzzy
 msgid "Object Policies"
 msgstr "物件政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:118
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "List of objects"
 msgstr "對象列表"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:133
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "object's policy"
 msgstr "對象之政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:134
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "Here you can establish a custom policy per network object"
 msgstr "這裡您可以建立每一個網路對象的客製政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:136
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Added object's policy"
 msgstr "已新增對象之政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:137
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Removed object's policy"
 msgstr "已移除對象之政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:138
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Updated object's policy"
 msgstr "已更新對象之政策"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:189
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr "驗證原則與通透式代理伺服器模式不相容"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:212
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
 msgstr "過濾原則與限制的期間不相容"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:238
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:238
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr "如果沒有任何群組原則就不能選擇沒有驗證的原則"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:264
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:528
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
 msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
@@ -1055,32 +1328,43 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:145
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:153
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:164
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:145
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:153
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:164
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:75
 msgid "MIME Type"
 msgstr "MIME 類型"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:147
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:147
 #, fuzzy
 msgid "A MIME Type must follow this syntax: type/subtype"
 msgstr "MIME 類型必須為這個語法：type/subtype"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:156
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:156
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
 msgstr "{type} 不是有效的 IANA 類型"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:167
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilterBase.pm:167
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
 msgstr "{t} 子類型語法錯誤"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
 msgid "Configure allowed MIME types"
 msgstr "設置已允許的 MIME 類型"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
 msgid "MIME type"
@@ -1088,6 +1372,8 @@ msgstr "MIME 類型"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
 #, fuzzy
 msgid ""
 "Allow/Deny the HTTP traffic of the files which the given MIME types. MIME "
@@ -1100,20 +1386,27 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
 msgid "MIME type added"
 msgstr "MIME 類型已加入"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:68
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
 msgid "MIME type removed"
 msgstr "MIME 類型已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/MIMEFilter.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
 msgid "MIME type updated"
 msgstr "MIME 類型已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 msgid "File extension"
 msgstr "副檔名"
@@ -1121,6 +1414,7 @@ msgstr "副檔名"
 # #-#-#-#-#  zh_TW.po (ebox-asterisk 1.1)  #-#-#-#-#
 # 原譯為"延伸功能"
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:110
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Model/ExtensionFilterBase.pm:110
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:103
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:134
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:320
@@ -1137,16 +1431,21 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
 msgstr "HTTP 代理服務器流量報告"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 #, fuzzy
 msgid "Domains filtering for filter group"
 msgstr "網域過濾條件"
 
 #: ../../main/squid/src/EBox/Squid/Composite/MIME.pm:91
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/MIME.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
 msgstr "MIME 類型過濾條件"
 
@@ -1154,163 +1453,208 @@ msgstr "MIME 類型過濾條件"
 #: ../../main/squid/src/EBox/Squid.pm:77
 #: ../../main/squid/src/EBox/Squid.pm:1119
 #: ../../main/squid/src/EBox/Squid.pm:1195
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/General.pm:75
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1119
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1195
 msgid "HTTP Proxy"
 msgstr "HTTP 代理服務器"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
 msgstr "過濾條件設定值"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1143
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/DelayPools.pm:69
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1143
 msgid "Bandwidth Throttling"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/DelayPools.pm:71
 msgid ""
-"Class 1 pools allow you to restrict the bandwidth rate for large downloads "
-"whereas class 2 pools allow you to set the bandwidth usage to a sustained "
-"rate. The class 1 pools have more priority than class 2 ones and the first "
-"match from the source is done. If a network object does not match any rule, "
-"then no bandwidth throttling is done to it"
+"Bandwith throttling allows you to control download rates for connections "
+"going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
+"allow you to limit the download rate for the whole network whereas client "
+"bandwidth rules (class 2 delay pools) allow you to limit the download rate "
+"on a per client basis. Class 1 pools have more priority than class 2 pools "
+"and the first rule to match is applied. If a connection doesn't match any "
+"rule, then no bandwidth throttling is applied."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
 msgstr "副檔名過濾條件"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:92
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Composite/Domains.pm:92
 msgid "Domains filtering"
 msgstr "網域過濾條件"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:82
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:82
 msgid "Authorize and allow"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:83
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and filter"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:84
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and deny"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:104
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/Policy.pm:104
 msgid "Squid's policy"
 msgstr "Squid 政策"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:41
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:42
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:52
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "Tuesday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:53
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Wednesday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Thursday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Friday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Saturday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Sunday"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:132
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:132
 msgid "All time"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:214
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:214
 #, fuzzy
 msgid "All week"
 msgstr "允許"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:222
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:486
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:486
 msgid "From hour.."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:489
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:489
 msgid "to hour.."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:493
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:493
 msgid "You must specify two diffrent hours to the range"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:510
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:510
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:516
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:516
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:523
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:523
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:529
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:542
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:548
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:542
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:548
 msgid "The end of the range is greater than the begin"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:572
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/TimePeriod.pm:572
 msgid "The time period must be at least active on one day"
 msgstr ""
 
@@ -1327,6 +1671,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:210
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:284
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:562
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1094
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:91
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:110
@@ -1379,150 +1725,183 @@ msgstr ""
 "已停用"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
 msgstr "非常寬鬆"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
 msgstr "寬鬆"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
 msgstr "普通"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
 msgstr "嚴格"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
 msgstr "非常嚴格"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
 msgstr "這指定要怎麼嚴格設定內容過濾"
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid/Types/DomainPolicy.pm:71
 #, fuzzy
 msgid "Squid's domain policy"
 msgstr "Squid 政策"
 
 #: ../../main/squid/src/EBox/Squid.pm:197
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:197
 #, fuzzy
 msgid "HTTP Proxy configuration file"
 msgstr "HTTP 代理服務器快取檔案"
 
 #: ../../main/squid/src/EBox/Squid.pm:202
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:202
 #, fuzzy
 msgid "Content filter configuration file"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:207
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:212
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:212
 msgid "Filter groups membership"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:217
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:217
 #, fuzzy
 msgid "Content filter banned extension list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:222
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:222
 #, fuzzy
 msgid "Content filter banned mime type list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:227
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:227
 #, fuzzy
 msgid "Content filter exception site list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:232
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:232
 #, fuzzy
 msgid "Content filter grey site list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:237
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:237
 #, fuzzy
 msgid "Content filter banned site list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:242
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:242
 #, fuzzy
 msgid "Content filter exception URL list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:247
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:247
 #, fuzzy
 msgid "Content filter grey URL list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:252
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:252
 #, fuzzy
 msgid "Content filter banned URL list"
 msgstr "內容過濾門檻"
 
 #: ../../main/squid/src/EBox/Squid.pm:257
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:257
 msgid "Forbidden phrases list"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:262
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:262
 msgid "Exception phrases list"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:267
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:267
 msgid "PICS ratings configuration"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:272
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:272
 msgid "Dansguardian's log rotation configuration"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:277
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:277
 msgid "Dansguardian's antivirus scanner configuration"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:282
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:282
 #, fuzzy
 msgid "Filter groups per IP"
 msgstr "過濾器群組"
 
 #: ../../main/squid/src/EBox/Squid.pm:287
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:287
 #, fuzzy
 msgid "Configuration of adzapper"
 msgstr "組態備份"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:302
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:307
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:307
 #, fuzzy
 msgid "Remove dansguardian init script link"
 msgstr "移除 ntp init script 連結"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
-#: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
+#: ../../main/dns/src/EBox/DNS.pm.in:635
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:308
+#: ../../main/ntp/src/EBox/NTP.pm:91
 #: ../../main/webserver/src/EBox/WebServer.pm:141
 #, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBox 會注意服務的啟動和停止"
 
 #: ../../main/squid/src/EBox/Squid.pm:336
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:336
 #, fuzzy
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr "您必須設定 cache_mem 變數在 ebox 組態檔案中"
 
 #: ../../main/squid/src/EBox/Squid.pm:345
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:345
 #, fuzzy
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
@@ -1538,6 +1917,7 @@ msgstr "您必須設定 cache_mem 變數在 ebox 組態檔案中"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:175
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:168
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:152
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1092
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
 #: ../../main/core/src/EBox/Model/DataTable.pm:4727
@@ -1587,14 +1967,17 @@ msgstr ""
 "已啟用"
 
 #: ../../main/squid/src/EBox/Squid.pm:1096
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1096
 msgid "Transparent proxy"
 msgstr "通透式代理服務器"
 
 #: ../../main/squid/src/EBox/Squid.pm:1106
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1106
 msgid "Global policy"
 msgstr "全域政策"
 
 #: ../../main/squid/src/EBox/Squid.pm:1108
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1108
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:225
 #, fuzzy
@@ -1607,6 +1990,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:1140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1140
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
 #: ../../main/ca/src/EBox/CA.pm:1749
 #: ../../main/core/src/EBox/SysInfo.pm.in:371
@@ -1616,10 +2000,12 @@ msgid "General"
 msgstr "一般"
 
 #: ../../main/squid/src/EBox/Squid.pm:1146
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1146
 msgid "Objects' Policy"
 msgstr "物件政策"
 
 #: ../../main/squid/src/EBox/Squid.pm:1149
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1149
 #, fuzzy
 msgid "Groups' Policy"
 msgstr "物件政策"
@@ -1629,26 +2015,31 @@ msgstr "物件政策"
 #: ../../main/network/src/EBox/CGI/Diag.pm:50
 #: ../../main/network/src/EBox/CGI/Diag.pm:57
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:229
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1181
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
 msgid "Host"
 msgstr "主機"
 
 #: ../../main/squid/src/EBox/Squid.pm:1183
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1183
 msgid "URL"
 msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:1184
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1184
 msgid "Bytes"
 msgstr "位元組"
 
 #: ../../main/squid/src/EBox/Squid.pm:1185
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1185
 msgid "Mime/type"
 msgstr "Mime/類型"
 
 #: ../../main/squid/src/EBox/Squid.pm:1186
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1305
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1186
 #: ../../main/printers/src/EBox/Printers.pm:368
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:603
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:650
@@ -1663,14 +2054,17 @@ msgid "Event"
 msgstr "事件"
 
 #: ../../main/squid/src/EBox/Squid.pm:1191
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1191
 msgid "Accepted"
 msgstr "已接受"
 
 #: ../../main/squid/src/EBox/Squid.pm:1192
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1192
 msgid "Denied"
 msgstr "已拒絕"
 
 #: ../../main/squid/src/EBox/Squid.pm:1193
+#: ../../main/debs-ppa/zentyal-squid-2.1.11/src/EBox/Squid.pm:1193
 msgid "Filtered"
 msgstr "已過濾"
 
@@ -2870,19 +3264,6 @@ msgstr "封包流量詳細資料"
 msgid "Internal networks to Zentyal"
 msgstr "過濾從內部網路連到 eBox 的規則"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:72
-#: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:74
-#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:76
-#: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:164
-#: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:496
-#: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:68
-#: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:198
-#: ../../main/network/src/EBox/Model/WANFailoverRules.pm:133
-msgid "rule"
-msgstr "規則"
-
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:62
 #, fuzzy
 msgid "Internal networks"
@@ -3928,7 +4309,7 @@ msgstr "檔案存在，這不是目錄"
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:71
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:122
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:187
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:262
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:265
 #: ../../main/network/src/EBox/Network.pm:915
 #: ../../main/network/src/EBox/Network.pm:920
 #: ../../main/network/src/EBox/Network.pm:1260
@@ -4691,8 +5072,8 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:145
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:74
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:78
-#: ../../main/users/src/EBox/UsersAndGroups.pm:996
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2623
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1002
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2629
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
 #: ../../main/captiveportal/src/templates/login.mas:44
 #: ../../main/network/src/templates/ifaces.mas:202
@@ -6791,11 +7172,11 @@ msgstr ""
 msgid "gateway"
 msgstr "通訊閘"
 
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:280
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:285
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr ""
 
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:339
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:344
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 
@@ -7275,16 +7656,16 @@ msgstr "ip 位址"
 #: ../../main/network/src/EBox/CGI/Iface.pm:101
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:44
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:68
-#: ../../main/users/src/EBox/UsersAndGroups.pm:968
 #: ../../main/users/src/EBox/UsersAndGroups.pm:974
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1260
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1327
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1379
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1843
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1921
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2025
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2059
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2130
+#: ../../main/users/src/EBox/UsersAndGroups.pm:980
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1266
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1333
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1385
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1849
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1927
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2031
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2065
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2136
 #: ../../main/users/src/EBox/CGI/AddUser.pm:44
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:40
 msgid "user name"
@@ -9248,13 +9629,13 @@ msgstr "{g} 群組不存在"
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:803
 #: ../../main/samba/src/EBox/CGI/ActivePrinting.pm:48
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:44
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1680
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1685
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1877
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2030
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2064
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2181
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2284
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1686
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1691
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1883
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2036
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2070
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2187
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2290
 #: ../../main/users/src/EBox/CGI/ModifyGroup.pm:39
 #: ../../main/users/src/EBox/CGI/AddGroup.pm:45
 msgid "group name"
@@ -10505,7 +10886,7 @@ msgstr ""
 
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2609
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2615
 #, fuzzy
 msgid "Mode"
 msgstr ""
@@ -11458,15 +11839,15 @@ msgstr "必須大於零"
 msgid "Executable has not been run"
 msgstr "可執行檔尚未執行過"
 
-#: ../../main/core/src/EBox/ProgressIndicator.pm:290
+#: ../../main/core/src/EBox/ProgressIndicator.pm:289
 msgid "The executable has not run"
 msgstr "可執行檔尚未執行"
 
-#: ../../main/core/src/EBox/ProgressIndicator.pm:432
+#: ../../main/core/src/EBox/ProgressIndicator.pm:431
 msgid "The executable has already been started"
 msgstr "可執行檔已經啟動"
 
-#: ../../main/core/src/EBox/ProgressIndicator.pm:436
+#: ../../main/core/src/EBox/ProgressIndicator.pm:435
 msgid "The executable has already finished"
 msgstr "可執行檔已經結束"
 
@@ -11717,8 +12098,8 @@ msgstr "時刻"
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:181
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:77
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2575
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2583
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2581
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2589
 #: ../../main/users/src/EBox/CGI/Users.pm:31
 #: ../../main/users/src/EBox/CGI/Users.pm:55
 #: ../../main/users/src/EBox/CGI/Groups.pm:51
@@ -14611,8 +14992,8 @@ msgid "The secret key needs to have 16 characters."
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:76
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2577
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2586
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2583
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2592
 #: ../../main/users/src/EBox/CGI/Groups.pm:42
 #: ../../main/users/src/EBox/CGI/Group.pm:64
 msgid "Groups"
@@ -14806,7 +15187,7 @@ msgid ""
 msgstr "為了要使用您必須要在模組狀態功能中啟用使用者模組"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/SlaveInfo.pm:73
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2598
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2604
 msgid "Slave Status"
 msgstr ""
 
@@ -14816,14 +15197,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/UserTemplate.pm:74
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2579
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2588
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2585
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2594
 #, fuzzy
 msgid "User Template"
 msgstr "使用者名稱"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Composite/Settings.pm:70
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2593
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2599
 msgid "LDAP Settings"
 msgstr ""
 
@@ -14902,89 +15283,89 @@ msgid ""
 "access LDAP."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:957
+#: ../../main/users/src/EBox/UsersAndGroups.pm:963
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "使用者名稱必須不超過 {maxuserlength} 字元"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:964
+#: ../../main/users/src/EBox/UsersAndGroups.pm:970
 msgid "Username already exists on the system"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:981
+#: ../../main/users/src/EBox/UsersAndGroups.pm:987
 #, perl-brace-format
 msgid ""
 "Cannot create user because the home directory {dir} already exists. Please "
 "move or remove it before creating this user"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1078
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1743
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1084
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1749
 msgid "Maximum number of system users reached"
 msgstr "達到最大的使用者數量"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1095
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1101
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr "使用者的 UID {uid} 不正確. UID 必須等於或大於 {min}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1106
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1112
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr "系統使用者的 UID {uid} 不正確. UID 必須小於 {max}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1266
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1272
 #, fuzzy
 msgid "user quota"
 msgstr "自訂"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1269
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1275
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1668
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1674
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr "群組名稱必須不超過 {maxGroupLength} 字元"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1674
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1680
 msgid "The group name is not valid because it is used internally"
 msgstr "群組名稱是無效的,因為這是內部使用的"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1760
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1766
 #, perl-brace-format
 msgid ""
 "Incorrect GID {gid} for a group . GID must be equal or greater than {min}"
 msgstr "群組的 GID {gid} 不正確. GID 必須等於或大於 {min}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:1770
+#: ../../main/users/src/EBox/UsersAndGroups.pm:1776
 #, perl-brace-format
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "系統群組的 GID {gid} 不正確. GID 必須小於 {max}"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2372
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2378
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "密碼必須不超過 {maxPwdLength} 字元"
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2603
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2609
 msgid "AD Sync Settings"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2699
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2705
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:2966
+#: ../../main/users/src/EBox/UsersAndGroups.pm:2972
 #, perl-brace-format
 msgid "A host with the name {host} is already registered in this Zentyal"
 msgstr ""
 
-#: ../../main/users/src/EBox/UsersAndGroups.pm:3092
+#: ../../main/users/src/EBox/UsersAndGroups.pm:3098
 msgid "Replication failed"
 msgstr ""
 
@@ -15187,7 +15568,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:727
 msgid ""
-"Backup log data not found in the fiels from the backup, log database will "
+"Backup log data not found in the files from the backup, log database will "
 "not be restored"
 msgstr ""
 
@@ -16758,7 +17139,7 @@ msgstr ""
 msgid "Move down"
 msgstr ""
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:72
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:88
 #, fuzzy
 msgid "Add new..."
 msgstr ""
@@ -16768,12 +17149,12 @@ msgstr ""
 "#-#-#-#-#  zh_TW.po (libebox 0.12.99)  #-#-#-#-#\n"
 "加入新的"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:126
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:143
 #, fuzzy
 msgid "No elements found. "
 msgstr "找不到頁面"
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:127
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 #, fuzzy
 msgid "Add a new one"
 msgstr ""
@@ -17641,6 +18022,10 @@ msgid ""
 "such as mail accounts, user files, etc."
 msgstr ""
 "這個操作會造成移除使用者及所有他用到的功能；例如郵件帳戶、使用者資料..."
+
+#, fuzzy
+#~ msgid "Rate"
+#~ msgstr "日期"
 
 #, fuzzy
 #~ msgid "Other files"
