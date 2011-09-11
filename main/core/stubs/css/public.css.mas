@@ -1235,7 +1235,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 #software .package_installed, #software .package_selected, #software .package_selected:hover {
-    background: #D3EF6A;
+    background: <% $progress_bar_bg_color %>;
 }
 
 #software .selected {
