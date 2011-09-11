@@ -28,6 +28,7 @@ my @optionsAlreadyModel = ();
 
 my $value  = $data->value();
 if ($data->unique()) {
+    my $valueFound = 0;
     # Filter the options in other just to show the ones allowed
     my $model = $data->model();
 
@@ -48,16 +49,27 @@ if ($data->unique()) {
 
         # Add the current value if the action is an edition
         if ( $data->isValueSet() ) {
+            $valueFound = 1;
             push ( @filteredOptions, {
                                       value => $data->value(),
                                       printableValue => $data->printableValue(),
                                      }
                );
             @filteredOptions = sort { $a->{value} cmp $b->{value} } ( @filteredOptions );
+        } else {
+            foreach my $opt (@filteredOptions) {
+                if ($opt->{value} eq $value) {
+                    $valueFound = 1;
+                    last;
+                }
+            }
         }
 
         $options = \@filteredOptions;
         $empty = (@filteredOptions == 0);
+        if (not $valueFound and not $empty) {
+            $value = $options->[0]->{value};
+        }
     }
 } else {
     $empty = @{ $options } == 0;  
