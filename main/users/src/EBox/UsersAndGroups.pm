@@ -2625,7 +2625,7 @@ sub userMenu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => '/Users/View/Password',
+    $root->add(new EBox::Menu::Item('url' => 'Users/View/Password',
                                       'text' => __('Password')));
 }
 

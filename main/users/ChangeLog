@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed regression in usercorner link
 2.1.13
 	+ Moved apache soap configuration from setConf to enableActions
 	+ Init slave users on enable (now home directories are created)

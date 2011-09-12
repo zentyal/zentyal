@@ -1592,7 +1592,7 @@ sub userMenu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => '/Mail/View/ExternalAccounts',
+    $root->add(new EBox::Menu::Item('url' => 'Mail/View/ExternalAccounts',
                                     'text' => __('Mail retrieval from external accounts')));
 }
 

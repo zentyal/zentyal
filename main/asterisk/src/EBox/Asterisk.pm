@@ -573,7 +573,7 @@ sub userMenu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => '/Asterisk/View/Voicemail',
+    $root->add(new EBox::Menu::Item('url' => 'Asterisk/View/Voicemail',
                                     'text' => __('Voicemail')));
 }
 
