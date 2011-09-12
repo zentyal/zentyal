@@ -1210,7 +1210,7 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     width: 80px;
     height: 70px;
     overflow: hidden;
-    padding: 5px;
+    padding: 9px 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
