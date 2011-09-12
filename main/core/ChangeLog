@@ -1,4 +1,4 @@
-HEAD
+2.1.34
 	+ Volatile types called password are now also masked in audit log
 	+ Adjust padding for module descriptions in basic software view
 	+ Removed beta icon
