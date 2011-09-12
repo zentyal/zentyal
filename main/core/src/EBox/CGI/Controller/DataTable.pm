@@ -93,15 +93,16 @@ sub _auditLog
     my $row = $model->row($rowId);
     if (defined ($row)) {
         my $element = $row->hashElements()->{$elementId};
+        my $type;
         if (defined ($element)) {
-            my $type = $element->type();
-            if ($type eq 'boolean') {
-                $value = $value ? 1 : 0;
-                $oldValue = ($oldValue ? 1 : 0) if ($event eq 'set');
-            } elsif ($type eq 'password') {
-                $value = '****' if $value;
-                $oldValue = '****' if $oldValue;
-            }
+            $type = $element->type();
+        }
+        if ($type and ($type eq 'boolean')) {
+            $value = $value ? 1 : 0;
+            $oldValue = ($oldValue ? 1 : 0) if ($event eq 'set');
+        } elsif (($type and ($type eq 'password')) or ($elementId eq 'password')) {
+            $value = '****' if $value;
+            $oldValue = '****' if $oldValue;
         }
     }
 
