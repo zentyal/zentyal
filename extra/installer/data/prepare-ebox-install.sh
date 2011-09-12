@@ -2,9 +2,9 @@
 
 export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/zentyal/2.0/ubuntu"
+PPA_URL="http://ppa.launchpad.net/zentyal/2.2/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
-ZARAFA_SOURCES="deb http://archive.zentyal.com/zentyal 2.1 extra"
+ZARAFA_SOURCES="deb http://archive.zentyal.com/zentyal 2.2 extra"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -87,7 +87,7 @@ create_repository # Set up local package repository
 echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
 echo ${ZARAFA_SOURCES} >> ${SOURCES_LIST} # add canonical/partner sources
 
-if ! grep -q zentyal ${SOURCES_LIST}
+if ! grep -q ${PPA_URL} ${SOURCES_LIST}
 then
     echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
 fi
