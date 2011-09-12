@@ -214,7 +214,7 @@ msgstr ""
 "{ohe}Empresarial{ch}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:95
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Server subscriptions help to keep your Zentyal server secure and up-to-date! "
 "Take a look and try out the free {ohb}Basic Subscription{ch} - It gives you "
@@ -249,7 +249,6 @@ msgid "Zentyal Cloud"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
-#, fuzzy
 msgid "Zentyal Disaster Recovery"
 msgstr "Recuperación de Desastres"
 
@@ -328,7 +327,6 @@ msgstr ""
 "aquí{closehref}."
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:542
-#, fuzzy
 msgid ""
 "Warning: The updates are community based and there is no guarantee that your "
 "server will work properly after applying them. Quality Assured Updates are "
@@ -480,7 +478,6 @@ msgid "Traffic Shaping and QoS"
 msgstr "Moldeado de Tráfico y QoS"
 
 #: ../../main/software/src/templates/ebox.mas:388
-#, fuzzy
 msgid "Business class critical traffic!"
 msgstr "¡Preferencia para tus datos críticos!"
 
@@ -521,7 +518,6 @@ msgid "Secure working environment!"
 msgstr "¡Un entorno de trabajo seguro!"
 
 #: ../../main/software/src/templates/ebox.mas:401
-#, fuzzy
 msgid ""
 "Block inappropriate content, restrict access to certain sites or allow "
 "access to specific sites only. Control user browsing and enforce your "
@@ -633,7 +629,6 @@ msgid "Firewall"
 msgstr "Cortafuegos"
 
 #: ../../main/software/src/templates/ebox.mas:436
-#, fuzzy
 msgid "Security starts with a good firewall!."
 msgstr "¡La seguridad comienza con un buen cortafuegos!"
 
@@ -675,7 +670,6 @@ msgstr ""
 "(Roadwarriors), IPSec, PPTP."
 
 #: ../../main/software/src/templates/ebox.mas:451
-#, fuzzy
 msgid "Intrusion Detection System: IDS"
 msgstr "Sistema de Detección de Intrusos: IDS."
 
@@ -1008,7 +1002,6 @@ msgstr ""
 "Greylisting, Dominios virtuales, Soporte a las cuotas de usuario."
 
 #: ../../main/software/src/templates/ebox.mas:568
-#, fuzzy
 msgid ""
 "Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile "
 "devices synchronization.)"
@@ -1017,7 +1010,6 @@ msgstr ""
 "compartidas, Sincronización con dispositivos móviles."
 
 #: ../../main/software/src/templates/ebox.mas:569
-#, fuzzy
 msgid "Instant Messaging server: XMPP/Jabber server, Conference rooms.)"
 msgstr ""
 "Servidor de Mensajería Instantánea: Servidor XMPP/Jabber, Salas de "
@@ -1034,7 +1026,6 @@ msgstr ""
 "llamadas en espera, Música de espera, Colas, Logs."
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:63
-#, fuzzy
 msgid "Zentyal Cloud Subscription"
 msgstr "Suscripción a Zentyal Cloud"
 
@@ -1144,7 +1135,6 @@ msgid "Test how to run preconfigured basic jobs."
 msgstr "Prueba como ejecutar trabajos básicos preconfigurados."
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:164
-#, fuzzy
 msgid ""
 "Dynamic DNS: zentyal.me subdomain for your server (e.g. yourserver.zentyal."
 "me with up to 3 additional aliases."
@@ -1191,7 +1181,7 @@ msgid "Online Store"
 msgstr "Tienda Online"
 
 #: ../../main/core/src/templates/backup.mas:17
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview "
 "of Zentyal Cloud and allows access to some features, such as basic alerts, "
