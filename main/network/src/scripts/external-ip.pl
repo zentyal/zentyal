@@ -50,15 +50,15 @@ my $marks  = $networkMod->marksForRouters();
 my $gwMark = $marks->{$gwId};
 
 # Add the iptables marks
-my @rules = ( "/sbin/iptables -t mangle -F $CHAIN",
-              "/sbin/iptables -t mangle -D OUTPUT -j $CHAIN",
+my @rules = ( "/sbin/iptables -t mangle -F $CHAIN || true",
+              "/sbin/iptables -t mangle -D OUTPUT -j $CHAIN || true",
               "/sbin/iptables -t mangle -N $CHAIN",
               "/sbin/iptables -t mangle -A OUTPUT -j $CHAIN");
-EBox::Sudo::silentRoot(@rules);
+EBox::Sudo::root(@rules);
 
 my $rule = "/sbin/iptables -t mangle -A $CHAIN -d $DST_HOST " .
            "-m owner --gid-owner ebox -j MARK --set-mark $gwMark";
-EBox::Sudo::silentRoot($rule);
+EBox::Sudo::root($rule);
 
 # Perform the query as ebox
 my $output = EBox::Sudo::command("/usr/bin/wget http://$DST_HOST -O - -q");
@@ -66,8 +66,9 @@ my ($ip) = $output->[0] =~ m/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
 
 # Remove the iptables marks
 @rules = ("/sbin/iptables -t mangle -F $CHAIN",
+          "/sbin/iptables -t mangle -D OUTPUT -j $CHAIN",
           "/sbin/iptables -t mangle -X $CHAIN");
-EBox::Sudo::silentRoot(@rules);
+EBox::Sudo::root(@rules);
 
 print "$ip\n";
 
