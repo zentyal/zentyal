@@ -1,4 +1,5 @@
 2.2
+    + Removed beta logo
     + Fixed PPA addition to sources.list when there is no internet
     + Stop ntp daemon before executing restore-tool in DR mode
     + Fixed bug creating database tables in disaster recovery mode
