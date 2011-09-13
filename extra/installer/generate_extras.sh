@@ -25,8 +25,6 @@ echo "deb http://archive.ubuntu.com/ubuntu lucid main restricted universe multiv
 echo "deb http://archive.ubuntu.com/ubuntu lucid-updates main restricted universe multiverse" >> sources.list
 echo "deb http://security.ubuntu.com/ubuntu lucid-security main restricted universe" >> sources.list
 echo "deb http://ppa.launchpad.net/zentyal/2.2/ubuntu lucid main" >> sources.list
-echo "deb http://ppa.launchpad.net/jacalvo/zentyal-server/ubuntu lucid main" >> sources.list
-echo "deb http://ppa.launchpad.net/jacalvo/zentyal/ubuntu lucid main" >> sources.list
 echo "deb http://archive.zentyal.com/zentyal 2.2 extra" >> sources.list
 sudo mv sources.list $CHROOT/etc/apt/sources.list
 
