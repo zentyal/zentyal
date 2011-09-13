@@ -1,4 +1,4 @@
-AC_INIT([zentyal-samba], [2.1.7])
+AC_INIT([zentyal-samba], [2.2])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Samba.pm])
