@@ -69,9 +69,8 @@ sub tunnels
             my $elements = $conf->componentByName($name, 1)->row()->elements();
             foreach my $element (@{ $elements }) {
                 my $fieldName = $element->fieldName();
-                my $fieldValue = $element->value();
-                # network with mask needs printableValue
-                $fieldValue = $element->printableValue() unless $fieldValue;
+                # Value returns array with (ip, netmask)
+                my $fieldValue = join ('/', $element->value());
                 $settings{$fieldName} = $fieldValue;
             }
         }
@@ -134,7 +133,7 @@ sub _table
         modelDomain => 'IPsec',
         enableProperty => 1,
         defaultEnabledValue => 1,
-        help => __('IPsec connections allow to deploy secure tunnels between ' . 
+        help => __('IPsec connections allow to deploy secure tunnels between ' .
                    'different subnetworks. This protocol is vendor independant ' .
                    'and will connect Zentyal with other security devices.'),
     };
