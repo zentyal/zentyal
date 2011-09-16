@@ -1239,8 +1239,6 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 #software .selected {
-    background:none repeat scroll 0 0 #FFFFFF;
-    border-color:#787878 #787878 #FFFFFF;
     border-style:solid;
     border-width:1px;
     color:#000000;
