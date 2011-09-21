@@ -21,7 +21,7 @@ if [ ! "$UID" -eq "0" ] ; then
 fi
 
 ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
-sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.1/g" /etc/apt/sources.list
+sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 
 # FIXME: what happens with usercorner? Detect it if exists usercorner.bak?
 # Maybe it's better to detect this via the *.bak files instead of dpkg?
