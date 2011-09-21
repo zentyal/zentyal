@@ -38,7 +38,11 @@ apt-get remove libebox
 apt-get update
 apt-get dist-upgrade
 
-for i in $INSTALLED_MODULES ; do echo "zentyal-$i"; done | xargs apt-get install --no-install-recommends
+for i in $INSTALLED_MODULES
+do
+    PACKAGES="$PACKAGES zentyal-$i"
+done
+apt-get install --no-install-recommends $PACKAGES
 
 /etc/init.d/zentyal stop
 
