@@ -205,9 +205,9 @@ sub _checkForbiddenChars
         my $logger = EBox::logger;
         $logger->info("Invalid characters in param value $value.");
         $self->{error} ='The input contains invalid characters';
-        throw EBox::Exceptions::External(__d("The input contains invalid " .
+        throw EBox::Exceptions::External(__("The input contains invalid " .
             "characters. All alphanumeric characters, plus these non " .
-            "alphanumeric chars: /.?&+:-\@ and spaces are allowed.",'libebox'));
+            "alphanumeric chars: /.?&+:-\@ and spaces are allowed."));
         if (defined($self->{redirect})) {
             $self->{chain} = $self->{redirect};
         }
