@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+set -e
 
 if [ ! "$UID" -eq "0" ] ; then
     echo Sorry, you must be root to run this script >&2
@@ -33,21 +34,29 @@ echo
 echo "Press return to continue or Control+C to cancel..."
 read
 
-apt-get remove libebox
+
+# TODO disable QA updates and upgrade to last 2.0 packages (to execute migrations)
+
+# Pre remove scripts
+run-parts ./pre-remove
+
+apt-get remove libebox -y --force-yes
 
 apt-get update
-apt-get dist-upgrade
+LANG=C DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y --force-yes
 
 for i in $INSTALLED_MODULES
 do
     PACKAGES="$PACKAGES zentyal-$i"
 done
-apt-get install --no-install-recommends $PACKAGES
-
+LANG=C DEBIAN_FRONTEND=noninteractive apt-get install \
+                                      -o DPkg::Options::="--force-confold" \
+                                      --no-install-recommends --force-yes $PACKAGES
 /etc/init.d/zentyal stop
 
+
 # Run all the scripts to migrate data from 2.0 to 2.2
-run-parts ./lib
+run-parts ./post-upgrade
 
 dpkg --purge libebox ebox ebox-.* # FIXME: check this (grep ^rc ...)
 
