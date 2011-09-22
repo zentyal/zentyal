@@ -442,7 +442,7 @@ sub _table
                               [
                                new EBox::Types::Union::Text(
                                                             fieldName => 'ebox',
-                                                            printableName => 'Zentyal',
+                                                            printableName => __('Zentyal'),
                                                            ),
                                new EBox::Types::HostIP(
                                                        fieldName     => 'ip',
