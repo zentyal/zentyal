@@ -115,7 +115,7 @@ sub syncRows
 
     my $modified = 0;
     for my $srv (@srvsToAdd) {
-        my $cn = exists $srv->{'defaultCN'} ? $srv->{'defaultCN'} : 'Zentyal';
+        my $cn = exists $srv->{'defaultCN'} ? $srv->{'defaultCN'} : __('Zentyal');
         my $allowCustomCN = exists $srv->{allowCustomCN} ?
                                        $srv->{allowCustomCN}  : 1;
         $self->add(module => $srv->{'module'},
