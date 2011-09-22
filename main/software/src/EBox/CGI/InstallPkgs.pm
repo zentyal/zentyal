@@ -187,7 +187,7 @@ sub showInstallProgress
             . '. More information on the logs'),
         reloadInterval  => 2,
         nextStepUrl => '/Wizard',
-        nextStepText => 'Go to save changes',
+        nextStepText => __('Go to save changes'),
         nextStepTimeout => 1
     );
 }
@@ -211,7 +211,7 @@ sub showRemoveProgress
             . '. More information on the logs'),
         reloadInterval  => 2,
         nextStepUrl => '/Finish',
-        nextStepText => 'Go to initial configuration wizard',
+        nextStepText => __('Go to initial configuration wizard'),
         nextStepTimeout => 1
     );
 }
