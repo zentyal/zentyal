@@ -4,6 +4,9 @@ $userHomes
 $chrootUsers
 $ssl
 </%args>
+<%args>
+use EBox::Gettext;
+</%args>
 # /etc/vsftpd.conf - vsftpd configuration file
 #
 # Run standalone
@@ -68,7 +71,7 @@ connect_from_port_20=YES
 #xferlog_std_format=YES
 #
 # Customise the login banner string
-ftpd_banner=Welcome to Zentyal FTP service.
+ftpd_banner=<% __('Welcome to Zentyal FTP service.') %>
 #
 # Use the contents of this file for the login banner
 #banner_file=/etc/vsftpd/banner
