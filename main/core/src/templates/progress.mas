@@ -14,7 +14,7 @@ $currentItemUrl => '/SysInfo/CurrentProgress'
 $reloadInterval  => 2
 $adsJson => '""'
 $nextStepUrl => '/Dashboard/Index'
-$nextStepText => 'Click here to return to the Dashboard'
+$nextStepText => undef
 $nextStepTimeout => 0
 </%args>
 <%init>
@@ -28,6 +28,9 @@ defined $errorNote          or $errorNote = __('Some error has '
                                                . 'happened in Zentyal: '
                                                );
 my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
+unless (defined ($nextStepText)) {
+    $nextStepText = __('Click here to return to the Dashboard');
+}
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js"></script>
 <script type="text/javascript" src="/data/js/progress.js"></script>
@@ -168,12 +171,12 @@ my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
    <p><% $endNote %></p>
    <p id="warning-progress" style="display:none"><% __('The process produced some warning messages:') %></p>
    <p id="warning-progress-messages"></p>
-   <a href="<% $nextStepUrl %>"> <%__($nextStepText) %></a>
+   <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
 </div>
 <div class="error" id="error-progress" style="display:none;">
    <p><% $errorNote %></p>
    <p id="error-progress-message"></p>
-   <a href="<% $nextStepUrl %>"> <%__($nextStepText) %></a>
+   <a href="<% $nextStepUrl %>"> <% $nextStepText %></a>
 </div>
 
 <script>
