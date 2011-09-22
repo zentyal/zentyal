@@ -8,9 +8,7 @@ use EBox::Gettext;
 </%init>
 % if ($subscribed) {
   <div class='ad'>
-	<% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.',
-                ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">',
-                chref => '</a>') %>
+	<% __sx('Thanks to your server subscription, the configuration backup is checked on daily basis and stored automatically on the Zentyal Cloud if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://cloud.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
   </div>
 % } else {
   <div class='adwarning'>
