@@ -167,7 +167,11 @@ sub AUTOLOAD
 
 
     my $response = $self->{soapConn}->call($methodName => @soapParams);
-
+    unless ($response) {
+        throw EBox::Exceptions::Internal(
+            "SOAP call $methodName(@soapParams) failed without server response"
+        );
+    }
     if ( $response->fault() ) {
         if ( defined ( $response->faultdetail() )) {
             # Get the exception type with the hash ref from the first
