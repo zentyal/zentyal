@@ -25,6 +25,6 @@ EBox::init();
 my $redis = new EBox::Config::Redis();
 my $dumpfile = "/var/lib/ebox/redis_dump.yaml";
 
-print 'Exporting current configuration...';
+print "Exporting current configuration...\n";
 $redis->export_dir_to_yaml('', $dumpfile);
 

@@ -1,5 +1,9 @@
 #!/bin/bash
 echo "Copying old ebox dirs to zentyal"
-cp -r /var/lib/ebox /var/lib/zentyal
-cp -r /etc/ebox /etc/zentyal
+cp -a /var/lib/ebox/* /var/lib/zentyal
+cp -a /var/lib/ebox/.* /var/lib/zentyal 2> /dev/null
 
+#TODO do this by hand:
+#cp -a /etc/ebox /etc/zentyal
+
+exit 0;
