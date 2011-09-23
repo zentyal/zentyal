@@ -51,14 +51,15 @@ do
 done
 LANG=C DEBIAN_FRONTEND=noninteractive apt-get install \
                                       -o DPkg::Options::="--force-confold" \
-                                      --no-install-recommends --force-yes $PACKAGES
+                                      --no-install-recommends -y --force-yes $PACKAGES
 /etc/init.d/zentyal stop
 
 
 # Run all the scripts to migrate data from 2.0 to 2.2
 run-parts ./post-upgrade
 
-dpkg --purge libebox ebox ebox-.* # FIXME: check this (grep ^rc ...)
+# do not purge, this would remove postgresql databases
+#dpkg --purge libebox ebox ebox-.* # FIXME: check this (grep ^rc ...)
 
 /etc/init.d/zentyal start
 
