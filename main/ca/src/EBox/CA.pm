@@ -18,13 +18,13 @@ package EBox::CA;
 use strict;
 use warnings;
 
+use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Module::Service);
+
 use File::Slurp;
 use Perl6::Junction qw(any);
 use Date::Calc::Object qw(:all);
 use File::Copy::Recursive qw(dircopy fcopy);
 use File::Temp;
-
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Module::Service);
 
 use EBox::CA::DN;
 use EBox::Gettext;
@@ -120,8 +120,6 @@ sub _create
 
     bless($self, $class);
 
-    # The CA DN
-    $self->{dn} = $self->_obtain(CACERT, 'DN');
     # Reasons to revoke
     $self->{reasons} = ["unspecified",
                 "keyCompromise",
@@ -131,8 +129,6 @@ sub _create
                 "cessationOfOperation",
                 "certificateHold",
                 "removeFromCRL"];
-    # Expiration CA certificate
-    $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
     # Set a maximum to establish the certificate expiration
     # Related to Year 2038 bug
@@ -365,7 +361,7 @@ sub destroyCA
                 . $!);
     }
 
-    $self->_audit('destroyCA', $self->{dn}->attribute('orgName'));
+    $self->_audit('destroyCA', $self->caDn()->attribute('orgName'));
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
@@ -634,7 +630,7 @@ sub renewCACertificate
         }
     }
 
-    $self->_audit('renewCACertificate', $self->{dn}->attribute('orgName'));
+    $self->_audit('renewCACertificate', $self->caDN()->attribute('orgName'));
 
     return $renewedCert;
 }
@@ -779,10 +775,7 @@ sub issueCertificate
 
     # Define the distinguished name
     # We take the default values from CA dn
-    if ( not defined ( $self->{dn} ) ) {
-        $self->{dn} = $self->_obtain(CACERT, 'DN');
-    }
-    my $dn = $self->{dn}->copy();
+    my $dn = $self->caDN()->copy();
     $dn->attribute("countryName", $args{countryName})
         if (defined($args{countryName}));
     $dn->attribute("stateName", $args{stateName})
@@ -920,10 +913,8 @@ sub revokeCertificate
         unless $reason eq any(@{$self->{reasons}});
 
     # Tell observers the following certificate will be revoked
-    if ( not defined ( $self->{dn} ) ) {
-        $self->{dn} = $self->_obtain(CACERT, 'DN');
-    }
-    my $isCACert = $self->{dn}->attribute('commonName') eq $commonName;
+    my $dn = $self->caDN();
+    my $isCACert = $dn->attribute('commonName') eq $commonName;
 
     if ( $args{force} ) {
         $self->_freeCert($commonName, $isCACert);
@@ -1517,8 +1508,9 @@ sub renewCertificate
                 throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output));
             }
 
-            $self->{dn} = $newSubject if (defined($newCertFile)
-                    and $newCertFile eq CACERT);
+            if (defined $newCertFile and ($newCertFile eq CACERT)) {
+                $self->{dn} = $newSubject;
+            }
         }
 
         my $output = $self->_signRequest( userReqFile  => $userReq,
@@ -1723,7 +1715,7 @@ sub caExpirationDays
     my ($self) = @_;
 
     my ($curY, $curM, $curD) = Date::Calc::Today();
-    my ($exY, $exM, $exD) = $self->{caExpirationDate}->date();
+    my ($exY, $exM, $exD) = $self->caExpirationDate()->date();
 
     return Date::Calc::Delta_Days($curY, $curM, $curD, $exY, $exM, $exD);
 }
@@ -2146,7 +2138,9 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
                 endDate      => $args{endDate},
                 keyFile      => CAPRIVKEY);
 
-        $self->{dn} = $args{newSubject} if (defined($args{newSubject}));
+        if (defined $args{newSubject}) {
+            $self->{dn} = $args{newSubject};
+        }
 
         # If any error has occurred return inmediately
         if ( $output) {
@@ -2154,7 +2148,7 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
         }
 
         # Put in the index.txt file (update database...)
-        $self->_putInIndex(dn           => $self->{dn},
+        $self->_putInIndex(dn           => $self->caDN(),
                 certFile     => CACERT,
                 serialNumber => $self->_obtain(CACERT,'serial'));
         return $output;
@@ -2499,10 +2493,7 @@ sub _certsInUse # (cn?, isCACert?)
         return undef;
     }
 
-    if ( not defined ( $self->{dn} ) ) {
-        $self->{dn} = $self->_obtain(CACERT, 'DN');
-    }
-    $cn = $self->{dn}->attribute('commonName')
+    $cn = $self->caDN()->attribute('commonName')
         if ($isCACert);
 
     my $global = EBox::Global->getInstance();
@@ -2521,12 +2512,9 @@ sub _certsInUse # (cn?, isCACert?)
 sub _freeCert # (cn?, isCACert?)
 {
     my ($self, $cn, $isCACert) = @_;
-
-    if ( not defined ( $self->{dn} ) ) {
-        $self->{dn} = $self->_obtain(CACERT, 'DN');
+    if ($isCACert) {
+        $cn = $self->caDN()->attribute('commonName');
     }
-
-    $cn = $self->{dn}->attribute('commonName') if ($isCACert);
 
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::CA::Observer')};
@@ -2550,19 +2538,17 @@ sub _isLaterThanCA # (date)
 {
     my ($self, $date) = @_;
 
-    $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate")
-      unless defined($self->{caExpirationDate});
-
+    my $caExpirationDate = $self->caExpirationDate();
     # gt compares date and time
-    if ( $date gt $self->{caExpirationDate} ) {
+    if ( $date gt $caExpirationDate ) {
         # != compares date
-        if ( $date > $self->{caExpirationDate} ) {
+        if ( $date > $caExpirationDate ) {
             throw EBox::Exceptions::External(
                 __('Expiration date later than CA certificate expiration date')
                );
         } else {
             EBox::warn('Defining CA expiration date for a new certificate');
-            return $self->{caExpirationDate};
+            return $caExpirationDate;
         }
     }
     return $date;
@@ -2702,6 +2688,24 @@ sub _executeCommand # (command, input, hide_output)
     $msg = "<NOT LOGGED>" if ($params{hide_output});
 
     return ('OK', $ret);
+}
+
+sub caDN
+{
+    my ($self) = @_;
+    if (not defined $self->{dn}) {
+        $self->{dn} = $self->_obtain(CACERT, 'DN');
+    }
+    return $self->{dn};
+}
+
+sub caExpirationDate
+{
+    my ($self) =@_;
+    if (not defined $self->{caExpirationDate}) {
+        $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+    }
+    return $self->{caExpirationDate};
 }
 
 1;
