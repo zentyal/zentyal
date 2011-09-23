@@ -1,3 +1,5 @@
+HEAD
+	+ Properly set of never_direct option when setting a parent peer
 2.1.11
 	+ Improved bandwidth throttling texts
 	+ Set proper message type in General Settings model

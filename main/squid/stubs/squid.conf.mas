@@ -119,7 +119,8 @@ pid_filename /var/run/squid.pid
 cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
 % if ($cache_host and $cache_port) {
-cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest never_direct allow all
+cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
+never_direct allow all
 % }
 
 # windows updates
