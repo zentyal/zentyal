@@ -34,3 +34,5 @@ foreach my $obj (@{$objects->objects()}) {
     }
 }
 
+$objects->save();
+
