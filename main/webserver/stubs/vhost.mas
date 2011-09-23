@@ -67,7 +67,7 @@
 
         # SSL
 	SSLEngine on
-	SSLCertificateFile    /etc/apache2/ssl/apache.pem
+	SSLCertificateFile    /etc/apache2/ssl/ssl.pem
 </VirtualHost>
 </IfModule>
 % }
