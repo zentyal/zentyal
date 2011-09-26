@@ -52,7 +52,7 @@ sub new
 
 # Method: _table
 #
-#	Overrides <EBox::Model::DataForm::_table to change its name
+#       Overrides <EBox::Model::DataForm::_table to change its name
 #
 sub _table
 {
@@ -72,6 +72,7 @@ sub _table
             printableName => __('AD user'),
             defaultValue => 'eboxadsync',
             editable => 1,
+            allowUnsafeChars => 1,
             help => __('Username for binding to Windows AD (it has to be created in the AD)')
         ),
         new EBox::Types::Password (
@@ -114,6 +115,15 @@ sub validateTypedRow
         my $secret = $changedFields->{secret};
         if (length($secret) < 16) {
             throw EBox::Exceptions::External(__('The secret key needs to have 16 characters.'));
+        }
+    }
+
+    if (exists $changedFields->{username}) {
+        my $username = $changedFields->{username}->value();
+        if (not $username =~ m{^[\\\w /.?&+:\-\@]*$}) {
+            throw EBox::Exceptions::External(__('The username input contains invalid ' .
+            'characters. All alphanumeric characters, plus these non ' .
+            'alphanumeric chars: \/.?&+:-@ and spaces are allowed.'));
         }
     }
 }
