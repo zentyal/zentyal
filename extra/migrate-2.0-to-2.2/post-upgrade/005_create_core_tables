@@ -23,7 +23,7 @@ use EBox::Util::SQL;
 
 print "Creating new core tables...\n";
 
-`rm /var/lib/zentyal/.db-created`;
+# There are some known problems with these files permissions
 `rm /var/lib/zentyal/tmp/*.sql`;
 
 EBox::init();
