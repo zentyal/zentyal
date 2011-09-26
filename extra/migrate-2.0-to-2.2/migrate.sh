@@ -26,6 +26,7 @@ sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 
 # FIXME: what happens with usercorner? Detect it if exists usercorner.bak?
 # Maybe it's better to detect this via the *.bak files instead of dpkg?
+EBOX_PACKAGES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }'`
 INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g'`
 
 echo "The following modules have been detected and are going to be upgraded:"
@@ -58,8 +59,12 @@ LANG=C DEBIAN_FRONTEND=noninteractive apt-get install \
 # Run all the scripts to migrate data from 2.0 to 2.2
 run-parts ./post-upgrade
 
-# do not purge, this would remove postgresql databases
-#dpkg --purge libebox ebox ebox-.* # FIXME: check this (grep ^rc ...)
+# purge ebox 2.0
+for i in $(ls /var/lib/dpkg/info/ebox*.postrm /var/lib/dpkg/info/libebox.postrm)
+do
+    echo -e "#!/bin/bash\nexit 0" > $i
+done
+dpkg --purge libebox ebox $EBOX_PACKAGES
 
 /etc/init.d/zentyal start
 
