@@ -103,9 +103,27 @@ append_domain .<% $append_domain %>
 hierarchy_stoplist cgi-bin ?
 acl QUERY urlpath_regex cgi-bin \?
 no_cache deny QUERY
-refresh_pattern ^ftp:		1440	20%	10080
-refresh_pattern ^gopher:	1440	0%	1440
-refresh_pattern .		0	20%	4320
+
+# refresh patterns
+
+# windows updates
+refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://download\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://.*\.download\.windowsupdate\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://office\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://w?xpsp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://w2ksp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
+# linux updates
+refresh_pattern http://.*\.archive\.ubuntu\.com/ 0 80% 20160 reload-into-ims
+refresh_pattern http://(ftp|http)[0-9]*\.[a-z]+\.debian\.org/ 0 80% 20160 reload-into-ims
+
+refresh_pattern ^ftp:           1440    20%     10080
+refresh_pattern ^gopher:        1440    0%      1440
+refresh_pattern .               0       20%     4320
+# end refresh patterns
+
 coredump_dir /var/spool/squid
 cache_effective_user proxy
 cache_effective_group proxy
@@ -120,18 +138,6 @@ cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest never_direct allow all
 % }
 
-# windows updates
-refresh_pattern http://.*\.windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://.*\.update\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://download\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://windowsupdate\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://.*\.download\.windowsupdate\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://office\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://w?xpsp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://w2ksp[0-9]\.microsoft\.com/ 0 80% 20160 reload-into-ims
-# linux updates
-refresh_pattern http://.*\.archive\.ubuntu\.com/ 0 80% 20160 reload-into-ims
-refresh_pattern http://(ftp|http)[0-9]*\.[a-z]+\.debian\.org/ 0 80% 20160 reload-into-ims
 
 # <EBOX> TAG_ACL #
 auth_param basic realm Zentyal HTTP proxy

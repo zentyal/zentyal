@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed order of refresh patterns
 2.0.8
 	+ HTTPS works both for banned domains and block blanket options
 	+ Added configuration file key to omit domain categorized files
