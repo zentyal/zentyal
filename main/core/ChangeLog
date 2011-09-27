@@ -1,4 +1,6 @@
 HEAD
+	+ Changed cookie name to remove forbidden characters to avoid
+	  incompatibilities with some applications
 	+ Removed duplicated and incorrect auding logging for password change
 	+ Fixed some non-translatable strings
 	+ Create automatic bug reports under 2.2.X milestone instead of 2.2

@@ -201,6 +201,7 @@ PerlModule EBox::Auth
 PerlSetVar EBoxPath /
 PerlSetVar EBoxLoginScript /Login/Index
 PerlSetVar EBoxSatisfy Any
+PerlSetVar EBoxCookieName Zentyal
 PerlSetVar AuthCookieDebug 0
 
 <Files LOGIN>
