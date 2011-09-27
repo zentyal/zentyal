@@ -4,18 +4,18 @@ CREATE TABLE bwmonitor_usage (
     interface     VARCHAR(30),
 
     /* internal traffic */
-    intTotalRecv  INTEGER,
-    intTotalSent  INTEGER,
-    intTCP        INTEGER,
-    intUDP        INTEGER,
-    intICMP       INTEGER,
+    intTotalRecv  BIGINT,
+    intTotalSent  BIGINT,
+    intTCP        BIGINT,
+    intUDP        BIGINT,
+    intICMP       BIGINT,
 
     /* external traffic */
-    extTotalRecv  INTEGER,
-    extTotalSent  INTEGER,
-    extTCP        INTEGER,
-    extUDP        INTEGER,
-    extICMP       INTEGER,
+    extTotalRecv  BIGINT,
+    extTotalSent  BIGINT,
+    extTCP        BIGINT,
+    extUDP        BIGINT,
+    extICMP       BIGINT,
 
     timestamp TIMESTAMP);
 
