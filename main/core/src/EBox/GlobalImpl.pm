@@ -646,6 +646,11 @@ sub saveAllModules
         my $message;
         if (@messages) {
             $message = '<ul><li>' . join("</li><li>", @messages) . '</li></ul>';
+            my $logWarning = "Changes saved with some warnings:\n\t";
+            $logWarning .= join ("\n\t", @messages);
+            EBox::warn($logWarning);
+        } else {
+            EBox::info('Changes saved successfully');
         }
         $progress->setAsFinished(0, $message);
 
