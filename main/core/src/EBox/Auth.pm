@@ -133,9 +133,6 @@ sub setPassword
 
     print $pipe "$username:$password\n";
     close($pipe);
-
-    my $audit = EBox::Global->modInstance('audit');
-    $audit->logAction('core', 'Auth', 'Password changed', $username, '*', '*', 0);
 }
 
 # Method: authen_cred
