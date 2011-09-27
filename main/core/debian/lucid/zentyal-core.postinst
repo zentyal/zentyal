@@ -17,10 +17,15 @@ REDIS_FIRST=$ZENTYAL_HOME/conf/redis.first
 case "$1" in
     configure)
         ZENTYAL_LOGS_DIR=/var/log/zentyal
+        ZENTYAL_BACKUPS_DIR=$ZENTYAL_HOME/conf/backups
 
         # create log directory
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
         chmod 750 $ZENTYAL_LOGS_DIR
+
+        # set proper permissions to backups directory
+        chown ebox:adm $ZENTYAL_BACKUPS_DIR
+        chmod 700 $ZENTYAL_BACKUPS_DIR
 
         # create Zentyal apache certificates
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1

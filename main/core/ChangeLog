@@ -1,4 +1,6 @@
 HEAD
+	+ Create configuration backup directories on install to avoid warnings
+	  accessing the samba share when there are no backups
 	+ Log result of save changes, either successful or with warnings
 	+ Changed cookie name to remove forbidden characters to avoid
 	  incompatibilities with some applications
