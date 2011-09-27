@@ -1,5 +1,6 @@
 HEAD
 	+ Use BIGINT in SQL table to avoid overflow errors
+	+ Better control of generated upstart and configuration files
 2.1.5
 	+ Do not show decimals in bytes counter
 	+ Include reports for bwmonitor: Top client usage, top user usage

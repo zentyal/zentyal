@@ -35,6 +35,7 @@ use EBox::Exceptions::External;
 use constant CONF_DIR => EBox::Config::conf() . '/bwmonitor/';
 use constant UPSTART_DIR => '/etc/init/';
 use constant LOGS_DIR => '/var/log/zentyal/bwmonitor/';
+use constant DAEMON_PREFIX => 'zentyal.bwmonitor-';
 
 sub _create
 {
@@ -207,12 +208,9 @@ sub allUsersExtBWUsage
     return $res;
 }
 
-
-
 sub _setConf
 {
     my ($self) = @_;
-
     my $network = EBox::Global->modInstance('network');
 
     # Get internal networks list
@@ -229,10 +227,14 @@ sub _setConf
         mkdir (CONF_DIR, 0755);
     }
 
+    # delete old files
+    EBox::Sudo::root("rm -f " . CONF_DIR . '/*.conf');
+    EBox::Sudo::root("rm -f " . UPSTART_DIR . DAEMON_PREFIX . '*.conf');
 
     # Write daemon upstart and config files
     foreach my $iface (@{$self->ifaces()}) {
-        EBox::Module::Base::writeConfFileNoCheck(UPSTART_DIR . "zentyal.bwmonitor-$iface.conf",
+        my $name = DAEMON_PREFIX . $iface;
+        EBox::Module::Base::writeConfFileNoCheck(UPSTART_DIR .  "$name.conf",
             "bwmonitor/upstart.mas",
             [ interface => $iface ]);
 
@@ -251,13 +253,49 @@ sub _daemons
 
     my @daemons;
 
-    foreach my $iface (@{$self->ifaces()}) {
-        push (@daemons, {
-            name => "zentyal.bwmonitor-$iface"
-        });
+    foreach my $name (@{$self->_managedDaemons()}) {
+        push @daemons, {
+            name => $name
+        };
     }
 
     return \@daemons;
+}
+
+sub _managedDaemons
+{
+    my ($self) = @_;
+    my @daemons;
+    opendir my $DH, UPSTART_DIR or
+        throw EBox::Exceptions::Internal("Cannot open upstart dir: $!");
+
+    my $prefix = DAEMON_PREFIX;
+    my $isBwmonitor = qr/^$prefix.*\.conf$/;
+    while (my $file =readdir($DH)) {
+        if ($file =~ $isBwmonitor) {
+            $file =~ s/\.conf//;
+            push @daemons, $file;
+        }
+    }
+    closedir $DH or
+        throw EBox::Exceptions::Internal("Cannot close upstart dir: $!" );
+
+    return \@daemons;
+}
+
+sub isRunning
+{
+    my ($self) = @_;
+    my $running =  $self->SUPER::isRunning();
+    if ($running) {
+        # check for zero-daemons edge case
+        my $nDaemons = @{ $self->_daemons() };
+        if ($nDaemons == 0) {
+            return $self->isEnabled();
+        }
+    }
+
+    return $running;
 }
 
 # Override _enforceServiceState to stop disabled daemons
@@ -276,12 +314,8 @@ sub _enforceServiceState
 sub _stopService
 {
     my ($self) = @_;
-
-    my $model = $self->model('Interfaces');
-    for my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $iface = $row->valueByName('interface');
-        $self->_stopDaemon({ name => "zentyal.bwmonitor-$iface" });
+    foreach my $name (@{$self->_managedDaemons()}) {
+        $self->_stopDaemon({ name => $name});
     }
 }
 

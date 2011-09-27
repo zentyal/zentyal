@@ -70,6 +70,7 @@ sub _table
         modelDomain        => 'BWMonitor',
         enableProperty     => 1,
         defaultEnabledValue => 0,
+        noDataMsg => __("There aren't any internal interfaces to monitor"),
     };
 
     return $dataTable;
