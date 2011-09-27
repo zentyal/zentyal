@@ -1855,17 +1855,22 @@ sub restoreConfig
         } else {
             $self->unset($key); # remove previous key..
         }
-
     }
 
     # restore subscription files and ownerhsip
-    my $tarPath = $self->_backupSubscritionTar($dir);
-    my $tarCmd = 'tar x --file ' . $tarPath . ' -C /';
-    EBox::Sudo::root($tarCmd);
-
-    my $subscriptionDir =  SUBS_DIR;
-    EBox::Sudo::root("chown ebox.adm '$subscriptionDir'");
-    EBox::Sudo::root("chown -R ebox.ebox $subscriptionDir*");
+    my $subscriptionDir = SUBS_DIR;
+    try {
+        my $tarPath = $self->_backupSubscritionTar($dir);
+        my $tarCmd = 'tar x --file ' . $tarPath . ' -C /';
+        EBox::Sudo::root($tarCmd);
+        EBox::Sudo::root("chown ebox.adm '$subscriptionDir'");
+        EBox::Sudo::root("chown -R ebox.ebox $subscriptionDir/*");
+    } otherwise {
+        my ($ex) = shift;
+        EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
+        $self->clearCache();
+        $self->st_set_bool('subscribed', 0);
+    };
 }
 
 sub clearCache
