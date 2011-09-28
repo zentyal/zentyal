@@ -1,3 +1,5 @@
+HEAD
+	+ Backup event is also disabled when module is disabled
 2.1.8
 	+ Added guard against undefined rows in RemoteExcludes model
 	+ Solved problem with automatic inclusions with no-redis

@@ -129,4 +129,13 @@ sub _description
     return __('Notify the result of scheduled backups.');
 }
 
+# ebackup module should be enabled to use this event
+sub Able
+{
+    my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+    defined $ebackup or
+        return 0;
+    return $ebackup->isEnabled();
+}
+
 1;
