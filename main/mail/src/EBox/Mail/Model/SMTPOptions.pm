@@ -437,17 +437,22 @@ sub viewCustomizer
     $customizer->setModel($self);
 
     my $mail = EBox::Global->modInstance('mail');
-
+    
     my $mailname;
     try {
-        $mail->mailname();
+        $mailname = $mail->mailname();
     } catch EBox::Exceptions::Internal with {
         $mailname = undef;
     };
 
-    if ((not defined $mailname) or (not $mailname =~ m/\./)) {
+    my $msg;
+    if (not defined $mailname) {
+        $msg = __(
+                q{The mailname is set to the server's hostname and the hostname is incorrect}
+               );
+    } elsif (not $mailname =~ m/\./) {
         my $msg;
-        if ((not defined $mailname) or $mailname eq $mail->_fqdn()) {
+        if ( $mailname eq $mail->_fqdn()) {
             $msg = __(
                 q{The mailname is set to the server's hostname and the hostname is not } .
                     'fully qualified. '
@@ -459,8 +464,11 @@ sub viewCustomizer
         $msg .= __(
 'Not having a fully qualified hostname could lead to some mail servers to reject ' .
 'the mail and incorrect reply addresses from system users'
-                );
+                    );
 
+    }
+
+    if ($msg) {
         $customizer->setPermanentMessage($msg);
     }
 
