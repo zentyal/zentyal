@@ -27,7 +27,7 @@ sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 # FIXME: what happens with usercorner? Detect it if exists usercorner.bak?
 # Maybe it's better to detect this via the *.bak files instead of dpkg?
 EBOX_PACKAGES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }'`
-INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g' | grep -v 'cloud-prof'`
+INSTALLED_MODULES=`dpkg -l | grep ^ii | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g' | grep -v 'cloud-prof'`
 
 echo "The following modules have been detected and are going to be upgraded:"
 echo $INSTALLED_MODULES
