@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Fixed bandwidth quota measure for some cases
 2.2.1
 	+ Use BIGINT in SQL table to avoid overflow errors
