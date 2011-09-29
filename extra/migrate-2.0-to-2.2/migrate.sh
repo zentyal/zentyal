@@ -62,6 +62,7 @@ echo -e "invoke-rc.d ebox apache stop || true" >> /var/lib/dpkg/info/ebox.prerm
 echo -e "pkill -9 redis-server || true" >> /var/lib/dpkg/info/ebox.prerm
 retry "apt-get remove libebox -y --force-yes"
 
+rm -f /etc/apt/preferences.d/*ebox*
 retry "apt-get update"
 LANG=C DEBIAN_FRONTEND=noninteractive retry "apt-get dist-upgrade -y --force-yes"
 
