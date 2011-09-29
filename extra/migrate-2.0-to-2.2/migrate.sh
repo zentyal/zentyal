@@ -37,12 +37,15 @@ read
 
 
 function retry {
+    set +e
     $1
     while [[ $? -ne 0 ]] ; do
         echo "Command FAILED! Please check your internet connectivity"
         echo "press return to continue or Control+C to abort"
+        read
         $1
     done
+    set -e
 }
 
 
