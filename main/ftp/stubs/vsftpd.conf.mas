@@ -77,7 +77,7 @@ ftpd_banner=<% __('Welcome to Zentyal FTP service.') %>
 #banner_file=/etc/vsftpd/banner
 #
 # Restrict local users to their home directories
-% if ($chrootUsers eq 'yes') {
+% if ($chrootUsers) {
 chroot_local_user=YES
 % } else {
 chroot_local_user=NO

@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed template bug when writting chroot_local_users option
 	+ Welcome banner is now translatable
 2.1.1
 	+ Update configuration file
