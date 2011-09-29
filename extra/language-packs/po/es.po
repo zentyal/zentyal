@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-09-11 23:27+0200\n"
+"POT-Creation-Date: 2011-09-29 15:52+0200\n"
 "PO-Revision-Date: 2011-09-12 00:49+0200\n"
 "Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -48,7 +48,7 @@ msgstr "Peticiones"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 #: ../../main/squid/src/EBox/Squid.pm:1182
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:427
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:461
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
 #: ../../main/pptp/src/EBox/Model/Users.pm:104
 #: ../../main/pptp/src/EBox/PPTP.pm:355
@@ -109,7 +109,7 @@ msgstr "Volumen de tráfico filtrado"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1643
 #: ../../main/firewall/src/EBox/Firewall.pm:1008
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:458
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
 #: ../../main/printers/src/EBox/Printers.pm:367
@@ -135,7 +135,7 @@ msgstr "Volumen de tráfico filtrado"
 #: ../../main/core/src/templates/finish.mas:118
 #: ../../main/core/src/templates/confirm-backup.mas:28
 #: ../../main/core/src/templates/datetime.mas:31
-#: ../../main/core/src/templates/backup.mas:131
+#: ../../main/core/src/templates/backup.mas:129
 #: ../../main/mail/src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Fecha"
@@ -249,8 +249,7 @@ msgstr "Velocidad de descarga del cliente"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
-"Máxima velocidad de descarga por cliente. Use -1 para desactivar esta "
-"opción."
+"Máxima velocidad de descarga por cliente. Use -1 para desactivar esta opción."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
 msgid "Client file size"
@@ -931,7 +930,7 @@ msgstr "Grupo de filtrado"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:262
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:263
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:108
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:107
 #: ../../main/network/src/EBox/Model/DynDNS.pm:227
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
@@ -1535,7 +1534,7 @@ msgstr "Puerto de escucha"
 #: ../../main/squid/src/EBox/Squid.pm:1140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
-#: ../../main/ca/src/EBox/CA.pm:1749
+#: ../../main/ca/src/EBox/CA.pm:1741
 #: ../../main/core/src/EBox/SysInfo.pm.in:371
 #: ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/asterisk/src/EBox/Asterisk.pm:553
@@ -1606,7 +1605,7 @@ msgstr "Filtrado"
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:65
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:63
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:140
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:101
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:100
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:180
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:134
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:110
@@ -2015,8 +2014,8 @@ msgstr "Descargar paquete de configuración de cliente"
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:76
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/core/src/templates/ajax/viewer/file.mas:33
-#: ../../main/core/src/templates/backup.mas:163
-#: ../../main/core/src/templates/backup.mas:164
+#: ../../main/core/src/templates/backup.mas:161
+#: ../../main/core/src/templates/backup.mas:162
 msgid "Download"
 msgstr "Descargar"
 
@@ -2745,8 +2744,8 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:230
 #: ../../main/core/src/templates/finish.mas:121
 #: ../../main/core/src/templates/confirm-backup.mas:36
-#: ../../main/core/src/templates/backup.mas:56
-#: ../../main/core/src/templates/backup.mas:130
+#: ../../main/core/src/templates/backup.mas:54
+#: ../../main/core/src/templates/backup.mas:128
 msgid "Description"
 msgstr "Descripción"
 
@@ -2801,7 +2800,7 @@ msgstr "Regla contradictoria encontrada. Bórrala primero"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:535
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:687
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1105
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:426
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:460
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:57
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:57
 #: ../../main/pptp/src/EBox/PPTP.pm:355
@@ -2861,6 +2860,8 @@ msgstr "Destino original"
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:49
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:49
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
+#: ../../main/dhcp/src/EBox/Model/Options.pm:445
+#: ../../main/ca/src/EBox/Model/Certificates.pm:118
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
 msgid "Zentyal"
@@ -3972,7 +3973,7 @@ msgid "Removed {nname} from object {object}"
 msgstr "Borrado {nname} del objeto {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:394
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:79
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
 #: ../../main/network/src/EBox/Network.pm:80
 #: ../../main/network/src/EBox/Network.pm:3775
@@ -4095,6 +4096,11 @@ msgstr ""
 "La instalación de los paquetes no se ha completado de forma correcta. Más "
 "información en los logs"
 
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#, fuzzy
+msgid "Go to save changes"
+msgstr "Guardar cambios"
+
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
 msgstr "Eliminando paquete"
@@ -4124,6 +4130,11 @@ msgid ""
 msgstr ""
 "La eliminación de los paquetes se ha completado con éxito. Más información "
 "en los logs"
+
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
+#, fuzzy
+msgid "Go to initial configuration wizard"
+msgstr "Asistente de configuración inicial"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
@@ -5026,7 +5037,7 @@ msgstr ""
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:138
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:136
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:70
-#: ../../main/core/src/templates/backup.mas:99
+#: ../../main/core/src/templates/backup.mas:97
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -5065,8 +5076,8 @@ msgstr "Por favor, confirme que desea borrar el siguiente backup remoto"
 #: ../../main/samba/src/templates/delete.mas:18
 #: ../../main/core/src/templates/ajax/tableBody.mas:466
 #: ../../main/core/src/templates/ajax/tableModalView.mas:471
-#: ../../main/core/src/templates/backup.mas:169
-#: ../../main/core/src/templates/backup.mas:170
+#: ../../main/core/src/templates/backup.mas:167
+#: ../../main/core/src/templates/backup.mas:168
 #: ../../main/mail/src/templates/groupalias.mas:86
 #: ../../main/mail/src/templates/groupalias.mas:87
 #: ../../main/mail/src/templates/warnvd.mas:29
@@ -5164,34 +5175,34 @@ msgstr ""
 "Lo siento, una excepción desconocida ocurrió. Intente de nuevo mas tarde o "
 "contáctese con info@zentyal.com"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:43
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:44
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:58
 msgid "Bandwidth Monitor"
 msgstr "Monitor de Ancho de Banda"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:425
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:459
 #: ../../main/samba/src/EBox/Samba.pm:1504
 #: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Client address"
 msgstr "Dirección del cliente"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:428
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:462
 msgid "External recv"
 msgstr "Recib. externas"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:429
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:463
 msgid "External sent"
 msgstr "Enviados externa"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:430
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:464
 msgid "Internal recv"
 msgstr "Recib. interna"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:431
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:465
 msgid "Internal sent"
 msgstr "Enviados interna"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:442
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:476
 msgid "Bandwidth usage"
 msgstr "Uso de ancho de banda"
 
@@ -5243,6 +5254,11 @@ msgstr "interfaz"
 msgid "List of monitored interfaces."
 msgstr "Lista de interfaces monitorizadas."
 
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:73
+#, fuzzy
+msgid "There aren't any internal interfaces to monitor"
+msgstr "Cada medida puede tener varios umbrales a monitorizar"
+
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
 msgid "External in"
 msgstr "Ent. Externa"
@@ -5284,7 +5300,7 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
 #: ../../main/ca/src/templates/index.mas:107
-#: ../../main/core/src/templates/backup.mas:133
+#: ../../main/core/src/templates/backup.mas:131
 msgid "Actions"
 msgstr "Acciones"
 
@@ -6287,7 +6303,7 @@ msgstr "Seleccione los dominios que quiere guardar en la copia de seguridad."
 #: ../../main/ebackup/src/EBox/EBackup.pm:70
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
 #: ../../main/core/src/EBox/Backup.pm:751
-#: ../../main/core/src/templates/backup.mas:68
+#: ../../main/core/src/templates/backup.mas:66
 msgid "Backup"
 msgstr "Copia de seguridad"
 
@@ -6542,7 +6558,7 @@ msgstr "Subred remota disponible a través del túnel."
 msgid "PSK Shared Secret"
 msgstr "Secreto Compartido PSK"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:117
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:116
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
 #: ../../main/users/src/templates/users.mas:41
 #: ../../main/users/src/templates/groups.mas:26
@@ -6551,18 +6567,18 @@ msgstr "Secreto Compartido PSK"
 msgid "Comment"
 msgstr "Comentario"
 
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:127
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:128
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:81
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:91
 msgid "IPsec Connections"
 msgstr "Conexiones IPsec"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:130
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 msgid "IPsec connection"
 msgstr "conexión IPsec"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:137
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:136
 msgid ""
 "IPsec connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
@@ -6845,6 +6861,7 @@ msgstr ""
 "usuarios del sistema"
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:144
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:124
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: \\/.?&+:-@ and spaces are allowed."
@@ -7325,19 +7342,19 @@ msgstr "Usuarios y Grupos"
 msgid "User Corner web server"
 msgstr "Servidor web del rincón del usuario"
 
-#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:486
-#: ../../main/virt/src/EBox/Virt.pm:522 ../../main/virt/src/EBox/Virt.pm:561
+#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:535
+#: ../../main/virt/src/EBox/Virt.pm:578 ../../main/virt/src/EBox/Virt.pm:617
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
 msgid "Virtual Machines"
 msgstr "Máquinas Virtuales"
 
 #: ../../main/virt/src/EBox/Virt.pm:92
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:245
 msgid "VNC connections for VMs"
 msgstr "Conexión VNC para las MVs"
 
-#: ../../main/virt/src/EBox/Virt.pm:523
+#: ../../main/virt/src/EBox/Virt.pm:579
 msgid "Disk images of the virtual machines"
 msgstr "Imágenes de disco de las máquinas virtuales"
 
@@ -7367,13 +7384,13 @@ msgstr "Configuración de Red"
 msgid "Here you can define the network interfaces of the virtual machine."
 msgstr "Aquí se pueden definir las interfaces de red de la máquina virtual."
 
-#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:146
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:180
 #, perl-brace-format
 msgid "A maximum of {num} network interfaces are allowed"
 msgstr "Un máximo de {num} interfaces de red permitido"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:233
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:277
 msgid "View Console"
 msgstr "Ver consola"
 
@@ -7429,7 +7446,7 @@ msgstr "máquina virtual"
 msgid "List of configured Virtual Machines."
 msgstr "Lista de Máquinas Virtuales configuradas."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:307
 #, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
@@ -7439,7 +7456,7 @@ msgstr ""
 "sección {openref}Estado de los módulos{closeref} y habilítelo antes de "
 "arrancar una máquina.  "
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:310
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
@@ -7448,17 +7465,17 @@ msgstr ""
 "pendientes en el módulo de Máquinas Virtuales, por favor, guarde los cambios "
 "e inténtelo de nuevo."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:323
 #, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
 msgstr "No se pudo arrancar la máquina virtual '{vm}'"
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:301
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:345
 #, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
 msgstr "No se pudo para la máquina virtual '{vm}'"
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:359
 msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr "No se puede pausar una máquina parada. Antes debe iniciarla."
 
@@ -7499,29 +7516,29 @@ msgid "Here you can define the storage drives of the virtual machine"
 msgstr ""
 "Aquí puede definir las unidades de almacenamiento de la máquina virtual"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:198
 msgid "You need to provide the path of a ISO image"
 msgstr "Debe proporcionar la ruta de una imagen ISO"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:201
 #, perl-brace-format
 msgid "ISO image '{img}' does not exist"
 msgstr "La imagen ISO '{img}' no existe"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:208
 msgid "You need to provide the path of a hard disk image"
 msgstr "Necesita proveer la ruta de una imagen de disco duro"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:179
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:211
 #, perl-brace-format
 msgid "Hard disk image '{img}' does not exist"
 msgstr "La imagen de disco duro '{img}' no existe"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:185
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:217
 msgid "You need to specify a name for the new hard disk"
 msgstr "Necesita especificar el nombre del nuevo disco duro"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:191
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:223
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
@@ -7529,12 +7546,12 @@ msgstr ""
 "No puede modificar un disco ya creado. Necesita borrarlo y añadir uno nuevo "
 "si quieres cambiar el tamaño."
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:207
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:239
 #, perl-brace-format
 msgid "A maximum of {num} CD/DVD drives are allowed"
 msgstr "Se permite un máximo de {num} dispositivos de CD/DVD"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:212
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:244
 #, perl-brace-format
 msgid "A maximum of {num} Hard Disk drives are allowed"
 msgstr "Se permite un máximo de {num} unidades de disco duro"
@@ -7548,10 +7565,22 @@ msgid "Base Memory"
 msgstr "Memoria base"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
+#, fuzzy
+msgid "Manage only"
+msgstr "Sólo lectura"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:106
+msgid ""
+"Configuration will no longer be overwritten after activating this and the "
+"machine should be directly edited from VirtualBox GUI or using the "
+"vboxmanage command"
+msgstr ""
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
 msgid "System Settings"
 msgstr "Configuración del sistema"
 
-#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:108
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:117
 msgid "Here you can define the basic hardware configuration of the machine"
 msgstr "Aquí puede definir la configuración básica del hardware de la máquina"
 
@@ -7559,11 +7588,11 @@ msgstr "Aquí puede definir la configuración básica del hardware de la máquin
 msgid "Virtual Machine Settings"
 msgstr "Configuración de la Máquina Virtual"
 
-#: ../../main/virt/src/EBox/Virt/Libvirt.pm:452
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:447
 msgid "i686 compatible"
 msgstr "compatible con i686"
 
-#: ../../main/virt/src/EBox/Virt/Libvirt.pm:453
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:448
 msgid "amd64 compatible"
 msgstr "compatible con amd64"
 
@@ -10073,8 +10102,8 @@ msgid "Application Protocols"
 msgstr "Protocolos de Aplicación"
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:154
-#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:232
-#: ../../main/ca/src/EBox/CA.pm:516
+#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:228
+#: ../../main/ca/src/EBox/CA.pm:512
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
 #: ../../main/ca/src/templates/index.mas:23
 #: ../../main/ca/src/templates/formRevoke.mas:22
@@ -10083,7 +10112,7 @@ msgstr "Protocolos de Aplicación"
 msgid "Organization Name"
 msgstr "Nombre de Organización"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:531
+#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:527
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -10095,9 +10124,9 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/TestStub.pm:516
 #: ../../main/ca/src/EBox/CA/TestStub.pm:642
 #: ../../main/ca/src/EBox/Model/Certificates.pm:276
-#: ../../main/ca/src/EBox/CA.pm:730 ../../main/ca/src/EBox/CA.pm:901
-#: ../../main/ca/src/EBox/CA.pm:1241 ../../main/ca/src/EBox/CA.pm:1311
-#: ../../main/ca/src/EBox/CA.pm:1405
+#: ../../main/ca/src/EBox/CA.pm:726 ../../main/ca/src/EBox/CA.pm:894
+#: ../../main/ca/src/EBox/CA.pm:1232 ../../main/ca/src/EBox/CA.pm:1302
+#: ../../main/ca/src/EBox/CA.pm:1396
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:76
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:103
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
@@ -10119,7 +10148,7 @@ msgstr "El usuario {commonName} NO existe"
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Utilizado el máximo de días permitidos: Error de Año 2038"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2561
+#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2547
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 "La fecha de caducidad del certificado es mayor que la del certificado de la "
@@ -10139,7 +10168,7 @@ msgid "Generate the certificate using CA with the common name set above"
 msgstr "Generar el certificado con el nombre común establecido arriba"
 
 #: ../../main/ca/src/EBox/Model/Certificates.pm:299
-#: ../../main/ca/src/EBox/CA.pm:1752
+#: ../../main/ca/src/EBox/CA.pm:1744
 msgid "Services Certificates"
 msgstr "Certificados para los servicios"
 
@@ -10169,22 +10198,22 @@ msgstr "Este servicio no permite cambiar el common name del certificado"
 msgid "Certification Authority"
 msgstr "Autoridad de certificación"
 
-#: ../../main/ca/src/EBox/CA.pm:275 ../../main/ca/src/EBox/CA.pm:748
-#: ../../main/ca/src/EBox/CA.pm:1384
+#: ../../main/ca/src/EBox/CA.pm:271 ../../main/ca/src/EBox/CA.pm:744
+#: ../../main/ca/src/EBox/CA.pm:1375
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Utilizado el máximo de días permitidos {days}: Error de Año 2038"
 
-#: ../../main/ca/src/EBox/CA.pm:364
+#: ../../main/ca/src/EBox/CA.pm:360
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "La operación de borrado no puede completarse. Razón: "
 
-#: ../../main/ca/src/EBox/CA.pm:914 ../../main/ca/src/EBox/CA.pm:1252
+#: ../../main/ca/src/EBox/CA.pm:907 ../../main/ca/src/EBox/CA.pm:1243
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Certificado con nombre común {cn} NO existe"
 
-#: ../../main/ca/src/EBox/CA.pm:918
+#: ../../main/ca/src/EBox/CA.pm:911
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -10193,55 +10222,55 @@ msgstr ""
 "La razón {reason} NO es una opción aplicable.\n"
 "Opciones:"
 
-#: ../../main/ca/src/EBox/CA.pm:1063
+#: ../../main/ca/src/EBox/CA.pm:1054
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
 "La infraestructura de la autoridad de certificación no está disponible, "
 "créela en primer lugar"
 
-#: ../../main/ca/src/EBox/CA.pm:1160
+#: ../../main/ca/src/EBox/CA.pm:1151
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "No se han pasado ni el nombre común, el nombre distinguido ni el número de "
 "serie"
 
-#: ../../main/ca/src/EBox/CA.pm:1406
+#: ../../main/ca/src/EBox/CA.pm:1397
 msgid "or"
 msgstr "o"
 
-#: ../../main/ca/src/EBox/CA.pm:1407
+#: ../../main/ca/src/EBox/CA.pm:1398
 msgid "Certificate file"
 msgstr "Fichero del certificado"
 
-#: ../../main/ca/src/EBox/CA.pm:1429
+#: ../../main/ca/src/EBox/CA.pm:1420
 msgid "The certificate to renew does NOT exist"
 msgstr "El certificado a renovar NO existe"
 
-#: ../../main/ca/src/EBox/CA.pm:1469
+#: ../../main/ca/src/EBox/CA.pm:1460
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 "El certificado con este nombre común {cn} NO existe en esta autoridad de "
 "certificación"
 
-#: ../../main/ca/src/EBox/CA.pm:1865
+#: ../../main/ca/src/EBox/CA.pm:1857
 msgid "Not created"
 msgstr "No creada"
 
-#: ../../main/ca/src/EBox/CA.pm:1867
+#: ../../main/ca/src/EBox/CA.pm:1859
 msgid "Available"
 msgstr "Disponible"
 
-#: ../../main/ca/src/EBox/CA.pm:1869
+#: ../../main/ca/src/EBox/CA.pm:1861
 msgid "Created but not available"
 msgstr "Creada pero no disponible"
 
-#: ../../main/ca/src/EBox/CA.pm:1952
+#: ../../main/ca/src/EBox/CA.pm:1944
 msgid "String"
 msgstr "Cadena de texto"
 
-#: ../../main/ca/src/EBox/CA.pm:1957
+#: ../../main/ca/src/EBox/CA.pm:1949
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
 "plus these non alphanumeric chars: .?&+:-@* and spaces are allowed."
@@ -10250,38 +10279,38 @@ msgstr ""
 "alfanúmericos, además de los no alfanúmericos: .?&+:\\@ y espacios, están "
 "permitidos."
 
-#: ../../main/ca/src/EBox/CA.pm:2475
+#: ../../main/ca/src/EBox/CA.pm:2469
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Imposible firmar. Contraseña del CA incorrecta o la clave privada del CA ha "
 "desaparecido."
 
-#: ../../main/ca/src/EBox/CA.pm:2477
+#: ../../main/ca/src/EBox/CA.pm:2471
 msgid "Database corruption"
 msgstr "Base de datos corrupta"
 
-#: ../../main/ca/src/EBox/CA.pm:2479
+#: ../../main/ca/src/EBox/CA.pm:2473
 msgid "Identifier duplicated in Database"
 msgstr "Identificador duplicado en la Base de Datos"
 
-#: ../../main/ca/src/EBox/CA.pm:2481
+#: ../../main/ca/src/EBox/CA.pm:2475
 msgid "Certificate already revoked"
 msgstr "El certificado ya se revocó"
 
-#: ../../main/ca/src/EBox/CA.pm:2484
+#: ../../main/ca/src/EBox/CA.pm:2478
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Longitud de un campo ASN1 demasiado extenso. Máximo tamaño de:"
 
-#: ../../main/ca/src/EBox/CA.pm:2486
+#: ../../main/ca/src/EBox/CA.pm:2480
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Error desconocido. Se ofrece la salida de OpenSSL:"
 
-#: ../../main/ca/src/EBox/CA.pm:2591
+#: ../../main/ca/src/EBox/CA.pm:2577
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr "Sólo {dns}, {ip} y {email} son nombres válidos"
 
-#: ../../main/ca/src/EBox/CA.pm:2634
+#: ../../main/ca/src/EBox/CA.pm:2620
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "No se puede comenzar el intérprete para OpenSSL ({errval})"
@@ -11409,7 +11438,7 @@ msgstr "Habilitando módulo {modName}"
 msgid "Saving {modName} module"
 msgstr "Guardando módulo {modName}"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1123
+#: ../../main/core/src/EBox/GlobalImpl.pm:1128
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "ejecutando script {scriptName}"
@@ -12339,7 +12368,7 @@ msgid "Error restarting service {mod}. See {logs} for more information."
 msgstr "Error reiniciando el servicio {mod}. Ver {logs} para más información"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:33
-#: ../../main/core/src/templates/backup.mas:31
+#: ../../main/core/src/templates/backup.mas:29
 msgid "Configuration Backup"
 msgstr "Backup de la configuración"
 
@@ -13423,18 +13452,24 @@ msgstr "Dirección del smarhost"
 msgid "Smarthost's port"
 msgstr "Puerto del smarhost"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:451
+#, fuzzy
+msgid ""
+"The mailname is set to the server's hostname and the hostname is incorrect"
+msgstr "El nombre de correo es el del servidor y ése no está cualificado"
+
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:457
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
 msgstr "El nombre de correo es el del servidor y ése no está cualificado"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:456
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:461
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr "El nombre seleccionado no es un nombre de máquina cualificado."
 
 # Fuzzy English, wrong Spanish?
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:460
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:465
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
@@ -14593,33 +14628,33 @@ msgstr "Habilitar sincronización con AD"
 msgid "AD user"
 msgstr "Usuario del AD"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:75
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:76
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
 msgstr ""
 "Nombre de usuario para sincronizar con Windows AD (necesario crearlo en el "
 "AD)"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:79
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:80
 msgid "AD password"
 msgstr "Contraseña del AD"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:82
 msgid "Password for the above user"
 msgstr "Contraseña para el usuario mencionado arriba"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:86
 msgid "AD Secret Key"
 msgstr "Clave secreta AD"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:88
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:89
 msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
 msgstr "Clave que será compartida entre Windows y Zentyal (16 carácteres)"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:94
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:95
 msgid "Windows AD Sync Settings"
 msgstr "Sincronización Windows AD"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:116
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:117
 msgid "The secret key needs to have 16 characters."
 msgstr "La clave secreta debe ser de 16 caracteres."
 
@@ -15697,7 +15732,7 @@ msgstr "editar"
 #: ../../main/dns/src/templates/index.mas:70
 #: ../../main/dns/src/templates/edit.mas:110
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:169
-#: ../../main/core/src/templates/backup.mas:187
+#: ../../main/core/src/templates/backup.mas:185
 msgid "delete"
 msgstr "borrar"
 
@@ -15705,6 +15740,11 @@ msgstr "borrar"
 #, perl-brace-format
 msgid "Host list for domain {domain}"
 msgstr "Lista de máquinas para el dominio {domain}"
+
+#: ../../main/ftp/stubs/vsftpd.conf.mas:74
+#, fuzzy
+msgid "Welcome to Zentyal FTP service."
+msgstr "Archivos del servidor FTP de Zentyal."
 
 #: ../../main/software/src/templates/ebox.mas:189
 #: ../../main/software/src/templates/ebox.mas:631
@@ -15967,7 +16007,7 @@ msgid "Back up the current configuration state"
 msgstr "Backup del estado actual de configuración"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:88
-#: ../../main/core/src/templates/backup.mas:46
+#: ../../main/core/src/templates/backup.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -15990,19 +16030,19 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:48
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:41
 #: ../../main/core/src/templates/confirm-backup.mas:45
-#: ../../main/core/src/templates/backup.mas:132
+#: ../../main/core/src/templates/backup.mas:130
 msgid "Archive size"
 msgstr "Tamaño del archivo"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:161
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:91
-#: ../../main/core/src/templates/backup.mas:185
+#: ../../main/core/src/templates/backup.mas:183
 msgid "restore"
 msgstr "restaurar"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:165
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:95
-#: ../../main/core/src/templates/backup.mas:183
+#: ../../main/core/src/templates/backup.mas:181
 msgid "download"
 msgstr "descargar"
 
@@ -16015,7 +16055,7 @@ msgid "Zentyal host"
 msgstr "Máquina Zentyal"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:101
-#: ../../main/core/src/templates/backup.mas:126
+#: ../../main/core/src/templates/backup.mas:124
 msgid "Backups' list"
 msgstr "Lista de backups"
 
@@ -16640,15 +16680,19 @@ msgstr "Ítems que quedan"
 msgid "Some error has happened in Zentyal: "
 msgstr "Ha ocurrido un error en Zentyal:"
 
-#: ../../main/core/src/templates/progress.mas:152
+#: ../../main/core/src/templates/progress.mas:32
+msgid "Click here to return to the Dashboard"
+msgstr ""
+
+#: ../../main/core/src/templates/progress.mas:155
 msgid "Starting..."
 msgstr "Comenzando..."
 
-#: ../../main/core/src/templates/progress.mas:161
+#: ../../main/core/src/templates/progress.mas:164
 msgid " of "
 msgstr " de "
 
-#: ../../main/core/src/templates/progress.mas:169
+#: ../../main/core/src/templates/progress.mas:172
 msgid "The process produced some warning messages:"
 msgstr "El proceso produjo algunos avisos:"
 
@@ -17151,11 +17195,11 @@ msgstr "Mantener el fichero actual"
 msgid "Modify"
 msgstr "Modificar"
 
-#: ../../main/core/src/templates/backup.mas:30
+#: ../../main/core/src/templates/backup.mas:28
 msgid "Full Backup"
 msgstr "Backup completo"
 
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:35
 #, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
@@ -17166,11 +17210,11 @@ msgstr ""
 "{openref}estado de los módulos{closeref} serán ignorados tanto en las "
 "operaciones de backup como de restauración."
 
-#: ../../main/core/src/templates/backup.mas:39
+#: ../../main/core/src/templates/backup.mas:37
 msgid "Backup the Current State"
 msgstr "Backup del estado actual"
 
-#: ../../main/core/src/templates/backup.mas:41
+#: ../../main/core/src/templates/backup.mas:39
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
@@ -17178,7 +17222,7 @@ msgstr ""
 "Los backups se almacenarán en Zentyal y posteriormente pueden ser "
 "descargados a su disco duro."
 
-#: ../../main/core/src/templates/backup.mas:42
+#: ../../main/core/src/templates/backup.mas:40
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
@@ -17188,11 +17232,11 @@ msgstr ""
 "usuarios con derechos de administración pueden acceder al directorio de "
 "backup como si fuera un recurso compartido."
 
-#: ../../main/core/src/templates/backup.mas:78
+#: ../../main/core/src/templates/backup.mas:76
 msgid "Restore Backup from File"
 msgstr "Restaurar backup desde un archivo"
 
-#: ../../main/core/src/templates/backup.mas:80
+#: ../../main/core/src/templates/backup.mas:78
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -17201,35 +17245,35 @@ msgstr ""
 "tener en cuenta que algunos navegadores web no pueden manejar ficheros muy "
 "grandes (>= 1Gb)"
 
-#: ../../main/core/src/templates/backup.mas:88
+#: ../../main/core/src/templates/backup.mas:86
 msgid "Backup file"
 msgstr "Fichero de backup"
 
-#: ../../main/core/src/templates/backup.mas:118
+#: ../../main/core/src/templates/backup.mas:116
 msgid "Full"
 msgstr "Completo"
 
-#: ../../main/core/src/templates/backup.mas:119
+#: ../../main/core/src/templates/backup.mas:117
 msgid "Configuration only"
 msgstr "Sólo configuración"
 
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:118
 msgid "Unknown type"
 msgstr "Tipo desconocido"
 
-#: ../../main/core/src/templates/backup.mas:157
+#: ../../main/core/src/templates/backup.mas:155
 msgid "Restore configuration using this file"
 msgstr "Restaurar la configuración utilizando este fichero"
 
-#: ../../main/core/src/templates/backup.mas:158
+#: ../../main/core/src/templates/backup.mas:156
 msgid "Restore from backup"
 msgstr "Restaurar desde backup"
 
-#: ../../main/core/src/templates/backup.mas:195
+#: ../../main/core/src/templates/backup.mas:193
 msgid "Configuration Report"
 msgstr "Informe de configuración"
 
-#: ../../main/core/src/templates/backup.mas:197
+#: ../../main/core/src/templates/backup.mas:195
 msgid ""
 "You can generate a file with information about the state of your system. "
 "This file can be useful if you want to report a problem or seek for support."
@@ -17238,7 +17282,7 @@ msgstr ""
 "fichero puede ser de utilidad si desea enviar un informe de error o recibir "
 "soporte."
 
-#: ../../main/core/src/templates/backup.mas:202
+#: ../../main/core/src/templates/backup.mas:200
 msgid "Generate and Download report file"
 msgstr "Generar y Descargar fichero de informe"
 

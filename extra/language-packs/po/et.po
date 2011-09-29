@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-09-11 23:27+0200\n"
+"POT-Creation-Date: 2011-09-29 15:52+0200\n"
 "PO-Revision-Date: 2011-07-15 13:33+0200\n"
 "Last-Translator: pisipoleng <pisipoleng@hotmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -48,7 +48,7 @@ msgstr "Päringud"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:99
 #: ../../main/squid/src/EBox/Squid.pm:1182
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:427
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:461
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:111
 #: ../../main/pptp/src/EBox/Model/Users.pm:104
 #: ../../main/pptp/src/EBox/PPTP.pm:355
@@ -126,7 +126,7 @@ msgstr "Filtreeritud liikluse maht (Kb)"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1643
 #: ../../main/firewall/src/EBox/Firewall.pm:1008
 #: ../../main/firewall/src/EBox/Firewall/Model/Report/PacketTrafficDetails.pm:60
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:424
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:458
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:143
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1301
 #: ../../main/printers/src/EBox/Printers.pm:367
@@ -152,7 +152,7 @@ msgstr "Filtreeritud liikluse maht (Kb)"
 #: ../../main/core/src/templates/finish.mas:118
 #: ../../main/core/src/templates/confirm-backup.mas:28
 #: ../../main/core/src/templates/datetime.mas:31
-#: ../../main/core/src/templates/backup.mas:131
+#: ../../main/core/src/templates/backup.mas:129
 #: ../../main/mail/src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Kuupäev"
@@ -960,7 +960,7 @@ msgstr "Filtri grupp"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:75
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:262
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:263
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:108
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:107
 #: ../../main/network/src/EBox/Model/DynDNS.pm:227
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:66
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
@@ -1591,7 +1591,7 @@ msgstr "Kuulatav port"
 #: ../../main/squid/src/EBox/Squid.pm:1140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:108
-#: ../../main/ca/src/EBox/CA.pm:1749
+#: ../../main/ca/src/EBox/CA.pm:1741
 #: ../../main/core/src/EBox/SysInfo.pm.in:371
 #: ../../main/mail/src/EBox/Mail.pm:1550
 #: ../../main/asterisk/src/EBox/Asterisk.pm:553
@@ -1676,7 +1676,7 @@ msgstr "Filtreeritud"
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:65
 #: ../../main/objects/src/EBox/Model/ObjectTable.pm:63
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:140
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:101
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:100
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:180
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:134
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:110
@@ -2103,8 +2103,8 @@ msgstr "Laadi kliendi komplekt alla"
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:76
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/core/src/templates/ajax/viewer/file.mas:33
-#: ../../main/core/src/templates/backup.mas:163
-#: ../../main/core/src/templates/backup.mas:164
+#: ../../main/core/src/templates/backup.mas:161
+#: ../../main/core/src/templates/backup.mas:162
 #, fuzzy
 msgid "Download"
 msgstr ""
@@ -2834,8 +2834,8 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:230
 #: ../../main/core/src/templates/finish.mas:121
 #: ../../main/core/src/templates/confirm-backup.mas:36
-#: ../../main/core/src/templates/backup.mas:56
-#: ../../main/core/src/templates/backup.mas:130
+#: ../../main/core/src/templates/backup.mas:54
+#: ../../main/core/src/templates/backup.mas:128
 msgid "Description"
 msgstr "Kirjeldus"
 
@@ -2899,7 +2899,7 @@ msgstr "Leiti vastuoluline reegel, palun eemalda see"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:535
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:687
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1105
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:426
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:460
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:57
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:57
 #: ../../main/pptp/src/EBox/PPTP.pm:355
@@ -2959,6 +2959,8 @@ msgstr "Algne sihtkoht"
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:49
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:49
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
+#: ../../main/dhcp/src/EBox/Model/Options.pm:445
+#: ../../main/ca/src/EBox/Model/Certificates.pm:118
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
 #, fuzzy
@@ -4079,7 +4081,7 @@ msgid "Removed {nname} from object {object}"
 msgstr "{nname} eemaldatud objektist {object}"
 
 #: ../../main/objects/src/EBox/Objects.pm:394
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:78
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:79
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
 #: ../../main/network/src/EBox/Network.pm:80
 #: ../../main/network/src/EBox/Network.pm:3775
@@ -4208,6 +4210,11 @@ msgstr ""
 "Pakettide paigaldamine ei ole edukalt lõpetatud. Rohkem informatsiooni leiad "
 "logidest"
 
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
+#, fuzzy
+msgid "Go to save changes"
+msgstr "Salvesta muudatused"
+
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
 msgstr "Paketi eemaldamine"
@@ -4237,6 +4244,11 @@ msgid ""
 msgstr ""
 "Pakettide eemaldamine ei ole edukalt lõpetatud. Rohkem informatsiooni leiad "
 "logidest"
+
+#: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
+#, fuzzy
+msgid "Go to initial configuration wizard"
+msgstr "Üldine seadistamine"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
@@ -5182,7 +5194,7 @@ msgstr ""
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:138
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:136
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:70
-#: ../../main/core/src/templates/backup.mas:99
+#: ../../main/core/src/templates/backup.mas:97
 msgid "Restore"
 msgstr "Taasta"
 
@@ -5221,8 +5233,8 @@ msgstr "Palun kinnita, et sa tõesti tahad kustutada järgneva kaugvarunduse:"
 #: ../../main/samba/src/templates/delete.mas:18
 #: ../../main/core/src/templates/ajax/tableBody.mas:466
 #: ../../main/core/src/templates/ajax/tableModalView.mas:471
-#: ../../main/core/src/templates/backup.mas:169
-#: ../../main/core/src/templates/backup.mas:170
+#: ../../main/core/src/templates/backup.mas:167
+#: ../../main/core/src/templates/backup.mas:168
 #: ../../main/mail/src/templates/groupalias.mas:86
 #: ../../main/mail/src/templates/groupalias.mas:87
 #: ../../main/mail/src/templates/warnvd.mas:29
@@ -5318,39 +5330,39 @@ msgid ""
 "info@zentyal.com"
 msgstr ""
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:43
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:44
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:58
 #, fuzzy
 msgid "Bandwidth Monitor"
 msgstr "Läbilaskevõime piiramine"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:425
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:459
 #: ../../main/samba/src/EBox/Samba.pm:1504
 #: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Client address"
 msgstr "Kliendi aadress"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:428
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:462
 #, fuzzy
 msgid "External recv"
 msgstr "Väline liides"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:429
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:463
 #, fuzzy
 msgid "External sent"
 msgstr "Väline sisend"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:430
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:464
 #, fuzzy
 msgid "Internal recv"
 msgstr "Sisemine"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:431
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:465
 #, fuzzy
 msgid "Internal sent"
 msgstr "Sisemine"
 
-#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:442
+#: ../../main/bwmonitor/src/EBox/BWMonitor.pm:476
 #, fuzzy
 msgid "Bandwidth usage"
 msgstr "Läbilaskevõime piiramine"
@@ -5406,6 +5418,11 @@ msgstr "liides"
 msgid "List of monitored interfaces."
 msgstr "Vaikimisi virtuaalhosti seadistamiseks"
 
+#: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:73
+#, fuzzy
+msgid "There aren't any internal interfaces to monitor"
+msgstr "Igal mõõtmisel võib olla monitooringu jaoks mitu läve"
+
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
 #, fuzzy
 msgid "External in"
@@ -5449,7 +5466,7 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
 #: ../../main/ca/src/templates/index.mas:107
-#: ../../main/core/src/templates/backup.mas:133
+#: ../../main/core/src/templates/backup.mas:131
 msgid "Actions"
 msgstr "Toimingud"
 
@@ -6493,7 +6510,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup.pm:70
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
 #: ../../main/core/src/EBox/Backup.pm:751
-#: ../../main/core/src/templates/backup.mas:68
+#: ../../main/core/src/templates/backup.mas:66
 msgid "Backup"
 msgstr "Varundamine"
 
@@ -6751,7 +6768,7 @@ msgstr ""
 msgid "PSK Shared Secret"
 msgstr "Jagatud saladus"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:117
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:116
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
 #: ../../main/users/src/templates/users.mas:41
 #: ../../main/users/src/templates/groups.mas:26
@@ -6760,20 +6777,20 @@ msgstr "Jagatud saladus"
 msgid "Comment"
 msgstr "Kommentaar"
 
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:127
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:128
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:81
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Conf.pm:91
 #, fuzzy
 msgid "IPsec Connections"
 msgstr "Välisühendused"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:130
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:129
 #, fuzzy
 msgid "IPsec connection"
 msgstr "IMAP ühenduse tüüp"
 
-#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:137
+#: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:136
 msgid ""
 "IPsec connections allow to deploy secure tunnels between different "
 "subnetworks. This protocol is vendor independant and will connect Zentyal "
@@ -7050,6 +7067,7 @@ msgid "Proxy username and password will be visible by all system users."
 msgstr ""
 
 #: ../../main/network/src/EBox/Model/Proxy.pm:144
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:124
 #, fuzzy
 msgid ""
 "The username input contains invalid characters. All alphanumeric characters, "
@@ -7529,8 +7547,8 @@ msgstr "Kasutajad ja grupid"
 msgid "User Corner web server"
 msgstr "Kasutaja nurgakese veebiserver"
 
-#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:486
-#: ../../main/virt/src/EBox/Virt.pm:522 ../../main/virt/src/EBox/Virt.pm:561
+#: ../../main/virt/src/EBox/Virt.pm:52 ../../main/virt/src/EBox/Virt.pm:535
+#: ../../main/virt/src/EBox/Virt.pm:578 ../../main/virt/src/EBox/Virt.pm:617
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
 #, fuzzy
@@ -7538,13 +7556,13 @@ msgid "Virtual Machines"
 msgstr "Virtuaaldomeenid"
 
 #: ../../main/virt/src/EBox/Virt.pm:92
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:201
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:245
 #, fuzzy
 msgid "VNC connections for VMs"
 msgstr "Ühenduse viga"
 
 # vt alam/ülem
-#: ../../main/virt/src/EBox/Virt.pm:523
+#: ../../main/virt/src/EBox/Virt.pm:579
 #, fuzzy
 msgid "Disk images of the virtual machines"
 msgstr "Alamate loend"
@@ -7582,13 +7600,13 @@ msgstr "Üldised seadistused"
 msgid "Here you can define the network interfaces of the virtual machine."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:146
+#: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:180
 #, perl-brace-format
 msgid "A maximum of {num} network interfaces are allowed"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:233
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:277
 msgid "View Console"
 msgstr ""
 
@@ -7656,7 +7674,7 @@ msgid "List of configured Virtual Machines."
 msgstr "Vaikimisi virtuaalhosti seadistamiseks"
 
 #  
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:263
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:307
 #, fuzzy, perl-brace-format
 msgid ""
 "The Virtual Machines module is not enabled, please go to the {openref}Module "
@@ -7665,23 +7683,23 @@ msgstr ""
 "Neid mooduleid, mida ei ole {openref}Mooduli oleku{closeref} leheküljel "
 "kunagi lubatud, eiratakse taastamis- ja varundustoimingute poolt."
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:310
 msgid ""
 "Virtual machines cannot be started if there are pending unsaved changes on "
 "the Virtual Machines module, please save changes first and try again."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:279
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:323
 #, perl-brace-format
 msgid "Couldn't start virtual machine '{vm}'"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:301
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:345
 #, perl-brace-format
 msgid "Couldn't stop virtual machine '{vm}'"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:315
+#: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:359
 msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr ""
 
@@ -7724,42 +7742,42 @@ msgstr ""
 msgid "Here you can define the storage drives of the virtual machine"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:166
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:198
 msgid "You need to provide the path of a ISO image"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:169
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:201
 #, fuzzy, perl-brace-format
 msgid "ISO image '{img}' does not exist"
 msgstr "Klienti {c} ei ole olemas"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:176
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:208
 msgid "You need to provide the path of a hard disk image"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:179
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:211
 #, fuzzy, perl-brace-format
 msgid "Hard disk image '{img}' does not exist"
 msgstr "E-posti domeeni {d} ei ole olemas"
 
 # Sa pead määrama alglaadimistõmmise asukoha kaugserveris
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:185
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:217
 #, fuzzy
 msgid "You need to specify a name for the new hard disk"
 msgstr "Sa pead määrama alglaadimistõmmise asukoha võrguserveris"
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:191
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:223
 msgid ""
 "You cannot modify an already created disk. You need to delete it and add a "
 "new one if you want to change the size."
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:207
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:239
 #, perl-brace-format
 msgid "A maximum of {num} CD/DVD drives are allowed"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:212
+#: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:244
 #, perl-brace-format
 msgid "A maximum of {num} Hard Disk drives are allowed"
 msgstr ""
@@ -7775,10 +7793,22 @@ msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
 #, fuzzy
+msgid "Manage only"
+msgstr "Kirjutuskaitsega"
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:106
+msgid ""
+"Configuration will no longer be overwritten after activating this and the "
+"machine should be directly edited from VirtualBox GUI or using the "
+"vboxmanage command"
+msgstr ""
+
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
+#, fuzzy
 msgid "System Settings"
 msgstr "AD sünkroniseerimise seadistused"
 
-#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:108
+#: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:117
 msgid "Here you can define the basic hardware configuration of the machine"
 msgstr ""
 
@@ -7787,11 +7817,11 @@ msgstr ""
 msgid "Virtual Machine Settings"
 msgstr "Virtuaaldomeeni seadistamine"
 
-#: ../../main/virt/src/EBox/Virt/Libvirt.pm:452
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:447
 msgid "i686 compatible"
 msgstr ""
 
-#: ../../main/virt/src/EBox/Virt/Libvirt.pm:453
+#: ../../main/virt/src/EBox/Virt/Libvirt.pm:448
 msgid "amd64 compatible"
 msgstr ""
 
@@ -10414,8 +10444,8 @@ msgid "Application Protocols"
 msgstr "Rakenduse andmed"
 
 #: ../../main/ca/src/EBox/CA/TestStub.pm:154
-#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:232
-#: ../../main/ca/src/EBox/CA.pm:516
+#: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:228
+#: ../../main/ca/src/EBox/CA.pm:512
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
 #: ../../main/ca/src/templates/index.mas:23
 #: ../../main/ca/src/templates/formRevoke.mas:22
@@ -10424,7 +10454,7 @@ msgstr "Rakenduse andmed"
 msgid "Organization Name"
 msgstr "Organisatsiooni nimi"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:531
+#: ../../main/ca/src/EBox/CA/TestStub.pm:259 ../../main/ca/src/EBox/CA.pm:527
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
@@ -10437,9 +10467,9 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/TestStub.pm:516
 #: ../../main/ca/src/EBox/CA/TestStub.pm:642
 #: ../../main/ca/src/EBox/Model/Certificates.pm:276
-#: ../../main/ca/src/EBox/CA.pm:730 ../../main/ca/src/EBox/CA.pm:901
-#: ../../main/ca/src/EBox/CA.pm:1241 ../../main/ca/src/EBox/CA.pm:1311
-#: ../../main/ca/src/EBox/CA.pm:1405
+#: ../../main/ca/src/EBox/CA.pm:726 ../../main/ca/src/EBox/CA.pm:894
+#: ../../main/ca/src/EBox/CA.pm:1232 ../../main/ca/src/EBox/CA.pm:1302
+#: ../../main/ca/src/EBox/CA.pm:1396
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:76
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:103
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
@@ -10463,7 +10493,7 @@ msgstr "Kasutajat {commonName} EI ole olemas"
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Maksimaalselt lubatud määratud päevi: Year 2038 Bug"
 
-#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2561
+#: ../../main/ca/src/EBox/CA/TestStub.pm:729 ../../main/ca/src/EBox/CA.pm:2547
 msgid "Expiration date later than CA certificate expiration date"
 msgstr "Aegumise kuupäev on hilisem kui SK sertifikaadi aegumise kuupäev"
 
@@ -10484,7 +10514,7 @@ msgstr ""
 "genereerimine"
 
 #: ../../main/ca/src/EBox/Model/Certificates.pm:299
-#: ../../main/ca/src/EBox/CA.pm:1752
+#: ../../main/ca/src/EBox/CA.pm:1744
 msgid "Services Certificates"
 msgstr "Teenuste sertifikaadid"
 
@@ -10516,22 +10546,22 @@ msgid "Certification Authority"
 msgstr "Sertifitseerimiskeskus"
 
 # ei saa lausest aru
-#: ../../main/ca/src/EBox/CA.pm:275 ../../main/ca/src/EBox/CA.pm:748
-#: ../../main/ca/src/EBox/CA.pm:1384
+#: ../../main/ca/src/EBox/CA.pm:271 ../../main/ca/src/EBox/CA.pm:744
+#: ../../main/ca/src/EBox/CA.pm:1375
 #, fuzzy, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Maksimaalselt lubatud päevade määramine {days}: Year 2038 Bug"
 
-#: ../../main/ca/src/EBox/CA.pm:364
+#: ../../main/ca/src/EBox/CA.pm:360
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "Eemaldamine ei ole lõpetatud. Selle põhjuseks on: "
 
-#: ../../main/ca/src/EBox/CA.pm:914 ../../main/ca/src/EBox/CA.pm:1252
+#: ../../main/ca/src/EBox/CA.pm:907 ../../main/ca/src/EBox/CA.pm:1243
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Üldise nimega sertifikaati {cn} EI ole olemas"
 
-#: ../../main/ca/src/EBox/CA.pm:918
+#: ../../main/ca/src/EBox/CA.pm:911
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -10540,7 +10570,7 @@ msgstr ""
 "Põhjus {reason} EI ole sobiv põhjus.\n"
 "Valikud:"
 
-#: ../../main/ca/src/EBox/CA.pm:1063
+#: ../../main/ca/src/EBox/CA.pm:1054
 msgid ""
 "The Certification Authority Infrastructure is not available, create it first"
 msgstr ""
@@ -10548,45 +10578,45 @@ msgstr ""
 "looma"
 
 #  
-#: ../../main/ca/src/EBox/CA.pm:1160
+#: ../../main/ca/src/EBox/CA.pm:1151
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr "Üldist nime (CN), eraldusnime (DN) või seerianumbrit ei võetud vastu"
 
-#: ../../main/ca/src/EBox/CA.pm:1406
+#: ../../main/ca/src/EBox/CA.pm:1397
 msgid "or"
 msgstr "või"
 
-#: ../../main/ca/src/EBox/CA.pm:1407
+#: ../../main/ca/src/EBox/CA.pm:1398
 msgid "Certificate file"
 msgstr "Sertifikaadi fail"
 
-#: ../../main/ca/src/EBox/CA.pm:1429
+#: ../../main/ca/src/EBox/CA.pm:1420
 msgid "The certificate to renew does NOT exist"
 msgstr "Uuendatavaid sertifikaate EI ole olemas"
 
-#: ../../main/ca/src/EBox/CA.pm:1469
+#: ../../main/ca/src/EBox/CA.pm:1460
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr "Selle üldise nimega {cn} sertifikaati EI ole SKs olemas"
 
-#: ../../main/ca/src/EBox/CA.pm:1865
+#: ../../main/ca/src/EBox/CA.pm:1857
 msgid "Not created"
 msgstr "Ei ole loodud"
 
-#: ../../main/ca/src/EBox/CA.pm:1867
+#: ../../main/ca/src/EBox/CA.pm:1859
 msgid "Available"
 msgstr "Saadaval"
 
-#: ../../main/ca/src/EBox/CA.pm:1869
+#: ../../main/ca/src/EBox/CA.pm:1861
 msgid "Created but not available"
 msgstr "Loodud, kuid mitte saadaval"
 
-#: ../../main/ca/src/EBox/CA.pm:1952
+#: ../../main/ca/src/EBox/CA.pm:1944
 #, fuzzy
 msgid "String"
 msgstr "Range"
 
-#: ../../main/ca/src/EBox/CA.pm:1957
+#: ../../main/ca/src/EBox/CA.pm:1949
 #, fuzzy
 msgid ""
 "The field contains invalid characters. All ASCII alphanumeric characters, "
@@ -10595,38 +10625,38 @@ msgstr ""
 "Sisendis on sobimatud märgid. Lubatud on kõik tähe- ja numbrimärgid, tühikud "
 "ja märgid: .?&+:-@*"
 
-#: ../../main/ca/src/EBox/CA.pm:2475
+#: ../../main/ca/src/EBox/CA.pm:2469
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Signeerimine nurjus. Vale SK paroolifraas või on SK privaatvõti kadunud?"
 
-#: ../../main/ca/src/EBox/CA.pm:2477
+#: ../../main/ca/src/EBox/CA.pm:2471
 msgid "Database corruption"
 msgstr "Andmebaasi rike"
 
-#: ../../main/ca/src/EBox/CA.pm:2479
+#: ../../main/ca/src/EBox/CA.pm:2473
 msgid "Identifier duplicated in Database"
 msgstr "Identifikaator on andmebaasis dubleeritud"
 
-#: ../../main/ca/src/EBox/CA.pm:2481
+#: ../../main/ca/src/EBox/CA.pm:2475
 msgid "Certificate already revoked"
 msgstr "Sertifikaat on juba tühistatud"
 
-#: ../../main/ca/src/EBox/CA.pm:2484
+#: ../../main/ca/src/EBox/CA.pm:2478
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "ASN1 väli on liiga pikk. Maksimaalne suurus on:"
 
-#: ../../main/ca/src/EBox/CA.pm:2486
+#: ../../main/ca/src/EBox/CA.pm:2480
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Tundmatu viga. Antud OpenSSL väljund:"
 
-#: ../../main/ca/src/EBox/CA.pm:2591
+#: ../../main/ca/src/EBox/CA.pm:2577
 #, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternative name types"
 msgstr ""
 "Ainult {dns}, {ip} ja {email} on sobivad subjekti alternatiivse nime tüübid"
 
-#: ../../main/ca/src/EBox/CA.pm:2634
+#: ../../main/ca/src/EBox/CA.pm:2620
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "OpenSSL shelli ei ole võimalik käivitada. ({errval})"
@@ -11788,7 +11818,7 @@ msgstr "Mooduli {modName} salvestamine"
 msgid "Saving {modName} module"
 msgstr "Mooduli {modName} salvestamine"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1123
+#: ../../main/core/src/EBox/GlobalImpl.pm:1128
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Skripti {scriptName} käivitamine"
@@ -12740,7 +12770,7 @@ msgid "Error restarting service {mod}. See {logs} for more information."
 msgstr ""
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:33
-#: ../../main/core/src/templates/backup.mas:31
+#: ../../main/core/src/templates/backup.mas:29
 msgid "Configuration Backup"
 msgstr "Seadistuste varundamine"
 
@@ -13835,7 +13865,15 @@ msgstr "Smarthosti aadress"
 msgid "Smarthost's port"
 msgstr "Smarthosti port"
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:452
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:451
+#, fuzzy
+msgid ""
+"The mailname is set to the server's hostname and the hostname is incorrect"
+msgstr ""
+"E-posti nimi on määratud serveri masinanimeks ning see ei ole täielikult "
+"kvalifitseeruv. "
+
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:457
 msgid ""
 "The mailname is set to the server's hostname and the hostname is not fully "
 "qualified. "
@@ -13843,12 +13881,12 @@ msgstr ""
 "E-posti nimi on määratud serveri masinanimeks ning see ei ole täielikult "
 "kvalifitseeruv. "
 
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:456
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:461
 msgid "The selected mailname is not a fully qualified hostname. "
 msgstr "Valitud e-posti nimi ei ole täielikult kvalifitseeruv masinanimi."
 
 #  
-#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:460
+#: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:465
 msgid ""
 "Not having a fully qualified hostname could lead to some mail servers to "
 "reject the mail and incorrect reply addresses from system users"
@@ -15074,34 +15112,34 @@ msgid "AD user"
 msgstr "AD kasutaja"
 
 # Kasutajanimi sidumiseks Windowsi kataloogiteenusega (kasutaja peab olema loodud ADs)
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:75
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:76
 msgid "Username for binding to Windows AD (it has to be created in the AD)"
 msgstr "Kasutajanimi sidumiseks Windows ADga (kasutaja peab olema loodud ADs)"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:79
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:80
 msgid "AD password"
 msgstr "AD parool"
 
 # koodis: help AD password'ile
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:81
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:82
 msgid "Password for the above user"
 msgstr "Ülalmainitud kasutaja parool"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:85
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:86
 msgid "AD Secret Key"
 msgstr "AD salajane võti"
 
 # char - märk, sümbol, tähemärk ?
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:88
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:89
 #, fuzzy
 msgid "Secret key to be shared between Windows and Zentyal (16 chars)"
 msgstr "Windowsi ja eBoxi vahel jagatav salajane võti (pikkus 16 märki)"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:94
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:95
 msgid "Windows AD Sync Settings"
 msgstr "Windowsi AD sünkroniseerimise seadistused"
 
-#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:116
+#: ../../main/users/src/EBox/UsersAndGroups/Model/ADSyncSettings.pm:117
 msgid "The secret key needs to have 16 characters."
 msgstr "Salajase võtme pikkus peab olema vähemalt 16 märki."
 
@@ -16199,7 +16237,7 @@ msgstr "redigeerimine"
 #: ../../main/dns/src/templates/index.mas:70
 #: ../../main/dns/src/templates/edit.mas:110
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:169
-#: ../../main/core/src/templates/backup.mas:187
+#: ../../main/core/src/templates/backup.mas:185
 msgid "delete"
 msgstr "kustutamine"
 
@@ -16207,6 +16245,11 @@ msgstr "kustutamine"
 #, perl-brace-format
 msgid "Host list for domain {domain}"
 msgstr "Masinate loend {domain} domeeni jaoks"
+
+#: ../../main/ftp/stubs/vsftpd.conf.mas:74
+#, fuzzy
+msgid "Welcome to Zentyal FTP service."
+msgstr "eBoxi e-posti teenus"
 
 #: ../../main/software/src/templates/ebox.mas:189
 #: ../../main/software/src/templates/ebox.mas:631
@@ -16473,7 +16516,7 @@ msgid "Back up the current configuration state"
 msgstr "Aktiivse oleku varundamine"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:88
-#: ../../main/core/src/templates/backup.mas:46
+#: ../../main/core/src/templates/backup.mas:44
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -16492,19 +16535,19 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:48
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:41
 #: ../../main/core/src/templates/confirm-backup.mas:45
-#: ../../main/core/src/templates/backup.mas:132
+#: ../../main/core/src/templates/backup.mas:130
 msgid "Archive size"
 msgstr "Arhiivi suurus"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:161
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:91
-#: ../../main/core/src/templates/backup.mas:185
+#: ../../main/core/src/templates/backup.mas:183
 msgid "restore"
 msgstr "taastamine"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:165
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:95
-#: ../../main/core/src/templates/backup.mas:183
+#: ../../main/core/src/templates/backup.mas:181
 msgid "download"
 msgstr "allalaadimine"
 
@@ -16521,7 +16564,7 @@ msgid "Zentyal host"
 msgstr "eBoxi kodulehekülg"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:101
-#: ../../main/core/src/templates/backup.mas:126
+#: ../../main/core/src/templates/backup.mas:124
 msgid "Backups' list"
 msgstr "Varunduste loend"
 
@@ -17176,16 +17219,20 @@ msgstr "elemente järgi"
 msgid "Some error has happened in Zentyal: "
 msgstr "eBoxis tekkis mingi viga: "
 
+#: ../../main/core/src/templates/progress.mas:32
+msgid "Click here to return to the Dashboard"
+msgstr ""
+
 # Algamine... v Käivitumine...
-#: ../../main/core/src/templates/progress.mas:152
+#: ../../main/core/src/templates/progress.mas:155
 msgid "Starting..."
 msgstr "Tegevuste alustamine..."
 
-#: ../../main/core/src/templates/progress.mas:161
+#: ../../main/core/src/templates/progress.mas:164
 msgid " of "
 msgstr ""
 
-#: ../../main/core/src/templates/progress.mas:169
+#: ../../main/core/src/templates/progress.mas:172
 msgid "The process produced some warning messages:"
 msgstr ""
 
@@ -17721,12 +17768,12 @@ msgstr "Hoia olemasolev fail alles"
 msgid "Modify"
 msgstr "Muuda"
 
-#: ../../main/core/src/templates/backup.mas:30
+#: ../../main/core/src/templates/backup.mas:28
 msgid "Full Backup"
 msgstr "Täisvarundamine"
 
 #  
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:35
 #, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
@@ -17737,12 +17784,12 @@ msgstr ""
 "kunagi lubatud, eiratakse taastamis- ja varundustoimingute poolt."
 
 # Hetkeseisu varundamine
-#: ../../main/core/src/templates/backup.mas:39
+#: ../../main/core/src/templates/backup.mas:37
 #, fuzzy
 msgid "Backup the Current State"
 msgstr "Aktiivse oleku varundamine"
 
-#: ../../main/core/src/templates/backup.mas:41
+#: ../../main/core/src/templates/backup.mas:39
 #, fuzzy
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
@@ -17751,7 +17798,7 @@ msgstr ""
 "Varundused salvestatakse eBoxi, peale seda on võimalik need oma kõvakettale "
 "laadida."
 
-#: ../../main/core/src/templates/backup.mas:42
+#: ../../main/core/src/templates/backup.mas:40
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
@@ -17761,11 +17808,11 @@ msgstr ""
 "administraatoriõigustes kasutajatel tagatud ligipääs varundamise "
 "kataloogile, kui jagatud ressursile"
 
-#: ../../main/core/src/templates/backup.mas:78
+#: ../../main/core/src/templates/backup.mas:76
 msgid "Restore Backup from File"
 msgstr "Taastamine varundusfailist"
 
-#: ../../main/core/src/templates/backup.mas:80
+#: ../../main/core/src/templates/backup.mas:78
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -17774,38 +17821,38 @@ msgstr ""
 "arvestama, et mõned veebilehitsejad ei suuda väga suuri faile käsitleda (>= "
 "1Gb)."
 
-#: ../../main/core/src/templates/backup.mas:88
+#: ../../main/core/src/templates/backup.mas:86
 msgid "Backup file"
 msgstr "Varundusfail"
 
 #  
-#: ../../main/core/src/templates/backup.mas:118
+#: ../../main/core/src/templates/backup.mas:116
 msgid "Full"
 msgstr "Täiskoopia"
 
 # siin mõeldakse seadistuste varundamist
-#: ../../main/core/src/templates/backup.mas:119
+#: ../../main/core/src/templates/backup.mas:117
 msgid "Configuration only"
 msgstr "Ainult seadistused"
 
-#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/core/src/templates/backup.mas:118
 msgid "Unknown type"
 msgstr "Tundmatu tüüp"
 
-#: ../../main/core/src/templates/backup.mas:157
+#: ../../main/core/src/templates/backup.mas:155
 msgid "Restore configuration using this file"
 msgstr "Seadistuste taastamine kasutades seda faili"
 
-#: ../../main/core/src/templates/backup.mas:158
+#: ../../main/core/src/templates/backup.mas:156
 msgid "Restore from backup"
 msgstr "Taastamine varundusest"
 
-#: ../../main/core/src/templates/backup.mas:195
+#: ../../main/core/src/templates/backup.mas:193
 #, fuzzy
 msgid "Configuration Report"
 msgstr "Seadistuste taastamine"
 
-#: ../../main/core/src/templates/backup.mas:197
+#: ../../main/core/src/templates/backup.mas:195
 #, fuzzy
 msgid ""
 "You can generate a file with information about the state of your system. "
@@ -17814,7 +17861,7 @@ msgstr ""
 "Sellel lehel on võimalik genereerida süsteemi olekust aruandefail, mis võib "
 "olla kasulik juhul, kui soovid koostada eBoxi veaaruannet."
 
-#: ../../main/core/src/templates/backup.mas:202
+#: ../../main/core/src/templates/backup.mas:200
 msgid "Generate and Download report file"
 msgstr ""
 
