@@ -10,7 +10,7 @@ use EBox::Gettext;
 </%init>
 <div id="top"></div>
 	<div id="header">
-          <a href="/zentyal">
+          <a href="/">
             <img src="<% $image_title %>" alt="title"/>
           </a>
         </div>

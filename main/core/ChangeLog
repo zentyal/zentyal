@@ -1,4 +1,5 @@
 HEAD
+	+ Removed obsolete references to /zentyal URL
 	+ Create configuration backup directories on install to avoid warnings
 	  accessing the samba share when there are no backups
 	+ Log result of save changes, either successful or with warnings
