@@ -4,9 +4,9 @@ $userHomes
 $chrootUsers
 $ssl
 </%args>
-<%args>
+<%init>
 use EBox::Gettext;
-</%args>
+</%init>
 # /etc/vsftpd.conf - vsftpd configuration file
 #
 # Run standalone
