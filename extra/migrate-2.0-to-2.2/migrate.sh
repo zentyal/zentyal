@@ -27,7 +27,7 @@ sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 # FIXME: what happens with usercorner? Detect it if exists usercorner.bak?
 # Maybe it's better to detect this via the *.bak files instead of dpkg?
 EBOX_PACKAGES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }'`
-INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g'`
+INSTALLED_MODULES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g' | grep -v 'cloud-prof'`
 
 echo "The following modules have been detected and are going to be upgraded:"
 echo $INSTALLED_MODULES
@@ -56,6 +56,10 @@ run-parts ./pre-remove
 
 # Restore network connectivity after ebox stop (we will need it for apt commands)
 echo -e "invoke-rc.d ebox network start || true" >> /var/lib/dpkg/info/ebox.prerm
+echo -e "invoke-rc.d ebox apache stop || true" >> /var/lib/dpkg/info/ebox.prerm
+# TODO: not sure if this is necessary, probably the above apache stop
+# will be enough
+echo -e "pkill -9 redis-server || true" >> /var/lib/dpkg/info/ebox.prerm
 retry "apt-get remove libebox -y --force-yes"
 
 retry "apt-get update"
