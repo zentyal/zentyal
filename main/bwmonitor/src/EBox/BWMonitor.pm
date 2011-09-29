@@ -565,8 +565,8 @@ sub processLine
 
     # Retrieve username
     my $row = $self->{usermap}->find(ip => $data->{IP});
+    $dataToInsert{username} = '';
     $dataToInsert{username} = $row->valueByName('username') if (defined($row));
-
 
     # Insert into db
     $dbengine->insert('bwmonitor_usage', \%dataToInsert);
