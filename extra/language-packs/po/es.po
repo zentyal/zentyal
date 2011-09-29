@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-29 15:52+0200\n"
-"PO-Revision-Date: 2011-09-12 00:49+0200\n"
-"Last-Translator: mburillo <mburillo@zentyal.com>\n"
+"PO-Revision-Date: 2011-09-29 16:35+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -4097,9 +4097,8 @@ msgstr ""
 "información en los logs"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
-#, fuzzy
 msgid "Go to save changes"
-msgstr "Guardar cambios"
+msgstr "Ir a guardar cambios"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
@@ -4132,9 +4131,8 @@ msgstr ""
 "en los logs"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
-#, fuzzy
 msgid "Go to initial configuration wizard"
-msgstr "Asistente de configuración inicial"
+msgstr "Ir al asistente de configuración inicial"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
@@ -5255,9 +5253,8 @@ msgid "List of monitored interfaces."
 msgstr "Lista de interfaces monitorizadas."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:73
-#, fuzzy
 msgid "There aren't any internal interfaces to monitor"
-msgstr "Cada medida puede tener varios umbrales a monitorizar"
+msgstr "No hay interfaces internas que monitorizar"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
 msgid "External in"
@@ -7565,9 +7562,8 @@ msgid "Base Memory"
 msgstr "Memoria base"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
-#, fuzzy
 msgid "Manage only"
-msgstr "Sólo lectura"
+msgstr "Sólo gestionar"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:106
 msgid ""
@@ -7575,6 +7571,9 @@ msgid ""
 "machine should be directly edited from VirtualBox GUI or using the "
 "vboxmanage command"
 msgstr ""
+"La configuración no se volverá a reescribir despues de activar esta opción y "
+"la máquina podra editarse directamente usando la interfaz de VirtualBox o "
+"el comando vboxmanage"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
 msgid "System Settings"
@@ -13453,10 +13452,11 @@ msgid "Smarthost's port"
 msgstr "Puerto del smarhost"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:451
-#, fuzzy
 msgid ""
 "The mailname is set to the server's hostname and the hostname is incorrect"
-msgstr "El nombre de correo es el del servidor y ése no está cualificado"
+msgstr ""
+"El nombre del correo es igual que el hostname del servidor, y este último es "
+"incorrecto"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:457
 msgid ""
@@ -15742,9 +15742,8 @@ msgid "Host list for domain {domain}"
 msgstr "Lista de máquinas para el dominio {domain}"
 
 #: ../../main/ftp/stubs/vsftpd.conf.mas:74
-#, fuzzy
 msgid "Welcome to Zentyal FTP service."
-msgstr "Archivos del servidor FTP de Zentyal."
+msgstr "Bienvenido al servicio FTP de Zentyal."
 
 #: ../../main/software/src/templates/ebox.mas:189
 #: ../../main/software/src/templates/ebox.mas:631
@@ -16682,7 +16681,7 @@ msgstr "Ha ocurrido un error en Zentyal:"
 
 #: ../../main/core/src/templates/progress.mas:32
 msgid "Click here to return to the Dashboard"
-msgstr ""
+msgstr "Haz click para volver al Dashboard"
 
 #: ../../main/core/src/templates/progress.mas:155
 msgid "Starting..."
