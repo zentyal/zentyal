@@ -4,19 +4,21 @@
 # This file is distributed under the same license as the zentyal packages.
 # Automatically generated, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2010-08-27 13:54+0200\n"
-"Last-Translator: Robert Brzozowski <gnutar1@gmail.com>\n"
+"PO-Revision-Date: 2011-09-14 21:52+0200\n"
+"Last-Translator: Morandir <morandir@angrenost.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultExtensionFilter.pm:56
@@ -681,7 +683,7 @@ msgstr "Polityka globalna"
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:75
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:70
 msgid "List of groups"
-msgstr ""
+msgstr "Lista grup"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:89

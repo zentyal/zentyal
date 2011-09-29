@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2011-09-06 03:18+0200\n"
+"PO-Revision-Date: 2011-09-15 14:21+0200\n"
 "Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -208,9 +208,8 @@ msgid "Network object"
 msgstr "Objeto de Rede"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Taxa de Rede"
+msgstr "Taxa de download de rede"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -219,16 +218,13 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Máxima taxa de largura de banda para download desta rede. Use -1 para "
-"desabilitar esta opção."
+"Taxa máxima de download para esta rede. Use -1 para desabilitar esta opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Tamanho Máximo da Rede"
+msgstr "Tamanho do arquivo da rede"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -238,53 +234,48 @@ msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Limite máximo para download nesta rede. Use -1 para desativar essa opção."
-
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
-msgid "Client download rate"
-msgstr "Endereço do cliente"
-
-#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
-msgid "Maximum download rate per client. Use -1 to disable this option."
-msgstr ""
-"Taxa máxima de largura de banda para download por cliente. Use -1 para "
+"Tamanho do arquivo sem estrangulação para download da rede. Use -1 para "
 "desativar essa opção."
 
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
+msgid "Client download rate"
+msgstr "Taxa de download do cliente"
+
+#: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
+msgid "Maximum download rate per client. Use -1 to disable this option."
+msgstr "Taxa máxima de download por cliente. Use -1 para desativar essa opção."
+
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Tamanho Máximo de Cliente"
+msgstr "Tamanho do arquivo do cliente"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
-"Tamanho máximo de download por cliente. Use -1 para desativar essa opção."
+"Tamanho máximo de arquivo sem estrangulamento para download por cliente. Use "
+"-1 para desativar essa opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Regras de controle de banda por cliente (class 2 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"Uma vez que o pedido for superior ao {max}, o HTTP proxy regulará a largura "
-"de banda para download para uma dada {rate}. O número máximo de clientes "
-"está limitado a 256."
+"O download excede o tamanho de arquivo especificado e o HTTP Proxy irá "
+"diminuir a taxa de download para o valor especificado. Ambos os parâmetros "
+"podem ser definidos com base na rede inteira e por cliente. O número máximo "
+"de clientes é limitado a 256. "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -741,24 +732,22 @@ msgid "Global group policy need a global policy with authentication"
 msgstr "Política de grupo global necessita de política global de autenticação"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Donwload"
+msgstr "Taxa de download"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Limite máximo para download nesta rede. Use -1 para desativar essa opção."
+"Velocidade máxima de download para esta rede. Use -1 para desativar essa "
+"opção."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Sistema de Arquivos"
+msgstr "Tamanho de arquivo"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr ""
+msgstr "Regras de controle de banda para rede (class 1 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -766,6 +755,9 @@ msgid ""
 "connection to the specified download rate. The clients on this network will "
 "have to share the available bandwidth."
 msgstr ""
+"O download excede o tamanho de arquivo definido e o HTTP Proxy irá limitar a "
+"taxa de download para o valor especificado. Os clientes nesta rede irão "
+"compartilhar a largura de banda disponível."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -1150,7 +1142,6 @@ msgid "Bandwidth Throttling"
 msgstr "Estrangulamento de Largura de banda"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
@@ -1160,12 +1151,14 @@ msgid ""
 "and the first rule to match is applied. If a connection doesn't match any "
 "rule, then no bandwidth throttling is applied."
 msgstr ""
-"Grupo Classe 1 permitem a você restringir a taxa de largura de banda para "
-"grandes downloads o grupo classe 2 permite que você defina o uso de banda "
-"para uma taxa sustentada. O grupo classe 1 têm mais prioridade do que os de "
-"classe 2 e a primeira disputa da fonte é feita. Se um objeto de rede não "
-"corresponde a nenhuma regra, nenhuma otimização de largura de banda é feito "
-"para e"
+"A fragmentação de banda permite que você controle a taxa de download para "
+"conexões que utilizam o Proxy HTTP.  Regras de controle de banda para a rede "
+"(class 1 delay pools) permitem a você limitar a taxa de download para toda "
+"a rede e as regras de controle de banda por cliente (class 2 delay pools) "
+"permitem a você limitar a taxa de download baseado em clientes. As regras "
+"baseadas em toda a rede (class 1 delay pools) tem prioridade em relação as "
+"regras por cliente (class 2 delay pools). Se uma conexão não corresponde a "
+"nenhuma regra, então nenhum controle de banda é aplicado."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -1463,9 +1456,8 @@ msgstr ""
 "personalizados Zentyal."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Remover links dos scripts de inicialização do ntp"
+msgstr "Remove o link do script de inicialização do dansguardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
 #: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
@@ -3705,9 +3697,8 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr "Deixe o daemon BIND para ser atualizados dinamicamente"
 
 #: ../../main/dns/src/EBox/DNS.pm.in:634
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Remover links dos scripts de inicialização do ntp"
+msgstr "Remove o link do script de inicialização do bind9"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -5538,9 +5529,9 @@ msgid "MB"
 msgstr "S"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:84
-#, fuzzy
 msgid "Maximum bandwidth usage for defined period. 0 means no limit."
-msgstr "MB/mês. Uso máximo de banda por mês. 0 significa sem limite."
+msgstr ""
+"Limite máximo de uso de banda por período definido. 0 significa sem limite."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:95
 #: ../../main/core/src/EBox/CGI/SysInfo/ChangeDate.pm:42
@@ -6092,18 +6083,17 @@ msgid "Directory for backup"
 msgstr "Diretório para backup"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:818
-#, fuzzy
 msgid "Cannot use the / directory as target"
-msgstr "Diretório relativo"
+msgstr "Não é possível usar o diretório / como destino"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
 msgid "File exists and it is not a directory"
 msgstr "Existe um arquivo e não um diretório"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:837
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot read parent directory {d}"
-msgstr "Diretório relativo"
+msgstr "Não é possível ler o diretorório principal {d}"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:852
 msgid ""
@@ -6275,14 +6265,14 @@ msgid "Services Restore"
 msgstr "Restauração de serviços"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} does not exists"
-msgstr "O cliente {c} não existe"
+msgstr "Não é possível restaurar para {d}: {dd} não existe"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:183
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot restore to {d}: {dd} is not a directory"
-msgstr "Existe um arquivo e não um diretório"
+msgstr "Não é possivel restaurar para {d}: {dd} não é um diretório"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:226
 #, perl-brace-format
@@ -6299,14 +6289,12 @@ msgstr ""
 "de backup."
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:429
-#, fuzzy
 msgid "All files in backup"
-msgstr "Restaurando backup"
+msgstr "Todos arquivos no backup"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:430
-#, fuzzy
 msgid "All files included in the backup"
-msgstr "Dados extra incluído no backup manualmente"
+msgstr "Todos arquivos incluídos no backup"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:715
 msgid ""
@@ -10572,6 +10560,8 @@ msgstr "Evento desconhecido {event}."
 #: ../../main/ntp/src/EBox/NTP.pm:90
 msgid "Remove ntp init script link and networking hooks (if-up.d and dhclient)"
 msgstr ""
+"Remove o link para o script e networking hooks associados ao ntp (if-up.d "
+"and dhclient)"
 
 #: ../../main/ntp/src/EBox/NTP.pm:109
 msgid "NTP configuration file"
@@ -14130,9 +14120,8 @@ msgid "To serve pages over HTTPS."
 msgstr "Para servir páginas sobre HTTPS."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Remover links dos scripts de inicialização do ntp"
+msgstr "Remove o link para o script de incialização do apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:166
 msgid "HyperText Transport Protocol"
@@ -15151,14 +15140,15 @@ msgid ""
 "Error restoring directory {d}. This could make fail some files or domains "
 "restore processes. Error {e}"
 msgstr ""
+"Erro restaurando diretório {d}. Isto pode causar falha em alguns arquivos ou "
+"domínios no processo de restauração. Erro {e}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:727
-#, fuzzy
 msgid ""
 "Backup log data not found in the files from the backup, log database will "
 "not be restored"
 msgstr ""
-"Dados de log do backup não encontrados, banco de dados de log não será "
+"Dados de log do backup não encontrados, log do banco de dados não será "
 "restaurado."
 
 #: ../../main/ebackup/src/scripts/restore-tool:733
@@ -15285,14 +15275,13 @@ msgid "Downloading backup metadata..."
 msgstr "Baixando backup de meta dados..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1304
-#, fuzzy
 msgid "Downloading the backup data"
-msgstr "Baixando backup de meta dados..."
+msgstr "Recebendo os dados do backup"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1322
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Downloading  {src} backup data for {dom}"
-msgstr "Recebendo o backup dos dados e configuração"
+msgstr "Recebendo  {src} dados do backup para {dom}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1336
 #, perl-brace-format
@@ -15300,11 +15289,12 @@ msgid ""
 "Error downloading data for backup domain: {dom}. The domain will not be "
 "fully restored"
 msgstr ""
+"Erro enquanto recebendo os dados do backup do domínio: {dom}. O domínio não "
+"será completamente restaurado"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1354
-#, fuzzy
 msgid "Downloading the backup configuration"
-msgstr "Recebendo o backup dos dados e configuração"
+msgstr "Recebendo o backup da configuração"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1392
 msgid "Downloading configuration"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2011-07-22 16:46+0200\n"
-"Last-Translator: MarcusF <Contact@marcusfernstrom.com>\n"
+"PO-Revision-Date: 2011-09-24 14:49+0200\n"
+"Last-Translator: rekoil <adrian@qng.se>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -208,7 +208,6 @@ msgid "Network object"
 msgstr "Nätverksobjekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
 msgstr "Nätverkshastighet"
 
@@ -216,55 +215,48 @@ msgstr "Nätverkshastighet"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:155
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
 "Max nedladdningshastighet för detta nätverk. Använd -1 för att inaktivera "
 "denna funktion."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Max storlek i nätverket"
+msgstr "Max filstorlek i nätverket"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:165
 msgid "KB"
-msgstr ""
+msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Maximal obegränsad nedladdningsstorlek för detta nätverk. Använd -1 för att "
-"inaktivera denna funktion."
+"Maximal obegränsad nedladdningsstorlek för filer i detta nätverk. Använd -1 "
+"för att inaktivera denna funktion."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "Klient adress"
+msgstr "Klients nedladdningshastighet"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
 "Maximal nedladdningshastighet per klient. Använd -1 för att inaktivera denna "
 "funktion."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Max klientstorlek"
+msgstr "Max klientfilstorlek"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
@@ -274,18 +266,19 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Klients bandbreddsregler (class 2 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"När förfrågan överstiger {max} kommer HTTP proxyn att begränsa nedladdningen "
-"till hastigheten {rate}. Antalet klienter är begränsat till 256."
+"När nedladdningen överstiger filstorleken kommer HTTP Proxy att begränsa "
+"hastigheten till den specificerade nedladdningshastigheten. Båda parametrar "
+"kan definieras för hela näterket och per klient. Antalet klienter är "
+"begränsat till 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -390,7 +383,6 @@ msgid "Ad Blocking"
 msgstr "Reklam Blockering"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
-#, fuzzy
 msgid "Remove advertisements from all HTTP traffic"
 msgstr "Ta bort reklam från all HTTP trafik"
 
@@ -401,19 +393,8 @@ msgstr "Ta bort reklam från all HTTP trafik"
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:89
 #: ../../main/radius/src/EBox/Radius.pm:394
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Slaves.pm:60
-#, fuzzy
 msgid "Port"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-openvpn 0.12)  #-#-#-#-#\n"
-"Port\n"
-"#-#-#-#-#  sv.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Port\n"
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Port\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Port\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"port"
+msgstr "Port"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:76
 msgid "Cache files size (MB)"
@@ -546,13 +527,8 @@ msgstr "Konfigurera tillåtna filändelser"
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:73
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:82
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:89
-#, fuzzy
 msgid "extension"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Filändelse\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"anknytning"
+msgstr "anknytning"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupExtensionFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilter.pm:74
@@ -677,13 +653,8 @@ msgstr "Använda standardprofilens tröskelvärde "
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
-#, fuzzy
 msgid "Threshold"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Tröskelvärde\n"
-"#-#-#-#-#  sv.po (EBox-monitor 0.1)  #-#-#-#-#\n"
-"Gränsvärde"
+msgstr "Gränsvärde"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:79
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:76
@@ -759,25 +730,22 @@ msgid "Global group policy need a global policy with authentication"
 msgstr "Global grupp policy behöver en global policy med autentisering"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Ladda ner"
+msgstr "Nedladdningshastighet"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Maximal obegränsad nedladdningsstorlek för detta nätverk. Använd -1 för att "
+"Maximal nedladdnings-hastighet för detta nätverk. Använd -1 för att "
 "inaktivera denna funktion."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Sidstorlek"
+msgstr "Filstorlek"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr ""
+msgstr "Nätverks bandbreddsregler (class 1 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -785,6 +753,9 @@ msgid ""
 "connection to the specified download rate. The clients on this network will "
 "have to share the available bandwidth."
 msgstr ""
+"När nedladdningen överstiger filstorleken kommer HTTP Proxy att begränsa "
+"anslutningen till den specificerade nedladdningshastigheten. Klienterna på "
+"nätverket får sedan dela på den återstående bandbredden."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -1130,13 +1101,8 @@ msgstr "Filändelse"
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:700
 #: ../../main/asterisk/src/templates/group.mas:40
 #: ../../main/asterisk/src/templates/user.mas:37
-#, fuzzy
 msgid "Extension"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Filändelse\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Anknytning"
+msgstr "Anknytning"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
@@ -1169,7 +1135,6 @@ msgid "Bandwidth Throttling"
 msgstr "Bandbreddsbegränsning"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
@@ -1220,23 +1185,23 @@ msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
-msgstr ""
+msgstr "O"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
-msgstr ""
+msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
-msgstr ""
+msgstr "F"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
-msgstr ""
+msgstr "A"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
@@ -1310,7 +1275,7 @@ msgid "Bad minutes value: {mi}"
 msgstr "Felaktigt värde på minuter: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Bad minutes format: {mi}"
 msgstr "Felaktigt format på minuter: {mi}"
 
@@ -1481,16 +1446,14 @@ msgstr ""
 "skräddarsydda Zentyal mallar."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Ta bort länkar för ntp startscript"
+msgstr "Ta bort länkar för dansguardian startscript"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
 #: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
 #: ../../main/webserver/src/EBox/WebServer.pm:141
-#, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox kommer att ta hand om att starta och stoppa tjänsterna."
+msgstr "Zentyal kommer att ta hand om att starta och stoppa tjänsterna."
 
 #: ../../main/squid/src/EBox/Squid.pm:336
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
@@ -1546,13 +1509,8 @@ msgstr "Global policy"
 #: ../../main/squid/src/EBox/Squid.pm:1108
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:225
-#, fuzzy
 msgid "Listening port"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Lyssnande port\n"
-"#-#-#-#-#  sv.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Lyssningsport"
+msgstr "Lyssnande port"
 
 #: ../../main/squid/src/EBox/Squid.pm:1140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
@@ -1942,7 +1900,7 @@ msgstr "Serverns tunnel-lösenord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Lyssningsport för klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
 msgid "Bind address for client"
@@ -1950,7 +1908,7 @@ msgstr "Bind address för klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:148
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Kommando att exekvera efter att rutterna är satta"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:158
 msgid "Client configuration"
@@ -2622,13 +2580,8 @@ msgstr "Källport"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1015
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:156
-#, fuzzy
 msgid "Destination port"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Destinationsport\n"
-"#-#-#-#-#  sv.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Målport"
+msgstr "Destinationsport"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1016
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -2652,12 +2605,15 @@ msgstr "OMDIRIGERA"
 #: ../../main/firewall/src/EBox/Iptables.pm:686
 msgid "Firewall failed to add rules for the following modules: "
 msgstr ""
+"Brandväggen misslyckades med att lägga till regler för följande moduler:"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:689
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Detta beror troligen på brist på anslutning, kontrollera din konfiguration "
+"eller avaktivera dessa moduler"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:938
 #: ../../main/firewall/src/EBox/Iptables.pm:975
@@ -2874,9 +2830,8 @@ msgstr "Ursprunglig destination"
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:226
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "eBox webbsida"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:261
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:235
@@ -2899,9 +2854,8 @@ msgid "Other"
 msgstr "Annan"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:341
-#, fuzzy
 msgid "Replace source address"
-msgstr "IP-adress för gränssnittet"
+msgstr "Ersätt källadress"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:344
 msgid ""
@@ -2909,16 +2863,14 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
+"Ersätter orginal källadresser till anslutningen med Zentyals egen adress. "
+"Detta kan vara nödvändigt när destinationen inte har en retur rutt eller har "
+"restriktiva brandväggsregler."
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:350
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:148
-#, fuzzy
 msgid "Log"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Logg\n"
-"#-#-#-#-#  sv.po (ebox 0.12)  #-#-#-#-#\n"
-"Loggar"
+msgstr "Logg"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:352
 msgid "Log new forwarded connections"
@@ -2946,13 +2898,8 @@ msgstr "Externt inkommande"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 #: ../../main/network/src/templates/diag.mas:38
-#, fuzzy
 msgid "Output"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Utdata\n"
-"#-#-#-#-#  sv.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Utgående"
+msgstr "Utdata"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
 msgid "Forward"
@@ -2967,9 +2914,8 @@ msgid "NAT postrouting"
 msgstr "NAT efter routing"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:92
-#, fuzzy
 msgid "Chain creation"
-msgstr "Klientkonfiguration"
+msgstr "Kedje skapande"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:121
 msgid "Rule"
@@ -3012,6 +2958,7 @@ msgstr "Pakettrafikrapport för brandvägg"
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
 msgstr ""
+"Garanterad hastighet överskrider den tillåtna hastigheten: {rate} kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:414
@@ -3019,6 +2966,8 @@ msgstr ""
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr ""
+"Garanterad hastighet måste vara inom detta intervall: ( {minRate}, {maxRate} "
+") kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:241
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:426
@@ -3026,6 +2975,8 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
+"Begränsad hastighet {IR} kbit/s borde vara högre än garanterade hastigheten "
+"{gR}kbit/s"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:248
 #, perl-brace-format
@@ -3033,11 +2984,13 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
 "increase maximum upload traffic associated to external interfaces"
 msgstr ""
+"Begränsade hastigheten {lR} kbit/s borde vara lägre än {maxLR}kbit/s eller "
+"så bör du öka max uppladdningstrafik associerad med externa gränssnitt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:405
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
+msgstr "Garanterad hastighet överstiger tillåten hastighet: {rate}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:434
 #, perl-brace-format
@@ -3045,15 +2998,16 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
+"Begränsad hastighet {IR} kbit/s borde vara lägre än {maxLR} eller så bör du "
+"öka maximalt tillåten trafik"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:622
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "Löv klass identifierare"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:98
-#, fuzzy
 msgid "External Interface"
-msgstr "Regler listas per nätverksgränssnitt"
+msgstr "Externt gränssnitt"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload"
@@ -3070,11 +3024,11 @@ msgstr "Nerladdnings hastighet i Kbit/s genom nätverksgränssnitt"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:122
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:123
 msgid "External Interface Rates"
-msgstr ""
+msgstr "Externa gränssnitts hastigheter"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:130
 msgid "rate"
-msgstr ""
+msgstr "hastighet"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:155
 msgid "You need at least one internal interface and one external interface"
@@ -3091,12 +3045,10 @@ msgid "{iface} (external interface)"
 msgstr "{iface} (externt gränssnitt)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:205
-#, fuzzy
 msgid "Guaranteed rate"
 msgstr "Garanterad hastighet"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:210
-#, fuzzy
 msgid "Limited rate"
 msgstr "Begränsad hastighet"
 
@@ -3111,7 +3063,7 @@ msgstr ""
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:238
 msgid "If service is any, some source or destination should be provided"
-msgstr ""
+msgstr "Om service är valfri bör någon källa eller destintion anges"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:379
 msgid "Port based service"
@@ -3151,6 +3103,8 @@ msgstr "Begränsad hastighet"
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:475
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr ""
+"Trafik kommer inte att överstiga denna hastighet. 0 betyder obegränsad "
+"hastighet"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:482
 #, perl-brace-format
@@ -3168,7 +3122,7 @@ msgstr ""
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:556
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
-msgstr ""
+msgstr "Avlägsna {num} regler på {modelName}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:603
 #, perl-brace-format
@@ -3178,6 +3132,11 @@ msgid ""
 "maintain the same proportion that it has previously and {removeNum} have "
 "been deleted because its guaranteed rate was lower than the minimum allowed"
 msgstr ""
+"Normaliserande hastigheter: {limitNum} regler har minskat sin begränsning "
+"till {limitRate}, {guaranNum} regler har normaliserat sin garanterade "
+"hastighet för att behålla samma proportion som förr och {removeNum} har "
+"blivit raderad för att dess garanterade hastighet var lägre än den minsta "
+"tillåtna"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:658
 msgid ""
@@ -3185,6 +3144,9 @@ msgid ""
 "Application based protocols are slower but more effective as they check the "
 "content of any packet to match a service."
 msgstr ""
+"Port baserade protokoll använder ett portnummer för att matcha en service. "
+"Applikationsbaserade protokoll är slöare men mer effektiva eftersom de "
+"tittar efter innehållet i ett paket för att matcha en service."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:674
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:693
@@ -3203,6 +3165,10 @@ msgid ""
 "this, you need at least an internal and an external interface. Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
+"Trafikprioritering appliceras när Zentyal agerar som en gateway. För att "
+"uppnå detta behöver du åtminstone ett internt och ett extern nätverk. "
+"Kontrollera din gränssnittskonfiguration för att matcha, på "
+"{openhref}Network->Interfaces{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:92
 #, perl-brace-format
@@ -3212,9 +3178,12 @@ msgid ""
 "gateway at {openhref}Network->Gateways{closehref} setting as interface an "
 "external one."
 msgstr ""
+"Trafikprioritering är endast applicerad om det finns gateways med en "
+"uppladdningshastighet associerad med ett externt gränssnitt. För att göra "
+"detta, skapa en gateway på {openhref}Network->Gateways{closehref} med ett "
+"gränssnitt som externt."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:115
-#, fuzzy
 msgid "Rules list per interface"
 msgstr "Regler listas per nätverksgränssnitt"
 
@@ -3233,29 +3202,28 @@ msgstr "Välj ett nätverksgränssnitt att begränsa"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:69
 msgid "options"
-msgstr ""
+msgstr "alternativ"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:100
 #: ../../main/l7-protocols/src/EBox/L7Protocols.pm:91
 msgid "Traffic Shaping"
-msgstr ""
+msgstr "Trafikprioritering"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:136
 msgid "Add iptables rules to mangle table"
-msgstr ""
+msgstr "Lägg till iptables regler för mangel tabbellen"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:137
 msgid "To mark packets with different priorities and rates"
-msgstr ""
+msgstr "För att markera paket med olika prioriteringar och hastigheter"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:141
 msgid "Add tc rules"
 msgstr "Lägg till tc regler"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:142
-#, fuzzy
 msgid "To implement the traffic shaping rules"
-msgstr "Regler för trafikbegränsning"
+msgstr "För att implementera trafikprioriteringsreglerna"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:459
 msgid "Rules"
@@ -3271,6 +3239,8 @@ msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
+"Maximalt antal regler {max} har nåtts, vänligen radera minst en för att "
+"kunna lägga till en ny regel"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:1195
 msgid "type"
@@ -3282,6 +3252,8 @@ msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
+"Gränssnittet {iface} bör ha en maximal bandbredd för att göra "
+"trafikprioritering"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -3304,6 +3276,8 @@ msgid ""
 "A custom host name cannot be set from the same domain. Use \"This domain\" "
 "option instead"
 msgstr ""
+"Ett anpassat hostnamn kan inte ställas in från samma domän. Använd Denna "
+"Domän alternativet istället."
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:144
 msgid "The domain is set as read only. You cannot add mail exchangers"
@@ -3342,17 +3316,8 @@ msgstr "Denna domän"
 #: ../../main/dhcp/src/EBox/Model/Options.pm:431
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:324
 #: ../../main/mail/src/EBox/Mail.pm:1515
-#, fuzzy
 msgid "Custom"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Anpassad\n"
-"#-#-#-#-#  sv.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Anpassad\n"
-"#-#-#-#-#  sv.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Skräddarsydd\n"
-"#-#-#-#-#  sv.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Anpassat"
+msgstr "Anpassad"
 
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:188
 msgid "Preference"
@@ -3379,12 +3344,10 @@ msgid "Mail exchanger record"
 msgstr "E-post MX register"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:76
-#, fuzzy
 msgid "Forwarder"
 msgstr "Vidarebefordring"
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:85
-#, fuzzy
 msgid "Forwarders"
 msgstr "Vidarebefordring"
 
@@ -3393,11 +3356,12 @@ msgid ""
 "The server will send the queries to the forwarders first, and if not "
 "answered it will attempt to answer the query."
 msgstr ""
+"Denna server skickar förfrågningar till vidarebefordrare först, och om de "
+"inte besvaras kommer den att försöka svara på förfrågan."
 
 #: ../../main/dns/src/EBox/Model/Forwarder.pm:92
-#, fuzzy
 msgid "forwarder"
-msgstr "Vidarebefordring"
+msgstr "Vidarebefordrare"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:194
 msgid "Hostnames"
@@ -3415,7 +3379,7 @@ msgstr "Namnservers"
 #: ../../main/dns/src/EBox/Model/Text.pm:178
 #, perl-brace-format
 msgid "{txt} records"
-msgstr ""
+msgstr "{txt} records"
 
 #: ../../main/dns/src/EBox/Model/DomainTable.pm:227
 #: ../../main/dns/src/EBox/Model/Services.pm:253
@@ -3447,6 +3411,9 @@ msgid ""
 "different hostnames with aliases  (A and CNAME) and other special records "
 "(MX, NS, TXT and SRV)."
 msgstr ""
+"Här kan du lägga till domänerna för denna DNS server. Varje domän kan ha "
+"olika hostnamn och alias (A and CNAME) och andra speciella fält (MX, NS, TXT "
+"och SRV)"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:136
 #, perl-brace-format
@@ -3482,6 +3449,10 @@ msgid ""
 "domain, only first match will be used by reverse resolution. Dynamic zones "
 "may erase your manual reverse resolution."
 msgstr ""
+"Automatiskt reverserad namnuppslagning är klar. Om du repeterar en ip adress "
+"i en annan domän kommer bara första träffen att användas vid en reverserad "
+"namnuppslagning. Dynamiska zoner kan radera manuella reverserade "
+"namnuppslag."
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
 #: ../../main/network/src/EBox/Network.pm:3646
@@ -3507,6 +3478,8 @@ msgid ""
 "Every DNS query will be redirected to local DNS server if transparent mode "
 "is enabled."
 msgstr ""
+"Alla DNS-frågor omdirigeras till den lokala DNS servern om transparent läge "
+"är aktiverat."
 
 #: ../../main/dns/src/EBox/Model/Record.pm:78
 #, perl-brace-format
@@ -3708,6 +3681,7 @@ msgstr ""
 msgid ""
 "Your configuration doesn't allow anonymous neither authenticated FTP access."
 msgstr ""
+"Dina inställningar tillåter varken anonym eller autentiserad FTP åtkomst."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
@@ -3735,29 +3709,28 @@ msgid "Anonymous access"
 msgstr "Anonym åtkomst"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr "Aktivera FTP acess för varje användare till dennes /home bibliotek"
+msgstr "Aktivera anonym FTP åtkomst till /srv/ftp mappen."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
-msgstr "Personliga bibliotek"
+msgstr "Personliga mappar"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr "Aktivera FTP acess för varje användare till dennes /home bibliotek"
+msgstr "Aktivera FTP åtkomst för varje användare till dennes /home mapp."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Personliga bibliotek"
+msgstr "Begränsa åtkomst till personliga mappar"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Begränsa åtkomst till personliga mappar. Tänk på att denna begränsning kan "
+"kringgås under speciella förhållanden."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:119
@@ -3767,7 +3740,7 @@ msgstr "SSL-stöd"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:157
 msgid "Enable FTP SSL support for authenticated users."
-msgstr ""
+msgstr "Aktivera FTP SSL-stöd för autentiserade användare."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:163
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:141
@@ -3775,20 +3748,13 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:260
 #, fuzzy
 msgid "General configuration settings"
-msgstr ""
-"#-#-#-#-#  sv.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Generella inställningar\n"
-"#-#-#-#-#  sv.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Allmänna konfigurationsinställningar\n"
-"#-#-#-#-#  sv.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Allmän konfiguration"
+msgstr "Generella inställningar"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:164
 msgid "FTP Server"
 msgstr "FTP server"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -3797,10 +3763,12 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
-"Det anonyma biblioteket är /srv/ftp, var noga med att filer som skapas där "
-"är läsbara för alla (chmod o+r /srv/ftp/*). Om du också vill ge ut "
-"skrivrättigheter behöver du skapa ett underbibliotek med skrivrättigheter "
-"för alla. T.ex: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming"
+"Den anonyma mappen är /srv/ftp, var noga med att filer som skapas där är "
+"läsbara för alla (chmod o+r /srv/ftp/*). Om du också vill ge ut "
+"skrivrättigheter behöver du skapa en undermapp med skrivrättigheter för "
+"alla. T.ex: mkdir /srv/ftp/incoming ; chmod o+rwx /srv/ftp/incoming. Anonyma "
+"användare kommer ej kunna döpa om eller ta bort filer i vilket fall som "
+"helst."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 msgid "Zentyal FTP Server"
@@ -3811,9 +3779,8 @@ msgid "Generate SSL certificates"
 msgstr "Skapa SSL certifikat"
 
 #: ../../main/ftp/src/EBox/FTP.pm:129
-#, fuzzy
 msgid "Zentyal will self-signed SSL certificates for FTP service."
-msgstr "eBox kommer att skapa certifikat för epost-tjänsten."
+msgstr "Zentyal kommer att skapa certifikat för FTP-tjänsten."
 
 #: ../../main/ftp/src/EBox/FTP.pm:147
 #, fuzzy

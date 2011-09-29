@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2011-09-08 09:31+0200\n"
+"PO-Revision-Date: 2011-09-13 10:59+0200\n"
 "Last-Translator: xcod <xcod@mail.ru>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.4\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/UseDefaultMIMEFilter.pm:56
@@ -12290,7 +12290,7 @@ msgstr "Сохранить настройки"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:92
 msgid "row"
-msgstr ""
+msgstr "строка"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:96
 #, fuzzy, perl-brace-format
@@ -12556,11 +12556,11 @@ msgstr "Настроить узел проверки подлиности"
 
 #: ../../main/mail/src/EBox/Mail.pm:252
 msgid "Outgoing Mail (SMTP protocol)."
-msgstr ""
+msgstr "Исходящая Почта (SMTP протокол)"
 
 #: ../../main/mail/src/EBox/Mail.pm:261
 msgid "POP, IMAP and SIEVE protocols"
-msgstr ""
+msgstr "POP, IMAP и SIEVE протоколы"
 
 #: ../../main/mail/src/EBox/Mail.pm:270
 msgid "Outgoing Mail (Submission protocol)."
@@ -12712,7 +12712,7 @@ msgstr "Почтовые ящики"
 
 #: ../../main/mail/src/EBox/Mail.pm:1776
 msgid "Mail messages from users and group alias"
-msgstr ""
+msgstr "Почтовые сообщения от пользователей и псевдонимов групп"
 
 #: ../../main/mail/src/EBox/Mail.pm:1832
 msgid "Mail SMTP server"
@@ -13256,7 +13256,7 @@ msgstr "Максимальный размер сообщений принят"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:201
 msgid "Expiration period for deleted mails"
-msgstr "Срок жизни для удалёной почты"
+msgstr "Срок жизни для удалённой почты"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:205
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:224
@@ -13539,7 +13539,7 @@ msgstr ""
 
 #: ../../main/radius/src/EBox/Radius.pm:108
 msgid "Allow others to read /var/log/freeradius"
-msgstr ""
+msgstr "Разрешить другим читать /var/log/freeradius"
 
 #: ../../main/radius/src/EBox/Radius.pm:109
 msgid ""
@@ -13600,7 +13600,7 @@ msgstr "Страница не найдена"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:75
 msgid "Maximum mailbox size"
-msgstr "Максимальный размер почтового яящика"
+msgstr "Максимальный размер почтового ящика"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:77
 msgid "When a mailbox reaches this size futher messages will be rejected."
@@ -13776,8 +13776,9 @@ msgid ""
 "You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
 "the mobile version at http://zentyal_ip/webaccess-mobile."
 msgstr ""
-"Вы можете получить досутп к вебинтерфейсу Zarafa по адресу http://zentyal_ip/"
-"webaccess, а к мобильной версии по адресу http://zentyal_ip/webaccess-mobile."
+"Вы можете получить доступ к веб интерфейсу Zarafa по адресу "
+"http://zentyal_ip/webaccess, а к мобильной версии по адресу "
+"http://zentyal_ip/webaccess-mobile."
 
 #: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:323
 msgid ""
@@ -14152,11 +14153,11 @@ msgstr "Список объектов"
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:154
 #: ../../main/asterisk/src/EBox/Asterisk.pm:557
 msgid "Phones"
-msgstr ""
+msgstr "Телефоны"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:155
 msgid "phone"
-msgstr ""
+msgstr "телефон"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:159
 #, fuzzy

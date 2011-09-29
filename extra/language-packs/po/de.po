@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-11 23:27+0200\n"
-"PO-Revision-Date: 2011-08-18 17:59+0200\n"
-"Last-Translator: Robin <commi1993@gmail.com>\n"
+"PO-Revision-Date: 2011-09-16 20:50+0200\n"
+"Last-Translator: Lueghi <lueghi@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -246,9 +246,8 @@ msgstr ""
 "deaktivieren der Option."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "Clientadresse"
+msgstr "Übertragungsrate zum Client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
 #, fuzzy
