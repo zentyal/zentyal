@@ -38,12 +38,12 @@ read
 
 function retry {
     set +e
-    $1
+    $@
     while [[ $? -ne 0 ]] ; do
         echo "Command FAILED! Please check your internet connectivity"
         echo "press return to continue or Control+C to abort"
         read
-        $1
+        $@
     done
     set -e
 }
@@ -54,16 +54,18 @@ function retry {
 # Pre remove scripts
 run-parts ./pre-remove
 
+# Restore network connectivity after ebox stop (we will need it for apt commands)
+echo -e "invoke-rc.d ebox network start || true" >> /var/lib/dpkg/info/ebox.prerm
 retry "apt-get remove libebox -y --force-yes"
 
 retry "apt-get update"
-retry "LANG=C DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y --force-yes"
+LANG=C DEBIAN_FRONTEND=noninteractive retry "apt-get dist-upgrade -y --force-yes"
 
 for i in $INSTALLED_MODULES
 do
     PACKAGES="$PACKAGES zentyal-$i"
 done
-retry "LANG=C DEBIAN_FRONTEND=noninteractive apt-get install -o DPkg::Options::="--force-confold" --no-install-recommends -y --force-yes $PACKAGES"
+LANG=C DEBIAN_FRONTEND=noninteractive retry "apt-get install -o DPkg::Options::="--force-confold" --no-install-recommends -y --force-yes $PACKAGES"
 /etc/init.d/zentyal stop
 
 
