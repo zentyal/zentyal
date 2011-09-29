@@ -36,23 +36,31 @@ echo "Press return to continue or Control+C to cancel..."
 read
 
 
+function retry {
+    $1
+    while [[ $? -ne 0 ]] ; do
+        echo "Command FAILED! Please check your internet connectivity"
+        echo "press return to continue or Control+C to abort"
+        $1
+    done
+}
+
+
 # TODO disable QA updates and upgrade to last 2.0 packages (to execute migrations)
 
 # Pre remove scripts
 run-parts ./pre-remove
 
-apt-get remove libebox -y --force-yes
+retry "apt-get remove libebox -y --force-yes"
 
-apt-get update
-LANG=C DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y --force-yes
+retry "apt-get update"
+retry "LANG=C DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y --force-yes"
 
 for i in $INSTALLED_MODULES
 do
     PACKAGES="$PACKAGES zentyal-$i"
 done
-LANG=C DEBIAN_FRONTEND=noninteractive apt-get install \
-                                      -o DPkg::Options::="--force-confold" \
-                                      --no-install-recommends -y --force-yes $PACKAGES
+retry "LANG=C DEBIAN_FRONTEND=noninteractive apt-get install -o DPkg::Options::="--force-confold" --no-install-recommends -y --force-yes $PACKAGES"
 /etc/init.d/zentyal stop
 
 
