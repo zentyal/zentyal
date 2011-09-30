@@ -51,24 +51,19 @@ rm -f /etc/apt/preferences.d/*ebox*
 retry "apt-get update"
 retry $DIST_UPGRADE
 
-echo "Zentyal 2.0 upgrade finished. Maybe you want to check now that"
-echo "everything is working properly before starting the migration."
-ask_confirmation
-
-ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
-sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
-
 EBOX_PACKAGES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }'`
 INSTALLED_MODULES=`dpkg -l | grep ^ii | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g' | grep -v 'cloud-prof'`
 
+echo
+echo "Zentyal 2.0 upgrade finished. You should check now if everything is"
+echo "working properly before starting the migration to Zentyal 2.2."
+echo
 echo "The following modules have been detected and are going to be upgraded:"
 echo $INSTALLED_MODULES
 ask_confirmation
 
-# It seems there are problems with remoteservices
-# We do not migrate its data, at least for the first version
-/usr/share/ebox/ebox-unsubscribe || true
-/usr/share/ebox/ebox-clean-gconf remoteservices || true
+ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
+sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 
 # Pre remove scripts
 run-parts ./pre-remove
@@ -108,4 +103,5 @@ dpkg --purge libebox ebox $EBOX_PACKAGES
 
 /etc/init.d/zentyal start
 
+echo
 echo "Migration finished. You can start using Zentyal 2.2 now!"
