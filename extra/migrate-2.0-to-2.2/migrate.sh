@@ -21,63 +21,76 @@ if [ ! "$UID" -eq "0" ] ; then
     exit 1
 fi
 
-ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
-sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
+export DEBIAN_FRONTEND=noninteractive
 
-# FIXME: what happens with usercorner? Detect it if exists usercorner.bak?
-# Maybe it's better to detect this via the *.bak files instead of dpkg?
-EBOX_PACKAGES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }'`
-INSTALLED_MODULES=`dpkg -l | grep ^ii | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g' | grep -v 'cloud-prof'`
-
-echo "The following modules have been detected and are going to be upgraded:"
-echo $INSTALLED_MODULES
-echo
-echo "Press return to continue or Control+C to cancel..."
-read
-
+function ask_confirmation {
+    echo
+    echo "Press return to continue or Control+C to abort..."
+    read
+}
 
 function retry {
     set +e
     $@
     while [[ $? -ne 0 ]] ; do
         echo "Command FAILED! Please check your internet connectivity"
-        echo "press return to continue or Control+C to abort"
-        read
+        ask_confirmation
         $@
     done
     set -e
 }
 
+DIST_UPGRADE="apt-get dist-upgrade -y --force-yes"
 
-# TODO disable QA updates and upgrade to last 2.0 packages (to execute migrations)
+echo "Before starting the migration process all the packages of the"
+echo "Zentyal 2.0 system need to be upgraded to the latest versions"
+ask_confirmation
+
+rm -f /etc/apt/sources.list.d/*ebox*
+rm -f /etc/apt/preferences.d/*ebox*
+retry "apt-get update"
+retry $DIST_UPGRADE
+
+ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
+sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
+
+EBOX_PACKAGES=`dpkg -l | grep 'ebox-' | awk '{ print $2 }'`
+INSTALLED_MODULES=`dpkg -l | grep ^ii | grep 'ebox-' | awk '{ print $2 }' | sed 's/andgroups//g' | sed 's/ebox-//g' | grep -v 'cloud-prof'`
+
+echo "The following modules have been detected and are going to be upgraded:"
+echo $INSTALLED_MODULES
+ask_confirmation
 
 # Pre remove scripts
 run-parts ./pre-remove
 
 # Restore network connectivity after ebox stop (we will need it for apt commands)
-echo -e "invoke-rc.d ebox network start || true" >> /var/lib/dpkg/info/ebox.prerm
-echo -e "invoke-rc.d ebox apache stop || true" >> /var/lib/dpkg/info/ebox.prerm
-# TODO: not sure if this is necessary, probably the above apache stop
-# will be enough
-echo -e "pkill -9 redis-server || true" >> /var/lib/dpkg/info/ebox.prerm
+echo "invoke-rc.d ebox network start || true" >> /var/lib/dpkg/info/ebox.prerm
 retry "apt-get remove libebox -y --force-yes"
 
-rm -f /etc/apt/preferences.d/*ebox*
+# kill processes belonging to ebox user
+for i in ad-pwdsync apache2-user redis-usercorner apache-perl redis
+do
+    stop ebox.$i || true
+done
+
+# this cron stuff is not deleted after purge, so we get rid of it now
+rm -f /etc/cron.d/ebox-*
+
 retry "apt-get update"
-LANG=C DEBIAN_FRONTEND=noninteractive retry "apt-get dist-upgrade -y --force-yes"
+retry $DIST_UPGRADE
 
 for i in $INSTALLED_MODULES
 do
     PACKAGES="$PACKAGES zentyal-$i"
 done
-LANG=C DEBIAN_FRONTEND=noninteractive retry "apt-get install -o DPkg::Options::="--force-confold" --no-install-recommends -y --force-yes $PACKAGES"
+retry "apt-get install -o DPkg::Options::="--force-confold" --no-install-recommends -y --force-yes $PACKAGES"
 /etc/init.d/zentyal stop
-
 
 # Run all the scripts to migrate data from 2.0 to 2.2
 run-parts ./post-upgrade
 
-# purge ebox 2.0
+# purge Zentyal 2.0
 for i in $(ls /var/lib/dpkg/info/ebox*.postrm /var/lib/dpkg/info/libebox.postrm)
 do
     echo -e "#!/bin/bash\nexit 0" > $i
