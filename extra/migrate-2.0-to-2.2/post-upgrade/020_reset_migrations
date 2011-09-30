@@ -22,7 +22,7 @@ use EBox::Global;
 
 EBox::init();
 
-print "Resetting data_version for all modules\n";
+print "Resetting data_version for all modules...\n";
 
 foreach my $mod (@{EBox::Global->modInstances()}) {
     $mod->unset('data_version');

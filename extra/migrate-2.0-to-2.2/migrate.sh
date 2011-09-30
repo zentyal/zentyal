@@ -68,18 +68,23 @@ sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 # Pre remove scripts
 run-parts ./pre-remove
 
-# Restore network connectivity after ebox stop (we will need it for apt commands)
-echo "invoke-rc.d ebox network start || true" >> /var/lib/dpkg/info/ebox.prerm
+# prevent cloud unsubscription during remove
+RS_PRERM=/var/lib/dpkg/info/ebox-remoteservices.prerm
+[ -f $RS_PRERM ] && echo -e "#!/bin/bash\nexit 0" > $RS_PRERM
+
+# remove Zentyal 2.0 packages
 retry "apt-get remove libebox -y --force-yes"
 
 # kill processes belonging to ebox user
-for i in ad-pwdsync apache2-user redis-usercorner apache-perl redis
+for i in ad-pwdsync apache2-user redis-usercorner runnerd apache-perl redis
 do
     stop ebox.$i || true
 done
 
 # this cron stuff is not deleted after purge, so we get rid of it now
 rm -f /etc/cron.d/ebox-*
+# delete also duplicity cache, it will be stored under /var/cache in 2.2
+rm -rf /var/lib/{ebox,zentyal}/.cache/duplicity
 
 retry "apt-get update"
 retry $DIST_UPGRADE
