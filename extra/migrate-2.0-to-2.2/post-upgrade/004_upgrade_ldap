@@ -27,8 +27,8 @@ print "Upgrading ldap attributes (quotas from mail and users)...\n";
 
 my $users = EBox::Global->modInstance('users');
 
-return unless defined($users);
-return unless $users->isEnabled();
+exit unless defined($users);
+exit unless $users->isEnabled();
 
 my $BACKUP_DIR = '/var/lib/zentyal/tmp/users-dump';
 
