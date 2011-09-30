@@ -61,6 +61,11 @@ echo "The following modules have been detected and are going to be upgraded:"
 echo $INSTALLED_MODULES
 ask_confirmation
 
+# It seems there are problems with remoteservices
+# We do not migrate its data, at least for the first version
+/usr/share/ebox/ebox-unsubscribe || true
+/usr/share/ebox/ebox-clean-gconf remoteservices || true
+
 # Pre remove scripts
 run-parts ./pre-remove
 
