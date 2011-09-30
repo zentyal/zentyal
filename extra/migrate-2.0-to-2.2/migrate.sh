@@ -51,6 +51,10 @@ rm -f /etc/apt/preferences.d/*ebox*
 retry "apt-get update"
 retry $DIST_UPGRADE
 
+echo "Zentyal 2.0 upgrade finished. Maybe you want to check now that"
+echo "everything is working properly before starting the migration."
+ask_confirmation
+
 ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
 sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 
