@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bug setting ip route rules with PPPoE interfaces
 2.2.1
 	+ External IP address getter now works even in an unpolite situation
 2.1.16

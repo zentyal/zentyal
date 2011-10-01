@@ -2931,6 +2931,7 @@ sub _multigwRoutes
         my $route = "via $ip dev $iface src $address";
         if ($method eq 'ppp') {
             $route = "dev $iface";
+            (undef, $ip) = split ('/', $ip);
         }
 
         push(@cmds, "/sbin/ip route flush table $table");
