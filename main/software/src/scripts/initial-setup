@@ -6,5 +6,6 @@
 # there is no need to add the zarafa6 one
 ZARAFA_SOURCES=/etc/apt/sources.list.d/zentyal-zarafa.list
 if ! grep "deb http://archive.zentyal.com/zentyal 2.2 extra" /etc/apt/sources.list
+then
     echo "deb http://archive.canonical.com/ubuntu lucid partner" > $ZARAFA_SOURCES
 fi

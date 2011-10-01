@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed error on initial-setup when checking the zarafa repository
 2.2.1
 	+ Fixed some after-installation non-translatable strings
 	+ Avoid to add both Zarafa 6 and Zarafa 7 repositories
