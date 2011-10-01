@@ -1,4 +1,4 @@
-2.2.1
+HEAD
 	+ Avoid crash with undefined siteHost when migrating from 2.0
 	+ Tolerate file permission errors when restoring subscription
 	+ Better exception when we have no response for the SOAP call

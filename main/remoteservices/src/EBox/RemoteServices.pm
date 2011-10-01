@@ -517,8 +517,11 @@ sub monitorGathererIPAddresses
 #
 sub controlPanelURL
 {
-    my $url =  EBox::RemoteServices::Auth->new()->valueFromBundle(SITE_HOST_KEY);
-    $url = 'cloud.zentyal.com' unless defined ($url);
+    my $url= 'cloud.zentyal.com';
+    try {
+        $url = EBox::RemoteServices::Auth->new()->valueFromBundle(SITE_HOST_KEY);
+    } otherwise {};
+
     return "https://${url}/"
 }
 
