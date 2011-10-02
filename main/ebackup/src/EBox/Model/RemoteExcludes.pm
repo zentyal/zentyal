@@ -270,6 +270,7 @@ sub syncRows
                 $equal = 0;
                 last;
             }
+            $i += 1;
         }
         if ($equal) {
             return undef;
@@ -282,6 +283,7 @@ sub syncRows
         $self->removeRow($id);
     }
 
+    @domainsSelections = reverse @domainsSelections;
     foreach my $selection (@domainsSelections) {
         my $type;
         if ($selection->{type} eq 'include') {
