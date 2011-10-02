@@ -1,3 +1,5 @@
+HEAD
+	+ Do not try to change owner before user ebox is created
 2.2.1
 	+ Removed obsolete references to /zentyal URL
 	+ Create configuration backup directories on install to avoid warnings

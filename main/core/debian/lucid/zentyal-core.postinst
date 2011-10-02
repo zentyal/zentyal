@@ -23,10 +23,6 @@ case "$1" in
         test -d $ZENTYAL_LOGS_DIR || mkdir $ZENTYAL_LOGS_DIR
         chmod 750 $ZENTYAL_LOGS_DIR
 
-        # set proper permissions to backups directory
-        chown ebox:adm $ZENTYAL_BACKUPS_DIR
-        chmod 700 $ZENTYAL_BACKUPS_DIR
-
         # create Zentyal apache certificates
         /usr/share/zentyal/create-certificate $ZENTYAL_HOME/conf/ssl > /dev/null 2>&1
 
@@ -55,6 +51,8 @@ case "$1" in
         chown -R ebox:adm $ZENTYAL_HOME/tmp
         chown -R ebox:adm $ZENTYAL_HOME/conf
         chown -R ebox:adm $ZENTYAL_HOME/log
+        chown ebox:adm $ZENTYAL_BACKUPS_DIR
+        chmod 700 $ZENTYAL_BACKUPS_DIR
 
         # create and set permissions for ebox.sid
         EBOX_SID="$ZENTYAL_HOME/conf/ebox.sid"
