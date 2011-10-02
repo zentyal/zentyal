@@ -201,7 +201,8 @@ PerlModule EBox::Auth
 PerlSetVar EBoxPath /
 PerlSetVar EBoxLoginScript /Login/Index
 PerlSetVar EBoxSatisfy Any
-PerlSetVar EBoxCookieName Zentyal
+# FIXME: disabled to avoid error after upgrade (apache restart)
+#PerlSetVar EBoxCookieName Zentyal
 PerlSetVar AuthCookieDebug 0
 
 <Files LOGIN>

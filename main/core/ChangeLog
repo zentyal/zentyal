@@ -1,4 +1,5 @@
 HEAD
+	+ Revert cookie name change to avoid session loss in upgrades
 	+ Do not try to change owner before user ebox is created
 2.2.1
 	+ Removed obsolete references to /zentyal URL
