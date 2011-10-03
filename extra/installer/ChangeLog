@@ -1,3 +1,6 @@
+2.2-1
+    + 64bit iso now installs server edition of the kernel
+    + Added archive.zentyal.org repository
 2.2
     + Removed beta logo
     + Fixed PPA addition to sources.list when there is no internet

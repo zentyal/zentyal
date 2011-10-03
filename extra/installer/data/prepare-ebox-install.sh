@@ -4,7 +4,10 @@ export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/zentyal/2.2/ubuntu"
 EBOX_SOURCES="deb $PPA_URL lucid main"
-ZARAFA_SOURCES="deb http://archive.zentyal.com/zentyal 2.2 extra"
+ARCHIVE_URL="http://archive.zentyal.org/zentyal"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 2.2 main"
+EXTRA_URL="http://archive.zentyal.com/zentyal"
+EXTRA_SOURCES="deb $EXTRA_URL 2.2 extra"
 PKG_DIR=/var/tmp/ebox-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -85,15 +88,25 @@ done
 create_repository # Set up local package repository
 
 echo ${LOCAL_SOURCES} >> ${SOURCES_LIST} # add local sources
-echo ${ZARAFA_SOURCES} >> ${SOURCES_LIST} # add canonical/partner sources
 
 if ! grep -q ${PPA_URL} ${SOURCES_LIST}
 then
     echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
 fi
 
-# Import PPA key to avoid warning
+if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
+then
+    echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
+fi
+
+if ! grep -q ${EXTRA_URL} ${SOURCES_LIST}
+then
+    echo ${EXTRA_SOURCES} >> ${SOURCES_LIST} # add zentyal extra sources
+fi
+
+# Import keys to avoid warnings
 apt-key add /var/tmp/ebox-ppa.asc >> $LOG 2>&1
+apt-key add /var/tmp/zentyal-2.2-archive.asc >> $LOG 2>&1
 update_if_network # apt-get update if we are connected to the internet
 
 gen_locales

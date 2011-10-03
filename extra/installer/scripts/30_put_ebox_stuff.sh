@@ -13,10 +13,10 @@ test -d $DATA_DIR  || (echo "data directory not found."; false) || exit 1
 cp $DATA_DIR/ubuntu-ebox.seed $CD_BUILD_DIR/preseed/ubuntu-server.seed
 if [ "$ARCH" == "amd64" ]
 then
-    sed -i '/linux-generic-pae/d' $CD_BUILD_DIR/preseed/ubuntu-server.seed
+    sed -i 's/linux-generic-pae/linux-server/g' $CD_BUILD_DIR/preseed/ubuntu-server.seed
 fi
 
-cp $DATA_DIR/ubuntu-ebox.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
+cp $CD_BUILD_DIR/preseed/ubuntu-server.seed $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/ubuntu-server-auto.seed
 
 DISASTER_PACKAGES="zentyal-ebackup zentyal-remoteservices zenity"
@@ -41,6 +41,6 @@ svn export $DATA_DIR $TMPDIR
 cp -r $TMPDIR/* $CD_EBOX_DIR/
 if [ "$ARCH" == "amd64" ]
 then
-    sed -i '/linux-generic-pae/d' $CD_EBOX_DIR/extra-packages.list
+    sed -i 's/linux-generic-pae/linux-server/g' $CD_EBOX_DIR/extra-packages.list
 fi
 rm -rf $TMPDIR
