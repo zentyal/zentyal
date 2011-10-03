@@ -25,6 +25,7 @@ use EBox::Config;
 use EBox::EBackup;
 use EBox::EBackup::Password;
 use EBox::Sudo;
+use String::ShellQuote;
 
 my %originalArgv = map { $_ => 1 } @ARGV;
 
@@ -75,6 +76,11 @@ if ($debug) {
     my $logFile =  EBox::Config::log() . 'duplicity-debug.log';
     push @ARGV, '--log-file', $logFile;
 }
+
+# shell quote @ARGV
+@ARGV = map {
+    shell_quote($_);
+} @ARGV;
 
 my $duplicityCommand = "/usr/bin/duplicity @ARGV";
 if ($debug) {
