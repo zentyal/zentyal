@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed encoding problems when restoring files
 	+ Better quoting of duplicity command arguments
 	+ Backup domain selections are added to list in the correct order
 	+ Fixed bug when the new and old sizes of the selections are the same

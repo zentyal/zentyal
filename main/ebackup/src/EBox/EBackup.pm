@@ -203,6 +203,7 @@ sub restoreFile
 
     $destination =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
     $destination = shell_quote($destination);
+    utf8::encode($destination);
 
     my $time = Date::Parse::str2time($date);
 
@@ -211,6 +212,7 @@ sub restoreFile
 
     my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
     if ($rFile) {
+        utf8::encode($rFile);
         $cmd .= "--file-to-restore $rFile ";
     }
     $cmd .= " $url $destination";
