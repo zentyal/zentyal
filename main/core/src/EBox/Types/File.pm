@@ -310,28 +310,10 @@ sub linkToDownload
 {
     my ($self) = @_;
 
-    my $modelDomain = $self->model()->modelDomain();
-    my $modelName = $self->model()->name();
-    my $index = $self->model()->index();
-
-    unless (defined($modelDomain) and length ($modelDomain) > 0) {
-        $modelDomain = undef;
-    }
-
-    unless (defined($modelName) and length ($modelName) > 0) {
-        $modelName = undef;
-    }
-
-    unless (defined($index) and length ($index) > 0) {
-        $index = undef;
-    }
-
+    my $contextName = $self->model()->contextName();
 
     my $link = '/Controller/Downloader/FromModel?';
-    $link .= 'model=';
-    $link .= "/$modelDomain" if ($modelDomain);
-    $link .= "/$modelName" if ($modelName);
-    $link .= "/$index" if ($index);
+    $link .= 'model=' . $contextName;
     $link .= '&dir=' . $self->model()->directory();
     $link .= '&id=' . $self->row()->id();
     $link .= '&field='  . $self->fieldName();

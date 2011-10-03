@@ -107,8 +107,8 @@ sub _process
 
     my $model = EBox::Model::ModelManager->instance()->model($modelName);
     $model->setDirectory($dir);
-    $model->row($id);
-    my $type = $model->row($id)->elementByName($field);
+    my $row = $model->row($id);
+    my $type = $row->elementByName($field);
     unless (defined($type) and $type->isa('EBox::Types::File')) {
         throw EBox::Exceptions::Internal("field $field is not a File type");
     }

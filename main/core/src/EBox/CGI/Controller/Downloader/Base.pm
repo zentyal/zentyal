@@ -44,7 +44,6 @@ use File::MMagic;
 #
 sub new # (cgi=?)
 {
-
     my ($class, %params) = @_;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
@@ -88,7 +87,6 @@ sub _process
     $self->{downfile} = $path;
     # Setting the file name
     $self->{downfilename} = fileparse($path);
-
 }
 
 # Method: _print
@@ -106,25 +104,34 @@ sub _print
         return;
     }
 
-    # Try to guess MIME type
-    my $mm = new File::MMagic();
-    my $mimeType = $mm->checktype_filename($self->{downfile});
+    my $file =  $self->{downfile};
+    if (-r $file) {
+        my $mm = new File::MMagic();
+        my $mimeType = $mm->checktype_filename($file);
+        my $size = -s $file;
+        $self->_printHeader($mimeType, $size);
 
+        open( my $downFile, '<', $file) or
+            throw EBox::Exceptions::Internal('Could open file ' .
+                                                 $self->{downfile} . " $!");
+
+        # Efficient way to print a whole file
+        print do { local $/; <$downFile> };
+
+        close($downFile);
+    } else {
+            throw EBox::Exceptions::Internal('File does not exists or is of a special type: ' .
+                                                 $file);
+    }
+}
+
+sub _printHeader
+{
+    my ($self, $mimeType, $size) = @_;
     print($self->cgi()->header(-type => $mimeType,
                                -attachment => $self->{downfilename},
                                -Content_length => (-s $self->{downfile})),
          );
-
-    open( my $downFile, '<', $self->{downfile}) or
-      throw EBox::Exceptions::Internal('Could open file ' .
-                                       $self->{downfile} . " $!");
-
-    # Efficient way to print a whole file
-    print do { local $/; <$downFile> };
-
-    close($downFile);
-
 }
 
 1;
-

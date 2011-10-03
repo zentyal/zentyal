@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed downloads from EBox::Type::File
 2.2.2
 	+ Revert cookie name change to avoid session loss in upgrades
 	+ Do not try to change owner before user ebox is created
