@@ -550,10 +550,9 @@ sub _backupDomainsFileSelectionArguments
 sub remoteFileSelectionArguments
 {
     my ($self, $toCloud) = @_;
-
     my $args = '';
     if ($toCloud) {
-        # exclude configuration bakcup it will be stored as idependent file
+        # exclude configuration backup it will be stored as idependent file
         $args .= ' --exclude='. $self->includedConfigBackupPath() . ' ';
     }
     # Include configuration backup
@@ -564,28 +563,8 @@ sub remoteFileSelectionArguments
     # high level selection arguments
     $args .= $self->_backupDomainsFileSelectionArguments();
 
-    my $model = $self->model('RemoteExcludes');
-    for my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $type = $row->valueByName('type');
-        if ($type eq 'exclude_path') {
-            my $path = shell_quote($row->valueByName('target'));
-            $args .= "--exclude=$path ";
-        } elsif ($type eq 'include_path') {
-            my $path = shell_quote($row->valueByName('target'));
-            if ($path eq '/') {
-                EBox::warn(
-  q{Not neccesary to include '/' directory in ebakcup. Ignoring}
-                   );
-                next;
-            }
-            $args .= "--include=$path ";
-        } elsif ($type eq 'exclude_regexp') {
-            my $regexp = shell_quote($row->valueByName('target'));
-            $args .= "--exclude-regexp $regexp " ;
-        }
-    }
-
+    my $excludesModel = $self->model('RemoteExcludes');
+    $args .= $excludesModel->fileSelectionArguments(domainSelections => 0);
     return $args;
 }
 

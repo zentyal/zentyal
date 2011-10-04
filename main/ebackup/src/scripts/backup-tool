@@ -394,6 +394,13 @@ sub _afterSuccessCloudActions
     EBox::EBackup::Subscribed::uploadConfigurationBackup($credentials, $date, $confBackup);
 }
 
+sub backupCmd
+{
+    my ($ebackup, $type, $usingCloud) = @_;
+    my $backupCmd = $ebackup->remoteArguments($type, {}, toCloud => $usingCloud);
+    return $backupCmd;
+}
+
 my $type = 'full';
 if ($ARGV[0]) {
     if ($ARGV[0] eq '--incremental') {
@@ -480,7 +487,7 @@ try {
         EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
     };
 
-    my $backupCmd = $ebackup->remoteArguments($type, {}, toCloud => $usingCloud);
+    my $backupCmd = backupCmd($ebackup, $type, $usingCloud);
     ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
 
     if ( $success and $usingCloud) {

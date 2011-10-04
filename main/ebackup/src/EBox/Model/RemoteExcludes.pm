@@ -34,6 +34,7 @@ use EBox::Validate;
 use EBox::EBackup::Subscribed;
 use EBox::Exceptions::NotConnected;
 use Error qw(:try);
+use String::ShellQuote;
 
 use constant DEFAULT_EXCLUDES => ('/dev', '/proc', '/sys', '/mnt', '/media', '/tmp',
                                   '/var/spool', '/var/cache', '/var/tmp');
@@ -446,6 +447,51 @@ sub hasIncludes
     }
 
     return 1; # by default '/' is included
+}
+
+
+sub fileSelectionArguments
+{
+    my ($self, %params) = @_;
+    my $normalSelections = exists $params{normalSelections} ? $params{normalSelections} : 1;
+    my $domainSelections = exists $params{domainSelections} ? $params{domainSelections} : 1;
+
+    my $prefixRe;
+    if (not $normalSelections or not $domainSelections) {
+        my $ebackup = $self->{gconfmodule};
+        my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
+        $prefixRe = qr/^$prefix/;
+    }
+
+    my $args = '';
+    foreach my $id (@{ $self->ids() }) {
+        if (not $normalSelections and (not $id =~ $prefixRe)) {
+            next;
+        } elsif (not $domainSelections and ($id =~ $prefixRe)) {
+            next;
+        }
+
+        my $row = $self->row($id);
+        my $type = $row->valueByName('type');
+        if ($type eq 'exclude_path') {
+            my $path = shell_quote($row->valueByName('target'));
+            $args .= "--exclude=$path ";
+        } elsif ($type eq 'include_path') {
+            my $path = shell_quote($row->valueByName('target'));
+            if ($path eq '/') {
+                EBox::warn(
+  q{Not neccesary to include '/' directory in ebackup. Ignoring}
+                   );
+                next;
+            }
+            $args .= "--include=$path ";
+        } elsif ($type eq 'exclude_regexp') {
+            my $regexp = shell_quote($row->valueByName('target'));
+            $args .= "--exclude-regexp $regexp " ;
+        }
+    }
+
+    return $args;
 }
 
 1;

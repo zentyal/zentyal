@@ -1,4 +1,6 @@
 HEAD
+	+ Assure that backup-tool get all updated includes/excludes from a
+	  read-only version
 	+ Fixed encoding problems when restoring files
 	+ Better quoting of duplicity command arguments
 	+ Backup domain selections are added to list in the correct order
