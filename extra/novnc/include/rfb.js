@@ -7,7 +7,7 @@
  */
 
 /*jslint white: false, browser: true, bitwise: false, plusplus: false */
-/*global window, Util, Display, Keyboard, Mouse, Websock, Websock_native, Base64, DES, noVNC_logo */
+/*global window, Util, Display, Keyboard, Mouse, Websock, Websock_native, Base64, DES */
 
 
 function RFB(defaults) {
@@ -35,7 +35,7 @@ var that           = {},  // Public API methods
     rfb_host       = '',
     rfb_port       = 5900,
     rfb_password   = '',
-    rfb_uri        = '',
+    rfb_path       = '',
 
     rfb_state      = 'disconnected',
     rfb_version    = 0,
@@ -118,7 +118,9 @@ var that           = {},  // Public API methods
 
     /* Mouse state */
     mouse_buttonMask = 0,
-    mouse_arr        = [];
+    mouse_arr        = [],
+    viewportDragging = false,
+    viewportDragPos  = {};
 
 // Configuration attributes
 Util.conf_defaults(conf, that, defaults, [
@@ -132,6 +134,8 @@ Util.conf_defaults(conf, that, defaults, [
 
     ['connectTimeout',     'rw', 'int', def_con_timeout, 'Time (s) to wait for connection'],
     ['disconnectTimeout',  'rw', 'int', 3,    'Time (s) to wait for disconnection'],
+
+    ['viewportDrag',       'rw', 'bool', false, 'Move the viewport on mouse drags'],
 
     ['check_rate',         'rw', 'int', 217,  'Timing (ms) of send/receive check'],
     ['fbu_req_rate',       'rw', 'int', 1413, 'Timing (ms) of frameBufferUpdate requests'],
@@ -211,10 +215,6 @@ function constructor() {
 
     rmode = display.get_render_mode();
 
-    if (typeof noVNC_logo !== 'undefined') {
-        display.set_logo(noVNC_logo);
-    }
-
     ws = new Websock();
     ws.on('message', handle_message);
     ws.on('open', function() {
@@ -273,7 +273,7 @@ function connect() {
     } else {
         uri = "ws://";
     }
-    uri += rfb_host + ":" + rfb_port + "/" + rfb_uri;
+    uri += rfb_host + ":" + rfb_port + "/" + rfb_path;
     Util.Info("connecting to " + uri);
     ws.open(uri);
 
@@ -551,7 +551,7 @@ function flushClient() {
 // overridable for testing
 checkEvents = function() {
     var now;
-    if (rfb_state === 'normal') {
+    if (rfb_state === 'normal' && !viewportDragging) {
         if (! flushClient()) {
             now = new Date().getTime();
             if (now > last_req_time + conf.fbu_req_rate) {
@@ -576,13 +576,43 @@ mouseButton = function(x, y, down, bmask) {
     } else {
         mouse_buttonMask ^= bmask;
     }
-    mouse_arr = mouse_arr.concat( pointerEvent(x, y) );
+
+    if (conf.viewportDrag) {
+        if (down && !viewportDragging) {
+            viewportDragging = true;
+            viewportDragPos = {'x': x, 'y': y};
+
+            // Skip sending mouse events
+            return;
+        } else {
+            viewportDragging = false;
+        }
+    }
+
+    mouse_arr = mouse_arr.concat(
+            pointerEvent(display.absX(x), display.absY(y)) );
     flushClient();
 };
 
 mouseMove = function(x, y) {
     //Util.Debug('>> mouseMove ' + x + "," + y);
-    mouse_arr = mouse_arr.concat( pointerEvent(x, y) );
+    var deltaX, deltaY;
+
+    if (viewportDragging) {
+        //deltaX = x - viewportDragPos.x; // drag viewport
+        deltaX = viewportDragPos.x - x; // drag frame buffer
+        //deltaY = y - viewportDragPos.y; // drag viewport
+        deltaY = viewportDragPos.y - y; // drag frame buffer
+        viewportDragPos = {'x': x, 'y': y};
+
+        display.viewportChange(deltaX, deltaY);
+
+        // Skip sending mouse events
+        return;
+    }
+
+    mouse_arr = mouse_arr.concat(
+            pointerEvent(display.absX(x), display.absY(y)) );
 };
 
 
@@ -782,7 +812,6 @@ init_msg = function() {
 
         display.set_true_color(conf.true_color);
         display.resize(fb_width, fb_height);
-        display.viewportChange(0, 0, fb_width, fb_height);
         keyboard.grab();
         mouse.grab();
 
@@ -1067,7 +1096,7 @@ encHandlers.RRE = function display_rre() {
 
 encHandlers.HEXTILE = function display_hextile() {
     //Util.Debug(">> display_hextile");
-    var subencoding, subrects, tile, color, cur_tile,
+    var subencoding, subrects, color, cur_tile,
         tile_x, x, w, tile_y, y, h, xy, s, sx, sy, wh, sw, sh,
         rQ = ws.get_rQ(), rQi = ws.get_rQi(); 
 
@@ -1156,7 +1185,7 @@ encHandlers.HEXTILE = function display_hextile() {
                 rQi += fb_Bpp;
             }
 
-            tile = display.getTile(x, y, w, h, FBU.background);
+            display.startTile(x, y, w, h, FBU.background);
             if (FBU.subencoding & 0x08) { // AnySubrects
                 subrects = rQ[rQi];
                 rQi += 1;
@@ -1177,10 +1206,10 @@ encHandlers.HEXTILE = function display_hextile() {
                     sw = (wh >> 4)   + 1;
                     sh = (wh & 0x0f) + 1;
 
-                    display.setSubTile(tile, sx, sy, sw, sh, color);
+                    display.subTile(sx, sy, sw, sh, color);
                 }
             }
-            display.putTile(tile);
+            display.finishTile();
         }
         ws.set_rQi(rQi);
         FBU.lastsubencoding = FBU.subencoding;
@@ -1313,7 +1342,6 @@ encHandlers.DesktopSize = function set_desktopsize() {
     fb_width = FBU.width;
     fb_height = FBU.height;
     display.resize(fb_width, fb_height);
-    display.viewportChange(0, 0, fb_width, fb_height);
     timing.fbu_rt_start = (new Date()).getTime();
     // Send a new non-incremental request
     ws.send(fbUpdateRequests());
@@ -1418,10 +1446,10 @@ clientEncodings = function() {
 
 fbUpdateRequest = function(incremental, x, y, xw, yw) {
     //Util.Debug(">> fbUpdateRequest");
-    if (typeof(x) !== "undefined") { x = 0; }
-    if (typeof(y) !== "undefined") { y = 0; }
-    if (typeof(xw) !== "undefined") { xw = fb_width; }
-    if (typeof(yw) !== "undefined") { yw = fb_height; }
+    if (typeof(x) === "undefined") { x = 0; }
+    if (typeof(y) === "undefined") { y = 0; }
+    if (typeof(xw) === "undefined") { xw = fb_width; }
+    if (typeof(yw) === "undefined") { yw = fb_height; }
     var arr;
     arr = [3];  // msg-type
     arr.push8(incremental);
@@ -1498,13 +1526,13 @@ clientCutText = function(text) {
 // Public API interface functions
 //
 
-that.connect = function(host, port, password, uri) {
+that.connect = function(host, port, password, path) {
     //Util.Debug(">> connect");
 
     rfb_host       = host;
     rfb_port       = port;
     rfb_password   = (password !== undefined)   ? password : "";
-    rfb_uri        = (uri !== undefined) ? uri : "";
+    rfb_path       = (path !== undefined) ? path : "";
 
     if ((!rfb_host) || (!rfb_port)) {
         return fail("Must set host and port");
