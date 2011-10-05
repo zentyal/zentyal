@@ -1,4 +1,6 @@
 HEAD
+	+ Lowercase the members in fixed address prior to substituing
+	  characters to become host in a valid domain name
 	+ Fixed non-translatable string
 2.1.6
 	+ Do not check fixed addresses of unconfigured vifaces

@@ -1827,6 +1827,7 @@ sub _allowedMemberInFixedAddress
     my ($self, $iface, $member, $objId, $readOnly) = @_;
 
     unless (EBox::Validate::checkDomainName($member->{'name'})) {
+        $member->{'name'} = lc($member->{'name'});
         $member->{'name'} =~ s/[^a-z0-9\-]/-/g;
     }
 
