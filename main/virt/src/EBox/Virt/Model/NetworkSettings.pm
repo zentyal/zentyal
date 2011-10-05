@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
+use EBox::Types::MACAddr;
 
 use constant MAX_IFACES => 8;
 
@@ -114,6 +115,14 @@ sub _table
                             ),
     );
 
+    if (EBox::Config::configkey('custom_mac_addresses') eq 'yes') {
+        push (@tableHeader, new EBox::Types::MACAddr(
+                                    fieldName     => 'mac',
+                                    printableName => __('MAC Address'),
+                                    editable      => 1,
+                                    optional      => 1));
+    }
+
     my $dataTable =
     {
         tableName          => 'NetworkSettings',
@@ -130,6 +139,40 @@ sub _table
     };
 
     return $dataTable;
+}
+
+# TODO: It would be great to have something like this implemented at framework level
+# for all the models
+# FIXME: Workaround with RO instance needed until ModelManager always-rw bug is fixed
+# all the commented lines could be restored after that
+sub isEqual
+{
+    #my ($self, $other) = @_;
+    my ($self, $vmRow) = @_;
+
+    my $virtRO = EBox::Global->getInstance(1)->modInstance('virt');
+
+    my @thisIds = @{$self->ids()};
+    #my @otherIds = @{$other->ids()};
+    my @otherIds = @{$virtRO->get_list("VirtualMachines/keys/$vmRow/settings/NetworkSettings/order")};
+    return 0 unless (@thisIds == @otherIds);
+
+    foreach my $id (@{$self->ids()}) {
+        my $thisIface = $self->row($id);
+        #my $otherIface = $other->row($id);
+        #return 0 unless defined ($otherIface);
+
+        foreach my $field (qw(enabled type iface name)) {
+            my $thisField = $thisIface->valueByName($field);
+            next unless defined ($thisField);
+            # my $otherField = $otherIface->valueByName($field);
+            my $otherField = $virtRO->get_string("VirtualMachines/keys/$vmRow/settings/NetworkSettings/keys/$id/$field");
+            next unless defined ($otherField);
+            return 0 unless ($thisField eq $otherField);
+        }
+    }
+
+    return 1;
 }
 
 # Method: validateTypedRow

@@ -181,7 +181,6 @@ sub listVMs
 # Parameters:
 #
 #   name    - virtual machine name
-#   os      - operating system identifier
 #
 sub createVM
 {
@@ -189,16 +188,12 @@ sub createVM
 
     exists $params{name} or
         throw EBox::Exceptions::MissingArgument('name');
-    exists $params{os} or
-        throw EBox::Exceptions::MissingArgument('os');
 
     my $name = $params{name};
-    my $os = $params{os};
 
     my $conf = {};
     $conf->{ifaces} = [];
     $conf->{devices} = [];
-    $conf->{arch} = $os;
 
     $self->{vmConf}->{$name} = $conf;
 
@@ -358,7 +353,7 @@ sub setOS
 {
     my ($self, $name, $os) = @_;
 
-    # TODO: Is this needed?
+    $self->{vmConf}->{$name}->{arch} = $os;
 }
 
 # Method: setIface
@@ -382,6 +377,7 @@ sub setIface
 
     my $name = $params{name};
     my $type = $params{type};
+    my $mac = $params{mac};
 
     my $source = '';
     if ($type eq 'none') {
@@ -400,6 +396,7 @@ sub setIface
     my $iface = {};
     $iface->{type} = $type eq 'bridged' ? 'bridge' : 'network';
     $iface->{source} = $source;
+    $iface->{mac} = $mac;
 
     push (@{$self->{vmConf}->{$name}->{ifaces}}, $iface);
 }
@@ -434,12 +431,14 @@ sub attachDevice
     my $device = {};
     $device->{file} = $file;
     $device->{block} = ($file =~ /^\/dev\//);
-    if ($type eq 'cd') {
-        $device->{type} = 'cdrom';
+    my $cd = $type eq 'cd';
+    $device->{type} = $cd ? 'cdrom' : 'disk';
+    if ($cd or (EBox::Config::configkey('use_ide_disks') eq 'yes')) {
+        $device->{bus} = 'ide';
         $device->{letter} = $self->{ideDriveLetter};
         $self->{ideDriveLetter} = chr (ord ($self->{ideDriveLetter}) + 1);
     } else {
-        $device->{type} = 'disk';
+        $device->{bus} = 'scsi';
         $device->{letter} = $self->{scsiDriveLetter};
         $self->{scsiDriveLetter} = chr (ord ($self->{scsiDriveLetter}) + 1);
     }

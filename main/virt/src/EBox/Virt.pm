@@ -144,6 +144,8 @@ sub _preSetConf
 {
     my ($self) = @_;
 
+    my $disabled = not $self->isEnabled();
+
     # The try is needed because this is also executed before
     # the upstart files for the machines are created, if
     # we made this code more intelligent probably it won't
@@ -151,8 +153,13 @@ sub _preSetConf
     try {
         my $vms = $self->model('VirtualMachines');
         foreach my $vmId (@{$vms->ids()}) {
-            my $vm = $vms->row($vmId);
-            $self->stopVM($vm->valueByName('name'));
+            if ($disabled or $self->needsRewrite($vmId)) {
+                my $vm = $vms->row($vmId);
+                my $name = $vm->valueByName('name');
+                if ($self->vmRunning($name)) {
+                    $self->stopVM($name);
+                }
+            }
         }
 
         $self->_stopService();
@@ -166,8 +173,8 @@ sub _setConf
     my $backend = $self->{backend};
 
     # Clean all upstart and novnc files, the current ones will be regenerated
-    EBox::Sudo::silentRoot("rm -rf $UPSTART_PATH/zentyal-virt.*.conf");
-    EBox::Sudo::silentRoot("rm -rf $WWW_PATH/vncviewer-*.html");
+    EBox::Sudo::silentRoot("rm -rf $UPSTART_PATH/zentyal-virt.*.conf",
+                           "rm -rf $WWW_PATH/vncviewer-*.html");
 
     my %currentVMs;
 
@@ -176,8 +183,9 @@ sub _setConf
     my %vncPasswords;
     # Syntax of the vnc passwords file:
     # machinename:password
+    my @lines;
     if (-f VNC_PASSWD_FILE) {
-        my @lines = read_file(VNC_PASSWD_FILE);
+        @lines = read_file(VNC_PASSWD_FILE);
         chomp(@lines);
         foreach my $line (@lines) {
             my ($machine, $pass) = split(/:/, $line);
@@ -189,25 +197,30 @@ sub _setConf
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
-
         my $name = $vm->valueByName('name');
-        my $settings = $vm->subModel('settings');
-        my $autostart = $vm->valueByName('autostart');
-
         $currentVMs{$name} = 1;
-        $self->_createMachine($name, $settings);
-        $self->_setNetworkConf($name, $settings);
-        $self->_setDevicesConf($name, $settings);
 
-        my $vncpass = exists $vncPasswords{$name} ?
-                             $vncPasswords{$name} :
-                             _randPassVNC();
+        my $rewrite = 1;
+        if ($self->usingVBox()) {
+            $rewrite = $self->needsRewrite($vmId);
+        }
 
-        $self->_writeMachineConf($name, $vncport, $vncpass);
-        $vncport++;
+        my $settings = $vm->subModel('settings');
+        my $system = $settings->componentByName('SystemSettings')->row();
 
-        # Only used for libvirt
+        unless (exists $vncPasswords{$name}) {
+            $vncPasswords{$name} = _randPassVNC();
+        }
+
+        if ($rewrite) {
+            $self->_createMachine($name, $system);
+            $self->_setNetworkConf($name, $settings);
+            $self->_setDevicesConf($name, $settings);
+        }
+        $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
+
+        $vncport++;
     }
 
     # Delete non-referenced VMs
@@ -215,7 +228,13 @@ sub _setConf
     my @toDelete = grep { not exists $currentVMs{$_} } @{$existingVMs};
     foreach my $machine (@toDelete) {
         $backend->deleteVM($machine);
+        delete $vncPasswords{$machine};
     }
+
+    # Update vnc passwords file
+    @lines = map { "$_:$vncPasswords{$_}" } keys %vncPasswords;
+    write_file(VNC_PASSWD_FILE, @lines);
+    chmod (0600, VNC_PASSWD_FILE);
 }
 
 sub machineDaemon
@@ -311,6 +330,38 @@ sub manageScript
     return $self->{backend}->manageScript($name);
 }
 
+my $needRewriteVMs;
+
+sub needsRewrite
+{
+    my ($self, $vmId) = @_;
+
+    return $needRewriteVMs->{$vmId};
+}
+
+sub _saveConfig
+{
+    my ($self) = @_;
+
+    $needRewriteVMs = {};
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        if ($self->usingVBox()) {
+            my $vm = $vms->row($vmId);
+            my $settings = $vm->subModel('settings');
+            my $system = $settings->componentByName('SystemSettings')->row();
+
+            if ($system->valueByName('manageonly')) {
+                $needRewriteVMs->{$vmId} = 0;
+                next;
+            }
+        }
+        $needRewriteVMs->{$vmId} = $vms->vmChanged($vmId);
+    }
+
+    $self->SUPER::_saveConfig();
+}
+
 sub _daemons
 {
     my ($self) = @_;
@@ -332,33 +383,36 @@ sub _daemons
     return \@daemons;
 }
 
-sub _postServiceHook
+sub _enforceServiceState
 {
-    my ($self, $enabled) = @_;
+    my ($self) = @_;
 
-    if ($enabled) {
-        # Start machines marked as autostart
-        my $vms = $self->model('VirtualMachines');
-        foreach my $vmId (@{$vms->findAll('autostart' => 1)}) {
-            my $vm = $vms->row($vmId);
-            $self->startVM($vm->valueByName('name'));
+    return unless $self->isEnabled();
+
+    $self->_startService();
+
+    # Start machines marked as autostart
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->findAll('autostart' => 1)}) {
+        my $vm = $vms->row($vmId);
+        my $name = $vm->valueByName('name');
+        unless ($self->vmRunning($name)) {
+            $self->startVM($name);
         }
     }
-
-    # Call /etc hooks if any
-    $self->SUPER::_postServiceHook($enabled);
 }
 
 sub _createMachine
 {
-    my ($self, $name, $settings) = @_;
+    my ($self, $name, $system) = @_;
 
     my $backend = $self->{backend};
-    my $system = $settings->componentByName('SystemSettings')->row();
     my $memory = $system->valueByName('memory');
     my $os = $system->valueByName('os');
 
-    $backend->createVM(name => $name, os => $os);
+    $backend->createVM(name => $name);
+
+    $backend->setOS($name, $os);
     $backend->setMemory($name, $memory);
 }
 
@@ -384,9 +438,13 @@ sub _setNetworkConf
                 $arg = $iface->valueByName('name');
             }
         }
+        my $mac;
+        if (EBox::Config::configkey('custom_mac_addresses') eq 'yes') {
+            $mac = $iface->valueByName('mac');
+        }
 
         $backend->setIface(name => $name, iface => $ifaceNumber++,
-                           type => $type, arg => $arg);
+                           type => $type, arg => $arg, mac => $mac);
     }
 
     # Unset the rest of the interfaces to prevent they stay from an old conf
@@ -454,12 +512,14 @@ sub _writeMachineConf
             [ startCmd => $start, stopCmd => $stop, user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0644' }
     );
+
     EBox::Module::Base::writeConfFileNoCheck(
             "$UPSTART_PATH/" . $self->vncDaemon($name) . '.conf',
             '/virt/vncproxy.mas',
             [ vncport => $vncport, listenport => $listenport ],
             { uid => 0, gid => 0, mode => '0644' }
     );
+
     my $width = $self->consoleWidth();
     my $height = $self->consoleHeight();
     my $gid = getgrnam('ebox'); # The Zentyal apache needs to read it
@@ -513,6 +573,13 @@ sub consoleHeight
 
     my $vncport = EBox::Config::configkey('view_console_height');
     return $vncport ? $vncport : 600;
+}
+
+sub usingVBox
+{
+    my ($self) = @_;
+
+    return $self->{backend}->isa('EBox::Virt::VBox');
 }
 
 sub backupDomains

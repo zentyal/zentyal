@@ -141,11 +141,13 @@ sub vmRunning
 #
 # Returns:
 #
-#   boolean - true if paused, false if running
+#   boolean - true if paused, false if running or machine does not exist
 #
 sub vmPaused
 {
     my ($self, $name) = @_;
+
+    return 0 unless $self->vmExists($name);
 
     _run("$VBOXCMD showvminfo \"$name\" | grep ^State: | grep paused");
     return ($? == 0);
@@ -173,7 +175,6 @@ sub _vmCheck
 # Parameters:
 #
 #   name    - virtual machine name
-#   os      - operating system identifier
 #
 sub createVM
 {
@@ -181,17 +182,14 @@ sub createVM
 
     exists $params{name} or
         throw EBox::Exceptions::MissingArgument('name');
-    exists $params{os} or
-        throw EBox::Exceptions::MissingArgument('os');
 
     my $name = $params{name};
-    my $os = $params{os};
 
     return if $self->vmExists($name);
 
     $self->{vmConf}->{$name} = {};
 
-    _run("$VBOXCMD createvm --name $name --ostype $os --register");
+    _run("$VBOXCMD createvm --name $name --register");
 
     # Add IDE and SATA controllers
     _run("$VBOXCMD storagectl $name --name $IDE_CTL --add ide");
@@ -325,6 +323,7 @@ sub deleteVM
     my ($self, $name) = @_;
 
     _run("$VBOXCMD unregistervm $name --delete");
+    _run("rm -rf $VM_PATH/$name");
 }
 
 # Method: setMemory
@@ -384,6 +383,8 @@ sub setIface
     my $name = $params{name};
     my $iface = $params{iface};
     my $type = $params{type};
+    my $mac = $params{mac};
+
     my $arg = '';
     if (($type eq 'bridged') or ($type eq 'internal')) {
         exists $params{arg} or
@@ -396,6 +397,9 @@ sub setIface
     }
 
     $self->_modifyVM($name, "nic$iface", $type);
+    if ($mac) {
+        $self->_modifyVM($name, "macaddress$iface", $mac);
+    }
 
     if ($type eq 'none') {
         return;
@@ -453,17 +457,17 @@ sub attachDevice
     my $file = $params{file};
 
     my ($port, $device, $ctl);
-    if ($type eq 'hd') {
-        $type = 'hdd';
-        $ctl = $SATA_CTL;
-        $port = $self->{sataDeviceNumber}++;
-        $device = 0;
-    } elsif ($type eq 'cd') {
-        $type = 'dvddrive';
+    my $cd = $type eq 'cd';
+    $type = $cd ? 'dvddrive' : 'hdd';
+    if ($cd or (EBox::Config::configkey('use_ide_disks') eq 'yes')) {
         $ctl = $IDE_CTL;
         $port = int ($self->{ideDeviceNumber} / 2);
         $device = $self->{ideDeviceNumber} % 2;
         $self->{ideDeviceNumber}++;
+    } else {
+        $ctl = $SATA_CTL;
+        $port = $self->{sataDeviceNumber}++;
+        $device = 0;
     }
 
     if ($file =~ /^\/dev\//) {

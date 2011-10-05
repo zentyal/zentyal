@@ -94,7 +94,6 @@ sub vmRunning
 # Parameters:
 #
 #   name    - virtual machine name
-#   os      - operating system identifier
 #
 sub createVM
 {

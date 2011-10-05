@@ -26,7 +26,11 @@
     <devices>
         <emulator>/usr/bin/<% $emulator %></emulator>
 % foreach my $iface (@ifaces) {
+%       my $mac = $iface->{mac};
         <interface type='<% $iface->{type} %>'>
+%       if ($mac) {
+            <mac address='<% $mac %>'/>
+%       }
             <source <% $iface->{type} %>='<% $iface->{source} %>'/>
         </interface>
 % }
@@ -34,13 +38,13 @@
 % my $block = $device->{block};
 % my $type = $device->{type};
 % my $letter = $device->{letter};
+% my $bus = $device->{bus};
+% my $prefix = ($bus eq 'ide') ? 'hd' : 'sd';
         <disk type='<% $block ? 'block' : 'file' %>' device='<% $type %>'>
 % if ($type eq 'disk') {
             <driver name='qemu' type='qcow2'/>
-            <target dev='sd<% $letter %>' bus='scsi'/>
-% } else {
-            <target dev='hd<% $letter %>' bus='ide'/>
 % }
+            <target dev='<% $prefix %><% $letter %>' bus='<% $bus %>'/>
             <source <% $block ? 'dev' : 'file' %>='<% $device->{file} %>'/>
         </disk>
 % }

@@ -37,8 +37,8 @@ use EBox::Exceptions::External;
 use Filesys::Df;
 
 use constant HDDS_DIR => '/var/lib/zentyal';
-use constant MAX_CD_NUM => 4;
-use constant MAX_HD_NUM => 30;
+use constant MAX_IDE_NUM => 4;
+use constant MAX_SCSI_NUM => 16;
 
 # Group: Public methods
 
@@ -147,6 +147,38 @@ sub _table
     return $dataTable;
 }
 
+# TODO: It would be great to have something like this implemented at framework level
+# for all the models
+sub isEqual
+{
+    #my ($self, $other) = @_;
+    my ($self, $vmRow) = @_;
+
+    my $virtRO = EBox::Global->getInstance(1)->modInstance('virt');
+
+    my @thisIds = @{$self->ids()};
+    #my @otherIds = @{$other->ids()};
+    my @otherIds = @{$virtRO->get_list("VirtualMachines/keys/$vmRow/settings/DeviceSettings/order")};
+    return 0 unless (@thisIds == @otherIds);
+
+    foreach my $id (@{$self->ids()}) {
+        my $thisDev = $self->row($id);
+        #my $otherDev = $other->row($id);
+        #return 0 unless defined ($otherDev);
+
+        foreach my $field (qw(enabled type disk_action size path)) {
+            my $thisField = $thisDev->valueByName($field);
+            next unless defined ($thisField);
+            #my $otherField = $otherDev->valueByName($field);
+            my $otherField = $virtRO->get_string("VirtualMachines/keys/$vmRow/settings/DeviceSettings/keys/$id/$field");
+            next unless defined ($otherField);
+            return 0 unless ($thisField eq $otherField);
+        }
+    }
+
+    return 1;
+}
+
 # Method: validateTypedRow
 #
 # Overrides:
@@ -193,23 +225,27 @@ sub validateTypedRow
             }
         }
     }
+    my @devices = @{$self->ids()};
+    if ((EBox::Config::configkey('use_ide_disks') eq 'yes') and (@devices == 4)) {
+        throw EBox::Exceptions::External(__x('A maximum of {num} IDE drives are allowed', num => MAX_IDE_NUM));
+    }
 
     my $numCDs = 0;
     my $numHDs = 0;
-    foreach my $id (@{$self->ids()}) {
+    foreach my $id (@devices) {
         my $row = $self->row($id);
 
         my $type = $row->elementByName('type')->value();
 
         if ($type eq 'cd') {
             $numCDs++;
-            if ($numCDs == MAX_CD_NUM) {
-                throw EBox::Exceptions::External(__x('A maximum of {num} CD/DVD drives are allowed', num => MAX_CD_NUM));
+            if ($numCDs == MAX_IDE_NUM) {
+                throw EBox::Exceptions::External(__x('A maximum of {num} CD/DVD drives are allowed', num => MAX_IDE_NUM));
             }
         } elsif ($type eq 'hd') {
             $numHDs++;
-            if ($numHDs == MAX_HD_NUM) {
-                throw EBox::Exceptions::External(__x('A maximum of {num} Hard Disk drives are allowed', num => MAX_HD_NUM));
+            if ($numHDs == MAX_SCSI_NUM) {
+                throw EBox::Exceptions::External(__x('A maximum of {num} Hard Disk drives are allowed', num => MAX_SCSI_NUM));
             }
         }
     }

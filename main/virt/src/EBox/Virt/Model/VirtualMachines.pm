@@ -169,6 +169,50 @@ sub _table
     return $dataTable;
 }
 
+# FIXME: pass RO model instance instead of row id
+# once the ModelManager bug is fixed, uncomment all the stuff after that
+sub vmChanged
+{
+    my ($self, $id) = @_;
+
+    my $vm = $self->row($id);
+
+    my $virtRO = EBox::Global->getInstance(1)->modInstance('virt');
+    my $vmsRO = $virtRO->model('VirtualMachines');
+    my $vmRO = $vmsRO->row($id);
+
+    return 1 unless defined ($vmRO);
+
+    my $name = $vm->valueByName('name');
+    my $nameRO = $vmRO->valueByName('name');
+
+    return 1 unless ($name eq $nameRO);
+
+    my $auto = $vm->valueByName('autostart');
+    my $autoRO = $vmRO->valueByName('autostart');
+    return 1 if ($auto and not $autoRO);
+
+    my $settings = $vm->subModel('settings');
+    #my $settingsRO = $vmRO->subModel('settings');
+    my $system = $settings->componentByName('SystemSettings');
+    #my $systemRO = $settingsRO->componentByName('SystemSettings');
+    return 1 if ($auto and not $autoRO);
+    #return 1 unless $system->isEqual($systemRO);
+    return 1 unless $system->isEqual($id);
+
+    my $network = $settings->componentByName('NetworkSettings');
+    #my $networkRO = $settingsRO->componentByName('NetworkSettings');
+    #return 1 unless $network->isEqual($networkRO);
+    return 1 unless $network->isEqual($id);
+
+    my $devices = $settings->componentByName('DeviceSettings');
+    #my $devicesRO = $settingsRO->componentByName('DeviceSettings');
+    #return 1 unless $devices->isEqual($devicesRO);
+    return 1 unless $devices->isEqual($id);
+
+    return 0;
+}
+
 sub addedRowNotify
 {
     my ($self) = @_;
