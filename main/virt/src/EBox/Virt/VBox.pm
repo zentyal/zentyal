@@ -398,6 +398,7 @@ sub setIface
 
     $self->_modifyVM($name, "nic$iface", $type);
     if ($mac) {
+        $mac =~ s/://g;
         $self->_modifyVM($name, "macaddress$iface", $mac);
     }
 

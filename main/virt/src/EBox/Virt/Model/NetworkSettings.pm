@@ -162,7 +162,7 @@ sub isEqual
         #my $otherIface = $other->row($id);
         #return 0 unless defined ($otherIface);
 
-        foreach my $field (qw(enabled type iface name)) {
+        foreach my $field (qw(enabled type iface name mac)) {
             my $thisField = $thisIface->valueByName($field);
             next unless defined ($thisField);
             # my $otherField = $otherIface->valueByName($field);
