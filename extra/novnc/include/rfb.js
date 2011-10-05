@@ -20,7 +20,7 @@ var that           = {},  // Public API methods
     init_vars, updateState, fail, handle_message,
     init_msg, normal_msg, framebufferUpdate, print_stats,
 
-    pixelFormat, clientEncodings, fbUpdateRequest,
+    pixelFormat, clientEncodings, fbUpdateRequest, fbUpdateRequests,
     keyEvent, pointerEvent, clientCutText,
 
     extract_data_uri, scan_tight_imgQ,
@@ -35,6 +35,7 @@ var that           = {},  // Public API methods
     rfb_host       = '',
     rfb_port       = 5900,
     rfb_password   = '',
+    rfb_uri        = '',
 
     rfb_state      = 'disconnected',
     rfb_version    = 0,
@@ -95,7 +96,7 @@ var that           = {},  // Public API methods
     fb_height      = 0,
     fb_name        = "",
 
-    scan_imgQ_rate = 100,
+    scan_imgQ_rate = 40, // 25 times per second or so
     last_req_time  = 0,
     rre_chunk_sz   = 100,
 
@@ -272,7 +273,7 @@ function connect() {
     } else {
         uri = "ws://";
     }
-    uri += rfb_host + ":" + rfb_port + "/";
+    uri += rfb_host + ":" + rfb_port + "/" + rfb_uri;
     Util.Info("connecting to " + uri);
     ws.open(uri);
 
@@ -534,10 +535,10 @@ function genDES(password, challenge) {
 
 function flushClient() {
     if (mouse_arr.length > 0) {
-        //send(mouse_arr.concat(fbUpdateRequest(1)));
+        //send(mouse_arr.concat(fbUpdateRequests()));
         ws.send(mouse_arr);
         setTimeout(function() {
-                ws.send(fbUpdateRequest(1));
+                ws.send(fbUpdateRequests());
             }, 50);
 
         mouse_arr = [];
@@ -555,7 +556,7 @@ checkEvents = function() {
             now = new Date().getTime();
             if (now > last_req_time + conf.fbu_req_rate) {
                 last_req_time = now;
-                ws.send(fbUpdateRequest(1));
+                ws.send(fbUpdateRequests());
             }
         }
     }
@@ -565,7 +566,7 @@ checkEvents = function() {
 keyPress = function(keysym, down) {
     var arr;
     arr = keyEvent(keysym, down);
-    arr = arr.concat(fbUpdateRequest(1));
+    arr = arr.concat(fbUpdateRequests());
     ws.send(arr);
 };
 
@@ -595,7 +596,8 @@ init_msg = function() {
 
     var strlen, reason, length, sversion, cversion,
         i, types, num_types, challenge, response, bpp, depth,
-        big_endian, true_color, name_length;
+        big_endian, red_max, green_max, blue_max, red_shift,
+        green_shift, blue_shift, true_color, name_length;
 
     //Util.Debug("ws.rQ (" + ws.rQlen() + ") " + ws.rQslice(0));
     switch (rfb_state) {
@@ -755,18 +757,32 @@ init_msg = function() {
         big_endian     = ws.rQshift8();
         true_color     = ws.rQshift8();
 
+        red_max        = ws.rQshift16();
+        green_max      = ws.rQshift16();
+        blue_max       = ws.rQshift16();
+        red_shift      = ws.rQshift8();
+        green_shift    = ws.rQshift8();
+        blue_shift     = ws.rQshift8();
+        ws.rQshiftStr(3); // padding
+
         Util.Info("Screen: " + fb_width + "x" + fb_height + 
                   ", bpp: " + bpp + ", depth: " + depth +
                   ", big_endian: " + big_endian +
-                  ", true_color: " + true_color);
+                  ", true_color: " + true_color +
+                  ", red_max: " + red_max +
+                  ", green_max: " + green_max +
+                  ", blue_max: " + blue_max +
+                  ", red_shift: " + red_shift +
+                  ", green_shift: " + green_shift +
+                  ", blue_shift: " + blue_shift);
 
         /* Connection name/title */
-        ws.rQshiftStr(12);
         name_length   = ws.rQshift32();
         fb_name = ws.rQshiftStr(name_length);
 
         display.set_true_color(conf.true_color);
         display.resize(fb_width, fb_height);
+        display.viewportChange(0, 0, fb_width, fb_height);
         keyboard.grab();
         mouse.grab();
 
@@ -780,7 +796,7 @@ init_msg = function() {
 
         response = pixelFormat();
         response = response.concat(clientEncodings());
-        response = response.concat(fbUpdateRequest(0));
+        response = response.concat(fbUpdateRequests());
         timing.fbu_rt_start = (new Date()).getTime();
         ws.send(response);
         
@@ -827,9 +843,9 @@ normal_msg = function() {
             //Util.Debug("red after: " + red);
             green = parseInt(ws.rQshift16() / 256, 10);
             blue = parseInt(ws.rQshift16() / 256, 10);
-            Util.Debug("*** colourMap: " + display.get_colourMap());
             display.set_colourMap([red, green, blue], first_colour + c);
         }
+        Util.Debug("colourMap: " + display.get_colourMap());
         Util.Info("Registered " + num_colours + " colourMap entries");
         //Util.Debug("colourMap: " + display.get_colourMap());
         break;
@@ -1229,7 +1245,14 @@ encHandlers.TIGHT_PNG = function display_tight_png() {
     case "fill":
         ws.rQshift8(); // shift off ctl
         color = ws.rQshiftBytes(fb_depth);
-        display.fillRect(FBU.x, FBU.y, FBU.width, FBU.height, color);
+        FBU.imgQ.push({
+                'type': 'fill',
+                'img': {'complete': true},
+                'x': FBU.x,
+                'y': FBU.y,
+                'width': FBU.width,
+                'height': FBU.height,
+                'color': color});
         break;
     case "jpeg":
     case "png":
@@ -1241,8 +1264,12 @@ encHandlers.TIGHT_PNG = function display_tight_png() {
         //Util.Debug("   png, ws.rQlen(): " + ws.rQlen() + ", clength[0]: " + clength[0] + ", clength[1]: " + clength[1]);
         ws.rQshiftBytes(1 + clength[0]); // shift off ctl + compact length
         img = new Image();
-        img.onload = scan_tight_imgQ;
-        FBU.imgQ.push([img, FBU.x, FBU.y]);
+        //img.onload = scan_tight_imgQ;
+        FBU.imgQ.push({
+                'type': 'img',
+                'img': img,
+                'x': FBU.x,
+                'y': FBU.y});
         img.src = "data:image/" + cmode +
             extract_data_uri(ws.rQshiftBytes(clength[1]));
         img = null;
@@ -1265,13 +1292,17 @@ extract_data_uri = function(arr) {
 };
 
 scan_tight_imgQ = function() {
-    var img, imgQ, ctx;
+    var data, imgQ, ctx;
     ctx = display.get_context();
     if (rfb_state === 'normal') {
         imgQ = FBU.imgQ;
-        while ((imgQ.length > 0) && (imgQ[0][0].complete)) {
-            img = imgQ.shift();
-            ctx.drawImage(img[0], img[1], img[2]);
+        while ((imgQ.length > 0) && (imgQ[0].img.complete)) {
+            data = imgQ.shift();
+            if (data['type'] === 'fill') {
+                display.fillRect(data.x, data.y, data.width, data.height, data.color);
+            } else {
+                ctx.drawImage(data.img, data.x, data.y);
+            }
         }
         setTimeout(scan_tight_imgQ, scan_imgQ_rate);
     }
@@ -1282,9 +1313,10 @@ encHandlers.DesktopSize = function set_desktopsize() {
     fb_width = FBU.width;
     fb_height = FBU.height;
     display.resize(fb_width, fb_height);
+    display.viewportChange(0, 0, fb_width, fb_height);
     timing.fbu_rt_start = (new Date()).getTime();
     // Send a new non-incremental request
-    ws.send(fbUpdateRequest(0));
+    ws.send(fbUpdateRequests());
 
     FBU.bytes = 0;
     FBU.rects -= 1;
@@ -1386,10 +1418,10 @@ clientEncodings = function() {
 
 fbUpdateRequest = function(incremental, x, y, xw, yw) {
     //Util.Debug(">> fbUpdateRequest");
-    if (!x) { x = 0; }
-    if (!y) { y = 0; }
-    if (!xw) { xw = fb_width; }
-    if (!yw) { yw = fb_height; }
+    if (typeof(x) !== "undefined") { x = 0; }
+    if (typeof(y) !== "undefined") { y = 0; }
+    if (typeof(xw) !== "undefined") { xw = fb_width; }
+    if (typeof(yw) !== "undefined") { yw = fb_height; }
     var arr;
     arr = [3];  // msg-type
     arr.push8(incremental);
@@ -1400,6 +1432,26 @@ fbUpdateRequest = function(incremental, x, y, xw, yw) {
     //Util.Debug("<< fbUpdateRequest");
     return arr;
 };
+
+// Based on clean/dirty areas, generate requests to send
+fbUpdateRequests = function() {
+    var cleanDirty = display.getCleanDirtyReset(),
+        arr = [], i, cb, db;
+
+    cb = cleanDirty.cleanBox;
+    if (cb.w > 0 && cb.h > 0) {
+        // Request incremental for clean box
+        arr = arr.concat(fbUpdateRequest(1, cb.x, cb.y, cb.w, cb.h));
+    }
+    for (i = 0; i < cleanDirty.dirtyBoxes.length; i++) {
+        db = cleanDirty.dirtyBoxes[i];
+        // Force all (non-incremental for dirty box
+        arr = arr.concat(fbUpdateRequest(0, db.x, db.y, db.w, db.h));
+    }
+    return arr;
+};
+
+
 
 keyEvent = function(keysym, down) {
     //Util.Debug(">> keyEvent, keysym: " + keysym + ", down: " + down);
@@ -1446,12 +1498,13 @@ clientCutText = function(text) {
 // Public API interface functions
 //
 
-that.connect = function(host, port, password) {
+that.connect = function(host, port, password, uri) {
     //Util.Debug(">> connect");
 
     rfb_host       = host;
     rfb_port       = port;
     rfb_password   = (password !== undefined)   ? password : "";
+    rfb_uri        = (uri !== undefined) ? uri : "";
 
     if ((!rfb_host) || (!rfb_port)) {
         return fail("Must set host and port");
@@ -1484,7 +1537,7 @@ that.sendCtrlAltDel = function() {
     arr = arr.concat(keyEvent(0xFFFF, 0)); // Delete
     arr = arr.concat(keyEvent(0xFFE9, 0)); // Alt
     arr = arr.concat(keyEvent(0xFFE3, 0)); // Control
-    arr = arr.concat(fbUpdateRequest(1));
+    arr = arr.concat(fbUpdateRequests());
     ws.send(arr);
 };
 
@@ -1501,7 +1554,7 @@ that.sendKey = function(code, down) {
         arr = arr.concat(keyEvent(code, 1));
         arr = arr.concat(keyEvent(code, 0));
     }
-    arr = arr.concat(fbUpdateRequest(1));
+    arr = arr.concat(fbUpdateRequests());
     ws.send(arr);
 };
 
@@ -1512,12 +1565,10 @@ that.clipboardPasteFrom = function(text) {
     //Util.Debug("<< clipboardPasteFrom");
 };
 
+// Override internal functions for testing
 that.testMode = function(override_send) {
-    // Overridable internal functions for testing
     test_mode = true;
-    // TODO figure out what to do here
-    ws.send = override_send;
-    that.recv_message = ws.recv_message;  // Expose it
+    that.recv_message = ws.testMode(override_send);
 
     checkEvents = function () { /* Stub Out */ };
     that.connect = function(host, port, password) {

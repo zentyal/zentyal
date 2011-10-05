@@ -19,6 +19,9 @@
 
 if (window.WebSocket) {
     Websock_native = true;
+} else if (window.MozWebSocket) {
+    Websock_native = true;
+    window.WebSocket = window.MozWebSocket;
 } else {
     /* no builtin WebSocket so load web_socket.js */
     Websock_native = false;
@@ -32,7 +35,7 @@ if (window.WebSocket) {
             end = "'><\/script>", extra = "";
 
         WEB_SOCKET_SWF_LOCATION = get_INCLUDE_URI() +
-                    "web-socket-js/WebSocketMain.swf?" + Math.random();
+                    "web-socket-js/WebSocketMain.swf";
         if (Util.Engine.trident) {
             Util.Debug("Forcing uncached load of WebSocketMain.swf");
             WEB_SOCKET_SWF_LOCATION += "?" + Math.random();
@@ -59,7 +62,9 @@ var api = {},         // Public API
         'open'    : function() {},
         'close'   : function() {},
         'error'   : function() {}
-    };
+    },
+
+    test_mode = false;
 
 
 //
@@ -253,9 +258,13 @@ function init() {
 function open(uri) {
     init();
 
-    websocket = new WebSocket(uri, 'base64');
-    // TODO: future native binary support
-    //websocket = new WebSocket(uri, ['binary', 'base64']);
+    if (test_mode) {
+        websocket = {};
+    } else {
+        websocket = new WebSocket(uri, 'base64');
+        // TODO: future native binary support
+        //websocket = new WebSocket(uri, ['binary', 'base64']);
+    }
 
     websocket.onmessage = recv_message;
     websocket.onopen = function() {
@@ -289,6 +298,15 @@ function close() {
     }
 }
 
+// Override internal functions for testing
+// Takes a send function, returns reference to recv function
+function testMode(override_send) {
+    test_mode = true;
+    api.send = override_send;
+    api.close = function () {};
+    return recv_message;
+}
+
 function constructor() {
     // Configuration settings
     api.maxBufferedAmount = 200;
@@ -319,6 +337,7 @@ function constructor() {
     api.init         = init;
     api.open         = open;
     api.close        = close;
+    api.testMode     = testMode;
 
     return api;
 }

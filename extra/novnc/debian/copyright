@@ -3,10 +3,14 @@ This package was debianized by Zentyal Packaging Maintainers
 
 It was downloaded from http://kanaka.github.com/noVNC/
 
-Upstream Author: Joel Martin (github@martintribe.org)
+noVNC is Copyright (C) 2011 Joel Martin <github@martintribe.org>
 
-noVNC is licensed under the LGPL version 3 (see docs/LICENSE.GPL-3 and
-docs/LICENSE.LGPL-3) with the following exceptions:
+Some portions of noVNC are copyright to their individual authors.
+Please refer to the individual source files and/or to the noVNC commit
+history: https://github.com/kanaka/noVNC/commits/master
+
+noVNC is licensed under the LGPL (GNU Lesser General Public License)
+version 3 with the following exceptions:
 
     include/input.js           : LGPL-2 or any later version
 
@@ -21,3 +25,13 @@ docs/LICENSE.LGPL-3) with the following exceptions:
                                  http://creativecommons.org/licenses/by-sa/3.0/
                                  Uses of the work must be attributed
                                  to the noVNC project.
+
+----------------------------------------------------------------------
+
+The LGPL-3 license text is located at:
+    /usr/share/common-licenses/LGPL-3 and
+    /usr/share/common-licenses/GPL-3
+
+Or alternatively the LGPL-3 license text may be found here:
+    http://www.gnu.org/licenses/lgpl.html and
+    http://www.gnu.org/licenses/gpl.html

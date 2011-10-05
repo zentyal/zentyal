@@ -1,3 +1,9 @@
+novnc (2-1+zentyal1) lucid; urgency=low
+
+  * New upstream release (merged master branch from upstream git)
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 28 Sep 2011 15:49:42 +0200
+
 novnc (1-1+zentyal1) lucid; urgency=low
 
   * Do not include unused images nor javascript splash screen
