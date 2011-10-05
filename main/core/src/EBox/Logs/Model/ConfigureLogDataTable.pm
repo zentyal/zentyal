@@ -288,6 +288,14 @@ sub _populateSelectLifeTime
                     printableValue => __('ninety days'),
                     value          =>  2160,
                 },
+                {
+                    printableValue => __('one year'),
+                    value          =>  8760,
+                },
+                {
+                    printableValue => __('two years'),
+                    value          =>  17520,
+                },
            ];
 }
 
