@@ -388,6 +388,7 @@ sub _loadModules
     } else {
         $self->{lastDispatcherScan} = time();
     }
+
 }
 
 # Method: _deleteFromINC

@@ -159,10 +159,6 @@ sub syncRows
         my $able = $self->_checkWatcherAbility($watcher);
         next if ( not $able and $self->_checkWatcherHidden($watcher) );
         my $enabled = not $watcher->DisabledByDefault();
-        # Those watchers that are enabled by default must be enabled
-        if ( $enabled ) {
-            $self->parentModule()->enableEventElement('watcher', $watcher, 1);
-        }
         my %params = ('eventWatcher' => $watcher,
                 # The value is obtained dynamically
                 'description'  => undef,
@@ -208,9 +204,6 @@ sub updatedRowNotify
     my $newRow = $self->row($rowRef->id());
     my $enabled = $newRow->valueByName('enabled');
     my $className = $newRow->valueByName('eventWatcher');
-
-    # Set to move
-    $self->{gconfmodule}->enableEventElement('watcher', $className, $enabled);
 
     # if the class name is a the log one, check if any log observer is ready
     if ( $className =~ m/::Log$/ and $enabled) {

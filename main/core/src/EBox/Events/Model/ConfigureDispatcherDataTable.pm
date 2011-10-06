@@ -160,12 +160,6 @@ sub syncRows
         # Create a new instance from this dispatcher
         eval "use $dispatcher";
         my $enabled = ! $dispatcher->DisabledByDefault();
-        # XXX Enable Log dispatcher by default and not allow user
-        # to disable it
-        if ($enabled) {
-            $self->parentModule()->enableEventElement('dispatcher',
-                    $dispatcher, 1);
-        }
         my %params = (
                 'eventDispatcher'        => $dispatcher,
                 # The value is obtained dynamically
@@ -212,10 +206,6 @@ sub updatedRowNotify
     my $enabled = $rowRef->valueByName('enabled');
     my $className = $newRow->valueByName('eventDispatcher');
 
-    # Set to move
-    use Data::Dumper;
-    EBox::debug("$className to $enabled");
-    $self->{gconfmodule}->enableEventElement('dispatcher', $className, $enabled);
 }
 
 # Method: validateTypedRow

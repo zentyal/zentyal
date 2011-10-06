@@ -115,10 +115,8 @@ sub _setConf
 {
     my ($self) = @_;
 
-    # Do the movements to make EventDaemon notice to work
-    unless ($self->isReadOnly()) {
-        $self->_submitEventElements();
-    }
+    $self->_enableComponents();
+
 }
 
 sub _enforceServiceState
@@ -403,63 +401,6 @@ sub isRunning
     return $self->isEnabled();
 }
 
-# Method: enableEventElement
-#
-#      Mark as some event element (Watcher/Dispatcher) to be
-#      enable/disable when saving changes is done. This method is
-#      called from the models embebbed in this module
-#
-# Parameters:
-#
-#      eventElementType - String it could be 'watcher' or 'dispatcher'
-#      eventElement - String the event element identifier to
-#      enable/disable
-#      enabled - Boolean indicating if the event
-#      element will be enabled/disabled
-#
-#
-sub enableEventElement # ($className, $enabled)
-{
-    my ($self, $type, $className, $enabled) = @_;
-
-    if ( $enabled ) {
-        my @enabled  = @{$self->get_list($type . '_to_enable')};
-        unless ( grep { $_ eq $className } @enabled ) {
-            my @disabled = @{$self->get_list($type . '_to_disable')};
-            my $disabled = scalar(@disabled);
-            @disabled = grep { $_ ne $className } @disabled;
-            if ( scalar(@disabled) != $disabled ) {
-                $self->set_list($type . '_to_disable', 'string', \@disabled);
-                # Delete from the enabled list
-                return;
-            }
-
-            unless ( grep { $_ eq $className } @enabled ) {
-                push ( @enabled, $className);
-                $self->set_list($type . '_to_enable', 'string', \@enabled);
-            }
-        }
-    } else {
-        my @disabled  = @{$self->get_list($type . '_to_disable')};
-        unless ( grep { $_ eq $className } @disabled ) {
-            # Disable
-            my @enabled = @{$self->get_list($type . '_to_enable')};
-            my $enabled = scalar(@enabled);
-            @enabled = grep { $_ ne $className } @enabled;
-            if ( scalar(@enabled) != $enabled ) {
-                $self->set_list($type . '_to_enable', 'string', \@enabled);
-                # Delete from enable, nothing has been done yet
-                return;
-            }
-
-            unless ( grep { $_ eq $className } @disabled ) {
-                push ( @disabled, $className);
-                $self->set_list($type . '_to_disable', 'string', \@disabled);
-            }
-        }
-    }
-}
-
 # Method: sendEvent
 #
 #       Send an event to the event daemon to be dispatched to enabled
@@ -595,89 +536,49 @@ sub _logIsEnabled
 }
 
 
-# Enable/disable watchers and dispatchers to restore backup
-sub _prepareRestoreBackup
+# Create the symlinks to enable/disable watchers and dispatchers
+sub _enableComponents
 {
     my ($self) = @_;
 
-    my $eventModel = $self->configureEventModel();
-    my @enableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') }
-    @{$eventModel->findAllValue (enabled => 1)};
-    my @disableEvents =  map { $eventModel->row($_)->valueByName('eventWatcher') }
-    @{$eventModel->findAllValue (enabled => 0)};
+    my @dirs = ( ENABLED_WATCHERS_DIR, ENABLED_DISPATCHERS_DIR );
 
-    my $dispatcherModel = $self->configureDispatcherModel();
-    my @enableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') }
-    @{$dispatcherModel->findAllValue (enabled => 1)};
-    my @disableDispatchers =  map { $dispatcherModel->row($_)->valueByName('eventDispatcher') }
-    @{$dispatcherModel->findAllValue (enabled => 0)};
-
-    $self->set_list('watcher_to_enable', 'string', \@enableEvents);
-    $self->set_list('watcher_to_disable', 'string', \@disableEvents);
-    $self->set_list('dispatcher_to_enable', 'string', \@enableDispatchers);
-    $self->set_list('dispatcher_to_disable', 'string', \@disableDispatchers);
-}
-
-# Submit the files to the correct directories
-sub _submitEventElements
-{
-    my ($self) = @_;
-
-    my @enableWatchers = @{$self->get_list('watcher_to_enable')};
-    my @disableWatchers = @{$self->get_list('watcher_to_disable')};
-    my @enableDispatchers = @{$self->get_list('dispatcher_to_enable')};
-    my @disableDispatchers = @{$self->get_list('dispatcher_to_disable')};
-
-    my @dirs = ( ENABLED_WATCHERS_DIR,  ENABLED_DISPATCHERS_DIR );
-    my @toMove = ( [
-            \@enableWatchers,
-            \@disableWatchers,
-            ],
-            [
-            \@enableDispatchers,
-            \@disableDispatchers,
-            ]
-            );
-
-    for ( my $idx = 0; $idx < scalar(@dirs); $idx++) {
-        my $dir = $dirs[$idx];
-        my $toCopy = 1;
-        foreach my $classesRef (@{$toMove[$idx]}) {
-            foreach my $element (@{$classesRef}) {
-                if ( $toCopy ) {
-                    # Transform :: to /
-                    $element =~ s/::/\//g;
-                    my $filePath = EBox::Config::perlPath() . $element . '.pm';
-                    # Get the class final name
-                    ($element) = $element =~ m:^.*/(.*)$:g;
-                    my $dest = "$dir/$element.pm";
-                    next if ( -l $dest );
-                    symlink ( $filePath, $dest )
-                        or throw EBox::Exceptions::Internal("Cannot copy from $filePath to $dir");
-                } else {
-                    ($element) = $element =~ m/^.*::(.*)$/;
-                    my $filePath = $dir . $element . '.pm';
-                    if ( -l $filePath ) {
-                        unlink ( $filePath )
-                            or throw EBox::Exceptions::Internal("Cannot unlink $filePath");
-                    }
-                }
-            }
-            # Now it's time to delete
-            $toCopy = 0;
+    # Firstly, remove everything
+    foreach my $dir (@dirs) {
+        opendir(my $dh, $dir);
+        while( my $file  = readdir($dh) ) {
+            next unless ( -l "${dir}/$file" );
+            unlink( "$dir/$file" );
         }
     }
 
-    # Remove the notebook
-    $self->unset('watcher_to_enable');
-    $self->unset('watcher_to_disable');
-    $self->unset('dispatcher_to_enable');
-    $self->unset('dispatcher_to_disable');
+    my $ids = $self->configureEventModel()->enabledRows();
+    my $watchers = [];
+    foreach my $id ( @{$ids} ) {
+        push(@{$watchers}, $self->configureEventModel()->row($id)->valueByName('eventWatcher'));
+    }
+    my $dispatchers = [];
+    foreach my $id ( @{$self->configureDispatcherModel()->enabledRows()} ) {
+        push(@{$dispatchers}, $self->configureDispatcherModel()->row($id)->valueByName('eventDispatcher'));
+    }
 
-    # this is to avoid mark the modules as changed by the removal of deleted information
-    # XXX TODO: reimplement using ebox state
-    my $global = EBox::Global->getInstance();
-    $global->modRestarted('events');
+    my %enabledComponents = ($dirs[0] => $watchers,
+                             $dirs[1] => $dispatchers);
+
+    while ( my ($dir, $comps) = each(%enabledComponents) ) {
+        foreach my $comp (@{$comps}) {
+            # Transform :: to /
+            $comp =~ s/::/\//g;
+            my $filePath = EBox::Config::perlPath() . $comp . '.pm';
+            # Get the class final name
+            ($comp) = $comp =~ m:^.*/(.*)$:g;
+            my $dest = "$dir$comp.pm";
+            next if ( -l $dest );
+            symlink ( $filePath, $dest )
+              or throw EBox::Exceptions::Internal("Cannot copy from $filePath to $dir");
+        }
+    }
+
 }
 
 # Given a prefix it returns the configurationmodels within this
