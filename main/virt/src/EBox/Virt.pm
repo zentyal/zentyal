@@ -118,6 +118,7 @@ sub modelClasses
         'EBox::Virt::Model::SystemSettings',
         'EBox::Virt::Model::NetworkSettings',
         'EBox::Virt::Model::DeviceSettings',
+        'EBox::Virt::Model::DeletedDisks',
     ];
 }
 
@@ -265,11 +266,11 @@ sub vmPaused
     return $self->{backend}->vmPaused($name);
 }
 
-sub diskExists
+sub diskFile
 {
     my ($self, $vmName, $diskName) = @_;
 
-    return (-f $self->{backend}->diskFile($diskName, $vmName));
+    return $self->{backend}->diskFile($diskName, $vmName);
 }
 
 sub startVM
@@ -468,7 +469,7 @@ sub _setDevicesConf
     for (1 .. $backend->attachedDevices($name, 'hd')) {
         $backend->attachDevice(name => $name, type => 'hd', file => 'none');
     }
-    # TODO: Manage deleted disks...
+    $self->_cleanupDeletedDisks();
 
     $backend->initDeviceNumbers();
     my $devices = $settings->componentByName('DeviceSettings');
@@ -529,6 +530,25 @@ sub _writeMachineConf
             [ port => $listenport, password => $vncpass, width => $width, height => $height ],
             { uid => 0, gid => $gid, mode => '0640' }
     );
+}
+
+sub _cleanupDeletedDisks
+{
+    my ($self) = @_;
+
+    my $deletedDisks = $self->model('DeletedDisks');
+
+    foreach my $id (@{$deletedDisks->ids()}) {
+        my $row = $deletedDisks->row($id);
+        my $file = $row->valueByName('file');
+        $file = shell_quote($file);
+        EBox::Sudo::root("rm -f $file");
+    }
+
+    $deletedDisks->removeAll(1);
+
+    # mark as saved to avoid red button
+    EBox::Global->getInstance()->modRestarted('virt');
 }
 
 # Method: widgets

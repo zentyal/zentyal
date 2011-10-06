@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Virt/Model
 
-nobase_perl_DATA = VirtualMachines.pm SystemSettings.pm NetworkSettings.pm DeviceSettings.pm
+nobase_perl_DATA = VirtualMachines.pm SystemSettings.pm NetworkSettings.pm DeviceSettings.pm DeletedDisks.pm
 
 DISTCLEANFILES =
 

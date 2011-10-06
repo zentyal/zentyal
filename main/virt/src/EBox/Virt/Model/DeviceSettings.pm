@@ -219,7 +219,7 @@ sub validateTypedRow
 
             my $vmRow = $self->parentRow();
             my $vmName = $vmRow->valueByName('name');
-            if ($self->parentModule()->diskExists($vmName, $name) and exists $changedFields->{size}) {
+            if ((-f $self->parentModule()->diskFile($vmName, $name)) and exists $changedFields->{size}) {
                 throw EBox::Exceptions::External(__('You cannot modify an already created disk. ' .
                                                     'You need to delete it and add a new one if you want to change the size.'));
             }
@@ -249,6 +249,26 @@ sub validateTypedRow
             }
         }
     }
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+
+    my $type = $row->valueByName('type');
+    return unless ($type eq 'hd');
+
+    my $action = $row->valueByName('disk_action');
+    return unless ($action eq 'create');
+
+    my $name = $row->valueByName('name');
+    my $vmRow = $self->parentRow();
+    my $vmName = $vmRow->valueByName('name');
+
+    my $virt = $self->parentModule();
+    my $deletedDisks = $virt->model('DeletedDisks');
+    my $file = $virt->diskFile($vmName, $name);
+    $deletedDisks->add(file => $file);
 }
 
 # Method: viewCustomizer
