@@ -4261,9 +4261,8 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
         # Check only simple cases (add[<tableName>])
         if ( $methodName and not defined ( $subModelInMethod )) {
             unless ( $methodName eq $self->tableName() ) {
-                throw EBox::Exceptions::Internal('Illegal undefined method. It should ' .
-                        'follow this pattern: add[<tableName>] if ' .
-                        ' it has no HasMany fields');
+                throw EBox::Exceptions::Internal(
+                    "Method $_[2] does not exist, May you have mispelled it?");
             }
         }
     }

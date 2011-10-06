@@ -1,4 +1,6 @@
 HEAD
+	+ Added more informative text when mispelling methods whose prefix
+	  is an AUTOLOAD action
 	+ A more resilient solution to load events components in EventDaemon
 	+ Added one and two years to the purge logs periods
 	+ Fixed downloads from EBox::Type::File
