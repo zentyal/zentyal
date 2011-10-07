@@ -1,4 +1,5 @@
 HEAD
+	+ More resilient way to handle with missing indexes in _find
 	+ Added more informative text when mispelling methods whose prefix
 	  is an AUTOLOAD action
 	+ A more resilient solution to load events components in EventDaemon

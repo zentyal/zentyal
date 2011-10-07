@@ -3505,22 +3505,25 @@ sub _find
     }
 
     my $indexRows;
-    my $firstIndexation = 0;
+    my $firstIndexation = 1;
     if ($conf->index_exists($index)) {
         $indexRows = $conf->hash_value($index, $value);
         if (defined ($indexRows)) {
             @rows = keys (%{$indexRows});
+            if (@rows) {
+                $firstIndexation = 0;
+            }
         }
-        return [] unless @rows;
-    } else {
+    }
+
+    if ($firstIndexation) {
         # No index found, we search on the entire table
         @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
-        # From now on, the index will be updated when storing values
-        $conf->create_index($index);
         unless (@rows) {
             return [];
         }
-        $firstIndexation = 1;
+        # From now on, the index will be updated when storing values
+        $conf->create_index($index);
     }
 
     my $updateIndex = 0;
