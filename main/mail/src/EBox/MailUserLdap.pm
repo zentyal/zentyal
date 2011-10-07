@@ -67,7 +67,7 @@ sub mailboxesDir
 #
 #               user - username
 #               lhs - the left hand side of a mail (the foo on foo@bar.baz account)
-#               rhs - the right hand side of a mail (the bar.baz on previus account)
+#               rhs - the right hand side of a mail (the bar.baz on previous account)
 
 sub setUserAccount
 {
@@ -78,10 +78,7 @@ sub setUserAccount
     my $mail = EBox::Global->modInstance('mail');
     my $email = $lhs.'@'.$rhs;
 
-    unless ($email =~ /^[^\.\-][\w\.\-]+\@[^\.\-][\w\.\-]+$/) {
-        throw EBox::Exceptions::InvalidData('data' => __('mail account'),
-                                            'value' => $email);
-    }
+    EBox::Validate::checkEmailAddress($email, __('mail account'));
 
     if ($mail->{malias}->accountExists($email)) {
         throw EBox::Exceptions::DataExists('data' => __('mail account'),

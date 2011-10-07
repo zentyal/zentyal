@@ -1,4 +1,6 @@
 HEAD
+	+ Use EBox::Validate::checkEmailAddress for checking email instead
+	  of a custom flaky re
 	+ Fixed regresion in mailname message in SMTPOptions model
 2.1.12
 	+ Fixed regresion in usercorner link
