@@ -49,6 +49,10 @@
         </disk>
 % }
         <input type='mouse' bus='usb'/>
+        <video>
+            <model type='cirrus' vram='9216' heads='1'/>
+            <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+        </video>
         <graphics type='vnc' listen='0.0.0.0' port='<% $vncport %>' passwd='<% $vncpass %>' keymap='<% $keymap %>'/>
     </devices>
 </domain>

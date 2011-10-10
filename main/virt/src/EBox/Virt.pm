@@ -233,7 +233,7 @@ sub _setConf
     }
 
     # Update vnc passwords file
-    @lines = map { "$_:$vncPasswords{$_}" } keys %vncPasswords;
+    @lines = map { "$_:$vncPasswords{$_}\n" } keys %vncPasswords;
     write_file(VNC_PASSWD_FILE, @lines);
     chmod (0600, VNC_PASSWD_FILE);
 }
