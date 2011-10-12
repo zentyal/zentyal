@@ -61,6 +61,16 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                    &>
                 </td>
             </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('User quota') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='quota' value="<% $user->{'quota'} %>">
+                </td>
+            </tr>
 %   unless ($slave) {
             <tr>
                 <td class='tright'>
@@ -82,16 +92,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                     <input type='password' class='inputText' name='repassword'>
                 </td>
             </tr>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('User quota') %>:
-                    </span>
-                </td>
-                <td>
-                    <input type='text' class='inputText' name='quota' value="<% $user->{'quota'} %>">
-                </td>
-            </tr>
+% }
             <tr>
                 <td>
                 </td>
@@ -101,7 +102,6 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                            alt="<% __('Change') %>">
                 <td>
             </tr>
-% }
         </tbody>
         </table>
         </form>
@@ -204,6 +204,7 @@ $slave
 </%args>
 % if ($slave) {
 <% $value %>
+ <input type="hidden" name="<% $name %>" value="<% $value %>" />
 % } else {
  <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
 %}

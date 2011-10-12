@@ -37,49 +37,54 @@ sub new {
 sub _process($) {
     my $self = shift;
 
+    my $users = EBox::Global->modInstance('users');
+
     $self->_requireParam('username', __('user name'));
     my $user = $self->param('username');
     $self->{errorchain} = "UsersAndGroups/User";
     $self->keepParam('username');
 
-    $self->_requireParam('surname', __('last name'));
-    $self->_requireParamAllowEmpty('comment', __('comment'));
-    $self->_requireParamAllowEmpty('password', __('password'));
-    $self->_requireParamAllowEmpty('repassword', __('confirm password'));
     $self->_requireParamAllowEmpty('quota', __('quota'));
-
-    my $givenName = $self->param('name');
-    my $surname = $self->param('surname');
-
-    my $fullname;
-    if ($givenName) {
-        $fullname = "$givenName $surname";
-    } else {
-        $fullname = $surname;
-    }
-
-    my $userdata   = {
+    my $userdata = {
         'username' => $user,
-        'givenname' => $givenName,
-        'surname' => $surname,
-        'fullname' => $fullname,
-        'comment' => $self->param('comment'),
         'quota' => $self->param('quota'),
     };
+    unless ($users->mode() eq 'slave') {
+        $self->_requireParam('surname', __('last name'));
+        $self->_requireParamAllowEmpty('comment', __('comment'));
+        $self->_requireParamAllowEmpty('password', __('password'));
+        $self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
-    # Change password if not empty
-    my $password = $self->unsafeParam('password');
-    if ($password) {
-        my $repassword = $self->unsafeParam('repassword');
-        if ($password ne $repassword){
-            throw EBox::Exceptions::External(
-                    __('Passwords do not match.'));
+        my $givenName = $self->param('name');
+        my $surname = $self->param('surname');
+
+        my $fullname;
+        if ($givenName) {
+            $fullname = "$givenName $surname";
+        } else {
+            $fullname = $surname;
         }
-        $userdata->{'password'} = $password;
+
+        $userdata->{'givenname'} = $givenName;
+        $userdata->{'surname'} = $surname;
+        $userdata->{'fullname'} = $fullname;
+        $userdata->{'comment'} = $self->param('comment');
+
+        # Change password if not empty
+        my $password = $self->unsafeParam('password');
+        if ($password) {
+            my $repassword = $self->unsafeParam('repassword');
+            if ($password ne $repassword){
+                throw EBox::Exceptions::External(
+                        __('Passwords do not match.'));
+            }
+            $userdata->{'password'} = $password;
+        }
+
     }
 
-    my $usersandgroups = EBox::Global->modInstance('users');
-    $usersandgroups->modifyUser($userdata);
+    # Quota can be changed also in slaves
+    $users->modifyUser($userdata);
 
     $self->{redirect} = "UsersAndGroups/User?username=$user";
 }

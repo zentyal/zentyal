@@ -63,7 +63,7 @@ sub _table
         new EBox::Types::Boolean (
             fieldName => 'enableADsync',
             printableName => __('Enable AD sync'),
-            defaultValue => 1,
+            defaultValue => 0,
             editable => 1,
             help => __('Enable AD syncronization.')
         ),

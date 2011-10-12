@@ -1241,7 +1241,9 @@ sub modifyUser # (\%user)
     my ($self, $user) = @_;
 
     $self->modifyUserLocal($user);
-    $self->_updateUserSlaves($user->{'username'});
+    unless ($self->mode() eq 'slave') {
+        $self->_updateUserSlaves($user->{'username'});
+    }
 }
 
 # Method: modifyUserLocal
@@ -2930,6 +2932,8 @@ sub _setupSlaveLDAP
 
     my ($ldap, $dn) = $self->_connRemoteLDAP();
 
+    $self->_checkMaster($ldap);
+
     # Save LDAP dn in Mode
     my $model = $self->model('Mode');
     my $row = $model->row();
@@ -2954,6 +2958,30 @@ sub _connRemoteLDAP
     EBox::Ldap::safeBind($ldap, $self->ldap->rootDn($dn), $password);
 
     return ($ldap, $dn);
+}
+
+sub _checkMaster
+{
+    my ($self, $ldap) = @_;
+    my %args = ( 'base' => "cn=schema,cn=config", 'scope' => 'sub', 'filter' => "objectclass=*");
+    my $result = $ldap->search(%args);
+    my @entries = $result->entries();
+
+    my $validSchemas = any(qw(schema core cosine nis inetorgperson passwords master slaves quota));
+    foreach my $entry (@entries) {
+        my $cn = $entry->get_value('cn');
+        # clean schema name
+        $cn =~ s/\{\d\}//g;
+
+        unless ($cn eq $validSchemas) {
+            my $exception = __('It seems that your master has some incompatible modules installed.');
+            unless (EBox::Config::hideExternalLinks()) {
+                $exception .= ' ' . __x('Please refer to {open}master/slave documentation{close}.',
+                        open => '<a href="http://doc.zentyal.org/2.2/en/directory.html#configuring-zentyal-servers-in-master-slave-mode">', close => '</a>');
+            }
+            throw EBox::Exceptions::External($exception);
+        }
+    }
 }
 
 sub _registerHostname

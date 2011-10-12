@@ -253,7 +253,6 @@ sub passwd
 # Returns:
 #
 #      String - the path to that file
-
 sub sessionid
 {
     return $ref->{localstatedir} . 'lib/zentyal/conf/ebox.sid';
@@ -369,6 +368,11 @@ sub lang
 sub perlPath
 {
     return $ref->{perlpath};
+}
+
+sub hideExternalLinks
+{
+    return configkey('custom_prefix');
 }
 
 1;

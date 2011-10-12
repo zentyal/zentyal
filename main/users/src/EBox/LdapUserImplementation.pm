@@ -71,4 +71,9 @@ sub indexes
     ];
 }
 
+sub localAttributes
+{
+    return [ 'quota' ];
+}
+
 1;

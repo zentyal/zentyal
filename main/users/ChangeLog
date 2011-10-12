@@ -1,4 +1,8 @@
 HEAD
+	+ Do not enable ADSync to avoid launching daemon before configuration
+	+ Also manage slapd daemon on ad-sync setups
+	+ Avoid slave connection to incompatible masters
+	+ Added quota change form on slaves
 	+ Allowed '\' character in ad-sync username
 2.1.14
 	+ Fixed regression in usercorner link
