@@ -681,24 +681,6 @@ sub _reportComposite
     return $self->{reportComposite};
 }
 
-# Method:  restoreConfig
-#
-#   Restore its configuration from the backup file.
-#
-# Parameters:
-#  dir - Directory where are located the backup files
-#
-sub restoreConfig
-{
-    my ($self, $dir) = @_;
-
-    # Call super
-    $self->SUPER::restoreConfig($dir);
-
-    $self->_prepareRestoreBackup();
-}
-
-
 sub enableLog
 {
     my ($self, $status) = @_;
