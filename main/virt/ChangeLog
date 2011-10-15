@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Bugfix: delete commands are properly quoted now
 	+ Bugfix: add newlines to the generated vnc-passwd file
 	+ Bugfix: specify video card model to avoid problems with some guests
