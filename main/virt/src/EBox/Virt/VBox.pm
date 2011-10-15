@@ -323,7 +323,7 @@ sub deleteVM
     my ($self, $name) = @_;
 
     _run("$VBOXCMD unregistervm $name --delete");
-    _run("rm -rf $VM_PATH/$name");
+    _run("rm -rf '$VM_PATH/$name'");
 }
 
 # Method: setMemory

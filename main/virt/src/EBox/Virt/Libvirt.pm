@@ -321,7 +321,7 @@ sub deleteVM
 {
     my ($self, $name) = @_;
 
-    _run("rm -rf $VM_PATH/$name");
+    _run("rm -rf '$VM_PATH/$name'");
 }
 
 # Method: setMemory
@@ -519,7 +519,7 @@ sub _run
 {
     my ($cmd) = @_;
 
-    #EBox::debug("Running: $cmd");
+    EBox::debug("Running: $cmd");
     EBox::Sudo::rootWithoutException($cmd);
 }
 

@@ -541,7 +541,6 @@ sub _cleanupDeletedDisks
     foreach my $id (@{$deletedDisks->ids()}) {
         my $row = $deletedDisks->row($id);
         my $file = $row->valueByName('file');
-        $file = shell_quote($file);
         EBox::Sudo::root("rm -f $file");
     }
 

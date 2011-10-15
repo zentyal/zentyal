@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: delete commands are properly quoted now
 	+ Bugfix: add newlines to the generated vnc-passwd file
 	+ Bugfix: specify video card model to avoid problems with some guests
 	+ Bugfix: created disks are now physically deleted when removed in the GUI
