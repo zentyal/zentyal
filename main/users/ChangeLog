@@ -1,4 +1,4 @@
-HEAD
+2.2.1
 	+ Do not enable ADSync to avoid launching daemon before configuration
 	+ Also manage slapd daemon on ad-sync setups
 	+ Avoid slave connection to incompatible masters

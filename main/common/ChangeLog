@@ -1,4 +1,5 @@
-HEAD
+2.2.1
+	+ Do not log debug messages unless debug = yes is set in zentyal.conf
 	+ New hideExternalLinks method added to EBox::Config
 2.1.10
 	+ Avoid wrong translations of empty strings

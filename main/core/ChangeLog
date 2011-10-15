@@ -1,4 +1,4 @@
-HEAD
+2.2.3
 	+ Bugfix: Avoid url rewrite to ebox.cgi when requesting to /slave
 	+ Fixed logrotate configuration
 	+ More resilient way to handle with missing indexes in _find

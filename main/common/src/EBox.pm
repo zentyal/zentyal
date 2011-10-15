@@ -27,10 +27,11 @@ use constant LOGGER_CAT => 'EBox';
 
 my $loginit = 0;
 
+my $debug = 0;
+
 sub deprecated
 {
-	my $debug = EBox::Config::configkey('debug');
-	if ($debug eq 'yes') {
+	if ($debug) {
 		throw EBox::Exceptions::DeprecatedMethod();
 	}
 }
@@ -56,10 +57,13 @@ sub error # (msg)
 sub debug # (msg)
 {
 	my ($msg) = @_;
-	my $logger = EBox::logger(LOGGER_CAT);
-	$Log::Log4perl::caller_depth +=1;
-	$logger->debug($msg);
-	$Log::Log4perl::caller_depth -=1;
+
+    if ($debug) {
+        my $logger = EBox::logger(LOGGER_CAT);
+        $Log::Log4perl::caller_depth +=1;
+        $logger->debug($msg);
+        $Log::Log4perl::caller_depth -=1;
+    }
 }
 
 sub warn # (msg)
@@ -136,6 +140,8 @@ sub init
     # Set HOME environment variable to avoid some issues calling
     # external programs
     $ENV{HOME} = EBox::Config::home();
+
+    $debug = (EBox::Config::configkey('debug') eq 'yes');
 }
 
 1;
