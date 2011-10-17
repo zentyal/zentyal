@@ -1,5 +1,4 @@
-/var/log/zentyal-captiveportal/error.log /var/log/zentyal-captiveportal/access.log \
-/var/log/zentyal-captiveportal/zentyal.log \
+/var/log/zentyal-captiveportal/error.log /var/log/zentyal-captiveportal/access.log /var/log/zentyal-captiveportal/zentyal.log
 {
         rotate 7
         size 10M

@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed logrotate configuration
 2.1.10
 	+ Fixed UTF8 double-encoding on unexpected error CGI
 	+ Added units to bandwidth quota label

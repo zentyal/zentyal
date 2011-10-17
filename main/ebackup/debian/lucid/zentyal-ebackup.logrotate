@@ -1,5 +1,4 @@
-/var/log/zentyal/duplicity-command.log \
-/var/log/zentyal/duplicity-debug.log \
+/var/log/zentyal/duplicity-command.log /var/log/zentyal/duplicity-debug.log
 {
         rotate 7
         size 10M
