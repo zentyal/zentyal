@@ -142,11 +142,11 @@ sub _trans_prerouting
             }
 
             if ($sq->globalPolicyUsesFilter()) {
-                my $r = "$input -d ! $addr -p tcp --dport 80 "
+                my $r = "$input ! -d $addr -p tcp --dport 80 "
                         . "-j REDIRECT --to-ports $dgport";
                 push(@rules, $r);
             } else {
-                my $r = "$input -d ! $addr -p tcp --dport 80 "
+                my $r = "$input ! -d $addr -p tcp --dport 80 "
                         . "-j REDIRECT --to-ports $sqport";
                 push(@rules, $r);
             }

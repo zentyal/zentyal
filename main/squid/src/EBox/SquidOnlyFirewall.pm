@@ -51,7 +51,7 @@ sub _trans_prerouting
         foreach my $addr (map { $_->{address} } @{$addrs}) {
             (defined($addr) && $addr ne "") or next;
 
-            my $r = "$input -d ! $addr -p tcp " .
+            my $r = "$input ! -d $addr -p tcp " .
               "--dport 80 -j REDIRECT --to-ports $sqport";
             push(@rules, $r);
         }
