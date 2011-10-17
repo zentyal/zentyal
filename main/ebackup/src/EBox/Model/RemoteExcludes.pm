@@ -224,11 +224,13 @@ sub syncRows
     my $changed = 0;
 
     unless (@{$currentIds}) {
-        # if there are no rows, we have to add them
-        foreach my $exclude (DEFAULT_EXCLUDES) {
-            $self->add(type => 'exclude_path', target => $exclude);
+        if ($self->_storedVersion == 0) {
+            # if there are no rows, we have to add them
+            foreach my $exclude (DEFAULT_EXCLUDES) {
+                $self->add(type => 'exclude_path', target => $exclude);
+            }
+            $changed = 1;
         }
-        $changed = 1;
     }
 
     my $prefix = $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';

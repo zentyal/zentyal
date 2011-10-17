@@ -1,4 +1,6 @@
 HEAD
+	+ Defaults in excludes and includes list are not longer added when
+	  deleting all the rows
 	+ Fixed logrotate configuration
 2.2.1
 	+ Assure that backup-tool get all updated includes/excludes from a
