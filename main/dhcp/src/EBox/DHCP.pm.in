@@ -1342,7 +1342,19 @@ sub _leaseIDFromIP
 sub _dhcpLeases
 {
     my ($self) = @_;
-    if(!defined($self->{'leases'})) {
+
+    my @stats = stat LEASEFILE;
+    @stats or
+           return {};
+    my $mtime = $stats[9];
+    my $refresh = 0;
+    if (defined $self->{leases} and (defined $self->{leasesMTime})) {
+        $refresh = $mtime ne $self->{leasesMTime};
+    } else {
+        $refresh = 1;
+    }
+
+    if($refresh) { 
         my $leases = Text::DHCPLeases->new(file => LEASEFILE);
 
         $self->{'leases'} = {};
@@ -1350,6 +1362,7 @@ sub _dhcpLeases
             my $id = _leaseIDFromIP($lease->ip_address());
             $self->{'leases'}->{$id} = $lease;
         }
+        $self->{leasesMTime} = $mtime;
     }
     return $self->{'leases'};
 }
@@ -1384,6 +1397,7 @@ sub dhcpLeasesWidget
                             $hostname];
         }
     }
+
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
 }
 

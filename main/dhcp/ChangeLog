@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed problem with cache of dhcp leases widget. Now it updates correctly
 	+ Lowercase the members in fixed address prior to substituing
 	  characters to become host in a valid domain name
 	+ Fixed non-translatable string
