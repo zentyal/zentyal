@@ -33,6 +33,7 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Boolean;
+use EBox::Types::Text::WriteOnce;
 
 use EBox::Validate;
 use EBox::Exceptions::InvalidData;
@@ -293,7 +294,7 @@ sub _table
                                 populate      => \&_populateSSLsupport,
                                 defaultValue  => 'disabled',
                              ),
-         new EBox::Types::Text(
+         new EBox::Types::Text::WriteOnce(
                                 fieldName     => 'name',
                                 printableName => __('Name'),
                                 size          => 24,
@@ -324,6 +325,9 @@ sub _table
        sortedBy            => 'name',
        enableProperty      => 1,
        defaultEnabledValue => 1,
+       messages            => {
+           del => __('Virtual host deleted. The virtual host files will be left in place')
+          },
       };
 
     return $dataTable;
