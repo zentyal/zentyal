@@ -428,6 +428,7 @@ sub _daemons
         ];
     } elsif ($mode eq 'ad-slave') {
         return [
+                { 'name' => 'ebox.slapd' },
                 {
                   'name' => 'ebox.ad-pwdsync',
                   'precondition' => \&adsyncEnabled
