@@ -530,7 +530,9 @@ sub fqdn
 #
 sub _ldapModImplementation
 {
-    return new EBox::AsteriskLdapUser();
+
+    my ($self) = @_;
+    return new EBox::AsteriskLdapUser(ro => $self->{ro});
 }
 
 # Method: menu

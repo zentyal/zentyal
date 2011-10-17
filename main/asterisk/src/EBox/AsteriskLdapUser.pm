@@ -51,16 +51,18 @@ use Perl6::Junction qw(any);
 sub new
 {
     my $class = shift;
+    my %params = @_;
 
     my $self  = {};
+    $self->{ro} = $params{ro};
     $self->{ldap} = EBox::Ldap->instance();
-    $self->{asterisk} = EBox::Global->modInstance('asterisk');
+    my $global  = EBox::Global->getInstance($self->{ro});
+    $self->{asterisk} = $global->modInstance('asterisk');
+    $self->{users}    = $global->modInstance('users');
 
     bless($self, $class);
-
     return $self;
 }
-
 
 # Group: Private methods
 
@@ -84,7 +86,7 @@ sub _addUser
         return unless ($model->enabledValue());
     }
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = $self->{users};
     my $ldap = $self->{ldap};
 
     my $dn = $users->userDn($user);
@@ -147,7 +149,7 @@ sub _getUserMail
 {
     my ($self, $user) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = $self->{users};
 
     my %attrs = (
                  base => $users->usersDn,
@@ -215,7 +217,7 @@ sub _delUser
     my $extensions = new EBox::Asterisk::Extensions;
     $extensions->delUserExtension($user);
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = $self->{users};
     my $ldap = $users->{ldap};
     my $dn = "uid=$user," . $users->usersDn;
 
@@ -248,15 +250,18 @@ sub _delGroup
 
     my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
+    return unless $self->hasQueue($group);
 
     my $extensions = new EBox::Asterisk::Extensions;
 
     my @users = $self->asteriskUsersInQueue($group);
     foreach my $user (@users) {
-        $extensions->delQueueMember($user, $group);
+        if ($extensions->isQueueMember($user, $group)) {
+            $extensions->delQueueMember($user, $group);
+        }
     }
 
-    $extensions->delQueue($group) if $self->hasQueue($group);
+    $extensions->delQueue($group);  
 
     my $global = EBox::Global->getInstance();
     $global->modChange('asterisk');
@@ -292,22 +297,23 @@ sub _groupAddOns
 sub _modifyGroup
 {
     my ($self, $group, %params) = @_;
+    my $user = $params{user};
+    my $op   = $params{op};
 
     my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
-
     return unless $self->hasQueue($group);
 
-    return unless (any($self->asteriskUsersInQueue($group)) eq $params{'user'});
-
     my $extensions = new EBox::Asterisk::Extensions;
+    return unless $self->hasAccount($user);
+    my $queueMember =  $extensions->isQueueMember($user,   $group);
 
-    if ( $params{'op'} eq 'del' ) {
-        $extensions->delQueueMember($params{'user'}, $group);
-    }
-
-    if ( $params{'op'} eq 'add' ) {
-        $extensions->addQueueMember($params{'user'}, $group);
+    if ( $op eq 'del' ) {
+        return if not $queueMember;
+        $extensions->delQueueMember($user, $group);
+    } elsif ( $op eq 'add' ) {
+        return if $queueMember;
+        $extensions->addQueueMember($user, $group);
     }
 
     my $global = EBox::Global->getInstance();
@@ -323,23 +329,42 @@ sub _modifyGroup
 # Parameters:
 #
 #       username - username object of the action
-#       option - 0=disable, 1=enable the account
+#       enable - 0=disable, 1=enable the account
 #
 sub setHasAccount
 {
-    my ($self, $username, $option) = @_;
-
-    defined $option or $option = 0;
+    my ($self, $username, $enable) = @_;
+    defined $enable or $enable = 0;
 
     my $hasAccount = $self->hasAccount($username);
 
-    ($hasAccount xor $option) or return;
+    ($hasAccount xor $enable) or return;
 
-    if ($option) {
+    if ($enable) {
         $self->_addUser($username, undef, 1);
     } else {
         $self->_delUser($username);
     }
+
+    my $usersMod = $self->{users};
+    my @groups = @{ $usersMod->groupsOfUser($username) };
+    if (not @groups) {
+        return;
+    }
+
+    my $extensions = new EBox::Asterisk::Extensions;
+    # add or remove user to groups queues
+    foreach my $group (@groups)    {    
+        next unless $self->hasQueue($group);
+        my $isInQueue = $extensions->isQueueMember($username, $group);
+        if ($enable and not $isInQueue) {
+            $extensions->addQueueMember($username, $group);
+        } elsif (not $enable and $isInQueue) {
+            $extensions->delQueueMember($username, $group);            
+        }
+        
+    }
+    
 }
 
 
@@ -359,7 +384,7 @@ sub hasAccount #($username)
 {
     my ($self, $username) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = $self->{users};
     my $ldap = $self->{ldap};
 
     my $dn = "uid=$username," . $users->usersDn;
@@ -441,7 +466,7 @@ sub asteriskUsersInQueue
     # XXX not very nice design but i try to make it fast
     my ($self, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = $self->{users};
 
     my %args = (
                 base => $users->usersDn,

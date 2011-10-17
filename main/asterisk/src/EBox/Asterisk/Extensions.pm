@@ -614,6 +614,34 @@ sub delQueueMember
     $self->{ldap}->modify($dn, \%attrs);
 }
 
+
+sub isQueueMember
+{
+    my ($self, $user, $group) = @_;
+
+    unless ($self->{asterisk}->configured()) {
+        return;
+    }
+
+    my $users = EBox::Global->modInstance('users');
+
+    my $dn = "uid=" . $user . "," . $users->usersDn;
+    my %args = (base => $dn, filter => 'objectClass=AsteriskSIPUser', attrs =>
+    ['AstQueueMemberof']);
+
+    my $ldap = $self->{ldap};
+    my $result = $ldap->search(\%args);
+    foreach my $entry ($result->entries()) { 
+        foreach my $value ($entry->get_value('AstQueueMemberof')) {
+            if ($value eq $group) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
 sub addQueueExtension
 {
     my ($self, $group, $extn) = @_;
@@ -640,7 +668,7 @@ sub getQueueExtension
     my ($self, $group) = @_;
 
     unless ($self->{asterisk}->configured()) {
-        return;
+        return undef;
     }
 
     my %attrs = (
@@ -656,6 +684,8 @@ sub getQueueExtension
     if ($result->count > 0) {
         return ($entry->get_value('AstExtension'));
     }
+
+    return undef;
 }
 
 sub delQueueExtension
