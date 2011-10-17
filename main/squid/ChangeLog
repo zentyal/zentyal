@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed parameter for unlimited value in delay pools
 	+ Fixed order of refresh patterns
 	+ Properly set of never_direct option when setting a parent peer
 2.1.11

@@ -425,14 +425,34 @@ delay_class 1 2
 delay_parameters 1 -1/-1 -1/-1
 delay_access 1 allow eboxlocalnets
 % }
-% my $id = 1;
-% foreach my $objPool (@objectsDelayPools) {
-%     $id++;
+<%perl>
+ my $id = 1;
+ foreach my $objPool (@objectsDelayPools) {
+     $id++;
+     my $rate =  $objPool->{rate};
+     if ($rate > 0) {
+         $rate *= 1024;
+     }
+     my $size = $objPool->{size};
+     if ($size > 0) {
+         $size *= 1024;
+     }
+</%perl>
 delay_class <% $id %> <% $objPool->{class} %>
 %     if ( $objPool->{class} eq '1' ) {
-delay_parameters <% $id %> <% $objPool->{rate} * 1024 %>/<% $objPool->{size} * 1024 %>
+delay_parameters <% $id %> <% $rate %>/<% $size %>
 %     } elsif ( $objPool->{class} eq '2' ) {
-delay_parameters <% $id %> <% $objPool->{rate} * 1024 %>/<% $objPool->{size} * 1024 %> <% $objPool->{clt_rate} * 1024 %>/<% $objPool->{clt_size} * 1024 %>
+<%perl>
+     my $clt_rate =  $objPool->{clt_rate};
+     if ($clt_rate > 0) {
+         $clt_rate *= 1024;
+     }
+     my $clt_size = $objPool->{clt_size};
+     if ($clt_size > 0) {
+         $clt_size *= 1024;
+     }
+</%perl>
+delay_parameters <% $id %> <% $rate %>/<% $size %> <% $clt_rate %>/<% $clt_size %>
 %     }
 delay_initial_bucket_level 90
 delay_access <% $id %> allow <% $objPool->{object} %>
