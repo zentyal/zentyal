@@ -361,7 +361,7 @@ sub destroyCA
                 . $!);
     }
 
-    $self->_audit('destroyCA', $self->caDn()->attribute('orgName'));
+    $self->_audit('destroyCA', $self->caDN()->attribute('orgName'));
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
