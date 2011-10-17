@@ -210,8 +210,9 @@ sub addedRowNotify
                     # Add an alias
                     my $oldHostName = $commonHostName->{name};
                     try {
-                        $dns->addAlias( "/$domain/$oldHostName",
-                                        alias => $hostName);
+                        $dns->addAlias( $domain,
+                                        $oldHostName,
+                                        $hostName);
                         $self->setMessage(__x('Virtual host {vhost} added as an alias {alias}'
                                               . ' to hostname {hostname}.',
                                               vhost    => $vHostName,

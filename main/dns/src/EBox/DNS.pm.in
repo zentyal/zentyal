@@ -169,19 +169,6 @@ sub _exposedMethods
                                path   => [ 'DomainTable', 'hostnames' ],
                                indexes => [ 'domain', 'hostname' ],
                              },
-         'addAlias'    => { action  => 'add',
-                            path    => [ 'DomainTable', 'hostnames', 'alias' ],
-                            indexes => [ 'domain', 'hostname' ],
-                          },
-         'removeAlias' => { action  => 'del',
-                            path    => [ 'DomainTable', 'hostnames', 'alias' ],
-                            indexes => [ 'domain', 'hostname', 'alias' ],
-                          },
-         'changeAlias' => { action   => 'set',
-                            path     => [ 'DomainTable', 'hostnames', 'alias' ],
-                            indexes  => [ 'domain', 'hostname', 'alias' ],
-                            selector => [ 'alias' ],
-                          },
          'addMailExchanger' => { action  => 'add',
                                  path    => [ 'DomainTable', 'mailExchangers' ],
                                  indexes => [ 'domain' ],
@@ -243,8 +230,8 @@ sub domains
         my $domaindata;
 
         $domaindata->{'name'} = $row->valueByName('domain');
-	$domaindata->{'ipaddr'} = $row->valueByName('ipaddr');
-	$domaindata->{'dynamic'} = $row->valueByName('dynamic');
+        $domaindata->{'ipaddr'} = $row->valueByName('ipaddr');
+        $domaindata->{'dynamic'} = $row->valueByName('dynamic');
 
         push(@array, $domaindata);
     }
@@ -1598,6 +1585,134 @@ sub _setTransparentCache
                 EBox::Sudo::root(@cmds);
             }
         }
+    }
+}
+
+# Method: addAlias
+#
+# Parameters:
+# - domain
+# - hostname
+# - alias
+#
+# Warning:
+# alias is added to the first found matching hostame
+# Note:
+#  we implement this because vhosttable does not allow exposed method
+sub addAlias
+{
+    my ($self, $domain, $hostname, $alias) = @_;
+    $domain or
+        throw EBox::Exceptions::MissingArgument('domain');
+    $hostname or
+        throw EBox::Exceptions::MissingArgument('hostname');
+    $alias or
+        throw EBox::Exceptions::MissingArgument('alias');
+
+
+    my $domainModel = $self->model('DomainTable');
+    my $domainRow;
+    foreach my $id (@{  $domainModel->ids() }) {
+        my $row = $domainModel->row($id);
+        if ($row->valueByName('domain') eq $domain) {
+            $domainRow = $row;
+            last;
+        }
+    }
+    if (not $domainRow) {
+        throw EBox::Exceptions::DataNotFound(
+            data => __('domain'),
+            value => $domain
+           );
+    }
+
+
+    my $hostnamesModel = $domainRow->subModel('hostnames');
+    my $aliasModel;
+    foreach my $id (@{  $hostnamesModel->ids() }) {
+        my $row = $hostnamesModel->row($id);
+        if ($row->valueByName('hostname') eq $hostname) {
+            $aliasModel = $row->subModel('alias');
+            last;
+        }
+    }
+    if (not $aliasModel) {
+        throw EBox::Exceptions::DataNotFound(
+            data => __('hostname'),
+            value => $hostname
+           );
+    }
+
+    $aliasModel->addRow(alias => $alias);
+}
+
+# Method: removeAlias
+#
+#  Remove alias for the doamin and hostname. If there are several hostnames the
+#  alias is removed in all of them
+#
+# Parameters:
+# - domain
+# - hostname
+# - alias
+#
+# Note:
+#  we implement this because vhosttable does not allow exposed method
+sub removeAlias
+{
+    my ($self, $domain, $hostname, $alias) = @_;
+    $domain or
+        throw EBox::Exceptions::MissingArgument('domain');
+    $hostname or
+        throw EBox::Exceptions::MissingArgument('hostname');
+    $alias or
+        throw EBox::Exceptions::MissingArgument('alias');
+
+    my $domainModel = $self->model('DomainTable');
+    my $domainRow;
+    foreach my $id (@{  $domainModel->ids() }) {
+        my $row = $domainModel->row($id);
+        if ($row->valueByName('domain') eq $domain) {
+            $domainRow = $row;
+            last;
+        }
+    }
+    if (not $domainRow) {
+        throw EBox::Exceptions::DataNotFound(
+            data => __('domain'),
+            value => $domain
+           );
+    }
+
+    my $hostnamesModel = $domainRow->subModel('hostnames');
+    my $hostnameFound;
+    my $aliasFound;
+    foreach my $id (@{  $hostnamesModel->ids() }) {
+        my $row = $hostnamesModel->row($id);
+        if ($row->valueByName('hostname') eq $hostname) {
+            $hostnameFound = 1;
+            my $aliasModel = $row->subModel('alias');
+            foreach my $aliasId  (@{ $aliasModel->ids() } ) {
+                my $row = $aliasModel->row($aliasId);
+                if ($row->valueByName('alias') eq $alias) {
+                    $aliasFound = 1;
+                    $aliasModel->removeRow($aliasId);
+                    last;
+                }
+            }
+        }
+    }
+
+    if (not $hostnameFound) {
+        throw EBox::Exceptions::DataNotFound(
+            data => __('hostname'),
+            value => $hostname
+           );
+    }elsif (not $aliasFound) {
+        throw EBox::Exceptions::DataNotFound(
+            data => __('alias'),
+            value => $alias
+           );
     }
 }
 

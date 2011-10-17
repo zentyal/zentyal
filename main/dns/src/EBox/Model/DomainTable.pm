@@ -117,7 +117,7 @@ sub addDomain
     return unless (defined($hostnames) and @{$hostnames} > 0);
 
     my $hostnameModel =
-		EBox::Model::ModelManager::instance()->model('HostnameTable');
+                EBox::Model::ModelManager::instance()->model('HostnameTable');
 
     $hostnameModel->setDirectory($self->{'directory'} . "/$id/hostnames");
     foreach my $hostname (@{$hostnames}) {

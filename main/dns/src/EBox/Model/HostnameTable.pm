@@ -252,7 +252,7 @@ sub _table
                                 'fieldName' => 'hostname',
                                 'printableName' => __('Host name'),
                                 'size' => '20',
-                                # 'unique' => 1,
+                                # 'unique' => 1, # disabled to allow round-robin
                                 'editable' => 1,
                              ),
             new EBox::Types::HostIP
