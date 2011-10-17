@@ -1,3 +1,6 @@
+HEAD
+	+ Use proper paths for PID files to be resilient on reboots in
+	  upstart pre-script
 2.1.6
 	+ Prevent start of bind9 daemon after module is disabled
 2.1.5
