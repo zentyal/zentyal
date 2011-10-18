@@ -30,8 +30,14 @@ my $users = EBox::Global->modInstance('users');
 exit unless defined($users);
 exit unless $users->isEnabled();
 
-my $BACKUP_DIR = '/var/lib/zentyal/tmp/users-dump';
 
+# Disable default slapd
+EBox::Sudo::root(
+    'invoke-rc.d slapd stop || true',
+    'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
+);
+
+my $BACKUP_DIR = '/var/lib/zentyal/tmp/users-dump';
 mkdir $BACKUP_DIR;
 
 $users->dumpConfig($BACKUP_DIR);
