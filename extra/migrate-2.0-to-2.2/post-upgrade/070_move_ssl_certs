@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Moving apache ssl files to new name"
+
+mv /etc/apache/ssl/apache.pem /etc/apache/ssl/ssl.pem
+
+exit 0;
