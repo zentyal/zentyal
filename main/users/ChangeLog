@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed validation of secret key length in ADSync Options model
+	+ Removed useless validation of AD username in ADSync Options model
+	+ Show different error when adding users from Windows with invalid chars
 	+ Fixed bug managing slapd on ad-sync
 2.2.1
 	+ Do not enable ADSync to avoid launching daemon before configuration

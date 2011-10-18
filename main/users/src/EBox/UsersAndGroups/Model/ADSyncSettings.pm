@@ -111,20 +111,11 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if (exists $changedFields->{secret}) {
-        my $secret = $changedFields->{secret};
-        if (length($secret) < 16) {
-            throw EBox::Exceptions::External(__('The secret key needs to have 16 characters.'));
-        }
-    }
-
-    if (exists $changedFields->{username}) {
-        my $username = $changedFields->{username}->value();
-        if (not $username =~ m{^[\\\w /.?&+:\-\@]*$}) {
-            throw EBox::Exceptions::External(__('The username input contains invalid ' .
-            'characters. All alphanumeric characters, plus these non ' .
-            'alphanumeric chars: \/.?&+:-@ and spaces are allowed.'));
-        }
+    my $secret = exists $changedFields->{secret} ?
+                        $changedFields->{secret}->value() :
+                        $allFields->{secret}->value();
+    if (length($secret) < 16) {
+        throw EBox::Exceptions::External(__('The secret key needs to have 16 characters.'));
     }
 }
 

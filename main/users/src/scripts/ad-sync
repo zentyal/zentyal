@@ -22,6 +22,7 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Slurp;
 use EBox::Util::Lock;
+use EBox::Exceptions::InvalidData;
 
 use constant IGNORED_USERS => EBox::Config::etc() . 'ad-sync_ignore.users';
 use constant IGNORED_GROUPS => EBox::Config::etc() . 'ad-sync_ignore.groups';
@@ -120,6 +121,8 @@ foreach my $username (@usersToAdd) {
 
     try {
         $usersMod->addUser($user);
+    } catch EBox::Exceptions::InvalidData with {
+        EBox::warn("[ad-sync] Can't add user '$username' because it contains invalid characters.");
     } catch Error with {
         EBox::warn("[ad-sync] Error adding user '$username'.");
     };
