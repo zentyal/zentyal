@@ -1,4 +1,6 @@
 HEAD
+	+ Renamed ebox-pwdsync-* to zentyal-pwdsync-*
+2.0.1
 	+ Includes support for 64bit editions of Windows Server
 	+ Merge multibyte strings changes in passwdhk.dll from passwdhk trunk
 	+ Use passwdhk key in registry instead of ebox-adsync to be compatible

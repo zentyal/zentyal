@@ -256,7 +256,7 @@ void CPasswdhk_configDlg::OnOK()
 	DWORD retVal;
 
 	// Default values
-	m_logfile = _T("\\ebox-pwdsync-hook.log");
+	m_logfile = _T("\\zentyal-pwdsync-hook.log");
 	m_logfile.Insert(0, m_workingdir);
 	m_loglevel = _T("2");
 	m_maxlogsize = _T("8192");
@@ -264,7 +264,7 @@ void CPasswdhk_configDlg::OnOK()
 	m_urlencode = FALSE;
 	m_enabled = FALSE;
 	m_postChangeProg = _T("");
-	m_preChangeProg = _T("\\ebox-pwdsync-hook.exe");
+	m_preChangeProg = _T("\\zentyal-pwdsync-hook.exe");
 	m_preChangeProg.Insert(0, m_workingdir);
 	m_postChangeProgArgs = _T("");
 	m_preChangeProgArgs = _T("");

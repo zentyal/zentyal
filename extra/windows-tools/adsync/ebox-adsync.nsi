@@ -76,9 +76,9 @@ Section "" ; (default section)
   File select.pyd
   File unicodedata.pyd
   File setup-service.bat
-  File ebox-service-launcher.exe
-  File ebox-pwdsync-service.exe
-  File ebox-pwdsync-hook.exe
+  File zentyal-service-launcher.exe
+  File zentyal-pwdsync-service.exe
+  File zentyal-pwdsync-hook.exe
   File zentyal-enable-hook.exe
   File library.zip
   File python26.dll
@@ -137,7 +137,7 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
-  ExecWait '"$INSTDIR\ebox-service-launcher.exe" -u'
+  ExecWait '"$INSTDIR\zentyal-service-launcher.exe" -u'
   Delete "$INSTDIR\passwdHk.reg"
   Delete "$INSTDIR\AUTHORS.txt"
   Delete "$INSTDIR\LICENSE.txt"
@@ -150,9 +150,9 @@ Section Uninstall
   Delete "$INSTDIR\Crypto.Cipher.AES.pyd"
   Delete "$INSTDIR\select.pyd"
   Delete "$INSTDIR\unicodedata.pyd"
-  Delete "$INSTDIR\ebox-service-launcher.*"
-  Delete "$INSTDIR\ebox-pwdsync-service.exe"
-  Delete "$INSTDIR\ebox-pwdsync-hook.exe"
+  Delete "$INSTDIR\zentyal-service-launcher.*"
+  Delete "$INSTDIR\zentyal-pwdsync-service.exe"
+  Delete "$INSTDIR\zentyal-pwdsync-hook.exe"
   Delete "$INSTDIR\zentyal-enable-hook.exe"
   Delete "$INSTDIR\library.zip"
   Delete "$INSTDIR\python26.dll"

@@ -5,13 +5,13 @@
 
 set INST_PATH=%*
 
-set INI="%INST_PATH%\ebox-service-launcher.ini"
+set INI="%INST_PATH%\zentyal-service-launcher.ini"
 
 echo [Settings] > %INI%
 echo ServiceName = Zentyal Password Synchronizer >> %INI%
 echo CheckProcessSeconds = 30 >> %INI%
 echo [Process0] >> %INI%
-echo CommandLine = %INST_PATH%\ebox-pwdsync-service.exe >> %INI%
+echo CommandLine = %INST_PATH%\zentyal-pwdsync-service.exe >> %INI%
 echo WorkingDir = %INST_PATH% >> %INI%
 echo PauseStart = 1000 >> %INI%
 echo PauseEnd = 1000 >> %INI%
@@ -22,4 +22,4 @@ echo Domain = >> %INI%
 echo Password = >> %INI%
 
 cd %INST_PATH%
-ebox-service-launcher -i
+zentyal-service-launcher -i
