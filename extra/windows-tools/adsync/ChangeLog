@@ -1,4 +1,5 @@
 HEAD
+	+ Do not block password sync of other users if one user fails
 	+ Do not try to send password change notifications for invalid users
 	+ Renamed ebox-pwdsync-* to zentyal-pwdsync-*
 2.0.1

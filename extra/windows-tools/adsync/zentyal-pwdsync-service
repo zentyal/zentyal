@@ -72,20 +72,27 @@ def notify_password(username, password):
         sock.close()
 
 def main():
-    os.chdir(QUEUE_PATH)
     while True:
-        nums = sorted(map(int, glob('*')))
-        for num in nums:
-            file = str(num)
-            username = ''
-            password = ''
-            with open(file, 'r') as f:
-                username = f.readline()
-                password = f.readline()
-            if notify_password(username, password):
-                os.unlink(file)
-            else:
-                break
+        os.chdir(QUEUE_PATH)
+        users = glob('*')
+        for username in users:
+            userdir = QUEUE_PATH + '/' + username
+            os.chdir(userdir)
+            nums = sorted(map(int, glob('*')))
+            for num in nums:
+                file = str(num)
+                password = ''
+                with open(file, 'r') as f:
+                    password = f.readline()
+                if notify_password(username, password):
+                    os.unlink(file)
+                else:
+                    continue
+            try
+                os.rmdir(userdir)
+            except OSError:
+                # Ignore possible non-empty errors
+                pass
         sleep(30)
 
 main()

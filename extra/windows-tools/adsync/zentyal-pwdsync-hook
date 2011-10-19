@@ -36,6 +36,8 @@ user_re = re.compile("([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+")
 if not user_re.match(username):
     exit(1)
 
+QUEUE_PATH += '/' + username
+mkdir(QUEUE_PATH)
 chdir(QUEUE_PATH)
 existingFiles = glob('*')
 lastNum = 0
@@ -45,6 +47,5 @@ newFile = str(lastNum + 1)
 print "Creating file: " + newFile
 
 f = open(newFile, 'w')
-f.write(username + '\n')
 f.write(password + '\n')
 f.close()
