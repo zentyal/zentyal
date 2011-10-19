@@ -18,16 +18,23 @@
 #	Boston, MA  02111-1307
 #	USA
 
-from sys import argv
+from sys import argv, exit
 #from socket import *
 from os import chdir
 from glob import glob
 from zentyal_pwdsync_common import get_queue_path
+import re
 
 QUEUE_PATH = get_queue_path()
 
 username = argv[1]
 password = argv[2]
+
+# if the username is not going to be valid on Zentyal
+# we do not try to send the password change
+user_re = re.compile("([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+")
+if not user_re.match(username):
+    exit(1)
 
 chdir(QUEUE_PATH)
 existingFiles = glob('*')
