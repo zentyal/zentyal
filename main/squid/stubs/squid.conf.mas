@@ -138,7 +138,6 @@ cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
 
 % if ($cache_host and $cache_port) {
 cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
-never_direct allow all
 % }
 
 
@@ -200,6 +199,11 @@ http_access deny purge
 http_access deny !Safe_ports
 http_access deny CONNECT !SSL_ports
 http_reply_access allow all
+
+% if ($cache_host and $cache_port) {
+never_direct allow all
+% }
+
 
 # <EBOX> TAG_DELAYPOOLS #
 

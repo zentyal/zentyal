@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed use of not-defined yet ACL when using parent peer
 2.2.1
 	+ Fixed deprecated syntax for some iptables rules
 	+ Fixed parameter for unlimited value in delay pools
