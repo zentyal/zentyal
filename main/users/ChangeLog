@@ -1,3 +1,11 @@
+HEAD
+	+ Always ignore ForeignSecurityPrincipals accounts in ad-sync
+	+ Added more debug messages and improved existing ones in ad-sync
+	+ Avoid warnings trying to get userPrincipalName in ad-sync
+	+ Skip machine accounts in ad-sync
+	+ Use paged queries in ad-sync
+	+ Allow to specify custom DN to bind to Windows Server in ad-sync
+	+ Ingore empty users in ad-sync
 2.2.2
 	+ Fixed validation of secret key length in ADSync Options model
 	+ Removed useless validation of AD username in ADSync Options model

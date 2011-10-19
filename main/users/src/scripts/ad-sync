@@ -14,23 +14,32 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 use EBox;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Config;
+use EBox::UsersAndGroups;
+use EBox::Util::Lock;
+use EBox::Exceptions::InvalidData;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Slurp;
-use EBox::Util::Lock;
-use EBox::Exceptions::InvalidData;
 
-use constant IGNORED_USERS => EBox::Config::etc() . 'ad-sync_ignore.users';
+use Net::LDAP::Control::Paged;
+use Net::LDAP::Constant qw( LDAP_CONTROL_PAGED );
+
+use constant IGNORED_USERS  => EBox::Config::etc() . 'ad-sync_ignore.users';
 use constant IGNORED_GROUPS => EBox::Config::etc() . 'ad-sync_ignore.groups';
 use constant LOCK_NAME      => 'zentyal-adsync';
+use constant MAX_LDAP_PAGES => 1000;
 
 EBox::init();
+EBox::debug("ad-sync started");
 
-my $usersMod = EBox::Global->modInstance('users');
+my $usersMod = EBox::Global->getInstance()->modInstance('users');
 my $mode = $usersMod->model('Mode');
 my $host = $mode->remoteValue();
 my $settings = $usersMod->model('ADSyncSettings');
@@ -49,7 +58,12 @@ my $base = EBox::Config::configkey('adsync_dn');
 
 $base = baseDnAD() unless $base;
 
-my $bindDn = "CN=$username,CN=Users,$base";
+my $bindDn;
+if (EBox::UsersAndGroups::checkName($username)) {
+    $bindDn = "CN=$username,CN=Users,$base";
+} else {
+    $bindDn = $username;
+}
 
 try {
     EBox::Ldap::safeBind($ldapAD, $bindDn, $password);
@@ -60,10 +74,8 @@ try {
 
 EBox::Util::Lock::lock(LOCK_NAME);
 
-my %newUsers = usersAD();
-my %newGroups = groupsAD();
-
-my $usersMod = EBox::Global->getInstance()->modInstance('users');
+my %newUsers = usersAD($ldapAD);
+my %newGroups = groupsAD($ldapAD);
 
 my %currentUsers = map { $_->{username} => $_ } $usersMod->users();
 my %currentGroups = map { $_->{account} => $_ } $usersMod->groups();
@@ -100,6 +112,7 @@ try {
         } otherwise {
             EBox::warn("[ad-sync] Error deleting user '$username'.");
         };
+        $usersToIgnore{''} = 1; # ignore empty user
     }
 } otherwise {
     EBox::error("[ad-sync] Can't open " . IGNORED_USERS . ": $!");
@@ -184,12 +197,12 @@ foreach my $groupname (@groupsToAdd) {
     };
 
     unless ($usersMod->groupExists($groupname)) {
-        EBox::debug("[ad-sync] Skipping adding users to not existing group '$groupname' (probably ignored).");
+        EBox::debug("[ad-sync] Skipping adding users to ignored group '$groupname'.");
         next;
     }
 
     foreach my $member (@{$group->{members}}) {
-        my $user = getPrincipalName($member);
+        my $user = getPrincipalName($ldapAD, $member);
         next unless $user;
 
         unless ($usersMod->userExists($user)) {
@@ -212,12 +225,23 @@ foreach my $groupname (@groupsToAdd) {
 foreach my $groupname (@groupsToModify) {
     my $group = $newGroups{$groupname};
     my $usersInGroup = $usersMod->usersInGroup($groupname);
-    my %newMembers = map { getPrincipalName($_) => 1 } @{$group->{members}};
+    my %newMembers = map { 
+        my $principalName = getPrincipalName($ldapAD, $_);
+        if ($principalName) {
+            ($principalName => 1)
+        } else {
+            ()
+        }
+    }   @{$group->{members}};
     my %currentMembers = map { $_ => 1 } @{$usersInGroup};
     my @membersToAdd = grep { not exists $currentMembers{$_} } keys %newMembers;
     my @membersToDel = grep { not exists $newMembers{$_} } keys %currentMembers;
 
     foreach my $member (@membersToAdd) {
+        # skip machine accounts
+        if ($member =~ /\$$/) {
+            next;
+        }
         unless ($usersMod->userExists($member)) {
             EBox::debug("[ad-sync] Skipping not existing user '$member' (probably ignored).");
             next;
@@ -246,6 +270,7 @@ foreach my $groupname (@groupsToModify) {
 }
 
 EBox::Util::Lock::unlock(LOCK_NAME);
+EBox::debug("ad-sync finished");
 
 # FIXME: This code is duplicated, write it in a single point
 sub randomPassword
@@ -283,7 +308,7 @@ sub modifyGroupIfChanged
     my $currentInfo = $currentGroups{$groupname};
 
     # Modify only if the only modificable attribute is different
-    if ($group->{comment} ne $currentInfo->{comment}) {
+    if ((defined $currentInfo->{comment}) and ($group->{comment} ne $currentInfo->{comment})) {
         EBox::debug("[ad-sync] Updating existing group '$groupname'.");
         $usersMod->modifyGroup($group);
     }
@@ -305,32 +330,58 @@ sub baseDnAD {
 
 sub usersAD
 {
+    my ($ldap) = @_;
     my %users;
 
+    my $page = Net::LDAP::Control::Paged->new(size => MAX_LDAP_PAGES) or
+        die "Error: the LDAP controller doesn't allow a page size of " . MAX_LDAP_PAGES;
     my %args = (
                 base => $base,
                 filter => '(&(objectclass=user)(!(objectclass=computer)))',
                 scope => 'sub',
-                attrs => ['userPrincipalName', 'sAMAccountName', 'cn', 'givenName', 'sn', 'description']
+                attrs => ['userPrincipalName', 'sAMAccountName', 'cn', 'givenName', 'sn', 'description'],
+                control => [$page],
                );
 
-    my $result = $ldapAD->search(%args);
+    my $cookie;
+    my $nPage = 1;
+    while (1) {
+        my $result = $ldap->search(%args);
 
-    foreach my $user ($result->sorted('userPrincipalName')) {
-        my $username = $user->get_value('userPrincipalName');
-        unless ($username) {
-            $username = $user->get_value('sAMAccountName');
+        foreach my $user ($result->sorted('userPrincipalName')) {
+            my $username = $user->get_value('userPrincipalName');
+            unless ($username) {
+                $username = $user->get_value('sAMAccountName');
+            }
+            my $info = userInfoAD($ldap, $username, $user);
+            $users{$info->{user}} = $info;
         }
-        my $info = userInfoAD($username, $user);
-        $users{$info->{user}} = $info;
+
+        # check if we need  to search again to get the next page
+        my ($resp) = $result->control(LDAP_CONTROL_PAGED) or last;
+        $cookie = $resp->cookie or last;
+        $page->cookie($cookie);
+
+        $nPage += 1;
+        if ($nPage > MAX_LDAP_PAGES) {
+            EBox::debug("No more than " . MAX_LDAP_PAGES . " LDAP pages allowed");
+            last;
+        }
     }
 
+    if ($cookie) {
+        $page->cookie($cookie);
+        $page->size(0);
+        $ldap->search( %args );
+    }
+
+    EBox::debug((scalar keys %users) . ' users from ' . $nPage . ' pages ');
     return %users;
 }
 
-sub userInfoAD # (user, entry)
+sub userInfoAD 
 {
-    my ($user, $entry) = @_;
+    my ($ldap, $user, $entry) = @_;
 
     # If $entry is undef we make a search to get the object, otherwise
     # we already have the entry
@@ -342,7 +393,7 @@ sub userInfoAD # (user, entry)
                     attrs => ['*'],
                    );
 
-        my $result = $ldapAD->search(%args);
+        my $result = $ldap->search(%args);
         $entry = $result->entry(0);
     }
 
@@ -397,46 +448,77 @@ sub userInfoAD # (user, entry)
 
 sub groupsAD
 {
+    my ($ldap) = @_;
     my %groups;
 
+    my $page = Net::LDAP::Control::Paged->new(size => MAX_LDAP_PAGES) or
+        die "Error: the LDAP controller doesn't allow a page size of " . MAX_LDAP_PAGES;
     my %args = (
                 base => $base,
                 filter => '(objectclass=group)',
                 scope => 'sub',
-                attrs => ['cn', 'member', 'mail']
+                attrs => ['cn', 'member', 'mail'],
+                control => [$page],
                );
 
-    my $result = $ldapAD->search(%args);
+    my $cookie;
+    my $nPage = 1;
+    while (1) {
+        my $result = $ldap->search(%args);
 
-    foreach my $entry ($result->sorted('cn')) {
-        my $cn = $entry->get_value('cn');
-        my $desc = $entry->get_value('description');
-        my $mail = $entry->get_value('mail');
+        foreach my $entry ($result->sorted('cn')) {
+            my $cn = $entry->get_value('cn');
+            my $desc = $entry->get_value('description');
+            my $mail = $entry->get_value('mail');
+            
+            $args{filter} = "(&(objectclass=group)(cn=$cn))";
+            $args{attrs} = ['member'];
+            my $membResult = $ldapAD->search(%args);
+            my @members;
+            foreach my $res ($membResult->sorted('member')) {
+                push (@members, $res->get_value('member'));
+            }
 
-        $args{filter} = "(&(objectclass=group)(cn=$cn))";
-        $args{attrs} = ['member'];
-        my $membResult = $ldapAD->search(%args);
-        my @members;
-        foreach my $res ($membResult->sorted('member')) {
-            push (@members, $res->get_value('member'));
+            my $info = {
+                'account' => $cn,
+                'members' => \@members,
+                'comment' => $desc,
+                'mail' => $mail,
+            };
+
+            $groups{$cn} = $info;
         }
 
-        my $info = {
-                    'account' => $cn,
-                    'members' => \@members,
-                    'comment' => $desc,
-                    'mail' => $mail,
-                   };
+        # check if we need  to search again to get the next page
+        my ($resp) = $result->control(LDAP_CONTROL_PAGED) or last;
+        $cookie = $resp->cookie or last;
+        $page->cookie($cookie);
 
-        $groups{$cn} = $info;
+        $nPage += 1;
+        if ($nPage > MAX_LDAP_PAGES) {
+            EBox::debug("No more than " . MAX_LDAP_PAGES . " LDAP pages allowed");
+            last;
+        }
     }
+
+    if ($cookie) {
+        $page->cookie($cookie);
+        $page->size(0);
+        $ldap->search( %args );
+    }
+
+    EBox::debug((scalar keys %groups) . ' groups from ' . $nPage . ' pages ');
 
     return %groups;
 }
 
-sub getPrincipalName # (dn)
+sub getPrincipalName 
 {
-    my ($dn) = @_;
+    my ($ldap, $dn) = @_;
+    if ($dn =~ m/,CN=ForeignSecurityPrincipals,/) {
+        # ForeignSecurityPrincipals are ignored
+        return undef;
+    }
 
     my %attrs = (
                  base => $dn,
@@ -445,7 +527,7 @@ sub getPrincipalName # (dn)
                  attrs => ['userPrincipalName', 'sAMAccountName', 'mail']
                 );
 
-    my $result = $ldapAD->search(%attrs);
+    my $result = $ldap->search(%attrs);
     my $entry = $result->shift_entry();
     if ($entry) {
         my $name = $entry->get_value('userPrincipalName');
