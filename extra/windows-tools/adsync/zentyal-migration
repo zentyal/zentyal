@@ -1,0 +1,15 @@
+#!/usr/bin/python
+
+import gtk
+
+class MigrationApp(object):
+    def __init__(self):
+        builder = gtk.Builder()
+        builder.add_from_file("migration.xml")
+        builder.connect_signals({ "on_window_destroy" : gtk.main_quit })
+        self.window = builder.get_object("window1")
+        self.window.show()
+
+if __name__ == "__main__":
+    app = MigrationApp()
+    gtk.main()

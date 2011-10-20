@@ -6,10 +6,10 @@
 
 ; Modified by eBox Technologies S.L. (2009-2010)
 
-!define PRODUCT_NAME "Zentyal AD Password Sync"
-!define PRODUCT_VERSION "2.0.1"
+!define PRODUCT_NAME "Zentyal Migration Tool"
+!define PRODUCT_VERSION "2.2"
 !define PRODUCT_PUBLISHER "eBox Technologies S.L."
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\ebox_adsync_config.exe"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\zentyal-migration.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -47,8 +47,8 @@ SetCompressor bzip2
 !insertmacro MUI_RESERVEFILE_INSTALLOPTIONS
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "zentyal-adsync-${PRODUCT_VERSION}.exe"
-InstallDir "$PROGRAMFILES\ebox-adsync"
+OutFile "zentyal-migration-tool-${PRODUCT_VERSION}.exe"
+InstallDir "$PROGRAMFILES\zentyal-migration-tool"
 InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync" ""
 ShowInstDetails show
 ShowUnInstDetails show
@@ -66,15 +66,43 @@ Section "" ; (default section)
   File AUTHORS.txt
   File LICENSE.txt
   File README.passwdHk.txt
-  File ebox_adsync_config.exe
+  File zentyal-migration.exe
   ; python files
+  File atk.pyd
+  File bz2.pyd
+  File cairo._cairo.pyd
+  File Crypto.Cipher.AES.pyd
   File _ctypes.pyd
+  File freetype6.dll
+  File gio._gio.pyd
+  File glib._glib.pyd
+  File gobject._gobject.pyd
+  File gtk._gtk.pyd
+  File intl.dll
+  File libatk-1.0-0.dll
+  File libcairo-2.dll
+  File libexpat-1.dll
+  File libfontconfig-1.dll
+  File libgdk_pixbuf-2.0-0.dll
+  File libgdk-win32-2.0-0.dll
+  File libgio-2.0-0.dll
+  File libglib-2.0-0.dll
+  File libgmodule-2.0-0.dll
+  File libgobject-2.0-0.dll
+  File libgthread-2.0-0.dll
+  File libgtk-win32-2.0-0.dll
+  File libpango-1.0-0.dll
+  File libpangocairo-1.0-0.dll
+  File libpangoft2-1.0-0.dll
+  File libpangowin32-1.0-0.dll
+  File libpng14-14.dll
+  File pangocairo.pyd
+  File pango.pyd
+  File select.pyd
   File _socket.pyd
   File _ssl.pyd
-  File bz2.pyd
-  File Crypto.Cipher.AES.pyd
-  File select.pyd
   File unicodedata.pyd
+  File zlib1.dll
   File setup-service.bat
   File zentyal-service-launcher.exe
   File zentyal-pwdsync-service.exe
@@ -96,7 +124,7 @@ Section "" ; (default section)
   ; Make Shortcuts
   ReadRegStr $OUTDIR HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common Administrative Tools"
   StrCmp $OUTDIR "" nocommon
-  CreateShortCut "$OUTDIR\Zentyal AD Password Sync Configuration.lnk" "$INSTDIR\ebox_adsync_config.exe"
+  CreateShortCut "$OUTDIR\Zentyal Migration Tool.lnk" "$INSTDIR\zentyal-migration.exe"
 nocommon:
 
   ; Install VC++ redistributable package
@@ -110,7 +138,7 @@ nocommon:
   SetOutPath $INSTDIR ; restore $OUTDIR
 
   DetailPrint "Running configuration wizard"
-  ExecWait "$INSTDIR\ebox_adsync_config.exe"
+  ExecWait "$INSTDIR\zentyal-migration.exe"
 
   ; setup the service
   DetailPrint "Installing the service"
@@ -142,18 +170,46 @@ Section Uninstall
   Delete "$INSTDIR\AUTHORS.txt"
   Delete "$INSTDIR\LICENSE.txt"
   Delete "$INSTDIR\README.passwdHk.txt"
-  Delete "$INSTDIR\ebox_adsync_config.exe"
-  Delete "$INSTDIR\_socket.pyd"
-  Delete "$INSTDIR\_ssl.pyd"
-  Delete "$INSTDIR\_ctypes.pyd"
-  Delete "$INSTDIR\bz2.pyd"
-  Delete "$INSTDIR\Crypto.Cipher.AES.pyd"
-  Delete "$INSTDIR\select.pyd"
-  Delete "$INSTDIR\unicodedata.pyd"
+  Delete "$INSTDIR\zentyal-migration.exe"
   Delete "$INSTDIR\zentyal-service-launcher.*"
   Delete "$INSTDIR\zentyal-pwdsync-service.exe"
   Delete "$INSTDIR\zentyal-pwdsync-hook.exe"
   Delete "$INSTDIR\zentyal-enable-hook.exe"
+  Delete "$INSTDIR\atk.pyd"
+  Delete "$INSTDIR\bz2.pyd"
+  Delete "$INSTDIR\cairo._cairo.pyd"
+  Delete "$INSTDIR\Crypto.Cipher.AES.pyd"
+  Delete "$INSTDIR\_ctypes.pyd"
+  Delete "$INSTDIR\freetype6.dll"
+  Delete "$INSTDIR\gio._gio.pyd"
+  Delete "$INSTDIR\glib._glib.pyd"
+  Delete "$INSTDIR\gobject._gobject.pyd"
+  Delete "$INSTDIR\gtk._gtk.pyd"
+  Delete "$INSTDIR\intl.dll"
+  Delete "$INSTDIR\libatk-1.0-0.dll"
+  Delete "$INSTDIR\libcairo-2.dll"
+  Delete "$INSTDIR\libexpat-1.dll"
+  Delete "$INSTDIR\libfontconfig-1.dll"
+  Delete "$INSTDIR\libgdk_pixbuf-2.0-0.dll"
+  Delete "$INSTDIR\libgdk-win32-2.0-0.dll"
+  Delete "$INSTDIR\libgio-2.0-0.dll"
+  Delete "$INSTDIR\libglib-2.0-0.dll"
+  Delete "$INSTDIR\libgmodule-2.0-0.dll"
+  Delete "$INSTDIR\libgobject-2.0-0.dll"
+  Delete "$INSTDIR\libgthread-2.0-0.dll"
+  Delete "$INSTDIR\libgtk-win32-2.0-0.dll"
+  Delete "$INSTDIR\libpango-1.0-0.dll"
+  Delete "$INSTDIR\libpangocairo-1.0-0.dll"
+  Delete "$INSTDIR\libpangoft2-1.0-0.dll"
+  Delete "$INSTDIR\libpangowin32-1.0-0.dll"
+  Delete "$INSTDIR\libpng14-14.dll"
+  Delete "$INSTDIR\pangocairo.pyd"
+  Delete "$INSTDIR\pango.pyd"
+  Delete "$INSTDIR\select.pyd"
+  Delete "$INSTDIR\_socket.pyd"
+  Delete "$INSTDIR\_ssl.pyd"
+  Delete "$INSTDIR\unicodedata.pyd"
+  Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\library.zip"
   Delete "$INSTDIR\python26.dll"
   ${If} ${RunningX64}
