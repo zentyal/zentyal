@@ -2668,19 +2668,29 @@ sub _HTTPUrlView
 
 # Method: HTTPLink
 #
-#   Returns the HTTP URL base + directory parameter to get the view for this
+#   The HTTP URL base + directory parameter to get the view for this
 #   model
+#
+# Returns:
+#
+#   String - the URL to link
+#
+#   '' - if the _HTTPUrlView is not defined to a non-zero string
 #
 sub HTTPLink
 {
     my ($self) = @_;
 
-    my $link = '/' . $self->_HTTPUrlView();
-    my $parentRow = $self->parentRow();
-    if ($parentRow) {
-        $link .= '?directory=' . $self->directory();
+    if ( $self->_HTTPUrlView() ) {
+        my $link = '/' . $self->_HTTPUrlView();
+        my $parentRow = $self->parentRow();
+        if ($parentRow) {
+            $link .= '?directory=' . $self->directory();
+        }
+        return $link;
+    } else {
+        return "";
     }
-    return $link;
 }
 
 sub DESTROY { ; }

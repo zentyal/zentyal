@@ -1,3 +1,8 @@
+HEAD
+	+ Bugfix: Show breadcrumbs even from models which live in a
+	  composite
+	+ HTTPLink now returns empty string if no HTTPUrlView is defined
+	  in DataTable class
 2.2.3
 	+ Bugfix: Avoid url rewrite to ebox.cgi when requesting to /slave
 	+ Fixed logrotate configuration

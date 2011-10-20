@@ -265,7 +265,7 @@ sub _table
             'printableTableName' => __('Domains'),
             'automaticRemove' => 1,
             'defaultController' => '/Dns/Controller/DomainTable',
-            'HTTPUrlView'=> 'DNS/View/DomainTable',
+            'HTTPUrlView'=> 'DNS/Composite/Global',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',

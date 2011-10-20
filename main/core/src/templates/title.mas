@@ -4,9 +4,10 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $insideComposite = $m->notes('composite');
 </%init>
 <div>
-% if ($title or ($crumbs and @$crumbs)) {
+% if ( (not $insideComposite) and ($title or ($crumbs and @$crumbs))) {
 % if ($crumbs) {
 %     for  (my $i = 0; $i < scalar(@$crumbs); $i++) {
 %       my $section = $crumbs->[$i];

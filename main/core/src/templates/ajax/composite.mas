@@ -18,6 +18,10 @@
 <& .pageTitle,
    crumbs => $model->HTMLTitle()
 &>
+<%perl>
+  # Annotate we are in composite after printing own title
+  $m->notes('composite', 1);
+</%perl>
 <& .headTitle,
    title => $model->headTitle()
 &>
@@ -84,6 +88,10 @@
 </div>
 %   }
 % }
+<%perl>
+  # Annotate we are no longer in composite
+  $m->notes('composite', 0);
+</%perl>
 
 <%doc>
   Method: pageTitle

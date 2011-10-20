@@ -400,10 +400,10 @@ sub setHTMLTitle
 
 # Method: HTMLTitle
 #
-#   Returns the data structure that is used to
+#   Return the data structure that is used to
 #   create the page title.
 #
-#   This structure is used to make up a breadcrumb header if needed.
+#   This structure is used to make up a breadcrumb header, if needed.
 #
 # Returns:
 #
@@ -427,11 +427,13 @@ sub HTMLTitle
     my @crumbs;
     my $model = $self->model();
     while (1) {
-        unshift (@crumbs,
-            {title => $model->pageTitle(),
-             link  => $model->HTTPLink()
-            }
-        ) if ($model->pageTitle());
+        if ( $model->HTTPLink() or $model->pageTitle() ) {
+            my $titleName = $model->printableName();
+            $titleName = $model->pageTitle() if ($model->pageTitle());
+            unshift (@crumbs, { title => $titleName,
+                                link  => $model->HTTPLink() }
+                    );
+        }
         if ($model->parentRow()) {
             $model = $model->parentRow()->model()
         } else {

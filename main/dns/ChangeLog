@@ -1,4 +1,5 @@
 HEAD
+	+ Change main URL for breadcrumbs for Domains
 	+ Set always five subdomains to reverse zones to avoid problems
 	  with some networks like 10.0.0.0/24
 	+ Adapted alias table and methods to multiple hostnames
