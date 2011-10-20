@@ -62,7 +62,6 @@ Section "" ; (default section)
   WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "UninstallString" '"$INSTDIR\uninst.exe"'
 
   ; copy files
-  File passwdHk.reg
   File AUTHORS.txt
   File LICENSE.txt
   File README.passwdHk.txt
@@ -166,7 +165,6 @@ FunctionEnd
 
 Section Uninstall
   ExecWait '"$INSTDIR\zentyal-service-launcher.exe" -u'
-  Delete "$INSTDIR\passwdHk.reg"
   Delete "$INSTDIR\AUTHORS.txt"
   Delete "$INSTDIR\LICENSE.txt"
   Delete "$INSTDIR\README.passwdHk.txt"
