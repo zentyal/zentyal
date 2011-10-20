@@ -356,6 +356,7 @@ sub _createEBoxEtcFilesArchive
     system "cp -a $etcDir/hooks '$dir'  2>&1 > /dev/null";
     system "cp -a $etcDir/post-save '$dir'  2>&1 > /dev/null";
     system "cp -a $etcDir/pre-save '$dir'  2>&1 > /dev/null ";
+    system "cp -a $etcDir/stubs '$dir'  2>&1 > /dev/null";
     $self->_createFilesArchive($dir, $archive);
 }
 

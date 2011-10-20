@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: Include custom stubs from /etc/zentyal in conf backup
 2.2.3
 	+ Bugfix: Avoid url rewrite to ebox.cgi when requesting to /slave
 	+ Fixed logrotate configuration
