@@ -19,6 +19,7 @@
 
 import subprocess
 import re
+import yaml
 
 # Compile reg exps
 ipre = '\\d+\\.\\d+\\.\\d+\\.\\d+';
@@ -26,6 +27,9 @@ ipre = '\\d+\\.\\d+\\.\\d+\\.\\d+';
 server_def = re.compile('Dhcp Server ('+ipre+') add scope ('+ipre+') ('+ipre+') "(.*)" ".*"')
 range_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add iprange ('+ipre+') ('+ipre+')')
 reserved_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add reservedip ('+ipre+') ([0-9abcdef]+) "(.*)" ".*" ".*"')
+
+# result
+dhcp_servers = {}
 
 cmd = 'netsh dhcp server dump'
 p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -37,7 +41,9 @@ for line in p.stdout:
         network = match.group(2)
         netmask = match.group(3)
         name = match.group(4)
-        print 'DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
+
+        dhcp_servers[server_ip] = {}
+        #print 'DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
 
     match = range_def.match(line)
@@ -46,15 +52,27 @@ for line in p.stdout:
         network = match.group(2)
         range_start = match.group(3)
         range_end = match.group(4)
-        print 'DHCP range for ' + server_ip + ': ' + range_start + '-' + range_end
+
+        if 'ranges' not in dhcp_servers[server_ip]:
+            dhcp_servers[server_ip]['ranges'] = []
+
+        dhcp_servers[server_ip]['ranges'].append({'from':range_start, 'to':range_end})
+        #print 'DHCP range for ' + server_ip + ': ' + range_start + '-' + range_end
 
 
     match = reserved_def.match(line)
     if match:
         server_ip = match.group(1)
         network = match.group(2)
-        client_ip = match.group(3)
-        client_mac = match.group(4)
-        client_name = match.group(5)
-        print 'DHCP fixed address for ' + client_ip + ', mac ' + client_mac + ': ' + client_name
+        ip = match.group(3)
+        mac = match.group(4)
+        name = match.group(5)
 
+        if 'fixed_addrs' not in dhcp_servers[server_ip]:
+            dhcp_servers[server_ip]['fixed_addrs'] = []
+
+        dhcp_servers[server_ip]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
+        #print 'DHCP fixed address for ' + ip + ', mac ' + mac + ': ' + name
+
+
+print yaml.dump(dhcp_servers)
