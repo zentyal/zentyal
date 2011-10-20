@@ -17,6 +17,7 @@
 
 # Parse a dhcp dump from windows server to extract configuration values
 
+import subprocess
 import re
 
 # Compile reg exps
@@ -26,9 +27,10 @@ server_def = re.compile('Dhcp Server ('+ipre+') add scope ('+ipre+') ('+ipre+') 
 range_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add iprange ('+ipre+') ('+ipre+')')
 reserved_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add reservedip ('+ipre+') ([0-9abcdef]+) "(.*)" ".*" ".*"')
 
-file = open('dhcp.txt', 'r')
+cmd = 'netsh dhcp server dump'
+p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
-for line in file:
+for line in p.stdout:
     match = server_def.match(line)
     if match:
         server_ip = match.group(1)
