@@ -87,7 +87,7 @@ def main():
                 if notify_password(username, password):
                     os.unlink(file)
                 else:
-                    continue
+                    break
             try
                 os.rmdir(userdir)
             except OSError:
