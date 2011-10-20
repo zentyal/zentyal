@@ -54,3 +54,5 @@ for zline in p.stdout:
 
                 print name + ' on ' + ip + ' type ' + type
 
+        file.close()
+
