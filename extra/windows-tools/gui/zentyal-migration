@@ -38,11 +38,18 @@ class MigrationApp(object):
         set_passwdhk_confkey("secret", self.secret.get_text())
         gtk.main_quit()
 
+    def on_aboutButton_clicked(self, widget, data=None):
+        self.about.show()
+
+    def on_aboutDialog_response(self, widget, data=None):
+        self.about.hide()
+
     def __init__(self):
         builder = gtk.Builder()
         builder.add_from_file("migration.xml")
         builder.connect_signals(self)
         self.window = builder.get_object("mainWindow")
+        self.about = builder.get_object("aboutDialog")
         self.adsyncEnabled = builder.get_object("adsyncEnabled")
         self.adsyncEnabled.set_active(get_adsync_status())
         self.host = builder.get_object("hostEntry")

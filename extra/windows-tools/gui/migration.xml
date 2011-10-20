@@ -2,6 +2,57 @@
 <interface>
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkAboutDialog" id="aboutDialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="type_hint">dialog</property>
+    <property name="program_name">Zentyal Migration Tool</property>
+    <property name="version">2.2</property>
+    <property name="copyright" translatable="yes">Copyright (C) 2011 eBox Technologies S.L.</property>
+    <property name="website">http://www.zentyal.com</property>
+    <property name="website_label" translatable="yes">www.zentyal.com</property>
+    <property name="license">This program is free software; you can redistribute it and/or modify
+it under the terms of the Lesser GNU General Public License as
+published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+Lesser GNU General Public License for more details.
+
+You should have received a copy of the Lesser GNU General Public
+License along with This program; if not, write to the
+  Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330,
+  Boston, MA  02111-1307
+  USA
+</property>
+    <signal name="response" handler="on_aboutDialog_response" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkWindow" id="mainWindow">
     <property name="width_request">500</property>
     <property name="height_request">300</property>
@@ -304,8 +355,23 @@
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="padding">175</property>
+                <property name="padding">155</property>
                 <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="aboutButton">
+                <property name="label" translatable="yes">About</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_aboutButton_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
