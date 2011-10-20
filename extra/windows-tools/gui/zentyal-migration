@@ -3,13 +3,19 @@
 import gtk
 
 class MigrationApp(object):
+    def on_mainWindow_destroy(self, widget, data=None):
+        gtk.main_quit()
+
+    def on_okButton_clicked(self, widget, data=None):
+        gtk.main_quit()
+
     def __init__(self):
         builder = gtk.Builder()
         builder.add_from_file("migration.xml")
-        builder.connect_signals({ "on_mainWindow_destroy" : gtk.main_quit })
+        builder.connect_signals(self)
         self.window = builder.get_object("mainWindow")
-        self.window.show()
 
 if __name__ == "__main__":
     app = MigrationApp()
+    app.window.show()
     gtk.main()
