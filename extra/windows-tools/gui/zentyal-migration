@@ -24,6 +24,9 @@ sys.path.append('../adsync')
 import gtk
 from zentyal_pwdsync_common import *
 
+# FIXME: change this with a link to the new Migration Tool doc
+ADSYNC_URL = "http://trac.zentyal.org/Documentation/EBoxActiveDirectorySync"
+
 class MigrationApp(object):
     def on_adsyncEnabled_clicked(self, widget, data=None):
         set_adsync_status(self.adsyncEnabled.get_active())
@@ -58,6 +61,8 @@ class MigrationApp(object):
         self.port.set_text(get_passwdhk_confkey("port"))
         self.secret = builder.get_object("secretEntry")
         self.secret.set_text(get_passwdhk_confkey("secret"))
+        self.adsyncHelp = builder.get_object("adsyncHelpLabel")
+        self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
 
 if __name__ == "__main__":
     app = MigrationApp()
