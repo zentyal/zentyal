@@ -66,6 +66,7 @@ Section "" ; (default section)
   File LICENSE.txt
   File README.passwdHk.txt
   File zentyal-migration.exe
+  File migration.xml
   ; python files
   File atk.pyd
   File bz2.pyd
@@ -173,6 +174,7 @@ Section Uninstall
   Delete "$INSTDIR\zentyal-pwdsync-service.exe"
   Delete "$INSTDIR\zentyal-pwdsync-hook.exe"
   Delete "$INSTDIR\zentyal-enable-hook.exe"
+  Delete "$INSTDIR\migration.xml"
   Delete "$INSTDIR\atk.pyd"
   Delete "$INSTDIR\bz2.pyd"
   Delete "$INSTDIR\cairo._cairo.pyd"

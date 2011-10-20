@@ -1,8 +1,8 @@
 from distutils.core import setup
 import py2exe
 
-setup(console=['zentyal-pwdsync-hook', 'zentyal-pwdsync-service'],
-      windows=['zentyal-enable-hook'])
+setup(console=['adsync/zentyal-pwdsync-hook', 'adsync/zentyal-pwdsync-service'],
+      windows=['adsync/zentyal-enable-hook'])
 
 setup(
     name = 'zentyal-migration',
@@ -11,8 +11,8 @@ setup(
 
     windows = [
                   {
-                      'script': 'zentyal-migration',
-                      'icon_resources': [(1, "zentyal.ico")],
+                      'script': 'gui/zentyal-migration',
+                      'icon_resources': [(1, 'gui/zentyal.ico')],
                   }
               ],
 
@@ -23,5 +23,5 @@ setup(
                   }
               },
 
-    data_files = [ 'migration.xml' ]
+    data_files = [ 'gui/migration.xml' ]
 )

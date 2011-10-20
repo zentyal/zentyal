@@ -17,16 +17,15 @@ Set PYTHON_EXE="C:\Python26\python.exe"
 mkdir %INSTALLER_TEMP%
 
 copy AUTHORS.txt %INSTALLER_TEMP%
-copy README.passwdHk.txt %INSTALLER_TEMP%
 copy LICENSE.txt %INSTALLER_TEMP%
-copy ebox-adsync.nsi %INSTALLER_TEMP%
-copy passwdHk.reg %INSTALLER_TEMP%
-copy Release\passwdhk.dll %INSTALLER_TEMP%
-copy passwdhk64.dll %INSTALLER_TEMP%
-copy ebox_adsync_config\Release\ebox_adsync_config.exe %INSTALLER_TEMP%
-copy setup-service.bat %INSTALLER_TEMP%
-copy ebox-service-launcher.exe %INSTALLER_TEMP%
+copy installer.nsi %INSTALLER_TEMP%
 copy vcredist_x86.exe %INSTALLER_TEMP%
+copy adsync\README.passwdHk.txt %INSTALLER_TEMP%
+copy adsync\passwdhk.dll %INSTALLER_TEMP%
+copy adsync\passwdhk64.dll %INSTALLER_TEMP%
+copy adsync\setup-service.bat %INSTALLER_TEMP%
+copy adsync\zentyal-service-launcher.exe %INSTALLER_TEMP%
+copy gui\migration.xml %INSTALLER_TEMP%
 
 :: Generate .exe from python
 if exist %PYTHON_EXE% goto path
@@ -39,7 +38,7 @@ copy dist\*.* %INSTALLER_TEMP%
 :end
 
 cd %INSTALLER_TEMP%
-%MAKENSIS_EXE% ebox-adsync.nsi
-move zentyal-adsync-*.exe ..
+%MAKENSIS_EXE% installer.nsi
+move zentyal-migration-tool-*.exe ..
 
 pause
