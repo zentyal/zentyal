@@ -20,15 +20,17 @@
 import subprocess
 import re
 import os
+import yaml
 
 # Compile reg exps
-zone_def = re.compile(' (.*)\s+Primary')
+zone_def = re.compile(' ([^ ]*)\s+Primary')
 ipre = '\\d+\\.\\d+\\.\\d+\\.\\d+';
-
-record_def = re.compile('(.*)\s+(CNAME|A|MX|TXT|SRV)\s+('+ipre+')')
-
+record_def = re.compile('([^ ]*)\s+(CNAME|A|MX|TXT|SRV)\s+('+ipre+')')
 
 system32 = 'C:\windows\system32' #TODO get this from env
+
+# result
+zones = []
 
 cmd = 'dnscmd /enumzones /primary'
 p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -45,6 +47,7 @@ for zline in p.stdout:
         subprocess.call('dnscmd /zoneexport ' + zone + ' zentyal.txt', stdin=subprocess.PIPE, stdout=subprocess.PIPE)
         file = open(system32 + '\dns\zentyal.txt', 'r')
 
+        records = []
         for line in file:
             match = record_def.match(line)
             if match:
@@ -52,7 +55,12 @@ for zline in p.stdout:
                 type = match.group(2)
                 ip = match.group(3)
 
-                print name + ' on ' + ip + ' type ' + type
+                records.append({ 'name':name, 'type':type, 'ip':ip })
+                #print name + ' on ' + ip + ' type ' + type
 
         file.close()
+        zones.append({ 'name':zone, 'records':records })
+
+
+print yaml.dump(zones, default_flow_style=False)
 
