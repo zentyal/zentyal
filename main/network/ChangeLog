@@ -1,3 +1,5 @@
+HEAD
+	+ Allow to disable traffic balance with no_balance_$gwname config keys
 2.2.2
 	+ Fixed bug setting ip route rules with PPPoE interfaces
 2.2.1

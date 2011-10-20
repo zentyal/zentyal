@@ -4040,6 +4040,10 @@ sub _multipathCommand
         my $ip = $gw->{'ip'};
         next unless $ip;
 
+        my $name = $gw->{'name'};
+        my $nobalance = EBox::Config::configkey("no_balance_$name");
+        next if ($nobalance and (@gateways > 1));
+
         my $iface = $gw->{'interface'};
         my $method = $self->ifaceMethod($iface);
 
