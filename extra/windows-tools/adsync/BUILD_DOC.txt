@@ -1,8 +1,9 @@
-Required software for build ebox-ad-passwd-sync-win
----------------------------------------------------
+Required software for build zentyal-migration-tool
+--------------------------------------------------
 
 Microsoft Visual C++ 6.0
 Python 2.6 for Win32 (http://www.python.org/ftp/python/2.6.2/python-2.6.2.msi)
+PyGtk 2.24 (http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-2.24.0.win32-py2.6.exe)
 Python-Crypto (http://www.voidspace.org.uk/python/modules.shtml#pycrypto)
 Py2Exe (http://www.py2exe.org/)
 Nullsoft Installer (NSIS) (http://sourceforge.net/projects/nsis/)
@@ -13,10 +14,5 @@ TortoiseSVN (http://tortoisesvn.net/downloads)
 How to do it
 ------------
 
-A VC++ workspace is provied, you only have to open it and build the
-passwdhk and ebox_adsync_config projects in Release mode
-(select them one by one in Build --> Set Active Configuration).
-The remaining passwdhk_driver project is not needed.
-
-Then, there is a make_installer.bat script that does the rest. The required
+There is a make_installer.bat script that does everything. The required
 software components have to be installed previously to that.
