@@ -1,4 +1,6 @@
 HEAD
+	+ Set always five subdomains to reverse zones to avoid problems
+	  with some networks like 10.0.0.0/24
 	+ Adapted alias table and methods to multiple hostnames
 	+ Use proper paths for PID files to be resilient on reboots in
 	  upstart pre-script

@@ -1696,6 +1696,11 @@ sub _reverseZones
     do {
         my $rev = Net::IP->new($ip->ip())->reverse_ip();
         if ( defined($rev) ) {
+            # If the response is 10.in-addr.arpa, transform it to 0.0.10.in-addr.arpa
+            my @subdomains = split(/\./, $rev);
+            if (@subdomains < 5) {
+                $rev = '0.' . $rev for (1 .. (5 - @subdomains));
+            }
             push(@revZones, $rev);
         }
     } while ( $ip += 256 );

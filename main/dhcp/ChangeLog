@@ -1,4 +1,6 @@
 HEAD
+	+ Set always five subdomains to reverse zones to avoid problems
+	  with some networks like 10.0.0.0/24
 	+ Fixed problem with cache of dhcp leases widget. Now it updates correctly
 	+ Lowercase the members in fixed address prior to substituing
 	  characters to become host in a valid domain name
