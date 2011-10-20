@@ -24,6 +24,7 @@ from ctypes.wintypes import HWND, LPCSTR, UINT
 
 NTDS_KEY = 'SYSTEM\\CurrentControlSet\\Services\\NTDS\\Parameters'
 LSA_KEY = 'SYSTEM\\CurrentControlSet\\Control\\Lsa'
+PWHK_KEY = LSA_KEY + "\\passwdhk"
 REG_DATA = 'Notification Packages'
 HOOK_DLL = 'passwdhk'
 
@@ -32,8 +33,7 @@ paramflags = (1, "hwnd", 0), (1, "text", None), (1, "caption", None), (1, "flags
 MessageBox = prototype(("MessageBoxA", windll.user32), paramflags)
 
 def get_queue_path():
-    hKey = OpenKey(HKEY_LOCAL_MACHINE, NTDS_KEY, 0, KEY_READ)
-    path = QueryValueEx(hKey, 'DSA Working Directory')[0]
+    path = _read_reg_value(NTDS_KEY, 'DSA Working Directory')
     path += '\\ebox-adsync'
 
     # Create directory if not exists
@@ -68,6 +68,32 @@ def get_adsync_status():
     packages = _read_notification_packages(hKey)
     return _is_hook_enabled(packages)
 
+def get_passwdhk_confkey(name):
+    return _read_reg_value(PWHK_KEY, name)
+
+def set_passwdhk_confkey(name, value):
+    _write_reg_value(PWHK_KEY, name, value)
+
+def set_passwdhk_defaults():
+    workingdir = get_passwdhk_confkey("workingdir")
+    conf = {}
+    conf['logfile'] = workingdir + "\\zentyal-pwdsync-hook.log"
+    conf['loglevel'] = "2" # FIXME: is this the proper default log level?
+    conf['maxlogsize'] = "8192"
+    conf['priority'] = "0"
+    conf['urlencode'] = "false"
+    conf['preChangeProg'] = workingdir + "\\zentyal-pwdsync-hook.exe"
+    conf['preChangeProgArgs'] = ""
+    conf['preChangeProgWait'] = "5000"
+    conf['postChangeProg'] = ""
+    conf['postChangeProgArgs'] = ""
+    conf['postChangeProgWait'] = "0"
+    conf['environment'] = ""
+    conf['output2log'] = "false"
+    conf['doublequote'] = "false"
+    for key in conf.keys():
+        set_passwdhk_confkey(key, conf[key])
+
 def _open_lsa_key():
     hKey = OpenKey(HKEY_LOCAL_MACHINE, LSA_KEY, 0, KEY_ALL_ACCESS)
     if hKey == None:
@@ -85,4 +111,12 @@ def _read_notification_packages(hKey):
 def _is_hook_enabled(packages):
     found = HOOK_DLL in (i.lower() for i in packages)
     return found
+
+def _read_reg_value(key, value):
+    hKey = OpenKey(HKEY_LOCAL_MACHINE, key, 0, KEY_READ)
+    return QueryValueEx(hKey, value)[0]
+
+def _write_reg_value(key, value, data):
+    hKey = OpenKey(HKEY_LOCAL_MACHINE, key, 0, KEY_WRITE)
+    SetValueEx(hKey, value, 0, REG_SZ, data)
 

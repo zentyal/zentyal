@@ -1,10 +1,28 @@
 #!/usr/bin/python
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the Lesser GNU General Public License as
+# published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# Lesser GNU General Public License for more details.
+#
+# You should have received a copy of the Lesser GNU General Public
+# License along with This program; if not, write to the
+#	Free Software Foundation, Inc.,
+#	59 Temple Place, Suite 330,
+#	Boston, MA  02111-1307
+#	USA
 
 import sys
 sys.path.append('../adsync')
 
 import gtk
-from zentyal_pwdsync_common import set_adsync_status, get_adsync_status
+from zentyal_pwdsync_common import *
 
 class MigrationApp(object):
     def on_adsyncEnabled_clicked(self, widget, data=None):
@@ -14,6 +32,10 @@ class MigrationApp(object):
         gtk.main_quit()
 
     def on_okButton_clicked(self, widget, data=None):
+        set_passwdhk_defaults()
+        set_passwdhk_confkey("host", self.host.get_text())
+        set_passwdhk_confkey("port", self.port.get_text())
+        set_passwdhk_confkey("secret", self.secret.get_text())
         gtk.main_quit()
 
     def __init__(self):
@@ -23,6 +45,12 @@ class MigrationApp(object):
         self.window = builder.get_object("mainWindow")
         self.adsyncEnabled = builder.get_object("adsyncEnabled")
         self.adsyncEnabled.set_active(get_adsync_status())
+        self.host = builder.get_object("hostEntry")
+        self.host.set_text(get_passwdhk_confkey("host"))
+        self.port = builder.get_object("portEntry")
+        self.port.set_text(get_passwdhk_confkey("port"))
+        self.secret = builder.get_object("secretEntry")
+        self.secret.set_text(get_passwdhk_confkey("secret"))
 
 if __name__ == "__main__":
     app = MigrationApp()
