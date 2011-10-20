@@ -107,7 +107,6 @@ Section "" ; (default section)
   File zentyal-service-launcher.exe
   File zentyal-pwdsync-service.exe
   File zentyal-pwdsync-hook.exe
-  File zentyal-enable-hook.exe
   File library.zip
   File python26.dll
   ${If} ${RunningX64}
@@ -173,7 +172,6 @@ Section Uninstall
   Delete "$INSTDIR\zentyal-service-launcher.*"
   Delete "$INSTDIR\zentyal-pwdsync-service.exe"
   Delete "$INSTDIR\zentyal-pwdsync-hook.exe"
-  Delete "$INSTDIR\zentyal-enable-hook.exe"
   Delete "$INSTDIR\migration.xml"
   Delete "$INSTDIR\atk.pyd"
   Delete "$INSTDIR\bz2.pyd"

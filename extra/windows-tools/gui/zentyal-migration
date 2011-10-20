@@ -1,8 +1,15 @@
 #!/usr/bin/python
 
+import sys
+sys.path.append('../adsync')
+
 import gtk
+from zentyal_pwdsync_common import set_adsync_status, get_adsync_status
 
 class MigrationApp(object):
+    def on_adsyncEnabled_clicked(self, widget, data=None):
+        set_adsync_status(self.adsyncEnabled.get_active())
+
     def on_mainWindow_destroy(self, widget, data=None):
         gtk.main_quit()
 
@@ -14,6 +21,8 @@ class MigrationApp(object):
         builder.add_from_file("migration.xml")
         builder.connect_signals(self)
         self.window = builder.get_object("mainWindow")
+        self.adsyncEnabled = builder.get_object("adsyncEnabled")
+        self.adsyncEnabled.set_active(get_adsync_status())
 
 if __name__ == "__main__":
     app = MigrationApp()
