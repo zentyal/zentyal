@@ -21,7 +21,7 @@
 import sys
 sys.path += ['../adsync', '../export']
 
-import gtk
+import gtk, tarfile
 import dhcp, dns
 from zentyal_pwdsync_common import *
 
@@ -43,14 +43,23 @@ class MigrationApp(object):
         gtk.main_quit()
 
     def on_exportButton_clicked(self, widget, data=None):
+        # TODO: error dialog if no checkboxes are selected
+        path = ""
+        if self.fileSaveDialog.run() == gtk.RESPONSE_OK:
+            path = self.fileSaveDialog.get_filename()
+            self.fileSaveDialog.destroy()
+        if not path:
+            return
+        tar = tarfile.open(path + ".tar.gz", "w:gz")
         if self.exportDHCP.get_active():
             dhcp.export("dhcp.yaml")
+            tar.add("dhcp.yaml")
         if self.exportDNS.get_active():
             dns.export("dns.yaml")
+            tar.add("dns.yaml")
         if self.exportPDC.get_active():
             pass # FIXME
-        # TODO: package everything together and
-        # show FileDialog to choose path to save it
+        tar.close()
 
     def on_aboutButton_clicked(self, widget, data=None):
         self.about.show()
@@ -64,6 +73,7 @@ class MigrationApp(object):
         builder.connect_signals(self)
         self.window = builder.get_object("mainWindow")
         self.about = builder.get_object("aboutDialog")
+        self.fileSaveDialog = builder.get_object("fileSaveDialog")
         self.adsyncEnabled = builder.get_object("adsyncEnabled")
         self.adsyncEnabled.set_active(get_adsync_status())
         self.host = builder.get_object("hostEntry")
@@ -79,6 +89,8 @@ class MigrationApp(object):
         self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
 
 if __name__ == "__main__":
+    settings = gtk.settings_get_default()
+    gtk.Settings.set_long_property(settings, "gtk-button-images", 1, "main")
     app = MigrationApp()
     app.window.set_title('Zentyal Migration Tool')
     app.window.show()
