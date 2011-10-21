@@ -12,7 +12,8 @@
 
 Set INSTALLER_TEMP=installer_temp
 Set MAKENSIS_EXE="c:\program files\nsis\makensis.exe"
-Set PYTHON_EXE="C:\Python26\python.exe"
+Set PYTHON_PATH="C:\Python26"
+Set PYTHON_EXE="%PYTHON_PATH%\python.exe"
 
 mkdir %INSTALLER_TEMP%
 
@@ -26,6 +27,21 @@ copy adsync\passwdhk64.dll %INSTALLER_TEMP%
 copy adsync\setup-service.bat %INSTALLER_TEMP%
 copy adsync\zentyal-service-launcher.exe %INSTALLER_TEMP%
 copy gui\migration.xml %INSTALLER_TEMP%
+
+Set GTK_RUNTIME="lib\site-packages\gtk-2.0\runtime"
+Set GTK_ENGINES="lib\gtk-2.0\2.10.0\engines"
+Set WIN_THEME="share\themes\MS-Windows"
+Set ICON_THEME="share\icons\hicolor"
+Set GTKRC_PATH="dist\etc\gtk-2.0"
+
+md dist\share\themes
+xcopy /S /I %PYTHON_PATH%\%GTK_RUNTIME%\%WIN_THEME% dist\%WIN_THEME%
+md dist\share\icons
+xcopy /S /I %PYTHON_PATH%\%GTK_RUNTIME%\%ICON_THEME% dist\%ICON_THEME%
+md dist\%GTK_ENGINES%
+copy %PYTHON_PATH%\%GTK_RUNTIME%\%GTK_ENGINES%\libwimp.dll dist\%GTK_ENGINES%\
+md %GTKRC_PATH%
+echo gtk-theme-name = "MS-Windows" > %GTKRC_PATH%\gtkrc
 
 :: Generate .exe from python
 if exist %PYTHON_EXE% goto path

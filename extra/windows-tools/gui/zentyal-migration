@@ -89,8 +89,6 @@ class MigrationApp(object):
         self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
 
 if __name__ == "__main__":
-    settings = gtk.settings_get_default()
-    gtk.Settings.set_long_property(settings, "gtk-button-images", 1, "main")
     app = MigrationApp()
     app.window.set_title('Zentyal Migration Tool')
     app.window.show()
