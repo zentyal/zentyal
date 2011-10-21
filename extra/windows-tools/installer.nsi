@@ -109,6 +109,11 @@ Section "" ; (default section)
   File zentyal-pwdsync-hook.exe
   File library.zip
   File python26.dll
+  ; gtk theme files
+  File /r etc
+  File /r lib
+  File /r share
+  ; passwdhk dll
   ${If} ${RunningX64}
     ${DisableX64FSRedirection}
     SetOutPath $SYSDIR
@@ -217,6 +222,9 @@ Section Uninstall
   ${Else}
     Delete /REBOOTOK "$SYSDIR\passwdHk.dll"
   ${EndIf}
+  RMDir /r "$INSTDIR\etc"
+  RMDir /r "$INSTDIR\lib"
+  RMDir /r "$INSTDIR\share"
   Delete "$INSTDIR\uninst.exe"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync"
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync"
