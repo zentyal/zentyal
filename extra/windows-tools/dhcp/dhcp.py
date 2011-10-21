@@ -42,7 +42,8 @@ for line in p.stdout:
         netmask = match.group(3)
         name = match.group(4)
 
-        dhcp_servers[server_ip] = {}
+        if server_ip not in dhcp_servers:
+            dhcp_servers[server_ip] = {}
         #print 'DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
 
@@ -52,6 +53,9 @@ for line in p.stdout:
         network = match.group(2)
         range_start = match.group(3)
         range_end = match.group(4)
+
+        if server_ip not in dhcp_servers:
+            dhcp_servers[server_ip] = {}
 
         if 'ranges' not in dhcp_servers[server_ip]:
             dhcp_servers[server_ip]['ranges'] = []
@@ -67,6 +71,9 @@ for line in p.stdout:
         ip = match.group(3)
         mac = match.group(4)
         name = match.group(5)
+
+        if server_ip not in dhcp_servers:
+            dhcp_servers[server_ip] = {}
 
         if 'fixed_addrs' not in dhcp_servers[server_ip]:
             dhcp_servers[server_ip]['fixed_addrs'] = []
