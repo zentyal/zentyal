@@ -19,9 +19,10 @@
 #	USA
 
 import sys
-sys.path.append('../adsync')
+sys.path += ['../adsync', '../export']
 
 import gtk
+import dhcp, dns
 from zentyal_pwdsync_common import *
 
 # FIXME: change this with a link to the new Migration Tool doc
@@ -40,6 +41,16 @@ class MigrationApp(object):
         set_passwdhk_confkey("port", self.port.get_text())
         set_passwdhk_confkey("secret", self.secret.get_text())
         gtk.main_quit()
+
+    def on_exportButton_clicked(self, widget, data=None):
+        if self.exportDHCP.get_active():
+            dhcp.export("dhcp.yaml")
+        if self.exportDNS.get_active():
+            dns.export("dns.yaml")
+        if self.exportPDC.get_active():
+            pass # FIXME
+        # TODO: package everything together and
+        # show FileDialog to choose path to save it
 
     def on_aboutButton_clicked(self, widget, data=None):
         self.about.show()
@@ -61,10 +72,14 @@ class MigrationApp(object):
         self.port.set_text(get_passwdhk_confkey("port"))
         self.secret = builder.get_object("secretEntry")
         self.secret.set_text(get_passwdhk_confkey("secret"))
+        self.exportDHCP = builder.get_object("exportDHCP")
+        self.exportDNS = builder.get_object("exportDNS")
+        self.exportPDC = builder.get_object("exportPDC")
         self.adsyncHelp = builder.get_object("adsyncHelpLabel")
         self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
 
 if __name__ == "__main__":
     app = MigrationApp()
+    app.window.set_title('Zentyal Migration Tool')
     app.window.show()
     gtk.main()

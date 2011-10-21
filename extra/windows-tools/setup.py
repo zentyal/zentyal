@@ -17,7 +17,7 @@ setup(
 
     options = {
                   'py2exe': {
-                      'packages': 'ctypes, encodings',
+                      'packages': 'ctypes, encodings, yaml',
                       'includes': 'cairo, pango, pangocairo, atk, gobject, gio',
                   }
               },

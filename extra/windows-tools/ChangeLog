@@ -1,4 +1,5 @@
 HEAD
+	+ Added functionality to export DHCP and DNS configuration
 	+ Changed name from "AD Sync Password Synchronizer" to "Migration Tool"
 	+ New PyGTK GUI to replace the old MFC one
 	+ Do not block password sync of other users if one user fails
