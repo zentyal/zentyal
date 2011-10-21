@@ -2,7 +2,7 @@ Required software to build zentyal-migration-tool
 -------------------------------------------------
 
 Python 2.6 for Win32 (http://www.python.org/ftp/python/2.6.2/python-2.6.2.msi)
-PyGtk 2.24 (http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-2.24.0.win32-py2.6.exe)
+PyGtk 2.24 (http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-all-in-one-2.24.0.win32-py2.6.msi)
 Python-Crypto (http://www.voidspace.org.uk/python/modules.shtml#pycrypto)
 PyYAML 3.10 (http://pyyaml.org/download/pyyaml/PyYAML-3.10.win32-py2.6.exe)
 Py2Exe (http://www.py2exe.org/)
