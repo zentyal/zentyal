@@ -113,8 +113,11 @@ def _is_hook_enabled(packages):
     return found
 
 def _read_reg_value(key, value):
-    hKey = OpenKey(HKEY_LOCAL_MACHINE, key, 0, KEY_READ)
-    return QueryValueEx(hKey, value)[0]
+    try:
+        hKey = OpenKey(HKEY_LOCAL_MACHINE, key, 0, KEY_READ)
+        return QueryValueEx(hKey, value)[0]
+    except:
+        return ""
 
 def _write_reg_value(key, value, data):
     hKey = OpenKey(HKEY_LOCAL_MACHINE, key, 0, KEY_WRITE)
