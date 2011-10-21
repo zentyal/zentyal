@@ -36,12 +36,15 @@ def export(filepath):
         match = server_def.match(line)
         if match:
             (server_ip, network, netmask, name) = match.groups()
-            dhcp_servers[server_ip] = {}
+            if server_ip not in dhcp_servers:
+                dhcp_servers[server_ip] = {}
             print 'DEBUG: DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
         match = range_def.match(line)
         if match:
             (server_ip, network, range_start, range_end) = match.groups()
+            if server_ip not in dhcp_servers:
+                dhcp_servers[server_ip] = {}
             if 'ranges' not in dhcp_servers[server_ip]:
                 dhcp_servers[server_ip]['ranges'] = []
             dhcp_servers[server_ip]['ranges'].append({'from':range_start, 'to':range_end})
@@ -50,6 +53,8 @@ def export(filepath):
         match = reserved_def.match(line)
         if match:
             (server_ip, network, ip, mac, name) = match.groups()
+            if server_ip not in dhcp_servers:
+                dhcp_servers[server_ip] = {}
             if 'fixed_addrs' not in dhcp_servers[server_ip]:
                 dhcp_servers[server_ip]['fixed_addrs'] = []
             dhcp_servers[server_ip]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
