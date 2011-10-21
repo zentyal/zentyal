@@ -146,6 +146,11 @@ sub AUTOLOAD
         throw EBox::Exceptions::Internal('Cannot call a private method');
     }
 
+    # Check for a method in SOAP::Lite package
+    if ( $self->{soapConn}->can($methodName) ) {
+        return $self->{soapConn}->$methodName(@params);
+    }
+
     # Transform every given param into a SOAP::Data if it is not yet.
     # This assumes all parameters are named
     my @soapParams = ();
@@ -207,7 +212,9 @@ sub _setCerts
 
     $ENV{HTTPS_CERT_FILE} = $certs->{cert};
     $ENV{HTTPS_KEY_FILE} = $certs->{private};
-    $ENV{HTTPS_CA_FILE} = $certs->{ca};
+    if ( defined($certs->{ca}) ) {
+        $ENV{HTTPS_CA_FILE} = $certs->{ca};
+    }
     $ENV{HTTPS_VERSION} = '3';
 }
 

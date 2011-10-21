@@ -46,7 +46,6 @@ sub _getCronJobs
     my $baseDir    = EBox::RemoteServices::Configuration::JobsDir();
 
     # Delete those cron jobs that no longer lives in Zentyal Cloud
-
     my %currentJob = map { $_->{jobId} => 1 } @{$cronJobs};
 
 
@@ -101,7 +100,7 @@ __END__
 =head1 NAME
 
 get-cronjobs - Utility to get available cronjobs for this Zentyal.
-                    Its usage is completely internal
+               Its usage is completely internal
 
 =head1 SYNOPSIS
 

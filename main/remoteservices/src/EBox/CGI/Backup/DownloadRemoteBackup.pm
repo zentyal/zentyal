@@ -34,41 +34,35 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
-
+# Method: _print
+#
+#      Print directly the file to download
+#
+# Overrides:
+#
+#      <EBox::CGI::Base::_print>
+#
 sub _print
 {
-	my $self = shift;
-	if ($self->{error} || not defined($self->{downfile})) {
-		$self->SUPER::_print;
-		return;
-	}
-	open(BACKUP,$self->{downfile}) or
-		throw EBox::Exceptions::Internal('Could not open backup file.');
-	print($self->cgi()->header(
-				   -type=>'application/octet-stream',
-				   -attachment=>$self->{downfilename}
-				  ));
-	while (<BACKUP>) {
-		print $_;
-	}
-	close BACKUP;
+    my ($self) = @_;
+    if ( $self->{error} ) {
+        $self->SUPER::_print;
+        return;
+    }
+
+    my $name   = $self->param('name');
+    my $backup = new EBox::RemoteServices::Backup();
+
+    print($self->cgi()->header(
+        -type       => 'application/x-tar',
+        -attachment => "$name.tar",
+       ));
+    $backup->downloadRemoteBackup($name, \*STDOUT);
 }
 
 sub requiredParameters
 {
   return [qw(name)];
-}
-
-sub actuate
-{
-  my ($self) = @_;
-
-  my $backup =  new EBox::RemoteServices::Backup;
-  my $name   = $self->param('name');
-
-  my $file = $backup->downloadRemoteBackup($name);
-  $self->{downfile} = $file;
-  $self->{downfilename} = "$name.tar";
 }
 
 1;

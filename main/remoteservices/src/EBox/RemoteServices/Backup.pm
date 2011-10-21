@@ -20,16 +20,20 @@ use base 'EBox::RemoteServices::Auth';
 use strict;
 use warnings;
 
+use Data::Dumper;
+use Error qw(:try);
 use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
-
 use File::Glob ':globally';
 use File::Slurp;
 use File::Temp;
-use Data::Dumper;
-use Error qw(:try);
+use LWP::UserAgent;
+use URI;
+
+# Constants
+use constant CURL => 'curl';
 
 # Group: Public methods
 
@@ -117,17 +121,18 @@ sub sendRemoteBackup
     defined $automatic or $automatic = 0;
 
     try {
-        my $archiveContents = File::Slurp::read_file($archive);
-        $self->_pushConfBackup(file => $archiveContents,
+        $self->_pushConfBackup($archive,
                                fileName => $name,
                                comment => $description,
-                               automatic => $automatic);
+                               automatic => $automatic,
+                               size => (-s $archive));
     }
     finally {
         unlink $archive;
     };
 }
 
+# Restore remote configuration backup
 sub restoreRemoteBackup
 {
     my ($self, $name) = @_;
@@ -137,12 +142,11 @@ sub restoreRemoteBackup
 
     try {
         EBox::Backup->restoreBackup($archiveFile);
-    }
-      finally {
-          if (-e $archiveFile) {
-              unlink $archiveFile;
-          }
-      };
+    } finally {
+        if ( -e $archiveFile ) {
+            unlink($archiveFile);
+        }
+    };
 }
 
 
@@ -162,42 +166,23 @@ sub prepareRestoreRemoteBackup
            );
     }
       otherwise {
-          my $ex = shift;
-          unlink $archiveFile;
+          my ($ex) = @_;
+          unlink($archiveFile);
           $ex->throw();
       };
 
     return $progress;
 }
 
+# Return the configuration backup file path
 sub downloadRemoteBackup
 {
-    my ($self, $name) = @_;
+    my ($self, $name, $fh) = @_;
     $name or throw EBox::Exceptions::MissingArgument('name');
 
-    my $archiveContents = $self->_pullConfBackup(fileName => $name);
-
-    my ($fh, $archiveFile) = File::Temp::tempfile(
-        DIR => EBox::Config::tmp(),
-        SUFFIX => '.backup',
-       );
-
-    try {
-        print $fh $archiveContents;
-        close $fh or
-          throw EBox::Exceptions::Internal("Error closing $archiveFile: $!");
-    }
-      otherwise {
-          my $ex = shift;
-
-          if (-e $archiveFile) {
-              unlink $archiveFile;
-          }
-
-          $ex->throw();
-      };
-
-    return $archiveFile;
+    my $archive = $self->_pullConfBackup(fileName => $name,
+                                         fh => $fh);
+    return $archive;
 }
 
 
@@ -382,14 +367,65 @@ sub _setMetainfoFootprint
 
 sub _pushConfBackup
 {
-    my ($self, @p) = @_;
-    return $self->soapCall('pushConfBackup', @p);
+    my ($self, $archive, @p) = @_;
+    my $rv = $self->soapCall('pushConfBackup', @p);
+    # Send the file using curl
+    my %p = @p;
+    my $url = new URI('https://' . $self->_servicesServer() . '/conf-backup/put/' . $p{fileName});
+    my $output = EBox::Sudo::command(CURL . " --insecure --upload-file '$archive' "
+                                     . "'" . $url->as_string() . "'"
+                                     . ' --cacert ' . $self->{caCertificate}
+                                     . ' --cert ' . $self->{certificate}
+                                     . ' --key ' . $self->{certificateKey});
+
 }
 
+# Method: _pullConfBackup
+#
+#     Pull the configuration backup from Zentyal Cloud
+#
+# Named parameters:
+#
+#    fileName - String the file name to retrieve
+#    fh       - Filehandle if given, then the conf backup is written there
+#
+# Returns:
+#
+#    String - the path to the configuration backup if fh is not given
+#
+#    undef  - otherwise
+#
 sub _pullConfBackup
 {
-    my ($self, @p) = @_;
-    return $self->soapCall('pullConfBackup', @p);
+    my ($self, %p) = @_;
+
+    my $url = new URI('https://' . $self->_servicesServer() . '/conf-backup/get/' . $p{fileName});
+
+    my $ua = new LWP::UserAgent();
+    $ENV{HTTPS_CERT_FILE} = $self->{certificate};
+    $ENV{HTTPS_KEY_FILE} = $self->{certificateKey};
+    $ENV{HTTPS_CA_FILE} = $self->{caCertificate};
+    if ( exists $p{fh} and defined $p{fh} ) {
+        my $fh = $p{fh};
+        my $contentLength;
+        # Perform the query with fh as destination
+        my $res = $ua->request(new HTTP::Request(GET => $url->as_string()),
+                               sub {
+                                   my ($chunk, $res) = @_;
+                                   unless ( defined($contentLength) ) {
+                                       $contentLength = $res->content_length() || 0;
+                                       if ( $contentLength > 0) {
+                                           print $fh "Content-Length: $contentLength\n";
+                                       }
+                                   }
+                                   print $fh $chunk;
+                               });
+        return undef;
+    } else {
+        my $outFile = EBox::Config::tmp() . 'pull-conf.backup';
+        my $res = $ua->request(new HTTP::Request(GET => $url->as_string()), $outFile);
+        return $outFile;
+    }
 }
 
 

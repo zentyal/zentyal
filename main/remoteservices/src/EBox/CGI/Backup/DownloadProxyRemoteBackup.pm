@@ -25,57 +25,48 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 
-
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new( @_);
-	$self->{errorchain} = "RemoteServices/Backup/Proxy";
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new( @_);
+    $self->{errorchain} = "RemoteServices/Backup/Proxy";
+    bless($self, $class);
+    return $self;
 }
 
-
+# Method: _print
+#
+#      Print directly the file to download
+#
+# Overrides:
+#
+#      <EBox::CGI::Base::_print>
+#
 sub _print
 {
-	my $self = shift;
-	if ($self->{error} || not defined($self->{downfile})) {
-		$self->SUPER::_print;
-		return;
-	}
-	open(BACKUP,$self->{downfile}) or
-		throw EBox::Exceptions::Internal('Could not open backup file.');
-	print($self->cgi()->header(
-				   -type=>'application/octet-stream',
-				   -attachment=>$self->{downfilename}
-				  ));
-	while (<BACKUP>) {
-		print $_;
-	}
-	close BACKUP;
+    my ($self) = @_;
+
+    if ( $self->{error} ) {
+        $self->SUPER::_print;
+        return;
+    }
+
+    my $backup =  $self->backupService();
+
+    my $server = $self->param('cn');
+    my $name   = $self->param('name');
+
+    print($self->cgi()->header(
+        -type       => 'application/x-tar',
+        -attachment => "$server-$name.tar",
+       ));
+    $backup->downloadRemoteBackup($server, $name, \*STDOUT);
 }
 
 sub requiredParameters
 {
-  return [qw(cn name user password)];
+    return [qw(cn name user password)];
 }
 
-
-
-
-
-sub actuate
-{
-  my ($self) = @_;
-
-  my $backup =  $self->backupService();
-
-  my $eboxCn = $self->param('cn');
-  my $name   = $self->param('name');
-
-  my $file = $backup->downloadRemoteBackup($eboxCn, $name);
-  $self->{downfile} = $file;
-  $self->{downfilename} = "$eboxCn-$name.tar";
-}
-
+sub actuate { }
 1;

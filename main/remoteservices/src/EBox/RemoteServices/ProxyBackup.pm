@@ -30,12 +30,15 @@ use warnings;
 use EBox::Backup;
 use EBox::Config;
 use EBox::Gettext;
-
-use File::Slurp;
 use Error qw(:try);
+use File::Slurp;
+use File::Temp;
+use LWP::UserAgent;
+use URI;
 
 use constant {
-    SERV_CONF_FILE => 'remoteservices.conf'
+    SERV_CONF_FILE => 'remoteservices.conf',
+    CURL           => '/usr/bin/curl',
 };
 
 # Group: Public methods
@@ -70,18 +73,16 @@ sub new
 
 sub downloadRemoteBackup
 {
-  my ($self, $registeredEBox, $backupName) = @_;
+  my ($self, $registeredEBox, $backupName, $fh) = @_;
   $registeredEBox or throw EBox::Exceptions::MissingArgument('registeredEBox');
   $backupName     or throw EBox::Exceptions::MissingArgument('backupName');
 
 
-  my $backupData = $self->_pullConfBackup(
-					  registeredEBox => $registeredEBox,
-					  backupName     => $backupName,
-					 );
-
-  my $archive = EBox::Config::tmp() . '/fromProxy.backup';
-  File::Slurp::write_file($archive, $backupData);
+  my $archive = $self->_pullConfBackup(
+                                       server     => $registeredEBox,
+                                       backupName => $backupName,
+                                       fh         => $fh,
+                                      );
 
   return $archive;
 }
@@ -265,10 +266,56 @@ sub soapCall
 		       );
 }
 
+# Method: _pullConfBackup
+#
+#     Pull the configuration backup from Zentyal Cloud
+#
+# Named parameters:
+#
+#    backupName - String the file name to retrieve
+#    server     - String the server name
+#    fh         - Filehandle if given, then the conf backup is written there
+#
+# Returns:
+#
+#    String - the path to the configuration backup if fh is not given
+#
+#    undef  - otherwise
+#
 sub _pullConfBackup
 {
-  my ($self, @p) = @_;
-  return $self->soapCall('pullConfBackup', @p);
+    my ($self, %p) = @_;
+
+    my $url = new URI('https://' . $self->serviceHostName() . '/conf-backup/get');
+
+    $url->query_form(user => $self->{user}, password => $self->{password},
+                     server => $p{server}, backupName => $p{backupName});
+
+    EBox::info($url->as_string());
+    my $ua = new LWP::UserAgent();
+    if ( exists($p{fh}) and defined($p{fh}) ) {
+        my $fh = $p{fh};
+        my $contentLength;
+        # Perform the query with fh as destination
+        my $res = $ua->request(new HTTP::Request(GET => $url->as_string()),
+                               sub {
+                                   my ($chunk, $res) = @_;
+                                   unless ( defined($contentLength) ) {
+                                       $contentLength = $res->content_length() || 0;
+                                       if ( $contentLength > 0) {
+                                           print $fh "Content-Length: $contentLength\n";
+                                           print STDERR "Content-Length: $contentLength\n";
+                                       }
+                                   }
+                                   print $fh $chunk;
+                               });
+        return undef;
+    } else {
+        my $outFile = EBox::Config::tmp() . 'fromProxy.backup';
+        my $res = $ua->request(new HTTP::Request(GET => $url->as_string()),
+                               $outFile);
+        return $outFile;
+    }
 }
 
 

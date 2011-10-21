@@ -1,3 +1,12 @@
+HEAD
+	+ Download the backup archive from proxy using REST without
+	  storing locally
+	+ Download the backup archive using REST as well and optimising
+	  to pass the stream directly without temporary files
+	+ Configuration backup archive is now sent using curl in a REST
+	  format
+	+ Add EBox::RemoteServices::SOAPClient the chances to run any
+	  SOAP::Lite method
 2.2.1
 	+ Avoid crash with undefined siteHost when migrating from 2.0
 	+ Tolerate file permission errors when restoring subscription
