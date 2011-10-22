@@ -70,6 +70,7 @@ for line in p.stdout:
         network = match.group(2)
         ip = match.group(3)
         mac = match.group(4)
+        mac = ":".join(mac[i:i+2] for i in xrange(0, len(mac), 2))
         name = match.group(5)
 
         if server_ip not in dhcp_servers:

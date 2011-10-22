@@ -53,6 +53,7 @@ def export(filepath):
         match = reserved_def.match(line)
         if match:
             (server_ip, network, ip, mac, name) = match.groups()
+            mac = ":".join(mac[i:i+2] for i in xrange(0, len(mac), 2))
             if server_ip not in dhcp_servers:
                 dhcp_servers[server_ip] = {}
             if 'fixed_addrs' not in dhcp_servers[server_ip]:
