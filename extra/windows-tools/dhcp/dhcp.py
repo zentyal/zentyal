@@ -44,6 +44,11 @@ for line in p.stdout:
 
         if server_ip not in dhcp_servers:
             dhcp_servers[server_ip] = {}
+            dhcp_servers[server_ip]['ip'] = server_ip
+
+        dhcp_servers[server_ip]['network'] = network
+        dhcp_servers[server_ip]['netmask'] = netmask
+        dhcp_servers[server_ip]['name'] = name
         #print 'DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
 
@@ -56,6 +61,7 @@ for line in p.stdout:
 
         if server_ip not in dhcp_servers:
             dhcp_servers[server_ip] = {}
+            dhcp_servers[server_ip]['ip'] = server_ip
 
         if 'ranges' not in dhcp_servers[server_ip]:
             dhcp_servers[server_ip]['ranges'] = []
@@ -75,6 +81,7 @@ for line in p.stdout:
 
         if server_ip not in dhcp_servers:
             dhcp_servers[server_ip] = {}
+            dhcp_servers[server_ip]['ip'] = server_ip
 
         if 'fixed_addrs' not in dhcp_servers[server_ip]:
             dhcp_servers[server_ip]['fixed_addrs'] = []
@@ -83,4 +90,4 @@ for line in p.stdout:
         #print 'DHCP fixed address for ' + ip + ', mac ' + mac + ': ' + name
 
 
-print yaml.dump(dhcp_servers)
+print yaml.dump(dhcp_servers.values())
