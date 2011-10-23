@@ -7,10 +7,10 @@ This project by eBox Technologies is based on the following software:
 - XYNTService by Xiangyang Liu
     http://www.codeproject.com/system/xyntservice.asp
     It is included as zentyal-service-launcher.exe
-    The source code is also available in the eBox Platform official repository.
+    The source code is also available in the Zentyal official repository.
 
-- IPy
-    http://c0re.23.nu/c0de/IPy/
+- IPy 0.75 by Victor Stinner
+    https://github.com/haypo/python-ipy
 
 XYNTService is licensed under The Code Project Open License (CPOL).
 The full text of the license is at http://www.codeproject.com/info/cpol10.aspx
