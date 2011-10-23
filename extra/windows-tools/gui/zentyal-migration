@@ -44,10 +44,11 @@ class MigrationApp(object):
 
     def on_exportButton_clicked(self, widget, data=None):
         # TODO: error dialog if no checkboxes are selected
-        path = ""
-        if self.fileSaveDialog.run() == gtk.RESPONSE_OK:
-            path = self.fileSaveDialog.get_filename()
-            self.fileSaveDialog.destroy()
+        self.fileSaveDialog.run()
+
+    def on_saveButton_clicked(self, widget, data=None):
+        path = self.fileSaveDialog.get_filename()
+        self.fileSaveDialog.hide()
         if not path:
             return
         tar = tarfile.open(path + ".tar.gz", "w:gz")
@@ -60,6 +61,9 @@ class MigrationApp(object):
         if self.exportPDC.get_active():
             pass # FIXME
         tar.close()
+
+    def on_cancelSaveButton_clicked(self, widget, data=None):
+        self.fileSaveDialog.hide()
 
     def on_aboutButton_clicked(self, widget, data=None):
         self.about.show()

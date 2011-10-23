@@ -73,10 +73,34 @@ License along with This program; if not, write to the
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <placeholder/>
+              <object class="GtkButton" id="cancelSaveButton">
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_cancelSaveButton_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="GtkButton" id="saveButton">
+                <property name="label" translatable="yes">Save</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+                <signal name="clicked" handler="on_saveButton_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </object>
           <packing>
@@ -91,6 +115,10 @@ License along with This program; if not, write to the
         </child>
       </object>
     </child>
+    <action-widgets>
+      <action-widget response="0">cancelSaveButton</action-widget>
+      <action-widget response="0">saveButton</action-widget>
+    </action-widgets>
   </object>
   <object class="GtkWindow" id="mainWindow">
     <property name="width_request">500</property>
