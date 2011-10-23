@@ -59,7 +59,14 @@ def export(filepath):
             file.close()
             zones.append({ 'name':zone, 'records':records })
 
-    f = open(filepath, 'w')
-    f.write(yaml.dump(zones, default_flow_style=False))
-    f.close()
+    dump = yaml.dump(zones, default_flow_style=False)
+    if filepath:
+        f = open(filepath, 'w')
+        f.write(dump)
+        f.close()
+    else:
+        print dump
+
+if __name__ == "__main__":
+    export(None)
 
