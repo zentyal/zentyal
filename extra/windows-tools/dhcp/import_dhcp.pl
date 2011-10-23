@@ -53,43 +53,47 @@ foreach my $server (@$dhcp_servers) {
     my $table = $manager->model("/dhcp/RangeTable/$iface");
     $table->removeAll();
     my $counter = 0;
-    foreach my $range (@{$server->{ranges}}) {
-        print "Adding range $range->{from}-$range->{to}...\n";
-        $counter++;
-        $table->add(
-            name => "range$counter",
-            from => $range->{from},
-            to => $range->{to},
-        );
+    if ($server->{ranges}) {
+        foreach my $range (@{$server->{ranges}}) {
+            print "Adding range $range->{from}-$range->{to}...\n";
+            $counter++;
+            $table->add(
+                    name => "range$counter",
+                    from => $range->{from},
+                    to => $range->{to},
+                    );
+        }
     }
 
-    my @fixed_addrs = @{$server->{fixed_addrs}};
-    if (@fixed_addrs > 0) {
-        print "Creating dhcp_$iface object for fixed addresses\n";
+    if ($server->{fixed_addrs}) {
+        my @fixed_addrs = @{$server->{fixed_addrs}};
+        if (@fixed_addrs > 0) {
+            print "Creating dhcp_$iface object for fixed addresses\n";
 
-        my @members;
-        foreach my $fixed (@fixed_addrs) {
-            print "   Adding IP $fixed->{ip}...\n";
-            push (@members, {
-                'name'             => $fixed->{name},
-                'address_selected' => 'ipaddr',
-                'address'          => 'ipaddr',
-                'ipaddr_ip'        => $fixed->{ip},
-                'ipaddr_mask'      => 32,
-                'macaddr'          => $fixed->{mac},
-            });
+            my @members;
+            foreach my $fixed (@fixed_addrs) {
+                print "   Adding IP $fixed->{ip}...\n";
+                push (@members, {
+                        'name'             => $fixed->{name},
+                        'address_selected' => 'ipaddr',
+                        'address'          => 'ipaddr',
+                        'ipaddr_ip'        => $fixed->{ip},
+                        'ipaddr_mask'      => 32,
+                        'macaddr'          => $fixed->{mac},
+                        });
+            }
+
+            $objects->addObject(
+                    id      => "dhcp_$iface",
+                    name    => "dhcp_$iface",
+                    members => \@members,
+                    );
+
+            print "Adding object to the DHCP server\n";
+            my $table = $manager->model("/dhcp/FixedAddressTable/$iface");
+            $table->removeAll();
+            $table->add(object => "dhcp_$iface");
         }
-
-        $objects->addObject(
-            id      => "dhcp_$iface",
-            name    => "dhcp_$iface",
-            members => \@members,
-        );
-
-        print "Adding object to the DHCP server\n";
-        my $table = $manager->model("/dhcp/FixedAddressTable/$iface");
-        $table->removeAll();
-        $table->add(object => "dhcp_$iface");
     }
 }
 
