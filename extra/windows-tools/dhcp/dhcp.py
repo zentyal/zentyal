@@ -24,7 +24,7 @@ import yaml
 # Compile reg exps
 ipre = '\\d+\\.\\d+\\.\\d+\\.\\d+';
 
-server_def = re.compile('Dhcp Server ('+ipre+') add scope ('+ipre+') ('+ipre+') "(.*)"')
+server_def = re.compile('Dhcp Server ('+ipre+') add scope ('+ipre+') ('+ipre+') "([^"]*)"')
 range_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add iprange ('+ipre+') ('+ipre+')')
 reserved_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add reservedip ('+ipre+') ([0-9abcdef]+) "(.*)" ".*" ".*"')
 
