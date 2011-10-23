@@ -22,7 +22,7 @@ import sys
 sys.path += ['../adsync', '../export']
 
 import os, gtk, tarfile
-import dhcp, dns
+import dhcp, dns, pdc
 from zentyal_pwdsync_common import *
 
 # FIXME: change this with a link to the new Migration Tool doc
@@ -60,7 +60,8 @@ class MigrationApp(object):
             dns.export("dns.yaml")
             tar.add("dns.yaml")
         if self.exportPDC.get_active():
-            pass # FIXME
+            pdc.export("pdc.yaml")
+            tar.add("pdc.yaml")
         tar.close()
 
     def on_cancelSaveButton_clicked(self, widget, data=None):

@@ -20,7 +20,7 @@ setup(
 
     options = {
                   'py2exe': {
-                      'packages': 'ctypes, encodings, yaml, dhcp, dns',
+                      'packages': 'ctypes, encodings, yaml, dhcp, dns, pdc',
                       'includes': 'cairo, pango, pangocairo, atk, gobject, gio',
                   }
               },
