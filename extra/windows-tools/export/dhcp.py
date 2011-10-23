@@ -36,34 +36,34 @@ def export(filepath):
         match = server_def.match(line)
         if match:
             (server_ip, network, netmask, name) = match.groups()
-            if server_ip not in dhcp_servers:
-                dhcp_servers[server_ip] = {}
-            dhcp_servers[server_ip]['network'] = network
-            dhcp_servers[server_ip]['netmask'] = netmask
-            dhcp_servers[server_ip]['name'] = name
+            if network not in dhcp_servers:
+                dhcp_servers[network] = {}
+            dhcp_servers[network]['network'] = network
+            dhcp_servers[network]['netmask'] = netmask
+            dhcp_servers[network]['name'] = name
             print 'DEBUG: DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
         match = range_def.match(line)
         if match:
             (server_ip, network, range_start, range_end) = match.groups()
-            if server_ip not in dhcp_servers:
-                dhcp_servers[server_ip] = {}
-                dhcp_servers[server_ip]['ip'] = server_ip
-            if 'ranges' not in dhcp_servers[server_ip]:
-                dhcp_servers[server_ip]['ranges'] = []
-            dhcp_servers[server_ip]['ranges'].append({'from':range_start, 'to':range_end})
+            if network not in dhcp_servers:
+                dhcp_servers[network] = {}
+                dhcp_servers[network]['ip'] = network
+            if 'ranges' not in dhcp_servers[network]:
+                dhcp_servers[network]['ranges'] = []
+            dhcp_servers[network]['ranges'].append({'from':range_start, 'to':range_end})
             print 'DEBUG: DHCP range for ' + server_ip + ': ' + range_start + '-' + range_end
 
         match = reserved_def.match(line)
         if match:
             (server_ip, network, ip, mac, name) = match.groups()
             mac = ":".join(mac[i:i+2] for i in xrange(0, len(mac), 2))
-            if server_ip not in dhcp_servers:
-                dhcp_servers[server_ip] = {}
-                dhcp_servers[server_ip]['ip'] = server_ip
-            if 'fixed_addrs' not in dhcp_servers[server_ip]:
-                dhcp_servers[server_ip]['fixed_addrs'] = []
-            dhcp_servers[server_ip]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
+            if network not in dhcp_servers:
+                dhcp_servers[network] = {}
+                dhcp_servers[network]['ip'] = network
+            if 'fixed_addrs' not in dhcp_servers[network]:
+                dhcp_servers[network]['fixed_addrs'] = []
+            dhcp_servers[network]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
             print 'DEBUG: DHCP fixed address for ' + ip + ', mac ' + mac + ': ' + name
 
     f = open(filepath, 'w')
