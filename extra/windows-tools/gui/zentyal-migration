@@ -21,7 +21,7 @@
 import sys
 sys.path += ['../adsync', '../export']
 
-import gtk, tarfile
+import os, gtk, tarfile
 import dhcp, dns
 from zentyal_pwdsync_common import *
 
@@ -69,7 +69,7 @@ class MigrationApp(object):
 
     def __init__(self):
         builder = gtk.Builder()
-        builder.add_from_file("migration.xml")
+        builder.add_from_file(executable_path() + "/migration.xml")
         builder.connect_signals(self)
         self.window = builder.get_object("mainWindow")
         self.about = builder.get_object("aboutDialog")
@@ -87,6 +87,12 @@ class MigrationApp(object):
         self.exportPDC = builder.get_object("exportPDC")
         self.adsyncHelp = builder.get_object("adsyncHelpLabel")
         self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
+
+def executable_path():
+    if hasattr(sys, "frozen"):
+        return os.path.dirname(unicode(sys.executable, sys.getfilesystemencoding()))
+    else:
+        return os.path.dirname(unicode(__file__, sys.getfilesystemencoding()))
 
 if __name__ == "__main__":
     app = MigrationApp()
