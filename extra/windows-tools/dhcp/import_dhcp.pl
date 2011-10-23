@@ -23,6 +23,7 @@ use EBox;
 use EBox::Global;
 use Error qw(:try);
 use YAML::XS;
+use UI::Dialog;
 
 if (@ARGV ne 1) {
     print "Exported DHCP servers info expected. Usage:\n";
@@ -46,6 +47,10 @@ my $dhcp = EBox::Global->modInstance('dhcp');
 my $manager = EBox::Model::ModelManager->instance();
 
 foreach my $server (@$dhcp_servers) {
+    if (not defined($server->{ip})) {
+        $server->{ip} = read_ip($network, $server->{network});
+    }
+
     my $iface = read_iface($network, $server->{ip});
     $network->setIfaceStatic($iface, $server->{ip}, $server->{netmask}, 0, 1);
 
@@ -100,19 +105,49 @@ foreach my $server (@$dhcp_servers) {
 # Methods
 
 # Ask the user for an interface to configure dhcp server on it
-sub  read_iface
+sub read_iface
 {
     my ($network, $ip) = @_;
     my $iface = '';
+    my $default = @{$network->ifaces()}[0];
     while ($iface eq '') {
-        print "Interface for $ip: ";
-        $iface =  <STDIN>;
-        chomp ($iface);
+        $iface = read_string("Interface for $ip", $default);
         if (not $network->ifaceExists($iface)) {
-            print "$iface does not exists\n";
+            show_message("$iface does not exists");
             $iface = '';
         }
     }
-
     return $iface;
+}
+
+sub read_ip
+{
+    my ($network, $net) = @_;
+    my $ip = '';
+    while ($ip eq '') {
+        $ip = read_string("Introduce the local IP for Zentyal within $net network", '');
+        if (not EBox::Validate::checkIP($ip)) {
+            show_message("$ip is not a valid IP address");
+            $ip = '';
+        }
+    }
+    return $ip;
+}
+
+sub show_message
+{
+    my ($message) = @_;
+    my $d = new UI::Dialog();
+    $d->msgbox(text => $message);
+}
+
+sub read_string
+{
+    my ($message, $value) = @_;
+    my $d = new UI::Dialog();
+    my $string = $d->inputbox(text => $message, entry => $value);
+
+    # Cancel action
+    exit 1 if ($string eq 0);
+    return $string;
 }
