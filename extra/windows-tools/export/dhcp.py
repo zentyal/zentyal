@@ -38,6 +38,9 @@ def export(filepath):
             (server_ip, network, netmask, name) = match.groups()
             if server_ip not in dhcp_servers:
                 dhcp_servers[server_ip] = {}
+            dhcp_servers[server_ip]['network'] = network
+            dhcp_servers[server_ip]['netmask'] = netmask
+            dhcp_servers[server_ip]['name'] = name
             print 'DEBUG: DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
         match = range_def.match(line)
@@ -45,6 +48,7 @@ def export(filepath):
             (server_ip, network, range_start, range_end) = match.groups()
             if server_ip not in dhcp_servers:
                 dhcp_servers[server_ip] = {}
+                dhcp_servers[server_ip]['ip'] = server_ip
             if 'ranges' not in dhcp_servers[server_ip]:
                 dhcp_servers[server_ip]['ranges'] = []
             dhcp_servers[server_ip]['ranges'].append({'from':range_start, 'to':range_end})
@@ -56,11 +60,12 @@ def export(filepath):
             mac = ":".join(mac[i:i+2] for i in xrange(0, len(mac), 2))
             if server_ip not in dhcp_servers:
                 dhcp_servers[server_ip] = {}
+                dhcp_servers[server_ip]['ip'] = server_ip
             if 'fixed_addrs' not in dhcp_servers[server_ip]:
                 dhcp_servers[server_ip]['fixed_addrs'] = []
             dhcp_servers[server_ip]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
             print 'DEBUG: DHCP fixed address for ' + ip + ', mac ' + mac + ': ' + name
 
     f = open(filepath, 'w')
-    f.write(yaml.dump(dhcp_servers))
+    f.write(yaml.dump(dhcp_servers.values()))
     f.close()
