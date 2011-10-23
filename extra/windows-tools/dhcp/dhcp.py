@@ -42,13 +42,13 @@ for line in p.stdout:
         netmask = match.group(3)
         name = match.group(4)
 
-        if server_ip not in dhcp_servers:
-            dhcp_servers[server_ip] = {}
-            dhcp_servers[server_ip]['ip'] = server_ip
+        if network not in dhcp_servers:
+            dhcp_servers[network] = {}
+            dhcp_servers[network]['ip'] = server_ip
 
-        dhcp_servers[server_ip]['network'] = network
-        dhcp_servers[server_ip]['netmask'] = netmask
-        dhcp_servers[server_ip]['name'] = name
+        dhcp_servers[network]['network'] = network
+        dhcp_servers[network]['netmask'] = netmask
+        dhcp_servers[network]['name'] = name
         #print 'DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
 
@@ -59,14 +59,14 @@ for line in p.stdout:
         range_start = match.group(3)
         range_end = match.group(4)
 
-        if server_ip not in dhcp_servers:
-            dhcp_servers[server_ip] = {}
-            dhcp_servers[server_ip]['ip'] = server_ip
+        if network not in dhcp_servers:
+            dhcp_servers[network]= {}
+            dhcp_servers[network]['ip'] = server_ip
 
-        if 'ranges' not in dhcp_servers[server_ip]:
-            dhcp_servers[server_ip]['ranges'] = []
+        if 'ranges' not in dhcp_servers[network]:
+            dhcp_servers[network]['ranges'] = []
 
-        dhcp_servers[server_ip]['ranges'].append({'from':range_start, 'to':range_end})
+        dhcp_servers[network]['ranges'].append({'from':range_start, 'to':range_end})
         #print 'DHCP range for ' + server_ip + ': ' + range_start + '-' + range_end
 
 
@@ -79,14 +79,14 @@ for line in p.stdout:
         mac = ":".join(mac[i:i+2] for i in xrange(0, len(mac), 2))
         name = match.group(5)
 
-        if server_ip not in dhcp_servers:
-            dhcp_servers[server_ip] = {}
-            dhcp_servers[server_ip]['ip'] = server_ip
+        if network not in dhcp_servers:
+            dhcp_servers[network] = {}
+            dhcp_servers[network]['ip'] = server_ip
 
-        if 'fixed_addrs' not in dhcp_servers[server_ip]:
-            dhcp_servers[server_ip]['fixed_addrs'] = []
+        if 'fixed_addrs' not in dhcp_servers[network]:
+            dhcp_servers[network]['fixed_addrs'] = []
 
-        dhcp_servers[server_ip]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
+        dhcp_servers[network]['fixed_addrs'].append({'ip':ip, 'mac':mac, 'name':name})
         #print 'DHCP fixed address for ' + ip + ', mac ' + mac + ': ' + name
 
 
