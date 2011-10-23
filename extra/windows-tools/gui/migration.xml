@@ -62,6 +62,8 @@ License along with This program; if not, write to the
     <property name="type_hint">dialog</property>
     <property name="action">save</property>
     <property name="do_overwrite_confirmation">True</property>
+    <signal name="close" handler="on_cancelSaveButton_clicked" swapped="no"/>
+    <signal name="delete-event" handler="on_cancelSaveButton_clicked" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>

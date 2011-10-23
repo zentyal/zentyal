@@ -44,6 +44,7 @@ class MigrationApp(object):
 
     def on_exportButton_clicked(self, widget, data=None):
         # TODO: error dialog if no checkboxes are selected
+        self.fileSaveDialog.set_current_name("")
         self.fileSaveDialog.run()
 
     def on_saveButton_clicked(self, widget, data=None):
