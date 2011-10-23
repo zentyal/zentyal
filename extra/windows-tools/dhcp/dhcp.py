@@ -20,6 +20,8 @@
 import subprocess
 import re
 import yaml
+import socket
+from IPy import IP
 
 # Compile reg exps
 ipre = '\\d+\\.\\d+\\.\\d+\\.\\d+';
@@ -30,6 +32,9 @@ reserved_def = re.compile('Dhcp Server ('+ipre+') Scope ('+ipre+') Add reservedi
 
 # result
 dhcp_servers = {}
+
+# local IPs for this machine
+local_ips = [IP(x) for x in socket.gethostbyname_ex('')[2]]
 
 cmd = 'netsh dhcp server dump'
 p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -44,35 +49,34 @@ for line in p.stdout:
 
         if network not in dhcp_servers:
             dhcp_servers[network] = {}
-            dhcp_servers[network]['ip'] = server_ip
+
+        Network = IP(network + '/' + netmask)
+        for ip in local_ips:
+            if ip in Network:
+                dhcp_servers[network]['ip'] = str(ip)
 
         dhcp_servers[network]['network'] = network
         dhcp_servers[network]['netmask'] = netmask
         dhcp_servers[network]['name'] = name
-        #print 'DHCP server listening on ' + server_ip + ' for ' + network + '-' + netmask + ' ('+name+')'
 
 
     match = range_def.match(line)
     if match:
-        server_ip = match.group(1)
         network = match.group(2)
         range_start = match.group(3)
         range_end = match.group(4)
 
         if network not in dhcp_servers:
             dhcp_servers[network]= {}
-            dhcp_servers[network]['ip'] = server_ip
 
         if 'ranges' not in dhcp_servers[network]:
             dhcp_servers[network]['ranges'] = []
 
         dhcp_servers[network]['ranges'].append({'from':range_start, 'to':range_end})
-        #print 'DHCP range for ' + server_ip + ': ' + range_start + '-' + range_end
 
 
     match = reserved_def.match(line)
     if match:
-        server_ip = match.group(1)
         network = match.group(2)
         ip = match.group(3)
         mac = match.group(4)
@@ -81,7 +85,6 @@ for line in p.stdout:
 
         if network not in dhcp_servers:
             dhcp_servers[network] = {}
-            dhcp_servers[network]['ip'] = server_ip
 
         if 'fixed_addrs' not in dhcp_servers[network]:
             dhcp_servers[network]['fixed_addrs'] = []
