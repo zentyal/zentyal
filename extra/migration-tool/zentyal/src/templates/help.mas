@@ -1,0 +1,17 @@
+<%init>
+use EBox::Gettext;
+</%init>
+<p>
+
+<h3><% __('Migration Tool Instructions') %></h3>
+<div class=''>
+	<% __('Open a shell and execute zentyal-migration-tool') %>
+</div>
+
+<div class=''>
+	<% __('FIXME: Link to the doc here') %>
+</div>
+
+<div class=''>
+	<% __('You can safely delete this module once you have completed the migration') %>
+</div>
