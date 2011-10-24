@@ -29,7 +29,8 @@ def export(filepath):
 
     # Compile reg exps
     zone_def = re.compile(' ([^ ]*)\s+Primary')
-    record_def = re.compile('([^ ]*)\s+(CNAME|A|MX|TXT|SRV)\s+('+ipre+')')
+    arecord_def = re.compile('([^ ]*)\s+A\s+('+ipre+')')
+    mxrecord_def = re.compile('\s+MX\s+(\d+)\s+(.*)')
 
     # result
     zones = []
@@ -50,11 +51,15 @@ def export(filepath):
 
             records = []
             for line in file:
-                match = record_def.match(line)
+                match = arecord_def.match(line)
                 if match:
-                    (name, type, ip) = match.groups()
-                    records.append({ 'name':name, 'type':type, 'ip':ip })
-                    print 'DEBUG: ' + name + ' on ' + ip + ' type ' + type
+                    (name, ip) = match.groups()
+                    records.append({ 'name':name, 'type':'A', 'ip':ip })
+
+                match = mxrecord_def.match(line)
+                if match:
+                    (preference, name) = match.groups()
+                    records.append({ 'name':name, 'type':'MX', 'preference': preference})
 
             file.close()
             zones.append({ 'name':zone, 'records':records })
