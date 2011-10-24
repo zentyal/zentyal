@@ -15,7 +15,7 @@ fi
 
 # Check if zenity is available (running under X)
 zenity 2>/dev/null
-if [ $? == 1 ]
+if [ $? != 255 ]
 then
     echo "Usage: $0 <filename.tar.gz>"
     exit 1
