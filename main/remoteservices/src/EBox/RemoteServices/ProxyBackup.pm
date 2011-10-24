@@ -295,18 +295,10 @@ sub _pullConfBackup
     my $ua = new LWP::UserAgent();
     if ( exists($p{fh}) and defined($p{fh}) ) {
         my $fh = $p{fh};
-        my $contentLength;
         # Perform the query with fh as destination
         my $res = $ua->request(new HTTP::Request(GET => $url->as_string()),
                                sub {
                                    my ($chunk, $res) = @_;
-                                   unless ( defined($contentLength) ) {
-                                       $contentLength = $res->content_length() || 0;
-                                       if ( $contentLength > 0) {
-                                           print $fh "Content-Length: $contentLength\n";
-                                           print STDERR "Content-Length: $contentLength\n";
-                                       }
-                                   }
                                    print $fh $chunk;
                                });
         return undef;
