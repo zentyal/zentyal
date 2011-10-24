@@ -3,7 +3,7 @@
 scriptsdir = @DATADIR@/zentyal-migration-tool
 
 scripts_SCRIPTS = migration-tool import-pdc import-dhcp import-dns \
-mail-readd-transport mail-readd-transport
+mail-readd-transport mail-dump-groupsmail
 
 MAINTAINERCLEANFILES = Makefile.in
 
