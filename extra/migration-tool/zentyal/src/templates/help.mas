@@ -3,7 +3,7 @@ use EBox::Gettext;
 </%init>
 <p>
 
-<h3><% __('Migration Tool Instructions') %></h3>
+<h3><% __('Instructions') %></h3>
 <div class=''>
 	<% __('Open a shell and execute zentyal-migration-tool') %>
 </div>

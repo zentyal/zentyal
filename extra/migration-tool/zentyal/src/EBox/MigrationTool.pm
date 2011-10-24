@@ -46,7 +46,7 @@ sub menu
                                     'text' => $self->printableName(),
                                     'url' => 'MigrationTool/Help',
                                     'separator' => 'Core',
-                                    'order' => 105);
+                                    'order' => 110);
     $root->add($item);
 }
 
