@@ -2,9 +2,30 @@
 
 BUNDLE=$1
 
+SUDO=sudo
+TITLE="Zentyal Migration Tool"
+MIGRATED_MODULES=""
+
 function import
 {
-    echo "FILENAME = $BUNDLE"
+    echo "Unpacking $BUNDLE ..."
+    TMPDIR="/tmp/zentyal-migration-tool-$$"
+    mkdir $TMPDIR
+    cd $TMPDIR
+    tar xzf $BUNDLE
+    for i in dhcp dns pdc
+    do
+        if [ -f $i.yaml ]
+        then
+            echo "Importing $i settings..."
+            $SUDO /usr/share/zentyal-migration-tool/import-$i $i.yaml
+            if [ $? == 0 ]
+            then
+                MIGRATED_MODULES="$i $MIGRATED_MODULES"
+            fi
+        fi
+    done
+    rm -rf $TMPDIR
 }
 
 if [ -n "$BUNDLE" ]
@@ -13,16 +34,25 @@ then
     exit $?
 fi
 
-# Check if zenity is available (running under X)
+# Check if running under X
 zenity 2>/dev/null
 if [ $? != 255 ]
 then
     echo "Usage: $0 <filename.tar.gz>"
     exit 1
 else
+    SUDO=gksu
     BUNDLE=`zenity --file-selection`
     if [ -n "$BUNDLE" ]
     then
         import
+        if [ -n "$MIGRATED_MODULES" ]
+        then
+            message="The following modules have been configured: $MIGRATED_MODULES"
+        else
+            # TODO: Show more specific error (packages no installed, etc)
+            message="Nothing has been migrated"
+        fi
+        zenity --info --title "$TITLE" --text "$message"
     fi
 fi
