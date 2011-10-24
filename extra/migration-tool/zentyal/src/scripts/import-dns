@@ -25,7 +25,8 @@ use Error qw(:try);
 use YAML::XS;
 
 if (@ARGV ne 1) {
-    print "Usage: $0 <dns.yaml>\n";
+    print "Exported DNS servers info expected. Usage:\n";
+    print "$0 exported_file.txt\n";
     exit 1;
 }
 
@@ -46,6 +47,7 @@ my $manager = EBox::Model::ModelManager->instance();
 foreach my $zone (@$dns_zones) {
 
     my @hostnames;
+    my @mx;
     if ($zone->{records}) {
         foreach my $record (@{$zone->{records}}) {
             if ($record->{type} eq 'A') {
@@ -58,9 +60,43 @@ foreach my $zone (@$dns_zones) {
                         }
                      );
             }
+            if ($record->{type} eq 'MX') {
+                push (@mx,
+                        {
+                        'hostname'   => $record->{name},
+                        'preference' => $record->{preference},
+                        }
+                     );
+            }
         }
     }
 
     $dns->addDomain({domain_name => $zone->{name}, hostnames => \@hostnames});
+    my $domains = $dns->model('DomainTable');
+
+    my $domainRow = $domains->find(domain => $zone->{name});
+    exit unless defined($domainRow);
+
+    my $hostnames = $domainRow->subModel('hostnames');
+    my $mxModel = $domainRow->subModel('mailExchangers');
+    foreach my $record (@mx) {
+        my $hostRow = $hostnames->find(hostname => $record->{hostname});
+
+        print "Importing MX record $record->{hostname}\n";
+        try {
+            if (defined($hostRow)) {
+                $mxModel->addRow(hostName_selected => 'ownerDomain',
+                        ownerDomain => $hostRow->id(),
+                        preference => $record->{preference});
+            } else {
+                $record->{hostname} =~ s/\.$//;
+                $mxModel->addRow(hostName_selected => 'custom',
+                        custom => $record->{hostname},
+                        preference => $record->{preference});
+            }
+        } otherwise {
+            print "ERROR";
+        };
+    }
 }
 
