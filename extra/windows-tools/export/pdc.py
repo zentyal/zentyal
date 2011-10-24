@@ -15,12 +15,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import os, yaml
+import os, yaml, win32security
+
+def get_sid():
+    policy_handle = win32security.GetPolicyHandle('', win32security.POLICY_ALL_ACCESS)
+    sid = win32security.LsaQueryInformationPolicy(policy_handle, win32security.PolicyDnsDomainInformation)[4]
+    sid = str(sid).split(':')[1]
+    win32security.LsaClose(policy_handle)
+    return sid
 
 def export(filepath):
     data = {}
     data['domain'] = os.getenv('USERDOMAIN')
     data['servername'] = os.getenv('COMPUTERNAME')
+    data['sid'] = get_sid()
 
     dump = yaml.dump(data, default_flow_style=False)
     if filepath:

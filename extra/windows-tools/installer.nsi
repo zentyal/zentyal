@@ -102,6 +102,7 @@ Section "" ; (default section)
   File _socket.pyd
   File _ssl.pyd
   File unicodedata.pyd
+  File win32security.pyd
   File zlib1.dll
   File setup-service.bat
   File zentyal-service-launcher.exe
@@ -212,6 +213,7 @@ Section Uninstall
   Delete "$INSTDIR\_socket.pyd"
   Delete "$INSTDIR\_ssl.pyd"
   Delete "$INSTDIR\unicodedata.pyd"
+  Delete "$INSTDIR\win32security.pyd"
   Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\library.zip"
   Delete "$INSTDIR\python26.dll"
