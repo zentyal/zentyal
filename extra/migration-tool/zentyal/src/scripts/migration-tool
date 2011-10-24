@@ -48,7 +48,7 @@ else
         import
         if [ -n "$MIGRATED_MODULES" ]
         then
-            message="The following modules have been configured: $MIGRATED_MODULES"
+            message="The following modules have been configured: $MIGRATED_MODULES\nYou should now go to the Zentyal interface and save changes if the imported settings are correct."
         else
             # TODO: Show more specific error (packages no installed, etc)
             message="Nothing has been migrated"
