@@ -47,6 +47,8 @@ src/EBox/CGI/Makefile
 src/templates/Makefile
 src/scripts/Makefile
 schemas/Makefile
+doc/Makefile
+conf/Makefile
 Makefile
 ])
 

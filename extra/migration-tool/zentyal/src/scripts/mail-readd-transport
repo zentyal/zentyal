@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Readds mail transport via alias for users not migrated and automatically
+# creates Zarafa account for migrated ones
+
+use EBox;
+use EBox::Global;
+use EBox::Ldap;
+use EBox::Config;
+use Error qw(:try);
+
+use EBox::MailAliasLdap;
+use EBox::ZarafaLdapUser;
+
+use constant MIGRATED_USERS => '/etc/zentyal/migrated.users';
+
+EBox::init();
+
+my $domain = EBox::Config::configkey('migration_mail_domain');
+my $server = EBox::Config::configkey('migration_mail_fakename');
+
+my $usersMod = EBox::Global->getInstance()->modInstance('users');
+
+my $mailAlias = new EBox::MailAliasLdap;
+my $zarafaLdap = new EBox::ZarafaLdapUser;
+
+my @usersToAdd = $usersMod->users();
+
+foreach my $user (@usersToAdd) {
+    my $username = $user->{'username'};
+
+    my $alias = $username . '@' . $domain;
+    my $mail = $username . '@' . $server;
+    my ($left, $vdomain) = split '@', $alias;
+
+    open(my $F, MIGRATED_USERS) or die "Can't open $filename: $!";
+    my $found = 0;
+    foreach my $line (<$F>) {
+        chomp($line);
+        if ($username eq $line) {
+            $found = 1;
+            last;
+        }
+    }
+    close(F);
+
+    # other users need zarafa account or local mail delivery will fail
+    if ($found) {
+        try {
+            $zarafaLdap->_addUser($username);
+        } catch Error with {
+        };
+    } else {
+        EBox::debug("[migration-tools] Adding transport alias for user '$username'.");
+        try {
+            $mailAlias->_addCouriermailAliasLdapElement("\@$vdomain", $alias, $mail);
+        } catch Error with {
+            EBox::warn("[migration-tools] Error adding alias for user '$username'.");
+        };
+    }
+}
+
+1;

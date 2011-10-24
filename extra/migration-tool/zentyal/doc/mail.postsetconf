@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# Example mail.postsetconf Zentyal hook used for mail migration
+
+# include zentyal migration tools mail configuration
+source /etc/zentyal/migration_mail.conf
+
+MIGRATED_USERS='/etc/zentyal/migrated.users'
+
+# add internal fake domain resolution
+if ! grep -q $migration_mail_fakename /etc/hosts
+then
+    echo "$migration_mail_ipaddr	$migration_mail_fakename" >> /etc/hosts
+fi
+
+# generate Postfix configuration
+cat >> /etc/postfix/main.cf <<"EOF"
+
+# migration tools configuration
+smtp_generic_maps = hash:/etc/postfix/generic
+smtp_host_lookup = dns, native
+# mail archive milter example
+#milter_default_action = tempfail
+#smtpd_milters = inet:10.50.0.10:8092
+# mail archive bcc example
+#recipient_bcc_maps = hash:/etc/postfix/bcc_archive
+#sender_bcc_maps = hash:/etc/postfix/bcc_archive
+EOF
+
+# generate Postfix generic domain rewrite
+echo "@$migration_mail_fakename @$migration_mail_domain" > /etc/postfix/generic
+postmap /etc/postfix/generic
+
+# generate Postfix transport file
+if ! grep -q $migration_mail_fakename /etc/postfix/transport
+then
+    echo "$migration_mail_fakename smtp:[$migration_mail_fakename]" >> /etc/postfix/transport
+fi
+postmap /etc/postfix/transport
+
+# clean up migrated.users file
+sed -i -e '/^$/d' $MIGRATED_USERS
+sed -i -e 's/^[ \t]*//;s/[ \t]*$//' $MIGRATED_USERS
+
+# generate list of users and groups mail addresses with bcc to the mail archive
+#cp /etc/zentyal/migrated.users /etc/postfix/bcc_archive
+#sed -i -e 's/$/@zentyal.me/' /etc/postfix/bcc_archive
+#/usr/share/zentyal-migration-tool/mail-dump-groupsmail >> /etc/postfix/bcc_archive
+#sed -i -e 's/$/ archive_bcc@zentyal.me/' /etc/postfix/bcc_archive
+#postmap /etc/postfix/bcc_archive
+
+# generate mail transport via alias for users not migrated
+# automatically creates Zarafa account for migrated ones
+/usr/share/zentyal-migration-tool/mail-readd-transport
+
+# restart nscd if installed
+#/etc/init.d/nscd restart
+
+# force Zarafa sync against LDAP
+#/usr/bin/zarafa-admin --sync
