@@ -26,8 +26,7 @@ use YAML::XS;
 use UI::Dialog;
 
 if (@ARGV ne 1) {
-    print "Exported DHCP servers info expected. Usage:\n";
-    print "$0 exported_file.txt\n";
+    print "Usage: $0 <dhcp.yaml>\n";
     exit 1;
 }
 

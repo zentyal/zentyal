@@ -25,8 +25,7 @@ use Error qw(:try);
 use YAML::XS;
 
 if (@ARGV ne 1) {
-    print "Exported DNS servers info expected. Usage:\n";
-    print "$0 exported_file.txt\n";
+    print "Usage: $0 <dns.yaml>\n";
     exit 1;
 }
 
