@@ -15,20 +15,44 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-import os, yaml, win32security
+import os, yaml, win32security, subprocess
 
-def get_sid():
+def get_domain_sid():
     policy_handle = win32security.GetPolicyHandle('', win32security.POLICY_ALL_ACCESS)
     sid = win32security.LsaQueryInformationPolicy(policy_handle, win32security.PolicyDnsDomainInformation)[4]
     sid = str(sid).split(':')[1]
     win32security.LsaClose(policy_handle)
     return sid
 
+def get_account_sid(account, domain):
+    # TODO: use check_output if we migrate to python >=2.7
+    #sid = subprocess.check_output(["cscript", "/nologo", "getsid.vbs", account, domain])
+    #return sid.strip()
+    # TODO: get exe path to find location of getsid.vbs
+    p = subprocess.Popen("cscript /nologo getsid.vbs " + account + " " + domain, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    for line in p.stdout:
+        return line.strip()
+
+def get_computers(server, domain):
+    computers = {}
+    p = subprocess.Popen("net view", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    for line in p.stdout:
+        if line[:1] == '\\':
+            name = line[2:].strip()
+            if name != server:
+                name += '$'
+                computers[name] = get_account_sid(name, domain)
+    return computers
+
 def export(filepath):
     data = {}
-    data['domain'] = os.getenv('USERDOMAIN')
-    data['servername'] = os.getenv('COMPUTERNAME')
-    data['sid'] = get_sid()
+    domain = os.getenv('USERDOMAIN')
+    servername = os.getenv('COMPUTERNAME')
+
+    data['domain'] = domain
+    data['servername'] = servername
+    data['sid'] = get_domain_sid()
+    data['computers'] = get_computers(servername, domain)
 
     dump = yaml.dump(data, default_flow_style=False)
     if filepath:
