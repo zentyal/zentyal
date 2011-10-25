@@ -364,38 +364,6 @@ sub NameserverHost
     return NAMESERVER_HOST;
 }
 
-
-# Method: createHostDataArray
-#  returns host and their alias info in a single hosts array ref.
-#
-# Parameters:
-#  hostip: less significant ip address block of a host.
-#  hostData: host and alias info
-#
-# Returns:
-#  array ref
-sub createHostDataArray
-{
-    my ($self, $hostip, $hostData) = @_;
-    my @newHostsDataArray;
-
-    # Add host info
-    my $newHostData;
-    $newHostData->{'name'} = $hostData->{'name'};
-    $newHostData->{'ip'} = $hostip;
-    push(@newHostsDataArray, $newHostData);
-
-    # Add all alias info
-    foreach my $aliasData (@{$hostData->{'aliases'}}) {
-        my $newHostDataFromAlias;
-        $newHostDataFromAlias->{'name'} = $aliasData->{'name'};
-        $newHostDataFromAlias->{'ip'} = $hostip;
-        push(@newHostsDataArray, $newHostDataFromAlias);
-    }
-
-    return \@newHostsDataArray;
-}
-
 # Method: updateReversedData
 #  updates or adds new item to the array data passed as parameters
 #
@@ -416,8 +384,15 @@ sub updateReversedData
                 if($reversedData->[$i]->{'domain'}->[$j]->{'name'}
                         eq $groupIPData->{'domain'}->{'name'}) {
 
+                    # Ignore the repeated IP address for the same domain
+                    my @toAdd = ();
+                    foreach my $host (@{$groupIPData->{'domain'}->{'hosts'}}) {
+                        my $nMatch = grep { $host->{ip} == $_->{ip} } @{$reversedData->[$i]->{'domain'}->[$j]->{'hosts'}};
+                        push(@toAdd, $host) if ($nMatch == 0);
+                    }
+
                     push(@{$reversedData->[$i]->{'domain'}->[$j]->{'hosts'}},
-                         @{$groupIPData->{'domain'}->{'hosts'}});
+                         @toAdd);
                     $jpos = $j;
                     last;
                 }
@@ -520,8 +495,8 @@ sub switchToReverseInfoData
 
             my $newDomainData;
             $newDomainData->{'name'} = $domain;
-            $newDomainData->{'hosts'} =
-                $self->createHostDataArray($hostip, $hostData);
+            $newDomainData->{'hosts'} = [ { ip => $hostip,
+                                            name => $hostData->{'name'} } ];
 
             my $groupIPData;
             $groupIPData->{'groupip'} = $groupip;
@@ -925,7 +900,7 @@ sub deletedRRsKey
 #
 #     Override this method to try to update the dynamic zones from
 #     static definition if the daemon was stopped on configuration
-#     regenration
+#     regeneration
 #
 # Overrides:
 #

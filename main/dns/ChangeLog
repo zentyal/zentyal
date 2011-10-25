@@ -1,4 +1,7 @@
 HEAD
+	+ Do not set reverse resolution for domain if any hostname does
+	  already has it
+	+ Do not set reverse resolution for aliases
 	+ Change main URL for breadcrumbs for Domains
 	+ Set always five subdomains to reverse zones to avoid problems
 	  with some networks like 10.0.0.0/24
