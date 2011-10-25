@@ -29,7 +29,7 @@ License along with This program; if not, write to the
   Boston, MA  02111-1307
   USA
 </property>
-    <property name="logo">zentyal.ico</property>
+    <property name="logo">zentyal_big.ico</property>
     <signal name="response" handler="on_aboutDialog_response" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
