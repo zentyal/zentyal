@@ -25,8 +25,7 @@ import os, gtk, tarfile
 import dhcp, dns, pdc
 from zentyal_pwdsync_common import *
 
-# FIXME: change this with a link to the new Migration Tool doc
-ADSYNC_URL = "http://trac.zentyal.org/Documentation/EBoxActiveDirectorySync"
+ADSYNC_URL = "http://www.zentyal.org/migration-tool"
 
 class MigrationApp(object):
     def on_adsyncEnabled_clicked(self, widget, data=None):

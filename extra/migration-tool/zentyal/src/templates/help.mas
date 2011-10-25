@@ -5,13 +5,13 @@ use EBox::Gettext;
 
 <h3><% __('Instructions') %></h3>
 <div class=''>
-	<% __('Open a shell and execute zentyal-migration-tool') %>
+	<% __('To launch the migration tool you only need to run the following command:') <br/><b>zentyal-migration-tool</b>
 </div>
 
 <div class=''>
-	<% __('FIXME: Link to the doc here') %>
+	<% __x('For detailed instructions about the migration process, please refer to the {oh}Migration Tool page{ch}', oh => '<a href="http://www.zentyal.org/migration-tool', ch => '</a>') %>
 </div>
 
 <div class=''>
-	<% __('You can safely delete this module once you have completed the migration') %>
+	<% __('You can safely delete this module once you have completed the migration.') %>
 </div>
