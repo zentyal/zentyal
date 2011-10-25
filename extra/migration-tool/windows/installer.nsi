@@ -67,6 +67,8 @@ Section "" ; (default section)
   File README.passwdHk.txt
   File zentyal-migration.exe
   File migration.xml
+  File zentyal-logo.png
+  File getsid.vbs
   ; python files
   File atk.pyd
   File bz2.pyd
@@ -174,10 +176,13 @@ Section Uninstall
   Delete "$INSTDIR\AUTHORS.txt"
   Delete "$INSTDIR\LICENSE.txt"
   Delete "$INSTDIR\README.passwdHk.txt"
+  Delete "$INSTDIR\zentyal.ico"
+  Delete "$INSTDIR\zentyal-logo.png"
   Delete "$INSTDIR\zentyal-migration.exe"
   Delete "$INSTDIR\zentyal-service-launcher.*"
   Delete "$INSTDIR\zentyal-pwdsync-service.exe"
   Delete "$INSTDIR\zentyal-pwdsync-hook.exe"
+  Delete "$INSTDIR\getsid.vbs"
   Delete "$INSTDIR\migration.xml"
   Delete "$INSTDIR\atk.pyd"
   Delete "$INSTDIR\bz2.pyd"

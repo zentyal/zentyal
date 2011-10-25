@@ -25,5 +25,5 @@ setup(
                   }
               },
 
-    data_files = [ 'gui/migration.xml' ]
+    data_files = [ 'gui/migration.xml', 'gui/zentyal-logo.png', 'export/getsid.vbs' ]
 )

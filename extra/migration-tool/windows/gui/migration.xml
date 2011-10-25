@@ -5,7 +5,6 @@
   <object class="GtkAboutDialog" id="aboutDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="icon">zentyal.ico</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">Zentyal Migration Tool</property>
     <property name="version">2.2</property>
@@ -29,7 +28,7 @@ License along with This program; if not, write to the
   Boston, MA  02111-1307
   USA
 </property>
-    <property name="logo">zentyal_big.ico</property>
+    <property name="logo">zentyal-logo.png</property>
     <signal name="response" handler="on_aboutDialog_response" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
@@ -127,7 +126,6 @@ License along with This program; if not, write to the
     <property name="width_request">500</property>
     <property name="height_request">300</property>
     <property name="can_focus">False</property>
-    <property name="icon">zentyal.ico</property>
     <signal name="destroy" handler="on_mainWindow_destroy" swapped="no"/>
     <child>
       <object class="GtkAlignment" id="alignment1">
