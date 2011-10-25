@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Fixed typo bug in method destroyCA
 2.2.1
 	+ Do not cache CA certificates values on module creation to play
