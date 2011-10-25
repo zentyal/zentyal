@@ -19,10 +19,11 @@
 #	USA
 
 import sys
-sys.path += ['../adsync', '../export']
+sys.path += ['../common', '../adsync', '../export']
 
-import os, gtk, tarfile
+import gtk, tarfile
 import dhcp, dns, pdc
+from util import *
 from zentyal_pwdsync_common import *
 
 ADSYNC_URL = "http://www.zentyal.org/migration-tool"
@@ -92,12 +93,6 @@ class MigrationApp(object):
         self.exportPDC = builder.get_object("exportPDC")
         self.adsyncHelp = builder.get_object("adsyncHelpLabel")
         self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
-
-def executable_path():
-    if hasattr(sys, "frozen"):
-        return os.path.dirname(unicode(sys.executable, sys.getfilesystemencoding()))
-    else:
-        return os.path.dirname(unicode(__file__, sys.getfilesystemencoding()))
 
 if __name__ == "__main__":
     app = MigrationApp()

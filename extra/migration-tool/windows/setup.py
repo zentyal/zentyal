@@ -1,5 +1,5 @@
 import sys
-sys.path += ['./adsync', './export']
+sys.path += ['./common', './adsync', './export']
 
 from distutils.core import setup
 import py2exe
@@ -20,7 +20,7 @@ setup(
 
     options = {
                   'py2exe': {
-                      'packages': 'ctypes, encodings, yaml, dhcp, dns, pdc',
+                      'packages': 'ctypes, encodings, yaml, util, dhcp, dns, pdc',
                       'includes': 'cairo, pango, pangocairo, atk, gobject, gio, win32security',
                   }
               },

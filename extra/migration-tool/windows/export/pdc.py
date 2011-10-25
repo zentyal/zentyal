@@ -16,6 +16,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 import os, yaml, win32security, subprocess
+from util import *
 
 def get_domain_sid():
     policy_handle = win32security.GetPolicyHandle('', win32security.POLICY_ALL_ACCESS)
@@ -25,11 +26,11 @@ def get_domain_sid():
     return sid
 
 def get_account_sid(account, domain):
+    script = executable_path() + "/getsid.vbs"
     # TODO: use check_output if we migrate to python >=2.7
-    #sid = subprocess.check_output(["cscript", "/nologo", "getsid.vbs", account, domain])
+    #sid = subprocess.check_output(["cscript", "/nologo", script, account, domain])
     #return sid.strip()
-    # TODO: get exe path to find location of getsid.vbs
-    p = subprocess.Popen("cscript /nologo getsid.vbs " + account + " " + domain, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    p = subprocess.Popen('cscript /nologo "' + script + '" ' + account + " " + domain, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     for line in p.stdout:
         return line.strip()
 
