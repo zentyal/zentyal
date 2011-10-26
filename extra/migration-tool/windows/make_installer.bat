@@ -32,6 +32,7 @@ Set GTK_ENGINES="lib\gtk-2.0\2.10.0\engines"
 Set WIN_THEME="share\themes\MS-Windows"
 Set ICON_THEME="share\icons\hicolor"
 Set GTKRC_PATH="dist\etc\gtk-2.0"
+Set PYWIN32="lib\site-packages\pywin32_system32"
 
 md dist\share\themes
 xcopy /S /I %PYTHON_PATH%\%GTK_RUNTIME%\%WIN_THEME% dist\%WIN_THEME%
@@ -39,6 +40,7 @@ md dist\%ICON_THEME%
 copy %PYTHON_PATH%\%GTK_RUNTIME%\%ICON_THEME%\*.* dist\%ICON_THEME%\
 md dist\%GTK_ENGINES%
 copy %PYTHON_PATH%\%GTK_RUNTIME%\%GTK_ENGINES%\libwimp.dll dist\%GTK_ENGINES%\
+copy %PYTHON_PATH%\%PYWIN32%\pywintypes26.dll dist\
 md %GTKRC_PATH%
 echo gtk-theme-name = "MS-Windows" > %GTKRC_PATH%\gtkrc
 
