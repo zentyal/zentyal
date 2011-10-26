@@ -29,6 +29,7 @@ License along with This program; if not, write to the
   USA
 </property>
     <property name="logo">zentyal-logo.png</property>
+    <signal name="activate-link" handler="on_activate_link" swapped="no"/>
     <signal name="response" handler="on_aboutDialog_response" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
@@ -124,6 +125,7 @@ License along with This program; if not, write to the
   </object>
   <object class="GtkWindow" id="mainWindow">
     <property name="can_focus">False</property>
+    <property name="resizable">False</property>
     <signal name="destroy" handler="on_mainWindow_destroy" swapped="no"/>
     <child>
       <object class="GtkAlignment" id="alignment1">
@@ -153,7 +155,7 @@ License along with This program; if not, write to the
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
                         <property name="yalign">0.20000000298023224</property>
-                        <property name="use_markup">True</property>
+                        <property name="label" translatable="yes">Here you can configure the settings for the AD Password Synchronizer.</property>
                         <property name="justify">fill</property>
                         <property name="single_line_mode">True</property>
                       </object>
@@ -169,9 +171,11 @@ License along with This program; if not, write to the
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
                         <property name="yalign">0.20000000298023224</property>
+                        <property name="label" translatable="yes">For more info, please go to http://www.zentyal.org/migration-tool</property>
                         <property name="use_markup">True</property>
                         <property name="justify">fill</property>
                         <property name="single_line_mode">True</property>
+                        <signal name="activate-link" handler="on_activate_link" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -340,7 +344,7 @@ License along with This program; if not, write to the
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0.0099999997764825821</property>
-                        <property name="label" translatable="yes">You can extract some basic PDC, DHCP and DNS settings to a bundle that can be imported in your Zentyal server.</property>
+                        <property name="label" translatable="yes">You can extract some basic DHCP and DNS settings to a bundle that can be imported in your Zentyal server if you have installed the zentyal-migration-tool package.</property>
                         <property name="justify">fill</property>
                         <property name="wrap">True</property>
                       </object>
@@ -360,22 +364,6 @@ License along with This program; if not, write to the
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
-                              <object class="GtkCheckButton" id="exportPDC">
-                                <property name="label" translatable="yes">Export PDC settings</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="active">True</property>
-                                <property name="draw_indicator">True</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
                               <object class="GtkCheckButton" id="exportDHCP">
                                 <property name="label" translatable="yes">Export DHCP settings</property>
                                 <property name="visible">True</property>
@@ -388,7 +376,7 @@ License along with This program; if not, write to the
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">1</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -404,7 +392,7 @@ License along with This program; if not, write to the
                               <packing>
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
-                                <property name="position">2</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>

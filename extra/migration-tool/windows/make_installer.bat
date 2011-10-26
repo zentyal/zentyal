@@ -40,7 +40,7 @@ md dist\%ICON_THEME%
 copy %PYTHON_PATH%\%GTK_RUNTIME%\%ICON_THEME%\*.* dist\%ICON_THEME%\
 md dist\%GTK_ENGINES%
 copy %PYTHON_PATH%\%GTK_RUNTIME%\%GTK_ENGINES%\libwimp.dll dist\%GTK_ENGINES%\
-copy %PYTHON_PATH%\%PYWIN32%\pywintypes26.dll dist\
+:: copy %PYTHON_PATH%\%PYWIN32%\pywintypes26.dll dist\
 md %GTKRC_PATH%
 echo gtk-theme-name = "MS-Windows" > %GTKRC_PATH%\gtkrc
 

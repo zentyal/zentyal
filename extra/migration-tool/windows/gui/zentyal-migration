@@ -21,12 +21,12 @@
 import sys
 sys.path += ['../common', '../adsync', '../export']
 
-import gtk, tarfile
-import dhcp, dns, pdc
+import gtk, tarfile, os, webbrowser
+import dhcp, dns
 from util import *
 from zentyal_pwdsync_common import *
 
-ADSYNC_URL = "http://www.zentyal.org/migration-tool"
+DOC_URL = "http://www.zentyal.org/migration-tool"
 
 class MigrationApp(object):
     def on_adsyncEnabled_clicked(self, widget, data=None):
@@ -59,9 +59,6 @@ class MigrationApp(object):
         if self.exportDNS.get_active():
             dns.export("dns.yaml")
             tar.add("dns.yaml")
-        if self.exportPDC.get_active():
-            pdc.export("pdc.yaml")
-            tar.add("pdc.yaml")
         tar.close()
 
     def on_cancelSaveButton_clicked(self, widget, data=None):
@@ -72,6 +69,10 @@ class MigrationApp(object):
 
     def on_aboutDialog_response(self, widget, data=None):
         self.about.hide()
+
+    def on_activate_link(self, widget, data=None):
+        webbrowser.open_new_tab(data)
+        return True
 
     def __init__(self):
         builder = gtk.Builder()
@@ -90,11 +91,8 @@ class MigrationApp(object):
         self.secret.set_text(get_passwdhk_confkey("secret"))
         self.exportDHCP = builder.get_object("exportDHCP")
         self.exportDNS = builder.get_object("exportDNS")
-        self.exportPDC = builder.get_object("exportPDC")
-        self.adsyncHelp1 = builder.get_object("adsyncHelpLabel1")
         self.adsyncHelp2 = builder.get_object("adsyncHelpLabel2")
-        self.adsyncHelp1.set_markup('Here you can configure the settings for the AD Password Synchronizer.')
-        self.adsyncHelp2.set_markup('More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
+        self.adsyncHelp2.set_markup('For more info, please go to <a href="' + DOC_URL + '">' + DOC_URL + '</a>')
 
 if __name__ == "__main__":
     app = MigrationApp()

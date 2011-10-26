@@ -104,7 +104,7 @@ Section "" ; (default section)
   File _socket.pyd
   File _ssl.pyd
   File unicodedata.pyd
-  File win32security.pyd
+#  File win32security.pyd
   File zlib1.dll
   File setup-service.bat
   File zentyal-service-launcher.exe
@@ -112,7 +112,7 @@ Section "" ; (default section)
   File zentyal-pwdsync-hook.exe
   File library.zip
   File python26.dll
-  File pywintypes26.dll
+#  File pywintypes26.dll
   ; gtk theme files
   File /r etc
   File /r lib
@@ -219,10 +219,10 @@ Section Uninstall
   Delete "$INSTDIR\_socket.pyd"
   Delete "$INSTDIR\_ssl.pyd"
   Delete "$INSTDIR\unicodedata.pyd"
-  Delete "$INSTDIR\win32security.pyd"
+#  Delete "$INSTDIR\win32security.pyd"
   Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\library.zip"
-  Delete "$INSTDIR\pywintypes26.dll"
+#  Delete "$INSTDIR\pywintypes26.dll"
   Delete "$INSTDIR\python26.dll"
   ${If} ${RunningX64}
     ${DisableX64FSRedirection}
