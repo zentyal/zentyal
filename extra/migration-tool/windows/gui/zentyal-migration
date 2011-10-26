@@ -91,8 +91,10 @@ class MigrationApp(object):
         self.exportDHCP = builder.get_object("exportDHCP")
         self.exportDNS = builder.get_object("exportDNS")
         self.exportPDC = builder.get_object("exportPDC")
-        self.adsyncHelp = builder.get_object("adsyncHelpLabel")
-        self.adsyncHelp.set_markup('Here you can configure the settings for the AD Password Synchronizer. More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
+        self.adsyncHelp1 = builder.get_object("adsyncHelpLabel1")
+        self.adsyncHelp2 = builder.get_object("adsyncHelpLabel2")
+        self.adsyncHelp1.set_markup('Here you can configure the settings for the AD Password Synchronizer.')
+        self.adsyncHelp2.set_markup('More info at <a href="' + ADSYNC_URL + '">' + ADSYNC_URL + '</a>')
 
 if __name__ == "__main__":
     app = MigrationApp()
