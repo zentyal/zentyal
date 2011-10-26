@@ -669,7 +669,9 @@ sub ifaceAddresses # (interface)
         }
     } elsif ($self->ifaceMethod($iface) eq 'bridged') {
         my $bridge = $self->ifaceBridge($iface);
-        return $self->ifaceAddresses("br$bridge");
+        if ($self->ifaceExists("br$bridge")) {
+            return $self->ifaceAddresses("br$bridge");
+        }
     }
     return \@array;
 }
@@ -1989,7 +1991,9 @@ sub ifaceAddress # (name)
         return $self->DHCPAddress($name);
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
         my $bridge = $self->ifaceBridge($name);
-        return $self->ifaceAddress("br$bridge");
+        if ($self->ifaceExists("br$bridge")) {
+            return $self->ifaceAddress("br$bridge");
+        }
     }
     return undef;
 }
@@ -2167,9 +2171,10 @@ sub ifaceNetmask # (interface)
         return $self->DHCPNetmask($name);
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
         my $bridge = $self->ifaceBridge($name);
-        return $self->ifaceNetmask("br$bridge");
+        if ($self->ifaceExists("br$bridge")) {
+            return $self->ifaceNetmask("br$bridge");
+        }
     }
-
 
     return undef;
 }
@@ -2956,7 +2961,7 @@ sub _multigwRoutes
         # Skip gateways with unassigned address
         next unless $router->{'ip'};
 
-        if ($router->{'default'}) {
+        if ($router->{'default'} and $router->{'enabled'}) {
             $defaultRouterMark = $marks->{$router->{'id'}};
         }
 

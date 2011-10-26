@@ -420,6 +420,7 @@ sub _gateways # (all)
                             weight => $gw->valueByName('weight'),
                             default => $gw->valueByName('default'),
                             interface => $gw->valueByName('interface'),
+                            enabled => $gw->valueByName('enabled'),
                          });
     }
 
