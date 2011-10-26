@@ -239,7 +239,7 @@ Section Uninstall
   DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync"
   DeleteRegKey HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\passwdhk"
   ReadRegStr $OUTDIR HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common Administrative Tools"
-  Delete "$OUTDIR\Zentyal AD Password Sync Configuration.lnk"
+  Delete "$OUTDIR\Zentyal Migration Tool.lnk"
   RMDir "$INSTDIR"
 SectionEnd
 
