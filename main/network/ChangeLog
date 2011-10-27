@@ -1,4 +1,4 @@
-HEAD
+2.2.3
 	+ Allow to disable traffic balance with no_balance_$gwname config keys
 	+ Fixed bridged interfaces change when the bridge is not configured
 	+ Do not mark traffic to default gateway if it is disabled

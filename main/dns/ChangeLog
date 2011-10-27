@@ -1,4 +1,4 @@
-HEAD
+2.2.1
 	+ Do not set reverse resolution for domain if any hostname does
 	  already has it
 	+ Do not set reverse resolution for aliases
