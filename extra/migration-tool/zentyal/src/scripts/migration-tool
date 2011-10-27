@@ -42,7 +42,7 @@ then
     exit 1
 else
     SUDO=gksu
-    BUNDLE=`zenity --file-selection`
+    BUNDLE=`zenity --file-selection --title "$TITLE"`
     if [ -n "$BUNDLE" ]
     then
         import
