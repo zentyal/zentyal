@@ -46,7 +46,7 @@ $users->dumpConfig($BACKUP_DIR);
 `sed -i "s/NAME 'quota' DESC/NAME 'mailquota' DESC/" $BACKUP_DIR/*-config.ldif`;
 `sed -i "s/loginShell \$ quota \$ user/loginShell \$ mailquota \$ user/" $BACKUP_DIR/*-config.ldif`;
 `sed -i "s/^quota:/mailquota:/" $BACKUP_DIR/*-data.ldif`;
-`sed -i "s/olcTranslucentLocal:\(.*\),quota,/olcTranslucentLocal:\1,mailquota,/" $BACKUP_DIR/translucent-config.ldif || true`;
+`sed -i "s/olcTranslucentLocal:\\(.*\\),quota,/olcTranslucentLocal:\\1,mailquota,/" $BACKUP_DIR/translucent-config.ldif || true`;
 
 $users->restoreConfig($BACKUP_DIR);
 
