@@ -1,4 +1,5 @@
-HEAD
+2.2.3
+	+ Adapt pwdsync user and password offsets to the new hook implementation
 	+ Always ignore ForeignSecurityPrincipals accounts in ad-sync
 	+ Added more debug messages and improved existing ones in ad-sync
 	+ Avoid warnings trying to get userPrincipalName in ad-sync

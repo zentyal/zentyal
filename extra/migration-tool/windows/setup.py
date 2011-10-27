@@ -20,7 +20,7 @@ setup(
 
     options = {
                   'py2exe': {
-                      'packages': 'ctypes, encodings, yaml, util, dhcp, dns',
+                      'packages': 'Crypto.Cipher.AES, ctypes, encodings, yaml, util, dhcp, dns',
                       'includes': 'cairo, pango, pangocairo, atk, gobject, gio',
                   }
               },

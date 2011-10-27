@@ -19,11 +19,9 @@
 #	USA
 
 from sys import argv, exit
-#from socket import *
-from os import chdir
 from glob import glob
 from zentyal_pwdsync_common import get_queue_path
-import re
+import os, re
 
 QUEUE_PATH = get_queue_path()
 
@@ -37,8 +35,9 @@ if not user_re.match(username):
     exit(1)
 
 QUEUE_PATH += '/' + username
-mkdir(QUEUE_PATH)
-chdir(QUEUE_PATH)
+if not os.access(QUEUE_PATH, os.F_OK):
+    os.mkdir(path, 0600)
+os.chdir(QUEUE_PATH)
 existingFiles = glob('*')
 lastNum = 0
 if existingFiles:

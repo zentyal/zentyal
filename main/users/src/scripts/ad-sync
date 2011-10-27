@@ -59,7 +59,7 @@ my $base = EBox::Config::configkey('adsync_dn');
 $base = baseDnAD() unless $base;
 
 my $bindDn;
-if (EBox::UsersAndGroups::checkName($username)) {
+if (EBox::UsersAndGroups::_checkName($username)) {
     $bindDn = "CN=$username,CN=Users,$base";
 } else {
     $bindDn = $username;

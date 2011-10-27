@@ -34,7 +34,7 @@ MessageBox = prototype(("MessageBoxA", windll.user32), paramflags)
 
 def get_queue_path():
     path = _read_reg_value(NTDS_KEY, 'DSA Working Directory')
-    path += '\\ebox-adsync'
+    path += '\\zentyal-adsync'
 
     # Create directory if not exists
     if not os.access(path, os.F_OK):

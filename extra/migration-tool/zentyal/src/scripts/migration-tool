@@ -13,7 +13,7 @@ function import
     mkdir $TMPDIR
     cd $TMPDIR
     tar xzf $BUNDLE
-    for i in dhcp dns pdc
+    for i in dhcp dns
     do
         if [ -f $i.yaml ]
         then

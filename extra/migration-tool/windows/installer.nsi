@@ -49,7 +49,7 @@ SetCompressor bzip2
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "zentyal-migration-tool-${PRODUCT_VERSION}.exe"
 InstallDir "$PROGRAMFILES\zentyal-migration-tool"
-InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync" ""
+InstallDirRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Zentyal\Migration Tool" ""
 ShowInstDetails show
 ShowUnInstDetails show
 
@@ -58,8 +58,9 @@ Section "" ; (default section)
   SetOverwrite ifnewer
   ; add files / whatever that need to be installed here.
   WriteRegStr HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\passwdhk" "workingdir" "$INSTDIR"
-  WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "DisplayName" "$(^Name) (remove only)"
-  WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync" "UninstallString" '"$INSTDIR\uninst.exe"'
+  WriteRegStr HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\passwdhk" "port" "6677"
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\zentyal-migration-tool" "DisplayName" "$(^Name) (remove only)"
+  WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\zentyal-migration-tool" "UninstallString" '"$INSTDIR\uninst.exe"'
 
   ; copy files
   File AUTHORS.txt
@@ -235,8 +236,8 @@ Section Uninstall
   RMDir /r "$INSTDIR\lib"
   RMDir /r "$INSTDIR\share"
   Delete "$INSTDIR\uninst.exe"
-  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Account Synchronization Project\ebox-adsync"
-  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\ebox-adsync"
+  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Zentyal\Migration Tool"
+  DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\zentyal-migration-tool"
   DeleteRegKey HKEY_LOCAL_MACHINE "SYSTEM\CurrentControlSet\Control\Lsa\passwdhk"
   ReadRegStr $OUTDIR HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" "Common Administrative Tools"
   Delete "$OUTDIR\Zentyal Migration Tool.lnk"

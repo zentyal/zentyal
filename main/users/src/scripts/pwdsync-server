@@ -135,8 +135,8 @@ sub handleRequest
 
     my $data = $cipher->decrypt($cryptData);
 
-    my $username = substr ($data, 0, $userLength - 1);
-    my $password = substr ($data, $userLength, $passLength - 1);
+    my $username = substr ($data, 0, $userLength);
+    my $password = substr ($data, $userLength, $passLength);
     EBox::debug("[ad-pwdsync] username = $username");
 
     if (exists $usersToIgnore{$username}) {

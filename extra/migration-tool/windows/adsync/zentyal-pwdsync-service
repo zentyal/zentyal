@@ -84,6 +84,7 @@ def main():
                 password = ''
                 with open(file, 'r') as f:
                     password = f.readline()
+                    password = password.rstrip("\r\n")
                 if notify_password(username, password):
                     os.unlink(file)
                 else:
