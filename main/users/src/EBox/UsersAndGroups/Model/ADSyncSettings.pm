@@ -70,7 +70,7 @@ sub _table
         new EBox::Types::Text (
             fieldName => 'username',
             printableName => __('AD user'),
-            defaultValue => 'eboxadsync',
+            defaultValue => 'adsyncuser',
             editable => 1,
             allowUnsafeChars => 1,
             help => __('Username for binding to Windows AD (it has to be created in the AD)')

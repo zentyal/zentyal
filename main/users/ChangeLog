@@ -1,3 +1,5 @@
+HEAD
+	+ Renamed default adsync username from eboxadsync to adsyncuser
 2.2.3
 	+ Adapt pwdsync user and password offsets to the new hook implementation
 	+ Always ignore ForeignSecurityPrincipals accounts in ad-sync
