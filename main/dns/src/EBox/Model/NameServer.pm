@@ -219,7 +219,7 @@ sub pageTitle
 # Group: Protected methods
 
 # Method: _table
-#
+x#
 # Overrides:
 #
 #     <EBox::Model::DataForm::_table>

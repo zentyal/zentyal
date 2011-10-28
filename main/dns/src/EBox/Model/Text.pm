@@ -120,7 +120,7 @@ sub deletedRowNotify
         if ( $hostname->selectedType() eq 'domain' ) {
             $record = $zone;
         } else {
-            $record = $hostname->printableValueByName('hostName');
+            $record = $hostname->printableValue('hostName');
             $record = "$record.$zone";
         }
         $self->_addToDelete("$record TXT");

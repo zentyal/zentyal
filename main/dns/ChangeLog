@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: Delete TXT record on a dynamic domain works again
 2.2.1
 	+ Do not set reverse resolution for domain if any hostname does
 	  already has it
