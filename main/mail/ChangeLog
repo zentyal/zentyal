@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed mail directory backup in account creation, now it can be
+	  made more than once
 	+ Use EBox::Validate::checkEmailAddress for checking email instead
 	  of a custom flaky re
 	+ Fixed regresion in mailname message in SMTPOptions model

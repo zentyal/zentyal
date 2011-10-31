@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::MailUserLdap;
+use base qw(EBox::LdapUserBase);
 
 use strict;
 use warnings;
@@ -32,11 +33,9 @@ use Error qw( :try );
 
 use Perl6::Junction qw(any);
 
-
 use constant DIRVMAIL   =>      '/var/vmail/';
 use constant SIEVE_SCRIPTS_DIR => '/var/vmail/sieve';
-
-use base qw(EBox::LdapUserBase);
+use constant MAX_MAILDIR_BACKUPS => 5;
 
 sub new
 {
@@ -644,9 +643,23 @@ sub _checkMaildirNotExists
 
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
-        my $backupDir = $dir ;
-        $backupDir =~ s{/$}{};
-        $backupDir .= '.bak';
+        my $backupDirBase = $dir ;
+        $backupDirBase =~ s{/$}{};
+        $backupDirBase .= '.bak';
+
+        my $counter = 1;
+        my $backupDir = $backupDirBase . '.' . $counter;
+        while (EBox::Sudo::fileTest('-e', $backupDir)) {
+            $counter += 1;
+            if ($counter <= MAX_MAILDIR_BACKUPS) {
+                $backupDir = $backupDirBase . '.' . $counter;
+            } else {
+                EBox::error("Maximum number of backup directories for $dir reached. We will remove the last one ($backupDir) and use it again");
+                EBox::Sudo::root("rm -rf $backupDir");
+                last;
+            }
+        }
+
         EBox::Sudo::root("mv $dir $backupDir");
         EBox::warn("Mail directory $dir already existed, moving it to $backupDir");
     }
