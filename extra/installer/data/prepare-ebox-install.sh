@@ -105,8 +105,8 @@ then
 fi
 
 # Import keys to avoid warnings
-apt-key add /var/tmp/ebox-ppa.asc >> $LOG 2>&1
-apt-key add /var/tmp/zentyal-2.2-archive.asc >> $LOG 2>&1
+apt-key add /tmp/zentyal/ebox-ppa.asc >> $LOG 2>&1
+apt-key add /tmp/zentyal/zentyal-2.2-archive.asc >> $LOG 2>&1
 update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
