@@ -222,6 +222,9 @@ sub unsubscribe
         # Storing again make subscription if it is already done and
         # unsubscribing if Zentyal is subscribed
         $row->store();
+        # clear cache 
+        $self->{gconfmodule}->clearCache();
+
         return 1;
     } else {
         return 0;

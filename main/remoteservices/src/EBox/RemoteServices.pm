@@ -1807,25 +1807,9 @@ sub dumpConfig
         return;
     }
 
-    my $stringConf = '';
-    my @settings = (
-                    ['subscribed', 'bool'],
-                    ['just_subscribed', 'bool'],
-                    # form
-                    ['Subscription/eboxCommonName', 'string'],
-                    ['Subscription/username', 'string'],
-                    # cache
-
-               );
-
-    foreach my $setting (@settings) {
-        my ($key, $type) = @{ $setting };
-        my $getter = "st_get_" . $type;
-        my $value = $self->$getter($key);
-        $stringConf .= "$key,$type,$value\n";
-    }
-    # file with subscription conf parameters
+    # file with subscription and cache conf parameters
     my $subscriptionConfFile = $self->_backupSubscritionConf($dir);
+    my $stringConf = $self->_statusKeysAndValuesString();
     File::Slurp::write_file($subscriptionConfFile, $stringConf);
 
     # tar with subscription files directory
@@ -1834,6 +1818,28 @@ sub dumpConfig
     my $tarCmd = 'tar  cf ' . $tarPath . ' ' . $subscriptionDir;
     EBox::Sudo::root($tarCmd);
 }
+
+sub _statusKeysAndValuesString
+{
+    my ($self) = @_;
+    my $stringConf;
+
+    my $type = 'string';
+    my @dirsToLook = ('');
+    while (@dirsToLook) {
+        my $dir = shift @dirsToLook;
+        push @dirsToLook, $self->st_all_dirs($dir);
+
+        my @entries = @{   $self->st_all_entries($dir) };
+        foreach my $entry (@entries) {
+            my $value = $self->st_get_string($entry);
+            $stringConf .= "$entry,$type,$value\n";
+        }
+    }
+
+    return $stringConf;
+}
+
 
 sub restoreConfig
 {
@@ -1881,7 +1887,7 @@ sub clearCache
 {
     my ($self) = @_;
 
-    my @cacheDirs = qw(subscription disaster_recovery);
+    my @cacheDirs = qw(Subscription disaster_recovery);
     foreach my $dir (@cacheDirs) {
         $self->st_delete_dir($dir);
     }

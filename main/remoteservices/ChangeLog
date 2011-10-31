@@ -1,3 +1,5 @@
+HEAD
+	+ Backup and restore all the cached data. Fixed clearCache method
 2.2.2
 	+ Download the backup archive from proxy using REST without
 	  storing locally
