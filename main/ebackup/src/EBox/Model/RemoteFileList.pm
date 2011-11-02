@@ -267,11 +267,15 @@ sub viewCustomizer
     $customizer->setModel($self);
     if ($self->precondition()) {
         my $ebackup = EBox::Global->modInstance('ebackup');
-        my $url = $ebackup->_remoteUrl();
-        $customizer->setPermanentMessage(
-         __x('Remote URL to be used with duplicity for manual restores: {url}',
-             url => $url)
-        );
+        try {
+            my $url = $ebackup->_remoteUrl();
+            $customizer->setPermanentMessage(
+                __x('Remote URL to be used with duplicity for manual restores: {url}',
+                    url => $url)
+               );
+        } otherwise {
+            # could not get the URL we don't put any message
+        };
     }
     return $customizer;
 }

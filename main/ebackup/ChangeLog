@@ -1,4 +1,5 @@
 HEAD
+	+ Exception in permanent message of remote restore screen is now managed
 	+ Defaults in excludes and includes list are not longer added when
 	  deleting all the rows
 	+ Fixed logrotate configuration
