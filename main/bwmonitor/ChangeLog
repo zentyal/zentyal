@@ -1,4 +1,5 @@
 HEAD
+	+ Usage table allows no-host IP addresses
 	+ Add logrotate file
 2.2.2
 	+ Fixed bandwidth quota measure for some cases
