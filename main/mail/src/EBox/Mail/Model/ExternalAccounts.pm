@@ -309,11 +309,11 @@ sub validateTypedRow
     }
 }
 
-# Method: _addTypedRow
+# Method: addTypedRow
 #
 # Overrides:
 #
-#       <EBox::Model::DataTable::_addTypedRow>
+#       <EBox::Model::DataTable::addTypedRow>
 #
 sub addTypedRow
 {
@@ -333,8 +333,12 @@ sub addTypedRow
 
     $self->{mailMod}->{fetchmail}->addExternalAccount(@{ $addParams });
 
-
     $self->setMessage(__('External account added'));
+
+    # this is the last row account added and id == pos
+    my $accounts = $self->_userExternalAccounts();
+    my $nAccounts = scalar @{ $accounts };
+    return $nAccounts;
 }
 
 
