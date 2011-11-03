@@ -52,7 +52,8 @@ sub _paramIsValid
     my $value = $params->{$self->fieldName()};
     my $advice = '';
     # Check if this does not contain underscores neither dots
-    unless ( EBox::Validate::checkDomainName($value) ) {
+    unless (($value =~ m/^\p{ASCII}+$/) and
+            EBox::Validate::checkDomainName($value)) {
         $advice = __('It must be a valid subdomain name. '
                      . 'It can only contain alphanumeric and - characters');
     } elsif ( $value =~ m/\./g ) {
@@ -63,7 +64,7 @@ sub _paramIsValid
                       n => MAX_LENGTH);
     }
 
-    if ( $advice ne '' ) {
+    if ($advice) {
         throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                              value  => $value,
                                              advice => $advice);
