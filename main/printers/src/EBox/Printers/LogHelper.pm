@@ -45,29 +45,29 @@ sub domain {
 
 # Method: logFiles
 #
-#	This function must return the file or files to be read from.
+#       This function must return the file or files to be read from.
 #
 # Returns:
 #
-#	array ref - containing the whole paths
+#       array ref - containing the whole paths
 #
 sub logFiles
 {
-	return [CUPS_MAIN_LOG, CUPS_PAGES_LOG];
+    return [CUPS_MAIN_LOG, CUPS_PAGES_LOG];
 }
 
 # Method: processLine
 #
-#	This fucntion will be run every time a new line is recieved in
-#	the associated file. You must parse the line, and generate
-#	the messages which will be logged to ebox through an object
-#	implementing EBox::AbstractLogger interface.
+#       This function will be run every time a new line is recieved in
+#       the associated file. You must parse the line, and generate
+#       the messages which will be logged to ebox through an object
+#       implementing EBox::AbstractLogger interface.
 #
 # Parameters:
 #
-#	file - file name
-# 	line - string containing the log line
-#	dbengine- An instance of class implemeting AbstractDBEngineinterface
+#       file - file name
+#       line - string containing the log line
+#       dbengine- An instance of class implemeting AbstractDBEngineinterface
 #
 sub processLine # (file, line, logger)
 {
@@ -80,9 +80,6 @@ sub processLine # (file, line, logger)
     } elsif ($file eq CUPS_PAGES_LOG) {
         _processPagesLog(@_);
     }
-
-
-
 }
 
 
@@ -95,7 +92,7 @@ sub _processMainLog
     if ($line =~ m{
                  ^\w\s+ # message type (EDI)
                   \[(.*?)\]\s+ # date
-                  \[Job\s+(\d+)\]\s+ # job id block (not always present, 
+                  \[Job\s+(\d+)\]\s+ # job id block (not always present,
                                    # but present in 'our' lines )
                   (.*?)           # log message
                    $
@@ -133,12 +130,10 @@ sub _processMainLog
             delete $printerByJob{$job};
         }
 
-
-        if ($event ) {
+        if ($event and $username and $printer ) {
             # normalize timestamp
             my ($date, $hour) = split ':', $timestamp, 2;
             $timestamp = "$date $hour";
-
 
             my $log = {
                        timestamp => $timestamp,
@@ -150,8 +145,6 @@ sub _processMainLog
             $dbengine->insert('printers_jobs', $log);
         }
     }
-
-
 }
 
 sub _processPagesLog

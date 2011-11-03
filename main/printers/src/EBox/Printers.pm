@@ -105,12 +105,12 @@ sub initialSetup
     unless ($version) {
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addInternalService(
-		        'name' => 'ipp',
-			    'description' => __d('Cups printer server port'),
-			    'protocol' => 'tcp',
-			    'sourcePort' => 'any',
-			    'destinationPort' => 631,
-			   );
+                        'name' => 'ipp',
+                            'description' => __d('Cups printer server port'),
+                            'protocol' => 'tcp',
+                            'sourcePort' => 'any',
+                            'destinationPort' => 631,
+                           );
         $firewall->saveConfigRecursive();
     }
 }
