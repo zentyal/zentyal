@@ -106,15 +106,6 @@ sub actions
                  'module' => 'users'
                 }
         );
-        if ( -f '/etc/init.d/apparmor' ) {
-            push(@actions,
-                    {
-                     'action' => __('Apparmor profile will be disabled'),
-                     'reason' => __('It is not ready to work with more than one slapd.'),
-                     'module' => 'users'
-                    }
-            );
-        }
     } else {
         push(@actions,
                 {
@@ -139,6 +130,17 @@ sub actions
 
         }
     }
+
+    if (mode ne 'master' and -f '/etc/init.d/apparmor' ) {
+        push(@actions,
+                {
+                'action' => __('Apparmor profile will be disabled'),
+                'reason' => __('It is not ready to work with more than one slapd.'),
+                'module' => 'users'
+                }
+            );
+    }
+
     # FIXME: This probably won't work if PAM is enabled after enabling the module
     if ($self->model('PAM')->enable_pamValue()) {
         push(@actions,
@@ -262,8 +264,10 @@ sub enableActions
 
     my $mode = $self->mode();
 
+    # Disable apparmor in slave and ad-sync modes
+    $self->disableApparmorProfile('usr.sbin.slapd') if ($mode ne 'master');
+
     if ($mode eq 'slave') {
-        $self->disableApparmorProfile('usr.sbin.slapd');
         $self->_setupSlaveLDAP();
         $self->_setConf();
 
