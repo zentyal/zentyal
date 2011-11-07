@@ -131,7 +131,7 @@ sub actions
         }
     }
 
-    if (mode ne 'master' and -f '/etc/init.d/apparmor' ) {
+    if ($mode ne 'master' and -f '/etc/init.d/apparmor' ) {
         push(@actions,
                 {
                 'action' => __('Apparmor profile will be disabled'),
@@ -305,6 +305,9 @@ sub enableActions
     # Release lock
     flock($lock, LOCK_UN);
     close($lock);
+
+    # make it ready for any user/group query
+    $self->restartService();
 }
 
 

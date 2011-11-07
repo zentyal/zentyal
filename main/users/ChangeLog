@@ -1,4 +1,6 @@
 HEAD
+	+ Make LDAP ready after enableActions restarting the service to
+	  avoid problems when adding users or groups
 	+ Fixed corruption when adding ldap attributes
 	+ Also disable apparmor in ad-sync mode
 	+ Renamed default adsync username from eboxadsync to adsyncuser
