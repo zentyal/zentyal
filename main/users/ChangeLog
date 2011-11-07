@@ -1,4 +1,4 @@
-HEAD
+2.2.4
 	+ Make LDAP ready after enableActions restarting the service to
 	  avoid problems when adding users or groups
 	+ Fixed corruption when adding ldap attributes
