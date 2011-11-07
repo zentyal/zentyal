@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed corruption when adding ldap attributes
 	+ Also disable apparmor in ad-sync mode
 	+ Renamed default adsync username from eboxadsync to adsyncuser
 2.2.3

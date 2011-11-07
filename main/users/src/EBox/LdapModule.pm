@@ -232,7 +232,7 @@ sub _addTranslucentLocalAttribute
 {
     my ($self, $attribute) = @_;
 
-    EBox::Sudo::root("sed -i -e 's/^olcTranslucentLocal: \\(.*\\)/olcTranslucentLocal: \\1,$attribute/' /etc/ldap/slapd-translucent.d/cn=config/olcDatabase={1}hdb/olcOverlay={0}translucent.ldif");
+    EBox::Sudo::root("sed -i -e 's/^olcTranslucentLocal: \\(.*\\)/olcTranslucentLocal: $attribute,\\1/' /etc/ldap/slapd-translucent.d/cn=config/olcDatabase={1}hdb/olcOverlay={0}translucent.ldif");
 }
 
 
