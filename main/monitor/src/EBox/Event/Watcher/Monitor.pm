@@ -191,8 +191,13 @@ sub _readEventsFromDir
             $hashRef = eval File::Slurp::read_file($fullName);
         }
         my $event = $self->_parseEvent($hashRef);
-        if ( UNIVERSAL::isa($event, 'EBox::Event')) {
-            push(@{$events}, $event);
+        if ( UNIVERSAL::isa($event, 'EBox::Event') ) {
+            if ( $event->message()) {
+                push(@{$events}, $event);
+            } else {
+                EBox::debug('Notificated with the following message: '
+                            . File::Slurp::read_file($fullName));
+            }
         } else {
             EBox::warn("File $fullName does not contain an hash reference");
 ##            EBox::warn("Its content is: " . File::Slurp::read_file($fullName));
@@ -243,6 +248,9 @@ sub _i18n
     my ($self, $severity, $message) = @_;
 
     my ($measureName, $typeName, $waste) = $message =~ m/plugin (.*?) .*type (.*?)(| .*): /g;
+
+    # Example: "Received a value for <host>/<measure>/<typeInstance>. It was missing for 24 seconds."
+    return '' unless (defined($measureName));
 
     my ($measureInstance) = $message =~ m/plugin.*?\(instance (.*?)\) type/g;
     my ($typeInstance)    = $message =~ m/type.*?\(instance (.*?)\):/g;

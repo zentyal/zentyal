@@ -1,3 +1,6 @@
+HEAD
+	+ Does not show an error in logs when collectd is notifying for a value is
+	  missing for a period of time but a debug message
 2.1.4
 	+ More resilient link creation when subscribing
 	+ Always create monitor conf directory
