@@ -1,3 +1,5 @@
+HEAD
+	+ VMs have now always assigned the same VNC port
 2.2.2
 	+ Bugfix: delete commands are properly quoted now
 	+ Bugfix: add newlines to the generated vnc-passwd file

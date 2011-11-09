@@ -125,6 +125,12 @@ sub _table
     ];
 
     my @tableHeader = (
+       new EBox::Types::Port(
+                             fieldName => 'vncport',
+                             hidden => 1,
+                             optional => 1,
+                             editable => 1,
+                            ),
        new EBox::Virt::Types::Status(
                                      fieldName => 'status',
                                      printableName => __('Status'),
@@ -231,13 +237,14 @@ sub _updateService
 
     my @vncservices;
 
-    my $vncport = $self->parentModule()->firstVNCPort();
-    my $maxport = $vncport + scalar @{$self->ids()} - 1;
-    foreach my $vncport ($vncport .. $maxport,
-                         $vncport + 1000 .. $maxport + 1000) {
+    foreach my $vmId (@{$self->ids()}) {
+        my $vm = $self->row($vmId);
+        my $vncport = $vm->valueByName('vncport');
+        foreach my $vncport ($vncport, $vncport + 1000) {
             push (@vncservices, { protocol => 'tcp',
                                   sourcePort => 'any',
                                   destinationPort => $vncport });
+        }
     }
 
     my $servMod = EBox::Global->modInstance('services');

@@ -28,6 +28,7 @@ use EBox::Gettext;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo;
+use EBox::Util::Version;
 use EBox::Dashboard::Section;
 use EBox::Virt::Dashboard::VMStatus;
 use EBox::Virt::Model::NetworkSettings;
@@ -81,8 +82,13 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Create default service only if installing the first time
-    unless ($version) {
+    if ($version) {
+        if (EBox::Util::Version::compare($version, '2.2.3') < 0) {
+            # Only when upgrading from <= 2.2.2
+            $self->_importCurrentVNCPorts();
+        }
+    } else {
+        # Create default service only if installing the first time
         my $services = EBox::Global->modInstance('services');
 
         my $serviceName = 'vnc-virt';
@@ -179,8 +185,6 @@ sub _setConf
 
     my %currentVMs;
 
-    my $vncport = $self->firstVNCPort();
-
     my %vncPasswords;
     # Syntax of the vnc passwords file:
     # machinename:password
@@ -201,6 +205,13 @@ sub _setConf
         my $name = $vm->valueByName('name');
         $currentVMs{$name} = 1;
 
+        my $vncport = $vm->valueByName('vncport');
+        unless ($vncport) {
+            $vncport = $self->firstFreeVNCPort();
+            $vm->elementByName('vncport')->setValue($vncport);
+            $vm->store();
+        }
+
         my $rewrite = 1;
         if ($self->usingVBox()) {
             $rewrite = $self->needsRewrite($vmId);
@@ -220,8 +231,6 @@ sub _setConf
         }
         $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
-
-        $vncport++;
     }
 
     # Delete non-referenced VMs
@@ -576,6 +585,43 @@ sub firstVNCPort
 
     my $vncport = EBox::Config::configkey('first_vnc_port');
     return $vncport ? $vncport : DEFAULT_VNC_PORT;
+}
+
+sub _importCurrentVNCPorts
+{
+    my ($self) = @_;
+
+    # We only can now the currently used ports when using libvirt
+    return if $self->usingVBox();
+
+    my $base = $self->firstVNCPort();
+
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+        my $name = $vm->valueByName('name');
+        my $vncport = $self->{backend}->vncdisplay($name);
+        $vm->elementByName('vncport')->setValue($base + $vncport);
+        $vm->store();
+    }
+}
+
+sub firstFreeVNCPort
+{
+    my ($self) = @_;
+
+    my $maxPortUsed = 0;
+
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+        my $vncport = $vm->valueByName('vncport');
+        if ($vncport and ($vncport > $maxPortUsed)) {
+            $maxPortUsed = $vncport;
+        }
+    }
+
+    return $maxPortUsed ? $maxPortUsed + 1 : $self->firstVNCPort();
 }
 
 sub consoleWidth

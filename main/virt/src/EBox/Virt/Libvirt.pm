@@ -166,6 +166,15 @@ sub _checkStatus
     return $? == 0;
 }
 
+sub vncdisplay
+{
+    my ($self, $name) = @_;
+
+    my @output = @{EBox::Sudo::silentRoot("$VIRTCMD vncdisplay $name")};
+    my ($port) = $output[0] =~ /:(\d+)/;
+    return $port ? $port : 0;
+}
+
 sub listVMs
 {
     my @dirs = glob ("$VM_PATH/*");
