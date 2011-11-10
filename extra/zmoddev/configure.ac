@@ -1,4 +1,4 @@
-AC_INIT([zmoddev], [2.0])
+AC_INIT([zmoddev], [2.2])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/zentyal-moddev-create.in])

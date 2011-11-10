@@ -26,7 +26,7 @@ use File::Copy;
 
 use constant
     {
-       MODULE_VERSION => '0.1',
+       MODULE_VERSION => '2.2',
        STUBS_PATH => '@DATADIR@/zmoddev/stubs',
     };
 
@@ -45,7 +45,7 @@ sub _printUsage
 sub _parseOptions
 {
     my %options = (
-            name =>   undef,
+            name => undef,
             parent => undef,
             destdir => undef,
             mainClass => undef,
@@ -112,7 +112,7 @@ sub _makefile
     my $perlDir = 'EBox/' . $modNameSpace . '/Types';
     my $perlData =  _types($dir);
 
-   my $comp = $interp->make_component(
+    my $comp = $interp->make_component(
             comp_file => STUBS_PATH . '/src/Makefile.am.mas');
     ${$output} = '';
     $interp->exec($comp,

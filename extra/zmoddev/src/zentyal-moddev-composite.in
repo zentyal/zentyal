@@ -12,7 +12,7 @@ use File::Copy;
 
 use constant
     {
-       MODULE_VERSION => '0.1',
+       MODULE_VERSION => '2.2',
        STUBS_PATH => '@DATADIR@/zmoddev/stubs',
     };
 
@@ -93,7 +93,7 @@ sub _makefile
     my $perlDir = "/EBox/$modNameSpace/Composite";
     my $perlData = _composites($dir);
 
-   my $comp = $interp->make_component(
+    my $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/src/Makefile.am.mas',
             );
     ${$output} = '';
@@ -133,7 +133,6 @@ sub _src_EBox_Module_Composite
               compositeDomain => $options->{mainClass},
               ));
     write_file("$dir/$compositeFile", ${$output});
-
 }
 
 sub _addCompositesToMainClass
@@ -145,7 +144,6 @@ sub _addCompositesToMainClass
     my $modNameSpace = $options->{modNameSpace};
     my $dir = $options->{destdir} . '/src/EBox/' .
               $modNameSpace . '/Composite';
-
 
     my $code = "    return [\n";
     for my $model (@{_composites($dir)}) {

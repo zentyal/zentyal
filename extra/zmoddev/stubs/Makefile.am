@@ -16,7 +16,7 @@ stubsdebiancdbs_DATA = debian/cdbs/ebox.mk
 stubsm4dir = $(datadir)/zmoddev/stubs/m4
 
 stubsm4_DATA = m4/definedir.m4  m4/ebox.m4  m4/gconf-2.m4
-	m4/nls.m4  m4/perlmodules.m4  m4/po.m4
+	m4/nls.m4  m4/perlmodules.m4
 
 stubsschemasdir = $(datadir)/zmoddev/stubs/schemas
 
