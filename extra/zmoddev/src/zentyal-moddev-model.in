@@ -46,7 +46,7 @@ sub _printValidTypes
 
 sub _printUsage
 {
-    print STDERR "\nUsage: $0 --main-class class --name name --field field1:type1 [Options]\n\n";
+    print STDERR "\nUsage: $0 --main-class class --name name --field name1:type1 --field name2:type2 [Options]\n\n";
     print STDERR "Options:\n";
     print STDERR "\t--model form | table. Default: form\n";
     print STDERR "\t--destdir\n";
@@ -99,10 +99,10 @@ sub _parseOptions
     my $optionsOk = GetOptions(
             'main-class=s' => \$options{mainClass},
             'name=s' => \$options{name},
-            'fields=s' => $options{fields},
+            'field=s' => $options{fields},
             'destdir=s' => \$options{destdir},
             'model=s' => \$options{model},
-            'module-name-space=s' => \$options{modNameSpace},
+            'module-namespace=s' => \$options{modNameSpace},
             'help'  => \$help,
             'info'  => \$info,
             );
@@ -110,6 +110,10 @@ sub _parseOptions
     $options{parsedFields} = _parseFields($options{fields});
     if (not $optionsOk or $info or $help) {
         _printUsage();
+    }
+
+    unless (defined($options{modNameSpace})) {
+        $options{modNameSpace} = $options{mainClass};
     }
 
     unless (defined($options{name}) and

@@ -41,13 +41,17 @@ sub _parseOptions
     my $optionsOk = GetOptions(
             'main-class=s' => \$options{mainClass},
             'name=s' => \$options{name},
-            'module-name-space=s' => \$options{modNameSpace},
+            'module-namespace=s' => \$options{modNameSpace},
             'destdir=s' => \$options{destdir},
             'help'  => \$help,
             'info'  => \$info,
             );
     if (not $optionsOk or $info or $help) {
         _printUsage();
+    }
+
+    unless (defined($options{modNameSpace})) {
+        $options{modNameSpace} = $options{mainClass};
     }
 
     unless (defined($options{name}) and defined($options{name})) {
