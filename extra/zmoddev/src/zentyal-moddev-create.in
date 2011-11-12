@@ -58,6 +58,7 @@ sub _parseOptions
     my $optionsOk = GetOptions(
             'module-name=s' => \$options{moduleName},
             'main-class=s' => \$options{mainClass},
+            'module-namespace=s' => \$options{modNameSpace},
             'printable-module-name=s' => \$options{printableModuleName},
             'version=s' => \$options{version},
             'destdir=s' => \$options{destdir},
@@ -230,7 +231,7 @@ sub _src_EBox_Module_Model
     my $modNameSpace = $options->{modNameSpace};
     my $mainClass = $options->{mainClass};
     my $params = " --main-class $mainClass --name Settings" .
-                 " --module-name-space $modNameSpace" .
+                 " --module-namespace $modNameSpace" .
                  " --destdir $dir";
     system("zentyal-moddev-model $params");
 }
@@ -243,7 +244,7 @@ sub _src_EBox_Module_Composite
     my $modNameSpace = $options->{modNameSpace};
     my $mainClass = $options->{mainClass};
     my $params = " --main-class $mainClass --name Composite" .
-                 " --module-name-space $modNameSpace" .
+                 " --module-namespace $modNameSpace" .
                  " --destdir $dir";
     system("zentyal-moddev-composite $params");
 }
@@ -256,7 +257,7 @@ sub _src_EBox_Module_Types
     my $mainClass = $options->{mainClass};
     my $modNameSpace = $options->{modNameSpace};
     my $params = " --main-class $mainClass " .
-                 " --module-name-space $modNameSpace" .
+                 " --module-namespace $modNameSpace" .
                  " --destdir $dir";
     system("zentyal-moddev-type$params");
 }

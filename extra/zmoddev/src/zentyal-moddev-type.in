@@ -59,7 +59,7 @@ sub _parseOptions
             'name=s' => \$options{name},
             'parent=s' => \$options{parent},
             'destdir=s' => \$options{destdir},
-            'module-name-space=s' => \$options{modNameSpace},
+            'module-namespace=s' => \$options{modNameSpace},
             'help'  => \$help,
             'info'  => \$info,
             );

@@ -120,6 +120,8 @@ sub actions
 #
 sub enableActions
 {
+    my ($self) = @_;
+
     # Execute enable-module script
     $self->SUPER::enableActions();
 }
