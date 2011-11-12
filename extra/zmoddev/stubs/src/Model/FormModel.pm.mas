@@ -103,7 +103,7 @@ sub _table
             'printableName' => __('<% $field->{name} %>'),
             'populate' => \&populate_<% $field->{name} %>,
             'unique' => 1,
-            'editable' => 1
+            'editable' => 1,
             'help' => '', # FIXME
         ),
 %   }   else {
@@ -112,7 +112,7 @@ sub _table
             'printableName' => __('<% $field->{name} %>'),
             'size' => '8',
             'unique' => 1,
-            'editable' => 1
+            'editable' => 1,
             'help' => '', # FIXME
         ),
 %   }
