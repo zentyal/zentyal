@@ -450,7 +450,9 @@ sub _setNetworkConf
         }
         my $mac;
         if (EBox::Config::configkey('custom_mac_addresses') eq 'yes') {
-            $mac = $iface->valueByName('mac');
+            if ($iface->elementExists('mac')) {
+                $mac = $iface->valueByName('mac');
+            }
         }
 
         $backend->setIface(name => $name, iface => $ifaceNumber++,

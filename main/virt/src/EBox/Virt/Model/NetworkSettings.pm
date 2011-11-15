@@ -163,7 +163,11 @@ sub isEqual
         #return 0 unless defined ($otherIface);
 
         foreach my $field (qw(enabled type iface name mac)) {
-            my $thisField = $thisIface->valueByName($field);
+            my $thisField;
+            if (($field ne 'mac') or $thisField->elementExists('mac')) {
+                $thisField = $thisIface->valueByName($field);
+            } 
+
             next unless defined ($thisField);
             # my $otherField = $otherIface->valueByName($field);
             my $otherField = $virtRO->get_string("VirtualMachines/keys/$vmRow/settings/NetworkSettings/keys/$id/$field");
