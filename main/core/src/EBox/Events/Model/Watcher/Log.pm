@@ -112,7 +112,7 @@ sub _ids
 
     # Fetch the current available log domains
     my %currentLogDomains;
-    my $currentTables = $logs->getAllTables();
+    my $currentTables = $logs->getAllTables(1);
     foreach my $table (keys (%{$currentTables})) {
         $currentLogDomains{$table} = 1;
     }
@@ -161,7 +161,7 @@ sub syncRows
 
     # Fetch the current available log domains
     my %currentLogDomains;
-    my $currentTables = $logs->getAllTables();
+    my $currentTables = $logs->getAllTables(1);
     foreach my $table (keys (%{$currentTables})) {
         # ignore events table
         if ($table eq 'events') {
@@ -313,7 +313,7 @@ sub _setUpModels
 {
     my ($self) = @_;
 
-    my $logDomainTables = $self->{logs}->getAllTables();
+    my $logDomainTables = $self->{logs}->getAllTables(1);
     if ( defined ( $logDomainTables )) {
         while (my ($domain, $tableInfo) = each %{$logDomainTables}) {
             if ($domain eq 'events') {

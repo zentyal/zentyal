@@ -1,4 +1,6 @@
 HEAD
+	+ Removing a module with a LogWatcher no longer breaks the LogWatcher
+	  Configuration page anymore
 	+ Fixed error in change-hostname script it does not longer match substrings
 	+ Bugfix: Show breadcrumbs even from models which live in a
 	  composite
