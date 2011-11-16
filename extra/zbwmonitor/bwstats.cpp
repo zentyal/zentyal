@@ -75,8 +75,9 @@ void BWStats::dump(IBWStatsDumper *dumper) {
 void BWStats::clear() {
     hostsmap::iterator it;
     for (it=data.begin(); it != data.end(); it++) {
-        (it->second)->clear();
+        delete (it->second);
     }
+    data.clear();
 }
 
 
@@ -92,11 +93,6 @@ void HostStats::addIntPacket(const struct ip* ipp) {
 
 void HostStats::addExtPacket(const struct ip* ipp) {
     addPacket(ipp, &external);
-}
-
-void HostStats::clear() {
-    memset(&internal, 0, sizeof(BWSummary));
-    memset(&external, 0, sizeof(BWSummary));
 }
 
 void HostStats::addPacket(const struct ip* ipp, BWSummary *sum) {

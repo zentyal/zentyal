@@ -1,3 +1,5 @@
+0.3
+	+ Do not dump empty hosts (zero bandwidth)
 0.2
 	+ Clear stats after each dump
 	+ Dump packets stats in bytes (instead of kbytes)
