@@ -40,6 +40,41 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
+# see http://support.microsoft.com/kb/909264
+my @reservedNames = (
+'ANONYMOUS',
+'AUTHENTICATED USER',
+'BATCH',
+'BUILTIN',
+'CREATOR GROUP',
+'CREATOR GROUP SERVER',
+'CREATOR OWNER',
+'CREATOR OWNER SERVER',
+'DIALUP',
+'DIGEST AUTH',
+'INTERACTIVE',
+'INTERNET',
+'LOCAL',
+'LOCAL SYSTEM',
+'NETWORK',
+'NETWORK SERVICE',
+'NT AUTHORITY',
+'NT DOMAIN',
+'NTLM AUTH',
+'NULL',
+'PROXY',
+'REMOTE INTERACTIVE',
+'RESTRICTED',
+'SCHANNEL AUTH',
+'SELF',
+'SERVER',
+'SERVICE',
+'SYSTEM',
+'TERMINAL SERVER',
+'THIS ORGANIZATION',
+'USERS',
+'WORLD',
+);
 
 sub new
 {
@@ -73,12 +108,8 @@ sub validateTypedRow
                 __('Netbios and workgroup must have different names'));
     }
 
+    $self->_checkNetbiosName($netbios);
     $self->_checkDomainName($workgroup);
-
-    if (length($netbios) > 15) {
-        throw EBox::Exceptions::External(
-                __('Netbios name cannot be longer than 15 characters'));
-    }
 
     # Check for incompatibility between PDC and PAM
     # only on slave servers
@@ -104,9 +135,42 @@ sub _checkDomainName
     my ($self, $domain) = @_;
 
     if ($domain =~ m/\.local$/) {
+        throw EBox::Exceptions::External(__(q{Domain name cannot end in '.local'}));
+    }
+
+    $self->_checkWinName($domain, __('Domain name'));
+}
+
+sub _checkNetbiosName
+{
+    my ($self, $netbios) = @_;
+    $self->_checkWinName($netbios, __('NetBIOS computer name'));
+}
+
+sub _checkWinName
+{
+    my ($self, $name, $type) = @_;
+
+    my $length = length $name;
+    if ($length > 15) {
         throw EBox::Exceptions::External(
-                __(q{Domain name cannot end in '.local'})
+                __x('{type} is limited to a maximum of 15 characters.',
+                    type => $type)
         );
+    }
+
+    my @parts = split '\.', $name;
+    foreach my $part (@parts) {
+        $part = uc $part;
+        foreach my $reserved (@reservedNames) {
+            if ($part eq $reserved) {
+                throw EBox::Exceptions::External(
+                    __x(q{{type} cannot contain the reserved name {reserved}},
+                         type => $type,
+                         reserved => $reserved)
+                   );
+            }
+        }
     }
 }
 
@@ -131,7 +195,7 @@ sub _table
         ),
         new EBox::Types::Text(
             'fieldName' => 'netbios',
-            'printableName' => __('Netbios name'),
+            'printableName' => __('NetBIOS computer name'),
             'defaultValue' => EBox::Samba::defaultNetbios(),
             'editable' => 1,
         ),
