@@ -28,7 +28,7 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
-use EBox::Types::IPAddr;
+use EBox::Types::HostIP::BCast;
 
 # Group: Public methods
 
@@ -52,7 +52,7 @@ sub _table
     my ($self) = @_;
 
     my @tableHeader = (
-       new EBox::Types::IPAddr(
+       new EBox::Types::HostIP::BCast(
             fieldName     => 'ip',
             printableName => __('IP'),
             editable      => 0,

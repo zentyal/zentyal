@@ -44,6 +44,8 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
+src/EBox/Types/Makefile
+src/EBox/Types/HostIP/Makefile
 src/EBox/BWMonitor/Makefile
 src/EBox/BWMonitor/Model/Makefile
 src/EBox/BWMonitor/Composite/Makefile
