@@ -1,4 +1,6 @@
 HEAD
+	+ Now the whole /etc/zentyal directory is backed up and a copy of the
+	  previous contents is stored at /var/backups before restoring
 	+ Removing a module with a LogWatcher no longer breaks the LogWatcher
 	  Configuration page anymore
 	+ Fixed error in change-hostname script it does not longer match substrings

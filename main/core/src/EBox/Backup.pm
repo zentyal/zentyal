@@ -99,7 +99,7 @@ sub _makeBackup
 
         my $filesArchive  = "$archiveContentsDir/files.tgz";
         $self->_createFilesArchive($auxDir, $filesArchive);
-        $self->_createEBoxEtcFilesArchive($archiveContentsDir);
+        $self->_createZentyalConfFilesArchive($archiveContentsDir);
         $self->_createMd5DigestForArchive($filesArchive, $archiveContentsDir);
         $self->_createDescriptionFile($archiveContentsDir, $description);
         $self->_createDateFile($archiveContentsDir, $date);
@@ -199,12 +199,16 @@ sub _configuredModInstances
 
 sub  _createFilesArchive
 {
-    my ($self, $auxDir, $filesArchive) = @_;
+    my ($self, $auxDir, $filesArchive, $removeDir) = @_;
+    defined $removeDir or
+        $removeDir =  1;
 
     if (`umask 0077; tar czf '$filesArchive' -C '$auxDir' .`) {
         throw EBox::Exceptions::Internal("Could not create archive.");
     }
-    system "rm -rf '$auxDir'";
+    if ($removeDir) {
+        system "rm -rf '$auxDir'";
+    }
 }
 
 sub  _createDateFile
@@ -342,21 +346,13 @@ sub _createSizeFile
     write_file($sizeFile, $size)
 }
 
-
-sub _createEBoxEtcFilesArchive
+sub _createZentyalConfFilesArchive
 {
     my ($self, $backupDir) = @_;
 
     my $archive = "$backupDir/etcFiles.tgz";
-    my $dir = "$backupDir/etcFiles";
-    mkdir $dir;
     my $etcDir = EBox::Config::etc();
-    system "cp $etcDir/*.conf '$dir' 2>&1 > /dev/null ";
-    system "cp $etcDir/ppa.gpg '$dir'  2>&1 > /dev/null";
-    system "cp -a $etcDir/hooks '$dir'  2>&1 > /dev/null";
-    system "cp -a $etcDir/post-save '$dir'  2>&1 > /dev/null";
-    system "cp -a $etcDir/pre-save '$dir'  2>&1 > /dev/null ";
-    $self->_createFilesArchive($dir, $archive);
+    $self->_createFilesArchive($etcDir, $archive, 0);
 }
 
 sub _bug
@@ -1124,7 +1120,7 @@ sub restoreBackup
 
         $self->_unpackModulesRestoreData($tempdir);
 
-        $self->_restoreEBoxEtcFiles($tempdir);
+        $self->_restoreZentyalConfFiles($tempdir);
 
         # TODO: Make sure we don't open the file more than necessary
         $self->_preRestoreActions($file, %options);
@@ -1222,13 +1218,14 @@ sub _unpackModulesRestoreData
     }
 }
 
-sub _restoreEBoxEtcFiles
+sub _restoreZentyalConfFiles
 {
     my ($self, $tempdir) = @_;
 
+    my $etc = EBox::Config::etc();
     my $archive = "$tempdir/eboxbackup/etcFiles.tgz";
     if (not -f $archive) {
-        EBox::warn("eBox's /etc files archive not found; not restoring them" );
+        EBox::warn("$etc files archive not found; not restoring them" );
         return;
     }
 
@@ -1240,78 +1237,32 @@ sub _restoreEBoxEtcFiles
 
     if ($? != 0) {
         system "rm -rf '$tmpEtc'";
-        throw EBox::Exceptions::External(
-                __('Could not unpack the etc files archive backup')
-                );
+        EBox::error("Could not unpack the Zentyal configuration files archive backup");
+        EBox::info("Zentyal configuration files in $etc are not restored, but the restore process will continue");
+        return;
     }
 
-    my $etc   = EBox::Config::etc();
-
-    # create backup for files/directories to be replaced
-    my @filesToBackup = glob("$etc*.conf");
-    my @dirsToBackup = (
-            "${etc}hooks",
-            "${etc}post-save",
-            "${etc}pre-save",
-    );
-
-    foreach my $file (@filesToBackup, @dirsToBackup) {
-        my $backupFile = _backupName($file);
-        try {
-            my $cmd =  "cp --force -r -p '$file' '$backupFile'";
-            EBox::Sudo::root($cmd);
-        } catch EBox::Exceptions::Sudo::Command with {
-        } catch EBox::Exceptions::Sudo::Command with {
-            # no backup is a non-fatal error
-            EBox::error("Could not create backup of file $file as $backupFile: $!");
-        };
+    # create backup directory for files/directories to be replaced
+    my $dateSuffix =  strftime("%Y-%m-%d-%H%M%S", localtime());
+    my $currentEtcBackupDirBase = "/var/backups/etc-zentyal-$dateSuffix";
+    my $currentEtcBackupDir = $currentEtcBackupDirBase;
+    my $cnt = 0;
+    while (EBox::Sudo::fileTest('-e', $currentEtcBackupDir)) {
+        $cnt++;
+        $currentEtcBackupDir = "$currentEtcBackupDirBase-$cnt";
     }
+    EBox::Sudo::root("cp -a $etc $currentEtcBackupDir");
 
-    # put restored files in place
     try {
-        # It is mandatory to overwrite the changes
-        # We must use install instead of mv -f
-
-        # put conf files in places
-        EBox::Sudo::root("install -m 0644 -t $etc $tmpEtc/*.conf");
-
-        # put conf dirs in place
-        foreach my $dir (@dirsToBackup) {
-            my $new = $tmpEtc . '/' . File::Basename::basename($dir);
-            if (EBox::Sudo::fileTest('-d', $new)) {
-                EBox::Sudo::root("rm -rf '$dir'");
-                EBox::Sudo::root("mv -f '$new' '$dir'")
-            }
-        }
+        # put restored directory in place
+        EBox::Sudo::root("cp -af $tmpEtc/* $etc");
     }  catch EBox::Exceptions::Sudo::Command with {
         # continue with the restore anyway
-        EBox::error("Cannot restore $etc files: $!");
+        EBox::error("Cannot restore $etc files: $!.");
+        EBox::info("We cannot restore Zentyal configuration files in $etc, but the restore process will continue.");
     } finally {
         EBox::Config::refreshConfFiles();
     };
-}
-
-# Select a backup file name for a given path
-sub _backupName
-{
-    my ($path) = @_;
-
-    my $backupPath;
-    my $count = 0;
-    my $maxBackupCopies = 100;
-    while ($count < $maxBackupCopies) {
-        $backupPath = $path . ".old";
-        if ($count > 0) {
-            $backupPath .= ".$count";
-        }
-        unless (-e $backupPath) {
-            return $backupPath;
-        }
-
-        $count +=1;
-    }
-
-    return $backupPath;
 }
 
 sub _restoreModulePreCheck
