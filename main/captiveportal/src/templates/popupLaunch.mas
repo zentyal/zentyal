@@ -21,8 +21,7 @@ use EBox::Gettext;
    <div id="login" class="popuplaunch">
        <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block"/>
        <div style="padding: 15px">
-         <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.',
-                hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
+         <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
        </div>
      </div>
   </center>
