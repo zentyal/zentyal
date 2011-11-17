@@ -6,6 +6,7 @@ HEAD
 	  composite
 	+ HTTPLink now returns empty string if no HTTPUrlView is defined
 	  in DataTable class
+	+ Added mising use sentence in EBox::Event::Watcher::Base
 2.2.3
 	+ Bugfix: Avoid url rewrite to ebox.cgi when requesting to /slave
 	+ Fixed logrotate configuration
