@@ -247,7 +247,7 @@ sub _table
 #
 #      Override <EBox::Model::DataTable::validateRow> method
 #
-sub validateRow()
+sub validateRow
 {
     my ($self, $action, %params) = @_;
 
@@ -458,5 +458,38 @@ sub _getRouterMac
     return $mac;
 }
 
-1;
+# XXX fudge bz ModelManager does not delete gateway removal in tables AND we
+# don't have a removeRowValidate method
+# TODO improve this if ModelManager gets rewritten with that remove-check
+# feature added
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
 
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument(
+                "Missing row identifier to remove")
+    }
+    if (not $force) {
+        my $row = $self->row($id);
+        $row or
+            throw EBox::Exceptions::Internal("Invalid row id $id");
+        my $gw = $row->valueByName('name');
+        my $global = EBox::Global->getInstance($self->{gconfmodule}->{ro});
+        my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+        foreach my $mod (@mods) {
+            if ($mod->gatewayDelete($gw)) {
+                throw EBox::Exceptions::DataInUse(
+                __x(q|The gateway '{name}' is being used by {mod}|,
+                    name => $gw,
+                    mod  => $mod->name()
+                   )
+               );
+            }
+        }
+    }
+
+    $self->SUPER::removeRow($id, $force);
+}
+
+1;

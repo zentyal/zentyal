@@ -3573,7 +3573,7 @@ sub setDHCPNameservers # (interface, \@nameservers)
 
 # Method: DHCPNameservers
 #
-#   Sets the nameservers obtained from a DHCP configured interface
+#   Get the nameservers obtained from a DHCP configured interface
 #
 # Parameters:
 #

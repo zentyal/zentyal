@@ -253,4 +253,26 @@ sub freeViface # (iface, viface)
         # needed.
 }
 
+# Method: gatewayDelete
+#
+#       Invoked when a  gateway is going to be removed.
+#       It  works the same way: return true if the removal of the gateway
+#       is incompatible with your module's current configuration.
+#
+#   Parameteres:
+#
+#       gwName - gateway name
+#
+# Returns:
+#
+#       boolean - true if module's configuration becomes inconsistent,
+#                 false otherwise
+#
+sub gatewayDelete
+{
+    my ($self, $gwName) = @_;
+
+    return 0;
+}
+
 1;

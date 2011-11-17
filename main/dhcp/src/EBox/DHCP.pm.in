@@ -1354,7 +1354,7 @@ sub _dhcpLeases
         $refresh = 1;
     }
 
-    if($refresh) { 
+    if ($refresh) {
         my $leases = Text::DHCPLeases->new(file => LEASEFILE);
 
         $self->{'leases'} = {};
@@ -1940,6 +1940,28 @@ sub _allowedMemberInFixedAddress
     }
 
     return 1;
+}
+
+# Method: gatewayDelete
+#
+#  Overrides:
+#    EBox::NetworkObserver::gatewayDelete
+sub gatewayDelete
+{
+    my ($self, $gwName) = @_;
+
+    my $global = EBox::Global->getInstance($self->{ro});
+    my $network = $global->modInstance('network');
+    foreach my $iface (@{$network->allIfaces()}) {
+        next unless ($network->ifaceMethod($iface) eq 'static');
+        my $options = $self->_getModel('optionsModel', $iface);
+        my $optionsGwName = $options->gatewayName();
+        if ($gwName eq $optionsGwName) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;

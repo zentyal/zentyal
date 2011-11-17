@@ -1,3 +1,6 @@
+HEAD
+	+ Added gatewayDelete method to NetworkObserver and use it to check
+	  gateway removal in gateway table
 2.2.3
 	+ Allow to disable traffic balance with no_balance_$gwname config keys
 	+ Fixed bridged interfaces change when the bridge is not configured

@@ -225,6 +225,24 @@ sub defaultGateway
 
 }
 
+# Method: gatewayName
+#
+#  If gateway is set to a 'configured gateway' it returns it name. If gateway is
+#  set to another type, returns undef
+sub gatewayName
+{
+    my ($self) = @_;
+    my $row = $self->row();
+    my $gw = $row->elementByName('default_gateway');
+    if ($gw->selectedType() eq 'name') {
+        my $gwModel = $gw->subtype()->foreignModel();
+        my $gwName = $gwModel->row( $gw->subtype()->value())->valueByName('name');
+        return $gwName
+    }
+
+    return undef;
+}
+
 # Method: searchDomain
 #
 #     Get the current search domain
