@@ -219,6 +219,22 @@ sub vmChanged
     return 0;
 }
 
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields) = @_;
+
+    if (exists $changedFields->{name}) {
+        my $value = $changedFields->{name}->value();
+        unless ($value =~ /^[A-Za-z0-9_-]+$/) {
+            throw EBox::Exceptions::InvalidData(
+                data => __('Name'),
+                value => $value,
+                advice => __(q{You have either invalid characters or spaces. Valid characters are: '[A-Z][a-z][0-9]-_'})
+            );
+        }
+    }
+}
+
 sub addedRowNotify
 {
     my ($self) = @_;

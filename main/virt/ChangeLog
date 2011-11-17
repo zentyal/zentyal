@@ -1,4 +1,5 @@
 HEAD
+	+ Restrict virtual machine names to avoid problems with virsh and quotes
 	+ Fixed problems with inexistent mac elements on network interface rows
 	+ VMs have now always assigned the same VNC port
 2.2.2
