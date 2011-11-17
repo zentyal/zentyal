@@ -28,6 +28,7 @@ use EBox::Types::Port;
 use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Config;
+use EBox::Exceptions::InvalidData;
 
 use strict;
 use warnings;
@@ -157,6 +158,27 @@ sub _dnFromHostname
     chomp($hostname);
     my $dn = join(',', map("dc=$_", split(/\./, $hostname)));
     return $dn;
+}
+
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields) = @_;
+
+    if (exists $changedFields->{dn}) {
+        my $dn = $changedFields->{dn}->value();
+        $self->_validateDN($dn);
+    }
+}
+
+# TODO: Move this to EBox::Validate or even create a new DN type
+sub _validateDN
+{
+    my ($self, $dn) = @_;
+
+    unless ($dn =~ /^dc=[^,=]+(,dc=[^,=]+)*$/) {
+        throw EBox::Exceptions::InvalidData(data => __('LDAP DN'),
+                                            value => $dn);
+    }
 }
 
 1;
