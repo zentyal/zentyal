@@ -568,6 +568,7 @@ sub _checkDomainName
 {
     my ($domain) = @_;
 
+    $domain =~ s/\.$//;
     return is_hostname($domain);
 }
 
@@ -588,6 +589,7 @@ sub checkDomainName # (domain, name?)
 {
     my ($domain, $name) = @_;
 
+    $domain =~ s/\.$//;
     unless (is_hostname($domain)) {
         if ($name) {
             throw EBox::Exceptions::InvalidData

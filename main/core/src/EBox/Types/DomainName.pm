@@ -120,7 +120,15 @@ sub _paramIsValid
     }
 
     return 1;
+}
 
+sub memValue
+{
+    my ($self) = @_;
+
+    my $value = $self->{'value'};
+    $value =~ s/\.$//;
+    return $value;
 }
 
 1;
