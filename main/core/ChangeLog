@@ -1,4 +1,5 @@
 HEAD
+	+ Added internal command to instance models and other improvements in shell
 	+ Now the whole /etc/zentyal directory is backed up and a copy of the
 	  previous contents is stored at /var/backups before restoring
 	+ Removing a module with a LogWatcher no longer breaks the LogWatcher

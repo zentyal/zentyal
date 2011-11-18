@@ -22,9 +22,11 @@ use strict;
 use Term::ReadLine;
 use Lexical::Persistence;
 use Data::Dumper;
+use Error qw(:try);
 
 use EBox;
 use EBox::Global;
+use EBox::Model::ModelManager;
 
 EBox::init();
 
@@ -36,10 +38,13 @@ my $lex = new Lexical::Persistence;
 my $globalInit = code_with_lex_environ('my $global = EBox::Global->getInstance()');
 &$globalInit();
 
+my $internal;
+
 while (defined (my $line = $term->readline($PROMPT))) {
     last if ($line eq 'exit');
+    $internal = 1;
     $line = parse_internal_commands($line);
-    next unless defined $line;
+    next unless $line;
     my $code = code_with_lex_environ($line);
     next unless defined $code;
     my $ret = eval { &$code(); };
@@ -47,7 +52,7 @@ while (defined (my $line = $term->readline($PROMPT))) {
     if ((ref ($ret) eq 'ARRAY') or (ref ($ret) eq 'HASH')) {
         print Dumper($ret);
     } else {
-        print "$ret\n" if ($ret);
+        print "$ret\n" if ($ret and not $internal);
     }
 }
 
@@ -61,8 +66,15 @@ sub parse_internal_commands
             print "Error: Module '$mod' not found\n";
             return undef;
         }
-        return "my \$$mod = \$global->modInstance('$mod');";
+        return "my \$$mod = \$global->modInstance('$mod'); print '\$$mod\n';";
     }
+    my ($model) = $cmd =~ /^model (\w+);*/;
+    if ($model) {
+        my $var = lc($model);
+        return "my \$$var; try { \$$var = EBox::Model::ModelManager->instance()->model('$model'); print '\$$var\n'; } otherwise { print \"Cannot load model $model.\n\" };";
+    }
+
+    $internal = 0;
     return $cmd;
 }
 
