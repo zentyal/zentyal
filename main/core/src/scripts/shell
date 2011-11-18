@@ -71,7 +71,7 @@ sub parse_internal_commands
     my ($model) = $cmd =~ /^model (\w+);*/;
     if ($model) {
         my $var = lc($model);
-        return "my \$$var; try { \$$var = EBox::Model::ModelManager->instance()->model('$model'); print '\$$var\n'; } otherwise { print \"Cannot load model $model.\n\" };";
+        return "my \$$var; try { \$$var = EBox::Model::ModelManager->instance()->model('$model'); print '\$$var\n'; } otherwise { print \"Error: Model '$model' not found\n\" };";
     }
 
     $internal = 0;
