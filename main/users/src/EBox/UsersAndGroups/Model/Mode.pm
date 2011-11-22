@@ -156,6 +156,7 @@ sub _dnFromHostname
 {
     my $hostname = `hostname -f`;
     chomp($hostname);
+    $hostname =~ s/[^A-Za-z0-9\.]/-/g;
     my $dn = join(',', map("dc=$_", split(/\./, $hostname)));
     return $dn;
 }

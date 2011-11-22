@@ -1,4 +1,5 @@
 HEAD
+	+ Make sure the default DN does not contains invalid characters
 	+ Do not allow malformed LDAP DNs in Mode
 2.2.4
 	+ Make LDAP ready after enableActions restarting the service to
