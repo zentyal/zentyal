@@ -331,7 +331,9 @@ sub addresses
 
     my @addresses;
     do {
-        push @addresses, $ipRange->ip();
+        my $ip = $ipRange->ip();
+        next if ($ip =~ /\.0$/);
+        push (@addresses, $ip);
     } while (++$ipRange);
 
     return \@addresses;

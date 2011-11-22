@@ -1,4 +1,5 @@
 HEAD
+	+ Skip IP addresses ending in .0 in EBox::Types::IPRange::addresses()
 	+ Do not store in redis trailing dots in Host and DomainName types
 	+ Added internal command to instance models and other improvements in shell
 	+ Now the whole /etc/zentyal directory is backed up and a copy of the
