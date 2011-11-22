@@ -339,6 +339,11 @@ sub _checkArrayStatus # (arrayName, arrayInfo, storedInfo)
 {
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
+    if ($arrayInfo->{operation} eq 'check') {
+        # ignore changes dues to check operations
+        return undef;
+    }
+
     if ( $arrayInfo->{state} ne $storedInfo->{state} ) {
         my $evtMsg = __x('RAID device {name} has changed its state '
                          . 'from {oldState} to {newState}',
@@ -379,6 +384,11 @@ sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
     my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
 
     my ($evtMsg, $showPer) = ('', 0);
+    if (($arrayInfo->{operation} eq 'check') or ($storedInfo->{operation} eq 'check')) {
+        # ignore check operations
+        return undef;
+    }
+
     if ( $storedInfo->{operation} ne $arrayInfo->{operation} ) {
         if ( $storedInfo->{operation} eq 'none' ) {
              $evtMsg = __x('RAID device {name} has started operation {opName}.',
