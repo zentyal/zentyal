@@ -2,6 +2,8 @@
 
 echo "Moving apache ssl files to new name"
 
-mv /etc/apache/ssl/apache.pem /etc/apache/ssl/ssl.pem
+FILE=/etc/apache/ssl/apache.pem
+
+test -e $FILE && mv $FILE /etc/apache/ssl/ssl.pem
 
 exit 0;

@@ -99,7 +99,7 @@ retry "apt-get install -o DPkg::Options::="--force-confold" --no-install-recomme
 /etc/init.d/zentyal stop
 
 # Run all the scripts to migrate data from 2.0 to 2.2
-run-parts ./post-upgrade
+run-parts ./post-upgrade || true
 
 # purge Zentyal 2.0
 for i in $(ls /var/lib/dpkg/info/ebox*.postrm /var/lib/dpkg/info/libebox.postrm)
