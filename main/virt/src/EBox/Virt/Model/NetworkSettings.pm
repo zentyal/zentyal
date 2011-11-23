@@ -164,9 +164,9 @@ sub isEqual
 
         foreach my $field (qw(enabled type iface name mac)) {
             my $thisField;
-            if (($field ne 'mac') or $thisField->elementExists('mac')) {
+            if (($field ne 'mac') or $thisIface->elementExists('mac')) {
                 $thisField = $thisIface->valueByName($field);
-            } 
+            }
 
             next unless defined ($thisField);
             # my $otherField = $otherIface->valueByName($field);
