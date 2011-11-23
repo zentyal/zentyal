@@ -1,4 +1,5 @@
 HEAD
+	+ Removed some undefined concatenation and compare warnings in error.log
 	+ Ignore check operation in RAID event watcher
 	+ Skip IP addresses ending in .0 in EBox::Types::IPRange::addresses()
 	+ Do not store in redis trailing dots in Host and DomainName types

@@ -44,7 +44,7 @@ sub html
 
     # Add separators
     my @items;
-    my $currentSeparator = undef;
+    my $currentSeparator = '';
     foreach my $item (@{$self->items}) {
         my $itemSeparator = $item->{separator};
         if ($itemSeparator) {

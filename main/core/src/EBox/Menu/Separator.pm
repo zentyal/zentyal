@@ -42,12 +42,12 @@ sub html
     my $show = 0;
 
     if (defined($self->{style})) {
-        $html .= "<li id='" . $self->{id} . "' class='$self->{style}'>\n";
+        $html .= "<li class=\"$self->{style}\">\n";
     } else {
-        $html .= "<li id='" . $self->{id} . "'>\n";
+        $html .= "<li>\n";
     }
 
-    $html .= "<div class='separator'>$text</div>\n";
+    $html .= "<div class=\"separator\">$text</div>\n";
 
     $html .= "</li>\n";
 
