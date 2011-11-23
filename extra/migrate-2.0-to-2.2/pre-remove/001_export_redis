@@ -19,7 +19,7 @@ use strict;
 
 use EBox;
 use EBox::Config::Redis;
-use YAML::XS
+use YAML::XS;
 
 EBox::init();
 
