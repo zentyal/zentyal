@@ -65,6 +65,8 @@ ask_confirmation
 ZENTYAL_PPA="ppa.launchpad.net\/zentyal"
 sed -i "s/$ZENTYAL_PPA\/2.0/$ZENTYAL_PPA\/2.2/g" /etc/apt/sources.list
 
+retry "apt-get install -o DPkg::Options::="--force-confold" --no-install-recommends -y --force-yes libyaml-libyaml-perl"
+
 # Pre remove scripts
 run-parts ./pre-remove
 

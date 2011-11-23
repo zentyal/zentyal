@@ -19,6 +19,7 @@ use strict;
 
 use EBox;
 use EBox::Config::Redis;
+use YAML::XS
 
 EBox::init();
 
@@ -26,8 +27,14 @@ my $redis = new EBox::Config::Redis();
 my $dumpfile = "/var/lib/ebox/redis_dump.yaml";
 
 print "Exporting current configuration...\n";
-$redis->export_dir_to_yaml('', $dumpfile);
 
-# Quote values (fix some import errors)
-system("sed -i \"s/^value: \\([^'].*\\)/value: '\\1'/g\" $dumpfile");
+my @keys;
+$redis->_backup_dir(
+        key => '',
+        destination_type => 'yaml',
+        destination => \@keys,
+        include_dirs => undef
+        );
+
+YAML::XS::DumpFile($dumpfile, @keys);
 
