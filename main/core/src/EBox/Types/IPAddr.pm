@@ -319,8 +319,13 @@ sub isEqualTo
         return undef;
     }
 
-    return ($self->ip() eq $other->ip()) and
-           ($self->mask() eq $other->mask());
+    if ($self->ip() ne $other->ip()) {
+        return undef;
+    } elsif ($self->mask() ne $other->mask()) {
+        return undef;
+    }
+
+    return 1;
 }
 
 1;
