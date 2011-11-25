@@ -11,6 +11,6 @@ fi
 CURRENT=`hostname`
 
 sed -i "s/$CURRENT/$NEW/" /etc/hostname
-sed -i "s/^$CURRENT\s/$NEW /" /etc/hosts
-sed -i "s/\s$CURRENT\s/ $NEW /g" /etc/hosts
+sed -i "s/\s$CURRENT$/\t$NEW/" /etc/hosts
+sed -i "s/\s$CURRENT\s/\t$NEW/g" /etc/hosts
 hostname $NEW
