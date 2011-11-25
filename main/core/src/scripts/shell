@@ -39,14 +39,38 @@ my $globalInit = code_with_lex_environ('my $global = EBox::Global->getInstance()
 &$globalInit();
 
 my $internal;
+my @commands = parse_commandline();
 
-while (defined (my $line = $term->readline($PROMPT))) {
+while (defined (my $line = get_command())) {
     last if ($line eq 'exit');
     $internal = 1;
     $line = parse_internal_commands($line);
     next unless $line;
     my $code = code_with_lex_environ($line);
     next unless defined $code;
+    eval_and_print($code);
+}
+
+sub parse_commandline
+{
+    my @cmds = map { split (';', $_) } @ARGV;
+    push (@cmds, 'exit') if @cmds;
+    return @cmds;
+}
+
+sub get_command
+{
+    if (@commands) {
+	return shift (@commands);
+    } else {
+        return $term->readline($PROMPT);
+    }
+}
+
+sub eval_and_print
+{
+    my ($code) = @_;
+
     my $ret = eval { &$code(); };
     print $@ if $@;
     if ((ref ($ret) eq 'ARRAY') or (ref ($ret) eq 'HASH')) {
