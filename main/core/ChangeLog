@@ -1,4 +1,5 @@
 HEAD
+	+ New internal 'call' command in Zentyal shell to 'auto-use' the module
 	+ Zentyal shell now can execute commandline arguments
 	+ Bugfix: EBox::Types::IPAddr::isEqualTo allows to change netmask now
 	+ Removed some undefined concatenation and compare warnings in error.log

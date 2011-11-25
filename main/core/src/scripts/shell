@@ -97,6 +97,16 @@ sub parse_internal_commands
         my $var = lc($model);
         return "my \$$var; try { \$$var = EBox::Model::ModelManager->instance()->model('$model'); print '\$$var\n'; } otherwise { print \"Error: Model '$model' not found\n\" };";
     }
+    my ($call) = $cmd =~ /^call (.+);*/;
+    if ($call) {
+        my @parts = split ('::', $call);
+        if (@parts) {
+            @parts = map { split ('->', $_) } @parts;
+            pop (@parts);
+            $call = 'use ' . join ('::', @parts) . "; $call;";
+        }
+        return $call;
+    }
 
     $internal = 0;
     return $cmd;
