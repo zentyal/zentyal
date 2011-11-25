@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Ignore last dot if exists when validating domain names
 2.2.1
 	+ Do not log debug messages unless debug = yes is set in zentyal.conf

@@ -1,4 +1,4 @@
-HEAD
+2.2.4
 	+ New internal 'call' command in Zentyal shell to 'auto-use' the module
 	+ Zentyal shell now can execute commandline arguments
 	+ Bugfix: EBox::Types::IPAddr::isEqualTo allows to change netmask now
