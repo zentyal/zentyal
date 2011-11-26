@@ -1,0 +1,14 @@
+<%args>
+    $name
+    $bridge
+    $prefix
+</%args>
+<network>
+    <name><% $name %></name>
+    <bridge name="virbr<% $bridge %>" />
+    <ip address="<% $prefix %>.1" netmask="255.255.255.0">
+        <dhcp>
+            <range start="<% $prefix %>.2" end="<% $prefix %>.254" />
+        </dhcp>
+    </ip>
+</network>

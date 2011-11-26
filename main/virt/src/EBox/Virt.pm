@@ -25,6 +25,7 @@ use base qw(EBox::Module::Service
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo;
@@ -199,6 +200,10 @@ sub _setConf
         }
     }
 
+    $backend->initInternalNetworks();
+
+    my $updateFwService = 0;
+
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
@@ -210,6 +215,7 @@ sub _setConf
             $vncport = $self->firstFreeVNCPort();
             $vm->elementByName('vncport')->setValue($vncport);
             $vm->store();
+            $updateFwService = 1;
         }
 
         my $rewrite = 1;
@@ -232,6 +238,11 @@ sub _setConf
         $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
     }
+    $backend->createInternalNetworks();
+
+    if ($updateFwService) {
+        $self->updateFirewallService();
+    }
 
     # Delete non-referenced VMs
     my $existingVMs = $backend->listVMs();
@@ -245,6 +256,31 @@ sub _setConf
     @lines = map { "$_:$vncPasswords{$_}\n" } keys %vncPasswords;
     write_file(VNC_PASSWD_FILE, @lines);
     chmod (0600, VNC_PASSWD_FILE);
+}
+
+sub updateFirewallService
+{
+    my ($self) = @_;
+
+    my @vncservices;
+
+    my $vms = $self->model('VirtualMachines');
+    foreach my $vmId (@{$vms->ids()}) {
+        my $vm = $vms->row($vmId);
+        my $vncport = $vm->valueByName('vncport');
+        foreach my $vncport ($vncport, $vncport + 1000) {
+            push (@vncservices, { protocol => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => $vncport });
+        }
+    }
+
+    my $servMod = EBox::Global->modInstance('services');
+    $servMod->setMultipleService(name => 'vnc-virt',
+                                 description => __('VNC connections for VMs'),
+                                 allowEmpty => 1,
+                                 internal => 1,
+                                 services => \@vncservices);
 }
 
 sub machineDaemon
@@ -299,6 +335,12 @@ sub stopVM
 sub _manageVM
 {
     my ($self, $name, $action) = @_;
+
+    my $vncDaemon = $self->vncDaemon($name);
+    my $currentStatus = EBox::Service::running($vncDaemon) ? 'start' : 'stop';
+    if ($action ne $currentStatus) {
+        EBox::Service::manage($vncDaemon, $action);
+    }
 
     my $manageScript = $self->manageScript($name);
     $manageScript = shell_quote($manageScript);
@@ -382,14 +424,6 @@ sub _daemons
     # Currently this is only the case of libvirt-bin
     push (@daemons, @{$self->{backend}->daemons()});
 
-    # Add VNC websockets-proxy daemons
-    my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $name = $vm->valueByName('name');
-        push (@daemons, { name => $self->vncDaemon($name) });
-    }
-
     return \@daemons;
 }
 
@@ -400,6 +434,8 @@ sub _enforceServiceState
     return unless $self->isEnabled();
 
     $self->_startService();
+
+    $self->{backend}->createInternalNetworks();
 
     # Start machines marked as autostart
     my $vms = $self->model('VirtualMachines');
@@ -593,19 +629,39 @@ sub _importCurrentVNCPorts
 {
     my ($self) = @_;
 
-    # We only can now the currently used ports when using libvirt
+    # We only can know the currently used ports when using libvirt
     return if $self->usingVBox();
 
     my $base = $self->firstVNCPort();
 
+    my $updateFwService = 0;
+
+    my @unassigned;
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
         my $vncport = $self->{backend}->vncdisplay($name);
+        unless (defined ($vncport)) {
+            push (@unassigned, $vm);
+            next;
+        }
         $vm->elementByName('vncport')->setValue($base + $vncport);
         $vm->store();
+        $updateFwService = 1;
     }
+    foreach my $vm (@unassigned) {
+        $vm->elementByName('vncport')->setValue($self->firstFreeVNCPort());
+        $vm->store();
+        $updateFwService = 1;
+    }
+
+    if ($updateFwService) {
+        $self->updateFirewallService();
+        my $firewall = EBox::Global->modInstance('firewall');
+        $firewall->saveConfigRecursive();
+    }
+
 }
 
 sub firstFreeVNCPort

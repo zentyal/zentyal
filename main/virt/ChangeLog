@@ -1,4 +1,7 @@
 HEAD
+	+ Internal networks now work in KVM
+	+ Optimize check status operation in KVM using domstate command
+	+ Start VNC proxies only when necessary, this also avoids wrong alerts
 	+ Restrict virtual machine names to avoid problems with virsh and quotes
 	+ Fixed problems with inexistent mac elements on network interface rows
 	+ VMs have now always assigned the same VNC port

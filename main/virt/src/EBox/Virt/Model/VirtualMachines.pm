@@ -129,6 +129,7 @@ sub _table
                              fieldName => 'vncport',
                              hidden => 1,
                              optional => 1,
+                             unique => 1,
                              editable => 1,
                             ),
        new EBox::Virt::Types::Status(
@@ -233,42 +234,6 @@ sub validateTypedRow
             );
         }
     }
-}
-
-sub addedRowNotify
-{
-    my ($self) = @_;
-    $self->_updateService();
-}
-
-sub deletedRowNotify
-{
-    my ($self) = @_;
-    $self->_updateService();
-}
-
-sub _updateService
-{
-    my ($self) = @_;
-
-    my @vncservices;
-
-    foreach my $vmId (@{$self->ids()}) {
-        my $vm = $self->row($vmId);
-        my $vncport = $vm->valueByName('vncport');
-        foreach my $vncport ($vncport, $vncport + 1000) {
-            push (@vncservices, { protocol => 'tcp',
-                                  sourcePort => 'any',
-                                  destinationPort => $vncport });
-        }
-    }
-
-    my $servMod = EBox::Global->modInstance('services');
-    $servMod->setMultipleService(name => 'vnc-virt',
-                                 description => __('VNC connections for VMs'),
-                                 allowEmpty => 1,
-                                 internal => 1,
-                                 services => \@vncservices);
 }
 
 sub _acquireRunning

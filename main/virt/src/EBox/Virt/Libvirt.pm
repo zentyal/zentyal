@@ -24,10 +24,12 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use EBox::NetWrappers;
+use EBox::Virt;
 use File::Basename;
 use String::ShellQuote;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
+my $NET_PATH = '/var/lib/zentyal/vnets';
 my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
@@ -49,6 +51,7 @@ sub new
     $self->{emulator} = ($? == 0) ? 'kvm' : 'qemu';
 
     $self->{vmConf} = {};
+    $self->{netConf} = {};
 
     return $self;
 }
@@ -136,7 +139,7 @@ sub vmRunning
 {
     my ($self, $name) = @_;
 
-    $self->_checkStatus('running', $name);
+    return ($self->_state($name) eq 'running');
 }
 
 # Method: vmPaused
@@ -155,15 +158,20 @@ sub vmPaused
 {
     my ($self, $name) = @_;
 
-    $self->_checkStatus('paused', $name);
+    return ($self->_state($name) eq 'paused');
 }
 
-sub _checkStatus
+sub _state
 {
-    my ($self, $status, $name) = @_;
+    my ($self, $name) = @_;
 
-    EBox::Sudo::silentRoot("$VIRTCMD list | grep $status | awk '{ print \$2 }' | grep -q ^$name\$");
-    return $? == 0;
+    my ($state) = @{EBox::Sudo::silentRoot("$VIRTCMD domstate $name")};
+    if ($? == 0) {
+        chomp ($state);
+    } else {
+        $state = 'error';
+    }
+    return $state;
 }
 
 sub vncdisplay
@@ -171,8 +179,11 @@ sub vncdisplay
     my ($self, $name) = @_;
 
     my @output = @{EBox::Sudo::silentRoot("$VIRTCMD vncdisplay $name")};
+    unless (@output) {
+        return undef;
+    }
     my ($port) = $output[0] =~ /:(\d+)/;
-    return $port ? $port : 0;
+    return defined ($port) ? $port : undef;
 }
 
 sub listVMs
@@ -397,11 +408,14 @@ sub setIface
         exists $params{arg} or
             throw EBox::Exceptions::MissingArgument('arg');
         $source = $params{arg};
+        if (not exists $self->{netConf}->{$source}) {
+            $self->{netConf}->{$source} = {};
+            $self->{netConf}->{$source}->{num} = $self->{netNum}++;
+            # FIXME: Check if the address is not used
+            $self->{netConf}->{$source}->{bridge} = $self->{netBridgeId}++;
+        }
     }
 
-    # FIXME: This is not enough, currently only NAT will work
-    # we need to create bridges either for real ifaces or internal networks
-    # Another possibility is to use brX ifaces created in zentyal-network
     my $iface = {};
     $iface->{type} = $type eq 'bridged' ? 'bridge' : 'network';
     $iface->{source} = $source;
@@ -468,6 +482,49 @@ sub manageScript
     return "$VM_PATH/$name/manage.sh";
 }
 
+sub createInternalNetworks
+{
+    my ($self, $name) = @_;
+
+    mkdir ($NET_PATH) unless (-d $NET_PATH);
+
+    foreach my $name (keys %{$self->{netConf}}) {
+        next if ($self->_netExists($name));
+
+        my $net = $self->{netConf}->{$name};
+        my $bridge = $net->{bridge};
+        my $netprefix = '192.168.' . $net->{num};
+        my $file = "$NET_PATH/$name.xml";
+        EBox::Module::Base::writeConfFileNoCheck(
+            $file, '/virt/network.xml.mas',
+            [ name => $name, bridge => $bridge, prefix => $netprefix ],
+            { uid => 0, gid => 0, mode => '0644' }
+         );
+         $self->_createBridge($file, $bridge, $netprefix);
+    }
+}
+
+sub _createBridge
+{
+    my ($self, $file, $bridge, $net) = @_;
+
+    _run("$VIRTCMD net-create $file");
+    if ($? != 0) {
+        _run("pkill -f \"dnsmasq.* --listen-address ${net}.1\"");
+        _run("ifconfig virbr${bridge} down");
+        _run("brctl delbr virbr${bridge}");
+        _run("$VIRTCMD net-create $file");
+    }
+}
+
+sub _netExists
+{
+    my ($self, $name) = @_;
+
+    EBox::Sudo::silentRoot("$VIRTCMD net-list|awk '{ print $1 }'|tail -n+3|grep \"^$name\$\"");
+    return ($? == 0);
+}
+
 sub writeConf
 {
     my ($self, $name) = @_;
@@ -522,6 +579,17 @@ sub initDeviceNumbers
 
     $self->{ideDriveLetter} = 'a';
     $self->{scsiDriveLetter} = 'a';
+}
+
+sub initInternalNetworks
+{
+    my ($self) = @_;
+
+    $self->{netConf} = {};
+    $self->{netNum} = 190;
+    $self->{netBridgeId} = 1;
+
+    _run("rm -rf $NET_PATH/*");
 }
 
 sub _run

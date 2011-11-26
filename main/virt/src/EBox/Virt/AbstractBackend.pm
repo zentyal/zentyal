@@ -335,6 +335,22 @@ sub writeConf
 {
 }
 
+# Method: initInternalNetworks
+#
+#   Init stuff for internal networks creation if needed.
+#
+sub initInternalNetworks
+{
+}
+
+# Method: createInternalNetworks
+#
+#   Creates all the internal networks if needed.
+#
+sub createInternalNetworks
+{
+}
+
 # Method: daemons
 #
 #   Returns daemons to manage needed by the virtualization backend
