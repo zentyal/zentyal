@@ -1,3 +1,5 @@
+HEAD
+	+ New grep-redis tool to search for patterns in redis keys or values
 2.2.4
 	+ New internal 'call' command in Zentyal shell to 'auto-use' the module
 	+ Zentyal shell now can execute commandline arguments

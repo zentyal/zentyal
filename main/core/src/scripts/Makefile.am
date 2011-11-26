@@ -10,7 +10,7 @@ pkgdata_SCRIPTS = loggerd kill-pid apache2ctl apache-restart \
  update-file-digest change-hostname redisvi regen-redis-db \
  consolidate-reportinfo gather-reportinfo initial-setup \
  purge-logs configuration-report create-db purge-module \
- restart-trigger
+ restart-trigger grep-redis
 
 pkgdata_DATA = keyring.gpg
 
