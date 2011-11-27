@@ -143,6 +143,19 @@ sub aptQASourcePath
     return '/etc/apt/sources.list.d/ebox-qa.list';
 }
 
+# Method: aptQAPreferencesPath
+#
+#      Return the path to the preferences file
+#
+# Returns:
+#
+#      String - the path
+#
+sub aptQAPreferencesPath
+{
+    return '/etc/apt/preferences.d/01zentyal';
+}
+
 # Method: JohnHomeDirPath
 #
 #      Return the path to the John the Ripper home directory

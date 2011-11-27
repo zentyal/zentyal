@@ -9,7 +9,7 @@ scripts_SCRIPTS = initial-setup automatic-conf-backup cronjob-runner get-cronjob
 helperscriptsdir = @DATADIR@/zentyal-remoteservices
 
 helperscripts_SCRIPTS = john-wrapper rrd-dumper remote-support.keys \
-			password-checker.pl subs-level valid-users.pl
+			password-checker.pl remove-pkgs subs-level valid-users.pl
 
 MAINTAINERCLEANFILES = Makefile.in
 

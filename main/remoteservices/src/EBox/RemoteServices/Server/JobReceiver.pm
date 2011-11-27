@@ -259,7 +259,7 @@ sub addCronJobs
 #   id - Job id; don't include cron prefix if it is a cron job
 sub removeJob
 {
-    my ($id) = @_;
+    my ($class, $id) = @_;
 
     my $incomingDirLink = EBox::RemoteServices::Configuration::IncomingJobDir() . $id;
     if (-e $incomingDirLink) {

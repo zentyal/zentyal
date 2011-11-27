@@ -1,4 +1,8 @@
 HEAD
+	+ Bugfix: The internal cron jobs are now removed correctly
+	+ Remove some configuration and packages when a downgrade is done
+	+ Bugfix: Remove jobs when unsubscribing
+	+ Bugfix: Remove apt preferences when unsubscribing
 	+ Non-ASCII characters are explicitly not allowed in Zentyal Common Name
 	+ Backup and restore all the cached data. Fixed clearCache method
 2.2.2

@@ -51,6 +51,8 @@ use constant {
     SERV_SUBDIR => 'remoteservices/subscription',
     SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'zentyal-cloud-prof',
+    SEC_UPD_PKG    => 'zentyal-security-updates',
+    REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
 };
 
 # Group: Public methods
@@ -371,6 +373,7 @@ sub extractBundle
 #
 #     Current actions:
 #
+#        - Downgrade, if necessary
 #        - Create John home directory (Security audit)
 #        - Set QA updates (QA repository and its preferences)
 #        - Autoconfigure DynamicDNS service
@@ -386,6 +389,8 @@ sub executeBundle
 {
     my ($self, $params, $confKeys) =  @_;
 
+    # Downgrade, if necessary
+    $self->_downgrade($params);
     $self->_setUpAuditEnvironment();
     $self->_setQAUpdates($params, $confKeys);
     $self->_setDDNSConf();
@@ -442,7 +447,24 @@ sub deleteData
     # FIXME: Do by alertAutoconfiguration script?
     my $events = EBox::Global->modInstance('events');
     $events->unset('alert_autoconfiguration');
-    # TODO: Remove ebox-cloud-prof package
+    # TODO: Remove zentyal-cloud-prof package
+
+    # Remove jobs
+    my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
+    $dirPath = EBox::Config::conf() . SERV_CONF_DIR . '/jobs';
+    if ( -d $dirPath ) {
+        opendir($dir, $dirPath);
+        while(my $filePath = readdir($dir)) {
+            next unless -d "$dirPath/$filePath";
+            if ($filePath =~ m/^[0-9]+$/g or $filePath =~ m/^$cronPrefix/g) {
+                EBox::Sudo::command("rm -rf '$dirPath/$filePath'");
+            } elsif ( $filePath =~ m/incoming|outcoming/g ) {
+                # Remove any left incoming/outcoming job
+                EBox::Sudo::command("rm -f '$dirPath/$filePath/*'");
+            }
+        }
+        closedir($dir);
+    }
 
     # Remove subscription levels and disaster recovery if any
     my $rs = EBox::Global->modInstance('remoteservices');
@@ -556,8 +578,7 @@ sub _setQAUpdates
 
     my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
     foreach my $param (@paramsNeeded) {
-        exists $params->{$param} or
-            return;
+        return unless (exists $params->{$param});
     }
 
     $self->_setQASources($params->{QASources}, $confKeys);
@@ -591,14 +612,24 @@ sub _setDDNSConf
     }
 }
 
-# Install ebox-cloud-prof package in a hour to avoid problems with dpkg
+# Install zentyal-cloud-prof package in a hour to avoid problems with dpkg
 sub _installCloudProf
 {
     my ($self, $params, $confKeys) = @_;
 
     return unless ( exists $params->{installCloudProf} );
 
-    return if ( $self->_cloudProfInstalled() );
+    if ( $self->_pkgInstalled(PROF_PKG) ) {
+        # Remove any at command from user to avoid removing pkg using at
+        my $user = EBox::Config::user();
+        my $queuedJobs = EBox::Sudo::root("atq | grep $user");
+        if (@{$queuedJobs} > 0) {
+            # Delete them
+            my @jobIds = map { m/^([0-9]+)\s/ } @{$queuedJobs};
+            EBox::Sudo::root('atrm ' . join(' ', @jobIds));
+        }
+        return;
+    }
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     $fh->unlink_on_destroy(0);
@@ -608,7 +639,7 @@ sub _installCloudProf
     try {
         EBox::Sudo::command("chmod a+x '" . $params->{installCloudProf} . "'");
         # Delay the ebox-cloud-prof installation for an hour
-        EBox::Sudo::root('at -f "' . $fh->filename() . '" now+1hour');
+        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
     } catch EBox::Exceptions::Command with {
         # Ignore installation errors
     };
@@ -690,13 +721,8 @@ sub _suite
 sub _setQAAptPubKey
 {
     my ($self, $keyFile) = @_;
-    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
-#    EBox::debug("apt-key add $keyFile");
-
     EBox::Sudo::root("apt-key add $keyFile");
 }
-
-
 
 sub _setQAAptPreferences
 {
@@ -722,7 +748,7 @@ sub _setQAAptPreferences
         return;
     }
 
-    my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
+    my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
     EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
 
 }
@@ -780,12 +806,11 @@ sub _removeAptPubKey
 
 sub _removeAptQAPreferences
 {
-    my $path = '/etc/apt/preferences';
-    my $back = $path . 'ebox.bak';
+    my $path = '/etc/apt/preferences.zentyal.fromzc';
     EBox::Sudo::root("rm -f '$path'");
-    if (-e $back) {
-        EBox::Sudo::root("mv '$back' '$path'");
-    }
+    $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
+    EBox::Sudo::root("rm -f '$path'");
+
 }
 
 # Remove the Dynamic DNS configuration only if the service is using
@@ -804,13 +829,15 @@ sub _removeDDNSConf
 }
 
 
-# Check if the ebox-cloud-prof is already installed
-sub _cloudProfInstalled
+# Check if the zentyal-cloud-prof is already installed
+sub _pkgInstalled
 {
+    my ($self, $pkg) = @_;
+
     my $installed = 0;
     my $cache = new AptPkg::Cache();
-    if ( $cache->exists(PROF_PKG) ) {
-        my $pkg = $cache->get(PROF_PKG);
+    if ( $cache->exists($pkg) ) {
+        my $pkg = $cache->get($pkg);
         $installed = ( $pkg->{SelectedState} == AptPkg::State::Install
                        and $pkg->{InstState} == AptPkg::State::Ok
                        and $pkg->{CurrentState} == AptPkg::State::Installed );
@@ -925,6 +952,51 @@ sub _checkUDPEchoService
     # is done before this one
     return ( $result[1] == 3 );
 
+}
+
+# Downgrade current subscription, if necessary
+# Things to be done:
+#   * Remove QA updates configuration
+#   * Uninstall zentyal-cloud-prof and zentyal-security-updates packages
+#
+sub _downgrade
+{
+    my ($self, $params) = @_;
+
+    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
+    my $nParamsNeeded = grep { exists $params->{$_} } @paramsNeeded;
+    if ( $nParamsNeeded < scalar(@paramsNeeded) ) {
+        if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
+            or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
+            # Requires to downgrade
+            $self->_removeQAUpdates();
+        }
+        $self->_removePkgs();
+    }
+}
+
+# Remove private packages
+sub _removePkgs
+{
+    my ($self) = @_;
+
+    # Remove pkgs using at to avoid problems when doing so from Zentyal UI
+    my @pkgs = (PROF_PKG, SEC_UPD_PKG);
+    @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
+
+    return unless ( @pkgs > 0 );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    $fh->unlink_on_destroy(0);
+    print $fh 'exec ' . REMOVE_PKG_SCRIPT . ' ' . join(' ', @pkgs) . "\n";
+    close($fh);
+
+    try {
+        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
+    } catch EBox::Exceptions::Command with {
+        my ($exc) = @_;
+        EBox::debug($exc->stringify());
+    };
 }
 
 1;
