@@ -32,10 +32,10 @@ cleanModuleConf($modname);
 EBox::Util::SQL::dropModuleTables($modname);
 
 my $purgeModule = "/var/lib/zentyal/purge-module/$modname";
-if (-x $purgeModule) {
+if (EBox::Sudo::fileTest('-x', $purgeModule)) {
     try {
         EBox::Sudo::root($purgeModule);
-        unlink ($purgeModule);
+        EBox::Sudo::root("rm -f '$purgeModule'");
     } otherwise {
         EBox::warn("Purge of module $modname failed");
     };

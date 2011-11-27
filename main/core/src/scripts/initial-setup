@@ -20,6 +20,7 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
+use EBox::Sudo;
 use EBox::Util::SQL;
 use EBox::Util::Debconf;
 use Error qw(:try);
@@ -45,10 +46,10 @@ unless (defined ($drInstall) and ($drInstall eq 'true')) {
 
 # Copy purge-module script if exists
 my $purgeSrc = "/usr/share/zentyal-$modname/purge-module";
-if (-f $purgeSrc) {
+if (EBox::Sudo::fileTest('-f', $purgeSrc) ) {
     my $purgeDst = "/var/lib/zentyal/purge-module/$modname";
-    EBox::Sudo::root("cp $purgeSrc $purgeDst");
-    chmod (0750, $purgeDst);
+    EBox::Sudo::root("cp '$purgeSrc' '$purgeDst'");
+    EBox::Sudo::root("chmod 0750 '$purgeDst'");
 }
 
 my $module = EBox::Global->modInstance($modname);
