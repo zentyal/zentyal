@@ -1,4 +1,5 @@
 HEAD
+	+ Do not retrieve format.js in every graph to improve performance
 	+ The purge-module scripts are always managed as root user
 	+ New grep-redis tool to search for patterns in redis keys or values
 2.2.4

@@ -17,6 +17,7 @@ Parameters:
 </%init>
 <script type="text/javascript" src="/data/js/flotr.js"></script>
 <script type="text/javascript" src="/data/js/excanvas.js"></script>
+<script type="text/javascript" src="/data/js/format.js"></script>
 % foreach my $graph (@graphs) {
 <h3><% $graph->{title} %></h3>
   <span id="timePeriod" style="display: none;" value='<% $period %>'></span>
@@ -41,7 +42,8 @@ function updateGraphs() {
    var graphs = $$('div.graph');
    graphs.each(function(graph) {
        var url = '/Monitor/UpdateGraph';
-       var parts = graph.id.split('.');
+       var tiParts = graph.id.split('__');
+       var parts   = tiParts[0].split('.');
        new Ajax.Request(url,
                         { method: 'get',
                           asynchronous : true,
@@ -49,6 +51,7 @@ function updateGraphs() {
                           parameters: { 'period'   : period,
                                         'measure'  : parts[0],
                                         'instance' : parts[1],
+                                        'typeInstance' : tiParts[1],
                                         },
                         });                                        
    }); 

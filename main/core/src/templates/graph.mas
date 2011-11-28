@@ -47,7 +47,6 @@ my $tiny = 0.01;
 % unless ($repainting) {
 <div id='<% $id %>' class='graph'></div>
 <div id='legend_<% $id %>'></div>
-<script type="text/javascript" src="/data/js/format.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 % }

@@ -31,6 +31,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Monitor::Configuration;
 use EBox::Sudo;
+use RRDs;
 
 # Constants
 use constant TYPES => qw(int percentage byte degree millisecond bps);
@@ -111,6 +112,10 @@ sub plugin
 #      Default value: the first instance defined in <_description> or
 #      the unique instance that exists
 #
+#      typeInstance - String the type instance to get data from. This
+#      can be set only if <graphPerTypeInstance> attribute is true
+#      *(Optional)*
+#
 #      start - Int Start of the time series. A time in seconds since
 #      epoch (1970-01-01) is required. Negative numbers are relative
 #      to the current time. *(Optional)* Default value: one day from
@@ -127,8 +132,8 @@ sub plugin
 #      hash ref - containing the data defined in this
 #      example
 #
-#        { id   => 'measure[.instance]',
-#          title => 'printableInstance',
+#        { id   => 'measure[.instance][__typeInstance]',
+#          title => 'printableInstance|printableTypeInstance',
 #          help => 'help text',
 #          type => 'int',
 #          series => [
@@ -146,15 +151,16 @@ sub plugin
 #      one of the defined ones in the <_description> method or the
 #      measure does not have instances
 #
-#      <EBox::Exceptions::Command> - thrown if the rrdtool fetch
-#      utility failed to work nicely
+#      <EBox::Exceptions::Internal> - thrown if the fetching does not
+#      work nicely
 #
 sub fetchData
 {
     my ($self, %params) = @_;
 
-    my ($instance, $start, $end, $resolution) =
-      ($params{instance}, $params{start}, $params{end}, $params{resolution});
+    my ($instance, $typeInstance, $start, $end, $resolution) =
+      ($params{instance}, $params{typeInstance}, $params{start}, $params{end},
+       $params{resolution});
     if ( defined($instance) and $instance ne '') {
         unless ( scalar(grep { $_ eq $instance } @{$self->{instances}}) == 1 ) {
             throw EBox::Exceptions::InvalidData(data   => 'instance',
@@ -189,7 +195,9 @@ sub fetchData
     my @returnData = map { [] } 1 .. $self->{nLines};
     my @rrds = ();
     foreach my $type ( @{$self->{types}} ) {
-        if (@{$self->{typeInstances}} > 0) {
+        if ( $typeInstance ) {
+            @rrds = ( "${type}-${typeInstance}.rrd" );
+        } elsif (@{$self->{typeInstances}} > 0) {
             @rrds = map { $type . '-' . $_ . '.rrd' } @{$self->{typeInstances}};
         } else {
             push(@rrds, $type . '.rrd');
@@ -204,36 +212,25 @@ sub fetchData
     my $baseDir = EBox::Monitor::Configuration::RRDBaseDirPath();
     my $rrdIdx = 0;
     foreach my $rrdFile (@rrds) {
-        # FIXME: use RRDs when it is fixed in Hardy
         my $fullPath = $rrdFile;
         $fullPath = $baseDir . $fullPath;
-        my $cmd = "rrdtool fetch $fullPath AVERAGE $start $end";
-        my $output = EBox::Sudo::command($cmd);
+        my ($time, $step, $names, $data) = RRDs::fetch($fullPath, 'AVERAGE', $start,
+                                                       $end, $resStr);
+        my $err = RRDs::error;
+        if ( $err ) {
+            throw EBox::Exceptions::Internal("Error fetching data from $fullPath: $err");
+        }
+
         # Treat output
         my $previousTime = 0;
-        foreach my $line (@{$output}) {
-            my ($time, $remainder) = $line =~ m/([0-9]+):\s(.*)$/g;
-            if ( defined($time) ) {
-                my @values = split(/\s/, $remainder, scalar(@{$self->{dataSources}}));
-                # Check no gaps between values
-                if ( ($previousTime != 0) and ($time - $previousTime != $resolution)) {
-                    # Fill gaps with NaN numbers
-                    my $gapTime = $previousTime;
-                    while ($gapTime != $time) {
-                        $gapTime += $resolution;
-                        for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
-                            push( @{$returnData[$valIdx + $rrdIdx]},
-                                  [ $gapTime, "NaN" ]);
-                        }
-                    }
-                } else {
-                    for (my $valIdx = 0; $valIdx < scalar(@values); $valIdx++) {
-                        my $scaledValue = $self->scale($values[$valIdx]);
-                        push( @{$returnData[$valIdx + $rrdIdx]},
-                              [ $time, $scaledValue + 0]);
-                    }
-                }
+        foreach my $line (@{$data}) {
+            for (my $valIdx = 0; $valIdx < scalar(@{$line}); $valIdx++) {
+                $line->[$valIdx] = 0 unless defined($line->[$valIdx]);
+                my $scaledValue = $self->scale($line->[$valIdx]);
+                push( @{$returnData[$valIdx + $rrdIdx]},
+                      [ $time, $scaledValue + 0]);
             }
+            $time += $step;
         }
         $rrdIdx++;
     }
@@ -247,9 +244,12 @@ sub fetchData
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     my $id = $self->{name};
     $id .= '.' . $instance if (defined($instance));
+    $id .= '__' . $typeInstance if (defined($typeInstance));
+    my $title = $self->printableInstance($instance);
+    $title = $self->printableTypeInstance($typeInstance) if (defined($typeInstance));
     return {
         id     => $id,
-        title  => $self->printableInstance($instance),
+        title  => $title,
         help   => $self->{help},
         type   => $self->{type},
         series => \@series,
@@ -375,6 +375,21 @@ sub printableTypeInstance
         throw EBox::Exceptions::DataNotFound(data  => 'typeInstance',
                                              value => $typeInstance);
     }
+}
+
+# Method: graphPerTypeInstance
+#
+#      Get if we want a graph per type instance
+#
+# Returns:
+#
+#      Boolean
+#
+sub graphPerTypeInstance
+{
+    my ($self) = @_;
+
+    return $self->{graphPerTypeInstance};
 }
 
 # Method: dataSources
@@ -633,6 +648,8 @@ sub Types
 #         int, degree, percentage and byte
 #         *(Optional)* Default value: 'int'
 #
+#         graphPerTypeInstance - Boolean indicating if we want a graph
+#         per type instance or not *(Optional)* Default value: false
 #
 sub _description
 {
@@ -718,6 +735,14 @@ sub _setDescription
         }
     }
 
+    $self->{graphPerTypeInstance} = 0;
+    if ($description->{graphPerTypeInstance}) {
+        unless ( @{$self->{typeInstances}} > 0) {
+            throw EBox::Exceptions::Internal('You cannot set graphPerTypeInstance to true if there is not type instances');
+        }
+        $self->{graphPerTypeInstance} = 1;
+    }
+
     # Check printable stuff
     foreach my $kind (qw(printableInstances printableTypeInstances printableDataSources)) {
         $self->{$kind} = {};
@@ -743,7 +768,7 @@ sub _setDescription
 
     # Calculate the lines per graph
     my $nTI = 0;
-    if(@{$self->{typeInstances}}) {
+    if(@{$self->{typeInstances}} > 0 and (not $self->{graphPerTypeInstance})) {
         $nTI = scalar(@{$self->{typeInstances}});
     } else {
         $nTI = 1;

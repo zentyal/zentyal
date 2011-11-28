@@ -18,21 +18,22 @@
 # A module to test Base measure module
 
 use Clone;
-use EBox::Monitor::Configuration;
+use EBox;
 use EBox::Gettext;
 use File::Temp;
 use File::Basename;
 use Test::Deep;
+use Test::MockModule;
 use Test::More tests => 63;
 use Test::Exception;
 
 BEGIN {
     diag ( 'Starting EBox::Monitor::Measure::Base test' );
-    use_ok( 'EBox::Monitor::Measure::Base' )
-      or die;
     use_ok( 'EBox::Monitor::Measure::Load' )
       or die;
 }
+
+EBox::initLogger('eboxlog.conf');
 
 mkdir('/tmp/base') unless (-d '/tmp/base');
 my $tempFile = File::Temp->new( dir => '/tmp/base',
@@ -45,16 +46,19 @@ my $greatDescription = {
    typeInstances   => [ $basename ]
   };
 
-my $oldBaseDirFunc = \&EBox::Monitor::Configuration::RRDBaseDirPath;
-*EBox::Monitor::Configuration::RRDBaseDirPath = sub { '/tmp/'; };
+my $mock_conf = new Test::MockModule('EBox::Monitor::Configuration');
+$mock_conf->mock('RRDBaseDirPath' => sub { '/tmp/'; });
 
-throws_ok {
-    EBox::Monitor::Measure::Base->new();
-} 'EBox::Exceptions::Internal', 'Cannot create an empty base measure';
+require_ok( 'EBox::Monitor::Measure::Base' )
+  or die;
 
-*EBox::Monitor::Measure::Base::_description = sub {
+isa_ok( EBox::Monitor::Measure::Base->new(), 'EBox::Monitor::Measure::Base',
+        'Creating an empty base measure with default values');
+
+my $mock_base = new Test::MockModule('EBox::Monitor::Measure::Base');
+$mock_base->mock('_description' => sub {
     return $greatDescription;
-};
+});
 
 my $measure;
 lives_ok {
@@ -75,12 +79,6 @@ cmp_ok( $measure->printableDataSource(), 'eq', 'value',
         'Checking default printable data source');
 
 # Starting great stuff
-throws_ok {
-    $measure->_setDescription( { instances => ['tmp'],
-                                 typeInstances => [ 'falacia' ]
-                                }
-                              );
-} 'EBox::Exceptions::Internal', 'Setting a non-existant RRD';
 
 # Help and printable name
 $greatDescription->{help} = 'foo';
@@ -111,6 +109,15 @@ foreach my $attr (qw(dataSources types instances printableLabels printableInstan
     } 'EBox::Exceptions::InvalidType', 'Setting wrong type';
 }
 
+# graphPerTypeInstance
+my $badDescription = Clone::clone($greatDescription);
+$badDescription->{typeInstances} = [];
+$badDescription->{printableTypeInstances} = [];
+$badDescription->{graphPerTypeInstance} = 1;
+throws_ok {
+    $measure->_setDescription($badDescription);
+} 'EBox::Exceptions::Internal', 'No graph per type instance without type instances';
+
 # Printable instances (data source, type and measures)
 foreach my $kind (qw(printableInstances printableTypeInstances printableDataSources)) {
     my $badDescription = Clone::clone($greatDescription);
@@ -129,7 +136,7 @@ throws_ok {
 } 'EBox::Exceptions::Internal', 'Wrong number of printable labels';
 
 # Type
-foreach my $type (qw(int percentage grade byte)) {
+foreach my $type (qw(int percentage degree byte)) {
     $greatDescription->{type} = $type;
     lives_ok {
         $measure->_setDescription($greatDescription);
@@ -145,7 +152,7 @@ throws_ok {
 
 # Load testing
 
-*EBox::Monitor::Configuration::RRDBaseDirPath = $oldBaseDirFunc;
+$mock_conf->unmock('RRDBaseDirPath');
 
 my $load;
 lives_ok {
@@ -203,12 +210,12 @@ throws_ok {
 
 throws_ok {
     $load->fetchData(start => 'foobar');
-} 'EBox::Exceptions::Command',
+} 'EBox::Exceptions::Internal',
   'Trying to fetch data with a bad start point';
 
 throws_ok {
     $load->fetchData(end => 'foobar');
-} 'EBox::Exceptions::Command',
+} 'EBox::Exceptions::Internal',
   'Trying to fetch data with a bad end point';
 
 # Testing different periods of time

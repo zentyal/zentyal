@@ -63,7 +63,7 @@ sub new
 #
 sub optionalParameters
 {
-    return [ 'instance' ];
+    return [ 'instance', 'typeInstance' ];
 }
 
 
@@ -95,12 +95,17 @@ sub masonParameters
     my $measure = $params->{'measure'};
     my $instance = $params->{'instance'};
     $instance = undef if ($instance eq '');
+    my $typeInstance = $params->{'typeInstance'};
+    $typeInstance = undef if ($typeInstance eq '');
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
 
     my ($periodData) = grep { $_->{name} eq $params->{period} } @{EBox::Monitor::Configuration::TimePeriods()};
 
-    my $measuredData = $mon->measuredData($measure, $params->{period}, $instance);
+    my $measuredData = $mon->measuredData(measureName  => $measure,
+                                          period       => $params->{period},
+                                          instance     => $instance,
+                                          typeInstance => $typeInstance);
 
     return [ id         => $measuredData->{id},
              type       => $measuredData->{type},

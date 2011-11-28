@@ -1,4 +1,9 @@
 HEAD
+	+ Bugfix: Use stringify instead of error when an error in retrieving all
+	  measures data happened
+	+ Include format.js only in the main page instead of every graph
+	+ Boost performance using RRDs bindings for perl instead of rrdtool
+	+ Give support for having a graph per type instance
 	+ Does not show an error in logs when collectd is notifying for a value is
 	  missing for a period of time but a debug message
 2.1.4

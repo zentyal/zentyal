@@ -200,6 +200,11 @@ sub depends
 #      instance - String the instance name *(Optional)* Default value: the
 #      first described instance in the measure
 #
+#      typeInstance - String the type instance name *(Optional)* It
+#      only makes sense if the graphPerTypeInstance is on
+#
+#      - Named parameters
+#
 # Returns:
 #
 #      hash ref - the data to be displayed in graphs which is
@@ -218,7 +223,10 @@ sub depends
 #
 sub measuredData
 {
-    my ($self, $measureName, $period, $instance) = @_;
+    my ($self, %params) = @_;
+
+    my ($measureName, $period, $instance, $typeInstance) =
+      ($params{measureName}, $params{period}, $params{instance}, $params{typeInstance});
 
     $measureName or throw EBox::Exceptions::MissingArgument('measureName');
     my ($periodData) = grep { $_->{name} eq $period } @{EBox::Monitor::Configuration::TimePeriods()};
@@ -231,9 +239,10 @@ sub measuredData
     }
 
     my $measure = $self->{measureManager}->measure($measureName);
-    return $measure->fetchData(instance   => $instance,
-                               resolution => $periodData->{resolution},
-                               start      => 'end-' . $periodData->{timeValue});
+    return $measure->fetchData(instance     => $instance,
+                               typeInstance => $typeInstance,
+                               resolution   => $periodData->{resolution},
+                               start        => 'end-' . $periodData->{timeValue});
 }
 
 # Method: allMeasuredData
@@ -279,22 +288,42 @@ sub allMeasuredData
         try  {
             if(@{$measure->instances()} > 0) {
                 foreach my $instance (@{$measure->instances()}) {
-                    push(@measuredData,
-                         $measure->fetchData(instance   => $instance,
-                                         resolution => $periodData->{resolution},
-                                         start      => 'end-' . $periodData->{timeValue}));
+                    if ( $measure->graphPerTypeInstance() ) {
+                        foreach my $typeInstance (@{$measure->typeInstances()}) {
+                            push(@measuredData,
+                                 $measure->fetchData(instance     => $instance,
+                                                     typeInstance => $typeInstance,
+                                                     resolution   => $periodData->{resolution},
+                                                     start        => 'end-' . $periodData->{timeValue}));
+                        }
+                    } else {
+                        push(@measuredData,
+                             $measure->fetchData(instance   => $instance,
+                                                 resolution => $periodData->{resolution},
+                                                 start      => 'end-' . $periodData->{timeValue}));
+                    }
                 }
             } else {
-                push(@measuredData,
-                 $measure->fetchData(resolution => $periodData->{resolution},
-                                     start      => 'end-' . $periodData->{timeValue}));
+                if ( $measure->graphPerTypeInstance() ) {
+                    foreach my $typeInstance (@{$measure->typeInstances()}) {
+                        push(@measuredData,
+                             $measure->fetchData(typeInstance => $typeInstance,
+                                                 resolution   => $periodData->{resolution},
+                                                 start        => 'end-' . $periodData->{timeValue}));
+                    }
+                } else {
+                    push(@measuredData,
+                         $measure->fetchData(resolution => $periodData->{resolution},
+                                             start      => 'end-' . $periodData->{timeValue}));
+                }
             }
             $atLeastOneReady = 1;
         } otherwise {
-            my $ex = shift;
-            my $error = join ' ', @{ $ex->error() };
+            my ($ex) = @_;
+            my $error = $ex->stringify();
             if ($error =~ m/No such file or directory/) {
                 # need to save changes, ignoring..
+                EBox::debug("Showing all measures: $error");
             } else {
                 # rethrow exception
                 $ex->throw();
