@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Mark apache as changed after enabling users as it needs
+	  to be restarted after nsswitch is configured
 	+ Make sure the default DN does not contains invalid characters
 	+ Do not allow malformed LDAP DNs in Mode
 2.2.4

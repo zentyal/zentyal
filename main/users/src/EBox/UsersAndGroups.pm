@@ -308,6 +308,10 @@ sub enableActions
 
     # make it ready for any user/group query
     $self->restartService();
+
+    # mark apache as changed to avoid problems with getpwent calls
+    # it needs to be restarted to be aware of the new nsswitch conf
+    EBox::Global->modChange('apache');
 }
 
 
