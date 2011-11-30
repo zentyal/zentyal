@@ -190,7 +190,12 @@ sub addedRowNotify
                                  ));
         } else {
             my @hostNames = @{$dns->getHostnames($domain)};
-            if ( none(map { $_->{name} } @hostNames ) eq $hostName ) {
+            my @currentNames = map { $_->{name} } @hostNames;
+            # Push aliases
+            foreach my $host (@hostNames) {
+                push(@currentNames, map { $_->{name} } @{$host->{aliases}});
+            }
+            if ( none(@currentNames) eq $hostName ) {
                 # Check the IP address
                 my ($commonHostName) = grep { $_->{ip} eq $ip } @hostNames;
                 unless ( $commonHostName ) {
