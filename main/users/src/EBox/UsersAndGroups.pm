@@ -311,7 +311,7 @@ sub enableActions
 
     # restart apache to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('apache')->restartService();
+    EBox::Global->modInstance('apache')->_manageService('restart');
 }
 
 
