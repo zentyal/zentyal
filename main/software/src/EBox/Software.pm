@@ -594,6 +594,9 @@ sub setAutomaticUpdatesTime
 #
 #      Get the time when the automatic update process starts
 #
+#      If no time is set by the admin, then a random hour in
+#      off-office hours is set (from 22:00 to 6:00)
+#
 # Returns:
 #
 #      String - in HH:MM format
@@ -604,7 +607,9 @@ sub automaticUpdatesTime
     my $value = $self->get_string('automatic_time');
     if (not $value) {
         # Set a random value for the first time to avoid DoS
-        my $randHour = int(rand(24));
+        # The off-office hours
+        my $randHour = int(rand(8)) - 2;
+        $randHour += 24 if ($randHour < 0);
         my $randMin  = int(rand(60));
         my $time     = sprintf('%02d:%02d', $randHour, $randMin);
         $self->setAutomaticUpdatesTime($time);
@@ -951,20 +956,15 @@ sub _setAptPreferences
 
     my $preferences =  '/etc/apt/preferences';
     my $preferencesBak  = $preferences . '.ebox.bak';
-    my $preferencesFromCCBak = $preferences . '.ebox.fromcc';
-    my $preferencesDirFile = '/etc/apt/preferences.d/01ebox';
+    my $preferencesFromCCBak = $preferences . '.zentyal.fromzc';
+    my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
 
     if ($enabled ) {
         my $existsCC = EBox::Sudo::fileTest('-e', $preferencesFromCCBak);
         if (not $existsCC) {
-            EBox::error('Could not find apt preferences file from Control Center, letting APT preferences untouched');
+            EBox::error('Could not find apt preferences file from Zentyal Cloud, letting APT preferences untouched');
             return;
         }
-
-        # Hardy version
-        # EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferences'");
-
-        # Lucid version
         EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
@@ -978,7 +978,6 @@ sub _setAptPreferences
         }
     }
 }
-
 
 sub _installCronFile
 {

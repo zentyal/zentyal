@@ -1,3 +1,8 @@
+HEAD
+	+ Bugfix: Use the new paths in setting apt preferences when
+	  modifying the /etc/zentyal/remoteservices.conf entry
+	+ Set off-office hours in automatic time when the admin has not
+	  set one
 2.2.2
 	+ Fixed error on initial-setup when checking the zarafa repository
 2.2.1
