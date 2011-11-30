@@ -309,9 +309,9 @@ sub enableActions
     # make it ready for any user/group query
     $self->restartService();
 
-    # restart apache to avoid problems with getpwent calls, it needs
+    # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('apache')->_manageService('restart');
+    EBox::Global->modInstance('apache')->setAsChanged();
 }
 
 
@@ -405,6 +405,8 @@ sub adsyncEnabled
 sub editableMode
 {
     my ($self) = @_;
+
+    return 0 unless $self->isEnabled();
 
     my $mode = $self->mode();
 

@@ -1,6 +1,7 @@
 HEAD
-	+ Bugfix: restart apache in enableActions to avoid problems adding
-	  users before the new nsswitch conf is available for apache
+	+ Bugfix: mark apache as changed in enableActions to avoid problems adding
+	  users before the new nsswitch conf is available for apache, also do not
+	  allow to add users if module is not really enabled after save changes
 	+ Make sure the default DN does not contains invalid characters
 	+ Do not allow malformed LDAP DNs in Mode
 2.2.4
