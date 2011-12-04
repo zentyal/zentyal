@@ -3,15 +3,14 @@
 use warnings;
 use strict;
 use Error qw(:try);
-use File::Basename;
 use Cwd qw(getcwd realpath);
 
-my $REPO = getcwd;
+my $REPO  = getcwd;
 
 $ENV{DEBIAN_VERSION} = '';
 
 my $DEST;
-if (not $ENV{DESTINATION_DIR}) {
+if (not  $ENV{DESTINATION_DIR}) {
     $DEST =  "$REPO/debs-ppa";
 } else {
     my $dest = $ENV{DESTINATION_DIR};
@@ -30,7 +29,8 @@ unless (-d $DEST) {
 }
 
 
-my $TMPDIR = "/tmp/zentyal-package-$$";
+
+my $TMPDIR = '/tmp/builder-2';
 
 my $cwd;
 my $dist = $ARGV[1];
@@ -73,7 +73,7 @@ sub scm_export
     } elsif (-d "$dir/../../.git") {
         git_export($dir, $tmpdir);
     } else {
-        system("cp -r $dir $tmpdir");
+        die "No known SCM is being used"
     }
 }
 
@@ -87,8 +87,6 @@ sub svn_export
 sub git_export
 {
     my ($dir, $tmpdir) = @_;
-    
-    chdir($dir);
     my $branch = `git status | head -1 | cut -d' ' -f4`;
     chomp($branch);
     mkdir $tmpdir or
@@ -128,7 +126,7 @@ sub make_dist
     my ($name, $version) = get_pkg_and_version();
     system("./autogen.sh") and die "autogen failed";
     system("./configure --disable-runtime-tests") and die "configure failed";
-    system("make dist") and die "make dist failed";
+    system("make dist") and die "make dist failes";
 
     my $file = `ls *.tar.gz`;
     chomp($file);
@@ -154,7 +152,12 @@ sub export_debian
     system("rm -rf $destdir/debian") if (-d "$destdir/debian");
 
     my $dir = $REPO;
-    my $source = "$dir/$package/debian/$dist/";
+    my $source;
+    if ($package eq 'libebox') {
+        $source =  "$dir/common/libebox/debian/$dist/";
+    } else {
+        $source =  "$dir/client/$package/debian/$dist/";
+    }
     if (-d "$source/.svn") {
         system("svn export $source $destdir/debian")
             and die "couldn't export debian/$dist dir";
@@ -192,7 +195,7 @@ sub build_package
         $cmd .= ' -S';
     }
 
-    system($cmd)
+    system($cmd) 
          and die "couldn't create package";
 }
 
@@ -215,9 +218,14 @@ sub generate_rep
     system("gzip -f Sources");
 }
 
+sub upload
+{
+#    system('rsync -avz -e ssh . ' .
+ #         'moe.warp.es:/home/javi/public_html/ubuntu/hardy/0.11.101~svn/');
+}
+
 sub clean
 {
-    system ("rm -rf $TMPDIR");
     chdir $cwd;
 }
 
@@ -225,24 +233,21 @@ sub packageIt
 {
     my ($package) = @_;
 
-    $cwd = getcwd;
+    $cwd = 'cwd';
+
+    die "no package" unless (defined($package));
 
     my ($dir, $exportDir);
+    if ($package eq 'libebox') {
+        $dir = "common/libebox";
+    } elsif ($package eq 'moddev') {
+        $dir = "extra/moddev";
+    } elsif ($package eq 'all') {
+        my @packages = ('libebox');
 
-    unless (defined $package) {
-        $package = basename($cwd);
-        unless (-f 'configure.ac') {
-            die "not in a package directory";
-        }
-        chdir '..';
-        $REPO = getcwd;
-    }
-
-    if ($package eq 'all') {
-        my @packages;
-
-        foreach my $pkg (<*>) {
+        foreach my $pkg (<client/*>) {
             if (-d "$pkg") {
+                $pkg =~ s:client/::;
                 push(@packages, $pkg);
             }
         }
@@ -252,9 +257,10 @@ sub packageIt
         }
         exit;
     } else {
-        $dir = "$REPO/$package";
+        $dir = "client/$package";
     }
 
+    #$dir = "$REPO/$dir";
     $exportDir = "$TMPDIR/$package";
 
     die "package no exists" unless (-e $dir);
@@ -270,10 +276,16 @@ sub packageIt
 
     build_package($untardir);
 
+
     copy_to_dest($untardir);
 
     generate_rep();
+
+    upload();
+
 }
+
+
 
 try {
     create_tmp();
@@ -282,6 +294,5 @@ try {
 } otherwise {
     my $ex = shift;
     print $ex;
-} finally {
     clean();
 };
