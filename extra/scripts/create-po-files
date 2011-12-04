@@ -1,0 +1,119 @@
+#!/bin/sh
+
+# Script to create po files for all ebox modules
+# It is required a target-dir where client and common directories can be
+# found
+# Usage: create-po-files locale target-dir
+# Kopyleft (K) 2006 by Warp Networks
+# Kopyleft (K) 2010 by eBox Technologies
+# All rights reversed
+
+CLIENT_SUBDIR=client
+COMMON_SUBDIR=common
+MODULE_TEMPLATE_DIR=${CLIENT_SUBDIR}/ebox/tools/module-template
+
+readonly CLIENT_SUBDIR COMMON_SUBDIR MODULE_TEMPLATE_DIR
+
+usage() {
+
+    echo "Usage: $0 [-h] locale target-dir"
+    echo "Where locale     : LL_CC the target locale to create"
+    echo "      target-dir : directory which contains client and common subdirectories"
+    echo "      -h         : Show this message"
+
+}
+
+# Getting optional options
+while getopts "h" opt
+  do
+  case $opt in
+      h)
+	  usage
+	  exit 0
+	  ;;
+      *)
+	  usage
+	  exit 1
+	  ;;
+  esac
+done
+
+shift $(($OPTIND - 1))
+
+# Checking all have been passed
+if [ $# -ne 2 ]; then
+    echo "locale and target directory must be passed"
+    # Print usage
+    usage
+    exit 1
+fi
+
+targetDir=$2
+locale=$1
+
+# Check locale has the following format ll_CC or ll
+echo $locale | grep "^[a-z]\{2\}\(_[A-Z]\{2\}\)\?$" > /dev/null
+grepResult=$?
+# If not correct regular expression
+if [ $grepResult -eq 1 ]; then
+    echo "Locale should have the following format: ll_CC or ll"
+    # print usage
+    usage
+    exit 2
+# Check the existence of target directory
+elif [ ! -d $targetDir ]; then
+    echo "$targetDir no such directory"
+    exit 3
+# Check client and common target directory
+elif [ ! -d ${targetDir}/$CLIENT_SUBDIR \
+	-o ! -d	${targetDir}/$COMMON_SUBDIR ]; then
+    echo "${targetDir}/$CLIENT_SUBDIR and ${targetDir}/$COMMON_SUBDIR must exist"
+    exit 4
+# Check if locale already exists
+elif [ $(find ${targetDir} -name ${locale}.po | wc -l) -ne 0 ]; then
+    echo "Locale $locale already exists in eBox"
+    exit 5
+fi
+
+cd $targetDir
+
+# Set linguas first
+linguasFile=$(find $COMMON_SUBDIR -name "LINGUAS" | head -n 1)
+linguas=$(cat $linguasFile)
+linguas="$linguas $locale"
+# Sort linguas using perl
+linguas=$(perl -e "my @linguas = qw($linguas); my @sortLinguas = sort @linguas; print join ' ' , @sortLinguas;")
+
+# Update module-template linguas file
+echo "Updating module template linguas file"
+echo $linguas ${MODULE_TEMPLATE_DIR}/po/LINGUAS
+
+for dir in ${CLIENT_SUBDIR}/* ${COMMON_SUBDIR}/*
+  do
+    if [ -d $dir ]; then
+        if echo $dir | grep -q "common"; then
+            echo "Creating $locale locale in $(basename $dir)"
+            packageName=$(basename $dir)
+        else
+            echo "Creating $locale locale in $(basename $dir) eBox module"
+            packageName=ebox-$(basename $dir)
+        fi
+        msginit --input=$(ls ${dir}/po/*.pot) \
+            --locale=$locale --output=${dir}/po/${locale}.po \
+            --no-translator
+
+        # Put correct version in the newly-created locale file
+
+        # Get version from configure.ac
+        version=$(perl -ne 'if (m/^AC_INIT.*, *\[(.*)\]\)/ ) { print $1; }' ${dir}/configure.ac)
+        # Put version and package name in po file
+        # And charset to UTF-8
+        sed -i -e "s/^\"Project-Id-Version:.*$/\"Project-Id-Version: $packageName $version\"/" \
+            -e 's/charset=.*\\/charset=UTF-8\\/' -e "s/PACKAGE/$packageName/" ${dir}/po/${locale}.po
+
+        echo "Updating LINGUAS file"
+        echo $linguas > ${dir}/po/LINGUAS
+    fi
+done
+
+echo "Done."

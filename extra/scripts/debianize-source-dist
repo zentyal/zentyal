@@ -1,0 +1,4 @@
+#!/bin/bash
+
+rename 's/\.tar/.orig.tar/' *.tar.gz 
+rename 's/-([\d\.]+).orig/_$1.orig/' *.tar.gz

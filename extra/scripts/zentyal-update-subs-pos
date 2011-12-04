@@ -1,0 +1,14 @@
+#!/bin/sh
+
+bash autogen.sh
+./configure --disable-runtime-tests
+cd po/zentyal-subscription
+make update-po
+if [ $? != 0 ]
+then
+    echo "Error updating po files"
+    exit 1
+fi
+cd ../..
+make maintainer-clean
+rm -rf config

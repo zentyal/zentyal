@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Kopyleft (K) 2006 by Warp Networks
+# All rights reversed
+
+make maintainer-clean && rm -rf config

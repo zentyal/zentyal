@@ -1,0 +1,10 @@
+#!/bin/bash
+
+./autogen.sh
+
+./configure --disable-runtime-tests
+
+make -C po/ebox-subscription ebox-subscription.pot-update
+make -C po/ebox-subscription update-po
+
+#make maintainer-clean

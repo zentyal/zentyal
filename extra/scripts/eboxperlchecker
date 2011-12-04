@@ -1,0 +1,29 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use CPAN;
+
+my @modules = `svn cat svn://svn.warp.es/ebox-platform/trunk/extra/perl-packages.list`;
+my @diffs = ();
+foreach my $modline(@modules) {
+	if($modline=~/(.*) (.*)/) {
+		my $name = $1;
+		my $version = $2;
+		my $mod = CPAN::Shell->expand("Module", $name);
+		if($mod->cpan_version ne $version) {
+			my $diff = {};
+			$diff->{'name'} = $name;
+			$diff->{'repo'} = $version;
+			$diff->{'cpan'} = $mod->cpan_version;
+			push(@diffs,$diff);
+		}
+	}
+}
+
+print "---------------------------------------------------------------\n";
+foreach my $diff (@diffs) {
+	print $diff->{'name'} . " (" . $diff->{'repo'} . " - " . $diff->{'cpan'} . ")";
+	print "\n";
+}
+print "---------------------------------------------------------------\n";

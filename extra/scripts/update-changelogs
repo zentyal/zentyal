@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Updates the debian changelogs when you are on the top of a packaging branch,
+# i.e. packaging/debian/jaunty/trunk/
+#
+# Only argument is the new version desired, plus packages you want to change
+# or nothing if you want to change all
+
+version=$1
+shift
+packs=$@
+
+if [ -z "$version" ]
+then
+    echo "Usage: update-changelogs <version>"
+    exit 1
+fi
+
+if [ -z "$packs" ]
+then
+    packs=$(echo *)
+fi
+
+for dir in $packs
+do
+    if [ ! -f $dir/changelog ]
+    then
+        echo "Unable to find $dir/changelog"
+        exit 1
+    fi
+
+    module="ebox-$dir"
+    if [ "$dir" = 'libebox' -o "$dir" = 'ebox' ]
+    then
+        module=$dir
+    fi
+
+    dist=$(svn info | grep ^URL |grep -o "debian/.*" | cut -d/ -f 2)
+    cat > $dir/changelog.new <<EOF
+$module ($version) $dist; urgency=low
+
+  * New upstream release
+
+ -- $DEBFULLNAME <$DEBEMAIL>  $(date -R)
+
+EOF
+
+cat $dir/changelog >> $dir/changelog.new
+mv $dir/changelog.new $dir/changelog
+done

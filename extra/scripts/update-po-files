@@ -1,0 +1,88 @@
+#!/bin/sh
+
+# Script to update translation related files for all ebox modules to have the same project version as
+# the one that appears in configure.ac file
+# It is needed a target-dir where client and common directories can be
+# found
+# Usage: update-po-version target-dir
+# Kopyleft (K) 2006 by Warp Networks
+# All rights reversed
+
+CLIENT_SUBDIR=client
+COMMON_SUBDIR=common
+
+readonly CLIENT_SUBDIR COMMON_SUBDIR
+
+usage() {
+
+    echo "Usage: $0 [-h] target-dir"
+    echo "Where target-dir : directory which contains client and common subdirectories"
+    echo "      -h         : Show this message"
+
+}
+
+# Getting optional options
+while getopts "h" opt
+  do
+  case $opt in
+      h)
+	  usage
+	  exit 0
+	  ;;
+      *)
+	  usage
+	  exit 1
+	  ;;
+  esac
+done
+
+shift $(($OPTIND - 1))
+
+# Checking target directory have been passed
+if [ $# -ne 1 ]; then
+    echo "Target directory should be passed"
+    # Print usage
+    usage
+    exit 1
+fi
+
+targetDir=$1
+
+# Check the existence of target directory
+if [ ! -e $targetDir ]; then
+    echo "$targetDir no such directory"
+    exit 2
+# Check client and common target directory
+elif [ ! -e ${targetDir}/$CLIENT_SUBDIR \
+	-o ! -e	${targetDir}/$COMMON_SUBDIR ]; then
+    echo "${targetDir}/$CLIENT_SUBDIR and ${targetDir}/$COMMON_SUBDIR should exist"
+    exit 3
+fi
+
+cd $targetDir
+
+for dir in ${CLIENT_SUBDIR}/* ${COMMON_SUBDIR}/*
+  do
+
+  if echo $dir | grep -q "common"; then
+      echo "Updating po(t) files from $(basename $dir)"
+      packageName=$(basename $dir)
+  else
+      echo "Updating po(t) files in $(basename $dir) eBox module"
+      packageName=ebox-$(basename $dir)
+      if [ $(basename $dir) = 'ebox' ]; then
+	  packageName=ebox
+      fi
+  fi
+  # Get version from configure.ac
+  version=$(perl -ne 'if (m/^AC_INIT.*, *\[(.*)\]\)/ ) { print $1; }' ${dir}/configure.ac)
+  # Put version and package name in po(t) file
+  for poFile in $(find ${dir}/po/ -regex ".*pot?")
+    do
+    sed -i -e "s/^\"Project-Id-Version:.*$/\"Project-Id-Version: $packageName $version\\\n\"/" \
+	-e "s/PACKAGE/$packageName/" -e 's/charset=.*\\/charset=UTF-8\\/' $poFile
+  done
+
+done
+
+echo "Done."

@@ -1,0 +1,92 @@
+#!/bin/bash
+
+BASEURL=https://svn.ebox-platform.com/ebox-platform/
+
+#by default build just source
+DOPTS="-S"
+if [ "$1" = "-dopts" ]
+then
+    shift
+    DOPTS=$1
+    shift
+fi
+DIST=$1
+shift
+PACKS=$@
+WDIR=`pwd`
+
+if [ -z "$DIST" ]
+then
+    echo "Usage: build-ebox-packages [-dopts '<dpkg-buildpackage options>'] <dist>"
+    exit 1
+fi
+
+VERSION=$(head -n 1 source/client/ebox/configure.ac | grep -o "[[:digit:]]\+\.[[:digit:]]\+.[[:digit:]]\+")
+MAJMINVERSION=$(echo $VERSION | grep -o "[[:digit:]]\+.[[:digit:]]\+")
+
+if [ -z "$EBOX_PACKAGING" ]
+then
+    PACKURL=$BASEURL/packaging/debian/
+    if svn ls $PACKURL/$DIST/tags/$VERSION/ > /dev/null 2> /dev/null
+    then
+        svn co -q $PACKURL/$DIST/tags/$VERSION/ $WDIR/packaging
+    elif svn ls $PACKURL/$DIST/branches/$MAJMINVERSION/ > /dev/null 2> /dev/null
+    then
+        echo "Warning: No packaging for $VERSION, using branch $MAJMINVERSION"
+        svn co -q $PACKURL/$DIST/branches/$MAJMINVERSION/ $WDIR/packaging
+    else
+        echo "Warning: No packaging for $VERSION, checking out trunk"
+        svn co -q $PACKURL/$DIST/trunk/ $WDIR/packaging
+    fi
+    PACKDIR=$WDIR/packaging
+else
+    if [ -d "$EBOX_PACKAGING/debian/$DIST/$VERSION/" ]
+    then
+        PACKDIR="$EBOX_PACKAGING/debian/$DIST/tags/$VERSION/"
+    elif [ -d "$EBOX_PACKAGING/debian/$DIST/branches/$MAJMINVERSION/" ]
+    then
+        echo "Warning: No packaging for $VERSION, using branch $MAJMINVERSION"
+        PACKDIR="$EBOX_PACKAGING/debian/$DIST/branches/$MAJMINVERSION/"
+    else
+        echo "Warning: No packaging for $VERSION, using trunk"
+        PACKDIR="$EBOX_PACKAGING/debian/$DIST/trunk/"
+    fi
+fi
+
+MODULES=$PACKS
+
+if [ -z "$MODULES" ]
+then
+    #build all
+
+    cd $WDIR/dist/
+    for f in *.tar.gz
+    do
+        FULLMODULE=$(echo $f | cut -d _ -f 1)
+        DIRNAME=$FULLMODULE-$VERSION
+        if echo $FULLMODULE | grep 'ebox-'
+        then
+            MODULE=$(echo $FULLMODULE | sed 's/^ebox-//')
+        else
+            MODULE=$FULLMODULE
+        fi
+        MODULES="$MODULES $MODULE"
+    done
+fi
+
+for MODULE in $MODULES
+do
+    FULLMODULE=ebox-$MODULE
+    if [ "$MODULE" = "libebox" -o "$MODULE" = "ebox" ]
+    then
+        FULLMODULE=$MODULE
+    fi
+
+    cd $WDIR/dist/
+    rm -rf $FULLMODULE-$VERSION
+    tar zxvf ${FULLMODULE}_*.tar.gz
+    cd $FULLMODULE-$VERSION
+    rm -rf debian/
+    svn export $PACKDIR/$MODULE/ debian/
+    dpkg-buildpackage $DOPTS -rfakeroot
+done
