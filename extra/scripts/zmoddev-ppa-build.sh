@@ -12,7 +12,8 @@ svn export ../moddev $EXPORT_DIR/zmoddev
 
 cd $EXPORT_DIR/zmoddev
 
-dpkg-buildpackage -k$KEY_ID -S -sa
+./autogen.sh
+dpkg-buildpackage -k$KEY_ID
 
 cd -
 

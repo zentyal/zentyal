@@ -13,11 +13,11 @@ svn export ../common $EXPORT_DIR/zentyal-desktop/common
 
 cd $EXPORT_DIR/zentyal-desktop
 
-dpkg-buildpackage -k$KEY_ID -F -sa
+dpkg-buildpackage -k$KEY_ID -S -sa
 
 sed -i 's/+lucid) lucid;/+maverick) maverick;/g' debian/changelog
 sed -i 's/unison/unison2.27.57/g' debian/control
-dpkg-buildpackage -k$KEY_ID -F -sa
+dpkg-buildpackage -k$KEY_ID -S -sa
 
 cd -
 

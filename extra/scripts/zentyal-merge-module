@@ -15,7 +15,12 @@ branch=$1
 if [ -n "$2" ]
 then
     rev=$2
-    arg="-c $rev"
+    if echo $rev | grep -q ":"
+    then
+        arg="-r $rev"
+    else
+        arg="-c $rev"
+    fi
 fi
 
 module=$(basename `pwd`)
@@ -34,6 +39,12 @@ then
     else
         path=client/$module
     fi
+elif [ "$module" = "libebox" ]
+then
+    path=common/libebox
+elif [ "$module" = "ebox" ]
+then
+    path=client/ebox
 else
     # This asumes that the branch is a copy of main, not of trunk
     # in case the branch is a copy of trunk, add /main to the branch argument
