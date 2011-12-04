@@ -1,0 +1,38 @@
+#!/bin/bash
+
+BASEURL=https://svn.ebox-platform.com/ebox-platform/
+DOPTS="-S"
+if [ "$1" = "-dopts" ]
+then
+    shift
+    DOPTS=$1
+    shift
+fi
+TAG=$1
+DIST=$2
+shift
+shift
+PACKS=$@
+
+if [ -z "$TAG" -o -z "$DIST" ]
+then
+    echo "Usage: generate-ebox-packages <tag> <dist>"
+    exit 1
+fi
+
+WDIR=$(mktemp -d /tmp/ebox.XXXXXXXX)
+
+cd $WDIR
+
+checkout-ebox-tag $TAG
+
+cd $WDIR/source/
+generate-source-dist
+
+cd $WDIR/dist
+debianize-source-dist
+
+cd $WDIR
+build-ebox-packages -dopts "$DOPTS" $DIST $PACKS
+
+echo "Packages available at $WDIR/dist"

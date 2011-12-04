@@ -1,0 +1,135 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2008 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+#
+
+use strict;
+use warnings;
+
+use Data::Dumper;
+
+use EBox;
+use EBox::Global;
+use Error qw(:try);
+use Getopt::Long;
+
+my ($module, $model, $dir);
+my @undefFields;
+my $delete;
+my $verbose;
+
+my $options = [
+               'module=s' => \$module,
+               'model=s' => \$model,
+               'dir=s' => \$dir,
+               
+               'undef-field=s' => \@undefFields,
+
+               "verbose"  => \$verbose,  # flag
+               "delete"  => \$delete,  # flag
+              ];
+
+
+
+my  $parseOk = GetOptions (@{ $options} );
+if (not $parseOk) {
+    print "usage\n" . Dumper($options) . "\n";
+    die 'Bad options';
+}
+
+
+EBox::init();
+
+
+$module or
+    die 'not module specified';
+$model or
+    die 'not model specified';
+
+
+my $modInstance = EBox::Global->modInstance($module);
+$modInstance or
+    die "Cannot get instance of module $module";
+
+
+my $modelInstance = $modInstance->model($model);
+$modelInstance or
+    die "Cannot get instance of module $model";
+
+if ($dir) {
+    $modelInstance->setDirectory($dir);
+}
+
+# get field names to check
+my %ignoreFields = map { $_ => 1 } @undefFields;
+my @fieldNames = map {
+    my $field =  $_->fieldName();
+    $ignoreFields{$field} ? () : ($field);
+} @{ $modelInstance->{'table'}->{'tableDescription'}  };
+
+my @ids = @{ $modelInstance->ids() };
+
+my $changes = 0;
+foreach my $id (@ids) {
+    my $row = $modelInstance->row($id);
+    my $broken = 0;
+    if (not defined $row) {
+        print "Broken rowId $id could not get the row\n";
+        $broken = 1;
+    } else {
+        foreach my $field (@fieldNames) {
+            my $value;
+            try {
+                $value = $row->valueByName($field);
+            } otherwise {
+                print "Broken rowId $id could not get field $field\n";
+                $broken = 1;
+                last;
+            };
+            if (not defined $value) {
+                print "Broken rowId $id field  $field returns undef\n";
+                $broken = 1;
+                last;
+            }
+        }
+    }
+
+    if (not $broken and $verbose) {
+        print "Correct ID : $id\n";
+    } elsif ($broken and $delete) {
+        if (defined $row) {
+            $modelInstance->removeRow($id, 1);
+            $changes = 1;
+            if ($verbose) {
+                print "Removed ID $id\n";
+            }
+        } else {
+            if ($verbose) {
+                $modelInstance->_removeOrderId($id);
+                print "Removed order ID $id without row";
+            }
+
+            
+        }
+    }
+}
+
+
+if ($changes) {
+    print "Remember to save changes in module $module\n";
+}
+1;

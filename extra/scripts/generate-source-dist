@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ ! -f client/ebox/configure.ac ]
+then
+    echo "This script must be called from a directory with an eBox checkout"
+    exit 1
+fi
+
+SUBDIRS=$(echo common/* client/*)
+
+mkdir ../dist/
+
+for dir in $SUBDIRS
+do
+    if [ -d $dir ]
+    then
+        cd $dir
+        sh autogen.sh
+        ./configure --disable-runtime-tests
+        make dist
+        cp *.tar.gz ../../../dist/
+        cd ../..
+    fi
+done
+
+exit 0

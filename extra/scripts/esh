@@ -1,0 +1,191 @@
+#!/usr/bin/perl
+
+use strict;
+
+use Term::ReadLine;
+use EBox;
+use EBox::Global;
+
+use Data::Dumper;
+EBox::init();
+
+my @status;
+my $modules = EBox::Global->modNames();
+my %modhash = map { $_ => EBox::Global->modInstance($_) } (@{$modules});
+
+my %modmodels;
+
+sub printModules
+{
+    for my $mod (@{$modules}) {
+        print $mod . "\n";
+    }
+}
+
+sub printModuleStatus
+{
+    my $modname = $status[0];
+    my $mod = $modhash{$modname};
+    if ($mod->isa('EBox::Module::Service')) {
+        if($mod->isEnabled()) {
+            print "Module is enabled\n";
+            if ($mod->isRunning()) {
+                print "Module is running\n";
+            }
+        } else {
+            print "Module is not enabled\n";
+        }
+    } else {
+        print "Module is not a service\n";
+    }
+}
+
+sub printModuleModels
+{
+    my $modname = $status[0];
+    my $mod = $modhash{$modname};
+
+    if ($mod->isa('EBox::Model::ModelProvider')) {
+        my $models = $mod->models();
+        $modmodels{$modname} = { map { $_->name() => $_} @{$models} };
+        for my $model (@{$models}) {
+            print $model->name() . ' - ' . $model->printableName() . "\n";
+        }
+    } else {
+        print "Module doesn't have any models\n";
+    }
+}
+
+sub printModel
+{
+    my $modname = $status[0];
+    my $mod = $modhash{$modname};
+    my $modelname = $status[1];
+    my $model = $modmodels{$modname}->{$modelname};
+
+    my $fields = $model->fields();
+    if ($model->isa('EBox::Model::DataForm')) {
+        for my $field (@{$fields}) {
+            my $val = $model->row()->printableValueByName($field);
+            if(not defined($val)) {
+                $val = "---";
+            }
+            print "$field: $val\n";
+        }
+    } elsif ($model->isa('EBox::Model::DataTable')) {
+        print " # | ";
+        for my $field (@{$fields}) {
+            my $f = $model->fieldHeader($field);
+            print $f->printableName();
+            print " | ";
+        }
+        print "\n";
+        my $i = 1;
+        for my $id (@{$model->ids()}) {
+            my $row = $model->row($id);
+            print "$i | ";
+            for my $field (@{$fields}) {
+                my $val = $row->printableValueByName($field);
+                if(defined($val)) {
+                    print $val;
+                } else {
+                    print "---";
+                }
+                print " | ";
+            }
+            print "\n";
+            $i++;
+        }
+    }
+}
+
+my $term = new Term::ReadLine 'esh';
+
+my $attribs = $term->Attribs();
+
+$attribs->{completion_function} = sub {
+    my ($text, $line, $start) = @_;
+    print $text, $line, $start;
+    return qw(a list of candidates to complete);
+};
+
+my $prompt;
+
+sub regen_prompt {
+    $prompt = 'esh';
+    my @st = @status;
+    while(@st) {
+        my $element = shift(@st);
+        $prompt .= ":$element";
+    }
+    $prompt .= "> ";
+}
+
+regen_prompt();
+
+while (defined (my $line = $term->readline($prompt))) {
+    my $error = 0;
+    if (@status == 0) {
+        if ($line eq 'ls') {
+            printModules();
+        } elsif ($line eq 'exit') {
+            last;
+        } elsif (defined($modhash{$line})) {
+            push(@status,$line);
+        } else {
+            $error = 1;
+        }
+    } elsif (@status == 1) { #we have a module
+        my $modname = $status[0];
+        my $mod = $modhash{$modname};
+        if ($line eq 'exit') {
+            pop(@status);
+        } elsif ($line eq 'status') {
+            printModuleStatus();
+        } elsif ($line eq 'start') {
+            if ($mod->isa('EBox::Module::Service')) {
+                if(not $mod->isEnabled()) {
+                    print "Module is not enabled\n";
+                }
+                $mod->restartService();
+            } else {
+                print "Module is not a service\n";
+            }
+        } elsif ($line eq 'stop') {
+            if ($mod->isa('EBox::Module::Service')) {
+                if(not $mod->isEnabled()) {
+                    print "Module is not enabled\n";
+                }
+                $mod->stopService();
+            } else {
+                print "Module is not a service\n";
+            }
+        } elsif ($line eq 'ls') {
+            printModuleModels();
+        } else {
+            if (not defined($modmodels{$modname})) {
+                if ($mod->isa('EBox::Model::ModelProvider')) {
+                    my $models = $mod->models();
+                    $modmodels{$modname} = { map { $_->name() => $_} @{$models} };
+                }
+            }
+            if (defined($modmodels{$modname}->{$line})) {
+                push(@status, $line);
+            } else {
+                $error = 1;
+            }
+        }
+    } elsif (@status == 2) {
+        if ($line eq 'exit') {
+            pop(@status);
+        } elsif ($line eq 'ls') {
+            printModel();
+        } else {
+            $error = 1;
+        }
+    }
+    if ($error) {
+        print "Unknown command\n";
+    }
+    regen_prompt();
+}

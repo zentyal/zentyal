@@ -1,0 +1,302 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use Error qw(:try);
+use Cwd qw(getcwd realpath);
+
+my $REPO  = getcwd;
+
+my $DEST;
+if (not  $ENV{DESTINATION_DIR}) {
+    $DEST =  "$REPO/debs-ppa";
+} else {
+    my $dest = $ENV{DESTINATION_DIR};
+    if ($dest =~ m{^/}) {
+        $DEST = $dest;
+    } else {
+        $DEST = "$REPO/" . $dest;
+    }
+
+    print "package files will be availabe in $DEST\n";
+}
+
+unless (-d $DEST) {
+    print "Creating $DEST\n";
+    mkdir $DEST or die "Cannot create $DEST: $!"
+}
+
+
+
+my $TMPDIR = '/tmp/builder-2';
+
+my $cwd;
+my $dist = $ARGV[1];
+unless ($dist) {
+    $dist = 'hardy';
+}
+my $version = $ARGV[2];
+unless ($version) {
+    $version = 'branches/1.4';
+}
+my $svnRevision = $ARGV[3];
+my $pkgVersion;
+my $appendDebianVersion = $ENV{'DEBIAN_VERSION'};
+defined($appendDebianVersion) or $appendDebianVersion = '';
+
+my $KEY_ID = $ENV{KEY_ID};
+my $SOURCE_BUILD = $ENV{SOURCE_BUILD};
+
+sub create_tmp
+{
+   if ( -d $TMPDIR) {
+        system("rm -rf $TMPDIR/*");
+   } else {
+        mkdir $TMPDIR  or
+            die "Cannot create temporal directory $DEST: $!";
+   }
+}
+
+sub scm_export
+{
+    my ($dir, $tmpdir) = @_;
+
+    # svn
+    if (-d "$dir/.svn") {
+        svn_export($dir, $tmpdir);
+    # git
+    } elsif (-d "$dir/.git") {
+        git_export($dir, $tmpdir);
+    # git-svn
+    } elsif (-d "$dir/../../.git") {
+        git_export($dir, $tmpdir);
+    } else {
+        die "No known SCM is being used"
+    }
+}
+
+sub svn_export
+{
+    my ($dir, $tmpdir) = @_;
+
+    system("svn export $dir $tmpdir") and die "svn export failed";
+}
+
+sub git_export
+{
+    my ($dir, $tmpdir) = @_;
+    my $branch = `git status | head -1 | cut -d' ' -f4`;
+    chomp($branch);
+    mkdir $tmpdir or
+        die "Cannot create temporla directory for git export $tmpdir :$!";
+    system("git archive --format=tar $branch $dir | tar x -C $tmpdir");
+    system("mv $tmpdir/$dir/* $tmpdir");
+    system("rm -rf $tmpdir/$dir");
+}
+
+sub get_pkg_and_version
+{
+    open(my $fd, "configure.ac") or die "couldn't open configure.ac";
+
+    my @file = <$fd>;
+    close($fd);
+    my $line = $file[0];
+    my ($pkg, $version) = $line =~ m/\[(.*)\].*\[(.*)\]/;
+    $pkg = lc $pkg;
+    if ($svnRevision) {
+        shift @file;
+        $line =~ s/\[(.*)\].*\[(.*)\]/[$1], [$2~svn$svnRevision]/;
+        my @newFile = ($line, @file);
+        open (my $fd, ">configure.ac") or die "couldn't open configure.ac to write";
+        print $fd @newFile;
+        close($fd);
+        $version = "$version~svn$svnRevision";
+    }
+    $pkgVersion = $version;
+    return ($pkg, $version);
+}
+
+sub make_dist
+{
+    my ($tmpdir) = @_;
+
+    chdir ($tmpdir);
+    my ($name, $version) = get_pkg_and_version();
+    system("./autogen.sh") and die "autogen failed";
+    system("./configure --disable-runtime-tests") and die "configure failed";
+    system("make dist") and die "make dist failes";
+
+    my $file = `ls *.tar.gz`;
+    chomp($file);
+
+    my $debname = "${name}_${version}.orig.tar.gz";
+    system("mv $file ../$debname\n") and die "coulnd't move tarball";
+
+    return ($debname, "${name}-${version}");
+}
+
+sub untar
+{
+    my ($file) = @_;
+
+    chdir ("..");
+    system("tar xzvf $file") and "couldn't untar tarball";
+}
+
+sub export_debian
+{
+    my ($svndir, $destdir, $package) = @_;
+
+    system("rm -rf $destdir/debian") if (-d "$destdir/debian");
+
+    my $dir = $REPO;
+
+    if (realpath($dir) ne '/') {
+        $dir = "$dir/..";
+
+        if (-d "$dir/packaging") {
+            my $source =  "$dir/packaging/debian/$dist/$version/$package";
+            if (-d "$dir/packaging/.svn") {
+                system("svn export $source $destdir/debian") 
+
+                                                and die "couldn't export debian dir";
+            } else {
+                # FIXME: use git archive to avoid copying not checked in files
+                system("cp -r $source $destdir/debian")
+                                         and die "couldn't copy debian dir";
+            }
+        } else {
+           die "$dir/packaging does not exist";
+        }
+
+    }
+}
+
+sub add_changelog_entry
+{
+    my ($dir) = @_;
+    chdir($dir);
+
+    my ($version) = $dir =~ m/.*-(.*)/;
+
+    system("dch -b -v '$version${appendDebianVersion}' -D 'hardy' --force-distribution 'New upstream release'");
+}
+
+sub build_package
+{
+    my ($dir) = @_;
+
+    chdir($dir);
+
+    my $cmd= "dpkg-buildpackage -rfakeroot";
+    if ($KEY_ID) {
+        $cmd .= " -k$KEY_ID";
+    } else {
+        $cmd .= ' -us -uc';
+    }
+
+    if ($SOURCE_BUILD) {
+        $cmd .= ' -S';
+    }
+
+    system($cmd) 
+         and die "couldn't create package";
+}
+
+sub copy_to_dest
+{
+    my ($dir) = @_;
+
+    system("cp ../*.* $DEST") and "couldn't copy to repository";
+}
+
+sub generate_rep
+{
+    chdir ($DEST);
+
+    system("apt-ftparchive packages . > Packages")
+                                and die "couldn't generate pkg";
+    system("gzip -f Packages");
+    system("apt-ftparchive sources . > Sources")
+                                and die "couldn't generate src";
+    system("gzip -f Sources");
+}
+
+sub upload
+{
+#    system('rsync -avz -e ssh . ' .
+ #         'moe.warp.es:/home/javi/public_html/ubuntu/hardy/0.11.101~svn/');
+}
+
+sub clean
+{
+    chdir $cwd;
+}
+
+sub packageIt
+{
+    my ($package) = @_;
+
+    $cwd = 'cwd';
+
+    die "no package" unless (defined($package));
+
+    my ($dir, $exportDir);
+    if ($package eq 'libebox') {
+        $dir = "common/libebox";
+    } elsif ($package eq 'moddev') {
+        $dir = "extra/moddev";
+    } elsif ($package eq 'all') {
+        my @packages = ('libebox');
+
+        foreach my $pkg (<client/*>) {
+            if (-d "$pkg") {
+                $pkg =~ s:client/::;
+                push(@packages, $pkg);
+            }
+        }
+        foreach my $pkg (@packages) {
+            print "Packaging $pkg...\n";
+            system("$0 $pkg");
+        }
+        exit;
+    } else {
+        $dir = "client/$package";
+    }
+
+    #$dir = "$REPO/$dir";
+    $exportDir = "$TMPDIR/$package";
+
+    die "package no exists" unless (-e $dir);
+
+    scm_export($dir, $exportDir);
+    my ($tarball, $untardir) = make_dist($exportDir);
+    untar($tarball);
+    $untardir = "$TMPDIR/$untardir";
+
+    export_debian($dir, $untardir, $package);
+
+    add_changelog_entry($untardir);
+
+    build_package($untardir);
+
+
+    copy_to_dest($untardir);
+
+    generate_rep();
+
+    upload();
+
+}
+
+
+
+try {
+    create_tmp();
+    packageIt($ARGV[0]);
+    clean();
+} otherwise {
+    my $ex = shift;
+    print $ex;
+    clean();
+};

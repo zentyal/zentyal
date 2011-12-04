@@ -1,0 +1,128 @@
+#!/usr/bin/env python
+# -*- coding: iso8859-1 -*-
+#
+# Author: Jonas Borgström <jonas@edgewall.com>
+#
+# This script will enforce the eBox commit policy:
+#   Every commit to the client or common directories in trunk or any maintenance
+#   branch (one that looks like this: branches/X.X/) has to have one or more
+#   comma-separated tags, followed by a colon (:), followed by the actual
+#   commit message. The valid tags are NN, ND, BT and BP.
+#
+# This script should be invoked from the subversion pre-commit hook like this:
+#
+#  REPOS="$1"
+#  REV="$2"
+#  TRAC_ENV="/somewhere/trac/project/"
+#  LOG=`/usr/bin/svnlook log -r "$REV" "$REPOS"`
+#  AUTHOR=`/usr/bin/svnlook author -r $REV $REPOS`
+#  DIRS=`/usr/bin/svnlook dirs-changed -r "$REV" "$REPOS"`
+#  /usr/bin/python /some/path/trac-post-commit "$TRAC_ENV" "$LOG" "$DIRS" "$AUTHOR" "$REV"|| exit 1
+#
+import os
+import re
+import sys
+
+from trac.env import open_environment
+from trac.ticket import Ticket, Milestone
+
+valid_tags = ('NN','ND','BP','BT')
+
+def main():
+    if len(sys.argv) != 6:
+        print >> sys.stderr, 'Usage: %s <trac_project> <log_message> <changed dirs> <author> <revision>' % sys.argv[0]
+        sys.exit(1)
+
+    env_path = sys.argv[1]
+    log = sys.argv[2]
+    dirs = sys.argv[3].split("\n")
+    author = sys.argv[4]
+    revision = sys.argv[5]
+
+    trunk = False
+    maint_branch = False
+    maint_branch_version = None
+    for dir in dirs:
+        if re.match('trunk/(client|common|docs)/', dir):
+            trunk = True
+        else:
+            m = re.match('branches/(\d+\.\d+)/(client|common)/', dir)
+            if m:
+                maint_branch = True
+                new_maint_branch_version = m.group(1)
+                if maint_branch_version != None and \
+                       maint_branch_version != new_maint_branch_version:
+                    print >> sys.stderr, "Committing to two different maintenance branches in the same commit is not allowed: %s and %s" % (str(maint_branch_version), new_maint_branch_version)
+                    sys.exit(1)
+                maint_branch_version = new_maint_branch_version
+
+    if trunk and maint_branch:
+        print >> sys.stderr, "Committing to both trunk and a maintenance branch in the same commit is not allowed"
+        sys.exit(1)
+
+    if trunk or maint_branch:
+        env = open_environment(env_path)
+        parts = log.split(':', 1)
+        tags = []
+        if len(parts) == 2:
+            milestones = Milestone.select(env)
+            for idx, milestone in enumerate(milestones):
+                if re.match(".*-dev", milestone.name):
+                    dev_milestone = milestone.name
+                elif re.match(".*-maint", milestone.name):
+                    maint_milestone = milestone.name
+            milestone = None
+            if trunk:
+                milestone = dev_milestone
+            else:
+                milestone = maint_milestone
+
+            tags = parts[0].split(',')
+            for tag in tags:
+                if not tag in valid_tags:
+                    print >> sys.stderr, "Invalid tag: %s" % tag
+                    sys.exit(1)
+                else:
+                    if tag == 'ND':
+                        ticket = Ticket(env)
+                        fields = {}
+                        fields['status'] = 'new'
+                        fields['summary'] = 'Update documentation to reflect changes in r%s' % revision
+                        fields['reporter'] = author
+                        fields['owner'] = author
+                        fields['component'] = 'docs'
+                        fields['milestone'] = milestone
+                        fields['description'] = 'The changes made in revision r%s with the following log message require an update in the documentation: %s' % (revision, parts[1])
+                        ticket.populate(fields)
+                        ticket.insert()
+                    elif tag == 'BT':
+                        ticket = Ticket(env)
+                        fields = {}
+                        fields['status'] = 'new'
+                        fields['summary'] = 'Update ANSTE test to reflect changes in r%s' % revision
+                        fields['reporter'] = author
+                        fields['owner'] = author
+                        fields['component'] = 'anste'
+                        fields['milestone'] = milestone
+                        fields['description'] = 'The changes made in revision r%s with the following log message require an update in an ANSTE test: %s' % (revision, parts[1])
+                        ticket.populate(fields)
+                        ticket.insert()
+                    elif tag == 'BP':
+                        ticket = Ticket(env)
+                        fields = {}
+                        fields['status'] = 'new'
+                        fields['summary'] = 'Backport changes in r%s to maintenance branch' % revision
+                        fields['reporter'] = author
+                        fields['owner'] = author
+                        fields['milestone'] = maint_milestone
+                        fields['description'] = 'The changes made in revision r%s with the following log message need to be backported: %s' % (revision, parts[1])
+                        ticket.populate(fields)
+                        ticket.insert()
+	else:
+            print >> sys.stderr, "No tags in the commit message"
+            sys.exit(1)
+
+    sys.exit(0)
+
+if __name__ == '__main__':
+    main()

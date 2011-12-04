@@ -1,0 +1,87 @@
+#!/bin/sh
+
+# Script to create po files for an specific module
+# It is required a target-dir where the module lays on with 
+# a po subdirectory and LINGUAS file
+# Usage: populate-po target-dir
+# Kopyleft (K) 2007 by Warp Networks
+# All rights reversed
+
+PO_SUBDIR=po
+LINGUAS_FILE=LINGUAS
+
+readonly PO_SUBDIR LINGUAS_FILE
+
+usage() {
+
+    echo "Usage: $0 [-h] target-dir"
+    echo "Where target-dir : directory which contains a module with the po subdirectory"
+    echo "              -h : Show this message"
+    
+}
+
+while getopts "h" opt
+  do
+  case $opt in
+      h)
+	  usage
+	  exit 1
+	  ;;
+      *)
+	  usage
+	  exit 1
+	  ;;
+  esac
+
+done
+
+shift $(($OPTIND - 1))
+
+# Checking a target-dir is passed
+if [ $# -ne 1 ]; then
+    echo "A target directory should be passed"
+    usage
+    exit 2
+fi
+
+targetDir=$1
+
+# Check target directory exists
+if [ ! -d "$targetDir" ]; then
+    echo "$targetDir no such directory"
+    exit 3
+# Check the po subdirectory exists
+elif [ ! -d "${targetDir}/$PO_SUBDIR" ]; then
+    echo "${targetDir}/$PO_SUBDIR no such subdirectory"
+    exit 4
+# Check the LINGUAS file exists
+elif [ ! -f "${targetDir}/${PO_SUBDIR}/$LINGUAS_FILE" ]; then
+    echo "${targetDir}/${PO_SUBDIR}/$LINGUAS_FILE no such file"
+    exit 5
+fi
+
+cd $targetDir
+
+# Get linguas to generate po
+linguas=$(cat ${PO_SUBDIR}/$LINGUAS_FILE)
+
+for locale in $linguas
+  do
+
+  echo "Creating $locale locate for $(basename $targetDir) eBox module"
+  packageName=ebox-$(basename $targetDir)
+
+  msginit --input=$(ls ${PO_SUBDIR}/*.pot) \
+      --locale=$locale --output=${PO_SUBDIR}/${locale}.po \
+      --no-translator
+
+  # Get version from configure.ac
+  version=$(perl -ne 'if (m/^AC_INIT.*, *\[(.*)\]\)/ ) { print $1; }' configure.ac)
+  # Put version and package name in po file
+  # And charset to UTF-8
+  sed -i -e "s/^\"Project-Id-Version:.*$/\"Project-Id-Version: $packageName $version\\\n\"/" \
+      -e 's/charset=.*\\/charset=UTF-8\\/' ${PO_SUBDIR}/${locale}.po
+
+done
+
+echo "Done."

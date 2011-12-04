@@ -1,0 +1,55 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+    echo "Usage: $0 <branch> [rev]"
+    echo
+    echo "Example:"
+    echo "~/trunk/main/network\$ zentyal-merge-module 2.0 20123"
+    echo
+    exit 1
+fi
+
+branch=$1
+
+if [ -n "$2" ]
+then
+    rev=$2
+    arg="-c $rev"
+fi
+
+module=$(basename `pwd`)
+
+if [ "$branch" = "2.0" ]
+then
+    if [ "$module" = "core" ]
+    then
+        path=client/ebox
+    elif [ "$module" = "common" ]
+    then
+        path=common/libebox
+    elif [ "$module" = "users" ]
+    then
+        path=client/usersandgroups
+    else
+        path=client/$module
+    fi
+else
+    # This asumes that the branch is a copy of main, not of trunk
+    # in case the branch is a copy of trunk, add /main to the branch argument
+    path=$module
+fi
+
+if ! svn merge $arg https://svn.zentyal.org/zentyal/branches/$branch/$path
+then
+    echo "merge failed"
+    exit 1
+fi
+
+echo -e "\nPress return to see the diff..."
+read
+svn diff | less
+
+echo -e "\nCopy and paste:\n"
+echo svn ci -m "'NN: merge r$rev from branches/$branch'"
+echo

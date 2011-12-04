@@ -1,0 +1,19 @@
+#!/bin/sh
+
+ROOT_DIR=`pwd`
+for i in common/libebox $(ls client | grep -v l7-protocols | sed 's/^/client\//')
+do
+    cd $ROOT_DIR/$i
+    bash autogen.sh
+    ./configure --disable-runtime-tests
+    cd po
+    make update-po
+    if [ $? != 0 ]
+    then
+        echo "Error updating po files for package $i"
+        exit 1
+    fi
+    cd ..
+    make maintainer-clean
+    rm -r $ROOT_DIR/$i/config
+done
