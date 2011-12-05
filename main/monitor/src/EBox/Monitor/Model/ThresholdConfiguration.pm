@@ -113,7 +113,7 @@ sub viewCustomizer
          link  => '/Monitor/View/MeasureWatchers',
         },
         {
-         title => __('Threshold Configuration'),
+         title => $custom->model()->parentRow()->printableValueByName('measure'),
          link  => '',
         }
        ]);
