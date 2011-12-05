@@ -98,8 +98,12 @@ sub QueryInterval
 #
 sub RRDBaseDirPath
 {
+    my ($hostname) = @_;
+    defined $hostname or
+        $hostname = hostname();
+
     my $baseDir = RRD_BASE_DIR;
-    my $firstAttempt = $baseDir . hostname() . '/';
+    my $firstAttempt = $baseDir . $hostname . '/';
     if ( -d $firstAttempt ) {
         return $firstAttempt;
     } else {

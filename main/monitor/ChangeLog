@@ -1,3 +1,5 @@
+HEAD
+	+ Updated RRD directory path when hostname is changed
 2.2.1
 	+ Bugfix: Use stringify instead of error when an error in retrieving all
 	  measures data happened

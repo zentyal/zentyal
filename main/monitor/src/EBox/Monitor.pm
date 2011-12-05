@@ -543,6 +543,28 @@ sub _setMainConf
     my $hostname       = hostname();
     my @networkServers = ();
 
+    my $oldHostname = $self->get_string('old_hostname');
+    if (not $oldHostname) {
+        unless ($self->{ro}) {
+            $self->set_string('old_hostname', $hostname);
+        }
+    } elsif ($oldHostname ne $hostname) {
+        my $oldPath = EBox::Monitor::Configuration::RRDBaseDirPath($oldHostname);
+        my $newPath = EBox::Monitor::Configuration::RRDBaseDirPath($hostname);
+        if (($oldPath ne $newPath) and EBox::Sudo::fileTest('-e', $oldPath)) {
+            if (not EBox::Sudo::fileTest('-e', $newPath)) {
+                $oldPath =~ s{/$}{};
+                $newPath =~ s{/$}{};
+                EBox::Sudo::root("mv '$oldPath' '$newPath'");
+            } else {
+                EBox::error("Found orphan RRD directory: $oldPath");
+            }
+        }
+        unless ($self->{ro}) {
+            $self->set_string('old_hostname', $hostname);
+        }
+    }
+
     # Send stats to Zentyal Cloud with the server name if the host is subscribed
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
@@ -659,7 +681,6 @@ sub _setThresholdConf
                              (thresholds => \%thresholds),
                             ]
                         );
-
 }
 
 # Link to RRDs subscribed hostname to the real one created if Zentyal is
@@ -679,8 +700,9 @@ sub _linkRRDs
 
     if ( $subscribedHostname ) {
         my $subDirPath = "$parentPath/$subscribedHostname";
+        # -e will fail if it is a sym link, we want this
         if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
-            EBox::Sudo::root("ln -s $rrdBaseDirPath $subDirPath");
+            EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
         } # else, collectd creates the directory
     } else {
         opendir(my $dh, $parentPath);
@@ -691,7 +713,6 @@ sub _linkRRDs
         }
         closedir($dh);
     }
-
 }
 
 # Check if there is threshold configuration and it is enabled or not
@@ -705,7 +726,6 @@ sub _thresholdConfigured
     } else {
         return 0;
     }
-
 }
 
 # Return those mount points which are good to monitor
@@ -745,6 +765,5 @@ sub _registerRuntimeMeasures
         }
     }
 }
-
 
 1;
