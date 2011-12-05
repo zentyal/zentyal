@@ -114,7 +114,7 @@ sub validateTypedRow
     my $secret = exists $changedFields->{secret} ?
                         $changedFields->{secret}->value() :
                         $allFields->{secret}->value();
-    if (length($secret) < 16) {
+    if (length($secret) != 16) {
         throw EBox::Exceptions::External(__('The secret key needs to have 16 characters.'));
     }
 }

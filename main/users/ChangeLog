@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: do not allow adsync passwords longer than 16 chars to avoid
+	  crash in pwdsync-server that keeps respawning
 	+ Bugfix: mark apache as changed in enableActions to avoid problems adding
 	  users before the new nsswitch conf is available for apache, also do not
 	  allow to add users if module is not really enabled after save changes
