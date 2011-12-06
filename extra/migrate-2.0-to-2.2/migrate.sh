@@ -78,7 +78,7 @@ RS_PRERM=/var/lib/dpkg/info/ebox-remoteservices.prerm
 retry "apt-get remove libebox -y --force-yes"
 
 # kill processes belonging to ebox user
-for i in ad-pwdsync apache2-user redis-usercorner runnerd apache-perl redis
+for i in ad-pwdsync apache2-user redis-usercorner runnerd apache-perl redis learnspamd
 do
     stop ebox.$i || true
 done
