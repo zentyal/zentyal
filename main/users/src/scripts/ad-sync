@@ -35,6 +35,7 @@ use constant IGNORED_USERS  => EBox::Config::etc() . 'ad-sync_ignore.users';
 use constant IGNORED_GROUPS => EBox::Config::etc() . 'ad-sync_ignore.groups';
 use constant LOCK_NAME      => 'zentyal-adsync';
 use constant MAX_LDAP_PAGES => 1000;
+use constant  MAX_LDAP_ATTRIBUTE_VALUES => 1500;
 
 EBox::init();
 EBox::debug("ad-sync started");
@@ -471,12 +472,36 @@ sub groupsAD
             my $desc = $entry->get_value('description');
             my $mail = $entry->get_value('mail');
             
-            $args{filter} = "(&(objectclass=group)(cn=$cn))";
-            $args{attrs} = ['member'];
-            my $membResult = $ldapAD->search(%args);
             my @members;
-            foreach my $res ($membResult->sorted('member')) {
-                push (@members, $res->get_value('member'));
+            # get members
+            my $startRange = 0;
+            my $increment  = MAX_LDAP_ATTRIBUTE_VALUES - 1;
+            $args{filter} = "(&(objectclass=group)(cn=$cn))";
+
+            my $membersLeft = 1;
+            while ($membersLeft) {
+                my $endRange = $startRange + $increment;
+                my $memberAttr = "member;range=$startRange-$endRange";
+                $args{attrs} = [ $memberAttr ];
+
+                my $membResult = $ldapAD->search(%args);
+                if ($membResult->count() == 0) {
+                    last;
+                }
+
+                foreach my $entry ($membResult->entries()) {
+                    # we should fetch the attr name because if it is the last
+                    # the endRange will breplaced with '*'
+                    my ($resultMemberAttr) = $entry->attributes();
+                    if (defined $resultMemberAttr) {
+                        $membersLeft =  not ($resultMemberAttr =~ m/\*$/);
+                        push @members, $entry->get_value($resultMemberAttr);
+                      } else {
+                          $membersLeft = 0;
+                     }
+                }
+
+                $startRange = $endRange + 1;
             }
 
             my $info = {
