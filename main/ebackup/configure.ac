@@ -52,6 +52,8 @@ src/EBox/Event/Makefile
 src/EBox/Event/Watcher/Makefile
 src/EBox/Model/Makefile
 src/EBox/Composite/Makefile
+src/EBox/Exceptions/Makefile
+src/EBox/Exceptions/EBackup/Makefile
 schemas/Makefile
 schemas/sql/Makefile
 schemas/urls/Makefile

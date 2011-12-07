@@ -25,10 +25,12 @@ use EBox::EBackup::Password;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::EBackup::BadSymmetricKey;
 use Error qw(:try);
 use File::Slurp;
 use Perl6::Junction qw(none);
 use YAML::XS;
+use Date::Calc qw( Add_Delta_DHMS);
 
 use constant FINGERPRINT_FILE => EBox::Config::share() . 'zentyal-ebackup/server-fingerprints';
 
@@ -285,11 +287,19 @@ sub writeDRMetadata
 
 
     my $encryptionType = configuredEncryptionMode();
-    my $filename = metaFilenameFromDate($date);
+    my $commonName = $credentials->{commonName};
+    my $filename = metaFilename($commonName, $date);
 
     my @modsInBackup =  map {
         $_->name()
     } @{ EBox::Backup->_modInstancesForBackup() };
+
+    my $hostname;
+    try {
+        my $output = EBox::Sudo::command('hostname');
+        $hostname = $output->[0];
+        chomp $hostname;
+    } otherwise {};
 
     my $metadata = {
         version => drDataVersion(),
@@ -299,6 +309,8 @@ sub writeDRMetadata
         backupType       => $backupType,
         backupDomains    => $backupDomains,
         eboxModules      => \@modsInBackup,
+        hostname         => $hostname,
+        commonName       => $commonName,
     };
 
     my $yaml = {};
@@ -349,6 +361,15 @@ sub downloadConfigurationBackup
     my ($credentials, $date, $dst) = @_;
 
     my $remotePath = _configurationBackupRemotePath($credentials, $date);
+    if (not _existsFileInCloud($credentials, $remotePath)) {
+        $remotePath = _oldConfigurationBackupRemotePath($credentials, $date);
+        if (not _existsFileInCloud($credentials, $remotePath)) {
+            throw EBox::Exceptions::External(
+                __('Cannot found conifguration backup in cloud')
+               );
+        }
+    }
+
     _downloadFileFromCloud($credentials, $remotePath, $dst);
     EBox::Sudo::root("chown ebox.ebox $dst");
 
@@ -375,6 +396,17 @@ sub downloadConfigurationBackup
 sub _configurationBackupRemotePath
 {
     my ($credentials, $date) = @_;
+    my $cn = $credentials->{commonName};
+    my $gmtDate = _dateToGMT($date);
+    my $path = $credentials->{confBackupDir};
+    $path .= "/$cn-conf-" . $gmtDate .  '.tar';
+    return $path;
+}
+
+sub _oldConfigurationBackupRemotePath
+
+{
+    my ($credentials, $date) = @_;
     $date =~ s/\s/-/g;
     my $path = $credentials->{confBackupDir};
     $path .= '/conf-' . $date .  '.tar';
@@ -391,16 +423,43 @@ sub _callGPG
     my $gpgDir = EBox::Config::home() . '.gnupg';
     EBox::Sudo::root("chown -R ebox.ebox $gpgDir");
 
-    my $gpg = "gpg --passphrase-fd 0 --no-tty $gpgArgs";
+    my $statusFile = EBox::Config::tmp() . 'gpgStatus';
+    EBox::Sudo::root("rm -f $statusFile");
+
+    my $gpg = "gpg --passphrase-fd 0 --no-tty --status-file $statusFile $gpgArgs";
     open my $GPG_PROC, "|$gpg" or
         throw EBox::Exceptions::Internal("Error opening process $gpg");
     print $GPG_PROC "$pass/n" or
         throw EBox::Exceptions::Internal("Error piping to process $gpg");
-    close $GPG_PROC or
-        throw EBox::Exceptions::Internal("Error closing process $gpg");
-
+    if (not close $GPG_PROC) {
+        if (not $!) {
+            my $exitValue = $?;
+            my $status = File::Slurp::read_file($statusFile);
+            print $status;
+            print "\n";
+            if ($status =~ m/^\[GNUPG:\]\s+DECRYPTION_FAILED/m) {
+                throw EBox::Exceptions::EBackup::BadSymmetricKey();
+            } else {
+                throw EBox::Exceptions::External("GPG failed. Exit code $exitValue");
+            }
+        }else {
+            throw EBox::Exceptions::Internal("Error closing process $gpg: $!");
+        }
+    }
 }
 
+
+sub _existsFileInCloud
+{
+    my ($credentials, $path) = @_;
+
+    if ($path =~ m/[\s'"]/) {
+        throw EBox::Exceptions::Internal("this method could not beused with paths with spaces or quotes: $path");
+    }
+    my $cmd = _sshpassCommandAsString($credentials, "ls $path");
+    EBox::Sudo::silentRoot($cmd);
+    return $? == 0;
+}
 
 sub _uploadFileToCloud
 {
@@ -431,20 +490,90 @@ sub _downloadFileFromCloud
 sub downloadDRMetadata
 {
     my ($credentials, $date, $dir) = @_;
-    my $filename = metaFilenameFromDate($date);
-    my $fromPath = _metadataDir($credentials) . '/' . $filename;
+    my $cn          = $credentials->{commonName};
+    my $metadataDir =  _metadataDir($credentials);
+
+    my $filename = metaFilename($cn, $date);
+    my $fromPath = $metadataDir . '/' . $filename;
+    if (not _existsFileInCloud($credentials, $fromPath)) {
+        $filename = _oldMetaFilenameFromDate($date);
+        $fromPath = $metadataDir . '/' . $filename;
+        if (not _existsFileInCloud($credentials, $fromPath)) {
+            throw EBox::Exceptions::External(
+                __x('Cannot find metadata for backup date {date} in cloud',
+                    date => $date
+                   )
+               );
+        }
+
+    }
+
     my $toPath = "$dir/$filename";
     _downloadFileFromCloud($credentials, $fromPath, $toPath);
+    return $toPath;
 }
 
-# Method: metaFilenameFromDate
+my %nmonthByName = (
+    'Jan' => 1,
+    'Feb' => 2,
+    'Mar' => 3,
+    'Apr' => 4,
+    'May' => 5,
+    'Jun' => 6,
+    'Jul' => 7,
+    'Aug' => 8,
+    'Sep' => 9,
+    'Oct' => 10,
+    'Nov' => 11,
+    'Dec' => 12,
+   );
+
+# Method: metaFilename
 # Parameters:
+#  cn   - server common name
 #  date - date of the backup in the same format which is used by duplicity
 #
 # Returns: path of the file which contains the matainformation for the backup in
 #    the given date
 #
-sub metaFilenameFromDate
+sub metaFilename
+{
+    my ($cn, $date) = @_;
+
+    my $filename = "$cn-";
+    $filename .= _dateToGMT($date);
+    $filename .= '.backup.yaml';
+    return $filename;
+}
+
+sub _dateToGMT
+{
+    my ($date) = @_;
+
+    my $timezone = `date +%z`;
+    my ($tzSign, $tzHour, $tzMin) = $timezone =~m/^([+-])(\d\d)(\d\d)/;
+    if ($tzSign eq '+') {
+        $tzHour = - $tzHour;
+        $tzMin = - $tzMin;
+    }
+
+    # date are like this: 'Fri Oct 14 23:01:51 2011'
+    my @parts = split '\s+', $date;
+    my ($wday, $month, $day, $time, $year) = split '\s', $date;
+    my $nmonth = $nmonthByName{$month};
+    $nmonth or $nmonth = $month;
+    my ($hour, $min, $sec) = split ':', $time;
+
+    # calc GMT
+    ($year,$nmonth,$day, $hour,$min,$sec) =
+        Add_Delta_DHMS($year,$nmonth,$day, $hour,$min,$sec, 0,$tzHour,$tzMin,0);
+
+    my $gmt = "$year-$nmonth-$day";
+    $gmt .= "T$hour:$min:$sec" . 'Z';
+    return $gmt;
+}
+
+sub _oldMetaFilenameFromDate
 {
     my ($date) = @_;
     my $filename = $date;
@@ -533,7 +662,7 @@ sub deleteOrphanMetadata
         chomp($line);
     }
 
-    my @collectionMD = map { metaFilenameFromDate($_->{date}) } @{$collectionStatus};
+    my @collectionMD = map { metaFilename($credentials->{commonName}, $_->{date}) } @{$collectionStatus};
 
     my @filesToDelete = grep { $_ ne none(@collectionMD) } @{$ret};
 

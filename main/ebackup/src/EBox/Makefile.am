@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox
 
-SUBDIRS = EBackup Model Composite Event
+SUBDIRS = EBackup Model Composite Event Exceptions
 
 nobase_perl_DATA = EBackup.pm
 

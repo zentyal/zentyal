@@ -292,7 +292,7 @@ sub _cleanup
 #
 sub _performBackup
 {
-    my ($backupCmd) = @_;
+    my ($ebackup, $backupCmd) = @_;
 
     my $ebackupConfKeys = EBox::Config::configKeysFromFile(EBACKUP_CONF);
     my $nTries   = $ebackupConfKeys->{n_tries};
@@ -308,7 +308,25 @@ sub _performBackup
         $factor = 1;
     }
 
-    my ($success, $errorMsg, $successMsg) = (0, '', '');
+    my ($success, $successMsg, $errorMsg) = (0, '', '');
+
+    my $preHookError;
+    try {
+        $ebackup->preBackupHook();
+    } catch  EBox::Exceptions::Sudo::Command with {
+        my $ex = shift @_;
+        my @error = @{  $ex->error() };
+        $preHookError = "@error";
+    } otherwise {
+        my $ex = @_;
+        $preHookError = "$ex";
+    };
+    if ($preHookError) {
+        $success = 0;
+        $errorMsg = __x('Error running pre backup hook {err}',
+                        err => $preHookError); 
+        return ($success, $successMsg, $errorMsg);
+    }
 
     foreach my $try ( 1 .. $nTries ) {
         try {
@@ -340,6 +358,24 @@ sub _performBackup
             $errorMsg = __('Cannot contact to the backup server. Check your '
                            . 'Internet connection prior to perform the backup');
         }
+    }
+
+    my $postHookError;
+    try {
+        $ebackup->postBackupHook();
+    } catch  EBox::Exceptions::Sudo::Command with {
+        my $ex = shift @_;
+        my @error = @{  $ex->error() };
+        $postHookError = "@error";
+    } otherwise {
+        my $ex = @_;
+        $postHookError = "$ex";
+    };
+
+    if ($postHookError) {
+        $success = 0;
+        $errorMsg = __x('Error running post backup hook {err}',
+                        err => $postHookError);        
     }
 
     return ($success, $successMsg, $errorMsg);
@@ -488,7 +524,7 @@ try {
     };
 
     my $backupCmd = backupCmd($ebackup, $type, $usingCloud);
-    ($success, $successMsg, $errorMsg) = _performBackup($backupCmd);
+    ($success, $successMsg, $errorMsg) = _performBackup($ebackup, $backupCmd);
 
     if ( $success and $usingCloud) {
         _afterSuccessCloudActions(ebackup => $ebackup,

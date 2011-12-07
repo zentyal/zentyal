@@ -48,6 +48,8 @@ use Fcntl qw(:flock);
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::EBackup::FileNotFoundInBackup;
+use EBox::Exceptions::EBackup::BadSymmetricKey;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
@@ -133,6 +135,17 @@ sub addModuleStatus
         nobutton      => 1));
 }
 
+sub preBackupHook
+{
+    my ($self) = @_;
+    $self->_hook('prebackup');
+}
+
+sub postBackupHook
+{
+    my ($self) = @_;
+    $self->_hook('postbackup');
+}
 
 # Method: restoreFile
 #
@@ -223,13 +236,12 @@ sub restoreFile
         my $ex = shift;
         my $error = join "\n", @{ $ex->error() };
         if ($error =~ m/not found in archive, no files restored/) {
-            throw EBox::Exceptions::External(
-                __x(
-                    'File {f} not found in backup for {d}, try a later date',
-                    f => $file,
-                    d => $date,
-                   )
+            throw EBox::Exceptions::EBackup::FileNotFoundInBackup(
+                    file => $file,
+                    date => $date,
                );
+        } elsif ($error =~ m/gpg: decryption failed: bad key/) {
+            throw EBox::Exceptions::EBackup::BadSymmetricKey();
         } elsif ($error =~ m/No backup chains found/) {
             throw EBox::Exceptions::External(
                 __(q{No backup archives found. Maybe they were deleted?.} .
@@ -640,8 +652,13 @@ sub remoteListFileArguments
 sub remoteGenerateListFile
 {
     my ($self) = @_;
-    my $collectionCmd = $self->remoteListFileArguments();
     my $tmpFile = $self->tmpFileList();
+    if (not $self->configurationIsComplete()) {
+        EBox::Sudo::root("rm -f $tmpFile");
+        return;
+    }
+
+    my $collectionCmd = $self->remoteListFileArguments();
 
     my $success = 0;
     try {
@@ -777,7 +794,9 @@ sub _retrieveRemoteStatus
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift;
         my $error = join "\n", @{  $ex->error() };
-        if ($error =~ m/No signature chains found/) {
+        if ($error =~ m/gpg: decryption failed: bad key/) {
+            throw EBox::Exceptions::EBackup::BadSymmetricKey();
+        }elsif ($error =~ m/No signature chains found/) {
             $status = '';
         }
     };
@@ -1216,10 +1235,6 @@ __x('Could not unsubscribe because the backup module is configured to use the Ze
 sub configurationIsComplete
 {
     my ($self) = @_;
-
-    if (EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
-        return 1;
-    }
 
     my $model = $self->model('RemoteSettings');
     return $model->configurationIsComplete();

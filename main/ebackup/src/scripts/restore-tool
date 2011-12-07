@@ -30,6 +30,8 @@ use EBox::RemoteServices::ProxyBackup;
 use EBox::ServiceManager;
 use EBox::Sudo;
 use EBox::Exceptions::Command;
+use EBox::Exceptions::EBackup::FileNotFoundInBackup;
+use EBox::Exceptions::EBackup::BadSymmetricKey;
 use Error qw(:try);
 use Getopt::Long;
 use POSIX 'setsid';
@@ -41,6 +43,7 @@ use YAML::XS;
 use File::Basename;
 
 use constant NTP_SERVER     => 'pool.ntp.org';
+use constant CHANGE_HOSTNAME_SCRIPT => '/usr/share/zentyal/change-hostname';
 
 my $usesX = 1; # flag to signal whether graphical environment is available
 
@@ -49,11 +52,15 @@ my $usage = 0;
 my ($user, $password, $serverCN);
 my $restoreLast = 0;
 my @toRestoreCli = ();
+my $restoreAllDomains;
 my $noEncryption;
 my $symmetricPassword = undef;
 my $encryptKey = undef;
 my $keyPassphrase;
+my %forceCredentials = (username => undef, password => undef, server => undef, noCloudLogin => undef   );
 my $error = 0;
+my %filesMD5;
+my @pendingMessages;
 
 parseArgs();
 
@@ -74,8 +81,10 @@ try {
     createTmpDir();
     modPreConditions();
     setSystemDate();
+    # Stop any interrupting process
+    _stopInterruptingProcesses();
 
-    my $basicInfo = getUserAndPasswordAndServers($user, $password);
+    my $basicInfo = getUserAndPasswordAndServers($user, $password, \%forceCredentials);
     my $credentials;
     my $date;
 
@@ -84,6 +93,7 @@ try {
                                       $basicInfo->{password},
                                       $basicInfo->{servers},
                                       $serverCN,
+                                      \%forceCredentials
                                      );
 
         unless ( $credentials->{type} eq 'basic' ) {
@@ -112,8 +122,8 @@ try {
         }
 
         unless ( $credentials->{type} eq 'basic' ) {
-            _downloadBackupMetadata($credentials, $date);
-            $metadata = metadata($date);
+            my $metadataPath = _downloadBackupMetadata($credentials, $date);
+            $metadata = readMetadataFile($metadataPath);
 
             unless ( $metadata->{hasConfiguration} ) {
                 my $msg = __('There is not configuration backup from this date. '
@@ -130,14 +140,15 @@ try {
 
     my $toRestore = getBackupDomainsToRestore($credentials,
                                               $metadata,
+                                              $restoreAllDomains,
                                               \@toRestoreCli);
     _logStartProcess($credentials, $date, $toRestore);
-    # Stop any interrupting process
-    _stopInterruptingProcesses();
 
     my $configBackup = _getConfigBackup($credentials, $metadata, $date);
 
     _installMissingModules($configBackup);
+
+    takeFilesMD5();
 
     doRestore(credentials => $credentials,
               toRestore   => $toRestore,
@@ -150,7 +161,7 @@ try {
 
     regenerateCaches();
 
-    finishedMessage($credentials);
+    finishedMessages($credentials, $metadata);
     clearTmpDir(); # Comment this for debug purposes
 } otherwise {
     my $ex = shift @_;
@@ -170,6 +181,7 @@ sub parseArgs
             'password=s' => \$password,
             'server-cn=s'   => \$serverCN,
             'backup-domain=s' => \@toRestoreCli,
+            'restore-all-domains' => \$restoreAllDomains,
             'x|gui!' => \$usesX,
             'last-date!' => \$restoreLast,
             'symmetric-password=s' => \$symmetricPassword,
@@ -177,6 +189,11 @@ sub parseArgs
             #'encryption-key=s'  => \$encryptKey,
             #'key-passphrase=s'   => \$keyPassphrase,
             'no-encryption+'     => \$noEncryption,
+            'force-username=s'  => \$forceCredentials{username},
+            'force-password=s'  => \$forceCredentials{password},
+            'force-server=s'  => \$forceCredentials{server},
+            'force-no-cloud-login' => \$forceCredentials{noCloudLogin},
+            'force-type=s'           => \$forceCredentials{type},
             );
 
     if ($usage or (not $correct)) {
@@ -188,6 +205,13 @@ sub parseArgs
         die __x('You can only specify one of the encryption options: {sy}, {no}',
                 sy  => '--symmetric-password',
                 no  => '--no-encryption');
+    }
+
+    if (defined $forceCredentials{type}) {
+        my $type = $forceCredentials{type};
+        if (($type ne 'basic') and ($type ne 'subscribed')) {
+            die __(q{--force-type should have as argument either 'basic' or 'subscribed'});
+        }
     }
 
     if ($noEncryption) {
@@ -208,10 +232,11 @@ sub zenityPrecondition
 
 sub usage
 {
-    print "restore-tool  [--user=username] [--password=password] [--server=serverCommonName] [--last-date]\n";
+    print "restore-tool  [--user=username] [--password=password] [--server=serverCommonName] [--last-date] [--restore-all]\n";
     print "              [--backup-domain=domain1] [--backup-domain=domain2]  ... \n";
     print "              [--no-encryption|--symmetric-password=PASSWORD]\n";
     print "              [--no-x]\n";
+    print "              [--force-username=username] [--force-password=password] [--force-server=server] [--force-type=basic|subscribed] [--force-no-cloud-login]\n";
     print "\n";
     print "\t --user=USERNAME        \t ";
     print __("User for the authentication") . "\n";
@@ -223,12 +248,20 @@ sub usage
     print __("Server from which its backup date the restore will be done") . "\n";
     print "\t --last-date            \t ";
     print __("Use the last backup done for the restore")  . "\n";
+    print "\t --restore-all            \t ";
+    print __("Restore all backup domains available")  . "\n";
     print "\t --backup-domain=DOMAIN \t ";
     print __("Backup domain to restore. It could be repeated several times") . "\n";
     print "\t--no-encryption|--symmetric-password=PASSWORD\n";
     print __('Check if we use the no encryption or a symmetric encryption with password '), "\n";
     print "\t --no-x                 \t ";
     print __("Do not use graphical interface") . "\n";
+    print "\t --force-username       \n"; 
+    print "\t --force-password       \n"; 
+    print "\t --force-server         \n "; 
+    print "\t --force-no-cloud-login \n "; 
+    print "\t --force-type           \t "; 
+    print __("Change parameters used to access the storage server") . "\n";
 
     exit 0;
 }
@@ -271,7 +304,7 @@ sub setSystemDate
     try {
         EBox::Sudo::root($cmd);
     } otherwise {
-        warning(__('Could not automatically update system hour. Some restoration operations could fail if the date is not correct'));
+        warning(__('Could not automatically update system date and hour. If the system time is not correct, some restore operations could fail'));
     };
 }
 
@@ -411,8 +444,48 @@ sub backupCredentials
 {
     my %params = @_;
     my $remoteServices = delete $params{remoteServices};
+    my $force          = delete $params{force};
     my $credentials;
 
+    unless ($force->{noCloudLogin}) {
+        $credentials = _credentialsFromCloud($remoteServices, %params);
+    } else {
+        $credentials = {};
+    }
+
+    if (not defined $credentials) {
+        $credentials = {
+            username => $params{username},
+            password => $params{password},
+            method   => 'scp',
+            type     => 'basic',
+        };
+    } else {
+        $credentials->{type} = 'subscribed';
+    }
+
+    foreach my $cred (qw(username password server type)) {
+        if ($force->{$cred}) {
+            $credentials->{$cred} = $force->{$cred};
+        }
+    }
+
+    $credentials->{commonName} = $params{serverCN};
+
+    $credentials->{confBackupDir} = EBox::EBackup::Subscribed::confBackupDir($credentials->{commonName});
+
+    if (not exists $credentials->{method}) {
+        $credentials->{method} = 'scp';
+    }
+
+    return $credentials;
+}
+
+sub _credentialsFromCloud
+{
+    my ($remoteServices, %params) = @_;
+
+    my $credentials;
     my $msg = __('Retrieving account information');
     my $pulsatePid = _showUnanticipatedProgress($msg);
 
@@ -430,28 +503,8 @@ sub backupCredentials
         _finishUnanticipatedProgress($pulsatePid);
     };
 
-    if (not defined $credentials) {
-        $credentials = {
-            username => $params{username},
-            password => $params{password},
-            method   => 'scp',
-            type     => 'basic',
-        };
-    } else {
-        $credentials->{type} = 'subscribed';
-    }
-
-    $credentials->{commonName} = $params{serverCN};
-
-    $credentials->{confBackupDir} = EBox::EBackup::Subscribed::confBackupDir($credentials->{commonName});
-
-    if (not exists $credentials->{method}) {
-        $credentials->{method} = 'scp';
-    }
-
     return $credentials;
 }
-
 
 sub addEncryptionToCredentials
 {
@@ -502,9 +555,13 @@ sub doRestore
     my %params = @_;
 
     my $configBackup = $params{configBackup};
-    my $credentials = $params{credentials};
-    my $date        = $params{date};
-    my %toRestore = %{ $params{toRestore} };
+    my $credentials  = $params{credentials};
+    my $date         = $params{date};
+    my $metadata     = $params{metadata};
+    my %toRestore    = %{ $params{toRestore} };
+
+    # set hostname before restorign anything
+    setHostname($metadata);
 
     my $restoreConfig = delete $toRestore{configuration};
     if ($restoreConfig) {
@@ -592,18 +649,71 @@ sub _restoreAllFiles
     my ($ebackup, $date) = @_;
     my $srcDir = filesTmpDir();
 
+   # files and dirs that shouldnt be restored
+    my @notRestoreFiles = (
+        $0, # this  file itself
+
+        '/boot',
+        '/proc',
+        '/dev',
+        '/sys',
+        '/lib',
+        '/media',
+        '/mnt',
+        '/cdrom',
+        '/floppy',
+        # perl and zentyal modules
+        '/usr/bin/perl',
+        '/usr/share/perl*',
+        '/usr/share/zentyal*',
+        # zentyal home
+        EBox::Config::home(),
+        # zentyal /etc (restored in configuration restore)
+        EBox::Config::etc(),
+        # zenity
+        '/usr/bin/zenity',
+        # lib directory
+        '/usr/lib',
+        # sudo zentyal file
+        '/etc/sudoers.d/ebox',
+        # extra backup data dir is of no use
+        $ebackup->extraDataDir(),
+    );
+
+    # no wildcards will be expanded in @renameFiles
+    my @renameFiles = (
+        '/var/log',
+    );
+
     my $msg = __('Restoring all backed-up files');
     my $pulsatePid = _showUnanticipatedProgress($msg);
 
     # regular files in / are not restored anyway they should be links to
     # /boot that should not be touched
     try {
-        my %leftAloneDirs = (
-                             '/boot' => 1,
-                             '/proc' => 1,
-                             '/dev' => 1,
-                             '/sys' => 1,
-                            );
+        foreach my $file (@notRestoreFiles) {
+            $file = $srcDir . '/' . $file;
+            EBox::Sudo::silentRoot("ls $file");
+            if ($? == 0) {
+                EBox::info("This file(s) is in the backup but either  is not safe to automatically restore or is superfluous, skipping it: $file");
+                EBox::Sudo::root("rm -rf $file");
+            }
+        }
+
+        foreach my $file (@renameFiles) {
+            $file = $srcDir . '/' . $file;
+            EBox::Sudo::silentRoot("ls '$file'");
+            if ($? == 0) {
+                my $newName = $file . '.from-backup';
+                EBox::info("The file $file will be restored as $newName");
+                try {
+                    EBox::Sudo::root("mv -b '$file' '$newName'");
+                } otherwise {
+                 EBox::error("The file $file cannot be restored as $newName. We will skip it");
+                 EBox::Sudo::root("rm -rf $file");
+             };
+            }
+        }
 
         my @dirsInBackup = @{ EBox::Sudo::root("find $srcDir -type d -maxdepth 1") };
         foreach my $dir (@dirsInBackup) {
@@ -614,17 +724,8 @@ sub _restoreAllFiles
             }
 
             $toRestore =~ s{^/*$srcDir}{};
-
-            if (exists $leftAloneDirs{$toRestore} and $leftAloneDirs{$toRestore}) {
-                next;
-            }
-
             _restoreFile($dir, $toRestore);
         }
-
-        # remove extra data directory
-        my $extraDataDir = $ebackup->extraDataDir();
-        EBox::Sudo::root("rm -rf $extraDataDir");
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
     };
@@ -633,6 +734,8 @@ sub _restoreAllFiles
 sub _restoreFile
 {
     my ($src, $dst) = @_;
+
+    EBox::debug("About to try to restore $dst from $src");
     if (not EBox::Sudo::fileTest('-e', $src)) {
         EBox::error("Cannot restore $dst. Source path $src does not exists");
         return;
@@ -642,9 +745,11 @@ sub _restoreFile
     if (EBox::Sudo::fileTest('-e', $dst)) {
         if (EBox::Sudo::fileTest('-d' , $dst)) {
             if (not EBox::Sudo::fileTest('-d', $src)) {
-                error(__x('Could no restore {dst}, it already exists and it is not a directory',
-                      dst => $dst));
-                next;
+                error(__x('Could not restore {dst}, it already exists and it is not a directory',
+                          dst => $dst),
+                      noBlocking => 1,
+                     );
+                return;
             }
 
             $srcArg = "$src/*";
@@ -656,7 +761,8 @@ sub _restoreFile
             };
             if ($srcEmpty) {
                 # no files to copy to already existent directory..
-                next;
+                EBox::debug("No files to restore $dst; $src is empty");
+                return;
             }
         }
     }
@@ -675,11 +781,13 @@ sub _restoreFile
         EBox::Sudo::root($restoreCmd);
     } otherwise {
         my $ex = shift;
-        EBox::error("Restore file command failed $restoreCmd");
+        EBox::error("Restore file command failed $restoreCmd: $ex");
         error(__x(
-            'Error restoring file or directory {dst}',
-            dst => $dst
-           ));
+                 'Error restoring file or directory {dst}. We will try to continue the restore',
+                 dst => $dst,
+                ),
+              noBlocking => 1,
+             );
     };
 }
 
@@ -708,7 +816,7 @@ sub _restoreDirTree
                            d => $dstDir,
                            e => join '', @{ $ex->error }
                           );
-             warning($msg);
+             warning($msg, noBlocking => 1);
          };
      }
 }
@@ -724,7 +832,9 @@ sub _restoreLogs
 
 
     if (not  EBox::Sudo::fileTest('-r', $src) ) {
-        warning(__('Backup log data not found in the files from the backup, log database will not be restored'));
+        warning(__('Backup log data not found in the files from the backup, log database will not be restored'),
+                noBlocking => 1
+               );
         return;
     }
 
@@ -915,9 +1025,9 @@ sub _aptInstall
         my $msg;
 
         if ($errorMsg) {
-            my $msg = __x('Error installing packages: {err}. You can continue but you would not restore any data for the missing packages',
+            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration  whcih depends on the missing packages',
                           err => "\n$errorMsg\n");
-            error($msg);
+            error($msg, noBlocking => 1);
             return;
         } else {
             EBox::warn("Progress indicator for _aptInstall does not specify any error but has returned the following value: $retValue.");
@@ -1001,15 +1111,21 @@ sub _loadSubscriptionBundle
     }
 
     if ($res == 0) {
-        warning(__('Connection error when retrieving subscription bundle. Zentyal Cloud exclusive packages will not be installed'));
+        warning(__('Connection error when retrieving subscription bundle. Zentyal Cloud exclusive packages will not be installed'),
+                 noBlocking => 1
+                );
 
     } elsif ($res == 2) {
         warning(__('Cannot retrieve bundle because either installed ' .
                    'zentyal-remoteservices is outdated or only outdated ' .
                    'bundle is available in the cloud. Zentyal Cloud  ' .
-                   'exclusive packages will not be installed'));
+                   'exclusive packages will not be installed'),
+                noBlocking => 1,
+               );
     } else {
-        warning(__('Unknown error retrieving subscription bundle. Zentyal Cloud exclusive packages will not be installed'));
+        warning(__('Unknown error retrieving subscription bundle. Zentyal Cloud exclusive packages will not be installed'),
+                noBlocking => 1,
+               );
     }
 
     return 0;
@@ -1107,11 +1223,11 @@ sub _configureModules
             my $err = $ex->text();
             $module->setConfigured(0);
             $module->enableService(0);
-            my $msg = __x('Failed to configure module {name}: {err}. This could affect to the restore from other modules',
+            my $msg = __x('Failed to configure module {name}: {err}. This could affect to the restore of other modules',
                           name => $module->name(),
                           err  => $err,
                          );
-            warning($msg);
+            warning($msg, noBlocking => 1);
         };
 
         $mgr->updateModuleDigests($name); # in ConfigureModuleController this is
@@ -1145,11 +1261,14 @@ sub postRestoreConfigMangling
 # Stop any interrupting processes if required
 sub _stopInterruptingProcesses
 {
+    my @interruptingModules = qw(events openvpn);
     try {
-        my $gl = EBox::Global->getInstance();
-        if ( $gl->modExists('events') ) {
-            my $evts = $gl->modInstance('events');
-            $evts->stopService();
+        my $gl = EBox::Global->getInstance(1);
+        foreach my $mod (@interruptingModules) {
+            if ( $gl->modExists($mod) ) {
+                my $modInstance = $gl->modInstance($mod);
+                $modInstance->stopService();
+            }
         }
     } otherwise { };
 }
@@ -1343,15 +1462,17 @@ sub _downloadBackupData
     }
 }
 
-sub _downloadConfigurationBackup
+sub _downloadConfigurationBackupFromFilesArchive
 {
-    my ($credentials, $date, $file, $dst) = @_;
+    my ($credentials, $date, $file, $dst, $msg) = @_;
+
     my $basic = $credentials->{type} eq 'basic';
     if ($basic) {
         return;
     }
 
-    my $msg = __('Downloading the backup configuration');
+    $msg or
+        $msg = __('Downloading the backup configuration');
     my $urlParams = _remoteUrlParamsFromCredentials($credentials, 'data');
 
     _downloadDuplicityFiles($urlParams, $date, $file, $dst, $msg);
@@ -1362,17 +1483,26 @@ sub _downloadDuplicityFiles
 {
     my ($urlParams, $date, $src, $dstDir, $msg) = @_;
 
-    my $pulsatePid = _showUnanticipatedProgress($msg);
-    try {
-        my $ebackup = EBox::Global->getInstance()->modInstance('ebackup');
-        $ebackup->restoreFile($src, $date, $dstDir, $urlParams);
-    } otherwise {
-        my $ex = shift @_;
-        EBox::error("Error restoring file $src to $dstDir: $ex");
-        $ex->throw();
-    } finally {
-        _finishUnanticipatedProgress($pulsatePid);
-    };
+    EBox::info($msg);
+    EBox::info("Restoring $src to $dstDir ");
+
+    my $done = 0;
+    while (not $done) {
+        my $pulsatePid = _showUnanticipatedProgress($msg);
+        try {
+            my $ebackup = EBox::Global->getInstance()->modInstance('ebackup');
+            $ebackup->restoreFile($src, $date, $dstDir, $urlParams);
+            $done = 1;
+        } catch EBox::Exceptions::EBackup::BadSymmetricKey with {
+            _retrySymmKey($urlParams);            
+        }otherwise {
+            my $ex = shift @_;
+            EBox::error("Error restoring file $src to $dstDir: $ex");
+            $ex->throw();
+        } finally {
+            _finishUnanticipatedProgress($pulsatePid);
+        };
+    }
 }
 
 sub _fileFromBackup
@@ -1401,7 +1531,17 @@ sub _getConfigBackup
     }
 
     if ($metadata->{version} >= 2) {
-        my $bakFile = EBox::EBackup::Subscribed::downloadConfigurationBackup($credentials, $date, $dstFile);
+        my $bakFile;      
+        my $done = 0;
+        while (not $done) {
+            try {
+                $bakFile = EBox::EBackup::Subscribed::downloadConfigurationBackup($credentials, $date, $dstFile);
+                $done = 1;
+            } catch EBox::Exceptions::EBackup::BadSymmetricKey with {
+                _retrySymmKey(_remoteUrlParamsFromCredentials($credentials));
+            };
+        }
+
         if ($bakFile and (-e $bakFile)) {
             return $bakFile;
         } else {
@@ -1412,7 +1552,26 @@ sub _getConfigBackup
     # XXX version 1 compability and fallback. Remove in the future
     my $ebackup = EBox::Global->modInstance('ebackup');
     my $backupFile =  $ebackup->includedConfigBackupPath();
-    _downloadConfigurationBackup($credentials, $date, $backupFile, $dstFile);
+    try {
+        _downloadConfigurationBackupFromFilesArchive($credentials, $date, $backupFile, $dstFile);
+    } catch EBox::Exceptions::EBackup::FileNotFoundInBackup with {
+        my ($ex) = @_;
+        if ($ex->file() eq $backupFile ) {
+            # check if we are using a 2.0, trying to download a 2.0
+            # configuration fule
+            $backupFile =~ s/zentyal/ebox/g;
+            try {
+                _downloadConfigurationBackupFromFilesArchive($credentials, $date, $backupFile, $dstFile, __('Looking for a version 2.0.X backup'));
+                fatal("You are likely trying to restore a backup done in a version 2.0.X; please retry with a 2.0.X installer", 1);
+            } otherwise {
+                # backup conf for 2.0 not foud, throw original excpetion
+                $ex->throw(); 
+            };
+        } else {
+            $ex->throw(); # no fallback, we rethrow the exception
+        }
+    };    
+
     return $dstFile;
 }
 
@@ -1603,7 +1762,11 @@ sub createTmpDir
 
 sub _checkServerCN
 {
-    my ($serverCN, $servers) = @_;
+    my ($serverCN, $servers, $force_r) = @_;
+
+    if ($force_r->{noCloudLogin}) {
+        return;
+    }
 
     my $serverFound = grep { $serverCN eq $_ } @{ $servers };
 
@@ -2139,6 +2302,7 @@ sub _remoteUrlParamsFromCredentials
         encValue => $credentials->{encValue},
         encSelected => $credentials->{encSelected},
         alternativePassword => 1,
+        credentials => $credentials,
     );
 
     return \%params;
@@ -2191,7 +2355,8 @@ sub regenerateCaches
         $ebackup->remoteGenerateListFile();
     }  catch EBox::Exceptions::NotConnected with {
         warning(
-                __('Cannot connect to the Cloud to regenerate backup list. Please try again later.')
+                __('Cannot connect to the Cloud to regenerate backup list. Please try again later.'),
+                noBlocking => 1
                );
     } finally {
         _finishUnanticipatedProgress($pulsatePid);
@@ -2247,7 +2412,15 @@ sub progress
 
 sub getUserAndPasswordAndServers
 {
-    my ($user, $password) = @_;
+    my ($user, $password, $force_r) = @_;
+
+    if ($force_r->{noCloudLogin}) {
+        return {
+            user     => undef,
+            password => undef,
+            servers  => [],
+        };
+    }
 
     my $remoteServices = EBox::Global->modInstance('remoteservices');
     my $servers;
@@ -2262,9 +2435,9 @@ sub getUserAndPasswordAndServers
 
         try {
             $servers = serverList($remoteServices, $user, $password);
-        } otherwise {
+        } catch EBox::Exceptions::External with {
             my $ex = shift;
-            showException($ex);
+            error("$ex");
             $user = $password = '';
         };
     }
@@ -2284,13 +2457,12 @@ sub getUserAndPasswordAndServers
     };
 }
 
-
 sub getCredentials
 {
-    my ($user, $password, $servers, $serverCN, %params) = @_;
+    my ($user, $password, $servers, $serverCN, $force_r) = @_;
 
     if ($serverCN) {
-        _checkServerCN($serverCN, $servers);
+        _checkServerCN($serverCN, $servers, $force_r);
     } else {
         $serverCN = askServerCN($servers);
     }
@@ -2301,6 +2473,7 @@ sub getCredentials
                                         username       => $user,
                                         password       => $password,
                                         serverCN       => $serverCN,
+                                        force          => $force_r,
                                        );
 
     if ($credentials->{type} eq 'basic') {
@@ -2321,7 +2494,7 @@ sub getEncryption
     }
 
     my $noEncryption      = $params{noEncryption};
-    my $symmetricPassword = $params{symmetricPasasword};
+    my $symmetricPassword = $params{symmetricPassword};
     my $encryptionKey     = $params{encryptionKey};
     my $keyPassphrase     = $params{keyPassphrase};
 
@@ -2333,7 +2506,7 @@ sub getEncryption
             my $dialogMsg =  __x(
                   'Enter password used to encrypt back up {ser}',
                    ser => $credentials->{commonName});
-            $symmetricPassword = password($dialogMsg);
+            $symmetricPassword = password($dialogMsg); # 
         }
     }
 
@@ -2349,6 +2522,25 @@ sub getEncryption
     }
 }
 
+sub _retrySymmKey
+{
+    my ($urlParams) = @_;
+    my $credentials = $urlParams->{credentials};
+    my $newKey;
+
+    my $dialogMsg =  __x(
+        'Incorrect password. Please, enter the correct password used for encrypt {ser}.',
+        ser => $credentials->{commonName});
+    $newKey = password($dialogMsg);
+
+    $credentials = addEncryptionToCredentials($credentials,
+                symmetricPassword => $newKey,
+                encryptionKey     => $credentials->{encryptionKey},
+                keyPassphrase     => $credentials->{keyPassphrase},
+                );
+    _setupPasswords($credentials);
+}
+
 sub _backupUsesEncryption
 {
     my ($credentials, $metadata) = @_;
@@ -2360,13 +2552,9 @@ sub _backupUsesEncryption
     return EBox::EBackup::Subscribed::collectionEncrypted($credentials);
 }
 
-sub metadata
+sub readMetadataFile
 {
-    my ($date) = @_;
-
-    my $dir = metaTmpDir();
-    my $file = EBox::EBackup::Subscribed::metaFilenameFromDate($date);
-    my $path = $dir . '/' . $file;
+    my ($path) = @_;
     my ($yaml) = YAML::XS::LoadFile($path);
 
     return $yaml->{backup};
@@ -2374,13 +2562,15 @@ sub metadata
 
 sub getBackupDomainsToRestore
 {
-    my ($credentials, $metadata, $domainsCli) = @_;
+    my ($credentials, $metadata, $restoreAll, $domainsCli) = @_;
 
     my @domainsCli = @{ $domainsCli };
     my $domains;
 
     if ($credentials->{type} eq 'subscribed') {
-        if (not @domainsCli) {
+        if ($restoreAll) {
+            $domains = { map { $_ => 1 } keys %{ $metadata->{backupDomains} } };
+        } elsif (not @domainsCli) {
             # ask to the user
             $domains = askDomainsToRestore($credentials, $metadata);
         } else {
@@ -2409,9 +2599,145 @@ sub _logStartProcess
     EBox::info($msg);
 }
 
+sub _apachePort
+{
+    my $apache = EBox::Global->getInstance(1)->modInstance('apache');
+    return $apache->port();
+}
+
+sub takeFilesMD5
+{
+    my @files = ('/etc/passwd',
+                 '/etc/shadow',
+                );
+    foreach my $file (@files) {
+        $filesMD5{$file} = _fileMD5($file);
+    }
+}
+
+# doesnt discriminate between added, removed and modfied 
+sub checkFilesMD5
+{
+    my @changed;
+    while (my ($file, $oldMd5) = each %filesMD5) {
+        my $newMD5 = _fileMD5($file);
+        if (defined $oldMd5 and defined $newMD5) {
+            if ($oldMd5 ne $newMD5) {
+                # changed
+                push @changed, $file;
+            }
+        } elsif (defined $oldMd5 and not defined $newMD5) {
+            # removed
+            push @changed, $file;
+        } elsif (not defined $oldMd5 and defined $newMD5) {
+            # added
+            push @changed, $file;
+        }
+    }
+
+    my %changed =    map { $_ => 1 } @changed;
+    return \%changed;
+}
+
+sub _fileMD5
+{
+    my ($file)= @_;
+    my $fileSum;
+    if (EBox::Sudo::fileTest('-r', $file)) {
+        my $md5Cmd= "md5sum '$file'";
+        try {
+            my $output  =  EBox::Sudo::root($md5Cmd);
+            my $outputLine = $output->[0];
+            ($fileSum) = split '\s', $outputLine; # removing file name
+        } catch EBox::Exceptions::Command with {
+                my ($ex) = shift @_;
+                my $error = join '', @{ $ex->error() };
+                EBox::error("error making m5sum of file: $file");
+        };
+    } else {
+        EBox::error("Cannot get MD5 of file $file, because it could not be read");
+    }
+
+    return $fileSum;
+}
+
+
+sub setHostname
+{
+    my ($metadata) = @_;
+    my $hostname = exists $metadata->{hostname} ?
+                          $metadata->{hostname} : undef;
+    if ($hostname) {
+        my $cmd = CHANGE_HOSTNAME_SCRIPT . ' ' . $hostname;
+        EBox::Sudo::root($cmd);
+    } else {
+        EBox::info("No hostname metadata found");
+    }
+}
+
+sub _finishedChangedFilesWarnings
+{
+    my ($files) = @_;
+
+    if ($files->{'/etc/password'}) {
+        # XXX check wether  the local user is the same or not
+        warning(
+            __(
+                'The local password file has changed, the local users and their password could have been changed. We reccomend you to logut and login again with a valid user to avoid user identity problems.'
+               )
+           );
+    } elsif ($files->{'/etc/shadow'}) {
+        warning(
+     __('The shadow password file was restored; your local user password could have been changed')
+           );
+    }
+}
+
+sub _finishedHostnameFilesWarnings
+{
+    my ($changedFiles) = @_;
+    if ($changedFiles->{'/etc/hostname'} or $changedFiles->{'/etc/hosts'}) {
+        warning(
+            __('No hostname infromation found in metadata but hostname configuration files changed; please fix your hostname manually or with the Zentyal option found at System -> General.')
+           );
+    }
+}
+
+sub showPendingMessages
+{
+    foreach my $pending (@pendingMessages) {
+        my $type    = $pending->{type};
+        my $params = $pending->{'params'};
+        if ($type eq 'info') {
+            info(@{ $params });
+        } elsif ($type eq 'warning') {
+            warning(@{ $params });
+        } elsif ($type eq 'error') {
+            error(@{ $params });
+        }
+    }
+}
+
+sub finishedMessages
+{
+    my ($credentials, $metadata) = @_;
+    showPendingMessages();
+
+    my $changedFiles = checkFilesMD5();
+    if (keys %{ $changedFiles }) {
+        _finishedChangedFilesWarnings($changedFiles);
+        if (not $metadata->{hostname}) {
+            _finishedHostnameFilesWarnings($changedFiles);
+        }
+    }
+
+    # XXX add warnings of changed apache port
+    # XXX add warnings of changed ebox modules?
+    finalMessage($credentials);
+}
 
 # The last message to finish the restore
-sub finishedMessage
+sub finalMessage
 {
     my ($credentials) = @_;
 
@@ -2422,18 +2748,40 @@ sub finishedMessage
     } else {
         $msg = __('Your full backup is now successfully restored!');
     }
-    $msg .= "\n\n" . __('You can go now to the Zentyal administration interface to manage your recovered host.');
+
+    my $url = 'https://localhost';
+    my $port = _apachePort();
+    if ($port != 443) {
+        $url .= ":$port";
+    }
+
+    $msg .= "\n\n";
+    $msg .= __x('You can now login at {url} to manage your recovered host.',
+                 url => $url);
 
     info($msg);
 }
 
 sub info
 {
-    my ($msg) = @_;
+    my ($msg, %params) = @_;
+    my $noBlocking = delete $params{noBlocking};
+    my $noLog      = delete $params{noLog};
 
-    EBox::info($msg);
+    unless ($noLog) {
+        EBox::info($msg);
+    }
+
     if ($usesX) {
-        _zenityMessage('info', $msg);
+        if ($noBlocking) {
+            print "$msg\n";
+            push @pendingMessages, {
+                type => 'info',
+                params => [$msg, %params, noLog => 1]
+               };
+        } else {
+            _zenityMessage('info', $msg);
+        }
     } else {
         print "$msg\n";
     }
@@ -2441,15 +2789,29 @@ sub info
 
 sub error
 {
-    my ($msg, $exception) = @_;
+    my ($msg, %params) = @_;
+    my $exception = $params{exception};
+    my $noBlocking = delete $params{noBlocking};
+    my $noLog      = delete $params{noLog};
 
-    if (defined $exception) {
-        EBox::error("Unexpected error: $exception");
-    } else {
-        EBox::error($msg);
+    unless ($noLog) {
+        if (defined $exception ) {
+            EBox::error("Unexpected error: $exception");
+        } else {
+            EBox::error($msg);
+        }
     }
+
     if ($usesX) {
-        _zenityMessage('error', $msg);
+        if ($noBlocking) {
+            print STDERR "$msg\n";
+            push @pendingMessages, {
+                type => 'error',
+                params => [$msg, %params, noLog => 1]
+               };
+        } else {
+            _zenityMessage('error', $msg);
+        }
     } else {
         print STDERR "$msg\n";
     }
@@ -2457,11 +2819,25 @@ sub error
 
 sub warning
 {
-    my ($msg) = @_;
+    my ($msg, %params) = @_;
 
-    EBox::warn($msg);
+    my $noBlocking = delete $params{noBlocking};
+    my $noLog      = delete $params{noLog};
+
+    unless ($noLog) {
+        EBox::warn($msg);
+    }
+
     if ($usesX) {
-        _zenityMessage('warning', $msg);
+        if ($noBlocking) {
+            print __x('Warning: {msg}', msg => "$msg\n");
+            push @pendingMessages, {
+                type => 'warning',
+                params => [$msg, %params, noLog => 1]
+               };
+        } else {
+            _zenityMessage('warning', $msg);
+        }
     } else {
         print __x('Warning: {msg}', msg => "$msg\n");
     }
@@ -2487,11 +2863,16 @@ sub password
 
 sub showException
 {
-    my ($exception) = @_;
+    my ($exception, $showRealMsg) = @_;
 
-    my $msg = __('Sorry, an unexpected error has occurred. Please contact support and check the /var/log/zentyal/zentyal.log file for further details.');
+    my $msg;
+    if ($showRealMsg) {
+        $msg = $exception;
+    } else {
+        $msg = __('Sorry, an unexpected error has occurred. Please contact support and check the /var/log/zentyal/zentyal.log file for further details.');        
+    }
 
-    error($msg, $exception);
+    error($msg, exception => $exception);
 
     return $msg;
 }
@@ -2499,12 +2880,12 @@ sub showException
 my $_fatalShow = 0;
 sub fatal
 {
-    my ($input) = @_;
+    my ($input, $showRealMsg) = @_;
 
     EBox::error("Restore fatal error: $input");
 
     if (not $_fatalShow) {
-        my $msg = showException($input);
+        my $msg = showException($input, $showRealMsg);
         $_fatalShow = 1;
         die $msg;
     }

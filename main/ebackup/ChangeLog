@@ -1,3 +1,24 @@
+HEAD
+	+ Added pre and post backup process hooks. Thanks to Oliver
+	  (levelml@level-it.de) for his patch proposal for this
+	+ restore-tool detects when the user tries to restore a 2.0.X
+	  backup and refuses to continue
+	+ Added force user, password and server credentials for storage server
+	+ If unconfigured it refuses to generate a cache of the files in
+	  the backup
+	+ Added exception for symmetric key errors. Retry symmetric key in
+	  restore-tool
+	+ Added checking of passwd and shadow files in restore-tool, warn
+	  the user if they have changed
+	+ DR now restores hostname
+	+ Fixed bug with different time zones and files on the cloud
+	+ No restore-tool messages stop the restore process after all
+	  parameters have been asked
+	+ restore-tool: Added restore-all options and more force command
+	  line options. Fixed bug in symmetric-password command line
+	  option. Final message shows administrative interface localhost URL
+	+ restore-tool: fixed dialog when credentials are incorrect;
+	  better exclusion of problematic files to restore
 2.2.2
 	+ Exception in permanent message of remote restore screen is now managed
 	+ Defaults in excludes and includes list are not longer added when
