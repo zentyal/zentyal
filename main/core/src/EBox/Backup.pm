@@ -46,6 +46,7 @@ Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
 my $RECURSIVE_DEPENDENCY_THRESHOLD = 20;
+use constant REQUIRED_ZENTYAL_VERSION => '2.1';
 
 sub new
 {
@@ -862,7 +863,7 @@ sub makeBugReport
 #       string: path to the temporary directory
 sub _unpackAndVerify
 {
-    my ($self, $archive, $fullRestore) = @_;
+    my ($self, $archive, $fullRestore, %options) = @_;
     ($archive) or throw EBox::Exceptions::External('No backup file provided.');
     my $tempdir;
 
@@ -881,6 +882,9 @@ sub _unpackAndVerify
 
         $self->_checkArchiveMd5Sum($tempdir);
         $self->_checkArchiveType($tempdir, $fullRestore);
+        unless ($options{forceZentyalVersion}) {
+            $self->_checkZentyalVersion($tempdir);
+        }
     }
     otherwise {
         my $ex = shift;
@@ -951,7 +955,7 @@ sub _checkArchiveType
 }
 
 
-sub  _checkSize
+sub _checkSize
 {
     my ($self, $archive) = @_;
 
@@ -978,6 +982,57 @@ sub  _checkSize
 
     if ($freeSpace < ($size*$safetyFactor)) {
         throw EBox::Exceptions::External(__x("There in not enough space left in the hard disk to complete the restore proccess. {size} Kb required. Free sufficient space and retry", size => $size));
+    }
+}
+
+
+sub _checkZentyalVersion
+{
+    my ($self, $tempDir)=  @_;
+    my $file = "$tempDir/eboxbackup/debpackages" ;
+    if (not -r $file) {
+        throw EBox::Exceptions::External(__x(
+   'No debian packages list file found; probably the backup was done in a incompatible Zentyal version. Only backups done in Zentyal >= {v} can be restored',
+         v => REQUIRED_ZENTYAL_VERSION
+                                            )
+                                        );
+    }
+
+    my $zentyalVersion;
+    open my $FH, '<', $file or
+        throw EBox::Exceptions::Internal("Opening $file: $!");
+    while (my $line = <$FH>) {
+        if ($line =~ m/ii\s+zentyal-core\s+(.*?)\s/) {
+            $zentyalVersion = $1;
+            last;
+        }
+    }
+    close $FH or
+        throw EBox::Exceptions::Internal("Opening $file: $!");
+
+    if (not $zentyalVersion) {
+        throw EBox::Exceptions::External(__x(
+'No zentyal-core found in the debian packages list form the backup; probably the backup was done in a incompatible Zentyal version. Only backups done in Zentyal >= {v} can be restored',
+                v => REQUIRED_ZENTYAL_VERSION
+                                           )
+                                        );
+    }
+
+    my ($major, $minor, $rest) = split '\.', $zentyalVersion;
+    my ($wantedMajor, $wantedMinor, $wantedRest) = split '\.', REQUIRED_ZENTYAL_VERSION;
+    my $versionOk =  0;
+    if ($major > $wantedMajor ) {
+        $versionOk = 1;
+    } elsif (($major == $wantedMajor) and ($minor >= $wantedMinor)) {
+        $versionOk = 1;
+    }
+
+    if (not $versionOk) {
+        throw EBox::Exceptions::External(__x(
+'Could not restore the backup because a missmatch between its Zentyal version and the current system version. Backup was done in Zentyal version {bv} and this system could only restore backups from Zentyal version {wv} or greater',
+                bv => $zentyalVersion,
+                wv => REQUIRED_ZENTYAL_VERSION)
+        );
     }
 }
 
@@ -1079,6 +1134,7 @@ sub prepareRestoreBackup
 # fullRestore - wether do a full restore or restore only configuration (default: false)
 #       dataRestore - wether do a data-only restore
 #       forceDependencies - wether ignore dependency errors between modules
+#        forceZentyalVersion
 #        deleteBackup      - deletes the backup after resroting it or if the process is aborted
 #       revokeAllOnModuleFail - whether to revoke all restored configuration
 #                              when a module restoration fail
@@ -1116,7 +1172,7 @@ sub restoreBackup
 
         $self->_checkSize($file);
 
-        $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
+        $tempdir = $self->_unpackAndVerify($file, $options{fullRestore}, %options);
 
         $self->_unpackModulesRestoreData($tempdir);
 
