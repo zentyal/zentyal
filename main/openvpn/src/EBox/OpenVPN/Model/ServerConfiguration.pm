@@ -267,9 +267,31 @@ sub _checkVPN
     return unless ( exists $params_r->{vpn} );
 
     my $vpnAddress = $params_r->{vpn}->printableValue();
+    # check other servers VPN networks
+    $self->_uniqVPNAddress($vpnAddress);
 
+    # check interfaces networks
+    my $network = EBox::Global->getInstance()->modInstance('network');
+    foreach my $iface (@{ $network->ifaces( )}) {
+        my @addresses = @{  $network->ifaceAddresses($iface) };
+        foreach my $addr_r (@addresses) {
+            my $address = $addr_r->{address};
+            my $netmask = $addr_r->{netmask};
+            my $ipnetwork = EBox::NetWrappers::ip_network($address, $netmask);
+            my $ipnetworkWithMask = EBox::NetWrappers::to_network_with_mask($ipnetwork, $netmask);
+
+            if ($ipnetworkWithMask eq $vpnAddress) {
+                throw EBox::Exceptions::External(
+                    __x('The VPN address {addr} is already used by interface {iface}',
+                        addr => $vpnAddress,
+                        iface => $iface,));
+            }
+        }
+    }
+
+    # check advertised networks
     my $advertisedNetwork =
-   $self->parentRow()->elementByName('advertisedNetworks')->foreignModelInstance();
+    $self->parentRow()->elementByName('advertisedNetworks')->foreignModelInstance();
     foreach my $id (@{ $advertisedNetwork->ids() }) {
         my $row = $advertisedNetwork->row($id);
         my $net = $row->elementByName('network')->printableValue();
@@ -277,11 +299,31 @@ sub _checkVPN
         if ($vpnAddress eq $net) {
             throw EBox::Exceptions::External(
 __('The VPN address could not be the same than one of its advertised networks')
-                                            )
+                                            );
         }
     }
 }
 
+sub _uniqVPNAddress
+{
+    my ($self, $vpnAddress) = @_;
+    my $manager = EBox::Model::ModelManager->instance();
+    my $serverList = $manager->model('/openvpn/Servers');
+
+    my $olddir = $self->directory();
+    foreach my $id ( @{ $serverList->ids()}) {
+        my $row = $serverList->row($id);
+        my $serverConf = $row->subModel('configuration');
+        my $other      = $serverConf->row()->elementByName('vpn');
+
+        if ($vpnAddress eq $other->printableValue()) {
+            throw EBox::Exceptions::External(
+                    __('Other server is using the same VPN address, please choose another')
+                    );
+        }
+    }
+    $self->setDirectory($olddir);
+}
 
 sub _uniqPortAndProtocol
 {
@@ -295,8 +337,6 @@ sub _uniqPortAndProtocol
     my $manager = EBox::Model::ModelManager->instance();
     my $serverList = $manager->model('/openvpn/Servers');
 
-
-    my $nIdentical = 0;
     my $olddir = $self->directory();
     foreach my $id ( @{ $serverList->ids()}) {
         my $row = $serverList->row($id);
@@ -307,7 +347,6 @@ sub _uniqPortAndProtocol
             throw EBox::Exceptions::External(
                     __('Other server is listening on the same port')
                     );
-
         }
     }
     $self->setDirectory($olddir);

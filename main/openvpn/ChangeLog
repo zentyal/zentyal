@@ -1,3 +1,6 @@
+HEAD
+	+ Don't allow any server to use the same network than another
+	  server or any interface
 2.1.6
 	+ Removed /zentyal prefix from URLs
 	+ Include again OpenVPN for Windows installer
