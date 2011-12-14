@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression which broke filter policies in objects when a
+	  non-filter global policy was selected
 	+ Fixed use of not-defined yet ACL when using parent peer
 2.2.1
 	+ Fixed deprecated syntax for some iptables rules

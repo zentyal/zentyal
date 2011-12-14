@@ -596,6 +596,11 @@ sub _dgNeeded
         return 1;
     }
 
+    my $objectPolicy = $self->model('ObjectPolicy');
+    if ( $objectPolicy->existsFilteredObjects() ) {
+        return 1;
+    }
+
     return undef;
 }
 
