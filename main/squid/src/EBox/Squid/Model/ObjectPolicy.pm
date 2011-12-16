@@ -328,12 +328,12 @@ sub objectsFilterGroups
 {
     my ($self) = @_;
 
-  my %filterGroupIdByRowId = %{ $self->filterGroupModel->idByRowId() };
+    my %filterGroupIdByRowId = %{ $self->filterGroupModel->idByRowId() };
 
     my $objectMod = EBox::Global->modInstance('objects');
 
     my @filterGroups;
-    # object polices have priority by position in table
+    # object policies have priority by position in table
     foreach my $id (@{ $self->ids()  }) {
         my $row = $self->row($id);
         my $filterGroup = $row->valueByName('filterGroup');
@@ -347,15 +347,15 @@ sub objectsFilterGroups
             next;
         }
 
-        my $obj           = $row->valueByName('object');
-        my @addresses = @{ $objectMod->objectAddresses($obj)  };
+        my $obj       = $row->valueByName('object');
+        my @addresses = @{ $objectMod->objectAddresses($obj, mask => 1) };
         foreach my $cidrAddress (@addresses) {
-            my ($addr, $netmask) = 
-                EBox::NetWrappers::to_network_without_mask($cidrAddress);
-            my $address = $addr . '/' . $netmask;;
-            push @filterGroups, { 
-                                 address=> $address, 
-                                 group  => $filterGroupIdByRowId{$filterGroup}  
+            my ($addr, $netmask) = ($cidrAddress->[0],
+                                    EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
+            my $address = "$addr/$netmask";
+            push @filterGroups, {
+                                 address => $address,
+                                 group   => $filterGroupIdByRowId{$filterGroup}
                                 };
         }
     }

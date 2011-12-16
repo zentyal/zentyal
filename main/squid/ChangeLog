@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression on filter selection depending on the objects
+	  policy. Now it works again
 	+ Fixed regression which broke filter policies in objects when a
 	  non-filter global policy was selected
 	+ Fixed use of not-defined yet ACL when using parent peer
