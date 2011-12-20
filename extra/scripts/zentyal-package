@@ -66,12 +66,6 @@ sub scm_export
     # svn
     if (-d "$dir/.svn") {
         svn_export($dir, $tmpdir);
-    # git
-    } elsif (-d "$dir/.git") {
-        git_export($dir, $tmpdir);
-    # git-svn
-    } elsif (-d "$dir/../../.git") {
-        git_export($dir, $tmpdir);
     } else {
         system("cp -r $dir $tmpdir");
     }
@@ -82,20 +76,6 @@ sub svn_export
     my ($dir, $tmpdir) = @_;
 
     system("svn export $dir $tmpdir") and die "svn export failed";
-}
-
-sub git_export
-{
-    my ($dir, $tmpdir) = @_;
-    
-    chdir($dir);
-    my $branch = `git status | head -1 | cut -d' ' -f4`;
-    chomp($branch);
-    mkdir $tmpdir or
-        die "Cannot create temporla directory for git export $tmpdir :$!";
-    system("git archive --format=tar $branch $dir | tar x -C $tmpdir");
-    system("mv $tmpdir/$dir/* $tmpdir");
-    system("rm -rf $tmpdir/$dir");
 }
 
 sub get_pkg_and_version
