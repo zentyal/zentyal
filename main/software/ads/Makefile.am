@@ -1,9 +1,0 @@
-## Process this file with automake to produce Makefile.in
-
-adsdir = $(datadir)/zentyal-software/ads
-
-ads_DATA = ads_en ads_es
-
-EXTRA_DIST = $(ads_DATA)
-
-MAINTAINERCLEANFILES = Makefile.in

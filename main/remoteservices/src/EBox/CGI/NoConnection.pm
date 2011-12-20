@@ -29,7 +29,7 @@ sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => __('Connection error'),
-				      'template' => '/RemoteServices/NoConnection.mas',
+				      'template' => '/remoteservices/NoConnection.mas',
 				      @_);
 
 	bless($self, $class);

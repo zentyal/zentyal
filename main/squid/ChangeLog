@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced autotools with zbuildtools
 	+ Fixed regression on filter selection depending on the objects
 	  policy. Now it works again
 	+ Fixed regression which broke filter policies in objects when a

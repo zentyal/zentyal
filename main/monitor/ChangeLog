@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced autotools with zbuildtools
 	+ Show the measure name in threshold configuration title
 	+ Updated RRD directory path when hostname is changed
 2.2.1

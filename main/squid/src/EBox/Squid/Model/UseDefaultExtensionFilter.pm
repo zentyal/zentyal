@@ -94,9 +94,7 @@ sub modelsToUpdate
 
 sub Viewer
 {
-    return  '/ajax/squid/applyAllForm.mas';
- #   return  '/ajax/squid/useDefaultForm.mas';
-
+    return  '/squid/ajax/applyAllForm.mas';
 }
 
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced autotools with zbuildtools
 	+ Implemented gatewayDelete method from NetworkObserver
 2.2.1
 	+ Set always five subdomains to reverse zones to avoid problems

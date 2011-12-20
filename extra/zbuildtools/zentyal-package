@@ -1,0 +1,209 @@
+#!/usr/bin/perl
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+use Error qw(:try);
+use File::Basename;
+use Cwd qw(getcwd realpath);
+
+my $REPO = getcwd;
+
+$ENV{DEBIAN_VERSION} = '';
+
+my $DEST;
+if (not $ENV{DESTINATION_DIR}) {
+    $DEST =  "$REPO/debs-ppa";
+} else {
+    my $dest = $ENV{DESTINATION_DIR};
+    if ($dest =~ m{^/}) {
+        $DEST = $dest;
+    } else {
+        $DEST = "$REPO/" . $dest;
+    }
+
+    print "package files will be availabe in $DEST\n";
+}
+
+unless (-d $DEST) {
+    print "Creating $DEST\n";
+    mkdir $DEST or die "Cannot create $DEST: $!"
+}
+
+
+my $TMPDIR = "/tmp/zentyal-package-$$";
+
+my $cwd;
+my $dist = $ARGV[1];
+unless ($dist) {
+    $dist = 'lucid';
+}
+my $version = $ARGV[2];
+unless ($version) {
+    $version = 'trunk';
+}
+my $svnRevision = $ARGV[3];
+my $pkgVersion;
+my $appendDebianVersion = $ENV{'DEBIAN_VERSION'};
+defined($appendDebianVersion) or $appendDebianVersion = '';
+
+my $SOURCE_BUILD = $ENV{SOURCE_BUILD};
+
+sub create_tmp
+{
+   if ( -d $TMPDIR) {
+        system("rm -rf $TMPDIR/*");
+   } else {
+        mkdir $TMPDIR  or
+            die "Cannot create temporal directory $DEST: $!";
+   }
+}
+
+sub export
+{
+    my ($dir, $exportDir) = @_;
+
+    system("cp -r $dir $exportDir");
+    system("find $exportDir -name t | xargs rm -rf");
+}
+
+sub export_debian
+{
+    my ($svndir, $destdir, $package) = @_;
+
+    system("rm -rf $destdir/debian") if (-d "$destdir/debian");
+
+    my $dir = $REPO;
+    my $source = "$dir/$package/debian/$dist/";
+    system("cp -r $source $destdir/debian")
+        and die "couldn't copy debian dir";
+}
+
+sub add_changelog_entry
+{
+    my ($dir) = @_;
+
+    chdir($dir);
+    my $version = `head -1 ChangeLog`;
+    chomp ($version);
+
+    if ($version ne 'HEAD') {
+        system("dch -b -v '$version${appendDebianVersion}' -D 'lucid' --force-distribution 'New upstream release'");
+    }
+}
+
+sub build_package
+{
+    my ($dir) = @_;
+
+    chdir($dir);
+
+    my $cmd= "dpkg-buildpackage -rfakeroot -us -uc";
+
+    if ($SOURCE_BUILD) {
+        $cmd .= ' -S';
+    }
+
+    system($cmd)
+         and die "couldn't create package";
+}
+
+sub copy_to_dest
+{
+    my ($dir) = @_;
+
+    system("cp ../*.* $DEST") and "couldn't copy to repository";
+}
+
+sub generate_rep
+{
+    chdir ($DEST);
+
+    system("apt-ftparchive packages . > Packages")
+                                and die "couldn't generate pkg";
+    system("gzip -f Packages");
+    system("apt-ftparchive sources . > Sources")
+                                and die "couldn't generate src";
+    system("gzip -f Sources");
+}
+
+sub clean
+{
+    system ("rm -rf $TMPDIR");
+    chdir $cwd;
+}
+
+sub packageIt
+{
+    my ($package) = @_;
+
+    $cwd = getcwd;
+
+    my ($dir, $exportDir);
+
+    unless (defined $package) {
+        $package = basename($cwd);
+        unless (-d 'debian') {
+            die "not in a package directory";
+        }
+        chdir '..';
+        $REPO = getcwd;
+    }
+
+    if ($package eq 'all') {
+        my @packages;
+
+        foreach my $pkg (<*>) {
+            if (-d "$pkg") {
+                push(@packages, $pkg);
+            }
+        }
+        foreach my $pkg (@packages) {
+            print "Packaging $pkg...\n";
+            system("$0 $pkg");
+        }
+        exit;
+    } else {
+        $dir = "$REPO/$package";
+    }
+
+    $exportDir = "$TMPDIR/$package";
+
+    die "package does not exists" unless (-e $dir);
+
+    export($dir, $exportDir);
+
+    export_debian($dir, $exportDir, $package);
+
+    add_changelog_entry($exportDir);
+
+    build_package($exportDir);
+
+    copy_to_dest($exportDir);
+
+    generate_rep();
+}
+
+try {
+    create_tmp();
+    packageIt($ARGV[0]);
+    clean();
+} otherwise {
+    my $ex = shift;
+    print $ex;
+} finally {
+    clean();
+};

@@ -1,9 +1,0 @@
-## Process this file with automake to produce Makefile.in
-
-SUBDIRS = t
-templatedir = $(datadir)/zentyal/templates/input
-template_DATA = text.mas checkbox.mas submit.mas select.mas multiSelect.mas hidden.mas password.mas file.mas action.mas
-
-EXTRA_DIST = $(template_DATA)
-
-MAINTAINERCLEANFILES = Makefile.in

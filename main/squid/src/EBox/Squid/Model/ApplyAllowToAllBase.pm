@@ -125,8 +125,7 @@ sub _table
 
 sub Viewer
 {
-    return  '/ajax/squid/applyAllForm.mas';
-
+    return  '/squid/ajax/applyAllForm.mas';
 }
 
 

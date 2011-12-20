@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced autotools with zbuildtools
 	+ Fixed problems with interactions of users and groups queues
 2.1.6
 	+ Fixed regression in usercorner link

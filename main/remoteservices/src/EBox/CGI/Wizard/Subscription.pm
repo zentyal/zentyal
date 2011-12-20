@@ -33,7 +33,7 @@ use constant SOAP_PROXY => 'https://api.zentyal.com/';
 sub new # (cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => 'RemoteServices/wizard/subscription.mas', @_);
+    my $self = $class->SUPER::new('template' => 'remoteservices/wizard/subscription.mas', @_);
     bless($self, $class);
     return $self;
 }
