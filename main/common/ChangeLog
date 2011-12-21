@@ -1,3 +1,5 @@
+HEAD
+	+ Ignore by default bind filesystems in EBox::FileSystem method
 2.2.2
 	+ Ignore last dot if exists when validating domain names
 2.2.1
