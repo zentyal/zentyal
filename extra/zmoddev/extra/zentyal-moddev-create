@@ -112,7 +112,7 @@ sub _src_EBox
     my $mainClass = $options->{mainClass} . '.pm';
     mkdir ($dir) or die "Can't create $dir!";
 
-    $comp = $interp->make_component(
+    my $comp = $interp->make_component(
             comp_file => STUBS_PATH . '/src/MainClass.pm.mas',
             );
     ${$output} = '';
@@ -253,7 +253,7 @@ sub _schemas
 
     mkdir ("$dir") or die "Can't create $dir!";
 
-    $comp = $interp->make_component(
+    my $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/schemas/yaml.mas',
             );
     ${$output} = '';
