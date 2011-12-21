@@ -99,7 +99,7 @@ sub compositeClasses
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::actions>
+#       <EBox::Module::Service::actions>
 #
 sub actions
 {
@@ -116,7 +116,7 @@ sub actions
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::enableActions>
+#       <EBox::Module::Service::enableActions>
 #
 sub enableActions
 {
@@ -130,7 +130,7 @@ sub enableActions
 #
 # Overrides:
 #
-#       <EBox::ServiceModule::ServiceInterface::usedFiles>
+#       <EBox::Module::Service::usedFiles>
 #
 sub usedFiles
 {
