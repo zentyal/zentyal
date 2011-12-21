@@ -104,23 +104,6 @@ sub _parseOptions
     return \%options;
 }
 
-sub _src
-{
-    my ($interp, $output, $options) = @_;
-
-    my $dir = $options->{destdir} . '/src';
-    mkdir ($dir) or die "Can't create $dir!";
-
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH . '/src/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, (
-        subDirs  => ['EBox'],
-       ));
-    write_file($dir . '/Makefile.am', ${$output});
-}
-
 sub _src_EBox
 {
     my ($interp, $output, $options) = @_;
@@ -128,17 +111,6 @@ sub _src_EBox
     my $dir = $options->{destdir} . '/src/EBox';
     my $mainClass = $options->{mainClass} . '.pm';
     mkdir ($dir) or die "Can't create $dir!";
-
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH . '/src/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, (
-        perlData => [$mainClass],
-        perlDir  => 'EBox',
-        subDirs  => [$options->{modNameSpace}],
-       ));
-    write_file($dir . '/Makefile.am', ${$output});
 
     $comp = $interp->make_component(
             comp_file => STUBS_PATH . '/src/MainClass.pm.mas',
@@ -183,18 +155,6 @@ sub _src_EBox_Module
 
        write_file($dir . "/$file", ${$output});
     }
-
-    $comp = $interp->make_component(
-            comp_file => STUBS_PATH . '/src/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, (
-        perlDir  => "/EBox/$modNameSpace",
-        perlData => \@perlData,
-        subDirs  => ['Model', 'Composite', 'Types'],
-       ));
-
-    write_file($dir . "/Makefile.am", ${$output});
 }
 
 sub _src_EBox_Module_Model
@@ -293,13 +253,6 @@ sub _schemas
 
     mkdir ("$dir") or die "Can't create $dir!";
 
-    my $comp = $interp->make_component(
-            comp_file => STUBS_PATH .  '/schemas/Makefile.am.mas',
-            );
-    ${$output} = '';
-    $interp->exec($comp, ( yaml => $yaml));
-    write_file($dir . '/Makefile.am', ${$output});
-
     $comp = $interp->make_component(
             comp_file => STUBS_PATH .  '/schemas/yaml.mas',
             );
@@ -333,7 +286,6 @@ sub _createModule
     my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
             out_method => \$output);
 
-    _src($interp, \$output, $options);
     _src_EBox($interp, \$output, $options);
     _src_EBox_Module($interp, \$output, $options);
     _src_EBox_Module_Model($interp, \$output, $options);
