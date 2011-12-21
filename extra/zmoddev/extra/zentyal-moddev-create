@@ -24,6 +24,9 @@ use HTML::Mason;
 use File::Slurp;
 use File::Copy;
 
+# FIXME: unhardcode this
+my $dist = 'lucid';
+
 use constant
     {
        MODULE_VERSION => '2.2',
@@ -200,10 +203,10 @@ sub _debian
 {
     my ($interp, $output, $options) = @_;
 
-    my $dir = $options->{destdir} . '/debian';
+    my $dir = $options->{destdir} . "/debian/$dist";
     my $module = $options->{moduleName};
 
-    mkdir ("$dir") or die "Can't create $dir!";
+    system ("mkdir -p $dir");
     copy (STUBS_PATH . '/debian/compat',
            "$dir/compat");
     copy (STUBS_PATH . '/debian/prerm',
