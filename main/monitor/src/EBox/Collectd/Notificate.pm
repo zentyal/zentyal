@@ -42,6 +42,8 @@ use Data::Dumper;
 use File::Temp;
 use File::Slurp;
 use JSON;
+use Perl6::Junction qw(any);
+use Proc::ProcessTable;
 
 # Constants
 # Set it fixed not to include Zentyal packages
@@ -50,6 +52,7 @@ use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
 use constant EVENTS_FIFO               => '/var/lib/zentyal/tmp/events-fifo';
 use constant NOTIFICATION_CONF         => '/var/lib/zentyal/conf/monitor/notif.conf';
 use constant EBOX_USER                 => 'ebox';
+use constant PROCESS_PLUGIN_RE         => qr/cpu|load/;
 
 our $persistConf : shared;
 
@@ -120,6 +123,7 @@ sub ebox_notify
     # open(my $fh, '>>', '/tmp/bar');
     # $Data::Dumper::Indent = 0;
     # print $fh Dumper($not);
+    my ($after, $other) = (0, undef);
     if ( exists $persistConf->{$not->{plugin}}
          and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}
          and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}
@@ -133,9 +137,14 @@ sub ebox_notify
             $aMeasureConf = $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$aLevel};
         }
         if ( defined($measureConf) and $measureConf->{first} ) {
+            if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
+                $measureConf->{other} = _topProcesses($measureConf->{processes});
+            }
             if ( $measureConf->{first} + $measureConf->{after} < $not->{time} ) {
                 $measureConf->{first} = 0;
                 $measureConf->{sent}  = 1;
+                $after = $measureConf->{after};
+                $other = $measureConf->{other};
                 # print $fh "Send ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
                 # close($fh);
             } else {
@@ -148,10 +157,14 @@ sub ebox_notify
             # First valid value
             if ( defined($measureConf) ) {
                 $measureConf->{first}  = shared_clone($not->{time});
+                if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
+                    $measureConf->{other} = _topProcesses();
+                }
             }
             # Switching from this level to the contrary (clear counters)
             if ( defined($aMeasureConf) ) {
                 $aMeasureConf->{first} = 0;
+                $aMeasureConf->{other} = undef;
             }
             # print $fh "First ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
             # close($fh);
@@ -182,8 +195,12 @@ sub ebox_notify
         message => $not->{message},
         source  => $src,
         level   => $level,
-        timestamp => $not->{time}
+        timestamp => $not->{time},
+        duration  => $after,
        };
+    if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
+        $evt->{other} = $other;
+    }
 
     # Dumpered event without newline chars
     $Data::Dumper::Indent = 0;
@@ -225,6 +242,31 @@ sub _notifyUsingFS
     my ($basename) = ($fileTemp->filename() =~ m:.*/(.*)$:g);
     symlink($fileTemp->filename(), EVENTS_INCOMING_READY_DIR . $basename);
 
+}
+
+# Get and return the top processes (>= 10% CPU)
+sub _topProcesses
+{
+    my ($proc) = @_;
+
+    my $t = new Proc::ProcessTable();
+    my @top = grep { $_->pctcpu() > 10 } @{$t->table()};
+
+    if ( defined($proc) ) {
+        # Only store those processes that already are in the list and
+        # remove those ones that are not already in the top
+        my @proc = grep { $_ eq any(map { $_->pid() } @top) } @{$proc};
+        $proc = shared_clone(\@proc);
+    } else {
+        @top = sort { $b->pctcpu() <=> $a->pctcpu() } @top;
+        my $newProc : shared;
+        my $max = 4;
+        $max = $#top if ( @top < 5 );
+        my @proc = map { $_->pid() } @top[0 .. $max];
+        $newProc = shared_clone(\@proc);
+        $proc = $newProc;
+    }
+    return $proc;
 }
 
 1;
