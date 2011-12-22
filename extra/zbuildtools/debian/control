@@ -7,6 +7,6 @@ Standards-Version: 3.7.3
 
 Package: zbuildtools
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, liberror-perl, dpkg-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, liberror-perl, libfile-slurp-perl, dpkg-dev
 Description: Zentyal Build Tools
  These tools are needed to build and install Zentyal modules.
