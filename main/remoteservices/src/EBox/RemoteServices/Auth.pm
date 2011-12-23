@@ -433,7 +433,15 @@ sub _nameservers
     my ($self) = @_;
 
     my $confFile = $self->_confFile();
-    my $ns = EBox::Config::configkeyFromFile('dnsServer', $confFile);
+    my $ns = EBox::Config::configkeyFromFile('dnsServers', $confFile);
+    if ( defined($ns) ) {
+        if ( $ns =~ m/,/ ) {
+            my @ns = split( /,/, $ns);
+            $ns = \@ns;
+        }
+    } else {
+        $ns = EBox::Config::configkeyFromFile('dnsServer', $confFile);
+    }
     if ( ref($ns) eq 'ARRAY' ) {
         return $ns;
     } else {

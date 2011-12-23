@@ -1017,7 +1017,7 @@ sub serverList
 
 # Method: queryInternalNS
 #
-#    Query the internal nameserver
+#    Query the internal nameservers
 #
 # Parameters:
 #
@@ -1054,10 +1054,15 @@ sub queryInternalNS
 
     $method = 'random' unless (defined($method));
 
-    my $ns = $self->_confKeys()->{dnsServer};
-    my $resolver = new Net::DNS::Resolver(nameservers => [ $ns ],
+    my $ns = $self->_confKeys()->{dnsServers};
+    # backwards-compatibility
+    unless ( defined($ns) ) {
+        $ns = $self->_confKeys()->{dnsServer};
+        $ns = [ $ns ];
+    }
+    my $resolver = new Net::DNS::Resolver(nameservers => $ns,
                                           defnames    => 0,
-                                          udp_timeout => 15);
+                                          udp_timeout => 20);
 
     my $response = $resolver->query($hostname);
 
@@ -1591,6 +1596,14 @@ sub _confKeys
     }
     unless ( defined($self->{confKeys}) ) {
         $self->{confKeys} = EBox::Config::configKeysFromFile($self->{confFile});
+        # Maps comma-separated values to array refs
+        foreach my $key (keys %{$self->{confKeys}}) {
+            my $val = $self->{confKeys}->{$key};
+            if ( $val =~ m/,/ ) {
+                my @val = split( /,/, $val);
+                $self->{confKeys}->{$key} = \@val;
+            }
+        }
     }
     return $self->{confKeys};
 }
