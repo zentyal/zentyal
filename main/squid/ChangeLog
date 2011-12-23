@@ -1,4 +1,6 @@
 HEAD
+	+ Now you can use the default profile in a custom profile for file
+	  extensions
 	+ Fixed regression on filter selection depending on the objects
 	  policy. Now it works again
 	+ Fixed regression which broke filter policies in objects when a
