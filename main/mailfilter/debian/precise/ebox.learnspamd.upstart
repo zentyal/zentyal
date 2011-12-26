@@ -1,0 +1,2 @@
+exec /usr/share/zentyal-mailfilter/learnspamd
+respawn

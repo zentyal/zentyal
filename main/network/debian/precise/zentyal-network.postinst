@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+    configure)
+        # inital setup
+        /usr/share/zentyal/initial-setup --no-restart network $2
+
+        # restart module
+        invoke-rc.d zentyal network restart || true
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0

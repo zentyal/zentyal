@@ -1,0 +1,11 @@
+# Zentyal authentication
+
+# Standard Un*x authentication.
+@include common-auth
+
+account  required       pam_access.so accessfile=/etc/security/zentyal.conf
+
+# Standard Un*x account and session
+@include common-account
+@include common-session
+@include common-password

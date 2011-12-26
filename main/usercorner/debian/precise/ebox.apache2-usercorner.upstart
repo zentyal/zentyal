@@ -1,0 +1,2 @@
+exec /usr/share/zentyal-usercorner/usercorner-apache2-start
+respawn
