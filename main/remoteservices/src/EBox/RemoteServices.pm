@@ -100,13 +100,6 @@ sub _create
     return $self;
 }
 
-sub restartService
-{
-    my $self = shift;
-    $self->clearCache();
-    return $self->SUPER::restartService(@_);
-}
-
 # Method: proxyDomain
 #
 #   Returns proxy's domain name or undef if service is disabled
@@ -1887,7 +1880,7 @@ sub clearCache
 {
     my ($self) = @_;
 
-    my @cacheDirs = qw(Subscription disaster_recovery);
+    my @cacheDirs = qw(subscription disaster_recovery);
     foreach my $dir (@cacheDirs) {
         $self->st_delete_dir($dir);
     }
