@@ -1,11 +1,12 @@
 HEAD
+	+ Do not clear cache when restarting the remoteservices module
 	+ Bugfix: Do not crash if apt-key del command fails
 	+ Bugfix: The internal cron jobs are now removed correctly
 	+ Remove some configuration and packages when a downgrade is done
 	+ Bugfix: Remove jobs when unsubscribing
 	+ Bugfix: Remove apt preferences when unsubscribing
 	+ Non-ASCII characters are explicitly not allowed in Zentyal Common Name
-	+ Backup and restore all the cached data. Fixed clearCache method
+	+ Backup and restore all the cached data
 2.2.2
 	+ Download the backup archive from proxy using REST without
 	  storing locally
