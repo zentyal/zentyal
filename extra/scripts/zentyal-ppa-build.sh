@@ -13,14 +13,14 @@ if [ $# -gt 0 ]
 then
     packages="$@"
 else
-    packages=`svn status|grep configure.ac|cut -d' ' -f8|cut -d'/' -f1|sort|uniq`
+    packages=`git ls-files -m|grep ChangeLog|cut -d' ' -f8|cut -d'/' -f1|sort|uniq`
 fi
 
 cwd=`pwd`
 for i in $packages
 do
     changelog="$i/debian/lucid/changelog"
-    svn revert $changelog
+    git co $changelog
     echo "Building package $i..."
     zentyal-package $i || exit 1
     cd debs-ppa
