@@ -1114,11 +1114,11 @@ sub _writeRIPDaemonConf
                      mode => '0400',
     };
 
-    $self->writeConfFile("$confDir/debian.conf", '/quagga/debian.conf.mas', [],
+    $self->writeConfFile("$confDir/debian.conf", '/openvpn/quagga/debian.conf.mas', [],
                          $fileAttrs);
-    $self->writeConfFile("$confDir/daemons", '/quagga/daemons.mas', [],
+    $self->writeConfFile("$confDir/daemons", '/openvpn/quagga/daemons.mas', [],
                          $fileAttrs);
-    $self->writeConfFile("$confDir/zebra.conf", '/quagga/zebra.conf.mas', [],
+    $self->writeConfFile("$confDir/zebra.conf", '/openvpn/quagga/zebra.conf.mas', [],
                          $fileAttrs);
 
     my @ripdConfParams = (
@@ -1126,7 +1126,7 @@ sub _writeRIPDaemonConf
                           redistribute => $redistribute,
                           insecurePasswd => _insecureRipPasswd(),
     );
-    $self->writeConfFile("$confDir/ripd.conf", '/quagga/ripd.conf.mas',
+    $self->writeConfFile("$confDir/ripd.conf", '/openvpn/quagga/ripd.conf.mas',
                          \@ripdConfParams, $fileAttrs);
 
 }

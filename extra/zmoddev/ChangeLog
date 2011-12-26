@@ -1,0 +1,15 @@
+2.2
+	+ Adapted for Zentyal 2.2 and zbuildtools
+2.0
+	+ Changed name from emoddev to zmoddev
+1.5
+	+ Changed default fields
+	+ Added FirewallHelper and menuSeparator options
+1.4
+	+ Directory src/EBox mirrors perl namespaces
+1.2
+	+ Add support to create types
+1.1
+	+ Add support to create models
+1.0
+	+ First release

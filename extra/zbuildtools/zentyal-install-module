@@ -1,0 +1,120 @@
+#!/usr/bin/perl
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+use Error qw(:try);
+use File::Basename;
+use File::Slurp;
+use Cwd;
+
+my ($DESTDIR) = @ARGV;
+unless ($DESTDIR) {
+    $DESTDIR = '/';
+}
+my $MODULE_NAME = basename(getcwd());
+$MODULE_NAME =~ s/^zentyal-//;
+
+my %DIR;
+$DIR{PERL} = "${DESTDIR}usr/share/perl5";
+$DIR{SCHEMAS} = "${DESTDIR}usr/share/zentyal/modules";
+$DIR{DATA} = "${DESTDIR}usr/share/zentyal-$MODULE_NAME";
+$DIR{STUBS} = "${DESTDIR}usr/share/zentyal/stubs/$MODULE_NAME";
+$DIR{TEMPLATES} = "${DESTDIR}usr/share/zentyal/templates/$MODULE_NAME";
+$DIR{ETC} = "${DESTDIR}etc/zentyal";
+$DIR{MIGRATION} = "${DESTDIR}usr/share/zentyal-$MODULE_NAME/migration";
+$DIR{SQL} = "${DESTDIR}usr/share/zentyal-$MODULE_NAME/sql";
+$DIR{URLS} = "${DESTDIR}usr/share/zentyal/urls";
+$DIR{WWW} = "${DESTDIR}usr/share/zentyal/www";
+$DIR{CGI} = "${DESTDIR}usr/share/zentyal/cgi";
+
+# Special cases for paths
+if ($MODULE_NAME eq 'common' or $MODULE_NAME eq 'core') {
+    $DIR{DATA} = "${DESTDIR}usr/share/zentyal";
+    $DIR{MIGRATION} = "${DESTDIR}usr/share/zentyal/migration";
+    $DIR{TEMPLATES} = "${DESTDIR}usr/share/zentyal/templates";
+}
+
+my %srcs;
+
+# Perl modules
+my @lines = `find . -name *.pm|xargs grep "^package .*;"`;
+foreach my $line (@lines) {
+    my ($file, $package) = $line =~ /(.*):package (.*);/;
+    $package =~ s/::/\//g;
+    my $destpath = "$DIR{PERL}/$package";
+    my $destdir = dirname($destpath);
+    unless (filter($file)) {
+        $srcs{$file} = $destdir;
+    }
+}
+# Add extra files to custom paths
+if (-d 'extra') {
+    @lines = read_file("extra/files.list");
+    chomp (@lines);
+    foreach my $line (@lines) {
+        my ($file, $destdir) = split (' ', $line);
+        $srcs{"extra/$file"} = "${DESTDIR}$destdir";
+    }
+}
+
+add_if_exists('schemas', $DIR{SCHEMAS}, '*.yaml');
+add_if_exists('schemas', $DIR{DATA}, '*.ldif');
+add_if_exists('schemas/urls', $DIR{URLS}, '*.urls');
+add_if_exists('schemas/sql', $DIR{DATA});
+add_if_exists('www', $DIR{WWW}, '*');
+add_if_exists('src/scripts', $DIR{DATA}, '*');
+add_if_exists('src/templates', $DIR{TEMPLATES}, '*');
+add_if_exists('src/cgi', $DIR{CGI}, '*.cgi');
+add_if_exists('stubs', $DIR{STUBS}, '*');
+add_if_exists('conf', $DIR{ETC}, '*');
+add_if_exists('migration', $DIR{MIGRATION}, '*');
+
+my %dirs = map { $_ => 1 } values %srcs;
+foreach my $dir (keys %dirs) {
+    system ("mkdir -p $dir");
+}
+foreach my $src (keys %srcs) {
+    my $destdir = $srcs{$src};
+    system ("cp -r $src $destdir/");
+}
+
+# Helper functions
+
+sub add_if_exists
+{
+    my ($src, $dst, $what) = @_;
+    $what = '' unless defined ($what);
+
+    return if filter($src);
+
+    if (-d $src) {
+        $srcs{"$src/$what"} = $dst;
+    }
+}
+
+sub filter
+{
+    my ($src) = @_;
+
+    # Skip unit tests
+    if (($src =~ m{/t/}) or ($src =~ m{/Test\.pm$})) {
+        return 1;
+    }
+
+    return 0;
+}

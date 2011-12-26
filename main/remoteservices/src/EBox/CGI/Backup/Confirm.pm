@@ -31,7 +31,7 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new( @_,
-                                   template => 'RemoteServices/Backup/confirm.mas',
+                                   template => 'remoteservices/Backup/confirm.mas',
                                    title => __('Configuration backup'),
                                  );
 

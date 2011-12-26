@@ -2,7 +2,7 @@ Source: zmoddev
 Section: utils
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: debhelper (>= 7.0.0), cdbs
+Build-Depends: debhelper (>= 7.0.0), cdbs, zbuildtools
 Standards-Version: 3.9.1
 Homepage: http://www.zentyal.org/
 Vcs-Browser: http://trac.zentyal.org/browser/branches/2.0/extra/zmoddev/
@@ -10,7 +10,7 @@ Vcs-Svn: http://svn.zentyal.org/zentyal/branches/2.0/extra/zmoddev/
 
 Package: zmoddev
 Architecture: all
-Depends: make, dpkg-dev, autotools-dev, autoconf, cdbs, automake1.9 | automake, fakeroot, build-essential, libfile-slurp-perl, libhtml-mason-perl
+Depends: dpkg-dev, zbuildtools, fakeroot, build-essential, libfile-slurp-perl, libhtml-mason-perl
 Recommends: zentyal-core
 Description: Zentyal module development scripts
  This package ships scripts to ease the development of modules for the

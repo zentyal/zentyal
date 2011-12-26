@@ -1,3 +1,5 @@
+HEAD
+	+ Replaced autotools with zbuildtools
 2.1.4
 	+ Add new objects and services from modal box works now
 	+ R2Q constant now is configurable through conf key to allow

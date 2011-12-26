@@ -101,7 +101,7 @@ sub _table
                                 unique => '1',
                                 printableName => __('Group'),
                                 populate => \&populateGroup,
-                                HTMLViewer => '/ajax/viewer/shareViewer.mas',
+                                HTMLViewer => '/samba/ajax/viewer/shareViewer.mas',
                                 editable => 1),
                             new EBox::Types::Select(
                                 fieldName => 'share',
@@ -109,7 +109,7 @@ sub _table
                                 printableName => __('Share'),
                                 foreignModel => \&shareModel,
                                 foreignField => 'share',
-                                HTMLViewer => '/ajax/viewer/shareViewer.mas',
+                                HTMLViewer => '/samba/ajax/viewer/shareViewer.mas',
                                 editable => 1)
                         ]
                       ),

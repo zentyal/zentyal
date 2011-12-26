@@ -62,10 +62,10 @@ sub new
   my ($class, %params) = @_;
 
   unless (exists $params{'HTMLSetter'}) {
-      $params{'HTMLSetter'} ='/ajax/setter/squid/timePeriod.mas';
+      $params{'HTMLSetter'} = '/squid/ajax/setter/timePeriod.mas';
   }
   unless (exists $params{'HTMLViewer'}) {
-      $params{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+      $params{'HTMLViewer'} = '/ajax/viewer/textViewer.mas';
   }
   unless (exists $params{defaultValue}) {
       $params{defaultValue} = ALL_DAYS;

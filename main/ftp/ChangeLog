@@ -1,3 +1,5 @@
+HEAD
+	+ Replaced autotools with zbuildtools
 2.2.1
 	+ Fixed template bug when writting chroot_local_users option
 	+ Welcome banner is now translatable

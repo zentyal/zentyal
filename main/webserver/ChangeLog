@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced autotools with zbuildtools
 	+ Also check alias names when creating a new virtual host
 2.2.2
 	+ Adapted to new DNS method addAlias

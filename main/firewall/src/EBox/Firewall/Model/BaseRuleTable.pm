@@ -111,7 +111,7 @@ sub _fieldDescription
              'fieldName' => 'decision',
              'printableName' => __('Decision'),
              'populate' => \&decision,
-             'HTMLViewer' => '/ajax/viewer/fwDecisionViewer.mas',
+             'HTMLViewer' => '/firewall/ajax/viewer/fwDecisionViewer.mas',
              'editable' => 1
              ));
 

@@ -1,0 +1,303 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2011 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use Getopt::Long;
+use Cwd;
+use HTML::Mason;
+use File::Slurp;
+use File::Copy;
+
+# FIXME: unhardcode this
+my $dist = 'lucid';
+
+use constant
+    {
+       MODULE_VERSION => '2.2',
+       STUBS_PATH => '/usr/share/zentyal/stubs/zmoddev',
+    };
+
+sub _printUsage
+{
+    print STDERR "Usage: $0 --module-name --main-class [Options]\n\n";
+    print STDERR "Options:\n";
+    print STDERR "\t--version\n";
+    print STDERR "\t--destdir\n";
+    print STDERR "\t--model form | table. Default: form\n";
+    exit 1;
+}
+
+sub _parseOptions
+{
+    my %options = (
+            moduleName => undef,
+            printableModuleName => undef,
+            mainClass => undef ,
+            version => MODULE_VERSION,
+            destdir => undef,
+            menuSeparator => undef,
+            firewallHelper => undef,
+            model => 'form',
+            modNameSpace => undef,
+            );
+    my $help;
+    my $info;
+    my $optionsOk = GetOptions(
+            'module-name=s' => \$options{moduleName},
+            'main-class=s' => \$options{mainClass},
+            'module-namespace=s' => \$options{modNameSpace},
+            'printable-module-name=s' => \$options{printableModuleName},
+            'version=s' => \$options{version},
+            'destdir=s' => \$options{destdir},
+            'model=s' => \$options{model},
+            'menu-separator=s' => \$options{menuSeparator},
+            'firewall-helper' => \$options{firewallHelper},
+            'help'  => \$help,
+            'info'  => \$info,
+            );
+
+    if (not $optionsOk or $info or $help) {
+        _printUsage();
+    }
+
+    unless (defined($options{moduleName}) and defined($options{mainClass})) {
+        _printUsage();
+    }
+
+    if ($options{destdir}) {
+        unless (-d $options{destdir}) {
+            die "$options{destidir} does not exist!";
+        }
+    } else {
+        $options{destdir} = getcwd;
+    }
+
+    unless ($options{printableModuleName}) {
+        $options{printableModuleName} = $options{mainClass};
+    }
+
+    $options{destdir} .= '/' . $options{moduleName};
+
+    if ( -d $options{destdir} ) {
+        die "$options{destdir} already exists!";
+    }
+
+    if (defined $options{mainClass}) {
+        my $modNameSpace = $options{mainClass};
+        $modNameSpace =~ s/\.pm$//;
+        $options{modNameSpace} = $modNameSpace
+    }
+
+    return \%options;
+}
+
+sub _src_EBox
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/src/EBox';
+    my $mainClass = $options->{mainClass} . '.pm';
+    system ("mkdir -p $dir");
+
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH . '/src/MainClass.pm.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp,
+            ( mainClass => $mainClass,
+              class => 'EBox::' . $options->{mainClass},
+              name => $options->{moduleName},
+              printableName => $options->{printableModuleName},
+              domain => 'ebox-' . $options->{moduleName},
+              modelDomain => $options->{mainClass},
+              menuSeparator => $options->{menuSeparator},
+              firewallHelper => $options->{firewallHelper}
+              ));
+    write_file($dir . "/$mainClass", ${$output});
+}
+
+sub _src_EBox_Module
+{
+    my ($interp, $output, $options) = @_;
+
+    my $modNameSpace = $options->{modNameSpace};
+    my $dir = $options->{destdir} . '/src/EBox/' . $modNameSpace;
+    mkdir ($dir) or die "Can't create $dir!";
+
+    my $comp;
+    my @perlData;
+
+   if ($options->{firewallHelper}) {
+        # add the firewall helper class
+       my $file = 'FirewallHelper.pm';
+       push @perlData, $file;
+
+       $comp = $interp->make_component(
+            comp_file => STUBS_PATH . '/src/FirewallHelper.pm.mas',
+            );
+       ${$output} = '';
+       $interp->exec($comp, (
+                             modNameSpace => $modNameSpace
+                            ));
+
+       write_file($dir . "/$file", ${$output});
+    }
+}
+
+sub _src_EBox_Module_Model
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir};
+    my $modNameSpace = $options->{modNameSpace};
+    my $mainClass = $options->{mainClass};
+    my $params = " --main-class $mainClass --name Settings" .
+                 " --module-namespace $modNameSpace" .
+                 " --destdir $dir";
+    system("zentyal-moddev-model $params");
+}
+
+sub _src_EBox_Module_Composite
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir};
+    my $modNameSpace = $options->{modNameSpace};
+    my $mainClass = $options->{mainClass};
+    my $params = " --main-class $mainClass --name Composite" .
+                 " --module-namespace $modNameSpace" .
+                 " --destdir $dir";
+    system("zentyal-moddev-composite $params");
+}
+
+sub _src_EBox_Module_Types
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir};
+    my $mainClass = $options->{mainClass};
+    my $modNameSpace = $options->{modNameSpace};
+    my $params = " --main-class $mainClass " .
+                 " --module-namespace $modNameSpace" .
+                 " --destdir $dir";
+    system("zentyal-moddev-type$params");
+}
+
+sub _debian
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . "/debian/$dist";
+    my $module = $options->{moduleName};
+
+    system ("mkdir -p $dir");
+    copy (STUBS_PATH . '/debian/compat',
+           "$dir/compat");
+    copy (STUBS_PATH . '/debian/prerm',
+           "$dir/zentyal-$module.prerm");
+    copy (STUBS_PATH . '/debian/rules',
+           "$dir/rules");
+    chmod(0755, "$dir/rules" );
+
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH . '/debian/changelog.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, ( module => $module,
+        version => $options->{version}));
+    write_file($dir . '/changelog', ${$output});
+
+    $comp = $interp->make_component(
+            comp_file => STUBS_PATH . '/debian/control.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, ( module => $module, ));
+    write_file($dir . '/control', ${$output});
+
+    $comp = $interp->make_component(
+            comp_file => STUBS_PATH . '/debian/postinst.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, ( module => $module));
+    write_file($dir . "/zentyal-$module.postinst", ${$output});
+
+    $comp = $interp->make_component(
+            comp_file => STUBS_PATH . '/debian/postrm.mas',
+            );
+    ${$output} = '';
+    $interp->exec($comp, ( module => $module));
+    write_file($dir . "/zentyal-$module.postrm", ${$output});
+}
+
+sub _schemas
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir} . '/schemas';
+    my $module = $options->{moduleName};
+    my $yaml = "$module.yaml";
+    my $mainClass = 'EBox::' . $options->{mainClass};
+
+    mkdir ("$dir") or die "Can't create $dir!";
+
+    my $comp = $interp->make_component(
+            comp_file => STUBS_PATH .  '/schemas/yaml.mas',
+            );
+    ${$output} = '';
+
+    $interp->exec($comp, ( mainClass => $mainClass));
+    write_file($dir . "/$yaml", ${$output});
+}
+
+sub _stubs
+{
+    my ($interp, $output, $options) = @_;
+
+    my $dir = $options->{destdir};
+    my $module = $options->{moduleName};
+
+    my $params = " --main-class $module --name service.conf" .
+                 " --destdir $dir";
+    system("zentyal-moddev-stub $params");
+}
+
+sub _createModule
+{
+    my $options = _parseOptions();
+
+    my $dir = $options->{destdir};
+
+    mkdir $dir or die "Can't create dir $dir!";
+
+    my $output;
+    my $interp = HTML::Mason::Interp->new(comp_root => STUBS_PATH,
+            out_method => \$output);
+
+    _src_EBox($interp, \$output, $options);
+    _src_EBox_Module($interp, \$output, $options);
+    _src_EBox_Module_Model($interp, \$output, $options);
+    _src_EBox_Module_Composite($interp, \$output, $options);
+    _src_EBox_Module_Types($interp, \$output, $options);
+    _debian($interp, \$output, $options);
+    _schemas($interp, \$output, $options);
+    _stubs($interp, \$output, $options);
+}
+
+_createModule();
+

@@ -1,4 +1,5 @@
 HEAD
+	+ Replaced autotools with zbuildtools
 	+ Use always the same string to refer to the NetBIOS computer name
 	+ Validation of maximum length of domain name, validation against
 	  reserved words of netbios and domain names
