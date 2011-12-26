@@ -33,8 +33,7 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-#FIXME: $ref->{version} = "@VERSION@";
-$ref->{version} = "2.2";
+$ref->{version} = "@VERSION@";
 $ref->{perlpath} = "/usr/share/perl5";
 
 my @confFiles;
