@@ -656,30 +656,6 @@ sub bundleVersion
     } else {
         return 0;
     }
-
-}
-
-
-# Method: version
-#
-# Returns:
-#
-#      String - the zentyal-remoteservices package version according to dpkg-query
-#
-#      0 - otherwise
-#
-sub version
-{
-    my $remoteServicesVersion = 0;
-    my @output = `dpkg-query -W zentyal-remoteservices`;
-    foreach my $line (@output) {
-        if ($line =~ m/^zentyal-remoteservices\s+([\d.]+)/) {
-            $remoteServicesVersion = $1;
-            last;
-        }
-    }
-
-    return $remoteServicesVersion;
 }
 
 # Method: subscriptionLevel
