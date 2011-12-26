@@ -33,8 +33,6 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-# FIXME: $ref->{package} = "@PACKAGE@";
-$ref->{package} = "zentyal-common";
 #FIXME: $ref->{version} = "@VERSION@";
 $ref->{version} = "2.2";
 $ref->{perlpath} = "/usr/share/perl5";
@@ -342,11 +340,6 @@ sub dynamicimages
 sub dynamicRSS
 {
     return dynamicwww() . 'feed/';
-}
-
-sub package
-{
-    return $ref->{package};
 }
 
 sub version
