@@ -622,7 +622,7 @@ sub _installCloudProf
     if ( $self->_pkgInstalled(PROF_PKG) ) {
         # Remove any at command from user to avoid removing pkg using at
         my $user = EBox::Config::user();
-        my $queuedJobs = EBox::Sudo::root("atq | grep $user");
+        my $queuedJobs = EBox::Sudo::rootWithoutException("atq | grep $user");
         if (@{$queuedJobs} > 0) {
             # Delete them
             my @jobIds = map { m/^([0-9]+)\s/ } @{$queuedJobs};
