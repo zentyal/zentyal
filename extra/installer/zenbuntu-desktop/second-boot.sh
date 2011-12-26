@@ -7,11 +7,10 @@ then
     sed -i "s/.*autologin=.*/# autologin=nobody/" /etc/lxdm/default.conf
 
     # Remove temporal local repository
-    sed -i "/deb file.*ebox-packages/d" /etc/apt/sources.list
+    sed -i "/deb file.*zentyal-packages/d" /etc/apt/sources.list
 
-    # Restore original rc.local and clean stuff
-    mv /var/tmp/zentyal/rc.local /etc/rc.local
-    rm -rf /var/tmp/zentyal
+    # Restore default rc.local
+    cp /usr/share/zenbuntu-desktop/rc.local /etc/rc.local
 fi
 
 initctl emit zentyal-lxdm
