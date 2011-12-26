@@ -49,7 +49,7 @@ my $TMPDIR = "/tmp/zentyal-package-$$";
 my $cwd;
 my $dist = $ARGV[1];
 unless ($dist) {
-    $dist = 'lucid';
+    $dist = 'precise';
 }
 my $version = $ARGV[2];
 unless ($version) {
@@ -101,7 +101,7 @@ sub add_changelog_entry
     chomp ($version);
 
     if ($version ne 'HEAD') {
-        system("dch -b -v '$version${appendDebianVersion}' -D 'lucid' --force-distribution 'New upstream release'");
+        system("dch -b -v '$version${appendDebianVersion}' -D 'precise' --force-distribution 'New upstream release'");
     }
 }
 
