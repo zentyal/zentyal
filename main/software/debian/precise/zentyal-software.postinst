@@ -1,0 +1,13 @@
+#!/bin/bash
+
+case "$1" in
+    configure)
+
+        /usr/share/zentyal/initial-setup software $2
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+
+esac
+
+exit 0
