@@ -288,7 +288,7 @@ sub enableActions
             $self->initUser($user->{'username'});
         }
     } elsif ($mode eq 'master' or $mode eq 'ad-slave') {
-        $self->_manageService('start');
+#        $self->_manageService('start');
         my $password = remotePassword();
         EBox::UsersAndGroups::Setup::master($password);
     } else {
@@ -779,26 +779,6 @@ sub restoreState
 {
     my ($self) = @_;
     $self->_enforceServiceState();
-}
-
-# Method: configured
-#
-#    Overrides EBox::Module::Service::configured method. The normal method
-#    calls usedFiles() and actions() and it might cause migrations to not work
-#
-sub configured
-{
-    my ($self) = @_;
-
-    if (-d EBox::Config::conf() . "configured/") {
-        return -f (EBox::Config::conf() . "configured/" . $self->name());
-    }
-
-    unless ($self->st_get_bool('_serviceConfigured')) {
-        return undef;
-    }
-
-    return $self->st_get_bool('_serviceConfigured');
 }
 
 sub rewriteObjectClasses

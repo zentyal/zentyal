@@ -30,3 +30,4 @@ objectClass: organizationalRole
 objectClass: simpleSecurityObject
 description: eBox admin account
 userPassword: <% $password %>
+
