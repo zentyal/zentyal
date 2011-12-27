@@ -8,4 +8,4 @@ x11-setup /usr/share/zenbuntu-desktop
 firefox-profile /usr/share/zenbuntu-desktop
 lxde /usr/share/zenbuntu-desktop
 lxdm /usr/share/zenbuntu-desktop
-plymouth /lib/plymouth/themes/zentyal
+plymouth/* /lib/plymouth/themes/zentyal

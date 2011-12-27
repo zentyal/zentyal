@@ -48,7 +48,8 @@ mv /usr/share/zenbuntu-desktop/lxde/Desktop/* $DESKTOP/
 PANELS_DIR=$DIR/.config/lxpanel/LXDE/panels
 mkdir -p $PANELS_DIR
 mv /usr/share/zenbuntu-desktop/lxde/bottom $PANELS_DIR/
-sed -i "s/DESKTOP_PATH/$DESKTOP/" $PANELS_DIR/bottom
+ESCAPED_PATH=$(echo $DESKTOP | sed 's/\//\\\//g')
+sed -i "s/DESKTOP_PATH/$ESCAPED_PATH/" $PANELS_DIR/bottom
 PCMANFM_DIR=$DIR/.config/pcmanfm
 mkdir -p $PCMANFM_DIR
 mv /usr/share/zenbuntu-desktop/lxde/main.lxde $PCMANFM_DIR/
