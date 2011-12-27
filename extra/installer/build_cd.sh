@@ -12,7 +12,7 @@ mkdir $TMPDIR
 test -f $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
 
 # Build zenbuntu-desktop package
-svn export zenbuntu-desktop $TMPDIR/zenbuntu-desktop
+cp -r zenbuntu-desktop $TMPDIR/zenbuntu-desktop
 cd $TMPDIR/zenbuntu-desktop
 dpkg-buildpackage
 cd -
