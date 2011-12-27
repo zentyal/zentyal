@@ -28,6 +28,7 @@ unless ($DESTDIR) {
 }
 my $MODULE_NAME = basename(getcwd());
 $MODULE_NAME =~ s/^zentyal-//;
+$MODULE_NAME =~ s/-.*$//;
 
 my %DIR;
 $DIR{PERL} = "${DESTDIR}usr/share/perl5";
