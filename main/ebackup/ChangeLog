@@ -1,4 +1,5 @@
 HEAD
+	+ Set a default timeout of 5 minutes for duplicity
 	+ Replaced autotools with zbuildtools
 	+ Added pre and post backup process hooks. Thanks to Oliver
 	  (levelml@level-it.de) for his patch proposal for this
