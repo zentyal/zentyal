@@ -8,7 +8,7 @@ ARCHIVE_URL="http://archive.zentyal.org/zentyal"
 ARCHIVE_SOURCES="deb $ARCHIVE_URL 2.2 main"
 EXTRA_URL="http://archive.zentyal.com/zentyal"
 EXTRA_SOURCES="deb $EXTRA_URL 2.2 extra"
-PKG_DIR=/var/tmp/ebox-packages
+PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
 create_repository() {
@@ -65,20 +65,9 @@ gen_locales() {
 }
 
 
-# replace motd
-cp /tmp/zentyal/motd /etc/motd.tail
-
 # copy *.deb files from CD to hard disk
-PKG_DIR=/var/tmp/ebox-packages
+PKG_DIR=/var/tmp/zentyal-packages
 mkdir $PKG_DIR
-#list=`cat /tmp/ebox/extra-packages.list`
-#packages=`LANG=C apt-get install $list --simulate|grep ^Inst|cut -d' ' -f2`
-#for p in $packages
-#do
-#    char=$(echo $p | cut -c 1)
-#    cp /cdrom/pool/main/{$char,lib$char}/*/${p}_*.deb $PKG_DIR 2> /dev/null
-#    cp /cdrom/pool/extras/${p}_*.deb $PKG_DIR 2> /dev/null
-#done
 files=`find /cdrom/pool -name '*.deb'`
 for file in $files
 do
@@ -104,22 +93,14 @@ then
     echo ${EXTRA_SOURCES} >> ${SOURCES_LIST} # add zentyal extra sources
 fi
 
-# Import keys to avoid warnings
-apt-key add /tmp/zentyal/ebox-ppa.asc >> $LOG 2>&1
-apt-key add /tmp/zentyal/zentyal-2.2-archive.asc >> $LOG 2>&1
 update_if_network # apt-get update if we are connected to the internet
 
 gen_locales
 
-mv /tmp/zentyal /var/tmp
-mv /var/tmp/zentyal/ebox-x11-setup /etc/rc.local
-mv /var/tmp/zentyal/plymouth-zentyal /lib/plymouth/themes/zentyal
-ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
-
 if [ -f /tmp/RECOVER_MODE ]
 then
     # Set DR flag for second stage
-    DISASTER_FILE=/var/tmp/zentyal/.disaster-recovery
+    DISASTER_FILE=/var/tmp/.zentyal-disaster-recovery
     touch $DISASTER_FILE
     chown :admin $DISASTER_FILE
     chown g+w $DISASTER_FILE
@@ -127,8 +108,6 @@ then
     # Clean DR flag for first stage
     echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
 fi
-
-sed -i 's/start on/start on zentyal-lxdm and/' /etc/init/lxdm.conf
 
 sync
 

@@ -15,25 +15,18 @@ in the 'build_cd.conf.local' file.
 
 You must put all extra .deb archives in the directory pointed by the key
 EXTRAS_DIR (in build_cd.conf).  Today the extra packages needed are all
-eBox packages and its dependencies not already provided by the base CD.
+Zentyal packages and its dependencies not already provided by the base CD.
 
 You can put the packages you want included in the installer in the
 'extra-packages.list' file and then use 'generate_extras.sh' script to get them
 and their dependencies on a chrooted debootstrap environment.
-
-2.1) Put eBox metapackages
-
-They are built from trunk/extra/ebox-metapackages, you can export it
-somewhere, run dpkg-buildpackage and then add them to the EXTRAS_DIR
-directory. If they are already uploaded to a repository you can simply
-add their names to the 'extra-packages.list' file.
 
 3) Download the ubuntu server iso and setup the build directory
 
 You need to download the ISO file to remaster.  After download it, execute the
 setup_build_dir.sh command.
 
-You can also use an already built eBox installer ISO to remaster. Just edit the
+You can also use an already built Zentyal installer ISO to remaster. Just edit the
 build.cd.conf file to change the name of the .iso file.
 
 4) Make sure you have installed the libebox and mkisofs packages in the system
