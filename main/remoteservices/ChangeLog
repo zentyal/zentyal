@@ -1,4 +1,5 @@
 HEAD
+	+ Set off-office hours for module cron jobs
 	+ Bugfix: Do not crash if apt-key del command fails
 	+ Bugfix: The internal cron jobs are now removed correctly
 	+ Remove some configuration and packages when a downgrade is done
