@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid use of AUTOLOAD to execute redis commands, improves performance
 	+ Replaced autotools with zbuildtools
 	+ Refuse to restore configuration backup from version lesser than
 	  2.1 unless forced

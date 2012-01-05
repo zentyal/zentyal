@@ -672,11 +672,12 @@ sub _redis_call
                 # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
                 $failure = 1; };
             eval {
+                $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
-                    @response = $self->{redis}->$command(@args);
+                    @response = $self->{redis}->__read_response();
                     map { utf8::encode($_) if defined ($_) } @response;
                 } else {
-                    $response = $self->{redis}->$command(@args);
+                    $response = $self->{redis}->__read_response();
                     utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
