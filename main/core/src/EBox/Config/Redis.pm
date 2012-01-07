@@ -738,10 +738,14 @@ sub _respawn
     $self->{redis} = undef;
     $redis = undef;
 
-    my $port = $self->_port();
+    my $user = $self->_user();
     my $filepasswd = $self->_passwd();
 
-    $redis = Redis->new(server => "127.0.0.1:$port");
+    # FIXME: libredis-perl does not support unix sockets yet
+    # I'm manually patching it now for the tests, modify
+    # this when the definitive patch is accepted by upstream
+    # and/or integrated in our custom libredis-perl
+    $redis = Redis->new(server => "/var/run/redis/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;

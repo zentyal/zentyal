@@ -1,4 +1,5 @@
 HEAD
+	+ Use UNIX socket to connect to redis for better performance
 	+ Replaced autotools with zbuildtools
 	+ Refuse to restore configuration backup from version lesser than
 	  2.1 unless forced

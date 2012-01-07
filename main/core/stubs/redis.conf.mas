@@ -38,7 +38,7 @@ bind 127.0.0.1
 # incoming connections. There is no default, so Redis will not listen
 # on a unix socket when not specified.
 #
-unixsocket /var/run/redis/redis.sock
+unixsocket /var/run/redis/redis.<% $user %>.sock
 
 # Close the connection after a client is idle for N seconds (0 to disable)
 timeout 300
