@@ -477,13 +477,12 @@ sub checkProtocol # (protocol, name?)
 #
 sub checkMAC # (mac, name?)
 {
-    my $mac = shift || '';
-    my $name = shift;
-    $mac .= ':';
-    unless ($mac =~ /^([0-9a-fA-F]{1,2}:){6}$/) {
+    my ($origMac, $name) = @_;
+    my $mac = $origMac . ':';
+    unless ($mac =~ /^([0-9a-fA-F]{2}:){6}$/) {
         if ($name) {
             throw EBox::Exceptions::InvalidData
-                ('data' => $name, 'value' => $mac);
+                ('data' => $name, 'value' => $origMac);
         } else {
             return undef;
         }
