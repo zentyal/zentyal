@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing US and Etc zones in timezone selector
 	+ Refuse to restore configuration backup from version lesser than
 	  2.1 unless forced
 	+ Do not retrieve format.js in every graph to improve performance
