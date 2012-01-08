@@ -527,6 +527,7 @@ sub _setAddress
 
     my $src = delete $params{$addressType . 'Address'};
     my $obj = delete $params{$addressType . 'Object'};
+    my $objMembers;
     my $inverse = '';
     if ($params{'inverseMatch'}) {
         $inverse = ' ! ';
@@ -554,12 +555,14 @@ sub _setAddress
         }
     }
 
-    if (defined($obj) ) {
+    if (defined($obj)) {
         if (not $self->{'objects'}->objectExists($obj)) {
             throw EBox::Exceptions::DataNotFound('data' => 'object',
                                                  'value' => $obj);
         }
-        if ( @{$self->{'objects'}->objectAddresses($obj)} == 0 ) {
+
+        $objMembers = $self->{'objects'}->objectMembers($obj);
+        unless (@{$objMembers}) {
             EBox::warn("No members on obj $obj: " .
                        $self->{'objects'}->objectDescription($obj) .
                        ' make no iptables rules being created');
@@ -568,12 +571,22 @@ sub _setAddress
 
     $self->{$addressType} = [] ;
     my $flag = ' --source ';
+    my $rangeFlag = ' --src-range ';
     if ($addressType eq 'destination') {
         $flag = ' --destination ';
+        $rangeFlag = ' --dst-range ';
     }
+
     if (defined($obj)) {
-        foreach my $addr (@{$self->{'objects'}->objectAddresses($obj)}) {
-            push (@{$self->{$addressType}}, $flag . $inverse . $addr);
+        foreach my $member (@{ $objMembers }) {
+            # XXX cambiar aqui para soportar ranges
+            if ($member->{type} eq 'ipaddr') {
+                push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
+            } elsif ($member->{type} eq 'iprange') {
+                my $range = $member->{begin} . '-' . $member->{end};
+                push (@{$self->{$addressType}}, ' -m iprange ' . $inverse . $rangeFlag .  $range);                
+            }
+
         }
     } else {
         if (defined ($src) and $src->isa('EBox::Types::IPAddr')
