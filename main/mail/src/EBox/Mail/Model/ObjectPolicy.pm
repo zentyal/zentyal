@@ -208,24 +208,4 @@ sub _findRowByObjectName
     return $row;
 }
 
-
-sub precondition
-{
-    my ($self) = @_;
-    my $objectModel = $self->objectModel();
-    return @{ $objectModel->ids() } > 0;
-}
-
-sub preconditionFailMsg
-{
-    return __x(
-'There are not network objects in the system. You can create them in the {openurl}Object\'s page{closeurl}',
-openurl => q{<a href='/Objects/View/ObjectTable'>},
-closeurl => q{</a>},
-
-       )
-}
-
-
 1;
-

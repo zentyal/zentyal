@@ -1,4 +1,6 @@
 HEAD
+	+ Remove precondition if there are no objects as now they can be
+	  added in-line with the new dialog
 	+ Replaced autotools with zbuildtools
 2.2.1
 	+ Fixed usercorner row id error when adding a new external account
