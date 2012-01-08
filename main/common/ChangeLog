@@ -1,4 +1,5 @@
 HEAD
+	+ Cache list of ifaces to improve performance
 	+ Replaced autotools with zbuildtools
 2.2.2
 	+ Ignore last dot if exists when validating domain names
