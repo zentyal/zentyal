@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -f /etc/init/ebox.openvpn.*
+
+exit 0
