@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 125;
+use Test::More tests => 135;
 use Test::Exception;
 use Fatal qw(mkdir);
 
@@ -17,6 +17,8 @@ checkHostTest();
 checkEmailAddressTest();
 checkIP6Test();
 checkCIDRTest();
+checkMACTest();
+
 
 sub checkFilePathTest
 {
@@ -241,5 +243,37 @@ sub checkCIDRTest
 
 }
 
+
+sub checkMACTest
+{
+  my @valid = (
+      "06:00:00:00:00:00",
+      "00:0d:c5:d0:47:f2",
+              );
+
+  my @invalid = (
+                 "22:11:0d:c5:d0:47:f2" , # one suprefluous pair
+                 "0d:c5:d0:47:f2" , # one missing pair
+                 "00:0h:c5:d0:47:f2", # invalid hex character
+                 "0:0d:c5:d0:47:f2" , # one character
+
+                );
+
+
+  foreach my $ip (@valid) {
+    ok EBox::Validate::checkMAC($ip), 'checking wether checkMAC recognizes valid addresses';
+  }
+
+  
+  foreach my $ip (@invalid) {
+    my $errorReturnValue = not EBox::Validate::checkMAC($ip);
+    ok $errorReturnValue, 'checking wether checkMAC signals invalid values wit its return value';;
+    dies_ok {
+      EBox::Validate::checkMAC($ip, 'error');
+    } 'checking wether checkMAC signals a invalid value raising exception';
+  }
+
+
+}
 
 1;

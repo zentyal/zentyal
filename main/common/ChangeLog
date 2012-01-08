@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: MAC validation now forbids parts with only one character
 2.2.2
 	+ Ignore last dot if exists when validating domain names
 2.2.1
