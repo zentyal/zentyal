@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: do not try to get orgName in destroyCA after files are removed
 2.2.2
 	+ Fixed typo bug in method destroyCA
 2.2.1

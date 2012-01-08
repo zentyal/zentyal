@@ -355,13 +355,14 @@ sub destroyCA
         return 2;
     }
 
-    # Using system rm -rf to delete CA directory
-    if ( system('rm -rf ' . CATOPDIR) != 0 )  {
-        throw EBox::Exceptions::External(__("The remove operation cannot be finished. Reason: ")
-                . $!);
+    my $orgName = $self->caDN()->attribute('orgName');
+
+    # Delete CA directory
+    if (system('rm -rf ' . CATOPDIR) != 0)  {
+        throw EBox::Exceptions::External(__("The remove operation cannot be finished. Reason: ") . $!);
     }
 
-    $self->_audit('destroyCA', $self->caDN()->attribute('orgName'));
+    $self->_audit('destroyCA', $orgName);
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
