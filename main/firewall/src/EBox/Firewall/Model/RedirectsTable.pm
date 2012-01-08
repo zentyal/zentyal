@@ -386,4 +386,36 @@ sub _table
     return $dataTable;
 }
 
+# Method: viewCustomizer
+#
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    # disable port selection in protless protocols
+    my $portFields = [qw(external_port destination_port)];
+    $customizer->setOnChangeActions({
+        protocol => {
+            'tcp/udp' => {show => $portFields},
+            'tcp' => {show => $portFields},
+            'udp' => {show => $portFields},
+
+            'ah' => { hide => $portFields },
+            'esp' => { hide => $portFields },
+            'gre' => { hide => $portFields },
+            'icmp' => { hide => $portFields },
+            'all' => { hide => $portFields },
+        }
+    });
+
+    return $customizer;
+}
+
 1;
