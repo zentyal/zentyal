@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use Sys::Hostname;
+use File::Basename;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -55,7 +56,8 @@ sub _process
     my @date = ($day,$month,$year,$hour,$minute,$second);
 
     # Get timezones table
-    my @zonedata = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|cut -d '/' -f1|sort -u`;
+    my $zoneinfo = '/usr/share/zoneinfo';
+    my @zonedata = `cat $zoneinfo/zone.tab |grep -v '#'|cut -f3|cut -d '/' -f1|sort -u`;
     my %b;
     my @zonea;
     foreach (@zonedata) {
@@ -65,10 +67,16 @@ sub _process
     my %table;
     foreach my $item (@zonea) {
         chomp $item;
-        @list = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|grep \"^$item\"|sed -e 's/$item\\///'| sort -u`;
+        @list = `cat $zoneinfo/zone.tab |grep -v '#'|cut -f3|grep \"^$item\"|sed -e 's/$item\\///'| sort -u`;
         foreach my $elem (@list) {
             chomp $elem;
-            push(@{$table{$item}}, $elem);
+            push (@{$table{$item}}, $elem);
+        }
+    }
+    # Add US and Etc zones
+    foreach my $dir ('US', 'Etc') {
+        foreach my $file (glob ("$zoneinfo/$dir/*")) {
+            push (@{$table{$dir}}, basename($file));
         }
     }
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing US and Etc zones in timezone selector
 	+ Replaced autotools with zbuildtools
 	+ Refuse to restore configuration backup from version lesser than
 	  2.1 unless forced
