@@ -36,6 +36,7 @@ use EBox::Service;
 use EBox::Sudo;
 use EBox::Exceptions::Sudo::Command;
 use EBox::IDSLogHelper;
+use List::Util;
 
 use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
 use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
@@ -425,6 +426,44 @@ sub usingASU
         }
     }
     return $usingASU;
+}
+
+# Method: rulesNum
+#
+#     Get the number of available IDS rules
+#
+# Parameters:
+#
+#     force - Boolean indicating we are forcing to calculate again
+#
+# Returns:
+#
+#     Int - the number of available IDS rules
+#
+sub rulesNum
+{
+    my ($self, $force) = @_;
+
+    my $key = 'rules_num';
+    $force = 0 unless defined($force);
+
+    my $rulesNum;
+    if ( $force or (not $self->st_entry_exists($key)) ) {
+        my @files;
+        my $rulesDir = SNORT_RULES_DIR . '/';
+        if ( $self->usingASU() ) {
+            @files = <${rulesDir}emerging-*.rules>;
+        } else {
+            @files = <${rulesDir}*.rules>;
+        }
+        # Count the number of rules removing blank lines and comment lines
+        my @numRules = map { `sed -e '/^#/d' -e '/^\$/d' $_ | wc -l` } @files;
+        $rulesNum = List::Util::sum(@numRules);
+        $self->st_set_int($key, $rulesNum);
+    } else {
+        $rulesNum = $self->st_get_int($key);
+    }
+    return $rulesNum;
 }
 
 # Group: Private methods

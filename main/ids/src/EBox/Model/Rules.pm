@@ -69,6 +69,29 @@ sub new
 
 }
 
+# Method: viewCustomizer
+#
+#      To display a permanent message
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    if ( $self->parentModule()->usingASU() ) {
+        my $rules = $self->parentModule()->rulesNum();
+        my $msg   = $self->_commercialMsg($rules);
+        $customizer->setPermanentMessage($msg);
+    }
+
+    return $customizer;
+}
+
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -172,6 +195,17 @@ sub _table
         help               => __('Select the sets of rules you want apply when scanning the network traffic'),
     };
     return $dataTable;
+}
+
+# Group: Private methods
+
+sub _commercialMsg
+{
+    my ($self, $rulesNum) = @_;
+
+    return __sx('Advanced Security Updates grants you to use daily updated {rules} rules',
+                rules => $rulesNum);
+
 }
 
 1;
