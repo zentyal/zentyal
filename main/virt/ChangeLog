@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: custom keymap validation works properly now
 2.2.3
 	+ Internal networks now work in KVM
 	+ Optimize check status operation in KVM using domstate command
