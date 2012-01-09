@@ -1,4 +1,6 @@
 HEAD
+	+ Show the number of available IDS rules in the Advanced Security
+	  Updates model
 	+ Replaced autotools with zbuildtools
 	+ Do not clear cache when restarting the remoteservices module
 	+ Bugfix: Do not crash if apt-key del command fails

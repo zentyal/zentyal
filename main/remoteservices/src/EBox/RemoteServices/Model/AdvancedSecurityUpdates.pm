@@ -129,6 +129,15 @@ sub _table
              ),
       );
 
+    my $global = EBox::Global->getInstance(1);
+    if ( $global->modExists('ids') ) {
+        push(@tableDesc,
+             new EBox::Types::Int(
+                 fieldName     => 'available_ids_rules',
+                 printableName => __('Available IDS rules')
+                ));
+    }
+
     my $dataForm = {
                     tableName        => __PACKAGE__->nameFromClass(),
                     pageTitle        => __('Advanced Security Updates'),
@@ -149,7 +158,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->parentModule();
 
     my ($serverName, $subscription, $asu, $latest) =
       (__('None'), __('None'), __('Disabled'), __('None'));
@@ -173,12 +182,21 @@ sub _content
 
     }
 
-    return {
+    my $retData = {
         server_name  => $serverName,
         subscription => $subscription,
         asu          => $asu,
         latest       => $latest,
-       };
+    };
+
+    # Optional fields depending on the installed modules
+    my $global = EBox::Global->getInstance(1);
+    if ( $global->modExists('ids') ) {
+        my $rules = $global->modInstance('ids')->rulesNum();
+        $retData->{available_ids_rules} = $rules;
+    }
+
+    return $retData;
 }
 
 # Group: Private methods
