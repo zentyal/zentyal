@@ -39,6 +39,7 @@ use EBox::IDSLogHelper;
 
 use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
 use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
+use constant SNORT_RULES_DIR => '/etc/snort/rules';
 
 # Group: Protected methods
 
@@ -143,6 +144,10 @@ sub _setConf
     my $rulesModel = $self->model('Rules');
     my @rules = map ($rulesModel->row($_)->valueByName('name'),
                    @{$rulesModel->enabledRows()});
+
+    if ( $self->usingASU() ) {
+        @rules = map { "emerging-$_" } @rules;
+    }
 
     $self->writeConfFile(SNORT_CONF_FILE, 'ids/snort.conf.mas',
                          [ rules => \@rules ]);
@@ -386,6 +391,40 @@ sub consolidateReportQueries
             }
         }
     ];
+}
+
+# Method: usingASU
+#
+#    Get if the module is using ASU or not.
+#
+#    If a parameter is given, then it sets the value
+#
+# Parameters:
+#
+#    usingASU - Boolean Set if we are using ASU or not
+#
+# Returns:
+#
+#    Boolean - indicating whether we are using ASU or not
+#
+sub usingASU
+{
+    my ($self, $usingASU) = @_;
+
+    my $key = 'using_asu';
+    if (defined($usingASU)) {
+        $self->st_set_bool($key, $usingASU);
+    } else {
+        if ( $self->st_entry_exists($key) ) {
+            $usingASU = $self->st_get_bool($key);
+        } else {
+            # For now, checking emerging is in rules
+            my $rulesDir = SNORT_RULES_DIR . '/';
+            my @rules = <${rulesDir}emerging-*.rules>;
+            $usingASU = (scalar(@rules) > 0);
+        }
+    }
+    return $usingASU;
 }
 
 # Group: Private methods

@@ -77,7 +77,13 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my @files = </etc/snort/rules/*.rules>;
+    my @files;
+    my $usingASU = $self->parentModule()->usingASU();
+    if ( $usingASU ) {
+        @files = </etc/snort/rules/emerging-*.rules>;
+    } else {
+        @files = </etc/snort/rules/*.rules>;
+    }
 
     my @names;
     foreach my $file (@files) {
@@ -87,7 +93,12 @@ sub syncRows
         next if $name =~ /deleted/;
         push (@names, $name);
     }
-    my %newNames = map { $_ => 1 } @names;
+    my %newNames;
+    if ( $usingASU ) {
+        %newNames = map { s/emerging-//; $_ => 1 } @names;
+    } else {
+        %newNames = map { $_ => 1 } @names;
+    }
 
     my %currentNames =
         map { $self->row($_)->valueByName('name') => 1 } @{$currentRows};
