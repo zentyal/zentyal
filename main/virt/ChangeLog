@@ -1,4 +1,4 @@
-HEAD
+2.2.3
 	+ Internal networks now work in KVM
 	+ Optimize check status operation in KVM using domstate command
 	+ Start VNC proxies only when necessary, this also avoids wrong alerts
