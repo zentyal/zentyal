@@ -1,0 +1,11 @@
+#!/bin/bash
+
+case "$1" in
+    configure)
+
+        locale-gen id_ID.UTF-8
+
+    ;;
+esac
+
+exit 0

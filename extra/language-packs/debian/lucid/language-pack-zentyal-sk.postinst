@@ -1,0 +1,11 @@
+#!/bin/bash
+
+case "$1" in
+    configure)
+
+        locale-gen sk_SK.UTF-8
+
+    ;;
+esac
+
+exit 0
