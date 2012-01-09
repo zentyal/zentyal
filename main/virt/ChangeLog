@@ -1,4 +1,5 @@
 HEAD
+	+ Bugfix: custom keymap validation works properly now
 	+ Replaced autotools with zbuildtools
 	+ Internal networks now work in KVM
 	+ Optimize check status operation in KVM using domstate command

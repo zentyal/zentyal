@@ -609,7 +609,7 @@ sub diskFile
 
 sub _vncKeymap
 {
-    my %validKeymaps = map { $_ => 1 } glob ("$KEYMAP_PATH/*");
+    my %validKeymaps = map { basename($_) => 1 } glob ("$KEYMAP_PATH/*");
 
     my $keymap = EBox::Config::configkey('vnc_keymap');
     if ($keymap) {
