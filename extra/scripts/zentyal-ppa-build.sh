@@ -24,7 +24,7 @@ do
     echo "Building package $i..."
     zentyal-package $i || exit 1
     cd debs-ppa
-    dpkg-source -x *${i}_*.dsc || exit 1
+    dpkg-source -x zentyal-${i}_*.dsc || exit 1
     cd zentyal-${i}-*
     dpkg-buildpackage -k$KEY_ID -S -sa || exit 1
     cp debian/changelog "../../$changelog"
