@@ -1,6 +1,7 @@
 HEAD
 	+ Replaced autotools with zbuildtools
 	+ Also check alias names when creating a new virtual host
+	+ When creating virtual host DNS records use configured domains first
 2.2.2
 	+ Adapted to new DNS method addAlias
 	+ Renaming of virtual hosts disallowed

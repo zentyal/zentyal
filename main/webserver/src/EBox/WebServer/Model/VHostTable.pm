@@ -138,24 +138,10 @@ sub addedRowNotify
         # no DNS module present, nothing to add then
         return;
     }
-
     my $dns = $gl->modInstance('dns');
-
-    my $hostName;
-    my $domain;
     my $vHostName = $row->valueByName('name');
-    my @parts = split(/\./, $vHostName);
-    if (@parts == 1) { # if no dots, only a domain = hostname
-        $hostName = $vHostName;
-        $domain = $vHostName;
-    } else { # If we have dots, last two parts for the domain, rest hostname
-        my $tld = pop(@parts);
-        my $topdomain = pop(@parts);
-        $domain = "$topdomain.$tld";
-        $hostName = join('.', @parts);
-        $hostName = $domain unless $hostName; # If hostName is empty, then = domain
-    }
 
+    my ($hostName, $domain) = $self->_domainAndHostnameForVHost($dns, $vHostName);
     return unless ($hostName or $domain);
 
     # We try to guess the IP address
@@ -237,6 +223,39 @@ sub addedRowNotify
         $self->setMessage(__('There is no static internal interface to ' .
                              'set the Web server IP address.'));
     }
+}
+
+
+sub _domainAndHostnameForVHost
+{
+    my ($self, $dns, $vHostName) = @_;
+    my ($hostName, $domain);
+
+    my @configuredDomains = @{ $dns->domains() };
+    foreach my $configuredDomain (@configuredDomains) {
+        my $dname = $configuredDomain->{name};
+        if ($vHostName =~ m/^(.*)\.$dname$/) {
+            $hostName = $1;
+            $domain = $dname;
+            return ($hostName, $domain);
+        }
+    }
+    
+    
+    my @parts = split(/\./, $vHostName);
+    if (@parts == 1) { # if no dots, only a domain = hostname
+        $hostName = $vHostName;
+        $domain = $vHostName;
+    } else { # If we have dots, last two parts for the domain, rest hostname
+        my $tld = pop(@parts);
+        my $topdomain = pop(@parts);
+        $domain = "$topdomain.$tld";
+        $hostName = join('.', @parts);
+        $hostName = $domain unless $hostName; # If hostName is empty, then = domain
+    }
+
+    return ($hostName, $domain);
+
 }
 
 # Method: getWebServerSAN
