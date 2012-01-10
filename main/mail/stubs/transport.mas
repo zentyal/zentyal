@@ -1,6 +1,10 @@
 <%args>
     $domain
+    @toDovecot => ()
 </%args>
+% foreach my $pattern (@toDovecot) {
+<% $pattern %> dovecot
+% }
 % if ($domain) {
-<% $domain %>	lmtp:127.0.0.1:2003
+<% $domain %>   lmtp:127.0.0.1:2003
 % }

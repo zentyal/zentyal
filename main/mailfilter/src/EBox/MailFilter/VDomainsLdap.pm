@@ -317,12 +317,26 @@ sub _addVDomain
     $self->_vdomainsListChanged();
 }
 
+# Method: spamAccount
+#
+#  Parameters:
+#    vdomain
+#
+#  Returns :
+#   the spam account for the vdomain or false if it has not spam account
 sub spamAccount
 {
     my ($self, $vdomain) = @_;
     return $self->_hasAccount($vdomain, 'spam');
 }
 
+# Method: hamAccount
+#
+#  Parameters:
+#    vdomain
+#
+#  Returns :
+#   the ham account for the vdomain or false if it has not ham account
 sub hamAccount
 {
     my ($self, $vdomain) = @_;
@@ -343,6 +357,32 @@ sub learnAccountsExists
     return 0;
 }
 
+
+# Method: learnAccounts
+#
+#  Parameters:
+#    vdomain
+#
+#  Returns :
+#   list which the learn accounts for the vdomain
+sub learnAccounts
+{
+    my ($self, $vdomain) = @_;
+    $self->checkVDomainExists($vdomain);
+
+    my @accounts;
+    my $hamAccount = $self->hamAccount($vdomain);
+    if ($hamAccount) {
+        push @accounts, $hamAccount;
+    }
+    my $spamAccount = $self->spamAccount($vdomain);
+    if ($spamAccount) {
+        push @accounts, $spamAccount;
+    }
+
+    return \@accounts;
+}
+
 sub _hasAccount
 {
     my ($self, $vdomain, $user) = @_;
@@ -361,12 +401,12 @@ sub _hasAccount
 
     if ($vdomain eq $accountVdomain) {
         # this domain has the control account itseldf
-        return 1;
+        return $account;
     }
 
     my $alias = $user . '@' . $vdomain;
     if ($mailAliasLdap->aliasExists($alias)) {
-        return 1;
+        return $alias;
     }
 
     # neither account itself or alias in this domain
