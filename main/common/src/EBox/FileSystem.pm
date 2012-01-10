@@ -197,6 +197,9 @@ sub dirDiskUsage
 #      Return static file systems information as seen in /etc/fstab
 #      file
 #
+#  Parameters:
+#    bind - whether to include or not bind filesystems (name, default false)
+#
 # Returns:
 #
 #      Hash ref - with the file system as key and a hash with its
@@ -208,13 +211,16 @@ sub dirDiskUsage
 #
 sub staticFileSystems
 {
-    return _fileSystems(FSTAB_PATH);
+    return _fileSystems(FSTAB_PATH, @_);
 }
 
 
 # Function: fileSystems
 #
 #   return mounted file systems information as seen in /etc/mtab
+#
+#  Parameters:
+#    bind - whether to include or not bind filesystems (name, default false)
 #
 # Returns:
 #      a hash reference with the file system as key and a hash with his
@@ -223,7 +229,7 @@ sub staticFileSystems
 #      The properties have the same format that the fields in the fstab file
 sub fileSystems
 {
-    return _fileSystems(MTAB_PATH);
+    return _fileSystems(MTAB_PATH, @_);
 }
 
 #  Function: partitionsFileSystems
@@ -271,8 +277,8 @@ sub partitionsFileSystems
 
 sub _fileSystems
 {
-    my ($tabFile) = @_;
-
+    my ($tabFile, %options) = @_;
+    my $includeBind = $options{bind};
     my %fileSystems;
 
     my $FH;
@@ -288,6 +294,12 @@ sub _fileSystems
 
         my ($fsys, $mpoint, $type, $options, $dump, $pass) = split '\s+', $lineData;
 
+        my @options = split /,/, $options;
+        my $bind = grep { $_ eq 'bind' } @options;
+        if ($bind and not $includeBind) {
+            # ignoring binded filesystems
+            next;
+        }
 
         $fileSystems{$fsys}->{mountPoint} = $mpoint;
         $fileSystems{$fsys}->{type} = $type;
@@ -313,12 +325,23 @@ sub dirFileSystem
     (-d $dir) or
         throw EBox::Exceptions::External(__x('Directory not found: {d}', d=>$dir));
 
-    my $dfOutput = EBox::Sudo::root("df '$dir'");
-    my $infoLine =$dfOutput->[1];
-    chomp $infoLine;
-    my ($fs) = split '\s+', $infoLine;
-    defined $fs or
-        throw EBox::Exceptions::Internal("Cannot find file system for directory $dir");
+    my $fs;
+    my $dirToCheck = $dir;
+    my $realFSFound    = 0;
+    while (not $realFSFound) {
+        my $dfOutput = EBox::Sudo::root("df '$dirToCheck'");
+        my $infoLine =$dfOutput->[1];
+        chomp $infoLine;
+        ($fs) = split '\s+', $infoLine;
+        defined $fs or
+            throw EBox::Exceptions::Internal("Cannot find file system for directory $dir");
+        if (EBox::Sudo::fileTest('-d', $fs)) {
+            # this is a bind fs..
+            $dirToCheck = $fs;
+        } else {
+            $realFSFound = 1;
+        }
+    }
 
     return $fs;
 }

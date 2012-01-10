@@ -213,7 +213,7 @@ sub usage
   my $blockSize = 1048576; # 1 MB block size
   my $fileSystemToScan = $params{fileSystem};
 
-  my $fileSystems = partitionsFileSystems();
+  my $fileSystems = EBox::FileSystem::partitionsFileSystems();
 
   # check fileSystem argument if present
   if (defined $fileSystemToScan ) {
@@ -286,39 +286,6 @@ sub usage
   return \%usageByFilesys;
 }
 
-
-#  Function: partitionsFileSystems
-#
-#   return the file system data for mounted disk partitions
-#
-# Returns:
-#      a hash reference with the file system as key and a hash with his
-#      properties as value.
-#      The properties are: mountPoint, type, options, dump and pass
-#      The properties have the same format that the fields in the fstab file
-#
-sub partitionsFileSystems
-{
-  my %fileSys = %{  EBox::FileSystem::fileSystems() };
-
-  foreach my $fs (keys %fileSys) {
-    # remove not-device filesystems
-    if (not $fs =~ m{^/dev/}) {
-      delete $fileSys{$fs};
-      next;
-    }
-
-  # remove removable media files
-    my $mpoint = $fileSys{$fs}->{mountPoint};
-    if ($mpoint =~ m{^/media/}) {
-      delete $fileSys{$fs};
-      next;
-    }
-
-  }
-
-  return \%fileSys;
-}
 
 
 sub _chartDatasets
