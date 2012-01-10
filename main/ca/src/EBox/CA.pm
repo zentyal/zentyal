@@ -2650,14 +2650,16 @@ sub _executeCommand # (command, input, hide_output)
 
     # Send the command
     if (not print {$self->{shell}} $command) {
-        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell. ({errval})", errval => $!);
+        my $errVal = $!;
+        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
     }
 
     my $input;
     $input = $params{input} if (exists $params{input});
     # Send the input
     if ($input and not print {$self->{shell}} $input . "\x00") {
-        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell. ({errval})", errval => $!);
+        my $errVal = $!;
+        throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell: $errVal");
     }
 
     # Close the shell
