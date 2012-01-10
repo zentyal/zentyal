@@ -36,6 +36,7 @@ use EBox;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Types::EBoxCommonName;
+use EBox::Types::Int;
 use EBox::Types::Text;
 use POSIX;
 
