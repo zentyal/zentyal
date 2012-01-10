@@ -525,6 +525,19 @@ sub mailFilterName
 }
 
 
+# Method: learnAccountsForDomain
+#
+#  Parameters:
+#    vdomain
+#
+#  Returns :
+#   list which the learn accounts for the vdomain
+sub learnAccountsForDomain
+{
+    my ($self, $vdomain) = @_;
+    my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
+    return $vdomainsLdap->learnAccounts($vdomain);
+}
 
 
 #  Method: mailFilter

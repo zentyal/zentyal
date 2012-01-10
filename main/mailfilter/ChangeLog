@@ -1,4 +1,5 @@
 HEAD
+	+ Added methods to get learn accounts for a domain
 	+ Fixed regression in spamassassin database setup
 	+ Replaced autotools with zbuildtools
 	+ Fixed typo in code which prevented the creation of spam and ham users
