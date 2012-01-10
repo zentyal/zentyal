@@ -1,7 +1,7 @@
 
 create database spamassassin;
 create language plpgsql;
-create user amavis; 
+create user amavis;
 
 CREATE TABLE bayes_expire (
   id integer NOT NULL default '0',
