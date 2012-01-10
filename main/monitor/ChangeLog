@@ -1,4 +1,6 @@
 HEAD
+	+ Bugfix: Notification configuration file is written regardless of its
+	  owner and permissions
 	+ Show the measure name in threshold configuration title
 	+ Updated RRD directory path when hostname is changed
 2.2.1
