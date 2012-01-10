@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed problem in consalidation report when accumulating results
+	  from queries having a "group by table.field"
 	+ Added missing US and Etc zones in timezone selector
 	+ Replaced autotools with zbuildtools
 	+ Refuse to restore configuration backup from version lesser than
