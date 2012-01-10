@@ -63,7 +63,7 @@ required_score <% $spamThreshold %>
 bayes_store_module      Mail::SpamAssassin::BayesStore::PgSQL
 bayes_sql_dsn           DBI:Pg:dbname=spamassassin
 bayes_sql_username      amavis
-bayes_sql_override_username	amavis
+bayes_sql_override_username amavis
 
 #   Bayesian classifier auto-learning (default: 1)
 #
