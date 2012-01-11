@@ -193,7 +193,7 @@ sub _content
     # Optional fields depending on the installed modules
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('ids') ) {
-        my $rules = $global->modInstance('ids')->rulesNum();
+        my $rules = $global->modInstance('ids')->rulesNum(1);
         $retData->{available_ids_rules} = $rules;
     }
 
