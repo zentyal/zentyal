@@ -31,6 +31,11 @@ my %originalArgv = map { $_ => 1 } @ARGV;
 
 my $debug = (EBox::Config::configkey('debug') eq 'yes');
 
+my $TIMEOUT = EBox::Config::configkey('duplicity_timeout');
+unless ($TIMEOUT) {
+    $TIMEOUT = 300; # in seconds, 5 minutes
+}
+
 # set environment variables for passwords
 my $alternativePasswordArg = '--alternative-password';
 my $alternativePassword = $originalArgv{$alternativePasswordArg};
@@ -82,7 +87,7 @@ if ($debug) {
     shell_quote($_);
 } @ARGV;
 
-my $duplicityCommand = "/usr/bin/duplicity @ARGV";
+my $duplicityCommand = "/usr/bin/duplicity --timeout=$TIMEOUT @ARGV";
 if ($debug) {
     my $cmdMsg = "Duplicity command: $duplicityCommand";
     my $cmdLogFile =  EBox::Config::log() . 'duplicity-command.log';
