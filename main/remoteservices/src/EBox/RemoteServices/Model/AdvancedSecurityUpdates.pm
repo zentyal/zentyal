@@ -135,7 +135,8 @@ sub _table
         push(@tableDesc,
              new EBox::Types::Int(
                  fieldName     => 'available_ids_rules',
-                 printableName => __('Available IDS rules')
+                 printableName => __('Available IDS rules'),
+                 min           => -1,
                 ));
     }
 
@@ -193,8 +194,14 @@ sub _content
     # Optional fields depending on the installed modules
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('ids') ) {
-        my $rules = $global->modInstance('ids')->rulesNum(1);
-        $retData->{available_ids_rules} = $rules;
+        my $ids = $global->modInstance('ids');
+        if ( $ids->can('rulesNum') ) {
+            my $rules = $ids->rulesNum(1);
+            $retData->{available_ids_rules} = $rules;
+        } else {
+            # Upgrade to zentyal-ids 2.2.1 onwards
+            $retData->{available_ids_rules} = -1;
+        }
     }
 
     return $retData;
