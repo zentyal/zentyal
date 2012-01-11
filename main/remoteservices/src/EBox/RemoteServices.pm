@@ -1527,7 +1527,9 @@ sub _writeCronFile
     my $hours = $self->get_list('rand_hours');
     unless ( @{$hours} > 0 ) {
         # Set the random times when scripts must ask for information
-        my @randHours = map { int(rand(24)) } 0 .. 10;
+        my @randHours = map
+          { my $r = int(rand(9)) - 2; $r += 24 if ($r < 0); $r }
+            0 .. 10;
         my @randMins  = map { int(rand(60)) } 0 .. 10;
         $self->set_list('rand_hours', 'int', \@randHours);
         $self->set_list('rand_mins' , 'int',  \@randMins);
