@@ -225,7 +225,7 @@ sub _credentials
 
     my $SID_F;
     my $sess_file  = EBox::UserCorner::usersessiondir() . $user;
-    unless (open ($SID_F,  $sess_file)) {
+    unless (open ($SID_F,  '<', $sess_file)) {
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
     # Lock in shared mode for reading
@@ -263,8 +263,9 @@ sub authen_ses_key  # (request, session_key)
     my $expired;
 
     for my $sess_file (glob(EBox::UserCorner::usersessiondir() . '*')) {
-        unless (open ($SID_F,  $sess_file)) {
-            throw EBox::Exceptions::Internal("Could not open $sess_file");
+        unless (open ($SID_F,  '<', $sess_file)) {
+            EBox::error("Could not open '$sess_file|'");
+            next;
         }
         # Lock in shared mode for reading
         flock($SID_F, LOCK_SH)

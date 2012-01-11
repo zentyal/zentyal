@@ -1,6 +1,8 @@
 HEAD
 	+ Replaced autotools with zbuildtools
 	+ Fixed logrotate configuration
+	+ Fixed auth with SID filenames which contains spaces or other
+	confusing characters
 2.1.6
 	+ Fixed UTF8 double-encoding on unexpected error CGI
 	+ Set MinSpareServers to 1 to avoid apache warning
