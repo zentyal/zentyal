@@ -36,6 +36,7 @@ use EBox;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Types::EBoxCommonName;
+use EBox::Types::Int;
 use EBox::Types::Text;
 use POSIX;
 
@@ -129,6 +130,16 @@ sub _table
              ),
       );
 
+    my $global = EBox::Global->getInstance(1);
+    if ( $global->modExists('ids') ) {
+        push(@tableDesc,
+             new EBox::Types::Int(
+                 fieldName     => 'available_ids_rules',
+                 printableName => __('Available IDS rules'),
+                 min           => -1,
+                ));
+    }
+
     my $dataForm = {
                     tableName        => __PACKAGE__->nameFromClass(),
                     pageTitle        => __('Advanced Security Updates'),
@@ -149,7 +160,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->parentModule();
 
     my ($serverName, $subscription, $asu, $latest) =
       (__('None'), __('None'), __('Disabled'), __('None'));
@@ -173,12 +184,27 @@ sub _content
 
     }
 
-    return {
+    my $retData = {
         server_name  => $serverName,
         subscription => $subscription,
         asu          => $asu,
         latest       => $latest,
-       };
+    };
+
+    # Optional fields depending on the installed modules
+    my $global = EBox::Global->getInstance(1);
+    if ( $global->modExists('ids') ) {
+        my $ids = $global->modInstance('ids');
+        if ( $ids->can('rulesNum') ) {
+            my $rules = $ids->rulesNum(1);
+            $retData->{available_ids_rules} = $rules;
+        } else {
+            # Upgrade to zentyal-ids 2.2.1 onwards
+            $retData->{available_ids_rules} = -1;
+        }
+    }
+
+    return $retData;
 }
 
 # Group: Private methods

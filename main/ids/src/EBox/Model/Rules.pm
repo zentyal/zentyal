@@ -69,6 +69,29 @@ sub new
 
 }
 
+# Method: viewCustomizer
+#
+#      To display a permanent message
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    if ( $self->parentModule()->usingASU() ) {
+        my $rules = $self->parentModule()->rulesNum();
+        my $msg   = $self->_commercialMsg($rules);
+        $customizer->setPermanentMessage($msg);
+    }
+
+    return $customizer;
+}
+
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -77,7 +100,13 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my @files = </etc/snort/rules/*.rules>;
+    my @files;
+    my $usingASU = $self->parentModule()->usingASU();
+    if ( $usingASU ) {
+        @files = </etc/snort/rules/emerging-*.rules>;
+    } else {
+        @files = </etc/snort/rules/*.rules>;
+    }
 
     my @names;
     foreach my $file (@files) {
@@ -87,7 +116,12 @@ sub syncRows
         next if $name =~ /deleted/;
         push (@names, $name);
     }
-    my %newNames = map { $_ => 1 } @names;
+    my %newNames;
+    if ( $usingASU ) {
+        %newNames = map { s/emerging-//; $_ => 1 } @names;
+    } else {
+        %newNames = map { $_ => 1 } @names;
+    }
 
     my %currentNames =
         map { $self->row($_)->valueByName('name') => 1 } @{$currentRows};
@@ -161,6 +195,17 @@ sub _table
         help               => __('Select the sets of rules you want apply when scanning the network traffic'),
     };
     return $dataTable;
+}
+
+# Group: Private methods
+
+sub _commercialMsg
+{
+    my ($self, $rulesNum) = @_;
+
+    return __sx('Advanced Security Updates grants you to use daily updated {rules} rules',
+                rules => $rulesNum);
+
 }
 
 1;

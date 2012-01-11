@@ -36,9 +36,11 @@ use EBox::Service;
 use EBox::Sudo;
 use EBox::Exceptions::Sudo::Command;
 use EBox::IDSLogHelper;
+use List::Util;
 
 use constant SNORT_CONF_FILE => "/etc/snort/snort.conf";
 use constant SNORT_DEBIAN_CONF_FILE => "/etc/snort/snort.debian.conf";
+use constant SNORT_RULES_DIR => '/etc/snort/rules';
 
 # Group: Protected methods
 
@@ -143,6 +145,10 @@ sub _setConf
     my $rulesModel = $self->model('Rules');
     my @rules = map ($rulesModel->row($_)->valueByName('name'),
                    @{$rulesModel->enabledRows()});
+
+    if ( $self->usingASU() ) {
+        @rules = map { "emerging-$_" } @rules;
+    }
 
     $self->writeConfFile(SNORT_CONF_FILE, 'ids/snort.conf.mas',
                          [ rules => \@rules ]);
@@ -386,6 +392,78 @@ sub consolidateReportQueries
             }
         }
     ];
+}
+
+# Method: usingASU
+#
+#    Get if the module is using ASU or not.
+#
+#    If a parameter is given, then it sets the value
+#
+# Parameters:
+#
+#    usingASU - Boolean Set if we are using ASU or not
+#
+# Returns:
+#
+#    Boolean - indicating whether we are using ASU or not
+#
+sub usingASU
+{
+    my ($self, $usingASU) = @_;
+
+    my $key = 'using_asu';
+    if (defined($usingASU)) {
+        $self->st_set_bool($key, $usingASU);
+    } else {
+        if ( $self->st_entry_exists($key) ) {
+            $usingASU = $self->st_get_bool($key);
+        } else {
+            # For now, checking emerging is in rules
+            my $rulesDir = SNORT_RULES_DIR . '/';
+            my @rules = <${rulesDir}emerging-*.rules>;
+            $usingASU = (scalar(@rules) > 0);
+        }
+    }
+    return $usingASU;
+}
+
+# Method: rulesNum
+#
+#     Get the number of available IDS rules
+#
+# Parameters:
+#
+#     force - Boolean indicating we are forcing to calculate again
+#
+# Returns:
+#
+#     Int - the number of available IDS rules
+#
+sub rulesNum
+{
+    my ($self, $force) = @_;
+
+    my $key = 'rules_num';
+    $force = 0 unless defined($force);
+
+    my $rulesNum;
+    if ( $force or (not $self->st_entry_exists($key)) ) {
+        my @files;
+        my $rulesDir = SNORT_RULES_DIR . '/';
+        if ( $self->usingASU() ) {
+            @files = <${rulesDir}emerging-*.rules>;
+        } else {
+            @files = <${rulesDir}*.rules>;
+        }
+        # Count the number of rules removing blank lines and comment lines
+        my @numRules = map { `sed -e '/^#/d' -e '/^\$/d' $_ | wc -l` } @files;
+        $rulesNum = List::Util::sum(@numRules);
+        $self->st_set_int($key, $rulesNum);
+    } else {
+        $rulesNum = $self->st_get_int($key);
+    }
+    return $rulesNum;
 }
 
 # Group: Private methods
