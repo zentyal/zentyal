@@ -153,7 +153,8 @@ sub existsAnyExternalAccount
 
 sub allExternalAccountsByLocalAccount
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
+    my $zarafa = $params{zarafa};
 
     my %attrs = (
             base => EBox::Global->modInstance('users')->usersDn,
@@ -174,10 +175,20 @@ sub allExternalAccountsByLocalAccount
             next;
         }
 
+        my $mda;
+        if ($zarafa) {
+            if ( $entry->get_value('zarafaAccount')) {
+                my $uid = lcfirst $entry->get_value('uid');
+                $mda =   "/usr/bin/zarafa-dagent $uid";
+            }
+
+        }
+
         $accountsByLocalAccount{$localAccount} = {
                                localAccount => $localAccount,
                                externalAccounts => $externalAccounts,
-                                     };
+                               mda => $mda,
+                           };
     }
 
 
@@ -261,7 +272,8 @@ sub modifyExternalAccount
 
 sub writeConf
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
+    my $zarafa = $params{zarafa};
 
     if (not $self->isEnabled()) {
         EBox::Sudo::root('rm -f ' . FETCHMAIL_CRON_FILE);
@@ -272,7 +284,7 @@ sub writeConf
     my $postmasterAddress =  $mail->postmasterAddress(1, 1);
     my $pollTimeInSeconds =  $mail->fetchmailPollTime() * 60;
 
-    my $usersAccounts = [ values %{ $self->allExternalAccountsByLocalAccount }];
+    my $usersAccounts = [ values %{ $self->allExternalAccountsByLocalAccount(zarafa => $zarafa) }];
     my @params = (
         pollTime      => $pollTimeInSeconds,
         postmaster    => $postmasterAddress,

@@ -214,6 +214,11 @@ sub usedFiles
               'reason' => __('To configure smart host authentication'),
               'module' => 'mail'
             },
+            {
+              'file' => TRANSPORT_FILE,
+              'reason' => __('To configure mail transports'),
+              'module' => 'mail'
+            },
 
             @greylistFiles
     ];
@@ -439,7 +444,7 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'ipfilter', $self->ipfilter());
     push(@array, 'portfilter', $self->portfilter());
-    push(@array, 'zarafa', $self->zarafaModPrecondition());
+    push(@array, 'zarafa', $self->zarafaEnabled());
     my $alwaysBcc = $self->_alwaysBcc();
     push(@array, 'bccMaps' => $alwaysBcc);
     # greylist parameters
@@ -453,7 +458,7 @@ sub _setMailConf
     push(@array, 'filter', $self->service('filter'));
     push(@array, 'fwport', $self->fwport());
     push(@array, 'ipfilter', $self->ipfilter());
-    push(@array, 'zarafa', $self->zarafaModPrecondition());
+    push(@array, 'zarafa', $self->zarafaEnabled());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
     $self->_setHeloChecks();
@@ -494,20 +499,22 @@ sub _setMailConf
         EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
     }
 
-    $self->{fetchmail}->writeConf();
+    my $zarafaEnabled = $self->zarafaEnabled();
 
-    $self->_setZarafaConf();
+    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled);
+    $self->_setZarafaConf($zarafaEnabled);
+
 }
 
 
-sub zarafaModPrecondition
+sub zarafaEnabled
 {
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('zarafa') ) {
         my $zarafa = $gl->modInstance('zarafa');
-        return $zarafa->configured();
+        return $zarafa->isEnabled();
     }
     return 0;
 }
@@ -515,14 +522,19 @@ sub zarafaModPrecondition
 
 sub _setZarafaConf
 {
-    my ($self) = @_;
+    my ($self, $enabled) = @_;
 
-    return unless $self->zarafaModPrecondition();
+    my $domain = '';
+    my @toDovecot;
+
+    if (not $enabled) {
+        EBox::Sudo::root('rm -f ' . TRANSPORT_FILE . ' ' . TRANSPORT_FILE . '.db');
+        return;
+    }
 
     my $gl = EBox::Global->getInstance();
     my $zarafa = $gl->modInstance('zarafa');
-    my $domain = $zarafa->model('VMailDomain')->vdomainValue();
-    my @toDovecot;
+    $domain = $zarafa->model('VMailDomain')->vdomainValue();
     if ($domain eq '_none_') {
         $domain = ''
     } elsif ($gl->modExists('mailfilter')) {

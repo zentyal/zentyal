@@ -11,6 +11,7 @@ set postmaster <% $postmaster %>
 <& .userAccounts,
     localAccount      => $userAccounts->{localAccount},
     externalAccounts  => $userAccounts->{externalAccounts},
+    mda               => $userAccounts->{mda},
 &>
 % }
 
@@ -19,13 +20,14 @@ set postmaster <% $postmaster %>
 <%args>
 $localAccount
 @externalAccounts
+$mda => undef
 </%args>
 % foreach my $account (@externalAccounts) { 
 % my $optionStr = exists $account->{options} ? 
 %                   join ' ', @{ $account->{options} } : '';
 % my $uidl = $account->{mailProtocol} eq 'pop3';
 poll <% $account->{server} %> proto <% $account->{mailProtocol} %> <% $uidl ? 'uidl' : '' %> port <% $account->{port} %>:
-   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% $optionStr %>;
+   user <% $account->{user} %>, with password '<% $account->{password} %>', is <% $localAccount %> here <% $optionStr %> <% $mda ? "mda '$mda'" : '' %>;
 % }
 
 </%def>
