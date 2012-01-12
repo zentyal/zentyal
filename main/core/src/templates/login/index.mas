@@ -14,6 +14,7 @@ use EBox::Gettext;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <HEAD><TITLE><% __('Zentyal') %></TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <link rel="shortcut icon" href="<% $favicon %>" />
 <link href="/dynamic-data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
