@@ -155,6 +155,7 @@ sub allExternalAccountsByLocalAccount
 {
     my ($self, %params) = @_;
     my $zarafa = $params{zarafa};
+    my $zarafaDomain = $params{zarafaDomain};
 
     my %attrs = (
             base => EBox::Global->modInstance('users')->usersDn,
@@ -177,10 +178,18 @@ sub allExternalAccountsByLocalAccount
 
         my $mda;
         if ($zarafa) {
-            if ( $entry->get_value('zarafaAccount')) {
-                my $uid = lcfirst $entry->get_value('uid');
-                $mda =   "/usr/bin/zarafa-dagent $uid";
+            my ($left, $accountDomain) = split '@', $localAccount, 2;
+            if ($accountDomain eq $zarafaDomain) {
+                if ( $entry->get_value('zarafaAccount')) {
+                    my $uid = lcfirst $entry->get_value('uid');
+                    $mda =   "/usr/bin/zarafa-dagent $uid";
+                } else {
+                    EBox::info("Ignored fetchmail entry for account $localAccount since it is a disabled Zarafa account");
+                    next;
+                }
+
             }
+
 
         }
 
@@ -273,7 +282,8 @@ sub modifyExternalAccount
 sub writeConf
 {
     my ($self, %params) = @_;
-    my $zarafa = $params{zarafa};
+    my $zarafa       = $params{zarafa};
+    my $zarafaDomain = $params{zarafaDomain};
 
     if (not $self->isEnabled()) {
         EBox::Sudo::root('rm -f ' . FETCHMAIL_CRON_FILE);
@@ -284,7 +294,12 @@ sub writeConf
     my $postmasterAddress =  $mail->postmasterAddress(1, 1);
     my $pollTimeInSeconds =  $mail->fetchmailPollTime() * 60;
 
-    my $usersAccounts = [ values %{ $self->allExternalAccountsByLocalAccount(zarafa => $zarafa) }];
+    my $usersAccounts = [ values %{ 
+                                    $self->allExternalAccountsByLocalAccount(zarafa => $zarafa,
+                                                                             zarafaDomain => $zarafaDomain
+                                                                            ) 
+                                  }
+                         ];
     my @params = (
         pollTime      => $pollTimeInSeconds,
         postmaster    => $postmasterAddress,

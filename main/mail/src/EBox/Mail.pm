@@ -500,9 +500,11 @@ sub _setMailConf
     }
 
     my $zarafaEnabled = $self->zarafaEnabled();
+    my $zarafaDomain = '';
+    $zarafaDomain = $self->zarafaDomain() if $zarafaEnabled;
 
-    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled);
-    $self->_setZarafaConf($zarafaEnabled);
+    $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
+    $self->_setZarafaConf($zarafaEnabled, $zarafaDomain);
 
 }
 
@@ -520,28 +522,27 @@ sub zarafaEnabled
 }
 
 
+
+sub zarafaDomain
+{
+    my $gl = EBox::Global->getInstance();
+    my $zarafa = $gl->modInstance('zarafa');
+    my $domain = $zarafa->model('VMailDomain')->vdomainValue();
+    if ($domain eq '_none_') {
+        $domain = '';
+    }
+    return $domain;
+}
+
 sub _setZarafaConf
 {
-    my ($self, $enabled) = @_;
-
-    my $domain = '';
+    my ($self, $enabled, $domain) = @_;
     my @toDovecot;
 
     if (not $enabled) {
         EBox::Sudo::root('rm -f ' . TRANSPORT_FILE . ' ' . TRANSPORT_FILE . '.db');
         return;
     }
-
-    my $gl = EBox::Global->getInstance();
-    my $zarafa = $gl->modInstance('zarafa');
-    $domain = $zarafa->model('VMailDomain')->vdomainValue();
-    if ($domain eq '_none_') {
-        $domain = ''
-    } elsif ($gl->modExists('mailfilter')) {
-        my $mailfilter = $gl->modInstance('mailfilter');
-        @toDovecot = @{ $mailfilter->learnAccountsForDomain($domain) }
-    }
-
 
     $self->writeConfFile(TRANSPORT_FILE, 'mail/transport.mas',
                          [
