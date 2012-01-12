@@ -21,9 +21,12 @@ use EBox::Gettext;
 <script type="text/javascript">
 function checkBrowser() {
     if (/MSIE/.test(navigator.userAgent)) {
-        document.getElementById("ieWarning").style.display="block";
-        document.getElementById("credential_0").disabled="disabled";
-        document.getElementById("loginButton").disabled="disabled";
+        var ieversion = parseFloat(navigator.appVersion.split("MSIE")[1]);
+        if (ieversion < 9) {
+            document.getElementById("ieWarning").style.display="block";
+            document.getElementById("credential_0").disabled="disabled";
+            document.getElementById("loginButton").disabled="disabled";
+        }
     } else if (!/Firefox/.test(navigator.userAgent) &&
                !/Chrome/.test(navigator.userAgent)) {
         document.getElementById("ffWarning").style.display="block";
