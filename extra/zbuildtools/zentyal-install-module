@@ -28,6 +28,7 @@ unless ($DESTDIR) {
 }
 my $MODULE_NAME = basename(getcwd());
 $MODULE_NAME =~ s/^zentyal-//;
+$MODULE_NAME =~ s/-.*$//;
 
 my %DIR;
 $DIR{PERL} = "${DESTDIR}usr/share/perl5";
@@ -91,6 +92,15 @@ foreach my $dir (keys %dirs) {
 foreach my $src (keys %srcs) {
     my $destdir = $srcs{$src};
     system ("cp -r $src $destdir/");
+
+    # Replace @VERSION@ variable in Config.pm
+    # TODO: Maybe this could be implemented in other way or even removed
+    #       if we get rid of all the Exporter stuff where it is used
+    if ($src eq './src/EBox/Config.pm') {
+        my $version = read_version();
+        my $filename = basename($src);
+        system ("sed -i 's/\@VERSION@/$version/' $destdir/$filename");
+    }
 }
 
 # Helper functions
@@ -117,4 +127,15 @@ sub filter
     }
 
     return 0;
+}
+
+sub read_version
+{
+    my @lines = read_file('ChangeLog');
+    for my $line (@lines) {
+        my ($version) = $line =~ /^([\d\.]+)/;
+        if ($version) {
+            return $version;
+        }
+    }
 }

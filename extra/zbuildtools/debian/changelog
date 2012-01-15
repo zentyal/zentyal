@@ -1,3 +1,9 @@
+zbuildtools (2) lucid; urgency=low
+
+  * Replace @VERSION@ variable with value from ChangeLog
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 26 Dec 2011 19:40:02 +0100
+
 zbuildtools (1) lucid; urgency=low
 
   * Initial release

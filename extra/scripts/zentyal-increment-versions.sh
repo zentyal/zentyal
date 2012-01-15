@@ -8,15 +8,12 @@
 new_version=$1
 new_version_orig=$new_version
 
-packages=`ls | grep ^[a-z] | grep -v debs-ppa`
-
-cwd=`pwd`
-for dir in $packages
-do
-    cd $dir
+function increment
+{
+    dir=$1
     if head -1 ChangeLog | grep -q HEAD
     then
-        current_version=`head -1 configure.ac|cut -d'[' -f3 | cut -d']' -f1`
+        current_version=`sed -n "/^[0-9]/p" ChangeLog|head -1`
         new_version=$new_version_orig
         if [ -z $new_version ]
         then
@@ -25,9 +22,23 @@ do
             new_version="$major.`expr $minor + 1`"
         fi
         echo "$dir - $new_version"
-        version=`head -1 ChangeLog`
-        sed -i "s/$current_version/$new_version/" configure.ac
         sed -i "s/HEAD/$new_version/" ChangeLog
     fi
+}
+
+cwd=`pwd`
+
+# single package, do not iterate
+if [ -f ChangeLog ]
+then
+    increment `basename $cwd`
+    exit $?
+fi
+
+packages=`ls | grep ^[a-z] | grep -v debs-ppa`
+for dir in $packages
+do
+    cd $dir
+    increment $dir
     cd $cwd
 done

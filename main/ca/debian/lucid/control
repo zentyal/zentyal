@@ -2,7 +2,7 @@ Source: zentyal-ca
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: debhelper (>= 5.0.0), cdbs
+Build-Depends: zbuildtools
 Standards-Version: 3.8.2
 Homepage: http://www.zentyal.org/
 Vcs-Browser: http://git.zentyal.org/zentyal.git

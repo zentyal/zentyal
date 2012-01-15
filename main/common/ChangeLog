@@ -1,4 +1,5 @@
 HEAD
+	+ Delete useless EBox::Config::package() method
 	+ Ignore by default bind filesystems in EBox::FileSystem method
 	+ Bugfix: MAC validation now forbids parts with only one character
 	+ Replaced autotools with zbuildtools

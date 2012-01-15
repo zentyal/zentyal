@@ -1,4 +1,5 @@
 HEAD
+	+ Added EBox::Module::Base::version() to get package version
 	+ Fixed problem in consalidation report when accumulating results
 	  from queries having a "group by table.field"
 	+ Added missing US and Etc zones in timezone selector
