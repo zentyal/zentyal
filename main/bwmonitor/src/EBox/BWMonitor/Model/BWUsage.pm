@@ -94,6 +94,11 @@ sub _table
     return $dataTable;
 }
 
+sub Viewer
+{
+    return '/ajax/tableBodyWithoutActions.mas';
+}
+
 sub precondition
 {
     return EBox::Global->modInstance('bwmonitor')->isEnabled();
@@ -151,6 +156,5 @@ sub _bytes
     return ($bytes, 'MB') if ($bytes < 1024); $bytes = $bytes / 1024;
     return ($bytes, 'GB') if ($bytes < 1024);
 }
-
 
 1;

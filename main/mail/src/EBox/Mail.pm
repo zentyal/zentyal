@@ -522,11 +522,20 @@ sub _setZarafaConf
     my $gl = EBox::Global->getInstance();
     my $zarafa = $gl->modInstance('zarafa');
     my $domain = $zarafa->model('VMailDomain')->vdomainValue();
+    my @toDovecot;
+    if ($domain eq '_none_') {
+        $domain = ''
+    } elsif ($gl->modExists('mailfilter')) {
+        my $mailfilter = $gl->modInstance('mailfilter');
+        @toDovecot = @{ $mailfilter->learnAccountsForDomain($domain) }
+    }
 
-    $domain = '' if ($domain eq '_none_');
 
     $self->writeConfFile(TRANSPORT_FILE, 'mail/transport.mas',
-                         [ domain => $domain, ],
+                         [
+                             domain => $domain,
+                             toDovecot => \@toDovecot,
+                         ],
                          { uid  => 0, gid  => 0, mode => '0600', },
                         );
     my $manager = new EBox::ServiceManager;

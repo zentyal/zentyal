@@ -1509,7 +1509,12 @@ sub _consolidateReportFromDB
                 # these are the fields which identify a line as not repeatable
                 my @identityFields;
                 if (exists $query->{group}) {
-                    push @identityFields, split(/ *, */,$query->{'group'});
+                    my @groupFields = map {
+                        # to get column names when they are qualified with table
+                        my @parts = split '\.', $_;
+                        $parts[-1]
+                    } split(/ *, */,$query->{'group'});
+                    push @identityFields, @groupFields;
                 }
                 if (exists $query->{key}) {
                     push @identityFields, $query->{key};

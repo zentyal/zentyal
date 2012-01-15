@@ -1,11 +1,15 @@
 HEAD
+	+ Fixed problem in consalidation report when accumulating results
+	  from queries having a "group by table.field"
 	+ Added missing US and Etc zones in timezone selector
 	+ Replaced autotools with zbuildtools
 	+ Refuse to restore configuration backup from version lesser than
 	  2.1 unless forced
 	+ Do not retrieve format.js in every graph to improve performance
 	+ The purge-module scripts are always managed as root user
-	+ New grep-redis tool to search for patterns in redis keys or values
+	+ New grep-redis tool to search for patterns in redis keys or
+	  values
+	+ Use partitionFileSystems method from EBox::FileSystem
 2.2.4
 	+ New internal 'call' command in Zentyal shell to 'auto-use' the module
 	+ Zentyal shell now can execute commandline arguments

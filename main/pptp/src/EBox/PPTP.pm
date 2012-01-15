@@ -332,13 +332,13 @@ sub _who
     for my $line (@output) {
         chomp($line);
         # test     ppp0         2011-07-11 22:50 (192.168.86.2)
-        if ( $line =~ m/(\w+)\s+(\w+)\s+(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\s+\((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\)/ ) {
-            my ($username, $iface, $date, $ipaddr) = ($1, $2, $3, $4);
+        my ($username, $terminal, $date, $time, $remote) = split '\s+', $line, 5;
+        if ($terminal =~ m/^ppp\d+$/) {
             my $user = {};
             $user->{'username'} = $username;
-            $user->{'iface'} = $iface;
-            $user->{'date'} = $date;
-            $user->{'ipaddr'} = $ipaddr;
+            $user->{'iface'} = $terminal;
+            $user->{'date'} = "$date $time";
+            $user->{'ipaddr'} = $remote;
             push(@{$users}, $user);
         }
     }

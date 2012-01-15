@@ -671,6 +671,8 @@ sub _setThresholdConf
         unless ( -d EBox::Config::conf() . 'monitor' ) {
             mkdir(EBox::Config::conf() . 'monitor');
         }
+
+        EBox::Sudo::root('rm -f ' . NOTIFICATION_CONF);
         File::Slurp::write_file(NOTIFICATION_CONF,
                                 encode_json(\%persistAfterThresholds));
     }
