@@ -35,7 +35,7 @@ sub _defaultConfig
 {
     my @defaultConfig;
 
-    my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images package version lang );
+    my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang );
     foreach my $key (@configKeys) {
 	my $configKeySub_r = EBox::Config->can($key);
 	defined $configKeySub_r or die "Can not find $key sub in EBox::Config module";

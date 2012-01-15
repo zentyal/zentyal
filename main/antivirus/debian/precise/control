@@ -2,7 +2,7 @@ Source: zentyal-antivirus
 Section: web
 Priority: optional
 Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
-Build-Depends: debhelper (>= 5.0.0), cdbs
+Build-Depends: zbuildtools
 Standards-Version: 3.8.2
 
 Package: zentyal-antivirus

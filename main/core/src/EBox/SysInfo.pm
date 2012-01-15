@@ -53,9 +53,6 @@ sub _create
     my $self = $class->SUPER::_create(name => 'sysinfo',
                                       printableName => __n('System Information'),
                                       @_);
-    # FIXME: $self->{version} = "@VERSION@";
-    $self->{version} = "2.2";
-
     bless($self, $class);
     return $self;
 }
@@ -106,7 +103,7 @@ sub generalWidget
     my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
     my $time = `$time_command`;
 
-    my $version = $self->{version};
+    my $version = $self->version();
 
     my $qaUpdates = 0;
     my $url = 'http://update.zentyal.org/updates';

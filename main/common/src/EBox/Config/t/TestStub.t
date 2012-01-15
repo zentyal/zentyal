@@ -15,14 +15,14 @@ EBox::TestStub::fake();
 BEGIN { use_ok 'EBox::Config::TestStub' }
 
 
-my @configKeys = qw(prefix    etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images package version lang );
+my @configKeys = qw(prefix etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images version lang );
 
 mockBadParametersTest();
 mockTest();
 setConfigKeysBadParametersTest();
 setConfigKeysTest();
 
-sub mockBadParametersTest 
+sub mockBadParametersTest
 {
     dies_ok { EBox::Config::TestStub::mock(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } ' Incorrect parameters call';
 }
