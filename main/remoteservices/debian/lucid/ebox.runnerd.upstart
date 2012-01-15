@@ -1,9 +1,0 @@
-# Zentyal runner daemon
-#
-#
-
-description     "Zentyal runner daemon"
-author          "eBox Technologies S.L."
-
-respawn
-exec  /usr/share/zentyal-remoteservices/runnerd -f

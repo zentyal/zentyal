@@ -1,9 +1,0 @@
-/var/log/zentyal/bwmonitor/*.log
-{
-        rotate 2
-        size 10M
-        compress
-        nocreate
-        missingok
-        notifempty
-}

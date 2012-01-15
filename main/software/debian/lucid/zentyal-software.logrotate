@@ -1,9 +1,0 @@
-/var/log/zentyal/software.log {
-        rotate 7
-        size 10M
-        compress
-        nocreate
-        missingok
-        delaycompress
-        notifempty
-}

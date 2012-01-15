@@ -1,2 +1,0 @@
-exec /bin/su fetchmail -c'/usr/bin/fetchmail --nodetach -f /etc/ebox-fetchmail.rc'
-respawn

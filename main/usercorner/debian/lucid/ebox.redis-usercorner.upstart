@@ -1,2 +1,0 @@
-exec sudo -u ebox-usercorner /usr/bin/redis-server /var/lib/zentyal-usercorner/conf/redis.conf
-respawn
