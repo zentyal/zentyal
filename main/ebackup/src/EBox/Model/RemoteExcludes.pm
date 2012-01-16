@@ -33,6 +33,7 @@ use EBox::Types::Text;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
 use EBox::Exceptions::NotConnected;
+use EBox::FileSystem;
 use Error qw(:try);
 use String::ShellQuote;
 
@@ -63,7 +64,6 @@ sub new
 
     return $self;
 }
-
 
 # Group: Protected methods
 
@@ -163,17 +163,32 @@ sub validateTypedRow
         $self->_validateCoherence(action => $action,  type => $type, target => $target);
     } elsif ($action eq 'update') {
         $self->_validateCoherence(action => $action, id => $id, type => $type, target => $target);
-    }
+    }     
 
+}
+
+# Method: validateSwapPos
+#
+#  Validate swap position between rows
+#
+# Parameters:
+#
+#   action - action ('moveUp', 'moveDown')
+#   id      - id of the row upon is done the action
+#   swapA   - one of the positions to swap
+#   swapB   - the other position to swap
+sub validateSwapPos
+{
+    my ($self, $action, $id, $swapA, $swapB) = @_;
+    $self->_validateCoherence(action => 'swap', swapA => $swapA, swapB => $swapB);
 }
 
 sub _pathsListWithModifications
 {
     my ($self, %args) = @_;
-
+    my $action = $args{action};
     my @pathsList = @{ $self->_ids() }; # this is called inside syncRows
 
-    my $action = $args{action};
     if ($action  eq 'add') {
         unshift @pathsList, {
             type => $args{type},
@@ -197,6 +212,13 @@ sub _pathsListWithModifications
         if (not $found) {
             throw EBox::Exceptions::Internal("Id not found: $id");
         } 
+    } elsif ($action eq 'swap') {
+        my $swapA = $args{swapA};
+        my $swapB = $args{swapB};
+        my $swapAValue  = $pathsList[$swapA];
+        $pathsList[$swapA] = $pathsList[$swapB];
+        $pathsList[$swapB] = $swapAValue;
+        
     } else {
         throw EBox::Exceptions::Internal("Invalid action: $action");        
     }
@@ -250,18 +272,16 @@ sub _validateCoherence
             $type = $row->valueByName('type');
         }
 
-        my $targetRe;
-        if ($type eq 'exclude_regexp') {
-            $targetRe = qr/$target/;
-        } elsif ($target eq '/') {
-            $targetRe = qr{.}; # root always match
-        } else {
-            $targetRe = qr{^$target(?:/.*)?$};
-        }
         foreach my $include (keys %domainIncludes) {
             EBox::debug("Checking $include tatgeet: $target type: $type");
-            if ($include =~ $targetRe) {
-            EBox::debug("Matched $include for $target type: $type");
+            if ($type eq 'exclude_regexp') {
+                if ($include =~ m/$target/) {
+                     throw EBox::Exceptions::External(
+                         __x(q{Cannot do this because the path '{path}', added by backup domains, would be excluded by the regular expression},
+                              path => $include)
+                        );
+                 }
+            } elsif (EBox::FileSystem::isSubdir($include, $target)) {
                 if ($type eq 'include_path') {
                     # remove included paths by the target
                     delete $domainIncludes{$include};
@@ -273,8 +293,16 @@ sub _validateCoherence
                                )
                        );
                 }
+            } elsif (($type ne 'include_path') and EBox::FileSystem::isSubdir($target, $include)) {
+                    throw EBox::Exceptions::External(
+                        __x(q{Cannot do this because a subdirectory of  '{path}', added by backup domains, would be excluded},
+                             path => $include
+                               )
+                       );                
+
             }
-        } # end foreach my include
+        } # en forreach my include
+
     } # end foreach my path
 }
 
@@ -553,5 +581,52 @@ sub Viewer
 {
     return '/ebackup/ajax/remoteExcludes.mas';
 }
+
+# reimplemntation to allow validation of moving rows using rhe method validateSwapPos
+# if we like it we should move it to EBox::Model::DataTable
+
+sub moveUp
+{
+    my ($self, $id) = @_;
+
+    my %order = $self->_orderHash();
+
+    my $pos = $order{$id};
+    if ($pos == 0) {
+        return;
+    }
+
+    $self->validateSwapPos('moveUp', $id, $pos, $pos -1);    
+
+    $self->_swapPos($pos, $pos - 1);
+
+    $self->setMessage($self->message('moveUp'));
+    $self->movedUpRowNotify($self->row($id));
+    $self->_notifyModelManager('moveUp', $self->row($id));
+    $self->_notifyCompositeManager('moveUp', $self->row($id));
+}
+
+sub moveDown
+{
+    my ($self, $id) = @_;
+
+    my %order = $self->_orderHash();
+    my $numOrder = keys %order;
+
+    my $pos = $order{$id};
+    if ($pos == $numOrder -1) {
+        return;
+    }
+
+    $self->validateSwapPos('moveDown', $id, $pos, $pos + 1);    
+
+    $self->_swapPos($pos, $pos + 1);
+
+    $self->setMessage($self->message('moveDown'));
+    $self->movedDownRowNotify($self->row($id));
+    $self->_notifyModelManager('moveDown', $self->row($id));
+    $self->_notifyCompositeManager('moveDown', $self->row($id));
+}
+
 
 1;
