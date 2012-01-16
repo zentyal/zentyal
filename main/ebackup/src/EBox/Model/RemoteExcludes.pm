@@ -242,10 +242,6 @@ sub _pathsListWithModifications
         throw EBox::Exceptions::Internal("Invalid action: $action");        
     }
 
-    # DDD
-    use Data::Dumper;
-    EBox::debug(Dumper(\@pathsList));
-
     return \@pathsList;
 }
 
@@ -275,10 +271,6 @@ sub _validateCoherence
         $_ => $_
     } @backupDomainsIncludes;
 
-    # DDD
-    use Data::Dumper;
-    EBox::debug("domainIncludes " . Dumper(\@backupDomainsIncludes));
-
     my @pathsList = @{ $self->_pathsListWithModifications(%args) };
     foreach my $path (@pathsList) {
         my ($type, $target);
@@ -298,9 +290,7 @@ sub _validateCoherence
             $checkSubdirectory = EBox::Validate::checkAbsoluteFilePath($target);
         }
 
-
         foreach my $include (keys %domainIncludes) {
-            EBox::debug("Checking $include tatgeet: $target type: $type");
             if ($type eq 'exclude_regexp') {
                 if ($include =~ m/$target/) {
                      throw EBox::Exceptions::External(
@@ -445,9 +435,6 @@ sub syncRows
         } 
     }
 
-    use Data::Dumper;
-    EBox::debug("currentDsIds " . Dumper(\%currentDsIds));
-
     my $drAddon = 0;
     try {
         $drAddon = EBox::EBackup::Subscribed->isSubscribed();
@@ -484,12 +471,10 @@ sub syncRows
 
     # remove not longer needed rows
     foreach my $id (keys %currentDsIds) {
-        EBox::debug("removed $id");
         $self->removeRow($id);
     }
 
     @toAdd = reverse @toAdd;
-    EBox::debug("toAdd @toAdd");
     foreach my $selection (@toAdd) {
         my $type;
         if ($selection->{type} eq 'include') {
