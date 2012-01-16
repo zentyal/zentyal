@@ -1,4 +1,5 @@
 HEAD
+	+ Use "sudo" group instead of "admin" one for the UI access control
 	+ Added EBox::Module::Base::version() to get package version
 	+ Fixed problem in consalidation report when accumulating results
 	  from queries having a "group by table.field"
