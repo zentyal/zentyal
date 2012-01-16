@@ -525,7 +525,7 @@ sub modulesBackupDomainsFileSelections
     my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
     my @selections;
     foreach my $ds (@domainSelections) {
-        foreach my $type (qw(exclude exclude-regexp include)) {
+        foreach my $type (qw(include)) {
             my $typeList = $type . 's';
             if ($ds->{$typeList}) {
                 foreach my $value (@{ $ds->{$typeList} }) {
