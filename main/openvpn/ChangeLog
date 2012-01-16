@@ -1,4 +1,7 @@
 HEAD
+	+ Add PID file to make compatible with init.d script to check the
+	  current daemon status
+	+ Removed mss fix in order not to affect all servers
 	+ Delete client and server upstart files on module purge
 	+ Replaced autotools with zbuildtools
 	+ Don't allow any server to use the same network than another

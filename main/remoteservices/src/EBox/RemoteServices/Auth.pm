@@ -207,15 +207,16 @@ sub vpnClientForServices
         }
 
         my @localParams;
-        my $localAddr = $self->_vpnClientLocalAddress($address);
-        if ($localAddr) {
-            my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
-            @localParams = (
-                            localAddr  => $localAddr,
-                            lport  => $localPort,
-                           );
+        unless ( $protocol eq 'tcp' ) {
+            my $localAddr = $self->_vpnClientLocalAddress($address);
+            if ($localAddr) {
+                my $localPort = EBox::NetWrappers::getFreePort($protocol, $localAddr);
+                @localParams = (
+                    localAddr  => $localAddr,
+                    lport  => $localPort,
+                   );
+            }
         }
-
 
         $client = $openvpn->newClient(
             $clientName,
@@ -249,6 +250,10 @@ sub vpnClientForServices
 sub vpnClientAdjustLocalAddress
 {
     my ($self, $client) = @_;
+
+    # Do not set local parameters for TCP
+    return if ( $client->proto() eq 'tcp');
+
     my ($server_r) = @{ $client->servers() };
     my ($serverAddr, $serverPort) = @{ $server_r };
     my $localAddr = $client->localAddr();
@@ -273,9 +278,13 @@ sub vpnClientAdjustLocalAddress
 
     # There are changes
     $client->setLocalAddrAndPort($newLocalAddr, $newLocalPort);
-    my $openvpnMod = EBox::Global->modInstance('openvpn');
-    $openvpnMod->save();
-
+    my $global     = EBox::Global->getInstance();
+    my $openvpnMod = $global->modInstance('openvpn');
+    $openvpnMod->saveConfig();
+    # Use stop/start to restart only the client
+    $client->stop();
+    $client->start();
+    $global->modRestarted('openvpn')
 }
 
 # get local address for connect with server
