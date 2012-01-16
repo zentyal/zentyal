@@ -1,7 +1,7 @@
 HEAD
 	+ Use 2 decimals in event messages
 	+ Formatting int values to show only 2 decimals, if required
-	+ Show the list of top 5 processes when launching the CPU or
+	+ Show the list of top 10 processes when launching the CPU or
 	  system load alert
 	+ Show duration of the event in the message, if available
 	+ Show the measure name in threshold configuration title

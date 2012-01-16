@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -43,7 +43,6 @@ use File::Temp;
 use File::Slurp;
 use JSON;
 use Perl6::Junction qw(any);
-use Proc::ProcessTable;
 
 # Constants
 # Set it fixed not to include Zentyal packages
@@ -52,7 +51,7 @@ use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
 use constant EVENTS_FIFO               => '/var/lib/zentyal/tmp/events-fifo';
 use constant NOTIFICATION_CONF         => '/var/lib/zentyal/conf/monitor/notif.conf';
 use constant EBOX_USER                 => 'ebox';
-use constant PROCESS_PLUGIN_RE         => qr/cpu|load/;
+use constant PROCESS_PLUGIN_RE         => qr/^cpu|load/;
 
 our $persistConf : shared;
 
@@ -138,7 +137,7 @@ sub ebox_notify
         }
         if ( defined($measureConf) and $measureConf->{first} ) {
             if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
-                $measureConf->{other} = _topProcesses($measureConf->{processes});
+                $measureConf->{other} = _topProcesses($measureConf->{other});
             }
             if ( $measureConf->{first} + $measureConf->{after} < $not->{time} ) {
                 $measureConf->{first} = 0;
@@ -164,7 +163,7 @@ sub ebox_notify
             # Switching from this level to the contrary (clear counters)
             if ( defined($aMeasureConf) ) {
                 $aMeasureConf->{first} = 0;
-                $aMeasureConf->{other} = undef;
+                $aMeasureConf->{other} = shared_clone([]);
             }
             # print $fh "First ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
             # close($fh);
@@ -247,26 +246,45 @@ sub _notifyUsingFS
 # Get and return the top processes (>= 10% CPU)
 sub _topProcesses
 {
-    my ($proc) = @_;
+    my ($proc, $fh) = @_;
 
-    my $t = new Proc::ProcessTable();
-    my @top = grep { $_->pctcpu() > 10 } @{$t->table()};
+    my @top = _ps();
 
-    if ( defined($proc) ) {
+    if ( defined($proc) and (@{$proc} > 0) ) {
         # Only store those processes that already are in the list and
         # remove those ones that are not already in the top
-        my @proc = grep { $_ eq any(map { $_->pid() } @top) } @{$proc};
+        my @proc = grep { $_ == any(@top) } @{$proc};
         $proc = shared_clone(\@proc);
     } else {
-        @top = sort { $b->pctcpu() <=> $a->pctcpu() } @top;
         my $newProc : shared;
-        my $max = 4;
-        $max = $#top if ( @top < 5 );
-        my @proc = map { $_->pid() } @top[0 .. $max];
+        my $max = 9;
+        $max = $#top if ( @top < 10 );
+        my @proc = @top[0 .. $max];
         $newProc = shared_clone(\@proc);
         $proc = $newProc;
     }
     return $proc;
+}
+
+# Get top by parsing ps
+sub _ps
+{
+    my @top;
+    open(my $ps, 'ps k -pcpu -e -o pid,pcpu |');
+    # Skip header
+    <$ps>;
+    while(my $line = <$ps>) {
+        chomp($line);
+        my ($pid, $pcpu) = split( /\s+/, $line);
+        if ( $pcpu >= 10.0 ) {
+            push(@top, $pid);
+        } else {
+            # Since the output is already sorted
+            last;
+        }
+    }
+    close($ps);
+    return @top;
 }
 
 1;
