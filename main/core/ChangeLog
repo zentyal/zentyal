@@ -1,4 +1,6 @@
 HEAD
+	+ Changed JS to allow the restore of the action cell when a delete
+	  action fails
 	+ Fixed problem in consalidation report when accumulating results
 	  from queries having a "group by table.field"
 	+ Added missing US and Etc zones in timezone selector
@@ -10,8 +12,6 @@ HEAD
 	+ New grep-redis tool to search for patterns in redis keys or
 	  values
 	+ Use partitionFileSystems method from EBox::FileSystem
-	+ Changed JS to allow the restore of the action cell when a delete
-	  action fails
 2.2.4
 	+ New internal 'call' command in Zentyal shell to 'auto-use' the module
 	+ Zentyal shell now can execute commandline arguments

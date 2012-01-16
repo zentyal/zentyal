@@ -145,7 +145,7 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     my $values = $self->_actualValues($changedFields, $allFields);
-    my $id = $values->{type}->row()->id(); 
+    my $id = $values->{type}->row()->id();
     my $type   = $values->{type}->value();
     my $target = $values->{target}->value();
 
@@ -163,8 +163,7 @@ sub validateTypedRow
         $self->_validateCoherence(action => $action,  type => $type, target => $target);
     } elsif ($action eq 'update') {
         $self->_validateCoherence(action => $action, id => $id, type => $type, target => $target);
-    }     
-
+    }
 }
 
 # Method: validateSwapPos
@@ -224,7 +223,7 @@ sub _pathsListWithModifications
         }
         if (not $found) {
             throw EBox::Exceptions::Internal("Id not found: $id");
-        } 
+        }
 
     } elsif ($action eq 'swap') {
         my $swapA = $args{swapA};
@@ -239,7 +238,7 @@ sub _pathsListWithModifications
         } @pathsList;
 
     } else {
-        throw EBox::Exceptions::Internal("Invalid action: $action");        
+        throw EBox::Exceptions::Internal("Invalid action: $action");
     }
 
     return \@pathsList;
@@ -312,17 +311,15 @@ sub _validateCoherence
                                )
                        );
                 }
-            } 
-            
-            if ($checkSubdirectory and EBox::FileSystem::isSubdir($target, $include)){
-                    throw EBox::Exceptions::External(
+            }
+
+            if ($checkSubdirectory and EBox::FileSystem::isSubdir($target, $include)) {
+                throw EBox::Exceptions::External(
                         __x(q|Cannot {action} because a subdirectory of  '{path}', added by backup domains, would be excluded|,
                             action => _actionPrintableName($args{action}),
-                            path => $include
-                               )
-                       );                
-
-           }
+                            path => $include)
+                );
+            }
         } # en foreach my include
 
     } # end foreach my path
@@ -432,7 +429,7 @@ sub syncRows
     foreach my $rowId (@{ $currentIds }) {
         if ($rowId =~ m/^$prefix/) {
             $currentDsIds{$rowId} = $rowId;
-        } 
+        }
     }
 
     my $drAddon = 0;
@@ -629,7 +626,7 @@ sub moveUp
         return;
     }
 
-    $self->validateSwapPos('moveUp', $id, $pos, $pos -1);    
+    $self->validateSwapPos('moveUp', $id, $pos, $pos -1);
 
     $self->_swapPos($pos, $pos - 1);
 
@@ -651,7 +648,7 @@ sub moveDown
         return;
     }
 
-    $self->validateSwapPos('moveDown', $id, $pos, $pos + 1);    
+    $self->validateSwapPos('moveDown', $id, $pos, $pos + 1);
 
     $self->_swapPos($pos, $pos + 1);
 
