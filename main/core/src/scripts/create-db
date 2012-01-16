@@ -3,6 +3,8 @@
 db_name=$1
 db_user="ebox"
 
+# FIXME: temporarily commented, change it to mysqladmin
+
 create_db()
 {
     echo "Creating the $db_name database"
@@ -15,12 +17,12 @@ create_db()
 }
 
 # Check if we can connect to postgresql (with one retry after restart)
-su postgres -c 'psql -Alt' >& /dev/null || /etc/init.d/postgresql-8.4 restart
-su postgres -c 'psql -Alt' >& /dev/null || exit 1
+#su postgres -c 'psql -Alt' >& /dev/null || /etc/init.d/postgresql-8.4 restart
+#su postgres -c 'psql -Alt' >& /dev/null || exit 1
 
-su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
+#su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
 if [ $db_exists -eq 0 ]; then
-    create_db
+#    create_db
 fi
 
-touch /var/lib/zentyal/.db-created
+#touch /var/lib/zentyal/.db-created

@@ -13,6 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# FIXME: Rename this to MysqlDBEngine or DBEngineImpl
 package EBox::PgDBEngine;
 
 use strict;
@@ -98,7 +99,7 @@ sub _dbpass
 #
 sub _dbsuperuser
 {
-    return 'postgres';
+    return 'mysql';
 }
 
 # Method: _connect
@@ -480,6 +481,7 @@ sub do
 sub tables
 {
     my ($self) = @_;
+    # FIXME: adapt this to mysql
     my $sql = q{select tablename from pg_catalog.pg_tables where schemaname = 'public';};
     my @tables = map { $_->{tablename}  }  @{$self->query($sql)};
     return \@tables;
@@ -490,7 +492,7 @@ sub tables
 #   returns a quoted version of the string
 #
 # Warning:
-#  it only can quote string values used in SQL statement, 
+#  it only can quote string values used in SQL statement,
 #   it can not quote the SQL statement itself
 sub quote
 {
@@ -564,6 +566,7 @@ sub  dumpDB
     my $tmpFile = _superuserTmpFile(1);
 
     my $dbname = _dbname();
+    # FIXME: Change this to mysqldump
     my $dumpCommand = "/usr/bin/pg_dump --clean --file $tmpFile $dbname";
     if ($onlySchema) {
         $dumpCommand .= ' --schema-only';

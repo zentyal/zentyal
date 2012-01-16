@@ -9,16 +9,17 @@ case "$1" in
         # postgresql and logs
         db_name="eboxlogs"
         db_user="ebox"
-        su postgres -c "dropdb $db_name"
-        su postgres -c "dropuser $db_user"
-        
+        # FIXME: fix this for mysql
+        #su postgres -c "dropdb $db_name"
+        #su postgres -c "dropuser $db_user"
+
         # delete apache certificates
         rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert /var/lib/zentyal/conf/ssl.key/ebox.key \
             /var/lib/zentyal/conf/ssl.pem/ebox.pem
-        
+
         # delete logs
         rm -rf /var/log/zentyal
-        
+
         # delete ebox user
         deluser --remove-home ebox
     ;;
