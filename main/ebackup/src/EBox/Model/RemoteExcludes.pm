@@ -161,7 +161,7 @@ sub validateTypedRow
 
     if ($action eq 'add') {
         $self->_validateCoherence(action => $action,  type => $type, target => $target);
-    } elsif ($action eq 'edit') {
+    } elsif ($action eq 'update') {
         $self->_validateCoherence(action => $action, id => $id, type => $type, target => $target);
     }
 
@@ -179,18 +179,19 @@ sub _pathsListWithModifications
             type => $args{type},
             target => $args{target},
            };
-    } elsif ($action eq 'edit') {
+    } elsif ($action eq 'update') {
         my $id = $args{id};
         my $found = undef;
-        foreach my $n (0 .. (length(@pathsList) -1)) {
-            if ($pathsList[$n] eq $id) {
-                $pathsList[$n] = {
+        foreach my $pathId (@pathsList) {
+            if ($pathId eq $id) {
+                $pathId = {
                     type => $args{type},
                     target => $args{target},
-                };
-                $found = $n; 
+                   };
+                $found = 1;
                 last;
             }
+
         }
         
         if (not $found) {
@@ -199,6 +200,10 @@ sub _pathsListWithModifications
     } else {
         throw EBox::Exceptions::Internal("Invalid action: $action");        
     }
+
+    # DDD
+    use Data::Dumper;
+    EBox::debug(Dumper(\@pathsList));
 
     return \@pathsList;
 }
@@ -213,11 +218,6 @@ sub _backupDomainsIncludes
             ();
         }
     } @{ $self->{gconfmodule}->modulesBackupDomainsFileSelections() };
-
-
-    # DDD
-    @backupDomainsIncludes = qw(/home /var/vmail);
-
 
     return \@backupDomainsIncludes;
 }
@@ -234,7 +234,10 @@ sub _validateCoherence
         $_ => $_
     } @backupDomainsIncludes;
 
-  
+    # DDD
+    use Data::Dumper;
+    EBox::debug("domainIncludes " . Dumper(\@backupDomainsIncludes));
+
     my @pathsList = @{ $self->_pathsListWithModifications(%args) };
     foreach my $path (@pathsList) {
         my ($type, $target);
@@ -250,11 +253,15 @@ sub _validateCoherence
         my $targetRe;
         if ($type eq 'exclude_regexp') {
             $targetRe = qr/$target/;
+        } elsif ($target eq '/') {
+            $targetRe = qr{.}; # root always match
         } else {
             $targetRe = qr{^$target(?:/.*)?$};
         }
         foreach my $include (keys %domainIncludes) {
+            EBox::debug("Checking $include tatgeet: $target type: $type");
             if ($include =~ $targetRe) {
+            EBox::debug("Matched $include for $target type: $type");
                 if ($type eq 'include_path') {
                     # remove included paths by the target
                     delete $domainIncludes{$include};
@@ -438,7 +445,7 @@ sub _checkRowIsUnique
     my $target = $row_ref->{target};
     my $rowSystem = $row_ref->{system}->value();
     if ($rowSystem) {
-        # systme rows are always added
+        # system rows are always added
         return;
     }
 
