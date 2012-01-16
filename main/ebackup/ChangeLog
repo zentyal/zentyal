@@ -22,6 +22,10 @@ HEAD
 	  option. Final message shows administrative interface localhost URL
 	+ restore-tool: fixed dialog when credentials are incorrect;
 	  better exclusion of problematic files to restore
+	+ File selections by backup domain are restricted to includes
+	+ Includes from backup domains can be moved in the list; the model
+	  validates if the includes and excludes configuration is coherent
+	  with the backup domains
 2.2.2
 	+ Exception in permanent message of remote restore screen is now managed
 	+ Defaults in excludes and includes list are not longer added when
