@@ -261,6 +261,11 @@ sub confFileParams
         push @templateParams, ($param => $value);
     }
 
+    my $mssFix = EBox::Config::configkey('mss_fix');
+    if ( $mssFix ) {
+        push(@templateParams, ( mssFix => $mssFix) );
+    }
+
     push @templateParams, (servers =>  $self->servers() );
 
     return \@templateParams;

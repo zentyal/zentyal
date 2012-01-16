@@ -19,6 +19,7 @@ $routeUpCmd => undef
 $logFile
 $statusLogFile
 $pidFile => undef
+$mssFix  => 0
 </%args>
 # Zentyal client-side OpenVPN 2.0 config file #
 # for connecting to multi-client server.      #
@@ -154,6 +155,11 @@ verb 3
 % if ($proto eq 'udp') {
 # Explicitly notify disconnections
 explicit-exit-notify 3
+
+%    if ( $mssFix > 0 ) {
+mssfix <% $mssFix %>
+%    }
+
 % }
 # Silence repeating messages
 ;mute 20
