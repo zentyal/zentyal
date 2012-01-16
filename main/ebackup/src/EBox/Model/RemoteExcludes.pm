@@ -272,6 +272,14 @@ sub _validateCoherence
             $type = $row->valueByName('type');
         }
 
+        my $checkSubdirectory;
+        if ($type eq 'exclude_path') {
+            $checkSubdirectory = 1;
+        } elsif ($type eq 'exclude_regexp') {
+            $checkSubdirectory = EBox::Validate::checkAbsoluteFilePath($target);
+        }
+
+
         foreach my $include (keys %domainIncludes) {
             EBox::debug("Checking $include tatgeet: $target type: $type");
             if ($type eq 'exclude_regexp') {
@@ -293,15 +301,17 @@ sub _validateCoherence
                                )
                        );
                 }
-            } elsif (($type ne 'include_path') and EBox::FileSystem::isSubdir($target, $include)) {
+            } 
+            
+            if ($checkSubdirectory and EBox::FileSystem::isSubdir($target, $include)){
                     throw EBox::Exceptions::External(
                         __x(q{Cannot do this because a subdirectory of  '{path}', added by backup domains, would be excluded},
                              path => $include
                                )
                        );                
 
-            }
-        } # en forreach my include
+           }
+        } # en foreach my include
 
     } # end foreach my path
 }
@@ -498,8 +508,6 @@ sub _checkRowIsUnique
     }
 }
 
-
-
 # Check wether some file will be included in the backup or not
 sub hasIncludes
 {
@@ -582,7 +590,7 @@ sub Viewer
     return '/ebackup/ajax/remoteExcludes.mas';
 }
 
-# reimplemntation to allow validation of moving rows using rhe method validateSwapPos
+# reimplemetation to allow validation of moving rows using rhe method validateSwapPos
 # if we like it we should move it to EBox::Model::DataTable
 
 sub moveUp
