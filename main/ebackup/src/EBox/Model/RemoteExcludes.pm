@@ -183,6 +183,20 @@ sub validateSwapPos
     $self->_validateCoherence(action => 'swap', swapA => $swapA, swapB => $swapB);
 }
 
+
+# Method: validateRemoveRow
+#
+#  Validate row removal
+#
+# Parameters:
+#
+#   id      -  id of the reow to remove
+sub validateRemoveRow
+{
+    my ($self, $id) = @_;
+    $self->_validateCoherence(action => 'remove', id => $id);
+}
+
 sub _pathsListWithModifications
 {
     my ($self, %args) = @_;
@@ -208,17 +222,22 @@ sub _pathsListWithModifications
             }
 
         }
-        
         if (not $found) {
             throw EBox::Exceptions::Internal("Id not found: $id");
         } 
+
     } elsif ($action eq 'swap') {
         my $swapA = $args{swapA};
         my $swapB = $args{swapB};
         my $swapAValue  = $pathsList[$swapA];
         $pathsList[$swapA] = $pathsList[$swapB];
         $pathsList[$swapB] = $swapAValue;
-        
+    } elsif ($action eq 'remove') {
+        my $id = $args{id};
+        @pathsList = grep {
+            $_ ne $id
+        } @pathsList;
+
     } else {
         throw EBox::Exceptions::Internal("Invalid action: $action");        
     }
@@ -285,7 +304,8 @@ sub _validateCoherence
             if ($type eq 'exclude_regexp') {
                 if ($include =~ m/$target/) {
                      throw EBox::Exceptions::External(
-                         __x(q{Cannot do this because the path '{path}', added by backup domains, would be excluded by the regular expression},
+                         __x(q|Cannot {action} because the path '{path}', added by backup domains, would be excluded by the regular expression|,
+                              action => _actionPrintableName($args{action}),
                               path => $include)
                         );
                  }
@@ -296,8 +316,9 @@ sub _validateCoherence
 
                 } else {
                     throw EBox::Exceptions::External(
-                        __x(q{Cannot do this because the path '{path}', added by backup domains, would be excluded},
-                             path => $include
+                        __x(q|Cannot {action} because the path '{path}', added by backup domains, would be excluded|,
+                            action => _actionPrintableName($args{action}),
+                            path => $include
                                )
                        );
                 }
@@ -305,8 +326,9 @@ sub _validateCoherence
             
             if ($checkSubdirectory and EBox::FileSystem::isSubdir($target, $include)){
                     throw EBox::Exceptions::External(
-                        __x(q{Cannot do this because a subdirectory of  '{path}', added by backup domains, would be excluded},
-                             path => $include
+                        __x(q|Cannot {action} because a subdirectory of  '{path}', added by backup domains, would be excluded|,
+                            action => _actionPrintableName($args{action}),
+                            path => $include
                                )
                        );                
 
@@ -316,6 +338,24 @@ sub _validateCoherence
     } # end foreach my path
 }
 
+
+sub _actionPrintableName
+{
+    my ($action) = @_;
+    if ($action eq 'add') {
+        return __('add row');
+    } elsif ($action eq 'update') {
+        return __('edit row');
+    } elsif ($action eq 'moveUp') {
+        return __('move up row');
+    } elsif ($action eq 'moveDown') {
+        return __('move down row');
+    } elsif ($action eq 'remove') {
+        return __('remove down');
+    } else {
+        return $action;
+    }
+}
 
 sub _validate_exclude_path
 {
@@ -590,7 +630,7 @@ sub Viewer
     return '/ebackup/ajax/remoteExcludes.mas';
 }
 
-# reimplemetation to allow validation of moving rows using rhe method validateSwapPos
+# reimplemetation to allow validation of moving rows using the method validateSwapPos
 # if we like it we should move it to EBox::Model::DataTable
 
 sub moveUp
@@ -636,5 +676,20 @@ sub moveDown
     $self->_notifyCompositeManager('moveDown', $self->row($id));
 }
 
+
+# reimplemetation to allow validation of removalopearation using the method validateRemoveRow
+# if we like it we should move it to EBox::Model::DataTable
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument(
+                "Missing row identifier to remove")
+    }
+
+    $self->validateRemoveRow($id);
+    return $self->SUPER::removeRow($id, $force)
+}
 
 1;
