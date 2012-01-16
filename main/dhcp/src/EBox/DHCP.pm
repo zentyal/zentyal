@@ -71,10 +71,10 @@ use Text::DHCPLeases;
 #use constant LEASEFILE => "@DHCPDLEASES@";
 #use constant PIDFILE => "@DHCPDPID@";
 #use constant DHCP_SERVICE => "@DHCPD_SERVICE@";
-use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
-use constant LEASEFILE => "/var/lib/dhcp3/dhcpd.leases";
-use constant PIDFILE => "/var/run/dhcp3-server/dhcpd.pid";
-use constant DHCP_SERVICE => "ebox.dhcpd3";
+use constant DHCPCONFFILE => "/etc/dhcp/dhcpd.conf";
+use constant LEASEFILE => "/var/lib/dhcp/dhcpd.leases";
+use constant PIDFILE => "/var/run/dhcp-server/dhcpd.pid";
+use constant DHCP_SERVICE => "zentyal.dhcpd";
 
 use constant TFTP_SERVICE => "tftpd-hpa";
 
@@ -82,7 +82,7 @@ use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 use constant INCLUDE_DIR => EBox::Config::etc() . 'dhcp/';
-use constant APPARMOR_DHCPD => '/etc/apparmor.d/usr.sbin.dhcpd3';
+use constant APPARMOR_DHCPD => '/etc/apparmor.d/local/usr.sbin.dhcpd';
 
 # Group: Public and protected methods
 
@@ -178,9 +178,9 @@ sub appArmorProfiles
                    'confDir'  => $self->IncludeDir() );
 
     return [
-        { 'binary' => 'usr.sbin.dhcpd3',
-          'local'  => 0,
-          'file'   => 'dhcp/apparmor-dhcpd.profile.mas',
+        { 'binary' => 'usr.sbin.dhcpd',
+          'local'  => 1,
+          'file'   => 'dhcp/apparmor-dhcpd.local.mas',
           'params' => \@params }
        ];
 }

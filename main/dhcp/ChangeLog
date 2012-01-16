@@ -1,4 +1,6 @@
 HEAD
+	+ Use apparmor local profile instead of overwritting the shipped one
+	+ Replace dhcp3-server with new isc-dhcp-server name
 	+ Replaced autotools with zbuildtools
 	+ Implemented gatewayDelete method from NetworkObserver
 2.2.1
