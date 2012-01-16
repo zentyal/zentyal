@@ -267,9 +267,6 @@ sub backupDomainsFileSelection
 
         my $selection = {
                           includes => \@includes,
-                          excludes => \@excludes,
-                          # the priority is to avoid clashes with the samba module
-                          priority => 20,
                         };
         return $selection;
     }
