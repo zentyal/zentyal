@@ -530,6 +530,10 @@ sub modulesBackupDomainsFileSelections
             if ($ds->{$typeList}) {
                 foreach my $value (@{ $ds->{$typeList} }) {
                         my $encodedValue = encode_base64($value, '');
+                        $encodedValue =~ s/=/eq/g;
+                        $encodedValue =~ s/\+/ad/g;
+                        $encodedValue =~ s{/}{sl}g;
+
                         my $id =  $prefix .  '_' .
                             $ds->{mod} . '_' . $type . '_' .$encodedValue;
                         push @selections, {

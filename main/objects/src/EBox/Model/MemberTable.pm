@@ -23,6 +23,7 @@
 #
 package EBox::Objects::Model::MemberTable;
 
+use EBox::Objects::Members;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -242,7 +243,7 @@ sub members
         push @members, \%member;
     }
 
-    return \@members;
+    return EBox::Objects::Members->new(\@members);
 }
 
 
@@ -263,36 +264,9 @@ sub members
 #
 sub addresses
 {
-    my ($self, %params) = @_;
-    my $mask = $params{mask};
+    my ($self, @params) = @_;
     my $members = $self->members();
-
-    return [] unless defined ( $members );
-
-    my @ips = map {
-        my $type = $_->{type};
-        if ($type eq 'ipaddr') {
-            if ($mask) {
-                my $ipAddr = $_->{'ipaddr'};
-                $ipAddr =~ s:/.*$::g;
-                [ $ipAddr =>  $_->{'mask'}]
-            } else {
-               $_->{'ipaddr'}
-           }
-        } elsif ($type eq 'iprange') {
-            if ($mask) {
-                map {
-                    [$_ => 32 ]
-               }@{ $_->{addresses} }
-            } else {
-                @{  $_->{addresses} }
-            }
-        } else {
-            ()
-        }
-    } @{ $members };
-
-    return \@ips;
+    return $members->addresses(@params);
 }
 
 
