@@ -1,0 +1,18 @@
+<%args>
+  $keysFile
+  $confDir
+</%args>
+
+# Site-specific additions and overrides for usr.sbin.dhcpd.
+# For more details, please see /etc/apparmor.d/local/README.
+
+# This profile has been modified by Zentyal Server to provide Dynamic
+# DNS feature
+
+% if ( $keysFile ) {
+  # For dynamic DNS (Zentyal)
+  <% $keysFile %> r,
+% }
+
+  # For allowing custom tweaking (Zentyal)
+  <% $confDir %>* r,
