@@ -219,7 +219,6 @@ sub enableService
     if ($self->changed()) {
         my $mail = EBox::Global->modInstance('mail');
         $mail->setAsChanged();
-
     }
 }
 

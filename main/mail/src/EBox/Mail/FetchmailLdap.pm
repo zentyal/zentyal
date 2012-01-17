@@ -187,10 +187,7 @@ sub allExternalAccountsByLocalAccount
                     EBox::info("Ignored fetchmail entry for account $localAccount since it is a disabled Zarafa account");
                     next;
                 }
-
             }
-
-
         }
 
         $accountsByLocalAccount{$localAccount} = {
@@ -294,10 +291,10 @@ sub writeConf
     my $postmasterAddress =  $mail->postmasterAddress(1, 1);
     my $pollTimeInSeconds =  $mail->fetchmailPollTime() * 60;
 
-    my $usersAccounts = [ values %{ 
+    my $usersAccounts = [ values %{
                                     $self->allExternalAccountsByLocalAccount(zarafa => $zarafa,
                                                                              zarafaDomain => $zarafaDomain
-                                                                            ) 
+                                                                            )
                                   }
                          ];
     my @params = (
