@@ -1,4 +1,5 @@
 HEAD
+	+ Virtual interfaces called '0' does not longer raise error
 	+ Replaced autotools with zbuildtools
 	+ Added gatewayDelete method to NetworkObserver and use it to check
 	  gateway removal in gateway table
