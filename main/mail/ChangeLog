@@ -3,6 +3,8 @@ HEAD
 	+ Remove precondition if there are no objects as now they can be
 	  added in-line with the new dialog
 	+ Replaced autotools with zbuildtools
+	+ Remove Zarafa dependent configuration when it is disabled
+	+ Fetchmail configuration takes in account Zarafa
 2.2.1
 	+ Fixed usercorner row id error when adding a new external account
 	+ Fixed mail directory backup in account creation, now it can be
