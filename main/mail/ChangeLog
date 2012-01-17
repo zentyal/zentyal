@@ -1,4 +1,6 @@
 HEAD
+	+ Remove Zarafa dependent configuration when it is disabled
+	+ Fetchmail configuration takes in account Zarafa
 	+ Mailfilter learn accounts are excluded from Zarafa transport
 	+ Remove precondition if there are no objects as now they can be
 	  added in-line with the new dialog
