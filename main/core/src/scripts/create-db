@@ -1,28 +1,37 @@
 #!/bin/bash
 
-db_name=$1
-db_user="ebox"
-
-# FIXME: temporarily commented, change it to mysqladmin
+db_name="zentyal"
+db_user="zentyal"
 
 create_db()
 {
+    PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
+
+    if [ -s $PASSWD_FILE ]
+    then
+        PASSWD=`cat $PASSWD_FILE`
+    else
+        PASSWD=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
+        echo -n $PASSWD > $PASSWD_FILE
+        chmod 400 $PASSWD_FILE
+    fi
+
     echo "Creating the $db_name database"
-    su postgres -c "createdb $db_name"
-    su postgres -c "createuser -R -S -D $db_user"
-    su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO $db_user\""
-    su postgres -c "psql -d $db_name -c \"CREATE LANGUAGE plpgsql\""
+    echo "CREATE DATABASE $db_name;
+          GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";
+          FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
 }
 
+# FIXME: Is all this needed with mysql? As it uses upstart probably it is always alive
+# or we even can manage it...
 # Check if we can connect to postgresql (with one retry after restart)
 #su postgres -c 'psql -Alt' >& /dev/null || /etc/init.d/postgresql-8.4 restart
 #su postgres -c 'psql -Alt' >& /dev/null || exit 1
 
-#su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
-if [ $db_exists -eq 0 ]; then
-#    create_db
+if ! [ -d /var/lib/mysql/$db_name ]; then
+    create_db
+    touch /var/lib/zentyal/.db-created
 fi
 
-#touch /var/lib/zentyal/.db-created

@@ -39,6 +39,8 @@ use EBox::Logs::SlicedBackup;
 use Error qw(:try);
 use Data::Dumper;
 
+my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
+
 sub new
 {
     my $class = shift,
@@ -84,14 +86,10 @@ sub _dbuser
 #
 sub _dbpass
 {
-    my $root = EBox::Config::configkey('eboxlogs_dbpass');
-    ($root) or
-        throw EBox::Exceptions::External(__x('You must set the {variable} ' .
-                    'variable in the ebox configuration file',
-                    variable => 'eboxlogs_dbpass'));
-    return $root;
-}
+    my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
 
+    return $pass;
+}
 
 # Method: _dbsuperuser
 #
@@ -99,7 +97,7 @@ sub _dbpass
 #
 sub _dbsuperuser
 {
-    return 'mysql';
+    return 'root';
 }
 
 # Method: _connect
@@ -109,12 +107,12 @@ sub _dbsuperuser
 #
 sub _connect
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    return if($self->{'dbh'});
+    return if ($self->{'dbh'});
 
-    my $dbh = DBI->connect("dbi:Pg:dbname=".$self->_dbname(),
-            $self->_dbuser(), $self->_dbpass(), { PrintError => 0});
+    my $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
+                           $self->_dbpass(), { PrintError => 0});
 
     unless ($dbh) {
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
@@ -643,7 +641,7 @@ sub restoreDBDump
 }
 
 
-# Method: sqlAsSuperuse
+# Method: sqlAsSuperuser
 #
 #  Executes sql as the database's superuser
 #
@@ -665,13 +663,11 @@ sub sqlAsSuperuser
     if ($sql) {
         $file = EBox::Config::tmp() . 'sqlSuper.cmd';
         File::Slurp::write_file($file, $sql);
-   }
+    }
 
     my $dbname = $self->_dbname();
-    my $psqlCmd = "/usr/bin/psql --file $file $dbname ";
-    $self->commandAsSuperuser($psqlCmd);
+    $self->commandAsSuperuser("mysql --defaults-file=/etc/mysql/debian.cnf $dbname < $file");
 }
-
 
 # Method: commandAsSuperuser
 #
@@ -682,10 +678,8 @@ sub commandAsSuperuser
     defined $cmd or
         throw EBox::Exceptions::MissingArgument('command');
 
-    my $dbsuperuser = _dbsuperuser();
-    EBox::Sudo::sudo($cmd, $dbsuperuser);
+    EBox::Sudo::root($cmd);
 }
-
 
 sub _superuserTmpFile
 {

@@ -18,9 +18,8 @@ use strict;
 use warnings;
 
 use EBox;
-
-use String::ShellQuote;
-
+use EBox::PgDBEngine;
+use Error qw(:try);
 
 # SQL helpers
 
@@ -28,10 +27,14 @@ sub runQuery
 {
     my ($query) = @_;
 
-    my $psql = String::ShellQuote::shell_quote("psql eboxlogs -c \"$query\"");
-    my $cmd = qq{sudo su postgres -c $psql > /dev/null 2>&1};
-    system $cmd;
-    return $?;
+    my $error = 0;
+    try {
+        my $dbengine = EBox::PgDBEngine->new();
+        $dbengine->do($query);
+    } otherwise {
+        $error = 1;
+    };
+    return $error;
 }
 
 sub renameTable

@@ -282,7 +282,7 @@ sub getAllTables
     my $tables;
 
     if (not $noCache and $self->{tables}) {
-        return $self->{tables} 
+        return $self->{tables};
     }
 
     foreach my $mod (@{getLogsModules()}) {
@@ -428,7 +428,7 @@ sub _checkValidDate # (date)
 
 # Method: search
 #
-#       Search for content in stored logs (in posgresql database)
+#       Search for content in stored logs (in mysql database)
 #
 # Parameters:
 #
@@ -500,12 +500,12 @@ sub search
 
     $self->_addSelect('COUNT(*)');
         my @count = @{$dbengine->query($self->_sqlStmnt())};
-    my $tcount = $count[0]{'count'};
+    my $tcount = $count[0]{'COUNT(*)'};
 
     # Do not go on if you don't have any result
     if ( $tcount == 0 ) {
         return { 'totalret' => $tcount,
-                     'arrayret' => [],
+                 'arrayret' => [],
                };
     }
 
@@ -554,7 +554,7 @@ sub totalRecords
 
     my $sql = "SELECT COUNT(*) FROM $table";
     my @tarray = @{$dbengine->query($sql)};
-    my $tcount = $tarray[0]{'count'};
+    my $tcount = $tarray[0]{'COUNT(*)'};
 
     return $tcount;
 }
@@ -701,8 +701,9 @@ sub _sqlStmnt {
         $stmt .= 'ORDER BY ' . $sql->{order} . ' ';
     }
 
-    $stmt .= "OFFSET ? LIMIT ?";
-    push @params, $sql->{'offset'}, $sql->{'limit'};
+    # FIXME: this is not working for some reason although it seems correct
+    $stmt .= "LIMIT ? OFFSET ?";
+    push @params, $sql->{'limit'}, $sql->{'offset'};
 
     return $stmt, @params;
 }
