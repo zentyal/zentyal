@@ -584,6 +584,7 @@ sub _setQAUpdates
     $self->_setQASources($params->{QASources}, $confKeys);
     $self->_setQAAptPubKey($params->{QAAptPubKey});
     $self->_setQAAptPreferences($params->{QAAptPreferences});
+    $self->_setQARepoConf($confKeys);
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -686,7 +687,6 @@ sub _setQASources
     File::Slurp::write_file($tmpFile, $output);
     my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
     EBox::Sudo::root("install -m 0644 '$tmpFile' '$destination'");
-
 }
 
 # Get the ubuntu version
@@ -750,7 +750,17 @@ sub _setQAAptPreferences
 
     my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
     EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
+}
 
+# Set not to use HTTP proxy for QA repository
+sub _setQARepoConf
+{
+    my ($self, $confKeys) = @_;
+
+    my $repoAddr = $self->_repositoryAddr($confKeys);
+    EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
+                                             '/remoteservices/qa-conf.mas',
+                                             [ repoAddr => $repoAddr ]);
 }
 
 # Get the repository IP address
@@ -778,6 +788,7 @@ sub _removeQAUpdates
     $self->_removeAptQASources();
     $self->_removeAptPubKey();
     $self->_removeAptQAPreferences();
+    $self->_removeAptQAConf();
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -809,7 +820,12 @@ sub _removeAptQAPreferences
     EBox::Sudo::root("rm -f '$path'");
     $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
     EBox::Sudo::root("rm -f '$path'");
+}
 
+sub _removeAptQAConf
+{
+    my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
+    EBox::Sudo::root("rm -f '$path'");
 }
 
 # Remove the Dynamic DNS configuration only if the service is using
@@ -856,6 +872,7 @@ sub _checkWSConnectivity
     $counter or
         throw EBox::Exceptions::Internal('Mirror count not found');
 
+    # TODO: Use the network module API
     my $network    = EBox::Global->modInstance('network');
     my $proxyModel = $network->model('Proxy');
     my $proxy      = $proxyModel->serverValue();
