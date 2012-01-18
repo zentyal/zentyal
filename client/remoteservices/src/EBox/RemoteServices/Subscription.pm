@@ -552,6 +552,7 @@ sub _setQAUpdates
     $self->_setQASources($params->{QASources}, $confKeys);
     $self->_setQAAptPubKey($params->{QAAptPubKey});
     $self->_setQAAptPreferences($params->{QAAptPreferences});
+    $self->_setQARepoConf($confKeys);
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -692,6 +693,17 @@ sub _setQAAptPreferences
 #     EBox::Sudo::root("cp '$preferencesFile' '$preferences'");
 }
 
+# Set not to use HTTP proxy for QA repository
+sub _setQARepoConf
+{
+    my ($self, $confKeys) = @_;
+
+    my $repoAddr = $self->_repositoryAddr($confKeys);
+    EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
+                                             '/remoteservices/qa-conf.mas',
+                                             [ repoAddr => $repoAddr ]);
+}
+
 # Get the repository IP address
 sub _repositoryAddr
 {
@@ -717,6 +729,7 @@ sub _removeQAUpdates
     $self->_removeAptQASources();
     $self->_removeAptPubKey();
     $self->_removeAptQAPreferences();
+    $self->_removeAptQAConf();
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -753,6 +766,12 @@ sub _removeAptQAPreferences
     }
 }
 
+sub _removeAptQAConf
+{
+    my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
+    EBox::Sudo::root("rm -f '$path'");
+}
+
 # Check if the ebox-cloud-prof is already installed
 sub _cloudProfInstalled
 {
@@ -779,7 +798,7 @@ sub _checkWSConnectivity
     $counter or 
         throw EBox::Exceptions::Internal('Mirror count not found');
 
-
+    # TODO: Use the network module API
     my $network = EBox::Global->modInstance('network');
     my $proxyModel = $network->model('Proxy');
     my $proxy     = $proxyModel->serverValue();

@@ -143,6 +143,19 @@ sub aptQASourcePath
     return '/etc/apt/sources.list.d/ebox-qa.list';
 }
 
+# Method: aptQAConfPath
+#
+#      Return the path to the configuration file for QA repository
+#
+# Returns:
+#
+#      String - the path
+#
+sub aptQAConfPath
+{
+    return '/etc/apt/apt.conf.d/99zentyal';
+}
+
 # Method: JohnHomeDirPath
 #
 #      Return the path to the John the Ripper home directory
