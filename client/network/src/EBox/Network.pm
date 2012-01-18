@@ -2496,6 +2496,42 @@ sub _generateProxyConfig
                         [ proxyConf => $proxyConf ]);
 }
 
+# Method: proxySettings
+#
+#    Return the proxy settings if configured
+#
+# Returns:
+#
+#    Hash ref - the following keys are included
+#
+#        server   - the HTTP proxy's name
+#        port     - the HTTP proxy's port
+#        username - the username to authenticate (optional)
+#        password - the password (optional)
+#
+#    undef - if there is not proxy settings
+#
+sub proxySettings
+{
+    my ($self) = @_;
+
+    my $proxy  = $self->model('Proxy');
+    my $server = $proxy->serverValue();
+    my $port   = $proxy->portValue();
+    if ( $server and $port ) {
+        my $retValue = { server => $server, port => $port };
+        my $username = $proxy->usernameValue();
+        my $password = $proxy->passwordValue();
+        if ( $username and $password ) {
+            $retValue->{username} = $username;
+            $retValue->{password} = $password;
+        }
+        return $retValue;
+    } else {
+        return undef;
+    }
+}
+
 #
 sub isDDNSEnabled
 {
