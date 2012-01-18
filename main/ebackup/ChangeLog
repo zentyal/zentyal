@@ -1,4 +1,5 @@
 HEAD
+	+ Better message when cloud method is selected but cannot be used
 	+ Set a default timeout of 5 minutes for duplicity and allow to
 	  override it with the duplicity_timeout key of ebackup.conf
 	+ Replaced autotools with zbuildtools
