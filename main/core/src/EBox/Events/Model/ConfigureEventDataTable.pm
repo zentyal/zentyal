@@ -569,4 +569,14 @@ sub _commercialMsg
                 closehref => '</a>');
 }
 
+# this method has been overriden to avoid errors like: 'modelInstance
+# /events/LogWatcherFiltering/mailfilter-smtpFilter does not exist.'
+# The error is raised in syncRows, becasue adding the row to new subModel
+# call this and in it is base version it tries to call models that are
+# not yet intitiated
+sub filesPathsForRow
+{
+    return [];
+}
+
 1;
