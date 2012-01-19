@@ -44,14 +44,17 @@ my @packages            = @ARGV;
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die('progress executable is not running');
 
-my ($retValue, $errorMsg, $pid) = (0, '', 0);
+my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
 
+my ($retValue, $errorMsg, $pid) = (0, '', 0);
 try {
     my $fifo = '/var/lib/zentyal/apt-install.pipe';
 
     #Clean fifo
     EBox::Sudo::silentRoot("rm $fifo");
     EBox::Sudo::silentRoot("mkfifo $fifo");
+
+    $apacheMod->disableRestartOnTrigger();
 
     EBox::info('Starting package installation process');
 
@@ -114,13 +117,14 @@ try {
     } until($break);
 
     EBox::info('Package installation process finished');
-
+    
 } otherwise {
     my ($exc) = @_;
     $retValue = $exc->exitValue();
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
+    $apacheMod->enableRestartOnTrigger();
     if ( $pid != 0 ) {
         waitpid($pid, 0);
         if ( ${^CHILD_ERROR_NATIVE} != 0 ) {

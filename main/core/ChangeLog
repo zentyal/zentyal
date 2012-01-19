@@ -1,4 +1,5 @@
 HEAD
+	+ Added methods to enable/disable restart triggers
 	+ Fixed problem in consalidation report when accumulating results
 	  from queries having a "group by table.field"
 	+ Added missing US and Etc zones in timezone selector

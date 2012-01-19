@@ -1,4 +1,6 @@
 HEAD
+	+ Disable restart trigger on installation/removal of packages to
+	avoid stuck the progress bar
 	+ Replaced autotools with zbuildtools
 	+ Bugfix: Use the new paths in setting apt preferences when
 	  modifying the /etc/zentyal/remoteservices.conf entry

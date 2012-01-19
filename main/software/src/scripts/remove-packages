@@ -36,16 +36,19 @@ my @packages            = @ARGV;
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die ('progress executable not run');
 
+my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
+
 my $command = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autoremove' : 'remove';
 
 my ($retValue, $errorMsg) = (0, '');
-
 try {
     my $fifo = '/var/lib/zentyal/apt-remove.pipe';
 
     #Clean fifo
     EBox::Sudo::silentRoot ("rm $fifo");
     EBox::Sudo::silentRoot ("mkfifo $fifo");
+
+    $apacheMod->disableRestartOnTrigger();
 
     EBox::info('Begin packages remove');
 
@@ -98,6 +101,7 @@ try {
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
+    $apacheMod->enableRestartOnTrigger();
     try {
         EBox::info("End packages remove");
         my $global = EBox::Global->getInstance(1);
