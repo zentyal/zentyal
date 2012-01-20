@@ -22,7 +22,7 @@ use base 'EBox::CGI::WizardPage';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Exceptions;
+use EBox::Exceptions::External;
 use EBox::Validate;
 use SOAP::Lite;
 use Error qw(:try);

@@ -22,7 +22,6 @@ use base 'EBox::CGI::WizardPage';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Exceptions;
 use EBox::Validate;
 use Error qw(:try);
 
