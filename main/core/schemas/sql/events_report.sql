@@ -5,4 +5,4 @@ CREATE TABLE events_report(
         nEvents  INT DEFAULT 0
 );
 
-GRANT USAGE, SELECT, UPDATE ON events_id_seq TO ebox;
+GRANT USAGE, SELECT, UPDATE ON events_id_seq TO zentyal;

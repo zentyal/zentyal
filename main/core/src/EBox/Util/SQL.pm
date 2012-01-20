@@ -19,6 +19,7 @@ package EBox::Util::SQL;
 use strict;
 use warnings;
 
+use EBox::PgDBEngine;
 use EBox::Logs::Consolidate;
 use Perl6::Junction qw(any);
 use File::Basename;
@@ -92,13 +93,14 @@ sub dropModuleTables
         return;
     }
 
+    my $dbengine = EBox::PgDBEngine->new();
+
     my @tables = read_file($tablesFile);
     return unless @tables;
     chomp (@tables);
 
     foreach my $table (@tables) {
-        # FIXME: Use DBI?
-        EBox::Sudo::sudo("psql -c \"DROP TABLE $table\" $dbName", 'postgres');
+        $dbengine->do("DROP TABLE $table");
     }
 
     unlink ($tablesFile);
@@ -108,8 +110,10 @@ sub _addTable
 {
     my ($file, @timePeriods) = @_;
 
+    my $dbengine = EBox::PgDBEngine->new();
     my $dbName = EBox::Config::configkey('eboxlogs_dbname');
     my $dbUser = EBox::Config::configkey('eboxlogs_dbuser');
+    my $dbPass = $dbengine->_dbpass();
 
     my $table = basename($file);
     $table =~ s/\.sql$//;
@@ -122,19 +126,15 @@ sub _addTable
             my $fileCmds = read_file($file);
             my $sqlCmds = $fileCmds;
             $sqlCmds =~ s/$table/$fullName/g;
+            $dbengine->sqlAsSuperuser(sql => $sqlCmds);
 
-            my $tmpFile = EBox::Config::tmp() . "$fullName.sql";
-            write_file($tmpFile, $sqlCmds);
-
-            EBox::Sudo::sudo("psql -f $tmpFile $dbName", 'postgres');
-            EBox::Sudo::sudo("psql -c 'GRANT SELECT, INSERT, UPDATE, DELETE ON $fullName TO $dbUser' $dbName", 'postgres');
+            $dbengine->sqlAsSuperuser(sql => "GRANT SELECT, INSERT, UPDATE, DELETE ON $fullName TO '$dbUser'\@'localhost'");
             push (@names, $fullName);
         }
         return @names;
     } else {
-        # FIXME: Use DBI?
-        EBox::Sudo::sudo("psql -f $file $dbName", 'postgres');
-        EBox::Sudo::sudo("psql -c \"GRANT SELECT, INSERT, UPDATE, DELETE ON $table TO $dbUser\" $dbName", 'postgres');
+        $dbengine->sqlAsSuperuser(file => $file);
+        $dbengine->sqlAsSuperuser(sql => "GRANT SELECT, INSERT, UPDATE, DELETE ON $dbName.$table TO '$dbUser'\@'localhost'");
         return $table;
     }
 }

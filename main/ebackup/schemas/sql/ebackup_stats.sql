@@ -1,4 +1,3 @@
-CREATE TYPE b_type AS ENUM ('full', 'incremental');
 CREATE TABLE ebackup_stats (
     timestamp TIMESTAMP,
     elapsed BIGINT,
@@ -8,7 +7,7 @@ CREATE TABLE ebackup_stats (
     changed_files_num INT,
     size BIGINT,
     errors INT,
-    type b_type
+    type ENUM ('full', 'incremental')
 );
 
 CREATE INDEX ebackup_stats_timestamp_i on ebackup_stats(timestamp);

@@ -11,4 +11,4 @@ CREATE TABLE events(
 );
 
 
-GRANT USAGE, SELECT, UPDATE ON events_id_seq TO ebox;
+GRANT USAGE, SELECT, UPDATE ON events_id_seq TO zentyal;
