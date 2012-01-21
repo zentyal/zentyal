@@ -1536,6 +1536,8 @@ sub report
 
 sub consolidateReportQueries
 {
+    # FIXME: do the domain_from_url converssion elsewhere if possible
+    # or just reimplement it with a MySQL stored procedure
     return [
         {
             'target_table' => 'squid_access_report',
