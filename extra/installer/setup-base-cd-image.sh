@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
