@@ -51,12 +51,6 @@ sub checkModule {
     return $mod;
 }
 
-sub checkDatabase() {
-    unless (-e '/var/lib/zentyal/.db-created')  {
-        system('sudo /usr/share/zentyal/create-db');
-    }
-}
-
 sub start() {
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
@@ -64,7 +58,6 @@ sub start() {
     @names = grep { $_ ne 'apache' } @names;
 	push(@names, 'apache');
 
-    checkDatabase();
 	foreach my $modname (@names) {
 	    moduleAction($modname, 'restartService', 'start');
 	}
@@ -162,7 +155,6 @@ sub printModuleMessage
 sub moduleRestart
 {
     my ($modname) = @_;
-    checkDatabase();
     moduleAction($modname, 'restartService', 'restart');
 }
 
