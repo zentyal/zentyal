@@ -1,5 +1,5 @@
 CREATE TABLE squid_traffic (
-        timestamp TIMESTAMP,
+        `date` TIMESTAMP,
 
         rfc931 CHAR(255) DEFAULT '-',
 
@@ -15,5 +15,4 @@ CREATE TABLE squid_traffic (
         filtered_size BIGINT DEFAULT 0
 );
 
-CREATE INDEX squid_traffic_date_i on squid_traffic(timestamp);
-
+CREATE INDEX squid_traffic_date_i on squid_traffic(`date`);
