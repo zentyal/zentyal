@@ -1,0 +1,58 @@
+samba-vscan (0.3.6cbeta5+zentyal1) precise; urgency=low
+
+  * Precise build
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 21 Jan 2012 20:35:19 +0100
+
+samba-vscan (0.3.6cbeta5ebox4-2) lucid; urgency=low
+
+  * Lucid build
+
+ -- José A. Calvo <jacalvo@ebox-platform.com>  Sat, 26 Jun 2010 21:41:05 +0200
+
+samba-vscan (0.3.6cbeta5ebox4-1) hardy; urgency=high
+
+  * New upstream version fixing problem with file paths
+
+ -- Isaac Clerencia <isaac@ebox-technologies.com>  Thu, 10 Dec 2009 10:40:58 +0000
+
+samba-vscan (0.3.6cbeta5ebox3-2) hardy; urgency=low
+
+  * Add build dependency on libpopt-dev
+
+ -- Isaac Clerencia <isaac@ebox-technologies.com>  Mon, 23 Nov 2009 21:08:43 +0000
+
+samba-vscan (0.3.6cbeta5ebox3-1) hardy; urgency=low
+
+  * New package with new samba source, with updated and slimmer samba-vscan
+
+ -- Isaac Clerencia <isaac@debian.org>  Wed, 04 Nov 2009 10:20:14 +0000
+
+samba-vscan (0.3.6cbeta5ebox2-1) hardy; urgency=low
+
+  * New package with new samba source
+
+ -- Isaac Clerencia <isaac@debian.org>  Wed, 04 Nov 2009 10:20:14 +0000
+
+samba-vscan (0.3.6cbeta5ebox1-2) hardy; urgency=low
+
+  * Do not build with libclamv support
+
+ -- Javier Uruen Val <javi@warp.es>  Fri, 08 May 2009 17:10:52 +0200
+
+samba-vscan (0.3.6cbeta5ebox1-1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Wed, 22 Apr 2009 10:20:14 +0100
+
+samba-vscan (0.3.6cbeta5-2) hardy; urgency=low
+
+  * Arch: any
+
+ -- Isaac Clerencia <isaac@debian.org>  Wed, 22 Apr 2009 10:20:14 +0100
+samba-vscan (0.3.6cbeta5-1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Wed, 22 Apr 2009 10:20:14 +0100
