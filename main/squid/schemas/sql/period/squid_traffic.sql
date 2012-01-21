@@ -1,5 +1,5 @@
 CREATE TABLE squid_traffic (
-        date TIMESTAMP, 
+        timestamp TIMESTAMP,
 
         rfc931 CHAR(255) DEFAULT '-',
 

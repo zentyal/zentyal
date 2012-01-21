@@ -1,5 +1,5 @@
 CREATE TABLE samba_virus_report (
     date DATE,
-    client INET,
+    client CHAR(15), -- FIXME INET
     virus BIGINT
 );

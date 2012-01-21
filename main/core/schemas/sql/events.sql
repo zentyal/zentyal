@@ -9,6 +9,3 @@ CREATE TABLE events(
                       source VARCHAR(256),
                       message VARCHAR(256)
 );
-
-
-GRANT USAGE, SELECT, UPDATE ON events_id_seq TO zentyal;
