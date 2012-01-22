@@ -14,7 +14,7 @@ pushd $INDICES_DIR
 echo "Downloading indices files"
 for i in extra.main main main.debian-installer restricted restricted.debian-installer
 do
-    wget http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.$i || exit 1
+    wget -N http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.$i || exit 1
 done
 
 popd
