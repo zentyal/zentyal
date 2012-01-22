@@ -1,4 +1,5 @@
 HEAD
+	+ Commented unused code in cleanUser method
 	+ Replaced autotools with zbuildtools
 2.2.5
 	+ Bugfix: ad-sync can now populate groups with more than 1500 users
