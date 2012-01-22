@@ -7,13 +7,13 @@ TreeDefault {
 };
 
 BinDirectory "pool/main" {
-  Packages "dists/lucid/main/debian-installer/binary-ARCH/Packages";
-  BinOverride "INDICES/override.lucid.main.debian-installer";
+  Packages "dists/precise/main/debian-installer/binary-ARCH/Packages";
+  BinOverride "INDICES/override.precise.main.debian-installer";
 };
 
 BinDirectory "pool/restricted" {
-  Packages "dists/lucid/restricted/debian-installer/binary-ARCH/Packages";
-  BinOverride "INDICES/override.lucid.restricted.debian-installer";
+  Packages "dists/precise/restricted/debian-installer/binary-ARCH/Packages";
+  BinOverride "INDICES/override.precise.restricted.debian-installer";
 };
 
 Default {

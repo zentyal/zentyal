@@ -12,7 +12,10 @@ EXTRAS_DIR="$EXTRAS_DIR_BASE-$ARCH"
 pushd $INDICES_DIR
 
 echo "Downloading indices files"
-wget -m http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.{extra.main,main,main.debian-installer,restricted,restricted.debian-installer} || exit 1
+for i in extra.main main main.debian-installer restricted restricted.debian-installer
+do
+    wget http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.$i || exit 1
+done
 
 popd
 
