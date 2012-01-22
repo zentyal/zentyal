@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -42,6 +42,7 @@ use Data::Dumper;
 use File::Temp;
 use File::Slurp;
 use JSON;
+use Perl6::Junction qw(any);
 
 # Constants
 # Set it fixed not to include Zentyal packages
@@ -50,6 +51,7 @@ use constant EVENTS_INCOMING_READY_DIR => EVENTS_INCOMING_DIR . 'ready/';
 use constant EVENTS_FIFO               => '/var/lib/zentyal/tmp/events-fifo';
 use constant NOTIFICATION_CONF         => '/var/lib/zentyal/conf/monitor/notif.conf';
 use constant EBOX_USER                 => 'ebox';
+use constant PROCESS_PLUGIN_RE         => qr/^cpu|load/;
 
 our $persistConf : shared;
 
@@ -120,6 +122,7 @@ sub ebox_notify
     # open(my $fh, '>>', '/tmp/bar');
     # $Data::Dumper::Indent = 0;
     # print $fh Dumper($not);
+    my ($after, $other) = (0, undef);
     if ( exists $persistConf->{$not->{plugin}}
          and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}
          and exists $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}
@@ -133,9 +136,14 @@ sub ebox_notify
             $aMeasureConf = $persistConf->{$not->{plugin}}->{$not->{plugin_instance}}->{$not->{type}}->{$not->{type_instance}}->{$aLevel};
         }
         if ( defined($measureConf) and $measureConf->{first} ) {
+            if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
+                $measureConf->{other} = _topProcesses($measureConf->{other});
+            }
             if ( $measureConf->{first} + $measureConf->{after} < $not->{time} ) {
                 $measureConf->{first} = 0;
                 $measureConf->{sent}  = 1;
+                $after = $measureConf->{after};
+                $other = $measureConf->{other};
                 # print $fh "Send ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
                 # close($fh);
             } else {
@@ -148,10 +156,14 @@ sub ebox_notify
             # First valid value
             if ( defined($measureConf) ) {
                 $measureConf->{first}  = shared_clone($not->{time});
+                if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
+                    $measureConf->{other} = _topProcesses();
+                }
             }
             # Switching from this level to the contrary (clear counters)
             if ( defined($aMeasureConf) ) {
                 $aMeasureConf->{first} = 0;
+                $aMeasureConf->{other} = shared_clone([]);
             }
             # print $fh "First ($level): " . $not->{plugin} . ' ' . $not->{plugin_instance} . "\n";
             # close($fh);
@@ -182,8 +194,12 @@ sub ebox_notify
         message => $not->{message},
         source  => $src,
         level   => $level,
-        timestamp => $not->{time}
+        timestamp => $not->{time},
+        duration  => $after,
        };
+    if ( $not->{plugin} =~ PROCESS_PLUGIN_RE ) {
+        $evt->{other} = $other;
+    }
 
     # Dumpered event without newline chars
     $Data::Dumper::Indent = 0;
@@ -225,6 +241,50 @@ sub _notifyUsingFS
     my ($basename) = ($fileTemp->filename() =~ m:.*/(.*)$:g);
     symlink($fileTemp->filename(), EVENTS_INCOMING_READY_DIR . $basename);
 
+}
+
+# Get and return the top processes (>= 10% CPU)
+sub _topProcesses
+{
+    my ($proc, $fh) = @_;
+
+    my @top = _ps();
+
+    if ( defined($proc) and (@{$proc} > 0) ) {
+        # Only store those processes that already are in the list and
+        # remove those ones that are not already in the top
+        my @proc = grep { $_ == any(@top) } @{$proc};
+        $proc = shared_clone(\@proc);
+    } else {
+        my $newProc : shared;
+        my $max = 9;
+        $max = $#top if ( @top < 10 );
+        my @proc = @top[0 .. $max];
+        $newProc = shared_clone(\@proc);
+        $proc = $newProc;
+    }
+    return $proc;
+}
+
+# Get top by parsing ps
+sub _ps
+{
+    my @top;
+    open(my $ps, 'ps k -pcpu -e -o pid,pcpu |');
+    # Skip header
+    <$ps>;
+    while(my $line = <$ps>) {
+        chomp($line);
+        my ($pid, $pcpu) = split( /\s+/, $line);
+        if ( $pcpu >= 10.0 ) {
+            push(@top, $pid);
+        } else {
+            # Since the output is already sorted
+            last;
+        }
+    }
+    close($ps);
+    return @top;
 }
 
 1;
