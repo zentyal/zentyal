@@ -21,8 +21,8 @@ do
 done
 mkdir $BUILD_DIR/indices
 
-for i in data images build_cd.sh generate_extras.sh setup-base-cd-image.sh \
-         list-duplicated.sh list-not-installed.sh zenbuntu-desktop
+for i in autobuild build_cd.sh generate_extras.sh setup-base-cd-image.sh \
+         list-duplicated.sh list-not-installed.sh zenbuntu-desktop data images
 do
     ln -s $cwd/$i $BUILD_DIR/$i
 done
@@ -33,20 +33,6 @@ do
     ln -s $i $BUILD_DIR/scripts/`basename $i`
 done
 
-echo "Build directory created."
-echo
-echo "Execute the following to generate it:"
-echo "cd $BUILD_DIR"
-echo "./setup-base-cd-image.sh [i386|amd64]"
-echo "./generate_extras.sh [i386|amd64]"
-echo "./build_cd.sh [i386|amd64]"
-
-# TODO: fix list-duplicated and change it to remove-duplicated
-# to allow automatic use
-# For the list of not installed packages maybe we can also
-# detect which packages on the installer are not present
-# on the chroot (excluding the base system / installer ones)
-
-# TODO: autogenerate a one-step script?
+echo "Build directory created at $BUILD_DIR"
 
 exit 0

@@ -9,10 +9,12 @@ You also need to have the following packages installed:
 
 build-essentials dpkg-dev devscripts mkisofs zentyal-common
 
-2) Run init-build-dir.sh and follow the instructions.
+2) Run ./autobuild
 
-You will need to download an copy/link the Ubuntu server ISO to the newly
-created directory before starting the generation process.
+You will need to download the Ubuntu Server installers to remaster as you'll
+be prompted to select them at the beginning of the generation process.
+If you are not on a X11 environment, you'll have to copy them manually to
+the build directory under ../build_installer.
 
 3) Put extra ubuntu packages (optional, for custom installers only)
 
@@ -26,3 +28,6 @@ and their dependencies on a chrooted debootstrap environment.
 
 You can also edit the sources.list file if you want to fetch the packages
 from external repositories instead of manually copying the .deb files.
+
+You can use 'build_cd.sh' inside a build directory to regenerate the ISO
+image replacing the whole 'extras' directory.

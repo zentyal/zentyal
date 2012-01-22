@@ -17,6 +17,19 @@ CD_MOUNT_DIR="$CD_MOUNT_DIR_BASE-$ARCH"
 
 test -d $BASE_DIR || (echo "BASE_DIR directory not found."; false) || exit 1
 
+if ! [ -r $ISO_PATH ]
+then
+    zenity 2>/dev/null
+    if [ $? == 255 ]
+    then
+        ISO_NAME=`basename $ISO_PATH`
+        SELECTED_ISO=`zenity --file-selection --title "Locate your $ISO_NAME"`
+        if [ -n "$SELECTED_ISO" ]
+        then
+            ln -s "$SELECTED_ISO" $ISO_PATH
+        fi
+    fi
+fi
 test -r $ISO_PATH || (echo "ISO image $ISO_PATH not found."; false) || exit 1
 
 test -r $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
