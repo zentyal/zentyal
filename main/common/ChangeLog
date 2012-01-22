@@ -1,4 +1,5 @@
 HEAD
+	+ Add duration attribute to EBox::Event
 	+ Ignore by default bind filesystems in EBox::FileSystem method
 	+ Bugfix: MAC validation now forbids parts with only one character
 2.2.2
