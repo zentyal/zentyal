@@ -31,8 +31,6 @@ chmod u+w -R $CD_BUILD_DIR || exit 1
 # remove ppp-udeb
 rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
 
-sed -i "s/Ubuntu Server/Zentyal $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
-
 sudo umount $CD_MOUNT_DIR || exit 1
 rmdir $CD_MOUNT_DIR
 

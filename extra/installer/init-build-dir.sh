@@ -20,10 +20,16 @@ do
     cp -r $i $BUILD_DIR
 done
 
-for i in data images scripts zenbuntu-desktop build_cd.sh generate_extras.sh \
+for i in data images zenbuntu-desktop build_cd.sh generate_extras.sh \
          list-duplicated.sh setup-base-cd-image.sh list-not-installed.sh
 do
     ln -s $cwd/$i $BUILD_DIR/$i
+done
+
+mkdir $BUILD_DIR/scripts
+for i in $cwd/scripts/*
+do
+    ln -s $i $BUILD_DIR/scripts
 done
 
 echo "Build directory created."
