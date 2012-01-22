@@ -22,18 +22,15 @@ done
 mkdir $BUILD_DIR/indices
 
 for i in data images build_cd.sh generate_extras.sh setup-base-cd-image.sh \
-         list-duplicated.sh list-not-installed.sh
+         list-duplicated.sh list-not-installed.sh zenbuntu-desktop
 do
     ln -s $cwd/$i $BUILD_DIR/$i
 done
 
-for dir in scripts zenbuntu-desktop
+mkdir $BUILD_DIR/scripts
+for i in $cwd/scripts/*
 do
-    mkdir $BUILD_DIR/$dir
-    for i in $cwd/$dir/*
-    do
-        ln -s $i $BUILD_DIR/$dir/`basename $i`
-    done
+    ln -s $i $BUILD_DIR/scripts/`basename $i`
 done
 
 echo "Build directory created."

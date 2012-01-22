@@ -12,10 +12,10 @@ mkdir $TMPDIR
 test -f $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
 
 # Build zenbuntu-desktop package
-cp -r zenbuntu-desktop $TMPDIR/zenbuntu-desktop
-cd $TMPDIR/zenbuntu-desktop
+cp -rL zenbuntu-desktop $TMPDIR/zenbuntu-desktop
+pushd $TMPDIR/zenbuntu-desktop
 dpkg-buildpackage
-cd -
+popd
 
 for ARCH in $ARCHS
 do
