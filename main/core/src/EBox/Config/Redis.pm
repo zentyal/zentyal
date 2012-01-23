@@ -741,17 +741,12 @@ sub _respawn
     my $user = $self->_user();
     my $filepasswd = $self->_passwd();
 
-    # FIXME: libredis-perl does not support unix sockets yet
-    # I'm manually patching it now for the tests, modify
-    # this when the definitive patch is accepted by upstream
-    # and/or integrated in our custom libredis-perl
-    $redis = Redis->new(server => "/var/run/redis/redis.$user.sock");
+    $redis = Redis->new(sock => "/var/run/redis/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
 
     # EBox::info("$$ Respawning the redis connection");
-
 }
 
 
