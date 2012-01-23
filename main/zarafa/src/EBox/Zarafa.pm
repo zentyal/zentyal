@@ -206,6 +206,22 @@ sub initialSetup
     }
 }
 
+
+# Method: enableActions
+#
+#       Override EBox::Module::Service::enableService to notify mail
+#
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+    if ($self->changed()) {
+        my $mail = EBox::Global->modInstance('mail');
+        $mail->setAsChanged();
+    }
+}
+
 sub _serviceRules
 {
     return [

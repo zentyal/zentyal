@@ -1306,8 +1306,8 @@ sub _cleanUser
     }
 
     # remove home directory
-    my $userInfo = $self->userInfo($user);
-    my $home = $userInfo->{homeDirectory};
+    #my $userInfo = $self->userInfo($user);
+    #my $home = $userInfo->{homeDirectory};
     # TODO: We need to ask with a confirmation dialog before doing this!
     #EBox::Sudo::root("rm -rf $home");
 }

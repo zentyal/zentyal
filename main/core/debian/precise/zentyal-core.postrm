@@ -10,7 +10,7 @@ case "$1" in
         db_name="zentyal"
         db_user="zentyal"
         echo "DROP DATABASE $db_name;
-              DROP USER '$db_user'\@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf
+              DROP USER '$db_user'@'localhost';" | mysql --defaults-file=/etc/mysql/debian.cnf
 
         # delete apache certificates
         rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert /var/lib/zentyal/conf/ssl.key/ebox.key \

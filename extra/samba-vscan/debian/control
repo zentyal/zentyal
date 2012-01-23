@@ -1,0 +1,13 @@
+Source: samba-vscan
+Section: utils
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: cdbs, debhelper (>= 5.0.0), libreadline6-dev, libpopt-dev
+Standards-Version: 3.7.3
+
+Package: samba-vscan
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Samba virus scanning VFS module
+ This package provides a Samba VFS module to scan files for viruses when they
+ are transferred using Samba.

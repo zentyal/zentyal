@@ -1,5 +1,7 @@
 HEAD
 	+ Replaced autotools with zbuildtools
+	+ Notify mail of changes in service status so it could adjusts its
+	  configuration to the new status
 2.1.5
 	+ Removed /zentyal prefix from URLs
 	+ Bugfix: create shared folders will fail if for some reason they were

@@ -14,12 +14,12 @@ my %tabs = (
               url       => '/SysInfo/Backup?selected=local',
 		     },
 	    remote => {
-		      component =>  '/RemoteServices/Backup/index.mas',
+		      component =>  '/remoteservices/Backup/index.mas',
 		      title     =>  __('Remote in Zentyal Cloud'),
               url       => '/RemoteServices/Backup/Index?selected=remote',
 		     },
 	    proxy => {
-		      component =>  '/RemoteServices/Backup/proxy.mas',
+		      component =>  '/remoteservices/Backup/proxy.mas',
 		      title     =>  __('Remote in Zentyal Cloud from other subscribed hosts'),
               url       => '/RemoteServices/Backup/Proxy?selected=proxy',
 		     },

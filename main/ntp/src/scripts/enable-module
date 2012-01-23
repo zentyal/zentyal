@@ -8,4 +8,4 @@ invoke-rc.d ntp stop
 
 # disable ntp daemon executed by Ubuntu networking services during boot
 chmod -x /etc/network/if-up.d/ntpdate
-chmod -x /etc/dhcp3/dhclient-exit-hooks.d/ntp
+chmod -x /etc/dhcp/dhclient-exit-hooks.d/ntp
