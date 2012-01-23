@@ -24,7 +24,7 @@ daemonize no
 
 # When run as a daemon, Redis write a pid file in /var/run/redis.pid by default.
 # You can specify a custom pid file location here.
-pidfile /var/run/redis.<% $user %>.pid
+pidfile /var/lib/zentyal/tmp/redis.<% $user %>.pid
 
 # Accept connections on the specified port, default is 6379
 port <% $port %>
@@ -38,7 +38,7 @@ bind 127.0.0.1
 # incoming connections. There is no default, so Redis will not listen
 # on a unix socket when not specified.
 #
-unixsocket /var/run/redis/redis.<% $user %>.sock
+unixsocket /var/lib/zentyal/redis.<% $user %>.sock
 
 # Close the connection after a client is idle for N seconds (0 to disable)
 timeout 300

@@ -742,7 +742,7 @@ sub _respawn
     my $user = $self->_user();
     my $filepasswd = $self->_passwd();
 
-    $redis = Redis->new(sock => "/var/run/redis/redis.$user.sock");
+    $redis = Redis->new(sock => "/var/lib/zentyal/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;

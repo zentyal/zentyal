@@ -126,7 +126,7 @@ case "$1" in
         # remove initial redis config and stop server
         if [ -f $REDIS_FIRST ]; then
             redis-cli -p 6380 save > /dev/null 2>&1
-            kill -9 `cat $ZENTYAL_HOME/redis.ebox.pid`
+            kill -9 `cat $ZENTYAL_HOME/tmp/redis.ebox.pid`
             rm $REDIS_FIRST
         fi
 
