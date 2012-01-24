@@ -29,3 +29,17 @@ dpkg-deb -b . ../$NET_UDEB
 cd ..
 rm -rf tmp
 popd
+
+# Disable tasksel
+pushd $CD_BUILD_DIR/pool/main/p/pkgsel/
+PKG_UDEB=`ls pkgsel_*.udeb`
+mkdir tmp
+cd tmp
+dpkg-deb -e ../$PKG_UDEB
+dpkg-deb -x ../$PKG_UDEB .
+sed -i "s/.*install tasksel.*/true/g" DEBIAN/postinst
+sed -i "s/.*tasksel --new-install.*/true/g" DEBIAN/postinst
+dpkg-deb -b . ../$PKG_UDEB
+cd ..
+rm -rf tmp
+popd
