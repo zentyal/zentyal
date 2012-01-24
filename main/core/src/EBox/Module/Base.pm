@@ -759,6 +759,7 @@ sub version
 
     unless (defined ($self->{version})) {
         my $package = $self->package();
+        $package = 'zentyal-core' if ($package eq 'zentyal');
         my @output = `dpkg-query -W $package`;
         foreach my $line (@output) {
             if ($line =~ m/^$package\s+([\d.]+)/) {
