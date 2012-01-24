@@ -5,9 +5,9 @@
 ##
 
 # add zentyal repository
-d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.2/ubuntu lucid main
+d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.3/ubuntu precise main
 d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.2-ppa.asc
-d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 2.2 main
+d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 2.3 main
 d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-2.2-archive.asc
 
 # linux-generic-pae will replaced by linux-server in the 64bit installer
@@ -56,10 +56,6 @@ d-i user-setup/encrypt-home boolean false
 ##
 ## packages configuration preseeding
 ##
-
-# tasksel answers (don't install standard task)
-#tasksel tasksel/skip-tasks  string standard
-tasksel tasksel/first multiselect
 
 # postfix answers
 postfix postfix/main_mailer_type select No configuration

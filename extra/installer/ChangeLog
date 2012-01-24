@@ -1,4 +1,6 @@
 HEAD
+    + New autobuild script for a more clean and automated generation
+    + Use Zentyal color palette and set default hostname to zentyal
     + Use new zenbuntu-desktop package to reduce changes in installer
     + Fixed bug importing APT keys when no internet connection
 2.2-1

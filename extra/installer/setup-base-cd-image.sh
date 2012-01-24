@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 test -r build_cd.conf || exit 1
 . ./build_cd.conf
@@ -17,6 +17,19 @@ CD_MOUNT_DIR="$CD_MOUNT_DIR_BASE-$ARCH"
 
 test -d $BASE_DIR || (echo "BASE_DIR directory not found."; false) || exit 1
 
+if ! [ -r $ISO_PATH ]
+then
+    zenity 2>/dev/null
+    if [ $? == 255 ]
+    then
+        ISO_NAME=`basename $ISO_PATH`
+        SELECTED_ISO=`zenity --file-selection --title "Locate your $ISO_NAME"`
+        if [ -n "$SELECTED_ISO" ]
+        then
+            ln -s "$SELECTED_ISO" $ISO_PATH
+        fi
+    fi
+fi
 test -r $ISO_PATH || (echo "ISO image $ISO_PATH not found."; false) || exit 1
 
 test -r $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
@@ -30,8 +43,6 @@ chmod u+w -R $CD_BUILD_DIR || exit 1
 
 # remove ppp-udeb
 rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
-
-sed -i "s/Ubuntu Server/Zentyal $EBOX_VERSION/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
 
 sudo umount $CD_MOUNT_DIR || exit 1
 rmdir $CD_MOUNT_DIR
