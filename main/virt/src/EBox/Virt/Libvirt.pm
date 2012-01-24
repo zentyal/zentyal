@@ -603,8 +603,7 @@ sub _run
 sub diskFile
 {
     my ($self, $disk, $machine) = @_;
-
-    return shell_quote("$VM_PATH/$machine/$disk.img");
+    return "$VM_PATH/$machine/$disk.img";
 }
 
 sub _vncKeymap

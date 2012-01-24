@@ -1,4 +1,5 @@
 HEAD
+	+ Added validation of hard disk names
 	+ Bugfix: custom keymap validation works properly now
 	+ Replaced autotools with zbuildtools
 	+ Internal networks now work in KVM
