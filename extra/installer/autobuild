@@ -1,0 +1,60 @@
+#!/bin/bash
+
+test -r build_cd.conf || exit 1
+. ./build_cd.conf
+
+SELECTED_ARCH=$1
+
+if [ -z "$BASE_DIR" ]
+then
+    BUILD_DIR=../build-installer/$ZENTYAL_ISO_NAME
+
+    if [ -d $BUILD_DIR ]
+    then
+        echo "ERROR: The build directory exists but it's not properly set up or "
+        echo "       you are trying to run autobuild from a different location."
+        echo
+        echo "Please try one of the following:"
+        echo
+        echo " cd $BUILD_DIR && ./autobuild $SELECTED_ARCH"
+        echo
+        echo "or:"
+        echo
+        echo " rm -rf $BUILD_DIR && ./autobuild $SELECTED_ARCH"
+        echo
+        exit 1
+    fi
+
+    echo "Warning: The build directory has not been setup yet."
+    echo
+    echo "Press RETURN to create it and continue or Control+C to cancel."
+    read
+
+    ./init-build-dir.sh
+
+    # Launch this script again from the build directory
+    cd $BUILD_DIR
+    ./autobuild $SELECTED_ARCH
+    exit $?
+fi
+
+for ARCH in $ARCHS
+do
+    if [ -n "$SELECTED_ARCH" ] && [ "$ARCH" != "$SELECTED_ARCH" ]
+    then
+        continue
+    fi
+
+    echo "Building $ZENTYAL_ISO_NAME installer for $ARCH..."
+    ./setup-base-cd-image.sh $ARCH || exit 1
+    ./generate_extras.sh $ARCH || exit 1
+    ./build_cd.sh $ARCH || exit 1
+
+    # TODO: fix list-duplicated and change it to remove-duplicated
+    # to allow automatic use
+    # For the list of not installed packages maybe we can also
+    # detect which packages on the installer are not present
+    # on the chroot (excluding the base system / installer ones)
+done
+
+exit 0

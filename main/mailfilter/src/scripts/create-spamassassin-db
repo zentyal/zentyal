@@ -1,0 +1,17 @@
+#!/bin/bash -x
+
+db_name=spamassassin
+db_user=amavis
+db_pass=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
+PASSWD_FILE=/var/lib/zentyal/conf/sa-mysql.passwd
+
+echo "CREATE DATABASE $db_name;
+      GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
+      FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
+
+cat /usr/share/zentyal-mailfilter/spamassassin.sql | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
+
+echo -n $db_pass > $PASSWD_FILE
+chmod 400 $PASSWD_FILE
+
+exit 0

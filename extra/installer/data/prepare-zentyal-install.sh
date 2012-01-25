@@ -2,12 +2,12 @@
 
 export LOG=/tmp/zentyal-installer.log
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/zentyal/2.2/ubuntu"
-EBOX_SOURCES="deb $PPA_URL lucid main"
+PPA_URL="http://ppa.launchpad.net/zentyal/2.3/ubuntu"
+EBOX_SOURCES="deb $PPA_URL precise main"
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 2.2 main"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 2.3 main"
 EXTRA_URL="http://archive.zentyal.com/zentyal"
-EXTRA_SOURCES="deb $EXTRA_URL 2.2 extra"
+EXTRA_SOURCES="deb $EXTRA_URL 2.3 extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 

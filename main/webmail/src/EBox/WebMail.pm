@@ -312,7 +312,7 @@ sub actions
 {
     return [
             {
-             'action' => __('Create PostgreSQL Roundcube webmail database.'),
+             'action' => __('Create MySQL Roundcube webmail database.'),
              'reason' => __('This database will store the data needed by Roundcube.'),
              'module' => 'webmail'
             },

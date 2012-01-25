@@ -12,7 +12,10 @@ EXTRAS_DIR="$EXTRAS_DIR_BASE-$ARCH"
 pushd $INDICES_DIR
 
 echo "Downloading indices files"
-wget -m http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.{extra.main,main,main.debian-installer,restricted,restricted.debian-installer} || exit 1
+for i in extra.main main main.debian-installer restricted restricted.debian-installer
+do
+    wget -N http://archive.ubuntu.com/ubuntu/indices/override.$VERSION.$i || exit 1
+done
 
 popd
 
@@ -50,6 +53,6 @@ apt-ftparchive -c $APTCONF generate $APTCONF_DIR/apt-ftparchive-extras.conf || e
 apt-ftparchive -c $APTCONF release $CD_BUILD_DIR/dists/$VERSION > $CD_BUILD_DIR/dists/$VERSION/Release || exit 1
 
 rm -f $CD_BUILD_DIR/dists/$VERSION/Release.gpg
-gpg --default-key $YOURKEYID --output $CD_BUILD_DIR/dists/$VERSION/Release.gpg -ba $CD_BUILD_DIR/dists/$VERSION/Release || exit 1
+gpg --default-key $ZINSTALLER_KEYID --output $CD_BUILD_DIR/dists/$VERSION/Release.gpg -ba $CD_BUILD_DIR/dists/$VERSION/Release || exit 1
 
 popd

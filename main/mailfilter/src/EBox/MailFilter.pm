@@ -385,25 +385,20 @@ sub isRunning
 {
     my ($self) = @_;
 
-    foreach my $componentName qw(smtpFilter  antispam popProxy) {
+    foreach my $componentName (qw(smtpFilter antispam popProxy)) {
         my $component = $self->$componentName();
-        if ( $component->isRunning) {
+        if ($component->isRunning) {
             return 1;
         }
     }
 
-    if (
-        (not $self->smtpFilter()->isEnabled()) and
-        (not $self->popProxy()->isEnabled())
-       )
-        {
-            # none service is enabled but module is -> running = 1
-            if ($self->isEnabled()) {
-                return 1;
-            }
-
+    if ((not $self->smtpFilter()->isEnabled()) and
+        (not $self->popProxy()->isEnabled())) {
+        # none service is enabled but module is -> running = 1
+        if ($self->isEnabled()) {
+            return 1;
         }
-
+    }
 
     return 0;
 }

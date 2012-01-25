@@ -672,11 +672,12 @@ sub _redis_call
                 # EBox::warn("$$ Reconnecting to redis server after SIGPIPE");
                 $failure = 1; };
             eval {
+                $self->{redis}->__send_command($command, @args);
                 if ($wantarray) {
-                    @response = $self->{redis}->$command(@args);
+                    @response = $self->{redis}->__read_response();
                     map { utf8::encode($_) if defined ($_) } @response;
                 } else {
-                    $response = $self->{redis}->$command(@args);
+                    $response = $self->{redis}->__read_response();
                     utf8::encode($response) if defined ($response);
                 }
                 $failure = 0;
@@ -738,16 +739,15 @@ sub _respawn
     $self->{redis} = undef;
     $redis = undef;
 
-    my $port = $self->_port();
+    my $user = $self->_user();
     my $filepasswd = $self->_passwd();
 
-    $redis = Redis->new(server => "127.0.0.1:$port");
+    $redis = Redis->new(sock => "/var/lib/zentyal/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
 
     # EBox::info("$$ Respawning the redis connection");
-
 }
 
 

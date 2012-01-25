@@ -1,17 +1,22 @@
-Howto create the install CD
+How to create the Zentyal installation CD
 
-1) Edit configuration file
+1) Prepare your system
 
-You must edit the file 'build_cd.conf.local' to reflect your environment.
-At least you will need to specify the SVN_ROOT, MAINTAINER_ADRESS and
-YOURKEYID variables. The UBUNTU_KEYRING_TAR and UBUNTU_KEYRING_DIR must be
-changed to reflect the version number of the package.  The VERSION and the
-VERSION_NUMBER keys must reflect the version name and number of the Ubuntu
-version remastered for create the CD.
-Instead of editing 'build_cd.conf' directly you should put your local data
-in the 'build_cd.conf.local' file.
+You need to export ZINSTALLER_ADDRESS and ZINSTALLER_KEYID on your ~/.bashrc
+You can find commented examples in build_cd.conf
 
-2) Put extra ubuntu packages
+You also need to have the following packages installed:
+
+build-essentials dpkg-dev devscripts mkisofs zentyal-common
+
+2) Run ./autobuild
+
+You will need to download the Ubuntu Server installers to remaster as you'll
+be prompted to select them at the beginning of the generation process.
+If you are not on a X11 environment, you'll have to copy them manually to
+the build directory under ../build_installer.
+
+3) Put extra ubuntu packages (optional, for custom installers only)
 
 You must put all extra .deb archives in the directory pointed by the key
 EXTRAS_DIR (in build_cd.conf).  Today the extra packages needed are all
@@ -21,20 +26,8 @@ You can put the packages you want included in the installer in the
 'extra-packages.list' file and then use 'generate_extras.sh' script to get them
 and their dependencies on a chrooted debootstrap environment.
 
-3) Download the ubuntu server iso and setup the build directory
+You can also edit the sources.list file if you want to fetch the packages
+from external repositories instead of manually copying the .deb files.
 
-You need to download the ISO file to remaster.  After download it, execute the
-setup_build_dir.sh command.
-
-You can also use an already built Zentyal installer ISO to remaster. Just edit the
-build.cd.conf file to change the name of the .iso file.
-
-4) Make sure you have installed the libebox and mkisofs packages in the system
-you want to use to create the image.
-
-5) Execute the build CD script
-
-Execute the ./build_cd.sh script, it will ask you about your gpg passphrase a
-few times. If the build was sucessful you'll have your ISO written to the file
-pointed by the ISO_IMAGE key.
-
+You can use 'build_cd.sh' inside a build directory to regenerate the ISO
+image replacing the whole 'extras' directory.
