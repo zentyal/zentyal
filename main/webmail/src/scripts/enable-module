@@ -1,35 +1,18 @@
-#!/bin/bash  -x
-
-# FIXME: use mysql instead of postgres
+#!/bin/bash -x
 
 db_name=roundcube
 db_user=roundcube
 db_pass=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
-ROUNDCUBE_DIR=/var/lib/roundcube
-HTTPD_WEBMAIL_DIR=/var/www/webmail
-PG_HBA_FILE=/etc/postgresql/8.4/main/pg_hba.conf
 DB_CONF_FILE=/etc/roundcube/debian-db.php
-POPULATE_SCRIPT=/usr/share/dbconfig-common/data/roundcube/install/pgsql
-PG_PASS_FILE=/var/lib/postgresql/.pgpass
+POPULATE_SCRIPT=/usr/share/dbconfig-common/data/roundcube/install/mysql
 
+echo "CREATE DATABASE $db_name;
+      GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$db_pass\";
+      FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
-create_db()
-{
+cat $POPULATE_SCRIPT | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
 
-    su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0 || true
-    if [ $db_exists -eq 0 ]; then
-        echo "Creating the $db_name database"
-        su postgres -c "psql -c \"CREATE ROLE $db_user UNENCRYPTED PASSWORD '$db_pass' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\""
-        su postgres -c "createdb --encoding=utf-8 --owner $db_user $db_name"
-
-    fi
-
-}
-
-generate_debian_db()
-{
-
-cat <<EOT >  $DB_CONF_FILE
+cat <<EOT > $DB_CONF_FILE
 <?php
 ##
 ## database access settings in php format
@@ -47,43 +30,7 @@ cat <<EOT >  $DB_CONF_FILE
 \$dbname='$db_name';
 \$dbserver='';
 \$dbport='';
-\$dbtype='pgsql';
-?>
+\$dbtype='mysql';
 EOT
 
-}
-
-initialize_db()
-{
-
-test -e $PG_PASS_FILE && mv $PG_PASS_FILE $PG_PASS_FILE.bak
-
-echo "*:*:$db_name:$db_user:$db_pass" > $PG_PASS_FILE
-chmod 0600 $PG_PASS_FILE
-chown postgres.postgres $PG_PASS_FILE
-
-su postgres -c "psql -U $db_user -f $POPULATE_SCRIPT --host localhost $db_name"
-
-rm $PG_PASS_FILE
-test -e $PG_PASS_FILE.bak && mv $PG_PASS_FILE.bak $PG_PASS_FILE
-
-}
-
-update_pghba()
-{
-
-if ! grep -q $db_user $PG_HBA_FILE; then
-    echo "# Added by zentyal-webmail" >> $PG_HBA_FILE
-    echo "host $db_name $db_user  127.0.0.1/32 password" >> $PG_HBA_FILE
-fi
-
-}
-
-
-create_db
-update_pghba
-/etc/init.d/postgresql-8.4 reload
-generate_debian_db
-initialize_db
 exit 0
-
