@@ -27,10 +27,10 @@ sed -i "s/include string/include string $DISASTER_PACKAGES/" $CD_BUILD_DIR/prese
 cp $CD_BUILD_DIR/preseed/disaster-recovery.seed $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 cat $DATA_DIR/ubuntu-ebox-auto.seed >> $CD_BUILD_DIR/preseed/disaster-recovery-auto.seed
 
-sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-ebox.cfg.template > $CD_BUILD_DIR/isolinux/isolinux.cfg
+sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-ebox.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
 
 USB_SUPPORT="cdrom-detect\/try-usb=true"
-sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/isolinux.cfg
+sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/txt.cfg
 
 test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
 

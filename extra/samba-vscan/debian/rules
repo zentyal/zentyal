@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/class/autotools.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+#DEB_CONFIGURE_EXTRA_FLAGS := --prefix=/usr --with-fhs --with-libclamav
+DEB_CONFIGURE_EXTRA_FLAGS := --prefix=/usr --with-fhs
+DEB_MAKE_INSTALL_TARGET = install DESTDIR=$(DEB_DESTDIR)

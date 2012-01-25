@@ -57,13 +57,13 @@ use EBox::NetWrappers qw(to_network_with_mask);
 #Module local conf stuff
 use constant DGDIR => '/etc/dansguardian';
 use constant {
-    SQUIDCONFFILE => '/etc/squid/squid.conf',
+    SQUIDCONFFILE => '/etc/squid3/squid.conf',
     MAXDOMAINSIZ => 255,
     SQUIDPORT => '3128',
     DGPORT => '3129',
     DGLISTSDIR => DGDIR . '/lists',
     DG_LOGROTATE_CONF => '/etc/logrotate.d/dansguardian',
-    SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid',
+    SQUID_LOGROTATE_CONF => '/etc/logrotate.d/squid3',
     CLAMD_SCANNER_CONF_FILE => DGDIR . '/contentscanners/clamdscan.conf',
     BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
     BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper',
@@ -176,7 +176,7 @@ sub compositeClasses
 
 sub isRunning
 {
-    return EBox::Service::running('squid');
+    return EBox::Service::running('squid3');
 }
 
 sub DGIsRunning
@@ -192,7 +192,7 @@ sub usedFiles
 {
     return [
             {
-             'file' => '/etc/squid/squid.conf',
+             'file' => '/etc/squid3/squid.conf',
              'module' => 'squid',
              'reason' => __('HTTP Proxy configuration file')
             },
@@ -769,7 +769,10 @@ sub _localnets
     my $ifaces = $network->InternalIfaces();
     my @localnets;
     for my $iface (@{$ifaces}) {
-        my $net = to_network_with_mask($network->ifaceNetwork($iface), $network->ifaceNetmask($iface));
+        my $ifaceNet = $network->ifaceNetwork($iface);
+        my $ifaceMask = $network->ifaceNetmask($iface);
+        next unless ($ifaceNet and $ifaceMask);
+        my $net = to_network_with_mask($ifaceNet, $ifaceMask);
         push (@localnets, $net);
     }
 
@@ -1168,7 +1171,7 @@ sub _daemons
 {
     return [
         {
-            'name' => 'squid'
+            'name' => 'squid3'
         },
         {
             'name' => 'ebox.dansguardian',
@@ -1273,7 +1276,7 @@ sub _facilitiesForDiskUsage
 {
     my ($self) = @_;
 
-    my $cachePath          = '/var/spool/squid';
+    my $cachePath          = '/var/spool/squid3';
     my $cachePrintableName = 'HTTP Proxy cache';
 
     return { $cachePrintableName => [ $cachePath ] };
@@ -1533,6 +1536,8 @@ sub report
 
 sub consolidateReportQueries
 {
+    # FIXME: do the domain_from_url converssion elsewhere if possible
+    # or just reimplement it with a MySQL stored procedure
     return [
         {
             'target_table' => 'squid_access_report',

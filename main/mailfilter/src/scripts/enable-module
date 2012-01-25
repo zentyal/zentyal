@@ -26,6 +26,6 @@ addgroup clamav p3scan
 
 /usr/share/zentyal-mailfilter/mailfilter-ldap update
 
-/usr/share/zentyal-mailfilter/mailfilter-sql update
+/usr/share/zentyal-mailfilter/create-spamassassin-db
 
 exit 0;

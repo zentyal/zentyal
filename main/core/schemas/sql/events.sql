@@ -1,4 +1,4 @@
-CREATE TABLE events(
+CREATE TABLE IF NOT EXISTS events(
                       id SERIAL,
 
                       timestamp TIMESTAMP,
@@ -9,6 +9,3 @@ CREATE TABLE events(
                       source VARCHAR(256),
                       message VARCHAR(256)
 );
-
-
-GRANT USAGE, SELECT, UPDATE ON events_id_seq TO ebox;

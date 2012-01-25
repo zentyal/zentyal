@@ -121,14 +121,15 @@ sub master
           'password' => $pass
         ]);
 
-    my @commands;
-    push (@commands,
-        "ldapadd -H 'ldapi://' -Y EXTERNAL -c -f $tmp/slapd-master.ldif");
-    push (@commands,
-        "ldapadd -H 'ldapi://' -Y EXTERNAL -c -f $tmp/slapd-master-db.ldif");
-
     try {
-        EBox::Sudo::root(@commands);
+        EBox::Sudo::root(
+            #"ldapadd -H 'ldapi://' -Y EXTERNAL -c -f $tmp/slapd-master.ldif"
+            'rm -rf /var/lib/ldap/*',
+            'rm -rf /etc/ldap/slapd.d/cn=config*',
+            "slapadd -b cn=config -F /etc/ldap/slapd.d/ -l $tmp/slapd-master.ldif",
+            "slapadd -F /etc/ldap/slapd.d/ -l $tmp/slapd-master-db.ldif",
+            'chown -R openldap:openldap /var/lib/ldap /etc/ldap/slapd.d'
+        );
     } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         EBox::warn('Trying to setup master ldap failed, exit value: ' .

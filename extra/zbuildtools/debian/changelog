@@ -1,3 +1,15 @@
+zbuildtools (3) precise; urgency=low
+
+  * Build for precise
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 21 Jan 2012 20:41:59 +0100
+
+zbuildtools (2) lucid; urgency=low
+
+  * Replace @VERSION@ variable with value from ChangeLog
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 26 Dec 2011 19:40:02 +0100
+
 zbuildtools (1) lucid; urgency=low
 
   * Initial release

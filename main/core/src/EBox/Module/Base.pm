@@ -68,6 +68,7 @@ sub _create # (name)
     my $self = {};
     $self->{name} = delete $opts{name};
     $self->{title} = delete $opts{title};
+    $self->{version} = undef;
     $self->{printableName} = __(delete $opts{printableName});
     unless (defined($self->{name})) {
         use Devel::StackTrace;
@@ -742,6 +743,33 @@ sub package
     } else {
         return "zentyal-$name";
     }
+}
+
+# Method: version
+#
+#   Returns the package version
+#
+# Returns:
+#
+#   strings - package version
+#
+sub version
+{
+    my ($self) = @_;
+
+    unless (defined ($self->{version})) {
+        my $package = $self->package();
+        $package = 'zentyal-core' if ($package eq 'zentyal');
+        my @output = `dpkg-query -W $package`;
+        foreach my $line (@output) {
+            if ($line =~ m/^$package\s+([\d.]+)/) {
+                $self->{version} = $1;
+                last;
+            }
+        }
+    }
+
+    return $self->{version};
 }
 
 # Method: wizardPages

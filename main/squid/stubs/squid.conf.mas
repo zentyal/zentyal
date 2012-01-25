@@ -126,15 +126,15 @@ refresh_pattern ^gopher:        1440    0%      1440
 refresh_pattern .               0       20%     4320
 # end refresh patterns
 
-coredump_dir /var/spool/squid
+coredump_dir /var/spool/squid3
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
 maximum_object_size <% $max_object_size %> MB
-access_log /var/log/squid/access.log squid
-pid_filename /var/run/squid.pid
+access_log /var/log/squid3/access.log squid
+pid_filename /var/run/squid3.pid
 
-cache_dir ufs /var/spool/squid <% $cacheDirSize %> 16 256
+cache_dir ufs /var/spool/squid3 <% $cacheDirSize %> 16 256
 
 % if ($cache_host and $cache_port) {
 cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
@@ -143,7 +143,7 @@ cache_peer <% $cache_host %> parent <% $cache_port %> 0 no-query no-digest
 
 # <EBOX> TAG_ACL #
 auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid/ldap_auth -v 3 -b  ou=Users,<% $dn %>  -u uid  -h ldap://127.0.0.1:<% $ldapport %>
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b  ou=Users,<% $dn %>  -u uid  -h ldap://127.0.0.1:<% $ldapport %>
 acl authorized  proxy_auth required
 
 
@@ -168,7 +168,6 @@ acl noCached dstdomain <% $domain %>
 # END_TAG #
 acl localhost src 127.0.0.0/8
 acl localhostdst dst 127.0.0.0/8
-acl all src 0.0.0.0/0.0.0.0
 acl manager proto cache_object
 acl to_localhost dst 127.0.0.0/8
 acl SSL_ports port 443 563	# https, snews

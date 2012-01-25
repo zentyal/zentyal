@@ -1,4 +1,4 @@
-CREATE TABLE mailfilter_smtp (
+CREATE TABLE IF NOT EXISTS mailfilter_smtp (
         timestamp TIMESTAMP NOT NULL,        
         
         event VARCHAR(255) NOT NULL,

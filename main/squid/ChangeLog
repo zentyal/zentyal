@@ -1,4 +1,6 @@
 HEAD
+	+ Ignore localnets with undefined DHCP address when writing conf
+	+ Adapted to squid3 new paths and daemon and squid.conf syntax
 	+ Replaced autotools with zbuildtools
 	+ Fixed regression on filter selection depending on the objects
 	  policy. Now it works again

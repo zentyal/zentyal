@@ -1,4 +1,4 @@
-CREATE TABLE radius_auth (
+CREATE TABLE IF NOT EXISTS radius_auth (
        timestamp TIMESTAMP,
        event VARCHAR(31),
        login VARCHAR(255),

@@ -14,6 +14,8 @@ $spamSubject => undef
 
 @trustedNetworks
 @okLocales      => ('all')
+
+$password
 </%args>
 # This is the right place to customize your installation of SpamAssassin.
 #
@@ -60,10 +62,11 @@ required_score <% $spamThreshold %>
 # use_bayes 1
 
 <& .bool, 'use_bayes', $bayes &>
-bayes_store_module      Mail::SpamAssassin::BayesStore::PgSQL
-bayes_sql_dsn           DBI:Pg:dbname=spamassassin
+bayes_store_module      Mail::SpamAssassin::BayesStore::MySQL
+bayes_sql_dsn           DBI:mysql:spamassassin:localhost:3306
 bayes_sql_username      amavis
-bayes_sql_override_username amavis
+bayes_sql_password      <% $password %>
+bayes_sql_override_username      amavis
 
 #   Bayesian classifier auto-learning (default: 1)
 #
@@ -88,7 +91,7 @@ bayes_ignore_header X-DSPAM-Probability
 bayes_ignore_header X-DSPAM-Signature
 
 #   Some shortcircuiting, if the plugin is enabled
-# 
+#
 ifplugin Mail::SpamAssassin::Plugin::Shortcircuit
 #
 #   default: strongly-whitelisted mails are *really* whitelisted now, if the

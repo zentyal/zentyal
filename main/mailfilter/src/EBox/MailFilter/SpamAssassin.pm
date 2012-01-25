@@ -34,6 +34,8 @@ use constant {
 
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
 
+  SA_PASSWD_FILE     => '/var/lib/zentyal/conf/sa-mysql.passwd',
+
   CONF_USER          => 'amavis',
 
   BAYES_DB_USER      => 'amavis',
@@ -187,6 +189,8 @@ sub writeConf
                       );
     push @confParams, (spamSubject => $self->spamSubjectTag());
 
+    my ($password) = @{EBox::Sudo::root('/bin/cat ' . SA_PASSWD_FILE)};
+    push @confParams, (password => $password);
 
     EBox::Module::Base::writeConfFileNoCheck(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
 

@@ -442,7 +442,7 @@ sub _clearTables
         $dbengine->do("drop table $table");
     } otherwise {};
 
-    $dbengine->do("CREATE TABLE $table (timestamp TIMESTAMP, value INT )");
+    $dbengine->do("CREATE TABLE IF NOT EXISTS $table (timestamp TIMESTAMP, value INT )");
     $dbengine->do("DELETE FROM backup_slices WHERE tablename='$table'");
 
 

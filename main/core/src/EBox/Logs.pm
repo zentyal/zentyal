@@ -282,7 +282,7 @@ sub getAllTables
     my $tables;
 
     if (not $noCache and $self->{tables}) {
-        return $self->{tables} 
+        return $self->{tables};
     }
 
     foreach my $mod (@{getLogsModules()}) {
@@ -428,7 +428,7 @@ sub _checkValidDate # (date)
 
 # Method: search
 #
-#       Search for content in stored logs (in posgresql database)
+#       Search for content in stored logs (in mysql database)
 #
 # Parameters:
 #
@@ -475,7 +475,7 @@ sub search
                    'Table {table} does not exist', 'table' => $table));
     }
 
-    $self->{'sqlselect'} = { };
+    $self->{'sqlselect'} = {};
 
     $self->_addTableName($table);
     if (_checkValidDate($from)) {
@@ -499,18 +499,17 @@ sub search
     }
 
     $self->_addSelect('COUNT(*)');
-        my @count = @{$dbengine->query($self->_sqlStmnt())};
-    my $tcount = $count[0]{'count'};
+    my @count = @{$dbengine->query($self->_sqlStmnt())};
+    my $tcount = $count[0]{'COUNT(*)'};
 
     # Do not go on if you don't have any result
-    if ( $tcount == 0 ) {
+    if ($tcount == 0) {
         return { 'totalret' => $tcount,
-                     'arrayret' => [],
+                 'arrayret' => [],
                };
     }
 
     my $tpages = ceil($tcount / $pagesize) - 1;
-
 
     if ($page < 0) { $page = 0; }
     if ($page > $tpages) { $page = $tpages; }
@@ -521,14 +520,12 @@ sub search
 
     $self->_addSelect('*');
 
-
     my @ret = @{$dbengine->query($self->_sqlStmnt())};
 
-        my $hashret = {
-                       'totalret' => $tcount,
-                       'arrayret' => \@ret
-                      };
-
+    my $hashret = {
+                   'totalret' => $tcount,
+                   'arrayret' => \@ret
+                  };
 
     return $hashret;
 }
@@ -554,7 +551,7 @@ sub totalRecords
 
     my $sql = "SELECT COUNT(*) FROM $table";
     my @tarray = @{$dbengine->query($sql)};
-    my $tcount = $tarray[0]{'count'};
+    my $tcount = $tarray[0]{'COUNT(*)'};
 
     return $tcount;
 }
@@ -662,7 +659,8 @@ sub _addSelect
     $self->{'sqlselect'}->{'select'} = $select;
 }
 
-sub _sqlStmnt {
+sub _sqlStmnt
+{
     my ($self) = @_;
 
     my @params;
@@ -701,8 +699,15 @@ sub _sqlStmnt {
         $stmt .= 'ORDER BY ' . $sql->{order} . ' ';
     }
 
-    $stmt .= "OFFSET ? LIMIT ?";
-    push @params, $sql->{'offset'}, $sql->{'limit'};
+    if (defined ($sql->{limit})) {
+        $stmt .= 'LIMIT ?';
+        push (@params, $sql->{limit});
+
+        if (defined ($sql->{offset})) {
+            $stmt .= ' OFFSET ?';
+            push (@params, $sql->{offset});
+        }
+    }
 
     return $stmt, @params;
 }

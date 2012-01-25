@@ -1,4 +1,4 @@
-CREATE TABLE events_accummulated(
+CREATE TABLE IF NOT EXISTS events_accummulated(
                       date TIMESTAMP NOT NULL,
 
                       source VARCHAR(256),

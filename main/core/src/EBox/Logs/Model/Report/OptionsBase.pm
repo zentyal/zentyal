@@ -20,6 +20,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Types::Select;
 use Error qw(:try);
 
 sub periods

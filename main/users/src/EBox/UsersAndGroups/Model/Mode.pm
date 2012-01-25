@@ -68,7 +68,8 @@ sub _table
             printableName => __('Mode'),
             options => [
                 { 'value' => 'master', 'printableValue' => __('Master') },
-                { 'value' => 'slave', 'printableValue' => __('Slave') },
+# FIXME slave mode removed due to compatibility issues in precise
+#                { 'value' => 'slave', 'printableValue' => __('Slave') },
                 { 'value' => 'ad-slave', 'printableValue' => __('Windows AD Slave') },
             ],
             editable => 1,
@@ -139,10 +140,10 @@ sub viewCustomizer
                         enable  => \@enableMaster,
                         disable => \@disableMaster,
                     },
-                  'slave'    => {
-                        enable  => \@enableSlave,
-                        disable => \@disableSlave,
-                    },
+#                  'slave'    => {
+#                        enable  => \@enableSlave,
+#                        disable => \@disableSlave,
+#                    },
                   'ad-slave' => {
                         enable  => \@enableAD,
                         disable => \@disableAD,
