@@ -1,5 +1,5 @@
 CREATE TABLE zarafa_user_storage_report (
-    date DATE NOT NULL,
+    `date` DATE NOT NULL,
     username VARCHAR(255) NOT NULL,
     fullname VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,

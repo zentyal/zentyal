@@ -1,5 +1,5 @@
 CREATE TABLE bwmonitor_usage_report (
-    client INET,
+    client CHAR(15), -- FIXME INET
     username VARCHAR(255),
 
     /* internal traffic */
@@ -16,9 +16,9 @@ CREATE TABLE bwmonitor_usage_report (
     extUDP        BIGINT,
     extICMP       BIGINT,
 
-    date DATE);
+    `date` DATE);
 
-CREATE INDEX bwmonitor_usage_report_date_i on bwmonitor_usage_report(date);
+CREATE INDEX bwmonitor_usage_report_date_i on bwmonitor_usage_report(`date`);
 CREATE INDEX bwmonitor_usage_report_client_i on bwmonitor_usage_report(client);
 CREATE INDEX bwmonitor_usage_report_username_i on bwmonitor_usage_report(username);
 

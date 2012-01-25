@@ -1,5 +1,5 @@
 CREATE TABLE bwmonitor_usage (
-    client INET,
+    client CHAR(15), -- FIXME INET
     username VARCHAR(255),
     interface     VARCHAR(30),
 

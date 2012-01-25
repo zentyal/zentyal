@@ -2,7 +2,7 @@ CREATE TABLE mail_message (
         timestamp TIMESTAMP NOT NULL,
         qid VARCHAR(50),
         message_id VARCHAR(340),
-        client_host_ip INET NOT NULL,
+        client_host_ip CHAR(15) NOT NULL, -- FIXME INET
         client_host_name VARCHAR(255) NOT NULL,
         from_address VARCHAR(320),
         to_address VARCHAR(320),

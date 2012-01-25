@@ -1,3 +1,4 @@
+-- FIXME: spamassasin can also work with MySQL, replace this
 
 create database spamassassin;
 create language plpgsql;
