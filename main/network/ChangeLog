@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Cache vifacesConf() result to improve performance
 	+ Replaced autotools with zbuildtools
 	+ Added gatewayDelete method to NetworkObserver and use it to check

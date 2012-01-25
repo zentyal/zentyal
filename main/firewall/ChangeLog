@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Disabled source/destination port for portless protocols in redirections
 	+ Using iprange module for iptable rules referencing range object members
 	+ Replaced autotools with zbuildtools

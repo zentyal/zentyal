@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Bugfix: custom keymap validation works properly now
 	+ Replaced autotools with zbuildtools
 	+ Internal networks now work in KVM

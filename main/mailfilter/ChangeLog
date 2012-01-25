@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Use MySQL instead of PostgreSQL for spamassassin database
 	+ Added methods to get learn accounts for a domain
 	+ Fixed regression in spamassassin database setup

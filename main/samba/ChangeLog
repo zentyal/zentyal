@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Remove samba-vscan dependency as it is not yet available for precise
 	+ Replaced autotools with zbuildtools
 	+ Use always the same string to refer to the NetBIOS computer name

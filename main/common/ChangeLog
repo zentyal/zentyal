@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Cache list of ifaces to improve performance
 	+ Delete useless EBox::Config::package() method
 	+ Add duration attribute to EBox::Event

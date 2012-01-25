@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Avoid use of AUTOLOAD to execute redis commands, improves performance
 	+ Use UNIX socket to connect to redis for better performance and
 	  update default redis 2.2 settings

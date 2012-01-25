@@ -1,4 +1,4 @@
-HEAD
+2.3
 	+ Set a default timeout of 5 minutes for duplicity and allow to
 	  override it with the duplicity_timeout key of ebackup.conf
 	+ Replaced autotools with zbuildtools
