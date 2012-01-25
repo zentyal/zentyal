@@ -1,4 +1,4 @@
-CREATE TABLE mailfilter_pop_traffic (
+CREATE TABLE IF NOT EXISTS mailfilter_pop_traffic (
         `date` TIMESTAMP NOT NULL,
 
         mails     BIGINT DEFAULT 0,

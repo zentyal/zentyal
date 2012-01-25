@@ -1,4 +1,4 @@
-CREATE TABLE squid_traffic (
+CREATE TABLE IF NOT EXISTS squid_traffic (
         `date` TIMESTAMP,
 
         rfc931 CHAR(255) DEFAULT '-',

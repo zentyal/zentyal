@@ -1,4 +1,4 @@
-CREATE TABLE bwmonitor_usage_report (
+CREATE TABLE IF NOT EXISTS bwmonitor_usage_report (
     client CHAR(15), -- FIXME INET
     username VARCHAR(255),
 

@@ -1,4 +1,4 @@
-CREATE TABLE mail_message (
+CREATE TABLE IF NOT EXISTS mail_message (
         timestamp TIMESTAMP NOT NULL,
         qid VARCHAR(50),
         message_id VARCHAR(340),

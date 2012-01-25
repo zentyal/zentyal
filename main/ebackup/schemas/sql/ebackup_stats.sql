@@ -1,4 +1,4 @@
-CREATE TABLE ebackup_stats (
+CREATE TABLE IF NOT EXISTS ebackup_stats (
     timestamp TIMESTAMP,
     elapsed BIGINT,
     files_num INT,

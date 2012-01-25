@@ -1,4 +1,4 @@
-CREATE TABLE dns_domains (
+CREATE TABLE IF NOT EXISTS dns_domains (
     timestamp TIMESTAMP,
     domains INT
 );

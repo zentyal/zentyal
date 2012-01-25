@@ -1,4 +1,4 @@
-CREATE TABLE squid_access (
+CREATE TABLE IF NOT EXISTS squid_access (
        timestamp TIMESTAMP, 
        elapsed INT, 
        remotehost VARCHAR(255), 

@@ -1,4 +1,4 @@
-CREATE TABLE events(
+CREATE TABLE IF NOT EXISTS events(
                       id SERIAL,
 
                       timestamp TIMESTAMP,

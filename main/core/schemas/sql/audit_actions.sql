@@ -1,4 +1,4 @@
-CREATE TABLE audit_actions(
+CREATE TABLE IF NOT EXISTS audit_actions(
     timestamp   TIMESTAMP,
     username    VARCHAR(40),
     module      VARCHAR(40),

@@ -1,4 +1,4 @@
-CREATE TABLE firewall(
+CREATE TABLE IF NOT EXISTS firewall(
     fw_in VARCHAR(16),
     fw_out VARCHAR(16),
     -- FIXME change CHAR(15) to INT UNSIGNED to emulate INET

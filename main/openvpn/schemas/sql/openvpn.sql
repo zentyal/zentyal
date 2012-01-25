@@ -1,4 +1,4 @@
-CREATE TABLE openvpn(timestamp TIMESTAMP,
+CREATE TABLE IF NOT EXISTS openvpn(timestamp TIMESTAMP,
 	event VARCHAR(60) NOT NULL,
 	daemon_name VARCHAR(20),
 	daemon_type VARCHAR(10),

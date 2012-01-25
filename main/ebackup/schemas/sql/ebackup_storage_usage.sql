@@ -1,4 +1,4 @@
-CREATE TABLE ebackup_storage_usage (
+CREATE TABLE IF NOT EXISTS ebackup_storage_usage (
     timestamp TIMESTAMP,
     used BIGINT,
     available BIGINT

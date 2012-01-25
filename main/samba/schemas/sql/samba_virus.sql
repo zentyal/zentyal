@@ -1,4 +1,4 @@
-CREATE TABLE samba_virus (
+CREATE TABLE IF NOT EXISTS samba_virus (
     client CHAR(15), -- FIXME INET
     virus VARCHAR(120),
     filename VARCHAR(120),

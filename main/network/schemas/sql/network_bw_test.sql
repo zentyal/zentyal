@@ -1,4 +1,4 @@
-CREATE TABLE network_bw_test (
+CREATE TABLE IF NOT EXISTS network_bw_test (
     timestamp TIMESTAMP,
     bps_down BIGINT
 );

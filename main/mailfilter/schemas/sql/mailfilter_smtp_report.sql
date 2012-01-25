@@ -1,4 +1,4 @@
-CREATE TABLE mailfilter_smtp_report (
+CREATE TABLE IF NOT EXISTS mailfilter_smtp_report (
         `date` DATE NOT NULL,
 
         event VARCHAR(255) NOT NULL,

@@ -1,4 +1,4 @@
-CREATE TABLE mail_message_report (
+CREATE TABLE IF NOT EXISTS mail_message_report (
        `date` DATE,
        client_host_ip VARCHAR(16),
        user_from VARCHAR(255),

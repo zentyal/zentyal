@@ -1,4 +1,4 @@
-CREATE TABLE firewall_report (
+CREATE TABLE IF NOT EXISTS firewall_report (
     date DATE,
     event VARCHAR(16),
     source CHAR(15), -- FIXME INET

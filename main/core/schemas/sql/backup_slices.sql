@@ -1,4 +1,4 @@
-CREATE TABLE backup_slices(
+CREATE TABLE IF NOT EXISTS backup_slices(
         tablename VARCHAR(40) NOT NULL,
         id BIGINT NOT NULL,
         beginTs TIMESTAMP NOT NULL,

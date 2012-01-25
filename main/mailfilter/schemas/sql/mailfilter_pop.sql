@@ -1,4 +1,4 @@
-CREATE TABLE mailfilter_pop (
+CREATE TABLE IF NOT EXISTS mailfilter_pop (
         timestamp TIMESTAMP NOT NULL,
 
         address VARCHAR(320),
