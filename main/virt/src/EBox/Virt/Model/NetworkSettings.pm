@@ -79,11 +79,7 @@ sub _populateIfaces
                         { value => $_, printableValue => $_ }
                      } $virt->ifaces();
 
-    if ($virt->allowsNoneIface()) {
-        unshift @values, { value => 'none', printableValue => __('None') };
-    }
-
-
+    unshift @values, { value => 'none', printableValue => __('None'),  };
     return \@values;
 }
 
@@ -191,9 +187,22 @@ sub isEqual
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
-
     if (@{$self->ids()} >= MAX_IFACES) {
         throw EBox::Exceptions::External(__x('A maximum of {num} network interfaces are allowed', num => MAX_IFACES));
+    }
+    
+    my $type = exists $changedFields->{type} ? 
+        $changedFields->{type}->value() : $allFields->{type}->value();
+    if ($type eq 'bridged') {
+        my $iface = exists $changedFields->{iface} ? 
+            $changedFields->{iface}->value() : $allFields->{iface}->value();        
+        if ($iface eq 'none') {
+            if (not $self->{gconfmodule}->allowsNoneIface()) {
+                throw EBox::Exceptions::External(
+                    __("'None' interface is not allowed in your virtual machine backend")
+                   );
+            }
+        }
     }
 }
 
