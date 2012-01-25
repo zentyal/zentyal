@@ -577,4 +577,10 @@ sub ifaces
     return EBox::NetWrappers::list_ifaces();
 }
 
+sub allowsNoneIface
+{
+    return 1;
+}
+
+
 1;

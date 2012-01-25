@@ -79,7 +79,10 @@ sub _populateIfaces
                         { value => $_, printableValue => $_ }
                      } $virt->ifaces();
 
-    unshift (@values, { value => 'none', printableValue => __('None') });
+    if ($virt->allowsNoneIface()) {
+        unshift @values, { value => 'none', printableValue => __('None') };
+    }
+
 
     return \@values;
 }

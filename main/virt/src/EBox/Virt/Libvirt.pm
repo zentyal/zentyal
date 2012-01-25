@@ -652,4 +652,10 @@ sub ifaces
     return @ifaces;
 }
 
+
+sub allowsNoneIface
+{
+    return 0;
+}
+
 1;

@@ -371,9 +371,15 @@ sub systemTypes
 sub ifaces
 {
     my ($self) = @_;
-
     return $self->{backend}->ifaces();
 }
+
+sub allowsNoneIface
+{
+    my ($self) = @_;
+    return $self->{backend}->allowsNoneIface();
+}
+
 
 sub manageScript
 {
