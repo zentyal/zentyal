@@ -80,6 +80,7 @@ sub _create
                     printableName => __n('Network'),
                     @_);
     $self->{'actions'} = {};
+    $self->{'vifacesConf'} = {};
 
     bless($self, $class);
 
@@ -689,11 +690,21 @@ sub ifaceAddresses # (interface)
 #
 #   an array ref - holding hashes with keys 'address' and 'netmask'
 #   'name'
-sub vifacesConf # (interface)
+sub vifacesConf
 {
-    my $self = shift;
-    my $iface = shift;
+    my ($self, $iface) = @_;
     defined($iface) or return;
+
+    unless (exists $self->{vifacesConf}->{$iface}) {
+        $self->{vifacesConf}->{$iface} = $self->_vifacesConf($iface);
+    }
+
+    return $self->{vifacesConf}->{$iface};
+}
+
+sub _vifacesConf
+{
+    my ($self, $iface) = @_;
 
     my @vifaces = $self->all_dirs("interfaces/$iface/virtual");
     my @array = ();
@@ -936,6 +947,9 @@ sub setViface # (real, virtual, address, netmask)
     $self->set_string("interfaces/$iface/virtual/$viface/address",$address);
     $self->set_string("interfaces/$iface/virtual/$viface/netmask",$netmask);
     $self->set_bool("interfaces/$iface/changed", 'true');
+
+    # clear cache as the config has changed
+    delete $self->{vifacesConf}->{$iface};
 }
 
 # Method: removeViface
@@ -982,6 +996,8 @@ sub removeViface # (real, virtual, force)
 
     $self->delete_dir("interfaces/$iface/virtual/$viface");
     $self->set_bool("interfaces/$iface/changed", 'true');
+    delete $self->{vifacesConf}->{$iface};
+
     return 1;
 }
 
@@ -3187,6 +3203,9 @@ sub restoreConfig
     foreach my $iface (@{$self->allIfaces()}) {
         $self->_setChanged($iface);
     }
+
+    # Clear cached vifaces conf
+    $self->{'vifacesConf'} = {};
 
     $self->SUPER::restoreConfig();
 }
