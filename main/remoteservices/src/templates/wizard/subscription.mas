@@ -126,7 +126,7 @@ th {
         <p><% __sx("If you don\'t have a Zentyal Cloud Subscription you can get a {bo}Basic Subscription for Free!{bc} You will benefit from the following features:", bo => '<strong>', bc => '</strong>') %></p>
         <ul class="features">
           <li id="backuplink">
-            <img src="/data/images/backup.png" width="32" height="32" alt="Remote backup" />
+            <img src="/data/images/remote-backup.png" width="32" height="32" alt="Remote backup" />
             <p><% __s('Remote backup') %></p>
           </li>
           <li id="alertslink">
