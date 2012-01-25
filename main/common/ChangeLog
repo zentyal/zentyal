@@ -1,4 +1,5 @@
 HEAD
+	+ Cache list of ifaces to improve performance
 	+ Delete useless EBox::Config::package() method
 	+ Add duration attribute to EBox::Event
 	+ Ignore by default bind filesystems in EBox::FileSystem method

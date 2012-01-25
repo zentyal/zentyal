@@ -47,6 +47,8 @@ BEGIN {
     $VERSION = EBox::Config::version;
 }
 
+my @ifaceList;
+
 # Function: iface_exists
 #
 #    Check if a given interface exists in the system
@@ -76,10 +78,12 @@ sub iface_exists
 #
 sub list_ifaces
 {
-    my @devices = map { $_->{name} } IO::Interface::Simple->interfaces;
-    @devices = grep (!/:/, @devices);
-    @devices = sort @devices;
-    return @devices;
+    unless (@ifaceList) {
+        @ifaceList = map { $_->{name} } IO::Interface::Simple->interfaces;
+        @ifaceList = grep (!/:/, @ifaceList);
+        @ifaceList = sort @ifaceList;
+    }
+    return @ifaceList;
 }
 
 # Function: iface_is_up
