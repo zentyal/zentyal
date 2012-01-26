@@ -1,4 +1,5 @@
 HEAD
+	+ Added NetworkObserver methods
 	+ 'None' interface is not longer allowed for libvirt backend
 	+ Added validation of hard disk names
 	+ Bugfix: custom keymap validation works properly now

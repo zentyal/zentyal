@@ -234,4 +234,54 @@ sub viewCustomizer
     return $customizer;
 }
 
+sub ifaceMethodChanged 
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+   
+    if ($newmethod ne 'notset') {
+        return;
+    }
+
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $rowIface =$row->valueByName('iface');
+        $rowIface or 
+            next;
+        if ($rowIface eq $iface) {
+            return 1;
+        }
+    }
+
+    return undef;
+}
+
+
+sub freeIface
+{
+    my ($self , $iface) = @_;
+
+    my $rowId;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $rowIface =$row->valueByName('iface');
+        $rowIface or 
+            next;
+        if ($rowIface eq $iface) {
+            $rowId = $id;
+            last;
+        }
+    }
+
+    if ($rowId) {
+        if ($self->{gconfmodule}->allowsNoneIface()) {
+            my $row = $self->roe($rowId);
+            $row->setElementValue('iface', 'none');
+            $row->store();
+        } else {
+            $self->removeRow($rowId);
+        }
+    }
+
+}
+
 1;
