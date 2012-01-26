@@ -19,7 +19,7 @@ fi
 cwd=`pwd`
 for i in $packages
 do
-    changelog="$i/debian/lucid/changelog"
+    changelog="$i/debian/precise/changelog"
     git co $changelog
     echo "Building package $i..."
     zentyal-package $i || exit 1
