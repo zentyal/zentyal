@@ -1,10 +1,10 @@
 <%args>
-$dn
-$password
+  $dn
+  $password
 </%args>
 <%init>
-my @parts = split(/,/, $dn);
-my $dc = (split(/=/, $parts[0]))[1];
+  my @parts = split(/,/, $dn);
+  my $dc = (split(/=/, $parts[0]))[1];
 </%init>
 dn: <% $dn %>
 objectClass: organization
@@ -25,9 +25,9 @@ dn: ou=slaves,<% $dn %>
 objectClass: organizationalUnit
 ou: slaves
 
-dn: cn=ebox,<% $dn %>
+dn: cn=zentyal,<% $dn %>
 objectClass: organizationalRole
 objectClass: simpleSecurityObject
-description: eBox admin account
+description: Zentyal admin account
 userPassword: <% $password %>
 
