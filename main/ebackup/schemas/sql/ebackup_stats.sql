@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS ebackup_stats (
     changed_files_num INT,
     size BIGINT,
     errors INT,
-    type ENUM ('full', 'incremental')
+    type ENUM ('full', 'incremental'),
+    INDEX(timestamp)
 );
-
-CREATE INDEX ebackup_stats_timestamp_i on ebackup_stats(timestamp);

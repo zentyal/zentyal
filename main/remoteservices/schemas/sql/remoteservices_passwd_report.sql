@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS remoteservices_passwd_report (
     username VARCHAR(256),
     level ENUM ('weak', 'average'),
     source ENUM ('LDAP', 'system'),
-    `date` DATE
+    `date` DATE,
+    INDEX(timestamp)
 );
-
-CREATE INDEX remoteservices_passwd_report_timestamp_i on remoteservices_passwd_report(timestamp);

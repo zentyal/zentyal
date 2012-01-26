@@ -16,6 +16,6 @@ CREATE TABLE IF NOT EXISTS asterisk_cdr(
   amaflags varchar(20) NOT NULL default '',
   accountcode varchar(20) NOT NULL default '',
   uniqueid varchar(32) NOT NULL default '',
-  userfield varchar(255) NOT NULL default ''
+  userfield varchar(255) NOT NULL default '',
+  INDEX (timestamp)
 );
-CREATE INDEX asterisk_cdr_timestamp_i on asterisk_cdr(timestamp);

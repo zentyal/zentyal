@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS squid_traffic (
         denied_size BIGINT DEFAULT 0,
 
         filtered BIGINT DEFAULT 0,
-        filtered_size BIGINT DEFAULT 0
-);
+        filtered_size BIGINT DEFAULT 0,
 
-CREATE INDEX squid_traffic_date_i on squid_traffic(`date`);
+        INDEX(`date`)
+);

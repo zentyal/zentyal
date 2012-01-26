@@ -4,7 +4,6 @@ CREATE TABLE IF NOT EXISTS radius_auth (
        login VARCHAR(255),
        client VARCHAR(31),
        port INT,
-       mac VARCHAR(31)
+       mac VARCHAR(31),
+       INDEX(timestamp)
 );
-
-CREATE INDEX radius_auth_timestamp_i on radius_auth(timestamp);

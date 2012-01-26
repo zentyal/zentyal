@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS samba_access (
     username VARCHAR(24),
     resource VARCHAR(240),
     event VARCHAR(16),
-    timestamp TIMESTAMP
+    timestamp TIMESTAMP,
+    INDEX(timestamp)
 );
-
-CREATE INDEX samba_access_timestamp_i on samba_access(timestamp);

@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS mail_message (
         message_type VARCHAR(10) NOT NULL,
         status VARCHAR(25),
         message TEXT,
-        event VARCHAR(255) NOT NULL
+        event VARCHAR(255) NOT NULL,
+        INDEX(timestamp)
 );
-CREATE INDEX mail_message_timestamp_i ON mail_message(timestamp);

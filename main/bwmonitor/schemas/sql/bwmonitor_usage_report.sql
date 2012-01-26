@@ -16,9 +16,7 @@ CREATE TABLE IF NOT EXISTS bwmonitor_usage_report (
     extUDP        BIGINT,
     extICMP       BIGINT,
 
-    `date` DATE);
+    `date` DATE
 
-CREATE INDEX bwmonitor_usage_report_date_i on bwmonitor_usage_report(`date`);
-CREATE INDEX bwmonitor_usage_report_client_i on bwmonitor_usage_report(client);
-CREATE INDEX bwmonitor_usage_report_username_i on bwmonitor_usage_report(username);
-
+    INDEX (`date`), INDEX(client), INDEX(username)
+);
