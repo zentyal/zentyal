@@ -8,7 +8,7 @@ unless (@ARGV) {
     print "Usage: $0 <command> [module1 module2 module3 ...]\n\n";
     exit;
 }
-my $command = shift;
+my $command = shift @ARGV;
 
 my @modules = ();
 
