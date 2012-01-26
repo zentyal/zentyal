@@ -274,8 +274,9 @@ sub freeIface
 
     if ($rowId) {
         if ($self->{gconfmodule}->allowsNoneIface()) {
-            my $row = $self->roe($rowId);
-            $row->setElementValue('iface', 'none');
+            my $row = $self->row($rowId);
+            my $iface = $row->elementByName('iface');
+            $iface->setValue('none');
             $row->store();
         } else {
             $self->removeRow($rowId);

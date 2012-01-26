@@ -796,8 +796,8 @@ sub freeIface
 {
     my ($self, $iface) = @_;
     my $vms = $self->model('VirtualMachines');
-    my $global     = EBox::Global->getInstance($self->{ro});
-    my $networkMod = $global->modInstance('network');
+    my $globalRO     = EBox::Global->getInstance(1);
+    my $networkMod = $globalRO->modInstance('network');
     if ($networkMod->ifaceMethod($iface) eq 'bridged') {
         my $bridgeId = $networkMod->ifaceBridge($iface);
         if ($bridgeId) {
@@ -825,8 +825,8 @@ sub ifaceMethodChanged
     my $vms = $self->model('VirtualMachines');
 
     if ($oldmethod eq 'bridged') {
-        my $global     = EBox::Global->getInstance($self->{ro});
-        my $networkMod = $global->modInstance('network');
+        my $globalRO     = EBox::Global->getInstance(1);
+        my $networkMod = $globalRO->modInstance('network');
         my $bridgeId = $networkMod->ifaceBridge($iface);
         if ($bridgeId) {
             my $bridge = "br$bridgeId";
