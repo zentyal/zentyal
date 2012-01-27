@@ -1,3 +1,5 @@
+HEAD
+	+ Bugfix: logs database is now properly recreated after purge & install
 2.3
 	+ Avoid use of AUTOLOAD to execute redis commands, improves performance
 	+ Use UNIX socket to connect to redis for better performance and
