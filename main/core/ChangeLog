@@ -1,3 +1,5 @@
+HEAD
+	+ Added EBox::Util::Random as random string generator
 2.3
 	+ Avoid use of AUTOLOAD to execute redis commands, improves performance
 	+ Use UNIX socket to connect to redis for better performance and
