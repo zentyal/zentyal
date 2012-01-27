@@ -159,6 +159,8 @@ sub tableInfo
         'events' => $session_events,
         'eventcol' => 'event',
         'disabledByDefault' => 1,
+        'storers' => { 'ip' => 'INET_ATON' },
+        'acquirers' => { 'ip' => 'INET_NTOA' },
     };
 
     return [

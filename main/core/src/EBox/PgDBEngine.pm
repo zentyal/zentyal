@@ -25,6 +25,7 @@ use DBI;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox;
+use EBox::Global;
 use EBox::Config;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
@@ -48,6 +49,8 @@ sub new
     bless($self,$class);
 
     $self->_connect();
+
+    $self->{logs} = EBox::Global->getInstance(1)->modInstance('logs');
 
     return $self;
 }
@@ -161,16 +164,25 @@ sub _prepare
 # Parameters:
 #   $table: The table name to insert data.
 #   $values: A hash ref with database fields name and values pairs that do you
-#   want to insert to the table name passed as parameter too.
+#            want to insert to the table name passed as parameter too.
 #
 sub unbufferedInsert
 {
     my ($self, $table, $values) = @_;
+
+    my $tableInfo = $self->{logs}->getTableInfo($table);
+
     my $sql = "INSERT INTO $table ( ";
 
     my @keys = ();
     my @vals = ();
-    while(my ($key, $value) = each %$values ) {
+    while (my ($key, $value) = each %$values) {
+        if ($tableInfo and $tableInfo->{storers}) {
+            my $storer = $tableInfo->{storers}->{$key};
+            if ($storer) {
+                $value = "$storer($value)";
+            }
+        }
         push(@keys, $key);
         push(@vals, $value);
     }
@@ -208,13 +220,25 @@ sub unbufferedInsert
 # Parameters:
 #   $table: The table name to insert data.
 #   $values: A hash ref with database fields name and values pairs that do you
-#   want to insert to the table name passed as parameter too.
+#            want to insert to the table name passed as parameter too.
 #
 sub insert
 {
     my ($self, $table, $values) = @_;
+
+    my $tableInfo = $self->{logs}->getTableInfo($table);
+
     if (not exists $self->{multiInsert}->{$table}) {
         $self->{multiInsert}->{$table} = [];
+    }
+    if ($tableInfo and $tableInfo->{storers}) {
+        foreach my $key (keys %{$values}) {
+            my $storer = $tableInfo->{storers}->{$key};
+            if ($storer) {
+                my $value = $values->{$key};
+                $values->{$key} = "$storer($value)";
+            }
+        }
     }
     push (@{$self->{multiInsert}->{$table}}, $values);
 }

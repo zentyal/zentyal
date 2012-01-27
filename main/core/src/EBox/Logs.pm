@@ -518,7 +518,19 @@ sub search
     $self->_addPager($offset, $pagesize);
     $self->_addOrder("$timecol DESC");
 
-    $self->_addSelect('*');
+    if ($tableinfo->{storers}) {
+        my @keys;
+        foreach my $key (keys %{$tableinfo->{titles}}) {
+            my $acquirer = $tableinfo->{acquirers}->{$key};
+            if ($acquirer) {
+                $key = "$acquirer($key)";
+            }
+            push (@keys, $key);
+        }
+        $self->_addSelect(join (',', @keys));
+    } else {
+        $self->_addSelect('*');
+    }
 
     my @ret = @{$dbengine->query($self->_sqlStmnt())};
 
@@ -584,6 +596,7 @@ sub consolidatedLogForDay
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
 
+    # FIXME: what happens with acquirers here?
     my $sql = "SELECT * FROM $table WHERE date='$date'";
 
     my @results = @{  $dbengine->query($sql) };
