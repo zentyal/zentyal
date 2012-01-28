@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS bwmonitor_usage_report (
-    client CHAR(15), -- FIXME INET
+    client INT UNSIGNED,
     username VARCHAR(255),
 
     /* internal traffic */
