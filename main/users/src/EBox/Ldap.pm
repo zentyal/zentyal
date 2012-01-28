@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -43,7 +43,6 @@ use POSIX;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
-use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
 use constant DATA_DIR      => '/var/lib/ldap';
 use constant LDAP_USER     => 'openldap';
 use constant LDAP_GROUP    => 'openldap';
@@ -169,16 +168,15 @@ sub anonymousLdapCon
 #
 # Exceptions:
 #
-#       Internal - If password can't be read
+#       External - If password can't be read
 sub getPassword
 {
     my ($self) = @_;
 
     unless (defined($self->{password})) {
-        my $path = EBox::Config->conf . "/ebox-ldap.passwd";
+        my $path = EBox::Config->conf() . "ldap.passwd";
         open(PASSWD, $path) or
-            throw EBox::Exceptions::Internal("Could not open $path to " .
-                    "get ldap password");
+            throw EBox::Exceptions::External('Could not get LDAP password');
 
         my $pwd = <PASSWD>;
         close(PASSWD);
@@ -187,23 +185,6 @@ sub getPassword
         $self->{password} = $pwd;
     }
     return $self->{password};
-}
-
-sub getSlavePassword
-{
-    my ($self) = @_;
-
-    my $path = EBox::Config->conf . "/ebox-ldap.passwd";
-    open(PASSWD, $path) or
-        throw EBox::Exceptions::Internal("Could not open $path to " .
-            "get ldap password");
-
-    my $pwd = <PASSWD>;
-    close(PASSWD);
-
-    $pwd =~ s/[\n\r]//g;
-
-    return $pwd;
 }
 
 # Method: dn
@@ -259,34 +240,7 @@ sub rootDn {
     unless(defined($dn)) {
         $dn = $self->dn();
     }
-    return 'cn=ebox,' . $dn;
-}
-
-# Method: rootPw
-#
-#       Returns the password of the priviliged user
-#
-# Returns:
-#
-#       string - password
-#
-sub rootPw
-{
-    my ($self) = @_;
-    return $self->getPassword();
-}
-
-# Method: slapdConfFile
-#
-#       Returns the location of the slapd's configuration file
-#
-# Returns:
-#
-#       string - location
-#
-sub slapdConfFile
-{
-    return SLAPDCONFFILE;
+    return 'cn=zentyal,' . $dn;
 }
 
 # Method: ldapConf

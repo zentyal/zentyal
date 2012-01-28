@@ -26,6 +26,7 @@ use base qw(EBox::Module::Service
           );
 
 use EBox::Global;
+use EBox::Util::Random;
 use EBox::Ldap;
 use EBox::Gettext;
 use EBox::Menu::Folder;
@@ -71,7 +72,6 @@ use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
 use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
-use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 
 use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
@@ -239,23 +239,18 @@ sub enableActions
 {
     my ($self) = @_;
 
-    # Lock to operate in exclusive mode
-    open(my $lock, '>', LOCK_FILE);
-    flock($lock, LOCK_EX);
-
-    # Already enabled?
-    return if ($self->{enabled});
-
     # Stop slapd daemon
     EBox::Sudo::root(
         'invoke-rc.d slapd stop || true',
+        'stop ebox.slapd        || true',
         'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
     );
 
     my $dn = 'dc=zentyal,dc=com';
+    my $password = $self->_genPassword();
     my $opts = [
         'dn' => $dn,
-        'password' => 'asdf',
+        'password' => $password,
     ];
 
     # Prepare ldif files
@@ -290,6 +285,11 @@ sub enableActions
         throw EBox::Exceptions::External(__('Error while creating users and groups database'));
     };
 
+    $self->_manageService('start');
+
+    # Create default group
+    $self->addGroup(DEFAULTGROUP, 'All users', 1);
+
 #    DELETE ME
 #    my $mode = $self->mode();
 #
@@ -323,22 +323,43 @@ sub enableActions
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');
-#    $self->performLDAPActions();
+    try {
+        $self->performLDAPActions();
+    } otherwise {
+        throw EBox::Exceptions::External(__('Error performing users initialization'));
+    };
 
     # Execute enable-module script
     EBox::debug('Enabling actions');
     $self->SUPER::enableActions();
 
-    # Mark as enabled
-    $self->{enabled} = 1;
-
-    # Release lock
-    flock($lock, LOCK_UN);
-    close($lock);
-
     # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
     EBox::Global->modInstance('apache')->setAsChanged();
+}
+
+
+# Generate, store and return admin ldap password
+sub _genPassword
+{
+    my $LDAP_PWD_FILE = EBox::Config::conf() . 'ldap.passwd';
+
+    my $pass = EBox::Util::Random::generate(20);
+    my $fd;
+    unless (open ($fd, ">$LDAP_PWD_FILE")) {
+        throw EBox::Exceptions::External("Can't open $LDAP_PWD_FILE");
+    }
+    print $fd $pass;
+    close($fd);
+    unless (chmod (0600, $LDAP_PWD_FILE)) {
+        throw EBox::Exceptions::External("Can't chmod $LDAP_PWD_FILE");
+    }
+    my ($login,$password,$uid,$gid) = getpwnam('ebox');
+    unless (chown($uid, $gid, $LDAP_PWD_FILE)) {
+        throw EBox::Exceptions::External("Can't chown $LDAP_PWD_FILE");
+    }
+
+    return $pass;
 }
 
 
@@ -349,7 +370,6 @@ sub enableActions
 sub wizardPages
 {
     my ($self) = @_;
-
     return [{ page => '/UsersAndGroups/Wizard/Users', order => 300 }];
 }
 
@@ -367,27 +387,12 @@ sub _setConf
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
 
+    # Start ldap daemon to read DN... (FIXME please)
+    $self->_manageService('start');
+
+    my  $dn = $ldap->dn;
     my @array = ();
-    my $dn;
-    if ( $mode eq 'slave' ) {
-        my $enablePam = $self->model('PAM')->enable_pamValue();
-
-        # Bind to translucent if PAM enabled, to frontend if not (necessary for samba)
-        if ( $enablePam ) {
-            push(@array, 'ldap' => 'ldap://127.0.0.1:1389');
-        } else {
-            push(@array, 'ldap' => 'ldapi://%2fvar%2frun%2fslapd%2fldapi');
-        }
-        $dn = $self->model('Mode')->dnValue();
-    } else {
-        # master or ad-sync
-        push(@array, 'ldap' => EBox::Ldap::LDAPI);
-
-        # Start ldap daemon to read DN... (FIXME please)
-        $self->_manageService('start');
-        $dn = $ldap->dn;
-    }
-
+    push(@array, 'ldap' => EBox::Ldap::LDAPI);
     push(@array, 'basedc'    => $dn);
     push(@array, 'binddn'    => 'cn=zentyal,' . $dn);
     push(@array, 'usersdn'   => USERSDN . ',' . $dn);
@@ -2766,11 +2771,6 @@ sub minUid
 sub minGid
 {
     return MINGID;
-}
-
-sub defaultGroup
-{
-    return DEFAULTGROUP;
 }
 
 sub defaultQuota
