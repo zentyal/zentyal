@@ -32,11 +32,6 @@ sub new
         return $self;
 }
 
-sub domain {
-        return 'ebox-firewall';
-}
-
-
 # Method: logFiles
 #
 #	This function must return the file or files to be read from.

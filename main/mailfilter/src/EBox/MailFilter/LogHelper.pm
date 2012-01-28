@@ -37,20 +37,10 @@ sub new
     return $self;
 }
 
-# Method: domain
-#
-#       Must return the text domain which the package belongs to
-#
-sub domain
+sub logFiles
 {
-    return 'ebox-mailfilter';
-}
-
-sub logFiles {
     return [MAIL_LOG, SYS_LOG];
 }
-
-
 
 # Method: _getDate
 #
