@@ -19,6 +19,8 @@ use warnings;
 use strict;
 no strict 'refs';
 
+use Socket;
+
 sub storer
 {
     my ($type, $value) = @_;
@@ -38,30 +40,36 @@ sub acquirer
 sub _IPAddr_storer
 {
     my ($value) = @_;
-    return "INET_ATON($value)";
+
+    return unpack ('N', inet_aton($value));
 }
 
 sub _IPAddr_acquirer
 {
     my ($field) = @_;
-    return "INET_NTOA($field)";
+
+    return "INET_NTOA($field) AS $field";
 }
 
 sub _MACAddr_storer
 {
     my ($value) = @_;
-    return "UNHEX(REPLACE('$value', ':', ''))"
+
+    $value =~ s/://g;
+    return '0x' . $value;
 }
 
 sub _MACAddr_acquirer
 {
     my ($field) = @_;
+
     my $hex = "HEX($field)";
     my $concat = "CONCAT_WS(':'";
     for my $i (1..6) {
         $concat .= ", MID($hex, " . ($i * 2) . ', 2)';
     }
-    $concat .= ')';
+    $concat .= ') AS $field';
+
     return $concat;
 }
 
