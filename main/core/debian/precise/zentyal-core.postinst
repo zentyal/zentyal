@@ -12,7 +12,6 @@ set -e
 
 ZENTYAL_HOME=/var/lib/zentyal/
 FIRST_FILE=$ZENTYAL_HOME/.first
-REDIS_FIRST=$ZENTYAL_HOME/conf/redis.first
 
 case "$1" in
     configure)
@@ -87,22 +86,13 @@ case "$1" in
             tr -dc A-Za-z0-9 < /dev/urandom | head -c8 > $REDIS_PASS
         fi
 
-        # launch redis-server on first install (needed by EBox::init)
-        if [ -f $FIRST_FILE -a -z "$2" ]; then
-            cp /usr/share/zentyal/redis.first $REDIS_FIRST
-            /usr/bin/sudo -u ebox /usr/bin/redis-server $REDIS_FIRST
-        fi
-
         # sudo configuration
         /usr/share/zentyal/sudoers-friendly
 
-        # FIXME: apache is already restarted in the trigger
-        # change this to set_ebox_port only?
-        # The redis configuration is written here,
-        # but we can move it to initRedis...
         if [ -z "$2" ]; then
             # Set eBox port only if it's the first time we install
             set_ebox_port
+            # Write redis configuration
             invoke-rc.d zentyal apache start || true
         fi
 
@@ -122,13 +112,6 @@ case "$1" in
 
         # Call restart script (apache, logs, events)
         /usr/share/zentyal/restart-trigger
-
-        # remove initial redis config and stop server
-        if [ -f $REDIS_FIRST ]; then
-            redis-cli -p 6380 save > /dev/null 2>&1
-            kill -9 `cat $ZENTYAL_HOME/tmp/redis.ebox.pid`
-            rm $REDIS_FIRST
-        fi
 
         rm -f $ZENTYAL_HOME/dpkg_running
     ;;

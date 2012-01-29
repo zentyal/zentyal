@@ -1,4 +1,3 @@
-redis.first /usr/share/zentyal
 keyring.gpg /usr/share/zentyal
 ebox.passwd /var/lib/zentyal/conf
 cron/zentyal /etc/cron.daily

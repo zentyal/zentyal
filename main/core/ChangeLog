@@ -1,4 +1,5 @@
 2.3
+	+ Do not launch a passwordless redis instance during first install
 	+ New 'types' field in LogObserver and storers/acquirers to store special
 	  types like IPs or MACs in an space-efficient way
 	+ Use MySQL for the logs database instead of PostgreSQL
