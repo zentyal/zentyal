@@ -18,8 +18,6 @@ package EBox::Logs;
 use strict;
 use warnings;
 
-#FIXME: readd EBox::LogObserver to have logadmin working
-#use base qw(EBox::Module::Service EBox::LogObserver);
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::Report::DiskUsageProvider);
@@ -746,31 +744,6 @@ sub menu
                                       'text' => $self->printableName(),
                                       'order' => 20));
     $root->add($folder);
-}
-
-# Implement LogObserver interface
-
-sub tableInfo
-{
-    my ($self) = @_;
-
-    my $titles = { 'timestamp' => __('Date'),
-                   'clientaddress' => __('Client Address'),
-                   'module' => __('Module'),
-                   'action' => __('Action'),
-                   'params' => __('Params'),
-                   'committed' => __('Committed')
-                 };
-    my @order = ('timestamp', 'source', 'module',
-                 'action', 'params', 'committed');
-    return {
-            'name' => __('Admin'),
-            'index' => 'admin',
-            'titles' => $titles,
-            'order' => \@order,
-            'tablename' => 'admin',
-            'filter' => ['source', 'module']
-           };
 }
 
 # Helper functions
