@@ -1,4 +1,5 @@
 2.3
+	+ Adapted to new MySQL logs backend
 	+ Show the number of available rules if using ASU
 	+ If using ASU, then only use those rules to avoid
 	  incompatibilites with old community ones

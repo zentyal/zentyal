@@ -18,8 +18,7 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::PgDBEngine;
-
+use EBox::DBEngineFactory;
 
 my %args = map { $_ => 1 } @ARGV;
 
@@ -47,8 +46,7 @@ my $dir = '/tmp/testdb';
 
 my $basename = 'test';
 
-my $dbengine = EBox::PgDBEngine->new();
-
+my $dbengine = EBox::DBEngineFactory::DBEngine();
 
 if ($backup) {
     system "rm -rf $dir/*";

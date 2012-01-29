@@ -1540,32 +1540,31 @@ sub tableInfo
 
     return [{
         'name' => __('Samba access'),
-        'index' => 'samba_access',
+        'tablename' => 'samba_access',
         'titles' => $access_titles,
         'order' => \@access_order,
-        'tablename' => 'samba_access',
         'timecol' => 'timestamp',
         'filter' => ['client', 'username', 'resource'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $access_events,
         'eventcol' => 'event'
     },
     {
         'name' => __('Samba virus'),
-        'index' => 'samba_virus',
+        'tablename' => 'samba_virus',
         'titles' => $virus_titles,
         'order' => \@virus_order,
-        'tablename' => 'samba_virus',
         'timecol' => 'timestamp',
         'filter' => ['client', 'filename', 'virus'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $virus_events,
         'eventcol' => 'event'
     },
     {
         'name' => __('Samba quarantine'),
-        'index' => 'samba_quarantine',
+        'tablename' => 'samba_quarantine',
         'titles' => $quarantine_titles,
         'order' => \@quarantine_order,
-        'tablename' => 'samba_quarantine',
         'timecol' => 'timestamp',
         'filter' => ['filename'],
         'events' => $quarantine_events,

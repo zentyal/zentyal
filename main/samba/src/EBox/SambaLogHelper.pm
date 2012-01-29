@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::SambaLogHelper;
+use base 'EBox::LogHelper';
 
 use strict;
 use warnings;
@@ -34,11 +35,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
-sub domain {
-        return 'ebox-samba';
-}
-
 
 # Method: logFiles
 #
@@ -70,16 +66,15 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd_audit.*?: (.+)/) {
+    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd.*?: (.+)/) {
         return;
     }
-    my $date = $1;
+    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
     my $message = $2;
-
 
     my %dataToInsert;
 
-    my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
+    my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
     $dataToInsert{timestamp} = $timestamp;
 
     if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '[^0-9]*(.*?)'$/) {

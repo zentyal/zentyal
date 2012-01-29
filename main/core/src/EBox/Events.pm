@@ -711,10 +711,9 @@ sub tableInfo
     return [
              {
             'name' => $self->printableName(),
-            'index' => 'events',
+            'tablename' => 'events',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'events',
             'filter' => [ 'source', 'message'],
             'events' => $levels,
             'eventcol' => 'level',

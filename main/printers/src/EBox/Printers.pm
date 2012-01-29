@@ -376,10 +376,9 @@ sub tableInfo
 
     return [{
              'name' => __('Printers'),
-             'index' => 'printers_jobs',
+             'tablename' => 'printers_jobs',
              'titles' => $titles,
              'order' => \@order,
-             'tablename' => 'printers_jobs',
              'timecol' => 'timestamp',
              'filter' => ['printer', 'username'],
              'events' => $events,

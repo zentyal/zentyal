@@ -1,8 +1,11 @@
 2.3
+	+ New 'types' field in LogObserver and storers/acquirers to store special
+	  types like IPs or MACs in an space-efficient way
+	+ Use MySQL for the logs database instead of PostgreSQL
+	+ Bugfix: logs database is now properly recreated after purge & install
 	+ Avoid use of AUTOLOAD to execute redis commands, improves performance
 	+ Use UNIX socket to connect to redis for better performance and
 	  update default redis 2.2 settings
-	+ Use MySQL for the logs database instead of PostgreSQL
 	+ Use "sudo" group instead of "admin" one for the UI access control
 	+ Added EBox::Module::Base::version() to get package version
 	+ Fixed problem in consalidation report when accumulating results

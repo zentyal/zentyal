@@ -19,7 +19,7 @@ use warnings;
 
 use EBox;
 use EBox::Sudo;
-use EBox::PgDBEngine;
+use EBox::DBEngineFactory;
 use EBox::Logs::SlicedBackup;
 use Error qw(:try);
 use Test::More qw(no_plan);
@@ -31,7 +31,7 @@ diag ("This test must be run in a complete Zentyal environment. DONT RUN IN A PR
 
 EBox::init();
 
-my $dbengine = EBox::PgDBEngine->new();
+my $dbengine = EBox::DBEngineFactory::DBEngine();
 my $backupDir = "/tmp/backup-slices.d";
 my $backupDirIn3Slice = "/tmp/in3slice-backup-slices.d";
 my $archiveDir =  "/tmp/backup-slices-archive.dd";

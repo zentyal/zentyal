@@ -16,11 +16,9 @@
 use strict;
 use warnings;
 
-
 package EBox::Logs::SlicedBackup;
 
 use EBox;
-use EBox::PgDBEngine;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidData;

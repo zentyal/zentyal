@@ -13,8 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# FIXME: Rename this to MysqlDBEngine or DBEngineImpl
-package EBox::PgDBEngine;
+package EBox::MyDBEngine;
 
 use strict;
 use warnings;
@@ -25,6 +24,7 @@ use DBI;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox;
+use EBox::Global;
 use EBox::Config;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
@@ -35,6 +35,7 @@ use File::Slurp;
 use File::Copy;
 use File::Basename;
 use EBox::Logs::SlicedBackup;
+use EBox::Util::SQLTypes;
 
 use Error qw(:try);
 use Data::Dumper;
@@ -48,6 +49,8 @@ sub new
     bless($self,$class);
 
     $self->_connect();
+
+    $self->{logs} = EBox::Global->getInstance(1)->modInstance('logs');
 
     return $self;
 }
@@ -112,7 +115,7 @@ sub _connect
     return if ($self->{'dbh'});
 
     my $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
-                           $self->_dbpass(), { PrintError => 0});
+                           $self->_dbpass(), { RaiseError => 1});
 
     unless ($dbh) {
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
@@ -161,16 +164,25 @@ sub _prepare
 # Parameters:
 #   $table: The table name to insert data.
 #   $values: A hash ref with database fields name and values pairs that do you
-#   want to insert to the table name passed as parameter too.
+#            want to insert to the table name passed as parameter too.
 #
 sub unbufferedInsert
 {
     my ($self, $table, $values) = @_;
+
+    my $tableInfo = $self->{logs}->getTableInfo($table);
+
     my $sql = "INSERT INTO $table ( ";
 
     my @keys = ();
     my @vals = ();
-    while(my ($key, $value) = each %$values ) {
+    while (my ($key, $value) = each %$values) {
+        if ($tableInfo and $tableInfo->{types}) {
+            my $type = $tableInfo->{types}->{$key};
+            if ($type) {
+                $value = EBox::Util::SQLTypes::storer($type, $value);
+            }
+        }
         push(@keys, $key);
         push(@vals, $value);
     }
@@ -208,13 +220,25 @@ sub unbufferedInsert
 # Parameters:
 #   $table: The table name to insert data.
 #   $values: A hash ref with database fields name and values pairs that do you
-#   want to insert to the table name passed as parameter too.
+#            want to insert to the table name passed as parameter too.
 #
 sub insert
 {
     my ($self, $table, $values) = @_;
+
+    my $tableInfo = $self->{logs}->getTableInfo($table);
+
     if (not exists $self->{multiInsert}->{$table}) {
         $self->{multiInsert}->{$table} = [];
+    }
+    if ($tableInfo and $tableInfo->{types}) {
+        foreach my $key (keys %{$values}) {
+            my $type = $tableInfo->{types}->{$key};
+            if ($type) {
+                my $value = $values->{$key};
+                $values->{$key} = EBox::Util::SQLTypes::storer($type, $value);
+            }
+        }
     }
     push (@{$self->{multiInsert}->{$table}}, $values);
 }
@@ -479,9 +503,10 @@ sub do
 sub tables
 {
     my ($self) = @_;
-    # FIXME: adapt this to mysql
-    my $sql = q{select tablename from pg_catalog.pg_tables where schemaname = 'public';};
-    my @tables = map { $_->{tablename}  }  @{$self->query($sql)};
+
+    my $dbname = $self->_dbname();
+    my $sql = 'show tables';
+    my @tables = map { $_->{"Tables_in_$dbname"} } @{$self->query($sql)};
     return \@tables;
 }
 

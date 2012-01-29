@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS bwmonitor_usage_report (
-    client CHAR(15), -- FIXME INET
+    client INT UNSIGNED,
     username VARCHAR(255),
 
     /* internal traffic */
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS bwmonitor_usage_report (
     extUDP        BIGINT,
     extICMP       BIGINT,
 
-    `date` DATE
+    `date` DATE,
 
     INDEX (`date`), INDEX(client), INDEX(username)
 );

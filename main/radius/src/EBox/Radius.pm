@@ -402,10 +402,9 @@ sub tableInfo
                    'User not found' => __('User not found') };
     return [{
             'name' => __('RADIUS'),
-            'index' => 'radius',
+            'tablename' => 'radius_auth',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'radius_auth',
             'filter' => ['login', 'client', 'mac'],
             'events' => $events,
             'eventcol' => 'event',

@@ -1720,7 +1720,7 @@ sub _lastConsolidationValuesForMonth
 #
 # 'target_table' defines the table where the consolidated data will be stored.
 # The data will considerate using the provided query. The format of the query i
-# the same of EBox::PgDBEngine::query_hash. But with the following caveats:
+# the same of EBox::MyDBEngine::query_hash. But with the following caveats:
 #
 #
 #

@@ -25,6 +25,8 @@ package EBox::LogHelper;
 use strict;
 use warnings;
 
+use Time::Piece;
+
 sub new
 {
     my $class = shift;
@@ -64,5 +66,13 @@ sub processLine # (file, line, dbengine)
     return undef;
 }
 
+# Helper method to convert to the format accepted by the database
+sub _convertTimestamp
+{
+    my ($self, $format, $timestamp) = @_;
+
+    my $t = Time::Piece->strptime($timestamp, $format);
+    return $t->strftime('%Y-%m-%d %H:%M:%S');
+}
 
 1;

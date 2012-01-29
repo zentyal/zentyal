@@ -314,10 +314,9 @@ sub tableInfo
 
     return [{
             'name' => __('IDS'),
-            'index' => 'ids',
+            'tablename' => 'ids_event',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'ids_event',
             'timecol' => 'timestamp',
             'events' => { 'alert' => __('Alert') },
             'eventcol' => 'event',

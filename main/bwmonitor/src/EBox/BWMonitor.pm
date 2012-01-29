@@ -474,14 +474,14 @@ sub tableInfo
 
     return [{
         'name' => __('Bandwidth usage'),
-        'index' => 'bwmonitor_usage',
+        'tablename' => 'bwmonitor_usage',
         'titles' => $titles,
         'order' => \@order,
         'events' => {},
         'eventcol' => 'timestamp',
-        'tablename' => 'bwmonitor_usage',
         'timecol' => 'timestamp',
         'filter' => ['client', 'interface'],
+        'types' => { 'client' => 'IPAddr' },
         'forceEnabled' => 1,
     }];
 }

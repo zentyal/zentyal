@@ -15,6 +15,8 @@
 
 package EBox::AsteriskLogHelper;
 
+use base 'EBox::LogHelper';
+
 # Class: EBox::AsteriskLogHelper
 #
 #
@@ -51,13 +53,6 @@ sub new
 
     return $self;
 }
-
-
-sub domain
-{
-    return 'ebox-asterisk';
-}
-
 
 # Method: logFiles
 #
@@ -107,6 +102,7 @@ sub processLine # (file, line, logger)
     $dataToInsert{dstchannel} = $columns[6];
     $dataToInsert{lastapp} = $columns[7];
     $dataToInsert{lastdata} = $columns[8];
+    # FIXME: check timestamp is in proper format for mysql, probably not
     $dataToInsert{timestamp} = $columns[9]; # 3 fields on logs with dates
     $dataToInsert{duration} = $columns[12];
     $dataToInsert{billsec} = $columns[13];

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS samba_access (
-    client CHAR(15), -- FIXME INET
+    client INT UNSIGNED,
     username VARCHAR(24),
     resource VARCHAR(240),
     event VARCHAR(16),

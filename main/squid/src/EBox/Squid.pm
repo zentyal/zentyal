@@ -1201,10 +1201,9 @@ sub tableInfo
                    'filtered' => __('Filtered') };
     return [{
             'name' => __('HTTP Proxy'),
-            'index' => 'squid',
+            'tablename' => 'squid_access',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'squid_access',
             'filter' => ['url', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',

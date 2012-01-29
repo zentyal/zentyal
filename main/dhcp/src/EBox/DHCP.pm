@@ -1315,14 +1315,14 @@ sub tableInfo
 
     return [{
         'name' => __('DHCP'),
-        'index' => 'dhcp',
+        'tablename' => 'leases',
         'titles' => $titles,
         'order' => \@order,
-        'tablename' => 'leases',
         'timecol' => 'timestamp',
         'filter' => ['interface', 'mac', 'ip'],
+        'types' => { 'ip' => 'IPAddr', 'mac' => 'MACAddr' },
         'events' => $events,
-        'eventcol' => 'event'
+        'eventcol' => 'event',
     }];
 }
 

@@ -784,10 +784,9 @@ sub tableInfo
 
     return [{
             'name' => __('VoIP'),
-            'index' => 'asterisk',
+            'tablename' => 'asterisk_cdr',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'asterisk_cdr',
             'timecol' => 'timestamp',
             'filter' => ['src', 'dst'],
             'events' => $events,

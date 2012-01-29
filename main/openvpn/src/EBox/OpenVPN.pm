@@ -1664,17 +1664,16 @@ sub tableInfo
                  };
 
     return [{
-            name => $self->printableName(),
-            index => 'openvpn',
-            titles => $titles,
-            'order' => \@order,
+            'name' => $self->printableName(),
             'tablename' => 'openvpn',
+            'titles' => $titles,
+            'order' => \@order,
             'timecol' => 'timestamp',
             'filter' => ['daemon_name', 'from_ip', 'from_cert'],
+            'types' => { 'from_ip' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event'
            }];
-
 }
 
 sub _insecureRipPasswd

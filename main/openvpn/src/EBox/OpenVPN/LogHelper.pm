@@ -40,11 +40,6 @@ sub new
     return $self;
 }
 
-sub domain
-{
-    return 'ebox-openvpn';
-}
-
 # Method: logFiles
 #
 #       This function must return the file or files to be read from.
@@ -124,7 +119,7 @@ sub processLine # (file, line, logger)
     my $name   = $daemon->{name};
     my $type   = $daemon->{type};
 
-    my $timestamp = join(' ', $wday, $month, $mday, $time, $year);
+	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', "$month $mday $time $year");
 
     my $dbRow = {
                  timestamp  => $timestamp,
