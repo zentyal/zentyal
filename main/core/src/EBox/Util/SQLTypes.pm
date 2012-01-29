@@ -56,7 +56,7 @@ sub _MACAddr_storer
     my ($value) = @_;
 
     $value =~ s/://g;
-    return '0x' . $value;
+    return pack ('H*', $value);
 }
 
 sub _MACAddr_acquirer
