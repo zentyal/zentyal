@@ -71,7 +71,7 @@ sub _convertTimestamp
 {
     my ($self, $format, $timestamp) = @_;
 
-    my $t = Time::Piece->strptime($format, $timestamp);
+    my $t = Time::Piece->strptime($timestamp, $format);
     return $t->strftime('%Y-%m-%d %H:%M:%S');
 }
 
