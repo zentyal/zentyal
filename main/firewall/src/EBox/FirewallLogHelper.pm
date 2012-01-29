@@ -75,7 +75,7 @@ sub processLine # (file, line, logger)
 	my %fields = map { split('='); } @pairs;
 
 	my %dataToInsert;
-	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date));
+	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date);
 	$dataToInsert{timestamp} = $timestamp;
 	$dataToInsert{event} = $type;
 
