@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1461,26 +1461,26 @@ sub users
     return () if (not $self->isRunning());
 
     my %args = (
-                base => $self->usersDn,
-                filter => 'objectclass=*',
-                scope => 'one',
-                attrs => ['uid', 'cn', 'givenName', 'sn', 'homeDirectory',
-                          'userPassword', 'uidNumber', 'gidNumber',
-                          'description']
-               );
+            base => $self->usersDn,
+            filter => 'objectclass=*',
+            scope => 'one',
+            attrs => ['uid', 'cn', 'givenName', 'sn', 'homeDirectory',
+            'userPassword', 'uidNumber', 'gidNumber',
+            'description']
+            );
 
     my $result = $self->ldap->search(\%args);
 
     my @users = ();
     foreach my $user ($result->sorted('uid'))
-        {
-            if (not $system) {
-                next if ($user->get_value('uidNumber') < MINUID);
-            }
-
-            @users = (@users,  $self->userInfo($user->get_value('uid'),
-                                               $user))
+    {
+        if (not $system) {
+            next if ($user->get_value('uidNumber') < MINUID);
         }
+
+        @users = (@users,  $self->userInfo($user->get_value('uid'),
+                  $user))
+    }
 
     return @users;
 }
@@ -1511,11 +1511,11 @@ sub usersList
 
     my @users = ();
     foreach my $user ($result->sorted('uid'))
-        {
-            next if ($user->get_value('uidNumber') < MINUID);
-            push (@users,  { user => $user->get_value('uid'),
-                    uid => $user->get_value('uidNumber') });
-        }
+    {
+        next if ($user->get_value('uidNumber') < MINUID);
+        push (@users,  { user => $user->get_value('uid'),
+                uid => $user->get_value('uidNumber') });
+    }
 
     return \@users;
 }

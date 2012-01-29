@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -47,8 +47,6 @@ sub addUser
     my ($class, $user, $password) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    $users->waitSync();
-    $users->rewriteObjectClasses("uid=$user," . $users->usersDn);
     $users->initUser($user, $password);
 
     return $class->_soapResult(0);
@@ -59,8 +57,6 @@ sub addGroup
     my ($class, $group) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    $users->waitSync();
-    $users->rewriteObjectClasses("cn=$group," . $users->groupsDn);
     $users->initGroup($group);
 
     return $class->_soapResult(0);
