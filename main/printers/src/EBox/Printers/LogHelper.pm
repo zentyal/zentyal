@@ -15,6 +15,7 @@
 
 # Class: EBox::Printers::LogHelper;
 package EBox::Printers::LogHelper;
+use base 'EBox::LogHelper';
 
 use strict;
 use warnings;
@@ -128,6 +129,7 @@ sub _processMainLog
         if ($event and $username and $printer ) {
             # normalize timestamp
             my ($date, $hour) = split ':', $timestamp, 2;
+            # FIXME: check this is ok with MySQL
             $timestamp = "$date $hour";
 
             my $log = {

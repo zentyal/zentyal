@@ -36,6 +36,7 @@ use File::Slurp;
 use File::Copy;
 use File::Basename;
 use EBox::Logs::SlicedBackup;
+use EBox::Util::SQLTypes;
 
 use Error qw(:try);
 use Data::Dumper;
@@ -115,7 +116,7 @@ sub _connect
     return if ($self->{'dbh'});
 
     my $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
-                           $self->_dbpass(), { PrintError => 0});
+                           $self->_dbpass(), { RaiseError => 1});
 
     unless ($dbh) {
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
@@ -177,10 +178,10 @@ sub unbufferedInsert
     my @keys = ();
     my @vals = ();
     while (my ($key, $value) = each %$values) {
-        if ($tableInfo and $tableInfo->{storers}) {
-            my $storer = $tableInfo->{storers}->{$key};
-            if ($storer) {
-                $value = "$storer($value)";
+        if ($tableInfo and $tableInfo->{types}) {
+            my $type = $tableInfo->{types}->{$key};
+            if ($type) {
+                $value = EBox::Util::SQLTypes::storer($type, $value);
             }
         }
         push(@keys, $key);
@@ -231,12 +232,12 @@ sub insert
     if (not exists $self->{multiInsert}->{$table}) {
         $self->{multiInsert}->{$table} = [];
     }
-    if ($tableInfo and $tableInfo->{storers}) {
+    if ($tableInfo and $tableInfo->{types}) {
         foreach my $key (keys %{$values}) {
-            my $storer = $tableInfo->{storers}->{$key};
-            if ($storer) {
+            my $type = $tableInfo->{types}->{$key};
+            if ($type) {
                 my $value = $values->{$key};
-                $values->{$key} = "$storer($value)";
+                $values->{$key} = EBox::Util::SQLTypes::storer($type, $value);
             }
         }
     }

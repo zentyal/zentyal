@@ -1546,6 +1546,7 @@ sub tableInfo
         'tablename' => 'samba_access',
         'timecol' => 'timestamp',
         'filter' => ['client', 'username', 'resource'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $access_events,
         'eventcol' => 'event'
     },
@@ -1557,6 +1558,7 @@ sub tableInfo
         'tablename' => 'samba_virus',
         'timecol' => 'timestamp',
         'filter' => ['client', 'filename', 'virus'],
+        'types' => { 'client' => 'IPAddr' },
         'events' => $virus_events,
         'eventcol' => 'event'
     },

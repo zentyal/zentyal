@@ -1029,11 +1029,12 @@ sub tableInfo
             'timecol' => 'timestamp',
             'filter' => ['fw_in', 'fw_out', 'fw_src',
                          'fw_dst', 'fw_proto', 'fw_spt', 'fw_dpt'],
+            'types' => { 'fw_src' => 'IPAddr', 'fw_dst' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event',
             'disabledByDefault' => 1,
 
-            consolidate => $self->_consolidate(),
+            'consolidate' => $self->_consolidate(),
            }];
 }
 

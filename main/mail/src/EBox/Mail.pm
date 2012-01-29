@@ -1672,6 +1672,7 @@ sub tableInfo
             'order' => \@order,
             'tablename' => 'mail_message',
             'filter' => ['from_address', 'to_address', 'status'],
+            'types' => { 'client_host_ip' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event',
             'consolidate' => $self->consolidate(),

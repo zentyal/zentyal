@@ -1671,10 +1671,10 @@ sub tableInfo
             'tablename' => 'openvpn',
             'timecol' => 'timestamp',
             'filter' => ['daemon_name', 'from_ip', 'from_cert'],
+            'types' => { 'from_ip' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event'
            }];
-
 }
 
 sub _insecureRipPasswd

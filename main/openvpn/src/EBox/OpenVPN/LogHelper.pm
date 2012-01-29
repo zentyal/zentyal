@@ -119,7 +119,7 @@ sub processLine # (file, line, logger)
     my $name   = $daemon->{name};
     my $type   = $daemon->{type};
 
-    my $timestamp = join(' ', $wday, $month, $mday, $time, $year);
+	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', "$month $mday $time $year");
 
     my $dbRow = {
                  timestamp  => $timestamp,

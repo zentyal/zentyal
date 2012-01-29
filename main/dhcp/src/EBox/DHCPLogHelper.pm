@@ -16,6 +16,8 @@
 # Class: EBox::DHCPLogHelper;
 package EBox::DHCPLogHelper;
 
+use base 'EBox::LogHelper';
+
 use strict;
 use warnings;
 
@@ -65,7 +67,7 @@ sub processLine # (file, line, logger)
 
     return unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) \S+ dhcpd:.*/);
 
-    my $date = $1;
+    my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
     my ($ip, $mac, $iface, $event);
     if ($line =~ /^.*DHCPACK on ([\d.]+) to ([\d:a-f]{17}).*?via (\w+)/) {
         $ip = $1;
@@ -81,13 +83,14 @@ sub processLine # (file, line, logger)
         return;
     }
 
-    my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
+    my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date);
     my $data = {
-        'timestamp' => $timestamp, '
-                        ip' => $ip, 'mac' => $mac,
+        'timestamp' => $timestamp,
+        'ip' => $ip,
+        'mac' => $mac,
         'interface' => $iface,
         'event' => $event
-       };
+    };
     $dbengine->insert('leases', $data);
 }
 

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS bwmonitor_usage (
     extUDP        BIGINT,
     extICMP       BIGINT,
 
-    timestamp TIMESTAMP
+    timestamp TIMESTAMP,
 
-    INDEX(timestamp), INDEX(client), INDEX(username),
+    INDEX(timestamp), INDEX(client), INDEX(username)
 );

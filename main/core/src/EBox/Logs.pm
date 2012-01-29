@@ -36,6 +36,7 @@ use EBox::DBEngineFactory;
 use EBox::Service;
 use EBox::Logs::SlicedBackup;
 use EBox::FileSystem;
+use EBox::Util::SQLTypes;
 
 use POSIX qw(ceil);
 
@@ -518,12 +519,12 @@ sub search
     $self->_addPager($offset, $pagesize);
     $self->_addOrder("$timecol DESC");
 
-    if ($tableinfo->{storers}) {
+    if ($tableinfo->{types}) {
         my @keys;
         foreach my $key (keys %{$tableinfo->{titles}}) {
-            my $acquirer = $tableinfo->{acquirers}->{$key};
-            if ($acquirer) {
-                $key = "$acquirer($key)";
+            my $type = $tableinfo->{types}->{$key};
+            if ($type) {
+                $key = EBox::Util::SQLTypes::acquirer($type, $key);
             }
             push (@keys, $key);
         }

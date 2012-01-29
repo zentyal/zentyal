@@ -15,6 +15,8 @@
 
 package EBox::FirewallLogHelper;
 
+use base 'EBox::LogHelper';
+
 use strict;
 use warnings;
 
@@ -65,7 +67,7 @@ sub processLine # (file, line, logger)
 	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
 	    return;
 	}
-	my $date = $1;
+	my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
 	my $type = $2;
 	my $rule = $3;
 
@@ -73,7 +75,7 @@ sub processLine # (file, line, logger)
 	my %fields = map { split('='); } @pairs;
 
 	my %dataToInsert;
-	my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
+	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date));
 	$dataToInsert{timestamp} = $timestamp;
 	$dataToInsert{event} = $type;
 

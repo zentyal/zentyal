@@ -14,6 +14,8 @@
 
 package EBox::MailFilter::LogHelper;
 
+use base 'EBox::LogHelper';
+
 use strict;
 use warnings;
 
