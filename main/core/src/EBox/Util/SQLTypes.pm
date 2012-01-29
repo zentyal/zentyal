@@ -65,10 +65,10 @@ sub _MACAddr_acquirer
 
     my $hex = "HEX($field)";
     my $concat = "CONCAT_WS(':'";
-    for my $i (1..6) {
-        $concat .= ", MID($hex, " . ($i * 2) . ', 2)';
+    for my $i (0..5) {
+        $concat .= ", MID($hex, " . ($i*2 + 1) . ', 2)';
     }
-    $concat .= ') AS $field';
+    $concat .= ") AS $field";
 
     return $concat;
 }
