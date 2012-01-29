@@ -1,4 +1,5 @@
 2.3
+	+ Adapted to new MySQL logs backend
 	+ Delete client and server upstart files on module purge
 	+ Replaced autotools with zbuildtools
 	+ Don't allow any server to use the same network than another

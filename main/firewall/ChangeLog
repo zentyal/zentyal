@@ -1,4 +1,5 @@
 2.3
+	+ Adapted to new MySQL logs backend
 	+ Disabled source/destination port for portless protocols in redirections
 	+ Using iprange module for iptable rules referencing range object members
 	+ Replaced autotools with zbuildtools

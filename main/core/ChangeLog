@@ -1,4 +1,6 @@
 2.3
+	+ New 'types' field in LogObserver and storers/acquirers to store special
+	  types like IPs or MACs in an space-efficient way
 	+ Use MySQL for the logs database instead of PostgreSQL
 	+ Bugfix: logs database is now properly recreated after purge & install
 	+ Avoid use of AUTOLOAD to execute redis commands, improves performance

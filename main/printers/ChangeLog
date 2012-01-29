@@ -1,4 +1,5 @@
 2.3
+	+ Adapted to new MySQL logs backend
 	+ Replaced autotools with zbuildtools
 	+ Fixed bug which inserted log lines with printer and/or user NULL
 2.1.6
