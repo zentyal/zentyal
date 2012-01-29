@@ -503,9 +503,10 @@ sub do
 sub tables
 {
     my ($self) = @_;
-    # FIXME: adapt this to mysql
-    my $sql = q{select tablename from pg_catalog.pg_tables where schemaname = 'public';};
-    my @tables = map { $_->{tablename}  }  @{$self->query($sql)};
+
+    my $dbname = $self->_dbname();
+    my $sql = 'show tables';
+    my @tables = map { $_->{"Tables_in_$dbname"} } @{$self->query($sql)};
     return \@tables;
 }
 
