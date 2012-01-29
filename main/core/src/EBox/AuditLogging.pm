@@ -124,10 +124,9 @@ sub tableInfo
     };
     my $action_table = {
         'name' => __('Configuration changes'),
-        'index' => TABLE_ACTIONS,
+        'tablename' => TABLE_ACTIONS,
         'titles' => $action_titles,
         'order' => \@action_order,
-        'tablename' => TABLE_ACTIONS,
         'timecol' => 'timestamp',
         'filter' => ['username', 'module', 'model'],
         'events' => $action_events,
@@ -150,10 +149,9 @@ sub tableInfo
     };
     my $session_table = {
         'name' => __('Administrator sessions'),
-        'index' => TABLE_SESSIONS,
+        'tablename' => TABLE_SESSIONS,
         'titles' => $session_titles,
         'order' => \@session_order,
-        'tablename' => TABLE_SESSIONS,
         'timecol' => 'timestamp',
         'filter' => ['username', 'ip'],
         'events' => $session_events,

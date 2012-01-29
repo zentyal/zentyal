@@ -290,7 +290,7 @@ sub getAllTables
         foreach my $comp (@tableInfos) {
             $comp->{'helper'} = $mod;
             next unless ($comp);
-            $tables->{$comp->{'index'}} = $comp;
+            $tables->{$comp->{'tablename'}} = $comp;
         }
     }
 

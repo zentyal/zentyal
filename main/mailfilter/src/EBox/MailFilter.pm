@@ -634,10 +634,9 @@ sub _smtpFilterTableInfo
 
     return {
             'name' => __('SMTP filter'),
-            'index' => 'mailfilter-smtpFilter',
+            'tablename' => 'mailfilter_smtp',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'mailfilter_smtp',
             'filter' => ['action', 'from_address', 'to_address'],
             'events' => $events,
             'eventcol' => 'event',
@@ -674,10 +673,9 @@ sub _popProxyTableInfo
 
     return {
             'name' => __('POP3 proxy'),
-            'index' => 'mailfilter-popProxy',
+            'tablename' => 'mailfilter_pop',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'mailfilter_pop',
             'filter' => ['timestamp', 'address', 'clientConn'],
             'events' => $events,
             'eventcol' => 'event',
