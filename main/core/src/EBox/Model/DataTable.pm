@@ -286,7 +286,10 @@ sub contextName
     my $path = '/' . $self->{'gconfmodule'}->name() . '/' .
       $self->name() . '/';
 
-    $path .= $self->index();
+    my $index = $self->index();
+    if ($index) {
+        $path .= $index;
+    }
 
     return $path;
 }
@@ -3958,7 +3961,7 @@ sub _mainController
         # the model domain and its name
         $defAction = '/' . $self->modelDomain() . '/Controller/' .
             $self->{'table'}->{'tableName'};
-        if ( $self->index() ne '' ) {
+        if ($self->index()) {
             $defAction .= '/' . $self->index();
         }
     }
