@@ -125,6 +125,9 @@ sub locale
 
 sub init
 {
+    # FIXME: workaround until permission denied warning in GD is fixed
+    use GD;
+
     POSIX::setlocale(LC_ALL, EBox::locale());
     POSIX::setlocale(LC_NUMERIC, 'C');
 

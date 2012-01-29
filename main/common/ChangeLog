@@ -1,4 +1,6 @@
 2.3
+	+ Workaround to silence some permission denied errors caused by
+	  loading the GD library after the user has changed to ebox
 	+ Cache list of ifaces to improve performance
 	+ Delete useless EBox::Config::package() method
 	+ Add duration attribute to EBox::Event
