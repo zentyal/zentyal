@@ -363,7 +363,7 @@ sub servers
 #         - authFile - if authenticated, then a file path which
 #                      includes the username and password in two lines
 #
-#    undef - if there is no proxy settings
+#    [] - if there is no proxy settings
 #
 sub _proxySettings
 {
