@@ -171,14 +171,6 @@ sub restoreFile
         return;
     }
 
-    unless (defined($file)) {
-        throw EBox::Exceptions::MissingArgument('file');
-    }
-
-    unless (defined($date)) {
-        throw EBox::Exceptions::MissingArgument('date');
-    }
-
     $destination or
         $destination = $file;
     my $destinationDir = File::Basename::dirname($destination);
@@ -202,34 +194,10 @@ sub restoreFile
         }
     }
 
-    my $rFile;
-    if ($file eq '/') {
-        $rFile = undef;
-    } else {
-        $rFile = $file;
-        $rFile =~ s:^/::; # file must be relative
-
-        # Escape metacharacters
-        $rFile =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
-        $rFile = shell_quote($rFile);
-    }
-
-    $destination =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
-    $destination = shell_quote($destination);
-    utf8::encode($destination);
-
-    my $time = Date::Parse::str2time($date);
-
-    my $model = $self->model('RemoteSettings');
     my $url = $self->_remoteUrl(%{ $urlParams });
-
-    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
-    if ($rFile) {
-        utf8::encode($rFile);
-        $cmd .= "--file-to-restore $rFile ";
-    }
-    $cmd .= " $url $destination";
-
+    my $cmd = $self->_duplicityRestoreFileCmd($file, $date,
+                                              $destination,
+                                              $url);
     try {
         EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Sudo::Command with {
@@ -254,6 +222,47 @@ sub restoreFile
     };
 }
 
+
+sub _duplicityRestoreFileCmd
+{
+    my ($self, $url, $file, $date, $destination) = @_;
+
+    unless (defined($file)) {
+        throw EBox::Exceptions::MissingArgument('file');
+    }
+    unless (defined($date)) {
+        throw EBox::Exceptions::MissingArgument('date');
+    }
+
+    my $rFile;
+    if ($file eq '/') {
+        $rFile = undef;
+    } else {
+        $rFile = $file;
+        $rFile =~ s:^/+::; # file must be relative
+
+        # Escape metacharacters
+        $rFile = $self->_escapeFile($rFile);
+    }
+    $destination = $self->_escapeFile($destination);
+
+    my $time = Date::Parse::str2time($date);
+    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
+    if ($rFile) {
+        $cmd .= "--file-to-restore $rFile ";
+    }
+    $cmd .= " $url $destination";
+    return $cmd;
+}
+
+sub _escapeFile
+{
+    my ($self, $file) = @_;
+    $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
+    $file = shell_quote($file);
+    utf8::encode($file);
+    return $file;
+}
 
 # Method: lastBackupDate
 #

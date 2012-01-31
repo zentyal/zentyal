@@ -1,4 +1,5 @@
 HEAD
+	+ Refactored restoreFile method to ease testing of file quoting
 	+ Set a default timeout of 5 minutes for duplicity and allow to
 	  override it with the duplicity_timeout key of ebackup.conf
 	+ Added pre and post backup process hooks. Thanks to Oliver
