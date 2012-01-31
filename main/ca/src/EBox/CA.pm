@@ -991,7 +991,7 @@ sub generateCRL
       if ($retValue eq "ERROR");
 
     # Set the link to the last
-    unlink (LASTESTCRL) if ( -e LASTESTCRL );
+    unlink (LASTESTCRL) if ( -l LASTESTCRL );
     symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
 }
 

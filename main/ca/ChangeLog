@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed CRL generation when the link to the latest CRL is broken
 2.3
 	+ Fixed variable interpolation in internal exception text
 	+ Bugfix: do not try to get orgName in destroyCA after files are removed
