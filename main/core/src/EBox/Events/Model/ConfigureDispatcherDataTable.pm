@@ -534,4 +534,11 @@ sub _checkEnabled # (allFields)
     }
 }
 
+# see comment in ConfigureEventDataTable, same problem
+# could occur here so this is for prudence
+sub filesPathsForRow
+{
+    return [];
+}
+
 1;
