@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid temporal modelInstance errors when adding or removing
+	  modules with LogWatchers or LogDispatcher
 	+ Unallow administration port change when the port is in use
 2.3
 	+ Do not launch a passwordless redis instance during first install
