@@ -1,4 +1,4 @@
-HEAD
+2.2.4
 	+ Virtual interfaces called '0' does not longer raise error
 	+ Cache vifacesConf() result to improve performance
 	+ Added gatewayDelete method to NetworkObserver and use it to check

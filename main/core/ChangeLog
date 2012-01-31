@@ -1,4 +1,4 @@
-HEAD
+2.2.5
 	+ Avoid temporal modelInstance errors when adding or removing
 	  modules with LogWatchers or LogDispatcher
 	+ Fixed problem in consalidation report when accumulating results

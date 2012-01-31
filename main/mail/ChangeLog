@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Remove Zarafa dependent configuration when it is disabled
 	+ Fetchmail configuration takes in account Zarafa
 	+ Mailfilter learn accounts are excluded from Zarafa transport

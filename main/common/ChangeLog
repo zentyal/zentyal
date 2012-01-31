@@ -1,4 +1,4 @@
-HEAD
+2.2.3
 	+ EBox::FileSystem::partitionsFileSystems ignores more pseudo file
 	  systems. File systems without mount point are always ignored.
 	+ Cache list of ifaces to improve performance
