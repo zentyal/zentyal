@@ -384,9 +384,6 @@ sub _setConf
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
 
-    # Start ldap daemon to read DN... (FIXME please)
-    $self->_manageService('start');
-
     my  $dn = $ldap->dn;
     my @array = ();
     push(@array, 'ldap' => EBox::Ldap::LDAPI);
