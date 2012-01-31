@@ -890,9 +890,13 @@ sub vifaceExists # (interface)
     my ($self, $name) = @_;
 
     my ($iface, $viface) = $self->_viface2array($name);
-    unless ($iface and $viface) {
+    if (not $iface) {
         return undef;
     }
+    if (not $viface and ($viface ne '0')) {
+        return undef;
+    }
+
     return $self->_vifaceExists($iface, $viface);
 }
 
