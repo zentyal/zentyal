@@ -81,15 +81,15 @@ then
     echo ${EBOX_SOURCES} >> ${SOURCES_LIST} # add ppa sources
 fi
 
-if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
-then
-    echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
-fi
+#if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
+#then
+#    echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
+#fi
 
-if ! grep -q ${EXTRA_URL} ${SOURCES_LIST}
-then
-    echo ${EXTRA_SOURCES} >> ${SOURCES_LIST} # add zentyal extra sources
-fi
+#if ! grep -q ${EXTRA_URL} ${SOURCES_LIST}
+#then
+#    echo ${EXTRA_SOURCES} >> ${SOURCES_LIST} # add zentyal extra sources
+#fi
 
 update_if_network # apt-get update if we are connected to the internet
 
