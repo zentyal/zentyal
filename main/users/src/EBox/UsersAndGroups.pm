@@ -2813,99 +2813,6 @@ sub defaultPasswordHash
     return $hash;
 }
 
-sub _setupSlaveLDAP
-{
-    my ($self, $replicaOnly) = @_;
-
-    # Setup everything by default
-    $replicaOnly = 0 unless defined($replicaOnly);
-
-    my ($ldap, $dn) = $self->_connRemoteLDAP();
-
-    $self->_checkMaster($ldap);
-
-    # Save LDAP dn in Mode
-    my $model = $self->model('Mode');
-    my $row = $model->row();
-    $row->elementByName('dn')->setValue($dn);
-    $row->store();
-
-    $self->_registerHostname($ldap, $dn);
-    $self->_getCertificates($ldap, $dn);
-    $self->_setupReplication($dn, $replicaOnly);
-}
-
-sub _connRemoteLDAP
-{
-    my ($self) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-    my $remote = $model->remoteValue();
-    my $password = $model->passwordValue();
-
-    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
-    my $dn = baseDn($ldap);
-    EBox::Ldap::safeBind($ldap, $self->ldap->rootDn($dn), $password);
-
-    return ($ldap, $dn);
-}
-
-sub _checkMaster
-{
-    my ($self, $ldap) = @_;
-    my %args = ( 'base' => "cn=schema,cn=config", 'scope' => 'sub', 'filter' => "objectclass=*");
-    my $result = $ldap->search(%args);
-    my @entries = $result->entries();
-
-    my $validSchemas = any(qw(schema core cosine nis inetorgperson passwords master slaves quota));
-    foreach my $entry (@entries) {
-        my $cn = $entry->get_value('cn');
-        # clean schema name
-        $cn =~ s/\{\d\}//g;
-
-        unless ($cn eq $validSchemas) {
-            my $exception = __('It seems that your master has some incompatible modules installed.');
-            unless (EBox::Config::hideExternalLinks()) {
-                $exception .= ' ' . __x('Please refer to {open}master/slave documentation{close}.',
-                        open => '<a href="http://doc.zentyal.org/2.2/en/directory.html#configuring-zentyal-servers-in-master-slave-mode">', close => '</a>');
-            }
-            throw EBox::Exceptions::External($exception);
-        }
-    }
-}
-
-sub _registerHostname
-{
-    my ($self, $ldap, $dn) = @_;
-
-    my $hostname = hostname();
-
-    my %args = (
-        'base' => "ou=slaves,$dn",
-        'scope' => 'base',
-        'filter' => "(hostname=$hostname)"
-    );
-    my $result = $ldap->search(%args);
-    if ($result->count() > 0) {
-        throw EBox::Exceptions::External(__x('A host with the name {host} is already registered in this Zentyal', host => $hostname));
-    }
-
-    my $apache = EBox::Global->modInstance('apache');
-    my $port = $apache->port();
-
-    %args = (
-        attr => [
-            'objectClass' => 'slaveHost',
-            'hostname' => $hostname,
-            'port' => $port,
-        ]
-    );
-    $result = $ldap->add("hostname=$hostname,ou=slaves,$dn", %args);
-    if($result->is_error()) {
-        EBox::debug('Error registering hostname:' . $result->error());
-    }
-}
-
 sub _getCertificates
 {
     my ($self, $ldap, $dn) = @_;
@@ -2986,38 +2893,6 @@ sub listUsers
     return \@users;
 }
 
-sub listMasterUsers
-{
-    my ($self) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-
-    my $remote = $model->remoteValue();
-    my $password = $model->passwordValue();
-
-    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
-    my $dn = baseDn($ldap);
-    my $rootdn = $self->ldap->rootDn($dn);
-    EBox::Ldap::safeBind($ldap, $rootdn, $password);
-
-    return $self->listUsers($ldap, $dn);
-}
-
-sub listReplicaUsers
-{
-    my ($self) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-    my $password = $model->passwordValue();
-
-    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
-    my $dn = baseDn($ldap);
-    my $rootdn = $self->ldap->rootDn($dn);
-    EBox::Ldap::safeBind($ldap, $rootdn, $password);
-
-    return $self->listUsers($ldap, $dn);
-}
-
 sub listGroups
 {
     my ($self, $ldap, $dn) = @_;
@@ -3033,39 +2908,6 @@ sub listGroups
     return \@groups;
 }
 
-sub listMasterGroups
-{
-    my ($self) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-
-    my $remote = $model->remoteValue();
-    my $password = $model->passwordValue();
-
-
-    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
-    my $dn = baseDn($ldap);
-    my $rootdn = $self->ldap->rootDn($dn);
-    EBox::Ldap::safeBind($ldap, $rootdn, $password);
-
-    return $self->listGroups($ldap, $dn);
-}
-
-sub listReplicaGroups
-{
-    my ($self) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-
-    my $password = $model->passwordValue();
-
-    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
-    my $dn = baseDn($ldap);
-    my $rootdn = $self->ldap->rootDn($dn);
-    EBox::Ldap::safeBind($ldap, $rootdn, $password);
-
-    return $self->listGroups($ldap, $dn);
-}
 
 sub listSchemas
 {
@@ -3080,37 +2922,6 @@ sub listSchemas
 
     my @schemas = map { $_->get_value('cn') } $result->entries();
     return \@schemas;
-}
-
-sub listMasterSchemas
-{
-    my ($self) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-
-    my $remote = $model->remoteValue();
-    my $password = $model->passwordValue();
-
-    my $ldap = EBox::Ldap::safeConnect("ldap://$remote");
-    my $dn = baseDn($ldap);
-    EBox::Ldap::safeBind($ldap, $self->ldap->rootDn($dn), $password);
-
-    return $self->listSchemas($ldap);
-}
-
-sub listReplicaSchemas
-{
-    my ($self, $port) = @_;
-
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-    my $password = $model->passwordValue();
-
-    my $ldap = EBox::Ldap::safeConnect("ldap://127.0.0.1:$port");
-    my $dn = baseDn($ldap);
-    my $rootdn = $self->ldap->rootDn($dn);
-    EBox::Ldap::safeBind($ldap, $rootdn, $password);
-
-    return $self->listSchemas($ldap);
 }
 
 sub listSlaves
@@ -3147,22 +2958,6 @@ sub mode
     my $mode = $self->get_string('Mode/mode');
     return 'master' unless defined($mode);
     return $mode;
-}
-
-sub remoteLdap
-{
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-    my $remote = $model->remoteValue();
-
-    return $remote;
-}
-
-sub remotePassword
-{
-    my $model = EBox::Model::ModelManager->instance()->model('Mode');
-    my $password = $model->passwordValue();
-
-    return $password;
 }
 
 sub baseDn
