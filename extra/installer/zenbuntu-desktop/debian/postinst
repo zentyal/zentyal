@@ -18,8 +18,10 @@ then
     sed -i 's/start on/start on zentyal-lxdm and/' /etc/init/lxdm.conf
 fi
 
-if ! grep -q splash /etc/default/grub
+if -f /etc/default/grub
 then
-    sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
+    if ! grep -q splash /etc/default/grub
+    then
+        sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
+    fi
 fi
-

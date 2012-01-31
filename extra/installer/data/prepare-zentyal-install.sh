@@ -22,8 +22,6 @@ create_repository() {
     apt-get update >> $LOG 2>&1
     # Restore the original sources.list
     mv /tmp/zentyal/sources.list ${SOURCES_LIST}
-    # Move packages to the cache
-    mv $PKG_DIR/*.deb /var/cache/apt/archives/
 }
 
 update_if_network() {
@@ -68,7 +66,7 @@ gen_locales() {
 # copy *.deb files from CD to hard disk
 PKG_DIR=/var/tmp/zentyal-packages
 mkdir $PKG_DIR
-files=`find /cdrom/pool -name '*.deb'`
+files=`find /media/cdrom/pool -name '*.deb'`
 for file in $files
 do
     cp $file $PKG_DIR 2> /dev/null
@@ -107,6 +105,14 @@ then
 
     # Clean DR flag for first stage
     echo "zentyal-core zentyal-core/dr_install boolean false" | debconf-set-selections
+fi
+
+if -f /etc/default/grub
+then
+    if ! grep -q splash /etc/default/grub
+    then
+        sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
+    fi
 fi
 
 sync

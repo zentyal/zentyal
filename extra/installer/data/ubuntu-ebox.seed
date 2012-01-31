@@ -90,8 +90,7 @@ d-i pkgsel/language-packs string
 
 # late command (we prepare here the ebox custom installer)
 d-i preseed/late_command string \
-    cp -r /cdrom/zentyal /target/tmp/ || \
-    cp -r /target/cdrom/zentyal /target/tmp/ && \
+    cp -r /target/media/cdrom/zentyal /target/tmp/ && \
     touch /target/tmp/INSTALL_MODE && \
     chroot /target sh /tmp/zentyal/prepare-zentyal-install.sh
 
