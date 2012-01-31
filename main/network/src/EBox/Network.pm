@@ -2932,6 +2932,14 @@ sub _multigwRoutes
 
     push(@cmds, EBox::Config::share() . 'zentyal-network/flush-fwmarks');
     my %interfaces;
+    for my $router ( reverse @{$routers} ) {
+        # Skip gateways with unassigned address
+        my $ip = $router->{'ip'};
+        next unless $ip;
+
+        my $iface = $router->{'interface'};
+        $interfaces{$iface}++;
+    }
 
     for my $router ( reverse @{$routers} ) {
 
@@ -2962,6 +2970,12 @@ sub _multigwRoutes
         push(@cmds, "/sbin/ip route flush table $table");
         push(@cmds, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@cmds, "/sbin/ip rule add from $ip table $table");
+
+        # Add rule by source in multi interface configuration
+        if ( scalar keys %interfaces > 1 ) {
+            push(@cmds, "/sbin/ip rule add from $address table $table");
+        }
+
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 
