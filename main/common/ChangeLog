@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::FileSystem::partitionsFileSystems ignores more pseudo file
+	  systems. File systems without mount point are always ignored.
 	+ Cache list of ifaces to improve performance
 	+ Add duration attribute to EBox::Event
 	+ Ignore by default bind filesystems in EBox::FileSystem method
