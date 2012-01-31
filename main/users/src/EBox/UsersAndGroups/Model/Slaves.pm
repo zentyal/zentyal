@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -49,7 +49,6 @@ sub _table
 {
     my @tableHead =
         (
-
          new EBox::Types::Text(
              'fieldName' => 'slave',
              'printableName' => __('Slave'),
@@ -65,10 +64,8 @@ sub _table
     {
         'tableName' => 'Slaves',
         'printableTableName' => __('List of slaves'),
-        'defaultController' =>
-            '/Users/Controller/Slaves',
-        'defaultActions' =>
-            ['changeView', 'del'],
+        'defaultController' => '/Users/Controller/Slaves',
+        'defaultActions' => ['changeView', 'del'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Slaves',
         'help' => __x('This is a list of those Zentyal slaves which are subscribed to this Zentyal.'),
@@ -120,62 +117,6 @@ sub preconditionFailMsg
         return __('There are no slaves at the moment.');
 
     }
-}
-
-# Method: ids
-#
-#   Override <EBox::Model::DataTable::ids> to return rows identifiers
-#   based on the slaves stored in LDAP
-#
-sub ids
-{
-    my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    unless ($users->configured()) {
-        return [];
-    }
-
-    my @slaves = map { $_->{'hostname'} } @{$users->listSlaves()};
-
-    return \@slaves;
-}
-
-# Method: row
-#
-#   Override <EBox::Model::DataTable::row> to build and return a
-#   row dependening on the user uid which is the id passwd.
-#
-sub row
-{
-    my ($self, $id) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    my $slaves = $users->listSlaves();
-    my $port;
-    for my $slave (@{$slaves}) {
-        if ($slave->{'hostname'} eq $id) {
-            $port = $slave->{'port'};
-        }
-    }
-
-    my $row = $self->_setValueRow(slave => $id, port => $port);
-    $row->setId($id);
-    $row->setReadOnly(0);
-    return $row;
-}
-
-# Method: removeRow
-#
-#   Override <EBox::Model::DataTable::removeRow>
-#   to remove a slave
-#
-sub removeRow
-{
-	my ($self, $id) = @_;
-
-        my $users = EBox::Global->modInstance('users');
-        $users->deleteSlave($id);
 }
 
 sub Viewer
