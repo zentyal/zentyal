@@ -1059,7 +1059,7 @@ sub safeConnect
     }
 
     unless ($ldap) {
-        throw EBox::Exceptions::Internal(
+        throw EBox::Exceptions::External(
             "FATAL: Couldn't connect to LDAP server: $ldapurl");
     }
 
@@ -1076,7 +1076,7 @@ sub safeBind
 
     my $bind = $ldap->bind($dn, password => $password);
     unless ($bind->{resultCode} == 0) {
-        throw EBox::Exceptions::Internal(
+        throw EBox::Exceptions::External(
             'Couldn\'t bind to LDAP server, result code: ' .
             $bind->{resultCode});
     }
