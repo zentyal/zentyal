@@ -36,7 +36,6 @@ use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::UsersAndGroups::Passwords;
-use EBox::UsersAndGroups::Setup;
 use EBox::SOAPClient;
 
 use Digest::SHA1;
@@ -54,8 +53,6 @@ use Fcntl qw(:flock);
 
 use constant USERSDN        => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
-use constant MASTERDN       => 'cn=master';
-use constant SLAVESDN       => 'ou=slaves';
 use constant SYSMINUID      => 1900;
 use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
@@ -286,6 +283,7 @@ sub enableActions
     };
 
     $self->_manageService('start');
+    $self->ldap->clearConn();
 
     # Create default group
     $self->addGroup(DEFAULTGROUP, 'All users', 1);
@@ -330,7 +328,6 @@ sub enableActions
     };
 
     # Execute enable-module script
-    EBox::debug('Enabling actions');
     $self->SUPER::enableActions();
 
     # mark apache as changed to avoid problems with getpwent calls, it needs
@@ -576,34 +573,6 @@ sub groupsDn
     return GROUPSDN . "," . $dn;
 }
 
-# Method: masterDn
-#
-#       Returns the dn where the Zentyal master machine is stored in LDAP
-#
-# Returns:
-#
-#       string - dn
-#
-sub masterDn
-{
-    my ($self) = @_;
-    return MASTERDN . "," . $self->ldap->dn;
-}
-
-
-# Method: slavesDn
-#
-#       Returns the dn where the Zentyal slave machiens are stored in LDAP
-#
-# Returns:
-#
-#       string - dn
-#
-sub slavesDn
-{
-    my ($self) = @_;
-    return SLAVESDN . "," . $self->ldap->dn;
-}
 
 # Method: groupDn
 #
@@ -756,49 +725,6 @@ sub lastUid
     }
 }
 
-sub rewriteObjectClasses
-{
-    my ($self, $dn) = @_;
-
-    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
-    EBox::Ldap::safeBind(
-        $ldap, $self->ldap->rootDn(), remotePassword());
-
-    my %attrs = (
-            base   => $dn,
-            filter => "(objectclass=*)",
-            attrs  => [ 'objectClass'],
-            scope  => 'base'
-            );
-    my $result = $ldap->search(%attrs);
-
-    my $classes = [ $result->pop_entry()->get_value('objectClass') ];
-
-    # delete old user data if it's there
-    try {
-        $self->ldap->delete($dn);
-    } otherwise {};
-
-    $self->ldap->modify($dn,
-        { 'changes' => [ 'replace' => [ 'objectClass' => $classes ] ]} );
-}
-
-sub rewriteObjectClassesTree
-{
-    my ($self, $dn) = @_;
-    my $ldap = EBox::Ldap::safeConnect('ldap://127.0.0.1:1389');
-    EBox::Ldap::safeBind($ldap, $self->ldap->rootDn(), remotePassword());
-    my %attrs = (
-            base   => $dn,
-            filter => "(objectclass=*)",
-            attrs  => [ 'objectClass'],
-            scope  => 'sub'
-    );
-    my $result = $ldap->search(%attrs);
-    for my $entry ($result->entries()) {
-        $self->rewriteObjectClasses($entry->dn());
-    }
-}
 
 sub initUser
 {
@@ -1067,22 +993,22 @@ sub _checkUid
     if ($uid < MINUID) {
         if (not $system) {
             throw EBox::Exceptions::External(
-                                              __x('Incorrect UID {uid} for a user . UID must be equal or greater than {min}',
-                                                  uid => $uid,
-                                                  min => MINUID,
-                                                 )
-                                             );
+                    __x('Incorrect UID {uid} for a user . UID must be equal or greater than {min}',
+                        uid => $uid,
+                        min => MINUID,
+                       )
+                    );
         }
 
     }
     else {
         if ($system) {
             throw EBox::Exceptions::External(
-                                              __x('Incorrect UID {uid} for a system user . UID must be lesser than {max}',
-                                                  uid => $uid,
-                                                  max => MINUID,
-                                                 )
-                                             );
+                    __x('Incorrect UID {uid} for a system user . UID must be lesser than {max}',
+                        uid => $uid,
+                        max => MINUID,
+                       )
+                    );
 
         }
     }
@@ -1673,8 +1599,8 @@ sub addGroup # (group, comment, system)
                 attr => [
                          'cn'        => $group,
                          'gidNumber'   => $gid,
-                         'objectclass' => ['posixGroup']
-                            ]
+                         'objectclass' => ['posixGroup'],
+                        ]
                );
 
     my $dn = "cn=" . $group ."," . $self->groupsDn;
@@ -2684,46 +2610,49 @@ sub restoreBackupPreCheck
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-    my $mode = $self->mode();
+    return;
 
-    if ($mode eq 'master' or $mode eq 'ad-slave') {
-        EBox::UsersAndGroups::Setup::createDefaultGroupIfNeeded();
-
-        $self->_manageService('stop');
-        $self->ldap->restoreLdapMaster($dir);
-        $self->_manageService('start');
-        $self->ldap->clearConn();
-
-        # Save conf to enable NSS (and/or) PAM
-        $self->_setConf();
-        for my $user ($self->users()) {
-            $self->initUser($user->{'username'});
-        }
-    } elsif ($mode eq 'slave') {
-        $self->_manageService('stop');
-        $self->ldap->restoreLdapReplica($dir);
-        $self->ldap->restoreLdapTranslucent($dir);
-        $self->ldap->restoreLdapFrontend($dir);
-        $self->ldap->clearConn();
-        $self->_manageService('start');
-        try {
-            $self->waitSync();
-        } otherwise {
-            my $model = EBox::Model::ModelManager->instance()->model('Mode');
-            my $remote = $model->remoteValue();
-            throw EBox::Exceptions::Internal("Cannot restore slave machine when master is down: $remote");
-        };
-
-        # Save conf to enable NSS (and/or) PAM
-        $self->_setConf();
-        for my $user ($self->users()) {
-            $self->initUser($user->{'username'});
-        }
-        $self->_enforceServiceState();
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Trying to restore configuration of unknown LDAP mode: $mode");
-    }
+# TODO review/rewrite
+#    my $mode = $self->mode();
+#
+#    if ($mode eq 'master' or $mode eq 'ad-slave') {
+#        EBox::UsersAndGroups::Setup::createDefaultGroupIfNeeded();
+#
+#        $self->_manageService('stop');
+#        $self->ldap->restoreLdapMaster($dir);
+#        $self->_manageService('start');
+#        $self->ldap->clearConn();
+#
+#        # Save conf to enable NSS (and/or) PAM
+#        $self->_setConf();
+#        for my $user ($self->users()) {
+#            $self->initUser($user->{'username'});
+#        }
+#    } elsif ($mode eq 'slave') {
+#        $self->_manageService('stop');
+#        $self->ldap->restoreLdapReplica($dir);
+#        $self->ldap->restoreLdapTranslucent($dir);
+#        $self->ldap->restoreLdapFrontend($dir);
+#        $self->ldap->clearConn();
+#        $self->_manageService('start');
+#        try {
+#            $self->waitSync();
+#        } otherwise {
+#            my $model = EBox::Model::ModelManager->instance()->model('Mode');
+#            my $remote = $model->remoteValue();
+#            throw EBox::Exceptions::Internal("Cannot restore slave machine when master is down: $remote");
+#        };
+#
+#        # Save conf to enable NSS (and/or) PAM
+#        $self->_setConf();
+#        for my $user ($self->users()) {
+#            $self->initUser($user->{'username'});
+#        }
+#        $self->_enforceServiceState();
+#    } else {
+#        throw EBox::Exceptions::Internal(
+#            "Trying to restore configuration of unknown LDAP mode: $mode");
+#    }
 }
 
 sub _removePasswds
@@ -3191,61 +3120,26 @@ sub listSlaves
 {
     my ($self) = @_;
 
-    my %args = (
-        'base' => $self->slavesDn(),
-        'scope' => 'sub',
-        'filter' => "(objectClass=slaveHost)"
-    );
-    my $result = $self->ldap->search(\%args);
+# FIXME rewrite using models
 
-    my @slaves = map {
-        {
-            'hostname' => $_->get_value('hostname'),
-            'port' => $_->get_value('port')
-        }
-    } $result->entries();
-    return \@slaves;
+    return [];
+
+#    my %args = (
+#        'base' => $self->slavesDn(),
+#        'scope' => 'sub',
+#        'filter' => "(objectClass=slaveHost)"
+#    );
+#    my $result = $self->ldap->search(\%args);
+#
+#    my @slaves = map {
+#        {
+#            'hostname' => $_->get_value('hostname'),
+#            'port' => $_->get_value('port')
+#        }
+#    } $result->entries();
+#    return \@slaves;
 }
 
-sub slaveInfo
-{
-    my ($self, $slave) = @_;
-
-    my %args = (
-        'base' => $self->slavesDn(),
-        'scope' => 'sub',
-        'filter' => "(hostname=$slave)"
-    );
-    my $result = $self->ldap->search(\%args);
-
-    my $slaveInfo;
-
-    if ($result->count()) {
-        my $entry = ($result->entries)[0];
-        $slaveInfo = {
-            'hostname' => $entry->get_value('hostname'),
-            'port' => $entry->get_value('port')
-        };
-    }
-    return $slaveInfo;
-}
-
-sub deleteSlave
-{
-    my ($self, $slave) = @_;
-    my $res = 0;
-    try {
-        $self->ldap->delete("hostname=$slave," . $self->slavesDn());
-        my $journaldir = $self->_journalsDir . $slave;
-        if (-d $journaldir) {
-            EBox::Sudo::root('rm -rf ' . $journaldir);
-        }
-    } otherwise {
-        EBox::debug('Error deleting slave: ' . $slave);
-        $res = 1;
-    };
-    return $res;
-}
 
 sub mode
 {
