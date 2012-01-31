@@ -1,3 +1,5 @@
+HEAD
+	+ Unallow administration port change when the port is in use
 2.3
 	+ Do not launch a passwordless redis instance during first install
 	+ New 'types' field in LogObserver and storers/acquirers to store special

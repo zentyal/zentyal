@@ -267,20 +267,36 @@ sub setPort # (port)
     my ($self, $port) = @_;
 
     checkPort($port, __("port"));
-    my $fw = EBox::Global->modInstance('firewall');
-
     if ($self->port() == $port) {
         return;
     }
 
+    my $global = EBox::Global->getInstance();
+    my $fw = $global->modInstance('firewall');
     if (defined($fw)) {
         unless ($fw->availablePort("tcp",$port)) {
-            throw EBox::Exceptions::DataExists(data => __('port'),
-                               value => $port);
+            throw EBox::Exceptions::External(__x(
+'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
+                p => $port
+               ));
         }
     }
 
-    my $global = EBox::Global->getInstance();
+    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
+    foreach my $line (@{ $netstatLines }) {
+        my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) =
+            split '\s+', $line, 7;
+        if ($localAddr =~ m/:$port$/) {
+            my ($pid, $program) = split '/', $PIDProgram;
+            throw EBox::Exceptions::External(__x(
+q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
+                p => $port,
+                pr => $program,
+              )
+            );
+        }
+    }
+
     if ($global->modExists('services')) {
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
