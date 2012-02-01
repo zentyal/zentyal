@@ -1,4 +1,5 @@
 HEAD
+	+ Add conflicts with sudo-ldap on debian/control.
 	+ EBox::FileSystem::partitionsFileSystems ignores more pseudo file
 	  systems. File systems without mount point are always ignored.
 2.3
