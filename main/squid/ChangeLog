@@ -1,4 +1,6 @@
 HEAD
+	+ Now you can use the default profile in a custom profile for file
+	  extensions
 	+ Fixed index creation on squid_traffic tables
 2.2.2
 	+ Fixed regression on filter selection depending on the objects
