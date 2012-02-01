@@ -1,3 +1,6 @@
+HEAD
+	+ Changed JS to allow the restore of the action cell when a delete
+	  action fails
 2.2.5
 	+ Avoid temporal modelInstance errors when adding or removing
 	  modules with LogWatchers or LogDispatcher

@@ -534,11 +534,15 @@ sub modulesBackupDomainsFileSelections
     my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
     my @selections;
     foreach my $ds (@domainSelections) {
-        foreach my $type (qw(exclude exclude-regexp include)) {
+        foreach my $type (qw(include)) {
             my $typeList = $type . 's';
             if ($ds->{$typeList}) {
                 foreach my $value (@{ $ds->{$typeList} }) {
                         my $encodedValue = encode_base64($value, '');
+                        $encodedValue =~ s/=/eq/g;
+                        $encodedValue =~ s/\+/ad/g;
+                        $encodedValue =~ s{/}{sl}g;
+
                         my $id =  $prefix .  '_' .
                             $ds->{mod} . '_' . $type . '_' .$encodedValue;
                         push @selections, {
