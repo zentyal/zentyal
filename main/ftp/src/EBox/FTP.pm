@@ -258,11 +258,9 @@ sub backupDomainsFileSelection
     my ($self, %enabled) = @_;
     if ($enabled{ftpserver}) {
         my @includes = ( $self->ftpHome(), );
-        my @excludes = ();
         my $options = $self->model('Options');
         if ( $options->userHomes()) {
             push @includes, '/home';
-            push @excludes, '/home/samba';
         }
 
         my $selection = {
