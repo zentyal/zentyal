@@ -1,4 +1,5 @@
 HEAD
+	+ Bridge interfaces are correctly removed; fixed _hasChanged method
 	+ Added proxySettings to return the proxy settings to other modules
 2.2.4
 	+ Added new ip rules to avoid connection problems on multigateway & UDP
