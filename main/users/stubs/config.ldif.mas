@@ -22,8 +22,6 @@ cn: module{0}
 olcModulePath: /usr/lib/ldap
 olcModuleLoad: back_hdb
 olcModuleLoad: memberof
-#olcModuleLoad: dynlist
-#olcModuleLoad: syncprov
 
 # Load schemas
 dn: cn=schema,cn=config
@@ -54,7 +52,7 @@ dn: olcDatabase=config,cn=config
 objectClass: olcDatabaseConfig
 olcDatabase: config
 olcAccess: {0}to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage
-  by dn="cn=zentyal,dc=zentyal,dc=com" manage
+  by dn="cn=zentyal,<% $dn %>" manage
   by * break
 
 # The database definition.
@@ -68,16 +66,19 @@ olcDbConfig: set_lk_max_objects 1500
 olcDbConfig: set_lk_max_locks 1500
 olcDbConfig: set_lk_max_lockers 1500
 olcLastMod: TRUE
-olcSuffix: dc=zentyal,dc=com
+olcSuffix: <% $dn %>
+olcRootDN: cn=zentyal,<% $dn %>
+olcRootPW: <% $password %>
 olcDbDirectory: /var/lib/ldap
-olcLimits: dn="cn=zentyal,dc=zentyal,dc=com" time.soft=unlimited time.hard=unlimited size.soft=unlimited size.hard=unlimited
+olcLimits: dn="cn=zentyal,<% $dn %>" time.soft=unlimited time.hard=unlimited size.soft=unlimited size.hard=unlimited
 olcAccess: {0}to *
   by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage
-  by dn="cn=zentyal,dc=zentyal,dc=com" manage
+  by dn="cn=zentyal,<% $dn %>" manage
   by * break
 olcAccess: {1}to attrs=userPassword,shadowLastChange
-  by dn="cn=zentyal,dc=zentyal,dc=com" write
+  by dn="cn=zentyal,<% $dn %>" write
   by anonymous auth
+  by dn="cn=zentyalro,<% $dn %>" none
   by self write
   by * none
 olcAccess: {2}to * by users read
@@ -86,4 +87,18 @@ olcDbIndex: entryCSN eq
 olcDbIndex: entryUUID eq
 olcDbIndex: uid eq
 olcDbIndex: memberUid eq
+
+# Memberof automatic attribute population
+dn: olcOverlay=memberof,olcDatabase={1}hdb,cn=config
+objectClass: olcMemberOf
+objectClass: olcOverlayConfig
+objectClass: olcConfig
+objectClass: top
+olcOverlay: memberof
+olcMemberOfDangling: ignore
+olcMemberOfRefInt: TRUE
+olcMemberOfGroupOC: zentyalGroup
+olcMemberOfDN: cn=zentyal,<% $dn %>
+olcMemberOfMemberAD: member
+olcMemberOfMemberOfAD: memberOf
 
