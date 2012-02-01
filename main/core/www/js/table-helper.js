@@ -376,6 +376,9 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page,
             evalScripts: true,
             onComplete: function(t) {
                 stripe('dataTable', 'even', 'odd');
+                if ( action == 'del' ) {
+                  delete savedElements['actionsCell_' + rowId];
+                }
             },
             onFailure: function(t) {
                 restoreHidden('actionsCell_' + rowId, table);
@@ -383,7 +386,7 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page,
         });
 
   if ( action == 'del' ) {
-    setLoading('actionsCell_' + rowId, table);
+    setLoading('actionsCell_' + rowId, table, true);
   }
   else if ( action == 'move' ) {
     setLoading('actionsCell_' + rowId, table);

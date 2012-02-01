@@ -33,6 +33,7 @@ use EBox::Types::Text;
 use EBox::Validate;
 use EBox::EBackup::Subscribed;
 use EBox::Exceptions::NotConnected;
+use EBox::FileSystem;
 use Error qw(:try);
 use String::ShellQuote;
 
@@ -63,7 +64,6 @@ sub new
 
     return $self;
 }
-
 
 # Group: Protected methods
 
@@ -110,6 +110,7 @@ sub _table
         class              => 'dataTable',
         modelDomain        => 'EBackup',
         defaultEnabledValue => 1,
+        insertPosition      => 'front',
         help => __(
 'A file or directory is included or excluded according the first match. A directory match is applied to all it contents. Files not explicitly excluded or included are included'
            ),
@@ -144,12 +145,203 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     my $values = $self->_actualValues($changedFields, $allFields);
+    my $id = $values->{type}->row()->id();
     my $type   = $values->{type}->value();
     my $target = $values->{target}->value();
 
     my $checkMethod = "_validate_" . $type;
     $self->$checkMethod($target);
 
+    my $ebackup = $self->{gconfmodule};
+    my $prefix = $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
+    if ($id =~ m/^$prefix/) {
+        # this row cannot be edited and we dont shoudl check their addition
+        return;
+    }
+
+    if ($action eq 'add') {
+        $self->_validateCoherence(action => $action,  type => $type, target => $target);
+    } elsif ($action eq 'update') {
+        $self->_validateCoherence(action => $action, id => $id, type => $type, target => $target);
+    }
+}
+
+# Method: validateSwapPos
+#
+#  Validate swap position between rows
+#
+# Parameters:
+#
+#   action - action ('moveUp', 'moveDown')
+#   id      - id of the row upon is done the action
+#   swapA   - one of the positions to swap
+#   swapB   - the other position to swap
+sub validateSwapPos
+{
+    my ($self, $action, $id, $swapA, $swapB) = @_;
+    $self->_validateCoherence(action => 'swap', swapA => $swapA, swapB => $swapB);
+}
+
+
+# Method: validateRemoveRow
+#
+#  Validate row removal
+#
+# Parameters:
+#
+#   id      -  id of the reow to remove
+sub validateRemoveRow
+{
+    my ($self, $id) = @_;
+    $self->_validateCoherence(action => 'remove', id => $id);
+}
+
+sub _pathsListWithModifications
+{
+    my ($self, %args) = @_;
+    my $action = $args{action};
+    my @pathsList = @{ $self->_ids() }; # this is called inside syncRows
+
+    if ($action  eq 'add') {
+        unshift @pathsList, {
+            type => $args{type},
+            target => $args{target},
+           };
+    } elsif ($action eq 'update') {
+        my $id = $args{id};
+        my $found = undef;
+        foreach my $pathId (@pathsList) {
+            if ($pathId eq $id) {
+                $pathId = {
+                    type => $args{type},
+                    target => $args{target},
+                   };
+                $found = 1;
+                last;
+            }
+
+        }
+        if (not $found) {
+            throw EBox::Exceptions::Internal("Id not found: $id");
+        }
+
+    } elsif ($action eq 'swap') {
+        my $swapA = $args{swapA};
+        my $swapB = $args{swapB};
+        my $swapAValue  = $pathsList[$swapA];
+        $pathsList[$swapA] = $pathsList[$swapB];
+        $pathsList[$swapB] = $swapAValue;
+    } elsif ($action eq 'remove') {
+        my $id = $args{id};
+        @pathsList = grep {
+            $_ ne $id
+        } @pathsList;
+
+    } else {
+        throw EBox::Exceptions::Internal("Invalid action: $action");
+    }
+
+    return \@pathsList;
+}
+
+sub _backupDomainsIncludes
+{
+    my ($self) = @_;
+    my @backupDomainsIncludes = map {
+        if ($_->{type} eq 'include') {
+            $_->{value};
+        } else {
+            ();
+        }
+    } @{ $self->{gconfmodule}->modulesBackupDomainsFileSelections() };
+
+    return \@backupDomainsIncludes;
+}
+
+sub _validateCoherence
+{
+    my ($self, %args) = @_;
+
+    my @backupDomainsIncludes = @{ $self->_backupDomainsIncludes() };
+    if (not @backupDomainsIncludes) {
+        return;
+    }
+    my %domainIncludes = map {
+        $_ => $_
+    } @backupDomainsIncludes;
+
+    my @pathsList = @{ $self->_pathsListWithModifications(%args) };
+    foreach my $path (@pathsList) {
+        my ($type, $target);
+        if ((ref $path) eq 'HASH') {
+            $type = $path->{type};
+            $target = $path->{target};
+        } else {
+            my $row = $self->row($path);
+            $target = $row->valueByName('target');
+            $type = $row->valueByName('type');
+        }
+
+        my $checkSubdirectory;
+        if ($type eq 'exclude_path') {
+            $checkSubdirectory = 1;
+        } elsif ($type eq 'exclude_regexp') {
+            $checkSubdirectory = EBox::Validate::checkAbsoluteFilePath($target);
+        }
+
+        foreach my $include (keys %domainIncludes) {
+            if ($type eq 'exclude_regexp') {
+                if ($include =~ m/$target/) {
+                     throw EBox::Exceptions::External(
+                         __x(q|Cannot {action} because the path '{path}', added by backup domains, would be excluded by the regular expression|,
+                              action => _actionPrintableName($args{action}),
+                              path => $include)
+                        );
+                 }
+            } elsif (EBox::FileSystem::isSubdir($include, $target)) {
+                if ($type eq 'include_path') {
+                    # remove included paths by the target
+                    delete $domainIncludes{$include};
+
+                } else {
+                    throw EBox::Exceptions::External(
+                        __x(q|Cannot {action} because the path '{path}', added by backup domains, would be excluded|,
+                            action => _actionPrintableName($args{action}),
+                            path => $include
+                               )
+                       );
+                }
+            }
+
+            if ($checkSubdirectory and EBox::FileSystem::isSubdir($target, $include)) {
+                throw EBox::Exceptions::External(
+                        __x(q|Cannot {action} because a subdirectory of  '{path}', added by backup domains, would be excluded|,
+                            action => _actionPrintableName($args{action}),
+                            path => $include)
+                );
+            }
+        } # en foreach my include
+
+    } # end foreach my path
+}
+
+
+sub _actionPrintableName
+{
+    my ($action) = @_;
+    if ($action eq 'add') {
+        return __('add row');
+    } elsif ($action eq 'update') {
+        return __('edit row');
+    } elsif ($action eq 'moveUp') {
+        return __('move up row');
+    } elsif ($action eq 'moveDown') {
+        return __('move down row');
+    } elsif ($action eq 'remove') {
+        return __('remove down');
+    } else {
+        return $action;
+    }
 }
 
 sub _validate_exclude_path
@@ -224,23 +416,19 @@ sub syncRows
     my $changed = 0;
 
     unless (@{$currentIds}) {
-        if ($self->_storedVersion == 0) {
-            # if there are no rows, we have to add them
-            foreach my $exclude (DEFAULT_EXCLUDES) {
-                $self->add(type => 'exclude_path', target => $exclude);
-            }
-            $changed = 1;
+        # if there are no rows, we have to add them
+        foreach my $exclude (DEFAULT_EXCLUDES) {
+            $self->add(type => 'exclude_path', target => $exclude);
         }
+        $changed = 1;
     }
 
     my $prefix = $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
 
-    my @currentDsIds;
-    foreach my $row (@{ $currentIds }) {
-        if ($row =~ m/^$prefix/) {
-            push @currentDsIds, $row;
-        } else {
-            last;
+    my %currentDsIds;
+    foreach my $rowId (@{ $currentIds }) {
+        if ($rowId =~ m/^$prefix/) {
+            $currentDsIds{$rowId} = $rowId;
         }
     }
 
@@ -250,44 +438,41 @@ sub syncRows
     } catch EBox::Exceptions::NotConnected with {
         # connection error so we don't know whether we are subscribed or not
         # we will supposse that if we have ids with DS prefix we are subscribed
-        $drAddon = @currentDsIds > 0;
+        $drAddon = keys %currentDsIds > 0;
     };
 
     if (not $drAddon) {
         # no disaster recovery add-on, so we not add nothing and remove old added rows
         # if neccessary
-        foreach my $id (@currentDsIds) {
+        foreach my $id (keys %currentDsIds) {
             $self->removeRow($id);
             $changed = 1;
         }
         return $changed;
     }
 
+
     my @domainsSelections = @{ $ebackup->modulesBackupDomainsFileSelections() };
-    if (@domainsSelections == @currentDsIds) {
-        # check if there arent any change
-        my $equal = 1;
-        my $i = 0;
-        while ($i < @domainsSelections) {
-            if ($domainsSelections[$i]->{id} ne  $currentDsIds[$i]) {
-                $equal = 0;
-                last;
-            }
-            $i += 1;
-        }
-        if ($equal) {
-            return undef;
+    # check if there are missing or superfluous rows
+    my @toAdd;
+    foreach my $domainSelection (@domainsSelections) {
+        my $id = $domainSelection->{id};
+        my $alreadyAdded = delete $currentDsIds{$id};
+        if (not $alreadyAdded) {
+            push @toAdd, $domainSelection;
         }
     }
+    if (not @toAdd and (keys %currentDsIds == 0)) {
+        return $changed;
+    }
 
-    # changed, so to hedge to any order change we will remove all the old domain
-    # backup related row and add new ones
-    foreach my $id (@currentDsIds) {
+    # remove not longer needed rows
+    foreach my $id (keys %currentDsIds) {
         $self->removeRow($id);
     }
 
-    @domainsSelections = reverse @domainsSelections;
-    foreach my $selection (@domainsSelections) {
+    @toAdd = reverse @toAdd;
+    foreach my $selection (@toAdd) {
         my $type;
         if ($selection->{type} eq 'include') {
             $type = 'include_path';
@@ -303,6 +488,7 @@ sub syncRows
                       target => $selection->{value},
                       system  => 1,
                       readOnly => 1,
+                      movable  => 1,
                      );
     }
 
@@ -319,7 +505,7 @@ sub _checkRowIsUnique
     my $target = $row_ref->{target};
     my $rowSystem = $row_ref->{system}->value();
     if ($rowSystem) {
-        # systme rows are always added
+        # system rows are always added
         return;
     }
 
@@ -342,81 +528,6 @@ sub _checkRowIsUnique
 
 
     }
-}
-
-# we override this bz if we have read-only rows we want not to have user rows
-# before them
-# XXX duplicate phantom rows error!
-sub _insertPos
-{
-    my ($self, $id, $pos) = @_;
-
-    my $drAddon = 0;
-    try {
-        $drAddon = EBox::EBackup::Subscribed->isSubscribed();
-    } catch EBox::Exceptions::NotConnected with {
-        # connection error so we will play safe and assume we have it, this only
-        # will cost a bit more time for the insertion
-        $drAddon = 1;
-    };
-
-    if (not $drAddon) {
-        # no disaster recovery add-on, so we havent nothing to change there
-        return $self->SUPER::_insertPos($id, $pos);
-    }
-
-    my $ebackup  = $self->{'gconfmodule'};
-    my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
-    my $prefixRe = qr/^$prefix/;
-    if ($id =~ $prefixRe) {
-        # is a system row, nothing to do
-        return $self->SUPER::_insertPos($id, $pos);
-    }
-
-    # assure that a user row is not added before a ssytem row
-    my $newPos = $pos;
-    my @order = @{$ebackup->get_list($self->{'order'})};
-    foreach my $n (0 .. @order) {
-        if ($n >= @order) {
-            $newPos = $n;
-            last;
-        }
-        if ($n < $pos) {
-            next;
-        }
-
-        if ($order[$n] =~ $prefixRe) {
-            next;
-        } else {
-            $newPos = $n;
-        }
-    }
-
-    my $ret = $self->SUPER::_insertPos($id, $newPos);
-    return $ret;
-}
-
-# XXX fudge to avoid duplicate rows, this is not the ideal solution
-# XXX added fudge to avoid undefined rows. I have seen this once 
-sub ids
-{
-    my ($self, @args) = @_;
-    my %seen;
-    my @noDupIds;
-    foreach my $id (@{ $self->SUPER::ids(@args) }) {
-        if (not defined $id) {
-            EBox::error("Found undefined id in RemoteExcludes model");
-            next;
-        }
-        if (exists $seen{$id}) {
-            # duplicate!
-            next;
-        }
-        push @noDupIds, $id;
-        $seen{$id} = 1;
-    }
-
-    return \@noDupIds;
 }
 
 # Check wether some file will be included in the backup or not
@@ -494,6 +605,73 @@ sub fileSelectionArguments
     }
 
     return $args;
+}
+
+sub Viewer
+{
+    return '/ebackup/ajax/remoteExcludes.mas';
+}
+
+# reimplemetation to allow validation of moving rows using the method validateSwapPos
+# if we like it we should move it to EBox::Model::DataTable
+
+sub moveUp
+{
+    my ($self, $id) = @_;
+
+    my %order = $self->_orderHash();
+
+    my $pos = $order{$id};
+    if ($pos == 0) {
+        return;
+    }
+
+    $self->validateSwapPos('moveUp', $id, $pos, $pos -1);
+
+    $self->_swapPos($pos, $pos - 1);
+
+    $self->setMessage($self->message('moveUp'));
+    $self->movedUpRowNotify($self->row($id));
+    $self->_notifyModelManager('moveUp', $self->row($id));
+    $self->_notifyCompositeManager('moveUp', $self->row($id));
+}
+
+sub moveDown
+{
+    my ($self, $id) = @_;
+
+    my %order = $self->_orderHash();
+    my $numOrder = keys %order;
+
+    my $pos = $order{$id};
+    if ($pos == $numOrder -1) {
+        return;
+    }
+
+    $self->validateSwapPos('moveDown', $id, $pos, $pos + 1);
+
+    $self->_swapPos($pos, $pos + 1);
+
+    $self->setMessage($self->message('moveDown'));
+    $self->movedDownRowNotify($self->row($id));
+    $self->_notifyModelManager('moveDown', $self->row($id));
+    $self->_notifyCompositeManager('moveDown', $self->row($id));
+}
+
+
+# reimplemetation to allow validation of removalopearation using the method validateRemoveRow
+# if we like it we should move it to EBox::Model::DataTable
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument(
+                "Missing row identifier to remove")
+    }
+
+    $self->validateRemoveRow($id);
+    return $self->SUPER::removeRow($id, $force)
 }
 
 1;

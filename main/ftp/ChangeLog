@@ -1,3 +1,6 @@
+HEAD
+	+ Remove backup domain excludes which are now incompatible
+	  with the new implementation of the RemoteExcludes model
 2.3
 	+ Replaced autotools with zbuildtools
 2.2.1
