@@ -98,7 +98,6 @@ olcOverlay: memberof
 olcMemberOfDangling: ignore
 olcMemberOfRefInt: TRUE
 olcMemberOfGroupOC: zentyalGroup
-olcMemberOfDN: cn=zentyal,<% $dn %>
 olcMemberOfMemberAD: member
 olcMemberOfMemberOfAD: memberOf
 

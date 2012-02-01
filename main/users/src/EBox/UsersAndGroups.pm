@@ -287,6 +287,9 @@ sub enableActions
     $self->_manageService('start');
     $self->ldap->clearConn();
 
+    # Setup NSS (needed if some user is added before save changes)
+    $self->_setConf();
+
     # Create default group
     $self->addGroup(DEFAULTGROUP, 'All users', 1);
 
