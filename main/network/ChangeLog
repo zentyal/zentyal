@@ -1,4 +1,5 @@
 HEAD
+	+ Bridge interfaces are correctly removed; fixed _hasChanged method
 	+ Menu entry Diagnostic Tools in Network renamed to Tools
 	+ Added WakeOnLan to the Network Diagnostic Tools
 	+ Added proxySettings to return the proxy settings to other modules
