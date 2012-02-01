@@ -1,6 +1,7 @@
 <%args>
   $dn
   $password
+  $password_ro
 </%args>
 <%init>
   my @parts = split(/,/, $dn);
@@ -30,4 +31,10 @@ objectClass: organizationalRole
 objectClass: simpleSecurityObject
 description: Zentyal admin account
 userPassword: <% $password %>
+
+dn: cn=zentyalro,<% $dn %>
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+description: Zentyal readonly account
+userPassword: <% $password_ro %>
 

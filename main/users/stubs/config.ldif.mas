@@ -32,7 +32,7 @@ cn: schema
 
 include: file:///etc/ldap/schema/core.ldif
 include: file:///etc/ldap/schema/cosine.ldif
-include: file:///etc/ldap/schema/nis.ldif
+include: file:///usr/share/zentyal-users/rfc2307bis.ldif
 include: file:///etc/ldap/schema/inetorgperson.ldif
 
 # Set defaults for the backend

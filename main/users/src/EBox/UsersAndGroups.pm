@@ -244,10 +244,12 @@ sub enableActions
     );
 
     my $dn = 'dc=zentyal,dc=com';
-    my $password = $self->_genPassword();
+    my $password = $self->_genPassword(EBox::Config::conf() . 'ldap.passwd');
+    my $password_ro = $self->_genPassword(EBox::Config::conf() . 'ldap_ro.passwd');
     my $opts = [
         'dn' => $dn,
         'password' => $password,
+        'password_ro' => $password_ro,
     ];
 
     # Prepare ldif files
@@ -336,25 +338,15 @@ sub enableActions
 }
 
 
-# Generate, store and return admin ldap password
+# Generate, store in the given file and return a password
 sub _genPassword
 {
-    my $LDAP_PWD_FILE = EBox::Config::conf() . 'ldap.passwd';
+    my ($self, $file) = @_;
 
     my $pass = EBox::Util::Random::generate(20);
-    my $fd;
-    unless (open ($fd, ">$LDAP_PWD_FILE")) {
-        throw EBox::Exceptions::External("Can't open $LDAP_PWD_FILE");
-    }
-    print $fd $pass;
-    close($fd);
-    unless (chmod (0600, $LDAP_PWD_FILE)) {
-        throw EBox::Exceptions::External("Can't chmod $LDAP_PWD_FILE");
-    }
     my ($login,$password,$uid,$gid) = getpwnam('ebox');
-    unless (chown($uid, $gid, $LDAP_PWD_FILE)) {
-        throw EBox::Exceptions::External("Can't chown $LDAP_PWD_FILE");
-    }
+    EBox::Module::Base::writeFile($file, $pass,
+            { mode => '0600', uid => $uid, gid => $gid });
 
     return $pass;
 }
@@ -379,16 +371,18 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $mode = $self->mode();
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
         { mode => '0600', uid => 0, gid => 0 });
 
     my  $dn = $ldap->dn;
+    my $nsspw = read_file(EBox::Config::conf() . 'ldap_ro.passwd');
     my @array = ();
     push(@array, 'ldap' => EBox::Ldap::LDAPI);
     push(@array, 'basedc'    => $dn);
-    push(@array, 'binddn'    => 'cn=zentyal,' . $dn);
+    push(@array, 'binddn'    => 'cn=zentyalro,' . $dn);
+    push(@array, 'bindpw'    => $nsspw);
+    push(@array, 'rootbinddn'=> 'cn=zentyal,' . $dn);
     push(@array, 'usersdn'   => USERSDN . ',' . $dn);
     push(@array, 'groupsdn'  => GROUPSDN . ',' . $dn);
     push(@array, 'computersdn' => 'ou=Computers,' . $dn);
@@ -397,6 +391,7 @@ sub _setConf
             \@array);
 
     @array = ();
+    my $mode = $self->mode();
     my $adsync = ($self->adsyncEnabled() and ($mode eq 'ad-slave'));
     push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
     push(@array, 'adsync'     => $adsync);
@@ -1596,7 +1591,7 @@ sub addGroup # (group, comment, system)
                 attr => [
                          'cn'        => $group,
                          'gidNumber'   => $gid,
-                         'objectclass' => ['posixGroup'],
+                         'objectclass' => ['posixGroup', 'zentyalGroup'],
                         ]
                );
 
@@ -1932,8 +1927,9 @@ sub addUserToGroup # (user, group)
     }
 
     my $dn = "cn=" . $group . "," . $self->groupsDn;
+    my $userDn = "uid=" . $user . "," . $self->usersDn;
 
-    my %attrs = ( add => { memberUid => $user } );
+    my %attrs = ( add => { member => $userDn } );
     $self->ldap->modify($dn, \%attrs);
 
     $self->updateGroup($group, op => 'add', user => $user);
@@ -1966,7 +1962,8 @@ sub delUserFromGroup # (user, group)
     }
 
     my $dn = "cn=" . $group . "," . $self->groupsDn;
-    my %attrs = ( delete => {  memberUid => $user  } );
+    my $userDn = "uid=" . $user . "," . $self->usersDn;
+    my %attrs = ( delete => {  member => $userDn  } );
         $self->ldap->modify($dn, \%attrs);
 
     $self->updateGroup($group, op => 'del', user => $user);
@@ -2032,10 +2029,11 @@ sub _ldapSearchUserGroups # (user, system, inverse)
     }
 
     my $filter = '&(objectClass=*)';
+    my $userDn = "uid=" . $user . "," . $self->usersDn;
     if ($inverse) {
-        $filter .= "(!(memberUid=$user))"
+        $filter .= "(!(member=$userDn))"
     } else {
-        $filter .= "(memberUid=$user)";
+        $filter .= "(member=$userDn)";
     }
 
     my %attrs = (
@@ -2086,18 +2084,20 @@ sub usersInGroup # (group)
                  base => $self->groupsDn,
                  filter => "(cn=$group)",
                  scope => 'one',
-                 attrs => ['memberUid']
+                 attrs => ['member']
                 );
 
     my $result = $self->ldap->search(\%attrs);
 
     my @users;
-    foreach my $res ($result->sorted('memberUid')){
-                push @users, $res->get_value('memberUid');
-            }
+    foreach my $res ($result->sorted('member')){
+        my $userDn = $res->get_value('member');
+        if ($userDn =~ m/uid=([^,]*),/) {
+            push @users, $1;
+        }
+    }
 
     return \@users;
-
 }
 
 # Method: usersNotInGroup
