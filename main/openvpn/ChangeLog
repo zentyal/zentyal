@@ -1,4 +1,5 @@
 HEAD
+	+ Give support to use general proxy in OpenVPN clients
 	+ Don't allow any server to use the same network than another
 	  server or any interface
 2.1.6

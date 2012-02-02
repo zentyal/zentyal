@@ -1,3 +1,5 @@
+HEAD
+	+ Added proxySettings to return the proxy settings to other modules
 2.2.4
 	+ Added new ip rules to avoid connection problems on multigateway & UDP
 	+ Virtual interfaces called '0' does not longer raise error
