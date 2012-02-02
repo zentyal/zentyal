@@ -18,6 +18,7 @@ $routeUpCmd => undef
 
 $logFile
 $statusLogFile
+%proxySettings => undef
 </%args>
 # Zentyal client-side OpenVPN 2.0 config file #
 # for connecting to multi-client server.      #
@@ -44,6 +45,21 @@ client
 # You can have multiple remote entries
 # to load balance between the servers.
 <& .remote, servers => \@servers &>
+
+% if ( keys(%proxySettings) > 1  ) {
+# If you are connecting through an
+# HTTP proxy to reach the actual OpenVPN
+# server, put the proxy server/IP and
+# port number here.  See the man page
+# if your proxy server requires
+# authentication.
+%    if ( exists($proxySettings{authFile}) ) {
+http-proxy <% "$proxySettings{server} $proxySettings{port} $proxySettings{authFile} basic" %>
+%    } else {
+http-proxy <% "$proxySettings{server} $proxySettings{port}" %>
+%    }
+http-proxy-retry
+% }
 
 # Choose a random host from the remote
 # list for load-balancing.  Otherwise
@@ -72,14 +88,6 @@ nobind
 persist-key
 persist-tun
 
-# If you are connecting through an
-# HTTP proxy to reach the actual OpenVPN
-# server, put the proxy server/IP and
-# port number here.  See the man page
-# if your proxy server requires
-# authentication.
-;http-proxy-retry # retry on connection failures
-;http-proxy [proxy server] [proxy port #]
 
 # Wireless networks often produce a lot
 # of duplicate packets.  Set this flag

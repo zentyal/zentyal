@@ -1,3 +1,5 @@
+HEAD
+	+ Use direct connection to QA repository even using a global proxy
 2.0.18
 	+ Remove innecesary checks for nameserver and web servers prior to
 	  exchanging data with them
