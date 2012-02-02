@@ -156,6 +156,19 @@ sub aptQAPreferencesPath
     return '/etc/apt/preferences.d/01zentyal';
 }
 
+# Method: aptQAConfPath
+#
+#      Return the path to the configuration file for QA repository
+#
+# Returns:
+#
+#      String - the path
+#
+sub aptQAConfPath
+{
+    return '/etc/apt/apt.conf.d/99zentyal';
+}
+
 # Method: JohnHomeDirPath
 #
 #      Return the path to the John the Ripper home directory
