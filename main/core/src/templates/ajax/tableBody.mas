@@ -305,6 +305,11 @@ $pageSize or
     </tr>
 </table>
 
+<& SELF:legend, model => $model,
+                    actions => $actions,
+                    ids => \@ids,
+                    changeView => $changeView,
+                    &>
 
 % } else {
 <input type="hidden"
@@ -435,8 +440,9 @@ Parameteres:
 
     Parameters:
         $model - model of the table
-        $idx
         $actions
+        $idx
+        @ids
         $row   - the row printed
         $changeView
         $page  - table's page
@@ -636,3 +642,135 @@ $page
     crumbs => $crumbs
 &>
 </%def>
+
+
+<%method legend>
+<%doc>
+    Print the legend of a table
+
+    Parameters:
+        $model - model of the table
+        $actions
+        @ids
+        $changeView
+</%doc>
+<%args>
+$model
+$actions
+@ids
+$changeView
+</%args>
+
+<%perl>
+    my $customActions = $model->{'table'}->{'customActions'};
+    if ($customActions) {
+</%perl>
+
+        <br/>
+        <!-- Put the legend underneath the table -->
+        <table class="legend">
+          <tbody><tr>
+
+<%perl>
+        foreach my $customAction ( @{$customActions} ) {
+            if (exists $customAction->{'states'}) {
+                foreach my $keyname (keys %{$customAction->{'states'}} ) {
+                    my $state = $customAction->{'states'}->{$keyname};
+</%perl>
+                    <td>
+                    <img
+                        title="<% $state->{'printableValue'} %>"
+                        alt="<% $state->{'printableValue'} %>"
+                        src="<% $state->{'image'}  %>"
+                    />
+                    </td>
+                    <td class="legendName">
+                    <% $state->{'printableValue'} %>
+                    </td>
+<%perl>
+                }
+            } else {
+</%perl>
+                <td>
+                <img
+                    title="<% $customAction->{'printableValue'} %>"
+                    alt="<% $customAction->{'printableValue'} %>"
+                    src="<% $customAction->{'image'}  %>"
+                />
+                </td>
+                <td class="legendName">
+                <% $customAction->{'printableValue'} %>
+                </td>
+%           }
+%       }
+
+%# Not custom actions
+%# Currently they does not show, reenable them if you want they to appear in the legend
+
+<%perl>
+    my $edit = 'edit';
+    my $edit_msg = __('Edit');
+    my $delete = 'delete';
+    my $delete_msg = __('Delete');
+
+    if ( 0 && $actions->{'del'}) {
+</%perl>
+        <td>
+        <img
+            title="<% $delete_msg %>"
+            alt="Del"
+            src='/data/images/<% $delete %>.gif'
+        />
+        </td>
+        <td class="legendName">
+        <% $delete_msg %>
+        </td>
+%   }
+%   if (0 && $changeView) {
+        <td>
+        <img
+            alt="edit"
+            title="<% $edit_msg %>"
+            src='/data/images/<% $edit %>.gif'
+        />
+        </td>
+        <td class="legendName">
+        <% $edit_msg %>
+        </td>
+%   }
+
+%   if (0 && $model->table()->{'order'} == 1 && $#ids > 1 ) {
+%       my $up_icon = 'up.gif';
+%       my $up_msg = __('Move up');
+%       my $down_icon = 'down.gif';
+%       my $down_msg = __('Move down');
+
+        <td>
+        <img
+            title="<% $up_msg %>"
+            alt="Up"
+            src='/data/images/<% $up_icon  %>'
+        />
+        </td>
+        <td class="legendName">
+        <% $up_msg %>
+        <td>
+
+        <td>
+        <img
+            title="<% $down_msg %>"
+            alt="Down"
+            src='/data/images/<% $down_icon  %>'
+        />
+        </td>
+        <td class="legendName">
+        <% $down_msg %>
+        <td>
+%   }
+  </tr>
+</tbody></table>
+
+%}
+
+</%method>
+
