@@ -1,3 +1,5 @@
+HEAD
+	+ Dont monitorize NFS mounts disk spaces
 2.2.2
 	+ Use 2 decimals in event messages
 	+ Formatting int values to show only 2 decimals, if required
