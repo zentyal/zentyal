@@ -67,7 +67,14 @@ sub _process
 			push(@array, 'action' => 'dns');
 			push(@array, 'target' => $host);
 			push(@array, 'output' => $output);
-		}
+        } elsif ($action eq "wakeonlan") {
+            $self->_requireParam("mac", __("MAC address"));
+            my $mac = $self->param("mac");
+            my $output = $net->wakeonlan($mac);
+            push(@array, 'action' => 'wakeonlan');
+            push(@array, 'target' => $mac);
+            push(@array, 'output' => $output);
+        }
 	}
 	$self->{params} = \@array;
 }

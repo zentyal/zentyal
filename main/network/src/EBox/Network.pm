@@ -3731,6 +3731,28 @@ sub resolv # (host)
     return `dig +time=3 $host 2>&1`;
 }
 
+# Method: wakeonlan
+#
+#   Performs a wakeonlan and returns the output
+#
+# Parameters:
+#
+#   mac - MAC address of the computer to wake
+#
+# Returns:
+#
+#   string - output of the wakeonlan command
+#
+sub wakeonlan # (macs)
+{
+    my ($self, $mac) = @_;
+
+    checkMAC($mac, __("MAC address"));
+
+    return `wakeonlan $mac 2>&1`;
+#    return "wakeonlan $mac";
+}
+
 sub interfacesWidget
 {
     my ($self, $widget) = @_;

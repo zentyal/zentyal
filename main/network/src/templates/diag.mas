@@ -34,6 +34,15 @@ use EBox::Gettext;
 	   value="<% $action eq 'dns' ? $target : ''%>" /> 
 <input class='inputButton' type='submit'
 	  name='accept' value="<% __('Lookup') %>" />
+</form>
+<form action='Diag' method='POST'>
+<input type="hidden" name="action" value="wakeonlan"/>
+<h3><% __('WakeOnLan') %></h3>
+<% __('MAC address') %>: 
+<input class='inputText' type='text' name='mac'
+       value="<% $action eq 'wakeonlan' ? $target : ''%>" /> 
+<input class='inputButton' type='submit'
+      name='accept' value="<% __('Wake') %>" />
 % if($action ne ''){
 <h3><% __('Output') %></h3>
 <pre>
