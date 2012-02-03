@@ -1,0 +1,49 @@
+<%args>
+    $ifaces
+    $mode
+    $workgroup
+    $realm
+    $netbiosName
+    $description
+    @shares
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+# Global parameters
+[global]
+    interfaces = <% $ifaces %>
+    server role = <% $mode %>
+    workgroup = <% $workgroup %>
+    realm = <% $realm %>
+    netbios name = <% $netbiosName %>
+    server string = <% $description %>
+    passdb backend = samba4
+
+[netlogon]
+    path = /var/lib/samba/sysvol/kernevil.lan/scripts
+    read only = No
+
+[sysvol]
+    path = /var/lib/samba/sysvol
+    read only = No
+
+# Shares
+% foreach my $share (@shares) {
+[<% $share->{share} %>]
+    comment = <% $share->{comment} %>
+    path = <% $share->{path} %>
+    browseable = yes
+    read only = no
+% if ($share->{guest}) {
+    guest only = yes
+    guest ok = yes
+% } else {
+    valid users = <% $share->{validUsers} %>
+    read list = <% $share->{readOnly} %>
+    write list = <% $share->{readWrite} %>
+    admin users = <% $share->{administrators} %>
+% }
+    force create mode = 0660
+    force directory mode = 0660
+% }

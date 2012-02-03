@@ -1,0 +1,20 @@
+Source: zentyal-samba4
+Section: web
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: zbuildtools
+Standards-Version: 3.8.2
+Homepage: http://www.zentyal.org/
+Vcs-Browser: http://git.zentyal.org/zentyal.git
+Vcs-Git: git://git.zentyal.org/zentyal.git
+
+Package: zentyal-samba4
+Architecture: all
+Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, zentyal-firewall, acl, bind9, ${misc:Depends}
+Description: Zentyal - File Sharing Service
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module adds a Samba4 server to your Zentyal installation.

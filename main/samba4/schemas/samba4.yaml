@@ -1,0 +1,7 @@
+class: 'EBox::Samba4'
+
+depends:
+    - network
+
+enabledepends:
+    - network
