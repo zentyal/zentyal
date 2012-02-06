@@ -38,11 +38,37 @@ use EBox::Gettext;
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="wakeonlan"/>
 <h3><% __('WakeOnLan') %></h3>
-<% __('MAC address') %>: 
-<input class='inputText' type='text' name='mac'
-       value="<% $action eq 'wakeonlan' ? $target : ''%>" /> 
-<input class='inputButton' type='submit'
-      name='accept' value="<% __('Wake') %>" />
+<script type="text/javascript" src="/data/js/table-helper.js"></script>
+<% __('MAC address') %>:
+<select name="type_mac" id="type_mac" onchange="showSelected(this);" >
+    <option value="manual">Specify MAC</option>
+    <option value="object">Object</option>
+</select>
+<span class="" id="type_mac_manual_container">
+    <input class='inputText' type='text' name='mac'
+           value="<% $action eq 'wakeonlan' ? $target : ''%>" /> 
+    <input class='inputButton' type='submit'
+           name='accept' value="<% __('Wake') %>" />
+</span>
+<span class="hidden" id="type_mac_object_container">
+    <select onchange="    if (this.options[this.selectedIndex].value == '_addNew') {
+          modalChangeView('/Objects/ModalController/ObjectTable','ObjectTable_modal','objectTable','changeAdd','undefined', {'selectCallerId': 'mac_object', 'selectForeignField': 'name', 'foreignNextPageField': 'members', 'firstShow': '1', 'title': 'New object', 'nextPageContextName': '/objects/MemberTable/', })
+    } ; return false;
+" class="" id="mac_object" name="mac_object">
+ 
+<option value="_addNew">
+<% __('Add new...') %>
+</option>
+
+ 
+<option disabled="disabled" selected="selected" value="separator">
+
+</option>
+
+
+
+</select>
+</span>
 % if($action ne ''){
 <h3><% __('Output') %></h3>
 <pre>
