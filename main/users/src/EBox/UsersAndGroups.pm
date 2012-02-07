@@ -38,7 +38,7 @@ use EBox::UsersAndGroups::Passwords;
 use EBox::UsersAndGroups::Setup;
 use EBox::SOAPClient;
 
-use Digest::SHA1;
+use Digest::SHA;
 use Digest::MD5;
 use Crypt::SmbHash;
 use Sys::Hostname;
@@ -2846,7 +2846,7 @@ sub authUser
 sub shaHasher
 {
     my ($password) = @_;
-    return '{SHA}' . Digest::SHA1::sha1_base64($password) . '=';
+    return '{SHA}' . Digest::SHA::sha1_base64($password) . '=';
 }
 
 sub md5Hasher
