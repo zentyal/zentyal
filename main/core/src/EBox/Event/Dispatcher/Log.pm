@@ -30,6 +30,8 @@ use EBox;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 
+use constant LOG_FILE => EBox::Config::log() . 'events.log';
+
 # Group: Public methods
 
 # Constructor: new
@@ -108,7 +110,14 @@ sub send
     defined ($event) or
         throw EBox::Exceptions::MissingArgument('event');
 
-    EBox::info(Dumper($event));
+    open (my $logfile, '>>', LOG_FILE);
+
+    my $timestamp = POSIX::strftime("%d/%m/%Y %H:%M:%S",
+                                    localtime(EBox::Event::timestamp($event)));
+    print $logfile "$timestamp " . uc(EBox::Event::level($event)) . '> ' .
+                                   EBox::Event::source($event) . ': ' .
+                                   EBox::Event::message($event) . "\n";
+    close ($logfile);
 
     return 1;
 }
