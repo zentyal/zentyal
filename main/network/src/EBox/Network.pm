@@ -890,9 +890,13 @@ sub vifaceExists # (interface)
     my ($self, $name) = @_;
 
     my ($iface, $viface) = $self->_viface2array($name);
-    unless ($iface and $viface) {
+    if (not $iface) {
         return undef;
     }
+    if (not $viface and ($viface ne '0')) {
+        return undef;
+    }
+
     return $self->_vifaceExists($iface, $viface);
 }
 
@@ -2549,6 +2553,42 @@ sub _generateProxyConfig
                         [ proxyConf => $proxyConf ]);
 }
 
+# Method: proxySettings
+#
+#    Return the proxy settings if configured
+#
+# Returns:
+#
+#    Hash ref - the following keys are included
+#
+#        server   - the HTTP proxy's name
+#        port     - the HTTP proxy's port
+#        username - the username to authenticate (optional)
+#        password - the password (optional)
+#
+#    undef - if there is not proxy settings
+#
+sub proxySettings
+{
+    my ($self) = @_;
+
+    my $proxy  = $self->model('Proxy');
+    my $server = $proxy->serverValue();
+    my $port   = $proxy->portValue();
+    if ( $server and $port ) {
+        my $retValue = { server => $server, port => $port };
+        my $username = $proxy->usernameValue();
+        my $password = $proxy->passwordValue();
+        if ( $username and $password ) {
+            $retValue->{username} = $username;
+            $retValue->{password} = $password;
+        }
+        return $retValue;
+    } else {
+        return undef;
+    }
+}
+
 # Method: isDDNSEnabled
 #
 #    Check if the Dynamic DNS service is enabled or not
@@ -2928,6 +2968,14 @@ sub _multigwRoutes
 
     push(@cmds, EBox::Config::share() . 'zentyal-network/flush-fwmarks');
     my %interfaces;
+    for my $router ( reverse @{$routers} ) {
+        # Skip gateways with unassigned address
+        my $ip = $router->{'ip'};
+        next unless $ip;
+
+        my $iface = $router->{'interface'};
+        $interfaces{$iface}++;
+    }
 
     for my $router ( reverse @{$routers} ) {
 
@@ -2958,6 +3006,12 @@ sub _multigwRoutes
         push(@cmds, "/sbin/ip route flush table $table");
         push(@cmds, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@cmds, "/sbin/ip rule add from $ip table $table");
+
+        # Add rule by source in multi interface configuration
+        if ( scalar keys %interfaces > 1 ) {
+            push(@cmds, "/sbin/ip rule add from $address table $table");
+        }
+
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 

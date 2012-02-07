@@ -1,3 +1,8 @@
+HEAD
+	+ File selections by backup domain are restricted to includes
+	+ Includes from backup domains can be moved in the list; the model
+	  validates if the includes and excludes configuration is coherent
+	  with the backup domains
 2.3
 	+ Refactored restoreFile method to ease testing of file quoting
 	+ Set a default timeout of 5 minutes for duplicity and allow to

@@ -1,3 +1,11 @@
+HEAD
+	+ Added legend to DataTables with custom actions
+	+ Changed JS to allow the restore of the action cell when a delete
+	  action fails
+	+ Set milestone to 3.0 when creating bug reports in the trac
+	+ Avoid temporal modelInstance errors when adding or removing
+	  modules with LogWatchers or LogDispatcher
+	+ Unallow administration port change when the port is in use
 2.3
 	+ Do not launch a passwordless redis instance during first install
 	+ New 'types' field in LogObserver and storers/acquirers to store special

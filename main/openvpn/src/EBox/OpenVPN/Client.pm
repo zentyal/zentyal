@@ -29,8 +29,9 @@ use EBox::Gettext;
 use EBox::OpenVPN::Client::ValidateCertificate;
 use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
 
-use Params::Validate qw(validate_pos SCALAR);
 use Error qw(:try);
+use File::Temp;
+use Params::Validate qw(validate_pos SCALAR);
 
 sub new
 {
@@ -249,7 +250,7 @@ sub confFileParams
     my ($self) = @_;
     my @templateParams;
 
-    push @templateParams, (dev => $self->iface);
+    push @templateParams, (dev => $self->iface());
 
     my @paramsNeeded = qw(name caCertificate certificate certificateKey
                           proto user group dh localAddr lport routeUpCmd);
@@ -262,6 +263,10 @@ sub confFileParams
     }
 
     push @templateParams, (servers =>  $self->servers() );
+    # We can only have proxy settings with TCP clients
+    if ( $self->proto() eq 'tcp' ) {
+        push(@templateParams, (proxySettings => $self->_proxySettings() ));
+    }
 
     return \@templateParams;
 }
@@ -341,6 +346,50 @@ sub servers
 
     my @servers = ([ $server => $port ]);
     return \@servers;
+}
+
+# Method: _proxySettings
+#
+#    Get the HTTP proxy settings defined in Network module to reach
+#    OpenVPN servers
+#
+# Returns:
+#
+#    Hash ref - containing the following keys
+#
+#         - server - the HTTP proxy server
+#         - port   - the HTTP proxy port
+#
+#         - authFile - if authenticated, then a file path which
+#                      includes the username and password in two lines
+#
+#    [] - if there is no proxy settings
+#
+sub _proxySettings
+{
+    my ($self) = @_;
+
+    my $retVal = [];
+
+    my $net = EBox::Global->getInstance(1)->modInstance('network');
+    my $settings = $net->proxySettings();
+
+    if ( defined($settings) ) {
+        $retVal = { server => $settings->{server},
+                    port   => $settings->{port} };
+        if ( exists $settings->{username} ) {
+            # Create the auth file
+            my $authFile = $self->privateDir() . '/proxy-auth';
+            my $tmpFile  = new File::Temp();
+            open(my $fh, '>', $tmpFile->filename());
+            print $fh $settings->{username} . "\n";
+            print $fh $settings->{password} . "\n";
+            close($fh);
+            EBox::Sudo::root("cp '" . $tmpFile->filename() . qq{' '$authFile'});
+            $retVal->{authFile} = $authFile;
+        }
+    }
+    return $retVal;
 }
 
 sub ripDaemon

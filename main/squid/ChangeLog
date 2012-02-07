@@ -1,3 +1,6 @@
+HEAD
+	+ Now you can use the default profile in a custom profile for file
+	  extensions
 2.3
 	+ Adapted to new MySQL logs backend
 	+ Ignore localnets with undefined DHCP address when writing conf

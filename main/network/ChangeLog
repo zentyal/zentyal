@@ -1,3 +1,7 @@
+HEAD
+	+ Added proxySettings to return the proxy settings to other modules
+	+ Added new ip rules to avoid connection problems on multigateway & UDP
+	+ Virtual interfaces called '0' does not longer raise error
 2.3
 	+ Cache vifacesConf() result to improve performance
 	+ Replaced autotools with zbuildtools

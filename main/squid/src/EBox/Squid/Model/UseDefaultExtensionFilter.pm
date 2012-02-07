@@ -92,67 +92,63 @@ sub modelsToUpdate
     return \@models;
 }
 
-sub Viewer
-{
-    return  '/squid/ajax/applyAllForm.mas';
-}
+# sub Viewer
+# {
+#     return  '/ajax/squid/applyAllForm.mas';
+#  #   return  '/ajax/squid/useDefaultForm.mas';
+
+# }
 
 
-# custom changeRowJS to update the other sections
-sub changeRowJS
-{
-    my ($self, $editId, $page) = @_;
+# # custom changeRowJS to update the other sections
+# sub changeRowJS
+# {
+#     my ($self, $editId, $page) = @_;
+
+#     my @modelsToUpdate = @{ $self->modelsToUpdate };
+#     my @changeViewJS;
+#     foreach my $model (@modelsToUpdate) {
+#         my $changeViewJS = $model->changeViewJS(
+#             changeType => 'changeList',
+#             editId     => 0,
+#             page       => 0,
+#             isFilter   => 0,
+#             );
+
+#         push @changeViewJS, $changeViewJS;
+#     }
 
 
+#     my $table = $self->table();
+#     my $fields = $self->_paramsWithSetterJS();
+#     # $fields =~ s/'/"/g;
 
-    my @modelsToUpdate = @{ $self->modelsToUpdate };
-    my @changeViewJS;
-    foreach my $model (@modelsToUpdate) {
-        my $changeViewJS = $model->changeViewJS(
-            changeType => 'changeList',
-            editId     => 0,
-            page       => 0,
-            isFilter   => 0,
-            );
+#     my $onCompleteJS =  <<END;
+#     function(t) {
+#         highlightRow( id, false);
+#         stripe('dataTable', 'even', 'odd');
+# END
 
-        push @changeViewJS, $changeViewJS;
-    }
+#     foreach my $changeViewJS (@changeViewJS) {
+#         $onCompleteJS .= "\n$changeViewJS;";
+#     }
+#     $onCompleteJS .= "\n}";
 
+#     my $function = q{applyAllChangeRows('%s', '%s', %s, '%s','%s', %s, %s, %s)};
+#     my $JS = sprintf ($function,
+#             $table->{'actions'}->{'editField'},
+#             $table->{'tableName'},
+#             $fields,
+#             $table->{'gconfdir'},
+#             $editId,
+#             $page,
+#             0, # force
+#             $onCompleteJS
+#             );
 
-    my $table = $self->table();
-    my $fields = $self->_paramsWithSetterJS();
-    $fields =~ s/'/"/g;
+#     return $JS;
 
-    my $onCompleteJS =  <<END;
-    function(t) {
-        highlightRow( id, false);
-        stripe("dataTable", "even", "odd");
-END
-
-    foreach my $changeViewJS (@changeViewJS) {
-        $onCompleteJS .= "\n$changeViewJS;";
-    }
-    $onCompleteJS .= "\n}";
-
-
-    my  $function = 'applyAllChangeRows("%s", "%s", %s, "%s",'.
-            '"%s", %s, %s, %s)';
-    my $JS = sprintf ($function,
-            $table->{'actions'}->{'editField'},
-            $table->{'tableName'},
-            $fields,
-            $table->{'gconfdir'},
-            $editId,
-            $page,
-            0, # force
-            $onCompleteJS
-            );
-
-
-
-    return $JS;
-
-}
+# }
 
 # Method: viewCustomizer
 #
@@ -169,6 +165,4 @@ sub viewCustomizer
         return $custom;
 }
 
-
 1;
-

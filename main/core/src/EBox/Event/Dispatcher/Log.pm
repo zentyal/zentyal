@@ -42,16 +42,14 @@ use EBox::Exceptions::MissingArgument;
 #        <EBox::Event::Dispatcher::Log> - the newly created object
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new('ebox');
+    bless( $self, $class);
 
-      my $self = $class->SUPER::new('ebox');
-      bless( $self, $class);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: DisabledByDefault
 #
@@ -80,11 +78,9 @@ sub EditableByUser
 #       <EBox::Event::Dispatcher::Abstract::ConfigurationMethod>
 #
 sub ConfigurationMethod
-  {
-
-      return 'none';
-
-  }
+{
+    return 'none';
+}
 
 # Method: configured
 #
@@ -93,11 +89,9 @@ sub ConfigurationMethod
 #        <EBox::Event::Dispatcher::Abstract::configured>
 #
 sub configured
-  {
-
-      return 'true';
-
-  }
+{
+    return 'true';
+}
 
 # Method: send
 #
@@ -108,18 +102,16 @@ sub configured
 #        <EBox::Event::Dispatcher::Abstract::send>
 #
 sub send
-  {
+{
+    my ($self, $event) = @_;
 
-      my ($self, $event) = @_;
-
-      defined ( $event ) or
+    defined ($event) or
         throw EBox::Exceptions::MissingArgument('event');
 
-      EBox::info(Dumper($event));
+    EBox::info(Dumper($event));
 
-      return 1;
-
-  }
+    return 1;
+}
 
 # Group: Protected methods
 
@@ -130,11 +122,9 @@ sub send
 #       <EBox::Event::Dispatcher::Abstract::_receiver
 #
 sub _receiver
-  {
-
-      return __('Log file');
-
-  }
+{
+    return __('Log file');
+}
 
 # Method: _name
 #
@@ -143,10 +133,8 @@ sub _receiver
 #       <EBox::Event::Dispatcher::Abstract::_name>
 #
 sub _name
-  {
-
-      return __('Log');
-
-  }
+{
+    return __('Log');
+}
 
 1;

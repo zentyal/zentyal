@@ -91,7 +91,7 @@ function applyAllChangeRows(url, table, fields, directory, id, page, force, onCo
 }
 
 </script>
-<td id="<% 'buttons_' . $model->modelName() %>"
+<td id="<% 'buttons_' . $model->modelName() %>">
   <& /input/submit.mas,
      name => 'change',
      value => __('Change'),

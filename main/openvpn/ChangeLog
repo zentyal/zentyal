@@ -1,3 +1,5 @@
+HEAD
+	+ Give support to use general proxy in OpenVPN clients
 2.3
 	+ Adapted to new MySQL logs backend
 	+ Delete client and server upstart files on module purge
