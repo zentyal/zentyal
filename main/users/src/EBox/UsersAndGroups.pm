@@ -61,7 +61,6 @@ use constant HOMEPATH       => '/home';
 use constant MAXUSERLENGTH  => 128;
 use constant MAXGROUPLENGTH => 128;
 use constant MAXPWDLENGTH   => 512;
-use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 use constant LIBNSSLDAPFILE => '/etc/ldap.conf';
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
@@ -94,41 +93,15 @@ sub actions
 {
     my ($self) = @_;
 
-    my $mode = $self->mode();
     my @actions;
 
-    if ($mode eq 'slave') {
-        push(@actions,
-                {
-                 'action' => __('Your Zentyal will be registered as a slave in the Zentyal master specified'),
-                 'reason' => __('This Zentyal needs to have remote access to the users in the Zentyal master.'),
-                 'module' => 'users'
-                }
+    push(@actions,
+            {
+            'action' => __('Your LDAP database will be populated with some basic organizational units'),
+            'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
+            'module' => 'users'
+            },
         );
-    } else {
-        push(@actions,
-                {
-                 'action' => __('Your LDAP database will be populated with some basic organizational units'),
-                 'reason' => __('Zentyal needs this organizational units to add users and groups into them.'),
-                 'module' => 'users'
-                },
-                {
-                 'action' => __('Create directories for slave journals'),
-                 'reason' => __('Zentyal needs the directories to record pending slave actions.'),
-                 'module' => 'users'
-                }
-        );
-        if ($mode eq 'ad-slave') {
-            push(@actions,
-                    {
-                     'action' => __('Install /etc/cron.d/ebox-ad-sync.'),
-                     'reason' => __('Zentyal will run a script every 5 minutes to sync with Windows AD.'),
-                     'module' => 'users'
-                    }
-            );
-
-        }
-    }
 
     # FIXME: This probably won't work if PAM is enabled after enabling the module
     if ($self->model('PAM')->enable_pamValue()) {
@@ -151,7 +124,6 @@ sub usedFiles
 {
     my ($self) = @_;
     my @files = ();
-    my $mode = $self->mode();
 
     push(@files,
         {
@@ -168,11 +140,6 @@ sub usedFiles
         {
             'file' => '/etc/fstab',
             'reason' => __('To add quota support to /home partition.'),
-            'module' => 'users'
-        },
-        {
-            'file' => CRONFILE,
-            'reason' => __('To configure LDAP slaves and Active Directory synchronization frequency.'),
             'module' => 'users'
         },
         {
@@ -205,14 +172,6 @@ sub initialSetup
     unless ($version) {
         my $fw = EBox::Global->modInstance('firewall');
 
-        $fw->addInternalService(
-                'name' => 'adsync',
-                'description' => 'Active Directory password synchronization',
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => EBox::Config::configkey('adsync_port'),
-                'target'  => 'deny',
-                );
         $fw->addInternalService(
                 'name' => 'ldap',
                 'description' => 'LDAP',
@@ -279,7 +238,7 @@ sub enableActions
     }
     catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
-        EBox::error('Trying to setup master ldap failed, exit value: ' .
+        EBox::error('Trying to setup ldap failed, exit value: ' .
                 $exception->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database'));
     };
@@ -292,37 +251,6 @@ sub enableActions
 
     # Create default group
     $self->addGroup(DEFAULTGROUP, 'All users', 1);
-
-#    DELETE ME
-#    my $mode = $self->mode();
-#
-#    if ($mode eq 'slave') {
-#        $self->_setupSlaveLDAP();
-#        $self->_setConf();
-#
-#        my $soapfile = EBox::Config::conf() . "/apache-soap-slave";
-#        if (not -f $soapfile) {
-#            my $apache = EBox::Global->modInstance('apache');
-#            EBox::Module::Base::writeConfFileNoCheck($soapfile,
-#                    'users/soap-slave.mas',
-#                    [ 'cert' => CERT ]
-#                    );
-#            $apache->addInclude($soapfile);
-#            $apache->setAsChanged();
-#        }
-#
-#        # Init users
-#        for my $user ($self->users()) {
-#            $self->initUser($user->{'username'});
-#        }
-#    } elsif ($mode eq 'master' or $mode eq 'ad-slave') {
-##        $self->_manageService('start');
-#        my $password = remotePassword();
-#        EBox::UsersAndGroups::Setup::master($password);
-#    } else {
-#        throw EBox::Exceptions::Internal(
-#            "Trying to enable users with unknown LDAP mode: $mode");
-#    }
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');
@@ -393,29 +321,30 @@ sub _setConf
     $self->writeConfFile(LIBNSSLDAPFILE, "users/ldap.conf.mas",
             \@array);
 
-    @array = ();
-    my $mode = $self->mode();
-    my $adsync = ($self->adsyncEnabled() and ($mode eq 'ad-slave'));
-    push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
-    push(@array, 'adsync'     => $adsync);
-    push(@array, 'adsync_time' => EBox::Config::configkey('adsync_time'));
-
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas",
-            \@array);
-
     $self->_setupNSSPAM();
 }
 
-# Method: adsyncEnabled
-#
-#       Returns true if ad-sync is enabled in ad-slave mode.
-#
-sub adsyncEnabled
+sub _setupNSSPAM
 {
     my ($self) = @_;
 
-    my $model = $self->model('ADSyncSettings');
-    return $model->enableADsyncValue();
+    my @array;
+    my $umask = EBox::Config::configkey('dir_umask');
+    push (@array, 'umask' => $umask);
+
+    $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-ebox.mas',
+               \@array);
+
+    my $enablePam = $self->model('PAM')->enable_pamValue();
+    my @cmds;
+    push (@cmds, 'auth-client-config -a -p ebox');
+
+    unless ($enablePam) {
+        push (@cmds, 'auth-client-config -a -p ebox -r');
+    }
+
+    push (@cmds, 'auth-client-config -t nss -p ebox');
+    EBox::Sudo::root(@cmds);
 }
 
 
@@ -424,23 +353,12 @@ sub adsyncEnabled
 #       Check if users and groups can be edited.
 #
 #       Returns true if mode is master or disabled ad-sync
-#       Returns false if slave or enabled ad-sync
 #
 sub editableMode
 {
     my ($self) = @_;
 
-    return 0 unless $self->isEnabled();
-
-    my $mode = $self->mode();
-
-    if ($mode eq 'master') {
-        return 1;
-    } elsif ($mode eq 'slave') {
-        return 0;
-    } elsif ($mode eq 'ad-slave') {
-        return not $self->adsyncEnabled();
-    }
+    return 1; # TODO check sync providers
 }
 
 # Method: _daemons
@@ -454,18 +372,6 @@ sub _daemons
     return [
         { 'name' => 'ebox.slapd' },
     ];
-
-
-    # TODO review adsync mode:
-    #elsif ($mode eq 'ad-slave') {
-    #    return [
-    #            { 'name' => 'ebox.slapd' },
-    #            {
-    #              'name' => 'ebox.ad-pwdsync',
-    #              'precondition' => \&adsyncEnabled <- #FIXME
-    #            }
-    #    ];
-    #}
 }
 
 # Method: _enforceServiceState
@@ -480,39 +386,6 @@ sub _enforceServiceState
     # Clear LDAP connection
     $self->ldap->clearConn();
 }
-
-# TODO: review/rewrite
-#sub _loadCertificates
-#{
-#    my ($self) = @_;
-#    my $ca;
-#    my $cert;
-#
-#    my $ldapca;
-#
-#    $cert = read_file(SSL_DIR . 'ssl.cert');
-#    $ca = $cert;
-#
-#    EBox::Sudo::root('chown -R ebox:ebox /etc/ldap/ssl');
-#    $ldapca = read_file('/etc/ldap/ssl/ssl.cert');
-#    EBox::Sudo::root('chown -R openldap:openldap /etc/ldap/ssl');
-#
-#    my $dn = $self->masterDn();
-#
-#    # delete old certs and add new ones
-#    try {
-#        $self->ldap->delete($dn);
-#    } otherwise {};
-#
-#    my %args = ('attr' => [
-#        'objectClass' => 'masterHost',
-#        'masterCertificate' => $cert,
-#        'masterCACertificate' => $ca,
-#        'masterLDAPCACertificate' => $ldapca
-#    ]);
-#    $self->ldap->add($dn, \%args);
-#}
-
 
 # Method: modelClasses
 #
@@ -764,74 +637,6 @@ sub initUser
     }
 }
 
-sub soapClient
-{
-    my ($self, $slave) = @_;
-
-    my $hostname = $slave->{'hostname'};
-    my $port = $slave->{'port'};
-
-    my $client = EBox::SOAPClient->instance(
-        name  => 'urn:EBox/Users',
-        proxy => "https://$hostname:$port/slave",
-        certs => {
-            cert => SSL_DIR . 'ssl.pem',
-            private => SSL_DIR . 'ssl.key'
-        }
-    );
-    return $client;
-}
-
-sub soapRun
-{
-    my ($self, $slave, $method, $param, @params) = @_;
-
-    my $journaldir = $self->_journalsDir . $slave->{'hostname'};
-    unless (-d $journaldir) {
-        EBox::Sudo::root('mkdir -p ' . $journaldir,
-                         'chown -R ebox:ebox ' . $self->_journalsDir);
-    }
-    my $client = $self->soapClient($slave);
-
-    try {
-        $client->$method($param, @params);
-    } otherwise {
-        EBox::debug("Unable to perform operation $method with parameter $param on slave $slave->{'hostname'}");
-        my ($fh, $filename) = tempfile("$method-XXXX", DIR => $journaldir);
-        print $fh "$method\n";
-        print $fh "$param\n";
-        for my $p (@params) {
-            print $fh "$p\n";
-        }
-        $fh->close();
-        rename($filename, "$filename.pending");
-    };
-}
-
-sub _journalsDir
-{
-    return EBox::Config::conf() . 'userjournal/';
-}
-
-sub _initUserSlaves
-{
-    my ($self, $user) = @_;
-
-    for my $slave (@{$self->listSlaves()}) {
-        $self->soapRun($slave, 'addUser', $user);
-    }
-}
-
-sub _initGroupSlaves
-{
-    my ($self, $group) = @_;
-
-    for my $slave (@{$self->listSlaves()}) {
-        my $client = $self->soapClient($slave);
-        $self->soapRun($slave, 'addGroup', $group);
-    }
-}
-
 # Method: addUser
 #
 #       Adds a user
@@ -951,7 +756,6 @@ sub addUser # (user, system)
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
     unless ($system) {
         $self->initUser($user->{'user'}, $user->{'password'});
-        $self->_initUserSlaves($user->{'user'}, $user->{'password'});
     }
 
     # Reload nscd daemon if it's installed
@@ -988,26 +792,23 @@ sub _checkUid
     if ($uid < MINUID) {
         if (not $system) {
             throw EBox::Exceptions::External(
-                    __x('Incorrect UID {uid} for a user . UID must be equal or greater than {min}',
-                        uid => $uid,
-                        min => MINUID,
-                       )
-                    );
+                __x('Incorrect UID {uid} for a user . UID must be equal or greater than {min}',
+                    uid => $uid,
+                    min => MINUID,
+                   )
+                );
         }
-
     }
     else {
         if ($system) {
             throw EBox::Exceptions::External(
-                    __x('Incorrect UID {uid} for a system user . UID must be lesser than {max}',
-                        uid => $uid,
-                        max => MINUID,
-                       )
-                    );
-
+                __x('Incorrect UID {uid} for a system user . UID must be lesser than {max}',
+                    uid => $uid,
+                    max => MINUID,
+                   )
+                );
         }
     }
-
 }
 
 sub _modifyUserPwd
@@ -1096,26 +897,6 @@ sub updateUser
     }
 }
 
-sub _updateUserSlaves
-{
-    my ($self, $user) = @_;
-
-    for my $slave (@{$self->listSlaves()}) {
-        my $client = $self->soapClient($slave);
-        $self->soapRun($slave, 'modifyUser', $user);
-    }
-}
-
-sub _delUserSlaves
-{
-    my ($self, $user) = @_;
-
-    for my $slave (@{$self->listSlaves()}) {
-        my $client = $self->soapClient($slave);
-        $self->soapRun($slave, 'delUser', $user);
-    }
-}
-
 # Method: modifyUser
 #
 #       Modifies  user's attributes
@@ -1126,27 +907,7 @@ sub _delUserSlaves
 #       'password', and comment. The only mandatory parameter is 'user' the
 #       other attribute parameters would be ignored if they are missing.
 #
-sub modifyUser # (\%user)
-{
-    my ($self, $user) = @_;
-
-    $self->modifyUserLocal($user);
-    unless ($self->mode() eq 'slave') {
-        $self->_updateUserSlaves($user->{'username'});
-    }
-}
-
-# Method: modifyUserLocal
-#
-#       Modifies user's attributes without trying to update the slaves
-#
-# Parameters:
-#
-#       user - hash ref containing: 'user' (user name), 'fullname', 'password',
-#       and comment. The only mandatory parameter is 'user' the other attribute
-#       parameters would be ignored if they are missing.
-#
-sub modifyUserLocal # (\%user)
+sub modifyUser
 {
     my ($self, $user) = @_;
 
@@ -1164,15 +925,14 @@ sub modifyUserLocal # (\%user)
         throw EBox::Exceptions::InvalidData('data' => __('user quota'),
                                             'value' => $user->{'quota'},
                                             'advice' => __(
-'User quota must be an integer. To set an unlimited quota, enter zero.'
+            'User quota must be an integer. To set an unlimited quota, enter zero.'
                                                           ),
                                            );
     }
 
     foreach my $field (keys %{$user}) {
         if ($field eq 'comment') {
-            $self->_changeAttribute($dn, 'description',
-                                    $user->{'comment'});
+            $self->_changeAttribute($dn, 'description', $user->{'comment'});
         } elsif ($field eq 'givenname') {
             $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
         } elsif ($field eq 'surname') {
@@ -1186,26 +946,6 @@ sub modifyUserLocal # (\%user)
         }
     }
     $self->updateUser($username, $user->{'password'});
-}
-
-# Clean user stuff when deleting a user
-sub _cleanUser
-{
-    my ($self, $user) = @_;
-
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    # Tell modules depending on users and groups
-    # an user is to be deleted
-    foreach my $mod (@mods) {
-        $mod->_delUser($user);
-    }
-
-    # remove home directory
-    #my $userInfo = $self->userInfo($user);
-    #my $home = $userInfo->{homeDirectory};
-    # TODO: We need to ask with a confirmation dialog before doing this!
-    #EBox::Sudo::root("rm -rf $home");
 }
 
 # Method: delUser
@@ -1226,32 +966,27 @@ sub delUser # (user)
                                              'value' => $user);
     }
 
-    $self->_cleanUser($user);
     # Delete user from groups
     foreach my $group (@{$self->groupsOfUser($user)}) {
         $self->delUserFromGroup($user, $group);
     }
 
-    # Remove data added by modules
-    $self->_delUserSlaves($user);
+    my @mods = @{$self->_modsLdapUserBase()};
+
+    # Tell modules depending on users and groups
+    # an user is to be deleted
+    foreach my $mod (@mods) {
+        $mod->_delUser($user);
+    }
+
+    # remove home directory
+    #my $userInfo = $self->userInfo($user);
+    #my $home = $userInfo->{homeDirectory};
+    # TODO: We need to ask with a confirmation dialog before doing this!
+    #EBox::Sudo::root("rm -rf $home");
 
     # Delete user
     my $r = $self->ldap->delete("uid=" . $user . "," . $self->usersDn);
-}
-
-# Method: delUserSlave
-#
-#       Removes a given user in a slave
-#
-# Parameters:
-#
-#       user - user name to be deleted
-#
-sub delUserSlave # (user)
-{
-    my ($self, $user) = @_;
-
-    $self->_cleanUser($user);
 }
 
 # Method: userInfo
@@ -1282,11 +1017,11 @@ sub userInfo # (user, entry)
     # we already have the entry
     unless ($entry) {
         my %args = (
-                    base => $self->usersDn,
-                    filter => "(uid=$user)",
-                    scope => 'one',
-                    attrs => ['*'],
-                   );
+           base => $self->usersDn,
+           filter => "(uid=$user)",
+           scope => 'one',
+           attrs => ['*'],
+        );
 
         my $result = $self->ldap->search(\%args);
         $entry = $result->entry(0);
@@ -1294,17 +1029,16 @@ sub userInfo # (user, entry)
 
     # Mandatory data
     my $userinfo = {
-                    username => $entry->get_value('uid'),
-                    fullname => $entry->get_value('cn'),
-                    surname => $entry->get_value('sn'),
-                    password => $entry->get_value('userPassword'),
-                    homeDirectory => $entry->get_value('homeDirectory'),
-                    uid => $entry->get_value('uidNumber'),
-                    group => $entry->get_value('gidNumber'),
-                    extra_passwords => {}
-                   };
-    my $quota = $entry->get_value('quota');
-    $userinfo->{quota} = defined ($quota) ? $quota : 0;
+        username => $entry->get_value('uid'),
+        fullname => $entry->get_value('cn'),
+        surname => $entry->get_value('sn'),
+        password => $entry->get_value('userPassword'),
+        homeDirectory => $entry->get_value('homeDirectory'),
+        uid => $entry->get_value('uidNumber'),
+        group => $entry->get_value('gidNumber'),
+        quota => $entry->get_value('quota'),
+        extra_passwords => {},
+    };
 
     foreach my $attr ($entry->attributes) {
         if ($attr =~ m/^ebox(.*)Password$/) {
@@ -1408,14 +1142,14 @@ sub users
 
 # Method: usersList
 #
-#       Returns an array containing all the users (not system users)
+#   Returns an array containing all the users (not system users)
 #
 # Returns:
 #
-#       array ref - containing hash refs with the following keys
+#   array ref - containing hash refs with the following keys
 #
-#            user => user name
-#            uid => uid number
+#        user => user name
+#        uid => uid number
 #
 sub usersList
 {
@@ -1434,8 +1168,10 @@ sub usersList
     foreach my $user ($result->sorted('uid'))
     {
         next if ($user->get_value('uidNumber') < MINUID);
-        push (@users,  { user => $user->get_value('uid'),
-                uid => $user->get_value('uidNumber') });
+        push (@users,{
+                user => $user->get_value('uid'),
+                uid => $user->get_value('uidNumber')
+            });
     }
 
     return \@users;
@@ -1521,7 +1257,6 @@ sub lastGid # (gid)
                );
 
     my $result = $self->ldap->search(\%args);
-
     my @users = $result->sorted('gidNumber');
 
     my $gid = -1;
@@ -1543,7 +1278,6 @@ sub lastGid # (gid)
     } else {
         return ($gid < MINUID ?  MINUID : $gid);
     }
-
 }
 
 # Method: addGroup
@@ -1601,31 +1335,22 @@ sub addGroup # (group, comment, system)
     my $dn = "cn=" . $group ."," . $self->groupsDn;
     my $r = $self->ldap->add($dn, \%args);
 
-
     $self->_changeAttribute($dn, 'description', $comment);
 
     unless ($system) {
-        $self->initGroup($group);
-        $self->_initGroupSlaves($group);
+        # Tell modules depending on users and groups
+        # a new group is created
+        my @mods = @{$self->_modsLdapUserBase()};
+
+        foreach my $mod (@mods){
+            $mod->_addGroup($group);
+        }
     }
 
     if ( -f '/etc/init.d/nscd' ) {
         try {
             EBox::Sudo::root('/etc/init.d/nscd reload');
         } otherwise {};
-    }
-}
-
-sub initGroup
-{
-    my ($self, $group) = @_;
-
-    # Tell modules depending on users and groups
-    # a new group is created
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    foreach my $mod (@mods){
-        $mod->_addGroup($group);
     }
 }
 
@@ -1655,40 +1380,28 @@ sub _checkGid
     if ($gid < MINGID) {
         if (not $system) {
             throw EBox::Exceptions::External(
-                                              __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
-                                                  gid => $gid,
-                                                  min => MINGID,
-                                                 )
-                                             );
+                 __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
+                     gid => $gid,
+                     min => MINGID,
+                    )
+                );
         }
     }
     else {
         if ($system) {
             throw EBox::Exceptions::External(
-                                              __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
-                                                  gid => $gid,
-                                                  max => MINGID,
-                                                 )
-                                             );
-
+               __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
+                    gid => $gid,
+                    max => MINGID,
+                   )
+               );
         }
     }
-
 }
 
 
 
 sub updateGroup
-{
-    my ($self, $group, @params) = @_;
-
-    $self->updateGroupLocal($group, @params);
-    if ($self->mode() ne 'slave') {
-        $self->_updateGroupSlaves($group, @params);
-    }
-}
-
-sub updateGroupLocal
 {
     my ($self, $group, @params) = @_;
 
@@ -1701,26 +1414,6 @@ sub updateGroupLocal
     }
 }
 
-sub _updateGroupSlaves
-{
-    my ($self, $group, @params) = @_;
-
-    for my $slave (@{$self->listSlaves()}) {
-        my $client = $self->soapClient($slave);
-        $self->soapRun($slave, 'updateGroup', $group, @params);
-    }
-}
-
-sub _delGroupSlaves
-{
-    my ($self, $group) = @_;
-
-    for my $slave (@{$self->listSlaves()}) {
-        my $client = $self->soapClient($slave);
-        $self->soapRun($slave, 'delGroup', $group);
-    }
-}
-
 # Method: modifyGroup
 #
 #       Modifies a group
@@ -1730,7 +1423,7 @@ sub _delGroupSlaves
 #       hash ref - holding the keys 'groupname' and 'comment'. At the moment
 #       comment is the only modifiable attribute
 #
-sub modifyGroup # (\%groupdata))
+sub modifyGroup
 {
     my ($self, $groupdata, @params) = @_;
 
@@ -1745,19 +1438,6 @@ sub modifyGroup # (\%groupdata))
     $self->_changeAttribute($dn, 'description', $groupdata->{'comment'});
 }
 
-# Clean group stuff when deleting a user
-sub _cleanGroup
-{
-    my ($self, $group) = @_;
-
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    # Tell modules depending on users and groups
-    # a group is to be deleted
-    foreach my $mod (@mods){
-        $mod->_delGroup($group);
-    }
-}
 
 # Method: delGroup
 #
@@ -1773,29 +1453,18 @@ sub delGroup # (group)
 
     unless ($self->groupExists($group)) {
         throw EBox::Exceptions::DataNotFound('data' => __('group name'),
-                                            'value' => $group);
+                'value' => $group);
     }
 
-        $self->_cleanGroup($group);
-        my $dn = "cn=" . $group . "," . $self->groupsDn;
-        my $result = $self->ldap->delete($dn);
+    my @mods = @{$self->_modsLdapUserBase()};
 
-    $self->_delGroupSlaves($group);
-}
-
-# Method: delGroupSlave
-#
-#       Removes a given group in a slave
-#
-# Parameters:
-#
-#       group - group name to be deleted
-#
-sub delGroupSlave # (group)
-{
-    my ($self, $group) = @_;
-
-    $self->_cleanGroup($group);
+    # Tell modules depending on users and groups
+    # a group is to be deleted
+    foreach my $mod (@mods){
+        $mod->_delGroup($group);
+    }
+    my $dn = "cn=" . $group . "," . $self->groupsDn;
+    my $result = $self->ldap->delete($dn);
 }
 
 # Method: groupInfo
@@ -2468,11 +2137,7 @@ sub menu
                                         'text' => $self->printableName(),
                                         'separator' => 'Office',
                                         'order' => 510);
-
     if ($self->configured()) {
-        my $model = EBox::Model::ModelManager->instance()->model('Mode');
-        my $mode = $model->modeValue();
-
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                               'text' => __('Users'), order => 10));
@@ -2494,24 +2159,12 @@ sub menu
         $folder->add(new EBox::Menu::Item(
                     'url' => 'Users/Composite/Settings',
                     'text' => __('LDAP Settings'), order => 40));
-
-        if ($mode eq 'master' or $mode eq 'ad-slave') {
-            $folder->add(new EBox::Menu::Item(
-                        'url' => 'Users/Composite/SlaveInfo',
-                        'text' => __('Slave Status'), order => 50));
-        }
-        if ($mode eq 'ad-slave') {
-            $folder->add(new EBox::Menu::Item(
-                        'url' => 'Users/View/ADSyncSettings',
-                        'text' => __('AD Sync Settings'), order => 60));
-        }
-
-        $root->add($folder);
     } else {
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
                                           'text' => __('Mode'), order => 10));
-        $root->add($folder);
+
     }
+    $root->add($folder);
 }
 
 # EBox::UserCorner::Provider implementation
@@ -2536,34 +2189,10 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    my $mode = $self->mode();
-
-    if ($mode eq 'master' or $mode eq 'ad-slave') {
-        $self->ldap->dumpLdapMaster($dir);
-        if ($options{bug}) {
-            my $file = $self->ldap->ldifFile($dir, 'master', 'data');
-            $self->_removePasswds($file);
-        }
-    } elsif ($mode eq 'slave') {
-        $self->ldap->dumpLdapReplica($dir);
-        $self->ldap->dumpLdapTranslucent($dir);
-        $self->ldap->dumpLdapFrontend($dir);
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Trying to dump configuration of unknown LDAP mode: $mode");
-    }
-}
-
-sub _modeToBeRestored
-{
-    my ($self, $dir) = @_;
-
-    my $masterFile = $self->ldap()->ldifFile($dir, 'master', 'data');
-    if (-r $masterFile ) {
-        # master or ad-slave is the same
-        return 'master';
-    } else {
-        return 'slave';
+    $self->ldap->dumpLdapMaster($dir);
+    if ($options{bug}) {
+        my $file = $self->ldap->ldifFile($dir, 'master', 'data');
+        $self->_removePasswds($file);
     }
 }
 
@@ -2585,16 +2214,9 @@ sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;
 
-    # get what will be the mode to be restored
-    my $mode = $self->_modeToBeRestored($dir);
-    if ($mode eq 'slave') {
-        # TODO: implement check for slave setups
-        return;
-    }
-
     my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
 
-    my @usersToRestore = @{ $self->ldap->usersInBackup($dir, $mode) };
+    my @usersToRestore = @{ $self->ldap->usersInBackup($dir, 'master') };
     foreach my $user (@usersToRestore) {
         if (exists $etcPasswdUsers{$user}) {
             throw EBox::Exceptions::External(
@@ -2611,48 +2233,7 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
     return;
-
-# TODO review/rewrite
-#    my $mode = $self->mode();
-#
-#    if ($mode eq 'master' or $mode eq 'ad-slave') {
-#        EBox::UsersAndGroups::Setup::createDefaultGroupIfNeeded();
-#
-#        $self->_manageService('stop');
-#        $self->ldap->restoreLdapMaster($dir);
-#        $self->_manageService('start');
-#        $self->ldap->clearConn();
-#
-#        # Save conf to enable NSS (and/or) PAM
-#        $self->_setConf();
-#        for my $user ($self->users()) {
-#            $self->initUser($user->{'username'});
-#        }
-#    } elsif ($mode eq 'slave') {
-#        $self->_manageService('stop');
-#        $self->ldap->restoreLdapReplica($dir);
-#        $self->ldap->restoreLdapTranslucent($dir);
-#        $self->ldap->restoreLdapFrontend($dir);
-#        $self->ldap->clearConn();
-#        $self->_manageService('start');
-#        try {
-#            $self->waitSync();
-#        } otherwise {
-#            my $model = EBox::Model::ModelManager->instance()->model('Mode');
-#            my $remote = $model->remoteValue();
-#            throw EBox::Exceptions::Internal("Cannot restore slave machine when master is down: $remote");
-#        };
-#
-#        # Save conf to enable NSS (and/or) PAM
-#        $self->_setConf();
-#        for my $user ($self->users()) {
-#            $self->initUser($user->{'username'});
-#        }
-#        $self->_enforceServiceState();
-#    } else {
-#        throw EBox::Exceptions::Internal(
-#            "Trying to restore configuration of unknown LDAP mode: $mode");
-#    }
+    # TODO review/rewrite
 }
 
 sub _removePasswds
@@ -2660,32 +2241,32 @@ sub _removePasswds
   my ($self, $file) = @_;
 
   my $anyPasswdAttr = any(qw(
-                              userPassword
-                              sambaLMPassword
-                              sambaNTPassword
-                            )
-                         );
+              userPassword
+              sambaLMPassword
+              sambaNTPassword
+              )
+          );
   my $passwordSubstitution = "password";
 
   my $FH_IN;
   open $FH_IN, "<$file" or
-    throw EBox::Exceptions::Internal ("Cannot open $file: $!");
+      throw EBox::Exceptions::Internal ("Cannot open $file: $!");
 
   my ($FH_OUT, $tmpFile) = tempfile(DIR => EBox::Config::tmp());
 
   foreach my $line (<$FH_IN>) {
-    my ($attr, $value) = split ':', $line;
-    if ($attr eq $anyPasswdAttr) {
-      $line = $attr . ': ' . $passwordSubstitution . "\n";
-    }
+      my ($attr, $value) = split ':', $line;
+      if ($attr eq $anyPasswdAttr) {
+          $line = $attr . ': ' . $passwordSubstitution . "\n";
+      }
 
-    print $FH_OUT $line;
+      print $FH_OUT $line;
   }
 
   close $FH_IN  or
-    throw EBox::Exceptions::Internal ("Cannot close $file: $!");
+      throw EBox::Exceptions::Internal ("Cannot close $file: $!");
   close $FH_OUT or
-    throw EBox::Exceptions::Internal ("Cannot close $tmpFile: $!");
+      throw EBox::Exceptions::Internal ("Cannot close $tmpFile: $!");
 
   File::Copy::move($tmpFile, $file);
   unlink $tmpFile;
@@ -2816,71 +2397,6 @@ sub defaultPasswordHash
     return $hash;
 }
 
-sub _getCertificates
-{
-    my ($self, $ldap, $dn) = @_;
-
-    my %args = (
-        'base' => "cn=master,$dn",
-        'scope' => 'base',
-        'filter' => 'objectClass=masterHost'
-    );
-    my $result = $ldap->search(%args);
-    my $entry = ($result->entries)[0];
-    my $cert = $entry->get_value('masterCertificate');
-    my $cacert = $entry->get_value('masterCACertificate');
-    my $ldapcacert = $entry->get_value('masterLDAPCACertificate');
-
-    write_file(SSL_DIR . 'master.cert', $cert);
-    write_file(CA_DIR . 'masterca.pem', $cacert);
-    #remove old links pointing to masterca.pem
-    opendir(my $dir, CA_DIR);
-    while(my $file = readdir($dir)) {
-        next unless (-l CA_DIR . $file);
-        my $link = readlink (CA_DIR . $file);
-        if ($link eq 'masterca.pem') {
-            unlink(CA_DIR . $file);
-        }
-    }
-    EBox::Sudo::command('ln -s masterca.pem ' . CA_DIR . '`openssl x509 -hash -noout -in ' . CA_DIR . 'masterca.pem`.0');
-
-    write_file(CA_DIR . 'masterldapca.pem', $ldapcacert);
-    EBox::Sudo::root('ln -sf ' . CA_DIR . 'masterldapca.pem /etc/ldap/ssl/masterldapca.pem');
-    EBox::Module::Base::writeConfFileNoCheck('/etc/ldap/ldap.conf',
-            'users/ldap-slave.conf.mas',
-    );
-
-}
-
-#sub _writeLdapConf
-#{
-#    my ($self, $name, $opts) = @_;
-#
-#    EBox::Module::Base::writeConfFileNoCheck(
-#        EBox::Config::tmp() . "slapd-$name.ldif",
-#        "users/slapd-$name.ldif.mas",
-#        $opts
-#    );
-#
-#    my @cmds;
-#
-#    push (@cmds, 'rm -rf ' . LDAPCONFDIR . "slapd-$name.d");
-#    push (@cmds, 'mkdir -p ' . LDAPCONFDIR . "slapd-$name.d");
-#    push (@cmds, 'chmod 750 ' . LDAPCONFDIR . "slapd-$name.d");
-#
-#    push (@cmds, "rm -rf /var/lib/ldap-$name");
-#    push (@cmds, "mkdir -p /var/lib/ldap-$name");
-#    push (@cmds, "chmod 750 /var/lib/ldap-$name");
-#
-#    push (@cmds, 'slapadd -F ' . LDAPCONFDIR . "slapd-$name.d" .
-#        ' -b "cn=config" -l ' . EBox::Config::tmp() . "slapd-$name.ldif");
-#
-#    push (@cmds, 'chown -R openldap.openldap ' . LDAPCONFDIR . "slapd-$name.d");
-#    push (@cmds, "chown -R openldap.openldap /var/lib/ldap-$name");
-#
-#    EBox::Sudo::root(@cmds);
-#}
-
 sub listUsers
 {
     my ($self, $ldap, $dn) = @_;
@@ -2927,40 +2443,13 @@ sub listSchemas
     return \@schemas;
 }
 
-sub listSlaves
-{
-    my ($self) = @_;
 
-# FIXME rewrite using models
-
-    return [];
-
-#    my %args = (
-#        'base' => $self->slavesDn(),
-#        'scope' => 'sub',
-#        'filter' => "(objectClass=slaveHost)"
-#    );
-#    my $result = $self->ldap->search(\%args);
-#
-#    my @slaves = map {
-#        {
-#            'hostname' => $_->get_value('hostname'),
-#            'port' => $_->get_value('port')
-#        }
-#    } $result->entries();
-#    return \@slaves;
-}
-
-
+# FIXME delete this method
 sub mode
 {
     my ($self) = @_;
 
-    # Do not use module manager here to avoid ModelManager recursion
-    # on automatic LDAP servers start
-    my $mode = $self->get_string('Mode/mode');
-    return 'master' unless defined($mode);
-    return $mode;
+    return 'master';
 }
 
 sub baseDn
@@ -2994,29 +2483,6 @@ sub _homeDirectory
 
     my $home = HOMEPATH . '/' . $username;
     return $home;
-}
-
-sub _setupNSSPAM
-{
-    my ($self) = @_;
-
-    my @array;
-    my $umask = EBox::Config::configkey('dir_umask');
-    push (@array, 'umask' => $umask);
-
-    $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-ebox.mas',
-               \@array);
-
-    my $enablePam = $self->model('PAM')->enable_pamValue();
-    my @cmds;
-    push (@cmds, 'auth-client-config -a -p ebox');
-
-    unless ($enablePam) {
-        push (@cmds, 'auth-client-config -a -p ebox -r');
-    }
-
-    push (@cmds, 'auth-client-config -t nss -p ebox');
-    EBox::Sudo::root(@cmds);
 }
 
 1;
