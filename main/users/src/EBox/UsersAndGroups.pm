@@ -243,11 +243,11 @@ sub enableActions
         throw EBox::Exceptions::External(__('Error while creating users and groups database'));
     };
 
-    $self->_manageService('start');
-    $self->ldap->clearConn();
-
     # Setup NSS (needed if some user is added before save changes)
     $self->_setConf();
+
+    $self->_manageService('start');
+    $self->ldap->clearConn();
 
     # Create default group
     $self->addGroup(DEFAULTGROUP, 'All users', 1);
