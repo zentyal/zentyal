@@ -26,6 +26,7 @@ HEAD
 	  option. Final message shows administrative interface localhost URL
 	+ restore-tool: fixed dialog when credentials are incorrect;
 	  better exclusion of problematic files to restore
+	+ Fixed date parsing in restore-tool and configuration cloiud backup
 2.2.2
 	+ Exception in permanent message of remote restore screen is now managed
 	+ Defaults in excludes and includes list are not longer added when
