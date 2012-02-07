@@ -1,19 +1,22 @@
+FLAGS=-Wall -fpermissive
+LIBS=-lpcap -lconfig
+CC=g++
 
-all : bwmonitor.cpp bwstats dumpers
-	g++ -Wall -lpcap -lconfig bwstats.o console.o bwmonitor.cpp -o zbwmonitor
+all: bwmonitor.cpp bwstats dumpers
+	$(CC) $(FLAGS) bwstats.o console.o bwmonitor.cpp $(LIBS) -o zbwmonitor
 
-bwstats : bwstats.h bwstats.cpp
-	g++ -Wall -c bwstats.cpp
+bwstats: bwstats.h bwstats.cpp
+	$(CC) $(FLAGS) -c bwstats.cpp
 
-dumpers : bwstats.h consoledumper
+dumpers: bwstats.h consoledumper
 
-consoledumper : dumpers/console.h dumpers/console.cpp
-	g++ -Wall -c dumpers/console.cpp
+consoledumper: dumpers/console.h dumpers/console.cpp
+	$(CC) $(FLAGS) -c dumpers/console.cpp
 
-install : all
+install: all
 	install -m755 zbwmonitor $(DESTDIR)/usr/sbin
 	install -m644 CONF.EXAMPLE $(DESTDIR)/usr/share/doc/zbwmonitor
 
-clean :
+clean:
 	rm *.o zbwmonitor
 

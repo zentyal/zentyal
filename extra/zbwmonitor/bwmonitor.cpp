@@ -63,9 +63,9 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
         lastDump = time(NULL);
     }
 
-    const struct ether_header *eth;
+    //const struct ether_header *eth;
     const struct ip *ip;
-    eth = (const struct ether_header*) packet;
+    //eth = (const struct ether_header*) packet;
     packet += sizeof(struct ether_header);
     ip = (const struct ip*) packet;
 
