@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -44,6 +45,19 @@ sub _process
 	my @array = ();
 
 	my $action = $self->param("action");
+
+    my $objects = EBox::Global->modInstance('objects');
+    my @object_list;
+
+    for my $object (@{$objects->objects()}) {
+        my $there_is_mac = 0;
+        for my $member (@{$objects->objectMembers($object->{id})}) {
+            $there_is_mac = $there_is_mac || defined $member->{macaddr};
+        }
+        if ($there_is_mac) {
+            push(@object_list, $object);
+        }
+    }
 
 	if(defined($action)){
 		if($action eq "ping"){
@@ -68,14 +82,40 @@ sub _process
 			push(@array, 'target' => $host);
 			push(@array, 'output' => $output);
         } elsif ($action eq "wakeonlan") {
-            $self->_requireParam("mac", __("MAC address"));
-            my $mac = $self->param("mac");
-            my $output = $net->wakeonlan($mac);
-            push(@array, 'action' => 'wakeonlan');
-            push(@array, 'target' => $mac);
-            push(@array, 'output' => $output);
+            my $id = $self->param("object_id");
+            if ( $id eq 'other' ) {
+                try {
+                    $self->_requireParam("mac", __("MAC address"));
+                } otherwise {
+                    push(@array, 'objects' => \@object_list);
+                    $self->{params} = \@array;
+
+                    my $ex = shift;
+                    $ex->throw();
+                };
+                my $mac = $self->param("mac");
+
+                EBox::Validate::checkMAC($mac, __("MAC address"));
+
+                my $output = $net->wakeonlan($mac);
+                push(@array, 'action' => 'wakeonlan');
+                push(@array, 'target' => $mac);
+                push(@array, 'output' => $output);
+            } else {
+                my $objects = EBox::Global->modInstance('objects');
+                my @macs;
+                for my $member (@{$objects->objectMembers($id)}) {
+                    push(@macs, $member->{macaddr});
+                }
+
+                my $output = $net->wakeonlan(@macs);
+                push(@array, 'action' => 'wakeonlan');
+                push(@array, 'target' => $id);
+                push(@array, 'output' => $output);
+            }
         }
 	}
+    push(@array, 'objects' => \@object_list);
 	$self->{params} = \@array;
 }
 

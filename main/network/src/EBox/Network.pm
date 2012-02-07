@@ -3737,7 +3737,7 @@ sub resolv # (host)
 #
 # Parameters:
 #
-#   mac - MAC address of the computer to wake
+#   macs - Array of MAC addresses of the computers to wake
 #
 # Returns:
 #
@@ -3745,12 +3745,11 @@ sub resolv # (host)
 #
 sub wakeonlan # (macs)
 {
-    my ($self, $mac) = @_;
+    my ($self, @macs) = @_;
 
-    checkMAC($mac, __("MAC address"));
+    my $param = join (' ' , @macs);
 
-    return `wakeonlan $mac 2>&1`;
-#    return "wakeonlan $mac";
+    return `wakeonlan $param 2>&1`;
 }
 
 sub interfacesWidget

@@ -4,6 +4,7 @@
 	$action => ""
 	$target => ""
 	$output => ""
+    $objects => ""
 </%args>
 <%init>
 use EBox::Gettext;
@@ -35,40 +36,49 @@ use EBox::Gettext;
 <input class='inputButton' type='submit'
 	  name='accept' value="<% __('Lookup') %>" />
 </form>
+
+
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="wakeonlan"/>
-<h3><% __('WakeOnLan') %></h3>
+<h3><% __('Wake On LAN') %></h3>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 <% __('MAC address') %>:
-<select name="type_mac" id="type_mac" onchange="showSelected(this);" >
-    <option value="manual">Specify MAC</option>
-    <option value="object">Object</option>
+
+%   my $target_found = 0;
+%# Do not show the select if there are no objects
+%   if (@{$objects}) {
+<select name="object_id" id="object_id" onchange="showSelected(this);" >
+%       for my $object (@{$objects}) {
+            <option value="<% $object->{id} %>"
+%           if ($target eq $object->{id}) {
+                selected="selected"
+%                $target_found = 1;
+%           }
+            ><% $object->{name} %></option>
+%       }
+
+    <option disabled="disabled" value="separator"></option>
+    <option value="other"
+%       unless ($target_found) {
+            selected="selected"
+%       }
+        ><% __('Other...') %>
+    </option>
 </select>
-<span class="" id="type_mac_manual_container">
-    <input class='inputText' type='text' name='mac'
-           value="<% $action eq 'wakeonlan' ? $target : ''%>" /> 
-    <input class='inputButton' type='submit'
-           name='accept' value="<% __('Wake') %>" />
+%   }
+
+<span
+%   if ($target_found) {
+        class="hidden"
+%   }
+    id="object_id_other_container">
+        <input class='inputText' type='text' name='mac'
+%           unless ($target_found) {
+            value="<% $action eq 'wakeonlan' ? $target : ''%>"
+%           }
+        />
 </span>
-<span class="hidden" id="type_mac_object_container">
-    <select onchange="    if (this.options[this.selectedIndex].value == '_addNew') {
-          modalChangeView('/Objects/ModalController/ObjectTable','ObjectTable_modal','objectTable','changeAdd','undefined', {'selectCallerId': 'mac_object', 'selectForeignField': 'name', 'foreignNextPageField': 'members', 'firstShow': '1', 'title': 'New object', 'nextPageContextName': '/objects/MemberTable/', })
-    } ; return false;
-" class="" id="mac_object" name="mac_object">
- 
-<option value="_addNew">
-<% __('Add new...') %>
-</option>
-
- 
-<option disabled="disabled" selected="selected" value="separator">
-
-</option>
-
-
-
-</select>
-</span>
+<input class='inputButton' type='submit' name='accept' value="<% __('Wake') %>" />
 % if($action ne ''){
 <h3><% __('Output') %></h3>
 <pre>
