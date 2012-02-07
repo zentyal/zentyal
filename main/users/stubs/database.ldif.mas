@@ -22,10 +22,6 @@ dn: ou=Groups,<% $dn %>
 objectClass: organizationalUnit
 ou: Groups
 
-dn: ou=slaves,<% $dn %>
-objectClass: organizationalUnit
-ou: slaves
-
 dn: cn=zentyal,<% $dn %>
 objectClass: organizationalRole
 objectClass: simpleSecurityObject
