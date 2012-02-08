@@ -3897,7 +3897,7 @@ sub menu
                                       'order' => 70));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
-                                      'text' => __('Diagnostic Tools'),
+                                      'text' => __('Tools'),
                                       'order' => 80));
 
     $root->add($folder);
