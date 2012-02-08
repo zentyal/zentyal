@@ -26,25 +26,25 @@ use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Network Diagnostic Tools'),
-				      'template' => '/network/diag.mas',
-				      @_);
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Network Diagnostic Tools'),
+                                  'template' => '/network/diag.mas',
+                                  @_);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	$self->{title} = __('Network Diagnostic Tools');
+    my $self = shift;
+    $self->{title} = __('Network Diagnostic Tools');
 
-	my $net = EBox::Global->modInstance('network');
+    my $net = EBox::Global->modInstance('network');
 
-	my @array = ();
+    my @array = ();
 
-	my $action = $self->param("action");
+    my $action = $self->param("action");
 
     my $objects = EBox::Global->modInstance('objects');
     my @object_list;
@@ -59,28 +59,28 @@ sub _process
         }
     }
 
-	if(defined($action)){
-		if($action eq "ping"){
-			$self->_requireParam("ip", __("Host"));
-			my $ip = $self->param("ip");
-			my $output = $net->ping($ip);
-			push(@array, 'action' => 'ping');
-			push(@array, 'target' => $ip);
-			push(@array, 'output' => $output);
-		}elsif($action eq "traceroute"){
-			$self->_requireParam("ip", __("Host"));
-			my $ip = $self->param("ip");
-			my $output = $net->traceroute($ip);
-			push(@array, 'action' => 'traceroute');
-			push(@array, 'target' => $ip);
-			push(@array, 'output' => $output);
-		}elsif($action eq "dns"){
-			$self->_requireParam("host", __("host name"));
-			my $host = $self->param("host");
-			my $output = $net->resolv($host);
-			push(@array, 'action' => 'dns');
-			push(@array, 'target' => $host);
-			push(@array, 'output' => $output);
+    if(defined($action)){
+        if($action eq "ping"){
+            $self->_requireParam("ip", __("Host"));
+            my $ip = $self->param("ip");
+            my $output = $net->ping($ip);
+            push(@array, 'action' => 'ping');
+            push(@array, 'target' => $ip);
+            push(@array, 'output' => $output);
+        }elsif($action eq "traceroute"){
+            $self->_requireParam("ip", __("Host"));
+            my $ip = $self->param("ip");
+            my $output = $net->traceroute($ip);
+            push(@array, 'action' => 'traceroute');
+            push(@array, 'target' => $ip);
+            push(@array, 'output' => $output);
+        }elsif($action eq "dns"){
+            $self->_requireParam("host", __("host name"));
+            my $host = $self->param("host");
+            my $output = $net->resolv($host);
+            push(@array, 'action' => 'dns');
+            push(@array, 'target' => $host);
+            push(@array, 'output' => $output);
         } elsif ($action eq "wakeonlan") {
             my $id = $self->param("object_id");
             if ( $id eq 'other' ) {
@@ -114,9 +114,9 @@ sub _process
                 push(@array, 'output' => $output);
             }
         }
-	}
+    }
     push(@array, 'objects' => \@object_list);
-	$self->{params} = \@array;
+    $self->{params} = \@array;
 }
 
 1;

@@ -1,9 +1,9 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	$action => ""
-	$target => ""
-	$output => ""
+    $action => ""
+    $target => ""
+    $output => ""
     $objects => ""
 </%args>
 <%init>
@@ -12,29 +12,29 @@ use EBox::Gettext;
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="ping"/>
 <h3><% __('Ping') %></h3>
-<% __('Host') %>: 
+<% __('Host') %>:
 <input class='inputText' type='text' name='ip'
-	   value="<% $action eq 'ping' ? $target : ''%>" /> 
+       value="<% $action eq 'ping' ? $target : ''%>" />
 <input class='inputButton' type='submit'
-	  name='accept' value="<% __('Ping') %>" />
+       name='accept' value="<% __('Ping') %>" />
 </form>
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="traceroute"/>
 <h3><% __('Traceroute') %></h3>
 <% __('Host') %>:
 <input class='inputText' type='text' name='ip'
-	   value="<% $action eq 'traceroute' ? $target : ''%>" />
+       value="<% $action eq 'traceroute' ? $target : ''%>" />
 <input class='inputButton' type='submit'
-	  name='accept' value="<% __('Trace') %>" />
+       name='accept' value="<% __('Trace') %>" />
 </form>
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="dns"/>
 <h3><% __('Domain Name Resolution') %></h3>
-<% __('Domain name') %>: 
+<% __('Domain name') %>:
 <input class='inputText' type='text' name='host'
-	   value="<% $action eq 'dns' ? $target : ''%>" /> 
+       value="<% $action eq 'dns' ? $target : ''%>" />
 <input class='inputButton' type='submit'
-	  name='accept' value="<% __('Lookup') %>" />
+       name='accept' value="<% __('Lookup') %>" />
 </form>
 
 
@@ -52,7 +52,7 @@ use EBox::Gettext;
             <option value="<% $object->{id} %>"
 %           if ($target eq $object->{id}) {
                 selected="selected"
-%                $target_found = 1;
+%               $target_found = 1;
 %           }
             ><% $object->{name} %></option>
 %       }
@@ -79,6 +79,7 @@ use EBox::Gettext;
         />
 </span>
 <input class='inputButton' type='submit' name='accept' value="<% __('Wake') %>" />
+
 % if($action ne ''){
 <h3><% __('Output') %></h3>
 <pre>
