@@ -240,7 +240,7 @@ sub _requireParam # (param, display)
 {
     my ($self, $param, $display) = @_;
 
-    unless (defined($self->param($param)) && $self->param($param) ne "") {
+    unless (defined($self->unsafeParam($param)) && $self->unsafeParam($param) ne "") {
         $display or
             $display = $param;
         throw EBox::Exceptions::DataMissing(data => $display);
@@ -254,12 +254,11 @@ sub _requireParamAllowEmpty # (param, display)
 {
     my ($self, $param, $display) = @_;
 
-        foreach my $cgiparam (@{$self->params}){
-                return if ($cgiparam =~ /^$param$/);
-        }
+    foreach my $cgiparam (@{$self->params}){
+        return if ($cgiparam =~ /^$param$/);
+    }
 
-        throw EBox::Exceptions::DataMissing(data => $display);
-
+    throw EBox::Exceptions::DataMissing(data => $display);
 }
 
 sub run

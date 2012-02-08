@@ -68,7 +68,7 @@ sub getParams
         }
     }
 
-    $params{'id'} = $self->param('id');
+    $params{'id'} = $self->unsafeParam('id');
     $params{'filter'} = $self->param('filter');
 
     return %params;
@@ -145,7 +145,7 @@ sub moveRow
     $self->_requireParam('id');
     $self->_requireParam('dir');
 
-    my $id = $self->param('id');
+    my $id = $self->unsafeParam('id');
     my $dir = $self->param('dir');
 
     my $before = $model->_rowOrder($id);
@@ -166,7 +166,7 @@ sub removeRow
     my $model = $self->{'tableModel'};
 
     $self->_requireParam('id');
-    my $id = $self->param('id');
+    my $id = $self->unsafeParam('id');
     my $force = $self->param('force');
 
     $model->removeRow($id, $force);
@@ -235,7 +235,7 @@ sub editBoolean
     my ($self) = @_;
 
     my $model = $self->{'tableModel'};
-    my $id = $self->param('id');
+    my $id = $self->unsafeParam('id');
     my $field = $self->param('field');
     my $value = 0;
     if ($self->param('value')) {
@@ -384,7 +384,7 @@ sub _process
     } elsif ($action eq 'editBoolean') {
         delete $self->{template};
         $self->editBoolean();
-    } elsif ($model->customActions($action, $self->param('id'))) {
+    } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);
         $self->refreshTable();
     } else {

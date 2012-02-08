@@ -1,4 +1,5 @@
 HEAD
+	+ Get row ids without safe characters checking
 	+ Added EBox::Util::Random as random string generator
 2.3
 	+ Avoid use of AUTOLOAD to execute redis commands, improves performance
