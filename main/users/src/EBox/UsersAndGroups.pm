@@ -232,7 +232,7 @@ sub initialSetup
                 'description' => 'LDAP',
                 'protocol' => 'tcp',
                 'sourcePort' => 'any',
-                'destinationPort' => 389,
+                'destinationPort' => 390,
                 'target'  => 'deny',
                 );
         $fw->saveConfigRecursive();

@@ -104,7 +104,7 @@ sub _loadSchema
     } elsif ($mode eq 'slave') {
         my $password = $self->ldap->getPassword();
         my $ldap;
-        my @ports = (389, 1389, 1390);
+        my @ports = (390, 1389, 1390);
         for my $port (@ports) {
             $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
             EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
@@ -170,7 +170,7 @@ sub _loadACL
     } elsif ($mode eq 'slave') {
         my $password = $self->ldap->getPassword();
         my $ldap;
-        my @ports = (389, 1389, 1390);
+        my @ports = (390, 1389, 1390);
         for my $port (@ports) {
             $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
             EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
@@ -257,7 +257,7 @@ sub _addIndex
     } elsif ($mode eq 'slave') {
         my $password = $self->ldap->getPassword();
         my $ldap;
-        my @ports = (389, 1389, 1390);
+        my @ports = (390, 1389, 1390);
         for my $port (@ports) {
             $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
             EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
