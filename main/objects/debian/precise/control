@@ -5,7 +5,7 @@ Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Build-Depends: zbuildtools
 Standards-Version: 3.8.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git
+Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/objects
 Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-objects
