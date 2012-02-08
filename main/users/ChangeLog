@@ -1,3 +1,6 @@
+2.3.1
+	+ Use Digest::SHA instead of Digest::SHA1 and remove libdigest-sha1-perl
+	  dependency which no longer exists on precise
 2.3
 	+ Commented unused code in cleanUser method
 	+ Replaced autotools with zbuildtools

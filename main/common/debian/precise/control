@@ -2,15 +2,17 @@ Source: zentyal-common
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
-Standards-Version: 3.8.2
+Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git
+Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/common
 Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-common
 Architecture: all
 Replaces: libebox (<< 2.0.100)
+Breaks: libebox (<< 2.0.100)
 Depends: sudo, iproute, liblog-dispatch-perl, liblog-log4perl-perl, libhtml-mason-perl (>= 1:1.44-1+zentyal1), liblocale-gettext-perl, liberror-perl, libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext, libfile-slurp-perl, libreadonly-perl, libreadonly-xs-perl, libperl6-junction-perl, libmail-rfc822-address-perl, libsoap-lite-perl, libjs-scriptaculous, libjs-prototype, libdata-validate-domain-perl, libconfig-tiny-perl, libio-interface-perl, ${misc:Depends}
 Conflicts: sudo-ldap
 Description: Zentyal - Common Library

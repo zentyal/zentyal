@@ -1,4 +1,6 @@
 HEAD
+	+ Menu entry Diagnostic Tools in Network renamed to Tools
+	+ Added WakeOnLan to the Network Diagnostic Tools
 	+ Added proxySettings to return the proxy settings to other modules
 	+ Added new ip rules to avoid connection problems on multigateway & UDP
 	+ Virtual interfaces called '0' does not longer raise error

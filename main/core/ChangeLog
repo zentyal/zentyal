@@ -1,4 +1,6 @@
 HEAD
+	+ Now events are logged in a new file (events.log) in a more
+	  human-readable format
 	+ Added legend to DataTables with custom actions
 	+ Changed JS to allow the restore of the action cell when a delete
 	  action fails
