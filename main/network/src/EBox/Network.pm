@@ -2762,6 +2762,7 @@ sub generateInterfaces
     }
     my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
     print IFACES "\n\niface lo inet loopback\n";
+    print IFACES "    post-up ip addr add 127.0.1.1/8 dev lo\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
         my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;

@@ -233,8 +233,8 @@ sub _table
     my $dataTable = {
                      tableName          => 'Samba4SharePermissions',
                      printableTableName => __('Access Control'),
-                     modelDomain        => 'Samba',
-                     menuNamespace      => 'Samba/View/Samba4Shares',
+                     modelDomain        => 'Samba4',
+                     menuNamespace      => 'Samba4/View/Samba4Shares',
                      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',

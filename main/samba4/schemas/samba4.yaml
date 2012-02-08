@@ -2,6 +2,9 @@ class: 'EBox::Samba4'
 
 depends:
     - network
+    - users
 
 enabledepends:
     - network
+    - users
+    - dns

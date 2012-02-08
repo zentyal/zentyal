@@ -22,12 +22,12 @@ use warnings;
 #            EBox::Report::DiskUsageProvider EBox::Model::CompositeProvider
 #            EBox::Model::ModelProvider EBox::LogObserver);
 use base qw(EBox::Module::Service EBox::Model::CompositeProvider EBox::Model::ModelProvider
-            EBox::FirewallObserver);
+            EBox::FirewallObserver EBox::LdapModule);
 
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
-#use EBox::SambaLdapUser;
+use EBox::Samba4LdapUser;
 #use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::Samba4Firewall;
@@ -51,23 +51,27 @@ use Net::Domain qw(hostdomain);
 #use Error qw(:try);
 use Sys::Hostname;
 
-use constant SAMBACONFFILE          => '/etc/samba/smb.conf';
+use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
+use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
+use constant SAMBADNSZONE         => '/var/lib/samba/private/named.conf';
+use constant SAMBADNSKEYTAB       => '/var/lib/samba/private/dns.keytab';
+use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
 #use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
 #use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
 #use constant SMBLDAPTOOLBINDFILE_MASK => '0600';
 #use constant SMBLDAPTOOLBINDFILE_UID => '0';
 #use constant SMBLDAPTOOLBINDFILE_GID => '0';
 #use constant SMBLDAPTOOLCONFFILE  => '/etc/smbldap-tools/smbldap.conf';
-use constant SAMBAPIDFILE         => '/var/run/samba.pid';
+#use constant SAMBAPIDFILE         => '/var/run/samba.pid';
 #use constant NMBPIDFILE           => '/var/run/samba/nmbd.pid';
 use constant MAXNETBIOSLENGTH     => 15;
 use constant MAXWORKGROUPLENGTH   => 32;
 use constant MAXDESCRIPTIONLENGTH => 255;
-use constant SAMBAPORTS => qw(137 138 139 445);
+use constant SAMBAPORTS => qw(88 135 137 138 139 389 445 464 636 1024 3268 3269);
 #use constant NETLOGONDIR          => '/home/samba/netlogon';
 #use constant NETLOGONSCRIPT       => 'logon.bat';
 #use constant NETLOGONDEFAULTSCRIPT=> 'zentyal-logon.bat';
-#
+
 #use constant FIX_SID_PROGRAM => EBox::Config::scripts('samba4') . 'fix-sid';
 
 sub _create
@@ -104,6 +108,30 @@ sub bootDepends
 
     return $dependsList;
 }
+
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#    <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    my @params = ();
+    return [
+            {
+                'binary' => 'usr.sbin.named',
+                'local'  => 1,
+                'file'   => 'samba4/apparmor-named.local.mas',
+                'params' => \@params,
+            }
+           ];
+}
+
 
 # Method: actions
 #
@@ -150,15 +178,12 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    EBox::debug("On initialSetup");
-
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
 
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
-        EBox::debug("On initialSetup inner");
         my $services = EBox::Global->modInstance('services');
 
         my $serviceName = 'samba4';
@@ -176,50 +201,73 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
 
         $firewall->saveConfigRecursive();
-
-        # Provision the database
-        # TODO Is this the right place? Maybe in _setConf?
-        # TODO remove hard coded paths
-        unless($version)
-        {
-            # This file must be deleted or provision may fail
-            EBox::Sudo::root("rm -f /usr/local/samba/etc/smb.conf");
-            my $cmd = "/usr/local/samba/sbin/provision " .
-                            " --domain=" . $self->workgroup() .
-                            " --workgroup=" . $self->workgroup() .
-                            " --realm=" . $self->realm() .
-                            " --dns-backend=BIND9_FLATFILE" .
-                            " --server-role=" . $self->mode();
-            EBox::debug("Provisioning: $cmd");
-            EBox::Sudo::root($cmd);
-        }
-
     }
 }
 
 sub _services
 {
-    return [
-             { # netbios-ns
-                 'protocol' => 'tcp/udp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => '137',
-             },
-             { # netbios-dgm
-                 'protocol' => 'tcp/udp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => '138',
-             },
-             { # netbios-ssn
-                 'protocol' => 'tcp/udp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => '139',
-             },
-             { # microsoft-ds
-                 'protocol' => 'tcp/udp',
-                 'sourcePort' => 'any',
-                 'destinationPort' => '445',
-             },
+    return
+    [
+    { # kerberos
+        'protocol' => 'tcp/udp',
+            'sourcePort' => 'any',
+            'destinationPort' => '88',
+    },
+    { # DCE endpoint resolution
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '135',
+    },
+    { # netbios-ns
+        'protocol' => 'udp',
+        'sourcePort' => 'any',
+        'destinationPort' => '137',
+    },
+    { # netbios-dgm
+        'protocol' => 'udp',
+        'sourcePort' => 'any',
+        'destinationPort' => '138',
+    },
+    { # netbios-ssn
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '139',
+    },
+    { # samba LDAP
+        'protocol' => 'tcp/udp',
+        'sourcePort' => 'any',
+        'destinationPort' => '389',
+    },
+    { # microsoft-ds
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '445',
+    },
+    { # kerberos change/set password
+        'protocol' => 'tcp/udp',
+        'sourcePort' => 'any',
+        'destinationPort' => '464',
+    },
+    { # LDAP over TLS/SSL
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '636',
+    },
+    { # unknown???
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '1024',
+    },
+    { # msft-gc
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '3268',
+    },
+    { # msft-gc-ssl
+        'protocol' => 'tcp',
+        'sourcePort' => 'any',
+        'destinationPort' => '3269',
+    },
     ];
 }
 
@@ -232,6 +280,25 @@ sub enableActions
     my ($self) = @_;
 
     EBox::debug('On enableActions');
+
+    # Provision the database
+#    unless($self->configured())
+#    {
+        # This file must be deleted or provision may fail
+        EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
+        my $cmd = SAMBAPROVISION .
+            " --domain=" . $self->workgroup() .
+            " --workgroup=" . $self->workgroup() .
+            " --realm=" . $self->realm() .
+            " --dns-backend=BIND9" .
+            " --server-role=" . $self->mode() .
+            " --adminpass=" . $self->administratorPassword();
+        EBox::debug("Provisioning database <$cmd>");
+        EBox::Sudo::root($cmd);
+        EBox::Sudo::root('chown root:bind ' . SAMBADNSZONE);
+#    }
+
+
 #    $self->performLDAPActions();
 
     # Execute enable-module script
@@ -532,6 +599,7 @@ sub _preSetConf
 {
     my ($self) = @_;
 
+    EBox::debug('stopping service');
     $self->_stopService();
 }
 
@@ -624,7 +692,7 @@ sub _setConf
     $self->model('Samba4Shares')->createDirs();
 
     # Change group ownership of quarantine_dir to __USERS__
-    # TODO
+    # TODO change when users module installed
     my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
     #EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
     EBox::Sudo::silentRoot("chown root:sambashare $quarantine_dir");
@@ -798,8 +866,6 @@ sub _daemons
     return [
         {
             'name' => 'samba4',
-            # TODO Adapt to ubuntu packaging
-            'type' => 'init.d',
         },
     ];
 }
@@ -959,6 +1025,12 @@ sub netbiosName
     return $model->netbiosNameValue();
 }
 
+# Generate an administrator password
+sub defaultAdministratorPassword
+{
+    return 'Zentyal1234';
+}
+
 # Build the default netbios server name
 sub defaultNetbios
 {
@@ -999,6 +1071,15 @@ sub mode
     return $model->modeValue();
 }
 
+#return the administrator password
+sub administratorPassword
+{
+    my ($self) = @_;
+
+    my $model = $self->model('GeneralSettings');
+    return $model->passwordValue();
+}
+
 # Returns realm
 sub realm
 {
@@ -1027,12 +1108,12 @@ sub workgroup
 #}
 
 # LdapModule implmentation
-#sub _ldapModImplementation
-#{
-#    my $self;
-#
-#    return new EBox::SambaLdapUser();
-#}
+sub _ldapModImplementation
+{
+    my $self;
+
+    return new EBox::Samba4LdapUser();
+}
 
 # Helper functions
 #sub _checkNetbiosName # (name)
@@ -1353,7 +1434,7 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
 
-#    $self->set_bool('ignorePrinterNotFound', 1);
+    $self->set_bool('ignorePrinterNotFound', 1);
 
 #    try {
 #        $self->fixSIDs();
@@ -1483,9 +1564,9 @@ sub restoreDependencies
 #    my $cmd = "net  SETDOMAINSID $domainSID";
 #    EBox::Sudo::root($cmd);
 #}
-#
-#
-#
+
+
+
 #sub _sharesTreeFile
 #{
 #    my ($self, $dir) = @_;

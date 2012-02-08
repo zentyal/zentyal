@@ -198,6 +198,12 @@ sub _table
             'populate' => \&_server_roles,
             'editable' => 1,
         ),
+        new EBox::Types::Text(
+            fieldName => 'password',
+            printableName => __('Administrator password'),
+            defaultValue => EBox::Samba4::defaultAdministratorPassword(),
+            editable => 1,
+        ),
         new EBox::Types::DomainName(
             'fieldName' => 'realm',
             'printableName' => __('Domain'),

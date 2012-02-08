@@ -36,6 +36,7 @@ use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
 use EBox::Model::ModelManager;
 use EBox::Sudo;
+use EBox::Samba4;
 
 use Error qw(:try);
 use File::Temp;
@@ -695,6 +696,17 @@ sub enableService
 sub _setConf
 {
     my ($self) = @_;
+
+    my $sambaZone = undef;
+    my $sambaKeytab = undef;
+    if (EBox::Global->modExists('samba4')) {
+        my $sambaModule = EBox::Global->modInstance('samba4');
+        if ($sambaModule->configured()) {
+            $sambaZone = EBox::Samba4::SAMBADNSZONE();
+            $sambaKeytab = EBox::Samba4::SAMBADNSKEYTAB();
+        }
+    }
+
     my @array = ();
 
     $self->writeConfFile(BIND9CONFFILE,
@@ -702,6 +714,7 @@ sub _setConf
             \@array);
 
     push(@array, 'forwarders' => $self->_forwarders());
+    push(@array, 'sambaKeytab' => $sambaKeytab);
 
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
@@ -788,6 +801,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'sambaZone' => $sambaZone);
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);
