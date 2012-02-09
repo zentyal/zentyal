@@ -1,3 +1,5 @@
+HEAD
+	+ Reload nscd before trying to init users and groups
 2.2.5
 	+ Bugfix: ad-sync can now populate groups with more than 1500 users
 	+ Bugfix: do not allow adsync passwords longer than 16 chars to avoid
