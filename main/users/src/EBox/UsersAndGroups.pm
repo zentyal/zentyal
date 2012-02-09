@@ -1053,16 +1053,17 @@ sub addUser # (user, system)
 
     $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
-    unless ($system) {
-        $self->initUser($user->{'user'}, $user->{'password'});
-        $self->_initUserSlaves($user->{'user'}, $user->{'password'});
-    }
 
     # Reload nscd daemon if it's installed
-    if ( -f '/etc/init.d/nscd' ) {
+    if (-f '/etc/init.d/nscd') {
         try {
             EBox::Sudo::root('/etc/init.d/nscd reload');
         } otherwise {};
+    }
+
+    unless ($system) {
+        $self->initUser($user->{'user'}, $user->{'password'});
+        $self->_initUserSlaves($user->{'user'}, $user->{'password'});
     }
 }
 
@@ -1708,16 +1709,17 @@ sub addGroup # (group, comment, system)
 
     $self->_changeAttribute($dn, 'description', $comment);
 
+    if (-f '/etc/init.d/nscd') {
+        try {
+            EBox::Sudo::root('/etc/init.d/nscd reload');
+        } otherwise {};
+    }
+
     unless ($system) {
         $self->initGroup($group);
         $self->_initGroupSlaves($group);
     }
 
-    if ( -f '/etc/init.d/nscd' ) {
-        try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
-        } otherwise {};
-    }
 }
 
 sub initGroup
