@@ -1,4 +1,5 @@
 HEAD
+	+ Disable InnoDB by default to reduce memory consumption of MySQL
 	+ Now events are logged in a new file (events.log) in a more
 	  human-readable format
 	+ Added legend to DataTables with custom actions
