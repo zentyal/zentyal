@@ -146,7 +146,7 @@ TableOrderer.prototype = {
 		else { this.order = 'asc'; }
 	},
 	
-	/* Ordonne les données du tableau */
+	/* Ordonne les donnï¿½es du tableau */
 	// orderData -- sorts the table's cache by the @order given it.
 	// param order: defines the order that the data should be as ascending (asc) or descending (desc)
 	orderData : function(order){
@@ -411,7 +411,11 @@ TableOrderer.prototype = {
 	
 	// setColumnsName -- column names come from the labels in the data given to the table. Just grab the names from the first record.
 	setColumnsName : function(){
-		this.tableColumnsName = Object.keys(this.data[0]);
+		if ((Object.isArray(this.data)) && (this.data.length > 0)) {
+			this.tableColumnsName = Object.keys(this.data[0]);
+		} else {
+			this.tableColumnsName = [];
+		}
 	},
 	
 	// creatFilter -- creates the HTML elements for the filter tool.
