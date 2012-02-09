@@ -1,4 +1,4 @@
-HEAD
+2.3.1
 	+ Fixed JS client side table sorting issue due to Prototype
 	  library upgrade
 	+ Disable InnoDB by default to reduce memory consumption of MySQL
