@@ -37,6 +37,7 @@ use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::UsersAndGroups::Passwords;
 use EBox::SOAPClient;
+use EBox::UsersAndGroups::User;
 
 use Digest::SHA1;
 use Digest::MD5;
@@ -51,16 +52,14 @@ use Perl6::Junction qw(any);
 use String::ShellQuote;
 use Fcntl qw(:flock);
 
-use constant USERSDN        => 'ou=Users';
-use constant GROUPSDN       => 'ou=Groups';
 use constant SYSMINUID      => 1900;
 use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
 use constant MINGID         => 2000;
-use constant HOMEPATH       => '/home';
-use constant MAXUSERLENGTH  => 128;
 use constant MAXGROUPLENGTH => 128;
-use constant MAXPWDLENGTH   => 512;
+
+use constant USERSDN        => 'ou=Users';
+use constant GROUPSDN       => 'ou=Groups';
 use constant LIBNSSLDAPFILE => '/etc/ldap.conf';
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
@@ -554,45 +553,6 @@ sub uidExists # (uid)
     return ($result->count > 0);
 }
 
-# Method: lastUid
-#
-#       Returns the last uid used.
-#
-# Parameters:
-#
-#       system - boolean: if true, it returns the last uid for system users,
-#                         otherwise the last uid for normal users
-#
-# Returns:
-#
-#       string - last uid
-#
-sub lastUid
-{
-    my ($self, $system) = @_;
-
-    my $lastUid = -1;
-    while (my ($name, undef, $uid) = getpwent()) {
-        next if ($name eq 'nobody');
-
-        if ($system) {
-            last if ($uid >= MINUID);
-        } else {
-            next if ($uid < MINUID);
-        }
-        if ($uid > $lastUid) {
-            $lastUid = $uid;
-        }
-    }
-    endpwent();
-
-    if ($system) {
-        return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
-    } else {
-        return ($lastUid < MINUID ? MINUID : $lastUid);
-    }
-}
-
 
 sub initUser
 {
@@ -624,8 +584,7 @@ sub initUser
     my $uid = $userInfo->{'uid'};
 
     my $quota = $userInfo->{'quota'};
-    defined $quota or
-        $quota = 0;
+    defined $quota or $quota = 0;
     $self->_setFilesystemQuota($uid, $quota);
 
     # Tell modules depending on users and groups
@@ -635,224 +594,6 @@ sub initUser
     foreach my $mod (@mods) {
         $mod->_addUser($user, $password);
     }
-}
-
-# Method: addUser
-#
-#       Adds a user
-#
-# Parameters:
-#
-#       user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#       'givenname', 'surname' and 'comment'
-#       system - boolean: if true it adds the user as system user, otherwise as
-#       normal user
-#       uidNumber - user UID numberer (optional and named)
-#       additionalPasswords -list with additional passwords (optional)
-sub addUser # (user, system)
-{
-    my ($self, $user, $system, %params) = @_;
-
-    if (length($user->{'user'}) > MAXUSERLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Username must not be longer than {maxuserlength} characters",
-                maxuserlength => MAXUSERLENGTH));
-    }
-
-    my @userPwAttrs = getpwnam($user->{'user'});
-    if (@userPwAttrs) {
-        throw EBox::Exceptions::External(
-            __("Username already exists on the system")
-        );
-    }
-    unless (_checkName($user->{'user'})) {
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'});
-    }
-
-    # Verify user exists
-    if ($self->userExists($user->{'user'})) {
-        throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $user->{'user'});
-    }
-
-    my $homedir = _homeDirectory($user->{'user'});
-    if (-e $homedir) {
-        throw EBox::Exceptions::External(
-            __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
-                dir => $homedir)
-        );
-    }
-
-    my $uid = exists $params{uidNumber} ?
-        $params{uidNumber} :
-            $self->_newUserUidNumber($system);
-    $self->_checkUid($uid, $system);
-
-    my $gid = $self->groupGid(DEFAULTGROUP);
-
-    my $passwd = $user->{'password'};
-    if (not $passwd and not $system) {
-        # system user could not have passwords
-        throw EBox::Exceptions::MissingArgument(__('Password'));
-    }
-
-    my @additionalPasswords = ();
-    if ($passwd) {
-        $self->_checkPwdLength($user->{'password'});
-
-        if (not isHashed($passwd)) {
-            $passwd =  defaultPasswordHash($passwd);
-        }
-
-        if (exists $params{additionalPasswords}) {
-            @additionalPasswords = @{ $params{additionalPasswords} }
-        } else {
-            # build addtional passwords using not-hashed pasword
-            if (isHashed($user->{password})) {
-                throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
-            }
-
-            @additionalPasswords = @{ EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'}) };
-        }
-    }
-
-    # If fullname is not specified we build it with
-    # givenname and surname
-    unless (defined $user->{'fullname'}) {
-        $user->{'fullname'} = '';
-        if ($user->{'givenname'}) {
-            $user->{'fullname'} = $user->{'givenname'} . ' ';
-        }
-        $user->{'fullname'} .= $user->{'surname'};
-    }
-
-    my @attr =  (
-        'cn'            => $user->{'fullname'},
-        'uid'           => $user->{'user'},
-        'sn'            => $user->{'surname'},
-        'loginShell'    => $self->_loginShell(),
-        'uidNumber'     => $uid,
-        'gidNumber'     => $gid,
-        'homeDirectory' => $homedir,
-        'userPassword'  => $passwd,
-        'quota'         => $self->defaultQuota(),
-        'objectclass'   => [
-            'inetOrgPerson',
-            'posixAccount',
-            'passwordHolder',
-            'systemQuotas',
-        ],
-        @additionalPasswords
-    );
-
-    my %args = ( attr => \@attr );
-
-    my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;
-    my $r = $self->ldap->add($dn, \%args);
-
-
-    $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
-    $self->_changeAttribute($dn, 'description', $user->{'comment'});
-    unless ($system) {
-        $self->initUser($user->{'user'}, $user->{'password'});
-    }
-
-    # Reload nscd daemon if it's installed
-    if ( -f '/etc/init.d/nscd' ) {
-        try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
-        } otherwise {};
-    }
-}
-
-sub _newUserUidNumber
-{
-    my ($self, $systemUser) = @_;
-
-    my $uid;
-    if ($systemUser) {
-        $uid = $self->lastUid(1) + 1;
-        if ($uid == MINUID) {
-            throw EBox::Exceptions::Internal(
-                __('Maximum number of system users reached'));
-        }
-    } else {
-        $uid = $self->lastUid + 1;
-    }
-
-    return $uid;
-}
-
-
-sub _checkUid
-{
-    my ($self, $uid, $system) = @_;
-
-    if ($uid < MINUID) {
-        if (not $system) {
-            throw EBox::Exceptions::External(
-                __x('Incorrect UID {uid} for a user . UID must be equal or greater than {min}',
-                    uid => $uid,
-                    min => MINUID,
-                   )
-                );
-        }
-    }
-    else {
-        if ($system) {
-            throw EBox::Exceptions::External(
-                __x('Incorrect UID {uid} for a system user . UID must be lesser than {max}',
-                    uid => $uid,
-                    max => MINUID,
-                   )
-                );
-        }
-    }
-}
-
-sub _modifyUserPwd
-{
-    my ($self, $user, $passwd) = @_;
-
-    $self->_checkPwdLength($passwd);
-    my $hash = defaultPasswordHash($passwd);
-    my $dn = "uid=" . $user . "," . $self->usersDn;
-
-    my %args = (
-                base => $self->usersDn,
-                filter => "(uid=$user)",
-                scope => 'one',
-                attrs => ['*'],
-               );
-
-    my $result = $self->ldap->search(\%args);
-    my $entry = $result->entry(0);
-
-    #remove old passwords
-    my $delattrs = [];
-    foreach my $attr ($entry->attributes) {
-        if ($attr =~ m/^ebox(.*)Password$/) {
-            push(@{$delattrs}, $attr);
-        }
-    }
-    if(@{$delattrs}) {
-        $self->ldap->modify($dn, { 'delete' => $delattrs } );
-    }
-
-    #add new passwords
-    my %attrs = (
-        changes => [
-            replace => [
-                'userPassword' => $hash,
-                @{EBox::UsersAndGroups::Passwords::additionalPasswords($user, $passwd)}
-            ]
-        ]
-    );
-    if(! $self->ldap->isObjectClass($dn, 'passwordHolder')) {
-        push(@{$attrs{'changes'}}, 'add', ['objectclass' => 'passwordHolder']);
-    }
-    $self->ldap->modify($dn, \%attrs);
 }
 
 sub _checkQuota
@@ -1064,119 +805,46 @@ sub userInfo # (user, entry)
     return $userinfo;
 }
 
-# Method: uidList
-#
-#       Returns an ordered array containing all uid
-#
-# Returns:
-#
-#       array - holding the uid
-#
-sub uidList
-{
-    my ($self, $system) = @_;
-
-    my %args = (
-                base => $self->usersDn,
-                filter => 'objectclass=*',
-                scope => 'one',
-                attrs => ['uid', 'uidNumber']
-               );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @users = ();
-    foreach my $user ($result->sorted('uid'))
-        {
-            if (not $system) {
-                next if ($user->get_value('uidNumber') < MINUID);
-            }
-            push (@users, $user->get_value('uid'));
-        }
-
-    return \@users;
-}
 
 # Method: users
 #
 #       Returns an array containing all the users (not system users)
 #
 # Parameters:
-#       system - show system groups (default: false)
+#       system - show system users also (default: false)
 #
 # Returns:
 #
-#       array - holding the users. Each user is represented by a hash reference
+#       array ref - holding the users. Each user is represented by a hash reference
 #       with the same format than the return value of userInfo
 #
 sub users
 {
     my ($self, $system) = @_;
 
-    return () if (not $self->isRunning());
+    return [] if (not $self->isEnabled());
 
     my %args = (
-            base => $self->usersDn,
-            filter => 'objectclass=*',
-            scope => 'one',
-            attrs => ['uid', 'cn', 'givenName', 'sn', 'homeDirectory',
-            'userPassword', 'uidNumber', 'gidNumber',
-            'description']
-            );
+        base => $self->baseDn,
+        filter => 'objectclass=*',
+        scope => 'sub',
+    );
 
     my $result = $self->ldap->search(\%args);
 
     my @users = ();
-    foreach my $user ($result->sorted('uid'))
+    foreach my $entry ($result->sorted('uid'))
     {
-        if (not $system) {
-            next if ($user->get_value('uidNumber') < MINUID);
-        }
+        my $user = new EBox::UsersAndGroups::User($entry);
 
-        @users = (@users,  $self->userInfo($user->get_value('uid'),
-                  $user))
-    }
+        # Include system users?
+        next if (not $system and $user->system());
 
-    return @users;
-}
-
-# Method: usersList
-#
-#   Returns an array containing all the users (not system users)
-#
-# Returns:
-#
-#   array ref - containing hash refs with the following keys
-#
-#        user => user name
-#        uid => uid number
-#
-sub usersList
-{
-    my ($self) = @_;
-
-    my %args = (
-                base => $self->usersDn,
-                filter => 'objectclass=*',
-                scope => 'one',
-                attrs => ['uid', 'uidNumber']
-               );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @users = ();
-    foreach my $user ($result->sorted('uid'))
-    {
-        next if ($user->get_value('uidNumber') < MINUID);
-        push (@users,{
-                user => $user->get_value('uid'),
-                uid => $user->get_value('uidNumber')
-            });
+        @users = (@users, $user);
     }
 
     return \@users;
 }
-
 
 # Method: groupExists
 #
@@ -1276,7 +944,7 @@ sub lastGid # (gid)
     if ($system) {
         return ($gid < SYSMINUID ?  SYSMINUID : $gid);
     } else {
-        return ($gid < MINUID ?  MINUID : $gid);
+        return ($gid < MINGID ?  MINGID : $gid);
     }
 }
 
@@ -1925,37 +1593,6 @@ sub _changeAttribute
     $entry->update($self->ldap->ldapCon);
 }
 
-sub isHashed
-{
-    my ($pwd) = @_;
-    return ($pwd =~ /^\{[0-9A-Z]+\}/);
-}
-
-sub _checkPwdLength
-{
-    my ($self, $pwd) = @_;
-
-    if (isHashed($pwd)) {
-        return;
-    }
-
-    if (length($pwd) > MAXPWDLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Password must not be longer than {maxPwdLength} characters",
-            maxPwdLength => MAXPWDLENGTH));
-    }
-}
-
-sub _checkName
-{
-    my ($name) = @_;
-
-    if ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
-        return 1;
-    } else {
-        return undef;
-    }
-}
 
 # Returns modules implementing LDAP user base interface
 sub _modsLdapUserBase
@@ -2272,12 +1909,6 @@ sub _removePasswds
   unlink $tmpFile;
 }
 
-
-sub minUid
-{
-    return MINUID;
-}
-
 sub minGid
 {
     return MINGID;
@@ -2323,79 +1954,6 @@ sub authUser
     return $authorized;
 }
 
-sub shaHasher
-{
-    my ($password) = @_;
-    return '{SHA}' . Digest::SHA1::sha1_base64($password) . '=';
-}
-
-sub md5Hasher
-{
-    my ($password) = @_;
-    return '{MD5}' . Digest::MD5::md5_base64($password) . '==';
-}
-
-sub lmHasher
-{
-    my ($password) = @_;
-    return Crypt::SmbHash::lmhash($password);
-}
-
-sub ntHasher
-{
-    my ($password) = @_;
-    return Crypt::SmbHash::nthash($password);
-}
-
-sub digestHasher
-{
-    my ($password, $user) = @_;
-    my $realm = getRealm();
-    my $digest = "$user:$realm:$password";
-    return '{MD5}' . Digest::MD5::md5_base64($digest) . '==';
-}
-
-sub realmHasher
-{
-    my ($password, $user) = @_;
-    my $realm = getRealm();
-    my $digest = "$user:$realm:$password";
-    return '{MD5}' . Digest::MD5::md5_hex($digest);
-}
-
-sub getRealm
-{
-    # FIXME get the LDAP dc as realm when merged iclerencia/ldap-jaunty-ng
-    return 'ebox';
-}
-
-sub passwordHasher
-{
-    my ($format) = @_;
-
-    my $hashers = {
-        'sha1' => \&shaHasher,
-        'md5' => \&md5Hasher,
-        'lm' => \&lmHasher,
-        'nt' => \&ntHasher,
-        'digest' => \&digestHasher,
-        'realm' => \&realmHasher,
-    };
-    return $hashers->{$format};
-}
-
-sub defaultPasswordHash
-{
-    my ($password) = @_;
-
-    my $format = EBox::Config::configkey('default_password_format');
-    if (not defined($format)) {
-        $format = 'sha1';
-    }
-    my $hasher = passwordHasher($format);
-    my $hash = $hasher->($password);
-    return $hash;
-}
 
 sub listUsers
 {
@@ -2475,14 +2033,6 @@ sub _loginShell
     my ($self) = @_;
 
     return $self->model('PAM')->login_shellValue();
-}
-
-sub _homeDirectory
-{
-    my ($username) = @_;
-
-    my $home = HOMEPATH . '/' . $username;
-    return $home;
 }
 
 1;

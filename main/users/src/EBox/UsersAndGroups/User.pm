@@ -34,14 +34,10 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use constant MAXUSERLENGTH  => 128;
-use constant MAXGROUPLENGTH => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
-use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
-use constant MINGID         => 2000;
 use constant HOMEPATH       => '/home';
-
 
 # Method: new
 #
@@ -146,6 +142,17 @@ sub save
 }
 
 
+# Method: dn
+#
+#   Return DN for this user
+#
+sub dn
+{
+    my ($self) = @_;
+
+    return $self->_entry->dn();
+}
+
 
 # Method: changePassword
 #
@@ -156,7 +163,7 @@ sub changePassword
     my ($self, $passwd) = @_;
 
     $self->_checkPwdLength($passwd);
-    my $hash = defaultPasswordHash($passwd);
+    my $hash = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
 
     #remove old passwords
     my $delattrs = [];
@@ -168,10 +175,10 @@ sub changePassword
 
     $self->set('userPassword', $hash, 1);
 
-    my $hashes = EBox::UsersAndGroups::Passwords::additionalPasswords($self->get('uid', $passwd));
-    foreach my $attr,$hash (@{$hashes})
+    my $hashes = EBox::UsersAndGroups::Passwords::additionalPasswords($self->get('uid'), $passwd);
+    foreach my $attr (keys %$hashes)
     {
-        $self->set($attr, $hash, 1);
+        $self->set($attr, $hashes->{$attr}, 1);
     }
 
     $self->save();
@@ -264,7 +271,7 @@ sub create
     $self->_checkUid($uid, $system);
 
     # FIXME
-    my $gid = $self->groupGid(EBox::UsersAndGroups::DEFAULTGROUP);
+    my $gid = $self->groupGid(EBox::UsersAndGroups->DEFAULTGROUP);
 
     my $passwd = $user->{'password'};
 
@@ -277,7 +284,7 @@ sub create
         $self->_checkPwdLength($user->{'password'});
 
         if (not isHashed($passwd)) {
-            $passwd = defaultPasswordHash($passwd);
+            $passwd = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
         }
 
         if (exists $params{additionalPasswords}) {
@@ -352,6 +359,47 @@ sub _homeDirectory
     return $home;
 }
 
+# Method: lastUid
+#
+#       Returns the last uid used.
+#
+# Parameters:
+#
+#       system - boolean: if true, it returns the last uid for system users,
+#                         otherwise the last uid for normal users
+#
+# Returns:
+#
+#       string - last uid
+#
+sub lastUid
+{
+    my ($self, $system) = @_;
+
+    my $lastUid = -1;
+    while (my ($name, undef, $uid) = getpwent()) {
+        next if ($name eq 'nobody');
+
+        if ($system) {
+            last if ($uid >= MINUID);
+        } else {
+            next if ($uid < MINUID);
+        }
+        if ($uid > $lastUid) {
+            $lastUid = $uid;
+        }
+    }
+    endpwent();
+
+    if ($system) {
+        return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
+    } else {
+        return ($lastUid < MINUID ? MINUID : $lastUid);
+    }
+}
+
+
+
 sub _newUserUidNumber
 {
     my ($self, $systemUser) = @_;
@@ -401,7 +449,8 @@ sub _checkPwdLength
 {
     my ($self, $pwd) = @_;
 
-    if (isHashed($pwd)) {
+    # Is hashed?
+    if ($pwd =~ /^\{[0-9A-Z]+\}/) {
         return;
     }
 
@@ -411,81 +460,5 @@ sub _checkPwdLength
             maxPwdLength => MAXPWDLENGTH));
     }
 }
-
-sub isHashed
-{
-    my ($pwd) = @_;
-    return ($pwd =~ /^\{[0-9A-Z]+\}/);
-}
-
-
-sub defaultPasswordHash
-{
-    my ($password) = @_;
-
-    my $format = EBox::Config::configkey('default_password_format');
-    if (not defined($format)) {
-        $format = 'sha1';
-    }
-    my $hasher = passwordHasher($format);
-    my $hash = $hasher->($password);
-    return $hash;
-}
-
-sub passwordHasher
-{
-    my ($format) = @_;
-
-    my $hashers = {
-        'sha1' => \&shaHasher,
-        'md5' => \&md5Hasher,
-        'lm' => \&lmHasher,
-        'nt' => \&ntHasher,
-        'digest' => \&digestHasher,
-        'realm' => \&realmHasher,
-    };
-    return $hashers->{$format};
-}
-
-sub shaHasher
-{
-    my ($password) = @_;
-    return '{SHA}' . Digest::SHA1::sha1_base64($password) . '=';
-}
-
-sub md5Hasher
-{
-    my ($password) = @_;
-    return '{MD5}' . Digest::MD5::md5_base64($password) . '==';
-}
-
-sub ntHasher
-{
-    my ($password) = @_;
-    return Crypt::SmbHash::nthash($password);
-}
-
-sub digestHasher
-{
-    my ($password, $user) = @_;
-    my $realm = getRealm();
-    my $digest = "$user:$realm:$password";
-    return '{MD5}' . Digest::MD5::md5_base64($digest) . '==';
-}
-
-sub realmHasher
-{
-    my ($password, $user) = @_;
-    my $realm = getRealm();
-    my $digest = "$user:$realm:$password";
-    return '{MD5}' . Digest::MD5::md5_hex($digest);
-}
-
-sub getRealm
-{
-# FIXME get the LDAP dc as realm when merged iclerencia/ldap-jaunty-ng
-    return 'ebox';
-}
-
 
 1;
