@@ -154,6 +154,18 @@ sub dn
 }
 
 
+# Method: system
+#
+#   Return 1 if this is a system user, 0 if not
+#
+sub system
+{
+    my ($self) = @_;
+
+    return ($self->get('gidNumber') > MINUID);
+}
+
+
 # Method: changePassword
 #
 #   Configure a new password for the user
@@ -270,7 +282,6 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-    # FIXME
     my $gid = $self->groupGid(EBox::UsersAndGroups->DEFAULTGROUP);
 
     my $passwd = $user->{'password'};

@@ -504,19 +504,21 @@ sub userDn
 #
 # Parameters:
 #
-#       user - user name
+#       user - user dn
 #
 # Returns:
 #
 #       boolean - true if it exists, otherwise false
 #
-sub userExists # (user)
+sub userExists
 {
     my ($self, $user) = @_;
 
+    my ($filter, $basedn) = split(/,/, $user, 2);
+
     my %attrs = (
-                 base => $self->usersDn,
-                 filter => "(uid=$user)",
+                 base => $basedn,
+                 filter => $filter,
                  scope => 'one'
                 );
 
@@ -825,8 +827,8 @@ sub users
     return [] if (not $self->isEnabled());
 
     my %args = (
-        base => $self->baseDn,
-        filter => 'objectclass=*',
+        base => $self->ldap->dn(),
+        filter => 'objectclass=posixAccount',
         scope => 'sub',
     );
 
@@ -835,7 +837,7 @@ sub users
     my @users = ();
     foreach my $entry ($result->sorted('uid'))
     {
-        my $user = new EBox::UsersAndGroups::User($entry);
+        my $user = new EBox::UsersAndGroups::User(entry => $entry);
 
         # Include system users?
         next if (not $system and $user->system());
@@ -1955,37 +1957,6 @@ sub authUser
 }
 
 
-sub listUsers
-{
-    my ($self, $ldap, $dn) = @_;
-
-    my %args = (
-        'base' => $self->usersDn($dn),
-        'scope' => 'one',
-        'filter' => "(objectClass=posixAccount)"
-    );
-    my $result = $ldap->search(%args);
-
-    my @users = map { $_->get_value('uid') } $result->entries();
-    return \@users;
-}
-
-sub listGroups
-{
-    my ($self, $ldap, $dn) = @_;
-
-    my %args = (
-        'base' => $self->groupsDn($dn),
-        'scope' => 'one',
-        'filter' => "(objectClass=posixGroup)"
-    );
-    my $result = $ldap->search(%args);
-
-    my @groups = map { $_->get_value('cn') } $result->entries();
-    return \@groups;
-}
-
-
 sub listSchemas
 {
     my ($self, $ldap) = @_;
@@ -2008,24 +1979,6 @@ sub mode
     my ($self) = @_;
 
     return 'master';
-}
-
-sub baseDn
-{
-    my ($ldap) = @_;
-
-    my %args = (
-        'base' => '',
-        'scope' => 'base',
-        'filter' => '(objectclass=*)',
-        'attrs' => ['namingContexts']
-    );
-    my $result = $ldap->search(%args);
-    my $entry = ($result->entries)[0];
-    my $attr = ($entry->attributes)[0];
-    my $dn = $entry->get_value($attr);
-
-    return $dn;
 }
 
 sub _loginShell
