@@ -36,7 +36,7 @@ sub additionalPasswords
 {
     my ($user, $password) = @_;
 
-    my $passwords = [];
+    my $passwords = {};
 
     my $format_string = EBox::Config::configkey('password_formats');
     if (not defined($format_string)) {
@@ -46,7 +46,7 @@ sub additionalPasswords
     for my $format (@formats) {
         my $hasher = EBox::UsersAndGroups::passwordHasher($format);
         my $hash = $hasher->($password, $user);
-        push(@{$passwords}, 'ebox' . ucfirst($format) . 'Password', $hash);
+        $passwords->{'ebox' . ucfirst($format) . 'Password'} = $hash;
     }
     return $passwords;
 }
