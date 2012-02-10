@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
 	+ Changed JS to allow the restore of the action cell when a delete
 	  action fails
 2.2.5
@@ -606,7 +607,7 @@ HEAD
 	+ Loggerd: if we don't have any file to watch we just sleep otherwise the process
 	  will finish and upstart will try to start it over again and again.
 	+ Make /etc/init.d/ebox depend on $network virtual facility
-	+ Show uptime and users on General Information widget. 
+	+ Show uptime and users on General Information widget.
 1.4.2
 	+ Start services in the appropriate order (by dependencies) to fix a problem
 	  when running /etc/init.d/ebox start in slaves (mail and other modules
@@ -810,7 +811,7 @@ status that returns [OK] instead of "running".
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102
-	+ Bugfix: consolidate logs using the last date and not starting from scratch 
+	+ Bugfix: consolidate logs using the last date and not starting from scratch
 0.12.101
 	+ Bugfix: DomainName type make comparisons case insensitive
 	according to RFC 1035
@@ -827,7 +828,7 @@ status that returns [OK] instead of "running".
 	+ Backup pages now includes the size of the archive
 	+ Fixed bug in ForcePurge logs model
 	+ Now the modules can have more than one tableInfo for logging information
-	+ Improve model debugging 
+	+ Improve model debugging
 	+ Improve restart debugging
 	+ Backups and bug reports can be made from the command line
 	+ Bugfix: `isEqualTo` is working now for `Boolean` types
@@ -868,7 +869,7 @@ status that returns [OK] instead of "running".
 	+ Disable LogAdmin actions in `ebox-global-action` until LogAdmin
 	feature is completely done
 0.11.103
-	+ Modify EBox::Types::HasMany to create directory based on its row 
+	+ Modify EBox::Types::HasMany to create directory based on its row
 	+ Add _setRelationship method to set up relationships between models
 	  and submodels
 	+ Use the new EBox::Model::Row api
@@ -916,7 +917,7 @@ status that returns [OK] instead of "running".
 	  state of the modules and change the top page element properly
 	+ Do not exec() to restart apache outside mod_perl
 	+ Improve apache restart script
-	+ Improve progress screen 
+	+ Improve progress screen
 0.11.99
 	+ DataTable contains the property 'enableProperty' to set a column
 	called 'enabled' to enable/disable rows from the user point of
@@ -953,8 +954,8 @@ status that returns [OK] instead of "running".
 	+ Fix issue with multiple models and models with params.
 	  This triggered a bug in DHCP when there was just one static
 	  interface
-	+ Fix _checkRowIsUnique and _checkFieldIsUnique 
-	+ Fix paging 
+	+ Fix _checkRowIsUnique and _checkFieldIsUnique
+	+ Fix paging
 	+ Trim long strings in log table, show tooltip with the whole string
 	  and show links for URLs starting with "http://"
 0.10.99
@@ -974,7 +975,7 @@ status that returns [OK] instead of "running".
 	+ Add EventDaemon
 	+ Add Watcher and Dispatch framework to support an event
 	  architecture on eBox
-	+ Add volatile EBox::Types in order not to store their values 
+	+ Add volatile EBox::Types in order not to store their values
 	  on GConf
 	+ Add generic form
 	+ Improvements on generic table
@@ -1040,7 +1041,7 @@ status that returns [OK] instead of "running".
 	+ Update INSTALL
 	+ Use a new method to get configkeys, now configkey reads every
 	  [0.9
-	+ Added Polish translation][0-9]+.conf file from the EBox::Config::etc() dir and 
+	+ Added Polish translation][0-9]+.conf file from the EBox::Config::etc() dir and
 	  tries to get the value from the files in order.
 	+ Display date in the correct languae in Summary
 	+ Update debian scripts
@@ -1118,9 +1119,9 @@ status that returns [OK] instead of "running".
 	+ Supports i18n
 	+ API name consistency
 	+ Use Mason for templates
-	+ added tips to GUI 
+	+ added tips to GUI
 	+ added dhcp hooks
-	+ administration port configuration 
+	+ administration port configuration
 	+ Fixed bugs to IE compliant
 	+ Revoke changes after logout
 	+ Several bugfixes
