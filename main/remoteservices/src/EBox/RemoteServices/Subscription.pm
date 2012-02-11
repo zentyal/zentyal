@@ -473,18 +473,6 @@ sub deleteData
 
 }
 
-# Checks whether the installed modules allows to be unsubscribed for cloud
-sub checkUnsubscribeIsAllowed
-{
-    my $modList = EBox::Global->modInstances();
-    foreach my $mod (@{  $modList }) {
-        my $method = 'canUnsubscribeFromCloud';
-        if ($mod->can($method)) {
-            $mod->$method();
-        }
-    }
-}
-
 # Group: Private methods
 
 # Open up the HTTPS connections

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,8 +41,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;
 use EBox::RemoteServices::Backup;
-use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Subscription;
+use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Password;
 use EBox::Types::Text;
@@ -120,11 +121,14 @@ sub setTypedRow
                                                                password => $password);
         if ( $subs ) {
             # Desubscribing
-            EBox::RemoteServices::Subscription::checkUnsubscribeIsAllowed();
+            EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
             EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
             # Subscribing
+            EBox::RemoteServices::Subscription::Check->new(
+                user => $paramsRef->{username}->value(),
+                password => $password)->subscribe();
             my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value());
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
@@ -215,7 +219,7 @@ sub unsubscribe
     my ($self) = @_;
 
     if ($self->eBoxSubscribed()) {
-        EBox::RemoteServices::Subscription::checkUnsubscribeIsAllowed();
+        EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
 
         my $row = $self->row();
 
