@@ -3,7 +3,7 @@ Section: web
 Priority: optional
 Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: zbuildtools
-Standards-Version: 3.8.2
+Standards-Version: 3.9.2
 
 Package: zentyal-zarafa
 Architecture: all

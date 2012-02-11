@@ -2457,7 +2457,7 @@ sub _hasChanged # (interface)
     if ($self->vifaceExists($iface)) {
         ($real) = $self->_viface2array($iface);
     }
-    if ( defined($self->dir_exists("interfaces/$real")) ){
+    if ( $self->dir_exists("interfaces/$real") ){
         return $self->get_bool("interfaces/$real/changed");
     } else {
         return 1; # deleted => has changed
@@ -3136,6 +3136,9 @@ sub _preSetConf
                         push (@cmds, "/sbin/ip address flush label $if:*");
                     }
                     push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    if ($self->ifaceMethod($if) eq 'bridge') {
+                        push (@cmds, "/usr/sbin/brctl delbr $if");
+                    }
                 }
                 EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {};
@@ -3731,6 +3734,27 @@ sub resolv # (host)
     return `dig +time=3 $host 2>&1`;
 }
 
+# Method: wakeonlan
+#
+#   Performs a wakeonlan and returns the output
+#
+# Parameters:
+#
+#   macs - Array of MAC addresses of the computers to wake
+#
+# Returns:
+#
+#   string - output of the wakeonlan command
+#
+sub wakeonlan # (macs)
+{
+    my ($self, @macs) = @_;
+
+    my $param = join (' ' , @macs);
+
+    return `wakeonlan $param 2>&1`;
+}
+
 sub interfacesWidget
 {
     my ($self, $widget) = @_;
@@ -3876,7 +3900,7 @@ sub menu
                                       'order' => 70));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
-                                      'text' => __('Diagnostic Tools'),
+                                      'text' => __('Tools'),
                                       'order' => 80));
 
     $root->add($folder);
@@ -4251,7 +4275,7 @@ sub _readInterfaces
         $line =~ s/^\s+//g;
         my @toks = split (/\s+/, $line);
         next unless @toks;
-        if ($toks[0] eq 'iface' and $toks[2] eq 'inet')	{
+        if ($toks[0] eq 'iface' and $toks[2] eq 'inet') {
             next if ($self->_ignoreIface($toks[1]));
             push (@interfaces, $iface) if ($iface);
             $iface = { name   => $toks[1],
@@ -4272,25 +4296,25 @@ sub _readInterfaces
 sub _readResolv
 {
     my $resolvFH;
-	unless (open($resolvFH, RESOLV_FILE)) {
-		EBox::warn("Couldn't open " . RESOLV_FILE);
-		return [];
-	}
+    unless (open($resolvFH, RESOLV_FILE)) {
+        EBox::warn("Couldn't open " . RESOLV_FILE);
+        return [];
+    }
 
     my $searchdomain = undef;
-	my @dns;
-	for my $line (<$resolvFH>) {
-		$line =~ s/^\s+//g;
-		my @toks = split (/\s+/, $line);
-		if ($toks[0] eq 'nameserver') {
-			push (@dns, $toks[1]);
-		} elsif ($toks[0] eq 'search') {
+    my @dns;
+    for my $line (<$resolvFH>) {
+        $line =~ s/^\s+//g;
+        my @toks = split (/\s+/, $line);
+        if ($toks[0] eq 'nameserver') {
+            push (@dns, $toks[1]);
+        } elsif ($toks[0] eq 'search') {
             $searchdomain = $toks[1];
         }
-	}
+    }
     close ($resolvFH);
 
-	return [$searchdomain, @dns];
+    return [$searchdomain, @dns];
 }
 
 # Group: report-related files

@@ -2,10 +2,11 @@ Source: zentyal-printers
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Uploaders: José A. Calvo <jacalvo@zentyal.com>
 Build-Depends: zbuildtools
-Standards-Version: 3.8.2
+Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git
+Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/printers
 Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-printers
