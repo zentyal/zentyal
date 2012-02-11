@@ -743,10 +743,7 @@ sub _setQAAptPreferences
 
     EBox::Sudo::root("cp '$tmpFile' '$fromCCPreferences'");
 
-    my $exclusiveSource = EBox::Config::configkey('qa_updates_exclusive_source');
-    if (lc($exclusiveSource) ne 'true') {
-        return;
-    }
+    return unless EBox::Config::boolean('qa_updates_exclusive_source');
 
     my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
     EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
@@ -926,10 +923,8 @@ sub _checkWSConnectivity
 sub _checkVPNConnectivity
 {
     my ($self, $host, $proto, $port) = @_;
-    my $skip = EBox::Config::configkey('subscription_skip_vpn_scan');
-    if ($skip eq 'true') {
-        return;
-    }
+
+    return if EBox::Config::boolean('subscription_skip_vpn_scan');
 
     my $ok = 0;
     if ( $proto eq 'tcp' ) {

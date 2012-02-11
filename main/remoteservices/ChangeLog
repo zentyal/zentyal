@@ -1,3 +1,5 @@
+HEAD
+	+ Uniformize config boolean values (from true/false to yes/no)
 2.3
 	+ Use direct connection to QA repository even using a global proxy
 	+ Delete version() method which is now implemented on EBox::Module::Base

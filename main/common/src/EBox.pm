@@ -144,7 +144,7 @@ sub init
     # external programs
     $ENV{HOME} = EBox::Config::home();
 
-    $debug = (EBox::Config::configkey('debug') eq 'yes');
+    $debug = EBox::Config::boolean('debug');
 }
 
 1;

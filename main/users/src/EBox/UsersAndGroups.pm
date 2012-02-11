@@ -2823,7 +2823,7 @@ sub defaultQuota
 
 sub enableQuota
 {
-    return (EBox::Config::configkey('enable_quota') ne 'no');
+    return EBox::Config::boolean('enable_quota');
 }
 
 # Method: authUser

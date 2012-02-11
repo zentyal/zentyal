@@ -76,7 +76,7 @@ sub initDaemon
 
     my $tmp = EBox::Config::tmp();
     open (STDIN,  "+<$tmp/stdin");
-    if (EBox::Config::configkey('debug') eq 'yes') {
+    if (EBox::Config::boolean('debug')) {
         open (STDOUT, "+>$tmp/stout");
         open (STDERR, "+>$tmp/stderr");
     }
