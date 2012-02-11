@@ -1,4 +1,5 @@
 HEAD
+	+ Uniformize config boolean values (from true/false to yes/no)
 	+ Now you can use the default profile in a custom profile for file
 	  extensions
 2.3

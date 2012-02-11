@@ -505,10 +505,7 @@ sub getAutomaticUpdates
     my ($self) = @_;
 
     if ($self->QAUpdates()) {
-        my $alwaysAutomatic = EBox::Config::configkey('qa_updates_always_automatic');
-        defined $alwaysAutomatic or $alwaysAutomatic = 'true';
-
-        if (lc($alwaysAutomatic) eq 'true') {
+        if (EBox::Config::boolean('qa_updates_always_automatic')) {
             return 1;
         }
     }

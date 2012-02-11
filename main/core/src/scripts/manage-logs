@@ -24,7 +24,7 @@ try {
     defined $logs or
         die 'Cannot instanstiate eBox logs module';
 
-    unless (EBox::Config::configkey('disable_consolidation') eq 'yes') {
+    unless (EBox::Config::boolean('disable_consolidation')) {
         # we consolidate before the purge to not lose any data
         EBox::Logs::Consolidate->consolidate('all');
 

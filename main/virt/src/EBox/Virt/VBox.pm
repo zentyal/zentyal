@@ -460,7 +460,7 @@ sub attachDevice
     my ($port, $device, $ctl);
     my $cd = $type eq 'cd';
     $type = $cd ? 'dvddrive' : 'hdd';
-    if ($cd or (EBox::Config::configkey('use_ide_disks') eq 'yes')) {
+    if ($cd or EBox::Config::boolean('use_ide_disks')) {
         $ctl = $IDE_CTL;
         $port = int ($self->{ideDeviceNumber} / 2);
         $device = $self->{ideDeviceNumber} % 2;
