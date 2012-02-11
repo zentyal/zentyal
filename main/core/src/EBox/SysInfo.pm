@@ -112,7 +112,8 @@ sub generalWidget
         $qaUpdates = $rs->subscriptionLevel() > 0;
     }
 
-    unless (EBox::Config::boolean('widget_ignore_updates')) {
+    my $ignore = (EBox::Config::boolean('widget_ignore_updates');
+    unless ($ignore) {
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
         read ($fh, $lastVersion, 16);
