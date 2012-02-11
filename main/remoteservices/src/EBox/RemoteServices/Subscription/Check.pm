@@ -206,19 +206,22 @@ sub _usersCheck
 
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
-        unless ( $usersMod->mode() eq 'master' ) {
-            throw EBox::Exceptions::External(
-                __s('The Small Business Edition can be only used in master mode'));
-        }
-        if ( scalar(@{$usersMod->listSlaves()}) > 0 ) {
-            throw EBox::Exceptions::External(
-                __s('The Small Business Edition cannot have got slaves'));
-        }
-        my $users    = @{$usersMod->usersList()};
-        if ( scalar(@{$users}) > MAX_SB_USERS ) {
-            throw EBox::Exceptions::External(
-                __sx('The maximum number of users for Small Business Edition is {max}',
-                      max => MAX_SB_USERS));
+        if ( $usersMod->isEnabled() ) {
+            unless ( $usersMod->mode() eq 'master' ) {
+                throw EBox::Exceptions::External(
+                    __s('The Small Business Edition can be only used in master mode'));
+            }
+            if ( scalar(@{$usersMod->listSlaves()}) > 0 ) {
+                throw EBox::Exceptions::External(
+                    __s('The Small Business Edition cannot have got slaves'));
+            }
+            my $users = $usersMod->usersList();
+            if ( scalar(@{$users}) > MAX_SB_USERS ) {
+                throw EBox::Exceptions::External(
+                    __sx('The maximum number of users for Small Business Edition is {max} '
+                         . 'and you currently have {nUsers}',
+                         max => MAX_SB_USERS, nUsers => scalar(@{$users})));
+            }
         }
     }
 }
@@ -230,8 +233,8 @@ sub _vpnCheck
 
     if ( $gl->modExists('openvpn') ) {
         my $openvpnMod = $gl->modInstance('openvpn');
-        my $servers    = $openvpnMod->servers();
-        foreach my $server (@{$servers}) {
+        my @servers    = $openvpnMod->servers();
+        foreach my $server (@servers) {
             if ( $server->pullRoutes() ) {
                 throw EBox::Exceptions::External(
                     __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers and '
@@ -239,8 +242,8 @@ sub _vpnCheck
                          name => $server->name()));
             }
         }
-        my $clients = $openvpnMod->clients();
-        foreach my $client (@{$clients}) {
+        my @clients = $openvpnMod->clients();
+        foreach my $client (@clients) {
             if ( (not $client->internal()) and $client->ripPasswd() ) {
                 throw EBox::Exceptions::External(
                     __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers '
