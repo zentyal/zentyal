@@ -83,7 +83,7 @@ sub _process
             push(@array, 'output' => $output);
         } elsif ($action eq "wakeonlan") {
             my $id = $self->param("object_id");
-            if ( $id eq 'other' ) {
+            if ( $id eq 'other' || $id eq '' ) {
                 try {
                     $self->_requireParam("mac", __("MAC address"));
                 } otherwise {
