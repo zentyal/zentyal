@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -x /var/tmp/zentyal/custom-installer ]
+then
+    sudo xterm /var/tmp/zentyal/custom-installer
+fi
+
 if [ -f /var/tmp/zentyal/.disaster-recovery ]
 then
     sudo perl -MEBox -MEBox::Util::SQL -MEBox::Global -e'EBox::init(); map { EBox::Util::SQL::createModuleTables($_) } @{EBox::Global->modNames()}; 1';
