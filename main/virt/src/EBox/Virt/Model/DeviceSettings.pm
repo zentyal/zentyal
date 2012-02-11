@@ -226,7 +226,7 @@ sub validateTypedRow
         }
     }
     my @devices = @{$self->ids()};
-    if ((EBox::Config::configkey('use_ide_disks') eq 'yes') and (@devices == 4)) {
+    if (EBox::Config::boolean('use_ide_disks') and (@devices == 4)) {
         throw EBox::Exceptions::External(__x('A maximum of {num} IDE drives are allowed', num => MAX_IDE_NUM));
     }
 

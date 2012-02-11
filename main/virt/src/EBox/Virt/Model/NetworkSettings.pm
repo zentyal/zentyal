@@ -115,7 +115,7 @@ sub _table
                             ),
     );
 
-    if (EBox::Config::configkey('custom_mac_addresses') eq 'yes') {
+    if (EBox::Config::boolean('custom_mac_addresses')) {
         push (@tableHeader, new EBox::Types::MACAddr(
                                     fieldName     => 'mac',
                                     printableName => __('MAC Address'),

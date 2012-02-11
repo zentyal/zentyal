@@ -36,7 +36,7 @@ my @packages            = @ARGV;
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die ('progress executable not run');
 
-my $command = (EBox::Config::configkey('software-autoremove') eq 'yes')  ?  'autoremove' : 'remove';
+my $command = EBox::Config::boolean('software-autoremove')  ?  'autoremove' : 'remove';
 
 my ($retValue, $errorMsg) = (0, '');
 

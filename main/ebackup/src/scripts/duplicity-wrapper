@@ -29,7 +29,7 @@ use String::ShellQuote;
 
 my %originalArgv = map { $_ => 1 } @ARGV;
 
-my $debug = (EBox::Config::configkey('debug') eq 'yes');
+my $debug = EBox::Config::boolean('debug');
 
 my $TIMEOUT = EBox::Config::configkey('duplicity_timeout');
 unless ($TIMEOUT) {
