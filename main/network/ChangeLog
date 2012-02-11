@@ -1,4 +1,4 @@
-HEAD
+2.2.5
 	+ Bridge interfaces are correctly removed; fixed _hasChanged method
 	+ Added proxySettings to return the proxy settings to other modules
 2.2.4
