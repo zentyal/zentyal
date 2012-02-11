@@ -1664,9 +1664,9 @@ sub lastGid # (gid)
     }
 
     if ($system) {
-        return ($gid < SYSMINUID ?  SYSMINUID : $gid);
+        return ($gid < SYSMINGID ?  SYSMINGID : $gid);
     } else {
-        return ($gid < MINUID ?  MINUID : $gid);
+        return ($gid < MINGID ?  MINGID : $gid);
     }
 
 }
