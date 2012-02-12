@@ -67,21 +67,6 @@ sub eBoxBundle
                           );
 }
 
-# Method: availableEdition
-#
-#     Get the available edition for this Zentyal
-#
-# Returns:
-#
-#     String - the available edition for this server
-#
-sub availableEdition
-{
-    my ($self) = @_;
-
-    return $self->soapCall('availableEdition');
-}
-
 # Method: serviceUrn
 #
 #     We override this method instead of the protected one in order to

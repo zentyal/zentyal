@@ -52,6 +52,7 @@ src/EBox/Event/Dispatcher/Makefile
 src/EBox/RemoteServices/Makefile
 src/EBox/RemoteServices/t/Makefile
 src/EBox/RemoteServices/Audit/Makefile
+src/EBox/RemoteServices/Exceptions/Makefile
 src/EBox/RemoteServices/Composite/Makefile
 src/EBox/RemoteServices/Job/Makefile
 src/EBox/RemoteServices/Model/Makefile

@@ -56,13 +56,28 @@ sub subscriptionLevel
 
     my $result = { level => -1, codename => ''};
 
-    try {
+<    try {
         $result = $self->soapCall('subscriptionLevel');
     } otherwise {
         EBox::warn("SOAP call subscriptionLevel failed: $@");
     };
 
     return $result;
+}
+
+# Method: availableEdition
+#
+#     Get the available edition for this Zentyal
+#
+# Returns:
+#
+#     String - the available edition for this server
+#
+sub availableEdition
+{
+    my ($self) = @_;
+
+    return $self->soapCall('availableEdition');
 }
 
 # Method: securityUpdatesAddOn
