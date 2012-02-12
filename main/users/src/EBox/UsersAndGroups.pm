@@ -2598,6 +2598,9 @@ sub menu
 {
     my ($self, $root) = @_;
 
+    my $rs = EBox::Global->modInstance('remoteservices');
+    my $subsLevel = $rs->subscriptionCodename();
+
     my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
                                         'text' => $self->printableName(),
                                         'separator' => 'Office',
@@ -2629,7 +2632,9 @@ sub menu
                     'url' => 'Users/Composite/Settings',
                     'text' => __('LDAP Settings'), order => 40));
 
-        if ($mode eq 'master' or $mode eq 'ad-slave') {
+        if ( ($mode eq 'master'
+           or $mode eq 'ad-slave') and
+              $subsLevel ne 'sb' ) {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
                         'text' => __('Slave Status'), order => 50));

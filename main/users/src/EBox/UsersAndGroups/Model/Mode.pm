@@ -62,14 +62,29 @@ sub _table
 
     my ($self) = @_;
 
+    my $rs = EBox::Global->modInstance('remoteservices');
+    my $subsLevel = $rs->subscriptionCodename();
+
+    my @options = (
+        { 'value' => 'master', 'printableValue' => __('Master') },
+    );
+
+    if ($subsLevel ne 'sb') {
+        push (@options, {
+            'value' => 'slave',
+            'printableValue' => __('Slave'),
+        });
+        push (@options, {
+            'value' => 'ad-slave',
+            'printableValue' => __('Windows AD Slave'),
+        });
+    }
+
     my @tableDesc = (
         new EBox::Types::Select (
             fieldName => 'mode',
             printableName => __('Mode'),
-            options => [
-                { 'value' => 'master', 'printableValue' => __('Master') },
-                { 'value' => 'slave', 'printableValue' => __('Slave') },
-                { 'value' => 'ad-slave', 'printableValue' => __('Windows AD Slave') },
+            options => \@options;
             ],
             editable => 1,
             defaultValue => 'master',
