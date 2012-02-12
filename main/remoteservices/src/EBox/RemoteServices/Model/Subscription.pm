@@ -126,9 +126,9 @@ sub setTypedRow
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
             # Subscribing
-            EBox::RemoteServices::Subscription::Check->new(
+            EBox::RemoteServices::Subscription::Check->new()->subscribe(
                 user => $paramsRef->{username}->value(),
-                password => $password)->subscribe();
+                password => $password);
             my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value());
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {

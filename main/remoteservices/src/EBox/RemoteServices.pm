@@ -615,6 +615,7 @@ sub reloadBundle
     $force = 0 unless (defined($force));
 
     if ( $self->isConnected() ) {
+        EBox::RemoteServices::Subscription::Check->new()->subscribe(serverName => $self->eBoxCommonName());
         my $version       = $self->version();
         my $bundleVersion = $self->bundleVersion();
         my $bundleGetter  = new EBox::RemoteServices::Bundle();

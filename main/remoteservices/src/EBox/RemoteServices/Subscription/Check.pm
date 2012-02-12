@@ -24,14 +24,12 @@ package EBox::RemoteServices::Subscription::Check;
 use strict;
 use warnings;
 
-use base 'EBox::RemoteServices::Base';
-
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
+use Error qw(:try);
 
 # Constants
-use constant SERV_CONF_FILE => 'remoteservices.conf';
 use constant BANNED_MODULES => qw(mail jabber asterisk mailfilter virt);
 use constant MAX_SB_USERS   => 25;
 
@@ -39,81 +37,16 @@ use constant MAX_SB_USERS   => 25;
 
 # Constructor: new
 #
-#     Create the subscription checker client
-#
-# Parameters:
-#
-#     user - String the username for auth proposes
-#     password - String the password used for authenticating the user
-#
-#     - Named parameters
+#     Create the subscription checker
 #
 sub new
 {
     my ($class, %params) = @_;
 
-    exists $params{user} or
-      throw EBox::Exceptions::MissingArgument('user');
-    exists $params{password} or
-      throw EBox::Exceptions::MissingArgument('password');
-
-    my $self = $class->SUPER::new();
-
-    $self->{user} = $params{user};
-    $self->{password} = $params{password};
+    my $self = {};
 
     bless($self, $class);
     return $self;
-}
-
-# Method: serviceUrn
-#
-# Overrides:
-#
-#    <EBox::RemoteServices::Base::serviceUrn>
-#
-sub serviceUrn
-{
-    my ($self) = @_;
-
-    return 'EBox/Services/RegisteredEBoxList';
-}
-
-# Method: serviceHostName
-#
-# Overrides:
-#
-#    <EBox::RemoteServices::Base::serviceHostName>
-#
-sub serviceHostName
-{
-    my $host = EBox::Config::configkeyFromFile('ebox_services_www',
-                                               EBox::Config::etc() . SERV_CONF_FILE );
-    $host or
-      throw EBox::Exceptions::External(
-          __('Key for web subscription service not found')
-         );
-
-    return $host;
-}
-
-# Method: soapCall
-#
-# Overrides:
-#
-#    <EBox::RemoteServices::Base::soapCall>
-#
-sub soapCall
-{
-  my ($self, $method, @params) = @_;
-
-  my $conn = $self->connection();
-
-  return $conn->$method(
-                        user      => $self->{user},
-                        password  => $self->{password},
-                        @params
-                       );
 }
 
 # Method: unsubscribeIsAllowed
@@ -147,7 +80,21 @@ sub unsubscribeIsAllowed
 # Method: subscribe
 #
 #    Check whether the host is able to subscribe this server according
-#    to its capabilities and the available subscription from the cloud
+#    to its capabilities and the available subscription from the cloud.
+#
+#    If the server is already connected, then only serverName must be
+#    provided, if the server is not connected it requires the user and
+#    password pair instead
+#
+# Parameters:
+#
+#    user - String the username
+#
+#    password - String the password
+#
+#    serverName - String the server name
+#
+#    - Named parameters
 #
 # Returns:
 #
@@ -160,13 +107,29 @@ sub unsubscribeIsAllowed
 #
 sub subscribe
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
-    #my $availableEdition = $self->soapCall('availableEdition');
-    my $availableEdition = 'sb';
+    my $availableEditions = [ 'sb' ];
+    # if ( exists($params{serverName})) {
+    #     my $bundleGetter   = new EBox::RemoteServices::Bundle();
+    #     $availableEditions = $bundleGetter->availableEdition();
+    # } else {
+    #     my $subscriber    = new EBox::RemoteServices::Subscription(user     => $params{user},
+    #                                                                password => $params{password});
+    #     $availableEditions = $subscriber->availableEdition();
+    # }
 
-    unless ( $availableEdition eq 'sb' ) {
-        $self->_performSBChecks();
+    foreach my $edition (@{$availableEditions}) {
+        if ( $edition eq 'sb' ) {
+            try {
+                $self->_performSBChecks();
+            } catch EBox::Exceptions::External with {
+                my ($exc) = @_;
+                if ( scalar(@{$availableEditions}) == 1 ) {
+                    throw $exc;
+                }
+            };
+        }
     }
     return 1;
 }
@@ -193,7 +156,7 @@ sub _commProfileAndVirtCheck
         if ( $gl->modExists($modName) ) {
             my $mod = $gl->modInstance($modName);
             throw EBox::Exceptions::External(
-                __sx('Module {mod} is not possible to be installed with Small Business Edition',
+                __sx('You cannot get Module {mod} installed with Small Business Edition',
                      mod => $mod->printableName()));
         }
     }

@@ -249,6 +249,24 @@ sub serversList
     my $list = $self->soapCall('showList');
 
     return $list;
+}
+
+# Method: availableEdition
+#
+#      Return the possible available editions for this user if he
+#      subscribes a new server
+#
+# Returns:
+#
+#      Array ref - the possible available editions
+#
+sub availableEdition
+{
+    my ($self) = @_;
+
+    my $list = $self->soapCall('availableEdition');
+
+    return $list;
 
 }
 
