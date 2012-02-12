@@ -131,6 +131,7 @@ Util.conf_defaults(conf, that, defaults, [
     ['true_color',         'rw', 'bool', true,  'Request true color pixel data'],
     ['local_cursor',       'rw', 'bool', false, 'Request locally rendered cursor'],
     ['shared',             'rw', 'bool', true,  'Request shared mode'],
+    ['view_only',          'rw', 'bool', false, 'Disable client mouse/keyboard'],
 
     ['connectTimeout',     'rw', 'int', def_con_timeout, 'Time (s) to wait for connection'],
     ['disconnectTimeout',  'rw', 'int', 3,    'Time (s) to wait for disconnection'],
@@ -224,7 +225,10 @@ function constructor() {
             fail("Got unexpected WebSockets connection");
         }
     });
-    ws.on('close', function() {
+    ws.on('close', function(e) {
+        if (e.code) {
+            Util.Info("Close code: " + e.code + ", reason: " + e.reason + ", wasClean: " + e.wasClean);
+        }
         if (rfb_state === 'disconnect') {
             updateState('disconnected', 'VNC disconnected');
         } else if (rfb_state === 'ProtocolVersion') {
@@ -565,6 +569,9 @@ checkEvents = function() {
 
 keyPress = function(keysym, down) {
     var arr;
+
+    if (conf.view_only) { return; } // View only, skip keyboard events
+
     arr = keyEvent(keysym, down);
     arr = arr.concat(fbUpdateRequests());
     ws.send(arr);
@@ -586,8 +593,11 @@ mouseButton = function(x, y, down, bmask) {
             return;
         } else {
             viewportDragging = false;
+            ws.send(fbUpdateRequests()); // Force immediate redraw
         }
     }
+
+    if (conf.view_only) { return; } // View only, skip mouse events
 
     mouse_arr = mouse_arr.concat(
             pointerEvent(display.absX(x), display.absY(y)) );
@@ -610,6 +620,8 @@ mouseMove = function(x, y) {
         // Skip sending mouse events
         return;
     }
+
+    if (conf.view_only) { return; } // View only, skip mouse events
 
     mouse_arr = mouse_arr.concat(
             pointerEvent(display.absX(x), display.absY(y)) );
@@ -643,6 +655,7 @@ init_msg = function() {
             case "003.006": rfb_version = 3.3; break;  // UltraVNC
             case "003.007": rfb_version = 3.7; break;
             case "003.008": rfb_version = 3.8; break;
+            case "004.000": rfb_version = 3.8; break;  // Intel AMT KVM
             default:
                 return fail("Invalid server version " + sversion);
         }
@@ -806,9 +819,25 @@ init_msg = function() {
                   ", green_shift: " + green_shift +
                   ", blue_shift: " + blue_shift);
 
+        if (big_endian !== 0) {
+            Util.Warn("Server native endian is not little endian");
+        }
+        if (red_shift !== 16) {
+            Util.Warn("Server native red-shift is not 16");
+        }
+        if (blue_shift !== 0) {
+            Util.Warn("Server native blue-shift is not 0");
+        }
+
         /* Connection name/title */
         name_length   = ws.rQshift32();
         fb_name = ws.rQshiftStr(name_length);
+        
+        if (conf.true_color && fb_name === "Intel(r) AMT KVM")
+        {
+            Util.Warn("Intel AMT KVM only support 8/16 bit depths. Disabling true color");
+            conf.true_color = false;
+        }
 
         display.set_true_color(conf.true_color);
         display.resize(fb_width, fb_height);
@@ -865,6 +894,8 @@ normal_msg = function() {
         ws.rQshift8();  // Padding
         first_colour = ws.rQshift16(); // First colour
         num_colours = ws.rQshift16();
+        if (ws.rQwait("SetColourMapEntries", num_colours*6, 6)) { return false; }
+        
         for (c=0; c < num_colours; c+=1) { 
             red = ws.rQshift16();
             //Util.Debug("red before: " + red);
@@ -872,7 +903,7 @@ normal_msg = function() {
             //Util.Debug("red after: " + red);
             green = parseInt(ws.rQshift16() / 256, 10);
             blue = parseInt(ws.rQshift16() / 256, 10);
-            display.set_colourMap([red, green, blue], first_colour + c);
+            display.set_colourMap([blue, green, red], first_colour + c);
         }
         Util.Debug("colourMap: " + display.get_colourMap());
         Util.Info("Registered " + num_colours + " colourMap entries");
@@ -1327,7 +1358,7 @@ scan_tight_imgQ = function() {
         imgQ = FBU.imgQ;
         while ((imgQ.length > 0) && (imgQ[0].img.complete)) {
             data = imgQ.shift();
-            if (data['type'] === 'fill') {
+            if (data.type === 'fill') {
                 display.fillRect(data.x, data.y, data.width, data.height, data.color);
             } else {
                 ctx.drawImage(data.img, data.x, data.y);
@@ -1408,9 +1439,9 @@ pixelFormat = function() {
     arr.push16(255);  // red-max
     arr.push16(255);  // green-max
     arr.push16(255);  // blue-max
-    arr.push8(0);     // red-shift
+    arr.push8(16);    // red-shift
     arr.push8(8);     // green-shift
-    arr.push8(16);    // blue-shift
+    arr.push8(0);     // blue-shift
 
     arr.push8(0);     // padding
     arr.push8(0);     // padding
@@ -1556,7 +1587,7 @@ that.sendPassword = function(passwd) {
 };
 
 that.sendCtrlAltDel = function() {
-    if (rfb_state !== "normal") { return false; }
+    if (rfb_state !== "normal" || conf.view_only) { return false; }
     Util.Info("Sending Ctrl-Alt-Del");
     var arr = [];
     arr = arr.concat(keyEvent(0xFFE3, 1)); // Control
@@ -1572,7 +1603,7 @@ that.sendCtrlAltDel = function() {
 // Send a key press. If 'down' is not specified then send a down key
 // followed by an up key.
 that.sendKey = function(code, down) {
-    if (rfb_state !== "normal") { return false; }
+    if (rfb_state !== "normal" || conf.view_only) { return false; }
     var arr = [];
     if (typeof down !== 'undefined') {
         Util.Info("Sending key code (" + (down ? "down" : "up") + "): " + code);
