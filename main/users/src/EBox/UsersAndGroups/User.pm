@@ -255,6 +255,27 @@ sub changePassword
 
 
 
+
+# Method: delete
+#
+#   Delete the user or some of its attributes
+#
+sub delete
+{
+    my ($self, $attr, $lazy) = @_;
+
+    if (not defined($attr)) {
+        # remove this user from all its grups
+        foreach my $group (@{$self->groups()}) {
+            $self->removeGroup($group);
+        }
+    }
+
+    # Call super implementation
+    $self->SUPER::delete(@_);
+}
+
+
 # USER CREATION:
 
 
