@@ -43,13 +43,11 @@ sub _process($) {
     my @args = ();
 
     if ($usersandgroups->configured()) {
-
         my @groups = $usersandgroups->groups();
         my @users = $usersandgroups->users();
 
         push(@args, 'groups' => \@groups);
         push(@args, 'users' => \@users);
-
     } else {
         $self->setTemplate('/notConfigured.mas');
         push(@args, 'module' => __('Users'));

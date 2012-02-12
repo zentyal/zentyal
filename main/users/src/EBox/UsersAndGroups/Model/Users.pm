@@ -164,12 +164,11 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    if ($users->userExists($id)) {
-        my $user = new EBox::UsersAndGroups::User(dn => $id);
+    my $user = new EBox::UsersAndGroups::User(dn => $id);
+    if ($user->exists()) {
         my $full = $user->get('cn');
         my $userName = $user->get('uid');
-        my $link = "/UsersAndGroups/User?userdn=$id";
+        my $link = "/UsersAndGroups/User?user=$id";
         my $row = $self->_setValueRow(
             name => $userName,
             fullname => $full,

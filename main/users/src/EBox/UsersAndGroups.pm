@@ -35,9 +35,8 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
-use EBox::UsersAndGroups::Passwords;
-use EBox::SOAPClient;
 use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
 
 use Digest::SHA1;
 use Digest::MD5;
@@ -51,12 +50,6 @@ use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
 use Fcntl qw(:flock);
-
-use constant SYSMINUID      => 1900;
-use constant SYSMINGID      => 1900;
-use constant MINUID         => 2000;
-use constant MINGID         => 2000;
-use constant MAXGROUPLENGTH => 128;
 
 use constant USERSDN        => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
@@ -498,36 +491,6 @@ sub userDn
 
 
 
-# Method: userExists
-#
-#       Checks if a given user exists
-#
-# Parameters:
-#
-#       user - user dn
-#
-# Returns:
-#
-#       boolean - true if it exists, otherwise false
-#
-sub userExists
-{
-    my ($self, $user) = @_;
-
-    my ($filter, $basedn) = split(/,/, $user, 2);
-
-    my %attrs = (
-                 base => $basedn,
-                 filter => $filter,
-                 scope => 'one'
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    return ($result->count > 0);
-}
-
-
 # Method: uidExists
 #
 #       Checks if a given uid exists
@@ -750,11 +713,7 @@ sub userInfo # (user, entry)
 {
     my ($self, $user, $entry) = @_;
 
-    # Verify user  exists
-    unless ($self->userExists($user)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('user name'),
-                                             'value' => $user);
-    }
+    # TODO Verify user  exists
 
     # If $entry is undef we make a search to get the object, otherwise
     # we already have the entry
@@ -806,6 +765,52 @@ sub userInfo # (user, entry)
 
     return $userinfo;
 }
+
+
+# Method: addUser
+#
+#       Adds a user
+#
+# Parameters:
+#
+#       user - hash ref containing: 'user'(user name), 'fullname', 'password',
+#       'givenname', 'surname' and 'comment'
+#       system - boolean: if true it adds the user as system user, otherwise as
+#       normal user
+#       uidNumber - user UID numberer (optional and named)
+#       additionalPasswords -list with additional passwords (optional)
+#
+# Returns:
+#
+#       The new created user object
+#
+sub addUser
+{
+    my ($self, $user, $system, %params) = @_;
+
+    my $obj = EBox::UsersAndGroups::User->create($user, $system, %params);
+
+    unless ($system) {
+        $self->initUser($user->{'user'}, $user->{'password'});
+    }
+
+    $self->_reloadNSCD();
+
+    return $obj;
+}
+
+
+# Reload nscd daemon if it's installed
+sub _reloadNSCD
+{
+    if ( -f '/etc/init.d/nscd' ) {
+        try {
+           EBox::Sudo::root('/etc/init.d/nscd reload');
+       } otherwise {};
+   }
+}
+
+
 
 
 # Method: users
@@ -875,317 +880,6 @@ sub groupExists # (group)
     return ($result->count > 0);
 }
 
-# Method: gidExists
-#
-#       Checks if a given gid number exists
-#
-# Parameters:
-#
-#       gid - gid number
-#
-# Returns:
-#
-#       boolean - true if it exists, otherwise false
-#
-sub gidExists
-{
-    my ($self, $gid) = @_;
-
-    my %attrs = (
-                 base => $self->groupsDn,
-                 filter => "(gidNumber=$gid)",
-                 scope => 'one'
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    return ($result->count > 0);
-}
-
-# Method: lastGid
-#
-#       Returns the last gid used.
-#
-# Parameters:
-#
-#       system - boolan: if true, it returns the last gid for system users,
-#       otherwise the last gid for normal users
-#
-# Returns:
-#
-#       string - last gid
-#
-sub lastGid # (gid)
-{
-    my ($self, $system) = @_;
-
-    my %args = (
-                base => $self->groupsDn,
-                filter => '(objectclass=posixGroup)',
-                scope => 'one',
-                attrs => ['gidNumber']
-               );
-
-    my $result = $self->ldap->search(\%args);
-    my @users = $result->sorted('gidNumber');
-
-    my $gid = -1;
-    foreach my $user (@users) {
-        my $currgid = $user->get_value('gidNumber');
-        if ($system) {
-                        last if ($currgid > MINGID);
-                    } else {
-                        next if ($currgid < MINGID);
-                    }
-
-        if ( $currgid > $gid){
-            $gid = $currgid;
-        }
-    }
-
-    if ($system) {
-        return ($gid < SYSMINUID ?  SYSMINUID : $gid);
-    } else {
-        return ($gid < MINGID ?  MINGID : $gid);
-    }
-}
-
-# Method: addGroup
-#
-#       Adds a new group
-#
-# Parameters:
-#
-#       group - group name
-#       comment - comment's group
-#       system - boolan: if true it adds the group as system group,
-#       otherwise as normal group
-#
-sub addGroup # (group, comment, system)
-{
-    my ($self, $group, $comment, $system, %params) = @_;
-
-    if (length($group) > MAXGROUPLENGTH) {
-        throw EBox::Exceptions::External(
-                        __x("Groupname must not be longer than {maxGroupLength} characters",
-                            maxGroupLength => MAXGROUPLENGTH));
-    }
-
-    if (($group eq DEFAULTGROUP) and (not $system)) {
-        throw EBox::Exceptions::External(
-                        __('The group name is not valid because it is used' .
-                           ' internally'));
-        }
-
-    unless (_checkName($group)) {
-        throw EBox::Exceptions::InvalidData(
-                                            'data' => __('group name'),
-                                            'value' => $group);
-        }
-    # Verify group exists
-    if ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataExists('data' => __('group name'),
-                                           'value' => $group);
-    }
-    #FIXME
-    my $gid = exists $params{gidNumber} ?
-        $params{gidNumber} :
-            $self->_gidForNewGroup($system);
-
-    $self->_checkGid($gid, $system);
-
-    my %args = (
-                attr => [
-                         'cn'        => $group,
-                         'gidNumber'   => $gid,
-                         'objectclass' => ['posixGroup', 'zentyalGroup'],
-                        ]
-               );
-
-    my $dn = "cn=" . $group ."," . $self->groupsDn;
-    my $r = $self->ldap->add($dn, \%args);
-
-    $self->_changeAttribute($dn, 'description', $comment);
-
-    unless ($system) {
-        # Tell modules depending on users and groups
-        # a new group is created
-        my @mods = @{$self->_modsLdapUserBase()};
-
-        foreach my $mod (@mods){
-            $mod->_addGroup($group);
-        }
-    }
-
-    if ( -f '/etc/init.d/nscd' ) {
-        try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
-        } otherwise {};
-    }
-}
-
-sub _gidForNewGroup
-{
-    my ($self, $system) = @_;
-
-    my $gid;
-    if ($system) {
-        $gid = $self->lastGid(1) + 1;
-        if ($gid == MINGID) {
-            throw EBox::Exceptions::Internal(
-                                __('Maximum number of system users reached'));
-        }
-    } else {
-        $gid = $self->lastGid + 1;
-    }
-
-    return $gid;
-}
-
-
-sub _checkGid
-{
-    my ($self, $gid, $system) = @_;
-
-    if ($gid < MINGID) {
-        if (not $system) {
-            throw EBox::Exceptions::External(
-                 __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
-                     gid => $gid,
-                     min => MINGID,
-                    )
-                );
-        }
-    }
-    else {
-        if ($system) {
-            throw EBox::Exceptions::External(
-               __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
-                    gid => $gid,
-                    max => MINGID,
-                   )
-               );
-        }
-    }
-}
-
-
-
-sub updateGroup
-{
-    my ($self, $group, @params) = @_;
-
-    # Tell modules depending on groups and groups
-    # a group  has been updated
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    foreach my $mod (@mods){
-        $mod->_modifyGroup($group, @params);
-    }
-}
-
-# Method: modifyGroup
-#
-#       Modifies a group
-#
-# Parameters:
-#
-#       hash ref - holding the keys 'groupname' and 'comment'. At the moment
-#       comment is the only modifiable attribute
-#
-sub modifyGroup
-{
-    my ($self, $groupdata, @params) = @_;
-
-    my $cn = $groupdata->{'groupname'};
-    my $dn = "cn=$cn," . $self->groupsDn;
-    # Verify group  exists
-    unless ($self->groupExists($cn)) {
-        throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
-                                             'value' => $cn);
-    }
-
-    $self->_changeAttribute($dn, 'description', $groupdata->{'comment'});
-}
-
-
-# Method: delGroup
-#
-#       Removes a given group
-#
-# Parameters:
-#
-#       group - group name to be deleted
-#
-sub delGroup # (group)
-{
-    my ($self, $group) = @_;
-
-    unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('group name'),
-                'value' => $group);
-    }
-
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    # Tell modules depending on users and groups
-    # a group is to be deleted
-    foreach my $mod (@mods){
-        $mod->_delGroup($group);
-    }
-    my $dn = "cn=" . $group . "," . $self->groupsDn;
-    my $result = $self->ldap->delete($dn);
-}
-
-# Method: groupInfo
-#
-#       Returns a hash ref containing the inforamtion for a given group
-#
-# Parameters:
-#
-#       group - group name to gather information
-#       entry - *optional* ldap entry for the group
-#
-# Returns:
-#
-#       hash ref - holding the keys: 'groupname', 'comment' and 'gid'
-sub groupInfo # (group)
-{
-    my ($self, $group) = @_;
-
-    # Verify user don't exists
-    unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('user name'),
-                                             'value' => $group);
-    }
-
-    my %args = (
-                base => $self->groupsDn,
-                filter => "(cn=$group)",
-                scope => 'one',
-                attrs => ['cn', 'gidNumber', 'description']
-               );
-
-    my $result = $self->ldap->search(\%args);
-
-    my $entry = $result->entry(0);
-    # Mandatory data
-    my $groupinfo = {
-                     groupname => $entry->get_value('cn'),
-                     gid => $entry->get_value('gidNumber'),
-                    };
-
-
-    my $desc = $entry->get_value('description');
-    if ($desc) {
-        $groupinfo->{'comment'} = $desc;
-    } else {
-        $groupinfo->{'comment'} = "";
-    }
-
-    return $groupinfo;
-
-}
 
 # Method: groups
 #
@@ -1222,9 +916,8 @@ sub groups
     my @groups = ();
     foreach ($result->sorted('cn')) {
         if (not $system) {
-            next if ($_->get_value('gidNumber') < MINGID);
+            next if ($_->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
         }
-
 
         my $info = {
                     'account' => $_->get_value('cn'),
@@ -1242,311 +935,6 @@ sub groups
     return @groups;
 }
 
-# Method: addUserToGroup
-#
-#       Adds a user to a given group
-#
-# Parameters:
-#
-#       user - user name to add to the group
-#       group - group name
-#
-# Exceptions:
-#
-#       DataNorFound - If user or group don't exist
-sub addUserToGroup # (user, group)
-{
-    my ($self, $user, $group) = @_;
-
-    unless ($self->userExists($user)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('user name'),
-                                             'value' => $user);
-    }
-
-    unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('group name'),
-                                             'value' => $group);
-    }
-
-    my $dn = "cn=" . $group . "," . $self->groupsDn;
-    my $userDn = "uid=" . $user . "," . $self->usersDn;
-
-    my %attrs = ( add => { member => $userDn } );
-    $self->ldap->modify($dn, \%attrs);
-
-    $self->updateGroup($group, op => 'add', user => $user);
-}
-
-# Method: delUserFromGroup
-#
-#       Removes a user from a group
-#
-# Parameters:
-#
-#       user - user name to remove  from the group
-#       group - group name
-#
-# Exceptions:
-#
-#       DataNorFound - If user or group don't exist
-sub delUserFromGroup # (user, group)
-{
-    my ($self, $user, $group) = @_;
-
-    unless ($self->userExists($user)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('user name'),
-                                             'value' => $user);
-    }
-
-    unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFoud('data' => __('group name'),
-                                            'value' => $group);
-    }
-
-    my $dn = "cn=" . $group . "," . $self->groupsDn;
-    my $userDn = "uid=" . $user . "," . $self->usersDn;
-    my %attrs = ( delete => {  member => $userDn  } );
-        $self->ldap->modify($dn, \%attrs);
-
-    $self->updateGroup($group, op => 'del', user => $user);
-}
-
-# Method: groupsOfUser
-#
-#       Given a user it returns all the groups which the user belongs to
-#
-# Parameters:
-#
-#       user   - user name
-#       system - show system groups (default: false) *optional*
-#
-# Returns:
-#
-#       array ref - holding the groups
-#
-# Exceptions:
-#
-#       DataNotFound - If user does not exist
-#
-sub groupsOfUser # (user, system?)
-{
-    my ($self, $user, $system) = @_;
-    defined $system or $system = 0;
-
-    return $self->_ldapSearchUserGroups($user, $system, 0);
-}
-
-# Method: groupsNotOfUser
-#
-#       Given a user it returns all the groups which the user doesn't belong to
-#
-# Parameters:
-#
-#       user   - user name
-#       system - show system groups (default: false) *optional*
-#
-# Returns:
-#
-#       array ref - holding the groups
-#
-# Exceptions:
-#
-#       DataNotFound - If user does not  exist
-#
-sub groupsNotOfUser # (user, system?)
-{
-    my ($self, $user, $system) = @_;
-    defined $system or $system = 0;
-
-    return $self->_ldapSearchUserGroups($user, $system, 1);
-}
-
-sub _ldapSearchUserGroups # (user, system, inverse)
-{
-    my ($self, $user, $system, $inverse) = @_;
-
-    unless ($self->userExists($user)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('user name'),
-                                             'value' => $user);
-    }
-
-    my $filter = '&(objectClass=*)';
-    my $userDn = "uid=" . $user . "," . $self->usersDn;
-    if ($inverse) {
-        $filter .= "(!(member=$userDn))"
-    } else {
-        $filter .= "(member=$userDn)";
-    }
-
-    my %attrs = (
-                 base => $self->groupsDn,
-                 filter => $filter,
-                 scope => 'one',
-                 attrs => ['cn', 'gidNumber']
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    my @groups;
-    foreach my $entry ($result->entries) {
-        if (not $system) {
-            next if ($entry->get_value('gidNumber') < MINGID);
-        }
-        push @groups, $entry->get_value('cn');
-    }
-
-    return \@groups;
-}
-
-# Method: usersInGroup
-#
-#       Given a group it returns all the users belonging to it
-#
-# Parameters:
-#
-#       group - group name
-#
-# Returns:
-#
-#       array ref - holding the users
-#
-# Exceptions:
-#
-#       DataNorFound - If group does not  exist
-sub usersInGroup # (group)
-{
-    my ($self, $group) = @_;
-
-    unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('group name'),
-                                             'value' => $group);
-    }
-
-    my %attrs = (
-                 base => $self->groupsDn,
-                 filter => "(cn=$group)",
-                 scope => 'one',
-                 attrs => ['member']
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    my @users;
-    foreach my $res ($result->sorted('member')){
-        my $userDn = $res->get_value('member');
-        if ($userDn =~ m/uid=([^,]*),/) {
-            push @users, $1;
-        }
-    }
-
-    return \@users;
-}
-
-# Method: usersNotInGroup
-#
-#       Given a group it returns all the users who not belonging to it
-#
-# Parameters:
-#
-#       group - group name
-#
-# Returns:
-#
-#       array  - holding the groups
-#
-sub usersNotInGroup # (group)
-{
-    my ($self, $groupname) = @_;
-
-    my $grpusers = $self->usersInGroup($groupname);
-    my @allusers = $self->users();
-
-    my @users;
-    foreach my $user (@allusers){
-        my $uid = $user->{username};
-        unless (grep (/^$uid$/, @{$grpusers})){
-            push @users, $uid;
-        }
-    }
-
-    return @users;
-}
-
-
-# Method: gidGroup
-#
-#       Given a gid number it returns its group name
-#
-# Parameters:
-#
-#       gid - gid number
-#
-# Returns:
-#
-#       string - group name
-#
-sub gidGroup # (gid)
-{
-    my ($self, $gid) = @_;
-
-    my %attrs = (
-                 base => $self->groupsDn,
-                 filter => "(gidNumber=$gid)",
-                 scope => 'one',
-                 attr => ['cn']
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    if ($result->count == 0){
-        throw EBox::Exceptions::DataNotFound(
-                                             'data' => "Gid", 'value' => $gid);
-    }
-
-    return $result->entry(0)->get_value('cn');
-}
-
-# Method: groupGid
-#
-#       Given a group name  it returns its gid number
-#
-# Parameters:
-#
-#       group - group name
-#
-# Returns:
-#
-#       string - gid number
-#
-sub groupGid # (group)
-{
-    my ($self, $group) = @_;
-
-    unless ($self->groupExists($group)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('group name'),
-                                             'value' => $group);
-    }
-
-    my %attrs = (
-                 base => $self->groupsDn,
-                 filter => "(cn=$group)",
-                 scope => 'one',
-                 attr => ['cn']
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    return $result->entry(0)->get_value('gidNumber');
-}
-
-sub _groupIsEmpty
-{
-    my ($self, $group) = @_;
-
-    my @users = @{$self->usersInGroup($group)};
-
-    return @users ? undef : 1;
-}
 
 sub _changeAttribute
 {
@@ -1911,26 +1299,6 @@ sub _removePasswds
   unlink $tmpFile;
 }
 
-sub minGid
-{
-    return MINGID;
-}
-
-sub defaultQuota
-{
-    my ($self) = @_;
-
-    my $model = $self->model('AccountSettings');
-
-    my $value = $model->defaultQuotaValue();
-    if ($value eq 'defaultQuota_disabled') {
-        # FIXME: probably we need to differenciate between unlimited (0) and
-        # unset
-        $value = 0;
-    }
-
-    return $value;
-}
 
 sub enableQuota
 {
@@ -1979,13 +1347,6 @@ sub mode
     my ($self) = @_;
 
     return 'master';
-}
-
-sub _loginShell
-{
-    my ($self) = @_;
-
-    return $self->model('PAM')->login_shellValue();
 }
 
 1;

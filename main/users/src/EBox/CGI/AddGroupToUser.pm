@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 
 
@@ -39,23 +41,22 @@ sub _process
 {
     my ($self) = @_;
 
-    my $usersandgroups = EBox::Global->modInstance('users');
-
     $self->_requireParam('user' , __('user'));
-    my $user = $self->param('user');
+    my $user = $self->unsafeParam('user');
+    $user = new EBox::UsersAndGroups::User(dn => $user);
+
     $self->{errorchain} = "UsersAndGroups/User";
     $self->keepParam('user');
 
     $self->_requireParam('addgroup', __('group'));
-    my @groups = $self->param('addgroup');
+    my @groups = $self->unsafeParam('addgroup');
 
-    foreach my $group (@groups){
-        $usersandgroups->addUserToGroup($user, $group);
+    foreach my $dn (@groups){
+        my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+        $user->addGroup($group);
     }
 
-    # FIXME Is there a better way to pass parameters to redirect/chain
-    # cgi's
-    $self->{redirect} = "UsersAndGroups/User?username=$user";
+    $self->{redirect} = 'UsersAndGroups/User?user=' . $user->dn();
 }
 
 1;

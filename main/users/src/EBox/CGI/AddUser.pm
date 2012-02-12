@@ -63,26 +63,21 @@ sub _process($) {
 
 	for my $field (qw/password repassword/) {
 		unless (defined($user->{$field}) and $user->{$field} ne "") {
-			throw EBox::Exceptions::DataMissing(
-					'data' => __($field));
+			throw EBox::Exceptions::DataMissing('data' => __($field));
 		}
 	}
 
 	if ($user->{'password'} ne $user->{'repassword'}){
-		 throw EBox::Exceptions::External(__('Passwords do'.
-                                                     ' not match.'));
+		 throw EBox::Exceptions::External(__('Passwords do not match.'));
 	}
 
-
-	$usersandgroups->addUser($user);
+	my $user = $usersandgroups->addUser($user);
 	if ($user->{'group'}) {
-		$usersandgroups->addUserToGroup($user->{'user'},
-						$user->{'group'});
+		$user->addGroup(new EBox::UsersAndGroups::Group(dn => $user->{'group'}));
 	}
 
 	if ($self->param('addAndEdit')) {
-	        $self->{redirect} =
-			"UsersAndGroups/User?username=" . $user->{'user'};
+	        $self->{redirect} = "UsersAndGroups/User?user=" . $user->{'user'};
 	} else {
 	        $self->{redirect} = "UsersAndGroups/Users";
 

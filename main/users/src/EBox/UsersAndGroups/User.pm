@@ -27,7 +27,10 @@ use warnings;
 
 use EBox::Config;
 use EBox::Global;
+use EBox::Gettext;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::Passwords;
+use EBox::UsersAndGroups::Group;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -39,118 +42,172 @@ use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
 use constant HOMEPATH       => '/home';
 
-# Method: new
-#
-#   Instance a user LDAP readed from LDAP.
-#
-#   Parameters:
-#
-#      dn - Full dn for the user
-#  or
-#      entry - Net::LDAP entry for the user
-#
+use base 'EBox::UsersAndGroups::LdapObject';
+
 sub new
 {
-    my ($class, %params) = @_;
-
-    my $self = {};
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
     bless($self, $class);
-
-
-
-    unless ( $params{entry} or $params{dn} ) {
-        throw EBox::Exceptions::MissingArgument('dn');
-    }
-
-    if ( $params{entry} ) {
-        $self->{entry} = $params{entry};
-        $self->{dn} = $params{entry}->dn();
-    }
-    else {
-        $self->{dn} = $params{dn};
-    }
-
     return $self;
 }
 
-
-
-# Method: get
+# Method: name
 #
-#   Read an user attribute
+#   Return user name
 #
-#   Parameters:
-#
-#       attribute - Attribute name to read
-#
-sub get
-{
-    my ($self, $attr) = @_;
-
-    return $self->_entry->get_value($attr);
-}
-
-
-# Method: set
-#
-#   Set an user attribute
-#
-#   Parameters:
-#
-#       attribute - Attribute name to read
-#       value     - Value to set (scalar or array ref)
-#       lazy      - Do not update the entry in LDAP
-#
-sub set
-{
-    my ($self, $attr, $value, $lazy) = @_;
-
-    $self->_entry->replace($attr => $value);
-    $self->save() unless $lazy;
-}
-
-
-# Method: delete
-#
-#   Delete an user attribute
-#
-#   Parameters:
-#
-#       attribute - Attribute name to read
-#       lazy      - Do not update the entry in LDAP
-#
-sub delete
-{
-    my ($self, $attr, $lazy) = @_;
-
-    $self->_entry->delete($attr);
-    $self->save() unless $lazy;
-}
-
-
-# Method: save
-#
-#   Store all pending lazy operations (if any)
-#
-#   This method is only needed if some operation
-#   was used using lazy flag
-#
-sub save
+sub name
 {
     my ($self) = @_;
-    $self->_entry->update($self->_ldap->{ldap});
+    return $self->get('uid');
 }
 
 
-# Method: dn
-#
-#   Return DN for this user
-#
-sub dn
+sub fullname
 {
     my ($self) = @_;
+    return $self->get('cn');
+}
 
-    return $self->_entry->dn();
+
+sub firstname
+{
+    my ($self) = @_;
+    return $self->get('givenName');
+}
+
+
+sub surname
+{
+    my ($self) = @_;
+    return $self->get('sn');
+}
+
+
+sub home
+{
+    my ($self) = @_;
+    return $self->get('homeDirectory');
+}
+
+
+sub quota
+{
+    my ($self) = @_;
+    return $self->get('quota');
+}
+
+
+sub comment
+{
+    my ($self) = @_;
+    return $self->get('description');
+}
+
+
+# Method: addGroup
+#
+#   Add this user to the given group
+#
+# Parameters:
+#
+#   group - Group object
+#
+sub addGroup
+{
+    my ($self, $group) = @_;
+
+    $group->addMember($self);
+}
+
+
+# Method: removeGroup
+#
+#   Removes this user from the given group
+#
+# Parameters:
+#
+#   group - Group object
+#
+sub removeGroup
+{
+    my ($self, $group) = @_;
+
+    $group->removeMember($self);
+}
+
+
+# Method: groups
+#
+#   Groups this user belongs to
+#
+#   Parameters:
+#
+#       system - return also system groups (default: false) *optional*
+#
+#   Returns:
+#
+#       array ref of EBox::UsersAndGroups::Group objects
+#
+sub groups
+{
+    my ($self, $system) = @_;
+
+    return $self->_groups($system);
+}
+
+
+# Method: groupsNotIn
+#
+#   Groups this user does not belong to
+#
+#   Parameters:
+#
+#       system - return also system groups (default: false) *optional*
+#
+#   Returns:
+#
+#       array ref of EBox::UsersAndGroups::Group objects
+#
+sub groupsNotIn
+{
+    my ($self, $system) = @_;
+
+    return $self->_groups($system, 1);
+}
+
+sub _groups
+{
+    my ($self, $system, $invert) = @_;
+
+    my $filter;
+    if ($invert) {
+        $filter = "(&(objectclass=zentyalGroup)(!(member=$self->{dn})))";
+    } else {
+        $filter = "(&(objectclass=zentyalGroup)(member=$self->{dn}))";
+    }
+
+    my %attrs = (
+        base => $self->_ldap->dn(),
+        filter => $filter,
+        scope => 'sub',
+    );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @groups;
+    if ($result->count > 0)
+    {
+        foreach my $entry ($result->sorted('cn'))
+        {
+            if (not $system) {
+                next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group::MINGID);
+            }
+            push (@groups, new EBox::UsersAndGroups::Group(entry => $entry));
+        }
+    }
+    return \@groups;
 }
 
 
@@ -172,7 +229,7 @@ sub system
 #
 sub changePassword
 {
-    my ($self, $passwd) = @_;
+    my ($self, $passwd, $lazy) = @_;
 
     $self->_checkPwdLength($passwd);
     my $hash = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
@@ -193,35 +250,7 @@ sub changePassword
         $self->set($attr, $hashes->{$attr}, 1);
     }
 
-    $self->save();
-}
-
-# Return Net::LDAP::Entry entry for the user
-sub _entry
-{
-    my ($self) = @_;
-
-    unless ($self->{entry})
-    {
-        my %attrs = (
-            base => $self->{dn},
-            filter => 'objectclass=*',
-            scope => 'base',
-        );
-
-        my $result = $self->_ldap->search(\%attrs);
-        $self->{entry} = $result->entry(0);
-    }
-
-    return $self->{entry};
-}
-
-
-sub _ldap
-{
-    my ($self) = @_;
-
-    return EBox::Global->modInstance('users')->ldap();
+    $self->save() unless ($lazy);
 }
 
 
@@ -235,15 +264,23 @@ sub _ldap
 #
 # Parameters:
 #
-#       user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#       'givenname', 'surname' and 'comment'
-#       system - boolean: if true it adds the user as system user, otherwise as
-#       normal user
-#       uidNumber - user UID numberer (optional and named)
-#       additionalPasswords - list with additional passwords (optional)
+#   user - hash ref containing: 'user'(user name), 'fullname', 'password',
+#   'givenname', 'surname' and 'comment'
+#   system - boolean: if true it adds the user as system user, otherwise as
+#   normal user
+#   uidNumber - user UID numberer (optional and named)
+#   additionalPasswords - list with additional passwords (optional)
+#
+# Returns:
+#
+#   Returns the new create user object
+#
 sub create
 {
     my ($self, $user, $system, %params) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $dn = $users->userDn($user->{'user'});
 
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
@@ -263,11 +300,10 @@ sub create
     }
 
     # Verify user exists
-# TODO
-#    if ($self->userExists($user->{'user'})) {
-#        throw EBox::Exceptions::DataExists('data' => __('user name'),
-#                                           'value' => $user->{'user'});
-#    }
+    if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
+        throw EBox::Exceptions::DataExists('data' => __('user name'),
+                                           'value' => $user->{'user'});
+    }
 
     my $homedir = _homeDirectory($user->{'user'});
     if (-e $homedir) {
@@ -282,7 +318,10 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-    my $gid = $self->groupGid(EBox::UsersAndGroups->DEFAULTGROUP);
+
+    my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
+    my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
+    my $gid = $group->get('gidNumber');
 
     my $passwd = $user->{'password'};
 
@@ -306,7 +345,8 @@ sub create
                 throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
             }
 
-            @additionalPasswords = @{ EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'}) };
+            my %passwords = %{EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'})};
+            @additionalPasswords = map { $_ => $passwords{$_} } keys %passwords;
         }
     }
     # If fullname is not specified we build it with
@@ -323,6 +363,8 @@ sub create
         'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
         'sn'            => $user->{'surname'},
+        'givenName'     => $user->{givenname},
+        'description'   => $user->{comment},
         'loginShell'    => $self->_loginShell(),
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
@@ -340,15 +382,16 @@ sub create
 
     my %args = ( attr => \@attr );
 
-    my $dn = "uid=" . $user->{'user'} . "," . $self->usersDn;
-    my $r = $self->ldap->add($dn, \%args);
+    my $r = $self->_ldap->add($dn, \%args);
 
+    # Return the new created user
+    return new EBox::UsersAndGroups::User(dn => $dn);
+}
 
-    $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
-    $self->_changeAttribute($dn, 'description', $user->{'comment'});
-    unless ($system) {
-        $self->initUser($user->{'user'}, $user->{'password'});
-    }
+sub isHashed
+{
+    my ($pwd) = @_;
+    return ($pwd =~ /^\{[0-9A-Z]+\}/);
 }
 
 sub _checkName
@@ -471,5 +514,30 @@ sub _checkPwdLength
             maxPwdLength => MAXPWDLENGTH));
     }
 }
+
+sub _loginShell
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    return $users->model('PAM')->login_shellValue();
+}
+
+sub defaultQuota
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $model = $users->model('AccountSettings');
+
+    my $value = $model->defaultQuotaValue();
+    if ($value eq 'defaultQuota_disabled') {
+        $value = 0;
+    }
+
+    return $value;
+}
+
+
 
 1;

@@ -62,14 +62,14 @@ sub _process($) {
 	my $usersandgroups = EBox::Global->modInstance('users');
 
 	$self->_requireParam('objectname', __('object name'));
-	my $name = $self->param('objectname');
+	my $name = $self->unsafeParam('objectname');
 	my ($deluser, $delgroup);
 
 	if ($self->param('cancel')) {
 		$self->_requireParam('object', __('object type'));
 	        my $object = $self->param('object');
 		if ($object eq 'user') {
-			$self->{redirect} = "UsersAndGroups/User?username=$name";
+			$self->{redirect} = "UsersAndGroups/User?user=$name";
 		} else {
 			$self->{redirect} = "UsersAndGroups/Group?group=$name";
 		}
@@ -83,15 +83,16 @@ sub _process($) {
 		$delgroup = not $self->_warnUser('group', $name);
 	}
 
-	if ($deluser) {
-      		$usersandgroups->delUser($name);
-       	      	$self->{chain} = "UsersAndGroups/Users";
-		$self->{msg} = __('User removed successfully');
-	} elsif ($delgroup) {
-      		$usersandgroups->delGroup($name);
-       	      	$self->{chain} = "UsersAndGroups/Groups";
-		$self->{msg} = __('Group removed successfully');
-	}
+    if ($deluser) {
+        my $user = new EBox::UsersAndGroups::User(dn => $name);
+        $user->delete();
+        $self->{chain} = "UsersAndGroups/Users";
+        $self->{msg} = __('User removed successfully');
+    } elsif ($delgroup) {
+        $usersandgroups->delGroup($name);
+        $self->{chain} = "UsersAndGroups/Groups";
+        $self->{msg} = __('Group removed successfully');
+    }
 
 }
 
