@@ -24,7 +24,7 @@ use EBox::Exceptions::Internal;
 use Devel::StackTrace;
 
 # Methods of GlobalImpl that need to know if the instance is read-only or not
-my %ro_methods = map { $_ => 1 } qw(modEnabled modChange modInstances modInstancesOfType modInstance modDepends modRevDepends);
+my %ro_methods = map { $_ => 1 } qw(modEnabled modChange modInstances modInstancesOfType modInstance modDepends modRevDepends edition);
 
 # Methods of GlobalImpl that cannot be called on read-only instances
 my %rw_only_methods = map { $_ => 1 } qw(modIsChanged modChange modRestarted saveAllModules revokeAllModules modifiedModules);
