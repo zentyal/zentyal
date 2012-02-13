@@ -1079,7 +1079,6 @@ sub addSaveMessage
     push (@{$messages}, $message);
 }
 
-
 # Method: edition
 #
 # Returns:
@@ -1092,11 +1091,11 @@ sub edition
 {
     my ($self, $ro) = @_;
 
-    if ( $self->modExists('remoteservices') ) {
+    if ($self->modExists('remoteservices')) {
         my $rs = $self->modInstance($ro, 'remoteservices');
         my $codename = $rs->subscriptionCodename();
 
-        return $codename if (length($codename) > 0);
+        return $codename if ($codename);
     }
 
     return 'community';
