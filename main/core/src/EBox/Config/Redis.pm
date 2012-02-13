@@ -647,8 +647,11 @@ sub _restore_dir
     }
 }
 
-# Wrapper to reconnect to redis in case of detecting a failure when
-# issuing a command.
+my %cache;
+
+# Redis call proxy, tries to get the result from cache and fallbacks
+# to _redis_call_wrapper if not present or cache dirty
+#
 sub _redis_call
 {
     my ($self, $command, @args) = @_;
@@ -658,9 +661,41 @@ sub _redis_call
         $self->_respawn();
     }
 
+    my $wantarray = wantarray;
+    my $args = "@args";
+
+    # FIXME: Warning, this cache stuff is completely broken
+    # if there are more than one process
+
+    if ($command =~ /set$/ or $command =~ /del$/ or
+        $command =~ /push$/ or $command =~ /add$/) { # write command
+        # FIXME: empty only affected part of the cache ?
+        %cache = ();
+    } else { # read command
+        unless (exists $cache{$command}) {
+            $cache{$command} = {};
+        }
+    }
+    unless (exists $cache{$command}->{$args}) {
+        $cache{$command}->{$args} = $self->_redis_call_wrapper($wantarray, $command, @args);
+    }
+
+    if ($wantarray) {
+        return @{$cache{$command}->{$args}};
+    } else {
+        return $cache{$command}->{$args};
+    }
+}
+
+# Wrapper to reconnect to redis in case of detecting a failure when
+# issuing a command.
+#
+sub _redis_call_wrapper
+{
+    my ($self, $wantarray, $command, @args) = @_;
+
     my $response;
     my @response;
-    my $wantarray = wantarray;
 
     my $tries = 5;
     for my $i (1..$tries) {
@@ -676,6 +711,7 @@ sub _redis_call
                 if ($wantarray) {
                     @response = $self->{redis}->__read_response();
                     map { utf8::encode($_) if defined ($_) } @response;
+                    $response = \@response;
                 } else {
                     $response = $self->{redis}->__read_response();
                     utf8::encode($response) if defined ($response);
@@ -700,8 +736,6 @@ sub _redis_call
             }
         }
 
-        last unless ($failure);
-
         if ($failure) {
             if ( $i < $tries) {
                 warn "Reconnecting to redis server ($i try)...";
@@ -718,13 +752,9 @@ sub _redis_call
                     throw EBox::Exceptions::Internal($error);
                 }
             }
+        } else {
+            return $response;
         }
-    }
-
-    if ($wantarray) {
-        return @response;
-    } else {
-        return $response;
     }
 }
 
