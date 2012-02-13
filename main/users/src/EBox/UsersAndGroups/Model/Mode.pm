@@ -82,8 +82,7 @@ sub _table
         new EBox::Types::Select (
             fieldName => 'mode',
             printableName => __('Mode'),
-            options => \@options;
-            ],
+            options => \@options,
             editable => 1,
             defaultValue => 'master',
         ),
