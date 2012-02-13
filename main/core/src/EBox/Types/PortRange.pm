@@ -371,15 +371,12 @@ sub _restoreFromHash
     my $single = $self->fieldName() . '_single_port';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{range} =  $gconf->get_string($path . '/' . $range);
-        $value->{from} =  $gconf->get_string($path . '/' . $from);
-        $value->{to} =  $gconf->get_string($path . '/' . $to);
-        $value->{single} =  $gconf->get_string($path . '/' . $single);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{range} =  $gconf->get_string($path . '/' . $range);
+    $value->{from} =  $gconf->get_string($path . '/' . $from);
+    $value->{to} =  $gconf->get_string($path . '/' . $to);
+    $value->{single} =  $gconf->get_string($path . '/' . $single);
 
     $self->{'range_type'} = $value->{range};
     $self->{'from'} = $value->{from};

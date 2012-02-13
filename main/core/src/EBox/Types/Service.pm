@@ -379,14 +379,10 @@ sub _restoreFromHash
     my $port = $self->fieldName() . '_port';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
-        $value->{port} =  $gconf->get_int($path . '/' . $port);
-#	EBox::debug($path . '/' . $port);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
+    $value->{port} =  $gconf->get_int($path . '/' . $port);
 
     $self->{'protocol'} = $value->{protocol};
     $self->{'port'} = $value->{port};

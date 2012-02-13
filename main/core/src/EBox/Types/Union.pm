@@ -460,12 +460,9 @@ sub _restoreFromHash
 
     return unless ($self->row());
     my $selected;
-    unless ($selected = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $selected =  $gconf->get_string($path . '/' . $selPar);
-        $self->_addToCache($selected);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $selected =  $gconf->get_string($path . '/' . $selPar);
 
     return unless (defined($selected));
 

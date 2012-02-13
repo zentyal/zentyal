@@ -785,25 +785,6 @@ sub _setValue # (value)
     return;
 }
 
-# Method: _fetchFromCache
-#
-#   Return the stored data within the cache associtated to this element
-#
-sub _fetchFromCache
-{
-    my ($self) = @_;
-    my $row = $self->row();
-    return undef unless ($row);
-    my $id = $self->_path();
-    my $name = $self->fieldName();
-    my $model = $self->model();
-    if (exists $model->{dataCache}->{$id}->{$name}) {
-        return $model->{dataCache}->{$id}->{$name};
-    } else {
-        return undef;
-    }
-}
-
 # Method: _path
 #
 #   Return the whole path as in:
@@ -834,28 +815,11 @@ sub _identity
       return '';
 }
 
-# Method: _addToCache
-#
-#   Cache a data structure using the element directory + id as a key
-#
-# Parameters:
-#
-#   data - data to store within the cache
-sub _addToCache
-{
-    my ($self, $data) = @_;
-
-    my $model = $self->model();
-    my $rowId = $self->row()->id();
-    $rowId = '1' unless (defined ($rowId));
-    my $id = $self->row()->dir() . "/$rowId";
-    $model->{dataCache}->{$id}->{$self->fieldName()} = $data;
-}
-
 sub DESTROY
 {
     my ($self) = @_;
     $self->{model} = undef;
     $self->{row} = undef;
 }
+
 1;

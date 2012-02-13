@@ -214,13 +214,10 @@ sub _restoreFromHash
     my $mask = $self->fieldName() . '_mask';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{ip} =  $gconf->get_string($path . '/' . $ip);
-        $value->{mask} =  $gconf->get_string($path . '/' . $mask);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{ip} =  $gconf->get_string($path . '/' . $ip);
+    $value->{mask} =  $gconf->get_string($path . '/' . $mask);
 
     $self->{'ip'} = $value->{ip};
     $self->{'mask'} = $value->{mask};

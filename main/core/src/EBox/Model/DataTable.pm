@@ -57,20 +57,6 @@ use base 'EBox::Model::Component';
 #    Fix issue with values and printableValues fetched
 #    from foreign tables
 
-
-# Caching:
-#
-#     To speed up the process of returning rows, the access to the
-#     data stored in gconf is now cached. To keep data coherence amongst
-#     the several apache processes, we add a mark in the gconf structure
-#     whenever a write operation takes place. This mark is fetched by
-#     a process returning its rows, if it has changed then it has
-#     a old copy, otherwise its cached data can be returned.
-#
-#     Note that this caching process is very basic. Next step could be
-#     caching at row level, and keeping coherence at that level, modifying
-#     just the affected rows in the memory stored structure.
-
 sub new
 {
     my $class = shift;
@@ -90,7 +76,6 @@ sub new
         'directory' => "$directory/keys",
         'order' => "$directory/order",
         'table' => undef,
-        'cachedVersion' => 0,
     };
 
     bless($self, $class);
@@ -930,8 +915,6 @@ sub addTypedRow
         $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
     }
 
-    $self->_setCacheDirty();
-
     return $id;
 }
 
@@ -1073,32 +1056,6 @@ sub moveDown
     $self->_notifyCompositeManager('moveDown', $self->row($id));
 }
 
-sub _reorderCachedRows
-{
-    my ($self, $posa, $posb) = @_;
-
-    unless ($self->{'cachedRows'})  {
-        return;
-    }
-
-    my $storedVersion = $self->_storedVersion();
-    if ($self->{'cachedVersion'} + 1  != $storedVersion) {
-        return;
-    }
-
-    my $rows = $self->{'cachedRows'};
-
-    my $auxrow = @{$rows}[$posa];
-    my $ordera = @{$rows}[$posa]->{'order'};
-    $auxrow->{'order'} = @{$rows}[$posb]->{'order'};
-    @{$rows}[$posb]->{'order'} = $ordera;
-    @{$rows}[$posa] = @{$rows}[$posb];
-    @{$rows}[$posb] = $auxrow;
-
-    $self->{'cachedRows'} = $rows;
-    $self->{'cachedVersion'} = $storedVersion;
-}
-
 # Method: _removeRow
 #
 #    Removes a row in the configuration backend, override it when removing
@@ -1117,8 +1074,6 @@ sub _removeRow
     } else {
         $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
     }
-
-    $self->_setCacheDirty();
 
     $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
 }
@@ -1194,8 +1149,6 @@ sub removeRow
 
     $self->setMessage($userMsg);
     $self->deletedRowNotify($row, $force);
-
-    $self->_setCacheDirty();
 }
 
 # Method: removeAll
@@ -1419,8 +1372,6 @@ sub setTypedRow
     }
 
     if ($modified) {
-        $self->_setCacheDirty();
-        $self->{'dataCache'} = undef;
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
@@ -1430,93 +1381,6 @@ sub setTypedRow
         }
         $self->_notifyCompositeManager('update', $self->row($id));
         $self->updatedRowNotify($self->row($id), $oldRow, $force);
-    }
-}
-
-sub _storedVersion
-{
-    my ($self) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVerKey = $self->{'directory'} . '/version';
-    my $storedVer = $gconfmod->get_int($storedVerKey);
-
-    if (defined($storedVer)) {
-        return $storedVer;
-    } else {
-        return 0;
-    }
-}
-
-sub _cachedVersion
-{
-    my ($self) = @_;
-
-    return $self->{'cachedVersion'};
-}
-
-
-# Method: rows
-#
-#     Return a list containing the table rows
-#
-# Parameters:
-#
-#     filter - string to filter result
-#       page   - int the page to show the result from
-#
-# Returns:
-#
-#    Array ref containing the rows
-sub rows
-{
-    my ($self, $filter, $page)  = @_;
-
-    throw EBox::Exceptions::DeprecatedMethod();
-
-    if (defined $page and ($page < 0)) {
-        throw EBox::Exceptions::InvalidData(
-                                            data => __('page'),
-                                            value => $page,
-                                            advice =>
-                          __('Page must be a number equal or greater than zero')
-                                           )
-    }
-
-    # The method which takes care of loading the rows
-    # from gconf is _rows().
-    #
-    # rows() tries to cache the data to avoid extra access
-    # to gconf
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVersion = $self->_storedVersion();
-    my $cachedVersion = $self->_cachedVersion();;
-
-    if (not defined($storedVersion)) {
-        $storedVersion = 0;
-    }
-
-    # If the model is volatile, don't check the cached version since
-    # it should exist
-    if ( $self->_volatile() ) {
-        $self->{'cachedRows'} = $self->_rows();
-    } elsif (not defined($cachedVersion)) {
-        $self->{'cachedRows'} = $self->_rows();
-        $self->{'cachedVersion'} = 0;
-    } else {
-        if ($storedVersion != $cachedVersion) {
-            $self->{'cachedRows'} = $self->_rows();
-            $self->{'cachedVersion'} = $storedVersion;
-        }
-    }
-
-    if ( $self->order() == 1) {
-        return $self->_filterRows($self->{'cachedRows'}, $filter,
-                $page);
-    } else {
-        return $self->_filterRows(
-                $self->_tailoredOrder($self->{'cachedRows'}),
-                $filter, $page);
     }
 }
 
@@ -1667,13 +1531,6 @@ sub _ids
     my ($self, $notOrder) =  @_;
     my $gconfmod = $self->{'gconfmodule'};
 
-    my $storedVersion = $self->_storedVersion();
-    my $cachedVersion = $self->_cachedVersion();;
-    if ((not defined($cachedVersion)) or $storedVersion != $cachedVersion) {
-        $self->{'dataCache'} = undef;
-        $self->{'cachedVersion'} = $storedVersion;
-    }
-
     my $ids = $gconfmod->get_list($self->{'order'});
     unless (@{$ids}) {
         $ids = $gconfmod->all_dirs_base($self->{'directory'});
@@ -1725,29 +1582,6 @@ sub _rows
     }
 
     return \@rows;
-}
-
-sub _setCacheDirty
-{
-    my ($self) = @_;
-
-    # If the model is volatile, just return
-    if ( $self->_volatile() ) {
-        return;
-    }
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVerKey = $self->{'directory'} . '/version';
-    my $storedVersion = $gconfmod->get_int($storedVerKey);
-    my $newVersion;
-
-    if (defined($storedVersion)) {
-        $newVersion = $storedVersion + 1;
-    } else {
-        $newVersion = 1;
-    }
-
-    $gconfmod->set_int($storedVerKey, $newVersion);
 }
 
 # Method: _tailoredOrder
@@ -1824,21 +1658,6 @@ sub setDirectory
 
     my $olddir = $self->{'gconfdir'};
     return if ($dir eq $olddir);
-
-    # If there's a directory change we try to keep cached the last
-    # directory as it is likely we are asked again for it
-    my $cachePerDir = $self->{'cachePerDirectory'};
-    $cachePerDir->{$olddir}->{'cachedRows'} = $self->{'cachedRows'};
-    $cachePerDir->{$olddir}->{'cachedVersion'} = $self->{'cachedVersion'};
-
-    if ($cachePerDir->{$dir}) {
-        $self->{'cachedRows'} = $cachePerDir->{$dir}->{'cachedRows'};
-        $self->{'cachedVersion'} =
-            $cachePerDir->{$dir}->{'cachedVersion'};
-    } else {
-        $self->{'cachedRows'} = undef;
-        $self->{'cachedVersion'} = undef;
-    }
 
     $self->{'gconfdir'} = $dir;
     $self->{'directory'} = "$dir/keys";
@@ -3784,8 +3603,6 @@ sub _swapPos
     $order[$posB] = $temp;
 
     $gconfmod->set_list($self->{'order'}, 'string', \@order);
-    $self->_setCacheDirty();
-    $self->_reorderCachedRows($posA, $posB);
 }
 
 sub _orderHash

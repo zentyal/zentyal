@@ -769,7 +769,6 @@ sub _addRow
 #      $self->updatedRowNotify($self->row());
 #      $self->_notifyModelManager('add', $self->row());
 #
-#      $self->_setCacheDirty();
       $self->_addTypedRow($userData, readOnly => $params{'readOnly'});
 
   }
@@ -807,9 +806,6 @@ sub _addTypedRow
     $self->updatedRowNotify($self->row());
     $self->_notifyModelManager('add', $self->row());
     $self->_notifyCompositeManager('add', $self->row());
-
-    $self->_setCacheDirty();
-
 }
 
 # Set a row without id and with types. It's a reimplementation of
@@ -881,7 +877,6 @@ sub _setTypedRow
     }
 
     if ($modified) {
-        $self->_setCacheDirty();
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyModelManager('update', $self->row());
@@ -903,14 +898,6 @@ sub _row
 
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
-
-    my $storedVersion = $self->_storedVersion();
-    my $cachedVersion = $self->_cachedVersion();;
-    if ((not defined($cachedVersion)) or ($storedVersion != $cachedVersion)) {
-        $self->{'dataCache'} = undef;
-        $self->{'cachedVersion'} = $storedVersion;
-    }
-
 
       if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
           # Return default values instead

@@ -199,13 +199,10 @@ sub _restoreFromHash
     my $end = $self->fieldName() . '_end';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{begin} =  $gconf->get_string($path . '/' . $begin);
-        $value->{end} =  $gconf->get_string($path . '/' . $end);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{begin} =  $gconf->get_string($path . '/' . $begin);
+    $value->{end} =  $gconf->get_string($path . '/' . $end);
 
     $self->{'begin'} = $value->{begin};
     $self->{'end'} = $value->{end};
