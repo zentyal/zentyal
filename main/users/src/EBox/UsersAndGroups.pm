@@ -75,6 +75,7 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant MAX_SB_USERS   => 25;
 
 sub _create
 {
@@ -951,6 +952,15 @@ sub _initGroupSlaves
 sub addUser # (user, system)
 {
     my ($self, $user, $system, %params) = @_;
+
+    # Check for maximum users
+    if (EBox::Global->edition() eq 'sb') {
+        if (length(@{$self->users()}) >= MAX_SB_USERS) {
+            throw EBox::Exceptions::External(
+                __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.'));
+
+        }
+    }
 
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
@@ -2597,9 +2607,12 @@ sub menu
                     'text' => __('LDAP Settings'), order => 40));
 
         if ($mode eq 'master' or $mode eq 'ad-slave') {
-            $folder->add(new EBox::Menu::Item(
+
+            if ( EBox::Global->edition() ne 'sb' ) {
+                $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
                         'text' => __('Slave Status'), order => 50));
+            }
         }
         if ($mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(

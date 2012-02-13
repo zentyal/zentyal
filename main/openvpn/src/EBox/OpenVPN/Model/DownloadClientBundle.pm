@@ -143,13 +143,16 @@ sub _clientTypeOptions
                     printableValue => 'Mac OS X',
 #                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    } ,
-                   {
-                    value => 'EBoxToEBox',
-                    printableValue => __('Zentyal to Zentyal tunnel') ,
-#                    $EBoxToEBoxTunnel ? () : @disabledAttr,
-                   },
 
                   );
+
+    if (EBox::Global->edition() ne 'sb') {
+        push (@options, {
+            value => 'EBoxToEBox',
+            printableValue => __('Zentyal to Zentyal tunnel') ,
+#            $EBoxToEBoxTunnel ? () : @disabledAttr,
+        });
+    }
 
     return \@options;
 }

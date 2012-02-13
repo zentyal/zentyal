@@ -62,16 +62,28 @@ sub _table
 
     my ($self) = @_;
 
+    my @options = (
+        { 'value' => 'master', 'printableValue' => __('Master') },
+    );
+
+    if (EBox::Global->edition() ne 'sb') {
+        # FIXME slave mode removed due to compatibility issues in precise
+        #push (@options, {
+        #    'value' => 'slave',
+        #    'printableValue' => __('Slave'),
+        #});
+    }
+
+    push (@options, {
+        'value' => 'ad-slave',
+        'printableValue' => __('Windows AD Slave'),
+    });
+
     my @tableDesc = (
         new EBox::Types::Select (
             fieldName => 'mode',
             printableName => __('Mode'),
-            options => [
-                { 'value' => 'master', 'printableValue' => __('Master') },
-# FIXME slave mode removed due to compatibility issues in precise
-#                { 'value' => 'slave', 'printableValue' => __('Slave') },
-                { 'value' => 'ad-slave', 'printableValue' => __('Windows AD Slave') },
-            ],
+            options => \@options,
             editable => 1,
             defaultValue => 'master',
         ),

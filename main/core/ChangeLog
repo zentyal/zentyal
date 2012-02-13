@@ -1,4 +1,5 @@
 HEAD
+	+ Added a global method to retrieve installed server edition
 	+ Bugfix: set executable permissions to cron scripts, but zentyal-events
 	  is intentionally disabled because it's probably no longer necessary
 	+ Log also duration and compMessage to events.log
