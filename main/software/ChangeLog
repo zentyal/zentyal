@@ -1,4 +1,5 @@
 HEAD
+	+ Added check for small business subscription
 	+ Bugfix: Use the new paths in setting apt preferences when
 	  modifying the /etc/zentyal/remoteservices.conf entry
 	+ Set off-office hours in automatic time when the admin has not

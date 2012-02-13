@@ -9,6 +9,7 @@
     $isInfrastructure
     $isCommunication
     $updateList
+    $sb
 </%args>
 <%init>
 use EBox::Gettext;
@@ -155,7 +156,7 @@ my $first = EBox::Global->first();
 <style type="text/css">
 
 .head {
-    width: 115px;
+    width: 155px;
     margin: 0 15px;
     display: inline-block;
     text-align: center;
@@ -350,7 +351,11 @@ var pkgTable = new Array(
             </div>
         </div>
 
+% if ($sb) {
+        <div id="Communications_head" class="head" style="display:none">
+% } else {
         <div id="Communications_head" class="head">
+% }
 % unless ($isCommunication) {
             <div class="image" id="Communications_image" onclick="tick('Communications'); return false">
                 <img src="/data/software/images/icon_comm.png" alt="Zentyal Unified Communications" />
