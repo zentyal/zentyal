@@ -204,21 +204,11 @@ sub _setConf
 
     $backend->initInternalNetworks();
 
-    my $updateFwService = 0;
-
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
         $currentVMs{$name} = 1;
-
-        my $vncport = $vm->valueByName('vncport');
-        unless ($vncport) {
-            $vncport = $self->firstFreeVNCPort();
-            $vm->elementByName('vncport')->setValue($vncport);
-            $vm->store();
-            $updateFwService = 1;
-        }
 
         my $rewrite = 1;
         if ($self->usingVBox()) {
@@ -237,14 +227,12 @@ sub _setConf
             $self->_setNetworkConf($name, $settings);
             $self->_setDevicesConf($name, $settings);
         }
+
+        my $vncport = $vm->valueByName('vncport');
         $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
     }
     $backend->createInternalNetworks();
-
-    if ($updateFwService) {
-        $self->updateFirewallService();
-    }
 
     # Delete non-referenced VMs
     my $existingVMs = $backend->listVMs();
@@ -260,6 +248,7 @@ sub _setConf
     chmod (0600, VNC_PASSWD_FILE);
 }
 
+# TODO: only update service if the ports are different
 sub updateFirewallService
 {
     my ($self) = @_;
@@ -675,19 +664,34 @@ sub _importCurrentVNCPorts
 sub firstFreeVNCPort
 {
     my ($self) = @_;
-
-    my $maxPortUsed = 0;
-
+    my @ports;
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $vncport = $vm->valueByName('vncport');
-        if ($vncport and ($vncport > $maxPortUsed)) {
-            $maxPortUsed = $vncport;
-        }
+        push @ports, $vncport if $vncport;
     }
 
-    return $maxPortUsed ? $maxPortUsed + 1 : $self->firstVNCPort();
+    my $firstPort = $self->firstVNCPort();
+    if (@ports == 0) {
+        return $firstPort;
+    }
+
+    @ports = sort @ports;
+    if ($ports[0] < $firstPort) {
+        return $firstPort;
+    }
+
+    my $prev = shift @ports;
+    foreach my $port (@ports) {
+        if (($port - $prev) > 1) {
+            # hole found
+            return $prev + 1;
+        }
+        $prev = $port;
+    }
+
+    return $prev + 1;
 }
 
 sub consoleWidth
@@ -701,7 +705,6 @@ sub consoleWidth
 sub consoleHeight
 {
     my ($self) = @_;
-
     my $vncport = EBox::Config::configkey('view_console_height');
     return $vncport ? $vncport : 600;
 }
