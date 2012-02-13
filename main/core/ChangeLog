@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid 'negative raduis' error in DiskUsage chart
 	+ Changed JS to allow the restore of the action cell when a delete
 	  action fails
 2.2.5
