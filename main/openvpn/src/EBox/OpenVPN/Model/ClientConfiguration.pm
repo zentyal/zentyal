@@ -53,20 +53,29 @@ sub new
 
 sub _table
 {
-    my @tableHead =
-        (
+    my $rs = EBox::Global->modInstance('remoteservices');
+    my $subsLevel = $rs->subscriptionCodename();
+
+    my @confOptions = (
+        {
+            value => 'manual',
+             printableValue => __('Manual Configuration'),
+        },
+    );
+
+    if ($subsLevel ne 'sb') {
+        push (@confOptions, {
+            value => 'bundle',
+            printableValue => __('Zentyal bundle')
+        });
+    }
+
+    my @tableHead = (
          new EBox::Types::Select(
                                  fieldName => 'configuration',
                                  printableName => __('Configuration'),
                                  editable => 1,
-                                 options => [
-                                     { value => 'manual',
-                                       printableValue =>
-                                        __('Manual Configuration'),
-                                     },
-                                     { value => 'bundle',
-                                      printableValue => __('Zentyal bundle')
-                                     }]
+                                 options => \@confOptions,
                                  ),
          new EBox::Types::File(
                                fieldName => 'configurationBundle',
