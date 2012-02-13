@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -213,7 +213,7 @@ sub _table
         new EBox::Types::DomainName(
             'fieldName' => 'workgroup',
             'printableName' => __('Workgroup'),
-            'defaultValue' => uc($prefix) . '-DOMAIN',
+            'defaultValue' => EBox::Samba4::defaultWorkgroup(),
             'editable' => 1,
         ),
         new EBox::Types::Text(
@@ -225,7 +225,7 @@ sub _table
         new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'defaultValue' => ucfirst($prefix) . ' File Server',
+            'defaultValue' => EBox::Samba4::defaultDescription(),
             'editable' => 1,
         ),
 #        new EBox::Types::Boolean(
@@ -291,7 +291,7 @@ sub _server_roles
     my @roles;
 
     push (@roles, { value => 'dc', printableValue => __('Domain controller')});
-    push (@roles, { value => 'member', printableValue => __('Secundary domain controller')});
+    push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
     push (@roles, { value => 'standalone', printableValue => __('Standalone')});
 
     return \@roles;

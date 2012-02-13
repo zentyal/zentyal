@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -290,7 +290,7 @@ sub enableActions
             " --domain=" . $self->workgroup() .
             " --workgroup=" . $self->workgroup() .
             " --realm=" . $self->realm() .
-            " --dns-backend=BIND9" .
+            " --dns-backend=BIND9_FLATFILE" .
             " --server-role=" . $self->mode() .
             " --adminpass=" . $self->administratorPassword();
         EBox::debug("Provisioning database <$cmd>");
@@ -1041,10 +1041,31 @@ sub defaultNetbios
 # Build the default realm
 sub defaultRealm
 {
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
     my $domain = Net::Domain::hostdomain();
+    $domain = "$prefix.domain" unless $domain;
+
     return $domain;
 }
 
+# Build the default workgroup
+sub defaultWorkgroup
+{
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
+    return uc($prefix) . '-DOMAIN';
+}
+
+sub defaultDescription
+{
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
+    return ucfirst($prefix) . ' File Server';
+}
 #sub roamingProfiles
 #{
 #    my ($self) = @_;

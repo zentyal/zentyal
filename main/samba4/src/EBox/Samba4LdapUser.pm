@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,7 +32,7 @@ use EBox::Sudo;
 use Error qw(:try);
 #use Crypt::SmbHash qw(nthash ntlmgen);
 
-use constant SAMBATOOL           => '/usr/sbin/samba-tool';
+use constant SAMBATOOL           => '/usr/bin/samba-tool';
 
 # Default values for samba user
 #use constant SMBLOGONTIME       => '0';
