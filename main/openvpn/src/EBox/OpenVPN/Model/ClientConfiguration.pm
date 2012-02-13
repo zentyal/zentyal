@@ -53,9 +53,6 @@ sub new
 
 sub _table
 {
-    my $rs = EBox::Global->modInstance('remoteservices');
-    my $subsLevel = $rs->subscriptionCodename();
-
     my @confOptions = (
         {
             value => 'manual',
@@ -63,7 +60,7 @@ sub _table
         },
     );
 
-    if ($subsLevel ne 'sb') {
+    if (EBox::Global->edition() ne 'sb') {
         push (@confOptions, {
             value => 'bundle',
             printableValue => __('Zentyal bundle')

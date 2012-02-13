@@ -973,11 +973,8 @@ sub addUser # (user, system)
 {
     my ($self, $user, $system, %params) = @_;
 
-    my $rs = EBox::Global->modInstance('remoteservices');
-    my $subsLevel = $rs->subscriptionCodename();
-
     # Check for maximum users
-    if ($subsLevel eq 'sb') {
+    if (EBox::Global->edition() eq 'sb') {
         if (length(@{$self->users()}) >= MAX_SB_USERS) {
             throw EBox::Exceptions::External(
                 __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.');
@@ -2598,9 +2595,6 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $rs = EBox::Global->modInstance('remoteservices');
-    my $subsLevel = $rs->subscriptionCodename();
-
     my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
                                         'text' => $self->printableName(),
                                         'separator' => 'Office',
@@ -2632,12 +2626,13 @@ sub menu
                     'url' => 'Users/Composite/Settings',
                     'text' => __('LDAP Settings'), order => 40));
 
-        if ( ($mode eq 'master'
-           or $mode eq 'ad-slave') and
-              $subsLevel ne 'sb' ) {
-            $folder->add(new EBox::Menu::Item(
+        if ($mode eq 'master' or $mode eq 'ad-slave') {
+
+            if ( EBox::Global->edition() ne 'sb' ) {
+                $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
                         'text' => __('Slave Status'), order => 50));
+            }
         }
         if ($mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(

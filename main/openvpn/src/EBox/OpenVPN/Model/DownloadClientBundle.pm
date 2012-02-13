@@ -146,10 +146,7 @@ sub _clientTypeOptions
 
                   );
 
-    my $rs = EBox::Global->modInstance('remoteservices');
-    my $subsLevel = $rs->subscriptionCodename();
-
-    if ($subsLevel ne 'sb') {
+    if (EBox::Global->edition() ne 'sb') {
         push (@options, {
             value => 'EBoxToEBox',
             printableValue => __('Zentyal to Zentyal tunnel') ,
