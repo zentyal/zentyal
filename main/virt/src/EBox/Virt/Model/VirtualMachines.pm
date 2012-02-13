@@ -395,4 +395,28 @@ sub ifaceMethodChanged
     return undef;
 }
 
+# set VPNC port and service
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+    my $virt = $self->{gconfmodule};
+
+    my $vncport = $row->valueByName('vncport');
+    if (not $vncport) {
+
+        $vncport = $virt->firstFreeVNCPort();
+        $row->elementByName('vncport')->setValue($vncport);
+        $row->store();
+    }
+
+    $virt->updateFirewallService();
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    my $virt = $self->{gconfmodule};
+    $virt->updateFirewallService();
+}
+
 1;
