@@ -41,6 +41,7 @@ use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
 use constant HOMEPATH       => '/home';
+use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
@@ -103,6 +104,43 @@ sub comment
 {
     my ($self) = @_;
     return $self->get('description');
+}
+
+
+
+# Catch some of the set ops which need special actions
+sub set
+{
+    my ($self, $attr, $value) = @_;
+
+    if ($attr eq 'quota') {
+        if ($self->_checkQuota($value)) {
+            throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                    'value' => $value,
+                    'advice' => __('User quota must be an integer. To set an unlimited quota, enter zero.'),
+                    );
+        }
+
+        # set quota on save
+        $self->{set_quota} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::set(@_);
+}
+
+
+sub save
+{
+    my ($self) = @_;
+
+    if ($self->{set_quota}) {
+        $self->_setFilesystemQuota($self->get('quota'));
+        delete $self->{set_quota};
+    }
+
+    shift @_;
+    $self->SUPER::save(@_);
 }
 
 
@@ -202,7 +240,7 @@ sub _groups
         foreach my $entry ($result->sorted('cn'))
         {
             if (not $system) {
-                next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group::MINGID);
+                next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
             }
             push (@groups, new EBox::UsersAndGroups::Group(entry => $entry));
         }
@@ -222,6 +260,25 @@ sub system
     return ($self->get('gidNumber') > MINUID);
 }
 
+
+sub _checkQuota
+{
+    my ($quota) = @_;
+
+    ($quota =~ /^\s*$/) and return undef;
+    ($quota =~ /\D/) and return undef;
+    return 1;
+}
+
+
+sub _setFilesystemQuota
+{
+    my ($self, $userQuota) = @_;
+
+    my $uid = $self->get('uidNumber');
+    my $quota = $userQuota * 1024;
+    EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
+}
 
 # Method: changePassword
 #
@@ -254,8 +311,6 @@ sub changePassword
 }
 
 
-
-
 # Method: delete
 #
 #   Delete the user or some of its attributes
@@ -272,6 +327,7 @@ sub delete
     }
 
     # Call super implementation
+    shift @_;
     $self->SUPER::delete(@_);
 }
 
@@ -370,6 +426,7 @@ sub create
             @additionalPasswords = map { $_ => $passwords{$_} } keys %passwords;
         }
     }
+
     # If fullname is not specified we build it with
     # givenname and surname
     unless (defined $user->{'fullname'}) {
@@ -385,13 +442,11 @@ sub create
         'uid'           => $user->{'user'},
         'sn'            => $user->{'surname'},
         'givenName'     => $user->{givenname},
-        'description'   => $user->{comment},
         'loginShell'    => $self->_loginShell(),
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
         'homeDirectory' => $homedir,
         'userPassword'  => $passwd,
-        'quota'         => $self->defaultQuota(),
         'objectclass'   => [
             'inetOrgPerson',
             'posixAccount',
@@ -401,12 +456,23 @@ sub create
         @additionalPasswords
     );
 
+    push (@attr, 'description' => $user->{comment}) if ($user->{comment});
+
     my %args = ( attr => \@attr );
 
     my $r = $self->_ldap->add($dn, \%args);
+    my $res = new EBox::UsersAndGroups::User(dn => $dn);
+
+    # Init user
+    unless ($system) {
+        $users->initUser($res, $user->{'password'});
+    }
+
+    # Configure quota
+    $res->set('quota', $self->defaultQuota());
 
     # Return the new created user
-    return new EBox::UsersAndGroups::User(dn => $dn);
+    return $res;
 }
 
 sub isHashed

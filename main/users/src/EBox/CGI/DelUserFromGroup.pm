@@ -21,7 +21,7 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 
 
@@ -29,7 +29,6 @@ sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
-#   $self->{redirect} = "UsersAndGroups/Group";
 	bless($self, $class);
 	return $self;
 }
@@ -38,27 +37,22 @@ sub new
 sub _process
 {
 	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
-
 	my @args = ();
 
 	$self->_requireParam('group' , __('group'));
-	my $group = $self->param('group');
+	my $group = $self->unsafeParam('group');
 	$self->{errorchain} = "UsersAndGroups/Group";
 	$self->keepParam('group');
 
 	$self->_requireParam('deluser', __('user'));
+	my @users = $self->unsafeParam('deluser');
 
-	my @users = $self->param('deluser');
+    $group = new EBox::UsersAndGroups::Group(dn => $group);
+    foreach my $us (@users){
+        $group->removeMember(new EBox::UsersAndGroups::User(dn => $us));
+    }
 
-	foreach my $us (@users){
-		$usersandgroups->delUserFromGroup($us, $group);
-	}
-
-	# FIXME Is there a better way to pass parameters to redirect/chain
-        # cgi's
-        $self->{redirect} = "UsersAndGroups/Group?group=$group";
-
+    $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
 
 

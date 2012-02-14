@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -37,7 +38,8 @@ sub _process($) {
 	my $self = shift;
 
 	$self->_requireParam('groupname', __('group name'));
-	my $group = $self->param('groupname');
+	my $group = $self->unsafeParam('groupname');
+
 	$self->{errorchain} = "UsersAndGroups/Group";
 
 	$self->cgi()->param(-name=>'group', -value=>$group);
@@ -45,15 +47,10 @@ sub _process($) {
 
 	$self->_requireParamAllowEmpty('comment', __('comment'));
 
-	my $groupdata   = {
-				'groupname' => $group,
-				'comment'  => $self->param('comment')
-			 };
+    my $group = new EBox::UsersAndGroups::Group(dn => $group);
+    $group->set('description', $self->param('comment'));
 
-	my $usersandgroups = EBox::Global->modInstance('users');
-	$usersandgroups->modifyGroup($groupdata);
-
-	$self->{redirect} = "UsersAndGroups/Group?group=$group";
+	$self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
 
 

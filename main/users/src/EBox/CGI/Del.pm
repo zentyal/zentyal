@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -35,19 +37,17 @@ sub new {
 }
 
 sub _warnUser($$) {
-	my $self = shift;
-	my $object = shift;
-	my $name = shift;
+	my ($self, $object, $ldapObject) = @_;
 
 	my $usersandgroups = EBox::Global->modInstance('users');
-	my $warns = $usersandgroups->allWarnings($object, $name);
+	my $warns = $usersandgroups->allWarnings($object, $ldapObject);
 
 	if (@{$warns}) { # If any module wants to warn user
 		 $self->{template} = 'users/del.mas';
 		 $self->{redirect} = undef;
 		 my @array = ();
 		 push(@array, 'object' => $object);
-		 push(@array, 'name'   => $name);
+		 push(@array, 'name'   => $ldapObject);
 		 push(@array, 'data'   => $warns);
 		 $self->{params} = \@array;
 		 return 1;
@@ -58,8 +58,6 @@ sub _warnUser($$) {
 
 sub _process($) {
 	my $self = shift;
-
-	my $usersandgroups = EBox::Global->modInstance('users');
 
 	$self->_requireParam('objectname', __('object name'));
 	my $name = $self->unsafeParam('objectname');
@@ -78,9 +76,11 @@ sub _process($) {
 	} elsif ($self->param('delgroupforce')) {
 		$delgroup = 1;
 	} elsif ($self->unsafeParam('deluser')) {
-		$deluser = not $self->_warnUser('user', $name);
+        my $user = new EBox::UsersAndGroups::User(dn => $name);
+		$deluser = not $self->_warnUser('user', $user);
 	} elsif ($self->unsafeParam('delgroup')) {
-		$delgroup = not $self->_warnUser('group', $name);
+        my $group = new EBox::UsersAndGroups::Group(dn => $name);
+		$delgroup = not $self->_warnUser('group', $group);
 	}
 
     if ($deluser) {
@@ -89,11 +89,11 @@ sub _process($) {
         $self->{chain} = "UsersAndGroups/Users";
         $self->{msg} = __('User removed successfully');
     } elsif ($delgroup) {
-        $usersandgroups->delGroup($name);
+        my $group = new EBox::UsersAndGroups::Group(dn => $name);
+        $group->delete();
         $self->{chain} = "UsersAndGroups/Groups";
         $self->{msg} = __('Group removed successfully');
     }
-
 }
 
 1;

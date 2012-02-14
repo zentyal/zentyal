@@ -79,8 +79,6 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 	</table>
 	</form>
 
-
-
 <%def .groupSelectorLine>
 <%args>
 @groups
@@ -91,11 +89,11 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 <td>
     <select name='group' <% @groups == 0 ? 'disabled' : ''  %>>
         <option selected value=''></option>
-%        foreach my $gr (@groups){
-	      <option value='<% $gr->{'account'} %>'>
-		<% $gr->{'account'} %>
-              </option>
-%	}
+% foreach my $gr (@groups){
+	    <option value='<% $gr->dn() %>'>
+              <% $gr->name() %>
+        </option>
+% }
     </select>
 </td>
 </%def>

@@ -37,8 +37,6 @@ sub new
 
 sub _process($) {
 	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
-
 	my @args = ();
 
 	$self->_requireParam('username', __('user name'));
@@ -58,7 +56,7 @@ sub _process($) {
     }
 	$user->{'password'} = $self->unsafeParam('password');
 	$user->{'repassword'} = $self->unsafeParam('repassword');
-	$user->{'group'} = $self->param('group');
+	$user->{'group'} = $self->unsafeParam('group');
 	$user->{'comment'} = $self->param('comment');
 
 	for my $field (qw/password repassword/) {
@@ -71,16 +69,15 @@ sub _process($) {
 		 throw EBox::Exceptions::External(__('Passwords do not match.'));
 	}
 
-	my $user = $usersandgroups->addUser($user);
+	my $newUser = EBox::UsersAndGroups::User->create($user);
 	if ($user->{'group'}) {
-		$user->addGroup(new EBox::UsersAndGroups::Group(dn => $user->{'group'}));
+		$newUser->addGroup(new EBox::UsersAndGroups::Group(dn => $user->{'group'}));
 	}
 
 	if ($self->param('addAndEdit')) {
-	        $self->{redirect} = "UsersAndGroups/User?user=" . $user->{'user'};
+	        $self->{redirect} = "UsersAndGroups/User?user=" . $newUser->dn();
 	} else {
 	        $self->{redirect} = "UsersAndGroups/Users";
-
 	}
 }
 

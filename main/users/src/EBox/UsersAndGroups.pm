@@ -60,7 +60,6 @@ use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
 use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
-use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 
 use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
 use constant LDAP_DATADIR    => '/var/lib/ldap/';
@@ -242,7 +241,7 @@ sub enableActions
     $self->ldap->clearConn();
 
     # Create default group
-    $self->addGroup(DEFAULTGROUP, 'All users', 1);
+    EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');
@@ -491,47 +490,22 @@ sub userDn
 
 
 
-# Method: uidExists
-#
-#       Checks if a given uid exists
-#
-# Parameters:
-#
-#       uid - uid number to check
-#
-# Returns:
-#
-#       boolean - true if it exists, otherwise false
-#
-sub uidExists # (uid)
-{
-    my ($self, $uid) = @_;
-
-    my %attrs = (
-                 base => $self->usersDn,
-                 filter => "(uidNumber=$uid)",
-                 scope => 'one'
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    return ($result->count > 0);
-}
-
-
+# Init a new user (home and permissions)
 sub initUser
 {
     my ($self, $user, $password) = @_;
 
-    my $userInfo = $self->userInfo($user);
+    # Reload nscd if present
+    $self->_reloadNSCD();
+
     my $mk_home = EBox::Config::configkey('mk_home');
     $mk_home = 'yes' unless $mk_home;
     if ($mk_home eq 'yes') {
-        my $home = $userInfo->{'homeDirectory'};
+        my $home = $user->home();
         if ($home and ($home ne '/dev/null') and (not -e $home)) {
             my @cmds;
 
-            my $quser = shell_quote($user);
+            my $quser = shell_quote($user->name());
             my $qhome = shell_quote($home);
             my $group = DEFAULTGROUP;
             push(@cmds, "mkdir -p `dirname $qhome`");
@@ -545,258 +519,6 @@ sub initUser
             EBox::Sudo::root(@cmds);
         }
     }
-
-    my $uid = $userInfo->{'uid'};
-
-    my $quota = $userInfo->{'quota'};
-    defined $quota or $quota = 0;
-    $self->_setFilesystemQuota($uid, $quota);
-
-    # Tell modules depending on users and groups
-    # a new new user is created
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    foreach my $mod (@mods) {
-        $mod->_addUser($user, $password);
-    }
-}
-
-sub _checkQuota
-{
-    my ($quota) = @_;
-
-    ($quota =~ /^\s*$/) and return undef;
-    ($quota =~ /\D/) and return undef;
-    return 1;
-}
-
-sub _setFilesystemQuota
-{
-    my ($self, $uid, $userQuota) = @_;
-    my $quota = $userQuota * 1024;
-    EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
-}
-
-sub _modifyUserQuota
-{
-    my ($self, $user) = @_;
-
-    my $username = $user->{'username'};
-    my $dn = $self->userDn($username);
-    my $quota = $user->{'quota'};
-    my $userInfo = $self->userInfo($username);
-
-    $self->_changeAttribute($dn, 'quota', $quota);
-    $self->_setFilesystemQuota($userInfo->{'uid'}, $quota);
-}
-
-sub updateUser
-{
-    my ($self, $user, $password) = @_;
-
-    # Tell modules depending on users and groups
-    # a user  has been updated
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    foreach my $mod (@mods){
-        $mod->_modifyUser($user, $password);
-    }
-}
-
-# Method: modifyUser
-#
-#       Modifies  user's attributes
-#
-# Parameters:
-#
-#       user - hash ref containing: 'user' (user name), 'givenname', 'surname',
-#       'password', and comment. The only mandatory parameter is 'user' the
-#       other attribute parameters would be ignored if they are missing.
-#
-sub modifyUser
-{
-    my ($self, $user) = @_;
-
-    my $username = $user->{'username'};
-    my $dn = $self->userDn($username);
-
-    # Verify user exists
-    unless ($self->userExists($user->{'username'})) {
-        throw EBox::Exceptions::DataNotFound('data'  => __('user name'),
-                                             'value' => $username);
-    }
-
-    if (exists $user->{'quota'} and
-        (not _checkQuota($user->{'quota'}))) {
-        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
-                                            'value' => $user->{'quota'},
-                                            'advice' => __(
-            'User quota must be an integer. To set an unlimited quota, enter zero.'
-                                                          ),
-                                           );
-    }
-
-    foreach my $field (keys %{$user}) {
-        if ($field eq 'comment') {
-            $self->_changeAttribute($dn, 'description', $user->{'comment'});
-        } elsif ($field eq 'givenname') {
-            $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
-        } elsif ($field eq 'surname') {
-            $self->_changeAttribute($dn, 'sn', $user->{'surname'});
-        } elsif ($field eq 'fullname') {
-            $self->_changeAttribute($dn, 'cn', $user->{'fullname'});
-        } elsif ($field eq 'quota') {
-            $self->_modifyUserQuota($user);
-        } elsif ($field eq 'password') {
-            $self->_modifyUserPwd($user->{'username'}, $user->{'password'});
-        }
-    }
-    $self->updateUser($username, $user->{'password'});
-}
-
-# Method: delUser
-#
-#       Removes a given user
-#
-# Parameters:
-#
-#       user - user name to be deleted
-#
-sub delUser # (user)
-{
-    my ($self, $user) = @_;
-
-    # Verify user exists
-    unless ($self->userExists($user)) {
-        throw EBox::Exceptions::DataNotFound('data' => __('user name'),
-                                             'value' => $user);
-    }
-
-    # Delete user from groups
-    foreach my $group (@{$self->groupsOfUser($user)}) {
-        $self->delUserFromGroup($user, $group);
-    }
-
-    my @mods = @{$self->_modsLdapUserBase()};
-
-    # Tell modules depending on users and groups
-    # an user is to be deleted
-    foreach my $mod (@mods) {
-        $mod->_delUser($user);
-    }
-
-    # remove home directory
-    #my $userInfo = $self->userInfo($user);
-    #my $home = $userInfo->{homeDirectory};
-    # TODO: We need to ask with a confirmation dialog before doing this!
-    #EBox::Sudo::root("rm -rf $home");
-
-    # Delete user
-    my $r = $self->ldap->delete("uid=" . $user . "," . $self->usersDn);
-}
-
-# Method: userInfo
-#
-#       Returns a hash ref containing the inforamtion for a given user
-#
-# Parameters:
-#
-#       user - user name to gather information
-#       entry - *optional* ldap entry for the user
-#
-# Returns:
-#
-#       hash ref - holding the keys: 'username', 'givenname', 'surname', 'fullname'
-#      password', 'homeDirectory', 'uid' and 'group'
-#
-sub userInfo # (user, entry)
-{
-    my ($self, $user, $entry) = @_;
-
-    # TODO Verify user  exists
-
-    # If $entry is undef we make a search to get the object, otherwise
-    # we already have the entry
-    unless ($entry) {
-        my %args = (
-           base => $self->usersDn,
-           filter => "(uid=$user)",
-           scope => 'one',
-           attrs => ['*'],
-        );
-
-        my $result = $self->ldap->search(\%args);
-        $entry = $result->entry(0);
-    }
-
-    # Mandatory data
-    my $userinfo = {
-        username => $entry->get_value('uid'),
-        fullname => $entry->get_value('cn'),
-        surname => $entry->get_value('sn'),
-        password => $entry->get_value('userPassword'),
-        homeDirectory => $entry->get_value('homeDirectory'),
-        uid => $entry->get_value('uidNumber'),
-        group => $entry->get_value('gidNumber'),
-        quota => $entry->get_value('quota'),
-        extra_passwords => {},
-    };
-
-    foreach my $attr ($entry->attributes) {
-        if ($attr =~ m/^ebox(.*)Password$/) {
-            my $format = lc($1);
-            $userinfo->{extra_passwords}->{$format} = $entry->get_value($attr);
-        }
-    }
-
-    # Optional Data
-    my $givenName = $entry->get_value('givenName');
-    if ($givenName) {
-        $userinfo->{'givenname'} = $givenName;
-    } else {
-        $userinfo->{'givenname'} = '';
-    }
-    my $desc = $entry->get_value('description');
-    if ($desc) {
-        $userinfo->{'comment'} = $desc;
-    } else {
-        $userinfo->{'comment'} = '';
-    }
-
-    return $userinfo;
-}
-
-
-# Method: addUser
-#
-#       Adds a user
-#
-# Parameters:
-#
-#       user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#       'givenname', 'surname' and 'comment'
-#       system - boolean: if true it adds the user as system user, otherwise as
-#       normal user
-#       uidNumber - user UID numberer (optional and named)
-#       additionalPasswords -list with additional passwords (optional)
-#
-# Returns:
-#
-#       The new created user object
-#
-sub addUser
-{
-    my ($self, $user, $system, %params) = @_;
-
-    my $obj = EBox::UsersAndGroups::User->create($user, $system, %params);
-
-    unless ($system) {
-        $self->initUser($user->{'user'}, $user->{'password'});
-    }
-
-    $self->_reloadNSCD();
-
-    return $obj;
 }
 
 
@@ -809,8 +531,6 @@ sub _reloadNSCD
        } otherwise {};
    }
 }
-
-
 
 
 # Method: users
@@ -847,7 +567,7 @@ sub users
         # Include system users?
         next if (not $system and $user->system());
 
-        @users = (@users, $user);
+        push (@users, $user);
     }
 
     return \@users;
@@ -900,88 +620,30 @@ sub groups
 {
     my ($self, $system) = @_;
 
-    return () if (not $self->isRunning());
-
-    defined $system or $system = 0;
+    return [] if (not $self->isEnabled());
 
     my %args = (
-                base => $self->groupsDn,
-                filter => '(objectclass=*)',
-                scope => 'one',
-                attrs => ['cn', 'gidNumber', 'description']
-               );
+        base => $self->ldap->dn(),
+        filter => 'objectclass=zentyalGroup',
+        scope => 'sub',
+    );
 
     my $result = $self->ldap->search(\%args);
 
     my @groups = ();
-    foreach ($result->sorted('cn')) {
-        if (not $system) {
-            next if ($_->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
-        }
+    foreach my $entry ($result->sorted('cn'))
+    {
+        my $group = new EBox::UsersAndGroups::Group(entry => $entry);
 
-        my $info = {
-                    'account' => $_->get_value('cn'),
-                    'gid' => $_->get_value('gidNumber'),
-                   };
+        # Include system users?
+        next if (not $system and $group->system());
 
-        my $desc = $_->get_value('description');
-        if ($desc) {
-            $info->{'desc'} = $desc;
-        }
-
-        push @groups, $info;
+        push (@groups, $group);
     }
 
-    return @groups;
+    return \@groups;
 }
 
-
-sub _changeAttribute
-{
-    my ($self, $dn, $attr, $value) = @_;
-
-    my $valueExists = undef;
-    if (defined $value) {
-        unless ($value =~ m/^\s*$/) {
-            $valueExists = 1;
-        }
-    }
-
-    my %args = (
-            base => $dn,
-            filter => 'objectclass=*',
-            scope =>  'base'
-            );
-
-    my $result = $self->ldap->search(\%args);
-    my $entry = $result->pop_entry();
-    my $oldvalue = $entry->get_value($attr);
-
-    if (defined $oldvalue) {
-        if ($valueExists) {
-            if ($value eq $oldvalue) {
-                # no changes, nothing to do
-                return;
-            } else {
-                # replace with new value
-                $entry->replace($attr => $value);
-            }
-        } else {
-            # delete attribute
-            $entry->delete($attr);
-        }
-    } else {
-        if ($valueExists) {
-            $entry->add($attr => $value);
-        } else {
-            # There is no value to add
-            return;
-        }
-    }
-
-    # update changes
-    $entry->update($self->ldap->ldapCon);
-}
 
 
 # Returns modules implementing LDAP user base interface
@@ -1087,28 +749,6 @@ sub allGroupAddOns
     return \@components;
 }
 
-# Method: allLDAPLocalAttributes
-#
-#       Returns all the ldap local attributes requested by those modules
-#       implementing the function _localAttributes from EBox::LdapUserBase
-#
-# Returns:
-#
-#       array ref - holding all the attributes
-#
-sub allLDAPLocalAttributes
-{
-    my ($self) = @_;
-
-    my @modsFunc = @{$self->_modsLdapUserBase()};
-    my @allAttributes;
-    foreach my $mod (@modsFunc) {
-        push (@allAttributes, @{$mod->_localAttributes()});
-    }
-
-    return \@allAttributes;
-}
-
 # Method: allWarning
 #
 #       Returns all the the warnings provided by the modules when a certain
@@ -1137,7 +777,7 @@ sub allWarnings
         } else {
             $warn = $mod->_delGroupWarning($name);
         }
-                push (@allWarns, $warn) if ($warn);
+        push (@allWarns, $warn) if ($warn);
     }
 
     return \@allWarns;
@@ -1203,7 +843,7 @@ sub userMenu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Users/View/Password',
-                                      'text' => __('Password')));
+                                    'text' => __('Password')));
 }
 
 # LdapModule implementation
@@ -1246,12 +886,7 @@ sub restoreBackupPreCheck
     my @usersToRestore = @{ $self->ldap->usersInBackup($dir, 'master') };
     foreach my $user (@usersToRestore) {
         if (exists $etcPasswdUsers{$user}) {
-            throw EBox::Exceptions::External(
-                                             __x(
-'Cannot restore because LDAP user {user} already exists as /etc/passwd user. Delete or rename this user and try again',
-                                                 user => $user
-                                                )
-                                            );
+            throw EBox::Exceptions::External(__x('Cannot restore because LDAP user {user} already exists as /etc/passwd user. Delete or rename this user and try again', user => $user));
         }
     }
 }
@@ -1299,11 +934,6 @@ sub _removePasswds
   unlink $tmpFile;
 }
 
-
-sub enableQuota
-{
-    return (EBox::Config::configkey('enable_quota') ne 'no');
-}
 
 # Method: authUser
 #

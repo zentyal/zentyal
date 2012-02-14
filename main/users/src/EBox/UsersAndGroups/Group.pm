@@ -28,7 +28,7 @@ use warnings;
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -107,7 +107,7 @@ sub removeMember
 }
 
 
-# Method: members
+# Method: users
 #
 #   Return the list of members for this group
 #
@@ -115,15 +115,48 @@ sub removeMember
 #
 #   arrary ref of members (EBox::UsersAndGroups::User)
 #
-sub members
+sub users
 {
     my ($self) = @_;
 
-    my @members = map { new EBox::UsersAndGroups::User(dn => $_) }
-                  @{$self->_entry->get('member')};
+    my @members = $self->_entry->get('member');
+    @members = map { new EBox::UsersAndGroups::User(dn => $_) } @members;
 
     return \@members;
 }
+
+
+# Method: usersNotIn
+#
+#   Users that don't belong to this group
+#
+#   Returns:
+#
+#       array ref of EBox::UsersAndGroups::Group objects
+#
+sub usersNotIn
+{
+    my ($self) = @_;
+
+    my %attrs = (
+            base => $self->_ldap->dn(),
+            filter => "(&(objectclass=posixAccount)(!(memberof=$self->{dn})))",
+            scope => 'sub',
+            );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @users;
+    if ($result->count > 0)
+    {
+        foreach my $entry ($result->sorted('uid'))
+        {
+            push (@users, new EBox::UsersAndGroups::User(entry => $entry));
+        }
+    }
+    return \@users;
+}
+
 
 
 # GROUP CREATION METHODS
@@ -144,6 +177,9 @@ sub create
 {
     my ($self, $group, $comment, $system, %params) = @_;
 
+    my $users = EBox::Global->modInstance('users');
+    my $dn = $users->groupDn($group);
+
     if (length($group) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
             __x("Groupname must not be longer than {maxGroupLength} characters",
@@ -156,11 +192,12 @@ sub create
             'value' => $group);
     }
 
-    # Verify group exists TODO
-#    if ($self->groupExists($group)) {
-#        throw EBox::Exceptions::DataExists('data' => __('group name'),
-#                                           'value' => $group);
-#    }
+    # Verify group exists
+    if (new EBox::UsersAndGroups::Group(dn => $dn)->exists()) {
+        throw EBox::Exceptions::DataExists(
+            'data' => __('group'),
+            'value' => $group);
+    }
 
     my $gid = exists $params{gidNumber} ?
                      $params{gidNumber} :
@@ -170,27 +207,36 @@ sub create
 
     my %args = (
         attr => [
-                 'cn'        => $group,
-                 'gidNumber'   => $gid,
-                 'objectclass' => ['posixGroup', 'zentyalGroup'],
-            ]
-        );
+            'cn'          => $group,
+            'gidNumber'   => $gid,
+            'objectclass' => ['posixGroup', 'zentyalGroup'],
+        ]
+    );
+    push (@{$args{attr}}, 'description' => $comment) if ($comment);
 
-    my $dn = "cn=" . $group ."," . $self->groupsDn;
-    my $r = $self->ldap->add($dn, \%args);
+    my $r = $self->_ldap->add($dn, \%args);
+}
 
-    $self->_changeAttribute($dn, 'description', $comment);
 
-    unless ($system) {
-        # Tell modules depending on users and groups
-        # a new group is created
-        my @mods = @{$self->_modsLdapUserBase()};
+sub _checkName
+{
+    my ($name) = @_;
 
-        foreach my $mod (@mods){
-            $mod->_addGroup($group);
-        }
+    if ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
+        return 1;
+    } else {
+        return undef;
     }
 }
+
+
+sub system
+{
+    my ($self) = @_;
+
+    return ($self->get('gidNumber') < MINGID);
+}
+
 
 sub _gidForNewGroup
 {
@@ -236,7 +282,7 @@ sub lastGid # (gid)
         attrs => ['gidNumber']
     );
 
-    my $result = $self->ldap->search(\%args);
+    my $result = $self->_ldap->search(\%args);
     my @users = $result->sorted('gidNumber');
 
     my $gid = -1;
