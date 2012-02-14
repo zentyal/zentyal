@@ -1,7 +1,6 @@
 keyring.gpg /usr/share/zentyal
 ebox.passwd /var/lib/zentyal/conf
 cron/zentyal /etc/cron.daily
-cron/zentyal-events /etc/cron.hourly
 cron/90zentyal-manage-logs /etc/cron.hourly
 css /usr/share/zentyal/stubs
 mysqld.conf /etc/mysql/conf.d/zentyal.cnf
