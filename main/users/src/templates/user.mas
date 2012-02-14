@@ -64,7 +64,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
-                        <% __('User quota') %>:
+                        <% __('User quota') %> (MB):
                     </span>
                 </td>
                 <td>
