@@ -40,7 +40,7 @@ option /etc/ppp/pptpd-options
 # TAG: logwtmp
 #	Use wtmp(5) to record client connections and disconnections.
 #
-logwtmp
+#logwtmp
 
 # TAG: bcrelay <if>
 #	Turns on broadcast relay to clients from interface <if>
