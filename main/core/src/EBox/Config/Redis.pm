@@ -39,6 +39,9 @@ use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
 use constant REDIS_TYPES => qw(string set list hash);
 
+my %cache;
+my @queue;
+
 # Constructor: new
 #
 sub new
@@ -494,7 +497,7 @@ sub regen_all_dirs
     my %values = map { $_ => $self->get($_) } @keys;
 
     # Delete the entire database
-    $self->_redis_call('flushdb');
+    $self->_redis_call_wrapper(0, 'flushdb');
 
     # Re-add stored keys and values
     while (my ($key, $value) = each (%values)) {
@@ -647,7 +650,15 @@ sub _restore_dir
     }
 }
 
-my %cache;
+sub _flush_queue
+{
+    my ($self) = @_;
+
+    while (@queue) {
+        my $cmd = shift (@queue);
+        $self->_redis_call_wrapper(0, $cmd->{cmd}, @{$cmd->{args}});
+    }
+}
 
 # Redis call proxy, tries to get the result from cache and fallbacks
 # to _redis_call_wrapper if not present or cache dirty
@@ -657,33 +668,91 @@ sub _redis_call
     my ($self, $command, @args) = @_;
 
     # Check process id and respawn redis if has changed (fork)
-    if ( $self->{pid} ne $$ ) {
+    if ($self->{pid} ne $$) {
         $self->_respawn();
     }
 
     my $wantarray = wantarray;
     my $args = "@args";
+    my ($key, @values) = @args;
+    my $value = $values[0];
 
     # FIXME: Warning, this cache stuff is completely broken
     # if there are more than one process
 
-    if ($command =~ /set$/ or $command =~ /del$/ or
-        $command =~ /push$/ or $command =~ /add$/) { # write command
-        # FIXME: empty only affected part of the cache ?
-        %cache = ();
-    } else { # read command
-        unless (exists $cache{$command}) {
-            $cache{$command} = {};
+    my $write = 1;
+    if ($command eq 'set') {
+        $cache{$key} = { type => 'string', value => $value };
+    } elsif ($command eq 'del') {
+        delete $cache{$key};
+    } elsif (($command eq 'hset') or ($command eq 'hmset')) {
+        unless (exists $cache{$key}) {
+            $cache{$key} = { type => 'hash', value => {} };
+        }
+        my $field;
+        while (($field, $value) = each @values) {
+            $cache{$key}->{value}->{$field} = $value;
+        }
+    } elsif (($command eq 'hdel') or ($command eq 'srem')) {
+        foreach my $field (@values) {
+            delete $cache{$key}->{value}->{$field};
+        }
+    } elsif ($command eq 'rpush') {
+        unless (exists $cache{$key}) {
+            $cache{$key} = { type => 'list', value => [] };
+        }
+        foreach my $val (@values) {
+            push (@{$cache{$key}->{value}}, $val);
+        }
+    } elsif ($command eq 'sadd') {
+        unless (exists $cache{$key}) {
+            $cache{$key} = { type => 'set', value => {} };
+        }
+        foreach my $val (@values) {
+            $cache{$key}->{value}->{$val} = 1;
+        }
+    } else {
+        $write = 0;
+
+        unless (exists $cache{$key}) {
+            if (($command eq 'smembers') or
+                ($command eq 'scard') or ($command eq 'sismember')) {
+                $value = $self->_redis_call_wrapper(1, 'smembers', $key);
+                $cache{$key} = { type => 'set', value => $value };
+            } elsif (($command eq 'hget') or ($command eq 'hgetall')) {
+                $value = $self->_redis_call_wrapper(1, 'hgetall', $key);
+                $cache{$key} = { type => 'hash', value => $value };
+            } else {
+                $value = $self->_redis_call_wrapper($wantarray, $command, @args);
+                if ($command eq 'get') {
+                    $cache{$key} = { type => 'string', value => $value };
+                } elsif ($command eq 'lrange') {
+                    $cache{$key} = { type => 'list', value => $value };
+                } elsif ($command eq 'type') {
+                    $cache{$key} = { type => $value };
+                }
+            }
+        }
+
+        if (($command eq 'get') or ($command eq 'sismember')) {
+            return $cache{$key}->{value};
+        } elsif ($command eq 'lrange') {
+            return @{$cache{$key}->{value}};
+        } elsif ($command eq 'smembers') {
+            return keys @{$cache{$key}->{value}};
+        } elsif ($command eq 'scard') {
+            return scalar (keys @{$cache{$key}->{value}});
+        } elsif ($command eq 'hget') {
+            return $cache{$key}->{value}->{$value};
+        } elsif ($command eq 'hgetall') {
+            return %{$cache{$key}->{value}};
+        } elsif ($command eq 'type') {
+            return $cache{$key}->{type};
         }
     }
-    unless (exists $cache{$command}->{$args}) {
-        $cache{$command}->{$args} = $self->_redis_call_wrapper($wantarray, $command, @args);
-    }
 
-    if ($wantarray) {
-        return @{$cache{$command}->{$args}};
-    } else {
-        return $cache{$command}->{$args};
+    if ($write) {
+        push (@queue, { cmd => $command, args => \@args });
     }
 }
 
@@ -836,9 +905,9 @@ sub stopRedis
     my ($self) = @_;
 
     # User corner redis server is managed by service
-    return if ( $self->_user eq 'ebox-usercorner' );
+    return if ($self->_user eq 'ebox-usercorner');
 
-    $self->_redis_call('save');
+    $self->_redis_call_wrapper(0, 'save');
     EBox::Service::manage('ebox.redis', 'stop');
 }
 
