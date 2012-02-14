@@ -573,34 +573,6 @@ sub users
     return \@users;
 }
 
-# Method: groupExists
-#
-#       Checks if a given group name exists
-#
-# Parameters:
-#
-#       group - group name
-#
-# Returns:
-#
-#       boolean - true if it exists, otherwise false
-#
-sub groupExists # (group)
-{
-    my ($self, $group) = @_;
-
-    my %attrs = (
-                 base => $self->groupsDn,
-                 filter => "(cn=$group)",
-                 scope => 'one'
-                );
-
-    my $result = $self->ldap->search(\%attrs);
-
-    return ($result->count > 0);
-}
-
-
 # Method: groups
 #
 #       Returns an array containing all the groups
