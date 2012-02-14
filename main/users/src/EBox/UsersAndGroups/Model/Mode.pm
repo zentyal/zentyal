@@ -66,7 +66,7 @@ sub _table
             allowUnsafeChars => 1,
             size => 36,
             defaultValue => _dnFromHostname(),
-            help => __('Only for master and AD slave configuration')
+            help => __('This will be the DN suffix in LDAP tree')
         ),
     );
 
