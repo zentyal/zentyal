@@ -225,6 +225,7 @@ sub clearConn
     my ($self) = @_;
     delete $self->{dn};
     delete $self->{ldap};
+    delete $self->{password};
 }
 
 # Method: rootDn
