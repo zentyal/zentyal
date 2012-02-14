@@ -112,7 +112,7 @@ sub get_int
 
 # Method:  set_bool
 #
-#   Set I$key to $value
+#   Set $key to $value
 #
 sub set_bool
 {
@@ -690,7 +690,9 @@ sub _redis_call
             $cache{$key} = { type => 'hash', value => {} };
         }
         my $field;
-        while (($field, $value) = each @values) {
+        while (@values) {
+            $field = shift @values;
+            $value = shift @values;
             $cache{$key}->{value}->{$field} = $value;
         }
     } elsif (($command eq 'hdel') or ($command eq 'srem')) {
