@@ -2,11 +2,35 @@
 
 use strict;
 
+use Net::LDAP;
 use File::Slurp;
 use MIME::Base64;
 use Encode qw(encode);
+use Data::Dumper;
 
-sub decodeKerberos {
+use EBox;
+use EBox::Global;
+
+use constant LDAP_SECRET_FILE => '/etc/ldap.secret';
+use constant LDAP_USER => 'cn=ebox,dc=precise';
+use constant LDAP_BASE => 'dc=precise';
+
+use constant SAMBA_SAM_FILE => '/var/lib/samba/private/sam.ldb.d/DC=KERNEVIL,DC=LAN.ldb';
+
+my @sambaUsersToIgnore = ('krbtgt', 'Administrator', 'dns-precise', 'Guest'); # TODO build dns account dynamically
+my @sambaGroupsToIgnore = ('Read-only Domain Controllers', 'Group Policy Creator Owners', 'Domain Controllers', 'Domain Computers', 'DnsUpdateProxy', 'Domain Admins',
+                           'Domain Guests', 'Domain Users');
+my @ldapUsersToIgnore  = ('');
+my @ldapGroupsToIgnore = ('__USERS__');
+
+sub debug
+{
+    my ($msg) = @_;
+    print "$msg\n";
+}
+
+sub decodeKerberos
+{
     my ($data) = @_;
 
     # http://msdn.microsoft.com/en-us/library/cc245503(v=prot.10).aspx
@@ -29,7 +53,8 @@ sub decodeKerberos {
     }
 }
 
-sub decodeWDigest {
+sub decodeWDigest
+{
     my ($data) = @_;
 
     # http://msdn.microsoft.com/en-us/library/cc245502(v=prot.10).aspx
@@ -42,7 +67,8 @@ sub decodeWDigest {
     print "Found " . "@hashes\n";
 }
 
-sub decodeUserProperties {
+sub decodeUserProperties
+{
     my ($nProperties, $blob) = @_;
 
     # Format of the USER_PROPERTY struct is documented at
@@ -71,27 +97,159 @@ sub decodeUserProperties {
     }
 }
 
-my $command = "ldbsearch -H /var/lib/samba/private/sam.ldb.d/DC=KERNEVIL,DC=LAN.ldb" .
-              " '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))'" .
-              " samaccountname unicodePwd supplementalCredentials";
+sub getSambaPassword
+{
+    my ($user) = @_;
 
-my $content = `$command`;
+    debug("get password for user $user->{sAMAccountName}");
 
-my @foo = split("\n", $content);
+    my $blob = decode_base64($user->{supplementalCredentials});
+    my $blobFormat = 'x4 L< x2 x2 x96 S< S< a*';
+# TODO check that length is enought
+   my ($blobLength, $blobSignature, $nProperties, $properties) = unpack ($blobFormat, $blob);
 
+   print "Length: $blobLength\n";
+   print "Signature: $blobSignature\n";
+   print "Properties count: $nProperties\n\n";
 
-unless(system($command)) {
-    my $line;
-    while($line = <STDOUT>) {
-        print $line;
-#        my $blob = decode_base64 ($encodedBlob);
-#        my $blobFormat = 'x4 L< x2 x2 x96 S< S< a*';
-#        my ($blobLength, $blobSignature, $nProperties, $properties) = unpack ($blobFormat, $blob);
-#
-#        print "Length: $blobLength\n";
-#        print "Signature: $blobSignature\n";
-#        print "Properties count: $nProperties\n\n";
-#
-#        decodeUserProperties ($nProperties, $properties);
-    }
+#   decodeUserProperties ($nProperties, $properties);
 }
+
+####################################################################################################
+
+sub getLdapUsers
+{
+    my ($ldap) = @_;
+
+    my $ldapUsers = {};
+
+    my $result = $ldap->search({ base => LDAP_BASE,
+            scope  => 'sub',
+            filter => 'objectClass=posixAccount'});
+
+    my @entries = $result->entries;
+    foreach my $entry (@entries) {
+        $ldapUsers->{$entry->get_value('uid')} = $entry->attributes;
+    }
+
+    return $ldapUsers;
+}
+
+sub getLdapGroups
+{
+    my ($ldap) = @_;
+
+    my $ldapGroups = {};
+
+    my $result = $ldap->search({ base => LDAP_BASE,
+            scope  => 'sub',
+            filter => 'objectClass=posixGroup'});
+
+    my @entries = $result->entries;
+    foreach my $entry (@entries) {
+        $ldapGroups->{$entry->get_value('cn')} = $entry->attributes;
+    }
+
+    return $ldapGroups;
+}
+
+sub parseLdbsearch
+{
+    my ($output, $key) = @_;
+    my $retVal = {};
+    $output =~ s/\n(?=\s)//g; # Fix continuation lines
+    my @entries = split(/#\s+record\s+\d+\n/, $output);
+    shift (@entries); # remove the first empty element
+    foreach my $entry (@entries) {
+        $entry =~ s/#.*\n//mg;
+        my @attributes = split(/\n/, $entry); # Split attributes
+        my %attributes = map { split(/: |:: /, $_) } @attributes;
+        $retVal->{$attributes{$key}} = \%attributes;
+    }
+    return $retVal;
+}
+
+sub getSambaUsers
+{
+    my $command = " ldbsearch -H " . SAMBA_SAM_FILE .
+#        " '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE)))'";
+        " '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))'";
+    my $output = `$command`;
+    return parseLdbsearch($output, 'sAMAccountName');
+}
+
+sub getSambaGroups
+{
+    my $command = " ldbsearch -H " . SAMBA_SAM_FILE .
+#                  " '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE)))'";
+                  " '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))'";
+    my $output = `$command`;
+    return parseLdbsearch($output, 'sAMAccountName');
+}
+
+####################################################################################################
+sub addLdapUser
+{
+    my ($usersModule, $sambaUser) = @_;
+
+    debug("Adding samba user '$sambaUser->{sAMAccountName}' to ldap");
+    my %params = {
+        user => $sambaUser->{sAMAccountName},
+        fullname => '',
+        password => getSambaPassword($sambaUser),
+        givenname => '',
+        surname => '',
+        comment => '',
+    };
+#    $usersModule->addUser(\%params, 0 );
+    # TODO Check the groups that the user belongs to and update ldap calling to addUserToGroup(user, group)
+}
+
+my $errors = 0;
+
+my $sambaUsers = getSambaUsers();
+my $sambaGroups = getSambaGroups();
+
+EBox::init();
+my $usersModule = EBox::Global->modInstance('users');
+my $ldap = $usersModule->ldap();
+my $ldapUsers = getLdapUsers($ldap);
+my $ldapGroups = getLdapGroups($ldap);
+
+debug( "Got " . scalar(keys(%{$sambaUsers})) . " samba users and " . scalar(keys(%{$ldapUsers})) . " ldap users" );
+debug( "Got " . scalar(keys(%{$sambaGroups})) . " samba groups and " . scalar(keys(%{$ldapGroups})) . " ldap groups" );
+
+# Insert new users from Samba to LDAP
+foreach my $sambaUser (keys %{$sambaUsers}) {
+    my %sambaUsersToIgnore = map { $_ => 1 } @sambaUsersToIgnore;
+    unless (exists $ldapUsers->{$sambaUser} or exists $sambaUsersToIgnore{$sambaUser}) {
+        addLdapUser($usersModule, $sambaUsers->{$sambaUser});
+    }
+    delete ($sambaUsers->{$sambaUser});
+}
+
+# Delete users that are not in Samba
+#foreach (keys %{$ldapUsers}) {
+#    delLdapUser($ldapUsers->{$_}) unless exists $sambaUsers->{$_};
+#}
+
+# Insert new groups from Samba to LDAP
+#foreach (keys %{$sambaGroups}) {
+#    addLdapGroup($sambaGroups->{$_}) unless exists $ldapGroups->{$_};
+#}
+
+# Delete groups that are not in Samba
+#foreach (keys %{$ldapGroups}) {
+#    delLdapGroup($ldapGroups->{$_}) unless exists $sambaGroups->{$_};
+#}
+
+# Sync passwords from Samba to LDAP
+#foreach (keys %{$sambaUsers}) {
+#    my $password = getSambaPassword($sambaUsers->{$_}->{supplementalCredentials});
+#}
+
+# Sync groups membership from Samba to LDAP
+#foreach (keys %{$sambaUsers}) {
+#}
+
+
