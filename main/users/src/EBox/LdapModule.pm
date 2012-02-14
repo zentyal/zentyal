@@ -175,21 +175,6 @@ sub _loadACLDirectory
     }
 }
 
-#   Method: _addTranslucentLocalAttribute
-#
-#      adds an attribute as local in the translucent LDAP
-#
-# Parameters:
-#          attribute - string with the attribute name
-#
-sub _addTranslucentLocalAttribute
-{
-    my ($self, $attribute) = @_;
-
-    EBox::Sudo::root("sed -i -e 's/^olcTranslucentLocal: \\(.*\\)/olcTranslucentLocal: $attribute,\\1/' /etc/ldap/slapd-translucent.d/cn=config/olcDatabase={1}hdb/olcOverlay={0}translucent.ldif");
-}
-
-
 #   Method: _addIndex
 #
 #       Create indexes in LDAP for an attribute

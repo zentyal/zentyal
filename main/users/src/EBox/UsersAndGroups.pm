@@ -193,7 +193,7 @@ sub enableActions
         'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
     );
 
-    my $dn = 'dc=zentyal,dc=com';
+    my $dn = $self->model('Mode')->dnValue();
     my $password = $self->_genPassword(EBox::Config::conf() . 'ldap.passwd');
     my $password_ro = $self->_genPassword(EBox::Config::conf() . 'ldap_ro.passwd');
     my $opts = [
@@ -233,6 +233,7 @@ sub enableActions
                 $exception->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database'));
     };
+    EBox::debug('done');
 
     # Setup NSS (needed if some user is added before save changes)
     $self->_setConf();
@@ -389,12 +390,8 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::Users',
         'EBox::UsersAndGroups::Model::Groups',
         'EBox::UsersAndGroups::Model::Password',
-        'EBox::UsersAndGroups::Model::Slaves',
-        'EBox::UsersAndGroups::Model::PendingSync',
-        'EBox::UsersAndGroups::Model::ForceSync',
         'EBox::UsersAndGroups::Model::LdapInfo',
         'EBox::UsersAndGroups::Model::PAM',
-        'EBox::UsersAndGroups::Model::ADSyncSettings',
         'EBox::UsersAndGroups::Model::AccountSettings',
     ];
 }
@@ -407,7 +404,6 @@ sub compositeClasses
 {
     return [
         'EBox::UsersAndGroups::Composite::Settings',
-        'EBox::UsersAndGroups::Composite::SlaveInfo',
         'EBox::UsersAndGroups::Composite::UserTemplate',
     ];
 }
@@ -772,11 +768,15 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
-                                        'text' => $self->printableName(),
-                                        'separator' => 'Office',
-                                        'order' => 510);
+    my $separator = 'Office';
+    my $order = 510;
+
     if ($self->configured()) {
+        my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+                                            'text' => $self->printableName(),
+                                            'separator' => $separator,
+                                            'order' => $order);
+
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                               'text' => __('Users'), order => 10));
@@ -798,12 +798,14 @@ sub menu
         $folder->add(new EBox::Menu::Item(
                     'url' => 'Users/Composite/Settings',
                     'text' => __('LDAP Settings'), order => 40));
-    } else {
-        $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                          'text' => __('Mode'), order => 10));
 
+        $root->add($folder);
+    } else {
+        $root->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
+                                        'text' => $self->printableName(),
+                                        'separator' => $separator,
+                                        'order' => $order));
     }
-    $root->add($folder);
 }
 
 # EBox::UserCorner::Provider implementation
@@ -943,7 +945,6 @@ sub listSchemas
 }
 
 
-# FIXME delete this method
 sub mode
 {
     my ($self) = @_;
