@@ -215,6 +215,8 @@ sub create
     push (@{$args{attr}}, 'description' => $comment) if ($comment);
 
     my $r = $self->_ldap->add($dn, \%args);
+
+    return new EBox::UsersAndGroups::Group(dn => $dn);
 }
 
 
