@@ -36,10 +36,8 @@ my $ldapconf = $ldap->ldapConf();
 
 my $dn = $ldapconf->{'dn'};
 my $bind = $ldapconf->{'rootdn'};
-my $port = $ldapconf->{'port'};
-my $translucentport = $ldapconf->{'translucentport'};
-my $passwd = $ldap->getPassword();
+my $pwfile = EBox::Config->conf() . "ldap.passwd";
 
-system("ldapvi -D $bind --bind simple -w $passwd -b $dn");
+system("ldapvi -D $bind --bind simple -w \$(cat $pwfile) -b $dn");
 
 1;
