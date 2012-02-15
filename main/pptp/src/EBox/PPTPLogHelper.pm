@@ -86,7 +86,7 @@ sub processLine # (file, line, dbengine)
     my ($month, $mday, $time, $host, $daemon, $msg) = split '\s+', $line, 6;
     my $year = ${[localtime(time)]}[5] + 1900;
 
-    if ( $daemon =~ m/^pptpd.*/ ) {
+    if ($daemon =~ m/^pptpd.*/) {
 
         my $eventInfo = $self->_eventFromMsg($msg);
         if (not defined $eventInfo) {
