@@ -937,22 +937,6 @@ sub uidvmail
     return scalar (getpwnam(EBox::Config::user));
 }
 
-sub localAttributes
-{
-    my @attrs = qw(
-            mailbox mailquota clearPassword
-            maildrop mailsource virtualdomain
-            virtualdomainuser defaultdelivery
-            description
-
-            mailHomeDirectory userMaildirSize
-            vddftMaildirSize
-
-            fetchmailAccount
-    );
-
-    return \@attrs;
-}
 
 sub schemas
 {

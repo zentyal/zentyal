@@ -71,13 +71,6 @@ sub schemas
     return [ EBox::Config::share() . 'zentyal-zarafa/zarafa.ldif' ]
 }
 
-sub localAttributes
-{
-    my @attrs = qw(zarafaAccount zarafaAdmin zarafaQuotaOverride zarafaQuotaWarn zarafaQuotaSoft zarafaQuotaHard);
-    return \@attrs;
-}
-
-
 sub indexes
 {
     return [ 'zarafaAccount' ];

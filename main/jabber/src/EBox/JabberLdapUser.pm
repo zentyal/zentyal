@@ -67,12 +67,6 @@ sub schemas
     return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
 }
 
-sub localAttributes
-{
-        my @attrs = qw( jabberUid jabberAdmin );
-    return \@attrs;
-}
-
 sub isAdmin #($username)
 {
     my ($self, $username) = @_;

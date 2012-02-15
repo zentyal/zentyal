@@ -219,20 +219,6 @@ sub acls
     return [];
 }
 
-# Method: localAttributes
-#
-#	Returns the attributes that need to be accessed locally in a translucent
-#	LDAP
-#
-# Returns:
-#
-#	array ref - Each element must be a string with an attribute name
-#
-sub localAttributes
-{
-    return [];
-}
-
 # Method: indexes
 #
 #	Returns the attributes that need to be indexed in a translucent LDAP

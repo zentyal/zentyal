@@ -41,13 +41,6 @@ sub schemas
     return [ EBox::Config::share() . 'zentyal-captiveportal/captiveportal.ldif' ]
 }
 
-sub localAttributes
-{
-    my @attrs = qw(captiveQuotaOverride captiveQuota);
-    return \@attrs;
-}
-
-
 sub _userAddOns
 {
     my ($self, $username) = @_;
