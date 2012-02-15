@@ -130,6 +130,8 @@ fi
 
 sed -i 's/start on/start on zentyal-lxdm and/' /etc/init/lxdm.conf
 
+### CUSTOM_ACTION ###
+
 sync
 
 exit 0
