@@ -56,7 +56,7 @@ sub subscriptionLevel
 
     my $result = { level => -1, codename => ''};
 
-<    try {
+    try {
         $result = $self->soapCall('subscriptionLevel');
     } otherwise {
         EBox::warn("SOAP call subscriptionLevel failed: $@");

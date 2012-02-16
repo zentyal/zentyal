@@ -112,15 +112,15 @@ sub subscribe
 {
     my ($self, %params) = @_;
 
-    my $availableEditions = [ 'basic', 'sb' ];
-    # if ( exists($params{serverName})) {
-    #     my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
-    #     $availableEditions = $capabilitiesGetter->availableEdition();
-    # } else {
-    #     my $subscriber    = new EBox::RemoteServices::Subscription(user     => $params{user},
-    #                                                                password => $params{password});
-    #     $availableEditions = $subscriber->availableEdition();
-    # }
+    my $availableEditions;
+    if ( exists($params{serverName})) {
+        my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
+        $availableEditions = $capabilitiesGetter->availableEdition();
+    } else {
+        my $subscriber     = new EBox::RemoteServices::Subscription(user     => $params{user},
+                                                                    password => $params{password});
+        $availableEditions = $subscriber->availableEdition();
+    }
 
     foreach my $edition (@{$availableEditions}) {
         if ( $edition eq 'sb' ) {
@@ -204,7 +204,7 @@ sub _vpnCheck
             if ( $server->pullRoutes() ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
                     __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers and '
-                         . '{name} VPN server is configured to allow these tunnels',
+                         . "'{name}' VPN server is configured to allow this kind of tunnels",
                          name => $server->name()));
             }
         }
@@ -213,7 +213,7 @@ sub _vpnCheck
             if ( (not $client->internal()) and $client->ripPasswd() ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
                     __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers '
-                         . 'and {name} VPN client is connected to another Zentyal server',
+                         . "and '{name}' VPN client is connected to another Zentyal server",
                          name => $client->name()));
             }
         }

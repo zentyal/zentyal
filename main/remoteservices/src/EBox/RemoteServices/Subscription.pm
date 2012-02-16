@@ -33,6 +33,7 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Subscription::Check;
 use EBox::Sudo;
 use EBox::Util::Nmap;
 
@@ -179,6 +180,11 @@ sub subscribeEBox
 
     # Check the WS is reachable
     $self->_checkWSConnectivity();
+
+    # Check the available edition is suitable for this server
+    EBox::RemoteServices::Subscription::Check->new()->subscribe(
+        user => $self->{user},
+        password => $self->{password});
 
     my $vpnSettings;
     try {

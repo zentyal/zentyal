@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -55,7 +55,7 @@ use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
-use  EBox::RemoteServices::FirewallHelper;
+use EBox::RemoteServices::FirewallHelper;
 use EBox::Sudo;
 use EBox::Validate;
 use Error qw(:try);
@@ -81,11 +81,11 @@ use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 #
 # Overrides:
 #
-#        <EBox::GConfModule::_create>
+#        <EBox::Module::Base::_create>
 #
 # Returns:
 #
-#        <EBox::Events> - the recently created module
+#        <EBox::RemoteServices> - the recently created module
 #
 sub _create
 {
