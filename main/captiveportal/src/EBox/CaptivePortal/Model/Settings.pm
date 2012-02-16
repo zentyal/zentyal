@@ -97,9 +97,9 @@ sub populateGroups
     );
     push (@groups, map (
             {
-               value            => $_->{account},
-               printableValue   => $_->{account},
-            }, $userMod->groups()
+               value            => $_->name(),
+               printableValue   => $_->name(),
+            }, @{$userMod->groups()}
          )
     );
     return \@groups;
