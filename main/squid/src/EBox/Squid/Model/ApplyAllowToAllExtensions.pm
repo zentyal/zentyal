@@ -51,8 +51,24 @@ sub printableTableName
 
 sub listModel
 {
-  my $squid = EBox::Global->modInstance('squid');
-  return $squid->model('ExtensionFilter');
+    my ($self) = @_;
+    my $squid = $self->{gconfmodule};
+    my $directory = $self->directory();
+    $directory =~ m{^FilterGroup/(.*?)/};
+    my $profileBaseDir = $1;
+
+    EBox::info("listModel dir:$directory $profileBaseDir");
+
+    if ($profileBaseDir eq 'defaultFilterGroup') {
+        return $squid->model('ExtensionFilter');
+    } else {
+        my $modelDir = "FilterGroup/keys/$profileBaseDir/filterPolicy/FilterGroupExtensionFilter";
+        my $model = $squid->model('FilterGroupExtensionFilter');
+        $model->setDirectory($modelDir);
+        return $model;
+
+    }
+
 }
 
 
