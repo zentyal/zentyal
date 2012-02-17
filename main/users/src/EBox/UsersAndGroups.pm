@@ -668,9 +668,9 @@ sub defaultUserModels
 #
 #       array ref - holding all the components and parameters
 #
-sub allUserAddOns # (user)
+sub allUserAddOns
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
@@ -678,7 +678,7 @@ sub allUserAddOns # (user)
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
-        my $comp = $mod->_userAddOns($username);
+        my $comp = $mod->_userAddOns($user);
         if ($comp) {
             push (@components, $comp);
         }
@@ -702,7 +702,7 @@ sub allUserAddOns # (user)
 #
 sub allGroupAddOns
 {
-    my ($self, $groupname) = @_;
+    my ($self, $group) = @_;
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
@@ -710,7 +710,7 @@ sub allGroupAddOns
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
-        my $comp = $mod->_groupAddOns($groupname);
+        my $comp = $mod->_groupAddOns($group);
         push (@components, $comp) if ($comp);
     }
 

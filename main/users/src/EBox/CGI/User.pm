@@ -49,7 +49,7 @@ sub _process
     my $dn = $self->unsafeParam('user');
     my $user = new EBox::UsersAndGroups::User(dn => $dn);
 
-    my $components = $usersandgroups->allUserAddOns($dn);
+    my $components = $usersandgroups->allUserAddOns($user);
     my $usergroups = $user->groups();
     my $remaingroups = $user->groupsNotIn();
 
