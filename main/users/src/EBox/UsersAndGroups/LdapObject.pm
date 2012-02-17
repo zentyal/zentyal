@@ -23,6 +23,7 @@ use warnings;
 use EBox::Config;
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::Gettext;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -153,7 +154,11 @@ sub delete
 sub save
 {
     my ($self) = @_;
-    $self->_entry->update($self->_ldap->{ldap});
+    my $result = $self->_entry->update($self->_ldap->{ldap});
+
+    if ($result->is_error()) {
+        throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error_text());
+    }
 }
 
 
