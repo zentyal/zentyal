@@ -1,5 +1,6 @@
 HEAD
 	+ Do not show invalid edit action in BWUsage model
+	+ BWUsage recover for invalid IPs (or IPv6 addresses)
 2.2.4
 	+ Usage table allows broadcast traffic and fixes regression in 2.2.3
 2.2.3
