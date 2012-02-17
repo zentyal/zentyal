@@ -46,7 +46,7 @@ sub _process($) {
 
 	$self->keepParam('user');
 
-    my $user = EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::UsersAndGroups::User(dn => $user);
 
     my $overridden = not ($self->param('CaptiveUser_defaultQuota_selected') eq
                      'defaultQuota_default');

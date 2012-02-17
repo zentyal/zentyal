@@ -53,12 +53,9 @@ sub _userAddOns
     my $overridden = $self->isQuotaOverridden($user);
     my $quota = $self->getQuota($user);
 
-    EBox::debug("OVERRIDDEN: $overridden");
-    EBox::debug("QUOTA: $quota");
-
     my @args;
     my $args = {
-        'username'   => $user->name(),
+        'user'       => $user,
         'overridden' => $overridden,
         'quota'      => $quota,
         'service'    => $cportal->isEnabled(),
@@ -73,7 +70,11 @@ sub _userAddOns
 sub isQuotaOverridden
 {
     my ($self, $user) = @_;
-    return ($user->get('captiveQuotaOverride' eq 'TRUE'));
+
+    if ($user->get('captiveQuotaOverride') eq 'TRUE') {
+        return 1;
+    }
+    return 0;
 }
 
 
@@ -106,9 +107,9 @@ sub setQuota
         push (@objectclasses, 'captiveUser');
         $user->set('objectClass', \@objectclasses, 1);
     }
-
     $user->set('captiveQuotaOverride', $overridden, 1);
-    $user->set('captiveQuota', $overridden, 1);
+    $user->set('captiveQuota', $quota, 1);
+
     $user->save();
 
     return 0;
