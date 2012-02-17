@@ -157,7 +157,7 @@ sub save
     my $result = $self->_entry->update($self->_ldap->{ldap});
 
     if ($result->is_error()) {
-        throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error_text());
+        throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
     }
 }
 
