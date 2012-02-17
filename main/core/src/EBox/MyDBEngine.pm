@@ -589,11 +589,14 @@ sub  dumpDB
     my $tmpFile = _superuserTmpFile(1);
 
     my $dbname = _dbname();
-    # FIXME: Change this to mysqldump
-    my $dumpCommand = "/usr/bin/pg_dump --clean --file $tmpFile $dbname";
+    my $dbuser = _dbuser();
+    my $dbpass = _dbpass();
+
+    my $args = "-u$dbuser -p$dbpass";
     if ($onlySchema) {
-        $dumpCommand .= ' --schema-only';
+        $args .= ' --no-data';
     }
+    my $dumpCommand = "mysqldump $args $dbname > $tmpFile";
 
     $self->commandAsSuperuser($dumpCommand);
 
@@ -609,6 +612,7 @@ sub _mangleDumpFile
 {
     my ($self, $file) = @_;
 
+    # TODO: check if this works with MySQL
     my @linesToComment = (
                           'DROP TABLE public.' .
                             EBox::Logs::SlicedBackup::backupSlicesDBTable(),
