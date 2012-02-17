@@ -86,7 +86,7 @@ olcDbIndex: objectclass eq
 olcDbIndex: entryCSN eq
 olcDbIndex: entryUUID eq
 olcDbIndex: uid eq
-olcDbIndex: memberUid eq
+olcDbIndex: member eq
 
 # Memberof automatic attribute population
 dn: olcOverlay=memberof,olcDatabase={1}hdb,cn=config
