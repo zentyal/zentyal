@@ -106,8 +106,8 @@ sub setHasAccount
         my @objectclasses = $user->get('objectClass');
         @objectclasses = grep { $_ ne 'userJabberAccount' } @objectclasses;
 
-        $user->delete('jabberUid');
-        $user->delete('jabberAdmin');
+        $user->delete('jabberUid', 1);
+        $user->delete('jabberAdmin', 1);
         $user->set('objectClass',\@objectclasses, 1);
         $user->save();
     }
