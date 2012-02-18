@@ -32,7 +32,7 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(mail jabber asterisk mailfilter virt);
+use constant BANNED_MODULES => qw(asterisk ids jabber mail mailfilter virt zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
@@ -145,22 +145,24 @@ sub _performSBChecks
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance();
-    $self->_commProfileAndVirtCheck($gl);
+    $self->_modCheck($gl);
     $self->_usersCheck($gl);
     $self->_vpnCheck($gl);
 }
 
-# Check no communication profile and virt module are installed
-sub _commProfileAndVirtCheck
+# Check no communication profile, ids and virt module are enabled
+sub _modCheck
 {
     my ($self, $gl) = @_;
 
     foreach my $modName (BANNED_MODULES) {
         if ( $gl->modExists($modName) ) {
             my $mod = $gl->modInstance($modName);
-            throw EBox::RemoteServices::Exceptions::NotCapable(
-                __sx('You cannot get Module {mod} installed with Small Business Edition',
-                     mod => $mod->printableName()));
+            if ( $mod->isEnabled() ) {
+                throw EBox::RemoteServices::Exceptions::NotCapable(
+                    __sx('You cannot get Module {mod} enabled with Small Business Edition',
+                         mod => $mod->printableName()));
+            }
         }
     }
 }
