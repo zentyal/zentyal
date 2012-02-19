@@ -388,11 +388,13 @@ sub _getQueues
     my $extensions = new EBox::Asterisk::Extensions;
 
     foreach my $queue (@{$extensions->queues()}) {
+        my $group = new EBox::UsersAndGroups::Group(dn => $users->groupDn($queue));
+        my @members = map { $_->name() } @{$group->users()};
 
         my $queueInfo = {};
         $queueInfo->{'name'} = $queue;
-        $queueInfo->{'extn'} = $extensions->getQueueExtension($queue);
-        $queueInfo->{'members'} = $users->usersInGroup($queue);
+        $queueInfo->{'extn'} = $extensions->getQueueExtension($group);
+        $queueInfo->{'members'} = \@members;
 
         push (@queues, $queueInfo);
     }

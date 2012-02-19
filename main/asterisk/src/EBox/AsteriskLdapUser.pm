@@ -92,12 +92,13 @@ sub _addUser
     my $extn = $extensions->firstFreeExtension();
     my $mail = $self->_getUserMail($user);
 
-    my @objectclasses = $user->get('objectclass');
+    my @objectclasses = $user->get('objectClass');
 
-    unless (@objectclasses eq any 'AsteriskSIPUser') {
-        push (@objectclasses, 'AsteriskSIPUser');
+    unless ('AsteriskSIPUser' eq any @objectclasses) {
+        $user->add('objectClass', ['AsteriskSIPUser',
+                                   'AsteriskQueueMember',
+                                   'AsteriskVoicemail'], 1);
 
-        $user->set('objectClass', \@objectclasses, 1);
         $user->set('AstAccountType', 'friend', 1);
         $user->set('AstAccountContext', 'users',1);
         $user->set('AstAccountCallerID', $extn, 1);
@@ -115,14 +116,12 @@ sub _addUser
         $user->set('AstAccountRegistrationServer', '0', 1);
         $user->set('AstAccountUserAgent', '0', 1);
         $user->set('AstAccountFullContact', 'sip:0.0.0.0', 1);
-        $user->set('objectClass', 'AsteriskVoicemail', 1);
         $user->set('AstContext', 'users', 1);
         $user->set('AstVoicemailMailbox', $extn, 1);
         $user->set('AstVoicemailPassword', $extn, 1);
         $user->set('AstVoicemailEmail', $mail, 1);
         $user->set('AstVoicemailAttach', 'yes', 1);
         $user->set('AstVoicemailDelete', 'no', 1);
-        $user->set('objectClass', 'AsteriskQueueMember', 1);
         $user->set('AstQueueMembername', $user->name(), 1);
         $user->set('AstQueueInterface', 'SIP/' . $user->name(), 1);
         $user->save();
@@ -198,13 +197,37 @@ sub _delUser
     my $extensions = new EBox::Asterisk::Extensions;
     $extensions->delUserExtension($user);
 
-    my $users = $self->{users};
-    my $ldap = $users->{ldap};
-    my $dn = "uid=$user," . $users->usersDn;
-
-    $ldap->delObjectclass($dn, 'AsteriskSIPUser');
-    $ldap->delObjectclass($dn, 'AsteriskVoiceMail');
-    $ldap->delObjectclass($dn, 'AsteriskQueueMember');
+    my @objectclasses = $user->get('objectclass');
+    @objectclasses = grep { $_ ne 'AsteriskSIPUser' } @objectclasses;
+    @objectclasses = grep { $_ ne 'AsteriskVoiceMail' } @objectclasses;
+    @objectclasses = grep { $_ ne 'AsteriskQueueMember' } @objectclasses;
+    $user->set('objectclass', \@objectclasses, 1);
+    $user->delete('AstAccountType', 1);
+    $user->delete('AstAccountContext', 1);
+    $user->delete('AstAccountCallerID', 1);
+    $user->delete('AstAccountMailbox', 1);
+    $user->delete('AstAccountHost', 1);
+    $user->delete('AstAccountNAT', 1);
+    $user->delete('AstAccountQualify', 1);
+    $user->delete('AstAccountCanReinvite', 1);
+    $user->delete('AstAccountDTMFMode', 1);
+    $user->delete('AstAccountInsecure', 1);
+    $user->delete('AstAccountLastQualifyMilliseconds', 1);
+    $user->delete('AstAccountIPAddress', 1);
+    $user->delete('AstAccountPort', 1);
+    $user->delete('AstAccountExpirationTimestamp', 1);
+    $user->delete('AstAccountRegistrationServer', 1);
+    $user->delete('AstAccountUserAgent', 1);
+    $user->delete('AstAccountFullContact', 1);
+    $user->delete('AstContext', 1);
+    $user->delete('AstVoicemailMailbox', 1);
+    $user->delete('AstVoicemailPassword', 1);
+    $user->delete('AstVoicemailEmail', 1);
+    $user->delete('AstVoicemailAttach', 1);
+    $user->delete('AstVoicemailDelete', 1);
+    $user->delete('AstQueueMembername', 1);
+    $user->delete('AstQueueInterface', 1);
+    $user->save();
 
     my $global = EBox::Global->getInstance();
     $global->modChange('asterisk');
@@ -309,43 +332,35 @@ sub _modifyGroup
 #
 # Parameters:
 #
-#       username - username object of the action
+#       user - user object of the action
 #       enable - 0=disable, 1=enable the account
 #
 sub setHasAccount
 {
-    my ($self, $username, $enable) = @_;
+    my ($self, $user, $enable) = @_;
     defined $enable or $enable = 0;
 
-    my $hasAccount = $self->hasAccount($username);
+    my $hasAccount = $self->hasAccount($user);
 
     ($hasAccount xor $enable) or return;
 
     if ($enable) {
-        $self->_addUser($username, undef, 1);
+        $self->_addUser($user, undef, 1);
     } else {
-        $self->_delUser($username);
-    }
-
-    my $usersMod = $self->{users};
-    my @groups = @{ $usersMod->groupsOfUser($username) };
-    if (not @groups) {
-        return;
+        $self->_delUser($user);
     }
 
     my $extensions = new EBox::Asterisk::Extensions;
     # add or remove user to groups queues
-    foreach my $group (@groups)    {
+    foreach my $group (@{$user->groups()})    {
         next unless $self->hasQueue($group);
-        my $isInQueue = $extensions->isQueueMember($username, $group);
+        my $isInQueue = $extensions->isQueueMember($user, $group);
         if ($enable and not $isInQueue) {
-            $extensions->addQueueMember($username, $group);
+            $extensions->addQueueMember($user, $group);
         } elsif (not $enable and $isInQueue) {
-            $extensions->delQueueMember($username, $group);
+            $extensions->delQueueMember($user, $group);
         }
-
     }
-
 }
 
 
@@ -355,26 +370,19 @@ sub setHasAccount
 #
 # Parameters:
 #
-#       username - username object of the action
+#       user - user object of the action
 #
 # Returns:
 #
 #       boolean - true if it exists, otherwise false
 #
-sub hasAccount #($username)
+sub hasAccount
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
-    my $users = $self->{users};
-    my $ldap = $self->{ldap};
+    my @objectclasses = $user->get('objectClass');
 
-    my $dn = "uid=$username," . $users->usersDn;
-
-    my %args = (base => $dn, filter => 'objectClass=AsteriskSIPUser');
-    my $result = $ldap->search(\%args);
-
-    return 1 if ($result->count != 0);
-    return 0;
+    return ('AsteriskSIPUser' eq any @objectclasses);
 }
 
 
@@ -386,9 +394,10 @@ sub hasQueue
 
     my $ldap = $self->{ldap};
 
+    my $groupname = $group->get('cn');
     my %attrs = (
                  base => $extensions->queuesDn,
-                 filter => "&(objectClass=AsteriskQueue)(AstQueueName=$group)",
+                 filter => "&(objectClass=AsteriskQueue)(AstQueueName=$groupname)",
                  scope => 'one'
                 );
 
@@ -444,14 +453,14 @@ sub genQueue
 
 sub asteriskUsersInQueue
 {
-    # XXX not very nice design but i try to make it fast
     my ($self, $group) = @_;
 
     my $users = $self->{users};
+    my $groupdn = $group->dn();
 
     my %args = (
                 base => $users->usersDn,
-                filter => 'objectclass=AsteriskSIPUser',
+                filter => "(&(objectclass=AsteriskSIPUser)(memberOf=$groupdn))",
                 scope => 'one',
                );
 
@@ -459,17 +468,10 @@ sub asteriskUsersInQueue
 
     my @asteriskusers;
     foreach my $entry ($result->entries()) {
-        push @asteriskusers, $entry->get_value('uid');
+        push (@asteriskusers, new EBox::UsersAndGroups::User(entry => $entry));
     }
 
-    my $anyUserInGroup = any( @{ $users->usersInGroup($group) } );
-
-    # the intersection between users with asterisk account and users of the group
-    my @asteriskusersingroup = grep {
-        $_ eq $anyUserInGroup
-    } @asteriskusers;
-
-    return @asteriskusersingroup;
+    return @asteriskusers;
 }
 
 

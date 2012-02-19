@@ -232,7 +232,7 @@ sub addUserExtension
 
     my $username = $user->name();
     if ($username ne $extn) {
-        $self->addExtension($user, '1', 'Goto', "$extn,1");
+        $self->addExtension($user->name(), '1', 'Goto', "$extn,1");
     }
     my $args = "SIP/$username,".DOPTS;
     $self->addExtension($extn, '1', 'Dial', $args);
@@ -295,7 +295,7 @@ sub delUserExtension
 
     my $username = $user->name();
     if ($extn ne $username) {
-        if ($self->extensionExists($user)) {
+        if ($self->extensionExists($username)) {
             $self->delExtension("$username-1"); #FIXME not so cool
         }
     }
@@ -518,16 +518,16 @@ sub addQueue
         return;
     }
 
-    $group = $group->name();
+    my $groupname = $group->get('cn');
 
     my $ldap = $self->{ldap};
-    my $dn = "cn=$group," . $self->queuesDn;
+    my $dn = "cn=$groupname," . $self->queuesDn;
 
     my %attrs = (
                  attr => [
                          objectClass => 'applicationProcess',
                          objectClass => 'AsteriskQueue',
-                         AstQueueName => $group,
+                         AstQueueName => $groupname,
                          AstQueueContext => 'default',
                          AstQueueTimeout => '180'
                         ],
@@ -547,10 +547,10 @@ sub delQueue
 
     $self->delQueueExtension($group);
 
-    $group = $group->name();
+    my $groupname = $group->get('cn');
     my $ldap = $self->{ldap};
 
-    my $dn = "cn=$group," . $self->queuesDn;
+    my $dn = "cn=$groupname," . $self->queuesDn;
 
     $ldap->delete($dn);
 }
@@ -563,9 +563,9 @@ sub addQueueMember
         return;
     }
 
-    $group = $group->name();
+    my $groupname = $group->get('cn');
     my @members = $user->get('AstQueueMemberof');
-    push (@members, $group);
+    push (@members, $groupname);
 
     $user->set('AstQueueMemberof', \@members);
 }
@@ -578,9 +578,9 @@ sub delQueueMember
         return;
     }
 
-    $group = $group->name();
+    my $groupname = $group->get('cn');
     my @members = $user->get('AstQueueMemberof');
-    @members = grep { $_ ne $group } @members;
+    @members = grep { $_ ne $groupname } @members;
 
     $user->set('AstQueueMemberof', \@members);
 }
@@ -596,8 +596,8 @@ sub isQueueMember
 
     my @members = $user->get('AstQueueMemberof');
 
-    $group = $group->name();
-    if (@members eq any $group) {
+    my $groupname = $group->get('cn');
+    if ($groupname eq any @members) {
         return 1;
     }
     return 0;
@@ -621,8 +621,8 @@ sub addQueueExtension
     #if ($group ne $extn) {
     #    $self->addExtension($group, '1', 'Goto', "$extn,1");
     #}
-    $group = $group->name();
-    $self->addExtension($extn, '1', 'Queue', "$group,tTwW");
+    my $groupname = $group->get('cn');
+    $self->addExtension($extn, '1', 'Queue', "$groupname,tTwW");
 }
 
 sub getQueueExtension
@@ -633,10 +633,10 @@ sub getQueueExtension
         return undef;
     }
 
-    $group = $group->name();
+    my $groupname = $group->get('cn');
     my %attrs = (
                  base => $self->extensionsDn,
-                 filter => "&(objectclass=*)(AstApplicationData=*$group*)",
+                 filter => "&(objectclass=*)(AstApplicationData=*$groupname*)",
                  scope => 'one'
                 );
 
