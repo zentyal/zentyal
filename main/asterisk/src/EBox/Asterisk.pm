@@ -357,15 +357,14 @@ sub _getUsers
     my @usersExtens = ();
 
     my $users = EBox::Global->getInstance()->modInstance('users');
-    my @usersList = $users->users();
 
-    foreach my $user (@usersList) {
+    foreach my $user (@{$users->users()}) {
         my $extensions = new EBox::Asterisk::Extensions;
-        my $extn = $extensions->getUserExtension($user->{'username'});
+        my $extn = $extensions->getUserExtension($user);
         next unless $extn; # if user doesn't have an extension we are done
 
         my $userextn = {};
-        $userextn->{'username'} = $user->{'username'};
+        $userextn->{'username'} = $user->name();
         $userextn->{'extn'} = $extn;
         $userextn->{'dopts'} = $extensions->DOPTS;
         $userextn->{'vmopts'} = $extensions->VMOPTS;

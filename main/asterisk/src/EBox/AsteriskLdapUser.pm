@@ -29,6 +29,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
 use EBox::Asterisk::Extensions;
 use EBox::Model::ModelManager;
 
@@ -86,55 +87,46 @@ sub _addUser
         return unless ($model->enabledValue());
     }
 
-    my $users = $self->{users};
-    my $ldap = $self->{ldap};
-
-    my $dn = $users->userDn($user);
-
     my $extensions = new EBox::Asterisk::Extensions;
 
     my $extn = $extensions->firstFreeExtension();
     my $mail = $self->_getUserMail($user);
 
-    my %attrs = (changes => [
-                             add => [
-                                     objectClass => 'AsteriskSIPUser',
-                                     AstAccountType => 'friend',
-                                     AstAccountContext => 'users',
-                                     AstAccountCallerID => $extn, #FIXME +fullname?
-                                     AstAccountMailbox => $extn,
-                                     AstAccountHost => 'dynamic',
-                                     AstAccountNAT => 'yes',
-                                     AstAccountQualify => 'yes',
-                                     AstAccountCanReinvite => 'no',
-                                     AstAccountDTMFMode => 'rfc2833',
-                                     AstAccountInsecure => 'port',
-                                     AstAccountLastQualifyMilliseconds => '0',
-                                     AstAccountIPAddress => '0.0.0.0',
-                                     AstAccountPort => '0',
-                                     AstAccountExpirationTimestamp => '0',
-                                     AstAccountRegistrationServer => '0',
-                                     AstAccountUserAgent => '0',
-                                     AstAccountFullContact => 'sip:0.0.0.0',
-                                     objectClass => 'AsteriskVoicemail',
-                                     AstContext => 'users',
-                                     AstVoicemailMailbox => $extn,
-                                     AstVoicemailPassword => $extn, #FIXME random?
-                                     AstVoicemailEmail => $mail,
-                                     AstVoicemailAttach => 'yes',
-                                     AstVoicemailDelete => 'no',
-                                     objectClass => 'AsteriskQueueMember',
-                                     AstQueueMembername => $user,
-                                     AstQueueInterface => "SIP/$user"
-                                    ],
-                            ]
-                );
+    my @objectclasses = $user->get('objectclass');
 
-    my %args = (base => $dn, filter => 'objectClass=AsteriskSIPUser');
-    my $result = $ldap->search(\%args);
+    unless (@objectclasses eq any 'AsteriskSIPUser') {
+        push (@objectclasses, 'AsteriskSIPUser');
 
-    unless ($result->count > 0) {
-        $ldap->modify($dn, \%attrs);
+        $user->set('objectClass', \@objectclasses, 1);
+        $user->set('AstAccountType', 'friend', 1);
+        $user->set('AstAccountContext', 'users',1);
+        $user->set('AstAccountCallerID', $extn, 1);
+        $user->set('AstAccountMailbox', $extn, 1);
+        $user->set('AstAccountHost', 'dynamic', 1);
+        $user->set('AstAccountNAT', 'yes', 1);
+        $user->set('AstAccountQualify', 'yes', 1);
+        $user->set('AstAccountCanReinvite', 'no', 1);
+        $user->set('AstAccountDTMFMode', 'rfc2833', 1);
+        $user->set('AstAccountInsecure', 'port', 1);
+        $user->set('AstAccountLastQualifyMilliseconds', '0', 1);
+        $user->set('AstAccountIPAddress', '0.0.0.0', 1);
+        $user->set('AstAccountPort', '0', 1);
+        $user->set('AstAccountExpirationTimestamp', '0', 1);
+        $user->set('AstAccountRegistrationServer', '0', 1);
+        $user->set('AstAccountUserAgent', '0', 1);
+        $user->set('AstAccountFullContact', 'sip:0.0.0.0', 1);
+        $user->set('objectClass', 'AsteriskVoicemail', 1);
+        $user->set('AstContext', 'users', 1);
+        $user->set('AstVoicemailMailbox', $extn, 1);
+        $user->set('AstVoicemailPassword', $extn, 1);
+        $user->set('AstVoicemailEmail', $mail, 1);
+        $user->set('AstVoicemailAttach', 'yes', 1);
+        $user->set('AstVoicemailDelete', 'no', 1);
+        $user->set('objectClass', 'AsteriskQueueMember', 1);
+        $user->set('AstQueueMembername', $user->name(), 1);
+        $user->set('AstQueueInterface', 'SIP/' . $user->name(), 1);
+        $user->save();
+
         if ($extn > 0) {
             $extensions->addUserExtension($user, $extn);
             my $global = EBox::Global->getInstance();
@@ -149,19 +141,8 @@ sub _getUserMail
 {
     my ($self, $user) = @_;
 
-    my $users = $self->{users};
-
-    my %attrs = (
-                 base => $users->usersDn,
-                 filter => "&(objectclass=*)(uid=$user)",
-                 scope => 'one'
-                );
-
-    my $result = $self->{ldap}->search(\%attrs);
-
-    my $entry = $result->entry(0);
-    if ( $entry->get_value('mail') ) {
-        return $entry->get_value('mail');
+    if ( $user->get('mail') ) {
+        return $user->get('mail');
     } else {
         return "user\@domain";
     }
@@ -188,7 +169,7 @@ sub _userAddOns
     my $extn = $extensions->getUserExtension($user);
 
     my $args = {
-        'username' => $user,
+        'user' => $user,
         'extension' => $extn,
         'active'   => $active,
         'service' => $asterisk->isEnabled(),
@@ -261,7 +242,7 @@ sub _delGroup
         }
     }
 
-    $extensions->delQueue($group);  
+    $extensions->delQueue($group);
 
     my $global = EBox::Global->getInstance();
     $global->modChange('asterisk');
@@ -354,17 +335,17 @@ sub setHasAccount
 
     my $extensions = new EBox::Asterisk::Extensions;
     # add or remove user to groups queues
-    foreach my $group (@groups)    {    
+    foreach my $group (@groups)    {
         next unless $self->hasQueue($group);
         my $isInQueue = $extensions->isQueueMember($username, $group);
         if ($enable and not $isInQueue) {
             $extensions->addQueueMember($username, $group);
         } elsif (not $enable and $isInQueue) {
-            $extensions->delQueueMember($username, $group);            
+            $extensions->delQueueMember($username, $group);
         }
-        
+
     }
-    
+
 }
 
 

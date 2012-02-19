@@ -28,6 +28,7 @@ use EBox::Ldap;
 
 use EBox::UsersAndGroups;
 use EBox::Asterisk;
+use Perl6::Junction qw(any);
 
 use constant MINEXTN             => 1000;
 use constant MAXEXTN             => 3999;
@@ -229,10 +230,11 @@ sub addUserExtension
            )
     }
 
-    if ($user ne $extn) {
+    my $username = $user->name();
+    if ($username ne $extn) {
         $self->addExtension($user, '1', 'Goto', "$extn,1");
     }
-    my $args = "SIP/$user,".DOPTS;
+    my $args = "SIP/$username,".DOPTS;
     $self->addExtension($extn, '1', 'Dial', $args);
     $args = "$extn,".VMOPTS;
     $self->addExtension($extn, '2', 'Voicemail', $args);
@@ -258,18 +260,7 @@ sub getUserExtension
         return;
     }
 
-    my $users = EBox::Global->modInstance('users');
-
-    my %attrs = (
-                 base => $users->usersDn,
-                 filter => "&(objectclass=*)(uid=$user)",
-                 scope => 'one'
-                );
-
-    my $result = $self->{'ldap'}->search(\%attrs);
-
-    my $entry = $result->entry(0);
-    return ($entry->get_value('AstAccountCallerID'));
+    return $user->get('AstAccountCallerID');
 }
 
 # Method: delUserExtension
@@ -302,9 +293,10 @@ sub delUserExtension
         $self->delExtension($_);
     }
 
-    if ($extn ne $user) {
+    my $username = $user->name();
+    if ($extn ne $username) {
         if ($self->extensionExists($user)) {
-            $self->delExtension("$user-1"); #FIXME not so cool
+            $self->delExtension("$username-1"); #FIXME not so cool
         }
     }
 }
@@ -316,7 +308,8 @@ sub modifyUserExtension
 {
     my ($self, $user, $newextn) = @_;
 
-    if ($self->extensionExists($newextn) and ($user ne $newextn)) {
+    my $username = $user->name();
+    if ($self->extensionExists($newextn) and ($username ne $newextn)) {
         throw EBox::Exceptions::DataExists('data' => __('Extension'),
                                            'value' => $newextn);
     }
@@ -329,25 +322,17 @@ sub modifyUserExtension
     }
     $self->addUserExtension($user, $newextn);
 
-    my $ldap = EBox::Ldap->instance();
-    my $users = EBox::Global->modInstance('users');
-
-    my $dn = "uid=" . $user . "," . $users->usersDn;
-
     if ($oldextn) { # user already had an extension
-        my %attrs = (
-            'AstAccountCallerID' => $newextn, #FIXME if add fullname here this wont work
-            'AstAccountMailbox'  => $newextn  #FIXME random?
-        );
-        $ldap->modify($dn, { replace => \%attrs });
-    } else { # we give a new $newextn extension
-        my %attrs = (
-            'AstAccountCallerID'   => $newextn, #FIXME if add fullname here this wont work
-            'AstAccountMailbox'    => $newextn, #FIXME random?
-            'AstVoicemailPassword' => $newextn
-        );
-        $ldap->modify($dn, { replace => \%attrs });
+        $user->set('AstAccountCallerID', $newextn, 1); #FIXME if add fullname here this wont work
+        $user->set('AstAccountMailbox', $newextn, 1);  #FIXME random?
     }
+    else { # we give a new $newextn extension
+        $user->set('AstAccountCallerID', $newextn, 1); #FIXME if add fullname here this wont work
+        $user->set('AstAccountMailbox', $newextn, 1); #FIXME random?
+        $user->set('AstVoicemailPassword', $newextn, 1);
+    }
+
+    $user->save();
 }
 
 # Method: addExtension
@@ -533,8 +518,9 @@ sub addQueue
         return;
     }
 
-    my $ldap = $self->{ldap};
+    $group = $group->name();
 
+    my $ldap = $self->{ldap};
     my $dn = "cn=$group," . $self->queuesDn;
 
     my %attrs = (
@@ -561,6 +547,7 @@ sub delQueue
 
     $self->delQueueExtension($group);
 
+    $group = $group->name();
     my $ldap = $self->{ldap};
 
     my $dn = "cn=$group," . $self->queuesDn;
@@ -576,19 +563,11 @@ sub addQueueMember
         return;
     }
 
-    my $users = EBox::Global->modInstance('users');
+    $group = $group->name();
+    my @members = $user->get('AstQueueMemberof');
+    push (@members, $group);
 
-    my $dn = "uid=" . $user . "," . $users->usersDn;
-
-    my %attrs = (
-                 changes => [
-                         add => [
-                                AstQueueMemberof => $group
-                                ]
-                         ],
-                );
-
-    $self->{ldap}->modify($dn, \%attrs);
+    $user->set('AstQueueMemberof', \@members);
 }
 
 sub delQueueMember
@@ -599,19 +578,11 @@ sub delQueueMember
         return;
     }
 
-    my $users = EBox::Global->modInstance('users');
+    $group = $group->name();
+    my @members = $user->get('AstQueueMemberof');
+    @members = grep { $_ ne $group } @members;
 
-    my $dn = "uid=" . $user . "," . $users->usersDn;
-
-    my %attrs = (
-                 changes => [
-                         delete => [
-                                   AstQueueMemberof => $group
-                                   ]
-                         ],
-                );
-
-    $self->{ldap}->modify($dn, \%attrs);
+    $user->set('AstQueueMemberof', \@members);
 }
 
 
@@ -623,22 +594,12 @@ sub isQueueMember
         return;
     }
 
-    my $users = EBox::Global->modInstance('users');
+    my @members = $user->get('AstQueueMemberof');
 
-    my $dn = "uid=" . $user . "," . $users->usersDn;
-    my %args = (base => $dn, filter => 'objectClass=AsteriskSIPUser', attrs =>
-    ['AstQueueMemberof']);
-
-    my $ldap = $self->{ldap};
-    my $result = $ldap->search(\%args);
-    foreach my $entry ($result->entries()) { 
-        foreach my $value ($entry->get_value('AstQueueMemberof')) {
-            if ($value eq $group) {
-                return 1;
-            }
-        }
+    $group = $group->name();
+    if (@members eq any $group) {
+        return 1;
     }
-
     return 0;
 }
 
@@ -660,6 +621,7 @@ sub addQueueExtension
     #if ($group ne $extn) {
     #    $self->addExtension($group, '1', 'Goto', "$extn,1");
     #}
+    $group = $group->name();
     $self->addExtension($extn, '1', 'Queue', "$group,tTwW");
 }
 
@@ -671,6 +633,7 @@ sub getQueueExtension
         return undef;
     }
 
+    $group = $group->name();
     my %attrs = (
                  base => $self->extensionsDn,
                  filter => "&(objectclass=*)(AstApplicationData=*$group*)",
@@ -726,7 +689,7 @@ sub modifyQueueExtension
 {
     my ($self, $group, $newextn) = @_;
 
-    if ($self->extensionExists($newextn) and ($group ne $newextn)) {
+    if ($self->extensionExists($newextn) and ($group->name() ne $newextn)) {
         throw EBox::Exceptions::DataExists('data' => __('Extension'),
                                            'value' => $newextn);
     }
