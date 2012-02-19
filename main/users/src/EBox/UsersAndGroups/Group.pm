@@ -78,9 +78,7 @@ sub addMember
     my @members = $self->_entry->get('member');
     push (@members, $user->dn());
 
-    $self->set('member', \@members);
-
-    $self->save() unless ($lazy);
+    $self->set('member', \@members, $lazy);
 }
 
 
@@ -101,9 +99,7 @@ sub removeMember
         push (@members, $dn) if ($dn ne $user->dn());
     }
 
-    $self->set('member', \@members);
-
-    $self->save() unless ($lazy);
+    $self->set('member', \@members, $lazy);
 }
 
 
