@@ -673,7 +673,6 @@ sub _redis_call
     }
 
     my $wantarray = wantarray;
-    my $args = "@args";
     my ($key, @values) = @args;
     my $value = $values[0];
 
@@ -686,7 +685,7 @@ sub _redis_call
     } elsif ($command eq 'del') {
         delete $cache{$key};
     } elsif (($command eq 'hset') or ($command eq 'hmset')) {
-        unless (exists $cache{$key}) {
+        unless (exists $cache{$key} and exists $cache{$key}->{value}) {
             $cache{$key} = { type => 'hash', value => {} };
         }
         my $field;
@@ -700,14 +699,14 @@ sub _redis_call
             delete $cache{$key}->{value}->{$field};
         }
     } elsif ($command eq 'rpush') {
-        unless (exists $cache{$key}) {
+        unless (exists $cache{$key} and exists $cache{$key}->{value}) {
             $cache{$key} = { type => 'list', value => [] };
         }
         foreach my $val (@values) {
             push (@{$cache{$key}->{value}}, $val);
         }
     } elsif ($command eq 'sadd') {
-        unless (exists $cache{$key}) {
+        unless (exists $cache{$key} and exists $cache{$key}->{value}) {
             $cache{$key} = { type => 'set', value => {} };
         }
         foreach my $val (@values) {
@@ -717,10 +716,15 @@ sub _redis_call
         $write = 0;
 
         unless (exists $cache{$key}) {
-            if (($command eq 'smembers') or
+            if ($command eq 'exists') {
+                if ($self->_redis_call_wrapper(0, 'exists', $key)) {
+                    $cache{$key} = {};
+                }
+            } elsif (($command eq 'smembers') or
                 ($command eq 'scard') or ($command eq 'sismember')) {
                 $value = $self->_redis_call_wrapper(1, 'smembers', $key);
-                $cache{$key} = { type => 'set', value => $value };
+                my %members = map { $_ => 1 } @{$value};
+                $cache{$key} = { type => 'set', value => \%members };
             } elsif (($command eq 'hget') or ($command eq 'hgetall')) {
                 $value = $self->_redis_call_wrapper(1, 'hgetall', $key);
                 $cache{$key} = { type => 'hash', value => $value };
@@ -736,14 +740,19 @@ sub _redis_call
             }
         }
 
-        if (($command eq 'get') or ($command eq 'sismember')) {
+        if ($command eq 'exists') {
+            return exists $cache{$key};
+        } elsif ($command eq 'get') {
             return $cache{$key}->{value};
+        } elsif ($command eq 'sismember') {
+            return (keys %{$cache{$key}->{value}} > 0);
         } elsif ($command eq 'lrange') {
+            return [] unless (defined $cache{$key}->{value});
             return @{$cache{$key}->{value}};
         } elsif ($command eq 'smembers') {
-            return keys @{$cache{$key}->{value}};
+            return keys %{$cache{$key}->{value}};
         } elsif ($command eq 'scard') {
-            return scalar (keys @{$cache{$key}->{value}});
+            return scalar (keys %{$cache{$key}->{value}});
         } elsif ($command eq 'hget') {
             return $cache{$key}->{value}->{$value};
         } elsif ($command eq 'hgetall') {
