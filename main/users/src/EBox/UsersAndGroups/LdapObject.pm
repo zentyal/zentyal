@@ -121,6 +121,25 @@ sub set
 }
 
 
+# Method: add
+#
+#   Adds a value to an attribute without removing previous ones (if any)
+#
+#   Parameters:
+#
+#       attribute - Attribute name to read
+#       value     - Value to set (scalar or array ref)
+#       lazy      - Do not update the entry in LDAP
+#
+sub add
+{
+    my ($self, $attr, $value, $lazy) = @_;
+
+    $self->_entry->add($attr => $value);
+    $self->save() unless $lazy;
+}
+
+
 # Method: delete
 #
 #   Deletes the whole object if no parameters are given
