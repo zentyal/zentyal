@@ -71,7 +71,7 @@ sub set_string
     my ($self, $key, $value) = @_;
 
     # Sets the new key
-    $self->_redis_call('set', $key =>  $value);
+    $self->_redis_call('set', $key, $value);
 
     # Update parent dir info with the new key
     $self->_parent_add($key);
@@ -96,7 +96,7 @@ sub set_int
 {
     my ($self, $key, $value) = @_;
 
-    $self->set_string($key => $value);
+    $self->set_string($key, $value);
 }
 
 # Method: get_int
@@ -118,7 +118,7 @@ sub set_bool
 {
     my ($self, $key, $value) = @_;
 
-    $self->set_string($key => $value ? 1 : 0);
+    $self->set_string($key, $value ? 1 : 0);
 }
 
 # Method: get_bool
@@ -191,19 +191,6 @@ sub get_hash
         return {};
     }
     return {$self->_redis_call('hgetall', $key)};
-}
-
-# Method: set_set
-#
-#   Set $key to $set. Where $set is an array ref.
-#
-sub set_set
-{
-    my ($self, $key, $set) = @_;
-    $self->_redis_call('del', $key);
-    for my $value (@{$set}) {
-        $self->_redis_call('sadd', $key, $value);
-    }
 }
 
 # Method: get_set
@@ -449,7 +436,7 @@ sub set_hash_value
 {
     my ($self, $key, $field, $value) = @_;
 
-    $self->_redis_call('hset', $key, $field => $value);
+    $self->_redis_call('hset', $key, $field, $value);
 
     # Update parent dir info with the new key
     $self->_parent_add($key);
@@ -477,32 +464,6 @@ sub hash_delete
 
     # Delete reference to the key in parent
     $self->_parent_del($key);
-}
-
-# Method: regen_all_dirs
-#
-#   Delete and re-add all the keys in the database, ignoring the existing
-#   directories, in order to regenerate all the sets of the directory structure
-#
-sub regen_all_dirs
-{
-    my ($self) = @_;
-
-    my @all = $self->_redis_call('keys', '*');
-
-    # Filter directories (remove keys ended with /.)
-    my @keys = grep (!/\/\.$/, @all);
-
-    # Save all values before delete
-    my %values = map { $_ => $self->get($_) } @keys;
-
-    # Delete the entire database
-    $self->_redis_call_wrapper(0, 'flushdb');
-
-    # Re-add stored keys and values
-    while (my ($key, $value) = each (%values)) {
-        $self->set($key, $value);
-    }
 }
 
 # Method: import_dir_from_yaml
@@ -571,7 +532,7 @@ sub _parent_add
         return;
     }
 
-    $self->_redis_call('sadd', $parentdir => $subkey);
+    $self->_redis_call('sadd', $parentdir, $subkey);
 
     # Recursive propagation until the root
     unless ($parentkey eq '/') {
@@ -586,7 +547,7 @@ sub _parent_del
 
     my $parent = dirname($key);
     my $subkey = basename($key);
-    $self->_redis_call('srem', _dir($parent) => $subkey);
+    $self->_redis_call('srem', _dir($parent), $subkey);
 }
 
 sub _backup_dir
@@ -715,47 +676,71 @@ sub _redis_call
     } else {
         $write = 0;
 
-        unless (exists $cache{$key}) {
-            if ($command eq 'exists') {
-                if ($self->_redis_call_wrapper(0, 'exists', $key)) {
-                    $cache{$key} = {};
+        if ($command eq 'keys') {
+            my $keys = $self->_redis_call_wrapper(1, 'keys', $key);
+
+            foreach my $name (@{$keys}) {
+                unless (exists $cache{$name}) {
+                    $cache{$name} = {};
                 }
-            } elsif (($command eq 'smembers') or
-                ($command eq 'scard') or ($command eq 'sismember')) {
+            }
+
+            chop ($key); # remove the '*' at the end
+            my @keylist;
+            foreach my $name (keys %cache) {
+                if ($name =~ /^$key/) {
+                    push (@keylist, $name);
+                }
+            }
+            return @keylist;
+        }
+
+        # Get from redis if not in cache
+        if (($command eq 'exists') and not exists $cache{$key}) {
+            if ($self->_redis_call_wrapper(0, 'exists', $key)) {
+                $cache{$key} = {};
+            }
+        } elsif (($command eq 'type') and not exists $cache{$key}->{type}) {
+            $value = $self->_redis_call_wrapper(0, 'type', @args);
+            $cache{$key} = { type => $value };
+        } elsif (not exists $cache{$key}->{value}) {
+            if (($command eq 'smembers') or
+                    ($command eq 'scard') or ($command eq 'sismember')) {
                 $value = $self->_redis_call_wrapper(1, 'smembers', $key);
                 my %members = map { $_ => 1 } @{$value};
                 $cache{$key} = { type => 'set', value => \%members };
             } elsif (($command eq 'hget') or ($command eq 'hgetall')) {
                 $value = $self->_redis_call_wrapper(1, 'hgetall', $key);
-                $cache{$key} = { type => 'hash', value => $value };
+                $cache{$key} = { type => 'hash', value => {@{$value}} };
             } else {
                 $value = $self->_redis_call_wrapper($wantarray, $command, @args);
                 if ($command eq 'get') {
                     $cache{$key} = { type => 'string', value => $value };
                 } elsif ($command eq 'lrange') {
                     $cache{$key} = { type => 'list', value => $value };
-                } elsif ($command eq 'type') {
-                    $cache{$key} = { type => $value };
                 }
             }
         }
 
+        # Get value from cache
         if ($command eq 'exists') {
             return exists $cache{$key};
         } elsif ($command eq 'get') {
             return $cache{$key}->{value};
         } elsif ($command eq 'sismember') {
-            return (keys %{$cache{$key}->{value}} > 0);
+            return $cache{$key}->{value}->{$value};
         } elsif ($command eq 'lrange') {
-            return [] unless (defined $cache{$key}->{value});
+            return () unless (defined $cache{$key}->{value});
             return @{$cache{$key}->{value}};
         } elsif ($command eq 'smembers') {
             return keys %{$cache{$key}->{value}};
         } elsif ($command eq 'scard') {
             return scalar (keys %{$cache{$key}->{value}});
         } elsif ($command eq 'hget') {
+            return undef unless (exists $cache{$key}->{value}->{$value});
             return $cache{$key}->{value}->{$value};
         } elsif ($command eq 'hgetall') {
+            return () unless (defined $cache{$key}->{value});
             return %{$cache{$key}->{value}};
         } elsif ($command eq 'type') {
             return $cache{$key}->{type};
@@ -778,7 +763,7 @@ sub _redis_call_wrapper
     my @response;
 
     my $tries = 5;
-    for my $i (1..$tries) {
+    for my $i (1 .. $tries) {
         our $failure = 1;
         our $ret;
         {
