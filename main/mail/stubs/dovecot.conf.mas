@@ -21,6 +21,9 @@ if ($protocols{pop3} or $protocols{pop3s}) {
 if ($protocols{imap} or $protocols{imaps}) {
     push @protocolsReduced, 'imap';
 }
+if ($protocols{managesieve}) {
+    push @protocolsReduced, 'sieve';
+}
 </%init>
 #% use Data::Dumper;
 #% print Dumper(\%protocols);
@@ -563,9 +566,11 @@ first_valid_gid = <% $firstValidGid %>
    &>
 % }
 
-% if ($protocols{'managesieve'} ) {
-<& .managesieve &>
-% }
+
+<& .managesieve,
+   enabled => $protocols{'managesieve'}
+&>
+
 
 ## LDA specific settings
 ##
@@ -1035,6 +1040,12 @@ $hamArgs
 </%def>
 
 <%def .managesieve >
+<%args>
+$enabled
+</%args>
+<%init>
+my $port = $enabled ? 4190 : 0;
+</%init>
 ##
 ## ManageSieve specific settings
 ##
@@ -1043,7 +1054,7 @@ $hamArgs
 
 service managesieve-login {
   inet_listener sieve {
-    port = 4190
+    port = <% $port %>
   }
 
   # Number of connections to handle before starting a new process. Typically
