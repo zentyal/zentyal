@@ -29,6 +29,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
+use Perl6::Junction qw(any);
+
 # Method: new
 #
 #   Instance an object readed from LDAP.
@@ -158,8 +160,12 @@ sub delete
         $self->_entry->delete();
         $self->save();
     }
-    $self->_entry->delete($attr);
-    $self->save() unless $lazy;
+
+    # Delete attribute only if it exists
+    if ($attr eq any $self->_entry->attributes) {
+        $self->_entry->delete($attr);
+        $self->save() unless $lazy;
+    }
 }
 
 
