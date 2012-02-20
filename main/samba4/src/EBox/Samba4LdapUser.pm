@@ -90,7 +90,8 @@ sub _addUser
 #    $self->_createDir(PROFILESPATH . "/$userName.V2",
 #        $unixuid, USERGROUP, '0700');
 
-    my $cmd = SAMBATOOL . " user add $userName $password";
+# TODO: Ask samba LDAP if the user already exists, else add it
+    my $cmd = SAMBATOOL . " user create $userName $password --enable-reversible-encryption";
     EBox::debug("Adding samba user <$cmd>");
     EBox::Sudo::root($cmd);
 }

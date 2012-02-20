@@ -296,6 +296,10 @@ sub enableActions
         EBox::debug("Provisioning database <$cmd>");
         EBox::Sudo::root($cmd);
         EBox::Sudo::root('chown root:bind ' . SAMBADNSZONE);
+
+        # Enable reversible encryption
+        $cmd = SAMBATOOL . " domain passwordsettings set --store-plaintext=on";
+        EBox::Sudo::root($cmd);
 #    }
 
 
