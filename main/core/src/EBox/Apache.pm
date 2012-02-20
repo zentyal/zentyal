@@ -174,7 +174,7 @@ sub _writeHttpdConfFile
     push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
     push @confFileParams, ( includes => $self->_includes(1) );
 
-    my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
+    my $debugMode = EBox::Config::boolean('debug');
     push @confFileParams, ( debug => $debugMode);
 
     $interp->exec($comp, @confFileParams);

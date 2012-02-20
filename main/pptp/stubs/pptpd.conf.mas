@@ -66,7 +66,7 @@ logwtmp
 #	1. No spaces are permitted between commas or within addresses.
 #
 #	2. If you give more IP addresses than MAX_CONNECTIONS, it will
-#	   start at the beginning of the list and go until it gets 
+#	   start at the beginning of the list and go until it gets
 #	   MAX_CONNECTIONS IPs. Others will be ignored.
 #
 #	3. No shortcuts in ranges! ie. 234-8 does not mean 234 to 238,

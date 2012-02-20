@@ -1315,11 +1315,8 @@ sub aroundDumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    my $backupCategorizedDomainLists = 1;
-    my $confKeyValue = EBox::Config::configkey('backup_domain_categorized_lists');
-    if (defined ($confKeyValue) and ($confKeyValue eq 'false')) {
-        $backupCategorizedDomainLists = 0;
-    }
+    my $backupCategorizedDomainLists =
+        EBox::Config::boolean('backup_domain_categorized_lists');
 
     my $bugReport = $options{bug};
     if (not $bugReport and $backupCategorizedDomainLists) {

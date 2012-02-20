@@ -193,7 +193,7 @@
 			#  	openssl dhparam -out certs/dh 1024
 			#
 			dh_file = ${certdir}/dh
-			random_file = ${certdir}/random
+			random_file = /dev/urandom
 
 			#
 			#  This can never exceed the size of a RADIUS

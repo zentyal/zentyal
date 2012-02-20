@@ -1,3 +1,8 @@
+HEAD
+	+ Fixed executable permissions in src/scripts
+	+ Added checks for small business subscription
+	+ Bugfix: lastGid method was calling MINUID and SYSMINUID
+	+ Reload nscd before trying to init users and groups
 2.3.1
 	+ Use Digest::SHA instead of Digest::SHA1 and remove libdigest-sha1-perl
 	  dependency which no longer exists on precise

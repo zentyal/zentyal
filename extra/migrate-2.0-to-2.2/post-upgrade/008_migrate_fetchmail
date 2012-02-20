@@ -18,6 +18,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Validate;
 use EBox::Global;
 use EBox::Ldap;
 
@@ -38,6 +39,12 @@ if ($result->count() == 0) {
     print "No fetchamil accounts to migrate\n";
     exit 0;
 }
+
+my %validProtocols = (
+    pop3 => 1,
+    imap  => 1,
+
+   );
 
 foreach my $entry ($result->entries()) {
     my @accounts = $entry->get_value('fetchmailAccount');
@@ -60,9 +67,26 @@ foreach my $entry ($result->entries()) {
         }
 
         my $newStr = join ':', ($user, $mailProtocol, $server, $port, $options, $password);
-        push @newAccounts, $newStr;
+        my $accountOk = 1;
+        if (not $port =~ m/^\d+$/) {
+            $accountOk = 0;
+            print "Bad fetchmailAccount: '$oldStr'  (invalid port)\n";
+        } elsif (not $validProtocols{$mailProtocol} ) {
+            $accountOk = 0;
+            print "Bad fetchmailAccount: '$oldStr'  (invalid protocol)\n";
+        }
+
+        if ($accountOk) {
+            push @newAccounts, $newStr;
+        }
+
     }
-    $entry->replace('fetchmailAccount' => \@newAccounts);
+    if (@newAccounts) {
+        $entry->replace('fetchmailAccount' => \@newAccounts);
+    } else {
+        $entry->delete('fetchmailAccount');
+    }
+
     $entry->update($ldap->ldapCon());
 #    print qq{Replaced "@accounts" with "@newAccounts"\n};
 }

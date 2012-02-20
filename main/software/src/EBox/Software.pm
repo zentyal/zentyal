@@ -45,6 +45,7 @@ use constant {
     CRON_FILE      => '/etc/cron.d/zentyal-auto-updater',
     QA_ARCHIVE     => 'zentyal-qa',
 };
+my @RESTRICTED_SB = qw(zentyal-virt zentyal-ids zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-jabber zentyal-asterisk);
 
 # Group: Public methods
 
@@ -505,10 +506,7 @@ sub getAutomaticUpdates
     my ($self) = @_;
 
     if ($self->QAUpdates()) {
-        my $alwaysAutomatic = EBox::Config::configkey('qa_updates_always_automatic');
-        defined $alwaysAutomatic or $alwaysAutomatic = 'true';
-
-        if (lc($alwaysAutomatic) eq 'true') {
+        if (EBox::Config::boolean('qa_updates_always_automatic')) {
             return 1;
         }
     }
@@ -751,10 +749,17 @@ sub _getInfoEBoxPkgs
 {
     my ($self) = @_;
 
+    my %restricted;
+    if (EBox::Global->edition() eq 'sb') {
+        %restricted = map { $_ => 1 } @RESTRICTED_SB;
+    }
+
     my $cache = $self->_cache(1);
     my @list;
     for my $pack (keys %$cache) {
         if ($pack =~ /^zentyal-.*/) {
+            next if $restricted{$pack};
+
             my $pkgCache = $cache->packages()->lookup($pack) or next;
             my %data;
             $data{'name'} = $pkgCache->{Name};

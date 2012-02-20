@@ -103,6 +103,13 @@ sub configkey # (key)
     }
 }
 
+sub boolean
+{
+    my ($key) = @_;
+
+    return (configkey($key) eq 'yes');
+}
+
 sub configkeys # (key)
 {
     my ($key) = @_;

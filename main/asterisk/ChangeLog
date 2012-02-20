@@ -1,4 +1,5 @@
 2.3
+	+ Added init.d type to _daemons
 	+ Adapted to new MySQL logs backend
 	+ Replaced autotools with zbuildtools
 	+ Fixed problems with interactions of users and groups queues

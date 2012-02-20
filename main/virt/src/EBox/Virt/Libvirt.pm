@@ -456,7 +456,7 @@ sub attachDevice
     $device->{block} = ($file =~ /^\/dev\//);
     my $cd = $type eq 'cd';
     $device->{type} = $cd ? 'cdrom' : 'disk';
-    if ($cd or (EBox::Config::configkey('use_ide_disks') eq 'yes')) {
+    if ($cd or EBox::Config::boolean('use_ide_disks')) {
         $device->{bus} = 'ide';
         $device->{letter} = $self->{ideDriveLetter};
         $self->{ideDriveLetter} = chr (ord ($self->{ideDriveLetter}) + 1);

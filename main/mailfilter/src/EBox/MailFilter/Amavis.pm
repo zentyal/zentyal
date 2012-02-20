@@ -159,7 +159,7 @@ sub writeConf
 
     push @masonParams, (adminAddress => $self->adminAddress);
 
-    push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
+    push @masonParams, (debug => EBox::Config::boolean('debug'));
 
     my $uid = getpwnam('root');
     my $gid = getgrnam('root');

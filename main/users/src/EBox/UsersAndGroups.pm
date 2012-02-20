@@ -75,6 +75,7 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant MAX_SB_USERS   => 25;
 
 sub _create
 {
@@ -952,6 +953,15 @@ sub addUser # (user, system)
 {
     my ($self, $user, $system, %params) = @_;
 
+    # Check for maximum users
+    if (EBox::Global->edition() eq 'sb') {
+        if (length(@{$self->users()}) >= MAX_SB_USERS) {
+            throw EBox::Exceptions::External(
+                __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.'));
+
+        }
+    }
+
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
@@ -1053,16 +1063,17 @@ sub addUser # (user, system)
 
     $self->_changeAttribute($dn, 'givenName', $user->{'givenname'});
     $self->_changeAttribute($dn, 'description', $user->{'comment'});
-    unless ($system) {
-        $self->initUser($user->{'user'}, $user->{'password'});
-        $self->_initUserSlaves($user->{'user'}, $user->{'password'});
-    }
 
     # Reload nscd daemon if it's installed
-    if ( -f '/etc/init.d/nscd' ) {
+    if (-f '/etc/init.d/nscd') {
         try {
             EBox::Sudo::root('/etc/init.d/nscd reload');
         } otherwise {};
+    }
+
+    unless ($system) {
+        $self->initUser($user->{'user'}, $user->{'password'});
+        $self->_initUserSlaves($user->{'user'}, $user->{'password'});
     }
 }
 
@@ -1643,9 +1654,9 @@ sub lastGid # (gid)
     }
 
     if ($system) {
-        return ($gid < SYSMINUID ?  SYSMINUID : $gid);
+        return ($gid < SYSMINGID ?  SYSMINGID : $gid);
     } else {
-        return ($gid < MINUID ?  MINUID : $gid);
+        return ($gid < MINGID ?  MINGID : $gid);
     }
 
 }
@@ -1708,16 +1719,17 @@ sub addGroup # (group, comment, system)
 
     $self->_changeAttribute($dn, 'description', $comment);
 
+    if (-f '/etc/init.d/nscd') {
+        try {
+            EBox::Sudo::root('/etc/init.d/nscd reload');
+        } otherwise {};
+    }
+
     unless ($system) {
         $self->initGroup($group);
         $self->_initGroupSlaves($group);
     }
 
-    if ( -f '/etc/init.d/nscd' ) {
-        try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
-        } otherwise {};
-    }
 }
 
 sub initGroup
@@ -2595,9 +2607,12 @@ sub menu
                     'text' => __('LDAP Settings'), order => 40));
 
         if ($mode eq 'master' or $mode eq 'ad-slave') {
-            $folder->add(new EBox::Menu::Item(
+
+            if ( EBox::Global->edition() ne 'sb' ) {
+                $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/Composite/SlaveInfo',
                         'text' => __('Slave Status'), order => 50));
+            }
         }
         if ($mode eq 'ad-slave') {
             $folder->add(new EBox::Menu::Item(
@@ -2821,7 +2836,7 @@ sub defaultQuota
 
 sub enableQuota
 {
-    return (EBox::Config::configkey('enable_quota') ne 'no');
+    return EBox::Config::boolean('enable_quota');
 }
 
 # Method: authUser

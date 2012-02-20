@@ -112,8 +112,8 @@ sub generalWidget
         $qaUpdates = $rs->subscriptionLevel() > 0;
     }
 
-    my $ignore = EBox::Config::configkey('widget_ignore_updates');
-    unless (defined ($ignore) and ($ignore eq 'yes')) {
+    my $ignore = EBox::Config::boolean('widget_ignore_updates');
+    unless ($ignore) {
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
         read ($fh, $lastVersion, 16);
@@ -247,7 +247,7 @@ sub widgets
         },
     };
 
-    unless (EBox::Config::configkey('disable_links_widget') eq 'yes') {
+    unless (EBox::Config::boolean('disable_links_widget')) {
         $widgets->{'links'} = {
             'title' => __("Resources & Services"),
             'widget' => \&linksWidget,

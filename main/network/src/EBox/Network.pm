@@ -2457,7 +2457,7 @@ sub _hasChanged # (interface)
     if ($self->vifaceExists($iface)) {
         ($real) = $self->_viface2array($iface);
     }
-    if ( defined($self->dir_exists("interfaces/$real")) ){
+    if ( $self->dir_exists("interfaces/$real") ){
         return $self->get_bool("interfaces/$real/changed");
     } else {
         return 1; # deleted => has changed
@@ -3137,6 +3137,9 @@ sub _preSetConf
                         push (@cmds, "/sbin/ip address flush label $if:*");
                     }
                     push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    if ($self->ifaceMethod($if) eq 'bridge') {
+                        push (@cmds, "/usr/sbin/brctl delbr $if");
+                    }
                 }
                 EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {};
