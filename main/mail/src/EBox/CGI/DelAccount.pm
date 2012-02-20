@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::UsersAndGroups::User;
 
 sub new {
 	my $class = shift;
@@ -37,16 +38,17 @@ sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
 
-	$self->_requireParam('username', __('username'));
-	my $username = $self->param('username');
-	$self->{redirect} = "UsersAndGroups/User?username=".$username;
+	$self->_requireParam('user', __('user'));
+	my $user = $self->unsafeParam('user');
+	$self->{redirect} = "UsersAndGroups/User?user=".$user;
 
 	$self->_requireParam('mail', __('user mail'));
 	my $usermail = $self->param('mail');
 
-	$self->keepParam('username');
+	$self->keepParam('user');
 
-	$mail->{musers}->delUserAccount($username, $usermail);
+    $user = new EBox::UsersAndGroups::User(dn => $user);
+	$mail->{musers}->delUserAccount($user, $usermail);
 }
 
 1;
