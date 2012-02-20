@@ -70,11 +70,15 @@ sub set_string
 {
     my ($self, $key, $value) = @_;
 
+    my $tran = $self->begin();
+
     # Sets the new key
     $self->_redis_call('set', $key, $value);
 
     # Update parent dir info with the new key
     $self->_parent_add($key);
+
+    $self->commit() if $tran;
 }
 
 # Method: get_string
@@ -139,6 +143,9 @@ sub get_bool
 sub set_list
 {
     my ($self, $key, $list) = @_;
+
+    my $tran = $self->begin();
+
     $self->_redis_call('del', $key);
     for my $value (@{$list}) {
         $self->_redis_call('rpush', $key, $value);
@@ -146,6 +153,8 @@ sub set_list
 
     # Update parent dir info with the new key
     $self->_parent_add($key);
+
+    $self->commit() if $tran;
 }
 
 # Method: get_list
@@ -171,6 +180,8 @@ sub get_list
 sub set_hash
 {
     my ($self, $key, $hash) = @_;
+
+    # TODO: transaction here or is it not needed?
 
     $self->_redis_call('del', $key);
     $self->_redis_call('hmset', $key, %{$hash});
@@ -285,12 +296,16 @@ sub delete_dir
 {
     my ($self, $dir) = @_;
 
-    return unless $self->dir_exists($dir);
+    my $tran = $self->begin();
 
-    my @keys = $self->_redis_call('keys', "$dir/*");
-    $self->_redis_call('del', @keys);
+    if ($self->dir_exists($dir)) {
+        my @keys = $self->_redis_call('keys', "$dir/*");
+        $self->_redis_call('del', @keys);
 
-    $self->_parent_del($dir);
+        $self->_parent_del($dir);
+    }
+
+    $self->commit() if $tran;
 }
 
 # Method: unset
@@ -301,10 +316,14 @@ sub unset
 {
     my ($self, $key) = @_;
 
+    my $tran = $self->begin();
+
     $self->_redis_call('del', $key);
 
     # Delete reference to the key in parent
     $self->_parent_del($key);
+
+    $self->commit() if $tran;
 }
 
 # Method: exists
@@ -611,13 +630,59 @@ sub _restore_dir
     }
 }
 
+sub begin
+{
+    my ($self) = @_;
+
+    # Do not allow nested transactions
+    if ($self->{tran}) {
+        return 0;
+    }
+
+    # TODO: flush queue also here?
+    $self->{tran} = 1;
+
+    # TODO: empty cache if other process has modified it
+    #%cache = ();
+
+    return 1;
+}
+
+sub commit
+{
+    my ($self) = @_;
+
+    $self->_flush_queue();
+
+    $self->{tran} = 0;
+}
+
+sub rollback
+{
+    my ($self) = @_;
+
+    $self->_redis_call_wrapper(0, 'discard');
+
+    $self->{tran} = 0;
+}
+
 sub _flush_queue
 {
     my ($self) = @_;
 
+    my $multi = (@queue > 1);
+
+    if ($multi) {
+        $self->_redis_call_wrapper(0, 'multi');
+    }
+
     while (@queue) {
         my $cmd = shift (@queue);
         $self->_redis_call_wrapper(0, $cmd->{cmd}, @{$cmd->{args}});
+    }
+
+    if ($multi) {
+        $self->_redis_call_wrapper(1, 'exec');
     }
 }
 
@@ -705,7 +770,7 @@ sub _redis_call
             $cache{$key} = { type => $value };
         } elsif (not exists $cache{$key}->{value}) {
             if (($command eq 'smembers') or
-                    ($command eq 'scard') or ($command eq 'sismember')) {
+                ($command eq 'scard') or ($command eq 'sismember')) {
                 $value = $self->_redis_call_wrapper(1, 'smembers', $key);
                 my %members = map { $_ => 1 } @{$value};
                 $cache{$key} = { type => 'set', value => \%members };

@@ -1,4 +1,5 @@
 HEAD
+	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
 	+ Log also duration and compMessage to events.log

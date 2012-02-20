@@ -854,6 +854,10 @@ sub addTypedRow
     # Check compulsory fields
     $self->_checkCompulsoryFields($paramsRef);
 
+    try {
+
+    $self->_beginTransaction();
+
     my $checkRowUnique = $self->rowUnique();
 
     # Check field uniqueness if any
@@ -914,6 +918,14 @@ sub addTypedRow
     foreach my $file (@{  $filesToRemove }) {
         $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
     }
+
+    $self->_commitTransaction();
+
+    } otherwise {
+        my $ex = shift;
+        $self->_rollbackTransaction();
+        throw $ex;
+    };
 
     return $id;
 }
@@ -1106,6 +1118,10 @@ sub removeRow
                 "Missing row identifier to remove")
     }
 
+    try {
+
+    $self->_beginTransaction();
+
     # If force != true and automaticRemove is enabled it means
     # the model has to automatically check if the row which is
     # about to removed is referenced elsewhere. In that
@@ -1149,6 +1165,14 @@ sub removeRow
 
     $self->setMessage($userMsg);
     $self->deletedRowNotify($row, $force);
+
+    $self->_commitTransaction();
+
+    } otherwise {
+        my $ex = shift;
+        $self->_rollbackTransaction();
+        throw $ex;
+    };
 }
 
 # Method: removeAll
@@ -1310,6 +1334,10 @@ sub setTypedRow
 
     my @setterTypes = @{$self->setterTypes()};
 
+    try {
+
+    $self->_beginTransaction();
+
     my $checkRowUnique = $self->rowUnique();
 
     my $changedElements = {};
@@ -1382,6 +1410,14 @@ sub setTypedRow
         $self->_notifyCompositeManager('update', $self->row($id));
         $self->updatedRowNotify($self->row($id), $oldRow, $force);
     }
+
+    $self->_commitTransaction();
+
+    } otherwise {
+        my $ex = shift;
+        $self->_rollbackTransaction();
+        throw $ex;
+    };
 }
 
 # Method: enabledRows
@@ -1470,12 +1506,23 @@ sub ids
 
     unless ($self->{'gconfmodule'}->isReadOnly()) {
         my $modAlreadyChanged = $self->{'gconfmodule'}->changed();
-        $changed = $self->syncRows($currentIds);
-        if ($changed and (not $modAlreadyChanged)) {
-            # save changes but don't mark it as changed
-            $self->{gconfmodule}->_saveConfig();
-            $self->{gconfmodule}->setAsChanged(0);
-        }
+
+        try {
+            $self->_beginTransaction();
+
+            $changed = $self->syncRows($currentIds);
+            if ($changed and (not $modAlreadyChanged)) {
+                # save changes but don't mark it as changed
+                $self->{gconfmodule}->_saveConfig();
+                $self->{gconfmodule}->setAsChanged(0);
+            }
+
+            $self->_commitTransaction();
+        } otherwise {
+            my $ex = shift;
+            $self->_rollbackTransaction();
+            throw $ex;
+        };
     }
 
     if ($changed) {
@@ -4684,6 +4731,27 @@ sub parentRow
         throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite: $parentComposite");
 
     return $row;
+}
+
+sub _beginTransaction
+{
+    my ($self) = @_;
+
+    $self->parentModule()->{redis}->begin();
+}
+
+sub _commitTransaction
+{
+    my ($self) = @_;
+
+    $self->parentModule()->{redis}->commit();
+}
+
+sub _rollbackTransaction
+{
+    my ($self) = @_;
+
+    $self->parentModule()->{redis}->rollback();
 }
 
 1;
