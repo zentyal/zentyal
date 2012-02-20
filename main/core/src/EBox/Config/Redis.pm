@@ -41,6 +41,7 @@ use constant REDIS_TYPES => qw(string set list hash);
 
 my %cache;
 my @queue;
+my $cacheModTime = 0;
 
 # Constructor: new
 #
@@ -652,11 +653,13 @@ sub begin
         return 0;
     }
 
-    # TODO: flush queue also here?
     $self->{tran} = 1;
 
-    # TODO: empty cache if other process has modified it
-    #%cache = ();
+    # FIXME: lock properly to avoid race conditions
+    my $mtime = $self->_redis_call_wrapper(0, 'getset', 'mtime', time());
+    if (defined ($mtime) and ($mtime > $cacheModTime)) {
+        $self->_update_cache();
+    }
 
     return 1;
 }
@@ -679,6 +682,26 @@ sub rollback
     }
 
     $self->{tran} = 0;
+}
+
+sub _update_cache
+{
+    my ($self) = @_;
+
+    for my $key (%cache) {
+        if ($self->exists($key)) {
+            my $type = $cache{$key}->{type};
+            next unless $type;
+            $cache{$key}->{value} = $self->get($key, $type);
+        } else {
+            delete $cache{$key};
+            # FIXME: we also have to delete parent references...
+
+            # FIXME: probably we can get rid of the directories and cache
+            # the directory structure /ebox/modules/foo -> cache{ebox}->{modules}->{foo} ?
+            # but probably the use of the "keys" calls will penalize a bit more, we'll see
+        }
+    }
 }
 
 sub _flush_queue
@@ -772,6 +795,7 @@ sub _redis_call
                     push (@keylist, $name);
                 }
             }
+            $cacheModTime = time();
             return @keylist;
         }
 
@@ -801,6 +825,7 @@ sub _redis_call
                 }
             }
         }
+        $cacheModTime = time();
 
         # Get value from cache
         if ($command eq 'exists') {
