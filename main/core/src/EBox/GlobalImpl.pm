@@ -31,7 +31,6 @@ use Error qw(:try);
 use EBox::Config;
 use EBox::Gettext;
 use EBox::ProgressIndicator;
-use EBox::ProgressIndicator::Dummy;
 use EBox::Sudo;
 use EBox::Validate qw( :all );
 use File::Basename;
@@ -350,9 +349,6 @@ sub revokeAllModules
     my $ro = 0;
 
     my $progress = $options{progress};
-    if (not $progress) {
-        $progress = EBox::ProgressIndicator::Dummy->create();
-    }
 
     my @names = @{$self->modNames};
     my $failed = "";
@@ -360,8 +356,10 @@ sub revokeAllModules
     foreach my $name (@names) {
         $self->modIsChanged($name) or next;
 
-        $progress->setMessage($name);
-        $progress->notifyTick();
+        if ($progress) {
+            $progress->setMessage($name);
+            $progress->notifyTick();
+        }
 
         my $mod = $self->modInstance($ro, $name);
         try {
@@ -371,14 +369,14 @@ sub revokeAllModules
         };
     }
 
-    if ($failed eq "") {
-        $progress->setAsFinished();
+    if (not $failed) {
+        $progress->setAsFinished() if $progress;
         return;
     }
 
     my $errorText = "The following modules failed while ".
         "revoking their changes, their state is unknown: $failed";
-    $progress->setAsFinished(1, $errorText);
+    $progress->setAsFinished(1, $errorText) if $progress;
     throw EBox::Exceptions::Internal($errorText);
 }
 
@@ -525,9 +523,6 @@ sub saveAllModules
     $self->{save_messages} = [];
 
     my $progress = $options{progress};
-    if (not $progress) {
-        $progress = EBox::ProgressIndicator::Dummy->create();
-    }
 
     my @mods = @{$self->modifiedModules('save')};
     my $modNames = join (' ', @mods);
@@ -545,9 +540,11 @@ sub saveAllModules
         $modNames = join(' ', @mods);
 
         foreach my $name (@mods) {
-            $progress->setMessage(__x("Enabling {modName} module",
-                        modName => $name));
-            $progress->notifyTick();
+            if ($progress) {
+                $progress->setMessage(__x("Enabling {modName} module",
+                                          modName => $name));
+                $progress->notifyTick();
+            }
 
             next if ($name eq 'dhcp'); # Skip dhcp module
             next if ($name eq 'users'); # Skip usersandgroups
@@ -585,9 +582,11 @@ sub saveAllModules
             next;
         }
 
-        $progress->setMessage(__x("Saving {modName} module",
-                    modName => $name));
-        $progress->notifyTick();
+        if ($progress) {
+            $progress->setMessage(__x("Saving {modName} module",
+                                       modName => $name));
+            $progress->notifyTick();
+        }
 
         my $mod = EBox::GlobalImpl->modInstance($ro, $name);
         my $class = 'EBox::Module::Service';
@@ -619,9 +618,11 @@ sub saveAllModules
 
     # FIXME - tell the CGI to inform the user that apache is restarting
     if ($apache) {
-        $progress->setMessage(__x("Saving {modName} module",
-                    modName => 'apache'));
-        $progress->notifyTick();
+        if ($progress) {
+            $progress->setMessage(__x("Saving {modName} module",
+                                       modName => 'apache'));
+            $progress->notifyTick();
+        }
 
         my $mod = EBox::GlobalImpl->modInstance($ro, 'apache');
         try {
@@ -652,7 +653,7 @@ sub saveAllModules
         } else {
             EBox::info('Changes saved successfully');
         }
-        $progress->setAsFinished(0, $message);
+        $progress->setAsFinished(0, $message) if $progress;
 
         return;
     }
@@ -660,7 +661,7 @@ sub saveAllModules
     my $errorText = "The following modules failed while ".
         "saving their changes, their state is unknown: $failed";
 
-    $progress->setAsFinished(1, $errorText);
+    $progress->setAsFinished(1, $errorText) if $progress;
     throw EBox::Exceptions::Internal($errorText);
 }
 
@@ -1147,9 +1148,11 @@ sub _runExecFromDir
             try {
                 EBox::info("Running $exec");
                 # Progress indicator stuff
-                $progress->setMessage(__x('running {scriptName} script',
-                                          scriptName => scalar(File::Basename::fileparse($exec))));
-                $progress->notifyTick();
+                if ($progress) {
+                    $progress->setMessage(__x('running {scriptName} script',
+                                              scriptName => scalar(File::Basename::fileparse($exec))));
+                    $progress->notifyTick();
+                }
                 my $output = EBox::Sudo::command("$exec $modNames");
                 if ( @{$output} > 0) {
                     EBox::info("Output from $exec: @{$output}");

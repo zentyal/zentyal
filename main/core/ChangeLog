@@ -1,4 +1,5 @@
 HEAD
+	+ Simplified ProgressIndicator implementation
 	+ Implemented mysqldump for logs database
 	+ Remove zentyal-events cron script which should not be longer necessary
 	+ Bugfix: set executable permissions to cron scripts and example hooks
