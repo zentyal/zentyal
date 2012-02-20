@@ -18,7 +18,7 @@
 # This class is the model to show information about technical support
 #
 #     - server name
-#     - server subscription
+#     - server edition
 #     - support package
 #     - support via
 #     - SLA
@@ -119,8 +119,8 @@ sub _table
               printableName => __('Server name'),
              ),
           new EBox::Types::Text(
-              fieldName     => 'subscription',
-              printableName => __('Server subscription'),
+              fieldName     => 'edition',
+              printableName => __('Server edition'),
              ),
           new EBox::Types::Text(
               fieldName     => 'package',
@@ -165,11 +165,7 @@ sub _content
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subscription = $i18nLevels{$rs->subscriptionLevel()};
+        $subscription = $rs->i18nServerEdition();
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $package,
@@ -207,7 +203,7 @@ sub _content
 
     return {
         server_name  => $serverName,
-        subscription => $subscription,
+        edition      => $subscription,
         package      => $package,
         support_via  => $supportVia,
         sla          => $sla,

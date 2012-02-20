@@ -73,6 +73,13 @@ use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
+my %i18nLevels = ( '-1' => __('Unknown'),
+                   '0'  => __('Basic'),
+                   '1'  => __('Professional'),
+                   '2'  => __('Enterprise'),
+                   '5'  => __('Small Business'),
+                   '10' => __('Enterprise'));
+
 # Group: Protected methods
 
 # Constructor: _create
@@ -1256,6 +1263,32 @@ sub dynamicHostname
 
 }
 
+# Method: i18nServerEdition
+#
+#     Get the server edition printable name
+#
+# Parameters:
+#
+#     level - Int the level for taking the edition
+#             *(Optional)* Default value: $self->subscriptionLevel()
+#
+# Returns:
+#
+#     String - the printable edition
+#
+sub i18nServerEdition
+{
+    my ($self, $level) = @_;
+
+    $level = $self->subscriptionLevel() unless (defined($level));
+
+    if ( exists($i18nLevels{$level}) ) {
+        return $i18nLevels{$level};
+    } else {
+        return __('Unknown');
+    }
+}
+
 # Group: Public methods related to reporting
 
 # Method: logReportInfo
@@ -1648,11 +1681,7 @@ sub _ccConnectionWidget
             $fqdn = $self->dynamicHostname();
         }
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subsLevelValue = $i18nLevels{$self->subscriptionLevel()};
+        $subsLevelValue = $self->i18nServerEdition();
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $supportValue,
@@ -1707,7 +1736,7 @@ sub _ccConnectionWidget
         $section->add(new EBox::Dashboard::Value(__('External server name'),
                                                  $fqdn));
     }
-    $section->add(new EBox::Dashboard::Value(__('Server subscription'),
+    $section->add(new EBox::Dashboard::Value(__('Server edition'),
                                              $subsLevelValue));
     $section->add(new EBox::Dashboard::Value(__('Technical support'),
                                              $supportValue));

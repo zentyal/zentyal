@@ -18,7 +18,7 @@
 # This class is the model to show information about Disaster Recovery service
 #
 #     - server name
-#     - server subscription
+#     - server edition
 #     - disaster recovery
 #     - remote storage space available
 #     - latest configuration backup
@@ -137,8 +137,8 @@ sub _table
               printableName => __('Server name'),
              ),
           new EBox::Types::Text(
-              fieldName     => 'subscription',
-              printableName => __('Server subscription'),
+              fieldName     => 'edition',
+              printableName => __('Server edition'),
              ),
           new EBox::Types::Text(
               fieldName     => 'dr',
@@ -202,11 +202,7 @@ sub _content
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subscription = $i18nLevels{$rs->subscriptionLevel()};
+        $subscription = $rs->i18nServerEdition();
 
         $dr = __('Configuration backup enabled');
 
@@ -295,15 +291,15 @@ sub _content
     }
 
     return {
-        server_name  => $serverName,
-        subscription => $subscription,
-        dr           => $dr,
-        available    => $available,
-        conf_backup  => $confBackup,
-        data_backup  => $dataBackup,
-        domains      => $domains,
-        size         => $size,
-        eta          => $eta,
+        server_name => $serverName,
+        edition     => $subscription,
+        dr          => $dr,
+        available   => $available,
+        conf_backup => $confBackup,
+        data_backup => $dataBackup,
+        domains     => $domains,
+        size        => $size,
+        eta         => $eta,
        };
 }
 
