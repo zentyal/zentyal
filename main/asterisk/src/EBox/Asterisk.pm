@@ -254,6 +254,7 @@ sub _daemons
     return [
         {
             'name' => 'asterisk',
+            'type' => 'init.d',
         }
     ];
 }

@@ -2,8 +2,13 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+	+ Implemented mysqldump for logs database
+	+ Remove zentyal-events cron script which should not be longer necessary
+	+ Bugfix: set executable permissions to cron scripts and example hooks
+	+ Added a global method to retrieve installed server edition
 	+ Log also duration and compMessage to events.log
 2.3.1
+	+ Updated Standards-Version to 3.9.2
 	+ Fixed JS client side table sorting issue due to Prototype
 	  library upgrade
 	+ Disable InnoDB by default to reduce memory consumption of MySQL

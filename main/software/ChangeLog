@@ -1,3 +1,5 @@
+HEAD
+	+ Added check for small business subscription
 2.3
 	+ Replaced autotools with zbuildtools
 	+ Bugfix: Use the new paths in setting apt preferences when

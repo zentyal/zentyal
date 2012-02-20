@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed executable permissions in src/scripts
+	+ Added checks for small business subscription
 	+ Bugfix: lastGid method was calling MINUID and SYSMINUID
 	+ Reload nscd before trying to init users and groups
 2.3.1

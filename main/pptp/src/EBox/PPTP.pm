@@ -19,8 +19,11 @@ package EBox::PPTP;
 #
 #
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::FirewallObserver);
+use base qw(EBox::Module::Service
+            EBox::Model::ModelProvider
+            EBox::Model::CompositeProvider
+            EBox::FirewallObserver
+            EBox::LogObserver);
 
 use strict;
 use warnings;
@@ -30,6 +33,8 @@ use EBox::Gettext;
 
 use EBox::Dashboard::Section;
 use EBox::Dashboard::Value;
+
+use EBox::PPTPLogHelper;
 
 use Net::IP;
 use Error qw(:try);
@@ -365,6 +370,54 @@ sub pptpWidget
     my $ids = [sort keys %{$rows}];
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows,
                   __('No users connected.')));
+}
+
+# Method: logHelper
+#
+# Overrides:
+#
+#       <EBox::LogObserver::logHelper>
+#
+sub logHelper
+{
+    my ($self, @params) = @_;
+    return EBox::PPTPLogHelper->new($self, @params);
+}
+
+# Method: tableInfo
+#
+# Overrides:
+#
+#       <EBox::LogObserver::tableInfo>
+#
+sub tableInfo
+{
+    my ($self) = @_;
+    my $titles = {
+                  timestamp => __('Date'),
+                  event     => __('Event'),
+                  from_ip   => __(q{Remote IP}),
+                 };
+    my @order = qw(timestamp event from_ip );
+
+    my $events = {
+                  initialized => __('Initialization sequence completed'),
+
+                  connectionInitiated => __('Client connection initiated'),
+                  connectionReset     => __('Client connection terminated'),
+                 };
+
+    return [{
+            'name'      => $self->printableName(),
+            'tablename' => 'pptp',
+            'titles'    => $titles,
+            'order'     => \@order,
+            'timecol'   => 'timestamp',
+            'filter'    => ['from_ip'],
+            'types'     => { 'from_ip' => 'IPAddr' },
+            'events'    => $events,
+            'eventcol'  => 'event'
+           }];
 }
 
 1;

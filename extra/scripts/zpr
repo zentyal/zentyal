@@ -17,6 +17,8 @@ unless (@modules) {
     @modules = readdir(DIR);
 }
 
+my $lastModule = pop (@modules);
+
 my $pm = new Parallel::ForkManager(THREADS);
 
 foreach my $module (@modules) {
@@ -29,5 +31,10 @@ foreach my $module (@modules) {
     }
 }
 $pm->wait_all_children;
+
+# Last module will regenerate repository archive
+unless (system ($command, $lastModule) == 0) {
+    print "Command $command $module failed\n";
+}
 
 print "Done.\n"

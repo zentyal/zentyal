@@ -1,3 +1,5 @@
+HEAD
+	+ Remove firewall hook template as examples are already included in core
 2.3
 	+ Adapted to new MySQL logs backend
 	+ Disabled source/destination port for portless protocols in redirections

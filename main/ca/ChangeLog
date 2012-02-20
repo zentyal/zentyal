@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed executable permissions in src/scripts
 2.3
 	+ Fixed variable interpolation in internal exception text
 	+ Bugfix: do not try to get orgName in destroyCA after files are removed
