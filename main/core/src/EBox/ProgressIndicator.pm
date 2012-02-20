@@ -18,18 +18,18 @@ package EBox::ProgressIndicator;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule::StatePartition';
-
-use EBox::Config;
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Apache;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 
 use POSIX ":sys_wait_h";
+use IPC::Shareable;
 use Error qw(:try);
-use Encode;
 
-use constant HOST_MODULE => 'apache';
+my $IPC_KEY = 'ZPGI';
+my %data;
 
 sub create
 {
@@ -38,94 +38,51 @@ sub create
     # check parameter correctness..
     exists $params{totalTicks} or
         throw EBox::Exceptions::MissingArgument('totalTicks named parameter not found');
+
     ($params{totalTicks} > 0) or
         throw EBox::Exceptions::InvalidData(
                 data  => __('Total ticks'),
                 value => $params{totalTicks},
                 advice => __('It must be a non-zero positive number'),
-                );
+        );
+
     exists $params{executable} or
         throw EBox::Exceptions::MissingArgument('executable named parameter not found');
 
-    my $message = __('To solve it you can try to execute the following commands:');
-    $message .= ' sudo apt-get update &&' .
-        ' sudo dpkg --configure -a &&' .
-        ' sudo apt-get install -f';
     my ($executableWoArguments) = split '\s', $params{executable};
     (-x $executableWoArguments) or
-        throw EBox::Exceptions::External(
-                __x("Cannot execute {exe}",
-                    exe => "$params{executable}\n$message"
-                   )
-                );
+        throw EBox::Exceptions::External(__x("Cannot execute {exe}", exe => $params{executable}));
 
-    # get unique id
-    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-    my $id = $hostMod->st_get_unique_id('', $class->_baseDir);
+    tie (%data, 'IPC::Shareable', { key => $IPC_KEY, create => 1, destroy => 1 }) or
+        throw EBox::Exceptions::Internal("Cannot create shared memory for progress indicator.");
 
-    # create instance
-    my $idKey = $class->_baseDir($id) . '/id';
-    $hostMod->st_set_string($idKey, $id);
-
-    # Remove those instances which have finished
-    $class->_cleanupFinished();
-
-    my $self = $class->retrieve($id);
+    my $self = $class->retrieve();
 
     # store data
-    $self->setConfString('executable', $params{executable});
-    $self->setConfInt('totalTicks', $params{totalTicks});
+    $data{executable} = $params{executable};
+    $data{totalTicks} = $params{totalTicks};
 
-    $self->setConfInt('ticks', 0);
-    $self->setConfString('message', '');
-    $self->setConfBool('started', 0);
-    $self->setConfBool('finished', 0);
-    # retValue==-1, not finished
-    $self->setConfInt('retValue', -1);
+    $data{ticks} = 0;
+    $data{message} = '';
+    $data{started} = 0;
+    $data{finished} = 0;
+    # retValue == -1, not finished
+    $data{retValue} = -1;
 
     return $self;
 }
 
 sub retrieve
 {
-    my ($class, $id) = @_;
-    defined $id or
-        throw EBox::Exceptions::MissingArgument('id');
+    my ($class) = @_;
 
-    #  EBox::debug("retieving progress indicator wit hid $id");
+    tie (%data, 'IPC::Shareable', { key => $IPC_KEY }) or
+        throw EBox::Exceptions::Internal("Cannot open shared memory for progress indicator.");
 
-    my $baseDir  =  $class->_baseDir($id);
-    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-    defined $hostMod or
-        throw EBox::Exceptions::Internal(HOST_MODULE
-                . ' module cannot be instantiated');
-
-    unless ( $hostMod->st_dir_exists($baseDir) ) {
-        throw EBox::Exceptions::External(
-                __x('Progress indicator with id {id} not found', id => $id,)
-                );
-    }
-
-    my $self   = $class->SUPER::new($baseDir, $hostMod);
+    my $self = {};
     bless $self, $class;
 
     return $self;
-}
-
-sub new
-{
-    throw EBox::Exceptions::Internal('Incorrect method: use create or retrieve');
-}
-
-sub _baseDir
-{
-    my ($class, $id) = @_;
-
-    my $dir =  "progress_indicator";
-    if ($id) {
-        $dir .= "/$id";
-    }
-    return $dir;
 }
 
 sub notifyTick
@@ -149,26 +106,28 @@ sub notifyTick
                 );
     }
 
-    my $newValue = $self->ticks() + $nTicks;
-    $self->setConfInt('ticks', $newValue);
+    $data{ticks} += $nTicks;
 }
 
 sub ticks
 {
     my ($self) = @_;
-    return $self->getConfInt('ticks');
+
+    return $data{ticks};
 }
 
 sub setTotalTicks
 {
     my ($self, $nTTicks) = @_;
-    $self->setConfInt('totalTicks', $nTTicks);
+
+    $data{totalTicks} = $nTTicks;
 }
 
 sub totalTicks
 {
     my ($self) = @_;
-    return $self->getConfInt('totalTicks');
+
+    return $data{totalTicks};
 }
 
 # Method: percentage
@@ -209,19 +168,15 @@ sub percentage
 sub setMessage
 {
     my ($self, $message) = @_;
-    $self->setConfString('message', $message);
+
+    $data{message} = $message;
 }
 
 sub message
 {
     my ($self) = @_;
-    return $self->getConfString('message');
-}
 
-sub id
-{
-    my ($self) = @_;
-    return $self->getConfString('id');
+    return $data{message};
 }
 
 # Method: started
@@ -236,13 +191,8 @@ sub id
 sub started
 {
     my ($self) = @_;
-    return $self->getConfBool('started');
-}
 
-sub _setAsStarted
-{
-    my ($self) = @_;
-    return $self->setConfBool('started', 1);
+    return $data{started};
 }
 
 # Method: finished
@@ -257,7 +207,8 @@ sub _setAsStarted
 sub finished
 {
     my ($self) = @_;
-    return $self->getConfBool('finished');
+
+    return $data{finished};
 }
 
 # Method: setAsFinished
@@ -285,16 +236,14 @@ sub setAsFinished
     defined $retValue or $retValue = 0;
 
     if (not $self->started()) {
-        throw EBox::Exceptions::External(
-                __('The executable has not run')
-                );
+        throw EBox::Exceptions::External(__('The executable has not run'));
     }
 
-    $self->setConfBool('finished', 1);
+    $data{finished} = 1;
     $self->setRetValue($retValue);
 
     if (defined($errorMsg)) {
-        $self->setConfString('errorMsg', $errorMsg);
+        $data{errorMsg} = $errorMsg;
     }
 }
 
@@ -311,7 +260,8 @@ sub setAsFinished
 sub retValue
 {
     my ($self) = @_;
-    return $self->getConfInt('retValue');
+
+    return $data{retValue};
 }
 
 # Method: setRetValue
@@ -332,12 +282,11 @@ sub setRetValue
 {
     my ($self, $retValue) = @_;
 
-    unless ( $self->finished() ) {
+    unless ($self->finished()) {
         throw EBox::Exceptions::Internal('Cannot set a return value to '
-                . 'a not finished task');
+                                       . 'a not finished task');
     }
-    return $self->setConfInt('retValue', $retValue);
-
+    $data{retValue} = $retValue;
 }
 
 # Method: errorMsg
@@ -354,7 +303,7 @@ sub errorMsg
 {
     my ($self) = @_;
 
-    return $self->getConfString('errorMsg');
+    return $data{errorMsg};
 }
 
 sub stateAsHash
@@ -362,12 +311,11 @@ sub stateAsHash
     my ($self) = @_;
 
     my $status;
-    my $statevars  = {};
+    my $statevars = {};
 
     if (not $self->started()) {
         $status = 'not running';
-    }
-    elsif ($self->finished()) {
+    } elsif ($self->finished()) {
         my $retValue = $self->retValue();
         if ($retValue == 0) {
             $status = 'done';
@@ -380,8 +328,7 @@ sub stateAsHash
         if ($errorMsg) {
             $statevars->{errorMsg} = $errorMsg;
         }
-    }
-    else {
+    } else {
         $status = 'running';
     }
 
@@ -408,19 +355,9 @@ sub destroy
             }
             sleep 1;
         }
-
     }
 
-    my $piDir = $self->confKeysBase();
-
-    $self->fullModule->st_delete_dir($piDir);
     $_[0] = undef; # to cancel the self value
-}
-
-sub _executable
-{
-    my ($self) = @_;
-    return $self->getConfString('executable');
 }
 
 sub runExecutable
@@ -435,7 +372,7 @@ sub runExecutable
         __('The executable has already finished');
     }
 
-    $self->_setAsStarted;
+    $data{started} = 1;
 
     $self->_fork();
 }
@@ -453,57 +390,9 @@ sub _fork
     if ($pid) {
         $self->{childPid} = $pid;
         return; # parent returns immediately
-    }
-    else {
-
-        $self->_childExec();
-    }
-}
-
-sub _childExec
-{
-    my ($self) = @_;
-
-    my $cmd = $self->_executable() .
-        ' ' .
-        $self->execProgressIdParamName() .
-        ' ' .
-        $self->id();
-
-    EBox::Apache::cleanupForExec();
-    exec($cmd);
-}
-
-sub execProgressIdParamName
-{
-    my ($self) = @_;
-
-    return '--progress-id';
-}
-
-# Method to clean up the rubbish regarding to the progress indicator
-# stored in GConf state. It must be called when a new progress
-# indicator is created, that suppossed a single ProgressIndicator
-# alives on Apache
-sub _cleanupFinished
-{
-    my ($class) = @_;
-
-    my $baseDir = $class->_baseDir();
-    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-
-    my $allIDs = $hostMod->st_all_dirs_base($baseDir);
-
-    foreach my $id (@{$allIDs}) {
-        try {
-            my $pI = $class->retrieve($id);
-            if ( $pI->finished() ) {
-                $pI->destroy();
-            }
-        } catch EBox::Exceptions::Base with {
-            # Ignore this strange case (Already cleaned up)
-            ;
-        };
+    } else {
+        EBox::Apache::cleanupForExec();
+        exec($data{executable} . ' --progress-id ' . $self->id());
     }
 }
 
