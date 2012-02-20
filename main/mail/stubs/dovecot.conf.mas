@@ -82,9 +82,13 @@ userdb {
   args = /etc/dovecot/dovecot-ldap.conf
   driver = ldap
 }
-userdb {
-  driver = passwd
+passdb {
+  driver = ldap
+
+  # Path for LDAP configuration file, see example-config/dovecot-ldap.conf.ext
+  args = /etc/dovecot/dovecot-ldap.conf
 }
+
 
 
 ##
@@ -118,13 +122,13 @@ log_timestamp = "%Y-%m-%d %H:%M:%S "
 #ssl_listen =
 
 # SSL/TLS support: yes, no, required. </usr/share/doc/dovecot-common/wiki/SSL.txt>
-#ssl = yes
+ssl = yes
 
 # PEM encoded X.509 SSL/TLS certificate and private key. They're opened before
 # dropping root privileges, so keep the key file unreadable by anyone but
 # root.
-ssl_cert = /etc/dovecot/ssl/dovecot.pem
-ssl_key = /etc/dovecot/ssl/dovecot.pem
+ssl_cert =</etc/dovecot/ssl/dovecot.pem
+ssl_key =</etc/dovecot/ssl/dovecot.pem
 
 
 # Show protocol level SSL errors.
