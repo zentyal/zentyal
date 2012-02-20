@@ -64,7 +64,7 @@ use constant {
 
  BYTES                    => '1048576',
 
- DOVECOT_SERVICE          => 'ebox.dovecot',
+ DOVECOT_SERVICE          => 'dovecot',
 
  TRANSPORT_FILE           => '/etc/postfix/transport',
 
