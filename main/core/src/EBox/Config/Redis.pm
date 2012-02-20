@@ -204,6 +204,19 @@ sub get_hash
     return {$self->_redis_call('hgetall', $key)};
 }
 
+# Method: set_set
+#
+#   Set $key to $set. Where $set is an array ref.
+#
+sub set_set
+{
+    my ($self, $key, $set) = @_;
+    $self->_redis_call('del', $key);
+    for my $value (@{$set}) {
+        $self->_redis_call('sadd', $key, $value);
+    }
+}
+
 # Method: get_set
 #
 #   Fetch the array ref stored in $key
@@ -661,7 +674,9 @@ sub rollback
 {
     my ($self) = @_;
 
-    $self->_redis_call_wrapper(0, 'discard');
+    if ($self->{multi}) {
+        $self->_redis_call_wrapper(0, 'discard');
+    }
 
     $self->{tran} = 0;
 }
@@ -670,9 +685,9 @@ sub _flush_queue
 {
     my ($self) = @_;
 
-    my $multi = (@queue > 1);
+    $self->{multi} = (@queue > 1);
 
-    if ($multi) {
+    if ($self->{multi}) {
         $self->_redis_call_wrapper(0, 'multi');
     }
 
@@ -681,7 +696,7 @@ sub _flush_queue
         $self->_redis_call_wrapper(0, $cmd->{cmd}, @{$cmd->{args}});
     }
 
-    if ($multi) {
+    if ($self->{multi}) {
         $self->_redis_call_wrapper(1, 'exec');
     }
 }
