@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use EBox::Sudo;
+use Net::LDAP;
 #use EBox::Global;
 #use EBox::Model::ModelManager;
 #use EBox::Network;
@@ -26,13 +27,12 @@ use EBox::Sudo;
 #use EBox::Exceptions::Internal;
 #use EBox::Exceptions::DataExists;
 #use EBox::Exceptions::DataMissing;
+use EBox::Samba4;
 
 #use EBox::Gettext;
 #use Perl6::Junction qw(any all);
 use Error qw(:try);
 #use Crypt::SmbHash qw(nthash ntlmgen);
-
-use constant SAMBATOOL           => '/usr/bin/samba-tool';
 
 # Default values for samba user
 #use constant SMBLOGONTIME       => '0';
@@ -63,7 +63,6 @@ sub new
     return $self;
 }
 
-
 # Implements LdapUserBase interface
 # This method adds the user to the samba4 LDB
 sub _addUser
@@ -90,10 +89,12 @@ sub _addUser
 #    $self->_createDir(PROFILESPATH . "/$userName.V2",
 #        $unixuid, USERGROUP, '0700');
 
-# TODO: Ask samba LDAP if the user already exists, else add it
-    my $cmd = SAMBATOOL . " user create $userName $password --enable-reversible-encryption";
-    EBox::debug("Adding samba user <$cmd>");
-    EBox::Sudo::root($cmd);
+    my $sambaUsers = $self->{samba}->getSambaUsers();
+    unless (exists $sambaUsers->{$userName}) {
+        my $cmd = Samba4::SAMBATOOL() . " user create $userName $password --enable-reversible-encryption";
+        EBox::debug("Adding samba user <$cmd>");
+        EBox::Sudo::root($cmd);
+    }
 }
 
 sub _modifyUser
@@ -1308,5 +1309,6 @@ sub defaultUserModel
 #{
 #    return GROUPSPATH;
 #}
+
 
 1;

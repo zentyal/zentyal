@@ -3,22 +3,17 @@
 use strict;
 
 use Net::LDAP;
-use File::Slurp;
-use MIME::Base64;
-use Encode qw(decode encode);
 use Error qw(:try);
-use Data::Dumper; #XXX
+use Data::Dumper;
+use Array::Diff;
 
 use EBox;
 use EBox::Global;
 
-use constant LDAP_BASE => 'dc=precise'; # TODO: Get this from anywhere
-use constant SAMBA_SAM_FILE => '/var/lib/samba/private/sam.ldb.d/DC=KERNEVIL,DC=LAN.ldb'; # TODO: Build this path
-
 # There users and groups won't be synchronized to LDAP
 my @sambaUsersToIgnore = ('krbtgt', 'Administrator', 'dns-precise', 'Guest'); # TODO build dns account dynamically
-my @sambaGroupsToIgnore = ('Read-only Domain Controllers', 'Group Policy Creator Owners', 'Domain Controllers', 'Domain Computers', 'DnsUpdateProxy', 'Domain Admins',
-                           'Domain Guests', 'Domain Users');
+my @sambaGroupsToIgnore = ('Read-Only Domain Controllers', 'Group Policy Creator Owners', 'Domain Controllers', 'Domain Computers', 'DnsUpdateProxy', 'Domain Admins',
+                           'Domain Guests', 'Domain Users', 'Users');
 
 # These are the users and groups ignored. All users and groups that are not in
 # samba neither in this arrays will be deleted
@@ -31,180 +26,102 @@ my @ldapGroupsToIgnore = ('__USERS__');
 sub debug
 {
     my ($msg) = @_;
-#    print "$msg\n";
-#    EBox::debug($msg);
+    print "$msg\n";
+#    EBox::debug ($msg);
 }
 
 sub info
 {
     my ($msg) = @_;
     print "$msg\n";
-    EBox::info($msg); #TODO check
+    EBox::info ($msg);
 }
 
 sub error
 {
     my ($msg) = @_;
     print "$msg\n";
-    EBox::error($msg); #TODO check
+    EBox::error ($msg);
 }
 
 #############################################################################
-## SAMBA credentials related functions                                     ##
+## LDB related functions                                                   ##
 #############################################################################
 
-# Method: decodeKerberos
+# Method: getSambaUsers
 #
-#       Decode the KERB_STORED_CREDENTIAL struct. This struct
-#       contains the hashes of the kerberos keys. Its format
-#       is documented at:
-#       http://msdn.microsoft.com/en-us/library/cc245503(v=prot.10).aspx
+#   This method get all users stored in the LDB
 #
-#       Returns a hash reference with the kerberos keys
+# Parameters:
 #
-sub decodeKerberos
+#   sambaModule - Instance of the zentyal samba module
+#   usersToIgnore (optional) - A reference to a list containing
+#       the users to ignore
+#
+# Returns:
+#
+#   A hash reference containing all found entries
+#
+sub getSambaUsers
 {
-    my ($data) = @_;
+    my ($sambaModule, $usersToIgnore) = @_;
 
-    my $kerberosKeys = {};
-
-    my $data = pack('H*', $data); # from hex to binary
-    my $format = 's x2 s s s s l a*';
-    if (length ($data) > 16) {
-        my ($revision, $nCredentials, $nOldCredentials, $saltLength, $maxSaltLength, $saltOffset) = unpack($format, $data);
-        debug ("Kerberos info: revision '$revision', number of credentials '$nCredentials', " .
-               "number of old credentials '$nOldCredentials', salt length '$saltLength', salt max length '$maxSaltLength', salt offset '$saltOffset'");
-        if ($revision == 3) {
-            my ($saltValue) = unpack('@' . $saltOffset . 'a' . $maxSaltLength, $data);
-            debug ("Salt length '$maxSaltLength', salt value '$saltValue'");
-
-            my $offset = 16;
-            for(my $i=0; $i<$nCredentials; $i++) {
-                my ($keyType, $keyLength, $keyOffset) = unpack('@' . $offset . 'x8 l l l', $data);
-                my ($keyValue) = unpack('@' . $keyOffset . 'a' . $keyLength, $data);
-                $offset += 20;
-
-                if ($keyType == 1) {
-                    $kerberosKeys->{'dec-cbc-crc'} = $keyValue;
-                }
-                elsif ($keyType == 3) {
-                    $kerberosKeys->{'des-cbc-md5'} = $keyValue;
-                }
-                debug ("Found kerberos key: type '$keyType', length '$keyLength', value '$keyValue'");
+    my $users = {};
+    my $ldb = $sambaModule->ldb();
+    my $result = $ldb->search({
+            base   => $ldb->rootDN(),
+            scope  => 'sub',
+#           filter => '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE)))'});
+            filter => '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))',
+            attrs  => ['sAMAccountName', 'cn', 'givenName', 'sn', 'description','whenChanged']});
+    my @entries = $result->entries;
+    if (defined $usersToIgnore) {
+        my %usersToIgnore = map { $_ => 1 } @{$usersToIgnore};
+        foreach my $entry (@entries) {
+            unless (exists $usersToIgnore{$entry->get_value('sAMAccountName')}) {
+                $users->{$entry->get_value('sAMAccountName')} = $entry;
             }
         }
     }
-    return $kerberosKeys;
+    return $users;
 }
 
-# Method: decodeWDigest
+# Method: getSambaGroups
 #
-#       Docode the WDIGEST_CREDENTIALS struct. This struct
-#       contains 29 different hashes produced by combinations
-#       of different elements including the sAMAccountName,
-#       realm, host, etc. The format is documented at:
-#       http://msdn.microsoft.com/en-us/library/cc245502(v=prot.10).aspx
-#       The list of included hashes is documented at:
-#       http://msdn.microsoft.com/en-us/library/cc245680(v=prot.10).aspx
+#   This method get all groups stored in the LDB
 #
-#       Returns: An array reference containing the hashes
+# Parameters:
 #
-sub decodeWDigest
+#   sambaModule - An instance of the zentyal samba module
+#   groupsToIgnore (optional) - A reference to a list containing
+#       the groups to ignore
+#
+# Returns:
+#
+#   A hash reference containing all found entries
+#
+sub getSambaGroups
 {
-    my ($data) = @_;
+    my ($sambaModule, $groupsToIgnore) = @_;
 
-    my $hashes = ();
-
-    my $format = 'x4 a2 a2 x24 (a32)29';
-    if (length ($data) == 960) {
-        my ($version, $nHashes, @hashValues) = unpack($format, $data);
-        $version = hex($version);
-        $nHashes = hex($nHashes);
-        debug ("WDigest info: version '$version', hash count '$nHashes'");
-        if ($version == 1 and $nHashes == 29) {
-            $hashes = \@hashValues;
-        }
-    }
-    return $hashes;
-}
-
-# Method: decodeSupplementalCredentials
-#
-#       This method decodes the supplementalCredentials base64
-#       encoded blob, called USER_PROPERTIES. The format of this
-#       this struct is documented at:
-#       http://msdn.microsoft.com/en-us/library/cc245500(v=prot.10).aspx
-#       The USER_PROPERTIES contains various USER_PROPERTY structs,
-#       documented at:
-#       http://msdn.microsoft.com/en-us/library/cc245501(v=prot.10).aspx
-#
-#       Returns: A hash reference containing the different hashes
-#                of the user credentials in different formats
-#
-sub decodeSupplementalCredentials
-{
-    my ($user) = @_;
-
-    my $credentials = {};
-    if (exists $user->{'supplementalCredentials'}) {
-        my $blob = decode_base64($user->{'supplementalCredentials'});
-        my $blobFormat = 'x4 L< x2 x2 x96 S< S< a*';
-        if (length ($blob) > 112) {
-            my ($blobLength, $blobSignature, $nProperties, $properties) = unpack ($blobFormat, $blob);
-            # Check the signature. Its value must be 0x50
-            if ($blobSignature == 0x50) {
-                my $offset = 112;
-                for (my $i=0; $i<$nProperties; $i++) {
-                    my ($propertyNameLength) = unpack('@' . $offset . 'S<', $blob);
-                    $offset += 2;
-
-                    my ($propertyValueLength) = unpack('@' . $offset . 'S<', $blob);
-                    $offset += 4; # 2 bytes + 2 bytes reserved
-
-                    my ($propertyName) = unpack('@' . $offset . 'a' . $propertyNameLength, $blob);
-                    $offset += $propertyNameLength;
-
-                    my ($propertyValue) = unpack('@' . $offset . 'a' . $propertyValueLength, $blob);
-                    $offset += $propertyValueLength;
-
-                    debug ("Found property '$propertyName'='$propertyValue'");
-                    if($propertyName eq encode('UTF-16LE', 'Primary:Kerberos')) {
-                        $credentials->{'Primary:Kerberos'} = decodeKerberos($propertyValue);
-                    }
-                    elsif($propertyName eq encode('UTF-16LE', 'Primary:WDigest')) {
-                        $credentials->{'Primary:WDigest'} = decodeWDigest($propertyValue);
-                    }
-                    elsif($propertyName eq encode('UTF-16LE', 'Primary:CLEARTEXT')) {
-                        $credentials->{'Primary:CLEARTEXT'} = decode('UTF-16LE', pack ('H*', $propertyValue));
-                    }
-                }
-            } else {
-                error ("Corrupted supplementalCredentials found on user $user->{'sAMAccountName'}");
+    my $groups = {};
+    my $ldb = $sambaModule->ldb();
+    my $result = $ldb->search({
+            base   => $ldb->rootDN(),
+            scope  => 'sub',
+#           filter => '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE)))'});
+            filter => '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))',
+            attrs  => ['sAMAccountName']});
+    my @entries = $result->entries;
+    if (defined $groupsToIgnore) {
+        my %groupsToIgnore = map { $_ => 1 } @{$groupsToIgnore};
+        foreach my $entry (@entries) {
+            unless (exists $groupsToIgnore{$entry->get_value('sAMAccountName')}) {
+                $groups->{$entry->get_value('sAMAccountName')} = $entry;
             }
-        } else {
-            error ("Truncated supplementalCredentials found on user $user->{'sAMAccountName'}");
         }
-    } else {
-        error ("SupplemetalCredentials not found in user $user->{'sAMAccountName'}");
     }
-    return $credentials;
-}
-
-# Method: getSambaCredentials
-#
-#       This method gets all the credentials stored in the
-#       LDB for the user
-#
-#       Returns: A hash reference containing all found credentials
-#
-sub getSambaCredentials
-{
-    my ($user) = @_;
-
-    debug ("Getting credentials for samba user '$user->{sAMAccountName}'");
-    my $credentials = decodeSupplementalCredentials ($user);
-    $credentials->{'unicodePwd'} = decode_base64 ($user->{'unicodePwd'});
-    return $credentials;
+    return $groups;
 }
 
 #############################################################################
@@ -213,208 +130,327 @@ sub getSambaCredentials
 
 # Method: getLdapUsers
 #
-#       This method get all users stored in LDAP, not including those
-#       specified in the 'ignoreLdapUsers' array.
+#   This method get all users stored in the LDAP
 #
-#       Returns: A hash reference containing all attributes stored in
-#                LDAP for each user
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   usersToIgnore (optional) - A reference to a list containing
+#       the users to ignore
+#
+# Returns:
+#
+#   A hash reference containing all found entries
 #
 sub getLdapUsers
 {
-    my ($ldap) = @_;
+    my ($usersModule, $usersToIgnore) = @_;
 
-    my $ldapUsers = {};
-    my $result = $ldap->search({
-            base => LDAP_BASE,
-            scope  => 'sub',
-            filter => 'objectClass=posixAccount'});
-
+    my $users = {};
+    my $result = $usersModule->{ldap}->search({
+            base   => $usersModule->usersDn(),
+            scope  => 'one',
+            filter => 'objectClass=posixAccount',
+            attrs => ['uid','modifyTimestamp']});
     my @entries = $result->entries;
-    my %ldapUsersToIgnore = map { $_ => 1 } @ldapUsersToIgnore;
-    foreach my $entry (@entries) {
-        unless (exists $ldapUsersToIgnore{$entry->get_value('uid')}) {
-            $ldapUsers->{$entry->get_value('uid')} = $entry->attributes;
+    if (defined $usersToIgnore) {
+        my %usersToIgnore = map { $_ => 1 } @{$usersToIgnore};
+        foreach my $entry (@entries) {
+            unless (exists $usersToIgnore{$entry->get_value('uid')}) {
+                $users->{$entry->get_value('uid')} = $entry;
+            }
         }
     }
-    return $ldapUsers;
+    return $users;
 }
 
-# Method: getLdapUsers
+# Method: getLdapGroups
 #
-#       This method get all groups stored in LDAP, not including those
-#       specified in the 'ignoreLdapGroups' array.
+#   This method get all groups stored in the LDAP
 #
-#       Returns: A hash reference containing all attributes stored in
-#                LDAP for each group
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   usersToIgnore (optional) - A reference to a list containing
+#       the groups to ignore
+#
+# Returns:
+#
+#   hash reference containing all found entries
 #
 sub getLdapGroups
 {
-    my ($ldap) = @_;
+    my ($usersModule, $groupsToIgnore) = @_;
 
-    my $ldapGroups = {};
-    my $result = $ldap->search({
-            base => LDAP_BASE,
-            scope  => 'sub',
-            filter => 'objectClass=posixGroup'});
-
+    my $groups = {};
+    my $result = $usersModule->{ldap}->search({
+            base   => $usersModule->groupsDn(),
+            scope  => 'one',
+            filter => 'objectClass=posixGroup',
+            attrs  => 'cn'});
     my @entries = $result->entries;
-    my %ldapGroupsToIgnore = map { $_ => 1 } @ldapGroupsToIgnore;
-    foreach my $entry (@entries) {
-        unless (exists $ldapGroupsToIgnore{$entry->get_value('cn')}) {
-            $ldapGroups->{$entry->get_value('cn')} = $entry->attributes;
+    if (defined $groupsToIgnore) {
+        my %groupsToIgnore = map { $_ => 1 } @{$groupsToIgnore};
+        foreach my $entry (@entries) {
+            unless (exists $groupsToIgnore{$entry->get_value('cn')}) {
+                $groups->{$entry->get_value('cn')} = $entry;
+            }
         }
     }
-    return $ldapGroups;
+    return $groups;
 }
 
 # Method: addLdapUser
 #
-#       This method add a samba user to LDAP
+#   This method add a user to LDAP
+#
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   credentials - A hash reference to the new user samba credentials
+#   sambaUser - A reference to the samba user to be added (the LDB entry)
 #
 sub addLdapUser
 {
-    my ($usersModule, $sambaUser) = @_;
+    my ($usersModule, $credentials, $sambaUser) = @_;
 
-    my $sambaCredentials = getSambaCredentials($sambaUser);
-    if (exists $sambaCredentials->{'Primary:CLEARTEXT'})
-    {
-        info ("Adding samba user '$sambaUser->{sAMAccountName}' to ldap");
-        my $params = {
-            user => $sambaUser->{sAMAccountName},
-            fullname => $sambaUser->{name},
-            password => $sambaCredentials->{'Primary:CLEARTEXT'},
-            givenname => $sambaUser->{givenName},
-            surname => length ($sambaUser->{sn} > 0) ? $sambaUser->{sn} : $sambaUser->{cn},
-            comment => $sambaUser->{description},
-        };
-
+    my $accountName = $sambaUser->get_value('sAMAccountName');
+    if (exists $credentials->{'Primary:CLEARTEXT'}) {
         try {
+            info ("Adding user '$accountName' to LDAP");
+            my $params = {
+                user => $accountName,
+                fullname  => $sambaUser->get_value('cn'),
+                password  => $credentials->{'Primary:CLEARTEXT'},
+                givenname => length ($sambaUser->get_value('givenName')) > 0 ?
+                    $sambaUser->get_value('givenName') :
+                    $sambaUser->get_value('sAMAccountName'),
+                surname   => length ($sambaUser->get_value('sn')) > 0 ?
+                    $sambaUser->get_value('sn') :
+                    $sambaUser->get_value('sAMAccountName'),
+                comment   => $sambaUser->get_value('description'),
+            };
             $usersModule->addUser($params, 0 );
-            #TODO Check the groups that the user belongs to and update ldap calling to $userModule->addUserToGroup(user, group)
         } otherwise {
             my $error = shift;
             error ("Error adding user to LDAP: $error");
-        }
+        };
     } else {
-        error ("Samba user '$sambaUser->{sAMAccountName}' do not added to LDAP, password not found");
+        error ("Samba user '$accountName' do not added to LDAP: password not found");
     }
 }
 
+# Method: delLdapUser
+#
+#   This method removes a user from LDAP
+#
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   userId - The ID of the user to remove (the sAMAccountName)
+#
+sub delLdapUser
+{
+    my ($usersModule, $userId) = @_;
+
+    try {
+        info ("Deleting user '$userId' from LDAP");
+        $usersModule->delUser ($userId);
+    } otherwise {
+        my $error = shift;
+        error ("Error deleting user from LDAP: $error");
+    }
+}
 # Method: addLdapGroup
 #
-#       This method add a samba group to LDAP
+#   This method add a group to LDAP
 #
-#sub addLdapGroup
-#{
-#    my ($usersModule, $sambaGroup) = @_;
+# Parameters:
 #
-#    info ("Adding samba group '$sambaGroup->{sAMAccountName}' to ldap");
-#    my %params = {
-#       user => $sambaUser->{sAMAccountName},
-#       fullname => '',
-#       password => $sambaCredentials->{'Primary:CLEARTEXT'},
-#       givenname => '',
-#       surname => '',
-#       comment => '',
-#     };
+#   usersModule - An instance of the zentyal users module
+#   sambaGroup - A reference to the samba group to be added (the LDB entry)
 #
-#        try {
-#            $usersModule->addUser(\%params, 0 );
-#            #TODO Check the groups that the user belongs to and update ldap calling to $userModule->addUserToGroup(user, group)
-#        } otherwise {
-#            my $error = shift;
-#            error ("Error adding user to LDAP: $error");
-#        }
-#    } else {
-#        error ("Samba user '$sambaUser->{sAMAccountName}' do not added to LDAP, password not found");
-#    }
-#}
-
-#############################################################################
-## LDB related functions                                                   ##
-#############################################################################
-
-# Method: parseLdbSearch
-#
-#       This method parse the output of the command ldbsearch
-#
-#       Returns: A hash reference containing all entries and
-#                its attributes
-#
-sub parseLdbsearch
+sub addLdapGroup
 {
-    my ($output, $key) = @_;
-    my $retVal = {};
-    $output =~ s/\n(?=\s)//g; # Fix continuation lines
-    my @entries = split(/#\s+record\s+\d+\n/, $output);
-    shift (@entries); # remove the first empty element
-    foreach my $entry (@entries) {
-        $entry =~ s/#.*\n//mg;
-        my @attributes = split(/\n/, $entry); # Split attributes
-        my %attributes = map { split(/: |:: /, $_) } @attributes;
-        $retVal->{$attributes{$key}} = \%attributes;
+    my ($usersModule, $sambaGroup) = @_;
+
+    try {
+        my $groupName = $sambaGroup->get_value('sAMAccountName');
+        my $comment = length ($sambaGroup->get_value ('description')) > 0 ?
+            $sambaGroup->get_value('description') : '';
+        info ("Adding group '$groupName' to LDAP");
+        $usersModule->addGroup ($groupName, $comment, 0);
+    } otherwise {
+        my $error = shift;
+        error ("Error adding group to LDAP: $error");
     }
-    return $retVal;
 }
 
-# Method: getSambaUsers
+# Method: delLdapGroup
 #
-#       This method get all users stored in the samba LDB,
-#       except those specified in the sambaUsersToIgnore
+#   This method removes a group from LDAP
 #
-#       Returns: A hash referente containing all users and
-#                its attributes
+# Parameters:
 #
-sub getSambaUsers
+#   usersModule - An instance of the zentyal users module
+#   group - The ID of the group to remove (the cn)
+#
+sub delLdapGroup
 {
-    my $command = " ldbsearch -H " . SAMBA_SAM_FILE .
-#        " '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE)))'";
-        " '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))'";
-    my $output = `$command`;
-    my $sambaUsers = parseLdbsearch($output, 'sAMAccountName');
-    foreach my $userToIgnore (@sambaUsersToIgnore) {
-        if (exists $sambaUsers->{$userToIgnore}) {
-            delete $sambaUsers->{$userToIgnore};
-        }
+    my ($usersModule, $group) = @_;
+
+    try {
+        info ("Deleting group '$group' from ldap");
+        $usersModule->delGroup ($group);
+    } otherwise {
+        my $error = shift;
+        error ("Error deleting group from LDAP: $error");
     }
-    return $sambaUsers;
 }
 
-# Method: getSambaGroups
+# Method: addUserToGroup
 #
-#       This method get all groups stored in the samba LDB
-#       except those specified in the sambaGroupsToIgnore
+#   This method add a LDAP user to a LDAP group
 #
-#       Returns: A hash referente containing all users and
-#                its attributes
+# Parameters:
 #
-sub getSambaGroups
+#   usersModule - An instance of the zentyal users module
+#   user - The name of the user
+#   group - The name of the group
+#
+sub addLdapUserToLdapGroup
 {
-    my $command = " ldbsearch -H " . SAMBA_SAM_FILE .
-#                  " '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE)))'";
-                  " '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))'";
-    my $output = `$command`;
-    my $sambaGroups = parseLdbsearch($output, 'sAMAccountName');
-    foreach my $groupToIgnore (@sambaGroupsToIgnore) {
-        if (exists $sambaGroups->{$groupToIgnore}) {
-            delete $sambaGroups->{$groupToIgnore};
-        }
+    my ($usersModule, $user, $group) = @_;
+
+    try {
+        info ("Adding user '$user' to group '$group' in LDAP");
+        $usersModule->addUserToGroup ($user, $group);
+    } otherwise {
+        my $error = shift;
+        error ("Error adding user '$user' to LDAP group '$group': $error");
     }
-    return $sambaGroups;
+}
+
+# Method: delUserToGroup
+#
+#   This method delete a LDAP user from a LDAP group
+#
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   user - The name of the user
+#   group - The name of the group
+#
+sub delLdapUserFromLdapGroup
+{
+    my ($usersModule, $user, $group) = @_;
+
+    try {
+        info ("Removing user '$user' from group '$group' in LDAP");
+        $usersModule->delUserFromGroup ($user, $group);
+    } otherwise {
+        my $error = shift;
+        error ("Error deleting user '$user' from LDAP group '$group': $error");
+    }
+}
+
+# Method: updateLdapUserMembership
+#
+#   This method update the user groups membership in LDAP
+#
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   sambaModule - An instance of the zentyal samba module
+#   userId - The name of the user to update
+#
+sub updateLdapUserMembership
+{
+    my ($usersModule, $sambaModule, $userId) = @_;
+
+    # Get the groups that the user belong to in samba
+    # The arrays must be sorted before compare them
+    my $ldb = $sambaModule->ldb();
+    my $sambaGroupsOfUser = $ldb->getUserGroups ($userId);
+    my @sambaSorted = sort (@{$sambaGroupsOfUser});
+    $sambaGroupsOfUser = \@sambaSorted;
+    my @sambaGroupsToIgnore = sort (@sambaGroupsToIgnore);
+    my $sambaDiff = Array::Diff->diff (\@sambaGroupsToIgnore, $sambaGroupsOfUser);
+    $sambaGroupsOfUser = $sambaDiff->added;
+
+
+    # Get the groups that the user belongs to in ldap and remove the groups to ignore
+    # The arrays must be sorted before compare them
+    my $ldapGroupsOfUser = $usersModule->groupsOfUser($userId);
+    my @ldapSorted = sort (@{$ldapGroupsOfUser});
+    $ldapGroupsOfUser = \@ldapSorted;
+    my @ldapGroupsToIgnore = sort (@ldapGroupsToIgnore);
+    my $ldapDiff = Array::Diff->diff (\@ldapGroupsToIgnore, $ldapGroupsOfUser);
+    $ldapGroupsOfUser = $ldapDiff->added;
+
+    # Calculate the arrays difference
+    my $diff = Array::Diff->diff ($ldapGroupsOfUser, $sambaGroupsOfUser);
+
+    # Add the user to the missing groups
+    foreach my $group (@{$diff->added}) {
+        addLdapUserToLdapGroup ($usersModule, $userId, $group);
+    }
+
+    # Remove the users that are in LDAP and not in Samba
+    foreach my $group (@{$diff->deleted}) {
+        delLdapUserFromLdapGroup ($usersModule, $userId, $group);
+    }
+}
+
+# Method: updateLdapUserMembership
+#
+#   This method update the user information in LDAP
+#
+# Parameters:
+#
+#   usersModule - An instance of the zentyal users module
+#   sambaModule - An instance of the zentyal samba module
+#   sambaUser - A reference to a sambaUser (an LDB entry)
+#
+sub updateLdapUser
+{
+    my ($usersModule, $sambaModule, $sambaUser) = @_;
+
+    my $userId = $sambaUser->get_value('sAMAccountName');
+    try {
+        info ("Updating user '$userId' from samba to LDAP");
+        my $ldb = $sambaModule->ldb();
+        my $credentials = $ldb->getSambaCredentials($userId);
+        if (defined $credentials->{'Primary:CLEARTEXT'}) {
+            $usersModule->modifyUser({
+                username  => $userId,
+                password  => $credentials->{'Primary:CLEARTEXT'},
+                givenname => length ($sambaUser->get_value('givenName')) > 0 ?
+                    $sambaUser->get_value('givenName') :
+                    $sambaUser->get_value('sAMAccountName'),
+                surname   => length ($sambaUser->get_value('sn')) > 0 ?
+                    $sambaUser->get_value('sn') :
+                    $sambaUser->get_value('sAMAccountName'),
+                fullname  => $sambaUser->get_value('cn'),
+                comment   => $sambaUser->get_value('description')});
+        }
+    } otherwise {
+        my $error = shift;
+        error ("Error updating user '$userId' in LDAP: $error");
+    }
 }
 
 ####################################################################################################
 
-my $errors = 0;
-
-my $sambaUsers = getSambaUsers();
-my $sambaGroups = getSambaGroups();
-
 EBox::init();
+
 my $usersModule = EBox::Global->modInstance('users');
-my $ldap = $usersModule->ldap();
-my $ldapUsers = getLdapUsers($ldap);
-my $ldapGroups = getLdapGroups($ldap);
+my $ldapUsers = getLdapUsers ($usersModule, \@ldapUsersToIgnore);
+my $ldapGroups = getLdapGroups ($usersModule, \@ldapGroupsToIgnore);
+
+my $sambaModule = EBox::Global->modInstance('samba4');
+my $sambaUsers = getSambaUsers ($sambaModule, \@sambaUsersToIgnore);
+my $sambaGroups = getSambaGroups ($sambaModule, \@sambaGroupsToIgnore);
 
 debug ("Got " . scalar(keys(%{$sambaUsers})) . " samba users and " .
         scalar(keys(%{$ldapUsers})) . " ldap users" );
@@ -423,32 +459,54 @@ debug ("Got " . scalar(keys(%{$sambaGroups})) . " samba groups and " .
 
 # Insert new users from Samba to LDAP
 foreach my $sambaUser (keys %{$sambaUsers}) {
-    addLdapUser ($usersModule, $sambaUsers->{$sambaUser}) unless exists $ldapUsers->{$sambaUser};
-    delete ($sambaUsers->{$sambaUser});
+    # If the user exists in samba but not in LDAP insert in LDAP
+    unless (exists $ldapUsers->{$sambaUser}) {
+        # Get the user credentials
+        my $ldb = $sambaModule->ldb();
+        my $userCredentials = $ldb->getSambaCredentials($sambaUser);
+        addLdapUser ($usersModule, $userCredentials, $sambaUsers->{$sambaUser});
+    }
 }
 
 # Insert new groups from Samba to LDAP
-#foreach my $sambaGroup (keys %{$sambaGroups}) {
-#    addLdapGroup ($usersModule, $sambaGroups->{$sambaGroup}) unless exists $ldapGroups->{$sambaGroup};
-#}
+foreach my $sambaGroup (keys %{$sambaGroups}) {
+    # If the group exists in samba but not in LDAP insert in LDAP
+    unless (exists $ldapGroups->{$sambaGroup}) {
+        addLdapGroup ($usersModule, $sambaGroups->{$sambaGroup});
+    }
+}
 
 # Delete users that are not in Samba
-#foreach (keys %{$ldapUsers}) {
-#    delLdapUser($ldapUsers->{$_}) unless exists $sambaUsers->{$_};
-#}
+foreach my $user (keys %{$ldapUsers}) {
+    # If the user exists in LDAP but not in samba, delete from LDAP
+    unless (exists $sambaUsers->{$user}) {
+        delLdapUser ($usersModule, $user);
+    }
+}
 
 # Delete groups that are not in Samba
-#foreach (keys %{$ldapGroups}) {
-#    delLdapGroup($ldapGroups->{$_}) unless exists $sambaGroups->{$_};
-#}
+foreach my $group (keys %{$ldapGroups}) {
+    # If the group exists in LDAP but not in samba, delete from LDAP
+    unless (exists $sambaGroups->{$group}) {
+        delLdapGroup ($usersModule, $group);
+    }
+}
 
-# Sync passwords from Samba to LDAP
-#foreach (keys %{$sambaUsers}) {
-#    my $password = getSambaPassword($sambaUsers->{$_}->{supplementalCredentials});
-#}
+# TODO Sync changes in groups like description
 
-# Sync groups membership from Samba to LDAP
-#foreach (keys %{$sambaUsers}) {
-#}
+# Sync user information like passwords, descriptions from Samba to LDAP
+foreach my $userId (keys %{$sambaUsers}) {
+    my $sambaChangeTime = $sambaUsers->{$userId}->get_value('whenChanged');
+    if (exists $ldapUsers->{$userId}) {
+        my $ldapChangeTime = $ldapUsers->{$userId}->get_value('modifyTimestamp');
+        $sambaChangeTime =~ s/(\.\d*)?Z//g;
+        $ldapChangeTime =~ s/(\.\d*)?Z//g;
 
+        if ($sambaChangeTime > $ldapChangeTime) {
+            my $user = $sambaUsers->{$userId};
+            updateLdapUser ($usersModule, $sambaModule, $user);
+        }
+    }
+}
 
+# Sync group memberships from Samba to LDAP

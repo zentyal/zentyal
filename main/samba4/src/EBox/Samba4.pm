@@ -45,12 +45,15 @@ use EBox::Config;
 use EBox::Model::ModelManager;
 use EBox::DBEngineFactory;
 
+use EBox::Ldb;
+
 use Net::Domain qw(hostdomain);
 #use File::Slurp qw(read_file write_file);
 #use Perl6::Junction qw(all any);
 #use Error qw(:try);
 use Sys::Hostname;
 
+use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SAMBADNSZONE         => '/var/lib/samba/private/named.conf';
@@ -284,6 +287,7 @@ sub enableActions
     # Provision the database
 #    unless($self->configured())
 #    {
+# TODO Guardar el password de admin en /samba-admin.passwd
         # This file must be deleted or provision may fail
         EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
         my $cmd = SAMBAPROVISION .
@@ -300,6 +304,8 @@ sub enableActions
         # Enable reversible encryption
         $cmd = SAMBATOOL . " domain passwordsettings set --store-plaintext=on";
         EBox::Sudo::root($cmd);
+
+        # TODO Set primary DNS to localhost
 #    }
 
 
@@ -2057,5 +2063,18 @@ sub restoreDependencies
 #    return \@shares;
 #}
 
+# Method: ldb
+#
+#   Provides an EBox::Ldb object with the proper configuration for the
+#   samba LDAP setup
+sub ldb
+{
+    my ($self) = @_;
+
+    unless(defined($self->{ldb})) {
+        $self->{ldb} = EBox::Ldb->instance();
+    }
+    return $self->{ldb};
+}
 
 1;
