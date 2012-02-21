@@ -1,5 +1,5 @@
 HEAD
-	+ Get rid of deprecated method on EBox::UsersAndGroups
+	+ Adapted to new users implementation
 2.3
 	+ Use MySQL instead of PostgreSQL for spamassassin database
 	+ Added methods to get learn accounts for a domain
