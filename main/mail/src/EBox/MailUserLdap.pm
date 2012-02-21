@@ -143,12 +143,7 @@ sub delUserAccount
     # get the mailbox attribute for later use..
     my $mailbox = $user->get('mailbox');
 
-    my @objectclasses = $user->get('objectClass');
-    @objectclasses = grep { $_ ne 'CourierMailAccount' } @objectclasses;
-    @objectclasses = grep { $_ ne 'usereboxmail' } @objectclasses;
-    @objectclasses = grep { $_ ne 'fetchmailUser' } @objectclasses;
-
-    $user->set('objectClass', \@objectclasses, 1);
+    $user->remove('objectClass', [ 'CourierMailAccount', 'usereboxmail', 'fetchmailUser' ], 1);
     $user->delete('mail', 1);
     $user->delete('mailbox', 1);
     $user->delete('userMaildirSize', 1);

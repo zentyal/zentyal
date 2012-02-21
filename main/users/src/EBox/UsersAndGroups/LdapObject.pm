@@ -169,6 +169,36 @@ sub delete
 }
 
 
+# Method: remove
+#
+#   Remove a value from the given attribute, or the whole
+#   attribute if no values left
+#
+#   If an array ref is received as value, all the values will be
+#   deleted at the same time
+#
+#   Parameters:
+#
+#       attribute - Attribute name
+#       value(s)   - Value(s) to remove (value or array ref to values)
+#       lazy      - Do not update the entry in LDAP
+#
+sub remove
+{
+    my ($self, $attr, $value, $lazy) = @_;
+
+    # Delete attribute only if it exists
+    if ($attr eq any $self->_entry->attributes) {
+        if(ref($value) ne 'ARRAY') {
+            $value = [ $value ];
+        }
+
+        $self->_entry->delete($attr, $value);
+        $self->save() unless $lazy;
+    }
+}
+
+
 # Method: save
 #
 #   Store all pending lazy operations (if any)
