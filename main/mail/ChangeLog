@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted to dovecot 2.0
+	+ Postfix does not bind to LDAP
 2.3
 	+ Adapted to new MySQL logs backend
 	+ Mailfilter learn accounts are excluded from Zarafa transport

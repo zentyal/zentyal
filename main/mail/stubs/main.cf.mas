@@ -3,7 +3,10 @@
 <%args>
         $hostname
         $mailname
+        $bindDN
         $ldapport
+
+        $vdomainDN
 
         $relay
         $relayAuth
@@ -122,7 +125,8 @@ valiases_server_host = 127.0.0.1
 valiases_search_base = <% $aliasDN %>
 valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
 valiases_result_attribute = maildrop
-aliases_bind = no
+valiases_bind = yes
+valiases_bind_dn =<% $bindDN %>
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1
@@ -132,15 +136,18 @@ virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:ldapvirtualmap
 
 ldapvirtualmap_server_host = 127.0.0.1:<% $ldapport %>
-ldapvirtualmap_bind = no
+ldapvirtualmap_bind = yes
+ldapvirtualmap_bind_dn = <% $bindDN %>
 ldapvirtualmap_search_base = <% $usersDN %>
 ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
 ldapvirtualmap_result_attribute = mailbox
 
 virtual_mailbox_domains = ldap:vmaildomains
 vmaildomains_server_host = 127.0.0.1
-vmaildomains_bind = no
-vmaildomains_search_base =  ou=postfix,<% $ldap->{'dn'} %>
+#vmaildomains_bind = no
+vmaildomains_bind = yes
+vmaildomains_bind_dn = <% $bindDN %>
+vmaildomains_search_base =  <% $vdomainDN %>
 vmaildomains_query_filter = (|(&(objectclass=domain)(domainComponent=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
 vmaildomains_result_attribute = dc, maildrop
 

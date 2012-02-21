@@ -53,7 +53,7 @@ lmtp      unix  -       -       -       -       -       lmtp
 anvil     unix  -       -       -       -       1       anvil
 scache    unix  -       -       -       -       1       scache
 dovecot unix    -       n       n       -       -       pipe
-  flags=DRhu user=ebox:ebox argv=/usr/lib/dovecot/deliver -f ${sender} -d ${user}@${nexthop} -n -m ${extension}
+  flags=DRhu user=ebox:ebox argv=/usr/lib/dovecot/deliver -f ${sender} -d ${user}@${nexthop}  -m ${extension}
 
 
 #
