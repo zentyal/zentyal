@@ -106,7 +106,7 @@ sub _table
                                    fieldName => 'secret',
                                    printableName => __('PSK Shared Secret'),
                                    editable => 1,
-                                   help => __('Remote subnet available through the tunnel.'),
+                                   help => __('Pre-shared key for the IPsec connection.'),
                                 ),
         );
 
