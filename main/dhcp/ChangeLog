@@ -1,4 +1,5 @@
 HEAD
+	+ Recover from excepcion when parsing leases file
 	+ Modifications in the Thin Client options to allow an easy
 	  configuration of Zentyal LTSP
 2.3.2

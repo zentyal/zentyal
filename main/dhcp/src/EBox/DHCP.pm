@@ -1365,9 +1365,20 @@ sub _dhcpLeases
     }
 
     if ($refresh) {
-        my $leases = Text::DHCPLeases->new(file => LEASEFILE);
-
         $self->{'leases'} = {};
+
+        my $leases;
+        try {
+            $leases = Text::DHCPLeases->new(file => LEASEFILE);
+        } otherwise {
+           my $ex = shift;
+           EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $ex");
+        };
+
+        if (not $leases) {
+            return $self->{'leases'};
+        }
+
         foreach my $lease ($leases->get_objects()) {
             my $id = _leaseIDFromIP($lease->ip_address());
             $self->{'leases'}->{$id} = $lease;
