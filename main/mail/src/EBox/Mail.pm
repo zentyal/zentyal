@@ -423,11 +423,14 @@ sub _setMailConf
 
     push (@array, 'hostname' , $self->_fqdn());
     push (@array, 'mailname' , $self->mailname());
+
+    push(@array, 'bindDN', $ldap->rootDn());
     unless ($users->mode() eq 'slave') {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     } else {
         push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
     }
+
     push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push(@array, 'relay', $self->relay());
     push(@array, 'relayAuth', $self->relayAuth());
