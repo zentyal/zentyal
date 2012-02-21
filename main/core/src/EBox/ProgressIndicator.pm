@@ -120,7 +120,17 @@ sub ticks
 {
     my ($self) = @_;
 
-    return $data{$self->{id}}{ticks};
+    my $id = $self->{id};
+    my $ticks =  $data{$id}{ticks};
+    my $totalTicks = $data{$id}{totalTicks};
+
+    if ($ticks >= $totalTicks) {
+        # safeguard against bad counts and zombies process
+        _collectChildrens();
+        return $totalTicks;
+    }
+
+    return $ticks;
 }
 
 sub setTotalTicks
@@ -156,18 +166,13 @@ sub percentage
 
     my $totalTicks = $self->totalTicks();
     # Workaround to avoid illegal division by zero
-    if ($totalTicks  == 0 ) {
+    if ($totalTicks == 0) {
         return 100;
     }
 
     my $per = $self->ticks() / $totalTicks;
     $per = sprintf("%.2f", $per); # round to two decimals
     $per *= 100;
-
-    if ($per > 100) {
-        # to guard for cases that more noitifyTicks than needed had been received
-        return 100;
-    }
 
     return $per;
 }
@@ -216,8 +221,11 @@ sub finished
     my ($self) = @_;
 
     my $id = $self->{id};
-
-    return $data{$id}{finished};
+    my $finished = $data{$id}{finished};
+    if ($finished) {
+        _collectChildrens();
+    }
+    return $finished;
 }
 
 # Method: setAsFinished
@@ -433,6 +441,17 @@ sub _cleanupFinished
             ;
         };
     }
+
+    _collectChildrens();
+}
+
+
+sub _collectChildrens
+{
+    my $child;
+    do {
+        $child = waitpid(-1, WNOHANG);
+    } while ($child > 0);
 }
 
 sub _unique_id

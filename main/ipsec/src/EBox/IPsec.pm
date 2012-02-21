@@ -19,7 +19,8 @@ use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             EBox::NetworkObserver
-            EBox::FirewallObserver);
+            EBox::FirewallObserver
+            EBox::LogObserver);
 
 use strict;
 use warnings;
@@ -28,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::IPsec::FirewallHelper;
+use EBox::IPsec::LogHelper;
 use EBox::NetWrappers qw();
 
 use constant IPSECCONFFILE => '/etc/ipsec.conf';
@@ -241,6 +243,55 @@ sub firewallHelper
 
     return $firewallHelper;
 }
+
+# Method: logHelper
+#
+# Overrides:
+#
+#       <EBox::LogObserver::logHelper>
+#
+sub logHelper
+{
+    my ($self, @params) = @_;
+    return EBox::IPsec::LogHelper->new($self, @params);
+}
+
+# Method: tableInfo
+#
+# Overrides:
+#
+#       <EBox::LogObserver::tableInfo>
+#
+sub tableInfo
+{
+    my ($self) = @_;
+    my $titles = {
+                  timestamp => __('Date'),
+                  event     => __('Event'),
+                  tunnel    => __('Connection name'),
+                 };
+    my @order = qw(timestamp event tunnel);
+
+    my $events = {
+                  initialized   => __('Initialization sequence completed'),
+                  stopped       => __('Stopping completed'),
+
+                  connectionInitiated   => __('Connection initiated'),
+                  connectionReset       => __('Connection terminated'),
+                 };
+
+    return [{
+            'name'      => $self->printableName(),
+            'tablename' => 'ipsec',
+            'titles'    => $titles,
+            'order'     => \@order,
+            'timecol'   => 'timestamp',
+            'filter'    => ['tunnel'],
+            'events'    => $events,
+            'eventcol'  => 'event'
+           }];
+}
+
 
 # Method: menu
 #
