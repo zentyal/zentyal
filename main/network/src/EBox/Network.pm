@@ -1281,6 +1281,8 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
 
+    $self->_checkStaticIP($name, $address, $netmask);
+
     my $oldm = $self->ifaceMethod($name);
     my $oldaddr = $self->ifaceAddress($name);
     my $oldmask = $self->ifaceNetmask($name);
@@ -1397,6 +1399,33 @@ sub _checkStatic # (iface, force)
                 } else {
                     throw EBox::Exceptions::DataInUse();
                 }
+            }
+        }
+    }
+}
+
+
+# check that no IP are in the same network
+# limitation: we could only check against the current
+# value of dynamic addresses
+sub _checkStaticIP
+{
+    my ($self, $iface, $address, $netmask) = @_;
+    my $network = EBox::NetWrappers::ip_network($address, $netmask);
+    foreach my $if (@{$self->allIfaces()} ) {
+        if ($if eq $iface) {
+            next;
+        }
+        foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
+            my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
+                                                            $addr_r->{netmask});
+            if ($ifNetwork eq $network) {
+                throw EBox::Exceptions::External(
+                 __x('Cannot use the address {addr} because interface {if} has already an address in the same network',
+                     addr => $address,
+                     if => $if
+                    )
+                );
             }
         }
     }
