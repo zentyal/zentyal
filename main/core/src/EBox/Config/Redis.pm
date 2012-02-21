@@ -41,7 +41,7 @@ use constant REDIS_TYPES => qw(string set list hash);
 
 my %cache;
 my @queue;
-my $cacheModTime = 0;
+my $cacheVersion = 0;
 
 # Constructor: new
 #
@@ -59,6 +59,7 @@ sub new
     }
     $self->{redis} = $redis;
     $self->{pid} = $$;
+    $self->{tran} = 0;
 
     return $self;
 }
@@ -71,7 +72,7 @@ sub set_string
 {
     my ($self, $key, $value) = @_;
 
-    my $tran = $self->begin();
+    $self->begin();
 
     # Sets the new key
     $self->_redis_call('set', $key, $value);
@@ -79,7 +80,7 @@ sub set_string
     # Update parent dir info with the new key
     $self->_parent_add($key);
 
-    $self->commit() if $tran;
+    $self->commit();
 }
 
 # Method: get_string
@@ -145,7 +146,7 @@ sub set_list
 {
     my ($self, $key, $list) = @_;
 
-    my $tran = $self->begin();
+    $self->begin();
 
     $self->_redis_call('del', $key);
     for my $value (@{$list}) {
@@ -155,7 +156,7 @@ sub set_list
     # Update parent dir info with the new key
     $self->_parent_add($key);
 
-    $self->commit() if $tran;
+    $self->commit();
 }
 
 # Method: get_list
@@ -310,7 +311,7 @@ sub delete_dir
 {
     my ($self, $dir) = @_;
 
-    my $tran = $self->begin();
+    $self->begin();
 
     if ($self->dir_exists($dir)) {
         my @keys = $self->_redis_call('keys', "$dir/*");
@@ -319,7 +320,7 @@ sub delete_dir
         $self->_parent_del($dir);
     }
 
-    $self->commit() if $tran;
+    $self->commit();
 }
 
 # Method: unset
@@ -330,14 +331,14 @@ sub unset
 {
     my ($self, $key) = @_;
 
-    my $tran = $self->begin();
+    $self->begin();
 
     $self->_redis_call('del', $key);
 
     # Delete reference to the key in parent
     $self->_parent_del($key);
 
-    $self->commit() if $tran;
+    $self->commit();
 }
 
 # Method: exists
@@ -649,16 +650,15 @@ sub begin
     my ($self) = @_;
 
     # Do not allow nested transactions
-    if ($self->{tran}) {
-        return 0;
-    }
+    return if ($self->{tran}++);
 
-    $self->{tran} = 1;
+    # TODO: SEMAPHORE WAIT
 
-    # FIXME: lock properly to avoid race conditions
-    my $mtime = $self->_redis_call_wrapper(0, 'getset', 'mtime', time());
-    if (defined ($mtime) and ($mtime > $cacheModTime)) {
-        $self->_update_cache();
+    my $version = $self->_redis_call_wrapper(0, 'get', 'version');
+    defined ($version) or $version = 0;
+    if ($version > $cacheVersion) {
+        %cache = ();
+        $cacheVersion = $version;
     }
 
     return 1;
@@ -668,9 +668,13 @@ sub commit
 {
     my ($self) = @_;
 
-    $self->_flush_queue();
+    $self->{tran}--;
 
-    $self->{tran} = 0;
+    if ($self->{tran} == 0) {
+        $self->_flush_queue();
+
+        # TODO: SEMAPHORE SIGNAL
+    }
 }
 
 sub rollback
@@ -682,46 +686,27 @@ sub rollback
     }
 
     $self->{tran} = 0;
-}
 
-sub _update_cache
-{
-    my ($self) = @_;
-
-    for my $key (%cache) {
-        if ($self->exists($key)) {
-            my $type = $cache{$key}->{type};
-            next unless $type;
-            $cache{$key}->{value} = $self->get($key, $type);
-        } else {
-            delete $cache{$key};
-            # FIXME: we also have to delete parent references...
-
-            # FIXME: probably we can get rid of the directories and cache
-            # the directory structure /ebox/modules/foo -> cache{ebox}->{modules}->{foo} ?
-            # but probably the use of the "keys" calls will penalize a bit more, we'll see
-        }
-    }
+    # TODO: SEMAPHORE SIGNAL
 }
 
 sub _flush_queue
 {
     my ($self) = @_;
 
-    $self->{multi} = (@queue > 1);
+    return unless @queue;
 
-    if ($self->{multi}) {
-        $self->_redis_call_wrapper(0, 'multi');
-    }
+    $self->_redis_call_wrapper(0, 'multi');
 
     while (@queue) {
         my $cmd = shift (@queue);
         $self->_redis_call_wrapper(0, $cmd->{cmd}, @{$cmd->{args}});
     }
 
-    if ($self->{multi}) {
-        $self->_redis_call_wrapper(1, 'exec');
-    }
+    $self->_redis_call_wrapper(0, 'incr', 'version');
+
+    my $result = $self->_redis_call_wrapper(1, 'exec');
+    $cacheVersion = pop @{$result};
 }
 
 # Redis call proxy, tries to get the result from cache and fallbacks
@@ -795,7 +780,6 @@ sub _redis_call
                     push (@keylist, $name);
                 }
             }
-            $cacheModTime = time();
             return @keylist;
         }
 
@@ -825,7 +809,6 @@ sub _redis_call
                 }
             }
         }
-        $cacheModTime = time();
 
         # Get value from cache
         if ($command eq 'exists') {
