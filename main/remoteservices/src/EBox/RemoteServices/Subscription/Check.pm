@@ -175,9 +175,9 @@ sub _usersCheck
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
         if ( $usersMod->isEnabled() ) {
-            unless ( $usersMod->mode() eq 'master' ) {
+            if ( not ( ($usersMod->mode() eq 'master') or ($usersMod->mode() eq 'ad-slave') ) ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('The Small Business Edition can be only used in master mode'));
+                    __s('The Small Business Edition can be only used in master mode or Active Directory slave'));
             }
             if ( scalar(@{$usersMod->listSlaves()}) > 0 ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
