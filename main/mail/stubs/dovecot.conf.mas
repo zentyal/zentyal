@@ -25,8 +25,6 @@ if ($protocols{managesieve}) {
     push @protocolsReduced, 'sieve';
 }
 </%init>
-#% use Data::Dumper;
-#% print Dumper(\%protocols);
 ## Dovecot configuration file
 
 # If you're in a hurry, see http://wiki.dovecot.org/QuickConfiguration
@@ -89,7 +87,7 @@ passdb {
   args = /etc/dovecot/dovecot-ldap.conf
 }
 
-
+disable_plaintext_auth = no
 
 ##
 ## Logging
