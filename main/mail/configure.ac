@@ -1,4 +1,4 @@
-AC_INIT([zentyal-mail], [2.2.2])
+AC_INIT([zentyal-mail], [2.2.3])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Mail.pm])
