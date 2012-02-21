@@ -56,30 +56,37 @@ sub create
     tie (%data, 'IPC::Shareable', { key => $IPC_KEY, create => 1, destroy => 1 }) or
         throw EBox::Exceptions::Internal("Cannot create shared memory for progress indicator.");
 
-    my $self = $class->retrieve();
+    my $id = _unique_id();
+
+    $class->_cleanupFinished();
+
+    my $self = $class->retrieve($id);
 
     # store data
-    $data{executable} = $params{executable};
-    $data{totalTicks} = $params{totalTicks};
+    $data{$id} = ();
+    $data{$id}{executable} = $params{executable};
+    $data{$id}{totalTicks} = $params{totalTicks};
 
-    $data{ticks} = 0;
-    $data{message} = '';
-    $data{started} = 0;
-    $data{finished} = 0;
+    $data{$id}{ticks} = 0;
+    $data{$id}{message} = '';
+    $data{$id}{started} = 0;
+    $data{$id}{finished} = 0;
     # retValue == -1, not finished
-    $data{retValue} = -1;
+    $data{$id}{retValue} = -1;
 
     return $self;
 }
 
 sub retrieve
 {
-    my ($class) = @_;
+    my ($class, $id) = @_;
+    defined $id or
+        throw EBox::Exceptions::MissingArgument('id');
 
     tie (%data, 'IPC::Shareable', { key => $IPC_KEY }) or
         throw EBox::Exceptions::Internal("Cannot open shared memory for progress indicator.");
 
-    my $self = {};
+    my $self = { id => $id };
     bless $self, $class;
 
     return $self;
@@ -100,34 +107,34 @@ sub notifyTick
                 );
     }
 
-    if (not $self->started) {
+    if (not $self->started()) {
         throw EBox::Exceptions::External(
                 __('Executable has not been run')
                 );
     }
 
-    $data{ticks} += $nTicks;
+    $data{$self->{id}}{ticks} += $nTicks;
 }
 
 sub ticks
 {
     my ($self) = @_;
 
-    return $data{ticks};
+    return $data{$self->{id}}{ticks};
 }
 
 sub setTotalTicks
 {
     my ($self, $nTTicks) = @_;
 
-    $data{totalTicks} = $nTTicks;
+    $data{$self->{id}}{totalTicks} = $nTTicks;
 }
 
 sub totalTicks
 {
     my ($self) = @_;
 
-    return $data{totalTicks};
+    return $data{$self->{id}}{totalTicks};
 }
 
 # Method: percentage
@@ -153,9 +160,9 @@ sub percentage
         return 100;
     }
 
-    my $per = $self->ticks / $totalTicks;
+    my $per = $self->ticks() / $totalTicks;
     $per = sprintf("%.2f", $per); # round to two decimals
-        $per *= 100;
+    $per *= 100;
 
     if ($per > 100) {
         # to guard for cases that more noitifyTicks than needed had been received
@@ -169,14 +176,14 @@ sub setMessage
 {
     my ($self, $message) = @_;
 
-    $data{message} = $message;
+    $data{$self->{id}}{message} = $message;
 }
 
 sub message
 {
     my ($self) = @_;
 
-    return $data{message};
+    return $data{$self->{id}}{message};
 }
 
 # Method: started
@@ -192,7 +199,7 @@ sub started
 {
     my ($self) = @_;
 
-    return $data{started};
+    return $data{$self->{id}}{started};
 }
 
 # Method: finished
@@ -208,7 +215,9 @@ sub finished
 {
     my ($self) = @_;
 
-    return $data{finished};
+    my $id = $self->{id};
+
+    return $data{$id}{finished};
 }
 
 # Method: setAsFinished
@@ -239,11 +248,11 @@ sub setAsFinished
         throw EBox::Exceptions::External(__('The executable has not run'));
     }
 
-    $data{finished} = 1;
+    $data{$self->{id}}{finished} = 1;
     $self->setRetValue($retValue);
 
     if (defined($errorMsg)) {
-        $data{errorMsg} = $errorMsg;
+        $data{$self->{id}}{errorMsg} = $errorMsg;
     }
 }
 
@@ -261,7 +270,7 @@ sub retValue
 {
     my ($self) = @_;
 
-    return $data{retValue};
+    return $data{$self->{id}}{retValue};
 }
 
 # Method: setRetValue
@@ -286,7 +295,7 @@ sub setRetValue
         throw EBox::Exceptions::Internal('Cannot set a return value to '
                                        . 'a not finished task');
     }
-    $data{retValue} = $retValue;
+    $data{$self->{id}}{retValue} = $retValue;
 }
 
 # Method: errorMsg
@@ -303,7 +312,7 @@ sub errorMsg
 {
     my ($self) = @_;
 
-    return $data{errorMsg};
+    return $data{$self->{id}}{errorMsg};
 }
 
 sub stateAsHash
@@ -343,6 +352,13 @@ sub stateAsHash
     return $state;
 }
 
+sub id
+{
+    my ($self) = @_;
+
+    return $self->{id};
+}
+
 sub destroy
 {
     my ($self) = @_;
@@ -356,6 +372,8 @@ sub destroy
             sleep 1;
         }
     }
+
+    delete $data{$self->{id}};
 
     $_[0] = undef; # to cancel the self value
 }
@@ -372,7 +390,7 @@ sub runExecutable
         __('The executable has already finished');
     }
 
-    $data{started} = 1;
+    $data{$self->{id}}{started} = 1;
 
     $self->_fork();
 }
@@ -382,6 +400,7 @@ sub _fork
     my ($self) = @_;
 
     my $pid = fork();
+    my $id = $self->{id};
 
     unless (defined $pid) {
         throw EBox::Exceptions::Internal("Cannot fork().");
@@ -392,8 +411,38 @@ sub _fork
         return; # parent returns immediately
     } else {
         EBox::Apache::cleanupForExec();
-        exec($data{executable} . ' --progress-id ' . $self->id());
+        exec ($data{$id}{executable} . " --progress-id $id");
     }
+}
+
+# Method to clean up the rubbish regarding to the progress indicator
+# It must be called when a new progress indicator is created, because
+# a single ProgressIndicator should be alive on Apache
+sub _cleanupFinished
+{
+    my ($class) = @_;
+
+    foreach my $id (keys %data) {
+        try {
+            my $pI = $class->retrieve($id);
+            if ($pI->finished()) {
+                $pI->destroy();
+            }
+        } catch EBox::Exceptions::Base with {
+            # Ignore this strange case (Already cleaned up)
+            ;
+        };
+    }
+}
+
+sub _unique_id
+{
+    my $id = int(rand(1000));
+    while (exists $data{$id}) {
+        $id = int(rand(1000));
+    }
+
+    return $id;
 }
 
 1;
