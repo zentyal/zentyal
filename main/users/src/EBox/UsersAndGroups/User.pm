@@ -257,7 +257,7 @@ sub system
 {
     my ($self) = @_;
 
-    return ($self->get('gidNumber') > MINUID);
+    return ($self->get('uidNumber') < MINUID);
 }
 
 
