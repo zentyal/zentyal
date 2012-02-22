@@ -1,4 +1,5 @@
 HEAD
+	+ Removed VMs are stopped, better treatment of disk addition errors
 	+ VNC service is set before saving changes
 	+ Added NetworkObserver methods
 	+ 'None' interface is not longer allowed for libvirt backend
