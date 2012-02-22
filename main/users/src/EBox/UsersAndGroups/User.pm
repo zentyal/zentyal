@@ -36,12 +36,17 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
+use Perl6::Junction qw(any);
+
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
+                                 'loginShell', 'uidNumber', 'gidNumber',
+                                 'homeDirectory', 'quota', 'userPassword' );
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
@@ -113,6 +118,10 @@ sub set
 {
     my ($self, $attr, $value) = @_;
 
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
     if ($attr eq 'quota') {
         if ($self->_checkQuota($value)) {
             throw EBox::Exceptions::InvalidData('data' => __('user quota'),
@@ -132,7 +141,7 @@ sub set
 
 sub save
 {
-    my ($self) = @_;
+    my ($self, $ignore_mods) = @_;
 
     if ($self->{set_quota}) {
         $self->_setFilesystemQuota($self->get('quota'));
@@ -141,6 +150,16 @@ sub save
 
     shift @_;
     $self->SUPER::save(@_);
+
+    if ($self->{core_changed}) {
+
+        my $passwd = $self->{core_changed_password};
+        delete $self->{core_changed};
+        delete $self->{core_changed_password};
+
+        my $users = EBox::Global->modInstance('users');
+        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $ignore_mods);
+    }
 }
 
 
@@ -307,6 +326,8 @@ sub changePassword
         $self->set($attr, $hashes->{$attr}, 1);
     }
 
+    # save password for later LDAP user base mods on save()
+    $self->{core_changed_password} = $passwd;
     $self->save() unless ($lazy);
 }
 
@@ -324,6 +345,10 @@ sub delete
         foreach my $group (@{$self->groups()}) {
             $self->removeGroup($group);
         }
+
+        # Notify users deletion to modules
+        my $users = EBox::Global->modInstance('users');
+        $users->notifyModsLdapUserBase('delUser', $self);
     }
 
     # Call super implementation
@@ -347,6 +372,7 @@ sub delete
 #   normal user
 #   uidNumber - user UID numberer (optional and named)
 #   additionalPasswords - list with additional passwords (optional)
+#   ignore_mods - ldap modules to be ignored on addUser notify
 #
 # Returns:
 #
@@ -466,10 +492,13 @@ sub create
     # Init user
     unless ($system) {
         $users->initUser($res, $user->{'password'});
-    }
 
-    # Configure quota
-    $res->set('quota', $self->defaultQuota());
+        # Configure quota
+        $res->set('quota', $self->defaultQuota());
+
+        # Call modules initialization
+        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignore_mods});
+    }
 
     # Return the new created user
     return $res;

@@ -231,7 +231,7 @@ sub enableActions
         my $exception = shift;
         EBox::error('Trying to setup ldap failed, exit value: ' .
                 $exception->exitValue());
-        throw EBox::Exceptions::External(__('Error while creating users and groups database'));
+        throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
     };
     EBox::debug('done');
 
@@ -614,17 +614,27 @@ sub groups
 
 
 
+# Method: _modsLdapUserbase
+#
 # Returns modules implementing LDAP user base interface
+#
+# Parameters:
+#   ignored_modules (Optional) - array ref to a list of module names to ignore
+#
 sub _modsLdapUserBase
 {
-    my ($self) = @_;
+    my ($self, $ignored_modules) = @_;
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
 
+    $ignored_modules or $ignored_modules = [];
+
     my @modules;
     foreach my $name (@names) {
-         my $mod = EBox::Global->modInstance($name);
+        next if ($name ne any @{$ignored_modules});
+
+        my $mod = EBox::Global->modInstance($name);
 
         if ($mod->isa('EBox::LdapModule')) {
             if ($mod->isa('EBox::Module::Service')) {
@@ -639,6 +649,38 @@ sub _modsLdapUserBase
 
     return \@modules;
 }
+
+
+# Method: notifyModsLdapUserBase
+#
+#   Notify all modules implementing LDAP user base interface about
+#   a change in users or groups
+#
+# Parameters:
+#
+#   signal - Signal name to notify the modules (addUser, delUser, modifyGroup, ...)
+#   args - single value or array ref containing signal parameters
+#   ignored_modules - array ref of modnames to ignore (won't be notified)
+#
+sub notifyModsLdapUserBase
+{
+    my ($self, $signal, $args, $ignored_modules) = @_;
+
+    # convert signal to method name
+    my $method = '_' . $signal;
+
+    # convert args to array if it is a single value
+    unless (ref($args) eq 'ARRAY') {
+        $args = [ $args ];
+    }
+    foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
+        # TODO catch errors here?
+
+        $mod->$method(@{$args});
+    }
+}
+
+
 
 # Method: defaultUserModels
 #
