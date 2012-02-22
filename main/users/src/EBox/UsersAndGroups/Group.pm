@@ -39,6 +39,9 @@ use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
+use constant CORE_ATTRS     => ('member');
+
+use Perl6::Junction qw(any);
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
@@ -154,6 +157,57 @@ sub usersNotIn
 }
 
 
+# Catch some of the set ops which need special actions
+sub set
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::set(@_);
+}
+
+
+
+# Method: deleteObject
+#
+#   Delete the user
+#
+sub deleteObject
+{
+    my ($self, $ignore_mods) = @_;
+
+
+    # Notify group deletion to modules
+    my $users = EBox::Global->modInstance('users');
+    $users->notifyModsLdapUserBase('delGroup', $self, $ignore_mods);
+
+    # Call super implementation
+    shift @_;
+    $self->SUPER::deleteObject(@_);
+}
+
+
+
+
+sub save
+{
+    my ($self, $ignore_mods) = @_;
+
+    shift @_;
+    $self->SUPER::save(@_);
+
+    if ($self->{core_changed}) {
+        delete $self->{core_changed};
+
+        my $users = EBox::Global->modInstance('users');
+        $users->notifyModsLdapUserBase('modifyGroup', $self, $ignore_mods);
+    }
+}
 
 # GROUP CREATION METHODS
 
@@ -164,10 +218,11 @@ sub usersNotIn
 #
 # Parameters:
 #
-#       group - group name
-#       comment - comment's group
-#       system - boolan: if true it adds the group as system group,
-#       otherwise as normal group
+#   group - group name
+#   comment - comment's group
+#   system - boolan: if true it adds the group as system group,
+#   otherwise as normal group
+#   ignore_mods - ldap modules to be ignored on addUser notify
 #
 sub create
 {
@@ -212,7 +267,14 @@ sub create
 
     my $r = $self->_ldap->add($dn, \%args);
 
-    return new EBox::UsersAndGroups::Group(dn => $dn);
+    my $res = new EBox::UsersAndGroups::Group(dn => $dn);
+
+    unless ($system) {
+        # Call modules initialization
+        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignore_mods});
+    }
+
+    return $res;
 }
 
 
