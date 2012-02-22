@@ -2,16 +2,16 @@
 
 use strict;
 
-use Net::LDAP;
-use Error qw(:try);
-use Data::Dumper;
 use Array::Diff;
+use Net::Domain qw(hostname);
+use Error qw(:try);
 
 use EBox;
 use EBox::Global;
 
 # There users and groups won't be synchronized to LDAP
-my @sambaUsersToIgnore = ('krbtgt', 'Administrator', 'dns-precise', 'Guest'); # TODO build dns account dynamically
+my $dnsUserToIgnore = 'dns-' . hostname();
+my @sambaUsersToIgnore = ('krbtgt', 'Administrator', $dnsUserToIgnore, 'Guest');
 my @sambaGroupsToIgnore = ('Read-Only Domain Controllers', 'Group Policy Creator Owners', 'Domain Controllers', 'Domain Computers', 'DnsUpdateProxy', 'Domain Admins',
                            'Domain Guests', 'Domain Users', 'Users');
 
@@ -26,22 +26,22 @@ my @ldapGroupsToIgnore = ('__USERS__');
 sub debug
 {
     my ($msg) = @_;
-    print "$msg\n";
-#    EBox::debug ($msg);
+#    print "$msg\n";
+#    EBox::debug ("s4sync: $msg");
 }
 
 sub info
 {
     my ($msg) = @_;
-    print "$msg\n";
-    EBox::info ($msg);
+#    print "$msg\n";
+    EBox::info ("s4sync: $msg");
 }
 
 sub error
 {
     my ($msg) = @_;
-    print "$msg\n";
-    EBox::error ($msg);
+#    print "$msg\n";
+    EBox::error ("s4sync: $msg");
 }
 
 #############################################################################
@@ -71,7 +71,6 @@ sub getSambaUsers
     my $result = $ldb->search({
             base   => $ldb->rootDN(),
             scope  => 'sub',
-#           filter => '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE)))'});
             filter => '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))',
             attrs  => ['sAMAccountName', 'cn', 'givenName', 'sn', 'description','whenChanged']});
     my @entries = $result->entries;
@@ -109,9 +108,8 @@ sub getSambaGroups
     my $result = $ldb->search({
             base   => $ldb->rootDN(),
             scope  => 'sub',
-#           filter => '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE)))'});
             filter => '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))',
-            attrs  => ['sAMAccountName']});
+            attrs  => ['sAMAccountName', 'member', 'whenChanged', 'description']});
     my @entries = $result->entries;
     if (defined $groupsToIgnore) {
         my %groupsToIgnore = map { $_ => 1 } @{$groupsToIgnore};
@@ -187,7 +185,7 @@ sub getLdapGroups
             base   => $usersModule->groupsDn(),
             scope  => 'one',
             filter => 'objectClass=posixGroup',
-            attrs  => 'cn'});
+            attrs  => ['cn', 'memberUid', 'modifyTimestamp']});
     my @entries = $result->entries;
     if (defined $groupsToIgnore) {
         my %groupsToIgnore = map { $_ => 1 } @{$groupsToIgnore};
@@ -308,7 +306,7 @@ sub delLdapGroup
     }
 }
 
-# Method: addUserToGroup
+# Method: addLdapUserToGroup
 #
 #   This method add a LDAP user to a LDAP group
 #
@@ -331,7 +329,7 @@ sub addLdapUserToLdapGroup
     }
 }
 
-# Method: delUserToGroup
+# Method: delLdapUserFromGroup
 #
 #   This method delete a LDAP user from a LDAP group
 #
@@ -354,51 +352,70 @@ sub delLdapUserFromLdapGroup
     }
 }
 
-# Method: updateLdapUserMembership
+# Method: updateLdapGroup
 #
-#   This method update the user groups membership in LDAP
+#   This method update the group members in LDAP
 #
 # Parameters:
 #
 #   usersModule - An instance of the zentyal users module
 #   sambaModule - An instance of the zentyal samba module
-#   userId - The name of the user to update
+#   sambaGroup - A reference to the LDB group entry to synchronize
+#   ldapGroup - A reference to the LDAP group entry to synchronize
 #
-sub updateLdapUserMembership
+sub updateLdapGroup
 {
-    my ($usersModule, $sambaModule, $userId) = @_;
+    my ($usersModule, $sambaModule, $sambaGroup, $ldapGroup,
+        $sambaUsersToIgnore, $ldapUsersToIgnore) = @_;
 
-    # Get the groups that the user belong to in samba
-    # The arrays must be sorted before compare them
-    my $ldb = $sambaModule->ldb();
-    my $sambaGroupsOfUser = $ldb->getUserGroups ($userId);
-    my @sambaSorted = sort (@{$sambaGroupsOfUser});
-    $sambaGroupsOfUser = \@sambaSorted;
-    my @sambaGroupsToIgnore = sort (@sambaGroupsToIgnore);
-    my $sambaDiff = Array::Diff->diff (\@sambaGroupsToIgnore, $sambaGroupsOfUser);
-    $sambaGroupsOfUser = $sambaDiff->added;
+    # Get the group name
+    my $groupId = $sambaGroup->get_value('sAMAccountName');
 
-
-    # Get the groups that the user belongs to in ldap and remove the groups to ignore
-    # The arrays must be sorted before compare them
-    my $ldapGroupsOfUser = $usersModule->groupsOfUser($userId);
-    my @ldapSorted = sort (@{$ldapGroupsOfUser});
-    $ldapGroupsOfUser = \@ldapSorted;
-    my @ldapGroupsToIgnore = sort (@ldapGroupsToIgnore);
-    my $ldapDiff = Array::Diff->diff (\@ldapGroupsToIgnore, $ldapGroupsOfUser);
-    $ldapGroupsOfUser = $ldapDiff->added;
-
-    # Calculate the arrays difference
-    my $diff = Array::Diff->diff ($ldapGroupsOfUser, $sambaGroupsOfUser);
-
-    # Add the user to the missing groups
-    foreach my $group (@{$diff->added}) {
-        addLdapUserToLdapGroup ($usersModule, $userId, $group);
+    # Get the samba group members and filter the samba users to ignore
+    my %sambaUsersToIgnore = map { $_ => 1 } @{$sambaUsersToIgnore};
+    my (@sambaMembersDN) = $sambaGroup->get_value('member');
+    my @sambaMembers = ();
+    foreach my $memberDN (@sambaMembersDN) {
+        my $memberID = $sambaModule->ldb->getIdByDN($memberDN);
+        push (@sambaMembers, $memberID) unless exists $sambaUsersToIgnore{$memberID};
     }
 
-    # Remove the users that are in LDAP and not in Samba
-    foreach my $group (@{$diff->deleted}) {
-        delLdapUserFromLdapGroup ($usersModule, $userId, $group);
+    # Get the ldap group members and filter the ldap users to ignore
+    my %ldapUsersToIgnore = map { $_ => 1 } @{$ldapUsersToIgnore};
+    my (@ldapMembersTmp) = $ldapGroup->get_value('memberUid');
+    my @ldapMembers = ();
+    foreach my $memberID (@ldapMembersTmp) {
+        push (@ldapMembers, $memberID) unless exists $ldapUsersToIgnore{$memberID};
+    }
+
+    # Calculate the arrays difference
+    # Note: The arrays must be sorted before compare them
+    @sambaMembers = sort @sambaMembers;
+    @ldapMembers = sort @ldapMembers;
+    my $diff = Array::Diff->diff (\@ldapMembers, \@sambaMembers);
+
+    debug ("Synchronizing group '$groupId'");
+    debug ("Samba members: @sambaMembers");
+    debug ("LDAP members: @ldapMembers");
+
+    # Add the missing members to the group
+    foreach my $memberId (@{$diff->added}) {
+        addLdapUserToLdapGroup ($usersModule, $memberId, $groupId);
+    }
+
+    # Remove the members
+    foreach my $memberId (@{$diff->deleted}) {
+        delLdapUserFromLdapGroup ($usersModule, $memberId, $groupId);
+    }
+
+    # Update the group description
+    try {
+        $usersModule->modifyGroup({
+            groupname  => $groupId,
+            comment   => $sambaGroup->get_value('description')});
+    } otherwise {
+        my $error = shift;
+        error ("Error updating group description: $error");
     }
 }
 
@@ -492,8 +509,6 @@ foreach my $group (keys %{$ldapGroups}) {
     }
 }
 
-# TODO Sync changes in groups like description
-
 # Sync user information like passwords, descriptions from Samba to LDAP
 foreach my $userId (keys %{$sambaUsers}) {
     my $sambaChangeTime = $sambaUsers->{$userId}->get_value('whenChanged');
@@ -510,3 +525,17 @@ foreach my $userId (keys %{$sambaUsers}) {
 }
 
 # Sync group memberships from Samba to LDAP
+foreach my $groupId (keys %{$sambaGroups}) {
+    my $sambaChangeTime = $sambaGroups->{$groupId}->get_value('whenChanged');
+    if (exists $ldapGroups->{$groupId}) {
+        my $ldapChangeTime = $ldapGroups->{$groupId}->get_value('modifyTimestamp');
+        $sambaChangeTime =~ s/(\.\d*)?Z//g;
+        $ldapChangeTime =~ s/(\.\d*)?Z//g;
+        if ($sambaChangeTime > $ldapChangeTime) {
+            my $sambaGroup = $sambaGroups->{$groupId};
+            my $ldapGroup = $ldapGroups->{$groupId};
+            updateLdapGroup ($usersModule, $sambaModule, $sambaGroup, $ldapGroup,
+                             \@sambaUsersToIgnore, \@ldapUsersToIgnore);
+        }
+    }
+}
