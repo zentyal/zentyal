@@ -23,6 +23,7 @@ use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             );
 
+use EBox;
 use EBox::Objects;
 use EBox::Gettext;
 use EBox::Config;
@@ -36,7 +37,6 @@ use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
 use EBox::Model::ModelManager;
 use EBox::Sudo;
-use EBox::Samba4;
 
 use Error qw(:try);
 use File::Temp;
@@ -685,6 +685,10 @@ sub enableService
 
     $self->SUPER::enableService($status);
     $self->configureFirewall();
+
+    # We need to set network as changed to ensure that
+    # localhost is set as the primary nameserver
+    EBox::Global->modChange('network');
 }
 
 # Method: _setConf

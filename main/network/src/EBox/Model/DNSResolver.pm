@@ -111,46 +111,39 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
-    my $changed = 0;
-    my $addLocalResolver = 0;
-    my $removeLocalResolver = 0;
-    my $module = 'dns';
-    if (EBox::Global->modExists($module)) {
-        my $dns = EBox::Global->modInstance($module);
-        if ($dns->isEnabled()) {
-            if (scalar @{$currentIds} > 0) {
-                my $id = pop (@{$currentIds});
-                unless ($self->row($id)->valueByName('nameserver') eq '127.0.0.1') {
-                    $removeLocalResolver = 1;
-                    $addLocalResolver = 1;
-                }
-            } else {
-                $addLocalResolver = 1;
-            }
-        } else {
-            $removeLocalResolver = 1;
-        }
-    } else {
-        $removeLocalResolver = 1;
+    my $modified = 0;
+    my $dnsEnabled = 0;
+    if (EBox::Global->modExists('dns')) {
+        $dnsEnabled = EBox::Global->modInstance('dns')->isEnabled();
     }
 
-    if ($removeLocalResolver) {
-        foreach my $id (@{$currentIds}) {
-            if ($self->row($id)->valueByName('nameserver') eq '127.0.0.1') {
-                $self->removeRow($id);
-                $changed = 1;
-            }
+    my $localResolver = undef;
+    foreach my $id (@{$currentIds}) {
+        my $row = $self->row($id);
+        if (($row->valueByName('nameserver') eq '127.0.0.1') and $row->readOnly()) {
+            $localResolver = $id;
+            last;
         }
     }
 
-    if ($addLocalResolver) {
+    if ($dnsEnabled and (scalar @{$currentIds} > 0)) {
+        my $firstRow = pop (@{$currentIds});
+        return 0 if ($localResolver eq $firstRow);
+    }
+
+    if (defined $localResolver) {
+        $self->removeRow($localResolver);
+        $modified = 1;
+    }
+
+    if ($dnsEnabled) {
         $self->table->{'insertPosition'} = 'front';
-        $self->addRow((nameserver => '127.0.0.1', readOnly => '1'));
+        $self->addRow((nameserver => '127.0.0.1', readOnly => 1));
         $self->table->{'insertPosition'} = 'back';
-        $changed = 1;
+        $modified = 1;
     }
 
-    return $changed;
+    return $modified;
 }
 
 1;
