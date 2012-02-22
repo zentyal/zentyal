@@ -332,28 +332,26 @@ sub changePassword
 }
 
 
-# Method: delete
+# Method: deleteObject
 #
-#   Delete the user or some of its attributes
+#   Delete the user
 #
-sub delete
+sub deleteObject
 {
-    my ($self, $attr, $lazy) = @_;
+    my ($self, $ignore_mods) = @_;
 
-    if (not defined($attr)) {
-        # remove this user from all its grups
-        foreach my $group (@{$self->groups()}) {
-            $self->removeGroup($group);
-        }
-
-        # Notify users deletion to modules
-        my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('delUser', $self);
+    # remove this user from all its grups
+    foreach my $group (@{$self->groups()}) {
+        $self->removeGroup($group);
     }
+
+    # Notify users deletion to modules
+    my $users = EBox::Global->modInstance('users');
+    $users->notifyModsLdapUserBase('delUser', $self, $ignore_mods);
 
     # Call super implementation
     shift @_;
-    $self->SUPER::delete(@_);
+    $self->SUPER::deleteObject(@_);
 }
 
 

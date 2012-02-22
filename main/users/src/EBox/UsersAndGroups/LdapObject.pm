@@ -144,8 +144,7 @@ sub add
 
 # Method: delete
 #
-#   Deletes the whole object if no parameters are given
-#   Deletes only an attribute from the object if given
+#   Deletes an attribute from the object if given
 #
 #   Parameters (for attribute deletion):
 #
@@ -156,16 +155,23 @@ sub delete
 {
     my ($self, $attr, $lazy) = @_;
 
-    if (not defined($attr)) {
-        $self->_entry->delete();
-        $self->save();
-    }
-
-    # Delete attribute only if it exists
     if ($attr eq any $self->_entry->attributes) {
         $self->_entry->delete($attr);
         $self->save() unless $lazy;
     }
+}
+
+
+# Method: deleteObject
+#
+#   Deletes this object from the LDAP
+#
+sub deleteObject
+{
+    my ($self, $attr, $lazy) = @_;
+
+    $self->_entry->delete();
+    $self->save();
 }
 
 

@@ -85,12 +85,12 @@ sub _process($) {
 
     if ($deluser) {
         my $user = new EBox::UsersAndGroups::User(dn => $name);
-        $user->delete();
+        $user->deleteObject();
         $self->{chain} = "UsersAndGroups/Users";
         $self->{msg} = __('User removed successfully');
     } elsif ($delgroup) {
         my $group = new EBox::UsersAndGroups::Group(dn => $name);
-        $group->delete();
+        $group->deleteObject();
         $self->{chain} = "UsersAndGroups/Groups";
         $self->{msg} = __('Group removed successfully');
     }
