@@ -222,6 +222,11 @@ sub validateTypedRow
             my $vmRow = $self->parentRow();
             my $vmName = $vmRow->valueByName('name');
             if ((-f $self->parentModule()->diskFile($vmName, $name)) and exists $changedFields->{size}) {
+                if ($action eq 'add') {
+                    throw EBox::Exceptions::External(
+                        __('It already exists a disk file with this name. Save changes to synchronize disk files status')
+                    );
+                }
                 throw EBox::Exceptions::External(__('You cannot modify an already created disk. ' .
                                                     'You need to delete it and add a new one if you want to change the size.'));
             }
