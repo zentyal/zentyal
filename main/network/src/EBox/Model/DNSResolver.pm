@@ -107,4 +107,50 @@ sub _help
                'network interface configured via DHCP</p>'));
 }
 
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my $changed = 0;
+    my $addLocalResolver = 0;
+    my $removeLocalResolver = 0;
+    my $module = 'dns';
+    if (EBox::Global->modExists($module)) {
+        my $dns = EBox::Global->modInstance($module);
+        if ($dns->isEnabled()) {
+            if (scalar @{$currentIds} > 0) {
+                my $id = pop (@{$currentIds});
+                unless ($self->row($id)->valueByName('nameserver') eq '127.0.0.1') {
+                    $removeLocalResolver = 1;
+                    $addLocalResolver = 1;
+                }
+            } else {
+                $addLocalResolver = 1;
+            }
+        } else {
+            $removeLocalResolver = 1;
+        }
+    } else {
+        $removeLocalResolver = 1;
+    }
+
+    if ($removeLocalResolver) {
+        foreach my $id (@{$currentIds}) {
+            if ($self->row($id)->valueByName('nameserver') eq '127.0.0.1') {
+                $self->removeRow($id);
+                $changed = 1;
+            }
+        }
+    }
+
+    if ($addLocalResolver) {
+        $self->table->{'insertPosition'} = 'front';
+        $self->addRow((nameserver => '127.0.0.1', readOnly => '1'));
+        $self->table->{'insertPosition'} = 'back';
+        $changed = 1;
+    }
+
+    return $changed;
+}
+
 1;
