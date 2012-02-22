@@ -131,6 +131,7 @@ sub _table
                              optional => 1,
                              unique => 1,
                              editable => 1,
+                             hidden => 1,
                             ),
        new EBox::Virt::Types::Status(
                                      fieldName => 'status',
@@ -420,7 +421,10 @@ sub deletedRowNotify
 
     # stop VM
     my $name = $row->valueByName('name');
-    $virt->stopVM($name);
+    if ($virt->vmRunning($name) or $virt->vmPaused($name)) {
+        $virt->stopVM($name);
+    }
+
 }
 
 1;
