@@ -116,10 +116,14 @@ sub removeMember
 #
 sub users
 {
-    my ($self) = @_;
+    my ($self, $system) = @_;
 
     my @members = $self->_entry->get('member');
     @members = map { new EBox::UsersAndGroups::User(dn => $_) } @members;
+
+    unless ($system) {
+        @members = grep { not $_->system() } @members;
+    }
 
     return \@members;
 }
@@ -135,7 +139,7 @@ sub users
 #
 sub usersNotIn
 {
-    my ($self) = @_;
+    my ($self, $system) = @_;
 
     my %attrs = (
             base => $self->_ldap->dn(),
@@ -152,6 +156,9 @@ sub usersNotIn
         {
             push (@users, new EBox::UsersAndGroups::User(entry => $entry));
         }
+    }
+    unless ($system) {
+        @users = grep { not $_->system() } @users;
     }
     return \@users;
 }
