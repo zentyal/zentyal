@@ -417,6 +417,10 @@ sub deletedRowNotify
     my ($self, $row) = @_;
     my $virt = $self->{gconfmodule};
     $virt->updateFirewallService();
+
+    # stop VM
+    my $name = $row->valueByName('name');
+    $virt->stopVM($name);
 }
 
 1;
