@@ -32,7 +32,7 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(asterisk ids jabber mail mailfilter virt zarafa);
+use constant BANNED_MODULES => qw(asterisk jabber mail mailfilter virt zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
