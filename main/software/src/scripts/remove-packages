@@ -108,8 +108,7 @@ try {
         my $software = $global->modInstance('software');
         #causes the cache to be generated
         $software->listUpgradablePkgs(1);
-        my $apache = EBox::Global->modInstance('apache');
-        $apache->_daemon('restart');
+        $apacheMod->_daemon('restart');
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it

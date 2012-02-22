@@ -132,6 +132,7 @@ try {
         }
     }
     try {
+        $apacheMod->_daemon('restart');
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it
