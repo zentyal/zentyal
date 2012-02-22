@@ -456,10 +456,10 @@ sub _collectChildrens
 
 sub _unique_id
 {
-    my $id = int(rand(1000));
-    while (exists $data{$id}) {
+    my $id;
+    do {
         $id = int(rand(1000));
-    }
+    } while (exists $data{$id});
 
     return $id;
 }
