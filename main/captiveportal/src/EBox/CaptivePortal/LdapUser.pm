@@ -101,12 +101,7 @@ sub setQuota
     # Convert to LDAP format
     $overridden = $overridden ? 'TRUE' : 'FALSE';
 
-    my @objectclasses = $user->get('objectClass');
-
-    unless ('captiveUser' eq any @objectclasses) {
-        push (@objectclasses, 'captiveUser');
-        $user->set('objectClass', \@objectclasses, 1);
-    }
+    $user->add('objectClass', 'captiveUser', 1);
     $user->set('captiveQuotaOverride', $overridden, 1);
     $user->set('captiveQuota', $quota, 1);
 
