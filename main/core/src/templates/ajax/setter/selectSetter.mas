@@ -123,9 +123,11 @@ ENDJS
     push @extraParams, onChange => $onChangeJS;
     if ($empty) {
         push @extraParams, style => 'display:none';
-    } 
+    }
 }
-
+unless ($data->editable()) {
+    $disabled = 'disabled';
+}
 </%init>
 
 <& /input/select.mas,
