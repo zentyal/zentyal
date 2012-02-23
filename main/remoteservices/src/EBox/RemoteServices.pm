@@ -74,7 +74,7 @@ use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
-                   '0'  => __('Basic'),
+                   '0'  => __('Community'),
                    '1'  => __('Professional'),
                    '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
@@ -280,7 +280,7 @@ sub menu
        ));
     $folder->add(new EBox::Menu::Item(
         'url'  => 'RemoteServices/View/AdvancedSecurityUpdates',
-        'text' => __('Advanced Security Updates'),
+        'text' => __('Security Updates'),
        ));
     $folder->add(new EBox::Menu::Item(
         'url'  => 'RemoteServices/View/DisasterRecovery',
@@ -344,7 +344,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('Zentyal Cloud'),
+            'title'   => __('Zentyal Cloud Services'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,
@@ -1740,7 +1740,7 @@ sub _ccConnectionWidget
                                              $subsLevelValue));
     $section->add(new EBox::Dashboard::Value(__('Technical support'),
                                              $supportValue));
-    $section->add(new EBox::Dashboard::Value(__s('Advanced Security Updates'),
+    $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
