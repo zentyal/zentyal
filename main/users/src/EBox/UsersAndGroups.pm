@@ -344,7 +344,7 @@ sub _setupNSSPAM
 #
 #       Check if users and groups can be edited.
 #
-#       Returns true if mode is master or disabled ad-sync
+#       Returns true if mode is master
 #
 sub editableMode
 {
