@@ -23,12 +23,15 @@ use Redis;
 use EBox::Config;
 use EBox::Service;
 use EBox::Module::Base;
+use EBox::Util::Semaphore;
 use POSIX ':signal_h';
 use YAML::XS;
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
 use Error qw/:try/;
+
+my $SEM_KEY = 0xEBEB;
 
 my $redis = undef;
 
@@ -60,6 +63,8 @@ sub new
     $self->{redis} = $redis;
     $self->{pid} = $$;
     $self->{tran} = 0;
+
+    $self->{sem} = EBox::Util::Semaphore->init($SEM_KEY);
 
     return $self;
 }
@@ -652,7 +657,7 @@ sub begin
     # Do not allow nested transactions
     return if ($self->{tran}++);
 
-    # TODO: SEMAPHORE WAIT
+    $self->{sem}->wait();
 
     my $version = $self->_redis_call_wrapper(0, 'get', 'version');
     defined ($version) or $version = 0;
@@ -673,7 +678,7 @@ sub commit
     if ($self->{tran} == 0) {
         $self->_flush_queue();
 
-        # TODO: SEMAPHORE SIGNAL
+        $self->{sem}->signal();
     }
 }
 
@@ -687,7 +692,7 @@ sub rollback
 
     $self->{tran} = 0;
 
-    # TODO: SEMAPHORE SIGNAL
+    $self->{sem}->signal();
 }
 
 sub _flush_queue
@@ -724,9 +729,6 @@ sub _redis_call
     my $wantarray = wantarray;
     my ($key, @values) = @args;
     my $value = $values[0];
-
-    # FIXME: Warning, this cache stuff is completely broken
-    # if there are more than one process
 
     my $write = 1;
     if ($command eq 'set') {
