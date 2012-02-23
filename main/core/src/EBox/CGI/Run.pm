@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Global;
 use EBox::Gettext;
 use EBox::CGI::Base;
 use EBox::Model::CompositeManager;
@@ -96,6 +97,10 @@ sub run # (url, namespace)
 {
     my ($self, $url, $namespace) = @_;
 
+    my $redis = EBox::Global->modInstance('global')->redis();
+
+    $redis->begin();
+
     my $classname = classFromUrl($url, $namespace);
 
     my $cgi;
@@ -127,6 +132,12 @@ sub run # (url, namespace)
     }
 
     $cgi->run();
+
+    try {
+        $redis->commit();
+    } otherwise {
+        $redis->rollback();
+    };
 }
 
 # Helper functions

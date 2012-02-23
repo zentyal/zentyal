@@ -45,6 +45,8 @@ use constant REDIS_TYPES => qw(string set list hash);
 my %cache;
 my @queue;
 my $cacheVersion = 0;
+my $trans = 0;
+my $sem = undef;
 
 # Constructor: new
 #
@@ -62,9 +64,10 @@ sub new
     }
     $self->{redis} = $redis;
     $self->{pid} = $$;
-    $self->{tran} = 0;
 
-    $self->{sem} = EBox::Util::Semaphore->init($SEM_KEY);
+    unless ($sem) {
+        $sem = EBox::Util::Semaphore->init($SEM_KEY);
+    }
 
     return $self;
 }
@@ -655,9 +658,9 @@ sub begin
     my ($self) = @_;
 
     # Do not allow nested transactions
-    return if ($self->{tran}++);
+    return if ($trans++);
 
-    $self->{sem}->wait();
+    $sem->wait();
 
     my $version = $self->_redis_call_wrapper(0, 'get', 'version');
     defined ($version) or $version = 0;
@@ -673,12 +676,12 @@ sub commit
 {
     my ($self) = @_;
 
-    $self->{tran}--;
+    $trans--;
 
-    if ($self->{tran} == 0) {
+    if ($trans == 0) {
         $self->_flush_queue();
 
-        $self->{sem}->signal();
+        $sem->signal();
     }
 }
 
@@ -690,9 +693,9 @@ sub rollback
         $self->_redis_call_wrapper(0, 'discard');
     }
 
-    $self->{tran} = 0;
+    $trans = 0;
 
-    $self->{sem}->signal();
+    $sem->signal();
 }
 
 sub _flush_queue
