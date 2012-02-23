@@ -92,11 +92,14 @@ sub _addTypedRow
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
 
+    $user = new EBox::UsersAndGroups::User(dn => $users->userDn($user));
+
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
-    my $userinfo = { 'username' => $user, 'password' => $pass1->value() };
-    $users->modifyUserLocal($userinfo);
+
+    $user->changePassword($pass1->value());
+
     eval 'use EBox::UserCorner::Auth';
     EBox::UserCorner::Auth->updatePassword($user, $pass1->value());
 
