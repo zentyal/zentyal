@@ -39,11 +39,12 @@ use constant DEFAULT_SEPARATOR => '/';
 #
 # Returns:
 #
-#	array ref - containing instances of the models
+#   array ref - containing instances of the models
 sub models
 {
-  my ($self) = @_;
-  return $self->providedInstances(TYPE);
+    my ($self) = @_;
+
+    return $self->providedInstances(TYPE);
 }
 
 # Method: reloadModelsOnChange
@@ -59,9 +60,7 @@ sub models
 #
 sub reloadModelsOnChange
 {
-
     return [];
-
 }
 
 # Method: model
@@ -75,30 +74,28 @@ sub reloadModelsOnChange
 #
 # Returns:
 #   a instance of the model requested
+#
 sub model
 {
-  my ($self, $name) = @_;
-  return  $self->providedInstance(TYPE, $name);
+    my ($self, $name) = @_;
+
+    return  $self->providedInstance(TYPE, $name);
 }
-
-
 
 # internal utility function, invokes the model constructor
 sub newModelInstance
 {
-  my ($self, $class, %params) = @_;
-  my $directory = delete $params{name};
+    my ($self, $class, %params) = @_;
+    my $directory = delete $params{name};
 
     my $instance = $class->new(
-			          gconfmodule => $self,
-			          directory   => $directory,
-			          %params,
-			      );
+            gconfmodule => $self,
+            directory   => $directory,
+            %params,
+    );
 
-  return $instance;
+    return $instance;
 }
-
-
 
 #  Method: addModelInstance
 #
@@ -108,11 +105,13 @@ sub newModelInstance
 #
 #  Parameters:
 #     path - path to the instance. It must contain the index to identifiy the instance
-#   instance - model instance to add
+#     instance - model instance to add
+#
 sub addModelInstance
 {
-  my ($self, $path, $instance) = @_;
-  $self->addInstance(TYPE, $path, $instance);
+    my ($self, $path, $instance) = @_;
+
+    $self->addInstance(TYPE, $path, $instance);
 }
 
 #  Method: removeModelInstance
@@ -126,8 +125,9 @@ sub addModelInstance
 #
 sub removeModelInstance
 {
-  my ($self, $path, $instance) = @_;
-  $self->removeInstance(TYPE, $path, $instance);
+    my ($self, $path, $instance) = @_;
+
+    $self->removeInstance(TYPE, $path, $instance);
 }
 
 #  Method: removeAllModelInstances
@@ -136,13 +136,13 @@ sub removeModelInstance
 #
 #  Parameters:
 #     providedName - name of the model provider class
+#
 sub removeAllModelInstances
 {
-  my ($self, $path) = @_;
-  $self->removeAllInstances(TYPE, $path);
+    my ($self, $path) = @_;
+
+    $self->removeAllInstances(TYPE, $path);
 }
-
-
 
 # Method: modelClasses
 #
@@ -160,10 +160,8 @@ sub modelClasses
     use Devel::StackTrace;
     my $stack = Devel::StackTrace->new();
     EBox::debug($stack->as_string());
-  throw EBox::Exceptions::NotImplemented('modelClasses');
+    throw EBox::Exceptions::NotImplemented('modelClasses');
 }
-
-
 
 # Method: _exposedMethods
 #
@@ -205,11 +203,9 @@ sub modelClasses
 #
 #
 sub _exposedMethods
-  {
-
-      return {};
-
-  }
+{
+    return {};
+}
 
 sub DESTROY { ; }
 
@@ -228,34 +224,32 @@ sub DESTROY { ; }
 #       exposed
 #
 sub AUTOLOAD
-  {
+{
+    my ($self, @params) = @_;
 
-      my ($self, @params) = @_;
+    my $methodName = our $AUTOLOAD;
 
-      my $methodName = our $AUTOLOAD;
+    $methodName =~ s/.*:://;
 
-      $methodName =~ s/.*:://;
+    if ( UNIVERSAL::can($self, '_exposedMethods') ) {
+        my $exposedMethods = $self->_exposedMethods();
+        if ( exists $exposedMethods->{$methodName} ) {
+            return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
+        } else {
+            use Devel::StackTrace;
+            my $trace = new Devel::StackTrace();
+            EBox::debug($trace->as_string());
 
-      if ( UNIVERSAL::can($self, '_exposedMethods') ) {
-          my $exposedMethods = $self->_exposedMethods();
-          if ( exists $exposedMethods->{$methodName} ) {
-              return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
-          } else {
-              use Devel::StackTrace;
-              my $trace = new Devel::StackTrace();
-              EBox::debug($trace->as_string());
+            throw EBox::Exceptions::Internal("Undefined method $methodName");
+        }
+    } else {
+        use Devel::StackTrace;
+        my $trace = new Devel::StackTrace();
+        EBox::debug($trace->as_string());
 
-              throw EBox::Exceptions::Internal("Undefined method $methodName");
-          }
-      } else {
-          use Devel::StackTrace;
-          my $trace = new Devel::StackTrace();
-          EBox::debug($trace->as_string());
-
-          throw EBox::Exceptions::Internal("Undefined method $methodName");
-      }
-
-  }
+        throw EBox::Exceptions::Internal("Undefined method $methodName");
+    }
+}
 
 # Group: Private methods
 
@@ -273,127 +267,118 @@ sub AUTOLOAD
 #     params - array ref the parameters from the undefined method
 #
 sub _callExposedMethod
-  {
+{
+    my ($self, $methodDesc, $paramsRef) = @_;
 
-      my ($self, $methodDesc, $paramsRef) = @_;
+    my @path = @{$methodDesc->{path}};
+    my @indexes = @{$methodDesc->{indexes}} if exists ($methodDesc->{indexes});
+    my $action = $methodDesc->{action};
+    my @selectors = @{$methodDesc->{selector}} if exists ($methodDesc->{selector});
 
-      my @path = @{$methodDesc->{path}};
-      my @indexes = @{$methodDesc->{indexes}} if exists ($methodDesc->{indexes});
-      my $action = $methodDesc->{action};
-      my @selectors = @{$methodDesc->{selector}} if exists ($methodDesc->{selector});
+    # Getting the model instance
+    my $model = EBox::Model::ModelManager->instance()->model($path[0]);
+    if (ref ($model) eq 'ARRAY') {
+        # Search for the chosen model
+        my $index = shift (@{$paramsRef});
+        foreach my $modelInstance (@{$model}) {
+            if ( $modelInstance->index() eq $index ) {
+                $model = $modelInstance;
+                last;
+            }
+        }
+    } elsif ($model->index()) {
+        shift(@{$paramsRef});
+    }
+    unless (defined ($model) or (ref ($model) eq 'ARRAY')) {
+        throw EBox::Exceptions::Internal("Cannot retrieve model $path[0] "
+                . 'it may be a multiple one or it '
+                . 'is passed a wrong index');
+    }
 
-      # Getting the model instance
-      my $model = EBox::Model::ModelManager->instance()->model($path[0]);
-      if ( ref ( $model ) eq 'ARRAY' ) {
-          # Search for the chosen model
-          my $index = shift (@{$paramsRef});
-          foreach my $modelInstance (@{$model}) {
-              if ( $modelInstance->index() eq $index ) {
-                  $model = $modelInstance;
-                  last;
-              }
-          }
-      } elsif ( $model->index() ) {
-          shift(@{$paramsRef});
-      }
-      unless ( defined ( $model ) or (ref ( $model ) eq 'ARRAY' )) {
-          throw EBox::Exceptions::Internal("Cannot retrieve model $path[0] "
-                                           . 'it may be a multiple one or it '
-                                           . 'is passed a wrong index');
-      }
+    # Set the indexField for every model with index
+    if (@indexes > 0) {
+        unless ($indexes[0] eq 'id' or
+                $indexes[0] eq 'position') {
+            $model->setIndexField($indexes[0]);
+        }
+        my $submodel = $model;
+        foreach my $idx (1 .. $#indexes) {
+            my $hasManyField = $submodel->fieldHeader($path[$idx]);
+            my $submodelName = $hasManyField->foreignModel();
+            $submodel = EBox::Model::ModelManager->instance()->model($submodelName);
+            unless ( $indexes[$idx] eq 'id' or
+                    $indexes[$idx] eq 'position') {
+                $submodel->setIndexField($indexes[$idx]);
+            }
+        }
+    }
 
-      # Set the indexField for every model with index
-      if ( @indexes > 0 ) {
-          unless ( $indexes[0] eq 'id' or
-                   $indexes[0] eq 'position') {
-              $model->setIndexField($indexes[0]);
-          }
-          my $submodel = $model;
-          foreach my $idx (1 .. $#indexes) {
-              my $hasManyField = $submodel->fieldHeader($path[$idx]);
-              my $submodelName = $hasManyField->foreignModel();
-              $submodel = EBox::Model::ModelManager->instance()->model($submodelName);
-              unless ( $indexes[$idx] eq 'id' or
-                       $indexes[$idx] eq 'position') {
-                  $submodel->setIndexField($indexes[$idx]);
-              }
-          }
-      }
+    # Submodel in the method name
+    my $subModelsName = "";
+    # Remove the model name
+    shift (@path);
+    foreach my $field (reverse @path) {
+        $subModelsName .= ucfirst ( $field ) . 'To';
+    }
 
-      # Submodel in the method name
-      my $subModelsName = "";
-      # Remove the model name
-      shift (@path);
-      foreach my $field (reverse @path) {
-          $subModelsName .= ucfirst ( $field ) . 'To';
-      }
+    # The name
+    my $mappedMethodName;
+    if ($subModelsName) {
+        $mappedMethodName = $action . $subModelsName . $model->name();
+    } else {
+        $mappedMethodName = $action;
+    }
 
-      # The name
-      my $mappedMethodName;
-      if (  $subModelsName ) {
-          $mappedMethodName = $action . $subModelsName . $model->name();
-      } else {
-          $mappedMethodName = $action;
-      }
+    # The parameters
+    my @indexValues = ();
+    unless (ref ($paramsRef->[0])) {
+        if (defined ($paramsRef->[0])) {
+            my $separator;
+            if (exists $methodDesc->{'separator'}) {
+                $separator = $methodDesc->{'separator'};
+            } else {
+                $separator = DEFAULT_SEPARATOR;
+            }
+            @indexValues = grep { $_ ne '' } split ($separator,
+                    $paramsRef->[0],
+                    scalar(@indexes) + 1);
+            # Remove the index param if any
+            shift (@{$paramsRef});
+        }
+    }
+    my @mappedMethodParams = @indexValues;
+    if (@selectors == 1 and $action eq 'set') {
+        # If it is a set action and just one selector is supplied,
+        # the field name is set as parameter
+        push (@mappedMethodParams, $selectors[0]);
+    }
+    push (@mappedMethodParams, @{$paramsRef});
+    if (@selectors > 0 and $action eq 'get') {
+        my $selectorsRef = \@selectors;
+        push (@mappedMethodParams, $selectorsRef);
+    }
 
-      # The parameters
-      my @indexValues = ();
-#      if ( @{$paramsRef} > 1 ) {
-      unless ( ref ( $paramsRef->[0] ) ) {
-          if ( defined ( $paramsRef->[0] )) {
-              my $separator;
-              if (exists $methodDesc->{'separator'}) {
-                  $separator = $methodDesc->{'separator'};
-              } else {
-                  $separator = DEFAULT_SEPARATOR;
-              }
-              @indexValues = grep { $_ ne '' }
-                                            split ( $separator,
-                                                    $paramsRef->[0],
-                                                    scalar(@indexes) + 1 );
-              # Remove the index param if any
-              shift ( @{$paramsRef} );
-          }
-      }
-      my @mappedMethodParams = @indexValues;
-      if ( @selectors == 1 and $action eq 'set' ) {
-          # If it is a set action and just one selector is supplied,
-          # the field name is set as parameter
-          push ( @mappedMethodParams, $selectors[0] );
-      }
-      push ( @mappedMethodParams, @{$paramsRef} );
-      if ( @selectors > 0 and $action eq 'get') {
-          my $selectorsRef = \@selectors;
-          push (@mappedMethodParams, $selectorsRef);
-      }
-
-      return $model->$mappedMethodName( @mappedMethodParams );
-
-  }
-
-
-
+    return $model->$mappedMethodName(@mappedMethodParams);
+}
 
 # Method: modelsSaveConfig
 #
 #    Method called when the conifguraiton of a modules is saved
 sub modelsSaveConfig
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  $self->modelsBackupFiles();
+    $self->modelsBackupFiles();
 }
-
 
 # Method: modelsRevokeConfig
 #
 #    Method called when the conifguraiton of a modules is revoked
 sub modelsRevokeConfig
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  $self->modelsRestoreFiles();
-
+    $self->modelsRestoreFiles();
 }
 
 # Method: backupFiles
@@ -402,13 +387,13 @@ sub modelsRevokeConfig
 #   models
 sub modelsBackupFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  foreach my $model ( @{ $self->models() } ) {
-      if ($model->can('backupFiles')) {
-          $model->backupFiles();
-      }
-  }
+    foreach my $model ( @{ $self->models() } ) {
+        if ($model->can('backupFiles')) {
+            $model->backupFiles();
+        }
+    }
 }
 
 # Method: restoreFiles
@@ -417,22 +402,19 @@ sub modelsBackupFiles
 #  discarding the lasts changes in files
 sub modelsRestoreFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  foreach my $model ( @{ $self->models() } ) {
-    if ($model->can('restoreFiles')) {
-      $model->restoreFiles();
+    foreach my $model ( @{ $self->models() } ) {
+        if ($model->can('restoreFiles')) {
+            $model->restoreFiles();
+        }
     }
-
-
-  }
-
 }
 
 sub _filesArchive
 {
-  my ($self, $dir) = @_;
-  return "$dir/modelsFiles.tar";
+    my ($self, $dir) = @_;
+    return "$dir/modelsFiles.tar";
 }
 
 
@@ -445,33 +427,32 @@ sub _filesArchive
 #   dir - directory where the archive will be stored
 sub backupFilesInArchive
 {
-  my ($self, $dir) = @_;
+    my ($self, $dir) = @_;
 
-  my @filesToBackup;
-  foreach my $model ( @{ $self->models() } ) {
-    if ($model->can('filesPaths')) {
-      push @filesToBackup, @{ $model->filesPaths() };
+    my @filesToBackup;
+    foreach my $model ( @{ $self->models() } ) {
+        if ($model->can('filesPaths')) {
+            push @filesToBackup, @{ $model->filesPaths() };
+        }
     }
-  }
 
-  @filesToBackup or
-    return;
+    @filesToBackup or
+        return;
 
-  my $archive = $self->_filesArchive($dir);
+    my $archive = $self->_filesArchive($dir);
 
 
-  my $firstFile  = shift @filesToBackup;
-  my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve --same-owner $firstFile";
-  EBox::Sudo::root($archiveCmd);
-
-  # we append the files one per one bz we don't want to overflow the command
-  # line limit. Another approach would be to use a file catalog however I think
-  # that for only a few files (typical situation for now) the append method is better
-  foreach my $file (@filesToBackup) {
-    $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve --same-owner $file";
+    my $firstFile  = shift @filesToBackup;
+    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve --same-owner $firstFile";
     EBox::Sudo::root($archiveCmd);
 
-  }
+    # we append the files one per one bz we don't want to overflow the command
+    # line limit. Another approach would be to use a file catalog however I think
+    # that for only a few files (typical situation for now) the append method is better
+    foreach my $file (@filesToBackup) {
+        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve --same-owner $file";
+        EBox::Sudo::root($archiveCmd);
+    }
 }
 
 # Method: restoreFilesFromArchive
@@ -483,16 +464,13 @@ sub backupFilesInArchive
 #   dir - directory where the archive is stored
 sub restoreFilesFromArchive
 {
-  my ($self, $dir) = @_;
-  my $archive = $self->_filesArchive($dir);
+    my ($self, $dir) = @_;
+    my $archive = $self->_filesArchive($dir);
 
-  ( -f $archive) or
-    return;
+    (-f $archive) or return;
 
-  my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve --same-owner";
-  EBox::Sudo::root($restoreCmd);
+    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve --same-owner";
+    EBox::Sudo::root($restoreCmd);
 }
-
-
 
 1;

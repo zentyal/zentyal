@@ -126,7 +126,7 @@ sub model
         throw EBox::Exceptions::Internal('Invalid path');
     }
 
-    if ( ( not $modelName ) and $path =~ m:/: ) {
+    if ((not $modelName) and $path =~ m:/:) {
         throw EBox::Exceptions::Internal('One element is given and ' .
                                          'slashes are given. The valid format ' .
                                          'requires no slashes, sorry');
@@ -140,13 +140,13 @@ sub model
         $self->_setRelationship();
     }
 
-    unless ( defined ( $modelName )) {
+    unless (defined ($modelName)) {
         $modelName = $moduleName;
         # Infer the module name
         $moduleName = $self->_inferModuleFromModel($modelName);
     }
 
-    if ( exists $self->{'models'}->{$moduleName}->{$modelName} ) {
+    if (exists $self->{'models'}->{$moduleName}->{$modelName}) {
         if (@parameters and $parameters[0] ne '*') {
             # There are at least one parameter
             return $self->_chooseModelUsingParameters($path);
@@ -160,8 +160,8 @@ sub model
             }
         }
     } else {
-        throw EBox::Exceptions::DataNotFound( data  => 'model',
-                                              value => $path);
+        throw EBox::Exceptions::DataNotFound(data  => 'model',
+                                             value => $path);
     }
 }
 
@@ -187,11 +187,11 @@ sub addModel
 
     my ($modName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
 
-    if ( not defined ($modelName) ) {
+    if (not defined ($modelName)) {
         throw EBox::Exceptions::Internal("No valid path $path to add a model");
     }
 
-    push ( @{$self->{'models'}->{$modName}->{$modelName}}, $model);
+    push (@{$self->{'models'}->{$modName}->{$modelName}}, $model);
 
     $self->markAsChanged();
     $self->{'version'} = $self->_version();
@@ -287,8 +287,7 @@ sub modelsUsingId
 
         for my $fieldName (@{$modelDepHash->{$modelDepName}}) {
             if (defined($modelDep->findValue($fieldName => $rowId))) {
-                $models{$modelDepName} =
-                    $modelDep->table()->{'printableTableName'};
+                $models{$modelDepName} = $modelDep->table()->{'printableTableName'};
             }
         }
     }
@@ -299,9 +298,7 @@ sub modelsUsingId
         foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
             if ($observerModel->isUsingId($modelName, $rowId)) {
-                $models{$observer} =
-#                    $observerModel->table()->{'printableTableName'};
-                  $observerModel->printableContextName();
+                $models{$observer} = $observerModel->printableContextName();
             }
         }
     }
@@ -345,19 +342,11 @@ sub modelActionTaken
     throw EBox::Exceptions::MissingArgument('action') unless (defined($action));
     throw EBox::Exceptions::MissingArgument('row') unless (defined($row));
 
-    # if ( defined $row->{'id'} ) {
-    #    EBox::debug("$model has taken action '$action' on row $row->{'id'}");
-    # } else {
-    #    EBox::debug("$model has taken action '$action' on row");
-    # }
-    # return '' unless (exists $self->{'notifyActions'}->{$model});
-
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
         EBox::debug("Notifying $observerName");
         my $observerModel = $self->model($observerName);
-        $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .
-          '<br>';
+        $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
     }
 
     if ( exists $self->{'reloadActions'}->{$model} ) {
@@ -603,11 +592,11 @@ sub _setUpModelsFromProvider
         $modelName or
             throw EBox::Exceptions::Internal("Invalid model name $modelName");
 
-            push ( @{$self->{'models'}->{$moduleName}->{$modelName}}, $model);
-        }
-        for my $model (@{$provider->reloadModelsOnChange()}) {
-            push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
-        }
+        push (@{$self->{'models'}->{$moduleName}->{$modelName}}, $model);
+    }
+    for my $model (@{$provider->reloadModelsOnChange()}) {
+        push (@{$self->{'reloadActions'}->{$model}}, $provider->name());
+    }
 
     # Set up dependencies. Fetch all select types and check if
     # they depend on other model.
@@ -628,7 +617,7 @@ sub _setUpModelsFromProvider
                 next unless (defined($foreignModel));
                 my $foreignModelName = $foreignModel->contextName();
                 my %currentHasOne =
-                  %{$self->_modelsWithHasOneRelation($foreignModelName)};
+                    %{$self->_modelsWithHasOneRelation($foreignModelName)};
                 push (@{$currentHasOne{$localModelName}}, $type->fieldName());
                 $self->{'hasOneReverse'}->{$foreignModelName} = \%currentHasOne;
             }
@@ -645,13 +634,11 @@ sub _setUpModelsFromProvider
                 };
                 next unless (defined($foreignModel) and $foreignModel ne '');
 
-
                 $self->{'childOf'}->{$foreignModel} = {
-                                                       parent => $model,
-                                                       childIsComposite => $isComposite,
-                                                      };
+                    parent => $model,
+                    childIsComposite => $isComposite,
+                };
             }
-
         }
     }
 
@@ -663,7 +650,7 @@ sub _setUpModelsFromProvider
             next unless (exists $table->{'notifyActions'});
             for my $observableModel (@{$table->{'notifyActions'}}) {
                 push (@{$self->{'notifyActions'}->{$observableModel}},
-                      $observerModel);
+                        $observerModel);
             }
         }
     }
@@ -873,7 +860,6 @@ sub _chooseModelUsingParameters
 #
 sub _hasChanged
 {
-
     my ($self) = @_;
 
     my $actualVersionNotDefined = not defined $self->{'version'};

@@ -53,7 +53,7 @@ sub Instance
 {
     my ($class) = @_;
 
-    unless ( defined ( $_instance )) {
+    unless (defined ($_instance)) {
         $_instance = $class->_new();
     }
 
@@ -167,7 +167,6 @@ sub addComposite
            $composite);
 
     return;
-
 }
 
 # Method: addComposite
@@ -206,14 +205,12 @@ sub removeComposite
     } else {
         delete ( $self->{composites}->{$moduleName}->{$compositeName} );
     }
-
 }
-
 
 # Method: modelActionTaken
 #
-#	This method is used to let composites know when other model has
-#	taken an action.
+#   This method is used to let composites know when other model has
+#   taken an action.
 #
 # Parameters:
 #
@@ -221,7 +218,7 @@ sub removeComposite
 #
 #   model - String model name where the action took place
 #   action - String represting the action:
-#   	     [ add, del, edit, moveUp, moveDown ]
+#        [ add, del, edit, moveUp, moveDown ]
 #
 #   row  - hash ref row modified
 #
@@ -242,14 +239,6 @@ sub modelActionTaken
     throw EBox::Exceptions::MissingArgument("action") unless (defined($action));
     throw EBox::Exceptions::MissingArgument("row") unless (defined($row));
 
-    # if ( defined $row->{'id'} ) {
-    #    EBox::debug("$model has taken action '$action' on row $row->{'id'}");
-    # } else {
-    #    EBox::debug("$model has taken action '$action' on row");
-    # }
-
-    # return unless (exists $self->{'notifyActions'}->{$model});
-
     my $modelManager = EBox::Model::ModelManager->instance();
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
@@ -263,14 +252,12 @@ sub modelActionTaken
         $self->markAsChanged();
     }
 
-
     return $strToRet;
-
 }
 
 # Method: markAsChanged
 #
-# 	(PUBLIC)
+#   (PUBLIC)
 #
 #   Mark the composite manager as changed. This is done when a change is
 #   done in the composites to allow interprocess coherency.
@@ -278,7 +265,6 @@ sub modelActionTaken
 #
 sub markAsChanged
 {
-
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance();
@@ -287,26 +273,23 @@ sub markAsChanged
     $oldVersion = 0 unless ( defined ( $oldVersion ));
     $oldVersion = ($oldVersion + 1) % MAX_INT;
     $gl->st_set_int(VERSION_KEY, $oldVersion);
-
 }
 
 # Group: Private methods
 
 # Constructor for the singleton variable
 sub _new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = {};
+    bless ($self, $class);
 
-      my $self = {};
-      bless ($self, $class);
+    $self->{version} = $self->_version();
+    $self->_setUpComposites();
 
-      $self->{version} = $self->_version();
-      $self->_setUpComposites();
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: _setUpComposites
 #
@@ -314,20 +297,18 @@ sub _new
 #     <EBox::Model::CompositeProvider>
 #
 sub _setUpComposites
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $global = EBox::Global->getInstance();
 
-      my $global = EBox::Global->getInstance();
-
-      $self->{composites} = {};
-      $self->{reloadActions} = {};
-      my @modules = @{$global->modInstancesOfType('EBox::Model::CompositeProvider')};
-      foreach my $module (@modules) {
-          $self->_setUpCompositesFromProvider($module);
-      }
-
-  }
+    $self->{composites} = {};
+    $self->{reloadActions} = {};
+    my @modules = @{$global->modInstancesOfType('EBox::Model::CompositeProvider')};
+    foreach my $module (@modules) {
+        $self->_setUpCompositesFromProvider($module);
+    }
+}
 
 # Method: _setUpCompositesFromProvider
 #
@@ -365,7 +346,6 @@ sub _setUpCompositesFromProvider
 #
 sub _inferModuleFromComposite
 {
-
     my ($self, $compName) = @_;
 
     my $composites = $self->{composites};
@@ -385,16 +365,15 @@ sub _inferModuleFromComposite
         }
     }
 
-    unless ( defined ($returningModule) ) {
+    unless (defined ($returningModule)) {
         # XXX We use this for flow control. It's wrong, in the meantime
         #     we set the exception as silent
-        throw EBox::Exceptions::DataNotFound( data => 'compositeName',
-                                              value => $compName,
-                                              silent => 1);
+        throw EBox::Exceptions::DataNotFound(data => 'compositeName',
+                                             value => $compName,
+                                             silent => 1);
     }
 
     return $returningModule;
-
 }
 
 # Method: _chooseCompositeUsingIndex
@@ -419,7 +398,6 @@ sub _inferModuleFromComposite
 #
 sub _chooseCompositeUsingIndex
 {
-
     my ($self, $moduleName, $compositeName, $indexesRef) = @_;
 
     my $composites = $self->{composites}->{$moduleName}->{$compositeName};
@@ -436,13 +414,11 @@ sub _chooseCompositeUsingIndex
                                          value => "/$moduleName/$compositeName/"
                                         . join ('/', @{$indexesRef}),
                                          silent => 1);
-
-
 }
 
 # Method: _hasChanged
 #
-# 	(PRIVATE)
+#   (PRIVATE)
 #
 #   Mark the model manager as changed. This is done when a change is
 #   done in the models to allow interprocess coherency.
@@ -450,14 +426,12 @@ sub _chooseCompositeUsingIndex
 #
 sub _hasChanged
 {
-
     my ($self) = @_;
 
     my $thisVer = $self->{'version'};
     my $realVer = $self->_version();
     return 1 if (not defined($thisVer) or not defined($realVer));
     return ($thisVer != $realVer);
-
 }
 
 # Method: _version
@@ -474,11 +448,9 @@ sub _hasChanged
 #
 sub _version
 {
-
     my $gl = EBox::Global->getInstance();
 
     return $gl->st_get_int(VERSION_KEY);
-
 }
 
 1;

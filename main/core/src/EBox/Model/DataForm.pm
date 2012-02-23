@@ -55,21 +55,19 @@ use Error qw(:try);
 #       where the data will be stored
 #
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-      my $self = $class->SUPER::new(@_);
+    bless ( $self, $class );
 
-      bless ( $self, $class );
+    # Change the directory to store the form data since it's not
+    # required a lot complexity
+    $self->{directory} = $self->{gconfdir};
 
-      # Change the directory to store the form data since it's not
-      # required a lot complexity
-      $self->{directory} = $self->{gconfdir};
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: _checkTable
 #
@@ -86,12 +84,12 @@ sub _checkTable
     my @unallowedSuperParams = qw(sortedBy order);
     foreach my $param (@unallowedSuperParams) {
         if (exists $table->{$param}) {
+            # FIXME: WTF is this?
             throw EBox::Exceptions::Internal(
 
                                             );
         }
     }
-
 }
 
 # Method: addRow
@@ -110,12 +108,10 @@ sub _checkTable
 #       to add rows to an one-rowed table
 #
 sub addRow
-  {
-
-      throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
-                                       'an one-rowed table');
-
-  }
+{
+    throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
+                                     'an one-rowed table');
+}
 
 # Method: addTypedRow
 #
@@ -134,10 +130,8 @@ sub addRow
 #
 sub addTypedRow
 {
-
     throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
                                      'an one-rowed table');
-
 }
 
 # Method: row
@@ -149,13 +143,11 @@ sub addTypedRow
 #       <EBox::Model::DataTable::row>
 #
 sub row
-  {
+{
+    my ($self, $id) = @_;
 
-      my ($self, $id) = @_;
-
-      return $self->_row();
-
-  }
+    return $self->_row();
+}
 
 # Method: isRowReadOnly
 #
@@ -167,16 +159,14 @@ sub row
 #       <EBox::Model::DataTable::isRowReadOnly>
 #
 sub isRowReadOnly
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $row = $self->row();
+    return undef unless ( $row );
 
-      my $row = $self->row();
-      return undef unless ( $row );
-
-      return $row->{'readOnly'};
-
-  }
+    return $row->{'readOnly'};
+}
 
 # Method: moveUp
 #
@@ -192,12 +182,10 @@ sub isRowReadOnly
 #       an one-rowed table
 #
 sub moveUp
-  {
-
-      throw EBox::Exceptions::Internal('It cannot move up a row in an ' .
-                                       'one-rowed table');
-
-  }
+{
+    throw EBox::Exceptions::Internal('It cannot move up a row in an ' .
+                                     'one-rowed table');
+}
 
 # Method: moveDown
 #
@@ -213,12 +201,10 @@ sub moveUp
 #       an one-rowed table
 #
 sub moveDown
-  {
-
-      throw EBox::Exceptions::Internal('It cannot move down a row in an ' .
-                                       'one-rowed table');
-
-  }
+{
+    throw EBox::Exceptions::Internal('It cannot move down a row in an ' .
+                                     'one-rowed table');
+}
 
 # Method: removeRow
 #
@@ -273,7 +259,6 @@ sub removeAll
         throw EBox::Exceptions::Internal('It cannot remove data unless '
                                          . 'it is forcing the operation');
     }
-
 }
 
 # Method: warnIfIdUsed
@@ -286,14 +271,14 @@ sub removeAll
 #       <EBox::Model::DataTable::warnIfIdUsed>
 #
 sub warnIfIdUsed
-  {
+{
 
-  }
+}
 
 # Method: setRow
 #
-#	Set an existing row. The unique row is set here. If there was
-#	no row. It will be created.
+#   Set an existing row. The unique row is set here. If there was
+#   no row. It will be created.
 #
 #
 # Overrides:
@@ -308,39 +293,37 @@ sub warnIfIdUsed
 #       - Positional parameters
 #
 sub setRow
-  {
+{
+    my ($self, $force, %params) = @_;
 
-      my ($self, $force, %params) = @_;
+    $self->validateRow('update', \%params);
+    # We can only set those types which have setters
+    my @newValues = @{$self->setterTypes()};
 
-      $self->validateRow('update', \%params);
-      # We can only set those types which have setters
-      my @newValues = @{$self->setterTypes()};
+    # Fetch field trigger names
+    my $viewCustom = $self->viewCustomizer();
+    my  %triggerFields = %{$self->viewCustomizer()->onChangeFields()};
+    # Fetch trigger values
+    for my $name (keys %triggerFields) {
+        $triggerFields{$name} = $params{$name};
+    }
 
-      # Fetch field trigger names
-      my $viewCustom = $self->viewCustomizer();
-      my  %triggerFields = %{$self->viewCustomizer()->onChangeFields()};
-      # Fetch trigger values
-      for my $name (keys %triggerFields) {
-          $triggerFields{$name} = $params{$name};
-      }
+    my $changedData;
+    for (my $i = 0; $i < @newValues ; $i++) {
+        my $newData = $newValues[$i]->clone();
+        my $fieldName = $newData->fieldName();
+        # Skip fields that are hidden or disabled by the view customizer
+        unless ($viewCustom->skipField($fieldName, \%triggerFields)) {
+            $newData->setMemValue(\%params);
+        }
+        $changedData->{$fieldName} = $newData;
+    }
 
-      my $changedData;
-      for (my $i = 0; $i < @newValues ; $i++) {
-          my $newData = $newValues[$i]->clone();
-          my $fieldName = $newData->fieldName();
-          # Skip fields that are hidden or disabled by the view customizer
-          unless ($viewCustom->skipField($fieldName, \%triggerFields)) {
-              $newData->setMemValue(\%params);
-          }
-          $changedData->{$fieldName} = $newData;
-      }
-
-      $self->setTypedRow( '',
-                          $changedData,
-                          force => $force,
-                          readOnly => $params{'readOnly'});
-
-  }
+    $self->setTypedRow('',
+                       $changedData,
+                       force => $force,
+                       readOnly => $params{'readOnly'});
+}
 
 # Method: setTypedRow
 #
@@ -353,7 +336,6 @@ sub setRow
 #
 sub setTypedRow
 {
-
     my ($self, $id, $paramsRef, %optParams) = @_;
 
     if ( $self->_hasRow() ) {
@@ -361,7 +343,6 @@ sub setTypedRow
     } else {
         $self->_addTypedRow($paramsRef);
     }
-
 }
 
 # Method: set
@@ -387,7 +368,6 @@ sub setTypedRow
 #     passed to set a value
 sub set
 {
-
     my ($self, %params) = @_;
 
     my $force = delete $params{force};
@@ -403,7 +383,6 @@ sub set
 
     $self->setTypedRow(0, $typedParams, force => $force,
                        readOnly => $readOnly);
-
 }
 
 # Method: rows
@@ -437,9 +416,7 @@ sub rows
 #
 sub order
 {
-
-      throw EBox::Exceptions::Internal('It has no sense order in an one-rowed table');
-
+    throw EBox::Exceptions::Internal('It has no sense order in an one-rowed table');
 }
 
 
@@ -454,11 +431,10 @@ sub order
 #
 sub sortedBy
 {
-
+    # FIXME: Why is this commented?
     #throw EBox::Exceptions::Internal(
-     #    'It has no sense sortedBy in an one-rowed table'
-      #                              );
-
+    #    'It has no sense sortedBy in an one-rowed table'
+    #                              );
 }
 
 # Method: rowUnique
@@ -469,11 +445,9 @@ sub sortedBy
 #       <EBox::Model::DataTable::rowUnique>
 #
 sub rowUnique
-  {
-
-      return 1;
-
-  }
+{
+    return 1;
+}
 
 # Method: setFilter
 #
@@ -490,11 +464,9 @@ sub rowUnique
 #       an one-rowed table
 #
 sub setFilter
-  {
-
-      throw EBox::Exceptions::Internal('No filter is needed in an one-rowed table');
-
-  }
+{
+    throw EBox::Exceptions::Internal('No filter is needed in an one-rowed table');
+}
 
 # Method: filter
 #
@@ -511,11 +483,9 @@ sub setFilter
 #       an one-rowed table
 #
 sub filter
-  {
-
-      throw EBox::Exceptions::Internal('No filter is needed in an one-rowed table');
-
-  }
+{
+    throw EBox::Exceptions::Internal('No filter is needed in an one-rowed table');
+}
 
 # Method: pages
 #
@@ -526,11 +496,9 @@ sub filter
 #       <EBox::Model::DataTable::pages>
 #
 sub pages
-  {
-
-      return 1;
-
-  }
+{
+    return 1;
+}
 
 # Method: automaticRemoveMsg
 #
@@ -552,7 +520,6 @@ sub automaticRemoveMsg
     return __x('Remove data from {model}{br}',
                model   => $self->printableName(),
                br      => '<br>');
-
 }
 
 
@@ -564,11 +531,9 @@ sub automaticRemoveMsg
 #
 sub updatedRowNotify
 {
-
     my ($self, @params) = @_;
 
     $self->formSubmitted(@params);
-
 }
 
 # Method: formSubmitted
@@ -617,53 +582,49 @@ sub formSubmitted
 #     it is not finished correctly
 #
 sub AUTOLOAD
-  {
+{
+    my ($self, @params) = @_;
+    my $methodName = our $AUTOLOAD;
 
-      my ($self, @params) = @_;
-      my $methodName = our $AUTOLOAD;
+    $methodName =~ s/.*:://;
 
-      $methodName =~ s/.*:://;
+    # Ignore DESTROY callings (the Perl destructor)
+    if ( $methodName eq 'DESTROY' ) {
+        return;
+    }
 
-      # Ignore DESTROY callings (the Perl destructor)
-      if ( $methodName eq 'DESTROY' ) {
-          return;
-      }
+    unless ( UNIVERSAL::can($self, 'row') ) {
+        use Devel::StackTrace;
+        my $trace = new Devel::StackTrace();
+        EBox::debug($trace->as_string());
+        throw EBox::Exceptions::Internal("Not valid autoload method $methodName since "
+                                         . "$self is not a EBox::Model::DataForm");
+    }
 
-      unless ( UNIVERSAL::can($self, 'row') ) {
-          use Devel::StackTrace;
-          my $trace = new Devel::StackTrace();
-          EBox::debug($trace->as_string());
-          throw EBox::Exceptions::Internal("Not valid autoload method $methodName since "
-                                           . "$self is not a EBox::Model::DataForm");
-      }
+    my $row = $self->row();
 
-      my $row = $self->row();
+    # Get the attribute and its suffix if any <attr>(Value|PrintableValue|Type|)
+    my ($attr, $suffix) = $methodName =~ m/^(.+?)(Value|PrintableValue|Type|)$/;
 
-      # Get the attribute and its suffix if any <attr>(Value|PrintableValue|Type|)
-      my ($attr, $suffix) = $methodName =~ m/^(.+?)(Value|PrintableValue|Type|)$/;
+    unless ( any( keys ( %{$row->hashElements()} ) ) eq $attr ) {
+        # Try with the parent autoload
+        return $self->NEXT::ACTUAL::AUTOLOAD(@params);
+    }
 
-      unless ( any( keys ( %{$row->hashElements()} ) ) eq $attr ) {
-          # Try with the parent autoload
-          return $self->NEXT::ACTUAL::AUTOLOAD(@params);
-      }
+    # If no suffix is given used
+    unless ( $suffix ) {
+        # Use the default value
+        $suffix = 'Value';
+    }
 
-      # If no suffix is given used
-      unless ( $suffix ) {
-          # Use the default value
-          $suffix = 'Value';
-      }
-
-      if ( $suffix eq 'Value' ) {
-          return $row->valueByName($attr);
-      } elsif ( $suffix eq 'PrintableValue' ) {
-          return $row->printableValueByName($attr);
-      } elsif ( $suffix eq 'Type' ) {
-          return $row->elementByName($attr);
-      }
-
-      return;
-
-  }
+    if ( $suffix eq 'Value' ) {
+        return $row->valueByName($attr);
+    } elsif ( $suffix eq 'PrintableValue' ) {
+        return $row->printableValueByName($attr);
+    } elsif ( $suffix eq 'Type' ) {
+        return $row->elementByName($attr);
+    }
+}
 
 # Group: Protected methods
 
@@ -674,15 +635,13 @@ sub AUTOLOAD
 #      <EBox::Model::DataTable::_setDefaultMessages>
 #
 sub _setDefaultMessages
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      unless ( exists $self->table()->{'messages'}->{'update'} ) {
-          $self->table()->{'messages'}->{'update'} = __('Done');
-      }
-
-  }
+    unless (exists $self->table()->{'messages'}->{'update'}) {
+        $self->table()->{'messages'}->{'update'} = __('Done');
+    }
+}
 
 # Group: Class methods
 
@@ -693,11 +652,9 @@ sub _setDefaultMessages
 #        <EBox::Model::DataTable::Viewer>
 #
 sub Viewer
-  {
-
-      return '/ajax/form.mas';
-
-  }
+{
+    return '/ajax/form.mas';
+}
 
 # Method: size
 #
@@ -724,55 +681,37 @@ sub size
 
 # Check if the model is empty
 sub _hasRow
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{'gconfmodule'}->dir_exists($self->{'directory'});
-
-  }
+    return $self->{'gconfmodule'}->dir_exists($self->{'directory'});
+}
 
 # Add a row to the system without id. Its a reimplementation of
 # addRow so it should be looked up when any change is done at
 # DataTable stuff
 sub _addRow
-  {
+{
+    my ($self, %params) = @_;
 
-      my ($self, %params) = @_;
+    my $tableName = $self->tableName();
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
 
-      my $tableName = $self->tableName();
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
+    $self->validateRow('add', %params);
 
-      $self->validateRow('add', %params);
+    my @userData;
+    my $userData;
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $data = $type->clone();
+        $data->setMemValue(\%params);
 
-      my @userData;
-      my $userData;
-      foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $data = $type->clone();
-          $data->setMemValue(\%params);
+        push (@userData, $data);
+        $userData->{$data->fieldName()} = $data;
+    }
 
-          push (@userData, $data);
-          $userData->{$data->fieldName()} = $data;
-      }
-
-#      $self->validateTypedRow('add', $userData);
-#
-#      foreach my $data (@userData) {
-#          $data->storeInGConf($gconfmod, "$dir");
-#          $data = undef;
-#      }
-#
-#      $gconfmod->set_bool("$dir/readOnly", $params{'readOnly'});
-#
-#      $self->setMessage($self->message('update'));
-#      $self->updatedRowNotify($self->row());
-#      $self->_notifyModelManager('add', $self->row());
-#
-#      $self->_setCacheDirty();
-      $self->_addTypedRow($userData, readOnly => $params{'readOnly'});
-
-  }
+    $self->_addTypedRow($userData, readOnly => $params{'readOnly'});
+}
 
 # Add a row to the system without id. Its a reimplementation of
 # addTypedRow so it should be looked up when any change is done at
@@ -809,7 +748,6 @@ sub _addTypedRow
     $self->_notifyCompositeManager('add', $self->row());
 
     $self->_setCacheDirty();
-
 }
 
 # Set a row without id and with types. It's a reimplementation of
@@ -877,7 +815,6 @@ sub _setTypedRow
         and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
 
         $gconfmod->set_bool("$rdOnlyKey", $readOnly);
-
     }
 
     if ($modified) {
@@ -897,12 +834,12 @@ sub _setTypedRow
 # Return a row from within the model. It's a reimplementation of
 # SUPER::row so it should take care about any change at superclass
 sub _row
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
 
     my $storedVersion = $self->_storedVersion();
     my $cachedVersion = $self->_cachedVersion();;
@@ -911,50 +848,46 @@ sub _row
         $self->{'cachedVersion'} = $storedVersion;
     }
 
+    if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
+        # Return default values instead
+        return $self->_defaultRow();
+    }
 
-      if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
-          # Return default values instead
-          return $self->_defaultRow();
-      }
+    my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setModel($self);
 
-      my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-      $row->setModel($self);
-
-      my @values;
-      $self->{'cacheOptions'} = {};
-      foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $element = $type->clone();
-          $element->setRow($row);
-          $element->restoreFromHash();
-          if ( (not defined($element->value())) and $element->defaultValue()) {
-              $element->setValue($element->defaultValue());
-          }
-          $row->addElement($element);
-      }
-      # Dummy id for dataform
-      $row->setId('dummy');
-      return $row;
-
-  }
+    my @values;
+    $self->{'cacheOptions'} = {};
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $type->clone();
+        $element->setRow($row);
+        $element->restoreFromHash();
+        if ( (not defined($element->value())) and $element->defaultValue()) {
+            $element->setValue($element->defaultValue());
+        }
+        $row->addElement($element);
+    }
+    # Dummy id for dataform
+    $row->setId('dummy');
+    return $row;
+}
 
 # Return a row with only default values
 sub _defaultRow
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setModel($self);
+    $row->setId('dummy');
 
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
-      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-      $row->setModel($self);
-      $row->setId('dummy');
-
-      foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $element = $type->clone();
-          $row->addElement($element);
-      }
-      return $row;
-
-  }
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $type->clone();
+        $row->addElement($element);
+    }
+    return $row;
+}
 
 1;

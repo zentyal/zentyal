@@ -78,7 +78,6 @@ use Error qw(:try);
 #
 sub new
 {
-
     my ($class, %opts) = @_;
 
     my $self;
@@ -97,7 +96,6 @@ sub new
     bless ( $self, $class);
 
     return $self;
-
 }
 
 # Group: Public methods
@@ -305,7 +303,6 @@ sub GConfModule
 }
 
 
-
 # Method: addElement
 #
 #   Add an element to the row
@@ -322,7 +319,6 @@ sub addElement
     unless (defined($element) and $element->isa('EBox::Types::Abstract')) {
         throw EBox::Exceptions::Internal('element is not a valid type');
     }
-
 
     my $fieldName = $element->fieldName();
     if (not $fieldName) {
@@ -433,8 +429,8 @@ sub elementByIndex
         throw EBox::Exceptions::MissingArgument('index');
     }
 
-    unless ($index  <  $self->size()) {
-        throw EBox::Exceptions::DataNotFound( data => 'index',
+    unless ($index < $self->size()) {
+        throw EBox::Exceptions::DataNotFound(data => 'index',
                                              value => $index);
     }
 
@@ -479,7 +475,6 @@ sub hashElements
 #   return element->value().
 #
 #   Element is a subclass of <EBox::Types::Abstract>
-#
 #
 # Returns:
 #
@@ -527,7 +522,6 @@ sub printableValueByName
 # Return:
 #
 #   size - integer
-#
 #
 sub size
 {
@@ -689,14 +683,13 @@ sub filesPaths
 #   needed
 sub backupFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  foreach my $element ( @{ $self->elements() } ) {
-      if ($element->can('backupFiles')) {
-          $element->backupFiles();
-      }
-  }
-
+    foreach my $element ( @{ $self->elements() } ) {
+        if ($element->can('backupFiles')) {
+            $element->backupFiles();
+        }
+    }
 }
 
 # Method: restoreFiles
@@ -705,15 +698,13 @@ sub backupFiles
 #  changes in files
 sub restoreFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  foreach my $element ( @{ $self->elements() } ) {
-      if ($element->can('restoreFiles')) {
-          $element->restoreFiles();
-      }
-  }
-
+    foreach my $element (@{$self->elements()}) {
+        if ($element->can('restoreFiles')) {
+            $element->restoreFiles();
+        }
+    }
 }
-
 
 1;

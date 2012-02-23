@@ -54,17 +54,15 @@ use constant URL_REDIRECT => '/Controller/Downloader/FromTempDir?filename=';
 #       Create the <EBox::Model::DataForm::Download> model instance
 #
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-      my $self = $class->SUPER::new(@_);
+    bless ( $self, $class );
 
-      bless ( $self, $class );
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: pushFileToDownload
 #

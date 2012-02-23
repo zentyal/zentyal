@@ -53,10 +53,9 @@ sub new
 
     my $self = $class->SUPER::new(@params);
 
-    bless ( $self, $class );
+    bless ($self, $class);
 
     return $self;
-
 }
 
 # Method: setTypedRow
@@ -80,7 +79,7 @@ sub setTypedRow
     $self->validateTypedRow('update', $paramsRef, $paramsRef);
 
     # Notify remainder elements
-    if ( (not $force) and $self->table()->{automaticRemove}) {
+    if ((not $force) and $self->table()->{automaticRemove}) {
         my $manager = EBox::Model::ModelManager->instance();
         $manager->warnOnChangeOnId($self->tableName(), 0, $paramsRef, undef);
     }
@@ -99,13 +98,12 @@ sub setTypedRow
 
     $self->setMessage($self->message('update'));
     my $depModelMsg = $self->_notifyModelManager('update', $row);
-    if ( defined ($depModelMsg)
-         and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
+    if (defined ($depModelMsg)
+        and ($depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
         $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
     }
     $self->_notifyCompositeManager('update', $row);
     $self->updatedRowNotify($row, $force);
-
 }
 
 1;
