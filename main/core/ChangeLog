@@ -1,4 +1,6 @@
 HEAD
+	+ The editable attribute of the types now accept a reference to a function
+	  to dinamically enable or disable the field.
 	+ Implemented mysqldump for logs database
 	+ Remove zentyal-events cron script which should not be longer necessary
 	+ Bugfix: set executable permissions to cron scripts and example hooks
