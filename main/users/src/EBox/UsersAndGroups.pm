@@ -209,6 +209,39 @@ sub enableActions
     EBox::Module::Base::writeConfFileNoCheck($LDIF_CONFIG, "users/config.ldif.mas", $opts);
     EBox::Module::Base::writeConfFileNoCheck($LDIF_DB, "users/database.ldif.mas", $opts);
 
+    # Preload base LDAP data
+    $self->_loadLDAP($dn, $LDIF_CONFIG, $LDIF_DB);
+
+    $self->_manageService('start');
+    $self->ldap->clearConn();
+
+    # Setup NSS (needed if some user is added before save changes)
+    $self->_setConf();
+
+    # Create default group
+    EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
+
+    # Perform LDAP actions (schemas, indexes, etc)
+    EBox::info('Performing first LDAP actions');
+    try {
+        $self->performLDAPActions();
+    } otherwise {
+        throw EBox::Exceptions::External(__('Error performing users initialization'));
+    };
+
+    # Execute enable-module script
+    $self->SUPER::enableActions();
+
+    # mark apache as changed to avoid problems with getpwent calls, it needs
+    # to be restarted to be aware of the new nsswitch conf
+    EBox::Global->modInstance('apache')->setAsChanged();
+}
+
+
+# Load LDAP from config + data files
+sub _loadLDAP
+{
+    my ($self, $dn, $LDIF_CONFIG, $LDIF_DB) = @_;
     EBox::info('Creating LDAP database...');
     try {
         EBox::Sudo::root(
@@ -234,30 +267,6 @@ sub enableActions
         throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
     };
     EBox::debug('done');
-
-    # Setup NSS (needed if some user is added before save changes)
-    $self->_setConf();
-
-    $self->_manageService('start');
-    $self->ldap->clearConn();
-
-    # Create default group
-    EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
-
-    # Perform LDAP actions (schemas, indexes, etc)
-    EBox::info('Performing first LDAP actions');
-    try {
-        $self->performLDAPActions();
-    } otherwise {
-        throw EBox::Exceptions::External(__('Error performing users initialization'));
-    };
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
-
-    # mark apache as changed to avoid problems with getpwent calls, it needs
-    # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('apache')->setAsChanged();
 }
 
 
@@ -491,9 +500,6 @@ sub initUser
 {
     my ($self, $user, $password) = @_;
 
-    # Reload nscd if present
-    $self->_reloadNSCD();
-
     my $mk_home = EBox::Config::configkey('mk_home');
     $mk_home = 'yes' unless $mk_home;
     if ($mk_home eq 'yes') {
@@ -519,7 +525,7 @@ sub initUser
 
 
 # Reload nscd daemon if it's installed
-sub _reloadNSCD
+sub reloadNSCD
 {
     if ( -f '/etc/init.d/nscd' ) {
         try {
@@ -872,10 +878,16 @@ sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    $self->ldap->dumpLdapMaster($dir);
+    $self->ldap->dumpLdapConfig($dir);
+    $self->ldap->dumpLdapData($dir);
     if ($options{bug}) {
-        my $file = $self->ldap->ldifFile($dir, 'master', 'data');
+        my $file = $self->ldap->ldifFile($dir, 'data');
         $self->_removePasswds($file);
+    }
+    else {
+        # Save rootdn passwords
+        copy(EBox::Config::conf() . 'ldap.passwd', $dir);
+        copy(EBox::Config::conf() . 'ldap_ro.passwd', $dir);
     }
 }
 
@@ -899,7 +911,7 @@ sub restoreBackupPreCheck
 
     my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
 
-    my @usersToRestore = @{ $self->ldap->usersInBackup($dir, 'master') };
+    my @usersToRestore = @{ $self->ldap->usersInBackup($dir) };
     foreach my $user (@usersToRestore) {
         if (exists $etcPasswdUsers{$user}) {
             throw EBox::Exceptions::External(__x('Cannot restore because LDAP user {user} already exists as /etc/passwd user. Delete or rename this user and try again', user => $user));
@@ -910,8 +922,36 @@ sub restoreBackupPreCheck
 sub restoreConfig
 {
     my ($self, $dir) = @_;
-    return;
-    # TODO review/rewrite
+    my $mode = $self->mode();
+
+    $self->_manageService('stop');
+
+    my $LDIF_CONFIG = $self->ldap->ldifFile($dir, 'config');
+    my $LDIF_DB = $self->ldap->ldifFile($dir, 'data');
+
+    # retrieve base dn from backup
+    my $fd;
+    open($fd, $LDIF_DB);
+    my $line = <$fd>;
+    chomp($line);
+    my @parts = split(/ /, $line);
+    my $base = $parts[1];
+
+    $self->_loadLDAP($base, $LDIF_CONFIG, $LDIF_DB);
+
+    $self->_manageService('start');
+    $self->ldap->clearConn();
+
+    # Save conf to enable NSS (and/or) PAM
+    $self->_setConf();
+
+    for my $user (@{$self->users()}) {
+        $self->initUser($user);
+
+        # Notify modules
+        $self->notifyModsLdapUserBase('addUser', $user);
+    }
+
 }
 
 sub _removePasswds

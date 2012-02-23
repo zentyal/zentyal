@@ -489,6 +489,7 @@ sub create
 
     # Init user
     unless ($system) {
+        $self->_reloadNSCD();
         $users->initUser($res, $user->{'password'});
 
         # Configure quota

@@ -43,6 +43,7 @@ use POSIX;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
+use constant CONF_DIR      => '/etc/ldap/slapd.d';
 use constant DATA_DIR      => '/var/lib/ldap';
 use constant LDAP_USER     => 'openldap';
 use constant LDAP_GROUP    => 'openldap';
@@ -679,26 +680,6 @@ sub _utf8Attrs # (result)
     return $result;
 }
 
-sub confDir
-{
-    my ($slapd) = @_;
-    if ($slapd eq 'master') {
-        return "/etc/ldap/slapd.d";
-    } else {
-        return "/etc/ldap/slapd-$slapd.d";
-    }
-}
-
-sub dataDir
-{
-    my ($slapd) = @_;
-    if ($slapd eq 'master') {
-        return "/var/lib/ldap/";
-    } else {
-        return "/var/lib/ldap-$slapd/";
-    }
-}
-
 sub stop
 {
     my ($self) = @_;
@@ -725,11 +706,10 @@ sub refreshLdap
 }
 
 
-
 sub ldifFile
 {
-    my ($self, $dir, $conf, $base) = @_;
-    return "$dir/$conf-$base.ldif";
+    my ($self, $dir, $base) = @_;
+    return "$dir/$base.ldif";
 }
 
 # Method: dumpLdap
@@ -741,178 +721,38 @@ sub ldifFile
 #       dir - directory in which put the LDIF file
 sub _dumpLdap
 {
-    my ($self, $dir, $slapd, $type) = @_;
+    my ($self, $dir, $type) = @_;
 
     my $user  = EBox::Config::user();
     my $group = EBox::Config::group();
-    my $ldifFile = $self->ldifFile($dir, $slapd, $type);
+    my $ldifFile = $self->ldifFile($dir, $type);
 
-    my $slapcatCommand = $self->_slapcatCmd($ldifFile, $slapd, $type);
+    my $slapcatCommand = $self->_slapcatCmd($ldifFile, $type);
     my $chownCommand = "/bin/chown $user:$group $ldifFile";
 
     $self->_execute(1, # With pause
         cmds => [$slapcatCommand, $chownCommand]);
 }
 
-sub _dumpLdapData
-{
-    my ($self, $dir, $slapd) = @_;
-    $self->_dumpLdap($dir, $slapd, 'data');
-}
-
-sub _dumpLdapConfig
-{
-    my ($self, $dir, $slapd) = @_;
-    $self->_dumpLdap($dir, $slapd, 'config');
-}
-
-sub dumpLdapMaster
+sub dumpLdapData
 {
     my ($self, $dir) = @_;
-    $self->_dumpLdapData($dir, 'master');
-    $self->_dumpLdapConfig($dir, 'master');
+    $self->_dumpLdap($dir, 'data');
 }
 
-sub dumpLdapReplica
+sub dumpLdapConfig
 {
     my ($self, $dir) = @_;
-    $self->_dumpLdapConfig($dir, 'replica');
-}
-
-sub dumpLdapTranslucent
-{
-    my ($self, $dir) = @_;
-    $self->_dumpLdapConfig($dir, 'translucent');
-    $self->_dumpLdapData($dir, 'translucent');
-}
-
-sub dumpLdapFrontend
-{
-    my ($self, $dir) = @_;
-    $self->_dumpLdapConfig($dir, 'frontend');
-    $self->_dumpLdapData($dir, 'frontend');
-}
-
-# Method: _loadLdap
-#
-#  load all the raw LDAP data found in the LDIF file
-#
-#    Parameters:
-#       dir - directory in which is the LDIF file
-# XXX: todo add on error sub
-sub _loadLdap
-{
-    my ($self, $dir, $slapd, $type) = @_;
-
-    my $ldapDir  = EBox::Ldap::dataDir($slapd);
-    my $ldifFile = $self->ldifFile($dir, $slapd, $type);
-
-    my $backupCommand = $self->_backupSystemDirectory();
-    my $mkCommand = $self->_mkLdapDirCmd($ldapDir);
-    my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
-    my $slapaddCommand = $self->_slapaddCmd($ldifFile, $slapd, $type);
-    my $chownConfCommand = $self->_chownConfDir($slapd);
-    my $chownDataCommand = $self->_chownDataDir($slapd);
-
-    $self->_execute(0, # Without pause
-        cmds => [$backupCommand, $mkCommand, $rmCommand, $slapaddCommand,
-            $chownConfCommand, $chownDataCommand]);
-}
-
-sub _loadLdapData
-{
-    my ($self, $dir, $slapd) = @_;
-    $self->_loadLdap($dir, $slapd, 'data');
-}
-
-sub _loadLdapConfig
-{
-    my ($self, $dir, $slapd) = @_;
-    EBox::Sudo::root("rm -rf " . confDir($slapd));
-    EBox::Sudo::root("mkdir " . confDir($slapd));
-
-    #set new password before restoring the config tree
-    my $ldifFile = $self->ldifFile($dir, $slapd, 'config');
-    my $content = read_file($ldifFile);
-    $content =~ s/\n //gms;
-    my $pass = $self->getPassword();
-    $content =~ s/credentials=".*?"/credentials="$pass"/g;
-    $content =~ s/^olcRootPW:.*$/olcRootPW: $pass/mg;
-    write_file($ldifFile, $content);
-    $self->_loadLdap($dir, $slapd, 'config');
-}
-
-sub restoreLdapMaster
-{
-    my ($self, $dir) = @_;
-
-    if (-f "$dir/ldap.ldif") {
-        EBox::Sudo::root("rm -rf /var/lib/ldap/*");
-
-        my $model = EBox::Model::ModelManager->instance()->model('Mode');
-        my $dn = $model->dnValue();
-        my @parts = split(/,/, $dn);
-        my $dc = (split(/=/, $parts[0]))[1];
-
-        EBox::Sudo::root("cp $dir/ldap.ldif /var/lib/zentyal/tmp/ldap.ldif");
-        EBox::Sudo::root("sed -i -e 's/dc=ebox/$dn/' /var/lib/zentyal/tmp/ldap.ldif");
-        EBox::Sudo::root("sed -i -e 's/dc: ebox/dc: $dc/' /var/lib/zentyal/tmp/ldap.ldif");
-        EBox::Sudo::rootWithoutException("/usr/sbin/slapadd -c -F /etc/ldap/slapd.d < /var/lib/zentyal/tmp/ldap.ldif");
-        EBox::Module::Base::writeConfFileNoCheck(EBox::Config::tmp() .
-            'slapd-master-upgrade-ebox.ldif',
-            'users/slapd-master-upgrade-ebox.ldif.mas',
-            [
-                'dn' => $dn,
-                'password' => $self->getPassword()
-            ]);
-        EBox::Sudo::root('chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' /var/lib/ldap');
-        $self->start();
-        sleep(1);
-        EBox::Sudo::root("ldapadd -H 'ldapi://' -Y EXTERNAL -c -f " .
-            EBox::Config::tmp() . "slapd-master-upgrade-ebox.ldif");
-    } else {
-        $self->_loadLdapConfig($dir, 'master');
-        my $ldifFile = $self->ldifFile($dir, 'master', 'data');
-        my $content = read_file($ldifFile);
-        my $passline = 'userPassword: ' . $self->getPassword();
-        $content =~ s/(^dn: cn=ebox,.*?)userPassword:.*?$/$1$passline/ms;
-        write_file($ldifFile, $content);
-        $self->_loadLdapData($dir, 'master');
-    }
-}
-
-sub restoreLdapReplica
-{
-    my ($self, $dir) = @_;
-    $self->_loadLdapConfig($dir, 'replica');
-}
-
-sub restoreLdapTranslucent
-{
-    my ($self, $dir) = @_;
-    $self->_loadLdapConfig($dir, 'translucent');
-    $self->_loadLdapData($dir, 'translucent');
-}
-
-sub restoreLdapFrontend
-{
-    my ($self, $dir) = @_;
-    $self->_loadLdapConfig($dir, 'frontend');
-    $self->_loadLdapData($dir, 'frontend');
+    $self->_dumpLdap($dir, 'config');
 }
 
 sub usersInBackup
 {
-    my ($self, $dir, $mode) = @_;
-
-    if ($mode eq 'slave') {
-        EBox::error('Not implemented: slave mode precheck for LDAP backup');
-        return [];
-    }
+    my ($self, $dir) = @_;
 
     my @users;
 
-    my $ldifFile = $self->ldifFile($dir, 'master', 'data');
+    my $ldifFile = $self->ldifFile($dir, 'data');
 
     my $ldif = Net::LDAP::LDIF->new($ldifFile, 'r', onerror => 'undef');
     my $usersDn;
@@ -941,21 +781,9 @@ sub usersInBackup
     return \@users;
 }
 
-sub _chownConfDir
-{
-    my ($self, $slapd) = @_;
-    return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . confDir($slapd);
-}
-
-sub _chownDataDir
-{
-    my ($self, $slapd) = @_;
-    return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir($slapd);
-}
-
 sub _slapcatCmd
 {
-    my ($self, $ldifFile, $slapd, $type) = @_;
+    my ($self, $ldifFile, $type) = @_;
 
     my $base;
     if ($type eq 'config') {
@@ -963,55 +791,7 @@ sub _slapcatCmd
     } else {
         $base = $self->dn();
     }
-    return  "/usr/sbin/slapcat -F " . confDir($slapd) . " -b '$base' > $ldifFile";
-}
-
-sub _slapaddCmd
-{
-    my ($self, $ldifFile, $slapd, $type) = @_;
-    my $base;
-    my $options = "";
-    #disable schema checking if we are loading a translucent dump
-    if ($slapd eq 'translucent') {
-        $options = "-s";
-    }
-    if ($type eq 'config') {
-        $base = 'cn=config';
-    } else {
-        my $fd;
-        open($fd, $ldifFile);
-        my $line = <$fd>;
-        chomp($line);
-        my @parts = split(/ /, $line);
-        $base = $parts[1];
-    }
-    return  "/usr/sbin/slapadd -c $options -F " . confDir($slapd) .  " -b '$base' < $ldifFile";
-}
-
-sub _mkLdapDirCmd
-{
-    my ($self, $ldapDir)   = @_;
-
-    return "mkdir -p $ldapDir";
-}
-
-sub _rmLdapDirCmd
-{
-    my ($self, $ldapDir)   = @_;
-
-    if (defined($ldapDir)) {
-        $ldapDir .= '/*';
-        return "sh -c '/bin/rm -rf $ldapDir'";
-    } else {
-        return "true";
-    }
-}
-
-sub _backupSystemDirectory
-{
-    my ($self) = @_;
-
-    return EBox::Config::share() . '/zentyal-users/slapd.backup';
+    return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
 sub _execute
