@@ -198,14 +198,16 @@ sub _commercialMsg
 # Get the number of signatures from clamav log file
 sub _nSig
 {
-    my $cmd = 'grep signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
+    my $cmd = 'grep Loaded.*signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
     my $output = EBox::Sudo::root($cmd);
 
     my $line = $output->[0];
-
     return 0 unless (defined($line));
 
     my ($nSig) = $line =~ m/([0-9]+)\ssignatures/;
+    if (not defined $nSig) {
+        return 0;
+    }
 
     return $nSig;
 
