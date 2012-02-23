@@ -50,7 +50,6 @@ sub _new
     $self->{'notifyActions'} = {};
     bless($self, $class);
 
-    $self->{'version'} = $self->_version();
     $self->_setUpModels();
     $self->_setRelationship();
 
@@ -132,14 +131,6 @@ sub model
                                          'requires no slashes, sorry');
     }
 
-    # Re-read from the modules if the model manager has changed
-
-    if ($self->_hasChanged()) {
-        $self->_setUpModels();
-        $self->{'version'} = $self->_version();
-        $self->_setRelationship();
-    }
-
     unless (defined ($modelName)) {
         $modelName = $moduleName;
         # Infer the module name
@@ -192,9 +183,6 @@ sub addModel
     }
 
     push (@{$self->{'models'}->{$modName}->{$modelName}}, $model);
-
-    $self->markAsChanged();
-    $self->{'version'} = $self->_version();
 }
 
 # Method: removeModel
@@ -241,9 +229,6 @@ sub removeModel
             }
         }
     }
-
-    $self->markAsChanged();
-    $self->{'version'} = $self->_version();
 }
 
 
@@ -347,10 +332,6 @@ sub modelActionTaken
         EBox::debug("Notifying $observerName");
         my $observerModel = $self->model($observerName);
         $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
-    }
-
-    if ( exists $self->{'reloadActions'}->{$model} ) {
-        $self->markAsChanged();
     }
 
     return $strToRet;
@@ -493,25 +474,6 @@ sub warnOnChangeOnId
                   __('The data you are modifying is being used by
 			the following sections:') . '<br>' . $tablesUsing);
     }
-}
-
-# Method: markAsChanged
-#
-#	(PUBLIC)
-#
-#   Mark the model manager as changed. This is done when a change is
-#   done in the models to allow interprocess coherency.
-#
-sub markAsChanged
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-
-    my $oldVersion = $self->_version();
-    $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $oldVersion = ($oldVersion + 1) % MAX_INT;
-    $gl->st_set_int('model_manager/version', $oldVersion);
 }
 
 # Group: Private methods
@@ -848,50 +810,6 @@ sub _chooseModelUsingParameters
     # No coincidence
     throw EBox::Exceptions::DataNotFound(data => 'modelInstance',
                                          value => $path);
-}
-
-# Method: _hasChanged
-#
-#	(PRIVATE)
-#
-#   Mark the model manager as changed. This is done when a change is
-#   done in the models to allow interprocess coherency.
-#
-#
-sub _hasChanged
-{
-    my ($self) = @_;
-
-    my $actualVersionNotDefined = not defined $self->{'version'};
-    my $gconfVersionNotDefined  = not defined $self->_version();
-
-    if ($actualVersionNotDefined and $gconfVersionNotDefined) {
-        return undef;
-    }
-    elsif ($actualVersionNotDefined or $gconfVersionNotDefined) {
-        return 1;
-    }
-
-    return ($self->{'version'} != $self->_version());
-}
-
-# Method: _version
-#
-#       (PRIVATE)
-#
-#   Get the data version
-#
-# Returns:
-#
-#       Int - the data version from the model manager
-#
-#       undef - if there is no data version
-#
-sub _version
-{
-    my $gl = EBox::Global->getInstance();
-
-    return $gl->st_get_int('model_manager/version');
 }
 
 1;

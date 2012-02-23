@@ -99,36 +99,30 @@ sub composite
 {
     my ($self, $path) = @_;
 
-    # Re-read from the modules if the model manager has changed
-    if ( $self->_hasChanged() ) {
-        $self->_setUpComposites();
-        $self->{'version'} = $self->_version();
-    }
-
     # Check arguments
-    unless ( defined ( $path )) {
+    unless (defined ($path)) {
         throw EBox::Exceptions::MissingArgument('composite');
     }
 
     my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
-    if ( not defined ( $compName ) and $path =~ m:/: ) {
+    if (not defined ($compName) and $path =~ m:/:) {
         throw EBox::Exceptions::Internal('One composite element is given and '
                                          . 'slashes are given. The valid format '
                                          . 'requires no slashes');
     }
 
-    unless ( defined ( $compName )) {
+    unless (defined ($compName)) {
         $compName = $moduleName;
         # Try to infer the module name from the compName
         $moduleName = $self->_inferModuleFromComposite($compName);
     }
 
-    if ( exists $self->{composites}->{$moduleName}->{$compName} ) {
-        if ( @indexes > 0 and $indexes[0] ne '*' ) {
+    if (exists $self->{composites}->{$moduleName}->{$compName}) {
+        if (@indexes > 0 and $indexes[0] ne '*') {
             # There are at least one index
             return $self->_chooseCompositeUsingIndex($moduleName, $compName, \@indexes);
         } else {
-            if ( @{$self->{composites}->{$moduleName}->{$compName}} == 1 ) {
+            if (@{$self->{composites}->{$moduleName}->{$compName}} == 1) {
                 return $self->{composites}->{$moduleName}->{$compName}->[0];
             } else {
                 return $self->{composites}->{$moduleName}->{$compName};
@@ -158,12 +152,12 @@ sub addComposite
 
     my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
 
-    unless ( defined ( $moduleName ) and defined ( $compositeName )) {
+    unless (defined ($moduleName) and defined ($compositeName)) {
         throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
                                          . 'it should follow the pattern /modName/compName[/index]');
     }
 
-    push ( @{$self->{composites}->{$moduleName}->{$compositeName}},
+    push (@{$self->{composites}->{$moduleName}->{$compositeName}},
            $composite);
 
     return;
@@ -188,13 +182,13 @@ sub removeComposite
 
     my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
 
-    unless ( defined ( $moduleName ) and defined ( $compositeName )) {
+    unless (defined ($moduleName) and defined ($compositeName)) {
         throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
                                          . 'it should follow the pattern /modName/compName[/index]');
     }
 
     my $composites = $self->{composites}->{$moduleName}->{$compositeName};
-    if ( @indexes > 0 ) {
+    if (@indexes > 0) {
         for my $idx (0 .. $#$composites) {
             my $composite = $composites->[$idx];
             if ( $composite->index() eq $indexes[0] ) {
@@ -203,7 +197,7 @@ sub removeComposite
             }
         }
     } else {
-        delete ( $self->{composites}->{$moduleName}->{$compositeName} );
+        delete ($self->{composites}->{$moduleName}->{$compositeName});
     }
 }
 
@@ -248,31 +242,7 @@ sub modelActionTaken
           '<br>';
     }
 
-    if ( exists $self->{'reloadActions'}->{$model} ) {
-        $self->markAsChanged();
-    }
-
     return $strToRet;
-}
-
-# Method: markAsChanged
-#
-#   (PUBLIC)
-#
-#   Mark the composite manager as changed. This is done when a change is
-#   done in the composites to allow interprocess coherency.
-#
-#
-sub markAsChanged
-{
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-
-    my $oldVersion = $self->_version();
-    $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $oldVersion = ($oldVersion + 1) % MAX_INT;
-    $gl->st_set_int(VERSION_KEY, $oldVersion);
 }
 
 # Group: Private methods
@@ -285,7 +255,6 @@ sub _new
     my $self = {};
     bless ($self, $class);
 
-    $self->{version} = $self->_version();
     $self->_setUpComposites();
 
     return $self;
@@ -414,43 +383,6 @@ sub _chooseCompositeUsingIndex
                                          value => "/$moduleName/$compositeName/"
                                         . join ('/', @{$indexesRef}),
                                          silent => 1);
-}
-
-# Method: _hasChanged
-#
-#   (PRIVATE)
-#
-#   Mark the model manager as changed. This is done when a change is
-#   done in the models to allow interprocess coherency.
-#
-#
-sub _hasChanged
-{
-    my ($self) = @_;
-
-    my $thisVer = $self->{'version'};
-    my $realVer = $self->_version();
-    return 1 if (not defined($thisVer) or not defined($realVer));
-    return ($thisVer != $realVer);
-}
-
-# Method: _version
-#
-#       (PRIVATE)
-#
-#   Get the data version
-#
-# Returns:
-#
-#       Int - the data version from the model manager
-#
-#       undef - if there is no data version
-#
-sub _version
-{
-    my $gl = EBox::Global->getInstance();
-
-    return $gl->st_get_int(VERSION_KEY);
 }
 
 1;
