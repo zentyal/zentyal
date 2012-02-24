@@ -685,32 +685,10 @@ sub enableService
     $self->SUPER::enableService($status);
     $self->configureFirewall();
 
-    # Set localhost as primary nameserver if the module is enabled.
-    my $network = EBox::Global->modInstance('network');
-    my $resolver = $network->model('DNSResolver');
-    my $ids = $resolver->ids();
-    my $firstId = $ids->[0];
-    my $firstRow = $resolver->row($firstId);
-    if ($status) {
-        if (($firstRow->valueByName('nameserver') ne '127.0.0.1')) {
-            # Remove local resolver if it exists
-            foreach my $id (@{$ids}) {
-                if ($resolver->row($id)->valueByName('nameserver') eq '127.0.0.1') {
-                    $resolver->removeRow($id);
-                }
-            }
-            # Now add in the first place
-            $resolver->table->{'insertPosition'} = 'front';
-            $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
-            $resolver->table->{'insertPosition'} = 'back';
-            EBox::Global->modChange('network');
-        }
-    } else {
-        # If we have added it before remove when module is disabled.
-        if (($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {
-            $resolver->removeRow($firstId);
-            EBox::Global->modChange('network');
-        }
+    # Mark network module as changed to set localhost as the primary resolver
+    if ($self->changed()) {
+        my $net = EBox::Global->modInstance('network');
+        $net->setAsChanged();
     }
 }
 
@@ -729,10 +707,10 @@ sub _setConf
     if (EBox::Global->modExists('samba4')) {
         my $sambaModule = EBox::Global->modInstance('samba4');
         if ($sambaModule->isEnabled()) {
-            if (-e EBox::Samba4::SAMBADNSZONE()) {
+            if (EBox::Sudo::fileTest('-f', EBox::Samba4::SAMBADNSZONE())) {
                 $sambaZone = EBox::Samba4::SAMBADNSZONE();
             }
-            if (-e EBox::Samba4::SAMBADNSKEYTAB()) {
+            if (EBox::Sudo::fileTest('-f', EBox::Samba4::SAMBADNSKEYTAB())) {
                 $sambaKeytab = EBox::Samba4::SAMBADNSKEYTAB();
             }
         }
