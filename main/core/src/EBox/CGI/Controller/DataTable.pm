@@ -189,9 +189,11 @@ sub editField
 
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    my @fieldNames = map { $_->{fieldName} } @{$tableDesc};
-    for my $fieldName (@fieldNames) {
-        next unless $params{$fieldName};
+    for my $field (@{ $tableDesc} ) {
+        my $fieldName = $field->fieldName();
+        if (not $field->isa('EBox::Types::Boolean')) {
+            next unless defined $params{$fieldName};
+        }
 
         my $newValue = $params{$fieldName};
         my $oldValue = $row->valueByName($fieldName);
