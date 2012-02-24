@@ -990,6 +990,12 @@ sub restoreConfig
 
     $self->_loadLDAP($base, $LDIF_CONFIG, $LDIF_DB);
 
+    # Restore passwords
+    copy($dir . '/ldap.passwd', EBox::Config::conf());
+    copy($dir . '/ldap_ro.passwd', EBox::Config::conf());
+    EBox::debug("Copying $dir/ldap.passwd to " . EBox::Config::conf());
+    chmod(0600, "$dir/ldap.passwd", "$dir/ldap_ro.passwd");
+
     $self->_manageService('start');
     $self->ldap->clearConn();
 
@@ -997,12 +1003,15 @@ sub restoreConfig
     $self->_setConf();
 
     for my $user (@{$self->users()}) {
-        $self->initUser($user);
+
+        # Init local users
+        if ($user->baseDn eq $self->usersDn) {
+            $self->initUser($user);
+        }
 
         # Notify modules
         $self->notifyModsLdapUserBase('addUser', $user);
     }
-
 }
 
 sub _removePasswds
