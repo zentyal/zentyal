@@ -3,6 +3,7 @@
 <%args>
 	@users => ();
 	@groups => ();
+    @ous => ();
 </%args>
 <%init>
 use EBox::Gettext;
@@ -64,6 +65,9 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 		<& .groupSelectorLine, groups => \@groups &>
 		</tr>
 		<tr>
+		<& .ouSelectorLine, ous => \@ous &>
+		</tr>
+		<tr>
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit' name='add'
@@ -96,6 +100,26 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 % }
     </select>
 </td>
+</%def>
+
+<%def .ouSelectorLine>
+<%args>
+@ous
+</%args>
+% if (@ous > 0) {
+<td class='tright'>
+     <span class='ftitle'><% __('Organizational Unit') %>:</span>
+</td>
+<td>
+    <select name='ou'>
+% foreach my $ou (@ous){
+	    <option value='<% $ou->dn() %>'>
+              <% $ou->dn() %>
+        </option>
+% }
+    </select>
+</td>
+% }
 </%def>
 
 

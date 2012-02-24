@@ -368,9 +368,11 @@ sub deleteObject
 #   'givenname', 'surname' and 'comment'
 #   system - boolean: if true it adds the user as system user, otherwise as
 #   normal user
-#   uidNumber - user UID numberer (optional and named)
-#   additionalPasswords - list with additional passwords (optional)
-#   ignore_mods - ldap modules to be ignored on addUser notify
+#   params hash (all optional):
+#      uidNumber - user UID numberer
+#      additionalPasswords - list with additional passwords
+#      ignore_mods - ldap modules to be ignored on addUser notify
+#      ou (multiple_ous enabled only)
 #
 # Returns:
 #
@@ -381,7 +383,17 @@ sub create
     my ($self, $user, $system, %params) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn($user->{'user'});
+
+    # Is the user added to the default OU?
+    my $isDefaultOU = 1;
+    my $dn;
+    if (EBox::Config::configkey('multiple_ous') and $params{ou}) {
+        $dn = 'uid=' . $user->{user} . ',' . $params{ou};
+        $isDefaultOU = ($dn eq $users->usersDn());
+    }
+    else {
+        $dn = $users->userDn($user->{'user'});
+    }
 
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
@@ -489,11 +501,14 @@ sub create
 
     # Init user
     unless ($system) {
-        $self->_reloadNSCD();
-        $users->initUser($res, $user->{'password'});
+        # only default OU users are initializated
+        if ($isDefaultOU) {
+            $users->reloadNSCD();
+            $users->initUser($res, $user->{'password'});
 
-        # Configure quota
-        $res->set('quota', $self->defaultQuota());
+            # Configure quota
+            $res->set('quota', $self->defaultQuota());
+        }
 
         # Call modules initialization
         $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignore_mods});

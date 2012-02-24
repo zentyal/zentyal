@@ -37,6 +37,7 @@ use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
+use EBox::UsersAndGroups::OU;
 
 use Digest::SHA1;
 use Digest::MD5;
@@ -402,6 +403,7 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::LdapInfo',
         'EBox::UsersAndGroups::Model::PAM',
         'EBox::UsersAndGroups::Model::AccountSettings',
+        'EBox::UsersAndGroups::Model::OUs',
     ];
 }
 
@@ -618,6 +620,37 @@ sub groups
     return \@groups;
 }
 
+# Method: ous
+#
+#       Returns an array containing all the OUs
+#
+# Returns:
+#
+#       array ref - holding the OUs
+#
+sub ous
+{
+    my ($self) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => 'objectclass=organizationalUnit',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @ous = ();
+    foreach my $entry ($result->entries())
+    {
+        my $ou = new EBox::UsersAndGroups::OU(entry => $entry);
+        push (@ous, $ou);
+    }
+
+    return \@ous;
+}
 
 
 # Method: _modsLdapUserbase
@@ -679,9 +712,15 @@ sub notifyModsLdapUserBase
     unless (ref($args) eq 'ARRAY') {
         $args = [ $args ];
     }
-    foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
-        # TODO catch errors here?
 
+    my $basedn = $args->[0]->baseDn();
+    my $defaultOU = ($basedn eq $self->usersDn() or $basedn eq $self->groupsDn());
+    foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
+
+        # Skip modules not supporting multiple OU if not default OU
+        next unless ($mod->multipleOUSupport or $defaultOU);
+
+        # TODO catch errors here?
         $mod->$method(@{$args});
     }
 }
@@ -723,9 +762,14 @@ sub allUserAddOns
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
 
+    my $defaultOU = ($user->baseDn() eq $self->usersDn());
+
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
     foreach my $mod (@modsFunc) {
+        # Skip modules not support multiple OU, if not default OU
+        next unless ($mod->multipleOUSupport or $defaultOU);
+
         my $comp = $mod->_userAddOns($user);
         if ($comp) {
             push (@components, $comp);
@@ -832,6 +876,7 @@ sub menu
                                               'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('User Template'), order => 30));
+
         } else {
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/View/Users',
@@ -841,6 +886,12 @@ sub menu
                         'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('User Template'), order => 30));
+        }
+
+        if (EBox::Config::configkey('multiple_ous')) {
+            $folder->add(new EBox::Menu::Item(
+                        'url' => 'Users/View/OUs',
+                        'text' => __('Organizational Units'), order => 25));
         }
 
         $folder->add(new EBox::Menu::Item(

@@ -225,13 +225,26 @@ sub save
 
 # Method: dn
 #
-#   Return DN for this user
+#   Return DN for this object
 #
 sub dn
 {
     my ($self) = @_;
 
     return $self->{dn};
+}
+
+
+# Method: baseDn
+#
+#   Return base DN for this object
+#
+sub baseDn
+{
+    my ($self) = @_;
+
+    my ($trash, $basedn) = split(/,/, $self->{dn}, 2);
+    return $basedn;
 }
 
 

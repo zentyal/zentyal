@@ -249,4 +249,15 @@ sub defaultUserModel
     return undef;
 }
 
+
+# Method: multipleOUSupport
+#
+#   Returns 1 if this module supports users in multiple OU's,
+#   0 otherwise
+#
+sub multipleOUSupport
+{
+    return 0;
+}
+
 1;
