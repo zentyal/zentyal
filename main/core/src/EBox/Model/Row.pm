@@ -658,7 +658,7 @@ sub matchFilter
     }
 
     for my $value (@{$self->{values}}) {
-        return 1 if ($value->printableValue() =~ /$filter/);
+        return 1 if ($value->printableValue() =~ /$filter/i);
     }
 
     return undef;

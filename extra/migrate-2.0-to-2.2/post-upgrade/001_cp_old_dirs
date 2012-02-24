@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo "Copying old ebox dirs to zentyal..."
-cp -a /var/lib/ebox/* /var/lib/zentyal
-cp -a /var/lib/ebox/.* /var/lib/zentyal 2> /dev/null
-chown ebox:ebox /var/lib/zentyal
-
-exit 0;

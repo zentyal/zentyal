@@ -888,7 +888,7 @@ sub setUserZarafaQuota
     my ($self, $user, $quota) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    return unless $mail->zarafaModPrecondition();
+    return unless $mail->zarafaEnabled();
     return unless $self->_userZarafaAccount($user);
 
     my $gl = EBox::Global->getInstance();
@@ -909,7 +909,7 @@ sub setUserZarafaQuotaDefault
     my ($self, $user, $isDefault) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    return unless $mail->zarafaModPrecondition();
+    return unless $mail->zarafaEnabled();
     return unless $self->_userZarafaAccount($user);
 
     my $userMaildirSizeValue = $isDefault ? 0 : 1;
