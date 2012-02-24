@@ -208,7 +208,14 @@ sub validateTypedRow
                 throw EBox::Exceptions::External(__('You need to provide the path of a hard disk image'));
             }
             unless (-e $path) {
-                throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", path => $path));
+                throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", img => $path));
+            }
+            my $fileOutput = EBox::Sudo::root("file $path");
+            if (not $fileOutput->[0] =~ m/Format:\s+Qcow\s+,\s+Version:\s+2/) {
+                throw EBox::Exceptions::External(
+                    __x('The hard disk image {img} should be in qcow2 format',
+                        img => $path)
+                );
             }
         } else {
             my $name = exists $changedFields->{name} ? $changedFields->{name}->value() :

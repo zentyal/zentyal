@@ -1,4 +1,5 @@
 HEAD
+	+ Validation of the format of the disk files
 	+ Removed VMs are stopped, better treatment of disk addition errors
 	+ VNC service is set before saving changes
 	+ Added NetworkObserver methods
