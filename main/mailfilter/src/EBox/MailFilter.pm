@@ -144,7 +144,7 @@ sub _serviceRules
     return [
              {
               'name' => 'POP Transparent proxy',
-              'description' => __d('POP transparent proxy'),
+              'description' => __('POP transparent proxy'),
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
@@ -153,7 +153,7 @@ sub _serviceRules
              },
              {
               'name' => 'POP3',
-              'description' => __d('POP3 protocol'),
+              'description' => __('POP3 protocol'),
               'internal' => 1,
               'protocol'   => 'tcp',
               'sourcePort' => 'any',

@@ -88,28 +88,28 @@ sub _defaultServices
     return [
         {
          'name' => 'any',
-         'description' => __d('any protocol and port'),
+         'description' => __('any protocol and port'),
          'protocol' => 'any',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'any UDP',
-         'description' => __d('any UDP port'),
+         'description' => __('any UDP port'),
          'protocol' => 'udp',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'any TCP',
-         'description' => __d('any TCP port'),
+         'description' => __('any TCP port'),
          'protocol' => 'tcp',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'eBox administration',
-         'description' => __d('Zentyal Administration Web Server'),
+         'description' => __('Zentyal Administration Web Server'),
          'protocol' => 'tcp',
          'destinationPort' => $apachePort,
          'internal' => 1,

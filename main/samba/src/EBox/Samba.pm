@@ -184,7 +184,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-				'description' =>  __d('File sharing (Samba) protocol'),
+				'description' => __('File sharing (Samba) protocol'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),
