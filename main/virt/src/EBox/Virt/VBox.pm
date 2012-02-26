@@ -510,7 +510,7 @@ sub diskFile
 {
     my ($self, $disk, $machine) = @_;
 
-    return shell_quote("$VM_PATH/$machine/$disk.vdi");
+    return "$VM_PATH/$machine/$disk.vdi";
 }
 
 sub manageScript
@@ -576,5 +576,11 @@ sub ifaces
 {
     return EBox::NetWrappers::list_ifaces();
 }
+
+sub allowsNoneIface
+{
+    return 1;
+}
+
 
 1;

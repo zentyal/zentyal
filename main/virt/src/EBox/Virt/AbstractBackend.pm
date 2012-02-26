@@ -285,6 +285,16 @@ sub ifaces
     throw Ebox::Exceptions::NotImplemented();
 }
 
+# Method : allowsNoneIface
+#
+#   return whether the backend allow interfaces set to 'None' (inactive)
+sub allowsNoneIface
+{
+    throw Ebox::Exceptions::NotImplemented();
+}
+
+
+
 # Method: listVMs
 #
 #   Returns the list of names of found VMs referenced

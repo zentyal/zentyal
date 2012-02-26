@@ -1,4 +1,7 @@
 HEAD
+	+ Added NetworkObserver methods
+	+ 'None' interface is not longer allowed for libvirt backend
+	+ Added validation of hard disk names
 	+ Fixed error in getting VM state with a language different than english
 	+ Bugfix: custom keymap validation works properly now
 2.2.3
