@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UsersAndGroups::Model::Slaves;
+package EBox::UsersAndGroups::Model::OUs;
 
-# Class: EBox::UsersAndGroups::Model::Slaves
+# Class: EBox::UsersAndGroups::Model::OUs
 #
-#	This model is used to list the slaves that are subscribed to this master
+#       This a class used as a proxy for the OUs present in LDAP.
 #
 use EBox::Global;
 use EBox::Gettext;
@@ -26,8 +26,8 @@ use EBox::Model::Row;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
-
 use EBox::Types::Text;
+use EBox::UsersAndGroups::OU;
 
 use strict;
 use warnings;
@@ -48,32 +48,25 @@ sub new
 sub _table
 {
     my @tableHead =
-        (
-
-         new EBox::Types::Text(
-             'fieldName' => 'slave',
-             'printableName' => __('Slave'),
-             'size' => '12',
-             ),
-         new EBox::Types::Int(
-             'fieldName' => 'port',
-             'printableName' => __('Port'),
-             ),
-        );
+    (
+     new EBox::Types::Text(
+         'fieldName' => 'dn',
+         'printableName' => __('DN'),
+         'size' => '12',
+         'editable' => 1,
+         'allowUnsafeChars' => 1,
+         ),
+    );
 
     my $dataTable =
     {
-        'tableName' => 'Slaves',
-        'printableTableName' => __('List of slaves'),
-        'defaultController' =>
-            '/Users/Controller/Slaves',
-        'defaultActions' =>
-            ['changeView', 'del'],
-        'tableDescription' => \@tableHead,
-        'menuNamespace' => 'UsersAndGroups/Slaves',
-        'help' => __x('This is a list of those Zentyal slaves which are subscribed to this Zentyal.'),
-        'printableRowName' => __('slave'),
-        'sortedBy' => 'name',
+        'tableName' => 'OUs',
+        'printableTableName' => __('Organizational Units'),
+        'defaultActions'     => ['changeView', 'add', 'del'],
+        'modelDomain'        => 'Users',
+        'tableDescription'   => \@tableHead,
+        'printableRowName'   => __('organizational unit'),
+        'sortedBy' => 'dn',
     };
 
     return $dataTable;
@@ -90,13 +83,8 @@ sub precondition
 {
     my ($self) = @_;
     my $users = EBox::Global->modInstance('users');
-    unless ($users->configured() and ($users->mode() ne 'slave')) {
+    unless ($users->configured()) {
         $self->{preconFail} = 'notConfigured';
-        return undef;
-    }
-
-    unless (@{$users->listSlaves()}) {
-        $self->{preconFail} = 'noSlaves';
         return undef;
     }
 
@@ -115,17 +103,21 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     if ($self->{preconFail} eq 'notConfigured') {
-        return __('You must enable the module Users in master mode.');
+        return __('You must enable the module Users in the module ' .
+                'status section in order to use it.');
     } else {
-        return __('There are no slaves at the moment.');
-
+        my $users = $self->parentModule();
+        my $mode = $users->mode();
+        if ($mode eq 'master') {
+            return __x('There are no users at the moment');
+        }
     }
 }
 
 # Method: ids
 #
 #   Override <EBox::Model::DataTable::ids> to return rows identifiers
-#   based on the slaves stored in LDAP
+#   based on the users stored in LDAP
 #
 sub ids
 {
@@ -136,9 +128,8 @@ sub ids
         return [];
     }
 
-    my @slaves = map { $_->{'hostname'} } @{$users->listSlaves()};
-
-    return \@slaves;
+    my @ous = map { $_->dn() } @{$users->ous()};
+    return \@ous;
 }
 
 # Method: row
@@ -150,37 +141,52 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $slaves = $users->listSlaves();
-    my $port;
-    for my $slave (@{$slaves}) {
-        if ($slave->{'hostname'} eq $id) {
-            $port = $slave->{'port'};
-        }
-    }
-
-    my $row = $self->_setValueRow(slave => $id, port => $port);
+    my $row = $self->_setValueRow(dn => $id);
     $row->setId($id);
-    $row->setReadOnly(0);
     return $row;
 }
 
-# Method: removeRow
-#
-#   Override <EBox::Model::DataTable::removeRow>
-#   to remove a slave
-#
 sub removeRow
 {
-	my ($self, $id) = @_;
+    my ($self, $id, $force) = @_;
 
-        my $users = EBox::Global->modInstance('users');
-        $users->deleteSlave($id);
+    unless (defined($id)) {
+        throw EBox::Exceptions::MissingArgument(
+                "Missing row identifier to remove")
+    }
+
+    my $row = $self->row($id);
+    if (not defined $row) {
+        throw EBox::Exceptions::Internal(
+                "Row with id $id does not exist, so it cannot be removed"
+                );
+    }
+
+    new EBox::UsersAndGroups::OU(dn => $id)->deleteObject();
+
+    $self->setMessage(__x('OU {ou} removed', ou => $id));
 }
 
-sub Viewer
+
+# Method: addTypedRow
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::addTypedRow>
+#
+sub addTypedRow
 {
-    return '/ajax/tableBodyWithoutEdit.mas';
+    my ($self, $params_r, %optParams) = @_;
+
+    # Check compulsory fields
+    $self->_checkCompulsoryFields($params_r);
+
+    EBox::UsersAndGroups::OU->create($params_r->{dn}->value());
+
+    $self->setMessage(__('OU added'));
+
+    # this is the last row account added and id == pos
+    return length($self->ids());
 }
 
 1;

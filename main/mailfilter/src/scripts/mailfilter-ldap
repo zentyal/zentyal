@@ -7,39 +7,42 @@ use EBox::Global;
 use EBox::MailVDomainsLdap;
 use EBox::MailFilter::VDomainsLdap;
 use EBox::Sudo qw(root);
+use EBox::UsersAndGroups::User;
 
 sub update
 {
     my $users =  EBox::Global->modInstance('users');
 
     my @controlUsers = (
-                        {
-                         user => 'spam',
-                         givenname => 'Spam',
-                         surname => 'account',
-                         surname  => 'spam',
-                         password => '',
-                        },
-                        {
-                         user => 'ham',
-                         givenname => 'Ham',
-                         surname => 'account',
-                         surname => 'ham',
-                         password => '',
-                        },
-                     );
+        {
+            user => 'spam',
+            givenname => 'Spam',
+            surname => 'account',
+            surname  => 'spam',
+            password => '',
+        },
+        {
+            user => 'ham',
+            givenname => 'Ham',
+            surname => 'account',
+            surname => 'ham',
+            password => '',
+        },
+    );
 
 
     foreach my $user_r (@controlUsers) {
         my $username = $user_r->{user};
-        if (not $users->userExists($username)) {
-            $users->addUser($user_r, 1);
+        my $dn = $users->userDn($username);
+
+        my $user = new EBox::UsersAndGroups::User(dn => $dn);
+        unless ($user->exists()) {
+            EBox::UsersAndGroups::User->create($user_r, 1);
         }
         else {
-            my $userInfo = $users->userInfo($username);
-            my $uid      = $userInfo->{uid};
-            if ($uid > $users->lastUid(1)) {
-                die "$username is not a system user as it has to be";
+            my $uid = $user->get('uidNumber');
+            if ($uid > $user->lastUid(1)) {
+                die "$user->name is not a system user as it has to be";
             }
         }
     }
@@ -61,7 +64,6 @@ sub clean
         $vdomainMailfilter->_delVDomain($vdomain);
     }
 }
-
 
 sub _vdomains
 {

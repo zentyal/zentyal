@@ -332,12 +332,8 @@ sub antispamNeeded
         return 1;
     }
 
-
-
     return 0;
 }
-
-
 
 #
 # Method: _setConf
@@ -695,36 +691,36 @@ sub logHelper
 sub _filterTrafficConsolidationSpec
 {
     my $spec = {
-                accummulateColumns => {
-                                       clean => 0,
-                                       spam => 0,
-                                       banned => 0,
-                                       blacklisted => 0,
-                                       clean  => 0,
-                                       infected => 0,
-                                       bad_header => 0,
-                                      },
-               filter => sub {
-                   my ($row) = @_;
-                   if ($row->{event} eq 'MTA-BLOCKED') {
-                       return 0;
-                   }
-                   return 1;
-                },
-                consolidateColumns => {
-                                       event => {
-                                                 conversor => sub { return 1  },
-                                                 accummulate => sub {
-                                                     my ($v) = @_;
-                                                     if ($v eq 'BAD-HEADER') {
-                                                         return 'bad_header';
-                                                     }
+        accummulateColumns => {
+            clean => 0,
+            spam => 0,
+            banned => 0,
+            blacklisted => 0,
+            clean  => 0,
+            infected => 0,
+            bad_header => 0,
+        },
+        filter => sub {
+            my ($row) = @_;
+            if ($row->{event} eq 'MTA-BLOCKED') {
+                return 0;
+            }
+            return 1;
+        },
+        consolidateColumns => {
+            event => {
+                conversor => sub { return 1  },
+                accummulate => sub {
+                    my ($v) = @_;
+                    if ($v eq 'BAD-HEADER') {
+                        return 'bad_header';
+                    }
 
-                                                     return lc $v;
-                                                 },
-                                                },
-                                      },
-               };
+                    return lc $v;
+                },
+            },
+        },
+    };
 
     return $spec;
 }
@@ -733,32 +729,32 @@ sub _filterTrafficConsolidationSpec
 sub _popProxyFilterConsolidationSpec
 {
     my $spec = {
-                filter             => sub {
-                                       my ( $row) = @_;
-                                       return $row->{event} eq 'pop3_fetch_ok'
-                                      },
-                accummulateColumns => {
-                                       mails  => 0,
-                                       clean  => 0,
-                                       virus  => 0,
-                                       spam   => 0,
-                                      },
-                consolidateColumns => {
-                                       mails => {
-                                                accummulate => 'mails',
-                                               },
-                                       clean => {
-                                                accummulate => 'clean',
-                                               },
-                                       virus => {
-                                                accummulate => 'virus',
-                                               },
-                                       spam => {
-                                                accummulate => 'spam',
-                                               },
+        filter             => sub {
+            my ( $row) = @_;
+            return $row->{event} eq 'pop3_fetch_ok'
+        },
+        accummulateColumns => {
+            mails  => 0,
+            clean  => 0,
+            virus  => 0,
+            spam   => 0,
+        },
+        consolidateColumns => {
+            mails => {
+                accummulate => 'mails',
+            },
+            clean => {
+                accummulate => 'clean',
+            },
+            virus => {
+                accummulate => 'virus',
+            },
+            spam => {
+                accummulate => 'spam',
+            },
 
-                                      },
-               };
+        },
+    };
 
     return { mailfilter_pop_traffic => $spec };
 }

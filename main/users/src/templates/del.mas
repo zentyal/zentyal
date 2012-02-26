@@ -2,7 +2,7 @@
 -->
 <%args>
     $object
-    $name 
+    $name
     @data
 </%args>
 <%init>
@@ -10,12 +10,12 @@ use EBox::Gettext;
 </%init>
 
 % if ($object eq 'user') {
-<h3><% __('Deleting user') %> <span class="stitle"><% $name %></span></h3>
+<h3><% __('Deleting user') %> <span class="stitle"><% $name->name() %></span></h3>
 <div class="warning">
 <% __('The user you tried to delete contains data in the following modules. Please confirm you want to remove it and all its related data') %>
 </div>
 % } else {
-<h3><% __('Deleting group') %> <span class="stitle"><% $name %></span></h3>
+<h3><% __('Deleting group') %> <span class="stitle"><% $name->name() %></span></h3>
 <div class="warning">
 <% __('The group you tried to delete contains data in the following modules. Please confirm you want to remove it and all its related data') %>
 </div>
@@ -24,7 +24,7 @@ use EBox::Gettext;
 
 % foreach my $par (@data) {
 	<div class="warning">
-		<% $par %>			
+		<% $par %>
 	</div>
 % }
 <br/>
@@ -33,7 +33,7 @@ use EBox::Gettext;
     <input type='hidden' name='object'
            value='<% $object %>'/>
     <input type='hidden' name='objectname'
-           value='<% $name %>'/>
+           value='<% $name->dn() %>'/>
     <input class='inputButton'
 % if ($object eq 'user') {
            type='submit' name='deluserforce'

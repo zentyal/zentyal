@@ -27,7 +27,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Model::Row;
 use EBox::Exceptions::External;
-
+use EBox::UsersAndGroups::Group;
 
 use EBox::Types::Text;
 use EBox::Types::Link;
@@ -51,8 +51,7 @@ sub new
 sub _table
 {
     my @tableHead =
-        (
-
+    (
          new EBox::Types::Text(
              'fieldName' => 'name',
              'printableName' => __('Name'),
@@ -68,16 +67,14 @@ sub _table
              'printableName' => __('Edit'),
              ),
 
-        );
+    );
 
     my $dataTable =
     {
         'tableName' => 'Groups',
         'printableTableName' => __('Groups'),
-        'defaultController' =>
-            '/Users/Controller/Groups',
-        'defaultActions' =>
-            ['changeView'],
+        'defaultController' => '/Users/Controller/Groups',
+        'defaultActions' => ['changeView'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Groups',
         'help' => '',
@@ -158,7 +155,8 @@ sub ids
         return [];
     }
 
-    return [ map {$_->{gid}} $users->groups() ];
+    my @list = map { $_->dn() } @{$users->groups()};
+    return \@list;
 }
 
 # Method: row
@@ -170,14 +168,15 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $gidName = $users->gidGroup($id);
-    my $groupInfo  = $users->groupInfo($gidName);
-    my $desc = $groupInfo->{comment};
-    my $link = "/UsersAndGroups/Group?group=$gidName";
-    my $row = $self->_setValueRow(name => $gidName,
-            description => defined($desc) ? $desc : '-',
-            edit => $link);
+    my $group = new EBox::UsersAndGroups::Group(dn => $id);
+
+    my $desc = $group->get('description');
+    my $name = $group->get('cn');
+    my $link = "/UsersAndGroups/Group?group=" . $group->dn();
+    my $row = $self->_setValueRow(
+                    name => $name,
+                    description => defined($desc) ? $desc : '-',
+                    edit => $link);
     $row->setId($id);
     $row->setReadOnly(1);
     return $row;

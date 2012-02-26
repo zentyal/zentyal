@@ -14,7 +14,7 @@
 
     <table class="formTable">
     <form action="/Asterisk/AsteriskUserOptions" method="POST">
-        <input type="hidden" name="username" value="<% $params->{'username'} %>">
+        <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
         <tr>
         <td class="tright">
             <span class="ftitle"><% __('User account') %>:</span>

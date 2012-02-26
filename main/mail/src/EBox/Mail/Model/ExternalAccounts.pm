@@ -79,7 +79,6 @@ sub pageTitle
 #
 sub _table
 {
-
     my @tableHeader =
     (
         new EBox::Types::Text(
@@ -160,15 +159,14 @@ sub _mailProtocols
        ];
 }
 
-
-
-
 sub _user
 {
     my ($self) = @_;
     my $request = Apache2::RequestUtil->request();
     my $user = $request->user();
-    return $user;
+    my $users = EBox::Global->modInstance('users');
+
+    return new EBox::UsersAndGroups::User(dn => $users->userDn($user));
 }
 
 sub _userExternalAccounts
@@ -176,8 +174,7 @@ sub _userExternalAccounts
     my ($self) = @_;
     my $user = $self->_user();
 
-    my $accounts =
-      $self->{mailMod}->{fetchmail}->externalAccountsForUser($user);
+    my $accounts = $self->{mailMod}->{fetchmail}->externalAccountsForUser($user);
     return $accounts;
 }
 
@@ -187,8 +184,6 @@ sub _userAccount
     my $user = $self->_user();
     return $self->{mailMod}->{musers}->userAccount($user);
 }
-
-
 
 
 sub ids
@@ -202,7 +197,6 @@ sub ids
 
     my @ids = (1 .. ($nAccounts));
     return \@ids;
-
 }
 
 # Method: row

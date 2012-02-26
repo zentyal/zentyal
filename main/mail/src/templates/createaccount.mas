@@ -10,7 +10,7 @@ use EBox::Gettext;
 
 <form name='createaccount' action='/Mail/CreateAccount' method='POST'>
 
-    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+    <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
 	<h3><% __('Create mail account') %></h3>
 
 %     if (not $params->{service} )  {

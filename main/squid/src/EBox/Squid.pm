@@ -725,11 +725,8 @@ sub _writeSquidConf
     push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('dn'     => $users->ldap()->dn());
-    unless ($users->mode() eq 'slave') {
-        push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
-    } else {
-        push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'replicaport'});
-    }
+    push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
+
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
         my $rs = EBox::Global->modInstance('remoteservices');
