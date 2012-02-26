@@ -26,35 +26,36 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::UsersAndGroups::User;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Mail',
-                                      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Mail', @_);
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $mail = EBox::Global->modInstance('mail');
+sub _process
+{
+    my $self = shift;
+    my $mail = EBox::Global->modInstance('mail');
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->_requireParam('user', __('user'));
+    my $user = $self->unsafeParam('user');
+    $self->{redirect} = "UsersAndGroups/User?user=$user";
 
-	$self->keepParam('user');
+    $self->keepParam('user');
 
     $user = new EBox::UsersAndGroups::User(dn => $user);
-	$self->_requireParam('vdomain', __('virtual domain'));
-	my $vdomain = $self->param('vdomain');
-	$self->_requireParam('lhs', __('Mail address'));
-	my $lhs = $self->param('lhs');
-	my $mdsize = 0;
-	if (defined($self->param('mdsize'))) {
-		$mdsize = $self->param('mdsize');
-	}
+    $self->_requireParam('vdomain', __('virtual domain'));
+    my $vdomain = $self->param('vdomain');
+    $self->_requireParam('lhs', __('Mail address'));
+    my $lhs = $self->param('lhs');
+    my $mdsize = 0;
+    if (defined($self->param('mdsize'))) {
+        $mdsize = $self->param('mdsize');
+    }
 
-	$mail->{musers}->setUserAccount($user, $lhs, $vdomain, $mdsize);
+    $mail->{musers}->setUserAccount($user, $lhs, $vdomain, $mdsize);
 }
 
 1;

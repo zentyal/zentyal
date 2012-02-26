@@ -27,61 +27,64 @@ use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
-sub _warnUser($$) {
-	my ($self, $object, $ldapObject) = @_;
+sub _warnUser
+{
+    my ($self, $object, $ldapObject) = @_;
 
-	my $usersandgroups = EBox::Global->modInstance('users');
-	my $warns = $usersandgroups->allWarnings($object, $ldapObject);
+    my $usersandgroups = EBox::Global->modInstance('users');
+    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
 
-	if (@{$warns}) { # If any module wants to warn user
-		 $self->{template} = 'users/del.mas';
-		 $self->{redirect} = undef;
-		 my @array = ();
-		 push(@array, 'object' => $object);
-		 push(@array, 'name'   => $ldapObject);
-		 push(@array, 'data'   => $warns);
-		 $self->{params} = \@array;
-		 return 1;
-	}
+    if (@{$warns}) { # If any module wants to warn user
+         $self->{template} = 'users/del.mas';
+         $self->{redirect} = undef;
+         my @array = ();
+         push(@array, 'object' => $object);
+         push(@array, 'name'   => $ldapObject);
+         push(@array, 'data'   => $warns);
+         $self->{params} = \@array;
+         return 1;
+    }
 
-	return undef;
+    return undef;
 }
 
-sub _process($) {
-	my $self = shift;
+sub _process
+{
+    my $self = shift;
 
-	$self->_requireParam('objectname', __('object name'));
-	my $name = $self->unsafeParam('objectname');
-	my ($deluser, $delgroup);
+    $self->_requireParam('objectname', __('object name'));
+    my $name = $self->unsafeParam('objectname');
+    my ($deluser, $delgroup);
 
-	if ($self->param('cancel')) {
-		$self->_requireParam('object', __('object type'));
-	        my $object = $self->param('object');
-		if ($object eq 'user') {
-			$self->{redirect} = "UsersAndGroups/User?user=$name";
-		} else {
-			$self->{redirect} = "UsersAndGroups/Group?group=$name";
-		}
-	} elsif ($self->param('deluserforce')) { # Delete user
-		$deluser = 1;
-	} elsif ($self->param('delgroupforce')) {
-		$delgroup = 1;
-	} elsif ($self->unsafeParam('deluser')) {
+    if ($self->param('cancel')) {
+        $self->_requireParam('object', __('object type'));
+            my $object = $self->param('object');
+        if ($object eq 'user') {
+            $self->{redirect} = "UsersAndGroups/User?user=$name";
+        } else {
+            $self->{redirect} = "UsersAndGroups/Group?group=$name";
+        }
+    } elsif ($self->param('deluserforce')) { # Delete user
+        $deluser = 1;
+    } elsif ($self->param('delgroupforce')) {
+        $delgroup = 1;
+    } elsif ($self->unsafeParam('deluser')) {
         my $user = new EBox::UsersAndGroups::User(dn => $name);
-		$deluser = not $self->_warnUser('user', $user);
-	} elsif ($self->unsafeParam('delgroup')) {
+        $deluser = not $self->_warnUser('user', $user);
+    } elsif ($self->unsafeParam('delgroup')) {
         my $group = new EBox::UsersAndGroups::Group(dn => $name);
-		$delgroup = not $self->_warnUser('group', $group);
-	}
+        $delgroup = not $self->_warnUser('group', $group);
+    }
 
     if ($deluser) {
         my $user = new EBox::UsersAndGroups::User(dn => $name);

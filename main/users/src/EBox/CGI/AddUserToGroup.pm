@@ -24,35 +24,34 @@ use EBox::Global;
 use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 
-
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
+sub _process
+{
+    my $self = shift;
+    my @args = ();
 
-sub _process($) {
-	my $self = shift;
-	my @args = ();
+    $self->_requireParam('group' , __('group'));
+    my $group = $self->unsafeParam('group');
+    $self->{errorchain} = "UsersAndGroups/Group";
+    $self->keepParam('group');
 
-	$self->_requireParam('group' , __('group'));
-	my $group = $self->unsafeParam('group');
-	$self->{errorchain} = "UsersAndGroups/Group";
-	$self->keepParam('group');
-
-	$self->_requireParam('adduser', __('user'));
-	my @users = $self->unsafeParam('adduser');
+    $self->_requireParam('adduser', __('user'));
+    my @users = $self->unsafeParam('adduser');
 
     $group = new EBox::UsersAndGroups::Group(dn => $group);
-	foreach my $us (@users){
+    foreach my $us (@users){
         $group->addMember(new EBox::UsersAndGroups::User(dn => $us));
-	}
+    }
 
     $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
-
 
 1;

@@ -26,32 +26,33 @@ use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
+sub _process
+{
+    my $self = shift;
 
-	$self->_requireParam('groupname', __('group name'));
-	my $group = $self->unsafeParam('groupname');
+    $self->_requireParam('groupname', __('group name'));
+    my $group = $self->unsafeParam('groupname');
 
-	$self->{errorchain} = "UsersAndGroups/Group";
+    $self->{errorchain} = "UsersAndGroups/Group";
 
-	$self->cgi()->param(-name=>'group', -value=>$group);
-	$self->keepParam('group');
+    $self->cgi()->param(-name=>'group', -value=>$group);
+    $self->keepParam('group');
 
-	$self->_requireParamAllowEmpty('comment', __('comment'));
+    $self->_requireParamAllowEmpty('comment', __('comment'));
 
     my $group = new EBox::UsersAndGroups::Group(dn => $group);
     $group->set('description', $self->param('comment'));
 
-	$self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
+    $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
-
 
 1;
