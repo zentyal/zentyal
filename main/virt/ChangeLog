@@ -1,4 +1,5 @@
 2.3
+	+ Do not manually specify emulator in xml to make it work in precise
 	+ Use novnc package in precise instead of custom one
 	+ Validation of the format of the disk files
 	+ Removed VMs are stopped, better treatment of disk addition errors
