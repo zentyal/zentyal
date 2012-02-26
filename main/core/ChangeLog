@@ -1,4 +1,5 @@
 HEAD
+	+ Set log level to debug when cannot compute md5 for a nonexistent file
 	+ Filtering in tables is now case insensitive
 	+ ProgressIndicator no longer leaves zombie processes in the system
 	+ Implemented mysqldump for logs database
