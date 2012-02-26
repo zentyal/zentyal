@@ -21,7 +21,9 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider);
+            EBox::Report::DiskUsageProvider
+            EBox::NetworkObserver
+          );
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
@@ -371,9 +373,15 @@ sub systemTypes
 sub ifaces
 {
     my ($self) = @_;
-
     return $self->{backend}->ifaces();
 }
+
+sub allowsNoneIface
+{
+    my ($self) = @_;
+    return $self->{backend}->allowsNoneIface();
+}
+
 
 sub manageScript
 {
@@ -782,6 +790,58 @@ sub _vmWidget
 sub _randPassVNC
 {
     return join ('', map +(0..9,'a'..'z','A'..'Z')[rand(10+26*2)], 1..8);
+}
+
+sub freeIface
+{
+    my ($self, $iface) = @_;
+    my $vms = $self->model('VirtualMachines');
+    my $globalRO     = EBox::Global->getInstance(1);
+    my $networkMod = $globalRO->modInstance('network');
+    if ($networkMod->ifaceMethod($iface) eq 'bridged') {
+        my $bridgeId = $networkMod->ifaceBridge($iface);
+        if ($bridgeId) {
+            my $bridge = "br$bridgeId";
+            my $nBridgeIfaces = @{ $networkMod->bridgeIfaces($bridge) };
+            if ($nBridgeIfaces == 1) {
+                $vms->freeIface($bridge);
+            }
+
+        }
+    }
+
+    $vms->freeIface($iface);
+}
+
+sub freeViface
+{
+    my ($self, $iface, $viface) = @_;
+    $self->freeIface($viface);
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+    my $vms = $self->model('VirtualMachines');
+
+    if ($oldmethod eq 'bridged') {
+        my $globalRO     = EBox::Global->getInstance(1);
+        my $networkMod = $globalRO->modInstance('network');
+        my $bridgeId = $networkMod->ifaceBridge($iface);
+        if ($bridgeId) {
+            my $bridge = "br$bridgeId";
+            my $nBridgeIfaces = @{ $networkMod->bridgeIfaces($bridge) };
+            if ($nBridgeIfaces == 1) {
+                my $inconsistent =
+                    $vms->ifaceMethodChanged($bridge, $networkMod->ifaceMethod($bridge) ,'notset');
+                if ($inconsistent) {
+                    return $inconsistent;
+                }
+            }
+        }
+    }
+
+    $vms->ifaceMethodChanged($iface, $oldmethod, $newmethod);
 }
 
 1;

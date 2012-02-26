@@ -215,6 +215,8 @@ sub validateTypedRow
                                                        $allFields->{name}->value();
             unless ($name) {
                 throw EBox::Exceptions::External(__('You need to specify a name for the new hard disk'));
+            } else {
+                $self->_checkHdName($name);
             }
 
             my $vmRow = $self->parentRow();
@@ -249,6 +251,20 @@ sub validateTypedRow
             }
         }
     }
+}
+
+
+sub _checkHdName
+{
+    my ($self, $name) = @_;
+    unless ($name =~ m/^[\d\w]+$/) { # non-ascii characters are ok
+        throw EBox::Exceptions::InvalidData(
+            data => __('HardDisk name'),
+            value => $name,
+            advice => __('The name should contain only character, digits and underscores'),
+           );
+    }
+
 }
 
 sub deletedRowNotify

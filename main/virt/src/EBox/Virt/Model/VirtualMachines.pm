@@ -367,4 +367,32 @@ sub _doResume
     $self->setMessage($action->message(), 'note');
 }
 
+sub freeIface
+{
+    my ($self, $iface) = @_;
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        my $settings = $row->subModel('settings');
+        my $networkSettings = $settings->componentByName('NetworkSettings');
+        $networkSettings->freeIface($iface);
+    }
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+    foreach my $id (@{ $self->ids()  }) {
+        my $confInconsistent;
+        my $row = $self->row($id);
+        my $settings = $row->subModel('settings');
+        my $networkSettings = $settings->componentByName('NetworkSettings');
+        $confInconsistent = $networkSettings->ifaceMethodChanged($iface, $oldmethod, $newmethod);
+        if ($confInconsistent) {
+            return $confInconsistent;
+        }
+    }
+
+    return undef;
+}
+
 1;
