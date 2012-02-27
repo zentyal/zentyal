@@ -105,6 +105,12 @@ sub actions
             'reason' => __('Zarafa will be accesible at http://ip/webaccess/.'),
             'module' => 'zarafa'
         },
+        {
+            'action' => __('Install English/United States locale on the system if it is not already installed'),
+            'reason' => __('Zarafa needs this locale to run.'),
+            'module' => 'zarafa'
+        },
+
     ];
 }
 
