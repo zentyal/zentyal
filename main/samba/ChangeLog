@@ -1,5 +1,5 @@
 HEAD
-	+ Service name is now translatable
+	+ Service description is now translatable
 	+ Restore samba-vscan dependency
 2.3
 	+ Adapted to new MySQL logs backend

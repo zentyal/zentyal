@@ -134,7 +134,7 @@ sub initialSetup
 
     # Create default rules only if installing the first time
     unless ($version) {
-        $self->setInternalService('eBox administration', 'accept');
+        $self->setInternalService('administration', 'accept');
         $self->setInternalService('ssh', 'accept');
 
         my $services = EBox::Global->modInstance('services');

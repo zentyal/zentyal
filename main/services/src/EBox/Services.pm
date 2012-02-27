@@ -88,27 +88,31 @@ sub _defaultServices
     return [
         {
          'name' => 'any',
-         'description' => __('any protocol and port'),
+         'printableName' => __('Any'),
+         'description' => __('Any protocol and port'),
          'protocol' => 'any',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'any UDP',
-         'description' => __('any UDP port'),
+         'printableName' => __('Any UDP'),
+         'description' => __('Any UDP port'),
          'protocol' => 'udp',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'any TCP',
-         'description' => __('any TCP port'),
+         'printableName' => __('Any TCP'),
+         'description' => __('Any TCP port'),
          'protocol' => 'tcp',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
-         'name' => 'eBox administration',
+         'name' => 'administration',
+         'printableName' => __('Zentyal Administration'),
          'description' => __('Zentyal Administration Web Server'),
          'protocol' => 'tcp',
          'destinationPort' => $apachePort,
@@ -116,14 +120,16 @@ sub _defaultServices
         },
         {
          'name' => 'ssh',
-         'description' => 'SSH',
+         'printableName' => 'SSH',
+         'description' => __('Secure Shell'),
          'protocol' => 'tcp',
          'destinationPort' => '22',
          'internal' => 0,
         },
         {
          'name' => 'HTTP',
-         'description' => 'HTTP',
+         'printableName' => 'HTTP',
+         'description' => __('HyperText Transport Protocol'),
          'protocol' => 'tcp',
          'destinationPort' => '80',
          'internal' => 0,
@@ -481,13 +487,16 @@ sub setAdministrationPort
 
     checkPort($port, __("port"));
 
-    $self->setService('name' => __d('eBox administration'),
-            'description' => __d('Zentyal Administration Web Server'),
+    $self->setService(
+            'name' => 'administration',
+            'printableName' => __('Zentyal Administration'),
+            'description' => __('Zentyal Administration Web Server'),
             'protocol' => 'tcp',
             'sourcePort' => 'any',
             'destinationPort' => $port,
             'internal' => 1,
-            'readOnly' => 1);
+            'readOnly' => 1
+    );
 }
 
 # Method: availablePort

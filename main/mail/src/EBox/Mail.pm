@@ -263,6 +263,7 @@ sub _serviceRules
              },
              {
               'name' => 'Incoming Mail',
+              'printableName' => __('Incoming Mail'),
               'description' => __('POP, IMAP and SIEVE protocols'),
               'internal' => 1,
               'protocol' => 'tcp',
@@ -272,6 +273,7 @@ sub _serviceRules
              },
              {
               'name' => 'Mail Submission',
+              'printableName' => __('Mail Submission'),
               'description' => __('Outgoing Mail (Submission protocol).'),
               'internal' => 1,
               'protocol' => 'tcp',
