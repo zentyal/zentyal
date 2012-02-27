@@ -105,7 +105,7 @@ sub bootDepends
 
 # Method: actions
 #
-#	Override EBox::Module::Service::actions
+#   Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -184,7 +184,8 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-				'description' =>  __d('File sharing (Samba) protocol'),
+                'printableName' => 'Samba',
+                'description' => __('File sharing (Samba) protocol'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),
@@ -645,7 +646,7 @@ sub setSambaLdapToolsConf
     my @array = ();
     push(@array, 'netbios'  => $netbios);
     push(@array, 'domain'   => $domain);
-    push(@array, 'sid'	    => $sid);
+    push(@array, 'sid'      => $sid);
     push(@array, 'ldap'     => $ldap->ldapConf());
 
     $self->writeConfFile(SMBLDAPTOOLCONFFILE, "samba/smbldap.conf.mas",
@@ -763,7 +764,7 @@ sub usersByShareWidget
 
 # Method: widgets
 #
-#	Override EBox::Module::widgets
+#   Override EBox::Module::widgets
 #
 sub widgets
 {
@@ -850,19 +851,19 @@ sub setPrinterService # (enabled)
     ($active and $self->printerService) and return;
     (!$active and !$self->printerService) and return;
 
-#	if ($active) {
-#		if (not $self->fileService) {
-#			my $fw = EBox::Global->modInstance('firewall');
-#			foreach my $smbport (SMBPORTS) {
-#				unless ($fw->availablePort('tcp',$smbport) and
-#					$fw->availablePort('udp',$smbport)) {
-#					throw EBox::Exceptions::DataExists(
-#					'data'  => __('listening port'),
-#					'value' => $smbport);
-#				}
-#			}
-#		}
-#	}
+#   if ($active) {
+#       if (not $self->fileService) {
+#           my $fw = EBox::Global->modInstance('firewall');
+#           foreach my $smbport (SMBPORTS) {
+#               unless ($fw->availablePort('tcp',$smbport) and
+#                   $fw->availablePort('udp',$smbport)) {
+#                   throw EBox::Exceptions::DataExists(
+#                   'data'  => __('listening port'),
+#                   'value' => $smbport);
+#               }
+#           }
+#       }
+#   }
     $self->set_bool('printer_active', $active);
 }
 
@@ -900,7 +901,7 @@ sub pdc
 
 #   Method: adminUser
 #
-#	Check if a given user is a Domain Administrator
+#   Check if a given user is a Domain Administrator
 #
 #   Parameters:
 #
@@ -935,12 +936,12 @@ sub  adminUser
 
 #   Method: setAdminUser
 #
-#	Add a given user to the Domain Admins group
+#   Add a given user to the Domain Admins group
 #
 #   Parameters:
 #
 #       user - string containign the username
-#	admin -  true if it must be an administrator, undef otherwise
+#   admin -  true if it must be an administrator, undef otherwise
 #
 #
 sub  setAdminUser

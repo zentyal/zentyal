@@ -92,6 +92,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
+                'printableName' => 'Jabber',
                 'description' => __('Jabber Server'),
                 'internal' => 1,
                 'readOnly' => 1,

@@ -167,7 +167,8 @@ sub initialSetup
 
         $fw->addInternalService(
                 'name' => 'ldap',
-                'description' => 'LDAP',
+                'printableName' => 'LDAP',
+                'description' => __('Lightweight Directory Access Protocol'),
                 'protocol' => 'tcp',
                 'sourcePort' => 'any',
                 'destinationPort' => 389,

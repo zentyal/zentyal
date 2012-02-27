@@ -1,6 +1,8 @@
 HEAD
+	+ New printableName for POP Transparent proxy service
 	+ Adapted to new users implementation
 2.3
+	+ Service names are now translatable
 	+ Adapted to new MySQL logs backend
 	+ Use MySQL instead of PostgreSQL for spamassassin database
 	+ Added methods to get learn accounts for a domain

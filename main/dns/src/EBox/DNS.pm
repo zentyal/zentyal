@@ -628,7 +628,8 @@ sub initialSetup
         unless ($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => 'Domain Name Service',
+                'printableName' => 'DNS',
+                'description' => __('Domain Name Service'),
                 'readOnly' => 1,
                 'services' => $self->_services(),
             );

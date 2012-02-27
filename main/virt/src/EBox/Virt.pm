@@ -98,7 +98,8 @@ sub initialSetup
         unless ($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __('VNC connections for VMs'),
+                'printableName' => __('Virtual Machines VNC'),
+                'description' => __('VNC connections for Zentyal VMs'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => [

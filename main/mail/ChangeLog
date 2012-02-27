@@ -1,4 +1,5 @@
 HEAD
+	+ New translatable printableNames for mail services
 	+ Adapted to new users implementation
 	+ Fixed wrong method call in MailUserLdap
 2.3

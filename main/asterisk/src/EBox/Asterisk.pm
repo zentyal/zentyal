@@ -183,7 +183,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('Zentyal VoIP system'),
+                'description' => __('Zentyal VoIP system'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

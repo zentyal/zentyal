@@ -107,6 +107,16 @@ sub _table
         ),
         new EBox::Types::Text(
             'fieldName' => 'name',
+            'printableName' => __('Internal name'),
+            'localizable' => 1,
+            'size' => '20',
+            'unique' => 1,
+            'editable' => 1,
+            'hidden' => 1,
+            'optional' => 1,
+        ),
+        new EBox::Types::Text(
+            'fieldName' => 'printableName',
             'printableName' => __('Service name'),
             'localizable' => 1,
             'size' => '20',
@@ -245,6 +255,7 @@ sub serviceFromPort
 
     return undef;
 }
+
 # Method: addService
 #
 #   Add service to the services table. Note this method must exist
@@ -253,13 +264,14 @@ sub serviceFromPort
 # Parameters:
 #
 #   (NAMED)
-#   name        - service's name
-#   description - service's description
-#   protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
-#   sourcePort  - it can take:
-#                   "any"
-#                   An integer from 1 to 65536 -> 22
-#                   Two integers separated by colons -> 22:25
+#   name          - service's internal name
+#   printableName - service's printable name
+#   description   - service's description
+#   protocol      - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#   sourcePort    - it can take:
+#                     "any"
+#                     An integer from 1 to 65536 -> 22
+#                     Two integers separated by colons -> 22:25
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
 #   readOnly - the service can't be deleted or modified
@@ -520,12 +532,19 @@ sub _serviceParams
     my (%params) = @_;
 
     my $name = delete $params{'name'};
+    my $printableName = delete $params{'printableName'};
+    unless ($name) {
+        $name = $printableName;
+    }
     my $description = delete $params{'description'};
     my $internal = $params{'internal'};
     my $readonly = $params{'readOnly'};
 
-    return ('name' => $name, 'description' => $description,
-            'internal' => $internal, 'readOnly' => $readonly);
+    return ('name' => $name,
+            'printableName' => $printableName,
+            'description' => $description,
+            'internal' => $internal,
+            'readOnly' => $readonly);
 }
 
 sub _serviceConfParams
