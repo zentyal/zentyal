@@ -37,15 +37,17 @@ my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or die ('progress executable not run');
 
 my $command = EBox::Config::boolean('software-autoremove')  ?  'autoremove' : 'remove';
+my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
 
 my ($retValue, $errorMsg) = (0, '');
-
 try {
     my $fifo = '/var/lib/zentyal/apt-remove.pipe';
 
     #Clean fifo
     EBox::Sudo::silentRoot ("rm $fifo");
     EBox::Sudo::silentRoot ("mkfifo $fifo");
+
+    $apacheMod->disableRestartOnTrigger();
 
     EBox::info('Begin packages remove');
 
@@ -98,14 +100,14 @@ try {
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
 } finally {
+    $apacheMod->enableRestartOnTrigger();
     try {
         EBox::info("End packages remove");
         my $global = EBox::Global->getInstance(1);
         my $software = $global->modInstance('software');
         #causes the cache to be generated
         $software->listUpgradablePkgs(1);
-        my $apache = EBox::Global->modInstance('apache');
-        $apache->_daemon('restart');
+        $apacheMod->_daemon('restart');
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it
