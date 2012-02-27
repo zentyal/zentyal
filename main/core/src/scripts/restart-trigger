@@ -21,9 +21,15 @@ use strict;
 
 use EBox;
 use EBox::Util::Init;
+use EBox::Global;
 use Error qw(:try);
 
 EBox::init();
+
+my $apacheMod = EBox::Global->getInstance()->modInstance('apache');
+unless ($apacheMod->restartOnTrigger()) {
+    exit 0;
+}
 
 foreach my $modName (qw(apache logs events)) {
     EBox::Util::Init::moduleRestart($modName);

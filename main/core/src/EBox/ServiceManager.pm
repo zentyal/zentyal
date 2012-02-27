@@ -628,7 +628,7 @@ sub  _getMD5
     my ($self, $path) = @_;
 
     unless (EBox::Sudo::fileTest('-e', $path)) {
-        EBox::info("File $path does not exist. So we won't compute its digest");
+        EBox::debug("File $path does not exist. So we won't compute its digest");
         return 'notexists';
     }
 

@@ -1,3 +1,5 @@
+HEAD
+	+ Fix bug in report when there is no data to report
 2.3
 	+ Adapted to new MySQL logs backend
 	+ Do not show invalid edit action in BWUsage model

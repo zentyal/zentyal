@@ -21,7 +21,9 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider);
+            EBox::Report::DiskUsageProvider
+            EBox::NetworkObserver
+          );
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
@@ -202,21 +204,11 @@ sub _setConf
 
     $backend->initInternalNetworks();
 
-    my $updateFwService = 0;
-
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $name = $vm->valueByName('name');
         $currentVMs{$name} = 1;
-
-        my $vncport = $vm->valueByName('vncport');
-        unless ($vncport) {
-            $vncport = $self->firstFreeVNCPort();
-            $vm->elementByName('vncport')->setValue($vncport);
-            $vm->store();
-            $updateFwService = 1;
-        }
 
         my $rewrite = 1;
         if ($self->usingVBox()) {
@@ -235,14 +227,12 @@ sub _setConf
             $self->_setNetworkConf($name, $settings);
             $self->_setDevicesConf($name, $settings);
         }
+
+        my $vncport = $vm->valueByName('vncport');
         $self->_writeMachineConf($name, $vncport, $vncPasswords{$name});
         $backend->writeConf($name);
     }
     $backend->createInternalNetworks();
-
-    if ($updateFwService) {
-        $self->updateFirewallService();
-    }
 
     # Delete non-referenced VMs
     my $existingVMs = $backend->listVMs();
@@ -258,6 +248,7 @@ sub _setConf
     chmod (0600, VNC_PASSWD_FILE);
 }
 
+# TODO: only update service if the ports are different
 sub updateFirewallService
 {
     my ($self) = @_;
@@ -371,9 +362,15 @@ sub systemTypes
 sub ifaces
 {
     my ($self) = @_;
-
     return $self->{backend}->ifaces();
 }
+
+sub allowsNoneIface
+{
+    my ($self) = @_;
+    return $self->{backend}->allowsNoneIface();
+}
+
 
 sub manageScript
 {
@@ -667,19 +664,34 @@ sub _importCurrentVNCPorts
 sub firstFreeVNCPort
 {
     my ($self) = @_;
-
-    my $maxPortUsed = 0;
-
+    my @ports;
     my $vms = $self->model('VirtualMachines');
     foreach my $vmId (@{$vms->ids()}) {
         my $vm = $vms->row($vmId);
         my $vncport = $vm->valueByName('vncport');
-        if ($vncport and ($vncport > $maxPortUsed)) {
-            $maxPortUsed = $vncport;
-        }
+        push @ports, $vncport if $vncport;
     }
 
-    return $maxPortUsed ? $maxPortUsed + 1 : $self->firstVNCPort();
+    my $firstPort = $self->firstVNCPort();
+    if (@ports == 0) {
+        return $firstPort;
+    }
+
+    @ports = sort @ports;
+    if ($ports[0] < $firstPort) {
+        return $firstPort;
+    }
+
+    my $prev = shift @ports;
+    foreach my $port (@ports) {
+        if (($port - $prev) > 1) {
+            # hole found
+            return $prev + 1;
+        }
+        $prev = $port;
+    }
+
+    return $prev + 1;
 }
 
 sub consoleWidth
@@ -693,7 +705,6 @@ sub consoleWidth
 sub consoleHeight
 {
     my ($self) = @_;
-
     my $vncport = EBox::Config::configkey('view_console_height');
     return $vncport ? $vncport : 600;
 }
@@ -782,6 +793,58 @@ sub _vmWidget
 sub _randPassVNC
 {
     return join ('', map +(0..9,'a'..'z','A'..'Z')[rand(10+26*2)], 1..8);
+}
+
+sub freeIface
+{
+    my ($self, $iface) = @_;
+    my $vms = $self->model('VirtualMachines');
+    my $globalRO     = EBox::Global->getInstance(1);
+    my $networkMod = $globalRO->modInstance('network');
+    if ($networkMod->ifaceMethod($iface) eq 'bridged') {
+        my $bridgeId = $networkMod->ifaceBridge($iface);
+        if ($bridgeId) {
+            my $bridge = "br$bridgeId";
+            my $nBridgeIfaces = @{ $networkMod->bridgeIfaces($bridge) };
+            if ($nBridgeIfaces == 1) {
+                $vms->freeIface($bridge);
+            }
+
+        }
+    }
+
+    $vms->freeIface($iface);
+}
+
+sub freeViface
+{
+    my ($self, $iface, $viface) = @_;
+    $self->freeIface($viface);
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+    my $vms = $self->model('VirtualMachines');
+
+    if ($oldmethod eq 'bridged') {
+        my $globalRO     = EBox::Global->getInstance(1);
+        my $networkMod = $globalRO->modInstance('network');
+        my $bridgeId = $networkMod->ifaceBridge($iface);
+        if ($bridgeId) {
+            my $bridge = "br$bridgeId";
+            my $nBridgeIfaces = @{ $networkMod->bridgeIfaces($bridge) };
+            if ($nBridgeIfaces == 1) {
+                my $inconsistent =
+                    $vms->ifaceMethodChanged($bridge, $networkMod->ifaceMethod($bridge) ,'notset');
+                if ($inconsistent) {
+                    return $inconsistent;
+                }
+            }
+        }
+    }
+
+    $vms->ifaceMethodChanged($iface, $oldmethod, $newmethod);
 }
 
 1;

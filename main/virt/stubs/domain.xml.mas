@@ -24,7 +24,6 @@
     <on_reboot>restart</on_reboot>
     <on_crash>restart</on_crash>
     <devices>
-        <emulator>/usr/bin/<% $emulator %></emulator>
 % foreach my $iface (@ifaces) {
 %       my $mac = $iface->{mac};
         <interface type='<% $iface->{type} %>'>

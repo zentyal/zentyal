@@ -47,7 +47,7 @@ $group
 @vdomains
 </%args>
 <form action='/Mail/CreateGroupAlias' method='POST'>
-    <input type="hidden" name="group" value="<% $group %>">
+    <input type="hidden" name="group" value="<% $group->dn() %>">
 			<tr>
 				<td>
 					<input type='text' class='inputText' name='lhs'>

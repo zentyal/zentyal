@@ -1,5 +1,6 @@
 HEAD
 	+ Service name is now translatable
+	+ Adapted to new users implementation
 2.3
 	+ Added init.d type to _daemons
 	+ Adapted to new MySQL logs backend
