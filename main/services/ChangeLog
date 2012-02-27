@@ -1,4 +1,6 @@
 HEAD
+	+ Now name is just an internal id, it is optional and hidden and defaults
+	  to printableName in case of services manually added by the user
 	+ Better printableNames for default services
 	+ Service names are now translatable
 2.3.1

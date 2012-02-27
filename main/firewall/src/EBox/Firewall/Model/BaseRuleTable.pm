@@ -176,11 +176,11 @@ sub _fieldDescription
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
                 'foreignModel' => \&serviceModel,
-                'foreignField' => 'name',
+                'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,
                 'help' => __('If inverse match is ticked, any ' .
-                    'service but the selected one will match this rule')
+                             'service but the selected one will match this rule')
 
                 ),
             new EBox::Types::Text(
