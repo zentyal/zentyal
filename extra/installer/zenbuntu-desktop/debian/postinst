@@ -19,7 +19,7 @@ then
     sed -i 's/start on/start on zentyal-lxdm and/' /etc/init/lxdm.conf
 fi
 
-if -f /etc/default/grub
+if [ -f /etc/default/grub ]
 then
     if ! grep -q splash /etc/default/grub
     then

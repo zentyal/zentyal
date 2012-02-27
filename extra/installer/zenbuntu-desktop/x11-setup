@@ -21,8 +21,8 @@ echo "mode: off" > $DIR/.xscreensaver
 echo "selected: -1" >> $DIR/.xscreensaver
 chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
 
-mkdir $DIR/.mozilla
-cp -r /usr/share/zenbuntu-desktop/firefox-profile $DIR/.mozilla/firefox
+mkdir -p $DIR/.mozilla/firefox
+cp -r /usr/share/zenbuntu-desktop/firefox-profile/* $DIR/.mozilla/firefox
 chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
 chmod -R +w $DIR/.mozilla
 
