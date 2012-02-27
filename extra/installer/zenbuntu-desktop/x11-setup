@@ -23,14 +23,15 @@ chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
 
 mkdir -p $DIR/.mozilla/firefox
 cp -r /usr/share/zenbuntu-desktop/firefox-profile/* $DIR/.mozilla/firefox
-chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
-chmod -R +w $DIR/.mozilla
 
 PROFILE=$DIR/.mozilla/firefox/ebox.default
 CERT=/var/lib/zentyal/conf/ssl/ssl.cert
 ID='zentyal'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /usr/share/zenbuntu-desktop/firefox-cert-override > $PROFILE/cert_override.txt
+
+chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
+chmod -R +w $DIR/.mozilla
 
 # Copy LXDM theme
 mv /usr/share/zenbuntu-desktop/lxdm/background.png /usr/share/backgrounds/default.png
