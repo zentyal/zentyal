@@ -27,21 +27,21 @@ sub debug
 {
     my ($msg) = @_;
 #    print "$msg\n";
-#    EBox::debug ("s4sync: $msg");
+    EBox::debug ("$msg");
 }
 
 sub info
 {
     my ($msg) = @_;
 #    print "$msg\n";
-    EBox::info ("s4sync: $msg");
+    EBox::info ("$msg");
 }
 
 sub error
 {
     my ($msg) = @_;
 #    print "$msg\n";
-    EBox::error ("s4sync: $msg");
+    EBox::error ("$msg");
 }
 
 #############################################################################

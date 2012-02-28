@@ -2525,6 +2525,7 @@ sub _generateDNSConfig
         my $firstId = $ids->[0];
         my $firstRow = $resolver->row($firstId);
         if ($dns->isEnabled()) {
+            my $add = 1;
             if (defined ($firstRow)) {
                 if ($firstRow->valueByName('nameserver') ne '127.0.0.1') {
                     # Remove local resolver if it exists
@@ -2533,12 +2534,16 @@ sub _generateDNSConfig
                             $resolver->removeRow($id);
                         }
                     }
+                } else {
+                    $add = 0;
                 }
             }
-            # Now add in the first place
-            $resolver->table->{'insertPosition'} = 'front';
-            $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
-            $resolver->table->{'insertPosition'} = 'back';
+            if ($add) {
+                # Now add in the first place
+                $resolver->table->{'insertPosition'} = 'front';
+                $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
+                $resolver->table->{'insertPosition'} = 'back';
+            }
         } else {
             # If we have added it before remove when module is disabled.
             if (defined ($firstRow) and ($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {

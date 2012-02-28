@@ -35,17 +35,14 @@ use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Model::ModelManager;
 use EBox::Exceptions::DataInUse;
-#use EBox::SambaLdapUser;
 use EBox::Sudo;
 
 use Error qw(:try);
 
 # TODO Fix
-use constant EBOX_SHARE_DIR => '/home/ebox/shares/'; #EBox::SambaLdapUser::basePath() . '/shares/';
 use constant DEFAULT_MASK => '0670';
-use constant DEFAULT_USER => 'ebox';
-# TODO Fix
-use constant DEFAULT_GROUP => 'sambashare'; #__USERS__';
+use constant DEFAULT_USER => 'root';
+use constant DEFAULT_GROUP => '__USERS__';
 use constant GUEST_DEFAULT_MASK => '0750';
 use constant GUEST_DEFAULT_USER => 'nobody';
 use constant GUEST_DEFAULT_GROUP => 'nogroup';
@@ -74,7 +71,7 @@ sub new
     my ($class, %opts) = @_;
 
     my $self = $class->SUPER::new(%opts);
-    bless ( $self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -91,8 +88,7 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc =
-      (
+    my @tableDesc = (
        new EBox::Types::Text(
                                fieldName     => 'share',
                                printableName => __('Share name'),
@@ -105,7 +101,7 @@ sub _table
                                subtypes =>
                                 [
                                      new EBox::Types::Text(
-                                       fieldName     => 'ebox',
+                                       fieldName     => 'zentyal',
                                        printableName =>
                                             __('Directory under Zentyal'),
                                        editable      => 1,
@@ -118,7 +114,7 @@ sub _table
                                        unique        => 1,
                                                           ),
                                ],
-                               help => _pathHelp()),
+                               help => _pathHelp($self->parentModule()->SHARES_DIR())),
        new EBox::Types::Text(
                                fieldName     => 'comment',
                                printableName => __('Comment'),
@@ -212,8 +208,8 @@ sub removeRow
         return $self->SUPER::removeRow($id, $force);
     }
 
-    my $path =  EBOX_SHARE_DIR;
-    $path .= $row->elementByName('path')->value();
+    my $path =  $self->parentModule()->SHARES_DIR() . '/' .
+                $row->valueByName('path');
     unless ( -d $path) {
         return $self->SUPER::removeRow($id, $force);
     }
@@ -243,10 +239,10 @@ sub deletedRowNotify
     my $path = $row->elementByName('path');
 
     # We are only interested in shares created under /home/samba/shares
-    return unless ($path->selectedType() eq 'ebox');
+    return unless ($path->selectedType() eq 'zentyal');
 
     my $mgr = EBox::Model::ModelManager->instance();
-    my $deletedModel = $mgr ->model('Samba4DeletedShares');
+    my $deletedModel = $mgr->model('Samba4DeletedShares');
     $deletedModel->addRow('path' => $path->value());
 }
 
@@ -262,9 +258,8 @@ sub createDirs
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $pathType =  $row->elementByName('path');
-        next unless ( $pathType->selectedType() eq 'ebox');
-        my $path = EBOX_SHARE_DIR . $pathType->value();
-        EBox::debug('Path ' . $path);
+        next unless ( $pathType->selectedType() eq 'zentyal');
+        my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds;
         push(@cmds, "mkdir -p $path");
         if ($row->elementByName('guest')->value()) {
@@ -274,7 +269,8 @@ sub createDirs
            push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
            push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
         }
-        push(@cmds, "setfacl -b $path");
+        push (@cmds, "setfacl -b $path"); # Remove acl entries
+        EBox::debug("Executing '@cmds'");
         EBox::Sudo::root(@cmds);
         # ACLs
         my @perms;
@@ -312,13 +308,14 @@ sub createDirs
     }
 }
 
-
 # Private methods
 sub _pathHelp
 {
+    my ($sharesPath) = @_;
+
     return __x( '{openit}Directory under Zentyal{closeit} will ' .
             'automatically create the share.' .
-            'directory in /home/samba/shares {br}' .
+            "directory in $sharesPath {br}" .
             '{openit}File system path{closeit} will allow you to share '.
             'an existing directory within your file system',
                openit  => '<i>',
@@ -342,7 +339,7 @@ sub _sharesHelp
 #
 sub headTitle
 {
-        return undef;
+    return undef;
 }
 
 1;

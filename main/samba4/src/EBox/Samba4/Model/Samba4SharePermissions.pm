@@ -61,32 +61,25 @@ sub new
 
 sub populateUser
 {
-#    my $userMod = EBox::Global->modInstance('users');
-#    my @users = map (
-#                {
-#                    value => $_->{uid},
-#                    printableValue => $_->{user}
-#                }, @{$userMod->usersList()}
-#            );
-    my @users;
-
-#    push (@roles, { value => 'dc', printableValue => __('Domain controller')});
-#    push (@roles, { value => 'member', printableValue => __('Secundary domain controller')});
-#    push (@roles, { value => 'standalone', printableValue => __('Standalone')});
-
+    my $userMod = EBox::Global->modInstance('users');
+    my @users = map (
+                {
+                    value => $_->{uid},
+                    printableValue => $_->{user}
+                }, @{$userMod->usersList()}
+            );
     return \@users;
 }
 
 sub populateGroup
 {
-#    my $userMod = EBox::Global->modInstance('users');
-#    my @groups = map (
-#                {
-#                    value => $_->{gid},
-#                    printableValue => $_->{account}
-#                }, $userMod->groups()
-#            );
-    my @groups;
+    my $userMod = EBox::Global->modInstance('users');
+    my @groups = map (
+                {
+                    value => $_->{gid},
+                    printableValue => $_->{account}
+                }, $userMod->groups()
+            );
     return \@groups;
 }
 

@@ -69,7 +69,7 @@ sub _description
             pageTitle       => __('File Sharing'),
             printableName   => __('File sharing options'),
             compositeDomain => 'Samba4',
-#           help            => __(''),
+           help            => __(''),
         };
 
 #    if ($samba->isAntivirusPresent()) {
