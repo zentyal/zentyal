@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba4;
+package EBox::Samba;
 
 use strict;
 use warnings;
@@ -27,10 +27,10 @@ use base qw(EBox::Module::Service EBox::Model::CompositeProvider EBox::Model::Mo
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
-use EBox::Samba4LdapUser;
+use EBox::SambaLdapUser;
 #use EBox::UsersAndGroups;
 use EBox::Network;
-use EBox::Samba4Firewall;
+use EBox::SambaFirewall;
 #use EBox::SambaLogHelper;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
@@ -66,7 +66,7 @@ use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
-my $ports = [
+my $PORTS = [
     { # kerberos
         'protocol' => 'tcp/udp',
         'sourcePort' => 'any',
@@ -127,13 +127,13 @@ my $ports = [
         'sourcePort' => 'any',
         'destinationPort' => '3269',
     },
-    ];
+];
 
 sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(
-        name => 'samba4',
+        name => 'samba',
         printableName => __n('File Sharing'),
         @_);
     bless ($self, $class);
@@ -181,7 +181,7 @@ sub appArmorProfiles
             {
                 'binary' => 'usr.sbin.named',
                 'local'  => 1,
-                'file'   => 'samba4/apparmor-named.local.mas',
+                'file'   => 'samba/apparmor-named.local.mas',
                 'params' => \@params,
             }
            ];
@@ -218,7 +218,7 @@ sub usedFiles
         {
             'file'   => SAMBACONFFILE,
             'reason' => __('To set up Samba according to your configuration.'),
-            'module' => 'samba4',
+            'module' => 'samba',
         },
     ];
 }
@@ -238,18 +238,18 @@ sub initialSetup
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
 
-        unless($services->serviceExists(name => 'samba4')) {
+        unless($services->serviceExists(name => 'samba')) {
             $services->addMultipleService(
-                'name' => 'samba4',
+                'name' => 'samba',
 				'description' =>  __d('File sharing (Samba) protocol'),
                 'internal' => 1,
                 'readOnly' => 1,
-                'services' => $ports,
+                'services' => $PORTS,
             );
         }
 
         my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->setInternalService('samba4', 'accept');
+        $firewall->setInternalService('samba', 'accept');
         $firewall->saveConfigRecursive();
     }
 }
@@ -286,10 +286,10 @@ sub modelClasses
     my ($self) = @_;
 
     return [
-               'EBox::Samba4::Model::GeneralSettings',
-               'EBox::Samba4::Model::Samba4Shares',
-               'EBox::Samba4::Model::Samba4SharePermissions',
-               'EBox::Samba4::Model::Samba4DeletedShares',
+               'EBox::Samba::Model::GeneralSettings',
+               'EBox::Samba::Model::SambaShares',
+               'EBox::Samba::Model::SambaSharePermissions',
+               'EBox::Samba::Model::SambaDeletedShares',
            ];
 }
 
@@ -305,7 +305,7 @@ sub compositeClasses
     my ($self) = @_;
 
     return [
-             'EBox::Samba4::Composite::General',
+             'EBox::Samba::Composite::General',
            ];
 }
 
@@ -337,7 +337,7 @@ sub shares
 {
     my ($self, $all) = @_;
 
-    my $shares = $self->model('Samba4Shares');
+    my $shares = $self->model('SambaShares');
     my @shares = ();
 
     for my $id (@{$shares->enabledRows()}) {
@@ -581,16 +581,16 @@ sub _setConf
             push(@array, 'logon_script', LOGON_SCRIPT);
         }
         $self->writeConfFile(join('/', NETLOGON_DIR, LOGON_DEFAULT_SCRIPT),
-            'samba4/logon.bat.mas', \@array);
+            'samba/logon.bat.mas', \@array);
     }
 
     $self->writeConfFile(SAMBACONFFILE,
-                         'samba4/smb.conf.mas', \@array);
+                         'samba/smb.conf.mas', \@array);
 
     # Remove shares
-    $self->model('Samba4DeletedShares')->removeDirs();
+    $self->model('SambaDeletedShares')->removeDirs();
     # Create samba shares
-    $self->model('Samba4Shares')->createDirs();
+    $self->model('SambaShares')->createDirs();
 }
 
 
@@ -736,7 +736,7 @@ sub usesPort # (protocol, port, iface)
 
     return undef unless($self->isEnabled());
 
-    foreach my $smbport (@{$ports}) {
+    foreach my $smbport (@{$PORTS}) {
         return 1 if ($port eq $smbport->{destinationPort});
     }
 
@@ -748,7 +748,7 @@ sub firewallHelper
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        return new EBox::Samba4Firewall();
+        return new EBox::SambaFirewall();
     }
     return undef;
 }
@@ -757,7 +757,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'Samba4/Composite/General',
+    $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
                                     'text' => $self->printableName(),
                                     'separator' => 'Office',
                                     'order' => 540));
@@ -956,7 +956,7 @@ sub _ldapModImplementation
 {
     my $self;
 
-    return new EBox::Samba4LdapUser();
+    return new EBox::SambaLdapUser();
 }
 
 sub _addPrinter

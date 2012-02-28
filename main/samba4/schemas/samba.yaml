@@ -1,4 +1,4 @@
-class: 'EBox::Samba4'
+class: 'EBox::Samba'
 
 depends:
     - network

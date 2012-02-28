@@ -7,7 +7,7 @@ set -e
 case "$1" in
     purge)
         # purge configuration
-        /usr/share/zentyal/purge-module samba4
+        /usr/share/zentyal/purge-module samba
     ;;
     remove)
         dpkg-trigger --no-await zentyal-core

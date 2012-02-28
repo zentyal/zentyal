@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba4::Model::GeneralSettings
+# Class: EBox::Samba::Model::GeneralSettings
 #
 #   This model is used to configure file sharing eneral settings.
 #
 
-package EBox::Samba4::Model::GeneralSettings;
+package EBox::Samba::Model::GeneralSettings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use Error qw(:try);
 
-use EBox::Samba4;
+use EBox::Samba;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Boolean;
@@ -215,7 +215,7 @@ sub _checkWinName
 
 sub _mod_enabled
 {
-    my $module = EBox::Global->modInstance('samba4');
+    my $module = EBox::Global->modInstance('samba');
     return not $module->isEnabled();
 }
 
@@ -234,31 +234,31 @@ sub _table
         new EBox::Types::Text(
             fieldName => 'password',
             printableName => __('Administrator password'),
-            defaultValue => EBox::Samba4::defaultAdministratorPassword(),
+            defaultValue => EBox::Samba::defaultAdministratorPassword(),
             'editable' => \&_mod_enabled,
         ),
         new EBox::Types::DomainName(
             'fieldName' => 'realm',
             'printableName' => __('Domain'),
-            'defaultValue' => EBox::Samba4::defaultRealm(),
+            'defaultValue' => EBox::Samba::defaultRealm(),
             'editable' => \&_mod_enabled,
         ),
         new EBox::Types::DomainName(
             'fieldName' => 'workgroup',
             'printableName' => __('Workgroup'),
-            'defaultValue' => EBox::Samba4::defaultWorkgroup(),
+            'defaultValue' => EBox::Samba::defaultWorkgroup(),
             'editable' => \&_mod_enabled,
         ),
         new EBox::Types::Text(
             'fieldName' => 'netbiosName',
             'printableName' => __('NetBIOS computer name'),
-            'defaultValue' => EBox::Samba4::defaultNetbios(),
+            'defaultValue' => EBox::Samba::defaultNetbios(),
             'editable' => \&_mod_enabled,
         ),
         new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'defaultValue' => EBox::Samba4::defaultDescription(),
+            'defaultValue' => EBox::Samba::defaultDescription(),
             'editable' => \&_mod_enabled,
         ),
         new EBox::Types::Boolean(
@@ -279,7 +279,7 @@ sub _table
     {
         'tableName' => 'GeneralSettings',
         'printableTableName' => __('General settings'),
-        'modelDomain' => 'Samba4',
+        'modelDomain' => 'Samba',
         'defaultActions' => [ 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'help' => __('On this page you can set different general settings for Samba'),
@@ -300,7 +300,7 @@ sub formSubmitted
 
     my $row = $self->row();
 
-    my $sambaRO = EBox::Global->getInstance(1)->modInstance('samba4');
+    my $sambaRO = EBox::Global->getInstance(1)->modInstance('samba');
     my $modeRO = $sambaRO->get_string('GeneralSettings/mode');
     my $realmRO = $sambaRO->get_string('GeneralSettings/realm');
     my $workgroupRO = $sambaRO->get_string('GeneralSettings/workgroup');

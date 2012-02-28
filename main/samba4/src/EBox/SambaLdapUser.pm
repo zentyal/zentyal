@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba4LdapUser;
+package EBox::SambaLdapUser;
 
 use strict;
 use warnings;
@@ -27,7 +27,7 @@ use Net::LDAP;
 #use EBox::Exceptions::Internal;
 #use EBox::Exceptions::DataExists;
 #use EBox::Exceptions::DataMissing;
-use EBox::Samba4;
+use EBox::Samba;
 
 use EBox::Gettext;
 #use Perl6::Junction qw(any all);
@@ -58,7 +58,7 @@ sub new
     my $class = shift;
     my $self  = {};
 #    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
-    $self->{samba} = EBox::Global->modInstance('samba4');
+    $self->{samba} = EBox::Global->modInstance('samba');
     bless($self, $class);
     return $self;
 }
@@ -349,13 +349,13 @@ sub _delGroupWarning
 #######################################################################################
 #sub _smbHomes
 #{
-#    my $samba = EBox::Global->modInstance('samba4');
+#    my $samba = EBox::Global->modInstance('samba');
 #    return "\\\\" . $samba->netbios() . "\\homes\\";
 #}
 
 #sub _smbProfiles
 #{
-#    my $samba = EBox::Global->modInstance('samba4');
+#    my $samba = EBox::Global->modInstance('samba');
 #    return "\\\\" . $samba->netbios() . "\\profiles\\";
 #}
 

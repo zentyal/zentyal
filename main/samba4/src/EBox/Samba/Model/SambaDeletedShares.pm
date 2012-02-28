@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba4::Model::Samba4DeletedShares
+# Class: EBox::Samba::Model::SambaDeletedShares
 #
 #  This model is used to store the samba shares which are removed by the user.
 #  Zentyal configuration works as follows:
@@ -23,7 +23,7 @@
 #   - We need to actually remove the directories at saving changes time,
 #     so we have to write down which directories we must remove
 #
-package EBox::Samba4::Model::Samba4DeletedShares;
+package EBox::Samba::Model::SambaDeletedShares;
 
 use base 'EBox::Model::DataTable';
 
@@ -55,7 +55,7 @@ use constant EBOX_SHARE_DIR => '/home/ebox/shares/'; #EBox::SambaLdapUser::baseP
 #
 # Returns:
 #
-#     <EBox::Samba::Model::Samba4DeletedShares> - the newly created object
+#     <EBox::Samba::Model::SambaDeletedShares> - the newly created object
 #     instance
 #
 sub new
@@ -117,9 +117,9 @@ sub _table
       );
 
     my $dataTable = {
-                     tableName          => 'Samba4DeletedShares',
+                     tableName          => 'SambaDeletedShares',
                      printableTableName => 'Deleted shares',
-                     modelDomain        => 'Samba4',
+                     modelDomain        => 'Samba',
                      defaultActions     => [ 'add', 'del',
                                              'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,

@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba4::Model::Samba4ShareConfiguration
+# Class: EBox::Samba::Model::SambaShareConfiguration
 #
 #  This model is used to configure permissions of each share
-#  created in EBox::Samba4::Model::Samba4Shares
+#  created in EBox::Samba::Model::SambaShares
 #
-package EBox::Samba4::Model::Samba4SharePermissions;
+package EBox::Samba::Model::SambaSharePermissions;
 
 use base 'EBox::Model::DataTable';
 
@@ -28,7 +28,7 @@ use warnings;
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Samba4::Types::Select;
+use EBox::Samba::Types::Select;
 use EBox::View::Customizer;
 
 # Dependencies
@@ -162,7 +162,7 @@ sub viewCustomizer
         $custom->setHTMLTitle([
                 {
                 title => __('Shares'),
-                link  => '/Samba4/Composite/General#Samba4Shares',
+                link  => '/Samba/Composite/General#SambaShares',
                 },
                 {
                 title => $self->parentRow()->valueByName('share'),
@@ -200,12 +200,12 @@ sub _table
                                printableName => __('User/Group'),
                                subtypes =>
                                 [
-                                    new EBox::Samba4::Types::Select(
+                                    new EBox::Samba::Types::Select(
                                         fieldName => 'user',
                                         printableName => __('User'),
                                         populate => \&populateUser,
                                         editable => 1),
-                                    new EBox::Samba4::Types::Select(
+                                    new EBox::Samba::Types::Select(
                                         fieldName => 'group',
                                         printableName => __('Group'),
                                         populate => \&populateGroup,
@@ -224,10 +224,10 @@ sub _table
       );
 
     my $dataTable = {
-                     tableName          => 'Samba4SharePermissions',
+                     tableName          => 'SambaSharePermissions',
                      printableTableName => __('Access Control'),
-                     modelDomain        => 'Samba4',
-                     menuNamespace      => 'Samba4/View/Samba4Shares',
+                     modelDomain        => 'Samba',
+                     menuNamespace      => 'Samba/View/SambaShares',
                      defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
                      class              => 'dataTable',

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba4Firewall;
+package EBox::SambaFirewall;
 use strict;
 use warnings;
 
@@ -41,7 +41,7 @@ sub output
     my ($self) = @_;
     my @rules = ();
 
-    my $samba = EBox::Global->modInstance('samba4');
+    my $samba = EBox::Global->modInstance('samba');
     my @ifaces = @{ $samba->sambaInterfaces() };
     foreach my $ifc (@ifaces) {
         my $output = $self->_outputIface($ifc);

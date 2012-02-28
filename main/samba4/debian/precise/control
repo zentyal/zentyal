@@ -1,15 +1,16 @@
-Source: zentyal-samba4
+Source: zentyal-samba
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Build-Depends: zbuildtools
-Standards-Version: 3.8.2
+Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
-Vcs-Browser: http://git.zentyal.org/zentyal.git
+Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/samba
 Vcs-Git: git://git.zentyal.org/zentyal.git
 
-Package: zentyal-samba4
+Package: zentyal-samba
 Architecture: all
+Replaces: ebox-samba (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network,
          zentyal-firewall, zentyal-users, zentyal-dns, acl, samba4,
          libarray-diff-perl, libalgorithm-diff-xs-perl, ${misc:Depends}

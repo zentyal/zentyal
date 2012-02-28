@@ -7,10 +7,10 @@ set -e
 case "$1" in
     configure)
         # initial setup
-        /usr/share/zentyal/initial-setup --no-restart samba4 $2
+        /usr/share/zentyal/initial-setup --no-restart samba $2
 
         # restart module
-        invoke-rc.d zentyal samba4 restart || true
+        invoke-rc.d zentyal samba restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

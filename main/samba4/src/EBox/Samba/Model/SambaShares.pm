@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Samba4::Model::SambaShares
+# Class: EBox::Samba::Model::SambaShares
 #
 #  This model is used to configure shares different to those which are
 #  given by the group share
 #
-package EBox::Samba4::Model::Samba4Shares;
+package EBox::Samba::Model::SambaShares;
 
 use base 'EBox::Model::DataTable';
 
@@ -130,20 +130,20 @@ sub _table
        new EBox::Types::HasMany(
                                fieldName     => 'access',
                                printableName => __('Access control'),
-                               'foreignModel' => 'Samba4SharePermissions',
-                               'view' => '/Samba4/View/Samba4SharePermissions'
+                               'foreignModel' => 'SambaSharePermissions',
+                               'view' => '/Samba/View/SambaSharePermissions'
                               )
 
       );
 
     my $dataTable = {
-                     tableName          => 'Samba4Shares',
+                     tableName          => 'SambaShares',
                      printableTableName => __('Shares'),
-                     modelDomain        => 'Samba4',
+                     modelDomain        => 'Samba',
                      defaultActions     => [ 'add', 'del',
                                              'editField', 'changeView' ],
                      tableDescription   => \@tableDesc,
-                     menuNamespace      => 'Samba4/View/Samba4Shares',
+                     menuNamespace      => 'Samba/View/SambaShares',
                      class              => 'dataTable',
                      help               => _sharesHelp(),
                      printableRowName   => __('share'),
@@ -242,7 +242,7 @@ sub deletedRowNotify
     return unless ($path->selectedType() eq 'zentyal');
 
     my $mgr = EBox::Model::ModelManager->instance();
-    my $deletedModel = $mgr->model('Samba4DeletedShares');
+    my $deletedModel = $mgr->model('SambaDeletedShares');
     $deletedModel->addRow('path' => $path->value());
 }
 

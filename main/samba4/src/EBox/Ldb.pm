@@ -174,7 +174,7 @@ sub getPassword
     my ($self) = @_;
 
     unless (defined($self->{password})) {
-        my $samba = EBox::Global->modInstance('samba4');
+        my $samba = EBox::Global->modInstance('samba');
         my $pwd = $samba->administratorPassword();
 #        my $path = EBox::Config->conf . "/samba-admin.passwd";
 #        open(PASSWD, $path) or
@@ -1098,7 +1098,7 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to LDAP');
     };
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
-        my $samba = EBox::Global->modInstance('samba4');
+        my $samba = EBox::Global->modInstance('samba');
         $samba->_manageService('start');
         EBox::error("Couldn't connect to LDAP server $ldapurl, retrying");
         sleep(1);

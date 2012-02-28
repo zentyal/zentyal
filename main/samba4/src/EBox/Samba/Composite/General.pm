@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba4::Composite::General;
+package EBox::Samba::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -54,21 +54,21 @@ sub new
 #
 sub _description
 {
-    my $samba = EBox::Global->modInstance('samba4');
+    my $samba = EBox::Global->modInstance('samba');
 
     my $description =
         {
             components      => [
                                 'GeneralSettings',
 #                                'PDC',
-                                'Samba4Shares',
+                                'SambaShares',
 #                                'RecycleBin',
                                ],
             layout          => 'tabbed',
             name            =>  __PACKAGE__->nameFromClass,
             pageTitle       => __('File Sharing'),
             printableName   => __('File sharing options'),
-            compositeDomain => 'Samba4',
+            compositeDomain => 'Samba',
            help            => __(''),
         };
 

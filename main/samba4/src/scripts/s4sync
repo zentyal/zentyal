@@ -465,7 +465,7 @@ my $usersModule = EBox::Global->modInstance('users');
 my $ldapUsers = getLdapUsers ($usersModule, \@ldapUsersToIgnore);
 my $ldapGroups = getLdapGroups ($usersModule, \@ldapGroupsToIgnore);
 
-my $sambaModule = EBox::Global->modInstance('samba4');
+my $sambaModule = EBox::Global->modInstance('samba');
 my $sambaUsers = getSambaUsers ($sambaModule, \@sambaUsersToIgnore);
 my $sambaGroups = getSambaGroups ($sambaModule, \@sambaGroupsToIgnore);
 
