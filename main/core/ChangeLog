@@ -1,4 +1,5 @@
 HEAD
+	+ Removed some console problematic characters from Util::Random::generate
 	+ Fixed redis unix socket permissions problem
 	+ Get row ids without safe characters checking
 	+ Added EBox::Util::Random as random string generator

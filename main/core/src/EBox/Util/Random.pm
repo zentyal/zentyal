@@ -44,7 +44,7 @@ sub generate {
     }
 
     @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
-            . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#&/()");
+            . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@/");
 
     open(RD, "</dev/urandom") or die "Failed to open random source";
     $data = "";
