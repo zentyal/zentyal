@@ -65,6 +65,21 @@ sub subscriptionLevel
     return $result;
 }
 
+# Method: availableEdition
+#
+#     Get the available edition for this Zentyal
+#
+# Returns:
+#
+#     String - the available edition for this server
+#
+sub availableEdition
+{
+    my ($self) = @_;
+
+    return $self->soapCall('availableEdition');
+}
+
 # Method: securityUpdatesAddOn
 #
 #     Check the if securityUpdates addon is available in the cloud

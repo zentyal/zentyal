@@ -52,11 +52,14 @@ src/EBox/Event/Dispatcher/Makefile
 src/EBox/RemoteServices/Makefile
 src/EBox/RemoteServices/t/Makefile
 src/EBox/RemoteServices/Audit/Makefile
+src/EBox/RemoteServices/Exceptions/Makefile
 src/EBox/RemoteServices/Composite/Makefile
 src/EBox/RemoteServices/Job/Makefile
 src/EBox/RemoteServices/Model/Makefile
 src/EBox/RemoteServices/Server/Makefile
 src/EBox/RemoteServices/Server/t/Makefile
+src/EBox/RemoteServices/Subscription/Makefile
+src/EBox/RemoteServices/Subscription/t/Makefile
 src/EBox/RemoteServices/Types/Makefile
 src/scripts/Makefile
 src/templates/Makefile

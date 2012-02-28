@@ -29,7 +29,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-use constant SUBS_WIZARD_URL => '/zentyal/Wizard?page=RemoteServices/Wizard/Subscription';
+use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 # Group: Public methods
 
@@ -92,7 +92,7 @@ sub _description
 
 sub _commercialMsg
 {
-    return __sx('Server subscriptions help to keep your Zentyal server secure and up-to-date! Take a look and try out the free {ohb}Basic Subscription{ch} - It gives you access to some basic features of Zentyal Cloud including basic alerts, reports, monitoring options and jobs, as well as remote configuration backup and Dynamic DNS (zentyal.me subdomain for your server).',
+    return __sx('Get a Free {ohb}Basic Subscription{ch}! It gives you a preview of Zentyal Cloud and allows you access to some basic features, such as basic alerts, reports, monitoring options and jobs. In addition, it allows you to configure one remote configuration backup and create zentyal.me subdomain for your server).',
                 ohb => '<a href="' . SUBS_WIZARD_URL . '">', ch  => '</a>');
 }
 

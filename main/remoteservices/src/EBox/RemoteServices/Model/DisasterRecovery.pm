@@ -18,7 +18,7 @@
 # This class is the model to show information about Disaster Recovery service
 #
 #     - server name
-#     - server subscription
+#     - server edition
 #     - disaster recovery
 #     - remote storage space available
 #     - latest configuration backup
@@ -49,15 +49,11 @@ use POSIX;
 use Error qw(:try);
 
 # Constants:
-
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
-                          . '&utm_campaign=register';
-
-use constant DR_URL    => STORE_URL . 'other/disaster-recovery.html' . UTM;
-use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
-use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTE_URL  => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
+use constant UTM       => '?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
+use constant SB_URL  => STORE_URL . 'small-business-edition/' . UTM;
+use constant ENT_URL   => STORE_URL . 'enterprise-edition/' . UTM;
+use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 
@@ -137,8 +133,8 @@ sub _table
               printableName => __('Server name'),
              ),
           new EBox::Types::Text(
-              fieldName     => 'subscription',
-              printableName => __('Server subscription'),
+              fieldName     => 'edition',
+              printableName => __('Server edition'),
              ),
           new EBox::Types::Text(
               fieldName     => 'dr',
@@ -202,11 +198,7 @@ sub _content
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subscription = $i18nLevels{$rs->subscriptionLevel()};
+        $subscription = $rs->i18nServerEdition();
 
         $dr = __('Configuration backup enabled');
 
@@ -295,15 +287,15 @@ sub _content
     }
 
     return {
-        server_name  => $serverName,
-        subscription => $subscription,
-        dr           => $dr,
-        available    => $available,
-        conf_backup  => $confBackup,
-        data_backup  => $dataBackup,
-        domains      => $domains,
-        size         => $size,
-        eta          => $eta,
+        server_name => $serverName,
+        edition     => $subscription,
+        dr          => $dr,
+        available   => $available,
+        conf_backup => $confBackup,
+        data_backup => $dataBackup,
+        domains     => $domains,
+        size        => $size,
+        eta         => $eta,
        };
 }
 
@@ -311,16 +303,19 @@ sub _content
 
 sub _CBmessage
 {
-    return __sx('The {ohd}Disaster Recovery{ch} service ensures the availability of your business critical data! Take a look and try out the free {ohb}Basic Subscription{ch} which allows you to store one configuration backup remotely.',
-                ch => '</a>', ohd => '<a href="' . DR_URL . '" target="_blank">', ohb => '<a href="' . BASIC_URL . '" target="_blank">');
+    return __sx('Want to ensure the availability of your business critical data at all times? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}! Take a look and try out the Free {ohb}Basic Subscription{ch} which allows you to store one configuration backup remotely.',
+                ch => '</a>',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ohb => '<a href="' . SUBS_WIZARD_URL  . '">');
 }
 
 sub _DRmessage
 {
-    return __sx('The full, enterprise-level {ohd}Disaster Recovery{ch} service guarantees that besides the system configuration, you can store your business critical data easily in a safe remote location. To obtain this service, your server must have {ohp}Professional{ch} or {ohe}Enterprise Subscription{ch}.',
-                ch => '</a>', ohd => '<a href="' . DR_URL . '" target="_blank">',
-                ohp => '<a href="' . PROF_URL . '" target="_blank">',
-                ohe => '<a href="' . ENTE_URL . '" target="_blank">');
+    return __sx('Want to ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
+                ch => '</a>',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">');
 }
 
 # Estimate the backup size using volume number
