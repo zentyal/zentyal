@@ -40,7 +40,7 @@ use EBox::Sudo;
 use Error qw(:try);
 
 # TODO Fix
-use constant DEFAULT_MASK => '0670';
+use constant DEFAULT_MASK => '0770';
 use constant DEFAULT_USER => 'root';
 use constant DEFAULT_GROUP => '__USERS__';
 use constant GUEST_DEFAULT_MASK => '0750';
@@ -255,12 +255,15 @@ sub createDirs
 {
     my ($self) = @_;
 
+    my $administratorSID = $self->parentModule()->ldb()->getSidById('administrator');
+    my $domainUsersSID = $self->parentModule()->ldb()->getSidById('Domain Users');
+
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $pathType =  $row->elementByName('path');
         next unless ( $pathType->selectedType() eq 'zentyal');
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
-        my @cmds;
+        my @cmds = ();
         push(@cmds, "mkdir -p $path");
         if ($row->elementByName('guest')->value()) {
            push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " $path");
@@ -269,41 +272,51 @@ sub createDirs
            push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
            push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
         }
-        push (@cmds, "setfacl -b $path"); # Remove acl entries
-        EBox::debug("Executing '@cmds'");
-        EBox::Sudo::root(@cmds);
-        # ACLs
-        my @perms;
+        # Set NT ACLs
+        # Build the security descriptor string
+        my $sdString = '';
+        $sdString .= "O:$administratorSID"; # Object's owner
+        $sdString .= "G:$domainUsersSID"; # Object's primary group
+        # Build the ACS strings
+        # http://msdn.microsoft.com/en-us/library/windows/desktop/aa374928(v=vs.85).aspx
+        my @aceStrings = ();
+        push (@aceStrings, '(A;;0x001f01ff;;;SY)'); # SYSTEM account has full access
+        push (@aceStrings, "(A;;0x001f01ff;;;$administratorSID)"); # Administrator has full access
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
             my $permissions = $subRow->elementByName('permissions');
-            next if ($permissions->value() eq 'administrator');
-            my $userType = $subRow->elementByName('user_group');
-            my $perm;
-            if ($userType->selectedType() eq 'group') {
-                $perm = 'g:';
-            } elsif ($userType->selectedType() eq 'user') {
-                $perm = 'u:';
-            }
-            my $qobject = shell_quote( $userType->printableValue());
-            $perm .= $qobject . ':';
-
+            my $aceString = '(';
+            # ACE Type
+            $aceString .= 'A;';
+            # ACE Flags
+            $aceString .= 'OICI;';
+            # Rights
             if ($permissions->value() eq 'readOnly') {
-                $perm .= 'rx';
+                $aceString .= '0x001200A9;';
             } elsif ($permissions->value() eq 'readWrite') {
-                $perm .= 'rwx';
+                $aceString .= '0x001301BF;';
+            } elsif ($permissions->value() eq 'administrator') {
+                $aceString .= '0x001F01FF;';
             }
-            push (@perms, $perm);
+            # Object Guid
+            $aceString .= ';';
+            # Inherit Object Guid
+            $aceString .= ';';
+            # Account SID
+            my $userType = $subRow->elementByName('user_group');
+            $aceString .= $self->parentModule()->ldb()->getSidById($userType->printableValue());
+            $aceString .= ')';
+            push (@aceStrings, $aceString);
         }
-        next unless @perms;
-        my $cmd = 'setfacl -m ' . join(',', @perms) . " $path";
-        my $defaultCmd = 'setfacl -m d:' . join(',d:', @perms) ." $path";
-        EBox::debug("$cmd and $defaultCmd");
+        my $fullAce = join ('', @aceStrings);
+        $sdString .= "D:$fullAce";
+        my $cmd = $self->parentModule()->SAMBATOOL() . " ntacl set '$sdString' $path";
         try {
+            EBox::debug("Executing '$cmd'");
             EBox::Sudo::root($cmd);
-            EBox::Sudo::root($defaultCmd);
         } otherwise {
-            EBox::debug("Couldn't enable ACLs for $path")
+            my $error = shift;
+            EBox::debug("Couldn't write NT ACLs for $path: $error");
         };
     }
 }

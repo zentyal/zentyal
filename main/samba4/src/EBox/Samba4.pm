@@ -262,15 +262,16 @@ sub enableActions
 {
     my ($self) = @_;
 
-    unless (EBox::Sudo::fileTest('-d', SAMBA_DIR)) {
-        EBox::Sudo::root('mkdir -p ' . SAMBA_DIR);
-    }
-    unless (EBox::Sudo::fileTest('-d', PROFILES_DIR)) {
-        EBox::Sudo::root('mkdir -p ' . PROFILES_DIR);
-    }
-    unless (EBox::Sudo::fileTest('-d', NETLOGON_DIR)) {
-        EBox::Sudo::root('mkdir -p ' . NETLOGON_DIR);
-    }
+    my @cmds = ();
+    push (@cmds, 'mkdir -p ' . SAMBA_DIR);
+    push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    EBox::debug("Executing @cmds");
+    try {
+        EBox::Sudo::root(@cmds);
+    } otherwise {
+        my $error = shift;
+        EBox::debug("Couldn't create directories: $error");
+    };
 }
 
 # Method: modelClasses
@@ -413,7 +414,8 @@ sub provision
         ' --adminpass=' . $self->administratorPassword();
     EBox::debug("Provisioning database '$cmd'");
     try {
-        EBox::Sudo::root($cmd);
+        my $output = EBox::Sudo::root($cmd);
+        EBox::debug("Provision result: @{$output}");
     } otherwise {
         my $error = shift;
         throw EBox::Exceptions::Internal("Error provisioning database: $error");
@@ -431,9 +433,12 @@ sub provision
                        " --min-pwd-length=0";
     EBox::Sudo::root($cmd);
 
+
+
     # Export all zentyal users and groups to ldb
     try {
         EBox::debug('Exporting LDAP to LDB');
+        # TODO Update idmap.ldb to map group __USRES__ 1901 to 100
         #$self->ldb()->ldapToLdb(); TODO
     } otherwise {
         my $error = shift;

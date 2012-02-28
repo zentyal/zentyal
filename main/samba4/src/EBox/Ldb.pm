@@ -20,7 +20,7 @@ use warnings;
 
 #use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
-#use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::DataNotFound;
 #use EBox::Exceptions::Internal;
 #use EBox::Model::ModelManager;
 use EBox::Sudo;
@@ -31,11 +31,6 @@ use MIME::Base64;
 use Encode qw(decode encode);
 
 use Net::LDAP;
-#use Net::LDAP::Constant;
-#use Net::LDAP::Message;
-#use Net::LDAP::Search;
-#use Net::LDAP::LDIF;
-#use Net::LDAP qw(LDAP_SUCCESS);
 use Net::LDAP::Util qw(ldap_error_name);
 
 use Data::Dumper;
@@ -1392,6 +1387,34 @@ sub getIDBySid
             attrs => ['sAMAccountName']});
     if ($results->count) {
         return $results->entry(0)->get_value('sAMAccountName');
+    }
+}
+
+# Method getSidById
+#
+#   Get SID by object's sAMAccountName
+#
+# Parameters:
+#
+#   id - The ID of the object
+#
+# Returns:
+#
+#   The SID of the object
+#
+sub getSidById
+{
+    my ($self, $objectId) = @_;
+
+    my $results = $self->search({
+            base => $self->rootDN(),
+            filter => "(sAMAccountName=$objectId)",
+            attrs => ['objectSid']});
+    if ($results->count) {
+        my $result = $results->entry(0)->get_value('objectSid');
+        return pack ('H*', $result);
+    } else {
+        throw EBox::Exceptions::DataNotFound('sAMAccountName not found');
     }
 }
 

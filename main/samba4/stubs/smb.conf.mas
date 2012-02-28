@@ -28,188 +28,41 @@ use EBox::Gettext;
     passdb backend = samba4
     log level = 1
     log file = /var/log/samba/samba.log
-% # vfs objects = full_audit
-% # full_audit:success = connect opendir open disconnect unlink mkdir rmdir rename
-% # full_audit:failure = none
     name resolve order = wins, host, bcast
-% # printcap name = CUPS
-% # map acl inherit = yes
-% # printing = cups
-% if ($guest_shares) {
-    map to guest = Bad User
-% }
     server role = <% $mode %>
-% if ($mode eq 'dc') {
     realm = <% $realm %>
-% # encrypt passwords = yes
-% # obey pam restrictions = no
-% # ldap passwd sync = yes
-% # mangling method = hash2
-% # logon script = <% $logon_script %>
-% # logon drive = <% $drive %>
-% # logon home =
-% # if ($roaming) {
-% # logon path = \\<% $netbiosName %>\profiles\%U
-% # } else {
-% # logon path =
-% # }
-% # domain logons = yes
-% # os level = 65
-% # preferred master = yes
-% # domain master = yes
-% # add user script = /usr/sbin/smbldap-useradd -m "%u"
-% # ldap delete dn = yes
-% # add machine script = /usr/sbin/smbldap-useradd -w "%u"
-% # add group script = /usr/sbin/smbldap-groupadd -p "%g"
-% # add user to group script = /usr/sbin/smbldap-groupmod -m "%u" "%g"
-% # delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
-% # set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
 
 [sysvol]
     path = /var/lib/samba/sysvol
-    browseable = no
-    read only = yes
+    read only = No
 
-[profiles]
-    path = /home/ebox/samba/profiles
-    browseable = no
-    read only = no
-% # guest ok = yes
-% # valid users = %U
-% # admin users = @"Domain Admins"
-    map hidden = yes
-    map system = yes
-    create mask = 0611
-    directory mask = 0711
-% # profile acls = yes
-    csc policy = disable
-% # hide files = /desktop.ini/outlook*.lnk/*Briefcase*/
-% }
+[netlogon]
+    path = /var/lib/samba/sysvol/<% $realm %>/scripts
+    read only = No
 
-[homes]
-    comment = <% __('Home Directories') %>
-% # valid users = %S
-    read only = no
-    browseable = no
-% # my $av = ($antivirus xor defined($antivirus_exceptions{'users'}));
-% # my $rb = ($recycle xor defined($recycle_exceptions{'users'}));
-% # my $objects = 'full_audit';
-% # if ($av) {
-% #   $objects .= ' vscan-clamav';
-% # }
-% # if ($rb) {
-% #   $objects .= ' recycle';
-% # }
-% # vfs objects = <% $objects %>
-% # if ($av) {
-% # vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
-% # }
-% # if ($rb) {
-% #  foreach my $key (keys %{$recycle_config}) {
-% #    next unless $key;
-% # recycle: <% $key %> = <% $recycle_config->{$key} %>
-% #   }
-% # }
+# Roaming profiles
+#[profiles]
+#    path = /home/ebox/samba/profiles
+#    browseable = No
+#    read only = No
+#    map hidden = yes
+#    map system = yes
+#    create mask = 0611
+#    directory mask = 0711
+#    csc policy = disable
 
-% # foreach my $group (@dirgroup) {
-% # [<% $group->{'sharename'} %>]
-% # % if ($group->{'groupcomment'}) {
-% #  comment = "<% $group->{'groupcomment'} %>"
-% # % } else {
-% #  comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
-% # % }
-% #  path = <% $group->{'path'} %>
-% #  browseable = yes
-% #  read only = no
-% #  valid users = @"<% $group->{'groupname'} %>"
-% #  force group = "<% $group->{'groupname'} %>"
-% #  force create mode = 0660
-% #  force directory mode = 0660
-% # % my $av = ($antivirus xor defined($antivirus_exceptions{'group'}->{$group->{'sharename'}}));
-% # % my $rb = ($recycle xor defined($recycle_exceptions{'group'}->{$group->{'sharename'}}));
-% # % my $objects = 'full_audit';
-% # % if ($av) {
-% # %   $objects .= ' vscan-clamav';
-% # % }
-% # % if ($rb) {
-% # %   $objects .= ' recycle';
-% # % }
-% #  vfs objects = <% $objects %>
-% # % if ($av) {
-% #  vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
-% # % }
-% # % if ($rb) {
-% # %   foreach my $key (keys %{$recycle_config}) {
-% # %     next unless $key;
-% #  recycle: <% $key %> = <% $recycle_config->{$key} %>
-% # %    }
-% # % }
-% # %
-% # % }
+#[homes]
+#    comment = <% __('Home Directories') %>
+#    read only = No
+#    browseable = No
 
-% if ($active_printer) {
-%   foreach my $printer (@printers) {
-%       next unless (length $printer->{'users'} > 0);
-[<% $printer->{'name'} %>]
-    path = /var/spool/samba
-    read only =    yes
-    printable =    yes
-% # valid users = <% $printer->{'users'} %>
-%   }
-% }
-
+# Shares
 % foreach my $share (@shares) {
 [<% $share->{share} %>]
     comment = <% $share->{comment} %>
     path = <% $share->{path} %>
-    browseable = yes
-    read only = no
-% # if ($share->{guest}) {
-% # guest only = yes
-% # guest ok = yes
-% # } else {
-% # valid users = <% $share->{validUsers} %>
-% # read list = <% $share->{readOnly} %>
-% # write list = <% $share->{readWrite} %>
-% # admin users = <% $share->{administrators} %>
-% # }
+    browseable = Yes
+    read only = No
     force create mode = 0660
     force directory mode = 0660
-% # % my $av = ($antivirus xor defined($antivirus_exceptions{'share'}->{$share->{'share'}}));
-% # % my $rb = ($recycle xor defined($recycle_exceptions{'share'}->{$share->{'share'}}));
-% # % my $objects = 'full_audit';
-% #% if ($av) {
-% #%   $objects .= ' vscan-clamav';
-% #% }
-% #% if ($rb) {
-% #%   $objects .= ' recycle';
-% #% }
-% # vfs objects = <% $objects %>
-% #% if ($av) {
-% # vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
-% #% }
-% #% if ($rb) {
-% #%   foreach my $key (keys %{$recycle_config}) {
-% #%     next unless $key;
-% # recycle: <% $key %> = <% $recycle_config->{$key} %>
-% #%    }
-% # }
 % }
-
-#[<% $prefix %>-internal-backups]
-#    path = <% $backup_path %>
-#    browseable = yes
-#    read only = yes
-#% # valid users = @"Domain Admins"
-#% # admin users = @"Domain Admins"
-#% # force group = ebox
-#% # force user = ebox
-
-#[print$]
-#    comment = "Printer Drivers"
-#    path = /var/lib/samba/printers
-#    browseable = yes
-#    read only = yes
-#% # guest ok = no
-#% # write list = @"Domain Admins"
-#% # valid users = @"Domain Users"
