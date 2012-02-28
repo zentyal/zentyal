@@ -109,8 +109,11 @@ function loadWhenAvailable(url, secondsTimeout)
   var loadMethod = function() {
        new Ajax.Request(url, {
                              onSuccess: function(transport) {
-                               progress_pl.stop();
-                               window.location.replace(url);
+
+                               if (transport.responseText) {
+                                  progress_pl.stop();
+                                  window.location.replace(url);                               }
+
                               }
                             }
                         );
