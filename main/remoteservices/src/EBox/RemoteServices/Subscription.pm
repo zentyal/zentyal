@@ -33,6 +33,7 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Subscription::Check;
 use EBox::Sudo;
 use EBox::Util::Nmap;
 
@@ -180,6 +181,11 @@ sub subscribeEBox
     # Check the WS is reachable
     $self->_checkWSConnectivity();
 
+    # Check the available edition is suitable for this server
+    EBox::RemoteServices::Subscription::Check->new()->subscribe(
+        user => $self->{user},
+        password => $self->{password});
+
     my $vpnSettings;
     try {
         $vpnSettings = $self->soapCall('vpnSettings');
@@ -247,6 +253,24 @@ sub serversList
     my ($self) = @_;
 
     my $list = $self->soapCall('showList');
+
+    return $list;
+}
+
+# Method: availableEdition
+#
+#      Return the possible available editions for this user if he
+#      subscribes a new server
+#
+# Returns:
+#
+#      Array ref - the possible available editions
+#
+sub availableEdition
+{
+    my ($self) = @_;
+
+    my $list = $self->soapCall('availableEdition');
 
     return $list;
 
@@ -471,18 +495,6 @@ sub deleteData
     $rs->st_delete_dir('subscription');
     $rs->st_delete_dir('disaster_recovery');
 
-}
-
-# Checks whether the installed modules allows to be unsubscribed for cloud
-sub checkUnsubscribeIsAllowed
-{
-    my $modList = EBox::Global->modInstances();
-    foreach my $mod (@{  $modList }) {
-        my $method = 'canUnsubscribeFromCloud';
-        if ($mod->can($method)) {
-            $mod->$method();
-        }
-    }
 }
 
 # Group: Private methods
