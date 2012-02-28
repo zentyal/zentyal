@@ -86,7 +86,7 @@ try {
             }
             # TODO: Now apt-wrapper does not send duplicated lines
             # anymore, maybe this check can be safely removed
-            unless (($text eq $oldText) or ($text eq $lastLine)) {
+            unless ($text eq $lastLine) {
                 if ($text =~ /^E:\s*(.*)$/) {
                     $errorMsg = $1;
                     EBox::error($errorMsg);
