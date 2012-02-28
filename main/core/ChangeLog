@@ -1,4 +1,5 @@
 HEAD
+	+ Removed apache rewrite from old slaves implementation
 	+ Removed some console problematic characters from Util::Random::generate
 	+ Fixed redis unix socket permissions problem
 	+ Get row ids without safe characters checking
