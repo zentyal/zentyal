@@ -22,7 +22,7 @@ automatically as scheduled') %>
 </div>
 % } elsif ($updateList == 2) {
 <div class='error'>
-<% __('Error updating package list. Please try to execute the following command in a console to see the problem: sudo apt-get update') %>
+<% __('Error updating package list.<p>Please try to execute the following command in a console to see the problem: sudo apt-get update</p>') %>
 </div>
 % }
 
