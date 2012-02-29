@@ -32,7 +32,7 @@ Parameters:
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
 
 % if ($community) {
-<div class='adwarning'><% $admsg %></div>
+<div class='ad'><% $admsg %></div>
 % }
 <ul id="<% "tabMenu_$tabName" | h %>" class="tabs">
 <%perl>

@@ -560,8 +560,8 @@ sub _checkWatcherHidden # (watcherClassName)
 sub _commercialMsg
 {
     return __sx('Want to receive an alert when something has gone wrong in your system? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to enable all automatic alerts.',
-                ohs => '<a href="' . PROF_URL . '" target="_blank">',
-                ohe => '<a href="' . ENTER_URL . '" target="_blank">',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');
 }
 
