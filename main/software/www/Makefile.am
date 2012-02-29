@@ -3,7 +3,7 @@
 wwwdir = $(datadir)/zentyal/www/software/
 
 images = images/01_icon_welcome.png images/02_icon_basic_subscription.png images/02_icon_professional_subscription.png \
-images/03_icon_enterprise_subscription.png images/04_icon_technical_support.png images/05_icon_disaster_recovery.png \
+images/03_icon_enterprise_subscription.png images/05_icon_disaster_recovery.png \
 images/06_icon_zarafa.png images/07_icon_training.png images/08_icon_book.png \
 images/09_icon_partner.png images/backup.png images/cache.png images/cal.png images/cert.png images/directory.png \
 images/dns.png images/email.png images/filter.png images/firewall.png images/icon_comm.png images/icon_comm_tick.png \

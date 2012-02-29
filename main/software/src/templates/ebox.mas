@@ -156,7 +156,11 @@ my $first = EBox::Global->first();
 <style type="text/css">
 
 .head {
+% if ($sb) {
     width: 155px;
+% } else {
+    width: 115px;
+% }
     margin: 0 15px;
     display: inline-block;
     text-align: center;
