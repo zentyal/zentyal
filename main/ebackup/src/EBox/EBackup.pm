@@ -195,9 +195,10 @@ sub restoreFile
     }
 
     my $url = $self->_remoteUrl(%{ $urlParams });
-    my $cmd = $self->_duplicityRestoreFileCmd($file, $date,
+    my $cmd = $self->_duplicityRestoreFileCmd($url,
+                                              $file, $date,
                                               $destination,
-                                              $url);
+                                              );
     try {
         EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Sudo::Command with {
