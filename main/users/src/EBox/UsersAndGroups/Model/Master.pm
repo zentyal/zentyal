@@ -22,13 +22,11 @@ package EBox::UsersAndGroups::Model::Master;
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
-use EBox::Types::Select;
 use EBox::Types::Host;
 use EBox::Types::Port;
+use EBox::Types::Boolean;
 use EBox::Types::Password;
-use EBox::View::Customizer;
-use EBox::Config;
-use EBox::Exceptions::InvalidData;
+use EBox::Types::Action;
 
 use strict;
 use warnings;
@@ -63,8 +61,14 @@ sub _table
     my ($self) = @_;
 
     my @tableDesc = (
+        new EBox::Types::Boolean (
+            fieldName => 'enabled',
+            printableName => __('Enabled'),
+            defaultValue => 0,
+            editable => 1,
+        ),
         new EBox::Types::Host (
-            fieldName => 'master',
+            fieldName => 'host',
             printableName => __('Master host'),
             editable => 1,
             help => __('Hostname or IP of the master'),
@@ -102,9 +106,16 @@ sub validateTypedRow
 
     # Check master is accesible
 
-    my $host = exists $allParams->{master} ?
-                      $allParams->{master}->value() :
-                      $changedParams->{master}->value();
+    my $enabled = exists $allParams->{enabled} ?
+                         $allParams->{enabled}->value() :
+                         $changedParams->{enabled}->value();
+
+    # do not check if disabled
+    return unless ($enabled);
+
+    my $host = exists $allParams->{host} ?
+                      $allParams->{host}->value() :
+                      $changedParams->{host}->value();
 
     my $port = exists $allParams->{port} ?
                       $allParams->{port}->value() :

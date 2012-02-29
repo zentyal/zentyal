@@ -34,15 +34,13 @@ use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
 # Certificate of the authorized master
 use constant MASTER_CERT => '/var/lib/zentyal/conf/users/master.cert';
 
-use EBox::Exceptions::Internal;
-use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::External;
 use EBox::Util::Random;
 use EBox::Sudo;
 use EBox::SOAPClient;
 use URI::Escape;
 use File::Slurp;
 use Error qw(:try);
-
 
 sub new
 {
@@ -129,7 +127,7 @@ sub soapClient
     my $port = $slave->{'port'};
 
     my $client = EBox::SOAPClient->instance(
-        name  => 'urn:EBox/Users',
+        name  => 'urn:Users/Slave',
         proxy => "https://$hostname:$port/slave",
         certs => {
             cert => SSL_DIR . 'ssl.pem',
@@ -169,34 +167,66 @@ sub checkMaster
     return 0;
 }
 
+
+# Method: isSlave
+#
+#   Return 1 if already configured as slave
+#
+sub isSlave
+{
+    my ($self) = @_;
+
+    return (-f MASTER_CERT);
+}
+
 # Method: setupSlave
 #
 #   Configure users module as slave of a given master host
 #
-# Parameters:
-#
-#   host - master hostname or ip
-#   port - master administration port
-#   password - password for slave connection
-#
 sub setupSlave
 {
-    my ($self, $host, $port, $password) = @_;
+    my ($self) = @_;
 
-    my $apache = EBox::Global->modInstance('apache');
-    $password = uri_escape($password);
-    local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
-    my $master = EBox::SOAPClient->instance(
-        name  => 'urn:Users/Master',
-        proxy => "https://slave:$password\@$host:$port/master",
-    );
+    my $users = EBox::Global->modInstance('users');
+    my $master = $users->model('Master');
 
-    # get master's certificate
-    my $cert = $master->getCertificate();
-    write_file(MASTER_CERT, $cert);
+    if ($master->enabledValue()) {
+        # return if already configured
+        return if ($self->isSlave());
 
-    # XXX 1 is dummy to fight SOAPClient's problem with even parameter list size
-    $master->registerSlave('localhost', $apache->port, 1);
+        my $host = $master->hostValue();
+        my $port = $master->portValue();
+        my $password = $master->passwordValue();
+
+        my $apache = EBox::Global->modInstance('apache');
+        $password = uri_escape($password);
+        local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+        my $client = EBox::SOAPClient->instance(
+                name  => 'urn:Users/Master',
+                proxy => "https://slave:$password\@$host:$port/master",
+                );
+
+        # get master's certificate
+        my $cert = $client->getCertificate();
+        write_file(MASTER_CERT, $cert);
+
+
+        try {
+        # XXX 1 is dummy to fight SOAPClient's problem with even parameter list size
+            $client->registerSlave('localhost', $apache->port, 1);
+        } otherwise {
+            my $ex = shift;
+            EBox::debug($ex->text());
+            throw EBox::Exceptions::External(__("Couldn't configure Zentyal as slave: ") . $ex->text());
+        }
+    }
+    else {
+        # return if already disabled
+        return unless ($self->isSlave());
+
+        # disable master access
+        unlink (MASTER_CERT);
+    }
 }
 
 

@@ -330,6 +330,8 @@ sub _setConf
             \@array);
 
     $self->_setupNSSPAM();
+
+    $self->masterSlave->setupSlave();
 }
 
 sub _setupNSSPAM
