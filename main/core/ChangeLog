@@ -1,4 +1,6 @@
 HEAD
+	+ In progress bar CGIs AJAX call checks the availability of the
+	enxt page before loading it
 	+ Added methods to enable/disable restart triggers
 2.3.2
 	+ Fixed redis unix socket permissions problem with usercorner
