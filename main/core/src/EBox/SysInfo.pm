@@ -251,7 +251,7 @@ sub widgets
 
     unless (EBox::Config::boolean('disable_links_widget')) {
         $widgets->{'links'} = {
-            'title' => __("Resources & Services"),
+            'title' => __('Resources'),
             'widget' => \&linksWidget,
             'order' => 2,
             'default' => 1
