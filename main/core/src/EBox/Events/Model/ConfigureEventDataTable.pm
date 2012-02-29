@@ -51,11 +51,8 @@ use constant WATCHERS_DIR => EBox::Config::perlPath() . 'EBox/Event/Watcher';
 use constant CONF_DIR => EBox::Config::conf() . 'events/';
 use constant ENABLED_WATCHERS_DIR => CONF_DIR . 'WatcherEnabled/';
 
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=events&utm_campaign=alerts';
-use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
-use constant ALERTS_URL => 'http://www.zentyal.com/products/cloud/alerts-reports/' . UTM;
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -562,11 +559,10 @@ sub _checkWatcherHidden # (watcherClassName)
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Receive automatic alerts by purchasing a {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref}. You have a full list of available alerts {openhrefr}here{closehref}.',
-                openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
-                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
-                openhrefr => '<a href="' . ALERTS_URL . '" target="_blank">',
-                closehref => '</a>');
+    return __sx('Want to receive an alert when something has gone wrong in your system? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to enable all automatic alerts.',
+                ohs => '<a href="' . PROF_URL . '" target="_blank">',
+                ohe => '<a href="' . ENTER_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 # this method has been overriden to avoid errors like: 'modelInstance

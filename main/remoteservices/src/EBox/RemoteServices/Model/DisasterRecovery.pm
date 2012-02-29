@@ -50,9 +50,8 @@ use Error qw(:try);
 
 # Constants:
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
-use constant SB_URL  => STORE_URL . 'small-business-edition/' . UTM;
-use constant ENT_URL   => STORE_URL . 'enterprise-edition/' . UTM;
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
+use constant ENT_URL   => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';

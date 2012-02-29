@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted messages in the UI for new editions
 	+ Added methods to enable/disable restart triggers
 2.3.2
 	+ Fixed redis unix socket permissions problem with usercorner

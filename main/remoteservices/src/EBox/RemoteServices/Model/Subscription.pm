@@ -55,9 +55,8 @@ use Error qw(:try);
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
-use constant SB_URL  => STORE_URL . 'small-business-edition/' . UTM;
-use constant ENT_URL   => STORE_URL . 'enterprise-edition/' . UTM;
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
 
 # Group: Public methods
 
@@ -222,7 +221,7 @@ sub unsubscribe
         # Storing again make subscription if it is already done and
         # unsubscribing if Zentyal is subscribed
         $row->store();
-        # clear cache 
+        # clear cache
         $self->{gconfmodule}->clearCache();
 
         return 1;
@@ -609,7 +608,7 @@ sub _filesStr
 sub _commercialMsg
 {
     return __sx('Want to guarantee that your Zentyal server is always up-to-date, secured and supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
-                ohs  => '<a href="' . SB_URL . '" target="_blank">',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');
 }

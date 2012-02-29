@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted messages in the UI for new editions
 	+ Updated installation slides
 	+ Disable restart trigger on installation/removal of packages to
 	  avoid stuck the progress bar

@@ -2477,7 +2477,7 @@ sub getCredentials
                                        );
 
     if ($credentials->{type} eq 'basic') {
-        my $infoMsg = __s('If you had purchased the Zentyal Disaster Recovery service, besides the configuration you are about to recover, you could have restored the data of the modules.');
+        my $infoMsg = __('If you had enabled the Disaster Recovery service in Small Business or Enterprise Edition, besides the configuration you are about to recover, you could have restored the data of the active modules.');
         info($infoMsg);
     }
 

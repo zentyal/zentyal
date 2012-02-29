@@ -29,7 +29,9 @@ use EBox::Gettext;
 use EBox::Global;
 
 # Constants
-use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=IDS&utm_campaign=advanced_security_updates';
+# FIXME: utm_medium=IDS ?
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
 
 
 # Group: Public methods
@@ -115,8 +117,10 @@ sub _description
 # Commercial message
 sub _commercialMsg
 {
-    return __sx('Get IDS updates to protect your system against the latest security threats such as hacking attempts and attacks on security vulnerabilities! The IDS updates are integrated in the {openhref} Advanced Security Updates{closehref} subscription add-on. It guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
-                openhref  => '<a href="' . STORE_URL . '" target="_blank">', closehref => '</a>');
+    return __sx('Want to protect your system against the latest security threats, hacking attempts and attacks on security vulnerabilities? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include the IDS feature in the automatic security updates.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;
