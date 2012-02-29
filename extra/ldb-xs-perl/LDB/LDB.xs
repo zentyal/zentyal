@@ -116,7 +116,6 @@ static int do_search(struct ldb_context *ldb,
 again:
 	/* free any previous requests */
 	if (req) talloc_free(req);
-
 	ret = ldb_build_search_req(&req, ldb, ldb,
 				   basedn, scope,
 				   expression, attrs,
@@ -192,97 +191,145 @@ again:
 }
 
 MODULE = LDB		PACKAGE = LDB
-int
-search(url, baseStr, scopeStr, filterStr, attrsStr)
-        const char *url
-        const char *baseStr
-        const char *scopeStr
-        const char *filterStr
-        const char *attrsStr
+SV*
+search(params)
+        HV *params
+    INIT:
+        AV *results;
+        if (!hv_exists(params, "url", 3)) {
+            croak("missing 'url' key");
+        }
+        results = (AV *)sv_2mortal((SV *)newAV());
     CODE:
         struct ldb_context *ldb = NULL;
-        struct ldb_dn *basedn = NULL;
         struct search_context *sctx = NULL;
+        int ret = -1;
 
+        // Get the url
+        SV **urlParam = hv_fetch(params, "url", 3, 0);
+        const char *url = SvPV_nolen(*urlParam);
+
+        // Get the base DN
+        const char *baseStr = NULL;
+        if (hv_exists(params, "base", 4)) {
+            SV **baseParam = hv_fetch(params, "base", 4, 0);
+            baseStr = SvPV_nolen(*baseParam);
+        }
+
+        // Get the scope
         enum ldb_scope scope = LDB_SCOPE_DEFAULT;
-        const char * const * attrs = NULL;
-        const char *expression = "(|(objectClass=*)(distinguishedName=*))";
-        int ret = LDB_ERR_OPERATIONS_ERROR;
+        if (hv_exists(params, "scope", 5)) {
+            SV **scopeParam = hv_fetch(params, "scope", 5, 0);
+            const char *scopeStr = SvPV_nolen(*scopeParam);
+            if (strcmp(scopeStr, "base") == 0) {
+            	scope = LDB_SCOPE_BASE;
+            } else if (strcmp(scopeStr, "sub") == 0) {
+            	scope = LDB_SCOPE_SUBTREE;
+            } else if (strcmp(scopeStr, "one") == 0) {
+            	scope = LDB_SCOPE_ONELEVEL;
+            } else {
+                croak("Invalid scope");
+            }
+        }
 
-        //if (strcmp(scopeStr, "base") == 0) {
-        //	scope = LDB_SCOPE_BASE;
-        //} else if (strcmp(scopeStr, "sub") == 0) {
-        //	scope = LDB_SCOPE_SUBTREE;
-        //} else if (strcmp(scopeStr, "one") == 0) {
-        //	scope = LDB_SCOPE_ONELEVEL;
-        //} else {
-        //    RETVAL = LDB_ERR_OPERATIONS_ERROR;
-        //    goto out;
-        //}
+        // Get the filter
+        const char *filter = "(|(objectClass=*)(distinguishedName=*))";
+        if (hv_exists(params, "filter", 6)) {
+            SV **filterParam = hv_fetch(params, "filter", 6, 0);
+            filter = SvPV_nolen(*filterParam);
+        }
+
+        // Get the requested attributes
+        const char ** attrs = NULL;
+        if (hv_exists(params, "attrs", 5)) {
+            SV **attrsParam = hv_fetch(params, "attrs", 5, 0);
+            int attrsCount = av_len((AV *)SvRV(*attrsParam)) + 1;
+            attrs = (const char **)calloc(sizeof(char*), attrsCount + 1);
+            int n;
+            for (n = 0; n < attrsCount; n++) {
+                const char *attr = SvPV_nolen(*av_fetch((AV *)SvRV(*attrsParam), n, 0));
+                attrs[n] = attr;
+            }
+        }
 
         TALLOC_CTX *mem_ctx = talloc_new(NULL);
         ldb = ldb_init(mem_ctx, NULL);
         if (ldb == NULL) {
-            RETVAL = LDB_ERR_OPERATIONS_ERROR;
-            goto failure;
+            talloc_free(mem_ctx);
+            free(attrs);
+            croak("%s", ldb_strerror(LDB_ERR_OTHER));
         }
 
+        struct ldb_dn *basedn = NULL;
         if (baseStr != NULL) {
             basedn = ldb_dn_new(ldb, ldb, baseStr);
             if (basedn == NULL) {
-                RETVAL = LDB_ERR_OPERATIONS_ERROR;
-                goto failure_connect;
+	            talloc_free(ldb);
+                talloc_free(mem_ctx);
+                free(attrs);
+                croak("%s", ldb_strerror(LDB_ERR_OTHER));
             }
         }
 
-	    if (ldb_connect(ldb, url, 0, NULL) != LDB_SUCCESS) {
-            RETVAL = LDB_ERR_OPERATIONS_ERROR;
-            goto failure_connect;
+        ret = ldb_connect(ldb, url, 0, NULL);
+        if (ret != LDB_SUCCESS) {
+	        talloc_free(ldb);
+            talloc_free(mem_ctx);
+            free(attrs);
+            croak("%s", ldb_strerror(LDB_ERR_OTHER));
         }
-
 
         // Declare context here to access the stored search result
         sctx = talloc_zero(ldb, struct search_context);
     	if (sctx == NULL) {
-            RETVAL = LDB_ERR_OPERATIONS_ERROR;
-            goto failure_connect;
+	        talloc_free(ldb);
+            talloc_free(mem_ctx);
+            free(attrs);
+            croak("%s", ldb_strerror(LDB_ERR_OTHER));
         }
 	    sctx->ldb = ldb;
 	    sctx->sort = 0;
         sctx->req_ctrls = ldb_parse_control_strings(ldb, sctx, (const char **)NULL);
 
-        ret = do_search(ldb, NULL, scope, expression, attrs, sctx);
+        ret = do_search(ldb, basedn, scope, filter, attrs, sctx);
         if (ret != LDB_SUCCESS) {
-            RETVAL = ret;
-            goto failure_connect;
+	        talloc_free(sctx);
+	        talloc_free(ldb);
+            talloc_free(mem_ctx);
+            free(attrs);
+            croak("%s", ldb_strerror(ret));
         }
 
         // Convert the results to perl
-	    printf("# returned %u records\n# %u entries\n# %u referrals\n",
-		    sctx->num_stored + sctx->refs_stored, sctx->num_stored, sctx->refs_stored);
-
         int i;
 	    for (i = 0; i < sctx->num_stored; i++) {
             struct ldb_ldif ldif;
-
 	        ldif.changetype = LDB_CHANGETYPE_NONE;
 	        ldif.msg = sctx->store[i];
-
-	        printf("# record %d\n", i);
+            HV *entry = (HV *)sv_2mortal((SV *)newHV());
             int j;
             for (j=0; j<ldif.msg->num_elements; j++) {
                 struct ldb_message_element *elem = &ldif.msg->elements[j];
-                printf(" key '%s', number of values: %d\n", elem->name, elem->num_values);
+                AV *valuesArray = (AV *)sv_2mortal((SV *)newAV());
+                int k;
+                for (k=0; k<elem->num_values; k++) {
+                    struct ldb_val *value = &elem->values[k];
+                    SV *valueScalar = newSVpv((const char *)value->data, (int)value->length);
+                    av_push(valuesArray, valueScalar);
+                }
+                hv_store(entry, elem->name, strlen(elem->name), newRV((SV *)valuesArray), 0);
             }
-	        //ldb_ldif_write_file(sctx->ldb, stdout, &ldif);
+            if (HvKEYS(entry) > 0) {
+                av_push(results, newRV((SV *)entry));
+            }
 	    }
 
-	    talloc_free(sctx);
 
-    failure_connect:
+        RETVAL = newRV((SV *)results);
+	    talloc_free(sctx);
 	    talloc_free(ldb);
-    failure:
         talloc_free(mem_ctx);
-    out:
+        free(attrs);
+
     OUTPUT:
         RETVAL
