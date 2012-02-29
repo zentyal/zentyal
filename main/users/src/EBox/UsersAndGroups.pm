@@ -23,6 +23,7 @@ use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             EBox::UserCorner::Provider
+            EBox::UsersAndGroups::SyncProvider
           );
 
 use EBox::Global;
@@ -38,6 +39,7 @@ use EBox::Config;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
+use EBox::UsersSync::MasterSlave;
 
 use Digest::SHA1;
 use Digest::MD5;
@@ -233,6 +235,10 @@ sub enableActions
     # Execute enable-module script
     $self->SUPER::enableActions();
 
+    # Configure SOAP to listen for new slaves
+    $self->masterSlave->confSOAPService();
+    $self->masterSlave->setupMaster();
+
     # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
     EBox::Global->modInstance('apache')->setAsChanged();
@@ -404,6 +410,8 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::PAM',
         'EBox::UsersAndGroups::Model::AccountSettings',
         'EBox::UsersAndGroups::Model::OUs',
+        'EBox::UsersAndGroups::Model::Slaves',
+        'EBox::UsersAndGroups::Model::Master',
     ];
 }
 
@@ -690,6 +698,30 @@ sub _modsLdapUserBase
 }
 
 
+# Method: _modsSyncProvider
+#
+# Returns modules implementing LDAP Sync Provider
+#
+sub _modsSyncProvider
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->modInstance('global');
+    my @names = @{$global->modNames};
+
+    my @modules;
+    foreach my $name (@names) {
+        my $mod = EBox::Global->modInstance($name);
+
+        if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
+            push (@modules, @{$mod->syncProviders});
+        }
+    }
+
+    return \@modules;
+}
+
+
 # Method: notifyModsLdapUserBase
 #
 #   Notify all modules implementing LDAP user base interface about
@@ -923,6 +955,26 @@ sub userMenu
 sub _ldapModImplementation
 {
     return new EBox::LdapUserImplementation();
+}
+
+# SyncProvider implementation
+sub userSynchronizers
+{
+    my ($self) = @_;
+
+    return [ $self->masterSlave ];
+}
+
+
+# Master-Slave UsersSync object
+sub masterSlave
+{
+    my ($self) = @_;
+
+    unless ($self->{ms}) {
+        $self->{ms} = new EBox::UsersSync::MasterSlave();
+    }
+    return $self->{ms};
 }
 
 sub dumpConfig
