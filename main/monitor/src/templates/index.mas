@@ -18,13 +18,22 @@ Parameters:
   @initialGraphs
   $tabName => ''
   $selectedTab => 0
+  $community
 </%args>
 <%init>
   use EBox::Gettext;
+  my $admsg = __sx('Want to know how your system performs and manage your server remotely? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to access to remote monitoring and management features.',
+                   ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition" target="_blank">',
+                   ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
+                   ch => '</a>');
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
+
+% if ($community) {
+<div class='adwarning'><% $admsg %></div>
+% }
 <ul id="<% "tabMenu_$tabName" | h %>" class="tabs">
 <%perl>
   my $idx = 0;
@@ -67,7 +76,7 @@ Parameters:
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'] = new Object();
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].action =
        '<% $URL %>';
-  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].additionalParams = 
+  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].additionalParams =
        [ { 'name' : 'period', 'value' : '<% $periodData->{name} %>' }];
 % }
   var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);

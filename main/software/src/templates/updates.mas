@@ -9,6 +9,10 @@
 use EBox::Gettext;
 </%init>
 
+% if (defined $updateStatus ) {
+  <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
+% }
+
 % if ($automaticUpdates) {
 <div class='note'>
 <% __('Software updates are being handled automatically. They will be installed
@@ -26,9 +30,6 @@ automatically as scheduled') %>
 </div>
 % }
 
-% if (defined $updateStatus ) {
-  <& /software/updateNote.mas, status => $updateStatus, qa => $QAUpdates &>
-% }
 % if (@upgradables != 0) {
         <script src="/data/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
 % if ($QAUpdates) {

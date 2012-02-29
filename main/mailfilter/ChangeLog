@@ -1,4 +1,6 @@
 HEAD
+	+ Adapted messages in the UI for new editions
+	+ New printableName for POP Transparent proxy service
 	+ Added methods to get learn accounts for a domain
 	+ Fixed regression in spamassassin database setup
 	+ Fixed typo in code which prevented the creation of spam and ham users

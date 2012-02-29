@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted messages in the UI for new editions
 	+ File selections by backup domain are restricted to includes
 	+ Includes from backup domains can be moved in the list; the model
 	  validates if the includes and excludes configuration is coherent

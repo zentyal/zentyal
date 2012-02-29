@@ -7,12 +7,12 @@ my $msg;
 my $class;
 
 if ($qa) {
-    $msg = __s('As your server has a commercial server subscription, these updates are quality assured and automatically applied to your system.');
+    $msg = __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
     $class = 'ad';
 } else {
-    $msg =  __sx("Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. Servers in production environments should have quality assured (QA) software updates. Purchase a {ohpro}Professional{ch} or {ohent}Enterprise{ch} Subscription to gain access to QA updates.",
-            ohpro => '<a href="http://store.zentyal.com/serversubscriptions/subscription-professional.html" target="_blank">',
-            ohent => '<a href="http://store.zentyal.com/serversubscriptions/subscription-enterprise.html" target="_blank">',
+    $msg =  __sx('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include quality assured software updates.',
+            ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition" target="_blank">',
+            ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
             ch    => '</a>',
             );
 	$class = 'adwarning';

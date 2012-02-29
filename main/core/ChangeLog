@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted messages in the UI for new editions
 	+ Added a global method to retrieve installed server edition
 	+ Changed JS to allow the restore of the action cell when a delete
 	  action fails

@@ -1,4 +1,6 @@
 HEAD
+	+ Adapted messages in the UI for new editions
+	+ Updated installation slides
 	+ Added check for small business subscription
 	+ Bugfix: Use the new paths in setting apt preferences when
 	  modifying the /etc/zentyal/remoteservices.conf entry

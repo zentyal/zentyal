@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted messages in the UI for new editions
+	+ Use printableName instead of name to select services
 2.2.5
 	+ Bridge interfaces are correctly removed; fixed _hasChanged method
 	+ Added proxySettings to return the proxy settings to other modules

@@ -35,6 +35,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Util::Software;
 
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition';
+
 # Group: Public methods
 
 # Constructor: new
@@ -197,10 +200,10 @@ sub run
 
         # Commercial msg
         $msg .= "\n\n";
-        $msg .= __s('Warning: The updates are community based and there is no guarantee that your '
-                    . 'server will work properly after applying them. Servers in production '
-                    . 'environments should have quality assured (QA) software updates. Purchase a '
-                    . 'Professional or Enterprise Subscription to gain access to QA updates.');
+        $msg .= __sx('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include quality assured software updates.',
+                     ohs => '<a href="' . SB_URL . '" target="_blank">',
+                     ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                     ch => '</a>');
         return [
             new EBox::Event(message => $msg,
                             source  => 'security software update',
