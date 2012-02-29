@@ -75,6 +75,7 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_LIMIT    => 10000;
 use constant MAX_SB_USERS   => 25;
 
 sub _create
@@ -1193,9 +1194,26 @@ sub _checkQuota
 {
     my ($quota) = @_;
 
-    ($quota =~ /^\s*$/) and return undef;
-    ($quota =~ /\D/) and return undef;
-    return 1;
+    my $integer =~ $quota -~ m/^\d$/;
+    if (not $integer) {
+        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                                            'value' => $quota,
+                                            'advice' => __(
+'User quota must be an positive integer. To set an unlimited quota, enter zero.'
+                                                          ),
+                                           );
+    }
+
+    if ($quota > QUOTA_LIMIT) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('user quota'),
+            value => $quota,
+            advice => __x('The maximum value is {max} MB',
+                          MAX => QUOTA_LIMIT
+                         ),
+
+           );
+    }
 }
 
 sub _setFilesystemQuota
@@ -1294,14 +1312,8 @@ sub modifyUserLocal # (\%user)
                                              'value' => $username);
     }
 
-    if (exists $user->{'quota'} and
-        (not _checkQuota($user->{'quota'}))) {
-        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
-                                            'value' => $user->{'quota'},
-                                            'advice' => __(
-'User quota must be an integer. To set an unlimited quota, enter zero.'
-                                                          ),
-                                           );
+    if (exists $user->{'quota'}){
+        _checkQuota($user->{'quota'});
     }
 
     foreach my $field (keys %{$user}) {
