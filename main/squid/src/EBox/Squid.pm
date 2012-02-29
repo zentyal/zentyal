@@ -902,9 +902,22 @@ sub _writeDgTemplates
     my $lang = $self->_DGLang();
     my $file = DGDIR . '/languages/' . $lang . '/template.html';
 
+    my $extra_messages = '';
+    my $edition = EBox::Global->edition();
+
+    if (($edition eq 'community') or ($edition eq 'basic')) {
+        $extra_messages = __sx('This is an unsupported Community Edition. Get the fully supported {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates.',
+                               ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=smallbusiness_edition">',
+                               ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=enterprise_edition">',
+                               ch => '</a>');
+    }
+
     EBox::Module::Base::writeConfFileNoCheck($file,
                                              'squid/template.html.mas',
-                                             []);
+                                             [
+                                                extra_messages => $extra_messages,
+                                                image_name => "zentyal-$edition.png",
+                                             ]);
 }
 
 sub _writeDgLogrotate
