@@ -23,6 +23,9 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=zarafa&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=zarafa&utm_campaign=enterprise_edition';
+
 # Group: Public methods
 
 # Constructor: new
@@ -71,6 +74,39 @@ sub _description
       };
 
     return $description;
+}
+
+# Method: permanentMessage
+#
+#     Override to show a message depending on the subscription status
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::permanentMessage>
+#
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    my $edition = EBox::Global->edition();
+    if (($edition eq 'community') or ($edition eq 'basic')) {
+        $self->{permanentMessage} = $self->_commercialMsg();
+    }
+
+    return $self->{permanentMessage};
+}
+
+sub permanentMessageType
+{
+    return 'ad';
+}
+
+sub _commercialMsg
+{
+    return __sx('Want to know what is your system status and usage? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to receive regular system reports.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

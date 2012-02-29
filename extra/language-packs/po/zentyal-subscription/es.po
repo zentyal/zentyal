@@ -1154,3 +1154,22 @@ msgstr ""
 "como alertas, informes, opciones de monitorización y trabajos básicos. "
 "Además, te permitirá almacenar un backup de configuración de forma remota y "
 "crear un subdominio zentyal.me para tu servidor."
+
+#: ../../main/monitor/src/templates/index.mas:25
+#, perl-brace-format
+msgid ""
+"Want to know how your system performs and manage your server remotely? "
+"Get the {ohs}Small Business {ch} or {ohe}Enterprise "
+"Edition{ch} to access remote monitoring and management features."
+msgstr ""
+"¿Quieres conocer los datos de rendimiento de tu sistema y gestionar "
+"tu servidor de forma remota? Obtén la edición {ohs}Small Business "
+"{ch} o {ohe}Enterprise{ch} para acceder a las opciones de "
+"monitorización y gestión remota."
+
+#: ../../main/remoteservices/src/templates/wizard/subscription.mas:120
+#, perl-brace-format
+msgid ""
+"Send me the Zentyal Newsletter to receive news and exclusive promotions in my inbox"
+msgstr ""
+"Quiero recibir el Newsletter de Zentyal para enterarme de noticias y promociones exclusivas por correo"
