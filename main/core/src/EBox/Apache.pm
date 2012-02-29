@@ -47,6 +47,7 @@ use constant INCLUDE_KEY => 'includes';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
 use constant APACHE_PORT => 443;
+use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
 
 sub _create
 {
@@ -135,6 +136,7 @@ sub _setConf
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->enableRestartOnTrigger();
 }
 
 sub _enforceServiceState
@@ -627,6 +629,37 @@ sub certificates
              mode => '0600',
             },
            ];
+}
+
+# Method: disableRestartOnTrigger
+#
+#   Makes apache and other modules listed in the restart-trigger script  to
+#   ignore it and do nothing
+sub disableRestartOnTrigger
+{
+    system 'touch ' .  NO_RESTART_ON_TRIGGER;
+    if ($? != 0) {
+        EBox::warn('Canot create apache no restart on trigger file');
+    }
+
+}
+
+# Method: enableRestartOnTrigger
+#
+#   Makes apache and other modules listed in the restart-trigger script  to
+#   restart themselves when the script is executed (default behaviour)
+sub enableRestartOnTrigger
+{
+    EBox::Sudo::root("rm -f " . NO_RESTART_ON_TRIGGER);
+}
+
+# Method: restartOnTrigger
+#
+#  Whether apache and other modules listed in the restart-trigger script  to
+#  restart themselves when the script is executed
+sub restartOnTrigger
+{
+    return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
 }
 
 1;

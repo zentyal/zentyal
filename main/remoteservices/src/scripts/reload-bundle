@@ -21,6 +21,9 @@
 #  if the host is subscribed to
 
 use EBox;
+use EBox::Exceptions::External;
+use EBox::RemoteServices::Exceptions::NotCapable;
+use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
 use Error qw(:try);
@@ -38,7 +41,8 @@ if ( $usage or (not $correct)) {
 }
 
 EBox::init();
-my $rs = EBox::Global->modInstance('remoteservices');
+my $global = EBox::Global->getInstance();
+my $rs = $global->modInstance('remoteservices');
 
 try {
     my $rv = $rs->reloadBundle($force);
@@ -49,6 +53,17 @@ try {
     } elsif ( $rv == 2 ) {
         print STDERR __('Bundle reload was not possible either because is already the latest available version or because the zentyal-remoteservices module is outdated') . "\n";
     }
+} catch EBox::RemoteServices::Exceptions::NotCapable with {
+    my ($exc) = @_;
+
+    print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
+    # Send the event to ZC
+    my $evt = new EBox::Event(message     => $exc->text(),
+                              source      => 'not-capable',
+                              level       => 'fatal',
+                              dispatchTo  => [ 'ControlCenter' ]);
+    my $evts = $global->modInstance('events');
+    $evts->sendEvent(event => $evt);
 } catch EBox::Exceptions::External with {
     # Bundle reload it is only possible with a subscribed Zentyal
     ;

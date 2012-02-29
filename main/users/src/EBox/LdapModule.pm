@@ -25,8 +25,6 @@ use EBox::Ldap;
 
 use Error qw(:try);
 
-use constant ROOT_CONFIG_DN => 'cn=admin,cn=config';
-
 sub new
 {
 	my $class = shift;
@@ -69,18 +67,8 @@ sub masterLdap
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $ldap;
-    unless ($users->mode() eq 'slave') {
-        $self->ldap->ldapCon();
-        $ldap = $self->ldap->{ldap};
-    } else {
-        my $remote = $users->remoteLdap();
-        my $password = $users->remotePassword();
-        $ldap = EBox::Ldap::safeConnect("ldap://$remote");
-        EBox::Ldap::safeBind($ldap, $self->ldap->rootDn(), $password);
-    }
-    return $ldap;
+    $self->ldap->ldapCon();
+    return $self->ldap->{ldap};
 }
 
 # Method: _loadSchema
@@ -94,26 +82,9 @@ sub _loadSchema
 {
     my ($self, $ldiffile) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
-    my $mode = $users->mode();
-    if ($mode eq 'master' or $mode eq 'ad-slave') {
-        $self->ldap->ldapCon();
-        my $ldap = $self->ldap->{ldap};
-        $self->_loadSchemaDirectory($ldap, $ldiffile);
-    } elsif ($mode eq 'slave') {
-        my $password = $self->ldap->getPassword();
-        my $ldap;
-        my @ports = (390, 1389, 1390);
-        for my $port (@ports) {
-            $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
-            EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
-            $self->_loadSchemaDirectory($ldap, $ldiffile);
-        }
-    } else {
-         throw EBox::Exceptions::Internal(
-            "Trying to load schema with unknown LDAP mode: $mode");
-    }
+    $self->ldap->ldapCon();
+    my $ldap = $self->ldap->{ldap};
+    $self->_loadSchemaDirectory($ldap, $ldiffile);
 }
 
 sub _loadSchemaDirectory
@@ -160,26 +131,9 @@ sub _loadACL
 {
     my ($self, $acl) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $mode = $users->mode();
-
-    if ($mode eq 'master' or $mode eq 'ad-slave') {
-        $self->ldap->ldapCon();
-        my $ldap = $self->ldap->{ldap};
-        $self->_loadACLDirectory($ldap, $acl);
-    } elsif ($mode eq 'slave') {
-        my $password = $self->ldap->getPassword();
-        my $ldap;
-        my @ports = (390, 1389, 1390);
-        for my $port (@ports) {
-            $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
-            EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
-            $self->_loadACLDirectory($ldap, $acl);
-        }
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Loading ACL with unknown LDAP mode: $mode");
-    }
+    $self->ldap->ldapCon();
+    my $ldap = $self->ldap->{ldap};
+    $self->_loadACLDirectory($ldap, $acl);
 }
 
 sub _loadACLDirectory
@@ -221,21 +175,6 @@ sub _loadACLDirectory
     }
 }
 
-#   Method: _addTranslucentLocalAttribute
-#
-#      adds an attribute as local in the translucent LDAP
-#
-# Parameters:
-#          attribute - string with the attribute name
-#
-sub _addTranslucentLocalAttribute
-{
-    my ($self, $attribute) = @_;
-
-    EBox::Sudo::root("sed -i -e 's/^olcTranslucentLocal: \\(.*\\)/olcTranslucentLocal: $attribute,\\1/' /etc/ldap/slapd-translucent.d/cn=config/olcDatabase={1}hdb/olcOverlay={0}translucent.ldif");
-}
-
-
 #   Method: _addIndex
 #
 #       Create indexes in LDAP for an attribute
@@ -247,26 +186,9 @@ sub _addIndex
 {
     my ($self, $attribute) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $mode = $users->mode();
-
-    if ($mode eq 'master' or $mode eq 'ad-slave') {
-        $self->ldap->ldapCon();
-        my $ldap = $self->ldap->{ldap};
-        $self->_addIndexDirectory($ldap, $attribute);
-    } elsif ($mode eq 'slave') {
-        my $password = $self->ldap->getPassword();
-        my $ldap;
-        my @ports = (390, 1389, 1390);
-        for my $port (@ports) {
-            $ldap = EBox::Ldap::safeConnect("127.0.0.1:$port");
-            EBox::Ldap::safeBind($ldap, ROOT_CONFIG_DN, $password);
-            $self->_addIndexDirectory($ldap, $attribute);
-        }
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Creating index with unknown LDAP mode: $mode");
-    }
+    $self->ldap->ldapCon();
+    my $ldap = $self->ldap->{ldap};
+    $self->_addIndexDirectory($ldap, $attribute);
 }
 
 
@@ -320,11 +242,6 @@ sub performLDAPActions
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $slave = $users->mode() eq 'slave';
-    if ($slave) {
-        $users->startIfRequired();
-    }
     my $ldapuser = $self->_ldapModImplementation();
     my @schemas = @{ $ldapuser->schemas() };
     for my $schema (@schemas) {
@@ -338,14 +255,6 @@ sub performLDAPActions
     for my $index (@indexes) {
         $self->_addIndex($index);
     }
-    if ($slave) {
-        $users->stopIfRequired();
-        my @attrs = @{ $ldapuser->localAttributes() };
-        for my $attr (@attrs) {
-            $self->_addTranslucentLocalAttribute($attr);
-        }
-    }
-    $users->restoreState();
 }
 
 1;

@@ -139,7 +139,7 @@ sub writeConf
     push @masonParams, (ldapBase         =>  $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
     push @masonParams, (ldapBindDn       =>  $ldap->rootDn );
-    push @masonParams, (ldapBindPasswd   =>  $ldap->rootPw );
+    push @masonParams, (ldapBindPasswd   =>  $ldap->getPassword());
 
     push @masonParams, (antivirusActive  => $self->antivirus());
     push @masonParams, (virusPolicy      => $self->filterPolicy('virus'));

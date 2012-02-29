@@ -189,7 +189,7 @@ sub appArmorProfiles
 
 # Method: actions
 #
-#	Override EBox::Module::Service::actions
+#   Override EBox::Module::Service::actions
 #
 sub actions
 {
@@ -237,11 +237,12 @@ sub initialSetup
     # only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
-
-        unless($services->serviceExists(name => 'samba')) {
+        my $serviceName = 'samba';
+        unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
-                'name' => 'samba',
-				'description' =>  __d('File sharing (Samba) protocol'),
+                'name' => $serviceName,
+                'printableName' => 'Samba',
+                'description' => __('File sharing (Samba) protocol'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $PORTS,
@@ -593,7 +594,6 @@ sub _setConf
     $self->model('SambaShares')->createDirs();
 }
 
-
 sub _shareUsers
 {
     my $state = 0;
@@ -693,7 +693,7 @@ sub usersByShareWidget
 
 # Method: widgets
 #
-#	Override EBox::Module::widgets
+#   Override EBox::Module::widgets
 #
 sub widgets
 {

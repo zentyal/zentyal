@@ -1,4 +1,4 @@
-HEAD
+2.3.1
 	+ New EBox::Config::boolean() to avoid string comparisons all over
 	  the code to check if the key is set to 'yes' or 'no'
 	+ Add conflicts with sudo-ldap on debian/control.

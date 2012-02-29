@@ -5,6 +5,7 @@ DIR=/home/$USER_NAME
 
 sed -i "s/.*autologin=.*/autologin=$USER_NAME/" /etc/lxdm/default.conf
 sed -i "s/theme=.*/theme=Zentyal/" /etc/lxdm/default.conf
+sed -i "s/^bg=.*/#bg=disabled/" /etc/lxdm/default.conf
 
 if ! grep -q zentyal-session /etc/xdg/lxsession/LXDE/autostart
 then
@@ -20,16 +21,17 @@ echo "mode: off" > $DIR/.xscreensaver
 echo "selected: -1" >> $DIR/.xscreensaver
 chown $USER_NAME:$USER_NAME $DIR/.xscreensaver
 
-mkdir $DIR/.mozilla
-cp -r /usr/share/zenbuntu-desktop/firefox-profile $DIR/.mozilla/firefox
-chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
-chmod -R +w $DIR/.mozilla
+mkdir -p $DIR/.mozilla/firefox
+cp -r /usr/share/zenbuntu-desktop/firefox-profile/* $DIR/.mozilla/firefox
 
 PROFILE=$DIR/.mozilla/firefox/ebox.default
 CERT=/var/lib/zentyal/conf/ssl/ssl.cert
 ID='zentyal'
 certutil -d $PROFILE -A -n "$ID" -t ',,' -i $CERT
 /usr/share/zenbuntu-desktop/firefox-cert-override > $PROFILE/cert_override.txt
+
+chown -R $USER_NAME:$USER_NAME $DIR/.mozilla
+chmod -R +w $DIR/.mozilla
 
 # Copy LXDM theme
 mv /usr/share/zenbuntu-desktop/lxdm/background.png /usr/share/backgrounds/default.png
@@ -50,9 +52,9 @@ mkdir -p $PANELS_DIR
 mv /usr/share/zenbuntu-desktop/lxde/bottom $PANELS_DIR/
 ESCAPED_PATH=$(echo $DESKTOP | sed 's/\//\\\//g')
 sed -i "s/DESKTOP_PATH/$ESCAPED_PATH/" $PANELS_DIR/bottom
-PCMANFM_DIR=$DIR/.config/pcmanfm
+PCMANFM_DIR=$DIR/.config/pcmanfm/LXDE
 mkdir -p $PCMANFM_DIR
-mv /usr/share/zenbuntu-desktop/lxde/main.lxde $PCMANFM_DIR/
+mv /usr/share/zenbuntu-desktop/lxde/pcmanfm.conf $PCMANFM_DIR/
 chown -R $USER_NAME:$USER_NAME $DESKTOP
 chown -R $USER_NAME:$USER_NAME $DIR/.config
 

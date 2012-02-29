@@ -1,6 +1,12 @@
 HEAD
 	+ The editable attribute of the types now accept a reference to a function
 	  to dinamically enable or disable the field.
+	+ Added methods to enable/disable restart triggers
+2.3.2
+	+ Fixed redis unix socket permissions problem with usercorner
+	+ Get row ids without safe characters checking
+	+ Added EBox::Util::Random as random string generator
+	+ Set log level to debug when cannot compute md5 for a nonexistent file
 	+ Filtering in tables is now case insensitive
 	+ ProgressIndicator no longer leaves zombie processes in the system
 	+ Implemented mysqldump for logs database

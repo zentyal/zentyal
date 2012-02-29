@@ -1,5 +1,6 @@
-#!/usr/bin/perl
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+#!/usr/bin/perl -w
+
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,29 +15,29 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# This script is intended to rejoin a slave to its master without reinstalling
-# Users and Groups module must be configured and enabled, this script will
-# communicate with the master and restore the replica
-use warnings;
+# A module to test the <EBox::RemoteServices::Subscription::Check> class
+
 use strict;
+use warnings;
 
 use EBox;
-use EBox::Global;
+use Test::Exception;
+use Test::More tests => 3;
 
-EBox::init();
-my $users = EBox::Global->modInstance("users");
-
-unless ( $users->mode() eq 'slave' ) {
-    print "ERROR: this script is intended for Zentyal Slave machines";
-    exit 1;
+BEGIN {
+    diag('A unit test for EBox::RemoteServices::Subscription::Check');
+    use_ok('EBox::RemoteServices::Subscription::Check')
+      or die;
 }
 
-$users->_manageService('stop');
+EBox::init();
 
-$users->_setupSlaveLDAP(1);
+my $checker = new EBox::RemoteServices::Subscription::Check(user => 'foo', password => 'bar');
+isa_ok($checker, 'EBox::RemoteServices::Subscription::Check');
 
-$users->_manageService('start');
-
-$users->save();
+diag "Check capabilities for a SB edition";
+lives_ok {
+    $checker->_performSBChecks();
+} 'Capable for SB edition';
 
 1;
