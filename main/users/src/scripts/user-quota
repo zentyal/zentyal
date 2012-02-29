@@ -47,8 +47,12 @@ sub setCurrentQuota
 {
     my ($uid, $quota) = @_;
 
-    Quota::setqlim(Quota::getqcarg('/home'),
+    my $ok = Quota::setqlim(Quota::getqcarg('/home'),
                    $uid, $quota, $quota, 0, 0);
+    if (not defined $ok) {
+        my $err = Quota::strerr();
+        die $err;
+    }
 }
 
 if ($ARGV[0] eq '-s') {
