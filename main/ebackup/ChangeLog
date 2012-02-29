@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed date parsing in restore-tool and configuration cloud backup
 	+ Adapted messages in the UI for new editions
 2.3
 	+ File selections by backup domain are restricted to includes
