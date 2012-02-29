@@ -1,5 +1,5 @@
 HEAD
-	+ Restore samba-vscan dependency
+	+ Samba4 integration
 2.3
 	+ Adapted to new MySQL logs backend
 	+ Remove samba-vscan dependency as it is not yet available for precise

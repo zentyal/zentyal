@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,13 +22,13 @@ use base 'EBox::Types::Select';
 
 sub new
 {
-    my $class = shift;
-    my %opts = @_;
+        my $class = shift;
+        my %opts = @_;
 
-    my $self = $class->SUPER::new(%opts);
+        my $self = $class->SUPER::new(%opts);
 
-    bless($self, $class);
-    return $self;
+        bless($self, $class);
+        return $self;
 }
 
 
@@ -42,7 +42,8 @@ sub new
 #   It would make more sense to add an attribute to the type, or waiting
 #   until we have a proper user model, and this will be done automatically
 #
-#   TODO Is this still needed?
+#
+#
 sub options
 {
     my ($self) = @_;

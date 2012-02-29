@@ -35,24 +35,19 @@ use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Model::ModelManager;
 use EBox::Exceptions::DataInUse;
-use EBox::SambaLdapUser;
 use EBox::Sudo;
 
 use Error qw(:try);
 
-use constant EBOX_SHARE_DIR => EBox::SambaLdapUser::basePath() . '/shares/';
-use constant DEFAULT_MASK => '0670';
-use constant DEFAULT_USER => 'ebox';
+# TODO Fix
+use constant DEFAULT_MASK => '0770';
+use constant DEFAULT_USER => 'root';
 use constant DEFAULT_GROUP => '__USERS__';
 use constant GUEST_DEFAULT_MASK => '0750';
 use constant GUEST_DEFAULT_USER => 'nobody';
 use constant GUEST_DEFAULT_GROUP => 'nogroup';
-
-
-# TODO
-# Add more paths which don't make sense to allow as a share
-#
-use constant FILTER_PATH => ('/etc', '/boot', '/dev', '/root', '/proc');
+use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
+                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
 
 # Dependencies
 
@@ -73,13 +68,12 @@ use constant FILTER_PATH => ('/etc', '/boot', '/dev', '/root', '/proc');
 #
 sub new
 {
+    my ($class, %opts) = @_;
 
-      my ($class, %opts) = @_;
-      my $self = $class->SUPER::new(%opts);
-      bless ( $self, $class);
+    my $self = $class->SUPER::new(%opts);
+    bless ($self, $class);
 
-      return $self;
-
+    return $self;
 }
 
 # Group: Protected methods
@@ -94,8 +88,7 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableDesc =
-      (
+    my @tableDesc = (
        new EBox::Types::Text(
                                fieldName     => 'share',
                                printableName => __('Share name'),
@@ -108,7 +101,7 @@ sub _table
                                subtypes =>
                                 [
                                      new EBox::Types::Text(
-                                       fieldName     => 'ebox',
+                                       fieldName     => 'zentyal',
                                        printableName =>
                                             __('Directory under Zentyal'),
                                        editable      => 1,
@@ -121,7 +114,7 @@ sub _table
                                        unique        => 1,
                                                           ),
                                ],
-                               help => _pathHelp()),
+                               help => _pathHelp($self->parentModule()->SHARES_DIR())),
        new EBox::Types::Text(
                                fieldName     => 'comment',
                                printableName => __('Comment'),
@@ -138,8 +131,7 @@ sub _table
                                fieldName     => 'access',
                                printableName => __('Access control'),
                                'foreignModel' => 'SambaSharePermissions',
-                               'view' =>
-                                   '/Samba/View/SambaSharePermissions'
+                               'view' => '/Samba/View/SambaSharePermissions'
                               )
 
       );
@@ -158,7 +150,6 @@ sub _table
                      enableProperty     => 1,
                      defaultEnabledValue => 1,
                      orderedBy          => 'share',
-
                     };
 
       return $dataTable;
@@ -217,8 +208,8 @@ sub removeRow
         return $self->SUPER::removeRow($id, $force);
     }
 
-    my $path =  EBOX_SHARE_DIR;
-    $path .= $row->elementByName('path')->value();
+    my $path =  $self->parentModule()->SHARES_DIR() . '/' .
+                $row->valueByName('path');
     unless ( -d $path) {
         return $self->SUPER::removeRow($id, $force);
     }
@@ -248,10 +239,10 @@ sub deletedRowNotify
     my $path = $row->elementByName('path');
 
     # We are only interested in shares created under /home/samba/shares
-    return unless ($path->selectedType() eq 'ebox');
+    return unless ($path->selectedType() eq 'zentyal');
 
     my $mgr = EBox::Model::ModelManager->instance();
-    my $deletedModel = $mgr ->model('DeletedSambaShares');
+    my $deletedModel = $mgr->model('SambaDeletedShares');
     $deletedModel->addRow('path' => $path->value());
 }
 
@@ -264,12 +255,15 @@ sub createDirs
 {
     my ($self) = @_;
 
+    my $administratorSID = $self->parentModule()->ldb()->getSidById('administrator');
+    my $domainUsersSID = $self->parentModule()->ldb()->getSidById('Domain Users');
+
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $pathType =  $row->elementByName('path');
-        next unless ( $pathType->selectedType() eq 'ebox');
-        my $path = EBOX_SHARE_DIR . $pathType->value();
-        my @cmds;
+        next unless ( $pathType->selectedType() eq 'zentyal');
+        my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
+        my @cmds = ();
         push(@cmds, "mkdir -p $path");
         if ($row->elementByName('guest')->value()) {
            push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " $path");
@@ -278,51 +272,63 @@ sub createDirs
            push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
            push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
         }
-        push(@cmds, "setfacl -b $path");
-        EBox::Sudo::root(@cmds);
-        # ACLs
-        my @perms;
+        # Set NT ACLs
+        # Build the security descriptor string
+        my $sdString = '';
+        $sdString .= "O:$administratorSID"; # Object's owner
+        $sdString .= "G:$domainUsersSID"; # Object's primary group
+        # Build the ACS strings
+        # http://msdn.microsoft.com/en-us/library/windows/desktop/aa374928(v=vs.85).aspx
+        my @aceStrings = ();
+        push (@aceStrings, '(A;;0x001f01ff;;;SY)'); # SYSTEM account has full access
+        push (@aceStrings, "(A;;0x001f01ff;;;$administratorSID)"); # Administrator has full access
         for my $subId (@{$row->subModel('access')->ids()}) {
             my $subRow = $row->subModel('access')->row($subId);
             my $permissions = $subRow->elementByName('permissions');
-            next if ($permissions->value() eq 'administrator');
-            my $userType = $subRow->elementByName('user_group');
-            my $perm;
-            if ($userType->selectedType() eq 'group') {
-                $perm = 'g:';
-            } elsif ($userType->selectedType() eq 'user') {
-                $perm = 'u:';
-            }
-            my $qobject = shell_quote( $userType->printableValue());
-            $perm .= $qobject . ':';
-
+            my $aceString = '(';
+            # ACE Type
+            $aceString .= 'A;';
+            # ACE Flags
+            $aceString .= 'OICI;';
+            # Rights
             if ($permissions->value() eq 'readOnly') {
-                $perm .= 'rx';
+                $aceString .= '0x001200A9;';
             } elsif ($permissions->value() eq 'readWrite') {
-                $perm .= 'rwx';
+                $aceString .= '0x001301BF;';
+            } elsif ($permissions->value() eq 'administrator') {
+                $aceString .= '0x001F01FF;';
             }
-            push (@perms, $perm);
+            # Object Guid
+            $aceString .= ';';
+            # Inherit Object Guid
+            $aceString .= ';';
+            # Account SID
+            my $userType = $subRow->elementByName('user_group');
+            $aceString .= $self->parentModule()->ldb()->getSidById($userType->printableValue());
+            $aceString .= ')';
+            push (@aceStrings, $aceString);
         }
-        next unless @perms;
-        my $cmd = 'setfacl -m ' . join(',', @perms) . " $path";
-        my $defaultCmd = 'setfacl -m d:' . join(',d:', @perms) ." $path";
-        EBox::debug("$cmd and $defaultCmd");
+        my $fullAce = join ('', @aceStrings);
+        $sdString .= "D:$fullAce";
+        my $cmd = $self->parentModule()->SAMBATOOL() . " ntacl set '$sdString' $path";
         try {
+            EBox::debug("Executing '$cmd'");
             EBox::Sudo::root($cmd);
-            EBox::Sudo::root($defaultCmd);
         } otherwise {
-            EBox::debug("Couldn't enable ACLs for $path")
+            my $error = shift;
+            EBox::debug("Couldn't write NT ACLs for $path: $error");
         };
     }
 }
 
-
 # Private methods
 sub _pathHelp
 {
+    my ($sharesPath) = @_;
+
     return __x( '{openit}Directory under Zentyal{closeit} will ' .
             'automatically create the share.' .
-            'directory in /home/samba/shares {br}' .
+            "directory in $sharesPath {br}" .
             '{openit}File system path{closeit} will allow you to share '.
             'an existing directory within your file system',
                openit  => '<i>',
@@ -346,7 +352,7 @@ sub _sharesHelp
 #
 sub headTitle
 {
-        return undef;
+    return undef;
 }
 
 1;

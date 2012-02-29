@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -51,12 +51,13 @@ use Error qw(:try);
 #
 sub new
 {
-    my ($class, %opts) = @_;
 
-    my $self = $class->SUPER::new(%opts);
-    bless ( $self, $class);
+      my ($class, %opts) = @_;
+      my $self = $class->SUPER::new(%opts);
+      bless ( $self, $class);
 
-    return $self;
+      return $self;
+
 }
 
 sub populateUser
@@ -234,6 +235,7 @@ sub _table
                      help               => '',
                      printableRowName   => __('ACL'),
                      insertPosition     => 'back',
+
                     };
 
       return $dataTable;
@@ -258,7 +260,7 @@ sub filterUserGroupPrintableValue
     } elsif ($selectedType eq 'group') {
         return $value . __(' (group))')
     }
-
+    
     return $value;
 }
 

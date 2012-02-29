@@ -1,0 +1,244 @@
+<%args>
+    $pdc => 1
+    $netbios
+    $workgroup
+    $desc
+    $ifaces
+    $ldap
+    @dirgroup
+    @printers
+    $active_printer
+    $backup_path
+    $quarantine_path
+    $roaming
+    @shares
+    $guest_shares
+    $antivirus
+    %antivirus_exceptions
+    $recycle
+    %recycle_exceptions
+    $recycle_config
+    $drive
+    $prefix
+    $logon_script => 'zentyal-logon.bat'
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+[global]
+ workgroup = <% $workgroup %>
+ netbios name = <% $netbios %>
+ server string = <% $desc %>
+ enable privileges = yes
+ interfaces = <% $ifaces %>
+ bind interfaces only = yes
+ passdb backend = ldapsam:<% $ldap->{'ldapi'} %>
+ ldap ssl = off
+ log level = 1
+ syslog = 0
+ log file = /var/log/samba/%m
+ max log size = 50
+ include = /etc/samba/smb.conf.%m
+ vfs objects = full_audit
+ full_audit:success = connect opendir open disconnect unlink mkdir rmdir rename
+ full_audit:failure = none
+ smb ports = 137 138 139 445
+ name resolve order = wins bcast hosts
+ time server = yes
+ printcap name = CUPS
+ wins support = yes
+ dns proxy = yes
+ ldap suffix = <% $ldap->{'dn'} %>
+ ldap machine suffix = ou=Computers
+ ldap user suffix =  <% $ldap->{'users'} %>
+ ldap group suffix =  <% $ldap->{'groups'} %>
+ ldap idmap suffix = ou=Idmap
+ ldap admin dn = <% $ldap->{'rootdn'} %>
+ map acl inherit = yes
+ printing = cups
+% if ($guest_shares) {
+ map to guest = Bad User
+% }
+% if ($pdc) {
+ encrypt passwords = yes
+ obey pam restrictions = no
+ ldap passwd sync = yes
+ mangling method = hash2
+ logon script = <% $logon_script %>
+ logon drive = <% $drive %>
+ logon home =
+% if ($roaming) {
+ logon path = \\<% $netbios %>\profiles\%U
+% } else {
+ logon path =
+% }
+ domain logons = yes
+ os level = 65
+ preferred master = yes
+ domain master = yes
+ add user script = /usr/sbin/smbldap-useradd -m "%u"
+ ldap delete dn = yes
+ add machine script = /usr/sbin/smbldap-useradd -w "%u"
+ add group script = /usr/sbin/smbldap-groupadd -p "%g"
+ add user to group script = /usr/sbin/smbldap-groupmod -m "%u" "%g"
+ delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
+ set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
+
+[netlogon]
+ path = /home/samba/netlogon/
+ browseable = no
+ read only = yes
+
+[profiles]
+ path = /home/samba/profiles
+ browseable = no
+ read only = no
+ guest ok = yes
+ valid users = %U
+ admin users = @"Domain Admins"
+ map hidden = yes
+ map system = yes
+ create mask = 0611
+ directory mask = 0711
+ profile acls = yes
+ csc policy = disable
+ hide files = /desktop.ini/outlook*.lnk/*Briefcase*/
+% }
+
+[homes]
+ comment = <% __('Home Directories') %>
+ valid users = %S
+ read only = no
+ browseable = no
+% my $av = ($antivirus xor defined($antivirus_exceptions{'users'}));
+% my $rb = ($recycle xor defined($recycle_exceptions{'users'}));
+% my $objects = 'full_audit';
+% if ($av) {
+%   $objects .= ' vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects = <% $objects %>
+% if ($av) {
+ vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
+% }
+
+% foreach my $group (@dirgroup) {
+[<% $group->{'sharename'} %>]
+% if ($group->{'groupcomment'}) {
+ comment = "<% $group->{'groupcomment'} %>"
+% } else {
+ comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
+% }
+ path = <% $group->{'path'} %>
+ browseable = yes
+ read only = no
+ valid users = @"<% $group->{'groupname'} %>"
+ force group = "<% $group->{'groupname'} %>"
+ force create mode = 0660
+ force directory mode = 0660
+% my $av = ($antivirus xor defined($antivirus_exceptions{'group'}->{$group->{'sharename'}}));
+% my $rb = ($recycle xor defined($recycle_exceptions{'group'}->{$group->{'sharename'}}));
+% my $objects = 'full_audit';
+% if ($av) {
+%   $objects .= ' vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects = <% $objects %>
+% if ($av) {
+ vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
+% }
+%
+% }
+
+% if ($active_printer) {
+%   foreach my $printer (@printers) {
+%               next unless (length $printer->{'users'} > 0);
+[<% $printer->{'name'} %>]
+ path = /var/spool/samba
+ read only =    yes
+ printable =    yes
+ valid users = <% $printer->{'users'} %>
+%   }
+
+% }
+
+% foreach my $share (@shares) {
+[<% $share->{share} %>]
+ comment = <% $share->{comment} %>
+ path = <% $share->{path} %>
+ browseable = yes
+ read only = no
+% if ($share->{guest}) {
+ guest only = yes
+ guest ok = yes
+% } else {
+ valid users = <% $share->{validUsers} %>
+ read list = <% $share->{readOnly} %>
+ write list = <% $share->{readWrite} %>
+ admin users = <% $share->{administrators} %>
+% }
+ force create mode = 0660
+ force directory mode = 0660
+% my $av = ($antivirus xor defined($antivirus_exceptions{'share'}->{$share->{'share'}}));
+% my $rb = ($recycle xor defined($recycle_exceptions{'share'}->{$share->{'share'}}));
+% my $objects = 'full_audit';
+% if ($av) {
+%   $objects .= ' vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects = <% $objects %>
+% if ($av) {
+ vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
+% }
+%
+% }
+
+[<% $prefix %>-internal-backups]
+ path = <% $backup_path %>
+ browseable = yes
+ read only = yes
+ valid users = @"Domain Admins"
+ admin users = @"Domain Admins"
+ force group = ebox
+ force user = ebox
+
+[<% $prefix %>-quarantine]
+ path = <% $quarantine_path %>
+ browseable = yes
+ read only = no
+ valid users = @"Domain Admins"
+ admin users = @"Domain Admins"
+
+[print$]
+ comment = "Printer Drivers"
+ path = /var/lib/samba/printers
+ browseable = yes
+ read only = yes
+ guest ok = no
+ write list = @"Domain Admins"
+ valid users = @"Domain Users"
+

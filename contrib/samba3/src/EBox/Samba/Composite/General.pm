@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -54,27 +54,26 @@ sub new
 #
 sub _description
 {
-    my $samba = EBox::Global->modInstance('samba');
-
     my $description =
         {
             components      => [
-                                'GeneralSettings',
-#                                'PDC',
+                                'samba/GeneralSettings',
+                                'PDC',
                                 'SambaShares',
-#                                'RecycleBin',
+                                'RecycleBin',
                                ],
             layout          => 'tabbed',
             name            =>  __PACKAGE__->nameFromClass,
-            pageTitle       => __('File Sharing'),
+            pageTitle => __('File Sharing'),
             printableName   => __('File sharing options'),
             compositeDomain => 'Samba',
-           help            => __(''),
+#           help            => __(''),
         };
 
-#    if ($samba->isAntivirusPresent()) {
-#        push(@{$description->{'components'}}, 'samba/Antivirus');
-#    }
+    my $samba = EBox::Global->modInstance('samba');
+    if ($samba->isAntivirusPresent()) {
+        push(@{$description->{'components'}}, 'samba/Antivirus');
+    }
 
     return $description;
 }

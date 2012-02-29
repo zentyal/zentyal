@@ -1,6 +1,6 @@
 <%args>
 $drive
-$netbiosName
+$netbios
 </%args>
 echo off
 
@@ -22,5 +22,5 @@ if %Version.Major%==%Win7.Major% (
 ) else if %Version.Major% gtr %Win7.Major% set GEQ_W7=1
 
 if defined GEQ_W7 (
-  net use <% $drive %> \\<% $netbiosName %>\%USERNAME%
+  net use <% $drive %> \\<% $netbios %>\%USERNAME%
 )
