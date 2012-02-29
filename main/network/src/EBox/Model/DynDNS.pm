@@ -30,8 +30,8 @@ use EBox::Types::Text;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
 use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=network&utm_campaign=dynamicdns';
-use constant SB_URL => STORE_URL . 'small-business-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => STORE_URL . 'enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
+use constant SB_URL => STORE_URL . 'small-business-edition.html/?utm_source=zentyal&utm_medium=dyndns&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition.html/?utm_source=zentyal&utm_medium=dyndns&utm_campaign=enterprise_edition';
 
 our %SERVICES = (
     dyndns => {

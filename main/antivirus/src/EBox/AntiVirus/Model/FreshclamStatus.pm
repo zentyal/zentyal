@@ -31,8 +31,8 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 
 # Constants
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=enterprise_edition';
 
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 

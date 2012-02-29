@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 
 # Constants
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=mailfilter&utm_campaign=enterprise_edition';
 
 
 # Group: Public methods

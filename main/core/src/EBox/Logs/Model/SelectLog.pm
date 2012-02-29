@@ -25,8 +25,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Logs::Consolidate;
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=enterprise_edition';
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=logs&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=logs&utm_campaign=enterprise_edition';
 
 sub new
 {
