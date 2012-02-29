@@ -967,6 +967,8 @@ sub _addService
 
     exists $params{name} or
         throw EBox::Exceptions::MissingArgument('name');
+    exists $params{printableName} or
+        throw EBox::Exceptions::MissingArgument('printableName');
     exists $params{protocol} or
         throw EBox::Exceptions::MissingArgument('protocol');
     exists $params{sourcePort} or
@@ -978,6 +980,7 @@ sub _addService
 
     if (not $serviceMod->serviceExists('name' => $params{name})) {
         $serviceMod->addService('name' => $params{name},
+                'printableName' => $params{printableName},
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
@@ -986,6 +989,7 @@ sub _addService
                 );
     } else {
         $serviceMod->setService('name' => $params{name},
+                'printableName' => $params{printableName},
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
