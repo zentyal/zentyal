@@ -210,10 +210,10 @@ sub setupSlave
         my $cert = $client->getCertificate();
         write_file(MASTER_CERT, $cert);
 
-
+        my $hostname = `hostname -f`;
         try {
-        # XXX 1 is dummy to fight SOAPClient's problem with even parameter list size
-            $client->registerSlave('localhost', $apache->port, 1);
+            # XXX 1 is dummy to fight SOAPClient's problem with even parameter list size
+            $client->registerSlave($hostname, $apache->port, 1);
         } otherwise {
             my $ex = shift;
             EBox::debug($ex->text());
