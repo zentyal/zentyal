@@ -511,7 +511,7 @@ sub create
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignore_mods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $user->{'password'} ], $params{ignore_mods});
     }
 
     # Return the new created user
