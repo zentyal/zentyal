@@ -938,14 +938,14 @@ sub menu
                     'url' => 'Users/Composite/Settings',
                     'text' => __('LDAP Settings'), order => 50));
 
-        $root->add($folder);
-
     } else {
-        $root->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                        'text' => __('Configure DN'),
-                                        'separator' => $separator,
-                                        'order' => $order));
+        $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
+                                          'text' => __('Configure DN'),
+                                          'separator' => $separator,
+                                          'order' => 0));
     }
+
+    $root->add($folder);
 }
 
 # EBox::UserCorner::Provider implementation
