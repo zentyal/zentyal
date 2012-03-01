@@ -122,6 +122,8 @@ sub addSlave
     my $users = EBox::Global->modInstance('users');
     my $table = $users->model('Slaves');
 
+    EBox::info("Adding a new slave on $host:$port");
+
     $table->addRow(host => $host, port => $port);
     # TODO save this to ebox-ro (and remove red button)
 
@@ -226,10 +228,11 @@ sub setupSlave
         my $cert = $client->getCertificate();
         write_file(MASTER_CERT, $cert);
 
-        my $hostname = `hostname -f`;
+
+        ;
         try {
             # XXX 1 is dummy to fight SOAPClient's problem with even parameter list size
-            $client->registerSlave($hostname, $apache->port, 1);
+            $client->registerSlave($self->_hostname(), $apache->port, 1);
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);
@@ -244,6 +247,15 @@ sub setupSlave
     }
 }
 
+
+sub _hostname
+{
+    my ($self) = @_;
+    my $hostname = `hostname -f`;
+    chomp($hostname);
+
+    return $hostname;
+}
 
 sub _analyzeException
 {
