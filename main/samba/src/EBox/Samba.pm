@@ -57,10 +57,9 @@ use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SAMBADNSZONE         => '/var/lib/samba/private/named.conf';
 use constant SAMBADNSKEYTAB       => '/var/lib/samba/private/dns.keytab';
 use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
-
+use constant FSTAB_FILE           => '/etc/fstab';
 use constant SAMBA_DIR            => '/home/ebox/samba';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
-use constant NETLOGON_DIR         => SYSVOL_DIR . '/scripts';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
 use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
@@ -220,6 +219,11 @@ sub usedFiles
             'reason' => __('To set up Samba according to your configuration.'),
             'module' => 'samba',
         },
+        {
+            'file'   => FSTAB_FILE,
+            'reason' => __('To enable extended attributes and acls.'),
+            'module' => 'samba',
+        }
     ];
 }
 
@@ -273,6 +277,29 @@ sub enableActions
         my $error = shift;
         EBox::debug("Couldn't create directories: $error");
     };
+
+    # Remount filesystem with user_xattr and acl options
+    EBox::debug('Setting up filesystem');
+    try {
+        EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
+    } otherwise {
+        my $error = shift;
+        EBox::debug("Couldn't setup filesystem options: $error");
+    };
+
+    # Disable apparmor profile
+    # NOTE This is a temporary fix until ubuntu publish the fix for bug
+    #      https://bugs.launchpad.net/ubuntu/+source/bind9/+bug/929563
+    EBox::debug('Disabling named apparmor profile');
+    @cmds = ('rm -f /etc/apparmor.d/disable/usr.sbin.named',
+             'ln -s /etc/apparmor.d/usr.sbin.named /etc/apparmor.d/disable/usr.sbin.named',
+             'touch /etc/apparmor.d/local/usr.sbin.named');
+    try {
+        EBox::Sudo::root(@cmds);
+    } otherwise {
+        my $error = shift;
+        EBox::debug("Couldn't disable named profile: $error");
+    };
 }
 
 # Method: modelClasses
@@ -302,7 +329,6 @@ sub modelClasses
 #
 sub compositeClasses
 {
-
     my ($self) = @_;
 
     return [
@@ -437,8 +463,8 @@ sub provision
 
 
     # Export all zentyal users and groups to ldb
+    EBox::debug('Exporting LDAP to LDB');
     try {
-        EBox::debug('Exporting LDAP to LDB');
         # TODO Update idmap.ldb to map group __USRES__ 1901 to 100
         #$self->ldb()->ldapToLdb(); TODO
     } otherwise {
@@ -576,12 +602,13 @@ sub _setConf
     }
     push(@array, 'guest_shares' => $guestShares);
 
+    my $netlogonDir = SAMBA_DIR , '/' . $self->realm() . '/scripts';
     if ($self->mode() eq 'dc') {
-        my $logonScript = join('/', NETLOGON_DIR, LOGON_SCRIPT);
+        my $logonScript = join('/', $netlogonDir, LOGON_SCRIPT);
         if (EBox::Sudo::fileTest('-f', $logonScript)) {
             push(@array, 'logon_script', LOGON_SCRIPT);
         }
-        $self->writeConfFile(join('/', NETLOGON_DIR, LOGON_DEFAULT_SCRIPT),
+        $self->writeConfFile(join('/', $netlogonDir, LOGON_DEFAULT_SCRIPT),
             'samba/logon.bat.mas', \@array);
     }
 
@@ -1761,7 +1788,7 @@ sub ldb
     my ($self) = @_;
 
     unless(defined($self->{ldb})) {
-        $self->{ldb} = EBox::Ldb->instance();
+        $self->{ldb} = EBox::Ldb->new();
     }
     return $self->{ldb};
 }
