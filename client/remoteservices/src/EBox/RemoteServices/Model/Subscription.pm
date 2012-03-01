@@ -54,10 +54,8 @@ use Error qw(:try);
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
-                          . '&utm_campaign=register';
-use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -261,7 +259,7 @@ sub help
 
     my $msg = '';
     if (not $self->eBoxSubscribed()) {
-        $msg = __s('To subscribe your Zentyal Server to Zentyal Cloud, you need to get first one of the Server Subscriptions (Basic, Professional or Enterprise) from the Zentyal On-line Store. Once you have obtained one of these subscriptions, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
+        $msg = __s('To subscribe your Zentyal server to Zentyal Cloud, you have to have the Free Basic Subscription, or Small Business, or Enterprise Edition, all available in the Zentyal On-line Store. Once you have obtained one of these services, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
         $msg .= '<br/><br/>';
 
         #my $modChanges = $self->_modulesToChange();
@@ -592,15 +590,10 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('For full, enterprise-level services, obtain '
-                . '{openhrefp}Professional{closehref} or '
-                . '{openhrefe}Enterprise Server Subscription{closehref} - '
-                . 'These offer Quality Assured software updates, Alerts, '
-                . 'Reports and Centralised monitoring and management of your '
-                . 'Zentyal servers!',
-                openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
-                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
-                closehref => '</a>');
+    return __sx('Want to guarantee that your Zentyal server is always up-to-date, secured and supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
+                ohs  => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

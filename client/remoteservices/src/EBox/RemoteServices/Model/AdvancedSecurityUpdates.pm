@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -42,13 +42,8 @@ use POSIX;
 # Constants:
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
-                          . '&utm_campaign=register';
-
-use constant ASU_URL  => STORE_URL . 'other/advanced-security.html' . UTM;
-use constant PROF_URL => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTE_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
-
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=security_updates&utm_campaign=smallbusiness_edition';
+use constant ENT_URL   => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=security_updates&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -121,7 +116,7 @@ sub _table
              ),
           new EBox::Types::Text(
               fieldName     => 'asu',
-              printableName => __('Advanced Security Updates'),
+              printableName => __('Security Updates'),
              ),
           new EBox::Types::Text(
               fieldName     => 'latest',
@@ -131,7 +126,7 @@ sub _table
 
     my $dataForm = {
                     tableName        => __PACKAGE__->nameFromClass(),
-                    pageTitle        => __('Advanced Security Updates'),
+                    pageTitle        => __('Security Updates'),
                     modelDomain      => 'RemoteServices',
                     tableDescription => \@tableDesc,
                 };
@@ -181,21 +176,10 @@ sub _content
 
 sub _message
 {
-    return __sx('Enterprise-level security for your network! The '
-                . '{oha}Advanced Security Updates{ch} guarantee that the '
-                . 'content filtering lists, IDS threat analysis ruleset, '
-                . 'Antivirus signatures and Antispam detection rules in your '
-                . 'Zentyal servers are verified daily by the most trusted IT '
-                . 'experts. To obtain these updates, your server must have '
-                . '{ohp}Professional{ch} or '
-                . '{ohe}Enterprise Server Subscription{ch}.',
+    return __sx('Want to offer enterprise-level security for your organization? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: both include automatic security updates so you can stop worrying about the Antivirus, Antispam, IDS and the Content Filtering System.',
                 ch => '</a>',
-                oha => '<a href="' . ASU_URL . '" target="_blank">',
-                ohp => '<a href="' . PROF_URL . '" target="_blank">',
-                ohe => '<a href="' . ENTE_URL . '" target="_blank">');
-
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">');
 }
 
-
 1;
-

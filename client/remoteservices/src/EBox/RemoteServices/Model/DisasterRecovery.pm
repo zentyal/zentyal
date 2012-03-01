@@ -49,15 +49,9 @@ use POSIX;
 use Error qw(:try);
 
 # Constants:
-
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
-                          . '&utm_campaign=register';
-
-use constant DR_URL    => STORE_URL . 'other/disaster-recovery.html' . UTM;
-use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
-use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTE_URL  => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=disaster_recovery&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=disaster_recovery&utm_campaign=enterprise_edition';
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . '82ebackup.conf';
 
@@ -307,30 +301,18 @@ sub _content
 
 sub _CBmessage
 {
-    return __sx('The {ohd}Disaster Recovery{ch} service ensures the '
-                . 'availability of your business critical data! Take a look '
-                . 'and try out the free {ohb}Basic Subscription{ch} which '
-                . 'allows you to store your configuration backup remotely.',
+    return __sx('Want to ensure the availability of your business critical data at all times? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}! Take a look and try out the Free Basic Subscription which allows you to store one configuration backup remotely.',
                 ch => '</a>',
-                ohd => '<a href="' . DR_URL . '" target="_blank">',
-                ohb => '<a href="' . BASIC_URL . '" target="_blank">',
-               );
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">');
 }
 
 sub _DRmessage
 {
-    return __sx('The full, enterprise-level {ohd}Disaster Recovery{ch} service '
-                . 'guarantees that besides the system configuration, your most '
-                . 'critical data is backed up, secured, monitored and recovered '
-                . 'quickly, in trusted repositories and following strict processes. '
-                . 'To obtain this service, your server must have '
-                . '{ohp}Professional{ch} or '
-                . '{ohe}Enterprise Server Subscription{ch}.',
+    return __sx('Want to ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
                 ch => '</a>',
-                ohd => '<a href="' . DR_URL . '" target="_blank">',
-                ohp => '<a href="' . PROF_URL . '" target="_blank">',
-                ohe => '<a href="' . ENTE_URL . '" target="_blank">');
-
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">');
 }
 
 # Estimate the backup size using volume number
