@@ -94,6 +94,18 @@ th {
                     <th><% __s('Company') %>: </th>
                     <td><input type="text" name="company" id="company" /></td>
                   </tr>
+                  <tr id="subs_position" style="display: none">
+                    <th><% __s('Position') %>: </th>
+                    <td>
+                       <select style="width: 140px" name="position" id="position">
+                         <option></option>
+                         <option value="senior"><% __s('Senior Manager (CEO, Owner, COO...)') %></option>
+                         <option value="it_manager"><% __s('IT Manager') %></option>
+                         <option value="technician"><% __s('Network Technician or System Administrator') %></option>
+                         <option value="other"><% __s('Other') %></option>
+                       </select>
+                     </td>
+                  </tr>
                   <tr id="subs_phone" style="display: none">
                     <th><% __s('Phone number') %>*: </th>
                     <td><input type="text" name="phone" id="phone" /></td>
@@ -113,6 +125,24 @@ th {
                   <tr id="subs_servername">
                     <th><% __s('Server name') %>*: </th>
                     <td><input type="text" name="servername" id="servername" /></td>
+                  </tr>
+                  <tr id="subs_newsletter" style="display: none">
+                     <td colspan="2">
+                        <input type="checkbox" name="newsletter" id="newsletter" checked="checked" />
+                        <label for="newsletter">
+                             <% __s('Send me the Zentyal Newsletter to receive news and exclusive promotions in my inbox') %>
+                        </label></br>
+                      </td>
+                  </tr>
+                  <tr id="subs_agree" style="display: none">
+                     <td colspan="2">
+                        <input type="checkbox" name="agree" id="agree"/></th>
+                        <label for="agree">
+                              <% __sx('I have read and agree to the {oh}Privacy Policy{ch}',
+                                      oh => '<a target="_blank" href="http://www.zentyal.com/legal/">',
+                                      ch => '</a>') %>
+                        </label></br>
+                     </td>
                   </tr>
                   <tr>
                     <td colspan="2" style="text-align: right">* Required fields</td>
@@ -211,17 +241,23 @@ th {
                 $('subs_lastname').hide();
                 $('subs_country').hide();
                 $('subs_company').hide();
+                $('subs_position').hide();
                 $('subs_phone').hide();
                 $('subs_pass2').hide();
+                $('subs_newsletter').hide();
+                $('subs_agree').hide();
             }
             else {
                 $('subs_firstname').show();
                 $('subs_lastname').show();
                 $('subs_country').show();
                 $('subs_company').show();
+                $('subs_position').show();
                 $('subs_phone').show();
                 $('subs_pass2').show();
-            }
+                $('subs_newsletter').show();
+                $('subs_agree').show();
+           }
         }
 
         Element.observe($('radio_subscribe'), 'change', update_form);
