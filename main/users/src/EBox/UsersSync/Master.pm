@@ -13,17 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersSync::MasterSlave
-#
-#   User synchronized from Zentyal to Zentyal, both master and
-#   slave
-#
-package EBox::UsersSync::MasterSlave;
+package EBox::UsersSync::Master;
 
 use strict;
 use warnings;
-
-use base 'EBox::UsersSync::Base';
 
 # File containing password for master's web service (to register a new slave)
 use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';
@@ -46,7 +39,7 @@ use Error qw(:try);
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(name => 'zentyal');
+    my $self = {};
     bless($self, $class);
     return $self;
 }
@@ -72,8 +65,7 @@ sub confSOAPService
 }
 
 
-# MASTER METHODS
-
+# SERVER METHODS
 
 # Method: getCertificate
 #
@@ -132,25 +124,7 @@ sub addSlave
 }
 
 
-sub soapClient
-{
-    my ($self, $slave) = @_;
-
-    my $hostname = $slave->{'hostname'};
-    my $port = $slave->{'port'};
-
-    my $client = EBox::SOAPClient->instance(
-        name  => 'urn:Users/Slave',
-        proxy => "https://$hostname:$port/slave",
-        certs => {
-            cert => SSL_DIR . 'ssl.pem',
-            private => SSL_DIR . 'ssl.key'
-        }
-    );
-    return $client;
-}
-
-# SLAVE METHODS
+# CLIENT METHODS
 
 # Method: checkMaster
 #

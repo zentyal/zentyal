@@ -105,7 +105,7 @@ sub delGroup
 #      <EBox::RemoteServices::Server::Base>
 #
 sub URI {
-    return 'urn:EBox/Users';
+    return 'urn:Users/Slave';
 }
 
 # Method: _soapResult

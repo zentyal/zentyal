@@ -15,8 +15,13 @@
 
 # Class: EBox::UsersAndGroups::SyncProvider
 #
-#    This is an abstract class for user synchronization providers.
-#    Each provider can act as master, slave or both.
+#   This is an abstract class for user synchronization providers.
+#   Each provider can act as master, slave or both.
+#
+#   "slaves" method should return a list of slaves for this provider
+#
+#   To act as master, common methods (create, modify and delete) should
+#   be used on users and group objects.
 #
 package EBox::UsersAndGroups::SyncProvider;
 
@@ -27,7 +32,7 @@ use warnings;
 use EBox::Exceptions::NotImplemented;
 
 
-# Method: userSync
+# Method: slaves
 #
 #   Return a list of instances implementing EBox::UsersSync::Base
 #
@@ -35,7 +40,7 @@ use EBox::Exceptions::NotImplemented;
 #
 #   array ref - UserSynchronizer instances for this module
 #
-sub userSynchronizers
+sub slaves
 {
     throw EBox::Exceptions::NotImplemented();
 }

@@ -32,7 +32,7 @@ EBox::init();
 
 my $server = SOAP::Transport::HTTP::Apache
   ->dispatch_with(
-      { 'urn:EBox/Users' => 'EBox::UsersSync::MasterSlaveSOAP' }
+      { 'urn:Users/Slave' => 'EBox::UsersSync::SOAPSlave' }
      );
 
 

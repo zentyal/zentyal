@@ -13,16 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersSync::Base
+# Class: EBox::UsersAndGroups::Slave
 #
 #    These methods will be called when a user or group is added,
 #    modified or deleted. They can be implemented in order to sync
 #    that changes to other machines (master provider).
 #
-#    Slave implementation should call UsersAndGroups methods in order
-#    to make the desired changes
-#
-package EBox::UsersSync::Base;
+package EBox::UsersAndGroups::Slave;
 
 use strict;
 use warnings;
@@ -32,6 +29,12 @@ use base 'EBox::LdapUserBase';
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 
+
+# Method: new
+#
+#   Create a new slave instance, choosen name should
+#   be unique between all the slaves
+#
 sub new
 {
     my $class = shift;
@@ -39,7 +42,6 @@ sub new
     my $self = {};
 
     $self->{name} = delete $opts{name};
-    $self->{printableName} = delete $opts{printableName};
     unless (defined($self->{name})) {
         throw EBox::Exceptions::Internal('No name provided');
     }
@@ -49,14 +51,10 @@ sub new
 }
 
 
-# Method: confLink
-#
-#   Return a link to the configuration of this synchronizer
-#
-sub confLink
+sub name
 {
-    throw EBox::Exceptions::NotImplemented();
+    my ($self) = @_;
+    return $self->{name};
 }
-
 
 1;

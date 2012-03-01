@@ -130,7 +130,7 @@ sub validateTypedRow
 
 
     my $users = EBox::Global->modInstance('users');
-    $users->masterSlave->checkMaster($host, $port, $password);
+    $users->master->checkMaster($host, $port, $password);
 }
 
 1;

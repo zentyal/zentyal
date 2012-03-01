@@ -39,7 +39,8 @@ use EBox::Config;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
-use EBox::UsersSync::MasterSlave;
+use EBox::UsersSync::Master;
+use EBox::UsersSync::Slave;
 
 use Digest::SHA1;
 use Digest::MD5;
@@ -236,8 +237,8 @@ sub enableActions
     $self->SUPER::enableActions();
 
     # Configure SOAP to listen for new slaves
-    $self->masterSlave->confSOAPService();
-    $self->masterSlave->setupMaster();
+    $self->master->confSOAPService();
+    $self->master->setupMaster();
 
     # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
@@ -331,7 +332,8 @@ sub _setConf
 
     $self->_setupNSSPAM();
 
-    $self->masterSlave->setupSlave();
+    # Configure as slave if enabled
+    $self->master->setupSlave();
 }
 
 sub _setupNSSPAM
@@ -702,11 +704,11 @@ sub _modsLdapUserBase
 }
 
 
-# Method: _modsSyncProvider
+# Method: _allSlaves
 #
-# Returns modules implementing LDAP Sync Provider
+# Returns all slaves from LDAP Sync Provider
 #
-sub _modsSyncProvider
+sub _allSlaves
 {
     my ($self) = @_;
 
@@ -718,7 +720,7 @@ sub _modsSyncProvider
         my $mod = EBox::Global->modInstance($name);
 
         if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
-            push (@modules, @{$mod->syncProviders});
+            push (@modules, @{$mod->slaves()});
         }
     }
 
@@ -758,6 +760,11 @@ sub notifyModsLdapUserBase
 
         # TODO catch errors here?
         $mod->$method(@{$args});
+    }
+
+    # Notify slaves
+    foreach my $slave (@{$self->_allSlaves}) {
+        $slave->$method(@{$args});
     }
 }
 
@@ -967,21 +974,32 @@ sub _ldapModImplementation
 }
 
 # SyncProvider implementation
-sub userSynchronizers
+sub slaves
 {
     my ($self) = @_;
 
-    return [ $self->masterSlave ];
+    my $model = $self->model('Slaves');
+
+    my @slaves;
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $host = $row->valueByName('host');
+        my $port = $row->valueByName('port');
+
+        push (@slaves, new EBox::UsersSync::Slave($host, $port));
+    }
+
+    return \@slaves;
 }
 
 
 # Master-Slave UsersSync object
-sub masterSlave
+sub master
 {
     my ($self) = @_;
 
     unless ($self->{ms}) {
-        $self->{ms} = new EBox::UsersSync::MasterSlave();
+        $self->{ms} = new EBox::UsersSync::Master();
     }
     return $self->{ms};
 }
