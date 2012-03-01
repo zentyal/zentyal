@@ -75,39 +75,4 @@ sub _table
     return $dataTable;
 }
 
-
-
-# Method: precondition
-#
-# Check if the module is configured
-#
-# Overrides:
-#
-# <EBox::Model::DataTable::precondition>
-sub precondition
-{
-    my ($self) = @_;
-    my $usersMod = EBox::Global->modInstance('users');
-    unless ($usersMod->configured()) {
-        return undef;
-    }
-
-    return 1;
-}
-
-# Method: preconditionFailMsg
-#
-# Check if the module is configured
-#
-# Overrides:
-#
-# <EBox::Model::DataTable::precondition>
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __('You must enable the module Users in the module ' .
-              'status section in order to use it.');
-}
-
 1;
