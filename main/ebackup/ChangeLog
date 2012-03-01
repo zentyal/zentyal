@@ -1,4 +1,5 @@
 HEAD
+	+ Do not check for disasterAddon if not subscribed
 	+ Added missing libdate-calc-perl dependency
 	+ Fixed date parsing in restore-tool and configuration cloud backup
 	+ Adapted messages in the UI for new editions

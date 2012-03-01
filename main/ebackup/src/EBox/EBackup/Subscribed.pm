@@ -45,6 +45,10 @@ sub isSubscribed
 
     if (EBox::Global->modExists('remoteservices')) {
         my $remoteServices = EBox::Global->modInstance('remoteservices');
+        if (not $remoteServices->eBoxSubscribed) {
+            return 0;
+        }
+
         my $disasterAddOn = 0;
         try {
             $disasterAddOn = $remoteServices->disasterRecoveryAddOn();

@@ -1,10 +1,7 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS=ajax
+templatedir = @TEMPLATESPATH@/ebackup/ajax
 
-
-templatedir = @TEMPLATESPATH@/ebackup
-
-template_DATA =
+template_DATA = remoteExcludes.mas
 
 EXTRA_DIST = $(template_DATA)
 
