@@ -351,7 +351,9 @@ sub deletedRowNotify
 
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
-        $network->storeSelectedDefaultGateway(undef);
+        if ($row->id() eq $network->selectedDefaultGateway()) {
+            $network->storeSelectedDefaultGateway(undef);
+        }
     }
 }
 
