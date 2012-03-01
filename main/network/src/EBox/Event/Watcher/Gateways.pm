@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Event::Watcher::Gateways;
 
@@ -168,40 +170,58 @@ sub run
         return $self->{eventList};
     }
 
+    my ($setAsDefault, $unsetAsDefault);
     # Check if default gateway has been disabled and choose another
     my $default = $gateways->findValue('default' => 1);
-
+    my $originalId = $network->selectedDefaultGateway();
+    EBox::debug("The preferred default gateway is $originalId");
     unless ($default and $default->valueByName('enabled')) {
         # If the original default gateway is alive, restore it
-        my $originalId = $network->selectedDefaultGateway();
-        EBox::debug("The preferred default gateway is $originalId");
-        my $original = $gateways->row($originalId);
+        my $original;
+        $original = $gateways->row($originalId) if $originalId;
         if ($original and $original->valueByName('enabled')) {
-            if ( $default ) {
-                $default->elementByName('default')->setValue(0);
-                $default->store();
-            }
-            $original->elementByName('default')->setValue(1);
-            $original->store();
-            EBox::debug('The original default gateway has been restored');
+            my $original = $gateways->row($originalId);
+            $unsetAsDefault = $default;
+            $setAsDefault   = $original;
+            EBox::debug('The original default gateway will be restored');
             $needSave = 1;
         } else {
             EBox::debug('Checking if there is another enabled gateway to set as default');
             # Check if we can find another enabled to set it as default
             my $other = $gateways->findValue('enabled' => 1);
             if ($other) {
-                if ( $default ) {
-                    $default->elementByName('default')->setValue(0);
-                    $default->store();
-                }
-                $other->elementByName('default')->setValue(1);
-                $other->store();
-                my $otherName = $other->valueByName('name');
-                EBox::debug("The gateway $otherName is now the default");
-                $needSave = 1;
+                $unsetAsDefault = $default;
+                $setAsDefault   = $other;
+            }
+        }
+    } else {
+        # check if the gw enabled is the prefered one
+        if ($originalId and ($default->id() ne $originalId)) {
+            my $original = $gateways->row($originalId);
+            if ($original and $original->valueByName('enabled')) {
+                EBox::debug('The original default gateway will replace the current default');
+                $unsetAsDefault = $default;
+                $setAsDefault   = $original;
             }
         }
     }
+
+    if ($unsetAsDefault) {
+        $unsetAsDefault->elementByName('default')->setValue(0);
+        $unsetAsDefault->store();
+        EBox::debug("The gateway " .  $unsetAsDefault->valueByName('name').
+                        " is not longer default");
+        $needSave = 1;
+    }
+
+    if ($setAsDefault) {
+        $setAsDefault->elementByName('default')->setValue(1);
+        $setAsDefault->store();
+        EBox::debug("The gateway " .  $setAsDefault->valueByName('name').
+                        " is now the default");
+        $needSave = 1;
+    }
+
 
     if ($needSave) {
         EBox::debug('Regenerating rules for the gateways');
@@ -254,8 +274,7 @@ sub _testRule # (row)
     # If a test for this gw has already failed we don't test any other
     return if ($self->{failed}->{$gw});
 
-    EBox::debug("Running $typeName tests for gateway $gwName...");
-
+    my ($ppp_iface, $iface_up);
     if ( $network->ifaceMethod($iface) eq 'ppp' ) {
         EBox::debug("It is a PPPoe gateway");
 
@@ -274,6 +293,8 @@ sub _testRule # (row)
     my $type = $row->valueByName('type');
     my $typeName = $row->printableValueByName('type');
     my $host = $row->valueByName('host');
+
+    EBox::debug("Running $typeName tests for gateway $gwName...");
 
     if ($type eq 'gw_ping') {
         my $gwRow = $self->{gateways}->row($gw);
