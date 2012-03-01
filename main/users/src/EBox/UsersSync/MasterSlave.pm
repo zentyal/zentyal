@@ -174,8 +174,13 @@ sub checkMaster
         proxy => "https://slave:$password\@$host:$port/master",
     );
 
-    $master->getCertificate();
-    return 0;
+
+    try {
+        $master->getCertificate();
+    } otherwise {
+        my $ex = shift;
+        $self->_analyzeException($ex);
+    }
 }
 
 
@@ -227,8 +232,7 @@ sub setupSlave
             $client->registerSlave($hostname, $apache->port, 1);
         } otherwise {
             my $ex = shift;
-            EBox::debug($ex->text());
-            throw EBox::Exceptions::External(__("Couldn't configure Zentyal as slave: ") . $ex->text());
+            $self->_analyzeException($ex);
         }
     }
     else {
@@ -238,6 +242,21 @@ sub setupSlave
         # disable master access
         unlink (MASTER_CERT);
     }
+}
+
+
+sub _analyzeException
+{
+    my ($self, $ex) = @_;
+
+    my $msg = $ex->text();
+    if ($msg =~ m/^401/) {
+        $msg = __('Invalid password');
+    }
+    elsif ($msg =~ m/^500/) {
+        $msg = __('Connection failed, check host, port and firewall settings');
+    }
+    throw EBox::Exceptions::External(__("Couldn't configure Zentyal as slave") . ": $msg.");
 }
 
 
