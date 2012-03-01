@@ -60,6 +60,9 @@ sub _table
 
     my ($self) = @_;
 
+    # TODO make all this elements non-editable after change
+    # (add a destroy button, to unregister from the master)
+
     my @tableDesc = (
         new EBox::Types::Boolean (
             fieldName => 'enabled',
@@ -91,10 +94,10 @@ sub _table
     my $dataForm = {
         tableName           => 'Master',
         printableTableName  => __('Sync users from a master server'),
-        pageTitle           => __('Users Sync'),
         defaultActions      => [ 'editField', 'changeView' ],
         tableDescription    => \@tableDesc,
         modelDomain         => 'Users',
+        help                => __('Configure this parameters to synchronize users from a master server'),
     };
 
     return $dataForm;

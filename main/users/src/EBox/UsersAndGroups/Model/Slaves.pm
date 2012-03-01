@@ -68,7 +68,7 @@ sub _table
         'defaultActions' => ['changeView', 'editField', 'del'],
         'defaultController' => '/Users/Controller/Slaves',
         'tableDescription' => \@tableHead,
-        'help' => __('List of slave servers for users and groups sync.'),
+        'help' => __('List of slave servers for users and groups synchronization.'),
         'printableRowName' => __('slave'),
     };
 

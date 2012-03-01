@@ -414,6 +414,7 @@ sub modelClasses
         'EBox::UsersAndGroups::Model::OUs',
         'EBox::UsersAndGroups::Model::Slaves',
         'EBox::UsersAndGroups::Model::Master',
+        'EBox::UsersAndGroups::Model::SlavePassword',
     ];
 }
 
@@ -426,6 +427,7 @@ sub compositeClasses
     return [
         'EBox::UsersAndGroups::Composite::Settings',
         'EBox::UsersAndGroups::Composite::UserTemplate',
+        'EBox::UsersAndGroups::Composite::Sync',
     ];
 }
 
@@ -897,12 +899,12 @@ sub menu
     my $separator = 'Office';
     my $order = 510;
 
-    if ($self->configured()) {
-        my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
-                                            'text' => $self->printableName(),
-                                            'separator' => $separator,
-                                            'order' => $order);
+    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+                                        'text' => $self->printableName(),
+                                        'separator' => $separator,
+                                        'order' => $order);
 
+    if ($self->configured()) {
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                               'text' => __('Users'), order => 10));
@@ -929,13 +931,18 @@ sub menu
         }
 
         $folder->add(new EBox::Menu::Item(
+                    'url' => 'Users/Composite/Sync',
+                    'text' => __('Synchronization'), order => 40));
+
+        $folder->add(new EBox::Menu::Item(
                     'url' => 'Users/Composite/Settings',
-                    'text' => __('LDAP Settings'), order => 40));
+                    'text' => __('LDAP Settings'), order => 50));
 
         $root->add($folder);
+
     } else {
         $root->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                        'text' => $self->printableName(),
+                                        'text' => __('Configure DN'),
                                         'separator' => $separator,
                                         'order' => $order));
     }

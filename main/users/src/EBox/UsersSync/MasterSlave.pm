@@ -38,6 +38,7 @@ use EBox::Exceptions::External;
 use EBox::Util::Random;
 use EBox::Sudo;
 use EBox::SOAPClient;
+use EBox::Gettext;
 use URI::Escape;
 use File::Slurp;
 use Error qw(:try);
@@ -94,12 +95,18 @@ sub setupMaster
     my ($self) = @_;
 
     my $pass = EBox::Util::Random::generate(15);
+
+    my $users = EBox::Global->modInstance('users');
+    my $table = $users->model('SlavePassword');
+
+    my $row = $table->row();
+    $row->elementByName('password')->setValue($pass);
+    $row->store();
+
     EBox::Sudo::root(
         'rm -f ' . MASTER_PASSWORDS_FILE,
         'htpasswd -bc ' . MASTER_PASSWORDS_FILE . ' slave ' . $pass,
     );
-
-    EBox::debug("$pass");
 }
 
 
@@ -116,6 +123,10 @@ sub addSlave
     my $table = $users->model('Slaves');
 
     $table->addRow(host => $host, port => $port);
+    # TODO save this to ebox-ro (and remove red button)
+
+    # Regenerate slave connection password
+    $self->setupMaster();
 }
 
 
