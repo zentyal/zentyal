@@ -169,20 +169,11 @@ again:
 	if (sctx->pending)
 		goto again;
 
-	//if (sctx->sort && (sctx->num_stored != 0 || sctx->refs != 0)) {
-	//	unsigned int i;
-
+	if (sctx->sort && (sctx->num_stored != 0 || sctx->refs != 0)) {
 		if (sctx->num_stored) {
 			LDB_TYPESAFE_QSORT(sctx->store, sctx->num_stored, ldb, do_compare_msg);
 		}
-	//	for (i = 0; i < sctx->num_stored; i++) {
-	//		display_message(sctx->store[i], sctx);
-	//	}
-
-	//	for (i = 0; i < sctx->refs_stored; i++) {
-	//		display_referral(sctx->refs_store[i], sctx);
-	//	}
-	//}
+    }
 
 	talloc_free(req);
 
@@ -260,6 +251,13 @@ search(params)
             croak("%s", ldb_strerror(LDB_ERR_OTHER));
         }
 
+        // Register samba LDB handlers to translate the stored
+        //  attributes from NDR format to LDIF format
+        ret = ldb_register_samba_handlers(ldb);
+        if (ret != LDB_SUCCESS) {
+            croak("%s", "Can't register samba handlers");
+        }
+
         struct ldb_dn *basedn = NULL;
         if (baseStr != NULL) {
             basedn = ldb_dn_new(ldb, ldb, baseStr);
@@ -288,7 +286,7 @@ search(params)
             croak("%s", ldb_strerror(LDB_ERR_OTHER));
         }
 	    sctx->ldb = ldb;
-	    sctx->sort = 0;
+	    sctx->sort = 1;
         sctx->req_ctrls = ldb_parse_control_strings(ldb, sctx, (const char **)NULL);
 
         ret = do_search(ldb, basedn, scope, filter, attrs, sctx);
@@ -306,24 +304,38 @@ search(params)
             struct ldb_ldif ldif;
 	        ldif.changetype = LDB_CHANGETYPE_NONE;
 	        ldif.msg = sctx->store[i];
+
             HV *entry = (HV *)sv_2mortal((SV *)newHV());
             int j;
             for (j=0; j<ldif.msg->num_elements; j++) {
+                const struct ldb_schema_attribute *a = NULL;
+                TALLOC_CTX *mem_ctx = NULL;
+                mem_ctx = talloc_new(NULL);
+
                 struct ldb_message_element *elem = &ldif.msg->elements[j];
+                a = ldb_schema_attribute_by_name(ldb, elem->name);
+                if (a == NULL) {
+                    croak("%s", "Can't get schema attribute");
+                }
+
                 AV *valuesArray = (AV *)sv_2mortal((SV *)newAV());
                 int k;
                 for (k=0; k<elem->num_values; k++) {
                     struct ldb_val *value = &elem->values[k];
-                    SV *valueScalar = newSVpv((const char *)value->data, (int)value->length);
-                    av_push(valuesArray, valueScalar);
+                    struct ldb_val printable_value;
+                    if (LDB_SUCCESS == a->syntax->ldif_write_fn(ldb, mem_ctx, value, &printable_value) ) {
+                        SV *valueScalar = newSVpv((const char *)printable_value.data, (int)printable_value.length);
+                        av_push(valuesArray, valueScalar);
+                    }
                 }
+
+                talloc_free(mem_ctx);
                 hv_store(entry, elem->name, strlen(elem->name), newRV((SV *)valuesArray), 0);
             }
             if (HvKEYS(entry) > 0) {
                 av_push(results, newRV((SV *)entry));
             }
 	    }
-
 
         RETVAL = newRV((SV *)results);
 	    talloc_free(sctx);

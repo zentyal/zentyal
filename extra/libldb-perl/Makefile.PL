@@ -9,7 +9,7 @@ WriteMakefile(
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/LDB.pm', # retrieve abstract from module
        AUTHOR         => 'Samuel Cabrero <scabrero@zentyal.com>') : ()),
-    LIBS              => ['-lldb'], # e.g., '-lm'
+    LIBS              => ['-lldb -L/usr/lib/x86_64-linux-gnu/samba -L/usr/lib/i386-linux-gnu/samba -lldbsamba'], # e.g., '-lm'
     DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
     INC               => '-I.', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
