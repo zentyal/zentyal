@@ -1,4 +1,6 @@
 HEAD
+	+ Install en_US.UTF-8 locale when enabling module for first time;
+	  otherwise users stores will not be created
 	+ Added message about Zarafa small business add-on
 	+ Adapted to new users implementation
 2.3
