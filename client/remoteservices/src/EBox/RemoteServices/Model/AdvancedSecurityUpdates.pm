@@ -18,7 +18,7 @@
 # This class is the model to show information about advanced security updates
 #
 #     - server name
-#     - server subscription
+#     - server edition
 #     - asu
 #     - latest security update
 #
@@ -116,8 +116,8 @@ sub _table
               printableName => __('Server name'),
              ),
           new EBox::Types::Text(
-              fieldName     => 'subscription',
-              printableName => __('Server subscription'),
+              fieldName     => 'edition',
+              printableName => __('Server edition'),
              ),
           new EBox::Types::Text(
               fieldName     => 'asu',
@@ -157,11 +157,7 @@ sub _content
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subscription = $i18nLevels{$rs->subscriptionLevel()};
+        $subscription = $rs->i18nServerEdition();
 
         my $asuEnabled = $rs->securityUpdatesAddOn();
         if ( $asuEnabled ) {
@@ -175,7 +171,7 @@ sub _content
 
     return {
         server_name  => $serverName,
-        subscription => $subscription,
+        edition      => $subscription,
         asu          => $asu,
         latest       => $latest,
        };
