@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,6 +20,8 @@ use warnings;
 
 use base 'EBox::CGI::WizardPage';
 
+use feature qw(switch);
+
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions;
@@ -28,7 +30,7 @@ use SOAP::Lite;
 use Error qw(:try);
 
 use constant SOAP_URI => 'http://www.zentyal.com';
-use constant SOAP_PROXY => 'https://api.zentyal.com/';
+use constant SOAP_PROXY => 'https://api.zentyal.com/2.2/';
 
 sub new # (cgi=?)
 {
@@ -71,6 +73,10 @@ sub _processWizard
             throw EBox::Exceptions::External(__('Introduced passwords do not match'));
         }
 
+        unless ( defined($self->param('agree')) and ($self->param('agree') eq 'on') ) {
+            throw EBox::Exceptions::External(__s('You must agree to the privacy policy to continue'));
+        }
+
         $self->_register();
     }
 
@@ -86,6 +92,11 @@ sub _register
     my $user = $self->param('username');
     EBox::info("Registering a new basic subscription ($user)");
 
+    my $position   = $self->param('position');
+    $position = "" unless (defined($position));
+    my $newsletter = $self->param('newsletter');
+    $newsletter = "off" unless(defined($newsletter));
+
     my $result;
     try {
         $result  = SOAP::Lite
@@ -99,7 +110,10 @@ sub _register
                               $self->param('username'),
                               $self->param('password'),
                               $self->param('phone'),
-                              $self->param('company'));
+                              $self->param('company'),
+                              $newsletter,
+                              $position,
+                              );
     } otherwise {
         throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
     };
@@ -112,11 +126,18 @@ sub _register
         throw EBox::Exceptions::External(__('An unknown error ocurred registering the subscription'));
     }
 
-    if ($result->result > 0) {
-        if ($result->result == 1) {
-            throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
+    if ($result->result() > 0) {
+        given ($result->result() ) {
+            when ( 1 ) {
+                throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
+            }
+            when ( 2 ) {
+                throw EBox::Exceptions::External(__('Password must have at least 6 characters. Leading or trailing spaces will be ignored.'));
+            }
+            default {
+                throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
+            }
         }
-        throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
     }
 }
 
