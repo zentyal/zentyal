@@ -46,8 +46,6 @@ use EBox::Util::Version;
 use EBox::Util::Software;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition';
 
 sub _create
 {
@@ -539,10 +537,7 @@ sub importTimezone
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __sx('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include quality assured software updates.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __s('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the Small Business or Enterprise Edition that include quality assured software updates.');
 }
 
 sub _secureMsg
