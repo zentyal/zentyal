@@ -1,4 +1,6 @@
 HEAD
+	+ Zentyal components page now shows update list packages errors
+	+ Fixed apt-wrapper error which masked some errors
 	+ Adapted messages in the UI for new editions
 	+ Updated installation slides
 	+ Disable restart trigger on installation/removal of packages to

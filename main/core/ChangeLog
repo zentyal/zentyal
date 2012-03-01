@@ -1,4 +1,6 @@
 HEAD
+	+ In progress bar CGIs AJAX call checks the availability of the
+	  next page before loading it
 	+ Replaced community logo
 	+ Adapted messages in the UI for new editions
 	+ Changed cookie name to remove forbidden characters to avoid
