@@ -20,33 +20,14 @@ use warnings;
 
 use EBox::Sudo;
 use Net::LDAP;
-#use EBox::Global;
-#use EBox::Model::ModelManager;
-#use EBox::Network;
-#use EBox::Exceptions::InvalidData;
-#use EBox::Exceptions::Internal;
-#use EBox::Exceptions::DataExists;
-#use EBox::Exceptions::DataMissing;
+use Net::Domain;
 use EBox::Samba;
 
 use EBox::Gettext;
-#use Perl6::Junction qw(any all);
 use Error qw(:try);
-#use Crypt::SmbHash qw(nthash ntlmgen);
-
-# Default values for samba user
-#use constant SMBLOGONTIME       => '0';
-#use constant SMBLOGOFFTIME      => '2147483647';
-#use constant SMBKICKOFFTIME     => '2147483647';
-#use constant SMBPWDCANCHANGE    => '0';
-#use constant SMBPWDMUSTCHANGE   => '2147483647';
-#use constant SMBGROUP           => '513';
-#use constant SMBACCTFLAGS       => '[U]';
-#use constant SMBACCTFLAGSDISABLED       => '[UD]';
-#use constant USERGROUP          => 513;
 
 # Home path for users and groups
-use constant BASEPATH           => '/home/samba';
+use constant BASEPATH           => '/home/ebox/samba';
 use constant USERSPATH          => '/home';
 use constant GROUPSPATH         => BASEPATH . '/groups';
 use constant PROFILESPATH       => BASEPATH . '/profiles';
@@ -57,46 +38,59 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-#    $self->{ldap} = EBox::Global->modInstance('users')->ldap();
     $self->{samba} = EBox::Global->modInstance('samba');
+    $self->{ldb} = $self->{samba}->ldb();
     bless($self, $class);
     return $self;
 }
 
-# Implements LdapUserBase interface
-# This method adds the user to the samba4 LDB
+# Method: _addUSer
+#
+#   This method adds the user to LDB
+#
 sub _addUser
 {
     my ($self, $user, $password) = @_;
 
     return unless ($self->{samba}->configured());
 
-#    my $users = EBox::Global->modInstance('users');
-#    my $userInfo = $users->userInfo($userName);
-#    my $unixuid = $userInfo->{uid};
-#
-#    $self->_addUserLdapAttrs($userName, $unixuid, $password);
-#
-#    # Add user to Domain Users group
-#    unless ($self->_domainUser($userName)) {
-#        $users->addUserToGroup($userName, 'Domain Users');
-#    }
-#
-#    $self->_createDir(PROFILESPATH . "/$userName",
-#        $unixuid, USERGROUP, '0700');
-#    $self->_createDir(PROFILESPATH . "/$userName.V2",
-#        $unixuid, USERGROUP, '0700');
+    my $userId = $user->name();
+    my $userUid = $user->get('uidNumber');
+    my $userGid = $user->get('gidNumber');
+    my $userGivenname = $user->firstname();
+    my $userSurname = $user->surname();
+    my $userComment = $user->comment();
+    my $homeDirectory = $user->get('homeDirectory');
+    $homeDirectory =~ s/\//\\/g;
+
+    my $profilePath = PROFILESPATH . "/$userId";
+    $self->_createDir($profilePath, $userUid, $userGid, '0700');
 
     # Check if the user already exists in LDB
     # This is necessary because this code is also triggered by s4sync
-    my $results = $self->{samba}->ldb->search({
-            base => $self->{samba}->ldb->rootDN(),
-            filter => "(sAMAccountName=$user)",
+    my $result = $self->{ldb}->search({
+            base => $self->{ldb}->rootDn(),
+            filter => "(sAMAccountName=$userId)",
             attrs => ['distinguishedName']});
-    unless ($results->count) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " user create $user $password --enable-reversible-encryption";
-        EBox::debug("Adding user '$user' to LDB");
+    if (scalar (@{$result}) == 0) {
+        my $hostname = Net::Domain::hostname();
+        $profilePath = "\\\\$hostname\\profiles";
+        my $homeDrive = $self->{samba}->drive();
+        # User creation
+        my $cmd = $self->{samba}->SAMBATOOL() . " user create $userId $password" .
+            " --enable-reversible-encryption" .
+            " --surname='$userSurname'" .
+            " --given-name='$userGivenname'" .
+            " --profile-path='$profilePath'" .
+            " --home-drive='$homeDrive'" .
+            " --home-directory='$homeDirectory'";
+        if (length ($userComment) > 0) {
+            $cmd .= " --description='$userComment'";
+        }
+        EBox::debug("Adding user '$userId' to LDB");
         EBox::Sudo::root($cmd);
+        # Map unix uid
+        $self->{ldb}->xidMapping($userId, $userUid);
     }
 }
 
@@ -126,19 +120,19 @@ sub _modifyUser
 #    my $entry = $result->pop_entry();
 #    $entry->replace( sambaNTPassword => $curNT, sambaLMPassword => $curLM );
 #    $entry->update($ldap->ldapCon);
-
-    # Check if the user already exists in LDB
-    # This is necessary because this code is also triggered by s4sync
-    my $results = $self->{samba}->ldb->search({
-            base => $self->{samba}->ldb->rootDN(),
-            filter => "(sAMAccountName=$user)",
-            attrs => ['distinguishedName']});
-    if ($results->count) {
-        # TODO this command can return error if the password does not meet password constrains
-        my $cmd = $self->{samba}->SAMBATOOL() . " user setpassword $user --newpassword=$password";
-        EBox::debug("Changing '$user' password");
-        EBox::Sudo::root($cmd);
-    }
+#
+#    # Check if the user already exists in LDB
+#    # This is necessary because this code is also triggered by s4sync
+#    my $results = $self->{samba}->ldb->search({
+#            base => $self->{samba}->ldb->rootDN(),
+#            filter => "(sAMAccountName=$user)",
+#            attrs => ['distinguishedName']});
+#    if ($results->count) {
+#        # TODO this command can return error if the password does not meet password constrains
+#        my $cmd = $self->{samba}->SAMBATOOL() . " user setpassword $user --newpassword=$password";
+#        EBox::debug("Changing '$user' password");
+#        EBox::Sudo::root($cmd);
+#    }
 }
 
 sub _delUser
@@ -147,29 +141,29 @@ sub _delUser
 
     return unless ($self->{samba}->configured());
 
-    my @cmds;
-    if (-d BASEPATH . "/profiles/$user") {
-        push (@cmds, "rm -rf \'" .  BASEPATH . "/profiles/$user\'");
-    }
-    if (-d BASEPATH . "/profiles/$user.V2") {
-        push (@cmds, "rm -rf \'" .  BASEPATH . "/profiles/$user.V2\'");
-    }
-    EBox::Sudo::root(@cmds) if (@cmds);
-
-    # Remove user from printers
-    $self->{samba}->setPrintersForUser($user, []);
-
-    # Check if the user already exists in LDB
-    # This is necessary because this code is also triggered by s4sync
-    my $results = $self->{samba}->ldb->search({
-            base => $self->{samba}->ldb->rootDN(),
-            filter => "(sAMAccountName=$user)",
-            attrs => ['distinguishedName']});
-    if ($results->count) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " user delete $user";
-        EBox::debug("Deleting user '$user' from LDB");
-        EBox::Sudo::root($cmd);
-    }
+#    my @cmds;
+#    if (-d BASEPATH . "/profiles/$user") {
+#        push (@cmds, "rm -rf \'" .  BASEPATH . "/profiles/$user\'");
+#    }
+#    if (-d BASEPATH . "/profiles/$user.V2") {
+#        push (@cmds, "rm -rf \'" .  BASEPATH . "/profiles/$user.V2\'");
+#    }
+#    EBox::Sudo::root(@cmds) if (@cmds);
+#
+#    # Remove user from printers
+#    $self->{samba}->setPrintersForUser($user, []);
+#
+#    # Check if the user already exists in LDB
+#    # This is necessary because this code is also triggered by s4sync
+#    my $results = $self->{samba}->ldb->search({
+#            base => $self->{samba}->ldb->rootDN(),
+#            filter => "(sAMAccountName=$user)",
+#            attrs => ['distinguishedName']});
+#    if ($results->count) {
+#        my $cmd = $self->{samba}->SAMBATOOL() . " user delete $user";
+#        EBox::debug("Deleting user '$user' from LDB");
+#        EBox::Sudo::root($cmd);
+#    }
 }
 
 sub _delUserWarning
@@ -178,15 +172,15 @@ sub _delUserWarning
 
     return unless ($self->{samba}->configured());
 
-    my $path = BASEPATH . "/users/$user";
-
-    my $txt = __('This user has a sharing directory associated ' .
-                 'which contains data.');
-    unless ($self->_directoryEmpty($path)) {
-        return ($txt);
-    }
-
-    return undef;
+#    my $path = BASEPATH . "/users/$user";
+#
+#    my $txt = __('This user has a sharing directory associated ' .
+#                 'which contains data.');
+#    unless ($self->_directoryEmpty($path)) {
+#        return ($txt);
+#    }
+#
+#    return undef;
 }
 
 sub _addGroup
@@ -197,17 +191,17 @@ sub _addGroup
 
 #    $self->addGroupLdapAttrs($group);
 
-    # Check if the group already exists in LDB
-    # This is necessary because this code is also triggered by s4sync
-    my $results = $self->{samba}->ldb->search({
-            base => $self->{samba}->ldb->rootDN(),
-            filter => "(sAMAccountName=$group)",
-            attrs => ['distinguishedName']});
-    unless ($results->count) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " group add $group";
-        EBox::debug("Adding group '$group' to LDB");
-        EBox::Sudo::root($cmd);
-    }
+#    # Check if the group already exists in LDB
+#    # This is necessary because this code is also triggered by s4sync
+#    my $results = $self->{samba}->ldb->search({
+#            base => $self->{samba}->ldb->rootDN(),
+#            filter => "(sAMAccountName=$group)",
+#            attrs => ['distinguishedName']});
+#    unless ($results->count) {
+#        my $cmd = $self->{samba}->SAMBATOOL() . " group add $group";
+#        EBox::debug("Adding group '$group' to LDB");
+#        EBox::Sudo::root($cmd);
+#    }
 }
 
 sub _modifyGroup
@@ -224,47 +218,43 @@ sub _delGroup
 {
     my ($self, $group) = @_;
 
-    EBox::debug('On del group');
-
     return unless ($self->{samba}->configured());
 
-    if (-d BASEPATH . "/groups/$group") {
-        EBox::Sudo::root("rm -rf \'" .  BASEPATH . "/groups/$group\'");
-    }
-
-    # Remove group from printers
-    $self->{samba}->setPrintersForGroup($group, []);
-
-    # Check if the group exists in LDB
-    # This is necessary because this code is also triggered by s4sync
-    my $results = $self->{samba}->ldb->search({
-            base => $self->{samba}->ldb->rootDN(),
-            filter => "(sAMAccountName=$group)",
-            attrs => ['distinguishedName']});
-    if ($results->count) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " group delete $group";
-        EBox::debug("Deleting group '$group' from LDB");
-        EBox::Sudo::root($cmd);
-    }
+#    if (-d BASEPATH . "/groups/$group") {
+#        EBox::Sudo::root("rm -rf \'" .  BASEPATH . "/groups/$group\'");
+#    }
+#
+#    # Remove group from printers
+#    $self->{samba}->setPrintersForGroup($group, []);
+#
+#    # Check if the group exists in LDB
+#    # This is necessary because this code is also triggered by s4sync
+#    my $results = $self->{samba}->ldb->search({
+#            base => $self->{samba}->ldb->rootDN(),
+#            filter => "(sAMAccountName=$group)",
+#            attrs => ['distinguishedName']});
+#    if ($results->count) {
+#        my $cmd = $self->{samba}->SAMBATOOL() . " group delete $group";
+#        EBox::debug("Deleting group '$group' from LDB");
+#        EBox::Sudo::root($cmd);
+#    }
 }
 
 sub _delGroupWarning
 {
     my ($self, $group) = @_;
 
-    EBox::debug('On del group warning');
-
     return unless ($self->{samba}->configured());
 
-    my $path = BASEPATH . "/groups/$group";
-    my $txt = __('This group has a sharing directory associated ' .
-                 'that contains data.');
-
-    unless ($self->_directoryEmpty($path)) {
-        return ($txt);
-    }
-
-    return undef;
+#    my $path = BASEPATH . "/groups/$group";
+#    my $txt = __('This group has a sharing directory associated ' .
+#                 'that contains data.');
+#
+#    unless ($self->_directoryEmpty($path)) {
+#        return ($txt);
+#    }
+#
+#    return undef;
 }
 
 #sub _userAddOns
@@ -562,26 +552,24 @@ sub _delGroupWarning
 #    $self->{ldap}->modify($dn, \%attrs);
 #}
 
+sub _createDir
+{
+    my ($self, $path, $uid, $gid, $chmod) = @_;
 
-#sub _createDir
-#{
-#    my ($self, $path, $uid, $gid, $chmod) = @_;
-#
-#    if (EBox::Sudo::fileTest('-d', $path)) {
-#        return;
-#    }
-#
-#    my @cmds;
-#
-#    push (@cmds, "/bin/mkdir \'$path\'");
-#    push (@cmds, "/bin/chown $uid:$gid \'$path\'");
-#
-#    if ($chmod) {
-#        push (@cmds, "/bin/chmod $chmod \'$path\'");
-#    }
-#
-#    EBox::Sudo::root(@cmds);
-#}
+    if (EBox::Sudo::fileTest('-d', $path)) {
+        return;
+    }
+
+    my @cmds;
+    push (@cmds, "/bin/mkdir -p \'$path\'");
+    push (@cmds, "/bin/chown $uid:$gid \'$path\'");
+
+    if ($chmod) {
+        push (@cmds, "/bin/chmod $chmod \'$path\'");
+    }
+
+    EBox::Sudo::root(@cmds);
+}
 
 sub _directoryEmpty
 {

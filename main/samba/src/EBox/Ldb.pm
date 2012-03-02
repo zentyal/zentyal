@@ -25,6 +25,7 @@ use MIME::Base64;
 use Encode qw(decode encode);
 
 use constant LDB_DIR => '/var/lib/samba/private/sam.ldb.d';
+use constant IDMAP_FILE => '/var/lib/samba/private/idmap.ldb';
 
 sub new
 {
@@ -105,6 +106,42 @@ sub search # (args)
     return $result;
 }
 
+sub replace
+{
+    my ($self, $url, $dn, $attribute, $newValue) = @_;
+
+    my $str = "dn: $dn\n" .
+              "changetype: modify\n" .
+              "replace: $attribute\n" .
+              "$attribute: $newValue";
+
+    my $file = EBox::Config::tmp() . '/ldb.replace';
+    open (FILE, ">$file");
+    print FILE $str;
+    close FILE;
+
+    my $cmd = "ldbmodify -H $url $file";
+    EBox::Sudo::root($cmd);
+    unlink $file;
+}
+
+sub add
+{
+    my ($self, $url, $dn, $attrs) = @_;
+
+    my $str = "dn: $dn\n";
+    foreach my $key (keys %{$attrs}) {
+        $str .= "$key: $attrs->{$key}\n";
+    }
+    my $file = EBox::Config::tmp() . '/ldb.add';
+    open (FILE, ">$file");
+    print FILE $str;
+    close FILE;
+
+    my $cmd = "ldbadd -H $url $file";
+    EBox::Sudo::root($cmd);
+    unlink $file;
+}
 #############################################################################
 ## Credentials related functions                                           ##
 #############################################################################
@@ -432,9 +469,9 @@ sub getUsers
 {
     my ($self, $usersToIgnore, $system) = @_;
 
-    my $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))';
+    my $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(isDeleted=TRUE)))';
     if (defined $system) {
-        $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE)))';
+        $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))';
     }
     my $users = {};
     my $result = $self->search({
@@ -477,9 +514,9 @@ sub getGroups
 {
     my ($self, $groupsToIgnore, $system) = @_;
 
-    my $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))';
+    my $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isDeleted=TRUE)))';
     if (defined $system) {
-        $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE)))';
+        $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))';
     }
     my $groups = {};
     my $result = $self->search({
@@ -504,6 +541,64 @@ sub getGroups
         }
     }
     return $groups;
+}
+
+sub xidMapping
+{
+    my ($self, $id, $xid) = @_;
+
+    # Get the object SID
+    my $objectSid = $self->getSidById($id);
+    unless (defined $objectSid) {
+        throw EBox::Exceptions::DataNotFound("Couldn't set mapping: $id not found");
+    }
+
+    # Search if it is already mapped
+    my $dn = "CN=$objectSid";
+    my $result = $self->search({
+        url => IDMAP_FILE,
+        filter => "(distinguisedName=$dn)",
+        attrs => ['objectClass'],
+        });
+    if (scalar (@{$result}) == 0) {
+        # Is it a user or a group?
+        $result = $self->search({
+            filter => "(sAMAccountName=$id)",
+            attrs => ['objectClass'],
+        });
+        if (scalar (@{$result}) == 1) {
+            my $class = undef;
+            my $entry = pop (@{$result});
+            foreach my $value (@{$entry->{objectClass}}) {
+                if ($value == 'user') {
+                    $class = 'ID_TYPE_UID';
+                    last;
+                } elsif ($value == 'group') {
+                    $class = 'ID_TYPE_GID';
+                    last;
+                } else {
+                    next;
+                }
+            }
+            # Add the xid to idmap.ldb
+            my $attrs = {
+                cn => $objectSid,
+                objectClass => 'sidMap',
+                objectSid => $objectSid,
+                type => $class,
+                xidNumber => $xid,
+                distinguishedName => $dn,
+            };
+            EBox::debug("Creating xid mapping of '$id' to '$xid'");
+            $self->add(IDMAP_FILE, $dn, $attrs);
+        } else {
+            throw EBox::Exceptions::DataNotFound("Couldn't get objectClass for '$id'");
+        }
+    } else {
+        # Replace the xid in idmap.ldb
+        EBox::debug("Updating xid mapping of '$id' to '$xid'");
+        $self->replace(IDMAP_FILE, $dn, 'xidNumber', $xid);
+    }
 }
 
 # Method: getGroupsOfUser

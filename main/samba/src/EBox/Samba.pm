@@ -460,12 +460,26 @@ sub provision
                        " --min-pwd-length=0";
     EBox::Sudo::root($cmd);
 
+    # Set the proper permissions to allow 'ebox' user read the ldb files
+    my @cmds = ();
+    push (@cmds, 'chown root:ebox /var/lib/samba/private/idmap.ldb');
+    push (@cmds, 'chmod 660 /var/lib/samba/private/idmap.ldb');
+    push (@cmds, 'chown root:ebox /var/lib/samba/private/sam.ldb.d');
+    push (@cmds, 'chmod 670 /var/lib/samba/private/sam.ldb.d');
+    push (@cmds, 'chown root:ebox /var/lib/samba/private/sam.ldb.d/*');
+    push (@cmds, 'chmod 660 /var/lib/samba/private/sam.ldb.d/*');
+    EBox::Sudo::root(@cmds);
 
+    # Update the "Domain Users" xid mapping to the gid of __USERS__
+    EBox::debug("Mapping 'Domain Users' group to __USERS__");
+    my $users = EBox::Global->modInstance('users');
+    my $dn = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
+    my $gid = new EBox::UsersAndGroups::Group(dn => $dn)->get('gidNumber');
+    $self->ldb()->xidMapping('Domain Users', $gid);
 
     # Export all zentyal users and groups to ldb
     EBox::debug('Exporting LDAP to LDB');
     try {
-        # TODO Update idmap.ldb to map group __USRES__ 1901 to 100
         #$self->ldb()->ldapToLdb(); TODO
     } otherwise {
         my $error = shift;
@@ -473,6 +487,7 @@ sub provision
     };
 
     # Mark the module as provisioned
+    EBox::debug('Setting provisioned flag');
     $self->set_bool('provisioned', 1);
 }
 
