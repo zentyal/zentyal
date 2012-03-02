@@ -1,4 +1,4 @@
-AC_INIT([zentyal-squid], [2.2.3])
+AC_INIT([zentyal-squid], [2.2.4])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Squid.pm])

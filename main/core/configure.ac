@@ -1,4 +1,4 @@
-AC_INIT([zentyal-core], [2.2.5])
+AC_INIT([zentyal-core], [2.2.6])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/SysInfo.pm.in])

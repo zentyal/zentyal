@@ -1,7 +1,8 @@
-HEAD
-	+ Check against weak passwords when using wizard
+2.2.5
 	+ Add position, subscribe to newsletter and legal notice for basic
 	  subscription wizard using new 2.2 API
+2.2.4
+	+ Check against weak passwords when using wizard
 	+ Adapted messages in the UI for new editions
 	+ Add new server editions
 	+ New checks for Small Business edition
