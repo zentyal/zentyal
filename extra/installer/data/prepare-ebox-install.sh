@@ -22,8 +22,6 @@ create_repository() {
     apt-get update >> $LOG 2>&1
     # Restore the original sources.list
     mv /tmp/zentyal/sources.list ${SOURCES_LIST}
-    # Move packages to the cache
-    mv $PKG_DIR/*.deb /var/cache/apt/archives/
 }
 
 update_if_network() {
