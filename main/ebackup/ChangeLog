@@ -1,4 +1,5 @@
 HEAD
+	+ Added selectable priority by config file to scheduled backup
 	+ Added missing libdate-calc-perl dependency
 	+ Fixed date parsing in restore-tool and configuration cloud backup
 	+ Adapted messages in the UI for new editions
