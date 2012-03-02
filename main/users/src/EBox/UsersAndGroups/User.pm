@@ -473,6 +473,7 @@ sub create
         $user->{'fullname'} .= $user->{'surname'};
     }
 
+    my $quota = $self->defaultQuota();
     my @attr =  (
         'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
@@ -483,6 +484,7 @@ sub create
         'gidNumber'     => $gid,
         'homeDirectory' => $homedir,
         'userPassword'  => $passwd,
+        'quota'         => $quota,
         'objectclass'   => [
             'inetOrgPerson',
             'posixAccount',
@@ -505,9 +507,7 @@ sub create
         if ($isDefaultOU) {
             $users->reloadNSCD();
             $users->initUser($res, $user->{'password'});
-
-            # Configure quota
-            $res->set('quota', $self->defaultQuota());
+            $res->_setFilesystemQuota($quota);
         }
 
         # Call modules initialization
