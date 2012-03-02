@@ -1,4 +1,6 @@
 HEAD
+	+ Mail module is force to reload when mailfilter module is enabled
+	or disabled
 	+ Adapted messages in the UI for new editions
 	+ New printableName for POP Transparent proxy service
 	+ Added methods to get learn accounts for a domain
