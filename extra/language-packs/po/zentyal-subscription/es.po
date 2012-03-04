@@ -146,7 +146,7 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "Want to guarantee that your Zentyal server is always up-to-date, secured and "
-"supported? Get the {ohs}Small Business{ch} or {oh} "
+"supported? Get the {ohs}Small Business{ch} or {ohe} "
 "Enterprise Edition{ch}!"
 msgstr ""
 "¿Quieres garantizar que tu servidor Zentyal este siempre al día, seguro y "
@@ -293,6 +293,8 @@ msgstr ""
 "{ch} para recibir informes frequentes del sistema."
 
 #: ../../main/core/src/EBox/SysInfo.pm:540
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
+#: ../../main/software/src/templates/updateNote.mas:13
 msgid ""
 "Warning: The updates are community based and there is no guarantee that your "
 "server will work properly after applying them. In production environments "
@@ -314,20 +316,6 @@ msgid ""
 msgstr ""
 "Tu edición comercial del servidor asegura que estas actualizaciones "
 "tienen garantía de calidad y se aplicarán automáticamente a tu sistema."
-
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
-msgid ""
-"Warning: The updates are community based and there is no guarantee that your "
-"server will work properly after applying them. In production environments "
-"you should use the {ohs}Small Business{ch} or "
-"{ohe}Enterprise Edition{ch} that include quality assured "
-"software updates."
-msgstr ""
-"Aviso: Estas actualizaciones son de comunidad y no garantizan que tu "
-"servidor funcione correctamente después de haberlas aplicado. En entornos "
-"de producción deberás usar la edición {ohs}Small Business{ch} o "
-"{ohe}Enterprise {ch} que incluyen actualizaciones de software "
-"con garantía de calidad."
 
 #: ../../main/ids/src/EBox/Composite/General.pm:118
 #, perl-brace-format
@@ -368,21 +356,6 @@ msgstr ""
 "de Zentyal? Este servicio garantiza que los datos más críticos de tu "
 "organización estén guardados en una ubicación remota segura y puedan ser "
 "recuperados fácilmente en caso de desastre."
-
-#: ../../main/software/src/templates/updateNote.mas:13
-#, perl-brace-format
-msgid ""
-"Warning: The updates are community based and there is no guarantee that your "
-"server will work properly after applying them. In production environments "
-"you should use the {ohs}Small Business{ch} or "
-"{ohe}Enterprise Edition{ch} that include quality assured "
-"software updates."
-msgstr ""
-"Aviso: Estas actualizaciones son de comunidad y no garantizan que tu "
-"servidor funcione correctamente después de haberlas aplicado. En entornos "
-"de producción deberás usar la edición {ohs}Small Business{ch} o "
-"{ohe}Enterprise{ch} que incluyen actualizaciones de software "
-"con garantía de calidad."
 
 #: ../../main/software/src/templates/ebox.mas:283
 msgid "Gateway"
