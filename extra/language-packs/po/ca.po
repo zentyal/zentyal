@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-29 15:52+0200\n"
-"PO-Revision-Date: 2011-09-26 18:31+0200\n"
+"PO-Revision-Date: 2011-10-29 19:26+0200\n"
 "Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -78,7 +78,7 @@ msgstr "Peticions acceptades"
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:113
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficSizeGraph.pm:60
 msgid "Accepted traffic size (Kb)"
-msgstr "Volum de tràfic acceptat (Kb)"
+msgstr "Volum de trànsit acceptat (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/Report/TrafficDetails.pm:119
@@ -175,8 +175,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
 msgstr ""
-"L'objecte {object} no té membres. Si us plau, afegi'n almenys un per poder "
-"afegir regles utilitzant aquest objecte."
+"L'objecte {object} no té membres. Si us plau, afegeixi almenys un per afegir "
+"regles utilitzant aquest objecte."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:102
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:100
@@ -220,8 +220,8 @@ msgstr "KB/s"
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Màxima ràtiode baixada per aquesta xarxa. Utilitzi -1 per desactivar aquesta "
-"opció."
+"Màxima ràtio de baixada per aquesta xarxa. Utilitzi -1 per desactivar "
+"aquesta opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
 msgid "Network file size"
@@ -239,7 +239,7 @@ msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Màxima mida  de fitxer no limitada per aquesta xarxa. Utilitzi -1 per "
+"Màxima mida de fitxer no limitada per aquesta xarxa. Utilitzi -1 per "
 "desactivar aquesta opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
@@ -268,15 +268,15 @@ msgid "Client bandwidth rules (class 2 delay pools)"
 msgstr "Regles d'amplada de banda per client (delay pools de classe 2)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"Una vegada la petició excedeixi el {max}, aleshores el Proxy HTTP limitarà "
-"l'amplada de banda al {rate} donat. El nombre de clients està limitat a 256."
+"Una vegada la descàrrega excedeixi la mida del fitxer, el Servidor "
+"intermediari HTTP alentirà la connexió a la velocitat especificada. El "
+"nombre de clients està limitat a 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -308,7 +308,7 @@ msgstr "domini d'Internet o URL"
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
-"Permetre/Denegar el trànsit HTTP des de/cap els dominis d'Internet i URLs "
+"Permetre/Denegar el trànsit HTTP des de/cap els dominis d'Internet i URLs."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
@@ -336,9 +336,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
-"No es pot activar el filtre antivirus perque el mòdul antivirus està "
-"inhabilitat. Si vol filtrar els virus, abans {openhref}activi el mòdul"
-"{closehref} i torni aquí"
+"No es pot activar el filtre antivirus perquè el mòdul antivirus està "
+"inhabilitat. Si vol filtrar els virus, abans {openhref}activi el "
+"mòdul{closehref} i torni aquí"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirusBase.pm:97
 #, perl-brace-format
@@ -383,7 +383,7 @@ msgstr "Bloqueig de propaganda"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisements from all HTTP traffic"
-msgstr "Eliminar la propaganda de tot el tràfic HTTP"
+msgstr "Eliminar anuncis de tot el trànsit HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:70
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:800
@@ -454,7 +454,7 @@ msgid ""
 "firewall rule if you enable this mode."
 msgstr ""
 "Fixi's que no pot fer servir el servidor intermediari de forma transparent. "
-"Cal afegir una regla al tallafocs per habilitar aquest mode."
+"Caldrà afegir una regla al tallafocs per habilitar aquest mode."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategoriesBase.pm:75
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:42
@@ -726,24 +726,22 @@ msgstr "Perfil de filtrat"
 #: ../../main/squid/src/EBox/Squid/Model/ObjectGroupPolicy.pm:129
 msgid "User group policies are not compatible with transparent proxy mode"
 msgstr ""
-"Les polítiques de grup d'usuaris no són compatibles amb el mode de proxy "
-"transparent"
+"Les polítiques de grup d'usuaris no són compatibles amb el mode de servidor "
+"intermediari transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/GlobalGroupPolicy.pm:174
 msgid "Global group policy need a global policy with authentication"
 msgstr ""
-"La política global de grup requereix una política global amb autentificació"
+"La política global de grup requereix una política global amb autenticació"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Descarrega"
+msgstr "Velocitat de descarrega"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Màxima mida no limitada per aquesta xarxa. Utilitzi -1 per desactivar "
+"Màxima velocitat de descàrrega per aquesta xarxa. Utilitzi -1 per desactivar "
 "aquesta opció."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
@@ -760,9 +758,10 @@ msgid ""
 "connection to the specified download rate. The clients on this network will "
 "have to share the available bandwidth."
 msgstr ""
-"Quan una descàrrega excedeixi la mida de fitxer, aleshores el Proxy HTTP "
-"alentirà la connexió fins la ràtio de baixada especificada. Els clients "
-"d'aquesta xarxa hauran de compartir l'amplada de banda."
+"Quan una descàrrega excedeixi la mida de fitxer, aleshores el Servidor "
+"intermediari HTTP alentirà la connexió fins la ràtio de baixada "
+"especificada. Els clients d'aquesta xarxa hauran de compartir l'amplada de "
+"banda."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilterSettings.pm:53
@@ -838,7 +837,7 @@ msgstr "Adreça del nom de domini"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:79
 msgid "Exempt address from caching"
-msgstr "Direccions que no s'han de guardar a la memòria cau"
+msgstr "Adreces que no s'han de desar a la memòria cau"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:88
 msgid "Cache exemptions"
@@ -895,19 +894,19 @@ msgstr "Permetre tots {elements}"
 msgid "Use this field to change the value of all the above rows at once"
 msgstr ""
 "Utilitzar aquest camp per canviar el valor de totes les files de dalt a la "
-"vegada "
+"vegada"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:96
 msgid "Filter profiles"
-msgstr "Filtrar perfiles"
+msgstr "Perfils de filtrat"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:97
 msgid "List of profiles"
-msgstr "Llista de perfiles"
+msgstr "Llista de perfils"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:105
 msgid "filter profile"
-msgstr "filtrar perfil"
+msgstr "perfil de filtrat"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:107
 msgid "Added filter profile"
@@ -924,7 +923,7 @@ msgstr "Perfil de filtrat actualitzat"
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:122
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:162
 msgid "Filter group"
-msgstr "Filtrar grup"
+msgstr "Filtrat de grup"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:127
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:84
@@ -1015,7 +1014,8 @@ msgstr "Política d'objecte actualitzada"
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
 msgstr ""
-"La política d'autorització no és compatible amb el mode de proxy transparent"
+"La política d'autorització no és compatible amb el mode de servidor "
+"intermediari transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
@@ -1057,12 +1057,12 @@ msgstr "Un tipus MIME ha de seguir la següent sintaxi: tipus/subtipus"
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:156
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
-msgstr "{type} no és un tipus vàlid de IANA"
+msgstr "{type} no és un tipus vàlid d'IANA"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:167
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr "El subtipus {t} té una sintaxi errònia"
+msgstr "el subtipus {t} té una sintaxi errònia"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
@@ -1120,7 +1120,7 @@ msgstr "Extensió"
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
-msgstr "Informe de tràfic del servidor intermediari"
+msgstr "Informe del trànsit del servidor intermediari HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
@@ -1136,7 +1136,7 @@ msgstr "Filtrat de tipus MIME"
 #: ../../main/squid/src/EBox/Squid.pm:1119
 #: ../../main/squid/src/EBox/Squid.pm:1195
 msgid "HTTP Proxy"
-msgstr "Proxy HTTP"
+msgstr "Servidor intermediari HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
@@ -1148,7 +1148,6 @@ msgid "Bandwidth Throttling"
 msgstr "Limitació d'Ample de Banda"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy.  Network bandwidth rules (class 1 delay pools) "
@@ -1158,10 +1157,15 @@ msgid ""
 "and the first rule to match is applied. If a connection doesn't match any "
 "rule, then no bandwidth throttling is applied."
 msgstr ""
-"Els 'pools' de classe 1 permeten restringir l'ample de banda per grans "
-"baixades, mentres que els de classe 2 permeten fixar l'un index sostingut. "
-"Si un objecte de xarxa no coincideix amb cap regla, no se li aplica cap "
-"limitació d'ample de banda."
+"La regulació de l'amplada de banda permet controlar les ràtios de descàrrega "
+"que passen a través del servidor intermediari HTTP. Les regles d'amplada de "
+"banda per xarxa (delay pools de classe 1) permeten limitar la ràtio de "
+"descàrrega per tota la xarxa, mentre que les regles d'amplada de banda per "
+"client ( delay pools de classe2) permeten limitar la ràtio de descàrrega "
+"sobre un client. Les 'delay pools' de classe 1 tenen més prioritat que les "
+"de classe 2 i la primera regla que coincideixi és aplicada. Si una connexió "
+"no coincideix amb cap regla, aleshores no és aplicada la regulació de "
+"l'amplada de banda."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
@@ -1266,17 +1270,16 @@ msgstr "Des de les..."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:489
 msgid "to hour.."
-msgstr "fins a les..."
+msgstr "fins les..."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:493
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
-"Ha d'especificar dues hores diferentes per establir un interval de temps"
+msgstr "Ha d'especificar dues hores diferents per establir un interval de temps"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:510
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr "Valor d'hora incorrecte: {h}"
+msgstr "Valor d'hora erroni: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:516
 #, perl-brace-format
@@ -1286,12 +1289,12 @@ msgstr "Format d'hora erroni: {h}"
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:523
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr "Valor incorrecte per als minuts: {mi}"
+msgstr "Valor de minuts erroni: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr "Format erroni per als minuts: {mi}"
+msgstr "Format de minuts erroni: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:542
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:548
@@ -1341,7 +1344,7 @@ msgstr "El període de temps ha d'estar actiu al menys un dia"
 #: ../../main/asterisk/src/templates/user.mas:25
 #: ../../main/asterisk/src/templates/user.mas:28
 msgid "Disabled"
-msgstr "Deshabilitat"
+msgstr "Inhabilitat"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
@@ -1365,7 +1368,7 @@ msgstr "Molt estricte"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr "Això especifica com d'estricte ha de ser el filtre"
+msgstr "Això especifica com d'estricte és el filtre"
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
@@ -1373,19 +1376,19 @@ msgstr "Política de dominis de Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:197
 msgid "HTTP Proxy configuration file"
-msgstr "Fitxer de configuració de Proxy HTTP"
+msgstr "Fitxer de configuració de Servidor intermediari HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:202
 msgid "Content filter configuration file"
-msgstr "Fitxer de configuració de filtrat de contingut"
+msgstr "Fitxer de configuració de filtre de contingut"
 
 #: ../../main/squid/src/EBox/Squid.pm:207
 msgid "Default filter group configuration"
-msgstr "Configuració per defecte del grup de filtrat"
+msgstr "Configuració per defecte del grup de filtre"
 
 #: ../../main/squid/src/EBox/Squid.pm:212
 msgid "Filter groups membership"
-msgstr "Pertinença als grups de filtrat"
+msgstr "Pertinença als grups de filtre"
 
 #: ../../main/squid/src/EBox/Squid.pm:217
 msgid "Content filter banned extension list"
@@ -1516,7 +1519,7 @@ msgstr "Habilitat"
 
 #: ../../main/squid/src/EBox/Squid.pm:1096
 msgid "Transparent proxy"
-msgstr "Proxy transparent"
+msgstr " Servidor intermediari transparent"
 
 #: ../../main/squid/src/EBox/Squid.pm:1106
 msgid "Global policy"
@@ -1664,8 +1667,8 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Necessita crear un certificat vàlid de CA per utilitzar aquest "
-"mòdul. {closepar}{openpar}Si us plau, vagi al {openhref}mòdul d'autoritat de "
+"{openpar}Necessita un certificat de CA  vàlid  per executar els servidors "
+"VPN. {closepar}{openpar}Si us plau, vagi al {openhref}mòdul d'autoritat de "
 "certificació{closehref} i renovi'l.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
@@ -1675,9 +1678,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"{openpar}Necessita crear un certificat de CA per utilitzar aquest mòdul. "
+"{openpar}Necessita crear un certificat de CA per executar els servidors VPN. "
 "{closepar}{openpar}Si us plau, vagi al {openhref}mòdul d'autoritat de "
-"certificació{closehref} i crei'l.{closepar}"
+"certificació{closehref} i creï'l.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -4079,9 +4082,8 @@ msgstr ""
 "als logs"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:190
-#, fuzzy
 msgid "Go to save changes"
-msgstr "Guarda els canvis"
+msgstr "Anar a desar els canvis"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:202
 msgid "Removing package"
@@ -4113,9 +4115,8 @@ msgstr ""
 "La eliminació dels paquets no ha acabat correctament. Més informació als logs"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:214
-#, fuzzy
 msgid "Go to initial configuration wizard"
-msgstr "Assistent per a la configuració inicial"
+msgstr "Anar a l'assistent de configuració inicial"
 
 #: ../../main/software/src/EBox/CGI/Enable.pm:42
 msgid "automatic updates configuration"
@@ -4820,8 +4821,9 @@ msgid ""
 "Until this user is renamed or removed it would be impossible to set up "
 "remote support access"
 msgstr ""
-"Ja hi ha un usuari {u} i no sembla creat per Zentyal. No es pot configurar "
-"l'accés per suport remot fins que no elimini aquest usuari o li canvii el nom"
+"Ja existeix un usuari {u} i no sembla creat per Zentyal. Fins que no elimini "
+"aquest usuari o li canvii el nom, serà impossible configurar el suport per "
+"l'accés remot "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Auth.pm:126
 #, perl-brace-format
@@ -5224,9 +5226,8 @@ msgid "List of monitored interfaces."
 msgstr "Llista de interfícies monitoritzades"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:73
-#, fuzzy
 msgid "There aren't any internal interfaces to monitor"
-msgstr "Cada mesura pot tenir diversos llindars a monitorar"
+msgstr "No hi ha interfícies internes que monitorar"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:62
 msgid "External in"
@@ -7506,9 +7507,8 @@ msgid "Base Memory"
 msgstr "Memòria base"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
-#, fuzzy
 msgid "Manage only"
-msgstr "Només lectura"
+msgstr "Només gestionar"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:106
 msgid ""
@@ -7516,6 +7516,9 @@ msgid ""
 "machine should be directly edited from VirtualBox GUI or using the "
 "vboxmanage command"
 msgstr ""
+"La configuració no es tornarà a escriure després d'activar aquesta opció i "
+"la màquina podrà ser editada directament des de la interfícies de VirtualBox "
+"o l'ordre vboxmanage"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:113
 msgid "System Settings"
@@ -13363,12 +13366,11 @@ msgid "Smarthost's port"
 msgstr "Port del smarthost"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:451
-#, fuzzy
 msgid ""
 "The mailname is set to the server's hostname and the hostname is incorrect"
 msgstr ""
-"El nom del correu és el nom de la màquina del servidor i aquest nom no és "
-"completament qualificat."
+"El nom del correu és configurar igual que el nom de la màquina del servidor "
+"i aquest últim eś incorrecte"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:457
 msgid ""
@@ -15652,9 +15654,8 @@ msgid "Host list for domain {domain}"
 msgstr "Llistat de hosts pel domini {domain}"
 
 #: ../../main/ftp/stubs/vsftpd.conf.mas:74
-#, fuzzy
 msgid "Welcome to Zentyal FTP service."
-msgstr "Fitxers del servidor FTP de Zentyal"
+msgstr "Benvingut al servei FTP de Zentyal."
 
 #: ../../main/software/src/templates/ebox.mas:189
 #: ../../main/software/src/templates/ebox.mas:631
@@ -16581,7 +16582,7 @@ msgstr "Ha succeït un error in Zentyal"
 
 #: ../../main/core/src/templates/progress.mas:32
 msgid "Click here to return to the Dashboard"
-msgstr ""
+msgstr "Feu click per tornar al Tauler de control"
 
 #: ../../main/core/src/templates/progress.mas:155
 msgid "Starting..."

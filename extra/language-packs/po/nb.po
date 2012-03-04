@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-29 15:52+0200\n"
-"PO-Revision-Date: 2011-09-09 12:23+0200\n"
+"PO-Revision-Date: 2011-10-10 11:32+0200\n"
 "Last-Translator: Cirion <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nb\n"
@@ -170,7 +170,7 @@ msgstr "Tilgangs forespørsler"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:85
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object."
@@ -204,9 +204,8 @@ msgid "Network object"
 msgstr "Nettverks objekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Nettverks Rate"
+msgstr "Nettverks nedlastings rate"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -215,16 +214,14 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Maksimum nedlastings båndbredde rate for dette netverket. Bruk -1 for å "
-"deaktivere dette valget."
+"Maksimum nedlastings rate for dette netverket. Bruk -1 for å deaktivere "
+"dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Nettverks Maksimum Størrelse"
+msgstr "Nettverks fil størrelse"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -234,38 +231,32 @@ msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
 msgstr ""
-"Maksimum nedlastings størrelse for dette netverket. Bruk -1 for å deaktivere "
-"dette valget."
+"Maksimum ubegrensett nedlastings fil størrelse for dette netverket. Bruk -1 "
+"for å deaktivere dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "Klient adresse"
+msgstr "Klient nedlastings rate"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
-"Maksimum nedlastings båndbredde rate per klient. Bruk -1 for å deaktivere "
-"dette valget."
+"Maksimum nedlastings rate per klient. Bruk -1 for å deaktivere dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Klient Maksimum Størrelse"
+msgstr "Klient fil størrelse"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
-"Maksimum ubegrenset nedlastings størrelse per klient. Bruk -1 for å "
+"Maksimum ubegrenset nedlastings fil størrelse per klient. Bruk -1 for å "
 "deaktivere dette valget."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
@@ -380,7 +371,7 @@ msgstr "Gjennomsiktig Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:63
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Reklame Blokkering"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
 msgid "Remove advertisements from all HTTP traffic"
@@ -3951,7 +3942,7 @@ msgstr "For å konfigurere vsftpd med LDAP autentisering"
 
 #: ../../main/ftp/src/EBox/FTP.pm:193
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../../main/ftp/src/EBox/FTP.pm:243
 #, fuzzy
@@ -4305,7 +4296,7 @@ msgstr "Abonnemang"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:71
 msgid "Technical Support"
-msgstr ""
+msgstr "Teknisk Brukerstøtte"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:283
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
@@ -4327,7 +4318,7 @@ msgstr "gjeopprett"
 #: ../../main/network/src/EBox/Model/DynDNS.pm:82
 #: ../../main/core/src/templates/headTitle.mas:20
 msgid "Zentyal Cloud"
-msgstr ""
+msgstr "Zentyal Skyen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4409,7 +4400,7 @@ msgstr "Ukjent"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:161
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:206
 msgid "Basic"
-msgstr ""
+msgstr "Enkel"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1653
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:170
@@ -4437,17 +4428,17 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1659
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:176
 msgid "Essential"
-msgstr ""
+msgstr "Essensiell"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1660
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
 msgid "Standard"
-msgstr ""
+msgstr "Standar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1661
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1668
 #, fuzzy, perl-brace-format
@@ -4505,7 +4496,7 @@ msgstr "Abonnemang"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1712
 msgid "Technical support"
-msgstr ""
+msgstr "Teknisk Brukerstøtte"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1736
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:230
@@ -4514,7 +4505,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:127
 msgid "Support package"
-msgstr ""
+msgstr "Brukerstøtte pakke"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:131
 #, fuzzy
@@ -4611,7 +4602,7 @@ msgstr "Oppdater alle pakker"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:133
 msgid "No update has been done"
-msgstr ""
+msgstr "Inen oppdatering er utføt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:137
 #, fuzzy
@@ -5010,11 +5001,11 @@ msgstr "system"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:291
 msgid "average"
-msgstr ""
+msgstr "gjennomsnittlig"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:295
 msgid "weak"
-msgstr ""
+msgstr "svak"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:400
 #, perl-brace-format
@@ -5258,7 +5249,7 @@ msgstr "Vennligst verifiser at du vil slette følgende ekstern sikkerhetskopi:"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:129
 msgid "Overwrite"
-msgstr ""
+msgstr "Overskriv"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:171
 #, perl-brace-format
@@ -5335,7 +5326,7 @@ msgstr ""
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:44
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:58
 msgid "Bandwidth Monitor"
-msgstr ""
+msgstr "Båndbredde Monitor"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:459
 #: ../../main/samba/src/EBox/Samba.pm:1504
@@ -5365,7 +5356,7 @@ msgstr "Intern"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:476
 msgid "Bandwidth usage"
-msgstr ""
+msgstr "Båndbredde bruk"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
 #: ../../main/network/src/EBox/Model/DynDNS.pm:205
@@ -5772,7 +5763,7 @@ msgstr "Måned"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:110
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:120
 #, fuzzy
@@ -6010,7 +6001,7 @@ msgstr ""
 
 #: ../../main/pptp/src/EBox/Composite/General.pm:64
 msgid "PPTP"
-msgstr ""
+msgstr "PPTP"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:104
 #, fuzzy
@@ -6029,7 +6020,7 @@ msgstr "For å konfigurere konferanser."
 
 #: ../../main/pptp/src/EBox/PPTP.pm:153
 msgid "PPTP VPN"
-msgstr ""
+msgstr "PPTP VPN"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:305
 #, fuzzy
@@ -6124,7 +6115,7 @@ msgstr "Full Sikkehets kopi Frekvens"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:236
 msgid "Only the first time"
-msgstr ""
+msgstr "Bare første gangen"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:241
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:273
@@ -6224,7 +6215,7 @@ msgstr "på siste dag"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:528
 msgid "File System"
-msgstr ""
+msgstr "Fil System"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:587
 msgid "1 week"
@@ -6403,19 +6394,19 @@ msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:186
 msgid "Used storage"
-msgstr ""
+msgstr "Brukt lagrings plass"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:190
 msgid "Available storage"
-msgstr ""
+msgstr "Tilgjengelig lagrings plass"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:194
 msgid "Total storage"
-msgstr ""
+msgstr "Total lagringsplass"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:201
 msgid "Remote Storage Usage"
-msgstr ""
+msgstr "Ekstern Lagringsplass Bruk"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteStorage.pm:202
 #: ../../main/ebackup/src/EBox/Model/RemoteStatus.pm:152
@@ -6498,7 +6489,7 @@ msgstr "Ekstern Sikkerhets kopi Status"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:161
 msgid "Domains to back up"
-msgstr ""
+msgstr "Domener til sikkerhets kopiering"
 
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:166
 #: ../../main/ebackup/src/scripts/restore-tool:318
@@ -6555,7 +6546,7 @@ msgstr "Gjenoppretter sikkerhetskopi"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:430
 msgid "All files included in the backup"
-msgstr ""
+msgstr "Alle filer inkludert i sikkerhetskopien"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:715
 msgid ""
@@ -6689,11 +6680,11 @@ msgstr "For å konfigurere aktiverte og deaktiverte moduler."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:141
 msgid "IPsec VPN"
-msgstr ""
+msgstr "IPsec VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:263
 msgid "IPsec"
-msgstr ""
+msgstr "IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:172
@@ -6721,7 +6712,7 @@ msgstr "Aktiver PDC"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:201
 msgid "Phase 2"
-msgstr ""
+msgstr "Fase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
 #, fuzzy
@@ -7715,7 +7706,7 @@ msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:73
 msgid "Hard Disk"
-msgstr ""
+msgstr "HarddHardisk"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:81
 #, fuzzy
@@ -7733,11 +7724,11 @@ msgstr "Stasjons bokstav"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:117
 msgid "Path"
-msgstr ""
+msgstr "Sti"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:124
 msgid "Size"
-msgstr ""
+msgstr "Størrelse"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:135
 #, fuzzy
@@ -7746,7 +7737,7 @@ msgstr "LDAP Innstillinger"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:136
 msgid "drive"
-msgstr ""
+msgstr "drev"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:143
 msgid "Here you can define the storage drives of the virtual machine"
@@ -12609,7 +12600,7 @@ msgstr "Lagre konfigurasjon"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:92
 msgid "row"
-msgstr ""
+msgstr "rad"
 
 #: ../../main/core/src/EBox/CGI/Finish.pm:96
 #, fuzzy, perl-brace-format
@@ -14483,11 +14474,11 @@ msgstr "Liste med objekter"
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:154
 #: ../../main/asterisk/src/EBox/Asterisk.pm:557
 msgid "Phones"
-msgstr ""
+msgstr "Telefoner"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:155
 msgid "phone"
-msgstr ""
+msgstr "telefon"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:159
 #, fuzzy
@@ -16837,7 +16828,7 @@ msgstr "Starter..."
 
 #: ../../main/core/src/templates/progress.mas:164
 msgid " of "
-msgstr ""
+msgstr "av"
 
 #: ../../main/core/src/templates/progress.mas:172
 msgid "The process produced some warning messages:"
@@ -16989,7 +16980,7 @@ msgstr "Skrivebeskyttet rad: redigering deaktivert"
 #: ../../main/core/src/templates/ajax/tableBody.mas:561
 #: ../../main/core/src/templates/ajax/tableModalView.mas:574
 msgid "Move up"
-msgstr ""
+msgstr "Flytt opp"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:573
 #: ../../main/core/src/templates/ajax/tableModalView.mas:586
@@ -17000,7 +16991,7 @@ msgstr "Skrivebeskyttet rad: redigering deaktivert"
 #: ../../main/core/src/templates/ajax/tableBody.mas:577
 #: ../../main/core/src/templates/ajax/tableModalView.mas:590
 msgid "Move down"
-msgstr ""
+msgstr "Flytt ned"
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:88
 #, fuzzy
@@ -17243,7 +17234,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backupTabs.mas:13
 msgid "Local"
-msgstr ""
+msgstr "Lokal"
 
 #: ../../main/core/src/templates/backupTabs.mas:18
 msgid "Remote in Zentyal Cloud"

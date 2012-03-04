@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-29 15:52+0200\n"
-"PO-Revision-Date: 2011-08-25 11:15+0200\n"
-"Last-Translator: Priyo <psanyoto@yahoo.com>\n"
+"PO-Revision-Date: 2011-11-16 12:00+0200\n"
+"Last-Translator: nurohman <maman.nurohman@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -208,9 +208,8 @@ msgid "Network object"
 msgstr "Obyek jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Laju jaringan"
+msgstr "Laju unduh jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -219,16 +218,14 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
-"Tingkat lebarpita pengunduhan maksimum untuk jaringan ini. Gunakan -1 untuk "
+"Rasio pengunduhan maksimum untuk jaringan ini. Gunakan -1 untuk "
 "menonaktifkan pilihan ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Besar maksimum jaringan"
+msgstr "Ukuran Berkas Jaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -249,19 +246,17 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
 #, fuzzy
 msgid "Client download rate"
-msgstr "Tingkatan klien"
+msgstr "Rasio pengunduhan client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
-"Tingkat lebarpita pengunduhan maksimum tiap klien. Gunakan -1 untuk "
-"menonaktifkan opsi ini."
+"Rasio pengunduhan maksimum tiap klien. Gunakan -1 untuk menonaktifkan opsi "
+"ini."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Ukuran maksimum klien"
+msgstr "Ukuran berkas klien"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
 #, fuzzy
@@ -274,7 +269,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Aturan lebarpita klien"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
 #, fuzzy
@@ -1559,7 +1554,7 @@ msgstr "Kebijakan kelompok"
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: ../../main/squid/src/EBox/Squid.pm:1183
 msgid "URL"
@@ -5161,7 +5156,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:1504
 #: ../../main/samba/src/EBox/Samba.pm:1524
 msgid "Client address"
-msgstr ""
+msgstr "Alamat client"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:462
 #, fuzzy
@@ -5283,7 +5278,7 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:107
 #: ../../main/core/src/templates/backup.mas:131
 msgid "Actions"
-msgstr ""
+msgstr "Aksi"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:70
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:70
@@ -6541,15 +6536,17 @@ msgid ""
 "This domain will be appended when trying to resolve hosts if the first "
 "attempt without appending it has failed."
 msgstr ""
+"Domain ini akan ditambahkan ketika mencoba untuk resolve hosts padapercobaan "
+"pertama tanpa menambah yang gagal"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:194
 msgid "Enable Dynamic DNS"
-msgstr ""
+msgstr "Aktifkan Dynamic DNS"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:217
 #: ../../main/core/src/EBox/SysInfo.pm.in:175
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:231
 msgid ""
@@ -6608,25 +6605,27 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:174
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:197
 msgid "Interface connected to this gateway"
-msgstr ""
+msgstr "Antarmuka tersambuk ke gateway ini"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:206
 msgid ""
 "This field is only useful if you have more than one router and  the balance "
 "traffic feature is enabled."
 msgstr ""
+"Field ini hanya berguna jika anda mempunyai lebih dari satu router danfitur "
+"traffic balance diaktifkan."
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:212
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:222
 msgid "Gateways List"
-msgstr ""
+msgstr "Daftar Gateway"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:238
 msgid ""
@@ -6749,35 +6748,35 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:55
 msgid "Ping to gateway"
-msgstr ""
+msgstr "Ping ke gateway"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:59
 msgid "Ping to host"
-msgstr ""
+msgstr "Ping ke host"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:63
 msgid "DNS resolve"
-msgstr ""
+msgstr "Resolve DNS"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:67
 msgid "HTTP Request"
-msgstr ""
+msgstr "Permintaan HTTP"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:91
 msgid "Test type"
-msgstr ""
+msgstr "Tipe test"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:103
 msgid "Number of probes"
-msgstr ""
+msgstr "Jumlah percobaan"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:112
 msgid "Required success ratio"
-msgstr ""
+msgstr "Rasio sukses yang dibutuhkan"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:125
 msgid "Test rules"
-msgstr ""
+msgstr "Aturan Tes"
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:132
 msgid ""
@@ -6785,10 +6784,13 @@ msgid ""
 "one of the test fails the gateway will be disabled. It will be enabled again "
 "when all tests are passed."
 msgstr ""
+"Anda dapat mendefinisikan aturan untuk tes apakah gateway bekerja dengan "
+"benar.Jika salahsatu tes gagal gateway akan dinon-aktifkan. dan akan "
+"diaktifkan kembaliketika seluruh tes lulus."
 
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:182
 msgid "Invalid value for Host"
-msgstr ""
+msgstr "Nilai salah untuk Host"
 
 #: ../../main/network/src/EBox/Network.pm:97
 msgid "Add default routers to the default table"
@@ -8449,41 +8451,41 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:101
 msgid "Share name"
-msgstr ""
+msgstr "Nama share"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:107
 msgid "Share path"
-msgstr ""
+msgstr "Path share"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:113
 msgid "Directory under Zentyal"
-msgstr ""
+msgstr "Direktori dibawah Zentyal"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:119
 msgid "File system path"
-msgstr ""
+msgstr "Path file sistem"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:132
 msgid "Guest access"
-msgstr ""
+msgstr "Akses tamu"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:135
 msgid "This share will not require authentication."
-msgstr ""
+msgstr "Share ini tidak membutuhkan otentikasi"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:139
 msgid "Access control"
-msgstr ""
+msgstr "Kontrol akses"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:149
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:165
 msgid "Shares"
-msgstr ""
+msgstr "Share"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:157
 #: ../../main/samba/src/EBox/Samba/Model/DeletedSambaShares.pm:129
 msgid "share"
-msgstr ""
+msgstr "share"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:186
 #, perl-brace-format
@@ -8500,7 +8502,7 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:231
 msgid "The directory is not empty. Are you sure you want to remove it?"
-msgstr ""
+msgstr "Direktori tidak kosong. Anda yakin akan menghapusnya?"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:323
 #, perl-brace-format
@@ -8590,12 +8592,12 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:92
 msgid "User/Group/Share"
-msgstr ""
+msgstr "User/Grup/Share"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:98
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:98
 msgid "User homes"
-msgstr ""
+msgstr "Rumah user"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:109
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:109
@@ -8606,16 +8608,16 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:120
 msgid "Samba shares antivirus exceptions"
-msgstr ""
+msgstr "Pengecualian antivirus share samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:125
 msgid "Add exceptions to the default antivirus settings"
-msgstr ""
+msgstr "Tambah pengecualian pada seting antivirus default"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:126
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:126
 msgid "exception"
-msgstr ""
+msgstr "pengecualian"
 
 #: ../../main/samba/src/EBox/Samba/Model/DeletedSambaShares.pm:113
 msgid "path"
@@ -8623,49 +8625,49 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:77
 msgid "File sharing module is not enabled."
-msgstr ""
+msgstr "Modul sharing file tidak diaktifkan"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:78
 msgid "PDC is not enabled."
-msgstr ""
+msgstr "PDC tidak diaktifkan"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:87
 msgid "Minimum password length"
-msgstr ""
+msgstr "Panjang password minimum"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:96
 msgid "characters"
-msgstr ""
+msgstr "karakter"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:106
 msgid "Maximum password age"
-msgstr ""
+msgstr "Umur password maksimum"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:115
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:210
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:229
 msgid "days"
-msgstr ""
+msgstr "hari"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:125
 msgid "Enforce password history"
-msgstr ""
+msgstr "Sejarah pemaksaan password"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:133
 msgid "Keep history for"
-msgstr ""
+msgstr "Jaga sejarah untuk"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:134
 msgid "passwords remebered"
-msgstr ""
+msgstr "password di ingat"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:146
 msgid "PDC"
-msgstr ""
+msgstr "PDC"
 
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:150
 msgid "On this page you can set different PDC related settings"
-msgstr ""
+msgstr "Pada halaman ini anda dapat mengatur PDC berbeda tergantung pengaturan "
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:50
 msgid "Scan"
@@ -8800,15 +8802,15 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba.pm:731
 #: ../../main/samba/src/EBox/Samba.pm:752
 msgid "Source machine"
-msgstr ""
+msgstr "Mesin sumber"
 
 #: ../../main/samba/src/EBox/Samba.pm:772
 msgid "Shares by user"
-msgstr ""
+msgstr "Share oleh user"
 
 #: ../../main/samba/src/EBox/Samba.pm:778
 msgid "Users by share"
-msgstr ""
+msgstr "User dengan share"
 
 #: ../../main/samba/src/EBox/Samba.pm:1275
 #: ../../main/samba/src/EBox/Samba.pm:1307
@@ -8828,15 +8830,15 @@ msgstr "Grup"
 
 #: ../../main/samba/src/EBox/Samba.pm:1280
 msgid "printer"
-msgstr ""
+msgstr "printer"
 
 #: ../../main/samba/src/EBox/Samba.pm:1371
 msgid "Shares, users and groups homes and profiles"
-msgstr ""
+msgstr "Rumah share, user dan grup dan profile"
 
 #: ../../main/samba/src/EBox/Samba.pm:1486
 msgid "Users files"
-msgstr ""
+msgstr "Berkas user"
 
 #: ../../main/samba/src/EBox/Samba.pm:1488
 #, fuzzy
@@ -8845,27 +8847,27 @@ msgstr "Antrian grup"
 
 #: ../../main/samba/src/EBox/Samba.pm:1507
 msgid "Resource"
-msgstr ""
+msgstr "Sumberdaya"
 
 #: ../../main/samba/src/EBox/Samba.pm:1511
 msgid "Connect"
-msgstr ""
+msgstr "Konek"
 
 #: ../../main/samba/src/EBox/Samba.pm:1512
 msgid "Access to directory"
-msgstr ""
+msgstr "Akses ke direktori"
 
 #: ../../main/samba/src/EBox/Samba.pm:1513
 msgid "Read file"
-msgstr ""
+msgstr "Baca berkas"
 
 #: ../../main/samba/src/EBox/Samba.pm:1514
 msgid "Write file"
-msgstr ""
+msgstr "Tulis berkas"
 
 #: ../../main/samba/src/EBox/Samba.pm:1515
 msgid "Disconnect"
-msgstr ""
+msgstr "Putus koneksi"
 
 #: ../../main/samba/src/EBox/Samba.pm:1516
 #: ../../main/core/src/templates/ajax/viewer/file.mas:26
@@ -8874,19 +8876,19 @@ msgstr ""
 #: ../../main/users/src/templates/group.mas:61
 #: ../../main/users/src/templates/user.mas:140
 msgid "Remove"
-msgstr ""
+msgstr "Buang"
 
 #: ../../main/samba/src/EBox/Samba.pm:1517
 msgid "Create directory"
-msgstr ""
+msgstr "Buat direktori"
 
 #: ../../main/samba/src/EBox/Samba.pm:1518
 msgid "Remove directory"
-msgstr ""
+msgstr "Buang direktori"
 
 #: ../../main/samba/src/EBox/Samba.pm:1519
 msgid "Rename"
-msgstr ""
+msgstr "Ubah nama"
 
 #: ../../main/samba/src/EBox/Samba.pm:1525
 #: ../../main/samba/src/EBox/Samba.pm:1534
@@ -8896,28 +8898,28 @@ msgstr "Nama File"
 #: ../../main/samba/src/EBox/Samba.pm:1526
 #: ../../main/samba/src/EBox/Samba.pm:1530
 msgid "Virus"
-msgstr ""
+msgstr "Virus"
 
 #: ../../main/samba/src/EBox/Samba.pm:1535
 msgid "Quarantined file name"
-msgstr ""
+msgstr "Nama file terkarantina"
 
 #: ../../main/samba/src/EBox/Samba.pm:1536
 #: ../../main/samba/src/EBox/Samba.pm:1539
 msgid "Quarantine"
-msgstr ""
+msgstr "Karantina"
 
 #: ../../main/samba/src/EBox/Samba.pm:1542
 msgid "Samba access"
-msgstr ""
+msgstr "Akses samba"
 
 #: ../../main/samba/src/EBox/Samba.pm:1553
 msgid "Samba virus"
-msgstr ""
+msgstr "virus samba"
 
 #: ../../main/samba/src/EBox/Samba.pm:1564
 msgid "Samba quarantine"
-msgstr ""
+msgstr "Karantina samba"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:286
 msgid "This user has a sharing directory associated which contains data."
@@ -9064,7 +9066,7 @@ msgstr "daftar hitam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:101
 msgid "blacklisted senders"
-msgstr ""
+msgstr "pengirim yang didaftar hitam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:106
 msgid "bad message header"
@@ -9214,7 +9216,7 @@ msgstr "Servis port"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:89
 msgid "Notify of non-spam problematic messages"
-msgstr ""
+msgstr "Beritahukan untuk pesan non-spam problematic"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:98
 msgid "mail address"
@@ -9258,7 +9260,7 @@ msgstr "Tipe mailbox tidak valid: {type}"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:90
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:336
 msgid "Spam threshold"
-msgstr ""
+msgstr "Ambang spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:65
 msgid "The score threshold to mark a message as spam"
@@ -9274,11 +9276,11 @@ msgstr "Tag yang akan ditambahkan ke subjek pesan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:76
 msgid "Use Bayesian classifier"
-msgstr ""
+msgstr "Gunakan pengklasifikasian Bayesian"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:82
 msgid "Auto-whitelist"
-msgstr ""
+msgstr "Daftar putih - otomatis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:85
 msgid "Change the score of mail according to the sender history"
@@ -9286,15 +9288,15 @@ msgstr "Ubah nilai pesan menurut waktu pengiriman"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:89
 msgid "Auto-learn"
-msgstr ""
+msgstr "Belajar-otomatis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:92
 msgid "Feedback the learning system with messages that reach the threshold"
-msgstr ""
+msgstr "Umpanbalik sistem belajar dengan pesan yang mencapai ambang"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:97
 msgid "Autolearn spam threshold"
-msgstr ""
+msgstr "Ambang belajar spam otomatis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:101
 msgid ""
@@ -9306,7 +9308,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:105
 msgid "Autolearn ham threshold"
-msgstr ""
+msgstr "Ambang belajar ham otomatis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:108
 msgid ""
@@ -9324,22 +9326,28 @@ msgstr "Konfigurasi antispam"
 msgid ""
 "You must define autolearn spam threshold when autolearn option is active"
 msgstr ""
+"Anda harus mendefinisikan ambang belajar spam otomasis ketika opsi belakar "
+"otomatis aktif"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:172
 msgid "You must define autolearn ham threshold when autolearn option is active"
 msgstr ""
+"Anda harus mendefinisikan belajar ham otomatis ketika opsi belajar otomatis "
+"aktif"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:178
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
+"Ambang belajar spam otomatis tidak boleh lebih rendah dari ambah spamdefault"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamConfiguration.pm:184
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
+"Ambag belajar ham otomatis tidak boleh lebih rendah dari level spam default"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AntispamVDomainACL.pm:76
 msgid "Sender policy for virtual domain"
@@ -9359,17 +9367,19 @@ msgstr "Default"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:101
 msgid "custom threshold"
-msgstr ""
+msgstr "Ambang kustom"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:113
 msgid "Learn from accounts' Spam IMAP folders"
-msgstr ""
+msgstr "Belajar dari akun folder Spam IMAP"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:115
 msgid ""
 "Every time that a email moved into or out of the IMAP spam folder the filter "
 "will be trained with it"
 msgstr ""
+"Setiap kali email dipindahkan ke dalam atau kerluar dari folder saringan "
+"spam IMAPakan di latih dengannya"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:124
 msgid "Learning ham account"
@@ -9381,6 +9391,9 @@ msgid ""
 "incorrectly classified as spam may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Alamat (ham@domain) akan dibuat untuk domain ini, pesan2 hamyang salah "
+"klasifikasinya sebagai spam mungkin diteruskan ke alamat ini untukmelatih "
+"penyaringan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:136
 msgid "Learning spam account"
@@ -9392,6 +9405,9 @@ msgid ""
 "incorrectly classified as ham may be forwarded to this addres to train the "
 "filter"
 msgstr ""
+"Alamat (spam@domain) akan dibuat untuk domain ini, pesan2 spamyang salah "
+"klasifikasinya sebagai spam mungkin diteruskan ke alamat ini untukmelatih "
+"saringan"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/VDomains.pm:148
 msgid "Antispam sender policy"
@@ -9413,10 +9429,12 @@ msgid ""
 "There are no virtual mail domains managed by this server. You can create "
 "some in the {openA}virtual domains mail page{closeA}."
 msgstr ""
+"Tidak ada domain virtual email yang dikelola server ini, Anda dapat "
+"membuatbeberapa pada {openA} halaman domain virtual email{closeA)."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:75
 msgid "Filter spam"
-msgstr ""
+msgstr "Saringan spam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:81
 msgid "ISP spam subject"
@@ -9513,11 +9531,11 @@ msgstr "Untuk mengkonfigurasi amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:425
 msgid "Zentyal internal mail filter"
-msgstr ""
+msgstr "Saringan Internal mail Zentyal"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:439
 msgid "SMTP filter proxy"
-msgstr ""
+msgstr "Saringan SMTP proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:537
 #, perl-brace-format
@@ -9534,13 +9552,15 @@ msgstr "Ini harus berupa angka (titik desimal diperbolehkan)"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:346
 msgid "The spam's threshold cannot be higher than its autolearn threshold"
-msgstr ""
+msgstr "Ambang spam tidak boleh lebih tinggi dari ambang belajar otomatisnya"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:350
 msgid ""
 "The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
+"Ambang spam tidak boleh lebih rendah atau sama dengan ambang belajar "
+"otomatisnya"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:390
 msgid ""
@@ -9555,7 +9575,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:404
 #, perl-brace-format
 msgid "Accounts from the domain {d} cannot train the bayesian filter"
-msgstr ""
+msgstr "Akun dari domain{d} tidak bisa melatih saringan bayesian"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
@@ -9599,7 +9619,7 @@ msgstr "Menolak"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:51
 msgid "Bounce"
-msgstr ""
+msgstr "Mental"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:52
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/Policy.pm:63
@@ -13177,7 +13197,7 @@ msgstr "Klien"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:118
 msgid "Shared Secret"
-msgstr ""
+msgstr "Shared Secret"
 
 #: ../../main/radius/src/EBox/Model/Clients.pm:126
 msgid "RADIUS Clients"
@@ -13191,13 +13211,15 @@ msgstr "RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:102
 msgid "Create RADIUS certificates for TTLS"
-msgstr ""
+msgstr "Buat sertifikat RADIUS untuk TTLS"
 
 #: ../../main/radius/src/EBox/Radius.pm:103
 msgid ""
 "Zentyal will create the needed certificates for TTLS in /etc/freeradius/"
 "certs/."
 msgstr ""
+"Zentyal akan membuat sertifikat yang dibutuhkan TTLS pada "
+"/etc/freeradius/certs/."
 
 #: ../../main/radius/src/EBox/Radius.pm:108
 msgid "Allow others to read /var/log/freeradius"
@@ -13236,7 +13258,7 @@ msgstr "Untuk mengkonfigurasi vhost default RADIUS"
 
 #: ../../main/radius/src/EBox/Radius.pm:153
 msgid "To configure RADIUS inner-tunnel vhost."
-msgstr ""
+msgstr "Untuk mengatur RADIUS inner-tunnel vhost"
 
 #: ../../main/radius/src/EBox/Radius.pm:178
 msgid "Zentyal RADIUS system"
@@ -14955,20 +14977,20 @@ msgstr ""
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
 msgid "Days of the week"
-msgstr ""
+msgstr "Hari dalam minggu"
 
 #: ../../main/squid/stubs/template.html.mas:10
 msgid "Access Denied"
-msgstr ""
+msgstr "Akses Ditolak"
 
 #: ../../main/squid/stubs/template.html.mas:31
 msgid "Access has been Denied"
-msgstr ""
+msgstr "Akses telah Ditolak"
 
 #: ../../main/squid/stubs/template.html.mas:38
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
-msgstr ""
+msgstr "Akses ke halaman: {page} telah ditolak untuk alasan ini"
 
 #: ../../main/squid/stubs/template.html.mas:42
 msgid ""
@@ -14976,25 +14998,29 @@ msgid ""
 "contain, or is labeled as containing, material that has been deemed "
 "inappropriate."
 msgstr ""
+"Anda melihat kesalahan ini karena anda mencoba mengakses terhadap isi, atau "
+"telah ditandai sebagai terisi, material yang telah dicabutdengan tidak benar"
 
 #: ../../main/squid/stubs/template.html.mas:43
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
-msgstr ""
+msgstr "jika anda ingin bertanya hubungi kordinator ICT atau manager Jaringan."
 
 #: ../../main/squid/stubs/template.html.mas:48
 msgid "Powered by"
-msgstr ""
+msgstr "Didukung oleh"
 
 #: ../../main/firewall/src/templates/filter.mas:17
 msgid "Filtering rules from internal networks to Zentyal"
-msgstr ""
+msgstr "Menyaring aturan dari jaringan internal ke Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:19
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
 msgstr ""
+"Aturan ini memperbolehkan anda akses kontrol dari jaringan internal ke "
+"layanan yang berjalan pada mesin Zentyal."
 
 #: ../../main/firewall/src/templates/filter.mas:21
 #: ../../main/firewall/src/templates/filter.mas:38
@@ -15003,11 +15029,11 @@ msgstr ""
 #: ../../main/firewall/src/templates/filter.mas:94
 #: ../../main/firewall/src/templates/filter.mas:113
 msgid "Configure rules"
-msgstr ""
+msgstr "Konfigurasi aturan"
 
 #: ../../main/firewall/src/templates/filter.mas:33
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "Menyaring aturan untuk jaringan internal"
 
 #: ../../main/firewall/src/templates/filter.mas:35
 msgid ""
@@ -15015,16 +15041,21 @@ msgid ""
 "Internet and traffic between internal networks. If you wish to provide "
 "access to your Zentyal services, you must use the above section."
 msgstr ""
+"Aturan ini memperbolehkan untuk mengatur akses dari jaringan internal "
+"keInternet dan lalulintas antara jaringan internal. jika anda ingin memberi "
+"akses ke layanan Zentyal anda, anda harus menggunakan seksi di atas."
 
 #: ../../main/firewall/src/templates/filter.mas:50
 msgid "Filtering rules from external networks to Zentyal"
-msgstr ""
+msgstr "Menyaring aturan dari jaringan ekterna ke Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:52
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
+"Aturan ini memperbolehkan anda mengatur kases dari jaringan eksternal ke "
+"layanan yang berjalan di mesin zentyal anda."
 
 #: ../../main/firewall/src/templates/filter.mas:55
 #: ../../main/firewall/src/templates/filter.mas:75
@@ -15033,56 +15064,65 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing."
 msgstr ""
+"Harap mengerti bahwa menambah aturan pada seksi ini akan mengubah keamanan "
+"jaringan anda saat anda memberikan akses dari jaringan yang tidak dipercaya, "
+"jangan digunakan kecuali anda tahu yang anda lakukan."
 
 #: ../../main/firewall/src/templates/filter.mas:70
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "Menyaring aturan dari jaringan eksternal ke jaringan internal"
 
 #: ../../main/firewall/src/templates/filter.mas:72
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Aturan ini memperbolehkan untuk mengatur akses dari jaringan eksternal ke "
+"jaringan internal"
 
 #: ../../main/firewall/src/templates/filter.mas:89
 msgid "Filtering rules for traffic coming out from Zentyal"
-msgstr ""
+msgstr "Menyaring aturan untuk lalulintas kelura dari Zentyal"
 
 #: ../../main/firewall/src/templates/filter.mas:91
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
+"Aturan ini memperbolehkan anda untuk mengatur akse dari Zentyal anda ke "
+"Layanan eksternal."
 
 #: ../../main/firewall/src/templates/filter.mas:107
 msgid "These rules are automatically added by the Zentyal services."
-msgstr ""
+msgstr "Aturan ini secara otomatis ditambahkan oleh layanan Zentyal."
 
 #: ../../main/firewall/src/templates/filter.mas:110
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
 msgstr ""
+"Anda dapat mematikan aturan ini, tapi yakinkan anda tahu apa yang anda "
+"lakukan atau 'selain itu beberapa layanan akan berhenti bekerja."
 
 #: ../../main/dns/src/templates/index.mas:16
 msgid "Domain list"
-msgstr ""
+msgstr "Daftar domain"
 
 #: ../../main/dns/src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "edit"
 
 #: ../../main/dns/src/templates/index.mas:70
 #: ../../main/dns/src/templates/edit.mas:110
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:169
 #: ../../main/core/src/templates/backup.mas:185
 msgid "delete"
-msgstr ""
+msgstr "hapus"
 
 #: ../../main/dns/src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "Daftar host untuk domain {domain}"
 
 #: ../../main/ftp/stubs/vsftpd.conf.mas:74
 #, fuzzy
@@ -15094,14 +15134,14 @@ msgstr "File-file server FTP Zentyal"
 #: ../../main/software/src/templates/ebox.mas:655
 #: ../../main/software/src/templates/updates.mas:46
 msgid "Update"
-msgstr ""
+msgstr "Update"
 
 #: ../../main/software/src/templates/ebox.mas:195
 #: ../../main/software/src/templates/ebox.mas:600
 #: ../../main/software/src/templates/ebox.mas:624
 #: ../../main/software/src/templates/ebox.mas:646
 msgid "Install"
-msgstr ""
+msgstr "Instal"
 
 #: ../../main/software/src/templates/ebox.mas:197
 #: ../../main/software/src/templates/ebox.mas:695
@@ -15114,7 +15154,7 @@ msgstr "Instalasi"
 #: ../../main/software/src/templates/ebox.mas:218
 #: ../../main/software/src/templates/updates.mas:21
 msgid "Package list updated successfully"
-msgstr ""
+msgstr "Berhasil mengupdate Daftar paket"
 
 #: ../../main/software/src/templates/ebox.mas:222
 #: ../../main/software/src/templates/updates.mas:25
@@ -15122,12 +15162,16 @@ msgid ""
 "Error updating package list. Please try to execute the following command in "
 "a console to see the problem: sudo apt-get update"
 msgstr ""
+"Kesalahan mengupdate daftar paket, silahkan mencoba menjalankan perintah "
+"inipada konsol untuk melihat kesalahan: sudo apt-get update"
 
 #: ../../main/software/src/templates/ebox.mas:229
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
 msgstr ""
+"Paket berikut tidak terinstal dengan benar, Anda harus memperbaikinya "
+"sebelum mencoba menggunakannya atau install modul baru."
 
 #: ../../main/software/src/templates/ebox.mas:236
 #: ../../main/software/src/templates/ebox.mas:689
@@ -15140,48 +15184,50 @@ msgstr ""
 #: ../../main/software/src/templates/ebox.mas:763
 #: ../../main/software/src/templates/updates.mas:43
 msgid "Component"
-msgstr ""
+msgstr "Komponen"
 
 #: ../../main/software/src/templates/ebox.mas:238
 #: ../../main/software/src/templates/updates.mas:45
 msgid "Version"
-msgstr ""
+msgstr "Versi"
 
 #: ../../main/software/src/templates/ebox.mas:252
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
 msgstr ""
+"Untuk memperbaiki situasi ini, coba untuk menjalankan perintah berikut "
+"padakonsol:"
 
 #: ../../main/software/src/templates/ebox.mas:266
 msgid "View advanced mode"
-msgstr ""
+msgstr "Lihat mode lanjutan"
 
 #: ../../main/software/src/templates/ebox.mas:602
 msgid "Skip install"
-msgstr ""
+msgstr "Lewati instal"
 
 #: ../../main/software/src/templates/ebox.mas:620
 msgid "View basic mode"
-msgstr ""
+msgstr "Lihat mode dasar"
 
 #: ../../main/software/src/templates/ebox.mas:647
 #: ../../main/software/src/templates/ebox.mas:656
 #: ../../main/software/src/templates/updates.mas:108
 msgid "Update list"
-msgstr ""
+msgstr "Daftar Update"
 
 #: ../../main/software/src/templates/ebox.mas:648
 #: ../../main/software/src/templates/ebox.mas:657
 #: ../../main/software/src/templates/ebox.mas:668
 msgid "Deselect All"
-msgstr ""
+msgstr "Lepas pilihan Semua"
 
 #: ../../main/software/src/templates/ebox.mas:649
 #: ../../main/software/src/templates/ebox.mas:658
 #: ../../main/software/src/templates/ebox.mas:669
 msgid "Select All"
-msgstr ""
+msgstr "Pilih semua"
 
 #: ../../main/software/src/templates/ebox.mas:698
 #: ../../main/software/src/templates/ebox.mas:714
@@ -15230,23 +15276,23 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Menjalankan update keamanan otomatis"
 
 #: ../../main/software/src/templates/config.mas:14
 msgid "Zentyal is configured to use automatic QA updates"
-msgstr ""
+msgstr "Zentyal dikonfigurasi untuk menggunakan update QA otomatis"
 
 #: ../../main/software/src/templates/config.mas:26
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Operasi otomatis saat start"
 
 #: ../../main/software/src/templates/del.mas:67
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Paket berikut akan terinstal"
 
 #: ../../main/software/src/templates/del.mas:69
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Paket berikut akan dihapus"
 
 #: ../../main/software/src/templates/del.mas:95
 #: ../../main/network/src/templates/confirm.mas:37
@@ -15257,35 +15303,37 @@ msgstr ""
 
 #: ../../main/software/src/templates/updates.mas:35
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Update tersedia untuk komponen sistem berikut"
 
 #: ../../main/software/src/templates/updates.mas:37
 msgid "Community updates are available for the following system components"
-msgstr ""
+msgstr "Update komunitas tersedia untuk komponen berikut"
 
 #: ../../main/software/src/templates/updates.mas:55
 #: ../../main/software/src/templates/updates.mas:56
 msgid "Security update"
-msgstr ""
+msgstr "Update Keamanan"
 
 #: ../../main/software/src/templates/updates.mas:59
 #: ../../main/software/src/templates/updates.mas:60
 msgid "Zentyal QA update"
-msgstr ""
+msgstr "Update Zentyal QA"
 
 #: ../../main/software/src/templates/updates.mas:88
 msgid "Update all packages"
-msgstr ""
+msgstr "Update semua paket"
 
 #: ../../main/software/src/templates/updates.mas:99
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Operasi menghabiskan waktu, jangan khawatir jika Zentyal seperti tidak "
+"reponsifsetelah menekan tombol Upgrade."
 
 #: ../../main/software/src/templates/updates.mas:103
 msgid "Upgrade"
-msgstr ""
+msgstr "Upgrade"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoActive.mas:5
 #, perl-brace-format
@@ -15294,6 +15342,9 @@ msgid ""
 "contract them at {url1}. If you are already registered, then subscribe this "
 "server at {url2}"
 msgstr ""
+"Fitur ini hanya terdapat jika anda berlangganan Zentyal. Anda akan menyewa "
+"mereka pada {url1}. Jika anda sudah terdaftar, maka daftarkan server ini "
+"pada {url2}"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoActive.mas:14
 #, fuzzy
@@ -15305,34 +15356,36 @@ msgid ""
 "Cannot proceed with your request because it was a connection problem. "
 "Possible causes are:"
 msgstr ""
+"Tidak dapat melanjutkan permintaan anda karena masalah koneksi Kemungkina "
+"penyebab:"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:9
 msgid "Your computer has not internet connection"
-msgstr ""
+msgstr "Komputer anda tidak mempunyai koneksi internet"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:10
 msgid "Firewall is blocking the connection. Try to restart firewall module"
-msgstr ""
+msgstr "Firewall menolak koneksi. Coba restart modul firewall"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:11
 msgid "Your computer has not a correct system date"
-msgstr ""
+msgstr "Penanggalan sistem komputer anda salah"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:12
 msgid "You are using the wrong certificates"
-msgstr ""
+msgstr "Anda menggunakan sertifikat yang salah"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/NoConnection.mas:13
 msgid "This server has been removed from your registered ones"
-msgstr ""
+msgstr "Server ini telah dihapus dari yang terdaftar"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:56
 msgid "Back up"
-msgstr ""
+msgstr "Back up"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:82
 msgid "Back up the current configuration state"
-msgstr ""
+msgstr "Backup status konfigurasi sekarang"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:88
 #: ../../main/core/src/templates/backup.mas:44
@@ -15340,6 +15393,8 @@ msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
 msgstr ""
+"Backup dimatikan karena terdapat perubahan konfigurasi yang belum tersimpan. "
+"Silahkan, simpan atau mengabaikannya untuk dapat mem-backup konfigurasi"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:94
 msgid ""
@@ -15347,6 +15402,8 @@ msgid ""
 "configuration backup. If you make a new configuration backup, the previous "
 "backup will be overwritten."
 msgstr ""
+"Mohon diingat bahwa langganan dasar/Basic hanya menyimpan satu backup "
+"konfigurasi. jika anda membuat backup baru, backup sebelumya akan tertimpa"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:121
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:48
@@ -15354,23 +15411,23 @@ msgstr ""
 #: ../../main/core/src/templates/confirm-backup.mas:45
 #: ../../main/core/src/templates/backup.mas:130
 msgid "Archive size"
-msgstr ""
+msgstr "Ukiran arsip"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:161
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:91
 #: ../../main/core/src/templates/backup.mas:183
 msgid "restore"
-msgstr ""
+msgstr "restore"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:165
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:95
 #: ../../main/core/src/templates/backup.mas:181
 msgid "download"
-msgstr ""
+msgstr "unduh"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:174
 msgid "Configuration backups' list"
-msgstr ""
+msgstr "Daftar backup konfigurasi"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:37
 #, fuzzy
@@ -15380,7 +15437,7 @@ msgstr "sistem VoIP eBox"
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:101
 #: ../../main/core/src/templates/backup.mas:124
 msgid "Backups' list"
-msgstr ""
+msgstr "Daftar backup"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:124
 #, fuzzy
@@ -15389,7 +15446,7 @@ msgstr "Alamat pesan"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:135
 msgid "Submit"
-msgstr ""
+msgstr "Kirim"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:139
 #, fuzzy
@@ -15404,7 +15461,7 @@ msgstr ""
 #: ../../main/captiveportal/src/templates/login.mas:19
 #: ../../main/core/src/templates/login/index.mas:52
 msgid "Warning: Caps Lock is enabled"
-msgstr ""
+msgstr "Peringatan: Caps Lock menyala"
 
 #: ../../main/captiveportal/src/templates/login.mas:28
 msgid "Captive portal"
@@ -15413,7 +15470,7 @@ msgstr ""
 #: ../../main/captiveportal/src/templates/login.mas:56
 #: ../../main/core/src/templates/login/index.mas:82
 msgid "Enter"
-msgstr ""
+msgstr "Masuk"
 
 #: ../../main/captiveportal/src/templates/popup.mas:40
 msgid "Keep this window open while using your Internet connection."
@@ -15590,11 +15647,11 @@ msgstr ""
 
 #: ../../main/samba/src/templates/samba.mas:8
 msgid "PDC/File sharing account"
-msgstr ""
+msgstr "PDC/akun file sharing"
 
 #: ../../main/samba/src/templates/samba.mas:54
 msgid "Sharing directory for this group"
-msgstr ""
+msgstr "Direktori sharing untuk grup ini"
 
 #: ../../main/samba/src/templates/samba.mas:57
 msgid ""
@@ -15602,30 +15659,33 @@ msgid ""
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
 "than 12 characters"
 msgstr ""
+"Anda dapat mengarut direktori share untuk grup ini, tapi harus diingat bahwa "
+"Windows 98 dan Millenium tidak dapat melihat nama panjang lebih dari 12 "
+"karakter"
 
 #: ../../main/samba/src/templates/samba.mas:65
 msgid "This resource name is longer than 12 characters."
-msgstr ""
+msgstr "Nama resource ini lebih dari 12 karakter"
 
 #: ../../main/samba/src/templates/samba.mas:68
 msgid "Directory name"
-msgstr ""
+msgstr "Nama direktori"
 
 #: ../../main/samba/src/templates/samba.mas:94
 msgid "Select the printers this user will have access to."
-msgstr ""
+msgstr "Pilih printer yang akan diakses user ini."
 
 #: ../../main/samba/src/templates/samba.mas:127
 msgid "Allow all printers"
-msgstr ""
+msgstr "Perkenankan semua printer"
 
 #: ../../main/samba/src/templates/samba.mas:157
 msgid "printers module"
-msgstr ""
+msgstr "modul printer"
 
 #: ../../main/samba/src/templates/samba.mas:168
 msgid "file sharing module"
-msgstr ""
+msgstr "modul file sharing"
 
 #: ../../main/samba/src/templates/delete.mas:11
 msgid ""
@@ -15633,15 +15693,18 @@ msgid ""
 "remove it all its data will be removed. Please confirm that you want to "
 "delete it."
 msgstr ""
+"Grup yang anda coba hapus mempunyai direktori yang memiliki data, jika anda "
+"menghapusnya isi data akan ikut terhapus. Silahkan konfirmasi bahwa anda "
+"akan menghapusnya."
 
 #: ../../main/samba/stubs/smb.conf.mas:109
 msgid "Home Directories"
-msgstr ""
+msgstr "Direktori rumah"
 
 #: ../../main/samba/stubs/smb.conf.mas:138
 #, perl-brace-format
 msgid "{group} share directory"
-msgstr ""
+msgstr "share direktori {group}"
 
 #: ../../main/mailfilter/stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
@@ -15650,12 +15713,12 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:42
 #: ../../main/ca/src/templates/createCA.mas:9
 msgid "Country code"
-msgstr ""
+msgstr "Kode Negara"
 
 #: ../../main/ca/src/templates/index.mas:45
 #: ../../main/ca/src/templates/createCA.mas:13
 msgid "City"
-msgstr ""
+msgstr "Kota"
 
 #: ../../main/ca/src/templates/index.mas:59
 #: ../../main/ca/src/templates/formRevoke.mas:46
@@ -15728,7 +15791,7 @@ msgstr ""
 #: ../../main/ca/src/templates/forceRevoke.mas:42
 #: ../../main/ca/src/templates/formRevoke.mas:81
 msgid "Revoke"
-msgstr ""
+msgstr "Cabut"
 
 #: ../../main/ca/src/templates/index.mas:183
 #: ../../main/ca/src/templates/index.mas:221
@@ -15739,7 +15802,7 @@ msgstr ""
 #: ../../main/ca/src/templates/forceRenew.mas:27
 #: ../../main/ca/src/templates/formRenew.mas:23
 msgid "Renew"
-msgstr ""
+msgstr "Perbaharui"
 
 #: ../../main/ca/src/templates/index.mas:206
 #: ../../main/ca/src/templates/formReissue.mas:26
@@ -15752,11 +15815,11 @@ msgstr ""
 
 #: ../../main/ca/src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
-msgstr ""
+msgstr "Mengambil sertifikat CA"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
-msgstr ""
+msgstr "Mengambil sertifikat"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:21
 #, perl-brace-format
@@ -15765,6 +15828,9 @@ msgid ""
 "confirm you are very sure to revoke the whole certification authority from "
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
+"Pengambilan dapat berpengaruh pada fungsi dari modul lain, silahkan "
+"konfirmasi bahwa anda yakin untuk mengambil seluruh sertifikat otoritas dari "
+"{on} dan membiarkan layanan tidak stabil atau mati"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:24
 #, perl-brace-format
@@ -15773,6 +15839,9 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the service"
 "(s) unstable or disabled"
 msgstr ""
+"Sertifikat dengan nama umum {cn} yang ada coba cabut sedang dipakai oleh "
+"beberapa modul, silahkan konfirmasi bahwa anda yakin untuk mencabut dan "
+"membiarkan layanan tidak stabil atau mati."
 
 #: ../../main/ca/src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
@@ -15808,19 +15877,19 @@ msgstr "certificate"
 #: ../../main/mail/src/templates/alias.mas:61
 #: ../../main/mail/src/templates/alias.mas:62
 msgid "Create"
-msgstr ""
+msgstr "Buat"
 
 #: ../../main/ca/src/templates/createCA.mas:35
 msgid "Create Certification Authority Certificate"
-msgstr ""
+msgstr "Buat Sertifikat CA"
 
 #: ../../main/ca/src/templates/forceRenew.mas:42
 msgid "Renewing CA certificate"
-msgstr ""
+msgstr "Perbaharui sertifikat CA"
 
 #: ../../main/ca/src/templates/forceRenew.mas:44
 msgid "Renewing certificate"
-msgstr ""
+msgstr "Perbaharui sertifikat"
 
 #: ../../main/ca/src/templates/forceRenew.mas:50
 #, perl-brace-format
@@ -15829,6 +15898,9 @@ msgid ""
 "you are very sure to renew the whole certification authority from {on} and "
 "leave the service(s) unstable or disabled"
 msgstr ""
+"Pembaharuan ini berpengaruh pada fungsi dari modul lain, silahkan konfirmasi "
+"bahwa anda yakin akan memperbaharui seluruh sertifikat CA dari {on} dan "
+"membiarkan layanan tidak stabil atau mati."
 
 #: ../../main/ca/src/templates/forceRenew.mas:53
 #, perl-brace-format
@@ -16010,7 +16082,7 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:107
 #: ../../main/mail/src/templates/qmanager.mas:108
 msgid "first"
-msgstr ""
+msgstr "pertama"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:62
 #: ../../main/core/src/templates/ajax/tablePager.mas:67
@@ -16019,7 +16091,7 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:111
 #: ../../main/mail/src/templates/qmanager.mas:112
 msgid "prev"
-msgstr ""
+msgstr "sebelum"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:73
 #: ../../main/core/src/templates/ajax/tablePager.mas:74
@@ -16030,7 +16102,7 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:131
 #: ../../main/mail/src/templates/qmanager.mas:132
 msgid "next"
-msgstr ""
+msgstr "sesudah"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:79
 #: ../../main/core/src/templates/ajax/tablePager.mas:80
@@ -16041,7 +16113,7 @@ msgstr ""
 #: ../../main/mail/src/templates/qmanager.mas:135
 #: ../../main/mail/src/templates/qmanager.mas:136
 msgid "last"
-msgstr ""
+msgstr "terakhir"
 
 #: ../../main/core/src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -16056,7 +16128,7 @@ msgstr ""
 #: ../../main/core/src/templates/ajax/tableModal.mas:179
 #: ../../main/users/src/templates/ajax/tableUser.mas:88
 msgid "Add new"
-msgstr ""
+msgstr "Tambah baru"
 
 #: ../../main/core/src/templates/ajax/tableBody.mas:158
 #: ../../main/core/src/templates/ajax/tableModalView.mas:166
@@ -16151,7 +16223,7 @@ msgstr ""
 #: ../../main/core/src/templates/datetime.mas:19
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
-msgstr ""
+msgstr "Perubahan pada tanggal atau jam mengakibatkan semua layanan di restart "
 
 #: ../../main/core/src/templates/datetime.mas:27
 #, fuzzy
@@ -16162,73 +16234,73 @@ msgstr "Konfigurasi"
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "March"
-msgstr ""
+msgstr "Maret"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "May"
-msgstr ""
+msgstr "Mei"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "August"
-msgstr ""
+msgstr "Agustus"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "November"
-msgstr ""
+msgstr "Nopember"
 
 #: ../../main/core/src/templates/datetime.mas:46
 #: ../../main/core/src/templates/logs/index.mas:62
 #: ../../main/core/src/templates/logs/index.mas:127
 msgid "December"
-msgstr ""
+msgstr "Desember"
 
 #: ../../main/core/src/templates/links-widget.mas:5
 msgid "Community Resources"
@@ -16454,7 +16526,7 @@ msgstr ""
 #: ../../main/mail/src/templates/alias.mas:159
 #: ../../main/mail/src/templates/alias.mas:160
 msgid "Modify"
-msgstr ""
+msgstr "Ubah"
 
 #: ../../main/core/src/templates/backup.mas:28
 msgid "Full Backup"
@@ -16587,16 +16659,17 @@ msgstr ""
 
 #: ../../main/core/src/templates/wizard.mas:153
 msgid "Congratulations!"
-msgstr ""
+msgstr "Selamat"
 
 #: ../../main/core/src/templates/wizard.mas:154
 msgid "Now you are ready to save changes and start using your Zentyal server"
 msgstr ""
+"Sekarang anda siap untuk menyimpan perubahan dan mulai menggunakan server "
+"Zentyal"
 
 #: ../../main/core/src/templates/wizard.mas:156
-#, fuzzy
 msgid "Installation finished"
-msgstr "Instalasi"
+msgstr "Instalasi selesai"
 
 #: ../../main/core/src/templates/wizard.mas:157
 msgid ""
@@ -16645,124 +16718,128 @@ msgstr ""
 
 #: ../../main/core/src/templates/timezone.mas:11
 msgid "Time Zone"
-msgstr ""
+msgstr "Zona waktu"
 
 #: ../../main/mail/src/templates/groupalias.mas:7
 msgid "Mail alias settings"
-msgstr ""
+msgstr "Seting alias surat"
 
 #: ../../main/mail/src/templates/groupalias.mas:12
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
 msgstr ""
+"Tidak ada user pada grup atau user tidak mempunyai akun surat, maka alias "
+"akun tidak bisa dibuat"
 
 #: ../../main/mail/src/templates/groupalias.mas:22
 #: ../../main/mail/src/templates/alias.mas:36
 msgid "Mail alias"
-msgstr ""
+msgstr "Alias surat"
 
 #: ../../main/mail/src/templates/createaccount.mas:14
 msgid "Create mail account"
-msgstr ""
+msgstr "Buat akun surat"
 
 #: ../../main/mail/src/templates/createaccount.mas:22
 msgid "Account name"
-msgstr ""
+msgstr "Nama akun"
 
 #: ../../main/mail/src/templates/createaccount.mas:55
 msgid "Maildir size"
-msgstr ""
+msgstr "ukuran Maildir"
 
 #: ../../main/mail/src/templates/account.mas:22
 msgid "Mail account"
-msgstr ""
+msgstr "Akun surat"
 
 #: ../../main/mail/src/templates/account.mas:26
 msgid "Click here to create a new mail virtual domain"
-msgstr ""
+msgstr "Klik disini untuk membuat domain virutal surat"
 
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:7
 msgid "Set up the default virtual mail domain"
-msgstr ""
+msgstr "Setup domain mail virtual default"
 
 #: ../../main/mail/src/templates/Wizard/virtualdomain.mas:8
 msgid "This will be the domain for your mail accounts"
-msgstr ""
+msgstr "Mungkin ini domain untuk akun surat anda"
 
 #: ../../main/mail/src/templates/qmanager.mas:20
 msgid "Sender"
-msgstr ""
+msgstr "Pengirim"
 
 #: ../../main/mail/src/templates/qmanager.mas:21
 msgid "Recipients"
-msgstr ""
+msgstr "Penerima"
 
 #: ../../main/mail/src/templates/qmanager.mas:44
 #: ../../main/mail/src/templates/qmanager.mas:45
 msgid "Requeue"
-msgstr ""
+msgstr "Antri ulang"
 
 #: ../../main/mail/src/templates/qmanager.mas:49
 #: ../../main/mail/src/templates/qmanager.mas:50
 msgid "Show Info"
-msgstr ""
+msgstr "Lihat info"
 
 #: ../../main/mail/src/templates/qmanager.mas:67
 #: ../../main/mail/src/templates/qmanager.mas:68
 msgid "Hide Info"
-msgstr ""
+msgstr "Sembunyikan info"
 
 #: ../../main/mail/src/templates/qmanager.mas:82
 msgid "Attempt to deliver all queued mail"
-msgstr ""
+msgstr "Mencoba untuk mengirim antrian surat"
 
 #: ../../main/mail/src/templates/qmanager.mas:89
 msgid "Remove all messages"
-msgstr ""
+msgstr "Hapus semua pesan"
 
 #: ../../main/mail/src/templates/qmanager.mas:146
 msgid "There are no messages in queue or the service is stopped"
-msgstr ""
+msgstr "Tidak ada pesan dalam antrian atau layanan berhenti"
 
 #: ../../main/mail/src/templates/moduleDisabled.mas:5
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
-msgstr ""
+msgstr "Seting berikut hanya akan berjalan ketika modul surat aktif"
 
 #: ../../main/mail/src/templates/warnvd.mas:14
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
+"Domain virtual yang akan dihapus memiliki data pada model berikut. Silahkan "
+"konfirmasi untuk menghapusnya dan semua data terkait"
 
 #: ../../main/mail/src/templates/alias.mas:8
 msgid "Mail account settings"
-msgstr ""
+msgstr "Seting akun surat"
 
 #: ../../main/mail/src/templates/alias.mas:31
 msgid "Create mail aliases"
-msgstr ""
+msgstr "Buat alias surat"
 
 #: ../../main/mail/src/templates/alias.mas:121
 msgid "No quota"
-msgstr ""
+msgstr "Tidak ada quota"
 
 #: ../../main/mail/src/templates/alias.mas:122
 msgid "Default quota"
-msgstr ""
+msgstr "Quota default"
 
 #: ../../main/mail/src/templates/alias.mas:123
 msgid "Custom quota"
-msgstr ""
+msgstr "Quota sendiri"
 
 #: ../../main/mail/src/templates/alias.mas:130
 msgid "Quota type"
-msgstr ""
+msgstr "Tipe quota"
 
 #: ../../main/mail/src/templates/alias.mas:143
 msgid "Maximum mailbox size in MB"
-msgstr ""
+msgstr "Ukuran maksimal kotak surat dalam MB"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:7
 msgid "Zarafa account"
@@ -16810,19 +16887,19 @@ msgstr ""
 
 #: ../../main/users/src/templates/users.mas:12
 msgid "Add User"
-msgstr ""
+msgstr "Tambah User"
 
 #: ../../main/users/src/templates/users.mas:57
 #: ../../main/users/src/templates/user.mas:78
 msgid "Retype password"
-msgstr ""
+msgstr "Ketik ulang password"
 
 #: ../../main/users/src/templates/users.mas:74
 #: ../../main/users/src/templates/users.mas:75
 #: ../../main/users/src/templates/groups.mas:38
 #: ../../main/users/src/templates/groups.mas:39
 msgid "Add and Edit"
-msgstr ""
+msgstr "Tambah dan Ubah"
 
 #: ../../main/users/src/templates/Wizard/users.mas:9
 msgid "Select the type of the server"
@@ -16851,15 +16928,15 @@ msgstr ""
 
 #: ../../main/users/src/templates/groups.mas:10
 msgid "Add Group"
-msgstr ""
+msgstr "Tambah Grup"
 
 #: ../../main/users/src/templates/groups.mas:16
 msgid "Group name"
-msgstr ""
+msgstr "Nama grup"
 
 #: ../../main/users/src/templates/groups.mas:31
 msgid "Optional value"
-msgstr ""
+msgstr "Nilai Opsional"
 
 #: ../../main/users/src/templates/del.mas:15
 msgid ""
@@ -16878,73 +16955,78 @@ msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
 msgstr ""
+"Tidak ada user sementara ini, Anda paling tidak satu untuk mengelola grup "
+"ini secara benar"
 
 #: ../../main/users/src/templates/group.mas:33
 msgid "Users in group"
-msgstr ""
+msgstr "User di grup"
 
 #: ../../main/users/src/templates/group.mas:35
 msgid "Users not in group"
-msgstr ""
+msgstr "User tidak di grup"
 
 #: ../../main/users/src/templates/group.mas:51
 #: ../../main/users/src/templates/group.mas:92
 #: ../../main/users/src/templates/user.mas:132
 #: ../../main/users/src/templates/user.mas:167
 msgid "Empty list"
-msgstr ""
+msgstr "Daftar kosong"
 
 #: ../../main/users/src/templates/group.mas:64
 msgid "Remove users from group"
-msgstr ""
+msgstr "Buang user dai grup"
 
 #: ../../main/users/src/templates/group.mas:75
 #: ../../main/users/src/templates/group.mas:78
 #: ../../main/users/src/templates/user.mas:151
 #: ../../main/users/src/templates/user.mas:154
 msgid "Add users to group"
-msgstr ""
+msgstr "Tambah user ke grup"
 
 #: ../../main/users/src/templates/group.mas:108
 #: ../../main/users/src/templates/group.mas:117
 #: ../../main/users/src/templates/group.mas:118
 msgid "Delete group"
-msgstr ""
+msgstr "Hapus grup"
 
 #: ../../main/users/src/templates/group.mas:110
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
+"Operasi ini mengakibatkan penghapusan grup dan data terkait seperti shared "
+"direktori, dll"
 
 #: ../../main/users/src/templates/user.mas:88
-#, fuzzy
 msgid "User quota"
-msgstr "Akun pengguna"
+msgstr "kuota pengguna"
 
 #: ../../main/users/src/templates/user.mas:114
 msgid "User groups"
-msgstr ""
+msgstr "Grup user"
 
 #: ../../main/users/src/templates/user.mas:116
 msgid "Other groups"
-msgstr ""
+msgstr "Grup lain"
 
 #: ../../main/users/src/templates/user.mas:143
 msgid "Remove groups from user"
-msgstr ""
+msgstr "Hapus grup dari user"
 
 #: ../../main/users/src/templates/user.mas:185
 #: ../../main/users/src/templates/user.mas:193
 #: ../../main/users/src/templates/user.mas:194
 msgid "Delete user"
-msgstr ""
+msgstr "Hapus user"
 
 #: ../../main/users/src/templates/user.mas:187
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
+"Operasi ini mengakibatkan penghapusan user dan data dependen-nya seperti "
+"akun email, berkas user dll"
 
 #~ msgid "Rate"
 #~ msgstr "Tingkat"
