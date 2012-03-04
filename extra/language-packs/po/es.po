@@ -15742,7 +15742,7 @@ msgid ""
 "The shadow password file was restored; your local user password could have "
 "been changed"
 msgstr ""
-"El fichero de contraseñas 'shadow' se ha restuarado, la contraseña de tu "
+"El fichero de contraseñas 'shadow' se ha restaurado, la contraseña de tu "
 "usuario local podría haber cambiado"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2701
@@ -15763,7 +15763,7 @@ msgstr "¡Tu backup completo se ha restaurado con éxito!"
 #, perl-brace-format
 msgid "You can now login at {url} to manage your recovered host."
 msgstr ""
-"Ahora puede siniciar sesión en {url} para gestionar tu máqiuna recuperada."
+"Ahora puedes iniciar sesión en {url} para gestionar tu máqiuna recuperada."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2833
 #: ../../main/ebackup/src/scripts/restore-tool:2842
