@@ -67,11 +67,16 @@ sub _process($) {
         } else {
             $fullname = $surname;
         }
+        my $comment = $self->param('comment');
+        if (length ($comment)) {
+            $user->set('description', $comment, 1);
+        } else {
+            $user->delete('description', 1);
+        }
 
         $user->set('givenname', $givenName, 1);
         $user->set('sn', $surname, 1);
         $user->set('cn', $fullname, 1);
-        $user->set('description', $self->param('comment'), 1);
 
         # Change password if not empty
         my $password = $self->unsafeParam('password');
