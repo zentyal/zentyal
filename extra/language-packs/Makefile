@@ -3,7 +3,8 @@ all:
 	./generate-mos po/zentyal-subscription zentyal-subscription
 
 install: all
-	cp -a dist/* /usr/share/locale/
+	mkdir -p $(DESTDIR)/usr/share/locale
+	cp -a dist/* $(DESTDIR)/usr/share/locale/
 
 clean:
 	rm -rf dist
