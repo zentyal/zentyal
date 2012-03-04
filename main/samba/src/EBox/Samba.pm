@@ -293,13 +293,29 @@ sub enableActions
     EBox::debug('Disabling named apparmor profile');
     @cmds = ('rm -f /etc/apparmor.d/disable/usr.sbin.named',
              'ln -s /etc/apparmor.d/usr.sbin.named /etc/apparmor.d/disable/usr.sbin.named',
-             'touch /etc/apparmor.d/local/usr.sbin.named');
+             'touch /etc/apparmor.d/local/usr.sbin.named',
+             'service apparmor restart');
     try {
         EBox::Sudo::root(@cmds);
     } otherwise {
         my $error = shift;
         EBox::debug("Couldn't disable named profile: $error");
     };
+}
+
+# Method: enableService
+#
+#   Override EBox::Module::Service::enableService to
+#   set DNS module as changed
+#
+sub enableService
+{
+    my ($self, $status) = @_;
+
+    $self->SUPER::enableService($status);
+    if ($self->changed()) {
+        EBox::Global->modChange('dns');
+    }
 }
 
 # Method: modelClasses
@@ -487,6 +503,7 @@ sub provision
     };
 
     # Mark the module as provisioned
+    # TODO Flag is failing
     EBox::debug('Setting provisioned flag');
     $self->set_bool('provisioned', 1);
 }
@@ -589,22 +606,15 @@ sub _setConf
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
-    my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless $prefix;
-
     my @array = ();
-    push(@array, 'prefix'      => $prefix);
-    push(@array, 'ifaces'      => $interfaces);
-    push(@array, 'mode'        => $self->mode());
     push(@array, 'workgroup'   => $self->workgroup());
-    push(@array, 'realm'       => $self->realm());
     push(@array, 'netbiosName' => $self->netbiosName());
     push(@array, 'description' => $self->description());
-    push(@array, 'drive'       => $self->drive());
-    push(@array, 'roaming'     => $self->roamingProfiles());
-    push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
-    push(@array, 'printers'    => $self->_sambaPrinterConf());
-    push(@array, 'active_printer'  => $self->printerService());
+    push(@array, 'ifaces'      => $interfaces);
+    push(@array, 'mode'        => $self->mode());
+    push(@array, 'realm'       => $self->realm());
+    #push(@array, 'roamingProfiles' => $self->roamingProfiles());
+    #push(@array, 'drive'       => $self->drive());
 
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
@@ -615,17 +625,16 @@ sub _setConf
             last;
         }
     }
-    push(@array, 'guest_shares' => $guestShares);
 
-    my $netlogonDir = SAMBA_DIR , '/' . $self->realm() . '/scripts';
-    if ($self->mode() eq 'dc') {
-        my $logonScript = join('/', $netlogonDir, LOGON_SCRIPT);
-        if (EBox::Sudo::fileTest('-f', $logonScript)) {
-            push(@array, 'logon_script', LOGON_SCRIPT);
-        }
-        $self->writeConfFile(join('/', $netlogonDir, LOGON_DEFAULT_SCRIPT),
-            'samba/logon.bat.mas', \@array);
-    }
+    #my $netlogonDir = "/var/lib/samba/sysvol/" . $self->realm() . "/scripts";
+    #if ($self->mode() eq 'dc') {
+    #    #my $logonScript = join('/', $netlogonDir, LOGON_SCRIPT);
+    #    #if (EBox::Sudo::fileTest('-f', $logonScript)) {
+    #    #    push(@array, 'logon_script', LOGON_SCRIPT);
+    #    #}
+    #    $self->writeConfFile(join('/', $netlogonDir, LOGON_DEFAULT_SCRIPT),
+    #        'samba/logon.bat.mas', \@array);
+    #}
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);

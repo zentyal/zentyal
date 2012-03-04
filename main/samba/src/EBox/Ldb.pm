@@ -18,9 +18,12 @@ package EBox::Ldb;
 use strict;
 use warnings;
 
-use LDB;
 use EBox::Exceptions::DataNotFound;
+use EBox::UsersAndGroups::Group;
+use EBox::UsersAndGroups::User;
 
+use LDB;
+use Array::Diff;
 use MIME::Base64;
 use Encode qw(decode encode);
 
@@ -55,6 +58,18 @@ sub rootDn
         $self->{dn} = 'DC=' . join (',DC=', @fields);
     }
     return defined ($self->{dn}) ? $self->{dn} : '';
+}
+
+# Method: samdb
+#
+#   Returns the path to the samdb file
+#
+sub samdb
+{
+    my ($self) = @_;
+
+    my $path = join ('/', LDB_DIR, uc ($self->rootDn())) . '.ldb';
+    return $path;
 }
 
 # Method: clearConn
@@ -100,29 +115,49 @@ sub search # (args)
     my ($self, $args) = @_;
 
     unless (exists $args->{url}) {
-        $args->{url} = LDB_DIR . '/' . uc($self->rootDn()) . '.ldb';
+        $args->{url} = $self->samdb();
+    }
+    # Do not include deleted objects in searches
+    if (exists $args->{filter}) {
+        $args->{filter} = '(&' . $args->{filter} . '(!(isDeleted=TRUE)))';
+    } else {
+        $args->{filter} = '(!(isDeleted=TRUE))';
     }
     my $result = LDB::search($args);
     return $result;
 }
 
-sub replace
+sub modify
 {
-    my ($self, $url, $dn, $attribute, $newValue) = @_;
+    my ($self, $url, $dn, $changes) = @_;
 
-    my $str = "dn: $dn\n" .
-              "changetype: modify\n" .
-              "replace: $attribute\n" .
-              "$attribute: $newValue";
+    my $str = "dn: $dn\nchangetype: modify\n";
+    my $additions = $changes->{add};
+    my $deletions = $changes->{delete};
+    my $modifications = $changes->{modify};
+    foreach my $attr (keys %{$additions}) {
+        $str .= "add: $attr\n";
+        $str .= "$attr: $additions->{$attr}\n";
+    }
+    foreach my $attr (keys %{$deletions}) {
+        $str .= "delete: $attr\n";
+        if (length ($deletions->{$attr}) > 0) {
+            $str .= "$attr: $deletions->{$attr}\n";
+        }
+    }
+    foreach my $attr (keys %{$modifications}) {
+        $str .= "replace: $attr\n";
+        $str .= "$attr: $modifications->{$attr}\n";
+    }
 
-    my $file = EBox::Config::tmp() . '/ldb.replace';
+    my $file = EBox::Config::tmp() . 'ldb.modify';
     open (FILE, ">$file");
     print FILE $str;
     close FILE;
 
     my $cmd = "ldbmodify -H $url $file";
     EBox::Sudo::root($cmd);
-    unlink $file;
+    #unlink $file;
 }
 
 sub add
@@ -142,6 +177,22 @@ sub add
     EBox::Sudo::root($cmd);
     unlink $file;
 }
+
+sub delete
+{
+    my ($self, $url, $dn) = @_;
+
+    my $str = "dn: $dn\nchangetype: delete\n";
+    my $file = EBox::Config::tmp() . '/ldb.delete';
+    open (FILE, ">$file");
+    print FILE $str;
+    close FILE;
+
+    my $cmd = "ldbmodify -H $url $file";
+    EBox::Sudo::root($cmd);
+    unlink $file;
+}
+
 #############################################################################
 ## Credentials related functions                                           ##
 #############################################################################
@@ -469,9 +520,9 @@ sub getUsers
 {
     my ($self, $usersToIgnore, $system) = @_;
 
-    my $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(isDeleted=TRUE)))';
+    my $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))';
     if (defined $system) {
-        $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))';
+        $filter = '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200)(!(IsCriticalSystemObject=TRUE)))';
     }
     my $users = {};
     my $result = $self->search({
@@ -514,9 +565,9 @@ sub getGroups
 {
     my ($self, $groupsToIgnore, $system) = @_;
 
-    my $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isDeleted=TRUE)))';
+    my $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))';
     if (defined $system) {
-        $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE))(!(isDeleted=TRUE)))';
+        $filter = '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002)(!(isCriticalSystemObject=TRUE)))';
     }
     my $groups = {};
     my $result = $self->search({
@@ -557,8 +608,7 @@ sub xidMapping
     my $dn = "CN=$objectSid";
     my $result = $self->search({
         url => IDMAP_FILE,
-        filter => "(distinguisedName=$dn)",
-        attrs => ['objectClass'],
+        filter => "(dn=$dn)",
         });
     if (scalar (@{$result}) == 0) {
         # Is it a user or a group?
@@ -596,8 +646,13 @@ sub xidMapping
         }
     } else {
         # Replace the xid in idmap.ldb
+        my $changes = {
+            modify => {
+                xidNumber => $xid,
+            },
+        };
         EBox::debug("Updating xid mapping of '$id' to '$xid'");
-        $self->replace(IDMAP_FILE, $dn, 'xidNumber', $xid);
+        $self->modify(IDMAP_FILE, $dn, $changes);
     }
 }
 
@@ -664,31 +719,139 @@ sub getGroupMembers
 
     my $result = $self->search({
         filter => "(&(sAMAccountName=$groupID)(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))",
-        attrs => ['member'],
+        attrs => ['distinguishedName', 'member'],
     });
     my $members = [];
-    if (scalar @{$result} == 1) {
+    if (scalar (@{$result}) == 1) {
         my $entry = pop (@{$result});
-        foreach my $val (@{$entry->{member}}) {
-            my $mem = {};
-            my (@fields) = split (/;/, $val);
-            foreach my $field (@fields) {
-                if ($field =~ /^<.+>$/) {
-                    $field =~ s/(<|>)//g;
-                    my ($key, $value) = split (/=/, $field);
-                    $key = lc ($key);
-                    $mem->{$key} = $value;
-                } else {
-                    $mem->{dn} = $field;
+        if (exists $entry->{member}) {
+            foreach my $val (@{$entry->{member}}) {
+                my $mem = {};
+                my (@fields) = split (/;/, $val);
+                foreach my $field (@fields) {
+                    if ($field =~ /^<.+>$/) {
+                        $field =~ s/(<|>)//g;
+                        my ($key, $value) = split (/=/, $field);
+                        $key = lc ($key);
+                        $mem->{$key} = $value;
+                    } else {
+                        $mem->{dn} = $field;
+                    }
+                }
+                # Check the removed flag
+                if ($mem->{rmd_flags} == 0) {
+                    push (@{$members}, $mem);
                 }
             }
-            push (@{$members}, $mem);
         }
     } else {
         throw EBox::Exceptions::DataNotFound("Group '$groupID' not found");
     }
 
     return $members;
+}
+
+sub syncGroupMembersLdapToLdb
+{
+    my ($self, $groupId, $sambaUsersToIgnore, $ldapUsersToIgnore) = @_;
+
+    my @sambaMembers = ();
+    my %sambaUsersToIgnore = map { $_ => 1 } @{$sambaUsersToIgnore};
+    foreach my $member (@{$self->getGroupMembers($groupId)}) {
+        my $memberId = $self->getIdByDN($member->{dn});
+        if (defined ($sambaUsersToIgnore)) {
+            push (@sambaMembers, $memberId) unless exists $sambaUsersToIgnore{$memberId};
+        } else {
+            push (@sambaMembers, $memberId);
+        }
+    }
+    @sambaMembers = sort (@sambaMembers);
+
+    my @ldapMembers = ();
+    my $usersModule = EBox::Global->modInstance('users');
+    my $group = new EBox::UsersAndGroups::Group(dn => $usersModule->groupDn($groupId));
+    my %ldapUsersToIgnore = map { $_ => 1 } @{$ldapUsersToIgnore};
+    foreach my $member (@{$group->users()}) {
+        my $memberId = $member->name();
+        if (defined ($ldapUsersToIgnore)) {
+            push (@ldapMembers, $memberId) unless exists $ldapUsersToIgnore{$memberId};
+        } else {
+            push (@ldapMembers, $memberId);
+        }
+    }
+    @ldapMembers = sort (@ldapMembers);
+
+    EBox::debug("Samba members @sambaMembers");
+    EBox::debug("LDAP members @ldapMembers");
+
+    my $diff = Array::Diff->diff (\@sambaMembers, \@ldapMembers);
+
+    # Add the missing members to the group
+    foreach my $memberId (@{$diff->added}) {
+        my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
+        EBox::debug('Adding user ' . $user->name() . ' to LDAP group');
+        my $cmd = "samba-tool group addmembers $groupId " . $user->name();
+        EBox::Sudo::root($cmd);
+    }
+
+    # Remove the members
+    foreach my $memberId (@{$diff->deleted}) {
+        my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
+        EBox::debug('Removing user ' . $user->name() . ' from LDAP group');
+        my $cmd = "samba-tool group removemembers $groupId " . $user->name();
+        EBox::Sudo::root($cmd);
+    }
+}
+
+sub syncGroupMembersLdbToLdap
+{
+    my ($self, $groupId, $sambaUsersToIgnore, $ldapUsersToIgnore) = @_;
+
+    my @sambaMembers = ();
+    my %sambaUsersToIgnore = map { $_ => 1 } @{$sambaUsersToIgnore};
+    foreach my $member (@{$self->getGroupMembers($groupId)}) {
+        my $memberId = $self->getIdByDN($member->{dn});
+        if (defined ($sambaUsersToIgnore)) {
+            push (@sambaMembers, $memberId) unless exists $sambaUsersToIgnore{$memberId};
+        } else {
+            push (@sambaMembers, $memberId);
+        }
+    }
+    @sambaMembers = sort (@sambaMembers);
+
+    my @ldapMembers = ();
+    my $usersModule = EBox::Global->modInstance('users');
+    my $group = new EBox::UsersAndGroups::Group(dn => $usersModule->groupDn($groupId));
+    my %ldapUsersToIgnore = map { $_ => 1 } @{$ldapUsersToIgnore};
+    foreach my $member (@{$group->users()}) {
+        my $memberId = $member->name();
+        if (defined ($ldapUsersToIgnore)) {
+            push (@ldapMembers, $memberId) unless exists $ldapUsersToIgnore{$memberId};
+        } else {
+            push (@ldapMembers, $memberId);
+        }
+    }
+    @ldapMembers = sort (@ldapMembers);
+
+    EBox::debug("Samba members @sambaMembers");
+    EBox::debug("LDAP members @ldapMembers");
+
+    my $diff = Array::Diff->diff (\@ldapMembers, \@sambaMembers);
+
+    # Add the missing members to the group
+    foreach my $memberId (@{$diff->added}) {
+        my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
+        EBox::debug('Adding user ' . $user->name() . ' to LDAP group');
+        $group->addMember($user, 1);
+    }
+
+    # Remove the members
+    foreach my $memberId (@{$diff->deleted}) {
+        my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
+        EBox::debug('Removing user ' . $user->name() . ' from LDAP group');
+        $group->removeMember($user, 1);
+    }
+    $group->save(['samba']);
 }
 
 1;

@@ -5,6 +5,7 @@ use strict;
 use Array::Diff;
 use Net::Domain qw(hostname);
 use Error qw(:try);
+use Data::Dumper;
 
 use EBox;
 use EBox::Global;
@@ -69,16 +70,16 @@ sub getSambaUsers
     my $users = {};
     my $ldb = $sambaModule->ldb();
     my $result = $ldb->search({
-            base   => $ldb->rootDN(),
+            base   => $ldb->rootDn(),
             scope  => 'sub',
             filter => '(&(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=0x00000200))',
-            attrs  => ['sAMAccountName', 'cn', 'givenName', 'sn', 'description','whenChanged']});
-    my @entries = $result->entries;
+            attrs  => ['sAMAccountName', 'cn', 'givenName', 'sn', 'description', 'whenChanged']});
     if (defined $usersToIgnore) {
         my %usersToIgnore = map { $_ => 1 } @{$usersToIgnore};
-        foreach my $entry (@entries) {
-            unless (exists $usersToIgnore{$entry->get_value('sAMAccountName')}) {
-                $users->{$entry->get_value('sAMAccountName')} = $entry;
+        foreach my $entry (@{$result}) {
+            my $entryId = @{$entry->{'sAMAccountName'}}[0];
+            unless (exists $usersToIgnore{$entryId}) {
+                $users->{$entryId} = $entry;
             }
         }
     }
@@ -106,16 +107,16 @@ sub getSambaGroups
     my $groups = {};
     my $ldb = $sambaModule->ldb();
     my $result = $ldb->search({
-            base   => $ldb->rootDN(),
+            base   => $ldb->rootDn(),
             scope  => 'sub',
             filter => '(&(objectClass=group)(groupType:1.2.840.113556.1.4.803:=0x0000002))',
             attrs  => ['sAMAccountName', 'member', 'whenChanged', 'description']});
-    my @entries = $result->entries;
     if (defined $groupsToIgnore) {
         my %groupsToIgnore = map { $_ => 1 } @{$groupsToIgnore};
-        foreach my $entry (@entries) {
-            unless (exists $groupsToIgnore{$entry->get_value('sAMAccountName')}) {
-                $groups->{$entry->get_value('sAMAccountName')} = $entry;
+        foreach my $entry (@{$result}) {
+            my $entryId = @{$entry->{'sAMAccountName'}}[0];
+            unless (exists $groupsToIgnore{$entryId}) {
+                $groups->{$entryId} = $entry;
             }
         }
     }
@@ -185,7 +186,7 @@ sub getLdapGroups
             base   => $usersModule->groupsDn(),
             scope  => 'one',
             filter => 'objectClass=posixGroup',
-            attrs  => ['cn', 'memberUid', 'modifyTimestamp']});
+            attrs  => ['cn', 'member', 'modifyTimestamp']});
     my @entries = $result->entries;
     if (defined $groupsToIgnore) {
         my %groupsToIgnore = map { $_ => 1 } @{$groupsToIgnore};
@@ -212,23 +213,27 @@ sub addLdapUser
 {
     my ($usersModule, $credentials, $sambaUser) = @_;
 
-    my $accountName = $sambaUser->get_value('sAMAccountName');
+    my $accountName = @{$sambaUser->{'sAMAccountName'}}[0];
+    my $fullname = @{$sambaUser->{'cn'}}[0];
+    my $givenname = @{$sambaUser->{'givenName'}}[0];
+    my $surname = @{$sambaUser->{'sn'}}[0];
+    my $comment = @{$sambaUser->{'description'}}[0];
     if (exists $credentials->{'Primary:CLEARTEXT'}) {
         try {
             info ("Adding user '$accountName' to LDAP");
-            my $params = {
-                user => $accountName,
-                fullname  => $sambaUser->get_value('cn'),
-                password  => $credentials->{'Primary:CLEARTEXT'},
-                givenname => length ($sambaUser->get_value('givenName')) > 0 ?
-                    $sambaUser->get_value('givenName') :
-                    $sambaUser->get_value('sAMAccountName'),
-                surname   => length ($sambaUser->get_value('sn')) > 0 ?
-                    $sambaUser->get_value('sn') :
-                    $sambaUser->get_value('sAMAccountName'),
-                comment   => $sambaUser->get_value('description'),
-            };
-            $usersModule->addUser($params, 0 );
+            my $user;
+            $user->{'user'} = $accountName;
+            $user->{'password'} = $credentials->{'Primary:CLEARTEXT'};
+            $user->{'givenname'} = length ($givenname) > 0 ? $givenname : $accountName;
+            $user->{'surname'} = length ($surname) > 0 ? $surname : $accountName;
+            $user->{'cn'} = length ($fullname) > 0 ? $fullname : $accountName;
+            if (length ($comment) > 0) {
+                $user->{'comment'} = $comment;
+            }
+
+            my %params;
+            $params{ignoreMods} = ['samba'];
+            my $newUser = EBox::UsersAndGroups::User->create($user, 0, %params);
         } otherwise {
             my $error = shift;
             error ("Error adding user to LDAP: $error");
@@ -253,7 +258,10 @@ sub delLdapUser
 
     try {
         info ("Deleting user '$userId' from LDAP");
-        $usersModule->delUser ($userId);
+        my $dn = $usersModule->userDn($userId);
+        my $user = new EBox::UsersAndGroups::User(dn => $dn);
+        my $ignoreMods = ['samba'];
+        $user->deleteObject($ignoreMods);
     } otherwise {
         my $error = shift;
         error ("Error deleting user from LDAP: $error");
@@ -273,11 +281,13 @@ sub addLdapGroup
     my ($usersModule, $sambaGroup) = @_;
 
     try {
-        my $groupName = $sambaGroup->get_value('sAMAccountName');
-        my $comment = length ($sambaGroup->get_value ('description')) > 0 ?
-            $sambaGroup->get_value('description') : '';
-        info ("Adding group '$groupName' to LDAP");
-        $usersModule->addGroup ($groupName, $comment, 0);
+        my $groupname = @{$sambaGroup->{'sAMAccountName'}}[0];
+        my $description = @{$sambaGroup->{'description'}}[0];
+        my $comment = length ($description) > 0 ? $description : undef;
+        info ("Adding group '$groupname' to LDAP");
+        my %params;
+        $params{ignoreMods} = ['samba'];
+        my $group = EBox::UsersAndGroups::Group->create($groupname, $comment, 0, %params);
     } otherwise {
         my $error = shift;
         error ("Error adding group to LDAP: $error");
@@ -295,11 +305,14 @@ sub addLdapGroup
 #
 sub delLdapGroup
 {
-    my ($usersModule, $group) = @_;
+    my ($usersModule, $groupId) = @_;
 
     try {
-        info ("Deleting group '$group' from ldap");
-        $usersModule->delGroup ($group);
+        info ("Deleting group '$groupId' from ldap");
+        my $dn = $usersModule->groupDn($groupId);
+        my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+        my $ignoreMods = ['samba'];
+        $group->deleteObject($ignoreMods);
     } otherwise {
         my $error = shift;
         error ("Error deleting group from LDAP: $error");
@@ -318,14 +331,19 @@ sub delLdapGroup
 #
 sub addLdapUserToLdapGroup
 {
-    my ($usersModule, $user, $group) = @_;
+    my ($usersModule, $userId, $groupId) = @_;
 
     try {
-        info ("Adding user '$user' to group '$group' in LDAP");
-        $usersModule->addUserToGroup ($user, $group);
+        info ("Adding user '$userId' to group '$groupId' in LDAP");
+        my $userdn = $usersModule->userDn($userId);
+        my $user = new EBox::UsersAndGroups::User(dn => $userdn);
+        my $groupdn = $usersModule->groupDn($groupId);
+        my $group = new EBox::UsersAndGroups::Group(dn => $groupdn);
+        $group->addMember($user, 1);
+        $group->save(['samba']);
     } otherwise {
         my $error = shift;
-        error ("Error adding user '$user' to LDAP group '$group': $error");
+        error ("Error adding user '$userId' to LDAP group '$groupId': $error");
     }
 }
 
@@ -341,14 +359,19 @@ sub addLdapUserToLdapGroup
 #
 sub delLdapUserFromLdapGroup
 {
-    my ($usersModule, $user, $group) = @_;
+    my ($usersModule, $userId, $groupId) = @_;
 
     try {
-        info ("Removing user '$user' from group '$group' in LDAP");
-        $usersModule->delUserFromGroup ($user, $group);
+        info ("Removing user '$userId' from group '$groupId' in LDAP");
+        my $userdn = $usersModule->userDn($userId);
+        my $user = new EBox::UsersAndGroups::User(dn => $userdn);
+        my $groupdn = $usersModule->groupDn($groupId);
+        my $group = new EBox::UsersAndGroups::Group(dn => $groupdn);
+        $group->removeMember($user, 1);
+        $group->save(['samba']);
     } otherwise {
         my $error = shift;
-        error ("Error deleting user '$user' from LDAP group '$group': $error");
+        error ("Error deleting user '$userId' from LDAP group '$groupId': $error");
     }
 }
 
@@ -368,58 +391,29 @@ sub updateLdapGroup
     my ($usersModule, $sambaModule, $sambaGroup, $ldapGroup,
         $sambaUsersToIgnore, $ldapUsersToIgnore) = @_;
 
-    # Get the group name
-    my $groupId = $sambaGroup->get_value('sAMAccountName');
-
-    # Get the samba group members and filter the samba users to ignore
-    my %sambaUsersToIgnore = map { $_ => 1 } @{$sambaUsersToIgnore};
-    my (@sambaMembersDN) = $sambaGroup->get_value('member');
-    my @sambaMembers = ();
-    foreach my $memberDN (@sambaMembersDN) {
-        my $memberID = $sambaModule->ldb->getIdByDN($memberDN);
-        push (@sambaMembers, $memberID) unless exists $sambaUsersToIgnore{$memberID};
-    }
-
-    # Get the ldap group members and filter the ldap users to ignore
-    my %ldapUsersToIgnore = map { $_ => 1 } @{$ldapUsersToIgnore};
-    my (@ldapMembersTmp) = $ldapGroup->get_value('memberUid');
-    my @ldapMembers = ();
-    foreach my $memberID (@ldapMembersTmp) {
-        push (@ldapMembers, $memberID) unless exists $ldapUsersToIgnore{$memberID};
-    }
-
-    # Calculate the arrays difference
-    # Note: The arrays must be sorted before compare them
-    @sambaMembers = sort @sambaMembers;
-    @ldapMembers = sort @ldapMembers;
-    my $diff = Array::Diff->diff (\@ldapMembers, \@sambaMembers);
-
-    debug ("Synchronizing group '$groupId'");
-    debug ("Samba members: @sambaMembers");
-    debug ("LDAP members: @ldapMembers");
-
-    # Add the missing members to the group
-    foreach my $memberId (@{$diff->added}) {
-        addLdapUserToLdapGroup ($usersModule, $memberId, $groupId);
-    }
-
-    # Remove the members
-    foreach my $memberId (@{$diff->deleted}) {
-        delLdapUserFromLdapGroup ($usersModule, $memberId, $groupId);
-    }
+    ## Get the group name
+    my $groupId = @{$sambaGroup->{sAMAccountName}}[0];
+    $sambaModule->ldb()->syncGroupMembersLdbToLdap($groupId);
 
     # Update the group description
     try {
-        $usersModule->modifyGroup({
-            groupname  => $groupId,
-            comment   => $sambaGroup->get_value('description')});
+        my $groupdn = $usersModule->groupDn($groupId);
+        my $group = new EBox::UsersAndGroups::Group(dn => $groupdn);
+        my $comment = $sambaGroup->{description}[0];
+        if (length ($comment) > 0) {
+            $group->set('description', $comment, 1);
+            $group->save(['samba']);
+        } elsif ($group->get('description')) {
+            $group->delete('description', 1);
+            $group->save(['samba']);
+        }
     } otherwise {
         my $error = shift;
         error ("Error updating group description: $error");
     }
 }
 
-# Method: updateLdapUserMembership
+# Method: updateLdapUser
 #
 #   This method update the user information in LDAP
 #
@@ -433,24 +427,32 @@ sub updateLdapUser
 {
     my ($usersModule, $sambaModule, $sambaUser) = @_;
 
-    my $userId = $sambaUser->get_value('sAMAccountName');
+    my $userId = @{$sambaUser->{sAMAccountName}}[0];
     try {
         info ("Updating user '$userId' from samba to LDAP");
         my $ldb = $sambaModule->ldb();
         my $credentials = $ldb->getSambaCredentials($userId);
-        if (defined $credentials->{'Primary:CLEARTEXT'}) {
-            $usersModule->modifyUser({
-                username  => $userId,
-                password  => $credentials->{'Primary:CLEARTEXT'},
-                givenname => length ($sambaUser->get_value('givenName')) > 0 ?
-                    $sambaUser->get_value('givenName') :
-                    $sambaUser->get_value('sAMAccountName'),
-                surname   => length ($sambaUser->get_value('sn')) > 0 ?
-                    $sambaUser->get_value('sn') :
-                    $sambaUser->get_value('sAMAccountName'),
-                fullname  => $sambaUser->get_value('cn'),
-                comment   => $sambaUser->get_value('description')});
+
+        my $accountName = @{$sambaUser->{'sAMAccountName'}}[0];
+        my $fullname = @{$sambaUser->{'cn'}}[0];
+        my $givenname = @{$sambaUser->{'givenName'}}[0];
+        my $surname = @{$sambaUser->{'sn'}}[0];
+        my $comment = @{$sambaUser->{'description'}}[0];
+
+        my $dn = $usersModule->userDn($userId);
+        my $user = new EBox::UsersAndGroups::User(dn => $dn);
+        $user->set('givenname', length ($givenname) > 0 ? $givenname : $accountName, 1);
+        $user->set('surname', length ($surname) > 0 ? $surname : $accountName, 1);
+        $user->set('cn', length ($fullname) > 0 ? $fullname : $accountName, 1);
+        if (length ($comment) > 0) {
+            $user->set('description', $comment, 1);
         }
+        if (defined $credentials->{'Primary:CLEARTEXT'}) {
+            $user->changePassword('password', $credentials->{'Primary:CLEARTEXT'}, 1);
+        }
+
+        my $ignoreMods = ['samba'];
+        $user->save($ignoreMods);
     } otherwise {
         my $error = shift;
         error ("Error updating user '$userId' in LDAP: $error");
@@ -511,7 +513,7 @@ foreach my $group (keys %{$ldapGroups}) {
 
 # Sync user information like passwords, descriptions from Samba to LDAP
 foreach my $userId (keys %{$sambaUsers}) {
-    my $sambaChangeTime = $sambaUsers->{$userId}->get_value('whenChanged');
+    my $sambaChangeTime = @{$sambaUsers->{$userId}->{whenChanged}}[0];
     if (exists $ldapUsers->{$userId}) {
         my $ldapChangeTime = $ldapUsers->{$userId}->get_value('modifyTimestamp');
         $sambaChangeTime =~ s/(\.\d*)?Z//g;
@@ -526,7 +528,7 @@ foreach my $userId (keys %{$sambaUsers}) {
 
 # Sync group memberships from Samba to LDAP
 foreach my $groupId (keys %{$sambaGroups}) {
-    my $sambaChangeTime = $sambaGroups->{$groupId}->get_value('whenChanged');
+    my $sambaChangeTime = @{$sambaGroups->{$groupId}->{whenChanged}}[0];
     if (exists $ldapGroups->{$groupId}) {
         my $ldapChangeTime = $ldapGroups->{$groupId}->get_value('modifyTimestamp');
         $sambaChangeTime =~ s/(\.\d*)?Z//g;

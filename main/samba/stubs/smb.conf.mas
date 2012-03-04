@@ -1,19 +1,11 @@
 <%args>
-    $ifaces
-    $mode
     $workgroup
-    $realm
     $netbiosName
     $description
-    $prefix
-    $roaming
-    $drive
-    $logon_script => 'zentyal-logon.bat'
-    $guest_shares
-    $active_printer
-    $backup_path
+    $ifaces
+    $mode
+    $realm
     @shares
-    @printers
 </%args>
 <%init>
 use EBox::Gettext;
@@ -40,24 +32,18 @@ use EBox::Gettext;
     path = /var/lib/samba/sysvol/<% $realm %>/scripts
     read only = No
 
-# Roaming profiles
-#[profiles]
-#    path = /home/ebox/samba/profiles
-#    browseable = No
-#    read only = No
-#    map hidden = yes
-#    map system = yes
-#    create mask = 0611
-#    directory mask = 0711
-#    csc policy = disable
+% #if ($roamingProfiles) {
+% ## Roaming profiles
+% #[profiles]
+% #    path = /home/ebox/samba/profiles
+% #    browseable = No
+% #    read only = No
+% #    create mask = 0611
+% #    directory mask = 0711
+% #}
 
-#[homes]
-#    comment = <% __('Home Directories') %>
-#    read only = No
-#    browseable = No
-
-# Shares
 % foreach my $share (@shares) {
+# Shares
 [<% $share->{share} %>]
     comment = <% $share->{comment} %>
     path = <% $share->{path} %>

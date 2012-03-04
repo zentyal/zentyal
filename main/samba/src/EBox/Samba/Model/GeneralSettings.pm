@@ -261,18 +261,18 @@ sub _table
             'defaultValue' => EBox::Samba::defaultDescription(),
             'editable' => \&_mod_enabled,
         ),
-        new EBox::Types::Boolean(
-            'fieldName' => 'roaming',
-            'printableName' => __('Enable roaming profiles'),
-            'defaultValue' => 0,
-            'editable' => 1,
-        ),
-        new EBox::Types::Select(
-            'fieldName' => 'drive',
-            'printableName' => __('Drive letter'),
-            'populate' => \&_drive_letters,
-            'editable' => 1,
-        ),
+        #new EBox::Types::Boolean(
+        #    'fieldName' => 'roaming',
+        #    'printableName' => __('Enable roaming profiles'),
+        #    'defaultValue' => 0,
+        #    'editable' => 1,
+        #),
+        #new EBox::Types::Select(
+        #    'fieldName' => 'drive',
+        #    'printableName' => __('Drive letter'),
+        #    'populate' => \&_drive_letters,
+        #    'editable' => 1,
+        #),
     );
 
     my $dataTable =
@@ -336,17 +336,17 @@ sub _server_roles
     return \@roles;
 }
 
-sub _drive_letters
-{
-    my @letters;
-
-    foreach my $letter ('H'..'Z') {
-        $letter .= ':';
-        push (@letters, { value => $letter, printableValue => $letter });
-    }
-
-    return \@letters;
-}
+#sub _drive_letters
+#{
+#    my @letters;
+#
+#    foreach my $letter ('H'..'Z') {
+#        $letter .= ':';
+#        push (@letters, { value => $letter, printableValue => $letter });
+#    }
+#
+#    return \@letters;
+#}
 
 # Method: headTile
 #

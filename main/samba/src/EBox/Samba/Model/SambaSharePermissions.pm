@@ -62,24 +62,28 @@ sub new
 sub populateUser
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @users = map (
-                {
-                    value => $_->{uid},
-                    printableValue => $_->{user}
-                }, @{$userMod->usersList()}
-            );
+    my @users = ();
+    my $list = $userMod->users();
+    foreach my $u (@{$list}) {
+        my $gr = {};
+        $gr->{value} = $u->get('uid');
+        $gr->{printableValue} = $u->name();
+        push (@users, $gr);
+    }
     return \@users;
 }
 
 sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @groups = map (
-                {
-                    value => $_->{gid},
-                    printableValue => $_->{account}
-                }, $userMod->groups()
-            );
+    my @groups = ();
+    my $list = $userMod->groups();
+    foreach my $g (@{$list}) {
+        my $gr = {};
+        $gr->{value} = $g->get('gid');
+        $gr->{printableValue} = $g->name();
+        push (@groups, $gr);
+    }
     return \@groups;
 }
 

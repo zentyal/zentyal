@@ -272,6 +272,9 @@ sub createDirs
            push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
            push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
         }
+        EBox::debug("Creating share directory");
+        EBox::debug("Executing @cmds");
+        EBox::Sudo::root(@cmds);
         # Set NT ACLs
         # Build the security descriptor string
         my $sdString = '';
