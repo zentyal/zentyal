@@ -5898,7 +5898,7 @@ msgid ""
 "Cannot {action} because a subdirectory of  '{path}', added by backup "
 "domains, would be excluded"
 msgstr ""
-"No se puede {action} porque un subdirectorio de '{path'}, añadido por los "
+"No se puede {action} porque un subdirectorio de '{path}', añadido por los "
 "dominios de backup, sería excluido"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:333
