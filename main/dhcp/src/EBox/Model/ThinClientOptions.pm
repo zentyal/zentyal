@@ -48,6 +48,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Host;
 use EBox::Validate;
+use EBox::View::Customizer;
 
 # Group: Public methods
 
@@ -204,6 +205,44 @@ sub nextServer
 
 # Group: Protected methods
 
+#
+#   Callback function to fill out the values that can
+#   be picked from the <EBox::Types::Select> field module
+#
+# Returns:
+#
+#   Array ref of hash refs containing the 'value' and the 'printableValue' for
+#   each select option
+#
+sub _select_options
+{
+    my @ltspSubtypes = (
+        {
+            value => 'none',
+            printableValue => __('None'),
+        },
+    );
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('ltsp') ) {
+        push(@ltspSubtypes,
+            {
+                value => 'nextServerEBox',
+                printableValue => __('Zentyal LTSP'),
+            }
+        );
+    }
+
+    push(@ltspSubtypes,
+        {
+            value => 'nextServer',
+            printableValue => __('Host'),
+        },
+    );
+
+    return \@ltspSubtypes;
+}
+
 # Method: _table
 #
 # Overrides:
@@ -214,29 +253,26 @@ sub _table
 {
     my ($self) = @_;
 
-
-    my @tableDesc =
-      (
-       new EBox::Types::Union(
+    my @tableDesc = (
+        new EBox::Types::Select(
                               fieldName     => 'nextServer',
                               printableName => __('Next server'),
+                              populate      => \&_select_options,
                               editable      => 1,
-                              subtypes      =>
-                              [new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
-                                                            printableName => __('Zentyal'),
-                                                           ),
-                               new EBox::Types::Host(fieldName     => 'nextServerHost',
-                                                     printableName => __('Host'),
-                                                     editable      => 1,
-                                                    ),
-                              ]),
-       new EBox::Types::Text(
+                              help          => __('If "Zentyal LTSP" is present and selected, '
+                                                  . 'Zentyal will be the LTSP server.'
+                                                  . ' You will need to enable and configure the LTSP module.'),),
+        new EBox::Types::Host(fieldName     => 'nextServerHost',
+                              printableName => __('Host'),
+                              editable      => 1),
+        new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
-                             printableName => __('File path in next server'),
+                             printableName => __('File path'),
                              editable      => 1,
                              optional      => 1,
+                             help          => __('File path in next server'),
                             ),
-       new EBox::Types::Union(
+        new EBox::Types::Union(
                               fieldName      => 'hosts',
                               printableName  => __('Clients'),
                               editable       => 1,
@@ -259,7 +295,7 @@ sub _table
                                       unique           => 1,
                                       editable         => 1)
                                     ]),
-      );
+    );
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
@@ -281,6 +317,41 @@ sub _table
 
     return $dataTable;
 
+}
+
+# Method: viewCustomizer
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my %actions = (
+        'nextServer' => {
+            'none' => {
+                show => [],
+                hide => ['remoteFilename', 'nextServerHost', 'hosts'],
+            },
+            'nextServerEBox' => {
+                show => ['hosts'],
+                hide => ['remoteFilename', 'nextServerHost'],
+            },
+            'nextServer' => {
+                show => ['remoteFilename', 'nextServerHost', 'hosts'],
+                hide => [],
+            },
+        },
+    );
+
+    $customizer->setOnChangeActions( \%actions );
+
+    return $customizer;
 }
 
 1;

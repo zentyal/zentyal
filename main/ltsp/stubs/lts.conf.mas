@@ -1,0 +1,43 @@
+<%doc>
+</%doc>
+<%args>
+    %global
+    @profiles
+    @clients
+</%args>
+
+[default]
+    #CONFIGURE_X=False
+    X_COLOR_DEPTH=24
+    NETWORK_COMPRESSION=False
+    LDM_DIRECTX=True
+
+%   for my $opt (keys %global) {
+    <% $opt %> = <% $global{$opt} %>
+%   }
+%if (@profiles) {
+
+############
+# PROFILES #
+############
+
+%   for my $profile (@profiles) {
+[<% $profile->{'name'} %>]
+%       for my $opt (keys %{$profile->{'options'}}) {
+    <% $opt %> = <% $profile->{'options'}->{$opt} %>
+%       }
+
+%   }
+%}
+%if (@clients) {
+
+###########
+# CLIENTS #
+###########
+
+%#   for my $client (@clients) {
+%#[<% $client->{'mac'} %>]
+%#    LIKE = <% $client->{'profile'} %>
+%#
+%#   }
+%}
