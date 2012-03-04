@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-09-29 16:35+0200\n"
+"PO-Revision-Date: 2012-03-04 15:50+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -1807,9 +1807,9 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "La opción de túnel de Zentyal a Zentyal requiere una contraseña RIP"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:287
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "El puerto {port} está siendo usado por el modulo {mod}"
+msgstr "La dirección VPN {addr} ya está en uso por la interfaz {iface}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:303
 msgid ""
@@ -1818,9 +1818,8 @@ msgstr ""
 "La dirección de la VPN no puede ser la misma que una de las redes anunciadas"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Otro servidor está a la escucha en el mismo puerto"
+msgstr "Otro servidor está usando la misma dirección VPN, por favor elige otro"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:350
 msgid "Other server is listening on the same port"
@@ -3734,9 +3733,8 @@ msgid "Remove bind9 init script link"
 msgstr "Borrar enlaces al script de inicio de bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:632
-#, fuzzy
 msgid "Domain Name Service"
-msgstr "Servidor de nombres de dominio"
+msgstr "Servicio de Nombres de Dominio"
 
 #: ../../main/dns/src/EBox/DNS.pm:1631 ../../main/dns/src/EBox/DNS.pm:1698
 #: ../../main/core/src/EBox/CGI/SysInfo/Hostname.pm:48
@@ -4206,9 +4204,8 @@ msgid "Unknown"
 msgstr "Desconocido"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:77
-#, fuzzy
 msgid "Community"
-msgstr "Comentario"
+msgstr "Comunidad"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:78
 msgid "Professional"
@@ -4220,9 +4217,8 @@ msgid "Enterprise"
 msgstr "Empresarial"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:80
-#, fuzzy
 msgid "Small Business"
-msgstr "todos los servicios"
+msgstr "Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:102
 msgid "Zentyal Cloud Client"
@@ -4253,9 +4249,8 @@ msgstr "Soporte Técnico"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:283
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
-#, fuzzy
 msgid "Security Updates"
-msgstr "Actualización de seguridad"
+msgstr "Actualizaciones de Seguridad"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:287
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:170
@@ -4263,9 +4258,8 @@ msgid "Disaster Recovery"
 msgstr "Recuperación de Desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:347
-#, fuzzy
 msgid "Zentyal Cloud Services"
-msgstr "Usuario de Zentyal Cloud"
+msgstr "Servicios de Zentyal Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:461
 msgid ""
@@ -4380,9 +4374,8 @@ msgstr "Nombre del Servidor Externo"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:136
-#, fuzzy
 msgid "Server edition"
-msgstr "Creación de servidor"
+msgstr "Edición de servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1717
 msgid "Technical support"
@@ -4574,9 +4567,8 @@ msgid "Latest security update"
 msgstr "Ultima actualización de seguridad"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
-#, fuzzy
 msgid "Available IDS rules"
-msgstr "Rango disponible"
+msgstr "Reglas IDS disponibles"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:130
 msgid ""
@@ -4885,9 +4877,8 @@ msgid "Skipping bad formed line: {l}"
 msgstr "Saltando línea mal formada: {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:30
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "El servicio no está habilitado en Zentyal"
+msgstr "Este servidor no permite realizar esta acción."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:225
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
@@ -5880,6 +5871,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded by the regular expression"
 msgstr ""
+"No se puede {action} porque la ruta '{path}', añadida por los dominios de "
+"backup sería excluida por la expresión regular"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:308
 #, perl-brace-format
@@ -5887,6 +5880,8 @@ msgid ""
 "Cannot {action} because the path '{path}', added by backup domains, would be "
 "excluded"
 msgstr ""
+"No se puede {action} porque la ruta '{path}', añadida por los dominios de "
+"backup sería excluida"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:318
 #, perl-brace-format
@@ -5894,30 +5889,28 @@ msgid ""
 "Cannot {action} because a subdirectory of  '{path}', added by backup "
 "domains, would be excluded"
 msgstr ""
+"No se puede {action} porque un subdirectorio de '{path'}, añadido por los "
+"dominios de backup, sería excluido"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:333
 msgid "add row"
-msgstr ""
+msgstr "añadir fila"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:335
-#, fuzzy
 msgid "edit row"
-msgstr "Editar grupo"
+msgstr "editar fila"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:337
-#, fuzzy
 msgid "move up row"
-msgstr "Subir"
+msgstr "subir fila"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:339
-#, fuzzy
 msgid "move down row"
-msgstr "Bajar"
+msgstr "bajar fila"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:341
-#, fuzzy
 msgid "remove down"
-msgstr "Bajar"
+msgstr "eliminar"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteExcludes.pm:351
 msgid "exclude path"
@@ -6380,15 +6373,13 @@ msgid "Services Restore"
 msgstr "Restauración de servicios"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/BadSymmetricKey.pm:32
-#, fuzzy
 msgid "Incorrect symmetric key"
-msgstr "Clave simétrica"
+msgstr "Clave simétrica incorrecta"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:29
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:31
-#, fuzzy
 msgid "unknown"
-msgstr "Desconocido"
+msgstr "desconocido"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:33
 #, perl-brace-format
@@ -6473,14 +6464,14 @@ msgstr ""
 "probar con otra fecha?"
 
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:372
-#, fuzzy
 msgid "Cannot found conifguration backup in cloud"
-msgstr "Backup completo de configuración y datos"
+msgstr "No se encuentra el backup de configuración en la nube"
 
 #: ../../main/ebackup/src/EBox/EBackup/Subscribed.pm:507
 #, perl-brace-format
 msgid "Cannot find metadata for backup date {date} in cloud"
 msgstr ""
+"No se encuentran los metadatos para el backup con fecha {date} in la nube"
 
 #: ../../main/common/src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
@@ -6578,24 +6569,20 @@ msgid "IPsec VPN"
 msgstr "IPsec VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:271
-#, fuzzy
 msgid "Connection name"
-msgstr "Blanco de la conexión"
+msgstr "Nombre de conexión"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:277
-#, fuzzy
 msgid "Stopping completed"
-msgstr "Porcentaje completado"
+msgstr "Parada completada"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:279
-#, fuzzy
 msgid "Connection initiated"
-msgstr "Conexión a cliente iniciada"
+msgstr "Conexión iniciada"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:280
-#, fuzzy
 msgid "Connection terminated"
-msgstr "Conexión a cliente terminada"
+msgstr "Conexión terminada"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:314
 msgid "IPsec"
@@ -6664,7 +6651,7 @@ msgstr "Secreto Compartido PSK"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:109
 msgid "Pre-shared key for the IPsec connection."
-msgstr ""
+msgstr "Pre-shared key para la conexión IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:116
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
@@ -6853,9 +6840,9 @@ msgstr ""
 "añadidos automáticamente"
 
 #: ../../main/network/src/EBox/Model/GatewayTable.pm:483
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
-msgstr "El puerto {port} está siendo usado por el modulo {mod}"
+msgstr "La puerta de enlace '{name}' está siendo usado por el modulo {mod}"
 
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:53
 msgid "Traffic balancing"
@@ -7229,7 +7216,7 @@ msgstr "DNS Dinámico"
 
 #: ../../main/network/src/EBox/Network.pm:3903
 msgid "Tools"
-msgstr ""
+msgstr "Herramientas"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:62
 msgid "Balance Traffic"
@@ -7453,14 +7440,12 @@ msgid "Virtual Machines"
 msgstr "Máquinas Virtuales"
 
 #: ../../main/virt/src/EBox/Virt.pm:101
-#, fuzzy
 msgid "Virtual Machines VNC"
-msgstr "Máquinas Virtuales"
+msgstr "VNC Máquinas Virtuales"
 
 #: ../../main/virt/src/EBox/Virt.pm:102
-#, fuzzy
 msgid "VNC connections for Zentyal VMs"
-msgstr "Conexión VNC para las MVs"
+msgstr "Conexiones VNC para las MVs de Zentyal"
 
 #: ../../main/virt/src/EBox/Virt.pm:272
 msgid "VNC connections for VMs"
@@ -7489,7 +7474,6 @@ msgid "Internal Network Name"
 msgstr "Nombre de la Red Interna"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:120
-#, fuzzy
 msgid "MAC Address"
 msgstr "Dirección MAC"
 
@@ -7508,7 +7492,7 @@ msgstr "Un máximo de {num} interfaces de red permitido"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:202
 msgid "'None' interface is not allowed in your virtual machine backend"
-msgstr ""
+msgstr "La interfaz 'none' no está permitida por tu backend de virtualización"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:81
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:266
@@ -7572,6 +7556,8 @@ msgid ""
 "You have either invalid characters or spaces. Valid characters are: '[A-Z][a-"
 "z][0-9]-_'"
 msgstr ""
+"Existen caracteres inválidos o espacios. Los válidos son: "
+"'[A-Z][a-z][0-9]-_'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:296
 #, perl-brace-format
@@ -7662,9 +7648,9 @@ msgid "Hard disk image '{img}' does not exist"
 msgstr "La imagen de disco duro '{img}' no existe"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:216
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The hard disk image {img} should be in qcow2 format"
-msgstr "La imagen de disco duro '{img}' no existe"
+msgstr "La imagen de disco duro '{img}' debe estar en formato qcow2"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:224
 msgid "You need to specify a name for the new hard disk"
@@ -7675,6 +7661,8 @@ msgid ""
 "It already exists a disk file with this name. Save changes to synchronize "
 "disk files status"
 msgstr ""
+"Ya existe un fichero de disco con este nombre. Guarda cambios para "
+"sincronizar el estado de los ficheros"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:237
 msgid ""
@@ -7685,9 +7673,9 @@ msgstr ""
 "si quieres cambiar el tamaño."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:244
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "A maximum of {num} IDE drives are allowed"
-msgstr "Se permite un máximo de {num} dispositivos de CD/DVD"
+msgstr "Se permite un máximo de {num} unidades IDE"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:257
 #, perl-brace-format
@@ -7700,13 +7688,12 @@ msgid "A maximum of {num} Hard Disk drives are allowed"
 msgstr "Se permite un máximo de {num} unidades de disco duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:274
-#, fuzzy
 msgid "HardDisk name"
-msgstr "Disco duro"
+msgstr "Nombre de Disco Duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:276
 msgid "The name should contain only character, digits and underscores"
-msgstr ""
+msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:87
 msgid "Operating System"
@@ -8662,11 +8649,13 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" es actualmente {value}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:289
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} within the {severity} region of "
 "{minBound} and {maxBound}."
-msgstr "Está dentro de la región {severity} entre {minBound} y {maxBound}."
+msgstr ""
+"{what} \"{dS}\" ha estado {duration} entre la region {severity} de {minBound} "
+"y {maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:296
 #, perl-brace-format
@@ -8674,11 +8663,13 @@ msgid "That is within the {severity} region of {minBound} and {maxBound}. "
 msgstr "Está dentro de la región {severity} entre {minBound} y {maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:306
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} above the {severity} threshold of "
 "{bound}. "
-msgstr "Está por encima del umbral {severity} de {bound}."
+msgstr ""
+"{what} \"{dS}\" ha estado {duration} por encima del umbral {severity} de "
+"{bound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:311
 #, perl-brace-format
@@ -8686,11 +8677,13 @@ msgid "That is above the {severity} threshold of {bound}. "
 msgstr "Está por encima del umbral {severity} de {bound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:316
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} below the {severity} threshold of "
 "{bound}. "
-msgstr "Está por debajo del umbral {severity} de {bound}."
+msgstr ""
+"{what} \"{dS}\" ha estado {duration} por debajo del umbral {severity} de "
+"{bound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:321
 #, perl-brace-format
@@ -8700,22 +8693,22 @@ msgstr "Está por debajo del umbral {severity} de {bound}."
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:350
 #, perl-brace-format
 msgid "The following {n} processes are likely causing it:"
-msgstr ""
+msgstr "Los siguientes {n} procesos son probablemente la causa:"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:378
 #, perl-brace-format
 msgid "{h}h {m}m {s}s"
-msgstr ""
+msgstr "{h}h {m}m {s}s"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:381
 #, perl-brace-format
 msgid "{m}m {s}s"
-msgstr ""
+msgstr "{m}m {s}s"
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:384
 #, perl-brace-format
 msgid "{s}s"
-msgstr ""
+msgstr "{s}s"
 
 #: ../../main/monitor/src/EBox/CGI/Index.pm:67
 #, perl-brace-format
@@ -8803,13 +8796,12 @@ msgid "To configure cupsd"
 msgstr "Para configurar cupsd"
 
 #: ../../main/printers/src/EBox/Printers.pm:109
-#, fuzzy
 msgid "Network Printers"
-msgstr "Interfaces de Red"
+msgstr "Impresoras de Red"
 
 #: ../../main/printers/src/EBox/Printers.pm:110
 msgid "Internet Printing Protocol (CUPS)"
-msgstr ""
+msgstr "Protocolo de Impresión en Internet (CUPS)"
 
 #: ../../main/printers/src/EBox/Printers.pm:365
 msgid "Job ID"
@@ -9005,17 +8997,17 @@ msgstr "Nombre de dominio"
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:147
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
 msgid "NetBIOS computer name"
-msgstr ""
+msgstr "Nombre de máquina NetBIOS"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:157
 #, perl-brace-format
 msgid "{type} is limited to a maximum of 15 characters."
-msgstr ""
+msgstr "{type} está limitado a un máximo de 15 caracteres."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:168
 #, perl-brace-format
 msgid "{type} cannot contain the reserved name {reserved}"
-msgstr ""
+msgstr "{type} no puede contener el nombre reservado {reserved}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:186
 msgid "Enable PDC"
@@ -10163,7 +10155,6 @@ msgstr "Añadir campos y clases específicos de Amavis"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:147
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:148
-#, fuzzy
 msgid "POP Transparent proxy"
 msgstr "Proxy transparente POP"
 
@@ -10771,9 +10762,8 @@ msgid "To configure the webmail on the webserver."
 msgstr "Configurar el webmail en el servidor web"
 
 #: ../../main/webmail/src/EBox/WebMail.pm:315
-#, fuzzy
 msgid "Create MySQL Roundcube webmail database."
-msgstr "Cree la base de datos de webmail en PostgreSQL"
+msgstr "Cree la base de datos de webmail en MySQL"
 
 # informacion para no caer en cacofonía
 # Roundcube o roundcube  (Mayuscula o minuscula la primera letra)???
@@ -11450,6 +11440,9 @@ msgid ""
 "incompatible Zentyal version. Only backups done in Zentyal >= {v} can be "
 "restored"
 msgstr ""
+"No se ha encontrado el fichero con la lista de paquetes debian, proablemente "
+"el backup se realizó con una versión incompatible de Zentyal. Únicamente "
+"backups de Zentyal >= {v} pueden ser restaurados"
 
 #: ../../main/core/src/EBox/Backup.pm:1015
 #, perl-brace-format
@@ -11458,6 +11451,9 @@ msgid ""
 "the backup was done in a incompatible Zentyal version. Only backups done in "
 "Zentyal >= {v} can be restored"
 msgstr ""
+"No se ha encontrado zentyal-core en la lista de paquetes debian, "
+"proablemente el backup se realizó con una versión incompatible de Zentyal. "
+"Únicamente backups de Zentyal >= {v} pueden ser restaurados"
 
 #: ../../main/core/src/EBox/Backup.pm:1032
 #, perl-brace-format
@@ -11466,6 +11462,9 @@ msgid ""
 "and the current system version. Backup was done in Zentyal version {bv} and "
 "this system could only restore backups from Zentyal version {wv} or greater"
 msgstr ""
+"No se puede restaurar el backup por diferencia de versiones. El backup fue "
+"realizado con la versión de Zentyal {bv} y este sistema solo puede restaurar "
+"backups de la versión de Zentyal {wv} o superior"
 
 #: ../../main/core/src/EBox/Backup.pm:1395
 #, perl-brace-format
@@ -11670,9 +11669,8 @@ msgid "Process List"
 msgstr "Lista de procesos"
 
 #: ../../main/core/src/EBox/SysInfo.pm:252
-#, fuzzy
 msgid "Resources"
-msgstr "Recurso"
+msgstr "Recursos"
 
 # No existe traducción, se podría usar Tablón
 #: ../../main/core/src/EBox/SysInfo.pm:353
@@ -11857,12 +11855,10 @@ msgid "never purge"
 msgstr "nunca purgar"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:292
-#, fuzzy
 msgid "one year"
 msgstr "1 año"
 
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:296
-#, fuzzy
 msgid "two years"
 msgstr "2 años"
 
@@ -11943,6 +11939,8 @@ msgid ""
 "Zentyal is already configured to use port {p} for another service. Choose "
 "another port or free it and retry."
 msgstr ""
+"Zentyal ya está configurado para usar el puerto {p} para otro servicio. "
+"Elige otro puerto o libera este y reintenta."
 
 #: ../../main/core/src/EBox/Apache.pm:294
 #, perl-brace-format
@@ -11950,6 +11948,8 @@ msgid ""
 "Port {p} is already in use by program '{pr}'. Choose another port or free it "
 "and retry."
 msgstr ""
+"El puerto {p} ya está en uso por el programa '{pr}'. Elige otro puerto o "
+"libera este y reintenta."
 
 #: ../../main/core/src/EBox/Apache.pm:625
 #: ../../main/services/src/EBox/Services.pm:116
@@ -12830,9 +12830,8 @@ msgstr ""
 "ocupados previamente"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:110
-#, fuzzy
 msgid "Internal name"
-msgstr "Ent. Interna"
+msgstr "Nombre interno"
 
 #: ../../main/services/src/EBox/Model/ServiceTable.pm:145
 msgid "List of services"
@@ -12847,40 +12846,33 @@ msgstr ""
 "ser usado en otros módulos como: cortafuegos, moldeado de tráfico..."
 
 #: ../../main/services/src/EBox/Services.pm:92
-#, fuzzy
 msgid "Any protocol and port"
-msgstr "cualquier protocolo y puerto"
+msgstr "Cualquier protocolo y puerto"
 
 #: ../../main/services/src/EBox/Services.pm:99
-#, fuzzy
 msgid "Any UDP"
-msgstr "cualquier UDP"
+msgstr "Cualquier UDP"
 
 #: ../../main/services/src/EBox/Services.pm:100
-#, fuzzy
 msgid "Any UDP port"
-msgstr "cualquier puerto UDP"
+msgstr "Cualquier puerto UDP"
 
 #: ../../main/services/src/EBox/Services.pm:107
-#, fuzzy
 msgid "Any TCP"
-msgstr "cualquier TCP"
+msgstr "Cualquier TCP"
 
 #: ../../main/services/src/EBox/Services.pm:108
-#, fuzzy
 msgid "Any TCP port"
-msgstr "cualquier puerto TCP"
+msgstr "Cualquier puerto TCP"
 
 #: ../../main/services/src/EBox/Services.pm:115
 #: ../../main/services/src/EBox/Services.pm:492
-#, fuzzy
 msgid "Zentyal Administration"
-msgstr "Puerto administración de Zentyal"
+msgstr "Administración de Zentyal"
 
 #: ../../main/services/src/EBox/Services.pm:124
-#, fuzzy
 msgid "Secure Shell"
-msgstr "Seguro por defecto"
+msgstr "Secure Shell"
 
 #: ../../main/services/src/EBox/Services.pm:132
 msgid "HyperText Transport Protocol"
@@ -12955,9 +12947,8 @@ msgid "To configure smart host authentication"
 msgstr "Configurar la autenticación del smarthost"
 
 #: ../../main/mail/src/EBox/Mail.pm:219
-#, fuzzy
 msgid "To configure mail transports"
-msgstr "Configurar amavis"
+msgstr "Para configurar transportes de correo"
 
 #: ../../main/mail/src/EBox/Mail.pm:257
 msgid "Outgoing Mail (SMTP protocol)."
@@ -12965,7 +12956,7 @@ msgstr "Correo saliente (protocolo SMTP)."
 
 #: ../../main/mail/src/EBox/Mail.pm:266
 msgid "Incoming Mail"
-msgstr ""
+msgstr "Correo Entrante"
 
 #: ../../main/mail/src/EBox/Mail.pm:267
 msgid "POP, IMAP and SIEVE protocols"
@@ -12973,7 +12964,7 @@ msgstr "Protocolos POP, IMAP y SIEVE"
 
 #: ../../main/mail/src/EBox/Mail.pm:276
 msgid "Mail Submission"
-msgstr ""
+msgstr "Envío de Correo"
 
 #: ../../main/mail/src/EBox/Mail.pm:277
 msgid "Outgoing Mail (Submission protocol)."
@@ -14276,11 +14267,11 @@ msgstr "Zarafa estará accesible en http://ip/webaccess/"
 msgid ""
 "Install English/United States locale on the system if it is not already "
 "installed"
-msgstr ""
+msgstr "Instalar locale English/US en el sistema si no se encuentra instalada"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:110
 msgid "Zarafa needs this locale to run."
-msgstr ""
+msgstr "Zarafa necesita esta locale para funcionar."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:129
 msgid "To properly configure Zarafa."
@@ -14467,6 +14458,8 @@ msgstr ""
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:335
 msgid "Virtual host deleted. The virtual host files will be left in place"
 msgstr ""
+"Virtual host borrado. Los ficheros del virtual host se mantendrán en su "
+"sitio"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:353
 #, perl-brace-format
@@ -14528,9 +14521,8 @@ msgid "Remove apache2 init script link"
 msgstr "Borrar enlaces al script de inicio de apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:167
-#, fuzzy
 msgid "Zentyal Web Server"
-msgstr "Servidor FTP de Zentyal"
+msgstr "Servidor Web de Zentyal"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:785
 msgid "Web server hosted files"
@@ -14922,30 +14914,26 @@ msgstr ""
 "usuario"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:54
-#, fuzzy
 msgid "DN"
-msgstr "DNS"
+msgstr "DN"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:64
 #: ../../main/users/src/EBox/UsersAndGroups.pm:905
-#, fuzzy
 msgid "Organizational Units"
-msgstr "Nombre de Organización"
+msgstr "Unidades Organizativas"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:68
-#, fuzzy
 msgid "organizational unit"
-msgstr "Nombre de Organización"
+msgstr "unidad organizativa"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "OU {ou} removed"
-msgstr "{row} subida"
+msgstr "OU {ou} borrada"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:186
-#, fuzzy
 msgid "OU added"
-msgstr "{row} añadida"
+msgstr "OU añadida"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:48
 msgid "Password management"
@@ -15003,12 +14991,11 @@ msgstr "LDAP DN"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:69
 msgid "This will be the DN suffix in LDAP tree"
-msgstr ""
+msgstr "Este será el sufijo DN en el árbol LDAP"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:76
-#, fuzzy
 msgid "Zentyal Users"
-msgstr "Modo de usuarios de Zentyal"
+msgstr "Usuarios de Zentyal"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:66
 msgid "Base DN"
@@ -15057,7 +15044,7 @@ msgstr "Opciones de configuración de LDAP."
 
 #: ../../main/users/src/EBox/UsersAndGroups/LdapObject.pm:221
 msgid "There was an error updating LDAP: "
-msgstr ""
+msgstr "Ocurrió un error actualizando LDAP:"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:242
 #, perl-brace-format
@@ -15066,9 +15053,8 @@ msgstr ""
 "El nombre del grupo no debe ser más largo de {maxGroupLength} caracteres "
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:316
-#, fuzzy
 msgid "Maximum number of groups reached"
-msgstr "Máximo número de grupos de filtrado alcanzado"
+msgstr "Máximo número de grupos alcanzado"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Group.pm:383
 #, perl-brace-format
@@ -15186,15 +15172,15 @@ msgstr ""
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:171
 msgid "Lightweight Directory Access Protocol"
-msgstr ""
+msgstr "Lightweight Directory Access Protocol"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:232
 msgid "Error performing users initialization"
-msgstr ""
+msgstr "Error inicializando usuarios"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:270
 msgid "Error while creating users and groups database."
-msgstr ""
+msgstr "Error creando base de datos de usuarios y grupos"
 
 #: ../../main/users/src/EBox/UsersAndGroups.pm:979
 #, perl-brace-format
@@ -15272,7 +15258,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/scripts/restore-tool:213
 msgid "--force-type should have as argument either 'basic' or 'subscribed'"
-msgstr ""
+msgstr "--force-type acepta como argumento 'basic' o 'subscribed'"
 
 #: ../../main/ebackup/src/scripts/restore-tool:228
 msgid "Zenity package not found. Falling back to terminal mode"
@@ -15301,9 +15287,8 @@ msgid "Use the last backup done for the restore"
 msgstr "Usar el último backup hecho para la restauración"
 
 #: ../../main/ebackup/src/scripts/restore-tool:252
-#, fuzzy
 msgid "Restore all backup domains available"
-msgstr "Restaurar backup desde un archivo"
+msgstr "Restaurar todos los dominios de backup disponibles"
 
 #: ../../main/ebackup/src/scripts/restore-tool:254
 msgid "Backup domain to restore. It could be repeated several times"
@@ -15321,7 +15306,7 @@ msgstr "No usar la interfaz gráfica"
 
 #: ../../main/ebackup/src/scripts/restore-tool:264
 msgid "Change parameters used to access the storage server"
-msgstr ""
+msgstr "Cambia los parámetros usados para acceder el servidor de almacenamiento"
 
 #: ../../main/ebackup/src/scripts/restore-tool:289
 #, perl-brace-format
@@ -15334,7 +15319,6 @@ msgid "Module {mod} should be configured"
 msgstr "El módulo {mod} debe ser configurado"
 
 #: ../../main/ebackup/src/scripts/restore-tool:307
-#, fuzzy
 msgid ""
 "Could not automatically update system date and hour. If the system time is "
 "not correct, some restore operations could fail"
@@ -15404,15 +15388,17 @@ msgid "Restoring all backed-up files"
 msgstr "Restaurando todos los ficheros guardados"
 
 #: ../../main/ebackup/src/scripts/restore-tool:748
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not restore {dst}, it already exists and it is not a directory"
 msgstr "No se puede restaurar {dst}, ya existe y no es un directorio"
 
 #: ../../main/ebackup/src/scripts/restore-tool:786
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Error restoring file or directory {dst}. We will try to continue the restore"
-msgstr "Error al restaurar el archivo o directorio {dst}"
+msgstr ""
+"Error al restaurar el archivo o directorio {dst}. Se intentará continuar con "
+"la restauración"
 
 #: ../../main/ebackup/src/scripts/restore-tool:815
 #, perl-brace-format
@@ -15474,13 +15460,13 @@ msgid "Installing missing modules..."
 msgstr "Instalando los módulos nuevos..."
 
 #: ../../main/ebackup/src/scripts/restore-tool:1028
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Error installing packages: {err}. The backup will continue but it would not "
 "able to recover any configuration  whcih depends on the missing packages"
 msgstr ""
-"Error instalando los paquetes: {err}. Puedes continuar por no se restaurará "
-"ningún dato de los paquetes que faltan"
+"Error instalando los paquetes: {err}. El backup continuará pero no podrá "
+"recuperar ninguna configuración que dependa de los paquetes ausentes"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1076
 msgid ""
@@ -15538,13 +15524,13 @@ msgid "Configuring modules {p} done. Current module {mod}"
 msgstr "Configurando módulos {p} hecho. Módulo actual {mod}"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1226
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Failed to configure module {name}: {err}. This could affect to the restore "
 "of other modules"
 msgstr ""
 "Fallo al configurar el módulo {name}: {err}. Esto podría afectar a la "
-"restauración del resto de módulos"
+"restauración de otros módulos"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1249
 msgid "Finishing new modules configuration"
@@ -15582,7 +15568,7 @@ msgstr "Descargando la configuración"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1564
 msgid "Looking for a version 2.0.X backup"
-msgstr ""
+msgstr "Buscando un backup de la versión 2.0.X"
 
 #: ../../main/ebackup/src/scripts/restore-tool:1591
 msgid "Retrieving backup collection status ..."
@@ -15714,6 +15700,9 @@ msgid ""
 "Enterprise Edition, besides the configuration you are about to recover, you "
 "could have restored the data of the active modules."
 msgstr ""
+"Si tuvieses habilitado el servicio de recuperación de desastres en las "
+"ediciones Small Business o Enterprise, además de la configuración podrías "
+"recuperar los datos de los módulos activados."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2507
 #, perl-brace-format
@@ -15726,6 +15715,8 @@ msgid ""
 "Incorrect password. Please, enter the correct password used for encrypt "
 "{ser}."
 msgstr ""
+"Contraseña incorrecta. por favor, introduce la contraseña correcta usada "
+"para cifrar {ser}."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2583
 #, perl-brace-format
@@ -15742,12 +15733,17 @@ msgid ""
 "could have been changed. We reccomend you to logut and login again with a "
 "valid user to avoid user identity problems."
 msgstr ""
+"El fichero de contraseñas ha cambiado, los usuarios locales y sus passwords "
+"podrían haber cambiado. Es recomendable cerrar la sesión e iniciarla de "
+"nuevo con un usuario valido para evitar problemas de identidad."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2691
 msgid ""
 "The shadow password file was restored; your local user password could have "
 "been changed"
 msgstr ""
+"El fichero de contraseñas 'shadow' se ha restuarado, la contraseña de tu "
+"usuario local podría haber cambiado"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2701
 msgid ""
@@ -15755,17 +15751,19 @@ msgid ""
 "changed; please fix your hostname manually or with the Zentyal option found "
 "at System -> General."
 msgstr ""
+"No se ha encontrado información del hostname en los metadatos pero los "
+"ficheros de hostname han cambiado; por favor, arregla tu hostname "
+"manualmente o utilizando la opción de Zentyal en Sistema -> General"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2749
 msgid "Your full backup is now successfully restored!"
 msgstr "¡Tu backup completo se ha restaurado con éxito!"
 
 #: ../../main/ebackup/src/scripts/restore-tool:2759
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You can now login at {url} to manage your recovered host."
 msgstr ""
-"Puedes ir ahora a la interfaz de administracion de Zentyal para gestionar la "
-"máquina recuperada."
+"Ahora puede siniciar sesión en {url} para gestionar tu máqiuna recuperada."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2833
 #: ../../main/ebackup/src/scripts/restore-tool:2842
@@ -16076,17 +16074,16 @@ msgstr "Lista de paquetes actualizada satisfactoriamente"
 #: ../../main/software/src/templates/ebox.mas:926
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
-msgstr ""
+msgstr "Error actualizando lista de paquetes. <p>{msg}</p>"
 
 #: ../../main/software/src/templates/ebox.mas:928
 #: ../../main/software/src/templates/updates.mas:29
-#, fuzzy
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"Error actualizando la lista de paquetes. Por favor, ejecute el siguiente "
-"comando en una consola para averiguar el problema: sudo apt-get update"
+"Error actualizando la lista de paquetes. <p>Por favor, ejecute el siguiente "
+"comando en una consola para averiguar el problema: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/config.mas:8
 msgid "Perform automatic security updates"
@@ -16278,6 +16275,8 @@ msgid ""
 "You have logged in successfully. If your web browser blocked the popup click "
 "{hbeg}here{hend} and allow it."
 msgstr ""
+"Has iniciado sesión correctamente. Si tu navegador ha blockeado la ventana "
+"emergente, haz click {hbeg}aquí{hend} para permitirlo."
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:29
 #, perl-brace-format
@@ -16438,16 +16437,15 @@ msgstr "Búsqueda"
 
 #: ../../main/network/src/templates/diag.mas:43
 msgid "Wake On LAN"
-msgstr ""
+msgstr "Wake On LAN"
 
 #: ../../main/network/src/templates/diag.mas:65
-#, fuzzy
 msgid "Other..."
-msgstr "Otro"
+msgstr "Otro..."
 
 #: ../../main/network/src/templates/diag.mas:81
 msgid "Wake"
-msgstr ""
+msgstr "Despertar"
 
 #: ../../main/network/src/templates/confirm.mas:17
 #: ../../main/network/src/templates/confirmremove.mas:11
@@ -17189,7 +17187,7 @@ msgstr "Diciembre"
 
 #: ../../main/core/src/templates/links-widget.mas:17
 msgid "Official documentation in English and Spanish."
-msgstr ""
+msgstr "Documentación oficial en inglés y español"
 
 #: ../../main/core/src/templates/links-widget.mas:18
 msgid "Documentation"
@@ -17197,7 +17195,7 @@ msgstr "Documentación"
 
 #: ../../main/core/src/templates/links-widget.mas:21
 msgid "Community Support Forum to give and get help."
-msgstr ""
+msgstr "Foro de soporte de comunidad para dar y recibir ayuda."
 
 #: ../../main/core/src/templates/links-widget.mas:22
 msgid "Forum"
@@ -17205,7 +17203,7 @@ msgstr "Foro"
 
 #: ../../main/core/src/templates/links-widget.mas:25
 msgid "Help us to improve by reporting any bug you find!"
-msgstr ""
+msgstr "Ayudanos a mejorar reportando cualquier bug que encuentres!"
 
 #: ../../main/core/src/templates/links-widget.mas:26
 msgid "Report a bug"
@@ -17819,9 +17817,8 @@ msgid "Add and Edit"
 msgstr "Añadir y Editar"
 
 #: ../../main/users/src/templates/users.mas:111
-#, fuzzy
 msgid "Organizational Unit"
-msgstr "Nombre de Organización"
+msgstr "Unidad Organizativa"
 
 #: ../../main/users/src/templates/wizard/users.mas:9
 msgid "Select the type of the server"
