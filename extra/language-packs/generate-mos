@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIR=$1
+NAME=$2
+DESTDIR=dist
+
+for i in `cat $DIR/LINGUAS`
+do
+    outpath=$DESTDIR/$i/LC_MESSAGES
+    mkdir -p $outpath
+    msgfmt $DIR/$i.po -o $outpath/$NAME.mo
+done

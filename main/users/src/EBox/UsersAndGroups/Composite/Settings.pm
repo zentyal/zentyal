@@ -58,8 +58,7 @@ sub _description
          layout          => 'top-bottom',
          name            => 'Settings',
          compositeDomain => 'Users',
-         help =>
-             __('')
+         #help => __('')
         };
 
       return $description;
