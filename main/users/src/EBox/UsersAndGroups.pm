@@ -685,7 +685,7 @@ sub _modsLdapUserBase
 
     my @modules;
     foreach my $name (@names) {
-        next if ($name ne any @{$ignored_modules});
+        next if ($name eq any @{$ignored_modules});
 
         my $mod = EBox::Global->modInstance($name);
 
