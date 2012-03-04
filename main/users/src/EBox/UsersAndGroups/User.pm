@@ -46,7 +46,8 @@ use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
-                                 'homeDirectory', 'quota', 'userPassword' );
+                                 'homeDirectory', 'quota', 'userPassword',
+                                 'description');
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
@@ -138,6 +139,19 @@ sub set
     $self->SUPER::set(@_);
 }
 
+# Catch some of the set ops which need special actions
+sub delete
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::delete(@_);
+}
 
 sub save
 {

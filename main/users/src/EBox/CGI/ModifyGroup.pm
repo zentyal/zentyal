@@ -47,10 +47,15 @@ sub _process
     $self->cgi()->param(-name=>'group', -value=>$group);
     $self->keepParam('group');
 
-    $self->_requireParamAllowEmpty('comment', __('comment'));
-
     my $group = new EBox::UsersAndGroups::Group(dn => $group);
-    $group->set('description', $self->param('comment'));
+
+    $self->_requireParamAllowEmpty('comment', __('comment'));
+    my $comment = $self->param('comment');
+    if (length ($comment)) {
+        $group->set('description', $comment);
+    } else {
+        $group->delete('description');
+    }
 
     $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
