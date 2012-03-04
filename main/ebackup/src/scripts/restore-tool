@@ -1025,7 +1025,7 @@ sub _aptInstall
         my $msg;
 
         if ($errorMsg) {
-            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration  whcih depends on the missing packages',
+            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration which depends on the missing packages',
                           err => "\n$errorMsg\n");
             error($msg, noBlocking => 1);
             return;
