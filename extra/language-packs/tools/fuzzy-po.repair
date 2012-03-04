@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Locale::PO;
+
+my ($file) = @ARGV;
+$file or die 'no file supplied';
+
+my $file_array_ref = Locale::PO->load_file_asarray($file);
+print "Loaded '$file'\n";
+
+for my $object (@{$file_array_ref}) {
+    if ( $object->msgstr() =~  m/"#-#/ && !$object->fuzzy()) {
+        # Set fuzzy flag
+        $object->fuzzy(1);
+    }
+}
+
+Locale::PO->save_file_fromarray($file . '.repaired',$file_array_ref);
+print "Saved '$file.repaired'\n";
+
+1;
