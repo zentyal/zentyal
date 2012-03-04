@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2011-09-29 15:52+0200\n"
-"PO-Revision-Date: 2011-08-28 11:54+0200\n"
-"Last-Translator: robb <r_bosch@gmx.net>\n"
+"PO-Revision-Date: 2012-01-16 13:41+0200\n"
+"Last-Translator: vissie003 <vissie003@hotmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -208,9 +208,8 @@ msgid "Network object"
 msgstr "Netwerk object"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:168
-#, fuzzy
 msgid "Newtork download rate"
-msgstr "Netwerk snelheid"
+msgstr "Netwerk download snelheid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:171
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:191
@@ -219,16 +218,14 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:174
-#, fuzzy
 msgid "Maximum download rate for this network. Use -1 to disable this option."
 msgstr ""
 "Maximum download snelheid voor dit netwerk. Gebruik -1 om deze optie uit te "
 "schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:178
-#, fuzzy
 msgid "Network file size"
-msgstr "Netwerk maximum grootte"
+msgstr "Netwerk bestandsgrootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:181
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:201
@@ -238,7 +235,6 @@ msgstr "KB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:184
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:168
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size for this network. Use -1 to disable "
 "this option."
@@ -247,46 +243,42 @@ msgstr ""
 "deze optie uit te schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:188
-#, fuzzy
 msgid "Client download rate"
-msgstr "Client adres"
+msgstr "Client download snelheid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:194
-#, fuzzy
 msgid "Maximum download rate per client. Use -1 to disable this option."
 msgstr ""
 "Maximum download snelheid per client. Gebruik -1 om deze optie uit te "
 "schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:198
-#, fuzzy
 msgid "Client file size"
-msgstr "Maximum Client Grootte"
+msgstr "Client bestandsgrootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:204
-#, fuzzy
 msgid ""
 "Maximum unthrottled download file size per client. Use -1 to disable this "
 "option."
 msgstr ""
-"Maximum niet gelimiteerde grootte per client. Gebruik -1 om deze optie uit "
-"te schakelen."
+"Maximum niet gelimiteerde bestandsgrootte per client. Gebruik -1 om deze "
+"optie uit te schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:210
 msgid "Client bandwidth rules (class 2 delay pools)"
-msgstr ""
+msgstr "Client bandbreedte regels (class 2 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:217
-#, fuzzy
 msgid ""
 "Once the download exceeds the file size then the HTTP Proxy will slow down "
 "the connection to the specified download rate. Both parameters can be "
 "defined for the whole network and on a per client basis. The client number "
 "is limited to 256."
 msgstr ""
-"Zodra de aanvraag groter is dan {max} zal de HTTP Proxy de daownload "
-"snelheid limiteren tot de bepaalde {rate}. Het clientnummer is geperkt tot "
-"256."
+"Zodra de aanvraag groter is dan de bestandsgrootte, zal de HTTP Proxy de "
+"verbinding vertragen tot de ingestelde download snelheid. Beide parameters "
+"kunnen worden gedefinieerd voor het hele netwerk of per client. Het aantal "
+"clients is beperkt tot 256."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools2.pm:219
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:183
@@ -318,8 +310,7 @@ msgstr "internet domein of URL"
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
-"Toestaan/Verbieden van de HTTP traffic van/naar de opgesomde domeinen en "
-"URL's."
+"Toestaan/Verbieden van HTTP traffic van/naar de genoemde domeinen en URL's."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:81
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupDomainFilter.pm:66
@@ -376,7 +367,7 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
-"Als dit geactiveerd is zal geen domein of URL dat niet aanwezig is in de "
+"Als dit geactiveerd is, zal geen domein of URL dat niet aanwezig is in de "
 "<i>Domeinen en URLregels</i> noch in de de <i>Domein lijst bestanden</i> "
 "secties hieronder verboden zijn."
 
@@ -393,7 +384,6 @@ msgid "Ad Blocking"
 msgstr "Advertenties Blokkeren"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:66
-#, fuzzy
 msgid "Remove advertisements from all HTTP traffic"
 msgstr "Verwijder advertenties uit alle HTTP verkeer"
 
@@ -522,7 +512,7 @@ msgstr "Domein"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:88
 msgid "You must not prefix the domain with www."
-msgstr "U moet geen www voor het domein zetten"
+msgstr "U moet geen www voor het domein zetten."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterBase.pm:92
 msgid "Domain or IP address"
@@ -645,8 +635,8 @@ msgstr "Tijds periode"
 msgid ""
 "Time period when the access is allowed. It is ignored with a deny policy"
 msgstr ""
-"Tijds periode wanneer toegang is toegestaan. Dit wordt genegeerd met een "
-"verbods beleid."
+"Tijdsperiode wanneer toegang is toegestaan. Dit wordt genegeerd met een "
+"verbods beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:228
 #: ../../main/squid/src/EBox/Squid/Model/GroupPolicyBase.pm:235
@@ -655,8 +645,8 @@ msgid ""
 "There are no user groups in the system. {open}Create{close} at least one "
 "group  if you want to set a group policy"
 msgstr ""
-"Er zijn gebruikers groepen in het systeem. {open} Creëer{close} ten minste 1 "
-"groep als je een groep beleid wilt instellen."
+"Er zijn geen gebruikers groepen in het systeem. {open}Creëer{close} "
+"tenminste 1 groep als je een groep beleid wilt instellen."
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupContentFilterThreshold.pm:66
 msgid "Use default profile threshold"
@@ -743,25 +733,22 @@ msgid "Global group policy need a global policy with authentication"
 msgstr "Globaal groeps beleid heeft een globaal beleid met authenticatie nodig"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:152
-#, fuzzy
 msgid "Download rate"
-msgstr "Donwloaden"
+msgstr "Download snelheid"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:158
-#, fuzzy
 msgid "Maximum download speed for this network. Use -1 to disable this option."
 msgstr ""
-"Maximum niet gelimiteerde download grootte voor dit netwerk. Gebruik -1 om "
-"deze optie uit te schakelen."
+"Maximum download snelheid voor netwerk. Gebruik -1 om deze optie uit te "
+"schakelen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:162
-#, fuzzy
 msgid "File size"
-msgstr "Pagina"
+msgstr "Bestandsgrootte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:174
 msgid "Network bandwidth rules (class 1 delay pools)"
-msgstr ""
+msgstr "Netwerk bandbreedte regels (class 1 delay pools)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools1.pm:181
 msgid ""
@@ -949,25 +936,19 @@ msgstr "Filter groep"
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:71
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:101
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Instellingen\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Instellingen\n"
-"#-#-#-#-#  nl.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Instellingen"
+msgstr "Configuratie"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:169
 msgid "Filter group policy"
-msgstr ""
+msgstr "Filter groep policy"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:217
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "Maximaal aantal filter groepen bereikt"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:227
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Er zijn geen spaties toegestaan in profiel namen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:83
 msgid "Domains lists files"
@@ -975,7 +956,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFiles.pm:97
 msgid "You can upload files with lists of domains"
-msgstr ""
+msgstr "U kunt bestanden uploaden met lijsten van domeinen"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:78
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:265
@@ -989,56 +970,57 @@ msgstr "Object"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:89
 msgid "Allowed time period"
-msgstr ""
+msgstr "Toegestane tijd peridoe"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:96
 msgid "Group policy"
-msgstr ""
+msgstr "Groepsbeleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:117
 msgid "Object Policies"
-msgstr ""
+msgstr "Object beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:118
 msgid "List of objects"
-msgstr ""
+msgstr "Lijst van objecten"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:133
 msgid "object's policy"
-msgstr ""
+msgstr "object beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:134
 msgid "Here you can establish a custom policy per network object"
-msgstr ""
+msgstr "Hier kunt u een eigen beleid maken per netwerk object"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:136
 msgid "Added object's policy"
-msgstr ""
+msgstr "Toegevoegde objecten beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:137
 msgid "Removed object's policy"
-msgstr ""
+msgstr "Verwijderde objecten beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:138
 msgid "Updated object's policy"
-msgstr ""
+msgstr "Gewijzigde objecten beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:189
 msgid "Authorization policy is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "Autorisatie beleid is niet compatibel met transparante proxy modus"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:212
 msgid "Filter policies are incompatible with restricted time periods"
-msgstr ""
+msgstr "Filter beleid is niet compatibel met beperkte tijdsperiodes"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:238
 msgid ""
 "You cannot choose a policy without authorization if you have any group policy"
 msgstr ""
+"Je kunt geen beleid zonder autorisatie kiezen, als je een groepsbeleid hebt."
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:264
 msgid "You can only use a custom profile with the 'Filter' policy"
-msgstr ""
+msgstr "Je kunt alleen een eigen profiel gebruiken met het 'Filter' beleid"
 
 #: ../../main/squid/src/EBox/Squid/Model/ObjectPolicy.pm:528
 #, perl-brace-format
@@ -1046,6 +1028,8 @@ msgid ""
 "There are no network objects in the system. {open}Create{close} at least one "
 "object if you want to set a object policy"
 msgstr ""
+"Er zijn geen netwerk objecten in het systeem. {open}Maak{close} minstens één "
+"object als je een object beleid wilt inzetten"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:57
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:145
@@ -1053,33 +1037,33 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:164
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:75
 msgid "MIME Type"
-msgstr ""
+msgstr "MIME Type"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:147
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr ""
+msgstr "Een MIME Type moet op de volgende manier opgebouwd worden: type/subtype"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:156
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
-msgstr ""
+msgstr "{type} is geen geldig IANA type"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilterBase.pm:167
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr ""
+msgstr "{t} subtype heeft een verkeerde opbouw"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:51
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:47
 msgid "Configure allowed MIME types"
-msgstr ""
+msgstr "Configureer toegestane MIME types"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:98
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:60
 msgid "MIME type"
-msgstr ""
+msgstr "MIME type"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:60
@@ -1088,26 +1072,29 @@ msgid ""
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Toestaan / Weiger het HTTP verkeer van bestanden met de gegeven MIME types. "
+"MIME types niet uit de lijst zijn toegestaan. \n"
+"Het filter moet een 'filter' beleid hebben om effectief te zijn"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:67
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:63
 msgid "MIME type added"
-msgstr ""
+msgstr "MIME type toegevoegd"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:64
 msgid "MIME type removed"
-msgstr ""
+msgstr "MIME type verwijderd"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIMEFilter.pm:69
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroupMIMEFilter.pm:65
 msgid "MIME type updated"
-msgstr ""
+msgstr "MIME type geupdate"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:59
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:79
 msgid "File extension"
-msgstr ""
+msgstr "Bestandsextensie"
 
 #: ../../main/squid/src/EBox/Squid/Model/ExtensionFilterBase.pm:110
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:103
@@ -1117,21 +1104,21 @@ msgstr ""
 #: ../../main/asterisk/src/templates/group.mas:40
 #: ../../main/asterisk/src/templates/user.mas:37
 msgid "Extension"
-msgstr "Toestel"
+msgstr "Extensie"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:69
 #: ../../main/squid/src/EBox/Squid/Composite/Report/TrafficReport.pm:70
 msgid "HTTP proxy traffic report"
-msgstr ""
+msgstr "HTTP proxy verkeer rapport"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupDomains.pm:84
 msgid "Domains filtering for filter group"
-msgstr ""
+msgstr "Domeinen filteren voor filter groep"
 
 #: ../../main/squid/src/EBox/Squid/Composite/MIME.pm:91
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupMIME.pm:92
 msgid "MIME types filtering"
-msgstr ""
+msgstr "MIME types filteren"
 
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:75
 #: ../../main/squid/src/EBox/Squid.pm:77
@@ -1142,12 +1129,12 @@ msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:77
 msgid "Filter settings"
-msgstr ""
+msgstr "Filter instellingen"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:69
 #: ../../main/squid/src/EBox/Squid.pm:1143
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Bandbreedte regeling"
 
 #: ../../main/squid/src/EBox/Squid/Composite/DelayPools.pm:71
 msgid ""
@@ -1159,144 +1146,153 @@ msgid ""
 "and the first rule to match is applied. If a connection doesn't match any "
 "rule, then no bandwidth throttling is applied."
 msgstr ""
+"Bandbreedte regeling stelt je in staat om downloadsnelheden voor "
+"verbindingen over de HTTP proxy in te stellen. Netwerk-bandbreedte regels "
+"(class 1 delay pools) stelt je in staat om de downloadsnelheid voor het hele "
+"netwerk te limiteren, waar client-bandbreedte regels (class 2 delay pools) "
+"je in staat stellen om de downloadsnelheid per client te limiteren. Class 1 "
+"pools hebben een hogere prioriteit dan class 2 pools en de eerste "
+"overeenkomende regel zal worden toegepast. Als een verbinding met geen "
+"enkele regel overeen komt, zal er geen bandbreedte regeling worden "
+"toegepast."
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterGroupExtensions.pm:92
 #: ../../main/squid/src/EBox/Squid/Composite/Extensions.pm:91
 msgid "File extensions filtering"
-msgstr ""
+msgstr "Bestandsextensie filteren"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:92
 msgid "Domains filtering"
-msgstr ""
+msgstr "Domeinen filteren"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:82
 msgid "Authorize and allow"
-msgstr ""
+msgstr "Autoriseren en toestaan"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:83
 msgid "Authorize and filter"
-msgstr ""
+msgstr "Autoriseren en filteren"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:84
 msgid "Authorize and deny"
-msgstr ""
+msgstr "Autoriseren en weigeren"
 
 #: ../../main/squid/src/EBox/Squid/Types/Policy.pm:104
 msgid "Squid's policy"
-msgstr ""
+msgstr "Squid's beleid"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:41
 msgid "M"
-msgstr ""
+msgstr "Ma"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:42
 msgid "T"
-msgstr ""
+msgstr "Di"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:43
 msgid "W"
-msgstr ""
+msgstr "Wo"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "H"
-msgstr ""
+msgstr "Do"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "F"
-msgstr ""
+msgstr "Vr"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "A"
-msgstr ""
+msgstr "Za"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "S"
-msgstr ""
+msgstr "Zo"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:51
 msgid "Monday"
-msgstr ""
+msgstr "Maandag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:52
 msgid "Tuesday"
-msgstr ""
+msgstr "Dinsdag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:53
 msgid "Wednesday"
-msgstr ""
+msgstr "Woensdag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Thursday"
-msgstr ""
+msgstr "Donderdag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Friday"
-msgstr ""
+msgstr "Vrijdag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Saturday"
-msgstr ""
+msgstr "Zaterdag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Sunday"
-msgstr ""
+msgstr "Zondag"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:132
 msgid "All time"
-msgstr ""
+msgstr "Alle tijden"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:214
 msgid "All week"
-msgstr ""
+msgstr "Gehele week"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:222
 msgid "Weekend"
-msgstr ""
+msgstr "Weekends"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:227
 msgid "Work days"
-msgstr ""
+msgstr "Werkdagen"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:486
 msgid "From hour.."
-msgstr ""
+msgstr "Van uur.."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:489
 msgid "to hour.."
-msgstr ""
+msgstr "tot uur.."
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:493
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "Je moet 2 verschillende uren specificeren in het bereik"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:510
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr ""
+msgstr "Slechte uur van de dag waarde: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:516
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr ""
+msgstr "Slechte uur van de dag opmaak: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:523
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr ""
+msgstr "Slechte minuten waarde: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:529
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr ""
+msgstr "Slechte minuten opmaak: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:542
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:548
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "Het einde van het bereik is groter dan het begin"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:572
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "De tijdsperiode moet op z'n minst op 1 dag actief zijn"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:55
 #: ../../main/squid/src/EBox/Squid.pm:1094
@@ -1341,31 +1337,31 @@ msgstr "Uitgeschakeld"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:56
 msgid "Very permissive"
-msgstr ""
+msgstr "Zeer tolerant"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:57
 msgid "Permissive"
-msgstr ""
+msgstr "Tolerant"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:58
 msgid "Medium"
-msgstr ""
+msgstr "Medium"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:59
 msgid "Strict"
-msgstr ""
+msgstr "Streng"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:60
 msgid "Very strict"
-msgstr ""
+msgstr "Zeer streng"
 
 #: ../../main/squid/src/EBox/Squid/Types/WeightedPhrasesThreshold.pm:67
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "Dit specificeert hoe streng het content filter is."
 
 #: ../../main/squid/src/EBox/Squid/Types/DomainPolicy.pm:71
 msgid "Squid's domain policy"
-msgstr ""
+msgstr "Squid's domein beleid"
 
 #: ../../main/squid/src/EBox/Squid.pm:197
 msgid "HTTP Proxy configuration file"
@@ -1433,51 +1429,49 @@ msgstr "Dansguardians logrotatie configuratie"
 
 #: ../../main/squid/src/EBox/Squid.pm:277
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr ""
+msgstr "Dansguardian's antivirus scanner configuratie"
 
 #: ../../main/squid/src/EBox/Squid.pm:282
 msgid "Filter groups per IP"
-msgstr ""
+msgstr "Filter groepen via IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:287
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Configuratie reservekopie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Configuratie back-up"
+msgstr "Configuratie van adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:301
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Overschrijf geblokkeerd pagina sjablonen"
 
 #: ../../main/squid/src/EBox/Squid.pm:302
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
+"Door Dansguardian geblokkeerde pagina sjablonen zullen overschreven worden "
+"door Zentyal aangepaste sjablonen."
 
 #: ../../main/squid/src/EBox/Squid.pm:307
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Verwijder ntp init script koppelingen"
+msgstr "Verwijder dansguardian init script koppeling"
 
 #: ../../main/squid/src/EBox/Squid.pm:308
 #: ../../main/dns/src/EBox/DNS.pm.in:635 ../../main/ntp/src/EBox/NTP.pm:91
 #: ../../main/webserver/src/EBox/WebServer.pm:141
-#, fuzzy
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "eBox zorgt voor het starten en stoppen van de services."
+msgstr "Zentyal zorgt voor het starten en stoppen van de services."
 
 #: ../../main/squid/src/EBox/Squid.pm:336
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
 msgstr ""
+"Je moet de cache_mem variabele instellen in het Zentyal configuratie bestand"
 
 #: ../../main/squid/src/EBox/Squid.pm:345
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
+"Je moet de max_object_size variabele instellen in het Zentyal configuratie "
+"bestand"
 
 #: ../../main/squid/src/EBox/Squid.pm:1092
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
@@ -1514,18 +1508,18 @@ msgstr "Ingeschakeld"
 
 #: ../../main/squid/src/EBox/Squid.pm:1096
 msgid "Transparent proxy"
-msgstr ""
+msgstr "Transparante proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:1106
 msgid "Global policy"
-msgstr ""
+msgstr "Globaal beleid"
 
 # Luisteren op poort
 #: ../../main/squid/src/EBox/Squid.pm:1108
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:97
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:225
 msgid "Listening port"
-msgstr "Luisterende poort"
+msgstr "Luisteren op poort"
 
 #: ../../main/squid/src/EBox/Squid.pm:1140
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:117
@@ -1539,11 +1533,11 @@ msgstr "Algemeen"
 
 #: ../../main/squid/src/EBox/Squid.pm:1146
 msgid "Objects' Policy"
-msgstr ""
+msgstr "Objecten beleid"
 
 #: ../../main/squid/src/EBox/Squid.pm:1149
 msgid "Groups' Policy"
-msgstr ""
+msgstr "Groepsbeleid"
 
 #: ../../main/squid/src/EBox/Squid.pm:1181
 #: ../../main/network/src/EBox/Model/WANFailoverRules.pm:97
@@ -1553,19 +1547,19 @@ msgstr ""
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:23
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: ../../main/squid/src/EBox/Squid.pm:1183
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:1184
 msgid "Bytes"
-msgstr ""
+msgstr "Bytes"
 
 #: ../../main/squid/src/EBox/Squid.pm:1185
 msgid "Mime/type"
-msgstr ""
+msgstr "Mime/type"
 
 #: ../../main/squid/src/EBox/Squid.pm:1186
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
@@ -1585,15 +1579,15 @@ msgstr "Gebeurtenis"
 
 #: ../../main/squid/src/EBox/Squid.pm:1191
 msgid "Accepted"
-msgstr ""
+msgstr "Geaccepteerd"
 
 #: ../../main/squid/src/EBox/Squid.pm:1192
 msgid "Denied"
-msgstr ""
+msgstr "Geweigerd"
 
 #: ../../main/squid/src/EBox/Squid.pm:1193
 msgid "Filtered"
-msgstr ""
+msgstr "Gefilterd"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:42
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
@@ -1628,33 +1622,33 @@ msgstr "Naam"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:57
 msgid "Deleted daemons"
-msgstr ""
+msgstr "Verwijderde daemons"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:63
 msgid "daemon"
-msgstr ""
+msgstr "daemon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:93
 msgid "Advertised networks"
-msgstr ""
+msgstr "Geadverteerde netwerken"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:102
 msgid "Download client bundle"
-msgstr ""
+msgstr "Download client bundel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:114
 msgid "List of servers"
-msgstr ""
+msgstr "Lijst met servers"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:115
 msgid "VPN servers"
-msgstr ""
+msgstr "VPN servers"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:122
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:152
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr ""
+msgstr "server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:168
 #, perl-brace-format
@@ -1663,6 +1657,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
+"{openpar}Je hebt een geldig CA certificaat nodig om een VPN server te "
+"runnen. {closepar}{openpar}Ga naar de {openhref} CA module{closehref} en "
+"vernieuw het.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:175
 #, perl-brace-format
@@ -1671,6 +1668,9 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
+"{openpar}Je moet een CA certificaat aanmaken om een VPN server te runnen. "
+"{closepar}{openpar}Ga naar de {openhref} CA module{closehref} en maak "
+"het.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:190
 msgid "Server creation"
@@ -1681,10 +1681,12 @@ msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Kan de server niet activeren omdat .. niet volledig geconfigureerd is; "
+"Wijzig de configuratie en probeer het alstublieft opnieuw"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:303
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "Can geen server aanmaken omdat er geen CA certificaat is"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:329
 #, perl-brace-format
@@ -1692,6 +1694,8 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"{act} niet mogelijk omdat er geen certificaten beschikbaar zijn. Ga naar de "
+"CA module en maak een nieuw certificaat aan."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 #, perl-brace-format
@@ -1703,27 +1707,34 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Je kunt openVPN servers configureren om gemakkelijk te verbinden "
+"met externe kantoren of gebruikers.{closepar}{openpar}Klik op "
+"{openit}Configuratie{closeit} om VPN parameters in te "
+"stellen.{closepar}{openpar}{openit} Geadverteerde netwerken{closeit} laat je "
+"instellen welke netwerken je toegankelijk wilt maken voor externe "
+"gebruikers.{openpar} Wanneer je klaar bent met instellen, kun je een "
+"bestandsbundel downloaden voor je OS om te gebruiken met je clients."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:73
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:87
 msgid "Server port"
-msgstr ""
+msgstr "Server poort"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:79
 msgid "VPN address"
-msgstr ""
+msgstr "VPN adres"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:81
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "Gebruik een netwerkadres welke niet in gebruik is door deze computer"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:87
 msgid "Server certificate"
-msgstr ""
+msgstr "Server certificaat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:94
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "Client autorisatie door gemeenschappelijke naam"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:96
 msgid ""
@@ -1731,34 +1742,39 @@ msgid ""
 "to connect. If enabled, only certificates whose common name begins with the "
 "selected value will be able to connect."
 msgstr ""
+"Indien uitgeschakeld, kan iedere client met een door Zentyal gegenereerd "
+"certificaat verbinden. Indien ingeschakeld, kunnen alleen certificaten "
+"waarvan de gemeenschappelijke naam begint met de geselecteerde waarde "
+"verbinden."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:105
 msgid "Network Address Translation"
-msgstr ""
+msgstr "Netwerk Adres Translatie (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Enable it if you only have one network interface"
-msgstr ""
+msgstr "Schakel in als je maar 1 netwerk interface hebt"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:112
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "Sta client-to-client verbindingen toe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:115
 msgid "Enable it to allow client machines of this VPN to see each other"
-msgstr ""
+msgstr "Toestaan dat client-computers van deze VPN elkaar kunnen zien"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:120
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "Sta Zentyal-to-Zentyal tunnels toe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:123
 msgid "Enable it if this VPN is used to connect to another Zentyal"
 msgstr ""
+"Schakel in als deze VPN word gebruikt om met een andere Zentyal te verbinden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:128
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "Zentyal-to-Zentyal tunnel wachtwoord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:136
 msgid "Interface to listen on"
@@ -1766,77 +1782,88 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:146
 msgid "Server configuration"
-msgstr ""
+msgstr "Server configuratie"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:206
 msgid "All network interfaces"
-msgstr ""
+msgstr "Alle netwerk interfaces"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:259
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
-msgstr ""
+msgstr "Zentyal-to-Zentyal tunnel optie benodigd een RIP wachtwoord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:279
 msgid ""
 "The VPN address could not be the same than one of its advertised networks"
 msgstr ""
+"Het VPN adres kan niet hetzelfde zijn als van een van z'n geadverteerde "
+"netwerken"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:308
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "Andere server luistert op de zelfde poort"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:355
 #, perl-brace-format
 msgid "Port {p} is not available"
-msgstr ""
+msgstr "Poort {p} is niet beschikbaar"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:414
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "De interface {iface} bestaat niet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "De interface {iface} is niet geconfigureerd"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:440
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
 msgstr ""
+"Kan NAT niet gebruiken omdat het de Firewall module nodig heeft. De module "
+"is niet geïnstalleerd, danwel geactiveerd"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:447
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
 msgstr ""
+"Kan NAT niet gebruiken omdat de Firewall module niet is ingeschakeld. "
+"Activeer deze en probeer opnieuw"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:479
 msgid ""
 "At least one external interface is needed to connect to the server unless "
 "network address translation option is enabled"
 msgstr ""
+"Minstens één externe interface is nodig om te verbinden met de server, "
+"tenzij NAT is ingeschakeld"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:488
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
 msgstr ""
+"De interface moet een externe interface zijn, tenzij NAT is ingeschakeld"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:60
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:75
 msgid "Advertised network"
-msgstr ""
+msgstr "Opengesteld netwerk"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:69
 msgid "List of Advertised Networks"
-msgstr ""
+msgstr "Lijst met opengestelde netwerken"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:101
 msgid ""
 "The advertised network address could not be the same than the VPN address"
 msgstr ""
+"Het adres van het opengestelde netwerk kan niet het zelfde zijn als het VPN "
+"adres"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:126
 #, perl-brace-format
@@ -1845,18 +1872,21 @@ msgid ""
 "clients connecting to this VPN.{closepar}{openpar}Typically, you will allow "
 "access to your LAN by advertising its network address here{closepar}"
 msgstr ""
+"{openpar}Je kunt hier de netwerken toevoegen die je beschikbaar wilt maken "
+"voor clients die via deze VPN verbinden{closepar}{openpar}Doorgaans kun je "
+"toegang verlenen tot je LAN door het netwerk hier open te stellen{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:65
 msgid "Manual Configuration"
-msgstr ""
+msgstr "Handmatige configuratie"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 msgid "Zentyal bundle"
-msgstr ""
+msgstr "Zentyal bundel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:74
 msgid "Upload configuration's bundle"
-msgstr ""
+msgstr "Upload configuratie bundel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:81
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:47
@@ -1867,36 +1897,36 @@ msgstr "Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:93
 msgid "CA's certificate"
-msgstr ""
+msgstr "CA certificaat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:104
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:70
 msgid "Client's certificate"
-msgstr ""
+msgstr "Certificaat van client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Client's private key"
-msgstr ""
+msgstr "Private key van client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:126
 msgid "Server tunnel password"
-msgstr ""
+msgstr "Server tunnel wachtwoord"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:133
 msgid "Bind port for client"
-msgstr ""
+msgstr "Bind poort voor client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:141
 msgid "Bind address for client"
-msgstr ""
+msgstr "Bind adres voor client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:148
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Commando dat uitgevoerd moet worden nadat de routes gezet zeijn"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:158
 msgid "Client configuration"
-msgstr ""
+msgstr "Client configuratie"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:164
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
@@ -1908,62 +1938,66 @@ msgstr "cliënt"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:292
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
-msgstr ""
+msgstr "Geen bestand geleverd of al ingesteld voor {f}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:67
 #: ../../main/network/src/EBox/Model/MultiGwRulesOptions.pm:43
 #: ../../main/ca/src/EBox/Model/Certificates.pm:282
 msgid "Enable"
-msgstr ""
+msgstr "Inschakelen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:94
 msgid "List of Clients"
-msgstr ""
+msgstr "Lijst met clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:95
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:145
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Kan de client niet activeren omdat deze niet volledig is geconfigureerd; "
+"wijzig de configuratie en probeer opnieuw"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:182
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "RIP wachtwoord is verplicht"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's type"
-msgstr ""
+msgstr "Type client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:76
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Voeg installatieprogramma van OpenVPN toe aan de bundel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:78
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "OpenVPN installatieprogramma voor Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:82
 msgid "Server address"
-msgstr ""
+msgstr "Server adres"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:84
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Dit is het adres dat door de clients gebruikt zal worden om te verbinden met "
+"de server. Normaalgesproken is dit een openbaar IP of een hostnaam"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:90
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:96
 msgid "Additional server address (optional)"
-msgstr ""
+msgstr "Extra server adres (optioneel)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:105
 msgid "Download Client Bundle"
-msgstr ""
+msgstr "Download client bundel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
@@ -1978,13 +2012,15 @@ msgstr "Donwloaden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:148
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Zentyal naar Zentyal tunnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:182
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Kan geen bundel maken omdat de server   is niet helemaal geconfigureerd; "
+"bewerk de configuratie en probeer opnieuw"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:197
 msgid "Cannot use for the bundle the server's certificate"
@@ -1994,15 +2030,19 @@ msgstr ""
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Geen geldige client type:  de server staat geen Zentyal-to-Zentyal tunnels "
+"toe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:226
 msgid ""
 "Invalid client type: the server is intended for Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Geen geldige client type: de server is bedoeld voor Zentyal-to-Zentyal "
+"tunnels"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:254
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "Installatieprogramma is alleen beschikbaar voor Windows clients"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
 msgid ""
@@ -2116,13 +2156,8 @@ msgstr ""
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:163
 #: ../../main/ca/src/EBox/Model/Certificates.pm:270
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:147
-#, fuzzy
 msgid "Service"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Service\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Dienst"
+msgstr "Service"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:785
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:454
@@ -2459,15 +2494,8 @@ msgstr "de naam '{name}' is niet toegestaan"
 #: ../../main/core/src/EBox/Apache.pm:278
 #: ../../main/services/src/EBox/Services.pm:482
 #: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:25
-#, fuzzy
 msgid "port"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"poort\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Poort\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"poort"
+msgstr "poort"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:635
 #: ../../main/firewall/src/EBox/Firewall.pm:660
@@ -2531,23 +2559,13 @@ msgstr "Protocol"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1014
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:150
-#, fuzzy
 msgid "Source port"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Poort bron\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Bron poort"
+msgstr "Bron poort"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1015
 #: ../../main/services/src/EBox/Model/ServiceConfigurationTable.pm:156
-#, fuzzy
 msgid "Destination port"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Poort doel\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Bestemming poort"
+msgstr "Bestemming poort"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:1016
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -2570,13 +2588,15 @@ msgstr "OMLEIDEN"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:686
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "Toevoegen van regels voor de Firewall mislukt voor de volgende modules:"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:689
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Dit is waarschijnlijk veroorzaakt door een gebrekkige verbinding, kijk je "
+"configuratie na of schakel deze modules uit"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:938
 #: ../../main/firewall/src/EBox/Iptables.pm:975
@@ -2619,13 +2639,8 @@ msgstr "BLOKKEREN"
 #: ../../main/core/src/EBox/Types/Service.pm:212
 #: ../../main/core/src/EBox/Types/PortRange.pm:290
 #: ../../main/core/src/templates/logs/index.mas:184
-#, fuzzy
 msgid "Any"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Elke\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Elk"
+msgstr "Elke"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:129
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:303
@@ -2651,13 +2666,8 @@ msgstr "IP bestemming"
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:161
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTable.pm:437
 #: ../../main/network/src/EBox/Model/MultiGwRulesDataTable.pm:151
-#, fuzzy
 msgid "Destination object"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-network 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Bestemming object\n"
-"#-#-#-#-#  nl.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
+msgstr "Bestemming"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:182
 msgid ""
@@ -2689,21 +2699,8 @@ msgstr ""
 #: ../../main/core/src/templates/confirm-backup.mas:36
 #: ../../main/core/src/templates/backup.mas:54
 #: ../../main/core/src/templates/backup.mas:128
-#, fuzzy
 msgid "Description"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Omschrijving"
+msgstr "Omschrijving"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:230
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:197
@@ -2806,15 +2803,8 @@ msgstr "Conflicterende regel gevonden. Deze eerst verwijderen"
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1302
 #: ../../main/printers/src/EBox/Model/CUPS.pm:148
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:117
-#, fuzzy
 msgid "Interface"
-msgstr ""
-"#-#-#-#-#  nl.po (libebox 0.12.1)  #-#-#-#-#\n"
-"Interface\n"
-"#-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Interface\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Adapter"
+msgstr "Interface"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:253
 msgid "Original destination"
@@ -2837,15 +2827,8 @@ msgstr "Zentyal VoIP systeem"
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:261
 #: ../../main/pptp/src/EBox/Model/Users.pm:116
 #: ../../main/radius/src/EBox/Model/Clients.pm:112
-#, fuzzy
 msgid "IP Address"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"IP Adress"
+msgstr "IP Adres"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 msgid "Original destination port"
@@ -2905,12 +2888,8 @@ msgstr "Externe invoer"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
 #: ../../main/network/src/templates/diag.mas:38
-#, fuzzy
 msgid "Output"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-network 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Uitvoer"
+msgstr "Uitvoer"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:40
 msgid "Forward"
@@ -3288,15 +3267,8 @@ msgstr "domein"
 #: ../../main/dhcp/src/EBox/Model/Options.pm:431
 #: ../../main/dhcp/src/EBox/Model/DynamicDNS.pm:324
 #: ../../main/mail/src/EBox/Mail.pm:1515
-#, fuzzy
 msgid "Custom"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Manueel\n"
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Aangepast\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Op maat"
+msgstr "Aangepast"
 
 # might be "Volgorde" if its about MX records priority
 #: ../../main/dns/src/EBox/Model/MailExchanger.pm:188
@@ -3494,13 +3466,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Services.pm:223
-#, fuzzy
 msgid "Target port"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Poort bron\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Bron poort"
+msgstr "Doel poort"
 
 #: ../../main/dns/src/EBox/Model/Services.pm:228
 msgid "Target"
@@ -3574,9 +3541,9 @@ msgid "name server record"
 msgstr ""
 
 #: ../../main/dns/src/EBox/Model/Text.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The {name} cannot be longer than {value} characters"
-msgstr "De naam van deze bron is langer dan 12 tekens."
+msgstr "De {naam} mag niet langer zijn dan {value} tekens."
 
 #: ../../main/dns/src/EBox/Model/Text.pm:149
 msgid "If you select the Domain, then you are choosing the zone"
@@ -3640,9 +3607,8 @@ msgid "Let the bind daemon to be dynamically updated"
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm.in:634
-#, fuzzy
 msgid "Remove bind9 init script link"
-msgstr "Verwijder ntp init script koppelingen"
+msgstr "Verwijder bind9 init script koppeling"
 
 #: ../../main/dns/src/EBox/Types/Hostname.pm:48
 msgid "A valid domain name or a wildcard (*) value must be provided."
@@ -3655,13 +3621,8 @@ msgstr ""
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:104
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:93
-#, fuzzy
 msgid "Read only"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Enkel lezen\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Alleen leesrechten "
+msgstr "Alleen lezen"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:108
 msgid "Read/Write"
@@ -3685,11 +3646,8 @@ msgstr "Naamloze toegang"
 
 # respectievelijke nodig?
 #: ../../main/ftp/src/EBox/Model/Options.pm:135
-#, fuzzy
 msgid "Enable anonymous FTP access to the /srv/ftp directory."
-msgstr ""
-"FTP toegang verlenen aan elke gebruiker voor zijn respectievelijke /home "
-"folder"
+msgstr "Anonieme FTP toegang verlenen aan de /srv/ftp map."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:139
 msgid "Personal directories"
@@ -3697,11 +3655,8 @@ msgstr "Persoonlijke folders"
 
 # respectievelijke nodig?
 #: ../../main/ftp/src/EBox/Model/Options.pm:142
-#, fuzzy
 msgid "Enable authenticated FTP access to each user home directory."
-msgstr ""
-"FTP toegang verlenen aan elke gebruiker voor zijn respectievelijke /home "
-"folder"
+msgstr "FTP toegang verlenen aan elke gebruiker voor zijn  /home folder."
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:146
 #, fuzzy
@@ -3736,7 +3691,6 @@ msgid "FTP Server"
 msgstr "FTP Server"
 
 #: ../../main/ftp/src/EBox/Model/Options.pm:168
-#, fuzzy
 msgid ""
 "The anonymous directory is /srv/ftp, make sure that the files you create "
 "there have read permissions for everybody (sudo chmod o+r /srv/ftp/*). If "
@@ -3745,11 +3699,12 @@ msgid ""
 "incoming ; sudo chmod o+rwx /srv/ftp/incoming. Anonymous access won't be "
 "able to rename or delete files in any case."
 msgstr ""
-"De anonieme folder is /srv/ftp, zorg ervoor dat de bestanden die u daar "
-"aanmaakt lees rechten hebben voor iedereen (chmod o+r /srv/ftp/*). Als u ook "
-"schrijf rechten wil toekennen dient u een subfolder te maken met schrijf "
-"rechten voor iedereen, bijvoorbeeld: mkdir /srv/ftp/incoming ; chmod o+rwx /"
-"srv/ftp/incoming"
+"De anonieme map is /srv/ftp, zorg ervoor dat de bestanden die u daar "
+"aanmaakt leesrechten hebben voor iedereen (sudo chmod o+r /srv/ftp/*). Als u "
+"ook schrijfrechten wil toekennen, dient u een subfolder te maken met "
+"schrijfrechten voor iedereen, bijvoorbeeld: sudo mkdir /srv/ftp/incoming ; "
+"sudo chmod o+rwx /srv/ftp/incoming. Anonieme gebruikers kunnen nooit "
+"bestanden hernoemen of verwijderen."
 
 #: ../../main/ftp/src/EBox/FTP.pm:90
 #, fuzzy
@@ -3992,13 +3947,8 @@ msgstr ""
 
 #: ../../main/software/src/EBox/CGI/CurrentPackage.pm:31
 #: ../../main/core/src/EBox/CGI/SysInfo/CurrentProgress.pm:36
-#, fuzzy
 msgid "Upgrading"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-software 0.12.1)  #-#-#-#-#\n"
-"Bezig met upgraden\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Opwaarderen"
+msgstr "Opwaarderen"
 
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:103
 msgid "There were no packages to update"
@@ -4120,21 +4070,8 @@ msgid "Subscription"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:274
-#, fuzzy
 msgid "Server Subscription"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Omschrijving"
+msgstr "Server Abbonement"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:279
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:141
@@ -4201,15 +4138,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:65
 #: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:303
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:91
-#, fuzzy
 msgid "None"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Geen\n"
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Geen\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Niets"
+msgstr "Geen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1628
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1631
@@ -4298,13 +4228,8 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1684
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:211
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Configuratie reservekopie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Configuratie back-up"
+msgstr "Configuratie back-up ingeschakeld"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1687
 #, perl-brace-format
@@ -4336,21 +4261,8 @@ msgstr "Externe server verbinding"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:105
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:141
-#, fuzzy
 msgid "Server subscription"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Omschrijving"
+msgstr "Server abonnement"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1712
 msgid "Technical support"
@@ -4502,21 +4414,8 @@ msgid "Use this name to connect to Zentyal externally"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:114
-#, fuzzy
 msgid "Subscription renovation date"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"Beschrijving\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Omschrijving\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Omschrijving"
+msgstr "Abonnement vernieuwings datum"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:118
 msgid "Central monitoring & management"
@@ -4612,21 +4511,8 @@ msgstr ""
 #: ../../main/core/src/templates/login/index.mas:70
 #: ../../main/users/src/templates/users.mas:50
 #: ../../main/users/src/templates/user.mas:68
-#, fuzzy
 msgid "Password"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Wachtwoord\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Wachtwoord\n"
-"#-#-#-#-#  nl.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Wahtwoord\n"
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Wachtwoord\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Paswoord\n"
-"#-#-#-#-#  nl.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Wachtwoord"
+msgstr "Wachtwoord"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:376
 msgid "Zentyal subscription details"
@@ -4729,13 +4615,8 @@ msgid "Remote storage space available"
 msgstr "Beschikbare opslag ruimte"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:153
-#, fuzzy
 msgid "Latest configuration backup"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Configuratie reservekopie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Configuratie back-up"
+msgstr "Laatste configuratie backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:157
 msgid "Latest data backup"
@@ -4789,13 +4670,8 @@ msgid "{time} minutes - Configuration Backup Only"
 msgstr "Configuratie backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:292
-#, fuzzy
 msgid "No configuration backup has been done yet"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Configuratie reservekopie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Configuratie back-up"
+msgstr "Er is nog geen configuratie backup gemaakt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:79
 msgid "Access from control panel without password"
@@ -4968,13 +4844,8 @@ msgstr "overgebleven modules om te herstellen"
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreRemoteBackup.pm:76
 #: ../../main/remoteservices/src/EBox/CGI/Backup/RestoreProxyRemoteBackup.pm:85
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:268
-#, fuzzy
 msgid "Restore successful"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Herstellen succesvol\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Herstel klaar zonder fouten"
+msgstr "Herstel succesvol"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/DeleteRemoteBackup.pm:65
 msgid "Backup deleted"
@@ -4991,43 +4862,23 @@ msgstr "Modules reservekopie maken"
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:72
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:250
 #: ../../main/users/src/EBox/UsersAndGroups/Model/PendingSync.pm:63
-#, fuzzy
 msgid "Operation"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Werking\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Toestand"
+msgstr "Werking"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:73
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:251
-#, fuzzy
 msgid "operations left to finish backup"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"overblijvende bewerkingen om de reservekopie te beëindigen \n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"overige toestanden over om de back-up af te maken"
+msgstr "resterende bewerkingen om de backup te voltooien"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/MakeRemoteBackup.pm:74
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:252
-#, fuzzy
 msgid "Backup successful"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Reservekopie succesvol aangemaakt\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Back-up klaar zonder fouten"
+msgstr "Backup succesvol"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:35
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:182
-#, fuzzy
 msgid "Configuration backup"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Configuratie reservekopie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Configuratie back-up"
+msgstr "Configuratie backup"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:86
 #, fuzzy
@@ -5046,13 +4897,8 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:136
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:70
 #: ../../main/core/src/templates/backup.mas:97
-#, fuzzy
 msgid "Restore"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Herstel\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Herstellen"
+msgstr "Herstel"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:99
 msgid ""
@@ -5102,19 +4948,8 @@ msgstr ""
 #: ../../main/mail/src/templates/alias.mas:73
 #: ../../main/mail/src/templates/alias.mas:74
 #: ../../main/users/src/templates/del.mas:43
-#, fuzzy
 msgid "Delete"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Verwijderen\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Verwijderen\n"
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Verwijderen\n"
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Verwijder\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Verwijderen"
+msgstr "Verwijderen"
 
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:123
 #, fuzzy
@@ -5167,13 +5002,8 @@ msgid "Country"
 msgstr "Land"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:67
-#, fuzzy
 msgid "Phone number"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"november\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"November"
+msgstr "Telefoonnummer"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:68
 #, fuzzy
@@ -5390,15 +5220,8 @@ msgstr ""
 #: ../../main/mail/src/templates/warnvdmdsize.mas:36
 #: ../../main/mail/src/templates/warnvd.mas:32
 #: ../../main/users/src/templates/del.mas:46
-#, fuzzy
 msgid "Cancel"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Annuleren\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Annuleren\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Negeren"
+msgstr "Annuleren"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:79
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
@@ -5808,15 +5631,8 @@ msgstr "Tweede server"
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:65
 #: ../../main/radius/src/EBox/Model/Auth.pm:138
 #: ../../main/asterisk/src/EBox/Model/Settings.pm:135
-#, fuzzy
 msgid "General configuration"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"Algemene configuratie\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Algemene configuratie\n"
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Algemene instellingen"
+msgstr "Algemene configuratie"
 
 #: ../../main/pptp/src/EBox/Model/Config.pm:119
 #, fuzzy
@@ -5863,15 +5679,8 @@ msgid "PPTP Connected Users"
 msgstr "Gebruikers"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:355
-#, fuzzy
 msgid "Local IP address"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"IP Adress"
+msgstr "Lokaal IP adres"
 
 #: ../../main/pptp/src/EBox/PPTP.pm:367
 #: ../../main/asterisk/src/EBox/Asterisk.pm:600
@@ -6177,7 +5986,7 @@ msgstr ""
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:827
 msgid "File exists and it is not a directory"
-msgstr ""
+msgstr "Bestand bestaat niet in een map"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:837
 #, fuzzy, perl-brace-format
@@ -6333,13 +6142,8 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
 #: ../../main/core/src/EBox/Backup.pm:751
 #: ../../main/core/src/templates/backup.mas:66
-#, fuzzy
 msgid "Backup"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Back-up\n"
-"#-#-#-#-#  nl.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Backup"
+msgstr "Backup"
 
 #: ../../main/ebackup/src/EBox/Composite/RemoteGeneral.pm:66
 msgid "Configuration and Status"
@@ -6549,15 +6353,8 @@ msgid "Phase 2"
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:79
-#, fuzzy
 msgid "Local IP Address"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"IP Adress"
+msgstr "Lokaal IP Adres"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:82
 #, fuzzy
@@ -6574,15 +6371,8 @@ msgid "Local subnet available through the tunnel."
 msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:93
-#, fuzzy
 msgid "Remote IP Address"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-radius 1.3.10)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"IP Adres\n"
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"IP Adress"
+msgstr "Extern IP Adres"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfGeneral.pm:96
 msgid "Remote endpoint public IP address."
@@ -6674,12 +6464,8 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:217
 #: ../../main/core/src/EBox/SysInfo.pm.in:175
-#, fuzzy
 msgid "Hostname"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-network 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Naam toestel"
+msgstr "Hostnaam"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:231
 msgid ""
@@ -7235,13 +7021,8 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2136
 #: ../../main/users/src/EBox/CGI/AddUser.pm:44
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:40
-#, fuzzy
 msgid "user name"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"gebruikersnaam\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"naam gebruiker"
+msgstr "gebruikersnaam"
 
 #: ../../main/network/src/EBox/CGI/Iface.pm:102
 #: ../../main/users/src/EBox/CGI/ModifyUser.pm:47
@@ -7319,13 +7100,8 @@ msgstr "Gebruikers Hoek web server"
 #: ../../main/virt/src/EBox/Virt.pm:578 ../../main/virt/src/EBox/Virt.pm:617
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:159
 #: ../../main/virt/src/EBox/Virt/Composite/VMSettings.pm:78
-#, fuzzy
 msgid "Virtual Machines"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Virtuele host\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Virtuele gastheer"
+msgstr "Virtuele Machine"
 
 #: ../../main/virt/src/EBox/Virt.pm:92
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:245
@@ -7334,12 +7110,8 @@ msgid "VNC connections for VMs"
 msgstr "Verbindings fout"
 
 #: ../../main/virt/src/EBox/Virt.pm:579
-#, fuzzy
 msgid "Disk images of the virtual machines"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Domeinen\n"
-"#-#-#-#-#  nl.po (ebox-mail 0.12)  #-#-#-#-#\n"
+msgstr "Schijf images van virtuele machines"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:68
 #: ../../main/network/src/templates/ifaces.mas:80
@@ -7389,13 +7161,8 @@ msgid "Start"
 msgstr "Start"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:93
-#, fuzzy
 msgid "Virtual Machine started"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Virtuele host\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Virtuele gastheer"
+msgstr "Virtuele Machine gestart"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:98
 #: ../../main/virt/src/templates/vmstatus.mas:32
@@ -7404,39 +7171,24 @@ msgid "Stop"
 msgstr "Stoppen"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:100
-#, fuzzy
 msgid "Virtual Machine stopped"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Virtuele host\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Virtuele gastheer"
+msgstr "Virtuele Machine gestopt"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:111
 msgid "Pause"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:113
-#, fuzzy
 msgid "Virtual Machine paused"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Virtuele host\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Virtuele gastheer"
+msgstr "Virtuele Machine gepauzeerd"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:118
 msgid "Resume"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:120
-#, fuzzy
 msgid "Virtual Machine resumed"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Virtuele host\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Virtuele gastheer"
+msgstr "Virtuele Machine hervat"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:149
 #, fuzzy
@@ -7444,12 +7196,8 @@ msgid "Autostart"
 msgstr "Herstarten"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:158
-#, fuzzy
 msgid "List of Virtual Machines"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Domeinen\n"
-"#-#-#-#-#  nl.po (ebox-mail 0.12)  #-#-#-#-#\n"
+msgstr "Lijst met Virtuele Machines"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:160
 #, fuzzy
@@ -7574,13 +7322,8 @@ msgid "Base Memory"
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:104
-#, fuzzy
 msgid "Manage only"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Enkel lezen\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Alleen leesrechten "
+msgstr "Alleen beheer"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:106
 msgid ""
@@ -8693,15 +8436,15 @@ msgid "The directory is not empty. Are you sure you want to remove it?"
 msgstr "De map is niet leeg. Weet je zeker dat je deze wil verwijderen?"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openit}Directory under Zentyal{closeit} will automatically create the share."
 "directory in /home/samba/shares {br}{openit}File system path{closeit} will "
 "allow you to share an existing directory within your file system"
 msgstr ""
-"<i>Directory onder eBox</i> zal automatisch de gedeelde map creëren in /home/"
-"samba/shares <br><i>Bestandssystem pad</i> staat toe om een map te delen "
-"binnen het bestandssysteem. "
+"{openit}Directory onder Zentyal{closeit} zal automatisch de gedeelde map "
+"creëren in /home/samba/shares {br}{openit}Bestandssysteem pad{closeit} staat "
+"toe om een map te delen binnen het bestandssysteem. "
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:336
 #, fuzzy
@@ -8732,9 +8475,8 @@ msgid "Netbios and workgroup must have different names"
 msgstr "Netbios- en werkgroep naam moeten verschillen"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:80
-#, fuzzy
 msgid "Netbios name cannot be longer than 15 characters"
-msgstr "De naam van deze bron is langer dan 12 tekens."
+msgstr "Netbios naam mag niet langer dan 15 tekens zijn."
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:96
 #, perl-brace-format
@@ -8950,14 +8692,12 @@ msgstr ""
 "elke bestand kunnen lezen of schrijven in de gedeelde map"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy
 msgid " (user))"
-msgstr "gebruiker"
+msgstr "(gebruiker))"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:261
-#, fuzzy
 msgid " (group))"
-msgstr "groep"
+msgstr "(groep))"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:68
 #, fuzzy
@@ -9130,12 +8870,8 @@ msgstr "naam gebruiker"
 
 #: ../../main/samba/src/EBox/Samba.pm:1525
 #: ../../main/samba/src/EBox/Samba.pm:1534
-#, fuzzy
 msgid "File name"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"naam gebruiker"
+msgstr "Bestandsnaam"
 
 #: ../../main/samba/src/EBox/Samba.pm:1526
 #: ../../main/samba/src/EBox/Samba.pm:1530
@@ -9221,13 +8957,8 @@ msgstr "{g} groep bestaat niet"
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2290
 #: ../../main/users/src/EBox/CGI/ModifyGroup.pm:39
 #: ../../main/users/src/EBox/CGI/AddGroup.pm:45
-#, fuzzy
 msgid "group name"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"groepnaam\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"naam groep"
+msgstr "Groepsnaam"
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:759
 #, fuzzy
@@ -9251,12 +8982,12 @@ msgstr "actief"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:68
 msgid "External mail domain"
-msgstr ""
+msgstr "Extern mail domein"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:74
 msgid "Allow connection"
-msgstr ""
+msgstr "Sta verbinding toe"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalDomain.pm:82
 msgid "External mail domains"
@@ -9430,11 +9161,11 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:70
 msgid "IP address of the server"
-msgstr ""
+msgstr "IP adres van de server"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:82
 msgid "External mail servers"
-msgstr ""
+msgstr "Externe mail servers"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:94
 msgid "external mail server"
@@ -9445,11 +9176,14 @@ msgid ""
 "Here you can specify which external mail servers can connect to the mail "
 "filter"
 msgstr ""
+"Hier kun je opgeven welke externe mail servers verbinding kunnen maken met "
+"het mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/ExternalMTA.pm:142
 #, perl-brace-format
 msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
 msgstr ""
+"Onjuiste externe MTA {mta}. Lokale netwerk adressen zijn niet toegestaan."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:69
 msgid "Antivirus enabled"
@@ -9678,7 +9412,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:781
 msgid "POP Transparent Proxy"
-msgstr ""
+msgstr "POP transparante proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:113
 msgid ""
@@ -9732,13 +9466,12 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:348
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:789
 msgid "Antispam"
-msgstr ""
+msgstr "Antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:60
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:774
-#, fuzzy
 msgid "SMTP Mail Filter"
-msgstr "MailFilter systeem"
+msgstr "SMTP Mail filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/ExternalConnections.pm:59
 msgid "External connections"
@@ -9772,7 +9505,7 @@ msgstr "MailFilter systeem"
 #: ../../main/mailfilter/src/EBox/MailFilter/VDomainsLdap.pm:537
 #, perl-brace-format
 msgid "Virtual mail domain {vd} does not exist"
-msgstr ""
+msgstr "Virtueel mail domein {vd} bestaat niet"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:58
 msgid " To configure spamassassin daemon"
@@ -9806,15 +9539,15 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:61
 msgid " To configure p3scan"
-msgstr ""
+msgstr "p3scan configureren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:66
 msgid "To configure renattach"
-msgstr ""
+msgstr "Renattach configureren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:322
 msgid "Transparent POP Proxy"
-msgstr ""
+msgstr "Transparante POP proxy"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/AntispamThreshold.pm:135
 msgid "Write down a decimal number"
@@ -9905,6 +9638,8 @@ msgstr "Voeg spam en ham systeem gebruikers toe"
 msgid ""
 "This users are for the email accounts used for training the bayesian filter"
 msgstr ""
+"Deze gebruikers worden gebruikt om het bayesiaans filter te trainen voor "
+"email accounts"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:97
 msgid "Update LDAP"
@@ -9942,7 +9677,7 @@ msgstr "Afzender adres"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:606
 msgid "Recipient address"
-msgstr "Ontvangst adres"
+msgstr "Adres ontvanger"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:608
 msgid "Spam hits"
@@ -9950,7 +9685,7 @@ msgstr "Spam meldingen"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:613
 msgid "Bad header found"
-msgstr ""
+msgstr "Slechte header gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:614
 msgid "Spam found"
@@ -9958,7 +9693,7 @@ msgstr "Spam gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:615
 msgid "Forbidden attached file found"
-msgstr ""
+msgstr "Ongeoorloofde bijlage gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:616
 msgid "Address in blacklist found"
@@ -9970,7 +9705,7 @@ msgstr "Virus gevonden"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:618
 msgid "Clean message"
-msgstr ""
+msgstr "Veilig bericht"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:619
 #, fuzzy
@@ -9978,33 +9713,32 @@ msgid "Unable to reinject in the mail server"
 msgstr "Kan {smtp} server niet bereiken"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:628
-#, fuzzy
 msgid "SMTP filter"
-msgstr "MailFilter systeem"
+msgstr "SMTP filter"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:648
 msgid "Account"
-msgstr ""
+msgstr "Account"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:649
 msgid "Client's address"
-msgstr ""
+msgstr "Client's adres"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:652
 msgid "Total messages"
-msgstr ""
+msgstr "Totaal aantal berichten"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:653
 msgid "Clean messages"
-msgstr ""
+msgstr "Veilige berichten"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:654
 msgid "Virus messages"
-msgstr ""
+msgstr "Virus berichten"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:655
 msgid "Spam messages"
-msgstr ""
+msgstr "Spam berichten"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:662
 msgid "POP3 transmission complete"
@@ -10042,9 +9776,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/l7-protocols/src/EBox/Model/Protocols.pm:61
-#, fuzzy
 msgid "Layer 7 protocols"
-msgstr "protocol"
+msgstr "Layer 7 protocols"
 
 #: ../../main/l7-protocols/src/EBox/L7Protocols.pm:51
 #, fuzzy
@@ -10462,13 +10195,8 @@ msgstr ""
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:89
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:322
-#, fuzzy
 msgid "Virtual host"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Virtuele host\n"
-"#-#-#-#-#  nl.po (ebox-webserver 0.12)  #-#-#-#-#\n"
-"Virtuele gastheer"
+msgstr "Virtuele host"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:59
 msgid ""
@@ -10497,14 +10225,8 @@ msgstr ""
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:46
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Mode.pm:67
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2615
-#, fuzzy
 msgid "Mode"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  nl.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Wijze\n"
-"#-#-#-#-#  nl.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Methode"
+msgstr "Mode"
 
 #: ../../main/webmail/src/EBox/WebMail/Model/OperationMode.pm:55
 msgid "Operation mode"
@@ -10833,23 +10555,8 @@ msgstr ""
 #: ../../main/users/src/templates/group.mas:26
 #: ../../main/users/src/templates/user.mas:100
 #: ../../main/users/src/templates/user.mas:101
-#, fuzzy
 msgid "Change"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Wijzigen\n"
-"#-#-#-#-#  nl.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Wijzigen\n"
-"#-#-#-#-#  nl.po (ebox-ntp 0.12)  #-#-#-#-#\n"
-"Wijzig\n"
-"#-#-#-#-#  nl.po (ebox-samba 0.12)  #-#-#-#-#\n"
-"Wijzigen\n"
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Wijzig\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Wijzigen\n"
-"#-#-#-#-#  nl.po (ebox-jabber 0.12)  #-#-#-#-#\n"
-"Wijzigen"
+msgstr "Wijzigen"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:292
 #, fuzzy
@@ -11645,13 +11352,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Apache.pm:607
 #: ../../main/services/src/EBox/Services.pm:112
 #: ../../main/services/src/EBox/Services.pm:485
-#, fuzzy
 msgid "Zentyal Administration Web Server"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-services 0.12)  #-#-#-#-#\n"
-"eBox Beheer Web Server \n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Diensten"
+msgstr "Zentyal Administratie Webserver"
 
 #: ../../main/core/src/EBox/Html.pm:39
 #: ../../main/core/src/templates/wizard.mas:160
@@ -11822,56 +11524,55 @@ msgid "The value shouldn't be less than {m}"
 msgstr ""
 
 #: ../../main/core/src/EBox/Types/HTML.pm:101
-#, fuzzy
 msgid "It must be a valid HTML string"
-msgstr "Het moet een geldige subdomein naam zijn"
+msgstr "Het moet een geldige HTML string zijn"
 
 #: ../../main/core/src/EBox/Types/DomainName.pm:117
 msgid "IP addresses are not allowed"
-msgstr ""
+msgstr "IP adressen zijn niet toegestaan"
 
 #: ../../main/core/src/EBox/Types/Select.pm:373
 #, perl-brace-format
 msgid "Choose a value within the value set: {set}"
-msgstr ""
+msgstr "Kies een waarde uit de set: {set}"
 
 #: ../../main/core/src/EBox/Types/Password.pm:164
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The password should have at least {minLength} characters"
-msgstr "Het nieuwe paswoord moet minstens 6 tekens lang zijn"
+msgstr "Het nieuwe wachtwoord moet minstens {minLength} tekens lang zijn"
 
 #: ../../main/core/src/EBox/Types/Password.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The password should have at most {maxLength} characters"
-msgstr "Het nieuwe paswoord moet minstens 6 tekens lang zijn"
+msgstr "Het wachtwoord mag maximaal {mostLength} tekens lang zijn"
 
 #: ../../main/core/src/EBox/Types/Password.pm:189
 msgid "Password mismatch, make sure passwords are identical"
-msgstr ""
+msgstr "Wachtwoord fout, wees er zeker van dat wachtwoorden identiek zijn"
 
 #: ../../main/core/src/EBox/Types/Int.pm:154
 msgid "Enter an integer number"
-msgstr ""
+msgstr "Vul een integer getal in"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:294
-#, fuzzy
 msgid "Single port"
-msgstr "Fout rapport"
+msgstr "Enkele poort"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:298
-#, fuzzy
 msgid "Port range"
-msgstr "Paswoord veranderd"
+msgstr "Poort bereik"
 
 #: ../../main/core/src/EBox/Types/PortRange.pm:415
 #, perl-brace-format
 msgid "\"From\" {from} must be greater than \"To\" {to}"
-msgstr ""
+msgstr "\"Van\" {from} moet groter zijn dan \"Aan\" {to}"
 
 #: ../../main/core/src/EBox/Event/Dispatcher/Jabber.pm:206
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed."
 msgstr ""
+"Jabber server {serverName} is uitgeschakeld of verbinding is niet "
+"toegestaan."
 
 #: ../../main/core/src/EBox/Event/Dispatcher/Jabber.pm:228
 #, perl-brace-format
@@ -12035,12 +11736,12 @@ msgstr ""
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:421
 #, perl-brace-format
 msgid "Status: {percentage} completed."
-msgstr ""
+msgstr "Status: {percentage} voltooid."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:424
 #, perl-brace-format
 msgid "Estimated finish time: {time}."
-msgstr ""
+msgstr "Verwachte eind tijd: (time}."
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:454
 #, perl-brace-format
@@ -12270,17 +11971,12 @@ msgstr "Fout rapport"
 #: ../../main/core/src/EBox/CGI/ClientRawBase.pm:210
 #: ../../main/core/src/EBox/CGI/WizardPage.pm:151
 #: ../../main/core/src/EBox/CGI/Base.pm:359
-#, fuzzy
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
-"#-#-#-#-#  nl.po (libebox 0.12.1)  #-#-#-#-#\n"
 "Er is een interne fout met betrekking tot een sjabloon opgetreden. Dit is "
-"een bug, relevante informatie kan in de logbestanden gevonden worden.\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Er is een interne fout m.b.t. een template opgetreden. Dit is een 'bug', "
-"Relevante informatie kan in de logging teruggevonden worden."
+"een bug, relevante informatie kan in de logbestanden gevonden worden."
 
 #: ../../main/core/src/EBox/CGI/Progress.pm:81
 #: ../../main/core/src/EBox/CGI/Progress.pm:106
@@ -13142,12 +12838,8 @@ msgid "External accounts aliases"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:90
-#, fuzzy
 msgid "List of Domains"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Domeinen\n"
-"#-#-#-#-#  nl.po (ebox-mail 0.12)  #-#-#-#-#\n"
+msgstr "Lijst met Domeinen"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:101
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:64
@@ -14204,9 +13896,8 @@ msgid "To serve pages over HTTPS."
 msgstr "Pagina's aanbieden over HTTPS."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:140
-#, fuzzy
 msgid "Remove apache2 init script link"
-msgstr "Verwijder ntp init script koppelingen"
+msgstr "Verwijder apache2 init script koppeling"
 
 # of overdrachtsprotocol voor hypertekst
 #: ../../main/webserver/src/EBox/WebServer.pm:166
@@ -14231,13 +13922,8 @@ msgstr "Instellingen antwoordapparaat"
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:58
 #: ../../main/core/src/templates/password.mas:39
-#, fuzzy
 msgid "New password"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Nieuw wachtwoord\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Nieuw paswoord"
+msgstr "Nieuw wachtwoord"
 
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:107
 msgid "Attach messages"
@@ -14283,12 +13969,8 @@ msgid "Email notified"
 msgstr ""
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:153
-#, fuzzy
 msgid "List of Phones"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Domeinen\n"
-"#-#-#-#-#  nl.po (ebox-mail 0.12)  #-#-#-#-#\n"
+msgstr "Lijst met Telefoonnummers"
 
 #: ../../main/asterisk/src/EBox/Model/Phones.pm:154
 #: ../../main/asterisk/src/EBox/Asterisk.pm:557
@@ -15241,13 +14923,8 @@ msgid "Restoring log database"
 msgstr "Module herstel vanuit back-up"
 
 #: ../../main/ebackup/src/scripts/restore-tool:754
-#, fuzzy
 msgid "Restoring configuration backup"
-msgstr ""
-"#-#-#-#-#  nl.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Configuratie reservekopie\n"
-"#-#-#-#-#  nl.po (ebox 0.12)  #-#-#-#-#\n"
-"Configuratie back-up"
+msgstr "Herstellen van configuratie backup"
 
 #: ../../main/ebackup/src/scripts/restore-tool:759
 msgid ""
