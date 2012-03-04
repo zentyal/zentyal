@@ -705,14 +705,14 @@ sub _setConf
 
     my $sambaZone = undef;
     my $sambaKeytab = undef;
-    if (EBox::Global->modExists('samba4')) {
-        my $sambaModule = EBox::Global->modInstance('samba4');
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled()) {
-            if (EBox::Sudo::fileTest('-f', EBox::Samba4::SAMBADNSZONE())) {
-                $sambaZone = EBox::Samba4::SAMBADNSZONE();
+            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBADNSZONE())) {
+                $sambaZone = EBox::Samba::SAMBADNSZONE();
             }
-            if (EBox::Sudo::fileTest('-f', EBox::Samba4::SAMBADNSKEYTAB())) {
-                $sambaKeytab = EBox::Samba4::SAMBADNSKEYTAB();
+            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBADNSKEYTAB())) {
+                $sambaKeytab = EBox::Samba::SAMBADNSKEYTAB();
             }
         }
     }
