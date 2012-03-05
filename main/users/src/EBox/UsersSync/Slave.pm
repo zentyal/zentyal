@@ -37,18 +37,57 @@ sub new
 {
     my ($class, $host, $port) = @_;
     my $self = $class->SUPER::new(name => "users-$host-$port");
+    $self->{host} = $host;
+    $self->{port} = $port;
     bless($self, $class);
     return $self;
 }
+
+
+sub _addUser
+{
+    my ($self, $user, $pass) = @_;
+    $self->soapClient->addUser($user, $pass);
+    return 0;
+}
+
+sub _delUser
+{
+    my ($self, $user) = @_;
+    $self->soapClient->delUser($user->dn());
+    return 0;
+}
+
+sub _modifyUser
+{
+
+}
+
+sub _addGroup
+{
+
+}
+
+sub _modifyGroup
+{
+
+}
+
+sub _delGroup
+{
+
+}
+
+
 
 # CLIENT METHODS
 
 sub soapClient
 {
-    my ($self, $slave) = @_;
+    my ($self) = @_;
 
-    my $hostname = $slave->{'hostname'};
-    my $port = $slave->{'port'};
+    my $hostname = $self->{host};
+    my $port = $self->{port};
 
     my $client = EBox::SOAPClient->instance(
         name  => 'urn:Users/Slave',

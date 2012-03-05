@@ -28,6 +28,7 @@ use base 'EBox::LdapUserBase';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
+use Error qw(:try);
 
 
 # Method: new
@@ -48,6 +49,24 @@ sub new
 
     bless($self, $class);
     return $self;
+}
+
+
+# Method: sync
+#
+#   Synchronize an action
+sub sync
+{
+    my ($self, $signal, $args) = @_;
+
+    try {
+        my $method = '_' . $signal;
+        $self->$method(@{$args});
+    } otherwise {
+        # Sync failed, save pending action
+        # TODO save pending aciton
+        EBox::debug("Error processing $signal");
+    };
 }
 
 

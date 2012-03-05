@@ -332,6 +332,9 @@ sub _setConf
 
     $self->_setupNSSPAM();
 
+    # Configure soap service
+    $self->master->confSOAPService();
+
     # Configure as slave if enabled
     $self->master->setupSlave();
 }
@@ -764,7 +767,7 @@ sub notifyModsLdapUserBase
 
     # Notify slaves
     foreach my $slave (@{$self->_allSlaves}) {
-        $slave->$method(@{$args});
+        $slave->sync($signal, $args);
     }
 }
 
