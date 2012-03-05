@@ -25,25 +25,41 @@ use EBox::Global;
 use Devel::StackTrace;
 use SOAP::Lite;
 
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
+
 # Group: Public class methods
 
-# Method: addUser
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
 sub addUser
 {
-    my ($class, $user, $password) = @_;
+    my ($self, $user) = @_;
+
+    use Data::Dumper;
+    EBox::debug(Dumper($user));
+
+    EBox::UsersAndGroups::User->create($user);
+
+    return $self->_soapResult(0);
+}
+
+sub modifyUser
+{
+    my ($class, $user) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    $users->waitSync();
-    $users->rewriteObjectClasses("uid=$user," . $users->usersDn);
-    $users->initUser($user, $password);
+    $users->updateUser($user);
 
     return $class->_soapResult(0);
+}
+
+sub delUser
+{
+    my ($self, $dn) = @_;
+
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    $user->deleteObject();
+
+    return $self->_soapResult(0);
 }
 
 sub addGroup
@@ -58,17 +74,7 @@ sub addGroup
     return $class->_soapResult(0);
 }
 
-sub modifyUser
-{
-    my ($class, $user) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    $users->updateUser($user);
-
-    return $class->_soapResult(0);
-}
-
-sub updateGroup
+sub modifyGroup
 {
     my ($class, $group, @params) = @_;
 
@@ -78,24 +84,14 @@ sub updateGroup
     return $class->_soapResult(0);
 }
 
-sub delUser
-{
-    my ($class, $user) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    $users->delUserSlave($user);
-
-    return $class->_soapResult(0);
-}
-
 sub delGroup
 {
-    my ($class, $group) = @_;
+    my ($self, $dn) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    $users->delGroupSlave($group);
+    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    $group->deleteObject();
 
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 # Method: URI

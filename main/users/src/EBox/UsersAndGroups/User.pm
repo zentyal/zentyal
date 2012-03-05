@@ -401,9 +401,9 @@ sub create
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
     my $dn;
-    if (EBox::Config::configkey('multiple_ous') and $params{ou}) {
-        $dn = 'uid=' . $user->{user} . ',' . $params{ou};
-        $isDefaultOU = ($dn eq $users->usersDn());
+    if (EBox::Config::configkey('multiple_ous') and $user->{ou}) {
+        $dn = 'uid=' . $user->{user} . ',' . $user->{ou};
+        $isDefaultOU = ($user->{ou} eq $users->usersDn());
     }
     else {
         $dn = $users->userDn($user->{'user'});
@@ -489,9 +489,9 @@ sub create
 
     my $quota = $self->defaultQuota();
     my @attr =  (
-        'cn'            => $user->{'fullname'},
-        'uid'           => $user->{'user'},
-        'sn'            => $user->{'surname'},
+        'cn'            => $user->{fullname},
+        'uid'           => $user->{user},
+        'sn'            => $user->{surname},
         'givenName'     => $user->{givenname},
         'loginShell'    => $self->_loginShell(),
         'uidNumber'     => $uid,

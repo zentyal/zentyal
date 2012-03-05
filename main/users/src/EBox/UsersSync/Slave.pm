@@ -24,6 +24,7 @@ use base 'EBox::UsersAndGroups::Slave';
 # Dir containing certificates for this master
 use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
 
+use EBox::Global;
 use EBox::Exceptions::External;
 use EBox::Util::Random;
 use EBox::Sudo;
@@ -47,8 +48,33 @@ sub new
 sub _addUser
 {
     my ($self, $user, $pass) = @_;
-    $self->soapClient->addUser($user, $pass);
+
+    my $userinfo = {
+        user       => $user->get('uid'),
+        fullname   => $user->get('cn'),
+        surname    => $user->get('sn'),
+        givenname  => $user->get('givenName'),
+        password   => $pass,
+    };
+
+    if ($user->get('description')) {
+        $userinfo->{comment} = $user->get('description');
+    }
+
+    # Different OU?
+    my $users = EBox::Global->modInstance('users');
+    if ($user->baseDn() ne $users->usersDn()) {
+        $userinfo->{ou} = $user->baseDn();
+    }
+
+    $self->soapClient->addUser($userinfo);
+
     return 0;
+}
+
+sub _modifyUser
+{
+
 }
 
 sub _delUser
@@ -56,11 +82,6 @@ sub _delUser
     my ($self, $user) = @_;
     $self->soapClient->delUser($user->dn());
     return 0;
-}
-
-sub _modifyUser
-{
-
 }
 
 sub _addGroup
@@ -75,7 +96,9 @@ sub _modifyGroup
 
 sub _delGroup
 {
-
+    my ($self, $group) = @_;
+    $self->soapClient->delGroup($group->dn());
+    return 0;
 }
 
 
@@ -89,6 +112,8 @@ sub soapClient
     my $hostname = $self->{host};
     my $port = $self->{port};
 
+
+    $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $client = EBox::SOAPClient->instance(
         name  => 'urn:Users/Slave',
         proxy => "https://$hostname:$port/slave",
