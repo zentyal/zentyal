@@ -10,6 +10,8 @@ use Data::Dumper;
 use EBox;
 use EBox::Global;
 
+my $PERIOD = 60; # TODO: move this to conf?
+
 # There users and groups won't be synchronized to LDAP
 my $dnsUserToIgnore = 'dns-' . hostname();
 my @sambaUsersToIgnore = ('krbtgt', 'Administrator', $dnsUserToIgnore, 'Guest');
@@ -464,80 +466,85 @@ sub updateLdapUser
 EBox::init();
 
 my $usersModule = EBox::Global->modInstance('users');
-my $ldapUsers = getLdapUsers ($usersModule, \@ldapUsersToIgnore);
-my $ldapGroups = getLdapGroups ($usersModule, \@ldapGroupsToIgnore);
-
 my $sambaModule = EBox::Global->modInstance('samba');
-my $sambaUsers = getSambaUsers ($sambaModule, \@sambaUsersToIgnore);
-my $sambaGroups = getSambaGroups ($sambaModule, \@sambaGroupsToIgnore);
 
-debug ("Got " . scalar(keys(%{$sambaUsers})) . " samba users and " .
-        scalar(keys(%{$ldapUsers})) . " ldap users" );
-debug ("Got " . scalar(keys(%{$sambaGroups})) . " samba groups and " .
-        scalar(keys(%{$ldapGroups})) . " ldap groups" );
+while (1) {
+    my $ldapUsers = getLdapUsers ($usersModule, \@ldapUsersToIgnore);
+    my $ldapGroups = getLdapGroups ($usersModule, \@ldapGroupsToIgnore);
 
-# Insert new users from Samba to LDAP
-foreach my $sambaUser (keys %{$sambaUsers}) {
-    # If the user exists in samba but not in LDAP insert in LDAP
-    unless (exists $ldapUsers->{$sambaUser}) {
-        # Get the user credentials
-        my $ldb = $sambaModule->ldb();
-        my $userCredentials = $ldb->getSambaCredentials($sambaUser);
-        addLdapUser ($usersModule, $userCredentials, $sambaUsers->{$sambaUser});
-    }
-}
+    my $sambaUsers = getSambaUsers ($sambaModule, \@sambaUsersToIgnore);
+    my $sambaGroups = getSambaGroups ($sambaModule, \@sambaGroupsToIgnore);
 
-# Insert new groups from Samba to LDAP
-foreach my $sambaGroup (keys %{$sambaGroups}) {
-    # If the group exists in samba but not in LDAP insert in LDAP
-    unless (exists $ldapGroups->{$sambaGroup}) {
-        addLdapGroup ($usersModule, $sambaGroups->{$sambaGroup});
-    }
-}
+    debug ("Got " . scalar(keys(%{$sambaUsers})) . " samba users and " .
+            scalar(keys(%{$ldapUsers})) . " ldap users" );
+    debug ("Got " . scalar(keys(%{$sambaGroups})) . " samba groups and " .
+            scalar(keys(%{$ldapGroups})) . " ldap groups" );
 
-# Delete users that are not in Samba
-foreach my $user (keys %{$ldapUsers}) {
-    # If the user exists in LDAP but not in samba, delete from LDAP
-    unless (exists $sambaUsers->{$user}) {
-        delLdapUser ($usersModule, $user);
-    }
-}
-
-# Delete groups that are not in Samba
-foreach my $group (keys %{$ldapGroups}) {
-    # If the group exists in LDAP but not in samba, delete from LDAP
-    unless (exists $sambaGroups->{$group}) {
-        delLdapGroup ($usersModule, $group);
-    }
-}
-
-# Sync user information like passwords, descriptions from Samba to LDAP
-foreach my $userId (keys %{$sambaUsers}) {
-    my $sambaChangeTime = @{$sambaUsers->{$userId}->{whenChanged}}[0];
-    if (exists $ldapUsers->{$userId}) {
-        my $ldapChangeTime = $ldapUsers->{$userId}->get_value('modifyTimestamp');
-        $sambaChangeTime =~ s/(\.\d*)?Z//g;
-        $ldapChangeTime =~ s/(\.\d*)?Z//g;
-
-        if ($sambaChangeTime > $ldapChangeTime) {
-            my $user = $sambaUsers->{$userId};
-            updateLdapUser ($usersModule, $sambaModule, $user);
+    # Insert new users from Samba to LDAP
+    foreach my $sambaUser (keys %{$sambaUsers}) {
+        # If the user exists in samba but not in LDAP insert in LDAP
+        unless (exists $ldapUsers->{$sambaUser}) {
+            # Get the user credentials
+            my $ldb = $sambaModule->ldb();
+            my $userCredentials = $ldb->getSambaCredentials($sambaUser);
+            addLdapUser ($usersModule, $userCredentials, $sambaUsers->{$sambaUser});
         }
     }
-}
 
-# Sync group memberships from Samba to LDAP
-foreach my $groupId (keys %{$sambaGroups}) {
-    my $sambaChangeTime = @{$sambaGroups->{$groupId}->{whenChanged}}[0];
-    if (exists $ldapGroups->{$groupId}) {
-        my $ldapChangeTime = $ldapGroups->{$groupId}->get_value('modifyTimestamp');
-        $sambaChangeTime =~ s/(\.\d*)?Z//g;
-        $ldapChangeTime =~ s/(\.\d*)?Z//g;
-        if ($sambaChangeTime > $ldapChangeTime) {
-            my $sambaGroup = $sambaGroups->{$groupId};
-            my $ldapGroup = $ldapGroups->{$groupId};
-            updateLdapGroup ($usersModule, $sambaModule, $sambaGroup, $ldapGroup,
-                             \@sambaUsersToIgnore, \@ldapUsersToIgnore);
+    # Insert new groups from Samba to LDAP
+    foreach my $sambaGroup (keys %{$sambaGroups}) {
+        # If the group exists in samba but not in LDAP insert in LDAP
+        unless (exists $ldapGroups->{$sambaGroup}) {
+            addLdapGroup ($usersModule, $sambaGroups->{$sambaGroup});
         }
     }
+
+    # Delete users that are not in Samba
+    foreach my $user (keys %{$ldapUsers}) {
+        # If the user exists in LDAP but not in samba, delete from LDAP
+        unless (exists $sambaUsers->{$user}) {
+            delLdapUser ($usersModule, $user);
+        }
+    }
+
+    # Delete groups that are not in Samba
+    foreach my $group (keys %{$ldapGroups}) {
+        # If the group exists in LDAP but not in samba, delete from LDAP
+        unless (exists $sambaGroups->{$group}) {
+            delLdapGroup ($usersModule, $group);
+        }
+    }
+
+    # Sync user information like passwords, descriptions from Samba to LDAP
+    foreach my $userId (keys %{$sambaUsers}) {
+        my $sambaChangeTime = @{$sambaUsers->{$userId}->{whenChanged}}[0];
+        if (exists $ldapUsers->{$userId}) {
+            my $ldapChangeTime = $ldapUsers->{$userId}->get_value('modifyTimestamp');
+            $sambaChangeTime =~ s/(\.\d*)?Z//g;
+            $ldapChangeTime =~ s/(\.\d*)?Z//g;
+
+            if ($sambaChangeTime > $ldapChangeTime) {
+                my $user = $sambaUsers->{$userId};
+                updateLdapUser ($usersModule, $sambaModule, $user);
+            }
+        }
+    }
+
+    # Sync group memberships from Samba to LDAP
+    foreach my $groupId (keys %{$sambaGroups}) {
+        my $sambaChangeTime = @{$sambaGroups->{$groupId}->{whenChanged}}[0];
+        if (exists $ldapGroups->{$groupId}) {
+            my $ldapChangeTime = $ldapGroups->{$groupId}->get_value('modifyTimestamp');
+            $sambaChangeTime =~ s/(\.\d*)?Z//g;
+            $ldapChangeTime =~ s/(\.\d*)?Z//g;
+            if ($sambaChangeTime > $ldapChangeTime) {
+                my $sambaGroup = $sambaGroups->{$groupId};
+                my $ldapGroup = $ldapGroups->{$groupId};
+                updateLdapGroup ($usersModule, $sambaModule, $sambaGroup, $ldapGroup,
+                        \@sambaUsersToIgnore, \@ldapUsersToIgnore);
+            }
+        }
+    }
+
+    sleep ($PERIOD);
 }

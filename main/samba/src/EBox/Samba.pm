@@ -774,6 +774,9 @@ sub _daemons
         {
             'name' => 'samba4',
         },
+        {
+            'name' => 'zentyal.s4sync',
+        },
     ];
 }
 
