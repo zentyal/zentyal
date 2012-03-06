@@ -1,4 +1,5 @@
 HEAD
+    + Zentyal desktop launcher now works if server port has changed
     + Install zentyal on second stage to workaround lack of upstart
     + New autobuild script for a more clean and automated generation
     + Use Zentyal color palette and set default hostname to zentyal
