@@ -1,10 +1,24 @@
 #!/usr/bin/perl
+# Copyright (C) 2010-2012 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 use strict;
 use warnings;
 
 # for performance we check first if there are pending operations
-unless (grep { -d $_ } </var/lib/zentyal*/conf/userjournal/*>) {
+unless (grep { -d $_ } </var/lib/zentyal*/syncjournal/*>) {
     exit 0;
 }
 
@@ -15,7 +29,7 @@ use EBox::Util::Lock;
 
 use Error qw(:try);
 
-use constant LOCK_NAME      => 'zentyal-slave-sync';
+use constant LOCK_NAME => 'zentyal-slave-sync';
 
 my $mode = 'run';
 if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
@@ -28,17 +42,18 @@ $users->configured() or exit 0;
 
 EBox::Util::Lock::lock(LOCK_NAME);
 
+my $slaves = $users->allSlaves();
 try {
-    @{$users->listSlaves()} or exit 0;
+    (@{$slaves}) or exit 0;
 } otherwise {
     exit 0;
 };
 
-processDir(EBox::Config::conf() . 'userjournal/');
+processDir($slaves, EBox::Config::home() . 'syncjournal/');
 
 if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
-    processDir(EBox::UserCorner::usercornerdir() . 'userjournal/');
+    processDir($slaves, EBox::UserCorner::usercornerdir() . 'syncjournal/');
 }
 
 EBox::Util::Lock::unlock(LOCK_NAME);
@@ -47,15 +62,13 @@ exit 0;
 
 sub processSlaveDir
 {
-    my ($journaldir, $slave) = @_;
+    my ($slave, $dir) = @_;
 
-    my $host = $slave->{'hostname'};
+    my $name = $slave->name;
 
     if ($mode eq 'list') {
-        print "Slave: $host\n";
+        print "Slave: $name\n";
     }
-
-    my $dir = "$journaldir$host/";
 
     my $dh;
     opendir($dh, $dir) or
@@ -64,7 +77,7 @@ sub processSlaveDir
     my %files;
     while (defined(my $file = readdir($dh))) {
         (-d "$dir$file" and next);
-        $files{$file}=(stat("$dir$file"))[9];
+        $files{$file} = (stat("$dir$file"))[9];
     }
     closedir($dh);
 
@@ -101,17 +114,15 @@ sub processFile
 
 sub processDir
 {
-    my ($journaldir) = @_;
+    my ($slaves, $journaldir) = @_;
 
     my $jdir;
     opendir($jdir, $journaldir) or die "Can't open the journal dir: $journaldir\n";
 
-    while (defined(my $slave = readdir($jdir))) {
-        ($slave=~ m/^\./) and next;
-        $slave = $users->slaveInfo($slave);
-        if ($slave) {
-            processSlaveDir($journaldir, $slave);
-        }
+    foreach my $slave (@{$slaves}) {
+        my $name = $slave->name();
+        my $slavedir = "$journaldir/$name/";
+        processSlaveDir($slave, $slavedir);
     }
     closedir($jdir);
 }

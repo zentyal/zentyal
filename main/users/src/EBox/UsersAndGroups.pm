@@ -708,11 +708,11 @@ sub _modsLdapUserBase
 }
 
 
-# Method: _allSlaves
+# Method: allSlaves
 #
 # Returns all slaves from LDAP Sync Provider
 #
-sub _allSlaves
+sub allSlaves
 {
     my ($self) = @_;
 
@@ -767,7 +767,7 @@ sub notifyModsLdapUserBase
     }
 
     # Notify slaves
-    foreach my $slave (@{$self->_allSlaves}) {
+    foreach my $slave (@{$self->allSlaves}) {
         $slave->sync($signal, $args);
     }
 }
