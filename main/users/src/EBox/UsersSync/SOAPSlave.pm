@@ -34,9 +34,6 @@ sub addUser
 {
     my ($self, $user) = @_;
 
-    use Data::Dumper;
-    EBox::debug(Dumper($user));
-
     EBox::UsersAndGroups::User->create($user);
 
     return $self->_soapResult(0);
@@ -44,10 +41,18 @@ sub addUser
 
 sub modifyUser
 {
-    my ($class, $user) = @_;
+    my ($class, $userinfo) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    $users->updateUser($user);
+    my $user = new EBox::UsersAndGroups::User(dn => $userinfo->{dn});
+    $user->set('cn', $userinfo->{fullname}, 1);
+    $user->set('sn', $userinfo->{surname}, 1);
+    $user->set('givenname', $userinfo->{givenname}, 1);
+
+    if ($userinfo->{password}) {
+        $user->changePassword($userinfo->{password}, 1);
+    }
+
+    $user->save();
 
     return $class->_soapResult(0);
 }
@@ -66,22 +71,19 @@ sub addGroup
 {
     my ($class, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    $users->waitSync();
-    $users->rewriteObjectClasses("cn=$group," . $users->groupsDn);
-    $users->initGroup($group);
+    EBox::UsersAndGroups::Group->create($group->{name}, $group->{comment});
 
     return $class->_soapResult(0);
 }
 
 sub modifyGroup
 {
-    my ($class, $group, @params) = @_;
+    my ($self, $groupinfo) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    $users->updateGroupLocal($group, @params);
+    my $group = new EBox::UsersAndGroups::Group(dn => $groupinfo->{dn});
+    $group->set('member', $groupinfo->{members});
 
-    return $class->_soapResult(0);
+    return 1;
 }
 
 sub delGroup

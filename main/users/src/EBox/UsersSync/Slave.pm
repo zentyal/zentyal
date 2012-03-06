@@ -74,7 +74,24 @@ sub _addUser
 
 sub _modifyUser
 {
+    my ($self, $user, $pass) = @_;
 
+    my $userinfo = {
+        dn         => $user->dn(),
+        fullname   => $user->get('cn'),
+        surname    => $user->get('sn'),
+        givenname  => $user->get('givenName'),
+    };
+
+    $userinfo->{password} = $pass if ($pass);
+
+    if ($user->get('description')) {
+        $userinfo->{description} = $user->get('description');
+    }
+
+    $self->soapClient->modifyUser($userinfo);
+
+    return 0;
 }
 
 sub _delUser
@@ -86,12 +103,31 @@ sub _delUser
 
 sub _addGroup
 {
+    my ($self, $group) = @_;
 
+    my $groupinfo = {
+        name     => $group->name(),
+        comment  => $group->get('description'),
+    };
+
+    $self->soapClient->addGroup($groupinfo);
+
+    return 0;
 }
 
 sub _modifyGroup
 {
+    my ($self, $group) = @_;
 
+    my @members = $group->get('member');
+    my $groupinfo = {
+        dn       => $group->dn(),
+        members  => \@members,
+    };
+
+    $self->soapClient->modifyGroup($groupinfo);
+
+    return 0;
 }
 
 sub _delGroup
