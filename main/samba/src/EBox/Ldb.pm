@@ -26,6 +26,7 @@ use LDB;
 use Array::Diff;
 use MIME::Base64;
 use Encode qw(decode encode);
+use Error qw(:try);
 
 use constant LDB_DIR => '/var/lib/samba/private/sam.ldb.d';
 use constant IDMAP_FILE => '/var/lib/samba/private/idmap.ldb';
@@ -620,10 +621,10 @@ sub xidMapping
             my $class = undef;
             my $entry = pop (@{$result});
             foreach my $value (@{$entry->{objectClass}}) {
-                if ($value == 'user') {
+                if ($value eq 'user') {
                     $class = 'ID_TYPE_UID';
                     last;
-                } elsif ($value == 'group') {
+                } elsif ($value eq 'group') {
                     $class = 'ID_TYPE_GID';
                     last;
                 } else {
@@ -840,18 +841,31 @@ sub syncGroupMembersLdbToLdap
 
     # Add the missing members to the group
     foreach my $memberId (@{$diff->added}) {
-        my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
-        EBox::debug('Adding user ' . $user->name() . ' to LDAP group');
-        $group->addMember($user, 1);
+        try {
+            my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
+            EBox::debug('Adding user ' . $user->name() . ' to LDAP group');
+            $group->addMember($user, 1);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error adding user '$memberId' to group '$groupId': $error");
+        };
     }
 
     # Remove the members
     foreach my $memberId (@{$diff->deleted}) {
-        my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
-        EBox::debug('Removing user ' . $user->name() . ' from LDAP group');
-        $group->removeMember($user, 1);
+        try {
+            my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
+            EBox::debug('Removing user ' . $user->name() . ' from LDAP group');
+            $group->removeMember($user, 1);
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error removing user '$memberId' from group '$groupId': $error");
+        };
     }
-    $group->save(['samba']);
+
+    if ($group->{core_changed}) {
+        $group->save(['samba']);
+    }
 }
 
 1;

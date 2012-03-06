@@ -165,6 +165,7 @@ sub _delUser
         my $cmd = $self->{samba}->SAMBATOOL() . " user delete $userId";
         EBox::debug("Deleting user '$userId' from LDB");
         EBox::Sudo::root($cmd);
+        # TODO Update shares ACLs
     }
 }
 
@@ -246,6 +247,7 @@ sub _delGroup
         my $cmd = $self->{samba}->SAMBATOOL() . " group delete $groupId";
         EBox::debug("Deleting group '$groupId' from LDB");
         EBox::Sudo::root($cmd);
+        # TODO Update shares ACLs
     }
 }
 

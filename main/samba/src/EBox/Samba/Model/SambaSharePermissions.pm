@@ -80,7 +80,7 @@ sub populateGroup
     my $list = $userMod->groups();
     foreach my $g (@{$list}) {
         my $gr = {};
-        $gr->{value} = $g->get('gid');
+        $gr->{value} = $g->get('cn');
         $gr->{printableValue} = $g->name();
         push (@groups, $gr);
     }
