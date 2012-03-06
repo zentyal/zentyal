@@ -299,7 +299,41 @@ sub _getProfilesOptions
 
 sub _getClientsOptions
 {
-    return [];
+    my @clients;
+
+    my $mgr = EBox::Model::ModelManager->instance();
+    my $client_list = $mgr->model('ltsp/Clients');
+
+    my $global  = EBox::Global->getInstance();
+    my $objMod = $global->modInstance('objects');
+
+    my $profile_list = $mgr->model('ltsp/Profiles');
+
+    for my $id (@{$client_list->ids()}) {
+        my $row = $client_list->row($id);
+
+        my $enabled = $row->valueByName('enabled');
+        if ($enabled) {
+            my $profile_id = $row->valueByName('profile');
+            my $row_prof   = $profile_list->row($profile_id);
+            my $profile    = $row_prof->valueByName('name');
+
+            my $object_id = $row->valueByName('object');
+            my $object    = $objMod->objectMembers($object_id);
+
+            foreach my $member (@{$object}) {
+
+                if ( defined $member->{'macaddr'} ) {
+
+                    push( @clients,
+                          { profile => $profile,
+                            mac     => $member->{'macaddr'} } );
+                }
+            }
+        }
+    }
+
+    return \@clients;
 }
 
 # Method: _writeConfiguration
