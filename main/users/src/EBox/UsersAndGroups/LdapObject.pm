@@ -29,6 +29,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
+use Net::LDAP::LDIF;
+
 use Perl6::Junction qw(any);
 
 # Method: new
@@ -48,13 +50,18 @@ sub new
     my $self = {};
     bless($self, $class);
 
-    unless ( $params{entry} or $params{dn} ) {
+    unless ( $params{entry} or $params{dn} or $params{ldif} ) {
         throw EBox::Exceptions::MissingArgument('dn');
     }
 
     if ( $params{entry} ) {
         $self->{entry} = $params{entry};
         $self->{dn} = $params{entry}->dn();
+    }
+    elsif ( $params{ldif} ) {
+        my $ldif = Net::LDAP::LDIF->new($params{ldif}, "r");
+        $self->{entry} = $ldif->read_entry();
+        $self->{dn} = $self->{entry}->dn();
     }
     else {
         $self->{dn} = $params{dn};

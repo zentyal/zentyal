@@ -31,6 +31,8 @@ use EBox::Exceptions::NotImplemented;
 use Error qw(:try);
 use File::Temp qw/tempfile/;
 use JSON::XS;
+use File::Slurp;
+use EBox::UsersAndGroups::LdapObject;
 
 # Method: new
 #
@@ -61,7 +63,7 @@ sub new
 #
 sub sync
 {
-    my ($self, $signal, $args) = @_;
+    my ($self, $signal, $args, $no_save_pending) = @_;
 
     try {
         my $method = '_' . $signal;
@@ -70,11 +72,19 @@ sub sync
         # Sync failed, save pending action
         my $name = $self->name();
         EBox::debug("Error notifying $name for $signal");
-        $self->savePendingSync($signal, $args);
+
+        unless ($no_save_pending) {
+            $self->savePendingSync($signal, $args);
+        }
     };
 }
 
 
+# method: savePendingSync
+#
+#   Save a sync operaction which failed, later slaves-sync should
+#   retry it by using syncFromFile
+#
 sub savePendingSync
 {
     my ($self, $signal, $args) = @_;
@@ -106,6 +116,35 @@ sub savePendingSync
     $fh->close();
 }
 
+
+
+# method: syncFromFile
+#
+#   Try to sync a saved action from a previous failed sync
+#
+sub syncFromFile
+{
+    my ($self, $file) = @_;
+
+    my $action = decode_json(read_file($file));
+
+    my $signal = $action->{signal};
+    my $args = $action->{args};
+
+    my @params;
+    foreach my $arg (@{$args}) {
+        if (ref($arg) eq 'ARRAY') {
+            # Import LDIF
+            my ($fh, $ldif) = tempfile(UNLINK => 1);
+            print $fh join("\n", @{$arg});
+            $fh->close();
+            $arg = new EBox::UsersAndGroups::LdapObject(ldif => $ldif);
+        }
+        push (@params, $arg);
+    }
+
+    $self->sync($signal, \@params, 1);
+}
 
 sub name
 {

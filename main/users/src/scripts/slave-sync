@@ -26,6 +26,7 @@ use EBox;
 use EBox::Config;
 use EBox::Global;
 use EBox::Util::Lock;
+use File::Basename;
 
 use Error qw(:try);
 
@@ -90,25 +91,12 @@ sub processFile
 {
     my ($slave, $file) = @_;
 
-    open(FILE, $file);
-    my ($method, $param, @params) = <FILE>;
-    close(FILE);
-    chomp($method);
-    chomp($param);
-    @params = map { chomp($_); $_ } @params;
-
-    my $client = $users->soapClient($slave);
-
     if ($mode eq 'run') {
-        try {
-            $client->$method($param, @params);
-            #remove with sudo because it can be a usercorner file
-            EBox::Sudo::root("rm -f $file");
-        } otherwise {
-            EBox::debug("Trying to run method $method with param $param on slave $slave->{'hostname'} failed.");
-        };
+        $slave->syncFromFile($file);
+
     } elsif ($mode eq 'list') {
-        print " * $method: $param\n";
+        my $name = basename($file);
+        print " * $name\n";
     }
 }
 
