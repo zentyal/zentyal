@@ -60,10 +60,7 @@ use constant GROUPSDN       => 'ou=Groups';
 use constant LIBNSSLDAPFILE => '/etc/ldap.conf';
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
-use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
-use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
-use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 
 use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
@@ -333,11 +330,11 @@ sub _setConf
 
     $self->_setupNSSPAM();
 
-    # Configure soap service
-    $self->master->confSOAPService();
-
     # Configure as slave if enabled
     $self->master->setupSlave();
+
+    # Configure soap service
+    $self->master->confSOAPService();
 }
 
 sub _setupNSSPAM

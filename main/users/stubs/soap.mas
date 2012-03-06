@@ -1,7 +1,11 @@
 <%args>
   $passwords_file
-  $cert_file
+  $cert_file => ''
 </%args>
+
+% if ($cert_file) {
+SSLCACertificateFile "<% $cert_file %>"
+%}
 
 <Location /slave>
     SetHandler perl-script
@@ -10,7 +14,6 @@
         SSLRequireSSL
         SSLVerifyClient require
         SSLVerifyDepth 1
-        SSLRequire %{SSL_CLIENT_CERT} == file("<% $cert_file %>")
     </IfModule>
     Order allow,deny
     Allow from all

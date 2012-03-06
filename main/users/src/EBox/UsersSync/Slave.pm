@@ -149,10 +149,9 @@ sub soapClient
     my $port = $self->{port};
 
 
-    $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $client = EBox::SOAPClient->instance(
         name  => 'urn:Users/Slave',
-        proxy => "https://$hostname:$port/slave",
+        proxy => "https://$hostname:$port/slave/",
         certs => {
             cert => SSL_DIR . 'ssl.pem',
             private => SSL_DIR . 'ssl.key'

@@ -56,7 +56,10 @@ sub confSOAPService
 
     my @params;
     push (@params, passwords_file => MASTER_PASSWORDS_FILE);
-    push (@params, cert_file => MASTER_CERT);
+
+    if (-f MASTER_CERT) {
+        push (@params, cert_file => MASTER_CERT);
+    }
 
     EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
 
@@ -147,7 +150,7 @@ sub checkMaster
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $master = EBox::SOAPClient->instance(
         name  => 'urn:Users/Master',
-        proxy => "https://slave:$password\@$host:$port/master",
+        proxy => "https://slave:$password\@$host:$port/master/",
     );
 
 
