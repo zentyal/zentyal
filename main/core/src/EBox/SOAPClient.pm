@@ -30,6 +30,8 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Protocol;
 use Error qw(:try);
 use SOAP::Lite;
+use IO::Socket::SSL;
+
 
 # Group: Public functions
 
@@ -200,10 +202,22 @@ sub _setCerts
 
     my ($class, $certs) = @_;
 
+    # Do not verify hostname
+    $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
+
     $ENV{HTTPS_CERT_FILE} = $certs->{cert};
     $ENV{HTTPS_KEY_FILE} = $certs->{private};
+
+    # Force use of IO::Socket::SSL
+    $Net::HTTPS::SSL_SOCKET_CLASS = "IO::Socket::SSL";
+
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_cert_file} = $ENV{HTTPS_CERT_FILE};
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_key_file} = $ENV{HTTPS_KEY_FILE};
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_use_cert} = 1;
+
     if (defined($certs->{ca})) {
         $ENV{HTTPS_CA_FILE} = $certs->{ca};
+        $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_ca_file} = $certs->{ca};
     }
     $ENV{HTTPS_VERSION} = '3';
 }
