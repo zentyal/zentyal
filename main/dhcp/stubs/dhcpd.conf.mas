@@ -75,7 +75,3 @@ include "<% $keysFile %>";
 <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>
 %          }
 %	}
-
-%if ( -e '/etc/ltsp/dhcpd.conf' ) {
-include "/etc/ltsp/dhcpd.conf";
-%}

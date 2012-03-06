@@ -160,6 +160,37 @@ sub notifyForeignModelAction
 
 }
 
+# Method: nextServerIsZentyal
+#
+#     Finds out whether the next server the next server is Zentyal or not
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     Boolean - if Zentyal is the next server for the given row
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub nextServerIsZentyal
+{
+    my ($self, $id) = @_;
+
+    my $row = $self->row($id);
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
+    return ( $row->valueByName('nextServer') eq 'nextServerEBox' );
+
+}
+
 # Method: nextServer
 #
 #     Get the next server (name or IP address) in an string form to
@@ -189,15 +220,13 @@ sub nextServer
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
-    my $nextServerType = $row->elementByName('nextServer');
-    my $nextServerSelectedName = $nextServerType->selectedType();
-    given ( $nextServerSelectedName ) {
-        when ('nextServerEBox' ) {
-            my $netMod = EBox::Global->modInstance('network');
-            return $netMod->ifaceAddress($self->{interface});
+    my $nextServerType = $row->valueByName('nextServer');
+    given ( $nextServerType ) {
+        when ('nextServerHost' ) {
+            return $row->valueByName('nextServerHost');
         }
         default {
-            return $nextServerType->printableValue();
+            return '';
         }
     }
 
@@ -216,12 +245,7 @@ sub nextServer
 #
 sub _select_options
 {
-    my @ltspSubtypes = (
-        {
-            value => 'none',
-            printableValue => __('None'),
-        },
-    );
+    my @ltspSubtypes;
 
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('ltsp') ) {
@@ -235,7 +259,7 @@ sub _select_options
 
     push(@ltspSubtypes,
         {
-            value => 'nextServer',
+            value => 'nextServerHost',
             printableValue => __('Host'),
         },
     );
@@ -264,6 +288,7 @@ sub _table
                                                   . ' You will need to enable and configure the LTSP module.'),),
         new EBox::Types::Host(fieldName     => 'nextServerHost',
                               printableName => __('Host'),
+                              defaultValue  => 'localhost',
                               editable      => 1),
         new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
@@ -334,15 +359,11 @@ sub viewCustomizer
 
     my %actions = (
         'nextServer' => {
-            'none' => {
-                show => [],
-                hide => ['remoteFilename', 'nextServerHost', 'hosts'],
-            },
             'nextServerEBox' => {
                 show => ['hosts'],
                 hide => ['remoteFilename', 'nextServerHost'],
             },
-            'nextServer' => {
+            'nextServerHost' => {
                 show => ['remoteFilename', 'nextServerHost', 'hosts'],
                 hide => [],
             },

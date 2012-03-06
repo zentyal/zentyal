@@ -1651,6 +1651,7 @@ sub _thinClientOptions # (iface, element)
     my $ret = {};
     my $row = $thinClientModel->findValue(hosts => $element);
     if ( defined($row) ) {
+        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal($row->id());
         $ret->{nextServer} = $thinClientModel->nextServer($row->id());
         $ret->{filename}   = $row->valueByName('remoteFilename');
     }
