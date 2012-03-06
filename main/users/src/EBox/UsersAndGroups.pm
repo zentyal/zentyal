@@ -75,7 +75,7 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
-use constant QUOTA_LIMIT    => 10000;
+use constant DEFAULT_MAX_QUOTA => 100000;
 use constant MAX_SB_USERS   => 25;
 
 sub _create
@@ -1192,7 +1192,7 @@ sub _modifyUserPwd
 
 sub _checkQuota
 {
-    my ($quota) = @_;
+    my ($quota, $home) = @_;
 
     my $integer =~ $quota -~ m/^\d$/;
     if (not $integer) {
@@ -1204,21 +1204,51 @@ sub _checkQuota
                                            );
     }
 
-    if ($quota > QUOTA_LIMIT) {
+    my $max = _maxFileSystemQuota($home);
+    if ($quota > $max) {
         throw EBox::Exceptions::InvalidData(
             data => __('user quota'),
             value => $quota,
             advice => __x('The maximum value is {max} MB',
-                          MAX => QUOTA_LIMIT
+                          MAX => $max
                          ),
 
            );
     }
 }
 
+sub _maxFileSystemQuota
+{
+    my ($dir) = @_;
+
+    my $ref = df($dir);
+    defined $ref or
+        return DEFAULT_MAX_QUOTA;
+    exists $ref->{files} or
+        return DEFAULT_MAX_QUOTA;
+    my $inodes = $ref->{files};
+
+    my $fs = EBox::FileSystem::dirFileSystem($dir);
+    my $fileSystems = EBox::FileSystem::fileSystems();
+    exists $fileSystems->{$fs}or
+        return DEFAULT_MAX_QUOTA;
+    my $type = $fileSystems->{$fs}->{type};
+
+    my $fsCapability;
+    if ($type eq  any('ext4', 'ocfs2', 'xfs')) {
+        $fsCapability = 2^64;
+    } else {
+        $fsCapability = 2^32; # safe side
+    }
+
+    return $fsCapability / $inodes;
+}
+
+
 sub _setFilesystemQuota
 {
     my ($self, $uid, $userQuota) = @_;
+
     my $quota = $userQuota * 1024;
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
 }
@@ -1313,7 +1343,11 @@ sub modifyUserLocal # (\%user)
     }
 
     if (exists $user->{'quota'}){
-        _checkQuota($user->{'quota'});
+        my $homedir = $self->_homeDirectory($username);
+        if (not -d $homedir) {
+            $homedir = HOMEPATH;
+        }
+        _checkQuota($user->{'quota'}, $homedir);
     }
 
     foreach my $field (keys %{$user}) {
