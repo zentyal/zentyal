@@ -62,6 +62,7 @@ use constant SECRETFILE     => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
 use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
 use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
+use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 
@@ -969,6 +970,33 @@ sub userMenu
     $root->add(new EBox::Menu::Item('url' => 'Users/View/Password',
                                     'text' => __('Password')));
 }
+
+
+# Method: syncJournalDir
+#
+#   Returns the path holding sync pending actions for
+#   the given slave.
+#   If the directory does not exists, it will be created;
+#
+sub syncJournalDir
+{
+    my ($self, $slave) = @_;
+
+    my $dir = JOURNAL_DIR . $slave->name();
+    my $journalsDir = JOURNAL_DIR;
+
+    # Create if the dir does not exists
+    unless (-d $dir) {
+        EBox::Sudo::root(
+            "mkdir -p $dir",
+            "chown -R ebox:ebox $journalsDir",
+            "chmod 0700 $journalsDir",
+        );
+    }
+
+    return $dir;
+}
+
 
 # LdapModule implementation
 sub _ldapModImplementation

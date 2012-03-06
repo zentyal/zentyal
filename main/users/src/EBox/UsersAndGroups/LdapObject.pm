@@ -276,4 +276,16 @@ sub _ldap
     return EBox::Global->modInstance('users')->ldap();
 }
 
+
+# Method: to_ldif
+#
+#   Returns a string containing the LDAP entry as LDIF
+#
+sub as_ldif
+{
+    my ($self) = @_;
+
+    return $self->_entry->ldif(change => 0);
+}
+
 1;

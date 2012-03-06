@@ -29,7 +29,8 @@ use base 'EBox::LdapUserBase';
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use Error qw(:try);
-
+use File::Temp qw/tempfile/;
+use JSON::XS;
 
 # Method: new
 #
@@ -54,7 +55,10 @@ sub new
 
 # Method: sync
 #
-#   Synchronize an action
+#   Synchronize an action to the slave.
+#   If something fails (for example connectivity) the action
+#   will be saved for later, and synchronized by slaves-sync daemon
+#
 sub sync
 {
     my ($self, $signal, $args) = @_;
@@ -64,9 +68,42 @@ sub sync
         $self->$method(@{$args});
     } otherwise {
         # Sync failed, save pending action
-        # TODO save pending aciton
-        EBox::debug("Error processing $signal");
+        my $name = $self->name();
+        EBox::debug("Error notifying $name for $signal");
+        $self->savePendingSync($signal, $args);
     };
+}
+
+
+sub savePendingSync
+{
+    my ($self, $signal, $args) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $dir = $users->syncJournalDir($self);
+
+    my @params;
+    foreach my $arg (@{$args}) {
+        if (ref($arg)) {
+            if ($arg->isa('EBox::UsersAndGroups::LdapObject')) {
+                my @lines = split(/\n/, $arg->as_ldif());
+                $arg = \@lines;
+            }
+        }
+
+        push (@params, $arg);
+    }
+
+    # JSON encode args
+    my $action = {
+        signal => $signal,
+        args   => \@params,
+    };
+
+    my $time = time();
+    my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
+    print $fh encode_json($action);
+    $fh->close();
 }
 
 
@@ -75,5 +112,6 @@ sub name
     my ($self) = @_;
     return $self->{name};
 }
+
 
 1;
