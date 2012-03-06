@@ -11,10 +11,16 @@ EXTRA_SOURCES="deb $EXTRA_URL 2.3 extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
-create_repository() {
-    cd $PKG_DIR
+create_repository()
+{
+    # without this apt-ftparchive gives lots of "too many open files" errors
+    # for some reason this worked flawlessly in lucid but not now in precise
+    ulimit -n 30000
+
+    pushd $PKG_DIR
     apt-ftparchive packages . | gzip > Packages.gz 2>>$LOG
-    cd - > /dev/null
+    popd
+
     # Update the package database with only the local repository
     # just in case we are installing without internet connection
     mv ${SOURCES_LIST} /tmp/sources.list.orig
@@ -24,7 +30,8 @@ create_repository() {
     mv /tmp/sources.list.orig ${SOURCES_LIST}
 }
 
-update_if_network() {
+update_if_network()
+{
     # Check if we can connect to the PPA url
     if $(wget -T 10 -t 1 $PPA_URL >> $LOG 2>&1); then
         echo "Updating package database from the network..." >> $LOG
@@ -34,7 +41,8 @@ update_if_network() {
     fi
 }
 
-gen_locales() {
+gen_locales()
+{
     # load LANG variable with default locale
     . /etc/default/locale
 
