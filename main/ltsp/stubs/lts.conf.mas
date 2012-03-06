@@ -3,7 +3,7 @@
 <%args>
     %global
     @profiles
-    @clients
+    %clients
 </%args>
 [default]
     #CONFIGURE_X=False
@@ -28,15 +28,21 @@
 
 %   }
 %}
-%if (@clients) {
+%if (%clients) {
 
 ###########
 # CLIENTS #
 ###########
 
-%   for my $client (@clients) {
-[<% $client->{'mac'} %>]
-    LIKE = <% $client->{'profile'} %>
+%   for my $key (keys %clients) {
+[<% $key %>]
+%       if (defined $clients{$key}->{'profile'}) {
+    LIKE = <% $clients{$key}->{'profile'} %>
+%       }
+%       if (defined $clients{$key}->{'user'}) {
+    LDM_USERNAME = <% $clients{$key}->{'user'} %>
+    LDM_PASSWORD = <% $clients{$key}->{'pass'} %>
+%       }
 
 %   }
 %}

@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Class: EBox::LTSP::Model::Profiles
+# Class: EBox::LTSP::Model::AutoLogin
 #
 #   TODO: Document class
 #
 
-package EBox::LTSP::Model::Profiles;
+package EBox::LTSP::Model::AutoLogin;
 
 use base 'EBox::Model::DataTable';
 
@@ -29,7 +29,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 
 use EBox::Types::Text;
-use EBox::Types::HasMany;
+use EBox::Types::Password;
 
 sub new
 {
@@ -48,35 +48,38 @@ sub _table
 
     my @fields =
     (
-
-        new EBox::Types::Text(
-            'fieldName' => 'name',
-            'printableName' => __('name'),
-            'size' => '8',
-            'unique' => 1,
+        new EBox::Types::MACAddr(
+            'fieldName' => 'mac',
+            'printableName' => __('Client MAC'),
+#            'unique' => 1,
             'editable' => 1,
-            'help' => '', # FIXME
         ),
-        new EBox::Types::HasMany(
-            'fieldName' => 'configuration',
-            'printableName' => __('Configuration'),
-            'foreignModel' => 'ltsp/ClientConfiguration',
-            'foreignModelIsComposite' => 1,
-            'view' => '/LTSP/Composite/ClientConfiguration',
-            'backView' => '/LTSP/View/Profiles',
+        new EBox::Types::Text(
+            'fieldName' => 'user',
+            'printableName' => __('User'),
+#            'unique' => 1,
+            'editable' => 1,
+        ),
+        new EBox::Types::Password(
+            'fieldName' => 'password',
+            'printableName' => __('Password'),
+            'confirmPrintableName' => __('Confirm Password'),
+            'editable' => 1,
+            'confirm' => 1,
         ),
     );
 
     my $dataTable =
     {
-        'tableName' => 'Profiles',
-        'printableTableName' => __('Client profiles'),
-        'printableRowName' => __('Profile'),
+        'tableName' => 'AutoLogin',
+        'printableTableName' => __('AutoLogin Configuration'),
+        'printableRowName' => __('user and pass'),
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@fields,
-        'help' => '', # FIXME
-        'sortedBy' => 'name',
+        'sortedBy' => 'mac',
+        'enableProperty' => 1,
+        'help' => 'This will only work if "AutoLogin" is enabled for the client.',
     };
 
     return $dataTable;

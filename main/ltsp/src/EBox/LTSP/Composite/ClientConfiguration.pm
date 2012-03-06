@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::LTSP::Composite::Composite
+# Class: EBox::LTSP::Composite::Configuration
 #
 #   TODO: Document composite
 #
 
-package EBox::LTSP::Composite::Composite;
+package EBox::LTSP::Composite::ClientConfiguration;
 
 use base 'EBox::Model::Composite';
 
@@ -55,14 +55,12 @@ sub _description
     my $description =
     {
         components      => [
-                'Configuration',
-                'AutoLogin',
-                '/ltsp/Profiles',
-                '/ltsp/Clients',
+                '/ltsp/GeneralClientOpts',
+                '/ltsp/OtherOpts',
             ],
-        layout          => 'tabbed',
-        name            => 'Composite',
-        printableName   => __('LTSP Configuration'),
+        layout          => 'top-bottom',
+        name            => 'ClientConfiguration',
+        printableName   => __('Client configuration'),
         compositeDomain => 'LTSP',
         help            => __(''), # FIXME
     };

@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Class: EBox::LTSP::Model::GeneralOpts
+# Class: EBox::LTSP::Model::GeneralClientOpts
 #
 #   TODO: Document class
 #
 
-package EBox::LTSP::Model::GeneralOpts;
+package EBox::LTSP::Model::GeneralClientOpts;
 
 use base 'EBox::Model::DataForm';
 
@@ -77,13 +77,6 @@ sub _table
     my @fields =
     (
         new EBox::Types::Select(
-            fieldName       => 'one_session',
-            printableName   => __('Limit one session per user'),
-            populate        => \&_select_options,
-            editable        => 1,
-            help            => __(''),
-        ),
-        new EBox::Types::Select(
             fieldName       => 'sound',
             printableName   => __('Sound enabled'),
             populate        => \&_select_options,
@@ -118,26 +111,11 @@ sub _table
             editable        => 1,
             help            => __(''),
         ),
-        new EBox::Types::Select(
-            fieldName       => 'disable_screen_lock',
-            printableName   => __('Disable screen lock'),
-            populate        => \&_select_options,
-            editable        => 1,
-            help            => __(''),
-        ),
-        new EBox::Types::IPAddr(
-            fieldName       => 'server',
-            printableName   => __('IP Address of the Server'),
-            editable        => 1,
-            optional        => 1,
-            help            => __('IP address of the server for everything. ' .
-                                  'If not set, it will be Zentyal.'),
-        ),
     );
 
     my $dataTable =
     {
-        tableName => 'GeneralOpts',
+        tableName => 'GeneralClientOpts',
         printableTableName => __('General options'),
         modelDomain => 'LTSP',
         defaultActions => ['add', 'del', 'editField', 'changeView' ],

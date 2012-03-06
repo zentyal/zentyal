@@ -65,10 +65,12 @@ sub _create
 sub modelClasses
 {
     return [
+        'EBox::LTSP::Model::GeneralOpts',
         'EBox::LTSP::Model::Clients',
         'EBox::LTSP::Model::Profiles',
-        'EBox::LTSP::Model::GeneralOpts',
         'EBox::LTSP::Model::OtherOpts',
+        'EBox::LTSP::Model::GeneralClientOpts',
+        'EBox::LTSP::Model::AutoLogin',
     ];
 }
 
@@ -83,6 +85,7 @@ sub compositeClasses
     return [
         'EBox::LTSP::Composite::Composite',
         'EBox::LTSP::Composite::Configuration',
+        'EBox::LTSP::Composite::ClientConfiguration',
     ];
 }
 
@@ -207,22 +210,33 @@ sub _daemons
 
 sub _getGeneralOptions
 {
-    my ($self) = @_;
+    my ($self,$model) = @_;
 
-    my $sound       = $self->row()->valueByName('sound');
-    my $one_session = $self->row()->valueByName('one_session');
-    my $local_apps  = $self->row()->valueByName('local_apps');
-    my $local_dev   = $self->row()->valueByName('local_dev');
-    my $server      = $self->row()->valueByName('server');
+    my $disable_screen_lock = $model->row()->valueByName('disable_screen_lock');
+    unless ( $disable_screen_lock eq 'default' ) {
+        EBox::Sudo::root('gconftool-2 --direct --config-source ' .
+                         'xml:readwrite:/etc/gconf/gconf.xml.mandatory ' .
+                         '--set --type boolean ' .
+                         "/desktop/gnome/lockdown/disable_lock_screen $disable_screen_lock " .
+                         "/apps/panel/global/disable_lock_screen $disable_screen_lock");
+    }
+
+    my $one_session = $model->row()->valueByName('one_session');
+    my $sound       = $model->row()->valueByName('sound');
+    my $local_apps  = $model->row()->valueByName('local_apps');
+    my $local_dev   = $model->row()->valueByName('local_dev');
+    my $server      = $model->row()->valueByName('server');
+    my $autologin   = $model->row()->valueByName('autologin');
+    my $guestlogin  = $model->row()->valueByName('guestlogin');
 
     my %opts;
 
-    if ( $sound ne 'default' ) {
-        $opts{'SOUND'} = $sound;
-    }
-
     if ( $one_session ne 'default' ) {
         $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
+    }
+
+    if ( $sound ne 'default' ) {
+        $opts{'SOUND'} = $sound;
     }
 
     if ( $local_apps ne 'default' ) {
@@ -231,6 +245,14 @@ sub _getGeneralOptions
 
     if ( $local_dev ne 'default' ) {
         $opts{'LOCALDEV'} = $local_dev;
+    }
+
+    if ( $autologin ne 'default' ) {
+        $opts{'LDM_AUTOLOGIN'} = $autologin;
+    }
+
+    if ( $guestlogin ne 'default' ) {
+        $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
     }
 
     if ( defined $server ) {
@@ -242,12 +264,12 @@ sub _getGeneralOptions
 
 sub _getOtherOptions
 {
-    my ($self) = @_;
+    my ($self,$model) = @_;
 
     my %otherOpt;
 
-    for my $id (@{$self->ids()}) {
-        my $row = $self->row($id);
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
 
         my $option = $row->valueByName('option');
         my $value  = $row->valueByName('value');
@@ -260,22 +282,59 @@ sub _getOtherOptions
 
 sub _getGlobalOptions()
 {
-    my $mgr = EBox::Model::ModelManager->instance();
-    my $model_general = $mgr->model('ltsp/GeneralOpts');
-    my $model_other   = $mgr->model('ltsp/OtherOpts');
+    my ($self) = @_;
 
-    my $general = _getGeneralOptions($model_general);
-    my $other   = _getOtherOptions($model_other);
+    my $model_general = $self->model('ltsp/GeneralOpts');
+    my $model_other   = $self->model('ltsp/OtherOpts');
+
+    my $general = $self->_getGeneralOptions($model_general);
+    my $other   = $self->_getOtherOptions($model_other);
 
     return { %{$general}, %{$other} };
 }
 
+sub _getGeneralProfileOptions
+{
+    my ($self,$model) = @_;
+
+    my $sound       = $model->row()->valueByName('sound');
+    my $local_apps  = $model->row()->valueByName('local_apps');
+    my $local_dev   = $model->row()->valueByName('local_dev');
+    my $autologin   = $model->row()->valueByName('autologin');
+    my $guestlogin  = $model->row()->valueByName('guestlogin');
+
+    my %opts;
+
+    if ( $sound ne 'default' ) {
+        $opts{'SOUND'} = $sound;
+    }
+
+    if ( $local_apps ne 'default' ) {
+        $opts{'LOCAL_APPS'} = $local_apps;
+    }
+
+    if ( $local_dev ne 'default' ) {
+        $opts{'LOCALDEV'} = $local_dev;
+    }
+
+    if ( $autologin ne 'default' ) {
+        $opts{'LDM_AUTOLOGIN'} = $autologin;
+    }
+
+    if ( $guestlogin ne 'default' ) {
+        $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
+    }
+
+    return \%opts;
+}
+
 sub _getProfilesOptions
 {
+    my ($self) = @_;
+
     my @profiles;
 
-    my $mgr = EBox::Model::ModelManager->instance();
-    my $profile_list = $mgr->model('ltsp/Profiles');
+    my $profile_list = $self->model('ltsp/Profiles');
 
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
@@ -285,11 +344,11 @@ sub _getProfilesOptions
 
         my $submodel = $row->subModel('configuration');
 
-        my $model_general = $submodel->componentByName('GeneralOpts');
+        my $model_general = $submodel->componentByName('GeneralClientOpts');
         my $model_other   = $submodel->componentByName('OtherOpts');
 
-        my $general = _getGeneralOptions($model_general);
-        my $other   = _getOtherOptions($model_other);
+        my $general = $self->_getGeneralProfileOptions($model_general);
+        my $other   = $self->_getOtherOptions($model_other);
 
         push(@profiles, { name => $name, options => { %{$general}, %{$other} }, } );
     }
@@ -299,15 +358,16 @@ sub _getProfilesOptions
 
 sub _getClientsOptions
 {
-    my @clients;
+    my ($self) = @_;
 
-    my $mgr = EBox::Model::ModelManager->instance();
-    my $client_list = $mgr->model('ltsp/Clients');
+    my %clients;
+
+    my $client_list = $self->model('ltsp/Clients');
 
     my $global  = EBox::Global->getInstance();
     my $objMod = $global->modInstance('objects');
 
-    my $profile_list = $mgr->model('ltsp/Profiles');
+    my $profile_list = $self->model('ltsp/Profiles');
 
     for my $id (@{$client_list->ids()}) {
         my $row = $client_list->row($id);
@@ -324,16 +384,34 @@ sub _getClientsOptions
             foreach my $member (@{$object}) {
 
                 if ( defined $member->{'macaddr'} ) {
-
-                    push( @clients,
-                          { profile => $profile,
-                            mac     => $member->{'macaddr'} } );
+                    $clients{$member->{'macaddr'}}->{profile} = $profile;
                 }
             }
         }
     }
 
-    return \@clients;
+    return \%clients;
+}
+
+sub _addAutoLoginConf
+{
+    my ($self,$clients) = @_;
+
+    my $autologin_list = $self->model('ltsp/AutoLogin');
+
+    for my $id (@{$autologin_list->ids()}) {
+        my $row = $autologin_list->row($id);
+
+        my $enabled = $row->valueByName('enabled');
+        if ($enabled) {
+            my $mac  = $row->valueByName('mac');
+            my $user = $row->valueByName('user');
+            my $pass = $row->valueByName('password');
+
+            $clients->{$mac}->{user} = $user;
+            $clients->{$mac}->{pass} = $pass;
+        }
+    }
 }
 
 # Method: _writeConfiguration
@@ -345,9 +423,11 @@ sub _writeConfiguration
 {
     my ($self) = @_;
 
-    my $global   = _getGlobalOptions();
-    my $profiles = _getProfilesOptions();
-    my $clients  = _getClientsOptions();
+    my $global   = $self->_getGlobalOptions();
+    my $profiles = $self->_getProfilesOptions();
+    my $clients  = $self->_getClientsOptions();
+
+    $self->_addAutoLoginConf($clients);
 
     my @params = (
         global  => $global,
