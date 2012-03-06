@@ -46,7 +46,8 @@ use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
-                                 'homeDirectory', 'quota', 'userPassword' );
+                                 'homeDirectory', 'quota', 'userPassword',
+                                 'description');
 
 use base 'EBox::UsersAndGroups::LdapObject';
 
@@ -138,6 +139,19 @@ sub set
     $self->SUPER::set(@_);
 }
 
+# Catch some of the set ops which need special actions
+sub delete
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::delete(@_);
+}
 
 sub save
 {
@@ -473,6 +487,7 @@ sub create
         $user->{'fullname'} .= $user->{'surname'};
     }
 
+    my $quota = $self->defaultQuota();
     my @attr =  (
         'cn'            => $user->{'fullname'},
         'uid'           => $user->{'user'},
@@ -483,6 +498,7 @@ sub create
         'gidNumber'     => $gid,
         'homeDirectory' => $homedir,
         'userPassword'  => $passwd,
+        'quota'         => $quota,
         'objectclass'   => [
             'inetOrgPerson',
             'posixAccount',
@@ -505,13 +521,11 @@ sub create
         if ($isDefaultOU) {
             $users->reloadNSCD();
             $users->initUser($res, $user->{'password'});
-
-            # Configure quota
-            $res->set('quota', $self->defaultQuota());
+            $res->_setFilesystemQuota($quota);
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignore_mods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $user->{'password'} ], $params{ignore_mods});
     }
 
     # Return the new created user

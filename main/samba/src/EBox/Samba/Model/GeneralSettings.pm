@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -40,6 +40,10 @@ use warnings;
 
 use base 'EBox::Model::DataForm';
 
+use constant MAXNETBIOSLENGTH     => 15;
+use constant MAXWORKGROUPLENGTH   => 32;
+use constant MAXDESCRIPTIONLENGTH => 255;
+
 # see http://support.microsoft.com/kb/909264
 my @reservedNames = (
 'ANONYMOUS',
@@ -78,62 +82,77 @@ my @reservedNames = (
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
 
-        return $self;
+    return $self;
 }
 
 # Method: validateTypedRow
 #
-#       Override <EBox::Model::DataTable::validateTypedRow> method
+#   Override <EBox::Model::DataTable::validateTypedRow> method
 #
 sub validateTypedRow
 {
     my ($self, $action, $oldParams, $newParams) = @_;
 
-    my $netbios = exists $newParams->{'netbios'} ?
-                         $newParams->{'netbios'}->value() :
-                         $oldParams->{'netbios'}->value();
+    my $netbios = exists $newParams->{'netbiosName'} ?
+                         $newParams->{'netbiosName'}->value() :
+                         $oldParams->{'netbiosName'}->value();
 
     my $workgroup = exists $newParams->{'workgroup'} ?
                            $newParams->{'workgroup'}->value() :
                            $oldParams->{'workgroup'}->value();
 
-    if (uc($netbios) eq uc($workgroup)) {
+    my $realm = exists $newParams->{'realm'} ?
+                       $newParams->{'realm'}->value() :
+                       $oldParams->{'realm'}->value();
+    my $description = exists $newParams->{'description'} ?
+                             $newParams->{'description'}->value() :
+                             $oldParams->{'description'}->value();
+
+    if (uc ($netbios) eq uc ($workgroup)) {
         throw EBox::Exceptions::External(
                 __('Netbios and workgroup must have different names'));
     }
 
     $self->_checkNetbiosName($netbios);
     $self->_checkDomainName($workgroup);
+    $self->_checkDomainName($realm);
+    $self->_checkDescriptionString($description);
 
-    # Check for incompatibility between PDC and PAM
-    # only on slave servers
-
-    my $users = EBox::Global->modInstance('users');
-    return unless ($users->mode() eq 'slave');
-
-    my $pdc = exists $newParams->{pdc} ?
-                  $newParams->{pdc}->value() :
-                  $oldParams->{pdc}->value();
-
-    my $pam = $users->model('PAM')->enable_pamValue();
-
-    if ($pam and $pdc) {
-        throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
-            ohref => q{<a href='/Users/Composite/Settings/'>},
-            chref => q{</a>}));
-    }
+#    # Check for incompatibility between PDC and PAM
+#    # only on slave servers
+#
+#    my $users = EBox::Global->modInstance('users');
+#    return unless ($users->mode() eq 'slave');
+#
+#    my $pdc = exists $newParams->{pdc} ?
+#                  $newParams->{pdc}->value() :
+#                  $oldParams->{pdc}->value();
+#
+#    my $pam = $users->model('PAM')->enable_pamValue();
+#
+#    if ($pam and $pdc) {
+#        throw EBox::Exceptions::External(__x('A slave server can not act as PDC if PAM is enabled. You can do disable PAM at {ohref}LDAP Settings{chref}.',
+#            ohref => q{<a href='/Users/Composite/Settings/'>},
+#            chref => q{</a>}));
+#    }
 }
 
 sub _checkDomainName
 {
     my ($self, $domain) = @_;
 
+    if (length ($domain) > MAXWORKGROUPLENGTH) {
+        throw EBox::Exceptions::External(__('Domain or workgroup name field is empty'));
+    }
+    if (length ($domain) <= 0) {
+        throw EBox::Exceptions::Externam(__('Domain or workgroup name is too long'));
+    }
     if ($domain =~ m/\.local$/) {
         throw EBox::Exceptions::External(__(q{Domain name cannot end in '.local'}));
     }
@@ -144,7 +163,27 @@ sub _checkDomainName
 sub _checkNetbiosName
 {
     my ($self, $netbios) = @_;
+
+    if (length ($netbios) <= 0) {
+        throw EBox::Exceptions::External(__('NetBIOS name field is empty'));
+    }
+    if (length ($netbios) > MAXNETBIOSLENGTH) {
+        throw EBox::Exceptions::Externam(__('NetBIOS name is too long'));
+    }
     $self->_checkWinName($netbios, __('NetBIOS computer name'));
+
+}
+
+sub _checkDescriptionString
+{
+    my ($self, $description) = @_;
+
+    if (length ($description) <= 0) {
+        throw EBox::Exceptions::External(__('Description string is empty'));
+    }
+    if (length ($description) > MAXDESCRIPTIONLENGTH) {
+        throw EBox::Exceptions::Externam(__('Description string is too long'));
+    }
 }
 
 sub _checkWinName
@@ -152,14 +191,14 @@ sub _checkWinName
     my ($self, $name, $type) = @_;
 
     my $length = length $name;
-    if ($length > 15) {
+    if ($length > MAXNETBIOSLENGTH) {
         throw EBox::Exceptions::External(
                 __x('{type} is limited to a maximum of 15 characters.',
                     type => $type)
         );
     }
 
-    my @parts = split '\.', $name;
+    my @parts = split ('\.', $name);
     foreach my $part (@parts) {
         $part = uc $part;
         foreach my $reserved (@reservedNames) {
@@ -174,58 +213,68 @@ sub _checkWinName
     }
 }
 
+sub _mod_enabled
+{
+    my $module = EBox::Global->modInstance('samba');
+    return not $module->isEnabled();
+}
+
 sub _table
 {
-    my $prefix = EBox::Config::configkey('custom_prefix');
-    $prefix = 'zentyal' unless $prefix;
+    my ($self) = @_;
 
     my @tableHead =
     (
-        new EBox::Types::Boolean(
-            'fieldName' => 'pdc',
-            'printableName' => __('Enable PDC'),
-            'defaultValue' => 1,
-            'editable' => 1,
+        new EBox::Types::Select(
+            'fieldName' => 'mode',
+            'printableName' => __('Server Role'),
+            'populate' => \&_server_roles,
+            'editable' => \&_mod_enabled,
+        ),
+        new EBox::Types::Text(
+            fieldName => 'password',
+            printableName => __('Administrator password'),
+            defaultValue => EBox::Samba::defaultAdministratorPassword(),
+            'editable' => \&_mod_enabled,
+        ),
+        new EBox::Types::DomainName(
+            'fieldName' => 'realm',
+            'printableName' => __('Domain'),
+            'defaultValue' => EBox::Samba::defaultRealm(),
+            'editable' => \&_mod_enabled,
         ),
         new EBox::Types::DomainName(
             'fieldName' => 'workgroup',
-            'printableName' => __('Domain name'),
-            'defaultValue' => uc($prefix) . '-DOMAIN',
-            'editable' => 1,
+            'printableName' => __('Workgroup'),
+            'defaultValue' => EBox::Samba::defaultWorkgroup(),
+            'editable' => \&_mod_enabled,
         ),
         new EBox::Types::Text(
-            'fieldName' => 'netbios',
+            'fieldName' => 'netbiosName',
             'printableName' => __('NetBIOS computer name'),
             'defaultValue' => EBox::Samba::defaultNetbios(),
-            'editable' => 1,
+            'editable' => \&_mod_enabled,
         ),
         new EBox::Types::Text(
             'fieldName' => 'description',
             'printableName' => __('Description'),
-            'defaultValue' => ucfirst($prefix) . ' File Server',
-            'editable' => 1,
+            'defaultValue' => EBox::Samba::defaultDescription(),
+            'editable' => \&_mod_enabled,
         ),
-        new EBox::Types::Boolean(
-            'fieldName' => 'roaming',
-            'printableName' => __('Enable roaming profiles'),
-            'defaultValue' => 0,
-            'editable' => 1,
-        ),
-        new EBox::Types::Select(
-            'fieldName' => 'drive',
-            'printableName' => __('Drive letter'),
-            'populate' => \&_drive_letters,
-            'editable' => 1,
-        ),
-        new EBox::Types::Select(
-                'fieldName' => 'sambaGroup',
-                'printableName' => __('Samba group'),
-                'populate' => \&_samba_group,
-                'editable' => 1,
-                'noCache' => 1,
-                'help' => __('Only users belonging to this group will have a samba account. Sync happens every hour')
-                ),
+        #new EBox::Types::Boolean(
+        #    'fieldName' => 'roaming',
+        #    'printableName' => __('Enable roaming profiles'),
+        #    'defaultValue' => 0,
+        #    'editable' => 1,
+        #),
+        #new EBox::Types::Select(
+        #    'fieldName' => 'drive',
+        #    'printableName' => __('Drive letter'),
+        #    'populate' => \&_drive_letters,
+        #    'editable' => 1,
+        #),
     );
+
     my $dataTable =
     {
         'tableName' => 'GeneralSettings',
@@ -239,64 +288,73 @@ sub _table
     return $dataTable;
 }
 
-# Method: viewCustomizer
+# Method: formSubmitted
 #
-#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
-#   a custom behaviour to show and hide source and destination ports
-#   depending on the protocol
+# Overrides:
 #
+#       <EBox::Model::DataForm::formSubmitted>
 #
-sub viewCustomizer
+sub formSubmitted
 {
     my ($self) = @_;
-    my $customizer = new EBox::View::Customizer();
-    my $fields = [qw/roaming drive/];
-    $customizer->setModel($self);
-    $customizer->setOnChangeActions(
-            { pdc =>
-                {
-                on  => { enable => $fields },
-                off => { disable => $fields },
-                }
-            });
-    return $customizer;
-}
 
-sub _drive_letters
-{
-    my @letters;
+    my $row = $self->row();
 
-    foreach my $letter ('H'..'Z') {
-        $letter .= ':';
-        push (@letters, { value => $letter, printableValue => $letter });
+    my $sambaRO = EBox::Global->getInstance(1)->modInstance('samba');
+    my $modeRO = $sambaRO->get_string('GeneralSettings/mode');
+    my $realmRO = $sambaRO->get_string('GeneralSettings/realm');
+    my $workgroupRO = $sambaRO->get_string('GeneralSettings/workgroup');
+
+    my $mode = $row->valueByName('mode');
+    my $realm = $row->valueByName('realm');
+    my $workgroup = $row->valueByName('workgroup');
+
+    if (($realm ne $realmRO) or
+        ($mode ne $modeRO) or
+        ($workgroup ne $workgroupRO)) {
+        $self->parentModule->set_bool('provisioned', 0);
+
+        if (($realmRO ne '') or
+            ($modeRO ne '') or
+            ($workgroupRO ne '')) {
+            $self->setMessage(__('Changing the server mode, ' .
+            'the realm or the domain will cause a database reprovision, destroying the current one.'), 'warning');
+        }
     }
-
-    return \@letters;
 }
+
+
+# Populate the server role select
+sub _server_roles
+{
+    my @roles;
+
+    push (@roles, { value => 'dc', printableValue => __('Domain controller')});
+    push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
+    push (@roles, { value => 'standalone', printableValue => __('Standalone')});
+
+    return \@roles;
+}
+
+#sub _drive_letters
+#{
+#    my @letters;
+#
+#    foreach my $letter ('H'..'Z') {
+#        $letter .= ':';
+#        push (@letters, { value => $letter, printableValue => $letter });
+#    }
+#
+#    return \@letters;
+#}
 
 # Method: headTile
 #
 #   Overrides <EBox::Model::DataTable::headTitle>
 #
-#
 sub headTitle
 {
     return undef;
-}
-
-sub _samba_group
-{
-    my @groups = ( { value => 1901, printableValue => __('All users') });
-    my $users = EBox::Global->modInstance('users');
-
-    return \@groups unless ($users->configured());
-
-    my @sortedGroups = sort { $a->{account} cmp $b->{account} }  $users->groups();
-    for my $group (@sortedGroups) {
-        push (@groups, { value => $group->{gid},
-                printableValue => $group->{account} });
-    }
-    return \@groups;
 }
 
 1;

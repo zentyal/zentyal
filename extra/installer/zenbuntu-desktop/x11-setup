@@ -57,12 +57,3 @@ mkdir -p $PCMANFM_DIR
 mv /usr/share/zenbuntu-desktop/lxde/pcmanfm.conf $PCMANFM_DIR/
 chown -R $USER_NAME:$USER_NAME $DESKTOP
 chown -R $USER_NAME:$USER_NAME $DIR/.config
-
-mv /usr/share/zenbuntu-desktop/second-boot.sh /etc/rc.local
-
-# install zentyal core and software
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal
-
-initctl emit zentyal-lxdm
-
-exit 0

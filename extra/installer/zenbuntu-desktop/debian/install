@@ -1,6 +1,7 @@
 zentyal-session /usr/bin
 firefox-cert-override /usr/share/zenbuntu-desktop
 rc.local /usr/share/zenbuntu-desktop
+first-boot.sh /usr/share/zenbuntu-desktop
 second-boot.sh /usr/share/zenbuntu-desktop
 motd /usr/share/zenbuntu-desktop
 x11-setup /usr/share/zenbuntu-desktop

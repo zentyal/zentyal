@@ -9,7 +9,7 @@ cp /usr/share/zenbuntu-desktop/motd /etc/motd.tail
 apt-key add /usr/share/zenbuntu-desktop/zentyal-ppa.asc >> $LOG 2>&1
 apt-key add /usr/share/zenbuntu-desktop/zentyal-2.2-archive.asc >> $LOG 2>&1
 
-cp /usr/share/zenbuntu-desktop/x11-setup /etc/rc.local
+cp /usr/share/zenbuntu-desktop/first-boot.sh /etc/rc.local
 
 ln -sf /lib/plymouth/themes/zentyal/zentyal.plymouth /etc/alternatives/default.plymouth
 ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymouth.grub

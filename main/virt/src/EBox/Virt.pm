@@ -269,7 +269,8 @@ sub updateFirewallService
 
     my $servMod = EBox::Global->modInstance('services');
     $servMod->setMultipleService(name => 'vnc-virt',
-                                 description => __('VNC connections for VMs'),
+                                 printableName => __('Virtual Machines VNC'),
+                                 description => __('VNC connections for Zentyal VMs'),
                                  allowEmpty => 1,
                                  internal => 1,
                                  services => \@vncservices);

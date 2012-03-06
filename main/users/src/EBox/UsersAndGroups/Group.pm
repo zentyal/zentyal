@@ -38,7 +38,7 @@ use constant SYSMINGID      => 1900;
 use constant MINUID         => 2000;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
-use constant CORE_ATTRS     => ('member');
+use constant CORE_ATTRS     => ('member', 'description');
 
 use Perl6::Junction qw(any);
 
@@ -61,7 +61,7 @@ sub new
 sub name
 {
     my ($self) = @_;
-    return $self->_entry->get('cn');
+    return $self->get('cn');
 }
 
 
@@ -177,6 +177,19 @@ sub set
     $self->SUPER::set(@_);
 }
 
+# Catch some of the set ops which need special actions
+sub delete
+{
+    my ($self, $attr, $value) = @_;
+
+    # remember changes in core attributes (notify LDAP user base modules)
+    if ($attr eq any CORE_ATTRS) {
+        $self->{core_changed} = 1;
+    }
+
+    shift @_;
+    $self->SUPER::delete(@_);
+}
 
 
 # Method: deleteObject
@@ -211,7 +224,7 @@ sub save
         delete $self->{core_changed};
 
         my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyGroup', $self, $ignore_mods);
+        $users->notifyModsLdapUserBase('modifyGroup', [$self], $ignore_mods);
     }
 }
 

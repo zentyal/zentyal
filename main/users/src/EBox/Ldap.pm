@@ -260,7 +260,7 @@ sub ldapConf {
         'dn'     => $self->dn(),
         'ldapi'  => LDAPI,
         'ldap'   => LDAP,
-        'port' => 389,
+        'port' => 390,
         'replicaport' => 1389,
         'translucentport' => 1390,
         'rootdn' => $self->rootDn(),
