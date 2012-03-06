@@ -41,9 +41,6 @@ rm -rf $CD_BUILD_DIR || exit 1
 cp -r $CD_MOUNT_DIR $CD_BUILD_DIR || exit 1
 chmod u+w -R $CD_BUILD_DIR || exit 1
 
-# remove ppp-udeb
-rm $CD_BUILD_DIR/pool/main/p/ppp/ppp-udeb*
-
 sudo umount $CD_MOUNT_DIR || exit 1
 rmdir $CD_MOUNT_DIR
 
