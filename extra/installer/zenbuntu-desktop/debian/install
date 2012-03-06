@@ -4,6 +4,7 @@ rc.local /usr/share/zenbuntu-desktop
 first-boot.sh /usr/share/zenbuntu-desktop
 second-boot.sh /usr/share/zenbuntu-desktop
 motd /usr/share/zenbuntu-desktop
+core-install /usr/share/zenbuntu-desktop
 x11-setup /usr/share/zenbuntu-desktop
 firefox-launcher /usr/share/zenbuntu-desktop
 *.asc /usr/share/zenbuntu-desktop
