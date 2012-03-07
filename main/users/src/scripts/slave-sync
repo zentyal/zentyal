@@ -92,6 +92,7 @@ sub processFile
     my ($slave, $file) = @_;
 
     if ($mode eq 'run') {
+        print "Syncing $file...\n";
         $slave->syncFromFile($file);
 
     } elsif ($mode eq 'list') {
@@ -103,6 +104,11 @@ sub processFile
 sub processDir
 {
     my ($slaves, $journaldir) = @_;
+
+    unless (-d $journaldir) {
+        print "Dir does not exists: $journaldir\n";
+        return;
+    }
 
     my $jdir;
     opendir($jdir, $journaldir) or die "Can't open the journal dir: $journaldir\n";

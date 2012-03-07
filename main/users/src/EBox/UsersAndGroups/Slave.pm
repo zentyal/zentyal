@@ -63,7 +63,7 @@ sub new
 #
 sub sync
 {
-    my ($self, $signal, $args, $no_save_pending) = @_;
+    my ($self, $signal, $args) = @_;
 
     try {
         my $method = '_' . $signal;
@@ -71,11 +71,8 @@ sub sync
     } otherwise {
         # Sync failed, save pending action
         my $name = $self->name();
-        EBox::debug("Error notifying $name for $signal");
-
-        unless ($no_save_pending) {
-            $self->savePendingSync($signal, $args);
-        }
+        EBox::error("Error notifying $name for $signal");
+        $self->savePendingSync($signal, $args);
     };
 }
 
@@ -143,7 +140,14 @@ sub syncFromFile
         push (@params, $arg);
     }
 
-    $self->sync($signal, \@params, 1);
+    my $method = '_' . $signal;
+    try {
+        $self->$method(@params);
+        unlink ($file);
+    } otherwise {
+        my $name = $self->name();
+        EBox::error("Error notifying $name for $signal");
+    };
 }
 
 sub name
