@@ -75,7 +75,6 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
-use constant DEFAULT_MAX_QUOTA => 100000;
 use constant MAX_SB_USERS   => 25;
 
 sub _create
@@ -1194,8 +1193,7 @@ sub _checkQuota
 {
     my ($quota, $home) = @_;
 
-    my $integer =~ $quota -~ m/^\d$/;
-    if (not $integer) {
+    if (not $quota =~ m/^\d+$/) {
         throw EBox::Exceptions::InvalidData('data' => __('user quota'),
                                             'value' => $quota,
                                             'advice' => __(
@@ -1210,7 +1208,7 @@ sub _checkQuota
             data => __('user quota'),
             value => $quota,
             advice => __x('The maximum value is {max} MB',
-                          MAX => $max
+                          max => $max
                          ),
 
            );
@@ -1221,27 +1219,23 @@ sub _maxFileSystemQuota
 {
     my ($dir) = @_;
 
-    my $ref = df($dir);
-    defined $ref or
-        return DEFAULT_MAX_QUOTA;
-    exists $ref->{files} or
-        return DEFAULT_MAX_QUOTA;
-    my $inodes = $ref->{files};
-
+    my $fsCapability;
     my $fs = EBox::FileSystem::dirFileSystem($dir);
     my $fileSystems = EBox::FileSystem::fileSystems();
-    exists $fileSystems->{$fs}or
-        return DEFAULT_MAX_QUOTA;
-    my $type = $fileSystems->{$fs}->{type};
-
-    my $fsCapability;
-    if ($type eq  any('ext4', 'ocfs2', 'xfs')) {
-        $fsCapability = 2^64;
+    if (exists $fileSystems->{$fs}) {
+        my $type = $fileSystems->{$fs}->{type};
+        if ($type eq  any('ext4', 'ocfs2', 'xfs')) {
+            $fsCapability = 2**64;
+        } else {
+            $fsCapability = 2**42; # safe side
+        }
     } else {
-        $fsCapability = 2^32; # safe side
+        $fsCapability = 2**42; # safe side
     }
 
-    return $fsCapability / $inodes;
+    my $maxMB = $fsCapability /(1024**2);
+    my $rounded = sprintf("%.0f", $maxMB);
+    return $rounded;
 }
 
 
