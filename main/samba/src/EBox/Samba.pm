@@ -453,9 +453,12 @@ sub provision
         ' --workgroup=' . $self->workgroup() .
         ' --realm=' . $self->realm() .
         ' --dns-backend=BIND9_FLATFILE' .
-        ' --server-role=' . $self->mode() .
-        ' --adminpass=' . $self->administratorPassword();
-    EBox::debug("Provisioning database '$cmd'");
+        ' --server-role=' . $self->mode();
+
+    EBox::debug("Provisioning database '$cmd --adminpass=***'");
+
+    $cmd .= ' --adminpass=' . $self->administratorPassword();
+
     try {
         my $output = EBox::Sudo::root($cmd);
         EBox::debug("Provision result: @{$output}");
