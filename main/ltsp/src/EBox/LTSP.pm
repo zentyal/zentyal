@@ -225,9 +225,11 @@ sub _getGeneralOptions
     my $sound       = $model->row()->valueByName('sound');
     my $local_apps  = $model->row()->valueByName('local_apps');
     my $local_dev   = $model->row()->valueByName('local_dev');
-    my $server      = $model->row()->valueByName('server');
     my $autologin   = $model->row()->valueByName('autologin');
     my $guestlogin  = $model->row()->valueByName('guestlogin');
+
+    my $server      = $model->row()->elementByName('server')->ip();
+    my $time_server = $model->row()->elementByName('time_server')->ip();
 
     my %opts;
 
@@ -257,6 +259,10 @@ sub _getGeneralOptions
 
     if ( defined $server ) {
         $opts{'SERVER'} = $server;
+    }
+
+    if ( defined $time_server ) {
+        $opts{'TIMESERVER'} = $time_server;
     }
 
     return \%opts;
@@ -303,6 +309,9 @@ sub _getGeneralProfileOptions
     my $autologin   = $model->row()->valueByName('autologin');
     my $guestlogin  = $model->row()->valueByName('guestlogin');
 
+    my $server      = $model->row()->elementByName('server')->ip();
+    my $time_server = $model->row()->elementByName('time_server')->ip();
+
     my %opts;
 
     if ( $sound ne 'default' ) {
@@ -323,6 +332,14 @@ sub _getGeneralProfileOptions
 
     if ( $guestlogin ne 'default' ) {
         $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
+    }
+
+    if ( defined $server ) {
+        $opts{'SERVER'} = $server;
+    }
+
+    if ( defined $time_server ) {
+        $opts{'TIMESERVER'} = $time_server;
     }
 
     return \%opts;

@@ -111,6 +111,20 @@ sub _table
             editable        => 1,
             help            => __(''),
         ),
+        new EBox::Types::IPAddr(
+            fieldName       => 'server',
+            printableName   => __('IP Address of the Server'),
+            editable        => 1,
+            optional        => 1,
+            help            => __('IP address of the server for "everything". ' .
+                                  'If not set, it will be Zentyal.'),
+        ),
+        new EBox::Types::IPAddr(
+            fieldName       => 'time_server',
+            printableName   => __('IP Address of the Time Server'),
+            editable        => 1,
+            optional        => 1,
+        ),
     );
 
     my $dataTable =
