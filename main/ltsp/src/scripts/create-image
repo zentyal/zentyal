@@ -1,2 +1,2 @@
 #!/bin/sh
-ltsp-create-image $*
+ltsp-build-client $*
