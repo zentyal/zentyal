@@ -33,6 +33,8 @@ use File::Temp qw/tempfile/;
 use JSON::XS;
 use File::Slurp;
 use EBox::UsersAndGroups::LdapObject;
+use EBox::UsersAndGroups::Group;
+use EBox::UsersAndGroups::User;
 
 # Method: new
 #
@@ -94,7 +96,10 @@ sub savePendingSync
         if (ref($arg)) {
             if ($arg->isa('EBox::UsersAndGroups::LdapObject')) {
                 my @lines = split(/\n/, $arg->as_ldif());
-                $arg = \@lines;
+                $arg = {
+                    class => ref($arg),
+                    ldif => \@lines,
+                };
             }
         }
 
@@ -130,12 +135,14 @@ sub syncFromFile
 
     my @params;
     foreach my $arg (@{$args}) {
-        if (ref($arg) eq 'ARRAY') {
+        if (ref($arg) eq 'HASH') {
             # Import LDIF
             my ($fh, $ldif) = tempfile(UNLINK => 1);
-            print $fh join("\n", @{$arg});
+            print $fh join("\n", @{$arg->{ldif}});
             $fh->close();
-            $arg = new EBox::UsersAndGroups::LdapObject(ldif => $ldif);
+
+            my $class = $arg->{class};
+            $arg = $class->new(ldif => $ldif);
         }
         push (@params, $arg);
     }
