@@ -56,7 +56,7 @@ sub _description
     {
         components      => [
                 'Configuration',
-                'AutoLogin',
+                '/ltsp/AutoLogin',
                 '/ltsp/Profiles',
                 '/ltsp/Clients',
             ],

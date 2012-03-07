@@ -231,6 +231,13 @@ sub _getGeneralOptions
     my $server      = $model->row()->elementByName('server')->ip();
     my $time_server = $model->row()->elementByName('time_server')->ip();
 
+    my $shutdown_time;
+    if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
+        $shutdown_time = $model->row()->printableValueByName('shutdown_time');
+    } else {
+        $shutdown_time = undef;
+    }
+
     my %opts;
 
     if ( $one_session ne 'default' ) {
@@ -263,6 +270,10 @@ sub _getGeneralOptions
 
     if ( defined $time_server ) {
         $opts{'TIMESERVER'} = $time_server;
+    }
+
+    if ( defined $shutdown_time ) {
+        $opts{'SHUTDOWN_TIME'} = $shutdown_time;
     }
 
     return \%opts;
@@ -312,6 +323,13 @@ sub _getGeneralProfileOptions
     my $server      = $model->row()->elementByName('server')->ip();
     my $time_server = $model->row()->elementByName('time_server')->ip();
 
+    my $shutdown_time;
+    if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
+        $shutdown_time = $model->row()->printableValueByName('shutdown_time');
+    } else {
+        $shutdown_time = undef;
+    }
+
     my %opts;
 
     if ( $sound ne 'default' ) {
@@ -342,6 +360,10 @@ sub _getGeneralProfileOptions
         $opts{'TIMESERVER'} = $time_server;
     }
 
+    if ( defined $shutdown_time ) {
+        $opts{'SHUTDOWN_TIME'} = $shutdown_time;
+    }
+
     return \%opts;
 }
 
@@ -356,18 +378,20 @@ sub _getProfilesOptions
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
 
-        my $name = $row->valueByName('name');
-        my %options;
+#        if ( $row->valueByName('enabled') ) {
+            my $name = $row->valueByName('name');
+            my %options;
 
-        my $submodel = $row->subModel('configuration');
+            my $submodel = $row->subModel('configuration');
 
-        my $model_general = $submodel->componentByName('GeneralClientOpts');
-        my $model_other   = $submodel->componentByName('OtherOpts');
+            my $model_general = $submodel->componentByName('GeneralClientOpts');
+            my $model_other   = $submodel->componentByName('OtherOpts');
 
-        my $general = $self->_getGeneralProfileOptions($model_general);
-        my $other   = $self->_getOtherOptions($model_other);
+            my $general = $self->_getGeneralProfileOptions($model_general);
+            my $other   = $self->_getOtherOptions($model_other);
 
-        push(@profiles, { name => $name, options => { %{$general}, %{$other} }, } );
+            push(@profiles, { name => $name, options => { %{$general}, %{$other} }, } );
+#        }
     }
 
     return \@profiles;

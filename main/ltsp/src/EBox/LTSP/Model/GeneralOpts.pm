@@ -29,7 +29,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
-
+use EBox::Types::Time;
 
 sub new
 {
@@ -138,6 +138,23 @@ sub _table
             printableName   => __('IP Address of the Time Server'),
             editable        => 1,
             optional        => 1,
+        ),
+        new EBox::Types::Union(
+            fieldName      => 'shutdown',
+            printableName  => __('Shutdown Time'),
+            editable       => 1,
+            subtypes       => [
+                new EBox::Types::Union::Text(
+                    fieldName       => 'none',
+                    printableName   => __('None'),
+                    editable        => 1,
+                ),
+                new EBox::Types::Time(
+                    fieldName       => 'shutdown_time',
+                    printableName   => __('Time'),
+                    editable        => 1,
+                ),
+            ],
         ),
     );
 
