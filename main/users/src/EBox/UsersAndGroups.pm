@@ -62,6 +62,7 @@ use constant SECRETFILE     => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
+use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 
 use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
 use constant LDAP_DATADIR    => '/var/lib/ldap/';
@@ -329,6 +330,13 @@ sub _setConf
             \@array);
 
     $self->_setupNSSPAM();
+
+    # Slaves cron
+    @array = ();
+    push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas",
+            \@array);
+
 
     # Configure as slave if enabled
     $self->master->setupSlave();
