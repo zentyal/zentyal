@@ -50,7 +50,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ltsp',
-            printableName => __('LTSP'),
+            printableName => __('Thin Clients'),
             @_);
     bless ($self, $class);
     return $self;
@@ -132,9 +132,24 @@ sub usedFiles
         {
              'file' => CONF_FILE,
              'module' => 'ltsp',
-             'reason' => __('To configure LTSP clients.')
+             'reason' => __('To configure the Thin Clients.')
         },
     ];
+}
+
+# Method: _supportActions
+#
+#   This method determines if the service will have a button to start/restart
+#   it in the module status widget. By default services will have the button
+#   unless this method is overriden to return undef
+#
+# Overrides:
+#
+#       <EBox::Module::ServiceBase>
+#
+sub _supportActions
+{
+    return undef;
 }
 
 # Method: menu
@@ -149,7 +164,7 @@ sub menu
 
     my $settings = new EBox::Menu::Item(
         'url' => 'LTSP/Composite/Composite',
-        'text' => __('Thin Clients'),
+        'text' => $self->printableName(),
         'separator' => 'Infrastructure',
         'order' => 450,
     );
