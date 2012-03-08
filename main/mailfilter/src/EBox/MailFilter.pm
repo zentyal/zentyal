@@ -170,13 +170,18 @@ sub _serviceRules
 sub enableService
 {
     my ($self, $status) = @_;
+    my $mail = EBox::Global->modInstance('mail');
     if ($status) {
-        my $mail = EBox::Global->modInstance('mail');
         if ($mail and $mail->customFilterInUse()) {
             throw EBox::Exceptions::External(
 __('Mail server has a custom filter set, unset it before enabling Zentyal Mail Filter module')
                                             );
         }
+    }
+
+    if ($self->isEnabled() xor $status) {
+        $mail->changed() or
+            $mail->setAsChanged(1);
     }
 
     $self->SUPER::enableService($status);
