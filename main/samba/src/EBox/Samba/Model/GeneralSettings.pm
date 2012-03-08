@@ -330,8 +330,11 @@ sub _server_roles
     my @roles;
 
     push (@roles, { value => 'dc', printableValue => __('Domain controller')});
-    push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
-    push (@roles, { value => 'standalone', printableValue => __('Standalone')});
+
+    # FIXME
+    # These roles are disabled until implemented, we should also use better names
+    #push (@roles, { value => 'member', printableValue => __('Secondary domain controller')});
+    #push (@roles, { value => 'standalone', printableValue => __('Standalone')});
 
     return \@roles;
 }

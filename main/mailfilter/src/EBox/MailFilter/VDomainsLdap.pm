@@ -328,7 +328,7 @@ sub _addVDomain
 sub spamAccount
 {
     my ($self, $vdomain) = @_;
-    my $users = EBox::Global->getInstance('users');
+    my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('spam');
     return $self->_hasAccount($vdomain, new EBox::UsersAndGroups::User(dn => $dn));
 }
@@ -343,7 +343,7 @@ sub spamAccount
 sub hamAccount
 {
     my ($self, $vdomain) = @_;
-    my $users = EBox::Global->getInstance('users');
+    my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('ham');
     return $self->_hasAccount($vdomain, new EBox::UsersAndGroups::User(dn => $dn));
 }
@@ -421,7 +421,7 @@ sub _hasAccount
 sub setSpamAccount
 {
     my ($self, $vdomain, $active) = @_;
-    my $users = EBox::Global->getInstance('users');
+    my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('spam');
     my $user = new EBox::UsersAndGroups::User(dn => $dn);
     $self->_setAccount($vdomain, $user, $active);
@@ -430,7 +430,7 @@ sub setSpamAccount
 sub setHamAccount
 {
     my ($self, $vdomain, $active) = @_;
-    my $users = EBox::Global->getInstance('users');
+    my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('ham');
     my $user = new EBox::UsersAndGroups::User(dn => $dn);
     $self->_setAccount($vdomain, $user, $active);

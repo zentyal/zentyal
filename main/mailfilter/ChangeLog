@@ -1,4 +1,5 @@
-HEAD
+2.3.1
+	+ Disabled POP3 proxy to avoid installation problems
 	+ Adapted messages in the UI for new editions
 	+ New printableName for POP Transparent proxy service
 	+ Adapted to new users implementation

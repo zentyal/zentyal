@@ -1,4 +1,4 @@
-HEAD
+2.3.1
 	+ Adapted messages in the UI for new editions
 	+ Use printableName instead of name to select services
 	+ Fixed executable permissions in ppp hooks and external-ip.pl

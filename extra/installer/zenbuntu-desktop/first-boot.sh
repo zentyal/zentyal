@@ -1,9 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-set -e
+plymouth message --text="Installing Zentyal core packages... Please wait."
 
-# install zentyal core and software
-DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y --force-yes zentyal
+/usr/share/zenbuntu-desktop/core-install
+if [ $? -ne 0 ]
+then
+    plymouth message --text="Installation failed. Press <ESC> to see details."
+    exit 1
+fi
+
+plymouth message --text="Core packages installed. Continuing first boot..."
 
 /usr/share/zenbuntu-desktop/x11-setup
 

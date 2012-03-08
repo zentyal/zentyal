@@ -1,9 +1,8 @@
-HEAD
+2.3
 	+ Install en_US.UTF-8 locale when enabling module for first time;
 	  otherwise users stores will not be created
 	+ Added message about Zarafa small business add-on
 	+ Adapted to new users implementation
-2.3
 	+ Replaced autotools with zbuildtools
 	+ Notify mail of changes in service status so it could adjusts its
 	  configuration to the new status

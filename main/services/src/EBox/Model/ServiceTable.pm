@@ -536,6 +536,10 @@ sub _serviceParams
     unless ($name) {
         $name = $printableName;
     }
+    unless ($printableName) {
+        $printableName = $name;
+    }
+
     my $description = delete $params{'description'};
     my $internal = $params{'internal'};
     my $readonly = $params{'readOnly'};

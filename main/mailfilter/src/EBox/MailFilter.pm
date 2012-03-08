@@ -347,7 +347,7 @@ sub _setConf
 
     $self->smtpFilter->writeConf();
     $self->antispam()->writeConf();
-    $self->popProxy()->writeConf();
+#FIXME    $self->popProxy()->writeConf();
 
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     $vdomainsLdap->regenConfig();
@@ -363,7 +363,7 @@ sub _enforceServiceState
 
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
-    $self->popProxy()->doDaemon($enabled);
+#FIXME    $self->popProxy()->doDaemon($enabled);
 
     # Workaround postfix amavis issue.
     EBox::Sudo::root('/etc/init.d/postfix restart');
@@ -431,7 +431,7 @@ sub _stopService
 
     $self->smtpFilter()->stopService();
     $self->antispam()->stopService();
-    $self->popProxy()->stopService();
+#    $self->popProxy()->stopService();
 }
 
 #
@@ -573,7 +573,8 @@ sub mailFilterWidget
     my ($self,$widget) = @_;
 
     $self->smtpFilter()->summary($widget);
-    $self->popProxy()->summary($widget);
+# FIXME
+#    $self->popProxy()->summary($widget);
 }
 
 sub widgets
@@ -778,12 +779,13 @@ sub menu
                  )
     );
 
-    $folder->add(
-                 new EBox::Menu::Item(
-                                      'url' => 'MailFilter/View/POPProxyConfiguration',
-                                      'text' => __('POP Transparent Proxy')
-                 )
-    );
+# FIXME: p3scan is disabled, it crashes installation
+#    $folder->add(
+#                 new EBox::Menu::Item(
+#                                      'url' => 'MailFilter/View/POPProxyConfiguration',
+#                                      'text' => __('POP Transparent Proxy')
+#                 )
+#    );
 
 
     $folder->add(

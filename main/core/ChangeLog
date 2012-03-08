@@ -1,5 +1,6 @@
 HEAD
 	+ Added EBox::Types::Time type
+2.3.3
 	+ The editable attribute of the types now accept a reference to a function
 	  to dinamically enable or disable the field.
 	+ In progress bar CGIs AJAX call checks the availability of the

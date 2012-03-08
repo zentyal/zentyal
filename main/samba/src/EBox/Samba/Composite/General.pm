@@ -59,7 +59,7 @@ sub _description
     my $description =
         {
             components      => [
-                                'GeneralSettings',
+                                'samba/GeneralSettings',
 #                                'PDC',
                                 'SambaShares',
 #                                'RecycleBin',
