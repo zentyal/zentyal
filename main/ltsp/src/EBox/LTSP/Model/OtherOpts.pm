@@ -52,14 +52,12 @@ sub _table
             'printableName' => __('Option'),
             'unique' => 1,
             'editable' => 1,
-            'help' => '', # FIXME
         ),
 
         new EBox::Types::Text(
             'fieldName' => 'value',
             'printableName' => __('Value'),
             'editable' => 1,
-            'help' => '', # FIXME
         ),
     );
 
@@ -71,9 +69,8 @@ sub _table
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@fields,
-        'help' => '', # FIXME
         'sortedBy' => 'option',
-#        'enableProperty' => 1,
+        'enableProperty' => 1,
     };
 
     return $dataTable;

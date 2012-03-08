@@ -288,10 +288,12 @@ sub _getOtherOptions
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
 
-        my $option = $row->valueByName('option');
-        my $value  = $row->valueByName('value');
+        if ( $row->valueByName('enabled') ) {
+            my $option = $row->valueByName('option');
+            my $value  = $row->valueByName('value');
 
-        $otherOpt{$option} = $value;
+            $otherOpt{$option} = $value;
+        }
     }
 
     return \%otherOpt;
@@ -378,20 +380,17 @@ sub _getProfilesOptions
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
 
-#        if ( $row->valueByName('enabled') ) {
-            my $name = $row->valueByName('name');
-            my %options;
+        my $name = $row->valueByName('name');
 
-            my $submodel = $row->subModel('configuration');
+        my $submodel = $row->subModel('configuration');
 
-            my $model_general = $submodel->componentByName('GeneralClientOpts');
-            my $model_other   = $submodel->componentByName('OtherOpts');
+        my $model_general = $submodel->componentByName('GeneralClientOpts');
+        my $model_other   = $submodel->componentByName('OtherOpts');
 
-            my $general = $self->_getGeneralProfileOptions($model_general);
-            my $other   = $self->_getOtherOptions($model_other);
+        my $general = $self->_getGeneralProfileOptions($model_general);
+        my $other   = $self->_getOtherOptions($model_other);
 
-            push(@profiles, { name => $name, options => { %{$general}, %{$other} }, } );
-#        }
+        push(@profiles, { name => $name, options => { %{$general}, %{$other} }, } );
     }
 
     return \@profiles;

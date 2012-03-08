@@ -77,7 +77,6 @@ sub _table
         'tableDescription' => \@fields,
         'help' => '', # FIXME
         'sortedBy' => 'name',
-#        'enableProperty' => 1,
     };
 
     return $dataTable;
