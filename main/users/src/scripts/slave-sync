@@ -54,7 +54,8 @@ processDir($slaves, EBox::Config::home() . 'syncjournal/');
 
 if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
-    processDir($slaves, EBox::UserCorner::usercornerdir() . 'syncjournal/');
+
+    processUserCornerDir(EBox::UserCorner::usercornerdir() . 'syncjournal/');
 }
 
 EBox::Util::Lock::unlock(LOCK_NAME);
@@ -82,7 +83,7 @@ sub processSlaveDir
     }
     closedir($dh);
 
-    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files){
+    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files) {
         processFile($slave, "$dir$file");
     }
 }
@@ -121,4 +122,45 @@ sub processDir
     closedir($jdir);
 }
 
+
+sub processUserCornerDir
+{
+    my ($dir) = @_;
+
+    my $dh;
+    opendir($dh, $dir) or
+        die "Can't open the journal dir: $dir\n";
+
+    my %files;
+    while (defined(my $file = readdir($dh))) {
+        (-d "$dir$file" and next);
+        $files{$file} = (stat("$dir$file"))[9];
+    }
+    closedir($dh);
+
+    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files) {
+        processUserCornerFile("$dir$file");
+    }
+}
+
+sub processUserCornerFile
+{
+    my ($file) = @_;
+
+    EBox::Sudo::root("chown ebox:ebox $file") unless (-r $file);
+    my $action = EBox::UsersAndGroups::Slave->readActionInfo($file);
+    if ($mode eq 'run') {
+
+        foreach my $slave (@{$slaves}) {
+            my $name = $slave->name();
+            print "Syncing $file to $name...\n";
+            $slave->sync($action->{signal}, $action->{args});
+        }
+        EBox::Sudo::root("rm $file");
+
+    } elsif ($mode eq 'list') {
+        my $name = basename($file);
+        print " * $name\n";
+    }
+}
 1;

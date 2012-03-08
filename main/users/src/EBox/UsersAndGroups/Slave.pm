@@ -91,6 +91,18 @@ sub savePendingSync
     my $users = EBox::Global->modInstance('users');
     my $dir = $users->syncJournalDir($self);
 
+    my $time = time();
+    my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
+
+    $self->writeActionInfo($fh, $signal, $args);
+
+    $fh->close();
+}
+
+sub writeActionInfo
+{
+    my ($self, $fh, $signal, $args) = @_;
+
     my @params;
     foreach my $arg (@{$args}) {
         if (ref($arg)) {
@@ -112,10 +124,7 @@ sub savePendingSync
         args   => \@params,
     };
 
-    my $time = time();
-    my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
     print $fh encode_json($action);
-    $fh->close();
 }
 
 
@@ -125,6 +134,25 @@ sub savePendingSync
 #   Try to sync a saved action from a previous failed sync
 #
 sub syncFromFile
+{
+    my ($self, $file) = @_;
+
+    my $action = $self->readActionInfo($file);
+
+    my $method = '_' . $action->{signal};
+    my $args = $action->{args};
+
+    try {
+        $self->$method(@{$args});
+        unlink ($file);
+    } otherwise {
+        my $name = $self->name();
+        EBox::error("Error notifying $name for $method");
+    };
+}
+
+
+sub readActionInfo
 {
     my ($self, $file) = @_;
 
@@ -147,14 +175,9 @@ sub syncFromFile
         push (@params, $arg);
     }
 
-    my $method = '_' . $signal;
-    try {
-        $self->$method(@params);
-        unlink ($file);
-    } otherwise {
-        my $name = $self->name();
-        EBox::error("Error notifying $name for $signal");
-    };
+    $action->{args} = \@params;
+
+    return $action;
 }
 
 sub name

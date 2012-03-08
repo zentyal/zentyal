@@ -36,6 +36,7 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
+use EBox::UsersAndGroups::Slave;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
@@ -771,13 +772,37 @@ sub notifyModsLdapUserBase
         $mod->$method(@{$args});
     }
 
+    # Save user corner operations for slave-sync daemon
+    if ($self->isUserCorner) {
+
+        my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
+        mkdir ($dir) unless (-d $dir);
+
+        my $time = time();
+        my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
+        EBox::UsersAndGroups::Slave->writeActionInfo($fh, $signal, $args);
+        $fh->close();
+        return;
+    }
+
     # Notify slaves
     foreach my $slave (@{$self->allSlaves}) {
         $slave->sync($signal, $args);
     }
 }
 
+sub isUserCorner
+{
+    my ($self) = @_;
 
+    my $auth_type = undef;
+    try {
+        my $r = Apache2::RequestUtil->request();
+        $auth_type = $r->auth_type;
+    } catch Error with {};
+
+    return ($auth_type eq 'EBox::UserCorner::Auth');
+}
 
 # Method: defaultUserModels
 #
