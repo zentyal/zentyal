@@ -37,6 +37,7 @@ use English qw(-no_match_vars);
 use File::Basename;
 use POSIX qw(setsid);
 use Error qw(:try);
+use File::Path qw(remove_tree);
 
 # Constants
 use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
@@ -44,9 +45,11 @@ use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
 use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
 use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
 use constant INCLUDE_KEY => 'includes';
+use constant CAS_KEY => 'cas';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
 use constant APACHE_PORT => 443;
+use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 
 sub _create
 {
@@ -157,6 +160,9 @@ sub _writeHttpdConfFile
 {
     my ($self) = @_;
 
+    # Write CA links
+    $self->_writeCAPath();
+
     my $httpdconf = _httpdConfFile();
     my $output;
     my $interp = HTML::Mason::Interp->new(out_method => \$output);
@@ -214,6 +220,37 @@ sub _writeCSSFiles
                                                    gid => $primaryGid});
     }
 }
+
+
+# write CA Certificate Path with included CAs
+sub _writeCAPath
+{
+    my ($self) = @_;
+
+    remove_tree(CA_CERT_PATH);
+    mkdir(CA_CERT_PATH);
+
+    # Write links for each CA
+    foreach my $ca (@{$self->_CAs(1)}) {
+        my $link = $self->_caLinkPath($ca);
+        unlink($link) if ( -l $link );
+        symlink($ca, $link);
+    }
+}
+
+# Return the link name for the CA certificate in the given format
+# hashValue.0 - hash value is the output from openssl ciphering
+sub _caLinkPath
+{
+    my ($self, $ca) = @_;
+
+    my $hashRet = EBox::Sudo::command("openssl x509 -hash -noout -in $ca");
+
+    my $hashValue = $hashRet->[0];
+    chomp($hashValue);
+    return CA_CERT_PATH . "${hashValue}.0";
+}
+
 
 # Report the new TCP admin port to Zentyal Cloud
 sub _reportAdminPort
@@ -582,6 +619,102 @@ sub _includes
 
     return \@includes;
 }
+
+
+
+# Method: addCA
+#
+#   Include the given CA in the SSLCACertificatePath
+#
+# Parameters:
+#
+#      ca - CA Certificate
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file does
+#      not exists
+#
+sub addCA
+{
+    my ($self, $ca) = @_;
+
+    unless(defined($ca)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    unless(-f $ca and -r $ca) {
+        throw EBox::Exceptions::Internal(
+            "File $ca cannot be read or it is not a file"
+           );
+    }
+    my @cas = @{$self->_CAs(0)};
+    unless ( grep { $_ eq $ca } @cas) {
+        push(@cas, $ca);
+        $self->set_list(CAS_KEY, 'string', \@cas);
+    }
+
+}
+
+# Method: removeCA
+#
+#      Remove a previously added CA from the SSLCACertificatePath
+#
+# Parameters:
+#
+#       ca - CA certificate
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file has not
+#      been included previously
+#
+sub removeCA
+{
+    my ($self, $ca) = @_;
+
+    unless(defined($ca)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    unless(-f $ca and -r $ca) {
+        throw EBox::Exceptions::Internal(
+            "File $ca cannot be read or it is not a file"
+           );
+    }
+    my @cas = @{$self->_CAs(0)};
+    my @newCAs = grep { $_ ne $ca } @cas;
+    if ( @newCAs eq @cas ) {
+        throw EBox::Exceptions::Internal("$ca has not been included previously");
+    }
+    $self->set_list(CAS_KEY, 'string', \@newCAs);
+}
+
+# Return those include files that has been added
+sub _CAs
+{
+    my ($self, $check) = @_;
+    my $caList = $self->get_list(CAS_KEY);
+    if (not $check) {
+        return $caList;
+    }
+
+    my @cas;
+    foreach my $ca (@{ $caList  }) {
+        if ((-f $ca) and (-r $ca)) {
+            push @cas, $ca;
+        } else {
+            EBox::warn("Ignoring CA $ca: cannot read the file or not is a regular file");
+        }
+    }
+
+    return \@cas;
+}
+
 
 # Method: certificates
 #

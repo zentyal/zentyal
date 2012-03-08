@@ -1,4 +1,5 @@
 HEAD
+	+ Added methods to manage apache CA certificates
 	+ Use IO::Socket::SSL for SOAPClient connections
 	+ Removed apache rewrite from old slaves implementation
 	+ Removed some console problematic characters from Util::Random::generate
