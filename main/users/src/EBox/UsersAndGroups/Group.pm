@@ -78,7 +78,7 @@ sub addMember
 {
     my ($self, $user, $lazy) = @_;
 
-    my @members = $self->_entry->get('member');
+    my @members = $self->get('member');
     push (@members, $user->dn());
 
     $self->set('member', \@members, $lazy);
@@ -98,7 +98,7 @@ sub removeMember
     my ($self, $user, $lazy) = @_;
 
     my @members;
-    foreach my $dn ($self->_entry->get('member')) {
+    foreach my $dn ($self->get('member')) {
         push (@members, $dn) if ($dn ne $user->dn());
     }
 
@@ -118,7 +118,7 @@ sub users
 {
     my ($self, $system) = @_;
 
-    my @members = $self->_entry->get('member');
+    my @members = $self->get('member');
     @members = map { new EBox::UsersAndGroups::User(dn => $_) } @members;
 
     unless ($system) {
