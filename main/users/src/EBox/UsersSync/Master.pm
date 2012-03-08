@@ -58,14 +58,12 @@ sub confSOAPService
     my @params;
     push (@params, passwords_file => MASTER_PASSWORDS_FILE);
 
-    if (-f MASTER_CERT) {
-        push (@params, cert_file => MASTER_CERT);
-    }
-
     EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
 
     my $apache = EBox::Global->modInstance('apache');
     $apache->addInclude($confFile);
+
+    $apache->addCA(MASTER_CERT) if (-f MASTER_CERT);
 }
 
 

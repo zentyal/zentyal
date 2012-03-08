@@ -1,11 +1,6 @@
 <%args>
   $passwords_file
-  $cert_file => ''
 </%args>
-
-% if ($cert_file) {
-SSLCACertificateFile "<% $cert_file %>"
-%}
 
 <Location /slave>
     SetHandler perl-script
