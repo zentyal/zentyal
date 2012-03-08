@@ -875,13 +875,12 @@ sub setRemoteBackupCron
     my $script = '';
     if ($nice) {
         if ($nice =~ m/^\d+$/) {
-            $script ="nice -n $nice "  if $nice > 0;
+            $script = "nice -n $nice " if $nice > 0;
         } else {
-            EBox::error("Scheduled backup priority must be a positive number" );            
+            EBox::error("Scheduled backup priority must be a positive number" );
         }
-
     }
-   $script .= EBox::Config::share() . 'zentyal-ebackup/backup-tool';
+    $script .= EBox::Config::share() . 'zentyal-ebackup/backup-tool';
 
     my $fullList = $strings->{full};
     if ($fullList) {
