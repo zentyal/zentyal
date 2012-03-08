@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Mail module is force to reload when mailfilter module is enabled
 	  or disabled
 	+ Fixed spamassassin SQL database creation
