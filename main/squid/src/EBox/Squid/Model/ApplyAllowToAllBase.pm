@@ -134,7 +134,7 @@ sub changeRowJS
 {
     my ($self, $editId, $page) = @_;
 
-    my  $function = q{applyAllChangeRows('%s', '%s', %s, '%s',}.
+    my  $function = q{_applyAllForm_changeRows('%s', '%s', %s, '%s',}.
             q{'%s', %s, %s, %s);};
 
 
@@ -152,7 +152,6 @@ sub changeRowJS
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
 
-#    $fields =~ s/'/"/g;
     my $onCompleteJS =  <<END;
     function(t) {
         highlightRow( id, false);
@@ -173,7 +172,6 @@ END
             $onCompleteJS
             );
 
-    EBox::info("JS $JS");
     return $JS;
 }
 

@@ -7,7 +7,7 @@
 </%flags>
 <%args>
   $model
-  $hasChanged
+    $hasChanged
   $action => 'view'
 </%args>
 <%init>
@@ -23,54 +23,53 @@
 <%method headerScriptSection>
 <& PARENT:headerScriptSection &>
 <script type='text/javascript'>
-
-function applyAllChangeRows(url, table, fields, directory, id, page, force, onCompleteFunction)
+window._applyAllForm_changeRows = function(url, table, fields, directory, id, page, force, onCompleteFunction)
 {
-	var pars = 'action=edit&tablename=' + table + '&directory='
+        var pars = 'action=edit&tablename=' + table + '&directory='
                    + directory + '&id=' + id + '&';
-	if ( page != undefined ) {
-	   pars += '&page=' + page;
-	 }
+        if ( page != undefined ) {
+           pars += '&page=' + page;
+         }
 
-  	pars += '&filter=' + inputValue(table + '_filter');
-  	pars += '&pageSize=' + inputValue(table + '_pageSize');
+        pars += '&filter=' + inputValue(table + '_filter');
+        pars += '&pageSize=' + inputValue(table + '_pageSize');
 
         // If force parameter is ready, show it
         if ( force ) {
           pars += '&force=1';
         }
 
-	cleanError(table);
+        cleanError(table);
 
-	for (var i = 0; i < fields.length; i++) {
-		var field = fields[i];
-		var value = inputValue(table + '_' + field);
-		if (value) {
-			if (pars.length != 0) {
-				pars += '&';
-			}
-			pars += field + '=' + value;
-		}
-	}
+        for (var i = 0; i < fields.length; i++) {
+                var field = fields[i];
+                var value = inputValue(table + '_' + field);
+                if (value) {
+                        if (pars.length != 0) {
+                                pars += '&';
+                        }
+                        pars += field + '=' + value;
+                }
+        }
 
-	var MyAjax = new Ajax.Updater(
-		{
-			success: table,
-			failure: 'error_' + table
-		},
-		url,
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: false,
-			evalScripts: true,
-			onComplete: onCompleteFunction,
-			onFailure: function(t) {
-			  restoreHidden('buttons_' + table, table );
-			}
-		});
+        var MyAjax = new Ajax.Updater(
+                {
+                        success: table,
+                        failure: 'error_' + table
+                },
+                url,
+                {
+                        method: 'post',
+                        parameters: pars,
+                        asyncrhonous: false,
+                        evalScripts: true,
+                        onComplete: onCompleteFunction,
+                        onFailure: function(t) {
+                          restoreHidden('buttons_' + table, table );
+                        }
+                });
 
-	 setLoading('buttons_' + table, table, true);
+         setLoading('buttons_' + table, table, true);
 
 }
 </script>
@@ -91,66 +90,7 @@ function applyAllChangeRows(url, table, fields, directory, id, page, force, onCo
   # Getting the arguments from the first request
   my $model = $m->caller_args(2)->{model};
   # getting the list model in which apply the changes
-
-use EBox;
-  EBox::debug("PAPLY AL LTEMPLATE");
 </%init>
-
-MACACO
-
-<script type='text/javascript'>
-
-function applyAllChangeRows(url, table, fields, directory, id, page, force, onCompleteFunction)
-{
-	var pars = 'action=edit&tablename=' + table + '&directory='
-                   + directory + '&id=' + id + '&';
-	if ( page != undefined ) {
-	   pars += '&page=' + page;
-	 }
-
-  	pars += '&filter=' + inputValue(table + '_filter');
-  	pars += '&pageSize=' + inputValue(table + '_pageSize');
-
-        // If force parameter is ready, show it
-        if ( force ) {
-          pars += '&force=1';
-        }
-
-	cleanError(table);
-
-	for (var i = 0; i < fields.length; i++) {
-		var field = fields[i];
-		var value = inputValue(table + '_' + field);
-		if (value) {
-			if (pars.length != 0) {
-				pars += '&';
-			}
-			pars += field + '=' + value;
-		}
-	}
-
-	var MyAjax = new Ajax.Updater(
-		{
-			success: table,
-			failure: 'error_' + table
-		},
-		url,
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: false,
-			evalScripts: true,
-			onComplete: onCompleteFunction,
-			onFailure: function(t) {
-			  restoreHidden('buttons_' + table, table );
-			}
-		});
-
-	 setLoading('buttons_' + table, table, true);
-
-}
-
-</script>
 <td id="<% 'buttons_' . $model->modelName() %>">
   <& /input/submit.mas,
      name => 'change',
