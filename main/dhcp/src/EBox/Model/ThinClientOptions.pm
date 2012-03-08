@@ -220,10 +220,41 @@ sub nextServer
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
+    return $row->valueByName('nextServerHost');
+}
+
+# Method: remoteFilename
+#
+#   Get the remote filename in an string form to tell the DHCP clients which
+#   is the file to ask for to the server
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     String - a filename
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub remoteFilename
+{
+    my ($self, $id) = @_;
+
+    my $row = $self->row($id);
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
     my $nextServerType = $row->valueByName('nextServer');
     given ( $nextServerType ) {
         when ('nextServerHost' ) {
-            return $row->valueByName('nextServerHost');
+            return $row->valueByName('remoteFilename');
         }
         default {
             return '';
@@ -288,8 +319,10 @@ sub _table
                                                   . ' You will need to enable and configure the LTSP module.'),),
         new EBox::Types::Host(fieldName     => 'nextServerHost',
                               printableName => __('Host'),
-                              defaultValue  => 'localhost',
-                              editable      => 1),
+                              editable      => 1,
+                              optional      => 1,
+                              help          => __('Thin Client server as seen by the clients.'),
+                             ),
         new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
                              printableName => __('File path'),
@@ -360,8 +393,8 @@ sub viewCustomizer
     my %actions = (
         'nextServer' => {
             'nextServerEBox' => {
-                show => ['hosts'],
-                hide => ['remoteFilename', 'nextServerHost'],
+                show => ['hosts', 'nextServerHost'],
+                hide => ['remoteFilename'],
             },
             'nextServerHost' => {
                 show => ['remoteFilename', 'nextServerHost', 'hosts'],

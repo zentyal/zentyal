@@ -146,6 +146,10 @@
 </%args>
 % if (values(%options) > 0) {
 %   if ($options{nextServerIsZentyal}) {
+%       if ($options{nextServer}) {
+                next-server <% $options{nextServer} %>;
+                option tftp-server-name "<% $options{nextServer} %>";
+%       }
                 option root-path "/opt/ltsp/i386";
                 if substring( option vendor-class-identifier, 0, 9 ) = "PXEClient" {
                     filename "/ltsp/i386/pxelinux.0";
@@ -154,8 +158,10 @@
                 }
 %   }
 %   else {
+%       if ($options{nextServer}) {
                 next-server <% $options{nextServer} %>;
                 option tftp-server-name "<% $options{nextServer} %>";
+%       }
 %       if ( $options{filename} ) {
                 filename    "<% $options{filename} %>";
 %       }
