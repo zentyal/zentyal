@@ -34,6 +34,7 @@ use EBox::SOAPClient;
 use EBox::Gettext;
 use URI::Escape;
 use File::Slurp;
+use EBox::UsersSync::Slave;
 use Error qw(:try);
 
 sub new
@@ -112,15 +113,22 @@ sub setupMaster
 #
 sub addSlave
 {
-    my ($self, $host, $port) = @_;
+    my ($self, $host, $port, $cert) = @_;
 
     my $users = EBox::Global->modInstance('users');
     my $table = $users->model('Slaves');
 
     EBox::info("Adding a new slave on $host:$port");
 
-    $table->addRow(host => $host, port => $port);
+    my $id = $table->addRow(host => $host, port => $port);
     # TODO save this to ebox-ro (and remove red button)
+
+    unless (-d EBox::UsersSync::Slave->SLAVES_CERTS_DIR) {
+        mkdir EBox::UsersSync::Slave->SLAVES_CERTS_DIR;
+    }
+
+    # save slave's cert
+    write_file(EBox::UsersSync::Slave->SLAVES_CERTS_DIR . $id, $cert);
 
     # Regenerate slave connection password
     $self->setupMaster();
@@ -150,7 +158,7 @@ sub checkMaster
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
     my $master = EBox::SOAPClient->instance(
         name  => 'urn:Users/Master',
-        proxy => "https://slave:$password\@$host:$port/master/",
+        proxy => "https://slave:$password\@$host:$port/master",
     );
 
 
@@ -159,7 +167,7 @@ sub checkMaster
     } otherwise {
         my $ex = shift;
         $self->_analyzeException($ex);
-    }
+    };
 }
 
 
@@ -195,25 +203,25 @@ sub setupSlave
 
         my $apache = EBox::Global->modInstance('apache');
         $password = uri_escape($password);
-        local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
         my $client = EBox::SOAPClient->instance(
-                name  => 'urn:Users/Master',
-                proxy => "https://slave:$password\@$host:$port/master",
-                );
+            name  => 'urn:Users/Master',
+            proxy => "https://slave:$password\@$host:$port/master",
+        );
 
         # get master's certificate
         my $cert = $client->getCertificate();
-        write_file(MASTER_CERT, $cert);
 
-
-        ;
+        my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
-            # XXX 1 is dummy to fight SOAPClient's problem with even parameter list size
-            $client->registerSlave($self->_hostname(), $apache->port, 1);
+            $client->registerSlave($self->_hostname(), $apache->port, $client_cert);
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);
-        }
+        };
+
+        # Write master certificate
+        # (after registering slave, this means everything went well)
+        write_file(MASTER_CERT, $cert);
     }
     else {
         # return if already disabled

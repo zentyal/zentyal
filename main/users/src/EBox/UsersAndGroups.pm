@@ -1022,7 +1022,7 @@ sub slaves
         my $host = $row->valueByName('host');
         my $port = $row->valueByName('port');
 
-        push (@slaves, new EBox::UsersSync::Slave($host, $port));
+        push (@slaves, new EBox::UsersSync::Slave($host, $port, $id));
     }
 
     return \@slaves;

@@ -38,12 +38,12 @@ sub getCertificate
 
 sub registerSlave
 {
-    my ($self, $host, $port) = @_;
+    my ($self, $host, $port, $cert) = @_;
 
     my $users = EBox::Global->modInstance('users');
     my $master = $users->master();
 
-    $master->addSlave($host, $port);
+    $master->addSlave($host, $port, $cert);
 
     return $self->_soapResult(0);
 }

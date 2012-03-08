@@ -24,6 +24,9 @@ use base 'EBox::UsersAndGroups::Slave';
 # Dir containing certificates for this master
 use constant SSL_DIR => EBox::Config::conf() . 'ssl/';
 
+# Dir storing slave
+use constant SLAVES_CERTS_DIR => '/var/lib/zentyal/conf/users/slaves/';
+
 use EBox::Global;
 use EBox::Exceptions::External;
 use EBox::Util::Random;
@@ -36,10 +39,11 @@ use Error qw(:try);
 
 sub new
 {
-    my ($class, $host, $port) = @_;
+    my ($class, $host, $port, $cert) = @_;
     my $self = $class->SUPER::new(name => "users-$host-$port");
     $self->{host} = $host;
     $self->{port} = $port;
+    $self->{cert} = SLAVES_CERTS_DIR . $cert;
     bless($self, $class);
     return $self;
 }
@@ -154,7 +158,8 @@ sub soapClient
         proxy => "https://$hostname:$port/slave/",
         certs => {
             cert => SSL_DIR . 'ssl.pem',
-            private => SSL_DIR . 'ssl.key'
+            private => SSL_DIR . 'ssl.key',
+            ca => $self->{cert},
         }
     );
     return $client;
