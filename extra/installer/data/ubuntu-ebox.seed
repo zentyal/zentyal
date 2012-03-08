@@ -6,12 +6,16 @@
 
 # add zentyal repository
 d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.3/ubuntu precise main
-d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.3-ppa.asc
+# FIXME: uncomment this once problems when no Internet available are solved
+#d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.3-ppa.asc
+# FIXME: delete this once uncommented the above line
+d-i debian-installer/allow_unauthenticated boolean true
+
 #d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 2.3 main
 #d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-2.3-archive.asc
 
 # Ignore error downloading key if not Internet connection available
-apt-setup-udeb apt-setup/local/key-error select Ignore
+d-i apt-setup/local/key-error select Ignore
 
 # linux-generic-pae will replaced by linux-server in the 64bit installer
 d-i base-installer/kernel/override-image string linux-generic-pae
