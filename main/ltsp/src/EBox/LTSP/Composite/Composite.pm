@@ -58,7 +58,6 @@ sub _description
                 'Configuration',
                 '/ltsp/AutoLogin',
                 '/ltsp/Profiles',
-                '/ltsp/Clients',
             ],
         layout          => 'tabbed',
         name            => 'Composite',

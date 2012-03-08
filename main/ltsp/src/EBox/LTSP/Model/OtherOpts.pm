@@ -64,7 +64,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'OtherOpts',
-        'printableTableName' => __('Other options'),
+        'printableTableName' => __('Other Options'),
         'printableRowName' => __('Option'),
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],

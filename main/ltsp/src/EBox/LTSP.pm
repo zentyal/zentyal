@@ -384,36 +384,9 @@ sub _getGeneralProfileOptions
     return \%opts;
 }
 
-sub _getProfilesOptions
-{
-    my ($self) = @_;
-
-    my @profiles;
-
-    my $profile_list = $self->model('ltsp/Profiles');
-
-    for my $id (@{$profile_list->ids()}) {
-        my $row = $profile_list->row($id);
-
-        my $name = $row->valueByName('name');
-
-        my $submodel = $row->subModel('configuration');
-
-        my $model_general = $submodel->componentByName('GeneralClientOpts');
-        my $model_other   = $submodel->componentByName('OtherOpts');
-
-        my $general = $self->_getGeneralProfileOptions($model_general);
-        my $other   = $self->_getOtherOptions($model_other);
-
-        push(@profiles, { name => $name, options => { %{$general}, %{$other} }, } );
-    }
-
-    return \@profiles;
-}
-
 sub _getClientsOptions
 {
-    my ($self) = @_;
+    my ($self,$model,$profile) = @_;
 
     my %clients;
 
@@ -422,17 +395,10 @@ sub _getClientsOptions
     my $global  = EBox::Global->getInstance();
     my $objMod = $global->modInstance('objects');
 
-    my $profile_list = $self->model('ltsp/Profiles');
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
 
-    for my $id (@{$client_list->ids()}) {
-        my $row = $client_list->row($id);
-
-        my $enabled = $row->valueByName('enabled');
-        if ($enabled) {
-            my $profile_id = $row->valueByName('profile');
-            my $row_prof   = $profile_list->row($profile_id);
-            my $profile    = $row_prof->valueByName('name');
-
+        if ($row->valueByName('enabled')) {
             my $object_id = $row->valueByName('object');
             my $object    = $objMod->objectMembers($object_id);
 
@@ -446,6 +412,46 @@ sub _getClientsOptions
     }
 
     return \%clients;
+}
+
+sub _getProfilesOptions
+{
+    my ($self) = @_;
+
+    my @profiles;
+    my %clients;
+
+    my $profile_list = $self->model('ltsp/Profiles');
+
+    for my $id (@{$profile_list->ids()}) {
+        my $row = $profile_list->row($id);
+
+        if ( $row->valueByName('enabled') ) {
+            my $name = $row->valueByName('name');
+
+            my $submodel = $row->subModel('configuration');
+
+            my $model_general = $submodel->componentByName('GeneralClientOpts');
+            my $model_other   = $submodel->componentByName('OtherOpts');
+
+            my $general = $self->_getGeneralProfileOptions($model_general);
+            my $other   = $self->_getOtherOptions($model_other);
+
+            # If empty profile, ignore the profile and its clients
+            if (%$general or %$other) {
+                push(@profiles, {
+                                    name => $name,
+                                    options => { %{$general}, %{$other} },
+                                } );
+
+                my $client_submodel = $row->subModel('clients');
+                my $profile_clients = $self->_getClientsOptions($client_submodel, $name);
+                @clients{keys %{$profile_clients}} = values %{$profile_clients};
+            }
+        }
+    }
+
+    return (\@profiles, \%clients);
 }
 
 sub _addAutoLoginConf
@@ -478,9 +484,8 @@ sub _writeConfiguration
 {
     my ($self) = @_;
 
-    my $global   = $self->_getGlobalOptions();
-    my $profiles = $self->_getProfilesOptions();
-    my $clients  = $self->_getClientsOptions();
+    my $global              = $self->_getGlobalOptions();
+    my ($profiles,$clients) = $self->_getProfilesOptions();
 
     $self->_addAutoLoginConf($clients);
 

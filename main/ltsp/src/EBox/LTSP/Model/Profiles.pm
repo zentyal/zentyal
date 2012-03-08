@@ -65,18 +65,26 @@ sub _table
             'view' => '/LTSP/Composite/ClientConfiguration',
             'backView' => '/LTSP/View/Profiles',
         ),
+        new EBox::Types::HasMany(
+            'fieldName' => 'clients',
+            'printableName' => __('Clients'),
+            'foreignModel' => 'ltsp/Clients',
+            'view' => '/LTSP/View/Clients',
+            'backView' => '/LTSP/View/Profiles',
+        ),
     );
 
     my $dataTable =
     {
         'tableName' => 'Profiles',
-        'printableTableName' => __('Client profiles'),
+        'printableTableName' => __('Configuration Profiles'),
         'printableRowName' => __('Profile'),
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@fields,
         'help' => '', # FIXME
         'sortedBy' => 'name',
+        'enableProperty' => 1,
     };
 
     return $dataTable;

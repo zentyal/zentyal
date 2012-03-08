@@ -161,7 +161,7 @@ sub _table
     my $dataTable =
     {
         tableName => 'GeneralOpts',
-        printableTableName => __('General options'),
+        printableTableName => __('General Options'),
         modelDomain => 'LTSP',
         defaultActions => ['add', 'del', 'editField', 'changeView' ],
         tableDescription => \@fields,

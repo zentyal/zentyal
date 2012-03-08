@@ -60,7 +60,7 @@ sub _description
             ],
         layout          => 'top-bottom',
         name            => 'Configuration',
-        printableName   => __('General configuration'),
+        printableName   => __('General Configuration'),
         compositeDomain => 'LTSP',
         help            => __(''), # FIXME
     };

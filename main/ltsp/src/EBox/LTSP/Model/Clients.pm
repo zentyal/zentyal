@@ -46,11 +46,6 @@ sub objectModel
     return EBox::Global->modInstance('objects')->{'objectModel'};
 }
 
-sub profileModel
-{
-    return EBox::Global->modInstance('ltsp')->model('Profiles');
-}
-
 sub _table
 {
 
@@ -65,21 +60,13 @@ sub _table
             'editable' => 1,
             'help' => __(''),
         ),
-        new EBox::Types::Select(
-            'fieldName' => 'profile',
-            'printableName' => __('Profile'),
-            'foreignModel' => \&profileModel,
-            'foreignField' => 'name',
-            'editable' => 1,
-            'help' => __(''),
-        ),
     );
 
     my $dataTable =
     {
         'tableName' => 'Clients',
-        'printableTableName' => __('Clients configuration'),
-        'printableRowName' => __('clients configuration'),
+        'printableTableName' => __('Clients'),
+        'printableRowName' => __('client'),
         'automaticRemove' => 1,
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
