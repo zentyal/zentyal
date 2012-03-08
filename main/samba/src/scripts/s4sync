@@ -20,7 +20,7 @@ my @sambaGroupsToIgnore = ('Read-Only Domain Controllers', 'Group Policy Creator
 
 # These are the users and groups ignored. All users and groups that are not in
 # samba neither in this arrays will be deleted
-my @ldapUsersToIgnore  = ('');
+my @ldapUsersToIgnore  = ('ham', 'spam');
 my @ldapGroupsToIgnore = ('__USERS__');
 
 #############################################################################
