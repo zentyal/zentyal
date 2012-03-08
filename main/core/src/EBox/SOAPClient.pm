@@ -217,6 +217,7 @@ sub _setCerts
     if (defined($certs->{ca})) {
         $ENV{HTTPS_CA_FILE} = $certs->{ca};
         $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_ca_file} = $certs->{ca};
+        $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_verify_mode} = 0x01; # verify peer
     }
     $ENV{HTTPS_VERSION} = '3';
 }
