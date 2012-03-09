@@ -71,9 +71,10 @@ sub _table
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@fields,
-        'help' => '', # FIXME
+        'help' => 'Only those object members with a MAC address will have this profile applied to them.',
         'sortedBy' => 'object',
         'enableProperty' => 1,
+        'defaultEnabledValue' => 1,
     };
 
     return $dataTable;

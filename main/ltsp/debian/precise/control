@@ -11,7 +11,8 @@ Vcs-Svn: http://svn.zentyal.org/zentyal/trunk
 Package: zentyal-ltsp
 Architecture: all
 Depends: zentyal-core (>= 2.3), zentyal-network (>= 2.3), ltsp-server, ltspfs,
-    libasound2-plugins, nbd-server, openssh-server, xbase-clients, ${misc:Depends}
+    libasound2-plugins, nbd-server, openssh-server, xbase-clients, tftpd-hpa,
+    ldm-server, ${misc:Depends}
 Description: Zentyal - LTSP
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

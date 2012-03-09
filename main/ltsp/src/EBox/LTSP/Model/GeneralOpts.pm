@@ -30,6 +30,7 @@ use EBox::Validate qw(:all);
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Time;
+use EBox::Types::Text;
 
 sub new
 {
@@ -125,9 +126,16 @@ sub _table
             editable        => 1,
             help            => __(''),
         ),
+        new EBox::Types::Text(
+            fieldName       => 'kb_layout',
+            printableName   => __('Keyboard Layout'),
+            size            => 10,
+            editable        => 1,
+            defaultValue    => 'en',
+        ),
         new EBox::Types::IPAddr(
             fieldName       => 'server',
-            printableName   => __('IP Address of the Server'),
+            printableName   => __('Server'),
             editable        => 1,
             optional        => 1,
             help            => __('IP address of the server for "everything". ' .
@@ -135,9 +143,11 @@ sub _table
         ),
         new EBox::Types::IPAddr(
             fieldName       => 'time_server',
-            printableName   => __('IP Address of the Time Server'),
+            printableName   => __('Time Server'),
             editable        => 1,
             optional        => 1,
+            help            => __('IP address of the time server. ' .
+                                  'If not set, it will be undef.'),
         ),
         new EBox::Types::Union(
             fieldName      => 'shutdown',
@@ -155,6 +165,7 @@ sub _table
                     editable        => 1,
                 ),
             ],
+            help            => __('Time when clients will be automatically shutdown.'),
         ),
     );
 
@@ -165,7 +176,6 @@ sub _table
         modelDomain => 'LTSP',
         defaultActions => ['add', 'del', 'editField', 'changeView' ],
         tableDescription => \@fields,
-        help => '', # FIXME
     };
 
     return $dataTable;

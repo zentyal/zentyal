@@ -79,6 +79,7 @@ sub _table
         'tableDescription' => \@fields,
         'sortedBy' => 'mac',
         'enableProperty' => 1,
+        'defaultEnabledValue' => 1,
         'help' => 'This will only work if "AutoLogin" is enabled for the client.',
     };
 

@@ -243,6 +243,8 @@ sub _getGeneralOptions
     my $autologin   = $model->row()->valueByName('autologin');
     my $guestlogin  = $model->row()->valueByName('guestlogin');
 
+    my $kb_layout   = $model->row()->valueByName('kb_layout');
+
     my $server      = $model->row()->elementByName('server')->ip();
     my $time_server = $model->row()->elementByName('time_server')->ip();
 
@@ -289,6 +291,11 @@ sub _getGeneralOptions
 
     if ( defined $shutdown_time ) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
+    }
+
+    if ( defined $kb_layout ) {
+        $opts{'XKBLAYOUT'}      = $kb_layout;
+        $opts{'CONSOLE_KEYMAP'} = $kb_layout;
     }
 
     return \%opts;

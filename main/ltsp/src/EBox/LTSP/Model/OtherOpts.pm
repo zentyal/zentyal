@@ -71,6 +71,7 @@ sub _table
         'tableDescription' => \@fields,
         'sortedBy' => 'option',
         'enableProperty' => 1,
+        'defaultEnabledValue' => 1,
     };
 
     return $dataTable;

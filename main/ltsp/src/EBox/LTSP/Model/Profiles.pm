@@ -85,6 +85,7 @@ sub _table
         'help' => '', # FIXME
         'sortedBy' => 'name',
         'enableProperty' => 1,
+        'defaultEnabledValue' => 1,
     };
 
     return $dataTable;
