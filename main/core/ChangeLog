@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed 'hidden' on types when using method references
 	+ Removed some console problematic characters from Util::Random::generate
 	+ Added methods to manage apache CA certificates
 	+ Use IO::Socket::SSL for SOAPClient connections
