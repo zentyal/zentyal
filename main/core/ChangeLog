@@ -1,3 +1,5 @@
+HEAD
+	+ Cache contents of module.yaml files in Global
 2.3.3
 	+ The editable attribute of the types now accept a reference to a function
 	  to dinamically enable or disable the field.
