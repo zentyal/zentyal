@@ -105,7 +105,7 @@ sub writeActionInfo
 
     my @params;
     foreach my $arg (@{$args}) {
-        if (ref($arg)) {
+        if (ref($arg) =~ /::/) {
             if ($arg->isa('EBox::UsersAndGroups::LdapObject')) {
                 my @lines = split(/\n/, $arg->as_ldif());
                 $arg = {

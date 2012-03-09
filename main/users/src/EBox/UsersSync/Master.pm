@@ -128,6 +128,8 @@ sub addSlave
     # save slave's cert
     write_file(EBox::UsersSync::Slave->SLAVES_CERTS_DIR . $id, $cert);
 
+    $users->initialSlaveSync(new EBox::UsersSync::Slave($host, $port, $cert));
+
     # Regenerate slave connection password
     $self->setupMaster();
 }

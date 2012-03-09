@@ -369,6 +369,27 @@ sub deleteObject
 }
 
 
+# Method: passwordHashes
+#
+#   Return an array ref to all hashed passwords as:
+#
+#   [ name => hash, ... ]
+#
+sub passwordHashes
+{
+    my ($self) = @_;
+
+    my @res;
+    foreach my $attr ($self->_entry->attributes) {
+        if ($attr =~ m/^Password$/) {
+            push (@res, $attr => $self->get($attr));
+        }
+    }
+
+    return \@res;
+}
+
+
 # USER CREATION:
 
 
@@ -380,11 +401,12 @@ sub deleteObject
 #
 #   user - hash ref containing: 'user'(user name), 'fullname', 'password',
 #   'givenname', 'surname' and 'comment'
+#       if password is not given, a 'passwords' array ref to passwords attribute
+#       should be present
 #   system - boolean: if true it adds the user as system user, otherwise as
 #   normal user
 #   params hash (all optional):
 #      uidNumber - user UID numberer
-#      additionalPasswords - list with additional passwords
 #      ignore_mods - ldap modules to be ignored on addUser notify
 #      ou (multiple_ous enabled only)
 #
@@ -453,28 +475,29 @@ sub create
     my $passwd = $user->{'password'};
 
     # system user could not have passwords
-    if (not $passwd and not $system) {
+    if (not $passwd and not $user->{passwords} and not $system) {
         throw EBox::Exceptions::MissingArgument(__('Password'));
     }
-    my @additionalPasswords = ();
-    if ($passwd) {
-        $self->_checkPwdLength($user->{'password'});
+    my @passwords = ();
+    if (ref($passwd) ne 'ARRAY') {
+        # build addtional passwords using not-hashed pasword
+        if (isHashed($passwd)) {
+            throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
+        }
+
+        $self->_checkPwdLength($passwd);
 
         if (not isHashed($passwd)) {
             $passwd = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
         }
 
-        if (exists $params{additionalPasswords}) {
-            @additionalPasswords = @{ $params{additionalPasswords} }
-        } else {
-            # build addtional passwords using not-hashed pasword
-            if (isHashed($user->{password})) {
-                throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
-            }
+        my %passwords = %{EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'})};
+        @passwords = map { $_ => $passwords{$_} } keys %passwords;
+        push (@passwords, 'userPassword'  => $passwd);
 
-            my %passwords = %{EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'})};
-            @additionalPasswords = map { $_ => $passwords{$_} } keys %passwords;
-        }
+    } else {
+        # Already hashed passwors received
+        @passwords = @{ $params{password} }
     }
 
     # If fullname is not specified we build it with
@@ -497,7 +520,6 @@ sub create
         'uidNumber'     => $uid,
         'gidNumber'     => $gid,
         'homeDirectory' => $homedir,
-        'userPassword'  => $passwd,
         'quota'         => $quota,
         'objectclass'   => [
             'inetOrgPerson',
@@ -505,7 +527,7 @@ sub create
             'passwordHolder',
             'systemQuotas',
         ],
-        @additionalPasswords
+        @passwords
     );
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});

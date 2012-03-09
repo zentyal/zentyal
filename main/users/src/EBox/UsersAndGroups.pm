@@ -791,6 +791,29 @@ sub notifyModsLdapUserBase
     }
 }
 
+
+# Method: initialSlaveSync
+#
+#   This method will send a sync signal for each
+#   stored user and group.
+#   It should be called on a slave registering
+#
+sub initialSlaveSync
+{
+    my ($self, $slave) = @_;
+
+    foreach my $user (@{$self->users()}) {
+        $slave->savePendingSync('addUser', [ $user, $user->passwordHashes() ]);
+    }
+
+    foreach my $group (@{$self->groups()}) {
+        $slave->savePendingSync('addGroup', $group);
+        $slave->savePendingSync('modifyGroup', $group);
+    }
+}
+
+
+
 sub isUserCorner
 {
     my ($self) = @_;
