@@ -1,3 +1,10 @@
+zbuildtools (5) precise; urgency=low
+
+  * Added source format, Homepage, Vcs-*, COPYING
+  * Set compat level to 7 and depend on that debhelper version
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 09 Mar 2012 13:49:22 +0100
+
 zbuildtools (4) precise; urgency=low
 
   * Added manpages
