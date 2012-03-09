@@ -3580,7 +3580,7 @@ sub selectedDefaultGateway
 {
     my ($self) = @_;
 
-    return $self->st_get_string('default/gateway');
+    return $self->get_string('default/gateway');
 }
 
 # Method: storeSelectedDefaultGateway
@@ -3594,8 +3594,7 @@ sub selectedDefaultGateway
 sub storeSelectedDefaultGateway # (gateway
 {
     my ($self, $gateway) = @_;
-
-    return $self->st_set_string('default/gateway', $gateway);
+    return $self->set_string('default/gateway', $gateway);
 }
 
 # Method: DHCPGateway
