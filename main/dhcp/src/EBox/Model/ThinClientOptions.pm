@@ -337,20 +337,26 @@ sub _select_options
 #   Array ref of hash refs containing the 'value' and the 'printableValue' for
 #   each select option
 #
-#   TODO: Build the list automatically by looking for the boot images
-#
 sub _select_architecture
 {
-    return [
-        {
-            value => 'i386',
-            printableValue => 'i386',
-        },
-        {
-            value => 'amd64',
-            printableValue => 'amd64',
-        },
-    ];
+    my @architectures;
+
+    my $gl = EBox::Global->getInstance();
+
+    if ( $gl->modExists('ltsp') ) {
+        my $module = $gl->modInstance('ltsp');
+
+        for my $arch (@{$module->architectures}) {
+            push(@architectures,
+                {
+                    value => $arch,
+                    printableValue => $arch,
+                }
+            );
+        }
+    }
+
+    return \@architectures;
 }
 
 # Method: _table

@@ -37,7 +37,9 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
-use constant CONF_FILE => '/var/lib/tftpboot/ltsp/i386/lts.conf'; # FIXME
+use constant CONF_DIR  => '/var/lib/tftpboot/ltsp';
+use constant CONF_FILE => 'lts.conf';
+use constant ARCHITECTURES => ['i386', 'amd64'];
 
 
 # Method: _create
@@ -120,6 +122,24 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
+sub architectures
+{
+    return ARCHITECTURES;
+}
+
+sub _confFiles
+{
+    my ($self) = @_;
+
+    my @conf_files;
+
+    for my $arch (@{$self->architectures}) {
+        push( @conf_files, CONF_DIR . "/$arch/" . CONF_FILE);
+    }
+
+    return \@conf_files;
+}
+
 # Method: usedFiles
 #
 # Overrides:
@@ -128,13 +148,20 @@ sub enableActions
 #
 sub usedFiles
 {
-    return [
-        {
-             'file' => CONF_FILE,
-             'module' => 'ltsp',
-             'reason' => __('To configure the Thin Clients.')
-        },
-    ];
+    my ($self) = @_;
+
+    my @used_files;
+
+    for my $file (@{$self->_confFiles}) {
+        push( @used_files,
+              {
+                'file' => $file,
+                'module' => 'ltsp',
+                'reason' => __('To configure the Thin Clients.')
+              });
+    }
+
+    return \@used_files;
 }
 
 # Method: _supportActions
@@ -501,7 +528,12 @@ sub _writeConfiguration
         profiles => $profiles,
         clients  => $clients,
     );
-    $self->writeConfFile(CONF_FILE, "ltsp/lts.conf.mas", \@params);
+
+    for my $file (@{$self->_confFiles}) {
+        if (-f $file) {
+            $self->writeConfFile($file, "ltsp/lts.conf.mas", \@params);
+        }
+    }
 }
 
 # Method: _setConf
