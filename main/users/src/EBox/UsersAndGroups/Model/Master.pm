@@ -26,7 +26,6 @@ use EBox::Types::Host;
 use EBox::Types::Port;
 use EBox::Types::Boolean;
 use EBox::Types::Password;
-use EBox::Types::Action;
 
 use strict;
 use warnings;
@@ -73,20 +72,21 @@ sub _table
         new EBox::Types::Host (
             fieldName => 'host',
             printableName => __('Master host'),
-            editable => 1,
+            editable => \&_unlocked,
             help => __('Hostname or IP of the master'),
         ),
         new EBox::Types::Port (
             fieldName => 'port',
             printableName => __('Master port'),
             defaultValue => 443,
-            editable => 1,
+            editable => \&_unlocked,
             help => __('Master port for Zentyal Administration (default: 443)'),
         ),
         new EBox::Types::Password (
             fieldName => 'password',
             printableName => __('Slave password'),
-            editable => 1,
+            editable => \&_unlocked,
+            hidden => \&_locked,
             help => __('Password for new slave connection'),
         ),
     );
@@ -101,6 +101,18 @@ sub _table
     };
 
     return $dataForm;
+}
+
+
+sub _locked
+{
+    my $users = EBox::Global->modInstance('users');
+    return $users->get('Master/enabled');
+}
+
+sub _unlocked
+{
+    return (not _locked());
 }
 
 sub validateTypedRow
@@ -132,5 +144,6 @@ sub validateTypedRow
     my $users = EBox::Global->modInstance('users');
     $users->master->checkMaster($host, $port, $password);
 }
+
 
 1;
