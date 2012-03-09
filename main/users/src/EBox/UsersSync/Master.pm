@@ -118,8 +118,15 @@ sub addSlave
 
     EBox::info("Adding a new slave on $host:$port");
 
+
+    my $changed = $users->changed();
     my $id = $table->addRow(host => $host, port => $port);
-    # TODO save this to ebox-ro (and remove red button)
+
+    unless ($changed) {
+        # FIXME do this better when framework available
+        $users->_saveConfig();
+        $users->setAsChanged(0);
+    }
 
     unless (-d EBox::UsersSync::Slave->SLAVES_CERTS_DIR) {
         mkdir EBox::UsersSync::Slave->SLAVES_CERTS_DIR;
