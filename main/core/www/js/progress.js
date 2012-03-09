@@ -1,3 +1,5 @@
+// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+
 // code used by progress.mas
 var percent = 0;
 var time = 0;
