@@ -20,7 +20,7 @@ License:
 	for more details.
 
 	On Debian systems, the complete text of the GNU General Public
-	License can be found in /usr/share/common-licenses/GPL file.
+	License can be found in /usr/share/common-licenses/GPL-2 file.
 
 
 Files: src/EBox/ThirdParty/* are derived from Apache::AuthCookie and its
@@ -42,7 +42,7 @@ License:
 	for more details.
 
 	On Debian systems, the complete text of the GNU General Public
-	License can be found in /usr/share/common-licenses/GPL file.
+	License can be found in /usr/share/common-licenses/GPL-2 file.
 
 
 Files: www/js/modalbox.js www/css/modalbox.css www/images/spinning.gif
@@ -73,4 +73,4 @@ The Debian packaging is:
 
     (C) 2004-2011, Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 
-and is licensed under the GPL, see `/usr/share/common-licenses/GPL'.
+and is licensed under the GPL, see `/usr/share/common-licenses/GPL-2'.
