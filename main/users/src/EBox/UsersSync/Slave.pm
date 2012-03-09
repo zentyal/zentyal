@@ -152,17 +152,18 @@ sub soapClient
     my $hostname = $self->{host};
     my $port = $self->{port};
 
-
-    my $client = EBox::SOAPClient->instance(
-        name  => 'urn:Users/Slave',
-        proxy => "https://$hostname:$port/slave/",
-        certs => {
-            cert => SSL_DIR . 'ssl.pem',
-            private => SSL_DIR . 'ssl.key',
-            ca => $self->{cert},
-        }
-    );
-    return $client;
+    unless ($self->{client}) {
+        $self->{client} = EBox::SOAPClient->instance(
+            name  => 'urn:Users/Slave',
+            proxy => "https://$hostname:$port/slave/",
+            certs => {
+                cert => SSL_DIR . 'ssl.pem',
+                private => SSL_DIR . 'ssl.key',
+                ca => $self->{cert},
+            }
+        );
+    }
+    return $self->{client};
 }
 
 
