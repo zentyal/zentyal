@@ -320,11 +320,18 @@ sub addedRowNotify
 #
 sub updatedRowNotify
 {
-    my ($self, $newRow, $force) = @_;
+    my ($self, $newRow, $oldRow, $force) = @_;
 
+    return if ($force); # failover event can forche changes
+
+    my $network = $self->parentModule();
+    my $id = $newRow->id();
     if ($newRow->valueByName('default')) {
-        my $network = $self->parentModule();
-        $network->storeSelectedDefaultGateway($newRow->id());
+        $network->storeSelectedDefaultGateway($id);
+    } else {
+        if ($id eq $network->selectedDefaultGateway()) {
+            $network->storeSelectedDefaultGateway(undef);
+        }
     }
 }
 
@@ -338,10 +345,15 @@ sub deletedRowNotify
 {
     my ($self, $row, $force) = @_;
 
-    return if ($force);
-
-    if ($row->valueByName('auto')) {
+    if ((not $force) and $row->valueByName('auto')) {
         throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
+    }
+
+    if ($row->valueByName('default')) {
+        my $network = $self->parentModule();
+        if ($row->id() eq $network->selectedDefaultGateway()) {
+            $network->storeSelectedDefaultGateway(undef);
+        }
     }
 }
 
