@@ -180,7 +180,7 @@ sub run
         my $original;
         $original = $gateways->row($originalId) if $originalId;
         if ($original and $original->valueByName('enabled')) {
-            my $original = $gateways->row($originalId);
+            $original = $gateways->row($originalId);
             $unsetAsDefault = $default;
             $setAsDefault   = $original;
             EBox::debug('The original default gateway will be restored');
@@ -276,7 +276,7 @@ sub _testRule # (row)
 
     my ($ppp_iface, $iface_up);
     if ( $network->ifaceMethod($iface) eq 'ppp' ) {
-        EBox::debug("It is a PPPoe gateway");
+        EBox::debug("It is a PPPoE gateway");
 
         $ppp_iface = $network->realIface($iface);
         $iface_up = !($ppp_iface eq $iface);
