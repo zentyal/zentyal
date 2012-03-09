@@ -76,14 +76,14 @@ sub processSlaveDir
     opendir($dh, $dir) or
         die "Can't open the journal dir: $dir\n";
 
-    my %files;
+    my @files;
     while (defined(my $file = readdir($dh))) {
         (-d "$dir$file" and next);
-        $files{$file} = (stat("$dir$file"))[9];
+        push(@files, $file);
     }
     closedir($dh);
 
-    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files) {
+    foreach my $file (sort(@files)) {
         processFile($slave, "$dir$file");
     }
 }
@@ -131,14 +131,14 @@ sub processUserCornerDir
     opendir($dh, $dir) or
         die "Can't open the journal dir: $dir\n";
 
-    my %files;
+    my @files;
     while (defined(my $file = readdir($dh))) {
         (-d "$dir$file" and next);
-        $files{$file} = (stat("$dir$file"))[9];
+        push (@files, $file);
     }
     closedir($dh);
 
-    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files) {
+    foreach my $file (sort(@files)) {
         processUserCornerFile("$dir$file");
     }
 }
