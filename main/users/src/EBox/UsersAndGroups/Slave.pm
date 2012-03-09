@@ -30,6 +30,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use Error qw(:try);
 use File::Temp qw/tempfile/;
+use Time::HiRes qw(gettimeofday);
 use JSON::XS;
 use File::Slurp;
 use EBox::UsersAndGroups::LdapObject;
@@ -91,7 +92,7 @@ sub savePendingSync
     my $users = EBox::Global->modInstance('users');
     my $dir = $users->syncJournalDir($self);
 
-    my $time = time();
+    my $time = join('', gettimeofday());
     my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
 
     $self->writeActionInfo($fh, $signal, $args);
