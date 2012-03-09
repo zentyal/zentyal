@@ -264,13 +264,13 @@ sub createDirs
         next unless ( $pathType->selectedType() eq 'zentyal');
         my $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
         my @cmds = ();
-        push(@cmds, "mkdir -p $path");
+        push(@cmds, "mkdir -p '$path'");
         if ($row->elementByName('guest')->value()) {
-           push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " $path");
-           push(@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " $path");
+           push(@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
+           push(@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
         } else {
-           push(@cmds, 'chmod ' . DEFAULT_MASK . " $path");
-           push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " $path");
+           push(@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
+           push(@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
         }
         EBox::debug("Creating share directory");
         EBox::debug("Executing @cmds");
@@ -313,13 +313,13 @@ sub createDirs
         }
         my $fullAce = join ('', @aceStrings);
         $sdString .= "D:$fullAce";
-        my $cmd = $self->parentModule()->SAMBATOOL() . " ntacl set '$sdString' $path";
+        my $cmd = $self->parentModule()->SAMBATOOL() . " ntacl set '$sdString' '$path'";
         try {
             EBox::debug("Executing '$cmd'");
             EBox::Sudo::root($cmd);
         } otherwise {
             my $error = shift;
-            EBox::debug("Couldn't write NT ACLs for $path: $error");
+            EBox::debug("Couldn't write NT ACLs for '$path': $error");
         };
     }
 }
