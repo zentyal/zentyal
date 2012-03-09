@@ -807,8 +807,8 @@ sub initialSlaveSync
     }
 
     foreach my $group (@{$self->groups()}) {
-        $slave->savePendingSync('addGroup', $group);
-        $slave->savePendingSync('modifyGroup', $group);
+        $slave->savePendingSync('addGroup', [ $group ]);
+        $slave->savePendingSync('modifyGroup', [ $group ]);
     }
 }
 

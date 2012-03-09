@@ -497,7 +497,7 @@ sub create
 
     } else {
         # Already hashed passwors received
-        @passwords = @{ $params{password} }
+        @passwords = @{ $user->{password} }
     }
 
     # If fullname is not specified we build it with
