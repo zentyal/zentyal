@@ -150,11 +150,11 @@
                 next-server <% $options{nextServer} %>;
                 option tftp-server-name "<% $options{nextServer} %>";
 %       }
-                option root-path "/opt/ltsp/i386";
+                option root-path "/opt/ltsp/<% $options{architecture} %>";
                 if substring( option vendor-class-identifier, 0, 9 ) = "PXEClient" {
-                    filename "/ltsp/i386/pxelinux.0";
+                    filename "/ltsp/<% $options{architecture} %>/pxelinux.0";
                 } else {
-                    filename "/ltsp/i386/nbi.img";
+                    filename "/ltsp/<% $options{architecture} %>/nbi.img";
                 }
 %   }
 %   else {
