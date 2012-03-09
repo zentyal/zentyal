@@ -790,16 +790,18 @@ sub syncGroupMembersLdapToLdb
     # Add the missing members to the group
     foreach my $memberId (@{$diff->added}) {
         my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
-        EBox::debug('Adding user ' . $user->name() . ' to LDAP group');
-        my $cmd = "samba-tool group addmembers $groupId " . $user->name();
+        my $username = $user->name();
+        EBox::debug("Adding user '$username' to LDAP group");
+        my $cmd = "samba-tool group addmembers '$groupId' '$username'";
         EBox::Sudo::root($cmd);
     }
 
     # Remove the members
     foreach my $memberId (@{$diff->deleted}) {
         my $user = new EBox::UsersAndGroups::User(dn=>$usersModule->userDn($memberId));
-        EBox::debug('Removing user ' . $user->name() . ' from LDAP group');
-        my $cmd = "samba-tool group removemembers $groupId " . $user->name();
+        my $username = $user->name();
+        EBox::debug("Removing user '$username' from LDAP group");
+        my $cmd = "samba-tool group removemembers '$groupId' '$username'";
         EBox::Sudo::root($cmd);
     }
 }
