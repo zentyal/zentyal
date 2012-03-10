@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
 	+ Log audit does not ignore fields which their values could be interpreted
 	  as boolean false
 	+ Avoid ebox.cgi failure when showing certain strings in the error template
