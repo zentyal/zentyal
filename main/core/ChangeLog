@@ -1,4 +1,5 @@
 HEAD
+	+ Clean /var/lib/zentyal/tmp on boot
 	+ Stop apache gracefully and delete unused code in Apache.pm
 	+ Cache contents of module.yaml files in Global
 2.3.3
