@@ -116,22 +116,22 @@ sub min
 
 # Group: Protected methods
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-        my ($self, $gconfmod, $key) = @_;
+        my ($self, $confmod, $key) = @_;
 
         my $fieldKey ="$key/" . $self->fieldName();
 
         if (defined($self->memValue()) and $self->memValue() ne '') {
-                $gconfmod->set_int($fieldKey, $self->memValue());
+                $confmod->set_int($fieldKey, $self->memValue());
         } else {
-                $gconfmod->unset($fieldKey);
+                $confmod->unset($fieldKey);
         }
 
 }
@@ -207,8 +207,8 @@ sub _restoreFromHash
     return unless ($self->row());
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get_int($self->_path() . '/' . $self->fieldName());
+        my $conf = $self->row()->configModule();
+        $value = $conf->get_int($self->_path() . '/' . $self->fieldName());
         $self->_addToCache($value);
     }
     $self->{'value'} = $value;

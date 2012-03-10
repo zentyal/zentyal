@@ -152,7 +152,7 @@ sub syncRows
     # Set up every model
     $self->_setUpModels();
 
-    # Fetch the current log domains stored in gconf
+    # Fetch the current log domains stored in conf
     my %storedLogDomains;
     foreach my $id (@{$currentIds}) {
         my $row = $self->row($id);
@@ -170,14 +170,14 @@ sub syncRows
         $currentLogDomains{$table} = 1;
     }
 
-    # Add new domains to gconf
+    # Add new domains to conf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
         $self->addRow('domain' => $domain, 'enabled' => 0);
         $anyChange = 1;
     }
 
-    # Remove non-existing domains from gconf
+    # Remove non-existing domains from conf
     foreach my $id (@{$currentIds}) {
         my $row = $self->row($id);
         my $domain = $row->valueByName('domain');
@@ -338,8 +338,8 @@ sub _createFilteringModel # (domain)
 
 
     my $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
-                                                                     gconfmodule => $self->{gconfmodule},
-                                                                     directory   => $self->{gconfdir},
+                                                                     confmodule => $self->{confmodule},
+                                                                     directory   => $self->{confdir},
                                                                      tableInfo => $domainTableInfo,
                                                                     );
 

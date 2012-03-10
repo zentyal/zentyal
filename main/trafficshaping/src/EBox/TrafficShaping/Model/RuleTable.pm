@@ -56,7 +56,7 @@ use constant LIMIT_RATE_KEY => '/limitRate';
 #
 # Parameters:
 #
-#       gconfmodule -
+#       confmodule -
 #       directory   -
 #       interface   - the interface where the table is attached
 #
@@ -73,7 +73,7 @@ sub new
     my $self = $class->SUPER::new(@_);
 
     $self->{interface} = $params{interface};
-    $self->{ts} = $params{gconfmodule};
+    $self->{ts} = $params{confmodule};
     my $netMod = EBox::Global->modInstance('network');
     if ($netMod->ifaceIsExternal($netMod->etherIface($self->{interface})) ) {
         $self->{interfaceType} = 'external';
@@ -637,7 +637,7 @@ sub _stateRate
 {
     my ($self) = @_;
 
-    return $self->{gconfmodule}->st_get_int($self->{directory} . LIMIT_RATE_KEY);
+    return $self->{confmodule}->st_get_int($self->{directory} . LIMIT_RATE_KEY);
 
 }
 
@@ -647,7 +647,7 @@ sub _setStateRate
 {
     my ($self, $rate) = @_;
 
-    $self->{gconfmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
+    $self->{confmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
             $rate);
 
 }

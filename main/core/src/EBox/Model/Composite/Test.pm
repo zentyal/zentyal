@@ -192,12 +192,12 @@ sub standardSetupForModelsAndComposites
                          defined $dir or
                              die 'no dir';
 
-                         $self->{gconfdir} = $dir;
+                         $self->{confdir} = $dir;
                      }
                     );
         $composite->mock('directory' => sub {
                              my ($self) = @_;
-                             return $self->{gconfdir};
+                             return $self->{confdir};
                             }
                         );
         $composite->mock('addComponent' => sub {
@@ -248,12 +248,12 @@ sub _setMockModel
                      $dir or
                          die 'no dir';
 
-                     $self->{gconfdir} = $dir;
+                     $self->{confdir} = $dir;
                  }
                 );
     $model->mock('directory' => sub {
                      my ($self) = @_;
-                     return $self->{gconfdir};
+                     return $self->{confdir};
                  }
                 );
     $model->mock('setParent' => \&EBox::Model::Component::setParent);

@@ -107,8 +107,8 @@ sub _restoreFromHash
     return unless ($self->row());
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get_string($self->_path() . '/' . $self->fieldName());
+        my $conf = $self->row()->configModule();
+        $value =  $conf->get_string($self->_path() . '/' . $self->fieldName());
         $self->_addToCache($value);
     }
     $self->{'value'} = $value;

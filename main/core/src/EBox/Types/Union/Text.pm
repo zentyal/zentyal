@@ -135,15 +135,15 @@ sub _restoreFromHash
 
   }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#      <EBox::Types::Text::_storeInGConf>
+#      <EBox::Types::Text::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
   {
-      my ($self, $gconfmod, $key) = @_;
+      my ($self, $confmod, $key) = @_;
 
       # Store nothing in GConf since it is already written as printableName
       return;

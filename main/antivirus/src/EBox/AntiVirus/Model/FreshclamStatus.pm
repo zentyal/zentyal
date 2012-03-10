@@ -126,7 +126,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $antivirus  = $self->{'gconfmodule'};
+    my $antivirus  = $self->{'confmodule'};
     my $state      = $antivirus->freshclamState();
 
     my $date       = delete $state->{date};

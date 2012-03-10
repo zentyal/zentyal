@@ -162,25 +162,25 @@ sub _setMemValue
     $self->{'end'} = $params->{$end};
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     my $beginKey = "$key/" . $self->fieldName() . '_begin';
     my $endKey = "$key/" . $self->fieldName() . '_end';
 
     if ($self->{'begin'}) {
-        $gconfmod->set_string($beginKey, $self->{'begin'});
-        $gconfmod->set_string($endKey, $self->{'end'});
+        $confmod->set_string($beginKey, $self->{'begin'});
+        $confmod->set_string($endKey, $self->{'end'});
     } else {
-        $gconfmod->unset($beginKey);
-        $gconfmod->unset($endKey);
+        $confmod->unset($beginKey);
+        $confmod->unset($endKey);
     }
 }
 
@@ -200,10 +200,10 @@ sub _restoreFromHash
 
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
+        my $conf = $self->row()->configModule();
         my $path = $self->_path();
-        $value->{begin} =  $gconf->get_string($path . '/' . $begin);
-        $value->{end} =  $gconf->get_string($path . '/' . $end);
+        $value->{begin} =  $conf->get_string($path . '/' . $begin);
+        $value->{end} =  $conf->get_string($path . '/' . $end);
         $self->_addToCache($value);
     }
 

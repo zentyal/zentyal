@@ -482,15 +482,15 @@ sub _setMemValue
 
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     my $keyField = "$key/" . $self->fieldName() . '_path';
 
@@ -498,9 +498,9 @@ sub _storeInGConf
         # Do actually move
         $self->_moveToPath();
 
-        $gconfmod->set_string($keyField, $self->path());
+        $confmod->set_string($keyField, $self->path());
     } elsif ($self->{remove}) {
-        $gconfmod->unset($keyField);
+        $confmod->unset($keyField);
         if ( not $self->userPath() ) {
             # Actually remove
             my $path = $self->path();

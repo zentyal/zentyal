@@ -65,7 +65,7 @@ use Error qw(:try);
 #   (NAMED)
 #
 #   dir - row's directory
-#   gconfmodule - gconfmodule
+#   confmodule - confmodule
 #
 # Overrides:
 #
@@ -86,10 +86,10 @@ sub new
     }
     $self->{'dir'} = $opts{dir};
 
-    unless (exists $opts{gconfmodule}) {
-        throw EBox::Exceptions::MissingArgument('gconfmodule');
+    unless (exists $opts{confmodule}) {
+        throw EBox::Exceptions::MissingArgument('confmodule');
     }
-    $self->{'gconfmodule'} = $opts{gconfmodule};
+    $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
 
 
@@ -215,7 +215,7 @@ sub setReadOnly
 
 # Method: dir
 #
-#   GConf directory
+#   configuration directory
 #
 # Returns:
 #
@@ -286,20 +286,20 @@ sub setOrder
     $self->{order} = $order;
 }
 
-# Method: GConfModule
+# Method: configModule
 #
 #   Return the GConf module this row is stored in
 #
 # Returns:
 #
-#   A class implementing <EBox::GConfModule>
+#   A class implementing <EBox::Module::Config>
 #
 #
-sub GConfModule
+sub configModule
 {
     my ($self) = @_;
 
-    return $self->{gconfmodule};
+    return $self->{confmodule};
 }
 
 

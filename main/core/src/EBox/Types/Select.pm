@@ -311,20 +311,20 @@ sub isValueSet
 
 # Group: Protected methods
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     if ( defined ( $self->memValue() )) {
-        $gconfmod->set("$key/" . $self->fieldName(), $self->memValue());
+        $confmod->set("$key/" . $self->fieldName(), $self->memValue());
     } else {
-        $gconfmod->unset("$key/" . $self->fieldName());
+        $confmod->unset("$key/" . $self->fieldName());
     }
 
 }
@@ -342,8 +342,8 @@ sub _restoreFromHash
     return unless ($self->row());
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get($self->_path() . '/' . $self->fieldName());
+        my $conf = $self->row()->configModule();
+        $value = $conf->get($self->_path() . '/' . $self->fieldName());
         $self->_addToCache($value);
     }
     $self->{'value'} = $value;

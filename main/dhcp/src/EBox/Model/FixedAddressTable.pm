@@ -108,7 +108,7 @@ sub validateTypedRow
     # if ( exists ( $changedFields->{ip} )) {
     #     my $newIP = new Net::IP($changedFields->{ip}->value());
     #     my $net = EBox::Global->modInstance('network');
-    #     my $dhcp = $self->{gconfmodule};
+    #     my $dhcp = $self->{confmodule};
     #     my $netIP = new Net::IP( $dhcp->initRange($self->{interface}) . '-'
     #                              . $dhcp->endRange($self->{interface}));
     #     # Check if the ip address is within the network

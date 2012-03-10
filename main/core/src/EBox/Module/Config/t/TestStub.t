@@ -13,7 +13,7 @@ use lib '../../..';
 
 use EBox::TestStub;
 
-BEGIN { use_ok 'EBox::GConfModule::TestStub' }
+BEGIN { use_ok 'EBox::Module::Config::TestStub' }
 mock();
 createTest();
 setAndGetTest();
@@ -27,16 +27,16 @@ unfakeTest();
 
 sub createTest
 {
-    my $gconfModule;
+    my $confModule;
 
-    lives_ok {$gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill') };
-    isa_ok ($gconfModule, 'EBox::GConfModule');
+    lives_ok {$confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill') };
+    isa_ok ($confModule, 'EBox::Module::Config');
 }
 
 
 sub setAndGetTest
 {
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
 
    my @cases =(
                {
@@ -68,19 +68,19 @@ sub setAndGetTest
        $_->{setter}
    } @cases;
 
-    can_ok($gconfModule, @gettersNames);
-    can_ok($gconfModule, @settersNames);
+    can_ok($confModule, @gettersNames);
+    can_ok($confModule, @settersNames);
 
 
     foreach my $case (@cases) {
-        _setAndGetStraightCasesTest($gconfModule, $case);
+        _setAndGetStraightCasesTest($confModule, $case);
     }
     
 }
 
 sub _setAndGetStraightCasesTest
 {
-    my ($gconfModule, $case) = @_;
+    my ($confModule, $case) = @_;
     my $getter = $case->{getter};
     my $setter = $case->{setter};
     my @values = @{ $case->{values} };
@@ -104,7 +104,7 @@ sub _setAndGetStraightCasesTest
     my @keys =  qw(colmillos pelaje/parasitos);
 
     foreach my $key (@keys) {       
-        my $actualValue = $gconfModule->$getter($key);
+        my $actualValue = $confModule->$getter($key);
         is $actualValue, $unsetValue, "Checking that $getter upon no-existent key $key return unset value";
     }
 
@@ -115,8 +115,8 @@ sub _setAndGetStraightCasesTest
             my $value = $values[$nValue];
             my $expectedValue = $expectedValues[$nValue];
 
-            $gconfModule->$setter($key, $value);
-            my $actualValue = $gconfModule->$getter($key);
+            $confModule->$setter($key, $value);
+            my $actualValue = $confModule->$getter($key);
 #            use Data::Dumper;
 #            print "ACTAUL VALUE " . Dumper($actualValue);
              
@@ -128,8 +128,8 @@ sub _setAndGetStraightCasesTest
 
 
     foreach my $key (@keys) {   
-        $gconfModule->unset($key);
-        my $actualValue = $gconfModule->$getter($key);
+        $confModule->unset($key);
+        my $actualValue = $confModule->$getter($key);
         is $actualValue, $unsetValue, 'checking that after usnet keys return unset value';
     }
 
@@ -137,7 +137,7 @@ sub _setAndGetStraightCasesTest
 
 sub setAndGetListTest
 {
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
     my $key = "lista";
     my @lists = (
                  [1],
@@ -146,38 +146,38 @@ sub setAndGetListTest
          );
 
     foreach my $list_r (@lists) {
-        $gconfModule->set_list($key, "Ignored parameter for now",  $list_r);
-        my $actualValue_r = $gconfModule->get_list($key);
+        $confModule->set_list($key, "Ignored parameter for now",  $list_r);
+        my $actualValue_r = $confModule->get_list($key);
 
         cmp_deeply $actualValue_r, $list_r, "set_list and get_list";
     }
 
-    $gconfModule->unset($key);
-    my $actualValue_r = $gconfModule->get_list($key);
+    $confModule->unset($key);
+    my $actualValue_r = $confModule->get_list($key);
     cmp_deeply $actualValue_r, [], 'Checking unseting of lists';
 }
 
 
 sub dirExistsTest
 {
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
     
-    $gconfModule->set_string('groomingPartners/coco' => 'toBeGroomed');
-    ok $gconfModule->dir_exists('groomingPartners'), 'dir_exists';
-    ok !$gconfModule->dir_exists('groomingPartners/coco'), 'dir_exists';
+    $confModule->set_string('groomingPartners/coco' => 'toBeGroomed');
+    ok $confModule->dir_exists('groomingPartners'), 'dir_exists';
+    ok !$confModule->dir_exists('groomingPartners/coco'), 'dir_exists';
 
-    $gconfModule->set_bool ('banana' => 1)  ;
-    ok !$gconfModule->dir_exists('banana'), 'dir_exists';
+    $confModule->set_bool ('banana' => 1)  ;
+    ok !$confModule->dir_exists('banana'), 'dir_exists';
 
     # inexistent entry..
-      ok !$gconfModule->dir_exists('suits'), 'dir_exists';
+      ok !$confModule->dir_exists('suits'), 'dir_exists';
 	
 }
 
 sub allEntriesTest
 {
     _setFakeConfig();
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
 
     my %cases = (
 		  #dir entries
@@ -201,7 +201,7 @@ sub allEntriesTest
 	      );
 
     while (my ($key, $awaitedResult) = each %cases ) {
-	my @actualResult = $gconfModule->all_entries($key);
+	my @actualResult = $confModule->all_entries($key);
 	my @nReferences = grep { ref $_ } @actualResult;
 	is @nReferences, 0, 'Checking that result is a flat list';
 	cmp_bag \@actualResult, $awaitedResult, "all_entries($key)";
@@ -209,7 +209,7 @@ sub allEntriesTest
 
     while (my ($key, $resultWithPath) = each %cases ) {
 	my @awaitedResult = map { basename $_ }  @{ $resultWithPath };
-	my $actualResult = $gconfModule->all_entries_base($key);
+	my $actualResult = $confModule->all_entries_base($key);
 	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
 	cmp_bag $actualResult, \@awaitedResult, "all_entries_base($key)";
     }
@@ -218,7 +218,7 @@ sub allEntriesTest
 sub allDirsTest
 {
     _setFakeConfig();
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
 
     my %cases = (
 		  #dir entries
@@ -244,7 +244,7 @@ sub allDirsTest
 	      );
 
    while (my ($key, $awaitedResult) = each %cases ) {
-	my @actualResult = $gconfModule->all_dirs($key);
+	my @actualResult = $confModule->all_dirs($key);
 	my @nReferences = grep { ref $_ } @actualResult;
 	is @nReferences, 0, 'Checking that result is a flat list';
 	cmp_bag \@actualResult, $awaitedResult, "all_dirs($key)";
@@ -252,7 +252,7 @@ sub allDirsTest
 
     while (my ($key, $resultWithPath) = each %cases ) {
 	my @awaitedResult = map { basename $_ }  @{ $resultWithPath };
-	my $actualResult = $gconfModule->all_dirs_base($key);
+	my $actualResult = $confModule->all_dirs_base($key);
 	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
 	cmp_bag $actualResult, \@awaitedResult, "all_dirs_base($key)";
     }
@@ -262,7 +262,7 @@ sub allDirsTest
 sub hashFromDirTest 
 {
     _setFakeConfig();
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
 
     my %cases = (
 		 # dirs
@@ -291,7 +291,7 @@ sub hashFromDirTest
     while (my ($dir, $expectedResults_r) = each %cases) {
       my $actualResults_r;
       lives_ok {
-	$actualResults_r = $gconfModule->hash_from_dir($dir)
+	$actualResults_r = $confModule->hash_from_dir($dir)
       }  "executing hash_from_dir upon configuration directory $dir";
 
       is_deeply $actualResults_r, $expectedResults_r, 
@@ -305,14 +305,14 @@ sub hashFromDirTest
 sub deleteDirTest
 {
     _setFakeConfig();
-    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
 
     # try with a simple dir, a subdir and a dir with nested dirs..
     foreach my $dir ('grooming_partners', 'foodEaten/prey/insects', 'foodEaten') {
-	$gconfModule->dir_exists($dir) or die "Fake config incorrectly stted";
-	lives_ok { $gconfModule->delete_dir($dir) } "Checking removal fake of gconf dir $dir";
-	$gconfModule->dir_exists($dir) and die "It exists..";
-	ok !$gconfModule->dir_exists($dir), "Testing that  dir $dir was deleted";
+	$confModule->dir_exists($dir) or die "Fake config incorrectly stted";
+	lives_ok { $confModule->delete_dir($dir) } "Checking removal fake of gconf dir $dir";
+	$confModule->dir_exists($dir) and die "It exists..";
+	ok !$confModule->dir_exists($dir), "Testing that  dir $dir was deleted";
     }
 }
 
@@ -331,7 +331,7 @@ sub _setFakeConfig
 		  '/ebox/modules/forest/trees/pine'                         =>  14, 
 	      );
 
-   EBox::GConfModule::TestStub::setConfig(@config);
+   EBox::Module::Config::TestStub::setConfig(@config);
 
 }
 
@@ -339,7 +339,7 @@ sub _setFakeConfig
 
 sub mock
 {
-    EBox::GConfModule::TestStub::fake();
+    EBox::Module::Config::TestStub::fake();
     EBox::TestStub::fake();
 }
 
@@ -347,20 +347,20 @@ sub mock
 sub unfakeTest
 {
   _setFakeConfig();
-  my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+  my $confModule = EBox::Module::Config::_create('EBox::Mandrill', name => 'mandrill');
 
-  defined $gconfModule->get_string('status') or die 'Error faking module';
+  defined $confModule->get_string('status') or die 'Error faking module';
 
-  lives_ok {   EBox::GConfModule::TestStub::unfake();  } 'Unfake EBox::GConfModule';
+  lives_ok {   EBox::Module::Config::TestStub::unfake();  } 'Unfake EBox::Module::Config';
 
 
-  is $gconfModule->get_string('status'), undef, 'Checking that we cannot longer access to faked gconf data';
+  is $confModule->get_string('status'), undef, 'Checking that we cannot longer access to faked gconf data';
 
 }
 
 # dummy class for testing
 package EBox::Mandrill;
-use base 'EBox::GConfModule';
+use base 'EBox::Module::Config';
 $INC{'EBox/Mandrill.pm'} = 1;
 
 

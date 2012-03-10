@@ -307,15 +307,15 @@ sub _newDataForm
 
     }
 
-    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+    my $confmodule = EBox::Global->modInstance('fakeModule');
 
     my $dataFormDir = '/ebox/modules/fakeModule/DataForm';
     # remove old data from previous modules
-    $gconfmodule->delete_dir($dataFormDir);
+    $confmodule->delete_dir($dataFormDir);
 
 
     my $dataFormBase = EBox::Model::DataForm->new(
-                                                 gconfmodule => $gconfmodule,
+                                                 confmodule => $confmodule,
                                                  directory   => $dataFormDir,
                                                  domain      => 'domain',
                                                 );

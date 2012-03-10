@@ -1089,15 +1089,15 @@ sub _newDataTable
 
     }
 
-    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+    my $confmodule = EBox::Global->modInstance('fakeModule');
 
     my $dataTableDir = '/ebox/modules/fakeModule/DataTable';
     # remove old data from prvious modules
-    $gconfmodule->delete_dir($dataTableDir);
+    $confmodule->delete_dir($dataTableDir);
 
 
     my $dataTableBase = EBox::Model::DataTable->new(
-                                                 gconfmodule => $gconfmodule,
+                                                 confmodule => $confmodule,
                                                  directory   => $dataTableDir,
                                                  domain      => 'domain',
                                                 );

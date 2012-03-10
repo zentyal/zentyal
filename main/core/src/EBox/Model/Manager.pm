@@ -187,7 +187,7 @@ sub _model
 
         my $class = $global->_className($moduleName) . '::Model::' . $modelName;
         eval "use $class";
-        $self->{models}->{$moduleName}->{$modelName} = $class->new(gconfmodule => $module,
+        $self->{models}->{$moduleName}->{$modelName} = $class->new(confmodule => $module,
                                                                    directory => $modelName);
     }
 
@@ -977,7 +977,7 @@ sub _composite
 
         my $class = $global->_className($moduleName) . '::Composite::' . $compName;
         eval "use $class";
-        $self->{composites}->{$moduleName}->{$compName} = $class->new(gconfmodule => $module);
+        $self->{composites}->{$moduleName}->{$compName} = $class->new(confmodule => $module);
     }
 
     return $self->{composites}->{$moduleName}->{$compName};

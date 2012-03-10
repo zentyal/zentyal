@@ -323,15 +323,15 @@ sub _setMemValue
 
   }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     my $typeKey = "$key/" . $self->fieldName() . '_range_type';
     my $fromKey = "$key/" . $self->fieldName() . '_from_port';
@@ -339,17 +339,17 @@ sub _storeInGConf
     my $singleKey = "$key/" . $self->fieldName() . '_single_port';
 
     for my $key ($fromKey, $toKey, $singleKey) {
-        $gconfmod->unset($key);
+        $confmod->unset($key);
     }
 
     my $type = $self->rangeType();
-    $gconfmod->set_string($typeKey, $type);
+    $confmod->set_string($typeKey, $type);
 
     if ($type eq 'range') {
-        $gconfmod->set_string($fromKey, $self->from());
-        $gconfmod->set_string($toKey, $self->to());
+        $confmod->set_string($fromKey, $self->from());
+        $confmod->set_string($toKey, $self->to());
     } elsif ($type eq 'single') {
-        $gconfmod->set_string($singleKey, $self->single());
+        $confmod->set_string($singleKey, $self->single());
     }
 
 }
@@ -372,12 +372,12 @@ sub _restoreFromHash
 
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
+        my $conf = $self->row()->configModule();
         my $path = $self->_path();
-        $value->{range} =  $gconf->get_string($path . '/' . $range);
-        $value->{from} =  $gconf->get_string($path . '/' . $from);
-        $value->{to} =  $gconf->get_string($path . '/' . $to);
-        $value->{single} =  $gconf->get_string($path . '/' . $single);
+        $value->{range} =  $conf->get_string($path . '/' . $range);
+        $value->{from} =  $conf->get_string($path . '/' . $from);
+        $value->{to} =  $conf->get_string($path . '/' . $to);
+        $value->{single} =  $conf->get_string($path . '/' . $single);
         $self->_addToCache($value);
     }
 

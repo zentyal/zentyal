@@ -23,7 +23,7 @@ use Test::Exception;
 use Test::MockObject;
 
 use EBox::Global::TestStub;
-use EBox::GConfModule::TestStub;
+use EBox::Module::Config::TestStub;
 use EBox::Config::TestStub;
 use EBox::NetWrappers::TestStub;
 use EBox::TestStubs ('fakeEBoxModule');
@@ -70,7 +70,7 @@ sub _setupEBoxConf : Test(setup)
 		  '/ebox/modules/dhcp/active'  => 0,
 		  );
 
-    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Module::Config::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
     EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
     EBox::Config::TestStub::setConfigKeys(tmp => $self->testDir);
@@ -123,7 +123,7 @@ sub clearStubDir : Test(teardown)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Config::TestStub::setConfig();
 }
 
 

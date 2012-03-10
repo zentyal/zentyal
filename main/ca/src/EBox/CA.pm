@@ -18,7 +18,7 @@ package EBox::CA;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Module::Service);
+use base qw(EBox::Module::Service);
 
 use File::Slurp;
 use Perl6::Junction qw(any);

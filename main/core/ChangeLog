@@ -1,4 +1,5 @@
 HEAD
+	+ Renamed old EBox::GConfModule to EBox::Module::Config
 	+ Unified model and composite management in the new EBox::Model::Manager
 	+ Model and composites are loaded on demand to reduce memory consumption
 	+ Model and composite information is now stored in .yaml schemas

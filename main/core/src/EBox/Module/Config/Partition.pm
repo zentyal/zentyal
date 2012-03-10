@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfModule::Partition;
+package EBox::Module::Config::Partition;
 # package: create a kind of pseudo-partition in the configuration tree of a module
 use strict;
 use warnings;
-use EBox::GConfModule;
+use EBox::Module::Config;
 
 #
 # Constructor: new
@@ -38,11 +38,11 @@ sub new
       throw EBox::Exceptions::MissingArgument('base');
     defined $fullModule or
       throw EBox::Exceptions::MissingArgument('fullModule');
-    $fullModule->isa('EBox::GConfModule') or
+    $fullModule->isa('EBox::Module::Config') or
       throw EBox::Exceptions::InvalidData(
 				      data => 'GConfModule',
 				      value => $fullModule,
-				      advice => 'A instance of a subclass of EBox::GConfModule is expected',
+				      advice => 'A instance of a subclass of EBox::Module::Config is expected',
 				     );
 
     my $dirExists = $class->_checkBaseDirExists($fullModule, $base);

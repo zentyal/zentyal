@@ -13,38 +13,42 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfModule::StatePartition;
-#
+package EBox::Module::Config::Helper;
+
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule::Partition';
-
-
+use EBox::Exceptions::NotImplemented;
+use EBox::Gettext;
 
 sub new
 {
-  my ($class, $base, $fullModule) = @_;
-
-  my $self = $class->SUPER::new($base, $fullModule);
-  bless $self, $class;
-
-  return $self;
+	my $class = shift;
+	my $self = {};
+	$self->{mod} = shift;
+	my $ro = shift;
+	if (($self->{mod}->name ne "global") && $ro) {
+		$self->{ro} = 1;
+	}
+	bless($self, $class);
+	return $self;
 }
 
-sub _checkBaseDirExists
+sub isReadOnly
 {
-  my ($class, $fullModule, $base) = @_;
-  return $fullModule->st_dir_exists($base);
+	my $self = shift;
+	return $self->{ro};
 }
 
-
-sub _fullModuleMethod
+# must be implemented by subclasses
+sub key # (key)
 {
-  my ($self, $method, @params) = @_;
-  $method = 'st_' . $method; # to convert methods in state methods
-  return $self->fullModule->$method(@params);
+	throw EBox::Exceptions::NotImplemented();
 }
 
+# empty, may be implemented by subclasses
+sub backup
+{
+}
 
 1;

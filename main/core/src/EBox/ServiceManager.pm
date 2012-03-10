@@ -35,7 +35,7 @@ use EBox::Sudo;
 use Error qw(:try);
 use File::Basename;
 
-use constant GCONF_DIR => 'ServiceModule/';
+use constant CONF_DIR => 'ServiceModule/';
 use constant CLASS => 'EBox::Module::Service';
 
 # Group: Public methods
@@ -48,7 +48,7 @@ sub new
 
     my $self =
     {
-        'gconfmodule' => $ebox,
+        'confmodule' => $ebox,
     };
 
     bless($self, $class);
@@ -76,7 +76,7 @@ sub moduleStatus
 {
     my ($self) = @_;
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     my @mods;
     my $change = undef;
@@ -117,7 +117,7 @@ sub printableDepends
 {
     my ($self, $module) = @_;
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     my @depends;
     for my $mod (@{$global->modInstance($module)->enableModDepends()}) {
@@ -137,7 +137,7 @@ sub dependencyEnabled
 {
     my ($self, $module) = @_;
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     for my $mod (@{$global->modInstance($module)->enableModDepends()}) {
         my $instance = $global->modInstance($mod);
@@ -170,7 +170,7 @@ sub enableServices
     my ($self, $services) = @_;
 
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     for my $mod (keys %{$services}) {
         my $instance = $global->modInstance($mod);
@@ -250,19 +250,19 @@ sub setAcceptedFiles
 {
     my ($self, $accept, $reject) = @_;
 
-    my  $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
     my $regexp = '(.*)_([^_]+)$';
     for my $global (@{$accept}) {
         my ($module, $file) = $global =~ m/$regexp/;
-        $gconf->st_set_bool(GCONF_DIR . "$module/$file/accepted", 1);
+        $conf->st_set_bool(CONF_DIR . "$module/$file/accepted", 1);
         $self->updateFileDigest($module, $self->_idToPath($module, $file));
     }
 
     for my $global (@{$reject}) {
         my ($module, $file) = $global =~ m/$regexp/;
-        $gconf->st_set_bool(GCONF_DIR . "$module/$file/accepted", undef);
-        $gconf->st_set_string(GCONF_DIR . "$module/$file/digest", "");
+        $conf->st_set_bool(CONF_DIR . "$module/$file/accepted", undef);
+        $conf->st_set_string(CONF_DIR . "$module/$file/digest", "");
     }
 
 }
@@ -286,12 +286,12 @@ sub modificationAllowed
 {
     my ($self, $module, $file) = @_;
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
     my $fileEntry = {'module' => $module, 'file' => $file};
     my $fileId = $self->_fileId($fileEntry);
 
-    return $gconf->st_get_bool(GCONF_DIR . "$module/$fileId/accepted");
+    return $conf->st_get_bool(CONF_DIR . "$module/$fileId/accepted");
 }
 
 # Method: skipModification
@@ -318,7 +318,7 @@ sub skipModification
 
     return 0 unless ($self->checkUserModifications());
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
     return 1 unless ($self->modificationAllowed($module, $file));
 
@@ -345,7 +345,7 @@ sub updateFileDigest
 
     return unless ($self->checkUserModifications());
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
     my $fileEntry = {'module' => $module, 'file' => $file};
     $self->_updateMD5($fileEntry);
@@ -391,7 +391,7 @@ sub updateModuleDigests
     return unless $self->checkUserModifications();
 
     my $global = EBox::Global->getInstance();
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
     my $mod = $global->modInstance($modName);
     unless (defined($mod)) {
@@ -489,7 +489,7 @@ sub _genericDependencyTree
     $tree = [] unless (defined($tree));
     $hash = {} unless (defined($hash));
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     my $numMods = @{$tree};
     for my $mod (@{$global->modInstancesOfType(CLASS)}) {
@@ -522,20 +522,20 @@ sub _fileId
         throw EBox::Exceptions::MissingArgument($file);
     }
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
-    my $modPath = GCONF_DIR. $file->{'module'};
-    for my $dir ($gconf->st_all_dirs($modPath)) {
-        my $hashEntry = $gconf->st_hash_from_dir("$dir");
+    my $modPath = CONF_DIR. $file->{'module'};
+    for my $dir ($conf->st_all_dirs($modPath)) {
+        my $hashEntry = $conf->st_hash_from_dir("$dir");
         next unless (exists $hashEntry->{'file'});
         return basename($dir) if ($hashEntry->{'file'} eq $file->{'file'});
     }
 
     # File does not exist within our database. Add new entry
-    my $id = $gconf->get_unique_id('file', "$modPath");
-    $gconf->st_set_string("$modPath/$id/file", $file->{'file'});
-    $gconf->st_set_string("$modPath/$id/digest", "");
-    $gconf->st_set_bool("$modPath/$id/accepted", undef);
+    my $id = $conf->get_unique_id('file', "$modPath");
+    $conf->st_set_string("$modPath/$id/file", $file->{'file'});
+    $conf->st_set_string("$modPath/$id/digest", "");
+    $conf->st_set_bool("$modPath/$id/accepted", undef);
 
     return $id;
 }
@@ -544,9 +544,9 @@ sub _idToPath
 {
     my ($self, $module, $id) = @_;
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
-    $gconf->st_get_string(GCONF_DIR . "$module/$id/file");
+    $conf->st_get_string(CONF_DIR . "$module/$id/file");
 }
 
 sub _fileModified
@@ -562,15 +562,15 @@ sub _fileModified
             'file must contain a valid directory id');
     }
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
 
-    my $dir = GCONF_DIR . $file->{'module'} . '/' . $file->{'id'};
+    my $dir = CONF_DIR . $file->{'module'} . '/' . $file->{'id'};
 
-    unless ($gconf->st_dir_exists($dir)) {
+    unless ($conf->st_dir_exists($dir)) {
         throw EBox::Exceptions::Internal("$dir does not exist");
     }
 
-    my $hashEntry = $gconf->st_hash_from_dir($dir);
+    my $hashEntry = $conf->st_hash_from_dir($dir);
     unless ($hashEntry->{'file'} eq $file->{'file'}) {
         throw EBox::Exceptions::Internal("file does not match");
     }
@@ -590,24 +590,24 @@ sub _updateMD5
         throw EBox::Exceptions::MissingArgument($file);
     }
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
     my $currDigest = $self->_getMD5($file->{'file'});
 
-    my $modPath = GCONF_DIR. $file->{'module'};
-    for my $dir ($gconf->st_all_dirs($modPath)) {
-        my $hashEntry = $gconf->st_hash_from_dir($dir);
+    my $modPath = CONF_DIR. $file->{'module'};
+    for my $dir ($conf->st_all_dirs($modPath)) {
+        my $hashEntry = $conf->st_hash_from_dir($dir);
         next unless (exists $hashEntry->{'file'}
                      and $hashEntry->{'file'} eq $file->{'file'});
         my $stDigest = $hashEntry->{'digest'};
 
         return if ($stDigest eq $currDigest);
-        $gconf->st_set_string("$dir/digest", $currDigest);
+        $conf->st_set_string("$dir/digest", $currDigest);
         return;
     }
 
-    my $id = $gconf->get_unique_id('file', "$modPath");
-    $gconf->st_set_string("$modPath/$id/file", $file->{'file'});
-    $gconf->st_set_string("$modPath/$id/digest", $currDigest);
+    my $id = $conf->get_unique_id('file', "$modPath");
+    $conf->st_set_string("$modPath/$id/file", $file->{'file'});
+    $conf->st_set_string("$modPath/$id/digest", $currDigest);
 }
 
 sub _getMD5

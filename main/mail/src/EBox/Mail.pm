@@ -342,7 +342,7 @@ sub _getIfacesForAddress
 
 # Method: _setMailConf
 #
-#  This method creates all configuration files from gconf data.
+#  This method creates all configuration files from conf data.
 #
 sub _setMailConf
 {

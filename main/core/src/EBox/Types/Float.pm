@@ -57,22 +57,22 @@ sub new
 
 # Group: Protected methods
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Int::_storeInGConf>
+#       <EBox::Types::Int::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     my $fieldKey ="$key/" . $self->fieldName();
 
     if (defined($self->memValue()) and $self->memValue() ne '') {
-        $gconfmod->set_string($fieldKey, $self->memValue());
+        $confmod->set_string($fieldKey, $self->memValue());
     } else {
-        $gconfmod->unset($fieldKey);
+        $confmod->unset($fieldKey);
     }
 
 }

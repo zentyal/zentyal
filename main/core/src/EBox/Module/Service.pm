@@ -15,10 +15,7 @@
 
 package EBox::Module::Service;
 
-#FIXME: as the only way to store stuff in gconf is to inherit from GConfModule
-# we'll do it for now, but GConfModule has to go soon and the storage system
-# reworked
-use base qw(EBox::GConfModule);
+use base qw(EBox::Module::Config);
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -213,7 +210,7 @@ sub bootDepends
 #   to carry out the actions and file modifications that enabling a
 #   service implies.
 #
-#   If you must store this value in the status branch of gconf in case
+#   If you must store this value in the status branch of conf in case
 #   you decide to override it.
 #
 # Returns:
@@ -244,7 +241,7 @@ sub configured
 #   to carry out the actions and file modifications that enabling a
 #   service implies.
 #
-#   If you must store this value in the status branch of gconf in case
+#   If you must store this value in the status branch of conf in case
 #   you decide to override it.
 #
 # Parameters:

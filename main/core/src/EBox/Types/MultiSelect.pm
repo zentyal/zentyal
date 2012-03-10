@@ -206,15 +206,15 @@ sub _paramIsValid
     return 1;
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Basic::_storeInGConf>
+#       <EBox::Types::Basic::_storeInConfig>
 #
 # TODO: It's currently used in LDAP-stored models, implement this if used in
 # redis-stored models.
-sub _storeInGConf
+sub _storeInConfig
 {
     throw EBox::Exceptions::NotImplemented();
 }

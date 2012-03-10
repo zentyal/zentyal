@@ -698,7 +698,7 @@ sub validateTypedRow
 sub _checkEncryptionChangeIsAllowed
 {
     my ($self) = @_;
-    my $ebackup = $self->{gconfmodule};
+    my $ebackup = $self->{confmodule};
     my $remoteStatus = $ebackup->remoteStatus();
     if (@{ $remoteStatus }) {
         throw EBox::Exceptions::External(

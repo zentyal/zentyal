@@ -23,7 +23,7 @@ package EBox::L7Protocols;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule);
+use base qw(EBox::Module::Config);
 
 
 use EBox::Validate qw( :all );

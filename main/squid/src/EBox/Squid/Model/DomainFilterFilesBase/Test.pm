@@ -363,7 +363,7 @@ sub _newInstance
 
 
 
-    my $base = EBox::Squid::Model::DomainFilterFilesBase->new(gconfmodule => $squid,
+    my $base = EBox::Squid::Model::DomainFilterFilesBase->new(confmodule => $squid,
                                                               directory => 'DomainFilterFilesBaseTest',
                                                              );
 

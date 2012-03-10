@@ -46,15 +46,15 @@ sub restoreFromHash
 
 }
 
-# Method: storeInGConf
+# Method: storeInConfig
 #
-#   Overrides <EBox::Types::Basic::storeInGConf>
+#   Overrides <EBox::Types::Basic::storeInConfig>
 #
 #   Following the same reasoning as restoreFromHash, we don't need to store
 
 #   anything in GConf.
 #
-sub storeInGConf
+sub storeInConfig
 {
 
 }

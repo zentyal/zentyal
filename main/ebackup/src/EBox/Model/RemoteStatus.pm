@@ -66,7 +66,7 @@ sub ids
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    my @status = @{$self->{confmodule}->remoteStatus()};
     return [] unless (@status);
 
     return [0 .. (scalar(@status) -1)];
@@ -83,7 +83,7 @@ sub row
     my ($self, $id) = @_;
 
     # the reverse is for antichronological order
-    my @status = reverse @{$self->{gconfmodule}->remoteStatus()};
+    my @status = reverse @{$self->{confmodule}->remoteStatus()};
     my $type = $status[$id]->{'type'};
     my $date = $status[$id]->{'date'};
 
@@ -104,7 +104,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    my @status = @{$self->{confmodule}->remoteStatus()};
     return (scalar(@status));
 }
 

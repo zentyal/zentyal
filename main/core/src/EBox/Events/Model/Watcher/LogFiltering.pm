@@ -48,7 +48,7 @@ use EBox::Types::Text;
 #
 # Parameters:
 #
-#       gconfmodule -
+#       confmodule -
 #       directory   -
 #
 #       tableInfo - hash ref the table info giving with the same

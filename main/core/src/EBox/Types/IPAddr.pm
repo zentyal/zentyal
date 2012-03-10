@@ -177,25 +177,25 @@ sub _setMemValue
 
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-        my ($self, $gconfmod, $key) = @_;
+        my ($self, $confmod, $key) = @_;
 
         my $ipKey = "$key/" . $self->fieldName() . '_ip';
         my $maskKey = "$key/" . $self->fieldName() . '_mask';
 
         if ($self->{'ip'}) {
-                $gconfmod->set_string($ipKey, $self->{'ip'});
-                $gconfmod->set_string($maskKey, $self->{'mask'});
+                $confmod->set_string($ipKey, $self->{'ip'});
+                $confmod->set_string($maskKey, $self->{'mask'});
         } else {
-                $gconfmod->unset($ipKey);
-                $gconfmod->unset($maskKey);
+                $confmod->unset($ipKey);
+                $confmod->unset($maskKey);
         }
 }
 
@@ -215,10 +215,10 @@ sub _restoreFromHash
 
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
+        my $conf = $self->row()->configModule();
         my $path = $self->_path();
-        $value->{ip} =  $gconf->get_string($path . '/' . $ip);
-        $value->{mask} =  $gconf->get_string($path . '/' . $mask);
+        $value->{ip} =  $conf->get_string($path . '/' . $ip);
+        $value->{mask} =  $conf->get_string($path . '/' . $mask);
         $self->_addToCache($value);
     }
 

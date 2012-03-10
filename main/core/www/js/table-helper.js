@@ -992,7 +992,7 @@ Parameters:
     controller - url
     model - model
     id - row id
-    dir - gconf dir
+    dir - conf dir
     field - field name
     element - HTML element
 */

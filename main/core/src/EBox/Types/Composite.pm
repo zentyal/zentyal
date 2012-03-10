@@ -258,17 +258,17 @@ sub _restoreFromHash
     $self->_callTypeMethod('_restoreFromHash', $hash);
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#      <EBox::Types::Text::_storeInGConf>
+#      <EBox::Types::Text::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
-    $self->_callTypeMethod('_storeInGConf', $gconfmod, $key);
+    $self->_callTypeMethod('_storeInConfig', $confmod, $key);
 
 }
 

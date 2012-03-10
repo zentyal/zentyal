@@ -545,7 +545,7 @@ sub checkRule
       $self->_buildRule( $ruleParams{interface}, \%ruleParams, 'test');
     }
 
-    # If it works correctly, the write to gconf is done afterwards by
+    # If it works correctly, the write to conf is done afterwards by
     # TrafficShapingModel
 
     return 1;
@@ -669,7 +669,7 @@ sub ruleModel # (iface)
             # Create the rule model if it's not already created
             $self->{ruleModels}->{$iface}
               = new EBox::TrafficShaping::Model::RuleTable(
-                                                           'gconfmodule' => $self,
+                                                           'confmodule' => $self,
                                                            'directory'   => "$iface/user_rules",
                                                            'tablename'   => 'rule',
                                                            'interface'   => $iface,
@@ -699,7 +699,7 @@ sub interfaceRateModel
     if ( not defined ($self->{rateModel})) {
         $self->{rateModel}
             = new EBox::TrafficShaping::Model::InterfaceRate(
-                gconfmodule => $self,
+                confmodule => $self,
                 directory   => 'InterfaceRate',
                 tablename   => 'InterfaceRate',
         );
@@ -1027,7 +1027,7 @@ sub _createRuleModels
     my $ifaces_ref = $self->_realIfaces();
     foreach my $iface (@{$ifaces_ref}) {
       $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
-				    'gconfmodule' => $self,
+				    'confmodule' => $self,
 				    'directory'   => "$iface/user_rules",
 				    'tablename'   => 'rule',
 				    'interface'   => $iface,
@@ -1197,7 +1197,7 @@ sub _createTree # (interface, type)
 
   }
 
-# Build the tree from gconf variables stored.
+# Build the tree from conf variables stored.
 # It assumes rules are correct
 sub _buildGConfRules # (iface, regenConfig)
 {
@@ -1228,7 +1228,7 @@ sub _buildGConfRules # (iface, regenConfig)
         $ruleRef->{priority} = $row->valueByName('priority');
 
         # Rates
-        # Transform from gconf to camelCase and set if they're null
+        # Transform from conf to camelCase and set if they're null
         # since they're optional parameters
         $ruleRef->{guaranteedRate} = $row->valueByName('guaranteed_rate');
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
@@ -1271,7 +1271,7 @@ sub _createBuilders
             # If there's any rule, for now use an HTBTreeBuilder
             $self->_createTree($iface, "HTB", $regenConfig);
 
-            # Build every rule and stores the identifier in gconf to destroy
+            # Build every rule and stores the identifier in conf to destroy
             # them afterwards
             $self->_buildGConfRules($iface, $regenConfig);
         }

@@ -172,7 +172,7 @@ sub timePeriod
 
     my $modelPath = $self->timePeriodModelPath;
 
-    my $model = $self->{gconfmodule}->model($modelPath);
+    my $model = $self->{confmodule}->model($modelPath);
     my $row = $model->row();
 
     return $row->valueByName('timePeriod');

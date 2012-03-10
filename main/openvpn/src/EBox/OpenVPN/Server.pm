@@ -175,7 +175,7 @@ sub local
     my ($self) = @_;
     my $iface = $self->_configAttr('local');
 
-    # gconf does not store undef values, with a undef key it returns ''
+    # redis does not store undef values, with a undef key it returns ''
     if ($iface eq  '_ALL') {
         $iface = undef;
     } else {

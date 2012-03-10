@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfState;
+package EBox::Module::Config::State;
 
 use strict;
 use warnings;
 
-use base 'EBox::GConfHelper';
+use base 'EBox::Module::Config::Helper';
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
@@ -42,6 +42,7 @@ sub key # (key)
 {
 	my ($self, $key) = @_;
 
+    # FIXME: check performance of these regexp tests
 	if ($key =~ /^\//) {
 		$key =~ s/\/+$//;
 		unless ($key =~ /^\/ebox/) {

@@ -84,9 +84,9 @@ sub new
     my $description = $self->_description();
     $self->_setDescription($description);
 
-    # gconfdirectory must not be null
-    if (not exists $self->{gconfdir}) {
-        $self->{gconfdir} = '';
+    # confdirectory must not be null
+    if (not exists $self->{confdir}) {
+        $self->{confdir} = '';
     }
 
     return $self;
@@ -945,7 +945,7 @@ sub setDirectory
         throw EBox::Exceptions::MissingArgument('dir');
     }
 
-    $self->{'gconfdir'} = $dir;
+    $self->{'confdir'} = $dir;
 
     if (not $self->precondition()) {
         # we dont bother to initialize components bz their wont be displayed
@@ -972,7 +972,7 @@ sub directory
 {
     my ($self) = @_;
 
-    return $self->{'gconfdir'};
+    return $self->{'confdir'};
 }
 
 # Method: setComponentDirectory

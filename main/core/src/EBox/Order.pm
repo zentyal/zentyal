@@ -21,12 +21,12 @@ use warnings;
 #
 # Method: new
 #
-#   	Construct for EBox::Order. This class is useful to order elements stored
-#	in gconf
+#	Construct for EBox::Order. This class is useful to order elements stored
+#	in conf
 #
 # Parameters:
 #
-#       module - module class which contains the gconf elements to order
+#   module - module class which contains the conf elements to order
 #	keys - gconf directory which contais the elements to order
 #
 # Returns:

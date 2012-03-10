@@ -152,7 +152,7 @@ sub validateTypedRow
     my $checkMethod = "_validate_" . $type;
     $self->$checkMethod($target);
 
-    my $ebackup = $self->{gconfmodule};
+    my $ebackup = $self->{confmodule};
     my $prefix = $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
     if ($id =~ m/^$prefix/) {
         # this row cannot be edited and we dont shoudl check their addition
@@ -253,7 +253,7 @@ sub _backupDomainsIncludes
         } else {
             ();
         }
-    } @{ $self->{gconfmodule}->modulesBackupDomainsFileSelections() };
+    } @{ $self->{confmodule}->modulesBackupDomainsFileSelections() };
 
     return \@backupDomainsIncludes;
 }
@@ -412,7 +412,7 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
-    my $ebackup  = $self->{'gconfmodule'};
+    my $ebackup  = $self->{'confmodule'};
     my $changed = 0;
 
     unless (@{$currentIds}) {
@@ -535,7 +535,7 @@ sub hasIncludes
 {
     my ($self) = @_;
 
-    my $ebackup  = $self->{'gconfmodule'};
+    my $ebackup  = $self->{'confmodule'};
     my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
     my $prefixRe = qr/^$prefix/;
 
@@ -571,7 +571,7 @@ sub fileSelectionArguments
 
     my $prefixRe;
     if (not $normalSelections or not $domainSelections) {
-        my $ebackup = $self->{gconfmodule};
+        my $ebackup = $self->{confmodule};
         my $prefix =  $ebackup->backupDomainsFileSelectionsRowPrefix(). '_';
         $prefixRe = qr/^$prefix/;
     }

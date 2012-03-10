@@ -67,10 +67,10 @@ sub inverseMatchField
 #
 #sub storeInGconf
 #{
-#    my ($self, $gconfmod, $key) = @_;
+#    my ($self, $confmod, $key) = @_;
 #
-#    $self->SUPER::storeInGconf($gconfmod, $key);
-#    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
+#    $self->SUPER::storeInGconf($confmod, $key);
+#    $confmod->set_bool("$key/" . $self->inverseMatchField(),
 #            $self->inverseMatch());
 #}
 
@@ -145,18 +145,18 @@ sub _setMemValue
     $self->{'inverseMatch'} = $params->{$self->inverseMatchField()};
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
-    $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
+    $self->SUPER::_storeInConfig($confmod, $key);
+    $confmod->set_bool("$key/" . $self->inverseMatchField(),
             $self->inverseMatch());
 }
 

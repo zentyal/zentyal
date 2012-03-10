@@ -87,7 +87,7 @@ sub _testModuleBasics
   my $mod;
   lives_ok {  $mod = EBox::Global->modInstance($module) } "Checking creation of a module instance using the global module";
 
-  isa_ok($mod, 'EBox::GConfModule');
+  isa_ok($mod, 'EBox::Module::Config');
   isa_ok($mod, $package);
 
 

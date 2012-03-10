@@ -348,19 +348,19 @@ sub paramExist
 
 }
 
-# Method: storeInGConf
+# Method: storeInConfig
 #
 #      Store the given type in a GConf directory from a
-#      GConfModule. If the type is volatile, nothing will be done.
+#      Module::Config. If the type is volatile, nothing will be done.
 #
 # Parameters:
 #
-#      module - <EBox::GConfModule> the module which is in charge
+#      module - <EBox::Module::Config> the module which is in charge
 #      to store the type in GConf
 #
 #      key - String of the key where the type will be stored
 #
-sub storeInGConf
+sub storeInConfig
 {
     my ($self, $module, $key) = @_;
 
@@ -375,7 +375,7 @@ sub storeInGConf
         # Retrieve old value to remove outdated indexes
         my $oldValue = $module->get("$key/$field");
 
-        $self->_storeInGConf($module, $key);
+        $self->_storeInConfig($module, $key);
 
         # Update index only if they already exists
         # They are created on-the-fly in DataTable::_find
@@ -699,23 +699,23 @@ sub _setMemValue
 
 }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 #      Store the given type in a GConf directory from a
-#      GConfModule. The expected behaviour is if it has no value to
+#      Module::Config. The expected behaviour is if it has no value to
 #      store, remove any previous data stored.
 #
 #      This method should be overridden from non volatile types.
 #
 # Parameters:
 #
-#      gconfmodule - <EBox::GConfModule> the module which is in charge
+#      confmodule - <EBox::Module::Config> the module which is in charge
 #      to store the type in GConf
 #
 #      directory - String the directory where the type will be stored
 #      from
 #
-sub _storeInGConf
+sub _storeInConfig
 {
 
 }
@@ -723,7 +723,7 @@ sub _storeInGConf
 # Method: _restoreFromHash
 #
 #      Restore the type value from a hash reference which usually
-#      comes from a <EBox::GConfModule::hash_from_dir> returned
+#      comes from a <EBox::Module::Config::hash_from_dir> returned
 #      value. This method should be overridden from non volatile types.
 #
 # Parameters:

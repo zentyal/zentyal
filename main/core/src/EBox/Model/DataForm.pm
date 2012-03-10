@@ -48,7 +48,7 @@ use Error qw(:try);
 #
 # Parameters:
 #
-#       gconfmodule - <EBox::GConfModule> the GConf eBox module which
+#       confmodule - <EBox::Module::Config> the GConf eBox module which
 #       gives the environment where to store data
 #
 #       directory - String the subdirectory within the environment
@@ -64,7 +64,7 @@ sub new
 
     # Change the directory to store the form data since it's not
     # required a lot complexity
-    $self->{directory} = $self->{gconfdir};
+    $self->{directory} = $self->{confdir};
 
     return $self;
 }
@@ -254,7 +254,7 @@ sub removeAll
 
     if ( $force ) {
         # Remove the data
-        $self->{gconfmodule}->delete_dir($self->{directory});
+        $self->{confmodule}->delete_dir($self->{directory});
     } else {
         throw EBox::Exceptions::Internal('It cannot remove data unless '
                                          . 'it is forcing the operation');
@@ -684,7 +684,7 @@ sub _hasRow
 {
     my ($self) = @_;
 
-    return $self->{'gconfmodule'}->dir_exists($self->{'directory'});
+    return $self->{'confmodule'}->dir_exists($self->{'directory'});
 }
 
 # Add a row to the system without id. Its a reimplementation of
@@ -696,7 +696,7 @@ sub _addRow
 
     my $tableName = $self->tableName();
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     $self->validateRow('add', %params);
 
@@ -722,10 +722,10 @@ sub _addTypedRow
 
     my $tableName = $self->tableName();
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
     my $readOnly = delete $optParams{'readOnly'};
 
-    my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $row =  EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setReadOnly($readOnly);
     $row->setModel($self);
     $row->setId('dummy');
@@ -737,10 +737,10 @@ sub _addTypedRow
 
     foreach my $data (values ( %{$paramsRef} )) {
         $row->addElement($data);
-        $data->storeInGConf($gconfmod, "$dir");
+        $data->storeInConfig($confmod, "$dir");
         $data = undef;
     }
-    $gconfmod->set_bool("$dir/readOnly", $readOnly);
+    $confmod->set_bool("$dir/readOnly", $readOnly);
 
     $self->setMessage($self->message('update'));
     $self->updatedRowNotify($self->row());
@@ -761,7 +761,7 @@ sub _setTypedRow
     my $readOnly = delete $optParams{'readOnly'};
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     my $oldRow = $self->row();
     my $oldValues = $oldRow->hashElements();
@@ -806,15 +806,15 @@ sub _setTypedRow
 
     my $modified = @changedData;
     for my $data (@changedData) {
-        $data->storeInGConf($gconfmod, $dir);
+        $data->storeInConfig($confmod, $dir);
     }
 
     # update readonly if change
     my $rdOnlyKey = "$dir/readOnly";
     if (defined ( $readOnly )
-        and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
+        and ($readOnly xor $confmod->get_bool("$rdOnlyKey"))) {
 
-        $gconfmod->set_bool("$rdOnlyKey", $readOnly);
+        $confmod->set_bool("$rdOnlyKey", $readOnly);
     }
 
     if ($modified) {
@@ -838,7 +838,7 @@ sub _row
     my ($self) = @_;
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     my $storedVersion = $self->_storedVersion();
     my $cachedVersion = $self->_cachedVersion();;
@@ -847,12 +847,12 @@ sub _row
         $self->{'cachedVersion'} = $storedVersion;
     }
 
-    if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
+    if ((not $confmod->dir_exists("$dir")) and (not $self->_volatile())) {
         # Return default values instead
         return $self->_defaultRow();
     }
 
-    my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $row =  EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setModel($self);
 
     my @values;
@@ -877,8 +877,8 @@ sub _defaultRow
     my ($self) = @_;
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $confmod = $self->{'confmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setModel($self);
     $row->setId('dummy');
 

@@ -39,7 +39,7 @@ use EBox::Gettext;
 #
 # Parameters:
 #
-#       gconfmodule - <EBox::GConfModule> the GConf eBox module which
+#       confmodule - <EBox::Module::Config> the GConf eBox module which
 #       gives the environment where to store data
 #
 #       directory - String the subdirectory within the environment
@@ -88,8 +88,8 @@ sub setTypedRow
     my @values = values(%{$paramsRef});
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $confmod = $self->{'confmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setModel($self);
     $row->setId('dummy');
     for my $value (@values) {

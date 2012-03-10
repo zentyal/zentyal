@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfModule;
+package EBox::Module::Config;
 
 use strict;
 use warnings;
@@ -24,8 +24,8 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::GConfState;
-use EBox::GConfConfig;
+use EBox::Module::Config::State;
+use EBox::Module::Config::Conf;
 use EBox::Types::File;
 use EBox::Config::Redis;
 
@@ -46,8 +46,8 @@ sub _create # (name)
     unless (defined($self->{redis})) {
         throw EBox::Exceptions::Internal("Error getting Redis client");
     }
-    $self->{state} = new EBox::GConfState($self, $self->{ro});
-    $self->{config} = new EBox::GConfConfig($self, $self->{ro});
+    $self->{state} = new EBox::Module::Config::State($self, $self->{ro});
+    $self->{config} = new EBox::Module::Config::Conf($self, $self->{ro});
     $self->{helper} = $self->{config};
 
     return $self;
@@ -71,7 +71,7 @@ sub _state
     $self->{helper} = $self->{state};
 }
 
-# we override aroundRestoreconfig to save gconf data before dump module config
+# we override aroundRestoreconfig to save conf data before dump module config
 sub aroundRestoreConfig
 {
   my ($self, $dir, @extraOptions) = @_;
@@ -1154,7 +1154,7 @@ sub _get_unique_id
 }
 
 
-# files stuff we have to put this stuff in gconfmodule bz if we put into models
+# files stuff we have to put this stuff in confmodule bz if we put into models
 # we lost data due to the parent/child relations
 
 sub _filesToRemoveIfCommittedDir

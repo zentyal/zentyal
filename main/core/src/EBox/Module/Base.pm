@@ -511,7 +511,7 @@ sub dumpConfig
 # Method: aroundDumpConfig
 #
 # Wraps the dumpConfig call; the purpose of this sub is to allow
-# specila types of modules (GConfModule p.e) to call another method
+# special types of modules like Module::Config to call another method
 # alongside with dumConfig transparently.
 #
 # Normally, ebox modules does not need to override this
@@ -546,7 +546,7 @@ sub restoreConfig
 #  Method: aroundRestoreConfig
 #
 # wraps the restoreConfig call; the purpose of this sub is to allow specila
-# types of modules (GConfModule p.e) to call another method alongside with
+# types of modules like Module::Config to call another method alongside with
 # restoreConfig transparently
 # normally ebox modules does not need to override this
 #

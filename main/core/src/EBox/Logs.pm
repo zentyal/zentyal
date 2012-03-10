@@ -691,8 +691,6 @@ sub _sqlStmnt
     return $stmt, @params;
 }
 
-# Implement GConfModule interface
-
 # Method: menu
 #
 #       Overrides EBox::Module method.

@@ -44,7 +44,7 @@ sub _fakeSetUpModels
       my ($self) = @_;
 
       $self->{models}->{MemberTable} = new EBox::Objects::Model::MemberTable(
-                         gconfmodule => EBox::Global->modInstance('objects'),
+                         confmodule => EBox::Global->modInstance('objects'),
                          directory   => 'memberTable'
                                                                             );
 
@@ -63,7 +63,7 @@ EBox::TestStubs::fakeEBoxModule( name => 'objects',
 my $fakeModule = EBox::Global->modInstance('foo');
 
 my $model = new EBox::Test::Model(
-                                  gconfmodule => $fakeModule,
+                                  confmodule => $fakeModule,
                                   directory   => 'model'
                                  );
 

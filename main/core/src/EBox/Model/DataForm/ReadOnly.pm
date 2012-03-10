@@ -37,7 +37,7 @@ use EBox::Gettext;
 #
 # Parameters:
 #
-#       gconfmodule - <EBox::GConfModule> the GConf eBox module which
+#       confmodule - <EBox::Module::Config> the GConf eBox module which
 #       gives the environment where to store data
 #
 #       directory - String the subdirectory within the environment

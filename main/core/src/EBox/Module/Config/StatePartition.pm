@@ -13,42 +13,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfHelper;
-
+package EBox::Module::Config::StatePartition;
+#
 use strict;
 use warnings;
 
-use EBox::Exceptions::NotImplemented;
-use EBox::Gettext;
+use base 'EBox::Module::Config::Partition';
+
+
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	$self->{mod} = shift;
-	my $ro = shift;
-	if (($self->{mod}->name ne "global") && $ro) {
-		$self->{ro} = 1;
-	}
-	bless($self, $class);
-	return $self;
+  my ($class, $base, $fullModule) = @_;
+
+  my $self = $class->SUPER::new($base, $fullModule);
+  bless $self, $class;
+
+  return $self;
 }
 
-sub isReadOnly
+sub _checkBaseDirExists
 {
-	my $self = shift;
-	return $self->{ro};
+  my ($class, $fullModule, $base) = @_;
+  return $fullModule->st_dir_exists($base);
 }
 
-# must be implemented by subclasses
-sub key # (key)
+
+sub _fullModuleMethod
 {
-	throw EBox::Exceptions::NotImplemented();
+  my ($self, $method, @params) = @_;
+  $method = 'st_' . $method; # to convert methods in state methods
+  return $self->fullModule->$method(@params);
 }
 
-# empty, may be implemented by subclasses
-sub backup
-{
-}
 
 1;

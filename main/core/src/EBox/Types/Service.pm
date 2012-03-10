@@ -336,31 +336,31 @@ sub _setMemValue
 
   }
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
   {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     my $protoKey = "$key/" . $self->fieldName() . '_protocol';
     my $portKey = "$key/" . $self->fieldName() . '_port';
 
     if (defined ($self->{protocol}) ) {
-      $gconfmod->set_string($protoKey, $self->{protocol});
+      $confmod->set_string($protoKey, $self->{protocol});
     }
     else {
-      $gconfmod->unset($protoKey);
+      $confmod->unset($protoKey);
     }
 
     if (defined ($self->{port}) ) {
-      $gconfmod->set_int($portKey, $self->{port});
+      $confmod->set_int($portKey, $self->{port});
     }
     else {
-      $gconfmod->unset($portKey);
+      $confmod->unset($portKey);
     }
 }
 
@@ -380,10 +380,10 @@ sub _restoreFromHash
 
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
+        my $conf = $self->row()->configModule();
         my $path = $self->_path();
-        $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
-        $value->{port} =  $gconf->get_int($path . '/' . $port);
+        $value->{protocol} =  $conf->get_string($path . '/' . $protocol);
+        $value->{port} =  $conf->get_int($path . '/' . $port);
 #	EBox::debug($path . '/' . $port);
         $self->_addToCache($value);
     }

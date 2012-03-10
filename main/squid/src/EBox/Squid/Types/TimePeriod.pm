@@ -384,15 +384,15 @@ sub _setMemValue
 }
 
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $confmod, $key) = @_;
 
     my $name = $self->fieldName();
 
@@ -402,7 +402,7 @@ sub _storeInGConf
 
     foreach my $field (@stringFields, @boolFields) {
         my $fieldKey = "$key/" . $name . '_' . $field;
-        $gconfmod->unset($fieldKey);
+        $confmod->unset($fieldKey);
     }
 
     foreach my $field (@stringFields) {
@@ -410,12 +410,12 @@ sub _storeInGConf
         my $stValue = $self->$field();
         $stValue or
             $stValue = '';
-        $gconfmod->set_string($fieldKey, $stValue);
+        $confmod->set_string($fieldKey, $stValue);
     }
 
     foreach my $field (@boolFields) {
         my $fieldKey = "$key/" . $name . '_' . $field;
-        $gconfmod->set_bool($fieldKey, $self->$field());
+        $confmod->set_bool($fieldKey, $self->$field());
     }
 }
 
@@ -436,13 +436,13 @@ sub _restoreFromHash
 
     my $value;
     unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
+        my $conf = $self->row()->configModule();
         my $path = $self->_path();
 
-        $value->{'from'} = $gconf->get_string("$path/$from");
-        $value->{'to'} = $gconf->get_string("$path/$to");
+        $value->{'from'} = $conf->get_string("$path/$from");
+        $value->{'to'} = $conf->get_string("$path/$to");
         foreach my $day (@days) {
-            $value->{$day} = $gconf->get_bool("$path/$name" . '_' . $day);
+            $value->{$day} = $conf->get_bool("$path/$name" . '_' . $day);
         }
         $self->_addToCache($value);
     }

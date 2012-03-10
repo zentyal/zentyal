@@ -303,13 +303,13 @@ sub modelView
 
 # Group: Protected methods
 
-# Method: _storeInGConf
+# Method: _storeInConfig
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInConfig>
 #
-sub _storeInGConf
+sub _storeInConfig
 {
 
 }
@@ -435,7 +435,7 @@ sub setModel
 
     if (defined $model) {
         $self->{modelName} = $model->name();
-        $self->{moduleName} =$model->{gconfmodule}->name(),
+        $self->{moduleName} =$model->{confmodule}->name(),
     } else {
         delete $self->{modelName} ;
         delete $self->{moduleName} ;

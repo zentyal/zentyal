@@ -281,44 +281,44 @@ sub modelInstances
             # Create models
             $self->{rangeModel}->{$iface} =
               new EBox::DHCP::Model::RangeTable(
-                                                gconfmodule => $self,
+                                                confmodule => $self,
                                                 directory   => "RangeTable/$iface",
                                                 interface   => $iface
                                                );
             push ( @models, $self->{rangeModel}->{$iface} );
             $self->{fixedAddrModel}->{$iface} =
               new EBox::DHCP::Model::FixedAddressTable(
-                                                       gconfmodule => $self,
+                                                       confmodule => $self,
                                                        directory   => "FixedAddressTable/$iface",
                                                        interface   => $iface);
             push ( @models, $self->{fixedAddrModel}->{$iface} );
             $self->{optionsModel}->{$iface} =
               new EBox::DHCP::Model::Options(
-                                             gconfmodule => $self,
+                                             confmodule => $self,
                                              directory   => "Options/$iface",
                                              interface   => $iface);
             push ( @models, $self->{optionsModel}->{$iface} );
             $self->{leaseTimesModel}->{$iface} =
               new EBox::DHCP::Model::LeaseTimes(
-                                                gconfmodule => $self,
+                                                confmodule => $self,
                                                 directory   => "LeaseTimes/$iface",
                                                 interface   => $iface);
             push ( @models, $self->{leaseTimesModel}->{$iface} );
             $self->{thinClientModel}->{$iface} =
               new EBox::DHCP::Model::ThinClientOptions(
-                                                       gconfmodule => $self,
+                                                       confmodule => $self,
                                                        directory   => "ThinClientOptions/$iface",
                                                        interface   => $iface);
             push ( @models, $self->{thinClientModel}->{$iface} );
             $self->{dynamicDNSModel}->{$iface} =
               new EBox::DHCP::Model::DynamicDNS(
-                                                gconfmodule => $self,
+                                                confmodule => $self,
                                                 directory   => "DynamicDNS/$iface",
                                                 interface   => $iface);
             push ( @models, $self->{dynamicDNSModel}->{$iface} );
             $self->{rangeInfoModel}->{$iface} =
               new EBox::DHCP::Model::RangeInfo(
-                                               gconfmodule => $self,
+                                               confmodule => $self,
                                                directory   => "RangeInfo/$iface",
                                                interface   => $iface);
             push ( @models, $self->{rangeInfoModel}->{$iface});

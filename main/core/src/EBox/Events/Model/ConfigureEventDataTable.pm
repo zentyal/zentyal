@@ -172,7 +172,7 @@ sub syncRows
     }
 
     if ($modified and not $modIsChanged) {
-        $self->{'gconfmodule'}->_saveConfig();
+        $self->{'confmodule'}->_saveConfig();
         EBox::Global->getInstance()->modRestarted('events');
     }
     return $modified;
@@ -509,7 +509,7 @@ sub _checkLogWatchers
 
     my $manager = EBox::Model::Manager->instance();
 
-    my $logWatcherConfModel = $manager->model('/' . $self->{gconfmodule}->name()
+    my $logWatcherConfModel = $manager->model('/' . $self->{confmodule}->name()
                                               . '/LogWatcherConfiguration');
 
     # Find those log watchers that are enabled
