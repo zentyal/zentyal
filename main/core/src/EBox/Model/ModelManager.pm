@@ -47,11 +47,19 @@ sub _new
 
     my $self = {};
 
+    # TODO: differentiate between RO and RW instances
+    $self->{models} = {};
+
     $self->{'notifyActions'} = {};
+    $self->{'reloadActions'} = {};
+    $self->{'hasOneReverse'} = {};
+
     bless($self, $class);
 
     $self->_setUpModels();
-    $self->_setRelationship();
+
+# FIXME: implement this
+#    $self->_setRelationship();
 
     return $self;
 }
@@ -137,54 +145,56 @@ sub model
         $moduleName = $self->_inferModuleFromModel($modelName);
     }
 
-    if (exists $self->{'models'}->{$moduleName}->{$modelName}) {
-        if (@parameters and $parameters[0] ne '*') {
-            # There are at least one parameter
-            return $self->_chooseModelUsingParameters($path);
-        } else {
-            my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
-            if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
-                return $self->{'models'}->{$moduleName}->{$modelName};
-            } else {
-                return
-                    $self->{'models'}->{$moduleName}->{$modelName}->[0];
-            }
-        }
-    } else {
-        throw EBox::Exceptions::DataNotFound(data  => 'model',
-                                             value => $path);
-    }
+    # FIXME: RW/RO
+    my $module = EBox::Global->modInstance($moduleName);
+    return $self->_model($module, $modelName);
 }
 
-# Method: addModel
-#
-#   Add a new model instance to the model manager. It marks the model
-#   manager as changed
-#
-# Parameters:
-#
-#   path - String the path to index the model within the model manager
-#   following this pattern: /moduleName/modelName[/param1/param2...]
-#
-#   model - <EBox::Model::DataTable> the model instance
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - thrown if the path is not correct
-#
-sub addModel
+sub models
 {
-    my ($self, $path, $model) = @_;
+    my ($self, $module) = @_;
 
-    my ($modName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
-
-    if (not defined ($modelName)) {
-        throw EBox::Exceptions::Internal("No valid path $path to add a model");
-    }
-
-    push (@{$self->{'models'}->{$modName}->{$modelName}}, $model);
+    my $name = $module->{name};
+    return [ map { $self->_model($module, $_) } keys %{$self->{models}->{$name}} ];
 }
 
+sub _model
+{
+    my ($self, $module, $modelName) = @_;
+
+    my $moduleName = $module->{name};
+    unless (exists $self->{models}->{$moduleName}->{$modelName}) {
+        throw EBox::Exceptions::DataNotFound(data  => 'model',
+                                             value => $modelName);
+    }
+
+    unless (defined $self->{models}->{$moduleName}->{$modelName}) {
+        # FIXME: parameters logic currently disabled
+        #if (@parameters and $parameters[0] ne '*') {
+        #    # There are at least one parameter
+        #    return $self->_chooseModelUsingParameters($path);
+        #} else {
+        #    my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
+        #    if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
+        #        return $self->{'models'}->{$moduleName}->{$modelName};
+        #    } else {
+        #        return
+        #            $self->{'models'}->{$moduleName}->{$modelName}->[0];
+        #    }
+        #}
+
+        my $global = EBox::Global->getInstance();
+
+        my $class = $global->_className($moduleName) . '::Model::' . $modelName;
+        eval "use $class";
+        $self->{models}->{$moduleName}->{$modelName} = $class->new(gconfmodule => $module,
+                                                                   directory => $modelName);
+    }
+
+    return $self->{models}->{$moduleName}->{$modelName};
+}
+
+# FIXME: check if this is really needed, it is only used in TS and logs
 # Method: removeModel
 #
 #   Remove a or some model instances from the model manager. It marks the
@@ -478,28 +488,15 @@ sub warnOnChangeOnId
 
 # Group: Private methods
 
-# Method: _setUpModels
-#
-#	(PRIVATE)
-#
-#	Fetch models from all classes implementing the interface
-#	<EBox::Model::ModelProvider> and creates it dependencies.
 sub _setUpModels
 {
     my ($self) = @_;
 
-    $self->{'models'} = {};
-    $self->{'reloadActions'} = {};
-    $self->{'notifyActions'} = {};
-    $self->{'hasOneReverse'} = {};
-
-    # Fetch models
     my $global = EBox::Global->getInstance();
-    my $classStr = 'EBox::Model::ModelProvider';
-    my @modules = @{$global->modInstancesOfType($classStr)};
-    my %models;
-    for my $module (@modules) {
-        $self->_setUpModelsFromProvider($module);
+    foreach my $moduleName (@{$global->modNames()}) {
+        my $info = $global->readModInfo($moduleName);
+        my %models = map { $_ => undef } @{$info->{models}};
+        $self->{models}->{$moduleName} = \%models;
     }
 }
 

@@ -78,9 +78,7 @@ sub aroundRestoreConfig
 
   $self->_load_from_file($dir);
 
-  if ($self->isa('EBox::Model::ModelProvider')) {
-    $self->restoreFilesFromArchive($dir);
-  }
+  $self->restoreFilesFromArchive($dir);
 
   $self->restoreConfig($dir, @extraOptions);
 }
@@ -119,9 +117,7 @@ sub aroundDumpConfig
   my ($self, $dir, @options) = @_;
   $self->_dump_to_file($dir);
 
-  if ($self->isa('EBox::Model::ModelProvider')) {
-    $self->backupFilesInArchive($dir);
-  }
+  $self->backupFilesInArchive($dir);
 
   $self->dumpConfig($dir, @options);
 }
@@ -159,9 +155,7 @@ sub revokeConfig
 
     $global->modIsChanged($self->name) or return;
 
-    if ($self->isa('EBox::Model::ModelProvider')) {
-        $self->modelsRevokeConfig();
-    }
+    $self->modelsRevokeConfig();
 
     $self->_revokeConfigFiles();
 
@@ -180,9 +174,7 @@ sub _saveConfig
 
     $self->_dump_to_file();
 
-    if ($self->isa('EBox::Model::ModelProvider')) {
-        $self->modelsSaveConfig();
-    }
+    $self->modelsSaveConfig();
 
     $self->_copy_to_ro();
     $self->_saveConfigFiles();

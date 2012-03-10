@@ -18,8 +18,7 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
 use HTML::Entities;
@@ -257,15 +256,6 @@ sub widgets
     }
 
     return $widgets;
-}
-
-# Method: models
-#
-#       Override <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [ 'Halt' ];
 }
 
 sub addKnownWidget()

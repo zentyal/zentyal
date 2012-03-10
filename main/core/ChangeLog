@@ -1,3 +1,7 @@
+HEAD
+	+ Model and composites are loaded on demand to reduce memory consumption
+	+ Model and composite information is now stored in .yaml schemas
+	+ ModelProvider and CompositeProvider are no longer necessary
 2.3.4
 	+ Avoid 'negative radius' error in DiskUsage chart
 	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo

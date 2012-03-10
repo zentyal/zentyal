@@ -18,9 +18,7 @@ package EBox::Logs;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -154,25 +152,6 @@ sub cleanup
 {
     my ($self) = @_;
     $self->SUPER::revokeConfig();
-}
-
-#       Module API
-sub models
-{
-    return [
-             'ConfigureLogDataTable',
-             'ForcePurge',
-             'SelectLog',
-           ];
-}
-
-
-sub composites
-{
-    return [
-            'General',
-            'ConfigureLog',
-           ];
 }
 
 # Method: allEnabledLogHelpers

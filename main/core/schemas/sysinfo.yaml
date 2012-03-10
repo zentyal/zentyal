@@ -1,1 +1,3 @@
 class: 'EBox::SysInfo'
+models:
+    - Halt

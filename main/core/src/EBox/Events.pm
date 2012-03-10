@@ -24,11 +24,7 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::LogObserver
-            );
+use base qw(EBox::Module::Service EBox::LogObserver);
 
 use strict;
 use warnings;
