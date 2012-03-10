@@ -164,8 +164,12 @@ sub _model
 
     my $moduleName = $module->{name};
     unless (exists $self->{models}->{$moduleName}->{$modelName}) {
-        throw EBox::Exceptions::DataNotFound(data  => 'model',
-                                             value => $modelName);
+        # Second try as a report model
+        $modelName = "Report::$modelName";
+        unless (exists $self->{models}->{$moduleName}->{$modelName}) {
+            throw EBox::Exceptions::DataNotFound(data  => 'model',
+                                                 value => $modelName);
+        }
     }
 
     unless (defined $self->{models}->{$moduleName}->{$modelName}) {
@@ -955,9 +959,13 @@ sub _composite
 
     my $moduleName = $module->{name};
     unless (exists $self->{composites}->{$moduleName}->{$compName}) {
-        throw EBox::Exceptions::DataNotFound(data  => 'composite',
-                                             value => $compName,
-                                             silent => 1);
+        # Second try as a report composite
+        $compName = "Report::$compName";
+        unless (exists $self->{composites}->{$moduleName}->{$compName}) {
+            throw EBox::Exceptions::DataNotFound(data  => 'composite',
+                                                 value => $compName,
+                                                 silent => 1);
+        }
     }
 
     unless (defined $self->{composites}->{$moduleName}->{$compName}) {
