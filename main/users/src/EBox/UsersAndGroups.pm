@@ -513,32 +513,32 @@ sub _loadCertificates
     $self->ldap->add($dn, \%args);
 }
 
-# Method: modelClasses
+# Method: models
 #
-#       Override <EBox::Model::ModelProvider::modelClasses>
+#       Override <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::UsersAndGroups::Model::Mode',
-        'EBox::UsersAndGroups::Model::Users',
-        'EBox::UsersAndGroups::Model::Groups',
-        'EBox::UsersAndGroups::Model::Password',
-        'EBox::UsersAndGroups::Model::Slaves',
-        'EBox::UsersAndGroups::Model::PendingSync',
-        'EBox::UsersAndGroups::Model::ForceSync',
-        'EBox::UsersAndGroups::Model::LdapInfo',
-        'EBox::UsersAndGroups::Model::PAM',
-        'EBox::UsersAndGroups::Model::ADSyncSettings',
-        'EBox::UsersAndGroups::Model::AccountSettings',
+        'Mode',
+        'Users',
+        'Groups',
+        'Password',
+        'Slaves',
+        'PendingSync',
+        'ForceSync',
+        'LdapInfo',
+        'PAM',
+        'ADSyncSettings',
+        'AccountSettings',
     ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
-#       Override <EBox::Model::CompositeProvider::compositeClasses>
+#       Override <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
         'EBox::UsersAndGroups::Composite::Settings',

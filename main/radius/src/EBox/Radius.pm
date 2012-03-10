@@ -62,32 +62,30 @@ sub _create
 }
 
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#      <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::Radius::Model::Auth',
-        'EBox::Radius::Model::Clients',
+        'Auth',
+        'Clients',
     ];
 }
 
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return [
-        'EBox::Radius::Composite::General',
-    ];
+    return [ 'General' ];
 }
 
 

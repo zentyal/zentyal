@@ -96,31 +96,31 @@ sub actions
         ];
 }
 
-# Method: modelClasses
+# Method: models
 #
-#      Overrides <EBox::Model::ModelProvider::modelClasses>
+#      Overrides <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     my ($self) = @_;
 
     return [
-            'EBox::Firewall::Model::ToInternetRuleTable',
-            'EBox::Firewall::Model::InternalToEBoxRuleTable',
-            'EBox::Firewall::Model::ExternalToEBoxRuleTable',
-            'EBox::Firewall::Model::EBoxOutputRuleTable',
-            'EBox::Firewall::Model::ExternalToInternalRuleTable',
-            'EBox::Firewall::Model::EBoxServicesRuleTable',
-            'EBox::Firewall::Model::RedirectsTable',
-            'EBox::Firewall::Model::Report::PacketTrafficDetails',
-            'EBox::Firewall::Model::Report::PacketTrafficGraph',
-            'EBox::Firewall::Model::Report::PacketTrafficReportOptions'
+            'ToInternetRuleTable',
+            'InternalToEBoxRuleTable',
+            'ExternalToEBoxRuleTable',
+            'EBoxOutputRuleTable',
+            'ExternalToInternalRuleTable',
+            'EBoxServicesRuleTable',
+            'RedirectsTable',
+            'Report::PacketTrafficDetails',
+            'Report::PacketTrafficGraph',
+            'Report::PacketTrafficReportOptions'
            ];
 }
 
-sub compositeClasses
+sub composites
 {
-    return [ 'EBox::Firewall::Composite::Report::PacketTrafficReport' ]
+    return [ 'Report::PacketTrafficReport' ]
 }
 
 # Method: initialSetup

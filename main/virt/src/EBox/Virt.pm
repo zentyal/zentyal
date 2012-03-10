@@ -118,20 +118,20 @@ sub initialSetup
     }
 }
 
-sub modelClasses
+sub models
 {
     return [
-        'EBox::Virt::Model::VirtualMachines',
-        'EBox::Virt::Model::SystemSettings',
-        'EBox::Virt::Model::NetworkSettings',
-        'EBox::Virt::Model::DeviceSettings',
-        'EBox::Virt::Model::DeletedDisks',
+        'VirtualMachines',
+        'SystemSettings',
+        'NetworkSettings',
+        'DeviceSettings',
+        'DeletedDisks',
     ];
 }
 
-sub compositeClasses
+sub composites
 {
-    return [ 'EBox::Virt::Composite::VMSettings' ];
+    return [ 'VMSettings' ];
 }
 
 # Method: menu

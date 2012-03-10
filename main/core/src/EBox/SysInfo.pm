@@ -259,15 +259,13 @@ sub widgets
     return $widgets;
 }
 
-# Method: modelClasses
+# Method: models
 #
-#       Override <EBox::Model::ModelProvider::modelClasses>
+#       Override <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
-    return [
-        'EBox::SysInfo::Model::Halt',
-    ];
+    return [ 'Halt' ];
 }
 
 sub addKnownWidget()

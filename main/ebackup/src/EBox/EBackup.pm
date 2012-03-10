@@ -77,39 +77,39 @@ sub _create
 }
 
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#      <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::EBackup::Model::RemoteSettings',
-        'EBox::EBackup::Model::RemoteExcludes',
-        'EBox::EBackup::Model::RemoteStatus',
-        'EBox::EBackup::Model::RemoteFileList',
-        'EBox::EBackup::Model::RemoteRestoreLogs',
-        'EBox::EBackup::Model::RemoteRestoreConf',
-        'EBox::EBackup::Model::RemoteStorage',
-        'EBox::EBackup::Model::BackupDomains',
+        'RemoteSettings',
+        'RemoteExcludes',
+        'RemoteStatus',
+        'RemoteFileList',
+        'RemoteRestoreLogs',
+        'RemoteRestoreConf',
+        'RemoteStorage',
+        'BackupDomains',
     ];
 }
 
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-        'EBox::EBackup::Composite::RemoteGeneral',
-        'EBox::EBackup::Composite::Remote',
-        'EBox::EBackup::Composite::ServicesRestore',
+        'RemoteGeneral',
+        'Remote',
+        'ServicesRestore',
     ];
 }
 

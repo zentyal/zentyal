@@ -73,39 +73,32 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::ModelProvider::modelClasses>
+#       <EBox::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::OpenVPN::Model::Servers',
-        'EBox::OpenVPN::Model::ServerConfiguration',
-        {
-          class => 'EBox::OpenVPN::Model::ExposedNetworks',
-          parameters => [
-                         directory => 'AdvertisedNetworks',
-                        ],
-         },
-        'EBox::OpenVPN::Model::DownloadClientBundle',
-
-        'EBox::OpenVPN::Model::Clients',
-        'EBox::OpenVPN::Model::ClientConfiguration',
-
-        'EBox::OpenVPN::Model::DeletedDaemons',
-    ];
+            'Servers',
+            'ServerConfiguration',
+            'ExposedNetworks',
+            'DownloadClientBundle',
+            'Clients',
+            'ClientConfiguration',
+            'DeletedDaemons',
+           ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#    <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [];
 }

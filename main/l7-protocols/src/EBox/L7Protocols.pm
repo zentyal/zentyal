@@ -60,17 +60,17 @@ sub _create
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
 
     my ($self) = @_;
 
     return  [
-               'EBox::L7Protocols::Model::Protocols',
-               'EBox::L7Protocols::Model::Groups',
-               'EBox::L7Protocols::Model::GroupProtocols',
+               'Protocols',
+               'Groups',
+               'GroupProtocols',
            ];
 
 }

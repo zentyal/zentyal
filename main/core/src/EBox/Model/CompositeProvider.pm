@@ -45,7 +45,7 @@ sub composite
 }
 
 
-# Method: composites
+# Method: compositeInstances
 #
 #   This method must be overriden in case your module requires no
 #   standard-behaviour when creating composites instances. If you override it,
@@ -57,7 +57,7 @@ sub composite
 #
 #   array ref - containing instances of the composites
 #
-sub composites
+sub compositeInstances
 {
     my ($self, $name) = @_;
 
@@ -134,7 +134,7 @@ sub removeAllCompositeInstances
     $self->removeAllInstances(TYPE, $path);
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 #  This method must be overriden by all subclasses. It is used to rgister which
 #  composites are use by the module.
@@ -145,9 +145,11 @@ sub removeAllCompositeInstances
 #         class      - the name of the class
 #         parameters - reference to the list of parameters which we want to
 #                      pass to the composite's constructor
-sub compositeClasses
+sub composites
 {
-    throw EBox::Exceptions::NotImplemented('compositeClasses');
+    # FIXME: default implementation reading from YAML?
+
+    throw EBox::Exceptions::NotImplemented('composites');
 }
 
 1;

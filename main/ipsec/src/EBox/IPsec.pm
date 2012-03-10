@@ -56,33 +56,33 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::ModelProvider::modelClasses>
+#       <EBox::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::IPsec::Model::Connections',
-        'EBox::IPsec::Model::ConfGeneral',
-        'EBox::IPsec::Model::ConfPhase1',
-        'EBox::IPsec::Model::ConfPhase2',
+        'Connections',
+        'ConfGeneral',
+        'ConfPhase1',
+        'ConfPhase2',
     ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#    <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-        'EBox::IPsec::Composite::Conf',
-        'EBox::IPsec::Composite::Auth',
+        'Conf',
+        'Auth',
     ];
 }
 

@@ -282,47 +282,47 @@ sub menu
     $root->add($folder);
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
 
     my ($self) = @_;
 
     return [
-        'EBox::RemoteServices::Model::AccessSettings',
-        'EBox::RemoteServices::Model::AdvancedSecurityUpdates',
-        'EBox::RemoteServices::Model::AlertsInfo',
-        'EBox::RemoteServices::Model::DisasterRecovery',
-        'EBox::RemoteServices::Model::QAUpdatesInfo',
-        'EBox::RemoteServices::Model::RemoteSupportAccess',
-        'EBox::RemoteServices::Model::ReportsInfo',
-        'EBox::RemoteServices::Model::Subscription',
-        'EBox::RemoteServices::Model::SubscriptionInfo',
-        'EBox::RemoteServices::Model::TechnicalInfo',
+        'AccessSettings',
+        'AdvancedSecurityUpdates',
+        'AlertsInfo',
+        'DisasterRecovery',
+        'QAUpdatesInfo',
+        'RemoteSupportAccess',
+        'ReportsInfo',
+        'Subscription',
+        'SubscriptionInfo',
+        'TechnicalInfo',
        ];
 
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#    <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     my ($self) = @_;
 
     return [
-        'EBox::RemoteServices::Composite::General',
-        'EBox::RemoteServices::Composite::SubscriptionInfos',
-        'EBox::RemoteServices::Composite::Technical',
-            ];
+            'General',
+            'SubscriptionInfos',
+            'Technical',
+           ];
 }
 
 # Method: widgets

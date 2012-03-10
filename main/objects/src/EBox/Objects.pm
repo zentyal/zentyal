@@ -48,15 +48,11 @@ sub _create
     $self->{'actions'}->{'removeFromObject'} =
         __n('Removed {nname} from object {object}');
 
-    $self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
-                                                    'gconfmodule' => $self,
-                                                    'directory' => 'objectTable',
-                                                                  );
-    $self->{'memberModel'} = new EBox::Objects::Model::MemberTable(
-                                                                   'gconfmodule' => $self,
-                                                                   'directory' => 'memberTable');
-
     bless($self, $class);
+
+    $self->{'objectModel'} = $self->model('ObjectTable');
+    $self->{'memberModel'} = $self->model('MemberTable');
+
     return $self;
 }
 
@@ -66,10 +62,11 @@ sub _create
 #
 #      Overrides <EBox::Model::ModelProvider::models>
 #
-sub models {
-       my ($self) = @_;
+sub models
+{
+    my ($self) = @_;
 
-       return [$self->{'objectModel'}, $self->{'memberModel'}];
+    return [ 'ObjectTable', 'MemberTable' ];
 }
 
 # Method: _exposedMethods

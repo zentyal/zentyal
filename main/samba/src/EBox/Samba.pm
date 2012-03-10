@@ -238,47 +238,47 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
 
     my ($self) = @_;
 
     return  [
-               'EBox::Samba::Model::GeneralSettings',
-               'EBox::Samba::Model::PDC',
-               'EBox::Samba::Model::SambaShares',
-               'EBox::Samba::Model::SambaSharePermissions',
-               'EBox::Samba::Model::DeletedSambaShares',
-               'EBox::Samba::Model::AntivirusDefault',
-               'EBox::Samba::Model::AntivirusExceptions',
-               'EBox::Samba::Model::RecycleDefault',
-               'EBox::Samba::Model::RecycleExceptions',
-               'EBox::Samba::Model::SambaUser',
-           ];
+             'GeneralSettings',
+             'PDC',
+             'SambaShares',
+             'SambaSharePermissions',
+             'DeletedSambaShares',
+             'AntivirusDefault',
+             'AntivirusExceptions',
+             'RecycleDefault',
+             'RecycleExceptions',
+             'SambaUser',
+            ];
 
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#       <EBox::Model::CompositeProvider::compositeClasses>
+#       <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
 
     my ($self) = @_;
 
     return [
-             'EBox::Samba::Composite::General',
-             'EBox::Samba::Composite::Antivirus',
-             'EBox::Samba::Composite::RecycleBin',
+            'General',
+            'Antivirus',
+            'RecycleBin',
            ];
 }
 

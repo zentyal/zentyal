@@ -43,31 +43,29 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#      <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::NTP::Model::Settings',
-        'EBox::NTP::Model::Servers',
+        'Settings',
+        'Servers',
     ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return [
-        'EBox::NTP::Composite::General',
-    ];
+    return [ 'General' ];
 }
 
 sub isRunning

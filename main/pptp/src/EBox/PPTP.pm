@@ -66,32 +66,30 @@ sub _create
 }
 
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#      <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::PPTP::Model::Config',
-        'EBox::PPTP::Model::Users',
+        'Config',
+        'Users',
     ];
 }
 
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return [
-        'EBox::PPTP::Composite::General',
-    ];
+    return [ 'General' ];
 }
 
 # Method: usedFiles

@@ -327,12 +327,16 @@ sub _providedClasses
 {
     my ($self, $type) = @_;
 
-    my $methodName =  $type . 'Classes';
-    if (not $self->can($methodName)) {
-        throw EBox::Exceptions::NotImplemented($methodName);
+    my $methodName =  $type . 's';
+    my $global = EBox::Global->getInstance();
+    #FIXME my $mainClass = $global->_className($self->{name});
+    my $mainClass = 'EBox::' . ucfirst($self->{name});
+    unless ($self->can($methodName)) {
+        throw EBox::Exceptions::Internal("Method $methodName not implemented in $mainClass");
     }
-
-    return $self->$methodName();
+    my @classes = @{$self->$methodName()};
+    @classes = map { $mainClass . '::' . $_ } @classes;
+    return \@classes;
 }
 
 1;

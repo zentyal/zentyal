@@ -154,30 +154,30 @@ sub restoreDependencies
     return [ 'network' ];
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     my ($self) = @_;
 
-    return [ 'EBox::Printers::Model::CUPS' ];
+    return [ 'CUPS' ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::compositeClasses>
+#       <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     my ($self) = @_;
 
-    return [ 'EBox::Printers::Composite::General' ];
+    return [ 'General' ];
 }
 
 sub firewallHelper

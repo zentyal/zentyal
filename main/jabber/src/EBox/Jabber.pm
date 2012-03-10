@@ -137,32 +137,32 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     my ($self) = @_;
 
     return [
-        'EBox::Jabber::Model::GeneralSettings',
-        'EBox::Jabber::Model::JabberUser',
+        'GeneralSettings',
+        'JabberUser',
     ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-        'EBox::Jabber::Composite::General',
+        'General',
     ];
 }
 

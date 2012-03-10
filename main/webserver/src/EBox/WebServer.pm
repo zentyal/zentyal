@@ -234,29 +234,29 @@ sub menu
       $root->add($item);
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#        <EBox::Model::ModelProvider::modelClasses>
+#        <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-            'EBox::WebServer::Model::GeneralSettings',
-            'EBox::WebServer::Model::VHostTable',
+            'GeneralSettings',
+            'VHostTable',
            ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#        <EBox::Model::CompositeProvider::compositeClasses>
+#        <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return ['EBox::WebServer::Composite::General'];
+    return [ 'General' ];
 }
 
 ################

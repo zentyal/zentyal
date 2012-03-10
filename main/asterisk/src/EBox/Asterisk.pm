@@ -77,37 +77,35 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#      <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::Asterisk::Model::Settings',
-        'EBox::Asterisk::Model::Provider',
-        'EBox::Asterisk::Model::NAT',
-        'EBox::Asterisk::Model::Localnets',
-        'EBox::Asterisk::Model::Phones',
-        'EBox::Asterisk::Model::Meetings',
-        'EBox::Asterisk::Model::Voicemail',
-        'EBox::Asterisk::Model::AsteriskUser',
+        'Settings',
+        'Provider',
+        'NAT',
+        'Localnets',
+        'Phones',
+        'Meetings',
+        'Voicemail',
+        'AsteriskUser',
     ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return [
-        'EBox::Asterisk::Composite::General',
-    ];
+    return [ 'General' ];
 }
 
 # Method: usedFiles

@@ -269,7 +269,7 @@ sub _resetInterfacesChains
 #
 #       <EBox::Model::ModelProvider::models>
 #
-sub models
+sub modelInstances
 {
 
     my ($self) = @_;
@@ -349,13 +349,13 @@ sub _exposedMethods
 
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#     <EBox::Model::CompositeProvider::compositeClasses>
+#     <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
 
     return [

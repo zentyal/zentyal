@@ -226,61 +226,61 @@ sub enableModDepends
 }
 
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#    <EBox::Model::ModelProvider::modelClasses>
+#    <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-            'EBox::MailFilter::Model::AmavisConfiguration',
-            'EBox::MailFilter::Model::AmavisPolicy',
-            'EBox::MailFilter::Model::ExternalMTA',
-            'EBox::MailFilter::Model::ExternalDomain',
-            'EBox::MailFilter::Model::VDomains',
+            'AmavisConfiguration',
+            'AmavisPolicy',
+            'ExternalMTA',
+            'ExternalDomain',
+            'VDomains',
 
-            'EBox::MailFilter::Model::FileExtensionACL',
-            'EBox::MailFilter::Model::MIMETypeACL',
+            'FileExtensionACL',
+            'MIMETypeACL',
 
-            'EBox::MailFilter::Model::AntispamConfiguration',
-            'EBox::MailFilter::Model::AntispamACL',
-            'EBox::MailFilter::Model::AntispamTraining',
+            'AntispamConfiguration',
+            'AntispamACL',
+            'AntispamTraining',
 
-            'EBox::MailFilter::Model::AntispamVDomainACL',
+            'AntispamVDomainACL',
 
-            'EBox::MailFilter::Model::POPProxyConfiguration',
+            'POPProxyConfiguration',
 
-            'EBox::MailFilter::Model::Report::FilterDetails',
-            'EBox::MailFilter::Model::Report::FilterGraph',
-            'EBox::MailFilter::Model::Report::FilterReportOptions',
+            'Report::FilterDetails',
+            'Report::FilterGraph',
+            'Report::FilterReportOptions',
 
-            'EBox::MailFilter::Model::Report::POPProxyDetails',
-            'EBox::MailFilter::Model::Report::POPProxyGraph',
-            'EBox::MailFilter::Model::Report::POPProxyReportOptions',
+            'Report::POPProxyDetails',
+            'Report::POPProxyGraph',
+            'Report::POPProxyReportOptions',
            ];
 }
 
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#    <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-            'EBox::MailFilter::Composite::Amavis',
-            'EBox::MailFilter::Composite::ExternalConnections',
+            'Amavis',
+            'ExternalConnections',
 
-            'EBox::MailFilter::Composite::FileFilter',
+            'FileFilter',
 
-            'EBox::MailFilter::Composite::Antispam',
+            'Antispam',
 
-            'EBox::MailFilter::Composite::Report::FilterReport',
-            'EBox::MailFilter::Composite::Report::POPProxyReport',
+            'Report::FilterReport',
+            'Report::POPProxyReport',
            ];
 }
 

@@ -237,36 +237,34 @@ sub _serviceRules
     ];
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     my ($self) = @_;
 
     return [
-        'EBox::Zarafa::Model::VMailDomain',
-        'EBox::Zarafa::Model::GeneralSettings',
-        'EBox::Zarafa::Model::Gateways',
-        'EBox::Zarafa::Model::Quota',
-        'EBox::Zarafa::Model::ZarafaUser',
+        'VMailDomain',
+        'GeneralSettings',
+        'Gateways',
+        'Quota',
+        'ZarafaUser',
     ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#      <EBox::Model::CompositeProvider::compositeClasses>
+#      <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return [
-        'EBox::Zarafa::Composite::General',
-    ];
+    return [ 'General' ];
 }
 
 #  Method: _daemons

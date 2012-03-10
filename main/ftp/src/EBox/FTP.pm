@@ -55,17 +55,17 @@ sub menu
                                     'order' => 435));
 }
 
-# Method: modelClasses
+# Method: models
 #
 #       Return the model classes used by the module.
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
-    return [ 'EBox::FTP::Model::Options' ];
+    return [ 'Options' ];
 }
 
 # Method: initialSetup

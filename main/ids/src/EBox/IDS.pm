@@ -176,39 +176,39 @@ sub menu
                                     'order' => 320));
 }
 
-# Method: modelClasses
+# Method: models
 #
 #       Return the model classes used by the module.
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-            'EBox::IDS::Model::Interfaces',
-            'EBox::IDS::Model::Rules',
+            'Interfaces',
+            'Rules',
 
-            'EBox::IDS::Model::Report::AlertDetails',
-            'EBox::IDS::Model::Report::AlertGraph',
-            'EBox::IDS::Model::Report::AlertReportOptions',
+            'Report::AlertDetails',
+            'Report::AlertGraph',
+            'Report::AlertReportOptions',
            ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 #       Return the composite classes used by the module
 #
 # Overrides:
 #
-#       <EBox::Model::CompositeProvider::compositeClasses>
+#       <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-            'EBox::IDS::Composite::General',
-            'EBox::IDS::Composite::Report::AlertReport',
+            'General',
+            'Report::AlertReport',
            ];
 }
 

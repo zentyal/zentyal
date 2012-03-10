@@ -69,23 +69,23 @@ sub actions
     ];
 }
 
-sub modelClasses
+sub models
 {
     return [
-        'EBox::CaptivePortal::Model::Interfaces',
-        'EBox::CaptivePortal::Model::Settings',
-        'EBox::CaptivePortal::Model::BWSettings',
-        'EBox::CaptivePortal::Model::Users',
-        'EBox::CaptivePortal::Model::CaptiveUser',
-        'EBox::CaptivePortal::Model::SecondaryLDAP',
+        'Interfaces',
+        'Settings',
+        'BWSettings',
+        'Users',
+        'CaptiveUser',
+        'SecondaryLDAP',
     ];
 }
 
-sub compositeClasses
+sub composites
 {
     return [
-        'EBox::CaptivePortal::Composite::GeneralSettings',
-        'EBox::CaptivePortal::Composite::General',
+        'GeneralSettings',
+        'General',
     ];
 }
 

@@ -307,52 +307,52 @@ sub enableModDepends
     return \@depends;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#    <EBox::Model::ModelProvider::modelClasses>
+#    <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-            'EBox::Mail::Model::SMTPOptions',
-            'EBox::Mail::Model::RetrievalServices',
-            'EBox::Mail::Model::ObjectPolicy',
-            'EBox::Mail::Model::VDomains',
-            'EBox::Mail::Model::VDomainAliases',
-            'EBox::Mail::Model::ExternalAliases',
-            'EBox::Mail::Model::VDomainSettings',
-            'EBox::Mail::Model::ExternalFilter',
-            'EBox::Mail::Model::MailUser',
+            'SMTPOptions',
+            'RetrievalServices',
+            'ObjectPolicy',
+            'VDomains',
+            'VDomainAliases',
+            'ExternalAliases',
+            'VDomainSettings',
+            'ExternalFilter',
+            'MailUser',
 
-            'EBox::Mail::Model::Dispatcher::Mail',
+            'Dispatcher::Mail',
 
-            'EBox::Mail::Model::GreylistConfiguration',
+            'GreylistConfiguration',
 
-            'EBox::Mail::Model::Report::TrafficGraph',
-            'EBox::Mail::Model::Report::TrafficDetails',
-            'EBox::Mail::Model::Report::TrafficReportOptions',
+            'Report::TrafficGraph',
+            'Report::TrafficDetails',
+            'Report::TrafficReportOptions',
 
-            # user corner classes
-            'EBox::Mail::Model::ExternalAccounts',
+            # user corner models
+            'ExternalAccounts',
            ];
 }
 
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#    <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-            'EBox::Mail::Composite::ServiceConfiguration',
-            'EBox::Mail::Composite::General',
+            'ServiceConfiguration',
+            'General',
 
-            'EBox::Mail::Composite::Report::TrafficReport',
+            'Report::TrafficReport',
            ];
 }
 

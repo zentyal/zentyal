@@ -174,15 +174,15 @@ sub enableActions
     }
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::ModelProvider::modelClasses>
+#       <EBox::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
-    return [ 'EBox::UserCorner::Model::Settings' ];
+    return [ 'Settings' ];
 }
 
 # Method: _daemons

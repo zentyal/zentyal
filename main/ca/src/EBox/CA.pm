@@ -139,7 +139,7 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 #       Return the model classes
 #
@@ -147,9 +147,9 @@ sub _create
 #
 #       array - the model classes
 #
-sub modelClasses
+sub models
 {
-    return [ 'EBox::CA::Model::Certificates' ];
+    return [ 'Certificates' ];
 }
 
 # Method: isCreated

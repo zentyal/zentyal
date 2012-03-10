@@ -236,35 +236,35 @@ sub menu
     );
 }
 
-# Method: modelClasses
+# Method: models
 #
 #       Return the model classes used by the module.
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-            'EBox::WebMail::Model::Options',
-            'EBox::WebMail::Model::OperationMode',
-            'EBox::WebMail::Model::RemoteServerConfiguration',
+            'Options',
+            'OperationMode',
+            'RemoteServerConfiguration',
            ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 #       Return the composite classes used by the module
 #
 # Overrides:
 #
-#       <EBox::Model::CompositeProvider::compositeClasses>
+#       <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-            'EBox::WebMail::Composite::Backend',
+            'Backend',
            ];
 }
 

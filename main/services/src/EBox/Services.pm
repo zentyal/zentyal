@@ -131,26 +131,18 @@ sub _defaultServices
     ];
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#      <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
-    # TODO: Remove customized directory names and rename them
-    # in the migration script from Zentyal 2.0 to 2.2 ?
     return [
-        {
-          class => 'EBox::Services::Model::ServiceTable',
-          parameters => [ directory => 'serviceTable' ],
-        },
-        {
-          class => 'EBox::Services::Model::ServiceConfigurationTable',
-          parameters => [ directory => 'serviceConfigurationTable' ],
-        },
-    ];
+            'ServiceTable',
+            'ServiceConfigurationTable',
+           ];
 }
 
 # Method: exposedMethods

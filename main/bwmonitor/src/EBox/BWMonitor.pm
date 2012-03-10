@@ -50,20 +50,18 @@ sub _create
     return $self;
 }
 
-sub modelClasses
+sub models
 {
     return [
-        'EBox::BWMonitor::Model::Interfaces',
-        'EBox::BWMonitor::Model::UserIPMap',  # FIXME? this should reside in state
-        'EBox::BWMonitor::Model::BWUsage',
+        'Interfaces',
+        'UserIPMap',  # FIXME? this should reside in state
+        'BWUsage',
     ];
 }
 
-sub compositeClasses
+sub composites
 {
-    return [
-        'EBox::BWMonitor::Composite::General',
-    ];
+    return [ 'General' ];
 }
 
 

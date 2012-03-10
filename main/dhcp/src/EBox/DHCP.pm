@@ -265,15 +265,14 @@ sub depends
 
 }
 
-# Method: models
+# Method: modelInstances
 #
 # Overrides:
 #
-#     <EBox::Model::ModelProvider::models>
+#     <EBox::Model::ModelProvider::modelInstances>
 #
-sub models
+sub modelInstances
 {
-
     my ($self) = @_;
 
     my @models;

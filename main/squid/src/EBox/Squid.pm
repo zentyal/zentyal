@@ -81,96 +81,96 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#    <EBox::Model::ModelProvider::modelClasses>
+#    <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-        'EBox::Squid::Model::GeneralSettings',
+        'GeneralSettings',
 
-        'EBox::Squid::Model::ContentFilterThreshold',
+        'ContentFilterThreshold',
 
-        'EBox::Squid::Model::ExtensionFilter',
-        'EBox::Squid::Model::ApplyAllowToAllExtensions',
+        'ExtensionFilter',
+        'ApplyAllowToAllExtensions',
 
-        'EBox::Squid::Model::MIMEFilter',
-        'EBox::Squid::Model::ApplyAllowToAllMIME',
+        'MIMEFilter',
+        'ApplyAllowToAllMIME',
 
-        'EBox::Squid::Model::DomainFilterSettings',
-        'EBox::Squid::Model::DomainFilter',
-        'EBox::Squid::Model::DomainFilterFiles',
-        'EBox::Squid::Model::DomainFilterCategories',
+        'DomainFilterSettings',
+        'DomainFilter',
+        'DomainFilterFiles',
+        'DomainFilterCategories',
 
-        'EBox::Squid::Model::GlobalGroupPolicy',
+        'GlobalGroupPolicy',
 
-        'EBox::Squid::Model::ObjectPolicy',
-        'EBox::Squid::Model::ObjectGroupPolicy',
+        'ObjectPolicy',
+        'ObjectGroupPolicy',
 
-        'EBox::Squid::Model::NoCacheDomains',
+        'NoCacheDomains',
 
-        'EBox::Squid::Model::FilterGroup',
+        'FilterGroup',
 
-        'EBox::Squid::Model::FilterGroupContentFilterThreshold',
+        'FilterGroupContentFilterThreshold',
 
-        'EBox::Squid::Model::UseDefaultExtensionFilter',
-        'EBox::Squid::Model::FilterGroupExtensionFilter',
-        'EBox::Squid::Model::FilterGroupApplyAllowToAllExtensions',
+        'UseDefaultExtensionFilter',
+        'FilterGroupExtensionFilter',
+        'FilterGroupApplyAllowToAllExtensions',
 
-        'EBox::Squid::Model::UseDefaultMIMEFilter',
-        'EBox::Squid::Model::FilterGroupMIMEFilter',
-        'EBox::Squid::Model::FilterGroupApplyAllowToAllMIME',
+        'UseDefaultMIMEFilter',
+        'FilterGroupMIMEFilter',
+        'FilterGroupApplyAllowToAllMIME',
 
-        'EBox::Squid::Model::UseDefaultDomainFilter',
-        'EBox::Squid::Model::FilterGroupDomainFilter',
-        'EBox::Squid::Model::FilterGroupDomainFilterFiles',
-        'EBox::Squid::Model::FilterGroupDomainFilterCategories',
-        'EBox::Squid::Model::FilterGroupDomainFilterSettings',
+        'UseDefaultDomainFilter',
+        'FilterGroupDomainFilter',
+        'FilterGroupDomainFilterFiles',
+        'FilterGroupDomainFilterCategories',
+        'FilterGroupDomainFilterSettings',
 
-        'EBox::Squid::Model::DefaultAntiVirus',
-        'EBox::Squid::Model::FilterGroupAntiVirus',
+        'DefaultAntiVirus',
+        'FilterGroupAntiVirus',
 
-        'EBox::Squid::Model::DelayPools1',
-        'EBox::Squid::Model::DelayPools2',
+        'DelayPools1',
+        'DelayPools2',
 
         # Report clases
-        'EBox::Squid::Model::Report::RequestsGraph',
-        'EBox::Squid::Model::Report::TrafficSizeGraph',
-        'EBox::Squid::Model::Report::TrafficDetails',
-        'EBox::Squid::Model::Report::TrafficReportOptions',
+        'Report::RequestsGraph',
+        'Report::TrafficSizeGraph',
+        'Report::TrafficDetails',
+        'Report::TrafficReportOptions',
     ];
 }
 
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
+#    <EBox::Model::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
     return [
-        'EBox::Squid::Composite::General',
+        'General',
 
-        'EBox::Squid::Composite::FilterTabs',
-        'EBox::Squid::Composite::FilterSettings',
-        'EBox::Squid::Composite::Extensions',
-        'EBox::Squid::Composite::MIME',
-        'EBox::Squid::Composite::Domains',
+        'FilterTabs',
+        'FilterSettings',
+        'Extensions',
+        'MIME',
+        'Domains',
 
-        'EBox::Squid::Composite::FilterGroupTabs',
-        'EBox::Squid::Composite::FilterGroupSettings',
-        'EBox::Squid::Composite::FilterGroupExtensions',
-        'EBox::Squid::Composite::FilterGroupMIME',
-        'EBox::Squid::Composite::FilterGroupDomains',
+        'FilterGroupTabs',
+        'FilterGroupSettings',
+        'FilterGroupExtensions',
+        'FilterGroupMIME',
+        'FilterGroupDomains',
 
-        'EBox::Squid::Composite::DelayPools',
+        'DelayPools',
 
-        'EBox::Squid::Composite::Report::TrafficReport',
+        'Report::TrafficReport',
     ];
 }
 

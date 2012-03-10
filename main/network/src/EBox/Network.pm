@@ -195,44 +195,33 @@ sub initialSetup
     }
 }
 
-sub modelClasses
+sub models
 {
-  return [
-      {
-       class      => 'EBox::Network::Model::GatewayTable',
-       parameters => [
-                          directory => 'gatewaytable',
-                         ],
-      },
-      {
-           class     => 'EBox::Network::Model::MultiGwRulesDataTable',
-           parameters => [
-                          directory => 'multigwrulestable',
-                         ],
-          },
-          'EBox::Network::Model::MultiGwRulesOptions',
-          'EBox::Network::Model::StaticRoute',
-          'EBox::Network::Model::DeletedStaticRoute',
-          'EBox::Network::Model::DNSResolver',
-          'EBox::Network::Model::SearchDomain',
-          'EBox::Network::Model::DynDNS',
-          'EBox::Network::Model::WANFailoverOptions',
-          'EBox::Network::Model::WANFailoverRules',
-          'EBox::Network::Model::Proxy',
-
-     ];
+    return [
+            'GatewayTable',
+            'MultiGwRulesDataTable',
+            'MultiGwRulesOptions',
+            'StaticRoute',
+            'DeletedStaticRoute',
+            'DNSResolver',
+            'SearchDomain',
+            'DynDNS',
+            'WANFailoverOptions',
+            'WANFailoverRules',
+            'Proxy',
+           ];
 }
 
 
-sub compositeClasses
+sub composites
 {
     return [
-        'EBox::Network::Composite::MultiGw',
-        'EBox::Network::Composite::DNS',
-        'EBox::Network::Composite::WANFailover',
-        'EBox::Network::Composite::Gateway',
-        'EBox::Network::Composite::GatewaysGeneral',
-        ];
+            'MultiGw',
+            'DNS',
+            'WANFailover',
+            'Gateway',
+            'GatewaysGeneral',
+           ];
 
 }
 

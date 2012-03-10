@@ -88,19 +88,18 @@ sub _create
 
 # Group: Public methods
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::modelClasses>
+#       <EBox::Model::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
-    return
-      [
-          'EBox::Monitor::Model::MeasureWatchers',
-          'EBox::Monitor::Model::ThresholdConfiguration',
-         ];
+    return [
+          'MeasureWatchers',
+          'ThresholdConfiguration',
+    ];
 }
 
 # Method: actions

@@ -157,33 +157,21 @@ sub cleanup
 }
 
 #       Module API
-sub modelClasses
+sub models
 {
     return [
-            {
-             class => 'EBox::Logs::Model::ConfigureLogDataTable',
-             parameters => [
-                            directory => 'configureLogTable',
-                           ],
-            },
-            {
-             class => 'EBox::Logs::Model::ForcePurge',
-             parameters => [
-                            directory => 'forcePurge',
-                           ],
-            },
-            {
-             class => 'EBox::Logs::Model::SelectLog',
-            },
+             'ConfigureLogDataTable',
+             'ForcePurge',
+             'SelectLog',
            ];
 }
 
 
-sub compositeClasses
+sub composites
 {
     return [
-            'EBox::Logs::Composite::General',
-            'EBox::Logs::Composite::ConfigureLog',
+            'General',
+            'ConfigureLog',
            ];
 }
 

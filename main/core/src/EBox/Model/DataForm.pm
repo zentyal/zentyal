@@ -835,7 +835,6 @@ sub _setTypedRow
 # SUPER::row so it should take care about any change at superclass
 sub _row
 {
-
     my ($self) = @_;
 
     my $dir = $self->{'directory'};
@@ -862,7 +861,7 @@ sub _row
         my $element = $type->clone();
         $element->setRow($row);
         $element->restoreFromHash();
-        if ( (not defined($element->value())) and $element->defaultValue()) {
+        if ((not defined($element->value())) and $element->defaultValue()) {
             $element->setValue($element->defaultValue());
         }
         $row->addElement($element);

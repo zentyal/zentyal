@@ -161,15 +161,15 @@ sub menu
     $root->add($folder);
 }
 
-# Method: models
+# Method: modelInstances
 #
-#       Return the models used by events eBox module
+#       Return the models used by the events module
 #
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::models>
 #
-sub models
+sub modelInstances
 {
     my ($self) = @_;
 

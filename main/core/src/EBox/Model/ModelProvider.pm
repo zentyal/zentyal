@@ -29,7 +29,7 @@ use EBox::Model::ModelManager;
 use constant TYPE => 'model';
 use constant DEFAULT_SEPARATOR => '/';
 
-# Method: models
+# Method: modelInstances
 #
 #   This method must be overriden in case your module needs no
 #   standard-behaviour when creating model instances. In that case the method
@@ -40,7 +40,7 @@ use constant DEFAULT_SEPARATOR => '/';
 # Returns:
 #
 #   array ref - containing instances of the models
-sub models
+sub modelInstances
 {
     my ($self) = @_;
 
@@ -144,23 +144,21 @@ sub removeAllModelInstances
     $self->removeAllInstances(TYPE, $path);
 }
 
-# Method: modelClasses
+# Method: models
 #
 #  This method must be overriden by all subclasses. It is used to register which
 #  models are used by the module.
 #
-#  It must return a list reference with the following items:
-#  -  the names of all model classes which does not require additional parameters
-#  -  hash reference for other models with the following fields:
-#         class      - the name of the class
-#         parameters - reference to the list of parameters which we want to
-#                      pass to the model's constructor
-sub modelClasses
+#  It must return a list reference with the names of the models
+#
+sub models
 {
+    # FIXME: default implementation reading from YAML?
+
     use Devel::StackTrace;
     my $stack = Devel::StackTrace->new();
     EBox::debug($stack->as_string());
-    throw EBox::Exceptions::NotImplemented('modelClasses');
+    throw EBox::Exceptions::NotImplemented('models');
 }
 
 # Method: _exposedMethods

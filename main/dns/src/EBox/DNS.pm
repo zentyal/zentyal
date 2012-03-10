@@ -81,51 +81,36 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
+# Method: models
 #
 # Overrides:
 #
-#       <EBox::ModelProvider::modelClasses>
+#       <EBox::ModelProvider::models>
 #
-sub modelClasses
+sub models
 {
     return [
-            {
-             class      => 'EBox::DNS::Model::DomainTable',
-             parameters => [
-                            directory => 'domainTable',
-                           ],
-            },
-            {
-             class      => 'EBox::DNS::Model::HostnameTable',
-             parameters => [
-                            directory => 'hostnameTable',
-                           ],
-            },
-            {
-             class      => 'EBox::DNS::Model::AliasTable',
-             parameters => [
-                            directory => 'aliasTable',
-                           ],
-            },
-            'EBox::DNS::Model::MailExchanger',
-            'EBox::DNS::Model::NameServer',
-            'EBox::DNS::Model::Text',
-            'EBox::DNS::Model::Services',
-            'EBox::DNS::Model::Forwarder',
-            'EBox::DNS::Model::Settings',
+            'DomainTable',
+            'HostnameTable',
+            'AliasTable',
+            'MailExchanger',
+            'NameServer',
+            'Text',
+            'Services',
+            'Forwarder',
+            'Settings',
            ];
 }
 
-# Method: compositeClasses
+# Method: composites
 #
 # Overrides:
 #
-#       <EBox::CompositeProvider::compositeClasses>
+#       <EBox::CompositeProvider::composites>
 #
-sub compositeClasses
+sub composites
 {
-    return [ 'EBox::DNS::Composite::Global' ];
+    return [ 'Global' ];
 }
 
 # Method: _exposedMethods
