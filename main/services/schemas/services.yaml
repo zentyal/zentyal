@@ -1,1 +1,5 @@
 class: 'EBox::Services'
+
+models:
+    - ServiceTable
+    - ServiceConfigurationTable

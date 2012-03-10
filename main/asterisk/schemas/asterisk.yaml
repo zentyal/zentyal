@@ -2,3 +2,16 @@ class: 'EBox::Asterisk'
 enabledepends:
     - network
     - users
+
+models:
+    - Settings
+    - Provider
+    - NAT
+    - Localnets
+    - Phones
+    - Meetings
+    - Voicemail
+    - AsteriskUser
+
+composites:
+    - General

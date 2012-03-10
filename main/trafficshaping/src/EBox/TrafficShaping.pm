@@ -36,10 +36,7 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::NetworkObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+            EBox::NetworkObserver);
 
 ######################################
 # Dependencies:
@@ -263,6 +260,7 @@ sub _resetInterfacesChains
     }
 }
 
+# FIXME: this is currently not supported
 # Method: models
 #
 # Overrides:
@@ -271,7 +269,6 @@ sub _resetInterfacesChains
 #
 sub modelInstances
 {
-
     my ($self) = @_;
 
     my $netMod = $self->{'network'};
@@ -294,9 +291,7 @@ sub modelInstances
         push ( @currentModels, $self->ruleModel($netMod->realIface($iface)));
     }
 
-
     return \@currentModels;
-
 }
 
 # Method: reloadModelsOnChange
@@ -346,21 +341,6 @@ sub _exposedMethods
     );
 
   return \%exposedMethods;
-
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#     <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-
-    return [
-            'EBox::TrafficShaping::Composite::DynamicGeneral'
-           ];
 
 }
 

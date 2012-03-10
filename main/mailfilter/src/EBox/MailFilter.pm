@@ -25,8 +25,6 @@ use base (
           'EBox::Mail::FilterProvider',
           'EBox::FirewallObserver',
           'EBox::LogObserver',
-          'EBox::Model::ModelProvider',
-          'EBox::Model::CompositeProvider',
          );
 
 use Perl6::Junction qw(all any);
@@ -226,71 +224,9 @@ sub enableModDepends
         push @depends, 'firewall';
     }
 
-
-
     return \@depends;;
 }
 
-
-# Method: models
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-            'AmavisConfiguration',
-            'AmavisPolicy',
-            'ExternalMTA',
-            'ExternalDomain',
-            'VDomains',
-
-            'FileExtensionACL',
-            'MIMETypeACL',
-
-            'AntispamConfiguration',
-            'AntispamACL',
-            'AntispamTraining',
-
-            'AntispamVDomainACL',
-
-            'POPProxyConfiguration',
-
-            'Report::FilterDetails',
-            'Report::FilterGraph',
-            'Report::FilterReportOptions',
-
-            'Report::POPProxyDetails',
-            'Report::POPProxyGraph',
-            'Report::POPProxyReportOptions',
-           ];
-}
-
-
-# Method: composites
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-            'Amavis',
-            'ExternalConnections',
-
-            'FileFilter',
-
-            'Antispam',
-
-            'Report::FilterReport',
-            'Report::POPProxyReport',
-           ];
-}
-
-#
 # Method: smtpFilter
 #
 # Returns:
@@ -302,8 +238,6 @@ sub smtpFilter
 }
 
 
-
-#
 # Method: antispam
 #
 # Returns:

@@ -1,3 +1,7 @@
 class: 'EBox::Monitor'
 depends:
     - events
+
+models:
+    - MeasureWatchers
+    - ThresholdConfiguration

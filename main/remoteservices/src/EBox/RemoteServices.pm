@@ -21,11 +21,8 @@ package EBox::RemoteServices;
 #      services offered
 #
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::NetworkObserver
-            EBox::FirewallObserver
-           );
+            EBox::FirewallObserver);
 
 use strict;
 use warnings;
@@ -287,49 +284,6 @@ sub menu
         'text' => __('Disaster Recovery'),
        ));
     $root->add($folder);
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-
-    my ($self) = @_;
-
-    return [
-        'AccessSettings',
-        'AdvancedSecurityUpdates',
-        'AlertsInfo',
-        'DisasterRecovery',
-        'QAUpdatesInfo',
-        'RemoteSupportAccess',
-        'ReportsInfo',
-        'Subscription',
-        'SubscriptionInfo',
-        'TechnicalInfo',
-       ];
-
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    my ($self) = @_;
-
-    return [
-            'General',
-            'SubscriptionInfos',
-            'Technical',
-           ];
 }
 
 # Method: widgets

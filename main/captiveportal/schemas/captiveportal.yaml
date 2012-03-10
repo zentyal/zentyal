@@ -10,3 +10,14 @@ enabledepends:
     - firewall
     - users
 
+models:
+    - Interfaces
+    - Settings
+    - BWSettings
+    - Users
+    - CaptiveUser
+    - SecondaryLDAP
+
+composites:
+    - GeneralSettings
+    - General

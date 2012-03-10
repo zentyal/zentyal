@@ -18,12 +18,7 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::LdapModule
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::UserCorner::Provider
-          );
+use base qw(EBox::Module::Service EBox::LdapModule EBox::UserCorner::Provider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -390,37 +385,6 @@ sub _enforceServiceState
     # Clear LDAP connection
     $self->ldap->clearConn();
 }
-
-# Method: models
-#
-#       Override <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-        'Mode',
-        'Users',
-        'Groups',
-        'Password',
-        'LdapInfo',
-        'PAM',
-        'AccountSettings',
-        'OUs',
-    ];
-}
-
-# Method: composites
-#
-#       Override <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-        'EBox::UsersAndGroups::Composite::Settings',
-        'EBox::UsersAndGroups::Composite::UserTemplate',
-    ];
-}
-
 
 # Method: groupsDn
 #

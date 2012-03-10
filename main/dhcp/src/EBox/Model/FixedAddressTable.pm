@@ -29,7 +29,6 @@ use warnings;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelProvider;
 use EBox::NetWrappers;
 use EBox::Types::Text;
 use EBox::Types::Select;

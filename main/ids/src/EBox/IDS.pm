@@ -23,11 +23,7 @@ package EBox::IDS;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::LogObserver
-           );
+use base qw(EBox::Module::Service EBox::LogObserver);
 
 use Error qw(:try);
 
@@ -174,42 +170,6 @@ sub menu
                                     'text' => __('IDS'),
                                     'separator' => 'UTM',
                                     'order' => 320));
-}
-
-# Method: models
-#
-#       Return the model classes used by the module.
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-            'Interfaces',
-            'Rules',
-
-            'Report::AlertDetails',
-            'Report::AlertGraph',
-            'Report::AlertReportOptions',
-           ];
-}
-
-# Method: composites
-#
-#       Return the composite classes used by the module
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-            'General',
-            'Report::AlertReport',
-           ];
 }
 
 # Method: usedFiles

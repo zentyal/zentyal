@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted to new Model management framework
 2.3.1
 	+ Zentyal components page now shows update list packages errors
 	+ Fixed apt-wrapper error which masked some errors

@@ -1912,6 +1912,9 @@ sub AUTOLOAD
 
 # Group: Private methods
 
+# TODO: these are the methods who have survived from ModelProvider,
+# its definitive location will probably be the future EBox::Module::Config
+
 # Method: _callExposedMethod
 #
 #     This method does the mapping between the exposed method and the

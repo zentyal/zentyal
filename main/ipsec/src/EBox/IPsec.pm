@@ -16,8 +16,6 @@
 package EBox::IPsec;
 
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::NetworkObserver
             EBox::FirewallObserver
             EBox::LogObserver);
@@ -54,36 +52,6 @@ sub _create
     bless($self, $class);
 
     return $self;
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::ModelProvider::models>
-#
-sub models
-{
-    return [
-        'Connections',
-        'ConfGeneral',
-        'ConfPhase1',
-        'ConfPhase2',
-    ];
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-        'Conf',
-        'Auth',
-    ];
 }
 
 # Method: usedFiles

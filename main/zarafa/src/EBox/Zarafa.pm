@@ -20,9 +20,7 @@ use warnings;
 
 use feature qw(switch);
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule
-            );
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -241,36 +239,6 @@ sub _serviceRules
               'rules' => { 'external' => 'deny', 'internal' => 'accept' },
              },
     ];
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    return [
-        'VMailDomain',
-        'GeneralSettings',
-        'Gateways',
-        'Quota',
-        'ZarafaUser',
-    ];
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [ 'General' ];
 }
 
 #  Method: _daemons

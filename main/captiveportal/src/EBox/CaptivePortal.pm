@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             EBox::FirewallObserver
             EBox::LdapModule);
@@ -66,26 +65,6 @@ sub actions
             'reason' => __('Zentyal will use this schema to store user sessions info.'),
             'module' => 'captiveportal'
         },
-    ];
-}
-
-sub models
-{
-    return [
-        'Interfaces',
-        'Settings',
-        'BWSettings',
-        'Users',
-        'CaptiveUser',
-        'SecondaryLDAP',
-    ];
-}
-
-sub composites
-{
-    return [
-        'GeneralSettings',
-        'General',
     ];
 }
 

@@ -8,3 +8,6 @@ depends:
 enabledepends:
     - network
     - firewall
+
+composites:
+    - DynamicGeneral

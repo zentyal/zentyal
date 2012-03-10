@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to new Model management framework
 	+ Fixed restore of default gateway in failover event
 2.3.1
 	+ Adapted messages in the UI for new editions

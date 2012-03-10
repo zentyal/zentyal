@@ -20,8 +20,7 @@ package EBox::EBackup;
 #
 #
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service);
 
 use strict;
 use warnings;
@@ -74,43 +73,6 @@ sub _create
 
     bless($self, $class);
     return $self;
-}
-
-
-# Method: models
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-        'RemoteSettings',
-        'RemoteExcludes',
-        'RemoteStatus',
-        'RemoteFileList',
-        'RemoteRestoreLogs',
-        'RemoteRestoreConf',
-        'RemoteStorage',
-        'BackupDomains',
-    ];
-}
-
-
-# Method: composites
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-        'RemoteGeneral',
-        'Remote',
-        'ServicesRestore',
-    ];
 }
 
 # Method: addModuleStatus

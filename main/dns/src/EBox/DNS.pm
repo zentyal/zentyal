@@ -18,10 +18,7 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+use base qw(EBox::Module::Service);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -79,38 +76,6 @@ sub _create
 
     bless($self, $class);
     return $self;
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::ModelProvider::models>
-#
-sub models
-{
-    return [
-            'DomainTable',
-            'HostnameTable',
-            'AliasTable',
-            'MailExchanger',
-            'NameServer',
-            'Text',
-            'Services',
-            'Forwarder',
-            'Settings',
-           ];
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#       <EBox::CompositeProvider::composites>
-#
-sub composites
-{
-    return [ 'Global' ];
 }
 
 # Method: _exposedMethods

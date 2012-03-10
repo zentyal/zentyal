@@ -24,7 +24,7 @@ package EBox::Services;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule);
 
 use EBox::Validate qw( :all );
 use EBox::Global;
@@ -135,20 +135,6 @@ sub _defaultServices
          'internal' => 0,
         },
     ];
-}
-
-# Method: models
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-            'ServiceTable',
-            'ServiceConfigurationTable',
-           ];
 }
 
 # Method: exposedMethods

@@ -1,1 +1,15 @@
 class: 'EBox::UsersAndGroups'
+
+models:
+    - Mode
+    - Users
+    - Groups
+    - Password
+    - LdapInfo
+    - PAM
+    - AccountSettings
+    - OUs
+
+composites:
+    - Settings
+    - UserTemplate

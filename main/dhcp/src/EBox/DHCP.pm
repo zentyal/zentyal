@@ -20,9 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
-            EBox::LogObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+            EBox::LogObserver);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;

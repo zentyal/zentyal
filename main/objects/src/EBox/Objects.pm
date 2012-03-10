@@ -17,7 +17,7 @@ package EBox::Objects;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule);
 
 use Net::IP;
 use EBox::Validate qw( :all );
@@ -57,17 +57,6 @@ sub _create
 }
 
 ## api functions
-
-# Method: models
-#
-#      Overrides <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    return [ 'ObjectTable', 'MemberTable' ];
-}
 
 # Method: _exposedMethods
 #

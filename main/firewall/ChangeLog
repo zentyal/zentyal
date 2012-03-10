@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted to new Model management framework
 2.3.1
 	+ Use printableName instead of name to select services
 	+ Remove firewall hook template as examples are already included in core

@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted to new Model management framework
 2.3.2
 	+ Now name is just an internal id, it is optional and hidden and defaults
 	  to printableName in case of services manually added by the user

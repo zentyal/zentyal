@@ -19,7 +19,6 @@ use warnings;
 
 use base qw(
             EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider
            );
@@ -79,99 +78,6 @@ sub _create
     $self->{logger} = EBox::logger();
     bless ($self, $class);
     return $self;
-}
-
-# Method: models
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-        'GeneralSettings',
-
-        'ContentFilterThreshold',
-
-        'ExtensionFilter',
-        'ApplyAllowToAllExtensions',
-
-        'MIMEFilter',
-        'ApplyAllowToAllMIME',
-
-        'DomainFilterSettings',
-        'DomainFilter',
-        'DomainFilterFiles',
-        'DomainFilterCategories',
-
-        'GlobalGroupPolicy',
-
-        'ObjectPolicy',
-        'ObjectGroupPolicy',
-
-        'NoCacheDomains',
-
-        'FilterGroup',
-
-        'FilterGroupContentFilterThreshold',
-
-        'UseDefaultExtensionFilter',
-        'FilterGroupExtensionFilter',
-        'FilterGroupApplyAllowToAllExtensions',
-
-        'UseDefaultMIMEFilter',
-        'FilterGroupMIMEFilter',
-        'FilterGroupApplyAllowToAllMIME',
-
-        'UseDefaultDomainFilter',
-        'FilterGroupDomainFilter',
-        'FilterGroupDomainFilterFiles',
-        'FilterGroupDomainFilterCategories',
-        'FilterGroupDomainFilterSettings',
-
-        'DefaultAntiVirus',
-        'FilterGroupAntiVirus',
-
-        'DelayPools1',
-        'DelayPools2',
-
-        # Report clases
-        'Report::RequestsGraph',
-        'Report::TrafficSizeGraph',
-        'Report::TrafficDetails',
-        'Report::TrafficReportOptions',
-    ];
-}
-
-
-# Method: composites
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-        'General',
-
-        'FilterTabs',
-        'FilterSettings',
-        'Extensions',
-        'MIME',
-        'Domains',
-
-        'FilterGroupTabs',
-        'FilterGroupSettings',
-        'FilterGroupExtensions',
-        'FilterGroupMIME',
-        'FilterGroupDomains',
-
-        'DelayPools',
-
-        'Report::TrafficReport',
-    ];
 }
 
 sub isRunning
@@ -327,7 +233,6 @@ sub enableModDepends
 
     return \@mods;
 }
-
 
 sub _cache_mem
 {

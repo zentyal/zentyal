@@ -1,1 +1,8 @@
 class: 'EBox::WebServer'
+
+models:
+    - GeneralSettings
+    - VHostTable
+
+composites:
+    - General

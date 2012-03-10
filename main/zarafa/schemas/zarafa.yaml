@@ -4,3 +4,13 @@ enabledepends:
     - webserver
 depends:
     - mail
+
+models:
+    - VMailDomain
+    - GeneralSettings
+    - Gateways
+    - Quota
+    - ZarafaUser
+
+composites:
+    - General

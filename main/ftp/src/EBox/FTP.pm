@@ -20,9 +20,7 @@ package EBox::FTP;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::FirewallObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -53,19 +51,6 @@ sub menu
                                     'text'  => $self->printableName(),
                                     'separator' => 'Infrastructure',
                                     'order' => 435));
-}
-
-# Method: models
-#
-#       Return the model classes used by the module.
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [ 'Options' ];
 }
 
 # Method: initialSetup

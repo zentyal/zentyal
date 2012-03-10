@@ -2,3 +2,11 @@ class: 'EBox::WebMail'
 enabledepends:
     - mail
     - webserver
+
+models:
+    - Options
+    - OperationMode
+    - RemoteServerConfiguration
+
+composites:
+    - Backend

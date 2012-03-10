@@ -19,8 +19,7 @@ package EBox::Asterisk;
 #
 #
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule
+use base qw(EBox::Module::Service EBox::LdapModule
             EBox::UserCorner::Provider EBox::LogObserver);
 
 use strict;
@@ -75,37 +74,6 @@ sub _create
     bless($self, $class);
 
     return $self;
-}
-
-# Method: models
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-        'Settings',
-        'Provider',
-        'NAT',
-        'Localnets',
-        'Phones',
-        'Meetings',
-        'Voicemail',
-        'AsteriskUser',
-    ];
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [ 'General' ];
 }
 
 # Method: usedFiles

@@ -20,9 +20,7 @@ package EBox::Radius;
 #
 #
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::FirewallObserver
-            EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use strict;
 use warnings;
@@ -60,34 +58,6 @@ sub _create
     bless($self, $class);
     return $self;
 }
-
-
-# Method: models
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-        'Auth',
-        'Clients',
-    ];
-}
-
-
-# Method: composites
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [ 'General' ];
-}
-
 
 # Method: actions
 #

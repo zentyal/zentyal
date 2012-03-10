@@ -18,7 +18,7 @@ package EBox::CA;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Module::Service);
+use base qw(EBox::GConfModule EBox::Module::Service);
 
 use File::Slurp;
 use Perl6::Junction qw(any);
@@ -137,19 +137,6 @@ sub _create
     $self->{audit} = EBox::Global->modInstance('audit');
 
     return $self;
-}
-
-# Method: models
-#
-#       Return the model classes
-#
-# Returns:
-#
-#       array - the model classes
-#
-sub models
-{
-    return [ 'Certificates' ];
 }
 
 # Method: isCreated

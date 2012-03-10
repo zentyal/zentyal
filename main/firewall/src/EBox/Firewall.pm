@@ -21,9 +21,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::ObjectsObserver
             EBox::NetworkObserver
-            EBox::LogObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+            EBox::LogObserver);
 
 use EBox::Objects;
 use EBox::Global;
@@ -94,33 +92,6 @@ sub actions
 
         }
         ];
-}
-
-# Method: models
-#
-#      Overrides <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    return [
-            'ToInternetRuleTable',
-            'InternalToEBoxRuleTable',
-            'ExternalToEBoxRuleTable',
-            'EBoxOutputRuleTable',
-            'ExternalToInternalRuleTable',
-            'EBoxServicesRuleTable',
-            'RedirectsTable',
-            'Report::PacketTrafficDetails',
-            'Report::PacketTrafficGraph',
-            'Report::PacketTrafficReportOptions'
-           ];
-}
-
-sub composites
-{
-    return [ 'Report::PacketTrafficReport' ]
 }
 
 # Method: initialSetup

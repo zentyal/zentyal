@@ -20,11 +20,8 @@ use warnings;
 
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::UserCorner::Provider
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider
-           );
+            EBox::UserCorner::Provider EBox::FirewallObserver
+            EBox::LogObserver EBox::Report::DiskUsageProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -308,56 +305,6 @@ sub enableModDepends
     my @depends =  ('network', 'users');
     return \@depends;
 }
-
-# Method: models
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    return [
-            'SMTPOptions',
-            'RetrievalServices',
-            'ObjectPolicy',
-            'VDomains',
-            'VDomainAliases',
-            'ExternalAliases',
-            'VDomainSettings',
-            'ExternalFilter',
-            'MailUser',
-
-            'Dispatcher::Mail',
-
-            'GreylistConfiguration',
-
-            'Report::TrafficGraph',
-            'Report::TrafficDetails',
-            'Report::TrafficReportOptions',
-
-            # user corner models
-            'ExternalAccounts',
-           ];
-}
-
-
-# Method: composites
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    return [
-            'ServiceConfiguration',
-            'General',
-
-            'Report::TrafficReport',
-           ];
-}
-
 
 # Method: _getIfacesForAddress
 #

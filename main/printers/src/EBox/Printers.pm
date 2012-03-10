@@ -18,9 +18,7 @@ package EBox::Printers;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver
-            EBox::Model::ModelProvider EBox::LogObserver
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -153,32 +151,6 @@ sub enableService
 sub restoreDependencies
 {
     return [ 'network' ];
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    return [ 'CUPS' ];
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    my ($self) = @_;
-
-    return [ 'General' ];
 }
 
 sub firewallHelper

@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted to new Model management framework
 2.3
 	+ Install en_US.UTF-8 locale when enabling module for first time;
 	  otherwise users stores will not be created

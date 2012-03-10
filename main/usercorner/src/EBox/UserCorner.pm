@@ -24,8 +24,7 @@ use EBox::UserCorner;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider);
+use base qw(EBox::Module::Service);
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
@@ -173,17 +172,6 @@ sub enableActions
             EBox::Sudo::root(@commands);
         }
     }
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::ModelProvider::models>
-#
-sub models
-{
-    return [ 'Settings' ];
 }
 
 # Method: _daemons

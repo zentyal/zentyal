@@ -7,3 +7,10 @@ enabledepends:
     - network
     - logs
 
+models:
+    - Interfaces
+    - UserIPMap
+    - BWUsage
+
+composites:
+    - General

@@ -19,10 +19,8 @@ use strict;
 use warnings;
 
 #use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
-#            EBox::Report::DiskUsageProvider EBox::Model::CompositeProvider
-#            EBox::Model::ModelProvider EBox::LogObserver);
-use base qw(EBox::Module::Service EBox::Model::CompositeProvider EBox::Model::ModelProvider
-            EBox::FirewallObserver EBox::LdapModule);
+#            EBox::Report::DiskUsageProvider EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule);
 
 use EBox::Sudo;
 use EBox::Global;
@@ -316,37 +314,6 @@ sub enableService
     if ($self->changed()) {
         EBox::Global->modChange('dns');
     }
-}
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    return [
-            'GeneralSettings',
-            'SambaShares',
-            'SambaSharePermissions',
-            'SambaDeletedShares',
-           ];
-}
-
-# Method: composites
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-{
-    my ($self) = @_;
-
-    return [ 'General' ];
 }
 
 # Method: shares
