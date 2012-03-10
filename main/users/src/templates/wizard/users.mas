@@ -5,7 +5,7 @@ my $customPrefix = EBox::Config::configkey('custom_prefix');
 </%init>
 <h3><% __('Users and Groups') %></h3>
 <form method="post" action="./UsersAndGroups/Wizard/Users" style="text-align: center">
-        <div><img src="/data/images/users.png" /></div>
+        <div><img src="/data/software/images/users.png" /></div>
         <h4><% __('Select the type of the server') %></h4>
         <div><% __('Choose standalone unless you want LDAP replication or synchronization with Active Directory.') %></div>
         <div style="margin: 20px auto; width: 40%; text-align: left">
