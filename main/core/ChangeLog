@@ -1,4 +1,5 @@
 HEAD
+	+ Do not calculate md5 digests if override_user_modification is enabled
 	+ Clean /var/lib/zentyal/tmp on boot
 	+ Stop apache gracefully and delete unused code in Apache.pm
 	+ Cache contents of module.yaml files in Global
