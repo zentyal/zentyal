@@ -126,11 +126,20 @@ sub addRow
 
     # We don't want to include filter in the audit log
     # as it has no value (it's a function reference)
+    my %fields = map { $_ => 1 } @{ $model->fields() };
     delete $params{'filter'};
-    foreach my $field (keys %params) {
-        my $value = $params{$field};
-        next unless defined ($value);
-        $self->_auditLog('add', "$auditId/$field", $value);
+    foreach my $fieldName (keys %params) {
+        my $value = $params{$fieldName};
+        if ((not defined $value)) {
+            # skip undef parameter which are not a field
+            $fields{$fieldName} or
+                next;
+            # for boolean types undef means false
+            my $instance = $model->fieldHeader($fieldName);
+            $instance->isa('EBox::Types::Boolean') or
+                next;
+        }
+        $self->_auditLog('add', "$auditId/$fieldName", $value);
     }
 
     return $id;
@@ -189,9 +198,11 @@ sub editField
 
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    my @fieldNames = map { $_->{fieldName} } @{$tableDesc};
-    for my $fieldName (@fieldNames) {
-        next unless $params{$fieldName};
+    for my $field (@{$tableDesc} ) {
+        my $fieldName = $field->fieldName();
+        unless ($field->isa('EBox::Types::Boolean')) {
+            next unless defined $params{$fieldName};
+        }
 
         my $newValue = $params{$fieldName};
         my $oldValue = $row->valueByName($fieldName);
