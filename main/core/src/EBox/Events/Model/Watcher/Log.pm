@@ -35,7 +35,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Events::Model::Watcher::LogFiltering;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 
@@ -204,7 +204,7 @@ sub updatedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ( $row->valueByName('enabled') ) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         my $eventModel = $manager->model('ConfigureEventDataTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ( $logConfRow->valueByName('enabled') ) {
@@ -227,7 +227,7 @@ sub addedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ( $row->valueByName('enabled') ) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         my $eventModel = $manager->model('ConfigureEventDataTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ( $logConfRow->valueByName('enabled') ) {
@@ -352,7 +352,7 @@ sub _removeFilteringModel # (domain)
 {
     my ($self, $domain) = @_;
 
-    my $modelManager = EBox::Model::ModelManager->instance();
+    my $modelManager = EBox::Model::Manager->instance();
 
     $modelManager->removeModel('/events/' . FILTERING_MODEL_NAME . "/$domain");
 }

@@ -21,7 +21,6 @@ use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
 
 # Group: Public methods
 

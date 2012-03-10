@@ -800,7 +800,7 @@ sub _setTypedRow
     # about to be changed is referenced elsewhere and this change
     # produces an inconsistent state
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnOnChangeOnId($self->tableName(), 0, $changedData, $oldRow);
     }
 

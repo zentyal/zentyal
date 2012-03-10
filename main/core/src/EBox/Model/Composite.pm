@@ -46,8 +46,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Other modules uses
 use Error qw(:try);
@@ -163,8 +162,7 @@ sub components
 #       thrown if any mandatory parameter is missing
 #
 #       <EBox::Exceptions::InvalidData> - thrown if the component name
-#       given is not defined neither at the
-#       <EBox::Model::ModelManager> nor at the <EBox::Model::CompositeManager>
+#       given is not defined at <EBox::Model::Manager>
 #
 sub addComponent
 {
@@ -853,10 +851,10 @@ sub _lookupComponent
     my ($self, $componentName) = @_;
 
     my $components;
+    my $manager = EBox::Model::Manager->instance();
 
     try {
-        my $compManager = EBox::Model::CompositeManager->Instance();
-        $components = $compManager->composite($componentName);
+        $components = $manager->composite($componentName);
     } catch EBox::Exceptions::DataNotFound with {
         # Look up the model manager
         $components = undef;
@@ -864,10 +862,9 @@ sub _lookupComponent
 
     unless (defined ($components)) {
         try {
-            my $modelManager = EBox::Model::ModelManager->instance();
-            $components = $modelManager->model($componentName);
+            $components = $manager->model($componentName);
         } catch EBox::Exceptions::DataNotFound with {
-           $components = undef;
+            $components = undef;
        };
     }
 

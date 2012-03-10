@@ -28,7 +28,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 

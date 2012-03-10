@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::UsersAndGroups::User;
 use Error qw( :try );
@@ -252,7 +252,7 @@ sub _addUser
     my @vdomains = $mail->{vdomains}->vdomains();
     return unless (@vdomains);
 
-    my $model = EBox::Model::ModelManager::instance()->model('mail/MailUser');
+    my $model = EBox::Model::Manager::instance()->model('mail/MailUser');
     return unless ($model->enabledValue());
     my $vdomain = $model->domainValue();
     return unless ($vdomain and $mail->{vdomains}->vdomainExists($vdomain));

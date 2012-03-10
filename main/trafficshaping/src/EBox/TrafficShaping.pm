@@ -45,9 +45,9 @@ use base qw(EBox::Module::Service
 use Perl6::Junction qw( any );
 
 use EBox::Gettext;
-
 use EBox::Global;
 use EBox::Validate qw( checkProtocol checkPort );
+use EBox::Model::Manager;
 
 # Used exceptions
 use EBox::Exceptions::InvalidData;
@@ -63,10 +63,6 @@ use EBox::TrafficShaping::TreeBuilder::HTB;
 # Rule model
 use EBox::TrafficShaping::Model::RuleTable;
 use EBox::TrafficShaping::Model::InterfaceRate;
-
-# Model managers
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
 
 # Dependencies
 use Error qw(:try);
@@ -801,7 +797,7 @@ sub ifaceMethodChanged
 sub ifaceMethodChangeDone
 {
     my ($self) = @_;
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     # Mark manager as changed and force a resetup of the
     # models by asking for InterfaceRate
     $manager->markAsChanged();
@@ -852,12 +848,10 @@ sub ifaceExternalChanged # (iface, external)
 #
 sub changeIfaceExternalProperty # (iface, external)
 {
-
     my ($self, $iface, $external) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     $manager->markAsChanged();
-
 }
 
 
@@ -875,15 +869,11 @@ sub changeIfaceExternalProperty # (iface, external)
 #
 sub freeIface # (iface)
 {
-
     my ($self, $iface) = @_;
 
     $self->_deleteIface($iface);
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     $manager->markAsChanged();
-    $manager = EBox::Model::CompositeManager->Instance();
-    $manager->markAsChanged();
-
 }
 
 ###
@@ -1641,7 +1631,7 @@ sub _removeIfNotEnoughRemainderModels
         $nExt++;
     }
     if ( $nExt == 0 or $nInt == 0 ) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         foreach my $ifaceWithModel ( keys %{$self->{ruleModels}} ) {
             my $model = $self->{ruleModels}->{$ifaceWithModel};
             if ( defined ( $model )) {

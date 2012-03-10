@@ -33,7 +33,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 ################
 # Core modules

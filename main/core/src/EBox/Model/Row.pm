@@ -44,7 +44,7 @@ package EBox::Model::Row;
 use strict;
 use warnings;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;

@@ -31,7 +31,7 @@ use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Sudo;
 
 use Error qw(:try);
@@ -160,7 +160,7 @@ sub addDomain
 {
     my ($self, $domainData) = @_;
 
-    my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+    my $domainModel = EBox::Model::Manager->instance()->model('DomainTable');
 
     $domainModel->addDomain($domainData);
 }
@@ -181,7 +181,7 @@ sub domains
     my $self = shift;
     my @array;
 
-    my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
+    my $model = EBox::Model::Manager->instance()->model('DomainTable');
 
     foreach my $id (@{$model->ids()})
     {

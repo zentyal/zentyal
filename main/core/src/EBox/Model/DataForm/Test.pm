@@ -33,7 +33,7 @@ use EBox::Types::Abstract;
 
 use EBox::Model::Row;
 use EBox::Model::DataForm;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
@@ -44,7 +44,7 @@ use EBox::Types::Text;
     my $rowIdUsed;
 
     no warnings 'redefine';
-    sub EBox::Model::ModelManager::warnIfIdIsUsed
+    sub EBox::Model::Manager::warnIfIdIsUsed
     {
         my ($self, $context, $id) = @_;
         if (not defined $rowIdUsed) {
@@ -56,7 +56,7 @@ use EBox::Types::Text;
 
     }
 
-    sub EBox::Model::ModelManager::warnOnChangeOnId
+    sub EBox::Model::Manager::warnOnChangeOnId
     {
         my ($self, $tableName, $id) = @_;
         if (not defined $rowIdUsed) {
@@ -67,12 +67,12 @@ use EBox::Types::Text;
         }
     }
 
-    sub EBox::Model::ModelManager::removeRowsUsingId
+    sub EBox::Model::Manager::removeRowsUsingId
     {
         # do nothing
     }
 
-    sub EBox::Model::ModelManager::modelActionTaken
+    sub EBox::Model::Manager::modelActionTaken
     {
         # do nothing
     }

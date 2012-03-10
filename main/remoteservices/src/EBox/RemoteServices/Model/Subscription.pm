@@ -39,7 +39,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Subscription;
@@ -152,7 +152,7 @@ sub setTypedRow
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
 
-    my $modManager = EBox::Model::ModelManager->instance();
+    my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
     # Mark the apache module as changed as well

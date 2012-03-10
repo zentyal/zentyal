@@ -29,7 +29,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
 

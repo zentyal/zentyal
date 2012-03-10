@@ -21,8 +21,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Model::Row;
 use EBox::View::Customizer;
 use EBox::Gettext;
@@ -1160,7 +1159,7 @@ sub removeRow
     # case throw a DataInUse exceptions to iform the user about
     # the effects its actions will have.
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnIfIdIsUsed($self->contextName(), $id);
     }
 
@@ -1180,7 +1179,7 @@ sub removeRow
     # If automaticRemove is enabled then remove all rows using referencing
     # this row in other models
     if ($self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
                                                    $id);
         if ( defined( $depModelMsg ) and $depModelMsg ne ''
@@ -1403,7 +1402,7 @@ sub setTypedRow
     # about to be changed is referenced elsewhere and this change
     # produces an inconsistent state
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
     }
 
@@ -3858,9 +3857,10 @@ sub _notifyModelManager
 {
     my ($self, $action, $row) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $modelName = $self->modelName();
 
+    # FIXME: differentiate between model and composite when notifying??
     return $manager->modelActionTaken($modelName, $action, $row);
 }
 
@@ -3873,9 +3873,10 @@ sub _notifyCompositeManager
 {
     my ($self, $action, $row) = @_;
 
-    my $manager = EBox::Model::CompositeManager->Instance();
+    my $manager = EBox::Model::Manager->instance();
     my $modelName = $self->modelName();
 
+    # FIXME: differentiate between model and composite when notifying??
     return $manager->modelActionTaken($modelName, $action, $row);
 }
 
@@ -4235,7 +4236,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
             $newMethodName =~ s/To$tableNameInModel$//;
             my $foreignModelName =
                 $self->fieldHeader($subModelInMethod)->foreignModel();
-            my $manager = EBox::Model::ModelManager->instance();
+            my $manager = EBox::Model::Manager->instance();
             my $foreignModel = $manager->model($foreignModelName);
             # In order to decrease the number of calls
             if ( scalar ( @modelNames ) > 2 ) {
@@ -4409,7 +4410,7 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
     my $userField = $hasManyField->clone();
     my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
     my $foreignModelName = $userField->foreignModel();
-    my $submodel = EBox::Model::ModelManager->instance()->model(
+    my $submodel = EBox::Model::Manager->instance()->model(
             $foreignModelName
             );
     $submodel->setDirectory($directory);
@@ -4453,7 +4454,7 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
     my $userField = $hasManyField->clone();
     my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
     my $foreignModelName = $userField->foreignModel();
-    my $submodel = EBox::Model::ModelManager->instance()->model(
+    my $submodel = EBox::Model::Manager->instance()->model(
             $foreignModelName
             );
     $submodel->setDirectory($directory);
@@ -4507,7 +4508,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
         shift ( @{$paramsRef} );
         my $directory = $model->directory() . "/keys/$id/$subModelField";
         my $foreignModelName = $userField->foreignModel();
-        $model = EBox::Model::ModelManager->instance()->model(
+        $model = EBox::Model::Manager->instance()->model(
                 $foreignModelName,
                 );
         $model->setDirectory($directory);

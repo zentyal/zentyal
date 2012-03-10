@@ -38,8 +38,7 @@ use warnings;
 
 use base 'EBox::Types::Abstract';
 
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
+use EBox::Model::Manager;
 
 use Error qw(:try);
 
@@ -140,12 +139,12 @@ sub foreignModelInstance
         return undef;
 
     my $model;
+    my $manager = EBox::Model::Manager->instance();
     if ($self->foreignModelIsComposite()) {
-        $model = EBox::Model::CompositeManager->Instance()->composite($modelName);
+        $model = $manager->composite($modelName);
     } else {
-        $model = EBox::Model::ModelManager->instance()->model($modelName);
+        $model = $manager->model($modelName);
     }
-
 
     $model->setDirectory($directory);
 

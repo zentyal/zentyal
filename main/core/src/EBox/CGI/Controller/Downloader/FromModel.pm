@@ -36,7 +36,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Exceptions::Internal;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 
 # Core modules
@@ -105,7 +105,7 @@ sub _process
     my $id = $self->param('id');
     my $field = $self->param('field');
 
-    my $model = EBox::Model::ModelManager->instance()->model($modelName);
+    my $model = EBox::Model::Manager->instance()->model($modelName);
     $model->setDirectory($dir);
     my $row = $model->row($id);
     my $type = $row->elementByName($field);

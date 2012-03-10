@@ -22,7 +22,6 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
-use EBox::Model::ModelManager;
 
 use EBox::Gettext;
 

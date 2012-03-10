@@ -37,7 +37,7 @@ use EBox::Types::HasMany;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Dependencies
 use Crypt::OpenSSL::Random;
@@ -117,7 +117,7 @@ sub addDomain
     return unless (defined($hostnames) and @{$hostnames} > 0);
 
     my $hostnameModel =
-                EBox::Model::ModelManager::instance()->model('HostnameTable');
+                EBox::Model::Manager::instance()->model('HostnameTable');
 
     $hostnameModel->setDirectory($self->{'directory'} . "/$id/hostnames");
     foreach my $hostname (@{$hostnames}) {

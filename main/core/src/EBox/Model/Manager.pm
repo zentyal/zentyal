@@ -13,15 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: ModelManager
+# Class: Manager
 #
-#   This class is used to coordinate all the available models
-#   along eBox. It allows us to do things like specifiying relations
+#   This class is used to coordinate all the available models and composites
+#   along Zentyal. It allows us to do things like specifiying relations
 #   amongst different models.
 #
 #
 #
-package EBox::Model::ModelManager;
+package EBox::Model::Manager;
 
 use strict;
 use warnings;
@@ -32,7 +32,6 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
-use EBox::Model::CompositeManager;
 use Error qw(:try);
 
 # Constant
@@ -49,6 +48,7 @@ sub _new
 
     # TODO: differentiate between RO and RW instances
     $self->{models} = {};
+    $self->{composites} = {};
 
     $self->{'notifyActions'} = {};
     $self->{'reloadActions'} = {};
@@ -56,7 +56,7 @@ sub _new
 
     bless($self, $class);
 
-    $self->_setUpModels();
+    $self->_setUp();
 
 # FIXME: implement this
 #    $self->_setRelationship();
@@ -66,17 +66,17 @@ sub _new
 
 # Method: instance
 #
-#   Return a singleton instance of class <EBox::ModelManager>
+#   Return a singleton instance of class <EBox::Model::Manager>
 #
 #
 # Returns:
 #
-#   object of class <EBox::ModelManager>
+#   object of class <EBox::Model::Manager>
 #
 sub instance
 {
     unless(defined($_instance)) {
-        $_instance = EBox::Model::ModelManager->_new();
+        $_instance = EBox::Model::Manager->_new();
     }
 
     return $_instance;
@@ -342,6 +342,9 @@ sub modelActionTaken
         EBox::debug("Notifying $observerName");
         my $observerModel = $self->model($observerName);
         $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
+        # FIXME: integrate this
+        # my $observerComposite = $self->composite($observerName);
+        # $strToRet .= $observerComposite->notifyModelAction($model, $action, $row) .  '<br>';
     }
 
     return $strToRet;
@@ -488,7 +491,7 @@ sub warnOnChangeOnId
 
 # Group: Private methods
 
-sub _setUpModels
+sub _setUp
 {
     my ($self) = @_;
 
@@ -497,6 +500,8 @@ sub _setUpModels
         my $info = $global->readModInfo($moduleName);
         my %models = map { $_ => undef } @{$info->{models}};
         $self->{models}->{$moduleName} = \%models;
+        my %composites = map { $_ => undef } @{$info->{composites}};
+        $self->{composites}->{$moduleName} = \%composites;
     }
 }
 
@@ -512,15 +517,13 @@ sub _setRelationship
 
     # Set parent models given by hasMany relationships
 
-    my $compositeManager = EBox::Model::CompositeManager->Instance();
-
     for my $childName (keys %{$self->{'childOf'}}) {
         my $parent       = $self->{'childOf'}->{$childName}->{'parent'};
         my $childIsComposite = $self->{'childOf'}->{$childName}->{'childIsComposite'};
 
         my $child;
         if ($childIsComposite) {
-            $child = $compositeManager->composite($childName);
+            $child = $self->composite($childName);
         } else {
             $child = $self->model($childName);
         }
@@ -612,6 +615,29 @@ sub _setUpModelsFromProvider
                         $observerModel);
             }
         }
+    }
+}
+
+# Method: _setUpCompositesFromProvider
+#
+#   Fetch composites from a <EBox::Model::CompositeProvider> interface
+#   instances and creates its dependencies
+#
+# Parameters:
+#
+#   compositeProvider - <EBox::Model::CompositeProvider> the composite
+#   provider class
+#
+sub _setUpCompositesFromProvider
+{
+    my ($self, $provider) = @_;
+
+    foreach my $composite (@{$provider->composites()}) {
+        push ( @{$self->{composites}->{$provider->name()}->{$composite->name()}},
+               $composite);
+    }
+    for my $model (@{$provider->reloadCompositesOnChange()}) {
+        push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
     }
 }
 
@@ -768,6 +794,50 @@ sub _inferModuleFromModel
     return $returningModule;
 }
 
+# Method: _inferModuleFromComposite
+#
+#
+# Parameters:
+#
+#      compositeName - String the composite's name
+#
+# Returns:
+#
+#      String - the module's name if any
+#
+sub _inferModuleFromComposite
+{
+    my ($self, $compName) = @_;
+
+    my $composites = $self->{composites};
+    my $returningModule = undef;
+    foreach my $module (keys %{$composites}) {
+        foreach my $compKind ( keys %{$composites->{$module}} ) {
+            if ( $compKind eq $compName ) {
+                if ( defined ( $returningModule )) {
+                    throw EBox::Exceptions::Internal('Cannot infere the module '
+                                                     . 'since more than one module '
+                                                     . 'contain this composite. '
+                                                     . 'A namespace is required for '
+                                                     . $compName);
+                }
+                $returningModule = $module;
+            }
+        }
+    }
+
+    unless (defined ($returningModule)) {
+        # XXX We use this for flow control. It's wrong, in the meantime
+        #     we set the exception as silent
+        throw EBox::Exceptions::DataNotFound(data => 'compositeName',
+                                             value => $compName,
+                                             silent => 1);
+    }
+
+    return $returningModule;
+}
+
+
 # Method: _chooseModelUsingParameters
 #
 #	(PRIVATE)
@@ -808,5 +878,189 @@ sub _chooseModelUsingParameters
     throw EBox::Exceptions::DataNotFound(data => 'modelInstance',
                                          value => $path);
 }
+
+# Method: composite
+#
+#     Given a composite name it returns an instance of this composite
+#
+# Parameters:
+#
+#     composite - String the composite model's name, it can follow one
+#     of these patterns:
+#
+#        'compositeName' - used only if the compositeName is unique
+#        within eBox framework and no execution parameters are
+#        required to its creation
+#
+#        '/moduleName/compositeName[/index1] - used when a name space
+#        is required or parameters are set on runtime.
+#
+# Returns:
+#
+#     <EBox::Model::Composite> - the composite object if just one
+#     composite instance is required
+#
+#     array ref - containing <EBox::Model::Composite> instances if
+#     more than one composite corresponds to the given composite name.
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the composite does
+#     not exist given the composite parameter
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#     argument is missing
+#
+#     <EBox::Exceptions::Internal> - thrown if the composite parameter
+#     does not follow the given patterns
+#
+sub composite
+{
+    my ($self, $path) = @_;
+
+    # Check arguments
+    unless (defined ($path)) {
+        throw EBox::Exceptions::MissingArgument('composite');
+    }
+
+    my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
+    if (not defined ($compName) and $path =~ m:/:) {
+        throw EBox::Exceptions::Internal('One composite element is given and '
+                                         . 'slashes are given. The valid format '
+                                         . 'requires no slashes');
+    }
+
+    unless (defined ($compName)) {
+        $compName = $moduleName;
+        # Try to infer the module name from the compName
+        $moduleName = $self->_inferModuleFromComposite($compName);
+    }
+
+    # FIXME: RW/RO
+    my $module = EBox::Global->modInstance($moduleName);
+    return $self->_composite($module, $compName);
+}
+
+sub composites
+{
+    my ($self, $module) = @_;
+
+    my $name = $module->{name};
+    return [ map { $self->_composite($module, $_) } keys %{$self->{composites}->{$name}} ];
+}
+
+sub _composite
+{
+    my ($self, $module, $compName) = @_;
+
+    my $moduleName = $module->{name};
+    unless (exists $self->{composites}->{$moduleName}->{$compName}) {
+        throw EBox::Exceptions::DataNotFound(data  => 'composite',
+                                             value => $compName,
+                                             silent => 1);
+    }
+
+    unless (defined $self->{composites}->{$moduleName}->{$compName}) {
+        # FIXME: indexes logic currently disabled
+        # if (@indexes > 0 and $indexes[0] ne '*') {
+        #    # There are at least one index
+        #    return $self->_chooseCompositeUsingIndex($moduleName, $compName, \@indexes);
+        # } else {
+        #    if (@{$self->{composites}->{$moduleName}->{$compName}} == 1) {
+        #        return $self->{composites}->{$moduleName}->{$compName}->[0];
+        #    } else {
+        #        return $self->{composites}->{$moduleName}->{$compName};
+        #    }
+        # }
+
+        my $global = EBox::Global->getInstance();
+
+        my $class = $global->_className($moduleName) . '::Composite::' . $compName;
+        eval "use $class";
+        $self->{composites}->{$moduleName}->{$compName} = $class->new(gconfmodule => $module);
+    }
+
+    return $self->{composites}->{$moduleName}->{$compName};
+}
+
+# Method: removeComposite
+#
+#       Remove a (some) composite(s) instance from the manager
+#
+# Parameters:
+#
+#       compositePath - String the composite path to add
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::Internal> - thrown if the path is bad
+#       formed
+#
+sub removeComposite
+{
+    my ($self, $compositePath) = @_;
+
+    my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
+
+    unless (defined ($moduleName) and defined ($compositeName)) {
+        throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
+                                         . 'it should follow the pattern /modName/compName[/index]');
+    }
+
+    my $composites = $self->{composites}->{$moduleName}->{$compositeName};
+    if (@indexes > 0) {
+        for my $idx (0 .. $#$composites) {
+            my $composite = $composites->[$idx];
+            if ( $composite->index() eq $indexes[0] ) {
+                splice ( @{$composites}, $idx, 1 );
+                last;
+            }
+        }
+    } else {
+        delete ($self->{composites}->{$moduleName}->{$compositeName});
+    }
+}
+
+# FIXME: see if this is really needed after the changes
+# Method: _chooseCompositeUsingIndex
+#
+#
+# Parameters:
+#
+#       moduleName - String the module's name
+#       compositeName - String the composite's name
+#
+#       indexes - array ref containing the indexes to distinguish
+#       among composite instances
+#
+# Returns:
+#
+#       <EBox::Model::Composite> - the chosen composite
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if no composite can
+#       be found with the given parameters
+#
+sub _chooseCompositeUsingIndex
+{
+    my ($self, $moduleName, $compositeName, $indexesRef) = @_;
+
+    my $composites = $self->{composites}->{$moduleName}->{$compositeName};
+
+    foreach my $composite (@{$composites}) {
+        # Take care, just checkin first index
+        if ( $composite->index() eq $indexesRef->[0] ) {
+            return $composite;
+        }
+    }
+
+    # No match
+    throw EBox::Exceptions::DataNotFound(data => 'compositeInstance',
+                                         value => "/$moduleName/$compositeName/"
+                                        . join ('/', @{$indexesRef}),
+                                         silent => 1);
+}
+
 
 1;

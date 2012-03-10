@@ -36,7 +36,6 @@ use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
 use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Types::MACAddr;

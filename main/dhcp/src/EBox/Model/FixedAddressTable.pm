@@ -133,7 +133,7 @@ sub validateTypedRow
     #     # Check the new IP is not within any given range by RangeTable model
     #     # FIXME: When #847 is done
     #     # my $rangeModel = $dhcp->model('RangeTable');
-    #     my $rangeModel = EBox::Model::ModelManager->instance()->model('/dhcp/RangeTable/'
+    #     my $rangeModel = EBox::Model::Manager->instance()->model('/dhcp/RangeTable/'
     #                                                                   . $self->{interface});
     #     foreach my $id (@{$rangeModel->ids()}) {
     #         my $rangeRow = $rangeModel->row($id);
@@ -153,7 +153,7 @@ sub validateTypedRow
     #     my $newName = $changedFields->{name}->value();
     #     # Check remainder FixedAddressTable models uniqueness since
     #     # the dhcpd.conf may confuse those name repetition
-    #     my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model(
+    #     my @fixedAddressTables = @{EBox::Model::Manager->instance()->model(
     #          '/dhcp/FixedAddressTable/*'
     #                                                                          )};
     #     # Delete the self model

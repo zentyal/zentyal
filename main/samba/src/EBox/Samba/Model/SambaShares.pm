@@ -33,7 +33,7 @@ use EBox::Global;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Boolean;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::DataInUse;
 use EBox::Sudo;
 
@@ -241,7 +241,7 @@ sub deletedRowNotify
     # We are only interested in shares created under /home/samba/shares
     return unless ($path->selectedType() eq 'zentyal');
 
-    my $mgr = EBox::Model::ModelManager->instance();
+    my $mgr = EBox::Model::Manager->instance();
     my $deletedModel = $mgr->model('SambaDeletedShares');
     $deletedModel->addRow('path' => $path->value());
 }

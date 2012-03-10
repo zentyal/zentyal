@@ -80,7 +80,7 @@ sub setTypedRow
 
     # Notify remainder elements
     if ((not $force) and $self->table()->{automaticRemove}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnOnChangeOnId($self->tableName(), 0, $paramsRef, undef);
     }
 

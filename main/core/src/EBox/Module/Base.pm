@@ -31,8 +31,7 @@ use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
+use EBox::Model::Manager;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
@@ -194,7 +193,7 @@ sub model
 {
     my ($self, $name) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     return $manager->_model($self, $name);
 }
 
@@ -202,7 +201,7 @@ sub composite
 {
     my ($self, $name) = @_;
 
-    my $manager = EBox::Model::CompositeManager->Instance();
+    my $manager = EBox::Model::Manager->instance();
     return $manager->_composite($self, $name);
 }
 
@@ -210,7 +209,7 @@ sub models
 {
     my ($self) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     return $manager->models($self);
 }
 
@@ -218,7 +217,7 @@ sub composites
 {
     my ($self) = @_;
 
-    my $manager = EBox::Model::CompositeManager->Instance();
+    my $manager = EBox::Model::Manager->instance();
     return $manager->composites($self);
 }
 
@@ -1955,7 +1954,7 @@ sub _callExposedMethod
     my @selectors = @{$methodDesc->{selector}} if exists ($methodDesc->{selector});
 
     # Getting the model instance
-    my $model = EBox::Model::ModelManager->instance()->model($path[0]);
+    my $model = EBox::Model::Manager->instance()->model($path[0]);
     if (ref ($model) eq 'ARRAY') {
         # Search for the chosen model
         my $index = shift (@{$paramsRef});
@@ -1984,7 +1983,7 @@ sub _callExposedMethod
         foreach my $idx (1 .. $#indexes) {
             my $hasManyField = $submodel->fieldHeader($path[$idx]);
             my $submodelName = $hasManyField->foreignModel();
-            $submodel = EBox::Model::ModelManager->instance()->model($submodelName);
+            $submodel = EBox::Model::Manager->instance()->model($submodelName);
             unless ( $indexes[$idx] eq 'id' or
                     $indexes[$idx] eq 'position') {
                 $submodel->setIndexField($indexes[$idx]);

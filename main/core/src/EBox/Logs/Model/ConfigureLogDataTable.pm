@@ -32,7 +32,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
 use EBox::Types::Int;
@@ -319,7 +319,7 @@ sub acquireEventConfURL
 
     my $logDomain = $instancedType->row()->valueByName('domain');
 
-    my $modelManager = EBox::Model::ModelManager->instance();
+    my $modelManager = EBox::Model::Manager->instance();
 
     my $logConfModel  = $modelManager->model('/events/LogWatcherConfiguration');
     my $id  = $logConfModel->findValue(domain => $logDomain);

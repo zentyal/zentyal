@@ -1,4 +1,5 @@
 HEAD
+	+ Unified model and composite management in the new EBox::Model::Manager
 	+ Model and composites are loaded on demand to reduce memory consumption
 	+ Model and composite information is now stored in .yaml schemas
 	+ ModelProvider and CompositeProvider are no longer necessary

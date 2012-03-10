@@ -28,7 +28,7 @@ package EBox::Firewall::IptablesHelper;
 use warnings;
 use strict;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Firewall::IptablesRule;
 use EBox::Firewall::IptablesRedirectRule;
 use EBox::Types::IPAddr;
@@ -39,7 +39,7 @@ sub new
     my $class = shift;
     my %opts = @_;
     my $self = {};
-    $self->{'manager'} = EBox::Model::ModelManager->instance();
+    $self->{'manager'} = EBox::Model::Manager->instance();
     $self->{firewall} = EBox::Global->modInstance('firewall');
     bless($self, $class);
     return $self;

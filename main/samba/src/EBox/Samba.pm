@@ -40,7 +40,6 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Model::ModelManager;
 use EBox::DBEngineFactory;
 
 use EBox::Ldb;
