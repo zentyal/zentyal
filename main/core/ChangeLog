@@ -1,4 +1,5 @@
 HEAD
+	+ Stop apache gracefully and delete unused code in Apache.pm
 	+ Cache contents of module.yaml files in Global
 2.3.3
 	+ The editable attribute of the types now accept a reference to a function

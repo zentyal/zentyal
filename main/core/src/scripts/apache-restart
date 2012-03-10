@@ -39,7 +39,7 @@ sub check_port_used
 }
 
 try {
-    EBox::Sudo::root(CTL_SCRIPT . ' stop');
+    EBox::Sudo::root(CTL_SCRIPT . ' graceful-stop');
 } otherwise {};
 
 my $port = fetch_ebox_port();
@@ -57,7 +57,7 @@ if (defined($port) and $port =~ /^\d+$/) {
     unless ($ready) {
         EBox::info("Trying to stop apache for last time");
         try {
-            EBox::Sudo::root(CTL_SCRIPT . ' stop');
+            EBox::Sudo::root(CTL_SCRIPT . ' graceful-stop');
         } otherwise {};
         sleep(3);
     }
