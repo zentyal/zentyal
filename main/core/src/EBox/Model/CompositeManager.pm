@@ -117,53 +117,54 @@ sub composite
         $moduleName = $self->_inferModuleFromComposite($compName);
     }
 
-    if (exists $self->{composites}->{$moduleName}->{$compName}) {
-        if (@indexes > 0 and $indexes[0] ne '*') {
-            # There are at least one index
-            return $self->_chooseCompositeUsingIndex($moduleName, $compName, \@indexes);
-        } else {
-            if (@{$self->{composites}->{$moduleName}->{$compName}} == 1) {
-                return $self->{composites}->{$moduleName}->{$compName}->[0];
-            } else {
-                return $self->{composites}->{$moduleName}->{$compName};
-            }
-        }
-    } else {
-        throw EBox::Exceptions::DataNotFound( data  => 'composite',
-                                              value => $compName,
-                                              silent => 1,
-                                            );
-    }
+    # FIXME: RW/RO
+    my $module = EBox::Global->modInstance($moduleName);
+    return $self->_composite($module, $compName);
 }
 
-# Method: addComposite
-#
-#       Add a composite instance to the manager
-#
-# Parameters:
-#
-#       compositePath - String the composite path to add
-#
-#       composite - <EBox::Model::Composite> the composite instance
-#
-sub addComposite
+sub composites
 {
-    my ($self, $compositePath, $composite) = @_;
+    my ($self, $module) = @_;
 
-    my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
-
-    unless (defined ($moduleName) and defined ($compositeName)) {
-        throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
-                                         . 'it should follow the pattern /modName/compName[/index]');
-    }
-
-    push (@{$self->{composites}->{$moduleName}->{$compositeName}},
-           $composite);
-
-    return;
+    my $name = $module->{name};
+    return [ map { $self->_composite($module, $_) } keys %{$self->{composites}->{$name}} ];
 }
 
-# Method: addComposite
+sub _composite
+{
+    my ($self, $module, $compName) = @_;
+
+    my $moduleName = $module->{name};
+    unless (exists $self->{composites}->{$moduleName}->{$compName}) {
+        throw EBox::Exceptions::DataNotFound(data  => 'composite',
+                                             value => $compName,
+                                             silent => 1);
+    }
+
+    unless (defined $self->{composites}->{$moduleName}->{$compName}) {
+        # FIXME: indexes logic currently disabled
+        # if (@indexes > 0 and $indexes[0] ne '*') {
+        #    # There are at least one index
+        #    return $self->_chooseCompositeUsingIndex($moduleName, $compName, \@indexes);
+        # } else {
+        #    if (@{$self->{composites}->{$moduleName}->{$compName}} == 1) {
+        #        return $self->{composites}->{$moduleName}->{$compName}->[0];
+        #    } else {
+        #        return $self->{composites}->{$moduleName}->{$compName};
+        #    }
+        # }
+
+        my $global = EBox::Global->getInstance();
+
+        my $class = $global->_className($moduleName) . '::Composite::' . $compName;
+        eval "use $class";
+        $self->{composites}->{$moduleName}->{$compName} = $class->new(gconfmodule => $module);
+    }
+
+    return $self->{composites}->{$moduleName}->{$compName};
+}
+
+# Method: removeComposite
 #
 #       Remove a (some) composite(s) instance from the manager
 #
@@ -253,6 +254,10 @@ sub _new
     my ($class) = @_;
 
     my $self = {};
+
+    $self->{composites} = {};
+    $self->{reloadActions} = {};
+
     bless ($self, $class);
 
     $self->_setUpComposites();
@@ -270,12 +275,10 @@ sub _setUpComposites
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-
-    $self->{composites} = {};
-    $self->{reloadActions} = {};
-    my @modules = @{$global->modInstancesOfType('EBox::Model::CompositeProvider')};
-    foreach my $module (@modules) {
-        $self->_setUpCompositesFromProvider($module);
+    foreach my $moduleName (@{$global->modNames()}) {
+        my $info = $global->readModInfo($moduleName);
+        my %composites = map { $_ => undef } @{$info->{composites}};
+        $self->{composites}->{$moduleName} = \%composites;
     }
 }
 

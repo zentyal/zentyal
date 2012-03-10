@@ -32,6 +32,7 @@ use EBox::FileSystem;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::Model::ModelManager;
+use EBox::Model::CompositeManager;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
@@ -197,12 +198,28 @@ sub model
     return $manager->_model($self, $name);
 }
 
+sub composite
+{
+    my ($self, $name) = @_;
+
+    my $manager = EBox::Model::CompositeManager->Instance();
+    return $manager->_composite($self, $name);
+}
+
 sub models
 {
     my ($self) = @_;
 
     my $manager = EBox::Model::ModelManager->instance();
     return $manager->models($self);
+}
+
+sub composites
+{
+    my ($self) = @_;
+
+    my $manager = EBox::Model::CompositeManager->Instance();
+    return $manager->composites($self);
 }
 
 # Method: revokeConfig
