@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::Model::CompositeProvider
             EBox::FirewallObserver
             EBox::LdapModule);
 
