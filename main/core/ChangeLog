@@ -1,4 +1,4 @@
-HEAD
+2.3.4
 	+ Avoid 'negative radius' error in DiskUsage chart
 	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
 	+ Log audit does not ignore fields which their values could be interpreted
