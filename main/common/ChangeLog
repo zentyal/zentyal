@@ -1,3 +1,6 @@
+HEAD
+	+ EBox::FileSystem ignore all fuse daemon filesystem (type begins
+	  with 'fuse.')
 2.2.3
 	+ EBox::FileSystem::partitionsFileSystems ignores more pseudo file
 	  systems. File systems without mount point are always ignored.
@@ -381,9 +384,9 @@
 	+ Supports i18n
 	+ API name consistency
 	+ Use Mason for templates
-	+ added tips to GUI 
+	+ added tips to GUI
 	+ added dhcp hooks
-	+ administration port configuration 
+	+ administration port configuration
 	+ Fixed bugs to IE compliant
 	+ Revoke changes after logout
 	+ Several bugfixes
