@@ -37,8 +37,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'usercorner',
-            printableName => __n('User Corner'),
-            @_);
+                                      printableName => __('User Corner'),
+                                      @_);
 
     bless($self, $class);
     return $self;
@@ -115,6 +115,7 @@ sub initialSetup
         my $port = 8888;
         $fw->addInternalService(
                 'name'            => 'usercorner',
+                'printableName'   => __('User Corner'),
                 'description'     => __('User Corner Web Server'),
                 'protocol'        => 'tcp',
                 'sourcePort'      => 'any',

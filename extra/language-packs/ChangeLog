@@ -1,4 +1,7 @@
-HEAD
+2.3
+	+ Simplified build system without autotools
+	+ Translations updated from translate.zentyal.org (Mar/04)
+	+ Added a tool to fix missing fuzzy flags in .po files
 	+ Generate locales in postint
 2.2.1
 	+ Translations updated from translate.zentyal.org (Sep/29)

@@ -293,14 +293,7 @@ sub _setLDAP
     my $ldap = EBox::Ldap->instance();
     my $ldapConf = $ldap->ldapConf();
 
-    unless ($users->mode() eq 'slave') {
-        $port = $ldapConf->{'port'};
-    } else {
-        $port = $ldapConf->{'translucentport'};
-    }
-
-    my $url = $ldapConf->{'ldap'}.':'.$port.'/';
-
+    my $url = $ldapConf->{'ldapi'};
     push (@params, url => $url);
     push (@params, dn => $ldapConf->{'dn'});
     push (@params, rootdn => $ldapConf->{'rootdn'});
@@ -317,11 +310,9 @@ sub _setClients
     my ($self) = @_;
 
     my @params = ();
-
     my $model = $self->model('Clients');
 
     push (@params, clients => $model->getClients());
-
     $self->writeConfFile(CLIENTSCONFFILE, "radius/clients.conf.mas", \@params,
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }

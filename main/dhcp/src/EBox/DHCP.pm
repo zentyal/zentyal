@@ -141,7 +141,8 @@ sub initialSetup
 
         $firewall->addInternalService(
                 'name' => 'tftp',
-                'description' => __d('Trivial File Transfer Protocol'),
+                'printableName' => 'TFTP',
+                'description' => __('Trivial File Transfer Protocol'),
                 'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 69,
@@ -149,7 +150,8 @@ sub initialSetup
 
         $firewall->addInternalService(
                 'name' => 'dhcp',
-                'description' => __d('Dynamic Host Configuration Protocol'),
+                'printableName' => 'DHCP',
+                'description' => __('Dynamic Host Configuration Protocol'),
                 'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 67,

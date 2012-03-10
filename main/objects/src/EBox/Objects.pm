@@ -35,7 +35,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'objects',
-                                      printableName => __n('Objects'),
+                                      printableName => __('Objects'),
                                       @_);
 
     $self->{'actions'} = {};

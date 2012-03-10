@@ -24,8 +24,6 @@ use EBox::Global;
 use EBox::UsersAndGroups;
 use EBox::Gettext;
 
-
-
 sub new {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Users'),
@@ -38,18 +36,17 @@ sub new {
 
 sub _process($) {
     my ($self) = @_;
-    my $usersandgroups = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
 
     my @args = ();
 
-    if ($usersandgroups->configured()) {
+    if ($users->configured()) {
+        push(@args, 'groups' => $users->groups());
+        push(@args, 'users' => $users->users());
 
-        my @groups = $usersandgroups->groups();
-        my @users = $usersandgroups->users();
-
-        push(@args, 'groups' => \@groups);
-        push(@args, 'users' => \@users);
-
+        if (EBox::Config::configkey('multiple_ous')) {
+            push(@args, 'ous' => $users->ous());
+        }
     } else {
         $self->setTemplate('/notConfigured.mas');
         push(@args, 'module' => __('Users'));

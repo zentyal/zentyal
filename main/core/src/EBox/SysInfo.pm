@@ -249,7 +249,7 @@ sub widgets
 
     unless (EBox::Config::boolean('disable_links_widget')) {
         $widgets->{'links'} = {
-            'title' => __("Resources & Services"),
+            'title' => __('Resources'),
             'widget' => \&linksWidget,
             'order' => 2,
             'default' => 1
@@ -397,7 +397,7 @@ sub logReportInfo
 
     my @data;
 
-    my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
+    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
     foreach my $fileSys (keys %{$fileSysS}) {
         my $entry = {};
         $entry->{'table'} = 'sysinfo_disk_usage';
@@ -535,21 +535,12 @@ sub importTimezone
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: The updates are community based and there is no guarantee that your '
-               . 'server will work properly after applying them. Quality Assured Updates are '
-               . 'only included in commercial subscriptions and they guarantee that all the '
-               . 'upgrades, bugfixes and security updates '
-               . "are extensively tested by the Zentyal Development Team and you won't "
-               . 'be introducing any regressions on your already working system. '
-               . 'Purchase a Professional or Enterprise Server Subscription to gain access '
-               . 'to QA updates.');
-
+    return __s('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the Small Business or Enterprise Edition that include quality assured software updates.');
 }
 
 sub _secureMsg
 {
-    return __s('As your server has a commercial server subscription, these updates are '
-               . 'quality assured and automatically applied to your system.');
+    return __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
 }
 
 1;

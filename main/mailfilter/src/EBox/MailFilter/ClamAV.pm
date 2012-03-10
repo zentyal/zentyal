@@ -41,8 +41,6 @@ use EBox::MailFilter::VDomainsLdap;
 # };
 
 
-
-
 sub new
 {
   my $class = shift @_;
@@ -56,9 +54,7 @@ sub new
 sub _mailfilterModule
 {
   return EBox::Global->modInstance('mailfilter');
-3}
-
-
+}
 
 sub setVDomainService
 {
@@ -78,9 +74,6 @@ sub vdomainService
   $vdomainsLdap->checkVDomainExists($vdomain);
   $vdomainsLdap->antivirus($vdomain);
 }
-
-
-
 
 
 1;

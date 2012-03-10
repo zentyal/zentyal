@@ -131,8 +131,7 @@ sub _checkAccountAlias
 #
 sub addGroupAlias
 {
-    my ($self, $alias, $groupname) = @_;
-    my $users = EBox::Global->modInstance('users');
+    my ($self, $alias, $group) = @_;
 
     EBox::Validate::checkEmailAddress($alias, __('group alias'));
 
@@ -145,19 +144,19 @@ sub addGroupAlias
 
     my @mailAccounts = map {
         $mailUserLdap->userAccount($_)
-    } $mailUserLdap->usersWithMailInGroup($groupname);
+    } $mailUserLdap->usersWithMailInGroup($group);
 
     my $first = 1;
     foreach my $mail (@mailAccounts) {
         if ($first) {
-            $self->addAlias($alias, $mail, $groupname);
+            $self->addAlias($alias, $mail, $group->get('mail'));
             $first = 0;
         } else {
             $self->addMaildrop($alias, $mail);
         }
     }
 
-    $self->_addmailboxRelatedObject($alias, $groupname);
+    $self->_addmailboxRelatedObject($alias, $group);
 }
 
 sub _addmailboxRelatedObject
@@ -166,19 +165,9 @@ sub _addmailboxRelatedObject
 
     return if $self->_mailboxRelatedObjectInGroup($group);
 
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->groupDn($group);
-
-    my %attrs = (
-                 changes => [
-                         add => [
-                                   'objectClass'           => 'mailboxRelatedObject',
-                                   'mail'                  => $alias,
-                                   ]
-                         ],
-                );
-
-    my $r = $self->{ldap}->modify($dn, \%attrs);
+    $group->add('objectClass', 'mailboxRelatedObject', 1);
+    $group->add('mail', $alias, 1);
+    $group->save();
 }
 
 sub _delmailboxRelatedObject
@@ -187,19 +176,16 @@ sub _delmailboxRelatedObject
 
     return unless $self->_mailboxRelatedObjectExists($alias);
 
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->groupDn($group);
 
-    my %attrs = (
-                 changes => [
-                         delete => [
-                                   'objectClass'           => 'mailboxRelatedObject',
-                                   'mail'                  => $alias,
-                                   ]
-                         ],
-                );
+    my @classes = $group->get('objectClass');
+    my @mail = $group->get('mail');
 
-    my $r = $self->{ldap}->modify($dn, \%attrs);
+    @classes = grep { $_ ne 'mailboxRelatedObject' } @classes;
+    @mail = grep { $_ ne $alias } @mail;
+
+    $group->set('objectClass', \@classes, 1);
+    $group->set('mail', \@mail, 1);
+    $group->save();
 }
 
 sub _mailboxRelatedObjectInGroup
@@ -208,6 +194,7 @@ sub _mailboxRelatedObjectInGroup
 
     my $users = EBox::Global->modInstance('users');
 
+    $group = $group->get('cn');
     my %attrs = (
         base => $users->groupsDn(),
         filter => "&(objectclass=mailboxRelatedObject)(cn=$group)",
@@ -353,7 +340,7 @@ sub _addCouriermailAliasLdapElement
     my %attrs = (
                  attr => [
                           'objectclass'           => 'couriermailalias',
-                          'objectclass'           =>      'account',
+                          'objectclass'           => 'account',
                           'userid'                => $id,
                           'mail'                  => $alias,
                           'maildrop'              => $maildrop
@@ -639,10 +626,9 @@ sub listMailGroupsByUser
     my ($self, $user) = @_;
 
     my %groupsWithAlias;
-    my $users = EBox::Global->modInstance('users');
 
     # We get also system groups (gid < 2000)
-    my @groups = @{$users->groupsOfUser($user, 1)};
+    my @groups = @{$user->groups()};
 
     foreach my $group (@groups) {
         if ($self->groupHasAlias($group)) {
@@ -668,6 +654,7 @@ sub groupAliases
 {
     my ($self, $group) = @_;
 
+    $group = $group->get('mail');
     my %args = (
         base => $self->aliasDn,
         filter => "&(objectclass=couriermailalias)(uid=$group)",
@@ -698,6 +685,7 @@ sub groupHasAlias
 {
     my ($self, $group) = @_;
 
+    $group = $group->get('mail');
     my %args = (
         base => $self->aliasDn,
         filter => "&(objectclass=couriermailalias)(uid=$group)",

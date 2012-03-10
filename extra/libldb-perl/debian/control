@@ -1,0 +1,14 @@
+Source: libldb-perl
+Section: perl
+Priority: optional
+Maintainer: José A. Calvo <jacalvo@zentyal.com>
+Build-Depends: debhelper (>= 8), perl, libldb-dev, libtevent-dev, libsamdb-dev
+Standards-Version: 3.9.2
+Homepage: http://search.cpan.org/dist/LDB/
+
+Package: libldb-perl
+Architecture: any
+Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends}, libldb1, libtevent0, libsamdb0
+Description: Perl bindings for the ldb library
+ Perl module to perform searches and modifications to ldb files using the
+ Samba's ldb native library

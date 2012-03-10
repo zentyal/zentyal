@@ -31,6 +31,16 @@ then
     sed -i "s/DAGENT_ENABLED=no/DAGENT_ENABLED=yes/g" $DAGENT_DFLT_7
 fi
 
+# look, and add, required locale
+LOCALE_FOUND=`locale -a | grep 'en_US.utf8'`
+if [ -z "$LOCALE_FOUND" ]
+then
+  LOCALE_FILE=/var/lib/locales/supported.d/local
+  echo 'en_US.UTF-8 UTF-8' >> $LOCALE_FILE
+  locale-gen en_US.UTF-8
+fi
+
+
 FIRST_RUN_FILE='/var/lib/zentyal/conf/zentyal-zarafa.first'
 touch $FIRST_RUN_FILE
 

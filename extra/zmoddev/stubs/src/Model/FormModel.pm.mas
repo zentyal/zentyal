@@ -104,7 +104,7 @@ sub _table
             'populate' => \&populate_<% $field->{name} %>,
             'unique' => 1,
             'editable' => 1,
-            'help' => '', # FIXME
+            'help' => '',
         ),
 %   }   else {
         new EBox::Types::<% $field->{type} %>(
@@ -113,7 +113,7 @@ sub _table
             'size' => '8',
             'unique' => 1,
             'editable' => 1,
-            'help' => '', # FIXME
+            'help' => '',
         ),
 %   }
 % }

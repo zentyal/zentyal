@@ -16,7 +16,8 @@ lilo
 xfs
 jfs"
 
-cd /cdrom/pool/main
+main=/media/cdrom/pool/main
+cd $main
 
 for j in *
 do
@@ -31,7 +32,7 @@ do
                 n=$(dpkg -l $(echo $l | cut -f1 -d"_") 2> /dev/null| grep "^ii")
                 if [ -z "$n" ]
                 then
-                    pkgfile=/cdrom/pool/main/$j/$k/$l
+                    pkgfile=$main/$j/$k/$l
                     skip=0
                     for i in $MANDATORY_PACKAGES
                     do

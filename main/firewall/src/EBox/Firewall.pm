@@ -134,7 +134,7 @@ sub initialSetup
 
     # Create default rules only if installing the first time
     unless ($version) {
-        $self->setInternalService('eBox administration', 'accept');
+        $self->setInternalService('administration', 'accept');
         $self->setInternalService('ssh', 'accept');
 
         my $services = EBox::Global->modInstance('services');
@@ -978,6 +978,7 @@ sub _addService
 
     if (not $serviceMod->serviceExists('name' => $params{name})) {
         $serviceMod->addService('name' => $params{name},
+                'printableName' => $params{printableName},
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
@@ -986,6 +987,7 @@ sub _addService
                 );
     } else {
         $serviceMod->setService('name' => $params{name},
+                'printableName' => $params{printableName},
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},

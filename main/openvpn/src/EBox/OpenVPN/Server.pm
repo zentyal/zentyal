@@ -327,7 +327,7 @@ sub subnetNetmask
 # Method: clientToClient
 #
 # Returns:
-#  wether conenction is alloweb bettween clients though the VPN or not
+#  whether connection is allowed between clients though the VPN or not
 sub clientToClient
 {
     my ($self) = @_;
@@ -348,7 +348,9 @@ sub tlsRemote
 # Method: pullRoutes
 #
 # Returns:
-#  whether the server may pull routes from client or not
+#
+#    Boolean - whether the server may pull routes from client or not
+#
 sub pullRoutes
 {
     my ($self) = @_;

@@ -603,8 +603,7 @@ sub _run
 sub diskFile
 {
     my ($self, $disk, $machine) = @_;
-
-    return shell_quote("$VM_PATH/$machine/$disk.img");
+    return "$VM_PATH/$machine/$disk.img";
 }
 
 sub _vncKeymap
@@ -651,6 +650,12 @@ sub ifaces
     my @ifaces = EBox::NetWrappers::list_ifaces();
     @ifaces = grep { $network->ifaceIsBridge($_) } @ifaces;
     return @ifaces;
+}
+
+
+sub allowsNoneIface
+{
+    return 0;
 }
 
 1;

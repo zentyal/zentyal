@@ -1,4 +1,28 @@
-HEAD
+2.3.4
+	+ Avoid 'negative radius' error in DiskUsage chart
+	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
+	+ Log audit does not ignore fields which their values could be interpreted
+	  as boolean false
+	+ Avoid ebox.cgi failure when showing certain strings in the error template
+	+ Do not calculate md5 digests if override_user_modification is enabled
+	+ Clean /var/lib/zentyal/tmp on boot
+	+ Stop apache gracefully and delete unused code in Apache.pm
+	+ Cache contents of module.yaml files in Global
+2.3.3
+	+ The editable attribute of the types now accept a reference to a function
+	  to dinamically enable or disable the field.
+	+ In progress bar CGIs AJAX call checks the availability of the
+	  next page before loading it
+	+ Replaced community logo
+	+ Adapted messages in the UI for new editions
+	+ Changed cookie name to remove forbidden characters to avoid
+	  incompatibilities with some applications
+	+ Added methods to enable/disable restart triggers
+2.3.2
+	+ Fixed redis unix socket permissions problem with usercorner
+	+ Get row ids without safe characters checking
+	+ Added EBox::Util::Random as random string generator
+	+ Set log level to debug when cannot compute md5 for a nonexistent file
 	+ Filtering in tables is now case insensitive
 	+ ProgressIndicator no longer leaves zombie processes in the system
 	+ Implemented mysqldump for logs database

@@ -9,6 +9,8 @@
     $isInfrastructure
     $isCommunication
     $updateList
+    $updateListError
+    $updateListErrorMsg
     $sb
 </%args>
 <%init>
@@ -156,7 +158,11 @@ my $first = EBox::Global->first();
 <style type="text/css">
 
 .head {
+% if ($sb) {
     width: 155px;
+% } else {
+    width: 115px;
+% }
     margin: 0 15px;
     display: inline-block;
     text-align: center;
@@ -215,13 +221,7 @@ var pkgTable = new Array(
 
 
 % if ($updateList == 1) {
-<div class='note'>
-<% __('Package list updated successfully') %>
-</div>
-% } elsif ($updateList == 2) {
-<div class='error'>
-<% __('Error updating package list. Please try to execute the following command in a console to see the problem: sudo apt-get update') %>
-</div>
+<& .updateList, error => $updateListError, errorMsg => $updateListErrorMsg &>
 % }
 
 
@@ -909,3 +909,27 @@ var pkgTable = new Array(
     }
 
 </script>
+
+<%def .updateList>
+<%args>
+$error
+$errorMsg => undef
+</%args>
+% if (not $error) {
+<div class='note'>
+<% __('Package list updated successfully') %>
+</div>
+%  } else {
+<%perl>
+my $printableErrorMsg;
+if ($errorMsg) {
+  $printableErrorMsg = __x('Error updating package list.<p>{msg}</p>', msg => $errorMsg);
+} else {
+   $printableErrorMsg = __('Error updating package list.<p>Please try to execute the following command in a console to see the problem: sudo apt-get update</p>');
+}
+</%perl>
+<div class='error'>
+<% $printableErrorMsg  %>
+</div>
+% }
+</%def>

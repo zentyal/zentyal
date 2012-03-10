@@ -1,0 +1,304 @@
+HEAD
+	+ Restore samba-vscan dependency
+2.3
+	+ Adapted to new MySQL logs backend
+	+ Remove samba-vscan dependency as it is not yet available for precise
+	+ Replaced autotools with zbuildtools
+	+ Use always the same string to refer to the NetBIOS computer name
+	+ Validation of maximum length of domain name, validation against
+	  reserved words of netbios and domain names
+2.1.7
+	+ Allow non-ascii characters in share names and comments
+2.1.6
+	+ Added config key to set Zentyal folders and default domain prefix
+	+ Removed /zentyal prefix from URLs
+	+ Added maximum limits to PDC options
+	+ Avoid duplicated restart during postinst
+2.1.5
+	+ Removed wrong quotes in smb.conf
+	+ Added missing touch and minsize options in /etc/zentyal/samba.conf
+	  for Recycle Bin
+2.1.4
+	+ Better validation of samba shares paths
+	+ Improve smb.conf template: delete use_client_driver and allow include
+	  per client
+	+ Always depend on samba-vscan
+	+ Use quote column option for periodic and report log consolidation
+2.1.3
+	+ Now deleted users and groups are removed correctly from printers
+	  permissions lists
+	+ Show group comment if exists as share description
+	+ Fixed SQL in activity report section
+	+ Removed redundant code _dumpSharesTree and _loadSharesTree
+2.1.2
+	+ Domain names ending in ".local" are no longer allowed
+2.1.1
+	+ Quotas are now included in users module
+	+ Bugfix: disabled shares are correctly ignored now
+	+ Bugfix: fixed bad column name in report consolidation
+	+ Renamed internal-backups and quarantine shares from ebox- to zentyal-
+	+ Bug fix: default file sharing quota works properly now
+2.1
+	+ Remove ebox- prefix from helper scripts names
+	+ Use new standard enable-module script
+	+ Replace /etc/ebox/80samba.conf with /etc/zentyal/samba.conf
+	+ Use new initial-setup in postinst and delete old migrations
+	+ Bug fix: Home directory is mapped when accessing from a Windows 7 client
+	+ User quotas are now stored in configuration backup and users directory
+	+ Bug fix: Share size is estimated although some files cannot be read
+	+ Bug fix: Removed permissions are actually removed
+	+ Roaming profiles with correct file attribs
+	+ The files in a group share can be modified by all the members in the
+	  group
+	+ Show forbidden paths in the "Path not allowed" exception text
+	+ Truncate the resource field to avoid overflow error of log database
+2.0.7
+	+ Removed printers are ignored during backup restore
+	+ Added backup domain
+	+ Added printers as restore dependency
+2.0.6
+	+ Check for incompatibility between PDC and PAM on slaves
+	+ Improved performance by adding samba LDAP indexes
+	+ Only set shares ACL if needed
+	+ Set default order for dashboard widgets
+2.0.5
+	+ Only ASCII characters are now allowed for share names and comments
+	+ Bug fix: guest shares also work if PDC not enabled
+2.0.4
+	+ Fixed quarantine folder permissions
+	+ Don't ask for password in guest shares
+2.0.3
+	+ Bug fix: guest shares now work on Windows clients
+	+ Fixed log retrieving for quarantine alerts
+2.0.2
+	+ Fixed problems in backup restoration
+	+ Bug fix: support users and groups with spaces and so on in ACLs
+2.0.1
+	+ Bug fix: cups daemon is now started before samba one
+	+ Bug fix: samba can be enabled now if filesystem does not support quotas
+	+ Removed warning due to mix numeric and string values in printer hash.
+	+ New CUPS printers are also stored in redis when editing groups
+	+ Deleted obsolete code regarding external/non-external printers
+1.5.9
+	+ Rebranded domain name and description
+1.5.8
+	+ Zentyal rebrand
+	+ On smb.conf.mas: use client driver = no to allow printer server
+	  to give clients the uploaded drivers.
+1.5.7
+	+ Avoid antivirus scan on large files to fix read problems
+	+ Add a keyconf to Samba listen on external interfaces
+	+ Added more report subsections
+1.5.6
+	+ Move NSS from ebox-samba to ebox-usersandgroups
+	+ Home directories are under /home now
+	+ Shares permissions model now states if the ACL is for a user or a group
+1.5.5
+	+ Bug fix: set proper permissions on guest shares
+	+ Bug fix: avoid parse of non-word characters in vscan log entries
+1.5.4
+	+ Added bridged mode support in firewall helper
+1.5.3
+	+ Bug fix: do not add acl attribute in /etc/fstab when using xfs
+1.5.2
+	+ Enforce uniqueness of 'user/group' filed in shares permissions
+	+ Enable full audit feature as it's working again in samba 3.4.6
+	+ Allow guest shares
+1.5.1
+	+ Add support for file system ACLs. Modify /etc/fstab
+	  accordingly. Add dependency on acl.
+	+ Bug fix: check if a group has been deleted when configurer printers,
+	  otherwise users end up with a blank screen when granting printer
+	  permissions
+	+ Use the new upstart scripts that the Ubuntu samba packages ships
+	  in Lucid
+1.4.2
+	+ Add missing samba_virus_report table
+1.4.1
+	+ Restored RecycleBin feature lost when merged breadcrumbs
+1.3.15
+	+ Added 'hide files' directive by default in smb.conf.mas
+	+ Bug fix: PDC password policy settings are kept after samba restarts
+1.3.14
+	+ Add DefaultUser model to be used in users and groups default user
+	  template. Admins can select if they wish to enable the file sharing
+	  account by default when creating new users.
+1.3.13
+	+ Disable full_audit until fixed in a newer samba version
+1.3.12
+	+ Add breadcrumbs
+1.3.11
+	+ Added report support
+1.3.10
+	+ bugfix: ignore case when comparing domain and netbios names
+	+ Added support for Recycle Bin in shares
+	+ bugfix: restore Domain Users with GID 513 and not 512.
+	  as this made Domain Admins not work
+	+ Remove unused quota related methods
+1.3.7
+	+ Create .V2 profile directories. Windows Vista looks for them.
+	+ remove extendedBackup, data files must be backuped using ebackup
+1.3.6
+	+ bugfix: do not allow netbios names longer than 15 characters
+1.3.4
+	+ bugfix: some samba actions never appeared in the access log
+1.3.3
+	+ bugfix: we dont consults users when users is not configured in EBox::Samba::existsShareResource
+1.3.1
+	+ bugfix: use right number for Domain Computers group
+1.3.0
+	+ bugfix: keep sambaMinPwdLength attribute
+1.1.30
+	+ bugfix: add user works if quota is disabled
+	+ bugfix: replaced storeElementByName with store to avoid bug when restoring
+1.1.20
+	+ samba allows the use of internal virtual ifaces now
+	+ bugfix: importFromLdif was calling a maethod that was removed in a previous merge
+1.1.10
+	+ Only update sambaPaths on users with sambaSamAccount object
+	class
+	+ UI imrpovement: in general setting some fileds are disabled when
+	PDC is not selected
+1.1
+	+ Bugfix: issue with codepages on shares
+	+ Home drive letter can be changed now from general settings
+	+ Added new PDC model with password settings
+	+ Use the new row() and ids() API
+	+ Windows user's profiles are backed up only in extended backups
+	+ Enable quota support again
+	+ Bugfix: when importing data from ldiff we assure that the
+	default group is created before any group assignment to avoid
+	'group not existent' errors
+
+0.12.101
+	+ Bugfix: set force directory mode and force create mode to 0660 in shares
+0.12.100
+	+ Admin user method is more robust in face of user's incomplete
+	groups membership
+	+ Bugfix: `printers` method returns an empty list when
+	`ebox-printers` package is not installed
+	+ Add per-user disk quota
+0.12.99
+	+ New release
+0.12.6.101
+	+ Bugfix. roaming profiles are not created automatically when they are
+	disabled
+0.12.6.100
+	+ Support for external printers configured with CUPS
+	+ Bugfix. Set users and groups suffix properly in smb.conf
+0.12.5
+	+ Bugfix. Set loginShell when adding users. By default it takes /bin/false
+	but users can change it using /etc/ebox/80samba.conf
+0.12.4
+	+ Bugfix. Check and correct if there is a user or group with a wrong SID.
+	It's possible to run into that scenarion depending when the user/group is
+	created
+	+ Do not delete some domain attributes that are used to store password
+	attributes such us password length, expiration...
+0.12.3
+	+ Add configuration variable to enable/disable quota support
+	  as it might be really slow if we have many users
+0.12.2
+	+ Restore group share names when restoring a backup
+0.12.1
+	+ Leave Logon Home empty, as Logon Home = "" as stated by smb.conf
+	documentation doesn't seem to work
+	+ Make sure  workgroup and netbios names are different
+0.12
+	+ Add help to model fields
+	+ Fix typo in defaultEnabledValue. Now shares are enabled by default.
+	+ Fix typo in administrator label
+	+ Mark shares strings to translate
+	+ Use eBox OID number in LDAP schemas
+	+ Do not use shares that don't have permission for any user or group
+	+ Remove deprecated printer admin configuration key in smb.conf.mas
+	+ Enable dns proxy in smb.conf.mas
+0.11.103
+	+ Bugfix. Add and use EBox::Samba::Types::Select to avoid 
+	  issues with the options cache
+0.11.102
+	+ Extend functinality to add custom shares and not only one per-group:
+		- Any share within the file system
+		- Any share automatically created under /home/samba/shares
+		- Fine-grained access to the share: read-only, read and write,
+		  administrator, per user and per group.
+	+ Set editable attribute to 1 in User field. To comply with
+	  what the type expects and avoid warnings
+
+0.11.101
+	+ New release
+0.11.100
+	+ Change slapd.conf ownership to module users
+	+ Fix typos
+	+ onInstall() functionality moved to migration script 
+0.11.99
+	+ Allow others to read contents from users home directory to
+	publish HTML
+0.11
+	+ New release
+0.10.99
+	+ New release
+0.10
+	+ Create directory with 0770
+	+ Add users to Domain Users group
+0.9.100
+	+ New release
+0.9.99
+	+ New release
+0.9.3
+	+ New release
+0.9.2
+	+ Add ebox backup directory as a shared resource to download/upload
+	  files
+	+ Create smbldap_bind.conf which contains password with mask 0600
+0.9.1
+	+ New release
+0.9
+	+ Added Polish translation
+	+ Added German translation
+	+ Added Dutch  translation
+
+0.8.99
+	+ New release
+0.8.1
+	+ bugfix. Do not mess up home directories when upgrading
+	+ Minor workaround. Create slapd run directory in case it does not
+	  exist
+0.8
+	+ New release
+0.7.99
+	+ Full backup mode stores shared files
+	+ Unlimited i-node quota
+	+ Various bug-fixes
+	+ Portuguese translation
+ 
+0.7.1
+	+ Initial support for PDC
+	+ GUI improvements
+	+ Added update/clean actions to eobx-samba-ldap
+	+ Use EBox::LDAP singleton
+	+ Debian package fixes
+	+ Fetch SID from configuration file
+	+ Use of ebox-sudoers-friendly
+
+0.7
+	+ First public release
+0.6
+	+ move to client
+	+ API documented using naturaldocs
+	+ Update install
+	+ Update debian scripts
+	+ Enable/disable printer sharing and file sharing independentely
+	+ Use new syntax to define ACLs in slapd.conf
+	+ Implements usesPort
+	+ Add full support for printers
+	+ Several bugfixes
+
+0.5.2
+	+ Fix some packaging issues
+
+0.5.1
+	+ Convert module to new menu system
+
+0.5
+	+ Initial release

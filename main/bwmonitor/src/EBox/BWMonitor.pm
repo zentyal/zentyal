@@ -417,15 +417,17 @@ sub report
             order  => 'total_bytes DESC',
         });
 
-    if ( @{$report->{top_user_bw_usage}->{username}} <= 1 ) {
-        # Do not send a top user with non authenticated users
-        delete $report->{top_user_bw_usage};
-    } else {
-        # Rename undef user to unauthenticated user
-        foreach my $username (@{$report->{top_user_bw_usage}->{username}}) {
-            unless( defined($username) ) {
-                $username = '___non_auth___';
-                last;
+    if ( defined($report->{top_user_bw_usage}->{username}) ) {
+        if ( @{$report->{top_user_bw_usage}->{username}} <= 1 ) {
+            # Do not send a top user with non authenticated users
+            delete $report->{top_user_bw_usage};
+        } else {
+            # Rename undef user to unauthenticated user
+            foreach my $username (@{$report->{top_user_bw_usage}->{username}}) {
+                unless( defined($username) ) {
+                    $username = '___non_auth___';
+                    last;
+                }
             }
         }
     }

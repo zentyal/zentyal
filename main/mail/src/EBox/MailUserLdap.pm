@@ -29,6 +29,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Model::ModelManager;
 use EBox::Gettext;
+use EBox::UsersAndGroups::User;
 use Error qw( :try );
 
 use Perl6::Junction qw(any);
@@ -72,8 +73,6 @@ sub setUserAccount
 {
     my ($self, $user, $lhs, $rhs)  = @_;
 
-    my $ldap = $self->{ldap};
-    my $users = EBox::Global->modInstance('users');
     my $mail = EBox::Global->modInstance('mail');
     my $email = $lhs.'@'.$rhs;
 
@@ -88,22 +87,16 @@ sub setUserAccount
 
     my $quota = $mail->defaultMailboxQuota();
 
-    my $dn = "uid=$user," .  $users->usersDn;
-    my %attrs = (
-                 changes => [
-                             add => [
-                                     objectClass => 'couriermailaccount',
-                                     objectClass => 'usereboxmail',
-                                     objectClass => 'fetchmailUser',
-                                     mail        => $email,
-                                     mailbox     => $rhs.'/'.$lhs.'/',
-                                     userMaildirSize => 0,
-                                     mailquota       => $quota,
-                                     mailHomeDirectory => DIRVMAIL
-                                    ]
-                            ]
-                );
-    my $add = $ldap->modify($dn, \%attrs );
+    $user->add('objectClass', ['couriermailaccount',
+                               'usereboxmail',
+                               'fetchmailUser'], 1);
+
+    $user->set('mail', $email, 1);
+    $user->set('mailbox', $rhs.'/'.$lhs.'/', 1);
+    $user->set('userMaildirSize', 0, 1);
+    $user->set('mailquota', $quota, 1);
+    $user->set('mailHomeDirectory', DIRVMAIL, 1);
+    $user->save();
 
     $self->_createMaildir($lhs, $rhs);
 
@@ -113,7 +106,6 @@ sub setUserAccount
         foreach my $alias (@aliases) {
             $mail->{malias}->addMaildrop($alias, $email);
         }
-
     }
 }
 
@@ -123,16 +115,16 @@ sub setUserAccount
 #
 # Parameters:
 #
-#               username - username
+#               user - username
 #               usermail - the user's mail address (optional)
-sub delUserAccount   #username, mail
+sub delUserAccount
 {
-    my ($self, $username, $usermail) = @_;
+    my ($self, $user, $usermail) = @_;
 
-    ($self->_accountExists($username)) or return;
+    ($self->_accountExists($user)) or return;
 
     if (not defined $usermail) {
-        $usermail = $self->userAccount($username);
+        $usermail = $self->userAccount($user);
     }
 
     my $mail = EBox::Global->modInstance('mail');
@@ -149,34 +141,16 @@ sub delUserAccount   #username, mail
     }
 
     # get the mailbox attribute for later use..
-    my $mailbox = $self->getUserLdapValue($username, "mailbox");
+    my $mailbox = $user->get('mailbox');
 
-    # Now we remove all mail atributes from user ldap leaf
-    my @mailAttrs = grep {
-                    $self->existsUserLdapValue($username, $_)
-                } qw(mail mailbox userMaildirSize mailquota mailHomeDirectory
-                     fetchmailAccount);
-
-    my @toDelete = map {
-        my $attr = $_;
-        $attr => $self->getUserLdapValue($username, $attr)
-    } @mailAttrs;
-
-    push @toDelete, (
-                    objectClass => 'couriermailaccount',
-                    objectClass => 'usereboxmail',
-                    objectClass => 'fetchmailUser',
-                    );
-
-    my %attrs = (
-                 changes => [
-                             delete => \@toDelete,
-                            ]
-                );
-
-    my $ldap = $self->{ldap};
-    my $dn = "uid=$username," .  $users->usersDn;
-    $ldap->modify($dn, \%attrs );
+    $user->remove('objectClass', [ 'CourierMailAccount', 'usereboxmail', 'fetchmailUser' ], 1);
+    $user->delete('mail', 1);
+    $user->delete('mailbox', 1);
+    $user->delete('userMaildirSize', 1);
+    $user->delete('mailquota', 1);
+    $user->delete('mailHomeDirectory', 1);
+    $user->delete('fetchmailAccount', 1);
+    $user->save();
 
     my @cmds;
 
@@ -198,30 +172,9 @@ sub delUserAccount   #username, mail
 #
 sub userAccount
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
-
-    my %args = (
-                base => $users->usersDn,
-                filter => "&(objectclass=*)(uid=$username)",
-                scope => 'one',
-                attrs => ['mail'],
-                active => $mail->service,
-               );
-
-    my $result = $self->{ldap}->search(\%args);
-    if ($result->count() == 0) {
-        return undef;
-    }
-
-
-    my $entry = $result->entry(0);
-
-    my $usermail = $entry->get_value('mail');
-
-    return $usermail;
+    return $user->get('mail');
 }
 
 
@@ -278,98 +231,9 @@ sub delAccountsFromVDomain   #vdomain
 
     my $mail = "";
     foreach my $uid (keys %accs) {
-                $mail = $accs{$uid};
-                $self->delUserAccount($uid, $accs{$uid});
-        }
-}
-
-# Method: getUserLdapValue
-#
-#  This method returns the value of an attribute in users leaf
-#
-# Parameters:
-#
-#               uid - uid of the user value - the atribute name
-#  Return:
-#    - value of the attribute, undef wil be returned if attribute or user is not
-#    found, please remind that the attribute coulb be set to undef itself!
-sub getUserLdapValue   #uid, ldap value
-{
-    my ($self, $uid, $value) = @_;
-    my $users = EBox::Global->modInstance('users');
-
-    my %args = (
-                base => $users->usersDn(),
-                filter => "&(objectclass=*)(uid=$uid)",
-                scope => 'one',
-                attrs => [$value]
-               );
-
-    my $result = $self->{ldap}->search(\%args);
-    if ($result->count() == 0) {
-        return undef;
+        $mail = $accs{$uid};
+        $self->delUserAccount($uid, $accs{$uid});
     }
-
-    my $entry = $result->entry(0);
-
-
-    return $entry->get_value($value);
-}
-
-# Method: setUserLdapValue
-#
-#  This method sets the value of a single-valued attribute in users leaf
-#
-# Parameters:
-#
-#               uid - uid of the user
-#               attr  - the atribute name
-#               value - new value for the attribute
-#
-
-sub setUserLdapValue
-{
-    my ($self, $user, $attr, $value) = @_;
-
-    my $ldap = $self->{ldap};
-    my $users =EBox::Global->modInstance('users');
-    my $dn = "uid=$user," .  $users->usersDn;
-    $ldap->setAttribute($dn, $attr, $value);
-
-}
-
-# Method: existsUserLdapValue
-#
-#  This method returns wether an attribute exists in users leaf
-#
-# Parameters:
-#
-#               uid - uid of the user
-#               value - the atribute name
-#
-#  Returns:
-#          - boolean
-sub existsUserLdapValue
-{
-    my ($self, $uid, $value) = @_;
-    my $users = EBox::Global->modInstance('users');
-
-    my %args = (
-                        base => $users->usersDn(),
-                filter => "&(objectclass=*)(uid=$uid)",
-                scope => 'one',
-                attrs => [$value]
-               );
-
-    my $result = $self->{ldap}->search(\%args);
-
-        foreach my $entry ($result->entries()) {
-            if (defined ($entry->get_value($value))) {
-                return 1;
-            }
-        }
-
-    return undef;
 }
 
 
@@ -394,11 +258,10 @@ sub _addUser
     return unless ($vdomain and $mail->{vdomains}->vdomainExists($vdomain));
 
     try {
-        $self->setUserAccount($user, lc($user), $vdomain);
+        $self->setUserAccount($user, lc($user->name()), $vdomain);
     } otherwise {
        EBox::info("Creation of email account for $user failed");
     };
-
 }
 
 sub _delGroup
@@ -457,21 +320,21 @@ sub _delUserWarning
 
 sub _userAddOns
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
 
     return undef unless ($mail->configured());
 
-    my $usermail = $self->userAccount($username);
+    my $usermail = $self->userAccount($user);
     my @aliases = $mail->{malias}->accountAlias($usermail);
     my @vdomains =  $mail->{vdomains}->vdomains();
-    my $quotaType = $self->maildirQuotaType($username);
-    my $quota   = $self->maildirQuota($username);
+    my $quotaType = $self->maildirQuotaType($user);
+    my $quota   = $self->maildirQuota($user);
 
     my @paramsList = (
-            username    =>      $username,
-            mail        =>      $usermail,
+            user        => $user,
+            mail        => $usermail,
             aliases     => \@aliases,
             vdomains    => \@vdomains,
 
@@ -528,10 +391,11 @@ sub _modifyGroup
 #               bool - true if user have mail account
 sub _accountExists
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
     my $users = EBox::Global->modInstance('users');
 
+    my $username = $user->name();
     my %attrs = (
                  base => $users->usersDn,
                  filter => "&(objectclass=couriermailaccount)(uid=$username)",
@@ -580,16 +444,17 @@ sub allAccountsFromVDomain
 #
 # Parameters:
 #
-#               groupname - groupname
+#  groupname - groupname
 #
 sub usersWithMailInGroup
 {
-    my ($self, $groupname) = @_;
+    my ($self, $group) = @_;
     my $users = EBox::Global->modInstance('users');
 
+    my $groupdn = $group->dn();
     my %args = (
                 base => $users->usersDn,
-                filter => "(objectclass=couriermailaccount)",
+                filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
                 scope => 'one',
                );
 
@@ -597,17 +462,10 @@ sub usersWithMailInGroup
 
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        push @mailusers, $entry->get_value('uid');
+        push (@mailusers, new EBox::UsersAndGroups::User(entry => $entry));
     }
 
-    my $anyUserInGroup = any( @{ $users->usersInGroup($groupname) } );
-
-    # the intersection between users with mail and users of the group
-    my @mailingroup = grep {
-        $_ eq $anyUserInGroup
-    } @mailusers;
-
-    return @mailingroup;
+    return @mailusers;
 }
 
 # Method: checkUserMDSize
@@ -725,7 +583,7 @@ sub maildir
 sub maildirQuota
 {
     my ($self, $user) = @_;
-    return $self->getUserLdapValue($user, 'mailquota');
+    return $user->get('mailquota');
 }
 
 
@@ -745,7 +603,7 @@ sub maildirQuotaType
 {
     my ($self, $user)  = @_;
 
-    my $userQuota = $self->getUserLdapValue($user, 'userMaildirSize');
+    my $userQuota = $user->get('userMaildirSize');
     if (not $userQuota) {
         return 'default';
     }
@@ -775,13 +633,14 @@ sub setMaildirQuotaUsesDefault
     my ($self, $user, $isDefault) = @_;
 
     my $userMaildirSizeValue = $isDefault ? 0 : 1;
-    $self->setUserLdapValue($user, 'userMaildirSize', $userMaildirSizeValue);
+    $user->set('userMaildirSize', $userMaildirSizeValue, 1);
     if ($isDefault) {
         # sync quota with default
         my $mail = EBox::Global->modInstance('mail');
         my $defaultQuota = $mail->defaultMailboxQuota();
-        $self->setUserLdapValue($user, 'mailquota', $defaultQuota);
+        $user->set('mailquota', $defaultQuota, 1);
     }
+    $user->save();
     $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
 
@@ -805,7 +664,7 @@ sub setMaildirQuota
 
     if (not $self->userAccount($user)) {
         throws EBox::Exceptions::Internal(
-             "User $user has not mail account"
+             "User $user->name has not mail account"
            );
     }
 
@@ -815,7 +674,7 @@ sub setMaildirQuota
            )
     }
 
-    $self->setUserLdapValue($user, 'mailquota', $quota);
+    $user->set('mailquota', $quota);
     $self->setUserZarafaQuota($user, $quota);
 }
 
@@ -844,13 +703,12 @@ sub regenMaildirQuotas
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    foreach my $user ($usersMod->users()) {
-        my $username = $user->{username};
-        $self->userAccount($username) or
-            next;
+    foreach my $user (@{$usersMod->users()}) {
+        my $username = $user->name();
+        $self->userAccount($user) or next;
 
-        if ($self->maildirQuotaType($username) eq 'default') {
-            $self->setMaildirQuota($username, $defaultQuota);
+        if ($self->maildirQuotaType($user) eq 'default') {
+            $self->setMaildirQuota($user, $defaultQuota);
         }
     }
 }
@@ -859,28 +717,9 @@ sub regenMaildirQuotas
 # FIXME make a listener-observer for this new code and move it to zentyal-zarafa
 sub _userZarafaAccount
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
-
-    my %args = (
-                base => $users->usersDn,
-                filter => "&(objectclass=zarafa-user)(uid=$username)",
-                scope => 'one',
-                attrs => ['zarafaAccount'],
-               );
-
-    my $result = $self->{ldap}->search(\%args);
-    if ($result->count() == 0) {
-        return undef;
-    }
-
-    my $entry = $result->entry(0);
-
-    my $useraccount = $entry->get_value('zarafaAccount');
-
-    return $useraccount;
+    return $user->get('zarafaAccount');
 }
 
 sub setUserZarafaQuota
@@ -899,9 +738,10 @@ sub setUserZarafaQuota
     my $quota_warn = int($quota * $warn / 100);
     my $quota_soft = int($quota * $soft / 100);
 
-    $self->setUserLdapValue($user, 'zarafaQuotaWarn', $quota_warn);
-    $self->setUserLdapValue($user, 'zarafaQuotaSoft', $quota_soft);
-    $self->setUserLdapValue($user, 'zarafaQuotaHard', $quota);
+    $user->set('zarafaQuotaWarn', $quota_warn, 1);
+    $user->set('zarafaQuotaSoft', $quota_soft, 1);
+    $user->set('zarafaQuotaHard', $quota, 1);
+    $user->save();
 }
 
 sub setUserZarafaQuotaDefault
@@ -913,7 +753,7 @@ sub setUserZarafaQuotaDefault
     return unless $self->_userZarafaAccount($user);
 
     my $userMaildirSizeValue = $isDefault ? 0 : 1;
-    $self->setUserLdapValue($user, 'zarafaQuotaOverride', $userMaildirSizeValue);
+    $user->set('zarafaQuotaOverride', $userMaildirSizeValue, 1);
 }
 
 # Method: gidvmail
@@ -937,31 +777,15 @@ sub uidvmail
     return scalar (getpwnam(EBox::Config::user));
 }
 
-sub localAttributes
-{
-    my @attrs = qw(
-            mailbox mailquota clearPassword
-            maildrop mailsource virtualdomain
-            virtualdomainuser defaultdelivery
-            description
-
-            mailHomeDirectory userMaildirSize
-            vddftMaildirSize
-
-            fetchmailAccount
-    );
-
-    return \@attrs;
-}
 
 sub schemas
 {
     return [
-             EBox::Config::share() . '/zentyal-mail/authldap.ldif',
-             EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
-             EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
-             EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
-           ];
+        EBox::Config::share() . '/zentyal-mail/authldap.ldif',
+        EBox::Config::share() . '/zentyal-mail/eboxmail.ldif',
+        EBox::Config::share() . '/zentyal-mail/eboxfetchmail.ldif',
+        EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
+    ];
 }
 
 

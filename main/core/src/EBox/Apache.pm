@@ -47,6 +47,7 @@ use constant INCLUDE_KEY => 'includes';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
 use constant APACHE_PORT => 443;
+use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
 
 sub _create
 {
@@ -61,11 +62,6 @@ sub _create
 sub serverroot
 {
     return '/var/lib/zentyal';
-}
-
-sub initd
-{
-    return EBox::Config::scripts() . 'apache2ctl';
 }
 
 # Method: cleanupForExec
@@ -96,11 +92,12 @@ sub _daemon # (action)
     my $self = shift;
     my $action = shift;
     my $pid;
+    my $scripts = EBox::Config::scripts();
 
     if ($action eq 'stop') {
-        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl stop');
+        EBox::Sudo::root($scripts . 'apache2ctl graceful-stop');
     } elsif ($action eq 'start') {
-        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl start');
+        EBox::Sudo::root($scripts . 'apache2ctl start');
     } elsif ($action eq 'restart') {
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
@@ -112,7 +109,6 @@ sub _daemon # (action)
         cleanupForExec();
 
         exec(EBox::Config::scripts() . 'apache-restart');
-        exit 0;
     }
 
     if ($action eq 'stop') {
@@ -135,6 +131,7 @@ sub _setConf
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->enableRestartOnTrigger();
 }
 
 sub _enforceServiceState
@@ -142,15 +139,6 @@ sub _enforceServiceState
     my ($self) = @_;
 
     $self->_daemon('restart');
-}
-
-
-#  all the state keys for apache are sessions object so we delete them all
-#  warning: in the future maybe we can have other type of states keys
-sub _deleteSessionObjects
-{
-  my ($self) = @_;
-  $self->st_delete_dir('');
 }
 
 sub _writeHttpdConfFile
@@ -353,7 +341,6 @@ sub setRestrictedResource
 {
     my ($self, $resourceName, $allowedIPs, $resourceType) = @_;
 
-
     throw EBox::Exceptions::MissingArgument('resourceName')
       unless defined ( $resourceName );
     throw EBox::Exceptions::MissingArgument('allowedIPs')
@@ -400,7 +387,6 @@ sub setRestrictedResource
                      'string', $allowedIPs );
     $self->set_string( $rootKey . RESTRICTED_RESOURCE_TYPE_KEY,
                        $resourceType);
-
 }
 
 # Method: delRestrictedResource
@@ -437,14 +423,12 @@ sub delRestrictedResource
     }
 
     $self->delete_dir($resourceKey);
-
 }
 
 # Get the structure for the apache.mas.in template to restrict a
 # certain number of resources for a set of ip addresses
 sub _restrictedResources
 {
-
     my ($self) = @_;
 
     my @restrictedResources = ();
@@ -627,6 +611,36 @@ sub certificates
              mode => '0600',
             },
            ];
+}
+
+# Method: disableRestartOnTrigger
+#
+#   Makes apache and other modules listed in the restart-trigger script  to
+#   ignore it and do nothing
+sub disableRestartOnTrigger
+{
+    system 'touch ' . NO_RESTART_ON_TRIGGER;
+    if ($? != 0) {
+        EBox::warn('Canot create apache no restart on trigger file');
+    }
+}
+
+# Method: enableRestartOnTrigger
+#
+#   Makes apache and other modules listed in the restart-trigger script  to
+#   restart themselves when the script is executed (default behaviour)
+sub enableRestartOnTrigger
+{
+    EBox::Sudo::root("rm -f " . NO_RESTART_ON_TRIGGER);
+}
+
+# Method: restartOnTrigger
+#
+#  Whether apache and other modules listed in the restart-trigger script  to
+#  restart themselves when the script is executed
+sub restartOnTrigger
+{
+    return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
 }
 
 1;

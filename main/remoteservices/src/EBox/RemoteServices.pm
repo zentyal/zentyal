@@ -55,7 +55,7 @@ use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
-use  EBox::RemoteServices::FirewallHelper;
+use EBox::RemoteServices::FirewallHelper;
 use EBox::Sudo;
 use EBox::Validate;
 use Error qw(:try);
@@ -73,6 +73,13 @@ use constant SITE_HOST_KEY       => 'siteHost';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 
+my %i18nLevels = ( '-1' => __('Unknown'),
+                   '0'  => __('Community'),
+                   '1'  => __('Professional'),
+                   '2'  => __('Enterprise'),
+                   '5'  => __('Small Business'),
+                   '10' => __('Enterprise'));
+
 # Group: Protected methods
 
 # Constructor: _create
@@ -81,11 +88,11 @@ use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 #
 # Overrides:
 #
-#        <EBox::GConfModule::_create>
+#        <EBox::Module::Base::_create>
 #
 # Returns:
 #
-#        <EBox::Events> - the recently created module
+#        <EBox::RemoteServices> - the recently created module
 #
 sub _create
 {
@@ -273,7 +280,7 @@ sub menu
        ));
     $folder->add(new EBox::Menu::Item(
         'url'  => 'RemoteServices/View/AdvancedSecurityUpdates',
-        'text' => __('Advanced Security Updates'),
+        'text' => __('Security Updates'),
        ));
     $folder->add(new EBox::Menu::Item(
         'url'  => 'RemoteServices/View/DisasterRecovery',
@@ -337,7 +344,7 @@ sub widgets
 
     return {
         'cc_connection' => {
-            'title'   => __('Zentyal Cloud'),
+            'title'   => __('Zentyal Cloud Services'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
             'default' => 1,
@@ -615,6 +622,7 @@ sub reloadBundle
     $force = 0 unless (defined($force));
 
     if ( $self->isConnected() ) {
+        EBox::RemoteServices::Subscription::Check->new()->subscribe(serverName => $self->eBoxCommonName());
         my $version       = $self->version();
         my $bundleVersion = $self->bundleVersion();
         my $bundleGetter  = new EBox::RemoteServices::Bundle();
@@ -1231,6 +1239,32 @@ sub dynamicHostname
 
 }
 
+# Method: i18nServerEdition
+#
+#     Get the server edition printable name
+#
+# Parameters:
+#
+#     level - Int the level for taking the edition
+#             *(Optional)* Default value: $self->subscriptionLevel()
+#
+# Returns:
+#
+#     String - the printable edition
+#
+sub i18nServerEdition
+{
+    my ($self, $level) = @_;
+
+    $level = $self->subscriptionLevel() unless (defined($level));
+
+    if ( exists($i18nLevels{$level}) ) {
+        return $i18nLevels{$level};
+    } else {
+        return __('Unknown');
+    }
+}
+
 # Group: Public methods related to reporting
 
 # Method: logReportInfo
@@ -1623,11 +1657,7 @@ sub _ccConnectionWidget
             $fqdn = $self->dynamicHostname();
         }
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subsLevelValue = $i18nLevels{$self->subscriptionLevel()};
+        $subsLevelValue = $self->i18nServerEdition();
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $supportValue,
@@ -1682,11 +1712,11 @@ sub _ccConnectionWidget
         $section->add(new EBox::Dashboard::Value(__('External server name'),
                                                  $fqdn));
     }
-    $section->add(new EBox::Dashboard::Value(__('Server subscription'),
+    $section->add(new EBox::Dashboard::Value(__('Server edition'),
                                              $subsLevelValue));
     $section->add(new EBox::Dashboard::Value(__('Technical support'),
                                              $supportValue));
-    $section->add(new EBox::Dashboard::Value(__s('Advanced Security Updates'),
+    $section->add(new EBox::Dashboard::Value(__s('Security Updates'),
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));

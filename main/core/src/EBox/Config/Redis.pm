@@ -740,9 +740,10 @@ sub _respawn
     $redis = undef;
 
     my $user = $self->_user();
+    my $home = $self->_home();
     my $filepasswd = $self->_passwd();
 
-    $redis = Redis->new(sock => "/var/lib/zentyal/redis.$user.sock");
+    $redis = Redis->new(sock => "$home/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
@@ -792,6 +793,7 @@ sub writeConfigFile
 
     my @params = ();
     push (@params, user => $user);
+    push (@params, home => $home);
     push (@params, dir => $dir);
     push (@params, port => $port);
     push (@params, passwd => $pass);

@@ -378,7 +378,7 @@ sub _table
                     fieldName       => 'service_port',
                     printableName   => __('Port based service'),
                     foreignModel    => \&_serviceModel,
-                    foreignField    => 'name',
+                    foreignField    => 'printableName',
                     foreignNextPageField => 'configuration',
                     editable        => 1,
                     cmpContext      => 'port',

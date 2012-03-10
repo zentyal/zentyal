@@ -67,7 +67,7 @@ try {
         if ($text =~ /^E:\s/) {
             $out = $text;
         } elsif ($text =~ /Need to get ([0-9]*).*([0-9]*)MB of archives/) {
-            $out = "down$1";
+            $out = "down$1\n";
         } elsif ($text =~ /Get:[0-9]*\s(.*)/){
             $out = $text;
         } elsif ($text =~ /([0-9]+) upgraded.* ([0-9]+) .* ([0-9]+) .* ([0-9]+) .*/) {

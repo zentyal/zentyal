@@ -162,7 +162,7 @@ sub _table
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
                 'foreignModel' => \&serviceModel,
-                'foreignField' => 'name',
+                'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,
             ),

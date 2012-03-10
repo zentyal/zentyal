@@ -25,7 +25,7 @@ use EBox::Gettext;
 use EBox::JabberLdapUser;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Jabber',
@@ -39,25 +39,27 @@ sub _process($) {
 	my $self = shift;
 	my $jabberldap = new EBox::JabberLdapUser;
 
-	$self->_requireParam('username', __('username'));
-	my $username = $self->param('username');
-	$self->{redirect} = "UsersAndGroups/User?username=$username";
+	$self->_requireParam('user', __('user'));
+	my $user = $self->unsafeParam('user');
+	$self->{redirect} = "UsersAndGroups/User?user=$user";
 
-	$self->keepParam('username');
+	$self->keepParam('user');
 
-	if ($self->param('active') eq 'yes'){
-	    $jabberldap->setHasAccount($username, 1);
-	    if (defined($self->param('is_admin')))
-	    {
-		$jabberldap->setIsAdmin($username,1);
-	    } else {
-		$jabberldap->setIsAdmin($username,0);
-	    }
-	} else {
-	    if ($jabberldap->hasAccount($username)){
-		$jabberldap->setHasAccount($username, 0);
-	    }
-	}
+    $user = new EBox::UsersAndGroups::User(dn => $user);
+
+    if ($self->param('active') eq 'yes'){
+        $jabberldap->setHasAccount($user, 1);
+        if (defined($self->param('is_admin')))
+        {
+            $jabberldap->setIsAdmin($user, 1);
+        } else {
+            $jabberldap->setIsAdmin($user, 0);
+        }
+    } else {
+        if ($jabberldap->hasAccount($user)){
+            $jabberldap->setHasAccount($user, 0);
+        }
+    }
 }
 
 1;

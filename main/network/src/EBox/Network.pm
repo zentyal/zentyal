@@ -2505,6 +2505,42 @@ sub _generateDNSConfig
 {
     my ($self) = @_;
 
+    # Set localhost as primary nameserver if the module is enabled.
+    # This works because DNS module modChange network in enableService
+    if (EBox::Global->modExists('dns')) {
+        my $dns = EBox::Global->modInstance('dns');
+        my $resolver = $self->model('DNSResolver');
+        my $ids = $resolver->ids();
+        my $firstId = $ids->[0];
+        my $firstRow = $resolver->row($firstId);
+        if ($dns->isEnabled()) {
+            my $add = 1;
+            if (defined ($firstRow)) {
+                if ($firstRow->valueByName('nameserver') ne '127.0.0.1') {
+                    # Remove local resolver if it exists
+                    foreach my $id (@{$ids}) {
+                        if ($resolver->row($id)->valueByName('nameserver') eq '127.0.0.1') {
+                            $resolver->removeRow($id);
+                        }
+                    }
+                } else {
+                    $add = 0;
+                }
+            }
+            if ($add) {
+                # Now add in the first place
+                $resolver->table->{'insertPosition'} = 'front';
+                $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
+                $resolver->table->{'insertPosition'} = 'back';
+            }
+        } else {
+            # If we have added it before remove when module is disabled.
+            if (defined ($firstRow) and ($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {
+                $resolver->removeRow($firstId);
+            }
+        }
+    }
+
     my $nameservers = $self->nameservers();
     my $request_nameservers = scalar (@{$nameservers}) == 0;
 
@@ -2751,6 +2787,7 @@ sub generateInterfaces
     }
     my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
     print IFACES "\n\niface lo inet loopback\n";
+    print IFACES "    post-up ip addr add 127.0.1.1/8 dev lo\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
         my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
@@ -3532,7 +3569,7 @@ sub selectedDefaultGateway
 {
     my ($self) = @_;
 
-    return $self->st_get_string('default/gateway');
+    return $self->get_string('default/gateway');
 }
 
 # Method: storeSelectedDefaultGateway
@@ -3546,8 +3583,7 @@ sub selectedDefaultGateway
 sub storeSelectedDefaultGateway # (gateway
 {
     my ($self, $gateway) = @_;
-
-    return $self->st_set_string('default/gateway', $gateway);
+    return $self->set_string('default/gateway', $gateway);
 }
 
 # Method: DHCPGateway

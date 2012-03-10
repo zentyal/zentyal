@@ -83,7 +83,7 @@ sub periodInfo
         $info->{period_name} = __('Day bandwidth usage (MB)')
     }
 
-    
+
     $self->{periodInfo} = $info;
     return $info;
 }

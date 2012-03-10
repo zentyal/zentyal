@@ -66,7 +66,7 @@ sub _description
        printableName   => __('Configuration'),
        pageTitle       => __('Jabber'),
        compositeDomain => 'Jabber',
-       help            => __(''),
+       #help            => __(''),
       };
 
     return $description;

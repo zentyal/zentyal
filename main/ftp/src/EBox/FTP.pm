@@ -87,7 +87,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('Zentyal FTP Server'),
+                'description' => __('Zentyal FTP Server'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),

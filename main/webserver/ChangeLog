@@ -1,3 +1,5 @@
+2.3.1
+	+ New translatable printableName for the webserver service
 2.3
 	+ Replaced autotools with zbuildtools
 	+ Also check alias names when creating a new virtual host

@@ -105,8 +105,9 @@ sub initialSetup
     unless ($version) {
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addInternalService(
-                        'name' => 'ipp',
-                            'description' => __d('Cups printer server port'),
+                            'name' => 'ipp',
+                            'printableName' => __('Network Printers'),
+                            'description' => __('Internet Printing Protocol (CUPS)'),
                             'protocol' => 'tcp',
                             'sourcePort' => 'any',
                             'destinationPort' => 631,

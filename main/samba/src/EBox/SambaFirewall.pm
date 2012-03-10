@@ -25,15 +25,15 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-use constant SMBPORTS => qw(137 138 139 445);
+use constant SAMBAPORTS => qw(137 138 139 445);
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
+    return $self;
 }
 
 sub output
@@ -46,7 +46,7 @@ sub output
     foreach my $ifc (@ifaces) {
         my $output = $self->_outputIface($ifc);
 
-        foreach my $port (SMBPORTS) {
+        foreach my $port (SAMBAPORTS) {
             my $r = "-m state --state NEW $output  ".
                 "-p tcp --sport $port -j ACCEPT";
             push(@rules, $r);

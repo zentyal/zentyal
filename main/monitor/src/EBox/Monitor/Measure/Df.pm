@@ -63,8 +63,11 @@ sub _description
     my (@typeInstances, %printableTypeInstances) = ((),());
     my @printableLabels = ();
     foreach my $fileSys (keys %{$fileSysS}) {
-        my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
+        if ($fileSysS->{$fileSys}->{type} eq 'nfs') {
+            next;
+        }
 
+        my $mountPoint = $fileSysS->{$fileSys}->{mountPoint};
         if ($mountPoint eq '/') {
             push(@typeInstances, 'root');
             $printableTypeInstances{'root'} = '/';

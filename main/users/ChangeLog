@@ -1,4 +1,5 @@
-HEAD
+2.3.2
+	+ Added printableName to service and modified description
 	+ Fixed executable permissions in src/scripts
 	+ Added checks for small business subscription
 	+ Bugfix: lastGid method was calling MINUID and SYSMINUID

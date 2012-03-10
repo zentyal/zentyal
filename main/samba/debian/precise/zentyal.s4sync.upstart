@@ -1,0 +1,2 @@
+exec /usr/share/zentyal-samba/s4sync
+respawn
