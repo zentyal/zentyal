@@ -254,6 +254,7 @@ my %noDeviceFs = (
     fuse => 1,
     devtmpfs => 1,
     binfmt_misc => 1,
+    gvfs => 1,
 );
 
 sub partitionsFileSystems
@@ -273,6 +274,10 @@ sub partitionsFileSystems
         if (exists $noDeviceFs{$type} and $noDeviceFs{$type}) {
                 delete $fileSys{$fs};
                 next;
+        } elsif ($type =~ /^fuse\./) {
+            # ignore any fuse files system
+            delete $fileSys{$fs};
+            next;
         }
 
         if (not $includeRemovable) {
