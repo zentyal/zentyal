@@ -1,5 +1,7 @@
 HEAD
-	+ Avoided ebox.cgi failure when showing certain strings in the failure template
+	+ Log audit does not ignore fields which their values could be interpreted
+	  as boolean false
+	+ Avoid ebox.cgi failure when showing certain strings in the error template
 2.2.6
 	+ Replaced community logo
 	+ Adapted messages in the UI for new editions
