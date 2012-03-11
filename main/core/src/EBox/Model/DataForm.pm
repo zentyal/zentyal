@@ -855,7 +855,7 @@ sub _setTypedRow
     }
 
     # TODO: Check its usefulness
-    $self->validateTypedRow('update', $changedData, $allData);
+    $self->validateTypedRow('update', $changedData, $allData, $force);
 
     # If force != true atomaticRemove is enabled it means
     # the model has to automatically check if the row which is
