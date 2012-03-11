@@ -190,7 +190,7 @@ sub _componentByPath
         # Try to infer the module name from the compName
         my $key = 'modBy' . ucfirst($kind);
         unless (defined ($self->{$key}->{$compName})) {
-            throw EBox::Exceptions::Internal("Component $path does not exist");
+            throw EBox::Exceptions::DataNotFound(data  => $kind, value => $compName, silent => 1);
         }
         my @modules = keys %{$self->{$key}->{$compName}};
         if (@modules == 1) {
