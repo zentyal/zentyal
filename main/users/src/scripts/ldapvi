@@ -28,13 +28,12 @@ unless (-x '/usr/bin/ldapvi') {
 
 EBox::init();
 
-my $ARGV;
 
 my $usersMod = EBox::Global->modInstance("users");
 my $ldap = $usersMod->ldap();
 my $ldapconf = $ldap->ldapConf();
 
-my $dn = $ldapconf->{'dn'};
+my $dn = exists $ARGV[0] ? $ARGV[0] : $ldapconf->{'dn'};
 my $bind = $ldapconf->{'rootdn'};
 my $pwfile = EBox::Config->conf() . "ldap.passwd";
 
