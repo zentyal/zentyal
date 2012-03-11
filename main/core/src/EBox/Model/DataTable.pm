@@ -923,8 +923,7 @@ sub addTypedRow
 
     $self->setMessage($self->message('add'));
     $self->addedRowNotify($newRow);
-    $self->_notifyModelManager('add', $newRow);
-    $self->_notifyCompositeManager('add', $newRow);
+    $self->_notifyManager('add', $newRow);
 
     # check if there are files to delete if revoked
     my $filesToRemove =   $self->filesPathsForRow($newRow);
@@ -1051,8 +1050,7 @@ sub moveUp
 
     $self->setMessage($self->message('moveUp'));
     $self->movedUpRowNotify($self->row($id));
-    $self->_notifyModelManager('moveUp', $self->row($id));
-    $self->_notifyCompositeManager('moveUp', $self->row($id));
+    $self->_notifyManager('moveUp', $self->row($id));
 }
 
 sub moveDown
@@ -1071,8 +1069,7 @@ sub moveDown
 
     $self->setMessage($self->message('moveDown'));
     $self->movedDownRowNotify($self->row($id));
-    $self->_notifyModelManager('moveDown', $self->row($id));
-    $self->_notifyCompositeManager('moveDown', $self->row($id));
+    $self->_notifyManager('moveDown', $self->row($id));
 }
 
 sub _reorderCachedRows
@@ -1171,7 +1168,7 @@ sub removeRow
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user
     my $depModelMsg = $self->_notifyModelManager('del', $row);
-    $self->_notifyCompositeManager('del', $row);
+    $self->_notifyManager('del', $row);
     if ( defined( $depModelMsg ) and $depModelMsg ne ''
        and $depModelMsg ne '<br><br>') {
         $userMsg .= "<br><br>$depModelMsg";
@@ -1430,7 +1427,7 @@ sub setTypedRow
                 and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyCompositeManager('update', $self->row($id));
+        $self->_notifyManager('update', $self->row($id));
         $self->updatedRowNotify($self->row($id), $oldRow, $force);
     }
 }
@@ -3833,35 +3830,18 @@ sub _removeHasManyTables
     }
 }
 
-# Method: _notifyModelManager
+# Method: _notifyManager
 #
 #     Notify to the model manager that an action has been performed on
 #     this model
 #
-sub _notifyModelManager
+sub _notifyManager
 {
     my ($self, $action, $row) = @_;
 
     my $manager = EBox::Model::Manager->instance();
     my $modelName = $self->modelName();
 
-    # FIXME: differentiate between model and composite when notifying??
-    return $manager->modelActionTaken($modelName, $action, $row);
-}
-
-# Method: _nofityCompositeManager
-#
-#     Notify to the composite manager that an action has been performed on
-#     this model
-#
-sub _notifyCompositeManager
-{
-    my ($self, $action, $row) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    my $modelName = $self->modelName();
-
-    # FIXME: differentiate between model and composite when notifying??
     return $manager->modelActionTaken($modelName, $action, $row);
 }
 

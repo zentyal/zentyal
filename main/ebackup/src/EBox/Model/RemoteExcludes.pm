@@ -632,8 +632,7 @@ sub moveUp
 
     $self->setMessage($self->message('moveUp'));
     $self->movedUpRowNotify($self->row($id));
-    $self->_notifyModelManager('moveUp', $self->row($id));
-    $self->_notifyCompositeManager('moveUp', $self->row($id));
+    $self->_notifyManager('moveUp', $self->row($id));
 }
 
 sub moveDown
@@ -654,8 +653,7 @@ sub moveDown
 
     $self->setMessage($self->message('moveDown'));
     $self->movedDownRowNotify($self->row($id));
-    $self->_notifyModelManager('moveDown', $self->row($id));
-    $self->_notifyCompositeManager('moveDown', $self->row($id));
+    $self->_notifyManager('moveDown', $self->row($id));
 }
 
 

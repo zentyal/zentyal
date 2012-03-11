@@ -102,7 +102,7 @@ sub setTypedRow
         and ($depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
         $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
     }
-    $self->_notifyCompositeManager('update', $row);
+    $self->_notifyManager('update', $row);
     $self->updatedRowNotify($row, $force);
 }
 

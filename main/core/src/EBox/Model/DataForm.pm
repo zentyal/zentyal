@@ -744,8 +744,7 @@ sub _addTypedRow
 
     $self->setMessage($self->message('update'));
     $self->updatedRowNotify($self->row());
-    $self->_notifyModelManager('add', $self->row());
-    $self->_notifyCompositeManager('add', $self->row());
+    $self->_notifyManager('add', $self->row());
 
     $self->_setCacheDirty();
 }
@@ -826,7 +825,7 @@ sub _setTypedRow
              and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyCompositeManager('update', $self->row());
+        $self->_notifyManager('update', $self->row());
         $self->updatedRowNotify($oldRow, $force);
     }
 }
