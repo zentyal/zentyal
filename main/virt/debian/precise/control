@@ -3,11 +3,11 @@ Section: web
 Priority: optional
 Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
 Build-Depends: zbuildtools
-Standards-Version: 3.8.2
+Standards-Version: 3.9.2
 
 Package: zentyal-virt
 Architecture: all
-Depends: zentyal-core (>= 2.2), zentyal-core (<< 2.2.100), zentyal-firewall, novnc, libvirt-bin | virtualbox-ose (>= 4.0.4), qemu-kvm | virtualbox-ose-dkms, ${misc:Depends}
+Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-firewall, novnc, python-numpy, libvirt-bin | virtualbox-ose (>= 4.0.4), qemu-kvm | virtualbox-ose-dkms, ${misc:Depends}
 Description: Zentyal - Virtualization Manager
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

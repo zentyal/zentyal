@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo "Updating home for zentyal users"
-
-killall -u ebox-usercorner || true
-usermod -d /var/lib/zentyal-usercorner/ ebox-usercorner
-
-exit 0;

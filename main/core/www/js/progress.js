@@ -33,7 +33,8 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
         else if (response.state == 'done') {
             pe.stop();
             if ( nextStepTimeout > 0 ) {
-                setTimeout ( "location.href='" + nextStepUrl + "';", nextStepTimeout*1000 );
+//                setTimeout ( "location.href='" + nextStepUrl + "';", nextStepTimeout*1000 );
+              loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
             if ( 'errorMsg' in response.statevars ) {
@@ -100,3 +101,23 @@ function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, n
 
     pe = new PeriodicalExecuter(callServerCurried, reloadInterval);
 }
+
+
+var progress_pl; // use progress_pe if it works
+function loadWhenAvailable(url, secondsTimeout)
+{
+  var loadMethod = function() {
+       new Ajax.Request(url, {
+                             onSuccess: function(transport) {
+
+                               if (transport.responseText) {
+                                  progress_pl.stop();
+                                  window.location.replace(url);                               }
+
+                              }
+                            }
+                        );
+  };
+  progress_pl = new PeriodicalExecuter(loadMethod, secondsTimeout);
+}
+

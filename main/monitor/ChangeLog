@@ -1,4 +1,13 @@
 HEAD
+	+ Do not monitorize NFS mounts disk spaces
+2.3.1
+	+ Added message about remote monitoring services
+2.3
+	+ Use 2 decimals in event messages
+	+ Formatting int values to show only 2 decimals, if required
+	+ Show the list of top 10 processes when launching the CPU or
+	  system load alert
+	+ Show duration of the event in the message, if available
 	+ Bugfix: Notification configuration file is written regardless of its
 	  owner and permissions
 	+ Replaced autotools with zbuildtools

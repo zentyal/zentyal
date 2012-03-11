@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -176,11 +176,11 @@ sub _fieldDescription
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
                 'foreignModel' => \&serviceModel,
-                'foreignField' => 'name',
+                'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,
                 'help' => __('If inverse match is ticked, any ' .
-                    'service but the selected one will match this rule')
+                             'service but the selected one will match this rule')
 
                 ),
             new EBox::Types::Text(

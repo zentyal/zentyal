@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
+use EBox::UsersAndGroups::User;
 
 
 sub new
@@ -42,21 +43,22 @@ sub _process
     my $astldap = new EBox::AsteriskLdapUser;
     my $extensions = new EBox::Asterisk::Extensions;
 
-    $self->_requireParam('username', __('username'));
-    my $username = $self->param('username');
-    $self->{redirect} = "UsersAndGroups/User?username=$username";
-    $self->keepParam('username');
+    $self->_requireParam('user', __('user'));
+    my $user = $self->unsafeParam('user');
+    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->keepParam('user');
 
+    $user = new EBox::UsersAndGroups::User(dn => $user);
     if ($self->param('active') eq 'yes') {
-        $astldap->setHasAccount($username, 1);
-        my $myextn = $extensions->getUserExtension($username);
+        $astldap->setHasAccount($user, 1);
+        my $myextn = $extensions->getUserExtension($user);
         my $newextn = $self->param('extension');
         if ($newextn eq '') { $newextn = $myextn; }
         if ($newextn ne $myextn) {
-            $extensions->modifyUserExtension($username, $newextn);
+            $extensions->modifyUserExtension($user, $newextn);
         }
     } else {
-            $astldap->setHasAccount($username, 0);
+        $astldap->setHasAccount($user, 0);
     }
 }
 

@@ -1,6 +1,6 @@
-CREATE TABLE squid_access_report (
+CREATE TABLE IF NOT EXISTS squid_access_report (
        timestamp DATE,
-       ip VARCHAR(16), -- FIXME: INET (INT UNSIGNED + INET_ATON)
+       ip INT UNSIGNED,
        username VARCHAR(255),
        domain VARCHAR(255),
        event VARCHAR(10),

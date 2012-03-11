@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -145,13 +145,13 @@ sub row
     my $ldap = $users->{ldap};
 
     my $request = Apache2::RequestUtil->request();
-    my $user = $request->user();
-    my $dn = "uid=$user," . $users->usersDn();
+    my $username = $request->user();
+    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
 
-    my $pass = $ldap->getAttribute($dn, 'AstVoicemailPassword');
-    my $mail = $ldap->getAttribute($dn, 'AstVoicemailEmail');
-    my $attach = $ldap->getAttribute($dn, 'AstVoicemailAttach');
-    my $delete = $ldap->getAttribute($dn, 'AstVoicemailDelete');
+    my $pass = $user->get('AstVoicemailPassword');
+    my $mail = $user->get('AstVoicemailEmail');
+    my $attach = $user->get('AstVoicemailAttach');
+    my $delete = $user->get('AstVoicemailDelete');
 
     my $row = $self->_setValueRow(pass   => $pass,
                                   mail   => $mail,
@@ -193,13 +193,14 @@ sub _addTypedRow
     my $ldap = $users->{ldap};
 
     my $request = Apache2::RequestUtil->request();
-    my $user = $request->user();
-    my $dn = "uid=$user," . $users->usersDn();
+    my $username = $request->user();
+    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
 
-    $ldap->setAttribute($dn, 'AstVoicemailPassword', $pass);
-    $ldap->setAttribute($dn, 'AstVoicemailEmail', $mail);
-    $ldap->setAttribute($dn, 'AstVoicemailAttach', $attach);
-    $ldap->setAttribute($dn, 'AstVoicemailDelete', $delete);
+    $user->set('AstVoicemailPassword', $pass, 1);
+    $user->set('AstVoicemailEmail', $mail, 1);
+    $user->set('AstVoicemailAttach', $attach, 1);
+    $user->set('AstVoicemailDelete', $delete, 1);
+    $user->save();
 
     $self->setMessage(__('Settings successfully updated.'));
 }
@@ -208,10 +209,12 @@ sub precondition
 {
     my ($self) = @_;
     my $request = Apache2::RequestUtil->request();
-    my $userName = $request->user();
+    my $username = $request->user();
+    my $users = EBox::Global->modInstance('users');
+    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
 
     my $userLdap = EBox::AsteriskLdapUser->new();
-    return $userLdap->hasAccount($userName);
+    return $userLdap->hasAccount($user);
 }
 
 sub preconditionFailMsg

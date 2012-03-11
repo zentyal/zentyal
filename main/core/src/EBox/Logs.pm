@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,8 +18,6 @@ package EBox::Logs;
 use strict;
 use warnings;
 
-#FIXME: readd EBox::LogObserver to have logadmin working
-#use base qw(EBox::Module::Service EBox::LogObserver);
 use base qw(EBox::Module::Service
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::Report::DiskUsageProvider);
@@ -36,6 +34,7 @@ use EBox::DBEngineFactory;
 use EBox::Service;
 use EBox::Logs::SlicedBackup;
 use EBox::FileSystem;
+use EBox::Util::SQLTypes;
 
 use POSIX qw(ceil);
 
@@ -291,7 +290,7 @@ sub getAllTables
         foreach my $comp (@tableInfos) {
             $comp->{'helper'} = $mod;
             next unless ($comp);
-            $tables->{$comp->{'index'}} = $comp;
+            $tables->{$comp->{'tablename'}} = $comp;
         }
     }
 
@@ -518,7 +517,19 @@ sub search
     $self->_addPager($offset, $pagesize);
     $self->_addOrder("$timecol DESC");
 
-    $self->_addSelect('*');
+    if ($tableinfo->{types}) {
+        my @keys;
+        foreach my $key (keys %{$tableinfo->{titles}}) {
+            my $type = $tableinfo->{types}->{$key};
+            if ($type) {
+                $key = EBox::Util::SQLTypes::acquirer($type, $key);
+            }
+            push (@keys, $key);
+        }
+        $self->_addSelect(join (',', @keys));
+    } else {
+        $self->_addSelect('*');
+    }
 
     my @ret = @{$dbengine->query($self->_sqlStmnt())};
 
@@ -584,6 +595,7 @@ sub consolidatedLogForDay
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
 
+    # FIXME: what happens with acquirers here?
     my $sql = "SELECT * FROM $table WHERE date='$date'";
 
     my @results = @{  $dbengine->query($sql) };
@@ -732,31 +744,6 @@ sub menu
                                       'text' => $self->printableName(),
                                       'order' => 20));
     $root->add($folder);
-}
-
-# Implement LogObserver interface
-
-sub tableInfo
-{
-    my ($self) = @_;
-
-    my $titles = { 'timestamp' => __('Date'),
-                   'clientaddress' => __('Client Address'),
-                   'module' => __('Module'),
-                   'action' => __('Action'),
-                   'params' => __('Params'),
-                   'committed' => __('Committed')
-                 };
-    my @order = ('timestamp', 'source', 'module',
-                 'action', 'params', 'committed');
-    return {
-            'name' => __('Admin'),
-            'index' => 'admin',
-            'titles' => $titles,
-            'order' => \@order,
-            'tablename' => 'admin',
-            'filter' => ['source', 'module']
-           };
 }
 
 # Helper functions

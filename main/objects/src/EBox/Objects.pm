@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -35,7 +35,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'objects',
-                                      printableName => __n('Objects'),
+                                      printableName => __('Objects'),
                                       @_);
 
     $self->{'actions'} = {};

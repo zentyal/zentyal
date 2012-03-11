@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -103,10 +103,13 @@ sub _groups
     my @groups = ( { value => 1901, printableValue => __('All users') });
     my $users = EBox::Global->modInstance('users');
     return \@groups unless ($users->configured());
-    my @sortedGroups = sort { $a->{account} cmp $b->{account} } $users->groups();
+
+    my @sortedGroups = sort { $a->name() cmp $b->name() } @{$users->groups()};
     for my $group (@sortedGroups) {
-        push (@groups, { value => $group->{gid},
-                printableValue => $group->{account} });
+        push (@groups, {
+            value => $group->get('gidNumber'),
+            printableValue => $group->name()
+        });
     }
     return \@groups;
 }

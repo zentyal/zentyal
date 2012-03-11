@@ -1,4 +1,7 @@
-HEAD
+2.3.1
+	+ Added printableName to jabber service
+	+ Adapted to new users implementation
+2.3
 	+ Replaced autotools with zbuildtools
 2.1.3
 	+ Removed /zentyal prefix from URLs

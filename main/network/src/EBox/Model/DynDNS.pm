@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,8 +29,9 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=network&utm_campaign=dynamicdns';
-use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html' . UTM;
+use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=network&utm_campaign=dynamicdns';
+use constant SB_URL => STORE_URL . 'small-business-edition.html/?utm_source=zentyal&utm_medium=dyndns&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition.html/?utm_source=zentyal&utm_medium=dyndns&utm_campaign=enterprise_edition';
 
 our %SERVICES = (
     dyndns => {
@@ -274,8 +275,10 @@ sub _isSubscribed
 
 sub _message
 {
-    return __sx('You can configure your Dynamic DNS provider here. If you have already subscribed your Zentyal server, the provider is Zentyal Cloud. If not, get the free {ohb}Basic Subscription{ch}: it includes Dynamic DNS feature that gives zentyal.me subdomain for your server (yourserver.zentyal.me).',
+    return __sx('You can configure your Dynamic DNS provider here. If yor server is already subscribed to Zentyal Cloud, your provider is Zentyal Cloud. Get the Free {ohb}Basic Subscription{ch}, or {ohs}Small Business{ch} or {ohe}Enterprise{ch} to obtain zentyal.me subdomain for your server.',
                 ohb => '<a href="' . BASIC_URL . '" target="_blank">',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch  => '</a>');
 }
 

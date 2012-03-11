@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,8 +18,7 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::PgDBEngine;
-
+use EBox::DBEngineFactory;
 
 my %args = map { $_ => 1 } @ARGV;
 
@@ -47,8 +46,7 @@ my $dir = '/tmp/testdb';
 
 my $basename = 'test';
 
-my $dbengine = EBox::PgDBEngine->new();
-
+my $dbengine = EBox::DBEngineFactory::DBEngine();
 
 if ($backup) {
     system "rm -rf $dir/*";

@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -79,8 +79,7 @@ sub _populateIfaces
                         { value => $_, printableValue => $_ }
                      } $virt->ifaces();
 
-    unshift (@values, { value => 'none', printableValue => __('None') });
-
+    unshift @values, { value => 'none', printableValue => __('None'),  };
     return \@values;
 }
 
@@ -115,7 +114,7 @@ sub _table
                             ),
     );
 
-    if (EBox::Config::configkey('custom_mac_addresses') eq 'yes') {
+    if (EBox::Config::boolean('custom_mac_addresses')) {
         push (@tableHeader, new EBox::Types::MACAddr(
                                     fieldName     => 'mac',
                                     printableName => __('MAC Address'),
@@ -188,9 +187,22 @@ sub isEqual
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
-
     if (@{$self->ids()} >= MAX_IFACES) {
         throw EBox::Exceptions::External(__x('A maximum of {num} network interfaces are allowed', num => MAX_IFACES));
+    }
+
+    my $type = exists $changedFields->{type} ?
+        $changedFields->{type}->value() : $allFields->{type}->value();
+    if ($type eq 'bridged') {
+        my $iface = exists $changedFields->{iface} ?
+            $changedFields->{iface}->value() : $allFields->{iface}->value();
+        if ($iface eq 'none') {
+            if (not $self->{gconfmodule}->allowsNoneIface()) {
+                throw EBox::Exceptions::External(
+                    __("'None' interface is not allowed in your virtual machine backend")
+                   );
+            }
+        }
     }
 }
 
@@ -220,6 +232,56 @@ sub viewCustomizer
                 }
             });
     return $customizer;
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+
+    if ($newmethod ne 'notset') {
+        return;
+    }
+
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $rowIface =$row->valueByName('iface');
+        $rowIface or
+            next;
+        if ($rowIface eq $iface) {
+            return 1;
+        }
+    }
+
+    return undef;
+}
+
+
+sub freeIface
+{
+    my ($self , $iface) = @_;
+
+    my $rowId;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $rowIface =$row->valueByName('iface');
+        $rowIface or
+            next;
+        if ($rowIface eq $iface) {
+            $rowId = $id;
+            last;
+        }
+    }
+
+    if ($rowId) {
+        if ($self->{gconfmodule}->allowsNoneIface()) {
+            my $row = $self->row($rowId);
+            my $iface = $row->elementByName('iface');
+            $iface->setValue('none');
+            $row->store();
+        } else {
+            $self->removeRow($rowId);
+        }
+    }
 }
 
 1;

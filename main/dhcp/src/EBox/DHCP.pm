@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -141,7 +141,8 @@ sub initialSetup
 
         $firewall->addInternalService(
                 'name' => 'tftp',
-                'description' => __d('Trivial File Transfer Protocol'),
+                'printableName' => 'TFTP',
+                'description' => __('Trivial File Transfer Protocol'),
                 'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 69,
@@ -149,7 +150,8 @@ sub initialSetup
 
         $firewall->addInternalService(
                 'name' => 'dhcp',
-                'description' => __d('Dynamic Host Configuration Protocol'),
+                'printableName' => 'DHCP',
+                'description' => __('Dynamic Host Configuration Protocol'),
                 'protocol' => 'udp',
                 'sourcePort' => 'any',
                 'destinationPort' => 67,
@@ -1315,14 +1317,14 @@ sub tableInfo
 
     return [{
         'name' => __('DHCP'),
-        'index' => 'dhcp',
+        'tablename' => 'leases',
         'titles' => $titles,
         'order' => \@order,
-        'tablename' => 'leases',
         'timecol' => 'timestamp',
         'filter' => ['interface', 'mac', 'ip'],
+        'types' => { 'ip' => 'IPAddr', 'mac' => 'MACAddr' },
         'events' => $events,
-        'eventcol' => 'event'
+        'eventcol' => 'event',
     }];
 }
 

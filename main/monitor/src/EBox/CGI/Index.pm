@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -43,12 +43,11 @@ sub new
 
     my $self = $class->SUPER::new('title'    => __('Monitoring'),
                                   'template' => 'monitor/index.mas',
-				  @_);
+                  @_);
 
     bless($self, $class);
 
     return $self;
-
 }
 
 # Method: masonParameters
@@ -59,7 +58,6 @@ sub new
 #
 sub masonParameters
 {
-
     my ($self) = @_;
 
     my $mon = EBox::Global->getInstance()->modInstance('monitor');
@@ -72,7 +70,6 @@ sub masonParameters
                             closehref => qq{</a>}),
                  class => 'note' ];
     }
-
 
     my $needSaveChanges = 0;
 
@@ -99,16 +96,17 @@ sub masonParameters
                             openhref  => qq{<a href="/Finish"><em>},
                             closehref => qq{</em></a>}),
                     class => 'note' ];
-        }
+    }
 
+    my $edition = EBox::Global->edition();
 
     return [
         URL           => '/Monitor/DisplayGraphs',
         periods       => EBox::Monitor::Configuration::TimePeriods(),
         initialGraphs => $measuredData,
         tabName       => 'timePeriods',
-       ];
-
+        community     => (($edition eq 'community') or ($edition eq 'basic')),
+    ];
 }
 
 1;

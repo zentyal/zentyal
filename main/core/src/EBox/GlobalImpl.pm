@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -73,6 +73,7 @@ sub _new_instance
     bless($self, $class);
     $self->{'mod_instances_rw'} = {};
     $self->{'mod_instances_ro'} = {};
+    $self->{'mod_info'} = {};
 
     # Messages produced during save changes process
     $self->{save_messages} = [];
@@ -87,13 +88,16 @@ sub readModInfo # (module)
 {
     my ($self, $name) = @_;
 
-    my $yaml;
-    try {
-        ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
-    } otherwise {
-        $yaml = undef;
-    };
-    return $yaml;
+    unless ($self->{mod_info}->{$name}) {
+        my $yaml;
+        try {
+            ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
+        } otherwise {
+            $yaml = undef;
+        };
+        $self->{mod_info}->{name} = $yaml;
+    }
+    return $self->{mod_info}->{name};
 }
 
 #Method: theme
@@ -1077,6 +1081,28 @@ sub addSaveMessage
 
     my $messages = $self->{save_messages};
     push (@{$messages}, $message);
+}
+
+# Method: edition
+#
+# Returns:
+#
+#   Subscription level as string. Current possible values:
+#
+#     'community', 'basic', 'sb', 'professional', 'enterprise'
+#
+sub edition
+{
+    my ($self, $ro) = @_;
+
+    if ($self->modExists('remoteservices')) {
+        my $rs = $self->modInstance($ro, 'remoteservices');
+        my $codename = $rs->subscriptionCodename();
+
+        return $codename if ($codename);
+    }
+
+    return 'community';
 }
 
 # Method: _runExecFromDir

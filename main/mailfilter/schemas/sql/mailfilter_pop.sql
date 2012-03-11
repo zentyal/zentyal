@@ -1,4 +1,4 @@
-CREATE TABLE mailfilter_pop (
+CREATE TABLE IF NOT EXISTS mailfilter_pop (
         timestamp TIMESTAMP NOT NULL,
 
         address VARCHAR(320),
@@ -9,7 +9,7 @@ CREATE TABLE mailfilter_pop (
         mails     BIGINT DEFAULT 0,
         clean     BIGINT DEFAULT 0,
         spam      BIGINT DEFAULT 0,
-        virus     BIGINT DEFAULT 0
-);
+        virus     BIGINT DEFAULT 0,
 
-CREATE INDEX mailfilter_pop_timestamp_i on mailfilter_pop(timestamp);
+        INDEX(timestamp)
+);

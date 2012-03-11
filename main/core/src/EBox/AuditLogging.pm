@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -124,10 +124,9 @@ sub tableInfo
     };
     my $action_table = {
         'name' => __('Configuration changes'),
-        'index' => TABLE_ACTIONS,
+        'tablename' => TABLE_ACTIONS,
         'titles' => $action_titles,
         'order' => \@action_order,
-        'tablename' => TABLE_ACTIONS,
         'timecol' => 'timestamp',
         'filter' => ['username', 'module', 'model'],
         'events' => $action_events,
@@ -150,15 +149,15 @@ sub tableInfo
     };
     my $session_table = {
         'name' => __('Administrator sessions'),
-        'index' => TABLE_SESSIONS,
+        'tablename' => TABLE_SESSIONS,
         'titles' => $session_titles,
         'order' => \@session_order,
-        'tablename' => TABLE_SESSIONS,
         'timecol' => 'timestamp',
         'filter' => ['username', 'ip'],
         'events' => $session_events,
         'eventcol' => 'event',
         'disabledByDefault' => 1,
+        'types' => { 'ip' => 'IPAddr' }
     };
 
     return [
@@ -173,7 +172,8 @@ sub queryPending
 
     return unless $self->isEnabled();
 
-    $self->_db()->query('SELECT * FROM ' . TABLE_ACTIONS . ' WHERE temporal = TRUE');
+    return
+        $self->_db()->query('SELECT * FROM ' . TABLE_ACTIONS . ' WHERE temporal = TRUE ');
 }
 
 sub commit
@@ -242,8 +242,13 @@ sub logAction
 sub _log
 {
     my ($self, $module, $section, $event, $id, $value, $oldvalue, $temporal) = @_;
-
     $temporal = 1 unless defined $temporal;
+    if ((defined $value) and (defined $oldvalue)) {
+        if ($value eq $oldvalue) {
+            # do not log changes to the same
+            return;
+        }
+    }
 
     my %data = (
         timestamp => $self->_timestamp(),

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -171,14 +171,6 @@ sub restoreFile
         return;
     }
 
-    unless (defined($file)) {
-        throw EBox::Exceptions::MissingArgument('file');
-    }
-
-    unless (defined($date)) {
-        throw EBox::Exceptions::MissingArgument('date');
-    }
-
     $destination or
         $destination = $file;
     my $destinationDir = File::Basename::dirname($destination);
@@ -202,34 +194,11 @@ sub restoreFile
         }
     }
 
-    my $rFile;
-    if ($file eq '/') {
-        $rFile = undef;
-    } else {
-        $rFile = $file;
-        $rFile =~ s:^/::; # file must be relative
-
-        # Escape metacharacters
-        $rFile =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
-        $rFile = shell_quote($rFile);
-    }
-
-    $destination =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
-    $destination = shell_quote($destination);
-    utf8::encode($destination);
-
-    my $time = Date::Parse::str2time($date);
-
-    my $model = $self->model('RemoteSettings');
     my $url = $self->_remoteUrl(%{ $urlParams });
-
-    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
-    if ($rFile) {
-        utf8::encode($rFile);
-        $cmd .= "--file-to-restore $rFile ";
-    }
-    $cmd .= " $url $destination";
-
+    my $cmd = $self->_duplicityRestoreFileCmd($url,
+                                              $file, $date,
+                                              $destination,
+                                              );
     try {
         EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Sudo::Command with {
@@ -254,6 +223,47 @@ sub restoreFile
     };
 }
 
+
+sub _duplicityRestoreFileCmd
+{
+    my ($self, $url, $file, $date, $destination) = @_;
+
+    unless (defined($file)) {
+        throw EBox::Exceptions::MissingArgument('file');
+    }
+    unless (defined($date)) {
+        throw EBox::Exceptions::MissingArgument('date');
+    }
+
+    my $rFile;
+    if ($file eq '/') {
+        $rFile = undef;
+    } else {
+        $rFile = $file;
+        $rFile =~ s:^/+::; # file must be relative
+
+        # Escape metacharacters
+        $rFile = $self->_escapeFile($rFile);
+    }
+    $destination = $self->_escapeFile($destination);
+
+    my $time = Date::Parse::str2time($date);
+    my $cmd = DUPLICITY_WRAPPER .  " --force -t $time ";
+    if ($rFile) {
+        $cmd .= "--file-to-restore $rFile ";
+    }
+    $cmd .= " $url $destination";
+    return $cmd;
+}
+
+sub _escapeFile
+{
+    my ($self, $file) = @_;
+    $file =~ s/([;<>\*\|`&\$!#\(\)\[\]\{\}:'"])/\\$1/g;
+    $file = shell_quote($file);
+    utf8::encode($file);
+    return $file;
+}
 
 # Method: lastBackupDate
 #
@@ -525,11 +535,15 @@ sub modulesBackupDomainsFileSelections
     my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
     my @selections;
     foreach my $ds (@domainSelections) {
-        foreach my $type (qw(exclude exclude-regexp include)) {
+        foreach my $type (qw(include)) {
             my $typeList = $type . 's';
             if ($ds->{$typeList}) {
                 foreach my $value (@{ $ds->{$typeList} }) {
                         my $encodedValue = encode_base64($value, '');
+                        $encodedValue =~ s/=/eq/g;
+                        $encodedValue =~ s/\+/ad/g;
+                        $encodedValue =~ s{/}{sl}g;
+
                         my $id =  $prefix .  '_' .
                             $ds->{mod} . '_' . $type . '_' .$encodedValue;
                         push @selections, {
@@ -857,7 +871,16 @@ sub setRemoteBackupCron
     my @lines;
     my $strings = $self->model('RemoteSettings')->crontabStrings();
 
-    my $script = EBox::Config::share() . 'zentyal-ebackup/backup-tool';
+    my $nice = EBox::Config::configkey('ebackup_scheduled_priority');
+    my $script = '';
+    if ($nice) {
+        if ($nice =~ m/^\d+$/) {
+            $script = "nice -n $nice " if $nice > 0;
+        } else {
+            EBox::error("Scheduled backup priority must be a positive number" );
+        }
+    }
+    $script .= EBox::Config::share() . 'zentyal-ebackup/backup-tool';
 
     my $fullList = $strings->{full};
     if ($fullList) {

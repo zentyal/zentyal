@@ -1,4 +1,17 @@
 HEAD
+	+ Fixed restore of default gateway in failover event
+2.3.1
+	+ Adapted messages in the UI for new editions
+	+ Use printableName instead of name to select services
+	+ Fixed executable permissions in ppp hooks and external-ip.pl
+	+ Bridge interfaces are correctly removed; fixed _hasChanged method
+	+ Menu entry Diagnostic Tools in Network renamed to Tools
+	+ Added WakeOnLan to the Network Diagnostic Tools
+	+ Added proxySettings to return the proxy settings to other modules
+	+ Added new ip rules to avoid connection problems on multigateway & UDP
+	+ Virtual interfaces called '0' does not longer raise error
+2.3
+	+ Cache vifacesConf() result to improve performance
 	+ Replaced autotools with zbuildtools
 	+ Added gatewayDelete method to NetworkObserver and use it to check
 	  gateway removal in gateway table

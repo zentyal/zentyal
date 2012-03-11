@@ -1,4 +1,4 @@
-CREATE TABLE zarafa_user_storage_report (
+CREATE TABLE IF NOT EXISTS zarafa_user_storage_report (
     `date` DATE NOT NULL,
     username VARCHAR(255) NOT NULL,
     fullname VARCHAR(255) NOT NULL,

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -286,7 +286,10 @@ sub contextName
     my $path = '/' . $self->{'gconfmodule'}->name() . '/' .
       $self->name() . '/';
 
-    $path .= $self->index();
+    my $index = $self->index();
+    if ($index) {
+        $path .= $index;
+    }
 
     return $path;
 }
@@ -748,6 +751,9 @@ sub movedDownRowNotify
 #
 #     row - <EBox::Model::Row> row containing fields and values of the
 #           updated row
+#
+#     oldRow - <EBox::Model::Row> row containing fields and values of the
+#           previous row
 #
 #     force - boolean indicating whether the delete is forced or not
 #
@@ -3958,7 +3964,7 @@ sub _mainController
         # the model domain and its name
         $defAction = '/' . $self->modelDomain() . '/Controller/' .
             $self->{'table'}->{'tableName'};
-        if ( $self->index() ne '' ) {
+        if ($self->index()) {
             $defAction .= '/' . $self->index();
         }
     }

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -34,13 +34,13 @@ use base 'EBox::Model::DataForm';
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 sub pageTitle
@@ -50,7 +50,6 @@ sub pageTitle
 
 sub _table
 {
-
     my @tableHead =
     (
         new EBox::UsersAndGroups::Types::Password(
@@ -93,27 +92,16 @@ sub _addTypedRow
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
 
+    $user = new EBox::UsersAndGroups::User(dn => $users->userDn($user));
+
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
-    my $userinfo = { 'username' => $user, 'password' => $pass1->value() };
-    $users->modifyUserLocal($userinfo);
+
+    $user->changePassword($pass1->value());
+
     eval 'use EBox::UserCorner::Auth';
-    EBox::UserCorner::Auth->updatePassword($user,$pass1->value());
-
-    my $slaves = $users->listSlaves();
-    for my $slave (@{$slaves}) {
-        my $journaldir = EBox::UserCorner::usercornerdir() .
-                         'userjournal/' . $slave->{'hostname'};
-        (-d $journaldir) or `mkdir -p $journaldir`;
-
-        my ($fh, $filename) = tempfile("modifyUser-XXXX", DIR => $journaldir);
-        print $fh "modifyUser\n";
-        print $fh "$user\n";
-        $fh->close();
-        rename($filename, "$filename.pending");
-        `chmod 644 $filename.pending`;
-    }
+    EBox::UserCorner::Auth->updatePassword($user, $pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
 }

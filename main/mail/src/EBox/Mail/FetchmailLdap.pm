@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -106,25 +106,20 @@ sub _externalAccountHash
 #
 
 sub addExternalAccount
- {
-     my ($self, %params) = @_;
-     my @mandatoryParams = qw(user localAccount password
-                              mailServer  mailProtocol port);
-     foreach my $checkedParam (@mandatoryParams) {
-         exists $params{$checkedParam} or
-             throw EBox::Exceptions::MissingArgument($checkedParam);
-     }
+{
+    my ($self, %params) = @_;
+    my @mandatoryParams = qw(user localAccount password
+            mailServer  mailProtocol port);
+    foreach my $checkedParam (@mandatoryParams) {
+        exists $params{$checkedParam} or
+            throw EBox::Exceptions::MissingArgument($checkedParam);
+    }
 
-     my $user = $params{user};
-     my $userDn = EBox::Global->modInstance('users')->userDn($user);
+    my $user = $params{user};
 
-     my $fetchmailString = $self->_externalAccountString(%params);
+    my $fetchmailString = $self->_externalAccountString(%params);
 
-     my %modifyParams = (
-          add=> [ fetchmailAccount => $fetchmailString ]
-         );
-
-     my $res = $self->{'ldap'}->modify($userDn, \%modifyParams);
+    $user->add('fetchmailAccount', $fetchmailString);
 }
 
 
@@ -205,30 +200,8 @@ sub externalAccountsForUser
 {
     my ($self, $user) = @_;
 
-    my %args = (
-            base => EBox::Global->modInstance('users')->usersDn,
-            filter => "&(objectclass=fetchmailUser)(uid=$user)",
-            scope => 'sub'
-                );
-
-    my $result = $self->{ldap}->search(\%args);
-    my ($entry) = $result->entries();
-
-    if (not $entry) {
-        return [];
-    }
-
-    return $self->_externalAccountsForLdapEntry($entry);
-}
-
-
-
-sub _externalAccountsForLdapEntry
-{
-   my ($self, $entry) = @_;
-
     my @externalAccounts;
-    foreach my $fetchmailStr ($entry->get_value('fetchmailAccount')) {
+    foreach my $fetchmailStr ($user->get('fetchmailAccount')) {
         push @externalAccounts, $self->_externalAccountHash($fetchmailStr);
     }
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,13 +32,10 @@ sub _create {
 }
 
 
-sub _delGroupWarning($$) {
-        my $self = shift;
-        my $group = shift;
+sub _delGroupWarning {
+    my ($self, $group) = @_;
 
-	my $users = EBox::Global->modInstance('users');
-
-	unless ($users->_groupIsEmpty($group)) {
+	if (@{$group->users()}) {
 		return (__('This group contains users'));
 	}
 
@@ -69,11 +66,6 @@ sub indexes
     return [
         'uid', 'uidNumber', 'memberUid', 'cn', 'gidNumber', 'uniqueMember'
     ];
-}
-
-sub localAttributes
-{
-    return [ 'quota' ];
 }
 
 1;

@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -740,9 +740,10 @@ sub _respawn
     $redis = undef;
 
     my $user = $self->_user();
+    my $home = $self->_home();
     my $filepasswd = $self->_passwd();
 
-    $redis = Redis->new(sock => "/var/lib/zentyal/redis.$user.sock");
+    $redis = Redis->new(sock => "$home/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;
@@ -756,13 +757,10 @@ sub _initRedis
 {
     my ($self) = @_;
 
-    my $firstInst = ( -f '/var/lib/zentyal/redis.first' );
-    return if ($firstInst); # server considered running on first install
-
     # User corner redis server is managed by service
     return if ( $self->_user eq 'ebox-usercorner' );
 
-    unless ( EBox::Service::running('ebox.redis') ) {
+    unless (EBox::Service::running('ebox.redis')) {
         EBox::info('Starting redis server');
 
         # Write redis daemon conf file
@@ -795,6 +793,7 @@ sub writeConfigFile
 
     my @params = ();
     push (@params, user => $user);
+    push (@params, home => $home);
     push (@params, dir => $dir);
     push (@params, port => $port);
     push (@params, passwd => $pass);

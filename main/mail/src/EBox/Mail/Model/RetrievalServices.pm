@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -113,29 +113,29 @@ sub _table
 sub activeProtocols
 {
     my ($self) = @_;
-    my @protocols;
+    my %protocols;
 
     if ($self->pop3Value()) {
-        push @protocols, 'pop3';
+        $protocols{'pop3'} = 1;
     }
 
     if ($self->pop3sValue()) {
-        push @protocols, 'pop3s';
+        $protocols{'pop3s'} = 1;
     }
 
     if ($self->imapValue()) {
-        push @protocols, 'imap';
+        $protocols{'imap'} = 1;
     }
 
     if ($self->imapsValue()) {
-        push @protocols, 'imaps';
+        $protocols{'imaps'} = 1;
     }
 
     if ($self->managesieveValue()) {
-        push @protocols, 'managesieve';
+        $protocols{'managesieve'} = 1;
     }
 
-    return \@protocols;
+    return \%protocols;
 }
 
 

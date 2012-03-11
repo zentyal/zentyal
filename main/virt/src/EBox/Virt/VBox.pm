@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -460,7 +460,7 @@ sub attachDevice
     my ($port, $device, $ctl);
     my $cd = $type eq 'cd';
     $type = $cd ? 'dvddrive' : 'hdd';
-    if ($cd or (EBox::Config::configkey('use_ide_disks') eq 'yes')) {
+    if ($cd or EBox::Config::boolean('use_ide_disks')) {
         $ctl = $IDE_CTL;
         $port = int ($self->{ideDeviceNumber} / 2);
         $device = $self->{ideDeviceNumber} % 2;
@@ -510,7 +510,7 @@ sub diskFile
 {
     my ($self, $disk, $machine) = @_;
 
-    return shell_quote("$VM_PATH/$machine/$disk.vdi");
+    return "$VM_PATH/$machine/$disk.vdi";
 }
 
 sub manageScript
@@ -576,5 +576,11 @@ sub ifaces
 {
     return EBox::NetWrappers::list_ifaces();
 }
+
+sub allowsNoneIface
+{
+    return 1;
+}
+
 
 1;

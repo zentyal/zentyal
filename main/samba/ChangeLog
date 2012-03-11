@@ -1,4 +1,14 @@
-HEAD
+2.3.3
+	+ Validate domain admin password in general settings
+	+ Fixed bugs when adding users or groups with spaces
+2.3.2
+	+ Ignore mailfilter users in s4sync
+2.3.1
+	+ Samba4 integration
+	+ Service description is now translatable
+	+ Restore samba-vscan dependency
+2.3
+	+ Adapted to new MySQL logs backend
 	+ Remove samba-vscan dependency as it is not yet available for precise
 	+ Replaced autotools with zbuildtools
 	+ Use always the same string to refer to the NetBIOS computer name

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-echo "Migrating default values in configuration files..."
-
-ZARAFA_CONF=/etc/zentyal/zarafa.conf
-KEY=zarafa_attachment_storage
-[ -f $ZARAFA_CONF ] && sed -i "s/$KEY = files/$KEY = database/" $ZARAFA_CONF
-
-exit 0;

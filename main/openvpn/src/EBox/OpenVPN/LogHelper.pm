@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,11 +38,6 @@ sub new
     $self->_populateLogFiles();
 
     return $self;
-}
-
-sub domain
-{
-    return 'ebox-openvpn';
 }
 
 # Method: logFiles
@@ -124,7 +119,7 @@ sub processLine # (file, line, logger)
     my $name   = $daemon->{name};
     my $type   = $daemon->{type};
 
-    my $timestamp = join(' ', $wday, $month, $mday, $time, $year);
+	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', "$month $mday $time $year");
 
     my $dbRow = {
                  timestamp  => $timestamp,

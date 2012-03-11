@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -105,8 +105,9 @@ sub initialSetup
     unless ($version) {
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addInternalService(
-                        'name' => 'ipp',
-                            'description' => __d('Cups printer server port'),
+                            'name' => 'ipp',
+                            'printableName' => __('Network Printers'),
+                            'description' => __('Internet Printing Protocol (CUPS)'),
                             'protocol' => 'tcp',
                             'sourcePort' => 'any',
                             'destinationPort' => 631,
@@ -376,10 +377,9 @@ sub tableInfo
 
     return [{
              'name' => __('Printers'),
-             'index' => 'printers_jobs',
+             'tablename' => 'printers_jobs',
              'titles' => $titles,
              'order' => \@order,
-             'tablename' => 'printers_jobs',
              'timecol' => 'timestamp',
              'filter' => ['printer', 'username'],
              'events' => $events,

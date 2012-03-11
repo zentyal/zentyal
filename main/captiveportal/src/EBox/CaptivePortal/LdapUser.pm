@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
+use Perl6::Junction qw(any);
 
 sub new
 {
@@ -41,30 +42,20 @@ sub schemas
     return [ EBox::Config::share() . 'zentyal-captiveportal/captiveportal.ldif' ]
 }
 
-sub localAttributes
-{
-    my @attrs = qw(captiveQuotaOverride captiveQuota);
-    return \@attrs;
-}
-
-
 sub _userAddOns
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
     my $cportal = EBox::Global->modInstance('captiveportal');
     return unless ($cportal->configured());
 
 
-    my $overridden = $self->isQuotaOverridden($username);
-    my $quota = $self->getQuota($username);
-
-    EBox::debug("OVERRIDDEN: $overridden");
-    EBox::debug("QUOTA: $quota");
+    my $overridden = $self->isQuotaOverridden($user);
+    my $quota = $self->getQuota($user);
 
     my @args;
     my $args = {
-        'username'   => $username,
+        'user'       => $user,
         'overridden' => $overridden,
         'quota'      => $quota,
         'service'    => $cportal->isEnabled(),
@@ -78,22 +69,10 @@ sub _userAddOns
 
 sub isQuotaOverridden
 {
-    my ($self, $username) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->usersDn;
+    my ($self, $user) = @_;
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-        filter => "uid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    if ($mesg->count != 0) {
-        foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}) {
-            return 1 if (($item->{'type'} eq 'captiveQuotaOverride') and
-                    (shift(@{$item->{'vals'}}) eq 'TRUE'));
-        }
+    if ($user->get('captiveQuotaOverride') eq 'TRUE') {
+        return 1;
     }
     return 0;
 }
@@ -112,8 +91,7 @@ sub isQuotaOverridden
 #
 sub setQuota
 {
-    my ($self, $username, $overridden, $quota) = @_;
-    my $global = EBox::Global->getInstance(1);
+    my ($self, $user, $overridden, $quota) = @_;
 
     # Quota parameter is optional if it's not overridden
     unless ($overridden) {
@@ -123,47 +101,11 @@ sub setQuota
     # Convert to LDAP format
     $overridden = $overridden ? 'TRUE' : 'FALSE';
 
-    my $users = $global->modInstance('users');
-    my $dn = "uid=$username,".$users->usersDn;
+    $user->add('objectClass', 'captiveUser', 1);
+    $user->set('captiveQuotaOverride', $overridden, 1);
+    $user->set('captiveQuota', $quota, 1);
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-            filter => "objectClass=captiveUser");
-    my $mesg = $ldap->search(\%args);
-
-    if ($mesg->count == 0){
-        my %attrs = (
-                changes => [
-                    add => [
-                        'objectclass' => 'captiveUser',
-                        'captiveQuotaOverride' => $overridden,
-                        'captiveQuota' => $quota,
-                    ],
-                ]
-            );
-
-        my $result = $ldap->modify($dn, \%attrs);
-
-        if ($result->is_error) {
-            throw EBox::Exceptions::Internal("Error updating user: $username\n\n");
-        }
-    } else {
-        my %attrs = (
-              changes => [
-                  replace => [
-                          'captiveQuotaOverride' => $overridden,
-                          'captiveQuota' => $quota,
-                      ]
-                  ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-
-        if ($result->is_error) {
-            throw EBox::Exceptions::Internal("Error updating user: $username\n\n");
-        }
-    }
+    $user->save();
 
     return 0;
 }
@@ -181,9 +123,8 @@ sub setQuota
 #
 sub getQuota
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
     my $global = EBox::Global->getInstance(1);
-    my $users = $global->modInstance('users');
     my $cportal = $global->modInstance('captiveportal');
     my $model = $cportal->model('BWSettings');
 
@@ -192,28 +133,8 @@ sub getQuota
         return 0;
     }
 
-    my $dn = $users->usersDn;
-
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-        filter => "uid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    if ($mesg->count != 0) {
-        foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}) {
-            if ($item->{'type'} eq 'captiveQuotaOverride' and
-                shift(@{$item->{'vals'}}) eq 'TRUE') {
-
-                # Overriden:
-                foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}) {
-                    if ($item->{'type'} eq 'captiveQuota') {
-                        return shift(@{$item->{'vals'}});
-                    }
-                }
-            }
-        }
+    if ($user->get('captiveQuotaOverride') eq 'TRUE') {
+        return $user->get('captiveQuota');
     }
 
     # Not overriden:

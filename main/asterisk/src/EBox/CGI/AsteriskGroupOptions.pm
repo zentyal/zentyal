@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
+use EBox::UsersAndGroups::Group;
 
 sub new
 {
@@ -42,10 +43,11 @@ sub _process
     my $extensions = new EBox::Asterisk::Extensions;
 
     $self->_requireParam('group', __('group'));
-    my $group = $self->param('group');
+    my $group = $self->unsafeParam('group');
     $self->{redirect} = "UsersAndGroups/Group?group=$group";
     $self->keepParam('group');
 
+    $group = new EBox::UsersAndGroups::Group(dn => $group);
     if ($self->param('active') eq 'yes') {
         $astldap->setHasQueue($group, 1);
         my $myextn = $extensions->getQueueExtension($group);
@@ -55,7 +57,7 @@ sub _process
             $extensions->modifyQueueExtension($group, $newextn);
         }
     } else {
-            $astldap->setHasQueue($group, 0);
+        $astldap->setHasQueue($group, 0);
     }
 }
 

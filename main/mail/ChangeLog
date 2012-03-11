@@ -1,4 +1,13 @@
 HEAD
+	+ Image in initial configuration wizard is shown again
+2.3.1
+	+ New translatable printableNames for mail services
+	+ Adapted to new users implementation
+	+ Fixed wrong method call in MailUserLdap
+2.3
+	+ Adapted to dovecot 2.0
+	+ Postfix now binds to LDAP
+	+ Adapted to new MySQL logs backend
 	+ Mailfilter learn accounts are excluded from Zarafa transport
 	+ Remove precondition if there are no objects as now they can be
 	  added in-line with the new dialog

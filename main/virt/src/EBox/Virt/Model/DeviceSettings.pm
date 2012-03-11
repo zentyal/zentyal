@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -208,25 +208,39 @@ sub validateTypedRow
                 throw EBox::Exceptions::External(__('You need to provide the path of a hard disk image'));
             }
             unless (-e $path) {
-                throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", path => $path));
+                throw EBox::Exceptions::External(__x("Hard disk image '{img}' does not exist", img => $path));
+            }
+            my $fileOutput = EBox::Sudo::root("file $path");
+            if (not $fileOutput->[0] =~ m/Format:\s+Qcow\s+,\s+Version:\s+2/) {
+                throw EBox::Exceptions::External(
+                    __x('The hard disk image {img} should be in qcow2 format',
+                        img => $path)
+                );
             }
         } else {
             my $name = exists $changedFields->{name} ? $changedFields->{name}->value() :
                                                        $allFields->{name}->value();
             unless ($name) {
                 throw EBox::Exceptions::External(__('You need to specify a name for the new hard disk'));
+            } else {
+                $self->_checkHdName($name);
             }
 
             my $vmRow = $self->parentRow();
             my $vmName = $vmRow->valueByName('name');
             if ((-f $self->parentModule()->diskFile($vmName, $name)) and exists $changedFields->{size}) {
+                if ($action eq 'add') {
+                    throw EBox::Exceptions::External(
+                        __('It already exists a disk file with this name. Save changes to synchronize disk files status')
+                    );
+                }
                 throw EBox::Exceptions::External(__('You cannot modify an already created disk. ' .
                                                     'You need to delete it and add a new one if you want to change the size.'));
             }
         }
     }
     my @devices = @{$self->ids()};
-    if ((EBox::Config::configkey('use_ide_disks') eq 'yes') and (@devices == 4)) {
+    if (EBox::Config::boolean('use_ide_disks') and (@devices == 4)) {
         throw EBox::Exceptions::External(__x('A maximum of {num} IDE drives are allowed', num => MAX_IDE_NUM));
     }
 
@@ -249,6 +263,20 @@ sub validateTypedRow
             }
         }
     }
+}
+
+
+sub _checkHdName
+{
+    my ($self, $name) = @_;
+    unless ($name =~ m/^[\d\w]+$/) { # non-ascii characters are ok
+        throw EBox::Exceptions::InvalidData(
+            data => __('HardDisk name'),
+            value => $name,
+            advice => __('The name should contain only character, digits and underscores'),
+           );
+    }
+
 }
 
 sub deletedRowNotify

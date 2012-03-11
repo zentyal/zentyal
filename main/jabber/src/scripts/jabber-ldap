@@ -13,30 +13,21 @@ $users->{ldap}->ldapCon();
 
 sub update
 {
-	foreach my $user ($users->users()){
-		my $username = $user->{'username'};
-		my $dn = "uid=$username," . $users->usersDn();
-
+	foreach my $user (@{$users->users()}){
 		print "Checking user: $username\n";
-		my %args = (base => $users->usersDn(),
-			filter => "(jabberUid=$username)");
-
-		my $ldap = $users->{ldap};
-		my $mesg = $ldap->search(\%args);
-
-		if (!$mesg->count()){
+        if (not $user->get('jabberUid')) {
 			print "Adding Jabber account for user $username\n";
-			my %attrs = (
-				changes => [
-					add => [
-						objectClass => 'userJabberAccount',
-						jabberUid   => $username,
-						jabberAdmin => 'FALSE'
-						]
-					]
-				);
-			my $result = $ldap->modify($dn, \%attrs );
-			($result->is_error()) and warn "Error updating user: $username\n";
+            my @objectclasses = $user->get('objectclass');
+            push (@objectclass, 'userJabberAccount');
+
+            $user->set('objectclass', \@objectclass, 1);
+            $user->set('jabberUid', $user->name(), 1);
+            $user->set('jabberAdmin', 'FALSE', 1);
+            try {
+                $user->save();
+            } otherwise {
+                warn "Error updating user: $username\n";
+            }
 		} else {
 			print "User $username already has a Jabber account\n";
 		}
@@ -45,10 +36,15 @@ sub update
 
 sub clean {
 	my $ldap = $users->{ldap};
-	foreach my $user ($users->users()){
-		my $username = $user->{'username'};
-		my $dn = "uid=$username," . $users->usersDn();
-		$ldap->delObjectclass($dn, 'userJabberAccount');
+	foreach my $user (@{$users->users()}){
+        $user->delete('jabberUid', 1) if $user->get('jabberUid');
+        $user->delete('jabberAdmin', 1) if $user->get('jabberAdmin');
+
+        my @objectclasses = $user->get('objectclass');
+        @objectclasses = grep { $_ ne 'userJabberAccount' } @objectclasses;
+
+        $user->set('objectClass', \@objectclasses);
+        $user->save();
 	}
 }
 

@@ -8,26 +8,33 @@ unless (@ARGV) {
     print "Usage: $0 <command> [module1 module2 module3 ...]\n\n";
     exit;
 }
-my $command = shift;
 
-my @modules = ();
+my $command = shift @ARGV;
+my @modules = @ARGV;
 
-if ($argc == 1) {
+unless (@modules) {
     opendir(DIR, './');
     @modules = readdir(DIR);
-} else {
-    @modules = @ARGV;
 }
+
+my $lastModule = pop (@modules);
 
 my $pm = new Parallel::ForkManager(THREADS);
 
 foreach my $module (@modules) {
     if(-d $module and $module ne '.' and $module ne '..' and $module ne 'debs-ppa') {
         $pm->start and next; # do the fork
-        system ($command, $module) == 0 or die "Building $module failed";
+        unless (system ($command, $module) == 0) {
+            print "Command $command $module failed\n";
+        }
         $pm->finish; # do the exit in the child process
     }
 }
 $pm->wait_all_children;
+
+# Last module will regenerate repository archive
+unless (system ($command, $lastModule) == 0) {
+    print "Command $command $module failed\n";
+}
 
 print "Done.\n"

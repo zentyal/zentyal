@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -33,7 +33,8 @@ use EBox::Sudo;
 
 use EBox::Exceptions::External;
 
-use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=HTTP_proxy_general_settings&utm_campaign=advanced_security_updates';
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=enterprise_edition';
 
 sub new
 {
@@ -235,8 +236,10 @@ sub _transparentHelp
 
 sub _commercialMsg
 {
-    return __sx('Get Ad blocking updates to keep your HTTP proxy aware of the latest ads to remove them from the websites you browse. The Ad-blocking updates are integrated in the {oh}Advanced Security Updates{ch} add-on that guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
-                oh => '<a href="' . STORE_URL . '" target="_blank">', ch => '</a>');
+    return __sx('Want to remove ads from the websites your users browse? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that include the Ad blocking feature in the automatic security updates.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

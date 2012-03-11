@@ -1,8 +1,7 @@
-CREATE TABLE printers_pages(
+CREATE TABLE IF NOT EXISTS printers_pages(
          timestamp TIMESTAMP,
          job INT,
          printer VARCHAR(255) NOT NULL,
-         pages INT
+         pages INT,
+         INDEX(timestamp)
 );
-
-CREATE INDEX printers_pages_job_i on printers_pages(timestamp);

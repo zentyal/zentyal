@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -156,7 +156,15 @@ sub notifyTick
 sub ticks
 {
     my ($self) = @_;
-    return $self->getConfInt('ticks');
+    my $ticks =  $self->getConfInt('ticks');
+    my $totalTicks = $self->totalTicks();
+    if ($ticks >= $totalTicks) {
+        # safeguard against bad counts and zombies process
+        _collectChildrens();
+        return $totalTicks;
+    }
+
+    return $ticks;
 }
 
 sub setTotalTicks
@@ -196,12 +204,7 @@ sub percentage
 
     my $per = $self->ticks / $totalTicks;
     $per = sprintf("%.2f", $per); # round to two decimals
-        $per *= 100;
-
-    if ($per > 100) {
-        # to guard for cases that more noitifyTicks than needed had been received
-        return 100;
-    }
+    $per *= 100;
 
     return $per;
 }
@@ -257,7 +260,11 @@ sub _setAsStarted
 sub finished
 {
     my ($self) = @_;
-    return $self->getConfBool('finished');
+    my $finished =  $self->getConfBool('finished');
+    if ($finished) {
+        _collectChildrens();
+    }
+    return $finished;
 }
 
 # Method: setAsFinished
@@ -505,6 +512,17 @@ sub _cleanupFinished
             ;
         };
     }
+
+    _collectChildrens();
+}
+
+
+sub _collectChildrens
+{
+    my $child;
+    do {
+        $child = waitpid(-1, WNOHANG);
+    } while ($child > 0);
 }
 
 1;

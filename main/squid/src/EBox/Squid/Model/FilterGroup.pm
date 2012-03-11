@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,7 +29,9 @@ use EBox::Squid::Types::TimePeriod;
 use EBox::Types::HasMany;
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
-use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=HTTP_proxy_profile_filter&utm_campaign=advanced_security_updates';
+
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -490,8 +492,10 @@ sub restoreConfig
 # Security Updates Add-On message
 sub _commercialMsg
 {
-    return __sx('Get Content Filtering updates to keep your HTTP proxy aware of the latest threats such as malware, phishing and bots! The Content Filtering updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription add-on. It guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
-                openhref  => '<a href="' . STORE_URL . '" target="_blank">', closehref => '</a>');
+    return __sx('Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that include the Content Filtering feature in the automatic security updates.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

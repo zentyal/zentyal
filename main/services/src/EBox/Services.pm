@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -88,42 +88,48 @@ sub _defaultServices
     return [
         {
          'name' => 'any',
-         'description' => __d('any protocol and port'),
+         'printableName' => __('Any'),
+         'description' => __('Any protocol and port'),
          'protocol' => 'any',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'any UDP',
-         'description' => __d('any UDP port'),
+         'printableName' => __('Any UDP'),
+         'description' => __('Any UDP port'),
          'protocol' => 'udp',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
          'name' => 'any TCP',
-         'description' => __d('any TCP port'),
+         'printableName' => __('Any TCP'),
+         'description' => __('Any TCP port'),
          'protocol' => 'tcp',
          'destinationPort' => 'any',
          'internal' => 0,
         },
         {
-         'name' => 'eBox administration',
-         'description' => __d('Zentyal Administration Web Server'),
+         'name' => 'administration',
+         'printableName' => __('Zentyal Administration'),
+         'description' => __('Zentyal Administration Web Server'),
          'protocol' => 'tcp',
          'destinationPort' => $apachePort,
          'internal' => 1,
         },
         {
          'name' => 'ssh',
-         'description' => 'SSH',
+         'printableName' => 'SSH',
+         'description' => __('Secure Shell'),
          'protocol' => 'tcp',
          'destinationPort' => '22',
          'internal' => 0,
         },
         {
          'name' => 'HTTP',
-         'description' => 'HTTP',
+         'printableName' => 'HTTP',
+         'description' => __('HyperText Transport Protocol'),
          'protocol' => 'tcp',
          'destinationPort' => '80',
          'internal' => 0,
@@ -481,13 +487,16 @@ sub setAdministrationPort
 
     checkPort($port, __("port"));
 
-    $self->setService('name' => __d('eBox administration'),
-            'description' => __d('Zentyal Administration Web Server'),
+    $self->setService(
+            'name' => 'administration',
+            'printableName' => __('Zentyal Administration'),
+            'description' => __('Zentyal Administration Web Server'),
             'protocol' => 'tcp',
             'sourcePort' => 'any',
             'destinationPort' => $port,
             'internal' => 1,
-            'readOnly' => 1);
+            'readOnly' => 1
+    );
 }
 
 # Method: availablePort

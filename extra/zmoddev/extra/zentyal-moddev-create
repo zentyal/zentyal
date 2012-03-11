@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -40,6 +40,13 @@ sub _printUsage
     print STDERR "\t--version\n";
     print STDERR "\t--destdir\n";
     print STDERR "\t--model form | table. Default: form\n";
+    print STDERR "\t--printable-module-name\n";
+    print STDERR "\t--version\n";
+    print STDERR "\t--destdir" ;
+    print STDERR "\t--model\n";
+    print STDERR "\t--menu-separator\n";
+    print STDERR "\t--firewall-helper\n";
+
     exit 1;
 }
 

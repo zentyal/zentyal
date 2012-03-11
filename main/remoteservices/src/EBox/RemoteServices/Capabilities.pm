@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -63,6 +63,21 @@ sub subscriptionLevel
     };
 
     return $result;
+}
+
+# Method: availableEdition
+#
+#     Get the available edition for this Zentyal
+#
+# Returns:
+#
+#     String - the available edition for this server
+#
+sub availableEdition
+{
+    my ($self) = @_;
+
+    return $self->soapCall('availableEdition');
 }
 
 # Method: securityUpdatesAddOn

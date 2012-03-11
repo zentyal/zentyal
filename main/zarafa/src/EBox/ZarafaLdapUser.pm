@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,12 +26,12 @@ use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::Model::ModelManager;
+use Perl6::Junction qw(any);
 
 sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{ldap} = EBox::Ldap->instance();
     $self->{zarafa} = EBox::Global->modInstance('zarafa');
     bless($self, $class);
     return $self;
@@ -39,31 +39,29 @@ sub new
 
 sub _userAddOns
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
     return unless ($self->{zarafa}->configured());
 
     my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($username));
+    $active = 'yes' if ($self->hasAccount($user));
 
     my $contact = 'no';
-    $contact = 'yes' if ($self->hasContact($username));
+    $contact = 'yes' if ($self->hasContact($user));
 
     my $is_admin = 0;
-    $is_admin = 1 if ($self->isAdmin($username));
+    $is_admin = 1 if ($self->isAdmin($user));
 
     my @args;
     my $args = {
-                    'username' => $username,
-                    'active'   => $active,
-                    'is_admin' => $is_admin,
-                    'contact' => $contact,
+        'user' => $user,
+        'active'   => $active,
+        'is_admin' => $is_admin,
+        'contact' => $contact,
+        'service' => $self->{zarafa}->isEnabled(),
+    };
 
-                    'service' => $self->{zarafa}->isEnabled(),
-           };
-
-    return { path => '/zarafa/zarafa.mas',
-         params => $args };
+    return { path => '/zarafa/zarafa.mas', params => $args };
 }
 
 sub schemas
@@ -71,169 +69,69 @@ sub schemas
     return [ EBox::Config::share() . 'zentyal-zarafa/zarafa.ldif' ]
 }
 
-sub localAttributes
-{
-    my @attrs = qw(zarafaAccount zarafaAdmin zarafaQuotaOverride zarafaQuotaWarn zarafaQuotaSoft zarafaQuotaHard);
-    return \@attrs;
-}
-
-
 sub indexes
 {
     return [ 'zarafaAccount' ];
 }
 
 
-sub isAdmin #($username)
+sub isAdmin
 {
-    my ($self, $username) = @_;
-    my $global = EBox::Global->getInstance(1);
-    my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
-    my $active = '';
-    my $is_admin = 0;
+    my ($self, $user) = @_;
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-        filter => "uid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    if ($mesg->count != 0) {
-        foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}) {
-        return 1 if (($item->{'type'} eq 'zarafaAdmin') &&
-            (shift(@{$item->{'vals'}}) eq '1'));
-    }
-    }
-    return 0;
+    return ($user->get('zarafaAdmin') eq 1);
 }
 
-sub setIsAdmin #($username, [01]) 0=disable, 1=enable
+sub setIsAdmin
 {
-        my ($self, $username, $option) = @_;
+    my ($self, $user, $option) = @_;
     my $global = EBox::Global->getInstance(1);
 
-    return unless ($self->isAdmin($username) xor $option);
+    return unless ($self->isAdmin($user) xor $option);
 
-    my $users = $global->modInstance('users');
-    my $dn = "uid=$username,".$users->usersDn;
-
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-            filter => "uid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    if ($mesg->count != 0){
-        if ($option){
-        my %attrs = (
-              changes => [
-                   replace => [
-                           'zarafaAdmin' => '1'
-                           ]
-                   ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-            throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-        } else {
-            my %attrs = (
-                  changes => [
-                       replace => [
-                               'zarafaAdmin' => '0'
-                               ]
-                       ]
-                  );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-            throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-        }
-    }
-
-    return 0;
+    $user->set('isAdmin', $option);
 }
 
-sub hasAccount #($username)
+sub hasAccount
 {
-    my ($self, $username) = @_;
-    my $global = EBox::Global->getInstance(1);
-    my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
+    my ($self, $user) = @_;
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-                filter => "&(objectClass=zarafa-user)(uid=$username)");
-    my $mesg = $ldap->search(\%args);
-
-    return 1 if ($mesg->count != 0);
-    return 0;
+    return ('zarafa-user' eq any $user->get('objectClass'));
 }
 
-sub setHasAccount #($username, [01]) 0=disable, 1=enable
+sub setHasAccount
 {
-    my ($self, $username, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
-    my $users = $global->modInstance('users');
-    my $dn = "uid=$username," . $users->usersDn;
+    my ($self, $user, $option) = @_;
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
+    if (not $self->hasAccount($user) and $option) {
 
-    my %args = (base => $dn,
-            filter => "&(objectClass=zarafa-user)");
-    my $mesg = $ldap->search(\%args);
+        $self->setHasContact($user, 0);
+        $user->add('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
+        $user->set('zarafaAccount', 1, 1);
+        $user->set('zarafaAdmin', 0, 1);
+        $user->set('zarafaQuotaOverride', 0, 1);
+        $user->set('zarafaQuotaWarn', 0, 1);
+        $user->set('zarafaQuotaSoft', 0, 1);
+        $user->set('zarafaQuotaHard', 0, 1);
+        $user->save();
 
-    if (!$mesg->count and ($option)) {
+        $self->{zarafa}->_hook('setacc', $user->name());
 
-        $self->setHasContact($username, 0);
+    } elsif ($self->hasAccount($user) and not $option)) {
 
-        my %attrs = (
-              changes => [
-                       add => [
-                           'objectClass' => 'zarafa-user',
-                           'objectClass' => 'zarafa-contact',
-                           'zarafaAccount' => '1',
-                           'zarafaAdmin' => '0',
-                           'zarafaQuotaOverride' => '0',
-                           'zarafaQuotaWarn' => '0',
-                           'zarafaQuotaSoft' => '0',
-                           'zarafaQuotaHard' => '0',
-                           ]
-                       ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-
-        $self->{zarafa}->_hook('setacc', $username);
-
-    } elsif ($mesg->count and not ($option)) {
-        my %attrs = (
-              changes => [
-                       delete => [
-                              'objectClass' => ['zarafa-user'],
-                              'objectClass' => ['zarafa-contact'],
-                              'zarafaAccount' => [],
-                              'zarafaAdmin' => [],
-                              'zarafaQuotaOverride' => [],
-                              'zarafaQuotaWarn' => [],
-                              'zarafaQuotaSoft' => [],
-                              'zarafaQuotaHard' => [],
-                          ]
-                       ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+        $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
+        $user->delete('zarafaAccount', 1);
+        $user->delete('zarafaAdmin', 1);
+        $user->delete('zarafaQuotaOverride', 1);
+        $user->delete('zarafaQuotaWarn', 1);
+        $user->delete('zarafaQuotaSoft', 1);
+        $user->delete('zarafaQuotaHard', 1);
+        $user->save();
 
         my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
-        $self->setHasContact($username, $model->contactValue());
+        $self->setHasContact($user, $model->contactValue());
 
-        $self->{zarafa}->_hook('unsetacc', $username);
+        $self->{zarafa}->_hook('unsetacc', $user->name());
     }
 
     return 0;
@@ -252,60 +150,22 @@ sub _addUser
    $self->setHasContact($user, $model->contactValue());
 }
 
-sub hasContact #($username)
+sub hasContact
 {
-    my ($self, $username) = @_;
-    my $global = EBox::Global->getInstance(1);
-    my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
+    my ($self, $user) = @_;
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-                filter => "&(objectClass=zarafa-contact)(uid=$username)");
-    my $mesg = $ldap->search(\%args);
-
-    return 1 if ($mesg->count != 0);
-    return 0;
+    return ('zarafa-contact' eq any $user->get('objectClass'));
 }
 
-sub setHasContact #($username, [01]) 0=disable, 1=enable
+sub setHasContact
 {
-    my ($self, $username, $option) = @_;
-    my $global = EBox::Global->getInstance(1);
-    my $users = $global->modInstance('users');
-    my $dn = "uid=$username," . $users->usersDn;
+    my ($self, $user, $option) = @_;
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-                filter => "&(objectClass=zarafa-contact)");
-    my $mesg = $ldap->search(\%args);
-
-    if (!$mesg->count and ($option)) {
-        my %attrs = (
-              changes => [
-                       add => [
-                           'objectClass' => 'zarafa-contact',
-                           ]
-                       ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-    } elsif ($mesg->count and not ($option)) {
-        my %attrs = (
-              changes => [
-                       delete => [
-                          'objectClass' => ['zarafa-contact'],
-                          ]
-                       ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+    if ($self->hasContact($user) and not $option) {
+        $user->remove('objectClass', 'zarafa-contact');
+    }
+    elsif (not $self->hasContact($user) and $option) {
+        $user->add('objectClass', 'zarafa-contact');
     }
 
     return 0;

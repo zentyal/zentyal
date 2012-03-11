@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,11 +16,9 @@
 use strict;
 use warnings;
 
-
 package EBox::Logs::SlicedBackup;
 
 use EBox;
-use EBox::PgDBEngine;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidData;

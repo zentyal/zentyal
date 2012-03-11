@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -228,7 +228,9 @@ sub _confAttr
 sub isEnabled
 {
     my ($self) = @_;
-    return $self->_confAttr('enabled');
+    # FIXME: disabled until fixed
+    #return $self->_confAttr('enabled');
+    return 0;
 }
 
 

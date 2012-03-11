@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RadiusLogHelper;
+use base 'EBox::LogHelper';
 
 # Class: EBox::RadiusLogHelper
 #
@@ -80,26 +81,26 @@ sub processLine # (file, line, logger)
 
     chomp($line);
 
-    unless ($line =~ /^(.+) : Auth: (.+): \[(.+)\] \(from client (.+) port (\d+)( (cli|via) ((\w+)|TLS tunnel))?\)$/) { 
+    unless ($line =~ /^(.+) : Auth: (.+): \[(.+)\] \(from client (.+) port (\d+)( (cli|via) ((\w+)|TLS tunnel))?\)$/) {
         return;
     }
 
-    my $date = $1;                                                                  
+    my $date = $1;
     my $event = $2;
     my $login = $3;
-    my $client = $4;                                                                
+    my $client = $4;
     my $port = $5;
     my $mac = $6;
 
-    if ($event =~ /User not found/) {                                                   
-        $event = 'User not found';                                                  
+    if ($event =~ /User not found/) {
+        $event = 'User not found';
     } elsif ($event =~ /Bind as user failed/) {
         $event = 'Login incorrect';
     }
 
     if ($mac =~ / cli (\w+)/) {
         $mac = $1;
-        my $s1 = substr($mac, 0, 2); 
+        my $s1 = substr($mac, 0, 2);
         my $s2 = substr($mac, 2, 2);
         my $s3 = substr($mac, 4, 2);
         my $s4 = substr($mac, 6, 2);
@@ -111,13 +112,13 @@ sub processLine # (file, line, logger)
     }
 
     my $data = {
-        'timestamp' => $date,
+        'timestamp' => $date, # FIXME: check this is ok with MySQL
         'event' => $event,
         'login' => $login,
         'client' => $client,
         'port' => $port,
         'mac' => $mac,
-    }; 
+    };
 
     $dbengine->insert('radius_auth', $data);
 }

@@ -3,6 +3,7 @@
 <%args>
 	@users => ();
 	@groups => ();
+    @ous => ();
 </%args>
 <%init>
 use EBox::Gettext;
@@ -64,6 +65,9 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 		<& .groupSelectorLine, groups => \@groups &>
 		</tr>
 		<tr>
+		<& .ouSelectorLine, ous => \@ous &>
+		</tr>
+		<tr>
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit' name='add'
@@ -79,8 +83,6 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 	</table>
 	</form>
 
-
-
 <%def .groupSelectorLine>
 <%args>
 @groups
@@ -91,13 +93,33 @@ my $usersModel = EBox::Global->modInstance('users')->model('Users');
 <td>
     <select name='group' <% @groups == 0 ? 'disabled' : ''  %>>
         <option selected value=''></option>
-%        foreach my $gr (@groups){
-	      <option value='<% $gr->{'account'} %>'>
-		<% $gr->{'account'} %>
-              </option>
-%	}
+% foreach my $gr (@groups){
+	    <option value='<% $gr->dn() %>'>
+              <% $gr->name() %>
+        </option>
+% }
     </select>
 </td>
+</%def>
+
+<%def .ouSelectorLine>
+<%args>
+@ous
+</%args>
+% if (@ous > 0) {
+<td class='tright'>
+     <span class='ftitle'><% __('Organizational Unit') %>:</span>
+</td>
+<td>
+    <select name='ou'>
+% foreach my $ou (@ous){
+	    <option value='<% $ou->dn() %>'>
+              <% $ou->dn() %>
+        </option>
+% }
+    </select>
+</td>
+% }
 </%def>
 
 

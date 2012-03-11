@@ -1,3 +1,4 @@
 class: 'EBox::DNS'
 depends:
     - network
+    - samba

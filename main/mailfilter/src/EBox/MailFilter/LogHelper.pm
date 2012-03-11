@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 
@@ -13,6 +13,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::MailFilter::LogHelper;
+
+use base 'EBox::LogHelper';
 
 use strict;
 use warnings;
@@ -37,20 +39,10 @@ sub new
     return $self;
 }
 
-# Method: domain
-#
-#       Must return the text domain which the package belongs to
-#
-sub domain
+sub logFiles
 {
-    return 'ebox-mailfilter';
-}
-
-sub logFiles {
     return [MAIL_LOG, SYS_LOG];
 }
-
-
 
 # Method: _getDate
 #

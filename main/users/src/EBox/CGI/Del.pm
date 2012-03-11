@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,77 +22,81 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
-sub _warnUser($$) {
-	my $self = shift;
-	my $object = shift;
-	my $name = shift;
+sub _warnUser
+{
+    my ($self, $object, $ldapObject) = @_;
 
-	my $usersandgroups = EBox::Global->modInstance('users');
-	my $warns = $usersandgroups->allWarnings($object, $name);
+    my $usersandgroups = EBox::Global->modInstance('users');
+    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
 
-	if (@{$warns}) { # If any module wants to warn user
-		 $self->{template} = 'users/del.mas';
-		 $self->{redirect} = undef;
-		 my @array = ();
-		 push(@array, 'object' => $object);
-		 push(@array, 'name'   => $name);
-		 push(@array, 'data'   => $warns);
-		 $self->{params} = \@array;
-		 return 1;
-	}
+    if (@{$warns}) { # If any module wants to warn user
+         $self->{template} = 'users/del.mas';
+         $self->{redirect} = undef;
+         my @array = ();
+         push(@array, 'object' => $object);
+         push(@array, 'name'   => $ldapObject);
+         push(@array, 'data'   => $warns);
+         $self->{params} = \@array;
+         return 1;
+    }
 
-	return undef;
+    return undef;
 }
 
-sub _process($) {
-	my $self = shift;
+sub _process
+{
+    my $self = shift;
 
-	my $usersandgroups = EBox::Global->modInstance('users');
+    $self->_requireParam('objectname', __('object name'));
+    my $name = $self->unsafeParam('objectname');
+    my ($deluser, $delgroup);
 
-	$self->_requireParam('objectname', __('object name'));
-	my $name = $self->param('objectname');
-	my ($deluser, $delgroup);
+    if ($self->param('cancel')) {
+        $self->_requireParam('object', __('object type'));
+            my $object = $self->param('object');
+        if ($object eq 'user') {
+            $self->{redirect} = "UsersAndGroups/User?user=$name";
+        } else {
+            $self->{redirect} = "UsersAndGroups/Group?group=$name";
+        }
+    } elsif ($self->param('deluserforce')) { # Delete user
+        $deluser = 1;
+    } elsif ($self->param('delgroupforce')) {
+        $delgroup = 1;
+    } elsif ($self->unsafeParam('deluser')) {
+        my $user = new EBox::UsersAndGroups::User(dn => $name);
+        $deluser = not $self->_warnUser('user', $user);
+    } elsif ($self->unsafeParam('delgroup')) {
+        my $group = new EBox::UsersAndGroups::Group(dn => $name);
+        $delgroup = not $self->_warnUser('group', $group);
+    }
 
-	if ($self->param('cancel')) {
-		$self->_requireParam('object', __('object type'));
-	        my $object = $self->param('object');
-		if ($object eq 'user') {
-			$self->{redirect} = "UsersAndGroups/User?username=$name";
-		} else {
-			$self->{redirect} = "UsersAndGroups/Group?group=$name";
-		}
-	} elsif ($self->param('deluserforce')) { # Delete user
-		$deluser = 1;
-	} elsif ($self->param('delgroupforce')) {
-		$delgroup = 1;
-	} elsif ($self->unsafeParam('deluser')) {
-		$deluser = not $self->_warnUser('user', $name);
-	} elsif ($self->unsafeParam('delgroup')) {
-		$delgroup = not $self->_warnUser('group', $name);
-	}
-
-	if ($deluser) {
-      		$usersandgroups->delUser($name);
-       	      	$self->{chain} = "UsersAndGroups/Users";
-		$self->{msg} = __('User removed successfully');
-	} elsif ($delgroup) {
-      		$usersandgroups->delGroup($name);
-       	      	$self->{chain} = "UsersAndGroups/Groups";
-		$self->{msg} = __('Group removed successfully');
-	}
-
+    if ($deluser) {
+        my $user = new EBox::UsersAndGroups::User(dn => $name);
+        $user->deleteObject();
+        $self->{chain} = "UsersAndGroups/Users";
+        $self->{msg} = __('User removed successfully');
+    } elsif ($delgroup) {
+        my $group = new EBox::UsersAndGroups::Group(dn => $name);
+        $group->deleteObject();
+        $self->{chain} = "UsersAndGroups/Groups";
+        $self->{msg} = __('Group removed successfully');
+    }
 }
 
 1;

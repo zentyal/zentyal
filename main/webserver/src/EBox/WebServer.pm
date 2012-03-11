@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -69,7 +69,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'webserver',
-                                      printableName => __n('Web Server'),
+                                      printableName => __('Web Server'),
                                       @_);
     bless($self, $class);
     return $self;
@@ -162,12 +162,13 @@ sub initialSetup
 
         my $port = $firewall->requestAvailablePort('tcp', 80, 8080);
         $firewall->addInternalService(
-                'name'            => 'http',
-                'description'     => __('HyperText Transport Protocol'),
+                'name'            => 'webserver',
+                'printableName'   => __('Web Server'),
+                'description'     => __('Zentyal Web Server'),
                 'protocol'        => 'tcp',
                 'sourcePort'      => 'any',
                 'destinationPort' => $port,
-                );
+        );
 
         $firewall->saveConfigRecursive();
 

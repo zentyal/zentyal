@@ -1,4 +1,14 @@
-HEAD
+2.3.1
+	+ Added printableName for VNC service
+2.3
+	+ Do not manually specify emulator in xml to make it work in precise
+	+ Use novnc package in precise instead of custom one
+	+ Validation of the format of the disk files
+	+ Removed VMs are stopped, better treatment of disk addition errors
+	+ VNC service is set before saving changes
+	+ Added NetworkObserver methods
+	+ 'None' interface is not longer allowed for libvirt backend
+	+ Added validation of hard disk names
 	+ Bugfix: custom keymap validation works properly now
 	+ Replaced autotools with zbuildtools
 	+ Internal networks now work in KVM

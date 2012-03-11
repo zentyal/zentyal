@@ -1,5 +1,5 @@
 /*
-   Copyright (C) 2011 eBox Technologies S.L.
+   Copyright (C) 2011-2012 eBox Technologies S.L.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License, version 2, as
@@ -63,9 +63,9 @@ void processPkt(u_char *useless, const struct pcap_pkthdr* pkthdr, const u_char*
         lastDump = time(NULL);
     }
 
-    const struct ether_header *eth;
+    //const struct ether_header *eth;
     const struct ip *ip;
-    eth = (const struct ether_header*) packet;
+    //eth = (const struct ether_header*) packet;
     packet += sizeof(struct ether_header);
     ip = (const struct ip*) packet;
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,7 +25,7 @@ use File::Slurp;
 use Error qw(:try);
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
-use constant MILESTONE => '2.2.X';
+use constant MILESTONE => '3.0';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 

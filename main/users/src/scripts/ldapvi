@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -36,33 +36,8 @@ my $ldapconf = $ldap->ldapConf();
 
 my $dn = $ldapconf->{'dn'};
 my $bind = $ldapconf->{'rootdn'};
-my $port = $ldapconf->{'port'};
-my $translucentport = $ldapconf->{'translucentport'};
-my $passwd = $ldap->getPassword();
+my $pwfile = EBox::Config->conf() . "ldap.passwd";
 
-unless ($usersMod->mode() eq 'slave') {
-    print("zentyal-ldapvi: detected standalone or master mode...\n");
-    sleep(1);
-    system("ldapvi -D $bind --bind simple -w $passwd -b $dn");
-} else {
-    print("zentyal-ldapvi: detected slave mode, ");
-    if (@ARGV != 1) {
-        print("\nusage: $0 translucent|frontend\n");
-        exit(2);
-    } elsif ($ARGV[0] eq 'translucent') {
-        print("editing translucent mode (on port $translucentport)...\n");
-        sleep(1);
-        system("ldapvi -h ldap://127.0.0.1:$translucentport/ -D $bind --bind simple -w $passwd -b $dn");
-        exit(0);
-    } elsif ($ARGV[0] eq 'frontend') {
-        print("editing frontend mode (on port $port)...\n");
-        sleep(1);
-        system("ldapvi -h ldap://127.0.0.1:$port/ -D $bind --bind simple -w $passwd -b $dn");
-        exit(0);
-    } else {
-        print("\nusage: $0 translucent|frontend\n");
-        exit(2);
-    }
-}
+system("ldapvi -D $bind --bind simple -w \$(cat $pwfile) -b $dn");
 
 1;

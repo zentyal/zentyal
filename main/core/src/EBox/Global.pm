@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,7 +24,7 @@ use EBox::Exceptions::Internal;
 use Devel::StackTrace;
 
 # Methods of GlobalImpl that need to know if the instance is read-only or not
-my %ro_methods = map { $_ => 1 } qw(modEnabled modChange modInstances modInstancesOfType modInstance modDepends modRevDepends);
+my %ro_methods = map { $_ => 1 } qw(modEnabled modChange modInstances modInstancesOfType modInstance modDepends modRevDepends edition);
 
 # Methods of GlobalImpl that cannot be called on read-only instances
 my %rw_only_methods = map { $_ => 1 } qw(modIsChanged modChange modRestarted saveAllModules revokeAllModules modifiedModules);

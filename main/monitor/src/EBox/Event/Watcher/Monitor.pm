@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -36,8 +36,11 @@ use EBox::Monitor::Configuration;
 # Core modules
 use File::Slurp;
 use Error qw(:try);
+use Time::Piece;
+use Time::Seconds;
 
 # Constants
+use constant PROCESS_PLUGIN_RE => qr/cpu|load/;
 
 # Group: Public methods
 
@@ -229,7 +232,8 @@ sub _parseEvent
 
     my $event = undef;
     try {
-        $hashRef->{message} = $self->_i18n($hashRef->{level}, $hashRef->{message});
+        $hashRef->{message} = $self->_i18n($hashRef->{level}, $hashRef->{message},
+                                           $hashRef->{duration}, $hashRef->{other});
         $event = new EBox::Event(%{$hashRef});
     } otherwise {
         my ($exc) = @_;
@@ -245,10 +249,9 @@ sub _parseEvent
 # Internalization of the message
 sub _i18n
 {
-    my ($self, $severity, $message) = @_;
+    my ($self, $severity, $message, $duration, $other) = @_;
 
-    my ($measureName, $typeName, $waste) = $message =~ m/plugin (.*?) .*type (.*?)(| .*): /g;
-
+    my ($measureName, $typeName, undef) = $message =~ m/plugin (.*?) .*type (.*?)(| .*): /g;
     # Example: "Received a value for <host>/<measure>/<typeInstance>. It was missing for 24 seconds."
     return '' unless (defined($measureName));
 
@@ -282,25 +285,104 @@ sub _i18n
 
         if ( $message =~ m:region of:g ) {
             my ($minBound, $maxBound) = $message =~ m:region of (.*?) and (.*)\.$:;
-            $printableMsg .= __x('That is within the {severity} region of {minBound} '
-                                 . 'and {maxBound}. ',
-                                 severity => $severity, minBound => $measure->formattedGaugeType($minBound),
-                                 maxBound => $measure->formattedGaugeType($maxBound) );
+            if ( defined($duration) and $duration > 0 ) {
+                $printableMsg = __x('{what} "{dS}" has been {duration} within the {severity} '
+                                    . 'region of {minBound} and {maxBound}.',
+                                    what => $what, dS => $printableDataSource,
+                                    duration => $self->_formatDuration($duration),
+                                    severity => $severity, minBound => $measure->formattedGaugeType($minBound),
+                                    maxBound => $measure->formattedGaugeType($maxBound) );
+            } else {
+                $printableMsg .= __x('That is within the {severity} region of {minBound} '
+                                     . 'and {maxBound}. ',
+                                     severity => $severity, minBound => $measure->formattedGaugeType($minBound),
+                                     maxBound => $measure->formattedGaugeType($maxBound) );
+            }
         }
         if ( $message =~ m:threshold of:g ) {
             my ($adverb, $bound) = $message =~ m:That is (.*?) the.*threshold of (.*)\.$:;
             if ( $adverb eq 'above') {
-                $printableMsg .= __x('That is above the {severity} threshold of {bound}. ',
-                                     severity => $severity, bound => $measure->formattedGaugeType($bound) );
+                if ( defined($duration) and $duration > 0 ) {
+                    $printableMsg = __x('{what} "{dS}" has been {duration} above the {severity} threshold of {bound}. ',
+                                        what => $what, dS => $printableDataSource,
+                                        duration => $self->_formatDuration($duration),
+                                        severity => $severity, bound => $measure->formattedGaugeType($bound) );
+                } else {
+                    $printableMsg .= __x('That is above the {severity} threshold of {bound}. ',
+                                         severity => $severity, bound => $measure->formattedGaugeType($bound) );
+                }
             } elsif ( $adverb eq 'below') {
-                $printableMsg .= __x('That is below the {severity} threshold of {bound}. ',
-                                     severity => $severity, bound => $measure->formattedGaugeType($bound) );
+                if ( defined($duration) and $duration > 0 ) {
+                    $printableMsg = __x('{what} "{dS}" has been {duration} below the {severity} threshold of {bound}. ',
+                                        what => $what, dS => $printableDataSource,
+                                        duration => $self->_formatDuration($duration),
+                                        severity => $severity, bound => $measure->formattedGaugeType($bound) );
+                } else {
+                    $printableMsg .= __x('That is below the {severity} threshold of {bound}. ',
+                                         severity => $severity, bound => $measure->formattedGaugeType($bound) );
+                }
             }
         }
     }
 
-    return $printableMsg;
+    if ( defined($other) and $measureName =~ PROCESS_PLUGIN_RE and @{$other} > 0 ) {
+        # Print out the list of culprit processes
+        my $t = new Proc::ProcessTable();
+        my $realProcNum = 0;
+        my $procMsgs = "";
+        foreach my $pid ( @{$other} ) {
+            my ($proc) = grep { $_->pid() == $pid } @{$t->table()};
+            next unless defined($proc);
+            my $format = "%-6s  %-19s  %s\n";
+            my $time = localtime($proc->start());
+            my $timeStr = sprintf('%04s-%02s-%02s %02s:%02s:%02s', $time->year(),
+                                  $time->mon(), $time->mday(),
+                                  $time->hour(), $time->minute(),
+                                  $time->second());
+            $procMsgs .= sprintf($format,
+                                 $pid,
+                                 $timeStr,
+                                 $proc->cmndline());
+            $realProcNum++;
+        }
+        if ( $realProcNum > 0 ) {
+            $printableMsg .= "\n\n";
+            $printableMsg .= __x('The following {n} processes are likely causing it:',
+                                 n => $realProcNum);
+            $printableMsg .= "\n$procMsgs";
+        } # No message
+    }
 
+    return $printableMsg;
+}
+
+# Format to human-readable format a duration time
+sub _formatDuration
+{
+    my ($self, $duration) = @_;
+
+    my $secObj = new Time::Seconds($duration);
+
+    my ($hours, $mins);
+    if ( $secObj >= Time::Seconds::ONE_MINUTE ) {
+        if ( $secObj >= Time::Seconds::ONE_HOUR ) {
+            $hours = int($secObj->hours());
+            $secObj -= ($hours * Time::Seconds::ONE_HOUR);
+        }
+        $mins = int($secObj->minutes());
+        $secObj -= ($mins * Time::Seconds::ONE_MINUTE);
+    }
+    my $secs = $secObj->seconds();
+
+    if ( $hours ) {
+        return __x('{h}h {m}m {s}s',
+                   h => $hours, m => $mins, s => $secs);
+    } elsif ( $mins ) {
+        return __x('{m}m {s}s',
+                   m => $mins, s => $secs);
+    } else {
+        return __x('{s}s', s => $secs);
+    }
 }
 
 1;

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -165,7 +165,11 @@ sub formSubmitted
 
     my $servMod = EBox::Global->modInstance('services');
 
-    $servMod->setMultipleService(name => 'http', internal => 1, services => \@services);
+    $servMod->setMultipleService(name => 'webserver',
+                                 internal => 1,
+                                 printableName => __('Web Server'),
+                                 description => __('Zentyal Web Server'),
+                                 services => \@services);
 }
 
 # Method: sslPort

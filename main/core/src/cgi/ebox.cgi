@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -114,7 +114,7 @@ try {
     my $html = read_file(EBox::Config::templates . $templateFile);
     foreach my $key (%{$params}) {
         my $value = $params->{$key};
-        $html =~ s/{{ $key }}/$value/g;
+        $html =~ s/\Q{{ $key }}\E/$value/g;
     }
     utf8::decode($html);
     print $html;

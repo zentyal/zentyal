@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,34 +32,33 @@ my %mailDirsByType;
 sub initDaemon
 {
     my ($self) = @_;
-    
+
     unless (POSIX::setsid) {
-        EBox::debug ('Cannot start new session for ', $self->{'name'});
+        EBox::debug('Cannot start new session for ', $self->{'name'});
         exit 1;
     }
-    
- #   foreach my $fd (0 .. 64) { POSIX::close($fd); }
-    
+
+    # foreach my $fd (0 .. 64) { POSIX::close($fd); }
+
     my $tmp = EBox::Config::tmp();
     open(STDIN,  "+<$tmp/stdin");
-    if (EBox::Config::configkey('debug') eq 'yes') {
+    if (EBox::Config::boolean('debug')) {
         open(STDOUT, "+>$tmp/stout");
         open(STDERR, "+>$tmp/stderr");
     }
-    
 }
 
 
-sub run 
+sub run
 {
     my ($self) = @_;
-        
+
     EBox::init();
-    
+
     $self->_checkMailfilter();
-    
+
     $self->initDaemon();
-    
+
     $self->_prepare();
 
     $self->_mainloop();
@@ -91,8 +90,6 @@ sub _checkMailfilter
     if (not $vdomains->learnAccountsExists()) {
         die "Neither spam or ham accounts are active";
     }
-
-
 }
 
 
@@ -107,16 +104,14 @@ sub _prepare
     foreach my $user (@users) {
         my $account = $mailUserLdap->userAccount($user);
         defined $account or
-            next; 
-        
+            next;
+
         my ($mailName, $vdomain) = split '@', $account;
         my $mailDir    = $mailUserLdap->maildir($mailName, $vdomain);
         my $newMailDir = $mailDir. "new";
 
         $mailDirsByType{$user} = $newMailDir;
     }
-
-
 }
 
 
@@ -158,13 +153,10 @@ sub _mainloop
                 unlink $path;
                 $wait = 0;
             }
-            
+
             closedir $DH;
         }
-        
-
     }
-    
 }
 
 

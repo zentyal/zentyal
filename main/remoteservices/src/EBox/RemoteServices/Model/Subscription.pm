@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,8 +41,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;
 use EBox::RemoteServices::Backup;
-use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Subscription;
+use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Password;
 use EBox::Types::Text;
@@ -54,10 +55,8 @@ use Error qw(:try);
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=ebox&utm_content=remoteservices'
-                          . '&utm_campaign=register';
-use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
+use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
 
 # Group: Public methods
 
@@ -120,7 +119,7 @@ sub setTypedRow
                                                                password => $password);
         if ( $subs ) {
             # Desubscribing
-            EBox::RemoteServices::Subscription::checkUnsubscribeIsAllowed();
+            EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
             EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
@@ -215,14 +214,14 @@ sub unsubscribe
     my ($self) = @_;
 
     if ($self->eBoxSubscribed()) {
-        EBox::RemoteServices::Subscription::checkUnsubscribeIsAllowed();
+        EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
 
         my $row = $self->row();
 
         # Storing again make subscription if it is already done and
         # unsubscribing if Zentyal is subscribed
         $row->store();
-        # clear cache 
+        # clear cache
         $self->{gconfmodule}->clearCache();
 
         return 1;
@@ -264,7 +263,7 @@ sub help
 
     my $msg = '';
     if (not $self->eBoxSubscribed()) {
-        $msg = __s('To subscribe your Zentyal server to Zentyal Cloud, you need to get first one of the Server Subscriptions (Basic, Professional or Enterprise) from the Zentyal On-line Store. Once you have obtained one of these subscriptions, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
+        $msg = __s('To subscribe your Zentyal server to Zentyal Cloud, you have to have the Free Basic Subscription, or Small Business, or Enterprise Edition, all available in the Zentyal On-line Store. Once you have obtained one of these services, you will be sent a user name and password you can use below to subscribe your server to Zentyal Cloud.');
         $msg .= '<br/><br/>';
 
         #my $modChanges = $self->_modulesToChange();
@@ -608,10 +607,10 @@ sub _filesStr
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('For Zentyal servers in production environments, get {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref} - These give you access to Quality Assured software updates, Alerts, Reports and Remote monitoring and management features of your Zentyal servers!',
-                openhrefp  => '<a href="' . PROF_URL . '" target="_blank">',
-                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
-                closehref => '</a>');
+    return __sx('Want to guarantee that your Zentyal server is always up-to-date, secured and supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

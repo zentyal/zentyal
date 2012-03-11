@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -456,7 +456,7 @@ sub attachDevice
     $device->{block} = ($file =~ /^\/dev\//);
     my $cd = $type eq 'cd';
     $device->{type} = $cd ? 'cdrom' : 'disk';
-    if ($cd or (EBox::Config::configkey('use_ide_disks') eq 'yes')) {
+    if ($cd or EBox::Config::boolean('use_ide_disks')) {
         $device->{bus} = 'ide';
         $device->{letter} = $self->{ideDriveLetter};
         $self->{ideDriveLetter} = chr (ord ($self->{ideDriveLetter}) + 1);
@@ -603,8 +603,7 @@ sub _run
 sub diskFile
 {
     my ($self, $disk, $machine) = @_;
-
-    return shell_quote("$VM_PATH/$machine/$disk.img");
+    return "$VM_PATH/$machine/$disk.img";
 }
 
 sub _vncKeymap
@@ -651,6 +650,12 @@ sub ifaces
     my @ifaces = EBox::NetWrappers::list_ifaces();
     @ifaces = grep { $network->ifaceIsBridge($_) } @ifaces;
     return @ifaces;
+}
+
+
+sub allowsNoneIface
+{
+    return 0;
 }
 
 1;

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -80,6 +80,7 @@ sub _create
                     printableName => __n('Network'),
                     @_);
     $self->{'actions'} = {};
+    $self->{'vifacesConf'} = {};
 
     bless($self, $class);
 
@@ -689,11 +690,21 @@ sub ifaceAddresses # (interface)
 #
 #   an array ref - holding hashes with keys 'address' and 'netmask'
 #   'name'
-sub vifacesConf # (interface)
+sub vifacesConf
 {
-    my $self = shift;
-    my $iface = shift;
+    my ($self, $iface) = @_;
     defined($iface) or return;
+
+    unless (exists $self->{vifacesConf}->{$iface}) {
+        $self->{vifacesConf}->{$iface} = $self->_vifacesConf($iface);
+    }
+
+    return $self->{vifacesConf}->{$iface};
+}
+
+sub _vifacesConf
+{
+    my ($self, $iface) = @_;
 
     my @vifaces = $self->all_dirs("interfaces/$iface/virtual");
     my @array = ();
@@ -879,9 +890,13 @@ sub vifaceExists # (interface)
     my ($self, $name) = @_;
 
     my ($iface, $viface) = $self->_viface2array($name);
-    unless ($iface and $viface) {
+    if (not $iface) {
         return undef;
     }
+    if (not $viface and ($viface ne '0')) {
+        return undef;
+    }
+
     return $self->_vifaceExists($iface, $viface);
 }
 
@@ -936,6 +951,9 @@ sub setViface # (real, virtual, address, netmask)
     $self->set_string("interfaces/$iface/virtual/$viface/address",$address);
     $self->set_string("interfaces/$iface/virtual/$viface/netmask",$netmask);
     $self->set_bool("interfaces/$iface/changed", 'true');
+
+    # clear cache as the config has changed
+    delete $self->{vifacesConf}->{$iface};
 }
 
 # Method: removeViface
@@ -982,6 +1000,8 @@ sub removeViface # (real, virtual, force)
 
     $self->delete_dir("interfaces/$iface/virtual/$viface");
     $self->set_bool("interfaces/$iface/changed", 'true');
+    delete $self->{vifacesConf}->{$iface};
+
     return 1;
 }
 
@@ -2437,7 +2457,7 @@ sub _hasChanged # (interface)
     if ($self->vifaceExists($iface)) {
         ($real) = $self->_viface2array($iface);
     }
-    if ( defined($self->dir_exists("interfaces/$real")) ){
+    if ( $self->dir_exists("interfaces/$real") ){
         return $self->get_bool("interfaces/$real/changed");
     } else {
         return 1; # deleted => has changed
@@ -2496,6 +2516,42 @@ sub _generateDNSConfig
 {
     my ($self) = @_;
 
+    # Set localhost as primary nameserver if the module is enabled.
+    # This works because DNS module modChange network in enableService
+    if (EBox::Global->modExists('dns')) {
+        my $dns = EBox::Global->modInstance('dns');
+        my $resolver = $self->model('DNSResolver');
+        my $ids = $resolver->ids();
+        my $firstId = $ids->[0];
+        my $firstRow = $resolver->row($firstId);
+        if ($dns->isEnabled()) {
+            my $add = 1;
+            if (defined ($firstRow)) {
+                if ($firstRow->valueByName('nameserver') ne '127.0.0.1') {
+                    # Remove local resolver if it exists
+                    foreach my $id (@{$ids}) {
+                        if ($resolver->row($id)->valueByName('nameserver') eq '127.0.0.1') {
+                            $resolver->removeRow($id);
+                        }
+                    }
+                } else {
+                    $add = 0;
+                }
+            }
+            if ($add) {
+                # Now add in the first place
+                $resolver->table->{'insertPosition'} = 'front';
+                $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
+                $resolver->table->{'insertPosition'} = 'back';
+            }
+        } else {
+            # If we have added it before remove when module is disabled.
+            if (defined ($firstRow) and ($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {
+                $resolver->removeRow($firstId);
+            }
+        }
+    }
+
     my $nameservers = $self->nameservers();
     my $request_nameservers = scalar (@{$nameservers}) == 0;
 
@@ -2531,6 +2587,42 @@ sub _generateProxyConfig
     $self->writeConfFile(APT_PROXY_FILE,
                         'network/99proxy.conf.mas',
                         [ proxyConf => $proxyConf ]);
+}
+
+# Method: proxySettings
+#
+#    Return the proxy settings if configured
+#
+# Returns:
+#
+#    Hash ref - the following keys are included
+#
+#        server   - the HTTP proxy's name
+#        port     - the HTTP proxy's port
+#        username - the username to authenticate (optional)
+#        password - the password (optional)
+#
+#    undef - if there is not proxy settings
+#
+sub proxySettings
+{
+    my ($self) = @_;
+
+    my $proxy  = $self->model('Proxy');
+    my $server = $proxy->serverValue();
+    my $port   = $proxy->portValue();
+    if ( $server and $port ) {
+        my $retValue = { server => $server, port => $port };
+        my $username = $proxy->usernameValue();
+        my $password = $proxy->passwordValue();
+        if ( $username and $password ) {
+            $retValue->{username} = $username;
+            $retValue->{password} = $password;
+        }
+        return $retValue;
+    } else {
+        return undef;
+    }
 }
 
 # Method: isDDNSEnabled
@@ -2706,6 +2798,7 @@ sub generateInterfaces
     }
     my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
     print IFACES "\n\niface lo inet loopback\n";
+    print IFACES "    post-up ip addr add 127.0.1.1/8 dev lo\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
         my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
@@ -2912,6 +3005,14 @@ sub _multigwRoutes
 
     push(@cmds, EBox::Config::share() . 'zentyal-network/flush-fwmarks');
     my %interfaces;
+    for my $router ( reverse @{$routers} ) {
+        # Skip gateways with unassigned address
+        my $ip = $router->{'ip'};
+        next unless $ip;
+
+        my $iface = $router->{'interface'};
+        $interfaces{$iface}++;
+    }
 
     for my $router ( reverse @{$routers} ) {
 
@@ -2942,6 +3043,12 @@ sub _multigwRoutes
         push(@cmds, "/sbin/ip route flush table $table");
         push(@cmds, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@cmds, "/sbin/ip rule add from $ip table $table");
+
+        # Add rule by source in multi interface configuration
+        if ( scalar keys %interfaces > 1 ) {
+            push(@cmds, "/sbin/ip rule add from $address table $table");
+        }
+
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 
@@ -3066,6 +3173,9 @@ sub _preSetConf
                         push (@cmds, "/sbin/ip address flush label $if:*");
                     }
                     push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+                    if ($self->ifaceMethod($if) eq 'bridge') {
+                        push (@cmds, "/usr/sbin/brctl delbr $if");
+                    }
                 }
                 EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {};
@@ -3187,6 +3297,9 @@ sub restoreConfig
     foreach my $iface (@{$self->allIfaces()}) {
         $self->_setChanged($iface);
     }
+
+    # Clear cached vifaces conf
+    $self->{'vifacesConf'} = {};
 
     $self->SUPER::restoreConfig();
 }
@@ -3467,7 +3580,7 @@ sub selectedDefaultGateway
 {
     my ($self) = @_;
 
-    return $self->st_get_string('default/gateway');
+    return $self->get_string('default/gateway');
 }
 
 # Method: storeSelectedDefaultGateway
@@ -3481,8 +3594,7 @@ sub selectedDefaultGateway
 sub storeSelectedDefaultGateway # (gateway
 {
     my ($self, $gateway) = @_;
-
-    return $self->st_set_string('default/gateway', $gateway);
+    return $self->set_string('default/gateway', $gateway);
 }
 
 # Method: DHCPGateway
@@ -3658,6 +3770,27 @@ sub resolv # (host)
     return `dig +time=3 $host 2>&1`;
 }
 
+# Method: wakeonlan
+#
+#   Performs a wakeonlan and returns the output
+#
+# Parameters:
+#
+#   macs - Array of MAC addresses of the computers to wake
+#
+# Returns:
+#
+#   string - output of the wakeonlan command
+#
+sub wakeonlan # (macs)
+{
+    my ($self, @macs) = @_;
+
+    my $param = join (' ' , @macs);
+
+    return `wakeonlan $param 2>&1`;
+}
+
 sub interfacesWidget
 {
     my ($self, $widget) = @_;
@@ -3803,7 +3936,7 @@ sub menu
                                       'order' => 70));
 
     $folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
-                                      'text' => __('Diagnostic Tools'),
+                                      'text' => __('Tools'),
                                       'order' => 80));
 
     $root->add($folder);
@@ -4178,7 +4311,7 @@ sub _readInterfaces
         $line =~ s/^\s+//g;
         my @toks = split (/\s+/, $line);
         next unless @toks;
-        if ($toks[0] eq 'iface' and $toks[2] eq 'inet')	{
+        if ($toks[0] eq 'iface' and $toks[2] eq 'inet') {
             next if ($self->_ignoreIface($toks[1]));
             push (@interfaces, $iface) if ($iface);
             $iface = { name   => $toks[1],
@@ -4199,25 +4332,25 @@ sub _readInterfaces
 sub _readResolv
 {
     my $resolvFH;
-	unless (open($resolvFH, RESOLV_FILE)) {
-		EBox::warn("Couldn't open " . RESOLV_FILE);
-		return [];
-	}
+    unless (open($resolvFH, RESOLV_FILE)) {
+        EBox::warn("Couldn't open " . RESOLV_FILE);
+        return [];
+    }
 
     my $searchdomain = undef;
-	my @dns;
-	for my $line (<$resolvFH>) {
-		$line =~ s/^\s+//g;
-		my @toks = split (/\s+/, $line);
-		if ($toks[0] eq 'nameserver') {
-			push (@dns, $toks[1]);
-		} elsif ($toks[0] eq 'search') {
+    my @dns;
+    for my $line (<$resolvFH>) {
+        $line =~ s/^\s+//g;
+        my @toks = split (/\s+/, $line);
+        if ($toks[0] eq 'nameserver') {
+            push (@dns, $toks[1]);
+        } elsif ($toks[0] eq 'search') {
             $searchdomain = $toks[1];
         }
-	}
+    }
     close ($resolvFH);
 
-	return [$searchdomain, @dns];
+    return [$searchdomain, @dns];
 }
 
 # Group: report-related files

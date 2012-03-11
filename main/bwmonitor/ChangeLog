@@ -1,4 +1,7 @@
-HEAD
+2.3.1
+	+ Fix bug in report when there is no data to report
+2.3
+	+ Adapted to new MySQL logs backend
 	+ Do not show invalid edit action in BWUsage model
 	+ Replaced autotools with zbuildtools
 2.2.4

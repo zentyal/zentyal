@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -92,6 +92,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
+                'printableName' => 'Jabber',
                 'description' => __('Jabber Server'),
                 'internal' => 1,
                 'readOnly' => 1,
@@ -208,11 +209,7 @@ sub _setConf
     push(@array, 'muc' => $settings->mucValue());
 
     push(@array, 'ldapsrv' => '127.0.0.1');
-    unless ($users->mode() eq 'slave') {
-        push(@array, 'ldapport', $ldapconf->{'port'});
-    } else {
-        push(@array, 'ldapport', $ldapconf->{'translucentport'});
-    }
+    push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -134,7 +134,7 @@ sub initialSetup
 
     # Create default rules only if installing the first time
     unless ($version) {
-        $self->setInternalService('eBox administration', 'accept');
+        $self->setInternalService('administration', 'accept');
         $self->setInternalService('ssh', 'accept');
 
         my $services = EBox::Global->modInstance('services');
@@ -978,6 +978,7 @@ sub _addService
 
     if (not $serviceMod->serviceExists('name' => $params{name})) {
         $serviceMod->addService('name' => $params{name},
+                'printableName' => $params{printableName},
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
@@ -986,6 +987,7 @@ sub _addService
                 );
     } else {
         $serviceMod->setService('name' => $params{name},
+                'printableName' => $params{printableName},
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
@@ -1022,18 +1024,18 @@ sub tableInfo
 
     return [{
             'name' => __('Firewall'),
-            'index' => 'firewall',
+            'tablename' => 'firewall',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'firewall',
             'timecol' => 'timestamp',
             'filter' => ['fw_in', 'fw_out', 'fw_src',
                          'fw_dst', 'fw_proto', 'fw_spt', 'fw_dpt'],
+            'types' => { 'fw_src' => 'IPAddr', 'fw_dst' => 'IPAddr' },
             'events' => $events,
             'eventcol' => 'event',
             'disabledByDefault' => 1,
 
-            consolidate => $self->_consolidate(),
+            'consolidate' => $self->_consolidate(),
            }];
 }
 

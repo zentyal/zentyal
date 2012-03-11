@@ -1,3 +1,7 @@
+<%args>
+    $image_name => 'zentyal.png'
+    $extra_messages => ''
+</%args>
 <%init>
 use EBox::Gettext;
 </%init>
@@ -26,7 +30,7 @@ use EBox::Gettext;
       <table border="0" cellspacing="0" cellpadding="2" width="700">
         <tr>
           <td align="center" class="head">
-            <img src="http://static.zentyal.org/img/zentyal.png" align="left" alt="Zentyal" />
+            <img src="http://static.zentyal.org/img/<% $image_name %>" align="left" alt="Zentyal" />
             <h1>
               <% __('Access has been Denied') %>
             </h1>
@@ -40,6 +44,9 @@ use EBox::Gettext;
               <p><% __('Categories') %>:</p>
               <p class="categories">-CATEGORIES-</p>
               <p><% __('You are seeing this error because what you attempted to access appears to contain, or is labeled as containing, material that has been deemed inappropriate.') %></p>
+% if ($extra_messages) {
+              <p><% $extra_messages %></p>
+% }
               <p><% __('If you have any queries contact your ICT Coordinator or Network Manager.') %></p>
             </div>
           </td>

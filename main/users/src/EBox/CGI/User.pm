@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -44,17 +44,18 @@ sub _process
 
     my @args = ();
 
-    $self->_requireParam("username", __('username'));
+    $self->_requireParam("user", __('username'));
 
-    my $user = $self->param('username');
-    my $userinfo = $usersandgroups->userInfo($user);
+    my $dn = $self->unsafeParam('user');
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+
     my $components = $usersandgroups->allUserAddOns($user);
-    my $usergroups = $usersandgroups->groupsOfUser($user);
-    my $remaingroups = $usersandgroups->groupsNotOfUser($user);
+    my $usergroups = $user->groups();
+    my $remaingroups = $user->groupsNotIn();
 
     my $editable = $usersandgroups->editableMode();
 
-    push(@args, 'user' => $userinfo);
+    push(@args, 'user' => $user);
     push(@args, 'usergroups' => $usergroups);
     push(@args, 'remaingroups' => $remaingroups);
     push(@args, 'components' => $components);
@@ -62,10 +63,12 @@ sub _process
 
     if ($editable) {
         $self->{crumbs} = [
-            {title => __('Users'),
+            {
+                title => __('Users'),
                 link => '/UsersAndGroups/Users'
             },
-            {title => $user,
+            {
+                title => $user->name(),
                 link => undef,
             },
         ];

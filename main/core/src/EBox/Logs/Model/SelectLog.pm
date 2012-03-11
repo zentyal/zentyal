@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,11 +25,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Logs::Consolidate;
 
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant UTM       => '?utm_source=zentyal&utm_medium=query.logs&utm_campaign=reports';
-use constant PROF_URL  => STORE_URL . 'serversubscriptions/subscription-professional.html' . UTM;
-use constant ENTER_URL => STORE_URL . 'serversubscriptions/subscription-enterprise.html' . UTM;
-use constant REPORT_URL => 'http://www.zentyal.com/sample-report-pdf' . UTM;
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=logs&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=logs&utm_campaign=enterprise_edition';
 
 sub new
 {
@@ -216,11 +213,10 @@ sub viewCustomizer
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Gain full access to frequent reports based on these logs by purchasing a {openhrefp}Professional{closehref} or {openhrefe}Enterprise Subscription{closehref}. You can see a sample of these reports {openhrefr}here{closehref}.',
-                openhrefp => '<a href="' . PROF_URL . '" target="_blank">',
-                openhrefe => '<a href="' . ENTER_URL . '" target="_blank">',
-                openhrefr => '<a href="' . REPORT_URL . '" target="_blank">',
-                closehref => '</a>');
+    return __sx('Want to know what is your system status and usage? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to receive regular system reports.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

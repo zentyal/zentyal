@@ -1,5 +1,5 @@
-CREATE TABLE bwmonitor_usage (
-    client CHAR(15), -- FIXME INET
+CREATE TABLE IF NOT EXISTS bwmonitor_usage (
+    client INT UNSIGNED,
     username VARCHAR(255),
     interface     VARCHAR(30),
 
@@ -17,9 +17,7 @@ CREATE TABLE bwmonitor_usage (
     extUDP        BIGINT,
     extICMP       BIGINT,
 
-    timestamp TIMESTAMP);
+    timestamp TIMESTAMP,
 
-CREATE INDEX bwmonitor_usage_timestamp_i on bwmonitor_usage(timestamp);
-CREATE INDEX bwmonitor_usage_client_i on bwmonitor_usage(client);
-CREATE INDEX bwmonitor_usage_username_i on bwmonitor_usage(username);
-
+    INDEX(timestamp), INDEX(client), INDEX(username)
+);

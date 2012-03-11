@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -44,6 +44,8 @@ use Error qw(:try);
 
 # Constants
 use constant URL => 'https://store.zentyal.com/other/disaster-recovery.html';
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=backup&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=backup&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -574,9 +576,11 @@ sub _gpgKeys
 
 sub _message
 {
-    return __sx('Choosing {brand} method you will use the {ohref}{service} service{chref}. This service guarantees that your most business critical data will be stored in a safe remote location and can be recovered easily in case of a disaster. You gain access to this service by obtaining the {service} service and Professional or Enterprise Subscription.',
+    return __sx('Choosing {brand} method you will use the {ohref}{service} service{ch}.  Ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster?  Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} to enable the service.',
                 brand => __s('Zentyal Cloud'), service => __s('Zentyal Disaster Recovery'),
-                ohref => '<a href="' . URL . '" target="_blank">', chref => '</a>');
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ohref => '<a href="' . URL . '" target="_blank">', ch => '</a>');
 }
 
 

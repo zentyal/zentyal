@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -97,9 +97,9 @@ sub populateGroups
     );
     push (@groups, map (
             {
-               value            => $_->{account},
-               printableValue   => $_->{account},
-            }, $userMod->groups()
+               value            => $_->name(),
+               printableValue   => $_->name(),
+            }, @{$userMod->groups()}
          )
     );
     return \@groups;

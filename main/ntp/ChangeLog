@@ -1,4 +1,6 @@
-HEAD
+2.3.1
+	+ Updated Standards-Version to 3.9.2
+2.3
 	+ Replaced autotools with zbuildtools
 2.1.7
 	+ Disable also ntp daemon on dhclient hook

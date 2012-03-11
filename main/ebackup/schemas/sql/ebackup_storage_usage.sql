@@ -1,7 +1,6 @@
-CREATE TABLE ebackup_storage_usage (
+CREATE TABLE IF NOT EXISTS ebackup_storage_usage (
     timestamp TIMESTAMP,
     used BIGINT,
-    available BIGINT
+    available BIGINT,
+    INDEX(timestamp)
 );
-
-CREATE INDEX ebackup_storage_usage_timestamp_i on ebackup_storage_usage(timestamp);

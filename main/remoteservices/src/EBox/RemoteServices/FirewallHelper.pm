@@ -1,4 +1,4 @@
-# Copyright (C) 2011 EBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -53,8 +53,8 @@ sub prerouting
     my $iface = $self->{vpnInterface};
 
     my $cmd = qq{-t nat -i $iface } .
-              qq{-p tcp -m tcp --dport } . STD_SSH_PORT . ' '; 
-             
+              qq{-p tcp -m tcp --dport } . STD_SSH_PORT . ' ';
+
     if ($addr ne LISTEN_ALL) {
         $cmd .= qq{-j DNAT --to-destination $addr:$port}
     } else {
@@ -80,8 +80,8 @@ sub input
         $cmd .= qq{-d $addr/32 }
     }
     $cmd .= qq{-i $iface } .
-              qq{-p tcp -m tcp --dport $port }; 
-             
+              qq{-p tcp -m tcp --dport $port };
+
 
     $cmd .=   qq{-j ACCEPT};
 
@@ -96,10 +96,10 @@ sub _mustRedirect
     }
     if (not $self->{sshRedirect}) {
         return 0;
-    }    
+    }
     if (not $self->{vpnInterface}) {
         return 0;
-    }   
+    }
 
     return 1;
 }

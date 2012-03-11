@@ -1,6 +1,5 @@
-CREATE TABLE dns_domains (
+CREATE TABLE IF NOT EXISTS dns_domains (
     timestamp TIMESTAMP,
-    domains INT
+    domains INT,
+    INDEX(timestamp)
 );
-
-CREATE INDEX dns_domains_timestamp_i on dns_domains(timestamp);

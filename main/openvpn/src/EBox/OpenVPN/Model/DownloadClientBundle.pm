@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -143,13 +143,16 @@ sub _clientTypeOptions
                     printableValue => 'Mac OS X',
 #                    $EBoxToEBoxTunnel ? @disabledAttr : (),
                    } ,
-                   {
-                    value => 'EBoxToEBox',
-                    printableValue => __('Zentyal to Zentyal tunnel') ,
-#                    $EBoxToEBoxTunnel ? () : @disabledAttr,
-                   },
 
                   );
+
+    if (EBox::Global->edition() ne 'sb') {
+        push (@options, {
+            value => 'EBoxToEBox',
+            printableValue => __('Zentyal to Zentyal tunnel') ,
+#            $EBoxToEBoxTunnel ? () : @disabledAttr,
+        });
+    }
 
     return \@options;
 }

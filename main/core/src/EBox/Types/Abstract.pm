@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -51,7 +51,14 @@ sub new
         $self->{printableName} = $self->{fieldName};
     }
 
-    if (defined($self->{'hidden'}) and $self->{'hidden'}) {
+    if (defined $self->{'hidden'} and ref $self->{'hidden'})
+    {
+        my $hiddenFunc = $self->{'hidden'};
+        if (&$hiddenFunc()) {
+            $self->{'HTMLViewer'} = undef;
+            $self->{'HTMLSetter'} = undef;
+        }
+    } elsif (defined($self->{'hidden'}) and $self->{'hidden'}) {
         $self->{'HTMLViewer'} = undef;
         $self->{'HTMLSetter'} = undef;
     } elsif (defined($self->{'hiddenOnSetter'}) and $self->{'hiddenOnSetter'}) {
@@ -158,10 +165,12 @@ sub editable
 
     if ( $self->volatile() and not $self->storer()) {
         return 0;
+    } elsif (ref $self->{'editable'}) {
+        my $editableFunc = $self->{editable};
+        return &$editableFunc();
     } else {
         return $self->{'editable'};
     }
-
 }
 
 sub fieldName

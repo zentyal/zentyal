@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -139,7 +139,7 @@ sub writeConf
     push @masonParams, (ldapBase         =>  $ldap->dn );
     push @masonParams, (ldapQueryFilter  =>  '(&(objectClass=amavisAccount)(|(mail=%m)(domainMailPortion=%m)))');
     push @masonParams, (ldapBindDn       =>  $ldap->rootDn );
-    push @masonParams, (ldapBindPasswd   =>  $ldap->rootPw );
+    push @masonParams, (ldapBindPasswd   =>  $ldap->getPassword());
 
     push @masonParams, (antivirusActive  => $self->antivirus());
     push @masonParams, (virusPolicy      => $self->filterPolicy('virus'));
@@ -159,7 +159,7 @@ sub writeConf
 
     push @masonParams, (adminAddress => $self->adminAddress);
 
-    push @masonParams, (debug => EBox::Config::configkey('debug') eq 'yes');
+    push @masonParams, (debug => EBox::Config::boolean('debug'));
 
     my $uid = getpwnam('root');
     my $gid = getgrnam('root');

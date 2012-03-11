@@ -1,4 +1,9 @@
-HEAD
+2.3.2
+	+ Service name is now translatable
+2.3.1
+	+ Updated Standards-Version to 3.9.2
+2.3
+	+ Adapted to new MySQL logs backend
 	+ Replaced autotools with zbuildtools
 	+ Fixed bug which inserted log lines with printer and/or user NULL
 2.1.6

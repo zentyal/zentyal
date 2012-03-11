@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -562,11 +562,11 @@ sub formattedGaugeType
     my ($self, $count) = @_;
 
     given ( $self->{type} ) {
-        when ( 'int' ) { return $count; }
+        when ( 'int' ) { return _formatInt($count); }
         when ( 'percentage' ) { return "$count%"; }
         when ( 'bps' ) { return (_formatSize($count) . '/s'); }
         when ( 'millisecond' ) { return _formatTimeDiff($count); }
-        when ( 'degree' ) { return "$count°"; }
+        when ( 'degree' ) { return _formatInt($count) . '°'; }
         when ( 'byte' ) { return _formatSize($count) }
         default { return "$count " . $self->{type} . 's' }
     }
@@ -817,7 +817,7 @@ sub _formatTimeDiff
     }
     my $num = 10 ** 2;
 
-    my $numStr = sprintf( '%.3f', ($timeDiff * $num / $num));
+    my $numStr = sprintf( '%.2f', ($timeDiff * $num / $num));
     # Remove trailing zeroes if there are any
     $numStr =~ s:0+$::;
     $numStr =~ s:\.$::;
@@ -851,7 +851,7 @@ sub _formatSize
     }
     my $num = 10 ** 2;
 
-    my $numStr = sprintf( '%.3f', ($size * $num / $num));
+    my $numStr = sprintf( '%.2f', ($size * $num / $num));
     # Remove trailing zeroes if there are any
     $numStr =~ s:0+$::;
     $numStr =~ s:\.$::;
@@ -875,6 +875,18 @@ sub _sizeSuffix
         when ( 8 ) { return 'YB'; }
         default    { return 'XB'; }
     }
+}
+
+sub _formatInt
+{
+    my ($count) = @_;
+
+    my $countStr = sprintf( '%.2f', $count);
+    # Remove trailing zeroes if there are any
+    $countStr =~ s:0+$::;
+    $countStr =~ s:\.$::;
+
+    return $countStr;
 }
 
 1;

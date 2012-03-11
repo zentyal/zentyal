@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,10 +22,7 @@ package EBox::UsersAndGroups::Model::Mode;
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
-use EBox::Types::Select;
-use EBox::Types::Host;
-use EBox::Types::Port;
-use EBox::Types::Password;
+use EBox::Types::Text;
 use EBox::View::Customizer;
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -59,22 +56,9 @@ sub new
 #
 sub _table
 {
-
     my ($self) = @_;
 
     my @tableDesc = (
-        new EBox::Types::Select (
-            fieldName => 'mode',
-            printableName => __('Mode'),
-            options => [
-                { 'value' => 'master', 'printableValue' => __('Master') },
-# FIXME slave mode removed due to compatibility issues in precise
-#                { 'value' => 'slave', 'printableValue' => __('Slave') },
-                { 'value' => 'ad-slave', 'printableValue' => __('Windows AD Slave') },
-            ],
-            editable => 1,
-            defaultValue => 'master',
-        ),
         new EBox::Types::Text (
             fieldName => 'dn',
             printableName => __('LDAP DN'),
@@ -82,75 +66,20 @@ sub _table
             allowUnsafeChars => 1,
             size => 36,
             defaultValue => _dnFromHostname(),
-            help => __('Only for master and AD slave configuration')
-        ),
-        new EBox::Types::Host (
-            fieldName => 'remote',
-            printableName => __('Master host'),
-            editable => 1,
-            help => __('Only for slave configuration: IP of the master Zentyal or Windows AD')
-        ),
-        new EBox::Types::Password (
-            fieldName => 'password',
-            printableName => __('LDAP password'),
-            editable => 1,
-            help => __('Master Zentyal LDAP password')
+            help => __('This will be the DN suffix in LDAP tree')
         ),
     );
 
     my $dataForm = {
         tableName           => 'Mode',
         printableTableName  => __('Configuration'),
-        pageTitle           => __('Zentyal Users Mode'),
+        pageTitle           => __('Zentyal Users'),
         defaultActions      => [ 'editField', 'changeView' ],
         tableDescription    => \@tableDesc,
         modelDomain         => 'Users',
     };
 
     return $dataForm;
-}
-
-# Method: viewCustomizer
-#
-#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
-#   a custom behaviour to enable and disable the 'remote' field
-#   depending on the 'mode' value
-#
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    # Be careful: password should be always the first item if there are more
-    # as we remove it using shift later
-    my @enableMaster = ('dn');
-    my @disableMaster = ('password', 'remote');
-    my @enableSlave = ('password', 'remote');
-    my @disableSlave = ('dn');
-    my @enableAD = ('dn', 'remote');
-    my @disableAD = ('password');
-
-    $customizer->setOnChangeActions(
-            { mode =>
-                {
-                  'master'   => {
-                        enable  => \@enableMaster,
-                        disable => \@disableMaster,
-                    },
-#                  'slave'    => {
-#                        enable  => \@enableSlave,
-#                        disable => \@disableSlave,
-#                    },
-                  'ad-slave' => {
-                        enable  => \@enableAD,
-                        disable => \@disableAD,
-                    },
-                }
-            });
-    return $customizer;
 }
 
 sub _dnFromHostname
@@ -178,8 +107,7 @@ sub _validateDN
     my ($self, $dn) = @_;
 
     unless ($dn =~ /^dc=[^,=]+(,dc=[^,=]+)*$/) {
-        throw EBox::Exceptions::InvalidData(data => __('LDAP DN'),
-                                            value => $dn);
+        throw EBox::Exceptions::InvalidData(data => __('LDAP DN'), value => $dn);
     }
 }
 

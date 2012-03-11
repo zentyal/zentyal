@@ -1,4 +1,11 @@
-HEAD
+2.3.2
+	+ Now name is just an internal id, it is optional and hidden and defaults
+	  to printableName in case of services manually added by the user
+	+ Better printableNames for default services
+	+ Service names are now translatable
+2.3.1
+	+ Updated Standard-Versions to 3.9.2
+2.3
 	+ Replaced autotools with zbuildtools
 2.1.7
 	+ Removed /zentyal prefix from URLs

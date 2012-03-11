@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -33,6 +33,7 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Subscription::Check;
 use EBox::Sudo;
 use EBox::Util::Nmap;
 
@@ -180,6 +181,11 @@ sub subscribeEBox
     # Check the WS is reachable
     $self->_checkWSConnectivity();
 
+    # Check the available edition is suitable for this server
+    EBox::RemoteServices::Subscription::Check->new()->subscribe(
+        user => $self->{user},
+        password => $self->{password});
+
     my $vpnSettings;
     try {
         $vpnSettings = $self->soapCall('vpnSettings');
@@ -247,6 +253,24 @@ sub serversList
     my ($self) = @_;
 
     my $list = $self->soapCall('showList');
+
+    return $list;
+}
+
+# Method: availableEdition
+#
+#      Return the possible available editions for this user if he
+#      subscribes a new server
+#
+# Returns:
+#
+#      Array ref - the possible available editions
+#
+sub availableEdition
+{
+    my ($self) = @_;
+
+    my $list = $self->soapCall('availableEdition');
 
     return $list;
 
@@ -473,18 +497,6 @@ sub deleteData
 
 }
 
-# Checks whether the installed modules allows to be unsubscribed for cloud
-sub checkUnsubscribeIsAllowed
-{
-    my $modList = EBox::Global->modInstances();
-    foreach my $mod (@{  $modList }) {
-        my $method = 'canUnsubscribeFromCloud';
-        if ($mod->can($method)) {
-            $mod->$method();
-        }
-    }
-}
-
 # Group: Private methods
 
 # Open up the HTTPS connections
@@ -584,6 +596,7 @@ sub _setQAUpdates
     $self->_setQASources($params->{QASources}, $confKeys);
     $self->_setQAAptPubKey($params->{QAAptPubKey});
     $self->_setQAAptPreferences($params->{QAAptPreferences});
+    $self->_setQARepoConf($confKeys);
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -686,7 +699,6 @@ sub _setQASources
     File::Slurp::write_file($tmpFile, $output);
     my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
     EBox::Sudo::root("install -m 0644 '$tmpFile' '$destination'");
-
 }
 
 # Get the ubuntu version
@@ -743,14 +755,21 @@ sub _setQAAptPreferences
 
     EBox::Sudo::root("cp '$tmpFile' '$fromCCPreferences'");
 
-    my $exclusiveSource = EBox::Config::configkey('qa_updates_exclusive_source');
-    if (lc($exclusiveSource) ne 'true') {
-        return;
-    }
+    return unless EBox::Config::boolean('qa_updates_exclusive_source');
 
     my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
     EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
+}
 
+# Set not to use HTTP proxy for QA repository
+sub _setQARepoConf
+{
+    my ($self, $confKeys) = @_;
+
+    my $repoAddr = $self->_repositoryAddr($confKeys);
+    EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
+                                             '/remoteservices/qa-conf.mas',
+                                             [ repoAddr => $repoAddr ]);
 }
 
 # Get the repository IP address
@@ -778,6 +797,7 @@ sub _removeQAUpdates
     $self->_removeAptQASources();
     $self->_removeAptPubKey();
     $self->_removeAptQAPreferences();
+    $self->_removeAptQAConf();
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -809,7 +829,12 @@ sub _removeAptQAPreferences
     EBox::Sudo::root("rm -f '$path'");
     $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
     EBox::Sudo::root("rm -f '$path'");
+}
 
+sub _removeAptQAConf
+{
+    my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
+    EBox::Sudo::root("rm -f '$path'");
 }
 
 # Remove the Dynamic DNS configuration only if the service is using
@@ -856,6 +881,7 @@ sub _checkWSConnectivity
     $counter or
         throw EBox::Exceptions::Internal('Mirror count not found');
 
+    # TODO: Use the network module API
     my $network    = EBox::Global->modInstance('network');
     my $proxyModel = $network->model('Proxy');
     my $proxy      = $proxyModel->serverValue();
@@ -909,10 +935,8 @@ sub _checkWSConnectivity
 sub _checkVPNConnectivity
 {
     my ($self, $host, $proto, $port) = @_;
-    my $skip = EBox::Config::configkey('subscription_skip_vpn_scan');
-    if ($skip eq 'true') {
-        return;
-    }
+
+    return if EBox::Config::boolean('subscription_skip_vpn_scan');
 
     my $ok = 0;
     if ( $proto eq 'tcp' ) {

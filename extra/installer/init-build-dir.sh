@@ -21,8 +21,8 @@ do
 done
 mkdir $BUILD_DIR/indices
 
-for i in autobuild build_cd.sh generate_extras.sh setup-base-cd-image.sh \
-         list-duplicated.sh list-not-installed.sh zenbuntu-desktop data images
+for i in autobuild build_cd.sh generate_extras.sh setup-base-cd-image.sh extract-core-deps.sh \
+         list-duplicated.sh list-not-installed.sh replace-debs-ppa.sh zenbuntu-desktop data images
 do
     ln -s $cwd/$i $BUILD_DIR/$i
 done

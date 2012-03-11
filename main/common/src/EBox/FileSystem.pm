@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -245,24 +245,44 @@ sub fileSystems
 #      The properties are: mountPoint, type, options, dump and pass
 #      The properties have the same format that the fields in the fstab file
 #
+my %noDeviceFs = (
+    proc => 1,
+    devpts => 1,
+    tmpfs => 1,
+    securityfs => 1,
+    selinuxfs => 1,
+    fuse => 1,
+    devtmpfs => 1,
+    binfmt_misc => 1,
+    gvfs => 1,
+);
+
 sub partitionsFileSystems
 {
     my ($includeRemovable) = @_;
 
     my %fileSys = %{  fileSystems() };
 
-    foreach my $fs (keys %fileSys) {
+    while (my ($fs, $attrs) = each %fileSys) {
         # remove non-device filesystems
-        if (($fs eq 'none') or
-             ($fs eq 'proc'))    {
+        if ($fs eq 'none') {
                 delete $fileSys{$fs};
                 next;
+        }
 
+        my $type = $attrs->{type};
+        if (exists $noDeviceFs{$type} and $noDeviceFs{$type}) {
+                delete $fileSys{$fs};
+                next;
+        } elsif ($type =~ /^fuse\./) {
+            # ignore any fuse files system
+            delete $fileSys{$fs};
+            next;
         }
 
         if (not $includeRemovable) {
             # remove removable media files
-            my $mpoint = $fileSys{$fs}->{mountPoint};
+            my $mpoint = $attrs->{mountPoint};
             if ($mpoint =~ m{^/media/}) {
                 delete $fileSys{$fs};
                 next;
@@ -293,6 +313,10 @@ sub _fileSystems
         next if ($lineData =~ m/^\s*$/); # discard empty lines
 
         my ($fsys, $mpoint, $type, $options, $dump, $pass) = split '\s+', $lineData;
+        if ($fsys eq 'none') {
+            # none file sys are ignored by now
+            next;
+        }
 
         my @options = split /,/, $options;
         my $bind = grep { $_ eq 'bind' } @options;
@@ -301,11 +325,15 @@ sub _fileSystems
             next;
         }
 
-        $fileSystems{$fsys}->{mountPoint} = $mpoint;
-        $fileSystems{$fsys}->{type} = $type;
-        $fileSystems{$fsys}->{options} = $options;
-        $fileSystems{$fsys}->{dump} = $dump;
-        $fileSystems{$fsys}->{pass} = $pass;
+        my $attrs = {
+            mountPoint => $mpoint,
+            type => $type,
+            options => $options,
+            dump => $dump,
+            pass => $pass,
+        };
+
+        $fileSystems{$fsys} = $attrs;
     }
 
     close $FH or

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,8 @@ package EBox::LogHelper;
 
 use strict;
 use warnings;
+
+use Time::Piece;
 
 sub new
 {
@@ -64,5 +66,13 @@ sub processLine # (file, line, dbengine)
     return undef;
 }
 
+# Helper method to convert to the format accepted by the database
+sub _convertTimestamp
+{
+    my ($self, $format, $timestamp) = @_;
+
+    my $t = Time::Piece->strptime($timestamp, $format);
+    return $t->strftime('%Y-%m-%d %H:%M:%S');
+}
 
 1;

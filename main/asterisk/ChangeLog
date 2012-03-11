@@ -1,4 +1,9 @@
-HEAD
+2.3.1
+	+ Service name is now translatable
+	+ Adapted to new users implementation
+2.3
+	+ Added init.d type to _daemons
+	+ Adapted to new MySQL logs backend
 	+ Replaced autotools with zbuildtools
 	+ Fixed problems with interactions of users and groups queues
 2.1.6

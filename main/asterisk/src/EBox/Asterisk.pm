@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -183,7 +183,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('Zentyal VoIP system'),
+                'description' => __('Zentyal VoIP system'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),
@@ -254,6 +254,7 @@ sub _daemons
     return [
         {
             'name' => 'asterisk',
+            'type' => 'init.d',
         }
     ];
 }
@@ -357,15 +358,14 @@ sub _getUsers
     my @usersExtens = ();
 
     my $users = EBox::Global->getInstance()->modInstance('users');
-    my @usersList = $users->users();
 
-    foreach my $user (@usersList) {
+    foreach my $user (@{$users->users()}) {
         my $extensions = new EBox::Asterisk::Extensions;
-        my $extn = $extensions->getUserExtension($user->{'username'});
+        my $extn = $extensions->getUserExtension($user);
         next unless $extn; # if user doesn't have an extension we are done
 
         my $userextn = {};
-        $userextn->{'username'} = $user->{'username'};
+        $userextn->{'username'} = $user->name();
         $userextn->{'extn'} = $extn;
         $userextn->{'dopts'} = $extensions->DOPTS;
         $userextn->{'vmopts'} = $extensions->VMOPTS;
@@ -388,11 +388,13 @@ sub _getQueues
     my $extensions = new EBox::Asterisk::Extensions;
 
     foreach my $queue (@{$extensions->queues()}) {
+        my $group = new EBox::UsersAndGroups::Group(dn => $users->groupDn($queue));
+        my @members = map { $_->name() } @{$group->users()};
 
         my $queueInfo = {};
         $queueInfo->{'name'} = $queue;
-        $queueInfo->{'extn'} = $extensions->getQueueExtension($queue);
-        $queueInfo->{'members'} = $users->usersInGroup($queue);
+        $queueInfo->{'extn'} = $extensions->getQueueExtension($group);
+        $queueInfo->{'members'} = \@members;
 
         push (@queues, $queueInfo);
     }
@@ -784,10 +786,9 @@ sub tableInfo
 
     return [{
             'name' => __('VoIP'),
-            'index' => 'asterisk',
+            'tablename' => 'asterisk_cdr',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'asterisk_cdr',
             'timecol' => 'timestamp',
             'filter' => ['src', 'dst'],
             'events' => $events,

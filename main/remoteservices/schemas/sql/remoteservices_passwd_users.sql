@@ -1,6 +1,5 @@
-CREATE TABLE remoteservices_passwd_users (
+CREATE TABLE IF NOT EXISTS remoteservices_passwd_users (
     timestamp TIMESTAMP,
-    nUsers INT
+    nUsers INT,
+    INDEX(timestamp)
 );
-
-CREATE INDEX remoteservices_passwd_users_timestamp_i on remoteservices_passwd_users(timestamp);

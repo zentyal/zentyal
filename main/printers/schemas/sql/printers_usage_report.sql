@@ -1,8 +1,7 @@
-CREATE TABLE printers_usage_report(
+CREATE TABLE IF NOT EXISTS printers_usage_report(
          `date` DATE,
          printer VARCHAR(255) NOT NULL,
          pages INT,
-         users INT
+         users INT,
+         INDEX(`date`)
 );
-
-CREATE INDEX printers_usage_report_job_i on printers_usage_report(`date`);

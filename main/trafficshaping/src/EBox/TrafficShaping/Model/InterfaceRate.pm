@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -126,7 +126,7 @@ sub _table
             defaultActions => [ 'editField', 'changeView' ],
             tableDescription => \@tableHead,
             menuNamespace => 'TrafficShaping/View/InterfaceRate',
-            help => __x(''),
+            #help => __x(''),
             printableRowName => __('rate'),
     };
 

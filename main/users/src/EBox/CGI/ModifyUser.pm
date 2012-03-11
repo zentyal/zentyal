@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -39,16 +40,18 @@ sub _process($) {
 
     my $users = EBox::Global->modInstance('users');
 
-    $self->_requireParam('username', __('user name'));
-    my $user = $self->param('username');
-    $self->{errorchain} = "UsersAndGroups/User";
-    $self->keepParam('username');
-
+    $self->_requireParam('user', __('user name'));
     $self->_requireParamAllowEmpty('quota', __('quota'));
-    my $userdata = {
-        'username' => $user,
-        'quota' => $self->param('quota'),
-    };
+
+    # retrieve user object
+    my $user = $self->unsafeParam('user');
+    $user = new EBox::UsersAndGroups::User(dn => $user);
+
+    $self->{errorchain} = "UsersAndGroups/User";
+    $self->keepParam('user');
+
+    $user->set('quota', $self->param('quota'), 1);
+
     unless ($users->mode() eq 'slave') {
         $self->_requireParam('surname', __('last name'));
         $self->_requireParamAllowEmpty('comment', __('comment'));
@@ -64,29 +67,33 @@ sub _process($) {
         } else {
             $fullname = $surname;
         }
+        my $comment = $self->param('comment');
+        if (length ($comment)) {
+            $user->set('description', $comment, 1);
+        } else {
+            $user->delete('description', 1);
+        }
 
-        $userdata->{'givenname'} = $givenName;
-        $userdata->{'surname'} = $surname;
-        $userdata->{'fullname'} = $fullname;
-        $userdata->{'comment'} = $self->param('comment');
+        $user->set('givenname', $givenName, 1);
+        $user->set('sn', $surname, 1);
+        $user->set('cn', $fullname, 1);
 
         # Change password if not empty
         my $password = $self->unsafeParam('password');
         if ($password) {
             my $repassword = $self->unsafeParam('repassword');
             if ($password ne $repassword){
-                throw EBox::Exceptions::External(
-                        __('Passwords do not match.'));
+                throw EBox::Exceptions::External(__('Passwords do not match.'));
             }
-            $userdata->{'password'} = $password;
+
+            $user->changePassword($password, 1);
         }
 
     }
 
-    # Quota can be changed also in slaves
-    $users->modifyUser($userdata);
+    $user->save();
 
-    $self->{redirect} = "UsersAndGroups/User?username=$user";
+    $self->{redirect} = 'UsersAndGroups/User?user=' . $user->dn();
 }
 
 

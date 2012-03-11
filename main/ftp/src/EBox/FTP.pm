@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -87,7 +87,7 @@ sub initialSetup
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => __d('Zentyal FTP Server'),
+                'description' => __('Zentyal FTP Server'),
                 'internal' => 1,
                 'readOnly' => 1,
                 'services' => $self->_services(),
@@ -258,18 +258,13 @@ sub backupDomainsFileSelection
     my ($self, %enabled) = @_;
     if ($enabled{ftpserver}) {
         my @includes = ( $self->ftpHome(), );
-        my @excludes = ();
         my $options = $self->model('Options');
         if ( $options->userHomes()) {
             push @includes, '/home';
-            push @excludes, '/home/samba';
         }
 
         my $selection = {
                           includes => \@includes,
-                          excludes => \@excludes,
-                          # the priority is to avoid clashes with the samba module
-                          priority => 20,
                         };
         return $selection;
     }

@@ -1,4 +1,8 @@
-HEAD
+2.3.1
+	+ Use printableName instead of name to select services
+	+ Remove firewall hook template as examples are already included in core
+2.3
+	+ Adapted to new MySQL logs backend
 	+ Disabled source/destination port for portless protocols in redirections
 	+ Using iprange module for iptable rules referencing range object members
 	+ Replaced autotools with zbuildtools

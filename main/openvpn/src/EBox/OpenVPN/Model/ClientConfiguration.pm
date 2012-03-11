@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -53,20 +53,26 @@ sub new
 
 sub _table
 {
-    my @tableHead =
-        (
+    my @confOptions = (
+        {
+            value => 'manual',
+             printableValue => __('Manual Configuration'),
+        },
+    );
+
+    if (EBox::Global->edition() ne 'sb') {
+        push (@confOptions, {
+            value => 'bundle',
+            printableValue => __('Zentyal bundle')
+        });
+    }
+
+    my @tableHead = (
          new EBox::Types::Select(
                                  fieldName => 'configuration',
                                  printableName => __('Configuration'),
                                  editable => 1,
-                                 options => [
-                                     { value => 'manual',
-                                       printableValue =>
-                                        __('Manual Configuration'),
-                                     },
-                                     { value => 'bundle',
-                                      printableValue => __('Zentyal bundle')
-                                     }]
+                                 options => \@confOptions,
                                  ),
          new EBox::Types::File(
                                fieldName => 'configurationBundle',

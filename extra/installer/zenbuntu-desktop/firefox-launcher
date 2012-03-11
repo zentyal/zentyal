@@ -1,0 +1,10 @@
+#!/bin/bash
+
+PORT=`grep ^Listen /var/lib/zentyal/conf/apache2.conf |cut -d' ' -f2`
+
+if [[ $PORT == 443 ]]
+then
+    firefox https://localhost
+else
+    firefox https://localhost:$PORT
+fi

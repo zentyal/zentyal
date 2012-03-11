@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -47,6 +47,8 @@ BEGIN {
     $VERSION = EBox::Config::version;
 }
 
+my @ifaceList;
+
 # Function: iface_exists
 #
 #    Check if a given interface exists in the system
@@ -76,10 +78,12 @@ sub iface_exists
 #
 sub list_ifaces
 {
-    my @devices = map { $_->{name} } IO::Interface::Simple->interfaces;
-    @devices = grep (!/:/, @devices);
-    @devices = sort @devices;
-    return @devices;
+    unless (@ifaceList) {
+        @ifaceList = map { $_->{name} } IO::Interface::Simple->interfaces;
+        @ifaceList = grep (!/:/, @ifaceList);
+        @ifaceList = sort @ifaceList;
+    }
+    return @ifaceList;
 }
 
 # Function: iface_is_up

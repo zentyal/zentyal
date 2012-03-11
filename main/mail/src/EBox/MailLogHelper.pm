@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 #
@@ -46,15 +46,6 @@ sub new
     my $self = {};
     bless($self, $class);
     return $self;
-}
-
-# Method: domain
-#
-#       Must return the text domain which the package belongs to
-#
-sub domain
-{
-    return 'ebox-mail';
 }
 
 sub logFiles

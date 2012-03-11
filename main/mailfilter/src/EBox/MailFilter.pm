@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -144,7 +144,8 @@ sub _serviceRules
     return [
              {
               'name' => 'POP Transparent proxy',
-              'description' => __d('POP transparent proxy'),
+              'printableName' => __('POP Transparent proxy'),
+              'description' => __('POP Transparent proxy'),
               'internal' => 1,
               'protocol' => 'tcp',
               'sourcePort' => 'any',
@@ -153,7 +154,7 @@ sub _serviceRules
              },
              {
               'name' => 'POP3',
-              'description' => __d('POP3 protocol'),
+              'description' => __('POP3 protocol'),
               'internal' => 1,
               'protocol'   => 'tcp',
               'sourcePort' => 'any',
@@ -170,13 +171,18 @@ sub _serviceRules
 sub enableService
 {
     my ($self, $status) = @_;
+    my $mail = EBox::Global->modInstance('mail');
     if ($status) {
-        my $mail = EBox::Global->modInstance('mail');
         if ($mail and $mail->customFilterInUse()) {
             throw EBox::Exceptions::External(
 __('Mail server has a custom filter set, unset it before enabling Zentyal Mail Filter module')
                                             );
         }
+    }
+
+    if ($self->isEnabled() xor $status) {
+        $mail->changed() or
+            $mail->setAsChanged(1);
     }
 
     $self->SUPER::enableService($status);
@@ -332,12 +338,8 @@ sub antispamNeeded
         return 1;
     }
 
-
-
     return 0;
 }
-
-
 
 #
 # Method: _setConf
@@ -350,7 +352,7 @@ sub _setConf
 
     $self->smtpFilter->writeConf();
     $self->antispam()->writeConf();
-    $self->popProxy()->writeConf();
+#FIXME    $self->popProxy()->writeConf();
 
     my $vdomainsLdap =  new EBox::MailFilter::VDomainsLdap();
     $vdomainsLdap->regenConfig();
@@ -366,7 +368,7 @@ sub _enforceServiceState
 
     $self->antispam()->doDaemon($enabled);
     $self->smtpFilter()->doDaemon($enabled);
-    $self->popProxy()->doDaemon($enabled);
+#FIXME    $self->popProxy()->doDaemon($enabled);
 
     # Workaround postfix amavis issue.
     EBox::Sudo::root('/etc/init.d/postfix restart');
@@ -434,7 +436,7 @@ sub _stopService
 
     $self->smtpFilter()->stopService();
     $self->antispam()->stopService();
-    $self->popProxy()->stopService();
+#    $self->popProxy()->stopService();
 }
 
 #
@@ -576,7 +578,8 @@ sub mailFilterWidget
     my ($self,$widget) = @_;
 
     $self->smtpFilter()->summary($widget);
-    $self->popProxy()->summary($widget);
+# FIXME
+#    $self->popProxy()->summary($widget);
 }
 
 sub widgets
@@ -634,10 +637,9 @@ sub _smtpFilterTableInfo
 
     return {
             'name' => __('SMTP filter'),
-            'index' => 'mailfilter-smtpFilter',
+            'tablename' => 'mailfilter_smtp',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'mailfilter_smtp',
             'filter' => ['action', 'from_address', 'to_address'],
             'events' => $events,
             'eventcol' => 'event',
@@ -674,10 +676,9 @@ sub _popProxyTableInfo
 
     return {
             'name' => __('POP3 proxy'),
-            'index' => 'mailfilter-popProxy',
+            'tablename' => 'mailfilter_pop',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'mailfilter_pop',
             'filter' => ['timestamp', 'address', 'clientConn'],
             'events' => $events,
             'eventcol' => 'event',
@@ -697,36 +698,36 @@ sub logHelper
 sub _filterTrafficConsolidationSpec
 {
     my $spec = {
-                accummulateColumns => {
-                                       clean => 0,
-                                       spam => 0,
-                                       banned => 0,
-                                       blacklisted => 0,
-                                       clean  => 0,
-                                       infected => 0,
-                                       bad_header => 0,
-                                      },
-               filter => sub {
-                   my ($row) = @_;
-                   if ($row->{event} eq 'MTA-BLOCKED') {
-                       return 0;
-                   }
-                   return 1;
-                },
-                consolidateColumns => {
-                                       event => {
-                                                 conversor => sub { return 1  },
-                                                 accummulate => sub {
-                                                     my ($v) = @_;
-                                                     if ($v eq 'BAD-HEADER') {
-                                                         return 'bad_header';
-                                                     }
+        accummulateColumns => {
+            clean => 0,
+            spam => 0,
+            banned => 0,
+            blacklisted => 0,
+            clean  => 0,
+            infected => 0,
+            bad_header => 0,
+        },
+        filter => sub {
+            my ($row) = @_;
+            if ($row->{event} eq 'MTA-BLOCKED') {
+                return 0;
+            }
+            return 1;
+        },
+        consolidateColumns => {
+            event => {
+                conversor => sub { return 1  },
+                accummulate => sub {
+                    my ($v) = @_;
+                    if ($v eq 'BAD-HEADER') {
+                        return 'bad_header';
+                    }
 
-                                                     return lc $v;
-                                                 },
-                                                },
-                                      },
-               };
+                    return lc $v;
+                },
+            },
+        },
+    };
 
     return $spec;
 }
@@ -735,32 +736,32 @@ sub _filterTrafficConsolidationSpec
 sub _popProxyFilterConsolidationSpec
 {
     my $spec = {
-                filter             => sub {
-                                       my ( $row) = @_;
-                                       return $row->{event} eq 'pop3_fetch_ok'
-                                      },
-                accummulateColumns => {
-                                       mails  => 0,
-                                       clean  => 0,
-                                       virus  => 0,
-                                       spam   => 0,
-                                      },
-                consolidateColumns => {
-                                       mails => {
-                                                accummulate => 'mails',
-                                               },
-                                       clean => {
-                                                accummulate => 'clean',
-                                               },
-                                       virus => {
-                                                accummulate => 'virus',
-                                               },
-                                       spam => {
-                                                accummulate => 'spam',
-                                               },
+        filter             => sub {
+            my ( $row) = @_;
+            return $row->{event} eq 'pop3_fetch_ok'
+        },
+        accummulateColumns => {
+            mails  => 0,
+            clean  => 0,
+            virus  => 0,
+            spam   => 0,
+        },
+        consolidateColumns => {
+            mails => {
+                accummulate => 'mails',
+            },
+            clean => {
+                accummulate => 'clean',
+            },
+            virus => {
+                accummulate => 'virus',
+            },
+            spam => {
+                accummulate => 'spam',
+            },
 
-                                      },
-               };
+        },
+    };
 
     return { mailfilter_pop_traffic => $spec };
 }
@@ -783,12 +784,13 @@ sub menu
                  )
     );
 
-    $folder->add(
-                 new EBox::Menu::Item(
-                                      'url' => 'MailFilter/View/POPProxyConfiguration',
-                                      'text' => __('POP Transparent Proxy')
-                 )
-    );
+# FIXME: p3scan is disabled, it crashes installation
+#    $folder->add(
+#                 new EBox::Menu::Item(
+#                                      'url' => 'MailFilter/View/POPProxyConfiguration',
+#                                      'text' => __('POP Transparent Proxy')
+#                 )
+#    );
 
 
     $folder->add(

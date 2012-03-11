@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -112,8 +112,8 @@ sub generalWidget
         $qaUpdates = $rs->subscriptionLevel() > 0;
     }
 
-    my $ignore = EBox::Config::configkey('widget_ignore_updates');
-    unless (defined ($ignore) and ($ignore eq 'yes')) {
+    my $ignore = EBox::Config::boolean('widget_ignore_updates');
+    unless ($ignore) {
         my $lastVersion;
         open (my $fh, LATEST_VERSION);
         read ($fh, $lastVersion, 16);
@@ -247,9 +247,9 @@ sub widgets
         },
     };
 
-    unless (EBox::Config::configkey('disable_links_widget') eq 'yes') {
+    unless (EBox::Config::boolean('disable_links_widget')) {
         $widgets->{'links'} = {
-            'title' => __("Resources & Services"),
+            'title' => __('Resources'),
             'widget' => \&linksWidget,
             'order' => 2,
             'default' => 1
@@ -399,7 +399,7 @@ sub logReportInfo
 
     my @data;
 
-    my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
+    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
     foreach my $fileSys (keys %{$fileSysS}) {
         my $entry = {};
         $entry->{'table'} = 'sysinfo_disk_usage';
@@ -537,21 +537,12 @@ sub importTimezone
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: The updates are community based and there is no guarantee that your '
-               . 'server will work properly after applying them. Quality Assured Updates are '
-               . 'only included in commercial subscriptions and they guarantee that all the '
-               . 'upgrades, bugfixes and security updates '
-               . "are extensively tested by the Zentyal Development Team and you won't "
-               . 'be introducing any regressions on your already working system. '
-               . 'Purchase a Professional or Enterprise Server Subscription to gain access '
-               . 'to QA updates.');
-
+    return __s('Warning: The updates are community based and there is no guarantee that your server will work properly after applying them. In production environments you should use the Small Business or Enterprise Edition that include quality assured software updates.');
 }
 
 sub _secureMsg
 {
-    return __s('As your server has a commercial server subscription, these updates are '
-               . 'quality assured and automatically applied to your system.');
+    return __s('Your commercial server edition guarantees that these are quality assured software updates and will be automatically applied to your system.');
 }
 
 1;

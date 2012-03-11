@@ -1,4 +1,10 @@
-HEAD
+2.3.1
+	+ Adapted messages in the UI for new editions
+	+ Uniformize config boolean values (from true/false to yes/no)
+	+ Now you can use the default profile in a custom profile for file
+	  extensions
+2.3
+	+ Adapted to new MySQL logs backend
 	+ Ignore localnets with undefined DHCP address when writing conf
 	+ Adapted to squid3 new paths and daemon and squid.conf syntax
 	+ Replaced autotools with zbuildtools

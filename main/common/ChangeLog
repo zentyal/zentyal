@@ -1,5 +1,19 @@
 HEAD
+	+ EBox::FileSystem ignore all fuse daemon filesystem (type begins
+	  with 'fuse.')
+2.3.1
+	+ New EBox::Config::boolean() to avoid string comparisons all over
+	  the code to check if the key is set to 'yes' or 'no'
+	+ Add conflicts with sudo-ldap on debian/control.
+	+ EBox::FileSystem::partitionsFileSystems ignores more pseudo file
+	  systems. File systems without mount point are always ignored.
+2.3
+	+ Set debug = yes by default for beta series
+	+ Workaround to silence some permission denied errors caused by
+	  loading the GD library after the user has changed to ebox
+	+ Cache list of ifaces to improve performance
 	+ Delete useless EBox::Config::package() method
+	+ Add duration attribute to EBox::Event
 	+ Ignore by default bind filesystems in EBox::FileSystem method
 	+ Bugfix: MAC validation now forbids parts with only one character
 	+ Replaced autotools with zbuildtools
@@ -379,9 +393,9 @@ HEAD
 	+ Supports i18n
 	+ API name consistency
 	+ Use Mason for templates
-	+ added tips to GUI 
+	+ added tips to GUI
 	+ added dhcp hooks
-	+ administration port configuration 
+	+ administration port configuration
 	+ Fixed bugs to IE compliant
 	+ Revoke changes after logout
 	+ Several bugfixes

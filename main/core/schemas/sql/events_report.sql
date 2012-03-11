@@ -1,4 +1,4 @@
-CREATE TABLE events_report(
+CREATE TABLE IF NOT EXISTS events_report(
         date DATE,
         level  VARCHAR(6),
         source VARCHAR(256),

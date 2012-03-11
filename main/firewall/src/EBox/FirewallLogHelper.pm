@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,6 +14,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::FirewallLogHelper;
+
+use base 'EBox::LogHelper';
 
 use strict;
 use warnings;
@@ -31,11 +33,6 @@ sub new
         bless($self, $class);
         return $self;
 }
-
-sub domain {
-        return 'ebox-firewall';
-}
-
 
 # Method: logFiles
 #
@@ -70,7 +67,7 @@ sub processLine # (file, line, logger)
 	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
 	    return;
 	}
-	my $date = $1;
+	my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
 	my $type = $2;
 	my $rule = $3;
 
@@ -78,7 +75,7 @@ sub processLine # (file, line, logger)
 	my %fields = map { split('='); } @pairs;
 
 	my %dataToInsert;
-	my $timestamp = $date . ' ' . (${[localtime(time)]}[5] + 1900);
+	my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date);
 	$dataToInsert{timestamp} = $timestamp;
 	$dataToInsert{event} = $type;
 

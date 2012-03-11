@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::UsersAndGroups::Group;
 
 sub new {
 	my $class = shift;
@@ -39,7 +40,7 @@ sub _process
     my $mail = EBox::Global->modInstance('mail');
 
     $self->_requireParam('group', __('group'));
-    my $group= $self->param('group');
+    my $group= $self->unsafeParam('group');
     $self->{redirect} = "UsersAndGroups/Group?group=$group";
 
     $self->keepParam('group');
@@ -50,6 +51,7 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
+    $group = new EBox::UsersAndGroups::Group(dn => $group);
     $mail->{malias}->addGroupAlias($lhs."@".$rhs, $group);
 }
 

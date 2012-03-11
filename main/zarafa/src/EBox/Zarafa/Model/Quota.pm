@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -94,8 +94,7 @@ sub _table
                               fieldName => 'warnQuota',
                               printableName =>
                                   __('Warn user over'),
-                              help =>
-                                  __(''),
+                              #help => __(''),
                               trailingText => '% quota.',
                               editable => 1,
                               defaultValue => 80,
@@ -107,8 +106,7 @@ sub _table
                               fieldName => 'softQuota',
                               printableName =>
                                   __('Stop user sending mails over'),
-                              help =>
-                                  __(''),
+                              #help => __(''),
                               trailingText => '% quota.',
                               editable => 1,
                               defaultValue => 95,

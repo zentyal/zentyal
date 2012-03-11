@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -658,7 +658,7 @@ sub matchFilter
     }
 
     for my $value (@{$self->{values}}) {
-        return 1 if ($value->printableValue() =~ /$filter/);
+        return 1 if ($value->printableValue() =~ /$filter/i);
     }
 
     return undef;

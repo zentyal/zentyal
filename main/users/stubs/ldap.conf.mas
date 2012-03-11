@@ -1,7 +1,9 @@
 <%args>
 	$basedc
 	$ldap
+	$rootbinddn
 	$binddn
+	$bindpw
 	$usersdn
 	$computersdn
 	$groupsdn
@@ -27,9 +29,16 @@ bind_policy soft
 # The distinguished name to bind to the server with
 # if the effective user ID is root. Password is
 # stored in /etc/ldap.secret (mode 600)
-rootbinddn <% $binddn %>
+rootbinddn <% $rootbinddn %>
+
+binddn <% $binddn %>
+bindpw <% $bindpw %>
 
 nss_base_passwd	        <% $usersdn %>?one
 nss_base_passwd	        <% $computersdn %>?one
 nss_base_shadow	        <% $usersdn %>?one
 nss_base_group		<% $groupsdn %>?one
+nss_schema              rfc2307bis
+nss_map_attribute uniqueMember member
+nss_reconnect_tries 2
+nss_initgroups_ignoreusers root,ldap,named,avahi,haldaemon,dbus,news,mailman,nscd,gdm,apache

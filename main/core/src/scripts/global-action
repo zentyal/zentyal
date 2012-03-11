@@ -47,7 +47,7 @@ try {
 
     if ($progress) {
         my $errorTxt = $ex->text();
-        if (EBox::Config::configkey('debug') eq 'yes') {
+        if (EBox::Config::boolean('debug')) {
             $errorTxt .= "\n" . $ex->stacktrace();
         }
         $progress->setAsFinished(1, $errorTxt);

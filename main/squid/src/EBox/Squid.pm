@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -725,11 +725,8 @@ sub _writeSquidConf
     push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('dn'     => $users->ldap()->dn());
-    unless ($users->mode() eq 'slave') {
-        push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
-    } else {
-        push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'replicaport'});
-    }
+    push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
+
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
         my $rs = EBox::Global->modInstance('remoteservices');
@@ -905,9 +902,22 @@ sub _writeDgTemplates
     my $lang = $self->_DGLang();
     my $file = DGDIR . '/languages/' . $lang . '/template.html';
 
+    my $extra_messages = '';
+    my $edition = EBox::Global->edition();
+
+    if (($edition eq 'community') or ($edition eq 'basic')) {
+        $extra_messages = __sx('This is an unsupported Community Edition. Get the fully supported {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates.',
+                               ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=smallbusiness_edition">',
+                               ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=enterprise_edition">',
+                               ch => '</a>');
+    }
+
     EBox::Module::Base::writeConfFileNoCheck($file,
                                              'squid/template.html.mas',
-                                             []);
+                                             [
+                                                extra_messages => $extra_messages,
+                                                image_name => "zentyal-$edition.png",
+                                             ]);
 }
 
 sub _writeDgLogrotate
@@ -1201,10 +1211,9 @@ sub tableInfo
                    'filtered' => __('Filtered') };
     return [{
             'name' => __('HTTP Proxy'),
-            'index' => 'squid',
+            'tablename' => 'squid_access',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'squid_access',
             'filter' => ['url', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
@@ -1316,11 +1325,8 @@ sub aroundDumpConfig
 {
     my ($self, $dir, %options) = @_;
 
-    my $backupCategorizedDomainLists = 1;
-    my $confKeyValue = EBox::Config::configkey('backup_domain_categorized_lists');
-    if (defined ($confKeyValue) and ($confKeyValue eq 'false')) {
-        $backupCategorizedDomainLists = 0;
-    }
+    my $backupCategorizedDomainLists =
+        EBox::Config::boolean('backup_domain_categorized_lists');
 
     my $bugReport = $options{bug};
     if (not $bugReport and $backupCategorizedDomainLists) {

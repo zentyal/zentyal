@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -419,15 +419,17 @@ sub report
             order  => 'total_bytes DESC',
         });
 
-    if ( @{$report->{top_user_bw_usage}->{username}} <= 1 ) {
-        # Do not send a top user with non authenticated users
-        delete $report->{top_user_bw_usage};
-    } else {
-        # Rename undef user to unauthenticated user
-        foreach my $username (@{$report->{top_user_bw_usage}->{username}}) {
-            unless( defined($username) ) {
-                $username = '___non_auth___';
-                last;
+    if ( defined($report->{top_user_bw_usage}->{username}) ) {
+        if ( @{$report->{top_user_bw_usage}->{username}} <= 1 ) {
+            # Do not send a top user with non authenticated users
+            delete $report->{top_user_bw_usage};
+        } else {
+            # Rename undef user to unauthenticated user
+            foreach my $username (@{$report->{top_user_bw_usage}->{username}}) {
+                unless( defined($username) ) {
+                    $username = '___non_auth___';
+                    last;
+                }
             }
         }
     }
@@ -474,14 +476,14 @@ sub tableInfo
 
     return [{
         'name' => __('Bandwidth usage'),
-        'index' => 'bwmonitor_usage',
+        'tablename' => 'bwmonitor_usage',
         'titles' => $titles,
         'order' => \@order,
         'events' => {},
         'eventcol' => 'timestamp',
-        'tablename' => 'bwmonitor_usage',
         'timecol' => 'timestamp',
         'filter' => ['client', 'interface'],
+        'types' => { 'client' => 'IPAddr' },
         'forceEnabled' => 1,
     }];
 }

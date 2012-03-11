@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1025,7 +1025,7 @@ sub _aptInstall
         my $msg;
 
         if ($errorMsg) {
-            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration  whcih depends on the missing packages',
+            my $msg = __x('Error installing packages: {err}. The backup will continue but it would not able to recover any configuration which depends on the missing packages',
                           err => "\n$errorMsg\n");
             error($msg, noBlocking => 1);
             return;
@@ -2477,7 +2477,7 @@ sub getCredentials
                                        );
 
     if ($credentials->{type} eq 'basic') {
-        my $infoMsg = __s('If you had purchased the Zentyal Disaster Recovery service, besides the configuration you are about to recover, you could have restored the data of the modules.');
+        my $infoMsg = __('If you had enabled the Disaster Recovery service in Small Business or Enterprise Edition, besides the configuration you are about to recover, you could have restored the data of the active modules.');
         info($infoMsg);
     }
 

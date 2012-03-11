@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,6 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
+use EBox::UsersAndGroups::User;
 
 ## arguments:
 ##      title [required]
@@ -38,20 +39,21 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    $self->_requireParam('username', __('username'));
-    my $username = $self->param('username');
-    $self->keepParam('username');
-    $self->{redirect} = "UsersAndGroups/User?username=$username";
+    $self->_requireParam('user', __('user'));
+    my $user = $self->unsafeParam('user');
+    $self->keepParam('user');
+    $self->{redirect} = "UsersAndGroups/User?user=$user";
 
     $self->_requireParam('quotaType');
     my $quotaType = $self->param('quotaType');
 
+    $user = new EBox::UsersAndGroups::User(dn => $user);
     my $mail = EBox::Global->modInstance('mail');
     if ($quotaType eq 'noQuota') {
-        $mail->{musers}->setMaildirQuotaUsesDefault($username, 0);
-        $mail->{musers}->setMaildirQuota($username, 0);
+        $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);
+        $mail->{musers}->setMaildirQuota($user, 0);
     } elsif ($quotaType eq 'default') {
-        $mail->{musers}->setMaildirQuotaUsesDefault($username, 1);
+        $mail->{musers}->setMaildirQuotaUsesDefault($user, 1);
     } else {
         $self->_requireParam('maildirQuota');
         my $quota = $self->param('maildirQuota');
@@ -60,10 +62,9 @@ sub _process
 __('Quota must be a amount of MB greter than zero')
                );
         }
-        $mail->{musers}->setMaildirQuota($username, $quota);
-        $mail->{musers}->setMaildirQuotaUsesDefault($username, 0);
+        $mail->{musers}->setMaildirQuota($user, $quota);
+        $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);
     }
-
 }
 
 1;

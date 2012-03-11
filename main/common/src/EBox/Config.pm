@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -34,7 +34,7 @@ for my $key (keys(%{$ref})) {
 }
 
 $ref->{version} = "@VERSION@";
-$ref->{perlpath} = "/usr/share/perl5";
+$ref->{perlpath} = '/usr/share/perl5/';
 
 my @confFiles;
 my %cachedFiles;
@@ -101,6 +101,13 @@ sub configkey # (key)
     } else {
         return '';
     }
+}
+
+sub boolean
+{
+    my ($key) = @_;
+
+    return (configkey($key) eq 'yes');
 }
 
 sub configkeys # (key)

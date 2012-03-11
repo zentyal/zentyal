@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -49,15 +49,12 @@ use constant PIDPATH => EBox::Config::tmp . '/pids/';
 #
 sub new
 {
-        my $class = shift;
-	my %opts = @_;
-	my $name = delete $opts{'name'};
-        my $self = {
-		    'name' => $name
-
-		   };
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $name = delete $opts{'name'};
+    my $self = { 'name' => $name };
+    bless($self, $class);
+    return $self;
 }
 
 # Method: init
@@ -66,79 +63,79 @@ sub new
 #      from standard input/output/error and writes the pid on a file
 #      under <EBox::Config::tmp> pids subdirectory.
 #
-sub init {
-	my $self =  shift;
-	my ($pid);
+sub init
+{
+    my $self =  shift;
+    my ($pid);
 
-	if ($pid = fork()) {
-		exit 0;
-	}
+    if ($pid = fork()) {
+        exit 0;
+    }
 
-	unless (POSIX::setsid) {
-		EBox::debug ('Cannot start new session for ', $self->{'name'});
-		exit 1;
-	}
+    unless (POSIX::setsid) {
+        EBox::debug ('Cannot start new session for ', $self->{'name'});
+        exit 1;
+    }
 
-	foreach my $fd (0 .. 64) { POSIX::close($fd); }
+    foreach my $fd (0 .. 64) { POSIX::close($fd); }
 
-	my $tmp = EBox::Config::tmp();
-	open(STDIN,  "+<$tmp/stdin");
-	if (EBox::Config::configkey('debug') eq 'yes') {
-	  open(STDOUT, "+>$tmp/stout");
-	  open(STDERR, "+>$tmp/stderr");
-	}
+    my $tmp = EBox::Config::tmp();
+    open(STDIN,  "+<$tmp/stdin");
+    if (EBox::Config::boolean('debug')) {
+        open(STDOUT, "+>$tmp/stout");
+        open(STDERR, "+>$tmp/stderr");
+    }
 
 
-	unless (-d PIDPATH) {
-		mkdir PIDPATH;
-	}
+    unless (-d PIDPATH) {
+        mkdir PIDPATH;
+    }
 
-        my $FD;
-	unless (open($FD ,  '>' .  $self->pidFile)) {
-		EBox::debug ('Cannot save pid');
-		exit 1;
-	}
+    my $FD;
+    unless (open($FD ,  '>' .  $self->pidFile)) {
+        EBox::debug ('Cannot save pid');
+        exit 1;
+    }
 
-	print $FD "$$";
-	close $FD;
+    print $FD "$$";
+    close $FD;
 }
 
 
 sub pidFile
 {
-  my ($self, $name) = @_;
+    my ($self, $name) = @_;
 
-  if (ref $self) {
-    $name and
-      throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
-    $name = $self->{'name'};
-  }
+    if (ref $self) {
+        $name and
+            throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
+        $name = $self->{'name'};
+    }
 
-  return  PIDPATH . $name . '.pid';
+    return  PIDPATH . $name . '.pid';
 }
 
 
 sub pid
 {
-  my ($self, $name) = @_;
-  my $pidFile;
+    my ($self, $name) = @_;
+    my $pidFile;
 
-  if (ref $self) {
-    $name and
-      throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
-    $pidFile = $self->pidFile();
-  }
-  else {
-    $pidFile = $self->pidFile($name);
-  }
+    if (ref $self) {
+        $name and
+            throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
+        $pidFile = $self->pidFile();
+    }
+    else {
+        $pidFile = $self->pidFile($name);
+    }
 
-  if (not -r $pidFile) {
-    return undef;
-  }
+    if (not -r $pidFile) {
+        return undef;
+    }
 
-  my $pid = File::Slurp::read_file($pidFile);
-  return $pid;
-
+    my $pid = File::Slurp::read_file($pidFile);
+    return $pid;
 }
 
 1;

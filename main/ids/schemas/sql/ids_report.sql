@@ -1,4 +1,4 @@
-CREATE TABLE ids_report (
+CREATE TABLE IF NOT EXISTS ids_report (
     date DATE,
     source VARCHAR(32),
     priority1 BIGINT DEFAULT 0,

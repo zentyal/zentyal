@@ -35,7 +35,7 @@ cat main_WITHOUT_VERSIONS_$ARCH extras_WITHOUT_VERSIONS_$ARCH | sort | uniq -c |
 for i in `cat DUPLICATED_PACKAGES_$ARCH`
 do
     # XXX Skip false positives
-    if [ "$i" == "samba" ] || [ "$i" == "libapache2-mod-perl2" ]
+    if echo $i | grep -q samba || echo $i | grep -q apache
     then
         continue
     fi

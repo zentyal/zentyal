@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 
 
@@ -45,26 +46,28 @@ sub _process
 
     $self->_requireParam('group', __('group'));
 
-    my $group       = $self->param('group');
-    my $groupinfo   = $usersandgroups->groupInfo($group);
-    my $grpusers    = $usersandgroups->usersInGroup($group);
-    my @remainusers = $usersandgroups->usersNotInGroup($group);
+    my $group       = $self->unsafeParam('group');
+    $group          = new EBox::UsersAndGroups::Group(dn => $group);
+    my $grpusers    = $group->users();
+    my $remainusers = $group->usersNotIn();
     my $components  = $usersandgroups->allGroupAddOns($group);
 
     my $editable = $usersandgroups->editableMode();
 
-    push(@args, 'groupinfo' => $groupinfo);
+    push(@args, 'group' => $group);
     push(@args, 'groupusers' => $grpusers);
-    push(@args, 'remainusers' => \@remainusers);
+    push(@args, 'remainusers' => $remainusers);
     push(@args, 'components' => $components);
     push(@args, 'slave' => not $editable);
 
     if ($editable) {
         $self->{crumbs} = [
-            {title => __('Groups'),
+            {
+                title => __('Groups'),
                 link => '/UsersAndGroups/Groups'
             },
-            {title => $group,
+            {
+                title => $group->name(),
                 link => undef,
             },
         ];

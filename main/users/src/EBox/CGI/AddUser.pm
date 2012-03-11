@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,28 +27,27 @@ use EBox::Exceptions::External;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
-	bless($self, $class);
-	$self->{errorchain} = 'UsersAndGroups/Users';
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
+    bless($self, $class);
+    $self->{errorchain} = 'UsersAndGroups/Users';
+    return $self;
 }
 
 
-sub _process($) {
-	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
+sub _process
+{
+    my $self = shift;
+    my @args = ();
 
-	my @args = ();
+    $self->_requireParam('username', __('user name'));
+    $self->_requireParam('surname', __('last name'));
+    $self->_requireParamAllowEmpty('comment', __('comment'));
 
-	$self->_requireParam('username', __('user name'));
-	$self->_requireParam('surname', __('last name'));
-	$self->_requireParamAllowEmpty('comment', __('comment'));
-
-	my $user;
-	$user->{'user'} = $self->param('username');
-	$user->{'name'} = $self->param('name');
-	$user->{'surname'} = $self->param('surname');
+    my $user;
+    $user->{'user'} = $self->param('username');
+    $user->{'name'} = $self->param('name');
+    $user->{'surname'} = $self->param('surname');
     if ($user->{'name'}) {
         $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
         $user->{'givenname'} = $user->{'name'};
@@ -56,37 +55,36 @@ sub _process($) {
         $user->{'fullname'} = $user->{'surname'};
         $user->{'givenname'} = '';
     }
-	$user->{'password'} = $self->unsafeParam('password');
-	$user->{'repassword'} = $self->unsafeParam('repassword');
-	$user->{'group'} = $self->param('group');
-	$user->{'comment'} = $self->param('comment');
+    $user->{'password'} = $self->unsafeParam('password');
+    $user->{'repassword'} = $self->unsafeParam('repassword');
+    $user->{'group'} = $self->unsafeParam('group');
+    $user->{'comment'} = $self->param('comment');
 
-	for my $field (qw/password repassword/) {
-		unless (defined($user->{$field}) and $user->{$field} ne "") {
-			throw EBox::Exceptions::DataMissing(
-					'data' => __($field));
-		}
-	}
+    for my $field (qw/password repassword/) {
+        unless (defined($user->{$field}) and $user->{$field} ne "") {
+            throw EBox::Exceptions::DataMissing('data' => __($field));
+        }
+    }
 
-	if ($user->{'password'} ne $user->{'repassword'}){
-		 throw EBox::Exceptions::External(__('Passwords do'.
-                                                     ' not match.'));
-	}
+    if ($user->{'password'} ne $user->{'repassword'}){
+         throw EBox::Exceptions::External(__('Passwords do not match.'));
+    }
 
+    my %params;
+    if (EBox::Config::configkey('multiple_ous')) {
+        $params{ou} = $self->unsafeParam('ou');
+    }
 
-	$usersandgroups->addUser($user);
-	if ($user->{'group'}) {
-		$usersandgroups->addUserToGroup($user->{'user'},
-						$user->{'group'});
-	}
+    my $newUser = EBox::UsersAndGroups::User->create($user, 0, %params);
+    if ($user->{'group'}) {
+        $newUser->addGroup(new EBox::UsersAndGroups::Group(dn => $user->{'group'}));
+    }
 
-	if ($self->param('addAndEdit')) {
-	        $self->{redirect} =
-			"UsersAndGroups/User?username=" . $user->{'user'};
-	} else {
-	        $self->{redirect} = "UsersAndGroups/Users";
-
-	}
+    if ($self->param('addAndEdit')) {
+            $self->{redirect} = "UsersAndGroups/User?user=" . $newUser->dn();
+    } else {
+            $self->{redirect} = "UsersAndGroups/Users";
+    }
 }
 
 1;

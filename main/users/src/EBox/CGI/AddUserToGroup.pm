@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,41 +21,37 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 
-
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
+sub _process
+{
+    my $self = shift;
+    my @args = ();
 
-sub _process($) {
-	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
+    $self->_requireParam('group' , __('group'));
+    my $group = $self->unsafeParam('group');
+    $self->{errorchain} = "UsersAndGroups/Group";
+    $self->keepParam('group');
 
-	my @args = ();
+    $self->_requireParam('adduser', __('user'));
+    my @users = $self->unsafeParam('adduser');
 
-	$self->_requireParam('group' , __('group'));
-	my $group = $self->param('group');
-	 $self->{errorchain} = "UsersAndGroups/Group";
-	$self->keepParam('group');
+    $group = new EBox::UsersAndGroups::Group(dn => $group);
+    foreach my $us (@users){
+        $group->addMember(new EBox::UsersAndGroups::User(dn => $us));
+    }
 
-	$self->_requireParam('adduser', __('user'));
-	my @users = $self->param('adduser');
-
-	foreach my $us (@users){
-		$usersandgroups->addUserToGroup($us, $group);
-	}
-
-	# FIXME Is there a better way to pass parameters to redirect/chain
-	# cgi's
-        $self->{redirect} = "UsersAndGroups/Group?group=$group";
+    $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
-
 
 1;

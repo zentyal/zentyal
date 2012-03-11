@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -64,11 +64,10 @@ sub enableLog
 #       ref with these fields:
 #
 #        - name: the printable name of the table
-#        - index: the name of the table
+#        - tablename: the name of the database table associated with the module.
 #        - titles: A hash ref with the table fields and theirs user read
 #               translation.
 #        - order: An array with table fields ordered.
-#        - tablename: the name of the database table associated with the module.
 #
 #         - consolidate: instructions for consolidation of information in
 #         periodic tables. The instruction is a hash ref (see below)
@@ -188,11 +187,9 @@ sub reportUrls
       @tableInfos = @{ $ti };
     }
 
-
-
     my @urls;
-    foreach my $tableInfo  (@tableInfos) {
-      my $index = $tableInfo->{index};
+    foreach my $tableInfo (@tableInfos) {
+      my $index = $tableInfo->{tablename};
       my $rawUrl = "/Logs/Index?selected=$index&refresh=1";
 
 

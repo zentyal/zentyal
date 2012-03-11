@@ -1,7 +1,7 @@
-CREATE TABLE firewall_report (
-    date DATE,
+CREATE TABLE IF NOT EXISTS firewall_report (
+    `date` DATE,
     event VARCHAR(16),
-    source CHAR(15), -- FIXME INET
+    source INT UNSIGNED,
     proto VARCHAR(16),
     dport INT,
     packets BIGINT

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -68,7 +68,7 @@ sub getParams
         }
     }
 
-    $params{'id'} = $self->param('id');
+    $params{'id'} = $self->unsafeParam('id');
     $params{'filter'} = $self->param('filter');
 
     return %params;
@@ -126,11 +126,20 @@ sub addRow
 
     # We don't want to include filter in the audit log
     # as it has no value (it's a function reference)
+    my %fields = map { $_ => 1 } @{ $model->fields() };
     delete $params{'filter'};
-    foreach my $field (keys %params) {
-        my $value = $params{$field};
-        next unless defined ($value);
-        $self->_auditLog('add', "$auditId/$field", $value);
+    foreach my $fieldName (keys %params) {
+        my $value = $params{$fieldName};
+        if ((not defined $value)) {
+            # skip undef parameter which are not a field
+            $fields{$fieldName} or
+                next;
+            # for boolean types undef means false
+            my $instance = $model->fieldHeader($fieldName);
+            $instance->isa('EBox::Types::Boolean') or
+                next;
+        }
+        $self->_auditLog('add', "$auditId/$fieldName", $value);
     }
 
     return $id;
@@ -145,7 +154,7 @@ sub moveRow
     $self->_requireParam('id');
     $self->_requireParam('dir');
 
-    my $id = $self->param('id');
+    my $id = $self->unsafeParam('id');
     my $dir = $self->param('dir');
 
     my $before = $model->_rowOrder($id);
@@ -166,7 +175,7 @@ sub removeRow
     my $model = $self->{'tableModel'};
 
     $self->_requireParam('id');
-    my $id = $self->param('id');
+    my $id = $self->unsafeParam('id');
     my $force = $self->param('force');
 
     $model->removeRow($id, $force);
@@ -189,9 +198,11 @@ sub editField
 
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    my @fieldNames = map { $_->{fieldName} } @{$tableDesc};
-    for my $fieldName (@fieldNames) {
-        next unless $params{$fieldName};
+    for my $field (@{$tableDesc} ) {
+        my $fieldName = $field->fieldName();
+        unless ($field->isa('EBox::Types::Boolean')) {
+            next unless defined $params{$fieldName};
+        }
 
         my $newValue = $params{$fieldName};
         my $oldValue = $row->valueByName($fieldName);
@@ -235,7 +246,7 @@ sub editBoolean
     my ($self) = @_;
 
     my $model = $self->{'tableModel'};
-    my $id = $self->param('id');
+    my $id = $self->unsafeParam('id');
     my $field = $self->param('field');
     my $value = 0;
     if ($self->param('value')) {
@@ -384,7 +395,7 @@ sub _process
     } elsif ($action eq 'editBoolean') {
         delete $self->{template};
         $self->editBoolean();
-    } elsif ($model->customActions($action, $self->param('id'))) {
+    } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);
         $self->refreshTable();
     } else {

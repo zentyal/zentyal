@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -314,10 +314,9 @@ sub tableInfo
 
     return [{
             'name' => __('IDS'),
-            'index' => 'ids',
+            'tablename' => 'ids_event',
             'titles' => $titles,
             'order' => \@order,
-            'tablename' => 'ids_event',
             'timecol' => 'timestamp',
             'events' => { 'alert' => __('Alert') },
             'eventcol' => 'event',

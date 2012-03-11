@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,7 +29,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 use EBox::MailAliasLdap;
 
-use constant VDOMAINDN     => 'ou=vdomains, ou=postfix';
+use constant VDOMAINDN     => 'ou=vdomains,ou=postfix';
 use constant BYTES         => '1048576';
 use constant MAXMGSIZE     => '104857600';
 
@@ -203,7 +203,7 @@ sub _updateVDomain
 sub vdomainDn
 {
     my ($self) = @_;
-    return VDOMAINDN . ", " . $self->{ldap}->dn;
+    return VDOMAINDN . "," . $self->{ldap}->dn;
 }
 
 # Method: vdomainExists

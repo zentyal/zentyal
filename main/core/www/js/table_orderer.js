@@ -411,7 +411,11 @@ TableOrderer.prototype = {
 	
 	// setColumnsName -- column names come from the labels in the data given to the table. Just grab the names from the first record.
 	setColumnsName : function(){
-		this.tableColumnsName = Object.keys(this.data[0]);
+		if ((Object.isArray(this.data)) && (this.data.length > 0)) {
+			this.tableColumnsName = Object.keys(this.data[0]);
+		} else {
+			this.tableColumnsName = [];
+		}
 	},
 	
 	// creatFilter -- creates the HTML elements for the filter tool.

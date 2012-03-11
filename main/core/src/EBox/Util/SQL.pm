@@ -1,4 +1,4 @@
-# Copyright (C) 2011 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,7 +19,7 @@ package EBox::Util::SQL;
 use strict;
 use warnings;
 
-use EBox::PgDBEngine;
+use EBox::DBEngineFactory;
 use EBox::Logs::Consolidate;
 use Perl6::Junction qw(any);
 use File::Basename;
@@ -93,7 +93,7 @@ sub dropModuleTables
         return;
     }
 
-    my $dbengine = EBox::PgDBEngine->new();
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
 
     my @tables = read_file($tablesFile);
     return unless @tables;
@@ -110,7 +110,7 @@ sub _addTable
 {
     my ($file, @timePeriods) = @_;
 
-    my $dbengine = EBox::PgDBEngine->new();
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
     my $dbName = EBox::Config::configkey('eboxlogs_dbname');
     my $dbUser = EBox::Config::configkey('eboxlogs_dbuser');
     my $dbPass = $dbengine->_dbpass();

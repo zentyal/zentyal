@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -66,7 +66,7 @@ sub _description
        printableName   => __('Configuration'),
        pageTitle       => __('Jabber'),
        compositeDomain => 'Jabber',
-       help            => __(''),
+       #help            => __(''),
       };
 
     return $description;

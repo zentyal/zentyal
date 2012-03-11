@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2011 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -154,6 +154,19 @@ sub aptQASourcePath
 sub aptQAPreferencesPath
 {
     return '/etc/apt/preferences.d/01zentyal';
+}
+
+# Method: aptQAConfPath
+#
+#      Return the path to the configuration file for QA repository
+#
+# Returns:
+#
+#      String - the path
+#
+sub aptQAConfPath
+{
+    return '/etc/apt/apt.conf.d/99zentyal';
 }
 
 # Method: JohnHomeDirPath

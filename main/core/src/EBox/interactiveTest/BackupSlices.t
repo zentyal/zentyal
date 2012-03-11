@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,7 +19,7 @@ use warnings;
 
 use EBox;
 use EBox::Sudo;
-use EBox::PgDBEngine;
+use EBox::DBEngineFactory;
 use EBox::Logs::SlicedBackup;
 use Error qw(:try);
 use Test::More qw(no_plan);
@@ -31,7 +31,7 @@ diag ("This test must be run in a complete Zentyal environment. DONT RUN IN A PR
 
 EBox::init();
 
-my $dbengine = EBox::PgDBEngine->new();
+my $dbengine = EBox::DBEngineFactory::DBEngine();
 my $backupDir = "/tmp/backup-slices.d";
 my $backupDirIn3Slice = "/tmp/in3slice-backup-slices.d";
 my $archiveDir =  "/tmp/backup-slices-archive.dd";
@@ -442,7 +442,7 @@ sub _clearTables
         $dbengine->do("drop table $table");
     } otherwise {};
 
-    $dbengine->do("CREATE TABLE $table (timestamp TIMESTAMP, value INT )");
+    $dbengine->do("CREATE TABLE IF NOT EXISTS $table (timestamp TIMESTAMP, value INT )");
     $dbengine->do("DELETE FROM backup_slices WHERE tablename='$table'");
 
 
