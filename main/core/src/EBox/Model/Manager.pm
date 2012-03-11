@@ -50,13 +50,16 @@ sub _new
     $self->{models} = {};
     $self->{composites} = {};
 
+    $self->{modByModel} = {};
+    $self->{modByComposite} = {};
+
     $self->{'notifyActions'} = {};
     $self->{'reloadActions'} = {};
     $self->{'hasOneReverse'} = {};
 
     bless($self, $class);
 
-    $self->_setUp();
+    $self->_setupInfo();
 
 # FIXME: implement this
 #    $self->_setRelationship();
@@ -123,79 +126,159 @@ sub model
 {
     my ($self, $path) = @_;
 
-    unless ($path) {
-        throw EBox::Exceptions::MissingArgument(q{model's path});
+    return $self->_componentByPath('model', $path);
+}
+
+# Method: composite
+#
+#     Given a composite name it returns an instance of this composite
+#
+# Parameters:
+#
+#     composite - String the composite model's name, it can follow one
+#     of these patterns:
+#
+#        'compositeName' - used only if the compositeName is unique
+#        within eBox framework and no execution parameters are
+#        required to its creation
+#
+#        '/moduleName/compositeName[/index1] - used when a name space
+#        is required or parameters are set on runtime.
+#
+# Returns:
+#
+#     <EBox::Model::Composite> - the composite object if just one
+#     composite instance is required
+#
+#     array ref - containing <EBox::Model::Composite> instances if
+#     more than one composite corresponds to the given composite name.
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the composite does
+#     not exist given the composite parameter
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#     argument is missing
+#
+#     <EBox::Exceptions::Internal> - thrown if the composite parameter
+#     does not follow the given patterns
+#
+sub composite
+{
+    my ($self, $path) = @_;
+
+    return $self->_componentByPath('composite', $path);
+}
+
+sub _componentByPath
+{
+    my ($self, $kind, $path) = @_;
+
+    # Check arguments
+    unless (defined ($path)) {
+        throw EBox::Exceptions::MissingArgument('composite');
     }
 
-    my ($moduleName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
-
-    if (not $moduleName) {
-        throw EBox::Exceptions::Internal('Invalid path');
+    my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
+    if (not defined ($compName) and $path =~ m:/:) {
+        throw EBox::Exceptions::Internal("Component name can't contain slashes, valid formats are: 'component' or 'module/component'");
     }
 
-    if ((not $modelName) and $path =~ m:/:) {
-        throw EBox::Exceptions::Internal('One element is given and ' .
-                                         'slashes are given. The valid format ' .
-                                         'requires no slashes, sorry');
-    }
-
-    unless (defined ($modelName)) {
-        $modelName = $moduleName;
-        # Infer the module name
-        $moduleName = $self->_inferModuleFromModel($modelName);
+    unless (defined ($compName)) {
+        $compName = $moduleName;
+        # Try to infer the module name from the compName
+        my $key = 'modBy' . ucfirst($kind);
+        unless (defined ($self->{$key}->{$compName})) {
+            throw EBox::Exceptions::Internal("Component $path does not exist");
+        }
+        my @modules = keys %{$self->{$key}->{$compName}};
+        if (@modules == 1) {
+            $moduleName = $modules[0];
+        } else {
+            throw EBox::Exceptions::Internal("Can't guess module because $compName belongs to more than one module (@modules)");
+        }
     }
 
     # FIXME: RW/RO
     my $module = EBox::Global->modInstance($moduleName);
-    return $self->_model($module, $modelName);
+    return $self->_component($kind, $module, $compName);
 }
 
 sub models
 {
     my ($self, $module) = @_;
 
-    my $name = $module->{name};
-    return [ map { $self->_model($module, $_) } keys %{$self->{models}->{$name}} ];
+    return $self->_components('model', $module);
 }
 
-sub _model
+sub composites
 {
-    my ($self, $module, $modelName) = @_;
+    my ($self, $module) = @_;
 
+    return $self->_components('composite', $module);
+}
+
+sub _components
+{
+    my ($self, $kind, $module) = @_;
+
+    my $name = $module->{name};
+    return [ map { $self->_component($kind, $module, $_) } keys %{$self->{"${kind}s"}->{$name}} ];
+}
+
+sub _component
+{
+    my ($self, $kind, $module, $name) = @_;
+
+    my $key = "${kind}s";
     my $moduleName = $module->{name};
-    unless (exists $self->{models}->{$moduleName}->{$modelName}) {
-        # Second try as a report model
-        $modelName = "Report::$modelName";
-        unless (exists $self->{models}->{$moduleName}->{$modelName}) {
-            throw EBox::Exceptions::DataNotFound(data  => 'model',
-                                                 value => $modelName);
+
+    unless (exists $self->{$key}->{$moduleName}->{$name}) {
+        # Second try as a report component
+        $name = "Report::$name";
+        unless (exists $self->{$key}->{$moduleName}->{$name}) {
+            throw EBox::Exceptions::DataNotFound(data  => $kind,
+                                                 value => $name,
+                                                 silent => 1);
         }
     }
 
-    unless (defined $self->{models}->{$moduleName}->{$modelName}) {
-        # FIXME: parameters logic currently disabled
-        #if (@parameters and $parameters[0] ne '*') {
-        #    # There are at least one parameter
-        #    return $self->_chooseModelUsingParameters($path);
-        #} else {
-        #    my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
-        #    if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
-        #        return $self->{'models'}->{$moduleName}->{$modelName};
+    unless (defined $self->{$key}->{$moduleName}->{$name}) {
+        # FIXME: parameters logic for models currently disabled
+        # if (@parameters and $parameters[0] ne '*') {
+        #     # There are at least one parameter
+        #     return $self->_chooseModelUsingParameters($path);
+        # } else {
+        #     my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
+        #     if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
+        #         return $self->{'models'}->{$moduleName}->{$modelName};
+        #     } else {
+        #         return
+        #             $self->{'models'}->{$moduleName}->{$modelName}->[0];
+        #     }
+        # }
+        # FIXME: indexes logic for composites currently disabled
+        # if (@indexes > 0 and $indexes[0] ne '*') {
+        #    # There are at least one index
+        #    return $self->_chooseCompositeUsingIndex($moduleName, $name, \@indexes);
+        # } else {
+        #    if (@{$self->{composites}->{$moduleName}->{$name}} == 1) {
+        #        return $self->{composites}->{$moduleName}->{$name}->[0];
         #    } else {
-        #        return
-        #            $self->{'models'}->{$moduleName}->{$modelName}->[0];
+        #        return $self->{composites}->{$moduleName}->{$name};
         #    }
-        #}
+        # }
 
         my $global = EBox::Global->getInstance();
 
-        my $class = $global->_className($moduleName) . '::Model::' . $modelName;
+        my $class = $global->_className($moduleName) . '::' . ucfirst($kind) . "::$name";
         eval "use $class";
-        $self->{models}->{$moduleName}->{$modelName} = $class->new(confmodule => $module,
-                                                                   directory => $modelName);
+        # FIXME: what happens with composite directory?
+        $self->{$key}->{$moduleName}->{$name} = $class->new(confmodule => $module, directory => $name);
     }
 
-    return $self->{models}->{$moduleName}->{$modelName};
+    return $self->{$key}->{$moduleName}->{$name};
 }
 
 # FIXME: check if this is really needed, it is only used in TS and logs
@@ -495,17 +578,35 @@ sub warnOnChangeOnId
 
 # Group: Private methods
 
-sub _setUp
+sub _setupInfo
 {
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
     foreach my $moduleName (@{$global->modNames()}) {
         my $info = $global->readModInfo($moduleName);
-        my %models = map { $_ => undef } @{$info->{models}};
-        $self->{models}->{$moduleName} = \%models;
-        my %composites = map { $_ => undef } @{$info->{composites}};
-        $self->{composites}->{$moduleName} = \%composites;
+        $self->_setupComponentsInfo('model', $moduleName, $info);
+        $self->_setupComponentsInfo('composite', $moduleName, $info);
+    }
+}
+
+sub _setupComponentsInfo
+{
+    my ($self, $kind, $moduleName, $info) = @_;
+
+    my $key = $kind . 's';
+    my $modkey = 'modBy' . ucfirst($kind);
+
+    $self->{$key}->{$moduleName} = {};
+    foreach my $comp (@{$info->{$key}}) {
+        # Placeholder for the component instance
+        # FIXME: differentiate between RO and RW
+        $self->{$key}->{$moduleName}->{$comp} = undef;
+
+        unless (exists $self->{$modkey}->{$comp}) {
+            $self->{$modkey}->{$comp} = {};
+        }
+        $self->{$modkey}->{$comp}->{$moduleName} = 1;
     }
 }
 
@@ -745,103 +846,6 @@ sub _oneToOneDependencies
     return $self->{'hasOneReverse'}->{$model};
 }
 
-# Method: _inferModuleFromModel
-#
-#	(PRIVATE)
-#
-#   Given a model, it returns from which module the model belongs
-#   to. It will return a value only if one module has the model and no
-#   parameters are required. Otherwise an exception will be raised.
-#
-# Parameters:
-#
-#   (POSITIONAL)
-#
-#   modelName - String model's name
-#
-# Returns:
-#
-#   An instance of <EBox::Model::DataTable>
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - thrown if the module belogns to
-#   more than module
-#
-#   <EBox::Exceptions::DataNotFound> - thrown if the model's name is
-#   not in any module namespace
-#
-sub _inferModuleFromModel
-{
-    my ($self, $modelName) = @_;
-
-    my $models = $self->{'models'};
-    my $returningModule = undef;
-    foreach my $module (keys %{$models}) {
-        foreach my $modelKind ( keys %{$models->{$module}} ) {
-            if ( $modelKind eq $modelName ) {
-                if ( defined ( $returningModule )) {
-                    throw EBox::Exceptions::Internal('Cannot infere the module since ' .
-                                                     'more than one module has the model. ' .
-                                                     "A module namespace is required for $modelName");
-                }
-                $returningModule = $module;
-            }
-        }
-    }
-
-    unless ( defined ($returningModule) ) {
-        throw EBox::Exceptions::DataNotFound( data  => 'modelName',
-                                              value => $modelName);
-    }
-
-    return $returningModule;
-}
-
-# Method: _inferModuleFromComposite
-#
-#
-# Parameters:
-#
-#      compositeName - String the composite's name
-#
-# Returns:
-#
-#      String - the module's name if any
-#
-sub _inferModuleFromComposite
-{
-    my ($self, $compName) = @_;
-
-    my $composites = $self->{composites};
-    my $returningModule = undef;
-    foreach my $module (keys %{$composites}) {
-        foreach my $compKind ( keys %{$composites->{$module}} ) {
-            if ( $compKind eq $compName ) {
-                if ( defined ( $returningModule )) {
-                    throw EBox::Exceptions::Internal('Cannot infere the module '
-                                                     . 'since more than one module '
-                                                     . 'contain this composite. '
-                                                     . 'A namespace is required for '
-                                                     . $compName);
-                }
-                $returningModule = $module;
-            }
-        }
-    }
-
-    unless (defined ($returningModule)) {
-        # XXX We use this for flow control. It's wrong, in the meantime
-        #     we set the exception as silent
-        throw EBox::Exceptions::DataNotFound(data => 'compositeName',
-                                             value => $compName,
-                                             silent => 1);
-    }
-
-    return $returningModule;
-}
-
-
 # Method: _chooseModelUsingParameters
 #
 #	(PRIVATE)
@@ -881,114 +885,6 @@ sub _chooseModelUsingParameters
     # No coincidence
     throw EBox::Exceptions::DataNotFound(data => 'modelInstance',
                                          value => $path);
-}
-
-# Method: composite
-#
-#     Given a composite name it returns an instance of this composite
-#
-# Parameters:
-#
-#     composite - String the composite model's name, it can follow one
-#     of these patterns:
-#
-#        'compositeName' - used only if the compositeName is unique
-#        within eBox framework and no execution parameters are
-#        required to its creation
-#
-#        '/moduleName/compositeName[/index1] - used when a name space
-#        is required or parameters are set on runtime.
-#
-# Returns:
-#
-#     <EBox::Model::Composite> - the composite object if just one
-#     composite instance is required
-#
-#     array ref - containing <EBox::Model::Composite> instances if
-#     more than one composite corresponds to the given composite name.
-#
-# Exceptions:
-#
-#     <EBox::Exceptions::DataNotFound> - thrown if the composite does
-#     not exist given the composite parameter
-#
-#     <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#     argument is missing
-#
-#     <EBox::Exceptions::Internal> - thrown if the composite parameter
-#     does not follow the given patterns
-#
-sub composite
-{
-    my ($self, $path) = @_;
-
-    # Check arguments
-    unless (defined ($path)) {
-        throw EBox::Exceptions::MissingArgument('composite');
-    }
-
-    my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
-    if (not defined ($compName) and $path =~ m:/:) {
-        throw EBox::Exceptions::Internal('One composite element is given and '
-                                         . 'slashes are given. The valid format '
-                                         . 'requires no slashes');
-    }
-
-    unless (defined ($compName)) {
-        $compName = $moduleName;
-        # Try to infer the module name from the compName
-        $moduleName = $self->_inferModuleFromComposite($compName);
-    }
-
-    # FIXME: RW/RO
-    my $module = EBox::Global->modInstance($moduleName);
-    return $self->_composite($module, $compName);
-}
-
-sub composites
-{
-    my ($self, $module) = @_;
-
-    my $name = $module->{name};
-    return [ map { $self->_composite($module, $_) } keys %{$self->{composites}->{$name}} ];
-}
-
-sub _composite
-{
-    my ($self, $module, $compName) = @_;
-
-    my $moduleName = $module->{name};
-    unless (exists $self->{composites}->{$moduleName}->{$compName}) {
-        # Second try as a report composite
-        $compName = "Report::$compName";
-        unless (exists $self->{composites}->{$moduleName}->{$compName}) {
-            throw EBox::Exceptions::DataNotFound(data  => 'composite',
-                                                 value => $compName,
-                                                 silent => 1);
-        }
-    }
-
-    unless (defined $self->{composites}->{$moduleName}->{$compName}) {
-        # FIXME: indexes logic currently disabled
-        # if (@indexes > 0 and $indexes[0] ne '*') {
-        #    # There are at least one index
-        #    return $self->_chooseCompositeUsingIndex($moduleName, $compName, \@indexes);
-        # } else {
-        #    if (@{$self->{composites}->{$moduleName}->{$compName}} == 1) {
-        #        return $self->{composites}->{$moduleName}->{$compName}->[0];
-        #    } else {
-        #        return $self->{composites}->{$moduleName}->{$compName};
-        #    }
-        # }
-
-        my $global = EBox::Global->getInstance();
-
-        my $class = $global->_className($moduleName) . '::Composite::' . $compName;
-        eval "use $class";
-        $self->{composites}->{$moduleName}->{$compName} = $class->new(confmodule => $module);
-    }
-
-    return $self->{composites}->{$moduleName}->{$compName};
 }
 
 # Method: removeComposite

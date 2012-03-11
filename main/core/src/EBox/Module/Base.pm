@@ -31,7 +31,6 @@ use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
-use EBox::Model::Manager;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
@@ -187,38 +186,6 @@ sub migrate
             eval $file;
         };
     }
-}
-
-sub model
-{
-    my ($self, $name) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    return $manager->_model($self, $name);
-}
-
-sub composite
-{
-    my ($self, $name) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    return $manager->_composite($self, $name);
-}
-
-sub models
-{
-    my ($self) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    return $manager->models($self);
-}
-
-sub composites
-{
-    my ($self) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    return $manager->composites($self);
 }
 
 # Method: revokeConfig
@@ -1663,7 +1630,6 @@ sub _consolidateReportFromDB
     }
 }
 
-
 sub _consolidationValuesForMonth
 {
     my ($self, $db, $query, $beginTime, $beginMonth) = @_;
@@ -1688,7 +1654,6 @@ sub _consolidationValuesForMonth
     my $results = $db->query_hash($query);
     return $results;
 }
-
 
 sub _lastConsolidationValuesForMonth
 {
@@ -1817,7 +1782,7 @@ sub consolidateReportInfo
                                    );
 }
 
-# if this is neccesary in more places we will move it to PgDbEngine
+# if this is neccesary in more places we will move it to MyDbEngine
 sub _unionQuery
 {
     my ($self, $dbengine, $orig_query) = @_;
@@ -1836,319 +1801,6 @@ sub _unionQuery
     $sql .= ';';
 
     return $dbengine->query($sql);
-}
-
-# Method: _exposedMethods
-#
-#      Get the list of exposed method to manage the models. It could
-#      be very useful for Perl scripts on local or using SOAP protocol
-#
-# Returns:
-#
-#      hash ref - the list of the exposes method in a hash ref every
-#      component which has the following description:
-#
-#      methodName => { action   => '[add|set|get|del]',
-#                      path     => [ 'modelName', 'submodelFieldName1', 'submodelFieldName2',... ],
-#                      indexes  => [ 'indexFieldNameModel', 'indexFieldNameSubmodel1' ],
-#                      [ selector => [ 'field1', 'field2'...] ] # Only available for set/get actions
-#
-#      The 'indexes' must be unique (at least the field 'id' is unique
-#      and 'position' as well) and the submodel field name refers to the
-#      name of the <EBox::Types::HasMany> field on the previous model
-#      in the list.
-#
-#      If the model template may have more than one instance, the
-#      model index must be passed as the first parameter to
-#      distinguish from the remainder model instances.
-#
-#      If the action is 'set' and the selector is just one field you
-#      can omit the field name when setting the element as the
-#      following example shows:
-#
-#      $modelProvider->setAttr($attrValue);
-#      $modelProvider->setAttr( attr => $attrValue);
-#
-#      The method call will follow this pattern:
-#
-#      methodName( ['modelIndex',] '/index1/index2/index3...', ...) if there are more
-#      than one index
-#
-#      methodName( ['modelIndex',] 'index1', ...) if there are just one argument
-#
-#
-sub _exposedMethods
-{
-    return {};
-}
-
-sub DESTROY { ; }
-
-# Method: AUTOLOAD
-#
-#       It does a mapping among the exposed methods and the autoload
-#       methods created at the DataTable class
-#
-# Parameters:
-#
-#       params - array the parameters from the undefined method
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - thrown if the method is not
-#       exposed
-#
-sub AUTOLOAD
-{
-    my ($self, @params) = @_;
-
-    my $methodName = our $AUTOLOAD;
-
-    $methodName =~ s/.*:://;
-
-    if ( UNIVERSAL::can($self, '_exposedMethods') ) {
-        my $exposedMethods = $self->_exposedMethods();
-        if ( exists $exposedMethods->{$methodName} ) {
-            return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
-        } else {
-            use Devel::StackTrace;
-            my $trace = new Devel::StackTrace();
-            EBox::debug($trace->as_string());
-
-            throw EBox::Exceptions::Internal("Undefined method $methodName");
-        }
-    } else {
-        use Devel::StackTrace;
-        my $trace = new Devel::StackTrace();
-        EBox::debug($trace->as_string());
-
-        throw EBox::Exceptions::Internal("Undefined method $methodName");
-    }
-}
-
-# Group: Private methods
-
-# TODO: these are the methods who have survived from ModelProvider,
-# its definitive location will probably be the future EBox::Module::Config
-
-# Method: _callExposedMethod
-#
-#     This method does the mapping between the exposed method and the
-#     autoload method parsed by the DataTable class
-#
-# Parameters:
-#
-#     methodDescription - hash ref the method description as it is
-#     explained by <EBox::Model::ModelProvider::_exposedMethods>
-#     header
-#
-#     params - array ref the parameters from the undefined method
-#
-sub _callExposedMethod
-{
-    my ($self, $methodDesc, $paramsRef) = @_;
-
-    my @path = @{$methodDesc->{path}};
-    my @indexes = @{$methodDesc->{indexes}} if exists ($methodDesc->{indexes});
-    my $action = $methodDesc->{action};
-    my @selectors = @{$methodDesc->{selector}} if exists ($methodDesc->{selector});
-
-    # Getting the model instance
-    my $model = EBox::Model::Manager->instance()->model($path[0]);
-    if (ref ($model) eq 'ARRAY') {
-        # Search for the chosen model
-        my $index = shift (@{$paramsRef});
-        foreach my $modelInstance (@{$model}) {
-            if ( $modelInstance->index() eq $index ) {
-                $model = $modelInstance;
-                last;
-            }
-        }
-    } elsif ($model->index()) {
-        shift(@{$paramsRef});
-    }
-    unless (defined ($model) or (ref ($model) eq 'ARRAY')) {
-        throw EBox::Exceptions::Internal("Cannot retrieve model $path[0] "
-                . 'it may be a multiple one or it '
-                . 'is passed a wrong index');
-    }
-
-    # Set the indexField for every model with index
-    if (@indexes > 0) {
-        unless ($indexes[0] eq 'id' or
-                $indexes[0] eq 'position') {
-            $model->setIndexField($indexes[0]);
-        }
-        my $submodel = $model;
-        foreach my $idx (1 .. $#indexes) {
-            my $hasManyField = $submodel->fieldHeader($path[$idx]);
-            my $submodelName = $hasManyField->foreignModel();
-            $submodel = EBox::Model::Manager->instance()->model($submodelName);
-            unless ( $indexes[$idx] eq 'id' or
-                    $indexes[$idx] eq 'position') {
-                $submodel->setIndexField($indexes[$idx]);
-            }
-        }
-    }
-
-    # Submodel in the method name
-    my $subModelsName = "";
-    # Remove the model name
-    shift (@path);
-    foreach my $field (reverse @path) {
-        $subModelsName .= ucfirst ( $field ) . 'To';
-    }
-
-    # The name
-    my $mappedMethodName;
-    if ($subModelsName) {
-        $mappedMethodName = $action . $subModelsName . $model->name();
-    } else {
-        $mappedMethodName = $action;
-    }
-
-    # The parameters
-    my @indexValues = ();
-    unless (ref ($paramsRef->[0])) {
-        if (defined ($paramsRef->[0])) {
-            my $separator;
-            if (exists $methodDesc->{'separator'}) {
-                $separator = $methodDesc->{'separator'};
-            } else {
-                $separator = '/';
-            }
-            @indexValues = grep { $_ ne '' } split ($separator,
-                    $paramsRef->[0],
-                    scalar(@indexes) + 1);
-            # Remove the index param if any
-            shift (@{$paramsRef});
-        }
-    }
-    my @mappedMethodParams = @indexValues;
-    if (@selectors == 1 and $action eq 'set') {
-        # If it is a set action and just one selector is supplied,
-        # the field name is set as parameter
-        push (@mappedMethodParams, $selectors[0]);
-    }
-    push (@mappedMethodParams, @{$paramsRef});
-    if (@selectors > 0 and $action eq 'get') {
-        my $selectorsRef = \@selectors;
-        push (@mappedMethodParams, $selectorsRef);
-    }
-
-    return $model->$mappedMethodName(@mappedMethodParams);
-}
-
-# Method: modelsSaveConfig
-#
-#    Method called when the conifguraiton of a modules is saved
-sub modelsSaveConfig
-{
-    my ($self) = @_;
-
-    $self->modelsBackupFiles();
-}
-
-# Method: modelsRevokeConfig
-#
-#    Method called when the conifguraiton of a modules is revoked
-sub modelsRevokeConfig
-{
-    my ($self) = @_;
-
-    $self->modelsRestoreFiles();
-}
-
-# Method: backupFiles
-#
-#   Make an actual configuration backup of all the files contained in the
-#   models
-sub modelsBackupFiles
-{
-    my ($self) = @_;
-
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('backupFiles')) {
-            $model->backupFiles();
-        }
-    }
-}
-
-# Method: restoreFiles
-#
-#  Restores the actual configuration backup of files in the models , thus
-#  discarding the lasts changes in files
-sub modelsRestoreFiles
-{
-    my ($self) = @_;
-
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('restoreFiles')) {
-            $model->restoreFiles();
-        }
-    }
-}
-
-sub _filesArchive
-{
-    my ($self, $dir) = @_;
-    return "$dir/modelsFiles.tar";
-}
-
-
-# Method: backupFilesInArchive
-#
-#  Backup all the modules' files in a compressed archive in the given dir
-#  This is used to create backups
-#
-#   Parameters:
-#   dir - directory where the archive will be stored
-sub backupFilesInArchive
-{
-    my ($self, $dir) = @_;
-
-    my @filesToBackup;
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('filesPaths')) {
-            push @filesToBackup, @{ $model->filesPaths() };
-        }
-    }
-
-    @filesToBackup or
-        return;
-
-    my $archive = $self->_filesArchive($dir);
-
-
-    my $firstFile  = shift @filesToBackup;
-    my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve --same-owner $firstFile";
-    EBox::Sudo::root($archiveCmd);
-
-    # we append the files one per one bz we don't want to overflow the command
-    # line limit. Another approach would be to use a file catalog however I think
-    # that for only a few files (typical situation for now) the append method is better
-    foreach my $file (@filesToBackup) {
-        $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve --same-owner $file";
-        EBox::Sudo::root($archiveCmd);
-    }
-}
-
-# Method: restoreFilesFromArchive
-#
-#  Restore all the module's file from the compressed archive in the given dir
-#  This is used to restore backups
-#
-#   Parameters:
-#   dir - directory where the archive is stored
-sub restoreFilesFromArchive
-{
-    my ($self, $dir) = @_;
-    my $archive = $self->_filesArchive($dir);
-
-    (-f $archive) or return;
-
-    my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve --same-owner";
-    EBox::Sudo::root($restoreCmd);
 }
 
 1;
