@@ -32,6 +32,21 @@ use Encode;
 use Error qw(:try);
 use POSIX qw(getuid);
 
+# Method: parentModule
+#
+#        Get the parent confmodule for the model
+#
+# Returns:
+#
+#        <EBox::Module::Config> - the module
+#
+sub parentModule
+{
+    my ($self) = @_;
+
+    return $self->{'confmodule'};
+}
+
 # Method: setParentComposite
 #
 #   Set the parent composite of this composite object
@@ -183,7 +198,6 @@ sub parent
     return $self->{'parent'};
 }
 
-
 # Method: setParent
 #
 #   Set model's parent
@@ -234,21 +248,18 @@ sub disabledModuleWarning
     return '' unless (getuid() == getpwnam(EBox::Config::user()));
 
     my $pageTitle = $self->pageTitle();
-    my $module;
 
     if ($self->isa('EBox::Model::DataTable')) {
         my $htmlTitle = @{$self->viewCustomizer()->HTMLTitle()};
         # Do not show warning on nested components
-        unless ($pageTitle or $htmlTitle) {
-            return '';
-        }
-        $module = $self->parentModule();
-    } elsif ($self->isa('EBox::Model::Composite') and $pageTitle) {
-        $module = EBox::Global->modInstance(lc($self->compositeDomain()));
+        return '' unless ($pageTitle or $htmlTitle);
+    } elsif ($self->isa('EBox::Model::Composite')) {
+        return '' unless ($pageTitle);
     } else {
         return '';
     }
 
+    my $module = $self->parentModule();;
     unless (defined ($module) and $module->isa('EBox::Module::Service')) {
         return '';
     }

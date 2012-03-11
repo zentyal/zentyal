@@ -1848,21 +1848,6 @@ sub setDirectory
     $self->{'table'}->{'confdir'} = $dir;
 }
 
-# Method: parentModule
-#
-#        Get the parent confmodule for the model
-#
-# Returns:
-#
-#        <EBox::Module> - the module
-#
-sub parentModule
-{
-    my ($self) = @_;
-
-    return $self->{'confmodule'};
-}
-
 # Method: tableName
 #
 #        Get the table name associated to this model
