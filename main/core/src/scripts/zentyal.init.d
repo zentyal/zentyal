@@ -16,6 +16,8 @@ use EBox::Util::Init;
 
 EBox::init();
 
+EBox::Util::Init::cleanTmpOnBoot();
+
 $SIG{PIPE} = 'IGNORE';
 
 sub usage {

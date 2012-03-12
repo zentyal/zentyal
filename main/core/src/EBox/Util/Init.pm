@@ -18,14 +18,24 @@ package EBox::Util::Init;
 use strict;
 use warnings;
 
-use EBox::Global;
 use EBox;
+use EBox::Global;
+use EBox::Config;
 use EBox::Sudo;
 use EBox::ServiceManager;
 use File::Slurp;
 use Error qw(:try);
 
-sub moduleList {
+sub cleanTmpOnBoot
+{
+    if (not exists $ENV{'USER'}) {
+        my $tmpdir = EBox::Config::tmp();
+        EBox::Sudo::root("rm -rf $tmpdir/*");
+    }
+}
+
+sub moduleList
+{
     print "Module list: \n";
     my $global = EBox::Global->getInstance(1);
     my @mods = @{$global->modInstancesOfType('EBox::Module::Service')};
@@ -34,7 +44,8 @@ sub moduleList {
     print "\n";
 }
 
-sub checkModule {
+sub checkModule
+{
     my ($modname) = @_;
     my $global = EBox::Global->getInstance(1);
     my $mod = $global->modInstance($modname);
@@ -51,7 +62,8 @@ sub checkModule {
     return $mod;
 }
 
-sub start() {
+sub start
+{
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
 	my @names = map { $_->{'name'} } @mods;
@@ -63,7 +75,8 @@ sub start() {
 	}
 }
 
-sub stop() {
+sub stop
+{
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;

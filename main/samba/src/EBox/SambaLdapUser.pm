@@ -73,7 +73,7 @@ sub _addUser
             attrs => ['distinguishedName']});
     if (scalar (@{$result}) == 0) {
         # User creation
-        my $cmd = $self->{samba}->SAMBATOOL() . " user create $userId $password" .
+        my $cmd = $self->{samba}->SAMBATOOL() . " user create '$userId' '$password'" .
             " --enable-reversible-encryption" .
             " --surname='$userSurname'" .
             " --given-name='$userGivenname'";
@@ -136,7 +136,7 @@ sub _modifyUser
         $self->{ldb}->xidMapping($userId, $userUid);
         if (length ($password) > 0) {
             EBox::debug("Updating user password");
-            my $cmd = $self->{samba}->SAMBATOOL() . " user setpassword $userId --newpassword='$password'";
+            my $cmd = $self->{samba}->SAMBATOOL() . " user setpassword '$userId' --newpassword='$password'";
             EBox::Sudo::root($cmd);
         }
     } else {
@@ -162,7 +162,7 @@ sub _delUser
             filter => "(sAMAccountName=$userId)",
             attrs => ['distinguishedName']});
     if (scalar @{$result} == 1) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " user delete $userId";
+        my $cmd = $self->{samba}->SAMBATOOL() . " user delete '$userId'";
         EBox::debug("Deleting user '$userId' from LDB");
         EBox::Sudo::root($cmd);
         # TODO Update shares ACLs
@@ -184,7 +184,7 @@ sub _addGroup
             attrs => ['distinguishedName']});
     if (scalar (@{$result}) == 0) {
         # Group creation
-        my $cmd = $self->{samba}->SAMBATOOL() . " group add $groupId";
+        my $cmd = $self->{samba}->SAMBATOOL() . " group add '$groupId'";
         if (length ($description) > 0) {
             $cmd .= " --description='$description'";
         }
@@ -244,7 +244,7 @@ sub _delGroup
             filter => "(sAMAccountName=$groupId)",
             attrs => ['distinguishedName']});
     if (scalar (@{$result}) == 1) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " group delete $groupId";
+        my $cmd = $self->{samba}->SAMBATOOL() . " group delete '$groupId'";
         EBox::debug("Deleting group '$groupId' from LDB");
         EBox::Sudo::root($cmd);
         # TODO Update shares ACLs

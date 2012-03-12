@@ -34,6 +34,7 @@ use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Config;
 use EBox::View::Customizer;
+use EBox::Exceptions::External;
 
 use strict;
 use warnings;
@@ -123,6 +124,20 @@ sub validateTypedRow
     $self->_checkDomainName($workgroup);
     $self->_checkDomainName($realm);
     $self->_checkDescriptionString($description);
+
+    # Check if the password meet the policy requirements
+    if (exists $newParams->{password}) {
+        my $password = $newParams->{password}->value();
+
+        # Check if the password meet the complexity constraints
+        unless ($password =~ /[a-z]+/ and $password =~ /[A-Z]+/ and
+                $password =~ /[0-9]+/ and length ($password) >=8) {
+                throw EBox::Exceptions::External(
+                    __('The password does not meet the password policy requirements. ' .
+                       'It must be at least eight characters long and contain uppercase, ' .
+                       'lowercase and numbers'));
+        }
+    }
 
 #    # Check for incompatibility between PDC and PAM
 #    # only on slave servers

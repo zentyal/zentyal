@@ -399,7 +399,7 @@ sub logReportInfo
 
     my @data;
 
-    my $fileSysS = EBox::Report::DiskUsage::partitionsFileSystems();
+    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
     foreach my $fileSys (keys %{$fileSysS}) {
         my $entry = {};
         $entry->{'table'} = 'sysinfo_disk_usage';

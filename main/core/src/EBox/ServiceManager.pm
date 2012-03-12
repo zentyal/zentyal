@@ -37,7 +37,6 @@ use File::Basename;
 
 use constant GCONF_DIR => 'ServiceModule/';
 use constant CLASS => 'EBox::Module::Service';
-use constant OVERRIDE_USER_MODIFICATIONS_KEY => 'override_user_modification';
 
 # Group: Public methods
 
@@ -205,7 +204,7 @@ sub checkFiles
 {
     my ($self) = @_;
 
-    unless ( $self->checkUserModifications() ) {
+    unless ($self->checkUserModifications()) {
         return [];
     }
 
@@ -327,7 +326,6 @@ sub skipModification
     my $fileId = $self->_fileId($fileEntry);
     $fileEntry->{'id'} = $fileId;
 
-
     return $self->_fileModified($fileEntry);
 }
 
@@ -344,6 +342,8 @@ sub skipModification
 sub updateFileDigest
 {
     my ($self, $module, $file) = @_;
+
+    return unless ($self->checkUserModifications());
 
     my $gconf = $self->{'gconfmodule'};
 
@@ -387,6 +387,8 @@ sub updateDigests
 sub updateModuleDigests
 {
     my ($self, $modName) = @_;
+
+    return unless $self->checkUserModifications();
 
     my $global = EBox::Global->getInstance();
     my $gconf = $self->{'gconfmodule'};
@@ -449,22 +451,7 @@ sub enableAllModules
 #
 sub checkUserModifications
 {
-    my ($self) = @_;
-
-    if (defined($self->{OVERRIDE_USER_MODIFICATIONS_KEY})) {
-        return $self->{OVERRIDE_USER_MODIFICATIONS_KEY};
-    }
-
-    my $overrideUserMods =
-      EBox::Config::configkey(OVERRIDE_USER_MODIFICATIONS_KEY);
-
-    # if key is not defined or its value is different from yes, say check
-    if (defined($overrideUserMods) and $overrideUserMods eq 'yes' ) {
-        return 0;
-    } else {
-        return 1;
-    }
-
+    return not EBox::Config::boolean('override_user_modification');
 }
 
 # Method: modulesInDependOrder
@@ -623,7 +610,7 @@ sub _updateMD5
     $gconf->st_set_string("$modPath/$id/digest", $currDigest);
 }
 
-sub  _getMD5
+sub _getMD5
 {
     my ($self, $path) = @_;
 

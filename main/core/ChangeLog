@@ -1,5 +1,15 @@
 HEAD
 	+ Added EBox::Types::Time type
+2.3.4
+	+ Avoid 'negative radius' error in DiskUsage chart
+	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
+	+ Log audit does not ignore fields which their values could be interpreted
+	  as boolean false
+	+ Avoid ebox.cgi failure when showing certain strings in the error template
+	+ Do not calculate md5 digests if override_user_modification is enabled
+	+ Clean /var/lib/zentyal/tmp on boot
+	+ Stop apache gracefully and delete unused code in Apache.pm
+	+ Cache contents of module.yaml files in Global
 2.3.3
 	+ The editable attribute of the types now accept a reference to a function
 	  to dinamically enable or disable the field.
