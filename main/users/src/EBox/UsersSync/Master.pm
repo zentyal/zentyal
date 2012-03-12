@@ -170,7 +170,7 @@ sub checkMaster
 
 
     try {
-        $master->getCertificate();
+        $master->getDN();
     } otherwise {
         my $ex = shift;
         $self->_analyzeException($ex);
@@ -215,6 +215,9 @@ sub setupSlave
             proxy => "https://slave:$password\@$host:$port/master",
         );
 
+        # Recreate LDAP for the master DN
+        $self->_recreateLDAP($users, $client);
+
         # get master's certificate
         my $cert = $client->getCertificate();
 
@@ -237,6 +240,23 @@ sub setupSlave
         # disable master access
         unlink (MASTER_CERT);
     }
+}
+
+
+sub _recreateLDAP
+{
+    my ($self, $users, $client) = @_;
+
+    my $dn = $client->getDN();
+
+    my $row = $users->model('Mode')->row();
+    $row->elementByName('dn')->setValue($dn);
+    $row->store();
+
+    # Enable actions (without slave setup to avoid recursion)
+    $users->enableActions(1);
+
+    # TODO: reenable all LDAP modules
 }
 
 

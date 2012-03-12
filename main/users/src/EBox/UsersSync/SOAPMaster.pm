@@ -25,6 +25,16 @@ use EBox::Global;
 use Devel::StackTrace;
 use SOAP::Lite;
 
+sub getDN
+{
+    my ($self) = @_;
+
+    my $users = EBox::Global->modInstance('users');
+    my $dn = $users->ldap->dn();
+
+    return $self->_soapResult($dn);
+}
+
 sub getCertificate
 {
     my ($self) = @_;

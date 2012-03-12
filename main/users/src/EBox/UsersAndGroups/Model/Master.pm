@@ -26,6 +26,7 @@ use EBox::Types::Host;
 use EBox::Types::Port;
 use EBox::Types::Boolean;
 use EBox::Types::Password;
+use EBox::Exceptions::DataInUse;
 
 use strict;
 use warnings;
@@ -117,9 +118,8 @@ sub _unlocked
 
 sub validateTypedRow
 {
-    my ($self, $action, $changedParams, $allParams) = @_;
+    my ($self, $action, $changedParams, $allParams, $force) = @_;
 
-    # Check master is accesible
 
     my $enabled = exists $allParams->{enabled} ?
                          $allParams->{enabled}->value() :
@@ -141,8 +141,20 @@ sub validateTypedRow
                           $changedParams->{password}->value();
 
 
+    # Check master is accesible
     my $users = EBox::Global->modInstance('users');
     $users->master->checkMaster($host, $port, $password);
+
+    unless ($force) {
+        my $prevEnabled = exists $changedParams->{enabled} ?
+            not $enabled :
+            $enabled;
+
+        my $nUsers = scalar @{$users->users()};
+        if ($enabled and not $prevEnabled and $nUsers > 0) {
+            throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
+        }
+    }
 }
 
 

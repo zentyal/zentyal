@@ -188,7 +188,7 @@ sub initialSetup
 #
 sub enableActions
 {
-    my ($self) = @_;
+    my ($self, $noSlaveSetup) = @_;
 
     # Stop slapd daemon
     EBox::Sudo::root(
@@ -220,7 +220,7 @@ sub enableActions
     $self->ldap->clearConn();
 
     # Setup NSS (needed if some user is added before save changes)
-    $self->_setConf();
+    $self->_setConf($noSlaveSetup);
 
     # Create default group
     EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
@@ -309,7 +309,7 @@ sub wizardPages
 #
 sub _setConf
 {
-    my ($self) = @_;
+    my ($self, $noSlaveSetup) = @_;
 
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
@@ -340,7 +340,7 @@ sub _setConf
 
 
     # Configure as slave if enabled
-    $self->master->setupSlave();
+    $self->master->setupSlave() unless ($noSlaveSetup);
 
     # Configure soap service
     $self->master->confSOAPService();
