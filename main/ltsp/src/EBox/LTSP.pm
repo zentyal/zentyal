@@ -290,8 +290,12 @@ sub _getGeneralOptions
         $opts{'SOUND'} = $sound;
     }
 
-    if ( $local_apps ne 'default' ) {
-        $opts{'LOCAL_APPS'} = $local_apps;
+    if ( $local_apps  eq 'True' ) {
+        $opts{'LOCAL_APPS'}      = 'True';
+        $opts{'LOCAL_APPS_MENU'} = 'True';
+    } else {                                            # Default
+        $opts{'LOCAL_APPS'}      = 'False';
+        $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
     if ( $local_dev ne 'default' ) {
@@ -385,8 +389,12 @@ sub _getGeneralProfileOptions
         $opts{'SOUND'} = $sound;
     }
 
-    if ( $local_apps ne 'default' ) {
-        $opts{'LOCAL_APPS'} = $local_apps;
+    if ( $local_apps  eq 'True' ) {
+        $opts{'LOCAL_APPS'}      = 'True';
+        $opts{'LOCAL_APPS_MENU'} = 'True';
+    } elsif ( $local_apps  eq 'False' ) {
+        $opts{'LOCAL_APPS'}      = 'False';
+        $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
     if ( $local_dev ne 'default' ) {

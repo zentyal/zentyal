@@ -3,10 +3,10 @@ echo "Please, choose the architecture:"
 select arch in i386 amd64;
 do
     if [ $arch ]; then
-        echo -n "Enter the package names separated by spaces: "
+        echo -n "Enter the application names separated by spaces: "
         read PACKAGES
 
-        echo "Installing packages into $arch image..."
+        echo "Installing applications into $arch image..."
 
         CHROOT_DIR=/opt/ltsp/$arch
         chroot $CHROOT_DIR mount -t proc /proc /proc
