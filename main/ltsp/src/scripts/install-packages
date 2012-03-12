@@ -3,17 +3,19 @@ echo "Please, choose the architecture:"
 select arch in i386 amd64;
 do
     if [ $arch ]; then
-        echo "Updating $arch image..."
+        echo -n "Enter the package names separated by spaces: "
+        read PACKAGES
+
+        echo "Installing packages into $arch image..."
 
         CHROOT_DIR=/opt/ltsp/$arch
         chroot $CHROOT_DIR mount -t proc /proc /proc
 
         chroot $CHROOT_DIR apt-get update
-        chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get dist-upgrade
+        sudo chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $PACKAGES
 
         umount /opt/ltsp/$arch/proc
 
-        ltsp-update-kernels
         ltsp-update-image --arch $arch
 
         break;

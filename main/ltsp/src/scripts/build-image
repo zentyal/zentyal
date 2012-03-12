@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Please, choose the architecture:"
+select arch in i386 amd64;
+do
+    if [ $arch ]; then
+        echo "Building $arch image..."
+        ltsp-build-client --arch $arch --purge-chroot;
+        break;
+    fi
+done
