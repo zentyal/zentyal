@@ -28,6 +28,7 @@ use warnings;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 
+use EBox::Types::MACAddr;
 use EBox::Types::Text;
 use EBox::Types::Password;
 

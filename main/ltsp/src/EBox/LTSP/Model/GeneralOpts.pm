@@ -29,8 +29,10 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
-use EBox::Types::Time;
 use EBox::Types::Text;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
+use EBox::Types::Time;
 
 sub new
 {
@@ -150,7 +152,6 @@ sub _table
                 new EBox::Types::Union::Text(
                     fieldName       => 'none',
                     printableName   => __('None'),
-                    editable        => 1,
                 ),
                 new EBox::Types::Time(
                     fieldName       => 'shutdown_time',
