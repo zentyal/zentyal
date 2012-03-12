@@ -254,7 +254,7 @@ sub _recreateLDAP
     $row->store();
 
     # Enable actions (without slave setup to avoid recursion)
-    $users->enableActions(1);
+    $users->enableActions();
 
     # TODO: reenable all LDAP modules
 }

@@ -188,7 +188,7 @@ sub initialSetup
 #
 sub enableActions
 {
-    my ($self, $noSlaveSetup) = @_;
+    my ($self) = @_;
 
     # Stop slapd daemon
     EBox::Sudo::root(
@@ -220,7 +220,7 @@ sub enableActions
     $self->ldap->clearConn();
 
     # Setup NSS (needed if some user is added before save changes)
-    $self->_setConf($noSlaveSetup);
+    $self->_setConf(1);
 
     # Create default group
     EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
