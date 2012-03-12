@@ -155,7 +155,7 @@ sub _table
         modelDomain => 'LTSP',
         defaultActions => ['add', 'del', 'editField', 'changeView' ],
         tableDescription => \@fields,
-        help => 'When an option is set to \'Default\' the global value for that option will be used.',
+        help => __('When an option is set to \'Default\' the global value for that option will be used.'),
     };
 
     return $dataTable;
