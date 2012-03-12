@@ -1,4 +1,5 @@
 HEAD
+	+ Do not show RSS image if custom_prefix defined
 	+ Avoid 'negative radius' error in DiskUsage chart
 	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
 	+ Log audit does not ignore fields which their values could be interpreted

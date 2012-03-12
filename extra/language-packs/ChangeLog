@@ -1,3 +1,6 @@
+HEAD
+	+ Fix in parsing mason templates: <% %> can be concatenated in the
+	  same line and it can split in several lines
 2.2.2
 	+ Translations updated from translate.zentyal.org (Mar/04)
 	+ Added a tool to fix missing fuzzy flags in .po files
