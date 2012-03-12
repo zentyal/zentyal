@@ -119,13 +119,6 @@ sub _table
             editable        => 1,
             help            => __(''),
         ),
-        new EBox::Types::Select(
-            fieldName       => 'disable_screen_lock',
-            printableName   => __('Disable screen lock'),
-            populate        => \&_select_options,
-            editable        => 1,
-            help            => __(''),
-        ),
         new EBox::Types::Text(
             fieldName       => 'kb_layout',
             printableName   => __('Keyboard Layout'),

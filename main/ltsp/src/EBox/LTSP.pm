@@ -254,15 +254,6 @@ sub _getGeneralOptions
 {
     my ($self,$model) = @_;
 
-    my $disable_screen_lock = $model->row()->valueByName('disable_screen_lock');
-    unless ( $disable_screen_lock eq 'default' ) {
-        EBox::Sudo::root('gconftool-2 --direct --config-source ' .
-                         'xml:readwrite:/etc/gconf/gconf.xml.mandatory ' .
-                         '--set --type boolean ' .
-                         "/desktop/gnome/lockdown/disable_lock_screen $disable_screen_lock " .
-                         "/apps/panel/global/disable_lock_screen $disable_screen_lock");
-    }
-
     my $one_session = $model->row()->valueByName('one_session');
     my $sound       = $model->row()->valueByName('sound');
     my $local_apps  = $model->row()->valueByName('local_apps');
