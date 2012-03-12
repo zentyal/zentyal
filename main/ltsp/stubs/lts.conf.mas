@@ -6,11 +6,6 @@
     %clients
 </%args>
 [default]
-    #CONFIGURE_X=False
-    X_COLOR_DEPTH=24
-    NETWORK_COMPRESSION=False
-    LDM_DIRECTX=True
-
 %   for my $opt (keys %global) {
     <% $opt %> = <% $global{$opt} %>
 %   }

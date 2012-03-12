@@ -87,6 +87,13 @@ sub _table
             help            => __(''),
         ),
         new EBox::Types::Select(
+            fieldName       => 'network_compression',
+            printableName   => __('Network Compression'),
+            populate        => \&_select_options,
+            editable        => 1,
+            help            => __(''),
+        ),
+        new EBox::Types::Select(
             fieldName       => 'sound',
             printableName   => __('Sound enabled'),
             populate        => \&_select_options,

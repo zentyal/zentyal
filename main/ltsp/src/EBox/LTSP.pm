@@ -254,17 +254,16 @@ sub _getGeneralOptions
 {
     my ($self,$model) = @_;
 
-    my $one_session = $model->row()->valueByName('one_session');
-    my $sound       = $model->row()->valueByName('sound');
-    my $local_apps  = $model->row()->valueByName('local_apps');
-    my $local_dev   = $model->row()->valueByName('local_dev');
-    my $autologin   = $model->row()->valueByName('autologin');
-    my $guestlogin  = $model->row()->valueByName('guestlogin');
-
-    my $kb_layout   = $model->row()->valueByName('kb_layout');
-
-    my $server      = $model->row()->elementByName('server')->ip();
-    my $time_server = $model->row()->elementByName('time_server')->ip();
+    my $one_session         = $model->row()->valueByName('one_session');
+    my $network_compression = $model->row()->valueByName('network_compression');
+    my $sound               = $model->row()->valueByName('sound');
+    my $local_apps          = $model->row()->valueByName('local_apps');
+    my $local_dev           = $model->row()->valueByName('local_dev');
+    my $autologin           = $model->row()->valueByName('autologin');
+    my $guestlogin          = $model->row()->valueByName('guestlogin');
+    my $kb_layout           = $model->row()->valueByName('kb_layout');
+    my $server              = $model->row()->elementByName('server')->ip();
+    my $time_server         = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
     if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
@@ -277,6 +276,14 @@ sub _getGeneralOptions
 
     if ( $one_session ne 'default' ) {
         $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
+    }
+
+    if ( $network_compression eq 'True' ) {
+        $opts{'LDM_DIRECTX'}         = 'False';
+        $opts{'NETWORK_COMPRESSION'} = 'True';
+    } else {                                            # Default
+        $opts{'LDM_DIRECTX'}         = 'True';
+        $opts{'NETWORK_COMPRESSION'} = 'False';
     }
 
     if ( $sound ne 'default' ) {
