@@ -106,92 +106,8 @@ sub components
 {
     my ($self) = @_;
 
-    for (my $idx = 0; $idx < scalar (@{$self->{components}}); $idx++) {
-        my $component = $self->{components}->[$idx];
-        unless (ref ($component)) {
-            my $componentName = $component;
-            $component = $self->_lookupComponent($componentName);
-            unless (defined ($component)) {
-                throw EBox::Exceptions::InvalidData(
-                        data => 'component',
-                        value => $componentName
-                        );
-            }
-            if (ref ($component) eq 'ARRAY') {
-
-                # More than one component to store in
-                my @remainder = ();
-                if ( $idx + 1 <= $#{$self->{components}} ) {
-                    @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
-                    # Remove remainder elements
-                    $self->{components}->[$idx .. $#{$self->{components}}] = ();
-                } else {
-                    pop(@{$self->{components}});
-                }
-                push (@{$self->{components}}, @{$component});
-                push (@{$self->{components}}, @remainder ) if ( @remainder > 0);
-                $idx += scalar(@{$component}) - 1;
-            } else {
-                $self->{components}->[$idx] = $component;
-            }
-        }
-    }
-
-    return $self->{components};
-}
-
-# Method: addComponent
-#
-#      Add a component to the composite. It must be a class of
-#      <EBox::Model::DataTable> or <EBox::Model::Composite>.
-#
-#      It does not check if the component is already in the
-#      composite.
-#
-# Parameters:
-#
-#      component - an instance of <EBox::Model::DataTable> or
-#      <EBox::Model::Composite> or String the name the component to add.
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::InvalidType> - thrown if any parameter has
-#       not the correct type
-#
-#       <EBox::Exceptions::MissingArgument> -
-#       thrown if any mandatory parameter is missing
-#
-#       <EBox::Exceptions::InvalidData> - thrown if the component name
-#       given is not defined at <EBox::Model::Manager>
-#
-sub addComponent
-{
-    my ($self, $component) = @_;
-
-    defined ($component) or
-      throw EBox::Exceptions::MissingArgument('component');
-
-    # Check if it a string
-    unless (ref ($component)) {
-        # Delay the component instance search because of deep
-        # recursion
-        push (@{$self->{components}}, $component);
-        return;
-    }
-
-    unless ($component->isa('EBox::Model::DataTable') or
-            $component->isa('EBox::Model::Composite')) {
-        throw EBox::Exceptions::InvalidType($component,
-                                            'EBox::Model::DataTable ' .
-                                            'or EBox::Model::Composite'
-                                           );
-    }
-
-    push (@{$self->{components}}, $component);
-
-    $component->setParentComposite($component);
-
-    return;
+    # FIXME: return instances instead of names
+    return EBox::Model::Manager->instance()->{composites}->{$self->{name}}->{components};
 }
 
 #  Method: componentByName
@@ -700,12 +616,6 @@ sub _setDescription
     if (defined ($description->{components}) and
         not ((ref ($description->{components} ) eq 'ARRAY'))) {
         throw EBox::Exceptions::InvalidType( $description->{components}, 'array ref' );
-    }
-
-    if (exists ($description->{components})) {
-        foreach my $component (@{delete ( $description->{components} ) }) {
-            $self->addComponent( $component );
-        }
     }
 
     if (exists ($description->{layout})) {

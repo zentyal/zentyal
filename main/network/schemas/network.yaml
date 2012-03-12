@@ -14,8 +14,8 @@ models:
     - Proxy
 
 composites:
-    - MultiGw
-    - DNS
-    - WANFailover
-    - Gateway
-    - GatewaysGeneral
+    GatewaysGeneral: [Gateway, MultiGw, WANFailover]
+    Gateway: [GatewayTable, Proxy]
+    MultiGw: [MultiGwRulesOptions, MultiGwRulesDataTable]
+    WANFailover: [WanFailoverOptions, WANFailoverRules]
+    DNS: [DNSResolver, SearchDomain]

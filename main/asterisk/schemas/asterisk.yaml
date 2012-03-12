@@ -14,4 +14,4 @@ models:
     - AsteriskUser
 
 composites:
-    - General
+    General: [asterisk/Settings, asterisk/Provider, asterisk/NAT, asterisk/Localnets]

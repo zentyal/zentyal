@@ -53,16 +53,12 @@ sub _new
     $self->{modByModel} = {};
     $self->{modByComposite} = {};
 
-    $self->{'notifyActions'} = {};
-    $self->{'reloadActions'} = {};
-    $self->{'hasOneReverse'} = {};
+    $self->{notifyActions} = {};
+    $self->{revModelDeps} = {};
 
     bless($self, $class);
 
     $self->_setupInfo();
-
-# FIXME: implement this
-#    $self->_setRelationship();
 
     return $self;
 }
@@ -171,6 +167,28 @@ sub composite
     return $self->_componentByPath('composite', $path);
 }
 
+sub models
+{
+    my ($self, $module) = @_;
+
+    return $self->_components('model', $module);
+}
+
+sub composites
+{
+    my ($self, $module) = @_;
+
+    return $self->_components('composite', $module);
+}
+
+sub _components
+{
+    my ($self, $kind, $module) = @_;
+
+    my $name = $module->{name};
+    return [ map { $self->_component($kind, $module, $_) } keys %{$self->{"${kind}s"}->{$name}} ];
+}
+
 sub _componentByPath
 {
     my ($self, $kind, $path) = @_;
@@ -205,28 +223,6 @@ sub _componentByPath
     return $self->_component($kind, $module, $compName);
 }
 
-sub models
-{
-    my ($self, $module) = @_;
-
-    return $self->_components('model', $module);
-}
-
-sub composites
-{
-    my ($self, $module) = @_;
-
-    return $self->_components('composite', $module);
-}
-
-sub _components
-{
-    my ($self, $kind, $module) = @_;
-
-    my $name = $module->{name};
-    return [ map { $self->_component($kind, $module, $_) } keys %{$self->{"${kind}s"}->{$name}} ];
-}
-
 sub _component
 {
     my ($self, $kind, $module, $name) = @_;
@@ -236,8 +232,9 @@ sub _component
 
     unless (exists $self->{$key}->{$moduleName}->{$name}) {
         # Second try as a report component
-        $name = "Report::$name";
-        unless (exists $self->{$key}->{$moduleName}->{$name}) {
+        if (exists $self->{$key}->{$moduleName}->{"Report::$name"}) {
+            $name = "Report::$name";
+        } else {
             throw EBox::Exceptions::DataNotFound(data  => $kind,
                                                  value => $name,
                                                  silent => 1);
@@ -245,89 +242,23 @@ sub _component
     }
 
     unless (defined $self->{$key}->{$moduleName}->{$name}) {
-        # FIXME: parameters logic for models currently disabled
-        # if (@parameters and $parameters[0] ne '*') {
-        #     # There are at least one parameter
-        #     return $self->_chooseModelUsingParameters($path);
-        # } else {
-        #     my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
-        #     if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
-        #         return $self->{'models'}->{$moduleName}->{$modelName};
-        #     } else {
-        #         return
-        #             $self->{'models'}->{$moduleName}->{$modelName}->[0];
-        #     }
-        # }
-        # FIXME: indexes logic for composites currently disabled
-        # if (@indexes > 0 and $indexes[0] ne '*') {
-        #    # There are at least one index
-        #    return $self->_chooseCompositeUsingIndex($moduleName, $name, \@indexes);
-        # } else {
-        #    if (@{$self->{composites}->{$moduleName}->{$name}} == 1) {
-        #        return $self->{composites}->{$moduleName}->{$name}->[0];
-        #    } else {
-        #        return $self->{composites}->{$moduleName}->{$name};
-        #    }
-        # }
-
         my $global = EBox::Global->getInstance();
 
         my $class = $global->_className($moduleName) . '::' . ucfirst($kind) . "::$name";
         eval "use $class";
+
+        # FIXME: set also if parent is composite??
+        my $parent = $self->{$key}->{$moduleName}->{$name}->{parent};
+
+        # FIXME: use instance_ro when needed
         # FIXME: what happens with composite directory?
-        $self->{$key}->{$moduleName}->{$name} = $class->new(confmodule => $module, directory => $name);
+        my $instance = $class->new(confmodule => $module, parent => $parent, directory => $name);
+
+        $self->{$key}->{$moduleName}->{$name}->{instance} = $instance;
     }
 
     return $self->{$key}->{$moduleName}->{$name};
 }
-
-# FIXME: check if this is really needed, it is only used in TS and logs
-# Method: removeModel
-#
-#   Remove a or some model instances from the model manager. It marks the
-#   model manager as changed
-#
-# Parameters:
-#
-#   path - String the path to index the model within the model manager
-#   following this pattern: /moduleName/modelName[/param1/param2...]
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - thrown if the path is not correct
-#
-#   <EBox::Exceptions::DataNotFound> - thrown if the given path does
-#   not correspond with any model
-#
-sub removeModel
-{
-    my ($self, $path) = @_;
-
-    my ($modName, $modelName, @parameters) = grep { $_ ne '' } split ('/', $path);
-
-    if ( not defined ($modelName) ) {
-        throw EBox::Exceptions::Internal("No valid path $path to add a model");
-    }
-
-    unless ( exists ( $self->{'models'}->{$modName}->{$modelName} )) {
-        throw EBox::Exceptions::DataNotFound( data  => 'path',
-                                              value => $path);
-    }
-
-    my $models = $self->{'models'}->{$modName}->{$modelName};
-    if ( @parameters == 0 ) {
-        # Delete every model instance with this name
-        delete $self->{'models'}->{$modName}->{$modelName};
-    } else {
-        for my $idx (0 .. $#$models) {
-            if ( $models->[$idx]->contextName() eq $path ) {
-                splice ( @{$models}, $idx, 1);
-                last;
-            }
-        }
-    }
-}
-
 
 # Method: modelsUsingId
 #
@@ -429,9 +360,6 @@ sub modelActionTaken
         EBox::debug("Notifying $observerName");
         my $observerModel = $self->model($observerName);
         $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .  '<br>';
-        # FIXME: integrate this
-        # my $observerComposite = $self->composite($observerName);
-        # $strToRet .= $observerComposite->notifyModelAction($model, $action, $row) .  '<br>';
     }
 
     return $strToRet;
@@ -585,236 +513,76 @@ sub _setupInfo
     my $global = EBox::Global->getInstance();
     foreach my $moduleName (@{$global->modNames()}) {
         my $info = $global->readModInfo($moduleName);
-        $self->_setupComponentsInfo('model', $moduleName, $info);
-        $self->_setupComponentsInfo('composite', $moduleName, $info);
+        $self->_setupModelInfo($moduleName, $info);
+        $self->_setupCompositeInfo($moduleName, $info);
+        $self->_setupModelDepends($moduleName, $info);
+        $self->_setupNotifyActions($moduleName, $info);
     }
 }
 
-sub _setupComponentsInfo
+sub _setupModelInfo
 {
-    my ($self, $kind, $moduleName, $info) = @_;
+    my ($self, $moduleName, $info) = @_;
 
-    my $key = $kind . 's';
-    my $modkey = 'modBy' . ucfirst($kind);
+    return unless exists $info->{models};
 
-    $self->{$key}->{$moduleName} = {};
-    foreach my $comp (@{$info->{$key}}) {
-        # Placeholder for the component instance
-        # FIXME: differentiate between RO and RW
-        $self->{$key}->{$moduleName}->{$comp} = undef;
+    $self->{models}->{$moduleName} = {};
+    foreach my $model (@{$info->{models}}) {
+        $self->{models}->{$moduleName}->{$model} = { instance => undef, instance_ro => undef, parent => undef };
 
-        unless (exists $self->{$modkey}->{$comp}) {
-            $self->{$modkey}->{$comp} = {};
+        unless (exists $self->{modByModel}->{$model}) {
+            $self->{modByModel}->{$model} = {};
         }
-        $self->{$modkey}->{$comp}->{$moduleName} = 1;
+        $self->{modByModel}->{$model}->{$moduleName} = 1;
     }
 }
 
-# Method: _setRelationship
-#
-#   (PRIVATE)
-#
-#   Set the relationship between models and submodels
-#
-sub _setRelationship
+sub _setupCompositeInfo
 {
-    my ($self) = @_;
+    my ($self, $moduleName, $info) = @_;
 
-    # Set parent models given by hasMany relationships
+    return unless exists $info->{composites};
 
-    for my $childName (keys %{$self->{'childOf'}}) {
-        my $parent       = $self->{'childOf'}->{$childName}->{'parent'};
-        my $childIsComposite = $self->{'childOf'}->{$childName}->{'childIsComposite'};
-
-        my $child;
-        if ($childIsComposite) {
-            $child = $self->composite($childName);
-        } else {
-            $child = $self->model($childName);
-        }
-
-        $child->setParent($parent);
-    }
-}
-
-# Method: _setUpModelsFromProvider
-#
-#   (PRIVATE)
-#
-#    Fetch models from a <EBox::Model::ModelProvider> interface
-#    instances and creates its dependencies
-#
-# Parameters:
-#
-#    modelProvider - <EBox::Model::ModelProvider> the model provider
-#    class
-#
-sub _setUpModelsFromProvider
-{
-    my ($self, $provider) = @_;
-
-    for my $model (@{$provider->models()}) {
-        my $moduleName = $provider->name();
-        my $modelName = $model->tableName();
-        $modelName or
-            throw EBox::Exceptions::Internal("Invalid model name $modelName");
-
-        push (@{$self->{'models'}->{$moduleName}->{$modelName}}, $model);
-    }
-    for my $model (@{$provider->reloadModelsOnChange()}) {
-        push (@{$self->{'reloadActions'}->{$model}}, $provider->name());
-    }
-
-    # Set up dependencies. Fetch all select types and check if
-    # they depend on other model.
-    for my $modelKind (keys %{$self->{'models'}->{$provider->name()}}) {
-        foreach my $model ( @{$self->{'models'}->{$provider->name()}->{$modelKind}} ) {
-            my $tableDesc = $model->table()->{'tableDescription'};
-            my $localModelName = $model->contextName();
-            my $dependentTypes = $self->_fetchDependentTypes($tableDesc);
-            for my $type (@{$dependentTypes->{'select'}}) {
-                my $foreignModel;
-                try {
-                    $foreignModel = $type->foreignModel();
-                } otherwise {
-                    my ($exc) = @_;
-                    EBox::warn("Skipping " . $type->fieldName() . " to fetch model");
-                    EBox::warn("Error: $exc");
-                };
-                next unless (defined($foreignModel));
-                my $foreignModelName = $foreignModel->contextName();
-                my %currentHasOne =
-                    %{$self->_modelsWithHasOneRelation($foreignModelName)};
-                push (@{$currentHasOne{$localModelName}}, $type->fieldName());
-                $self->{'hasOneReverse'}->{$foreignModelName} = \%currentHasOne;
-            }
-            for my $type (@{$dependentTypes->{'hasMany'}}) {
-                my $foreignModel;
-                my $isComposite;
-                try {
-                    $foreignModel = $type->foreignModel();
-                    $isComposite  = $type->foreignModelIsComposite();
-                } otherwise {
-                    my ($exc) = @_;
-                    EBox::warn("Skipping " . $type->fieldName() . " to fetch model");
-                    EBox::warn("Error: $exc");
-                };
-                next unless (defined($foreignModel) and $foreignModel ne '');
-
-                $self->{'childOf'}->{$foreignModel} = {
-                    parent => $model,
-                    childIsComposite => $isComposite,
-                };
+    $self->{composites}->{$moduleName} = {};
+    foreach my $composite (keys %{$info->{composites}}) {
+        my $components = $info->{composites}->{$composite};
+        $self->{composites}->{$moduleName}->{$composite} = { instance => undef, components => $components};
+        foreach my $component (@{$components}) {
+            if (exists $self->{models}->{$moduleName}->{$component}) {
+                $self->{models}->{$moduleName}->{$component}->{parent} = $composite;
             }
         }
-    }
 
-    # Set up action notifications
-    foreach my $modelKind ( keys %{$self->{'models'}->{$provider->name()}} ) {
-        foreach my $model (@{$self->{'models'}->{$provider->name()}->{$modelKind}}) {
-            my $table = $model->table();
-            my $observerModel = $model->contextName();
-            next unless (exists $table->{'notifyActions'});
-            for my $observableModel (@{$table->{'notifyActions'}}) {
-                push (@{$self->{'notifyActions'}->{$observableModel}},
-                        $observerModel);
-            }
+        unless (exists $self->{modByComposite}->{$composite}) {
+            $self->{modByComposite}->{$composite} = {};
         }
+        $self->{modByComposite}->{$composite}->{$moduleName} = 1;
     }
 }
 
-# Method: _setUpCompositesFromProvider
-#
-#   Fetch composites from a <EBox::Model::CompositeProvider> interface
-#   instances and creates its dependencies
-#
-# Parameters:
-#
-#   compositeProvider - <EBox::Model::CompositeProvider> the composite
-#   provider class
-#
-sub _setUpCompositesFromProvider
+sub _setupModelDepends
 {
-    my ($self, $provider) = @_;
+    my ($self, $moduleName, $info) = @_;
 
-    foreach my $composite (@{$provider->composites()}) {
-        push ( @{$self->{composites}->{$provider->name()}->{$composite->name()}},
-               $composite);
-    }
-    for my $model (@{$provider->reloadCompositesOnChange()}) {
-        push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
-    }
-}
-
-# Method: _modelsWithHasOneRelation
-#
-#   (PRIVATE)
-#
-#   Given a model, it returns which modules have a  "has one" relationship
-#
-# Parameters:
-#
-#   (POSITIONAL)
-#   modelName - String containing the model context name
-#
-# Return:
-#
-#   Hash ref containing the models
-sub _modelsWithHasOneRelation
-{
-    my ($self, $modelName) = @_;
-
-    return {} unless (exists($self->{'hasOneReverse'}->{$modelName}));
-
-    return $self->{'hasOneReverse'}->{$modelName};
-}
-
-# Method: _fetchDependentTypes
-#
-#	(PRIVATE)
-#
-#   Given a table description it returns  types which depends on other
-#   modules. Those are:
-#
-#       <EBox::Types::Select>
-#       <EBox::Types::HasMany>
-#
-# Parameters:
-#
-#   (POSITIONAL)
-#
-#   tableDescription - ref containing the table description
-#
-# Return:
-#
-#   Array ref containing the types
-#
-sub _fetchDependentTypes
-{
-    my ($self, $tableDescription) = @_;
-
-    my @selectTypes;
-    my @hasManyTypes;
-    foreach my $type (@{$tableDescription}) {
-        my $typeName = $type->type();
-        if ($typeName eq 'union') {
-            for my $subtype (@{$type->subtypes()}) {
-                my $subtypeName = $subtype->type();
-                if ($subtypeName eq 'select') {
-                    push (@selectTypes, $subtype);
-                } elsif ($subtypeName eq 'hasMany') {
-                    push (@hasManyTypes, $subtype);
-                }
-            }
-        } elsif ($typeName eq 'select') {
-            push (@selectTypes, $type);
-        } elsif ($typeName eq 'hasMany') {
-            push (@hasManyTypes, $type);
+    my $depends = $info->{modeldepends};
+    foreach my $model (keys %{$depends}) {
+        # FIXME: this can be a list
+        my $modelDep = $depends->{$model};
+        unless (exists $self->{revModelDeps}->{$modelDep}) {
+            $self->{revModelDeps}->{$modelDep} = [];
         }
+        push (@{$self->{revModelDeps}->{$modelDep}}, $model);
     }
+}
 
-    return { 'select' => \@selectTypes,
-             'hasMany' => \@hasManyTypes };
+sub _setupNotifyActions
+{
+    my ($self, $moduleName, $info) = @_;
+
+    my $notify = $info->{notifyactions};
+    foreach my $model (keys %{$notify}) {
+        $self->{notifyActions}->{$model} = $notify->{$model};
+    }
 }
 
 # Method: _oneToOneDependencies
@@ -839,132 +607,11 @@ sub _oneToOneDependencies
 {
     my ($self, $model) = @_;
 
-    unless (exists $self->{'hasOneReverse'}->{$model}) {
+    unless (exists $self->{revModelDeps}->{$model}) {
         return {};
     }
 
-    return $self->{'hasOneReverse'}->{$model};
+    return $self->{revModelDeps}->{$model};
 }
-
-# Method: _chooseModelUsingParameters
-#
-#	(PRIVATE)
-#
-#   Given a bunch of model instances, choose one using the given run
-#   parameters.
-#
-# Parameters:
-#
-#   (POSITIONAL)
-#
-#   path - String the context name for the model
-#
-# Returns:
-#
-#   An instance of <EBox::Model::DataTable>
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::DataNotFound> - thrown if it cannot determine which
-#   model must be returned by using the given parameters
-#
-sub _chooseModelUsingParameters
-{
-
-    my ($self, $path) = @_;
-
-    my ($moduleName, $modelName) = grep { $_ ne '' } split ( '/', $path);
-
-    my $models = $self->{'models'}->{$moduleName}->{$modelName};
-
-    foreach my $model (@{$models}) {
-        if ( $model->contextName() eq $path ) {
-            return $model;
-        }
-    }
-    # No coincidence
-    throw EBox::Exceptions::DataNotFound(data => 'modelInstance',
-                                         value => $path);
-}
-
-# Method: removeComposite
-#
-#       Remove a (some) composite(s) instance from the manager
-#
-# Parameters:
-#
-#       compositePath - String the composite path to add
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - thrown if the path is bad
-#       formed
-#
-sub removeComposite
-{
-    my ($self, $compositePath) = @_;
-
-    my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
-
-    unless (defined ($moduleName) and defined ($compositeName)) {
-        throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
-                                         . 'it should follow the pattern /modName/compName[/index]');
-    }
-
-    my $composites = $self->{composites}->{$moduleName}->{$compositeName};
-    if (@indexes > 0) {
-        for my $idx (0 .. $#$composites) {
-            my $composite = $composites->[$idx];
-            if ( $composite->index() eq $indexes[0] ) {
-                splice ( @{$composites}, $idx, 1 );
-                last;
-            }
-        }
-    } else {
-        delete ($self->{composites}->{$moduleName}->{$compositeName});
-    }
-}
-
-# FIXME: see if this is really needed after the changes
-# Method: _chooseCompositeUsingIndex
-#
-#
-# Parameters:
-#
-#       moduleName - String the module's name
-#       compositeName - String the composite's name
-#
-#       indexes - array ref containing the indexes to distinguish
-#       among composite instances
-#
-# Returns:
-#
-#       <EBox::Model::Composite> - the chosen composite
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::DataNotFound> - thrown if no composite can
-#       be found with the given parameters
-#
-sub _chooseCompositeUsingIndex
-{
-    my ($self, $moduleName, $compositeName, $indexesRef) = @_;
-
-    my $composites = $self->{composites}->{$moduleName}->{$compositeName};
-
-    foreach my $composite (@{$composites}) {
-        # Take care, just checkin first index
-        if ( $composite->index() eq $indexesRef->[0] ) {
-            return $composite;
-        }
-    }
-
-    # No match
-    throw EBox::Exceptions::DataNotFound(data => 'compositeInstance',
-                                         value => "/$moduleName/$compositeName/"
-                                        . join ('/', @{$indexesRef}),
-                                         silent => 1);
-}
-
 
 1;

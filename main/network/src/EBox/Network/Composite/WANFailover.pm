@@ -12,9 +12,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-
 
 package EBox::Network::Composite::WANFailover;
 use base 'EBox::Model::Composite';
@@ -31,15 +31,13 @@ use EBox::Global;
 # Returns:
 
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -52,10 +50,6 @@ sub new
 sub _description
 {
     my $description = {
-        components      => [
-                              'WANFailoverOptions',
-                              'WANFailoverRules',
-                           ],
         layout          => 'top-bottom',
         printableName   => __('WAN Failover'),
         headTitle       => undef,
@@ -95,6 +89,5 @@ sub _isWatcherEnabled
 
     return $events->isEnabledWatcher('EBox::Event::Watcher::Gateways')->value();
 }
-
 
 1;

@@ -21,4 +21,4 @@ models:
     - Report::PacketTrafficReportOptions
 
 composites:
-    - Report::PacketTrafficReport
+    Report::PacketTrafficReport: [/firewall/PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]

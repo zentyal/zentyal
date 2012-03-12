@@ -46,16 +46,16 @@ models:
     - Report::TrafficReportOptions
 
 composites:
-    - General
-    - FilterTabs
-    - FilterSettings
-    - Extensions
-    - MIME
-    - Domains
-    - FilterGroupTabs
-    - FilterGroupSettings
-    - FilterGroupExtensions
-    - FilterGroupMIME
-    - FilterGroupDomains
-    - DelayPools
-    - Report::TrafficReport
+    General: [FIXME]
+    FilterTabs: [FIXME]
+    FilterSettings: [FIXME]
+    Extensions: [FIXME]
+    MIME: [FIXME]
+    Domains: [FIXME]
+    FilterGroupTabs: [FIXME]
+    FilterGroupSettings: [FIXME]
+    FilterGroupExtensions: [FIXME]
+    FilterGroupMIME: [FIXME]
+    FilterGroupDomains: [FIXME]
+    DelayPools: [FIXME]
+    Report::TrafficReport: [FIXME]

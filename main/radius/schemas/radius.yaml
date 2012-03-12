@@ -7,4 +7,4 @@ models:
     - Clients
 
 composites:
-    - General
+    General: [radius/Auth, radius/Clients]

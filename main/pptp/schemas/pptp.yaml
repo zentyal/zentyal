@@ -7,4 +7,4 @@ models:
     - Users
 
 composites:
-    - General
+    General: [pptp/Config, pptp/Users]

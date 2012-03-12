@@ -290,6 +290,7 @@ sub modelInstances
     return \@currentModels;
 }
 
+# FIXME: this is broken now
 # Method: reloadModelsOnChange
 #
 # Overrides:
@@ -340,6 +341,7 @@ sub _exposedMethods
 
 }
 
+# FIXME: this is broken now
 # Method: reloadCompositesOnChange
 #
 # Overrides:
@@ -1636,6 +1638,7 @@ sub _removeIfNotEnoughRemainderModels
             my $model = $self->{ruleModels}->{$ifaceWithModel};
             if ( defined ( $model )) {
                 $model->removeAll(1);
+                # FIXME: this has been deleted, reimplement in a different way
                 $manager->removeModel($model->contextName());
             }
         }

@@ -15,4 +15,4 @@ models:
     - Settings
 
 composites:
-    - Global
+    Global: [/dns/Settings, Forwarder, DomainTable]

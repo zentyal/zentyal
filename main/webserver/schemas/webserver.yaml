@@ -5,4 +5,4 @@ models:
     - VHostTable
 
 composites:
-    - General
+    General: [webserver/GeneralSettings, webserver/VHostTable]

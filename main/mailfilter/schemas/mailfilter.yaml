@@ -23,9 +23,9 @@ models:
     - Report::POPProxyReportOptions
 
 composites:
-    - Amavis
-    - ExternalConnections
-    - FileFilter
-    - Antispam
-    - Report::FilterReport
-    - Report::POPProxyReport
+    Amavis: [FIXME]
+    ExternalConnections: [FIXME]
+    FileFilter: [FIXME]
+    Antispam: [FIXME]
+    Report::FilterReport: [FIXME]
+    Report::POPProxyReport: [FIXME]

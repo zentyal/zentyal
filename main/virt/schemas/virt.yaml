@@ -8,4 +8,4 @@ models:
     - DeletedDisks
 
 composites:
-    - VMSettings
+    VMSettings: [virt/SystemSettings, virt/NetworkSettings, virt/DeviceSettings]

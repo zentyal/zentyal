@@ -14,4 +14,4 @@ models:
     - CUPS
 
 composites:
-    - General
+    General: [ CUPS ]

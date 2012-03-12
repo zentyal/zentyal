@@ -61,7 +61,6 @@ sub _description
 {
     my $description =
     {
-        components      => [ 'SelectLog', 'ConfigureLog' ],
         layout          => 'tabbed',
         name            => 'General',
         printableName   => __('Logs'),

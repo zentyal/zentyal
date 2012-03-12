@@ -10,5 +10,5 @@ models:
     - ConfPhase2
 
 composites:
-    - Conf
-    - Auth
+    Conf: [FIXME]
+    Auth: [FIXME]

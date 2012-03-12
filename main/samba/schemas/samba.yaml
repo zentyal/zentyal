@@ -16,4 +16,4 @@ models:
     - SambaDeletedShares
 
 composites:
-    - General
+    General: [samba/GeneralSettings, SambaShares]

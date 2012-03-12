@@ -14,5 +14,5 @@ models:
     - Report::AlertReportOptions
 
 composites:
-    - General
-    - Report::AlertReport
+    General: [ids/Interfaces, ids/Rules]
+    Report::AlertReport: [AlertReportOptions, AlertGraph, AlertDetails]

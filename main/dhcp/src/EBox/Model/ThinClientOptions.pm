@@ -274,13 +274,9 @@ sub _table
                                              path => EBox::DHCP->PluginConfDir($self->{interface})),
                     sortedBy           => 'hosts',
                     printableRowName   => __('thin client option'),
-                    # Notify when there are changes in ranges and
-                    # fixed addresses from the same interface
-                    notifyActions      => [ 'FixedAddressTable', 'RangeTable' ],
                    };
 
     return $dataTable;
-
 }
 
 1;

@@ -13,4 +13,4 @@ models:
     - BWUsage
 
 composites:
-    - General
+    General: [bwmonitor/BWUsage, bwmonitor/Interfaces]

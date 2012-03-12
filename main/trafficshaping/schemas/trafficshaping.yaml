@@ -10,4 +10,7 @@ enabledepends:
     - firewall
 
 composites:
-    - DynamicGeneral
+    DynamicGeneral: [FIXME]
+
+notifyactions:
+    RuleTable: InterfaceRate

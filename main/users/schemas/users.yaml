@@ -11,5 +11,5 @@ models:
     - OUs
 
 composites:
-    - Settings
-    - UserTemplate
+    Settings: [FIXME]
+    UserTemplate: [FIXME]

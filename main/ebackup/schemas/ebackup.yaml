@@ -13,6 +13,6 @@ models:
     - BackupDomains
 
 composites:
-    - RemoteGeneral
-    - Remote
-    - ServicesRestore
+    RemoteGeneral: [FIXME]
+    Remote: [FIXME]
+    ServicesRestore: [FIXME]

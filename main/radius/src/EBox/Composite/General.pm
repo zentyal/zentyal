@@ -55,10 +55,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'radius/Auth',
-                               'radius/Clients',
-                           ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('RADIUS'),

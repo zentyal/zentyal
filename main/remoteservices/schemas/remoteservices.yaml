@@ -13,6 +13,6 @@ models:
     - TechnicalInfo
 
 composites:
-    - General
-    - SubscriptionInfos
-    - Technical
+    General: [FIXME]
+    SubscriptionInfos: [FIXME]
+    Technical: [FIXME]

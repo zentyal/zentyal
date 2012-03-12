@@ -5,4 +5,4 @@ models:
     - Servers
 
 composites:
-    - General
+    General: [ntp/Settings, ntp/Servers]

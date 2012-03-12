@@ -52,21 +52,14 @@ sub new
 #
 sub _description
 {
-      my $description =
-        {
-         components      => [
-                             'webmail/OperationMode',
-                             'webmail/RemoteServerConfiguration',
-                            ],
+    my $description = {
          layout          => 'tabbed',
          name            =>  __PACKAGE__->nameFromClass,
          pageTitle       => __('WebMail backend'),
          compositeDomain => 'WebMail',
-#         help            => __(''),
-        };
+    };
 
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

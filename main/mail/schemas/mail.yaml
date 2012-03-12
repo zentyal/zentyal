@@ -22,6 +22,6 @@ models:
     - ExternalAccounts
 
 composites:
-    - ServiceConfiguration
-    - General
-    - Report::TrafficReport
+    ServiceConfiguration: [FIXME]
+    General: [FIXME]
+    Report::TrafficReport: [FIXME]
