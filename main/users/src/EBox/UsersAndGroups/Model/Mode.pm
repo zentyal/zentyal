@@ -23,6 +23,7 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Types::DomainName;
 use EBox::View::Customizer;
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -68,6 +69,15 @@ sub _table
             defaultValue => _dnFromHostname(),
             help => __('This will be the DN suffix in LDAP tree')
         ),
+        new EBox::Types::DomainName (
+            fieldName => 'defaultRealm',
+            printableName => __('Default authentication realm'),
+            editable => 1,
+            allowUnsafeChars => 0,
+            size => 36,
+            defaultValue => _realmFromHostname(),
+            help => __('This will be the users default authentication realm')
+        ),
     );
 
     my $dataForm = {
@@ -91,6 +101,14 @@ sub _dnFromHostname
     return $dn;
 }
 
+sub _realmFromHostname
+{
+    my $domain = `hostname -d`;
+    chomp ($domain);
+    $domain = uc ($domain);
+    return $domain;
+}
+
 sub validateTypedRow
 {
     my ($self, $action, $changedFields) = @_;
@@ -98,6 +116,11 @@ sub validateTypedRow
     if (exists $changedFields->{dn}) {
         my $dn = $changedFields->{dn}->value();
         $self->_validateDN($dn);
+    }
+
+    if (exists $changedFields->{defaultRealm}) {
+        my $realm = $changedFields->{defaultRealm}->value();
+        $self->_validateRealm($realm);
     }
 }
 
@@ -108,6 +131,15 @@ sub _validateDN
 
     unless ($dn =~ /^dc=[^,=]+(,dc=[^,=]+)*$/) {
         throw EBox::Exceptions::InvalidData(data => __('LDAP DN'), value => $dn);
+    }
+}
+
+sub _validateRealm
+{
+    my ($self, $realm) = @_;
+
+    unless ($realm =~ /^[A-Z0-9]+([\.][A-Z0-9]+)+$/) {
+        throw EBox::Exceptions::External("Invalid realm name. Often, the realm is the uppercase version of the local DNS domain.");
     }
 }
 

@@ -1,0 +1,50 @@
+<%args>
+    $defaultRealm
+    $defaultDomain
+    $adminServer
+    $kdcs
+    $ldapDN
+    $adminDn
+    $adminRoDn
+</%args>
+[libdefaults]
+	default_realm = <% $defaultRealm %>
+
+[realms]
+	<% $defaultRealm %> = {
+% foreach my $kdc (@{$kdcs}) {
+		kdc = <% $kdc %>
+% }
+		admin_server = <% $adminServer %>
+        master_kdc = kerberos.edu.example.org
+        default_domain = <% $defaultDomain %>
+        database_module = <% $defaultRealm %>
+	}
+
+[domain_realm]
+    .<% $defaultDomain %> = <% $defaultRealm %>
+    <% $defaultDomain %> = <% $defaultRealm %>
+
+[dbdefaults]
+    ldap_kerberos_container_dn = <% $ldapDN %>
+
+[dbmodules]
+    <% $defaultRealm %> = {
+        db_library = kldap
+        ldap_kdc_dn = <% $adminDn %>
+
+        # this object needs to have read rights on
+        # the realm container, principal container and realm sub-trees
+        ldap_kadmind_dn = <% $adminRoDn %>
+
+        # this object needs to have read and write rights on
+        # the realm container, principal container and realm sub-trees
+        ldap_service_password_file = /etc/krb5kdc/service.keyfile
+        ldap_servers = ldapi:///
+        ldap_conns_per_server = 5
+    }
+
+[logging]
+    kdc = FILE:/var/log/kdc.log
+    admin_server = FILE:/var/log/kadm.log
+    default = FILE:/var/log/krb.log

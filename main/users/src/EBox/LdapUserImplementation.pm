@@ -49,6 +49,7 @@ sub schemas
         EBox::Config::share() . '/zentyal-users/master.ldif',
         EBox::Config::share() . '/zentyal-users/slaves.ldif',
         EBox::Config::share() . '/zentyal-users/quota.ldif',
+        EBox::Config::share() . '/zentyal-users/kerberos.ldif',
     ];
 }
 
@@ -64,7 +65,7 @@ sub acls
 sub indexes
 {
     return [
-        'uid', 'uidNumber', 'memberUid', 'cn', 'gidNumber', 'uniqueMember'
+        'uid', 'uidNumber', 'memberUid', 'cn', 'gidNumber', 'uniqueMember', 'krbPrincipalName',
     ];
 }
 
