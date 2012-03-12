@@ -36,9 +36,10 @@ masonTmpl=$2
 
 awk '
 BEGIN {
-	in_args = 0         # Inside an argument tag
-	in_init = 0         # Inside an init tag
-        in_perl = 0         # Inside a perl tag
+	in_args = 0          # Inside an argument tag
+	in_init = 0          # Inside an init tag
+        in_perl = 0          # Inside a perl tag
+        in_perl_block = 0    # Inside a <%
         useStr = "use strict;"
 	printf "%s", useStr
 }
@@ -67,16 +68,11 @@ BEGIN {
 		print "my " $1 ";"
 		next
 	}
-	if (in_init == 1)
+	if (in_init == 1 || in_perl == 1)
 	{
 		print
 		next
 	}
-        if (in_perl == 1) 
-        {
-                print
-                next
-        }
 	if ($0 ~ /^<%args>/)
 	{
 		in_args = 1
@@ -95,7 +91,20 @@ BEGIN {
                 print ""
 		next
 	}
-	if (in_args == 0 && in_perl == 0)
+        if (in_perl_block == 1 )
+        {
+                if ($0 ~ /%>/ ) {
+                        pos = index($0, "%>")
+                        print substr($0, 1, pos - 1)
+                        # Continue processing with the last condition
+                        $0 = substr($0, pos + 1)
+                        in_perl_block = 0
+                } else {
+                        print
+                        next
+                }
+        }
+	if (in_args == 0 && in_perl == 0 && in_perl_block == 0)
 	{
 		perlline = ($0 ~ /^%/)
 		if (perlline)
@@ -106,12 +115,23 @@ BEGIN {
 		if ($0 ~ /<%.*%>/)
 		{
 			str = $0
-			sub(/^.*?<%/,"",str)
-			gsub(/(\|.*?)?%>.*?<%/,";",str)
-			sub(/(\|.*?)?%>.*?$/,";",str)
-			print str
+			# sub(/^.*?<%/,"",str)
+			# gsub(/(\|.*?)?%>.*?<%/,";",str)
+			# sub(/(\|.*?)?%>.*?$/,";",str)
+                        n_matches = split(str, matches, "%")
+                        for (i=2; i<=n_matches; i+=2) {
+                            printf("%s;", matches[i])
+                        }
                         next
 		}
+                if ($0 ~ /<%.*$/) 
+                {
+                        str = $0
+                        sub(/^.*?<%/,"",str)
+                        print str
+                        in_perl_block = 1
+                        next
+                }
                 print ""
 	}
 
