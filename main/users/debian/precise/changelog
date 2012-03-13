@@ -1,3 +1,9 @@
+zentyal-users (2.3.4) precise; urgency=low
+
+  * Add transitional dummy package for ebox-usersandgroups
+
+ -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Tue, 13 Mar 2012 19:30:18 +0100
+
 zentyal-users (2.3.3) precise; urgency=low
 
   * Initial release with new native packaging

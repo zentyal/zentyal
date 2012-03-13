@@ -22,3 +22,11 @@ Description: Zentyal - DHCP Service
  .
  This module adds a DHCP server to your Zentyal installation, allowing your
  network clients to get network configuration automatically.
+
+Package: ebox-dhcp
+Section: oldlibs
+Architecture: all
+Depends: zentyal-dhcp
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

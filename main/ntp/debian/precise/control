@@ -21,3 +21,11 @@ Description: Zentyal - NTP Service
  .
  This module adds a NTP server to Zentyal, allowing time synchronization from
  external servers and to internal clients.
+
+Package: ebox-ntp
+Section: oldlibs
+Architecture: all
+Depends: zentyal-ntp
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

@@ -22,3 +22,11 @@ Description: Zentyal - HTTP Proxy (Cache and Filter)
  This module adds a transparent proxy cache, a HTTP content filter,
  object access policies, banned/allowed domains and custom MIME type
  and file extension filter to your Zentyal installation.
+
+Package: ebox-squid
+Section: oldlibs
+Architecture: all
+Depends: zentyal-squid
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

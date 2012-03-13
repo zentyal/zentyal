@@ -1,3 +1,9 @@
+zentyal-common (2.3.3) precise; urgency=low
+
+  * Add transitional dummy package for libebox
+
+ -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Tue, 13 Mar 2012 18:59:21 +0100
+
 zentyal-common (2.3.2) precise; urgency=low
 
   * Initial release with new native packaging

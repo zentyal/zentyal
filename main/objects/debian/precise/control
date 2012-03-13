@@ -22,3 +22,11 @@ Description: Zentyal - Network Objects
  used as access control lists (ACL) by other modules. Each object represents
  a certain number of hosts or network, providing an abstraction
  to make easy its use across the Zentyal modules.
+
+Package: ebox-objects
+Section: oldlibs
+Architecture: all
+Depends: zentyal-objects
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

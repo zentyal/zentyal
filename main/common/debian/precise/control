@@ -20,3 +20,11 @@ Description: Zentyal - Common Library
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, a Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
+
+Package: libebox
+Section: oldlibs
+Architecture: all
+Depends: zentyal-common
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

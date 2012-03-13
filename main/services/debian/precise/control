@@ -21,3 +21,11 @@ Description: Zentyal - Network Services
  .
  This module adds services support, allowing to create and manage services
  which could be used by firewall rules.
+
+Package: ebox-services
+Section: oldlibs
+Architecture: all
+Depends: zentyal-services
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

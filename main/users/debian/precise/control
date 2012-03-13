@@ -21,3 +21,11 @@ Description: Zentyal - Users and Groups
  .
  This module adds a LDAP server to your Zentyal installation, allowing you
  to add users and groups to be used by other Zentyal modules.
+
+Package: ebox-usersandgroups
+Section: oldlibs
+Architecture: all
+Depends: zentyal-users
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

@@ -1,3 +1,9 @@
+zentyal-ca (2.3.3) precise; urgency=low
+
+  * Add transitional dummy package for ebox-ca
+
+ -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Tue, 13 Mar 2012 19:07:40 +0100
+
 zentyal-ca (2.3.2) precise; urgency=low
 
   * Initial release with new native packaging

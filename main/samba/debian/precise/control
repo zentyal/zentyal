@@ -21,3 +21,11 @@ Description: Zentyal - File Sharing Service
  .
  This module adds a Samba server to your Zentyal installation, allowing your
  users to authenticate against Zentyal and have shared network storage device.
+
+Package: ebox-samba
+Section: oldlibs
+Architecture: all
+Depends: zentyal-samba
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

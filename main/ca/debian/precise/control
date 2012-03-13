@@ -21,3 +21,11 @@ Description: Zentyal - Certification Authority
  .
  This module adds a Certification Authority management using OpenSSL to issue,
  revoke and renew certificates.
+
+Package: ebox-ca
+Section: oldlibs
+Architecture: all
+Depends: zentyal-ca
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

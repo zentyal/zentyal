@@ -20,3 +20,11 @@ Description: Zentyal - Printer Sharing Service
  single, easy-to-use platform to manage all your network services.
  .
  This module adds a printer sharing capabilities using CUPS and Samba.
+
+Package: ebox-printers
+Section: oldlibs
+Architecture: all
+Depends: zentyal-printers
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

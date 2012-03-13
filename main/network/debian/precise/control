@@ -21,3 +21,11 @@ Description: Zentyal - Network Configuration
  .
  This module adds network configuration featuring interfaces, routes, domain
  servers set up.
+
+Package: ebox-network
+Section: oldlibs
+Architecture: all
+Depends: zentyal-network
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

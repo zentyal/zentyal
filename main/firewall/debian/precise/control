@@ -20,3 +20,11 @@ Description: Zentyal - Firewall
  single, easy-to-use platform to manage all your network services.
  .
  This module adds firewalling capabilities.
+
+Package: ebox-firewall
+Section: oldlibs
+Architecture: all
+Depends: zentyal-firewall
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

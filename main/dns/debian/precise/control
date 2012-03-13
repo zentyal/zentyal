@@ -21,3 +21,11 @@ Description: Zentyal - DNS Service
  .
  This module adds a DNS server to Zentyal, allowing faster name resolution and
  local domains.
+
+Package: ebox-dns
+Section: oldlibs
+Architecture: all
+Depends: zentyal-dns
+Description: transitional dummy package
+ eBox Platform has been renamed to Zentyal. This package ensures a upgrade
+ path and can be safely removed after the upgrade.

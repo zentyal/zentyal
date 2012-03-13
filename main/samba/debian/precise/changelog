@@ -1,3 +1,9 @@
+zentyal-samba (2.3.3) precise; urgency=low
+
+  * Add transitional dummy package for ebox-samba
+
+ -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Tue, 13 Mar 2012 19:26:27 +0100
+
 zentyal-samba (2.3.2) precise; urgency=low
 
   * Initial release with new native packaging
