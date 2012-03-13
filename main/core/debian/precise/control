@@ -23,7 +23,7 @@ Description: Zentyal - Core
 Package: ebox
 Section: oldlibs
 Architecture: all
-Depends: zentyal-core
+Depends: zentyal-core, ${misc:Depends}
 Description: transitional dummy package
  eBox Platform has been renamed to Zentyal. This package ensures a upgrade
  path and can be safely removed after the upgrade.

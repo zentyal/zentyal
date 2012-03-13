@@ -12,6 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-samba
 Architecture: all
 Replaces: ebox-samba (<< 2.0.100)
+Breaks: ebox-samba (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, zentyal-firewall, zentyal-users, samba, samba-common-bin, smbldap-tools, bzip2, acl, ${misc:Depends}
 Description: Zentyal - File Sharing Service
  Zentyal is a Linux small business server that can act as
@@ -25,7 +26,7 @@ Description: Zentyal - File Sharing Service
 Package: ebox-samba
 Section: oldlibs
 Architecture: all
-Depends: zentyal-samba
+Depends: zentyal-samba, ${misc:Depends}
 Description: transitional dummy package
  eBox Platform has been renamed to Zentyal. This package ensures a upgrade
  path and can be safely removed after the upgrade.

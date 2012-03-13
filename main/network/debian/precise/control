@@ -12,6 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-network
 Architecture: all
 Replaces: ebox-network (<< 2.0.100)
+Breaks: ebox-network (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-objects, zentyal-services, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl, wget, traceroute, ddclient, ppp, libio-interface-perl, debconf, bridge-utils, wakeonlan , ${misc:Depends}
 Description: Zentyal - Network Configuration
  Zentyal is a Linux small business server that can act as
@@ -25,7 +26,7 @@ Description: Zentyal - Network Configuration
 Package: ebox-network
 Section: oldlibs
 Architecture: all
-Depends: zentyal-network
+Depends: zentyal-network, ${misc:Depends}
 Description: transitional dummy package
  eBox Platform has been renamed to Zentyal. This package ensures a upgrade
  path and can be safely removed after the upgrade.

@@ -24,7 +24,7 @@ Description: Zentyal - Common Library
 Package: libebox
 Section: oldlibs
 Architecture: all
-Depends: zentyal-common
+Depends: zentyal-common, ${misc:Depends}
 Description: transitional dummy package
  eBox Platform has been renamed to Zentyal. This package ensures a upgrade
  path and can be safely removed after the upgrade.

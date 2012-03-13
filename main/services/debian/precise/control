@@ -12,6 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-services
 Architecture: all
 Replaces: ebox-services (<< 2.0.100)
+Breaks: ebox-services (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), ${misc:Depends}
 Description: Zentyal - Network Services
  Zentyal is a Linux small business server that can act as
@@ -25,7 +26,7 @@ Description: Zentyal - Network Services
 Package: ebox-services
 Section: oldlibs
 Architecture: all
-Depends: zentyal-services
+Depends: zentyal-services, ${misc:Depends}
 Description: transitional dummy package
  eBox Platform has been renamed to Zentyal. This package ensures a upgrade
  path and can be safely removed after the upgrade.

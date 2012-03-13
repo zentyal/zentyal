@@ -1,6 +1,7 @@
 zentyal-services (2.3.3) precise; urgency=low
 
   * Add transitional dummy package for ebox-services
+  * Add Breaks header
 
  -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Tue, 13 Mar 2012 19:28:01 +0100
 
