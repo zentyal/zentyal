@@ -37,6 +37,11 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 
+use EBox::Dashboard::Section;
+use EBox::Dashboard::List;
+
+use Net::IP;
+
 use constant CONF_DIR  => '/var/lib/tftpboot/ltsp';
 use constant CONF_FILE => 'lts.conf';
 use constant ARCHITECTURES => ['i386', 'amd64'];
@@ -552,5 +557,144 @@ sub _setConf
     $self->_writeConfiguration();
 }
 
+
+sub _who
+{
+    return `who`;
+}
+
+sub _leaseIDFromIP
+{
+    my ($ip) = @_;
+    my $id = 'a';
+    #force every byte to use 3 digits to make sorting trivial
+    my @bytes = split('\.', $ip);
+    for my $byte (@bytes) {
+        $id .= sprintf("%03d", $byte);
+    }
+    return $id;
+}
+
+sub _ipInRange      # ($ip, $from, $to)
+{
+    my ($ip, $from, $to) = @_;
+
+    my $ip_client = new Net::IP ($ip)            or return 0;
+    my $ip_from   = new Net::IP ($from) or return 0;
+    my $ip_to     = new Net::IP ($to)   or return 0;
+
+    # $ip_from <= $ip_client <= $ip_to
+    return ( ($ip_from->bincomp('le',$ip_client)) and
+             ($ip_to->bincomp('ge',$ip_client)  ) );
+}
+
+sub _ipInObject     # ($ip, \@members)
+{
+    my ($ip,$members) = @_;
+
+    my $ip_client = new Net::IP ($ip) or return 0;
+    for my $member (@{$members}) {
+        my $ip_member = new Net::IP ($member->{ip}) or return 0;
+
+        if ($ip_client->ip() eq $ip_member->ip()) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub _ipIsLtspClient
+{
+    my ($self,$ip) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ($gl->modEnabled('dhcp')) {
+        my $dhcp = $gl->modInstance('dhcp');
+        my $net  = $gl->modInstance('network');
+        my $staticRoutes_r = $dhcp->staticRoutes();
+        my $ifacesInfo = $dhcp->_ifacesInfo($staticRoutes_r);
+
+        foreach my $ifaceInfo (values %{$ifacesInfo}) {
+            foreach my $range (@{$ifaceInfo->{ranges}}) {
+                if ( ( values %{$range->{options}} > 0 ) and  # Has thin clients
+                     (_ipInRange($ip, $range->{from}, $range->{to})) ) {
+                        return 1;
+                }
+            }
+            foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
+                if ( (values %{$objFixed->{options}} > 0) and # Has thin clients
+                     (_ipInObject($ip, $objFixed->{members})) ) {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+
+    # Cannot check -> True
+    return 1;
+}
+
+sub _lstpClients
+{
+    my ($self) = @_;
+
+    my @client_list = $self->_who();
+    @client_list or return {};
+
+    my %clients;
+    foreach my $client (@client_list) {
+        if ($client =~ m/\((.*)\)/) {
+            my $ip = $1;
+            if ($self->_ipIsLtspClient($ip)) {
+                my $id = _leaseIDFromIP($ip);
+                my $user = (split(/ +/, $client))[0];
+                $clients{$id} = {
+                    ip   => $ip,
+                    user => $user,
+                };
+            }
+        }
+     }
+
+    return \%clients;
+}
+
+sub ltspClientsWidget
+{
+    my ($self, $widget) = @_;
+    my $section = new EBox::Dashboard::Section('ltspclients');
+    $widget->add($section);
+    my $titles = [__('Username'),__('IP address'),];
+
+    my $clients = $self->_lstpClients();
+
+    my $ids = [];
+    my $rows = {};
+    foreach my $id (sort keys %{$clients}) {
+        my $client = $clients->{$id};
+        push(@{$ids}, $id);
+        $rows->{$id} = [$client->{user},$client->{ip},];
+    }
+
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
+}
+
+### Method: widgets
+#
+#   Overrides <EBox::Module::Base::widgets>
+#
+sub widgets
+{
+    return {
+        'ltspclients' => {
+            'title' => __("LTSP Clients"),
+            'widget' => \&ltspClientsWidget,
+            'order' => 15,
+            'default' => 1
+        }
+    };
+}
 
 1;

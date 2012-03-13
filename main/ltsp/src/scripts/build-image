@@ -5,6 +5,7 @@ do
     if [ $arch ]; then
         echo "Building $arch image..."
         ltsp-build-client --arch $arch --purge-chroot;
+        service nbd-server restart
         break;
     fi
 done
