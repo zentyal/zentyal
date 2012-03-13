@@ -1,6 +1,4 @@
-#!/usr/bin/perl
-
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,28 +13,37 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+package EBox::UsersSync::WSDispatcherMaster;
+
+# Class: EBox::UsersSync::WSDispatcherMaster
+#
+#      A SOAP::Lite handle called by apache-perl (mod_perl) everytime
+#      a SOAP service is required.
+#
+
+use EBox;
+
+use SOAP::Transport::HTTP;
+
 use strict;
 use warnings;
 
-use EBox;
-use EBox::Global;
-
-unless (-x '/usr/bin/ldapvi') {
-    print("zentyal-ldapvi: ERROR, install ldapvi package.\n");
-    exit(1);
-}
-
 EBox::init();
 
+my $server = SOAP::Transport::HTTP::Apache
+  ->dispatch_with(
+      { 'urn:Users/Master' => 'EBox::UsersSync::SOAPMaster' }
+     );
 
-my $usersMod = EBox::Global->modInstance("users");
-my $ldap = $usersMod->ldap();
-my $ldapconf = $ldap->ldapConf();
 
-my $dn = exists $ARGV[0] ? $ARGV[0] : $ldapconf->{'dn'};
-my $bind = $ldapconf->{'rootdn'};
-my $pwfile = EBox::Config->conf() . "ldap.passwd";
-
-system("ldapvi -D $bind --bind simple -w \$(cat $pwfile) -b $dn");
+# Method: handler
+#
+#     Handle the HTTP request
+#
+sub handler
+{
+    # Currently connection is just once basis
+    $server->handler(@_);
+}
 
 1;

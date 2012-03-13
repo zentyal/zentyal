@@ -1,4 +1,10 @@
 HEAD
+	+ Added force parameter in validateTypedRow
+	+ Fixed 'hidden' on types when using method references
+	+ Removed some console problematic characters from Util::Random::generate
+	+ Added methods to manage apache CA certificates
+	+ Use IO::Socket::SSL for SOAPClient connections
+	+ Removed apache rewrite from old slaves implementation
 	+ Do not show RSS image if custom_prefix defined
 2.3.4
 	+ Avoid 'negative radius' error in DiskUsage chart

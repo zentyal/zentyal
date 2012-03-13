@@ -119,10 +119,7 @@ sub ldapCon
             $auth_type = $r->auth_type;
         } catch Error with {};
 
-        if ((not defined($auth_type)) or ($auth_type eq 'EBox::Auth')) {
-            $dn = $self->rootDn();
-            $pass = $self->getPassword();
-        } elsif ($auth_type eq 'EBox::UserCorner::Auth') {
+        if ($auth_type eq 'EBox::UserCorner::Auth') {
             eval "use EBox::UserCorner::Auth";
             if ($@) {
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
@@ -132,7 +129,8 @@ sub ldapCon
             $dn = $users->userDn($credentials->{'user'});
             $pass = $credentials->{'pass'};
         } else {
-            throw EBox::Exceptions::Internal("Unknown auth_type: $auth_type");
+            $dn = $self->rootDn();
+            $pass = $self->getPassword();
         }
         safeBind($self->{ldap}, $dn, $pass);
     }
