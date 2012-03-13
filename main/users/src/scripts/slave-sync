@@ -1,10 +1,24 @@
 #!/usr/bin/perl
+# Copyright (C) 2010-2012 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 use strict;
 use warnings;
 
 # for performance we check first if there are pending operations
-unless (grep { -d $_ } </var/lib/zentyal*/conf/userjournal/*>) {
+unless (grep { -d $_ } </var/lib/zentyal*/syncjournal/*>) {
     exit 0;
 }
 
@@ -12,10 +26,11 @@ use EBox;
 use EBox::Config;
 use EBox::Global;
 use EBox::Util::Lock;
+use File::Basename;
 
 use Error qw(:try);
 
-use constant LOCK_NAME      => 'zentyal-slave-sync';
+use constant LOCK_NAME => 'zentyal-slave-sync';
 
 my $mode = 'run';
 if (($#ARGV == 0) and ($ARGV[0] eq '-l')) {
@@ -28,17 +43,19 @@ $users->configured() or exit 0;
 
 EBox::Util::Lock::lock(LOCK_NAME);
 
+my $slaves = $users->allSlaves();
 try {
-    @{$users->listSlaves()} or exit 0;
+    (@{$slaves}) or exit 0;
 } otherwise {
     exit 0;
 };
 
-processDir(EBox::Config::conf() . 'userjournal/');
+processDir($slaves, EBox::Config::home() . 'syncjournal/');
 
 if (EBox::Global->modExists('usercorner')) {
     eval 'use EBox::UserCorner';
-    processDir(EBox::UserCorner::usercornerdir() . 'userjournal/');
+
+    processUserCornerDir(EBox::UserCorner::usercornerdir() . 'syncjournal/');
 }
 
 EBox::Util::Lock::unlock(LOCK_NAME);
@@ -47,28 +64,26 @@ exit 0;
 
 sub processSlaveDir
 {
-    my ($journaldir, $slave) = @_;
+    my ($slave, $dir) = @_;
 
-    my $host = $slave->{'hostname'};
+    my $name = $slave->name;
 
     if ($mode eq 'list') {
-        print "Slave: $host\n";
+        print "Slave: $name\n";
     }
-
-    my $dir = "$journaldir$host/";
 
     my $dh;
     opendir($dh, $dir) or
         die "Can't open the journal dir: $dir\n";
 
-    my %files;
+    my @files;
     while (defined(my $file = readdir($dh))) {
         (-d "$dir$file" and next);
-        $files{$file}=(stat("$dir$file"))[9];
+        push(@files, $file);
     }
     closedir($dh);
 
-    foreach my $file (sort { $files{$a} cmp $files{$b} } keys %files){
+    foreach my $file (sort(@files)) {
         processFile($slave, "$dir$file");
     }
 }
@@ -77,43 +92,75 @@ sub processFile
 {
     my ($slave, $file) = @_;
 
-    open(FILE, $file);
-    my ($method, $param, @params) = <FILE>;
-    close(FILE);
-    chomp($method);
-    chomp($param);
-    @params = map { chomp($_); $_ } @params;
-
-    my $client = $users->soapClient($slave);
-
     if ($mode eq 'run') {
-        try {
-            $client->$method($param, @params);
-            #remove with sudo because it can be a usercorner file
-            EBox::Sudo::root("rm -f $file");
-        } otherwise {
-            EBox::debug("Trying to run method $method with param $param on slave $slave->{'hostname'} failed.");
-        };
+        print "Syncing $file...\n";
+        $slave->syncFromFile($file);
+
     } elsif ($mode eq 'list') {
-        print " * $method: $param\n";
+        my $name = basename($file);
+        print " * $name\n";
     }
 }
 
 sub processDir
 {
-    my ($journaldir) = @_;
+    my ($slaves, $journaldir) = @_;
+
+    unless (-d $journaldir) {
+        print "Dir does not exists: $journaldir\n";
+        return;
+    }
 
     my $jdir;
     opendir($jdir, $journaldir) or die "Can't open the journal dir: $journaldir\n";
 
-    while (defined(my $slave = readdir($jdir))) {
-        ($slave=~ m/^\./) and next;
-        $slave = $users->slaveInfo($slave);
-        if ($slave) {
-            processSlaveDir($journaldir, $slave);
-        }
+    foreach my $slave (@{$slaves}) {
+        my $name = $slave->name();
+        my $slavedir = "$journaldir/$name/";
+        processSlaveDir($slave, $slavedir);
     }
     closedir($jdir);
 }
 
+
+sub processUserCornerDir
+{
+    my ($dir) = @_;
+
+    my $dh;
+    opendir($dh, $dir) or
+        die "Can't open the journal dir: $dir\n";
+
+    my @files;
+    while (defined(my $file = readdir($dh))) {
+        (-d "$dir$file" and next);
+        push (@files, $file);
+    }
+    closedir($dh);
+
+    foreach my $file (sort(@files)) {
+        processUserCornerFile("$dir$file");
+    }
+}
+
+sub processUserCornerFile
+{
+    my ($file) = @_;
+
+    EBox::Sudo::root("chown ebox:ebox $file") unless (-r $file);
+    my $action = EBox::UsersAndGroups::Slave->readActionInfo($file);
+    if ($mode eq 'run') {
+
+        foreach my $slave (@{$slaves}) {
+            my $name = $slave->name();
+            print "Syncing $file to $name...\n";
+            $slave->sync($action->{signal}, $action->{args});
+        }
+        EBox::Sudo::root("rm $file");
+
+    } elsif ($mode eq 'list') {
+        my $name = basename($file);
+        print " * $name\n";
+    }
+}
 1;

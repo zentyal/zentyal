@@ -30,6 +30,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Protocol;
 use Error qw(:try);
 use SOAP::Lite;
+use IO::Socket::SSL;
 
 # Group: Public functions
 
@@ -85,6 +86,12 @@ sub instance
         EBox::warn('Doing connection to web service: '
                    . "$params{name} without credentials to $params{proxy}");
     }
+
+    # Force use of IO::Socket::SSL
+    $Net::HTTPS::SSL_SOCKET_CLASS = "IO::Socket::SSL";
+
+    # Do not verify hostname
+    $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
 
     my $soapConn = new SOAP::Lite(
       uri   => $params{name},
@@ -202,8 +209,15 @@ sub _setCerts
 
     $ENV{HTTPS_CERT_FILE} = $certs->{cert};
     $ENV{HTTPS_KEY_FILE} = $certs->{private};
+
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_cert_file} = $ENV{HTTPS_CERT_FILE};
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_key_file} = $ENV{HTTPS_KEY_FILE};
+    $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_use_cert} = 1;
+
     if (defined($certs->{ca})) {
         $ENV{HTTPS_CA_FILE} = $certs->{ca};
+        $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_ca_file} = $certs->{ca};
+        $IO::Socket::SSL::GLOBAL_CONTEXT_ARGS->{SSL_verify_mode} = 0x01; # verify peer
     }
     $ENV{HTTPS_VERSION} = '3';
 }

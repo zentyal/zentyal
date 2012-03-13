@@ -51,22 +51,6 @@ sub new
         $self->{printableName} = $self->{fieldName};
     }
 
-    if (defined $self->{'hidden'} and ref $self->{'hidden'})
-    {
-        my $hiddenFunc = $self->{'hidden'};
-        if (&$hiddenFunc()) {
-            $self->{'HTMLViewer'} = undef;
-            $self->{'HTMLSetter'} = undef;
-        }
-    } elsif (defined($self->{'hidden'}) and $self->{'hidden'}) {
-        $self->{'HTMLViewer'} = undef;
-        $self->{'HTMLSetter'} = undef;
-    } elsif (defined($self->{'hiddenOnSetter'}) and $self->{'hiddenOnSetter'}) {
-        $self->{'HTMLSetter'} = undef;
-    } elsif (defined($self->{'hiddenOnViewer'}) and $self->{'hiddenOnViewer'}) {
-        $self->{'HTMLViewer'} = undef;
-    }
-
     bless($self, $class);
 
     if ( defined ( $self->{'defaultValue'} )) {
@@ -171,6 +155,21 @@ sub editable
     } else {
         return $self->{'editable'};
     }
+}
+
+sub hidden
+{
+    my ($self) = @_;
+
+    if (defined $self->{'hidden'} and ref $self->{'hidden'}) {
+        my $hiddenFunc = $self->{'hidden'};
+        return (&$hiddenFunc());
+
+    } elsif (defined($self->{'hidden'})) {
+        return $self->{'hidden'};
+    }
+
+    return 0;
 }
 
 sub fieldName
@@ -661,6 +660,11 @@ sub HTMLSetter
 {
     my ($self) = @_;
 
+    return undef if ($self->hidden());
+    if (defined($self->{'hiddenOnSetter'}) and $self->{'hiddenOnSetter'}) {
+        return undef;
+    }
+
     return undef unless (exists $self->{'HTMLSetter'});
     return $self->{'HTMLSetter'};
 }
@@ -669,6 +673,10 @@ sub HTMLViewer
 {
     my ($self) = @_;
 
+    return undef if ($self->hidden());
+    if (defined($self->{'hiddenOnViewer'}) and $self->{'hiddenOnViewer'}) {
+        return undef;
+    }
     return undef unless (exists $self->{'HTMLViewer'});
     return $self->{'HTMLViewer'};
 }
