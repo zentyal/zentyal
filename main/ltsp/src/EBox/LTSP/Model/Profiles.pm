@@ -77,15 +77,16 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'Profiles',
-        'printableTableName' => __('Configuration Profiles'),
+        'printableTableName' => __('Profiles Configuration'),
         'printableRowName' => __('Profile'),
         'modelDomain' => 'LTSP',
         'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@fields,
-        'help' => '', # FIXME
         'sortedBy' => 'name',
         'enableProperty' => 1,
         'defaultEnabledValue' => 1,
+        'help' => __('Profiles are used to apply a particular '
+                     . 'configuration to a group of clients.'),
     };
 
     return $dataTable;

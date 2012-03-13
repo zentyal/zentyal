@@ -72,6 +72,7 @@ sub _table
         'sortedBy' => 'option',
         'enableProperty' => 1,
         'defaultEnabledValue' => 1,
+        'help' => __('Each option should be a LTSP option (lts.conf file).'),
     };
 
     return $dataTable;

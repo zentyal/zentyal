@@ -44,7 +44,7 @@ use Net::IP;
 
 use constant CONF_DIR  => '/var/lib/tftpboot/ltsp';
 use constant CONF_FILE => 'lts.conf';
-use constant ARCHITECTURES => ['i386', 'amd64'];
+use constant ARCHITECTURES => ['i386', 'amd64', 'hppa', 'powerpc'];
 
 
 # Method: _create
@@ -143,6 +143,19 @@ sub _confFiles
     }
 
     return \@conf_files;
+}
+
+sub _confDirs
+{
+    my ($self) = @_;
+
+    my @conf_dirs;
+
+    for my $arch (@{$self->architectures}) {
+        push( @conf_dirs, CONF_DIR . "/$arch/");
+    }
+
+    return \@conf_dirs;
 }
 
 # Method: usedFiles
@@ -279,40 +292,32 @@ sub _getGeneralOptions
 
     my %opts;
 
-    if ( $one_session ne 'default' ) {
-        $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
-    }
+    $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
 
     if ( $network_compression eq 'True' ) {
         $opts{'LDM_DIRECTX'}         = 'False';
         $opts{'NETWORK_COMPRESSION'} = 'True';
-    } else {                                            # Default
+    } else {
         $opts{'LDM_DIRECTX'}         = 'True';
         $opts{'NETWORK_COMPRESSION'} = 'False';
     }
 
-    if ( $sound ne 'default' ) {
-        $opts{'SOUND'} = $sound;
-    }
-
-    if ( $local_apps  eq 'True' ) {
+    if ( $local_apps eq 'True' ) {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
-    } else {                                            # Default
+    } else {
         $opts{'LOCAL_APPS'}      = 'False';
         $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
-    if ( $local_dev ne 'default' ) {
-        $opts{'LOCALDEV'} = $local_dev;
-    }
+    $opts{'LOCALDEV'} = $local_dev;
+    $opts{'LDM_AUTOLOGIN'} = $autologin;
+    $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
+    $opts{'SOUND'} = $sound;
 
-    if ( $autologin ne 'default' ) {
-        $opts{'LDM_AUTOLOGIN'} = $autologin;
-    }
-
-    if ( $guestlogin ne 'default' ) {
-        $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
+    if ( defined $kb_layout ) {
+        $opts{'XKBLAYOUT'}      = $kb_layout;
+        $opts{'CONSOLE_KEYMAP'} = $kb_layout;
     }
 
     if ( defined $server ) {
@@ -325,11 +330,6 @@ sub _getGeneralOptions
 
     if ( defined $shutdown_time ) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
-    }
-
-    if ( defined $kb_layout ) {
-        $opts{'XKBLAYOUT'}      = $kb_layout;
-        $opts{'CONSOLE_KEYMAP'} = $kb_layout;
     }
 
     return \%opts;
@@ -390,10 +390,6 @@ sub _getGeneralProfileOptions
 
     my %opts;
 
-    if ( $sound ne 'default' ) {
-        $opts{'SOUND'} = $sound;
-    }
-
     if ( $local_apps  eq 'True' ) {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
@@ -412,6 +408,10 @@ sub _getGeneralProfileOptions
 
     if ( $guestlogin ne 'default' ) {
         $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
+    }
+
+    if ( $sound ne 'default' ) {
+        $opts{'SOUND'} = $sound;
     }
 
     if ( defined $server ) {
@@ -523,7 +523,6 @@ sub _addAutoLoginConf
 # Method: _writeConfiguration
 #
 #   This method uses a mason template to generate and write the configuration
-#   for /var/lib/tftpboot/ltsp/i386/lts.conf # FIXME
 #
 sub _writeConfiguration
 {
@@ -540,9 +539,9 @@ sub _writeConfiguration
         clients  => $clients,
     );
 
-    for my $file (@{$self->_confFiles}) {
-        if (-f $file) {
-            $self->writeConfFile($file, "ltsp/lts.conf.mas", \@params);
+    for my $dir (@{$self->_confDirs}) {
+        if (-d $dir) {
+            $self->writeConfFile($dir . CONF_FILE, "ltsp/lts.conf.mas", \@params);
         }
     }
 }

@@ -42,6 +42,17 @@ sub new
     return $self;
 }
 
+# Method: pageTitle
+#
+# Overrides:
+#
+#   <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    return 'Thin Clients Configuration';
+}
+
 # Group: Protected methods
 
 # Method: _description
@@ -61,9 +72,11 @@ sub _description
             ],
         layout          => 'tabbed',
         name            => 'Composite',
-        printableName   => __('LTSP Configuration'),
+        printableName   => __('Thin Clients Configuration'),
         compositeDomain => 'LTSP',
-        help            => __(''), # FIXME
+        help            => __('You will probably need to install some kind of '
+                              . 'desktop environment in your server so that '
+                              . 'your Thin Clients can do something useful.'),
     };
 
     return $description;

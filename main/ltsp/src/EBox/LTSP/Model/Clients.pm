@@ -46,6 +46,17 @@ sub objectModel
     return EBox::Global->modInstance('objects')->{'objectModel'};
 }
 
+# Method: pageTitle
+#
+# Overrides:
+#
+#   <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    return 'Profile Clients Configuration';
+}
+
 sub _table
 {
 

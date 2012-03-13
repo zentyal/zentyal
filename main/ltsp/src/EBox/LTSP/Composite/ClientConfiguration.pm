@@ -42,6 +42,17 @@ sub new
     return $self;
 }
 
+# Method: pageTitle
+#
+# Overrides:
+#
+#   <EBox::Model::Component::pageTitle>
+#
+sub pageTitle
+{
+    return 'Profile Configuration';
+}
+
 # Group: Protected methods
 
 # Method: _description

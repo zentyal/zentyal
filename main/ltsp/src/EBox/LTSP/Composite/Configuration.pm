@@ -62,7 +62,8 @@ sub _description
         name            => 'Configuration',
         printableName   => __('General Configuration'),
         compositeDomain => 'LTSP',
-        help            => __(''), # FIXME
+        help            => __('The image for an architecture must exist so that'
+                              . ' this configuration is saved for that architecture.'),
     };
 
     return $description;

@@ -81,7 +81,8 @@ sub _table
         'sortedBy' => 'mac',
         'enableProperty' => 1,
         'defaultEnabledValue' => 1,
-        'help' => 'This will only work if "AutoLogin" is enabled for the client.',
+        'help' => __('This configuration is only useful when \'AutoLogin\' '
+                     . 'or \'Guest Login\' is enabled for the client.'),
     };
 
     return $dataTable;

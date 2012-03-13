@@ -59,10 +59,6 @@ sub _select_options
 
         return [
                  {
-                        value => 'default',
-                        printableValue => __('Default'),
-                 },
-                 {
                         value => 'True',
                         printableValue => __('True'),
                  },
@@ -84,6 +80,7 @@ sub _table
             printableName   => __('Limit one session per user'),
             populate        => \&_select_options,
             editable        => 1,
+            defaultValue    => 'False',
             help            => __('Default \'False\''),
         ),
         new EBox::Types::Select(
@@ -91,20 +88,15 @@ sub _table
             printableName   => __('Network Compression'),
             populate        => \&_select_options,
             editable        => 1,
+            defaultValue    => 'False',
             help            => __('Default \'False\''),
-        ),
-        new EBox::Types::Select(
-            fieldName       => 'sound',
-            printableName   => __('Sound enabled'),
-            populate        => \&_select_options,
-            editable        => 1,
-            help            => __('Default \'True\''),
         ),
         new EBox::Types::Select(
             fieldName       => 'local_apps',
             printableName   => __('Local applications'),
             populate        => \&_select_options,
             editable        => 1,
+            defaultValue    => 'False',
             help            => __('Default \'False\''),
         ),
         new EBox::Types::Select(
@@ -112,6 +104,7 @@ sub _table
             printableName   => __('Local devices'),
             populate        => \&_select_options,
             editable        => 1,
+            defaultValue    => 'True',
             help            => __('Default \'True\''),
         ),
         new EBox::Types::Select(
@@ -119,6 +112,7 @@ sub _table
             printableName   => __('AutoLogin'),
             populate        => \&_select_options,
             editable        => 1,
+            defaultValue    => 'False',
             help            => __('Default \'False\''),
         ),
         new EBox::Types::Select(
@@ -126,7 +120,16 @@ sub _table
             printableName   => __('Guest Login'),
             populate        => \&_select_options,
             editable        => 1,
+            defaultValue    => 'False',
             help            => __('Default \'False\''),
+        ),
+        new EBox::Types::Select(
+            fieldName       => 'sound',
+            printableName   => __('Sound enabled'),
+            populate        => \&_select_options,
+            editable        => 1,
+            defaultValue    => 'True',
+            help            => __('Default \'True\''),
         ),
         new EBox::Types::Text(
             fieldName       => 'kb_layout',

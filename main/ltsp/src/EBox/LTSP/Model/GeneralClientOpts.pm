@@ -79,13 +79,6 @@ sub _table
     my @fields =
     (
         new EBox::Types::Select(
-            fieldName       => 'sound',
-            printableName   => __('Sound enabled'),
-            populate        => \&_select_options,
-            editable        => 1,
-            help            => __(''),
-        ),
-        new EBox::Types::Select(
             fieldName       => 'local_apps',
             printableName   => __('Local applications'),
             populate        => \&_select_options,
@@ -109,6 +102,13 @@ sub _table
         new EBox::Types::Select(
             fieldName       => 'guestlogin',
             printableName   => __('Guest Login'),
+            populate        => \&_select_options,
+            editable        => 1,
+            help            => __(''),
+        ),
+        new EBox::Types::Select(
+            fieldName       => 'sound',
+            printableName   => __('Sound enabled'),
             populate        => \&_select_options,
             editable        => 1,
             help            => __(''),
