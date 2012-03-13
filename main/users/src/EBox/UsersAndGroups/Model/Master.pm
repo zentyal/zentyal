@@ -155,6 +155,10 @@ sub validateTypedRow
             throw EBox::Exceptions::DataInUse(__('CAUTION: this will delete all defined users and import master ones.'));
         }
     }
+
+    # set apache as changed
+    my $apache = EBox::Global->modInstance('apache');
+    $apache->setAsChanged();
 }
 
 

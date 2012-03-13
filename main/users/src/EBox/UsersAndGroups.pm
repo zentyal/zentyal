@@ -390,7 +390,6 @@ sub editableMode
         my $mod = EBox::Global->modInstance($name);
 
         if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
-            EBox::debug($mod->name . ' foo ' . $mod->allowUserChanges());
             return 0 unless ($mod->allowUserChanges());
         }
     }
