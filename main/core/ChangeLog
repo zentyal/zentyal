@@ -1,4 +1,4 @@
-HEAD
+2.3.5
 	+ Added force parameter in validateTypedRow
 	+ Fixed 'hidden' on types when using method references
 	+ Removed some console problematic characters from Util::Random::generate
