@@ -195,8 +195,75 @@ sub _exposedMethods
          );
 
       return \%exposedMethods;
+}
 
-  }
+# Method: addService
+#
+#   Add a new SRV record to the domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub addService
+{
+    my ($self, $domain, $service) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->addService($domain, $service);
+}
+
+# Method: delService
+#
+#   Deletes a SRV record from the domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub delService
+{
+    my ($self, $domain, $service) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->delService($domain, $service);
+}
+
+# Method: addText
+#
+#   Add a new TXT record to the domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub addText
+{
+    my ($self, $domain, $txt) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->addText($domain, $txt);
+}
+
+# Method: delText
+#
+#   Deletes a TXT record from the domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub delText
+{
+    my ($self, $domain, $txt) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->delText($domain, $txt);
+}
 
 # Method: addDomain
 #
@@ -204,7 +271,7 @@ sub _exposedMethods
 #
 # Parameters:
 #
-#       Check <EBox::DNS::Model::DomainTable> for details
+#  Check <EBox::DNS::Model::DomainTable> for details
 #
 sub addDomain
 {
@@ -216,12 +283,12 @@ sub addDomain
 }
 
 # Method: domains
-#  returns an array with all domain names
+#
+#   Returns an array with all domain names
 #
 # Returns:
 #
-#  Array ref - containing hash refs with the following elements:
-#
+#   Array ref - containing hash refs with the following elements:
 #    name    - String the domain's name
 #    ipaddr  - String the domain's ip address
 #    dynamic - Boolean indicating if the domain is dynamically updated
@@ -1143,11 +1210,13 @@ sub _formatTXT
         my $hostName = $row->valueByName('hostName');
         if ($row->elementByName('hostName')->selectedType() eq 'domain') {
             $hostName = $row->parentRow()->valueByName('domain') . '.';
-        } else {
+        } elsif ($row->elementByName('hostName')->selectedType() eq 'ownerDomain') {
             $hostName = $row->parentRow()
                ->subModel('hostnames')
                ->row($hostName)
                ->valueByName('hostname');
+        } else {
+            $hostName = $row->valueByName('hostName');
         }
         push (@txtRecords, {
                 hostName => $hostName,

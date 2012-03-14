@@ -85,14 +85,16 @@ sub validateTypedRow
             foreach my $line (@lines) {
                 next if ($line =~ m:^#: );
                 my @fields = split(/\s+/, $line);
-                if ( $fields[0] =~ m:[a-z\-]+: and $fields[1] =~ m:\d+/\w+: ) {
-                    my ($name, $port, $protocol) = ($fields[0],
-                                                    $fields[1] =~ m:(\d+)/(\w+):);
-                    if ( defined($name) and defined($port) and defined($protocol) ) {
-                        push(@services, { name => $name, port => $port, protocol => $protocol });
-                        foreach my $field ( @fields[ 2 .. $#fields ] ) {
-                            last if ( $field =~ m:^#: );
-                            push(@services, { name => $field, port => $port, protocol => $protocol });
+                if ( defined ($fields[0]) and defined ($fields[1])) {
+                    if ( $fields[0] =~ m:[a-z\-]+: and $fields[1] =~ m:\d+/\w+: ) {
+                        my ($name, $port, $protocol) = ($fields[0],
+                                                        $fields[1] =~ m:(\d+)/(\w+):);
+                        if ( defined($name) and defined($port) and defined($protocol) ) {
+                            push(@services, { name => $name, port => $port, protocol => $protocol });
+                            foreach my $field ( @fields[ 2 .. $#fields ] ) {
+                                last if ( $field =~ m:^#: );
+                                push(@services, { name => $field, port => $port, protocol => $protocol });
+                            }
                         }
                     }
                 }

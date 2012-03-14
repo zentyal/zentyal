@@ -125,6 +125,156 @@ sub addDomain
     }
 }
 
+# Method: addService
+#
+#   Add a new SRV record to the domain
+#
+# Parameters:
+#
+#   service - A hash ref containing:
+#             - service (The name of the service, must match a name in /etc/services)
+#             - protocol ('tcp' or 'udp')
+#             - priority (optional)
+#             - weight (optional)
+#             - port (port number)
+#             - target (It must be a FQDN)
+#             - readOnly
+#
+sub addService
+{
+    my ($self, $domain, $service) = @_;
+
+    unless (defined ($domain)) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
+    unless (defined ($service->{priority})) {
+        $service->{priority} = 0;
+    }
+
+    unless (defined ($service->{weight})) {
+        $service->{weight} = 0;
+    }
+
+    # TODO use readOnly
+    my $domainRow = $self->_getDomainRow($domain);
+    my $model = $domainRow->subModel('srv');
+    my %params = (service_name => $service->{service},
+                  protocol => $service->{protocol},
+                  priority => $service->{priority},
+                  weight => $service->{weight},
+                  port => $service->{port},
+                  hostName_selected => 'custom',
+                  custom => $service->{target});
+    $model->addRow(%params, readOnly => $service->{readOnly});
+}
+
+# Method: delService
+#
+#   Deletes a SRV record from the domain
+#
+# Parameters:
+#
+#   service - A hash ref containing the service attributes
+#             to check for deletion
+#
+sub delService
+{
+    my ($self, $domain, $service) = @_;
+
+    if (not defined ($service->{service})) {
+        throw EBox::Exceptions::MissingArgument('service');
+    }
+
+    my $rowId = undef;
+    my $domainRow = $self->_getDomainRow($domain);
+    my $model = $domainRow->subModel('srv');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+
+        my $rowService  = $row->valueByName('service_name');
+        my $rowProtocol = $row->valueByName('protocol');
+        my $rowPriority = $row->valueByName('priority');
+        my $rowWeight   = $row->valueByName('weight');
+        my $rowPort     = $row->valueByName('port');
+
+        if ((not defined ($service->{service})  or $rowService  eq $service->{service})  and
+            (not defined ($service->{protocol}) or $rowProtocol eq $service->{protocol}) and
+            (not defined ($service->{priority}) or $rowPriority eq $service->{priority}) and
+            (not defined ($service->{weight})   or $rowWeight   eq $service->{weight})   and
+            (not defined ($service->{port})     or $rowPort     eq $service->{port})) {
+            $rowId = $id;
+            last;
+        }
+    }
+
+    if (defined ($rowId)) {
+        $model->removeRow($rowId);
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'service_name', value => $service->{service});
+    }
+}
+
+# Method: addText
+#
+#   Add a new TXT record to the domain
+#
+# Parameters:
+#
+#   txt - A hash ref containing:
+#           - name
+#           - data
+#           - readOnly
+#
+sub addText
+{
+    my ($self, $domain, $txt) = @_;
+
+    my $domainRow = $self->_getDomainRow($domain);
+    my $model = $domainRow->subModel('txt');
+    my %params = ( hostName_selected => 'custom',
+                   custom   => $txt->{name},
+                   txt_data => $txt->{data} );
+    $model->addRow( %params, readOnly => $txt->{readOnly});
+}
+
+# Method: delText
+#
+#   Deletes a TXT record from the domain
+#
+# Parameters:
+#
+#   name - The record name
+#
+sub delText
+{
+    my ($self, $domain, $txt) = @_;
+
+    if (not defined ($txt->{name})) {
+        throw EBox::Exceptions::MissingArgument('name');
+    }
+
+    my $rowId = undef;
+    my $domainRow = $self->_getDomainRow($domain);
+    my $model = $domainRow->subModel('txt');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $rowName = $row->valueByName('hostName');
+        my $rowData = $row->valueByName('txt_data');
+        if ((not defined ($txt->{name}) or $rowName eq $txt->{name}) and
+            (not defined ($txt->{data}) or $rowData eq $txt->{data})) {
+            $rowId = $id;
+            last;
+        }
+    }
+
+    if (defined ($rowId)) {
+        $model->removeRow($rowId);
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'hostName', value => $txt->{name});
+    }
+}
+
 # Method: addedRowNotify
 #
 #    Override to generate the shared key but it is only used by
@@ -292,6 +442,35 @@ sub _generateSecret
     # Generate a key of 512 bits = 64Bytes
     return MIME::Base64::encode(Crypt::OpenSSL::Random::random_bytes(64), '');
 
+}
+
+# Method: _getDomainRow
+#
+#   Return the row for the specified domain name
+#
+# Throws:
+#
+#   DataNotFoundException
+#
+sub _getDomainRow
+{
+    my ($self, $domain) = @_;
+
+    my $domainRow = undef;
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        my $rowDomain = $row->valueByName('domain');
+        if ($rowDomain eq $domain) {
+            $domainRow = $row;
+            last;
+        }
+    }
+
+    unless (defined ($domainRow)) {
+        throw EBox::Exceptions::DataNotFound(data => 'domain', value => $domain);
+    }
+
+    return $domainRow;
 }
 
 1;
