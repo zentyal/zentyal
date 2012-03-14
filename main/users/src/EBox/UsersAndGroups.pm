@@ -1215,25 +1215,25 @@ sub _checkQuota
     }
 }
 
-sub _maxFileSystemQuota
+sub _maxFileSystemQuota # in MB!
 {
     my ($dir) = @_;
 
-    my $fsCapability;
-    my $fs = EBox::FileSystem::dirFileSystem($dir);
-    my $fileSystems = EBox::FileSystem::fileSystems();
-    if (exists $fileSystems->{$fs}) {
-        my $type = $fileSystems->{$fs}->{type};
-        if ($type eq  any('ext4', 'ocfs2', 'xfs')) {
-            $fsCapability = 2**64;
-        } else {
-            $fsCapability = 2**42; # safe side
-        }
-    } else {
-        $fsCapability = 2**42; # safe side
-    }
+    my $fsCapability = (2**42) -1;
+#     my $fs = EBox::FileSystem::dirFileSystem($dir);
+#     my $fileSystems = EBox::FileSystem::fileSystems();
+#     if (exists $fileSystems->{$fs}) {
+#         my $type = $fileSystems->{$fs}->{type};
+#         if ($type eq  any('ext4', 'ocfs2', 'xfs')) {
+#             $fsCapability = 2**64;
+#         } else {
+#             $fsCapability = 2**42; # safe side
+#         }
+#     } else {
+#         $fsCapability = 2**42; # safe side
+#     }
 
-    my $maxMB = $fsCapability /(1024**2);
+    my $maxMB = $fsCapability /(2**20);
     my $rounded = sprintf("%.0f", $maxMB);
     return $rounded;
 }
@@ -1319,7 +1319,7 @@ sub modifyUser # (\%user)
 #
 # Parameters:
 #
-#       user - hash ref containing: 'user' (user name), 'fullname', 'password',
+#       user - hash ref containing: 'username', 'fullname', 'password',
 #       and comment. The only mandatory parameter is 'user' the other attribute
 #       parameters would be ignored if they are missing.
 #
