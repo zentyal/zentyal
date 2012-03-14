@@ -13,10 +13,10 @@ Architecture: all
 Depends: zentyal-core (>= 2.3), zentyal-network (>= 2.3), ltsp-server, ltspfs,
     libasound2-plugins, nbd-server, openssh-server, xbase-clients, tftpd-hpa,
     ldm-server, ${misc:Depends}
-Description: Zentyal - LTSP
+Description: Zentyal - Thin Clients
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One
  single, easy-to-use platform to manage all your network services.
  .
- This module has been automatically created by zmoddev.
+ This module adds LTSP integration with Zentyal.
