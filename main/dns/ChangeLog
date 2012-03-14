@@ -1,3 +1,5 @@
+HEAD
+	+ API to add/delete SRV and TXT records to a domain
 2.3.1
 	+ Service name in uppercase and description is now translatable
 	+ Fixed executable permissions in src/scripts
