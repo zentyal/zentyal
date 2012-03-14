@@ -33,25 +33,23 @@ use EBox::Types::HasMany;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 
 sub _table
 {
-
     my @fields =
     (
-
         new EBox::Types::Text(
             'fieldName' => 'name',
-            'printableName' => __('name'),
+            'printableName' => __('Name'),
             'size' => '8',
             'unique' => 1,
             'editable' => 1,
