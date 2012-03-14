@@ -292,9 +292,9 @@ sub _getGeneralOptions
 
     my %opts;
 
-    $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
+    $opts{'LDM_LIMIT_ONE_SESSION'} = ($one_session ? 'True' : 'False');
 
-    if ( $network_compression eq 'True' ) {
+    if ( $network_compression ) {
         $opts{'LDM_DIRECTX'}         = 'False';
         $opts{'NETWORK_COMPRESSION'} = 'True';
     } else {
@@ -302,7 +302,7 @@ sub _getGeneralOptions
         $opts{'NETWORK_COMPRESSION'} = 'False';
     }
 
-    if ( $local_apps eq 'True' ) {
+    if ( $local_apps ) {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
     } else {
@@ -310,10 +310,10 @@ sub _getGeneralOptions
         $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
-    $opts{'LOCALDEV'} = $local_dev;
-    $opts{'LDM_AUTOLOGIN'} = $autologin;
-    $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
-    $opts{'SOUND'} = $sound;
+    $opts{'LOCALDEV'} = ($local_dev ? 'True' : 'False');
+    $opts{'LDM_AUTOLOGIN'} = ($autologin ? 'True' : 'False');
+    $opts{'LDM_ALLOW_GUEST'} = ($guestlogin ? 'True' : 'False');
+    $opts{'SOUND'} = ($sound ? 'True' : 'False');
 
     if ( defined $kb_layout ) {
         $opts{'XKBLAYOUT'}      = $kb_layout;

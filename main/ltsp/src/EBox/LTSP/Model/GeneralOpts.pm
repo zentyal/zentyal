@@ -27,7 +27,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
-use EBox::Types::Select;
+use EBox::Types::Boolean;
 use EBox::Types::IPAddr;
 use EBox::Types::Text;
 use EBox::Types::Union;
@@ -45,91 +45,59 @@ sub new
         return $self;
 }
 
-#
-#   Callback function to fill out the values that can
-#   be picked from the <EBox::Types::Select> field module
-#
-# Returns:
-#
-#   Array ref of hash refs containing the 'value' and the 'printableValue' for
-#   each select option
-#
-sub _select_options
-{
-
-        return [
-                 {
-                        value => 'True',
-                        printableValue => __('True'),
-                 },
-                 {
-                        value => 'False',
-                        printableValue => __('False'),
-                 },
-        ];
-
-}
-
 sub _table
 {
 
     my @fields =
     (
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'one_session',
             printableName   => __('Limit one session per user'),
-            populate        => \&_select_options,
             editable        => 1,
-            defaultValue    => 'False',
-            help            => __('Default \'False\''),
+            defaultValue    => 0,
+            help            => __('Default \'Disabled\''),
         ),
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'network_compression',
             printableName   => __('Network Compression'),
-            populate        => \&_select_options,
             editable        => 1,
-            defaultValue    => 'False',
-            help            => __('Default \'False\''),
+            defaultValue    => 0,
+            help            => __('Default \'Disabled\''),
         ),
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'local_apps',
             printableName   => __('Local applications'),
-            populate        => \&_select_options,
             editable        => 1,
-            defaultValue    => 'False',
-            help            => __('Default \'False\''),
+            defaultValue    => 0,
+            help            => __('Default \'Disabled\''),
         ),
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'local_dev',
             printableName   => __('Local devices'),
-            populate        => \&_select_options,
             editable        => 1,
-            defaultValue    => 'True',
-            help            => __('Default \'True\''),
+            defaultValue    => 1,
+            help            => __('Default \'Enabled\''),
         ),
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'autologin',
             printableName   => __('AutoLogin'),
-            populate        => \&_select_options,
             editable        => 1,
-            defaultValue    => 'False',
-            help            => __('Default \'False\''),
+            defaultValue    => 0,
+            help            => __('Default \'Disabled\''),
         ),
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'guestlogin',
             printableName   => __('Guest Login'),
-            populate        => \&_select_options,
             editable        => 1,
-            defaultValue    => 'False',
-            help            => __('Default \'False\''),
+            defaultValue    => 0,
+            help            => __('Default \'Disabled\''),
         ),
-        new EBox::Types::Select(
+        new EBox::Types::Boolean(
             fieldName       => 'sound',
-            printableName   => __('Sound enabled'),
-            populate        => \&_select_options,
+            printableName   => __('Sound'),
             editable        => 1,
-            defaultValue    => 'True',
-            help            => __('Default \'True\''),
+            defaultValue    => 1,
+            help            => __('Default \'Enabled\''),
         ),
         new EBox::Types::Text(
             fieldName       => 'kb_layout',
@@ -165,7 +133,7 @@ sub _table
                 ),
                 new EBox::Types::Time(
                     fieldName       => 'shutdown_time',
-                    printableName   => __('Time'),
+                    printableName   => __('At'),
                     editable        => 1,
                 ),
             ],

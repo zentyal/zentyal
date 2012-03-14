@@ -63,11 +63,11 @@ sub _select_options
                  },
                  {
                         value => 'True',
-                        printableValue => __('True'),
+                        printableValue => __('Enabled'),
                  },
                  {
                         value => 'False',
-                        printableValue => __('False'),
+                        printableValue => __('Disabled'),
                  },
         ];
 
@@ -108,7 +108,7 @@ sub _table
         ),
         new EBox::Types::Select(
             fieldName       => 'sound',
-            printableName   => __('Sound enabled'),
+            printableName   => __('Sound'),
             populate        => \&_select_options,
             editable        => 1,
             help            => __(''),
@@ -140,7 +140,7 @@ sub _table
                 ),
                 new EBox::Types::Time(
                     fieldName       => 'shutdown_time',
-                    printableName   => __('Time'),
+                    printableName   => __('At'),
                     editable        => 1,
                 ),
             ],
