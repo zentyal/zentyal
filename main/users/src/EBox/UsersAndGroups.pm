@@ -257,7 +257,6 @@ sub _loadLDAP
         EBox::Sudo::root(
             # Remove current database (if any)
             'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
-            'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             'mkdir -p ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             'chmod 750 ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
 
