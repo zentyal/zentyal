@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 2.1\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2012-03-04 15:49+0100\n"
+"POT-Creation-Date: 2012-03-14 01:00+0100\n"
 "PO-Revision-Date: 2011-09-29 16:35+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
@@ -118,8 +118,8 @@ msgstr "Volumen de tráfico filtrado"
 #: ../../main/samba/src/EBox/Samba.pm:1533
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/FilterDetails.pm:74
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/Report/POPProxyDetails.pm:69
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:613
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:659
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:618
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:664
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:95
 #: ../../main/core/src/EBox/Events/Model/Report/EventsDetails.pm:68
 #: ../../main/core/src/EBox/Logs.pm:738 ../../main/mail/src/EBox/Mail.pm:1634
@@ -128,15 +128,14 @@ msgstr "Volumen de tráfico filtrado"
 #: ../../main/ids/src/EBox/IDS.pm:304 ../../main/radius/src/EBox/Radius.pm:390
 #: ../../main/asterisk/src/EBox/Asterisk.pm:763
 #: ../../main/ebackup/src/scripts/restore-tool:1700
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:119
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:32
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:117
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:29
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:39
-#: ../../main/ca/src/templates/index.mas:106
-#: ../../main/core/src/templates/finish.mas:118
+#: ../../main/core/src/templates/finish.mas:112
 #: ../../main/core/src/templates/confirm-backup.mas:28
-#: ../../main/core/src/templates/datetime.mas:31
-#: ../../main/core/src/templates/backup.mas:129
-#: ../../main/mail/src/templates/qmanager.mas:19
+#: ../../main/core/src/templates/datetime.mas:26
+#: ../../main/core/src/templates/backup.mas:120
+#: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Date"
 msgstr "Fecha"
 
@@ -578,13 +577,15 @@ msgid "Filter virus"
 msgstr "Filtrar virus"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:59
-#: ../../main/squid/stubs/template.html.mas:44
+#: ../../main/squid/stubs/template.html.mas:40
 msgid "Categories"
 msgstr "Categorías"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterFilesBase.pm:67
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:599
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:162
+#: ../../main/core/src/templates/configureView.mas:32
+#: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
 msgstr "Fichero"
 
@@ -609,7 +610,7 @@ msgstr "Sólo se permiten ficheros comprimidos de listas negras categorizadas"
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:211
 #: ../../main/l7-protocols/src/EBox/Model/Groups.pm:51
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:10
-#: ../../main/users/src/templates/users.mas:89
+#: ../../main/users/src/templates/users.mas:77
 msgid "Group"
 msgstr "Grupo"
 
@@ -619,7 +620,6 @@ msgstr "Grupo"
 #: ../../main/squid/src/EBox/Squid.pm:1117
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:81
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:85
-#: ../../main/samba/src/templates/samba.mas:105
 msgid "Allow"
 msgstr "Permitir"
 
@@ -1111,8 +1111,8 @@ msgstr "Extensión de fichero"
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:134
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:320
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:730
-#: ../../main/asterisk/src/templates/group.mas:40
-#: ../../main/asterisk/src/templates/user.mas:37
+#: ../../main/asterisk/src/templates/group.mas:32
+#: ../../main/asterisk/src/templates/user.mas:29
 msgid "Extension"
 msgstr "Extensión"
 
@@ -1317,7 +1317,7 @@ msgstr "El período de tiempo debe estar activo al menos un día"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:192
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:212
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:286
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:564
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:566
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:92
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:91
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:110
@@ -1329,20 +1329,20 @@ msgstr "El período de tiempo debe estar activo al menos un día"
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:235
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:271
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:64
-#: ../../main/jabber/src/templates/jabber.mas:21
-#: ../../main/jabber/src/templates/jabber.mas:24
-#: ../../main/samba/src/templates/samba.mas:20
-#: ../../main/samba/src/templates/samba.mas:23
-#: ../../main/core/src/templates/dashboard/index.mas:37
+#: ../../main/jabber/src/templates/jabber.mas:18
+#: ../../main/jabber/src/templates/jabber.mas:19
+#: ../../main/samba/src/templates/samba.mas:17
+#: ../../main/samba/src/templates/samba.mas:18
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:30
-#: ../../main/core/src/templates/enable.mas:20
-#: ../../main/core/src/templates/enable.mas:23
-#: ../../main/zarafa/src/templates/zarafa.mas:21
-#: ../../main/zarafa/src/templates/zarafa.mas:24
-#: ../../main/asterisk/src/templates/group.mas:28
-#: ../../main/asterisk/src/templates/group.mas:31
-#: ../../main/asterisk/src/templates/user.mas:25
-#: ../../main/asterisk/src/templates/user.mas:28
+#: ../../main/core/src/templates/enable.mas:18
+#: ../../main/core/src/templates/enable.mas:19
+#: ../../main/zarafa/src/templates/zarafa.mas:18
+#: ../../main/zarafa/src/templates/zarafa.mas:19
+#: ../../main/asterisk/src/templates/group.mas:24
+#: ../../main/asterisk/src/templates/group.mas:25
+#: ../../main/asterisk/src/templates/user.mas:21
+#: ../../main/asterisk/src/templates/user.mas:22
 msgid "Disabled"
 msgstr "Deshabilitado"
 
@@ -1497,25 +1497,25 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/BackupDomains.pm:152
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:63
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
-#: ../../main/core/src/EBox/Model/DataTable.pm:4739
+#: ../../main/core/src/EBox/Model/DataTable.pm:4742
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:258
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogDataTable.pm:376
 #: ../../main/mail/src/EBox/Mail/Model/GreylistConfiguration.pm:75
 #: ../../main/ids/src/EBox/Model/Rules.pm:180
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:122
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:240
-#: ../../main/jabber/src/templates/jabber.mas:22
-#: ../../main/jabber/src/templates/jabber.mas:25
-#: ../../main/samba/src/templates/samba.mas:21
-#: ../../main/samba/src/templates/samba.mas:24
-#: ../../main/core/src/templates/enable.mas:21
-#: ../../main/core/src/templates/enable.mas:24
-#: ../../main/zarafa/src/templates/zarafa.mas:22
-#: ../../main/zarafa/src/templates/zarafa.mas:25
-#: ../../main/asterisk/src/templates/group.mas:29
-#: ../../main/asterisk/src/templates/group.mas:32
-#: ../../main/asterisk/src/templates/user.mas:26
-#: ../../main/asterisk/src/templates/user.mas:29
+#: ../../main/jabber/src/templates/jabber.mas:18
+#: ../../main/jabber/src/templates/jabber.mas:19
+#: ../../main/samba/src/templates/samba.mas:17
+#: ../../main/samba/src/templates/samba.mas:18
+#: ../../main/core/src/templates/enable.mas:18
+#: ../../main/core/src/templates/enable.mas:19
+#: ../../main/zarafa/src/templates/zarafa.mas:18
+#: ../../main/zarafa/src/templates/zarafa.mas:19
+#: ../../main/asterisk/src/templates/group.mas:24
+#: ../../main/asterisk/src/templates/group.mas:25
+#: ../../main/asterisk/src/templates/user.mas:21
+#: ../../main/asterisk/src/templates/user.mas:22
 msgid "Enabled"
 msgstr "Habilitado"
 
@@ -1556,8 +1556,8 @@ msgstr "Política de Grupo"
 #: ../../main/network/src/EBox/CGI/Diag.pm:50
 #: ../../main/network/src/EBox/CGI/Diag.pm:57
 #: ../../main/dhcp/src/EBox/Model/ThinClientOptions.pm:229
-#: ../../main/network/src/templates/diag.mas:14
-#: ../../main/network/src/templates/diag.mas:23
+#: ../../main/network/src/templates/diag.mas:13
+#: ../../main/network/src/templates/diag.mas:18
 msgid "Host"
 msgstr "Host"
 
@@ -1577,15 +1577,14 @@ msgstr "Mime/tipo"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1644
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1305
 #: ../../main/printers/src/EBox/Printers.pm:368
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:616
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:663
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:621
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:668
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:168
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:141
 #: ../../main/mail/src/EBox/Mail.pm:1644 ../../main/ids/src/EBox/IDS.pm:310
 #: ../../main/radius/src/EBox/Radius.pm:391
 #: ../../main/asterisk/src/EBox/Asterisk.pm:771
-#: ../../main/core/src/templates/logs/index.mas:182
 msgid "Event"
 msgstr "Evento"
 
@@ -1621,15 +1620,14 @@ msgstr "Filtrado"
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:59
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:58
-#: ../../main/dns/src/templates/index.mas:21
+#: ../../main/dns/src/templates/index.mas:20
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:36
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:42
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:118
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:24
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:116
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:23
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:38
-#: ../../main/network/src/templates/ifaces.mas:34
-#: ../../main/network/src/templates/ifaces.mas:286
-#: ../../main/ca/src/templates/index.mas:104
+#: ../../main/network/src/templates/ifaces.mas:32
+#: ../../main/network/src/templates/ifaces.mas:243
 msgid "Name"
 msgstr "Nombre"
 
@@ -2022,12 +2020,9 @@ msgstr "Descargar paquete de configuración de cliente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:106
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:142
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:140
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:76
-#: ../../main/core/src/templates/ajax/viewer/file.mas:22
-#: ../../main/core/src/templates/ajax/viewer/file.mas:33
-#: ../../main/core/src/templates/backup.mas:161
-#: ../../main/core/src/templates/backup.mas:162
+#: ../../main/core/src/templates/backup.mas:143
 msgid "Download"
 msgstr "Descargar"
 
@@ -2208,8 +2203,8 @@ msgstr "Ejecutándose"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:787
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:503
 #: ../../main/virt/src/templates/vmstatus.mas:20
-#: ../../main/virt/src/templates/statusViewer.mas:13
-#: ../../main/core/src/templates/dashboard/index.mas:27
+#: ../../main/virt/src/templates/statusViewer.mas:11
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:21
 msgid "Stopped"
 msgstr "Detenido"
@@ -2452,8 +2447,7 @@ msgstr "Demonios OpenVPN"
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:98
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/samba/src/EBox/Samba.pm:1527
-#: ../../main/core/src/templates/report/diskUsage.mas:30
-#: ../../main/core/src/templates/report/raid.mas:131
+#: ../../main/core/src/templates/report/diskUsage.mas:27
 msgid "Type"
 msgstr "Tipo"
 
@@ -2549,12 +2543,12 @@ msgstr "El nombre '{name}' no es válido"
 #: ../../main/firewall/src/EBox/Firewall.pm:457
 #: ../../main/firewall/src/EBox/Firewall.pm:636
 #: ../../main/firewall/src/EBox/Firewall.pm:661
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:752
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:794
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:754
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:796
 #: ../../main/core/src/EBox/Apache.pm:269
 #: ../../main/core/src/EBox/Apache.pm:278
 #: ../../main/services/src/EBox/Services.pm:482
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:25
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "puerto"
 
@@ -2695,7 +2689,6 @@ msgstr "DENEGAR"
 #: ../../main/core/src/EBox/Events/Model/Watcher/LogFiltering.pm:149
 #: ../../main/core/src/EBox/Types/Service.pm:212
 #: ../../main/core/src/EBox/Types/PortRange.pm:290
-#: ../../main/core/src/templates/logs/index.mas:184
 msgid "Any"
 msgstr "Cualquiera"
 
@@ -2747,17 +2740,17 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Model/Meetings.pm:153
 #: ../../main/asterisk/src/EBox/Model/Localnets.pm:116
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:63
-#: ../../main/software/src/templates/ebox.mas:242
-#: ../../main/software/src/templates/updates.mas:45
+#: ../../main/software/src/templates/ebox.mas:232
+#: ../../main/software/src/templates/updates.mas:41
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:51
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:120
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:40
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:118
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:35
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:40
-#: ../../main/network/src/templates/ifaces.mas:230
-#: ../../main/core/src/templates/finish.mas:121
-#: ../../main/core/src/templates/confirm-backup.mas:36
-#: ../../main/core/src/templates/backup.mas:54
-#: ../../main/core/src/templates/backup.mas:128
+#: ../../main/network/src/templates/ifaces.mas:201
+#: ../../main/core/src/templates/finish.mas:112
+#: ../../main/core/src/templates/confirm-backup.mas:34
+#: ../../main/core/src/templates/backup.mas:49
+#: ../../main/core/src/templates/backup.mas:120
 msgid "Description"
 msgstr "Descripción"
 
@@ -2845,11 +2838,11 @@ msgstr "Regla contradictoria encontrada. Bórrala primero"
 #: ../../main/network/src/EBox/Network.pm:3484
 #: ../../main/network/src/EBox/Network.pm:3505
 #: ../../main/network/src/EBox/Network.pm:3524
-#: ../../main/network/src/EBox/Network.pm:3580
-#: ../../main/network/src/EBox/Network.pm:3601
-#: ../../main/network/src/EBox/Network.pm:3621
-#: ../../main/network/src/EBox/Network.pm:3642
-#: ../../main/network/src/EBox/Network.pm:3665
+#: ../../main/network/src/EBox/Network.pm:3579
+#: ../../main/network/src/EBox/Network.pm:3600
+#: ../../main/network/src/EBox/Network.pm:3620
+#: ../../main/network/src/EBox/Network.pm:3641
+#: ../../main/network/src/EBox/Network.pm:3664
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:498
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:534
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:584
@@ -2875,6 +2868,7 @@ msgstr "Destino original"
 #: ../../main/dhcp/src/EBox/Model/Options.pm:463
 #: ../../main/ca/src/EBox/Model/Certificates.pm:118
 #: ../../main/core/src/cgi/ebox.cgi:47 ../../main/core/src/EBox/Html.pm:150
+#: ../../main/core/src/templates/headerWithRefresh.mas:11
 #: ../../main/core/src/templates/login/index.mas:15
 msgid "Zentyal"
 msgstr "Zentyal"
@@ -2943,7 +2937,7 @@ msgid "External Input"
 msgstr "Entrada externa"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:39
-#: ../../main/network/src/templates/diag.mas:38
+#: ../../main/network/src/templates/diag.mas:26
 msgid "Output"
 msgstr "Salida"
 
@@ -2974,8 +2968,9 @@ msgstr "Regla"
 #: ../../main/core/src/EBox/Logs.pm:740
 #: ../../main/core/src/EBox/AuditLogging.pm:110
 #: ../../main/core/src/EBox/CGI/SysInfo/Backup.pm:266
-#: ../../main/core/src/templates/finish.mas:119
-#: ../../main/core/src/templates/moduleStatusTable.mas:58
+#: ../../main/core/src/templates/finish.mas:112
+#: ../../main/core/src/templates/moduleStatusTable.mas:57
+#: ../../main/core/src/templates/configurationFiles.mas:20
 msgid "Module"
 msgstr "Módulo"
 
@@ -2984,7 +2979,7 @@ msgid "Condition"
 msgstr "Condición"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:156
-#: ../../main/firewall/src/templates/filter.mas:105
+#: ../../main/firewall/src/templates/filter.mas:88
 msgid "Rules added by Zentyal services (Advanced)"
 msgstr "Reglas añadidas por servicios de Zentyal (Avanzado)"
 
@@ -3333,10 +3328,10 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:253
 #: ../../main/dns/src/EBox/Model/NameServer.pm:235
 #: ../../main/dns/src/EBox/Model/Text.pm:147
-#: ../../main/network/src/EBox/Network.pm:3687
-#: ../../main/network/src/EBox/Network.pm:3708
+#: ../../main/network/src/EBox/Network.pm:3686
+#: ../../main/network/src/EBox/Network.pm:3707
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1384
-#: ../../main/dns/src/templates/edit.mas:20
+#: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "Nombre de máquina"
 
@@ -3485,8 +3480,8 @@ msgstr ""
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:201
 #: ../../main/dns/src/EBox/Model/AliasTable.pm:207
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:54
-#: ../../main/dns/src/templates/edit.mas:64
-#: ../../main/dns/src/templates/edit.mas:85
+#: ../../main/dns/src/templates/edit.mas:51
+#: ../../main/dns/src/templates/edit.mas:66
 msgid "Alias"
 msgstr "Alias"
 
@@ -3505,7 +3500,7 @@ msgstr ""
 "Las zonas dinámicas pueden borrar su resolución reversa manual"
 
 #: ../../main/dns/src/EBox/Model/HostnameTable.pm:293
-#: ../../main/network/src/EBox/Network.pm:3728
+#: ../../main/network/src/EBox/Network.pm:3727
 #: ../../main/network/src/EBox/CGI/Diag.pm:64
 msgid "host name"
 msgstr "nombre de máquina"
@@ -3519,7 +3514,7 @@ msgstr "Habilite el caché de DNS transparente"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Composite/GeneralSettings.pm:52
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:148
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:78
-#: ../../main/software/src/templates/config.mas:19
+#: ../../main/software/src/templates/config.mas:18
 msgid "Settings"
 msgstr "Configuración"
 
@@ -3878,14 +3873,14 @@ msgstr "Directorios personales y globales de los usuarios."
 #: ../../main/network/src/EBox/Network.pm:3446
 #: ../../main/network/src/EBox/Network.pm:3462
 #: ../../main/network/src/EBox/Network.pm:3488
-#: ../../main/network/src/EBox/Network.pm:3645
-#: ../../main/network/src/EBox/Network.pm:3803
+#: ../../main/network/src/EBox/Network.pm:3644
+#: ../../main/network/src/EBox/Network.pm:3802
 #: ../../main/network/src/EBox/CGI/VIface.pm:63
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1384
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/RSS.pm:153
-#: ../../main/network/src/templates/ifaces.mas:119
-#: ../../main/network/src/templates/ifaces.mas:287
-#: ../../main/network/src/templates/Wizard/network.mas:61
+#: ../../main/network/src/templates/ifaces.mas:104
+#: ../../main/network/src/templates/ifaces.mas:243
+#: ../../main/network/src/templates/Wizard/network.mas:52
 msgid "IP address"
 msgstr "Dirección IP"
 
@@ -3896,7 +3891,7 @@ msgstr "Rango"
 
 #: ../../main/objects/src/EBox/Model/MemberTable.pm:88
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:127
-#: ../../main/network/src/EBox/Network.pm:3797
+#: ../../main/network/src/EBox/Network.pm:3796
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1303
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1384
 msgid "MAC address"
@@ -3998,7 +3993,7 @@ msgstr "Borrado {nname} del objeto {object}"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:79
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:147
 #: ../../main/network/src/EBox/Network.pm:80
-#: ../../main/network/src/EBox/Network.pm:3857
+#: ../../main/network/src/EBox/Network.pm:3856
 #: ../../main/services/src/EBox/Services.pm:642
 msgid "Network"
 msgstr "Red"
@@ -4090,7 +4085,6 @@ msgstr "Instalando paquetes"
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:179
 #: ../../main/software/src/EBox/CGI/InstallPkgs.pm:204
 #: ../../main/core/src/EBox/CGI/Finish.pm:147
-#: ../../main/core/src/templates/report/raid.mas:214
 msgid "Current operation"
 msgstr "Operación actual"
 
@@ -4588,7 +4582,6 @@ msgstr "Por favor, guardar cambios"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:170
 #: ../../main/core/src/EBox/Model/DataForm.pm:682
-#: ../../main/core/src/templates/progress.mas:26
 msgid "Done"
 msgstr "Hecho"
 
@@ -4641,12 +4634,12 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups/Model/LdapInfo.pm:78
 #: ../../main/users/src/EBox/UsersAndGroups.pm:1026
 #: ../../main/users/src/EBox/UsersAndGroups.pm:2660
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:130
-#: ../../main/captiveportal/src/templates/login.mas:44
-#: ../../main/network/src/templates/ifaces.mas:202
-#: ../../main/core/src/templates/login/index.mas:70
-#: ../../main/users/src/templates/users.mas:50
-#: ../../main/users/src/templates/user.mas:78
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:131
+#: ../../main/captiveportal/src/templates/login.mas:40
+#: ../../main/network/src/templates/ifaces.mas:178
+#: ../../main/core/src/templates/login/index.mas:61
+#: ../../main/users/src/templates/users.mas:44
+#: ../../main/users/src/templates/user.mas:70
 msgid "Password"
 msgstr "Contraseña"
 
@@ -4681,28 +4674,31 @@ msgstr " módulos"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:578
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:103
 #: ../../main/samba/src/EBox/Samba.pm:1506
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:615
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:620
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:73
 #: ../../main/core/src/EBox/Model/Composite.pm:660
 #: ../../main/core/src/EBox/Model/Composite.pm:675
 #: ../../main/core/src/EBox/Model/DataMultiTable.pm:168
-#: ../../main/core/src/EBox/Model/DataTable.pm:2114
+#: ../../main/core/src/EBox/Model/DataTable.pm:2117
 #: ../../main/core/src/EBox/Logs.pm:741
 #: ../../main/core/src/EBox/AuditLogging.pm:123
-#: ../../main/dns/src/templates/index.mas:24
-#: ../../main/dns/src/templates/edit.mas:23
-#: ../../main/network/src/templates/ifaces.mas:231
-#: ../../main/network/src/templates/ifaces.mas:289
-#: ../../main/mail/src/templates/groupalias.mas:25
-#: ../../main/mail/src/templates/qmanager.mas:23
-#: ../../main/mail/src/templates/alias.mas:39
+#: ../../main/dns/src/templates/index.mas:22
+#: ../../main/dns/src/templates/edit.mas:20
+#: ../../main/network/src/templates/ifaces.mas:201
+#: ../../main/network/src/templates/ifaces.mas:243
+#: ../../main/core/src/templates/configureView.mas:20
+#: ../../main/mail/src/templates/groupalias.mas:22
+#: ../../main/mail/src/templates/qmanager.mas:17
+#: ../../main/mail/src/templates/alias.mas:28
 msgid "Action"
 msgstr "Acción"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:579
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:600
 #: ../../main/ca/src/EBox/CGI/RevokeCertificate.pm:71
-#: ../../main/ca/src/templates/formRevoke.mas:67
+#: ../../main/ca/src/templates/formRevoke.mas:60
+#: ../../main/core/src/templates/configureView.mas:22
+#: ../../main/core/src/templates/configureView.mas:34
 msgid "Reason"
 msgstr "Razón"
 
@@ -4818,7 +4814,7 @@ msgstr "Opciones de acceso"
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:147
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:160
 #: ../../main/network/src/EBox/Model/DynDNS.pm:83
-#: ../../main/core/src/templates/headTitle.mas:20
+#: ../../main/core/src/templates/headTitle.mas:18
 msgid "Zentyal Cloud"
 msgstr "Zentyal Cloud"
 
@@ -5048,9 +5044,9 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/Model/RemoteFileList.pm:180
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:122
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:138
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:136
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:134
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:70
-#: ../../main/core/src/templates/backup.mas:97
+#: ../../main/core/src/templates/backup.mas:89
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -5069,37 +5065,21 @@ msgstr "Por favor, confirme que desea borrar el siguiente backup remoto"
 #: ../../main/remoteservices/src/EBox/CGI/Backup/Confirm.pm:117
 #: ../../main/core/src/EBox/AuditLogging.pm:121
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:113
-#: ../../main/dns/src/templates/index.mas:53
-#: ../../main/dns/src/templates/index.mas:54
-#: ../../main/dns/src/templates/edit.mas:54
-#: ../../main/dns/src/templates/edit.mas:55
-#: ../../main/dns/src/templates/edit.mas:93
-#: ../../main/dns/src/templates/edit.mas:94
-#: ../../main/software/src/templates/ebox.mas:647
-#: ../../main/software/src/templates/ebox.mas:676
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:147
-#: ../../main/network/src/templates/ifaces.mas:266
-#: ../../main/network/src/templates/ifaces.mas:267
-#: ../../main/network/src/templates/ifaces.mas:268
-#: ../../main/network/src/templates/ifaces.mas:360
-#: ../../main/network/src/templates/ifaces.mas:361
-#: ../../main/network/src/templates/ifaces.mas:362
-#: ../../main/samba/src/templates/samba.mas:78
-#: ../../main/samba/src/templates/samba.mas:79
-#: ../../main/samba/src/templates/delete.mas:18
-#: ../../main/core/src/templates/ajax/tableBody.mas:466
-#: ../../main/core/src/templates/ajax/tableModalView.mas:471
-#: ../../main/core/src/templates/backup.mas:167
-#: ../../main/core/src/templates/backup.mas:168
-#: ../../main/mail/src/templates/groupalias.mas:86
-#: ../../main/mail/src/templates/groupalias.mas:87
-#: ../../main/mail/src/templates/warnvd.mas:29
-#: ../../main/mail/src/templates/alias.mas:19
-#: ../../main/mail/src/templates/alias.mas:20
-#: ../../main/mail/src/templates/alias.mas:21
-#: ../../main/mail/src/templates/alias.mas:73
-#: ../../main/mail/src/templates/alias.mas:74
-#: ../../main/users/src/templates/del.mas:43
+#: ../../main/dns/src/templates/index.mas:43
+#: ../../main/dns/src/templates/edit.mas:43
+#: ../../main/dns/src/templates/edit.mas:71
+#: ../../main/software/src/templates/ebox.mas:515
+#: ../../main/software/src/templates/ebox.mas:535
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:145
+#: ../../main/network/src/templates/ifaces.mas:227
+#: ../../main/network/src/templates/ifaces.mas:303
+#: ../../main/samba/src/templates/samba.mas:60
+#: ../../main/samba/src/templates/delete.mas:15
+#: ../../main/core/src/templates/backup.mas:147
+#: ../../main/mail/src/templates/warnvd.mas:25
+#: ../../main/mail/src/templates/alias.mas:15
+#: ../../main/mail/src/templates/alias.mas:55
+#: ../../main/users/src/templates/del.mas:36
 msgid "Delete"
 msgstr "Borrar"
 
@@ -5133,14 +5113,14 @@ msgid "Email Address"
 msgstr "dirección de correo electrónico"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:66
-#: ../../main/users/src/templates/users.mas:25
-#: ../../main/users/src/templates/user.mas:22
+#: ../../main/users/src/templates/users.mas:23
+#: ../../main/users/src/templates/user.mas:20
 msgid "First name"
 msgstr "Nombre"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:67
-#: ../../main/users/src/templates/users.mas:33
-#: ../../main/users/src/templates/user.mas:36
+#: ../../main/users/src/templates/users.mas:30
+#: ../../main/users/src/templates/user.mas:33
 msgid "Last name"
 msgstr "Apellido"
 
@@ -5232,9 +5212,9 @@ msgstr "Uso de ancho de banda"
 #: ../../main/core/src/EBox/Events/Model/Dispatcher/Jabber.pm:102
 #: ../../main/core/src/EBox/CGI/SysInfo/Password.pm:43
 #: ../../main/asterisk/src/EBox/Model/Provider.pm:102
-#: ../../main/captiveportal/src/templates/login.mas:37
-#: ../../main/core/src/templates/login/index.mas:63
-#: ../../main/core/src/templates/password.mas:11
+#: ../../main/captiveportal/src/templates/login.mas:34
+#: ../../main/core/src/templates/login/index.mas:55
+#: ../../main/core/src/templates/password.mas:9
 msgid "Username"
 msgstr "Usuario"
 
@@ -5242,7 +5222,7 @@ msgstr "Usuario"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:57
 #: ../../main/dhcp/src/EBox/DHCP.pm.in:1304
 #: ../../main/core/src/EBox/AuditLogging.pm:140
-#: ../../main/dns/src/templates/edit.mas:17
+#: ../../main/dns/src/templates/edit.mas:16
 msgid "IP"
 msgstr "IP"
 
@@ -5316,10 +5296,9 @@ msgstr ""
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:69
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
 #: ../../main/core/src/cgi/ebox.cgi:67
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:122
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:120
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:42
-#: ../../main/ca/src/templates/index.mas:107
-#: ../../main/core/src/templates/backup.mas:131
+#: ../../main/core/src/templates/backup.mas:120
 msgid "Actions"
 msgstr "Acciones"
 
@@ -5356,19 +5335,19 @@ msgstr "Informar sobre el problema"
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:78
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:78
 #: ../../main/core/src/cgi/ebox.cgi:76
-#: ../../main/software/src/templates/del.mas:96
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:73
-#: ../../main/network/src/templates/confirm.mas:39
-#: ../../main/network/src/templates/confirmVlanDel.mas:24
-#: ../../main/network/src/templates/confirmremove.mas:26
-#: ../../main/samba/src/templates/delete.mas:21
-#: ../../main/ca/src/templates/forceRevoke.mas:45
-#: ../../main/core/src/templates/confirm-backup.mas:66
-#: ../../main/core/src/templates/dataInUse.mas:41
-#: ../../main/mail/src/templates/warnusermdsize.mas:26
-#: ../../main/mail/src/templates/warnvdmdsize.mas:36
-#: ../../main/mail/src/templates/warnvd.mas:32
-#: ../../main/users/src/templates/del.mas:46
+#: ../../main/software/src/templates/del.mas:87
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:62
+#: ../../main/network/src/templates/confirm.mas:29
+#: ../../main/network/src/templates/confirmVlanDel.mas:19
+#: ../../main/network/src/templates/confirmremove.mas:21
+#: ../../main/samba/src/templates/delete.mas:17
+#: ../../main/ca/src/templates/forceRevoke.mas:38
+#: ../../main/ca/src/templates/forceRenew.mas:78
+#: ../../main/core/src/templates/confirm-backup.mas:59
+#: ../../main/mail/src/templates/warnusermdsize.mas:23
+#: ../../main/mail/src/templates/warnvdmdsize.mas:32
+#: ../../main/mail/src/templates/warnvd.mas:27
+#: ../../main/users/src/templates/del.mas:38
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -5481,7 +5460,7 @@ msgstr "Uso de ancho de banda en el último mes (MB)"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:116
 #: ../../main/core/src/EBox/SysInfo.pm.in:174
-#: ../../main/core/src/templates/datetime.mas:71
+#: ../../main/core/src/templates/datetime.mas:59
 msgid "Time"
 msgstr "Hora"
 
@@ -5578,7 +5557,7 @@ msgstr "Limitar uso de ancho de banda"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:82
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:49
-#: ../../main/captiveportal/src/templates/useraddon.mas:17
+#: ../../main/captiveportal/src/templates/useraddon.mas:15
 msgid "Bandwidth quota"
 msgstr "Cuota de ancho de banda"
 
@@ -5625,12 +5604,12 @@ msgid "Default external bandwidth usage limit"
 msgstr "Limite de uso de ancho de banda externo por defecto"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:54
-#: ../../main/captiveportal/src/templates/useraddon.mas:28
+#: ../../main/captiveportal/src/templates/useraddon.mas:24
 msgid "Use default"
 msgstr "Usar valor por defecto"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:58
-#: ../../main/captiveportal/src/templates/useraddon.mas:31
+#: ../../main/captiveportal/src/templates/useraddon.mas:25
 msgid "No limit"
 msgstr "Sin límite"
 
@@ -5639,7 +5618,7 @@ msgstr "Sin límite"
 #: ../../main/samba/src/EBox/Samba/Model/PDC.pm:114
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:85
 #: ../../main/users/src/EBox/UsersAndGroups/Model/AccountSettings.pm:56
-#: ../../main/captiveportal/src/templates/useraddon.mas:34
+#: ../../main/captiveportal/src/templates/useraddon.mas:26
 msgid "Limited to"
 msgstr "Limitada a"
 
@@ -5938,8 +5917,8 @@ msgid "include path"
 msgstr "ruta de inclusión"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:185
-#: ../../main/network/src/templates/ifaces.mas:45
-#: ../../main/network/src/templates/Wizard/network.mas:48
+#: ../../main/network/src/templates/ifaces.mas:41
+#: ../../main/network/src/templates/Wizard/network.mas:44
 msgid "Method"
 msgstr "Método"
 
@@ -6065,59 +6044,59 @@ msgstr "el último día"
 msgid "File System"
 msgstr "Sistema de ficheros"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:591
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:593
 msgid "1 week"
 msgstr "1 semana"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:595
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:597
 msgid "2 weeks"
 msgstr "2 semanas"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:599
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:601
 msgid "3 weeks"
 msgstr "3 semanas"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:603
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:605
 msgid "1 month"
 msgstr "1 mes"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:607
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:609
 msgid "2 months"
 msgstr "2 meses"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:611
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:613
 msgid "3 months"
 msgstr "3 meses"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:615
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:617
 msgid "4 months"
 msgstr "4 meses"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:619
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:621
 msgid "6 months"
 msgstr "6 meses"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:623
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:625
 msgid "9 months"
 msgstr "9 meses"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:627
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:629
 msgid "1 year"
 msgstr "1 año"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:631
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:633
 msgid "1 year and half"
 msgstr "1 año y medio"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:635
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:637
 msgid "2 years"
 msgstr "2 años"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:639
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:641
 msgid "3 years"
 msgstr "3 años"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:705
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:707
 msgid ""
 "You cannot switch encryption options when there are existent backups with "
 "the original encryption options. You must remove previous backup to change "
@@ -6127,36 +6106,36 @@ msgstr ""
 "opciones de cifrado originales. Debe borrar los backup previos para cambiar "
 "las opciones de cifrado"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:730
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:732
 msgid "The target parameter that must be like 'other.host[:port]/some_dir"
 msgstr ""
 "El parametro destino debe ser de la forma 'otra.maquina[:puerto]/directorio'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:741
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:757
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:783
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:743
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:759
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:785
 msgid "target"
 msgstr "destino"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:743
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:745
 msgid "Must be a like 'other.host[:port]/some_dir'"
 msgstr "Debe ser de la forma 'otra.maquina[:puerto]/directorio'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:750
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:792
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:752
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:794
 msgid "host"
 msgstr "host"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:759
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:761
 msgid "Root directory ('/') not allowed in target specification"
 msgstr ""
 "El directorio raíz (\"/\") no esta permitido en la especificación de destino"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:763
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:765
 msgid "directory"
 msgstr "directorio"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:772
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:774
 msgid ""
 "The RSYNC target parameter that must be like 'other.host[:port]/"
 "relative_path' or 'other.host[:port]/absolute_path'"
@@ -6164,7 +6143,7 @@ msgstr ""
 "El parámetro destino de RSYNC debe ser de tipo 'otra.maquina[:puerto]/"
 "ruta_relativa' o 'otra.maquina[:puerto]/ruta_absoluta"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:786
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:788
 msgid ""
 "Must be a like 'other.host[:port]/relative_path' or 'other.host[:port]/"
 "absolute_path'"
@@ -6172,42 +6151,42 @@ msgstr ""
 "Debe ser 'otra.maquina[:puerto]/ruta_relativa' u 'otra.maquina[:puerto]/"
 "ruta_absoluta"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:797
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:799
 msgid "absolute directory"
 msgstr "directorio absoluto"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:799
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:801
 msgid "relative directory"
 msgstr "directorio relativo"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:810
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:812
 msgid ""
 "File system method needs a target parameter that should be a directory path"
 msgstr ""
 "El método del sistema de ficheros necesita un parámetro destino que debería "
 "ser una ruta de directorio"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:815
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:819
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:828
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:838
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:817
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:821
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:830
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:840
 msgid "Directory for backup"
 msgstr "Directorio para el backup"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:822
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:824
 msgid "Cannot use the / directory as target"
 msgstr "No se puede usar el directorio / como destino"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:831
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:833
 msgid "File exists and it is not a directory"
 msgstr "El fichero existe y no es un directorio"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:841
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:843
 #, perl-brace-format
 msgid "Cannot read parent directory {d}"
 msgstr "No se puede leer el directorio padre {d}"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:856
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:858
 msgid ""
 "You must enable incremental backups when you enable 'Only the first time' "
 "full backup frequency"
@@ -6215,16 +6194,16 @@ msgstr ""
 "Debe habilitar los backup incrementales cuando habilita la frencuencia "
 "completa de backup 'Sólo la primera vez'"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:876
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:878
 msgid "Incremental backup must be more frequent than full backup"
 msgstr "El backup completo no puede ser más frecuente que el incremental"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:889
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:898
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:891
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:900
 msgid "General backup configuration updated."
 msgstr "Configuración general del backup actualizada"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:890
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:892
 msgid ""
 "Backup method or target changed; you must save changes to refresh the "
 "backups list"
@@ -6232,7 +6211,7 @@ msgstr ""
 "Ha cambiado el método para el backup o destino; debe guardar cambios para "
 "actualizar la lista de backups"
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:900
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:902
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
@@ -6369,7 +6348,7 @@ msgstr "Seleccione los dominios que quiere guardar en la copia de seguridad."
 #: ../../main/ebackup/src/EBox/EBackup.pm:72
 #: ../../main/ebackup/src/EBox/Event/Watcher/EBackup.pm:113
 #: ../../main/core/src/EBox/Backup.pm:748
-#: ../../main/core/src/templates/backup.mas:66
+#: ../../main/core/src/templates/backup.mas:60
 msgid "Backup"
 msgstr "Copia de seguridad"
 
@@ -6431,24 +6410,24 @@ msgstr ""
 "No se puede obtener el estado de los backup, comprueba si los parámetros y "
 "contraseñas son correctos"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1045
+#: ../../main/ebackup/src/EBox/EBackup.pm:1054
 #: ../../main/core/src/EBox/SysInfo.pm.in:366
 msgid "System"
 msgstr "Sistema"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1132
+#: ../../main/ebackup/src/EBox/EBackup.pm:1141
 msgid "You need to have the disaster recovery add-on to use this backup method"
 msgstr ""
 "Necesita tener el add-on de Disaster Recovery para usar este método de backup"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1139
+#: ../../main/ebackup/src/EBox/EBackup.pm:1148
 msgid ""
 "Could not retrieve backup credentials, check your conexion to Zentyal Cloud"
 msgstr ""
 "No se pueden obtener las credenciales del backup, compruebe su conexión a "
 "Zentyal Cloud"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:1241
+#: ../../main/ebackup/src/EBox/EBackup.pm:1250
 #, perl-brace-format
 msgid ""
 "Could not unsubscribe because the backup module is configured to use the "
@@ -6560,7 +6539,7 @@ msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."
 
 #: ../../main/common/src/EBox/FileSystem.pm:184
-#: ../../main/common/src/EBox/FileSystem.pm:349
+#: ../../main/common/src/EBox/FileSystem.pm:354
 #, perl-brace-format
 msgid "Directory not found: {d}"
 msgstr "Directorio no encontrado: {d}"
@@ -6645,10 +6624,11 @@ msgstr "Secreto Compartido PSK"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:116
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:127
-#: ../../main/users/src/templates/users.mas:41
-#: ../../main/users/src/templates/groups.mas:26
-#: ../../main/users/src/templates/group.mas:20
-#: ../../main/users/src/templates/user.mas:50
+#: ../../main/core/src/templates/configurationFiles.mas:24
+#: ../../main/users/src/templates/users.mas:37
+#: ../../main/users/src/templates/groups.mas:24
+#: ../../main/users/src/templates/group.mas:18
+#: ../../main/users/src/templates/user.mas:46
 msgid "Comment"
 msgstr "Comentario"
 
@@ -6743,7 +6723,7 @@ msgid "Static Routes List"
 msgstr "Lista de rutas estáticas"
 
 #: ../../main/network/src/EBox/Model/StaticRoute.pm:171
-#: ../../main/network/src/EBox/Network.pm:3874
+#: ../../main/network/src/EBox/Network.pm:3873
 msgid "Static Routes"
 msgstr "Rutas estáticas"
 
@@ -6823,13 +6803,13 @@ msgstr ""
 "No puede añadir manualmente una puerta de enlace para las interfaces DHCP o "
 "PPPoE"
 
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:344
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:349
 msgid "Automatically added gateways can not be manually deleted"
 msgstr ""
 "No se pueden eliminar manualmente las puertas de enlace que han sido "
 "añadidos automáticamente"
 
-#: ../../main/network/src/EBox/Model/GatewayTable.pm:483
+#: ../../main/network/src/EBox/Model/GatewayTable.pm:495
 #, perl-brace-format
 msgid "The gateway '{name}' is being used by {mod}"
 msgstr "La puerta de enlace '{name}' está siendo usado por el modulo {mod}"
@@ -6861,8 +6841,8 @@ msgid "IP address of the DNS server that Zentyal will use to resolve names."
 msgstr "Dirección IP del servidor DNS que Zentyal usará para resolver nombres."
 
 #: ../../main/network/src/EBox/Model/DNSResolver.pm:79
-#: ../../main/network/src/templates/Wizard/network.mas:94
-#: ../../main/network/src/templates/Wizard/network.mas:98
+#: ../../main/network/src/templates/Wizard/network.mas:79
+#: ../../main/network/src/templates/Wizard/network.mas:81
 msgid "Domain Name Server"
 msgstr "Servidor de nombres de dominio"
 
@@ -7073,9 +7053,9 @@ msgstr "Nombre de la interfaz virtual"
 #: ../../main/network/src/EBox/Network.pm:932
 #: ../../main/network/src/EBox/Network.pm:1282
 #: ../../main/network/src/EBox/Network.pm:3446
-#: ../../main/network/src/templates/ifaces.mas:132
-#: ../../main/network/src/templates/ifaces.mas:288
-#: ../../main/network/src/templates/Wizard/network.mas:65
+#: ../../main/network/src/templates/ifaces.mas:115
+#: ../../main/network/src/templates/ifaces.mas:243
+#: ../../main/network/src/templates/Wizard/network.mas:54
 msgid "Netmask"
 msgstr "Máscara de red"
 
@@ -7105,7 +7085,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network.pm:1700
 #: ../../main/network/src/EBox/Network.pm:1729
 #: ../../main/network/src/EBox/CGI/Vlan.pm:42
-#: ../../main/network/src/templates/ifaces.mas:229
+#: ../../main/network/src/templates/ifaces.mas:201
 msgid "VLAN Id"
 msgstr "Identificador de VLAN"
 
@@ -7140,71 +7120,69 @@ msgstr ""
 "La puerta de enlace {gw} debe ser accesible por una interfaz estática. "
 "Actualmente es alcanzable por {iface}, que no es estática"
 
-#: ../../main/network/src/EBox/Network.pm:3763
+#: ../../main/network/src/EBox/Network.pm:3762
 msgid "down"
 msgstr "desactivado"
 
-#: ../../main/network/src/EBox/Network.pm:3768
-#: ../../main/core/src/templates/report/raid.mas:232
+#: ../../main/network/src/EBox/Network.pm:3767
 msgid "up"
 msgstr "activado"
 
-#: ../../main/network/src/EBox/Network.pm:3773
+#: ../../main/network/src/EBox/Network.pm:3772
 msgid "external"
 msgstr "externo"
 
-#: ../../main/network/src/EBox/Network.pm:3775
+#: ../../main/network/src/EBox/Network.pm:3774
 msgid "internal"
 msgstr "interno"
 
-#: ../../main/network/src/EBox/Network.pm:3781
+#: ../../main/network/src/EBox/Network.pm:3780
 msgid "link ok"
 msgstr "enlace ok"
 
-#: ../../main/network/src/EBox/Network.pm:3783
+#: ../../main/network/src/EBox/Network.pm:3782
 msgid "no link"
 msgstr "sin enlace"
 
-#: ../../main/network/src/EBox/Network.pm:3792
+#: ../../main/network/src/EBox/Network.pm:3791
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:137
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:445
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:328
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:91
 #: ../../main/mail/src/EBox/Mail.pm:1524 ../../main/mail/src/EBox/Mail.pm:1643
 #: ../../main/asterisk/src/EBox/Asterisk.pm:588
-#: ../../main/core/src/templates/moduleStatusTable.mas:60
-#: ../../main/core/src/templates/report/raid.mas:104
-#: ../../main/mail/src/templates/qmanager.mas:22
+#: ../../main/core/src/templates/moduleStatusTable.mas:57
+#: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Status"
 msgstr "Estado"
 
-#: ../../main/network/src/EBox/Network.pm:3818
+#: ../../main/network/src/EBox/Network.pm:3817
 msgid "Tx bytes"
 msgstr "Bytes Tx"
 
-#: ../../main/network/src/EBox/Network.pm:3828
+#: ../../main/network/src/EBox/Network.pm:3827
 msgid "Rx bytes"
 msgstr "Bytes Rx"
 
-#: ../../main/network/src/EBox/Network.pm:3839
+#: ../../main/network/src/EBox/Network.pm:3838
 #: ../../main/network/src/EBox/CGI/Ifaces.pm:29
 msgid "Network Interfaces"
 msgstr "Interfaces de Red"
 
-#: ../../main/network/src/EBox/Network.pm:3862
+#: ../../main/network/src/EBox/Network.pm:3861
 #: ../../main/ids/src/EBox/Model/Interfaces.pm:131
 msgid "Interfaces"
 msgstr "Interfaces"
 
-#: ../../main/network/src/EBox/Network.pm:3866
+#: ../../main/network/src/EBox/Network.pm:3865
 msgid "Gateways"
 msgstr "Puertas de enlace"
 
-#: ../../main/network/src/EBox/Network.pm:3878
+#: ../../main/network/src/EBox/Network.pm:3877
 msgid "Dynamic DNS"
 msgstr "DNS Dinámico"
 
-#: ../../main/network/src/EBox/Network.pm:3882
+#: ../../main/network/src/EBox/Network.pm:3881
 msgid "Diagnostic Tools"
 msgstr "Herramientas de diagnóstico"
 
@@ -7243,7 +7221,7 @@ msgid "Domain Name Server Resolver"
 msgstr "Traductor de Servidores de Nombres de Dominio"
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:61
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:400
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:421
 msgid "WAN Failover"
 msgstr "WAN failover"
 
@@ -7264,12 +7242,12 @@ msgstr ""
 "característica."
 
 # Puerta de enlace conectada
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:155
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:158
 #, perl-brace-format
 msgid "Gateway {gw} connected again."
 msgstr "La puerta de enlace {gw} está conectada de nuevo."
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:166
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:169
 msgid ""
 "WARNING: These changes are not applied due to unsaved changes on the "
 "administration interface."
@@ -7278,12 +7256,12 @@ msgstr ""
 "cambios sin guardar en la interfaz de administración."
 
 # Puerta de enlace conectada
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:319
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:340
 #, perl-brace-format
 msgid "Gateway {gw} disconnected"
 msgstr "Puerta de enlace {gw} desconectada"
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:320
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:341
 #, perl-brace-format
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
@@ -7291,12 +7269,12 @@ msgstr ""
 "'{type}' prueba de host '{host}' ha fallado {failRatio}%, máximo="
 "{maxFailRatio}%."
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:323
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:344
 msgid "This gateway will be connected again if the test are passed."
 msgstr "Esta puerta de enlace será conectada de nuevo si supera las pruebas."
 
 # gateways o puertas de enlace
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:416
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:437
 msgid "Check if gateways are connected or disconnected."
 msgstr "Verifique si las puertas de enlace están conectadas o desconectadas."
 
@@ -7447,8 +7425,8 @@ msgid "Disk images of the virtual machines"
 msgstr "Imágenes de disco de las máquinas virtuales"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:69
-#: ../../main/network/src/templates/ifaces.mas:80
-#: ../../main/network/src/templates/ifaces.mas:82
+#: ../../main/network/src/templates/ifaces.mas:71
+#: ../../main/network/src/templates/ifaces.mas:72
 msgid "Bridged"
 msgstr "En puente de red"
 
@@ -7488,8 +7466,8 @@ msgid "View Console"
 msgstr "Ver consola"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:91
-#: ../../main/virt/src/templates/vmstatus.mas:35
-#: ../../main/core/src/templates/dashboard/index.mas:43
+#: ../../main/virt/src/templates/vmstatus.mas:30
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:24
 msgid "Start"
 msgstr "Arrancar"
@@ -7499,7 +7477,7 @@ msgid "Virtual Machine started"
 msgstr "Máquina Virtual arrancada"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:98
-#: ../../main/virt/src/templates/vmstatus.mas:32
+#: ../../main/virt/src/templates/vmstatus.mas:29
 msgid "Stop"
 msgstr "Parado"
 
@@ -7544,8 +7522,7 @@ msgid ""
 "You have either invalid characters or spaces. Valid characters are: '[A-Z][a-"
 "z][0-9]-_'"
 msgstr ""
-"Existen caracteres inválidos o espacios. Los válidos son: "
-"'[A-Z][a-z][0-9]-_'"
+"Existen caracteres inválidos o espacios. Los válidos son: '[A-Z][a-z][0-9]-_'"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:295
 #, perl-brace-format
@@ -7780,8 +7757,8 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/Model/RangeTable.pm:217
 #: ../../main/mail/src/EBox/Mail.pm:1636
 #: ../../main/asterisk/src/EBox/Asterisk.pm:764
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:23
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 msgid "From"
 msgstr "De"
 
@@ -7789,8 +7766,8 @@ msgstr "De"
 #: ../../main/mail/src/EBox/Mail.pm:1637
 #: ../../main/mail/src/EBox/Mail/Model/Dispatcher/Mail.pm:99
 #: ../../main/asterisk/src/EBox/Asterisk.pm:765
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:21
-#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:29
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
+#: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:22
 msgid "To"
 msgstr "Para"
 
@@ -8570,21 +8547,21 @@ msgstr "medio plazo"
 msgid "long term"
 msgstr "largo plazo"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:89
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:92
 #, perl-brace-format
 msgid "used in {partition}"
 msgstr "usado en {partition}"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:91
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:94
 #, perl-brace-format
 msgid "free in {partition}"
 msgstr "disponible en {partition}"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:96
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:99
 msgid "File system usage"
 msgstr "Uso del sistema de ficheros"
 
-#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:97
+#: ../../main/monitor/src/EBox/Monitor/Measure/Df.pm:100
 msgid ""
 "Collect the mounted file system usage information as \"df\" command does"
 msgstr ""
@@ -8624,8 +8601,8 @@ msgid ""
 "{what} \"{dS}\" has been {duration} within the {severity} region of "
 "{minBound} and {maxBound}."
 msgstr ""
-"{what} \"{dS}\" ha estado {duration} entre la region {severity} de {minBound} "
-"y {maxBound}."
+"{what} \"{dS}\" ha estado {duration} entre la region {severity} de "
+"{minBound} y {maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:296
 #, perl-brace-format
@@ -8774,7 +8751,6 @@ msgid "Job ID"
 msgstr "ID de trabajo"
 
 #: ../../main/printers/src/EBox/Printers.pm:365
-#: ../../main/samba/src/templates/samba.mas:104
 msgid "Printer"
 msgstr "Impresora"
 
@@ -8791,7 +8767,7 @@ msgid "Canceled"
 msgstr "Cancelado"
 
 #: ../../main/printers/src/EBox/Printers.pm:378
-#: ../../main/samba/src/templates/samba.mas:90
+#: ../../main/samba/src/templates/samba.mas:68
 msgid "Printers"
 msgstr "Impresoras"
 
@@ -8955,8 +8931,8 @@ msgstr "El nombre de dominio no puede acabar en '.local'"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:141
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:192
-#: ../../main/network/src/templates/diag.mas:32
-#: ../../main/mail/src/templates/createaccount.mas:26
+#: ../../main/network/src/templates/diag.mas:23
+#: ../../main/mail/src/templates/createaccount.mas:23
 msgid "Domain name"
 msgstr "Nombre de dominio"
 
@@ -9298,11 +9274,9 @@ msgid "Disconnect"
 msgstr "Desconexión"
 
 #: ../../main/samba/src/EBox/Samba.pm:1516
-#: ../../main/core/src/templates/ajax/viewer/file.mas:26
-#: ../../main/mail/src/templates/qmanager.mas:54
-#: ../../main/mail/src/templates/qmanager.mas:55
-#: ../../main/users/src/templates/group.mas:61
-#: ../../main/users/src/templates/user.mas:140
+#: ../../main/mail/src/templates/qmanager.mas:37
+#: ../../main/users/src/templates/group.mas:49
+#: ../../main/users/src/templates/user.mas:123
 msgid "Remove"
 msgstr "Eliminar"
 
@@ -9421,7 +9395,6 @@ msgstr "nombre del recurso compartido"
 #: ../../main/samba/src/EBox/CGI/ActiveSharing.pm:71
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:534
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:577
-#: ../../main/core/src/templates/report/raid.mas:111
 msgid "active"
 msgstr "activo"
 
@@ -9880,7 +9853,7 @@ msgstr ""
 "por su ISP cuando procesa el email en busca de SPAM."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:92
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:794
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:799
 msgid "POP Transparent Proxy"
 msgstr "Proxy transparente POP"
 
@@ -9935,12 +9908,12 @@ msgstr "Informe del proxy POP transparente"
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:99
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:458
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:348
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:802
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:807
 msgid "Antispam"
 msgstr "Antispam"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Amavis.pm:60
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:787
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:792
 msgid "SMTP Mail Filter"
 msgstr "Filtro de correo SMTP"
 
@@ -10140,95 +10113,95 @@ msgstr ""
 "El servidor de correo posee un conjunto de filtros a medida, desactívalo "
 "antes de activar el módulo de Filtro de Correo en Zentyal"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:423
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:428
 msgid "Cannot proceed because the filter is in use"
 msgstr "No puede continuar porque el filtro está en uso"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:591
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:596
 msgid "Mail filter"
 msgstr "Filtro de correo"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:618
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:623
 msgid "Sender address"
 msgstr "Dirección del remitente"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:619
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:624
 msgid "Recipient address"
 msgstr "Dirección del receptor"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:621
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:626
 msgid "Spam hits"
 msgstr "Sucesos de spam"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:626
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:631
 msgid "Bad header found"
 msgstr "Encontrada cabecera errónea"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:627
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:632
 msgid "Spam found"
 msgstr "Spam encontrado"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:628
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:633
 msgid "Forbidden attached file found"
 msgstr "Encontrado fichero adjunto prohibido"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:629
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:634
 msgid "Address in blacklist found"
 msgstr "Encontrada dirección en lista negra"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:630
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:635
 msgid "Virus found"
 msgstr "Virus encontrado"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:631
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:636
 msgid "Clean message"
 msgstr "Mensaje limpio"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:632
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:637
 msgid "Unable to reinject in the mail server"
 msgstr "Imposible reinyectar en el servidor de correo"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:641
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:646
 msgid "SMTP filter"
 msgstr "Filtro SMTP"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:661
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:666
 msgid "Account"
 msgstr "Cuenta"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:662
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:667
 msgid "Client's address"
 msgstr "Dirección del cliente"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:665
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:670
 msgid "Total messages"
 msgstr "Número total de mensajes"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:666
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:671
 msgid "Clean messages"
 msgstr "Mensajes limpios"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:667
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:672
 msgid "Virus messages"
 msgstr "Mensajes con virus"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:668
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:673
 msgid "Spam messages"
 msgstr "Mensajes de spam"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:675
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:680
 msgid "POP3 transmission complete"
 msgstr "Transmisión POP3 completada"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:677
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:682
 msgid "POP3 transmission aborted"
 msgstr "Transmisión POP3 cancelada"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:681
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:686
 msgid "POP3 proxy"
 msgstr "Proxy POP3"
 
-#: ../../main/mailfilter/src/EBox/MailFilter.pm:809
+#: ../../main/mailfilter/src/EBox/MailFilter.pm:814
 msgid "Files ACL"
 msgstr "ACL por fichero"
 
@@ -10264,8 +10237,7 @@ msgstr "Protocolos de Aplicación"
 #: ../../main/ca/src/EBox/CA/TestStub.pm:254 ../../main/ca/src/EBox/CA.pm:228
 #: ../../main/ca/src/EBox/CA.pm:513
 #: ../../main/ca/src/EBox/CGI/IssueCertificate.pm:101
-#: ../../main/ca/src/templates/index.mas:23
-#: ../../main/ca/src/templates/formRevoke.mas:22
+#: ../../main/ca/src/templates/formRevoke.mas:21
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:37
 msgid "Organization Name"
@@ -10291,10 +10263,9 @@ msgstr ""
 #: ../../main/ca/src/EBox/CGI/DownloadFiles.pm:64
 #: ../../main/ca/src/EBox/CGI/ShowForm.pm:63
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:74
-#: ../../main/ca/src/templates/index.mas:24
-#: ../../main/ca/src/templates/formRevoke.mas:28
-#: ../../main/ca/src/templates/formReissue.mas:33
-#: ../../main/ca/src/templates/formRenew.mas:43
+#: ../../main/ca/src/templates/formRevoke.mas:25
+#: ../../main/ca/src/templates/formReissue.mas:32
+#: ../../main/ca/src/templates/formRenew.mas:41
 msgid "Common Name"
 msgstr "Nombre común"
 
@@ -10560,7 +10531,6 @@ msgid "The certificate has NOT been renewed"
 msgstr "El certificado NO ha sido renovado"
 
 #: ../../main/ca/src/EBox/CGI/RenewCertificate.pm:69
-#: ../../main/ca/src/templates/index.mas:53
 #: ../../main/ca/src/templates/formReissue.mas:13
 #: ../../main/ca/src/templates/createCA.mas:19
 #: ../../main/ca/src/templates/formRenew.mas:13
@@ -10867,7 +10837,7 @@ msgstr ""
 
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:63
 #: ../../main/ntp/src/EBox/NTP/Composite/General.pm:64
-#: ../../main/core/src/templates/datetime.mas:26
+#: ../../main/core/src/templates/datetime.mas:23
 msgid "NTP"
 msgstr "NTP"
 
@@ -10945,93 +10915,79 @@ msgstr "en"
 msgid "field"
 msgstr "campo"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:1476
+#: ../../main/core/src/EBox/Model/DataTable.pm:1479
 msgid "page"
 msgstr "página"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:1479
+#: ../../main/core/src/EBox/Model/DataTable.pm:1482
 msgid "Page must be a number equal or greater than zero"
 msgstr "La página debe ser un número mayor o igual que cero"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2858
+#: ../../main/core/src/EBox/Model/DataTable.pm:2861
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr "Borra {num} filas de {rowName} de {model}{br}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2928
+#: ../../main/core/src/EBox/Model/DataTable.pm:2931
 msgid "Page size"
 msgstr "Tamaño de página"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:2931
+#: ../../main/core/src/EBox/Model/DataTable.pm:2934
 msgid "Must be either a positive number or zero"
 msgstr "Debe ser un número positivo o cero"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3001
+#: ../../main/core/src/EBox/Model/DataTable.pm:3004
 #, perl-brace-format
 msgid "New {name}"
 msgstr "Nuevo {name}"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3406
+#: ../../main/core/src/EBox/Model/DataTable.pm:3409
 #, perl-brace-format
 msgid "{row} added"
 msgstr "{row} añadida"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3407
+#: ../../main/core/src/EBox/Model/DataTable.pm:3410
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr "{row} borrada"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3408
+#: ../../main/core/src/EBox/Model/DataTable.pm:3411
 #, perl-brace-format
 msgid "{row} updated"
 msgstr "{row} actualizada"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3409
+#: ../../main/core/src/EBox/Model/DataTable.pm:3412
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr "{row} subida"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:3410
+#: ../../main/core/src/EBox/Model/DataTable.pm:3413
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr "{row} bajada"
 
-#: ../../main/core/src/EBox/Model/DataTable.pm:4568
-#: ../../main/captiveportal/src/templates/useraddon.mas:60
-#: ../../main/captiveportal/src/templates/useraddon.mas:61
-#: ../../main/network/src/templates/ifaces.mas:216
-#: ../../main/jabber/src/templates/jabber.mas:48
-#: ../../main/jabber/src/templates/jabber.mas:49
-#: ../../main/samba/src/templates/samba.mas:45
-#: ../../main/samba/src/templates/samba.mas:46
-#: ../../main/samba/src/templates/samba.mas:75
-#: ../../main/samba/src/templates/samba.mas:76
-#: ../../main/samba/src/templates/samba.mas:146
-#: ../../main/samba/src/templates/samba.mas:147
-#: ../../main/core/src/templates/hostname.mas:19
-#: ../../main/core/src/templates/datetime.mas:113
-#: ../../main/core/src/templates/datetime.mas:114
-#: ../../main/core/src/templates/port.mas:14
-#: ../../main/core/src/templates/dataInUse.mas:25
-#: ../../main/core/src/templates/dataInUse.mas:34
-#: ../../main/core/src/templates/enable.mas:28
-#: ../../main/core/src/templates/enable.mas:29
-#: ../../main/core/src/templates/language.mas:44
-#: ../../main/core/src/templates/password.mas:67
-#: ../../main/core/src/templates/timezone.mas:33
-#: ../../main/core/src/templates/timezone.mas:34
-#: ../../main/mail/src/templates/warnusermdsize.mas:23
-#: ../../main/mail/src/templates/warnvdmdsize.mas:33
-#: ../../main/zarafa/src/templates/zarafa.mas:67
-#: ../../main/zarafa/src/templates/zarafa.mas:68
-#: ../../main/asterisk/src/templates/group.mas:51
-#: ../../main/asterisk/src/templates/group.mas:52
-#: ../../main/asterisk/src/templates/user.mas:48
-#: ../../main/asterisk/src/templates/user.mas:49
-#: ../../main/users/src/templates/group.mas:25
-#: ../../main/users/src/templates/group.mas:26
-#: ../../main/users/src/templates/user.mas:101
-#: ../../main/users/src/templates/user.mas:102
+#: ../../main/core/src/EBox/Model/DataTable.pm:4571
+#: ../../main/captiveportal/src/templates/useraddon.mas:49
+#: ../../main/network/src/templates/ifaces.mas:190
+#: ../../main/jabber/src/templates/jabber.mas:40
+#: ../../main/samba/src/templates/samba.mas:37
+#: ../../main/samba/src/templates/samba.mas:59
+#: ../../main/core/src/templates/hostname.mas:15
+#: ../../main/core/src/templates/datetime.mas:94
+#: ../../main/core/src/templates/port.mas:12
+#: ../../main/core/src/templates/dataInUse.mas:24
+#: ../../main/core/src/templates/dataInUse.mas:29
+#: ../../main/core/src/templates/enable.mas:22
+#: ../../main/core/src/templates/language.mas:41
+#: ../../main/core/src/templates/password.mas:61
+#: ../../main/core/src/templates/timezone.mas:31
+#: ../../main/mail/src/templates/warnusermdsize.mas:21
+#: ../../main/mail/src/templates/warnvdmdsize.mas:30
+#: ../../main/zarafa/src/templates/zarafa.mas:57
+#: ../../main/asterisk/src/templates/group.mas:41
+#: ../../main/asterisk/src/templates/user.mas:38
+#: ../../main/users/src/templates/group.mas:20
+#: ../../main/users/src/templates/user.mas:91
 msgid "Change"
 msgstr "Cambiar"
 
@@ -11289,7 +11245,7 @@ msgstr ""
 msgid "No usage data for {d}. Are you sure is a valid disk?"
 msgstr "No hay datos útiles para {d}. ¿Estás seguro que es un disco válido?"
 
-#: ../../main/core/src/EBox/Report/DiskUsage.pm:222
+#: ../../main/core/src/EBox/Report/DiskUsage.pm:234
 #, perl-brace-format
 msgid ""
 "Invalid file system: {f}. Only regular and no removable media file systems "
@@ -11506,7 +11462,7 @@ msgid "Date/Time"
 msgstr "Fecha/Hora"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:111
-#: ../../main/core/src/templates/finish.mas:120
+#: ../../main/core/src/templates/finish.mas:112
 msgid "Section"
 msgstr "Sección"
 
@@ -11523,27 +11479,14 @@ msgid "Previous value"
 msgstr "Valor anterior"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:119
-#: ../../main/dns/src/templates/index.mas:37
-#: ../../main/dns/src/templates/index.mas:38
-#: ../../main/dns/src/templates/index.mas:39
-#: ../../main/dns/src/templates/edit.mas:40
-#: ../../main/dns/src/templates/edit.mas:41
-#: ../../main/dns/src/templates/edit.mas:42
-#: ../../main/dns/src/templates/edit.mas:74
-#: ../../main/dns/src/templates/edit.mas:75
-#: ../../main/dns/src/templates/edit.mas:76
-#: ../../main/network/src/templates/ifaces.mas:247
-#: ../../main/network/src/templates/ifaces.mas:248
-#: ../../main/network/src/templates/ifaces.mas:249
-#: ../../main/network/src/templates/ifaces.mas:333
-#: ../../main/network/src/templates/ifaces.mas:334
-#: ../../main/network/src/templates/ifaces.mas:335
-#: ../../main/samba/src/templates/samba.mas:82
-#: ../../main/samba/src/templates/samba.mas:83
-#: ../../main/users/src/templates/users.mas:70
-#: ../../main/users/src/templates/users.mas:71
-#: ../../main/users/src/templates/groups.mas:41
-#: ../../main/users/src/templates/groups.mas:42
+#: ../../main/dns/src/templates/index.mas:34
+#: ../../main/dns/src/templates/edit.mas:35
+#: ../../main/dns/src/templates/edit.mas:58
+#: ../../main/network/src/templates/ifaces.mas:215
+#: ../../main/network/src/templates/ifaces.mas:285
+#: ../../main/samba/src/templates/samba.mas:62
+#: ../../main/users/src/templates/users.mas:62
+#: ../../main/users/src/templates/groups.mas:35
 msgid "Add"
 msgstr "Añadir"
 
@@ -11566,8 +11509,8 @@ msgstr "Inicio de sesión"
 #: ../../main/core/src/EBox/AuditLogging.pm:146
 #: ../../main/core/src/EBox/Html.pm:40
 #: ../../main/core/src/EBox/CGI/Logout/Index.pm:29
-#: ../../main/captiveportal/src/templates/popup.mas:42
-#: ../../main/usercorner/src/templates/headTitle.mas:14
+#: ../../main/captiveportal/src/templates/popup.mas:40
+#: ../../main/usercorner/src/templates/headTitle.mas:13
 msgid "Logout"
 msgstr "Cerrar sesión"
 
@@ -11850,12 +11793,12 @@ msgid "Zentyal Administration Web Server"
 msgstr "Servidor web de administración de Zentyal"
 
 #: ../../main/core/src/EBox/Html.pm:39
-#: ../../main/core/src/templates/wizard.mas:160
+#: ../../main/core/src/templates/wizard.mas:152
 msgid "Save changes"
 msgstr "Guardar cambios"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:45
-#: ../../main/core/src/templates/halt.mas:14
+#: ../../main/core/src/templates/halt.mas:13
 msgid "Halt"
 msgstr "Apagar"
 
@@ -11864,7 +11807,7 @@ msgid "Zentyal is going down for halt"
 msgstr "Zentyal se está apagando"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Halt.pm:52
-#: ../../main/core/src/templates/halt.mas:16
+#: ../../main/core/src/templates/halt.mas:14
 msgid "Reboot"
 msgstr "Reiniciar"
 
@@ -12093,12 +12036,12 @@ msgstr ""
 "Este canal mantiene un control de lo que pasa en esta máquina Zentyal a lo "
 "largo del tiempo"
 
-#: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:312
+#: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:313
 #, perl-brace-format
 msgid "The event has happened in Zentyal {hostname} from {source}"
 msgstr "El evento ha ocurrido en Zentyal {hostname} desde {source}"
 
-#: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:316
+#: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:317
 #, perl-brace-format
 msgid "Go to your {url} to check its status."
 msgstr "Ve a tu {url} para comprobar el estado."
@@ -12290,32 +12233,26 @@ msgstr ""
 "{arrayName} cuando su estado era {status}"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:536
-#: ../../main/core/src/templates/report/raid.mas:113
 msgid "degraded"
 msgstr "degradado"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:538
-#: ../../main/core/src/templates/report/raid.mas:115
 msgid "recovering"
 msgstr "recuperando"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:540
-#: ../../main/core/src/templates/report/raid.mas:117
 msgid "resyncing"
 msgstr "resincronizando"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:542
-#: ../../main/core/src/templates/report/raid.mas:121
 msgid "rebuilding"
 msgstr "reconstruyendo"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:544
-#: ../../main/core/src/templates/report/raid.mas:119
 msgid "reshaping"
 msgstr "remoldeando"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:546
-#: ../../main/core/src/templates/report/raid.mas:123
 msgid "failed"
 msgstr "fallado"
 
@@ -12344,7 +12281,6 @@ msgid "faulty"
 msgstr "defectuoso"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:581
-#: ../../main/core/src/templates/report/raid.mas:234
 msgid "spare"
 msgstr "libre"
 
@@ -12414,10 +12350,7 @@ msgid "Zentyal is critically down"
 msgstr "Zentyal está inoperativo"
 
 #: ../../main/core/src/EBox/Event/Watcher/State.pm:136
-#: ../../main/ca/src/templates/index.mas:48
-#: ../../main/ca/src/templates/index.mas:105
 #: ../../main/ca/src/templates/createCA.mas:16
-#: ../../main/core/src/templates/report/raid.mas:227
 msgid "State"
 msgstr "Estado"
 
@@ -12466,7 +12399,7 @@ msgid "Initial configuration wizard"
 msgstr "Asistente de configuración inicial"
 
 #: ../../main/core/src/EBox/CGI/Dashboard/ConfigureWidgets.pm:30
-#: ../../main/core/src/templates/dashboard/index.mas:80
+#: ../../main/core/src/templates/dashboard/index.mas:70
 msgid "Configure Widgets"
 msgstr "Configurar widgets"
 
@@ -12551,7 +12484,7 @@ msgid "Error restarting service {mod}. See {logs} for more information."
 msgstr "Error reiniciando el servicio {mod}. Ver {logs} para más información"
 
 #: ../../main/core/src/EBox/CGI/SysInfo/ConfirmBackup.pm:33
-#: ../../main/core/src/templates/backup.mas:29
+#: ../../main/core/src/templates/backup.mas:27
 msgid "Configuration Backup"
 msgstr "Backup de la configuración"
 
@@ -12987,7 +12920,7 @@ msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
 #: ../../main/mail/src/EBox/Mail.pm:1640
-#: ../../main/mail/src/templates/qmanager.mas:18
+#: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
@@ -13577,7 +13510,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:166
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:185
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:81
-#: ../../main/mail/src/templates/createaccount.mas:71
+#: ../../main/mail/src/templates/createaccount.mas:64
 msgid "Unlimited size"
 msgstr "Tamaño ilimitado"
 
@@ -13617,7 +13550,7 @@ msgid "minutes"
 msgstr "minutos"
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:250
-#: ../../main/core/src/templates/report/diskUsage.mas:31
+#: ../../main/core/src/templates/report/diskUsage.mas:28
 msgid "Options"
 msgstr "Opciones"
 
@@ -13790,6 +13723,7 @@ msgstr "Dominio virtual de correo no válido"
 
 #: ../../main/mail/src/EBox/CGI/CreateAccount.pm:48
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:100
+#: ../../main/mail/src/templates/alias.mas:14
 msgid "Mail address"
 msgstr "Dirección de correo"
 
@@ -14464,7 +14398,7 @@ msgstr "Configuración de buzón de voz"
 
 #: ../../main/asterisk/src/EBox/Model/Voicemail.pm:93
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:58
-#: ../../main/core/src/templates/password.mas:39
+#: ../../main/core/src/templates/password.mas:35
 msgid "New password"
 msgstr "Nueva contraseña"
 
@@ -14782,9 +14716,7 @@ msgstr "Nombre completo"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Users.pm:69
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Groups.pm:68
-#: ../../main/dns/src/templates/index.mas:49
-#: ../../main/core/src/templates/ajax/tableBody.mas:464
-#: ../../main/core/src/templates/ajax/tableModalView.mas:469
+#: ../../main/dns/src/templates/index.mas:41
 msgid "Edit"
 msgstr "Editar"
 
@@ -15391,7 +15323,8 @@ msgstr "No usar la interfaz gráfica"
 
 #: ../../main/ebackup/src/scripts/restore-tool:264
 msgid "Change parameters used to access the storage server"
-msgstr "Cambia los parámetros usados para acceder el servidor de almacenamiento"
+msgstr ""
+"Cambia los parámetros usados para acceder el servidor de almacenamiento"
 
 #: ../../main/ebackup/src/scripts/restore-tool:289
 #, perl-brace-format
@@ -15869,7 +15802,7 @@ msgstr ""
 msgid "Restore process aborted"
 msgstr "Proceso de restauración abortado"
 
-#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:26
+#: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:17
 msgid "Days of the week"
 msgstr "Días de la semana"
 
@@ -15877,16 +15810,16 @@ msgstr "Días de la semana"
 msgid "Access Denied"
 msgstr "Acceso denegado"
 
-#: ../../main/squid/stubs/template.html.mas:35
+#: ../../main/squid/stubs/template.html.mas:33
 msgid "Access has been Denied"
 msgstr "El acceso ha sido Denegado"
 
-#: ../../main/squid/stubs/template.html.mas:42
+#: ../../main/squid/stubs/template.html.mas:39
 #, perl-brace-format
 msgid "Access to the page: {page} has been denied for the following reason"
 msgstr "El acceso a la página {page} ha sido denegado por la siguiente razón"
 
-#: ../../main/squid/stubs/template.html.mas:46
+#: ../../main/squid/stubs/template.html.mas:41
 msgid ""
 "You are seeing this error because what you attempted to access appears to "
 "contain, or is labeled as containing, material that has been deemed "
@@ -15896,14 +15829,14 @@ msgstr ""
 "parece contener, o está etiquetado como tal, material que ha sido calificado "
 "como inapropiado."
 
-#: ../../main/squid/stubs/template.html.mas:50
+#: ../../main/squid/stubs/template.html.mas:43
 msgid ""
 "If you have any queries contact your ICT Coordinator or Network Manager."
 msgstr ""
 "Si tiene alguna duda, contacte con su coordinador de internet y "
 "comunicaciones o con su gestor de red."
 
-#: ../../main/squid/stubs/template.html.mas:55
+#: ../../main/squid/stubs/template.html.mas:47
 msgid "Powered by"
 msgstr "Proporcionado por"
 
@@ -15911,7 +15844,7 @@ msgstr "Proporcionado por"
 msgid "Filtering rules from internal networks to Zentyal"
 msgstr "Reglas de filtrado desde las redes internas a Zentyal"
 
-#: ../../main/firewall/src/templates/filter.mas:19
+#: ../../main/firewall/src/templates/filter.mas:18
 msgid ""
 "These rules allow you to control access from internal networks to services "
 "running on your Zentyal machine."
@@ -15919,20 +15852,20 @@ msgstr ""
 "Estas reglas le permiten controlar el acceso desde redes internas a "
 "servicios que corren en su máquina Zentyal"
 
-#: ../../main/firewall/src/templates/filter.mas:21
-#: ../../main/firewall/src/templates/filter.mas:38
-#: ../../main/firewall/src/templates/filter.mas:58
+#: ../../main/firewall/src/templates/filter.mas:19
+#: ../../main/firewall/src/templates/filter.mas:33
+#: ../../main/firewall/src/templates/filter.mas:49
+#: ../../main/firewall/src/templates/filter.mas:65
 #: ../../main/firewall/src/templates/filter.mas:78
-#: ../../main/firewall/src/templates/filter.mas:94
-#: ../../main/firewall/src/templates/filter.mas:113
+#: ../../main/firewall/src/templates/filter.mas:93
 msgid "Configure rules"
 msgstr "Configurar reglas"
 
-#: ../../main/firewall/src/templates/filter.mas:33
+#: ../../main/firewall/src/templates/filter.mas:30
 msgid "Filtering rules for internal networks"
 msgstr "Reglas de filtrado para las redes internas"
 
-#: ../../main/firewall/src/templates/filter.mas:35
+#: ../../main/firewall/src/templates/filter.mas:31
 msgid ""
 "These rules allow you to control access from internal networks to the "
 "Internet and traffic between internal networks. If you wish to provide "
@@ -15942,11 +15875,11 @@ msgstr ""
 "Internet, y el tráfico entre sus redes internas. Si desea dar acceso a los "
 "servicios de Zentyal, debe usar la sección superior."
 
-#: ../../main/firewall/src/templates/filter.mas:50
+#: ../../main/firewall/src/templates/filter.mas:44
 msgid "Filtering rules from external networks to Zentyal"
 msgstr "Reglas de filtrado desde las redes externas a Zentyal"
 
-#: ../../main/firewall/src/templates/filter.mas:52
+#: ../../main/firewall/src/templates/filter.mas:45
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
@@ -15954,8 +15887,8 @@ msgstr ""
 "Estas reglas le permiten controlar el acceso desde redes externas a "
 "servicios que corren en su máquina Zentyal."
 
-#: ../../main/firewall/src/templates/filter.mas:55
-#: ../../main/firewall/src/templates/filter.mas:75
+#: ../../main/firewall/src/templates/filter.mas:47
+#: ../../main/firewall/src/templates/filter.mas:63
 msgid ""
 "Be advised that adding rules in this section may compromise your network "
 "security as you may grant access from untrusted networks. Please do not use "
@@ -15965,11 +15898,11 @@ msgstr ""
 "seguridad de su red, permitiendo el acceso desde redes no confiables. Por "
 "favor, hágalo sólo si sabe lo que está haciendo."
 
-#: ../../main/firewall/src/templates/filter.mas:70
+#: ../../main/firewall/src/templates/filter.mas:60
 msgid "Filtering rules from external networks to internal networks"
 msgstr "Reglas de filtrado desde las redes externas a las internas"
 
-#: ../../main/firewall/src/templates/filter.mas:72
+#: ../../main/firewall/src/templates/filter.mas:61
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
@@ -15977,23 +15910,23 @@ msgstr ""
 "Estas reglas le permiten controlar el acceso desde redes externas a redes "
 "internas"
 
-#: ../../main/firewall/src/templates/filter.mas:89
+#: ../../main/firewall/src/templates/filter.mas:75
 msgid "Filtering rules for traffic coming out from Zentyal"
 msgstr "Reglas de filtrado para el tráfico saliente de Zentyal"
 
-#: ../../main/firewall/src/templates/filter.mas:91
+#: ../../main/firewall/src/templates/filter.mas:76
 msgid ""
 "These rules allow you to control access from your Zentyal to external "
 "services."
 msgstr ""
 "Estas reglas permiten controlar el acceso desde Zentyal a servicios externos."
 
-#: ../../main/firewall/src/templates/filter.mas:107
+#: ../../main/firewall/src/templates/filter.mas:89
 msgid "These rules are automatically added by the Zentyal services."
 msgstr ""
 "Estas reglas son automáticamente agregadas por los servicios de Zentyal."
 
-#: ../../main/firewall/src/templates/filter.mas:110
+#: ../../main/firewall/src/templates/filter.mas:91
 msgid ""
 "You can disable these rules, but make sure you know what you are doing or "
 "otherwise some services could stop working."
@@ -16005,14 +15938,14 @@ msgstr ""
 msgid "Domain list"
 msgstr "Lista de dominios"
 
-#: ../../main/dns/src/templates/index.mas:65
+#: ../../main/dns/src/templates/index.mas:53
 msgid "edit"
 msgstr "editar"
 
-#: ../../main/dns/src/templates/index.mas:70
-#: ../../main/dns/src/templates/edit.mas:110
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:169
-#: ../../main/core/src/templates/backup.mas:185
+#: ../../main/dns/src/templates/index.mas:57
+#: ../../main/dns/src/templates/edit.mas:86
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:167
+#: ../../main/core/src/templates/backup.mas:163
 msgid "delete"
 msgstr "borrar"
 
@@ -16025,33 +15958,55 @@ msgstr "Lista de máquinas para el dominio {domain}"
 msgid "Welcome to Zentyal FTP service."
 msgstr "Bienvenido al servicio FTP de Zentyal."
 
-#: ../../main/software/src/templates/ebox.mas:194
-#: ../../main/software/src/templates/ebox.mas:640
-#: ../../main/software/src/templates/ebox.mas:664
-#: ../../main/software/src/templates/updates.mas:47
+#: ../../main/software/src/templates/ebox.mas:191
+#: ../../main/software/src/templates/ebox.mas:232
+#: ../../main/software/src/templates/ebox.mas:554
+#: ../../main/software/src/templates/ebox.mas:556
+#: ../../main/software/src/templates/ebox.mas:559
+#: ../../main/software/src/templates/ebox.mas:570
+#: ../../main/software/src/templates/ebox.mas:575
+#: ../../main/software/src/templates/ebox.mas:602
+#: ../../main/software/src/templates/updates.mas:41
+msgid "Component"
+msgstr "Componente"
+
+#: ../../main/software/src/templates/ebox.mas:193
+#: ../../main/software/src/templates/ebox.mas:509
+#: ../../main/software/src/templates/ebox.mas:527
+#: ../../main/software/src/templates/updates.mas:41
 msgid "Update"
 msgstr "Actualizar"
 
+#: ../../main/software/src/templates/ebox.mas:197
 #: ../../main/software/src/templates/ebox.mas:200
-#: ../../main/software/src/templates/ebox.mas:609
-#: ../../main/software/src/templates/ebox.mas:633
-#: ../../main/software/src/templates/ebox.mas:655
-msgid "Install"
-msgstr "Instalar"
-
-#: ../../main/software/src/templates/ebox.mas:202
-#: ../../main/software/src/templates/ebox.mas:704
-#: ../../main/software/src/templates/ebox.mas:729
-#: ../../main/software/src/templates/ebox.mas:732
+#: ../../main/software/src/templates/ebox.mas:558
+#: ../../main/software/src/templates/ebox.mas:570
+#: ../../main/software/src/templates/ebox.mas:574
+#: ../../main/software/src/templates/ebox.mas:575
 msgid "Installed Version"
 msgstr "Versión instalada"
 
-#: ../../main/software/src/templates/ebox.mas:223
-#: ../../main/software/src/templates/updates.mas:25
+#: ../../main/software/src/templates/ebox.mas:198
+#: ../../main/software/src/templates/ebox.mas:482
+#: ../../main/software/src/templates/ebox.mas:503
+#: ../../main/software/src/templates/ebox.mas:522
+msgid "Install"
+msgstr "Instalar"
+
+#: ../../main/software/src/templates/ebox.mas:201
+#: ../../main/software/src/templates/ebox.mas:559
+#: ../../main/software/src/templates/ebox.mas:570
+#: ../../main/software/src/templates/ebox.mas:574
+#: ../../main/software/src/templates/ebox.mas:575
+msgid "Latest Version"
+msgstr "Versión más reciente"
+
+#: ../../main/software/src/templates/ebox.mas:217
+#: ../../main/software/src/templates/updates.mas:26
 msgid "Package list updated successfully"
 msgstr "Lista de paquetes actualizada satisfactoriamente"
 
-#: ../../main/software/src/templates/ebox.mas:227
+#: ../../main/software/src/templates/ebox.mas:220
 #: ../../main/software/src/templates/updates.mas:29
 msgid ""
 "Error updating package list. Please try to execute the following command in "
@@ -16060,7 +16015,7 @@ msgstr ""
 "Error actualizando la lista de paquetes. Por favor, ejecute el siguiente "
 "comando en una consola para averiguar el problema: sudo apt-get update"
 
-#: ../../main/software/src/templates/ebox.mas:234
+#: ../../main/software/src/templates/ebox.mas:226
 msgid ""
 "The following packages are not properly installed. You need to fix this "
 "before trying to use them or install new modules."
@@ -16068,25 +16023,12 @@ msgstr ""
 "Los siguientes paquetes no se instalaron correctamente. Necesita arreglar "
 "esto antes de intentar usarlos o instalar nuevos módulos."
 
-#: ../../main/software/src/templates/ebox.mas:241
-#: ../../main/software/src/templates/ebox.mas:698
-#: ../../main/software/src/templates/ebox.mas:701
-#: ../../main/software/src/templates/ebox.mas:706
-#: ../../main/software/src/templates/ebox.mas:722
-#: ../../main/software/src/templates/ebox.mas:731
-#: ../../main/software/src/templates/ebox.mas:770
-#: ../../main/software/src/templates/ebox.mas:771
-#: ../../main/software/src/templates/ebox.mas:772
-#: ../../main/software/src/templates/updates.mas:44
-msgid "Component"
-msgstr "Componente"
-
-#: ../../main/software/src/templates/ebox.mas:243
-#: ../../main/software/src/templates/updates.mas:46
+#: ../../main/software/src/templates/ebox.mas:232
+#: ../../main/software/src/templates/updates.mas:41
 msgid "Version"
 msgstr "Versión"
 
-#: ../../main/software/src/templates/ebox.mas:257
+#: ../../main/software/src/templates/ebox.mas:242
 msgid ""
 "To solve this situation, please try to execute the following command in the "
 "console:"
@@ -16094,75 +16036,75 @@ msgstr ""
 "Para arreglar esta situación, por favor ejecute el siguiente comando en la "
 "consola:"
 
-#: ../../main/software/src/templates/ebox.mas:271
+#: ../../main/software/src/templates/ebox.mas:247
+#, perl-brace-format
+msgid ""
+"After the above command is finished you can reload this page. If the problem "
+"persists, you can ask for help in the {ofhref}community forum{chref} or file "
+"a ticket in the {othref}Zentyal trac{chref}."
+msgstr ""
+
+#: ../../main/software/src/templates/ebox.mas:256
 msgid "View advanced mode"
 msgstr "Ver modo avanzado"
 
-#: ../../main/software/src/templates/ebox.mas:611
+#: ../../main/software/src/templates/ebox.mas:483
 msgid "Skip install"
 msgstr "Saltar instalación"
 
-#: ../../main/software/src/templates/ebox.mas:629
+#: ../../main/software/src/templates/ebox.mas:500
 msgid "View basic mode"
 msgstr "Ver modo básico"
 
-#: ../../main/software/src/templates/ebox.mas:656
-#: ../../main/software/src/templates/ebox.mas:665
-#: ../../main/software/src/templates/updates.mas:109
+#: ../../main/software/src/templates/ebox.mas:522
+#: ../../main/software/src/templates/ebox.mas:527
+#: ../../main/software/src/templates/updates.mas:88
 msgid "Update list"
 msgstr "Actualizar lista"
 
-#: ../../main/software/src/templates/ebox.mas:657
-#: ../../main/software/src/templates/ebox.mas:666
-#: ../../main/software/src/templates/ebox.mas:677
+#: ../../main/software/src/templates/ebox.mas:522
+#: ../../main/software/src/templates/ebox.mas:527
+#: ../../main/software/src/templates/ebox.mas:535
 msgid "Deselect All"
 msgstr "Deseleccionar todo"
 
-#: ../../main/software/src/templates/ebox.mas:658
-#: ../../main/software/src/templates/ebox.mas:667
-#: ../../main/software/src/templates/ebox.mas:678
+#: ../../main/software/src/templates/ebox.mas:522
+#: ../../main/software/src/templates/ebox.mas:527
+#: ../../main/software/src/templates/ebox.mas:535
 msgid "Select All"
 msgstr "Seleccionar todo"
 
-#: ../../main/software/src/templates/ebox.mas:707
-#: ../../main/software/src/templates/ebox.mas:723
-#: ../../main/software/src/templates/ebox.mas:733
-msgid "Latest Version"
-msgstr "Versión más reciente"
-
-#: ../../main/software/src/templates/ebox.mas:710
-#: ../../main/software/src/templates/ebox.mas:712
-#: ../../main/software/src/templates/ebox.mas:714
-#: ../../main/software/src/templates/ebox.mas:724
-#: ../../main/software/src/templates/ebox.mas:734
-#: ../../main/software/src/templates/ebox.mas:755
-#: ../../main/software/src/templates/ebox.mas:757
-#: ../../main/software/src/templates/ebox.mas:759
+#: ../../main/software/src/templates/ebox.mas:561
+#: ../../main/software/src/templates/ebox.mas:562
+#: ../../main/software/src/templates/ebox.mas:563
+#: ../../main/software/src/templates/ebox.mas:570
+#: ../../main/software/src/templates/ebox.mas:575
+#: ../../main/software/src/templates/ebox.mas:590
+#: ../../main/software/src/templates/ebox.mas:591
+#: ../../main/software/src/templates/ebox.mas:592
 msgid "Select"
 msgstr "Seleccionar"
 
-#: ../../main/software/src/templates/ebox.mas:742
+#: ../../main/software/src/templates/ebox.mas:582
 msgid "Loading"
 msgstr "Cargando"
 
-#: ../../main/software/src/templates/ebox.mas:743
+#: ../../main/software/src/templates/ebox.mas:582
 msgid "No packages found"
 msgstr "No se han encontrado paquetes"
 
-#: ../../main/software/src/templates/ebox.mas:746
-#: ../../main/core/src/templates/ajax/tableBody.mas:211
-#: ../../main/core/src/templates/ajax/tableModalView.mas:234
-#: ../../main/core/src/templates/logs/index.mas:202
-#: ../../main/core/src/templates/logs/index.mas:203
+#: ../../main/software/src/templates/ebox.mas:584
+#: ../../main/core/src/templates/ajax/tableModalView.mas:233
 msgid "Search"
 msgstr "Buscar"
 
-#: ../../main/software/src/templates/ebox.mas:748
-#: ../../main/core/src/templates/ajax/tablePager.mas:47
+#: ../../main/software/src/templates/ebox.mas:585
+#: ../../main/core/src/templates/ajax/tablePager.mas:46
+#: ../../main/mail/src/templates/qmanager.mas:91
 msgid "of"
 msgstr "de"
 
-#: ../../main/software/src/templates/ebox.mas:749
+#: ../../main/software/src/templates/ebox.mas:585
 msgid "pages"
 msgstr "páginas"
 
@@ -16176,7 +16118,7 @@ msgstr ""
 "Zentyal está configurado para usar actualizaciones automáticas con "
 "Aseguramiento de la Calidad (QA)"
 
-#: ../../main/software/src/templates/config.mas:26
+#: ../../main/software/src/templates/config.mas:24
 msgid "Automatic operations start time"
 msgstr "Hora de inicio de las operaciones automáticas"
 
@@ -16184,43 +16126,47 @@ msgstr "Hora de inicio de las operaciones automáticas"
 msgid "The following packages will be installed"
 msgstr "Se instalarán los siguientes paquetes"
 
-#: ../../main/software/src/templates/del.mas:69
+#: ../../main/software/src/templates/del.mas:68
 msgid "The following packages will be removed"
 msgstr "Los siguientes paquetes serán borrados"
 
-#: ../../main/software/src/templates/del.mas:95
-#: ../../main/network/src/templates/confirm.mas:37
-#: ../../main/network/src/templates/confirmVlanDel.mas:22
-#: ../../main/network/src/templates/confirmremove.mas:24
+#: ../../main/software/src/templates/del.mas:87
+#: ../../main/network/src/templates/confirm.mas:28
+#: ../../main/network/src/templates/confirmVlanDel.mas:18
+#: ../../main/network/src/templates/confirmremove.mas:20
 msgid "Ok"
 msgstr "Aceptar"
 
-#: ../../main/software/src/templates/updates.mas:36
+#: ../../main/software/src/templates/updates.mas:18
+msgid ""
+"Software updates are being handled automatically. They will be installed\n"
+"automatically as scheduled"
+msgstr ""
+
+#: ../../main/software/src/templates/updates.mas:35
 msgid "Updates are available for the following system components"
 msgstr ""
 "Hay actualizaciones disponibles para los siguientes componentes del sistema"
 
-#: ../../main/software/src/templates/updates.mas:38
+#: ../../main/software/src/templates/updates.mas:36
 msgid "Community updates are available for the following system components"
 msgstr ""
 "Hay actualizaciones de la comunidad disponibles para los siguientes "
 "componentes del sistema"
 
-#: ../../main/software/src/templates/updates.mas:56
-#: ../../main/software/src/templates/updates.mas:57
+#: ../../main/software/src/templates/updates.mas:49
 msgid "Security update"
 msgstr "Actualización de seguridad"
 
-#: ../../main/software/src/templates/updates.mas:60
-#: ../../main/software/src/templates/updates.mas:61
+#: ../../main/software/src/templates/updates.mas:51
 msgid "Zentyal QA update"
 msgstr "Actualización verificada por el equipo de QA de Zentyal"
 
-#: ../../main/software/src/templates/updates.mas:89
+#: ../../main/software/src/templates/updates.mas:71
 msgid "Update all packages"
 msgstr "Actualizar todos los paquetes"
 
-#: ../../main/software/src/templates/updates.mas:100
+#: ../../main/software/src/templates/updates.mas:81
 msgid ""
 "This operation can take some time, don't worry if Zentyal looks unresponsive "
 "after pressing the Upgrade button."
@@ -16228,7 +16174,7 @@ msgstr ""
 "Esta operación puede tomar un tiempo, no se preocupe si Zentyal no responde "
 "después de presionar el botón de Actualizar."
 
-#: ../../main/software/src/templates/updates.mas:104
+#: ../../main/software/src/templates/updates.mas:84
 msgid "Upgrade"
 msgstr "Actualizar"
 
@@ -16285,8 +16231,8 @@ msgstr "Copia de seguridad"
 msgid "Back up the current configuration state"
 msgstr "Backup del estado actual de configuración"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:88
-#: ../../main/core/src/templates/backup.mas:44
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:89
+#: ../../main/core/src/templates/backup.mas:40
 msgid ""
 "Backup is disabled because there are unsaved configuration changes. Please, "
 "save or discard them to be able to backup the configuration"
@@ -16305,27 +16251,27 @@ msgstr ""
 "un backup de configuración remoto. Si se genera uno nuevo, el anterior será "
 "sobrescrito."
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:121
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:48
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:119
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/confirm.mas:41
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:41
-#: ../../main/core/src/templates/confirm-backup.mas:45
-#: ../../main/core/src/templates/backup.mas:130
+#: ../../main/core/src/templates/confirm-backup.mas:41
+#: ../../main/core/src/templates/backup.mas:120
 msgid "Archive size"
 msgstr "Tamaño del archivo"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:161
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:159
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:91
-#: ../../main/core/src/templates/backup.mas:183
+#: ../../main/core/src/templates/backup.mas:161
 msgid "restore"
 msgstr "restaurar"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:165
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:163
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:95
-#: ../../main/core/src/templates/backup.mas:181
+#: ../../main/core/src/templates/backup.mas:159
 msgid "download"
 msgstr "descargar"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:174
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/index.mas:172
 msgid "Configuration backups' list"
 msgstr "Lista de backups de configuración"
 
@@ -16334,19 +16280,19 @@ msgid "Zentyal host"
 msgstr "Máquina Zentyal"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:101
-#: ../../main/core/src/templates/backup.mas:124
+#: ../../main/core/src/templates/backup.mas:115
 msgid "Backups' list"
 msgstr "Lista de backups"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:124
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:125
 msgid "User or Email Address"
 msgstr "Nombre de usuario o dirección de correo"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:135
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:136
 msgid "Submit"
 msgstr "Enviar"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:139
+#: ../../main/remoteservices/src/templates/RemoteServices/Backup/proxy.mas:140
 msgid "Enter user and password"
 msgstr "Introducir usuario y contraseña"
 
@@ -16357,40 +16303,38 @@ msgid ""
 "{hbeg}here{hend} and allow it."
 msgstr ""
 
-#: ../../main/captiveportal/src/templates/popupLaunch.mas:29
+#: ../../main/captiveportal/src/templates/popupLaunch.mas:28
+#: ../../main/captiveportal/src/templates/login.mas:55
 #, perl-brace-format
 msgid "Created by {href}"
 msgstr "Creado por {href}"
 
+#: ../../main/captiveportal/src/templates/useraddon.mas:61
+#, fuzzy
+msgid ""
+"The following settings will take effect only when the Captive Portal module "
+"is enabled."
+msgstr ""
+"Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
+"habilitado"
+
 #: ../../main/captiveportal/src/templates/login.mas:19
-#: ../../main/core/src/templates/login/index.mas:52
+#: ../../main/core/src/templates/login/index.mas:47
 msgid "Warning: Caps Lock is enabled"
 msgstr "Aviso: La tecla Bloq. Mayús. está activada"
 
-#: ../../main/captiveportal/src/templates/login.mas:28
+#: ../../main/captiveportal/src/templates/login.mas:27
 msgid "Captive portal"
 msgstr "Portal Cautivo"
 
-#: ../../main/captiveportal/src/templates/login.mas:56
-#: ../../main/core/src/templates/login/index.mas:82
+#: ../../main/captiveportal/src/templates/login.mas:50
+#: ../../main/core/src/templates/login/index.mas:71
 msgid "Enter"
 msgstr "Entrar"
 
-#: ../../main/captiveportal/src/templates/popup.mas:40
+#: ../../main/captiveportal/src/templates/popup.mas:39
 msgid "Keep this window open while using your Internet connection."
 msgstr "Mantenga esta ventana abierta mientras use la conexión a Internet."
-
-#: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:33
-#: ../../main/core/src/templates/ajax/tableBody.mas:561
-#: ../../main/core/src/templates/ajax/tableModalView.mas:574
-msgid "Move up"
-msgstr "Subir"
-
-#: ../../main/ebackup/src/templates/ajax/remoteExcludes.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:577
-#: ../../main/core/src/templates/ajax/tableModalView.mas:590
-msgid "Move down"
-msgstr "Bajar"
 
 #: ../../main/network/src/templates/ifaces.mas:13
 msgid ""
@@ -16400,7 +16344,7 @@ msgstr ""
 "Recuerde que cambiar la configuración de las interfaces de red puede hacer "
 "que pierda acceso a la página de administración."
 
-#: ../../main/network/src/templates/ifaces.mas:16
+#: ../../main/network/src/templates/ifaces.mas:15
 msgid ""
 "Traffic being routed through interfaces marked as external will be NATed.  "
 "Also, services meant for the LAN users will not be available on external "
@@ -16410,26 +16354,35 @@ msgstr ""
 "marcadas como externas. Además, los servicios destinados a los usuarios de "
 "LAN no estarán disponibles en interfaces externas."
 
-#: ../../main/network/src/templates/ifaces.mas:51
-#: ../../main/network/src/templates/ifaces.mas:53
+#: ../../main/network/src/templates/ifaces.mas:20
+#, perl-brace-format
+msgid ""
+"You are connecting to Zentyal through this interface. If you set it as "
+"external the firewall will lock you out unless you add firewall rules to "
+"{openhref}Filtering rules from external networks to Zentyal{closehref} to "
+"allow access to the Zentyal administration port, SSH, ..."
+msgstr ""
+
+#: ../../main/network/src/templates/ifaces.mas:46
+#: ../../main/network/src/templates/ifaces.mas:47
 msgid "Static"
 msgstr "Estático"
 
-#: ../../main/network/src/templates/ifaces.mas:72
-#: ../../main/network/src/templates/ifaces.mas:74
+#: ../../main/network/src/templates/ifaces.mas:65
+#: ../../main/network/src/templates/ifaces.mas:66
 msgid "Trunk (802.1q)"
 msgstr "Trunk (802.1q)"
 
-#: ../../main/network/src/templates/ifaces.mas:87
-#: ../../main/network/src/templates/ifaces.mas:89
+#: ../../main/network/src/templates/ifaces.mas:76
+#: ../../main/network/src/templates/ifaces.mas:77
 msgid "Not set"
 msgstr "No configurado"
 
-#: ../../main/network/src/templates/ifaces.mas:99
+#: ../../main/network/src/templates/ifaces.mas:86
 msgid "External (WAN)"
 msgstr "Externo (WAN)"
 
-#: ../../main/network/src/templates/ifaces.mas:111
+#: ../../main/network/src/templates/ifaces.mas:97
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
@@ -16437,41 +16390,41 @@ msgstr ""
 "Marque aquí si está usando Zentyal como gateway y este interfaz está "
 "conetado a su router a Internet"
 
-#: ../../main/network/src/templates/ifaces.mas:168
+#: ../../main/network/src/templates/ifaces.mas:149
 msgid "Bridge"
 msgstr "Puente de red"
 
-#: ../../main/network/src/templates/ifaces.mas:189
-#: ../../main/users/src/templates/users.mas:17
+#: ../../main/network/src/templates/ifaces.mas:167
+#: ../../main/users/src/templates/users.mas:16
 msgid "User name"
 msgstr "Nombre de usuario"
 
-#: ../../main/network/src/templates/ifaces.mas:224
+#: ../../main/network/src/templates/ifaces.mas:197
 msgid "VLAN List"
 msgstr "Lista de VLANs"
 
-#: ../../main/network/src/templates/ifaces.mas:281
+#: ../../main/network/src/templates/ifaces.mas:239
 msgid "Virtual Interfaces"
 msgstr "Interfaces Virtuales"
 
 #: ../../main/network/src/templates/diag.mas:13
-#: ../../main/network/src/templates/diag.mas:18
+#: ../../main/network/src/templates/diag.mas:15
 msgid "Ping"
 msgstr "Ping"
 
-#: ../../main/network/src/templates/diag.mas:22
+#: ../../main/network/src/templates/diag.mas:18
 msgid "Traceroute"
 msgstr "Traceroute"
 
-#: ../../main/network/src/templates/diag.mas:27
+#: ../../main/network/src/templates/diag.mas:20
 msgid "Trace"
 msgstr "Traza"
 
-#: ../../main/network/src/templates/diag.mas:31
+#: ../../main/network/src/templates/diag.mas:23
 msgid "Domain Name Resolution"
 msgstr "Resolución de Nombre de Dominio"
 
-#: ../../main/network/src/templates/diag.mas:36
+#: ../../main/network/src/templates/diag.mas:25
 msgid "Lookup"
 msgstr "Búsqueda"
 
@@ -16484,7 +16437,7 @@ msgstr ""
 "El cambio que esta intentando realizar afectará a la configuración de uno o "
 "varios módulos que usan referencias a esta interfaz de red."
 
-#: ../../main/network/src/templates/confirm.mas:20
+#: ../../main/network/src/templates/confirm.mas:19
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
@@ -16502,8 +16455,8 @@ msgstr ""
 "La eliminación de la interfaz VLAN afectará a la configuración de uno o "
 "varios módulos que utilizan referencias a esta interfaz de red."
 
-#: ../../main/network/src/templates/confirmVlanDel.mas:12
-#: ../../main/network/src/templates/confirmremove.mas:14
+#: ../../main/network/src/templates/confirmVlanDel.mas:11
+#: ../../main/network/src/templates/confirmremove.mas:13
 msgid ""
 "If you choose to continue, all modules that make use of this network "
 "interface will delete the relevant parts of their configuration. Choose "
@@ -16518,11 +16471,11 @@ msgstr ""
 msgid "Network interfaces"
 msgstr "Interfaces de Red"
 
-#: ../../main/network/src/templates/Wizard/interfaces.mas:10
+#: ../../main/network/src/templates/Wizard/interfaces.mas:9
 msgid "Configure interface types"
 msgstr "Configurar tipos de interfaces"
 
-#: ../../main/network/src/templates/Wizard/interfaces.mas:11
+#: ../../main/network/src/templates/Wizard/interfaces.mas:9
 msgid ""
 "External interfaces connect to networks that are not under you control "
 "(tipically the Internet), traffic coming from external networks is not "
@@ -16534,19 +16487,19 @@ msgstr ""
 "no fiable por defecto, por lo que no será posible acceder a la interfaz de "
 "administración de Zentyal a través de ellas."
 
-#: ../../main/network/src/templates/Wizard/network.mas:34
+#: ../../main/network/src/templates/Wizard/network.mas:33
 msgid "Configure network for external interfaces"
 msgstr "Configurar red para interfaces externos"
 
-#: ../../main/network/src/templates/Wizard/network.mas:35
+#: ../../main/network/src/templates/Wizard/network.mas:33
 msgid "Now you can set IP addresses and networks for each interface"
 msgstr "Ahora puede configurar direcciones IP y redes para cada interfaz"
 
-#: ../../main/network/src/templates/Wizard/network.mas:51
+#: ../../main/network/src/templates/Wizard/network.mas:45
 msgid "Don't configure"
 msgstr "No configurar"
 
-#: ../../main/network/src/templates/Wizard/network.mas:90
+#: ../../main/network/src/templates/Wizard/network.mas:77
 msgid "Gateway"
 msgstr "Puerta de enlace"
 
@@ -16558,7 +16511,7 @@ msgstr "La máquina virtual está en ejecución"
 msgid "The virtual machine is not running"
 msgstr "La máquina virtual no está ejecutandose"
 
-#: ../../main/virt/src/templates/statusViewer.mas:11
+#: ../../main/virt/src/templates/statusViewer.mas:10
 msgid "Paused"
 msgstr "Pausada"
 
@@ -16566,28 +16519,37 @@ msgstr "Pausada"
 msgid "Jabber account"
 msgstr "Cuenta Jabber"
 
-#: ../../main/jabber/src/templates/jabber.mas:16
-#: ../../main/samba/src/templates/samba.mas:15
-#: ../../main/zarafa/src/templates/zarafa.mas:16
-#: ../../main/asterisk/src/templates/user.mas:20
+#: ../../main/jabber/src/templates/jabber.mas:14
+#: ../../main/samba/src/templates/samba.mas:13
+#: ../../main/zarafa/src/templates/zarafa.mas:14
+#: ../../main/asterisk/src/templates/user.mas:17
 msgid "User account"
 msgstr "Cuenta de usuario"
 
-#: ../../main/jabber/src/templates/jabber.mas:33
-#: ../../main/samba/src/templates/samba.mas:31
-#: ../../main/zarafa/src/templates/zarafa.mas:33
+#: ../../main/jabber/src/templates/jabber.mas:26
+#: ../../main/samba/src/templates/samba.mas:24
+#: ../../main/zarafa/src/templates/zarafa.mas:26
 msgid "Administration rights"
 msgstr "Privilegios de administrador"
+
+#: ../../main/jabber/src/templates/jabber.mas:52
+#, fuzzy
+msgid ""
+"The following settings will take effect only when the Jabber module is "
+"enabled."
+msgstr ""
+"Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
+"habilitado"
 
 #: ../../main/samba/src/templates/samba.mas:8
 msgid "PDC/File sharing account"
 msgstr "Cuenta de compartición de ficheros o de PDC"
 
-#: ../../main/samba/src/templates/samba.mas:54
+#: ../../main/samba/src/templates/samba.mas:44
 msgid "Sharing directory for this group"
 msgstr "Directorio compartido para este grupo"
 
-#: ../../main/samba/src/templates/samba.mas:57
+#: ../../main/samba/src/templates/samba.mas:46
 msgid ""
 "You can set a share directory for this group, but you should keep in mind "
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
@@ -16597,31 +16559,25 @@ msgstr ""
 "tener en cuenta que en Microsoft Windows 98 y Millenium no es posible ver "
 "los nombres de más de 12 caracteres"
 
-#: ../../main/samba/src/templates/samba.mas:65
+#: ../../main/samba/src/templates/samba.mas:52
 msgid "This resource name is longer than 12 characters."
 msgstr "El nombre del recurso es mayor de 12 carácteres."
 
-#: ../../main/samba/src/templates/samba.mas:68
+#: ../../main/samba/src/templates/samba.mas:54
 msgid "Directory name"
 msgstr "Nombre del directorio"
 
-#: ../../main/samba/src/templates/samba.mas:94
+#: ../../main/samba/src/templates/samba.mas:71
 msgid "Select the printers this user will have access to."
 msgstr "Seleccione las impresoras a las que tendrá acceso este usuario."
 
-#: ../../main/samba/src/templates/samba.mas:127
-msgid "Allow all printers"
-msgstr "Permitir todas las impresoras"
+#: ../../main/samba/src/templates/delete.mas:10
+#: ../../main/users/src/templates/del.mas:16
+#, fuzzy
+msgid "Deleting group"
+msgstr "Eliminar grupo"
 
-#: ../../main/samba/src/templates/samba.mas:157
-msgid "printers module"
-msgstr "módulo de impresoras"
-
-#: ../../main/samba/src/templates/samba.mas:168
-msgid "file sharing module"
-msgstr "módulo de compartición de ficheros"
-
-#: ../../main/samba/src/templates/delete.mas:11
+#: ../../main/samba/src/templates/delete.mas:10
 msgid ""
 "The group you tried to delete has a directory which contains data, if you "
 "remove it all its data will be removed. Please confirm that you want to "
@@ -16631,11 +16587,11 @@ msgstr ""
 "contiene dato, si lo elimina se perderán esos datos. Por favor confirme que "
 "desea eliminarlo"
 
-#: ../../main/samba/stubs/smb.conf.mas:109
+#: ../../main/samba/stubs/smb.conf.mas:97
 msgid "Home Directories"
 msgstr "Directorios de usuario"
 
-#: ../../main/samba/stubs/smb.conf.mas:138
+#: ../../main/samba/stubs/smb.conf.mas:121
 #, perl-brace-format
 msgid "{group} share directory"
 msgstr "directorio compartido de {group}"
@@ -16643,114 +16599,6 @@ msgstr "directorio compartido de {group}"
 #: ../../main/mailfilter/stubs/p3scan.conf.mas:15
 msgid "[Virus] found in a mail to you:"
 msgstr "Encontrados [Virus] en un correo para ti:"
-
-#: ../../main/ca/src/templates/index.mas:42
-#: ../../main/ca/src/templates/createCA.mas:9
-msgid "Country code"
-msgstr "Código de país"
-
-#: ../../main/ca/src/templates/index.mas:45
-#: ../../main/ca/src/templates/createCA.mas:13
-msgid "City"
-msgstr "Ciudad"
-
-#: ../../main/ca/src/templates/index.mas:59
-#: ../../main/ca/src/templates/formRevoke.mas:46
-#: ../../main/ca/src/templates/formReissue.mas:15
-#: ../../main/ca/src/templates/formReissue.mas:41
-#: ../../main/ca/src/templates/formRenew.mas:61
-msgid "Subject Alternative Names"
-msgstr "\"Subject Alternative Names\""
-
-#: ../../main/ca/src/templates/index.mas:60
-#, perl-brace-format
-msgid ""
-"Multi-value separated by commas, only valid types are: {dns}, {ip} and "
-"{email}. For instance, {example}"
-msgstr ""
-"Multi-valor separado por comas, los tipos válidos son: {dns}, {ip} y "
-"{email}. Por ejemplo, {example}"
-
-#: ../../main/ca/src/templates/index.mas:74
-msgid "Issue"
-msgstr "Expedir"
-
-#: ../../main/ca/src/templates/index.mas:83
-msgid "Certificate changes will take effect immediately."
-msgstr "Los cambios en los certificados tendrán efecto de manera inmediata."
-
-#: ../../main/ca/src/templates/index.mas:85
-msgid "The CA passphrase is optional"
-msgstr "La frase de paso para la CA es opcional"
-
-#: ../../main/ca/src/templates/index.mas:89
-msgid "Issue the Certification Authority Certificate"
-msgstr "Expedir el Certificado de la Autoridad de Certificación"
-
-#: ../../main/ca/src/templates/index.mas:91
-msgid "Issue a New Certificate"
-msgstr "Expedir un nuevo certificado"
-
-#: ../../main/ca/src/templates/index.mas:98
-msgid "Current Certificate List"
-msgstr "Lista de Certificados actual"
-
-#: ../../main/ca/src/templates/index.mas:100
-msgid ""
-"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
-"Revoked certificates respectively"
-msgstr ""
-"La fecha se refiere a Fecha de Expiración en certificados Válidos o "
-"Caducados y a Fecha de Revocación en los certificados revocados "
-"respectivamente"
-
-#: ../../main/ca/src/templates/index.mas:126
-msgid "from"
-msgstr "desde"
-
-#: ../../main/ca/src/templates/index.mas:137
-msgid "Valid"
-msgstr "Válido"
-
-#: ../../main/ca/src/templates/index.mas:139
-msgid "Expired"
-msgstr "Expirado"
-
-#: ../../main/ca/src/templates/index.mas:141
-msgid "Revoked"
-msgstr "Revocado"
-
-#: ../../main/ca/src/templates/index.mas:146
-#, perl-brace-format
-msgid "Reason: {reason}"
-msgstr "Razón: {reason}"
-
-#: ../../main/ca/src/templates/index.mas:174
-#: ../../main/ca/src/templates/index.mas:219
-#: ../../main/ca/src/templates/forceRevoke.mas:42
-#: ../../main/ca/src/templates/formRevoke.mas:81
-msgid "Revoke"
-msgstr "Revocar"
-
-#: ../../main/ca/src/templates/index.mas:183
-#: ../../main/ca/src/templates/index.mas:221
-msgid "Download Key(s) and Certificate"
-msgstr "Descargar clave(s) y certificado"
-
-#: ../../main/ca/src/templates/index.mas:193
-#: ../../main/ca/src/templates/forceRenew.mas:27
-#: ../../main/ca/src/templates/formRenew.mas:23
-msgid "Renew"
-msgstr "Renovar"
-
-#: ../../main/ca/src/templates/index.mas:206
-#: ../../main/ca/src/templates/formReissue.mas:26
-msgid "Reissue"
-msgstr "Re-emitir"
-
-#: ../../main/ca/src/templates/index.mas:223
-msgid "Renew or reissue"
-msgstr "Renovar o re-emitir"
 
 #: ../../main/ca/src/templates/forceRevoke.mas:13
 msgid "Revoking CA certificate"
@@ -16771,7 +16619,7 @@ msgstr ""
 "confirme que está seguro de revocar toda la autoridad de certificación de "
 "{on} y dejar posiblemente servicios inestables o deshabilitados"
 
-#: ../../main/ca/src/templates/forceRevoke.mas:24
+#: ../../main/ca/src/templates/forceRevoke.mas:23
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to revoke is being used "
@@ -16782,65 +16630,77 @@ msgstr ""
 "siendo usado por otro módulo, por favor confirme que está seguro de revocar "
 "y dejar dicho(s) servicio(s) inestables o apagados"
 
+#: ../../main/ca/src/templates/forceRevoke.mas:36
+#: ../../main/ca/src/templates/formRevoke.mas:74
+msgid "Revoke"
+msgstr "Revocar"
+
 #: ../../main/ca/src/templates/formRevoke.mas:10
 msgid "Revoke a Certificate"
 msgstr "Revocar un certificado"
+
+#: ../../main/ca/src/templates/formRevoke.mas:12
+msgid ""
+"This operation will revoke all the issued user certificates\n"
+"    and the CA Certificate."
+msgstr ""
 
 #: ../../main/ca/src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Revoca el certificado seleccionado"
 
-#: ../../main/ca/src/templates/formRevoke.mas:33
-#: ../../main/ca/src/templates/formRenew.mas:48
+#: ../../main/ca/src/templates/formRevoke.mas:28
+#: ../../main/ca/src/templates/formRenew.mas:44
 msgid "Expiration Date"
 msgstr "Fecha de expiración"
 
-#: ../../main/ca/src/templates/formRevoke.mas:75
+#: ../../main/ca/src/templates/formRevoke.mas:41
+#: ../../main/ca/src/templates/formReissue.mas:15
+#: ../../main/ca/src/templates/formReissue.mas:38
+#: ../../main/ca/src/templates/formRenew.mas:57
+msgid "Subject Alternative Names"
+msgstr "\"Subject Alternative Names\""
+
+#: ../../main/ca/src/templates/formRevoke.mas:68
 #: ../../main/ca/src/templates/formReissue.mas:20
 #: ../../main/ca/src/templates/formRenew.mas:17
 msgid "CA Passphrase"
 msgstr "Contraseña para la CA"
 
+#: ../../main/ca/src/templates/formReissue.mas:26
+msgid "Reissue"
+msgstr "Re-emitir"
+
 #: ../../main/ca/src/templates/formReissue.mas:31
 msgid "Reissue a certificate"
 msgstr "Re-emitir un certificado"
 
+#: ../../main/ca/src/templates/createCA.mas:9
+msgid "Country code"
+msgstr "Código de país"
+
+#: ../../main/ca/src/templates/createCA.mas:13
+msgid "City"
+msgstr "Ciudad"
+
 #: ../../main/ca/src/templates/createCA.mas:27
-#: ../../main/mail/src/templates/groupalias.mas:65
-#: ../../main/mail/src/templates/groupalias.mas:66
-#: ../../main/mail/src/templates/groupalias.mas:67
-#: ../../main/mail/src/templates/createaccount.mas:42
-#: ../../main/mail/src/templates/createaccount.mas:43
-#: ../../main/mail/src/templates/alias.mas:60
-#: ../../main/mail/src/templates/alias.mas:61
-#: ../../main/mail/src/templates/alias.mas:62
+#: ../../main/mail/src/templates/createaccount.mas:37
+#: ../../main/mail/src/templates/alias.mas:47
 msgid "Create"
 msgstr "Crear"
 
-#: ../../main/ca/src/templates/createCA.mas:35
+#: ../../main/ca/src/templates/createCA.mas:32
+msgid ""
+"This page only appears once at starting up the Certification\n"
+"  Authority.\n"
+"Changes take effect immediately."
+msgstr ""
+
+#: ../../main/ca/src/templates/createCA.mas:36
 msgid "Create Certification Authority Certificate"
 msgstr "Crear Certificado de la Autoridad de Certificación"
 
-#: ../../main/ca/src/templates/forceRenew.mas:42
-msgid "Renewing CA certificate"
-msgstr "Renovando el certificado de la Autoridad de Certificación"
-
-#: ../../main/ca/src/templates/forceRenew.mas:44
-msgid "Renewing certificate"
-msgstr "Renovando certificado"
-
-#: ../../main/ca/src/templates/forceRenew.mas:50
-#, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
-msgstr ""
-"Esta renovación puede afectar a la funcionalidad de otros módulos, por favor "
-"confirme que está seguro de renovar toda la autoridad de certificación de "
-"{on} y dejar posiblemente servicios inestables o deshabilitados"
-
-#: ../../main/ca/src/templates/forceRenew.mas:53
+#: ../../main/ca/src/templates/forceRenew.mas:54
 #, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
@@ -16851,15 +16711,25 @@ msgstr ""
 "siendo usado por otro módulo, por favor confirme que está seguro de revocar "
 "y dejar dicho(s) servicio(s) inestables o apagados"
 
+#: ../../main/ca/src/templates/formRenew.mas:23
+msgid "Renew"
+msgstr "Renovar"
+
 #: ../../main/ca/src/templates/formRenew.mas:28
 msgid "Renew a certificate"
 msgstr "Renovar un certificado"
+
+#: ../../main/ca/src/templates/formRenew.mas:30
+msgid ""
+"This operation will resign all the issued user certificates\n"
+"  with the same expiration date"
+msgstr ""
 
 #: ../../main/core/src/templates/hostname.mas:10
 msgid "Change Hostname"
 msgstr "Cambiar nombre de la máquina"
 
-#: ../../main/core/src/templates/hostname.mas:11
+#: ../../main/core/src/templates/hostname.mas:10
 msgid ""
 "You will need to restart all the services or reboot the system to apply the "
 "hostname change."
@@ -16867,48 +16737,76 @@ msgstr ""
 "Se necesitará reiniciar todos los servicios o reiniciar el sistema para "
 "aplicar el cambio de nombre."
 
-#: ../../main/core/src/templates/hostname.mas:13
+#: ../../main/core/src/templates/hostname.mas:11
 #, perl-brace-format
 msgid "The hostname will be changed to {newHostname} after saving changes."
 msgstr ""
 "El nombre de máquina cambiará a {newHostname} después de guardar cambios."
 
-#: ../../main/core/src/templates/dashboard/index.mas:23
+#: ../../main/core/src/templates/notConfigured.mas:8
+#, fuzzy, perl-brace-format
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status section "
+"{closehref} in order to use it."
+msgstr ""
+"El módulo Usuarios debe estar habilitado en la sección Estado del módulo "
+"para poder usarlo."
+
+#: ../../main/core/src/templates/dashboard/index.mas:22
 #: ../../main/core/src/templates/dashboard/status.mas:18
 msgid "The service is enabled and running"
 msgstr "El servicio está activo y ejecutándose"
 
-#: ../../main/core/src/templates/dashboard/index.mas:28
+#: ../../main/core/src/templates/dashboard/index.mas:25
 #: ../../main/core/src/templates/dashboard/status.mas:22
 msgid "The service is enabled, but not running"
 msgstr "El servicio está habilitado, pero no está ejecutándose"
 
 # También podría ser ejecutándose sin gestión
-#: ../../main/core/src/templates/dashboard/index.mas:32
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:26
 msgid "Running unmanaged"
 msgstr "Ejecutándose sin ser gestionado"
 
-#: ../../main/core/src/templates/dashboard/index.mas:33
+#: ../../main/core/src/templates/dashboard/index.mas:28
 #: ../../main/core/src/templates/dashboard/status.mas:27
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "El servicio está ejecutándose, pero no está habilitado en Zentyal"
 
-#: ../../main/core/src/templates/dashboard/index.mas:38
+#: ../../main/core/src/templates/dashboard/index.mas:31
 #: ../../main/core/src/templates/dashboard/status.mas:31
 msgid "The service is not enabled in Zentyal"
 msgstr "El servicio no está habilitado en Zentyal"
 
-#: ../../main/core/src/templates/dashboard/index.mas:44
+#: ../../main/core/src/templates/dashboard/index.mas:35
 #: ../../main/core/src/templates/dashboard/status.mas:11
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: ../../main/core/src/templates/dashboard/index.mas:116
+#: ../../main/core/src/templates/dashboard/index.mas:105
 msgid "Configure widgets"
 msgstr "Configurar widgets"
 
-#: ../../main/core/src/templates/dashboard/configurewidgets.mas:164
+#: ../../main/core/src/templates/dashboard/index.mas:107
+#, fuzzy, perl-brace-format
+msgid "The following packages are not properly installed: {packages}."
+msgstr "Se instalarán los siguientes paquetes"
+
+#: ../../main/core/src/templates/dashboard/index.mas:111
+#, perl-brace-format
+msgid "Go to {ohref}Software Management{chref} for more information."
+msgstr ""
+
+#: ../../main/core/src/templates/dashboard/index.mas:115
+#, fuzzy, perl-brace-format
+msgid ""
+"To solve this situation, please try to execute the following command in the "
+"console: {cmd}"
+msgstr ""
+"Para arreglar esta situación, por favor ejecute el siguiente comando en la "
+"consola:"
+
+#: ../../main/core/src/templates/dashboard/configurewidgets.mas:161
 msgid ""
 "Browse the available widgets in the left menu and drag&drop them to the "
 "dashboard."
@@ -16916,11 +16814,11 @@ msgstr ""
 "Navegue por los widgets disponibles en el menú de la izquierda y arrástrelos "
 "y suéltelos en el dashboard"
 
-#: ../../main/core/src/templates/dashboard/list.mas:43
+#: ../../main/core/src/templates/dashboard/list.mas:36
 msgid "No entries in this list"
 msgstr "No hay entradas en la lista"
 
-#: ../../main/core/src/templates/finish.mas:98
+#: ../../main/core/src/templates/finish.mas:97
 #, perl-brace-format
 msgid ""
 "The following modules have unsaved changes but are <b>disabled</b>. If you "
@@ -16930,7 +16828,7 @@ msgstr ""
 "<b>deshabilitados</b>. Si se necesitan, se pueden habilitar en {openref}"
 "Estado de los Módulos{closeref}."
 
-#: ../../main/core/src/templates/finish.mas:105
+#: ../../main/core/src/templates/finish.mas:102
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
 "those changes."
@@ -16938,7 +16836,7 @@ msgstr ""
 "Hay cambios no guardados en uno o más módulos, puedes guardar o descartar "
 "los cambios."
 
-#: ../../main/core/src/templates/finish.mas:109
+#: ../../main/core/src/templates/finish.mas:105
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -16948,51 +16846,23 @@ msgstr ""
 "administración, es posible que necesite reescribir la url manualmente para "
 "volver a acceder al panel de administración."
 
-#: ../../main/core/src/templates/finish.mas:113
+#: ../../main/core/src/templates/finish.mas:108
 msgid "The following changes are pending. You can save or discard them."
 msgstr ""
 "Los siguientes cambios están pendientes de guardado. Puede guardarlos o "
 "descartarlos."
 
-#: ../../main/core/src/templates/finish.mas:138
+#: ../../main/core/src/templates/finish.mas:124
 msgid "Save"
 msgstr "Guardar"
 
-#: ../../main/core/src/templates/finish.mas:140
+#: ../../main/core/src/templates/finish.mas:125
 msgid "Discard changes"
 msgstr "Descartar cambios"
 
-#: ../../main/core/src/templates/finish.mas:145
+#: ../../main/core/src/templates/finish.mas:129
 msgid "There are no unsaved changes."
 msgstr "No hay cambios sin guardar."
-
-#: ../../main/core/src/templates/progress.mas:24
-msgid "Item"
-msgstr "Ítem"
-
-#: ../../main/core/src/templates/progress.mas:25
-msgid "items left"
-msgstr "Ítems que quedan"
-
-#: ../../main/core/src/templates/progress.mas:27
-msgid "Some error has happened in Zentyal: "
-msgstr "Ha ocurrido un error en Zentyal:"
-
-#: ../../main/core/src/templates/progress.mas:32
-msgid "Click here to return to the Dashboard"
-msgstr "Haz click para volver al Dashboard"
-
-#: ../../main/core/src/templates/progress.mas:155
-msgid "Starting..."
-msgstr "Comenzando..."
-
-#: ../../main/core/src/templates/progress.mas:164
-msgid " of "
-msgstr " de "
-
-#: ../../main/core/src/templates/progress.mas:172
-msgid "The process produced some warning messages:"
-msgstr "El proceso produjo algunos avisos:"
 
 #: ../../main/core/src/templates/configureView.mas:12
 msgid ""
@@ -17004,132 +16874,57 @@ msgstr ""
 "modificaciones en los ficheros listados debajo. Debes aceptar explícitamente "
 "estos cambios para habilitar el módulo."
 
-#: ../../main/core/src/templates/configureView.mas:16
+#: ../../main/core/src/templates/configureView.mas:15
 msgid "Actions to perform by Zentyal"
 msgstr "Acciones a realizar por Zentyal"
 
-#: ../../main/core/src/templates/configureView.mas:31
+#: ../../main/core/src/templates/configureView.mas:27
 msgid "Files to modify by Zentyal"
 msgstr "Ficheros a modificar por Zentyal"
 
-#: ../../main/core/src/templates/configureView.mas:51
+#: ../../main/core/src/templates/configureView.mas:44
 msgid "Accept"
 msgstr "Aceptar"
 
-#: ../../main/core/src/templates/confirm-backup.mas:102
-msgid "Full Restore"
-msgstr "Restauración completa"
-
-#: ../../main/core/src/templates/confirm-backup.mas:103
-msgid "Configuration Restore"
-msgstr "Restauración de la configuración"
-
-#: ../../main/core/src/templates/confirm-backup.mas:108
-msgid "Restore mode"
-msgstr "Tipo de restauración"
-
-#: ../../main/core/src/templates/ajax/tablePager.mas:46
+#: ../../main/core/src/templates/ajax/tablePager.mas:45
+#: ../../main/mail/src/templates/qmanager.mas:90
+#: ../../main/mail/src/templates/qmanager.mas:91
 msgid "Page"
 msgstr "Página"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:60
-#: ../../main/core/src/templates/ajax/tablePager.mas:66
-#: ../../main/core/src/templates/logs/dbtable.mas:86
-#: ../../main/core/src/templates/logs/dbtable.mas:87
-#: ../../main/mail/src/templates/qmanager.mas:107
-#: ../../main/mail/src/templates/qmanager.mas:108
+#: ../../main/core/src/templates/ajax/tablePager.mas:56
+#: ../../main/core/src/templates/ajax/tablePager.mas:58
+#: ../../main/mail/src/templates/qmanager.mas:82
 msgid "first"
 msgstr "primero"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:62
-#: ../../main/core/src/templates/ajax/tablePager.mas:67
-#: ../../main/core/src/templates/logs/dbtable.mas:90
-#: ../../main/core/src/templates/logs/dbtable.mas:91
-#: ../../main/mail/src/templates/qmanager.mas:111
-#: ../../main/mail/src/templates/qmanager.mas:112
+#: ../../main/core/src/templates/ajax/tablePager.mas:56
+#: ../../main/core/src/templates/ajax/tablePager.mas:58
+#: ../../main/mail/src/templates/qmanager.mas:84
 msgid "prev"
 msgstr "previo"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:73
-#: ../../main/core/src/templates/ajax/tablePager.mas:74
-#: ../../main/core/src/templates/ajax/tablePager.mas:85
-#: ../../main/core/src/templates/ajax/tablePager.mas:86
-#: ../../main/core/src/templates/logs/dbtable.mas:110
-#: ../../main/core/src/templates/logs/dbtable.mas:111
-#: ../../main/mail/src/templates/qmanager.mas:131
-#: ../../main/mail/src/templates/qmanager.mas:132
+#: ../../main/core/src/templates/ajax/tablePager.mas:63
+#: ../../main/core/src/templates/ajax/tablePager.mas:69
+#: ../../main/mail/src/templates/qmanager.mas:100
 msgid "next"
 msgstr "siguiente"
 
-#: ../../main/core/src/templates/ajax/tablePager.mas:79
-#: ../../main/core/src/templates/ajax/tablePager.mas:80
-#: ../../main/core/src/templates/ajax/tablePager.mas:89
-#: ../../main/core/src/templates/ajax/tablePager.mas:90
-#: ../../main/core/src/templates/logs/dbtable.mas:114
-#: ../../main/core/src/templates/logs/dbtable.mas:115
-#: ../../main/mail/src/templates/qmanager.mas:135
-#: ../../main/mail/src/templates/qmanager.mas:136
+#: ../../main/core/src/templates/ajax/tablePager.mas:66
+#: ../../main/core/src/templates/ajax/tablePager.mas:71
+#: ../../main/mail/src/templates/qmanager.mas:102
 msgid "last"
 msgstr "último"
-
-#: ../../main/core/src/templates/ajax/tableSelector.mas:14
-msgid "Choose one of the options to show the associated table"
-msgstr "Elija una de las opciones para mostrar la tabla asociada"
-
-#: ../../main/core/src/templates/ajax/tableSelector.mas:32
-msgid "Choose one..."
-msgstr "Elija una..."
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:149
-#: ../../main/core/src/templates/ajax/tableModalView.mas:156
-#: ../../main/core/src/templates/ajax/tableModal.mas:179
-#: ../../main/users/src/templates/ajax/tableUser.mas:88
-msgid "Add new"
-msgstr "Añadir nuevo/a"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:158
-#: ../../main/core/src/templates/ajax/tableModalView.mas:166
-#: ../../main/core/src/templates/ajax/tableModal.mas:190
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr "Añadiendo un/a nuevo/a {row}"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:163
-#: ../../main/core/src/templates/ajax/tableModalView.mas:171
-#: ../../main/core/src/templates/ajax/tableModal.mas:196
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr "Editando {row}"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:471
-#: ../../main/core/src/templates/ajax/tableModalView.mas:476
-msgid "Read-only row: edit disabled"
-msgstr "Fila de solo lectura: edición desactivada"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:472
-#: ../../main/core/src/templates/ajax/tableModalView.mas:477
-msgid "Read-only row: delete disabled"
-msgstr "Fila de solo lectura: borrado desactivado"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:557
-#: ../../main/core/src/templates/ajax/tableModalView.mas:570
-msgid "Read-only row: move up disabled"
-msgstr "Fila de solo lectura: movimiento hacia arriba desactivado"
-
-#: ../../main/core/src/templates/ajax/tableBody.mas:573
-#: ../../main/core/src/templates/ajax/tableModalView.mas:586
-msgid "Read-only row: move down  disabled"
-msgstr "Fila de sólo lectura: movimiento hacia abajo desactivado"
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:88
 msgid "Add new..."
 msgstr "Añadir nuevo..."
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:143
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:142
 msgid "No elements found. "
 msgstr "No hay elementos."
 
-#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
+#: ../../main/core/src/templates/ajax/setter/selectSetter.mas:142
 msgid "Add a new one"
 msgstr "Añadir una"
 
@@ -17138,20 +16933,29 @@ msgstr "Añadir una"
 msgid "Inverse match"
 msgstr "Coincidencia inversa"
 
-#: ../../main/core/src/templates/ajax/typeRowLayout.mas:14
-#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:14
-#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:34
-#: ../../main/core/src/templates/formTable.mas:85
-#: ../../main/users/src/templates/users.mas:42
-#: ../../main/users/src/templates/user.mas:53
+#: ../../main/core/src/templates/ajax/typeRowLayout.mas:12
+#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:12
+#: ../../main/core/src/templates/ajax/passwordRowLayout.mas:29
+#: ../../main/users/src/templates/users.mas:37
+#: ../../main/users/src/templates/user.mas:48
 msgid "Optional"
 msgstr "Opcional"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:59
+#: ../../main/core/src/templates/ajax/tableModalView.mas:163
+#, perl-brace-format
+msgid "Adding a new {row}"
+msgstr "Añadiendo un/a nuevo/a {row}"
+
+#: ../../main/core/src/templates/ajax/tableModalView.mas:168
+#, perl-brace-format
+msgid "Editing {row}"
+msgstr "Editando {row}"
+
+#: ../../main/core/src/templates/moduleStatusTable.mas:57
 msgid "Depends"
 msgstr "Depende"
 
-#: ../../main/core/src/templates/moduleStatusTable.mas:85
+#: ../../main/core/src/templates/moduleStatusTable.mas:78
 #, perl-brace-format
 msgid "Configure module: {module}"
 msgstr "Configurar módulo: {module}"
@@ -17160,7 +16964,7 @@ msgstr "Configurar módulo: {module}"
 msgid "Date and Time"
 msgstr "Fecha y Hora"
 
-#: ../../main/core/src/templates/datetime.mas:15
+#: ../../main/core/src/templates/datetime.mas:14
 msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
@@ -17168,118 +16972,115 @@ msgstr ""
 "Dado que la sincronización con servidor NTP externo está habilitada, no "
 "puede cambiar la fecha u hora."
 
-#: ../../main/core/src/templates/datetime.mas:19
+#: ../../main/core/src/templates/datetime.mas:17
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
 msgstr ""
 "Un cambio en la fecha u hora provocará que se reinicien todos los servicios "
 "de Zentyal."
 
-#: ../../main/core/src/templates/datetime.mas:27
+#: ../../main/core/src/templates/datetime.mas:23
 msgid "Synchronization enabled"
 msgstr "Sincronización habilitada"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "January"
 msgstr "Enero"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "February"
 msgstr "Febrero"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "March"
 msgstr "Marzo"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "April"
 msgstr "Abril"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "May"
 msgstr "Mayo"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "June"
 msgstr "Junio"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "July"
 msgstr "Julio"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "August"
 msgstr "Agosto"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "September"
 msgstr "Septiembre"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "October"
 msgstr "Octubre"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "November"
 msgstr "Noviembre"
 
-#: ../../main/core/src/templates/datetime.mas:46
-#: ../../main/core/src/templates/logs/index.mas:62
-#: ../../main/core/src/templates/logs/index.mas:127
+#: ../../main/core/src/templates/datetime.mas:37
+#: ../../main/core/src/templates/logs/index.mas:50
 msgid "December"
 msgstr "Diciembre"
 
-#: ../../main/core/src/templates/links-widget.mas:17
+#: ../../main/core/src/templates/links-widget.mas:14
 msgid "Official documentation in English and Spanish."
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:18
+#: ../../main/core/src/templates/links-widget.mas:14
 msgid "Documentation"
 msgstr "Documentación"
 
-#: ../../main/core/src/templates/links-widget.mas:21
+#: ../../main/core/src/templates/links-widget.mas:16
 msgid "Community Support Forum to give and get help."
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:22
+#: ../../main/core/src/templates/links-widget.mas:16
 msgid "Forum"
 msgstr "Foro"
 
-#: ../../main/core/src/templates/links-widget.mas:25
+#: ../../main/core/src/templates/links-widget.mas:18
 msgid "Help us to improve by reporting any bug you find!"
 msgstr ""
 
-#: ../../main/core/src/templates/links-widget.mas:26
+#: ../../main/core/src/templates/links-widget.mas:18
 msgid "Report a bug"
 msgstr "Reportar un bug"
 
-#: ../../main/core/src/templates/title.mas:25
+#: ../../main/core/src/templates/title.mas:22
+msgid "Display help notes"
+msgstr ""
+
+#: ../../main/core/src/templates/title.mas:22
 msgid "show help"
 msgstr "mostrar ayuda"
 
-#: ../../main/core/src/templates/title.mas:26
+#: ../../main/core/src/templates/title.mas:22
+#, fuzzy
+msgid "Hide help notes"
+msgstr "ocultar ayuda"
+
+#: ../../main/core/src/templates/title.mas:22
 msgid "hide help"
 msgstr "ocultar ayuda"
 
@@ -17287,11 +17088,11 @@ msgstr "ocultar ayuda"
 msgid "There are unsaved changes, if you log out now they will be lost."
 msgstr "Hay cambios sin guardar, si sale ahora los perderá"
 
-#: ../../main/core/src/templates/logout/index.mas:15
+#: ../../main/core/src/templates/logout/index.mas:14
 msgid "There are no unsaved changes in this session."
 msgstr "No hay cambios sin guardar en esta sesión."
 
-#: ../../main/core/src/templates/logout/index.mas:19
+#: ../../main/core/src/templates/logout/index.mas:17
 msgid "Exit"
 msgstr "Salir"
 
@@ -17328,11 +17129,11 @@ msgstr ""
 msgid "we're sorry"
 msgstr "lo sentimos"
 
-#: ../../main/core/src/templates/pageNotFound.mas:13
+#: ../../main/core/src/templates/pageNotFound.mas:12
 msgid "The page cannot be found"
 msgstr "La página no pudo encontrarse"
 
-#: ../../main/core/src/templates/login/index.mas:55
+#: ../../main/core/src/templates/login/index.mas:49
 #, perl-brace-format
 msgid ""
 "Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. "
@@ -17341,7 +17142,7 @@ msgstr ""
 "Aviso: Desafortunadamente Internet Explorer no está todavía soportado en "
 "Zentyal. Por favor usa {url}."
 
-#: ../../main/core/src/templates/login/index.mas:58
+#: ../../main/core/src/templates/login/index.mas:51
 #, perl-brace-format
 msgid ""
 "Warning: You are using a browser which is not {url}, the only one officially "
@@ -17364,134 +17165,42 @@ msgstr "Remoto en Zentyal Cloud"
 msgid "Remote in Zentyal Cloud from other subscribed hosts"
 msgstr "Remoto de otras máquinas suscritas en Zentyal Cloud"
 
-#: ../../main/core/src/templates/report/diskUsage.mas:29
+#: ../../main/core/src/templates/report/diskUsage.mas:26
 msgid "Mounted on"
 msgstr "Montado en"
 
-#: ../../main/core/src/templates/report/diskUsage.mas:34
+#: ../../main/core/src/templates/report/diskUsage.mas:31
 msgid "Partition Properties"
 msgstr "Propiedades de la partición"
 
-#: ../../main/core/src/templates/report/raid.mas:20
-#, perl-brace-format
-msgid "Inexistent RAID array {a}"
-msgstr "Vector RAID {a} inexistente"
-
-#: ../../main/core/src/templates/report/raid.mas:42
-msgid "RAID is not enabled in this system."
-msgstr "RAID no está habilitado en este sistema"
-
-#: ../../main/core/src/templates/report/raid.mas:94
-msgid "left-asymmetric"
-msgstr "Asimétrico izquierdo"
-
-#: ../../main/core/src/templates/report/raid.mas:95
-msgid "right-asymmetric"
-msgstr "Asimétrico derecho"
-
-#: ../../main/core/src/templates/report/raid.mas:96
-msgid "left-symmetric"
-msgstr "Simétrico izquierdo"
-
-#: ../../main/core/src/templates/report/raid.mas:97
-msgid "right-symmetric"
-msgstr "Simétrico derecho"
-
-#: ../../main/core/src/templates/report/raid.mas:142
-msgid "Active RAID devices"
-msgstr "Dispositivos RAID activos"
-
-#: ../../main/core/src/templates/report/raid.mas:143
-msgid "Active RAID devices needed"
-msgstr "Dispositivos RAID activos necesarios"
-
-#: ../../main/core/src/templates/report/raid.mas:144
-msgid "Size in blocks"
-msgstr "Tamaño en bloques"
-
-#: ../../main/core/src/templates/report/raid.mas:145
-msgid "Chunk size"
-msgstr "Tamaño del trozo"
-
-#: ../../main/core/src/templates/report/raid.mas:148
-msgid "Parity algorithm"
-msgstr "Algoritmo de paridad"
-
-#: ../../main/core/src/templates/report/raid.mas:160
-msgid "Bitmap"
-msgstr "Mapa de bits"
-
-#: ../../main/core/src/templates/report/raid.mas:181
-msgid "Array properties"
-msgstr "Propiedades del vector"
-
-#: ../../main/core/src/templates/report/raid.mas:196
-msgid "Resyncing array"
-msgstr "Resincronizando vector"
-
-#: ../../main/core/src/templates/report/raid.mas:197
-msgid "Rebuild array"
-msgstr "Reconstruyendo vector"
-
-#: ../../main/core/src/templates/report/raid.mas:198
-msgid "Reshape array"
-msgstr "Remoldeando el vector"
-
-#: ../../main/core/src/templates/report/raid.mas:206
-msgid "Operation type"
-msgstr "Tipo de operación"
-
-#: ../../main/core/src/templates/report/raid.mas:208
-msgid "Percentage completed"
-msgstr "Porcentaje completado"
-
-#: ../../main/core/src/templates/report/raid.mas:210
-msgid "Estimated time left"
-msgstr "Tiempo estimado para finalizar: {time}."
-
-#: ../../main/core/src/templates/report/raid.mas:212
-msgid "Operation speed"
-msgstr "Velocidad de la operación"
-
-#: ../../main/core/src/templates/report/raid.mas:225
-msgid "RAID device number"
-msgstr "Número de dispositivo RAID"
-
-#: ../../main/core/src/templates/report/raid.mas:226
-msgid "Device"
-msgstr "Dispositivo"
-
-#: ../../main/core/src/templates/report/raid.mas:233
-msgid "failure"
-msgstr "defectuoso"
-
-#: ../../main/core/src/templates/report/raid.mas:262
-msgid "No unused RAID devices"
+#: ../../main/core/src/templates/report/raid.mas:7
+#, fuzzy
+msgid "Unused devices"
 msgstr "No hay dispositivos RAID sin usar"
 
-#: ../../main/core/src/templates/report/raid.mas:265
-msgid "Unused RAID arrays"
-msgstr "Dispositivos RAID sin usar"
+#: ../../main/core/src/templates/configurationFiles.mas:9
+msgid ""
+"Zentyal detected that some files which need to be overwritten have been\n"
+"modified by you."
+msgstr ""
 
-#: ../../main/core/src/templates/configurationFiles.mas:12
+#: ../../main/core/src/templates/configurationFiles.mas:13
 msgid "Do you wish to overwrite these files?"
 msgstr "¿Deseas sobreescribir estos ficheros?"
 
-#: ../../main/core/src/templates/configurationFiles.mas:19
+#: ../../main/core/src/templates/configurationFiles.mas:18
 msgid "Keep current file"
 msgstr "Mantener el fichero actual"
 
-#: ../../main/core/src/templates/configurationFiles.mas:23
-#: ../../main/mail/src/templates/alias.mas:159
-#: ../../main/mail/src/templates/alias.mas:160
+#: ../../main/core/src/templates/configurationFiles.mas:19
 msgid "Modify"
 msgstr "Modificar"
 
-#: ../../main/core/src/templates/backup.mas:28
+#: ../../main/core/src/templates/backup.mas:26
 msgid "Full Backup"
 msgstr "Backup completo"
 
-#: ../../main/core/src/templates/backup.mas:35
+#: ../../main/core/src/templates/backup.mas:33
 #, perl-brace-format
 msgid ""
 "Those modules which have not been enabled for first time in the {openref}"
@@ -17502,11 +17211,11 @@ msgstr ""
 "{openref}estado de los módulos{closeref} serán ignorados tanto en las "
 "operaciones de backup como de restauración."
 
-#: ../../main/core/src/templates/backup.mas:37
+#: ../../main/core/src/templates/backup.mas:36
 msgid "Backup the Current State"
 msgstr "Backup del estado actual"
 
-#: ../../main/core/src/templates/backup.mas:39
+#: ../../main/core/src/templates/backup.mas:37
 msgid ""
 "Backups will be stored in Zentyal and then you will be able to download them "
 "to your hard disk."
@@ -17514,7 +17223,7 @@ msgstr ""
 "Los backups se almacenarán en Zentyal y posteriormente pueden ser "
 "descargados a su disco duro."
 
-#: ../../main/core/src/templates/backup.mas:40
+#: ../../main/core/src/templates/backup.mas:37
 msgid ""
 "If you have the file sharing module configured, all users having "
 "administration rights will be able to access the backup directory as a "
@@ -17524,11 +17233,11 @@ msgstr ""
 "usuarios con derechos de administración pueden acceder al directorio de "
 "backup como si fuera un recurso compartido."
 
-#: ../../main/core/src/templates/backup.mas:76
+#: ../../main/core/src/templates/backup.mas:69
 msgid "Restore Backup from File"
 msgstr "Restaurar backup desde un archivo"
 
-#: ../../main/core/src/templates/backup.mas:78
+#: ../../main/core/src/templates/backup.mas:72
 msgid ""
 "You can upload a backup file from your computer. When uploading files you "
 "should be warned that some web browsers cannot handle huge files (>= 1 Gb)."
@@ -17537,35 +17246,35 @@ msgstr ""
 "tener en cuenta que algunos navegadores web no pueden manejar ficheros muy "
 "grandes (>= 1Gb)"
 
-#: ../../main/core/src/templates/backup.mas:86
+#: ../../main/core/src/templates/backup.mas:79
 msgid "Backup file"
 msgstr "Fichero de backup"
 
-#: ../../main/core/src/templates/backup.mas:116
+#: ../../main/core/src/templates/backup.mas:107
 msgid "Full"
 msgstr "Completo"
 
-#: ../../main/core/src/templates/backup.mas:117
+#: ../../main/core/src/templates/backup.mas:108
 msgid "Configuration only"
 msgstr "Sólo configuración"
 
-#: ../../main/core/src/templates/backup.mas:118
+#: ../../main/core/src/templates/backup.mas:109
 msgid "Unknown type"
 msgstr "Tipo desconocido"
 
-#: ../../main/core/src/templates/backup.mas:155
+#: ../../main/core/src/templates/backup.mas:139
 msgid "Restore configuration using this file"
 msgstr "Restaurar la configuración utilizando este fichero"
 
-#: ../../main/core/src/templates/backup.mas:156
+#: ../../main/core/src/templates/backup.mas:139
 msgid "Restore from backup"
 msgstr "Restaurar desde backup"
 
-#: ../../main/core/src/templates/backup.mas:193
+#: ../../main/core/src/templates/backup.mas:171
 msgid "Configuration Report"
 msgstr "Informe de configuración"
 
-#: ../../main/core/src/templates/backup.mas:195
+#: ../../main/core/src/templates/backup.mas:174
 msgid ""
 "You can generate a file with information about the state of your system. "
 "This file can be useful if you want to report a problem or seek for support."
@@ -17574,7 +17283,7 @@ msgstr ""
 "fichero puede ser de utilidad si desea enviar un informe de error o recibir "
 "soporte."
 
-#: ../../main/core/src/templates/backup.mas:200
+#: ../../main/core/src/templates/backup.mas:178
 msgid "Generate and Download report file"
 msgstr "Generar y Descargar fichero de informe"
 
@@ -17582,82 +17291,58 @@ msgstr "Generar y Descargar fichero de informe"
 msgid "Log Domain"
 msgstr "Dominio de registro"
 
-#: ../../main/core/src/templates/logs/index.mas:22
+#: ../../main/core/src/templates/logs/index.mas:21
 msgid "Last hour logs will be showed when selecting a component"
 msgstr "Los logs de la última hora se mostrarán al seleccionar un componente"
 
-#: ../../main/core/src/templates/logs/index.mas:23
+#: ../../main/core/src/templates/logs/index.mas:21
 msgid "Select available full reports"
 msgstr "Seleccione los informes completos disponibles"
 
-#: ../../main/core/src/templates/logs/index.mas:35
-#: ../../main/core/src/templates/logs/index.mas:36
-#: ../../main/core/src/templates/logs/index.mas:37
+#: ../../main/core/src/templates/logs/index.mas:30
 msgid "View"
 msgstr "Vista"
 
-#: ../../main/core/src/templates/logs/index.mas:44
+#: ../../main/core/src/templates/logs/index.mas:36
 msgid "Custom query"
 msgstr "Consulta personalizada"
 
-#: ../../main/core/src/templates/logs/index.mas:50
+#: ../../main/core/src/templates/logs/index.mas:40
 msgid "From date:"
 msgstr "Desde la fecha:"
 
-#: ../../main/core/src/templates/logs/index.mas:108
-msgid "Refresh logs"
-msgstr "Refrescar los registros"
-
-#: ../../main/core/src/templates/logs/index.mas:115
-msgid "To date:"
-msgstr "Hasta la fecha:"
-
-#: ../../main/core/src/templates/logs/index.mas:207
-#: ../../main/core/src/templates/logs/index.mas:208
-msgid "Save as event"
-msgstr "Guardar como evento"
-
-#: ../../main/core/src/templates/logs/index.mas:234
-msgid "No logs matching current criterion"
-msgstr "Ningún log concuerda con el criterio actual"
-
-#: ../../main/core/src/templates/logs/index.mas:238
-msgid "There are no logs for this domain"
-msgstr "No hay registros para este dominio"
-
-#: ../../main/core/src/templates/wizard.mas:90
-#: ../../main/core/src/templates/wizard.mas:91
+#: ../../main/core/src/templates/wizard.mas:89
 msgid "Finish"
 msgstr "Terminar"
 
-#: ../../main/core/src/templates/wizard.mas:153
+#: ../../main/core/src/templates/wizard.mas:149
 msgid "Congratulations!"
 msgstr "¡Enhorabuena!"
 
-#: ../../main/core/src/templates/wizard.mas:154
+#: ../../main/core/src/templates/wizard.mas:149
 msgid "Now you are ready to save changes and start using your Zentyal server"
 msgstr ""
 "Ahora está preparado para guardar cambios y comenzar a usar su servidor "
 "Zentyal"
 
-#: ../../main/core/src/templates/wizard.mas:156
+#: ../../main/core/src/templates/wizard.mas:150
 msgid "Installation finished"
 msgstr "Instalación completada"
 
-#: ../../main/core/src/templates/wizard.mas:157
+#: ../../main/core/src/templates/wizard.mas:150
 msgid ""
 "Now you are ready to save changes and start using your new installed modules"
 msgstr ""
 "Ahora está preparado para guardar cambios y comenzar a usar los nuevos "
 "módulos instalados"
 
-#: ../../main/core/src/templates/wizard.mas:181
-#: ../../main/core/src/templates/wizard.mas:191
+#: ../../main/core/src/templates/wizard.mas:172
+#: ../../main/core/src/templates/wizard.mas:180
 msgid "Skip"
 msgstr "Saltar"
 
-#: ../../main/core/src/templates/wizard.mas:182
-#: ../../main/core/src/templates/wizard.mas:192
+#: ../../main/core/src/templates/wizard.mas:172
+#: ../../main/core/src/templates/wizard.mas:180
 msgid "Next"
 msgstr "Siguiente"
 
@@ -17669,7 +17354,7 @@ msgstr "Sin opciones"
 msgid "Language Selection"
 msgstr "Selección de idioma"
 
-#: ../../main/core/src/templates/language.mas:28
+#: ../../main/core/src/templates/language.mas:27
 msgid ""
 "You need to save changes in order to apply all the language changes and "
 "probably also reload the page on your browser."
@@ -17677,19 +17362,26 @@ msgstr ""
 "Ha de guardar los cambios para aplicar las modificaciones del idioma y "
 "posiblemente también recargar la página en el navegador."
 
+#: ../../main/core/src/templates/language.mas:28
+#, perl-brace-format
+msgid ""
+"The language pack for {l} is missing, you can install it by running the "
+"following command: {c}"
+msgstr ""
+
 #: ../../main/core/src/templates/password.mas:4
 msgid "Change Password"
 msgstr "Cambiar contraseña"
 
-#: ../../main/core/src/templates/password.mas:5
+#: ../../main/core/src/templates/password.mas:4
 msgid "Your password must be at least 6 characters long."
 msgstr "La contraseña debe tener al menos 6 caracteres."
 
-#: ../../main/core/src/templates/password.mas:25
+#: ../../main/core/src/templates/password.mas:22
 msgid "Current password"
 msgstr "Contraseña actual"
 
-#: ../../main/core/src/templates/password.mas:53
+#: ../../main/core/src/templates/password.mas:48
 msgid "Confirm password"
 msgstr "Confirmar contraseña"
 
@@ -17697,11 +17389,17 @@ msgstr "Confirmar contraseña"
 msgid "Time Zone"
 msgstr "Zona Horaria"
 
+#: ../../main/core/src/templates/timezone.mas:14
+msgid ""
+"You will probably have to restart some services after\n"
+"            changing the time zone."
+msgstr ""
+
 #: ../../main/mail/src/templates/groupalias.mas:7
 msgid "Mail alias settings"
 msgstr "Características del alias de la cuenta de correo"
 
-#: ../../main/mail/src/templates/groupalias.mas:12
+#: ../../main/mail/src/templates/groupalias.mas:11
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
@@ -17709,71 +17407,89 @@ msgstr ""
 "No hay usuarios en el grupo o los usuarios no tienen una cuenta de correo, "
 "así que un alias no se puede crear"
 
-#: ../../main/mail/src/templates/groupalias.mas:22
-#: ../../main/mail/src/templates/alias.mas:36
+#: ../../main/mail/src/templates/groupalias.mas:20
+#: ../../main/mail/src/templates/alias.mas:26
 msgid "Mail alias"
 msgstr "Alias de cuenta de correo"
 
-#: ../../main/mail/src/templates/createaccount.mas:14
+#: ../../main/mail/src/templates/createaccount.mas:13
 msgid "Create mail account"
 msgstr "Crear cuenta de correo"
 
-#: ../../main/mail/src/templates/createaccount.mas:22
+#: ../../main/mail/src/templates/createaccount.mas:20
 msgid "Account name"
 msgstr "Nombre de cuenta"
-
-#: ../../main/mail/src/templates/createaccount.mas:55
-msgid "Maildir size"
-msgstr "Tamaño del buzón de correo"
 
 #: ../../main/mail/src/templates/account.mas:22
 msgid "Mail account"
 msgstr "Cuenta de correo"
 
-#: ../../main/mail/src/templates/account.mas:26
+#: ../../main/mail/src/templates/account.mas:25
+msgid ""
+"Mail account  is unavailable because either there isn't  any mail virtual \n"
+" domain created or you need to save changes in order to activate the new "
+"domains."
+msgstr ""
+
+#: ../../main/mail/src/templates/account.mas:28
 msgid "Click here to create a new mail virtual domain"
 msgstr "Click aquí para crear un nuevo dominio de correo"
 
-#: ../../main/mail/src/templates/Wizard/virtualdomain.mas:7
+#: ../../main/mail/src/templates/warnusermdsize.mas:10
+#: ../../main/mail/src/templates/warnvdmdsize.mas:14
+#, fuzzy
+msgid "Changing maildir size of"
+msgstr "Tamaño del buzón de correo"
+
+#: ../../main/mail/src/templates/warnusermdsize.mas:11
+msgid ""
+"The new maildir size is smaller than the oldest one and the actual\n"
+"\tsize of the user maildir will surpass the new limitation."
+msgstr ""
+
+#: ../../main/mail/src/templates/Wizard/virtualdomain.mas:6
 msgid "Set up the default virtual mail domain"
 msgstr "Configurar el dominio virtual de correo"
 
-#: ../../main/mail/src/templates/Wizard/virtualdomain.mas:8
+#: ../../main/mail/src/templates/Wizard/virtualdomain.mas:6
 msgid "This will be the domain for your mail accounts"
 msgstr "Este será el dominio para sus cuentas de correo"
 
-#: ../../main/mail/src/templates/qmanager.mas:20
+#: ../../main/mail/src/templates/warnvdmdsize.mas:15
+msgid ""
+"The new maildir size is smaller than the oldest one, the following\n"
+"\tusers will surprass the new limitation:"
+msgstr ""
+
+#: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Sender"
 msgstr "Remitente"
 
-#: ../../main/mail/src/templates/qmanager.mas:21
+#: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Recipients"
 msgstr "Destinatarios"
 
-#: ../../main/mail/src/templates/qmanager.mas:44
-#: ../../main/mail/src/templates/qmanager.mas:45
+#: ../../main/mail/src/templates/qmanager.mas:33
 msgid "Requeue"
 msgstr "Reencolar"
 
-#: ../../main/mail/src/templates/qmanager.mas:49
-#: ../../main/mail/src/templates/qmanager.mas:50
+#: ../../main/mail/src/templates/qmanager.mas:35
 msgid "Show Info"
 msgstr "Mostrar información"
 
-#: ../../main/mail/src/templates/qmanager.mas:67
-#: ../../main/mail/src/templates/qmanager.mas:68
+#: ../../main/mail/src/templates/qmanager.mas:47
 msgid "Hide Info"
 msgstr "Ocultar información"
 
-#: ../../main/mail/src/templates/qmanager.mas:82
+#: ../../main/mail/src/templates/qmanager.mas:60
 msgid "Attempt to deliver all queued mail"
 msgstr "Intentar entregar todo el correo encolado"
 
-#: ../../main/mail/src/templates/qmanager.mas:89
+#: ../../main/mail/src/templates/qmanager.mas:66
 msgid "Remove all messages"
 msgstr "Borrar todos los mensajes"
 
-#: ../../main/mail/src/templates/qmanager.mas:146
+#: ../../main/mail/src/templates/qmanager.mas:111
 msgid "There are no messages in queue or the service is stopped"
 msgstr "No hay mensajes en la cola o el servicio está detenido"
 
@@ -17784,7 +17500,12 @@ msgstr ""
 "Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
 "habilitado"
 
-#: ../../main/mail/src/templates/warnvd.mas:14
+#: ../../main/mail/src/templates/warnvd.mas:12
+#, fuzzy
+msgid "Deleting virtual domain"
+msgstr "Dominio virtual de correo"
+
+#: ../../main/mail/src/templates/warnvd.mas:13
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
@@ -17796,49 +17517,50 @@ msgstr ""
 msgid "Mail account settings"
 msgstr "Características de la cuenta de correo"
 
-#: ../../main/mail/src/templates/alias.mas:31
+#: ../../main/mail/src/templates/alias.mas:22
 msgid "Create mail aliases"
 msgstr "Crear alias de cuenta de correo"
 
-#: ../../main/mail/src/templates/alias.mas:121
+#: ../../main/mail/src/templates/alias.mas:102
 msgid "No quota"
 msgstr "Sin cuota"
 
-#: ../../main/mail/src/templates/alias.mas:122
+#: ../../main/mail/src/templates/alias.mas:103
 msgid "Default quota"
 msgstr "Cuota por defecto"
 
-#: ../../main/mail/src/templates/alias.mas:123
+#: ../../main/mail/src/templates/alias.mas:104
 msgid "Custom quota"
 msgstr "Cuota personalizada"
-
-#: ../../main/mail/src/templates/alias.mas:130
-msgid "Quota type"
-msgstr "Tipo de cuota"
-
-#: ../../main/mail/src/templates/alias.mas:143
-msgid "Maximum mailbox size in MB"
-msgstr "Tamaño máximo del buzón de correo en MB"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:7
 msgid "Zarafa account"
 msgstr "Cuenta de Zarafa"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:45
+#: ../../main/zarafa/src/templates/zarafa.mas:37
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr ""
 "Zarafa cogerá la configuración de cuotas de la configuración de la cuenta de "
 "correo"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:52
+#: ../../main/zarafa/src/templates/zarafa.mas:43
 msgid "Groupware contact"
 msgstr "Contacto de Groupware"
+
+#: ../../main/zarafa/src/templates/zarafa.mas:69
+#, fuzzy
+msgid ""
+"The following settings will take effect only when the Zarafa module is "
+"enabled."
+msgstr ""
+"Las siguientes opciones sólo tendrán efecto cuando el módulo correo está "
+"habilitado"
 
 #: ../../main/asterisk/src/templates/group.mas:7
 msgid "Asterisk group queue"
 msgstr "Cola de grupo en Asterisk"
 
-#: ../../main/asterisk/src/templates/group.mas:11
+#: ../../main/asterisk/src/templates/group.mas:10
 msgid ""
 "There are no users in this group or the users do not have an Asterisk "
 "account, so a queue cannot be created."
@@ -17846,7 +17568,7 @@ msgstr ""
 "No hay usuarios en este grupo o los usuarios no tienen una cuenta Asterisk, "
 "por tanto la cola no puede ser creada."
 
-#: ../../main/asterisk/src/templates/group.mas:23
+#: ../../main/asterisk/src/templates/group.mas:20
 msgid "Group queue"
 msgstr "Cola de grupo"
 
@@ -17854,7 +17576,7 @@ msgstr "Cola de grupo"
 msgid "Asterisk account"
 msgstr "Cuenta de Asterisk"
 
-#: ../../main/asterisk/src/templates/user.mas:9
+#: ../../main/asterisk/src/templates/user.mas:8
 msgid "Password for Asterisk service is the user password"
 msgstr "La contraseña para el servicio de Asterisk es la contraseña de usuario"
 
@@ -17870,23 +17592,21 @@ msgstr ""
 msgid "Add User"
 msgstr "Añadir usuario"
 
-#: ../../main/users/src/templates/users.mas:57
-#: ../../main/users/src/templates/user.mas:88
+#: ../../main/users/src/templates/users.mas:50
+#: ../../main/users/src/templates/user.mas:79
 msgid "Retype password"
 msgstr "Confirme contraseña"
 
-#: ../../main/users/src/templates/users.mas:74
-#: ../../main/users/src/templates/users.mas:75
-#: ../../main/users/src/templates/groups.mas:38
-#: ../../main/users/src/templates/groups.mas:39
+#: ../../main/users/src/templates/users.mas:64
+#: ../../main/users/src/templates/groups.mas:34
 msgid "Add and Edit"
 msgstr "Añadir y Editar"
 
-#: ../../main/users/src/templates/Wizard/users.mas:9
+#: ../../main/users/src/templates/Wizard/users.mas:8
 msgid "Select the type of the server"
 msgstr "Seleccionar el tipo de servidor"
 
-#: ../../main/users/src/templates/Wizard/users.mas:10
+#: ../../main/users/src/templates/Wizard/users.mas:8
 msgid ""
 "Choose standalone unless you want LDAP replication or synchronization with "
 "Active Directory."
@@ -17894,15 +17614,15 @@ msgstr ""
 "Escoja stand-alone a no ser que quiera replicación LDAP o sincronización con "
 "Active Directory."
 
-#: ../../main/users/src/templates/Wizard/users.mas:12
+#: ../../main/users/src/templates/Wizard/users.mas:9
 msgid "Standalone server"
 msgstr "Servidor stand-alone"
 
-#: ../../main/users/src/templates/Wizard/users.mas:13
+#: ../../main/users/src/templates/Wizard/users.mas:9
 msgid "Advanced configuration (Master/Slave/AD Sync)"
 msgstr "Configuración avanzada (Master/Slave/AD Sync)"
 
-#: ../../main/users/src/templates/Wizard/users.mas:16
+#: ../../main/users/src/templates/Wizard/users.mas:11
 #, perl-brace-format
 msgid ""
 "If you need the advanced features you have to configure them manually. You "
@@ -17915,15 +17635,20 @@ msgstr ""
 msgid "Add Group"
 msgstr "Añadir grupo"
 
-#: ../../main/users/src/templates/groups.mas:16
+#: ../../main/users/src/templates/groups.mas:15
 msgid "Group name"
 msgstr "Nombre de grupo"
 
-#: ../../main/users/src/templates/groups.mas:31
+#: ../../main/users/src/templates/groups.mas:28
 msgid "Optional value"
 msgstr "Valor opcional"
 
-#: ../../main/users/src/templates/del.mas:15
+#: ../../main/users/src/templates/del.mas:13
+#, fuzzy
+msgid "Deleting user"
+msgstr "Eliminar usuario"
+
+#: ../../main/users/src/templates/del.mas:14
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
@@ -17931,7 +17656,7 @@ msgstr ""
 "El usuario que ha intentado eliminar contiene datos en diversos modulos. Por "
 "favor confirme que desea eliminarlo y todos sus datos relacionados"
 
-#: ../../main/users/src/templates/del.mas:20
+#: ../../main/users/src/templates/del.mas:17
 msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
@@ -17939,7 +17664,12 @@ msgstr ""
 "El grupo que ha intentando eliminar contiene datos en diversos módulos. Por "
 "favor confirme que desea eliminarlo y todo sus datos relacionados"
 
-#: ../../main/users/src/templates/group.mas:14
+#: ../../main/users/src/templates/group.mas:11
+#, fuzzy
+msgid "Administration of group "
+msgstr "Privilegios de administrador"
+
+#: ../../main/users/src/templates/group.mas:13
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
@@ -17947,39 +17677,38 @@ msgstr ""
 "No hay ningun usuario en estos momentos. Se necesita al menos un usuario "
 "para gestionar el grupo"
 
-#: ../../main/users/src/templates/group.mas:33
+#: ../../main/users/src/templates/group.mas:26
 msgid "Users in group"
 msgstr "Usuarios en el grupo"
 
-#: ../../main/users/src/templates/group.mas:35
+#: ../../main/users/src/templates/group.mas:27
 msgid "Users not in group"
 msgstr "Usuarios fuera del grupo"
 
-#: ../../main/users/src/templates/group.mas:51
-#: ../../main/users/src/templates/group.mas:92
-#: ../../main/users/src/templates/user.mas:132
-#: ../../main/users/src/templates/user.mas:167
+#: ../../main/users/src/templates/group.mas:40
+#: ../../main/users/src/templates/group.mas:71
+#: ../../main/users/src/templates/user.mas:116
+#: ../../main/users/src/templates/user.mas:141
 msgid "Empty list"
 msgstr "Lista vacía"
 
-#: ../../main/users/src/templates/group.mas:64
+#: ../../main/users/src/templates/group.mas:50
 msgid "Remove users from group"
 msgstr "Eliminar usuarios del grupo"
 
-#: ../../main/users/src/templates/group.mas:75
-#: ../../main/users/src/templates/group.mas:78
-#: ../../main/users/src/templates/user.mas:151
-#: ../../main/users/src/templates/user.mas:154
+#: ../../main/users/src/templates/group.mas:59
+#: ../../main/users/src/templates/group.mas:60
+#: ../../main/users/src/templates/user.mas:130
+#: ../../main/users/src/templates/user.mas:131
 msgid "Add users to group"
 msgstr "Añadir usuarios al grupo"
 
-#: ../../main/users/src/templates/group.mas:108
-#: ../../main/users/src/templates/group.mas:117
-#: ../../main/users/src/templates/group.mas:118
+#: ../../main/users/src/templates/group.mas:85
+#: ../../main/users/src/templates/group.mas:91
 msgid "Delete group"
 msgstr "Eliminar grupo"
 
-#: ../../main/users/src/templates/group.mas:110
+#: ../../main/users/src/templates/group.mas:86
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
@@ -17987,35 +17716,268 @@ msgstr ""
 "Esta operación eliminará el grupo y todas sus dependencias, tales como "
 "directorios compartidos, etc."
 
-#: ../../main/users/src/templates/user.mas:67
+#: ../../main/users/src/templates/user.mas:14
+#, fuzzy
+msgid "Administration of user"
+msgstr "Privilegios de administrador"
+
+#: ../../main/users/src/templates/user.mas:61
 msgid "User quota"
 msgstr "Cuota de usuario"
 
-#: ../../main/users/src/templates/user.mas:114
+#: ../../main/users/src/templates/user.mas:102
 msgid "User groups"
 msgstr "Grupos del usuario"
 
-#: ../../main/users/src/templates/user.mas:116
+#: ../../main/users/src/templates/user.mas:103
 msgid "Other groups"
 msgstr "Otros grupos"
 
-#: ../../main/users/src/templates/user.mas:143
+#: ../../main/users/src/templates/user.mas:124
 msgid "Remove groups from user"
 msgstr "Quitar grupos del usuario"
 
-#: ../../main/users/src/templates/user.mas:185
-#: ../../main/users/src/templates/user.mas:193
-#: ../../main/users/src/templates/user.mas:194
+#: ../../main/users/src/templates/user.mas:157
+#: ../../main/users/src/templates/user.mas:162
 msgid "Delete user"
 msgstr "Eliminar usuario"
 
-#: ../../main/users/src/templates/user.mas:187
+#: ../../main/users/src/templates/user.mas:158
 msgid ""
 "This operation will cause the removal of the user and all dependent data "
 "such as mail accounts, user files, etc."
 msgstr ""
 "Esta operación eliminará el usuario y todas sus dependencias, tales como "
 "cuentas de correo, archivos, etc."
+
+#~ msgid "Move up"
+#~ msgstr "Subir"
+
+#~ msgid "Move down"
+#~ msgstr "Bajar"
+
+#~ msgid "Allow all printers"
+#~ msgstr "Permitir todas las impresoras"
+
+#~ msgid "printers module"
+#~ msgstr "módulo de impresoras"
+
+#~ msgid "file sharing module"
+#~ msgstr "módulo de compartición de ficheros"
+
+#~ msgid ""
+#~ "Multi-value separated by commas, only valid types are: {dns}, {ip} and "
+#~ "{email}. For instance, {example}"
+#~ msgstr ""
+#~ "Multi-valor separado por comas, los tipos válidos son: {dns}, {ip} y "
+#~ "{email}. Por ejemplo, {example}"
+
+#~ msgid "Issue"
+#~ msgstr "Expedir"
+
+#~ msgid "Certificate changes will take effect immediately."
+#~ msgstr "Los cambios en los certificados tendrán efecto de manera inmediata."
+
+#~ msgid "The CA passphrase is optional"
+#~ msgstr "La frase de paso para la CA es opcional"
+
+#~ msgid "Issue the Certification Authority Certificate"
+#~ msgstr "Expedir el Certificado de la Autoridad de Certificación"
+
+#~ msgid "Issue a New Certificate"
+#~ msgstr "Expedir un nuevo certificado"
+
+#~ msgid "Current Certificate List"
+#~ msgstr "Lista de Certificados actual"
+
+#~ msgid ""
+#~ "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
+#~ "Revoked certificates respectively"
+#~ msgstr ""
+#~ "La fecha se refiere a Fecha de Expiración en certificados Válidos o "
+#~ "Caducados y a Fecha de Revocación en los certificados revocados "
+#~ "respectivamente"
+
+#~ msgid "from"
+#~ msgstr "desde"
+
+#~ msgid "Valid"
+#~ msgstr "Válido"
+
+#~ msgid "Expired"
+#~ msgstr "Expirado"
+
+#~ msgid "Revoked"
+#~ msgstr "Revocado"
+
+#~ msgid "Reason: {reason}"
+#~ msgstr "Razón: {reason}"
+
+#~ msgid "Download Key(s) and Certificate"
+#~ msgstr "Descargar clave(s) y certificado"
+
+#~ msgid "Renew or reissue"
+#~ msgstr "Renovar o re-emitir"
+
+#~ msgid "Renewing CA certificate"
+#~ msgstr "Renovando el certificado de la Autoridad de Certificación"
+
+#~ msgid "Renewing certificate"
+#~ msgstr "Renovando certificado"
+
+#~ msgid ""
+#~ "This renewal can affect the functionality from other modules, please "
+#~ "confirm you are very sure to renew the whole certification authority from "
+#~ "{on} and leave the service(s) unstable or disabled"
+#~ msgstr ""
+#~ "Esta renovación puede afectar a la funcionalidad de otros módulos, por "
+#~ "favor confirme que está seguro de renovar toda la autoridad de "
+#~ "certificación de {on} y dejar posiblemente servicios inestables o "
+#~ "deshabilitados"
+
+#~ msgid "Item"
+#~ msgstr "Ítem"
+
+#~ msgid "items left"
+#~ msgstr "Ítems que quedan"
+
+#~ msgid "Some error has happened in Zentyal: "
+#~ msgstr "Ha ocurrido un error en Zentyal:"
+
+#~ msgid "Click here to return to the Dashboard"
+#~ msgstr "Haz click para volver al Dashboard"
+
+#~ msgid "Starting..."
+#~ msgstr "Comenzando..."
+
+#~ msgid " of "
+#~ msgstr " de "
+
+#~ msgid "The process produced some warning messages:"
+#~ msgstr "El proceso produjo algunos avisos:"
+
+#~ msgid "Full Restore"
+#~ msgstr "Restauración completa"
+
+#~ msgid "Configuration Restore"
+#~ msgstr "Restauración de la configuración"
+
+#~ msgid "Restore mode"
+#~ msgstr "Tipo de restauración"
+
+#~ msgid "Choose one of the options to show the associated table"
+#~ msgstr "Elija una de las opciones para mostrar la tabla asociada"
+
+#~ msgid "Choose one..."
+#~ msgstr "Elija una..."
+
+#~ msgid "Add new"
+#~ msgstr "Añadir nuevo/a"
+
+#~ msgid "Read-only row: edit disabled"
+#~ msgstr "Fila de solo lectura: edición desactivada"
+
+#~ msgid "Read-only row: delete disabled"
+#~ msgstr "Fila de solo lectura: borrado desactivado"
+
+#~ msgid "Read-only row: move up disabled"
+#~ msgstr "Fila de solo lectura: movimiento hacia arriba desactivado"
+
+#~ msgid "Read-only row: move down  disabled"
+#~ msgstr "Fila de sólo lectura: movimiento hacia abajo desactivado"
+
+#~ msgid "Inexistent RAID array {a}"
+#~ msgstr "Vector RAID {a} inexistente"
+
+#~ msgid "RAID is not enabled in this system."
+#~ msgstr "RAID no está habilitado en este sistema"
+
+#~ msgid "left-asymmetric"
+#~ msgstr "Asimétrico izquierdo"
+
+#~ msgid "right-asymmetric"
+#~ msgstr "Asimétrico derecho"
+
+#~ msgid "left-symmetric"
+#~ msgstr "Simétrico izquierdo"
+
+#~ msgid "right-symmetric"
+#~ msgstr "Simétrico derecho"
+
+#~ msgid "Active RAID devices"
+#~ msgstr "Dispositivos RAID activos"
+
+#~ msgid "Active RAID devices needed"
+#~ msgstr "Dispositivos RAID activos necesarios"
+
+#~ msgid "Size in blocks"
+#~ msgstr "Tamaño en bloques"
+
+#~ msgid "Chunk size"
+#~ msgstr "Tamaño del trozo"
+
+#~ msgid "Parity algorithm"
+#~ msgstr "Algoritmo de paridad"
+
+#~ msgid "Bitmap"
+#~ msgstr "Mapa de bits"
+
+#~ msgid "Array properties"
+#~ msgstr "Propiedades del vector"
+
+#~ msgid "Resyncing array"
+#~ msgstr "Resincronizando vector"
+
+#~ msgid "Rebuild array"
+#~ msgstr "Reconstruyendo vector"
+
+#~ msgid "Reshape array"
+#~ msgstr "Remoldeando el vector"
+
+#~ msgid "Operation type"
+#~ msgstr "Tipo de operación"
+
+#~ msgid "Percentage completed"
+#~ msgstr "Porcentaje completado"
+
+#~ msgid "Estimated time left"
+#~ msgstr "Tiempo estimado para finalizar: {time}."
+
+#~ msgid "Operation speed"
+#~ msgstr "Velocidad de la operación"
+
+#~ msgid "RAID device number"
+#~ msgstr "Número de dispositivo RAID"
+
+#~ msgid "Device"
+#~ msgstr "Dispositivo"
+
+#~ msgid "failure"
+#~ msgstr "defectuoso"
+
+#~ msgid "Unused RAID arrays"
+#~ msgstr "Dispositivos RAID sin usar"
+
+#~ msgid "Refresh logs"
+#~ msgstr "Refrescar los registros"
+
+#~ msgid "To date:"
+#~ msgstr "Hasta la fecha:"
+
+#~ msgid "Save as event"
+#~ msgstr "Guardar como evento"
+
+#~ msgid "No logs matching current criterion"
+#~ msgstr "Ningún log concuerda con el criterio actual"
+
+#~ msgid "There are no logs for this domain"
+#~ msgstr "No hay registros para este dominio"
+
+#~ msgid "Quota type"
+#~ msgstr "Tipo de cuota"
+
+#~ msgid "Maximum mailbox size in MB"
+#~ msgstr "Tamaño máximo del buzón de correo en MB"
 
 #~ msgid "Advanced Security Updates"
 #~ msgstr "Actualizaciones de seguridad Avazadas"
