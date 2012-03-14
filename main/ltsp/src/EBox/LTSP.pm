@@ -190,7 +190,7 @@ sub usedFiles
 #
 # Overrides:
 #
-#       <EBox::Module::ServiceBase>
+#       <EBox::Module::Service>
 #
 sub _supportActions
 {
@@ -677,7 +677,7 @@ sub ltspClientsWidget
         $rows->{$id} = [$client->{user},$client->{ip},];
     }
 
-    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows));
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No user connected in any thin client.'));
 }
 
 ### Method: widgets
