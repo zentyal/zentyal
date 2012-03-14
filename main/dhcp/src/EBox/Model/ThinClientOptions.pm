@@ -48,6 +48,7 @@ use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Host;
 use EBox::Validate;
+use EBox::View::Customizer;
 
 # Group: Public methods
 
@@ -159,6 +160,37 @@ sub notifyForeignModelAction
 
 }
 
+# Method: nextServerIsZentyal
+#
+#     Finds out whether the next server the next server is Zentyal or not
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     Boolean - if Zentyal is the next server for the given row
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub nextServerIsZentyal
+{
+    my ($self, $id) = @_;
+
+    my $row = $self->row($id);
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
+    return ( $row->valueByName('nextServer') eq 'nextServerEBox' );
+
+}
+
 # Method: nextServer
 #
 #     Get the next server (name or IP address) in an string form to
@@ -188,21 +220,144 @@ sub nextServer
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
-    my $nextServerType = $row->elementByName('nextServer');
-    my $nextServerSelectedName = $nextServerType->selectedType();
-    given ( $nextServerSelectedName ) {
-        when ('nextServerEBox' ) {
-            my $netMod = EBox::Global->modInstance('network');
-            return $netMod->ifaceAddress($self->{interface});
-        }
-        default {
-            return $nextServerType->printableValue();
-        }
+    return $row->valueByName('nextServerHost');
+}
+
+# Method: remoteFilename
+#
+#   Get the remote filename in an string form to tell the DHCP clients which
+#   is the file to ask for to the server
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     String - a filename
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub remoteFilename
+{
+    my ($self, $id) = @_;
+
+    my $row = $self->row($id);
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
+    my $nextServerType = $row->valueByName('nextServer');
+    given ( $nextServerType ) {
+        when ('nextServerHost' ) {
+            return $row->valueByName('remoteFilename');
+        }
+        default {
+            return '';
+        }
+    }
+}
+
+# Method: architecture
+#
+#     Get the architecture in an string form to tell the DHCP clients which is
+#     the architecture of the thin clients
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     String - architecture
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub architecture
+{
+    my ($self, $id) = @_;
+
+    my $row = $self->row($id);
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
+    return $row->valueByName('architecture');
 }
 
 # Group: Protected methods
+
+#
+#   Callback function to fill out the values that can
+#   be picked from the <EBox::Types::Select> field module
+#
+# Returns:
+#
+#   Array ref of hash refs containing the 'value' and the 'printableValue' for
+#   each select option
+#
+sub _select_options
+{
+    my @ltspSubtypes;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('ltsp') ) {
+        push(@ltspSubtypes,
+            {
+                value => 'nextServerEBox',
+                printableValue => __('Zentyal LTSP'),
+            }
+        );
+    }
+
+    push(@ltspSubtypes,
+        {
+            value => 'nextServerHost',
+            printableValue => __('Host'),
+        },
+    );
+
+    return \@ltspSubtypes;
+}
+
+#
+#   Callback function to fill out the values that can
+#   be picked from the <EBox::Types::Select> field module
+#
+# Returns:
+#
+#   Array ref of hash refs containing the 'value' and the 'printableValue' for
+#   each select option
+#
+sub _select_architecture
+{
+    my @architectures;
+
+    my $gl = EBox::Global->getInstance();
+
+    if ( $gl->modExists('ltsp') ) {
+        my $module = $gl->modInstance('ltsp');
+
+        for my $arch (@{$module->architectures}) {
+            push(@architectures,
+                {
+                    value => $arch,
+                    printableValue => $arch,
+                }
+            );
+        }
+    }
+
+    return \@architectures;
+}
 
 # Method: _table
 #
@@ -214,29 +369,29 @@ sub _table
 {
     my ($self) = @_;
 
-
-    my @tableDesc =
-      (
-       new EBox::Types::Union(
+    my @tableDesc = (
+        new EBox::Types::Select(
                               fieldName     => 'nextServer',
                               printableName => __('Next server'),
+                              populate      => \&_select_options,
                               editable      => 1,
-                              subtypes      =>
-                              [new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
-                                                            printableName => __('Zentyal'),
-                                                           ),
-                               new EBox::Types::Host(fieldName     => 'nextServerHost',
-                                                     printableName => __('Host'),
-                                                     editable      => 1,
-                                                    ),
-                              ]),
-       new EBox::Types::Text(
+                              help          => __('If "Zentyal LTSP" is present and selected, '
+                                                  . 'Zentyal will be the LTSP server.'
+                                                  . ' You will need to enable and configure the LTSP module.'),),
+        new EBox::Types::Host(fieldName     => 'nextServerHost',
+                              printableName => __('Host'),
+                              editable      => 1,
+                              optional      => 1,
+                              help          => __('Thin Client server as seen by the clients.'),
+                             ),
+        new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
-                             printableName => __('File path in next server'),
+                             printableName => __('File path'),
                              editable      => 1,
                              optional      => 1,
+                             help          => __('File path in next server'),
                             ),
-       new EBox::Types::Union(
+        new EBox::Types::Union(
                               fieldName      => 'hosts',
                               printableName  => __('Clients'),
                               editable       => 1,
@@ -259,7 +414,14 @@ sub _table
                                       unique           => 1,
                                       editable         => 1)
                                     ]),
-      );
+        new EBox::Types::Select(
+                            fieldName       => 'architecture',
+                            printableName   => __('Architecture'),
+                            populate        => \&_select_architecture,
+                            editable        => 1,
+                            hiddenOnViewer  => 1,
+                            help            => __('Architecture of the LTSP clients. The LTSP image for that architecture must exist in order to boot the clients.'),),
+    );
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
@@ -281,6 +443,37 @@ sub _table
 
     return $dataTable;
 
+}
+
+# Method: viewCustomizer
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my %actions = (
+        'nextServer' => {
+            'nextServerEBox' => {
+                show => ['hosts', 'nextServerHost', 'architecture'],
+                hide => ['remoteFilename'],
+            },
+            'nextServerHost' => {
+                show => ['remoteFilename', 'nextServerHost', 'hosts'],
+                hide => ['architecture'],
+            },
+        },
+    );
+
+    $customizer->setOnChangeActions( \%actions );
+
+    return $customizer;
 }
 
 1;

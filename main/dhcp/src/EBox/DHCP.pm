@@ -1640,7 +1640,7 @@ sub _leasedTime # (which, iface)
 
 # Method: _thinClientOptions
 #
-#    Get the thin client option (nextServer or filename) if defined
+#    Get the thin client options
 #
 sub _thinClientOptions # (iface, element)
 {
@@ -1651,8 +1651,10 @@ sub _thinClientOptions # (iface, element)
     my $ret = {};
     my $row = $thinClientModel->findValue(hosts => $element);
     if ( defined($row) ) {
+        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal($row->id());
         $ret->{nextServer} = $thinClientModel->nextServer($row->id());
-        $ret->{filename}   = $row->valueByName('remoteFilename');
+        $ret->{filename}   = $thinClientModel->remoteFilename($row->id());
+        $ret->{architecture} = $thinClientModel->architecture($row->id());
     }
     return $ret;
 

@@ -1,3 +1,5 @@
+HEAD
+	+ Added EBox::Types::Time type
 2.3.5
 	+ Added force parameter in validateTypedRow
 	+ Fixed 'hidden' on types when using method references

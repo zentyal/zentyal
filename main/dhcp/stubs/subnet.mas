@@ -145,10 +145,26 @@
   %options
 </%args>
 % if (values(%options) > 0) {
-                   next-server <% $options{nextServer} %>;
-                   option tftp-server-name "<% $options{nextServer} %>";
-% if ( $options{filename} ) {
-                   filename    "<% $options{filename} %>";
-% }
+%   if ($options{nextServerIsZentyal}) {
+%       if ($options{nextServer}) {
+                next-server <% $options{nextServer} %>;
+                option tftp-server-name "<% $options{nextServer} %>";
+%       }
+                option root-path "/opt/ltsp/<% $options{architecture} %>";
+                if substring( option vendor-class-identifier, 0, 9 ) = "PXEClient" {
+                    filename "/ltsp/<% $options{architecture} %>/pxelinux.0";
+                } else {
+                    filename "/ltsp/<% $options{architecture} %>/nbi.img";
+                }
+%   }
+%   else {
+%       if ($options{nextServer}) {
+                next-server <% $options{nextServer} %>;
+                option tftp-server-name "<% $options{nextServer} %>";
+%       }
+%       if ( $options{filename} ) {
+                filename    "<% $options{filename} %>";
+%       }
+%   }
 % }
 </%def>
