@@ -9,4 +9,4 @@ $(patsubst %,binary-install/%,$(DEB_PACKAGES)) :: binary-install/%:
 	done;
 
 common-install-indep::
-	zentyal-install-module $(DEB_DESTDIR)
+	zentyal-install-module $(CURDIR)/debian/$(DEB_SOURCE_PACKAGE)/
