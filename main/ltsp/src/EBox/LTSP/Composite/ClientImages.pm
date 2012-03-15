@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::LTSP::Composite::Configuration
+# Class: EBox::LTSP::Composite::ClientImages
 #
 #   TODO: Document composite
 #
 
-package EBox::LTSP::Composite::ClientConfiguration;
+package EBox::LTSP::Composite::ClientImages;
 
 use base 'EBox::Model::Composite';
 
@@ -42,17 +42,6 @@ sub new
     return $self;
 }
 
-# Method: pageTitle
-#
-# Overrides:
-#
-#   <EBox::Model::Component::pageTitle>
-#
-sub pageTitle
-{
-    return 'Profile Configuration';
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -66,12 +55,12 @@ sub _description
     my $description =
     {
         components      => [
-                '/ltsp/GeneralClientOpts',
-                '/ltsp/OtherClientOpts',
-            ],
-        layout          => 'top-bottom',
-        name            => 'ClientConfiguration',
-        printableName   => __('Client configuration'),
+                                '/ltsp/ImageCreation',
+                                '/ltsp/AvailableImages',
+                           ],
+        layout          => 'top-bottom', # or tabbed
+        name            => 'ClientImages',
+        printableName   => __('Thin Clients Image Management'),
         compositeDomain => 'LTSP',
         help            => __(''), # FIXME
     };

@@ -339,24 +339,22 @@ sub _select_options
 #
 sub _select_architecture
 {
-    my @architectures;
-
     my $gl = EBox::Global->getInstance();
 
     if ( $gl->modExists('ltsp') ) {
-        my $module = $gl->modInstance('ltsp');
-
-        for my $arch (@{$module->architectures}) {
-            push(@architectures,
-                {
-                    value => $arch,
-                    printableValue => $arch,
-                }
-            );
-        }
+        return [
+        {
+            value => 'i386',
+            printableValue => __('32 bits'),
+        },
+        {
+            value => 'amd64',
+            printableValue => __('64 bits'),
+        },
+    ];
+    } else {
+        return [];
     }
-
-    return \@architectures;
 }
 
 # Method: _table
