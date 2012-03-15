@@ -1,5 +1,7 @@
 HEAD
 	+ Added new EBox::Types::Time and EBox::Types::Date
+	+ Added new EBox::Types::TimeZone
+	+ Modelize SysInfo
 2.3.5
 	+ Added force parameter in validateTypedRow
 	+ Fixed 'hidden' on types when using method references
