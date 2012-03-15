@@ -166,32 +166,28 @@ sub allExternalAccountsByLocalAccount
     my %accountsByLocalAccount;
     foreach my $entry ($result->entries()) {
         my $localAccount = $entry->get_value('mail');
-        my $externalAccounts = $self->_externalAccountsForLdapEntry($entry);
-        if (@{ $externalAccounts} == 0) {
-            next;
-        }
-
-        my $mda;
         if ($zarafa) {
             my ($left, $accountDomain) = split '@', $localAccount, 2;
             if ($accountDomain eq $zarafaDomain) {
-                if ( $entry->get_value('zarafaAccount')) {
-                    my $uid = lcfirst $entry->get_value('uid');
-                    $mda =   "/usr/bin/zarafa-dagent $uid";
-                } else {
+                if (not $entry->get_value('zarafaAccount')) {
                     EBox::info("Ignored fetchmail entry for account $localAccount since it is a disabled Zarafa account");
                     next;
                 }
             }
         }
 
+
+        my $externalAccounts = $self->_externalAccountsForLdapEntry($entry);
+        if (@{$externalAccounts} == 0) {
+            next;
+        }
+
         $accountsByLocalAccount{$localAccount} = {
                                localAccount => $localAccount,
                                externalAccounts => $externalAccounts,
-                               mda => $mda,
+                               mda => undef,
                            };
     }
-
 
     return \%accountsByLocalAccount;
 }
