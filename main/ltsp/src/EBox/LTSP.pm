@@ -73,11 +73,12 @@ sub modelClasses
 {
     return [
         'EBox::LTSP::Model::AvailableImages',
+        'EBox::LTSP::Model::LocalApps',
         'EBox::LTSP::Model::GeneralOpts',
         'EBox::LTSP::Model::Clients',
         'EBox::LTSP::Model::Profiles',
-        'EBox::LTSP::Model::OtherOpts',
         'EBox::LTSP::Model::OtherClientOpts',
+        'EBox::LTSP::Model::OtherOpts',
         'EBox::LTSP::Model::GeneralClientOpts',
         'EBox::LTSP::Model::ImageCreation',
         'EBox::LTSP::Model::AutoLogin',
@@ -687,6 +688,10 @@ sub _ltspWidgetStatus   # ($self, $num_clients)
             return new EBox::Dashboard::Value( __('Status'), __("Building image") );
         } elsif ($work eq 'update') {
             return new EBox::Dashboard::Value( __('Status'), __("Updating image") );
+        } elsif ($work eq 'install') {
+            return new EBox::Dashboard::Value( __('Status'), __("Installing applications into an image") );
+        } else {
+            return new EBox::Dashboard::Value( __('Status'), __("Doing some into an image") );
         }
     } else {
         return new EBox::Dashboard::Value( __('Status'), __("$num_clients users connected to thin clients") );

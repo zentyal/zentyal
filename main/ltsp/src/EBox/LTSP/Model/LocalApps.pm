@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Class: EBox::LTSP::Model::ImageCreation
+# Class: EBox::LTSP::Model::LocalApps
 #
 #   TODO: Document class
 #
 
-package EBox::LTSP::Model::ImageCreation;
+package EBox::LTSP::Model::LocalApps;
 
 use base 'EBox::Model::DataForm';
 
@@ -28,11 +28,8 @@ use warnings;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 
-use EBox::Types::Select;
-use EBox::Types::Boolean;
+use EBox::Types::Text;
 use EBox::Types::Action;
-
-use EBox::Exceptions::External;
 
 sub new
 {
@@ -45,19 +42,6 @@ sub new
     return $self;
 }
 
-sub _select_architectures
-{
-    return [
-        {
-            value => 'i386',
-            printableValue => __('32 bits'),
-        },
-        {
-            value => 'amd64',
-            printableValue => __('64 bits'),
-        },
-    ];
-}
 
 sub _table
 {
@@ -65,46 +49,44 @@ sub _table
 
     my @fields =
     (
-        new EBox::Types::Select(
-            'fieldName'     => 'architecture',
-            'printableName' => __('Architecture'),
-            'populate'      => \&_select_architectures,
-            'editable'      => 1,
-        ),
-        new EBox::Types::Boolean(
-            'fieldName'     => 'fat',
-            'printableName' => __('Fat Image'),
-            'dafaultValue'  => 0,
-            'editable'      => 1,
+        new EBox::Types::Text(
+            'fieldName' => 'applications',
+            'printableName' => __('Applications'),
+            'size' => '15',
+            'editable' => 1,
+            'help' => 'Enter the applications separated by spaces',
         ),
     );
 
     my $customActions = [
         new EBox::Types::Action(
-            name => 'create',
-            printableValue => __('Create Image'),
+            name => 'install',
+            printableValue => __('Install Application'),
             model => $self,
-            handler => \&_doCreate,
-            message => __('Creating image. This process will be shown in the '
-                          . 'dashboard widget until it finishes.'),
+            handler => \&_doInstall,
+            message => __('Installing application into image. This process will '
+                          . 'be shown in the dashboard widget until it finishes.'),
         ),
     ];
 
-    my $form =
+    my $dataTable =
     {
-        'tableName' => 'ImageCreation',
+        'tableName' => 'LocalApps',
+        'printableTableName' => __('Local Applications'),
+        'printableRowName' => __('Application'),
         'modelDomain' => 'LTSP',
-        'printableTableName' => __('Image Creation'),
         'defaultActions' => [],
         'tableDescription' => \@fields,
         'customActions' => $customActions,
     };
-    return $form;
+
+    return $dataTable;
 }
 
-sub _doCreate
+
+sub _doInstall
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $action, $id, %params) = @_;
 
     my $ltsp = EBox::Global->modInstance('ltsp');
     my $work = $ltsp->st_get_string('work');
@@ -116,13 +98,23 @@ sub _doCreate
         );
     }
 
-    my $arch = $params{'architecture'};
+    my $applications = $params{'applications'};
+
+    if ( $applications eq '' ) {
+        throw EBox::Exceptions::External(
+            __('The list must contain at least one application.')
+        );
+    }
+
+    my $arch = $self->parentRow()->valueByName('architecture');
+    EBox::info("\$applications=$applications \$arch=$arch");
 
     # Needed here because the code in the script takes some seconds to execute
     $ltsp->st_set_string('arch', $arch);
-    $ltsp->st_set_string('work', 'build');
+    $ltsp->st_set_string('work', 'install');
     if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/build-image ' . $arch);
+        EBox::Sudo::root('/usr/share/zentyal-ltsp/install-local-applications '
+                         . $arch . " \"$applications\"");
         exit(0);
     }
     $self->setMessage($action->message(), 'note');

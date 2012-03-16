@@ -29,5 +29,5 @@ if (scalar @ARGV == 1) {
         print "/opt/ltsp/images/$arch.img does not exist.\n";
     }
 } else {
-    print "Usage: build-image arch\n";
+    print "Usage: update-image arch\n";
 }

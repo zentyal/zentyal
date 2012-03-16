@@ -30,8 +30,8 @@ use EBox::Validate qw(:all);
 
 use EBox::Types::Select;
 use EBox::Types::Boolean;
-
 use EBox::Types::Action;
+use EBox::Types::HasMany;
 
 sub new
 {
@@ -85,6 +85,12 @@ sub _table
             'fieldName' => 'fat',
             'printableName' => __('Fat Image'),
             'editable' => 0,
+        ),
+        new EBox::Types::HasMany(
+            'fieldName' => 'applications',
+            'printableName' => __('Local Applications'),
+            'foreignModel' => 'ltsp/LocalApps',
+            'view' => '/LTSP/View/LocalApps',
         ),
     );
 
