@@ -48,7 +48,7 @@ sub new
     }
 
     if (not $self->{printableName}) {
-        $self->{printableName} = $self->{fieldName};
+        $self->{printableName} = undef;
     }
 
     bless($self, $class);

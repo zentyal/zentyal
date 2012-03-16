@@ -8,7 +8,9 @@
 <tr id="<% $modelName . '_' . $type->fieldName() . '_row' %>" <% $displayRow %> >
 
   <td class='tright'>
+% if (defined ($type->printableName())) {
     <% $type->printableName() %>:
+% }
 % if ($type->optionalLabel()) {
     <div class='optional_field'>
         <% __('Optional') %>
