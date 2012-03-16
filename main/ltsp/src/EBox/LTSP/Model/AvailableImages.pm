@@ -31,6 +31,8 @@ use EBox::Validate qw(:all);
 use EBox::Types::Select;
 use EBox::Types::Boolean;
 
+use EBox::Types::Action;
+
 sub new
 {
         my $class = shift;
@@ -67,6 +69,7 @@ sub populate_architecture
 
 sub _table
 {
+    my ($self) = @_;
 
     my @fields =
     (
@@ -85,6 +88,18 @@ sub _table
         ),
     );
 
+    my $customActions = [
+        new EBox::Types::Action(
+            name => 'update',
+            printableValue => __('Update Image'),
+            model => $self,
+            handler => \&_doUpdate,
+            message => __('Updating image. This process will be shown in the '
+                          . 'dashboard widget until it finishes.'),
+            image => '/data/images/reload.png',     # FIXME: Use another image
+        ),
+    ];
+
     my $dataTable =
     {
         'tableName' => 'AvailableImages',
@@ -93,15 +108,43 @@ sub _table
         'modelDomain' => 'LTSP',
         'defaultActions' => [ 'editField', 'changeView' ],
         'tableDescription' => \@fields,
+        'customActions' => $customActions,
         'help' => __('Images already created.'),
     };
 
     return $dataTable;
 }
 
+sub _doUpdate
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $ltsp = $self->parentModule();
+    my $work = $ltsp->st_get_string('work');
+
+    if ( (defined $work) and ($work ne 'none')) {
+        throw EBox::Exceptions::External(
+            __('There is a job already in progress with some image. '
+               . 'Please, wait until it is finished.')
+        );
+    }
+
+    my $arch = $self->row($id)->valueByName('architecture');
+
+    # Needed here because the code in the script takes some seconds to execute
+    $ltsp->st_set_string('arch', $arch);
+    $ltsp->st_set_string('work', 'update');
+    if (fork() == 0) {
+        EBox::Sudo::root('/usr/share/zentyal-ltsp/update-image ' . $arch);
+        exit(0);
+    }
+    $self->setMessage($action->message(), 'note');
+    $self->{customActions} = {};
+}
+
 sub Viewer
 {
-    return '/ajax/tableBodyWithoutActions.mas';
+    return '/ajax/tableBodyOnlyCustomActions.mas';
 }
 
 # Method: syncRows
@@ -112,21 +155,33 @@ sub syncRows
 {
     my ($self, $currentRows)  = @_;
 
-    # empty table
+    my $rval = 0;
+    my %rows;
+    my $architecture;
+
     foreach my $id (@{$currentRows}) {
-        $self->removeRow($id, 1);
+        $architecture = $self->row($id)->valueByName('architecture');
+        if ($self->row($id)->valueByName('fat')) {
+            $rows{"fat-$architecture"} = 1;
+        } else {
+            $rows{$architecture} = 1;
+        }
     }
 
     for my $arch (('i386', 'amd64')) {
-        if ( -f "/opt/ltsp/images/$arch.img" ) {
+        if ( (-f "/opt/ltsp/images/$arch.img") and
+             (not defined $rows{$arch}) ) {
             $self->add( architecture => $arch, fat => 0 );
+            $rval = 1;
         }
-        if ( -f "/opt/ltsp/images/fat-$arch.img" ) {
+        if ( (-f "/opt/ltsp/images/fat-$arch.img") and
+             (not defined $rows{"fat-$arch"}) ) {
             $self->add( architecture => $arch, fat => 1 );
+            $rval = 1;
         }
     }
 
-    return 1;
+    return $rval;
 }
 
 1;

@@ -1,25 +1,33 @@
-#!/bin/bash
-echo "Please, choose the architecture:"
-select arch in i386 amd64 hppa powerpc;
-do
-    if [ $arch ]; then
-        if [ -f "/opt/ltsp/images/$arch.img" ]; then
-            echo "Updating $arch image..."
+#!/usr/bin/perl -s
 
-            CHROOT_DIR=/opt/ltsp/$arch
-            chroot $CHROOT_DIR mount -t proc /proc /proc
+use strict;
+use warnings;
 
-            chroot $CHROOT_DIR apt-get update
-            chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get dist-upgrade
+use EBox;
+use EBox::Global;
 
-            umount /opt/ltsp/$arch/proc
+if (scalar @ARGV == 1) {
+    my $arch = $ARGV[0];
+    if ( -f "/opt/ltsp/images/$arch.img" ) {
+        EBox::init();
 
-            ltsp-update-kernels
-            ltsp-update-image --arch $arch
+        my $ltsp = EBox::Global->modInstance('ltsp');
 
-            break;
-        else
-            echo "/opt/ltsp/images/$arch.img does not exist."
-        fi
-    fi
-done
+        $ltsp->st_set_string('arch', $arch);
+        $ltsp->st_set_string('work', 'update');
+        print "Updating $arch image...\n";
+
+        my $CHROOT_DIR = "/opt/ltsp/$arch";
+        EBox::Sudo::root("chroot $CHROOT_DIR mount -t proc none /proc "
+                         . "&& chroot $CHROOT_DIR apt-get update "
+                         . "&& chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get dist-upgrade -y "
+                         . "&& umount /opt/ltsp/$arch/proc "
+                         . "&& ltsp-update-kernels "
+                         . "&& ltsp-update-image --arch $arch");
+        $ltsp->st_set_string('work', 'none');
+    } else {
+        print "/opt/ltsp/images/$arch.img does not exist.\n";
+    }
+} else {
+    print "Usage: build-image arch\n";
+}

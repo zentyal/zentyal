@@ -82,10 +82,11 @@ sub _table
     my $customActions = [
         new EBox::Types::Action(
             name => 'create',
-            printableValue => __('Create'),
+            printableValue => __('Create Image'),
             model => $self,
             handler => \&_doCreate,
-            message => __('Creating image...'),
+            message => __('Creating image. This process will be shown in the '
+                          . 'dashboard widget until it finishes.'),
         ),
     ];
 
@@ -110,7 +111,7 @@ sub _doCreate
 
     if ( (defined $work) and ($work ne 'none')) {
         throw EBox::Exceptions::External(
-            __('There is job already in progress with some image. '
+            __('There is a job already in progress with some image. '
                . 'Please, wait until it is finished.')
         );
     }

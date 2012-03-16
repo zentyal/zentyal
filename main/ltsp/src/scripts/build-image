@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Global;
 
 if (scalar @ARGV == 1) {
     my $arch = $ARGV[0];

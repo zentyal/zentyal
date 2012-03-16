@@ -683,14 +683,13 @@ sub _ltspWidgetStatus   # ($self, $num_clients)
 
     my $work = $self->st_get_string('work');
     if ( (defined $work) and ($work ne 'none')) {
-        my $arch = $self->st_get_string('arch');
         if ($work eq 'build') {
-            return new EBox::Dashboard::Value( __('Image managing'), __("Building $arch.img") );
+            return new EBox::Dashboard::Value( __('Status'), __("Building image") );
         } elsif ($work eq 'update') {
-            return new EBox::Dashboard::Value( __('Image managing'), __("Updating $arch.img") );
+            return new EBox::Dashboard::Value( __('Status'), __("Updating image") );
         }
     } else {
-        return new EBox::Dashboard::Value( __('Image managing'), __('Idle') );
+        return new EBox::Dashboard::Value( __('Status'), __("$num_clients users connected to thin clients") );
     }
 }
 
