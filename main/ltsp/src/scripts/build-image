@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Model::ModelManager;
 
 if (scalar @ARGV == 1) {
     my $arch = $ARGV[0];
@@ -12,12 +11,13 @@ if (scalar @ARGV == 1) {
 
     my $ltsp = EBox::Global->modInstance('ltsp');
 
-    $ltsp->st_set_string('building', $arch);
+    $ltsp->st_set_string('arch', $arch);
+    $ltsp->st_set_string('work', 'build');
     print "Building $arch image...\n";
 
-#    EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot && service nbd-server restart");
-    EBox::Sudo::root("sleep 20");
-    $ltsp->st_set_string('building', 'none');
+    EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot "
+                     . '&& service nbd-server restart');
+    $ltsp->st_set_string('work', 'none');
 } else {
     print "Usage: build-image arch\n";
 }

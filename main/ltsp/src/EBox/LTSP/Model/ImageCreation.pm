@@ -32,6 +32,7 @@ use EBox::Types::Select;
 use EBox::Types::Boolean;
 use EBox::Types::Action;
 
+use EBox::Exceptions::External;
 
 sub new
 {
@@ -104,8 +105,23 @@ sub _doCreate
 {
     my ($self, $action, %params) = @_;
 
+    my $ltsp = EBox::Global->modInstance('ltsp');
+    my $work = $ltsp->st_get_string('work');
+
+    if ( (defined $work) and ($work ne 'none')) {
+        throw EBox::Exceptions::External(
+            __('There is job already in progress with some image. '
+               . 'Please, wait until it is finished.')
+        );
+    }
+
+    my $arch = $self->row()->valueByName('architecture');
+
+    # Needed here because the code in the script takes some seconds to execute
+    $ltsp->st_set_string('arch', $arch);
+    $ltsp->st_set_string('work', 'build');
     if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/build-image ' . $self->row()->valueByName('architecture'));
+        EBox::Sudo::root('/usr/share/zentyal-ltsp/build-image ' . $arch);
         exit(0);
     }
     $self->setMessage($action->message(), 'note');

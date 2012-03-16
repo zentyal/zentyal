@@ -681,9 +681,14 @@ sub _ltspWidgetStatus   # ($self, $num_clients)
 {
     my ($self, $num_clients) = @_;
 
-    my $build = $self->st_get_string('building');
-    if ( (defined $build) and ($build ne 'none')) {
-        return new EBox::Dashboard::Value( __('Image managing'), __("Building $build") );
+    my $work = $self->st_get_string('work');
+    if ( (defined $work) and ($work ne 'none')) {
+        my $arch = $self->st_get_string('arch');
+        if ($work eq 'build') {
+            return new EBox::Dashboard::Value( __('Image managing'), __("Building $arch.img") );
+        } elsif ($work eq 'update') {
+            return new EBox::Dashboard::Value( __('Image managing'), __("Updating $arch.img") );
+        }
     } else {
         return new EBox::Dashboard::Value( __('Image managing'), __('Idle') );
     }
