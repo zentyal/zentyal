@@ -104,7 +104,7 @@ sub _table
 
 sub _doCreate
 {
-    my ($self, $action, %params) = @_;
+    my ($self, $action, $id, %params) = @_;
 
     my $ltsp = EBox::Global->modInstance('ltsp');
     my $work = $ltsp->st_get_string('work');
