@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed quoting in generate p12 command
 	+ Bugfix: do not try to get orgName in destroyCA after files are removed
 2.2.2
 	+ Fixed typo bug in method destroyCA
