@@ -77,11 +77,15 @@ fi
 
 }
 
+su postgres -c 'psql -Alt' | grep -q "^$db_name|" && db_exists=1 || db_exists=0 || true
 
-create_db
-update_pghba
-/etc/init.d/postgresql-8.4 reload
-generate_debian_db
-initialize_db
+if [ $db_exists -eq 0 ]; then
+    create_db
+    update_pghba
+    /etc/init.d/postgresql-8.4 reload
+    generate_debian_db
+    initialize_db
+fi
+
 exit 0
 
