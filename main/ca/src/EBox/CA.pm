@@ -2020,13 +2020,12 @@ sub _generateP12Store
     my $target   = P12DIR . "${cn}.p12";
 
     my $cmd = 'pkcs12 -export ';
-    $cmd .= "-in '"    .  $certFile . "' ";
-    $cmd .= "-inkey '" . $privKeyFile . "' ";
-    $cmd .= "-name '"  . $cn . "' ";
-    $cmd .= "-out '"   . $target . "' ";
+    $cmd .= "-in '$certFile' ";
+    $cmd .= "-inkey '$privKeyFile' ";
+    $cmd .= "-name '$cn' ";
+    $cmd .= "-out '$target' ";
     $password = '' unless (defined($password));
     $cmd .= "-passout pass:$password ";
-
 
     $ENV{'PASS'} = $password
       if (defined($password));

@@ -1,7 +1,7 @@
 HEAD
+	+ Fixed quoting in generate p12 command
 	+ Bugfix: do not try to get orgName in destroyCA after files are removed
 	+ Replaced autotools with zbuildtools
-	+ Fixed quoting in generate p12 command
 2.2.2
 	+ Fixed typo bug in method destroyCA
 2.2.1
