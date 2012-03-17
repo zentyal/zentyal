@@ -27,7 +27,9 @@
 
 package EBox::DHCP::Model::ThinClientOptions;
 
-use base 'EBox::Model::DataTable';
+# TODO: Restore this when more than one config per interface is possible
+#use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
@@ -133,32 +135,33 @@ sub printableIndex
 #
 #     <EBox::Model::DataTable::notifyForeignModelAction>
 #
-sub notifyForeignModelAction
-{
-    my ($self, $model, $action, $row) = @_;
-
-    if ( $action eq 'del' ) {
-        my $idToRemove;
-        given ( $model ) {
-            when ( 'FixedAddressTable' ) {
-                $idToRemove = $row->valueByName('object');
-            }
-            when ( 'RangeTable' ) {
-                $idToRemove = $row->valueByName('name');
-            }
-            default { return ""; }
-        }
-        my $matchedRow = $self->findValue(hosts => $idToRemove);
-        if ( $matchedRow ) {
-            $self->removeRow($matchedRow->id(), 1);
-            return __x('Remove thin client options from {model}{br}',
-                       model => $self->printableContextName(),
-                       br    => '<br>');
-        }
-    }
-    return "";
-
-}
+# TODO: Restore this when more than one config per interface is possible
+# sub notifyForeignModelAction
+# {
+#     my ($self, $model, $action, $row) = @_;
+# 
+#     if ( $action eq 'del' ) {
+#         my $idToRemove;
+#         given ( $model ) {
+#             when ( 'FixedAddressTable' ) {
+#                 $idToRemove = $row->valueByName('object');
+#             }
+#             when ( 'RangeTable' ) {
+#                 $idToRemove = $row->valueByName('name');
+#             }
+#             default { return ""; }
+#         }
+#         my $matchedRow = $self->findValue(hosts => $idToRemove);
+#         if ( $matchedRow ) {
+#             $self->removeRow($matchedRow->id(), 1);
+#             return __x('Remove thin client options from {model}{br}',
+#                        model => $self->printableContextName(),
+#                        br    => '<br>');
+#         }
+#     }
+#     return "";
+# 
+# }
 
 # Method: nextServerIsZentyal
 #
@@ -181,7 +184,9 @@ sub nextServerIsZentyal
 {
     my ($self, $id) = @_;
 
-    my $row = $self->row($id);
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
 
     unless ( defined($row) ) {
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
@@ -214,7 +219,9 @@ sub nextServer
 {
     my ($self, $id) = @_;
 
-    my $row = $self->row($id);
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
 
     unless ( defined($row) ) {
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
@@ -245,7 +252,9 @@ sub remoteFilename
 {
     my ($self, $id) = @_;
 
-    my $row = $self->row($id);
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
 
     unless ( defined($row) ) {
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
@@ -284,7 +293,9 @@ sub architecture
 {
     my ($self, $id) = @_;
 
-    my $row = $self->row($id);
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
 
     unless ( defined($row) ) {
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
@@ -306,7 +317,12 @@ sub architecture
 #
 sub _select_options
 {
-    my @ltspSubtypes;
+# TODO: Restore this when more than one config per interface is possible
+#    my @ltspSubtypes;
+    my @ltspSubtypes = ({
+                            value => 'none',
+                            printableValue => __('None'),
+                       },);
 
     my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('ltsp') ) {
@@ -389,29 +405,30 @@ sub _table
                              optional      => 1,
                              help          => __('File path in next server'),
                             ),
-        new EBox::Types::Union(
-                              fieldName      => 'hosts',
-                              printableName  => __('Clients'),
-                              editable       => 1,
-                              subtypes       => [
-                                  new EBox::DHCP::Types::Group(
-                                      fieldName        => 'object',
-                                      printableName    => __('Object'),
-                                      index            => $self->index(),
-                                      foreignModelName => 'FixedAddressTable',
-                                      foreignField     => 'object',
-                                      unique           => 1,
-                                      editable         => 1
-                                     ),
-                                  new EBox::DHCP::Types::Group(
-                                      fieldName        => 'range',
-                                      printableName    => __('Range'),
-                                      index            => $self->index(),
-                                      foreignModelName => 'RangeTable',
-                                      foreignField     => 'name',
-                                      unique           => 1,
-                                      editable         => 1)
-                                    ]),
+# TODO: Restore this when more than one config per interface is possible
+#         new EBox::Types::Union(
+#                               fieldName      => 'hosts',
+#                               printableName  => __('Clients'),
+#                               editable       => 1,
+#                               subtypes       => [
+#                                   new EBox::DHCP::Types::Group(
+#                                       fieldName        => 'object',
+#                                       printableName    => __('Object'),
+#                                       index            => $self->index(),
+#                                       foreignModelName => 'FixedAddressTable',
+#                                       foreignField     => 'object',
+#                                       unique           => 1,
+#                                       editable         => 1
+#                                      ),
+#                                   new EBox::DHCP::Types::Group(
+#                                       fieldName        => 'range',
+#                                       printableName    => __('Range'),
+#                                       index            => $self->index(),
+#                                       foreignModelName => 'RangeTable',
+#                                       foreignField     => 'name',
+#                                       unique           => 1,
+#                                       editable         => 1)
+#                                     ]),
         new EBox::Types::Select(
                             fieldName       => 'architecture',
                             printableName   => __('Architecture'),
@@ -458,12 +475,21 @@ sub viewCustomizer
 
     my %actions = (
         'nextServer' => {
+            # TODO: Remove this when more than one config per interface is possible
+            'none' => {
+                show => [],
+                hide => ['nextServerHost', 'architecture','remoteFilename'],
+            },
             'nextServerEBox' => {
-                show => ['hosts', 'nextServerHost', 'architecture'],
+# TODO: Restore this when more than one config per interface is possible
+#                show => ['hosts', 'nextServerHost', 'architecture'],
+                show => ['nextServerHost', 'architecture'],
                 hide => ['remoteFilename'],
             },
             'nextServerHost' => {
-                show => ['remoteFilename', 'nextServerHost', 'hosts'],
+# TODO: Restore this when more than one config per interface is possible
+#                show => ['remoteFilename', 'nextServerHost', 'hosts'],
+                show => ['remoteFilename', 'nextServerHost'],
                 hide => ['architecture'],
             },
         },
