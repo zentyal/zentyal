@@ -2,6 +2,7 @@ HEAD
 	+ Use always the same string to refer to the NetBIOS computer name
 	+ Validation of maximum length of domain name, validation against
 	  reserved words of netbios and domain names
+	+ Update password last modified date
 2.1.7
 	+ Allow non-ascii characters in share names and comments
 2.1.6

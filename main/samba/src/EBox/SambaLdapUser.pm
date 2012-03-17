@@ -251,7 +251,10 @@ sub _modifyUser
     my $result = $ldap->search(\%attrs);
 
     my $entry = $result->pop_entry();
-    $entry->replace( sambaNTPassword => $curNT, sambaLMPassword => $curLM );
+    my $now =time();
+    $entry->replace( sambaNTPassword => $curNT, sambaLMPassword => $curLM, sambaPwdLastSet => $now );
+
+
     $entry->update($ldap->ldapCon);
 }
 
@@ -1269,7 +1272,7 @@ sub acls
 {
     my ($self) = @_;
 
-    return [ "to attrs=sambaNTPassword,sambaLMPassword " .
+    return [ "to attrs=sambaNTPassword,sambaLMPassword,sambaPwdLastSet " .
             "by dn=\"" . $self->{ldap}->rootDn() . "\" write by self write " .
             "by * none" ];
 }
