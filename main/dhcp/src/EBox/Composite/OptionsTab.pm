@@ -59,36 +59,6 @@ sub new
 
 }
 
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::index>
-#
-sub index
-{
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::printableIndex>
-#
-sub printableIndex
-{
-    my ($self) = @_;
-
-    return __x('interface {iface}',
-               iface => $self->{interface});
-
-}
-
-
 # Group: Protected methods
 
 # Method: _description
@@ -108,9 +78,9 @@ sub _description
     my $description =
       {
        components      => [
-                           '/' . $dhcp->name() . '/Options/' . $self->{interface},
-                           '/' . $dhcp->name() . '/DynamicDNS/' . $self->{interface},
-                           '/' . $dhcp->name() . '/AdvancedOptions/' . $self->{interface},
+                           'dhcp/Options',
+                           'dhcp/DynamicDNS',
+                           'dhcp/AdvancedOptions',
                           ],
        layout          => 'tabbed',
        name            => 'OptionsTab',
@@ -118,7 +88,6 @@ sub _description
       };
 
     return $description;
-
 }
 
 1;

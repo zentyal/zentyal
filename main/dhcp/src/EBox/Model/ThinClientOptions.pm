@@ -60,11 +60,6 @@ use EBox::View::Customizer;
 #
 #     <EBox::Model::DataForm::new>
 #
-# Parameters:
-#
-#     interface - String the interface where the DHCP server is
-#     attached
-#
 # Returns:
 #
 #     <EBox::DHCP::Model::ThinClientOptions>
@@ -75,51 +70,13 @@ use EBox::View::Customizer;
 #     argument is missing
 #
 sub new
-  {
-
-      my $class = shift;
-      my %opts = @_;
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
-
-      throw EBox::Exceptions::MissingArgument('interface')
-        unless defined ( $opts{interface} );
-
-      $self->{interface} = $opts{interface};
-
-      return $self;
-
-  }
-
-# Method: index
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::index>
-#
-sub index
 {
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
 
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
+    return $self;
 }
 
 # Method: notifyForeignModelAction
@@ -156,8 +113,8 @@ sub notifyForeignModelAction
                        br    => '<br>');
         }
     }
-    return "";
 
+    return '';
 }
 
 # Method: nextServerIsZentyal
@@ -423,6 +380,10 @@ sub _table
                             help            => __('Architecture of the LTSP clients. The LTSP image for that architecture must exist in order to boot the clients.'),),
     );
 
+    # FIXME: parentRow() is undefined when _table is called
+    #my $interface = $self->parentRow()->valueByName('iface');
+    my $interface = 'eth0';
+
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
                     printableTableName => __('Thin client'),
@@ -433,7 +394,7 @@ sub _table
                     help               => __x('You may want to customise your thin client options.'
                                              . 'To do so, you may include all the files you require '
                                              . 'under {path} directory',
-                                             path => EBox::DHCP->PluginConfDir($self->{interface})),
+                                             path => EBox::DHCP->PluginConfDir($interface)),
                     sortedBy           => 'hosts',
                     printableRowName   => __('thin client option'),
                     # Notify when there are changes in ranges and
@@ -442,7 +403,6 @@ sub _table
                    };
 
     return $dataTable;
-
 }
 
 # Method: viewCustomizer
@@ -472,6 +432,12 @@ sub viewCustomizer
     );
 
     $customizer->setOnChangeActions( \%actions );
+
+    # XXX workaround for the bug of parentComposite with viewCustomizer
+    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
+    $self->setParentComposite($composite);
+
+    $customizer->setHTMLTitle([]);
 
     return $customizer;
 }

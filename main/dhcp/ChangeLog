@@ -1,4 +1,6 @@
 HEAD
+	+ Use a regular model instead of a select composite which is
+	  going to be deprecated
 	+ Modifications in the Thin Client options to allow an easy
 	  configuration of Zentyal LTSP
 2.3.2

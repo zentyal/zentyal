@@ -51,11 +51,6 @@ use constant MAX_LEASED_TIME     => 7200;
 #
 #     <EBox::Model::DataForm::new>
 #
-# Parameters:
-#
-#     interface - String the interface where the DHCP server is
-#     attached
-#
 # Returns:
 #
 #     <EBox::DHCP::Model::LeaseTimes>
@@ -66,51 +61,13 @@ use constant MAX_LEASED_TIME     => 7200;
 #     argument is missing
 #
 sub new
-  {
-
-      my $class = shift;
-      my %opts = @_;
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
-
-      throw EBox::Exceptions::MissingArgument('interface')
-        unless defined ( $opts{interface} );
-
-      $self->{interface} = $opts{interface};
-
-      return $self;
-
-  }
-
-# Method: index
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::index>
-#
-sub index
 {
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
 
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
+    return $self;
 }
 
 # Method: validateTypedRow
@@ -222,7 +179,27 @@ sub _table
                    };
 
     return $dataForm;
+}
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    # XXX workaround for the bug of parentComposite with viewCustomizer
+    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
+    $self->setParentComposite($composite);
+
+    $customizer->setModel($self);
+
+    $customizer->setHTMLTitle([]);
+
+    return $customizer;
 }
 
 1;
