@@ -24,11 +24,14 @@ use strict;
 use warnings;
 
 use Error qw(:try);
+use File::Slurp;
 
 use EBox::Gettext;
 use EBox::Types::TimeZone;
 
 use base 'EBox::Model::DataForm';
+
+use constant TZ_FILE => '/etc/timezone';
 
 sub new
 {
@@ -44,10 +47,9 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (# TODO: The default value of the timezone is readed from /etc/timezone
-                     new EBox::Types::TimeZone( fieldName => 'timezone',
-                                                printableName => __('Time zone'),
-                                                editable => 1,
+    my @tableHead = (new EBox::Types::TimeZone( fieldName    => 'timezone',
+                                                editable     => 1,
+                                                defaultValue => \&_getTimezone,
                                                 help =>  __('You will probably have to restart some services after ' .
                                                             'changing the time zone.')));
 
@@ -63,28 +65,11 @@ sub _table
     return $dataTable;
 }
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#   <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub _getTimezone
 {
-    my ($self) = @_;
-
-    #my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-    #$self->_requireParam('country', __('country'));
-    #$self->_requireParam('continent', __('continent'));
-
-    #my $continent = $self->param('continent');
-    #my $country = $self->param('country');
-
-    #$sysinfo->setNewTimeZone($continent, $country);
-
-    #my $audit = EBox::Global->modInstance('audit');
-    #$audit->logAction('System', 'General', 'changeTimezone', "$continent/$country");
+    my $tz = read_file(TZ_FILE);
+    chomp $tz;
+    return $tz;
 }
 
 1;

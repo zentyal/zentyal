@@ -45,7 +45,6 @@ sub _table
     my ($self) = @_;
 
     my @tableHead = (new EBox::Types::Port( fieldName      => 'port',
-                                            printableValue => __('Port'),
                                             editable       => 1,
                                             defaultValue   => 443));
 
@@ -56,31 +55,9 @@ sub _table
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
-        'help' => __('On this page you can set different general system settings'),
     };
 
     return $dataTable;
-}
-
-# Method: formSubmitted
-#
-# Overrides:
-#
-#   <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-    my ($self) = @_;
-
-    #my $global = EBox::Global->getInstance();
-    #my $apache = $global->modInstance('apache');
-
-    #if (defined($self->param('setport'))) {
-    #    my $port = $self->param('port');
-    #    $apache->setPort($port);
-    #    my $audit = EBox::Global->modInstance('audit');
-    #    $audit->logAction('System', 'General', 'setAdminPort', $port);
-    #}
 }
 
 1;

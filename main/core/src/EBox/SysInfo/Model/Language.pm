@@ -24,8 +24,10 @@ use strict;
 use warnings;
 
 use Error qw(:try);
+use POSIX;
 
 use EBox::Gettext;
+use EBox::Menu;
 
 use base 'EBox::Model::DataForm';
 
@@ -39,17 +41,44 @@ sub new
     return $self;
 }
 
-#% if ($showPkgWarn and not $pkgInstalled) {
-# <div class="warning"><% __x('The language pack for {l} is missing, you can install it by running the following command: {c}', l => $langs->{$lang},
-# c => "<br/><br/><b>sudo apt-get install $package</b>") %></div>
-#% }
+# Method: validateTypedRow
+#
+#   Override <EBox::Model::DataTable::validateTypedRow> method
+#
+sub validateTypedRow
+{
+    my ($self, $action, $oldParams, $newParams) = @_;
+
+    my $langs = EBox::Gettext::langs();
+    my $lang = $newParams->{'language'}->value();
+
+    my $showPkgWarn = not EBox::Config::configkey('custom_prefix');
+    my $pkgInstalled = 1;
+    my $package = '';
+    if ($showPkgWarn) {
+        my ($pkglang) = split (/_/, $lang);
+        if (($pkglang eq 'pt') or ($pkglang eq 'zh')) {
+            ($pkglang) = split (/\./, $lang);
+            $pkglang =~ tr/_/-/;
+            $pkglang =~ tr/[A-Z]/[a-z]/;
+            $pkglang = 'pt' if ($pkglang eq 'pt-pt');
+        }
+        $package = "language-pack-zentyal-$pkglang";
+        $pkgInstalled = $lang eq 'C' ? 1 : EBox::GlobalImpl::_packageInstalled($package);
+    }
+
+    if ($showPkgWarn and not $pkgInstalled) {
+        throw EBox::Exceptions::External(
+            __x('The language pack for {l} is missing, you can install it by running the following command: {c}',
+                              l => $lang, c => "<b>sudo apt-get install $package</b>"));
+    }
+}
 
 sub _table
 {
     my ($self) = @_;
 
     my @tableHead = (new EBox::Types::Select( fieldName     => 'language',
-                                              printableName => __('Language'),
                                               populate      => \&_populateLanguages,
                                               editable      => 1));
 
@@ -65,47 +94,9 @@ sub _table
     return $dataTable;
 }
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#   <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-    my ($self) = @_;
-
-    #if (defined($self->param('setlang'))) {
-    #    my $lang = $self->param('lang');
-    #    EBox::setLocale($lang);
-    #    POSIX::setlocale(LC_ALL, EBox::locale());
-    #    EBox::Menu::regenCache();
-    #    EBox::Global->getInstance()->modChange('apache');
-    #    my $audit = EBox::Global->modInstance('audit');
-    #    $audit->logAction('System', 'General', 'changeLanguage', $lang);
-    #}
-}
-
 sub _populateLanguages
 {
     my $langs = EBox::Gettext::langs();
-
-    #my $lang = 'C'; # TODO The current lang
-
-    #my $showPkgWarn = not EBox::Config::configkey('custom_prefix');
-    #my $pkgInstalled = 1;
-    #my $package = '';
-    #if ($showPkgWarn) {
-    #    my ($pkglang) = split (/_/, $lang);
-    #    if (($pkglang eq 'pt') or ($pkglang eq 'zh')) {
-    #        ($pkglang) = split (/\./, $lang);
-    #        $pkglang =~ tr/_/-/;
-    #        $pkglang =~ tr/[A-Z]/[a-z]/;
-    #        $pkglang = 'pt' if ($pkglang eq 'pt-pt');
-    #    }
-    #    $package = "language-pack-zentyal-$pkglang";
-    #    $pkgInstalled = $lang eq 'C' ? 1 : EBox::GlobalImpl::_packageInstalled($package);
-    #}
 
     my $array = [];
     foreach my $l (sort keys %{$langs}) {

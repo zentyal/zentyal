@@ -31,6 +31,7 @@ use File::Slurp qw(read_file);
 use Filesys::Df;
 use List::Util qw(sum);
 use Error qw(:try);
+use POSIX;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -48,7 +49,6 @@ use EBox::Util::Version;
 use EBox::Util::Software;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
-use constant TIMEZONE_FILE  => '/etc/timezone';
 
 sub _create
 {
@@ -146,20 +146,53 @@ sub menu
 
 # Method: _setConf
 #
+# Overrides:
+#
+#   <EBox::Module::Base::_setConf>
+#
 sub _setConf
 {
     my ($self) = @_;
 
+    my $global = EBox::Global->getInstance();
+    my $audit  = $global->modInstance('audit');
+    my $apache = $global->modInstance('apache');
+
     # Language
-    #if (defined($self->param('setlang'))) {
-    #    my $lang = $self->param('lang');
-    #    EBox::setLocale($lang);
-    #    POSIX::setlocale(LC_ALL, EBox::locale());
-    #    EBox::Menu::regenCache();
-    #    EBox::Global->getInstance()->modChange('apache');
-    #    my $audit = EBox::Global->modInstance('audit');
-    #    $audit->logAction('System', 'General', 'changeLanguage', $lang);
-    #}
+    my $languageModel = $self->model('Language');
+    my $lang = $languageModel->languageValue();
+    EBox::setLocale($lang);
+    POSIX::setlocale(LC_ALL, EBox::locale());
+    EBox::Menu::regenCache();
+    $audit->logAction('System', 'General', 'changeLanguage', $lang);
+
+    # Time zone
+    my $timezoneModel = $self->model('TimeZone');
+    my $tz= $timezoneModel->timezoneValue();
+    my $tzStr = $tz->{continent} . '/' . $tz->{country};
+    EBox::Sudo::root("echo $tzStr > /etc/timezone");
+    EBox::Sudo::root("cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
+    $audit->logAction('System', 'General', 'changeTimezone', "$tzStr");
+
+    # Admin port
+    my $adminPortModel = $self->model('AdminPort');
+    my $port = $adminPortModel->portValue();
+    $apache->setPort($port);
+    $audit->logAction('System', 'General', 'setAdminPort', $port);
+
+    # Host name
+    my $hostNameModel = $self->model('HostName');
+    my $name = $hostNameModel->hostnameValue();
+    my $domain = $hostNameModel->hostdomainValue();
+    my @array = ();
+    push (@array, hostname => $name);
+    push (@array, hostdomain => $domain);
+    EBox::Sudo::root("hostname '$name'");
+    EBox::Sudo::root("echo '$name' > /etc/hostname");
+    EBox::Module::Base::writeConfFileNoCheck('/etc/hosts', 'core/hosts.mas', \@array);
+    $audit->logAction('System', 'General', 'changeHostname', $name . '.' . $domain);
+
+    $global->modChange('apache');
 }
 
 #
@@ -345,9 +378,6 @@ sub linksWidget
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
-
-
-
 sub addKnownWidget()
 {
     my ($self,$wname) = @_;
@@ -399,28 +429,6 @@ sub _facilitiesForDiskUsage
 
     return EBox::Backup->_facilitiesForDiskUsage(@params);
 }
-
-# Method: _setNewTimeZone
-#
-#   Sets the system's time zone
-#
-# Parameters:
-#
-#   continent
-#   country
-#
-sub _setNewTimeZone
-{
-    my ($self, $continent, $country) = @_;
-    # TODO: Mason template to write /etc/timezone
-
-    $self->set_string('continent', $continent);
-    $self->set_string('country', $country);
-    EBox::Sudo::root("echo $continent/$country > /etc/timezone");
-    EBox::Sudo::root("cp -f /usr/share/zoneinfo/$continent/$country /etc/localtime");
-}
-
-
 
 # TODO Check if the subs below are needed
 sub logReportInfo
@@ -491,31 +499,6 @@ sub report
     return $report;
 }
 
-# Method: setNewDate
-#
-#   Sets the system date
-#
-# Parameters:
-#
-#   day
-#   month
-#   year
-#   hour
-#   minute
-#   second
-#
-sub setNewDate
-{
-    my ($self, $day, $month, $year, $hour, $minute, $second) = @_;
-
-    my $newdate = "$year-$month-$day $hour:$minute:$second";
-    my $command = "/bin/date --set \"$newdate\"";
-    EBox::Sudo::root($command);
-
-    my $global = EBox::Global->getInstance(1);
-    $self->_restartAllServices;
-}
-
 sub _restartAllServices
 {
     my ($self) = @_;
@@ -545,23 +528,6 @@ sub _restartAllServices
                          'service cron restart');
     } catch EBox::Exceptions::Internal with {
     };
-}
-
-# Method: _importTimezone
-#
-#   Reads timezone from /etc/timezone and saves it into the module config
-#
-sub _importTimezone
-{
-    my ($self) = @_;
-
-    my $timezone = read_file(TIMEZONE_FILE);
-    chomp($timezone);
-
-    my ($continent, $country) = split ('/', $timezone);
-
-    $self->set_string('continent', $continent);
-    $self->set_string('country', $country);
 }
 
 # Return commercial message for QA updates

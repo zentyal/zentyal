@@ -26,6 +26,8 @@ use warnings;
 use Error qw(:try);
 
 use EBox::Gettext;
+use EBox::Types::DomainName;
+use EBox::Types::Host;
 
 use base 'EBox::Model::DataForm';
 
@@ -39,21 +41,20 @@ sub new
     return $self;
 }
 
-#<div class="note"><% __x('The hostname will be changed to {newHostname} after saving changes.', newHostname => "<b>$newHostname</b>") %></div>
-
-
 sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Text( fieldName      => 'hostname',
-                                            printableValue => __('Host name'),
-                                            editable       => 1),
+    my @tableHead = (new EBox::Types::Host( fieldName     => 'hostname',
+                                            printableName => __('Host name'),
+                                            defaultValue  => \&_getHostname,
+                                            editable      => 1),
 
-                     new EBox::Types::Text( fieldName      => 'hostdomain',
-                                            printableValue => __('Host domain'),
-                                            editable       => 1,
-                                            help           => __('You will need to restart all the services or reboot the system to apply the hostname change.')));
+                     new EBox::Types::DomainName( fieldName     => 'hostdomain',
+                                                  printableName => __('Host domain'),
+                                                  defaultValue  => \&_getHostdomain,
+                                                  editable      => 1,
+                                                  help          => __('You will need to restart all the services or reboot the system to apply the hostname change.')));
 
     my $dataTable =
     {
@@ -62,35 +63,21 @@ sub _table
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
-        'help' => __('On this page you can set different general system settings'),
     };
 
     return $dataTable;
 }
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#   <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub _getHostname
 {
-    my ($self) = @_;
+    my $hostname = `hostname`;
+    return $hostname;
+}
 
-    #if (defined($self->param('sethostname'))) {
-    #    my $hostname = $self->param('hostname');
-    #    my $oldHostname = Sys::Hostname::hostname();
-    #    if ($hostname ne $oldHostname) {
-    #        EBox::Validate::checkHost($hostname, __('hostname'));
-    #        my $global = EBox::Global->getInstance();
-    #        my $apache = $global->modInstance('apache');
-    #        $apache->set_string('hostname', $hostname);
-    #        my $audit = EBox::Global->modInstance('audit');
-    #        $audit->logAction('System', 'General', 'changeHostname', $hostname);
-    #        $global->modChange('apache');
-    #    }
-    #}
+sub _getHostdomain
+{
+    my $hostdomain = `hostname -d`;
+    return $hostdomain;
 }
 
 1;

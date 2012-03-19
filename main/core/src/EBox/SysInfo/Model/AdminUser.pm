@@ -47,7 +47,8 @@ sub _table
     my @tableHead = (new EBox::Types::Text( fieldName     => 'username',
                                             printableName => __('User name'),
                                             editable      => 1,
-                                            size          => 20),
+                                            size          => 20,
+                                            defaultValue  => ''),
                      new EBox::Types::Password( fieldName     => 'password',
                                                 printableName => __('Current password'),
                                                 editable      => 1,
@@ -58,66 +59,68 @@ sub _table
                                                 editable      => 1,
                                                 confirm       => 1,
                                                 size          => 16,
+                                                minLength     => 6,
                                                 help => __('Your password must be at least 6 characters long.')));
+
+    my $customActions = [
+        new EBox::Types::Action( name => 'changePwd',
+                                 printableValue => __('Change'),
+                                 model => $self,
+                                 handler => \&_doChangePassword,
+                                 message => __('The password was changed successfully.'))];
 
     my $dataTable =
     {
         'tableName' => 'AdminUser',
         'printableTableName' => __('Change administrator password'),
         'modelDomain' => 'SysInfo',
-        'defaultActions' => [ 'editField' ],
+        'defaultActions' => [],
+        'customActions' => $customActions,
         'tableDescription' => \@tableHead,
     };
 
     return $dataTable;
 }
 
-# Method: formSubmitted
-#
-# Overrides:
-#
-#   <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub _doChangePassword
 {
-    my ($self) = @_;
+    my ($self, $action, $id, %params) = @_;
 
-    #if (defined($self->param('password'))) {
-    #    my $username = $self->unsafeParam('username');
-    #    if (not $username) {
-    #        throw EBox::Exceptions::DataMissing(data =>  __('Username'));
-    #    }
+    my $username = $params{'username'};
+    my $curpwd   = $params{'password'};
+    my $newpwd1  = $params{'newPassword'};
+    my $newpwd2  = $params{'newPassword_confirm'};
 
-    #    my $curpwd = $self->unsafeParam('currentpwd');
-    #    if (not $curpwd) {
-    #        throw EBox::Exceptions::DataMissing(data =>  __('Password'));
-    #    }
+    unless (defined ($username)) {
+        throw EBox::Exceptions::DataMissing(data =>  __('Username'));
+    }
 
-    #    my $newpwd1 = $self->unsafeParam('newpwd1');
-    #    my $newpwd2 = $self->unsafeParam('newpwd2');
-    #    defined($newpwd1) or $newpwd1 = "";
-    #    defined($newpwd2) or $newpwd2 = "";
+    unless (defined ($curpwd)) {
+        throw EBox::Exceptions::DataMissing(data =>  __('Password'));
+    }
 
-    #    unless (EBox::Auth->checkValidUser($username, $curpwd)) {
-    #        throw EBox::Exceptions::External(__('Incorrect '.
-    #                    'password.'));
-    #    }
+    unless (defined ($newpwd1) and defined ($newpwd2)) {
+        throw EBox::Exceptions::DataMissing(data => __('New password'));
+    }
 
-    #    unless ($newpwd1 eq $newpwd2) {
-    #        throw EBox::Exceptions::External(__('New passwords do'.
-    #                    ' not match.'));
-    #    }
+    unless ($newpwd1 eq $newpwd2) {
+        throw EBox::Exceptions::External(__('New passwords do not match.'));
+    }
 
-    #    unless (length($newpwd1) > 5) {
-    #        throw EBox::Exceptions::External(__('The password must'.
-    #                    ' be at least 6 characters long'));
-    #    }
-    #    EBox::Auth->setPassword($username, $newpwd1);
-    #    $self->{msg} = __('The password was changed successfully.');
+    unless (length ($newpwd1) > 5) {
+        throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
+    }
 
-    #    my $audit = EBox::Global->modInstance('audit');
-    #    $audit->logAction('System', 'General', 'changePassword', $username);
-    #}
+    unless (EBox::Auth->checkValidUser($username, $curpwd)) {
+        throw EBox::Exceptions::External(__('Incorrect current password.'));
+    }
+
+    EBox::Auth->setPassword($username, $newpwd1);
+    my $audit = EBox::Global->modInstance('audit');
+    $audit->logAction('System', 'General', 'changePassword', $username);
+
+    $self->setMessage($action->message(), 'note');
+    $self->{customActions} = {};
 }
 
 1;

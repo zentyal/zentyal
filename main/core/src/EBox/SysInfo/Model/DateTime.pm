@@ -41,70 +41,136 @@ sub new
     return $self;
 }
 
-# my $ntp = EBox::Global->modInstance('ntp');
-#   my $ntpsync = (defined ($ntp) and ($ntp->isEnabled) and ($ntp->synchronized()));
-#   my $disabled = $ntpsync ? 'disabled="disabled"' : '';
-#% if ($ntpsync) {
-#        <div class='help'>
-#            <% __('As the NTP synchronization with external servers is enabled, you cannot change the date or time.') %>
-#        </div>
-
 sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Date( fieldName      => 'date',
-                                            #printableValue => __('Date'),
-                                            editable       => 1),
+    my @tableHead = (new EBox::Types::Date( fieldName => 'date',
+                                            editable  => \&_enabled),
 
-                     new EBox::Types::Time( fieldName      => 'time',
-                                            printableValue => __('Time'),
-                                            editable       => 1,
-                                            help           => __('A change in the date or time will cause all Zentyal services to be restarted.')));
+                     new EBox::Types::Time( fieldName => 'time',
+                                            editable  => \&_enabled,
+                                            help      => __('A change in the date or time will cause all Zentyal services to be restarted.')));
+
+    my $customActions = [
+        new EBox::Types::Action( name => 'changeDateTime',
+                                 printableValue => __('Change'),
+                                 model => $self,
+                                 handler => \&_doChangeDateTime,
+                                 enabled => \&_enabled,
+                                 message => __('The date and time was changed successfully.'))];
 
     my $dataTable =
     {
         'tableName' => 'DateTime',
         'printableTableName' => __('Date and time'),
         'modelDomain' => 'SysInfo',
-        'defaultActions' => [ 'editField' ],
+        'defaultActions' => [],
+        'customActions' => $customActions,
         'tableDescription' => \@tableHead,
     };
 
     return $dataTable;
 }
 
-# Method: formSubmitted
+# Method: viewCustomizer
 #
-# Overrides:
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   show a message if changing the date and time is not allowed
 #
-#   <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub viewCustomizer
 {
     my ($self) = @_;
 
-    #my $sysinfo= EBox::Global->modInstance('sysinfo');
+    my $custom = $self->SUPER::viewCustomizer();
+    unless (_enabled()) {
+        $self->setMessage( __('As the NTP synchronization with external servers is enabled, you cannot change the date or time.'),
+                           'info');
+    }
 
-    #$self->_requireParam('day', __('Day'));
-    #$self->_requireParam('month', __('Month'));
-    #$self->_requireParam('year', __('Year'));
-    #$self->_requireParam('hour', __('Hour'));
-    #$self->_requireParam('minute', __('Minutes'));
-    #$self->_requireParam('second', __('Seconds'));
+    return $custom;
+}
 
-    #my $day = $self->param('day');
-    #my $month = $self->param('month');
-    #my $year = $self->param('year');
-    #my $hour = $self->param('hour');
-    #my $minute = $self->param('minute');
-    #my $second = $self->param('second');
+# Method: row
+#
+#   Override <EBox::Model::DataForm::row> to build and return a
+#   row dependening on the current date and time
+#
+sub row
+{
+    my ($self) = @_;
 
-    #$sysinfo->setNewDate($day, $month, $year, $hour, $minute, $second);
+    my $date = `date '+%d/%m/%Y'`;
+    my $time = `date '+%H:%M:%S'`;
 
-    #my $audit = EBox::Global->modInstance('audit');
-    #my $dateStr = "$year/$month/$day $hour:$minute:$second";
-    #$audit->logAction('System', 'General', 'changeDateTime', $dateStr);
+    chomp $date;
+    chomp $time;
+
+    my $row = $self->_setValueRow(
+            date => $date,
+            time => $time,
+        );
+
+    $row->setId('dummy');
+
+
+    return $row;
+}
+
+# Method: _doChangeDateTime
+#
+#   This is the custom action handler
+#
+sub _doChangeDateTime
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $day    = $params{'date_day'};
+    my $month  = $params{'date_month'};
+    my $year   = $params{'date_year'};
+    my $hour   = $params{'time_hour'};
+    my $minute = $params{'time_min'};
+    my $second = $params{'time_sec'};
+
+    # Date time
+    $self->_setNewDate($day, $month, $year, $hour, $minute, $second);
+    my $dateStr = "$year/$month/$day $hour:$minute:$second";
+
+    my $audit = EBox::Global->modInstance('audit');
+    $audit->logAction('System', 'General', 'changeDateTime', $dateStr);
+
+    $self->setMessage($action->message(), 'note');
+    $self->{customActions} = {};
+}
+
+# Method: _setNewDate
+#
+#   Sets the system date and time
+#
+sub _setNewDate
+{
+    my ($self, $day, $month, $year, $hour, $minute, $second) = @_;
+
+    my $newdate = "$year-$month-$day $hour:$minute:$second";
+    my $command = "/bin/date --set \"$newdate\"";
+    EBox::Sudo::root($command);
+
+    $self->parentModule()->_restartAllServices();
+}
+
+# Method: _enabled
+#
+#   Returns 1 if changing the date and time is allowed, 0 otherwise
+#
+sub _enabled
+{
+    my $ntp = EBox::Global->modInstance('ntp');
+    my $ntpsync = (defined ($ntp) and ($ntp->isEnabled()) and ($ntp->synchronized()));
+    if ($ntpsync) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 1;

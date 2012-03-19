@@ -60,7 +60,7 @@ sub _description
                         printableName   => __('General configuration'),
                         pageTitle       => __('General configuration'),
                         compositeDomain => 'SysInfo',
-                        help            => __('bla bla bla') };
+                        help => __('On this page you can set different general system settings')};
 
     return $description;
 }
