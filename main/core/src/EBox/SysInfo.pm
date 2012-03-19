@@ -31,7 +31,6 @@ use File::Slurp qw(read_file);
 use Filesys::Df;
 use List::Util qw(sum);
 use Error qw(:try);
-use POSIX;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -68,10 +67,8 @@ sub modelClasses
 {
     return [ 'EBox::SysInfo::Model::Halt',
              'EBox::SysInfo::Model::AdminUser',
-             'EBox::SysInfo::Model::Language',
              'EBox::SysInfo::Model::TimeZone',
              'EBox::SysInfo::Model::DateTime',
-             'EBox::SysInfo::Model::AdminPort',
              'EBox::SysInfo::Model::HostName' ];
 }
 
@@ -154,48 +151,26 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
-    my $audit  = $global->modInstance('audit');
-    my $apache = $global->modInstance('apache');
-
-    # Language
-    my $languageModel = $self->model('Language');
-    my $lang = $languageModel->languageValue();
-    EBox::setLocale($lang);
-    POSIX::setlocale(LC_ALL, EBox::locale());
-    EBox::Menu::regenCache();
-    $audit->logAction('System', 'General', 'changeLanguage', $lang);
-
     # Time zone
     my $timezoneModel = $self->model('TimeZone');
-    my $tz= $timezoneModel->timezoneValue();
+    my $tz = $timezoneModel->timezoneValue();
     my $tzStr = $tz->{continent} . '/' . $tz->{country};
-    EBox::Sudo::root("echo $tzStr > /etc/timezone");
-    EBox::Sudo::root("cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
-    $audit->logAction('System', 'General', 'changeTimezone', "$tzStr");
-
-    # Admin port
-    my $adminPortModel = $self->model('AdminPort');
-    my $port = $adminPortModel->portValue();
-    $apache->setPort($port);
-    $audit->logAction('System', 'General', 'setAdminPort', $port);
+    EBox::Sudo::root("echo $tzStr > /etc/timezone",
+                     "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
 
     # Host name
     my $hostNameModel = $self->model('HostName');
-    my $name = $hostNameModel->hostnameValue();
-    my $domain = $hostNameModel->hostdomainValue();
-    my @array = ();
-    push (@array, hostname => $name);
-    push (@array, hostdomain => $domain);
-    EBox::Sudo::root("hostname '$name'");
-    EBox::Sudo::root("echo '$name' > /etc/hostname");
-    EBox::Module::Base::writeConfFileNoCheck('/etc/hosts', 'core/hosts.mas', \@array);
-    $audit->logAction('System', 'General', 'changeHostname', $name . '.' . $domain);
-
-    $global->modChange('apache');
+    my $hostname = $hostNameModel->value('hostname');
+    if ($hostname) {
+        my $cmd = EBox::Config::scripts() . "change-hostname $hostname";
+        my $domain = $hostNameModel->value('hostdomain');
+        if ($domain) {
+            $cmd .= " $domain";
+        }
+        EBox::Sudo::root($cmd);
+    }
 }
 
-#
 # Method: widgets
 #
 #   Overriden method that returns the widgets offered by this module

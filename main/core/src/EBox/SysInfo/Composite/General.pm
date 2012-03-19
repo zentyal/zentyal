@@ -52,9 +52,9 @@ sub new
 #
 sub _description
 {
-    my $description = { components      => [ 'sysinfo/AdminUser', 'sysinfo/Language',
+    my $description = { components      => [ 'sysinfo/AdminUser', 'apache/Language',
                                              'sysinfo/TimeZone',  'sysinfo/DateTime',
-                                             'sysinfo/AdminPort', 'sysinfo/HostName' ],
+                                             'apache/AdminPort', 'sysinfo/HostName' ],
                         layout          => 'top-bottom',
                         name            => __PACKAGE__->nameFromClass,
                         printableName   => __('General configuration'),
