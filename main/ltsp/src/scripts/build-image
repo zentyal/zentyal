@@ -1,11 +1,24 @@
-#!/bin/bash
-echo "Please, choose the architecture:"
-select arch in i386 amd64 hppa powerpc;
-do
-    if [ $arch ]; then
-        echo "Building $arch image..."
-        ltsp-build-client --arch $arch --purge-chroot;
-        service nbd-server restart
-        break;
-    fi
-done
+#!/usr/bin/perl -s
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+if (scalar @ARGV == 1) {
+    my $arch = $ARGV[0];
+    EBox::init();
+
+    my $ltsp = EBox::Global->modInstance('ltsp');
+
+    $ltsp->st_set_string('arch', $arch);
+    $ltsp->st_set_string('work', 'build');
+    print "Building $arch image...\n";
+
+    EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot "
+                     . '&& service nbd-server restart');
+    $ltsp->st_set_string('work', 'none');
+} else {
+    print "Usage: build-image arch\n";
+}
