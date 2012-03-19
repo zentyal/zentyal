@@ -33,6 +33,9 @@ use EBox::Types::Boolean;
 use EBox::Types::Action;
 use EBox::Types::HasMany;
 
+use EBox::Exceptions::Internal;
+use EBox::Apache;
+
 sub new
 {
         my $class = shift;
@@ -136,13 +139,19 @@ sub _doUpdate
     }
 
     my $arch = $self->row($id)->valueByName('architecture');
+    my $fat  = ($self->row($id)->valueByName('fat') ? 1 : 0);
 
-    # Needed here because the code in the script takes some seconds to execute
-    $ltsp->st_set_string('arch', $arch);
-    $ltsp->st_set_string('work', 'update');
-    if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/update-image ' . $arch);
-        exit(0);
+    my $pid = fork();
+    unless (defined $pid) {
+        throw EBox::Exceptions::Internal("Cannot fork().");
+    }
+
+    if ($pid == 0) {
+        # Needed here because the code in the script takes some seconds to execute
+        $ltsp->st_set_string('work', 'update');
+
+        EBox::Apache::cleanupForExec();
+        exec("sudo /usr/share/zentyal-ltsp/update-image $arch $fat");
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};

@@ -79,4 +79,23 @@ sub _description
     return $description;
 }
 
+sub HTMLTitle
+{
+    my ($self) = @_;
+
+    my $row  = $self->parentRow();
+    my $profile = $row->printableValueByName('name');
+
+    return [
+        {
+            title => $profile,
+            link  => '/LTSP/Composite/Composite#Profiles',
+        },
+        {
+            title => $self->printableName(),
+            link  => ''
+        }
+    ];
+}
+
 1;

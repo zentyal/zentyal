@@ -158,6 +158,7 @@ sub _confFiles
 
     for my $arch (@{$self->architectures}) {
         push( @conf_files, CONF_DIR . "/$arch/" . CONF_FILE);
+        push( @conf_files, CONF_DIR . "/fat-$arch/" . CONF_FILE);
     }
 
     return \@conf_files;
@@ -171,6 +172,7 @@ sub _confDirs
 
     for my $arch (@{$self->architectures}) {
         push( @conf_dirs, CONF_DIR . "/$arch/");
+        push( @conf_dirs, CONF_DIR . "/fat-$arch/");
     }
 
     return \@conf_dirs;

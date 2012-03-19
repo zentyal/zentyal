@@ -45,6 +45,56 @@ sub new
         return $self;
 }
 
+
+my $langs = {
+    'ara'   => 'Aragonés',
+    'bd'    => 'Bengali',
+    'bg'    => 'Български',
+    'es'    => 'Español',
+    'us'    => 'English',
+    'ee'    => 'Eesti',
+    'cz'    => 'Czech',
+    'dk'    => 'Dansk',
+    'de'    => 'Deutsch',
+    'gr'    => 'ελληνικά',
+    'ir'    => 'فارسی',
+    'fr'    => 'Français',
+    'hu'    => 'Magyar',
+    'it'    => 'Italiano',
+    'jp'    => '日本語',
+    'lt'    => 'Lietuvių',
+    'no'    => 'Norsk',
+    'ne'    => 'Nederlands',
+    'pl'    => 'Polski',
+    'br'    => 'Português do Brasil',
+    'pt'    => 'Português',
+    'ro'    => 'Română',
+    'ru'    => 'Русский',
+    'se'    => 'Svenska',
+    'th'    => 'ภาษาไทย',
+    'tr'    => 'Türkçe',
+    'ua'    => 'украї́нська',
+    'cn'    => '汉字',
+    'tw'    => '繁體中文',
+};
+
+sub _populateLayouts
+{
+
+    opendir(my $dh, "/usr/share/X11/xkb/symbols/");
+    my @symbols = readdir($dh);
+
+    my $array = [];
+    foreach my $layout (sort @symbols) {
+        if ( defined $langs->{$layout} ) {
+            push ($array, { value => $layout, printableValue => $langs->{$layout} });
+        }
+    }
+
+    closedir $dh;
+    return $array;
+}
+
 sub _table
 {
 
@@ -99,12 +149,12 @@ sub _table
             defaultValue    => 1,
             help            => __('Default \'Enabled\''),
         ),
-        new EBox::Types::Text(
+        new EBox::Types::Select(
             fieldName       => 'kb_layout',
             printableName   => __('Keyboard Layout'),
-            size            => 10,
             editable        => 1,
-            defaultValue    => 'en',
+            populate        => \&_populateLayouts,
+            defaultValue    => 'us',
         ),
         new EBox::Types::IPAddr(
             fieldName       => 'server',
