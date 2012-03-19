@@ -6,19 +6,27 @@ use warnings;
 use EBox;
 use EBox::Global;
 
-if (scalar @ARGV == 1) {
+if (scalar @ARGV == 2) {
     my $arch = $ARGV[0];
+    my $fat  = $ARGV[1];
+    my $chroot = ($fat ? "fat-$arch" : $arch);
+
     EBox::init();
 
     my $ltsp = EBox::Global->modInstance('ltsp');
 
-    $ltsp->st_set_string('arch', $arch);
     $ltsp->st_set_string('work', 'build');
-    print "Building $arch image...\n";
 
-    EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot "
-                     . '&& service nbd-server restart');
+    print "Building $chroot image...\n";
+
+    if ($fat) {
+        EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot --chroot $chroot --fat-client"
+                         . '&& service nbd-server restart');
+    } else {
+        EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot"
+                         . '&& service nbd-server restart');
+    }
     $ltsp->st_set_string('work', 'none');
 } else {
-    print "Usage: build-image arch\n";
+    print "Usage: build-image arch fat?\n";
 }

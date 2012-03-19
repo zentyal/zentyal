@@ -31,6 +31,9 @@ use EBox::Validate qw(:all);
 use EBox::Types::Text;
 use EBox::Types::Action;
 
+use EBox::Exceptions::Internal;
+use EBox::Apache;
+
 sub new
 {
     my $class = shift;
@@ -98,6 +101,8 @@ sub _doInstall
         );
     }
 
+    my $arch         = $params{'architecture'};
+    my $fat          = $params{'fat'};
     my $applications = $params{'applications'};
 
     if ( $applications eq '' ) {
@@ -106,16 +111,18 @@ sub _doInstall
         );
     }
 
-    my $arch = $self->parentRow()->valueByName('architecture');
-    EBox::info("\$applications=$applications \$arch=$arch");
+    my $pid = fork();
+    unless (defined $pid) {
+        throw EBox::Exceptions::Internal("Cannot fork().");
+    }
 
-    # Needed here because the code in the script takes some seconds to execute
-    $ltsp->st_set_string('arch', $arch);
-    $ltsp->st_set_string('work', 'install');
-    if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/install-local-applications '
-                         . $arch . " \"$applications\"");
-        exit(0);
+    if ($pid == 0) {
+        # Needed here because the code in the script takes some seconds to execute
+        $ltsp->st_set_string('work', 'install');
+
+        EBox::Apache::cleanupForExec();
+        exec('sudo /usr/share/zentyal-ltsp/install-local-applications '
+             . "$arch $fat \"$applications\"");
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};
