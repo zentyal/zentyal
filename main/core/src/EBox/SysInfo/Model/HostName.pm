@@ -77,6 +77,9 @@ sub _getHostname
 sub _getHostdomain
 {
     my $hostdomain = `hostname -d`;
+    unless ($hostdomain) {
+        $hostdomain = 'zentyal.lan';
+    }
     return $hostdomain;
 }
 
