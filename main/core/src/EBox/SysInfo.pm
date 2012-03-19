@@ -18,17 +18,14 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-# TODO Remove GConfModule
 use base qw(EBox::GConfModule EBox::Module::Base EBox::Report::DiskUsageProvider
             EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
-# TODO Check this list of uses
 use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use Filesys::Df;
 use List::Util qw(sum);
 use Error qw(:try);
 

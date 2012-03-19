@@ -19,13 +19,12 @@ if (scalar @ARGV == 2) {
 
     print "Building $chroot image...\n";
 
+    my $buildCmd = "ltsp-build-client --arch $arch --purge-chroot";
     if ($fat) {
-        EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot --chroot $chroot --fat-client"
-                         . '&& service nbd-server restart');
-    } else {
-        EBox::Sudo::root("ltsp-build-client --arch $arch --purge-chroot"
-                         . '&& service nbd-server restart');
+        $buildCmd .= " --chroot $chroot --fat-client";
     }
+    EBox::Sudo::root("$buildCmd && service nbd-server restart");
+
     $ltsp->st_set_string('work', 'none');
 } else {
     print "Usage: build-image arch fat?\n";

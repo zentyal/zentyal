@@ -32,13 +32,13 @@ use EBox::Types::Select;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 sub objectModel
@@ -69,7 +69,6 @@ sub _table
             'foreignField' => 'name',
             'foreignNextPageField' => 'members',
             'editable' => 1,
-            'help' => __(''),
         ),
     );
 

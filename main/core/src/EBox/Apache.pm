@@ -191,7 +191,6 @@ sub _writeHttpdConfFile
     close(HTTPD);
 
     EBox::Sudo::root("/bin/mv $confile $httpdconf");
-
 }
 
 sub _setLanguage
@@ -201,7 +200,7 @@ sub _setLanguage
     my $languageModel = $self->model('Language');
 
     # TODO: do this only if language has changed?
-    my $lang = $languageModel->languageValue();
+    my $lang = $languageModel->value('language');
     EBox::setLocale($lang);
     POSIX::setlocale(LC_ALL, EBox::locale());
     EBox::Menu::regenCache();

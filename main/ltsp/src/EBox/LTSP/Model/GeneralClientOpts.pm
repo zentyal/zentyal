@@ -35,13 +35,13 @@ use EBox::Types::Time;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 #
@@ -55,27 +55,24 @@ sub new
 #
 sub _select_options
 {
-
-        return [
-                 {
-                        value => 'default',
-                        printableValue => __('Default'),
-                 },
-                 {
-                        value => 'True',
-                        printableValue => __('Enabled'),
-                 },
-                 {
-                        value => 'False',
-                        printableValue => __('Disabled'),
-                 },
-        ];
-
+    return [
+             {
+               value => 'default',
+               printableValue => __('Default'),
+             },
+             {
+               value => 'True',
+               printableValue => __('Enabled'),
+             },
+             {
+               value => 'False',
+               printableValue => __('Disabled'),
+             },
+    ];
 }
 
 sub _table
 {
-
     my @fields =
     (
         new EBox::Types::Select(
@@ -83,35 +80,30 @@ sub _table
             printableName   => __('Local applications'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'local_dev',
             printableName   => __('Local devices'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'autologin',
             printableName   => __('AutoLogin'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'guestlogin',
             printableName   => __('Guest Login'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'sound',
             printableName   => __('Sound'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::IPAddr(
             fieldName       => 'server',
@@ -144,7 +136,7 @@ sub _table
                     editable        => 1,
                 ),
             ],
-            help            => __('Time when clients will be automatically shutdown.'),
+            help => __('Time when clients will be automatically shutdown.'),
         ),
     );
 

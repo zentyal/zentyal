@@ -57,8 +57,8 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ltsp',
-            printableName => __('Thin Clients'),
-            @_);
+                                      printableName => __('Thin Clients'),
+                                      @_);
     bless ($self, $class);
     return $self;
 }
@@ -101,37 +101,6 @@ sub compositeClasses
     ];
 }
 
-# Method: actions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::actions>
-#
-sub actions
-{
-    return [
-#        {
-#            'action' => __('Add LTSP LDAP schema'),
-#            'reason' => __('Zentyal will need this schema to store LTSP users.'),
-#            'module' => 'ebox-ltsp'
-#        },
-    ];
-}
-
-# Method: enableActions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::enableActions>
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
-}
-
 sub architectures
 {
     return ARCHITECTURES;
@@ -144,7 +113,7 @@ sub images
     my @images;
 
     for my $arch (@{$self->architectures}) {
-        push( @images, IMG_DIR . "/$arch.img");
+        push (@images, IMG_DIR . "/$arch.img");
     }
 
     return \@images;
@@ -157,8 +126,8 @@ sub _confFiles
     my @conf_files;
 
     for my $arch (@{$self->architectures}) {
-        push( @conf_files, CONF_DIR . "/$arch/" . CONF_FILE);
-        push( @conf_files, CONF_DIR . "/fat-$arch/" . CONF_FILE);
+        push (@conf_files, CONF_DIR . "/$arch/" . CONF_FILE);
+        push (@conf_files, CONF_DIR . "/fat-$arch/" . CONF_FILE);
     }
 
     return \@conf_files;
@@ -171,8 +140,8 @@ sub _confDirs
     my @conf_dirs;
 
     for my $arch (@{$self->architectures}) {
-        push( @conf_dirs, CONF_DIR . "/$arch/");
-        push( @conf_dirs, CONF_DIR . "/fat-$arch/");
+        push (@conf_dirs, CONF_DIR . "/$arch/");
+        push (@conf_dirs, CONF_DIR . "/fat-$arch/");
     }
 
     return \@conf_dirs;
@@ -191,12 +160,13 @@ sub usedFiles
     my @used_files;
 
     for my $file (@{$self->_confFiles}) {
-        push( @used_files,
+        push (@used_files,
               {
                 'file' => $file,
                 'module' => 'ltsp',
                 'reason' => __('To configure the Thin Clients.')
-              });
+              }
+        );
     }
 
     return \@used_files;
@@ -680,23 +650,23 @@ sub _lstpClients
     return \%clients;
 }
 
-sub _ltspWidgetStatus   # ($self, $num_clients)
+sub _ltspWidgetStatus
 {
     my ($self, $num_clients) = @_;
 
     my $work = $self->st_get_string('work');
-    if ( (defined $work) and ($work ne 'none')) {
+    if ((defined $work) and ($work ne 'none')) {
         if ($work eq 'build') {
-            return new EBox::Dashboard::Value( __('Status'), __("Building image") );
+            return new EBox::Dashboard::Value(__('Status'), __('Building image...'));
         } elsif ($work eq 'update') {
-            return new EBox::Dashboard::Value( __('Status'), __("Updating image") );
+            return new EBox::Dashboard::Value(__('Status'), __('Updating image...'));
         } elsif ($work eq 'install') {
-            return new EBox::Dashboard::Value( __('Status'), __("Installing applications into an image") );
+            return new EBox::Dashboard::Value(__('Status'), __('Installing applications on an image...'));
         } else {
-            return new EBox::Dashboard::Value( __('Status'), __("Doing some into an image") );
+            return new EBox::Dashboard::Value(__('Status'), __('Some work is being done on an image'));
         }
     } else {
-        return new EBox::Dashboard::Value( __('Status'), __("$num_clients users connected to thin clients") );
+        return new EBox::Dashboard::Value(__('Status'), __("$num_clients users logged"));
     }
 }
 
@@ -704,11 +674,10 @@ sub ltspClientsWidget
 {
     my ($self, $widget) = @_;
 
-
     my $section = new EBox::Dashboard::Section('ltspclients');
     my $section_status = new EBox::Dashboard::Section('ltspstatus');
 
-    my $titles = [__('Username'),__('IP address'),];
+    my $titles = [__('Username'), __('IP address')];
 
     my $clients = $self->_lstpClients();
 
@@ -717,14 +686,13 @@ sub ltspClientsWidget
     foreach my $id (sort keys %{$clients}) {
         my $client = $clients->{$id};
         push(@{$ids}, $id);
-        $rows->{$id} = [$client->{user},$client->{ip},];
+        $rows->{$id} = [$client->{user}, $client->{ip}];
     }
-
 
     $section_status->add($self->_ltspWidgetStatus(scalar(keys %{$clients})));
     $widget->add($section_status);
 
-    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No user connected in any thin client.'));
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No users connected.'));
     $widget->add($section);
 }
 

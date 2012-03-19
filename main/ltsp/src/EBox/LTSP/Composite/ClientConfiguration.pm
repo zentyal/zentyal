@@ -71,9 +71,9 @@ sub _description
             ],
         layout          => 'top-bottom',
         name            => 'ClientConfiguration',
-        printableName   => __('Client configuration'),
+        printableName   => __('Client Configuration'),
         compositeDomain => 'LTSP',
-        help            => __(''), # FIXME
+        #help            => __(''), # FIXME
     };
 
     return $description;

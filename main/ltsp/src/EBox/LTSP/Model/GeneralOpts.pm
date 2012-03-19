@@ -36,18 +36,19 @@ use EBox::Types::Time;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 
+# TODO: extract names from kdb/symbols/*
 my $langs = {
-    'ara'   => 'Aragonés',
+    'ara'   => 'Arabic',
     'bd'    => 'Bengali',
     'bg'    => 'Български',
     'es'    => 'Español',
@@ -81,13 +82,13 @@ my $langs = {
 sub _populateLayouts
 {
 
-    opendir(my $dh, "/usr/share/X11/xkb/symbols/");
+    opendir(my $dh, '/usr/share/X11/xkb/symbols/');
     my @symbols = readdir($dh);
 
     my $array = [];
     foreach my $layout (sort @symbols) {
-        if ( defined $langs->{$layout} ) {
-            push ($array, { value => $layout, printableValue => $langs->{$layout} });
+        if (defined $langs->{$layout}) {
+            push (@{$array}, { value => $layout, printableValue => $langs->{$layout} });
         }
     }
 
@@ -97,6 +98,9 @@ sub _populateLayouts
 
 sub _table
 {
+    my $default = __('Default');
+    my $enabled = __('Enabled');
+    my $disabled = __('Disabled');
 
     my @fields =
     (
@@ -105,49 +109,49 @@ sub _table
             printableName   => __('Limit one session per user'),
             editable        => 1,
             defaultValue    => 0,
-            help            => __('Default \'Disabled\''),
+            help            => "$default: $disabled",
         ),
         new EBox::Types::Boolean(
             fieldName       => 'network_compression',
             printableName   => __('Network Compression'),
             editable        => 1,
             defaultValue    => 0,
-            help            => __('Default \'Disabled\''),
+            help            => "$default: $disabled",
         ),
         new EBox::Types::Boolean(
             fieldName       => 'local_apps',
             printableName   => __('Local applications'),
             editable        => 1,
             defaultValue    => 0,
-            help            => __('Default \'Disabled\''),
+            help            => "$default: $disabled",
         ),
         new EBox::Types::Boolean(
             fieldName       => 'local_dev',
             printableName   => __('Local devices'),
             editable        => 1,
             defaultValue    => 1,
-            help            => __('Default \'Enabled\''),
+            help            => "$default: $enabled",
         ),
         new EBox::Types::Boolean(
             fieldName       => 'autologin',
             printableName   => __('AutoLogin'),
             editable        => 1,
             defaultValue    => 0,
-            help            => __('Default \'Disabled\''),
+            help            => "$default: $disabled",
         ),
         new EBox::Types::Boolean(
             fieldName       => 'guestlogin',
             printableName   => __('Guest Login'),
             editable        => 1,
             defaultValue    => 0,
-            help            => __('Default \'Disabled\''),
+            help            => "$default: $disabled",
         ),
         new EBox::Types::Boolean(
             fieldName       => 'sound',
             printableName   => __('Sound'),
             editable        => 1,
             defaultValue    => 1,
-            help            => __('Default \'Enabled\''),
+            help            => "$default: $enabled",
         ),
         new EBox::Types::Select(
             fieldName       => 'kb_layout',
@@ -187,7 +191,7 @@ sub _table
                     editable        => 1,
                 ),
             ],
-            help            => __('Time when clients will be automatically shutdown.'),
+            help => __('Time when clients will be automatically shutdown.'),
         ),
     );
 
