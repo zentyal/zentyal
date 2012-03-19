@@ -1668,6 +1668,7 @@ sub _thinClientOptions # (iface, element)
         $ret->{nextServer} = $thinClientModel->nextServer();#$row->id());
         $ret->{filename}   = $thinClientModel->remoteFilename();#$row->id());
         $ret->{architecture} = $thinClientModel->architecture();#$row->id());
+        $ret->{fat} = $thinClientModel->fat();#$row->id());
     }
     return $ret;
 

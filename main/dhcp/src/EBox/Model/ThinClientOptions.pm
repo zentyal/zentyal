@@ -49,6 +49,8 @@ use EBox::Types::File;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Host;
+use EBox::Types::Select;
+use EBox::Types::Boolean;
 use EBox::Validate;
 use EBox::View::Customizer;
 
@@ -304,6 +306,38 @@ sub architecture
     return $row->valueByName('architecture');
 }
 
+# Method: fat
+#
+#     Return true if the image is a fat image
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     Boolean - True if the image is fat
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub fat
+{
+    my ($self, $id) = @_;
+
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
+    return $row->valueByName('fat');
+}
+
 # Group: Protected methods
 
 #
@@ -436,6 +470,13 @@ sub _table
                             editable        => 1,
                             hiddenOnViewer  => 1,
                             help            => __('Architecture of the LTSP clients. The LTSP image for that architecture must exist in order to boot the clients.'),),
+        new EBox::Types::Boolean(
+                            fieldName       => 'fat',
+                            printableName   => __('Fat Client'),
+                            defaultValue    => 0,
+                            editable        => 1,
+                            hiddenOnViewer  => 1,
+                            help            => __('Whether the clients are fat clients or not.'),),
     );
 
     my $dataTable = {
@@ -478,19 +519,19 @@ sub viewCustomizer
             # TODO: Remove this when more than one config per interface is possible
             'none' => {
                 show => [],
-                hide => ['nextServerHost', 'architecture','remoteFilename'],
+                hide => ['nextServerHost', 'architecture','remoteFilename','fat'],
             },
             'nextServerEBox' => {
 # TODO: Restore this when more than one config per interface is possible
-#                show => ['hosts', 'nextServerHost', 'architecture'],
-                show => ['nextServerHost', 'architecture'],
+#                show => ['hosts', 'nextServerHost', 'architecture', 'fat'],
+                show => ['nextServerHost', 'architecture', 'fat'],
                 hide => ['remoteFilename'],
             },
             'nextServerHost' => {
 # TODO: Restore this when more than one config per interface is possible
 #                show => ['remoteFilename', 'nextServerHost', 'hosts'],
                 show => ['remoteFilename', 'nextServerHost'],
-                hide => ['architecture'],
+                hide => ['architecture', 'fat'],
             },
         },
     );
