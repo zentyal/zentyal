@@ -91,4 +91,32 @@ sub _table
     return $dataTable;
 }
 
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $row  = $self->parentRow();
+    my $profile = $row->printableValueByName('name');
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+        {
+            title => $profile,
+            link  => '/LTSP/Composite/Composite#Profiles',
+        },
+        {
+            title => $self->printableName(),
+            link  => ''
+        }
+    ]);
+
+    return $custom;
+}
+
 1;

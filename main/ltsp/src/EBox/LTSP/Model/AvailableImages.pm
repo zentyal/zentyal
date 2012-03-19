@@ -139,7 +139,7 @@ sub _doUpdate
     }
 
     my $arch = $self->row($id)->valueByName('architecture');
-    my $fat  = $self->row($id)->valueByName('fat');
+    my $fat  = ($self->row($id)->valueByName('fat') ? 1 : 0);
 
     my $pid = fork();
     unless (defined $pid) {

@@ -101,8 +101,8 @@ sub _doInstall
         );
     }
 
-    my $arch         = $params{'architecture'};
-    my $fat          = $params{'fat'};
+    my $arch         = $self->parentRow()->valueByName('architecture');
+    my $fat          = ($self->parentRow()->valueByName('fat') ? 1 : 0);
     my $applications = $params{'applications'};
 
     if ( $applications eq '' ) {
@@ -126,6 +126,40 @@ sub _doInstall
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $row  = $self->parentRow();
+    my $arch = $row->printableValueByName('architecture');
+    my $fat  = $row->valueByName('fat');
+
+    my $title = $arch;
+
+    if ($fat) {
+        $title .= __(' (Fat Image)');
+    }
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+        {
+            title => $title,
+            link  => '/LTSP/Composite/Composite#ClientImages',
+        },
+        {
+            title => $self->printableName(),
+            link  => ''
+        }
+    ]);
+
+    return $custom;
 }
 
 1;

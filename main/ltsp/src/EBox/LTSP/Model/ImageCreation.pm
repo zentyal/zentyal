@@ -119,7 +119,7 @@ sub _doCreate
     }
 
     my $arch = $params{'architecture'};
-    my $fat  = $params{'fat'};
+    my $fat  = ($params{'fat'} ? 1 : 0);
 
     my $pid = fork();
     unless (defined $pid) {
