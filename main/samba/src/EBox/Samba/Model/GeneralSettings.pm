@@ -163,10 +163,10 @@ sub _checkDomainName
     my ($self, $domain) = @_;
 
     if (length ($domain) > MAXWORKGROUPLENGTH) {
-        throw EBox::Exceptions::External(__('Domain or workgroup name field is empty'));
+        throw EBox::Exceptions::External(__('Domain or workgroup name is too long'));
     }
     if (length ($domain) <= 0) {
-        throw EBox::Exceptions::Externam(__('Domain or workgroup name is too long'));
+        throw EBox::Exceptions::External(__('Domain or workgroup name field is empty'));
     }
     if ($domain =~ m/\.local$/) {
         throw EBox::Exceptions::External(__(q{Domain name cannot end in '.local'}));
