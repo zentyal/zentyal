@@ -53,13 +53,13 @@ sub new
 
     bless($self, $class);
 
-    if ( defined ( $self->{'defaultValue'} )) {
+    if ( defined ( $self->defaultValue() )) {
         if ( $self->optional() ) {
             throw EBox::Exceptions::Internal(
              'Defined default value to an optional field ' . $self->fieldName()
                                             );
         }
-        $self->_setValue($self->{'defaultValue'});
+        $self->_setValue($self->defaultValue());
     }
 
     return $self;
@@ -244,8 +244,14 @@ sub defaultValue
 {
     my ($self) = @_;
 
-    return $self->{'defaultValue'};
+    my $value = $self->{defaultValue};
 
+    # Check if it is a reference. It can be a function that returns the value
+    if (ref ($value)) {
+        $value = &$value();
+    }
+
+    return $value;
 }
 
 # Method: help
