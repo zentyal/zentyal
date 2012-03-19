@@ -39,6 +39,11 @@ sub new
     my $class = shift;
     my %opts = @_;
 
+    # Load and cache the zones
+    unless (defined ($zones)) {
+        $zones = _loadZones();
+    }
+
     unless (exists $opts{'HTMLSetter'}) {
         $opts{'HTMLSetter'} ='/ajax/setter/timezoneSetter.mas';
     }
@@ -49,30 +54,8 @@ sub new
     $opts{'type'} = 'timezone' unless defined ($opts{'type'});
     my $self = $class->SUPER::new(%opts);
 
-    # Load and cache the zones
-    unless (defined ($zones)) {
-        $zones = $self->_loadZones();
-    }
-
     bless ($self, $class);
     return $self;
-}
-
-# Method: paramExist
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::paramExist>
-#
-sub paramExist
-{
-    my ($self, $params) = @_;
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    return ( defined ($params->{$continent}  ) and
-             defined ($params->{$country}) );
 }
 
 # Method: printableValue
@@ -85,12 +68,14 @@ sub printableValue
 {
     my ($self) = @_;
 
+    my $ret = "";
+
     if ( defined ($self->{'continent'}) and
          defined ($self->{'country'}) ) {
-        return "$self->{'continent'}/$self->{'country'}";
-    } else   {
-        return "";
+        $ret = "$self->{'continent'}/$self->{'country'}";
     }
+
+    return $ret;
 }
 
 # Method: cmp
@@ -126,15 +111,8 @@ sub cmp
         ($self->{'country'}   eq $compareType->{'country'})) {
         return 0;
     } else {
-        return undef;
+        return 1;
     }
-}
-
-sub size
-{
-    my ($self) = @_;
-
-    return $self->{'size'};
 }
 
 # Method: compareToHash
@@ -193,13 +171,17 @@ sub fields
 #
 # Returns:
 #
-#   Array containing the values (continent, country)
+#   Hash ref containing the values (continent, country)
 #
 sub value
 {
     my ($self) = @_;
 
-    return ($self->{'continent'}, $self->{'country'});
+    my $value = {};
+    $value->{continent} = $self->{continent};
+    $value->{country} = $self->{country};
+
+    return $value;
 }
 
 sub continent
@@ -219,6 +201,10 @@ sub country
 sub zones
 {
     my ($self) = @_;
+
+    unless (defined ($zones)) {
+        $zones = _loadZones();
+    }
 
     return $zones;
 }
@@ -275,7 +261,6 @@ sub _restoreFromHash
     my ($self) = @_;
 
     return unless ($self->row());
-
     my $continent = $self->fieldName() . '_continent';
     my $country   = $self->fieldName() . '_country';
 
@@ -308,8 +293,12 @@ sub _paramIsValid
     my $continentValue = $params->{$continent};
     my $countryValue   = $params->{$country};
 
+    unless (defined ($zones)) {
+        $zones = $self->_loadZones();
+    }
+
     if (exists $zones->{$continentValue}) {
-        foreach my $country ($zones->{$continentValue}) {
+        foreach my $country (@{$zones->{$continentValue}}) {
             if ($country eq $countryValue) {
                 return 1;
             }
@@ -360,7 +349,7 @@ sub _setValue
     my $country = join('/', @countryArray);
 
     my $params = {
-        $self->fieldName() . '_continent'   => $continent,
+        $self->fieldName() . '_continent' => $continent,
         $self->fieldName() . '_country' => $country,
     };
 
@@ -371,8 +360,6 @@ sub _setValue
 
 sub _loadZones
 {
-    my ($self) = @_;
-
     my $table = {};
     my @lines = read_file(ZONES_FILE);
     foreach my $line (@lines) {
