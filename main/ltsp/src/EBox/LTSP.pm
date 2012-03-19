@@ -44,8 +44,8 @@ use Net::IP;
 
 use constant CONF_DIR  => '/var/lib/tftpboot/ltsp';
 use constant CONF_FILE => 'lts.conf';
-use constant ARCHITECTURES => ['i386', 'amd64', 'hppa', 'powerpc'];
-
+use constant ARCHITECTURES => ['i386', 'amd64',]; #['i386', 'amd64', 'hppa', 'powerpc'];
+use constant IMG_DIR => '/opt/ltsp/images';
 
 # Method: _create
 #
@@ -72,11 +72,15 @@ sub _create
 sub modelClasses
 {
     return [
+        'EBox::LTSP::Model::AvailableImages',
+        'EBox::LTSP::Model::LocalApps',
         'EBox::LTSP::Model::GeneralOpts',
         'EBox::LTSP::Model::Clients',
         'EBox::LTSP::Model::Profiles',
+        'EBox::LTSP::Model::OtherClientOpts',
         'EBox::LTSP::Model::OtherOpts',
         'EBox::LTSP::Model::GeneralClientOpts',
+        'EBox::LTSP::Model::ImageCreation',
         'EBox::LTSP::Model::AutoLogin',
     ];
 }
@@ -91,8 +95,9 @@ sub compositeClasses
 {
     return [
         'EBox::LTSP::Composite::Composite',
-        'EBox::LTSP::Composite::Configuration',
+        'EBox::LTSP::Composite::ClientImages',
         'EBox::LTSP::Composite::ClientConfiguration',
+        'EBox::LTSP::Composite::Configuration',
     ];
 }
 
@@ -130,6 +135,19 @@ sub enableActions
 sub architectures
 {
     return ARCHITECTURES;
+}
+
+sub images
+{
+    my ($self) = @_;
+
+    my @images;
+
+    for my $arch (@{$self->architectures}) {
+        push( @images, IMG_DIR . "/$arch.img");
+    }
+
+    return \@images;
 }
 
 sub _confFiles
@@ -292,9 +310,9 @@ sub _getGeneralOptions
 
     my %opts;
 
-    $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
+    $opts{'LDM_LIMIT_ONE_SESSION'} = ($one_session ? 'True' : 'False');
 
-    if ( $network_compression eq 'True' ) {
+    if ( $network_compression ) {
         $opts{'LDM_DIRECTX'}         = 'False';
         $opts{'NETWORK_COMPRESSION'} = 'True';
     } else {
@@ -302,7 +320,7 @@ sub _getGeneralOptions
         $opts{'NETWORK_COMPRESSION'} = 'False';
     }
 
-    if ( $local_apps eq 'True' ) {
+    if ( $local_apps ) {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
     } else {
@@ -310,10 +328,10 @@ sub _getGeneralOptions
         $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
-    $opts{'LOCALDEV'} = $local_dev;
-    $opts{'LDM_AUTOLOGIN'} = $autologin;
-    $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
-    $opts{'SOUND'} = $sound;
+    $opts{'LOCALDEV'} = ($local_dev ? 'True' : 'False');
+    $opts{'LDM_AUTOLOGIN'} = ($autologin ? 'True' : 'False');
+    $opts{'LDM_ALLOW_GUEST'} = ($guestlogin ? 'True' : 'False');
+    $opts{'SOUND'} = ($sound ? 'True' : 'False');
 
     if ( defined $kb_layout ) {
         $opts{'XKBLAYOUT'}      = $kb_layout;
@@ -477,7 +495,7 @@ sub _getProfilesOptions
             my $submodel = $row->subModel('configuration');
 
             my $model_general = $submodel->componentByName('GeneralClientOpts');
-            my $model_other   = $submodel->componentByName('OtherOpts');
+            my $model_other   = $submodel->componentByName('OtherClientOpts');
 
             my $general = $self->_getGeneralProfileOptions($model_general);
             my $other   = $self->_getOtherOptions($model_other);
@@ -660,11 +678,34 @@ sub _lstpClients
     return \%clients;
 }
 
+sub _ltspWidgetStatus   # ($self, $num_clients)
+{
+    my ($self, $num_clients) = @_;
+
+    my $work = $self->st_get_string('work');
+    if ( (defined $work) and ($work ne 'none')) {
+        if ($work eq 'build') {
+            return new EBox::Dashboard::Value( __('Status'), __("Building image") );
+        } elsif ($work eq 'update') {
+            return new EBox::Dashboard::Value( __('Status'), __("Updating image") );
+        } elsif ($work eq 'install') {
+            return new EBox::Dashboard::Value( __('Status'), __("Installing applications into an image") );
+        } else {
+            return new EBox::Dashboard::Value( __('Status'), __("Doing some into an image") );
+        }
+    } else {
+        return new EBox::Dashboard::Value( __('Status'), __("$num_clients users connected to thin clients") );
+    }
+}
+
 sub ltspClientsWidget
 {
     my ($self, $widget) = @_;
+
+
     my $section = new EBox::Dashboard::Section('ltspclients');
-    $widget->add($section);
+    my $section_status = new EBox::Dashboard::Section('ltspstatus');
+
     my $titles = [__('Username'),__('IP address'),];
 
     my $clients = $self->_lstpClients();
@@ -677,7 +718,12 @@ sub ltspClientsWidget
         $rows->{$id} = [$client->{user},$client->{ip},];
     }
 
+
+    $section_status->add($self->_ltspWidgetStatus(scalar(keys %{$clients})));
+    $widget->add($section_status);
+
     $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No user connected in any thin client.'));
+    $widget->add($section);
 }
 
 ### Method: widgets
@@ -686,9 +732,11 @@ sub ltspClientsWidget
 #
 sub widgets
 {
+    my ($self) = @_;
+
     return {
         'ltspclients' => {
-            'title' => __("LTSP Clients"),
+            'title' => $self->printableName(),
             'widget' => \&ltspClientsWidget,
             'order' => 15,
             'default' => 1

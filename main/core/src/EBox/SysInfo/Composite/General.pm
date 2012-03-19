@@ -13,12 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::LTSP::Composite::Configuration
-#
-#   TODO: Document composite
-#
-
-package EBox::LTSP::Composite::ClientConfiguration;
+package EBox::SysInfo::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -31,7 +26,12 @@ use EBox::Gettext;
 
 # Constructor: new
 #
-#         Constructor for composite
+#   Constructor for the general events composite
+#
+# Returns:
+#
+#   <EBox::Samba::Model::General> - a
+#       general events composite
 #
 sub new
 {
@@ -42,39 +42,25 @@ sub new
     return $self;
 }
 
-# Method: pageTitle
-#
-# Overrides:
-#
-#   <EBox::Model::Component::pageTitle>
-#
-sub pageTitle
-{
-    return 'Profile Configuration';
-}
-
 # Group: Protected methods
 
 # Method: _description
 #
 # Overrides:
 #
-#     <EBox::Model::Composite::_description>
+#   <EBox::Model::Composite::_description>
 #
 sub _description
 {
-    my $description =
-    {
-        components      => [
-                '/ltsp/GeneralClientOpts',
-                '/ltsp/OtherClientOpts',
-            ],
-        layout          => 'top-bottom',
-        name            => 'ClientConfiguration',
-        printableName   => __('Client configuration'),
-        compositeDomain => 'LTSP',
-        help            => __(''), # FIXME
-    };
+    my $description = { components      => [ 'sysinfo/AdminUser', 'apache/Language',
+                                             'sysinfo/TimeZone',  'sysinfo/DateTime',
+                                             'apache/AdminPort', 'sysinfo/HostName' ],
+                        layout          => 'top-bottom',
+                        name            => __PACKAGE__->nameFromClass,
+                        printableName   => __('General configuration'),
+                        pageTitle       => __('General configuration'),
+                        compositeDomain => 'SysInfo',
+                        help => __('On this page you can set different general system settings')};
 
     return $description;
 }

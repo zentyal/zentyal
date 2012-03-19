@@ -50,7 +50,7 @@ sub new
 #
 sub pageTitle
 {
-    return 'Thin Clients Configuration';
+    return __('Thin Clients Configuration');
 }
 
 # Group: Protected methods
@@ -66,6 +66,7 @@ sub _description
     my $description =
     {
         components      => [
+                'ClientImages',
                 'Configuration',
                 '/ltsp/AutoLogin',
                 '/ltsp/Profiles',

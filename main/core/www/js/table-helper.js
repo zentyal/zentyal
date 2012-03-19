@@ -423,6 +423,9 @@ function customActionClicked(action, url, table, fields, directory, id, page)
             onComplete: function(t) {
                 highlightRow(id, false);
                 stripe('dataTable', 'even', 'odd');
+                $$('.customActions').each(function(e) {
+                        restoreHidden(e.identify(), table);
+                });
             },
             onFailure: function(t) {
                 $$('.customActions').each(function(e) {

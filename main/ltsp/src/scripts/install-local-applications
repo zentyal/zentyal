@@ -1,31 +1,33 @@
-#!/bin/bash
-echo "Please, choose the architecture:"
-select arch in i386 amd64 hppa powerpc;
-do
-    if [ $arch ]; then
-        if [ -f "/opt/ltsp/images/$arch.img" ]; then
-            echo -n "Enter the application names separated by spaces: "
-            read PACKAGES
+#!/usr/bin/perl -s
 
-            if [ $PACKAGES ]; then
-                echo "Installing applications into $arch image..."
+use strict;
+use warnings;
 
-                CHROOT_DIR=/opt/ltsp/$arch
-                chroot $CHROOT_DIR mount -t proc /proc /proc
+use EBox;
+use EBox::Global;
 
-                chroot $CHROOT_DIR apt-get update
-                sudo chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $PACKAGES
+if (scalar @ARGV == 2) {
+    my $arch = $ARGV[0];
+    my $apps = $ARGV[1];
+    if ( -f "/opt/ltsp/images/$arch.img" ) {
+        EBox::init();
 
-                umount /opt/ltsp/$arch/proc
+        my $ltsp = EBox::Global->modInstance('ltsp');
 
-                ltsp-update-image --arch $arch
-            else
-                echo "No packages selected."
-            fi
+        $ltsp->st_set_string('arch', $arch);
+        $ltsp->st_set_string('work', 'install');
+        print "Installing applications into $arch image: $apps\n";
 
-            break;
-        else
-            echo "/opt/ltsp/images/$arch.img does not exist."
-        fi
-    fi
-done
+        my $CHROOT_DIR = "/opt/ltsp/$arch";
+        EBox::Sudo::root("chroot $CHROOT_DIR mount -t proc none /proc "
+                         . "&& chroot $CHROOT_DIR apt-get update "
+                         . "&& sudo chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $apps "
+                         . "&& umount /opt/ltsp/$arch/proc "
+                         . "&& ltsp-update-image --arch $arch");
+        $ltsp->st_set_string('work', 'none');
+    } else {
+        print "/opt/ltsp/images/$arch.img does not exist.\n";
+    }
+} else {
+    print "Usage: install-local-applications arch apps\n";
+}
