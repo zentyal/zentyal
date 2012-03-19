@@ -77,6 +77,7 @@ sub _table
         'defaultActions' => [],
         'customActions' => $customActions,
         'tableDescription' => \@tableHead,
+        'disableAutocomplete' => 1,
     };
 
     return $dataTable;
