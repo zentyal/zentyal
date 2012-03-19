@@ -77,7 +77,7 @@ sub setTypedRow
 
     # This method just perform those actions
 
-    $self->validateTypedRow('update', $paramsRef, $paramsRef);
+    $self->validateTypedRow('update', $paramsRef, $paramsRef, $force);
 
     # Notify remainder elements
     if ( (not $force) and $self->table()->{automaticRemove}) {

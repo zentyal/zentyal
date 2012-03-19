@@ -843,7 +843,8 @@ sub ranges # (iface)
               { name    => $row->valueByName('name'),
                 from    => $row->valueByName('from'),
                 to      => $row->valueByName('to'),
-                options => $self->_thinClientOptions($iface, $row->valueByName('name'))
+                # TODO: Restore this when more than one config per interface is possible
+                options => {}, #$self->_thinClientOptions($iface, $row->valueByName('name'))
                });
     }
 
@@ -908,7 +909,8 @@ sub fixedAddresses # (interface, readOnly)
         my $row   = $model->row($id);
         my $objId = $row->valueByName('object');
         my $mbs   = $objMod->objectMembers($objId);
-        $addrs{$objId} = { options => $self->_thinClientOptions($iface, $objId),
+        # TODO: Restore this when more than one config per interface is possible
+        $addrs{$objId} = { options => {},#$self->_thinClientOptions($iface, $objId),
                            members => [] };
 
         foreach my $member (@{$mbs}) {
@@ -1555,6 +1557,9 @@ sub _ifacesInfo
                 $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
                 $iflist{$iface}->{'reverseZones'}  = $self->_reverseZones($iface);
             }
+
+            # TODO: Remove this when more than one config per interface is possible
+            $iflist{$iface}->{'options'}  = $self->_thinClientOptions($iface);
         }
     }
 
@@ -1609,16 +1614,22 @@ sub _areThereThinClientOptions
 {
     my ($self, $ifacesInfo) = @_;
 
+# TODO: Restore this when more than one config per interface is possible
+#     foreach my $ifaceInfo (values %{$ifacesInfo}) {
+#         foreach my $range (@{$ifaceInfo->{ranges}}) {
+#             if ( values %{$range->{options}} > 0 ) {
+#                 return 1;
+#             }
+#         }
+#         foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
+#             if ( values %{$objFixed->{options}} > 0 ) {
+#                 return 1;
+#             }
+#         }
+#     }
     foreach my $ifaceInfo (values %{$ifacesInfo}) {
-        foreach my $range (@{$ifaceInfo->{ranges}}) {
-            if ( values %{$range->{options}} > 0 ) {
-                return 1;
-            }
-        }
-        foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
-            if ( values %{$objFixed->{options}} > 0 ) {
-                return 1;
-            }
+        if ( values %{$ifaceInfo->{options}} > 0 ) {
+            return 1;
         }
     }
     return 0;
@@ -1640,7 +1651,7 @@ sub _leasedTime # (which, iface)
 
 # Method: _thinClientOptions
 #
-#    Get the thin client option (nextServer or filename) if defined
+#    Get the thin client options
 #
 sub _thinClientOptions # (iface, element)
 {
@@ -1649,10 +1660,15 @@ sub _thinClientOptions # (iface, element)
     my $thinClientModel = $self->_getModel('thinClientModel', $iface);
 
     my $ret = {};
-    my $row = $thinClientModel->findValue(hosts => $element);
-    if ( defined($row) ) {
-        $ret->{nextServer} = $thinClientModel->nextServer($row->id());
-        $ret->{filename}   = $row->valueByName('remoteFilename');
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $thinClientModel->findValue(hosts => $element);
+#    if ( defined($row) ) {
+    if ($thinClientModel->row()->valueByName('nextServer') ne 'none') {
+        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();#$row->id());
+        $ret->{nextServer} = $thinClientModel->nextServer();#$row->id());
+        $ret->{filename}   = $thinClientModel->remoteFilename();#$row->id());
+        $ret->{architecture} = $thinClientModel->architecture();#$row->id());
+        $ret->{fat} = $thinClientModel->fat();#$row->id());
     }
     return $ret;
 

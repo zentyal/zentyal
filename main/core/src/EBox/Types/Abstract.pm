@@ -48,34 +48,18 @@ sub new
     }
 
     if (not $self->{printableName}) {
-        $self->{printableName} = $self->{fieldName};
-    }
-
-    if (defined $self->{'hidden'} and ref $self->{'hidden'})
-    {
-        my $hiddenFunc = $self->{'hidden'};
-        if (&$hiddenFunc()) {
-            $self->{'HTMLViewer'} = undef;
-            $self->{'HTMLSetter'} = undef;
-        }
-    } elsif (defined($self->{'hidden'}) and $self->{'hidden'}) {
-        $self->{'HTMLViewer'} = undef;
-        $self->{'HTMLSetter'} = undef;
-    } elsif (defined($self->{'hiddenOnSetter'}) and $self->{'hiddenOnSetter'}) {
-        $self->{'HTMLSetter'} = undef;
-    } elsif (defined($self->{'hiddenOnViewer'}) and $self->{'hiddenOnViewer'}) {
-        $self->{'HTMLViewer'} = undef;
+        $self->{printableName} = undef;
     }
 
     bless($self, $class);
 
-    if ( defined ( $self->{'defaultValue'} )) {
+    if ( defined ( $self->defaultValue() )) {
         if ( $self->optional() ) {
             throw EBox::Exceptions::Internal(
              'Defined default value to an optional field ' . $self->fieldName()
                                             );
         }
-        $self->_setValue($self->{'defaultValue'});
+        $self->_setValue($self->defaultValue());
     }
 
     return $self;
@@ -173,6 +157,21 @@ sub editable
     }
 }
 
+sub hidden
+{
+    my ($self) = @_;
+
+    if (defined $self->{'hidden'} and ref $self->{'hidden'}) {
+        my $hiddenFunc = $self->{'hidden'};
+        return (&$hiddenFunc());
+
+    } elsif (defined($self->{'hidden'})) {
+        return $self->{'hidden'};
+    }
+
+    return 0;
+}
+
 sub fieldName
 {
     my ($self) = @_;
@@ -245,8 +244,14 @@ sub defaultValue
 {
     my ($self) = @_;
 
-    return $self->{'defaultValue'};
+    my $value = $self->{defaultValue};
 
+    # Check if it is a reference. It can be a function that returns the value
+    if (ref ($value)) {
+        $value = &$value();
+    }
+
+    return $value;
 }
 
 # Method: help
@@ -661,6 +666,11 @@ sub HTMLSetter
 {
     my ($self) = @_;
 
+    return undef if ($self->hidden());
+    if (defined($self->{'hiddenOnSetter'}) and $self->{'hiddenOnSetter'}) {
+        return undef;
+    }
+
     return undef unless (exists $self->{'HTMLSetter'});
     return $self->{'HTMLSetter'};
 }
@@ -669,6 +679,10 @@ sub HTMLViewer
 {
     my ($self) = @_;
 
+    return undef if ($self->hidden());
+    if (defined($self->{'hiddenOnViewer'}) and $self->{'hiddenOnViewer'}) {
+        return undef;
+    }
     return undef unless (exists $self->{'HTMLViewer'});
     return $self->{'HTMLViewer'};
 }

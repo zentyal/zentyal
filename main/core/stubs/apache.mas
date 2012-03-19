@@ -239,8 +239,7 @@ RewriteRule ^/ebox(.*) /$1
 RewriteRule ^/zentyal(.*) /$1
 # skip rewrites for favicon and login
 RewriteCond %{REQUEST_FILENAME} ^/favicon.ico$ [OR]
-RewriteCond %{REQUEST_FILENAME} ^/LOGIN$ [OR]
-RewriteCond %{REQUEST_FILENAME} ^/slave$
+RewriteCond %{REQUEST_FILENAME} ^/LOGIN$
 RewriteRule .? - [S=100]
 # Map /ebox.cgi to the right Perl CGI and redirect
 RewriteRule ^/ebox.cgi$ /

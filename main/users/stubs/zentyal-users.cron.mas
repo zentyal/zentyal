@@ -1,0 +1,11 @@
+<%args>
+    $slave_time
+</%args>
+# /etc/cron.d/zentyal-users
+
+SHELL=/bin/sh
+PATH=/usr/bin:/bin
+
+# sync the slaves every <% $slave_time %> minutes if there are missing changes
+*/<% $slave_time %> * * * * root /usr/share/zentyal-users/slave-sync
+

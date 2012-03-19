@@ -1,0 +1,33 @@
+#!/usr/bin/perl -s
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+if (scalar @ARGV == 2) {
+    my $arch = $ARGV[0];
+    my $apps = $ARGV[1];
+    if ( -f "/opt/ltsp/images/$arch.img" ) {
+        EBox::init();
+
+        my $ltsp = EBox::Global->modInstance('ltsp');
+
+        $ltsp->st_set_string('arch', $arch);
+        $ltsp->st_set_string('work', 'install');
+        print "Installing applications into $arch image: $apps\n";
+
+        my $CHROOT_DIR = "/opt/ltsp/$arch";
+        EBox::Sudo::root("chroot $CHROOT_DIR mount -t proc none /proc "
+                         . "&& chroot $CHROOT_DIR apt-get update "
+                         . "&& sudo chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $apps "
+                         . "&& umount /opt/ltsp/$arch/proc "
+                         . "&& ltsp-update-image --arch $arch");
+        $ltsp->st_set_string('work', 'none');
+    } else {
+        print "/opt/ltsp/images/$arch.img does not exist.\n";
+    }
+} else {
+    print "Usage: install-local-applications arch apps\n";
+}

@@ -1,4 +1,5 @@
 HEAD
+	+ Do not show Zentyal Cloud option if custom_prefix is defined
 	+ Added selectable priority by config file to scheduled backup
 2.3.1
 	+ Do not check for disasterAddon if not subscribed

@@ -331,9 +331,10 @@ sub _pathHelp
 
     return __x( '{openit}Directory under Zentyal{closeit} will ' .
             'automatically create the share.' .
-            "directory in $sharesPath {br}" .
+            "directory in {sharesPath} {br}" .
             '{openit}File system path{closeit} will allow you to share '.
             'an existing directory within your file system',
+               sharesPath => $sharesPath,
                openit  => '<i>',
                closeit => '</i>',
                br      => '<br>');
