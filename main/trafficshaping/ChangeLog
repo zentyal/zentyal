@@ -1,3 +1,6 @@
+HEAD
+	+ Separate rules in internal (download) and external (upload)
+	+ Use regular models instead of a dynamic select composite
 2.3.1
 	+ Use printableName instead of name to select services
 2.3
