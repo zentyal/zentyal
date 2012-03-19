@@ -26,6 +26,10 @@ sub new
     my %opts = @_;
     my $self = {@_};
 
+    unless (defined $self->{enabled}) {
+        $self->{enabled} = 1;
+    }
+
     bless($self, $class);
 
     return $self;

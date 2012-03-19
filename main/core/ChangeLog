@@ -1,7 +1,7 @@
 HEAD
 	+ Added new EBox::Types::Time and EBox::Types::Date
-	+ Added new EBox::Types::TimeZone
-	+ Modelize SysInfo
+	+ Added new attribute 'enabled' to the Action and MultiStateAction types
+	  to allow disabling an action. Accepts a scalar or a CODE ref
 2.3.5
 	+ Added force parameter in validateTypedRow
 	+ Fixed 'hidden' on types when using method references
