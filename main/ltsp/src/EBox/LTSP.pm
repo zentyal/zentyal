@@ -63,6 +63,33 @@ sub _create
     return $self;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $fw = EBox::Global->modInstance('firewall');
+
+        my $port = 8888;
+        $fw->addInternalService(
+                'name'            => 'ltsp',
+                'printableName' => __('Thin Clients'),
+                'description' => __('Thin Clients (NBD protocol)'),
+                'protocol'        => 'tcp',
+                'sourcePort'      => 'any',
+                'destinationPort' => 10809,
+        );
+        $fw->saveConfigRecursive();
+    }
+}
+
 # Method: modelClasses
 #
 # Overrides:
