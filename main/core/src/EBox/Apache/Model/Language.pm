@@ -13,21 +13,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::SysInfo::Model::Language
+# Class: EBox::Apache::Model::Language
 #
 #   This model is used to configure the interface languaje
 #
 
-package EBox::SysInfo::Model::Language;
+package EBox::Apache::Model::Language;
 
 use strict;
 use warnings;
 
 use Error qw(:try);
-use POSIX;
 
 use EBox::Gettext;
-use EBox::Menu;
+use EBox::Types::Select;
 
 use base 'EBox::Model::DataForm';
 
@@ -78,15 +77,14 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Select( fieldName     => 'language',
-                                              populate      => \&_populateLanguages,
-                                              editable      => 1));
-
+    my @tableHead = (new EBox::Types::Select(fieldName => 'language',
+                                             populate  => \&_populateLanguages,
+                                             editable  => 1));
     my $dataTable =
     {
         'tableName' => 'Language',
         'printableTableName' => __('Language selection'),
-        'modelDomain' => 'SysInfo',
+        'modelDomain' => 'Apache',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
     };
@@ -102,6 +100,7 @@ sub _populateLanguages
     foreach my $l (sort keys %{$langs}) {
         push ($array, { value => $l, printableValue => $langs->{$l} });
     }
+
     return $array;
 }
 

@@ -46,12 +46,12 @@ sub _table
     my ($self) = @_;
 
     my @tableHead = (new EBox::Types::Host( fieldName     => 'hostname',
-                                            printableName => __('Host name'),
+                                            printableName => __('Hostname'),
                                             defaultValue  => \&_getHostname,
                                             editable      => 1),
 
                      new EBox::Types::DomainName( fieldName     => 'hostdomain',
-                                                  printableName => __('Host domain'),
+                                                  printableName => __('Domain'),
                                                   defaultValue  => \&_getHostdomain,
                                                   editable      => 1,
                                                   help          => __('You will need to restart all the services or reboot the system to apply the hostname change.')));
@@ -59,7 +59,7 @@ sub _table
     my $dataTable =
     {
         'tableName' => 'HostName',
-        'printableTableName' => __('Host name and domain'),
+        'printableTableName' => __('Hostname and Domain'),
         'modelDomain' => 'SysInfo',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
@@ -71,12 +71,17 @@ sub _table
 sub _getHostname
 {
     my $hostname = `hostname`;
+    chomp ($hostname);
     return $hostname;
 }
 
 sub _getHostdomain
 {
     my $hostdomain = `hostname -d`;
+    chomp ($hostdomain);
+    unless ($hostdomain) {
+        $hostdomain = 'zentyal.lan';
+    }
     return $hostdomain;
 }
 

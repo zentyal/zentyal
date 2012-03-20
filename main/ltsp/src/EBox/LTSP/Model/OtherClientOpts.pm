@@ -32,19 +32,17 @@ use EBox::Types::Text;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
-
 
 sub _table
 {
-
     my @fields =
     (
         new EBox::Types::Text(
@@ -72,7 +70,7 @@ sub _table
         'sortedBy' => 'option',
         'enableProperty' => 1,
         'defaultEnabledValue' => 1,
-        'help' => __('Each option should be a LTSP option (lts.conf file).'),
+        'help' => __('Each option should be an LTSP option (lts.conf file).'),
     };
 
     return $dataTable;

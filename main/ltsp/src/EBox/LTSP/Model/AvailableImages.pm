@@ -1,4 +1,4 @@
-# Copyright (C)
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -33,15 +33,18 @@ use EBox::Types::Boolean;
 use EBox::Types::Action;
 use EBox::Types::HasMany;
 
+use EBox::Exceptions::Internal;
+use EBox::Apache;
+
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 # Method: populate_architecture
@@ -73,7 +76,6 @@ sub _table
 
     my @fields =
     (
-
         new EBox::Types::Select(
             'fieldName' => 'architecture',
             'printableName' => __('Architecture'),
@@ -128,7 +130,7 @@ sub _doUpdate
     my $ltsp = $self->parentModule();
     my $work = $ltsp->st_get_string('work');
 
-    if ( (defined $work) and ($work ne 'none')) {
+    if ((defined $work) and ($work ne 'none')) {
         throw EBox::Exceptions::External(
             __('There is a job already in progress with some image. '
                . 'Please, wait until it is finished.')
@@ -136,13 +138,19 @@ sub _doUpdate
     }
 
     my $arch = $self->row($id)->valueByName('architecture');
+    my $fat  = ($self->row($id)->valueByName('fat') ? 1 : 0);
 
-    # Needed here because the code in the script takes some seconds to execute
-    $ltsp->st_set_string('arch', $arch);
-    $ltsp->st_set_string('work', 'update');
-    if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/update-image ' . $arch);
-        exit(0);
+    my $pid = fork();
+    unless (defined $pid) {
+        throw EBox::Exceptions::Internal("Cannot fork().");
+    }
+
+    if ($pid == 0) {
+        # Needed here because the code in the script takes some seconds to execute
+        $ltsp->st_set_string('work', 'update');
+
+        EBox::Apache::cleanupForExec();
+        exec("sudo /usr/share/zentyal-ltsp/update-image $arch $fat");
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};
@@ -175,14 +183,14 @@ sub syncRows
     }
 
     for my $arch (('i386', 'amd64')) {
-        if ( (-f "/opt/ltsp/images/$arch.img") and
-             (not defined $rows{$arch}) ) {
-            $self->add( architecture => $arch, fat => 0 );
+        if ((-f "/opt/ltsp/images/$arch.img") and
+            (not defined $rows{$arch}) ) {
+            $self->add(architecture => $arch, fat => 0);
             $rval = 1;
         }
-        if ( (-f "/opt/ltsp/images/fat-$arch.img") and
-             (not defined $rows{"fat-$arch"}) ) {
-            $self->add( architecture => $arch, fat => 1 );
+        if ((-f "/opt/ltsp/images/fat-$arch.img") and
+            (not defined $rows{"fat-$arch"}) ) {
+            $self->add(architecture => $arch, fat => 1);
             $rval = 1;
         }
     }

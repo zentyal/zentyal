@@ -1,4 +1,4 @@
-# Copyright (C)
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,6 +31,9 @@ use EBox::Validate qw(:all);
 use EBox::Types::Text;
 use EBox::Types::Action;
 
+use EBox::Exceptions::Internal;
+use EBox::Apache;
+
 sub new
 {
     my $class = shift;
@@ -41,7 +44,6 @@ sub new
 
     return $self;
 }
-
 
 sub _table
 {
@@ -98,6 +100,8 @@ sub _doInstall
         );
     }
 
+    my $arch         = $self->parentRow()->valueByName('architecture');
+    my $fat          = ($self->parentRow()->valueByName('fat') ? 1 : 0);
     my $applications = $params{'applications'};
 
     if ( $applications eq '' ) {
@@ -106,19 +110,55 @@ sub _doInstall
         );
     }
 
-    my $arch = $self->parentRow()->valueByName('architecture');
-    EBox::info("\$applications=$applications \$arch=$arch");
+    my $pid = fork();
+    unless (defined $pid) {
+        throw EBox::Exceptions::Internal("Cannot fork().");
+    }
 
-    # Needed here because the code in the script takes some seconds to execute
-    $ltsp->st_set_string('arch', $arch);
-    $ltsp->st_set_string('work', 'install');
-    if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/install-local-applications '
-                         . $arch . " \"$applications\"");
-        exit(0);
+    if ($pid == 0) {
+        # Needed here because the code in the script takes some seconds to execute
+        $ltsp->st_set_string('work', 'install');
+
+        EBox::Apache::cleanupForExec();
+        exec('sudo /usr/share/zentyal-ltsp/install-local-applications '
+             . "$arch $fat \"$applications\"");
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $row  = $self->parentRow();
+    my $arch = $row->printableValueByName('architecture');
+    my $fat  = $row->valueByName('fat');
+
+    my $title = $arch;
+
+    if ($fat) {
+        $title .= __(' (Fat Image)');
+    }
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+        {
+            title => $title,
+            link  => '/LTSP/Composite/Composite#ClientImages',
+        },
+        {
+            title => $self->printableName(),
+            link  => ''
+        }
+    ]);
+
+    return $custom;
 }
 
 1;

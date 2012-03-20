@@ -32,13 +32,13 @@ use EBox::Types::Select;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 sub objectModel
@@ -69,7 +69,6 @@ sub _table
             'foreignField' => 'name',
             'foreignNextPageField' => 'members',
             'editable' => 1,
-            'help' => __(''),
         ),
     );
 
@@ -89,6 +88,34 @@ sub _table
     };
 
     return $dataTable;
+}
+
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer> to
+#   provide a custom HTML title with breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $row  = $self->parentRow();
+    my $profile = $row->printableValueByName('name');
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+        {
+            title => $profile,
+            link  => '/LTSP/Composite/Composite#Profiles',
+        },
+        {
+            title => $self->printableName(),
+            link  => ''
+        }
+    ]);
+
+    return $custom;
 }
 
 1;

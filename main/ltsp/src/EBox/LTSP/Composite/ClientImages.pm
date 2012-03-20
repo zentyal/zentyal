@@ -62,7 +62,7 @@ sub _description
         name            => 'ClientImages',
         printableName   => __('Thin Clients Image Management'),
         compositeDomain => 'LTSP',
-        help            => __(''), # FIXME
+        #help            => __(''), # FIXME
     };
 
     return $description;

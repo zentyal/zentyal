@@ -1,4 +1,4 @@
-# Copyright (C)
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -33,6 +33,8 @@ use EBox::Types::Boolean;
 use EBox::Types::Action;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Apache;
 
 sub new
 {
@@ -117,13 +119,19 @@ sub _doCreate
     }
 
     my $arch = $params{'architecture'};
+    my $fat  = ($params{'fat'} ? 1 : 0);
 
-    # Needed here because the code in the script takes some seconds to execute
-    $ltsp->st_set_string('arch', $arch);
-    $ltsp->st_set_string('work', 'build');
-    if (fork() == 0) {
-        EBox::Sudo::root('/usr/share/zentyal-ltsp/build-image ' . $arch);
-        exit(0);
+    my $pid = fork();
+    unless (defined $pid) {
+        throw EBox::Exceptions::Internal("Cannot fork().");
+    }
+
+    if ($pid == 0) {
+        # Needed here because the code in the script takes some seconds to execute
+        $ltsp->st_set_string('work', 'build');
+
+        EBox::Apache::cleanupForExec();
+        exec("sudo /usr/share/zentyal-ltsp/build-image $arch $fat");
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};

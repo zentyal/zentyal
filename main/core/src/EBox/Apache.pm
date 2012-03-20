@@ -17,12 +17,13 @@ package EBox::Apache;
 use strict;
 use warnings;
 
-use base 'EBox::Module::Service';
+use base qw(EBox::Module::Service EBox::Model::ModelProvider);
 
 use EBox::Validate qw( :all );
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
+use EBox::Menu;
 use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
@@ -35,7 +36,7 @@ use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename;
-use POSIX qw(setsid);
+use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
 use File::Path qw(remove_tree);
 
@@ -48,7 +49,6 @@ use constant INCLUDE_KEY => 'includes';
 use constant CAS_KEY => 'cas';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
-use constant APACHE_PORT => 443;
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
 
@@ -60,6 +60,16 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
+}
+
+# Method: modelClasses
+#
+#   Override <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+    return [ 'EBox::Apache::Model::Language',
+             'EBox::Apache::Model::AdminPort' ];
 }
 
 sub serverroot
@@ -130,7 +140,7 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_changeHostname();
+    $self->_setLanguage();
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
@@ -181,7 +191,19 @@ sub _writeHttpdConfFile
     close(HTTPD);
 
     EBox::Sudo::root("/bin/mv $confile $httpdconf");
+}
 
+sub _setLanguage
+{
+    my ($self) = @_;
+
+    my $languageModel = $self->model('Language');
+
+    # TODO: do this only if language has changed?
+    my $lang = $languageModel->value('language');
+    EBox::setLocale($lang);
+    POSIX::setlocale(LC_ALL, EBox::locale());
+    EBox::Menu::regenCache();
 }
 
 sub _writeCSSFiles
@@ -257,26 +279,11 @@ sub _httpdConfFile
     return '/var/lib/zentyal/conf/apache2.conf';
 }
 
-
 sub port
-{
-    my $self = shift;
-    my $port = $self->get_int('port');
-    $port or $port = APACHE_PORT;
-    return $port;
-}
-
-sub _changeHostname
 {
     my ($self) = @_;
 
-    my $hostname = $self->get_string('hostname');
-
-    if ($hostname) {
-        EBox::Sudo::root(EBox::Config::scripts() .
-                         "change-hostname $hostname");
-        $self->set_string('hostname', '');
-    }
+    return $self->model('AdminPort')->value('port');
 }
 
 # Method: setPort
@@ -292,9 +299,11 @@ sub setPort # (port)
     my ($self, $port) = @_;
 
     checkPort($port, __("port"));
-    if ($self->port() == $port) {
-        return;
-    }
+
+    my $adminPortModel = $self->model('AdminPort');
+    my $oldPort = $adminPortModel->value('port');
+
+    return if ($oldPort == $port);
 
     my $global = EBox::Global->getInstance();
     my $fw = $global->modInstance('firewall');
@@ -327,7 +336,7 @@ q{Port {p} is already in use by program '{pr}'. Choose another port or free it a
         $services->setAdministrationPort($port);
     }
 
-    $self->set_int('port', $port);
+    $adminPortModel->setValue('port', $port);
 }
 
 sub logs

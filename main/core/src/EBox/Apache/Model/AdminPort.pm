@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::SysInfo::Model::AdminPort
+# Class: EBox::Apache::Model::AdminPort
 #
 #   This model is used to configure the interface port
 #
 
-package EBox::SysInfo::Model::AdminPort;
+package EBox::Apache::Model::AdminPort;
 
 use strict;
 use warnings;
@@ -29,6 +29,8 @@ use EBox::Gettext;
 use EBox::Types::Port;
 
 use base 'EBox::Model::DataForm';
+
+use constant APACHE_PORT => 443;
 
 sub new
 {
@@ -44,15 +46,15 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Port( fieldName      => 'port',
-                                            editable       => 1,
-                                            defaultValue   => 443));
+    my @tableHead = (new EBox::Types::Port(fieldName      => 'port',
+                                           editable       => 1,
+                                           defaultValue   => APACHE_PORT));
 
     my $dataTable =
     {
         'tableName' => 'AdminPort',
         'printableTableName' => __('Administration interface TCP port'),
-        'modelDomain' => 'SysInfo',
+        'modelDomain' => 'Apache',
         'defaultActions' => [ 'editField' ],
         'tableDescription' => \@tableHead,
     };

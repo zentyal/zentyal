@@ -6,28 +6,29 @@ use warnings;
 use EBox;
 use EBox::Global;
 
-if (scalar @ARGV == 1) {
+if (scalar @ARGV == 2) {
     my $arch = $ARGV[0];
-    if ( -f "/opt/ltsp/images/$arch.img" ) {
+    my $fat  = $ARGV[1];
+    my $chroot = ($fat ? "fat-$arch" : $arch);
+    if ( -f "/opt/ltsp/images/$chroot.img" ) {
         EBox::init();
 
         my $ltsp = EBox::Global->modInstance('ltsp');
 
-        $ltsp->st_set_string('arch', $arch);
         $ltsp->st_set_string('work', 'update');
-        print "Updating $arch image...\n";
+        print "Updating $chroot image...\n";
 
-        my $CHROOT_DIR = "/opt/ltsp/$arch";
+        my $CHROOT_DIR = "/opt/ltsp/$chroot";
         EBox::Sudo::root("chroot $CHROOT_DIR mount -t proc none /proc "
                          . "&& chroot $CHROOT_DIR apt-get update "
                          . "&& chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get dist-upgrade -y "
-                         . "&& umount /opt/ltsp/$arch/proc "
+                         . "&& umount /opt/ltsp/$chroot/proc "
                          . "&& ltsp-update-kernels "
-                         . "&& ltsp-update-image --arch $arch");
+                         . "&& ltsp-update-image --arch $chroot");
         $ltsp->st_set_string('work', 'none');
     } else {
-        print "/opt/ltsp/images/$arch.img does not exist.\n";
+        print "/opt/ltsp/images/$chroot.img does not exist.\n";
     }
 } else {
-    print "Usage: update-image arch\n";
+    print "Usage: update-image arch fat?\n";
 }
