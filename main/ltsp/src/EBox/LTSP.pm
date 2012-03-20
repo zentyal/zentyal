@@ -280,6 +280,8 @@ sub _getGeneralOptions
         $shutdown_time = undef;
     }
 
+    my $fat_ram_threshold   = $model->row()->valueByName('fat_ram_threshold');
+
     my %opts;
 
     $opts{'LDM_LIMIT_ONE_SESSION'} = ($one_session ? 'True' : 'False');
@@ -320,6 +322,10 @@ sub _getGeneralOptions
 
     if ( defined $shutdown_time ) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
+    }
+
+    if ( defined $fat_ram_threshold ) {
+        $opts{'FAT_RAM_THRESHOLD'} = $fat_ram_threshold;
     }
 
     return \%opts;
@@ -378,6 +384,8 @@ sub _getGeneralProfileOptions
         $shutdown_time = undef;
     }
 
+    my $fat_ram_threshold   = $model->row()->valueByName('fat_ram_threshold');
+
     my %opts;
 
     if ( $local_apps  eq 'True' ) {
@@ -414,6 +422,10 @@ sub _getGeneralProfileOptions
 
     if ( defined $shutdown_time ) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
+    }
+
+    if ( defined $fat_ram_threshold ) {
+        $opts{'FAT_RAM_THRESHOLD'} = $fat_ram_threshold;
     }
 
     return \%opts;
