@@ -18,6 +18,7 @@ if (scalar @ARGV >= 1) {
     my $ltsp = EBox::Global->modInstance('ltsp');
 
     $ltsp->st_set_string('work', 'build');
+    $ltsp->st_set_string('error', '');
 
     print "Building $chroot image...\n";
 
@@ -28,7 +29,6 @@ if (scalar @ARGV >= 1) {
     try {
         EBox::Sudo::root($buildCmd);
         EBox::Sudo::root('service nbd-server restart');
-        $ltsp->st_set_string('error', '');
     } otherwise {
         $ltsp->st_set_string('error', __('Build image failed'));
         print "Build image failed. Check /var/log/zentyal/zentyal.log for details.\n";
