@@ -27,7 +27,8 @@ if (scalar @ARGV >= 1) {
         $buildCmd .= " --chroot $chroot --fat-client";
     }
     try {
-        EBox::Sudo::root($buildCmd);
+        # TODO: add more messages to ltsp.log (with timestamps)
+        EBox::Sudo::root("$buildCmd >> /var/log/zentyal/ltsp.log");
         EBox::Sudo::root('service nbd-server restart');
     } otherwise {
         $ltsp->st_set_string('error', __('Build image failed'));
