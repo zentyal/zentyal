@@ -277,7 +277,6 @@ sub enableActions
     EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
 
     # Perform LDAP actions (schemas, indexes, etc)
-    # TODO There is no method called performLDAPActions
     EBox::info('Performing first LDAP actions');
     try {
         $self->performLDAPActions();
@@ -285,43 +284,61 @@ sub enableActions
         throw EBox::Exceptions::External(__('Error performing users initialization'));
     };
 
+    # Initialize Kerberos
     try {
+        # Get the FQDN
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $fqdn = $sysinfo->fqdn();
+        EBox::debug("The host FQDN is $fqdn");
+
         # Create the kerberos database
-        my $realm = $self->model('Mode')->defaultRealmValue();
+        my $realm = $self->kerberosRealm();
         my @cmds = ();
         push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
         push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
         push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
         push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
+        EBox::debug("Initializing realm: @cmds");
         EBox::Sudo::root(@cmds);
 
         # Create the domain
-        my $dnsMod = EBox::Global::modInstance('dns');
-        my $domain = lc ($realm);
-        $dnsMod->addDomain($domain); # TODO Check if the domain exists
+        my $dnsMod = EBox::Global->modInstance('dns');
+        my $domain = { domain_name => lc ($realm),
+                       ipaddr => undef,
+                       hostnames => [] };
+        EBox::debug('Adding the domain to the DNS module');
+        my $domains = $dnsMod->domains();
+        my %domains = map {$_->{name} => $_} @{$domains};
+        unless (exists $domains{$domain->{domain_name}}) {
+            $dnsMod->addDomain($domain);
+        }
 
         # Add the TXT record with the realm name
         my $txt = { name => '_kerberos',
                     data => $realm,
                     readOnly => 1 };
-        $dnsMod->addText($domain, $txt);
+        EBox::debug('Adding the TXT records');
+        $dnsMod->addText($domain->{domain_name}, $txt);
 
         # Add the SRV records to the domain
         my $service = { service => 'kerberos',
                         protocol => 'tcp',
                         port => 88,
-                        target => '', # TODO localhost.localdomain
+                        target => $fqdn,
                         readOnly => 1 };
-        $dnsMod->addService($domain, $service);
+        EBox::debug('Adding the SRV records');
+        $dnsMod->addService($domain->{domain_name}, $service);
 
         $service->{protocol} = 'udp';
-        $dnsMod->addService($domain, $service);
+        EBox::debug('Adding the SRV records');
+        $dnsMod->addService($domain->{domain_name}, $service);
 
         # TODO Check if the server is a master or slave and adjust the target
         #      to the master server
         $service->{service} = 'kerberos-adm';
         $service->{protocol} = 'tcp';
-        $dnsMod->addService($domain, $service);
+        EBox::debug('Adding the SRV records');
+        $dnsMod->addService($domain->{domain_name}, $service);
     } otherwise {
         my $error = shift;
         throw EBox::Exceptions::Internal(__("Error creating kerberos database: $error"));
@@ -438,12 +455,13 @@ sub _setConf
     # Configure soap service
     $self->master->confSOAPService();
 
-    # TODO Get this data from the General Settings model
-    my $hostname = "zentyal23";
-    my $hostdomain = "kernevil.lan";
-    my $realm = uc ($self->kerberosDefaultRealm());
+    # Get the FQDN
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+    my $hostdomain = $sysinfo->hostDomain();
+    my $realm = uc ($self->kerberosRealm());
     @array = ();
-    push (@array, 'realm' => $self->kerberosDefaultRealm());
+    push (@array, 'realm' => $self->kerberosRealm());
     push (@array, 'hostname' => $hostname);
     push (@array, 'hostdomain' => $hostdomain);
     $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
@@ -454,7 +472,7 @@ sub _setConf
     $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@array);
 }
 
-sub kerberosDefaultRealm
+sub kerberosRealm
 {
     my ($self) = @_;
 
@@ -499,7 +517,6 @@ sub _setupNSSPAM
     EBox::Sudo::root(@cmds);
 }
 
-
 # Method: editableMode
 #
 #       Check if users and groups can be edited.
@@ -524,7 +541,8 @@ sub _daemons
     return [
         { 'name' => 'ebox.slapd' },
         { 'name' => 'heimdal-kdc',
-          'type' => 'init.d' },
+          'type' => 'init.d',
+          'pidfiles' => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'] },
     ];
 }
 
@@ -569,6 +587,7 @@ sub modelClasses
 sub compositeClasses
 {
     return [
+        'EBox::UsersAndGroups::Composite::Mode',
         'EBox::UsersAndGroups::Composite::Settings',
         'EBox::UsersAndGroups::Composite::UserTemplate',
         'EBox::UsersAndGroups::Composite::Sync',
@@ -1145,7 +1164,7 @@ sub menu
 
     } else {
         $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                          'text' => __('Configure DN'),
+                                          'text' => __('Configure mode'),
                                           'separator' => $separator,
                                           'order' => 0));
     }

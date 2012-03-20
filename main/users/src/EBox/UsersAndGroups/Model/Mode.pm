@@ -23,9 +23,7 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Text;
-use EBox::Types::DomainName;
-use EBox::View::Customizer;
-use EBox::Config;
+use EBox::Types::KrbRealm;
 use EBox::Exceptions::InvalidData;
 
 use strict;
@@ -51,6 +49,24 @@ sub new
     return $self;
 }
 
+# Method: validateTypedRow
+#
+#   Check the kerberos realm and LDAP base DN
+#
+# Overrides:
+#
+#   <EBox::Model::DataForm::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields) = @_;
+
+    if (exists $changedFields->{dn}) {
+        my $dn = $changedFields->{dn}->value();
+        $self->_validateDN($dn);
+    }
+}
+
 # Method: _table
 #
 #	Overrides <EBox::Model::DataForm::_table to change its name
@@ -66,16 +82,16 @@ sub _table
             editable => 1,
             allowUnsafeChars => 1,
             size => 36,
-            defaultValue => _dnFromHostname(),
+            defaultValue => \&_dnFromHostname,
             help => __('This will be the DN suffix in LDAP tree')
         ),
-        new EBox::Types::DomainName (
+        new EBox::Types::KrbRealm (
             fieldName => 'defaultRealm',
             printableName => __('Default authentication realm'),
             editable => 1,
             allowUnsafeChars => 0,
             size => 36,
-            defaultValue => _realmFromHostname(),
+            defaultValue => \&_realmFromHostname,
             help => __('This will be the users default authentication realm')
         ),
     );
@@ -103,25 +119,10 @@ sub _dnFromHostname
 
 sub _realmFromHostname
 {
-    my $domain = `hostname -d`;
-    chomp ($domain);
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
     $domain = uc ($domain);
     return $domain;
-}
-
-sub validateTypedRow
-{
-    my ($self, $action, $changedFields) = @_;
-
-    if (exists $changedFields->{dn}) {
-        my $dn = $changedFields->{dn}->value();
-        $self->_validateDN($dn);
-    }
-
-    if (exists $changedFields->{defaultRealm}) {
-        my $realm = $changedFields->{defaultRealm}->value();
-        $self->_validateRealm($realm);
-    }
 }
 
 # TODO: Move this to EBox::Validate or even create a new DN type
@@ -131,15 +132,6 @@ sub _validateDN
 
     unless ($dn =~ /^dc=[^,=]+(,dc=[^,=]+)*$/) {
         throw EBox::Exceptions::InvalidData(data => __('LDAP DN'), value => $dn);
-    }
-}
-
-sub _validateRealm
-{
-    my ($self, $realm) = @_;
-
-    unless ($realm =~ /^[A-Z0-9]+([\.][A-Z0-9]+)+$/) {
-        throw EBox::Exceptions::External("Invalid realm name. Often, the realm is the uppercase version of the local DNS domain.");
     }
 }
 
