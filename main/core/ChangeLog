@@ -7,6 +7,7 @@ HEAD
 	  to allow disabling an action. Accepts a scalar or a CODE ref
 	+ The 'defaultValue' parameter of the types now accept a CODE ref that
 	  returns the default value.
+	+ Added new type EBox::Types::KrbRealm
 2.3.5
 	+ Added force parameter in validateTypedRow
 	+ Fixed 'hidden' on types when using method references

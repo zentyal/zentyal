@@ -168,6 +168,36 @@ sub _setConf
     }
 }
 
+sub fqdn
+{
+    my ($self) = @_;
+
+    my $model = $self->model('HostName');
+    my $name = $model->hostnameValue();
+    my $domain = $model->hostdomainValue();
+    my $fqdn = $name . '.' . $domain;
+    return $fqdn;
+}
+
+sub hostName
+{
+    my ($self) = @_;
+
+    my $model = $self->model('HostName');
+    my $name = $model->hostnameValue();
+    return $name;
+}
+
+sub hostDomain
+{
+    my ($self) = @_;
+
+    my $model = $self->model('HostName');
+    my $domain = $model->hostdomainValue();
+    return $domain;
+}
+
+#
 # Method: widgets
 #
 #   Overriden method that returns the widgets offered by this module
