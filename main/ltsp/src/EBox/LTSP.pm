@@ -666,6 +666,10 @@ sub _ltspWidgetStatus
 {
     my ($self, $num_clients) = @_;
 
+    my $error = $self->st_get_string('error');
+    if ($error) {
+        return new EBox::Dashboard::Value(__('Status'), $error);
+    }
     my $work = $self->st_get_string('work');
     if ((defined $work) and ($work ne 'none')) {
         if ($work eq 'build') {
