@@ -274,19 +274,19 @@ sub _getGeneralOptions
     my $time_server         = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
-    if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
+    if ($model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
         $shutdown_time = $model->row()->printableValueByName('shutdown_time');
     } else {
         $shutdown_time = undef;
     }
 
-    my $fat_ram_threshold   = $model->row()->valueByName('fat_ram_threshold');
+    my $fat_ram_threshold = $model->row()->valueByName('fat_ram_threshold');
 
     my %opts;
 
     $opts{'LDM_LIMIT_ONE_SESSION'} = ($one_session ? 'True' : 'False');
 
-    if ( $network_compression ) {
+    if ($network_compression) {
         $opts{'LDM_DIRECTX'}         = 'False';
         $opts{'NETWORK_COMPRESSION'} = 'True';
     } else {
@@ -294,7 +294,7 @@ sub _getGeneralOptions
         $opts{'NETWORK_COMPRESSION'} = 'False';
     }
 
-    if ( $local_apps ) {
+    if ($local_apps) {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
     } else {
@@ -307,24 +307,24 @@ sub _getGeneralOptions
     $opts{'LDM_ALLOW_GUEST'} = ($guestlogin ? 'True' : 'False');
     $opts{'SOUND'} = ($sound ? 'True' : 'False');
 
-    if ( defined $kb_layout ) {
+    if (defined $kb_layout) {
         $opts{'XKBLAYOUT'}      = $kb_layout;
         $opts{'CONSOLE_KEYMAP'} = $kb_layout;
     }
 
-    if ( defined $server ) {
+    if (defined $server) {
         $opts{'SERVER'} = $server;
     }
 
-    if ( defined $time_server ) {
+    if (defined $time_server) {
         $opts{'TIMESERVER'} = $time_server;
     }
 
-    if ( defined $shutdown_time ) {
+    if (defined $shutdown_time) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
     }
 
-    if ( defined $fat_ram_threshold ) {
+    if (defined $fat_ram_threshold) {
         $opts{'FAT_RAM_THRESHOLD'} = $fat_ram_threshold;
     }
 
@@ -340,7 +340,7 @@ sub _getOtherOptions
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
 
-        if ( $row->valueByName('enabled') ) {
+        if ($row->valueByName('enabled')) {
             my $option = $row->valueByName('option');
             my $value  = $row->valueByName('value');
 
@@ -351,7 +351,7 @@ sub _getOtherOptions
     return \%otherOpt;
 }
 
-sub _getGlobalOptions()
+sub _getGlobalOptions
 {
     my ($self) = @_;
 
@@ -378,17 +378,17 @@ sub _getGeneralProfileOptions
     my $time_server = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
-    if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
+    if ($model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
         $shutdown_time = $model->row()->printableValueByName('shutdown_time');
     } else {
         $shutdown_time = undef;
     }
 
-    my $fat_ram_threshold   = $model->row()->valueByName('fat_ram_threshold');
+    my $fat_ram_threshold = $model->row()->valueByName('fat_ram_threshold');
 
     my %opts;
 
-    if ( $local_apps  eq 'True' ) {
+    if ($local_apps eq 'True') {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
     } elsif ( $local_apps  eq 'False' ) {
@@ -396,35 +396,35 @@ sub _getGeneralProfileOptions
         $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
-    if ( $local_dev ne 'default' ) {
+    if ($local_dev ne 'default') {
         $opts{'LOCALDEV'} = $local_dev;
     }
 
-    if ( $autologin ne 'default' ) {
+    if ($autologin ne 'default') {
         $opts{'LDM_AUTOLOGIN'} = $autologin;
     }
 
-    if ( $guestlogin ne 'default' ) {
+    if ($guestlogin ne 'default') {
         $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
     }
 
-    if ( $sound ne 'default' ) {
+    if ($sound ne 'default') {
         $opts{'SOUND'} = $sound;
     }
 
-    if ( defined $server ) {
+    if (defined $server) {
         $opts{'SERVER'} = $server;
     }
 
-    if ( defined $time_server ) {
+    if (defined $time_server) {
         $opts{'TIMESERVER'} = $time_server;
     }
 
-    if ( defined $shutdown_time ) {
+    if (defined $shutdown_time) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
     }
 
-    if ( defined $fat_ram_threshold ) {
+    if (defined $fat_ram_threshold) {
         $opts{'FAT_RAM_THRESHOLD'} = $fat_ram_threshold;
     }
 
@@ -473,7 +473,7 @@ sub _getProfilesOptions
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
 
-        if ( $row->valueByName('enabled') ) {
+        if ($row->valueByName('enabled')) {
             my $name = $row->valueByName('name');
 
             my $submodel = $row->subModel('configuration');
