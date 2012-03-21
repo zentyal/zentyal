@@ -1,4 +1,6 @@
 HEAD
+	+ Merged tableBodyWithoutActions.mas into tableBody.mas
+	+ Removed tableBodyWithoutEdit.mas because it is no longer used
 	+ Switch from CGIs to models in System -> General
 	+ New value() and setValue() methods in DataForm::setValue() for cleaner
 	  code avoiding use of AUTOLOAD

@@ -78,6 +78,7 @@ sub _table
         'menuNamespace' => 'UsersAndGroups/Users',
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
+        'withoutActions' => 1,
     };
 
     return $dataTable;
@@ -180,11 +181,6 @@ sub row
     } else {
         throw EBox::Exceptions::Internal("user $id does not exist");
     }
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 1;
