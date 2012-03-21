@@ -48,11 +48,12 @@ sub _sendEvent
     my ($msg, $level) = @_;
 
     # Generate event
+    my $enabled = 0;
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('events')) {
         my $events = $global->modInstance('events');
         if ((defined $events)  and ($events->isRunning())) {
-            my $enabled = $events
+            $enabled = $events
                 ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
             if ($enabled) {
                 $events->sendEvent(message => $msg,
@@ -60,6 +61,10 @@ sub _sendEvent
                         level   => $level);
             }
         }
+    }
+
+    if (not $enabled) {
+        EBox::info("EBackup event [$level]: $msg");
     }
 }
 
@@ -324,7 +329,7 @@ sub _performBackup
     if ($preHookError) {
         $success = 0;
         $errorMsg = __x('Error running pre backup hook {err}',
-                        err => $preHookError); 
+                        err => $preHookError);
         return ($success, $successMsg, $errorMsg);
     }
 
@@ -375,7 +380,7 @@ sub _performBackup
     if ($postHookError) {
         $success = 0;
         $errorMsg = __x('Error running post backup hook {err}',
-                        err => $postHookError);        
+                        err => $postHookError);
     }
 
     return ($success, $successMsg, $errorMsg);
@@ -506,6 +511,15 @@ if ($usingCloud) {
 
 try {
     $type = _adjustType($ebackup, $type);
+
+    try {
+        $ebackup->checkTargetStatus($type);
+    } otherwise {
+        my ($ex) = @_;
+        _sendSuccessEvent(0, $type, "$ex");
+        $ebackup->backupProcessUnlock();
+        exit 1;
+    };
 
     if ($type eq 'full') {
         try {

@@ -34,6 +34,7 @@ use EBox::Backup;
 use EBox::Sudo;
 use EBox::Logs::SlicedBackup;
 use File::Slurp;
+use File::Basename;
 use EBox::FileSystem;
 use Filesys::Df;
 use EBox::DBEngineFactory;
@@ -50,6 +51,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotConnected;
 use EBox::Exceptions::EBackup::FileNotFoundInBackup;
 use EBox::Exceptions::EBackup::BadSymmetricKey;
+use EBox::Exceptions::EBackup::TargetNotReady;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
@@ -1280,12 +1282,14 @@ sub backupProcessUnlock
     EBox::Util::Lock::unlock($name);
 }
 
-## Report methods
 
 # Method: storageUsage
 #
 #   get the available and used space in the storage place used to save the
 #   backup collection
+#
+# Parameters:
+#   force - dont use cached results
 #
 #  Returns:
 #    hash ref with the keys:
@@ -1299,13 +1303,13 @@ sub backupProcessUnlock
 #
 sub storageUsage
 {
-    my ($self) = @_;
+    my ($self, $force) = @_;
     if (not $self->configurationIsComplete()) {
         return undef;
     }
 
     my $file = _storageUsageCacheFile();
-    if (-f $file) {
+    if (not $force and -f $file) {
         my $cacheContents = File::Slurp::read_file($file);
         my ($usedCache,$availableCache, $totalCache) =
             split ',', $cacheContents;
@@ -1317,6 +1321,7 @@ sub storageUsage
                     total    => $totalCache,
                    }
         } else {
+            # incorrect cache file, we get rid of it
             $self->_clearStorageUsageCache();
         }
     }
@@ -1328,14 +1333,12 @@ sub storageUsage
     my $target = $model->row()->valueByName('target');
 
     if ($method eq 'cloud') {
-        if (not EBox::EBackup::Subscribed->isSubscribed()) {
-            return undef;
+        if (EBox::EBackup::Subscribed->isSubscribed()) {
+            my $quota;
+            ($used, $quota) = EBox::EBackup::Subscribed::quota();
+            $total = $quota;
+            $available = $quota - $used;
         }
-
-        my $quota;
-        ($used, $quota) = EBox::EBackup::Subscribed::quota();
-        $total = $quota;
-        $available = $quota - $used;
     } elsif ($method eq 'file') {
         my $blockSize = 1024*1024; # 1024*1024 - 1Mb blocks
         my $df = df($target, $blockSize);
@@ -1347,6 +1350,7 @@ sub storageUsage
     # XXX TODO SCP, FTP
 
     if (not defined $used) {
+        $self->_clearStorageUsageCache();
         return undef;
     }
 
@@ -1378,6 +1382,121 @@ sub _clearStorageUsageCache
     my $file = _storageUsageCacheFile();
     system "rm -f $file";
 }
+
+
+sub checkTargetStatus
+{
+    my ($self, $backupType) = @_;
+    if (not $self->configurationIsComplete()) {
+        throw EBox::Exceptions::External(__('Backup configuration not complete'));
+    }
+
+    my $model  = $self->model('RemoteSettings');
+    my $method = $model->row()->valueByName('method');
+    my $target = $model->row()->valueByName('target');
+    my $checkSize;
+
+    if ($method eq 'file') {
+        $self->_checkFileSystemTargetStatus($target);
+    }
+
+    my $storageUsage = $self->storageUsage(1);
+    if ($storageUsage) {
+        # check sizes
+        my $free = $storageUsage->{available};
+        my $stimated=  0; # XX TODO
+        if ($stimated > $free) {
+            throw EBox::Exceptions::EBackup::TargetNotReady(
+              __x('Free space in {target} too low. {free} Mb available and backup estimated size is  {req}',
+                  target => $target,
+                  free => $free,
+                  req => $stimated
+                 )
+             );
+        }
+    }
+
+    return 1;
+}
+
+
+sub _checkFileSystemTargetStatus
+{
+    my ($self, $target) = @_;
+
+    if (EBox::Sudo::fileTest('-e', $target) and not (EBox::Sudo::fileTest('-d', $target))) {
+        throw EBox::Exceptions::EBackup::TargetNotReady(
+          __x(' {target} exists and is not longer a directory',
+              target => $target
+             )
+           );
+    }
+
+    my $mountPoint;
+    my %staticFs = %{ EBox::FileSystem::staticFileSystems() };
+    foreach my $fsAttr (values %staticFs) {
+        my $fsMountPoint = $fsAttr->{mountPoint};
+        if ($fsMountPoint eq 'none') {
+            next;
+        }
+        if ($fsMountPoint eq $target) {
+            $mountPoint = $fsMountPoint;
+            last;
+        }
+        EBox::FileSystem::isSubdir($target, $fsMountPoint) or
+              next;
+        if ($mountPoint) {
+            # check if the mount point is more specific
+            my $mpComponents = split '/+', $mountPoint;
+            my $fsMpComponents = split '/+', $fsMountPoint;
+            ($fsMountPoint > $mpComponents) or
+                next;
+        }
+        $mountPoint = $fsMountPoint;
+    }
+
+    if (not $mountPoint or ($mountPoint eq '/')) {
+        EBox::debug("BEF def mountPoint target: $target mount point: $mountPoint");
+        my @parts = split '/+', $target;
+        if (($parts[1] eq 'media') or ($parts[1] eq 'mnt')) {
+            $mountPoint = '/' . $parts[1] . '/' . $parts[2];
+        } else {
+            # no mount point, so we don't check if it is  mounted
+            return;
+        }
+    }
+
+    EBox::debug("target: $target mount point: $mountPoint");
+    # check if the mount poitn is mounted
+    my %partitionFs = %{ EBox::FileSystem::partitionsFileSystems(1) };
+    foreach my $fsAttr (values %partitionFs) {
+        if ($mountPoint eq $fsAttr->{mountPoint}) {
+            return;
+        }
+    }
+
+    # no mounted
+    my $msg;
+    if ($mountPoint eq $target) {
+        throw EBox::Exceptions::EBackup::TargetNotReady(
+          __x('{target} is not mounted',
+              target => $target
+             )
+           );
+    } else {
+        throw EBox::Exceptions::EBackup::TargetNotReady(
+          __x('{{mp} is not mounted and {target} is inside it',
+              mp => $mountPoint,
+              target => $target
+             )
+           );
+    }
+
+    throw EBox::Exceptions::EBackup::TargetNotReady($msg);
+}
+
+
+## Report methods
 
 # Method: gatherReportInfo
 #
