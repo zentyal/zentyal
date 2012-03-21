@@ -33,6 +33,7 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Time;
+use EBox::Types::Int;
 
 sub new
 {
@@ -192,6 +193,13 @@ sub _table
                 ),
             ],
             help => __('Time when clients will be automatically shutdown.'),
+        ),
+        new EBox::Types::Int(
+            fieldName       => 'fat_ram_threshold',
+            printableName   => __('Fat Client RAM Threshold (MB)'),
+            editable        => 1,
+            defaultValue    => 500,
+            help            => __('Below this amount of RAM memory a Fat Client will behave as a Thin Client.'),
         ),
     );
 

@@ -4,9 +4,11 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Gettext;
 use EBox::Global;
+use Error qw(:try);
 
-if (scalar @ARGV == 2) {
+if (scalar @ARGV >= 1) {
     my $arch = $ARGV[0];
     my $fat  = $ARGV[1];
     my $chroot = ($fat ? "fat-$arch" : $arch);
@@ -16,6 +18,7 @@ if (scalar @ARGV == 2) {
     my $ltsp = EBox::Global->modInstance('ltsp');
 
     $ltsp->st_set_string('work', 'build');
+    $ltsp->st_set_string('error', '');
 
     print "Building $chroot image...\n";
 
@@ -23,9 +26,17 @@ if (scalar @ARGV == 2) {
     if ($fat) {
         $buildCmd .= " --chroot $chroot --fat-client";
     }
-    EBox::Sudo::root("$buildCmd && service nbd-server restart");
+    try {
+        # TODO: add more messages to ltsp.log (with timestamps)
+        EBox::Sudo::root("$buildCmd >> /var/log/zentyal/ltsp.log");
+        EBox::Sudo::root('service nbd-server restart');
+    } otherwise {
+        $ltsp->st_set_string('error', __('Build image failed'));
+        print "Build image failed. Check /var/log/zentyal/zentyal.log for details.\n";
+    } finally {
+        $ltsp->st_set_string('work', 'none');
+    };
 
-    $ltsp->st_set_string('work', 'none');
 } else {
     print "Usage: build-image arch fat?\n";
 }

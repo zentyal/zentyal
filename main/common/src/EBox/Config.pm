@@ -244,7 +244,7 @@ sub tmp
 sub downloads
 {
 
-    return tmp() . 'downloads/';
+    return tmp();
 }
 
 sub passwd
