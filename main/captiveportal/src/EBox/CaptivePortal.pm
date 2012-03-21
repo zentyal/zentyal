@@ -384,6 +384,12 @@ sub quotaExceeded
 {
     my ($self, $username, $bwusage) = @_;
 
+    my $model = $self->model('BWSettings');
+    unless ($model->limitBWValue()) {
+        # Quotas disabled, no limit:
+        return 0;
+    }
+
     my $quota = $self->{cpldap}->getQuota($username);
 
     # No limit

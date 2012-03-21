@@ -1,3 +1,6 @@
+HEAD
+	+ Avoided LDAP errors with user quotas, user quota addon has in
+	account whether bandwith limit is enabled or disabled
 2.3.1
 	+ Updated code for new users module
 2.3
