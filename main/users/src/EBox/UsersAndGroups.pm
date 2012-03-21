@@ -289,7 +289,10 @@ sub enableActions
         # Get the FQDN
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $fqdn = $sysinfo->fqdn();
-        EBox::debug("The host FQDN is $fqdn");
+        my $hostName = $sysinfo->hostName();
+        my $hostDomain = $sysinfo->hostDomain();
+        my $domainIp = '192.168.56.254';# TODO get the IP address of the internal iface. What happend if more than one?
+        EBox::debug("The host name is '$hostName', the host domain is '$hostDomain' and the FQDN is '$fqdn'");
 
         # Create the kerberos database
         my $realm = $self->kerberosRealm();
@@ -298,19 +301,36 @@ sub enableActions
         push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
         push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
         push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
-        EBox::debug("Initializing realm: @cmds");
+        EBox::debug("Initializing kerberos realm: @cmds");
         EBox::Sudo::root(@cmds);
 
-        # Create the domain
+        # Check that the host domain and the kerberos realm are the same.
+        unless (lc ($hostDomain) eq lc ($realm)) {
+            throw EBox::Exceptions::External(
+                __('The kerberos realm should be the upper case version of the host domain for the proper operation of kerberos'));
+        }
+
+        # Create the domain in the DNS module if it does not exists
         my $dnsMod = EBox::Global->modInstance('dns');
         my $domain = { domain_name => lc ($realm),
-                       ipaddr => undef,
-                       hostnames => [] };
-        EBox::debug('Adding the domain to the DNS module');
+                       ipaddr      => $domainIp,
+                       hostnames   => []};
         my $domains = $dnsMod->domains();
         my %domains = map {$_->{name} => $_} @{$domains};
-        unless (exists $domains{$domain->{domain_name}}) {
+        if (not exists $domains{$domain->{domain_name}}) {
+            EBox::debug('Adding the domain to the DNS module');
             $dnsMod->addDomain($domain);
+            $dnsMod->addAlias($domain->{domain_name}, 'ns', $hostName);
+        } else {
+            EBox::debug('The domain already exists, checking the defined hosts');
+            my $hosts = $dnsMod->getHostnames($domain->{domain_name});
+            my %hosts = map { $_->{name} => $_ } @{$hosts};
+            my $ns = $hosts{ns};
+            my %aliases = map { $_->{name} => 1 } @{$ns->{aliases}};
+            unless (defined $aliases{$hostName}) {
+                EBox::debug('The alias is not defined, add');
+                $dnsMod->addAlias($domain->{domain_name}, 'ns', $hostName);
+            }
         }
 
         # Add the TXT record with the realm name
@@ -324,20 +344,22 @@ sub enableActions
         my $service = { service => 'kerberos',
                         protocol => 'tcp',
                         port => 88,
-                        target => $fqdn,
+                        target_type => 'domainHost',
+                        target => 'ns', # The hostname is an alias of 'ns'
                         readOnly => 1 };
-        EBox::debug('Adding the SRV records');
+        EBox::debug('Adding SRV record');
         $dnsMod->addService($domain->{domain_name}, $service);
 
         $service->{protocol} = 'udp';
-        EBox::debug('Adding the SRV records');
+        EBox::debug('Adding SRV record');
         $dnsMod->addService($domain->{domain_name}, $service);
 
-        # TODO Check if the server is a master or slave and adjust the target
-        #      to the master server
+        ## TODO Check if the server is a master or slave and adjust the target
+        ##      to the master server
         $service->{service} = 'kerberos-adm';
         $service->{protocol} = 'tcp';
-        EBox::debug('Adding the SRV records');
+        $service->{port} = 749;
+        EBox::debug('Adding SRV record');
         $dnsMod->addService($domain->{domain_name}, $service);
     } otherwise {
         my $error = shift;
@@ -587,7 +609,6 @@ sub modelClasses
 sub compositeClasses
 {
     return [
-        'EBox::UsersAndGroups::Composite::Mode',
         'EBox::UsersAndGroups::Composite::Settings',
         'EBox::UsersAndGroups::Composite::UserTemplate',
         'EBox::UsersAndGroups::Composite::Sync',

@@ -95,13 +95,13 @@ sub addDomain
 {
     my ($self, $params) = @_;
 
-    my $name = delete $params->{'domain_name'};
+    my $name = $params->{'domain_name'};
     unless (defined($name)) {
         throw EBox::Exceptions::MissingArgument('name');
     }
 
     my $id;
-    my $address = delete $params->{'ipaddr'};
+    my $address = $params->{'ipaddr'};
 
     if (defined($address)) {
         $id = $self->addRow('domain' => $name, 'ipaddr' => $address);
@@ -113,7 +113,7 @@ sub addDomain
         throw EBox::Exceptions::Internal("Couldn't add domain's name: $name");
     }
 
-    my $hostnames = delete $params->{'hostnames'};
+    my $hostnames = $params->{'hostnames'};
     return unless (defined($hostnames) and @{$hostnames} > 0);
 
     my $hostnameModel =
@@ -137,7 +137,8 @@ sub addDomain
 #             - priority (optional)
 #             - weight (optional)
 #             - port (port number)
-#             - target (It must be a FQDN)
+#             - target_type (custom or hostDomain)
+#             - target (The name of a host domain or a FQDN)
 #             - readOnly
 #
 sub addService
@@ -156,16 +157,39 @@ sub addService
         $service->{weight} = 0;
     }
 
-    # TODO use readOnly
     my $domainRow = $self->_getDomainRow($domain);
     my $model = $domainRow->subModel('srv');
     my %params = (service_name => $service->{service},
                   protocol => $service->{protocol},
                   priority => $service->{priority},
                   weight => $service->{weight},
-                  port => $service->{port},
-                  hostName_selected => 'custom',
-                  custom => $service->{target});
+                  port => $service->{port});
+    # TODO Search and do not insert if exists
+    if ($service->{target_type} eq 'domainHost' ) {
+        $params{hostName_selected} = 'ownerDomain';
+        my $hostsModel = $domainRow->subModel('hostnames');
+        my $ids = $hostsModel->ids();
+        foreach my $id (@{$ids}) {
+            my $row = $hostsModel->row($id);
+            my $rowHostName = $row->valueByName('hostname');
+            if ($rowHostName eq $service->{target}) {
+                $params{ownerDomain} = $id;
+                last;
+            }
+            unless ($params{ownerDomain}) {
+                throw EBox::Exceptions::DataNotFound(
+                    data => 'hostname',
+                    value => $service->{target});
+            }
+        }
+    } elsif ($service->{target_type} eq 'custom' ) {
+        $params{hostName_selected} = 'custom';
+        $params{custom} = $service->{target};
+    } else {
+        throw EBox::Exceptions::MissingArgument('target_type');
+    }
+    use Data::Dumper;
+    EBox::debug(Dumper(\%params));
     $model->addRow(%params, readOnly => $service->{readOnly});
 }
 
@@ -232,10 +256,14 @@ sub addText
 
     my $domainRow = $self->_getDomainRow($domain);
     my $model = $domainRow->subModel('txt');
-    my %params = ( hostName_selected => 'custom',
-                   custom   => $txt->{name},
-                   txt_data => $txt->{data} );
-    $model->addRow( %params, readOnly => $txt->{readOnly});
+    my $id = $model->findRow(hostName => $txt->{name},
+                             txt_data => $txt->{data});
+    unless ($id) {
+        my %params = ( hostName_selected => 'custom',
+                       custom   => $txt->{name},
+                       txt_data => $txt->{data} );
+        $model->addRow( %params, readOnly => $txt->{readOnly});
+    }
 }
 
 # Method: delText
@@ -254,19 +282,13 @@ sub delText
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    my $rowId = undef;
+    if (not defined ($txt->{data})) {
+        throw EBox::Exceptions::MissingArgument('data');
+    }
+
     my $domainRow = $self->_getDomainRow($domain);
     my $model = $domainRow->subModel('txt');
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $rowName = $row->valueByName('hostName');
-        my $rowData = $row->valueByName('txt_data');
-        if ((not defined ($txt->{name}) or $rowName eq $txt->{name}) and
-            (not defined ($txt->{data}) or $rowData eq $txt->{data})) {
-            $rowId = $id;
-            last;
-        }
-    }
+    my $rowId = $model->findRow(hostName => $txt->{name}, txt_data => $txt->{data});
 
     if (defined ($rowId)) {
         $model->removeRow($rowId);

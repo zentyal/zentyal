@@ -92,7 +92,7 @@ sub _table
             allowUnsafeChars => 0,
             size => 36,
             defaultValue => \&_realmFromHostname,
-            help => __('This will be the users default authentication realm')
+            help => __('This will be the users authentication realm.')
         ),
     );
 

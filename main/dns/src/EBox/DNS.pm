@@ -342,7 +342,6 @@ sub getHostnames
     }
 
     return $self->_hostnames($domainRow->subModel('hostnames'));
-
 }
 
 # Method: aliases

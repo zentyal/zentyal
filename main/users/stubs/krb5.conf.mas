@@ -5,14 +5,5 @@
 </%args>
 [libdefaults]
 	default_realm = <% $realm %>
-
-[realms]
-	<% $realm %> = {
-		kdc = <% $hostname %>.<% $hostdomain %>
-		admin_server = <% $hostname %>.<% $hostdomain %>
-        passwd_server = <% $hostname %>.<% $hostdomain %>
-	}
-
-[domain_realm]
-	.<% $hostdomain %> = <% $realm %>
-    <% $hostdomain %> = <% $realm %>
+    dns_lookup_kdc = true
+    dns_lookup_realm = true
