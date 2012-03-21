@@ -1,4 +1,5 @@
 HEAD
+	+ Using tableBody.mas instead of tableBodyWithoutActions.mas in RemoteStatus.pm
 	+ Do not show Zentyal Cloud option if custom_prefix is defined
 	+ Added selectable priority by config file to scheduled backup
 2.3.1

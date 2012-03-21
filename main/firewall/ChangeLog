@@ -1,3 +1,5 @@
+HEAD
+	+ withoutActions property in PacketTrafficDetails.pm for the new tableBody.mas
 2.3.1
 	+ Use printableName instead of name to select services
 	+ Remove firewall hook template as examples are already included in core
