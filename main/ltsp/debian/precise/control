@@ -2,11 +2,8 @@ Source: zentyal-ltsp
 Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: debhelper (>= 7.0.0), cdbs
-Standards-Version: 3.9.1
-Homepage: http://www.zentyal.org/
-Vcs-Browser: http://trac.zentyal.org/browser/trunk
-Vcs-Svn: http://svn.zentyal.org/zentyal/trunk
+Build-Depends: zbuildtools
+Standards-Version: 3.9.2
 
 Package: zentyal-ltsp
 Architecture: all
