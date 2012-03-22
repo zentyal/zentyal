@@ -1,3 +1,5 @@
+// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+
 function getElementByClass(classname) {
     ccollect=new Array()
     var inc=0;

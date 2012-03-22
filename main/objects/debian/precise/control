@@ -11,6 +11,8 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-objects
 Architecture: all
+Replaces: ebox-objects (<< 2.0.100)
+Breaks: ebox-objects (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), libnet-ip-perl, ${misc:Depends}
 Description: Zentyal - Network Objects
  Zentyal is a Linux small business server that can act as

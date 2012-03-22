@@ -1,3 +1,5 @@
+HEAD
+	+ Packaging fixes for precise
 2.3.6
 	+ Switch from CGIs to models in System -> General
 	+ New value() and setValue() methods in DataForm::setValue() for cleaner
