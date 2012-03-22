@@ -432,14 +432,15 @@ sub _configureVPN
             # Add the object if if does not exist
             if ( not defined $id ) {
                 $id = $objMod->addObject(
-                    name    => $name,
-                    members => [{
+                    name     => $name,
+                    members  => [{
                                     name             => "$netAddress-$mask",
                                     address_selected => 'ipaddr',
                                     address          => 'ipaddr',
                                     ipaddr_ip        => $netAddress,
                                     ipaddr_mask      => $mask,
-                               },],
+                                },],
+                    readOnly => 1,
                 );
             }
 

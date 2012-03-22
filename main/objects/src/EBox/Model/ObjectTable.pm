@@ -154,6 +154,8 @@ sub validateTypedRow
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
+#   readOnly   - the service can't be deleted or modified *(optional)*
+#
 #   Example:
 #
 #       name => 'administration',
@@ -175,7 +177,9 @@ sub addObject
 
     $self->_checkName($name);
 
-    my $id = $self->addRow('name' => $name, 'id' => $params{'id'});
+    my $id = $self->addRow( 'name'      => $name,
+                            'id'        => $params{'id'},
+                            'readOnly'  => $params{'readOnly'});
     unless (defined($id)) {
         throw EBox::Exceptions::Internal("Couldn't add object's name: $name");
     }
@@ -188,6 +192,7 @@ sub addObject
 
     $memberModel->setDirectory($self->{'directory'} . "/$id/members");
     foreach my $member (@{$members}) {
+        $member->{'readOnly'} = $params{'readOnly'};
         $memberModel->addRow(%{$member});
     }
 
