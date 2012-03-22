@@ -281,6 +281,8 @@ sub enableActions
     try {
         $self->performLDAPActions();
     } otherwise {
+        my $error = shift;
+        EBox::error("Error performing users initialization: $error");
         throw EBox::Exceptions::External(__('Error performing users initialization'));
     };
 
@@ -292,7 +294,6 @@ sub enableActions
         my $hostName = $sysinfo->hostName();
         my $hostDomain = $sysinfo->hostDomain();
         my $domainIp = '192.168.56.254';# TODO get the IP address of the internal iface. What happend if more than one?
-        EBox::debug("The host name is '$hostName', the host domain is '$hostDomain' and the FQDN is '$fqdn'");
 
         # Create the kerberos database
         my $realm = $self->kerberosRealm();
@@ -301,7 +302,7 @@ sub enableActions
         push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
         push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
         push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
-        EBox::debug("Initializing kerberos realm: @cmds");
+        EBox::debug('Initializing kerberos realm');
         EBox::Sudo::root(@cmds);
 
         # Check that the host domain and the kerberos realm are the same.
@@ -386,6 +387,7 @@ sub _loadLDAP
     try {
         EBox::Sudo::root(
             # Remove current database (if any)
+            'rm -f /var/lib/heimdal-kdc/m-key',
             'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             'mkdir -p ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
@@ -399,12 +401,14 @@ sub _loadLDAP
             'chown -R openldap.openldap ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             "rm -f $LDIF_CONFIG $LDIF_DB",
         );
-    }
-    catch EBox::Exceptions::Sudo::Command with {
+    } catch EBox::Exceptions::Sudo::Command with {
         my $exception = shift;
         EBox::error('Trying to setup ldap failed, exit value: ' .
                 $exception->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
+    } otherwise {
+        my $error = shift;
+        EBox::error("Trying to setup ldap failed: $error");
     };
     EBox::debug('done');
 }
@@ -727,8 +731,8 @@ sub reloadNSCD
 {
     if ( -f '/etc/init.d/nscd' ) {
         try {
-           EBox::Sudo::root('/etc/init.d/nscd reload');
-       } otherwise {};
+            EBox::Sudo::root('/etc/init.d/nscd reload');
+        } otherwise {};
    }
 }
 

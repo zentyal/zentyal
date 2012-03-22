@@ -29,7 +29,6 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Passwords;
 use EBox::UsersAndGroups::Group;
 
 use EBox::Exceptions::External;
@@ -112,12 +111,16 @@ sub comment
     return $self->get('description');
 }
 
-
-
 # Catch some of the set ops which need special actions
 sub set
 {
     my ($self, $attr, $value) = @_;
+
+    if ($attr =~ m/^krb5Key$/ or
+        $attr =~ m/^userPassword$/) {
+        throw EBox::Exceptions::Internal(
+            __('The user password and kerberos keys cannot be modified directly. Please use the changePassword method.'));
+    }
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any CORE_ATTRS) {
@@ -162,14 +165,17 @@ sub save
         delete $self->{set_quota};
     }
 
+    my $passwd = $self->{core_changed_password};
+    if ($passwd) {
+        delete $self->{core_changed_password};
+        $self->_ldap->changeUserPassword($self->dn(), $passwd);
+    }
+
     shift @_;
     $self->SUPER::save(@_);
 
     if ($self->{core_changed}) {
-
-        my $passwd = $self->{core_changed_password};
         delete $self->{core_changed};
-        delete $self->{core_changed_password};
 
         my $users = EBox::Global->modInstance('users');
         $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $ignore_mods);
@@ -322,25 +328,10 @@ sub changePassword
     my ($self, $passwd, $lazy) = @_;
 
     $self->_checkPwdLength($passwd);
-    my $hash = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
 
-    #remove old passwords
-    my $delattrs = [];
-    foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/^ebox(.*)Password$/) {
-            $self->delete($attr, 1);
-        }
-    }
-
-    $self->set('userPassword', $hash, 1);
-
-    my $hashes = EBox::UsersAndGroups::Passwords::additionalPasswords($self->get('uid'), $passwd);
-    foreach my $attr (keys %$hashes)
-    {
-        $self->set($attr, $hashes->{$attr}, 1);
-    }
-
-    # save password for later LDAP user base mods on save()
+    # The password will be changed on save, save it also to
+    # notify LDAP user base mods
+    $self->{core_changed} = 1;
     $self->{core_changed_password} = $passwd;
     $self->save() unless ($lazy);
 }
@@ -381,7 +372,8 @@ sub passwordHashes
 
     my @res;
     foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/^Password$/) {
+        if ($attr =~ m/^userPassword$/ or
+            $attr =~ m/^krb5Key$/) {
             push (@res, $attr => $self->get($attr));
         }
     }
@@ -478,27 +470,8 @@ sub create
     if (not $passwd and not $user->{passwords} and not $system) {
         throw EBox::Exceptions::MissingArgument(__('Password'));
     }
-    my @passwords = ();
-    if (ref($passwd) ne 'ARRAY') {
-        # build addtional passwords using not-hashed pasword
-        if (isHashed($passwd)) {
-            throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
-        }
 
-        $self->_checkPwdLength($passwd);
-
-        if (not isHashed($passwd)) {
-            $passwd = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
-        }
-
-        my %passwords = %{EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'})};
-        @passwords = map { $_ => $passwords{$_} } keys %passwords;
-        push (@passwords, 'userPassword'  => $passwd);
-
-    } else {
-        # Already hashed passwors received
-        @passwords = @{ $user->{password} }
-    }
+    $self->_checkPwdLength($passwd);
 
     # If fullname is not specified we build it with
     # givenname and surname
@@ -510,6 +483,7 @@ sub create
         $user->{'fullname'} .= $user->{'surname'};
     }
 
+    my $realm = $users->kerberosRealm();
     my $quota = $self->defaultQuota();
     my @attr =  (
         'cn'            => $user->{fullname},
@@ -526,8 +500,14 @@ sub create
             'posixAccount',
             'passwordHolder',
             'systemQuotas',
+            'krb5Principal',
+            'krb5KDCEntry'
         ],
-        @passwords
+        'krb5PrincipalName'    => $user->{user} . '@' . $realm,
+        'krb5KeyVersionNumber' => 0,
+        'krb5MaxLife'          => 86400,  # TODO
+        'krb5MaxRenew'         => 604800, # TODO
+        'krb5KDCFlags'         => 126,    # TODO
     );
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
@@ -536,6 +516,9 @@ sub create
 
     my $r = $self->_ldap->add($dn, \%args);
     my $res = new EBox::UsersAndGroups::User(dn => $dn);
+
+    # Set the user password and kerberos keys
+    $self->_ldap->changeUserPassword($dn, $passwd);
 
     # Init user
     unless ($system) {
@@ -552,12 +535,6 @@ sub create
 
     # Return the new created user
     return $res;
-}
-
-sub isHashed
-{
-    my ($pwd) = @_;
-    return ($pwd =~ /^\{[0-9A-Z]+\}/);
 }
 
 sub _checkName
@@ -618,8 +595,6 @@ sub lastUid
     }
 }
 
-
-
 sub _newUserUidNumber
 {
     my ($self, $systemUser) = @_;
@@ -664,7 +639,6 @@ sub _checkUid
     }
 }
 
-
 sub _checkPwdLength
 {
     my ($self, $pwd) = @_;
@@ -703,7 +677,5 @@ sub defaultQuota
 
     return $value;
 }
-
-
 
 1;

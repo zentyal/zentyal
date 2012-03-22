@@ -49,17 +49,15 @@ sub schemas
         EBox::Config::share() . '/zentyal-users/master.ldif',
         EBox::Config::share() . '/zentyal-users/slaves.ldif',
         EBox::Config::share() . '/zentyal-users/quota.ldif',
-        EBox::Config::share() . '/zentyal-users/hdb.ldif',
     ];
 }
 
 sub acls
 {
     my $users = EBox::Global->modInstance('users');
-    return [ "to attrs=" . join(',',
-            @{EBox::UsersAndGroups::Passwords::allPasswordFieldNames()}) . " " .
-            "by dn=\"" . $users->ldap()->rootDn() . "\" write by self write " .
-            "by * none" ];
+    return [ "to attrs=userPassword by dn=\"" . $users->ldap()->rootDn() .
+             "\" write by self write " .
+             "by * none" ];
 }
 
 sub indexes
