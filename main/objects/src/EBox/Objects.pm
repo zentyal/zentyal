@@ -370,7 +370,7 @@ sub addObject
 {
     my ($self, %params) = @_;
 
-    $self->{'objectModel'}->addObject(%params);
+    return $self->{'objectModel'}->addObject(%params);
 }
 
 # add( name => 'administration',

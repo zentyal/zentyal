@@ -175,21 +175,23 @@ sub addObject
 
     $self->_checkName($name);
 
-   my $id = $self->addRow('name' => $name, 'id' => $params{'id'});
-   unless (defined($id)) {
-       throw EBox::Exceptions::Internal("Couldn't add object's name: $name");
-   }
+    my $id = $self->addRow('name' => $name, 'id' => $params{'id'});
+    unless (defined($id)) {
+        throw EBox::Exceptions::Internal("Couldn't add object's name: $name");
+    }
 
-   my $members = delete $params{'members'};
-   return unless (defined($members) and @{$members} > 0);
+    my $members = delete $params{'members'};
+    return unless (defined($members) and @{$members} > 0);
 
-   my $memberModel =
+    my $memberModel =
                    EBox::Model::ModelManager::instance()->model('MemberTable');
 
-   $memberModel->setDirectory($self->{'directory'} . "/$id/members");
-   foreach my $member (@{$members}) {
-       $memberModel->addRow(%{$member});
-   }
+    $memberModel->setDirectory($self->{'directory'} . "/$id/members");
+    foreach my $member (@{$members}) {
+        $memberModel->addRow(%{$member});
+    }
+
+    return $id;
 }
 
 sub _objectHelp

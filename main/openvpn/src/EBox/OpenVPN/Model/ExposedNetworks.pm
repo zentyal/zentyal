@@ -54,57 +54,37 @@ sub name
 sub _table
 {
     my @tableHead =
-        (
-          new EBox::Types::IPAddr(
-                                     fieldName => 'network',
-                                     printableName => __('Advertised network'),
-                                     unique => 1,
-                                     editable => 1,
-                                    ),
-          );
+    (
+        new EBox::Types::Select(
+                               fieldName     => 'object',
+                               foreignModel  => \&objectModel,
+                               foreignField  => 'name',
+                               foreignNextPageField => 'members',
+
+                               printableName => __('Advertised Object'),
+                               unique        => 1,
+                               editable      => 1,
+                               optional      => 0,
+                              ),
+    );
 
     my $dataTable =
         {
             'tableName'              => __PACKAGE__->name(),
-            'printableTableName' => __('List of Advertised Networks'),
+            'printableTableName' => __('List of Advertised Objects'),
             'automaticRemove' => 1,
             'defaultController' => '/OpenVPN/Controller/ExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'printableRowName' => __('Advertised network'),
-            'sortedBy' => 'network',
+            'printableRowName' => __('Advertised object'),
+            'sortedBy' => 'object',
             'modelDomain' => 'OpenVPN',
             'help'  => _help(),
         };
 
     return $dataTable;
 }
-
-
-
-sub validateTypedRow
-{
-    my ($self, $action, $changedFields) = @_;
-
-    if (not exists $changedFields->{network}) {
-        return;
-    }
-
-    my $net = $changedFields->{network}->printableValue();
-    my $serverConf = 
-  $self->parentRow()->elementByName('configuration')->foreignModelInstance();
-    my $vpn = $serverConf->row()->elementByName('vpn')->printableValue();
-
-    if ($net eq $vpn) {
-        throw EBox::Exceptions::External(
-__('The advertised network address could not be the same than the VPN address' )
-                                        );
-    }
-
-}
-
-
 
 # Method: pageTitle
 #
@@ -119,6 +99,11 @@ sub pageTitle
 
 
 # Group: Private methods
+
+sub objectModel
+{
+    return EBox::Global->modInstance('objects')->{'objectModel'};
+}
 
 # Return the help message
 sub _help

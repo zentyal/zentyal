@@ -294,14 +294,28 @@ sub _checkVPN
     # check advertised networks
     my $advertisedNetwork =
     $self->parentRow()->elementByName('advertisedNetworks')->foreignModelInstance();
+    my $global  = EBox::Global->getInstance();
+    my $objMod = $global->modInstance('objects');
     foreach my $id (@{ $advertisedNetwork->ids() }) {
         my $row = $advertisedNetwork->row($id);
-        my $net = $row->elementByName('network')->printableValue();
+        my $objId = $row->valueByName('object');
+        my $mbs   = $objMod->objectMembers($objId);
 
-        if ($vpnAddress eq $net) {
-            throw EBox::Exceptions::External(
+        foreach my $member (@{$mbs}) {
+            # use only IP address member type
+            if ($member->{type} ne 'ipaddr') {
+                next;
+            }
+
+            my $network = EBox::NetWrappers::to_network_with_mask(
+                $member->{ip},
+                EBox::NetWrappers::mask_from_bits($member->{mask})
+            );
+            if ($network eq $vpnAddress) {
+                throw EBox::Exceptions::External(
 __('The VPN address could not be the same than one of its advertised networks')
-                                            );
+                                                );
+            }
         }
     }
 }

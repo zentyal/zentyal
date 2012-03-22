@@ -527,16 +527,28 @@ sub advertisedNets
 {
     my ($self) = @_;
 
-    my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
-    my @nets =   map {
-        my $row = $advertisedNetsModel->row($_);
-        my $netObj = $row->elementByName('network');
-        my $net  = $netObj->ip();
-        my $maskBits = $netObj->mask();
-        my $mask = EBox::NetWrappers::mask_from_bits($maskBits);
+    my @nets;
 
-        [$net, $mask]
-    } @{ $advertisedNetsModel->ids() };
+    my $global  = EBox::Global->getInstance();
+    my $objMod = $global->modInstance('objects');
+    my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
+    for my $rowID (@{$advertisedNetsModel->ids()}) {
+        my $row = $advertisedNetsModel->row($rowID);
+        my $objId = $row->valueByName('object');
+        my $mbs   = $objMod->objectMembers($objId);
+
+        foreach my $member (@{$mbs}) {
+            # use only IP address member type
+            if ($member->{type} ne 'ipaddr') {
+                next;
+            }
+
+            # Add the member to the list of advertised networks
+            push(@nets,[$member->{ip},
+                        EBox::NetWrappers::mask_from_bits($member->{mask})]
+            );
+        }
+    }
 
     return @nets;
 }

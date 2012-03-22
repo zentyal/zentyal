@@ -406,20 +406,45 @@ sub _configureVPN
     }
 
     # Advertise local networks
+    my $global  = EBox::Global->getInstance();
+    my $objMod = $global->modInstance('objects');
+    my $advertise = $row->subModel('advertisedNetworks');
+    my $objects = $objMod->objects();
     for my $iface (@{$networkMod->InternalIfaces()}) {
         next unless ($networkMod->ifaceMethod($iface) eq 'static');
         for my $ifaceAddress (@{$networkMod->ifaceAddresses($iface)}) {
             my $netAddress = EBox::NetWrappers::ip_network(
-                    $ifaceAddress->{address},
-                    $ifaceAddress->{netmask}
-                    );
-            my $advertise = $row->subModel('advertisedNetworks');
-            $advertise->add(
-                    network => EBox::NetWrappers::to_network_with_mask(
-                        $netAddress,
-                        $ifaceAddress->{netmask}
-                        )
-                    );
+                                $ifaceAddress->{address},
+                                $ifaceAddress->{netmask},
+                             );
+            my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
+            my $name = "openVPN-$iface-$netAddress-$mask";
+
+            my $id = undef;
+
+            # Check if object already exist
+            for my $obj (@{$objects}) {
+                if ($obj->{'name'} eq $name) {
+                    $id = $obj->{'id'};
+                }
+            }
+
+            # Add the object if if does not exist
+            if ( not defined $id ) {
+                $id = $objMod->addObject(
+                    name    => $name,
+                    members => [{
+                                    name             => "$netAddress-$mask",
+                                    address_selected => 'ipaddr',
+                                    address          => 'ipaddr',
+                                    ipaddr_ip        => $netAddress,
+                                    ipaddr_mask      => $mask,
+                               },],
+                );
+            }
+
+            # Add the object to the list of advertised objects
+            $advertise->add(object => $id);
         }
     }
 }
