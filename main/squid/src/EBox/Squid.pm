@@ -68,6 +68,8 @@ use constant {
     BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
     BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper',
     ADZAPPER_CONF => '/etc/adzapper.conf',
+    KEYTAB_FILE => '/etc/squid3/HTTP.keytab',
+    SQUID3_DEFAULT_FILE => '/etc/default/squid3',
 };
 
 sub _create
@@ -172,6 +174,59 @@ sub compositeClasses
 
         'EBox::Squid::Composite::Report::TrafficReport',
     ];
+}
+
+# Method: enableActions
+#
+#   Override EBox::Module::Service::enableActions
+#
+sub enableActions
+{
+    my ($self) = @_;
+
+    # Create the kerberos service princiapl in kerberos,
+    # export the keytab and set the permissions
+    my $users = EBox::Global->modInstance('users');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    my $hostDomain = $sysinfo->hostDomain();
+    my $realm = $users->kerberosRealm();
+    my $principal = "HTTP/ns.$hostDomain\@$realm";
+
+    try {
+        my @cmds=();
+        push (@cmds, 'kadmin -l add -r ' .
+                     "--max-ticket-life='1 day' " .
+                     "--max-renewable-life='1 week' " .
+                     "--attributes='' " .
+                     "--expiration-time=never " .
+                     "--pw-expiration-time=never " .
+                     $principal);
+        push (@cmds, "kadmin -l add -r $principal");
+        push (@cmds, 'kadmin -l ext -k ' . KEYTAB_FILE . " $principal");
+        push (@cmds, 'chown proxy:proxy ' . KEYTAB_FILE);
+        push (@cmds, 'chmod 600 ' . KEYTAB_FILE);
+        EBox::debug('Creating kerberos service principal');
+        EBox::Sudo::root(@cmds);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error creating kerberos service principal: $error");
+    };
+
+    try {
+        my @lines = ();
+        push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
+        push (@lines, 'export KRB5_KTNAME');
+        my $lines = join ('\n', @lines);
+        my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
+        EBox::Sudo::root($cmd);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error creating squid default file: $error");
+    };
+
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 sub isRunning
@@ -286,6 +341,16 @@ sub usedFiles
              'module' => 'squid',
              'reason' => __('Configuration of adzapper'),
             },
+            {
+                file => SQUID3_DEFAULT_FILE,
+                module => 'squid',
+                reason => __('Set the kerberos keytab path'),
+            },
+            {
+                file => KEYTAB_FILE,
+                module => 'squid',
+                reason => __('Extract the service principal key'),
+            }
            ];
 }
 
@@ -702,10 +767,14 @@ sub _writeSquidConf
 
     my $users = EBox::Global->modInstance('users');
     my $network = EBox::Global->modInstance('network');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
     my $cache_host = $network->model('Proxy')->serverValue();
     my $cache_port = $network->model('Proxy')->portValue();
+
+    my $krbRealm = $users->kerberosRealm();
+    my $krbPrincipal = 'HTTP/ns.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
     push @writeParam, ('port'  => $self->port);
@@ -726,6 +795,8 @@ sub _writeSquidConf
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('dn'     => $users->ldap()->dn());
     push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
+    push @writeParam, ('principal' => $krbPrincipal);
+    push @writeParam, ('realm'     => $krbRealm);
 
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
