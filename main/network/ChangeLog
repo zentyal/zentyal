@@ -1,4 +1,4 @@
-HEAD
+2.3.4
 	+ Not allowed to attach static interfaces to a network which
 	  has already another interface atached
 	+ Fixed restore of default gateway in failover event

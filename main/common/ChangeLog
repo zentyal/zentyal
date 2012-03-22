@@ -1,4 +1,4 @@
-HEAD
+2.3.4
 	+ Temporary download files are now stored in tmp directory
 	+ EBox::FileSystem ignore all fuse daemon filesystem (type begins
 	  with 'fuse.')
