@@ -61,7 +61,7 @@ sub _table
                                foreignField  => 'name',
                                foreignNextPageField => 'members',
 
-                               printableName => __('Advertised Object'),
+                               printableName => __('Advertised Network'),
                                unique        => 1,
                                editable      => 1,
                                optional      => 0,
@@ -71,13 +71,13 @@ sub _table
     my $dataTable =
         {
             'tableName'              => __PACKAGE__->name(),
-            'printableTableName' => __('List of Advertised Objects'),
+            'printableTableName' => __('List of Advertised Networks'),
             'automaticRemove' => 1,
             'defaultController' => '/OpenVPN/Controller/ExposedNetworks',
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'printableRowName' => __('Advertised object'),
+            'printableRowName' => __('Advertised network'),
             'sortedBy' => 'object',
             'modelDomain' => 'OpenVPN',
             'help'  => _help(),
@@ -111,7 +111,9 @@ sub _help
     return __x('{openpar}You can add here those networks which you want to make ' .
               'available to clients connecting to this VPN.{closepar}' .
               '{openpar}Typically, you will allow access to your LAN by advertising' .
-              ' its network address here{closepar}',
+              ' its network address here.{closepar}' .
+              '{openpar}If an advertised network address is the same as the VPN' .
+              ' network address, the advertised network will be ignored.{closepar}',
               openpar => '<p>', closepar => '</p>');
 }
 

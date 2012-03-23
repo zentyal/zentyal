@@ -519,10 +519,10 @@ sub _allIfacesAreInternal
 
 # Method: advertisedNets
 #
-#  gets the nets wich will be advertised to client as reacheable thought the server
+#  gets the nets which will be advertised to client as reachable thought the server
 #
 # Returns:
-#  a list of references to a lists containing the net addres and netmask pair
+#  a list of references to a lists containing the net address and netmask pair
 sub advertisedNets
 {
     my ($self) = @_;
@@ -531,6 +531,8 @@ sub advertisedNets
 
     my $global  = EBox::Global->getInstance();
     my $objMod = $global->modInstance('objects');
+    my $serverConfModel = $self->{row}->subModel('configuration');
+    my $vpn = $serverConfModel->row()->elementByName('vpn')->printableValue();
     my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
     for my $rowID (@{$advertisedNetsModel->ids()}) {
         my $row = $advertisedNetsModel->row($rowID);
@@ -540,6 +542,16 @@ sub advertisedNets
         foreach my $member (@{$mbs}) {
             # use only IP address member type
             if ($member->{type} ne 'ipaddr') {
+                next;
+            }
+
+            my $network = EBox::NetWrappers::to_network_with_mask(
+                $member->{ip},
+                EBox::NetWrappers::mask_from_bits($member->{mask})
+            );
+
+            # Advertised network address == VPN network address
+            if ($network eq $vpn) {
                 next;
             }
 
