@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed branding of RSS channel items
 	+ Fixed destination path when copying zentyal.cnf to /etc/mysql/conf.d
 	+ Packaging fixes for precise
 2.3.6
