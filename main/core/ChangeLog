@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed branding of RSS channel items
 	+ Do not show RSS image if custom_prefix defined
 	+ Avoid 'negative radius' error in DiskUsage chart
 	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
