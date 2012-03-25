@@ -1,4 +1,4 @@
-HEAD
+2.2.7
 	+ Fixed branding of RSS channel items
 	+ Do not show RSS image if custom_prefix defined
 	+ Avoid 'negative radius' error in DiskUsage chart
