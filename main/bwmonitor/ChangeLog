@@ -1,4 +1,4 @@
-HEAD
+2.3.2
 	+ Fixed retrieval of IP addressess in SQL queries
 	+ Using tableBody.mas instead of tableBodyWithoutActions.mas in BWUsage.pm
 2.3.1

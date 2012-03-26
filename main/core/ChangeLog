@@ -1,4 +1,4 @@
-HEAD
+2.3.7
 	+ Fixed printableName for apache module and remove entry in status widget
 	+ Merged tableBodyWithoutActions.mas into tableBody.mas
 	+ Removed tableBodyWithoutEdit.mas because it is no longer used
