@@ -1,4 +1,6 @@
 HEAD
+	+ Merged tableBodyWithoutActions.mas into tableBody.mas
+	+ Removed tableBodyWithoutEdit.mas because it is no longer used
 	+ Better form validation message when there are no ids for
 	  foreign rows in select control with add new popup
 	+ Fixed branding of RSS channel items

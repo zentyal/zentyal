@@ -155,15 +155,11 @@ sub _table
         class              => 'dataTable',
         modelDomain        => 'EBackup',
         defaultEnabledValue => 1,
+        withoutActions     => 1,
     };
 
     return $dataTable;
 
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 1;

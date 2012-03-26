@@ -118,6 +118,7 @@ sub _table
         'tableDescription' => \@fields,
         'customActions' => $customActions,
         'help' => __('Images already created.'),
+        'onlyCustomActions' => 1,
     };
 
     return $dataTable;
@@ -154,11 +155,6 @@ sub _doUpdate
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyOnlyCustomActions.mas';
 }
 
 # Method: syncRows

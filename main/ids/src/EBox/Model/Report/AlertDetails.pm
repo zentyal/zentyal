@@ -72,6 +72,7 @@ sub _table
         'rowUnique' => 0,
         'printableRowName' => __('alerts'),
         'sortedBy' => 'date',
+        'withoutActions' => 1,
     };
 
     return $dataTable;
