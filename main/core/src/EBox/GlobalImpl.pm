@@ -536,6 +536,8 @@ sub saveAllModules
     my @mods = @{$self->modifiedModules('save')};
     my $modNames = join (' ', @mods);
 
+    # TODO: tell events module to stop its watchers
+
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
     my $msg = "Saving config and restarting services: @mods";
@@ -640,6 +642,7 @@ sub saveAllModules
         };
     }
 
+    # TODO: tell events module to resume its watchers
 
     if (not $failed) {
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
