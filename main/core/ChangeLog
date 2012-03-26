@@ -1,3 +1,6 @@
+HEAD
+	+ Better form validation message when there are no ids for
+	  foreign rows in select control with add new popup
 2.2.7
 	+ Fixed branding of RSS channel items
 	+ Do not show RSS image if custom_prefix defined
