@@ -112,15 +112,15 @@ sub _table
                              optional      => 1,
                              optionalLabel => 0,
                             ),
-    );
+       new EBox::Types::MACAddr(
+                           fieldName     => 'mac',
+                           printableName => __('MAC Address'),
+                           editable      => 1,
+                           optional      => 1,
+                           hidden =>  not EBox::Config::boolean('custom_mac_addresses'),
+                          ),
 
-    if (EBox::Config::boolean('custom_mac_addresses')) {
-        push (@tableHeader, new EBox::Types::MACAddr(
-                                    fieldName     => 'mac',
-                                    printableName => __('MAC Address'),
-                                    editable      => 1,
-                                    optional      => 1));
-    }
+    );
 
     my $dataTable =
     {
@@ -176,6 +176,50 @@ sub isEqual
     }
 
     return 1;
+}
+# overloaded to add MAC when it is not specified
+sub addTypedRow
+{
+    my ($self, $paramsRef, %optParams) = @_;
+    if (not  $paramsRef->{mac}) {
+        foreach my $type (@{$self->table()->{'tableDescription'}}) {
+            if ($type->isa('EBox::Types::MACAddr')) {
+                $paramsRef->{mac} = $type->clone();
+            }
+
+        }
+    }
+
+    if (not $paramsRef->{mac}->value()) {
+        $paramsRef->{mac}->setValue($self->randomMAC());
+    }
+
+    $self->SUPER::addTypedRow($paramsRef, %optParams);
+
+}
+
+sub randomMAC
+{
+    my ($self) = @_;
+
+    my $mac;
+    my $done = 0;
+    while (not $done) {
+        $mac = '';
+        foreach my $i (0 .. 5) {
+            $mac .=sprintf("%02X",int(rand(255)));
+            if ($i < 5) {
+                $mac .= ':';
+            }
+        }
+
+        if (not $self->find(mac => $mac)) {
+            $done = 1;
+        }
+    }
+
+
+    return $mac;
 }
 
 # Method: validateTypedRow
