@@ -1,4 +1,5 @@
 HEAD
+	+ Packaging fixes for precise
 	+ Code typo fix in Samba::Model::GeneralSettings::_checkDomainName
 2.3.3
 	+ Validate domain admin password in general settings

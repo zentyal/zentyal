@@ -12,6 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-openvpn
 Architecture: all
 Replaces: ebox-openvpn (<< 2.0.100)
+Breaks: ebox-openvpn (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), openvpn, zip, zentyal-firewall, zentyal-ca, quagga, openssl, ${misc:Depends}
 Description: Zentyal - VPN Service
  Zentyal is a Linux small business server that can act as

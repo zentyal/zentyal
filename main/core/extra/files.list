@@ -3,4 +3,4 @@ ebox.passwd /var/lib/zentyal/conf
 cron/zentyal /etc/cron.daily
 cron/90zentyal-manage-logs /etc/cron.hourly
 css /usr/share/zentyal/stubs
-mysqld.conf /etc/mysql/conf.d/zentyal.cnf
+mysql/zentyal.cnf /etc/mysql/conf.d
