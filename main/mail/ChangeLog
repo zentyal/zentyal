@@ -1,7 +1,7 @@
 HEAD
+	+ Fixed regression in add/remove/list group alias
 	+ Removed mda option for fetchmail accounts with zarafa destination
 	+ Image in initial configuration wizard is shown again
-	+ Fixed regression in add/remove/list group alias
 2.3.1
 	+ New translatable printableNames for mail services
 	+ Adapted to new users implementation
