@@ -802,7 +802,6 @@ sub notifyModsLdapUserBase
     # Notify slaves
     foreach my $slave (@{$self->allSlaves}) {
         my $name = $slave->name();
-        EBox::debug("Notifying $name!");
         $slave->sync($signal, $args);
     }
 }
