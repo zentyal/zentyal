@@ -189,7 +189,7 @@ sub validateTypedRow
                               $allParams->{password}->value() :
                               $changedParams->{password}->value();
 
-        $users->master->checkMaster($host, $port, $password);
+        $users->masterConf->checkMaster($host, $port, $password);
     }
 
     unless ($force) {
