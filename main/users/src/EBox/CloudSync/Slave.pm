@@ -98,6 +98,7 @@ sub _addGroup
     my $groupinfo = {
         name     => $group->name(),
         comment  => $group->get('description'),
+        gid      => $group->get('gidNumber'),
     };
 
     my $name = $group->name();
@@ -113,6 +114,7 @@ sub _modifyGroup
     my @members = $group->get('member');
     my $groupinfo = {
         name     => $group->name(),
+        gid      => $group->get('gidNumber'),
         members  => \@members,
     };
 
