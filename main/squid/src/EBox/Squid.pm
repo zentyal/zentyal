@@ -202,7 +202,6 @@ sub enableActions
                      "--expiration-time=never " .
                      "--pw-expiration-time=never " .
                      $principal);
-        push (@cmds, "kadmin -l add -r $principal");
         push (@cmds, 'kadmin -l ext -k ' . KEYTAB_FILE . " $principal");
         push (@cmds, 'chown proxy:proxy ' . KEYTAB_FILE);
         push (@cmds, 'chmod 600 ' . KEYTAB_FILE);
