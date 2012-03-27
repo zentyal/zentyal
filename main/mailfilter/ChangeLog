@@ -1,4 +1,6 @@
-HEAD
+2.3.2
+	+ withoutActions property in FilterDetails.pm and POPProxyDetails.pm
+	  for the new tableBody.mas
 	+ Clarify some policy option names
 	+ Mail module is force to reload when mailfilter module is enabled
 	  or disabled

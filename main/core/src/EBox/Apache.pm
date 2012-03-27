@@ -56,7 +56,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name   => 'apache',
-                                      printableName => 'apache',
+                                      printableName => __('Zentyal Webadmin'),
                                       @_);
     bless($self, $class);
     return $self;
@@ -526,16 +526,15 @@ sub showModuleStatus
     return undef;
 }
 
-# Method: _supportActions
+# Method: addModuleStatus
 #
-#   Overrides <EBox::Module::Service>
+#   Do not show entry in the module status widget
 #
-#   This method determines if the service will have a button to start/restart
-#   it in the module status widget. By default services will have the button
-#   unless this method is overriden to return undef
-sub _supportActions
+# Overrides:
+#   EBox::Module::Service::addModuleStatus
+#
+sub addModuleStatus
 {
-    return undef;
 }
 
 # Method: addInclude

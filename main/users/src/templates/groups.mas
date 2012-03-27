@@ -46,4 +46,4 @@ my $groupsModel = EBox::Global->modInstance('users')->model('Groups');
 	</table>
 	</form>
 
-<& '/ajax/tableBodyWithoutActions.mas', model => $groupsModel &>
+<& '/ajax/tableBody.mas', model => $groupsModel &>

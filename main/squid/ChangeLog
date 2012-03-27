@@ -1,5 +1,7 @@
 HEAD
 	+ Kerberized authentication
+2.3.4
+	+ Use new tableBody.mas in TrafficDetails.pm
 	+ Fixed regresion which broke the apply all button for MIME and extensions
 2.3.3
 	+ Packaging fixes for precise

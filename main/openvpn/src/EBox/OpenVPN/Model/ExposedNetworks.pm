@@ -54,14 +54,19 @@ sub name
 sub _table
 {
     my @tableHead =
-        (
-          new EBox::Types::IPAddr(
-                                     fieldName => 'network',
-                                     printableName => __('Advertised network'),
-                                     unique => 1,
-                                     editable => 1,
-                                    ),
-          );
+    (
+        new EBox::Types::Select(
+                               fieldName     => 'object',
+                               foreignModel  => \&objectModel,
+                               foreignField  => 'name',
+                               foreignNextPageField => 'members',
+
+                               printableName => __('Advertised Network'),
+                               unique        => 1,
+                               editable      => 1,
+                               optional      => 0,
+                              ),
+    );
 
     my $dataTable =
         {
@@ -73,38 +78,13 @@ sub _table
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'printableRowName' => __('Advertised network'),
-            'sortedBy' => 'network',
+            'sortedBy' => 'object',
             'modelDomain' => 'OpenVPN',
             'help'  => _help(),
         };
 
     return $dataTable;
 }
-
-
-
-sub validateTypedRow
-{
-    my ($self, $action, $changedFields) = @_;
-
-    if (not exists $changedFields->{network}) {
-        return;
-    }
-
-    my $net = $changedFields->{network}->printableValue();
-    my $serverConf = 
-  $self->parentRow()->elementByName('configuration')->foreignModelInstance();
-    my $vpn = $serverConf->row()->elementByName('vpn')->printableValue();
-
-    if ($net eq $vpn) {
-        throw EBox::Exceptions::External(
-__('The advertised network address could not be the same than the VPN address' )
-                                        );
-    }
-
-}
-
-
 
 # Method: pageTitle
 #
@@ -120,13 +100,20 @@ sub pageTitle
 
 # Group: Private methods
 
+sub objectModel
+{
+    return EBox::Global->modInstance('objects')->{'objectModel'};
+}
+
 # Return the help message
 sub _help
 {
     return __x('{openpar}You can add here those networks which you want to make ' .
               'available to clients connecting to this VPN.{closepar}' .
               '{openpar}Typically, you will allow access to your LAN by advertising' .
-              ' its network address here{closepar}',
+              ' its network address here.{closepar}' .
+              '{openpar}If an advertised network address is the same as the VPN' .
+              ' network address, the advertised network will be ignored.{closepar}',
               openpar => '<p>', closepar => '</p>');
 }
 

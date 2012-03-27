@@ -1,8 +1,8 @@
 HEAD
 	+ API to add/delete SRV and TXT records to a domain
-2.3.3
+2.3.4
 	+ Packaging fixes for precise
-2.3.2
+2.3.3
 	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Service name in uppercase and description is now translatable

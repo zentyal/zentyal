@@ -7,6 +7,7 @@ $disabled => undef
 <%init>
 use EBox::Gettext;
 use Perl6::Junction qw(any);
+use EBox::Types::Select;
 
 my $id = $tableName . '_' . $data->fieldName();
 #########################
@@ -72,12 +73,12 @@ if ($data->unique()) {
         }
     }
 } else {
-    $empty = @{ $options } == 0;  
+    $empty = @{ $options } == 0;
 }
 
 my @extraParams;
 my $addNewJS;
-my $addNewModalValue = '_addNew';
+my $addNewModalValue = EBox::Types::Select::ADD_NEW_MODAL_VALUE;
 my $foreignModel = $data->foreignModel();
 if ($foreignModel and $data->foreignNextPageField())  {
 
