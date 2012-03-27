@@ -55,15 +55,14 @@ sub new {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
-#   content - body content to send in the request (Optional)
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub GET {
-    my ($self, $path, $query, $content) = @_;
-    return $self->request('GET', $path, $query, $content);
+    my ($self, $path, $query) = @_;
+    return $self->request('GET', $path, $query);
 }
 
 # Method: PUT
@@ -74,15 +73,14 @@ sub GET {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
-#   content - body content to send in the request (Optional)
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub PUT {
-    my ($self, $path, $query, $content) = @_;
-    return $self->request('PUT', $path, $query, $content);
+    my ($self, $path, $query) = @_;
+    return $self->request('PUT', $path, $query);
 }
 
 # Method: POST
@@ -93,15 +91,14 @@ sub PUT {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
-#   content - body content to send in the request (Optional)
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub POST {
-    my ($self, $path, $query, $content) = @_;
-    return $self->request('POST', $path, $query, $content);
+    my ($self, $path, $query) = @_;
+    return $self->request('POST', $path, $query);
 }
 
 # Method: DELETE
@@ -112,40 +109,40 @@ sub POST {
 #
 #   path - relative path for the query (ie. /subscription)
 #   query - hash ref containing query parameters (Optional)
-#   content - body content to send in the request (Optional)
 #
 # Returns:
 #
 #   hash ref with the reply from the server
 #
 sub DELETE {
-    my ($self, $path, $query, $content) = @_;
-    return $self->request('DELETE', $path, $query, $content);
+    my ($self, $path, $query) = @_;
+    return $self->request('DELETE', $path, $query);
 }
 
 
 sub request {
-    my ($self, $method, $path, $query, $data) = @_;
+    my ($self, $method, $path, $query) = @_;
 
     throw EBox::Exceptions::MissingArgument('method') unless (defined($method));
     throw EBox::Exceptions::MissingArgument('path') unless (defined($path));
 
-    #build UA
-    my $uri = URI->new(BASE_URL . $path);
-    $uri->query_form($query);
-    my $url = $uri->as_string();
-
+    # build UA
     my $ua = LWP::UserAgent->new;
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
 
-    my $req = HTTP::Request->new( $method => $url );
+    my $req = HTTP::Request->new( $method => BASE_URL . $path );
 
     #build headers
-    if($data){
+    if ($query) {
+        my $uri = URI->new();
+        $uri->query_form($query);
+
+        my $data = $uri->query();
+        $req->content_type('application/x-www-form-urlencoded');
         $req->content($data);
         $req->header('Content-Length', length($data));
-    }else{
+    } else{
         $req->header('Content-Length', 0);
     }
 
@@ -155,8 +152,21 @@ sub request {
         return new EBox::RemoteServices::RESTResult($res);
     }
     else {
-        throw EBox::Exceptions::Internal($res->status_line);
+        $self->{last_error} = new EBox::RemoteServices::RESTResult($res);
+        throw EBox::Exceptions::Internal($res->content());
     }
+}
+
+
+# Method: last_error
+#
+#   Return last error result after a failed request
+#
+sub last_error
+{
+    my ($self) = @_;
+
+    return $self->{last_error};
 }
 
 
