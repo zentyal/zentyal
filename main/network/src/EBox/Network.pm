@@ -32,7 +32,7 @@ use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant DDCLIENT_FILE => '/etc/ddclient.conf';
 use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
-use constant DHCLIENTCONF_FILE => '/etc/dhcp3/dhclient.conf';
+use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
@@ -2539,7 +2539,7 @@ sub _setChanged # (interface)
 }
 
 # Generate the '/etc/resolv.conf' configuration file and modify
-# the '/etc/dhcp3/dhclient.conf' to request nameservers only
+# the '/etc/dhcp/dhclient.conf' to request nameservers only
 # if there are no manually configured ones.
 sub _generateDNSConfig
 {
