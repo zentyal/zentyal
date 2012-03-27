@@ -149,7 +149,7 @@ sub addGroupAlias
     my $first = 1;
     foreach my $mail (@mailAccounts) {
         if ($first) {
-            $self->addAlias($alias, $mail, $group->get('mail'));
+            $self->addAlias($alias, $mail, $group->get('cn'));
             $first = 0;
         } else {
             $self->addMaildrop($alias, $mail);
@@ -654,10 +654,10 @@ sub groupAliases
 {
     my ($self, $group) = @_;
 
-    $group = $group->get('mail');
+    my $cn = $group->get('cn');
     my %args = (
         base => $self->aliasDn,
-        filter => "&(objectclass=couriermailalias)(uid=$group)",
+        filter => "&(objectclass=couriermailalias)(uid=$cn)",
         scope => 'sub',
         attrs => ['mail']
     );
@@ -685,10 +685,12 @@ sub groupHasAlias
 {
     my ($self, $group) = @_;
 
-    $group = $group->get('mail');
+    my $aliasId = $group->get('mail');
+    $aliasId or
+        return undef;
     my %args = (
         base => $self->aliasDn,
-        filter => "&(objectclass=couriermailalias)(uid=$group)",
+        filter => "&(objectclass=couriermailalias)(uid=$aliasId)",
         scope => 'one',
         attrs => ['mail']
     );
