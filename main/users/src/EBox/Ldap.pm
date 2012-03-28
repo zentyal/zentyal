@@ -119,7 +119,7 @@ sub ldapCon
             $auth_type = $r->auth_type;
         } catch Error with {};
 
-        if ($auth_type eq 'EBox::UserCorner::Auth') {
+        if (defined $auth_type and $auth_type eq 'EBox::UserCorner::Auth') {
             eval "use EBox::UserCorner::Auth";
             if ($@) {
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
@@ -186,6 +186,38 @@ sub getPassword
     return $self->{password};
 }
 
+# Method: getRoPassword
+#
+#   Returns the password of the read only privileged user
+#   used to connect to the LDAP directory with read only
+#   permissions
+#
+# Returns:
+#
+#       string - password
+#
+# Exceptions:
+#
+#       External - If password can't be read
+#
+sub getRoPassword
+{
+    my ($self) = @_;
+
+    unless (defined($self->{roPassword})) {
+        my $path = EBox::Config::conf() . 'ldap_ro.passwd';
+        open(PASSWD, $path) or
+            throw EBox::Exceptions::External('Could not get LDAP password');
+
+        my $pwd = <PASSWD>;
+        close(PASSWD);
+
+        $pwd =~ s/[\n\r]//g;
+        $self->{roPassword} = $pwd;
+    }
+    return $self->{roPassword};
+}
+
 # Method: dn
 #
 #       Returns the base DN (Distinguished Name)
@@ -241,6 +273,22 @@ sub rootDn {
         $dn = $self->dn();
     }
     return 'cn=zentyal,' . $dn;
+}
+
+# Method: roRootDn
+#
+#       Returns the dn of the read only priviliged user
+#
+# Returns:
+#
+#       string - the Dn
+#
+sub roRootDn {
+    my ($self, $dn) = @_;
+    unless(defined($dn)) {
+        $dn = $self->dn();
+    }
+    return 'cn=zentyalro,' . $dn;
 }
 
 # Method: ldapConf
