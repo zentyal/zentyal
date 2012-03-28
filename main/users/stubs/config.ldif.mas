@@ -48,6 +48,7 @@ olcDatabase: {-1}frontend
 olcSizeLimit: 500
 olcAccess: {1}to dn.exact="" by * read
 olcAccess: {2}to dn.base="cn=Subschema" by * read
+olcPasswordHash: {K5KEY}
 
 # Config db settings
 dn: olcDatabase=config,cn=config
