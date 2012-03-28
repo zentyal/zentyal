@@ -158,7 +158,7 @@ sub userExtBWUsage
     my $beg = "$year-$month-$mday $hour:$min:$sec";
 
     my $res = $db->query_hash({
-            'select' => 'SUM(exttotalrecv) as recv, SUM(exttotalsent) as sent',
+            'select' => 'SUM(extTotalRecv) as recv, SUM(extTotalSent) as sent',
             'from' => 'bwmonitor_usage',
             'where' => qq{username='$username' and timestamp>'$beg'},
             'group' => 'username'
@@ -198,7 +198,7 @@ sub allUsersExtBWUsage
 
     my $res = $db->query_hash({
             'select' => 'client as ip,' .
-                        'SUM(exttotalrecv) as extrecv, SUM(exttotalsent) as extsent,' .
+                        'SUM(extTotalRecv) as extrecv, SUM(extTotalSent) as extsent,' .
                         'SUM(inttotalrecv) as intrecv, SUM(inttotalsent) as intsent',
             'from' => 'bwmonitor_usage',
             'where' => qq{timestamp>'$beg'},
@@ -355,12 +355,12 @@ sub consolidateReportQueries
             'target_table' => 'bwmonitor_usage_report',
             'query' => {
                 'select' => q{
-                  client, username, SUM(inttotalrecv) AS inttotalrecv,
-                  SUM(inttotalsent) AS inttotalsent, SUM(inttcp) AS inttcp,
-                  SUM(intudp) AS intudp, SUM(inticmp) AS inticmp,
-                  SUM(exttotalrecv) AS exttotalrecv,
-                  SUM(exttotalsent) AS exttotalsent, SUM(exttcp) AS exttcp,
-                  SUM(extudp) AS extudp, SUM(exticmp) AS exticmp},
+                  client, username, SUM(intTotalRecv) AS intTotalRecv,
+                  SUM(intTotalSent) AS intTotalSent, SUM(intTCP) AS intTCP,
+                  SUM(intUDP) AS intUDP, SUM(intICMP) AS intICMP,
+                  SUM(extTotalRecv) AS extTotalRecv,
+                  SUM(extTotalSent) AS extTotalSent, SUM(extTCP) AS extTCP,
+                  SUM(extUDP) AS extUDP, SUM(extICMP) AS extICMP},
                 'from'   => 'bwmonitor_usage',
                 'group'  => 'client, username',
             },
@@ -461,13 +461,13 @@ sub tableInfo
         'client' => __('Client address'),
         'interface' => __('Interface'),
         'username' => __('User'),
-        'exttotalrecv' => __('External recv'),
-        'exttotalsent' => __('External sent'),
-        'inttotalrecv' => __('Internal recv'),
-        'inttotalsent' => __('Internal sent'),
+        'extTotalRecv' => __('External recv'),
+        'extTotalSent' => __('External sent'),
+        'intTotalRecv' => __('Internal recv'),
+        'intTotalSent' => __('Internal sent'),
     };
 
-    my @order = qw(timestamp interface client username exttotalrecv exttotalsent inttotalrecv inttotalsent);
+    my @order = qw(timestamp interface client username extTotalRecv extTotalSent intTotalRecv intTotalSent);
 
 #   TODO consolidation...
 #    my $consolidation = {
