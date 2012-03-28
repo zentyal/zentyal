@@ -1,4 +1,18 @@
 HEAD
+	+ Fixed path of dhclient.conf
+2.3.5
+	+ Fixed path of dhclient hooks
+2.3.4
+	+ Not allowed to attach static interfaces to a network which
+	  has already another interface atached
+	+ Fixed restore of default gateway in failover event
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
+2.3.1
+	+ Adapted messages in the UI for new editions
+	+ Use printableName instead of name to select services
 	+ Fixed executable permissions in ppp hooks and external-ip.pl
 	+ Bridge interfaces are correctly removed; fixed _hasChanged method
 	+ Menu entry Diagnostic Tools in Network renamed to Tools
@@ -267,9 +281,9 @@ O.11.100
 	+ Disable network traffic monitor due to a bug in perl and RRDs module
 	+ Use /etc/network/interfaces and not /var/lib/zentyal/tmp/interfaces
 	+ Run saveConfig() after importing network configuration and not save()
-	  which forced a restart of the interfaces stored 
+	  which forced a restart of the interfaces stored
 	  in /etc/network/interfaces at package installation time
-	+ Add default gateway to /etc/network/interfaces 
+	+ Add default gateway to /etc/network/interfaces
 0.11.99
 	+ Added traffic rate monitoring done on demand and in
 	real-time. The monitoring may be filter by source address and
@@ -318,7 +332,7 @@ O.11.100
 O.8.1
 	+ New release
 0.8
-	+ Add netmask /30 (Patch from rampa at encomix.org) 
+	+ Add netmask /30 (Patch from rampa at encomix.org)
 0.7.99
 	+ New release
 0.7.1
@@ -326,9 +340,9 @@ O.8.1
 	+ Use of ebox-sudoers-friendly
 0.7
 	+ First public release
-0.6	
+0.6
 	+ Separate module from ebox base
 	+ move to client
 	+ API documented using naturaldocs
-	+ Update INSTALL 
+	+ Update INSTALL
 	+ Update debian scripts

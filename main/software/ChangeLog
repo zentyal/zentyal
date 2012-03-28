@@ -1,4 +1,12 @@
 HEAD
+	+ Added icon for new Thin Clients module
+2.3.1
+	+ Zentyal components page now shows update list packages errors
+	+ Fixed apt-wrapper error which masked some errors
+	+ Adapted messages in the UI for new editions
+	+ Updated installation slides
+	+ Disable restart trigger on installation/removal of packages to
+	  avoid stuck the progress bar
 	+ Added check for small business subscription
 2.3
 	+ Replaced autotools with zbuildtools

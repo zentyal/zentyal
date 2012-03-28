@@ -172,7 +172,8 @@ sub queryPending
 
     return unless $self->isEnabled();
 
-    $self->_db()->query('SELECT * FROM ' . TABLE_ACTIONS . ' WHERE temporal = TRUE');
+    return
+        $self->_db()->query('SELECT * FROM ' . TABLE_ACTIONS . ' WHERE temporal = TRUE ');
 }
 
 sub commit
@@ -241,8 +242,13 @@ sub logAction
 sub _log
 {
     my ($self, $module, $section, $event, $id, $value, $oldvalue, $temporal) = @_;
-
     $temporal = 1 unless defined $temporal;
+    if ((defined $value) and (defined $oldvalue)) {
+        if ($value eq $oldvalue) {
+            # do not log changes to the same
+            return;
+        }
+    }
 
     my %data = (
         timestamp => $self->_timestamp(),

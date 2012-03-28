@@ -37,14 +37,14 @@ sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
 
-	$self->_requireParam('username', __('username'));
-	my $username = $self->param('username');
-	$self->{redirect} = "UsersAndGroups/User?username=$username";
+	$self->_requireParam('user', __('user'));
+	my $user = $self->unsafeParam('user');
+	$self->{redirect} = "UsersAndGroups/User?user=$user";
 
 	$self->_requireParam('alias', __('mail alias'));
 	my $alias = $self->param('alias');
 
-	$self->keepParam('username');
+	$self->keepParam('user');
 
 	$mail->{malias}->delAlias($alias);
 }

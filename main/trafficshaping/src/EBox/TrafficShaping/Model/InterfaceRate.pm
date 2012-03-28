@@ -126,7 +126,7 @@ sub _table
             defaultActions => [ 'editField', 'changeView' ],
             tableDescription => \@tableHead,
             menuNamespace => 'TrafficShaping/View/InterfaceRate',
-            help => __x(''),
+            #help => __x(''),
             printableRowName => __('rate'),
     };
 

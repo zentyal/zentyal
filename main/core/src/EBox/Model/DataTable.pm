@@ -737,6 +737,9 @@ sub movedDownRowNotify
 #     row - <EBox::Model::Row> row containing fields and values of the
 #           updated row
 #
+#     oldRow - <EBox::Model::Row> row containing fields and values of the
+#           previous row
+#
 #     force - boolean indicating whether the delete is forced or not
 #
 sub updatedRowNotify
@@ -1374,7 +1377,7 @@ sub setTypedRow
 
     $changedElements->{id} = $id;
     $allHashElements->{id} = $id;
-    $self->validateTypedRow('update', $changedElements, $allHashElements);
+    $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
 
     # If force != true automaticRemove is enabled it means
     # the model has to automatically check if the row which is

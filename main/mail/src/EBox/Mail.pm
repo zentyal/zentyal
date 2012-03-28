@@ -64,7 +64,7 @@ use constant {
 
  BYTES                    => '1048576',
 
- DOVECOT_SERVICE          => 'ebox.dovecot',
+ DOVECOT_SERVICE          => 'dovecot',
 
  TRANSPORT_FILE           => '/etc/postfix/transport',
 
@@ -263,6 +263,7 @@ sub _serviceRules
              },
              {
               'name' => 'Incoming Mail',
+              'printableName' => __('Incoming Mail'),
               'description' => __('POP, IMAP and SIEVE protocols'),
               'internal' => 1,
               'protocol' => 'tcp',
@@ -272,6 +273,7 @@ sub _serviceRules
              },
              {
               'name' => 'Mail Submission',
+              'printableName' => __('Mail Submission'),
               'description' => __('Outgoing Mail (Submission protocol).'),
               'internal' => 1,
               'protocol' => 'tcp',
@@ -421,44 +423,41 @@ sub _setMailConf
         $allowedaddrs .= " $addr";
     }
 
+    push (@array, 'bindDN', $ldap->rootDn());
     push (@array, 'hostname' , $self->_fqdn());
     push (@array, 'mailname' , $self->mailname());
-    unless ($users->mode() eq 'slave') {
-        push(@array, 'ldapport', $self->ldap->ldapConf->{'port'});
-    } else {
-        push(@array, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
-    }
-    push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
-    push(@array, 'relay', $self->relay());
-    push(@array, 'relayAuth', $self->relayAuth());
-    push(@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
-    push(@array, 'allowed', $allowedaddrs);
-    push(@array, 'aliasDN', $self->{malias}->aliasDn());
-    push(@array, 'vmaildir', $self->{musers}->DIRVMAIL);
-    push(@array, 'usersDN', $users->usersDn());
-    push(@array, 'uidvmail', $self->{musers}->uidvmail());
-    push(@array, 'gidvmail', $self->{musers}->gidvmail());
-    push(@array, 'popssl', $self->pop3s());
-    push(@array, 'imapssl', $self->imaps());
-    push(@array, 'ldap', $ldap->ldapConf());
-    push(@array, 'filter', $self->service('filter'));
-    push(@array, 'ipfilter', $self->ipfilter());
-    push(@array, 'portfilter', $self->portfilter());
-    push(@array, 'zarafa', $self->zarafaEnabled());
+    push (@array, 'ldapport', $self->ldap->ldapConf->{'port'});
+    push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
+    push (@array, 'relay', $self->relay());
+    push (@array, 'relayAuth', $self->relayAuth());
+    push (@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
+    push (@array, 'allowed', $allowedaddrs);
+    push (@array, 'aliasDN', $self->{malias}->aliasDn());
+    push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
+    push (@array, 'usersDN', $users->usersDn());
+    push (@array, 'uidvmail', $self->{musers}->uidvmail());
+    push (@array, 'gidvmail', $self->{musers}->gidvmail());
+    push (@array, 'popssl', $self->pop3s());
+    push (@array, 'imapssl', $self->imaps());
+    push (@array, 'ldap', $ldap->ldapConf());
+    push (@array, 'filter', $self->service('filter'));
+    push (@array, 'ipfilter', $self->ipfilter());
+    push (@array, 'portfilter', $self->portfilter());
+    push (@array, 'zarafa', $self->zarafaEnabled());
     my $alwaysBcc = $self->_alwaysBcc();
-    push(@array, 'bccMaps' => $alwaysBcc);
+    push (@array, 'bccMaps' => $alwaysBcc);
     # greylist parameters
     my $greylist = $self->greylist();
-    push(@array, 'greylist',     $greylist->isEnabled() );
-    push(@array, 'greylistAddr', $greylist->address());
-    push(@array, 'greylistPort', $greylist->port());
+    push (@array, 'greylist',     $greylist->isEnabled() );
+    push (@array, 'greylistAddr', $greylist->address());
+    push (@array, 'greylistPort', $greylist->port());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
-    push(@array, 'filter', $self->service('filter'));
-    push(@array, 'fwport', $self->fwport());
-    push(@array, 'ipfilter', $self->ipfilter());
-    push(@array, 'zarafa', $self->zarafaEnabled());
+    push (@array, 'filter', $self->service('filter'));
+    push (@array, 'fwport', $self->fwport());
+    push (@array, 'ipfilter', $self->ipfilter());
+    push (@array, 'zarafa', $self->zarafaEnabled());
     $self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
     $self->_setHeloChecks();
@@ -656,11 +655,7 @@ sub _setDovecotConf
     @params = ();
     my $users = EBox::Global->modInstance('users');
 
-    unless ($users->mode() eq 'slave') {
-        push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
-    } else {
-        push(@params, 'ldapport', $self->ldap->ldapConf->{'translucentport'});
-    }
+    push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
     push @params, ('usersDn', $users->usersDn());
     push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);
     push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);

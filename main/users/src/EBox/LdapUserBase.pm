@@ -22,184 +22,186 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _addUser
 #
-# 	When a new user is created this method is called
+#    When a new user is created this method is called
 #
 # Parameters:
 #
-#   	user - user name to be created
-sub _addUser($$) # (user)
+#   user - created user
+sub _addUser
 {
 
 }
 
 # Method: _delUser
 #
-# 	When a user is deleted this method is called
+#    When a user is deleted this method is called
 #
 # Parameters:
 #
-#   	user - user name to be deleted
-sub _delUser($$) # (user)
+#   user - deleted user
+sub _delUser
 {
 
 }
 
 # Method: _modifyUser
 #
-#	 When a user is modified this method is called
+#     When a user is modified this method is called
 #
 # Parameters:
 #
-#   	user - user name to be modified
-sub _modifyUser($$) # (user)
+#   user - modified user
+sub _modifyUser
 {
 
 }
 
 # Method: _delUserWarning
 #
-# 	When a user is to be deleted, modules should warn the sort of  data
-# 	(if any) is going to be removed
+#   When a user is to be deleted, modules should warn the sort of  data
+#   (if any) is going to be removed
 #
 # Parameters:
 #
-#   	user - user name
+#   user - user
 #
 # Returns:
 #
-#   	array - Each element must be a string describing the sort of data
-#   	is going to be removed if the user is deleted. If nothing is going to
-#   	removed you must not return anything
-sub _delUserWarning($$) # (user)
+#   array - Each element must be a string describing the sort of data
+#   is going to be removed if the user is deleted. If nothing is going to
+#   removed you must not return anything
+sub _delUserWarning
 {
 
 }
 
 # Method: _addGroup
 #
-# 	When a new user is created this method is called
+#   When a new user is created this method is called
 #
 # Parameters:
 #
-#   	user - user name to be created
-sub _addGroup($$) # (group)
+#   user - created group
+sub _addGroup
 {
 
 }
 
 # Method: _modifyGroup
 #
-#	 When a group is modified this method is called
+#     When a group is modified this method is called
 #
 # Parameters:
 #
-#   	group - group name to be modified
-sub _modifyGroup($$) # (group)
+#   group - modified group
+sub _modifyGroup
 {
 
 }
 
 # Method: _delGroup
 #
-# 	When a group is deleted this method is called
+#   When a group is deleted this method is called
 #
 # Parameters:
 #
-#   	group - group name to be deleted
+#   group - deleted group
 
-sub _delGroup($$) # (group)
+sub _delGroup
 {
 
 }
 
 # Method: _delGroupWarning
 #
-# 	When a group is to be deleted, modules should warn the sort of  data
-# 	(if any) is going to be removed
+#   When a group is to be deleted, modules should warn the sort of  data
+#   (if any) is going to be removed
 #
 # Parameters:
 #
-#   	group - group name
+#   group - group
 #
 # Returns:
 #
-#   	array  - Each element must be a string describing the sort of data
-#   	is going to be removed if the group is deleted. If nothing is going to
-#   	removed you must not return anything
-sub _delGroupWarning($$) # (group)
+#   array  - Each element must be a string describing the sort of data
+#   is going to be removed if the group is deleted. If nothing is going to
+#   removed you must not return anything
+sub _delGroupWarning
 {
 
 }
 
 # Method: _userAddOns
 #
-# 	When a user is to be edited, this method is called to get customized
-# 	mason components from modules depending on users stored in LDAP.
-# 	Thus, these components will be showed below the basic user data
-# 	The method has to return a hash ref containing:
-# 	'path'   => MASON_COMPONENT_PATH_TO_BE_ADDED
-# 	'params' => PARAMETERS_FOR_MASON_COMPONENT
+#    When a user is to be edited, this method is called to get customized
+#    mason components from modules depending on users stored in LDAP.
+#    Thus, these components will be showed below the basic user data
+#    The method has to return a hash ref containing:
+#    'path'   => MASON_COMPONENT_PATH_TO_BE_ADDED
+#    'params' => PARAMETERS_FOR_MASON_COMPONENT
 #
-#        The method can also return undef to sigmnal there is not add on for the
-#        module
+#    The method can also return undef to sigmnal there is not add on for the
+#    module
 #
-#       Parameters:
+# Parameters:
 #
-#   	user - user name to be edited
+#   user - user
 #
 # Returns:
 #
-#   	A hash ref containing:
+#   A hash ref containing:
 #
-#   	path - mason component which is going to be added
-#   	params - parameters for the mason component
+#   path - mason component which is going to be added
+#   params - parameters for the mason component
 #
-#       - or -
-#         undef if there is not component to add
-sub _userAddOns($$)
+#   - or -
+#
+#   undef if there is not component to add
+sub _userAddOns
 {
 
 }
 
 # Method: _groupAddOns
 #
-# 	When a group is to be edited, this method is called to get customized
-# 	mason components from modules depending on groups stored in LDAP.
-# 	Thus, these components will be showed below the basic group data
-# 	The method has to return a hash ref containing:
-# 	'path'   => MASON_COMPONENT_PATH_TO_BE_ADDED
-# 	'params' => PARAMETERS_FOR_MASON_COMPONENT
+#     When a group is to be edited, this method is called to get customized
+#     mason components from modules depending on groups stored in LDAP.
+#     Thus, these components will be showed below the basic group data
+#     The method has to return a hash ref containing:
+#     'path'   => MASON_COMPONENT_PATH_TO_BE_ADDED
+#     'params' => PARAMETERS_FOR_MASON_COMPONENT
 #
 # Parameters:
 #
-#   	group - group name to be edited
+#       group - group to be edited
 #
 # Returns:
 #
-#   	A hash ref containing:
+#       A hash ref containing:
 #
-#   	path - mason component which is going to be added
-#   	params - parameters for the mason component
-sub _groupAddOns($$)
+#       path - mason component which is going to be added
+#       params - parameters for the mason component
+#
+sub _groupAddOns
 {
 
 }
 
 # Method: schemas
 #
-#	Returns the paths for the LDIF schemas that need to be loaded
+#    Returns the paths for the LDIF schemas that need to be loaded
 #
 # Returns:
 #
-#	array ref - Each element must be a string with a path to an LDIF schema
+#    array ref - Each element must be a string with a path to an LDIF schema
 #
 sub schemas
 {
@@ -208,38 +210,24 @@ sub schemas
 
 # Method: acls
 #
-#	Returns the ACLs that need to be loaded into the LDAP configuration
+#    Returns the ACLs that need to be loaded into the LDAP configuration
 #
 # Returns:
 #
-#	array ref - Each element must be a string with an ACL
+#    array ref - Each element must be a string with an ACL
 #
 sub acls
 {
     return [];
 }
 
-# Method: localAttributes
-#
-#	Returns the attributes that need to be accessed locally in a translucent
-#	LDAP
-#
-# Returns:
-#
-#	array ref - Each element must be a string with an attribute name
-#
-sub localAttributes
-{
-    return [];
-}
-
 # Method: indexes
 #
-#	Returns the attributes that need to be indexed in a translucent LDAP
+#    Returns the attributes that need to be indexed in a translucent LDAP
 #
 # Returns:
 #
-#	array ref - Each element must be a string with an attribute name to inex
+#    array ref - Each element must be a string with an attribute name to inex
 #
 sub indexes
 {
@@ -259,6 +247,17 @@ sub indexes
 sub defaultUserModel
 {
     return undef;
+}
+
+
+# Method: multipleOUSupport
+#
+#   Returns 1 if this module supports users in multiple OU's,
+#   0 otherwise
+#
+sub multipleOUSupport
+{
+    return 0;
 }
 
 1;

@@ -1,0 +1,34 @@
+#!/usr/bin/perl -s
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+if (scalar @ARGV == 3) {
+    my $arch = $ARGV[0];
+    my $fat  = $ARGV[1];
+    my $chroot = ($fat ? "fat-$arch" : $arch);
+    my $apps = $ARGV[2];
+    if ( -f "/opt/ltsp/images/$chroot.img" ) {
+        EBox::init();
+
+        my $ltsp = EBox::Global->modInstance('ltsp');
+
+        $ltsp->st_set_string('work', 'install');
+        print "Installing applications into $chroot image: $apps\n";
+
+        my $CHROOT_DIR = "/opt/ltsp/$chroot";
+        EBox::Sudo::root("chroot $CHROOT_DIR mount -t proc none /proc "
+                         . "&& chroot $CHROOT_DIR apt-get update "
+                         . "&& sudo chroot $CHROOT_DIR env LTSP_HANDLE_DAEMONS=false apt-get -y install $apps "
+                         . "&& umount /opt/ltsp/$chroot/proc "
+                         . "&& ltsp-update-image --arch $chroot");
+        $ltsp->st_set_string('work', 'none');
+    } else {
+        print "/opt/ltsp/images/$chroot.img does not exist.\n";
+    }
+} else {
+    print "Usage: install-local-applications arch fat? apps\n";
+}

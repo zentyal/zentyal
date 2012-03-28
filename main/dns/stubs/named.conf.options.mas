@@ -1,5 +1,6 @@
 <%args>
   @forwarders
+  $sambaKeytab
 </%args>
 options {
 	directory "/var/cache/bind";
@@ -14,8 +15,8 @@ options {
 	//transfer-source * port 53;
 	//notify-source * port 53;
 
-	// If your ISP provided one or more IP addresses for stable 
-	// nameservers, you probably want to use them as forwarders.  
+	// If your ISP provided one or more IP addresses for stable
+	// nameservers, you probably want to use them as forwarders.
 % if ( @forwarders > 0 ) {
         forward first;
 	forwarders {
@@ -23,6 +24,10 @@ options {
              <% $forwarder %>;
 %    }
 	};
+% }
+
+% if (defined $sambaKeytab) {
+    tkey-gssapi-keytab "<% $sambaKeytab %>";
 % }
 
 	auth-nxdomain no;    # conform to RFC1035

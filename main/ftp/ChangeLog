@@ -1,3 +1,5 @@
+2.3.1
+	+ Service name is now translatable
 2.3
 	+ Remove backup domain excludes which are now incompatible
 	  with the new implementation of the RemoteExcludes model

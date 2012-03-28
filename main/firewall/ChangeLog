@@ -1,4 +1,11 @@
-HEAD
+2.3.4
+	+ Use new unified tableBody.mas in PacketTrafficDetails.pm
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
+2.3.1
+	+ Use printableName instead of name to select services
 	+ Remove firewall hook template as examples are already included in core
 2.3
 	+ Adapted to new MySQL logs backend

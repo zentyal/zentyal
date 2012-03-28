@@ -228,7 +228,9 @@ sub _confAttr
 sub isEnabled
 {
     my ($self) = @_;
-    return $self->_confAttr('enabled');
+    # FIXME: disabled until fixed
+    #return $self->_confAttr('enabled');
+    return 0;
 }
 
 

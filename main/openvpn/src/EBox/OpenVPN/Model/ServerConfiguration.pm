@@ -290,20 +290,6 @@ sub _checkVPN
             }
         }
     }
-
-    # check advertised networks
-    my $advertisedNetwork =
-    $self->parentRow()->elementByName('advertisedNetworks')->foreignModelInstance();
-    foreach my $id (@{ $advertisedNetwork->ids() }) {
-        my $row = $advertisedNetwork->row($id);
-        my $net = $row->elementByName('network')->printableValue();
-
-        if ($vpnAddress eq $net) {
-            throw EBox::Exceptions::External(
-__('The VPN address could not be the same than one of its advertised networks')
-                                            );
-        }
-    }
 }
 
 sub _uniqVPNAddress

@@ -195,9 +195,10 @@ sub restoreFile
     }
 
     my $url = $self->_remoteUrl(%{ $urlParams });
-    my $cmd = $self->_duplicityRestoreFileCmd($file, $date,
+    my $cmd = $self->_duplicityRestoreFileCmd($url,
+                                              $file, $date,
                                               $destination,
-                                              $url);
+                                              );
     try {
         EBox::Sudo::root($cmd);
     } catch EBox::Exceptions::Sudo::Command with {
@@ -870,7 +871,16 @@ sub setRemoteBackupCron
     my @lines;
     my $strings = $self->model('RemoteSettings')->crontabStrings();
 
-    my $script = EBox::Config::share() . 'zentyal-ebackup/backup-tool';
+    my $nice = EBox::Config::configkey('ebackup_scheduled_priority');
+    my $script = '';
+    if ($nice) {
+        if ($nice =~ m/^\d+$/) {
+            $script = "nice -n $nice " if $nice > 0;
+        } else {
+            EBox::error("Scheduled backup priority must be a positive number" );
+        }
+    }
+    $script .= EBox::Config::share() . 'zentyal-ebackup/backup-tool';
 
     my $fullList = $strings->{full};
     if ($fullList) {

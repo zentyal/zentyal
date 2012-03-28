@@ -17,7 +17,7 @@
 
     <table class='formTable'>
     <form action='/Asterisk/AsteriskGroupOptions' method='POST'>
-        <input type="hidden" name="group" value="<% $params->{group} %>">
+        <input type="hidden" name="group" value="<% $params->{group}->dn() %>">
         <tr>
         <td class="tright">
             <span class="ftitle"><% __('Group queue') %>:</span>

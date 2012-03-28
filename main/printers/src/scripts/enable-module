@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# FIXME: this is currently disabled until samba4 integration implemented
+exit 0
+
 # stop and disable cups
 invoke-rc.d cups stop
 update-rc.d cups disable

@@ -1,9 +1,17 @@
-HEAD
+2.3.2
+	+ Use new unified tableBody.mas in RemoteStatus.pm
+	+ Do not show Zentyal Cloud option if custom_prefix is defined
+	+ Added selectable priority by config file to scheduled backup
+2.3.1
+	+ Do not check for disasterAddon if not subscribed
+	+ Added missing libdate-calc-perl dependency
+	+ Fixed date parsing in restore-tool and configuration cloud backup
+	+ Adapted messages in the UI for new editions
+2.3
 	+ File selections by backup domain are restricted to includes
 	+ Includes from backup domains can be moved in the list; the model
 	  validates if the includes and excludes configuration is coherent
 	  with the backup domains
-2.3
 	+ Refactored restoreFile method to ease testing of file quoting
 	+ Set a default timeout of 5 minutes for duplicity and allow to
 	  override it with the duplicity_timeout key of ebackup.conf

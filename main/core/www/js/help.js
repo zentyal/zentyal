@@ -1,3 +1,5 @@
+// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+
 helpShown = false;
 
 function showHelp() {

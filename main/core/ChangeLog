@@ -3,6 +3,60 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+2.3.7
+	+ Fixed printableName for apache module and remove entry in status widget
+	+ Merged tableBodyWithoutActions.mas into tableBody.mas
+	+ Removed tableBodyWithoutEdit.mas because it is no longer used
+	+ Better form validation message when there are no ids for
+	  foreign rows in select control with add new popup
+	+ Fixed branding of RSS channel items
+	+ Fixed destination path when copying zentyal.cnf to /etc/mysql/conf.d
+	+ Packaging fixes for precise
+2.3.6
+	+ Switch from CGIs to models in System -> General
+	+ New value() and setValue() methods in DataForm::setValue() for cleaner
+	  code avoiding use of AUTOLOAD
+	+ Added new EBox::Types::Time, EBox::Types::Date and EBox::Types::TimeZone
+	+ Added new attribute 'enabled' to the Action and MultiStateAction types
+	  to allow disabling an action. Accepts a scalar or a CODE ref
+	+ The 'defaultValue' parameter of the types now accept a CODE ref that
+	  returns the default value.
+2.3.5
+	+ Added force parameter in validateTypedRow
+	+ Fixed 'hidden' on types when using method references
+	+ Removed some console problematic characters from Util::Random::generate
+	+ Added methods to manage apache CA certificates
+	+ Use IO::Socket::SSL for SOAPClient connections
+	+ Removed apache rewrite from old slaves implementation
+	+ Do not show RSS image if custom_prefix defined
+2.3.4
+	+ Avoid 'negative radius' error in DiskUsage chart
+	+ Fixed call to partitionFileSystems in EBox::SysInfo::logReportInfo
+	+ Log audit does not ignore fields which their values could be interpreted
+	  as boolean false
+	+ Avoid ebox.cgi failure when showing certain strings in the error template
+	+ Do not calculate md5 digests if override_user_modification is enabled
+	+ Clean /var/lib/zentyal/tmp on boot
+	+ Stop apache gracefully and delete unused code in Apache.pm
+	+ Cache contents of module.yaml files in Global
+2.3.3
+	+ The editable attribute of the types now accept a reference to a function
+	  to dinamically enable or disable the field.
+	+ In progress bar CGIs AJAX call checks the availability of the
+	  next page before loading it
+	+ Replaced community logo
+	+ Adapted messages in the UI for new editions
+	+ Changed cookie name to remove forbidden characters to avoid
+	  incompatibilities with some applications
+	+ Added methods to enable/disable restart triggers
+2.3.2
+	+ Fixed redis unix socket permissions problem with usercorner
+	+ Get row ids without safe characters checking
+	+ Added EBox::Util::Random as random string generator
+	+ Set log level to debug when cannot compute md5 for a nonexistent file
+	+ Filtering in tables is now case insensitive
+	+ ProgressIndicator no longer leaves zombie processes in the system
+>>>>>>> master
 	+ Implemented mysqldump for logs database
 	+ Remove zentyal-events cron script which should not be longer necessary
 	+ Bugfix: set executable permissions to cron scripts and example hooks
@@ -636,7 +690,7 @@ HEAD
 	+ Loggerd: if we don't have any file to watch we just sleep otherwise the process
 	  will finish and upstart will try to start it over again and again.
 	+ Make /etc/init.d/ebox depend on $network virtual facility
-	+ Show uptime and users on General Information widget. 
+	+ Show uptime and users on General Information widget.
 1.4.2
 	+ Start services in the appropriate order (by dependencies) to fix a problem
 	  when running /etc/init.d/ebox start in slaves (mail and other modules
@@ -840,7 +894,7 @@ status that returns [OK] instead of "running".
 0.12.103
 	+ Bugfix: fix SQL statement to fetch last rows to consolidate
 0.12.102
-	+ Bugfix: consolidate logs using the last date and not starting from scratch 
+	+ Bugfix: consolidate logs using the last date and not starting from scratch
 0.12.101
 	+ Bugfix: DomainName type make comparisons case insensitive
 	according to RFC 1035
@@ -857,7 +911,7 @@ status that returns [OK] instead of "running".
 	+ Backup pages now includes the size of the archive
 	+ Fixed bug in ForcePurge logs model
 	+ Now the modules can have more than one tableInfo for logging information
-	+ Improve model debugging 
+	+ Improve model debugging
 	+ Improve restart debugging
 	+ Backups and bug reports can be made from the command line
 	+ Bugfix: `isEqualTo` is working now for `Boolean` types
@@ -898,7 +952,7 @@ status that returns [OK] instead of "running".
 	+ Disable LogAdmin actions in `ebox-global-action` until LogAdmin
 	feature is completely done
 0.11.103
-	+ Modify EBox::Types::HasMany to create directory based on its row 
+	+ Modify EBox::Types::HasMany to create directory based on its row
 	+ Add _setRelationship method to set up relationships between models
 	  and submodels
 	+ Use the new EBox::Model::Row api
@@ -946,7 +1000,7 @@ status that returns [OK] instead of "running".
 	  state of the modules and change the top page element properly
 	+ Do not exec() to restart apache outside mod_perl
 	+ Improve apache restart script
-	+ Improve progress screen 
+	+ Improve progress screen
 0.11.99
 	+ DataTable contains the property 'enableProperty' to set a column
 	called 'enabled' to enable/disable rows from the user point of
@@ -983,8 +1037,8 @@ status that returns [OK] instead of "running".
 	+ Fix issue with multiple models and models with params.
 	  This triggered a bug in DHCP when there was just one static
 	  interface
-	+ Fix _checkRowIsUnique and _checkFieldIsUnique 
-	+ Fix paging 
+	+ Fix _checkRowIsUnique and _checkFieldIsUnique
+	+ Fix paging
 	+ Trim long strings in log table, show tooltip with the whole string
 	  and show links for URLs starting with "http://"
 0.10.99
@@ -1004,7 +1058,7 @@ status that returns [OK] instead of "running".
 	+ Add EventDaemon
 	+ Add Watcher and Dispatch framework to support an event
 	  architecture on eBox
-	+ Add volatile EBox::Types in order not to store their values 
+	+ Add volatile EBox::Types in order not to store their values
 	  on GConf
 	+ Add generic form
 	+ Improvements on generic table
@@ -1070,7 +1124,7 @@ status that returns [OK] instead of "running".
 	+ Update INSTALL
 	+ Use a new method to get configkeys, now configkey reads every
 	  [0.9
-	+ Added Polish translation][0-9]+.conf file from the EBox::Config::etc() dir and 
+	+ Added Polish translation][0-9]+.conf file from the EBox::Config::etc() dir and
 	  tries to get the value from the files in order.
 	+ Display date in the correct languae in Summary
 	+ Update debian scripts
@@ -1148,9 +1202,9 @@ status that returns [OK] instead of "running".
 	+ Supports i18n
 	+ API name consistency
 	+ Use Mason for templates
-	+ added tips to GUI 
+	+ added tips to GUI
 	+ added dhcp hooks
-	+ administration port configuration 
+	+ administration port configuration
 	+ Fixed bugs to IE compliant
 	+ Revoke changes after logout
 	+ Several bugfixes

@@ -27,7 +27,9 @@
 
 package EBox::DHCP::Model::ThinClientOptions;
 
-use base 'EBox::Model::DataTable';
+# TODO: Restore this when more than one config per interface is possible
+#use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
@@ -47,7 +49,10 @@ use EBox::Types::File;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Host;
+use EBox::Types::Select;
+use EBox::Types::Boolean;
 use EBox::Validate;
+use EBox::View::Customizer;
 
 # Group: Public methods
 
@@ -132,30 +137,64 @@ sub printableIndex
 #
 #     <EBox::Model::DataTable::notifyForeignModelAction>
 #
-sub notifyForeignModelAction
-{
-    my ($self, $model, $action, $row) = @_;
+# TODO: Restore this when more than one config per interface is possible
+# sub notifyForeignModelAction
+# {
+#     my ($self, $model, $action, $row) = @_;
+# 
+#     if ( $action eq 'del' ) {
+#         my $idToRemove;
+#         given ( $model ) {
+#             when ( 'FixedAddressTable' ) {
+#                 $idToRemove = $row->valueByName('object');
+#             }
+#             when ( 'RangeTable' ) {
+#                 $idToRemove = $row->valueByName('name');
+#             }
+#             default { return ""; }
+#         }
+#         my $matchedRow = $self->findValue(hosts => $idToRemove);
+#         if ( $matchedRow ) {
+#             $self->removeRow($matchedRow->id(), 1);
+#             return __x('Remove thin client options from {model}{br}',
+#                        model => $self->printableContextName(),
+#                        br    => '<br>');
+#         }
+#     }
+#     return "";
+# 
+# }
 
-    if ( $action eq 'del' ) {
-        my $idToRemove;
-        given ( $model ) {
-            when ( 'FixedAddressTable' ) {
-                $idToRemove = $row->valueByName('object');
-            }
-            when ( 'RangeTable' ) {
-                $idToRemove = $row->valueByName('name');
-            }
-            default { return ""; }
-        }
-        my $matchedRow = $self->findValue(hosts => $idToRemove);
-        if ( $matchedRow ) {
-            $self->removeRow($matchedRow->id(), 1);
-            return __x('Remove thin client options from {model}{br}',
-                       model => $self->printableContextName(),
-                       br    => '<br>');
-        }
+# Method: nextServerIsZentyal
+#
+#     Finds out whether the next server the next server is Zentyal or not
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     Boolean - if Zentyal is the next server for the given row
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub nextServerIsZentyal
+{
+    my ($self, $id) = @_;
+
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
-    return "";
+
+    return ( $row->valueByName('nextServer') eq 'nextServerEBox' );
 
 }
 
@@ -182,27 +221,191 @@ sub nextServer
 {
     my ($self, $id) = @_;
 
-    my $row = $self->row($id);
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
 
     unless ( defined($row) ) {
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
-    my $nextServerType = $row->elementByName('nextServer');
-    my $nextServerSelectedName = $nextServerType->selectedType();
-    given ( $nextServerSelectedName ) {
-        when ('nextServerEBox' ) {
-            my $netMod = EBox::Global->modInstance('network');
-            return $netMod->ifaceAddress($self->{interface});
-        }
-        default {
-            return $nextServerType->printableValue();
-        }
+    return $row->valueByName('nextServerHost');
+}
+
+# Method: remoteFilename
+#
+#   Get the remote filename in an string form to tell the DHCP clients which
+#   is the file to ask for to the server
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     String - a filename
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub remoteFilename
+{
+    my ($self, $id) = @_;
+
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
+    my $nextServerType = $row->valueByName('nextServer');
+    given ( $nextServerType ) {
+        when ('nextServerHost' ) {
+            return $row->valueByName('remoteFilename');
+        }
+        default {
+            return '';
+        }
+    }
+}
+
+# Method: architecture
+#
+#     Get the architecture in an string form to tell the DHCP clients which is
+#     the architecture of the thin clients
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     String - architecture
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub architecture
+{
+    my ($self, $id) = @_;
+
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
+    return $row->valueByName('architecture');
+}
+
+# Method: fat
+#
+#     Return true if the image is a fat image
+#
+# Parameters:
+#
+#     id - String the row identifier
+#
+# Returns:
+#
+#     Boolean - True if the image is fat
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
+#     from this model
+#
+sub fat
+{
+    my ($self, $id) = @_;
+
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $self->row($id);
+    my $row = $self->row();
+
+    unless ( defined($row) ) {
+        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
+    }
+
+    return $row->valueByName('fat');
 }
 
 # Group: Protected methods
+
+#
+#   Callback function to fill out the values that can
+#   be picked from the <EBox::Types::Select> field module
+#
+# Returns:
+#
+#   Array ref of hash refs containing the 'value' and the 'printableValue' for
+#   each select option
+#
+sub _select_options
+{
+# TODO: Restore this when more than one config per interface is possible
+#    my @ltspSubtypes;
+    my @ltspSubtypes = ({
+                            value => 'none',
+                            printableValue => __('None'),
+                       },);
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('ltsp') ) {
+        push(@ltspSubtypes,
+            {
+                value => 'nextServerEBox',
+                printableValue => __('Zentyal LTSP'),
+            }
+        );
+    }
+
+    push(@ltspSubtypes,
+        {
+            value => 'nextServerHost',
+            printableValue => __('Host'),
+        },
+    );
+
+    return \@ltspSubtypes;
+}
+
+#
+#   Callback function to fill out the values that can
+#   be picked from the <EBox::Types::Select> field module
+#
+# Returns:
+#
+#   Array ref of hash refs containing the 'value' and the 'printableValue' for
+#   each select option
+#
+sub _select_architecture
+{
+    my $gl = EBox::Global->getInstance();
+
+    if ( $gl->modExists('ltsp') ) {
+        return [
+        {
+            value => 'i386',
+            printableValue => __('32 bits'),
+        },
+        {
+            value => 'amd64',
+            printableValue => __('64 bits'),
+        },
+    ];
+    } else {
+        return [];
+    }
+}
 
 # Method: _table
 #
@@ -214,52 +417,67 @@ sub _table
 {
     my ($self) = @_;
 
-
-    my @tableDesc =
-      (
-       new EBox::Types::Union(
+    my @tableDesc = (
+        new EBox::Types::Select(
                               fieldName     => 'nextServer',
                               printableName => __('Next server'),
+                              populate      => \&_select_options,
                               editable      => 1,
-                              subtypes      =>
-                              [new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
-                                                            printableName => __('Zentyal'),
-                                                           ),
-                               new EBox::Types::Host(fieldName     => 'nextServerHost',
-                                                     printableName => __('Host'),
-                                                     editable      => 1,
-                                                    ),
-                              ]),
-       new EBox::Types::Text(
+                              help          => __('If "Zentyal LTSP" is present and selected, '
+                                                  . 'Zentyal will be the LTSP server.'
+                                                  . ' You will need to enable and configure the LTSP module.'),),
+        new EBox::Types::Host(fieldName     => 'nextServerHost',
+                              printableName => __('Host'),
+                              editable      => 1,
+                              optional      => 1,
+                              help          => __('Thin Client server as seen by the clients.'),
+                             ),
+        new EBox::Types::Text(
                              fieldName     => 'remoteFilename',
-                             printableName => __('File path in next server'),
+                             printableName => __('File path'),
                              editable      => 1,
                              optional      => 1,
+                             help          => __('File path in next server'),
                             ),
-       new EBox::Types::Union(
-                              fieldName      => 'hosts',
-                              printableName  => __('Clients'),
-                              editable       => 1,
-                              subtypes       => [
-                                  new EBox::DHCP::Types::Group(
-                                      fieldName        => 'object',
-                                      printableName    => __('Object'),
-                                      index            => $self->index(),
-                                      foreignModelName => 'FixedAddressTable',
-                                      foreignField     => 'object',
-                                      unique           => 1,
-                                      editable         => 1
-                                     ),
-                                  new EBox::DHCP::Types::Group(
-                                      fieldName        => 'range',
-                                      printableName    => __('Range'),
-                                      index            => $self->index(),
-                                      foreignModelName => 'RangeTable',
-                                      foreignField     => 'name',
-                                      unique           => 1,
-                                      editable         => 1)
-                                    ]),
-      );
+# TODO: Restore this when more than one config per interface is possible
+#         new EBox::Types::Union(
+#                               fieldName      => 'hosts',
+#                               printableName  => __('Clients'),
+#                               editable       => 1,
+#                               subtypes       => [
+#                                   new EBox::DHCP::Types::Group(
+#                                       fieldName        => 'object',
+#                                       printableName    => __('Object'),
+#                                       index            => $self->index(),
+#                                       foreignModelName => 'FixedAddressTable',
+#                                       foreignField     => 'object',
+#                                       unique           => 1,
+#                                       editable         => 1
+#                                      ),
+#                                   new EBox::DHCP::Types::Group(
+#                                       fieldName        => 'range',
+#                                       printableName    => __('Range'),
+#                                       index            => $self->index(),
+#                                       foreignModelName => 'RangeTable',
+#                                       foreignField     => 'name',
+#                                       unique           => 1,
+#                                       editable         => 1)
+#                                     ]),
+        new EBox::Types::Select(
+                            fieldName       => 'architecture',
+                            printableName   => __('Architecture'),
+                            populate        => \&_select_architecture,
+                            editable        => 1,
+                            hiddenOnViewer  => 1,
+                            help            => __('Architecture of the LTSP clients. The LTSP image for that architecture must exist in order to boot the clients.'),),
+        new EBox::Types::Boolean(
+                            fieldName       => 'fat',
+                            printableName   => __('Fat Client'),
+                            defaultValue    => 0,
+                            editable        => 1,
+                            hiddenOnViewer  => 1,
+                            help            => __('Whether the clients are fat clients or not.'),),
+    );
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
@@ -281,6 +499,46 @@ sub _table
 
     return $dataTable;
 
+}
+
+# Method: viewCustomizer
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my %actions = (
+        'nextServer' => {
+            # TODO: Remove this when more than one config per interface is possible
+            'none' => {
+                show => [],
+                hide => ['nextServerHost', 'architecture','remoteFilename','fat'],
+            },
+            'nextServerEBox' => {
+# TODO: Restore this when more than one config per interface is possible
+#                show => ['hosts', 'nextServerHost', 'architecture', 'fat'],
+                show => ['nextServerHost', 'architecture', 'fat'],
+                hide => ['remoteFilename'],
+            },
+            'nextServerHost' => {
+# TODO: Restore this when more than one config per interface is possible
+#                show => ['remoteFilename', 'nextServerHost', 'hosts'],
+                show => ['remoteFilename', 'nextServerHost'],
+                hide => ['architecture', 'fat'],
+            },
+        },
+    );
+
+    $customizer->setOnChangeActions( \%actions );
+
+    return $customizer;
 }
 
 1;

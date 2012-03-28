@@ -23,6 +23,10 @@ use EBox::Gettext;
 
 use Perl6::Junction qw(all);
 
+my $passPolicy = { value => 'D_PASS',    printableValue => __('Pass') };
+my $rejectPolicy = { value => 'D_REJECT',  printableValue => __('Notify sender server') };
+my $bouncePolicy = { value => 'D_BOUNCE',  printableValue => __('Notify mail sender account') };
+my $discardPolicy = { value => 'D_DISCARD', printableValue => __('Drop silently') };
 my $allPolicies = all qw(D_PASS D_REJECT D_BOUNCE D_DISCARD);
 
 sub new
@@ -45,25 +49,12 @@ sub new
 
 sub _populate
 {
-    my @elements = (
-                    { value => 'D_PASS',    printableValue => __('Pass') },
-                    { value => 'D_REJECT',  printableValue => __('Reject') },
-                    { value => 'D_BOUNCE',  printableValue => __('Bounce') },
-                    { value => 'D_DISCARD', printableValue => __('Discard') },
-                   );
-
-    return \@elements;
+    return [ $passPolicy, $rejectPolicy, $bouncePolicy, $discardPolicy ];
 }
 
 sub _populateWithoutBounce
 {
-    my @elements = (
-                    { value => 'D_PASS',    printableValue => __('Pass') },
-                    { value => 'D_REJECT',  printableValue => __('Reject') },
-                    { value => 'D_DISCARD', printableValue => __('Discard') },
-                   );
-
-    return \@elements;
+    return [ $passPolicy, $rejectPolicy, $discardPolicy ];
 }
 
 

@@ -57,9 +57,13 @@ sub classFromUrl
 {
     my ($url, $namespace) = @_;
 
-    my $classname = $namespace . "::CGI::";
+    defined ($url) or exit;
 
-    defined($url) or exit;
+    my $classname = '';
+    if ($namespace) {
+        $classname = $namespace;
+    }
+    $classname .= '::CGI::';
 
     $url = _urlAlias($url);
 
@@ -73,7 +77,7 @@ sub classFromUrl
     $classname =~ s/::::/::/g;
     $classname =~ s/::$//;
 
-    if ($classname eq ("$namespace" . "::CGI")) {
+    if ($classname =~ /::CGI$/) {
         $classname .= '::Dashboard::Index';
     }
 

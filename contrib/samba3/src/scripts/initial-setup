@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+QUARANTINE_DIR=/var/lib/zentyal/quarantine/
+if [ ! -d $QUARANTINE_DIR ]; then
+    mkdir -p $QUARANTINE_DIR
+fi
+chmod 730 $QUARANTINE_DIR
+
+exit 0

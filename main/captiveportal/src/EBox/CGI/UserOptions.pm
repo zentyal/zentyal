@@ -23,9 +23,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::CaptivePortal::LdapUser;
+use EBox::UsersAndGroups::User;
 
 ## arguments:
-## 	title [required]
+##	title [required]
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Captive Portal',
@@ -39,11 +40,13 @@ sub _process($) {
 	my $self = shift;
 	my $cpldap = new EBox::CaptivePortal::LdapUser;
 
-	$self->_requireParam('username', __('username'));
-	my $username = $self->param('username');
-	$self->{redirect} = "UsersAndGroups/User?username=$username";
+	$self->_requireParam('user', __('user'));
+	my $user = $self->unsafeParam('user');
+	$self->{redirect} = "UsersAndGroups/User?user=$user";
 
-	$self->keepParam('username');
+	$self->keepParam('user');
+
+    my $user = new EBox::UsersAndGroups::User(dn => $user);
 
     my $overridden = not ($self->param('CaptiveUser_defaultQuota_selected') eq
                      'defaultQuota_default');
@@ -53,7 +56,7 @@ sub _process($) {
         'defaultQuota_size') {
         $quota = $self->param('CaptiveUser_defaultQuota_size');
     }
-    $cpldap->setQuota($username, $overridden, $quota);
+    $cpldap->setQuota($user, $overridden, $quota);
 }
 
 1;

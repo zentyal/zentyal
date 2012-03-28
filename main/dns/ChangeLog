@@ -1,4 +1,9 @@
-HEAD
+2.3.4
+	+ Packaging fixes for precise
+2.3.3
+	+ Updated Standards-Version to 3.9.2
+2.3.1
+	+ Service name in uppercase and description is now translatable
 	+ Fixed executable permissions in src/scripts
 2.3
 	+ Replaced autotools with zbuildtools

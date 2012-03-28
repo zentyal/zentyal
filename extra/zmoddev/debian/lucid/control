@@ -11,7 +11,6 @@ Vcs-Svn: http://svn.zentyal.org/zentyal/branches/2.0/extra/zmoddev/
 Package: zmoddev
 Architecture: all
 Depends: dpkg-dev, zbuildtools, fakeroot, build-essential, libfile-slurp-perl, libhtml-mason-perl
-Recommends: zentyal-core
 Description: Zentyal module development scripts
  This package ships scripts to ease the development of modules for the
  Zentyal Server.

@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::User;
 use EBox::Model::ModelManager;
 
 sub new
@@ -39,27 +40,25 @@ sub new
 
 sub _userAddOns
 {
-    my ($self, $username) = @_;
+    my ($self, $user) = @_;
 
     return unless ($self->{jabber}->configured());
 
     my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($username));
+    $active = 'yes' if ($self->hasAccount($user));
 
     my $is_admin = 0;
-    $is_admin = 1 if ($self->isAdmin($username));
+    $is_admin = 1 if ($self->isAdmin($user));
 
     my @args;
     my $args = {
-            'username' => $username,
-                 'active'   => $active,
-             'is_admin' => $is_admin,
-
-             'service' => $self->{jabber}->isEnabled(),
+            'user'     => $user,
+            'active'   => $active,
+            'is_admin' => $is_admin,
+            'service'  => $self->{jabber}->isEnabled(),
            };
 
-    return { path => '/jabber/jabber.mas',
-         params => $args };
+    return { path => '/jabber/jabber.mas', params => $args };
 }
 
 sub schemas
@@ -67,146 +66,59 @@ sub schemas
     return [ EBox::Config::share() . 'zentyal-jabber/jabber.ldif' ]
 }
 
-sub localAttributes
+sub isAdmin
 {
-        my @attrs = qw( jabberUid jabberAdmin );
-    return \@attrs;
+    my ($self, $user) = @_;
+
+    return ($user->get('jabberAdmin') eq 'TRUE');
 }
 
-sub isAdmin #($username)
+sub setIsAdmin
 {
-    my ($self, $username) = @_;
+    my ($self, $user, $option) = @_;
+
+    if ($option){
+        $user->set('jabberAdmin', 'TRUE');
+    } else {
+        $user->set('jabberAdmin', 'FALSE');
+    }
     my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
-    my $active = '';
-    my $is_admin = 0;
+    $global->modChange('jabber');
 
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
+    return 0;
+}
 
-    my %args = (base => $dn,
-            filter => "jabberUid=$username");
-    my $mesg = $ldap->search(\%args);
+sub hasAccount
+{
+    my ($self, $user) = @_;
 
-    if ($mesg->count != 0){
-        foreach my $item (@{$mesg->entry->{'asn'}->{'attributes'}}){
-        return 1 if (($item->{'type'} eq 'jabberAdmin') &&
-                 (shift(@{$item->{'vals'}}) eq 'TRUE'));
-        }
+    if ($user->get('jabberUid')) {
+        return 1;
     }
     return 0;
 }
 
-sub setIsAdmin #($username, [01]) 0=disable, 1=enable
+sub setHasAccount
 {
-    my ($self, $username, $option) = @_;
+    my ($self, $user, $option) = @_;
 
-    my $global = EBox::Global->getInstance();
+    if ($self->hasAccount($user) and not $option) {
+        my @objectclasses = $user->get('objectClass');
+        @objectclasses = grep { $_ ne 'userJabberAccount' } @objectclasses;
 
-    return unless ($self->isAdmin($username) xor $option);
-
-    my $users = $global->modInstance('users');
-    my $dn = "uid=$username,".$users->usersDn;
-
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-            filter => "jabberUid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    if ($mesg->count != 0){
-        if ($option){
-            my %attrs = (
-              changes => [
-                   replace => [
-                           jabberAdmin => 'TRUE'
-                           ]
-                   ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-            throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-        $global->modChange('jabber');
-        } else {
-            my %attrs = (
-                  changes => [
-                       replace => [
-                               jabberAdmin => 'FALSE'
-                               ]
-                       ]
-                  );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-            throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-        $global->modChange('jabber');
-        }
+        $user->delete('jabberUid', 1);
+        $user->delete('jabberAdmin', 1);
+        $user->set('objectClass',\@objectclasses, 1);
+        $user->save();
     }
+    elsif (not $self->hasAccount($user) and $option) {
+        my @objectclasses = $user->get('objectClass');
+        push (@objectclasses, 'userJabberAccount');
 
-    return 0;
-}
-
-sub hasAccount #($username)
-{
-    my ($self, $username) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
-
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-            filter => "jabberUid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    return 1 if ($mesg->count != 0);
-    return 0;
-}
-
-sub setHasAccount #($username, [01]) 0=disable, 1=enable
-{
-    my ($self, $username, $option) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $users = $global->modInstance('users');
-    my $dn = "uid=$username," . $users->usersDn;
-
-    $users->{ldap}->ldapCon;
-    my $ldap = $users->{ldap};
-
-    my %args = (base => $dn,
-            filter => "jabberUid=$username");
-    my $mesg = $ldap->search(\%args);
-
-    if (!$mesg->count and ($option)){
-        my %attrs = (
-              changes => [
-                       add => [
-                           objectClass => 'userJabberAccount',
-                           jabberUid   => $username,
-                           jabberAdmin => 'FALSE'
-                           ]
-                       ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
-    } elsif ($mesg->count and not ($option)) {
-        my %attrs = (
-              changes => [
-                       delete => [
-                          objectClass => ['userJabberAccount'],
-                          jabberUid   => [$username],
-                          jabberAdmin => []
-                          ]
-                       ]
-              );
-        my $result = $ldap->modify($dn, \%attrs );
-        ($result->is_error) and
-        throw EBox::Exceptions::Internal('Error updating user: $username\n\n');
+        $user->set('jabberUid', $user->name(), 1);
+        $user->set('jabberAdmin', 'FALSE', 1);
+        $user->set('objectClass', \@objectclasses, 1);
+        $user->save();
     }
 
     return 0;
@@ -224,16 +136,11 @@ sub getJabberAdmins
     $users->{ldap}->ldapCon;
     my $ldap = $users->{ldap};
 
-    my %args = (base => $dn,
-            filter => "jabberAdmin=TRUE");
+    my %args = (base => $dn, filter => 'jabberAdmin=TRUE');
     my $mesg = $ldap->search(\%args);
 
     foreach my $entry ($mesg->entries) {
-        foreach my $attrib (@{$entry->{'asn'}->{'attributes'}}){
-        if ($attrib->{'type'} eq 'jabberUid'){
-            push (@admins, pop(@{$attrib->{'vals'}}));
-        }
-        }
+        push (@admins, new EBox::UsersAndGroups::User(entry => $entry));
     }
 
     return \@admins;
@@ -258,8 +165,7 @@ sub _delUserWarning
 
     return unless ($self->{jabber}->configured());
 
-    $self->hasAccount($user) or
-        return;
+    $self->hasAccount($user) or return;
 
     my $txt = __('This user has a jabber account. If the user currently connected it will continue connected until jabber authorization is again required.');
 

@@ -11,6 +11,9 @@ my %attributes = (
     title => $action->printableValue($id),
     onclick => $action->onclick($id),
 );
+if (not $action->enabled($id)) {
+    $attributes{disabled} = 'disabled';
+}
 if ($type eq 'image') {
     $attributes{src} = $action->image($id);
     $attributes{alt} = $action->printableValue($id);

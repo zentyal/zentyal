@@ -11,9 +11,9 @@
 use EBox::Gettext;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
-<h3><% __('Administration of user') %> <span class='stitle'><% $user->{'username'} %></span></h3>
+<h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
         <form action='ModifyUser' method='POST' autocomplete='off'>
-        <input type="hidden" name="username" value="<% $user->{'username'} %>">
+        <input type="hidden" name="user" value="<% $user->dn() %>">
         <table class='formTable'>
         <tbody>
             <tr>
@@ -25,7 +25,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 <td>
                   <& masterSlaveUserAttr,
                                name => 'name',
-                               value=> $user->{'givenname'},
+                               value=> $user->firstname(),
                                slave => $slave,
                    &>
                 </td>
@@ -39,7 +39,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 <td>
                   <& masterSlaveUserAttr,
                                name => 'surname',
-                               value=> $user->{'surname'},
+                               value=> $user->surname(),
                                slave => $slave,
                    &>
                 </td>
@@ -56,7 +56,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 <td>
                   <& masterSlaveUserAttr,
                                name => 'comment',
-                               value=> $user->{'comment'},
+                               value=> ($user->comment() or ''),
                                slave => $slave,
                    &>
                 </td>
@@ -64,11 +64,11 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
-                        <% __('User quota') %>:
+                        <% __('User quota') %> (MB):
                     </span>
                 </td>
                 <td>
-                    <input type='text' class='inputText' name='quota' value="<% $user->{'quota'} %>">
+                    <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
                 </td>
             </tr>
 %   unless ($slave) {
@@ -123,8 +123,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
         <select name='delgroup' size='8' multiple>
 %   if(@usergroups) {
 %           foreach my $group (@usergroups){
-                <option value="<% $group %>">
-                    <% $group %>
+                <option value="<% $group->dn() %>">
+                    <% $group->name() %>
                 </option>
 %           }
 %   } else {
@@ -142,7 +142,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 title="<%('Remove groups from user')%>"
                 alt="<%__('Remove groups from user')%>" />
         <input  type="hidden" name="user"
-                value="<% $user->{'username'} %>"/>
+                value="<% $user->dn() %>"/>
     </form>
         <br />
         <br />
@@ -158,8 +158,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
         <select name='addgroup' size='8' multiple>
 %       if(@remaingroups) {
 %           foreach my $group (@remaingroups){
-                <option value="<% $group %>">
-                    <% $group %>
+                <option value="<% $group->dn() %>">
+                    <% $group->name() %>
                 </option>
 %           }
 %       } else {
@@ -168,7 +168,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 </option>
 %       }
         </select>
-        <input type="hidden" name="user" value="<% $user->{'username'} %>">
+        <input type="hidden" name="user" value="<% $user->dn() %>">
     </form>
     </td>
 </tr>
@@ -188,7 +188,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 </div>
 <form action='Del' method='POST'>
 <p>
-<input type="hidden" name="objectname" value="<% $user->{'username'} %>">
+<input type="hidden" name="objectname" value="<% $user->dn() %>">
             <input class='inputButton' type='submit' name='deluser'
                    value="<% __('Delete user') %>"
                    alt="<% __('Delete user') %>">

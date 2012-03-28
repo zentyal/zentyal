@@ -77,7 +77,7 @@ sub _table
         'defaultActions' =>
             ['add', 'del', 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
-        'help' => '', # FIXME
+        'help' => '',
         'printableRowName' => __('<% $rowName %>'),
     };
 

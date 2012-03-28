@@ -106,25 +106,20 @@ sub _externalAccountHash
 #
 
 sub addExternalAccount
- {
-     my ($self, %params) = @_;
-     my @mandatoryParams = qw(user localAccount password
-                              mailServer  mailProtocol port);
-     foreach my $checkedParam (@mandatoryParams) {
-         exists $params{$checkedParam} or
-             throw EBox::Exceptions::MissingArgument($checkedParam);
-     }
+{
+    my ($self, %params) = @_;
+    my @mandatoryParams = qw(user localAccount password
+            mailServer  mailProtocol port);
+    foreach my $checkedParam (@mandatoryParams) {
+        exists $params{$checkedParam} or
+            throw EBox::Exceptions::MissingArgument($checkedParam);
+    }
 
-     my $user = $params{user};
-     my $userDn = EBox::Global->modInstance('users')->userDn($user);
+    my $user = $params{user};
 
-     my $fetchmailString = $self->_externalAccountString(%params);
+    my $fetchmailString = $self->_externalAccountString(%params);
 
-     my %modifyParams = (
-          add=> [ fetchmailAccount => $fetchmailString ]
-         );
-
-     my $res = $self->{'ldap'}->modify($userDn, \%modifyParams);
+    $user->add('fetchmailAccount', $fetchmailString);
 }
 
 
@@ -171,32 +166,28 @@ sub allExternalAccountsByLocalAccount
     my %accountsByLocalAccount;
     foreach my $entry ($result->entries()) {
         my $localAccount = $entry->get_value('mail');
-        my $externalAccounts = $self->_externalAccountsForLdapEntry($entry);
-        if (@{ $externalAccounts} == 0) {
-            next;
-        }
-
-        my $mda;
         if ($zarafa) {
             my ($left, $accountDomain) = split '@', $localAccount, 2;
             if ($accountDomain eq $zarafaDomain) {
-                if ( $entry->get_value('zarafaAccount')) {
-                    my $uid = lcfirst $entry->get_value('uid');
-                    $mda =   "/usr/bin/zarafa-dagent $uid";
-                } else {
+                if (not $entry->get_value('zarafaAccount')) {
                     EBox::info("Ignored fetchmail entry for account $localAccount since it is a disabled Zarafa account");
                     next;
                 }
             }
         }
 
+
+        my $externalAccounts = $self->_externalAccountsForLdapEntry($entry);
+        if (@{$externalAccounts} == 0) {
+            next;
+        }
+
         $accountsByLocalAccount{$localAccount} = {
                                localAccount => $localAccount,
                                externalAccounts => $externalAccounts,
-                               mda => $mda,
+                               mda => undef,
                            };
     }
-
 
     return \%accountsByLocalAccount;
 }
@@ -205,30 +196,8 @@ sub externalAccountsForUser
 {
     my ($self, $user) = @_;
 
-    my %args = (
-            base => EBox::Global->modInstance('users')->usersDn,
-            filter => "&(objectclass=fetchmailUser)(uid=$user)",
-            scope => 'sub'
-                );
-
-    my $result = $self->{ldap}->search(\%args);
-    my ($entry) = $result->entries();
-
-    if (not $entry) {
-        return [];
-    }
-
-    return $self->_externalAccountsForLdapEntry($entry);
-}
-
-
-
-sub _externalAccountsForLdapEntry
-{
-   my ($self, $entry) = @_;
-
     my @externalAccounts;
-    foreach my $fetchmailStr ($entry->get_value('fetchmailAccount')) {
+    foreach my $fetchmailStr ($user->get('fetchmailAccount')) {
         push @externalAccounts, $self->_externalAccountHash($fetchmailStr);
     }
 
