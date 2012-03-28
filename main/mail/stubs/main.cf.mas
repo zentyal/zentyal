@@ -4,7 +4,7 @@
         $hostname
         $mailname
         $bindDN
-        $ldapport
+        $bindPW
 
         $vdomainDN
 
@@ -121,36 +121,39 @@ inet_interfaces = all
 
 # Virtual Aliases
 virtual_alias_maps = ldap:valiases
-valiases_server_host = 127.0.0.1
+valiases_server_host = ldapi://%2Fvar%2Frun%2Fslapd%2Fldapi
+valiases_version = 3
 valiases_search_base = <% $aliasDN %>
 valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
 valiases_result_attribute = maildrop
 valiases_bind = yes
-valiases_bind_dn =<% $bindDN %>
+valiases_bind_dn = <% $bindDN %>
+valiases_bind_pw = <% $bindPW %>
 
 # Virtual Domains
 dovecot_destination_recipient_limit = 1
 virtual_transport = dovecot
-#virtual_transport = virtual
 virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:ldapvirtualmap
 
-ldapvirtualmap_server_host = 127.0.0.1:<% $ldapport %>
-ldapvirtualmap_bind = yes
-ldapvirtualmap_bind_dn = <% $bindDN %>
+ldapvirtualmap_server_host = ldapi://%2Fvar%2Frun%2Fslapd%2Fldapi
+ldapvirtualmap_version = 3
 ldapvirtualmap_search_base = <% $usersDN %>
 ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
 ldapvirtualmap_result_attribute = mailbox
+ldapvirtualmap_bind = yes
+ldapvirtualmap_bind_dn = <% $bindDN %>
+ldapvirtualmap_bind_pw = <% $bindPW %>
 
 virtual_mailbox_domains = ldap:vmaildomains
-vmaildomains_server_host = 127.0.0.1
-#vmaildomains_bind = no
-vmaildomains_bind = yes
-vmaildomains_bind_dn = <% $bindDN %>
+vmaildomains_server_host = ldapi://%2Fvar%2Frun%2Fslapd%2Fldapi
+vmaildomains_version = 3
 vmaildomains_search_base =  <% $vdomainDN %>
 vmaildomains_query_filter = (|(&(objectclass=domain)(domainComponent=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
 vmaildomains_result_attribute = dc, maildrop
-
+vmaildomains_bind = yes
+vmaildomains_bind_dn = <% $bindDN %>
+vmaildomains_bind_pw = <% $bindPW %>
 
 virtual_minimum_uid = 100
 virtual_uid_maps = static:<% $uidvmail %>
@@ -158,7 +161,6 @@ virtual_gid_maps = static:<% $gidvmail %>
 
 # TLS/SSL
 smtpd_use_tls = yes
-smtpd_tls_note_starttls = yes
 smtpd_tls_key_file  = <% $keyFile  %>
 smtpd_tls_cert_file = <% $certFile %>
 smtpd_tls_loglevel = 1
