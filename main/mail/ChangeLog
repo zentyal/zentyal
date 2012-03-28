@@ -1,5 +1,9 @@
 HEAD
 	+ Adapted to new Model management framework
+2.3.2
+	+ withoutActions property in TrafficDetails.pm for the new tableBody.mas
+	+ Removed mda option for fetchmail accounts with zarafa destination
+	+ Image in initial configuration wizard is shown again
 2.3.1
 	+ New translatable printableNames for mail services
 	+ Adapted to new users implementation

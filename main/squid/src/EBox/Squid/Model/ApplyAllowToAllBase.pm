@@ -88,7 +88,6 @@ sub _tableDesc
              editable       => 1,
              help           => __('Use this field to change the value of ' .
                     'all the above rows at once')
-#			      defaultValue   => 1,
              ),
         );
 
@@ -114,7 +113,6 @@ sub _table
         modelDomain        => 'Squid',
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => $tableDesc,
-#                      class              => 'dataForm',
     };
 
     return $dataForm;
@@ -135,8 +133,8 @@ sub changeRowJS
 {
     my ($self, $editId, $page) = @_;
 
-    my  $function = 'applyAllChangeRows("%s", "%s", %s, "%s",'.
-            '"%s", %s, %s, %s)';
+    my  $function = q{_applyAllForm_changeRows('%s', '%s', %s, '%s',}.
+            q{'%s', %s, %s, %s);};
 
 
 
@@ -153,12 +151,10 @@ sub changeRowJS
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
 
-    $fields =~ s/'/"/g;
-
     my $onCompleteJS =  <<END;
     function(t) {
         highlightRow( id, false);
-        stripe("dataTable", "even", "odd");
+        stripe('dataTable', 'even', 'odd');
         $changeViewListJS;
     }
 END

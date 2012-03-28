@@ -1,3 +1,10 @@
 class: 'EBox::SysInfo'
 models:
     - Halt
+    - AdminUser
+    - TimeZone
+    - DateTime
+    - HostName
+
+composites:
+    General: [ sysinfo/AdminUser, apache/Language, sysinfo/TimeZone, sysinfo/DateTime, apache/AdminPort, sysinfo/HostName ]

@@ -12,6 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-firewall
 Architecture: all
 Replaces: ebox-firewall (<< 2.0.100)
+Breaks: ebox-firewall (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, zentyal-objects, zentyal-services, iptables, ${misc:Depends}
 Description: Zentyal - Firewall
  Zentyal is a Linux small business server that can act as

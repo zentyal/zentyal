@@ -1,3 +1,25 @@
+zbuildtools (6) precise; urgency=low
+
+  * zentyal-install-module called with the main module as argument so we don't
+    buid nearly-empty package when having more than one binary, see
+    http://build-common.alioth.debian.org/cdbs-doc.html#id2550863
+    (thanks James Page for the help here).
+
+ -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Thu, 15 Mar 2012 12:45:23 +0100
+
+zbuildtools (5) precise; urgency=low
+
+  * Added source format, Homepage, Vcs-*, COPYING
+  * Set compat level to 7 and depend on that debhelper version
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 09 Mar 2012 13:49:22 +0100
+
+zbuildtools (4) precise; urgency=low
+
+  * Added manpages
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 14 Feb 2012 23:45:34 +0100
+
 zbuildtools (3) precise; urgency=low
 
   * Build for precise

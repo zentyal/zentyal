@@ -178,7 +178,7 @@ sub allUsersExtBWUsage
     my $beg = "$year-$month-$mday $hour:$min:$sec";
 
     my $res = $db->query_hash({
-            'select' => 'client as ip,' .
+            'select' => 'INET_NTOA(client) as ip,' .
                         'SUM(exttotalrecv) as extrecv, SUM(exttotalsent) as extsent,' .
                         'SUM(inttotalrecv) as intrecv, SUM(inttotalsent) as intsent',
             'from' => 'bwmonitor_usage',
@@ -336,7 +336,7 @@ sub consolidateReportQueries
             'target_table' => 'bwmonitor_usage_report',
             'query' => {
                 'select' => q{
-                  client, username, SUM(inttotalrecv) AS inttotalrecv,
+                  INET_NTOA(client) AS client, username, SUM(inttotalrecv) AS inttotalrecv,
                   SUM(inttotalsent) AS inttotalsent, SUM(inttcp) AS inttcp,
                   SUM(intudp) AS intudp, SUM(inticmp) AS inticmp,
                   SUM(exttotalrecv) AS exttotalrecv,
@@ -371,7 +371,7 @@ sub report
         $beg, $end,
         {
             select => q{
-                client,
+                INET_NTOA(client),
                 SUM(intTotalRecv) + SUM(intTotalSent) + SUM(extTotalRecv) + SUM(extTotalSent) AS total_bytes,
                 SUM(intTotalRecv) + SUM(intTotalSent) AS int_total_bytes,
                 SUM(extTotalRecv) + SUM(extTotalSent) AS ext_total_bytes},

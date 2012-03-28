@@ -120,7 +120,7 @@ sub objects
 
     my @objects;
     for my $id (@{$self->{objectModel}->ids()}) {
-	my $object = $self->{objectModel}->row($id);
+    my $object = $self->{objectModel}->row($id);
         push (@objects, {
                             id => $id,
                             name => $object->valueByName('name')
@@ -342,6 +342,8 @@ sub removeObjectForce # (object)
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
+#   readOnly   - boolean, set the row unremovable from the UI *(optional)*
+#
 # Example:
 #
 #       name => 'administration',
@@ -356,7 +358,7 @@ sub addObject
 {
     my ($self, %params) = @_;
 
-    $self->{'objectModel'}->addObject(%params);
+    return $self->{'objectModel'}->addObject(%params);
 }
 
 # add( name => 'administration',

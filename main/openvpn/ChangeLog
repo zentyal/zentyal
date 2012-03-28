@@ -1,5 +1,12 @@
 HEAD
 	+ Adapted to new Model management framework
+2.3.4
+	+ Advertised networks are now defined by objects instead of by
+	  manually specified networks
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Added checks for small business subscription
 	+ Give support to use general proxy in OpenVPN clients

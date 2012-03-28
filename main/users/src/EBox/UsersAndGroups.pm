@@ -18,7 +18,7 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::UserCorner::Provider);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::UserCorner::Provider EBox::UsersAndGroups::SyncProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -30,9 +30,12 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
+use EBox::UsersAndGroups::Slave;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
+use EBox::UsersSync::Master;
+use EBox::UsersSync::Slave;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -52,12 +55,11 @@ use constant GROUPSDN       => 'ou=Groups';
 use constant LIBNSSLDAPFILE => '/etc/ldap.conf';
 use constant SECRETFILE     => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
-use constant CA_DIR         => EBox::Config::conf() . 'ssl-ca/';
-use constant SSL_DIR        => EBox::Config::conf() . 'ssl/';
-use constant CERT           => SSL_DIR . 'master.cert';
+use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
-use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant MAX_SB_USERS   => 25;
+use constant CRONFILE       => '/etc/cron.d/zentyal-users';
+
 use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
 use constant LDAP_DATADIR    => '/var/lib/ldap/';
 use constant LDAP_USER     => 'openldap';
@@ -214,7 +216,7 @@ sub enableActions
     $self->ldap->clearConn();
 
     # Setup NSS (needed if some user is added before save changes)
-    $self->_setConf();
+    $self->_setConf(1);
 
     # Create default group
     EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
@@ -229,6 +231,10 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+
+    # Configure SOAP to listen for new slaves
+    $self->master->confSOAPService();
+    $self->master->setupMaster();
 
     # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
@@ -299,7 +305,7 @@ sub wizardPages
 #
 sub _setConf
 {
-    my ($self) = @_;
+    my ($self, $noSlaveSetup) = @_;
 
     my $ldap = $self->ldap;
     EBox::Module::Base::writeFile(SECRETFILE, $ldap->getPassword(),
@@ -321,6 +327,19 @@ sub _setConf
             \@array);
 
     $self->_setupNSSPAM();
+
+    # Slaves cron
+    @array = ();
+    push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas",
+            \@array);
+
+
+    # Configure as slave if enabled
+    $self->master->setupSlave() unless ($noSlaveSetup);
+
+    # Configure soap service
+    $self->master->confSOAPService();
 }
 
 sub _setupNSSPAM
@@ -656,6 +675,30 @@ sub _modsLdapUserBase
 }
 
 
+# Method: allSlaves
+#
+# Returns all slaves from LDAP Sync Provider
+#
+sub allSlaves
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->modInstance('global');
+    my @names = @{$global->modNames};
+
+    my @modules;
+    foreach my $name (@names) {
+        my $mod = EBox::Global->modInstance($name);
+
+        if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
+            push (@modules, @{$mod->slaves()});
+        }
+    }
+
+    return \@modules;
+}
+
+
 # Method: notifyModsLdapUserBase
 #
 #   Notify all modules implementing LDAP user base interface about
@@ -689,9 +732,61 @@ sub notifyModsLdapUserBase
         # TODO catch errors here?
         $mod->$method(@{$args});
     }
+
+    # Save user corner operations for slave-sync daemon
+    if ($self->isUserCorner) {
+
+        my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
+        mkdir ($dir) unless (-d $dir);
+
+        my $time = time();
+        my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
+        EBox::UsersAndGroups::Slave->writeActionInfo($fh, $signal, $args);
+        $fh->close();
+        return;
+    }
+
+    # Notify slaves
+    foreach my $slave (@{$self->allSlaves}) {
+        $slave->sync($signal, $args);
+    }
 }
 
 
+# Method: initialSlaveSync
+#
+#   This method will send a sync signal for each
+#   stored user and group.
+#   It should be called on a slave registering
+#
+sub initialSlaveSync
+{
+    my ($self, $slave) = @_;
+
+    foreach my $user (@{$self->users()}) {
+        $slave->savePendingSync('addUser', [ $user, $user->passwordHashes() ]);
+    }
+
+    foreach my $group (@{$self->groups()}) {
+        $slave->savePendingSync('addGroup', [ $group ]);
+        $slave->savePendingSync('modifyGroup', [ $group ]);
+    }
+}
+
+
+
+sub isUserCorner
+{
+    my ($self) = @_;
+
+    my $auth_type = undef;
+    try {
+        my $r = Apache2::RequestUtil->request();
+        $auth_type = $r->auth_type;
+    } catch Error with {};
+
+    return ($auth_type eq 'EBox::UserCorner::Auth');
+}
 
 # Method: defaultUserModels
 #
@@ -838,12 +933,12 @@ sub menu
     my $separator = 'Office';
     my $order = 510;
 
-    if ($self->configured()) {
-        my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
-                                            'text' => $self->printableName(),
-                                            'separator' => $separator,
-                                            'order' => $order);
+    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+                                        'text' => $self->printableName(),
+                                        'separator' => $separator,
+                                        'order' => $order);
 
+    if ($self->configured()) {
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                               'text' => __('Users'), order => 10));
@@ -870,16 +965,21 @@ sub menu
         }
 
         $folder->add(new EBox::Menu::Item(
-                    'url' => 'Users/Composite/Settings',
-                    'text' => __('LDAP Settings'), order => 40));
+                    'url' => 'Users/Composite/Sync',
+                    'text' => __('Synchronization'), order => 40));
 
-        $root->add($folder);
+        $folder->add(new EBox::Menu::Item(
+                    'url' => 'Users/Composite/Settings',
+                    'text' => __('LDAP Settings'), order => 50));
+
     } else {
-        $root->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                        'text' => $self->printableName(),
-                                        'separator' => $separator,
-                                        'order' => $order));
+        $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
+                                          'text' => __('Configure DN'),
+                                          'separator' => $separator,
+                                          'order' => 0));
     }
+
+    $root->add($folder);
 }
 
 # EBox::UserCorner::Provider implementation
@@ -894,10 +994,68 @@ sub userMenu
                                     'text' => __('Password')));
 }
 
+
+# Method: syncJournalDir
+#
+#   Returns the path holding sync pending actions for
+#   the given slave.
+#   If the directory does not exists, it will be created;
+#
+sub syncJournalDir
+{
+    my ($self, $slave) = @_;
+
+    my $dir = JOURNAL_DIR . $slave->name();
+    my $journalsDir = JOURNAL_DIR;
+
+    # Create if the dir does not exists
+    unless (-d $dir) {
+        EBox::Sudo::root(
+            "mkdir -p $dir",
+            "chown -R ebox:ebox $journalsDir",
+            "chmod 0700 $journalsDir",
+        );
+    }
+
+    return $dir;
+}
+
+
 # LdapModule implementation
 sub _ldapModImplementation
 {
     return new EBox::LdapUserImplementation();
+}
+
+# SyncProvider implementation
+sub slaves
+{
+    my ($self) = @_;
+
+    my $model = $self->model('Slaves');
+
+    my @slaves;
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $host = $row->valueByName('host');
+        my $port = $row->valueByName('port');
+
+        push (@slaves, new EBox::UsersSync::Slave($host, $port, $id));
+    }
+
+    return \@slaves;
+}
+
+
+# Master-Slave UsersSync object
+sub master
+{
+    my ($self) = @_;
+
+    unless ($self->{ms}) {
+        $self->{ms} = new EBox::UsersSync::Master();
+    }
+    return $self->{ms};
 }
 
 sub dumpConfig

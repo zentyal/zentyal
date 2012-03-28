@@ -28,7 +28,7 @@ use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant DDCLIENT_FILE => '/etc/ddclient.conf';
 use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
-use constant DHCLIENTCONF_FILE => '/etc/dhcp3/dhclient.conf';
+use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
@@ -1236,6 +1236,8 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
 
+    $self->_checkStaticIP($name, $address, $netmask);
+
     my $oldm = $self->ifaceMethod($name);
     my $oldaddr = $self->ifaceAddress($name);
     my $oldmask = $self->ifaceNetmask($name);
@@ -1352,6 +1354,33 @@ sub _checkStatic # (iface, force)
                 } else {
                     throw EBox::Exceptions::DataInUse();
                 }
+            }
+        }
+    }
+}
+
+
+# check that no IP are in the same network
+# limitation: we could only check against the current
+# value of dynamic addresses
+sub _checkStaticIP
+{
+    my ($self, $iface, $address, $netmask) = @_;
+    my $network = EBox::NetWrappers::ip_network($address, $netmask);
+    foreach my $if (@{$self->allIfaces()} ) {
+        if ($if eq $iface) {
+            next;
+        }
+        foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
+            my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
+                                                            $addr_r->{netmask});
+            if ($ifNetwork eq $network) {
+                throw EBox::Exceptions::External(
+                 __x('Cannot use the address {addr} because interface {if} has already an address in the same network',
+                     addr => $address,
+                     if => $if
+                    )
+                );
             }
         }
     }
@@ -2465,7 +2494,7 @@ sub _setChanged # (interface)
 }
 
 # Generate the '/etc/resolv.conf' configuration file and modify
-# the '/etc/dhcp3/dhclient.conf' to request nameservers only
+# the '/etc/dhcp/dhclient.conf' to request nameservers only
 # if there are no manually configured ones.
 sub _generateDNSConfig
 {

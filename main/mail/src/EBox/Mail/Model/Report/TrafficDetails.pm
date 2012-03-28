@@ -97,6 +97,7 @@ sub _table
             'rowUnique' => 0,
             'printableRowName' => __('traffic'),
             'sortedBy' => 'date',
+            'withoutActions' => 1,
         };
 
     return $dataTable;

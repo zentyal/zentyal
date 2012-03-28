@@ -9,7 +9,11 @@ models:
     - PAM
     - AccountSettings
     - OUs
+    - Slaves
+    - Master
+    - SlavePassword
 
 composites:
     Settings: [FIXME]
     UserTemplate: [FIXME]
+    Sync: [FIXME]

@@ -1,0 +1,98 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled => undef
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& SELF:setter,
+    tableName   => $tableName,
+    data        => $data,
+    cssClass    => $cssClass,
+    disabled    => $disabled
+&>
+
+<%method setter>
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled
+</%args>
+<%init>
+my @days;
+for (my $day = 1; $day <= 31; $day++) {
+    push (@days,
+          {
+            'value' => $day,
+            'printableValue' => $day,
+          }
+         );
+}
+
+my @months = ({'value' => 1,  'printableValue' => __('January'),},
+              {'value' => 2,  'printableValue' => __('February'),},
+              {'value' => 3,  'printableValue' => __('March'),},
+              {'value' => 4,  'printableValue' => __('April'),},
+              {'value' => 5,  'printableValue' => __('May'),},
+              {'value' => 6,  'printableValue' => __('June'),},
+              {'value' => 7,  'printableValue' => __('July'),},
+              {'value' => 8,  'printableValue' => __('August'),},
+              {'value' => 9,  'printableValue' => __('September'),},
+              {'value' => 10, 'printableValue' => __('October'),},
+              {'value' => 11, 'printableValue' => __('November'),},
+              {'value' => 12, 'printableValue' => __('December'),},
+             );
+
+my @years;
+for (my $year=1990; $year<2030; $year++) {
+    push (@years,
+          {
+            'value' => $year,
+            'printableValue' => $year,
+          }
+         );
+}
+</%init>
+
+% my $id = $tableName . '_' . $data->fieldName();
+% if ( $data->editable() ) {
+<span id="<% $id %>" class="<% $cssClass %>">
+    <& /input/select.mas,
+        'name'      => $id . '_day' ,
+        'options'   => \@days,
+        'id'        => "$id" . '_day',
+        'disabled'  => $disabled,
+        'value'     => $data->day(),
+    &>
+
+    <span>/</span>
+
+    <& /input/select.mas,
+        'name'      => $id . '_month' ,
+        'options'   => \@months,
+        'id'        => "$id" . '_month',
+        'disabled'  => $disabled,
+        'value'     => $data->month(),
+    &>
+
+    <span>/</span>
+
+    <& /input/select.mas,
+        'name'      => $id . '_year' ,
+        'options'   => \@years,
+        'id'        => "$id" . '_year',
+        'disabled'  => $disabled,
+        'value'     => $data->year(),
+    &>
+</span>
+% }
+% else
+% {
+<& $data->HTMLViewer(),
+    data => $data &>
+% }
+
+</%method>

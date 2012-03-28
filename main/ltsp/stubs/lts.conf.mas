@@ -1,0 +1,43 @@
+<%doc>
+</%doc>
+<%args>
+    %global
+    @profiles
+    %clients
+</%args>
+[default]
+%   for my $opt (keys %global) {
+    <% $opt %> = <% $global{$opt} %>
+%   }
+%if (@profiles) {
+
+############
+# PROFILES #
+############
+
+%   for my $profile (@profiles) {
+[<% $profile->{'name'} %>]
+%       for my $opt (keys %{$profile->{'options'}}) {
+    <% $opt %> = <% $profile->{'options'}->{$opt} %>
+%       }
+
+%   }
+%}
+%if (%clients) {
+
+###########
+# CLIENTS #
+###########
+
+%   for my $key (keys %clients) {
+[<% $key %>]
+%       if (defined $clients{$key}->{'profile'}) {
+    LIKE = <% $clients{$key}->{'profile'} %>
+%       }
+%       if (defined $clients{$key}->{'user'}) {
+    LDM_USERNAME = <% $clients{$key}->{'user'} %>
+    LDM_PASSWORD = <% $clients{$key}->{'pass'} %>
+%       }
+
+%   }
+%}

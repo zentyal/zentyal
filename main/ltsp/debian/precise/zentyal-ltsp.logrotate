@@ -1,0 +1,9 @@
+/var/log/zentyal/ltsp.log {
+        rotate 7
+        size 5M
+        compress
+        nocreate
+        missingok
+        delaycompress
+        notifempty
+}

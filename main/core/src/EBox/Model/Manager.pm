@@ -241,7 +241,8 @@ sub _component
         }
     }
 
-    unless (defined $self->{$key}->{$moduleName}->{$name}) {
+    # FIXME RW/RO
+    unless (defined $self->{$key}->{$moduleName}->{$name}->{instance}) {
         my $global = EBox::Global->getInstance();
 
         my $class = $global->_className($moduleName) . '::' . ucfirst($kind) . "::$name";
@@ -257,7 +258,7 @@ sub _component
         $self->{$key}->{$moduleName}->{$name}->{instance} = $instance;
     }
 
-    return $self->{$key}->{$moduleName}->{$name};
+    return $self->{$key}->{$moduleName}->{$name}->{instance};
 }
 
 # Method: modelsUsingId

@@ -1,5 +1,8 @@
 HEAD
 	+ Adapted to new Model management framework
+2.3.2
+	+ Fixed retrieval of IP addressess in SQL queries
+	+ Using tableBody.mas instead of tableBodyWithoutActions.mas in BWUsage.pm
 2.3.1
 	+ Fix bug in report when there is no data to report
 2.3

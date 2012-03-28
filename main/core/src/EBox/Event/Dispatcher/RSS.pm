@@ -295,14 +295,15 @@ sub _addEventToRSS
 #                      pubDate       => $rssComplaintDate,
                       lastBuildDate => $rssComplaintDate,
                       ttl           => CHANNEL_TTL,
-                     );
-        $rss->image(title       => 'Zentyal',
-                    url         => 'http://static.zentyal.org/img/zentyal.png',
-                    link        => 'http://zentyal.org',
-                    description => 'Zentyal',
-                    alt         => 'Zentyal',
-                   );
-
+        );
+        unless (EBox::Config::configkey('custom_prefix')) {
+            $rss->image(title       => 'Zentyal',
+                        url         => 'http://static.zentyal.org/img/zentyal.png',
+                        link        => 'http://zentyal.org',
+                        description => 'Zentyal',
+                        alt         => 'Zentyal',
+            );
+        }
     }
     # Update the lastBuildDate and pubDate
     $rss->channel(pubDate       => $rssComplaintDate,
@@ -313,9 +314,9 @@ sub _addEventToRSS
                              . 'from {source}',
                              hostname => hostname(),
                              source   => $event->source());
-    $descriptionStr .= '<br><br>' . __x('Go to your {url} to check its status.',
-                                    url => '<a href="' . $confModel->linkValue()
-                                    . '">Zentyal</a>');
+
+    my $url = '<a href="' . $confModel->linkValue() . '">' . __('Zentyal') . '</a>';
+    $descriptionStr .= '<br><br>' . __x('Go to your {url} to check its status.', url => $url);
     $rss->add_item(
                    description => $descriptionStr,
                    title       => ($event->level() . ' : ' . $event->message()),

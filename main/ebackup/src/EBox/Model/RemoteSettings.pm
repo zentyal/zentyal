@@ -543,16 +543,18 @@ sub _method
             },
     );
 
-    my $cloud = {
-                 value => 'cloud',
-                 printableValue => 'Zentyal Cloud',
-    };
+    unless (EBox::Config::configkey('custom_prefix')) {
+        my $cloud = {
+            value => 'cloud',
+            printableValue => 'Zentyal Cloud',
+        };
 
-    if (EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
-        unshift @methods, $cloud;
-    } else {
-        $cloud->{disabled} = 1;
-        push @methods, $cloud;
+        if (EBox::EBackup::Subscribed->isSubscribed(ignoreConnectionError => 1)) {
+            unshift @methods, $cloud;
+        } else {
+            $cloud->{disabled} = 1;
+            push @methods, $cloud;
+        }
     }
 
     return \@methods;

@@ -1,7 +1,13 @@
 HEAD
 	+ Adapted to new Model management framework
+2.3.4
+	+ Temporary download files are now stored in tmp directory
 	+ EBox::FileSystem ignore all fuse daemon filesystem (type begins
 	  with 'fuse.')
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ New EBox::Config::boolean() to avoid string comparisons all over
 	  the code to check if the key is set to 'yes' or 'no'
