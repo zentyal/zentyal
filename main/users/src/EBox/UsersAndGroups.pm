@@ -45,7 +45,6 @@ use EBox::UsersSync::Slave;
 
 use Digest::SHA;
 use Digest::MD5;
-use Crypt::SmbHash;
 use Sys::Hostname;
 
 use Error qw(:try);
@@ -62,7 +61,7 @@ use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
 use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
-use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
+use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 use constant MAX_SB_USERS   => 25;
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 
@@ -73,6 +72,7 @@ use constant LDAP_GROUP    => 'openldap';
 # Kerberos constants
 use constant KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';
+use constant KDC_DEFAULT_FILE => '/etc/default/heimdal-kdc';
 
 sub _create
 {
@@ -161,6 +161,11 @@ sub usedFiles
             'file' => KDC_CONF_FILE,
             'reason' => __('To set up the kerberos KDC'),
             'module' => 'users'
+        },
+        {
+            'file' => KDC_DEFAULT_FILE,
+            'reason' => __('To set the KDC configuration'),
+            'module' => 'users',
         },
     );
 
@@ -302,6 +307,9 @@ sub enableActions
         push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
         push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
         push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
+        push (@cmds, 'rm -f /etc/kpasswdd.keytab');
+        push (@cmds, 'kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw'); #TODO Only if master
+        push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
         EBox::debug('Initializing kerberos realm');
         EBox::Sudo::root(@cmds);
 
@@ -452,7 +460,7 @@ sub _setConf
         { mode => '0600', uid => 0, gid => 0 });
 
     my $dn = $ldap->dn;
-    my $nsspw = read_file(EBox::Config::conf() . 'ldap_ro.passwd');
+    my $nsspw = $ldap->getRoPassword();
     my @array = ();
     push (@array, 'ldap' => EBox::Ldap::LDAPI);
     push (@array, 'basedc'    => $dn);
@@ -496,6 +504,9 @@ sub _setConf
     @array = ();
     push (@array, 'ldapContainer' => $ldapContainer);
     $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@array);
+
+    @array = ();
+    $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@array);
 }
 
 sub kerberosRealm
@@ -524,23 +535,21 @@ sub _setupNSSPAM
 {
     my ($self) = @_;
 
-    my @array;
+    my @array = ();
     my $umask = EBox::Config::configkey('dir_umask');
     push (@array, 'umask' => $umask);
 
-    $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-ebox.mas',
+    $self->writeConfFile(AUTHCONFIGTMPL, 'users/acc-zentyal.mas',
                \@array);
 
     my $enablePam = $self->model('PAM')->enable_pamValue();
-    my @cmds;
-    push (@cmds, 'auth-client-config -a -p ebox');
-
-    unless ($enablePam) {
-        push (@cmds, 'auth-client-config -a -p ebox -r');
+    my $cmd;
+    if ($enablePam) {
+        $cmd = 'auth-client-config -a -p zentyal-krb';
+    } else {
+        $cmd = 'auth-client-config -a -p zentyal-nokrb';
     }
-
-    push (@cmds, 'auth-client-config -t nss -p ebox');
-    EBox::Sudo::root(@cmds);
+    EBox::Sudo::root($cmd);
 }
 
 # Method: editableMode
