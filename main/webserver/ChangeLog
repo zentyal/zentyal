@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid 'port in use' error when setting port for first time to
+	  its default value
 	+ When creating virtual host DNS records use configured domains first
 2.3.1
 	+ New translatable printableName for the webserver service

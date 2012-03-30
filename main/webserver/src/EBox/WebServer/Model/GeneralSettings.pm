@@ -79,7 +79,7 @@ sub new
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $oldFields) = @_;
 
     my $global = EBox::Global->getInstance();
     my $apache = $global->modInstance('apache');
@@ -89,14 +89,17 @@ sub validateTypedRow
 
     if (exists $changedFields->{port}) {
         $portNumber = $changedFields->{port}->value();
-
-        # Only check availablePort if our port it not already in our service
-        unless ($services->serviceFromPort('tcp', $portNumber) eq 'http') {
-            unless ($firewall->availablePort('tcp', $portNumber)) {
-                throw EBox::Exceptions::DataExists(
+        my $oldPortNumber = $oldFields->{port}->value();
+        # avoid first set error
+        if ($portNumber != $oldPortNumber) {
+            # Only check availablePort if our port it not already in our service
+            unless ($services->serviceFromPort('tcp', $portNumber) eq 'http') {
+                unless ($firewall->availablePort('tcp', $portNumber)) {
+                    throw EBox::Exceptions::DataExists(
                         'data'  => __('Listening port'),
                         'value' => $portNumber,
-                        );
+                       );
+                }
             }
         }
     }
@@ -104,27 +107,33 @@ sub validateTypedRow
     if (exists $changedFields->{ssl} and
         $changedFields->{ssl}->selectedType() eq 'ssl_port') {
         my $portNumberSSL = $changedFields->{ssl}->value();
-        if ($portNumber eq $portNumberSSL) {
-            throw EBox::Exceptions::DataExists(
-                    'data'  => __('Listening SSL port'),
-                    'value' => $portNumberSSL,
-                    );
-        }
         if ($apache->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
                     __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
                         ohref => '<a href="/SysInfo/General">', chref => '</a>')
                     );
         }
-        # Only check availablePort if our port it not already in our service
-        unless ($services->serviceFromPort('tcp', $portNumberSSL) eq 'http') {
-            unless ($firewall->availablePort('tcp', $portNumberSSL)) {
-                throw EBox::Exceptions::DataExists(
+        if ($portNumber eq $portNumberSSL) {
+            throw EBox::Exceptions::DataExists(
+                    'data'  => __('Listening SSL port'),
+                    'value' => $portNumberSSL,
+                    );
+        }
+
+        my $oldPortNumberSSL = $oldFields->{ssl}->value();
+        # avoid first set error
+        if ($portNumberSSL != $oldPortNumberSSL) {
+            # Only check availablePort if our port it not already in our service
+            unless ($services->serviceFromPort('tcp', $portNumberSSL) eq 'http') {
+                unless ($firewall->availablePort('tcp', $portNumberSSL)) {
+                    throw EBox::Exceptions::DataExists(
                         'data'  => __('Listening SSL port'),
                         'value' => $portNumberSSL,
-                        );
+                       );
+                }
             }
         }
+
     }
 
     if (exists $changedFields->{enableDir} and
