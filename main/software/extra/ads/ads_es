@@ -1,95 +1,117 @@
 [
-{"title": "Bienvenido!",
-"image":"/data/software/images/01_icon_welcome.png",
-"text": "",
-"items": [
-         "¡Gracias por haber elegido Zentyal, el servidor Linux para pymes!",
-         "Estás usando Zentyal 2.2, la última versión estable disponible. Esperamos que Zentyal te parezca fácil de usar y útil! Sin embargo, si te encuentras con problemas, ¡rogamos consultes en el Foro de Zentyal!",
-         "¡Mientras se instalan los paquetes de Zentyal que hayas elegido, esta presentación te enseñará qué más ofrecemos además del software de servidor Zentyal!"],
-"links": ["http://forum.zentyal.org/"]},
-{"title":"Suscripción Básica (GRATUITA)",
-"image":"/data/software/images/02_icon_basic_subscription.png",
-"text":"",
-"items": [
-        "¡Obtén tu Suscripción Básica gratuita!",
-        "La Suscripción Básica ofrecerá una demostración de Zentyal Cloud y te dará acceso a algunas características básicas como alertas, informes, opciones de monitorización y trabajos básicos. Además, te permitirá almacenar un backup de configuración de forma remota y crear subdominio zentyal.me para tu servidor."],
-"links":["http://store.zentyal.com/serversubscriptions/subscription-basic.html"]},
-{"title": "Suscripción Profesional",
-"image":"/data/software/images/02_icon_professional_subscription.png",
-"text": "",
-"items": [
-        "Los servidores Zentyal en producción deberían tener una suscripción comercial.",
-        "La Suscripción Profesional se destina al uso de pequeñas y medianas empresas (pymes) or revendedores de valor añadido (VARs) con uno o pocos servidores.",
-        "Esta suscripción te dará acceso a las Actualizaciones de software con garantía de calidad, alertas e informes, garantizan que el servidor siempre está al día y seguro.",
-        "Adicionalmente, esta suscripción te permitirá adquirir Soporte Técnico certificado y Suscripciones Adicionales como Recuperación de Desastres, Actualizaciones de Seguridad Avanzadas o Ediciones de Zarafa."],
-"links":[" http://store.zentyal.com/serversubscriptions/subscription-professional.html"]},
-{"title": "Suscripción Empresarial",
-"image":"/data/software/images/03_icon_enterprise_subscription.png",
-"text": "",
-"items": [
-        "Los servidores Zentyal en producción deberían tener una suscripción comercial.",
-        "La Suscripción Empresarial se destina al uso de grandes empresas o proveedores de servicios gestionados (MSPs), con múltiples servidores Zentyal.",
-        "Esta suscripción te dará acceso a las actualizaciones de software con garantía de calidad, alertas e informes y además, te permitirá monitorizar y gestionar de forma remota múltiples servidores Zentyal.",
-        "Adicionalmente, esta suscripción te permitirá adquirir Soporte Técnico certificado y Suscripciones Adicionales como Recuperación de desastres, Actualizaciones de seguridad avanzadas o Ediciones de Zarafa."],
-"links":["http://store.zentyal.com/serversubscriptions/subscription-enterprise.html"]},
-{"title": "Soporte Técnico",
-"image":"/data/software/images/04_icon_technical_support.png",
-"text": "",
-"items": [
-        "¡Obtén soporte técnico directamente del Equipo de Desarrollo de Zentyal!",
-        "Elige entre tres paquetes de soporte y garantiza los niveles más altos de fiabilidad, seguridad y funcionamiento.",
-        "Obtén la Suscripción Profesional o Empresarial y adquiere el paquete de soporte que mejor se adapta a tus necesidades."],
-"links":["http://www.zentyal.com/services/support/"]},
-{"title": "Recuperación de Desastres",
-"image":"/data/software/images/05_icon_disaster_recovery.png",
-"text": "",
-"items": [
-        "¡Reduce tiempos de inactividad!",
-        "Zentyal ofrece el servicio de Recuperación de Desastres, que te permite almacenar fácilmente los datos críticos de tu negocio en una ubicación remota segura, y recuperarlos rápidamente cuando sea necesario.",
-        "Obtén la Suscripción Profesional o Empresarial y adquiere el servicio de Recuperación de Desastres."],
-"links":[""]},
-{"title": "Actualizaciones Avanzadas de Seguridad",
-"image":"/data/software/images/07_icon_security.png",
-"text": "",
-"items": [
-        "¡Seguridad adicional para tu sistema!",
-        "Zentyal ofrece el servicio de Actualizaciones de Seguridad Avanzadas, que mantiene tu Antivirus, Antispam, IDS y Reglas de filtrado de contenido siempre actualizados!",
-        "Obtén la Suscripción Profesional o Empresarial y adquiere el servicio de Actualizaciones de Seguridad Avanzadas."],
-"links":[""]},
-{"title": "Formación Certificada",
-"image":"/data/software/images/07_icon_training.png",
-"text": "",
-"items": [
-        "¡Aprende gestión de servidores Linux fácilmente!",
-        "Ofrecemos cursos de Zentyal presenciales, personalizados y on-line.",
-        "Los Instructores Certificados garantizan que aprenderás las más novedosas técnicas de gestión de redes, localización y resolución de problemas y mejores prácticas basados en Zentyal!"],
-"links":["http://www.zentyal.com/training/"]},
-{"title": "Manual \"Zentyal para Administradores de Redes\"",
-"image":"/data/software/images/08_icon_book.png",
-"text": "",
-"items": [
-        "¡Una guía completa y práctica para aprender gestión de redes basada en Zentyal!",
-        "Material de estudio oficial para el Examen de Certificación Zentyal (ZeCA), con numerosos ejercicios prácticos.",
-        "Este libro cubre todos los aspectos más relevantes de configuración y administración de servidores Zentyal en pequeñas y medianas empresas (pymes).",
-        "¡Disponible en inglés y español!"],
-"links":["http://store.zentyal.com/book-admin-es.html"]},
-{"title": "Programa de Partners de Zentyal",
-"image":"/data/software/images/09_icon_partner.png",
-"text": "",
-"items": [
-        "¿Estás interesado en ofrecer servicios comerciales basados en Zentyal? ¡Echa un vistazo al Programa de Partners de Zentyal!",
-        "Garantiza a tus clientes productos y servicios basados en un servidor Linux de calidad del fabricante, desde actualizaciones de software con garantía de calidad hasta soporte técnico.",
-        "Es fácil y asequible convertirse en Partner de Zentyal. ¡Comienza enviando una solicitud de partenariado!"],
-"links":["http://www.zentyal.com/partners/", "http://www.zentyal.com/partners/join"]},
-{"title": "¿Cómo puedo contribuir?",
-"image":"/data/software/images/01_icon_welcome.png",
-"text": "Zentyal es un proyecto de software libre promovido por los usuarios. Existen numerosas formas con las que puede contribuir al desarrollo!",
-"items": [
-        "Difunde la palabra sobre Zentyal: escribe sobre el proyecto en tu blog/sitio de noticias, organiza una presentación/demostración/taller, etc.",
-        "Escribe how-tos/tutoriales sobre casos de uso de Zentyal.",
-        "Ayuda a traducir Zentyal a su propio idioma.",
-        "Dona algo de tu tiempo y ayuda a otros usuarios de Zentyal a través del Foro de Zentyal.",
-        "Ayuda a probar las últimas características de Zentyal o informar sobre los errores cuando encuentres uno!",
-        "Y por supuesto, todas las contribuciones al desarrollo de Zentyal son bienvenidas!"],
-"links":["http://trac.zentyal.org/wiki/Contribute", "http://forum.zentyal.org/"]}
+  {
+    "title": "Bienvenido!",
+    "image": "/data/software/images/01_icon_welcome.png",
+    "text": "",
+    "items": [
+              "¡Gracias por haber elegido Zentyal, el servidor Linux para pymes!",
+              "Estás usando Zentyal 2.3, una versión beta de Zentyal 3.0 que será la próxima versión estable y se publicará en septiembre 2012. Esperamos que Zentyal te parezca fácil de usar y útil! Sin embargo, si te encuentras con problemas, ¡rogamos consultes en el Foro de Zentyal!",
+              "¡Mientras se instalan los paquetes de Zentyal que hayas elegido, esta presentación te enseñará qué más ofrecemos además del software de servidor Zentyal!"
+             ],
+    "links": ["http://forum.zentyal.org/"]
+  },
+  {
+    "title": "Suscripción Básica (GRATUITA)",
+    "image": "/data/software/images/02_icon_basic_subscription.png",
+    "text": "",
+    "items": [
+              "¡Obtén tu Suscripción Básica gratuita!",
+              "La Suscripción Básica ofrecerá una demostración de Zentyal Cloud y te dará acceso a algunas características básicas como alertas, informes, opciones de monitorización y trabajos básicos. Además, te permitirá almacenar un backup de configuración de forma remota y crear subdominio zentyal.me para tu servidor.",
+             ],
+    "links": ["http://store.zentyal.com/serversubscriptions/subscription-basic.html"]
+  },
+  {
+    "title": "Edición Small Business",
+    "image": "/data/software/images/02_icon_professional_subscription.png",
+    "text": "",
+    "items": [
+              "¿Usarás el servidor Zentyal en un entorno de producción?",
+              "¿Desplegarás un único servidor Zentyal? ¿Tu organización tiene menos de 25 empleados?",
+              "¡Obtén la edición Small Business!, y cuenta con el pleno apoyo del Equipo de Desarrollo de Zentyal",
+              "Incluye: Soporte técnico, Actualizaciones de software y seguridad, Opciones de monitorización y gestión remota y Backups de configuración remotas."
+             ],
+    "links": [ "http://store.zentyal.com/serversubscriptions/subscription-professional.html" ]
+  },
+  {
+    "title": "Edición Enterpise",
+    "image": "/data/software/images/03_icon_enterprise_subscription.png",
+    "text": "",
+    "items": [
+              "¿Usarás el servidor Zentyal en un entorno de producción?",
+              "¿Desplegarás múltiples servidores Zentyal? ¿Tu organización tiene más de 25 empleados?",
+              "¡Obtén la edición Enterprise!, y cuenta con el pleno apoyo del Equipo de Desarrollo de Zentyal",
+              "Incluye: Soporte técnico, Actualizaciones de software y seguridad, Opciones de monitorización y gestión remota y Recuperación de desastres."
+             ],
+    "links": [ "http://store.zentyal.com/serversubscriptions/subscription-enterprise.html" ]
+  },
+  {
+    "title": "Recuperación de Desastres",
+    "image": "/data/software/images/05_icon_disaster_recovery.png",
+    "text": "",
+    "items": [
+              "¿Quieres asegurar la disponibilidad de los datos críticos de tu organización en todo momento?",
+              "¡Obtén la edición Small Business o Enterprise!",
+              "La edición Enterprise incluye el servicio de Recuperación de Desastres y los usuarios de la edición Small Business puede adquirirlo como un servicio adicional."
+             ],
+    "links": [ "http://store.zentyal.com/disaster-recovery.html" ]
+  },
+  {
+    "title": "Correo con Zarafa Small Business",
+    "image": "/data/software/images/06_icon_zarafa.png",
+    "text": "",
+    "items": [
+              "¡Obtén todas las ventajas de Microsoft Exchange con sólo el 50% de los costes!",
+              "Zentyal integra la solución de groupware de Zarafa, una alternativa al MS Exchange Server y Outlook, que ofrece correo, calendario, contactos y gestión de tareas de aspecto familiar.",
+              "Obtén la edición Small Business o Enterprise y adquiere Zarafa Small Business como un servicio adicional."
+             ],
+    "links": [ "http://store.zentyal.com/zarafa-small-business.html" ]
+  },
+  {
+    "title": "Formación Certificada",
+    "image": "/data/software/images/07_icon_training.png",
+    "text": "",
+    "items": [
+              "¡Aprende gestión de servidores Linux fácilmente!
+              "Ofrecemos cursos de Zentyal presenciales, personalizados y on-line.",
+              "Los Instructores Certificados garantizan que aprenderás las más novedosas técnicas de gestión de redes, localización y resolución de problemas y mejores prácticas basados en Zentyal!"
+             ],
+    "links": [ "http://www.zentyal.com/training/" ]
+  },
+  {
+    "title": "Manual \"Zentyal para Administradores de Redes\"",
+    "image": "/data/software/images/08_icon_book.png",
+    "text": "",
+    "items": [
+              "¡Una guía completa y práctica para aprender gestión de redes basada en Zentyal!",
+              "Material de estudio oficial para el Examen de Certificación Zentyal (ZeCA), con numerosos ejercicios prácticos.",
+              "Este libro cubre todos los aspectos más relevantes de configuración y administración de servidores Zentyal en pequeñas y medianas empresas (pymes).",
+              "¡Disponible en inglés y español!"
+             ],
+    "links": [ "http://store.zentyal.com/book-admin-es.html" ]
+  },
+  {
+    "title": "Programa de Partners de Zentyal",
+    "image": "/data/software/images/09_icon_partner.png",
+    "text": "",
+    "items": [
+              "¿Estás interesado en ofrecer servicios comerciales basados en Zentyal? ¡Echa un vistazo al Programa de Partners de Zentyal!",
+              "Garantiza a tus clientes productos y servicios basados en un servidor Linux de calidad del fabricante, desde actualizaciones de software con garantía de calidad hasta soporte técnico."
+              "Es fácil y asequible convertirse en Partner de Zentyal. ¡Comienza enviando una solicitud de partenariado!"
+             ],
+    "links": [ "http://www.zentyal.com/partners/", "http://www.zentyal.com/partners/join" ]
+  },
+  {
+    "title": "¿Cómo puede contribuir?",
+    "image": "/data/software/images/01_icon_welcome.png",
+    "text": "Zentyal es un proyecto de software libre promovido por los usuarios. Existen numerosas formas con las que puedes contribuir al desarrollo!",
+    "items": [
+              "Difunde la palabra sobre Zentyal: escribe sobre el proyecto en tu blog/sitio de noticias, organiza una presentación/demostración/taller, etc.",
+              "Escribe how-tos/tutoriales sobre casos de uso de Zentyal.",
+              "Ayuda a traducir Zentyal a su propio idioma.",
+              "Dona algo de tu tiempo y ayuda a otros usuarios de Zentyal a través del Foro de Zentyal.",
+              "Ayuda a probar las últimas características de Zentyal o informar sobre los errores cuando encuentres uno!",
+              "Y por supuesto, todas las contribuciones al desarrollo de Zentyal son bienvenidas!"
+             ],
+    "links": ["http://trac.zentyal.org/wiki/Contribute", "http://forum.zentyal.org/"]
+  }
 ]

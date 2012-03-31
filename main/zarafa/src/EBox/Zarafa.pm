@@ -105,6 +105,12 @@ sub actions
             'reason' => __('Zarafa will be accesible at http://ip/webaccess/.'),
             'module' => 'zarafa'
         },
+        {
+            'action' => __('Install English/United States locale on the system if it is not already installed'),
+            'reason' => __('Zarafa needs this locale to run.'),
+            'module' => 'zarafa'
+        },
+
     ];
 }
 
@@ -403,11 +409,7 @@ sub _setConf
     my $ldapconf = $ldap->ldapConf;
 
     push(@array, 'ldapsrv' => '127.0.0.1');
-    unless ($users->mode() eq 'slave') {
-        push(@array, 'ldapport', $ldapconf->{'port'});
-    } else {
-        push(@array, 'ldapport', $ldapconf->{'translucentport'});
-    }
+    push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
     push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFALDAPCONFFILE,

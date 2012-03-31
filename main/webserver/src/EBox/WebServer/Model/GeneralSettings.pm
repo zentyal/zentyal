@@ -165,7 +165,11 @@ sub formSubmitted
 
     my $servMod = EBox::Global->modInstance('services');
 
-    $servMod->setMultipleService(name => 'http', internal => 1, services => \@services);
+    $servMod->setMultipleService(name => 'webserver',
+                                 internal => 1,
+                                 printableName => __('Web Server'),
+                                 description => __('Zentyal Web Server'),
+                                 services => \@services);
 }
 
 # Method: sslPort

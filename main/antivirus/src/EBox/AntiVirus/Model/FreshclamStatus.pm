@@ -31,7 +31,9 @@ use EBox::Types::Text;
 use EBox::Types::Boolean;
 
 # Constants
-use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=antivirus&utm_campaign=advanced_security_updates';
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=enterprise_edition';
+
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 
 sub new
@@ -191,21 +193,25 @@ sub _formatDate
 
 sub _commercialMsg
 {
-    return __sx('Get Antivirus updates to protect your system against scams, spear phishing, frauds and other junk! The Antivirus updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription add-on. It guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
-                openhref  => '<a href="' . STORE_URL . '" target="_blank">', closehref => '</a>');
+    return __sx('Want to protect your system against scams, spear phishing, frauds and other junk? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include the Antivirus feature in the automatic security updates.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 # Get the number of signatures from clamav log file
 sub _nSig
 {
-    my $cmd = 'grep signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
+    my $cmd = 'grep Loaded.*signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
     my $output = EBox::Sudo::root($cmd);
 
     my $line = $output->[0];
-
     return 0 unless (defined($line));
 
     my ($nSig) = $line =~ m/([0-9]+)\ssignatures/;
+    if (not defined $nSig) {
+        return 0;
+    }
 
     return $nSig;
 

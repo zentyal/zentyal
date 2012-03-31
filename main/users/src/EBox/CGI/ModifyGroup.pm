@@ -22,39 +22,42 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::UsersAndGroups;
+use EBox::UsersAndGroups::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Users and Groups',
-				      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
+sub _process
+{
+    my $self = shift;
 
-	$self->_requireParam('groupname', __('group name'));
-	my $group = $self->param('groupname');
-	$self->{errorchain} = "UsersAndGroups/Group";
+    $self->_requireParam('groupname', __('group name'));
+    my $group = $self->unsafeParam('groupname');
 
-	$self->cgi()->param(-name=>'group', -value=>$group);
-	$self->keepParam('group');
+    $self->{errorchain} = "UsersAndGroups/Group";
 
-	$self->_requireParamAllowEmpty('comment', __('comment'));
+    $self->cgi()->param(-name=>'group', -value=>$group);
+    $self->keepParam('group');
 
-	my $groupdata   = {
-				'groupname' => $group,
-				'comment'  => $self->param('comment')
-			 };
+    my $group = new EBox::UsersAndGroups::Group(dn => $group);
 
-	my $usersandgroups = EBox::Global->modInstance('users');
-	$usersandgroups->modifyGroup($groupdata);
+    $self->_requireParamAllowEmpty('comment', __('comment'));
+    my $comment = $self->param('comment');
+    if (length ($comment)) {
+        $group->set('description', $comment);
+    } else {
+        $group->delete('description');
+    }
 
-	$self->{redirect} = "UsersAndGroups/Group?group=$group";
+    $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
 }
-
 
 1;

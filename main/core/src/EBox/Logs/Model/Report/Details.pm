@@ -205,12 +205,6 @@ sub _tableName
     throw EBox::Exceptions::NotImplemented('_tableName');
 }
 
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
-}
-
-
 
 # lists the fields which should not be aggregated in the 'total' row
 sub _noAggregateFields

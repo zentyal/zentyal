@@ -89,14 +89,10 @@ sub _table
         noDataMsg          => __('There is no data to show yet, the values are updated every 10 minutes'),
         help               => __('Bandwidth usage for each connected client.'),
         modelDomain        => 'BWMonitor',
+        withoutActions     => 1,
     };
 
     return $dataTable;
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 sub precondition

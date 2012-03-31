@@ -628,7 +628,8 @@ sub initialSetup
         unless ($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
                 'name' => $serviceName,
-                'description' => 'Domain Name Service',
+                'printableName' => 'DNS',
+                'description' => __('Domain Name Service'),
                 'readOnly' => 1,
                 'services' => $self->_services(),
             );
@@ -684,6 +685,12 @@ sub enableService
 
     $self->SUPER::enableService($status);
     $self->configureFirewall();
+
+    # Mark network module as changed to set localhost as the primary resolver
+    if ($self->changed()) {
+        my $net = EBox::Global->modInstance('network');
+        $net->setAsChanged();
+    }
 }
 
 # Method: _setConf
@@ -695,6 +702,21 @@ sub enableService
 sub _setConf
 {
     my ($self) = @_;
+
+    my $sambaZone = undef;
+    my $sambaKeytab = undef;
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        if ($sambaModule->isEnabled()) {
+            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBADNSZONE())) {
+                $sambaZone = EBox::Samba::SAMBADNSZONE();
+            }
+            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBADNSKEYTAB())) {
+                $sambaKeytab = EBox::Samba::SAMBADNSKEYTAB();
+            }
+        }
+    }
+
     my @array = ();
 
     $self->writeConfFile(BIND9CONFFILE,
@@ -702,6 +724,7 @@ sub _setConf
             \@array);
 
     push(@array, 'forwarders' => $self->_forwarders());
+    push(@array, 'sambaKeytab' => $sambaKeytab);
 
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
@@ -788,6 +811,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
+    push(@array, 'sambaZone' => $sambaZone);
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);

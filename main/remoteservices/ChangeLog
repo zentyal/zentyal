@@ -1,6 +1,9 @@
-HEAD
-	+ Uniformize config boolean values (from true/false to yes/no)
 2.3
+	+ Allow to subscribe to Zentyal Newsletter from wizard
+	+ Adapted messages in the UI for new editions
+	+ Add new server editions
+	+ New checks for Small Business edition
+	+ Uniformize config boolean values (from true/false to yes/no)
 	+ Use direct connection to QA repository even using a global proxy
 	+ Delete version() method which is now implemented on EBox::Module::Base
 	+ Set off-office hours for module cron jobs

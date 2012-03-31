@@ -45,6 +45,10 @@ sub isSubscribed
 
     if (EBox::Global->modExists('remoteservices')) {
         my $remoteServices = EBox::Global->modInstance('remoteservices');
+        if (not $remoteServices->eBoxSubscribed) {
+            return 0;
+        }
+
         my $disasterAddOn = 0;
         try {
             $disasterAddOn = $remoteServices->disasterRecoveryAddOn();
@@ -558,8 +562,7 @@ sub _dateToGMT
     }
 
     # date are like this: 'Fri Oct 14 23:01:51 2011'
-    my @parts = split '\s+', $date;
-    my ($wday, $month, $day, $time, $year) = split '\s', $date;
+    my ($wday, $month, $day, $time, $year) = split '\s+', $date;
     my $nmonth = $nmonthByName{$month};
     $nmonth or $nmonth = $month;
     my ($hour, $min, $sec) = split ':', $time;

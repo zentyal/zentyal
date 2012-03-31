@@ -71,6 +71,30 @@ sub new
 
   }
 
+# Method: setValue
+#
+#       Set the value of a element and store the row
+#
+sub setValue
+{
+    my ($self, $element, $value) = @_;
+
+    my $row = $self->_row();
+    $row->elementByName($element)->setValue($value);
+    $row->store();
+}
+
+# Method: value
+#
+#       Get the value of a element of the row
+#
+sub value
+{
+    my ($self, $element) = @_;
+
+    return $self->_row()->valueByName($element);
+}
+
 # Method: _checkTable
 #
 #  Method overriden to add some checks
@@ -855,7 +879,7 @@ sub _setTypedRow
     }
 
     # TODO: Check its usefulness
-    $self->validateTypedRow('update', $changedData, $allData);
+    $self->validateTypedRow('update', $changedData, $allData, $force);
 
     # If force != true atomaticRemove is enabled it means
     # the model has to automatically check if the row which is

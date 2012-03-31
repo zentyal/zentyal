@@ -131,6 +131,7 @@ sub _table
                              optional => 1,
                              unique => 1,
                              editable => 1,
+                             hidden => 1,
                             ),
        new EBox::Virt::Types::Status(
                                      fieldName => 'status',
@@ -365,6 +366,65 @@ sub _doResume
 
     EBox::debug("Virtual machine '$name' resumed");
     $self->setMessage($action->message(), 'note');
+}
+
+sub freeIface
+{
+    my ($self, $iface) = @_;
+    foreach my $id (@{ $self->ids()  }) {
+        my $row = $self->row($id);
+        my $settings = $row->subModel('settings');
+        my $networkSettings = $settings->componentByName('NetworkSettings');
+        $networkSettings->freeIface($iface);
+    }
+}
+
+sub ifaceMethodChanged
+{
+    my ($self, $iface, $oldmethod, $newmethod) = @_;
+    foreach my $id (@{ $self->ids()  }) {
+        my $confInconsistent;
+        my $row = $self->row($id);
+        my $settings = $row->subModel('settings');
+        my $networkSettings = $settings->componentByName('NetworkSettings');
+        $confInconsistent = $networkSettings->ifaceMethodChanged($iface, $oldmethod, $newmethod);
+        if ($confInconsistent) {
+            return $confInconsistent;
+        }
+    }
+
+    return undef;
+}
+
+# set VPNC port and service
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+    my $virt = $self->{gconfmodule};
+
+    my $vncport = $row->valueByName('vncport');
+    if (not $vncport) {
+
+        $vncport = $virt->firstFreeVNCPort();
+        $row->elementByName('vncport')->setValue($vncport);
+        $row->store();
+    }
+
+    $virt->updateFirewallService();
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row) = @_;
+    my $virt = $self->{gconfmodule};
+    $virt->updateFirewallService();
+
+    # stop VM
+    my $name = $row->valueByName('name');
+    if ($virt->vmRunning($name) or $virt->vmPaused($name)) {
+        $virt->stopVM($name);
+    }
+
 }
 
 1;

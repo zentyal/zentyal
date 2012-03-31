@@ -12,6 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-dns
 Architecture: all
 Replaces: ebox-dns (<< 2.0.100)
+Breaks: ebox-dns (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, zentyal-firewall, bind9, libcrypt-openssl-random-perl, ${misc:Depends}
 Description: Zentyal - DNS Service
  Zentyal is a Linux small business server that can act as

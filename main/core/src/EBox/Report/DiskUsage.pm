@@ -77,6 +77,17 @@ sub chart
     );
 
   my $datasets = _chartDatasets($usage->{$partition});
+
+  # this is to avoid errors with labels too large
+  my $maxLabelSize = 30;
+  my $labels = $datasets->[0];
+  foreach my $label (@{ $labels }) {
+      if (length($label) > $maxLabelSize) {
+          $label = substr($label, 0, ($maxLabelSize - 4));
+          $label .= ' ...';
+      }
+  }
+
   return _chart($datasets);
 }
 
@@ -143,6 +154,7 @@ sub _calcGraphSize
   while (my($label, $value) = each %labelsByUsage) {
     my $text =  sprintf("%s %4.2f%%", $label, $value );
     my $length = length $text;
+    $length += 6; # space took by percent
     if ($length > $max_label_len) {
       $max_label_len = $length;
     }
@@ -348,7 +360,7 @@ sub _sizeLabelWithUnit
     my ($size, $unit) = @_;
 
     if ($unit eq 'GB') {
-        return sprintf ('%.2f GB', $size / 1024);        
+        return sprintf ('%.2f GB', $size / 1024);
     } elsif ($unit eq 'MB') {
         return "$size MB";
     } else {

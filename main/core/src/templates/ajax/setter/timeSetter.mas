@@ -1,0 +1,79 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled => undef
+</%args>
+<& SELF:setter,
+    tableName   => $tableName,
+    data        => $data,
+    cssClass    => $cssClass,
+    disabled    => $disabled
+&>
+
+<%method setter>
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled
+</%args>
+<%init>
+my @hours;
+for (my $hour = 0; $hour < 24; $hour++) {
+    my $strHour = sprintf("%02d", $hour);
+    push (@hours, {
+                    'value' => $strHour,
+                    'printableValue' => $strHour,
+                  });
+}
+
+my @mins_secs;
+for (my $ms = 0; $ms < 60; $ms++) {
+    my $strMS = sprintf("%02d", $ms);
+    push (@mins_secs, {
+                        'value' => $strMS,
+                        'printableValue' => $strMS,
+                      });
+}
+</%init>
+
+% my $id = $tableName . '_' . $data->fieldName();
+% if ( $data->editable() ) {
+<span id="<% $id %>" class="<% $cssClass %>">
+    <& /input/select.mas,
+        'name'      => $id . '_hour' ,
+        'options'   => \@hours,
+        'id'        => "$id" . '_hour',
+        'disabled'  => $disabled,
+        'value'     => $data->hour(),
+    &>
+
+    <span>:</span>
+
+    <& /input/select.mas,
+        'name'      => $id . '_min' ,
+        'options'   => \@mins_secs,
+        'id'        => "$id" . '_min',
+        'disabled'  => $disabled,
+        'value'     => $data->minute(),
+    &>
+
+    <span>:</span>
+
+    <& /input/select.mas,
+        'name'      => $id . '_sec' ,
+        'options'   => \@mins_secs,
+        'id'        => "$id" . '_sec',
+        'disabled'  => $disabled,
+        'value'     => $data->second(),
+    &>
+</span>
+% }
+% else
+% {
+<& $data->HTMLViewer(),
+    data => $data &>
+% }
+
+</%method>

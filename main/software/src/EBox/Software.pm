@@ -45,7 +45,7 @@ use constant {
     CRON_FILE      => '/etc/cron.d/zentyal-auto-updater',
     QA_ARCHIVE     => 'zentyal-qa',
 };
-my @RESTRICTED_SB = qw(zentyal-virt zentyal-ids zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-jabber zentyal-asterisk);
+my @RESTRICTED_SB = qw(zentyal-virt zentyal-mail zentyal-mailfilter zentyal-webmail zentyal-jabber zentyal-asterisk);
 
 # Group: Public methods
 

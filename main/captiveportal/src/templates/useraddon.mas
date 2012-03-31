@@ -10,7 +10,7 @@
     <& .captiveportalDisabledWarning, $params &>
 
     <form action="/CaptivePortal/UserOptions" method="post">
-        <input type="hidden" name="username" value="<% $params->{'username'} %>">
+        <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
   <table class="formTable">
     <tbody>
 <tr id="CaptiveUser_defaultQuota_row"  >

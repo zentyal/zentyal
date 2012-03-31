@@ -15,10 +15,10 @@
 
 # Class: EBox::RemoteServices::Model::SubscriptionInfo
 #
-# This class is the model to show information about the server subscriptions
+# This class is the model to show information about the server edition
 #
 #     - server name
-#     - server subscription
+#     - server edition
 #     - subscription renovation date
 #     - Central Monitoring & management
 #
@@ -101,8 +101,8 @@ sub _table
            printableName => __('Server name'),
           ),
        new EBox::Types::HTML(
-           fieldName     => 'subscription',
-           printableName => __('Server subscription'),
+           fieldName     => 'edition',
+           printableName => __('Server edition'),
            ),
        new EBox::Types::Text(
            fieldName     => 'external_server_name',
@@ -157,11 +157,7 @@ sub _content
             $fqdn = $rs->dynamicHostname();
         }
 
-        my %i18nLevels = ( '-1' => __('Unknown'),
-                           '0'  => __('Basic'),
-                           '1'  => __('Professional'),
-                           '2'  => __('Enterprise') );
-        $subs = '<span>' . $i18nLevels{$rs->subscriptionLevel()} . '</span>';
+        $subs = '<span>' . $rs->i18nServerEdition() . '</span>';
 
         $renovationDate = $rs->renovationDate();
         given ($renovationDate) {
@@ -178,7 +174,7 @@ sub _content
     return {
         server_name          => $serverName ,
         external_server_name => $fqdn,
-        subscription         => $subs,
+        edition              => $subs,
         renovation_date      => $renovationDate,
         mm                   => $mm,
        };

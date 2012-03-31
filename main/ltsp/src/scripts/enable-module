@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# FIXME: this is broken if gconf is installed after enabling,
+# this should be moved to _setConf
+
+# disable screen lock
+if which gconftool-2 &> /dev/null; then
+    gconftool-2 --direct --config-source \
+        xml:readwrite:/etc/gconf/gconf.xml.mandatory --set --type \
+        boolean /desktop/gnome/lockdown/disable_lock_screen True \
+        /apps/panel/global/disable_lock_screen True &> /dev/null
+fi

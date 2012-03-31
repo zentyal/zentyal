@@ -13,7 +13,7 @@ use EBox::Gettext;
 
 <form action='/Mail/DelAccount' method='POST'>
 	<input type="hidden" name="mail" value="<% $params->{'mail'} %>">
-	<input type="hidden" name="username" value="<% $params->{'username'} %>">
+	<input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
 	<% __('Mail address') %>:<span class='stitle'><% $params->{'mail'} %></span>
 	<input class='inputButton' type='submit' name='change'
 			value="<% __('Delete') %>"
@@ -26,7 +26,7 @@ use EBox::Gettext;
 
 <form action='/Mail/CreateAlias' method='POST'>
     <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
-    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+    <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
 
 		<h3><% __('Create mail aliases') %></h3>
 		<table cellspacing='0' class='dataTable'>
@@ -68,7 +68,7 @@ use EBox::Gettext;
 				<tr class='border'>
 					<td><% $alias %></td>
 					<td class='tcenter'>
-						<a href='../Mail/DelAlias?alias=<% $alias %>&username=<% $params->{'username'} %>'>
+						<a href='../Mail/DelAlias?alias=<% $alias %>&user=<% $params->{'user'}->dn() %>'>
 						<img src='/data/images/delete.gif'
 							title="<% __('Delete') %>"
 							alt="<% __('Delete') %>"/></a>
@@ -125,7 +125,7 @@ my @quotaTypeOptions = (
 </%init>
 <form action='/Mail/SetAccountMaildirQuota' method='POST'>
 <table class='formTable'>
-<input type="hidden" name="username" value="<% $params->{'username'} %>">
+<input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
         <tr>
         <td class='tright'><% __('Quota type') %></td>
         <td>

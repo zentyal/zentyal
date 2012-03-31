@@ -1,3 +1,5 @@
+// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+
 // TODO
 //      - Use Form.serialize stuff to get params
 //      - Refactor addNewRow and actionClicked, they do almost the same
@@ -423,6 +425,9 @@ function customActionClicked(action, url, table, fields, directory, id, page)
             onComplete: function(t) {
                 highlightRow(id, false);
                 stripe('dataTable', 'even', 'odd');
+                $$('.customActions').each(function(e) {
+                        restoreHidden(e.identify(), table);
+                });
             },
             onFailure: function(t) {
                 $$('.customActions').each(function(e) {

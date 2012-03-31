@@ -32,7 +32,7 @@ use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant DDCLIENT_FILE => '/etc/ddclient.conf';
 use constant DEFAULT_DDCLIENT_FILE => '/etc/default/ddclient';
 use constant RESOLV_FILE => '/etc/resolv.conf';
-use constant DHCLIENTCONF_FILE => '/etc/dhcp3/dhclient.conf';
+use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
@@ -1281,6 +1281,8 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
 
+    $self->_checkStaticIP($name, $address, $netmask);
+
     my $oldm = $self->ifaceMethod($name);
     my $oldaddr = $self->ifaceAddress($name);
     my $oldmask = $self->ifaceNetmask($name);
@@ -1397,6 +1399,33 @@ sub _checkStatic # (iface, force)
                 } else {
                     throw EBox::Exceptions::DataInUse();
                 }
+            }
+        }
+    }
+}
+
+
+# check that no IP are in the same network
+# limitation: we could only check against the current
+# value of dynamic addresses
+sub _checkStaticIP
+{
+    my ($self, $iface, $address, $netmask) = @_;
+    my $network = EBox::NetWrappers::ip_network($address, $netmask);
+    foreach my $if (@{$self->allIfaces()} ) {
+        if ($if eq $iface) {
+            next;
+        }
+        foreach my $addr_r (@{ $self->ifaceAddresses($if)} ) {
+            my $ifNetwork =  EBox::NetWrappers::ip_network($addr_r->{address},
+                                                            $addr_r->{netmask});
+            if ($ifNetwork eq $network) {
+                throw EBox::Exceptions::External(
+                 __x('Cannot use the address {addr} because interface {if} has already an address in the same network',
+                     addr => $address,
+                     if => $if
+                    )
+                );
             }
         }
     }
@@ -2510,11 +2539,47 @@ sub _setChanged # (interface)
 }
 
 # Generate the '/etc/resolv.conf' configuration file and modify
-# the '/etc/dhcp3/dhclient.conf' to request nameservers only
+# the '/etc/dhcp/dhclient.conf' to request nameservers only
 # if there are no manually configured ones.
 sub _generateDNSConfig
 {
     my ($self) = @_;
+
+    # Set localhost as primary nameserver if the module is enabled.
+    # This works because DNS module modChange network in enableService
+    if (EBox::Global->modExists('dns')) {
+        my $dns = EBox::Global->modInstance('dns');
+        my $resolver = $self->model('DNSResolver');
+        my $ids = $resolver->ids();
+        my $firstId = $ids->[0];
+        my $firstRow = $resolver->row($firstId);
+        if ($dns->isEnabled()) {
+            my $add = 1;
+            if (defined ($firstRow)) {
+                if ($firstRow->valueByName('nameserver') ne '127.0.0.1') {
+                    # Remove local resolver if it exists
+                    foreach my $id (@{$ids}) {
+                        if ($resolver->row($id)->valueByName('nameserver') eq '127.0.0.1') {
+                            $resolver->removeRow($id);
+                        }
+                    }
+                } else {
+                    $add = 0;
+                }
+            }
+            if ($add) {
+                # Now add in the first place
+                $resolver->table->{'insertPosition'} = 'front';
+                $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
+                $resolver->table->{'insertPosition'} = 'back';
+            }
+        } else {
+            # If we have added it before remove when module is disabled.
+            if (defined ($firstRow) and ($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {
+                $resolver->removeRow($firstId);
+            }
+        }
+    }
 
     my $nameservers = $self->nameservers();
     my $request_nameservers = scalar (@{$nameservers}) == 0;
@@ -2762,6 +2827,7 @@ sub generateInterfaces
     }
     my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
     print IFACES "\n\niface lo inet loopback\n";
+    print IFACES "    post-up ip addr add 127.0.1.1/8 dev lo\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
         my $bridgedVlan = $method eq 'bridged' and $ifname =~ /^vlan/;
@@ -3543,7 +3609,7 @@ sub selectedDefaultGateway
 {
     my ($self) = @_;
 
-    return $self->st_get_string('default/gateway');
+    return $self->get_string('default/gateway');
 }
 
 # Method: storeSelectedDefaultGateway
@@ -3557,8 +3623,7 @@ sub selectedDefaultGateway
 sub storeSelectedDefaultGateway # (gateway
 {
     my ($self, $gateway) = @_;
-
-    return $self->st_set_string('default/gateway', $gateway);
+    return $self->set_string('default/gateway', $gateway);
 }
 
 # Method: DHCPGateway

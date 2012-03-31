@@ -29,7 +29,6 @@ use EBox::Model::Row;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
-
 use EBox::Types::Text;
 use EBox::Types::Link;
 
@@ -52,8 +51,7 @@ sub new
 sub _table
 {
     my @tableHead =
-        (
-
+    (
          new EBox::Types::Text(
              'fieldName' => 'name',
              'printableName' => __('Name'),
@@ -68,21 +66,19 @@ sub _table
              'fieldName' => 'edit',
              'printableName' => __('Edit'),
              ),
-
-        );
+    );
 
     my $dataTable =
     {
         'tableName' => 'Users',
         'printableTableName' => __('Users'),
-        'defaultController' =>
-            '/Users/Controller/Users',
-        'defaultActions' =>
-            ['changeView'],
+        'defaultController' => '/Users/Controller/Users',
+        'defaultActions' => ['changeView'],
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'UsersAndGroups/Users',
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
+        'withoutActions' => 1,
     };
 
     return $dataTable;
@@ -156,7 +152,8 @@ sub ids
         return [];
     }
 
-    return $users->uidList();
+    my @list = map { $_->dn() } @{$users->users()};
+    return \@list;
 }
 
 # Method: row
@@ -168,26 +165,22 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    if ($users->userExists($id)) {
-        my $userInfo  = $users->userInfo($id);
-        my $userName = $userInfo->{'username'};
-        my $full = $userInfo->{'fullname'};
-        my $link = "/UsersAndGroups/User?username=$userName";
-        my $row = $self->_setValueRow(name => $userName,
-                fullname => $full,
-                'edit' => $link);
+    my $user = new EBox::UsersAndGroups::User(dn => $id);
+    if ($user->exists()) {
+        my $full = $user->get('cn');
+        my $userName = $user->get('uid');
+        my $link = "/UsersAndGroups/User?user=$id";
+        my $row = $self->_setValueRow(
+            name => $userName,
+            fullname => $full,
+            edit => $link,
+        );
         $row->setId($id);
         $row->setReadOnly(1);
         return $row;
     } else {
         throw EBox::Exceptions::Internal("user $id does not exist");
     }
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 1;

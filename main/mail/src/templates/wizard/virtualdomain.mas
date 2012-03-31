@@ -3,7 +3,7 @@ use EBox::Gettext;
 </%init>
 <h3><% __('Virtual mail domain') %></h3>
 <form method="post" action="./Mail/Wizard/VirtualDomain" style="text-align: center">
-    <div><img src="/data/images/email.png" /></div>
+    <div><img src="/data/software/images/email.png" /></div>
     <div><h4><% __('Set up the default virtual mail domain') %></h4></div>
     <div><% __('This will be the domain for your mail accounts') %></div>
     <div style="margin: 10px"><span class="field_help">john.doe@</span><input type="text" name="vdomain" /></div>

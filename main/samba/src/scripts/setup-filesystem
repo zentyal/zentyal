@@ -1,0 +1,36 @@
+#!/usr/bin/perl
+
+use File::Slurp;
+
+use constant FSTAB_FILE => '/etc/fstab';
+
+my @fstab = read_file(FSTAB_FILE) or die ('Could not open ' . FSTAB_FILE . ": $!");
+
+my @modifiedLines = ();
+my @newFstab = ();
+for my $line (@fstab) {
+    next if ($fields[0] =~ /^#.*/);
+    my $modified = 0;
+    my @fields = split (/[\t\s]+/, $line);
+    if ($fields[2] =~ /^(ext3|ext4)$/) {
+        unless ($fields[3] =~ /acl/) {
+            $fields[3] .= ',acl';
+            $modified = 1;
+        }
+        unless ($fields[3] =~ /user_xattr/) {
+            $fields[3] .= ',user_xattr';
+            $modified = 1;
+        }
+    }
+    my $newLine = join ("\t", @fields) . "\n";
+    push (@newFstab, $newLine);
+    if ($modified) {
+        push (@modifiedLines, $newLine);
+    }
+}
+
+write_file(FSTAB_FILE, @newFstab) or die ('Could not write on ' . FSTAB_FILE . ": $!");
+foreach my $line (@modifiedLines) {
+    my @fields = split(/[\t\s]+/, $line);
+    system ("/bin/mount -o remount " . $fields[1]) == 0 or die ('Could not write on ' . FSTAB_FILE . ": $!");
+}

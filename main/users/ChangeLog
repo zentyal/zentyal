@@ -1,4 +1,14 @@
-HEAD
+2.3.6
+	+ Use the new unified tableBody.mas instead of tableBodyWithoutActions.mas
+2.3.5
+	+ Packaging fixes for precise
+2.3.4
+	+ Updated Standard-Versions to 3.9.2
+2.3.3
+	+ New master-slave architecture
+	+ Image in initial configuration wizard is shown again
+2.3.2
+	+ Added printableName to service and modified description
 	+ Fixed executable permissions in src/scripts
 	+ Added checks for small business subscription
 	+ Bugfix: lastGid method was calling MINUID and SYSMINUID

@@ -17,12 +17,13 @@ package EBox::Apache;
 use strict;
 use warnings;
 
-use base 'EBox::Module::Service';
+use base qw(EBox::Module::Service EBox::Model::ModelProvider);
 
 use EBox::Validate qw( :all );
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
+use EBox::Menu;
 use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
@@ -35,8 +36,9 @@ use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename;
-use POSIX qw(setsid);
+use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
+use File::Path qw(remove_tree);
 
 # Constants
 use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
@@ -44,28 +46,35 @@ use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
 use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
 use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
 use constant INCLUDE_KEY => 'includes';
+use constant CAS_KEY => 'cas';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
-use constant APACHE_PORT => 443;
+use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
+use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
 
 sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name   => 'apache',
-                                      printableName => 'apache',
+                                      printableName => __('Zentyal Webadmin'),
                                       @_);
     bless($self, $class);
     return $self;
 }
 
+# Method: modelClasses
+#
+#   Override <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+    return [ 'EBox::Apache::Model::Language',
+             'EBox::Apache::Model::AdminPort' ];
+}
+
 sub serverroot
 {
     return '/var/lib/zentyal';
-}
-
-sub initd
-{
-    return EBox::Config::scripts() . 'apache2ctl';
 }
 
 # Method: cleanupForExec
@@ -96,11 +105,12 @@ sub _daemon # (action)
     my $self = shift;
     my $action = shift;
     my $pid;
+    my $scripts = EBox::Config::scripts();
 
     if ($action eq 'stop') {
-        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl stop');
+        EBox::Sudo::root($scripts . 'apache2ctl graceful-stop');
     } elsif ($action eq 'start') {
-        EBox::Sudo::root(EBox::Config::scripts() . 'apache2ctl start');
+        EBox::Sudo::root($scripts . 'apache2ctl start');
     } elsif ($action eq 'restart') {
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
@@ -112,7 +122,6 @@ sub _daemon # (action)
         cleanupForExec();
 
         exec(EBox::Config::scripts() . 'apache-restart');
-        exit 0;
     }
 
     if ($action eq 'stop') {
@@ -131,10 +140,11 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_changeHostname();
+    $self->_setLanguage();
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->enableRestartOnTrigger();
 }
 
 sub _enforceServiceState
@@ -144,18 +154,12 @@ sub _enforceServiceState
     $self->_daemon('restart');
 }
 
-
-#  all the state keys for apache are sessions object so we delete them all
-#  warning: in the future maybe we can have other type of states keys
-sub _deleteSessionObjects
-{
-  my ($self) = @_;
-  $self->st_delete_dir('');
-}
-
 sub _writeHttpdConfFile
 {
     my ($self) = @_;
+
+    # Write CA links
+    $self->_writeCAPath();
 
     my $httpdconf = _httpdConfFile();
     my $output;
@@ -187,7 +191,19 @@ sub _writeHttpdConfFile
     close(HTTPD);
 
     EBox::Sudo::root("/bin/mv $confile $httpdconf");
+}
 
+sub _setLanguage
+{
+    my ($self) = @_;
+
+    my $languageModel = $self->model('Language');
+
+    # TODO: do this only if language has changed?
+    my $lang = $languageModel->value('language');
+    EBox::setLocale($lang);
+    POSIX::setlocale(LC_ALL, EBox::locale());
+    EBox::Menu::regenCache();
 }
 
 sub _writeCSSFiles
@@ -215,6 +231,37 @@ sub _writeCSSFiles
     }
 }
 
+
+# write CA Certificate Path with included CAs
+sub _writeCAPath
+{
+    my ($self) = @_;
+
+    remove_tree(CA_CERT_PATH);
+    mkdir(CA_CERT_PATH);
+
+    # Write links for each CA
+    foreach my $ca (@{$self->_CAs(1)}) {
+        my $link = $self->_caLinkPath($ca);
+        unlink($link) if ( -l $link );
+        symlink($ca, $link);
+    }
+}
+
+# Return the link name for the CA certificate in the given format
+# hashValue.0 - hash value is the output from openssl ciphering
+sub _caLinkPath
+{
+    my ($self, $ca) = @_;
+
+    my $hashRet = EBox::Sudo::command("openssl x509 -hash -noout -in $ca");
+
+    my $hashValue = $hashRet->[0];
+    chomp($hashValue);
+    return CA_CERT_PATH . "${hashValue}.0";
+}
+
+
 # Report the new TCP admin port to Zentyal Cloud
 sub _reportAdminPort
 {
@@ -232,26 +279,11 @@ sub _httpdConfFile
     return '/var/lib/zentyal/conf/apache2.conf';
 }
 
-
 sub port
-{
-    my $self = shift;
-    my $port = $self->get_int('port');
-    $port or $port = APACHE_PORT;
-    return $port;
-}
-
-sub _changeHostname
 {
     my ($self) = @_;
 
-    my $hostname = $self->get_string('hostname');
-
-    if ($hostname) {
-        EBox::Sudo::root(EBox::Config::scripts() .
-                         "change-hostname $hostname");
-        $self->set_string('hostname', '');
-    }
+    return $self->model('AdminPort')->value('port');
 }
 
 # Method: setPort
@@ -267,9 +299,11 @@ sub setPort # (port)
     my ($self, $port) = @_;
 
     checkPort($port, __("port"));
-    if ($self->port() == $port) {
-        return;
-    }
+
+    my $adminPortModel = $self->model('AdminPort');
+    my $oldPort = $adminPortModel->value('port');
+
+    return if ($oldPort == $port);
 
     my $global = EBox::Global->getInstance();
     my $fw = $global->modInstance('firewall');
@@ -302,7 +336,7 @@ q{Port {p} is already in use by program '{pr}'. Choose another port or free it a
         $services->setAdministrationPort($port);
     }
 
-    $self->set_int('port', $port);
+    $adminPortModel->setValue('port', $port);
 }
 
 sub logs
@@ -353,7 +387,6 @@ sub setRestrictedResource
 {
     my ($self, $resourceName, $allowedIPs, $resourceType) = @_;
 
-
     throw EBox::Exceptions::MissingArgument('resourceName')
       unless defined ( $resourceName );
     throw EBox::Exceptions::MissingArgument('allowedIPs')
@@ -400,7 +433,6 @@ sub setRestrictedResource
                      'string', $allowedIPs );
     $self->set_string( $rootKey . RESTRICTED_RESOURCE_TYPE_KEY,
                        $resourceType);
-
 }
 
 # Method: delRestrictedResource
@@ -437,14 +469,12 @@ sub delRestrictedResource
     }
 
     $self->delete_dir($resourceKey);
-
 }
 
 # Get the structure for the apache.mas.in template to restrict a
 # certain number of resources for a set of ip addresses
 sub _restrictedResources
 {
-
     my ($self) = @_;
 
     my @restrictedResources = ();
@@ -496,16 +526,15 @@ sub showModuleStatus
     return undef;
 }
 
-# Method: _supportActions
+# Method: addModuleStatus
 #
-#   Overrides <EBox::Module::Service>
+#   Do not show entry in the module status widget
 #
-#   This method determines if the service will have a button to start/restart
-#   it in the module status widget. By default services will have the button
-#   unless this method is overriden to return undef
-sub _supportActions
+# Overrides:
+#   EBox::Module::Service::addModuleStatus
+#
+sub addModuleStatus
 {
-    return undef;
 }
 
 # Method: addInclude
@@ -599,6 +628,102 @@ sub _includes
     return \@includes;
 }
 
+
+
+# Method: addCA
+#
+#   Include the given CA in the SSLCACertificatePath
+#
+# Parameters:
+#
+#      ca - CA Certificate
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file does
+#      not exists
+#
+sub addCA
+{
+    my ($self, $ca) = @_;
+
+    unless(defined($ca)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    unless(-f $ca and -r $ca) {
+        throw EBox::Exceptions::Internal(
+            "File $ca cannot be read or it is not a file"
+           );
+    }
+    my @cas = @{$self->_CAs(0)};
+    unless ( grep { $_ eq $ca } @cas) {
+        push(@cas, $ca);
+        $self->set_list(CAS_KEY, 'string', \@cas);
+    }
+
+}
+
+# Method: removeCA
+#
+#      Remove a previously added CA from the SSLCACertificatePath
+#
+# Parameters:
+#
+#       ca - CA certificate
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if the given file has not
+#      been included previously
+#
+sub removeCA
+{
+    my ($self, $ca) = @_;
+
+    unless(defined($ca)) {
+        throw EBox::Exceptions::MissingArgument('includeFilePath');
+    }
+    unless(-f $ca and -r $ca) {
+        throw EBox::Exceptions::Internal(
+            "File $ca cannot be read or it is not a file"
+           );
+    }
+    my @cas = @{$self->_CAs(0)};
+    my @newCAs = grep { $_ ne $ca } @cas;
+    if ( @newCAs eq @cas ) {
+        throw EBox::Exceptions::Internal("$ca has not been included previously");
+    }
+    $self->set_list(CAS_KEY, 'string', \@newCAs);
+}
+
+# Return those include files that has been added
+sub _CAs
+{
+    my ($self, $check) = @_;
+    my $caList = $self->get_list(CAS_KEY);
+    if (not $check) {
+        return $caList;
+    }
+
+    my @cas;
+    foreach my $ca (@{ $caList  }) {
+        if ((-f $ca) and (-r $ca)) {
+            push @cas, $ca;
+        } else {
+            EBox::warn("Ignoring CA $ca: cannot read the file or not is a regular file");
+        }
+    }
+
+    return \@cas;
+}
+
+
 # Method: certificates
 #
 #   This method is used to tell the CA module which certificates
@@ -627,6 +752,36 @@ sub certificates
              mode => '0600',
             },
            ];
+}
+
+# Method: disableRestartOnTrigger
+#
+#   Makes apache and other modules listed in the restart-trigger script  to
+#   ignore it and do nothing
+sub disableRestartOnTrigger
+{
+    system 'touch ' . NO_RESTART_ON_TRIGGER;
+    if ($? != 0) {
+        EBox::warn('Canot create apache no restart on trigger file');
+    }
+}
+
+# Method: enableRestartOnTrigger
+#
+#   Makes apache and other modules listed in the restart-trigger script  to
+#   restart themselves when the script is executed (default behaviour)
+sub enableRestartOnTrigger
+{
+    EBox::Sudo::root("rm -f " . NO_RESTART_ON_TRIGGER);
+}
+
+# Method: restartOnTrigger
+#
+#  Whether apache and other modules listed in the restart-trigger script  to
+#  restart themselves when the script is executed
+sub restartOnTrigger
+{
+    return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
 }
 
 1;

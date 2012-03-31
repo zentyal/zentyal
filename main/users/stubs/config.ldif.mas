@@ -1,0 +1,103 @@
+<%args>
+  $dn
+  $password
+</%args>
+<%init>
+  my @parts = split(/,/, $dn);
+  my $dc = (split(/=/, $parts[0]))[1];
+</%init>
+
+dn: cn=config
+objectClass: olcGlobal
+cn: config
+olcPidFile: /var/run/slapd/slapd.pid
+olcArgsFile: /var/run/slapd/slapd.args
+olcLogLevel: none
+olcToolThreads: 1
+
+# Load modules
+dn: cn=module{0},cn=config
+objectClass: olcModuleList
+cn: module{0}
+olcModulePath: /usr/lib/ldap
+olcModuleLoad: back_hdb
+olcModuleLoad: memberof
+
+# Load schemas
+dn: cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: schema
+
+include: file:///etc/ldap/schema/core.ldif
+include: file:///etc/ldap/schema/cosine.ldif
+include: file:///usr/share/zentyal-users/rfc2307bis.ldif
+include: file:///etc/ldap/schema/inetorgperson.ldif
+
+# Set defaults for the backend
+dn: olcBackend=hdb,cn=config
+objectClass: olcBackendConfig
+olcBackend: hdb
+
+# Frontend settings
+dn: olcDatabase={-1}frontend,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcFrontendConfig
+olcDatabase: {-1}frontend
+olcSizeLimit: 500
+olcAccess: {1}to dn.exact="" by * read
+olcAccess: {2}to dn.base="cn=Subschema" by * read
+
+# Config db settings
+dn: olcDatabase=config,cn=config
+objectClass: olcDatabaseConfig
+olcDatabase: config
+olcAccess: {0}to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage
+  by dn="cn=zentyal,<% $dn %>" manage
+  by * break
+
+# The database definition.
+dn: olcDatabase={1}hdb,cn=config
+objectClass: olcDatabaseConfig
+objectClass: olcHdbConfig
+olcDatabase: {1}hdb
+olcDbCheckpoint: 512 30
+olcDbConfig: set_cachesize 0 2097152 0
+olcDbConfig: set_lk_max_objects 1500
+olcDbConfig: set_lk_max_locks 1500
+olcDbConfig: set_lk_max_lockers 1500
+olcLastMod: TRUE
+olcSuffix: <% $dn %>
+olcRootDN: cn=zentyal,<% $dn %>
+olcRootPW: <% $password %>
+olcDbDirectory: /var/lib/ldap
+olcLimits: dn="cn=zentyal,<% $dn %>" time.soft=unlimited time.hard=unlimited size.soft=unlimited size.hard=unlimited
+olcAccess: {0}to *
+  by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage
+  by dn="cn=zentyal,<% $dn %>" manage
+  by * break
+olcAccess: {1}to attrs=userPassword,shadowLastChange
+  by dn="cn=zentyal,<% $dn %>" write
+  by anonymous auth
+  by dn="cn=zentyalro,<% $dn %>" none
+  by self write
+  by * none
+olcAccess: {2}to * by users read
+olcDbIndex: objectclass eq
+olcDbIndex: entryCSN eq
+olcDbIndex: entryUUID eq
+olcDbIndex: uid eq
+olcDbIndex: member eq
+
+# Memberof automatic attribute population
+dn: olcOverlay=memberof,olcDatabase={1}hdb,cn=config
+objectClass: olcMemberOf
+objectClass: olcOverlayConfig
+objectClass: olcConfig
+objectClass: top
+olcOverlay: memberof
+olcMemberOfDangling: ignore
+olcMemberOfRefInt: TRUE
+olcMemberOfGroupOC: zentyalGroup
+olcMemberOfMemberAD: member
+olcMemberOfMemberOfAD: memberOf
+

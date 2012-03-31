@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Composite::Antispam;
 
 use base 'EBox::Model::Composite';
@@ -26,7 +24,8 @@ use EBox::Gettext;
 use EBox::Global;
 
 # Constants
-use constant STORE_URL => 'https://store.zentyal.com/other/advanced-security.html?utm_source=zentyal&utm_medium=mailfilter_antispam&utm_campaign=advanced_security_updates';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=mailfilter&utm_campaign=enterprise_edition';
+
 
 # Group: Public methods
 
@@ -110,8 +109,8 @@ sub _description
 # Commercial message
 sub _commercialMsg
 {
-    return __sx('Get Antispam updates to keep spam out of your mail servers! The Antispam updates are integrated in the {openhref}Advanced Security Updates{closehref} subscription add-on. It guarantees that the Antivirus, Antispam, Intrusion Detection System and Content Filtering System installed on your Zentyal server are updated on daily basis based on the information provided by the most trusted IT experts.',
-                openhref  => '<a href="' . STORE_URL . '" target="_blank">', closehref => '</a>');
+    return __sx('Want to keep spam out of your mail servers? Get the {openhref}Enterprise Edition{closehref} that includes the Antispam feature in the automatic security updates.',
+                openhref  => '<a href="' . ENT_URL . '" target="_blank">', closehref => '</a>');
 }
 
 1;

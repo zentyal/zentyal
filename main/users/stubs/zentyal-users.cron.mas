@@ -1,7 +1,5 @@
 <%args>
-	$slave_time
-        $adsync
-	$adsync_time
+    $slave_time
 </%args>
 # /etc/cron.d/zentyal-users
 
@@ -10,8 +8,4 @@ PATH=/usr/bin:/bin
 
 # sync the slaves every <% $slave_time %> minutes if there are missing changes
 */<% $slave_time %> * * * * root /usr/share/zentyal-users/slave-sync
-% if ($adsync) {
 
-# sync the LDAP with Active Directoy every <% $adsync_time %> minutes
-*/<% $adsync_time %> * * * * root /usr/share/zentyal-users/ad-sync
-% }
