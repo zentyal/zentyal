@@ -236,6 +236,9 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+
+    my $apache = EBox::Global->getInstance()->modInstance('apache');
+    $apache->setAsChanged(1);
 }
 
 # Method: modelClasses
