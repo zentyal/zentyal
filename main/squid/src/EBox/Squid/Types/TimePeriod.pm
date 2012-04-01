@@ -435,16 +435,13 @@ sub _restoreFromHash
     my $to = $name . '_to';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
 
-        $value->{'from'} = $gconf->get_string("$path/$from");
-        $value->{'to'} = $gconf->get_string("$path/$to");
-        foreach my $day (@days) {
-            $value->{$day} = $gconf->get_bool("$path/$name" . '_' . $day);
-        }
-        $self->_addToCache($value);
+    $value->{'from'} = $gconf->get_string("$path/$from");
+    $value->{'to'} = $gconf->get_string("$path/$to");
+    foreach my $day (@days) {
+        $value->{$day} = $gconf->get_bool("$path/$name" . '_' . $day);
     }
 
     $self->{'from'} = $value->{from};

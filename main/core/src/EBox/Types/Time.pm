@@ -251,14 +251,11 @@ sub _restoreFromHash
     my $sec  = $self->fieldName() . '_sec';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{hour} = $gconf->get_string($path . '/' . $hour);
-        $value->{min}  = $gconf->get_string($path . '/' . $min);
-        $value->{sec}  = $gconf->get_string($path . '/' . $sec);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{hour} = $gconf->get_string($path . '/' . $hour);
+    $value->{min}  = $gconf->get_string($path . '/' . $min);
+    $value->{sec}  = $gconf->get_string($path . '/' . $sec);
 
     $self->{'hour'} = $value->{hour};
     $self->{'min'}  = $value->{min};

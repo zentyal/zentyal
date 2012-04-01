@@ -265,13 +265,10 @@ sub _restoreFromHash
     my $country   = $self->fieldName() . '_country';
 
     my $value = {};
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{'continent'} = $gconf->get_string($path . '/' . $continent);
-        $value->{'country'}   = $gconf->get_string($path . '/' . $country);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{'continent'} = $gconf->get_string($path . '/' . $continent);
+    $value->{'country'}   = $gconf->get_string($path . '/' . $country);
 
     $self->{'continent'} = $value->{'continent'};
     $self->{'country'}   = $value->{'country'};

@@ -290,14 +290,11 @@ sub _restoreFromHash
     my $year  = $self->fieldName() . '_year';
 
     my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{'day'}   = $gconf->get_string($path . '/' . $day);
-        $value->{'month'} = $gconf->get_string($path . '/' . $month);
-        $value->{'year'}  = $gconf->get_string($path . '/' . $year);
-        $self->_addToCache($value);
-    }
+    my $gconf = $self->row()->GConfModule();
+    my $path = $self->_path();
+    $value->{'day'}   = $gconf->get_string($path . '/' . $day);
+    $value->{'month'} = $gconf->get_string($path . '/' . $month);
+    $value->{'year'}  = $gconf->get_string($path . '/' . $year);
 
     $self->{'day'}   = $value->{'day'};
     $self->{'month'} = $value->{'month'};
