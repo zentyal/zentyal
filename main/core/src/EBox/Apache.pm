@@ -108,7 +108,7 @@ sub _daemon # (action)
     my $scripts = EBox::Config::scripts();
 
     if ($action eq 'stop') {
-        EBox::Sudo::root($scripts . 'apache2ctl graceful-stop');
+        EBox::Sudo::root($scripts . 'apache2ctl stop');
     } elsif ($action eq 'start') {
         EBox::Sudo::root($scripts . 'apache2ctl start');
     } elsif ($action eq 'restart') {
