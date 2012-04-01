@@ -81,14 +81,6 @@ sub hash
     return decode_json($value);
 }
 
-# FIXME: is this needed?
-sub cleanDir
-{
-    my ($dir) = @_;
-
-    system ("rm -rf $SHM_PATH/*");
-}
-
 sub deletekey
 {
     my ($key) = @_;
