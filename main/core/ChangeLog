@@ -1,4 +1,5 @@
 HEAD
+	+ Simplified ProgressIndicator implementation using shared memory
 	+ New EBox::Util::Semaphore package
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
