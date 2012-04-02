@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS events_accummulated(
                       warn INTEGER DEFAULT 0,
                       error INTEGER DEFAULT 0,
                       fatal INTEGER DEFAULT 0
-);
+) ENGINE = MyISAM;

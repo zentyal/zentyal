@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS events_report(
         level  VARCHAR(6),
         source VARCHAR(256),
         nEvents  INT DEFAULT 0
-);
+) ENGINE = MyISAM;

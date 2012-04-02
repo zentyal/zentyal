@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS remoteservices_passwd_report (
     source ENUM ('LDAP', 'system'),
     `date` DATE,
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS asterisk_cdr(
   uniqueid varchar(32) NOT NULL default '',
   userfield varchar(255) NOT NULL default '',
   INDEX (timestamp)
-);
+) ENGINE = MyISAM;

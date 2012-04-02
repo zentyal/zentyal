@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS firewall(
     event VARCHAR(16),
     timestamp TIMESTAMP,
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

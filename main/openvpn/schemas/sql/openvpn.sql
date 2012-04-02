@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS openvpn(
 	from_ip     INT UNSIGNED,
 	from_cert   VARCHAR(100),
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

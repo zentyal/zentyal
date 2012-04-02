@@ -1,3 +1,5 @@
+HEAD
+	+ Create tables with MyISAM engine by default
 2.3.4
 	+ Use new tableBody.mas in TrafficDetails.pm
 	+ Fixed regresion which broke the apply all button for MIME and extensions

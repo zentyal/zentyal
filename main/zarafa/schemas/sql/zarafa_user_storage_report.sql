@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS zarafa_user_storage_report (
     soft_quota BIGINT DEFAULT 0,
     hard_quota BIGINT DEFAULT 0,
     size       BIGINT DEFAULT 0
-);
+) ENGINE = MyISAM;

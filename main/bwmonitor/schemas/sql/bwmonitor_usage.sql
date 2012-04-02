@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS bwmonitor_usage (
     timestamp TIMESTAMP,
 
     INDEX(timestamp), INDEX(client), INDEX(username)
-);
+) ENGINE = MyISAM;

@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS radius_auth (
        port INT,
        mac VARCHAR(31),
        INDEX(timestamp)
-);
+) ENGINE = MyISAM;

@@ -1,3 +1,6 @@
+HEAD
+	+ Create tables using MyISAM engine by default
+	+ Delete obsolete 'admin' table
 2.3.7
 	+ Fixed printableName for apache module and remove entry in status widget
 	+ Merged tableBodyWithoutActions.mas into tableBody.mas

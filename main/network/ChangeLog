@@ -1,4 +1,5 @@
 HEAD
+	+ Create tables with MyISAM engine by default
 	+ Fixed path of dhclient.conf
 2.3.5
 	+ Fixed path of dhclient hooks
