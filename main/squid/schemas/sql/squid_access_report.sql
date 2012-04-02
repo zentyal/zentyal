@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS squid_access_report (
        code VARCHAR(32),
        bytes BIGINT,
        hits INT
-);
+) ENGINE = MyISAM;
 
 -- FIXME: reimplement this in mysql or perl
 -- CREATE OR REPLACE FUNCTION domain_from_url(url VARCHAR) RETURNS TEXT AS $$

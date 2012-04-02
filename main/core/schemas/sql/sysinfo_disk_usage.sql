@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS sysinfo_disk_usage (
     used BIGINT,
     free BIGINT,
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

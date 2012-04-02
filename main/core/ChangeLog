@@ -5,6 +5,9 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+2.3.8
+	+ Create tables using MyISAM engine by default
+	+ Delete obsolete 'admin' table
 2.3.7
 	+ Fixed printableName for apache module and remove entry in status widget
 	+ Merged tableBodyWithoutActions.mas into tableBody.mas

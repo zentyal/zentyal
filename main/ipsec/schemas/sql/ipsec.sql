@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS ipsec(
     event VARCHAR(60) NOT NULL,
     tunnel VARCHAR(60) NOT NULL,
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

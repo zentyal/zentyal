@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS ids_event(
     timestamp TIMESTAMP,
     event VARCHAR(8),
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

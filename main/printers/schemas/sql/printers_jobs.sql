@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS printers_jobs(
          username VARCHAR(255) NOT NULL,
          event VARCHAR(20) NOT NULL,
          INDEX(timestamp)
-);
+) ENGINE = MyISAM;

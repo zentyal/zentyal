@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS sysinfo_disk_usage_report (
     mountpoint VARCHAR(80),
     used BIGINT,
     free BIGINT
-);
+) ENGINE = MyISAM;
