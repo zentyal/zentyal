@@ -2863,10 +2863,6 @@ sub generateInterfaces
                 "\n";
             print IFACES "\tbroadcast " .
                 $self->ifaceBroadcast($ifname) . "\n";
-            if (defined($gwIface) and defined($gwIP) and ($gwIface eq $ifname))
-            {
-                print IFACES "\tgateway $gwIP\n";
-            }
         } elsif ($method eq 'ppp') {
             print IFACES "\tpre-up /sbin/ifconfig $ifname up\n";
             print IFACES "\tpost-down /sbin/ifconfig $ifname down\n";
