@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS openvpn_report (
        ip INT UNSIGNED,
        certificate VARCHAR(100),
        connections INT
-);
+) ENGINE = MyISAM;

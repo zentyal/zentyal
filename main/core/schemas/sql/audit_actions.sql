@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS audit_actions(
     value       TEXT,
     oldvalue    TEXT,
     temporal    BOOLEAN DEFAULT TRUE
-);
+) ENGINE = MyISAM;

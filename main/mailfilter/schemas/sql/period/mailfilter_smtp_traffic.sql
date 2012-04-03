@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS mailfilter_smtp_traffic (
         blacklisted  BIGINT DEFAULT 0,
 
         INDEX(`date`)
-);
+) ENGINE = MyISAM;

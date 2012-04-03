@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS mailfilter_pop (
         virus     BIGINT DEFAULT 0,
 
         INDEX(timestamp)
-);
+) ENGINE = MyISAM;

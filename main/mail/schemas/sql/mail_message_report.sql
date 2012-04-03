@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS mail_message_report (
        status VARCHAR(25),
        bytes BIGINT,
        messages INT
-);
+) ENGINE = MyISAM;

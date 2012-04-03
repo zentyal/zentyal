@@ -1,3 +1,5 @@
+2.3.3
+	+ Create tables with MyISAM engine by default
 2.3.2
 	+ Fixed retrieval of IP addressess in SQL queries
 	+ Using tableBody.mas instead of tableBodyWithoutActions.mas in BWUsage.pm

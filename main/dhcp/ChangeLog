@@ -1,4 +1,6 @@
-HEAD
+2.3.5
+	+ Create tables with MyISAM engine by default
+2.3.4
 	+ Packaging fixes for precise
 2.3.3
 	+ Recover from excepcion when parsing leases file

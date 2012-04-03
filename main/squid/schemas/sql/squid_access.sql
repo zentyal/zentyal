@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS squid_access (
        event VARCHAR(255),
        filterProfile VARCHAR(100),
        INDEX(timestamp)
-);
+) ENGINE = MyISAM;
