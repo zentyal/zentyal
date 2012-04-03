@@ -1,5 +1,5 @@
 /*
-   ldb database library
+   ldb database zentyal module
 
    Copyright (C) 2012 eBox Technologies S.L.
 
@@ -18,154 +18,203 @@
 */
 
 /*
- *  Name: ldb
+ *  Name: zentyal
  *
  *  Component: ldb zentyal module
  *
- *  Description: example module
+ *  Description: Intercept LDB operations and forward them to the synchronizer
+ *               perl script
  *
- *  Author: Samuel Cabrero
+ *  Author: Samuel Cabrero <scabrero@zentyal.com>
  */
 
 #include <EXTERN.h>               /* from the Perl distribution     */
 #include <perl.h>                 /* from the Perl distribution     */
-#include <syslog.h>
 #include "ldb_module.h"
 
-PerlInterpreter *my_perl = NULL;  /***    The Perl interpreter    ***/
+static char perl_script[] = "/home/zen/s4sync";
+
+extern void xs_init (pTHX);
 
 struct private_data
 {
-	char *some_private_data;
 };
 
-static void zentyal_dump_dn(struct ldb_dn *dn)
-{
-    syslog(LOG_INFO, "cn=%s", ldb_dn_get_linearized(dn));
-}
+static PerlInterpreter *my_perl = NULL;
 
-static void zentyal_dump_msg(const struct ldb_message *msg)
+static void msg_to_hash(const struct ldb_message *msg, SV **dn, SV **hash)
 {
-    int i,j;
+    if (dn) {
+        const char *linear_dn;
+        linear_dn = ldb_dn_get_linearized(msg->dn);
+        *dn = newSVpv(linear_dn, strlen(linear_dn));
+    }
 
-    zentyal_dump_dn(msg->dn);
-    for (i=0; i<msg->num_elements; i++)
-    {
-        struct ldb_message_element *elem = &(msg->elements[i]);
-        syslog(LOG_INFO, "element: %s", elem->name);
-        for (j=0; j<elem->num_values; j++)
-        {
-            struct ldb_val *val = &(elem->values[j]);
-            if( strcmp(elem->name, "unicodePwd")==0)
-            {
-                int k;
-                for (k=0;k<val->length;k++) {
-                    syslog(LOG_INFO, "0x%X", val->data[k]);
-                }
+    if (hash) {
+        int i, j;
+        HV *entry = (HV *)sv_2mortal((SV *)newHV());
+        for (i = 0; i < msg->num_elements; i++) {
+            const struct ldb_message_element *elem = &msg->elements[i];
+
+            AV *valuesArray = (AV *)sv_2mortal((SV *)newAV());
+            for (j = 0; j < elem->num_values; j++) {
+                struct ldb_val *value = &elem->values[j];
+                SV *valueScalar = newSVpv((const char *)value->data, (int)value->length);
+                av_push(valuesArray, valueScalar);
             }
-            else
-            {
-                syslog(LOG_INFO, "length: %i, value: %s", val->length, (char *)(val->data));
-            }
+            hv_store(entry, elem->name, strlen(elem->name), newRV((SV *)valuesArray), 0);
         }
+        *hash = newRV((SV *)entry);
     }
 }
 
-static void zentyal_dump_req(struct ldb_request *req)
+static int perl_call(const char *function, const struct ldb_message *msg)
 {
-    switch(req->operation)
-    {
-        case LDB_SEARCH:
-            syslog(LOG_INFO, "Module zentyal: SEARCH");
-            break;
-	    case LDB_ADD:
-            syslog(LOG_INFO, "Module zentyal: ADD");
-            zentyal_dump_msg(req->op.add.message);
-            break;
-	    case LDB_MODIFY:
-            syslog(LOG_INFO, "Module zentyal: MODIFY");
-            zentyal_dump_msg(req->op.mod.message);
-            break;
-	    case LDB_DELETE:
-            syslog(LOG_INFO, "Module zentyal: DELETE");
-            break;
-	    case LDB_RENAME:
-            syslog(LOG_INFO, "Module zentyal: RENAME");
-            zentyal_dump_dn(req->op.del.dn);
-            break;
-	    case LDB_EXTENDED:
-            syslog(LOG_INFO, "Module zentyal: EXTENDED");
-            break;
-	    case LDB_REQ_REGISTER_CONTROL:
-            syslog(LOG_INFO, "Module zentyal: REGISTER CONTROL");
-            break;
-	    case LDB_REQ_REGISTER_PARTITION:
-            syslog(LOG_INFO, "Module zentyal: REGISTER PARTITION");
-            break;
-        default:
-            syslog(LOG_INFO, "Module zentyal: Unkonwn operation type");
-            break;
-    }
+    int perl_return_value;
+    SV *dn;
+    SV *hash;
+
+    msg_to_hash(msg, &dn, &hash);
+
+    dSP;
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+    XPUSHs(sv_2mortal(dn));
+    XPUSHs(sv_2mortal(hash));
+    PUTBACK;
+    call_pv(function, G_SCALAR);
+    SPAGAIN;
+    perl_return_value = (int)POPi;
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+
+    return perl_return_value;
 }
 
-/* search */
-static int zentyal_search(struct ldb_module *module, struct ldb_request *req)
+static int perl_call_del(const char *function, struct ldb_dn *dn)
 {
-    syslog(LOG_INFO, "Module zentyal: search");
-    zentyal_dump_req(req);
-	return ldb_next_request(module, req);
+    int perl_return_value;
+    SV *pdn;
+    const char *linear_dn;
+
+    linear_dn = ldb_dn_get_linearized(dn);
+    pdn = newSVpv(linear_dn, strlen(linear_dn));
+
+    dSP;
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+    XPUSHs(sv_2mortal(pdn));
+    PUTBACK;
+    call_pv(function, G_SCALAR);
+    SPAGAIN;
+    perl_return_value = (int)POPi;
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+
+    return perl_return_value;
 }
 
-/* add */
-static int zentyal_add(struct ldb_module *module, struct ldb_request *req){
-    syslog(LOG_INFO, "Module zentyal: add");
-    zentyal_dump_req(req);
-	return ldb_next_request(module, req);
+static int perl_call_rename(const char *function,
+    struct ldb_dn *olddn, struct ldb_dn *newdn)
+{
+    int perl_return_value;
+    SV *old_pdn;
+    SV *new_pdn;
+    const char *linear_dn;
+
+    linear_dn = ldb_dn_get_linearized(olddn);
+    old_pdn = newSVpv(linear_dn, strlen(linear_dn));
+    linear_dn = ldb_dn_get_linearized(newdn);
+    new_pdn = newSVpv(linear_dn, strlen(linear_dn));
+
+    dSP;
+    ENTER;
+    SAVETMPS;
+    PUSHMARK(SP);
+    XPUSHs(sv_2mortal(old_pdn));
+    XPUSHs(sv_2mortal(new_pdn));
+    PUTBACK;
+    call_pv(function, G_SCALAR);
+    SPAGAIN;
+    perl_return_value = (int)POPi;
+    PUTBACK;
+    FREETMPS;
+    LEAVE;
+
+    return perl_return_value;
 }
 
-/* modify */
+static int zentyal_add(struct ldb_module *module, struct ldb_request *req)
+{
+    int ret;
+
+    if (req->operation == LDB_ADD)
+        ret = perl_call("addToLdap", req->op.add.message);
+
+    return ldb_next_request(module, req);
+}
+
 static int zentyal_modify(struct ldb_module *module, struct ldb_request *req)
 {
-    syslog(LOG_INFO, "Module zentyal: modify");
-    zentyal_dump_req(req);
+    int ret;
+
+    if (req->operation == LDB_MODIFY)
+        ret = perl_call("modifyInLdap", req->op.mod.message);
+
 	return ldb_next_request(module, req);
 }
 
-/* delete */
 static int zentyal_delete(struct ldb_module *module, struct ldb_request *req)
 {
-    syslog(LOG_INFO, "Module zentyal: delete");
-    zentyal_dump_req(req);
+    int ret;
+
+    if (req->operation == LDB_DELETE)
+        ret = perl_call_del("deleteFromLdap", req->op.del.dn);
+
 	return ldb_next_request(module, req);
 }
 
-/* rename */
 static int zentyal_rename(struct ldb_module *module, struct ldb_request *req)
 {
-    syslog(LOG_INFO, "Module zentyal: rename");
-    zentyal_dump_req(req);
+    int ret;
+
+    if (req->operation == LDB_RENAME)
+        ret = perl_call_rename("renameInLdap", req->op.rename.olddn, req->op.rename.newdn);
+
 	return ldb_next_request(module, req);
 }
 
-/* start a transaction */
 static int zentyal_start_trans(struct ldb_module *module)
 {
-    syslog(LOG_INFO, "Module zentyal: start_trans");
+    // TODO Implement transactions
 	return ldb_next_start_trans(module);
 }
 
-/* end a transaction */
 static int zentyal_end_trans(struct ldb_module *module)
 {
-    syslog(LOG_INFO, "Module zentyal: end_trans");
+    // TODO Implement transactions
 	return ldb_next_end_trans(module);
 }
 
-/* delete a transaction */
 static int zentyal_del_trans(struct ldb_module *module)
 {
-    syslog(LOG_INFO, "Module zentyal: del_trans");
+    // TODO Implement transactions
 	return ldb_next_del_trans(module);
+}
+
+static int zentyal_prepare_commit(struct ldb_module *module)
+{
+    // TODO Implement transactions
+    return ldb_next_prepare_commit(module);
+}
+
+static int zentyal_request(struct ldb_module *module, struct ldb_request *req)
+{
+	return ldb_next_request(module, req);
 }
 
 static int zentyal_destructor(struct ldb_module *ctx)
@@ -174,17 +223,18 @@ static int zentyal_destructor(struct ldb_module *ctx)
 
 	data = talloc_get_type(ldb_module_get_private(ctx), struct private_data);
 
-	/* put your clean-up functions here */
-	if (data->some_private_data) talloc_free(data->some_private_data);
+    // Destruct and free perl interpreter
+    if (my_perl != NULL) {
+        perl_destruct(my_perl);
+        perl_free(my_perl);
+        PERL_SYS_TERM();
+        my_perl = NULL;
+    }
 
-    syslog(LOG_INFO, "Module zentyal: destructor");
+	// Free private data
+    talloc_free(data);
+
 	return 0;
-}
-
-static int zentyal_request(struct ldb_module *module, struct ldb_request *req)
-{
-    syslog(LOG_INFO, "Module zentyal: request");
-	return ldb_next_request(module, req);
 }
 
 static int zentyal_init(struct ldb_module *module)
@@ -194,18 +244,27 @@ static int zentyal_init(struct ldb_module *module)
 
 	ldb = ldb_module_get_ctx(module);
 
+    // Init private data
 	data = talloc(module, struct private_data);
 	if (data == NULL) {
 		ldb_oom(ldb);
 		return LDB_ERR_OPERATIONS_ERROR;
 	}
-
-	data->some_private_data = NULL;
 	ldb_module_set_private(module, data);
 
-	talloc_set_destructor (module, zentyal_destructor);
+    // Init perl interpreter
+    if (my_perl == NULL) {
+        PERL_SYS_INIT3(NULL, NULL, NULL);
+        my_perl = perl_alloc();
+        perl_construct(my_perl);
 
-    syslog(LOG_INFO, "Module zentyal initialized");
+        char *perl_argv[] = { "", perl_script };
+        perl_parse(my_perl, xs_init, 2, perl_argv, (char **)NULL);
+        PL_exit_flags |= PERL_EXIT_DESTRUCT_END;
+        perl_run(my_perl);
+    }
+
+	talloc_set_destructor (module, zentyal_destructor);
 
 	return ldb_next_init(module);
 }
@@ -213,7 +272,6 @@ static int zentyal_init(struct ldb_module *module)
 static const struct ldb_module_ops ldb_zentyal_module_ops = {
 	.name		       = "zentyal",
 	.init_context	   = zentyal_init,
-//	.search            = zentyal_search,
 	.add               = zentyal_add,
 	.modify            = zentyal_modify,
 	.del               = zentyal_delete,
@@ -222,21 +280,11 @@ static const struct ldb_module_ops ldb_zentyal_module_ops = {
 	.start_transaction = zentyal_start_trans,
 	.end_transaction   = zentyal_end_trans,
 	.del_transaction   = zentyal_del_trans,
+    .prepare_commit    = zentyal_prepare_commit,
 };
 
 int ldb_init_module(const char *version)
 {
-    syslog(LOG_INFO, "Module zentyal registered, version %s", version);
 	LDB_MODULE_CHECK_VERSION(version);
-
-    if (my_perl == NULL) {
-        syslog(LOG_INFO, "Allocating perl interpreter");
-        my_perl = perl_alloc();
-        perl_construct(my_perl);
-    //    perl_parse(my_perl, NULL, argc, argv, (char **)NULL);
-    //    //perl_destruct(my_perl);
-    //    //perl_free(my_perl);
-    }
-
-	return ldb_register_module(&ldb_zentyal_module_ops);
+    return ldb_register_module(&ldb_zentyal_module_ops);
 }

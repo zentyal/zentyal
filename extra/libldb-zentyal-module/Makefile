@@ -1,15 +1,29 @@
 CC = gcc
-INC = -I/usr/include -I/usr/local/include -I/home/zen/samba/bin/default/include/public -I/usr/lib/perl/5.14.2/CORE
+
+INC = -I/home/zen/samba/bin/default/include/public
 LIB = -L/home/zen/samba/bin/default/lib/ldb
 
 default: all
 
-all:
-	$(CC) $(INC) -c zentyal.c
-	$(CC) $(LIB) -shared -Wl,-soname,zentyal.so.1 -o zentyal.so.1.0.1  zentyal.o -lperl -lldb
+all: zentyal.so
+
+zentyal.so: perlxsi.o zentyal.o
+	$(CC) -shared zentyal.o perlxsi.o -o zentyal.so $(LIB) `perl -MExtUtils::Embed -e ldopts` -lldb
+
+perlxsi.o:
+	rm -f perlxsi.c
+	perl -MExtUtils::Embed -e xsinit
+	$(CC) -c perlxsi.c -fPIC `perl -MExtUtils::Embed -e ccopts`
+
+zentyal.o: zentyal.c
+	$(CC) $(INC) -c zentyal.c -fPIC `perl -MExtUtils::Embed -e ccopts`
+
+zentyal.c:
 
 clean:
-	rm -f *.o *.so.*
+	rm -f *.o
+	rm -f *.so
+	rm -f perlxsi.c
 
 install:
-	cp zentyal.so.1.0.1 /usr/local/samba/lib/ldb/zentyal.so
+	cp zentyal.so /usr/local/samba/lib/ldb/zentyal.so
