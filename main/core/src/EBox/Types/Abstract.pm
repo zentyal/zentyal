@@ -375,49 +375,7 @@ sub storeInGConf
             &$storerProc($self, $module, $key);
         }
     } else {
-        my $field = $self->fieldName();
-
-        # Retrieve old value to remove outdated indexes
-        my $oldValue = $module->get("$key/$field");
-
         $self->_storeInGConf($module, $key);
-
-        # Update index only if they already exists
-        # They are created on-the-fly in DataTable::_find
-
-        my $value = $self->value();
-        return unless defined ($value);
-
-        my $indexName = dirname($key) . "/$field";
-        my $row = basename($key);
-
-        my $valIndex = "$indexName.idx";
-        if ($module->index_exists($valIndex)) {
-            if (defined ($oldValue)) {
-                # Delete this row from the old index
-                my $oldValueRows = $module->hash_value($valIndex, $oldValue);
-                if (delete $oldValueRows->{$row}) {
-                    $module->set_hash_value($valIndex, $oldValue => $oldValueRows);
-                }
-            }
-
-            # Add this row to the new value index
-            my $indexRows = $module->hash_value($valIndex, $value);
-            $indexRows->{$row} = 1;
-            $module->set_hash_value($valIndex, $value => $indexRows);
-        }
-
-        my $printableValue = $self->printableValue();
-        return unless defined ($printableValue);
-
-        # Same for the printableValue index
-
-        my $pvalIndex = "$indexName.pdx";
-        if ($module->index_exists($pvalIndex)) {
-            my $indexRows = $module->hash_value($pvalIndex, $printableValue);
-            $indexRows->{$row} = 1;
-            $module->set_hash_value($pvalIndex, $printableValue => $indexRows);
-        }
     }
 }
 

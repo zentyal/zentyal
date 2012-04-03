@@ -1,4 +1,5 @@
 HEAD
+	+ Remove indexes on DataTables to reduce complexity, no longer needed
 	+ Revert graceful stop of apache which seems to be problematic
 	+ Simplified ProgressIndicator implementation using shared memory
 	+ New EBox::Util::Semaphore package

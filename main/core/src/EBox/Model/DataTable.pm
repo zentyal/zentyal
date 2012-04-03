@@ -3325,13 +3325,6 @@ sub _volatile
 
 # Group: Private helper functions
 
-sub _isSyncRowsOverriden
-{
-    my ($self) = @_;
-
-    return __PACKAGE__->can('syncRows') != $self->can('syncRows');
-}
-
 # Method: _find
 #
 #    (PRIVATE)
@@ -3373,52 +3366,11 @@ sub _find
 
     $kind = 'value' unless defined ($kind);
 
-    my $index = $self->{directory} . "/$fieldName";
-    if ($kind eq 'printableValue') {
-        $index .= '.pdx';
-    } else {
-        $index .= '.idx';
-    }
+    my @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
 
-    my @rows;
-    # sync rows
-    if ($self->_isSyncRowsOverriden() and not $nosync) {
-        @rows = @{$self->ids()};
-    }
-
-    my $indexRows;
-    my $firstIndexation = 1;
-    if ($conf->index_exists($index)) {
-        $indexRows = $conf->hash_value($index, $value);
-        if (defined ($indexRows)) {
-            @rows = keys (%{$indexRows});
-            if (@rows) {
-                $firstIndexation = 0;
-            }
-        }
-    }
-
-    if ($firstIndexation) {
-        # No index found, we search on the entire table
-        @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
-        unless (@rows) {
-            return [];
-        }
-        # From now on, the index will be updated when storing values
-        $conf->create_index($index);
-    }
-
-    my $updateIndex = 0;
-    my %valueIndexes;
+    my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        # Remove deleted rows from index
-        unless (defined $row) {
-            if (delete $indexRows->{$id}) {
-                $updateIndex = 1;
-            }
-            next;
-        }
         my $element = $row->elementByName($fieldName);
         if (defined ($element)) {
             my $eValue;
@@ -3427,53 +3379,17 @@ sub _find
             } else {
                 $eValue = $element->value();
             }
-            if ($firstIndexation) {
-                # Set indexes for all the values the first time
-                unless (exists $valueIndexes{$eValue}) {
-                    $valueIndexes{$eValue} = {};
-                }
-                $valueIndexes{$eValue}->{$id} = 1;
-            } else {
-                if ($eValue ne $value) {
-                    # Discard invalid rows when using a index
-                    delete $indexRows->{$id};
-                    $updateIndex = 1;
+            if ($eValue eq $value) {
+                if ($allMatches) {
+                    push (@matched, $id);
+                } else {
+                    return [ $id ];
                 }
             }
         }
     }
 
-    my $readOnly = $conf->isReadOnly();
-    my @matched;
-    if ($firstIndexation) {
-        # Set indexes for all the values the first time
-        unless ($readOnly) {
-            foreach my $otherValue (keys %valueIndexes) {
-                $conf->set_hash_value(
-                    $index,
-                    $otherValue => $valueIndexes{$otherValue}
-                );
-            }
-        }
-        @matched = keys (%{$valueIndexes{$value}});
-    } else {
-        # Update existing index if needed
-        if ($updateIndex and not $readOnly) {
-            $conf->set_hash_value($index, $value => $indexRows);
-        }
-        @matched = keys (%{$indexRows});
-    }
-    return [] unless (@matched);
-
-    if ($allMatches) {
-        return \@matched;
-    } else {
-        # Return only the first match
-        # FIXME: this is not really the first, it is a random one
-        # if we want the real first we should get all rows
-        # and check which is the first one in the 'order' list
-        return [ $matched[0] ];
-    }
+    return \@matched;
 }
 
 sub _checkFieldIsUnique
