@@ -1,4 +1,5 @@
 HEAD
+	+ Do not use graceful on apache to allow proper change of listen port
 	+ Simplified apache restart mechanism and avoid some problems
 2.3.8
 	+ Create tables using MyISAM engine by default

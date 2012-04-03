@@ -108,7 +108,7 @@ sub _daemon
     my $ctl = "APACHE_CONFDIR=$conf apache2ctl";
 
     if ($action eq 'stop') {
-        EBox::Sudo::root("$ctl graceful-stop");
+        EBox::Sudo::root("$ctl stop");
     } elsif ($action eq 'start') {
         EBox::Sudo::root("$ctl start");
     } elsif ($action eq 'restart') {
@@ -119,7 +119,7 @@ sub _daemon
         if ($pid) {
             return; # parent returns inmediately
         } else {
-            EBox::Sudo::root("$ctl graceful");
+            EBox::Sudo::root("$ctl restart");
             exit ($?);
         }
     }
