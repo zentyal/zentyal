@@ -140,6 +140,7 @@ sub _mangleDuplicityErrorMsg
 sub _parseSuccessMsg # (successMsg)
 {
     my ($successMsg) = @_;
+    EBox::debug("Duplicity success message: $successMsg");
 
     my %backupStats;
     foreach my $line (@{$successMsg}) {
@@ -263,7 +264,7 @@ sub _removeExpiredBackups
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift @_;
         my $errorMsg = $ex->error()->[-1];
-        chomp($errorMsg);
+        chomp($errorMsg) if $errorMsg;
         $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
         if ( $errorMsg eq 'BackendException' ) {
             $errorMsg = __('Cannot contact to the backup server. Check your '
@@ -342,7 +343,7 @@ sub _performBackup
             my $ex = shift @_;
             $success = 0;
             my @error = @{  $ex->error() };
-            chomp $error[-1];
+            chomp $error[-1] if @error;
             $errorMsg = "@error";
             $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
         } otherwise {
@@ -391,7 +392,7 @@ sub _errorMessageFromDuplicityCmd
     my ($ex) = @_;
     if ($ex->isa('EBox::Exceptions::Sudo::Command')) {
         my @error = @{  $ex->error() };
-        chomp $error[-1];
+        chomp $error[-1] if @error;
         my $errorMsg = "@error";
         return _mangleDuplicityErrorMsg($errorMsg);
     }  else {
