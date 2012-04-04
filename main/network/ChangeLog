@@ -1,3 +1,5 @@
+HEAD
+	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
 2.3.6
 	+ Create tables with MyISAM engine by default
 	+ Fixed path of dhclient.conf
