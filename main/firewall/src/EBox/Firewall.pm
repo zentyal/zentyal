@@ -45,7 +45,6 @@ use EBox::Firewall::Model::Report::PacketTrafficReportOptions;
 
 
 use EBox::FirewallLogHelper;
-use EBox::Order;
 use EBox::Gettext;
 
 sub _create

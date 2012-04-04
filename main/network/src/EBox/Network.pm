@@ -47,7 +47,6 @@ use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
-use EBox::Order;
 use EBox::ServiceManager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
