@@ -330,24 +330,26 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    my $typeKey = "$key/" . $self->fieldName() . '_range_type';
-    my $fromKey = "$key/" . $self->fieldName() . '_from_port';
-    my $toKey = "$key/" . $self->fieldName() . '_to_port';
-    my $singleKey = "$key/" . $self->fieldName() . '_single_port';
+    my $type = $self->fieldName() . '_range_type';
+    my $from = $self->fieldName() . '_from_port';
+    my $to = $self->fieldName() . '_to_port';
+    my $single = $self->fieldName() . '_single_port';
 
-    for my $key ($fromKey, $toKey, $singleKey) {
-        $gconfmod->unset($key);
-    }
+    # FIXME: remove this and use set_hash instead of set_hash_values once indexes are removed
+    $gconfmod->hash_delete($key, $from, $to, $single);
 
-    my $type = $self->rangeType();
-    $gconfmod->set_string($typeKey, $type);
+    my $values = {};
+
+    $values->{$type} = $self->rangeType();
 
     if ($type eq 'range') {
-        $gconfmod->set_string($fromKey, $self->from());
-        $gconfmod->set_string($toKey, $self->to());
+        $values->{$from} = $self->from();
+        $values->{$to} = $self->to();
     } elsif ($type eq 'single') {
-        $gconfmod->set_string($singleKey, $self->single());
+        $values->{$single} = $self->single();
     }
+
+    $gconfmod->set_hash_values($key, $values);
 }
 
 # Method: _restoreFromHash
@@ -370,17 +372,14 @@ sub _restoreFromHash
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
         my $path = $self->_path();
-        $value->{range} =  $gconf->get_string($path . '/' . $range);
-        $value->{from} =  $gconf->get_string($path . '/' . $from);
-        $value->{to} =  $gconf->get_string($path . '/' . $to);
-        $value->{single} =  $gconf->get_string($path . '/' . $single);
+        $value = $gconf->hash_from_dir($path);
         $self->_addToCache($value);
     }
 
-    $self->{'range_type'} = $value->{range};
-    $self->{'from'} = $value->{from};
-    $self->{'to'} = $value->{to};
-    $self->{'single'} = $value->{single};
+    $self->{'range_type'} = $value->{$range};
+    $self->{'from'} = $value->{$from};
+    $self->{'to'} = $value->{$to};
+    $self->{'single'} = $value->{$single};
 }
 
 # Method: _paramIsValid

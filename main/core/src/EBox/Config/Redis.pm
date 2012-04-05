@@ -452,6 +452,16 @@ sub set_hash_value
     $self->_parent_add($key);
 }
 
+sub set_hash_values
+{
+    my ($self, $key, $hash) = @_;
+
+    $self->_redis_call('hmset', $key, %{$hash});
+
+    # Update parent dir info with the new key
+    $self->_parent_add($key);
+}
+
 sub hash_field_exists
 {
     my ($self, $key, $field) = @_;
@@ -468,9 +478,9 @@ sub hash_value
 
 sub hash_delete
 {
-    my ($self, $key, $field) = @_;
+    my ($self, $key, @fields) = @_;
 
-    $self->_redis_call('hdel', $key, $field);
+    $self->_redis_call('hdel', $key, @fields);
 
     # Delete reference to the key in parent
     $self->_parent_del($key);

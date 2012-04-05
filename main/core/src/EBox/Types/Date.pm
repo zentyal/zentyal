@@ -260,18 +260,18 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    my $dayKey   = "$key/" . $self->fieldName() . '_day';
-    my $monthKey = "$key/" . $self->fieldName() . '_month';
-    my $yearKey  = "$key/" . $self->fieldName() . '_year';
+    my $day   = $self->fieldName() . '_day';
+    my $month = $self->fieldName() . '_month';
+    my $year  = $self->fieldName() . '_year';
 
     if ($self->{'day'}) {
-        $gconfmod->set_string($dayKey,   $self->{'day'}  );
-        $gconfmod->set_string($monthKey, $self->{'month'});
-        $gconfmod->set_string($yearKey,  $self->{'year'} );
+        $gconfmod->set_hash_values($key, {
+                                          $day => $self->{'day'},
+                                          $month => $self->{'month'},
+                                          $year => $self->{'year'}
+                                         });
     } else {
-        $gconfmod->unset($dayKey);
-        $gconfmod->unset($monthKey);
-        $gconfmod->unset($yearKey);
+        $gconfmod->hash_delete($key, $day, $month, $year);
     }
 }
 
@@ -294,15 +294,13 @@ sub _restoreFromHash
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
         my $path = $self->_path();
-        $value->{'day'}   = $gconf->get_string($path . '/' . $day);
-        $value->{'month'} = $gconf->get_string($path . '/' . $month);
-        $value->{'year'}  = $gconf->get_string($path . '/' . $year);
+        $value = $gconf->hash_from_dir($path);
         $self->_addToCache($value);
     }
 
-    $self->{'day'}   = $value->{'day'};
-    $self->{'month'} = $value->{'month'};
-    $self->{'year'}  = $value->{'year'};
+    $self->{'day'}   = $value->{$day};
+    $self->{'month'} = $value->{$month};
+    $self->{'year'}  = $value->{$year};
 }
 
 # Method: _paramIsValid

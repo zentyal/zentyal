@@ -111,6 +111,7 @@ sub inverseMatch
 {
     my ($self) = @_;
 
+    return 0 unless defined ($self->{'inverseMatch'});
     return $self->{'inverseMatch'};
 }
 
@@ -142,8 +143,7 @@ sub _storeInGConf
     my ($self, $gconfmod, $key) = @_;
 
     $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-            $self->inverseMatch());
+    $gconfmod->set_hash_values($key, { $self->inverseMatchField() => $self->inverseMatch() });
 }
 
 # Method: _restoreFromHash
@@ -161,8 +161,8 @@ sub _restoreFromHash
 
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    my $field = $self->fieldName();
-    $self->{'inverseMatch'} = $gconf->get_bool("$path/${field}_inverseMatch");
+    my $field = $self->fieldName() . '_inverseMatch';
+    $self->{'inverseMatch'} = $gconf->raw_hash_value($path, $field);
 }
 
 # Method: _setValue

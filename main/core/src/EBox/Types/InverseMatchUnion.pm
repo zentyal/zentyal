@@ -105,8 +105,8 @@ sub inverseMatch
 {
     my ($self) = @_;
 
+    return 0 unless defined ($self->{'inverseMatch'});
     return $self->{'inverseMatch'};
-
 }
 
 # Group: Protected methods
@@ -137,8 +137,7 @@ sub _storeInGConf
     my ($self, $gconfmod, $key) = @_;
 
     $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-            $self->inverseMatch());
+    $gconfmod->set_hash_values($key, { $self->inverseMatchField() => $self->inverseMatch() });
 }
 
 # Method: _restoreFromHash

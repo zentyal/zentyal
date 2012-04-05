@@ -99,24 +99,6 @@ sub _setMemValue
     $self->{'value'} = $params->{$self->fieldName()} ? 1 : 0;
 }
 
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    if (defined($self->memValue())) {
-        $gconfmod->set_bool("$key/" . $self->fieldName(),
-                $self->memValue());
-    } else {
-        $gconfmod->unset("$key/" . $self->fieldName());
-    }
-}
-
 # Method: _paramIsValid
 #
 # Overrides:

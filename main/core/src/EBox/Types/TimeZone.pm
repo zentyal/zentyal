@@ -238,15 +238,13 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    my $continentKey   = "$key/" . $self->fieldName() . '_continent';
-    my $countryKey = "$key/" . $self->fieldName() . '_country';
+    my $continent = $self->fieldName() . '_continent';
+    my $country = $self->fieldName() . '_country';
 
     if ($self->{'continent'} and $self->{'country'}) {
-        $gconfmod->set_string($continentKey,   $self->{'continent'}  );
-        $gconfmod->set_string($countryKey, $self->{'country'});
+        $gconfmod->set_hash_values($key, { $continent => $self->{'continent'}, $country => $self->{'country'} });
     } else {
-        $gconfmod->unset($continentKey);
-        $gconfmod->unset($countryKey);
+        $gconfmod->hash_delete($key, $continent, $country);
     }
 }
 
@@ -268,13 +266,12 @@ sub _restoreFromHash
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
         my $path = $self->_path();
-        $value->{'continent'} = $gconf->get_string($path . '/' . $continent);
-        $value->{'country'}   = $gconf->get_string($path . '/' . $country);
+        $value = $gconf->hash_from_dir($path);
         $self->_addToCache($value);
     }
 
-    $self->{'continent'} = $value->{'continent'};
-    $self->{'country'}   = $value->{'country'};
+    $self->{'continent'} = $value->{$continent};
+    $self->{'country'}   = $value->{$country};
 }
 
 # Method: _paramIsValid

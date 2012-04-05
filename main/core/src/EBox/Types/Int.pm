@@ -115,26 +115,6 @@ sub min
 
 # Group: Protected methods
 
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-        my ($self, $gconfmod, $key) = @_;
-
-        my $fieldKey ="$key/" . $self->fieldName();
-
-        if (defined($self->memValue()) and $self->memValue() ne '') {
-                $gconfmod->set_int($fieldKey, $self->memValue());
-        } else {
-                $gconfmod->unset($fieldKey);
-        }
-
-}
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -181,36 +161,14 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
-
-      my ($self, $params) = @_;
-
-      # Check if the parameter exist
-      my $param =  $params->{$self->fieldName()};
-
-      return defined ( $param ) and ( $param ne '');
-
-  }
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
 {
-    my ($self, $hash) = @_;
 
-    return unless ($self->row());
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get_int($self->_path() . '/' . $self->fieldName());
-        $self->_addToCache($value);
-    }
-    $self->{'value'} = $value;
+    my ($self, $params) = @_;
+
+    # Check if the parameter exist
+    my $param =  $params->{$self->fieldName()};
+
+    return defined ( $param ) and ( $param ne '');
 }
-
 
 1;

@@ -220,18 +220,18 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    my $hourKey = "$key/" . $self->fieldName() . '_hour';
-    my $minKey  = "$key/" . $self->fieldName() . '_min';
-    my $secKey  = "$key/" . $self->fieldName() . '_sec';
+    my $hour = $self->fieldName() . '_hour';
+    my $min  = $self->fieldName() . '_min';
+    my $sec  = $self->fieldName() . '_sec';
 
     if ($self->{'hour'}) {
-        $gconfmod->set_string($hourKey, $self->{'hour'});
-        $gconfmod->set_string($minKey,  $self->{'min'} );
-        $gconfmod->set_string($secKey,  $self->{'sec'} );
+        $gconfmod->set_hash_values($key, {
+                                          $hour => $self->{'hour'},
+                                          $min => $self->{'min'},
+                                          $sec => $self->{'sec'}
+                                         });
     } else {
-        $gconfmod->unset($hourKey);
-        $gconfmod->unset($minKey);
-        $gconfmod->unset($secKey);
+        $gconfmod->hash_delete($key, $hour, $min, $sec);
     }
 }
 
@@ -254,15 +254,13 @@ sub _restoreFromHash
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
         my $path = $self->_path();
-        $value->{hour} = $gconf->get_string($path . '/' . $hour);
-        $value->{min}  = $gconf->get_string($path . '/' . $min);
-        $value->{sec}  = $gconf->get_string($path . '/' . $sec);
+        $value = $gconf->hash_from_dir($path);
         $self->_addToCache($value);
     }
 
-    $self->{'hour'} = $value->{hour};
-    $self->{'min'}  = $value->{min};
-    $self->{'sec'}  = $value->{sec};
+    $self->{'hour'} = $value->{$hour};
+    $self->{'min'}  = $value->{$min};
+    $self->{'sec'}  = $value->{$sec};
 }
 
 # Method: _paramIsValid

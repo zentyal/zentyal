@@ -108,7 +108,7 @@ sub _restoreFromHash
     my $value;
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get_string($self->_path() . '/' . $self->fieldName());
+        $value = $gconf->raw_hash_value($self->_path(), $self->fieldName());
         $self->_addToCache($value);
     }
     $self->{'value'} = $value;
@@ -135,7 +135,26 @@ sub _setValue # (value)
                  };
 
     $self->setMemValue($params);
+}
 
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
+{
+    my ($self, $gconfmod, $key) = @_;
+
+    my $field = $self->fieldName();
+
+    if (defined($self->memValue()) and $self->memValue() ne '') {
+        # FIXME: use hset instead of hmset once indexes stuff is removed
+        $gconfmod->set_hash_values($key, { $field => $self->memValue() });
+    } else {
+        $gconfmod->hash_delete($key, $field);
+    }
 }
 
 1;

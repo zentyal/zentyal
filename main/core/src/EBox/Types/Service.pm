@@ -316,25 +316,28 @@ sub _setMemValue
 #       <EBox::Types::Abstract::_storeInGConf>
 #
 sub _storeInGConf
-  {
+{
     my ($self, $gconfmod, $key) = @_;
 
-    my $protoKey = "$key/" . $self->fieldName() . '_protocol';
-    my $portKey = "$key/" . $self->fieldName() . '_port';
+    my $proto = $self->fieldName() . '_protocol';
+    my $port = $self->fieldName() . '_port';
 
-    if (defined ($self->{protocol}) ) {
-      $gconfmod->set_string($protoKey, $self->{protocol});
+    my $hash = {};
+    my @deleteFields;
+
+    if (defined ($self->{protocol})) {
+        $hash->{$proto} = $self->{protocol};
+    } else {
+        push (@deleteFields, $proto);
     }
-    else {
-      $gconfmod->unset($protoKey);
+    if (defined ($self->{port})) {
+        $hash->{$port} = $self->{port};
+    } else {
+        push (@deleteFields, $port);
     }
 
-    if (defined ($self->{port}) ) {
-      $gconfmod->set_int($portKey, $self->{port});
-    }
-    else {
-      $gconfmod->unset($portKey);
-    }
+    $gconfmod->set_hash_values($key, $hash);
+    $gconfmod->hash_delete($key, @deleteFields);
 }
 
 # Method: _restoreFromHash
@@ -355,15 +358,12 @@ sub _restoreFromHash
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
         my $path = $self->_path();
-        $value->{protocol} =  $gconf->get_string($path . '/' . $protocol);
-        $value->{port} =  $gconf->get_int($path . '/' . $port);
-#	EBox::debug($path . '/' . $port);
+        $value = $gconf->hash_from_dir($path);
         $self->_addToCache($value);
     }
 
     $self->{'protocol'} = $value->{protocol};
     $self->{'port'} = $value->{port};
-
 }
 
 # Method: _paramIsValid

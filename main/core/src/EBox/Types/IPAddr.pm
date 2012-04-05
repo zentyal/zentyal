@@ -182,18 +182,16 @@ sub _setMemValue
 #
 sub _storeInGConf
 {
-        my ($self, $gconfmod, $key) = @_;
+    my ($self, $gconfmod, $key) = @_;
 
-        my $ipKey = "$key/" . $self->fieldName() . '_ip';
-        my $maskKey = "$key/" . $self->fieldName() . '_mask';
+    my $ip = $self->fieldName() . '_ip';
+    my $mask = $self->fieldName() . '_mask';
 
-        if ($self->{'ip'}) {
-                $gconfmod->set_string($ipKey, $self->{'ip'});
-                $gconfmod->set_string($maskKey, $self->{'mask'});
-        } else {
-                $gconfmod->unset($ipKey);
-                $gconfmod->unset($maskKey);
-        }
+    if ($self->{'ip'}) {
+        $gconfmod->set_hash_values($key, { $ip => $self->{'ip'}, $mask => $self->{'mask'} });
+    } else {
+        $gconfmod->hash_delete($key, $ip, $mask);
+    }
 }
 
 # Method: _restoreFromHash
@@ -214,13 +212,12 @@ sub _restoreFromHash
     unless ($value = $self->_fetchFromCache()) {
         my $gconf = $self->row()->GConfModule();
         my $path = $self->_path();
-        $value->{ip} =  $gconf->get_string($path . '/' . $ip);
-        $value->{mask} =  $gconf->get_string($path . '/' . $mask);
+        $value = $gconf->hash_from_dir($path);
         $self->_addToCache($value);
     }
 
-    $self->{'ip'} = $value->{ip};
-    $self->{'mask'} = $value->{mask};
+    $self->{'ip'} = $value->{$ip};
+    $self->{'mask'} = $value->{$mask};
 }
 
 
