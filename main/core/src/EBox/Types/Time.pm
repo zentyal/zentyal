@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Types::Time;
+
 use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
@@ -63,13 +64,12 @@ sub paramExist
 #
 sub printableValue
 {
-
     my ($self) = @_;
 
     if (defined($self->{'hour'}) and defined($self->{'min'}) and defined($self->{'sec'})) {
         return "$self->{'hour'}:$self->{'min'}:$self->{'sec'}";
     } else   {
-        return "";
+        return '';
     }
 }
 
@@ -170,23 +170,23 @@ sub value
 
 sub hour
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'hour'};
+    return $self->{'hour'};
 }
 
 sub minute
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'min'};
+    return $self->{'min'};
 }
 
 sub second
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'sec'};
+    return $self->{'sec'};
 }
 
 # Group: Protected methods

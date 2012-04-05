@@ -47,19 +47,19 @@ use EBox::Exceptions::NotImplemented;
 #
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'union/text';
-        # If it is set to editable
-        if ( $self->{editable} ) {
-            EBox::warn('EBox::Types::Union::Text type cannot be editable ' .
-                       'since it has no setter');
-        }
-        $self->{editable} = 0;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    $self->{'type'} = 'union/text';
+    # If it is set to editable
+    if ( $self->{editable} ) {
+        EBox::warn('EBox::Types::Union::Text type cannot be editable ' .
+                'since it has no setter');
+    }
+    $self->{editable} = 0;
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: HTMLSetter
@@ -69,11 +69,9 @@ sub new
 #      <EBox::Types::Text::HTMLSetter>
 #
 sub HTMLSetter
-  {
-
-      return undef;
-
-  }
+{
+    return undef;
+}
 
 # Method: value
 #
@@ -100,7 +98,6 @@ sub printableValue
     my ($self) = @_;
 
     return $self->printableName();
-
 }
 
 # Protected Methods
@@ -112,13 +109,11 @@ sub printableValue
 #       <EBox::Types::Abstract::_setMemValue>
 #
 sub _setMemValue
-  {
+{
+    my ($self, $params) = @_;
 
-      my ($self, $params) = @_;
-
-      $self->{'value'} = $self->fieldName();
-
-  }
+    $self->{'value'} = $self->fieldName();
+}
 
 # Method: _restoreFromHash
 #
@@ -127,13 +122,11 @@ sub _setMemValue
 #       <EBox::Types::Abstract::_restoreFromHash>
 #
 sub _restoreFromHash
-  {
+{
+    my ($self, $hash) = @_;
 
-      my ($self, $hash) = @_;
-
-      $self->{'value'} = $self->fieldName();
-
-  }
+    $self->{'value'} = $self->fieldName();
+}
 
 # Method: _storeInGConf
 #
@@ -142,13 +135,12 @@ sub _restoreFromHash
 #      <EBox::Types::Text::_storeInGConf>
 #
 sub _storeInGConf
-  {
-      my ($self, $gconfmod, $key) = @_;
+{
+    my ($self, $gconfmod, $key) = @_;
 
-      # Store nothing in GConf since it is already written as printableName
-      return;
-
-  }
+    # Store nothing in GConf since it is already written as printableName
+    return;
+}
 
 # Method: _paramIsValid
 #
@@ -158,7 +150,6 @@ sub _storeInGConf
 #
 sub _paramIsValid
 {
-
     return 1;
 
 }
@@ -170,11 +161,9 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
-
-      return 1;
-
-  }
+{
+    return 1;
+}
 
 # Method: _setValue
 #
@@ -187,7 +176,6 @@ sub _setValue
     my ($self) = @_;
 
     $self->_setMemValue();
-
 }
 
 1;

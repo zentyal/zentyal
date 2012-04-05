@@ -24,20 +24,20 @@ use base 'EBox::Types::Basic';
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/booleanSetter.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/booleanInPlaceViewer.mas';
-        }
-        $opts{'type'} = 'boolean';
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/booleanSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/booleanInPlaceViewer.mas';
+    }
+    $opts{'type'} = 'boolean';
 
-        my $self = $class->SUPER::new(%opts);
-        bless($self, $class);
-        return $self;
+    my $self = $class->SUPER::new(%opts);
+    bless($self, $class);
+    return $self;
 }
 
 # Method: isEqualTo
@@ -82,7 +82,6 @@ sub cmp
         # the two values are both true or false
         return 0;
     }
-
 }
 
 # Group: Protected methods
@@ -125,12 +124,11 @@ sub _storeInGConf
 #       <EBox::Types::Abstract::_paramIsValid>
 #
 sub _paramIsValid
-  {
-      my ($self, $params) = @_;
+{
+    my ($self, $params) = @_;
 
-      return 1;
-
-  }
+    return 1;
+}
 
 # Method: _paramIsSet
 #
@@ -139,47 +137,25 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
-
-      my ($self, $params) = @_;
-
-      # Check if the parameter exist
-      my $param =  $params->{$self->fieldName()};
-
-      if ( defined ( $param )) {
-          return 1;
-      } else {
-          if ( $self->optional() ) {
-              return 0;
-          } else {
-              # We assume when the parameter is compulsory and it is not
-              # in params, that the type value is false. This is a side
-              # effect from HTTP protocol which does not send a value when
-              # a checkbox is not checked
-              return 1;
-          }
-      }
-
-  }
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
 {
-    my ($self, $hash) = @_;
-    return unless ($self->row());
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get_bool($self->_path() . '/' . $self->fieldName());
-        $self->_addToCache($value);
-    }
-    $self->{'value'} = $value;
-}
+    my ($self, $params) = @_;
 
+    # Check if the parameter exist
+    my $param =  $params->{$self->fieldName()};
+
+    if ( defined ( $param )) {
+        return 1;
+    } else {
+        if ( $self->optional() ) {
+            return 0;
+        } else {
+            # We assume when the parameter is compulsory and it is not
+            # in params, that the type value is false. This is a side
+            # effect from HTTP protocol which does not send a value when
+            # a checkbox is not checked
+            return 1;
+        }
+    }
+}
 
 1;

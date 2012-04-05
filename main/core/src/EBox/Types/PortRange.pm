@@ -184,7 +184,6 @@ sub cmp
         return undef;
     }
 
-
     return ($self->printableValue() cmp $other->printableValue());
 }
 
@@ -311,17 +310,15 @@ sub rangeTypes
 #       <EBox::Types::Abstract::_setMemValue>
 #
 sub _setMemValue
-  {
+{
+    my ($self, $params) = @_;
 
-      my ($self, $params) = @_;
-
-      my $name = $self->fieldName();
-      $self->{'range_type'} = $params->{$name . '_range_type'};
-      $self->{'from'} = $params->{$name . '_from_port'};
-      $self->{'to'} = $params->{$name . '_to_port'};
-      $self->{'single'} = $params->{$name . '_single_port'};
-
-  }
+    my $name = $self->fieldName();
+    $self->{'range_type'} = $params->{$name . '_range_type'};
+    $self->{'from'} = $params->{$name . '_from_port'};
+    $self->{'to'} = $params->{$name . '_to_port'};
+    $self->{'single'} = $params->{$name . '_single_port'};
+}
 
 # Method: _storeInGConf
 #
@@ -351,7 +348,6 @@ sub _storeInGConf
     } elsif ($type eq 'single') {
         $gconfmod->set_string($singleKey, $self->single());
     }
-
 }
 
 # Method: _restoreFromHash
@@ -385,7 +381,6 @@ sub _restoreFromHash
     $self->{'from'} = $value->{from};
     $self->{'to'} = $value->{to};
     $self->{'single'} = $value->{single};
-
 }
 
 # Method: _paramIsValid
@@ -396,7 +391,6 @@ sub _restoreFromHash
 #
 sub _paramIsValid
 {
-
     my ($self, $params) = @_;
 
     my $name = $self->fieldName();
@@ -430,7 +424,7 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
+{
     my ($self, $params) = @_;
 
     my $name = $self->fieldName();
@@ -442,16 +436,15 @@ sub _paramIsSet
 
     if ($type eq 'range') {
         return undef unless(exists $params->{$name . '_from_port'}
-                            and ($params->{$name . '_from_port'} ne '')
-                            and exists $params->{$name . '_to_port'}
-                            and ($params->{$name . '_to_port'}) ne '');
+                and ($params->{$name . '_from_port'} ne '')
+                and exists $params->{$name . '_to_port'}
+                and ($params->{$name . '_to_port'}) ne '');
     } else {
         return undef unless (exists $params->{$name . '_single_port'}
-                             and ($params->{$name . '_single_port'} ne ''));
+                and ($params->{$name . '_single_port'} ne ''));
     }
 
     return 1;
-
 }
 
 # Method: _setValue
@@ -473,26 +466,23 @@ sub _paramIsSet
 #     value - String as defined above
 #
 sub _setValue # (defaultValue)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my $params = {};
+    if ( $value eq 'any' ) {
+        $params->{$self->fieldName() . '_range_type'} = 'any';
+    } elsif ( $value =~ m/^[0-9]+$/g ) {
+        $params->{$self->fieldName() . '_range_type'} = 'single';
+        $params->{$self->fieldName() . '_single_port'} = $value;
+    } else {
+        my ($from, $to) = split ( ':', $value);
+        $params->{$self->fieldName() . '_range_type'} = 'range';
+        $params->{$self->fieldName() . '_from_port'} = $from;
+        $params->{$self->fieldName() . '_to_port'} = $to;
+    }
 
-      my $params = {};
-      if ( $value eq 'any' ) {
-          $params->{$self->fieldName() . '_range_type'} = 'any';
-      } elsif ( $value =~ m/^[0-9]+$/g ) {
-          $params->{$self->fieldName() . '_range_type'} = 'single';
-          $params->{$self->fieldName() . '_single_port'} = $value;
-      } else {
-          my ($from, $to) = split ( ':', $value);
-          $params->{$self->fieldName() . '_range_type'} = 'range';
-          $params->{$self->fieldName() . '_from_port'} = $from;
-          $params->{$self->fieldName() . '_to_port'} = $to;
-      }
-
-      $self->setMemValue($params);
-
-  }
-
+    $self->setMemValue($params);
+}
 
 1;

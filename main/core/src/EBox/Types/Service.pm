@@ -35,7 +35,7 @@ use base 'EBox::Types::Abstract';
 #     a <EBox::Types::Service> object
 #
 sub new
-  {
+{
     my $class = shift;
     my %opts = @_;
 
@@ -53,63 +53,48 @@ sub new
     $self->{protocols} = $self->_protocolsHash();
     bless($self, $class);
     return $self;
-  }
+}
 
 # Method: paramExist
 #
 #    Overrides <EBox::Types::Abstract::paramExist> method
 #
 sub paramExist
-  {
-
+{
     my ($self, $params) = @_;
 
     my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
 
-    return ( defined($params->{$proto}) );
-
-  }
+    return (defined ($params->{$proto}));
+}
 
 # Method: printableValue
 #
 #    Overrides <EBox::Types::Abstract::printableValue> method
 #
 sub printableValue
-  {
-
+{
     my ($self) = @_;
 
-    if ( defined($self->{protocol}) ) {
-      if ( $self->_needPort($self->{protocol}) ) {
-        return $self->{port} . '/' . $self->_printableValue($self->{protocol});
-      }
-      else {
-        return $self->_printableValue($self->{protocol});
-      }
+    if (defined($self->{protocol})) {
+        if ( $self->_needPort($self->{protocol}) ) {
+            return $self->{port} . '/' . $self->_printableValue($self->{protocol});
+        }
+        else {
+            return $self->_printableValue($self->{protocol});
+        }
     }
     else {
-      return '';
+        return '';
     }
-
-  }
-
-# Method: paramIsValid
-#
-#    Overrides <EBox::Types::Abstract::paramIsValid> method
-#
-#sub paramIsValid
-#  {
-#
-#
-#  }
+}
 
 # Method: compareToHash
 #
 #    Overrides <EBox::Types::Abstract::compareToHash> method
 #
 sub compareToHash
-  {
+{
     my ($self, $hash) = @_;
 
     my $oldProtocol = $self->protocol();
@@ -119,23 +104,20 @@ sub compareToHash
     my $newPort = $self->fieldName() . '_port';
 
     if ( not defined ( $oldProtocol ) or
-         not defined ( $hash->{$newProtocol} )) {
-      return 0;
+            not defined ( $hash->{$newProtocol} )) {
+        return 0;
     }
 
     if ($oldProtocol ne $hash->{$newProtocol}) {
-      return 0;
+        return 0;
     }
 
     if ($oldPort ne $hash->{$newPort}) {
-      return 0;
+        return 0;
     }
 
     return 1;
-
 }
-
-
 
 # Method: cmp
 #
@@ -168,7 +150,6 @@ sub cmp
     else {
         return 0;
     }
-
 }
 
 # Method: fields
@@ -176,15 +157,14 @@ sub cmp
 #    Overrides <EBox::Types::Abstract::fields> method
 #
 sub fields
-  {
+{
     my ($self) = @_;
 
     my $proto = $self->fieldName() . '_protocol';
     my $port = $self->fieldName() . '_port';
 
     return ($proto, $port);
-
-  }
+}
 
 ###
 # Own methods
@@ -202,8 +182,7 @@ sub fields
 #              - needPort - set true if it needs a port
 #
 sub protocols
-  {
-
+{
     my ($self) = @_;
 
     my @protocols = (
@@ -235,7 +214,7 @@ sub protocols
                     );
 
     return \@protocols;
- }
+}
 
 # Method: protocolsJS
 #
@@ -247,8 +226,7 @@ sub protocols
 #     String
 #
 sub protocolsJS
-  {
-
+{
     my ($self) = @_;
 
     my $str = "[ ";
@@ -264,8 +242,7 @@ sub protocolsJS
     $str .= ']';
 
     return $str;
-
-  }
+}
 
 # Method: protocol
 #
@@ -276,11 +253,11 @@ sub protocolsJS
 #     String - the Internet protocol
 #
 sub protocol
-  {
+{
     my ($self) = @_;
 
     return $self->{protocol};
-  }
+}
 
 # Method: port
 #
@@ -291,11 +268,11 @@ sub protocol
 #     Int - the port associated to that protocol
 #
 sub port
-  {
+{
     my ($self) = @_;
 
     return $self->{port};
-  }
+}
 
 # Method: AnyProtocol
 #
@@ -307,13 +284,11 @@ sub port
 #     String - containing the desired name
 #
 sub AnyProtocol
-  {
-
+{
     my ($class) = @_;
 
     return 'all';
-
-  }
+}
 
 # Group: Protected methods
 
@@ -324,8 +299,7 @@ sub AnyProtocol
 #       <EBox::Types::Abstract::_setMemValue>
 #
 sub _setMemValue
-  {
-
+{
     my ($self, $params) = @_;
 
     my $proto = $self->fieldName() . '_protocol';
@@ -333,8 +307,7 @@ sub _setMemValue
 
     $self->{protocol} = $params->{$proto};
     $self->{port} = $params->{$port};
-
-  }
+}
 
 # Method: _storeInGConf
 #
@@ -400,22 +373,20 @@ sub _restoreFromHash
 #       <EBox::Types::Abstract::_paramIsValid>
 #
 sub _paramIsValid
-  {
+{
+    my ($self, $params) = @_;
 
-      my ($self, $params) = @_;
+    my $proto = $self->fieldName() . '_protocol';
+    my $port = $self->fieldName() . '_port';
 
-      my $proto = $self->fieldName() . '_protocol';
-      my $port = $self->fieldName() . '_port';
+    checkProtocol($params->{$proto}, $self->printableName());
 
-      checkProtocol($params->{$proto}, $self->printableName());
+    if ($self->_needPort($params->{$proto})) {
+        checkPort($params->{$port}, $self->printableName());
+    }
 
-      if ( $self->_needPort($params->{$proto}) ) {
-          checkPort($params->{$port}, $self->printableName());
-      }
-
-      return 1;
-
-  }
+    return 1;
+}
 
 # Method: _paramIsSet
 #
@@ -424,22 +395,20 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
+{
+    my ($self, $params) = @_;
 
-      my ($self, $params) = @_;
+    my $proto = $self->fieldName() . '_protocol';
+    my $port = $self->fieldName() . '_port';
 
-      my $proto = $self->fieldName() . '_protocol';
-      my $port = $self->fieldName() . '_port';
+    return undef unless ($params->{$proto});
 
-      return undef unless ( $params->{$proto} );
+    if ($self->_needPort($params->{$proto})) {
+        return undef unless ($params->{$port});
+    }
 
-      if ( $self->_needPort($params->{$proto}) ) {
-          return undef unless ( $params->{$port} );
-      }
-
-      return 1;
-
-  }
+    return 1;
+}
 
 # Method: _setValue
 #
@@ -456,25 +425,23 @@ sub _paramIsSet
 #     value - String a valid port/protocol
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my ($port, $protocol) = split ('/', $value);
 
-      my ($port, $protocol) = split ('/', $value);
+    unless ( defined ( $protocol )) {
+        $protocol = $port;
+        $port = undef;
+    }
 
-      unless ( defined ( $protocol )) {
-          $protocol = $port;
-          $port = undef;
-      }
+    my $params = {
+        $self->fieldName() . '_port'   => $port,
+        $self->fieldName() . '_protocol' => $protocol,
+    };
 
-      my $params = {
-                    $self->fieldName() . '_port'   => $port,
-                    $self->fieldName() . '_protocol' => $protocol,
-                   };
-
-      $self->setMemValue($params);
-
-  }
+    $self->setMemValue($params);
+}
 
 
 ####
@@ -483,36 +450,30 @@ sub _setValue # (value)
 
 # Return if a protocol needs a port
 sub _needPort # (proto)
-  {
-
+{
     my ($self, $proto) = @_;
 
     return $self->{protocols}->{$proto}->{needPort};
-
-  }
+}
 
 # Return the printable value from a protocol
 sub _printableValue # (proto)
-  {
-
+{
     my ($self, $proto) = @_;
 
     return $self->{protocols}->{$proto}->{printableValue};
-
-  }
+}
 
 
 # Return a hash ref with the allowed protocols
 # indexed by protocol value
 sub _protocolsHash
-  {
-
+{
     my ($self) = @_;
 
     my %protocolsHash = map { $_->{value} => $_ } @{$self->protocols()};
 
     return \%protocolsHash;
-
-  }
+}
 
 1;

@@ -36,7 +36,6 @@ use constant ADD_NEW_MODAL_VALUE => '_addNew';
 
 sub new
 {
-
     my $class = shift;
     my %opts = @_;
 
@@ -153,7 +152,6 @@ sub options
     }
 
     return $self->{'options'};
-
 }
 
 # Method: printableValue
@@ -176,7 +174,6 @@ sub printableValue
             return $option->{'printableValue'};
         }
     }
-
 }
 
 # Method: value
@@ -216,7 +213,6 @@ sub foreignModel
     return undef unless (defined($foreignModel));
     my $model = &$foreignModel($self);
     return $model;
-
 }
 
 
@@ -408,7 +404,6 @@ sub _paramIsSet
     my $param =  $params->{$self->fieldName()};
 
     return defined ( $params->{$self->fieldName()} );
-
 }
 
 # Method: _setValue
@@ -444,7 +439,6 @@ sub _setValue
     $params = { $self->fieldName() => $mappedValue };
 
     $self->setMemValue($params);
-
 }
 
 # Group: Private helper functions
@@ -506,7 +500,6 @@ sub _filterOptions
     }
 
     return \@filteredOptions;
-
 }
 
 1;

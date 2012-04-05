@@ -71,10 +71,7 @@ sub _paramIsValid
     my ($unused, $expandedMask) = EBox::NetWrappers::to_network_without_mask("$ip/$mask");
     checkIPIsNetwork($ip, $expandedMask, $printableName, $printableName);
 
-
-
     return 1;
-
 }
 
 # Function : checkIPIsNetwork

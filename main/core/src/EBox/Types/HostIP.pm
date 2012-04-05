@@ -42,11 +42,11 @@ use Net::IP;
 #
 sub new
 {
-        my $class = shift;
-        my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'hostip';
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    $self->{'type'} = 'hostip';
+    bless($self, $class);
+    return $self;
 }
 
 # Method: cmp
@@ -73,7 +73,6 @@ sub cmp
     } else {
         return 0;
     }
-
 }
 
 # Group: Protected methods
@@ -105,12 +104,11 @@ sub _paramIsValid
 
     my $value = $params->{$self->fieldName()};
 
-    if (defined ( $value )) {
+    if (defined ($value)) {
         EBox::Validate::checkIP($value, $self->printableName());
     }
 
     return 1;
-
 }
 
 1;
