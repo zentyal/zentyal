@@ -191,8 +191,6 @@ sub set_hash
 {
     my ($self, $key, $hash) = @_;
 
-    # TODO: transaction here or is it not needed?
-
     $self->_redis_call('del', $key);
     $self->_redis_call('hmset', $key, %{$hash});
 
@@ -431,6 +429,8 @@ sub backup_dir
         destination_type => 'redis',
         destination => $dest
     );
+
+    $self->commit();
 }
 
 # Method: restore_dir
@@ -441,8 +441,12 @@ sub restore_dir
 {
     my ($self, $key, $orig, $dest) = @_;
 
+    $self->begin();
+
     $self->delete_dir($dest . $key);
     $self->_restore_dir($key, $orig, $dest);
+
+    $self->commit();
 }
 
 
@@ -494,13 +498,6 @@ sub set_hash_values
     $self->_parent_add($key);
 }
 
-sub hash_field_exists
-{
-    my ($self, $key, $field) = @_;
-
-    return $self->_redis_call('hexists', $key, $field);
-}
-
 sub hash_value
 {
     my ($self, $key, $field) = @_;
@@ -543,6 +540,8 @@ sub import_dir_from_yaml
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
 
+    $self->begin();
+
     for my $entry (@keys) {
         my $value = $entry->{value};
         my $key;
@@ -554,6 +553,8 @@ sub import_dir_from_yaml
         my $type = $entry->{type};
         $self->set($key, $value, $type);
     }
+
+    $self->commit();
 }
 
 # Get the set associated to a directory key
@@ -610,6 +611,8 @@ sub _backup_dir
 {
     my ($self, %args) = @_;
 
+    $self->begin();
+
     my $key = $args{key};
     my $destinationType = $args{destination_type};
     my $dest = $args{destination};
@@ -650,11 +653,15 @@ sub _backup_dir
             include_dirs => $includeDirs
         );
     }
+
+    $self->commit();
 }
 
 sub _restore_dir
 {
     my ($self, $key, $orig, $dest) = @_;
+
+    $self->begin();
 
     for my $entry (@{$self->all_entries($orig . $key)}) {
         my $type = $self->_redis_call('type', $entry);
@@ -665,6 +672,8 @@ sub _restore_dir
     for my $subdir (@{$self->all_dirs($orig. $key)}) {
         $self->_restore_dir(substr($subdir, length($orig)), $orig, $dest);
     }
+
+    $self->commit();
 }
 
 sub begin
