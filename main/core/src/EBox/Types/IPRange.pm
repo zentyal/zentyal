@@ -121,14 +121,9 @@ sub compareToHash
     return 1;
 }
 
-sub fields
+sub _attrs
 {
-    my ($self) = @_;
-
-    my $begin = $self->fieldName() . '_begin';
-    my $end = $self->fieldName() . '_end';
-
-    return ($begin, $end);
+    return [ 'begin', 'end' ];
 }
 
 sub begin
@@ -144,66 +139,6 @@ sub end
 }
 
 # Group: Protected methods
-
-# Method: _setMemValue
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_setMemValue>
-#
-sub _setMemValue
-{
-    my ($self, $params) = @_;
-
-    my $begin =  $self->fieldName() . '_begin';
-    my $end =  $self->fieldName() . '_end';
-
-    $self->{'begin'} = $params->{$begin};
-    $self->{'end'} = $params->{$end};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $begin = $self->fieldName() . '_begin';
-    my $end = $self->fieldName() . '_end';
-
-    if ($self->{'begin'}) {
-        $gconfmod->set_hash_values($key, { $begin => $self->{'begin'}, $end => $self->{'end'} });
-    } else {
-        $gconfmod->hash_delete($key, $begin, $end);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $begin = $self->fieldName() . '_begin';
-    my $end = $self->fieldName() . '_end';
-
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'begin'} = $value->{$begin};
-    $self->{'end'} = $value->{$end};
-}
-
 
 # Method: _paramIsValid
 #

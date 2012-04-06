@@ -183,7 +183,15 @@ sub fields
 {
     my ($self) = @_;
 
-    return ($self->fieldName());
+    my $field = $self->fieldName();
+
+    my @fields = @{$self->_attrs()};
+    unless (@fields) {
+        return ($field);
+    }
+    @fields = map { $field . '_' . $_ } @fields;
+
+    return @fields;
 }
 
 sub section
@@ -666,9 +674,19 @@ sub typeRowLayout
 #
 #       params - hash ref with the fields to fill the type with its
 #       appropiate values
+#
 sub _setMemValue
 {
+    my ($self, $params) = @_;
 
+    my @attrs = @{$self->_attrs()};
+    return unless @attrs;
+
+    my $field = $self->fieldName();
+
+    foreach my $attr (@attrs) {
+        $self->{$attr} = $params->{"${field}_$attr"};
+    }
 }
 
 # Method: _storeInGConf
@@ -676,8 +694,6 @@ sub _setMemValue
 #      Store the given type in a GConf directory from a
 #      GConfModule. The expected behaviour is if it has no value to
 #      store, remove any previous data stored.
-#
-#      This method should be overridden from non volatile types.
 #
 # Parameters:
 #
@@ -689,7 +705,39 @@ sub _setMemValue
 #
 sub _storeInGConf
 {
+    my ($self, $gconfmod, $key) = @_;
 
+    my @attrs = @{$self->_attrs()};
+    return unless @attrs;
+
+    my $values = {};
+    my $setValue = 0;
+    my @fieldsToDel;
+    foreach my $attr (@attrs) {
+        if ($self->{$attr}) {
+            $values->{$attr} = $self->{$attr};
+            $setValue = 1;
+        } else {
+            push (@fieldsToDel, $attr);
+        }
+    }
+
+    if (@fieldsToDel) {
+        $gconfmod->hash_delete($key, @fieldsToDel);
+    }
+    if ($setValue) {
+        $gconfmod->set_hash_values($key, $values);
+    }
+}
+
+# Method: _attrs
+#
+#      This should be overriden by complex types which store more than
+#      one value, so _restoreFromHash doesn't need to be implemented
+#
+sub _attrs
+{
+    return [];
 }
 
 # Method: _restoreFromHash
@@ -705,7 +753,21 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
+    my ($self) = @_;
 
+    my @attrs = @{$self->_attrs()};
+    return unless @attrs;
+
+    my $row = $self->row();
+    return unless ($row);
+
+    my $field = $self->fieldName();
+    my $path = $self->_path();
+    my $value = $row->GConfModule()->hash_from_dir($path);
+
+    for my $attr (@attrs) {
+        $self->{$attr} = $value->{"${field}_${attr}"};
+    }
 }
 
 # Method: _paramIsValid

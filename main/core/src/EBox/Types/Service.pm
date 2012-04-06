@@ -152,18 +152,9 @@ sub cmp
     }
 }
 
-# Method: fields
-#
-#    Overrides <EBox::Types::Abstract::fields> method
-#
-sub fields
+sub _attrs
 {
-    my ($self) = @_;
-
-    my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    return ($proto, $port);
+    return [ 'protocol', 'port' ];
 }
 
 ###
@@ -291,76 +282,6 @@ sub AnyProtocol
 }
 
 # Group: Protected methods
-
-# Method: _setMemValue
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_setMemValue>
-#
-sub _setMemValue
-{
-    my ($self, $params) = @_;
-
-    my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    $self->{protocol} = $params->{$proto};
-    $self->{port} = $params->{$port};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    my $hash = {};
-    my @deleteFields;
-
-    if (defined ($self->{protocol})) {
-        $hash->{$proto} = $self->{protocol};
-    } else {
-        push (@deleteFields, $proto);
-    }
-    if (defined ($self->{port})) {
-        $hash->{$port} = $self->{port};
-    } else {
-        push (@deleteFields, $port);
-    }
-
-    $gconfmod->set_hash_values($key, $hash);
-    $gconfmod->hash_delete($key, @deleteFields);
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self, $hash) = @_;
-
-    return unless ($self->row());
-    my $protocol= $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'protocol'} = $value->{protocol};
-    $self->{'port'} = $value->{port};
-}
 
 # Method: _paramIsValid
 #

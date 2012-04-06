@@ -150,18 +150,6 @@ sub compareToHash
     return 1;
 }
 
-sub fields
-{
-    my ($self) = @_;
-
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    return ($hour, $min, $sec);
-}
-
-
 sub value
 {
     my ($self) = @_;
@@ -191,73 +179,15 @@ sub second
 
 # Group: Protected methods
 
-# Method: _setMemValue
+# Method: _attrs
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_setMemValue>
+#       <EBox::Types::Abstract::_attrs>
 #
-sub _setMemValue
+sub _attrs
 {
-    my ($self, $params) = @_;
-
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    $self->{'hour'} = $params->{$hour};
-    $self->{'min'}  = $params->{$min};
-    $self->{'sec'}  = $params->{$sec};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    if ($self->{'hour'}) {
-        $gconfmod->set_hash_values($key, {
-                                          $hour => $self->{'hour'},
-                                          $min => $self->{'min'},
-                                          $sec => $self->{'sec'}
-                                         });
-    } else {
-        $gconfmod->hash_delete($key, $hour, $min, $sec);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'hour'} = $value->{$hour};
-    $self->{'min'}  = $value->{$min};
-    $self->{'sec'}  = $value->{$sec};
+    return [ 'hour', 'min', 'sec' ];
 }
 
 # Method: _paramIsValid
@@ -308,7 +238,6 @@ sub _setValue # (value)
 
     $self->setMemValue($params);
 }
-
 
 sub isEqualTo
 {

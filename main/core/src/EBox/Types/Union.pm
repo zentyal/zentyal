@@ -457,7 +457,7 @@ sub _restoreFromHash
     my $selected;
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    $selected =  $gconf->raw_hash_value($path, $selPar);
+    $selected =  $gconf->hash_value($path, $selPar);
 
     return unless (defined($selected));
 

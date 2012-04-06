@@ -157,65 +157,10 @@ sub mask
 
 # Group: Protected methods
 
-# Method: _setMemValue
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_setMemValue>
-#
-sub _setMemValue
+sub _attrs
 {
-    my ($self, $params) = @_;
-
-    my $ip =  $self->fieldName() . '_ip';
-    my $mask =  $self->fieldName() . '_mask';
-
-    $self->{'ip'} = $params->{$ip};
-    $self->{'mask'} = $params->{$mask};
+    return [ 'ip', 'mask' ];
 }
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $ip = $self->fieldName() . '_ip';
-    my $mask = $self->fieldName() . '_mask';
-
-    if ($self->{'ip'}) {
-        $gconfmod->set_hash_values($key, { $ip => $self->{'ip'}, $mask => $self->{'mask'} });
-    } else {
-        $gconfmod->hash_delete($key, $ip, $mask);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $ip = $self->fieldName() . '_ip';
-    my $mask = $self->fieldName() . '_mask';
-
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'ip'} = $value->{$ip};
-    $self->{'mask'} = $value->{$mask};
-}
-
 
 # Method: _paramIsValid
 #

@@ -335,7 +335,6 @@ sub _storeInGConf
     my $to = $self->fieldName() . '_to_port';
     my $single = $self->fieldName() . '_single_port';
 
-    # FIXME: remove this and use set_hash instead of set_hash_values once indexes are removed
     $gconfmod->hash_delete($key, $from, $to, $single);
 
     my $values = {};

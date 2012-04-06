@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Types::Abstract now provides default implementations of fields(),
+	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
 	+ Store rows as a single redis hash instead of separated keys
 	+ Do not use graceful on apache to allow proper change of listen port
 	+ Simplified apache restart mechanism and avoid some problems

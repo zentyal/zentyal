@@ -143,24 +143,9 @@ sub compareToHash
     return 1;
 }
 
-# Method: fields
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::fields>
-#
-# Returns:
-#
-#   Array containing the fields
-#
-sub fields
+sub _attrs
 {
-    my ($self) = @_;
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    return ($continent, $country);
+    return [ 'continent', 'country' ];
 }
 
 # Method: value
@@ -210,66 +195,6 @@ sub zones
 }
 
 # Group: Protected methods
-
-# Method: _setMemValue
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_setMemValue>
-#
-sub _setMemValue
-{
-    my ($self, $params) = @_;
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    $self->{'continent'}   = $params->{$continent};
-    $self->{'country'} = $params->{$country};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country = $self->fieldName() . '_country';
-
-    if ($self->{'continent'} and $self->{'country'}) {
-        $gconfmod->set_hash_values($key, { $continent => $self->{'continent'}, $country => $self->{'country'} });
-    } else {
-        $gconfmod->hash_delete($key, $continent, $country);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'continent'} = $value->{$continent};
-    $self->{'country'}   = $value->{$country};
-}
 
 # Method: _paramIsValid
 #

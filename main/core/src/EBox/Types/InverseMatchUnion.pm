@@ -15,8 +15,8 @@
 
 # Class: EBox::Types::InverseMatchUnion
 #
-# 	This class inherits from <EBox::Types:Union> to add
-# 	inverse match support
+#	This class inherits from <EBox::Types:Union> to add
+#	inverse match support
 #
 #   FIXME: This package shouldn't exist as we should provide inverse match
 #   feature form abstract types and provide a real OO approach, not this
@@ -137,7 +137,7 @@ sub _storeInGConf
     my ($self, $gconfmod, $key) = @_;
 
     $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_hash_values($key, { $self->inverseMatchField() => $self->inverseMatch() });
+    $gconfmod->set_hash_value($key, $self->inverseMatchField(), $self->inverseMatch());
 }
 
 # Method: _restoreFromHash

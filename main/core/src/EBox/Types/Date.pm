@@ -174,26 +174,17 @@ sub compareToHash
     return 1;
 }
 
-# Method: fields
+# Method: _attrs
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::fields>
+#       <EBox::Types::Abstract::_attrs>
 #
-# Returns:
-#
-#   Array containing the fields
-#
-sub fields
+sub _attrs
 {
-    my ($self) = @_;
-
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    return ($day, $month, $year);
+    return [ 'day', 'month', 'year' ];
 }
+
 
 # Method: value
 #
@@ -231,72 +222,15 @@ sub year
 
 # Group: Protected methods
 
-# Method: _setMemValue
+# Method: _attrs
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_setMemValue>
+#       <EBox::Types::Abstract::_attrs>
 #
-sub _setMemValue
+sub _attrs
 {
-    my ($self, $params) = @_;
-
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    $self->{'day'}   = $params->{$day};
-    $self->{'month'} = $params->{$month};
-    $self->{'year'}  = $params->{$year};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    if ($self->{'day'}) {
-        $gconfmod->set_hash_values($key, {
-                                          $day => $self->{'day'},
-                                          $month => $self->{'month'},
-                                          $year => $self->{'year'}
-                                         });
-    } else {
-        $gconfmod->hash_delete($key, $day, $month, $year);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'day'}   = $value->{$day};
-    $self->{'month'} = $value->{$month};
-    $self->{'year'}  = $value->{$year};
+    return [ 'day', 'month', 'year' ];
 }
 
 # Method: _paramIsValid

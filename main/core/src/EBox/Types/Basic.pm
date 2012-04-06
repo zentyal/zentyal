@@ -103,12 +103,12 @@ sub _setMemValue
 #
 sub _restoreFromHash
 {
-    my ($self, $hash) = @_;
+    my ($self) = @_;
 
     return unless ($self->row());
 
     my $gconf = $self->row()->GConfModule();
-    my $value = $gconf->raw_hash_value($self->_path(), $self->fieldName());
+    my $value = $gconf->hash_value($self->_path(), $self->fieldName());
     $self->{'value'} = $value;
 }
 
@@ -148,8 +148,7 @@ sub _storeInGConf
     my $field = $self->fieldName();
 
     if (defined($self->memValue()) and $self->memValue() ne '') {
-        # FIXME: use hset instead of hmset once indexes stuff is removed
-        $gconfmod->set_hash_values($key, { $field => $self->memValue() });
+        $gconfmod->set_hash_value($key, $field, $self->memValue());
     } else {
         $gconfmod->hash_delete($key, $field);
     }
