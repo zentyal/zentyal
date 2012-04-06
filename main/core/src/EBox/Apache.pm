@@ -98,30 +98,30 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-# restarting apache from inside apache could be problematic, so we fork() and
-# detach the child from the process group.
-sub _daemon # (action)
+
+# restarting apache from inside apache could be problematic, so we fork()
+sub _daemon
 {
-    my $self = shift;
-    my $action = shift;
-    my $pid;
-    my $scripts = EBox::Config::scripts();
+    my ($self, $action) = @_;
+
+    my $conf = EBox::Config::conf();
+    my $ctl = "APACHE_CONFDIR=$conf apache2ctl";
 
     if ($action eq 'stop') {
-        EBox::Sudo::root($scripts . 'apache2ctl stop');
+        EBox::Sudo::root("$ctl stop");
     } elsif ($action eq 'start') {
-        EBox::Sudo::root($scripts . 'apache2ctl start');
+        EBox::Sudo::root("$ctl start");
     } elsif ($action eq 'restart') {
+        my $pid;
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
         }
-
         if ($pid) {
             return; # parent returns inmediately
+        } else {
+            EBox::Sudo::root("$ctl restart");
+            exit ($?);
         }
-        cleanupForExec();
-
-        exec(EBox::Config::scripts() . 'apache-restart');
     }
 
     if ($action eq 'stop') {

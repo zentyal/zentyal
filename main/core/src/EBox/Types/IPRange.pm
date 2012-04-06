@@ -172,15 +172,13 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    my $beginKey = "$key/" . $self->fieldName() . '_begin';
-    my $endKey = "$key/" . $self->fieldName() . '_end';
+    my $begin = $self->fieldName() . '_begin';
+    my $end = $self->fieldName() . '_end';
 
     if ($self->{'begin'}) {
-        $gconfmod->set_string($beginKey, $self->{'begin'});
-        $gconfmod->set_string($endKey, $self->{'end'});
+        $gconfmod->set_hash_values($key, { $begin => $self->{'begin'}, $end => $self->{'end'} });
     } else {
-        $gconfmod->unset($beginKey);
-        $gconfmod->unset($endKey);
+        $gconfmod->hash_delete($key, $begin, $end);
     }
 }
 
@@ -198,14 +196,12 @@ sub _restoreFromHash
     my $begin = $self->fieldName() . '_begin';
     my $end = $self->fieldName() . '_end';
 
-    my $value;
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    $value->{begin} =  $gconf->get_string($path . '/' . $begin);
-    $value->{end} =  $gconf->get_string($path . '/' . $end);
+    my $value = $gconf->hash_from_dir($path);
 
-    $self->{'begin'} = $value->{begin};
-    $self->{'end'} = $value->{end};
+    $self->{'begin'} = $value->{$begin};
+    $self->{'end'} = $value->{$end};
 }
 
 

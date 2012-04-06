@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Types::IPAddr;
+
 use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
@@ -26,47 +27,45 @@ use warnings;
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/ipaddrSetter.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
-        }
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/ipaddrSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+    }
 
-        $opts{'type'} = 'ipaddr';
-        my $self = $class->SUPER::new(%opts);
+    $opts{'type'} = 'ipaddr';
+    my $self = $class->SUPER::new(%opts);
 
-        bless($self, $class);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 
 sub paramExist
 {
-        my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-        my $ip =  $self->fieldName() . '_ip';
-        my $mask =  $self->fieldName() . '_mask';
+    my $ip = $self->fieldName() . '_ip';
+    my $mask = $self->fieldName() . '_mask';
 
-        return (defined($params->{$ip}) and defined($params->{$mask}));
-
+    return (defined($params->{$ip}) and defined($params->{$mask}));
 }
 
 
 sub printableValue
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        if (defined($self->{'ip'}) and defined($self->{'mask'})) {
-                return "$self->{'ip'}/$self->{'mask'}";
-        } else   {
-                return "";
-        }
-
+    if (defined($self->{'ip'}) and defined($self->{'mask'})) {
+        return "$self->{'ip'}/$self->{'mask'}";
+    } else {
+        return '';
+    }
 }
 
 # Method: cmp
@@ -96,44 +95,43 @@ sub cmp
     } else {
         return 1;
     }
-
 }
 
 sub size
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'size'};
+    return $self->{'size'};
 }
 
 sub compareToHash
 {
-        my ($self, $hash) = @_;
+    my ($self, $hash) = @_;
 
-        my ($oldIp, $oldMask) = $self->_ipNetmask();
-        my $ip = $self->fieldName() . '_ip';
-        my $mask = $self->fieldName() . '_mask';
+    my ($oldIp, $oldMask) = $self->_ipNetmask();
+    my $ip = $self->fieldName() . '_ip';
+    my $mask = $self->fieldName() . '_mask';
 
-        if ($oldIp ne $hash->{$ip}) {
-                return 0;
-        }
+    if ($oldIp ne $hash->{$ip}) {
+        return 0;
+    }
 
-        if ($oldMask ne $hash->{$mask}) {
-                return 0;
-        }
+    if ($oldMask ne $hash->{$mask}) {
+        return 0;
+    }
 
-        return 1;
+    return 1;
 }
 
 
 sub fields
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $ip = $self->fieldName() . '_ip';
-        my $mask = $self->fieldName() . '_mask';
+    my $ip = $self->fieldName() . '_ip';
+    my $mask = $self->fieldName() . '_mask';
 
-        return ($ip, $mask);
+    return ($ip, $mask);
 }
 
 
@@ -145,16 +143,16 @@ sub value
 
 sub ip
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'ip'};
+    return $self->{'ip'};
 }
 
 sub mask
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'mask'};
+    return $self->{'mask'};
 }
 
 # Group: Protected methods
@@ -167,14 +165,13 @@ sub mask
 #
 sub _setMemValue
 {
-        my ($self, $params) = @_;
+    my ($self, $params) = @_;
 
-        my $ip =  $self->fieldName() . '_ip';
-        my $mask =  $self->fieldName() . '_mask';
+    my $ip =  $self->fieldName() . '_ip';
+    my $mask =  $self->fieldName() . '_mask';
 
-        $self->{'ip'} = $params->{$ip};
-        $self->{'mask'} = $params->{$mask};
-
+    $self->{'ip'} = $params->{$ip};
+    $self->{'mask'} = $params->{$mask};
 }
 
 # Method: _storeInGConf
@@ -185,18 +182,16 @@ sub _setMemValue
 #
 sub _storeInGConf
 {
-        my ($self, $gconfmod, $key) = @_;
+    my ($self, $gconfmod, $key) = @_;
 
-        my $ipKey = "$key/" . $self->fieldName() . '_ip';
-        my $maskKey = "$key/" . $self->fieldName() . '_mask';
+    my $ip = $self->fieldName() . '_ip';
+    my $mask = $self->fieldName() . '_mask';
 
-        if ($self->{'ip'}) {
-                $gconfmod->set_string($ipKey, $self->{'ip'});
-                $gconfmod->set_string($maskKey, $self->{'mask'});
-        } else {
-                $gconfmod->unset($ipKey);
-                $gconfmod->unset($maskKey);
-        }
+    if ($self->{'ip'}) {
+        $gconfmod->set_hash_values($key, { $ip => $self->{'ip'}, $mask => $self->{'mask'} });
+    } else {
+        $gconfmod->hash_delete($key, $ip, $mask);
+    }
 }
 
 # Method: _restoreFromHash
@@ -213,14 +208,12 @@ sub _restoreFromHash
     my $ip = $self->fieldName() . '_ip';
     my $mask = $self->fieldName() . '_mask';
 
-    my $value;
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    $value->{ip} =  $gconf->get_string($path . '/' . $ip);
-    $value->{mask} =  $gconf->get_string($path . '/' . $mask);
+    my $value = $gconf->hash_from_dir($path);
 
-    $self->{'ip'} = $value->{ip};
-    $self->{'mask'} = $value->{mask};
+    $self->{'ip'} = $value->{$ip};
+    $self->{'mask'} = $value->{$mask};
 }
 
 
@@ -231,19 +224,17 @@ sub _restoreFromHash
 #       <EBox::Types::Abstract::_paramIsValid>
 #
 sub _paramIsValid
-  {
-      my ($self, $params) = @_;
+{
+    my ($self, $params) = @_;
 
-      my $ip =  $self->fieldName() . '_ip';
-      my $mask =  $self->fieldName() . '_mask';
+    my $ip =  $self->fieldName() . '_ip';
+    my $mask =  $self->fieldName() . '_mask';
 
-      checkIP($params->{$ip}, __($self->printableName()));
-      checkCIDR($params->{$ip} . "/$params->{$mask}",
-                __($self->printableName()));
+    checkIP($params->{$ip}, __($self->printableName()));
+    checkCIDR($params->{$ip} . "/$params->{$mask}", __($self->printableName()));
 
-      return 1;
-
-  }
+    return 1;
+}
 
 # Method: _paramIsSet
 #
@@ -252,22 +243,20 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
+{
+    my ($self, $params) = @_;
 
-      my ($self, $params) = @_;
+    # Check if the parameter exist
+    my $ip =  $self->fieldName() . '_ip';
+    my $mask =  $self->fieldName() . '_mask';
 
-      # Check if the parameter exist
-      my $ip =  $self->fieldName() . '_ip';
-      my $mask =  $self->fieldName() . '_mask';
+    unless ( defined($params->{$ip}) and defined($params->{$mask})) {
+        return 0;
+    }
 
-      unless ( defined($params->{$ip}) and defined($params->{$mask})) {
-          return 0;
-      }
-
-      # Check if has something, ip field is not empty
-      return ( $params->{$ip} ne '' );
-
-  }
+    # Check if has something, ip field is not empty
+    return ( $params->{$ip} ne '' );
+}
 
 # Method: _setValue
 #
@@ -284,20 +273,18 @@ sub _paramIsSet
 #     value - String an IP address with CIDR notation
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my ($ip, $netmask) = split ('/', $value);
 
-      my ($ip, $netmask) = split ('/', $value);
+    my $params = {
+        $self->fieldName() . '_ip'   => $ip,
+        $self->fieldName() . '_mask' => $netmask,
+    };
 
-      my $params = {
-                    $self->fieldName() . '_ip'   => $ip,
-                    $self->fieldName() . '_mask' => $netmask,
-                   };
-
-      $self->setMemValue($params);
-
-  }
+    $self->setMemValue($params);
+}
 
 # Group: Private methods
 

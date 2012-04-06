@@ -263,8 +263,6 @@ sub value
     return $self->AUTOLOAD();
 }
 
-
-
 sub memValue
 {
 
@@ -290,7 +288,6 @@ sub isEqualTo
     } else {
         return 0;
     }
-
 }
 
 # Method: HTMLSetter
@@ -327,7 +324,6 @@ sub HTMLSetter
     } else {
         return undef;
     }
-
 }
 
 sub HTMLViewer
@@ -394,8 +390,7 @@ sub AUTOLOAD
                                              'in type ' . $subtype->type());
         }
     }
-
-  }
+}
 
 # Group: Protected methods
 
@@ -412,12 +407,12 @@ sub _setMemValue
     my $selPar = $self->fieldName() . '_selected';
     my $selected = $params->{$selPar};
 
-    if ( defined ( $selected )) {
+    if (defined ($selected)) {
         foreach my $type (@{$self->{'subtypes'}}) {
             if ($type->fieldName() eq $selected) {
-                    $type->setMemValue($params);
-                    $self->setSelectedType($selected);
-                }
+                $type->setMemValue($params);
+                $self->setSelectedType($selected);
+            }
         }
     }
 }
@@ -439,9 +434,8 @@ sub _storeInGConf
         # value if it has not got one
         $type->storeInGConf($gconfmod, $key);
         if ($type->fieldName() eq $selected) {
-              my $selKey = "$key/" . $self->fieldName()
-                  . '_selected';
-              $gconfmod->set_string($selKey, $self->selectedType());
+              my $selected = $self->fieldName() . '_selected';
+              $gconfmod->set_hash_values($key, { $selected => $self->selectedType() });
           }
     }
 }
@@ -456,13 +450,14 @@ sub _restoreFromHash
 {
     my ($self, $hash) = @_;
 
+    return unless ($self->row());
+
     my $selPar = $self->fieldName() . '_selected';
 
-    return unless ($self->row());
     my $selected;
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    $selected =  $gconf->get_string($path . '/' . $selPar);
+    $selected =  $gconf->raw_hash_value($path, $selPar);
 
     return unless (defined($selected));
 
@@ -471,7 +466,6 @@ sub _restoreFromHash
         $type->restoreFromHash();
         $self->setSelectedType($selected);
     }
-
 }
 
 # Method: _paramIsValid
@@ -510,7 +504,6 @@ sub _paramIsSet
     }
 
     return 0;
-
 }
 
 # Method: _setValue
@@ -530,7 +523,7 @@ sub _setValue
     # Call AUTOLOAD method in order not to repeat code
     $AUTOLOAD = '_setValue';
     return $self->AUTOLOAD($selectedValue);
- }
+}
 
 # Method: cmp
 #

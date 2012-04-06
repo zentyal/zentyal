@@ -72,21 +72,21 @@ use Error qw(:try);
 #
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/file.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/file.mas';
-        }
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/file.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/file.mas';
+    }
 
-        $opts{'type'} = 'file';
-        my $self = $class->SUPER::new(%opts);
+    $opts{'type'} = 'file';
+    my $self = $class->SUPER::new(%opts);
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: printableValue
@@ -105,7 +105,6 @@ sub printableValue
     } else {
         return '';
     }
-
 }
 
 # Method: isEqualTo
@@ -214,7 +213,6 @@ sub group
     }
 
     return $self->{user};
-
 }
 
 # Method: exist
@@ -283,7 +281,6 @@ sub allowDownload
     my ($self) = @_;
 
     return $self->{allowDownload};
-
 }
 
 # Method: showFileWhenEditing
@@ -299,7 +296,6 @@ sub showFileWhenEditing
     my ($self) = @_;
 
     return $self->{showFileWhenEditing};
-
 }
 
 # Method: linkToDownload
@@ -353,7 +349,6 @@ sub userPath
     my ($self) = @_;
 
     return $self->{userPath};
-
 }
 
 #  Method: backupPath
@@ -452,9 +447,6 @@ sub restoreFiles
     if ( EBox::Sudo::fileTest('-f', $noPreviousFilePath) ) {
         EBox::Sudo::root("rm -f $path");
     }
-
-
-
 }
 
 # Group: Protected methods
@@ -479,7 +471,6 @@ sub _setMemValue
 
     $self->{userPath} = $params->{$homePathParam};
     $self->{remove} = $params->{$removeParam};
-
 }
 
 # Method: _storeInGConf
@@ -559,7 +550,6 @@ sub _paramIsValid
 #
 sub _paramIsSet
 {
-
     my ($self, $params) = @_;
 
     # Check if the parameter exist
@@ -571,7 +561,6 @@ sub _paramIsSet
     return 1 if ($removeValue);
     return 1 if (defined ( $pathValue ));
     return (-f $self->tmpPath());
-
 }
 
 # Method: _setValue
@@ -607,7 +596,6 @@ sub _setValue #(value)
     }
 
     $self->setMemValue($params);
-
 }
 
 # Group: Private methods
@@ -647,7 +635,6 @@ sub _moveToPath
                  "user and group combination not supported"
                                               );
     }
-
 }
 
 1;

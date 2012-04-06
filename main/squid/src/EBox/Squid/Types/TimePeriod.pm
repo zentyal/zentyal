@@ -168,6 +168,7 @@ sub compareToHash
 sub weekDays
 {
     my ($self) = @_;
+
     my $st = '';
 
     my $activeDays = 0;
@@ -178,12 +179,8 @@ sub weekDays
         }
     }
 
-
     return $st;
 }
-
-
-
 
 sub days
 {
@@ -228,13 +225,8 @@ sub printableWeekDays
         }
     }
 
-
-
-
-
     return $st;
 }
-
 
 
 sub hourlyPeriod

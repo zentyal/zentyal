@@ -775,6 +775,27 @@ sub set_hash_value
 
 #############
 
+sub _set_hash_values
+{
+    my ($self, $key, $hash) = @_;
+
+    $key = $self->_key($key);
+    if (defined ($hash) and (keys %{$hash})) {
+        $self->redis->set_hash_values($key, $hash);
+    }
+}
+
+sub set_hash_values
+{
+    my ($self, $key, $hash) = @_;
+
+    $self->_config;
+    $self->_set_hash_values($key, $hash);
+}
+
+
+#############
+
 sub _hash_value
 {
     my ($self, $key, $field) = @_;
@@ -797,20 +818,40 @@ sub hash_value
 
 #############
 
-sub _hash_delete
+sub _raw_hash_value
 {
     my ($self, $key, $field) = @_;
 
     $key = $self->_key($key);
-    $self->redis->hash_delete($key, $field);
+    return $self->redis->hash_value($key, $field);
 }
 
-sub hash_delete
+# FIXME: this is the good one, rename it after deleting indexes
+# and don't forget to remove use JSON::XS
+sub raw_hash_value
 {
     my ($self, $key, $field) = @_;
 
     $self->_config;
-    $self->_hash_delete($key, $field);
+    return $self->_raw_hash_value($key, $field);
+}
+
+#############
+
+sub _hash_delete
+{
+    my ($self, $key, @fields) = @_;
+
+    $key = $self->_key($key);
+    $self->redis->hash_delete($key, @fields);
+}
+
+sub hash_delete
+{
+    my ($self, $key, @fields) = @_;
+
+    $self->_config;
+    $self->_hash_delete($key, @fields);
 }
 
 #############
@@ -998,7 +1039,7 @@ sub hash_from_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_config;
-    return $self->_hash_from_dir($dir);
+    return $self->{redis}->get_hash($dir);
 }
 
 sub st_hash_from_dir # (key)

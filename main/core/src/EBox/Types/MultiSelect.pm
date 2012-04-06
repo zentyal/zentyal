@@ -36,7 +36,6 @@ use Perl6::Junction qw(any);
 
 sub new
 {
-
     my $class = shift;
     my %opts = @_;
 

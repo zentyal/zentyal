@@ -15,8 +15,8 @@
 
 # Class: EBox::Types::InverseMatchSelect
 #
-# 	This class inherits from <EBox::Types::Select> to add
-# 	inverse match support
+#	This class inherits from <EBox::Types::Select> to add
+#	inverse match support
 #
 #   FIXME: This package shouldn't exist as we should provide inverse match
 #   feature form abstract types and provide a real OO approach, not this
@@ -111,8 +111,8 @@ sub inverseMatch
 {
     my ($self) = @_;
 
+    return 0 unless defined ($self->{'inverseMatch'});
     return $self->{'inverseMatch'};
-
 }
 
 # Group: Protected methods
@@ -143,8 +143,7 @@ sub _storeInGConf
     my ($self, $gconfmod, $key) = @_;
 
     $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-            $self->inverseMatch());
+    $gconfmod->set_hash_values($key, { $self->inverseMatchField() => $self->inverseMatch() });
 }
 
 # Method: _restoreFromHash
@@ -162,8 +161,8 @@ sub _restoreFromHash
 
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    my $field = $self->fieldName();
-    $self->{'inverseMatch'} = $gconf->get_bool("$path/${field}_inverseMatch");
+    my $field = $self->fieldName() . '_inverseMatch';
+    $self->{'inverseMatch'} = $gconf->raw_hash_value($path, $field);
 }
 
 # Method: _setValue
@@ -184,26 +183,24 @@ sub _restoreFromHash
 #     value - hash ref or a basic value to pass
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my ($selectedValue, $invMatch);
+    if ( ref ( $value ) eq 'HASH' ) {
+        $selectedValue = $value->{'value'};
+        $invMatch = $value->{'inverse'};
+    } else {
+        $selectedValue = $value;
+        $invMatch = 0;
+    }
 
-      my ($selectedValue, $invMatch);
-      if ( ref ( $value ) eq 'HASH' ) {
-          $selectedValue = $value->{'value'};
-          $invMatch = $value->{'inverse'};
-      } else {
-          $selectedValue = $value;
-          $invMatch = 0;
-      }
+    my $params = {
+        $self->fieldName() => $selectedValue,
+        $self->inverseMatchField => $invMatch,
+    };
 
-      my $params = {
-                    $self->fieldName() => $selectedValue,
-                    $self->inverseMatchField => $invMatch,
-                   };
-
-      $self->setMemValue($params);
-
-  }
+    $self->setMemValue($params);
+}
 
 1;

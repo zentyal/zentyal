@@ -56,25 +56,6 @@ sub inverseMatchField
     return $self->fieldName() . '_inverseMatch';
 }
 
-#sub restoreFromHash
-#{
-#    my ($self, $hash) = @_;
-#
-#    $self->SUPER::restoreFromHash($hash);
-#
-#    $self->{'inverseMatch'} = $hash->{$self->fieldName() . '_inverseMatch'};
-#}
-#
-#sub storeInGconf
-#{
-#    my ($self, $gconfmod, $key) = @_;
-#
-#    $self->SUPER::storeInGconf($gconfmod, $key);
-#    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-#            $self->inverseMatch());
-#}
-
-
 sub compareToHash
 {
     my ($self, $hash) = @_;
@@ -124,8 +105,8 @@ sub inverseMatch
 {
     my ($self) = @_;
 
+    return 0 unless defined ($self->{'inverseMatch'});
     return $self->{'inverseMatch'};
-
 }
 
 # Group: Protected methods
@@ -156,8 +137,7 @@ sub _storeInGConf
     my ($self, $gconfmod, $key) = @_;
 
     $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-            $self->inverseMatch());
+    $gconfmod->set_hash_values($key, { $self->inverseMatchField() => $self->inverseMatch() });
 }
 
 # Method: _restoreFromHash
@@ -195,21 +175,20 @@ sub _restoreFromHash
 #     value - hash ref or a basic value to pass
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my ($selectedField, $selectedValue, $invMatch);
+    if ( exists ( $value->{'inverse'} )) {
+        $invMatch = delete ( $value->{'inverse'} );
+    } else {
+        $invMatch = 0;
+    }
 
-      my ($selectedField, $selectedValue, $invMatch);
-      if ( exists ( $value->{'inverse'} )) {
-          $invMatch = delete ( $value->{'inverse'} );
-      } else {
-          $invMatch = 0;
-      }
+    # FIXME: It should be a method to do so
+    $self->{'inverseMatch'} = $invMatch;
 
-      # FIXME: It should be a method to do so
-      $self->{'inverseMatch'} = $invMatch;
-
-      $self->SUPER::_setValue( $value );
-  }
+    $self->SUPER::_setValue( $value );
+}
 
 1;

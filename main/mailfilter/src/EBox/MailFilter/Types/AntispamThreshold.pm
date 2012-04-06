@@ -27,31 +27,26 @@ use EBox::Exceptions::InvalidData;
 use constant MAX => 100;
 use constant MIN => -100;
 
-
 # Group: Public methods
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
-        }
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+    }
 
+    $opts{'localizable'} = 0;
+    my $self = $class->SUPER::new(%opts);
 
-        $opts{'localizable'} = 0;
-        my $self = $class->SUPER::new(%opts);
-
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
-
-
-
 
 # Method: cmp
 #
@@ -68,9 +63,7 @@ sub cmp
     }
 
     return $self->value() <=> $compareType->value();
-
 }
-
 
 # Method: positive
 #
@@ -83,25 +76,6 @@ sub positive
 
 
 # Group: Protected methods
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Text::_storeInGConf>
-#
-sub _storeInGConf
-{
-        my ($self, $gconfmod, $key) = @_;
-
-        my $keyField = "$key/" . $self->fieldName();
-
-        if ($self->memValue()) {
-                $gconfmod->set_string($keyField, $self->memValue());
-        } else {
-                $gconfmod->unset($keyField);
-        }
-}
 
 # Method: _paramIsValid
 #
@@ -126,8 +100,6 @@ sub _paramIsValid
         $numberOk = ($value =~ m{$floatRegex});
     }
 
-
-
     unless ($numberOk) {
         throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                              value  => $value,
@@ -144,7 +116,6 @@ sub _paramIsValid
                         );
     }
 
-
     if ($value > MAX) {
         my $advice = __x('Write down a number lesser than {m}', m => MAX);
         throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
@@ -160,12 +131,7 @@ sub _paramIsValid
                         );
     }
 
-
     return 1;
-
 }
-
-
-
 
 1;

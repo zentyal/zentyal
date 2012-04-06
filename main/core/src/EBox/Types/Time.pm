@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Types::Time;
+
 use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
@@ -63,13 +64,12 @@ sub paramExist
 #
 sub printableValue
 {
-
     my ($self) = @_;
 
     if (defined($self->{'hour'}) and defined($self->{'min'}) and defined($self->{'sec'})) {
         return "$self->{'hour'}:$self->{'min'}:$self->{'sec'}";
     } else   {
-        return "";
+        return '';
     }
 }
 
@@ -170,23 +170,23 @@ sub value
 
 sub hour
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'hour'};
+    return $self->{'hour'};
 }
 
 sub minute
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'min'};
+    return $self->{'min'};
 }
 
 sub second
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'sec'};
+    return $self->{'sec'};
 }
 
 # Group: Protected methods
@@ -220,18 +220,18 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    my $hourKey = "$key/" . $self->fieldName() . '_hour';
-    my $minKey  = "$key/" . $self->fieldName() . '_min';
-    my $secKey  = "$key/" . $self->fieldName() . '_sec';
+    my $hour = $self->fieldName() . '_hour';
+    my $min  = $self->fieldName() . '_min';
+    my $sec  = $self->fieldName() . '_sec';
 
     if ($self->{'hour'}) {
-        $gconfmod->set_string($hourKey, $self->{'hour'});
-        $gconfmod->set_string($minKey,  $self->{'min'} );
-        $gconfmod->set_string($secKey,  $self->{'sec'} );
+        $gconfmod->set_hash_values($key, {
+                                          $hour => $self->{'hour'},
+                                          $min => $self->{'min'},
+                                          $sec => $self->{'sec'}
+                                         });
     } else {
-        $gconfmod->unset($hourKey);
-        $gconfmod->unset($minKey);
-        $gconfmod->unset($secKey);
+        $gconfmod->hash_delete($key, $hour, $min, $sec);
     }
 }
 
@@ -246,20 +246,18 @@ sub _restoreFromHash
     my ($self) = @_;
 
     return unless ($self->row());
+
     my $hour = $self->fieldName() . '_hour';
     my $min  = $self->fieldName() . '_min';
     my $sec  = $self->fieldName() . '_sec';
 
-    my $value;
     my $gconf = $self->row()->GConfModule();
     my $path = $self->_path();
-    $value->{hour} = $gconf->get_string($path . '/' . $hour);
-    $value->{min}  = $gconf->get_string($path . '/' . $min);
-    $value->{sec}  = $gconf->get_string($path . '/' . $sec);
+    my $value = $gconf->hash_from_dir($path);
 
-    $self->{'hour'} = $value->{hour};
-    $self->{'min'}  = $value->{min};
-    $self->{'sec'}  = $value->{sec};
+    $self->{'hour'} = $value->{$hour};
+    $self->{'min'}  = $value->{$min};
+    $self->{'sec'}  = $value->{$sec};
 }
 
 # Method: _paramIsValid
