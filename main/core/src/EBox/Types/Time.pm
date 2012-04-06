@@ -247,8 +247,8 @@ sub isEqualTo
     }
 
     if (($self->hour() ne $other->hour()) or
-        ($self->min()  ne $other->min() ) or
-        ($self->sec()  ne $other->sec() )) {
+        ($self->minute() ne $other->minute()) or
+        ($self->second() ne $other->second())) {
         return undef;
     }
 

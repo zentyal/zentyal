@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed isEqualTo() method on EBox::Types::Time
 	+ EBox::Types::Abstract now provides default implementations of fields(),
 	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
 	+ Store rows as a single redis hash instead of separated keys
