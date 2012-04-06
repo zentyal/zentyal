@@ -971,7 +971,7 @@ sub hash_from_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_config;
-    return $self->{redis}->get_hash($dir);
+    return $self->{redis}->get_hash($self->_key($dir));
 }
 
 sub st_hash_from_dir # (key)

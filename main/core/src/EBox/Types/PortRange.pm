@@ -339,12 +339,13 @@ sub _storeInGConf
 
     my $values = {};
 
-    $values->{$type} = $self->rangeType();
+    my $rangeType = $self->rangeType();
+    $values->{$type} = $rangeType;
 
-    if ($type eq 'range') {
+    if ($rangeType eq 'range') {
         $values->{$from} = $self->from();
         $values->{$to} = $self->to();
-    } elsif ($type eq 'single') {
+    } elsif ($rangeType eq 'single') {
         $values->{$single} = $self->single();
     }
 

@@ -423,6 +423,8 @@ sub backup_dir
 {
     my ($self, $key, $dest) = @_;
 
+    $self->begin();
+
     $self->delete_dir($dest);
     $self->_backup_dir(
         key => $key,

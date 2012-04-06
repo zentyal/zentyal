@@ -174,18 +174,6 @@ sub compareToHash
     return 1;
 }
 
-# Method: _attrs
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_attrs>
-#
-sub _attrs
-{
-    return [ 'day', 'month', 'year' ];
-}
-
-
 # Method: value
 #
 # Overrides:

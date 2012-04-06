@@ -710,12 +710,13 @@ sub _storeInGConf
     my @attrs = @{$self->_attrs()};
     return unless @attrs;
 
+    my $field = $self->fieldName();
     my $values = {};
     my $setValue = 0;
     my @fieldsToDel;
     foreach my $attr (@attrs) {
         if ($self->{$attr}) {
-            $values->{$attr} = $self->{$attr};
+            $values->{"${field}_$attr"} = $self->{$attr};
             $setValue = 1;
         } else {
             push (@fieldsToDel, $attr);
