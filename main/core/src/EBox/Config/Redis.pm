@@ -480,7 +480,11 @@ sub hash_delete
 {
     my ($self, $key, @fields) = @_;
 
-    $self->_redis_call('hdel', $key, @fields);
+    # TODO: Redis 2.4 support deletion of several keys with
+    # one single commands, uncomment and remove the map if we upgrade
+    # $self->_redis_call('hdel', $key, @fields);
+
+    map { $self->_redis_call('hdel', $key, $_) } @fields;
 
     # Delete reference to the key in parent
     $self->_parent_del($key);
