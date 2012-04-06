@@ -30,7 +30,6 @@ use EBox::Types::File;
 use EBox::Config::Redis;
 
 use File::Basename;
-use JSON::XS;
 
 sub _create # (name)
 {
@@ -711,46 +710,6 @@ sub st_get_list # (key)
 
 #############
 
-sub _hash_field_exists
-{
-    my ($self, $key, $field) = @_;
-
-    $key = $self->_key($key);
-    return $self->redis->hash_field_exists($key, $field);
-}
-
-sub hash_field_exists
-{
-    my ($self, $key, $field) = @_;
-
-    $self->_config;
-    return $self->_hash_field_exists($key, $field);
-}
-
-#############
-
-sub index_exists
-{
-    my ($self, $index) = @_;
-
-    $self->_config();
-    $index = $self->_index($index);
-    return $self->{redis}->exists($index);
-}
-
-sub create_index
-{
-    my ($self, $index) = @_;
-
-    $self->_config();
-    $index = $self->_index($index);
-    # Raw redis call to set, without updating directory
-    # structure, for performance reasons
-    return $self->{redis}->_redis_call('set', $index, 1);
-}
-
-#############
-
 sub _set_hash_value
 {
     my ($self, $key, $field, $value) = @_;
@@ -758,7 +717,7 @@ sub _set_hash_value
     $key = $self->_key($key);
     if (defined ($value)) {
         if (keys %{$value}) {
-            $self->redis->set_hash_value($key, $field => encode_json($value));
+            $self->redis->set_hash_value($key, $field, $value);
         } else {
             $self->redis->hash_delete($key, $field);
         }
@@ -767,10 +726,10 @@ sub _set_hash_value
 
 sub set_hash_value
 {
-    my ($self, $key, $field, $value) = @_;
+    my ($self, $key, $hash) = @_;
 
     $self->_config;
-    $self->_set_hash_value($key, $field => $value);
+    $self->_set_hash_value($key, $hash);
 }
 
 #############
@@ -780,9 +739,7 @@ sub _set_hash_values
     my ($self, $key, $hash) = @_;
 
     $key = $self->_key($key);
-    if (defined ($hash) and (keys %{$hash})) {
-        $self->redis->set_hash_values($key, $hash);
-    }
+    $self->redis->set_hash_values($key, $hash);
 }
 
 sub set_hash_values
@@ -793,7 +750,6 @@ sub set_hash_values
     $self->_set_hash_values($key, $hash);
 }
 
-
 #############
 
 sub _hash_value
@@ -801,11 +757,7 @@ sub _hash_value
     my ($self, $key, $field) = @_;
 
     $key = $self->_key($key);
-    my $value = $self->redis->hash_value($key, $field);
-    if (defined ($value)) {
-        $value = decode_json($value);
-    }
-    return $value;
+    return $self->redis->hash_value($key, $field);
 }
 
 sub hash_value
@@ -814,26 +766,6 @@ sub hash_value
 
     $self->_config;
     return $self->_hash_value($key, $field);
-}
-
-#############
-
-sub _raw_hash_value
-{
-    my ($self, $key, $field) = @_;
-
-    $key = $self->_key($key);
-    return $self->redis->hash_value($key, $field);
-}
-
-# FIXME: this is the good one, rename it after deleting indexes
-# and don't forget to remove use JSON::XS
-sub raw_hash_value
-{
-    my ($self, $key, $field) = @_;
-
-    $self->_config;
-    return $self->_raw_hash_value($key, $field);
 }
 
 #############
