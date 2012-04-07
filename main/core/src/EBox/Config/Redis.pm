@@ -166,6 +166,21 @@ sub set_list
     $self->commit();
 }
 
+# Method: list_add
+#
+#   Push a new element to the end of the list.
+#
+sub list_add
+{
+    my ($self, $key, $value) = @_;
+
+    $self->begin();
+
+    $self->_redis_call('rpush', $key, $value);
+
+    $self->commit();
+}
+
 # Method: get_list
 #
 #   Fetch the array ref stored in $key

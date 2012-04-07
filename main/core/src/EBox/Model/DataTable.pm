@@ -905,13 +905,12 @@ sub addTypedRow
         }
         $self->_insertPos($id, $pos);
     } else {
-        # FIXME: add a new list_add() method to improve this
-        my $order = $self->_ids();
-        push (@{$order}, $id);
-        $gconfmod->set_list($self->{'order'}, 'string', $order);
+        $gconfmod->list_add($self->{'order'}, $id);
     }
 
-    $gconfmod->set_hash_value("$dir/$id", 'readOnly', $readOnly);
+    if ($readOnly) {
+        $gconfmod->set_hash_value("$dir/$id", 'readOnly', 1);
+    }
 
     my $newRow = $self->row($id);
 
@@ -1394,8 +1393,13 @@ sub setTypedRow
     }
 
     # update readonly if change
-    if (defined ($readOnly) and ($readOnly xor $gconfmod->hash_value($key, 'readOnly'))) {
-        $gconfmod->set_hash_value($key, 'readOnly', $readOnly);
+    if (defined ($readOnly)) {
+        my $readOnlySet = $gconfmod->hash_value($key, 'readOnly');
+        if ($readOnly and not $readOnlySet) {
+            $gconfmod->set_hash_value($key, 'readOnly', 1);
+        } elsif ($readOnlySet) {
+            $gconfmod->hash_delete($key, 'readOnly');
+        }
     }
 
     if ($modified) {
