@@ -44,6 +44,7 @@ use Encode;
 use Error qw(:try);
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
+use List::Util;
 
 
 use base 'EBox::Model::Component';
@@ -846,7 +847,7 @@ sub addTypedRow
     $leadingText = "\L$leadingText";
 
     unless (defined ($id) and length ($id) > 0) {
-        $id = $gconfmod->get_unique_id($leadingText, $dir);
+        $id = $self->_newId($leadingText);
     }
 
     my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
@@ -904,10 +905,13 @@ sub addTypedRow
         }
         $self->_insertPos($id, $pos);
     } else {
-        $gconfmod->set_list($self->{'order'}, 'string', []);
+        # FIXME: add a new list_add() method to improve this
+        my $order = $self->_ids();
+        push (@{$order}, $id);
+        $gconfmod->set_list($self->{'order'}, 'string', $order);
     }
 
-    $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
+    $gconfmod->set_hash_value("$dir/$id", 'readOnly', $readOnly);
 
     my $newRow = $self->row($id);
 
@@ -953,11 +957,7 @@ sub row
     my $gconfmod = $self->{'gconfmodule'};
     my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
 
-    unless (defined($id)) {
-        return undef;
-    }
-
-    unless ($gconfmod->dir_exists("$dir/$id")) {
+    unless (defined($id) and $self->_rowExists($id)) {
         return undef;
     }
 
@@ -965,7 +965,7 @@ sub row
 
     $row->setId($id);
     # TODO ReadOnly rows
-    $row->setReadOnly($gconfmod->get_bool("$dir/$id/readOnly"));
+    $row->setReadOnly($gconfmod->hash_value("$dir/$id", 'readOnly'));
     $row->setModel($self);
 
     # If element is volatile we set its value after the rest
@@ -1189,11 +1189,9 @@ sub removeRow
 sub removeAll
 {
     my ($self, $force) = @_;
+    $force = 0 unless defined ($force);
 
-    $force = 0 unless defined ( $force );
-
-    my @ids = @{$self->{'gconfmodule'}->all_dirs_base($self->{'directory'})};
-    foreach my $id (@ids) {
+    foreach my $id (@{$self->_ids(1)}) {
         $self->removeRow($id, $force);
     }
 }
@@ -1388,18 +1386,16 @@ sub setTypedRow
         $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
     }
 
+    my $key = "$dir/$id";
     my $modified = undef;
     for my $data (@changedElements) {
-        $data->storeInGConf($gconfmod, "$dir/$id");
+        $data->storeInGConf($gconfmod, $key);
         $modified = 1;
     }
 
     # update readonly if change
-    my $rdOnlyKey = "$dir/$id/readOnly";
-    if (defined ( $readOnly )
-            and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
-
-        $gconfmod->set_bool("$rdOnlyKey", $readOnly);
+    if (defined ($readOnly) and ($readOnly xor $gconfmod->hash_value($key, 'readOnly'))) {
+        $gconfmod->set_hash_value($key, 'readOnly', $readOnly);
     }
 
     if ($modified) {
@@ -1459,7 +1455,7 @@ sub size
 {
     my ($self) = @_;
 
-    return scalar( @{ $self->{'gconfmodule'}->all_dirs_base($self->{'directory'})});
+    return scalar(@{$self->_ids(1)});
 }
 
 # Method: syncRows
@@ -1582,22 +1578,21 @@ sub _ids
     my $gconfmod = $self->{'gconfmodule'};
 
     my $ids = $gconfmod->get_list($self->{'order'});
-    unless (@{$ids}) {
-        $ids = $gconfmod->all_dirs_base($self->{'directory'});
-        return $ids if ($notOrder);
+
+    unless ($notOrder) {
         my $sortedBy = $self->sortedBy();
-        my %idsToOrder;
         if (@{$ids} and $sortedBy) {
+            my %idsToOrder;
             for my $id (@{$ids}) {
-                $idsToOrder{$id} = $self->row($id)
-                        ->printableValueByName($sortedBy);
+                $idsToOrder{$id} = $self->row($id)->printableValueByName($sortedBy);
             }
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
-        }
-        my $global = EBox::Global->getInstance();
-        my $modChanged = $global->modIsChanged($gconfmod->name());
-        if ( not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
-            $gconfmod->set_list($self->{'order'}, 'string', $ids);
+
+            my $global = EBox::Global->getInstance();
+            my $modChanged = $global->modIsChanged($gconfmod->name());
+            if (not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
+                $gconfmod->set_list($self->{'order'}, 'string', $ids);
+            }
         }
     }
     return $ids;
@@ -1619,7 +1614,7 @@ sub _rows
     }
 
     my @rows;
-    for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
+    for my $id (@{$self->_ids()}) {
         my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
 
         my $row = $self->row($id);
@@ -3512,14 +3507,42 @@ sub _checkRowExist
 {
     my ($self, $id, $text) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
-    my $dir = $self->{'directory'};
-
-    unless ($gconfmod->dir_exists("$dir/$id")) {
+    unless ($self->_rowExists($id)) {
         throw EBox::Exceptions::DataNotFound(
                 data => $text,
                 value => $id);
     }
+}
+
+sub _rowExists
+{
+    my ($self, $id) = @_;
+
+    # TODO: is it worth implementing this with redis ZSET to get O(1)
+    #       and easy ordering ?
+    foreach my $row (@{$self->_ids(1)}) {
+        if ($row eq $id) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+sub _newId
+{
+    my ($self, $leadingText) = @_;
+
+    my $id = 1;
+
+    # FIXME: implement this better, maybe a key to hold the max id
+    my @ids = @{$self->_ids(1)};
+    if (@ids) {
+        my $str = List::Util::maxstr(@ids);
+        $str =~ s/$leadingText//;
+        $id = $str + 1;
+    }
+
+    return $leadingText . $id;
 }
 
 # Insert the id element in selected position, if the position is the

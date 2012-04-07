@@ -715,21 +715,15 @@ sub _set_hash_value
     my ($self, $key, $field, $value) = @_;
 
     $key = $self->_key($key);
-    if (defined ($value)) {
-        if (keys %{$value}) {
-            $self->redis->set_hash_value($key, $field, $value);
-        } else {
-            $self->redis->hash_delete($key, $field);
-        }
-    }
+    $self->redis->set_hash_value($key, $field, $value);
 }
 
 sub set_hash_value
 {
-    my ($self, $key, $hash) = @_;
+    my ($self, $key, $field, $value) = @_;
 
     $self->_config;
-    $self->_set_hash_value($key, $hash);
+    $self->_set_hash_value($key, $field, $value);
 }
 
 #############
