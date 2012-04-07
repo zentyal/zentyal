@@ -38,7 +38,6 @@ use English qw(-no_match_vars);
 use File::Basename;
 use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
-use File::Path qw(remove_tree);
 
 # Constants
 use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
@@ -237,7 +236,7 @@ sub _writeCAPath
 {
     my ($self) = @_;
 
-    remove_tree(CA_CERT_PATH);
+    system('rm -rf ' . CA_CERT_PATH);
     mkdir(CA_CERT_PATH);
 
     # Write links for each CA
