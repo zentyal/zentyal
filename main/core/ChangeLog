@@ -1,10 +1,9 @@
 HEAD
+	+ Remove no longer needed redis directory tree sets
 	+ Fixed isEqualTo() method on EBox::Types::Time
 	+ EBox::Types::Abstract now provides default implementations of fields(),
 	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
 	+ Store rows as a single redis hash instead of separated keys
-	+ Do not use graceful on apache to allow proper change of listen port
-	+ Simplified apache restart mechanism and avoid some problems
 	+ Remove indexes on DataTables to reduce complexity, no longer needed
 	+ Revert graceful stop of apache which seems to be problematic
 	+ Simplified ProgressIndicator implementation using shared memory
@@ -12,6 +11,8 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+	+ Do not use graceful on apache to allow proper change of listen port
+	+ Simplified apache restart mechanism and avoid some problems
 2.3.8
 	+ Create tables using MyISAM engine by default
 	+ Delete obsolete 'admin' table
@@ -68,7 +69,6 @@ HEAD
 	+ Set log level to debug when cannot compute md5 for a nonexistent file
 	+ Filtering in tables is now case insensitive
 	+ ProgressIndicator no longer leaves zombie processes in the system
->>>>>>> master
 	+ Implemented mysqldump for logs database
 	+ Remove zentyal-events cron script which should not be longer necessary
 	+ Bugfix: set executable permissions to cron scripts and example hooks
