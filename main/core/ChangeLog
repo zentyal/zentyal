@@ -1,6 +1,5 @@
 HEAD
 	+ Remove obsolete EBox::Order package
-	+ Avoid problems restarting apache when .pid file does not exist
 	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
 	+ Remove no longer needed redis directory tree sets
 	+ Fixed isEqualTo() method on EBox::Types::Time
@@ -8,12 +7,12 @@ HEAD
 	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
 	+ Store rows as a single redis hash instead of separated keys
 	+ Remove indexes on DataTables to reduce complexity, no longer needed
-	+ Revert graceful stop of apache which seems to be problematic
 	+ Simplified ProgressIndicator implementation using shared memory
 	+ New EBox::Util::Semaphore package
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+	+ Avoid problems restarting apache when .pid file does not exist
 	+ Do not use graceful on apache to allow proper change of listen port
 	+ Simplified apache restart mechanism and avoid some problems
 2.3.8
