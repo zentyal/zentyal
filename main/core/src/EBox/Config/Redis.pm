@@ -40,9 +40,14 @@ use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
 use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
-use constant REDIS_TYPES => qw(string set list hash);
+use constant REDIS_TYPES => qw(string list hash);
+
+# TODO: remove this when stable
+my $CACHE_ENABLED = 1;
+my $TRANSACTIONS_ENABLED = 1;
 
 my %cache;
+my %keys;
 my @queue;
 my $cacheVersion = 0;
 my $trans = 0;
@@ -65,7 +70,7 @@ sub new
     $self->{redis} = $redis;
     $self->{pid} = $$;
 
-    unless ($sem) {
+    if ($TRANSACTIONS_ENABLED and not $sem) {
         $sem = EBox::Util::Semaphore->init($SEM_KEY);
     }
 
@@ -84,9 +89,6 @@ sub set_string
 
     # Sets the new key
     $self->_redis_call('set', $key, $value);
-
-    # Update parent dir info with the new key
-    $self->_parent_add($key);
 
     $self->commit();
 }
@@ -161,8 +163,20 @@ sub set_list
         $self->_redis_call('rpush', $key, $value);
     }
 
-    # Update parent dir info with the new key
-    $self->_parent_add($key);
+    $self->commit();
+}
+
+# Method: list_add
+#
+#   Push a new element to the end of the list.
+#
+sub list_add
+{
+    my ($self, $key, $value) = @_;
+
+    $self->begin();
+
+    $self->_redis_call('rpush', $key, $value);
 
     $self->commit();
 }
@@ -193,9 +207,6 @@ sub set_hash
 
     $self->_redis_call('del', $key);
     $self->_redis_call('hmset', $key, %{$hash});
-
-    # Update parent dir info with the new key
-    $self->_parent_add($key);
 }
 
 # Method: get_hash
@@ -271,12 +282,16 @@ sub all_dirs
 {
     my ($self, $key) = @_;
 
-    my @dirs = @{$self->get_set(_dir($key))};
-    @dirs = map { "$key/$_" } @dirs;
-    @dirs = grep { $self->get_set_size(_dir($_)) > 0 } @dirs;
-    @dirs = sort @dirs;
-
-    return \@dirs;
+    my $length = length $key;
+    my %dir;
+    for my $path ($self->_redis_call('keys', "$key/*")) {
+        my $index = index($path, '/', $length + 1);
+        if ($index > 0) {
+            my $directory = substr($path, 0, $index);
+            $dir{$directory} = undef;
+        }
+    }
+    return [keys %dir];
 }
 
 # Method: all_entries
@@ -285,17 +300,14 @@ sub all_dirs
 #
 sub all_entries
 {
-    my ($self, $key, $includeDir) = @_;
+    my ($self, $key) = @_;
 
-    my @keys = @{$self->get_set(_dir($key))};
-    @keys = map { "$key/$_" } @keys;
-
-    if ($includeDir) {
-        push (@keys, _dir($key));
+    my $length = length $key;
+    my @dirs;
+    for my $path ($self->_redis_call('keys', "$key/*")) {
+        push (@dirs, $path) if (index($path, '/', $length + 1) == -1);
     }
-    @keys = sort @keys;
-
-    return \@keys;
+    return \@dirs;
 }
 
 # Method: dir_exists
@@ -306,7 +318,8 @@ sub dir_exists
 {
     my ($self, $dir) = @_;
 
-    return $self->exists(_dir($dir));
+    my @keys = $self->_redis_call('keys', "${dir}/*");
+    return (@keys > 0);
 }
 
 # Method: delete_dir
@@ -322,8 +335,6 @@ sub delete_dir
     if ($self->dir_exists($dir)) {
         my @keys = $self->_redis_call('keys', "$dir/*");
         $self->_redis_call('del', @keys);
-
-        $self->_parent_del($dir);
     }
 
     $self->commit();
@@ -340,9 +351,6 @@ sub unset
     $self->begin();
 
     $self->_redis_call('del', $key);
-
-    # Delete reference to the key in parent
-    $self->_parent_del($key);
 
     $self->commit();
 }
@@ -395,11 +403,7 @@ sub set
     unless (defined ($type)) {
         $type = ref ($value);
         if ($type eq 'ARRAY') {
-            if ($key eq _dir($key)) {
-                $type = 'set';
-            } else {
-                $type = 'list';
-            }
+            $type = 'list';
         } elsif ($type eq 'HASH') {
             $type = 'hash';
         } else {
@@ -460,18 +464,16 @@ sub restore_dir
 #
 #   key         - key for the directory
 #   file        - yaml file to write
-#   includeDirs - *optional* include directory sets in the dump (default: no)
 #
 sub export_dir_to_yaml
 {
-    my ($self, $key, $file, $includeDirs) = @_;
+    my ($self, $key, $file) = @_;
 
     my @keys;
     $self->_backup_dir(
         key => $key,
         destination_type => 'yaml',
-        destination => \@keys,
-        include_dirs => $includeDirs
+        destination => \@keys
     );
     try {
         YAML::XS::DumpFile($file, @keys);
@@ -485,9 +487,6 @@ sub set_hash_value
     my ($self, $key, $field, $value) = @_;
 
     $self->_redis_call('hset', $key, $field, $value);
-
-    # Update parent dir info with the new key
-    $self->_parent_add($key);
 }
 
 sub set_hash_values
@@ -495,9 +494,6 @@ sub set_hash_values
     my ($self, $key, $hash) = @_;
 
     $self->_redis_call('hmset', $key, %{$hash});
-
-    # Update parent dir info with the new key
-    $self->_parent_add($key);
 }
 
 sub hash_value
@@ -516,9 +512,6 @@ sub hash_delete
     # $self->_redis_call('hdel', $key, @fields);
 
     map { $self->_redis_call('hdel', $key, $_) } @fields;
-
-    # Delete reference to the key in parent
-    $self->_parent_del($key);
 }
 
 # Method: import_dir_from_yaml
@@ -559,56 +552,6 @@ sub import_dir_from_yaml
     $self->commit();
 }
 
-# Get the set associated to a directory key
-sub _dir
-{
-    my ($key) = @_;
-
-    # Return the same if already a dir
-    if (substr ($key, -2, 2) eq '/.') {
-        return $key;
-    }
-
-    # Do not add redundant slashes
-    if (substr ($key, -1, 1) eq '/') {
-        return $key . '.';
-    } else {
-        return "$key/.";
-    }
-}
-
-# Update directory tree with a new entry
-sub _parent_add
-{
-    my ($self, $key) = @_;
-
-    my $parentkey = dirname($key);
-    my $subkey = basename($key);
-    my $parentdir = _dir($parentkey);
-
-    # Stop recursion if already member
-    if ($self->is_member($parentdir, $subkey)) {
-        return;
-    }
-
-    $self->_redis_call('sadd', $parentdir, $subkey);
-
-    # Recursive propagation until the root
-    unless ($parentkey eq '/') {
-        $self->_parent_add($parentkey);
-    }
-}
-
-# Delete entry reference in parent directory
-sub _parent_del
-{
-    my ($self, $key) = @_;
-
-    my $parent = dirname($key);
-    my $subkey = basename($key);
-    $self->_redis_call('srem', _dir($parent), $subkey);
-}
-
 sub _backup_dir
 {
     my ($self, %args) = @_;
@@ -618,9 +561,8 @@ sub _backup_dir
     my $key = $args{key};
     my $destinationType = $args{destination_type};
     my $dest = $args{destination};
-    my $includeDirs = $args{include_dirs};
 
-    for my $entry (@{$self->all_entries($key, $includeDirs)}) {
+    for my $entry (@{$self->all_entries($key)}) {
         my $type = $self->_redis_call('type', $entry);
         my $destKey = $entry;
         if ($destinationType eq 'redis') {
@@ -652,7 +594,6 @@ sub _backup_dir
             key => $subdir,
             destination => $destKey,
             destination_type => $destinationType,
-            include_dirs => $includeDirs
         );
     }
 
@@ -682,6 +623,8 @@ sub begin
 {
     my ($self) = @_;
 
+    return unless $TRANSACTIONS_ENABLED;
+
     # Do not allow nested transactions
     return if ($trans++);
 
@@ -691,6 +634,7 @@ sub begin
     defined ($version) or $version = 0;
     if ($version > $cacheVersion) {
         %cache = ();
+        %keys = ();
         $cacheVersion = $version;
     }
 
@@ -700,6 +644,8 @@ sub begin
 sub commit
 {
     my ($self) = @_;
+
+    return unless $TRANSACTIONS_ENABLED;
 
     $trans--;
 
@@ -713,6 +659,8 @@ sub commit
 sub rollback
 {
     my ($self) = @_;
+
+    return unless $TRANSACTIONS_ENABLED;
 
     if ($self->{multi}) {
         $self->_redis_call_wrapper(0, 'discard');
@@ -742,6 +690,35 @@ sub _flush_queue
     $cacheVersion = pop @{$result};
 }
 
+sub _parent_dir
+{
+    my ($self, $key, $create) = @_;
+
+    my (@dirs, undef) = split ('/', $key);
+    my $name = shift @dirs;
+    unless (exists $keys{$name}) {
+        if ($create) {
+            $keys{$name} = {};
+        } else {
+            return undef;
+        }
+    }
+    my $dir = $keys{$name};
+    while (@dirs) {
+        $name = shift @dirs;
+        unless (exists $dir->{$name}) {
+            if ($create) {
+                $dir->{$name} = {};
+            } else {
+                return undef;
+            }
+        }
+        $dir = $dir->{$name};
+    }
+
+    return $dir;
+}
+
 # Redis call proxy, tries to get the result from cache and fallbacks
 # to _redis_call_wrapper if not present or cache dirty
 #
@@ -749,13 +726,20 @@ sub _redis_call
 {
     my ($self, $command, @args) = @_;
 
-    # Check process id and respawn redis if has changed (fork)
-    if ($self->{pid} ne $$) {
-        $self->_respawn();
-    }
-
     my $wantarray = wantarray;
     my ($key, @values) = @args;
+
+    unless ($CACHE_ENABLED) {
+        my $response = $self->_redis_call_wrapper($wantarray, $command, @args);
+        if (ref ($response) eq 'ARRAY') {
+            return @{$response};
+        } elsif (ref ($response) eq 'HASH') {
+            return %{$response};
+        } else {
+            return $response;
+        }
+    }
+
     my $value = $values[0];
 
     my $write = 1;
@@ -773,7 +757,7 @@ sub _redis_call
             $value = shift @values;
             $cache{$key}->{value}->{$field} = $value;
         }
-    } elsif (($command eq 'hdel') or ($command eq 'srem')) {
+    } elsif ($command eq 'hdel') {
         foreach my $field (@values) {
             delete $cache{$key}->{value}->{$field};
         }
@@ -784,33 +768,11 @@ sub _redis_call
         foreach my $val (@values) {
             push (@{$cache{$key}->{value}}, $val);
         }
-    } elsif ($command eq 'sadd') {
-        unless (exists $cache{$key} and exists $cache{$key}->{value}) {
-            $cache{$key} = { type => 'set', value => {} };
-        }
-        foreach my $val (@values) {
-            $cache{$key}->{value}->{$val} = 1;
-        }
     } else {
         $write = 0;
 
         if ($command eq 'keys') {
-            my $keys = $self->_redis_call_wrapper(1, 'keys', $key);
-
-            foreach my $name (@{$keys}) {
-                unless (exists $cache{$name}) {
-                    $cache{$name} = {};
-                }
-            }
-
-            chop ($key); # remove the '*' at the end
-            my @keylist;
-            foreach my $name (keys %cache) {
-                if ($name =~ /^$key/) {
-                    push (@keylist, $name);
-                }
-            }
-            return @keylist;
+            return $self->_keys_wrapper($key);
         }
 
         # Get from redis if not in cache
@@ -822,12 +784,7 @@ sub _redis_call
             $value = $self->_redis_call_wrapper(0, 'type', @args);
             $cache{$key} = { type => $value };
         } elsif (not exists $cache{$key}->{value}) {
-            if (($command eq 'smembers') or
-                ($command eq 'scard') or ($command eq 'sismember')) {
-                $value = $self->_redis_call_wrapper(1, 'smembers', $key);
-                my %members = map { $_ => 1 } @{$value};
-                $cache{$key} = { type => 'set', value => \%members };
-            } elsif (($command eq 'hget') or ($command eq 'hgetall')) {
+            if (($command eq 'hget') or ($command eq 'hgetall')) {
                 $value = $self->_redis_call_wrapper(1, 'hgetall', $key);
                 $cache{$key} = { type => 'hash', value => {@{$value}} };
             } else {
@@ -845,15 +802,9 @@ sub _redis_call
             return exists $cache{$key};
         } elsif ($command eq 'get') {
             return $cache{$key}->{value};
-        } elsif ($command eq 'sismember') {
-            return $cache{$key}->{value}->{$value};
         } elsif ($command eq 'lrange') {
             return () unless (defined $cache{$key}->{value});
             return @{$cache{$key}->{value}};
-        } elsif ($command eq 'smembers') {
-            return keys %{$cache{$key}->{value}};
-        } elsif ($command eq 'scard') {
-            return scalar (keys %{$cache{$key}->{value}});
         } elsif ($command eq 'hget') {
             return undef unless (exists $cache{$key}->{value}->{$value});
             return $cache{$key}->{value}->{$value};
@@ -867,7 +818,39 @@ sub _redis_call
 
     if ($write) {
         push (@queue, { cmd => $command, args => \@args });
+
+        # Update keys cache
+        my $dir = $self->_parent_dir($key);
+        if ($dir) {
+            if ($command eq 'del') {
+                delete $dir->{$key};
+            }  else {
+                $dir->{$key} = 1;
+            }
+        }
     }
+}
+
+sub _keys_wrapper
+{
+    my ($self, $pattern) = @_;
+
+    my $keys = undef;
+    my $dir = $self->_parent_dir($pattern);
+    if (defined ($dir)) {
+        $keys = [ keys %{$dir} ];
+    } else {
+        $dir = $self->_parent_dir($pattern, 1);
+        $keys = $self->_redis_call_wrapper(1, 'keys', $pattern);
+        foreach my $name (@{$keys}) {
+            unless (exists $cache{$name}) {
+                $cache{$name} = {};
+            }
+            $dir->{$name} = 1;
+        }
+    }
+
+    return @{$keys};
 }
 
 # Wrapper to reconnect to redis in case of detecting a failure when
@@ -876,6 +859,11 @@ sub _redis_call
 sub _redis_call_wrapper
 {
     my ($self, $wantarray, $command, @args) = @_;
+
+    # Check process id and respawn redis if has changed (fork)
+    if ($self->{pid} ne $$) {
+        $self->_respawn();
+    }
 
     my $response;
     my @response;

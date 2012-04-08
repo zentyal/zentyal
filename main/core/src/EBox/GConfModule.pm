@@ -210,6 +210,7 @@ sub _copy
     $self->{redis}->backup_dir($key, "/$dst/modules/" . $self->name);
 }
 
+# TODO: remove all the low-level _change calls here if at some point everything is modelized
 sub _change
 {
     my ($self) = @_;
@@ -715,21 +716,15 @@ sub _set_hash_value
     my ($self, $key, $field, $value) = @_;
 
     $key = $self->_key($key);
-    if (defined ($value)) {
-        if (keys %{$value}) {
-            $self->redis->set_hash_value($key, $field, $value);
-        } else {
-            $self->redis->hash_delete($key, $field);
-        }
-    }
+    $self->redis->set_hash_value($key, $field, $value);
 }
 
 sub set_hash_value
 {
-    my ($self, $key, $hash) = @_;
+    my ($self, $key, $field, $value) = @_;
 
     $self->_config;
-    $self->_set_hash_value($key, $hash);
+    $self->_set_hash_value($key, $field, $value);
 }
 
 #############
@@ -939,6 +934,14 @@ sub st_set_list # (key, type, value)
     my ($self, $key, $type, $val) = @_;
     $self->_state;
     $self->_set_list($key, $type, $val);
+}
+
+sub list_add
+{
+    my ($self, $key, $val) = @_;
+
+    $key = $self->_key($key);
+    $self->redis->list_add($key, $val);
 }
 
 #############

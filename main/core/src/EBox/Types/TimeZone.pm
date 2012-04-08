@@ -212,6 +212,8 @@ sub _paramIsValid
     my $continentValue = $params->{$continent};
     my $countryValue   = $params->{$country};
 
+    return 0 unless ($continentValue and $countryValue);
+
     unless (defined ($zones)) {
         $zones = $self->_loadZones();
     }
@@ -244,7 +246,12 @@ sub _paramIsValid
 #
 sub _paramIsSet
 {
-    return 1;
+    my ($self, $params) = @_;
+
+    my $continent = $self->fieldName() . '_continent';
+    my $country   = $self->fieldName() . '_country';
+
+    return (exists $params->{$continent} and exists $params->{$country});
 }
 
 # Method: _setValue

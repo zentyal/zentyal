@@ -38,7 +38,6 @@ use English qw(-no_match_vars);
 use File::Basename;
 use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
-use File::Path qw(remove_tree);
 
 # Constants
 use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
@@ -107,12 +106,18 @@ sub _daemon
     my $conf = EBox::Config::conf();
     my $ctl = "APACHE_CONFDIR=$conf apache2ctl";
 
+    # Sometimes apache is running but for some reason apache.pid does not
+    # exist, with this workaround we always ensure a successful restart
+    my $pid = EBox::Config::tmp() . 'apache.pid';
+    unless (-f $pid) {
+        system("ps ax|grep 'apache2 -d $conf'|awk '{print \$1;exit}' > $pid");
+    }
+
     if ($action eq 'stop') {
         EBox::Sudo::root("$ctl stop");
     } elsif ($action eq 'start') {
         EBox::Sudo::root("$ctl start");
     } elsif ($action eq 'restart') {
-        my $pid;
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
         }
@@ -237,7 +242,7 @@ sub _writeCAPath
 {
     my ($self) = @_;
 
-    remove_tree(CA_CERT_PATH);
+    system('rm -rf ' . CA_CERT_PATH);
     mkdir(CA_CERT_PATH);
 
     # Write links for each CA
