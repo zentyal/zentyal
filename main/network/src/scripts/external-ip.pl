@@ -53,7 +53,7 @@ my $gwMark = $marks->{$gwId};
 my @rules = ( "/sbin/iptables -t mangle -F $CHAIN || true",
               "/sbin/iptables -t mangle -D OUTPUT -j $CHAIN || true",
               "/sbin/iptables -t mangle -N $CHAIN || true",
-              "/sbin/iptables -t mangle -A OUTPUT -j $CHAIN");
+              "/sbin/iptables -t mangle -I OUTPUT -j $CHAIN");
 EBox::Sudo::root(@rules);
 
 my $rule = "/sbin/iptables -t mangle -A $CHAIN -d $DST_HOST " .
