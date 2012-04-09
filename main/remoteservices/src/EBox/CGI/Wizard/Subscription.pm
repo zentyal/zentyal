@@ -61,8 +61,8 @@ sub _masonParameters
 
     my $promo = ($res eq '1');
 
-    my $lang = EBox::locale();
-    $lang = 'en' if ($lang ne 'es');
+    my ($lang) = split ('_', EBox::locale());
+    $lang = 'en' unless ($lang eq 'es');
 
     push (@params, promo_available => $promo);
     push (@params, lang => $lang);
