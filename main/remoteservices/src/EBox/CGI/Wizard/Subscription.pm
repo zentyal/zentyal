@@ -31,6 +31,7 @@ use Error qw(:try);
 
 use constant SOAP_URI => 'http://www.zentyal.com';
 use constant SOAP_PROXY => 'https://api.zentyal.com/2.2/';
+use constant PROMO_AVAILABLE => 'https://api.zentyal.com/2.2/promo_available';
 
 sub new # (cgi=?)
 {
@@ -47,8 +48,18 @@ sub _masonParameters
 
     my @params = ();
     my $global = EBox::Global->getInstance();
-    my $image = $global->theme()->{'image_title'};
-    push (@params, image_title => $image);
+
+    # check if subscription promo is available (to show the banner)
+    my $res;
+    try {
+        $res = join('', @{EBox::Sudo::command('curl ' . PROMO_AVAILABLE)});
+        chomp($res);
+    } otherwise {
+        EBox::error("Could not retrieve subscription promo status: $res");
+    };
+
+    my $promo = ($res eq '1');
+    push (@params, promo_available => $promo);
     return \@params;
 }
 

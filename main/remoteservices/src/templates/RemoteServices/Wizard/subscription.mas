@@ -1,5 +1,5 @@
 <%args>
-   $image_title
+   $promo_available
 </%args>
 <%init>
 use EBox::Gettext;
@@ -186,7 +186,9 @@ th {
         </div>
 
         <div id="promo" style="display: none; margin-top: 15px">
+% if ($promo_available) {
             <img src="/data/images/promo-10-off-en.png" />
+% }
         </div>
      </div>
 
