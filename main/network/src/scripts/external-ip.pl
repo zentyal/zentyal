@@ -25,10 +25,11 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Network;
 use Pod::Usage;
 
 # Constants
-my $CHAIN = 'CHECKIP-TEST';
+my $CHAIN = EBox::Network::CHECKIP_CHAIN();
 my $DST_HOST = 'checkip.dyndns.org';
 
 if (scalar(@ARGV) != 1 ) {
@@ -42,7 +43,7 @@ my $networkMod = EBox::Global->modInstance('network');
 my $gwModel = $networkMod->model('GatewayTable');
 
 my $gwId = $gwModel->findId(name => $ARGV[0]);
-unless ( defined($gwId) ) {
+unless (defined($gwId)) {
     pod2usage(-msg => "$ARGV[0] is not a valid gateway name", -exitval => 2);
 }
 
@@ -50,25 +51,17 @@ my $marks  = $networkMod->marksForRouters();
 my $gwMark = $marks->{$gwId};
 
 # Add the iptables marks
-my @rules = ( "/sbin/iptables -t mangle -F $CHAIN || true",
-              "/sbin/iptables -t mangle -D OUTPUT -j $CHAIN || true",
-              "/sbin/iptables -t mangle -N $CHAIN || true",
-              "/sbin/iptables -t mangle -I 2 OUTPUT -j $CHAIN");
+my @rules = ("/sbin/iptables -t mangle -F $CHAIN || true",
+             "/sbin/iptables -t mangle -A $CHAIN -d $DST_HOST " .
+             "-m owner --gid-owner ebox -j MARK --set-mark $gwMark");
 EBox::Sudo::root(@rules);
-
-my $rule = "/sbin/iptables -t mangle -A $CHAIN -d $DST_HOST " .
-           "-m owner --gid-owner ebox -j MARK --set-mark $gwMark";
-EBox::Sudo::root($rule);
 
 # Perform the query as ebox
 my $output = EBox::Sudo::command("/usr/bin/wget http://$DST_HOST -O - -q");
 my ($ip) = $output->[0] =~ m/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/;
 
-# Remove the iptables marks
-@rules = ("/sbin/iptables -t mangle -F $CHAIN",
-          "/sbin/iptables -t mangle -D OUTPUT -j $CHAIN",
-          "/sbin/iptables -t mangle -X $CHAIN");
-EBox::Sudo::root(@rules);
+# Flush the CHECKIP chain
+EBox::Sudo::silentRoot("/sbin/iptables -t mangle -F $CHAIN");
 
 print "$ip\n";
 
