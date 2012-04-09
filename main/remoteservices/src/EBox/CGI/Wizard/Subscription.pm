@@ -22,6 +22,7 @@ use base 'EBox::CGI::WizardPage';
 
 use feature qw(switch);
 
+use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions;
@@ -52,14 +53,19 @@ sub _masonParameters
     # check if subscription promo is available (to show the banner)
     my $res;
     try {
-        $res = join('', @{EBox::Sudo::command('curl ' . PROMO_AVAILABLE)});
+        $res = join('', @{EBox::Sudo::command('curl --connect-timeout 5 ' . PROMO_AVAILABLE)});
         chomp($res);
     } otherwise {
         EBox::error("Could not retrieve subscription promo status: $res");
     };
 
     my $promo = ($res eq '1');
+
+    my $lang = EBox::locale();
+    $lang = 'en' if ($lang ne 'es');
+
     push (@params, promo_available => $promo);
+    push (@params, lang => $lang);
     return \@params;
 }
 
@@ -74,10 +80,6 @@ sub _processWizard
 
     # Registration
     if ($self->param('action') eq 'register') {
-        $self->_requireParam('firstname', __('First name'));
-        $self->_requireParam('lastname', __('Last name'));
-        $self->_requireParam('country', __('Country'));
-        $self->_requireParam('phone', __('Phone number'));
         $self->_requireParam('password2', __('Repeated password'));
 
         unless ($self->param('password') eq $self->param('password2')) {
