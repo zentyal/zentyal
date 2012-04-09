@@ -1,5 +1,8 @@
 2.2.7
-	+ Insert check-ip rules in correct order to avoid mark problems
+	+ Insert fwmark ip rules before from ones
+	+ Remove no longer necessary mark rules when having several interfaces
+	+ Pre-create failover and check-ip chains on network start to always ensure
+	  that rules are inserted in the proper position
 	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
 	+ Fixed restore of default gateway in failover event
 2.2.6
