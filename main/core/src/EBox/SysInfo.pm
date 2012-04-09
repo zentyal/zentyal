@@ -428,8 +428,8 @@ sub logReportInfo
     $totalEntry->{'table'} = 'sysinfo_disk_usage';
     $totalEntry->{'values'} = {};
     $totalEntry->{'values'}->{'mountpoint'} = 'total';
-    $totalEntry->{'values'}->{'used'} = sum(map { $_->{'values'}->{'used'} } @data);
-    $totalEntry->{'values'}->{'free'} = sum(map { $_->{'values'}->{'free'} } @data);
+    $totalEntry->{'values'}->{'used'} = sum(map { $_->{'values'}->{'used'} ? $_->{'values'}->{'used'} : 0 } @data);
+    $totalEntry->{'values'}->{'free'} = sum(map { $_->{'values'}->{'free'} ? $_->{'values'}->{'free'} : 0 } @data);
     unshift(@data, $totalEntry);
 
     return \@data;
