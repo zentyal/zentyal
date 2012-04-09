@@ -966,7 +966,7 @@ sub _purgeTable
   }
 
   my $sqlStatement = "DELETE FROM $table WHERE $timeCol < '$finalThreshold'";
-  $dbengine->query($sqlStatement);
+  $dbengine->do($sqlStatement);
 }
 
 sub archiveBackupSlices

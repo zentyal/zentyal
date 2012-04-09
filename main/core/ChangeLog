@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed log purge, SQL call must be a statement not a query
+	+ Fixed regex syntax in user log queries
 	+ Added missing "use Filesys::Df" to SysInfo
 	+ Avoid problems restarting apache when .pid file does not exist
 	+ Do not use graceful on apache to allow proper change of listen port
