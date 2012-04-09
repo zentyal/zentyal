@@ -164,7 +164,7 @@ th {
                   </tr>
                   <tr>
                     <th></th>
-                    <th>* Required fields</th>
+                    <th>* <% __s('Required fields') %></th>
                   </tr>
                   <tr id="subs_newsletter" style="display: none">
                      <td colspan="2">
