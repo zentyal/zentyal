@@ -1,5 +1,5 @@
 HEAD
-	+ Insert check-ip rules before failover one to not interfere
+	+ Insert check-ip rules in correct order to avoid mark problems
 	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
 2.3.6
 	+ Create tables with MyISAM engine by default
