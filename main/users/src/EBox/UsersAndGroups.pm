@@ -997,8 +997,6 @@ sub initialSlaveSync
     }
 }
 
-
-
 sub isUserCorner
 {
     my ($self) = @_;
@@ -1009,7 +1007,8 @@ sub isUserCorner
         $auth_type = $r->auth_type;
     } catch Error with {};
 
-    return ($auth_type eq 'EBox::UserCorner::Auth');
+    return (defined $auth_type and
+            $auth_type eq 'EBox::UserCorner::Auth');
 }
 
 # Method: defaultUserModels
