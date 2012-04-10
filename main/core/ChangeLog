@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed RAID report for some cases of spare devices and bitmaps
 	+ Avoid problems restarting apache when .pid file does not exist
 	+ Do not use graceful on apache to allow proper change of listen port
 	+ Simplified apache restart mechanism and avoid some problems
