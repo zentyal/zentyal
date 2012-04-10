@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: subscription 1.5\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
-"POT-Creation-Date: 2011-09-10 02:15+0200\n"
+"POT-Creation-Date: 2012-04-10 02:03+0200\n"
 "PO-Revision-Date: 2010-08-19 15:48+0200\n"
 "Last-Translator: Heidi Vilppola <hvilppola@zentyal.com>\n"
 "Language-Team: none\n"
@@ -17,96 +17,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:238
-#, perl-brace-format
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:239
+#, fuzzy, perl-brace-format
 msgid ""
-"Want to remove ads from the websites your users browse? Get the "
-"{ohs}Small Business{ch} or {ohe}Enterprise Edition"
-"{ch} that include the Ad blocking feature in the automatic "
-"security updates."
+"Want to remove ads from the websites your users browse? Get the {ohs}Small "
+"Business{ch} or {ohe}Enterprise Edition {ch} that include the Ad blocking "
+"feature in the automatic security updates."
 msgstr ""
-"¿Quieres eliminar los anuncios de la navegación de tus usuarios? Obtén "
-"la edición {ohs}Small Business{ch} o {ohe}Enterprise"
-"{ch} que incluyen el servicio de Ad Blocking en las "
-"actualizaciones de seguridad automáticas."
+"¿Quieres eliminar los anuncios de la navegación de tus usuarios? Obtén la "
+"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
+"servicio de Ad Blocking en las actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:493
-#, perl-brace-format
+#: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:495
+#, fuzzy, perl-brace-format
 msgid ""
-"Want to avoid threats such as malware, phishing and bots? Get the "
-"{ohs}Small Business{ch} or {ohe}Enterprise Edition"
-"{ch} that include the Content Filtering feature in the "
-"automatic security updates."
+"Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
+"Business{ch} or {ohe}Enterprise Edition {ch} that include the Content "
+"Filtering feature in the automatic security updates."
 msgstr ""
-"¿Quieres evitar amenazas como el malware, phishing y los bots? Obtén "
-"la edición {ohs}Small Business{ch} o {ohe}Enterprise "
-"{ch} que incluyen el servicio de Sistema de Filtrado de "
-"Contenidos en las actualizaciones de seguridad automáticas."
+"¿Quieres evitar amenazas como el malware, phishing y los bots? Obtén la "
+"edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que incluyen el "
+"servicio de Sistema de Filtrado de Contenidos en las actualizaciones de "
+"seguridad automáticas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1692
+#: ../../main/squid/src/EBox/Squid.pm:909
+#, fuzzy, perl-brace-format
+msgid ""
+"This is an unsupported Community Edition. Get the fully supported {ohs}Small "
+"Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates."
+msgstr ""
+"¿Quieres eliminar los anuncios de la navegación de tus usuarios? Obtén la "
+"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
+"servicio de Ad Blocking en las actualizaciones de seguridad automáticas."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1721
 #, perl-brace-format
 msgid "Not subscribed - {oh}Subscribe now!{ch}"
 msgstr "No suscrito - {oh}¡Suscríbete ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1695
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1724
 #, perl-brace-format
 msgid "None - {oh}Get Free Basic Subscription!{ch}"
 msgstr "Ninguna - {oh}¡Consigue una Suscripción Básica gratuita!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1698
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1727
 #, perl-brace-format
 msgid "Disabled - {oh}Enable{ch}"
 msgstr "Desactivado - {oh}Activar{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1714
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1743
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1716
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1745
 msgid "Disaster Recovery"
 msgstr "Recuperación de Desastres"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:183
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:160
 #, perl-brace-format
 msgid "{oh}On-line Support Platform{ch}"
 msgstr "{oh}Plataforma de Soporte On-line{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:186
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:163
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat and Phone upon request{cs}"
 msgstr ""
 "{os}{oh}Plataforma de Soporte On-line{ch}, Chat y Teléfono bajo petición{cs}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:191
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:168
 #, perl-brace-format
 msgid "{os}{oh}On-line Support Platform{ch}, Chat, Phone{cs}"
 msgstr "{os}{oh}Plataforma de Soporte On-line{ch}, Chat, Teléfono{cs}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:200
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:177
 msgid "Next Business Day"
 msgstr "Siguiente Día Laborable"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:201
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:178
 msgid "4 hours"
 msgstr "4 horas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:202
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:179
 msgid "1 hour"
 msgstr "1 hora"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:221
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:197
 #, perl-brace-format
 msgid ""
 "Want to install and configure your server correctly right from the start and "
-"receive maintenance support whenever necessary? Get the {ohs}Small "
-"Business{ch} or {ohe}Enterprise Edition{ch}: both include "
-"technical support for an unlimited number of Zentyal server related issues."
+"receive maintenance support whenever necessary? Get the {ohs}Small Business"
+"{ch} or {ohe}Enterprise Edition{ch}: both include technical support for an "
+"unlimited number of Zentyal server related issues."
 msgstr ""
 "¿Quieres instalar y configurar tu servidor correctamente desde el principio "
-"y recibir soporte de mantenmiento cuando lo necesites? Obtén la edición "
-"{ohs}Small Business{ch} o {ohe}Enterprise{ch}: "
-"ambos incluyen un número ilimitado de incidencias relacionadas con el "
-"servidor Zentyal."
+"y recibir soporte de mantenmiento cuando lo necesites? Obtén la edición {ohs}"
+"Small Business{ch} o {ohe}Enterprise{ch}: ambos incluyen un número ilimitado "
+"de incidencias relacionadas con el servidor Zentyal."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:147
 #, perl-brace-format
@@ -114,27 +120,27 @@ msgid "<span>None - {ohb}Get Free Basic Subscription{ch}</span>"
 msgstr ""
 "<span>Ninguna - {ohb}Consigue una Suscripción Básica gratuita{ch}</span>"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:188
-#, perl-brace-format
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:205
+#, fuzzy, perl-brace-format
 msgid ""
-"Want to offer enterprise-level security for your organization? Get the "
-"{ohs}Small Business{ch} or {ohe}Enterprise Edition "
-"{ch}: both include automatic security updates so you can stop "
-"worrying about the Antivirus, Antispam, IDS and the Content Filtering System."
+"Want to offer enterprise-level security for your organization? Get the {ohs}"
+"Small Business{ch} or {ohe}Enterprise Edition{ch}: both include automatic "
+"security updates so you can stop worrying about the Antivirus, Antispam, IDS "
+"and the Content Filtering System."
 msgstr ""
 "¿Quieres ofrecer seguridad a nivel empresarial para tu organización? Obtén "
-"la edición {ohs}Small Business{ch} o {ohe}Enterprise "
-"{ch}: ambos incluyen actualizaciones de seguridad automáticas para "
-"que puedas dejar de preocuparte de Antivirus, Antispam, IDS y del Filtrado "
-"de contenidos."
+"la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch}: ambos incluyen "
+"actualizaciones de seguridad automáticas para que puedas dejar de "
+"preocuparte de Antivirus, Antispam, IDS y del Filtrado de contenidos."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:264
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:266
+#, fuzzy
 msgid ""
-"To subscribe your Zentyal server to Zentyal Cloud, you need to have the Free "
-"Basic Subscription, or Small Business or Enterprise Edition, all available in "
-"the Zentyal On-line Store. Once you have one of these services, you will be "
-"sent a user name and password: insert them below to subscribe your server to "
-"Zentyal Cloud."
+"To subscribe your Zentyal server to Zentyal Cloud, you have to have the Free "
+"Basic Subscription, or Small Business, or Enterprise Edition, all available "
+"in the Zentyal On-line Store. Once you have obtained one of these services, "
+"you will be sent a user name and password you can use below to subscribe "
+"your server to Zentyal Cloud."
 msgstr ""
 "Para suscribir tu servidor Zentyal a Zentyal Cloud, necesitas obtener una "
 "Suscripción Básica o una edición Small Business o Enterprise, todos "
@@ -142,18 +148,17 @@ msgstr ""
 "de estos servicios, recibirás un nombre de usuario y contraseña: insértalos "
 "en el formulario situado debajo para suscribir tu servidor a Zentyal Cloud."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:608
-#, perl-brace-format
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:610
+#, fuzzy, perl-brace-format
 msgid ""
 "Want to guarantee that your Zentyal server is always up-to-date, secured and "
-"supported? Get the {ohs}Small Business{ch} or {ohe} "
-"Enterprise Edition{ch}!"
+"supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!"
 msgstr ""
 "¿Quieres garantizar que tu servidor Zentyal este siempre al día, seguro y "
 "que cuente con el soporte técnico? ¡Obtén la edición {ohs}Small Business "
 "{ch} o {ohe}Enterprise{ch}!"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:178
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:173
 msgid ""
 "As to the estimated time to recover from a disaster, estimation consists of "
 "45 minutes to install Zentyal server, upper bound of the backup size and "
@@ -164,27 +169,25 @@ msgstr ""
 "calculado para descargar la copia de seguridad, dependiendo de su tamaño y "
 "la velocidad de descarga."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:314
-#, perl-brace-format
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:305
+#, fuzzy, perl-brace-format
 msgid ""
 "Want to ensure the availability of your business critical data at all times? "
-"Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition "
-"{ch}! Take a look and try out the Free {ohb}Basic Subscription{ch} "
-"which allows you to store one configuration backup remotely."
+"Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}! Take a look "
+"and try out the Free {ohb}Basic Subscription{ch} which allows you to store "
+"one configuration backup remotely."
 msgstr ""
-"¿Quieres asegurar la disponibilidad de los datos críticos de tu "
-"organización en todo momento? ¡Obtén la edición {ohs}Small Business "
-"{ch} o {ohe}Enterprise{ch}! Pruébalo tú mismo con la {ohb}"
-"Suscripción Básica{ch}, que permite guardar una copia de seguridad remota de "
-"tu configuración."
+"¿Quieres asegurar la disponibilidad de los datos críticos de tu organización "
+"en todo momento? ¡Obtén la edición {ohs}Small Business {ch} o {ohe}Enterprise"
+"{ch}! Pruébalo tú mismo con la {ohb}Suscripción Básica{ch}, que permite "
+"guardar una copia de seguridad remota de tu configuración."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:320
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:314
 #, perl-brace-format
 msgid ""
 "Want to ensure that your business critical data and system configuration is "
 "stored in a safe remote location and can be easily restored in case of a "
-"disaster? Get the {ohs}Small Business{ch} or {ohe}Enterprise "
-"Edition{ch}!"
+"disaster? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!"
 msgstr ""
 "¿Quieres asegurar que los datos críticos de tu organización y la "
 "configuración de tu sistema estén guardados en una ubicación remota segura y "
@@ -192,161 +195,221 @@ msgstr ""
 "{ohs}Small Business{ch} o {ohe}Enterprise{ch}!"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:95
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "Get a Free {ohb}Basic Subscription{ch}! It gives you a preview of Zentyal "
-"Cloud and allows access to some basic features, such as basic alerts, "
+"Cloud and allows you access to some basic features, such as basic alerts, "
 "reports, monitoring options and jobs. In addition, it allows you to "
 "configure one remote configuration backup and create zentyal.me subdomain "
-"for your server."
+"for your server)."
 msgstr ""
 "¡Obtén la {ohb}Suscripción Básica{ch} gratuita! Te ofrece una demostración "
 "de Zentyal Cloud y te dará acceso a algunas de las funcionalidades básicas, "
 "como por ejemplo alertas básicas, informes, opciones de monitorización y "
 "trabajos básicos. Además, te permitirá realizar una copia de seguridad "
-"remota de tu configuración y crear un subdominio zentyal.me para tu "
-"servidor."
+"remota de tu configuración y crear un subdominio zentyal.me para tu servidor."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:577
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:163
+#, perl-brace-format
+msgid "You cannot get Module {mod} enabled with Small Business Edition"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:180
+msgid ""
+"The Small Business Edition can be only used in master mode or Active "
+"Directory slave"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:184
+#, fuzzy
+msgid "The Small Business Edition cannot have got slaves"
+msgstr "Edición Small Business"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:189
 #, perl-brace-format
 msgid ""
-"Choosing {brand} method you will use the {ohref}{service} service{chref}. "
+"The maximum number of users for Small Business Edition is {max} and you "
+"currently have {nUsers}"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:208
+#, perl-brace-format
+msgid ""
+"The Small Business Edition cannot have VPN tunnels among Zentyal servers and "
+"'{name}' VPN server is configured to allow this kind of tunnels"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:217
+#, perl-brace-format
+msgid ""
+"The Small Business Edition cannot have VPN tunnels among Zentyal servers and "
+"'{name}' VPN client is connected to another Zentyal server"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:90
+msgid "You must agree to the privacy policy to continue"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:581
+#, fuzzy, perl-brace-format
+msgid ""
+"Choosing {brand} method you will use the {ohref}{service} service{ch}.  "
 "Ensure that your business critical data and system configuration is stored "
-"in a safe remote location and can be easily restored in case of a disaster? "
-"Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition "
-"{ch} to enable the service."
+"in a safe remote location and can be easily restored in case of a disaster?  "
+"Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} to enable "
+"the service."
 msgstr ""
 "Si escoges el método {brand}, usarás el {ohref}servicio {service}{chref}. "
 "Asegura que los datos críticos de tu organización y la configuración de tu "
 "sistema estén guardados en una ubicación remota segura y puedan ser "
-"fácilmente recuperados en caso de desastre. ¡Obtén la edición "
-"{ohs}Small Business{ch} o {ohe}Enterprise{ch} para "
-"activar este servicio."
+"fácilmente recuperados en caso de desastre. ¡Obtén la edición {ohs}Small "
+"Business{ch} o {ohe}Enterprise{ch} para activar este servicio."
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:582
 msgid "Zentyal Cloud"
 msgstr ""
 
-#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:578
+#: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:582
 msgid "Zentyal Disaster Recovery"
 msgstr "Recuperación de Desastres"
 
-#: ../../main/network/src/EBox/Model/DynDNS.pm:277
-#, perl-brace-format
+#: ../../main/network/src/EBox/Model/DynDNS.pm:278
+#, fuzzy, perl-brace-format
 msgid ""
-"You can configure your Dynamic DNS provider here. If your server is already "
+"You can configure your Dynamic DNS provider here. If yor server is already "
 "subscribed to Zentyal Cloud, your provider is Zentyal Cloud. Get the Free "
-"{ohb}Basic Subscription{ch}, or {ohs}Small Business{ch} or "
-"{ohe}Enterprise{ch} to obtain zentyal.me subdomain for your "
-"server."
+"{ohb}Basic Subscription{ch}, or {ohs}Small Business{ch} or {ohe}Enterprise"
+"{ch} to obtain zentyal.me subdomain for your server."
 msgstr ""
 "Puedes configurar tu proveedor de DNS Dinámico aquí. Si tu servidor ya está "
-"suscrito a Zentyal Cloud, tu proveedor es Zentyal Cloud. Obtén la "
-"{ohb}Suscripción Básica{ch} o una edición {ohs}Small Business "
-"{ch} o {ohe}Enterprise{ch} para conseguir un subdominio "
-"zentyal.me para tu servidor."
+"suscrito a Zentyal Cloud, tu proveedor es Zentyal Cloud. Obtén la {ohb}"
+"Suscripción Básica{ch} o una edición {ohs}Small Business {ch} o {ohe}"
+"Enterprise{ch} para conseguir un subdominio zentyal.me para tu servidor."
 
-#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:113
-#, perl-brace-format
+#: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:112
+#, fuzzy, perl-brace-format
 msgid ""
-"Want to keep spam out of your mail servers? Get the {ohe}Enterprise "
-"Edition{ch} that includes the Antispam feature in the automatic "
+"Want to keep spam out of your mail servers? Get the {openhref}Enterprise "
+"Edition{closehref} that includes the Antispam feature in the automatic "
 "security updates."
 msgstr ""
-"¿Quieres evitar el spam en tus servidores de correo? Obtén la edición "
-"{ohe}Enterprise{ch} que incluye el servicio de Antispam en las "
-"actualizaciones de seguridad automáticas."
+"¿Quieres evitar el spam en tus servidores de correo? Obtén la edición {ohe}"
+"Enterprise{ch} que incluye el servicio de Antispam en las actualizaciones de "
+"seguridad automáticas."
 
-#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:194
+#: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:196
 #, perl-brace-format
 msgid ""
 "Want to protect your system against scams, spear phishing, frauds and other "
-"junk? Get the {ohs}Small Business{ch} or {ohe}Enterprise "
-"Edition{ch} that include the Antivirus feature in the automatic "
-"security updates."
+"junk? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that "
+"include the Antivirus feature in the automatic security updates."
 msgstr ""
 "¿Quieres proteger tu sistema contra las estafas, phishing, fraudes y otras "
-"amenazas? Obtén la edición {ohs}Small Business{ch} o "
-"{ohe}Enterprise{ch} que incluyen el servicio de Antivirus en "
-"las actualizaciones de seguridad automáticas."
+"amenazas? Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que "
+"incluyen el servicio de Antivirus en las actualizaciones de seguridad "
+"automáticas."
 
-#: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:572
+#: ../../main/core/src/EBox/Events/Model/ConfigureEventDataTable.pm:562
 #, perl-brace-format
 msgid ""
 "Want to receive an alert when something has gone wrong in your system? Get "
-"the {ohs}Small Business{ch} or {ohe}Enterprise "
-"Edition{ch} to enable all automatic alerts."
+"the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to enable all "
+"automatic alerts."
 msgstr ""
 "¿Quieres recibir una alerta cuando algo ha fallado en tu sistema? Obtén la "
-"edición {ohs}Small Business{ch} o {ohe}Enterprise "
-"{ch} para activar todas las alertas automáticas."
+"edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
+"las alertas automáticas."
 
-#: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:219
+#: ../../main/core/src/EBox/Logs/Model/SelectLog.pm:216
 #, perl-brace-format
 msgid ""
 "Want to know what is your system status and usage? Get the {ohs}Small "
-"Business{ch} or {ohe}Enterprise Edition{ch} to receive "
-"regular system reports."
+"Business{ch} or {ohe}Enterprise Edition{ch} to receive regular system "
+"reports."
 msgstr ""
 "¿Quieres conocer el estado de tu sistema y el uso que se le está dando? "
-"Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise "
-"{ch} para recibir informes frequentes del sistema."
+"Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para recibir "
+"informes frequentes del sistema."
 
-#: ../../main/core/src/EBox/SysInfo.pm:540
-#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:200
-#: ../../main/software/src/templates/updateNote.mas:13
+#: ../../main/core/src/EBox/SysInfo.pm.in:542
+#, fuzzy
 msgid ""
 "Warning: The updates are community based and there is no guarantee that your "
 "server will work properly after applying them. In production environments "
-"you should use the {ohs}Small Business{ch} or "
-"{ohe}Enterprise Edition{ch} that include quality assured "
-"software updates."
+"you should use the Small Business or Enterprise Edition that include quality "
+"assured software updates."
 msgstr ""
 "Aviso: Estas actualizaciones son de comunidad y no garantizan que tu "
-"servidor funcione correctamente después de haberlas aplicado. En entornos "
-"de producción deberás usar la edición {ohs}Small Business{ch} o "
-"{ohe}Enterprise{ch} que incluyen actualizaciones de software "
-"con garantía de calidad."
+"servidor funcione correctamente después de haberlas aplicado. En entornos de "
+"producción deberás usar la edición {ohs}Small Business{ch} o {ohe}Enterprise"
+"{ch} que incluyen actualizaciones de software con garantía de calidad."
 
-#: ../../main/core/src/EBox/SysInfo.pm.in:555
+#: ../../main/core/src/EBox/SysInfo.pm.in:547
 #: ../../main/software/src/templates/updateNote.mas:10
 msgid ""
 "Your commercial server edition guarantees that these are quality assured "
 "software updates and will be automatically applied to your system."
 msgstr ""
-"Tu edición comercial del servidor asegura que estas actualizaciones "
-"tienen garantía de calidad y se aplicarán automáticamente a tu sistema."
+"Tu edición comercial del servidor asegura que estas actualizaciones tienen "
+"garantía de calidad y se aplicarán automáticamente a tu sistema."
 
-#: ../../main/ids/src/EBox/Composite/General.pm:118
+#: ../../main/core/src/EBox/Event/Watcher/Updates.pm:203
+#: ../../main/software/src/templates/updateNote.mas:13
+#, perl-brace-format
+msgid ""
+"Warning: The updates are community based and there is no guarantee that your "
+"server will work properly after applying them. In production environments "
+"you should use the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} "
+"that include quality assured software updates."
+msgstr ""
+"Aviso: Estas actualizaciones son de comunidad y no garantizan que tu "
+"servidor funcione correctamente después de haberlas aplicado. En entornos de "
+"producción deberás usar la edición {ohs}Small Business{ch} o {ohe}Enterprise"
+"{ch} que incluyen actualizaciones de software con garantía de calidad."
+
+#: ../../main/ids/src/EBox/Model/Rules.pm:206
+#, perl-brace-format
+msgid "Advanced Security Updates grants you to use daily updated {rules} rules"
+msgstr ""
+
+#: ../../main/ids/src/EBox/Composite/General.pm:119
 #, perl-brace-format
 msgid ""
 "Want to protect your system against the latest security threats, hacking "
-"attempts and attacks on security vulnerabilities? Get the {ohs}Small "
-"Business{ch} or {ohe}Enterprise Edition{ch} that "
-"include the IDS feature in the automatic security updates."
+"attempts and attacks on security vulnerabilities? Get the {ohs}Small Business"
+"{ch} or {ohe}Enterprise Edition{ch} that include the IDS feature in the "
+"automatic security updates."
 msgstr ""
 "¿Quieres proteger tu sistema contra las últimas amenazas de seguridad, "
 "intentos de hacking y ataques a vulnerabilidades de seguridad? Obtén la "
-"edición {ohs}Small Business{ch} o {ohe}Enterprise "
-"{ch} que incluyen el servicio de IDS en las actualizaciones de "
-"seguridad automáticas."
+"edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que incluyen el "
+"servicio de IDS en las actualizaciones de seguridad automáticas."
 
-#: ../../main/ebackup/src/scripts/restore-tool:2307
+#: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:106
+#, fuzzy, perl-format, perl-brace-format
 msgid ""
-"If you had enabled the Disaster Recovery service in Small Business or "
-"Enterprise Edition, besides the configuration you are about to recover, "
-"you could have restored the data of the active modules."
+"Get all the advantages of Microsoft Exchange and only 50% of the costs! "
+"Zentyal fully integrates Zarafa groupware solution, an alternative to MS "
+"Exchange Server and Outlook. Get the {ohs}Small Business{ch} or {ohe}"
+"Enterprise Edition{ch} and purchase the Zarafa Small Business add-on!"
 msgstr ""
-"Si hubieses activado el sevicio de Recuperación de Desastres en la "
-"edición {ohs}Small Business{ch} o {ohe}Enterprise "
-"{oh}, tendrías la posibilidad de recuperar también los datos de "
-"los módulos activos."
+"¡Obtén todas las ventajas de Microsoft Exchange con sólo el 50%% de los "
+"costes! Zentyal integra la solución de groupware de Zarafa, una alternativa "
+"al MS Exchange Server y Outlook. ¡Obtén la edición {ohs}Small Business{ch} o "
+"{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
+"adicional!"
 
-#: ../../main/ebackup/src/scripts/restore-tool:2420
+#: ../../main/users/src/EBox/UsersAndGroups.pm:980
+msgid ""
+"You have reached the maximum of users for this subscription level. If you "
+"need to run Zentyal with more users please upgrade."
+msgstr ""
+
+#: ../../main/ebackup/src/scripts/restore-tool:2746
 msgid "Your configuration backup is now restored!"
 msgstr "¡Tu backup de configuración ha sido restaurado!"
 
-#: ../../main/ebackup/src/scripts/restore-tool:2421
+#: ../../main/ebackup/src/scripts/restore-tool:2747
 msgid ""
 "Perhaps you could be interested in the Zentyal Disaster Recovery service? "
 "This service guarantees that your most business critical data will be stored "
@@ -357,47 +420,47 @@ msgstr ""
 "organización estén guardados en una ubicación remota segura y puedan ser "
 "recuperados fácilmente en caso de desastre."
 
-#: ../../main/software/src/templates/ebox.mas:283
+#: ../../main/software/src/templates/ebox.mas:272
 msgid "Gateway"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:285
-#: ../../main/software/src/templates/ebox.mas:306
-#: ../../main/software/src/templates/ebox.mas:327
-#: ../../main/software/src/templates/ebox.mas:348
-#: ../../main/software/src/templates/ebox.mas:369
+#: ../../main/software/src/templates/ebox.mas:273
+#: ../../main/software/src/templates/ebox.mas:292
+#: ../../main/software/src/templates/ebox.mas:311
+#: ../../main/software/src/templates/ebox.mas:330
+#: ../../main/software/src/templates/ebox.mas:353
 msgid "More info"
 msgstr "Más información"
 
-#: ../../main/software/src/templates/ebox.mas:304
+#: ../../main/software/src/templates/ebox.mas:291
 msgid "UTM"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:325
+#: ../../main/software/src/templates/ebox.mas:310
 msgid "Infrastructure"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:346
+#: ../../main/software/src/templates/ebox.mas:329
 msgid "Office"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:367
+#: ../../main/software/src/templates/ebox.mas:352
 msgid "Communications"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:378
+#: ../../main/software/src/templates/ebox.mas:361
 msgid "Zentyal Gateway features"
 msgstr "Características de Zentyal Gateway"
 
-#: ../../main/software/src/templates/ebox.mas:381
+#: ../../main/software/src/templates/ebox.mas:363
 msgid "Transparent Caching"
 msgstr "Caché Transparente"
 
-#: ../../main/software/src/templates/ebox.mas:382
+#: ../../main/software/src/templates/ebox.mas:363
 msgid "Faster Internet connection!"
 msgstr "¡Conexión a Internet más rápida!"
 
-#: ../../main/software/src/templates/ebox.mas:383
+#: ../../main/software/src/templates/ebox.mas:363
 msgid ""
 "When your users visit the same web pages, data will be downloaded only once. "
 "This increases browsing speed and reduces bandwidth usage."
@@ -406,15 +469,15 @@ msgstr ""
 "una sola vez. Esto aumenta la velocidad de la navegación y reduce el consumo "
 "del ancho de banda."
 
-#: ../../main/software/src/templates/ebox.mas:387
+#: ../../main/software/src/templates/ebox.mas:366
 msgid "Traffic Shaping and QoS"
 msgstr "Moldeado de Tráfico y QoS"
 
-#: ../../main/software/src/templates/ebox.mas:388
+#: ../../main/software/src/templates/ebox.mas:366
 msgid "Business class critical traffic!"
 msgstr "¡Preferencia para tus datos críticos!"
 
-#: ../../main/software/src/templates/ebox.mas:389
+#: ../../main/software/src/templates/ebox.mas:366
 msgid ""
 "Prioritize selected traffic or users making sure that the most critical "
 "traffic is always served properly, regardless of the network load. Moreover, "
@@ -424,15 +487,15 @@ msgstr ""
 "siempre con calidad, independientemente de la carga de la red. Además, "
 "puedes evitar P2P o descargas que consumen tu ancho de banda."
 
-#: ../../main/software/src/templates/ebox.mas:393
+#: ../../main/software/src/templates/ebox.mas:369
 msgid "Load Balancing and Availability"
 msgstr "Balanceo de Carga y Disponibilidad"
 
-#: ../../main/software/src/templates/ebox.mas:394
+#: ../../main/software/src/templates/ebox.mas:369
 msgid "Always connected!"
 msgstr "¡Siempre conectado!"
 
-#: ../../main/software/src/templates/ebox.mas:395
+#: ../../main/software/src/templates/ebox.mas:369
 msgid ""
 "If you have multiple Internet connections, distribute the traffic "
 "transparently and stay connected even if one of the connections is down. You "
@@ -442,15 +505,15 @@ msgstr ""
 "transparente y seguir conectado aunque una de las conexiones falle. También "
 "puedes definir conexiones propias para VozIP o entre sedes, entre otros."
 
-#: ../../main/software/src/templates/ebox.mas:399
+#: ../../main/software/src/templates/ebox.mas:372
 msgid "Web Content Filter"
 msgstr "Filtro de Contenido Web"
 
-#: ../../main/software/src/templates/ebox.mas:400
+#: ../../main/software/src/templates/ebox.mas:372
 msgid "Secure working environment!"
 msgstr "¡Un entorno de trabajo seguro!"
 
-#: ../../main/software/src/templates/ebox.mas:401
+#: ../../main/software/src/templates/ebox.mas:372
 msgid ""
 "Block inappropriate content, restrict access to certain sites or allow "
 "access to specific sites only. Control user browsing and enforce your "
@@ -460,31 +523,31 @@ msgstr ""
 "permite acceso sólo a sitios específicos. Controla la navegación de los "
 "usuarios y ayuda a cumplir las políticas de uso de Internet."
 
-#: ../../main/software/src/templates/ebox.mas:405
-#: ../../main/software/src/templates/ebox.mas:446
-#: ../../main/software/src/templates/ebox.mas:485
-#: ../../main/software/src/templates/ebox.mas:526
-#: ../../main/software/src/templates/ebox.mas:565
+#: ../../main/software/src/templates/ebox.mas:375
+#: ../../main/software/src/templates/ebox.mas:395
+#: ../../main/software/src/templates/ebox.mas:415
+#: ../../main/software/src/templates/ebox.mas:435
+#: ../../main/software/src/templates/ebox.mas:455
 msgid "Full feature list"
 msgstr "Lista completa de características"
 
-#: ../../main/software/src/templates/ebox.mas:407
+#: ../../main/software/src/templates/ebox.mas:376
 msgid "Configurable network interfaces: Static, DHCP, VLAN, PPPoE, Bridge."
 msgstr "Interfaces de red configurables: Estática, DHCP, VLAN, PPPoE, Bridge."
 
-#: ../../main/software/src/templates/ebox.mas:408
-#: ../../main/software/src/templates/ebox.mas:448
+#: ../../main/software/src/templates/ebox.mas:376
+#: ../../main/software/src/templates/ebox.mas:396
 msgid "Advanced firewall: Advanced filtering, DMZ, Port forwarding (NAT)."
 msgstr ""
 "Cortafuegos avanzado: Filtrado avanzado, DMZ, Redirección de puertos (NAT)."
 
-#: ../../main/software/src/templates/ebox.mas:409
+#: ../../main/software/src/templates/ebox.mas:376
 msgid "Advanced Routing: Policy routing, Load balancing, Automatic fail-over."
 msgstr ""
 "Enrutamiento avanzado: Policy routing, Balanceo de carga, Tolerancia a "
 "fallos automática."
 
-#: ../../main/software/src/templates/ebox.mas:410
+#: ../../main/software/src/templates/ebox.mas:376
 msgid ""
 "Traffic Shaping and QoS: Traffic shaping, Application layer (L7) "
 "classification."
@@ -492,8 +555,8 @@ msgstr ""
 "Moldeado de Tráfico y QoS: Moldeado de tráfico, Clasificación según "
 "aplicación de nivel L7."
 
-#: ../../main/software/src/templates/ebox.mas:411
-#: ../../main/software/src/templates/ebox.mas:449
+#: ../../main/software/src/templates/ebox.mas:376
+#: ../../main/software/src/templates/ebox.mas:396
 msgid ""
 "Advanced HTTP proxy: Internet cache, Content filtering with antivirus, "
 "Transparent or authenticated mode, Multiple filtering profiles, Ad-blocker."
@@ -502,7 +565,7 @@ msgstr ""
 "antivirus, Modo transparente o autenticado, Múltiples perfiles de filtrado "
 "Ad-blocker."
 
-#: ../../main/software/src/templates/ebox.mas:412
+#: ../../main/software/src/templates/ebox.mas:376
 msgid ""
 "Captive Portal: Secure authentication, Source, destination and service "
 "exceptions, Secure client filtering, Client idle timeout, Maximum no. of "
@@ -512,23 +575,23 @@ msgstr ""
 "servicio, Filtrado seguro de cliente, Limite de tiempo por inactividad, Nº "
 "máximo de conexiones."
 
-#: ../../main/software/src/templates/ebox.mas:413
+#: ../../main/software/src/templates/ebox.mas:376
 msgid "RADIUS: Network authentication and authorization."
 msgstr "RADIUS: Autenticación y autorización en la red."
 
-#: ../../main/software/src/templates/ebox.mas:420
+#: ../../main/software/src/templates/ebox.mas:382
 msgid "Zentyal UTM features"
 msgstr "Características de Zentyal UTM"
 
-#: ../../main/software/src/templates/ebox.mas:423
+#: ../../main/software/src/templates/ebox.mas:384
 msgid "Content Filter"
 msgstr "Filtrado de Contenido"
 
-#: ../../main/software/src/templates/ebox.mas:424
+#: ../../main/software/src/templates/ebox.mas:384
 msgid "Keep malware out!"
 msgstr "¡Deja el malware fuera!"
 
-#: ../../main/software/src/templates/ebox.mas:425
+#: ../../main/software/src/templates/ebox.mas:384
 msgid ""
 "Internet is filled with great and useful content, but unfortunately it comes "
 "with tons of threats like spam, viruses or phishing. The content filter acts "
@@ -539,15 +602,15 @@ msgstr ""
 "acompañado de amenazas como spam, virus o phishing. Filtra correo "
 "electrónico, tráfico web y ficheros para limpiarlos de virus y amenazas."
 
-#: ../../main/software/src/templates/ebox.mas:429
+#: ../../main/software/src/templates/ebox.mas:387
 msgid "Virtual Private Networks"
 msgstr "Redes Privadas Virtuales"
 
-#: ../../main/software/src/templates/ebox.mas:430
+#: ../../main/software/src/templates/ebox.mas:387
 msgid "Your office everywhere you go!"
 msgstr "Tu oficina allá donde vayas!"
 
-#: ../../main/software/src/templates/ebox.mas:431
+#: ../../main/software/src/templates/ebox.mas:387
 msgid ""
 "Allow remote users, teleworkers or sales people, to connect in a secure way "
 "to the corporate network via Internet. Or if you have offices in different "
@@ -557,15 +620,15 @@ msgstr ""
 "a la red corporativa a través de Internet. O si tienes oficinas en distintas "
 "ubicaciones, conéctalas en la misma red para ahorrar tiempo y recursos."
 
-#: ../../main/software/src/templates/ebox.mas:435
+#: ../../main/software/src/templates/ebox.mas:390
 msgid "Firewall"
 msgstr "Cortafuegos"
 
-#: ../../main/software/src/templates/ebox.mas:436
+#: ../../main/software/src/templates/ebox.mas:390
 msgid "Security starts with a good firewall!."
 msgstr "¡La seguridad comienza con un buen cortafuegos!"
 
-#: ../../main/software/src/templates/ebox.mas:437
+#: ../../main/software/src/templates/ebox.mas:390
 msgid ""
 "Zentyal server offers an easy and efficient way of configuring traffic "
 "policies. By allowing only the traffic that you need, makes a great first "
@@ -575,15 +638,15 @@ msgstr ""
 "políticas de tráfico. Permitir sólo el tráfico necesario es un primer filtro "
 "estupendo contra intrusos."
 
-#: ../../main/software/src/templates/ebox.mas:441
+#: ../../main/software/src/templates/ebox.mas:393
 msgid "Intrusion Detection"
 msgstr "Detección de Intrusos"
 
-#: ../../main/software/src/templates/ebox.mas:442
+#: ../../main/software/src/templates/ebox.mas:393
 msgid "Always one step ahead!"
 msgstr "¡Siempre un paso por delante!"
 
-#: ../../main/software/src/templates/ebox.mas:443
+#: ../../main/software/src/templates/ebox.mas:393
 msgid ""
 "Intrusion detection system (IDS) alerts you of any potential attacks or "
 "intrusions to your servers, computers and network. It helps you to prevent "
@@ -594,7 +657,7 @@ msgstr ""
 "intrusiones a tus servidores, ordenadores y red. Te ayuda a prevenir ataques "
 "así como analizarlos en caso de haber sufrido un ataque."
 
-#: ../../main/software/src/templates/ebox.mas:450
+#: ../../main/software/src/templates/ebox.mas:396
 msgid ""
 "Virtual Private Network: SSL VPN, Branch office connections, Roadwarriors, "
 "IPSec, PPTP."
@@ -602,30 +665,30 @@ msgstr ""
 "Redes Virtuales Privadas: SSL VPN, Interconexión de sedes, Usuarios remotos "
 "(Roadwarriors), IPSec, PPTP."
 
-#: ../../main/software/src/templates/ebox.mas:451
+#: ../../main/software/src/templates/ebox.mas:396
 msgid "Intrusion Detection System: IDS"
 msgstr "Sistema de Detección de Intrusos: IDS."
 
-#: ../../main/software/src/templates/ebox.mas:452
+#: ../../main/software/src/templates/ebox.mas:396
 msgid ""
 "Mail filter: Advanced SMTP filter, Antispam capabilities, Antivirus "
 "capabilities, Greylisting."
 msgstr ""
 "Filtrado de correo: Filtro SMTP avanzado, Antispam, Antivirus, Listas grises."
 
-#: ../../main/software/src/templates/ebox.mas:459
+#: ../../main/software/src/templates/ebox.mas:402
 msgid "Zentyal Infrastructure features"
 msgstr "Características de Zentyal Infrastructure"
 
-#: ../../main/software/src/templates/ebox.mas:462
+#: ../../main/software/src/templates/ebox.mas:404
 msgid "DHCP Server"
 msgstr "Servidor DHCP"
 
-#: ../../main/software/src/templates/ebox.mas:463
+#: ../../main/software/src/templates/ebox.mas:404
 msgid "Automatic network configuration!"
 msgstr "¡Configuración de red automática!"
 
-#: ../../main/software/src/templates/ebox.mas:464
+#: ../../main/software/src/templates/ebox.mas:404
 msgid ""
 "Configure all the basic settings as devices are connected to the LAN: IP, "
 "mask, gateway, DNS, NTP, WINS servers and advanced setups like static leases "
@@ -635,15 +698,15 @@ msgstr ""
 "IP, máscara, gateway, DNS, NTP, servidores WINS y valores avanzadas como "
 "asignación estática con PXE para clientes ligeros y teléfonos VozIP."
 
-#: ../../main/software/src/templates/ebox.mas:468
+#: ../../main/software/src/templates/ebox.mas:407
 msgid "DNS Server"
 msgstr "Servidor DNS"
 
-#: ../../main/software/src/templates/ebox.mas:469
+#: ../../main/software/src/templates/ebox.mas:407
 msgid "People remember names better!"
 msgstr "¡Más fácil recordar un nombre!"
 
-#: ../../main/software/src/templates/ebox.mas:470
+#: ../../main/software/src/templates/ebox.mas:407
 msgid ""
 "Assign every server on your network a domain name to ease internal "
 "communications. You can also give domain names to dynamic clients that will "
@@ -653,15 +716,15 @@ msgstr ""
 "comunicaciones internas. También puedes asignar nombres de dominio a "
 "clientes dinámicos que se actualizarán cuando las direcciones IP cambien."
 
-#: ../../main/software/src/templates/ebox.mas:474
+#: ../../main/software/src/templates/ebox.mas:410
 msgid "Web Server"
 msgstr "Servidor Web"
 
-#: ../../main/software/src/templates/ebox.mas:475
+#: ../../main/software/src/templates/ebox.mas:410
 msgid "Powered by Apache!"
 msgstr "¡Funciona con Apache!"
 
-#: ../../main/software/src/templates/ebox.mas:476
+#: ../../main/software/src/templates/ebox.mas:410
 msgid ""
 "Zentyal server integrates the Apache web server, one of the most popular on "
 "the Internet. This module will help you to deploy all kind of internal web "
@@ -671,15 +734,15 @@ msgstr ""
 "Este módulo te ayudará a desplegar todo tipo de aplicaciones web internas en "
 "tu red."
 
-#: ../../main/software/src/templates/ebox.mas:480
+#: ../../main/software/src/templates/ebox.mas:413
 msgid "Certification Authority"
 msgstr "Autoridad de Certificación"
 
-#: ../../main/software/src/templates/ebox.mas:481
+#: ../../main/software/src/templates/ebox.mas:413
 msgid "Create your own certificates!"
 msgstr "¡Crea tus propios certificados!"
 
-#: ../../main/software/src/templates/ebox.mas:482
+#: ../../main/software/src/templates/ebox.mas:413
 msgid ""
 "Give your users secure access to internal services such as VPN or mail and "
 "deploy trusted certificates for your Zentyal managed services."
@@ -688,14 +751,14 @@ msgstr ""
 "despliega certificados de confianza para los servicios gestionados por "
 "Zentyal."
 
-#: ../../main/software/src/templates/ebox.mas:487
+#: ../../main/software/src/templates/ebox.mas:416
 msgid ""
 "DHCP server: Dynamic and static leases, Integration with DNS, PXE support."
 msgstr ""
 "Servidor DHCP: Asignación dinámica y estática, Integración con DNS, Soporte "
 "PXE."
 
-#: ../../main/software/src/templates/ebox.mas:488
+#: ../../main/software/src/templates/ebox.mas:416
 msgid ""
 "DNS server: DNS cache server, DNS authoritative server, Integration with "
 "DHCP."
@@ -703,18 +766,18 @@ msgstr ""
 "Servidor DNS: DNS cache server, Servidor DNS autoritario, Integración con "
 "DHCP."
 
-#: ../../main/software/src/templates/ebox.mas:489
+#: ../../main/software/src/templates/ebox.mas:416
 msgid "NTP server: NTP server."
 msgstr "Servidor NTP: Servidor NTP."
 
-#: ../../main/software/src/templates/ebox.mas:490
+#: ../../main/software/src/templates/ebox.mas:416
 msgid ""
 "Certification Authority: Certificate management, Zentyal service integration."
 msgstr ""
 "Autoridad de Certificación: Gestión de certificados, Integración de "
 "servicios de Zentyal."
 
-#: ../../main/software/src/templates/ebox.mas:491
+#: ../../main/software/src/templates/ebox.mas:416
 msgid ""
 "Web server: HTTP and HTTPS support, Multiple virtual hosts, Integration with "
 "DNS."
@@ -722,27 +785,27 @@ msgstr ""
 "Servidor Web: Soporte para HTTP y HTTPS, Múltiples dominios virtuales, "
 "Integración con DNS."
 
-#: ../../main/software/src/templates/ebox.mas:492
+#: ../../main/software/src/templates/ebox.mas:416
 msgid "FTP server: Anonymous FTP, Authenticated FTP."
 msgstr "Servidor FTP: FTP anónimo, FTP autenticada."
 
-#: ../../main/software/src/templates/ebox.mas:493
+#: ../../main/software/src/templates/ebox.mas:416
 msgid "VM management"
 msgstr "Gestión de máquinas virtuales"
 
-#: ../../main/software/src/templates/ebox.mas:500
+#: ../../main/software/src/templates/ebox.mas:422
 msgid "Zentyal Office features"
 msgstr "Características de Zentyal Office"
 
-#: ../../main/software/src/templates/ebox.mas:503
+#: ../../main/software/src/templates/ebox.mas:424
 msgid "Directory Service"
 msgstr "Servicio de Directorio"
 
-#: ../../main/software/src/templates/ebox.mas:504
+#: ../../main/software/src/templates/ebox.mas:424
 msgid "All your users in one place!"
 msgstr "¡Tus usuarios en un único sitio!"
 
-#: ../../main/software/src/templates/ebox.mas:505
+#: ../../main/software/src/templates/ebox.mas:424
 msgid ""
 "Manage users, groups and privileges from a single point. Replicate the "
 "directory over multiple servers for service distribution and high "
@@ -752,16 +815,16 @@ msgstr ""
 "el directorio en múltiples servidores para distribuir servicios y alta "
 "disponibilidad o sincroniza contra un Active Directory existente."
 
-#: ../../main/software/src/templates/ebox.mas:509
-#: ../../main/software/src/templates/ebox.mas:560
+#: ../../main/software/src/templates/ebox.mas:427
+#: ../../main/software/src/templates/ebox.mas:453
 msgid "Groupware"
 msgstr "Groupware"
 
-#: ../../main/software/src/templates/ebox.mas:510
+#: ../../main/software/src/templates/ebox.mas:427
 msgid "Easy on-line collaboration!"
 msgstr "¡Facilita la colaboración on-line!"
 
-#: ../../main/software/src/templates/ebox.mas:511
+#: ../../main/software/src/templates/ebox.mas:427
 msgid ""
 "Allow your users to access their email, share their calendars, contacts and "
 "tasks. Help the employees to work together while located remotely and enable "
@@ -772,15 +835,15 @@ msgstr ""
 "conjuntamente cuando se encuentran fuera y permite una colaboración más "
 "eficaz. ¡El sustituto perfecto de Exchange!"
 
-#: ../../main/software/src/templates/ebox.mas:515
+#: ../../main/software/src/templates/ebox.mas:430
 msgid "File and Printer Sharing"
 msgstr "Compartición de Ficheros e Impresoras"
 
-#: ../../main/software/src/templates/ebox.mas:516
+#: ../../main/software/src/templates/ebox.mas:430
 msgid "Sharing is easy!"
 msgstr "¡Es fácil compartir!"
 
-#: ../../main/software/src/templates/ebox.mas:517
+#: ../../main/software/src/templates/ebox.mas:430
 msgid ""
 "Create shared folders and printers over your network and let your users "
 "access them seamlessly from any operating system. Replace your Windows "
@@ -790,15 +853,15 @@ msgstr ""
 "importar su sistema operativo. Reemplaza tu servidor Windows con Zentyal sin "
 "ningún tipo de interrupción a los usuarios."
 
-#: ../../main/software/src/templates/ebox.mas:521
+#: ../../main/software/src/templates/ebox.mas:433
 msgid "Data Backup"
 msgstr "Backup de Datos"
 
-#: ../../main/software/src/templates/ebox.mas:522
+#: ../../main/software/src/templates/ebox.mas:433
 msgid "A catastrophe you can prevent!"
 msgstr "¡Una catástrofe que puedes evitar!"
 
-#: ../../main/software/src/templates/ebox.mas:523
+#: ../../main/software/src/templates/ebox.mas:433
 msgid ""
 "Hardware or software failures and human errors are common and can cause "
 "irreparable damage. Having a proper procedure to perform, check and restore "
@@ -809,7 +872,7 @@ msgstr ""
 "para realizar, comprobar y recuperar copias de seguridad de datos y de "
 "configuración te salvan de un desastre."
 
-#: ../../main/software/src/templates/ebox.mas:528
+#: ../../main/software/src/templates/ebox.mas:436
 msgid ""
 "LDAP Directory server: Central management of users and groups, Master/slave "
 "architecture, Windows Active Directory synchronization."
@@ -817,7 +880,7 @@ msgstr ""
 "Servicio de directorio LDAP: Gestión central de usuarios y grupos, "
 "Arquitectura maestro/esclavo, Sincronización con Windows Active Directory."
 
-#: ../../main/software/src/templates/ebox.mas:529
+#: ../../main/software/src/templates/ebox.mas:436
 msgid ""
 "File sharing: Windows file sharing (CIFS), Primary Domain Controller (PDC), "
 "Advanced password policies, Roaming profiles, Windows 7 support."
@@ -826,14 +889,14 @@ msgstr ""
 "Controlador Primario de Dominio (PDC), Políticas avanzadas de contraseñas, "
 "Perfiles móviles, Soporte para Windows 7."
 
-#: ../../main/software/src/templates/ebox.mas:530
+#: ../../main/software/src/templates/ebox.mas:436
 msgid ""
 "Printer sharing: Printer management, Windows printer sharing, IPP support."
 msgstr ""
 "Compartición de impresoras: Gestión de impresoras, Compartición de "
 "impresoras Windows, Soporte para IPP."
 
-#: ../../main/software/src/templates/ebox.mas:531
+#: ../../main/software/src/templates/ebox.mas:436
 msgid ""
 "Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile "
 "devices synchronization."
@@ -841,7 +904,7 @@ msgstr ""
 "Groupware: Mail, Calendarios compartidos, Contactos compartidos, Tareas "
 "compartidas, Sincronización con dispositivos móviles."
 
-#: ../../main/software/src/templates/ebox.mas:532
+#: ../../main/software/src/templates/ebox.mas:436
 msgid ""
 "Backup: Incremental and full backup, Advanced backup policy, Disaster "
 "recovery."
@@ -849,20 +912,20 @@ msgstr ""
 "Backup: Backup incremental y completo, Política avanzada de backup, "
 "Recuperación de desastres."
 
-#: ../../main/software/src/templates/ebox.mas:539
+#: ../../main/software/src/templates/ebox.mas:442
 msgid "Zentyal Unified Communications features"
 msgstr "Características de Zentyal Unified Communications"
 
-#: ../../main/software/src/templates/ebox.mas:542
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:102
+#: ../../main/software/src/templates/ebox.mas:444
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:113
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: ../../main/software/src/templates/ebox.mas:543
+#: ../../main/software/src/templates/ebox.mas:444
 msgid "With your favorite email client!"
 msgstr "¡Con tu cliente de correo favorito!"
 
-#: ../../main/software/src/templates/ebox.mas:544
+#: ../../main/software/src/templates/ebox.mas:444
 msgid ""
 "Zentyal includes a complete email solution, with antispam and antivirus, as "
 "well as webmail. All the current standards are supported, so your users can "
@@ -872,15 +935,15 @@ msgstr ""
 "antivirus y webmail. Todos los estándares actuales son compatibles, por lo "
 "que tus usuarios pueden seguir usando sus clientes de correo favoritos."
 
-#: ../../main/software/src/templates/ebox.mas:548
+#: ../../main/software/src/templates/ebox.mas:447
 msgid "Instant Messaging"
 msgstr "Mensajería Instantánea"
 
-#: ../../main/software/src/templates/ebox.mas:549
+#: ../../main/software/src/templates/ebox.mas:447
 msgid "When email is not enough!"
 msgstr "¡Cuando el correo no es suficiente!"
 
-#: ../../main/software/src/templates/ebox.mas:550
+#: ../../main/software/src/templates/ebox.mas:447
 msgid ""
 "Allow your users to communicate quickly, efficiently and safely with "
 "colleagues and customers. The XMPP/Jabber protocol used allows the use of "
@@ -891,15 +954,15 @@ msgstr ""
 "cualquiera de los clientes actuales en la mayoría de las plataformas, "
 "incluso en los móviles."
 
-#: ../../main/software/src/templates/ebox.mas:554
+#: ../../main/software/src/templates/ebox.mas:450
 msgid "VoIP"
 msgstr "Voz IP"
 
-#: ../../main/software/src/templates/ebox.mas:555
+#: ../../main/software/src/templates/ebox.mas:450
 msgid "When you need to call!"
 msgstr "¡Cuando tienes que llamar!"
 
-#: ../../main/software/src/templates/ebox.mas:556
+#: ../../main/software/src/templates/ebox.mas:450
 msgid ""
 "Provide your employees with extensions and make internal calls and "
 "conferences easily. With third-party providers, you can also get real phone "
@@ -909,11 +972,11 @@ msgstr ""
 "conferencias con facilidad. Con un proveedor puedes también obtener números "
 "de teléfono reales para hacer y recibir llamadas a un coste muy  bajo."
 
-#: ../../main/software/src/templates/ebox.mas:561
+#: ../../main/software/src/templates/ebox.mas:453
 msgid "Your data everywhere!"
 msgstr "¡Tus datos donde estés!"
 
-#: ../../main/software/src/templates/ebox.mas:562
+#: ../../main/software/src/templates/ebox.mas:453
 msgid ""
 "Thanks to the groupware service your users can access email and other data "
 "wherever they go no matter the device they use: email client, web browser or "
@@ -924,7 +987,7 @@ msgstr ""
 "correo, navegador o dispositivo móvil. ¡La migración de Exchange nunca fue "
 "tan fácil!"
 
-#: ../../main/software/src/templates/ebox.mas:567
+#: ../../main/software/src/templates/ebox.mas:456
 msgid ""
 "Mail server: SMTP with TLS, POP3-IMAP4 with SSL, Webmail, Server side "
 "filtering (SIEVE), External mail retrieval, Antispam, Antivirus, "
@@ -934,7 +997,7 @@ msgstr ""
 "el servidor (SIEVE), Obtención de correo externo, Antispam, Antivirus, "
 "Greylisting, Dominios virtuales, Soporte a las cuotas de usuario."
 
-#: ../../main/software/src/templates/ebox.mas:568
+#: ../../main/software/src/templates/ebox.mas:456
 msgid ""
 "Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile "
 "devices synchronization.)"
@@ -942,13 +1005,13 @@ msgstr ""
 "Groupware: Mail, Calendarios compartidos, Contactos compartidos, Tareas "
 "compartidas, Sincronización con dispositivos móviles."
 
-#: ../../main/software/src/templates/ebox.mas:569
+#: ../../main/software/src/templates/ebox.mas:456
 msgid "Instant Messaging server: XMPP/Jabber server, Conference rooms.)"
 msgstr ""
 "Servidor de Mensajería Instantánea: Servidor XMPP/Jabber, Salas de "
 "conferencia."
 
-#: ../../main/software/src/templates/ebox.mas:570
+#: ../../main/software/src/templates/ebox.mas:456
 msgid ""
 "Voice over IP server: SIP users and phones, Calls through an external "
 "provider, Conference rooms, Voicemail, Call transfers and parking, Music on "
@@ -958,162 +1021,157 @@ msgstr ""
 "externo, Salas de conferencia, Buzón de voz, Transferencia de llamadas y "
 "llamadas en espera, Música de espera, Colas, Logs."
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:63
-msgid "Zentyal Cloud Subscription"
-msgstr "Suscripción a Zentyal Cloud"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:67
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:98
 msgid "Subscribe to Zentyal Cloud"
 msgstr "Suscribir a Zentyal Cloud"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:74
-msgid "I already have an account"
-msgstr "Ya tengo cuenta"
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:106
+msgid "Subscribe with an existing account"
+msgstr ""
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:76
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:109
 msgid "Register a Free Basic Subscription"
 msgstr "Registra una Suscripción Básica Gratuita"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:80
-msgid "First name"
-msgstr "Nombre"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:84
-msgid "Last name"
-msgstr "Apellido"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:88
-msgid "Country"
-msgstr "País"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:94
-msgid "Company"
-msgstr "Empresa"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:98
-msgid "Phone number"
-msgstr "Teléfono"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:106
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:116
 msgid "Password"
 msgstr "Contraseña"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:110
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:119
 msgid "Repeat password"
 msgstr "Repetir contraseña"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:114
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:122
 msgid "Server name"
 msgstr "Nombre del servidor"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:121
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:125
+msgid "First name"
+msgstr "Nombre"
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:128
+msgid "Last name"
+msgstr "Apellido"
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:131
+msgid "Country"
+msgstr "País"
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:136
+msgid "Company"
+msgstr "Empresa"
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:139
+msgid "Position"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
+msgid "Senior Manager (CEO, Owner, COO...)"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
+msgid "IT Manager"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
+msgid "Network Technician or System Administrator"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
+msgid "Other"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:146
+msgid "Phone number"
+msgstr "Teléfono"
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:150
+msgid "Required fields"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:155
+msgid ""
+"Send me the Zentyal Newsletter to receive news and exclusive promotions in "
+"my inbox"
+msgstr ""
+"Quiero recibir el Newsletter de Zentyal para enterarme de noticias y "
+"promociones exclusivas por correo"
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:162
+#, perl-brace-format
+msgid "I have read and agree to the {oh}Privacy Policy{ch}"
+msgstr ""
+
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:173
 msgid "Subscribe"
 msgstr "Suscribir"
 
-#: ../../main/remoteservices/src/templates/wizard/subscription.mas:126
+#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:179
 #, perl-brace-format
 msgid ""
-"Even if you don't have a commercial server edition, you can get a Free {bo}Basic "
-"Subscription!{bc} You will benefit from the following features:"
+"{bo}Get the FREE Basic Subscription!{bc} Store your configuration backup in "
+"Zentyal Cloud, create zentyal.me subdomain for your server & much more!"
 msgstr ""
-"Aunque no tengas una edición comercial de servidor, ¡puedes obtener la {bo}Suscripción "
-"Básica{bc} gratuita! Obtendrás acceso a las siguientes características:"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:130
-msgid "Remote backup"
-msgstr "Backup remoto"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:134
-msgid "Basic alerts"
-msgstr "Alertas básicas"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:138
-msgid "Basic reports"
-msgstr "Informes básicos"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
-msgid "Basic monitoring"
-msgstr "Monitorización básica"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:146
-msgid "Basic jobs"
-msgstr "Trabajos básicos"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:154
-msgid "Name in tab"
-msgstr "Nombre en la pestaña"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:159
-msgid "Remote backup of your Zentyal server configuration"
-msgstr "Backup remoto de la configuración de tu servidor Zentyal"
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:160
-msgid ""
-"Basic alerts: Connectivity of your Zentyal server, available updates or "
-"failed automatic backup"
+#: ../../main/core/src/templates/links-widget.mas:10
+msgid "Community"
 msgstr ""
-"Alertas básicas: Conectividad de tu servidor Zentyal, actualizaciones "
-"disponibles o backup automático fallido"
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:161
-msgid "Get basic reports on your hardware performance."
-msgstr "Obtén informes básicos acerca del rendimiento de tu hardware."
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:162
-msgid "Monitor remotely the basic hardware parameters."
-msgstr "Monitoriza remotamente parámetros hardware básicos."
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:163
-msgid "Test how to run preconfigured basic jobs."
-msgstr "Prueba cómo ejecutar trabajos básicos preconfigurados."
-
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:164
-msgid ""
-"Dynamic DNS: zentyal.me subdomain for your server (e.g. yourserver.zentyal."
-"me with up to 3 additional aliases."
+#: ../../main/core/src/templates/links-widget.mas:12
+msgid "A preview of Zentyal Cloud and access to some basic features!"
 msgstr ""
-"DNS Dinámico: subdominio zentyal.me para tu servidor (por ej. tuservidor."
-"zentyal.me) con hasta 3 aliases adicionales."
 
-#: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:165
-msgid ""
-"You can distinguish Zentyal servers by their name in the web browser tab."
-msgstr ""
-"Puedes diferenciar tus servidores Zentyal por su nombre en la pestaña del "
-"navegador"
-
-#: ../../main/core/src/templates/links-widget.mas:8
+#: ../../main/core/src/templates/links-widget.mas:12
 msgid "FREE Basic Subscription"
 msgstr "Suscripción Básica GRATIS"
 
-#: ../../main/core/src/templates/links-widget.mas:22
+#: ../../main/core/src/templates/links-widget.mas:24
 msgid "Business"
 msgstr "Negocio"
 
-#: ../../main/core/src/templates/links-widget.mas:25
+#: ../../main/core/src/templates/links-widget.mas:26
+msgid "Fully supported Zentyal server for less than 25 users"
+msgstr ""
+
+#: ../../main/core/src/templates/links-widget.mas:26
 msgid "Small Business Edition"
 msgstr "Edición Small Business"
 
-#: ../../main/core/src/templates/links-widget.mas:27
+#: ../../main/core/src/templates/links-widget.mas:28
+msgid "Fully supported Zentyal server for an unlimited number of users."
+msgstr ""
+
+#: ../../main/core/src/templates/links-widget.mas:28
 msgid "Enterprise Edition"
 msgstr "Edición Enterprise"
 
-#: ../../main/core/src/templates/links-widget.mas:29
+#: ../../main/core/src/templates/links-widget.mas:30
 msgid ""
-"Remotely monitor and manage multiple Zentyal servers from a central point."
+"Learn to use all Zentyal based network services in production environments."
 msgstr ""
-"Monitoriza y gestiona de forma remota múltiples servidores Zentyal desde un "
-"punto central."
 
-#: ../../main/core/src/templates/links-widget.mas:31
+#: ../../main/core/src/templates/links-widget.mas:30
 msgid "Certified Training"
 msgstr "Formación Certificada"
 
-#: ../../main/core/src/templates/links-widget.mas:33
+#: ../../main/core/src/templates/links-widget.mas:31
+msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
+msgstr ""
+
+#: ../../main/core/src/templates/links-widget.mas:31
 msgid "Official Manual"
 msgstr "Manual Oficial"
 
-#: ../../main/core/src/templates/backup.mas:17
+#: ../../main/core/src/templates/backup.mas:11
+#, perl-brace-format
+msgid ""
+"Thanks to your server subscription, the configuration backup is checked on "
+"daily basis and stored automatically on the Zentyal Cloud if any "
+"configuration changes are detected. You may check all your configuration "
+"backups {ohref}here{chref}."
+msgstr ""
+
+#: ../../main/core/src/templates/backup.mas:14
 #, perl-brace-format
 msgid ""
 "Get a FREE {ohref}Basic Server Subscription{chref}! It gives you a preview "
@@ -1128,29 +1186,91 @@ msgstr ""
 "Además, te permitirá almacenar un backup de configuración de forma remota y "
 "crear un subdominio zentyal.me para tu servidor."
 
-#: ../../main/monitor/src/templates/index.mas:25
-#, perl-brace-format
-msgid ""
-"Want to know how your system performs and manage your server remotely? "
-"Get the {ohs}Small Business {ch} or {ohe}Enterprise "
-"Edition{ch} to access remote monitoring and management features."
-msgstr ""
-"¿Quieres conocer los datos de rendimiento de tu sistema y gestionar "
-"tu servidor de forma remota? Obtén la edición {ohs}Small Business "
-"{ch} o {ohe}Enterprise{ch} para acceder a las opciones de "
-"monitorización y gestión remota."
+#~ msgid ""
+#~ "If you had enabled the Disaster Recovery service in Small Business or "
+#~ "Enterprise Edition, besides the configuration you are about to recover, "
+#~ "you could have restored the data of the active modules."
+#~ msgstr ""
+#~ "Si hubieses activado el sevicio de Recuperación de Desastres en la "
+#~ "edición {ohs}Small Business{ch} o {ohe}Enterprise {oh}, tendrías la "
+#~ "posibilidad de recuperar también los datos de los módulos activos."
 
-#: ../../main/remoteservices/src/templates/wizard/subscription.mas:120
-#, perl-brace-format
-msgid ""
-"Send me the Zentyal Newsletter to receive news and exclusive promotions in my inbox"
-msgstr ""
-"Quiero recibir el Newsletter de Zentyal para enterarme de noticias y promociones exclusivas por correo"
+#~ msgid "Zentyal Cloud Subscription"
+#~ msgstr "Suscripción a Zentyal Cloud"
 
-#: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:105
-#, perl-brace-format
-msgid ""
-"Get all the advantages of Microsoft Exchange and only 50%% of the costs! Zentyal fully integrates Zarafa groupware solution, an alternative to MS Exchange Server and Outlook. Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} and purchase the Zarafa Small Business add-on!"
-msgstr ""
-"¡Obtén todas las ventajas de Microsoft Exchange con sólo el 50%% de los costes! Zentyal integra la solución de groupware de Zarafa, una alternativa al MS Exchange Server y Outlook. ¡Obtén la edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio adicional!"
+#~ msgid "I already have an account"
+#~ msgstr "Ya tengo cuenta"
 
+#~ msgid ""
+#~ "Even if you don't have a commercial server edition, you can get a Free "
+#~ "{bo}Basic Subscription!{bc} You will benefit from the following features:"
+#~ msgstr ""
+#~ "Aunque no tengas una edición comercial de servidor, ¡puedes obtener la "
+#~ "{bo}Suscripción Básica{bc} gratuita! Obtendrás acceso a las siguientes "
+#~ "características:"
+
+#~ msgid "Remote backup"
+#~ msgstr "Backup remoto"
+
+#~ msgid "Basic alerts"
+#~ msgstr "Alertas básicas"
+
+#~ msgid "Basic reports"
+#~ msgstr "Informes básicos"
+
+#~ msgid "Basic monitoring"
+#~ msgstr "Monitorización básica"
+
+#~ msgid "Basic jobs"
+#~ msgstr "Trabajos básicos"
+
+#~ msgid "Name in tab"
+#~ msgstr "Nombre en la pestaña"
+
+#~ msgid "Remote backup of your Zentyal server configuration"
+#~ msgstr "Backup remoto de la configuración de tu servidor Zentyal"
+
+#~ msgid ""
+#~ "Basic alerts: Connectivity of your Zentyal server, available updates or "
+#~ "failed automatic backup"
+#~ msgstr ""
+#~ "Alertas básicas: Conectividad de tu servidor Zentyal, actualizaciones "
+#~ "disponibles o backup automático fallido"
+
+#~ msgid "Get basic reports on your hardware performance."
+#~ msgstr "Obtén informes básicos acerca del rendimiento de tu hardware."
+
+#~ msgid "Monitor remotely the basic hardware parameters."
+#~ msgstr "Monitoriza remotamente parámetros hardware básicos."
+
+#~ msgid "Test how to run preconfigured basic jobs."
+#~ msgstr "Prueba cómo ejecutar trabajos básicos preconfigurados."
+
+#~ msgid ""
+#~ "Dynamic DNS: zentyal.me subdomain for your server (e.g. yourserver."
+#~ "zentyal.me with up to 3 additional aliases."
+#~ msgstr ""
+#~ "DNS Dinámico: subdominio zentyal.me para tu servidor (por ej. tuservidor."
+#~ "zentyal.me) con hasta 3 aliases adicionales."
+
+#~ msgid ""
+#~ "You can distinguish Zentyal servers by their name in the web browser tab."
+#~ msgstr ""
+#~ "Puedes diferenciar tus servidores Zentyal por su nombre en la pestaña del "
+#~ "navegador"
+
+#~ msgid ""
+#~ "Remotely monitor and manage multiple Zentyal servers from a central point."
+#~ msgstr ""
+#~ "Monitoriza y gestiona de forma remota múltiples servidores Zentyal desde "
+#~ "un punto central."
+
+#~ msgid ""
+#~ "Want to know how your system performs and manage your server remotely? "
+#~ "Get the {ohs}Small Business {ch} or {ohe}Enterprise Edition{ch} to access "
+#~ "remote monitoring and management features."
+#~ msgstr ""
+#~ "¿Quieres conocer los datos de rendimiento de tu sistema y gestionar tu "
+#~ "servidor de forma remota? Obtén la edición {ohs}Small Business {ch} o "
+#~ "{ohe}Enterprise{ch} para acceder a las opciones de monitorización y "
+#~ "gestión remota."
