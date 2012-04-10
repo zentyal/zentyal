@@ -165,17 +165,13 @@ sub save
         delete $self->{set_quota};
     }
 
-    my $passwd = $self->{core_changed_password};
-    if ($passwd) {
-        delete $self->{core_changed_password};
-        $self->_ldap->changeUserPassword($self->dn(), $passwd);
-    }
-
     shift @_;
     $self->SUPER::save(@_);
 
-    if ($self->{core_changed}) {
+    if ($self->{core_changed} or $self->{core_changed_password}) {
+        my $passwd = $self->{core_changed_password};
         delete $self->{core_changed};
+        delete $self->{core_changed_password};
 
         my $users = EBox::Global->modInstance('users');
         $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $ignore_mods);
@@ -325,15 +321,15 @@ sub _setFilesystemQuota
 #
 sub changePassword
 {
-    my ($self, $passwd, $lazy) = @_;
+    my ($self, $passwd) = @_;
 
     $self->_checkPwdLength($passwd);
+    $self->_ldap->changeUserPassword($self->dn(), $passwd);
 
     # The password will be changed on save, save it also to
     # notify LDAP user base mods
-    $self->{core_changed} = 1;
     $self->{core_changed_password} = $passwd;
-    $self->save() unless ($lazy);
+    $self->save();
 }
 
 
@@ -392,11 +388,9 @@ sub passwordHashes
 # Parameters:
 #
 #   user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#   'givenname', 'surname' and 'comment'
-#       if password is not given, a 'passwords' array ref to passwords attribute
-#       should be present
+#                               'givenname', 'surname' and 'comment'
 #   system - boolean: if true it adds the user as system user, otherwise as
-#   normal user
+#                     normal user
 #   params hash (all optional):
 #      uidNumber - user UID numberer
 #      ignore_mods - ldap modules to be ignored on addUser notify
@@ -464,14 +458,12 @@ sub create
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
     my $gid = $group->get('gidNumber');
 
-    my $passwd = $user->{'password'};
-
     # system user could not have passwords
-    if (not $passwd and not $user->{passwords} and not $system) {
-        throw EBox::Exceptions::MissingArgument(__('Password'));
-    }
-
-    $self->_checkPwdLength($passwd);
+    my $passwd = $user->{'password'};
+    #if (not $passwd and not $system) {
+    #    throw EBox::Exceptions::MissingArgument(__('Password'));
+    #}
+    #$self->_checkPwdLength($passwd);
 
     # If fullname is not specified we build it with
     # givenname and surname
@@ -518,7 +510,9 @@ sub create
     my $res = new EBox::UsersAndGroups::User(dn => $dn);
 
     # Set the user password and kerberos keys
-    $self->_ldap->changeUserPassword($dn, $passwd);
+    if ($passwd) {
+        $self->_ldap->changeUserPassword($dn, $passwd);
+    }
 
     # Init user
     unless ($system) {
