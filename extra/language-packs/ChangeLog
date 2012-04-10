@@ -1,4 +1,5 @@
-HEAD
+2.2.3
+	+ Updated subscription strings
 	+ Fix in parsing mason templates: <% %> can be concatenated in the
 	  same line and it can split in several lines
 2.2.2
