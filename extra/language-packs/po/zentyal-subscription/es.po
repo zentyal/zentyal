@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:239
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {ohs}Small "
 "Business{ch} or {ohe}Enterprise Edition {ch} that include the Ad blocking "
@@ -29,7 +29,7 @@ msgstr ""
 "servicio de Ad Blocking en las actualizaciones de seguridad automáticas."
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterGroup.pm:495
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
 "Business{ch} or {ohe}Enterprise Edition {ch} that include the Content "
@@ -41,14 +41,14 @@ msgstr ""
 "seguridad automáticas."
 
 #: ../../main/squid/src/EBox/Squid.pm:909
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
 "Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates."
 msgstr ""
-"¿Quieres eliminar los anuncios de la navegación de tus usuarios? Obtén la "
-"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que incluyen el "
-"servicio de Ad Blocking en las actualizaciones de seguridad automáticas."
+"Esta es una edición Community sin soporte. Obtén una "
+"edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} completamente soportada "
+"para actualizaciones de seguridad automáticas."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1721
 #, perl-brace-format
@@ -121,7 +121,7 @@ msgstr ""
 "<span>Ninguna - {ohb}Consigue una Suscripción Básica gratuita{ch}</span>"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:205
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to offer enterprise-level security for your organization? Get the {ohs}"
 "Small Business{ch} or {ohe}Enterprise Edition{ch}: both include automatic "
@@ -129,12 +129,11 @@ msgid ""
 "and the Content Filtering System."
 msgstr ""
 "¿Quieres ofrecer seguridad a nivel empresarial para tu organización? Obtén "
-"la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch}: ambos incluyen "
+"la edición {ohs}Small Business{ch} o {ohe}Enterprise {ch}: ambas incluyen "
 "actualizaciones de seguridad automáticas para que puedas dejar de "
 "preocuparte de Antivirus, Antispam, IDS y del Filtrado de contenidos."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:266
-#, fuzzy
 msgid ""
 "To subscribe your Zentyal server to Zentyal Cloud, you have to have the Free "
 "Basic Subscription, or Small Business, or Enterprise Edition, all available "
@@ -143,13 +142,13 @@ msgid ""
 "your server to Zentyal Cloud."
 msgstr ""
 "Para suscribir tu servidor Zentyal a Zentyal Cloud, necesitas obtener una "
-"Suscripción Básica o una edición Small Business o Enterprise, todos "
+"Suscripción Básica o una edición Small Business o Enterprise, todas "
 "disponibles en la Tienda On-line de Zentyal. Una vez que hayas obtenido uno "
 "de estos servicios, recibirás un nombre de usuario y contraseña: insértalos "
 "en el formulario situado debajo para suscribir tu servidor a Zentyal Cloud."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:610
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to guarantee that your Zentyal server is always up-to-date, secured and "
 "supported? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!"
@@ -170,7 +169,7 @@ msgstr ""
 "la velocidad de descarga."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:305
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to ensure the availability of your business critical data at all times? "
 "Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}! Take a look "
@@ -195,7 +194,7 @@ msgstr ""
 "{ohs}Small Business{ch} o {ohe}Enterprise{ch}!"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:95
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Get a Free {ohb}Basic Subscription{ch}! It gives you a preview of Zentyal "
 "Cloud and allows you access to some basic features, such as basic alerts, "
@@ -212,25 +211,24 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:163
 #, perl-brace-format
 msgid "You cannot get Module {mod} enabled with Small Business Edition"
-msgstr ""
+msgstr "No puedes habilitar el módulo {mod} con la edición Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:180
 msgid ""
 "The Small Business Edition can be only used in master mode or Active "
 "Directory slave"
-msgstr ""
+msgstr "La edición Small Business se puede usar únicamente en modo maestro o como esclavo de Active Directory"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:184
-#, fuzzy
 msgid "The Small Business Edition cannot have got slaves"
-msgstr "Edición Small Business"
+msgstr "La Edición Small Business no puede tener esclavos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:189
 #, perl-brace-format
 msgid ""
 "The maximum number of users for Small Business Edition is {max} and you "
 "currently have {nUsers}"
-msgstr ""
+msgstr "El máximo número de usuarios para la edición Small Business es {max} y tienes {nUsers}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:208
 #, perl-brace-format
@@ -238,6 +236,8 @@ msgid ""
 "The Small Business Edition cannot have VPN tunnels among Zentyal servers and "
 "'{name}' VPN server is configured to allow this kind of tunnels"
 msgstr ""
+"La edición Small Business no puede tener túneles VPN entre servidores "
+"Zentyal y el servidor VPN '{name}' está configurado para permitir este tipo de túneles"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:217
 #, perl-brace-format
@@ -245,13 +245,15 @@ msgid ""
 "The Small Business Edition cannot have VPN tunnels among Zentyal servers and "
 "'{name}' VPN client is connected to another Zentyal server"
 msgstr ""
+"La edición Small Business no puede tener túneles VPN entre servidores "
+"Zentyal y el cliente VPN '{name}' está conectado a otro servidor Zentyal"
 
 #: ../../main/remoteservices/src/EBox/CGI/Wizard/Subscription.pm:90
 msgid "You must agree to the privacy policy to continue"
-msgstr ""
+msgstr "Debes aceptar la política de privacidad para continuar"
 
 #: ../../main/ebackup/src/EBox/Model/RemoteSettings.pm:581
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Choosing {brand} method you will use the {ohref}{service} service{ch}.  "
 "Ensure that your business critical data and system configuration is stored "
@@ -274,7 +276,7 @@ msgid "Zentyal Disaster Recovery"
 msgstr "Recuperación de Desastres"
 
 #: ../../main/network/src/EBox/Model/DynDNS.pm:278
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You can configure your Dynamic DNS provider here. If yor server is already "
 "subscribed to Zentyal Cloud, your provider is Zentyal Cloud. Get the Free "
@@ -287,14 +289,14 @@ msgstr ""
 "Enterprise{ch} para conseguir un subdominio zentyal.me para tu servidor."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/Composite/Antispam.pm:112
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Want to keep spam out of your mail servers? Get the {openhref}Enterprise "
 "Edition{closehref} that includes the Antispam feature in the automatic "
 "security updates."
 msgstr ""
-"¿Quieres evitar el spam en tus servidores de correo? Obtén la edición {ohe}"
-"Enterprise{ch} que incluye el servicio de Antispam en las actualizaciones de "
+"¿Quieres evitar el spam en tus servidores de correo? Obtén la edición {openhref}"
+"Enterprise{closehref} que incluye el servicio de Antispam en las actualizaciones de "
 "seguridad automáticas."
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:196
@@ -332,7 +334,6 @@ msgstr ""
 "informes frequentes del sistema."
 
 #: ../../main/core/src/EBox/SysInfo.pm.in:542
-#, fuzzy
 msgid ""
 "Warning: The updates are community based and there is no guarantee that your "
 "server will work properly after applying them. In production environments "
@@ -386,9 +387,9 @@ msgstr ""
 "servicio de IDS en las actualizaciones de seguridad automáticas."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:106
-#, fuzzy, perl-format, perl-brace-format
+#, perl-format, perl-brace-format
 msgid ""
-"Get all the advantages of Microsoft Exchange and only 50% of the costs! "
+"Get all the advantages of Microsoft Exchange and only 50%% of the costs! "
 "Zentyal fully integrates Zarafa groupware solution, an alternative to MS "
 "Exchange Server and Outlook. Get the {ohs}Small Business{ch} or {ohe}"
 "Enterprise Edition{ch} and purchase the Zarafa Small Business add-on!"
@@ -404,6 +405,8 @@ msgid ""
 "You have reached the maximum of users for this subscription level. If you "
 "need to run Zentyal with more users please upgrade."
 msgstr ""
+"Has alcanzado el máximo número de usuarios para este nivel de suscripción. "
+"Si necesitas soporte para más usuarios, por favor actualiza."
 
 #: ../../main/ebackup/src/scripts/restore-tool:2746
 msgid "Your configuration backup is now restored!"
@@ -1027,7 +1030,7 @@ msgstr "Suscribir a Zentyal Cloud"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:106
 msgid "Subscribe with an existing account"
-msgstr ""
+msgstr "Suscribir con una cuenta existente"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:109
 msgid "Register a Free Basic Subscription"
@@ -1063,23 +1066,23 @@ msgstr "Empresa"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:139
 msgid "Position"
-msgstr ""
+msgstr "Puesto"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
 msgid "Senior Manager (CEO, Owner, COO...)"
-msgstr ""
+msgstr "Alto Directivo (CEO, Propietario, COO...)"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
 msgid "IT Manager"
-msgstr ""
+msgstr "Director de TI"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
 msgid "Network Technician or System Administrator"
-msgstr ""
+msgstr "Técnico de Redes o Administrador de Sistemas"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:142
 msgid "Other"
-msgstr ""
+msgstr "Otro"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:146
 msgid "Phone number"
@@ -1087,7 +1090,7 @@ msgstr "Teléfono"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:150
 msgid "Required fields"
-msgstr ""
+msgstr "Campos obligatorios"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:155
 msgid ""
@@ -1100,7 +1103,7 @@ msgstr ""
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:162
 #, perl-brace-format
 msgid "I have read and agree to the {oh}Privacy Policy{ch}"
-msgstr ""
+msgstr "He leído y acepto la {oh}Política de Privacidad{ch}"
 
 #: ../../main/remoteservices/src/templates/RemoteServices/Wizard/subscription.mas:173
 msgid "Subscribe"
@@ -1112,14 +1115,16 @@ msgid ""
 "{bo}Get the FREE Basic Subscription!{bc} Store your configuration backup in "
 "Zentyal Cloud, create zentyal.me subdomain for your server & much more!"
 msgstr ""
+"{bo}Obtén la suscripción Basic GRATIS!{bc} Almacena tu backup de configuración en "
+"Zentyal Cloud, crea un subdominio zentyal.me para tu servidor y mucho más!"
 
 #: ../../main/core/src/templates/links-widget.mas:10
 msgid "Community"
-msgstr ""
+msgstr "Comunidad"
 
 #: ../../main/core/src/templates/links-widget.mas:12
 msgid "A preview of Zentyal Cloud and access to some basic features!"
-msgstr ""
+msgstr "Una vista previa de Zentyal Cloud y acceso a algunas características básicas!"
 
 #: ../../main/core/src/templates/links-widget.mas:12
 msgid "FREE Basic Subscription"
@@ -1131,7 +1136,7 @@ msgstr "Negocio"
 
 #: ../../main/core/src/templates/links-widget.mas:26
 msgid "Fully supported Zentyal server for less than 25 users"
-msgstr ""
+msgstr "Servidor Zentyal completamente soportado para menos de 25 usuarios"
 
 #: ../../main/core/src/templates/links-widget.mas:26
 msgid "Small Business Edition"
@@ -1139,7 +1144,7 @@ msgstr "Edición Small Business"
 
 #: ../../main/core/src/templates/links-widget.mas:28
 msgid "Fully supported Zentyal server for an unlimited number of users."
-msgstr ""
+msgstr "Servidor Zentyal completamente soportado para un número de usuarios ilimitado."
 
 #: ../../main/core/src/templates/links-widget.mas:28
 msgid "Enterprise Edition"
@@ -1148,7 +1153,7 @@ msgstr "Edición Enterprise"
 #: ../../main/core/src/templates/links-widget.mas:30
 msgid ""
 "Learn to use all Zentyal based network services in production environments."
-msgstr ""
+msgstr "Aprende a usar todos los servicios de red basados en Zentyal en entornos de producción."
 
 #: ../../main/core/src/templates/links-widget.mas:30
 msgid "Certified Training"
@@ -1156,7 +1161,7 @@ msgstr "Formación Certificada"
 
 #: ../../main/core/src/templates/links-widget.mas:31
 msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
-msgstr ""
+msgstr "Libro \"Zentyal para Administradores de Redes\" en Español e Inglés."
 
 #: ../../main/core/src/templates/links-widget.mas:31
 msgid "Official Manual"
@@ -1170,6 +1175,9 @@ msgid ""
 "configuration changes are detected. You may check all your configuration "
 "backups {ohref}here{chref}."
 msgstr ""
+"Gracias a tu suscripción de servidor, el backup de configuración se comprueba "
+"y almacena diariamente en Zentyal Cloud de forma automática si se detectan cambios. "
+"Puedes comprobar todos tus backups de configuración {ohref}aquí{chref}."
 
 #: ../../main/core/src/templates/backup.mas:14
 #, perl-brace-format
