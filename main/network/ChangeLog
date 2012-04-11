@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Network::importInterfacesFile overwrite a previous default
+	  gateway instead of aborting
 	+ Insert fwmark ip rules before from ones
 	+ Remove no longer necessary mark rules when having several interfaces
 	+ Pre-create failover and check-ip chains on network start to always ensure

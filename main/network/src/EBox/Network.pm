@@ -4302,6 +4302,11 @@ sub importInterfacesFile
                     $iface->{'netmask'}, undef, 1);
             if ($iface->{'gateway'}){
                 my $gwModel = $self->model('GatewayTable');
+                my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
+                if ($defaultGwRow) {
+                    EBox::info("Already a default gateway, overwriting it");
+                    $gwModel->removeRow($defaultGwRow->id(), 1);
+                }
                 $gwModel->add(name      => $DEFAULT_GW_NAME,
                               ip        => $iface->{'gateway'},
                               interface => $iface->{'name'},
