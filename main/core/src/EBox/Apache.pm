@@ -110,7 +110,7 @@ sub _daemon
     # Sometimes apache is running but for some reason apache.pid does not
     # exist, with this workaround we always ensure a successful restart
     my $pid = EBox::Config::tmp() . 'apache.pid';
-    unless (-f $pid) {
+    unless (-s $pid) {
         system ("ps aux|grep 'apache2 -d $conf'|awk '/^root/{print \$2;exit}' > $pid");
     }
 
