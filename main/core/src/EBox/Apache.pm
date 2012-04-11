@@ -111,7 +111,7 @@ sub _daemon
     # exist, with this workaround we always ensure a successful restart
     my $pid = EBox::Config::tmp() . 'apache.pid';
     unless (-f $pid) {
-        system("ps ax|grep 'apache2 -d $conf'|awk '{print \$1;exit}' > $pid");
+        system ("ps aux|grep 'apache2 -d $conf'|awk '/^root/{print \$2;exit}' > $pid");
     }
 
     if ($action eq 'stop') {
