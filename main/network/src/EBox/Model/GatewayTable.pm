@@ -330,7 +330,7 @@ sub updatedRowNotify
         $network->storeSelectedDefaultGateway($id);
     } else {
         if ($id eq $network->selectedDefaultGateway()) {
-            $network->storeSelectedDefaultGateway(undef);
+            $network->storeSelectedDefaultGateway('');
         }
     }
 }
@@ -352,7 +352,7 @@ sub deletedRowNotify
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
         if ($row->id() eq $network->selectedDefaultGateway()) {
-            $network->storeSelectedDefaultGateway(undef);
+            $network->storeSelectedDefaultGateway('');
         }
     }
 }
