@@ -1,4 +1,5 @@
 HEAD
+	+ Remove deprecated all_dirs and all_entries methods
 	+ Remove obsolete EBox::Order package
 	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
 	+ Remove no longer needed redis directory tree sets
