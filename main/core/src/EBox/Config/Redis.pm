@@ -29,6 +29,7 @@ use YAML::XS;
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
+use JSON::XS;
 use Error qw/:try/;
 
 my $SEM_KEY = 0xEBEB;
@@ -156,14 +157,7 @@ sub set_list
 {
     my ($self, $key, $list) = @_;
 
-    $self->begin();
-
-    $self->_redis_call('del', $key);
-    for my $value (@{$list}) {
-        $self->_redis_call('rpush', $key, $value);
-    }
-
-    $self->commit();
+    $self->set_string($key, encode_json($list));
 }
 
 # Method: list_add
@@ -176,7 +170,9 @@ sub list_add
 
     $self->begin();
 
-    $self->_redis_call('rpush', $key, $value);
+    my $list = $self->get_list($key);
+    push (@{$list}, $value);
+    $self->set_list($key, $list);
 
     $self->commit();
 }
@@ -189,9 +185,9 @@ sub get_list
 {
     my ($self, $key) = @_;
 
-    my @list = $self->_redis_call('lrange', $key, 0, -1);
-    if (@list) {
-        return \@list;
+    my $list = $self->_redis_call('get', $key);
+    if ($list) {
+        return decode_json($list);
     } else {
         return [];
     }
@@ -205,8 +201,7 @@ sub set_hash
 {
     my ($self, $key, $hash) = @_;
 
-    $self->_redis_call('del', $key);
-    $self->_redis_call('hmset', $key, %{$hash});
+    $self->set_list($hash);
 }
 
 # Method: get_hash
@@ -217,61 +212,12 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
-    unless ($self->exists($key)) {
+    my $list = $self->_redis_call('get', $key);
+    if ($list) {
+        return decode_json($list);
+    } else {
         return {};
     }
-    return {$self->_redis_call('hgetall', $key)};
-}
-
-# Method: set_set
-#
-#   Set $key to $set. Where $set is an array ref.
-#
-sub set_set
-{
-    my ($self, $key, $set) = @_;
-    $self->_redis_call('del', $key);
-    for my $value (@{$set}) {
-        $self->_redis_call('sadd', $key, $value);
-    }
-}
-
-# Method: get_set
-#
-#   Fetch the array ref stored in $key
-#
-sub get_set
-{
-    my ($self, $key) = @_;
-
-    my @set = $self->_redis_call('smembers', $key);
-    if (@set) {
-        return \@set;
-    } else {
-        return [];
-    }
-}
-
-# Method: get_set_size
-#
-#   Fetch the size of the set stored in $key
-#
-sub get_set_size
-{
-    my ($self, $key) = @_;
-
-    return $self->_redis_call('scard', $key);
-}
-
-# Method: is_member
-#
-#   Check if $value is member of the $key set
-#
-sub is_member
-{
-    my ($self, $key, $value) = @_;
-
-    return $self->_redis_call('sismember', $key, $value);
 }
 
 # Method: all_dirs
@@ -363,6 +309,9 @@ sub exists
 {
     my ($self, $key) = @_;
 
+    # FIXME: is this necessary?
+    throw EBox::Exceptions::Internal("CALL TO DEPRECATED METHOD EXISTS");
+
     $self->_redis_call('exists', $key);
 }
 
@@ -377,6 +326,9 @@ sub get
 {
     my ($self, $key, $type) = @_;
 
+# FIXME: is this really used?
+
+    throw EBox::Exceptions::Internal("DEPRECATED CALL TO REDIS GET");
     unless (defined ($type)) {
         $type = $self->_redis_call('type', $key);
     }
@@ -486,32 +438,37 @@ sub set_hash_value
 {
     my ($self, $key, $field, $value) = @_;
 
-    $self->_redis_call('hset', $key, $field, $value);
+    my $orig = $self->get_hash($key);
+    $orig->{$field} = $value;
+    $self->set_hash($key, $orig);
 }
 
 sub set_hash_values
 {
     my ($self, $key, $hash) = @_;
 
-    $self->_redis_call('hmset', $key, %{$hash});
+    my $orig = $self->get_hash($key);
+    foreach my $elem (keys %{$hash}) {
+        $orig->{$elem} = $hash->{$elem};
+    }
+    $self->set_hash($key, $orig);
 }
 
 sub hash_value
 {
     my ($self, $key, $field) = @_;
 
-    return $self->_redis_call('hget', $key, $field);
+    my $hash = $self->get_hash($key);
+    return $hash->{$field};
 }
 
 sub hash_delete
 {
     my ($self, $key, @fields) = @_;
 
-    # TODO: Redis 2.4 support deletion of several keys with
-    # one single commands, uncomment and remove the map if we upgrade
-    # $self->_redis_call('hdel', $key, @fields);
-
-    map { $self->_redis_call('hdel', $key, $_) } @fields;
+    my $orig = $self->get_hash($key);
+    map { delete $orig->{$_} } @fields;
+    $self->set_hash($key, $orig);
 }
 
 # Method: import_dir_from_yaml
@@ -563,26 +520,22 @@ sub _backup_dir
     my $dest = $args{destination};
 
     for my $entry (@{$self->all_entries($key)}) {
-        my $type = $self->_redis_call('type', $entry);
         my $destKey = $entry;
         if ($destinationType eq 'redis') {
             $destKey = $dest . substr($destKey, length($key));
         }
 
-        my $value = $self->get($entry, $type);
+        my $value = $self->_redis_call('get', $entry);
         if ($destinationType eq 'redis') {
-            $self->set($destKey, $value, $type);
+            $self->_redis_call('set', $destKey, $value);
         } else {
-            if ($type eq any((REDIS_TYPES))) {
                 push (@{$args{destination}},
                         {
-                            type => $type,
                             key => $destKey,
                             value => $value
                         }
                      );
             }
-        }
     }
 
     my $destKey = $dest;
@@ -607,10 +560,9 @@ sub _restore_dir
     $self->begin();
 
     for my $entry (@{$self->all_entries($orig . $key)}) {
-        my $type = $self->_redis_call('type', $entry);
         my $destKey = $dest . substr($entry, length($orig));
-        my $value = $self->get($entry, $type);
-        $self->set($destKey, $value, $type);
+        my $value = $self->_redis_call('get', $entry);
+        $self->_redis_call('set', $destKey, $value);
     }
     for my $subdir (@{$self->all_dirs($orig. $key)}) {
         $self->_restore_dir(substr($subdir, length($orig)), $orig, $dest);
@@ -744,76 +696,20 @@ sub _redis_call
 
     my $write = 1;
     if ($command eq 'set') {
-        $cache{$key} = { type => 'string', value => $value };
+        $cache{$key} = $value;
     } elsif ($command eq 'del') {
         delete $cache{$key};
-    } elsif (($command eq 'hset') or ($command eq 'hmset')) {
-        unless (exists $cache{$key} and exists $cache{$key}->{value}) {
-            $cache{$key} = { type => 'hash', value => {} };
-        }
-        my $field;
-        while (@values) {
-            $field = shift @values;
-            $value = shift @values;
-            $cache{$key}->{value}->{$field} = $value;
-        }
-    } elsif ($command eq 'hdel') {
-        foreach my $field (@values) {
-            delete $cache{$key}->{value}->{$field};
-        }
-    } elsif ($command eq 'rpush') {
-        unless (exists $cache{$key} and exists $cache{$key}->{value}) {
-            $cache{$key} = { type => 'list', value => [] };
-        }
-        foreach my $val (@values) {
-            push (@{$cache{$key}->{value}}, $val);
-        }
-    } else {
+    } elsif ($command eq 'keys') {
+        return $self->_keys_wrapper($key);
+    } elsif ($command eq 'get') {
         $write = 0;
 
-        if ($command eq 'keys') {
-            return $self->_keys_wrapper($key);
-        }
-
         # Get from redis if not in cache
-        if (($command eq 'exists') and not exists $cache{$key}) {
-            if ($self->_redis_call_wrapper(0, 'exists', $key)) {
-                $cache{$key} = {};
-            }
-        } elsif (($command eq 'type') and not exists $cache{$key}->{type}) {
-            $value = $self->_redis_call_wrapper(0, 'type', @args);
-            $cache{$key} = { type => $value };
-        } elsif (not exists $cache{$key}->{value}) {
-            if (($command eq 'hget') or ($command eq 'hgetall')) {
-                $value = $self->_redis_call_wrapper(1, 'hgetall', $key);
-                $cache{$key} = { type => 'hash', value => {@{$value}} };
-            } else {
-                $value = $self->_redis_call_wrapper($wantarray, $command, @args);
-                if ($command eq 'get') {
-                    $cache{$key} = { type => 'string', value => $value };
-                } elsif ($command eq 'lrange') {
-                    $cache{$key} = { type => 'list', value => $value };
-                }
-            }
+        if (not exists $cache{$key}) {
+            $cache{$key} = $self->_redis_call_wrapper($wantarray, $command, @args);
         }
 
-        # Get value from cache
-        if ($command eq 'exists') {
-            return exists $cache{$key};
-        } elsif ($command eq 'get') {
-            return $cache{$key}->{value};
-        } elsif ($command eq 'lrange') {
-            return () unless (defined $cache{$key}->{value});
-            return @{$cache{$key}->{value}};
-        } elsif ($command eq 'hget') {
-            return undef unless (exists $cache{$key}->{value}->{$value});
-            return $cache{$key}->{value}->{$value};
-        } elsif ($command eq 'hgetall') {
-            return () unless (defined $cache{$key}->{value});
-            return %{$cache{$key}->{value}};
-        } elsif ($command eq 'type') {
-            return $cache{$key}->{type};
-        }
+        return $cache{$key};
     }
 
     if ($write) {
