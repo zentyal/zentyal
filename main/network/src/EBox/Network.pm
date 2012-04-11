@@ -4304,14 +4304,14 @@ sub importInterfacesFile
                 my $gwModel = $self->model('GatewayTable');
                 my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
                 if ($defaultGwRow) {
-                    EBox::info("Already a default gateway, overwriting it");
-                    $gwModel->removeRow($defaultGwRow->id(), 1);
+                    EBox::info("Already a default gateway, keeping it");
+                } else {
+                    $gwModel->add(name      => $DEFAULT_GW_NAME,
+                                  ip        => $iface->{'gateway'},
+                                  interface => $iface->{'name'},
+                                  weight    => $DEFAULT_WEIGHT,
+                                  default   => 1);
                 }
-                $gwModel->add(name      => $DEFAULT_GW_NAME,
-                              ip        => $iface->{'gateway'},
-                              interface => $iface->{'name'},
-                              weight    => $DEFAULT_WEIGHT,
-                              default   => 1);
             }
         } elsif ($iface->{'method'} eq 'dhcp') {
             $self->setIfaceDHCP($iface->{'name'}, 0, 1);
