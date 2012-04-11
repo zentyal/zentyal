@@ -72,6 +72,9 @@ use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
 
+use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
+use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
+
 sub _create
 {
     my $class = shift;
@@ -3038,6 +3041,8 @@ sub _multigwRoutes
         $interfaces{$iface}++;
     }
 
+    my @markRules;
+    my @addrRules;
     for my $router ( reverse @{$routers} ) {
 
         # Skip gateways with unassigned address
@@ -3064,18 +3069,20 @@ sub _multigwRoutes
             (undef, $ip) = split ('/', $ip);
         }
 
+	    # Write mark rules first to avoid local output problems
         push(@cmds, "/sbin/ip route flush table $table");
-        push(@cmds, "/sbin/ip rule add fwmark $mark/0xFF table $table");
-        push(@cmds, "/sbin/ip rule add from $ip table $table");
+        push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table");
+        push(@addrRules, "/sbin/ip rule add from $ip table $table");
 
         # Add rule by source in multi interface configuration
         if ( scalar keys %interfaces > 1 ) {
-            push(@cmds, "/sbin/ip rule add from $address table $table");
+            push(@addrRules, "/sbin/ip rule add from $address table $table");
         }
 
         push(@cmds, "/sbin/ip route add default $route table $table");
     }
 
+    push(@cmds, @addrRules, @markRules);
     push(@cmds,'/sbin/ip rule add table main');
 
     # Not in @cmds array because of possible CONNMARK exception
@@ -3113,13 +3120,6 @@ sub _multigwRoutes
         push(@cmds, '/sbin/iptables -t mangle -A PREROUTING '
                   . "-m mark --mark 0/0xff $origin "
                   . "-j MARK --set-mark $mark");
-
-
-        # mark in postrouting (only if more than one output iface)
-        if ( scalar keys %interfaces > 1 ) {
-            push(@cmds, '/sbin/iptables -t mangle -A POSTROUTING '
-                        . "-o $iface -j MARK --set-mark $mark");
-        }
     }
 
     push(@cmds, @{$self->_pppoeRules()});
@@ -3143,8 +3143,12 @@ sub _multigwRoutes
         my @fcmds;
         push(@fcmds, '/sbin/iptables -t mangle -A PREROUTING -j CONNMARK --save-mark');
         push(@fcmds, '/sbin/iptables -t mangle -A OUTPUT -j CONNMARK --save-mark');
-        push(@fcmds, '/sbin/iptables -t mangle -A POSTROUTING -j CONNMARK --save-mark' .
-                     ' --nfmask 0xff'); # routers mark only
+
+        foreach my $chain (FAILOVER_CHAIN, CHECKIP_CHAIN) {
+            push(@fcmds, "/sbin/iptables -t mangle -N $chain");
+            push(@fcmds, "/sbin/iptables -t mangle -A OUTPUT -j $chain");
+        }
+
         EBox::Sudo::root(@fcmds);
     } otherwise {};
 }
@@ -4297,11 +4301,16 @@ sub importInterfacesFile
                     $iface->{'netmask'}, undef, 1);
             if ($iface->{'gateway'}){
                 my $gwModel = $self->model('GatewayTable');
-                $gwModel->add(name      => $DEFAULT_GW_NAME,
-                              ip        => $iface->{'gateway'},
-                              interface => $iface->{'name'},
-                              weight    => $DEFAULT_WEIGHT,
-                              default   => 1);
+                my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
+                if ($defaultGwRow) {
+                    EBox::info("Already a default gateway, keeping it");
+                } else {
+                    $gwModel->add(name      => $DEFAULT_GW_NAME,
+                                  ip        => $iface->{'gateway'},
+                                  interface => $iface->{'name'},
+                                  weight    => $DEFAULT_WEIGHT,
+                                  default   => 1);
+                }
             }
         } elsif ($iface->{'method'} eq 'dhcp') {
             $self->setIfaceDHCP($iface->{'name'}, 0, 1);
