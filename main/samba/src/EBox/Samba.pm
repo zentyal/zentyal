@@ -437,6 +437,22 @@ sub shares
     return \@shares;
 }
 
+# Method: addZentyalLdbModule
+#
+#   This method adds the zentyal module to LDB
+#
+sub addZentyalLdbModule
+{
+    my ($self) = @_;
+
+    # Add the zentyal module to the LDB modules stack
+    my $ldif = "dn: \@MODULES\n" .
+               "changetype: modify\n" .
+               "replace: \@LIST\n" .
+               "\@LIST: zentyal,samba_dsdb\n";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -444,7 +460,6 @@ sub shares
 sub provision
 {
     my ($self) = @_;
-
 
     # This file must be deleted or provision may fail
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
@@ -605,6 +620,11 @@ sub _setConf
 
     unless ($self->get_bool('provisioned')) {
         $self->provision();
+    }
+
+    # Add the zentyal module to the LDB modules stack
+    if ($self->get_bool('provisioned')) {
+        $self->addZentyalLdbModule();
     }
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
