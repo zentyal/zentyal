@@ -439,23 +439,6 @@ sub backup_dir
     $self->commit();
 }
 
-# Method: restore_dir
-#
-#   Restore orig/$key in $dest
-#
-sub restore_dir
-{
-    my ($self, $key, $orig, $dest) = @_;
-
-    $self->begin();
-
-    $self->delete_dir($dest . $key);
-    $self->_restore_dir($key, $orig, $dest);
-
-    $self->commit();
-}
-
-
 # Method: export_dir_to_yaml
 #
 #   Back up a given dir in YAML file
@@ -562,15 +545,15 @@ sub _backup_dir
     my $destinationType = $args{destination_type};
     my $dest = $args{destination};
 
-    for my $entry (@{$self->all_entries($key)}) {
-        my $type = $self->_redis_call('type', $entry);
-        my $destKey = $entry;
-        if ($destinationType eq 'redis') {
-            $destKey = $dest . substr($destKey, length($key));
-        }
+    my @keys = $self->_redis_call('keys', "$key/*");
 
+    for my $entry (@keys) {
+        my $type = $self->_redis_call('type', $entry);
         my $value = $self->get($entry, $type);
+        my $destKey = $entry;
+
         if ($destinationType eq 'redis') {
+            $destKey =~ s/^$key/$dest/;
             $self->set($destKey, $value, $type);
         } else {
             if ($type eq any((REDIS_TYPES))) {
@@ -583,37 +566,6 @@ sub _backup_dir
                      );
             }
         }
-    }
-
-    my $destKey = $dest;
-    for my $subdir (@{$self->all_dirs($key)}) {
-        if ($destinationType eq 'redis') {
-            $destKey = $dest . substr($subdir, length($key));
-        }
-        $self->_backup_dir(
-            key => $subdir,
-            destination => $destKey,
-            destination_type => $destinationType,
-        );
-    }
-
-    $self->commit();
-}
-
-sub _restore_dir
-{
-    my ($self, $key, $orig, $dest) = @_;
-
-    $self->begin();
-
-    for my $entry (@{$self->all_entries($orig . $key)}) {
-        my $type = $self->_redis_call('type', $entry);
-        my $destKey = $dest . substr($entry, length($orig));
-        my $value = $self->get($entry, $type);
-        $self->set($destKey, $value, $type);
-    }
-    for my $subdir (@{$self->all_dirs($orig. $key)}) {
-        $self->_restore_dir(substr($subdir, length($orig)), $orig, $dest);
     }
 
     $self->commit();

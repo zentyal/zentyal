@@ -343,26 +343,6 @@ sub _all_entries_base # (key)
     return \@names;
 }
 
-# Method: all_entries_base
-#
-#       Given a key it returns all directories within, removing
-#       any leading directory component.
-#
-# Parameters:
-#
-#       key
-#
-# Returns:
-#
-#       ref to an array of strings - each string represents an entry
-#
-sub all_entries_base # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_all_entries_base($key);
-}
-
 sub st_all_entries_base # (key)
 {
     my ($self, $key) = @_;
