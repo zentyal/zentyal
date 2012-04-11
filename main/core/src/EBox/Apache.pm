@@ -36,6 +36,7 @@ use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename;
+use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
 use File::Path qw(remove_tree);
@@ -109,9 +110,11 @@ sub _daemon
 
     # Sometimes apache is running but for some reason apache.pid does not
     # exist, with this workaround we always ensure a successful restart
-    my $pid = EBox::Config::tmp() . 'apache.pid';
-    unless (-s $pid) {
-        system ("ps aux|grep 'apache2 -d $conf'|awk '/^root/{print \$2;exit}' > $pid");
+    my $pidfile = EBox::Config::tmp() . 'apache.pid';
+    my $pid;
+    unless (-f $pidfile) {
+        $pid = `ps aux|grep 'apache2 -d $conf'|awk '/^root/{print \$2;exit}'`;
+        write_file($pidfile, $pid) if $pid;
     }
 
     if ($action eq 'stop') {
