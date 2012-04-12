@@ -42,11 +42,11 @@ use constant REDIS_PASS => 'conf/redis.passwd';
 use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
 # TODO: remove this when stable
-my $CACHE_ENABLED = 1;
 my $TRANSACTIONS_ENABLED = 1;
 
 my %cache;
-my @queue;
+my %modified;
+my %deleted;
 my $cacheVersion = 0;
 my $trans = 0;
 my $sem = undef;
@@ -154,7 +154,8 @@ sub set_list
 {
     my ($self, $key, $list) = @_;
 
-    $self->set_string($key, encode_json($list));
+    # TODO: rename this
+    $self->set_string($key, $list);
 }
 
 # Method: list_add
@@ -184,7 +185,7 @@ sub get_list
 
     my $list = $self->_redis_call('get', $key);
     if ($list) {
-        return decode_json($list);
+        return $list;
     } else {
         return [];
     }
@@ -198,7 +199,8 @@ sub set_hash
 {
     my ($self, $key, $hash) = @_;
 
-    $self->set_string($key, encode_json($hash));
+    # TODO: rename this
+    $self->set_string($key, $hash);
 }
 
 # Method: get_hash
@@ -209,9 +211,9 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
-    my $list = $self->_redis_call('get', $key);
-    if ($list) {
-        return decode_json($list);
+    my $hash = $self->_redis_call('get', $key);
+    if ($hash) {
+        return $hash;
     } else {
         return {};
     }
@@ -494,7 +496,7 @@ sub commit
     $trans--;
 
     if ($trans == 0) {
-        $self->_flush_queue();
+        $self->_sync();
 
         $sem->signal();
     }
@@ -515,17 +517,26 @@ sub rollback
     $sem->signal();
 }
 
-sub _flush_queue
+sub _sync
 {
     my ($self) = @_;
 
-    return unless @queue;
+    return unless (%modified or %deleted);
 
     $self->_redis_call_wrapper(0, 'multi');
 
-    while (@queue) {
-        my $cmd = shift (@queue);
-        $self->_redis_call_wrapper(0, $cmd->{cmd}, @{$cmd->{args}});
+    foreach my $key (keys %modified) {
+        my $value = $cache{$key};
+        if (ref $value) {
+            $value = encode_json($value);
+        }
+        $self->_redis_call_wrapper(0, 'set', $key, $value);
+    }
+    %modified = ();
+
+    if (%deleted) {
+        $self->_redis_call_wrapper(0, 'del', keys %deleted);
+        %deleted = ();
     }
 
     $self->_redis_call_wrapper(0, 'incr', 'version');
@@ -541,40 +552,46 @@ sub _redis_call
 {
     my ($self, $command, @args) = @_;
 
-    my $wantarray = wantarray;
     my ($key, @values) = @args;
-
-    unless ($CACHE_ENABLED) {
-        my $response = $self->_redis_call_wrapper($wantarray, $command, @args);
-        if (ref ($response) eq 'ARRAY') {
-            return @{$response};
-        } elsif (ref ($response) eq 'HASH') {
-            return %{$response};
-        } else {
-            return $response;
-        }
-    }
 
     my $value = $values[0];
 
     if ($command eq 'set') {
         $cache{$key} = $value;
-        push (@queue, { cmd => 'set', args => \@args });
+        $modified{$key} = 1;
+        delete $deleted{$key};
     } elsif ($command eq 'del') {
-        delete $cache{$key};
-        push (@queue, { cmd => 'del', args => \@args });
+        foreach my $key (@args) {
+            delete $cache{$key};
+            $deleted{$key} = 1;
+            delete $modified{$key};
+        }
     } elsif ($command eq 'keys') {
         return $self->_keys_wrapper($key);
     } elsif ($command eq 'get') {
         # Get from redis if not in cache
         unless (exists $cache{$key}) {
-            $cache{$key} = $self->_redis_call_wrapper($wantarray, $command, @args);
+            $cache{$key} = _try_decode($self->_redis_call_wrapper(0, 'get', $key));
         }
 
         return $cache{$key};
     } else {
         throw EBox::Exceptions::Internal("UNSUPPORTED COMMAND: $command @args");
     }
+}
+
+sub _try_decode
+{
+    my ($value) = @_;
+
+    my $decoded;
+    try {
+        $decoded = decode_json($value);
+    } otherwise {
+        $decoded = $value;
+    };
+
+    return $decoded;
 }
 
 sub _keys_wrapper
