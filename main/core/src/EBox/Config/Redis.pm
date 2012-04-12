@@ -41,14 +41,11 @@ use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
 use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
-use constant REDIS_TYPES => qw(string list hash);
-
 # TODO: remove this when stable
 my $CACHE_ENABLED = 1;
 my $TRANSACTIONS_ENABLED = 1;
 
 my %cache;
-my %keys;
 my @queue;
 my $cacheVersion = 0;
 my $trans = 0;
@@ -201,7 +198,7 @@ sub set_hash
 {
     my ($self, $key, $hash) = @_;
 
-    $self->set_list($hash);
+    $self->set_string($key, encode_json($hash));
 }
 
 # Method: get_hash
@@ -313,62 +310,6 @@ sub exists
     throw EBox::Exceptions::Internal("CALL TO DEPRECATED METHOD EXISTS");
 
     $self->_redis_call('exists', $key);
-}
-
-# Method: get
-#
-# Generic get to retrieve keys. It will
-# automatically check if it's a scalar,
-# list, set or hash value unless optional
-# type argument is specified.
-#
-sub get
-{
-    my ($self, $key, $type) = @_;
-
-# FIXME: is this really used?
-
-    throw EBox::Exceptions::Internal("DEPRECATED CALL TO REDIS GET");
-    unless (defined ($type)) {
-        $type = $self->_redis_call('type', $key);
-    }
-
-    if ($type eq any((REDIS_TYPES))) {
-        my $getter = "get_$type";
-        return $self->$getter($key);
-    } else {
-        return undef;
-    }
-}
-
-# Method: set
-#
-# Generic method to key values. It will
-# automatically check if it's a scalar,
-# list or hash value unless the optional
-# type argument is specified.
-#
-sub set
-{
-    my ($self, $key, $value, $type) = @_;
-
-    unless (defined ($type)) {
-        $type = ref ($value);
-        if ($type eq 'ARRAY') {
-            $type = 'list';
-        } elsif ($type eq 'HASH') {
-            $type = 'hash';
-        } else {
-            $type = 'string';
-        }
-    }
-
-    if ($type eq any((REDIS_TYPES))) {
-        my $setter = "set_$type";
-        return $self->$setter($key, $value);
-    } else {
-        return undef;
-    }
 }
 
 # Method: backup_dir
@@ -485,8 +426,7 @@ sub import_dir_from_yaml
         } else {
             $key = $entry->{key};
         }
-        my $type = $entry->{type};
-        $self->set($key, $value, $type);
+        $self->_redis_call('set', $key, $value);
     }
 
     $self->commit();
@@ -539,7 +479,6 @@ sub begin
     defined ($version) or $version = 0;
     if ($version > $cacheVersion) {
         %cache = ();
-        %keys = ();
         $cacheVersion = $version;
     }
 
@@ -595,35 +534,6 @@ sub _flush_queue
     $cacheVersion = pop @{$result};
 }
 
-sub _parent_dir
-{
-    my ($self, $key, $create) = @_;
-
-    my (@dirs, undef) = split ('/', $key);
-    my $name = shift @dirs;
-    unless (exists $keys{$name}) {
-        if ($create) {
-            $keys{$name} = {};
-        } else {
-            return undef;
-        }
-    }
-    my $dir = $keys{$name};
-    while (@dirs) {
-        $name = shift @dirs;
-        unless (exists $dir->{$name}) {
-            if ($create) {
-                $dir->{$name} = {};
-            } else {
-                return undef;
-            }
-        }
-        $dir = $dir->{$name};
-    }
-
-    return $dir;
-}
-
 # Redis call proxy, tries to get the result from cache and fallbacks
 # to _redis_call_wrapper if not present or cache dirty
 #
@@ -647,36 +557,23 @@ sub _redis_call
 
     my $value = $values[0];
 
-    my $write = 1;
     if ($command eq 'set') {
         $cache{$key} = $value;
+        push (@queue, { cmd => 'set', args => \@args });
     } elsif ($command eq 'del') {
         delete $cache{$key};
+        push (@queue, { cmd => 'del', args => \@args });
     } elsif ($command eq 'keys') {
         return $self->_keys_wrapper($key);
     } elsif ($command eq 'get') {
-        $write = 0;
-
         # Get from redis if not in cache
-        if (not exists $cache{$key}) {
+        unless (exists $cache{$key}) {
             $cache{$key} = $self->_redis_call_wrapper($wantarray, $command, @args);
         }
 
         return $cache{$key};
-    }
-
-    if ($write) {
-        push (@queue, { cmd => $command, args => \@args });
-
-        # Update keys cache
-        my $dir = $self->_parent_dir($key);
-        if ($dir) {
-            if ($command eq 'del') {
-                delete $dir->{$key};
-            }  else {
-                $dir->{$key} = 1;
-            }
-        }
+    } else {
+        throw EBox::Exceptions::Internal("UNSUPPORTED COMMAND: $command @args");
     }
 }
 
@@ -684,22 +581,14 @@ sub _keys_wrapper
 {
     my ($self, $pattern) = @_;
 
-    my $keys = undef;
-    my $dir = $self->_parent_dir($pattern);
-    if (defined ($dir)) {
-        $keys = [ keys %{$dir} ];
-    } else {
-        $dir = $self->_parent_dir($pattern, 1);
-        $keys = $self->_redis_call_wrapper(1, 'keys', $pattern);
-        foreach my $name (@{$keys}) {
-            unless (exists $cache{$name}) {
-                $cache{$name} = {};
-            }
-            $dir->{$name} = 1;
+    my @keys = @{$self->_redis_call_wrapper(1, 'keys', $pattern)};
+    foreach my $name (keys %cache) {
+        if ($name =~ /^$pattern/) {
+            push (@keys, $name);
         }
     }
 
-    return @{$keys};
+    return @keys;
 }
 
 # Wrapper to reconnect to redis in case of detecting a failure when
