@@ -836,18 +836,13 @@ sub addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
 
-    my $tableName = $self->tableName();
     my $dir = $self->{'directory'};
     my $gconfmod = $self->{'gconfmodule'};
     my $readOnly = delete $optParams{'readOnly'};
     my $id = delete $optParams{'id'};
 
-    my $leadingText = substr( $tableName, 0, 4);
-    # Changing text to be lowercase
-    $leadingText = "\L$leadingText";
-
     unless (defined ($id) and length ($id) > 0) {
-        $id = $self->_newId($leadingText);
+        $id = $self->_newId();
     }
 
     my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
@@ -3500,17 +3495,19 @@ sub _rowExists
 
 sub _newId
 {
-    my ($self, $leadingText) = @_;
+    my ($self) = @_;
+
+    my $model = $self->modelName();
+    my $leadingText = lc($model);
+    $leadingText =~ tr/aeiou//d;
+    $leadingText = substr($leadingText, 0, length($leadingText) / 2);
 
     my $id = 1;
-
-    # FIXME: implement this better, maybe a key to hold the max id
-    my @ids = @{$self->_ids(1)};
-    if (@ids) {
-        my $str = List::Util::maxstr(@ids);
-        $str =~ s/$leadingText//;
-        $id = $str + 1;
+    my $maxId = $self->{gconfmodule}->get_string("$model/max_id");
+    if ($maxId) {
+        $id = $maxId + 1;
     }
+    $self->{gconfmodule}->set_string("$model/max_id", $id);
 
     return $leadingText . $id;
 }

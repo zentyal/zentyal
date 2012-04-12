@@ -1,4 +1,5 @@
 HEAD
+	+ Row id prefixes are now better chosen to avoid confusion
 	+ Use JSON instead of list and hash redis types (some operations,
 	  specially on lists, are up to 50% faster and caching is much simpler)
 	+ Store rows as hashes instead of separated keys
