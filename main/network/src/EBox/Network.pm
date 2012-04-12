@@ -2378,11 +2378,16 @@ sub setNameservers # (one, two)
     my $nNSS = scalar(@{$nss});
     for(my $idx = 0; $idx < @dns; $idx++) {
         my $newNS = $dns[$idx];
+        my $existentRow = $resolverModel->find(nameserver => $newNS);
+        if ($existentRow) {
+            # remove it to insert it back in the wanted order
+            $resolverModel->removeRow($existentRow->id(), 1);
+        }
         if ( $idx <= $nNSS - 1) {
-            # There is a nameserver
+            # There is a nameserver in the position
             $self->setNS($idx, $newNS);
         } else {
-            # Add a new one
+            # Add a new one to the end of the list
             $resolverModel->add(nameserver => $newNS);
         }
     }
