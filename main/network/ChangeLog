@@ -1,4 +1,5 @@
 HEAD
+	+ Regenerate traffic shaping rules after failover event
 	+ EBox::Network::setNameservers does not fail if the same server
 	  is already in the list
 	+ Fixed calls to storeSelectedDefaultGateway with undef argument
