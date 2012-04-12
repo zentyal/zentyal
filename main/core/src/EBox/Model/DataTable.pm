@@ -2248,40 +2248,6 @@ sub filter
     return $self->{'filter'};
 }
 
-# Method: pages
-#
-#    Return the number of pages
-#
-# Parameters:
-#
-#     $rows - hash ref containing the rows, if undef it will use
-#         those returned by rows()
-# Returns:
-#
-#    integer - containing the value
-sub pages
-{
-    my ($self, $filter) = @_;
-
-    # FIXME: is this method no longer needed?
-    return 1;
-
-    my $pageSize = $self->pageSize();
-    unless (defined($pageSize) and ($pageSize =~ /^\d+/) and ($pageSize > 0)) {
-        return 1;
-    }
-
-    my $rows = $self->rows($filter);
-
-    my $nrows = @{$rows};
-
-    if ($nrows == 0) {
-        return 0;
-    } else {
-        return  ceil($nrows / $pageSize) - 1;
-    }
-}
-
 # Method: find
 #
 #    Return the first row which matches the value of the given
