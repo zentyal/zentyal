@@ -91,6 +91,21 @@ static int dn_to_json(struct ldb_dn *ldn, json_t **dn)
     return (aux == NULL ? -1 : 0);
 }
 
+/**
+ *  Convert a ldb_message to a JSON encoded perl hash of the following format:
+ *  hash ref =  {
+ *                  element1 => {
+ *                                  flags  => 'element flags (integer)'
+ *                                  values => [ 'value1', 'value2', ]
+ *                              }
+ *                  element2 => {
+ *                                  flags  => 'element flags (integer)'
+ *                                  values => [ 'value1', 'value2', ]
+ *                              }
+ *              }
+ *  The values are base64 encoded.
+ *
+ **/
 static int msg_to_json(const struct ldb_message *lmsg, json_t **msg)
 {
     int i, j, ret;
@@ -101,8 +116,20 @@ static int msg_to_json(const struct ldb_message *lmsg, json_t **msg)
 
     for (i = 0; i < lmsg->num_elements; i++) {
         const struct ldb_message_element *elem = &lmsg->elements[i];
-        json_t *array = json_array();
-        if (array == NULL)
+        json_t *elem_hash = json_object();
+        if (elem_hash == NULL)
+            return -1;
+
+        json_t *values_array = json_array();
+        if (values_array == NULL)
+            return -1;
+
+        json_t *flags = json_integer(elem->flags);
+        if (flags == NULL)
+            return -1;
+
+        ret = json_object_set_new(elem_hash, "flags", flags);
+        if (ret)
             return -1;
 
         for (j = 0; j < elem->num_values; j++) {
@@ -123,16 +150,19 @@ static int msg_to_json(const struct ldb_message *lmsg, json_t **msg)
                 return -1;
 
             // Append the value to the values array of the attribute
-            ret = json_array_append(array, val);
+            ret = json_array_append(values_array, val);
             if (ret)
                 return -1;
 
             // Free allocated memory
             free(b64_value);
             free(b64_value2);
-
         }
-        ret = json_object_set_new(hs, elem->name, array);
+        ret = json_object_set_new(elem_hash, "values", values_array);
+        if (ret)
+            return -1;
+
+        ret = json_object_set_new(hs, elem->name, elem_hash);
         if (ret)
             return -1;
     }
@@ -273,10 +303,9 @@ static int socket_send(struct ldb_module *module, const char *json_str)
     close_socket(module);
 
     // Check return code from synchronizer
-    if (strcmp(response, "NOK") == 0)
-        return -1;
+    ret = strcmp(response, "OK");
 
-    return 0;
+    return ret;
 }
 
 static int search_entry(struct ldb_context *ldb, struct ldb_dn *dn, struct ldb_result **result)
