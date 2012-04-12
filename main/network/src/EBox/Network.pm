@@ -4302,11 +4302,16 @@ sub importInterfacesFile
                     $iface->{'netmask'}, undef, 1);
             if ($iface->{'gateway'}){
                 my $gwModel = $self->model('GatewayTable');
-                $gwModel->add(name      => $DEFAULT_GW_NAME,
-                              ip        => $iface->{'gateway'},
-                              interface => $iface->{'name'},
-                              weight    => $DEFAULT_WEIGHT,
-                              default   => 1);
+                my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
+                if ($defaultGwRow) {
+                    EBox::info("Already a default gateway, keeping it");
+                } else {
+                    $gwModel->add(name      => $DEFAULT_GW_NAME,
+                                  ip        => $iface->{'gateway'},
+                                  interface => $iface->{'name'},
+                                  weight    => $DEFAULT_WEIGHT,
+                                  default   => 1);
+                }
             }
         } elsif ($iface->{'method'} eq 'dhcp') {
             $self->setIfaceDHCP($iface->{'name'}, 0, 1);
