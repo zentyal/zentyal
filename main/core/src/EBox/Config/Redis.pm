@@ -25,7 +25,6 @@ use EBox::Service;
 use EBox::Module::Base;
 use EBox::Util::Semaphore;
 use POSIX ':signal_h';
-use YAML::XS;
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
@@ -337,29 +336,30 @@ sub backup_dir
     $self->commit();
 }
 
-# Method: export_dir_to_yaml
+# Method: export_dir_to_file
 #
-#   Back up a given dir in YAML file
+#   Back up a given dir in "key: value" format
 #
 # Parameters:
 #
 #   key         - key for the directory
-#   file        - yaml file to write
+#   file        - file to write
 #
-sub export_dir_to_yaml
+sub export_dir_to_file
 {
     my ($self, $key, $file) = @_;
 
     my @keys;
     $self->_backup_dir(
         key => $key,
-        destination_type => 'yaml',
+        destination_type => 'file',
         destination => \@keys
     );
+    my @lines = sort (map { "$_->{key}: $_->{value}\n" } @keys);
     try {
-        YAML::XS::DumpFile($file, @keys);
+        write_file($file, @lines);
     } otherwise {
-        throw EBox::Exceptions::External("Error dumping $key to YAML:$file");
+        throw EBox::Exceptions::External("Error dumping $key to $file");
     };
 }
 
@@ -400,36 +400,33 @@ sub hash_delete
     $self->set_hash($key, $orig);
 }
 
-# Method: import_dir_from_yaml
+# Method: import_dir_from_file
 #
-#   Given a YAML file, restore all its keys/values under destination folder
+#   Given a "key: value" file, restore them under destination folder
 #
 # Parameters:
 #
-#   filename - YAML filename
+#   filename - filename with the dump
 #   dest - destination folder key
 #
-sub import_dir_from_yaml
+sub import_dir_from_file
 {
     my ($self, $filename, $dest) = @_;
 
-    my @keys;
+    my @lines;
 
     try {
-        @keys = YAML::XS::LoadFile($filename);
+        @lines = read_file($filename);
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
 
     $self->begin();
+    foreach my $line (@lines) {
+        my ($key, $value) = $line =~ /(.+): (.*)/;
 
-    for my $entry (@keys) {
-        my $value = $entry->{value};
-        my $key;
         if ($dest) {
-            $key = $dest . $entry->{key};
-        } else {
-            $key = $entry->{key};
+            $key = $dest . $key;
         }
         $self->_redis_call('set', $key, $value);
     }

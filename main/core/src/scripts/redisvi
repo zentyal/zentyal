@@ -42,7 +42,7 @@ my $redis = new EBox::Config::Redis();
 
 my $dumpfile = "/var/lib/zentyal/conf/redisvi-dump-$$";
 
-$redis->export_dir_to_yaml($dir, $dumpfile, 1);
+$redis->export_dir_to_file($dir, $dumpfile, 1);
 system("cp $dumpfile $dumpfile.orig");
 
 system("$editor $dumpfile");
@@ -54,11 +54,11 @@ if ($? == 0) {
 } else {
     $redis->delete_dir($dir);
     try {
-        $redis->import_dir_from_yaml($dumpfile);
+        $redis->import_dir_from_file($dumpfile);
     } otherwise {
         print "Import of modifications failed, restoring the original...\n";
         $redis->delete_dir($dir);
-        $redis->import_dir_from_yaml("$dumpfile.orig");
+        $redis->import_dir_from_file("$dumpfile.orig");
     };
 }
 

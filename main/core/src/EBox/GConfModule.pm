@@ -107,7 +107,7 @@ sub _load_from_file # (dir?, key?)
     return unless (defined ($line));
 
     # Import to /temp dir and convert paths to $key dest
-    $self->{redis}->import_dir_from_yaml($file, '/temp');
+    $self->{redis}->import_dir_from_file($file, '/temp');
     $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
     $self->{redis}->delete_dir('/temp');
 }
@@ -134,7 +134,7 @@ sub _dump_to_file # (dir?)
     my $key = '/ebox/modules/' . $self->name;
     ($dir) or $dir = EBox::Config::conf;
     my $file = $self->_bak_file_from_dir($dir);
-    $self->{redis}->export_dir_to_yaml($key, $file);
+    $self->{redis}->export_dir_to_file($key, $file);
 }
 
 sub isReadOnly
