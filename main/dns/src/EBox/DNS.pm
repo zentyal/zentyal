@@ -1312,11 +1312,9 @@ sub _getRanges
             do {
                 my $rev = Net::IP->new($ip->ip())->reverse_ip();
                 if ( defined($rev) ) {
-                    # If the response is 10.in-addr.arpa, transform it to 0.0.10.in-addr.arpa
-                    my @subdomains = split(/\./, $rev);
-                    if (@subdomains < 5) {
-                        $rev = '0.' . $rev for (1 .. (5 - @subdomains));
-                    }
+                    # It returns 0.netaddr.in-addr.arpa so we need to remove it
+                    # to make it compilant with bind zone definition
+                    $rev =~ s/^0\.//;
                     $rev =~ s:\.in-addr\.arpa\.::;
                     push(@ranges, $rev);
                 }
