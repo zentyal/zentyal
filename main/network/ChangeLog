@@ -1,4 +1,7 @@
 2.2.7
+	+ EBox::Network::setNameservers does not fail if the same server
+	  is already in the list
+	+ Fixed calls to storeSelectedDefaultGateway with undef argument
 	+ EBox::Network::importInterfacesFile skips gateway adition instead of
 	  aborting if already exists one
 	+ Insert fwmark ip rules before from ones
