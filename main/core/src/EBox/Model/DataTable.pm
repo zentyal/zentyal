@@ -1089,7 +1089,7 @@ sub _removeRow
         $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
     }
 
-    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
+    $self->{'gconfmodule'}->unset("$self->{'directory'}/$id");
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -3645,17 +3645,6 @@ sub _hashFromDir
     $row->{'order'} = $self->_rowOrder($id);
 
     return $row;
-}
-
-sub _removeHasManyTables
-{
-    my ($self, $id) = @_;
-
-    foreach my $type (@{$self->table()->{'tableDescription'}}) {
-        my $dir = "$id/" . $type->fieldName();
-        next unless ($self->{'gconfmodule'}->dir_exists($dir));
-        $self->{'gconfmodule'}->delete_dir("$id/$dir");
-    }
 }
 
 # Method: _notifyModelManager
