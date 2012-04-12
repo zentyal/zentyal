@@ -67,6 +67,7 @@ sub new
     }
     $self->{redis} = $redis;
     $self->{pid} = $$;
+    $self->{decode} = 0;
 
     if ($TRANSACTIONS_ENABLED and not $sem) {
         $sem = EBox::Util::Semaphore->init($SEM_KEY);
@@ -183,6 +184,7 @@ sub get_list
 {
     my ($self, $key) = @_;
 
+    $self->{decode} = 1;
     my $list = $self->_redis_call('get', $key);
     if ($list) {
         return $list;
@@ -211,6 +213,7 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
+    $self->{decode} = 1;
     my $hash = $self->_redis_call('get', $key);
     if ($hash) {
         return $hash;
@@ -571,27 +574,18 @@ sub _redis_call
     } elsif ($command eq 'get') {
         # Get from redis if not in cache
         unless (exists $cache{$key}) {
-            $cache{$key} = _try_decode($self->_redis_call_wrapper(0, 'get', $key));
+            my $value = $self->_redis_call_wrapper(0, 'get', $key);
+            if ($self->{decode}) {
+                $value = decode_json($value) if $value;
+                $self->{decode} = 0;
+            }
+            $cache{$key} = $value;
         }
 
         return $cache{$key};
     } else {
         throw EBox::Exceptions::Internal("UNSUPPORTED COMMAND: $command @args");
     }
-}
-
-sub _try_decode
-{
-    my ($value) = @_;
-
-    my $decoded;
-    try {
-        $decoded = decode_json($value);
-    } otherwise {
-        $decoded = $value;
-    };
-
-    return $decoded;
 }
 
 sub _keys_wrapper
