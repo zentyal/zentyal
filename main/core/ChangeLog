@@ -1,4 +1,7 @@
 HEAD
+	+ Use JSON instead of list and hash redis types (some operations,
+	  specially on lists, are up to 50% faster and caching is much simpler)
+	+ Store rows as hashes instead of separated keys
 	+ Remove deprecated all_dirs and all_entries methods
 	+ Remove obsolete EBox::Order package
 	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
@@ -6,7 +9,6 @@ HEAD
 	+ Fixed isEqualTo() method on EBox::Types::Time
 	+ EBox::Types::Abstract now provides default implementations of fields(),
 	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
-	+ Store rows as a single redis hash instead of separated keys
 	+ Remove indexes on DataTables to reduce complexity, no longer needed
 	+ Simplified ProgressIndicator implementation using shared memory
 	+ New EBox::Util::Semaphore package
