@@ -246,6 +246,12 @@ static int open_socket(struct ldb_module *module)
         return -1;
     }
 
+    // Set a timeout of 5 seconds to receive the answer
+    struct timeval tv;
+    tv.tv_sec  = 5;
+    tv.tv_usec = 0;
+    setsockopt( data->socket, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+
     return 0;
 }
 
@@ -292,11 +298,8 @@ static int socket_send(struct ldb_module *module, const char *json_str)
         response[nbytes] = '\0';
         ldb_debug(ldb, LDB_DEBUG_TRACE, "zentyal: Response from synchronizer: %s", response);
     } else {
-        if (nbytes < 0)
-            ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
-        else
-            ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
-        return -1;
+        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal error %i: %s", errno, strerror(errno));
+        return errno;
     }
 
     // Close socket
@@ -348,8 +351,14 @@ static int zentyal_add(struct ldb_module *module, struct ldb_request *req)
         int ret;
         ret = socket_send(module, json_str);
         free(json_str);
-        if (ret)
-            return LDB_ERR_OPERATIONS_ERROR;
+        switch (ret) {
+            case LDB_SUCCESS:
+                break;
+            case EAGAIN:
+                return LDB_ERR_TIME_LIMIT_EXCEEDED;
+            default:
+                return LDB_ERR_OPERATIONS_ERROR;
+        }
     }
 
     return ldb_next_request(module, req);
@@ -389,8 +398,14 @@ static int zentyal_modify(struct ldb_module *module, struct ldb_request *req)
 
         ret = socket_send(module, json_str);
         free(json_str);
-        if (ret)
-            return LDB_ERR_OPERATIONS_ERROR;
+        switch (ret) {
+            case LDB_SUCCESS:
+                break;
+            case EAGAIN:
+                return LDB_ERR_TIME_LIMIT_EXCEEDED;
+            default:
+                return LDB_ERR_OPERATIONS_ERROR;
+        }
     }
 
     return ldb_next_request(module, req);
@@ -430,8 +445,14 @@ static int zentyal_delete(struct ldb_module *module, struct ldb_request *req)
 
         ret = socket_send(module, json_str);
         free(json_str);
-        if (ret)
-            return LDB_ERR_OPERATIONS_ERROR;
+        switch (ret) {
+            case LDB_SUCCESS:
+                break;
+            case EAGAIN:
+                return LDB_ERR_TIME_LIMIT_EXCEEDED;
+            default:
+                return LDB_ERR_OPERATIONS_ERROR;
+        }
     }
 
 	return ldb_next_request(module, req);
