@@ -520,6 +520,9 @@ sub provision
         throw EBox::Exceptions::Internal("Error exporting LDAP to LDB: $error");
     };
 
+    # Add the zentyal module to the LDB modules stack
+    $self->addZentyalLdbModule();
+
     # Mark the module as provisioned
     # TODO Flag is failing
     EBox::debug('Setting provisioned flag');
@@ -620,11 +623,6 @@ sub _setConf
 
     unless ($self->get_bool('provisioned')) {
         $self->provision();
-    }
-
-    # Add the zentyal module to the LDB modules stack
-    if ($self->get_bool('provisioned')) {
-        $self->addZentyalLdbModule();
     }
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
