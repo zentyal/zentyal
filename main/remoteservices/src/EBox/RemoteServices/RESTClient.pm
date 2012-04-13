@@ -26,24 +26,49 @@ use strict;
 
 use EBox;
 use EBox::Config;
+use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::RemoteServices::RESTResult;
+use HTTP::Status qw(HTTP_UNAUTHORIZED);
 use URI;
 use LWP::UserAgent;
 use Error qw(:try);
 
-use constant BASE_URL => 'http://192.168.156.1:8000/api/'; #FIXME
+use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
+use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
 #   Zentyal Cloud REST client. It provides a common
 #   interface to access Zentyal Cloud services
 #
+# Parameters:
+#
+#   credentials - Hash ref containing the credentials required
+#                 to access the given server
+#                 It must contain the following keys:
+#
+#                    realm - String the realm
+#                    username - String the username
+#                    password - String the password
+#
+#                 (Optional)
+#
+#  - Named parameters
 sub new {
-    my $class = shift;
+    my ($class, %params) = @_;
 
-    my $self = bless({}, $class);
+    my $self = bless({credentials => $params{credentials}}, $class);
+
+    if ( exists $self->{credentials} and (not $self->{credentials}->{realm}) ) {
+        $self->{credentials}->{realm} = 'Zentyal Cloud API';
+    }
+    # Get the server from conf
+    my $key = 'rs_api';
+    $self->{server} = 'https://' . EBox::Config::configkey($key) . '/';
+    $self->{server} = BASE_URL; # FIXME: To remove
+
     return $self;
 }
 
@@ -54,7 +79,8 @@ sub new {
 # Parameters:
 #
 #   path - relative path for the query (ie. /subscription)
-#   query - hash ref containing query parameters (Optional)
+#   query - hash ref containing query parameters
+#            (Optional)
 #
 # Returns:
 #
@@ -131,7 +157,13 @@ sub request {
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
 
-    my $req = HTTP::Request->new( $method => BASE_URL . $path );
+    if ( exists $self->{credentials} ) {
+        my ($netloc) = $self->{server} =~ m://(.*?)/:;
+        $ua->credentials( $netloc, $self->{credentials}->{realm},
+                          $self->{credentials}->{username}, $self->{credentials}->{password});
+    }
+
+    my $req = HTTP::Request->new( $method => $self->{server} . $path );
 
     #build headers
     if ($query) {
@@ -153,6 +185,9 @@ sub request {
     }
     else {
         $self->{last_error} = new EBox::RemoteServices::RESTResult($res);
+        if ($res->code() == HTTP_UNAUTHORIZED) {
+            throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
+        }
         throw EBox::Exceptions::Internal($res->content());
     }
 }
@@ -169,6 +204,28 @@ sub last_error
     return $self->{last_error};
 }
 
+
+# Function: _invalidCredentialsMsg
+#
+#     Return the invalid credentials message
+#
+# Returns:
+#
+#     String - the message
+#
+sub _invalidCredentialsMsg
+{
+    my $cpURL = EBox::Config::configkey('ebox_services_nameserver');
+    $cpURL =~ s:^.*?\.::;
+    my $forgottenURL = "https://www.${cpURL}/reset/";
+    return __x('User/email address and password do not match. Did you forget your password? '
+               . 'You can reset it {ohp}here{closehref}. '
+               . 'If you need a new account you can subscribe {openhref}here{closehref}.'
+               , openhref  => '<a href="'. SUBS_WIZARD_URL . '" target="_blank">',
+               ohp       => '<a href="' . $forgottenURL . '" target="_blank">',
+               closehref => '</a>');
+
+}
 
 1;
 
