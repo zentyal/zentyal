@@ -25,6 +25,8 @@ use base 'EBox::RemoteServices::Base';
 use strict;
 use warnings;
 
+use feature qw(switch);
+
 use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -33,6 +35,7 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::RESTClient;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::Sudo;
 use EBox::Util::Nmap;
@@ -139,16 +142,20 @@ sub soapCall
 
 # Method: subscribeEBox
 #
-#      Given a name trying to subscribe an eBox for that user using
+#      Given a name trying to subscribe a server for that user using
 #      that name. If it is already registered, the process will
 #      fail. If the process works nicely, a bundle is got which is
-#      used to set the parameters to connect to the eBox remote
+#      used to set the parameters to connect to the Zentyal Cloud
 #      infrastructure including the required certificates.
 #
 # Parameters:
 #
 #      name - String the name which the user uses to describe this
-#      eBox
+#             server
+#
+#      option - String the selected option if available
+#               (Optional) : if not given, then it will try with one
+#                            of the available ones
 #
 # Returns:
 #
@@ -164,6 +171,10 @@ sub soapCall
 #        new - Boolean indicating if the subscription was done or just
 #        the file getting
 #
+#        availableEditions - Array ref containing the available options
+#                            to subscribe your server, if this value is set
+#                            then we do not have subscribed yet
+#
 # Exceptions:
 #
 #      <EBox::Exceptions::MissingArgument> - thrown if the compulsory
@@ -171,7 +182,7 @@ sub soapCall
 #
 sub subscribeEBox
 {
-    my ($self, $cn) = @_;
+    my ($self, $cn, $option) = @_;
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
 
@@ -181,10 +192,32 @@ sub subscribeEBox
     # Check the WS is reachable
     $self->_checkWSConnectivity();
 
-    # Check the available edition is suitable for this server
-    EBox::RemoteServices::Subscription::Check->new()->subscribe(
-        user => $self->{user},
-        password => $self->{password});
+    unless ($option) {
+        my $availables = $self->_getAvailable();
+
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        # Check the available editions are suitable for this server
+        my @availables = grep { $checker->check($_->{subscription}) } @{$availables};
+
+        given ( scalar(@availables) ) {
+            when (0) {
+                if (@{$availables} > 0) {
+                    # There were some available options but the server is not suitable
+                    # for the available options
+                    throw EBox::RemoteServices::Exceptions::NotCapable(
+                        __('None of the available bundles are valid for this server')
+                       );
+                }
+            }
+            when ( 1 ) {
+                # Just one is purchased
+                $option = $availables[0]->{id};
+            }
+            when ($_ > 1 ) {
+                return { 'availableEditions' => \@availables };
+            }
+        }
+    }
 
     my $vpnSettings;
     try {
@@ -215,7 +248,8 @@ sub subscribeEBox
     try {
         $bundleRawData = $self->soapCall('subscribeEBox',
                                          canonicalName => $cn,
-                                         rsVersion     => $rs->version());
+                                         rsVersion     => $rs->version(),
+                                         option        => $option);
         $new = 1;
     } catch EBox::Exceptions::DataExists with {
         $bundleRawData = $self->soapCall('eBoxBundle',
@@ -1026,5 +1060,20 @@ sub _removePkgs
         EBox::debug($exc->stringify());
     };
 }
+
+# Get available editions for this user/pass
+sub _getAvailable
+{
+    my ($self) = @_;
+
+    my $client = new EBox::RemoteServices::RESTClient(
+        credentials => { username => $self->{user},
+                         password => $self->{password}});
+
+    my $response = $client->GET('/v1/bundle/available/');
+    return $response->data();
+
+}
+
 
 1;
