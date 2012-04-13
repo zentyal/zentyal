@@ -1078,13 +1078,11 @@ sub _removeRow
 {
     my ($self, $id) = @_;
 
-    if ($self->table()->{'order'}) {
-        $self->_removeOrderId($id);
-    } else {
-        $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
-    }
-
-    $self->{'gconfmodule'}->unset("$self->{'directory'}/$id");
+    my $gconfmod = $self->{'gconfmodule'};
+    $gconfmod->unset("$self->{'directory'}/$id");
+    my @order = @{$gconfmod->get_list($self->{'order'})};
+    @order = grep ($_ ne $id, @order);
+    $gconfmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -3531,18 +3529,6 @@ sub _insertPos #(id, position)
     } else {
         splice (@order, $pos, 1, ($id, $order[$pos]));
     }
-
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
-}
-
-sub _removeOrderId
-{
-    my ($self, $id) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my @order = @{$gconfmod->get_list($self->{'order'})};
-
-    @order = grep (!/$id/, @order);
 
     $gconfmod->set_list($self->{'order'}, 'string', \@order);
 }
