@@ -210,7 +210,11 @@ sub _setConf
 
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
-    push(@array, 'ldapbase' => $ldapconf->{'dn'});
+    push(@array, 'ldapbase' => $users->usersDn());
+    push(@array, 'ldapRootDN', $ldapconf->{'rootdn'});
+    push(@array, 'ldapPasswd' => $ldap->getPassword());
+
+
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });
