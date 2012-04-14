@@ -2,7 +2,7 @@ Source: samba-zentyal-modules
 Section: universe/libs
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: cdbs, debhelper (>= 4.0.0), libldb-dev, libjansson-dev
+Build-Depends: cdbs, debhelper (>= 4.0.0), libldb-dev, libtevent-dev, libjansson-dev
 Standards-Version: 3.7.3
 
 Package: samba-zentyal-modules
