@@ -28,7 +28,7 @@ use POSIX ':signal_h';
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
-use JSON::XS;
+use JSON::XS ();
 use Error qw/:try/;
 
 my $SEM_KEY = 0xEBEB;
@@ -66,7 +66,7 @@ sub new
     }
     $self->{redis} = $redis;
     $self->{pid} = $$;
-    $self->{decode} = 0;
+    $self->{json} = JSON::XS->new->allow_nonref;
 
     if ($TRANSACTIONS_ENABLED and not $sem) {
         $sem = EBox::Util::Semaphore->init($SEM_KEY);
@@ -183,7 +183,6 @@ sub get_list
 {
     my ($self, $key) = @_;
 
-    $self->{decode} = 1;
     my $list = $self->_redis_call('get', $key);
     if ($list) {
         return $list;
@@ -212,7 +211,6 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
-    $self->{decode} = 1;
     my $hash = $self->_redis_call('get', $key);
     if ($hash) {
         return $hash;
@@ -528,7 +526,7 @@ sub _sync
     foreach my $key (keys %modified) {
         my $value = $cache{$key};
         if (ref $value) {
-            $value = encode_json($value);
+            $value = $self->{json}->encode($value);
         }
         $self->_redis_call_wrapper(0, 'set', $key, $value);
     }
@@ -572,16 +570,15 @@ sub _redis_call
         # Get from redis if not in cache
         unless (exists $cache{$key}) {
             my $value = $self->_redis_call_wrapper(0, 'get', $key);
-            if ($self->{decode}) {
-                $value = decode_json($value) if $value;
-                $self->{decode} = 0;
+            if ($value) {
+                $value = $self->{json}->decode($value);
             }
             $cache{$key} = $value;
         }
 
         return $cache{$key};
     } else {
-        throw EBox::Exceptions::Internal("UNSUPPORTED COMMAND: $command @args");
+        throw EBox::Exceptions::Internal("Unsupported command: $command @args");
     }
 }
 
