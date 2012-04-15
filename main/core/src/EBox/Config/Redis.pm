@@ -28,7 +28,7 @@ use POSIX ':signal_h';
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
-use JSON::XS ();
+use JSON::XS;
 use Error qw/:try/;
 
 my $SEM_KEY = 0xEBEB;
@@ -67,6 +67,7 @@ sub new
     $self->{redis} = $redis;
     $self->{pid} = $$;
     $self->{json} = JSON::XS->new->allow_nonref;
+    $self->{json_pretty} = JSON::XS->new->pretty;
 
     if ($TRANSACTIONS_ENABLED and not $sem) {
         $sem = EBox::Util::Semaphore->init($SEM_KEY);
@@ -414,18 +415,19 @@ sub import_dir_from_file
     my @lines;
 
     try {
-        @lines = read_file($filename);
+        @lines = split ("\n\n\n", read_file($filename));
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
 
     $self->begin();
     foreach my $line (@lines) {
-        my ($key, $value) = $line =~ /(.+): (.*)/;
+        my ($key, $value) = $line =~ /(.+): (.*)/s;
 
         if ($dest) {
             $key = $dest . $key;
         }
+        $value = $self->{json_pretty}->decode($value);
         $self->_redis_call('set', $key, $value);
     }
 
@@ -452,13 +454,18 @@ sub _backup_dir
             $destKey =~ s/^$key/$dest/;
             $self->_redis_call('set', $destKey, $value);
         } else {
-                push (@{$args{destination}},
-                        {
-                            key => $destKey,
-                            value => $value
-                        }
-                     );
+            if (ref $value) {
+                $value = $self->{json_pretty}->encode($value);
+            } else {
+                $value .= "\n";
             }
+            push (@{$args{destination}},
+                    {
+                    key => $destKey,
+                    value => $value
+                    }
+                 );
+        }
     }
 
     $self->commit();
@@ -526,7 +533,7 @@ sub _sync
     foreach my $key (keys %modified) {
         my $value = $cache{$key};
         if (ref $value) {
-            $value = $self->{json}->encode($value);
+            $value = encode_json($value);
         }
         $self->_redis_call_wrapper(0, 'set', $key, $value);
     }
