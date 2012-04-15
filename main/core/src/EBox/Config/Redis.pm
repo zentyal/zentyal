@@ -66,7 +66,6 @@ sub new
     }
     $self->{redis} = $redis;
     $self->{pid} = $$;
-    $self->{json} = JSON::XS->new->allow_nonref;
     $self->{json_pretty} = JSON::XS->new->pretty;
 
     if ($TRANSACTIONS_ENABLED and not $sem) {
@@ -578,7 +577,15 @@ sub _redis_call
         unless (exists $cache{$key}) {
             my $value = $self->_redis_call_wrapper(0, 'get', $key);
             if ($value) {
-                $value = $self->{json}->decode($value);
+                # XXX: this can be problematic if we store a string
+                # starting with [ or {, but decode_json fails to decode
+                # regular strings some times, even with allow_nonref
+                # An alternative could be to try always the decode
+                # ignoring the exception
+                my $firstChar = substr ($value, 0, 1);
+                if (($firstChar eq '[') or ($firstChar eq '{')) {
+                    $value = decode_json($value);
+                }
             }
             $cache{$key} = $value;
         }
