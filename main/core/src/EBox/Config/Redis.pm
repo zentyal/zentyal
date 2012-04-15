@@ -83,12 +83,7 @@ sub set_string
 {
     my ($self, $key, $value) = @_;
 
-    $self->begin();
-
-    # Sets the new key
-    $self->_redis_call('set', $key, $value);
-
-    $self->commit();
+    $self->set($key, $value);
 }
 
 # Method: get_string
@@ -99,7 +94,7 @@ sub get_string
 {
     my ($self, $key) = @_;
 
-    return $self->_redis_call('get', $key);
+    return $self->get($key);
 }
 
 # Method: set_int
@@ -110,7 +105,7 @@ sub set_int
 {
     my ($self, $key, $value) = @_;
 
-    $self->set_string($key, $value);
+    $self->set($key, $value);
 }
 
 # Method: get_int
@@ -121,7 +116,7 @@ sub get_int
 {
     my ($self, $key) = @_;
 
-    return $self->get_string($key);
+    return $self->get($key);
 }
 
 # Method:  set_bool
@@ -132,7 +127,7 @@ sub set_bool
 {
     my ($self, $key, $value) = @_;
 
-    $self->set_string($key, $value ? 1 : 0);
+    $self->set($key, $value ? 1 : 0);
 }
 
 # Method: get_bool
@@ -143,7 +138,7 @@ sub get_bool
 {
     my ($self, $key) = @_;
 
-    return $self->get_string($key);
+    return $self->get($key, 0);
 }
 
 # Method: set_list
@@ -154,25 +149,7 @@ sub set_list
 {
     my ($self, $key, $list) = @_;
 
-    # TODO: rename this
-    $self->set_string($key, $list);
-}
-
-# Method: list_add
-#
-#   Push a new element to the end of the list.
-#
-sub list_add
-{
-    my ($self, $key, $value) = @_;
-
-    $self->begin();
-
-    my $list = $self->get_list($key);
-    push (@{$list}, $value);
-    $self->set_list($key, $list);
-
-    $self->commit();
+    $self->set($key, $list);
 }
 
 # Method: get_list
@@ -183,12 +160,7 @@ sub get_list
 {
     my ($self, $key) = @_;
 
-    my $list = $self->_redis_call('get', $key);
-    if ($list) {
-        return $list;
-    } else {
-        return [];
-    }
+    return $self->get($key, []);
 }
 
 # Method: set_hash
@@ -199,8 +171,7 @@ sub set_hash
 {
     my ($self, $key, $hash) = @_;
 
-    # TODO: rename this
-    $self->set_string($key, $hash);
+    $self->set($key, $hash);
 }
 
 # Method: get_hash
@@ -211,12 +182,7 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
-    my $hash = $self->_redis_call('get', $key);
-    if ($hash) {
-        return $hash;
-    } else {
-        return {};
-    }
+    return $self->get($key, {});
 }
 
 # Method: all_dirs
@@ -229,7 +195,7 @@ sub all_dirs
 
     my $length = length $key;
     my %dir;
-    for my $path ($self->_redis_call('keys', "$key/*")) {
+    for my $path ($self->_keys("$key/*")) {
         my $index = index($path, '/', $length + 1);
         if ($index > 0) {
             my $directory = substr($path, 0, $index);
@@ -249,7 +215,7 @@ sub all_entries
 
     my $length = length $key;
     my @dirs;
-    for my $path ($self->_redis_call('keys', "$key/*")) {
+    for my $path ($self->_keys("$key/*")) {
         push (@dirs, $path) if (index($path, '/', $length + 1) == -1);
     }
     return \@dirs;
@@ -263,7 +229,7 @@ sub dir_exists
 {
     my ($self, $dir) = @_;
 
-    my @keys = $self->_redis_call('keys', "${dir}/*");
+    my @keys = $self->_keys("${dir}/*");
     return (@keys > 0);
 }
 
@@ -278,8 +244,8 @@ sub delete_dir
     $self->begin();
 
     if ($self->dir_exists($dir)) {
-        my @keys = $self->_redis_call('keys', "$dir/*");
-        $self->_redis_call('del', @keys);
+        my @keys = $self->_keys("$dir/*");
+        $self->unset(@keys);
     }
 
     $self->commit();
@@ -291,27 +257,17 @@ sub delete_dir
 #
 sub unset
 {
-    my ($self, $key) = @_;
+    my ($self, @keys) = @_;
 
     $self->begin();
 
-    $self->_redis_call('del', $key);
+    foreach my $key (@keys) {
+        delete $cache{$key};
+        $deleted{$key} = 1;
+        delete $modified{$key};
+    }
 
     $self->commit();
-}
-
-# Method: exists
-#
-#   Check if a given key exists
-#
-sub exists
-{
-    my ($self, $key) = @_;
-
-    # FIXME: is this necessary?
-    throw EBox::Exceptions::Internal("CALL TO DEPRECATED METHOD EXISTS");
-
-    $self->_redis_call('exists', $key);
 }
 
 # Method: backup_dir
@@ -398,6 +354,20 @@ sub hash_delete
     $self->set_hash($key, $orig);
 }
 
+sub _keys
+{
+    my ($self, $pattern) = @_;
+
+    my @keys = $self->_redis_call('keys', $pattern);
+    foreach my $name (keys %cache) {
+        if ($name =~ /^$pattern/) {
+            push (@keys, $name);
+        }
+    }
+
+    return @keys;
+}
+
 # Method: import_dir_from_file
 #
 #   Given a "key: value" file, restore them under destination folder
@@ -427,7 +397,7 @@ sub import_dir_from_file
             $key = $dest . $key;
         }
         $value = $self->{json_pretty}->decode($value);
-        $self->_redis_call('set', $key, $value);
+        $self->set($key, $value);
     }
 
     $self->commit();
@@ -443,15 +413,15 @@ sub _backup_dir
     my $destinationType = $args{destination_type};
     my $dest = $args{destination};
 
-    my @keys = $self->_redis_call('keys', "$key/*");
+    my @keys = $self->_keys("$key/*");
 
     for my $entry (@keys) {
         my $destKey = $entry;
 
-        my $value = $self->_redis_call('get', $entry);
+        my $value = $self->get($entry);
         if ($destinationType eq 'redis') {
             $destKey =~ s/^$key/$dest/;
-            $self->_redis_call('set', $destKey, $value);
+            $self->set($destKey, $value);
         } else {
             if (ref $value) {
                 $value = $self->{json_pretty}->encode($value);
@@ -481,7 +451,7 @@ sub begin
 
     $sem->wait();
 
-    my $version = $self->_redis_call_wrapper(0, 'get', 'version');
+    my $version = $self->_redis_call('get', 'version');
     defined ($version) or $version = 0;
     if ($version > $cacheVersion) {
         %cache = ();
@@ -513,7 +483,7 @@ sub rollback
     return unless $TRANSACTIONS_ENABLED;
 
     if ($self->{multi}) {
-        $self->_redis_call_wrapper(0, 'discard');
+        $self->_redis_call('discard');
     }
 
     $trans = 0;
@@ -527,95 +497,73 @@ sub _sync
 
     return unless (%modified or %deleted);
 
-    $self->_redis_call_wrapper(0, 'multi');
+    $self->_redis_call('multi');
 
     foreach my $key (keys %modified) {
         my $value = $cache{$key};
         if (ref $value) {
             $value = encode_json($value);
         }
-        $self->_redis_call_wrapper(0, 'set', $key, $value);
+        $self->_redis_call('set', $key, $value);
     }
     %modified = ();
 
     if (%deleted) {
-        $self->_redis_call_wrapper(0, 'del', keys %deleted);
+        $self->_redis_call('del', keys %deleted);
         %deleted = ();
     }
 
-    $self->_redis_call_wrapper(0, 'incr', 'version');
+    $self->_redis_call('incr', 'version');
 
-    my $result = $self->_redis_call_wrapper(1, 'exec');
-    $cacheVersion = pop @{$result};
+    my @result = $self->_redis_call('exec');
+    $cacheVersion = pop @result;
 }
 
-# Redis call proxy, tries to get the result from cache and fallbacks
-# to _redis_call_wrapper if not present or cache dirty
-#
-sub _redis_call
+sub set
 {
-    my ($self, $command, @args) = @_;
+    my ($self, $key, $value) = @_;
 
-    my ($key, @values) = @args;
+    $self->begin();
 
-    my $value = $values[0];
+    $cache{$key} = $value;
+    $modified{$key} = 1;
+    delete $deleted{$key};
 
-    if ($command eq 'set') {
-        $cache{$key} = $value;
-        $modified{$key} = 1;
-        delete $deleted{$key};
-    } elsif ($command eq 'del') {
-        foreach my $key (@args) {
-            delete $cache{$key};
-            $deleted{$key} = 1;
-            delete $modified{$key};
-        }
-    } elsif ($command eq 'keys') {
-        return $self->_keys_wrapper($key);
-    } elsif ($command eq 'get') {
-        # Get from redis if not in cache
-        unless (exists $cache{$key}) {
-            my $value = $self->_redis_call_wrapper(0, 'get', $key);
-            if ($value) {
-                # XXX: this can be problematic if we store a string
-                # starting with [ or {, but decode_json fails to decode
-                # regular strings some times, even with allow_nonref
-                # An alternative could be to try always the decode
-                # ignoring the exception
-                my $firstChar = substr ($value, 0, 1);
-                if (($firstChar eq '[') or ($firstChar eq '{')) {
-                    $value = decode_json($value);
-                }
+    $self->commit();
+}
+
+sub get
+{
+    my ($self, $key, $defaultValue) = @_;
+
+    # Get from redis if not in cache
+    unless (exists $cache{$key}) {
+        my $value = $self->_redis_call('get', $key);
+        if (defined ($value)) {
+            # XXX: this can be problematic if we store a string
+            # starting with '[' or '{', but decode_json fails to decode
+            # regular strings some times, even with allow_nonref
+            # An alternative could be to try always the decode
+            # ignoring the exception
+            my $firstChar = substr ($value, 0, 1);
+            if (($firstChar eq '[') or ($firstChar eq '{')) {
+                $value = decode_json($value);
             }
-            $cache{$key} = $value;
+        } else {
+            $value = $defaultValue;
         }
-
-        return $cache{$key};
-    } else {
-        throw EBox::Exceptions::Internal("Unsupported command: $command @args");
-    }
-}
-
-sub _keys_wrapper
-{
-    my ($self, $pattern) = @_;
-
-    my @keys = @{$self->_redis_call_wrapper(1, 'keys', $pattern)};
-    foreach my $name (keys %cache) {
-        if ($name =~ /^$pattern/) {
-            push (@keys, $name);
-        }
+        $cache{$key} = $value;
     }
 
-    return @keys;
+    return $cache{$key};
 }
 
 # Wrapper to reconnect to redis in case of detecting a failure when
 # issuing a command.
 #
-sub _redis_call_wrapper
+sub _redis_call
 {
-    my ($self, $wantarray, $command, @args) = @_;
+    my ($self, $command, @args) = @_;
 
     # Check process id and respawn redis if has changed (fork)
     if ($self->{pid} ne $$) {
@@ -624,6 +572,7 @@ sub _redis_call_wrapper
 
     my $response;
     my @response;
+    my $wantarray = wantarray;
 
     my $tries = 5;
     for my $i (1 .. $tries) {
@@ -639,7 +588,6 @@ sub _redis_call_wrapper
                 if ($wantarray) {
                     @response = $self->{redis}->__read_response();
                     map { utf8::encode($_) if defined ($_) } @response;
-                    $response = \@response;
                 } else {
                     $response = $self->{redis}->__read_response();
                     utf8::encode($response) if defined ($response);
@@ -681,8 +629,14 @@ sub _redis_call_wrapper
                 }
             }
         } else {
-            return $response;
+            last;
         }
+    }
+
+    if ($wantarray) {
+        return @response;
+    } else {
+        return $response;
     }
 }
 
@@ -768,7 +722,7 @@ sub stopRedis
     # User corner redis server is managed by service
     return if ($self->_user eq 'ebox-usercorner');
 
-    $self->_redis_call_wrapper(0, 'save');
+    $self->_redis_call('save');
     EBox::Service::manage('ebox.redis', 'stop');
 }
 

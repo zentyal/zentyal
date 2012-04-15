@@ -900,7 +900,9 @@ sub addTypedRow
         }
         $self->_insertPos($id, $pos);
     } else {
-        $gconfmod->list_add($self->{'order'}, $id);
+        my $order = $gconfmod->get_list($self->{'order'});
+        push (@{$order}, $id);
+        $gconfmod->set($self->{'order'}, $order);
     }
 
     if ($readOnly) {

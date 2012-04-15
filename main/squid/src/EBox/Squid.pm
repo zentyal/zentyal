@@ -953,11 +953,9 @@ sub _cleanDomainFilterFiles
     # should be implemented better someday
     # This avoids the bug of deleting list files in the second restart
     my $dir = $self->isReadOnly() ? 'ebox-ro' : 'ebox';
-    my @keys = $self->{redis}->_redis_call('keys',
-        "/$dir/modules/squid/*/FilterGroupDomainFilterFiles/*/fileList_path");
+    my @keys = $self->{redis}->_keys("/$dir/modules/squid/*/FilterGroupDomainFilterFiles/*/fileList_path");
     # default profile
-    push @keys, $self->{redis}->_redis_call('keys',
-        "/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
+    push @keys, $self->{redis}->_keys("/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
 
     my %fgDirs;
     foreach my $key (@keys) {
@@ -973,7 +971,7 @@ sub _cleanDomainFilterFiles
 
     #foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
         # FIXME: _domainFilterFilesComponents returns a wrong list
-        # that's why this is workarounded with _redis_call
+        # that's why this is workarounded with _keys
         # $fgDirs{$domainFilterFiles->listFileDir} = 1;
 
         #$domainFilterFiles->setupArchives();
