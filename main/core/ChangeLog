@@ -1,4 +1,5 @@
 HEAD
+	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
 	+ Use simpler "key: value" format for dumps instead of YAML
 	+ Row id prefixes are now better chosen to avoid confusion
 	+ Use JSON instead of list and hash redis types (some operations,
