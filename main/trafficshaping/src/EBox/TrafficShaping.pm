@@ -1007,12 +1007,14 @@ sub _setNewLowestPriority # (iface, priority?)
       # Check all priority entries from within given interface
       my $ruleDir = $self->_ruleDirectory($iface);
 
-      my $dirs_ref = $self->array_from_dir($ruleDir);
+      # FIXME: reimplement this
+#      my $dirs_ref = $self->array_from_dir($ruleDir);
+      my $dirs_ref = [];
 
       # Search for the lowest at array
       my $lowest = 0;
       foreach my $rule_ref (@{$dirs_ref}) {
-	$lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
+	    $lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
       }
       # Set lowest
       $self->_setLowestPriority($iface, $lowest);
@@ -1757,6 +1759,9 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
 sub _configuredInterfaces
 {
     my ($self) = @_;
+
+    # FIXME: reimplement this
+    return [];
 
     my @ifaces;
     for my $iface (@{ $self->all_dirs_base('')}) {

@@ -332,39 +332,38 @@ sub warnIfIdUsed
 #       - Positional parameters
 #
 sub setRow
-  {
+{
+    my ($self, $force, %params) = @_;
 
-      my ($self, $force, %params) = @_;
+    $self->validateRow('update', \%params);
+    # We can only set those types which have setters
+    my @newValues = @{$self->setterTypes()};
 
-      $self->validateRow('update', \%params);
-      # We can only set those types which have setters
-      my @newValues = @{$self->setterTypes()};
+    # Fetch field trigger names
+    my $viewCustom = $self->viewCustomizer();
+    my  %triggerFields = %{$self->viewCustomizer()->onChangeFields()};
+    # Fetch trigger values
+    for my $name (keys %triggerFields) {
+        $triggerFields{$name} = $params{$name};
+    }
 
-      # Fetch field trigger names
-      my $viewCustom = $self->viewCustomizer();
-      my  %triggerFields = %{$self->viewCustomizer()->onChangeFields()};
-      # Fetch trigger values
-      for my $name (keys %triggerFields) {
-          $triggerFields{$name} = $params{$name};
-      }
+    my $changedData;
+    for (my $i = 0; $i < @newValues ; $i++) {
+        my $newData = $newValues[$i]->clone();
+        my $fieldName = $newData->fieldName();
+        # Skip fields that are hidden or disabled by the view customizer
+        unless ($viewCustom->skipField($fieldName, \%triggerFields)) {
+            $newData->setMemValue(\%params);
+        }
+        $changedData->{$fieldName} = $newData;
+    }
 
-      my $changedData;
-      for (my $i = 0; $i < @newValues ; $i++) {
-          my $newData = $newValues[$i]->clone();
-          my $fieldName = $newData->fieldName();
-          # Skip fields that are hidden or disabled by the view customizer
-          unless ($viewCustom->skipField($fieldName, \%triggerFields)) {
-              $newData->setMemValue(\%params);
-          }
-          $changedData->{$fieldName} = $newData;
-      }
+    $self->setTypedRow('',
+            $changedData,
+            force => $force,
+            readOnly => $params{'readOnly'});
 
-      $self->setTypedRow( '',
-                          $changedData,
-                          force => $force,
-                          readOnly => $params{'readOnly'});
-
-  }
+}
 
 # Method: setTypedRow
 #
@@ -377,15 +376,13 @@ sub setRow
 #
 sub setTypedRow
 {
-
     my ($self, $id, $paramsRef, %optParams) = @_;
 
-    if ( $self->_hasRow() ) {
+    if ($self->_hasRow()) {
         $self->_setTypedRow($paramsRef, %optParams);
     } else {
         $self->_addTypedRow($paramsRef);
     }
-
 }
 
 # Method: set
@@ -411,7 +408,6 @@ sub setTypedRow
 #     passed to set a value
 sub set
 {
-
     my ($self, %params) = @_;
 
     my $force = delete $params{force};
@@ -427,7 +423,6 @@ sub set
 
     $self->setTypedRow(0, $typedParams, force => $force,
                        readOnly => $readOnly);
-
 }
 
 # Method: rows
@@ -737,7 +732,7 @@ sub Viewer
 sub size
 {
     my ($self) = @_;
-    if ( $self->_hasRow() ) {
+    if ($self->_hasRow()) {
         return 1;
     } else {
         return 0;
@@ -748,13 +743,11 @@ sub size
 
 # Check if the model is empty
 sub _hasRow
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->{'gconfmodule'}->dir_exists($self->{'directory'});
-
-  }
+    return keys %{$self->{'gconfmodule'}->get_hash($self->{'directory'})};
+}
 
 # Add a row to the system without id. Its a reimplementation of
 # addRow so it should be looked up when any change is done at
@@ -780,19 +773,6 @@ sub _addRow
           $userData->{$data->fieldName()} = $data;
       }
 
-#      $self->validateTypedRow('add', $userData);
-#
-#      foreach my $data (@userData) {
-#          $data->storeInGConf($gconfmod, "$dir");
-#          $data = undef;
-#      }
-#
-#      $gconfmod->set_bool("$dir/readOnly", $params{'readOnly'});
-#
-#      $self->setMessage($self->message('update'));
-#      $self->updatedRowNotify($self->row());
-#      $self->_notifyModelManager('add', $self->row());
-#
       $self->_addTypedRow($userData, readOnly => $params{'readOnly'});
 
   }
@@ -807,9 +787,9 @@ sub _addTypedRow
     my $tableName = $self->tableName();
     my $dir = $self->{'directory'};
     my $gconfmod = $self->{'gconfmodule'};
-    my $readOnly = delete $optParams{'readOnly'};
+    my $readOnly = delete $optParams{'readOnly'} ? 1 : 0;
 
-    my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
     $row->setReadOnly($readOnly);
     $row->setModel($self);
     $row->setId('dummy');
@@ -819,12 +799,15 @@ sub _addTypedRow
 
     $self->validateTypedRow('add', $paramsRef, $paramsRef);
 
-    foreach my $data (values ( %{$paramsRef} )) {
+    my $hash = {};
+    foreach my $data (values (%{$paramsRef})) {
         $row->addElement($data);
-        $data->storeInGConf($gconfmod, "$dir");
+        $data->storeInHash($hash);
         $data = undef;
     }
-    $gconfmod->set_bool("$dir/readOnly", $readOnly);
+    $hash->{readOnly} = $readOnly;
+
+    $gconfmod->set_hash($hash);
 
     $self->setMessage($self->message('update'));
     $self->updatedRowNotify($self->row());
@@ -886,18 +869,24 @@ sub _setTypedRow
         $manager->warnOnChangeOnId($self->tableName(), 0, $changedData, $oldRow);
     }
 
+    my $hash = $gconfmod->get_hash($dir);
+
     my $modified = @changedData;
     for my $data (@changedData) {
-        $data->storeInGConf($gconfmod, $dir);
+        $data->storeInHash($hash);
     }
 
     # update readonly if change
-    my $rdOnlyKey = "$dir/readOnly";
-    if (defined ( $readOnly )
-        and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
+    my $oldRO = $hash->{readOnly};
+    if (defined ($readOnly) and $readOnly) {
+        $hash->{readOnly} = 1;
+    } else {
+        delete $hash->{readOnly};
+    }
 
-        $gconfmod->set_bool("$rdOnlyKey", $readOnly);
-
+    # Update row hash if needed
+    if ($modified or ($hash->{readOnly} xor $oldRO)) {
+        $gconfmod->set($dir, $hash);
     }
 
     if ($modified) {
@@ -916,56 +905,49 @@ sub _setTypedRow
 # Return a row from within the model. It's a reimplementation of
 # SUPER::row so it should take care about any change at superclass
 sub _row
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
+    my $hash = $gconfmod->get_hash($dir);
 
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
+    unless (keys (%{$hash}) or $self->_volatile()) {
+        # Return default values instead
+        return $self->_defaultRow();
+    }
 
-      if ((not $gconfmod->dir_exists("$dir")) and (not $self->_volatile())) {
-          # Return default values instead
-          return $self->_defaultRow();
-      }
+    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setModel($self);
 
-      my $row =  EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-      $row->setModel($self);
-
-      my @values;
-      $self->{'cacheOptions'} = {};
-      foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $element = $type->clone();
-          $element->setRow($row);
-          $element->restoreFromHash();
-          if ( (not defined($element->value())) and $element->defaultValue()) {
-              $element->setValue($element->defaultValue());
-          }
-          $row->addElement($element);
-      }
-      # Dummy id for dataform
-      $row->setId('dummy');
-      return $row;
-
-  }
+    my @values;
+    $self->{'cacheOptions'} = {};
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $type->clone();
+        $self->_setRowElement($element, $row, $hash);
+        $row->addElement($element);
+    }
+    # Dummy id for dataform
+    $row->setId('dummy');
+    return $row;
+}
 
 # Return a row with only default values
 sub _defaultRow
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    $row->setModel($self);
+    $row->setId('dummy');
 
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
-      my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
-      $row->setModel($self);
-      $row->setId('dummy');
-
-      foreach my $type (@{$self->table()->{'tableDescription'}}) {
-          my $element = $type->clone();
-          $row->addElement($element);
-      }
-      return $row;
-
-  }
+    foreach my $type (@{$self->table()->{'tableDescription'}}) {
+        my $element = $type->clone();
+        $row->addElement($element);
+    }
+    return $row;
+}
 
 1;

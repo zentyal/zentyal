@@ -320,36 +320,32 @@ sub _setMemValue
     $self->{'single'} = $params->{$name . '_single_port'};
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
     my $type = $self->fieldName() . '_range_type';
     my $from = $self->fieldName() . '_from_port';
     my $to = $self->fieldName() . '_to_port';
     my $single = $self->fieldName() . '_single_port';
 
-    $gconfmod->hash_delete($key, $from, $to, $single);
-
-    my $values = {};
+    map { delete $hash->{$_} } ($from, $to, $single);
 
     my $rangeType = $self->rangeType();
-    $values->{$type} = $rangeType;
+    $hash->{$type} = $rangeType;
 
     if ($rangeType eq 'range') {
-        $values->{$from} = $self->from();
-        $values->{$to} = $self->to();
+        $hash->{$from} = $self->from();
+        $hash->{$to} = $self->to();
     } elsif ($rangeType eq 'single') {
-        $values->{$single} = $self->single();
+        $hash->{$single} = $self->single();
     }
-
-    $gconfmod->set_hash_values($key, $values);
 }
 
 # Method: _restoreFromHash
@@ -368,14 +364,10 @@ sub _restoreFromHash
     my $to = $self->fieldName() . '_to_port';
     my $single = $self->fieldName() . '_single_port';
 
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $value = $gconf->hash_from_dir($path);
-
-    $self->{'range_type'} = $value->{$range};
-    $self->{'from'} = $value->{$from};
-    $self->{'to'} = $value->{$to};
-    $self->{'single'} = $value->{$single};
+    $self->{'range_type'} = $hash->{$range};
+    $self->{'from'} = $hash->{$from};
+    $self->{'to'} = $hash->{$to};
+    $self->{'single'} = $hash->{$single};
 }
 
 # Method: _paramIsValid

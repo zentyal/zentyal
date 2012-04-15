@@ -59,7 +59,7 @@ sub _process
 
     $module->setConfigured(1);
     $module->enableService(1);
-    $manager->updateModuleDigests($modName);
+    #$manager->updateModuleDigests($modName);
 
     try {
         $module->enableActions();
@@ -76,7 +76,7 @@ sub _process
         }
     };
 
-    $manager->updateModuleDigests($modName);
+    #$manager->updateModuleDigests($modName);
 
 
     $self->{redirect} = "ServiceModule/StatusView";

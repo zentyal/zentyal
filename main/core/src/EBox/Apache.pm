@@ -464,6 +464,9 @@ sub delRestrictedResource
 {
     my ($self, $resourcename) = @_;
 
+    # FIXME: reimplement this
+    return;
+
     throw EBox::Exceptions::MissingArgument('resourcename')
       unless defined ( $resourcename );
 
@@ -484,6 +487,9 @@ sub delRestrictedResource
 sub _restrictedResources
 {
     my ($self) = @_;
+
+    # FIXME: reimplement this
+    return [];
 
     my @restrictedResources = ();
     foreach my $dir (@{$self->all_dirs_base(RESTRICTED_RESOURCES_KEY)}) {

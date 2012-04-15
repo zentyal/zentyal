@@ -1,4 +1,6 @@
 HEAD
+	+ Reimplemented RAID and restrictedResources() fixme
+	+ Remove unused override modifications code
 	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
 	+ Use simpler "key: value" format for dumps instead of YAML
 	+ Row id prefixes are now better chosen to avoid confusion

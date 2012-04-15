@@ -361,7 +361,7 @@ sub paramExist
 
 }
 
-# Method: storeInGConf
+# Method: storeInHash
 #
 #      Store the given type in a GConf directory from a
 #      GConfModule. If the type is volatile, nothing will be done.
@@ -373,17 +373,17 @@ sub paramExist
 #
 #      key - String of the key where the type will be stored
 #
-sub storeInGConf
+sub storeInHash
 {
-    my ($self, $module, $key) = @_;
+    my ($self, $hash) = @_;
 
     if ($self->volatile()) {
         if ($self->storer()) {
             my $storerProc = $self->storer();
-            &$storerProc($self, $module, $key);
+            &$storerProc($self, $hash);
         }
     } else {
-        $self->_storeInGConf($module, $key);
+        $self->_storeInHash($hash);
     }
 }
 
@@ -429,22 +429,21 @@ sub setMemValue
 
     # Set the memory value only if persistent kind of type
     my $toSet = $self->volatile() ? 0 : 1;
-    $toSet = ($toSet or ( $self->volatile() and (ref($self->storer()) eq 'CODE')));
+    $toSet = ($toSet or ($self->volatile() and (ref($self->storer()) eq 'CODE')));
 
-    if ( $toSet ) {
+    if ($toSet) {
         # Check if the parameters hasn't had an empty value
-        if ( $self->_paramIsSet($params) ) {
+        if ($self->_paramIsSet($params)) {
             # Check if the parameter is valid
             $self->_paramIsValid($params);
             # Set finally the value
             $self->_setMemValue($params);
         } else {
-            if ( $self->optional() ) {
+            if ($self->optional()) {
                 # set type to empty
                 if ($self->memValue()) {
                     $self->_setMemValue($params);
                 }
-
             } else {
                 throw EBox::Exceptions::MissingArgument( $self->printableName() );
             }
@@ -506,14 +505,13 @@ sub restoreFromHash
 {
     my ($self, $hashRef) = @_;
 
-    if ( $self->volatile() ) {
+    if ($self->volatile()) {
         my $volatileFunc = $self->{acquirer};
-        $volatileFunc = \&_identity unless defined ( $volatileFunc );
+        $volatileFunc = \&_identity unless defined ($volatileFunc);
         $self->{value} = &$volatileFunc($self);
     } else {
         $self->_restoreFromHash($hashRef);
     }
-
 }
 
 # Method: acquirer
@@ -537,7 +535,6 @@ sub acquirer
     my ($self) = @_;
 
     return $self->{acquirer};
-
 }
 
 # Method: storer
@@ -689,45 +686,29 @@ sub _setMemValue
     }
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
-#      Store the given type in a GConf directory from a
-#      GConfModule. The expected behaviour is if it has no value to
-#      store, remove any previous data stored.
+#      Store this type in the given row hash
 #
 # Parameters:
 #
-#      gconfmodule - <EBox::GConfModule> the module which is in charge
-#      to store the type in GConf
+#      hash - reference to row hash
 #
-#      directory - String the directory where the type will be stored
-#      from
-#
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
     my @attrs = @{$self->_attrs()};
     return unless @attrs;
 
     my $field = $self->fieldName();
-    my $values = {};
-    my $setValue = 0;
-    my @fieldsToDel;
     foreach my $attr (@attrs) {
+        my $full_attr = "${field}_$attr";
         if ($self->{$attr}) {
-            $values->{"${field}_$attr"} = $self->{$attr};
-            $setValue = 1;
+            $hash->{$full_attr} = $self->{$attr};
         } else {
-            push (@fieldsToDel, $attr);
+            delete $hash->{$full_attr};
         }
-    }
-
-    if (@fieldsToDel) {
-        $gconfmod->hash_delete($key, @fieldsToDel);
-    }
-    if ($setValue) {
-        $gconfmod->set_hash_values($key, $values);
     }
 }
 
@@ -743,9 +724,8 @@ sub _attrs
 
 # Method: _restoreFromHash
 #
-#      Restore the type value from a hash reference which usually
-#      comes from a <EBox::GConfModule::hash_from_dir> returned
-#      value. This method should be overridden from non volatile types.
+#      Restore the type value from a hash reference.
+#      This method should be overridden from non volatile types.
 #
 # Parameters:
 #
@@ -754,7 +734,7 @@ sub _attrs
 #
 sub _restoreFromHash
 {
-    my ($self) = @_;
+    my ($self, $hash) = @_;
 
     my @attrs = @{$self->_attrs()};
     return unless @attrs;
@@ -763,11 +743,8 @@ sub _restoreFromHash
     return unless ($row);
 
     my $field = $self->fieldName();
-    my $path = $self->_path();
-    my $value = $row->GConfModule()->hash_from_dir($path);
-
     for my $attr (@attrs) {
-        $self->{$attr} = $value->{"${field}_${attr}"};
+        $self->{$attr} = $hash->{"${field}_${attr}"};
     }
 }
 
@@ -829,21 +806,6 @@ sub _setValue # (value)
     return;
 }
 
-# Method: _path
-#
-#   Return the whole path as in:
-#
-#       directory + row id
-sub _path
-{
-    my ($self) = @_;
-    my $path = $self->row()->dir();
-    my $id = $self->row()->id();
-    if ($id) {
-        $path .= "/$id";
-    }
-    return $path;
-}
 # Group: Private functions
 
 # Function: _identity
