@@ -98,7 +98,7 @@ sub removeMember
 
     my @members;
     foreach my $dn ($self->get('member')) {
-        push (@members, $dn) if ($dn ne $user->dn());
+        push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
     }
 
     $self->set('member', \@members, $lazy);
@@ -198,12 +198,12 @@ sub delete
 #
 sub deleteObject
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
 
     # Notify group deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delGroup', $self, $ignore_mods);
+    $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods});
 
     # Call super implementation
     shift @_;
@@ -217,6 +217,8 @@ sub save
 {
     my ($self, $ignore_mods) = @_;
 
+    $self->{modifications} = $self->{entry}->ldif(changes => 1);
+
     shift @_;
     $self->SUPER::save(@_);
 
@@ -224,7 +226,27 @@ sub save
         delete $self->{core_changed};
 
         my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyGroup', [$self], $ignore_mods);
+        $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods});
+    }
+
+    delete $self->{modifications};
+}
+
+# Method: setIgnoredModules
+#
+#   Set the modules that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining module names
+#
+sub setIgnoredModules
+{
+    my ($self, $mods) = @_;
+
+    if (defined $mods) {
+        $self->{ignoreMods} = $mods;
     }
 }
 
@@ -241,7 +263,7 @@ sub save
 #   comment - comment's group
 #   system - boolan: if true it adds the group as system group,
 #   otherwise as normal group
-#   ignore_mods - ldap modules to be ignored on addUser notify
+#   ignoreMods - ldap modules to be ignored on addUser notify
 #
 sub create
 {
@@ -290,7 +312,7 @@ sub create
 
     unless ($system) {
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignore_mods});
+        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods});
     }
 
     return $res;
@@ -411,6 +433,5 @@ sub _checkGid
         }
     }
 }
-
 
 1;
