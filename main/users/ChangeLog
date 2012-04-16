@@ -1,4 +1,4 @@
-HEAD
+2.3.7
 	+ New modifications() method to allow retrieving modifications made to
 	  the LDAP object in the last call to 'save'
 	+ Create users without password and set it after that, needed for samba4
