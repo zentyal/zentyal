@@ -1,3 +1,7 @@
+2.3.5
+	+ New samba4 synchronization based on LDB module and LDIF files
+	+ Depend on samba-zentyal-modules instead of libldb-perl
+	+ Custom build of samba4 is no longer needed
 2.3.4
 	+ Packaging fixes for precise
 	+ Code typo fix in Samba::Model::GeneralSettings::_checkDomainName

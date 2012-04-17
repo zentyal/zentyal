@@ -18,11 +18,14 @@ package EBox::SambaLdapUser;
 use strict;
 use warnings;
 
+use MIME::Base64;
+use Encode;
+use Error qw(:try);
+
 use EBox::Sudo;
 use EBox::Samba;
-
-use EBox::Gettext;
-use Error qw(:try);
+use EBox::UsersAndGroups::User;
+use EBox::UsersAndGroups::Group;
 
 # Home path for users and groups
 use constant BASEPATH           => '/home/ebox/samba';
@@ -39,6 +42,7 @@ sub new
     $self->{samba} = EBox::Global->modInstance('samba');
     $self->{ldb} = $self->{samba}->ldb();
     bless($self, $class);
+
     return $self;
 }
 
@@ -52,96 +56,87 @@ sub _addUser
 
     return unless ($self->{samba}->configured());
 
-    my $userId = $user->name();
-    my $userUid = $user->get('uidNumber');
-    my $userGid = $user->get('gidNumber');
-    my $userGivenname = $user->firstname();
-    my $userSurname = $user->surname();
-    my $userComment = $user->comment();
-    my $homeDirectory = $user->get('homeDirectory');
-    #my $homeDrive = $self->{samba}->drive();
-    my $profilePath = PROFILESPATH . "/$userId";
-    #my $netbios = $self->{samba}->netbiosName();
-    #$homeDirectory =~ s/\//\\/g;
+    my $uid = $user->get('uid');
+    my $uidNumber  = $user->get('uidNumber');
+    my $gidNumber  = $user->get('gidNumber');
 
-    EBox::debug("Creating roaming profile directory for samba user '$userId'");
-    $self->_createDir($profilePath, $userUid, $userGid, '0700');
-
-    #$profilePath = "\\\\$netbios\\profiles\\$userId";
-    my $result = $self->{ldb}->search({
-            filter => "(sAMAccountName=$userId)",
-            attrs => ['distinguishedName']});
-    if (scalar (@{$result}) == 0) {
-        # User creation
-        my $cmd = $self->{samba}->SAMBATOOL() . " user create '$userId' '$password'" .
-            " --enable-reversible-encryption" .
-            " --surname='$userSurname'" .
-            " --given-name='$userGivenname'";
-            #" --profile-path='$profilePath'" .
-            #" --home-drive='$homeDrive'" .
-            #" --home-directory='$homeDirectory'";
-        if (length ($userComment) > 0) {
-            $cmd .= " --description='$userComment'";
-        }
-        EBox::debug("Adding user '$userId' to LDB");
-        EBox::Sudo::root($cmd);
-        # Map unix uid
-        $self->{ldb}->xidMapping($userId, $userUid);
+    my $attrs = {};
+    $attrs->{objectClass} = 'user';
+    $attrs->{sAMAccountName} = $uid;
+    $attrs->{userPrincipalName} = "$uid\@" . $self->{samba}->realm();
+    $attrs->{givenName} =  $user->get('givenName');
+    $attrs->{sn} = $user->get('sn');
+    if (length $user->get('description') > 0) {
+        $attrs->{description} = $user->get('description');
     }
+
+    EBox::debug("Creating roaming profile directory for samba user '$uid'");
+    my $profileDir = PROFILESPATH . "/$uid";
+    $self->_createDir($profileDir, $uidNumber, $gidNumber, '0700');
+
+    try {
+        # TODO Support multiples OU
+        EBox::debug("Adding user '$uid' to LDB");
+        my $dn = "CN=$uid,CN=Users," . $self->{ldb}->rootDN();
+        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->add($self->{ldb}->SAM(), $dn, $attrs);
+        $self->{ldb}->xidMapping($uid, $uidNumber);
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $self->{samba}->enableZentyalLdbModule();
+    };
 }
 
 sub _modifyUser
 {
     my ($self, $user, $password) = @_;
 
-    return unless ($self->{samba}->configured());
-    my $userId = $user->name();
-    my $userUid = $user->get('uidNumber');
-    my $userGid = $user->get('gidNumber');
-    my $userGivenname = $user->firstname();
-    my $userSurname = $user->surname();
-    my $userComment = $user->comment();
-    #my $homeDirectory = $user->get('homeDirectory');
-    #my $homeDrive = $self->{samba}->drive();
-    #my $profilePath = PROFILESPATH . "/$userId";
-    #my $netbios = $self->{samba}->netbiosName();
-    #$profilePath = "\\\\$netbios\\profiles";
-    #$homeDirectory =~ s/\//\\/g;
+    my $uid = $user->get('uid');
+    my $changes = $user->modifications();
 
-    # Get the user DN
-    my $result = $self->{ldb}->search({
-        filter => "(sAMAccountName=$userId)",
-        attrs => ['distinguishedName', 'description']});
-    if (scalar (@{$result}) == 1 ) {
-        my $entry = pop @{$result};
-        my $dn = pop @{$entry->{distinguishedName}};
-        my $description = pop @{$entry->{description}};
-        my $attrs = {
-            modify => {
-                givenName => $userGivenname,
-                sn => $userSurname,
-                #homeDirectory => $homeDirectory,
-                #homeDrive => $homeDrive,
-                #profilePath => $profilePath,
-            },
-        };
-        if (length ($userComment) > 0) {
-            $attrs->{modify}->{description} = $userComment;
-        } elsif ($description) {
-            $attrs->{delete}->{description} = '';
-        }
-        EBox::debug("Updating user info");
-        $self->{ldb}->modify($self->{ldb}->samdb(), $dn, $attrs);
-        EBox::debug("Updating user uid mapping");
-        $self->{ldb}->xidMapping($userId, $userUid);
-        if (length ($password) > 0) {
-            EBox::debug("Updating user password");
-            my $cmd = $self->{samba}->SAMBATOOL() . " user setpassword '$userId' --newpassword='$password'";
-            EBox::Sudo::root($cmd);
-        }
-    } else {
-        throw EBox::Exceptions::DataNotFound("Couldn't find user '$userId' in LDB");
+    my $ldbChanges = {};
+    if (exists $changes->{delete}->{description}) {
+        $ldbChanges->{delete}->{description} = [];
     }
+    if (exists $changes->{replace}->{description}) {
+        $ldbChanges->{replace}->{description} = $changes->{replace}->{description};
+    }
+    if (exists $changes->{replace}->{givenname}) {
+        $ldbChanges->{replace}->{givenName} = $changes->{replace}->{givenname};
+    }
+    if (exists $changes->{replace}->{sn}) {
+        $ldbChanges->{replace}->{sn} = $changes->{replace}->{sn};
+    }
+    if (exists $changes->{replace}->{userPassword}) {
+        my $pwd = "\"$password\"";
+        $pwd = encode('UTF16-LE', $pwd);
+        $pwd = encode_base64($pwd);
+        $ldbChanges->{replaceB64}->{unicodePwd} = [ $pwd ];
+        $ldbChanges->{replace}->{userAccountControl} = [ '512' ];
+    }
+
+    try {
+        my $args = { base   => $self->{ldb}->rootDN(),
+                     scope  => 'sub',
+                     filter => "(sAMAccountName=$uid)",
+                     attrs  => 'distinguishedName' };
+        my $result = $self->{ldb}->search($self->{ldb}->SAM(), $args);
+
+        return unless (scalar @{$result} == 1);
+
+        my $entry = pop $result;
+        my $dn = $entry->get_value('distinguishedName');
+
+        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->modify($self->{ldb}->SAM(), $dn, $ldbChanges);
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $self->{samba}->enableZentyalLdbModule();
+    };
 }
 
 sub _delUser
@@ -150,23 +145,37 @@ sub _delUser
 
     return unless ($self->{samba}->configured());
 
-    my $userId = $user->name();
+    my $uid = $user->get('uid');
 
     my @cmds;
-    if (-d PROFILESPATH . "/$userId") {
-        push (@cmds, "rm -rf \'" .  PROFILESPATH . "/$userId\'");
+    if (-d PROFILESPATH . "/$uid") {
+        push (@cmds, "rm -rf \'" .  PROFILESPATH . "/$uid\'");
     }
     EBox::Sudo::root(@cmds) if (@cmds);
 
-    my $result = $self->{ldb}->search({
-            filter => "(sAMAccountName=$userId)",
-            attrs => ['distinguishedName']});
-    if (scalar @{$result} == 1) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " user delete '$userId'";
-        EBox::debug("Deleting user '$userId' from LDB");
-        EBox::Sudo::root($cmd);
+    try {
+        my $args = { base   => $self->{ldb}->rootDN(),
+                     scope  => 'sub',
+                     filter => "(sAMAccountName=$uid)",
+                     attrs  => 'distinguishedName' };
+        my $result = $self->{ldb}->search($self->{ldb}->SAM(), $args);
+
+        return unless (scalar @{$result} == 1);
+
+        my $entry = pop $result;
+        my $dn = $entry->get_value('distinguishedName');
+
+        EBox::debug("Deleting user '$uid' from LDB");
+        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->delete($self->{ldb}->SAM(), $dn);
         # TODO Update shares ACLs
-    }
+        # TODO Delete xid mapping
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $self->{samba}->enableZentyalLdbModule();
+    };
 }
 
 sub _addGroup
@@ -175,25 +184,30 @@ sub _addGroup
 
     return unless ($self->{samba}->configured());
 
-    my $groupId = $group->name();
-    my $description = $group->get('description');
-    my $groupGid = $group->get('gidNumber');
+    my $gid = $group->get('cn');
+    my $gidNumber = $group->get('gidNumber');
 
-    my $result = $self->{samba}->ldb->search({
-            filter => "(sAMAccountName=$groupId)",
-            attrs => ['distinguishedName']});
-    if (scalar (@{$result}) == 0) {
-        # Group creation
-        my $cmd = $self->{samba}->SAMBATOOL() . " group add '$groupId'";
-        if (length ($description) > 0) {
-            $cmd .= " --description='$description'";
-        }
-        EBox::debug("Adding group '$groupId' to LDB");
-        EBox::Sudo::root($cmd);
-        # Map unix gid
-        EBox::debug("Mapping group gid '$groupId' to '$groupGid'");
-        $self->{ldb}->xidMapping($groupId, $groupGid);
+    my $attrs = {};
+    $attrs->{objectClass} = 'group';
+    $attrs->{sAMAccountName} = $gid;
+    if (length $group->get('description') > 0) {
+        $attrs->{description} = $group->get('description');
     }
+
+    try {
+        # TODO Support multiples OU
+        EBox::debug("Adding group '$gid' to LDB");
+        my $dn = "CN=$gid,CN=Users," . $self->{ldb}->rootDN();
+        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->add($self->{ldb}->SAM(), $dn, $attrs);
+        $self->{ldb}->xidMapping($gid, $gidNumber);
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $self->{samba}->enableZentyalLdbModule();
+    };
+
 }
 
 sub _modifyGroup
@@ -202,33 +216,60 @@ sub _modifyGroup
 
     return unless ($self->{samba}->configured());
 
-    my $groupId = $group->name();
-    my $groupGid = $group->get('gidNumber');
-    my $description = $group->get('description');
-    my $ldapMembers = $group->users();
-    my $sambaMembers = $self->{ldb}->getGroupMembers($groupId);
+    my $gid = $group->get('cn');
+    my $changes = $group->modifications();
 
-    my $result = $self->{ldb}->search({
-            filter => "(sAMAccountName=$groupId)",
-            attrs => ['distinguishedName', 'description']});
-    if (scalar (@{$result}) == 1) {
-        my $entry = pop @{$result};
-        my $dn = pop @{$entry->{distinguishedName}};
-        # Here we only update the group description and gid,
-        # the users membership is managed by the sync script
-        my $attrs = {};
-        if (length ($description) > 0) {
-            $attrs->{modify}->{description} = $description;
-        } elsif (defined ($entry->{description}[0])) {
-            $attrs->{delete}->{description} = '';
-        }
-        EBox::debug("Updating group '$groupId' info");
-        $self->{ldb}->modify($self->{ldb}->samdb(), $dn, $attrs);
-        EBox::debug("Updating group '$groupId' members");
-        $self->{ldb}->syncGroupMembersLdapToLdb($groupId);
-        EBox::debug("Updating gid mapping of group '$groupId' to '$groupGid'");
-        $self->{ldb}->xidMapping($groupId, $groupGid);
+    my $ldbChanges = {};
+    if (exists $changes->{delete}->{description}) {
+        $ldbChanges->{delete}->{description} = [];
     }
+    if (exists $changes->{replace}->{description}) {
+        $ldbChanges->{replace}->{description} = $changes->{replace}->{description};
+    }
+    if (exists $changes->{replace}->{member}) {
+        my $members = $changes->{replace}->{member};
+        # Translate DN's to LDB ones
+        foreach my $memberDN (@{$members}) {
+            my $user = new EBox::UsersAndGroups::User(dn => $memberDN);
+            my $uid  = $user->get('uid');
+
+            my $args = { base   => $self->{ldb}->rootDN(),
+                         scope  => 'sub',
+                         filter => "(sAMAccountName=$uid)",
+                         attrs  => 'distinguishedName' };
+            my $result = $self->{ldb}->search($self->{ldb}->SAM(), $args);
+
+            next unless (scalar @{$result} == 1);
+
+            my $entry = pop $result;
+            my $dn = $entry->get_value('distinguishedName');
+
+            $memberDN = $dn;
+        }
+
+        $ldbChanges->{replace}->{member} = $changes->{replace}->{member};
+    }
+
+    try {
+        my $args = { base   => $self->{ldb}->rootDN(),
+                     scope  => 'sub',
+                     filter => "(sAMAccountName=$gid)",
+                     attrs  => 'distinguishedName' };
+        my $result = $self->{ldb}->search($self->{ldb}->SAM(), $args);
+
+        return unless (scalar @{$result} == 1);
+
+        my $entry = pop $result;
+        my $dn = $entry->get_value('distinguishedName');
+
+        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->modify($self->{ldb}->SAM(), $dn, $ldbChanges);
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $self->{samba}->enableZentyalLdbModule();
+    };
 }
 
 sub _delGroup
@@ -237,18 +278,31 @@ sub _delGroup
 
     return unless ($self->{samba}->configured());
 
-    my $groupId = $group->name();
-    my $description = $group->get('description');
+    my $gid = $group->get('cn');
 
-    my $result = $self->{samba}->ldb->search({
-            filter => "(sAMAccountName=$groupId)",
-            attrs => ['distinguishedName']});
-    if (scalar (@{$result}) == 1) {
-        my $cmd = $self->{samba}->SAMBATOOL() . " group delete '$groupId'";
-        EBox::debug("Deleting group '$groupId' from LDB");
-        EBox::Sudo::root($cmd);
+    try {
+        my $args = { base   => $self->{ldb}->rootDN(),
+                     scope  => 'sub',
+                     filter => "(sAMAccountName=$gid)",
+                     attrs  => 'distinguishedName' };
+        my $result = $self->{ldb}->search($self->{ldb}->SAM(), $args);
+
+        return unless (scalar @{$result} == 1);
+
+        my $entry = pop $result;
+        my $dn = $entry->get_value('distinguishedName');
+
+        EBox::debug("Deleting group '$gid' from LDB");
+        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->delete($self->{ldb}->SAM(), $dn);
         # TODO Update shares ACLs
-    }
+        # TODO Delete xid mapping
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $self->{samba}->enableZentyalLdbModule();
+    };
 }
 
 sub _createDir

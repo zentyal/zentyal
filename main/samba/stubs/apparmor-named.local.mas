@@ -7,4 +7,4 @@
 /var/lib/samba/private/* rw,
 /var/lib/samba/private/dns/* rw,
 /var/lib/samba/private/dns.keytab kr,
-/var/tmp/** rw, 
+/var/tmp/** rw,

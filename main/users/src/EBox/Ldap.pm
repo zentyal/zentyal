@@ -119,7 +119,8 @@ sub ldapCon
             $auth_type = $r->auth_type;
         } catch Error with {};
 
-        if ($auth_type eq 'EBox::UserCorner::Auth') {
+        if (defined $auth_type and
+            $auth_type eq 'EBox::UserCorner::Auth') {
             eval "use EBox::UserCorner::Auth";
             if ($@) {
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")

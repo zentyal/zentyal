@@ -1,6 +1,5 @@
 HEAD
 	+ Remove obsolete EBox::Order package
-	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
 	+ Remove no longer needed redis directory tree sets
 	+ Fixed isEqualTo() method on EBox::Types::Time
 	+ EBox::Types::Abstract now provides default implementations of fields(),
@@ -12,6 +11,7 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
 	+ Avoid problems restarting apache when .pid file does not exist
 	+ Do not use graceful on apache to allow proper change of listen port
 	+ Simplified apache restart mechanism and avoid some problems

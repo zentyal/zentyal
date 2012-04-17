@@ -872,6 +872,7 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
+                'description' => $params{description},
                 'internal' => 1,
                 'readOnly' => 1
                 );
@@ -881,6 +882,7 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
+                'description' => $params{description},
                 'internal' => 1,
                 'readOnly' => 1);
 

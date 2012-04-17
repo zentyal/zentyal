@@ -1,3 +1,8 @@
+2.3.7
+	+ New modifications() method to allow retrieving modifications made to
+	  the LDAP object in the last call to 'save'
+	+ Create users without password and set it after that, needed for samba4
+	+ Removed auth_type warnings
 2.3.6
 	+ Use the new unified tableBody.mas instead of tableBodyWithoutActions.mas
 2.3.5
