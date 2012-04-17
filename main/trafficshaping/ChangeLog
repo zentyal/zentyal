@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed duplicate rows in interfaces rates page
 2.1.4
 	+ Add new objects and services from modal box works now
 	+ R2Q constant now is configurable through conf key to allow
@@ -74,7 +76,7 @@ at once
 0.12.101
 	+ Detect if there's a l7 capable kernel using modinfo xt_layer7
 0.12.100
-	+ Add traffic shaping rules to POSTROUTING 
+	+ Add traffic shaping rules to POSTROUTING
 0.12.99
 	+ New release
 0.12.2
@@ -103,11 +105,11 @@ at once
 	+ Exposing API from models
 	+ Removing old code to decrease the module complexity and LOC by
 	more than 500 lines
-	+ Traffic shaping rules may be enabled/disabled by user 
+	+ Traffic shaping rules may be enabled/disabled by user
 0.11
 	+ Difference easily internal/external interfaces through GUI
 	+ Normalizing guaranteed rates from two or more rules now works
-	correctly under rate decreasing 
+	correctly under rate decreasing
 	+ Warning about a change on gateways when there is at least a rule
 	on internal interfaces models
 	+ Bugfix: Rates are now checked if the source or destination is an
