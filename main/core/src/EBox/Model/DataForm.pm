@@ -360,9 +360,10 @@ sub setTypedRow
     my ($self, $id, $paramsRef, %optParams) = @_;
 
     if (defined ($self->{'gconfmodule'}->get($self->{'rowdir'}))) {
-        $self->SUPER::setTypedRow($paramsRef, id => $ROW_ID, %optParams);
+        $self->SUPER::setTypedRow($ROW_ID, $paramsRef, %optParams);
     } else {
-        $self->SUPER::addTypedRow($paramsRef, id => $ROW_ID, %optParams);
+        $optParams{id} = $ROW_ID;
+        $self->SUPER::addTypedRow($paramsRef, %optParams);
     }
 }
 

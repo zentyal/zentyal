@@ -2827,11 +2827,11 @@ sub generateInterfaces
     my $tmpfile = EBox::Config::tmp . '/interfaces';
     my $iflist = $self->allIfacesWithRemoved();
 
-    my $manager = new EBox::ServiceManager();
-    if ($manager->skipModification('network', $file)) {
-        EBox::info("Skipping modification of $file");
-        return;
-    }
+    #my $manager = new EBox::ServiceManager();
+    #if ($manager->skipModification('network', $file)) {
+    #    EBox::info("Skipping modification of $file");
+    #    return;
+    #}
 
     #writing /etc/network/interfaces
     open(IFACES, ">", $tmpfile) or
@@ -2909,7 +2909,7 @@ sub generateInterfaces
     close(IFACES);
 
     EBox::Sudo::root("cp $tmpfile $file");
-    $manager->updateFileDigest('network', $file);
+    #$manager->updateFileDigest('network', $file);
 }
 
 # Generate the static routes from routes() with "ip" command

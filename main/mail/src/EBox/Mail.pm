@@ -492,11 +492,11 @@ sub _setMailConf
 
     $self->_setArchivemailConf();
 
-    my $manager = new EBox::ServiceManager;
+    #my $manager = new EBox::ServiceManager;
     # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
-    unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
-        EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
-    }
+    #unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
+    EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
+    #}
 
     my $zarafaEnabled = $self->zarafaEnabled();
     my $zarafaDomain = '';
@@ -504,7 +504,6 @@ sub _setMailConf
 
     $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
     $self->_setZarafaConf($zarafaEnabled, $zarafaDomain);
-
 }
 
 
@@ -550,10 +549,10 @@ sub _setZarafaConf
                          ],
                          { uid  => 0, gid  => 0, mode => '0600', },
                         );
-    my $manager = new EBox::ServiceManager;
-    unless ($manager->skipModification('mail', TRANSPORT_FILE)) {
-        EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
-    }
+    #my $manager = new EBox::ServiceManager;
+    #unless ($manager->skipModification('mail', TRANSPORT_FILE)) {
+    EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
+    #}
 }
 
 
