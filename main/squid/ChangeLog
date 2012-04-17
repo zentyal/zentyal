@@ -1,4 +1,5 @@
 HEAD
+	+ Use new _keys() which takes cache into account instead of _redis_call()
 	+ Adapted TimePeriod type to the changes in the types framework
 2.3.5
 	+ Create tables with MyISAM engine by default

@@ -128,18 +128,15 @@ sub _restoreFromHash
     $self->{'value'} = $self->fieldName();
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#      <EBox::Types::Text::_storeInGConf>
+#      <EBox::Types::Text::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
-
-    # Store nothing in GConf since it is already written as printableName
-    return;
+    # Store nothing since it is already written as printableName
 }
 
 # Method: _paramIsValid

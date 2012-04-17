@@ -473,29 +473,29 @@ sub _setMemValue
     $self->{remove} = $params->{$removeParam};
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
-    my $keyField = "$key/" . $self->fieldName() . '_path';
+    my $keyField = $self->fieldName() . '_path';
 
     if ($self->path() and $self->userPath()) {
         # Do actually move
         $self->_moveToPath();
 
-        $gconfmod->set_string($keyField, $self->path());
+        $hash->{$keyField} = $self->path();
     } elsif ($self->{remove}) {
-        $gconfmod->unset($keyField);
-        if ( not $self->userPath() ) {
+        delete $hash->{$keyField};
+        if (not $self->userPath()) {
             # Actually remove
             my $path = $self->path();
-            if ( -f $path ) {
+            if (-f $path) {
                 EBox::Sudo::root("rm $path");
             }
         }

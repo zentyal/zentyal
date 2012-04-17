@@ -933,6 +933,9 @@ sub backupCredentials
 {
     my ($self, %args) = @_;
 
+    # FIXME: reimplement this
+    return {};
+
     if ( $args{force} or not $self->st_entry_exists('disaster_recovery/username')  ) {
         my $cred;
         if ( $self->isConnected() ) {
@@ -1824,6 +1827,9 @@ sub _statusKeysAndValuesString
 {
     my ($self) = @_;
     my $stringConf;
+
+    # FIXME: reimplement this
+    return '';
 
     my $type = 'string';
     my @dirsToLook = ('');

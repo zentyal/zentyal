@@ -226,6 +226,9 @@ sub _storedArrayRaidInfo
 {
     my ($self, $arrayRaidName) = @_;
 
+    # FIXME: reimplement this
+    return {};
+
     my $arrayInfoSeqNums = $self->{events}->st_all_dirs_base(RAID_ARRAY_KEY);
 
     my $matchedStoredInfo;

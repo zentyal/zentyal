@@ -836,18 +836,13 @@ sub addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
 
-    my $tableName = $self->tableName();
     my $dir = $self->{'directory'};
     my $gconfmod = $self->{'gconfmodule'};
     my $readOnly = delete $optParams{'readOnly'};
     my $id = delete $optParams{'id'};
 
-    my $leadingText = substr( $tableName, 0, 4);
-    # Changing text to be lowercase
-    $leadingText = "\L$leadingText";
-
     unless (defined ($id) and length ($id) > 0) {
-        $id = $self->_newId($leadingText);
+        $id = $self->_newId();
     }
 
     my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
@@ -887,8 +882,9 @@ sub addTypedRow
         $self->_checkRowIsUnique(undef, $paramsRef);
     }
 
+    my $hash = {};
     foreach my $data (@userData) {
-        $data->storeInGConf($gconfmod, "$dir/$id");
+        $data->storeInHash($hash);
         $data = undef;
     }
 
@@ -905,12 +901,16 @@ sub addTypedRow
         }
         $self->_insertPos($id, $pos);
     } else {
-        $gconfmod->list_add($self->{'order'}, $id);
+        my $order = $gconfmod->get_list($self->{'order'});
+        push (@{$order}, $id);
+        $gconfmod->set($self->{'order'}, $order);
     }
 
     if ($readOnly) {
-        $gconfmod->set_hash_value("$dir/$id", 'readOnly', 1);
+        $hash->{readOnly} = 1;
     }
+
+    $gconfmod->set("$dir/$id", $hash);
 
     my $newRow = $self->row($id);
 
@@ -963,8 +963,8 @@ sub row
     $self->{'cacheOptions'} = {};
 
     $row->setId($id);
-    # TODO ReadOnly rows
-    $row->setReadOnly($gconfmod->hash_value("$dir/$id", 'readOnly'));
+    my $hash = $gconfmod->get_hash("$dir/$id");
+    $row->setReadOnly($hash->{'readOnly'});
     $row->setModel($self);
 
     # If element is volatile we set its value after the rest
@@ -976,12 +976,12 @@ sub row
         if ($element->volatile()) {
             push (@volatileElements, $element);
         } else {
-            _setRowElement($element, $row);
+            _setRowElement($element, $row, $hash);
         }
         $row->addElement($element);
     }
     foreach my $element (@volatileElements) {
-        _setRowElement($element, $row);
+        _setRowElement($element, $row, $hash);
     }
 
     return $row;
@@ -989,10 +989,10 @@ sub row
 
 sub _setRowElement
 {
-    my ($element, $row) = @_;
+    my ($element, $row, $hash) = @_;
 
     $element->setRow($row);
-    $element->restoreFromHash();
+    $element->restoreFromHash($hash);
     if ((not defined($element->value())) and $element->defaultValue()) {
         $element->setValue($element->defaultValue());
     }
@@ -1083,13 +1083,11 @@ sub _removeRow
 {
     my ($self, $id) = @_;
 
-    if ($self->table()->{'order'}) {
-        $self->_removeOrderId($id);
-    } else {
-        $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
-    }
-
-    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
+    my $gconfmod = $self->{'gconfmodule'};
+    $gconfmod->unset("$self->{'directory'}/$id");
+    my @order = @{$gconfmod->get_list($self->{'order'})};
+    @order = grep ($_ ne $id, @order);
+    $gconfmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -1386,20 +1384,24 @@ sub setTypedRow
     }
 
     my $key = "$dir/$id";
-    my $modified = undef;
+    my $hash = $gconfmod->get_hash($key);
+
+    my $modified = @changedElements;
     for my $data (@changedElements) {
-        $data->storeInGConf($gconfmod, $key);
-        $modified = 1;
+        $data->storeInHash($hash);
     }
 
     # update readonly if change
-    if (defined ($readOnly)) {
-        my $readOnlySet = $gconfmod->hash_value($key, 'readOnly');
-        if ($readOnly and not $readOnlySet) {
-            $gconfmod->set_hash_value($key, 'readOnly', 1);
-        } elsif ($readOnlySet) {
-            $gconfmod->hash_delete($key, 'readOnly');
-        }
+    my $oldRO = $hash->{readOnly};
+    if (defined ($readOnly) and $readOnly) {
+        $hash->{readOnly} = 1;
+    } else {
+        delete $hash->{readOnly};
+    }
+
+    # Update row hash if needed
+    if ($modified or ($hash->{readOnly} xor $oldRO)) {
+        $gconfmod->set($key, $hash);
     }
 
     if ($modified) {
@@ -1605,31 +1607,8 @@ sub _ids
 sub _rows
 {
     my ($self) = @_;
-    my $gconfmod = $self->{'gconfmodule'};
 
-    my  %order;
-    if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};
-        my $i = 0;
-        foreach my $id (@order) {
-            $order{$id} = $i;
-            $i++;
-        }
-    }
-
-    my @rows;
-    for my $id (@{$self->_ids()}) {
-        my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-
-        my $row = $self->row($id);
-        if (%order) {
-            $hash->{'order'} = $order{$id};
-            $rows[$order{$id}] = $row;
-        } else {
-            push(@rows, $row);
-        }
-    }
-
+    my @rows = map { $self->row($_) } @{$self->_ids()};
     return \@rows;
 }
 
@@ -2246,40 +2225,6 @@ sub filter
 {
     my ($self) = @_;
     return $self->{'filter'};
-}
-
-# Method: pages
-#
-#    Return the number of pages
-#
-# Parameters:
-#
-#     $rows - hash ref containing the rows, if undef it will use
-#         those returned by rows()
-# Returns:
-#
-#    integer - containing the value
-sub pages
-{
-    my ($self, $filter) = @_;
-
-    # FIXME: is this method no longer needed?
-    return 1;
-
-    my $pageSize = $self->pageSize();
-    unless (defined($pageSize) and ($pageSize =~ /^\d+/) and ($pageSize > 0)) {
-        return 1;
-    }
-
-    my $rows = $self->rows($filter);
-
-    my $nrows = @{$rows};
-
-    if ($nrows == 0) {
-        return 0;
-    } else {
-        return  ceil($nrows / $pageSize) - 1;
-    }
 }
 
 # Method: find
@@ -3534,17 +3479,19 @@ sub _rowExists
 
 sub _newId
 {
-    my ($self, $leadingText) = @_;
+    my ($self) = @_;
+
+    my $model = $self->modelName();
+    my $leadingText = lc($model);
+    $leadingText =~ tr/aeiou//d;
+    $leadingText = substr($leadingText, 0, length($leadingText) / 2);
 
     my $id = 1;
-
-    # FIXME: implement this better, maybe a key to hold the max id
-    my @ids = @{$self->_ids(1)};
-    if (@ids) {
-        my $str = List::Util::maxstr(@ids);
-        $str =~ s/$leadingText//;
-        $id = $str + 1;
+    my $maxId = $self->{gconfmodule}->get_string("$model/max_id");
+    if ($maxId) {
+        $id = $maxId + 1;
     }
+    $self->{gconfmodule}->set_string("$model/max_id", $id);
 
     return $leadingText . $id;
 }
@@ -3568,18 +3515,6 @@ sub _insertPos #(id, position)
     } else {
         splice (@order, $pos, 1, ($id, $order[$pos]));
     }
-
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
-}
-
-sub _removeOrderId
-{
-    my ($self, $id) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my @order = @{$gconfmod->get_list($self->{'order'})};
-
-    @order = grep (!/$id/, @order);
 
     $gconfmod->set_list($self->{'order'}, 'string', \@order);
 }
@@ -3627,35 +3562,6 @@ sub _rowOrder
     my %order = $self->_orderHash();
 
     return $order{$id};
-}
-
-sub _hashFromDir
-{
-    my ($self, $id) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $dir = $self->{'directory'};
-
-    unless (defined($id)) {
-        return;
-    }
-
-    my $row = $gconfmod->hash_from_dir("$dir/$id");
-    $row->{'id'} = $id;
-    $row->{'order'} = $self->_rowOrder($id);
-
-    return $row;
-}
-
-sub _removeHasManyTables
-{
-    my ($self, $id) = @_;
-
-    foreach my $type (@{$self->table()->{'tableDescription'}}) {
-        my $dir = "$id/" . $type->fieldName();
-        next unless ($self->{'gconfmodule'}->dir_exists($dir));
-        $self->{'gconfmodule'}->delete_dir("$id/$dir");
-    }
 }
 
 # Method: _notifyModelManager

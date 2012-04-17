@@ -31,7 +31,7 @@ use EBox::Config::Redis;
 
 use File::Basename;
 
-sub _create # (name)
+sub _create
 {
     my $class = shift;
     my %opts = @_;
@@ -85,7 +85,7 @@ sub aroundRestoreConfig
 }
 
 # load config entries from a file
-sub _load_from_file # (dir?, key?)
+sub _load_from_file
 {
     my ($self, $dir, $key) = @_;
     ($dir) or $dir = EBox::Config::conf;
@@ -93,7 +93,7 @@ sub _load_from_file # (dir?, key?)
     $self->_config();
 
     my $file =  $self->_bak_file_from_dir($dir);
-    if (not  -f $file)  {
+    if (not -f $file)  {
         EBox::error("Backup file missing for module " . $self->name);
         return;
     }
@@ -107,7 +107,7 @@ sub _load_from_file # (dir?, key?)
     return unless (defined ($line));
 
     # Import to /temp dir and convert paths to $key dest
-    $self->{redis}->import_dir_from_yaml($file, '/temp');
+    $self->{redis}->import_dir_from_file($file, '/temp');
     $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
     $self->{redis}->delete_dir('/temp');
 }
@@ -126,7 +126,7 @@ sub aroundDumpConfig
 }
 
 # dumps GConf entries to a file in the dir specified
-sub _dump_to_file # (dir?)
+sub _dump_to_file
 {
     my ($self, $dir) = @_;
     $self->_config();
@@ -134,7 +134,7 @@ sub _dump_to_file # (dir?)
     my $key = '/ebox/modules/' . $self->name;
     ($dir) or $dir = EBox::Config::conf;
     my $file = $self->_bak_file_from_dir($dir);
-    $self->{redis}->export_dir_to_yaml($key, $file);
+    $self->{redis}->export_dir_to_file($key, $file);
 }
 
 sub isReadOnly
@@ -221,153 +221,20 @@ sub _change
     $global->modChange($self->name);
 }
 
-sub _key # (key)
+sub _key
 {
     my ($self, $key) = @_;
     return $self->_helper->key($key);
 }
 
-sub _index # (key)
-{
-    my ($self, $key) = @_;
-    return $self->_helper->index($key);
-}
-
 #############
 
-sub _entry_exists # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    return $self->{redis}->exists($key);
-}
-
-# Method: entry_exists
-#
-#       Given a key referencing an entry tells you if it exists
-#
-# Parameters:
-#
-#       key - entry key
-#
-# Returns:
-#
-#       boolean - True if it exists
-#
-sub entry_exists # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_entry_exists($key);
-}
-
-sub st_entry_exists # (key)
+sub st_entry_exists
 {
     my ($self, $key) = @_;
     $self->_state;
-    return $self->_entry_exists($key);
-}
-
-#############
-
-sub _dir_exists # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    return $self->{redis}->dir_exists($key);
-}
-
-# Method: dir_exists
-#
-#       Given a key referencing a directory tells you if it exists
-#
-# Parameters:
-#
-#       key - directory's key
-#
-# Returns:
-#
-#       boolean - True if it exists
-#
-sub dir_exists # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_dir_exists($key);
-}
-
-sub st_dir_exists # (key)
-{
-    my ($self, $key) = @_;
-    $self->_state;
-    return $self->_dir_exists($key);
-}
-
-#############
-
-sub _all_dirs_base # (key)
-{
-    my ($self, $key) = @_;
-    my @array = $self->_all_dirs($key);
-    my @names = ();
-    foreach (@array) {
-        push(@names, basename($_));
-    }
-    return \@names;
-}
-
-sub all_dirs_base # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_all_dirs_base($key);
-}
-
-sub st_all_dirs_base # (key)
-{
-    my ($self, $key) = @_;
-    $self->_state;
-    return $self->_all_dirs_base($key);
-}
-
-#############
-
-sub _all_entries_base # (key)
-{
-    my ($self, $key) = @_;
-    my @array = @{$self->_all_entries($key)};
-    my @names = ();
-    foreach (@array) {
-        push(@names, basename($_));
-    }
-    return \@names;
-}
-
-# Method: all_entries_base
-#
-#       Given a key it returns all directories within, removing
-#       any leading directory component.
-#
-# Parameters:
-#
-#       key
-#
-# Returns:
-#
-#       ref to an array of strings - each string represents an entry
-#
-sub all_entries_base # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_all_entries_base($key);
-}
-
-sub st_all_entries_base # (key)
-{
-    my ($self, $key) = @_;
-    $self->_state;
-    return $self->_all_entries_base($key);
+    my $state = $self->get_hash('state');
+    return exists $state->{$key};
 }
 
 #############
@@ -379,95 +246,7 @@ sub redis
 	return $self->{redis};
 }
 
-sub _all_dirs # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    my @ret = @{$self->redis->all_dirs($key)};
-    unless (@ret) {
-        @ret = ();
-    }
-    return @ret;
-}
-
-# Method: all_dirs
-#
-#       Given a key it returns all directories within.
-#
-# Parameters:
-#
-#       key - directory's key
-#
-# Returns:
-#
-#       array  of strings - Each string contains a directory
-#
-sub all_dirs # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_all_dirs($key);
-}
-
-sub st_all_dirs # (key)
-{
-    my ($self, $key) = @_;
-        $self->_state;
-    return $self->_all_dirs($key);
-}
-
 #############
-
-sub _all_entries # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    my @entries = @{$self->redis->all_entries($key)};
-    return \@entries;
-}
-
-#
-# Method: all_entries
-#
-#       Given a key it returns all entries within. Entries are all
-#       those keys which are not directories, hence they contain a value
-#
-# Parameters:
-#
-#       key -
-#
-# Returns:
-#
-#       A ref to an array of strings - Each string contains an entry
-#
-#
-sub all_entries # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_all_entries($key);
-}
-
-sub st_all_entries # (key)
-{
-    my ($self, $key) = @_;
-    $self->_state;
-    return $self->_all_entries($key);
-}
-
-#############
-
-sub _get_bool # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    my $value = $self->redis->get_bool($key);
-    if($value) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
 
 # Method: get_bool
 #
@@ -481,28 +260,23 @@ sub _get_bool # (key)
 #
 #       boolean - key's value#
 #
-sub get_bool # (key)
+sub get_bool
 {
     my ($self, $key) = @_;
+
     $self->_config;
-    return $self->_get_bool($key);
+    $key = $self->_key($key);
+    return $self->redis->get($key, 0);
 }
 
-sub st_get_bool # (key)
+sub st_get_bool
 {
     my ($self, $key) = @_;
-    $self->_state;
-    return $self->_get_bool($key);
+
+    return $self->st_get($key);
 }
 
 #############
-
-sub _set_bool # (key, value)
-{
-    my ($self, $key, $val) = @_;
-    $key = $self->_key($key);
-    $self->redis->set_bool($key, $val);
-}
 
 # Method: set_bool
 #
@@ -513,30 +287,24 @@ sub _set_bool # (key, value)
 #       key - key to set
 #       value - value
 #
-sub set_bool # (key, value)
+sub set_bool
 {
     my ($self, $key, $val) = @_;
+
     $self->_config;
-    $self->_set_bool($key, $val);
+    $key = $self->_key($key);
+    $self->redis->set($key, $val ? 1 : 0);
     $self->_change();
 }
 
-sub st_set_bool # (key, value)
+sub st_set_bool
 {
     my ($self, $key, $val) = @_;
-    $self->_state;
-    $self->_set_bool($key, $val);
+
+    $self->st_set($key, $val);
 }
 
 #############
-
-sub _get_int # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    my $value = $self->redis->get_int($key);
-    return $value;
-}
 
 # Method: get_int
 #
@@ -550,30 +318,23 @@ sub _get_int # (key)
 #
 #       integer - key's value
 #
-sub get_int # (key)
+sub get_int
 {
     my ($self, $key) = @_;
     $self->_config;
-    return $self->_get_int($key);
+    $key = $self->_key($key);
+    return $self->redis->get($key);
 }
 
-sub st_get_int # (key)
+sub st_get_int
 {
     my ($self, $key) = @_;
-    $self->_state;
-    return $self->_get_int($key);
+
+    return $self->st_get($key);
 }
 
 #############
 
-sub _set_int # (key, value)
-{
-    my ($self, $key, $val) = @_;
-    $key = $self->_key($key);
-    $self->redis->set_int($key, $val);
-}
-
-#
 # Method: set_int
 #
 #       Sets an integer key
@@ -581,67 +342,56 @@ sub _set_int # (key, value)
 # Parameters:
 #
 #       key - key to set
-#       value - value
+#       val - value
 #
-sub set_int # (key, value)
+sub set_int
 {
     my ($self, $key, $val) = @_;
+
     $self->_config;
-    $self->_set_int($key, $val);
+    $key = $self->_key($key);
+    $self->redis->set($key, $val);
     $self->_change();
 }
 
-sub st_set_int # (key, value)
+sub st_set_int
 {
     my ($self, $key, $val) = @_;
-    $self->_state;
-    $self->_set_int($key, $val);
+
+    $self->st_set($key, $val);
 }
 
 #############
 
-sub _get_string # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    return $self->redis->get_string($key);
-}
-
-#
 # Method: get_string
 #
 #       Returns the value of an string key.
 #
 # Parameters:
 #
-#       key -
+#       key - key name
 #
 # Returns:
 #
 #       string - key's value
 #
-sub get_string # (key)
+sub get_string
 {
     my ($self, $key) = @_;
+
     $self->_config;
-    return $self->_get_string($key);
+    $key = $self->_key($key);
+    return $self->redis->get($key);
 }
 
-sub st_get_string # (key)
+sub st_get_string
 {
     my ($self, $key) = @_;
-    $self->_state;
-    return $self->_get_string($key);
+
+    return $self->st_get($key);
 }
 
 #############
-
-sub _set_string # (key, value)
-{
-    my ($self, $key, $val) = @_;
-    $key = $self->_key($key);
-    $self->redis->set_string($key, $val);
-}
 
 # Method: set_string
 #
@@ -652,34 +402,23 @@ sub _set_string # (key, value)
 #       key - key to set
 #       value - value
 #
-sub set_string # (key, value)
+sub set_string
 {
     my ($self, $key, $val) = @_;
     $self->_config;
-    $self->_set_string($key, $val);
+    $key = $self->_key($key);
+    $self->redis->set($key, $val);
     $self->_change();
 }
 
-sub st_set_string # (key, value)
+sub st_set_string
 {
     my ($self, $key, $val) = @_;
-    $self->_state;
-    $self->_set_string($key, $val);
+
+    $self->st_set($key, $val);
 }
 
 #############
-
-sub _get_list # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    my $list = $self->redis->get_list($key);
-    if ($list) {
-        return $list;
-    } else {
-        return [];
-    }
-}
 
 # Method: get_list
 #
@@ -695,188 +434,98 @@ sub _get_list # (key)
 #
 #       ref to an array  - the list of values
 #
-sub get_list # (key)
+sub get_list
 {
     my ($self, $key) = @_;
     $self->_config;
-    return $self->_get_list($key);
+    $key = $self->_key($key);
+    return $self->redis->get($key, []);
 }
 
-sub st_get_list # (key)
+sub st_get_list
 {
     my ($self, $key) = @_;
-    $self->_state;
-    return $self->_get_list($key);
+
+    return $self->st_get($key);
 }
 
 #############
 
-sub _set_hash_value
-{
-    my ($self, $key, $field, $value) = @_;
-
-    $key = $self->_key($key);
-    $self->redis->set_hash_value($key, $field, $value);
-}
-
-sub set_hash_value
-{
-    my ($self, $key, $field, $value) = @_;
-
-    $self->_config;
-    $self->_set_hash_value($key, $field, $value);
-}
-
-#############
-
-sub _set_hash_values
-{
-    my ($self, $key, $hash) = @_;
-
-    $key = $self->_key($key);
-    $self->redis->set_hash_values($key, $hash);
-}
-
-sub set_hash_values
-{
-    my ($self, $key, $hash) = @_;
-
-    $self->_config;
-    $self->_set_hash_values($key, $hash);
-}
-
-#############
-
-sub _hash_value
-{
-    my ($self, $key, $field) = @_;
-
-    $key = $self->_key($key);
-    return $self->redis->hash_value($key, $field);
-}
-
-sub hash_value
-{
-    my ($self, $key, $field) = @_;
-
-    $self->_config;
-    return $self->_hash_value($key, $field);
-}
-
-#############
-
-sub _hash_delete
-{
-    my ($self, $key, @fields) = @_;
-
-    $key = $self->_key($key);
-    $self->redis->hash_delete($key, @fields);
-}
-
-sub hash_delete
-{
-    my ($self, $key, @fields) = @_;
-
-    $self->_config;
-    $self->_hash_delete($key, @fields);
-}
-
-#############
-
-# Method: get
-#
-#       Returns the value of a key
-#
-# Parameters:
-#
-#       key -
-#
-# Returns:
-#
-#   Returns a <Gnome2::Gconf2::value>
-#
-sub get # (key)
-{
-    my ($self, $key) = @_;
-    $self->_config;
-    return $self->_get($key);
-}
-
-# Method: get
-#
-#       Returns the value of a key
-#
-# Parameters:
-#
-#       key -
-#
-# Returns:
-#
-#   Returns a <Gnome2::Gconf2::value>
-#
-sub st_get# (key)
-{
-    my ($self, $key) = @_;
-    $self->_state;
-    return $self->_get($key);
-}
-
-# Method: set
-#
-#      Set an arbitrary key
-#
-# Parameters:
-#
-#       key -
-#
-sub set # (key)
+sub set_hash
 {
     my ($self, $key, $value) = @_;
+
     $self->_config;
-    return $self->_set($key, $value);
-}
-
-# Method: set
-#
-#      Set an arbitrary key
-#
-# Parameters:
-#
-#       key -
-#
-sub st_set# (key)
-{
-    my ($self, $key, $value) = @_;
-    $self->_state;
-    return $self->_set($key, $value);
-}
-
-#############
-
-sub _get # (key)
-{
-    my ($self, $key) = @_;
-    $key = $self->_key($key);
-    return $self->redis->get($key);
-}
-
-sub _set #
-{
-    my ($self, $key, $value) = @_;
     $key = $self->_key($key);
     $self->redis->set($key, $value);
 }
 
-#############
-
-sub _unset # (key)
+sub get_hash
 {
     my ($self, $key) = @_;
+
+    $self->_config;
     $key = $self->_key($key);
-    $self->redis->unset($key);
+    return $self->redis->get($key, {});
 }
 
+#############
+
+# Method: get
 #
+#       Returns the value of a key
+#
+# Parameters:
+#
+#       key -
+#
+# Returns:
+#
+#   Returns a <Gnome2::Gconf2::value>
+#
+sub get
+{
+    my ($self, $key) = @_;
+    $self->_config;
+    $key = $self->_key($key);
+    return $self->redis->get($key);
+}
+
+sub st_get
+{
+    my ($self, $key) = @_;
+    $self->_state;
+    my $state = $self->get_hash('state');
+    return $state->{$key};
+}
+
+# Method: set
+#
+#      Set an arbitrary key
+#
+# Parameters:
+#
+#       key -
+#
+sub set
+{
+    my ($self, $key, $value) = @_;
+    $self->_config;
+    $key = $self->_key($key);
+    $self->redis->set($key, $value);
+}
+
+sub st_set
+{
+    my ($self, $key, $value) = @_;
+    $self->_state;
+    my $state = $self->get_hash('state');
+    $state->{$key} = $value;
+    $self->set('state', $state);
+}
+
+#############
+
 # Method: unset
 #
 #       Unset a given key
@@ -886,11 +535,12 @@ sub _unset # (key)
 #       key -
 #
 #
-sub unset # (key)
+sub unset
 {
     my ($self, $key) = @_;
     $self->_config;
-    $self->_unset($key);
+    $key = $self->_key($key);
+    $self->redis->unset($key);
     $self->_change();
 }
 
@@ -898,23 +548,15 @@ sub st_unset # (key)
 {
     my ($self, $key) = @_;
     $self->_state;
-    $self->_unset($key);
+    my $state = $self->get_hash('state');
+    delete $state->{$key};
 }
 
 #############
 
-sub _set_list # (key, type, value)
-{
-    my ($self, $key, $type, $val) = @_;
-    $key = $self->_key($key);
-    $self->redis->set_list($key, $val);
-    $self->_change();
-}
-
-#
 # Method: set_list
 #
-#       Sets a list of valueis. The type for the values is also specified
+#       Sets a list of values. The type for the values is also specified
 #
 # Parameters:
 #
@@ -922,123 +564,23 @@ sub _set_list # (key, type, value)
 #       type - type for each value
 #       values - (ref to an array) proper list of values
 #
-sub set_list # (key, type, value)
+sub set_list
 {
     my ($self, $key, $type, $val) = @_;
     $self->_config;
-    $self->_set_list($key, $type, $val);
-}
-
-sub st_set_list # (key, type, value)
-{
-    my ($self, $key, $type, $val) = @_;
-    $self->_state;
-    $self->_set_list($key, $type, $val);
-}
-
-sub list_add
-{
-    my ($self, $key, $val) = @_;
-
     $key = $self->_key($key);
-    $self->redis->list_add($key, $val);
+    $self->redis->set($key, $val);
+}
+
+sub st_set_list
+{
+    my ($self, $key, $type, $val) = @_;
+
+    $self->st_set($key, $val);
 }
 
 #############
 
-sub _hash_from_dir # (key)
-{
-    my ($self, $dir) = @_;
-    my $hash = {};
-    my @keys = @{$self->_all_entries_base($dir)};
-    foreach (@keys) {
-        my $val = $self->_get("$dir/$_");
-        $hash->{$_} = $val;
-    }
-    return $hash;
-}
-
-# Method: hash_from_dir
-#
-#       It returns a hash containing all the entries in the directory
-#       referenced by the key
-#
-# Parameters:
-#
-#       key -
-#
-# Returns:
-#
-#       hash ref - it contains entries/values
-sub hash_from_dir # (key)
-{
-    my ($self, $dir) = @_;
-    $self->_config;
-    return $self->{redis}->get_hash($self->_key($dir));
-}
-
-sub st_hash_from_dir # (key)
-{
-    my ($self, $dir) = @_;
-    $self->_state;
-    return $self->_hash_from_dir($dir);
-}
-
-#############
-
-sub _array_from_dir # (key)
-{
-    my ($self, $dir) = @_;
-    my @array = ();
-    my @subs = @{$self->_all_dirs_base($dir)};
-    foreach (@subs) {
-        my $hash = $self->_hash_from_dir("$dir/$_");
-        $hash->{'_dir'} = $_;
-        push(@array, $hash);
-    }
-    return \@array;
-}
-
-#
-# Method: array_from_dir
-#
-#       Given a key it returns an array using a hash reference to
-#       contain in each element the directories under the key. Also, the
-#       hash contains the key _dir which tells
-#       you the directory's name
-#
-# Parameters:
-#
-#       key - the key to extract the array from
-#
-# Returns:
-#
-#       array ref - An array which contains entries/values. key '_dir' contains the directory's name
-#
-sub array_from_dir # (key)
-{
-    my ($self, $dir) = @_;
-    $self->_config;
-    return $self->_array_from_dir($dir);
-}
-
-sub st_array_from_dir # (key)
-{
-    my ($self, $dir) = @_;
-    $self->_state;
-    return $self->_array_from_dir($dir);
-}
-
-#############
-
-sub _delete_dir # (key)
-{
-    my ($self, $dir) = @_;
-    $dir = $self->_key($dir);
-    $self->_delete_dir_internal($dir);
-}
-
-#
 # Method: delete_dir
 #
 #       Removes a whole directory
@@ -1051,92 +593,12 @@ sub delete_dir # (key)
 {
     my ($self, $dir) = @_;
     $self->_config;
-    $self->_delete_dir($dir);
+    $dir = $self->_key($dir);
+    $self->redis->delete_dir($dir);
     $self->_change();
 }
 
-sub st_delete_dir # (key)
-{
-    my ($self, $dir) = @_;
-    $self->_state;
-    $self->_delete_dir($dir);
-}
-
 #############
-
-sub _delete_dir_internal # (key)
-{
-    my ($self, $dir) = @_;
-    $self->redis->delete_dir($dir);
-}
-
-#
-# Method: get_unique_id
-#
-#       It generates a unique random identifier with a leading
-#       prefix in the root of the module's
-#       namespace, if directory is passed, it will
-#       be used instead the root directory.
-#       Note that it does not create the entry, it
-#       just returns a unique identifier, so it is up to you to create the
-#       proper entry
-#
-# Parameters:
-#
-#       prefix  - prefix to be added to the root of the module's namespace
-#       directory - directory to use instead root directory (optional)
-#
-# Returns:
-#
-#       string - unique identifier without directory path
-sub get_unique_id # (prefix, directory?)
-{
-    my ($self, $prefix, $directory) = @_;
-    return $self->_get_unique_id($prefix, $directory, 'dir_exists');
-}
-
-#
-# Method: st_get_unique_id
-#
-#       It generates a unique random identifier with a leading
-#       prefix in the root of the module's state
-#       namespace, if directory is passed, it will
-#       be used instead the root directory.
-#       Note that it does not create the entry, it
-#       just returns a unique identifier, so it is up to you to create the
-#       proper entry
-#
-# Parameters:
-#
-#       prefix  - prefix to be added to the root of the module's state namespace
-#       directory - directory to use instead root directory (optional)
-#
-# Returns:
-#
-#       string - unique identifier without directory path
-sub st_get_unique_id # (prefix, directory?)
-{
-    my ($self, $prefix, $directory) = @_;
-    return $self->_get_unique_id($prefix, $directory, 'st_dir_exists');
-}
-
-
-sub _get_unique_id
-{
-    my ($self, $prefix, $directory, $dirExistsMethod) = @_;
-
-    if ($directory) {
-        $directory .= '/';
-    } else {
-        $directory = "";
-    }
-    my $id = $prefix . int(rand(10000));
-    while ($self->$dirExistsMethod($directory . $id)) {
-        $id = $prefix . int(rand(10000));
-    }
-    return $id;
-}
-
 
 # files stuff we have to put this stuff in gconfmodule bz if we put into models
 # we lost data due to the parent/child relations
@@ -1208,6 +670,9 @@ sub _fileList
 {
     my ($self, $dir) = @_;
 
+    # FIXME: reimplement this
+    return [];
+
     if (not $self->dir_exists($dir)) {
         return [];
     }
@@ -1230,6 +695,9 @@ sub _saveConfigFiles
 sub _clearFilesToRemoveLists
 {
   my ($self) = @_;
+
+    # FIXME: reimplement this
+    return;
 
   my @dirs = @{ $self->_fileListDirs() };
 

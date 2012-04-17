@@ -1021,7 +1021,9 @@ sub printers
 
     my @printers;
     my $readOnly = $self->isReadOnly();
-    foreach my $printer (@{$self->array_from_dir('printers')}) {
+    # FIXME: reimplement this
+    #foreach my $printer (@{$self->array_from_dir('printers')}) {
+    foreach my $printer (@{[]}) {
         my $name = $printer->{'_dir'};
         if (exists $external{$name}) {
             $external{$name} = 'exists';

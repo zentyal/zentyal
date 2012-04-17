@@ -503,7 +503,10 @@ sub freeViface # (iface, viface)
 sub OutputRules
 {
     my ($self) = @_;
-    return $self->array_from_dir("rules/output");
+
+    # FIXME: reimplement this
+    #return $self->array_from_dir("rules/output");
+    return [];
 }
 
 # Method: removeOutputRule
@@ -521,6 +524,9 @@ sub OutputRules
 sub removeOutputRule # (protocol, port)
 {
     my ($self, $protocol, $port) = @_;
+
+    # FIXME: reimplement this
+    return;
 
     checkProtocol($protocol, __("protocol"));
     checkPort($port, __("port"));
@@ -546,6 +552,9 @@ sub removeOutputRule # (protocol, port)
 sub addOutputRule # (protocol, port)
 {
     my ($self, $protocol, $port) = @_;
+
+    # FIXME: migrate this
+    return;
 
     checkProtocol($protocol, __("protocol"));
     checkPort($port, __("port"));

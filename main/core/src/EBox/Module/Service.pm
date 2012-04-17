@@ -780,14 +780,14 @@ sub writeConfFile # (file, component, params, defaults)
     my $manager;
 
     $manager = new EBox::ServiceManager();
-    if ($manager->skipModification($self->{'name'}, $file)) {
-        EBox::info("Skipping modification of $file");
-        return;
-    }
+#    if ($manager->skipModification($self->{'name'}, $file)) {
+#        EBox::info("Skipping modification of $file");
+#        return;
+#    }
 
     EBox::Module::Base::writeConfFileNoCheck($file, $compname, $params, $defaults);
 
-    $manager->updateFileDigest($self->{'name'}, $file);
+#    $manager->updateFileDigest($self->{'name'}, $file);
 }
 
 # Method: certificates

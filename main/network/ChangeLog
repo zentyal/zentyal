@@ -1,4 +1,5 @@
 HEAD
+	+ Reimplemented Ifaces/Vifaces/VLANs FIXME
 	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
 	+ Regenerate traffic shaping rules after failover event
 	+ EBox::Network::setNameservers does not fail if the same server

@@ -1,10 +1,19 @@
 HEAD
+	+ Simplified DataForm using more code from DataTable
+	+ Reimplemented RAID and restrictedResources() FIXME
+	+ Remove unused override modifications code
+	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
+	+ Use simpler "key: value" format for dumps instead of YAML
+	+ Row id prefixes are now better chosen to avoid confusion
+	+ Use JSON instead of list and hash redis types (some operations,
+	  specially on lists, are up to 50% faster and caching is much simpler)
+	+ Store rows as hashes instead of separated keys
+	+ Remove deprecated all_dirs and all_entries methods
 	+ Remove obsolete EBox::Order package
 	+ Remove no longer needed redis directory tree sets
 	+ Fixed isEqualTo() method on EBox::Types::Time
 	+ EBox::Types::Abstract now provides default implementations of fields(),
 	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
-	+ Store rows as a single redis hash instead of separated keys
 	+ Remove indexes on DataTables to reduce complexity, no longer needed
 	+ Simplified ProgressIndicator implementation using shared memory
 	+ New EBox::Util::Semaphore package
