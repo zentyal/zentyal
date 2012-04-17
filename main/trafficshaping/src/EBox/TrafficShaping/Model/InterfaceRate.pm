@@ -49,7 +49,7 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->getInstance()->modInstance('network');
     my %currentIfaces = map { $_ => 1 } @{$network->ExternalIfaces()};
 
     my $anyChange = 0;
@@ -59,8 +59,8 @@ sub syncRows
         my $row = $self->row($id);
         next unless ($row);
         my $iface = $row->valueByName('interface');
-        if (not exists $currentIfaces{$iface}) {
-            $self->removeRow($id);
+        if (not exists $currentIfaces{$iface} or exists $storedIfaces{$iface}) {
+            $self->removeRow($id, 1);
             $anyChange = 1;
         } else {
             $storedIfaces{$iface} = 1;
@@ -97,6 +97,7 @@ sub _table
                 fieldName => 'interface',
                 printableName => __('External Interface'),
                 size => '4',
+                unique => 1,
             ),
             new EBox::Types::Int(
                 fieldName => 'upload',
