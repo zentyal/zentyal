@@ -248,10 +248,7 @@ sub _paramIsSet
 {
     my ($self, $params) = @_;
 
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    return (exists $params->{$continent} and exists $params->{$country});
+    return 1;
 }
 
 # Method: _setValue

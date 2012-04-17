@@ -882,8 +882,9 @@ sub addTypedRow
         $self->_checkRowIsUnique(undef, $paramsRef);
     }
 
+    my $hash = {};
     foreach my $data (@userData) {
-        $data->storeInGConf($gconfmod, "$dir/$id");
+        $data->storeInHash($hash);
         $data = undef;
     }
 
@@ -906,8 +907,10 @@ sub addTypedRow
     }
 
     if ($readOnly) {
-        $gconfmod->set_hash_value("$dir/$id", 'readOnly', 1);
+        $hash->{readOnly} = 1;
     }
+
+    $gconfmod->set("$dir/$id", $hash);
 
     my $newRow = $self->row($id);
 
@@ -960,8 +963,8 @@ sub row
     $self->{'cacheOptions'} = {};
 
     $row->setId($id);
-    # TODO ReadOnly rows
-    $row->setReadOnly($gconfmod->hash_value("$dir/$id", 'readOnly'));
+    my $hash = $gconfmod->get_hash("$dir/$id");
+    $row->setReadOnly($hash->{'readOnly'});
     $row->setModel($self);
 
     # If element is volatile we set its value after the rest
@@ -973,12 +976,12 @@ sub row
         if ($element->volatile()) {
             push (@volatileElements, $element);
         } else {
-            _setRowElement($element, $row);
+            _setRowElement($element, $row, $hash);
         }
         $row->addElement($element);
     }
     foreach my $element (@volatileElements) {
-        _setRowElement($element, $row);
+        _setRowElement($element, $row, $hash);
     }
 
     return $row;
@@ -986,10 +989,10 @@ sub row
 
 sub _setRowElement
 {
-    my ($element, $row) = @_;
+    my ($element, $row, $hash) = @_;
 
     $element->setRow($row);
-    $element->restoreFromHash();
+    $element->restoreFromHash($hash);
     if ((not defined($element->value())) and $element->defaultValue()) {
         $element->setValue($element->defaultValue());
     }
@@ -1381,20 +1384,24 @@ sub setTypedRow
     }
 
     my $key = "$dir/$id";
-    my $modified = undef;
+    my $hash = $gconfmod->get_hash($key);
+
+    my $modified = @changedElements;
     for my $data (@changedElements) {
-        $data->storeInGConf($gconfmod, $key);
-        $modified = 1;
+        $data->storeInHash($hash);
     }
 
     # update readonly if change
-    if (defined ($readOnly)) {
-        my $readOnlySet = $gconfmod->hash_value($key, 'readOnly');
-        if ($readOnly and not $readOnlySet) {
-            $gconfmod->set_hash_value($key, 'readOnly', 1);
-        } elsif ($readOnlySet) {
-            $gconfmod->hash_delete($key, 'readOnly');
-        }
+    my $oldRO = $hash->{readOnly};
+    if (defined ($readOnly) and $readOnly) {
+        $hash->{readOnly} = 1;
+    } else {
+        delete $hash->{readOnly};
+    }
+
+    # Update row hash if needed
+    if ($modified or ($hash->{readOnly} xor $oldRO)) {
+        $gconfmod->set($key, $hash);
     }
 
     if ($modified) {
@@ -1600,31 +1607,8 @@ sub _ids
 sub _rows
 {
     my ($self) = @_;
-    my $gconfmod = $self->{'gconfmodule'};
 
-    my  %order;
-    if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};
-        my $i = 0;
-        foreach my $id (@order) {
-            $order{$id} = $i;
-            $i++;
-        }
-    }
-
-    my @rows;
-    for my $id (@{$self->_ids()}) {
-        my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-
-        my $row = $self->row($id);
-        if (%order) {
-            $hash->{'order'} = $order{$id};
-            $rows[$order{$id}] = $row;
-        } else {
-            push(@rows, $row);
-        }
-    }
-
+    my @rows = map { $self->row($_) } @{$self->_ids()};
     return \@rows;
 }
 
@@ -3578,24 +3562,6 @@ sub _rowOrder
     my %order = $self->_orderHash();
 
     return $order{$id};
-}
-
-sub _hashFromDir
-{
-    my ($self, $id) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $dir = $self->{'directory'};
-
-    unless (defined($id)) {
-        return;
-    }
-
-    my $row = $gconfmod->hash_from_dir("$dir/$id");
-    $row->{'id'} = $id;
-    $row->{'order'} = $self->_rowOrder($id);
-
-    return $row;
 }
 
 # Method: _notifyModelManager

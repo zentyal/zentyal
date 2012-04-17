@@ -1,4 +1,7 @@
 HEAD
+	+ Simplified DataForm using more code from DataTable
+	+ Reimplemented RAID and restrictedResources() FIXME
+	+ Remove unused override modifications code
 	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
 	+ Use simpler "key: value" format for dumps instead of YAML
 	+ Row id prefixes are now better chosen to avoid confusion

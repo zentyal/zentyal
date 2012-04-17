@@ -51,7 +51,7 @@ sub _process
     my ($self) = @_;
 
     my $manager = new EBox::ServiceManager();
-    my $files = $manager->checkFiles();
+    #my $files = $manager->checkFiles();
     my @params;
     push @params, (files => $files);
 

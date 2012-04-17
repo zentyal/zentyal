@@ -40,9 +40,6 @@ use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
 use constant CLIENT_CONF => EBox::Config::etc() . 'core.conf';
 
-# TODO: remove this when stable
-my $TRANSACTIONS_ENABLED = 1;
-
 my %cache;
 my %modified;
 my %deleted;
@@ -68,170 +65,60 @@ sub new
     $self->{pid} = $$;
     $self->{json_pretty} = JSON::XS->new->pretty;
 
-    if ($TRANSACTIONS_ENABLED and not $sem) {
+    unless ($sem) {
         $sem = EBox::Util::Semaphore->init($SEM_KEY);
     }
 
     return $self;
 }
 
-# Method: set_string
+# Method: set
 #
-#   Set key to $value
+#   Set a key with a scalar value or a reference
 #
-sub set_string
+sub set
 {
     my ($self, $key, $value) = @_;
 
-    $self->set($key, $value);
+    $self->begin();
+
+    $cache{$key} = $value;
+    $modified{$key} = 1;
+    delete $deleted{$key};
+
+    $self->commit();
 }
 
-# Method: get_string
+# Method: get
 #
-#   Fetch the value stored in key
+#   Set the value of a key, or the given defaultValue if not exists
 #
-sub get_string
+sub get
 {
-    my ($self, $key) = @_;
+    my ($self, $key, $defaultValue) = @_;
 
-    return $self->get($key);
-}
-
-# Method: set_int
-#
-#   Set $key to $value
-#
-sub set_int
-{
-    my ($self, $key, $value) = @_;
-
-    $self->set($key, $value);
-}
-
-# Method: get_int
-#
-#   Fetch the value stored in $key
-#
-sub get_int
-{
-    my ($self, $key) = @_;
-
-    return $self->get($key);
-}
-
-# Method:  set_bool
-#
-#   Set $key to $value
-#
-sub set_bool
-{
-    my ($self, $key, $value) = @_;
-
-    $self->set($key, $value ? 1 : 0);
-}
-
-# Method: get_bool
-#
-#    Fetch the value stored in $key
-#
-sub get_bool
-{
-    my ($self, $key) = @_;
-
-    return $self->get($key, 0);
-}
-
-# Method: set_list
-#
-#   Set $key to $list. Where $list is an array ref.
-#
-sub set_list
-{
-    my ($self, $key, $list) = @_;
-
-    $self->set($key, $list);
-}
-
-# Method: get_list
-#
-#   Fetch the array ref stored in $key
-#
-sub get_list
-{
-    my ($self, $key) = @_;
-
-    return $self->get($key, []);
-}
-
-# Method: set_hash
-#
-#   Set $key to $hash. Where $hash is an array ref.
-#
-sub set_hash
-{
-    my ($self, $key, $hash) = @_;
-
-    $self->set($key, $hash);
-}
-
-# Method: get_hash
-#
-#   Fetch the hash ref stored in $key
-#
-sub get_hash
-{
-    my ($self, $key) = @_;
-
-    return $self->get($key, {});
-}
-
-# Method: all_dirs
-#
-#   Return an array ref contaning all the directories in $key
-#
-sub all_dirs
-{
-    my ($self, $key) = @_;
-
-    my $length = length $key;
-    my %dir;
-    for my $path ($self->_keys("$key/*")) {
-        my $index = index($path, '/', $length + 1);
-        if ($index > 0) {
-            my $directory = substr($path, 0, $index);
-            $dir{$directory} = undef;
+    # Get from redis if not in cache
+    unless (exists $cache{$key}) {
+        my $value = $self->_redis_call('get', $key);
+        if (defined ($value)) {
+            # XXX: this can be problematic if we store a string
+            # starting with '[' or '{', but decode_json fails to decode
+            # regular strings some times, even with allow_nonref
+            # An alternative could be to try always the decode
+            # ignoring the exception
+            my $firstChar = substr ($value, 0, 1);
+            if (($firstChar eq '[') or ($firstChar eq '{')) {
+                $value = decode_json($value);
+            }
+        } else {
+            $value = $defaultValue;
         }
+        $cache{$key} = $value;
     }
-    return [keys %dir];
+
+    return $cache{$key};
 }
 
-# Method: all_entries
-#
-#   Return an array ref contaning all the entries in $key
-#
-sub all_entries
-{
-    my ($self, $key) = @_;
-
-    my $length = length $key;
-    my @dirs;
-    for my $path ($self->_keys("$key/*")) {
-        push (@dirs, $path) if (index($path, '/', $length + 1) == -1);
-    }
-    return \@dirs;
-}
-
-# Method: dir_exists
-#
-#   Returns true if the given directory exists in the loaded configuration.
-#
-sub dir_exists
-{
-    my ($self, $dir) = @_;
-
-    my @keys = $self->_keys("${dir}/*");
-    return (@keys > 0);
-}
 
 # Method: delete_dir
 #
@@ -243,10 +130,8 @@ sub delete_dir
 
     $self->begin();
 
-    if ($self->dir_exists($dir)) {
-        my @keys = $self->_keys("$dir/*");
-        $self->unset(@keys);
-    }
+    my @keys = $self->_keys("$dir/*");
+    $self->unset(@keys);
 
     $self->commit();
 }
@@ -315,43 +200,6 @@ sub export_dir_to_file
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to $file");
     };
-}
-
-sub set_hash_value
-{
-    my ($self, $key, $field, $value) = @_;
-
-    my $orig = $self->get_hash($key);
-    $orig->{$field} = $value;
-    $self->set_hash($key, $orig);
-}
-
-sub set_hash_values
-{
-    my ($self, $key, $hash) = @_;
-
-    my $orig = $self->get_hash($key);
-    foreach my $elem (keys %{$hash}) {
-        $orig->{$elem} = $hash->{$elem};
-    }
-    $self->set_hash($key, $orig);
-}
-
-sub hash_value
-{
-    my ($self, $key, $field) = @_;
-
-    my $hash = $self->get_hash($key);
-    return $hash->{$field};
-}
-
-sub hash_delete
-{
-    my ($self, $key, @fields) = @_;
-
-    my $orig = $self->get_hash($key);
-    map { delete $orig->{$_} } @fields;
-    $self->set_hash($key, $orig);
 }
 
 sub _keys
@@ -444,8 +292,6 @@ sub begin
 {
     my ($self) = @_;
 
-    return unless $TRANSACTIONS_ENABLED;
-
     # Do not allow nested transactions
     return if ($trans++);
 
@@ -465,8 +311,6 @@ sub commit
 {
     my ($self) = @_;
 
-    return unless $TRANSACTIONS_ENABLED;
-
     $trans--;
 
     if ($trans == 0) {
@@ -479,8 +323,6 @@ sub commit
 sub rollback
 {
     my ($self) = @_;
-
-    return unless $TRANSACTIONS_ENABLED;
 
     if ($self->{multi}) {
         $self->_redis_call('discard');
@@ -517,45 +359,6 @@ sub _sync
 
     my @result = $self->_redis_call('exec');
     $cacheVersion = pop @result;
-}
-
-sub set
-{
-    my ($self, $key, $value) = @_;
-
-    $self->begin();
-
-    $cache{$key} = $value;
-    $modified{$key} = 1;
-    delete $deleted{$key};
-
-    $self->commit();
-}
-
-sub get
-{
-    my ($self, $key, $defaultValue) = @_;
-
-    # Get from redis if not in cache
-    unless (exists $cache{$key}) {
-        my $value = $self->_redis_call('get', $key);
-        if (defined ($value)) {
-            # XXX: this can be problematic if we store a string
-            # starting with '[' or '{', but decode_json fails to decode
-            # regular strings some times, even with allow_nonref
-            # An alternative could be to try always the decode
-            # ignoring the exception
-            my $firstChar = substr ($value, 0, 1);
-            if (($firstChar eq '[') or ($firstChar eq '{')) {
-                $value = decode_json($value);
-            }
-        } else {
-            $value = $defaultValue;
-        }
-        $cache{$key} = $value;
-    }
-
-    return $cache{$key};
 }
 
 # Wrapper to reconnect to redis in case of detecting a failure when

@@ -535,6 +535,9 @@ sub _vlanIfaceFilterWithRemoved # (\array)
 
 sub _cleanupVlanIfaces
 {
+    # FIXME: reimplement this
+    return;
+
     my $self = shift;
     my @iflist = list_ifaces();
     my @cmds;
@@ -655,7 +658,9 @@ sub ifaceAddresses # (interface)
         my $addr = $self->get_string("interfaces/$iface/address");
         my $mask = $self->get_string("interfaces/$iface/netmask");
         push(@array, {address=>$addr, netmask=>$mask});
-        my @virtual = $self->all_dirs("interfaces/$iface/virtual");
+        # FIXME: reimplement this
+        my @virtual;
+        #my @virtual = $self->all_dirs("interfaces/$iface/virtual");
         foreach (@virtual) {
             my $name = basename($_);
             $addr = $self->get_string("$_/address");
@@ -708,10 +713,13 @@ sub _vifacesConf
 {
     my ($self, $iface) = @_;
 
+    # FIXME: reimplement this
+    return [];
+
     my @vifaces = $self->all_dirs("interfaces/$iface/virtual");
     my @array = ();
     foreach (@vifaces) {
-        my $hash = $self->hash_from_dir("$_");
+        my $hash = $self->get_hash("$_");
         if (defined $hash->{'address'}) {
             $hash->{'name'} = basename($_);
             push(@array, $hash);
@@ -1773,6 +1781,8 @@ sub removeVlan # (id)
 sub vlans
 {
     my $self = shift;
+    # FIXME: reimplement this;
+    return [];
     return $self->all_dirs_base('vlans');
 }
 
@@ -1812,6 +1822,7 @@ sub vlanExists # (vlanID)
 #   and 'interface' (the name of the trunk interface)
 sub ifaceVlans # (iface)
 {
+    # FIXME: reimplement this
     my ($self, $name) = @_;
     my @array = ();
     my $vlans = $self->vlans;
@@ -1819,7 +1830,7 @@ sub ifaceVlans # (iface)
     foreach my $vlan (@{$vlans}) {
         defined($vlan) or next;
         if ($self->get_string("vlans/$vlan/interface") eq $name) {
-            push(@array, $self->hash_from_dir("vlans/$vlan"));
+            push(@array, $self->get_hash("vlans/$vlan"));
         }
     }
     return \@array;
@@ -1828,6 +1839,8 @@ sub ifaceVlans # (iface)
 sub vlan # (vlan)
 {
     my ($self, $vlan) = @_;
+    # FIXME: reimplement this
+
     defined($vlan) or return undef;
     if ($vlan =~ /^vlan/) {
         $vlan =~ s/^vlan//;
@@ -1836,7 +1849,7 @@ sub vlan # (vlan)
         $vlan =~ s/:.*$//;
     }
     $self->dir_exists("vlans/$vlan") or return undef;
-    return $self->hash_from_dir("vlans/$vlan");
+    return $self->get_hash("vlans/$vlan");
 }
 
 # Method: createBridge
@@ -1907,6 +1920,9 @@ sub bridges
 {
     my $self = shift;
     my @bridges;
+    # FIXME: reimplement this:
+    return [];
+
     for my $iface ( @{$self->all_dirs_base('interfaces')} ) {
         if ($iface =~ /^br/) {
             $iface =~ s/^br//;
@@ -2811,11 +2827,11 @@ sub generateInterfaces
     my $tmpfile = EBox::Config::tmp . '/interfaces';
     my $iflist = $self->allIfacesWithRemoved();
 
-    my $manager = new EBox::ServiceManager();
-    if ($manager->skipModification('network', $file)) {
-        EBox::info("Skipping modification of $file");
-        return;
-    }
+    #my $manager = new EBox::ServiceManager();
+    #if ($manager->skipModification('network', $file)) {
+    #    EBox::info("Skipping modification of $file");
+    #    return;
+    #}
 
     #writing /etc/network/interfaces
     open(IFACES, ">", $tmpfile) or
@@ -2893,7 +2909,7 @@ sub generateInterfaces
     close(IFACES);
 
     EBox::Sudo::root("cp $tmpfile $file");
-    $manager->updateFileDigest('network', $file);
+    #$manager->updateFileDigest('network', $file);
 }
 
 # Generate the static routes from routes() with "ip" command
@@ -3474,22 +3490,6 @@ sub gatewayReachable
     } else {
         return undef;
     }
-}
-
-sub _alreadyInRoute # (ip, mask)
-{
-    my ( $self, $ip, $mask) = @_;
-    my @routes = $self->all_dirs("routes");
-    foreach (@routes) {
-        my $rip = $self->get_string("$_/ip");
-        my $rmask = $self->get_int("$_/mask");
-        my $oip = new Net::IP("$ip/$mask");
-        my $orip = new Net::IP("$rip/$rmask");
-        if($oip->overlaps($orip)==$IP_IDENTICAL){
-            return 1;
-        }
-    }
-    return undef;
 }
 
 # Method: setDHCPAddress

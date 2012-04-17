@@ -132,18 +132,18 @@ sub _setMemValue
     $self->{'inverseMatch'} = $params->{$self->inverseMatchField()};
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
-    $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_hash_value($key, $self->inverseMatchField(), $self->inverseMatch());
+    $self->SUPER::_storeInHash($hash);
+    $self->{$self->inverseMatchField()} = $self->inverseMatch();
 }
 
 # Method: _restoreFromHash
@@ -154,15 +154,13 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-    my ($self) = @_;
+    my ($self, $hash) = @_;
 
-    $self->SUPER::_restoreFromHash();
+    $self->SUPER::_restoreFromHash($hash);
     return unless ($self->row());
 
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
     my $field = $self->fieldName() . '_inverseMatch';
-    $self->{'inverseMatch'} = $gconf->hash_value($path, $field);
+    $self->{'inverseMatch'} = $hash->{$field};
 }
 
 # Method: _setValue

@@ -417,25 +417,25 @@ sub _setMemValue
     }
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
     my $selected = $self->selectedType();
 
     foreach my $type (@{$self->{'subtypes'}}) {
         # Every union type should be stored in order to unset its
         # value if it has not got one
-        $type->storeInGConf($gconfmod, $key);
+        $type->storeInHash($hash);
         if ($type->fieldName() eq $selected) {
               my $selected = $self->fieldName() . '_selected';
-              $gconfmod->set_hash_values($key, { $selected => $self->selectedType() });
+              $hash->{$selected} = $self->selectedType();
           }
     }
 }
@@ -453,17 +453,13 @@ sub _restoreFromHash
     return unless ($self->row());
 
     my $selPar = $self->fieldName() . '_selected';
-
-    my $selected;
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    $selected =  $gconf->hash_value($path, $selPar);
+    my $selected = $hash->{$selPar};
 
     return unless (defined($selected));
 
     foreach my $type (@{$self->{'subtypes'}}) {
         next unless ($type->fieldName() eq $selected);
-        $type->restoreFromHash();
+        $type->restoreFromHash($hash);
         $self->setSelectedType($selected);
     }
 }

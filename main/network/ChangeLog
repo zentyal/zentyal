@@ -1,4 +1,5 @@
 HEAD
+	+ Reimplemented Ifaces/Vifaces/VLANs FIXME
 	+ Fixed calls to storeSelectedDefaultGateway with undef argument
 	+ EBox::Network::importInterfacesFile skips gateway adition instead of
 	  aborting if already exists one

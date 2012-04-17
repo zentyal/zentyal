@@ -39,13 +39,6 @@ sub isReadOnly
     return $self->{ro};
 }
 
-sub index # (key)
-{
-    my ($self, $key) = @_;
-
-    return $self->_key('index', $key);
-}
-
 sub key # (key)
 {
     my ($self, $key) = @_;
