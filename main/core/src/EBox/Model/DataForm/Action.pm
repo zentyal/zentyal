@@ -97,7 +97,7 @@ sub setTypedRow
     }
 
     $self->setMessage($self->message('update'));
-    my $depModelMsg = $self->_notifyModelManager('update', $row);
+    my $depModelMsg = $self->_notifyManager('update', $row);
     if (defined ($depModelMsg)
         and ($depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
         $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);

@@ -1124,7 +1124,7 @@ sub removeRow
 
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user
-    my $depModelMsg = $self->_notifyModelManager('del', $row);
+    my $depModelMsg = $self->_notifyManager('del', $row);
     $self->_notifyManager('del', $row);
     if ( defined( $depModelMsg ) and $depModelMsg ne ''
        and $depModelMsg ne '<br><br>') {
@@ -1392,7 +1392,7 @@ sub setTypedRow
     if ($modified) {
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
-        my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
+        my $depModelMsg = $self->_notifyManager('update', $self->row($id));
         if ( defined ($depModelMsg)
                 and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
