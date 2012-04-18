@@ -175,6 +175,7 @@ sub usedFiles
 # Method: initialSetup
 #
 # Overrides:
+#
 #   EBox::Module::Base::initialSetup
 #
 sub initialSetup
@@ -184,53 +185,48 @@ sub initialSetup
     # Create default rules and services
     # only if installing the first time
     unless ($version) {
+        my $services = EBox::Global->modInstance('services');
         my $fw = EBox::Global->modInstance('firewall');
 
-        $fw->addInternalService(
-                'name' => 'ldap',
+        my $serviceName = 'ldap';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
                 'printableName' => 'LDAP',
                 'description' => __('Lightweight Directory Access Protocol'),
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => 390,
-                'target'  => 'deny',
-                );
-        $fw->addInternalService(
-                'name' => 'kdc',
-                'printableName' => 'KDC',
+                'readOnly' => 1,
+                'services' => [ { protocol   => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => 390 } ],
+            );
+
+            $fw->setInternalService($serviceName, 'deny');
+        }
+
+        $serviceName = 'kerberos';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'printableName' => 'Kerberos',
                 'description' => __('Kerberos authentication'),
-                'protocol' => 'tcp/udp',
-                'sourcePort' => 'any',
-                'destinationPort' => 88,
-                'target' => 'accept',
-                );
-        $fw->addInternalService(
-                'name' => 'kpasswd',
-                'printableName' => 'Kerberos password change',
-                'description' => __('Kerberos password change'),
-                'protocol' => 'tcp/udp',
-                'sourcePort' => 'any',
-                'destinationPort' => 464,
-                'target' => 'accept',
-                );
-        $fw->addInternalService(
-                'name' => 'krsh',
-                'printableName' => 'Kerberos remote shell',
-                'description' => __('Kerberos remote shell'),
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => 544,
-                'target' => 'accept',
-                );
-        $fw->addInternalService(
-                'name' => 'kadmin',
-                'printableName' => 'Kerberos admin/changepw',
-                'description' => __('Kerberos administration'),
-                'protocol' => 'tcp',
-                'sourcePort' => 'any',
-                'destinationPort' => 749,
-                'target' => 'accept',
-                );
+                'readOnly' => 1,
+                'services' => [ { protocol   => 'tcp/udp',
+                                  sourcePort => 'any',
+                                  destinationPort => 88 },
+                                { protocol   => 'tcp/udp',
+                                  sourcePort => 'any',
+                                  destinationPort => 464 },
+                                { protocol   => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => 544 },
+                                { protocol   => 'tcp',
+                                  sourcePort => 'any',
+                                  destinationPort => 749 } ],
+            );
+
+            $fw->setInternalService($serviceName, 'accept');
+        }
+
         $fw->saveConfigRecursive();
     }
 
@@ -295,10 +291,22 @@ sub enableActions
     try {
         # Get the FQDN
         my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $network = EBox::Global->modInstance('network');
+
         my $fqdn = $sysinfo->fqdn();
         my $hostName = $sysinfo->hostName();
         my $hostDomain = $sysinfo->hostDomain();
-        my $domainIp = '192.168.56.254';# TODO get the IP address of the internal iface. What happend if more than one?
+
+        my $internalInterfaces = $network->InternalIfaces();
+        my $interface = pop $internalInterfaces;
+        unless (defined $interface) {
+            throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
+        }
+        my $ifaceInfo = pop $network->ifaceAddresses($interface);
+        unless (defined $ifaceInfo) {
+            throw EBox::Exceptions::External(__('Couldn\'t get the address of the interface {i}', i => $interface));
+        }
+        my $domainIp = $ifaceInfo->{address}; # TODO What happend if more than one internal interface? Ask the user?
 
         # Create the kerberos database
         my $realm = $self->kerberosRealm();
