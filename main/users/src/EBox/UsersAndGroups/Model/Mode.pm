@@ -110,10 +110,10 @@ sub _table
 
 sub _dnFromHostname
 {
-    my $hostname = `hostname -f`;
-    chomp($hostname);
-    $hostname =~ s/[^A-Za-z0-9\.]/-/g;
-    my $dn = join(',', map("dc=$_", split(/\./, $hostname)));
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
+    $domain =~ s/[^A-Za-z0-9\.]/-/g;
+    my $dn = join(',', map("dc=$_", split(/\./, $domain)));
     return $dn;
 }
 
@@ -121,6 +121,7 @@ sub _realmFromHostname
 {
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $domain = $sysinfo->hostDomain();
+    $domain =~ s/[^A-Za-z0-9\.]/-/g;
     $domain = uc ($domain);
     return $domain;
 }
