@@ -221,9 +221,9 @@ sub _ifaceAddresses
     my @addresses;
     foreach my $row (@{$ifacesModel->enabledRows()}) {
         my $iface = $ifacesModel->row($row)->valueByName('iface');
-        my $address = $net->ifaceAddress($iface);
-        next unless $address;
-        push (@addresses, $address);
+        my $iaddresses = $net->ifaceAddresses($iface);
+        next unless $iaddresses;
+        push (@addresses, map { $_->{address} } @{$iaddresses});
     }
 
     return \@addresses;

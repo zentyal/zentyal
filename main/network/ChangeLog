@@ -1,4 +1,15 @@
 HEAD
+	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
+	+ Regenerate traffic shaping rules after failover event
+	+ EBox::Network::setNameservers does not fail if the same server
+	  is already in the list
+	+ Fixed calls to storeSelectedDefaultGateway with undef argument
+	+ EBox::Network::importInterfacesFile skips gateway adition instead of
+	  aborting if already exists one
+	+ Insert fwmark ip rules before from ones
+	+ Remove no longer necessary mark rules when having several interfaces
+	+ Pre-create failover and check-ip chains on network start to always ensure
+	  that rules are inserted in the proper position
 	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
 2.3.6
 	+ Create tables with MyISAM engine by default

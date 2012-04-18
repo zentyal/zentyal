@@ -142,7 +142,7 @@ sub set
     $self->SUPER::set(@_);
 }
 
-# Catch some of the set ops which need special actions
+# Catch some of the delete ops which need special actions
 sub delete
 {
     my ($self, $attr, $value) = @_;
@@ -158,12 +158,14 @@ sub delete
 
 sub save
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     if ($self->{set_quota}) {
         $self->_setFilesystemQuota($self->get('quota'));
         delete $self->{set_quota};
     }
+
+    $self->{modifications} = $self->{entry}->ldif(changes => 1);
 
     shift @_;
     $self->SUPER::save(@_);
@@ -174,10 +176,31 @@ sub save
         delete $self->{core_changed_password};
 
         my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $ignore_mods);
+        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+
+        delete $self->{ignoreMods};
     }
+
+    delete $self->{modifications};
 }
 
+# Method: setIgnoredModules
+#
+#   Set the modules that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining module names
+#
+sub setIgnoredModules
+{
+    my ($self, $mods) = @_;
+
+    if (defined $mods) {
+        $self->{ignoreMods} = $mods;
+    }
+}
 
 # Method: addGroup
 #
@@ -339,7 +362,7 @@ sub changePassword
 #
 sub deleteObject
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     # remove this user from all its grups
     foreach my $group (@{$self->groups()}) {
@@ -348,7 +371,7 @@ sub deleteObject
 
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delUser', $self, $ignore_mods);
+    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
 
     # Call super implementation
     shift @_;
@@ -387,14 +410,14 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#                               'givenname', 'surname' and 'comment'
+#   user - hash ref containing: 'user'(user name), 'fullname', 'givenname',
+#                               'surname' and 'comment'
 #   system - boolean: if true it adds the user as system user, otherwise as
 #                     normal user
 #   params hash (all optional):
 #      uidNumber - user UID numberer
-#      ignore_mods - ldap modules to be ignored on addUser notify
 #      ou (multiple_ous enabled only)
+#      ignoreMods - modules that should not be notified about the user creation
 #
 # Returns:
 #
@@ -453,17 +476,15 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-
     my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
     my $gid = $group->get('gidNumber');
 
     # system user could not have passwords
     my $passwd = $user->{'password'};
-    #if (not $passwd and not $system) {
+    #if (not $passwd and not $user->{passwords} and not $system) {
     #    throw EBox::Exceptions::MissingArgument(__('Password'));
     #}
-    #$self->_checkPwdLength($passwd);
 
     # If fullname is not specified we build it with
     # givenname and surname
@@ -519,12 +540,16 @@ sub create
         # only default OU users are initializated
         if ($isDefaultOU) {
             $users->reloadNSCD();
-            $users->initUser($res, $user->{'password'});
+            $users->initUser($res, $passwd);
             $res->_setFilesystemQuota($quota);
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $user->{'password'} ], $params{ignore_mods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
+    }
+
+    if ($res->{core_changed}) {
+        $res->save();
     }
 
     # Return the new created user
