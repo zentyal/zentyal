@@ -24,11 +24,7 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::LogObserver
-            );
+use base qw(EBox::Module::Service EBox::LogObserver);
 
 use strict;
 use warnings;
@@ -161,15 +157,15 @@ sub menu
     $root->add($folder);
 }
 
-# Method: models
+# Method: modelInstances
 #
-#       Return the models used by events eBox module
+#       Return the models used by the events module
 #
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::models>
 #
-sub models
+sub modelInstances
 {
     my ($self) = @_;
 
@@ -304,7 +300,7 @@ sub configureEventModel
     unless ( exists $self->{configureEventModel} ) {
         $self->{configureEventModel} =
             new EBox::Events::Model::ConfigureEventDataTable(
-                    'gconfmodule' => $self,
+                    'confmodule' => $self,
                     'directory'   => 'configureEventTable'
                     );
     }
@@ -329,7 +325,7 @@ sub configureDispatcherModel
     unless ( exists $self->{configureDispatcherModel} ) {
         $self->{configureDispatcherModel} =
             new EBox::Events::Model::ConfigureDispatcherDataTable(
-                    gconfmodule => $self,
+                    confmodule => $self,
                     directory   => 'configureDispatcherTable'
                     );
     }
@@ -345,7 +341,7 @@ sub reportDetailsModel
     unless ( exists $self->{EventsDetailsModel} ) {
         $self->{EventsDetailsModel} =
             new EBox::Events::Model::Report::EventsDetails(
-                                              gconfmodule => $self,
+                                              confmodule => $self,
                                               directory   => 'EventsDetails'
                                              );
     }
@@ -361,7 +357,7 @@ sub reportGraphModel
     unless ( exists $self->{EventsGraphModel} ) {
         $self->{EventsGraphModel} =
             new EBox::Events::Model::Report::EventsGraph(
-                                              gconfmodule => $self,
+                                              confmodule => $self,
                                               directory   => 'EventsGraph'
                                              );
     }
@@ -379,7 +375,7 @@ sub reportOptionsModel
     unless ( exists $self->{EventsOptionModel} ) {
         $self->{EventsOptionModel} =
             new EBox::Events::Model::Report::EventsReportOptions(
-                                              gconfmodule => $self,
+                                              confmodule => $self,
                                               directory   => 'EventsReportOptions'
                                              );
     }
@@ -620,7 +616,7 @@ sub _obtainModelsByPrefix # (prefix)
 
         try {
             my $model = $className->new(
-                    gconfmodule => $self,
+                    confmodule => $self,
                     directory   => $fileName,
                     );
             push ( @models, $model);
@@ -648,7 +644,7 @@ sub _enableForm
 
     unless ( exists $self->{enableForm}) {
         $self->{enableForm} = new EBox::Common::Model::EnableForm(
-                gconfmodule => $self,
+                confmodule => $self,
                 directory   => 'EnableForm',
                 enableTitle => __('Event service status'),
                 modelDomain => 'Events',

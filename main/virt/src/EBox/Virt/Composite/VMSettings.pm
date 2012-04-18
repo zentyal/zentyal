@@ -55,11 +55,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'virt/SystemSettings',
-                               'virt/NetworkSettings',
-                               'virt/DeviceSettings',
-                           ],
         layout          => 'tabbed',
         name            => 'VMSettings',
         printableName   => __('Virtual Machine Settings'),

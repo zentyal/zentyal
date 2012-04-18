@@ -50,7 +50,7 @@ my $ROW_ID = 'form';
 #
 # Parameters:
 #
-#       gconfmodule - <EBox::GConfModule> the GConf eBox module which
+#       confmodule - <EBox::Module::Config> the GConf eBox module which
 #       gives the environment where to store data
 #
 #       directory - String the subdirectory within the environment
@@ -66,7 +66,7 @@ sub new
 
     # Change the directory to store the form data since it's not
     # required a lot complexity
-    $self->{directory} = $self->{gconfdir};
+    $self->{directory} = $self->{confdir};
     $self->{rowdir} = $self->{directory} . "/$ROW_ID";
 
     return $self;
@@ -127,6 +127,7 @@ sub _checkTable
     my @unallowedSuperParams = qw(sortedBy order);
     foreach my $param (@unallowedSuperParams) {
         if (exists $table->{$param}) {
+            # FIXME: WTF is this?
             throw EBox::Exceptions::Internal(
 
                                             );
@@ -273,7 +274,7 @@ sub removeAll
 
     if ( $force ) {
         # Remove the data
-        $self->{gconfmodule}->delete_dir($self->{rowdir});
+        $self->{confmodule}->delete_dir($self->{rowdir});
     } else {
         throw EBox::Exceptions::Internal('Cannot remove data unless force specified');
     }
@@ -295,8 +296,8 @@ sub warnIfIdUsed
 
 # Method: setRow
 #
-#	Set an existing row. The unique row is set here. If there was
-#	no row. It will be created.
+#   Set an existing row. The unique row is set here. If there was
+#   no row. It will be created.
 #
 #
 # Overrides:
@@ -340,10 +341,9 @@ sub setRow
     }
 
     $self->setTypedRow('',
-            $changedData,
-            force => $force,
-            readOnly => $params{'readOnly'});
-
+                       $changedData,
+                       force => $force,
+                       readOnly => $params{'readOnly'});
 }
 
 # Method: setTypedRow
@@ -359,7 +359,7 @@ sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
-    if (defined ($self->{'gconfmodule'}->get($self->{'rowdir'}))) {
+    if (defined ($self->{'confmodule'}->get($self->{'rowdir'}))) {
         $self->SUPER::setTypedRow($ROW_ID, $paramsRef, %optParams);
     } else {
         $optParams{id} = $ROW_ID;
@@ -592,11 +592,11 @@ sub AUTOLOAD
     $methodName =~ s/.*:://;
 
     # Ignore DESTROY callings (the Perl destructor)
-    if ($methodName eq 'DESTROY') {
+    if ( $methodName eq 'DESTROY' ) {
         return;
     }
 
-    unless (UNIVERSAL::can($self, 'row')) {
+    unless ( UNIVERSAL::can($self, 'row') ) {
         use Devel::StackTrace;
         my $trace = new Devel::StackTrace();
         EBox::debug($trace->as_string());
@@ -609,26 +609,24 @@ sub AUTOLOAD
     # Get the attribute and its suffix if any <attr>(Value|PrintableValue|Type|)
     my ($attr, $suffix) = $methodName =~ m/^(.+?)(Value|PrintableValue|Type|)$/;
 
-    unless (any(keys (%{$row->hashElements()})) eq $attr) {
+    unless ( any( keys ( %{$row->hashElements()} ) ) eq $attr ) {
         # Try with the parent autoload
         return $self->NEXT::ACTUAL::AUTOLOAD(@params);
     }
 
     # If no suffix is given used
-    unless ($suffix) {
+    unless ( $suffix ) {
         # Use the default value
         $suffix = 'Value';
     }
 
-    if ($suffix eq 'Value') {
+    if ( $suffix eq 'Value' ) {
         return $row->valueByName($attr);
     } elsif ( $suffix eq 'PrintableValue' ) {
         return $row->printableValueByName($attr);
     } elsif ( $suffix eq 'Type' ) {
         return $row->elementByName($attr);
     }
-
-    return;
 }
 
 # Group: Protected methods
@@ -643,7 +641,7 @@ sub _setDefaultMessages
 {
     my ($self) = @_;
 
-    unless ( exists $self->table()->{'messages'}->{'update'} ) {
+    unless (exists $self->table()->{'messages'}->{'update'}) {
         $self->table()->{'messages'}->{'update'} = __('Done');
     }
 }
@@ -672,15 +670,15 @@ sub _row
 # FIXME: what happens with this
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $hash = $gconfmod->get_hash($dir);
+    my $confmod = $self->{'confmodule'};
+    my $hash = $confmod->get_hash($dir);
 
     unless (keys (%{$hash}) or $self->_volatile()) {
         # Return default values instead
         return $self->_defaultRow();
     }
 
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setModel($self);
 
     my @values;
@@ -690,8 +688,7 @@ sub _row
         $self->_setRowElement($element, $row, $hash);
         $row->addElement($element);
     }
-    # Dummy id for dataform
-    $row->setId('dummy');
+    $row->setId($ROW_ID);
     return $row;
 }
 
@@ -701,10 +698,10 @@ sub _defaultRow
     my ($self) = @_;
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $confmod = $self->{'confmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setModel($self);
-    $row->setId('dummy');
+    $row->setId($ROW_ID);
 
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $element = $type->clone();

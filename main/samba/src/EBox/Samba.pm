@@ -18,11 +18,9 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::CompositeProvider
-            EBox::Model::ModelProvider
-            EBox::FirewallObserver
-            EBox::LdapModule);
+#use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
+#            EBox::Report::DiskUsageProvider EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Service;
@@ -40,7 +38,6 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Model::ModelManager;
 use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::Util::Random qw( generate );
@@ -313,40 +310,6 @@ sub enableService
     if ($self->changed()) {
         EBox::Global->modChange('dns');
     }
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-
-    my ($self) = @_;
-
-    return [
-               'EBox::Samba::Model::GeneralSettings',
-               'EBox::Samba::Model::SambaShares',
-               'EBox::Samba::Model::SambaSharePermissions',
-               'EBox::Samba::Model::SambaDeletedShares',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [
-             'EBox::Samba::Composite::General',
-           ];
 }
 
 # Method: shares

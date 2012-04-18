@@ -59,9 +59,9 @@ sub _description
 {
     my $printableName = __('Printer Sharing');
 
+    # FIXME: does this have any sense? a composite for just one model??
     my $description =
       {
-          components      => [ 'CUPS' ],
           layout          => 'top-bottom',
           name            => 'General',
           compositeDomain => 'Printers',

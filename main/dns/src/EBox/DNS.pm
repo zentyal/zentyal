@@ -18,10 +18,7 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+use base qw(EBox::Module::Service);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -34,7 +31,7 @@ use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Sudo;
 
 use Error qw(:try);
@@ -79,53 +76,6 @@ sub _create
 
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            {
-             class      => 'EBox::DNS::Model::DomainTable',
-             parameters => [
-                            directory => 'domainTable',
-                           ],
-            },
-            {
-             class      => 'EBox::DNS::Model::HostnameTable',
-             parameters => [
-                            directory => 'hostnameTable',
-                           ],
-            },
-            {
-             class      => 'EBox::DNS::Model::AliasTable',
-             parameters => [
-                            directory => 'aliasTable',
-                           ],
-            },
-            'EBox::DNS::Model::MailExchanger',
-            'EBox::DNS::Model::NameServer',
-            'EBox::DNS::Model::Text',
-            'EBox::DNS::Model::Services',
-            'EBox::DNS::Model::Forwarder',
-            'EBox::DNS::Model::Settings',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [ 'EBox::DNS::Composite::Global' ];
 }
 
 # Method: _exposedMethods
@@ -210,7 +160,7 @@ sub addDomain
 {
     my ($self, $domainData) = @_;
 
-    my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+    my $domainModel = EBox::Model::Manager->instance()->model('DomainTable');
 
     $domainModel->addDomain($domainData);
 }
@@ -231,7 +181,7 @@ sub domains
     my $self = shift;
     my @array;
 
-    my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
+    my $model = EBox::Model::Manager->instance()->model('DomainTable');
 
     foreach my $id (@{$model->ids()})
     {

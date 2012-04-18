@@ -30,7 +30,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
@@ -295,7 +295,7 @@ sub _checkVPN
 sub _uniqVPNAddress
 {
     my ($self, $vpnAddress) = @_;
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $serverList = $manager->model('/openvpn/Servers');
 
     my $olddir = $self->directory();
@@ -322,7 +322,7 @@ sub _uniqPortAndProtocol
 
     my $portAndProtocol = $params_r->{portAndProtocol};
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $serverList = $manager->model('/openvpn/Servers');
 
     my $olddir = $self->directory();

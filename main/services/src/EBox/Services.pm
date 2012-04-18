@@ -24,7 +24,7 @@ package EBox::Services;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::Module::Config);
 
 use EBox::Validate qw( :all );
 use EBox::Global;
@@ -133,28 +133,6 @@ sub _defaultServices
          'protocol' => 'tcp',
          'destinationPort' => '80',
          'internal' => 0,
-        },
-    ];
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    # TODO: Remove customized directory names and rename them
-    # in the migration script from Zentyal 2.0 to 2.2 ?
-    return [
-        {
-          class => 'EBox::Services::Model::ServiceTable',
-          parameters => [ directory => 'serviceTable' ],
-        },
-        {
-          class => 'EBox::Services::Model::ServiceConfigurationTable',
-          parameters => [ directory => 'serviceConfigurationTable' ],
         },
     ];
 }

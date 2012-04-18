@@ -120,7 +120,7 @@ sub timePeriod
 {
     my ($self) = @_;
 
-    my $model = $self->{gconfmodule}->model('TrafficReportOptions');
+    my $model = $self->{confmodule}->model('TrafficReportOptions');
     my $row = $model->row();
 
     return $row->valueByName('timePeriod');

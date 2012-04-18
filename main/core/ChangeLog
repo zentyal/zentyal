@@ -1,4 +1,10 @@
 HEAD
+	+ Composites can now use parentModule() like Models
+	+ Renamed old EBox::GConfModule to EBox::Module::Config
+	+ Unified model and composite management in the new EBox::Model::Manager
+	+ Model and composites are loaded on demand to reduce memory consumption
+	+ Model and composite information is now stored in .yaml schemas
+	+ ModelProvider and CompositeProvider are no longer necessary
 	+ Simplified DataForm using more code from DataTable
 	+ Reimplemented RAID and restrictedResources() FIXME
 	+ Remove unused override modifications code

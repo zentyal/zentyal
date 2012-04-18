@@ -197,7 +197,7 @@ sub validateTypedRow
         my $iface = exists $changedFields->{iface} ?
             $changedFields->{iface}->value() : $allFields->{iface}->value();
         if ($iface eq 'none') {
-            if (not $self->{gconfmodule}->allowsNoneIface()) {
+            if (not $self->{confmodule}->allowsNoneIface()) {
                 throw EBox::Exceptions::External(
                     __("'None' interface is not allowed in your virtual machine backend")
                    );
@@ -215,7 +215,7 @@ sub viewCustomizer
     my ($self) = @_;
 
     # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{gconfmodule}->composite('VMSettings');
+    my $composite  = $self->{confmodule}->composite('VMSettings');
     $self->setParentComposite($composite);
 
     my $customizer = new EBox::View::Customizer();
@@ -273,7 +273,7 @@ sub freeIface
     }
 
     if ($rowId) {
-        if ($self->{gconfmodule}->allowsNoneIface()) {
+        if ($self->{confmodule}->allowsNoneIface()) {
             my $row = $self->row($rowId);
             my $iface = $row->elementByName('iface');
             $iface->setValue('none');

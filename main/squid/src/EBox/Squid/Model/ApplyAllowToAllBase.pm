@@ -164,7 +164,7 @@ END
             $table->{'actions'}->{'editField'},
             $table->{'tableName'},
             $fields,
-            $table->{'gconfdir'},
+            $table->{'confdir'},
             $editId,
             $page,
             0, # force

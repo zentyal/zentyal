@@ -35,7 +35,7 @@ use EBox::Sudo;
 use Error qw(:try);
 use File::Basename;
 
-use constant GCONF_DIR => 'ServiceModule/';
+use constant CONF_DIR => 'ServiceModule/';
 use constant CLASS => 'EBox::Module::Service';
 
 # Group: Public methods
@@ -48,7 +48,7 @@ sub new
 
     my $self =
     {
-        'gconfmodule' => $ebox,
+        'confmodule' => $ebox,
     };
 
     bless($self, $class);
@@ -76,7 +76,7 @@ sub moduleStatus
 {
     my ($self) = @_;
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     my @mods;
     my $change = undef;
@@ -117,7 +117,7 @@ sub printableDepends
 {
     my ($self, $module) = @_;
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     my @depends;
     for my $mod (@{$global->modInstance($module)->enableModDepends()}) {
@@ -137,7 +137,7 @@ sub dependencyEnabled
 {
     my ($self, $module) = @_;
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     for my $mod (@{$global->modInstance($module)->enableModDepends()}) {
         my $instance = $global->modInstance($mod);
@@ -170,7 +170,7 @@ sub enableServices
     my ($self, $services) = @_;
 
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     for my $mod (keys %{$services}) {
         my $instance = $global->modInstance($mod);
@@ -489,7 +489,7 @@ sub _genericDependencyTree
     $tree = [] unless (defined($tree));
     $hash = {} unless (defined($hash));
 
-    my $global = $self->{'gconfmodule'};
+    my $global = $self->{'confmodule'};
 
     my $numMods = @{$tree};
     for my $mod (@{$global->modInstancesOfType(CLASS)}) {

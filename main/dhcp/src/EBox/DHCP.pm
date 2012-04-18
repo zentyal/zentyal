@@ -20,9 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
-            EBox::LogObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+            EBox::LogObserver);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -35,8 +33,7 @@ use EBox::Menu::Folder;
 use EBox::Objects;
 use EBox::Validate qw(:all);
 
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
+use EBox::Model::Manager;
 
 use EBox::Sudo;
 use EBox::NetWrappers qw(:all);
@@ -267,15 +264,14 @@ sub depends
 
 }
 
-# Method: models
+# Method: modelInstances
 #
 # Overrides:
 #
-#     <EBox::Model::ModelProvider::models>
+#     <EBox::Model::ModelProvider::modelInstances>
 #
-sub models
+sub modelInstances
 {
-
     my ($self) = @_;
 
     my @models;
@@ -285,44 +281,44 @@ sub models
             # Create models
             $self->{rangeModel}->{$iface} =
               new EBox::DHCP::Model::RangeTable(
-                                                gconfmodule => $self,
+                                                confmodule => $self,
                                                 directory   => "RangeTable/$iface",
                                                 interface   => $iface
                                                );
             push ( @models, $self->{rangeModel}->{$iface} );
             $self->{fixedAddrModel}->{$iface} =
               new EBox::DHCP::Model::FixedAddressTable(
-                                                       gconfmodule => $self,
+                                                       confmodule => $self,
                                                        directory   => "FixedAddressTable/$iface",
                                                        interface   => $iface);
             push ( @models, $self->{fixedAddrModel}->{$iface} );
             $self->{optionsModel}->{$iface} =
               new EBox::DHCP::Model::Options(
-                                             gconfmodule => $self,
+                                             confmodule => $self,
                                              directory   => "Options/$iface",
                                              interface   => $iface);
             push ( @models, $self->{optionsModel}->{$iface} );
             $self->{leaseTimesModel}->{$iface} =
               new EBox::DHCP::Model::LeaseTimes(
-                                                gconfmodule => $self,
+                                                confmodule => $self,
                                                 directory   => "LeaseTimes/$iface",
                                                 interface   => $iface);
             push ( @models, $self->{leaseTimesModel}->{$iface} );
             $self->{thinClientModel}->{$iface} =
               new EBox::DHCP::Model::ThinClientOptions(
-                                                       gconfmodule => $self,
+                                                       confmodule => $self,
                                                        directory   => "ThinClientOptions/$iface",
                                                        interface   => $iface);
             push ( @models, $self->{thinClientModel}->{$iface} );
             $self->{dynamicDNSModel}->{$iface} =
               new EBox::DHCP::Model::DynamicDNS(
-                                                gconfmodule => $self,
+                                                confmodule => $self,
                                                 directory   => "DynamicDNS/$iface",
                                                 interface   => $iface);
             push ( @models, $self->{dynamicDNSModel}->{$iface} );
             $self->{rangeInfoModel}->{$iface} =
               new EBox::DHCP::Model::RangeInfo(
-                                               gconfmodule => $self,
+                                               confmodule => $self,
                                                directory   => "RangeInfo/$iface",
                                                interface   => $iface);
             push ( @models, $self->{rangeInfoModel}->{$iface});
@@ -1064,9 +1060,7 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
     # Mark managers as changed every time we attempt to change the
     # iface method from/to static
     if ($old_method eq 'static' or $new_method eq 'static') {
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->markAsChanged();
-        $manager = EBox::Model::CompositeManager->Instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->markAsChanged();
     }
 
@@ -1105,7 +1099,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
     my $net = EBox::Global->modInstance('network');
     my $ip = new Net::IP($address);
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
 
     my @rangeModels = @{$manager->model('/dhcp/RangeTable/*')};
     # Check that the new IP for the virtual interface isn't in any range
@@ -1152,8 +1146,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
     }
     # Mark managers as changed
     $manager->markAsChanged();
-    my $compManager = EBox::Model::CompositeManager->Instance();
-    $compManager->markAsChanged();
 }
 
 # Method:  vifaceDelete
@@ -1172,7 +1164,7 @@ sub vifaceDelete # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
 
     foreach my $modelName (qw(RangeTable FixedAddressTable Options)) {
         my $model = $manager->model("/dhcp/$modelName/$iface:$viface");
@@ -1214,7 +1206,7 @@ sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
     my $netIP = new Net::IP("$network/$bits");
 
         # Check ranges
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
         foreach my $id (@{$rangeModel->ids()}) {
             my $rangeRow = $rangeModel->row($id);
@@ -1260,16 +1252,14 @@ sub freeIface #( self, iface )
 {
     my ( $self, $iface ) = @_;
 #   $self->delete_dir("$iface");
-        $self->_removeDataModelsAttached($iface);
+    $self->_removeDataModelsAttached($iface);
 
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->markAsChanged();
-        $manager = EBox::Model::CompositeManager->Instance();
-        $manager->markAsChanged();
+    my $manager = EBox::Model::Manager->instance();
+    $manager->markAsChanged();
 
     my $net = EBox::Global->modInstance('network');
     if ($net->ifaceMethod($iface) eq 'static') {
-      $self->_checkStaticIfaces(-1);
+        $self->_checkStaticIfaces(-1);
     }
 }
 
@@ -1287,16 +1277,14 @@ sub freeViface #( self, iface, viface )
 {
     my ( $self, $iface, $viface ) = @_;
 #   $self->delete_dir("$iface:$viface");
-        $self->_removeDataModelsAttached("$iface:$viface");
+    $self->_removeDataModelsAttached("$iface:$viface");
 
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->markAsChanged();
-        $manager = EBox::Model::CompositeManager->Instance();
-        $manager->markAsChanged();
+    my $manager = EBox::Model::Manager->instance();
+    $manager->markAsChanged();
 
 #   my $net = EBox::Global->modInstance('network');
 #   if ($net->ifaceMethod($viface) eq 'static') {
-      $self->_checkStaticIfaces(-1);
+    $self->_checkStaticIfaces(-1);
 #   }
 }
 
@@ -1929,7 +1917,7 @@ sub _allowedMemberInFixedAddress
     }
 
     # Check the given member is unique within the object realm
-    my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model('/dhcp/FixedAddressTable/*')};
+    my @fixedAddressTables = @{EBox::Model::Manager->instance()->model('/dhcp/FixedAddressTable/*')};
     # Delete the self model
     @fixedAddressTables = grep { $_->index() ne $iface } @fixedAddressTables;
 

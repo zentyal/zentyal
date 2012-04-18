@@ -19,11 +19,8 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::Report::DiskUsageProvider
-            EBox::NetworkObserver
-          );
+            EBox::NetworkObserver);
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
@@ -119,22 +116,6 @@ sub initialSetup
 
         $firewall->saveConfigRecursive();
     }
-}
-
-sub modelClasses
-{
-    return [
-        'EBox::Virt::Model::VirtualMachines',
-        'EBox::Virt::Model::SystemSettings',
-        'EBox::Virt::Model::NetworkSettings',
-        'EBox::Virt::Model::DeviceSettings',
-        'EBox::Virt::Model::DeletedDisks',
-    ];
-}
-
-sub compositeClasses
-{
-    return [ 'EBox::Virt::Composite::VMSettings' ];
 }
 
 # Method: menu

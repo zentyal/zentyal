@@ -80,13 +80,13 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
     my $network = EBox::Global->modInstance('network');
 
     my %dynamicGws;
 
     foreach my $iface (@{$network->dhcpIfaces()}) {
-        my $gw = $gconf->st_get_string("dhcp/$iface/gateway");
+        my $gw = $conf->st_get_string("dhcp/$iface/gateway");
         if ($gw) {
             $dynamicGws{$iface} = $gw;
         } else {
@@ -94,8 +94,8 @@ sub syncRows
         }
     }
     foreach my $iface (@{$network->pppIfaces()}) {
-        my $addr = $gconf->st_get_string("interfaces/$iface/ppp_addr");
-        my $ppp_iface = $gconf->st_get_string("interfaces/$iface/ppp_iface");
+        my $addr = $conf->st_get_string("interfaces/$iface/ppp_addr");
+        my $ppp_iface = $conf->st_get_string("interfaces/$iface/ppp_iface");
         if ($addr and $ppp_iface) {
             $dynamicGws{$iface} = "$ppp_iface/$addr";
         } else {
@@ -487,7 +487,7 @@ sub removeRow
         $row or
             throw EBox::Exceptions::Internal("Invalid row id $id");
         my $gw = $row->valueByName('name');
-        my $global = EBox::Global->getInstance($self->{gconfmodule}->{ro});
+        my $global = EBox::Global->getInstance($self->{confmodule}->{ro});
         my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
         foreach my $mod (@mods) {
             if ($mod->gatewayDelete($gw)) {

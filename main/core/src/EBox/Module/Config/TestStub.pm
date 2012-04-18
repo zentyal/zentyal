@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfModule::TestStub;
+package EBox::Module::Config::TestStub;
 # Description:
 #
 use strict;
@@ -22,7 +22,7 @@ use warnings;
 use Test::MockObject;
 use List::Util qw(first);
 use Params::Validate;
-use EBox::GConfModule;
+use EBox::Module::Config;
 
 
 my %config;
@@ -35,7 +35,7 @@ my %config;
 
 sub fake
 {
-    Test::MockObject->fake_module('EBox::GConfModule',
+    Test::MockObject->fake_module('EBox::Module::Config',
 		 '_gconf_wrapper' => \&_mockedGConfWrapper,
 		 '_delete_dir_internal' => \&_mockedDeleteDirInternal ,
 		 'hash_from_dir' => \&_mockedHashFromDir,
@@ -50,8 +50,8 @@ sub fake
 sub unfake
 {
   delete $INC{'EBox/GConfModule.pm'};
-  eval 'use EBox::GConfModule';
-  $@ and die "Error reloading EBox::GConfModule: $@";
+  eval 'use EBox::Module::Config';
+  $@ and die "Error reloading EBox::Module::Config: $@";
 }
 
 
@@ -86,7 +86,7 @@ my %subByGConfMethod = (
                                       sub_r =>  \&_getEntry,
                                       type  => 'string',
                                       # Another irregularity:
-                                      # EBox::GConfModule::get_string calls
+                                      # EBox::Module::Config::get_string calls
                                       #  get_string in GconfWrapper instead of
                                       # get
                                       returnValueHash => 0,
@@ -148,9 +148,9 @@ sub _mockedGConfWrapper
     if ($method eq 'get') {
         my ($package, $filename, $line, $parentMethod) = caller(1);
 
-        if ($parentMethod =~ m/^EBox::GConfModule::_get_/) {
+        if ($parentMethod =~ m/^EBox::Module::Config::_get_/) {
             $method = $parentMethod;
-            $method =~ s/^EBox::GConfModule::_//;
+            $method =~ s/^EBox::Module::Config::_//;
         }
     }
 

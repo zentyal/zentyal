@@ -19,9 +19,7 @@
 
 package EBox::LTSP;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service);
 
 use strict;
 use warnings;
@@ -88,44 +86,6 @@ sub initialSetup
         );
         $fw->saveConfigRecursive();
     }
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::LTSP::Model::AvailableImages',
-        'EBox::LTSP::Model::LocalApps',
-        'EBox::LTSP::Model::GeneralOpts',
-        'EBox::LTSP::Model::Clients',
-        'EBox::LTSP::Model::Profiles',
-        'EBox::LTSP::Model::OtherClientOpts',
-        'EBox::LTSP::Model::OtherOpts',
-        'EBox::LTSP::Model::GeneralClientOpts',
-        'EBox::LTSP::Model::ImageCreation',
-        'EBox::LTSP::Model::AutoLogin',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::LTSP::Composite::Composite',
-        'EBox::LTSP::Composite::ClientImages',
-        'EBox::LTSP::Composite::ClientConfiguration',
-        'EBox::LTSP::Composite::Configuration',
-    ];
 }
 
 sub architectures

@@ -34,17 +34,13 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
-
-
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -55,25 +51,17 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
 
-      my $description =
-        {
-         components      => [
-                             '/firewall/PacketTrafficReportOptions',
-                             'PacketTrafficGraph',
-                             'PacketTrafficDetails',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'PacketTrafficReport',
-         printableName   => __('Packet traffic report'),
-         pageTitle   => __('Firewall packet traffic report'),
-         compositeDomain => 'Firewall',
-#         help            => __(''),
-        };
+    my $description = {
+       layout          => 'top-bottom',
+       name            => 'PacketTrafficReport',
+       printableName   => __('Packet traffic report'),
+       pageTitle   => __('Firewall packet traffic report'),
+       compositeDomain => 'Firewall',
+    };
 
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

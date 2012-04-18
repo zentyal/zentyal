@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::GConfConfig;
+package EBox::Module::Config::Conf;
 
 use strict;
 use warnings;
 
-use base 'EBox::GConfHelper';
+use base 'EBox::Module::Config::Helper';
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
@@ -55,17 +55,20 @@ sub _key
 {
     my ($self, $dir, $key) = @_;
 
+    # FIXME: check performance penalty of these regexps,
+    # this is executed with each redis call...
+
     if ($key =~ /^\//) {
         $key =~ s/\/+$//;
         unless ($key =~ /^\/$dir/) {
             throw EBox::Exceptions::Internal("Trying to use a ".
-                "gconf key that belongs to a different ".
+                "conf key that belongs to a different ".
                 "application $key");
         }
         my $name = $self->{mod}->name;
         unless ($key =~ /^\/$dir\/modules\/$name/) {
             throw EBox::Exceptions::Internal("Trying to use a ".
-                "gconf key that belongs to a different ".
+                "conf key that belongs to a different ".
                 "module: $key");
         }
         return $key;

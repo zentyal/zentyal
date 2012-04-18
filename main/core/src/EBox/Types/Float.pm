@@ -95,7 +95,6 @@ sub _paramIsValid
     }
 
     return 1;
-
 }
 
 1;

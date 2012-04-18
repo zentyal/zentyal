@@ -18,9 +18,7 @@ package EBox::WebServer;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+use base qw(EBox::Module::Service);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -233,31 +231,6 @@ sub menu
                                       order => 430
                                      );
       $root->add($item);
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#        <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            'EBox::WebServer::Model::GeneralSettings',
-            'EBox::WebServer::Model::VHostTable',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#        <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return ['EBox::WebServer::Composite::General'];
 }
 
 ################

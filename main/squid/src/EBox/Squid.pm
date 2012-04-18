@@ -19,7 +19,6 @@ use warnings;
 
 use base qw(
             EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider
            );
@@ -79,99 +78,6 @@ sub _create
     $self->{logger} = EBox::logger();
     bless ($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::Squid::Model::GeneralSettings',
-
-        'EBox::Squid::Model::ContentFilterThreshold',
-
-        'EBox::Squid::Model::ExtensionFilter',
-        'EBox::Squid::Model::ApplyAllowToAllExtensions',
-
-        'EBox::Squid::Model::MIMEFilter',
-        'EBox::Squid::Model::ApplyAllowToAllMIME',
-
-        'EBox::Squid::Model::DomainFilterSettings',
-        'EBox::Squid::Model::DomainFilter',
-        'EBox::Squid::Model::DomainFilterFiles',
-        'EBox::Squid::Model::DomainFilterCategories',
-
-        'EBox::Squid::Model::GlobalGroupPolicy',
-
-        'EBox::Squid::Model::ObjectPolicy',
-        'EBox::Squid::Model::ObjectGroupPolicy',
-
-        'EBox::Squid::Model::NoCacheDomains',
-
-        'EBox::Squid::Model::FilterGroup',
-
-        'EBox::Squid::Model::FilterGroupContentFilterThreshold',
-
-        'EBox::Squid::Model::UseDefaultExtensionFilter',
-        'EBox::Squid::Model::FilterGroupExtensionFilter',
-        'EBox::Squid::Model::FilterGroupApplyAllowToAllExtensions',
-
-        'EBox::Squid::Model::UseDefaultMIMEFilter',
-        'EBox::Squid::Model::FilterGroupMIMEFilter',
-        'EBox::Squid::Model::FilterGroupApplyAllowToAllMIME',
-
-        'EBox::Squid::Model::UseDefaultDomainFilter',
-        'EBox::Squid::Model::FilterGroupDomainFilter',
-        'EBox::Squid::Model::FilterGroupDomainFilterFiles',
-        'EBox::Squid::Model::FilterGroupDomainFilterCategories',
-        'EBox::Squid::Model::FilterGroupDomainFilterSettings',
-
-        'EBox::Squid::Model::DefaultAntiVirus',
-        'EBox::Squid::Model::FilterGroupAntiVirus',
-
-        'EBox::Squid::Model::DelayPools1',
-        'EBox::Squid::Model::DelayPools2',
-
-        # Report clases
-        'EBox::Squid::Model::Report::RequestsGraph',
-        'EBox::Squid::Model::Report::TrafficSizeGraph',
-        'EBox::Squid::Model::Report::TrafficDetails',
-        'EBox::Squid::Model::Report::TrafficReportOptions',
-    ];
-}
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::Squid::Composite::General',
-
-        'EBox::Squid::Composite::FilterTabs',
-        'EBox::Squid::Composite::FilterSettings',
-        'EBox::Squid::Composite::Extensions',
-        'EBox::Squid::Composite::MIME',
-        'EBox::Squid::Composite::Domains',
-
-        'EBox::Squid::Composite::FilterGroupTabs',
-        'EBox::Squid::Composite::FilterGroupSettings',
-        'EBox::Squid::Composite::FilterGroupExtensions',
-        'EBox::Squid::Composite::FilterGroupMIME',
-        'EBox::Squid::Composite::FilterGroupDomains',
-
-        'EBox::Squid::Composite::DelayPools',
-
-        'EBox::Squid::Composite::Report::TrafficReport',
-    ];
 }
 
 sub isRunning
@@ -327,7 +233,6 @@ sub enableModDepends
 
     return \@mods;
 }
-
 
 sub _cache_mem
 {

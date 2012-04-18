@@ -8,3 +8,9 @@ depends:
 enabledepends:
     - network
     - firewall
+
+composites:
+    DynamicGeneral: [FIXME]
+
+notifyactions:
+    RuleTable: InterfaceRate

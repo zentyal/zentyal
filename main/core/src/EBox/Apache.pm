@@ -17,7 +17,7 @@ package EBox::Apache;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Validate qw( :all );
 use EBox::Sudo;
@@ -60,16 +60,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-#   Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [ 'EBox::Apache::Model::Language',
-             'EBox::Apache::Model::AdminPort' ];
 }
 
 sub serverroot

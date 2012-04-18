@@ -29,7 +29,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
-
+use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Sudo;
@@ -187,8 +187,7 @@ sub addObject
     my $members = delete $params{'members'};
     return unless (defined($members) and @{$members} > 0);
 
-    my $memberModel =
-                   EBox::Model::ModelManager::instance()->model('MemberTable');
+    my $memberModel = EBox::Model::Manager::instance()->model('MemberTable');
 
     $memberModel->setDirectory($self->{'directory'} . "/$id/members");
     foreach my $member (@{$members}) {

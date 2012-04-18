@@ -22,8 +22,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::CGI::Base;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
 use EBox::CGI::Controller::Modal;
@@ -205,6 +204,7 @@ sub lookupModel
     my @namespaces = split ('::', $classname);
     my $pos = _posAfterCGI(\@namespaces);
 
+    my $manager = EBox::Model::Manager->instance();
     my ($namespace, $modelName) = ($namespaces[$pos+1], $namespaces[$pos+2]);
     my ($model, $action) = (undef, undef);
 
@@ -218,7 +218,6 @@ sub lookupModel
         } else {
             $modelName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
         }
-        my $manager = EBox::Model::ModelManager->instance();
         try {
             $model = $manager->model($modelName);
             if ( @namespaces >= $pos+4 ) {
@@ -235,13 +234,12 @@ sub lookupModel
             }
         };
     } elsif ( $namespace eq 'Composite' ) {
-        my $compManager = EBox::Model::CompositeManager->Instance();
         if ( defined ( $namespaces[$pos+3] )) {
             # It may be the index or the action
             # Compose the composite context name
             my $contextName = '/' . lc ( $namespaces[$pos] ) . '/' . $modelName . '/' . $namespaces[$pos+3];
             try {
-                $model = $compManager->composite($contextName);
+                $model = $manager->composite($contextName);
                 $action = $namespaces[$pos+4];
             } catch EBox::Exceptions::DataNotFound with {
                 $action = $namespaces[$pos+3];
@@ -249,7 +247,7 @@ sub lookupModel
         }
         unless ( defined ( $model)) {
             my $contextName = '/' . lc ( $namespaces[$pos] ) . "/$modelName";
-            $model = $compManager->composite($contextName);
+            $model = $manager->composite($contextName);
         }
     }
     return ($model, $action);

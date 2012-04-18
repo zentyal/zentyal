@@ -96,7 +96,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
     my $msg = '';
     unless ( $rs->eBoxSubscribed() ) {
         $msg = _CBmessage();
@@ -186,7 +186,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
 
     my ($serverName, $subscription, $dr, $available) =
       (__('None'), __('None'), __('Disabled'), __('None'));

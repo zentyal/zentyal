@@ -20,11 +20,8 @@ use warnings;
 
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::UserCorner::Provider
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider
-           );
+            EBox::UserCorner::Provider EBox::FirewallObserver
+            EBox::LogObserver EBox::Report::DiskUsageProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -309,56 +306,6 @@ sub enableModDepends
     return \@depends;
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            'EBox::Mail::Model::SMTPOptions',
-            'EBox::Mail::Model::RetrievalServices',
-            'EBox::Mail::Model::ObjectPolicy',
-            'EBox::Mail::Model::VDomains',
-            'EBox::Mail::Model::VDomainAliases',
-            'EBox::Mail::Model::ExternalAliases',
-            'EBox::Mail::Model::VDomainSettings',
-            'EBox::Mail::Model::ExternalFilter',
-            'EBox::Mail::Model::MailUser',
-
-            'EBox::Mail::Model::Dispatcher::Mail',
-
-            'EBox::Mail::Model::GreylistConfiguration',
-
-            'EBox::Mail::Model::Report::TrafficGraph',
-            'EBox::Mail::Model::Report::TrafficDetails',
-            'EBox::Mail::Model::Report::TrafficReportOptions',
-
-            # user corner classes
-            'EBox::Mail::Model::ExternalAccounts',
-           ];
-}
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-            'EBox::Mail::Composite::ServiceConfiguration',
-            'EBox::Mail::Composite::General',
-
-            'EBox::Mail::Composite::Report::TrafficReport',
-           ];
-}
-
-
 # Method: _getIfacesForAddress
 #
 #  This method returns all interfaces which ip address belongs
@@ -395,7 +342,7 @@ sub _getIfacesForAddress
 
 # Method: _setMailConf
 #
-#  This method creates all configuration files from gconf data.
+#  This method creates all configuration files from conf data.
 #
 sub _setMailConf
 {

@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Model::DataTable;
+
 use base 'EBox::Model::Component';
 
 use strict;
@@ -21,8 +22,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Model::Row;
 use EBox::View::Customizer;
 use EBox::Gettext;
@@ -46,34 +46,22 @@ use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
 use List::Util;
 
-
-use base 'EBox::Model::Component';
-
-# TODO
-#
-#    Factor findValue, find, findAll and findAllValue
-#
-#    Use EBox::Model::Row all over the place
-#
-#    Fix issue with values and printableValues fetched
-#    from foreign tables
-
 sub new
 {
     my $class = shift;
 
     my %opts = @_;
-    my $gconfmodule = delete $opts{'gconfmodule'};
-    $gconfmodule or
-        throw EBox::Exceptions::MissingArgument('gconfmodule');
+    my $confmodule = delete $opts{'confmodule'};
+    $confmodule or
+        throw EBox::Exceptions::MissingArgument('confmodule');
     my $directory   = delete $opts{'directory'};
     $directory or
         throw EBox::Exceptions::MissingArgument('directory');
 
     my $self =
     {
-        'gconfmodule' => $gconfmodule,
-        'gconfdir' => $directory,
+        'confmodule' => $confmodule,
+        'confdir' => $directory,
         'directory' => "$directory/keys",
         'order' => "$directory/order",
         'table' => undef,
@@ -117,7 +105,7 @@ sub _setupTable
     # Set the needed controller and undef setters
     $self->_setControllers();
     # This is useful for submodels
-    $self->{'table'}->{'gconfdir'} = $self->{'gconfdir'};
+    $self->{'table'}->{'confdir'} = $self->{'confdir'};
     # Add enabled field if desired
     if ( $self->isEnablePropertySet() ) {
         $self->_setEnabledAsFieldInTable();
@@ -269,7 +257,7 @@ sub contextName
 {
     my ($self) = @_;
 
-    my $path = '/' . $self->{'gconfmodule'}->name() . '/' .
+    my $path = '/' . $self->{'confmodule'}->name() . '/' .
       $self->name() . '/';
 
     my $index = $self->index();
@@ -294,7 +282,7 @@ sub printableContextName
     my ($self) = @_;
     my $printableContextName = __x( '{model} in {module} module',
                                     model  => $self->printableName(),
-                                    module => $self->{'gconfmodule'}->printableName());
+                                    module => $self->{'confmodule'}->printableName());
     if ( $self->index() ) {
         $printableContextName .= ' ' . __('at') . ' ';
         if ( $self->printableIndex() ) {
@@ -837,7 +825,7 @@ sub addTypedRow
     my ($self, $paramsRef, %optParams) = @_;
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
     my $readOnly = delete $optParams{'readOnly'};
     my $id = delete $optParams{'id'};
 
@@ -845,7 +833,7 @@ sub addTypedRow
         $id = $self->_newId();
     }
 
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setReadOnly($readOnly);
     $row->setModel($self);
     $row->setId($id);
@@ -901,28 +889,27 @@ sub addTypedRow
         }
         $self->_insertPos($id, $pos);
     } else {
-        my $order = $gconfmod->get_list($self->{'order'});
+        my $order = $confmod->get_list($self->{'order'});
         push (@{$order}, $id);
-        $gconfmod->set($self->{'order'}, $order);
+        $confmod->set($self->{'order'}, $order);
     }
 
     if ($readOnly) {
         $hash->{readOnly} = 1;
     }
 
-    $gconfmod->set("$dir/$id", $hash);
+    $confmod->set("$dir/$id", $hash);
 
     my $newRow = $self->row($id);
 
     $self->setMessage($self->message('add'));
     $self->addedRowNotify($newRow);
-    $self->_notifyModelManager('add', $newRow);
-    $self->_notifyCompositeManager('add', $newRow);
+    $self->_notifyManager('add', $newRow);
 
     # check if there are files to delete if revoked
     my $filesToRemove =   $self->filesPathsForRow($newRow);
     foreach my $file (@{  $filesToRemove }) {
-        $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
+        $self->{confmodule}->addFileToRemoveIfRevoked($file);
     }
 
     $self->_commitTransaction();
@@ -953,8 +940,8 @@ sub row
     my ($self, $id)  = @_;
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $confmod = $self->{'confmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
 
     unless (defined($id) and $self->_rowExists($id)) {
         return undef;
@@ -963,7 +950,7 @@ sub row
     $self->{'cacheOptions'} = {};
 
     $row->setId($id);
-    my $hash = $gconfmod->get_hash("$dir/$id");
+    my $hash = $confmod->get_hash("$dir/$id");
     $row->setReadOnly($hash->{'readOnly'});
     $row->setModel($self);
 
@@ -1046,8 +1033,7 @@ sub moveUp
 
     $self->setMessage($self->message('moveUp'));
     $self->movedUpRowNotify($self->row($id));
-    $self->_notifyModelManager('moveUp', $self->row($id));
-    $self->_notifyCompositeManager('moveUp', $self->row($id));
+    $self->_notifyManager('moveUp', $self->row($id));
 }
 
 sub moveDown
@@ -1066,8 +1052,7 @@ sub moveDown
 
     $self->setMessage($self->message('moveDown'));
     $self->movedDownRowNotify($self->row($id));
-    $self->_notifyModelManager('moveDown', $self->row($id));
-    $self->_notifyCompositeManager('moveDown', $self->row($id));
+    $self->_notifyManager('moveDown', $self->row($id));
 }
 
 # Method: _removeRow
@@ -1083,11 +1068,11 @@ sub _removeRow
 {
     my ($self, $id) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
-    $gconfmod->unset("$self->{'directory'}/$id");
-    my @order = @{$gconfmod->get_list($self->{'order'})};
+    my $confmod = $self->{'confmodule'};
+    $confmod->unset("$self->{'directory'}/$id");
+    my @order = @{$confmod->get_list($self->{'order'})};
     @order = grep ($_ ne $id, @order);
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
+    $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -1128,7 +1113,7 @@ sub removeRow
     # case throw a DataInUse exceptions to iform the user about
     # the effects its actions will have.
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnIfIdIsUsed($self->contextName(), $id);
     }
 
@@ -1140,7 +1125,7 @@ sub removeRow
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user
     my $depModelMsg = $self->_notifyModelManager('del', $row);
-    $self->_notifyCompositeManager('del', $row);
+    $self->_notifyManager('del', $row);
     if ( defined( $depModelMsg ) and $depModelMsg ne ''
        and $depModelMsg ne '<br><br>') {
         $userMsg .= "<br><br>$depModelMsg";
@@ -1148,7 +1133,7 @@ sub removeRow
     # If automaticRemove is enabled then remove all rows using referencing
     # this row in other models
     if ($self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
                                                    $id);
         if ( defined( $depModelMsg ) and $depModelMsg ne ''
@@ -1160,7 +1145,7 @@ sub removeRow
     # check if there are files to delete
     my $filesToRemove =   $self->filesPathsForRow($row);
     foreach my $file (@{  $filesToRemove }) {
-        $self->{gconfmodule}->addFileToRemoveIfCommitted($file);
+        $self->{confmodule}->addFileToRemoveIfCommitted($file);
     }
 
     $self->setMessage($userMsg);
@@ -1326,7 +1311,7 @@ sub setTypedRow
     $self->_checkRowExist($id, '');
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     my $oldRow = $self->row($id);
 
@@ -1379,12 +1364,12 @@ sub setTypedRow
     # about to be changed is referenced elsewhere and this change
     # produces an inconsistent state
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
     }
 
     my $key = "$dir/$id";
-    my $hash = $gconfmod->get_hash($key);
+    my $hash = $confmod->get_hash($key);
 
     my $modified = @changedElements;
     for my $data (@changedElements) {
@@ -1401,7 +1386,7 @@ sub setTypedRow
 
     # Update row hash if needed
     if ($modified or ($hash->{readOnly} xor $oldRO)) {
-        $gconfmod->set($key, $hash);
+        $confmod->set($key, $hash);
     }
 
     if ($modified) {
@@ -1412,7 +1397,7 @@ sub setTypedRow
                 and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyCompositeManager('update', $self->row($id));
+        $self->_notifyManager('update', $self->row($id));
         $self->updatedRowNotify($self->row($id), $oldRow, $force);
     }
 
@@ -1509,8 +1494,8 @@ sub ids
     my $currentIds = $self->_ids();
     my $changed = 0;
 
-    unless ($self->{'gconfmodule'}->isReadOnly()) {
-        my $modAlreadyChanged = $self->{'gconfmodule'}->changed();
+    unless ($self->{'confmodule'}->isReadOnly()) {
+        my $modAlreadyChanged = $self->{'confmodule'}->changed();
 
         try {
             $self->_beginTransaction();
@@ -1518,8 +1503,8 @@ sub ids
             $changed = $self->syncRows($currentIds);
             if ($changed and (not $modAlreadyChanged)) {
                 # save changes but don't mark it as changed
-                $self->{gconfmodule}->_saveConfig();
-                $self->{gconfmodule}->setAsChanged(0);
+                $self->{confmodule}->_saveConfig();
+                $self->{confmodule}->setAsChanged(0);
             }
 
             $self->_commitTransaction();
@@ -1581,9 +1566,9 @@ sub customFilterIds
 sub _ids
 {
     my ($self, $notOrder) =  @_;
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
-    my $ids = $gconfmod->get_list($self->{'order'});
+    my $ids = $confmod->get_list($self->{'order'});
 
     unless ($notOrder) {
         my $sortedBy = $self->sortedBy();
@@ -1595,9 +1580,9 @@ sub _ids
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
 
             my $global = EBox::Global->getInstance();
-            my $modChanged = $global->modIsChanged($gconfmod->name());
-            if (not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
-                $gconfmod->set_list($self->{'order'}, 'string', $ids);
+            my $modChanged = $global->modIsChanged($confmod->name());
+            if (not $confmod->isReadOnly() and (@{$ids} and $modChanged)) {
+                $confmod->set_list($self->{'order'}, 'string', $ids);
             }
         }
     }
@@ -1684,28 +1669,13 @@ sub setDirectory
         throw EBox::Exceptions::MissingArgument('dir');
     }
 
-    my $olddir = $self->{'gconfdir'};
+    my $olddir = $self->{'confdir'};
     return if ($dir eq $olddir);
 
-    $self->{'gconfdir'} = $dir;
+    $self->{'confdir'} = $dir;
     $self->{'directory'} = "$dir/keys";
     $self->{'order'} = "$dir/order";
-    $self->{'table'}->{'gconfdir'} = $dir;
-}
-
-# Method: parentModule
-#
-#        Get the parent gconfmodule for the model
-#
-# Returns:
-#
-#        <EBox::Module> - the module
-#
-sub parentModule
-{
-    my ($self) = @_;
-
-    return $self->{'gconfmodule'};
+    $self->{'table'}->{'confdir'} = $dir;
 }
 
 # Method: tableName
@@ -1796,7 +1766,7 @@ sub directory
 {
     my ($self) = @_;
 
-    return $self->{'gconfdir'};
+    return $self->{'confdir'};
 }
 
 
@@ -1818,7 +1788,7 @@ sub menuNamespace
         # This is autogenerated menuNamespace got from the model
         # domain and the table name
         my $menuNamespace = $self->modelDomain() . '/View/' . $self->tableName();
-        if ( $self->index() ) {
+        if ($self->index()) {
             return $menuNamespace . '/' . $self->index();
         } else {
             return $menuNamespace;
@@ -1841,7 +1811,7 @@ sub order
 {
     my ($self) = @_;
 
-    return $self->{'gconfmodule'}->get_list( $self->{'order'} );
+    return $self->{'confmodule'}->get_list( $self->{'order'} );
 }
 
 # Method: insertPosition
@@ -2651,6 +2621,7 @@ sub Viewer
 sub modalViewer
 {
     my ($self, $showTable) = @_;
+
     if ($showTable) {
         return  '/ajax/tableModalView.mas';
     } else {
@@ -2778,18 +2749,17 @@ sub changeViewJS
             $args{isFilter},
             );
 
-    my  $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
+    my $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
 
     my $table = $self->table();
-    return  sprintf ($function,
-            $table->{'actions'}->{'changeView'},
-            $table->{'tableName'},
-            $table->{'gconfdir'},
-            $type,
-            $editId,
-            $page,
-            $isFilter
-            );
+    return sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $type,
+                    $editId,
+                    $page,
+                    $isFilter);
 }
 
 # Method: modalChangeViewJS
@@ -2832,7 +2802,7 @@ sub modalChangeViewJS
     my $js =  sprintf ($function,
             $url,
             $tableId,
-            $table->{'gconfdir'},
+            $table->{'confdir'},
             $actionType,
             $editId,
             $extraParamsJS,
@@ -2840,7 +2810,6 @@ sub modalChangeViewJS
 
     return $js;
 }
-
 
 sub modalCancelAddJS
 {
@@ -2890,7 +2859,7 @@ sub addNewRowJS
             $table->{'actions'}->{'add'},
             $table->{'tableName'},
             $fields,
-            $table->{'gconfdir'},
+            $table->{'confdir'},
             $page);
 }
 
@@ -2912,14 +2881,14 @@ sub modalAddNewRowJS
 
     my $tableId = $table->{'tableName'} . '_modal';
 
-     my $fields = $self->_paramsWithSetterJS();
-     return  sprintf ($function,
-             $url,
-             $tableId,
-             $fields,
-             $table->{'gconfdir'},
-             $nextPage,
-             $extraParamsJS);
+    my $fields = $self->_paramsWithSetterJS();
+    return sprintf ($function,
+                    $url,
+                    $tableId,
+                    $fields,
+                    $table->{'confdir'},
+                    $nextPage,
+                    $extraParamsJS);
 }
 
 
@@ -2955,16 +2924,16 @@ sub changeRowJS
     my $force =0;
     my $extraParamsJS = _paramsToJSON(@extraParams);
     my $fields = $self->_paramsWithSetterJS();
-    return  sprintf ($function,
-            $actionUrl,
-            $tablename,
-            $fields,
-            $table->{'gconfdir'},
-            $editId,
-            $page,
-            $force,
-            $modalResize,
-            $extraParamsJS);
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $fields,
+                    $table->{'confdir'},
+                    $editId,
+                    $page,
+                    $force,
+                    $modalResize,
+                    $extraParamsJS);
 }
 
 sub _paramsToJSON
@@ -3027,15 +2996,15 @@ sub actionClickedJS
     my $extraParamsJS =  _paramsToJSON(@extraParams);
 
     my $fields = $self->_paramsWithSetterJS();
-    return  sprintf ($function,
-            $actionUrl,
-            $tablename,
-            $action,
-            $editId,
-            $direction,
-            $table->{'gconfdir'},
-            $page,
-            $extraParamsJS);
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $action,
+                    $editId,
+                    $direction,
+                    $table->{'confdir'},
+                    $page,
+                    $extraParamsJS);
 }
 
 sub actionHandlerUrl
@@ -3068,14 +3037,14 @@ sub customActionClickedJS
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
     $page = 0 unless $page;
-    return  sprintf ($function,
-            $action,
-            $self->actionHandlerUrl(),
-            $table->{'tableName'},
-            $fields,
-            $table->{'gconfdir'},
-            $id,
-            $page);
+    return sprintf ($function,
+                    $action,
+                    $self->actionHandlerUrl(),
+                    $table->{'tableName'},
+                    $fields,
+                    $table->{'confdir'},
+                    $id,
+                    $page);
 }
 
 # Method: backupFiles
@@ -3099,7 +3068,6 @@ sub backupFiles
     }
 }
 
-
 # Method: restoreFiles
 #
 #  Restores the actual configuration backup of files, thus discarding last
@@ -3112,7 +3080,6 @@ sub restoreFiles
     # XXX Disable restoreFiles as this is messing with the directories
     # and making eBox fail
     return;
-
 
     $self->_hasFileFields() or
         return;
@@ -3171,7 +3138,7 @@ sub _prepareRow
     my ($self) = @_;
 
     my $row = EBox::Model::Row->new(dir => $self->directory(),
-            gconfmodule => $self->{gconfmodule});
+                                    confmodule => $self->{confmodule});
     $row->setModel($self);
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $data = $type->clone();
@@ -3232,6 +3199,7 @@ sub _setDefaultMessages
         }
     }
 }
+
 # Method: _setCustomMessages
 #
 #      Set the custom messages based on possibel custom actions
@@ -3239,6 +3207,7 @@ sub _setDefaultMessages
 sub _setCustomMessages
 {
     my ($self, $actions, $id) = @_;
+
     my $table = $self->{'table'};
     $table->{'messages'} = {} unless ( $table->{'messages'} );
 
@@ -3252,7 +3221,7 @@ sub _setCustomMessages
 # Method: _volatile
 #
 #       Check if this model is volatile. That is, the data is not
-#       stored in GConf but it is done by the storer and restored by
+#       stored in disk but it is done by the storer and restored by
 #       the acquirer. Every type must be volatile in order to have a
 #       model as volatile
 #
@@ -3306,7 +3275,7 @@ sub _find
     unless (defined ($fieldName)) {
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
-    my $conf = $self->{gconfmodule};
+    my $conf = $self->{confmodule};
 
     $kind = 'value' unless defined ($kind);
 
@@ -3410,8 +3379,7 @@ sub _checkAllFieldsExist
     foreach my $field (@{$types}) {
 
         unless ($field->paramExist($params)) {
-            throw
-                Exceptions::MissingArgument($field->printableName());
+            throw Exceptions::MissingArgument($field->printableName());
         }
     }
 }
@@ -3487,11 +3455,11 @@ sub _newId
     $leadingText = substr($leadingText, 0, length($leadingText) / 2);
 
     my $id = 1;
-    my $maxId = $self->{gconfmodule}->get_string("$model/max_id");
+    my $maxId = $self->{confmodule}->get_string("$model/max_id");
     if ($maxId) {
         $id = $maxId + 1;
     }
-    $self->{gconfmodule}->set_string("$model/max_id", $id);
+    $self->{confmodule}->set_string("$model/max_id", $id);
 
     return $leadingText . $id;
 }
@@ -3502,9 +3470,9 @@ sub _insertPos #(id, position)
 {
     my ($self, $id, $pos) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
-    my @order = @{$gconfmod->get_list($self->{'order'})};
+    my @order = @{$confmod->get_list($self->{'order'})};
 
     if (@order == 0) {
         push (@order, $id);
@@ -3516,31 +3484,31 @@ sub _insertPos #(id, position)
         splice (@order, $pos, 1, ($id, $order[$pos]));
     }
 
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
+    $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 sub _swapPos
 {
     my ($self, $posA, $posB ) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
-    my @order = @{$gconfmod->get_list($self->{'order'})};
+    my $confmod = $self->{'confmodule'};
+    my @order = @{$confmod->get_list($self->{'order'})};
 
     my $temp = $order[$posA];
     $order[$posA] =  $order[$posB];
     $order[$posB] = $temp;
 
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
+    $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 sub _orderHash
 {
     my $self = shift;
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};
+        my @order = @{$confmod->get_list($self->{'order'})};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -3564,31 +3532,16 @@ sub _rowOrder
     return $order{$id};
 }
 
-# Method: _notifyModelManager
+# Method: _notifyManager
 #
 #     Notify to the model manager that an action has been performed on
 #     this model
 #
-sub _notifyModelManager
+sub _notifyManager
 {
     my ($self, $action, $row) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
-    my $modelName = $self->modelName();
-
-    return $manager->modelActionTaken($modelName, $action, $row);
-}
-
-# Method: _nofityCompositeManager
-#
-#     Notify to the composite manager that an action has been performed on
-#     this model
-#
-sub _notifyCompositeManager
-{
-    my ($self, $action, $row) = @_;
-
-    my $manager = EBox::Model::CompositeManager->Instance();
+    my $manager = EBox::Model::Manager->instance();
     my $modelName = $self->modelName();
 
     return $manager->modelActionTaken($modelName, $action, $row);
@@ -3845,7 +3798,7 @@ sub _autoloadGet
     # It will possibly launch an internal exception
     $self->_checkMethodSignature( 'get', $methodName, $paramsRef);
 
-    if ( $self->_actionAppliedToModel( 'get', $methodName) ) {
+    if ($self->_actionAppliedToModel( 'get', $methodName)) {
         # Get the identifier
         my $getId = $self->_autoloadGetId($self, $paramsRef);
         # Simple del (del a row to a model)
@@ -3950,7 +3903,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
             $newMethodName =~ s/To$tableNameInModel$//;
             my $foreignModelName =
                 $self->fieldHeader($subModelInMethod)->foreignModel();
-            my $manager = EBox::Model::ModelManager->instance();
+            my $manager = EBox::Model::Manager->instance();
             my $foreignModel = $manager->model($foreignModelName);
             # In order to decrease the number of calls
             if ( scalar ( @modelNames ) > 2 ) {
@@ -4124,7 +4077,7 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
     my $userField = $hasManyField->clone();
     my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
     my $foreignModelName = $userField->foreignModel();
-    my $submodel = EBox::Model::ModelManager->instance()->model(
+    my $submodel = EBox::Model::Manager->instance()->model(
             $foreignModelName
             );
     $submodel->setDirectory($directory);
@@ -4168,7 +4121,7 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
     my $userField = $hasManyField->clone();
     my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
     my $foreignModelName = $userField->foreignModel();
-    my $submodel = EBox::Model::ModelManager->instance()->model(
+    my $submodel = EBox::Model::Manager->instance()->model(
             $foreignModelName
             );
     $submodel->setDirectory($directory);
@@ -4222,7 +4175,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
         shift ( @{$paramsRef} );
         my $directory = $model->directory() . "/keys/$id/$subModelField";
         my $foreignModelName = $userField->foreignModel();
-        $model = EBox::Model::ModelManager->instance()->model(
+        $model = EBox::Model::Manager->instance()->model(
                 $foreignModelName,
                 );
         $model->setDirectory($directory);
@@ -4416,7 +4369,7 @@ sub _filterFields
     }
 
     my $newRow = EBox::Model::Row->new(dir => $row->dir(),
-                                       gconfmodule => $row->GConfModule());
+                                       confmodule => $row->configModule());
     $newRow->setId($row->id());
     $newRow->setOrder($row->order());
 
@@ -4476,6 +4429,7 @@ sub _setIfVolatile
 sub _parse_words
 {
     my ($str) = @_;
+
     my @w = ();
     if(defined($str)) {
         Encode::_utf8_on($str);
@@ -4523,7 +4477,7 @@ sub filesPaths
         return [];
 
     my @files = map {
-        @{ $self->row($_)->filesPaths()  }
+        @{ $self->row($_)->filesPaths() }
     } @{ $self->ids() };
 
     return \@files;

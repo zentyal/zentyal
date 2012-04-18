@@ -1363,7 +1363,7 @@ sub _revokeRestore
         my $restmod = EBox::Global->modInstance($restname);
         try {
             $restmod->revokeConfig();
-            # XXX remember no-gconf changes are not revoked!
+            # XXX remember non-redis changes are not revoked!
             EBox::debug("Revoked changes in $restname module");
         }
         otherwise {

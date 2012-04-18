@@ -198,7 +198,7 @@ sub storeAndRestoreGConfTest
         };
 
         lives_ok {
-            $instance->storeInGConf($mod, $dir);
+            $instance->storeInConfig($mod, $dir);
         } "storing in GConf $class with value $value";
 
 

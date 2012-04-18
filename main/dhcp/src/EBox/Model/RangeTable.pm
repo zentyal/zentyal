@@ -29,7 +29,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
 
@@ -120,7 +120,7 @@ sub validateTypedRow
                                                 ));
         }
         # Check the range is within the available range
-        my $dhcp = $self->{gconfmodule};
+        my $dhcp = $self->{confmodule};
         my $net  = EBox::Global->modInstance('network');
         my $availableRange = new Net::IP( $dhcp->initRange($self->{interface}) . '-'
                                           . $dhcp->endRange($self->{interface}));
@@ -171,7 +171,7 @@ sub validateTypedRow
         }
 
         # Check fixed addresses
-        my $fixedAddresses = $self->{gconfmodule}->fixedAddresses($self->index(), 0);
+        my $fixedAddresses = $self->{confmodule}->fixedAddresses($self->index(), 0);
         foreach my $fixedAddr (@{$fixedAddresses}) {
             my $fixedIP = new Net::IP($fixedAddr->{ip});
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {

@@ -30,7 +30,7 @@ use strict;
 use Clone;
 
 use EBox::Validate qw( checkCIDR );
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 use Perl6::Junction qw( any );
 
@@ -584,7 +584,7 @@ sub _setAddress
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
             } elsif ($member->{type} eq 'iprange') {
                 my $range = $member->{begin} . '-' . $member->{end};
-                push (@{$self->{$addressType}}, ' -m iprange ' . $inverse . $rangeFlag .  $range);                
+                push (@{$self->{$addressType}}, ' -m iprange ' . $inverse . $rangeFlag .  $range);
             }
 
         }

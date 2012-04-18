@@ -39,7 +39,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Subscription;
@@ -136,23 +136,23 @@ sub setTypedRow
                 $self->{returnedMsg} = __('Subscription data retrieved correctly.');
             }
             $self->{returnedMsg} .= ' ' . __('Please, save changes');
-            $self->{gconfmodule}->st_set_bool('just_subscribed', 1);
+            $self->{confmodule}->st_set_bool('just_subscribed', 1);
         }
     }
     # Call the parent method to store data in our conf storage
     $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 
     # Mark RemoteServices module as changed
-    $self->{gconfmodule}->setAsChanged();
+    $self->{confmodule}->setAsChanged();
 
-    $self->{gconfmodule}->st_set_bool('subscribed', not $subs);
+    $self->{confmodule}->st_set_bool('subscribed', not $subs);
 
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
     $self->_manageSquid(not $subs);
 
-    my $modManager = EBox::Model::ModelManager->instance();
+    my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
     # Mark the apache module as changed as well
@@ -193,7 +193,7 @@ sub eBoxSubscribed
 {
     my ($self) = @_;
 
-    my $subs = $self->{gconfmodule}->st_get_bool('subscribed');
+    my $subs = $self->{confmodule}->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
 }
@@ -222,7 +222,7 @@ sub unsubscribe
         # unsubscribing if Zentyal is subscribed
         $row->store();
         # clear cache
-        $self->{gconfmodule}->clearCache();
+        $self->{confmodule}->clearCache();
 
         return 1;
     } else {
@@ -245,7 +245,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    if ( $self->{gconfmodule}->subscriptionLevel() < 1) {
+    if ( $self->{confmodule}->subscriptionLevel() < 1) {
         $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
     }
     return $customizer;
@@ -349,16 +349,16 @@ sub _table
                              printableName => __('User Name or Email Address'),
                              editable      => (not $self->eBoxSubscribed()),
                              volatile      => 1,
-                             acquirer      => \&_acquireFromGConfState,
-                             storer        => \&_storeInGConfState,
+                             acquirer      => \&_acquireFromState,
+                             storer        => \&_storeInConfigState,
                              ),
        new EBox::RemoteServices::Types::EBoxCommonName(
                              fieldName      => 'eboxCommonName',
                              printableName  => __('Server Name'),
                              editable       => (not $self->eBoxSubscribed()),
                              volatile       => 1,
-                             acquirer       => \&_acquireFromGConfState,
-                             storer         => \&_storeInGConfState,
+                             acquirer       => \&_acquireFromState,
+                             storer         => \&_storeInConfigState,
                              help           => __('Choose a name for your server which is '
                                                   . 'a valid subdomain name'),
                              defaultValue   => $hostname,
@@ -404,14 +404,14 @@ sub _emptyFunc
 }
 
 # Only applicable to text types
-sub _acquireFromGConfState
+sub _acquireFromState
 {
     my ($type) = @_;
 
     my $model    = $type->model();
-    my $gconfmod = EBox::Global->modInstance('remoteservices');
+    my $confmod = EBox::Global->modInstance('remoteservices');
     my $keyField = $model->name() . '/' . $type->fieldName();
-    my $value    = $gconfmod->st_get_string($keyField);
+    my $value    = $confmod->st_get_string($keyField);
     if ( defined($value) and ($value ne '') ) {
         return $value;
     }
@@ -420,16 +420,16 @@ sub _acquireFromGConfState
 
 }
 
-# Only applicable to text types, whose value is store in GConf state
-sub _storeInGConfState
+# Only applicable to text types, whose value is store in state config
+sub _storeInConfigState
 {
-    my ($type, $gconfModule, $directory) = @_;
+    my ($type, $confModule, $directory) = @_;
 
     my $keyField = "$directory/" . $type->fieldName();
     if ( $type->memValue() ) {
-        $gconfModule->st_set_string($keyField, $type->memValue());
+        $confModule->st_set_string($keyField, $type->memValue());
     } else {
-        $gconfModule->st_unset($keyField);
+        $confModule->st_unset($keyField);
     }
 }
 

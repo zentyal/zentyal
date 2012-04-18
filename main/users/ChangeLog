@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to new Model management framework
 	+ Adapted Password type to new framework
 2.3.7
 	+ New modifications() method to allow retrieving modifications made to

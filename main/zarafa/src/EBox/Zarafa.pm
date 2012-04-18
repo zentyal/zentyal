@@ -20,9 +20,7 @@ use warnings;
 
 use feature qw(switch);
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule
-            );
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -240,38 +238,6 @@ sub _serviceRules
               'destinationPorts' => [ 236, 8080, 8443 ],
               'rules' => { 'external' => 'deny', 'internal' => 'accept' },
              },
-    ];
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-        'EBox::Zarafa::Model::VMailDomain',
-        'EBox::Zarafa::Model::GeneralSettings',
-        'EBox::Zarafa::Model::Gateways',
-        'EBox::Zarafa::Model::Quota',
-        'EBox::Zarafa::Model::ZarafaUser',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::Zarafa::Composite::General',
     ];
 }
 

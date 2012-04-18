@@ -92,7 +92,7 @@ sub _content
 sub _getStorageUsage
 {
     my ($self) = @_;
-    my $ebackup = $self->{gconfmodule};
+    my $ebackup = $self->{confmodule};
     delete $self->{storage};
     my $badConnection;
 

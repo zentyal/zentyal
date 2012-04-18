@@ -29,7 +29,6 @@ use warnings;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelProvider;
 use EBox::NetWrappers;
 use EBox::Types::Text;
 use EBox::Types::Select;
@@ -109,7 +108,7 @@ sub validateTypedRow
     # if ( exists ( $changedFields->{ip} )) {
     #     my $newIP = new Net::IP($changedFields->{ip}->value());
     #     my $net = EBox::Global->modInstance('network');
-    #     my $dhcp = $self->{gconfmodule};
+    #     my $dhcp = $self->{confmodule};
     #     my $netIP = new Net::IP( $dhcp->initRange($self->{interface}) . '-'
     #                              . $dhcp->endRange($self->{interface}));
     #     # Check if the ip address is within the network
@@ -134,7 +133,7 @@ sub validateTypedRow
     #     # Check the new IP is not within any given range by RangeTable model
     #     # FIXME: When #847 is done
     #     # my $rangeModel = $dhcp->model('RangeTable');
-    #     my $rangeModel = EBox::Model::ModelManager->instance()->model('/dhcp/RangeTable/'
+    #     my $rangeModel = EBox::Model::Manager->instance()->model('/dhcp/RangeTable/'
     #                                                                   . $self->{interface});
     #     foreach my $id (@{$rangeModel->ids()}) {
     #         my $rangeRow = $rangeModel->row($id);
@@ -154,7 +153,7 @@ sub validateTypedRow
     #     my $newName = $changedFields->{name}->value();
     #     # Check remainder FixedAddressTable models uniqueness since
     #     # the dhcpd.conf may confuse those name repetition
-    #     my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model(
+    #     my @fixedAddressTables = @{EBox::Model::Manager->instance()->model(
     #          '/dhcp/FixedAddressTable/*'
     #                                                                          )};
     #     # Delete the self model

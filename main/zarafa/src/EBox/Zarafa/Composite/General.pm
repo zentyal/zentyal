@@ -54,24 +54,14 @@ sub new
 #
 sub _description
 {
-
-    my $wsMod = EBox::Global->modInstance('zarafa');
-
-    my $description =
-      {
-       components      => [
-                           '/' . $wsMod->name() . '/VMailDomain',
-                           '/' . $wsMod->name() . '/GeneralSettings',
-                           '/' . $wsMod->name() . '/Gateways',
-                           '/' . $wsMod->name() . '/Quota',
-                          ],
+    my $description = {
        layout          => 'top-bottom',
        name            => 'General',
        printableName   => __('Configuration'),
        pageTitle       => __('Groupware (Zarafa)'),
        compositeDomain => 'Zarafa',
        help            => __('You can access the Zarafa web interface at http://zentyal_ip/webaccess and the mobile version at http://zentyal_ip/webaccess-mobile.'),
-      };
+    };
 
     return $description;
 }

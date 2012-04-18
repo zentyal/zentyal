@@ -19,8 +19,6 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::FirewallObserver
             EBox::LogObserver
             EBox::LogHelper);
@@ -49,23 +47,6 @@ sub _create
     bless($self, $class);
     return $self;
 }
-
-sub modelClasses
-{
-    return [
-        'EBox::BWMonitor::Model::Interfaces',
-        'EBox::BWMonitor::Model::UserIPMap',  # FIXME? this should reside in state
-        'EBox::BWMonitor::Model::BWUsage',
-    ];
-}
-
-sub compositeClasses
-{
-    return [
-        'EBox::BWMonitor::Composite::General',
-    ];
-}
-
 
 # Method: menu
 #

@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to new Model management framework
 	+ Reimplement OutputRules FIXME
 	+ Remove obsolete localredirects methods
 	+ Remove obsolete import of EBox::Order

@@ -30,7 +30,7 @@ use warnings;
 use strict;
 
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 use EBox::NetWrappers;
 

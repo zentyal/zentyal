@@ -26,9 +26,6 @@ use EBox::Exceptions::MissingArgument;
 
 use constant DEFAULT_INDEX => '';
 
-
-
-
 # Method: providedInstances
 #
 #
@@ -37,20 +34,21 @@ use constant DEFAULT_INDEX => '';
 #
 #   Returns:
 #        all the instances of provided classes of the given type
+#
 sub providedInstances
 {
-  my ($self, $type) = @_;
+    my ($self, $type) = @_;
 
-  if (not exists $self->{$type}) {
-    $self->_populate($type);
-  }
+    if (not exists $self->{$type}) {
+        $self->_populate($type);
+    }
 
-  my @instances;
-  foreach my $instancesByIndex (  values %{  $self->{$type}  } ) {
-    push @instances, values %{ $instancesByIndex };
-  }
+    my @instances;
+    foreach my $instancesByIndex (  values %{  $self->{$type}  } ) {
+        push @instances, values %{ $instancesByIndex };
+    }
 
-  return \@instances;
+    return \@instances;
 }
 
 # Method: providedInstance
@@ -61,103 +59,99 @@ sub providedInstances
 #
 #  Returns:
 #      the instance found at the path
+#
 sub providedInstance
 {
-  my ($self, $type, $path) = @_;
-  $path or throw EBox::Exceptions::MissingArgument('path');
-  $type or throw EBox::Exceptions::MissingArgument('type');
+    my ($self, $type, $path) = @_;
+    $path or throw EBox::Exceptions::MissingArgument('path');
+    $type or throw EBox::Exceptions::MissingArgument('type');
 
-  $self->_assureTypeIsPopulated($type);
+    $self->_assureTypeIsPopulated($type);
 
-  my ($name, $index) = $self->decodePath($path);
+    my ($name, $index) = $self->decodePath($path);
 
-  defined $index or
-    $index = DEFAULT_INDEX;
+    defined $index or
+        $index = DEFAULT_INDEX;
 
-  if (not (exists $self->{$type}->{$name}->{$index}) ) {
-    my $prIndex = ($index eq DEFAULT_INDEX) ? '[DEFAULT INDEX]' : $index;
-    throw EBox::Exceptions::Internal("No object called $name with index $prIndex found in this module");
-  }
+    if (not (exists $self->{$type}->{$name}->{$index}) ) {
+        my $prIndex = ($index eq DEFAULT_INDEX) ? '[DEFAULT INDEX]' : $index;
+        throw EBox::Exceptions::Internal("No object called $name with index $prIndex found in this module");
+    }
 
-  return  $self->{$type}->{$name}->{$index};
+    return  $self->{$type}->{$name}->{$index};
 }
 
 
 sub _assureTypeIsPopulated
 {
-  my ($self, $type) = @_;
-  if (not exists $self->{$type}) {
-    $self->_populate($type);
-  }
+    my ($self, $type) = @_;
+
+    if (not exists $self->{$type}) {
+        $self->_populate($type);
+    }
 }
 
 sub _populate
 {
-  my ($self, $type) = @_;
+    my ($self, $type) = @_;
 
-  my @classes = @{  $self->_providedClasses($type) };
+    my @classes = @{ $self->_providedClasses($type) };
 
-  $self->{$type} = {};
+    $self->{$type} = {};
 
-  my $defaultIndex = DEFAULT_INDEX;
+    my $defaultIndex = DEFAULT_INDEX;
 
-  foreach my $classSpec (@classes) {
-    my $class;
-    my @constructionParams;
-    my $multiple;
+    foreach my $classSpec (@classes) {
+        my $class;
+        my @constructionParams;
+        my $multiple;
 
-    my $refType = ref $classSpec;
-    if (not $refType) {
-      $class = $classSpec;
+        my $refType = ref $classSpec;
+        if (not $refType) {
+            $class = $classSpec;
+        }
+        elsif ($refType eq 'HASH') {
+            exists $classSpec->{class} or
+                throw EBox::Exceptions::Internal('Missing class field in provided class specification');
+            $multiple = $classSpec->{multiple};
+
+            $class = $classSpec->{class};
+
+            if (exists $classSpec->{parameters}) {
+                @constructionParams = @{ $classSpec->{parameters} };
+            }
+
+            if (@constructionParams and $multiple) {
+                throw EBox::Exceptions::External('A provided class with has multiple instances cannot have construction parameters specified');
+            }
+        }
+        else {
+            throw EBox::Exceptions::Internal("Bad reference type in _providedClasses: $refType")
+        }
+
+        # load class
+        eval "use $class";
+        if ($@) {
+            throw EBox::Exceptions::Internal("Error loading provided class $class: $@");
+        }
+
+        if (not $multiple) {
+            my $name =   $class->nameFromClass(); # XXX change to $class->name when possible
+            # Set name from directory if exists
+            my %constructionParams = @constructionParams;
+            $name = $constructionParams{directory} if exists ($constructionParams{directory});
+            push @constructionParams, (name => $name);
+
+            # construct instance
+            my $instance =  $self->_newInstance($type, $class, @constructionParams);
+
+            $name = $instance->name(); # XXX remove when nameFromClass its changed to name
+
+            $self->{$type}->{$name} =  {
+                $defaultIndex =>  $instance,
+            };
+        }
     }
-    elsif ($refType eq 'HASH') {
-      exists $classSpec->{class} or
-	throw EBox::Exceptions::Internal('Missing class field in provided class specification');
-      $multiple = $classSpec->{multiple};
-
-      $class = $classSpec->{class};
-
-      if (exists $classSpec->{parameters}) {
-	@constructionParams = @{ $classSpec->{parameters} };
-      }
-
-
-      if (@constructionParams and $multiple) {
-	throw EBox::Exceptions::External('A provided class with has multiple instances cannot have construction parameters specified'
-					);
-      }
-    }
-    else {
-      throw EBox::Exceptions::Internal("Bad reference type in _providedClasses: $refType")
-    }
-
-    # load class
-    eval "use $class";
-    if ($@) {
-      throw EBox::Exceptions::Internal("Error loading provided class $class: $@");
-    }
-
-    if (not $multiple) {
-      my $name =   $class->nameFromClass(); # XXX change to $class->name when possible
-      # Set name from directory if exists
-      my %constructionParams = @constructionParams;
-      $name = $constructionParams{directory} if exists ($constructionParams{directory});
-      push @constructionParams, (name => $name);
-
-      # construct instance
-      my $instance =  $self->_newInstance($type, $class, @constructionParams);
-
-      $name = $instance->name(); # XXX remove when nameFromClass its changed to
-                                 # name
-
-      $self->{$type}->{$name} =  {
-				  $defaultIndex =>  $instance,
-				 };
-
-    }
-
-  }
-
 }
 
 
@@ -170,24 +164,20 @@ sub _populate
 #
 #   Returns:
 #      wether the provided class can support multiple instances or not
+#
 sub providedClassIsMultiple
 {
-  my ($self, $type, $provided) = @_;
+    my ($self, $type, $provided) = @_;
 
-  $self->_assureTypeIsPopulated($type);
+    $self->_assureTypeIsPopulated($type);
 
-  my $defaultIndex = DEFAULT_INDEX;
-  if (  exists $self->{$type}->{$provided}->{$defaultIndex} ) {
-    return 0;
-  }
-  else {
-    return 1;
-  }
-
+    my $defaultIndex = DEFAULT_INDEX;
+    if (  exists $self->{$type}->{$provided}->{$defaultIndex} ) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
-
-
-
 
 #  Method: addInstance
 #
@@ -197,23 +187,22 @@ sub providedClassIsMultiple
 #  Parameters:
 #     type - type of provided classes
 #     path - path to the instance. It must contain the index to identifiy the instance
-#    instance - instance to add
-
+#     instance - instance to add
+#
 sub addInstance
 {
-  my ($self, $type, $path, $instance) = @_;
-  $instance or throw EBox::Exceptions::MissingArgument('instance');
-  $path or throw EBox::Exceptions::MissingArgument('path');
-  $type or throw EBox::Exceptions::MissingArgument('type');
+    my ($self, $type, $path, $instance) = @_;
+    $instance or throw EBox::Exceptions::MissingArgument('instance');
+    $path or throw EBox::Exceptions::MissingArgument('path');
+    $type or throw EBox::Exceptions::MissingArgument('type');
 
-  $self->_assureTypeIsPopulated($type);
+    $self->_assureTypeIsPopulated($type);
 
-  my ($providedName, $index) = $self->decodePath($path);
+    my ($providedName, $index) = $self->decodePath($path);
 
-  $self->_checkIsMultiple($type, $providedName, $index);
+    $self->_checkIsMultiple($type, $providedName, $index);
 
-
-  $self->{$type}->{$providedName}->{$index} = $instance;
+    $self->{$type}->{$providedName}->{$index} = $instance;
 }
 
 #  Method: removeInstance
@@ -228,27 +217,22 @@ sub addInstance
 
 sub removeInstance
 {
-  my ($self, $type, $path) = @_;
-  $path or throw EBox::Exceptions::MissingArgument('path');
-  $type or throw EBox::Exceptions::MissingArgument('type');
+    my ($self, $type, $path) = @_;
+    $path or throw EBox::Exceptions::MissingArgument('path');
+    $type or throw EBox::Exceptions::MissingArgument('type');
 
-  $self->_assureTypeIsPopulated($type);
+    $self->_assureTypeIsPopulated($type);
 
-  my ($providedName, $index) = $self->decodePath($path);
+    my ($providedName, $index) = $self->decodePath($path);
 
-  $self->_checkIsMultiple($type, $providedName, $index);
+    $self->_checkIsMultiple($type, $providedName, $index);
 
-  if (exists $self->{$type}->{$providedName}->{$index}) {
-    delete $self->{$type}->{$providedName}->{$index};
-  }
-  else {
-    throw EBox::Exceptions::External(__x(
-					'Provided object with index {i} does not exist',
-					i => $index,
-
-				       )
-				   );
-  }
+    if (exists $self->{$type}->{$providedName}->{$index}) {
+        delete $self->{$type}->{$providedName}->{$index};
+    } else {
+        throw EBox::Exceptions::External(__x('Provided object with index {i} does not exist',
+                                             i => $index));
+    }
 }
 
 #  Method: removeAllInstances
@@ -261,37 +245,35 @@ sub removeInstance
 #
 sub removeAllInstances
 {
-  my ($self, $type, $providedName) = @_;
-  $providedName or throw EBox::Exceptions::MissingArgument('providedName');
-  $type or throw EBox::Exceptions::MissingArgument('type');
+    my ($self, $type, $providedName) = @_;
+    $providedName or throw EBox::Exceptions::MissingArgument('providedName');
+    $type or throw EBox::Exceptions::MissingArgument('type');
 
-  $self->_assureTypeIsPopulated($type);
+    $self->_assureTypeIsPopulated($type);
 
-  if (not $self->providedClassIsMultiple($type, $providedName)) {
-    throw EBox::Exceptions::Internal("$providedName cannot have multiple instances")
-  }
+    if (not $self->providedClassIsMultiple($type, $providedName)) {
+        throw EBox::Exceptions::Internal("$providedName cannot have multiple instances")
+    }
 
-  $self->{$type}->{$providedName} = {};
+    $self->{$type}->{$providedName} = {};
 }
 
 
 sub _checkIsMultiple
 {
-  my ($self, $type, $provided, $index) = @_;
+    my ($self, $type, $provided, $index) = @_;
 
-  $self->_assureTypeIsPopulated($type);
+    $self->_assureTypeIsPopulated($type);
 
-  if (not $self->providedClassIsMultiple($type, $provided)) {
-    throw EBox::Exceptions::Internal(
-		"$provided cannot have multiple instances of itself"
-				    );
-  }
+    if (not $self->providedClassIsMultiple($type, $provided)) {
+        throw EBox::Exceptions::Internal("$provided cannot have multiple instances of itself");
+    }
 
-  if ($index eq DEFAULT_INDEX) {
-    thriw EBox::Exceptions::Internal('Invalid index for a multiple instance')
-  }
+    if ($index eq DEFAULT_INDEX) {
+        throw EBox::Exceptions::Internal('Invalid index for a multiple instance')
+    }
 
-  return 1;
+    return 1;
 }
 
 
@@ -307,57 +289,54 @@ sub _checkIsMultiple
 
 sub decodePath
 {
-  my ($self, $path) = @_;
-  $path or
-    throw EBox::Exceptions::MissingArgument('path');
+    my ($self, $path) = @_;
+    $path or
+        throw EBox::Exceptions::MissingArgument('path');
 
+    my $moduleName = $self->name();
+    my $leadingModuleNameRe = "^$moduleName/+";
+    $path =~ s{^/+}{};  # remove slash at the begin
+        $path =~ s{$leadingModuleNameRe}{};
 
+    my ($provided, $index) = split '/', $path, 2;;
 
-  my $moduleName = $self->name();
-  my $leadingModuleNameRe = "^$moduleName/+";
-  $path =~ s{^/+}{};  # remove slash at the begin
-  $path =~ s{$leadingModuleNameRe}{};
+    if (not defined $index) {
+        $index = DEFAULT_INDEX;
+    }
 
-  my ($provided, $index) = split '/', $path, 2;;
+    $provided =~ s{/+$}{};
+    $index =~ s{/+$}{};
 
-  if (not defined $index) {
-    $index = DEFAULT_INDEX;
-  }
-
-  $provided =~ s{/+$}{};
-  $index =~ s{/+$}{};
-
-  return wantarray ? ($provided, $index) : {name => $provided, index => $index};
+    return wantarray ? ($provided, $index) : {name => $provided, index => $index};
 }
-
 
 # this must be overriden by the provider classes itselves
 sub _newInstance
 {
-  my ($self, $type, $class, @params) = @_;
-  my $methodName = 'new' . ucfirst $type . 'Instance';
-  if (not $self->can($methodName)) {
-    throw EBox::Exceptions::NotImplemented($methodName);
-  }
+    my ($self, $type, $class, @params) = @_;
 
-  $self->$methodName($class, @params)
+    my $methodName = 'new' . ucfirst $type . 'Instance';
+    if (not $self->can($methodName)) {
+        throw EBox::Exceptions::NotImplemented($methodName);
+    }
+
+    $self->$methodName($class, @params)
 }
-
-
-
 
 sub _providedClasses
 {
-  my ($self, $type) = @_;
-  my $methodName =  $type . 'Classes';
-  if (not $self->can($methodName)) {
-    throw EBox::Exceptions::NotImplemented($methodName);
-  }
+    my ($self, $type) = @_;
 
-  return $self->$methodName();
-
+    my $methodName =  $type . 's';
+    my $global = EBox::Global->getInstance();
+    #FIXME my $mainClass = $global->_className($self->{name});
+    my $mainClass = 'EBox::' . ucfirst($self->{name});
+    unless ($self->can($methodName)) {
+        throw EBox::Exceptions::Internal("Method $methodName not implemented in $mainClass");
+    }
+    my @classes = @{$self->$methodName()};
+    @classes = map { $mainClass . '::' . $_ } @classes;
+    return \@classes;
 }
 
-
 1;
-

@@ -310,7 +310,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{gconfmodule}->composite('VMSettings');
+    my $composite  = $self->{confmodule}->composite('VMSettings');
     $self->setParentComposite($composite);
 
     $customizer->setModel($self);

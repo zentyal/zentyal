@@ -18,9 +18,7 @@ package EBox::Logs;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -154,37 +152,6 @@ sub cleanup
 {
     my ($self) = @_;
     $self->SUPER::revokeConfig();
-}
-
-#       Module API
-sub modelClasses
-{
-    return [
-            {
-             class => 'EBox::Logs::Model::ConfigureLogDataTable',
-             parameters => [
-                            directory => 'configureLogTable',
-                           ],
-            },
-            {
-             class => 'EBox::Logs::Model::ForcePurge',
-             parameters => [
-                            directory => 'forcePurge',
-                           ],
-            },
-            {
-             class => 'EBox::Logs::Model::SelectLog',
-            },
-           ];
-}
-
-
-sub compositeClasses
-{
-    return [
-            'EBox::Logs::Composite::General',
-            'EBox::Logs::Composite::ConfigureLog',
-           ];
 }
 
 # Method: allEnabledLogHelpers
@@ -723,8 +690,6 @@ sub _sqlStmnt
 
     return $stmt, @params;
 }
-
-# Implement GConfModule interface
 
 # Method: menu
 #

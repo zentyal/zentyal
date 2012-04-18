@@ -1,3 +1,10 @@
 class: 'EBox::PPTP'
 enabledepends:
     - network
+
+models:
+    - Config
+    - Users
+
+composites:
+    General: [pptp/Config, pptp/Users]

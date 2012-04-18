@@ -31,7 +31,7 @@ package EBox::Monitor;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Config;
 use EBox::Global;
@@ -87,21 +87,6 @@ sub _create
 }
 
 # Group: Public methods
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return
-      [
-          'EBox::Monitor::Model::MeasureWatchers',
-          'EBox::Monitor::Model::ThresholdConfiguration',
-         ];
-}
 
 # Method: actions
 #

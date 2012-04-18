@@ -122,7 +122,7 @@ sub timePeriod
 {
     my ($self) = @_;
 
-    my $model = $self->{gconfmodule}->{PacketTrafficReportOptions};
+    my $model = $self->{confmodule}->{PacketTrafficReportOptions};
     my $row = $model->row();
 
     return $row->valueByName('timePeriod');

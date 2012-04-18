@@ -47,12 +47,7 @@ sub _description
 {
     my ($self) = @_;
 
-    my @components;
-    push (@components, 'bwmonitor/BWUsage');
-    push (@components, 'bwmonitor/Interfaces');
-
     my $description = {
-        components      => \@components,
         layout          => 'tabbed',
         name            => 'General',
         pageTitle       => __('Bandwidth Monitor'),

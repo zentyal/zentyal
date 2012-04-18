@@ -36,10 +36,7 @@ use strict;
 use warnings;
 
 use base qw(EBox::Module::Service
-            EBox::NetworkObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+            EBox::NetworkObserver);
 
 ######################################
 # Dependencies:
@@ -48,9 +45,9 @@ use base qw(EBox::Module::Service
 use Perl6::Junction qw( any );
 
 use EBox::Gettext;
-
 use EBox::Global;
 use EBox::Validate qw( checkProtocol checkPort );
+use EBox::Model::Manager;
 
 # Used exceptions
 use EBox::Exceptions::InvalidData;
@@ -66,10 +63,6 @@ use EBox::TrafficShaping::TreeBuilder::HTB;
 # Rule model
 use EBox::TrafficShaping::Model::RuleTable;
 use EBox::TrafficShaping::Model::InterfaceRate;
-
-# Model managers
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
 
 # Dependencies
 use Error qw(:try);
@@ -263,15 +256,15 @@ sub _resetInterfacesChains
     }
 }
 
+# FIXME: this is currently not supported
 # Method: models
 #
 # Overrides:
 #
 #       <EBox::Model::ModelProvider::models>
 #
-sub models
+sub modelInstances
 {
-
     my ($self) = @_;
 
     my $netMod = $self->{'network'};
@@ -294,11 +287,10 @@ sub models
         push ( @currentModels, $self->ruleModel($netMod->realIface($iface)));
     }
 
-
     return \@currentModels;
-
 }
 
+# FIXME: this is broken now
 # Method: reloadModelsOnChange
 #
 # Overrides:
@@ -349,21 +341,7 @@ sub _exposedMethods
 
 }
 
-# Method: compositeClasses
-#
-# Overrides:
-#
-#     <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-
-    return [
-            'EBox::TrafficShaping::Composite::DynamicGeneral'
-           ];
-
-}
-
+# FIXME: this is broken now
 # Method: reloadCompositesOnChange
 #
 # Overrides:
@@ -569,7 +547,7 @@ sub checkRule
       $self->_buildRule( $ruleParams{interface}, \%ruleParams, 'test');
     }
 
-    # If it works correctly, the write to gconf is done afterwards by
+    # If it works correctly, the write to conf is done afterwards by
     # TrafficShapingModel
 
     return 1;
@@ -693,7 +671,7 @@ sub ruleModel # (iface)
             # Create the rule model if it's not already created
             $self->{ruleModels}->{$iface}
               = new EBox::TrafficShaping::Model::RuleTable(
-                                                           'gconfmodule' => $self,
+                                                           'confmodule' => $self,
                                                            'directory'   => "$iface/user_rules",
                                                            'tablename'   => 'rule',
                                                            'interface'   => $iface,
@@ -723,7 +701,7 @@ sub interfaceRateModel
     if ( not defined ($self->{rateModel})) {
         $self->{rateModel}
             = new EBox::TrafficShaping::Model::InterfaceRate(
-                gconfmodule => $self,
+                confmodule => $self,
                 directory   => 'InterfaceRate',
                 tablename   => 'InterfaceRate',
         );
@@ -821,7 +799,7 @@ sub ifaceMethodChanged
 sub ifaceMethodChangeDone
 {
     my ($self) = @_;
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     # Mark manager as changed and force a resetup of the
     # models by asking for InterfaceRate
     $manager->markAsChanged();
@@ -872,12 +850,10 @@ sub ifaceExternalChanged # (iface, external)
 #
 sub changeIfaceExternalProperty # (iface, external)
 {
-
     my ($self, $iface, $external) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     $manager->markAsChanged();
-
 }
 
 
@@ -895,15 +871,11 @@ sub changeIfaceExternalProperty # (iface, external)
 #
 sub freeIface # (iface)
 {
-
     my ($self, $iface) = @_;
 
     $self->_deleteIface($iface);
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     $manager->markAsChanged();
-    $manager = EBox::Model::CompositeManager->Instance();
-    $manager->markAsChanged();
-
 }
 
 ###
@@ -1059,7 +1031,7 @@ sub _createRuleModels
     my $ifaces_ref = $self->_realIfaces();
     foreach my $iface (@{$ifaces_ref}) {
       $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
-				    'gconfmodule' => $self,
+				    'confmodule' => $self,
 				    'directory'   => "$iface/user_rules",
 				    'tablename'   => 'rule',
 				    'interface'   => $iface,
@@ -1229,7 +1201,7 @@ sub _createTree # (interface, type)
 
   }
 
-# Build the tree from gconf variables stored.
+# Build the tree from conf variables stored.
 # It assumes rules are correct
 sub _buildGConfRules # (iface, regenConfig)
 {
@@ -1260,7 +1232,7 @@ sub _buildGConfRules # (iface, regenConfig)
         $ruleRef->{priority} = $row->valueByName('priority');
 
         # Rates
-        # Transform from gconf to camelCase and set if they're null
+        # Transform from conf to camelCase and set if they're null
         # since they're optional parameters
         $ruleRef->{guaranteedRate} = $row->valueByName('guaranteed_rate');
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
@@ -1303,7 +1275,7 @@ sub _createBuilders
             # If there's any rule, for now use an HTBTreeBuilder
             $self->_createTree($iface, "HTB", $regenConfig);
 
-            # Build every rule and stores the identifier in gconf to destroy
+            # Build every rule and stores the identifier in conf to destroy
             # them afterwards
             $self->_buildGConfRules($iface, $regenConfig);
         }
@@ -1663,11 +1635,12 @@ sub _removeIfNotEnoughRemainderModels
         $nExt++;
     }
     if ( $nExt == 0 or $nInt == 0 ) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         foreach my $ifaceWithModel ( keys %{$self->{ruleModels}} ) {
             my $model = $self->{ruleModels}->{$ifaceWithModel};
             if ( defined ( $model )) {
                 $model->removeAll(1);
+                # FIXME: this has been deleted, reimplement in a different way
                 $manager->removeModel($model->contextName());
             }
         }

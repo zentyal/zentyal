@@ -85,7 +85,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
     if ( $rs->technicalSupport() < 0 ) {
         $customizer->setPermanentMessage(_message(), 'ad');
     }
@@ -144,7 +144,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
 
     my ($serverName, $subscription, $supportVia, $sla) =
       (__('None'), __('None'),

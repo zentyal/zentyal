@@ -168,7 +168,7 @@ sub _paramIsSet
     # Check if the parameter exist
     my $param =  $params->{$self->fieldName()};
 
-    return defined ( $param ) and ( $param ne '');
+    return defined ($param) and ($param ne '');
 }
 
 1;

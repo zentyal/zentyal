@@ -128,7 +128,7 @@ sub setTypedRow
     my ($self, @params) = @_;
 
     my $global  = EBox::Global->getInstance();
-    my $modName = $self->{gconfmodule}->name();
+    my $modName = $self->{confmodule}->name();
 
     my $alreadyChanged = $global->modIsChanged($modName);
 

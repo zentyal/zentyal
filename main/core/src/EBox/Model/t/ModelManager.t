@@ -30,17 +30,17 @@ use EBox::Test::Model;
 
 BEGIN {
     diag ( 'Starting model manager unit test' );
-    use_ok( 'EBox::Model::ModelManager' );
+    use_ok( 'EBox::Model::Manager' );
 }
 
-my $manager = EBox::Model::ModelManager->instance();
-isa_ok( $manager, 'EBox::Model::ModelManager');
+my $manager = EBox::Model::Manager->instance();
+isa_ok( $manager, 'EBox::Model::Manager');
 
 my $logs = EBox::Global->modInstance('logs');
-my $testMod1 = new EBox::Test::Model( gconfmodule => $logs,
+my $testMod1 = new EBox::Test::Model( confmodule => $logs,
                                       directory   => '1',
                                       runtimeIndex => '1');
-my $testMod2 = new EBox::Test::Model( gconfmodule => $logs,
+my $testMod2 = new EBox::Test::Model( confmodule => $logs,
                                       directory   => '2',
                                       runtimeIndex => '2');
 

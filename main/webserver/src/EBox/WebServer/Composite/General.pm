@@ -57,15 +57,7 @@ sub new
 #
 sub _description
 {
-
-    my $wsMod = EBox::Global->modInstance('webserver');
-
-    my $description =
-      {
-       components      => [
-                           '/' . $wsMod->name() . '/GeneralSettings',
-                           '/' . $wsMod->name() . '/VHostTable',
-                          ],
+    my $description = {
        layout          => 'top-bottom',
        name            => 'General',
        printableName   => __('Configuration'),
@@ -74,7 +66,7 @@ sub _description
        help            => __('The Zentyal webserver allows you ' .
                              'to host HTTP and HTTPS pages ' .
                              'within different virtual hosts.'),
-      };
+    };
 
     return $description;
 }

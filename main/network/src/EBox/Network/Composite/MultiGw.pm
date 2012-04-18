@@ -12,9 +12,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-
 
 package EBox::Network::Composite::MultiGw;
 use base 'EBox::Model::Composite';
@@ -28,18 +28,14 @@ use EBox::Global;
 #
 #         Constructor for the general byte rate composite
 #
-# Returns:
-
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Group: Protected methods
 
@@ -50,26 +46,17 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+       layout          => 'top-bottom',
+       printableName   => __('Balance Traffic'),
+       headTitle       => undef,
+       compositeDomain => 'Network',
+       name            => 'MultiGw',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'MultiGwRulesOptions',
-                             'MultiGwRulesDataTable',
-                            ],
-         layout          => 'top-bottom',
-         printableName   => __('Balance Traffic'),
-         headTitle       => undef,
-         compositeDomain => 'Network',
-         name            => 'MultiGw',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
-
+    return $description;
+}
 
 sub precondition
 {
@@ -80,7 +67,7 @@ sub precondition
 
 sub preconditionFailMsg
 {
-return __('To be able to use this feature you need at least two enabled gateways. You can add them <a href="/Network/View/GatewayTable">here</a> first.');
+    return __('To be able to use this feature you need at least two enabled gateways. You can add them <a href="/Network/View/GatewayTable">here</a> first.');
 }
 
 1;

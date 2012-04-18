@@ -34,7 +34,7 @@ use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::HasMany;
 use EBox::Types::Link;
 use EBox::Types::Text;
@@ -172,7 +172,7 @@ sub syncRows
     }
 
     if ($modified and not $modIsChanged) {
-        $self->{'gconfmodule'}->_saveConfig();
+        $self->{'confmodule'}->_saveConfig();
         EBox::Global->getInstance()->modRestarted('events');
     }
     return $modified;
@@ -507,9 +507,9 @@ sub _checkLogWatchers
 {
     my ($self) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
 
-    my $logWatcherConfModel = $manager->model('/' . $self->{gconfmodule}->name()
+    my $logWatcherConfModel = $manager->model('/' . $self->{confmodule}->name()
                                               . '/LogWatcherConfiguration');
 
     # Find those log watchers that are enabled

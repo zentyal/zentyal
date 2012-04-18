@@ -18,8 +18,7 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Module::Base EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
 use HTML::Entities;
@@ -54,30 +53,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-#   Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [ 'EBox::SysInfo::Model::Halt',
-             'EBox::SysInfo::Model::AdminUser',
-             'EBox::SysInfo::Model::TimeZone',
-             'EBox::SysInfo::Model::DateTime',
-             'EBox::SysInfo::Model::HostName' ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [ 'EBox::SysInfo::Composite::General' ];
 }
 
 # Method: menu

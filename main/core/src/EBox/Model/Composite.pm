@@ -46,8 +46,7 @@ use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Other modules uses
 use Error qw(:try);
@@ -80,14 +79,14 @@ sub new
     my ($class, @params) = @_;
 
     my $self = { @params };
-    bless ( $self, $class );
+    bless ($self, $class);
 
     my $description = $self->_description();
     $self->_setDescription($description);
 
-    # gconfdirectory must not be null
-    if (not exists $self->{gconfdir}) {
-        $self->{gconfdir} = '';
+    # confdirectory must not be null
+    if (not exists $self->{confdir}) {
+        $self->{confdir} = '';
     }
 
     return $self;
@@ -107,183 +106,9 @@ sub components
 {
     my ($self) = @_;
 
-    for (my $idx = 0; $idx < scalar (@{$self->{components}}); $idx++) {
-        my $component = $self->{components}->[$idx];
-        unless (ref ($component)) {
-            my $componentName = $component;
-            $component = $self->_lookupComponent($componentName);
-            unless (defined ($component)) {
-                throw EBox::Exceptions::InvalidData(
-                        data => 'component',
-                        value => $componentName
-                        );
-            }
-            if (ref ($component) eq 'ARRAY') {
-
-                # More than one component to store in
-                my @remainder = ();
-                if ( $idx + 1 <= $#{$self->{components}} ) {
-                    @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
-                    # Remove remainder elements
-                    $self->{components}->[$idx .. $#{$self->{components}}] = ();
-                } else {
-                    pop(@{$self->{components}});
-                }
-                push (@{$self->{components}}, @{$component});
-                push (@{$self->{components}}, @remainder ) if ( @remainder > 0);
-                $idx += scalar(@{$component}) - 1;
-            } else {
-                $self->{components}->[$idx] = $component;
-            }
-        }
-    }
-
-    return $self->{components};
+    # FIXME: return instances instead of names
+    return EBox::Model::Manager->instance()->{composites}->{$self->{name}}->{components};
 }
-
-# Method: addComponent
-#
-#      Add a component to the composite. It must be a class of
-#      <EBox::Model::DataTable> or <EBox::Model::Composite>.
-#
-#      It does not check if the component is already in the
-#      composite.
-#
-# Parameters:
-#
-#      component - an instance of <EBox::Model::DataTable> or
-#      <EBox::Model::Composite> or String the name the component to add.
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::InvalidType> - thrown if any parameter has
-#       not the correct type
-#
-#       <EBox::Exceptions::MissingArgument> -
-#       thrown if any mandatory parameter is missing
-#
-#       <EBox::Exceptions::InvalidData> - thrown if the component name
-#       given is not defined neither at the
-#       <EBox::Model::ModelManager> nor at the <EBox::Model::CompositeManager>
-#
-sub addComponent
-{
-    my ($self, $component) = @_;
-
-    defined ( $component ) or
-      throw EBox::Exceptions::MissingArgument('component');
-
-    # Check if it a string
-    unless ( ref ($component ) ) {
-        # Delay the component instance search because of deep
-        # recursion
-        push ( @{$self->{components}}, $component);
-        return;
-    }
-
-    unless ( $component->isa('EBox::Model::DataTable') or
-             $component->isa('EBox::Model::Composite') ) {
-        throw EBox::Exceptions::InvalidType( $component,
-                                             'EBox::Model::DataTable ' .
-                                             'or EBox::Model::Composite'
-                                           );
-    }
-
-    push ( @{$self->{components}}, $component );
-
-
-    $component->setParentComposite($component);
-
-    return;
-}
-
-# Method: delComponent
-#
-#      Remove a component from a composite.
-#
-# Parameters:
-#
-#      One of the following is possible (Positional parameter):
-#
-#      pos - Int remove the component from position "pos"
-#
-#      component - <EBox::Model::DataTable> or
-#      <EBox::Model::Composite> reference from the one to be deleted
-#
-#      name - String the component name or context name
-#
-# Returns:
-#
-#      <EBox::Model::DataTable> or <EBox::Model::Composite> - the
-#      removed component
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::DataNotFound> - thrown if no component has
-#      been found to be removed
-#
-#      <EBox::Exceptions::InvalidType> - thrown if the parameter has a
-#      wrong type
-#
-sub delComponent
-{
-    my ($self, $searchComp) = @_;
-
-    if ( ref ( $searchComp ) ) {
-        # If it should be a DataTable or SearchComposite reference
-        unless ( $searchComp->isa('EBox::Model::DataTable')
-                 or $searchComp->isa('EBox::Model::Composite')) {
-            throw EBox::Exceptions::InvalidType(
-                   arg  => 'searchComp',
-                   type => 'A EBox::Model::DataTable or '
-                           . 'EBox::Model::Composite reference'
-                                               );
-        }
-        my $components = $self->components();
-        for my $idx (0 .. $#$components) {
-            my $component = $components->[$idx];
-            if ( $component == $searchComp ) {
-                splice ( @{$components}, $idx, 1);
-                return $component;
-            }
-        }
-    } else {
-        my $components = $self->components();
-        if ( $searchComp =~ m/\d+/g ) {
-            # It is a number
-            my $pos = $searchComp;
-            if ( $pos > $#$components ) {
-                throw EBox::Exceptions::InvalidType(
-                      arg  => 'searchComp',
-                      type => 'If it is a number, it must be between ' .
-                              '0 and ' . $#$components
-                                                   );
-            }
-            my $component = $components->[$pos];
-            splice ( @{$components}, $pos, 1);
-            return $component;
-        } else {
-            # A string is represented
-            for my $idx ( 0 .. $#$components ) {
-                my $component = $components->[$idx];
-                my $found = 0;
-                if ( $component->name() eq $searchComp ) {
-                    $found = 1;
-                } elsif ( $component->can('contextName')
-                          and $component->contextName() eq $searchComp ) {
-                    $found = 1;
-                }
-                if ( $found ) {
-                    splice( @{$components}, $idx, 1);
-                    return $component;
-                }
-            }
-        }
-    }
-    throw EBox::Exceptions::DataNotFound( data  => 'searchComp',
-                                          value => $searchComp);
-}
-
 
 #  Method: componentByName
 #
@@ -347,25 +172,23 @@ sub componentByName
 #       has not any of the allowed values
 #
 sub setLayout
-  {
+{
+    my ($self, $layout) = @_;
 
-      my ($self, $layout ) = @_;
-
-      defined ( $layout ) or
+    defined ($layout) or
         throw EBox::Exceptions::MissingArgument('layout');
 
-      unless ( $layout eq any(LAYOUTS) ) {
-          throw EBox::Exceptions::InvalidData(
-                       data  => 'layout',
-                       value => $layout,
-                       advice => __x('It should be one of following values: {values}',
-                                     values => join(', ', LAYOUTS))
-                                             );
-      }
+    unless ($layout eq any(LAYOUTS)) {
+        throw EBox::Exceptions::InvalidData(
+                data  => 'layout',
+                value => $layout,
+                advice => __x('It should be one of following values: {values}',
+                    values => join(', ', LAYOUTS))
+                );
+    }
 
-      $self->{layout} = $layout;
-
-  }
+    $self->{layout} = $layout;
+}
 
 # Method: layout
 #
@@ -411,7 +234,7 @@ sub contextName
 {
     my ($self) = @_;
 
-    if ( $self->index() ) {
+    if ($self->index()) {
         return '/' . $self->{name} . '/' . $self->index();
     } else {
         return $self->{name};
@@ -616,7 +439,7 @@ sub menuNamespace
 {
     my ($self) = @_;
 
-    if ( $self->{menuNamespace} ) {
+    if ($self->{menuNamespace}) {
         return $self->{menuNamespace};
     } elsif ( defined ( $self->compositeDomain() )) {
         # This is autogenerated menuNamespace got from the composite
@@ -652,31 +475,29 @@ sub menuNamespace
 #       has not defined action
 #
 sub action
-  {
+{
+    my ($self, $actionName) = @_;
 
-      my ($self, $actionName) = @_;
+    unless ($actionName eq any('view', 'changeView')) {
+        throw EBox::Exceptions::InvalidData(data => __('Action'),
+                                            value => $actionName,
+                                            advice => __x('Actions to be taken ' .
+                                                          'allowed are: {view} and ' .
+                                                          '{cView}',
+                                                          view => 'view',
+                                                          cView => 'changeView',
+                                                         ));
+    }
 
-      unless ( $actionName eq any('view', 'changeView') ) {
-          throw EBox::Exceptions::InvalidData( data => __('Action'),
-                                               value => $actionName,
-                                               advice => __x('Actions to be taken ' .
-                                                             'allowed are: {view} and ' .
-                                                             '{cView}',
-                                                             view => 'view',
-                                                             cView => 'changeView',
-                                                            ));
-      }
+    my $actionsRef = $self->{actions};
 
-      my $actionsRef = $self->{actions};
-
-      if ( exists ($actionsRef->{$actionName}) ) {
-          return $actionsRef->{$actionName};
-      } else {
-          throw EBox::Exceptions::DataNotFound( data => __('Action'),
-                                                value => $actionName);
-      }
-
-  }
+    if (exists ($actionsRef->{$actionName})) {
+        return $actionsRef->{$actionName};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => __('Action'),
+                                             value => $actionName);
+    }
+}
 
 # Group: Class methods
 
@@ -690,11 +511,9 @@ sub action
 #       viewer from composite
 #
 sub Viewer
-  {
-
-      return '/ajax/composite.mas';
-
-  }
+{
+    return '/ajax/composite.mas';
+}
 
 # Group: Protected methods
 
@@ -780,67 +599,57 @@ sub _description
 #      not correct data
 #
 sub _setDescription
-  {
+{
+    my ($self, $description) = @_;
 
-      my ($self, $description) = @_;
+    $self->{components} = [];
+    $self->{layout} = 'top-bottom';
+    $self->{name} = ref( $self );
+    $self->{printableName} = '';
+    $self->{help} = '';
+    $self->{permanentMessage} = '';
+    $self->{permanentMessageType} = 'note';
+    $self->{selectMessage} = __('Choose one of the following:');
+    $self->{compositeDomain} = delete ( $description->{compositeDomain} );
+    $self->{menuNamespace} = delete ($description->{menuNamespace});
 
-      $self->{components} = [];
-      $self->{layout} = 'top-bottom';
-      $self->{name} = ref( $self );
-      $self->{printableName} = '';
-      $self->{help} = '';
-      $self->{permanentMessage} = '';
-      $self->{permanentMessageType} = 'note';
-      $self->{selectMessage} = __('Choose one of the following:');
-      $self->{compositeDomain} = delete ( $description->{compositeDomain} );
-      $self->{menuNamespace} = delete ($description->{menuNamespace});
+    if (defined ($description->{components}) and
+        not ((ref ($description->{components} ) eq 'ARRAY'))) {
+        throw EBox::Exceptions::InvalidType( $description->{components}, 'array ref' );
+    }
 
-      if ( defined ( $description->{components} ) and
-           not ( (ref ( $description->{components} ) eq 'ARRAY'))) {
-          throw EBox::Exceptions::InvalidType( $description->{components}, 'array ref' );
-      }
+    if (exists ($description->{layout})) {
+        $self->setLayout( delete ( $description->{layout} ));
+    }
 
+    if (exists ($description->{name})) {
+        $description->{name} or
+        throw EBox::Exceptions::Internal('name for composite cannot be empty');
 
-      if ( exists ($description->{components})) {
-          foreach my $component (@{delete ( $description->{components} ) }) {
-              $self->addComponent( $component );
-          }
-      }
+        $self->{name} = delete ( $description->{name} );
+    }
 
-      if ( exists ($description->{layout})) {
-          $self->setLayout( delete ( $description->{layout} ));
-      }
+    # String properties
+    foreach my $property (qw(printableName help permanentMessage permanentMessageType)) {
+        if (exists ($description->{$property})) {
+            $self->{$property} = delete ( $description->{$property} );
+        }
+    }
 
-      if ( exists ($description->{name})) {
-          $description->{name} or
-          throw EBox::Exceptions::Internal('name for composite cannot be empty');
+    if (exists ($description->{selectMessage})) {
+        ($self->{layout} eq 'select')
+            or throw EBox::Exceptions::Internal(
+                   'Cannot use selectMessage when layout is not of select type'
+                                               );
 
-          $self->{name} = delete ( $description->{name} );
-      }
+        $self->{selectMessage} = delete ( $description->{selectMessage} );
+    }
 
-      # String properties
-      foreach my $property (qw(printableName help permanentMessage permanentMessageType)) {
-          if ( exists ($description->{$property})) {
-              $self->{$property} = delete ( $description->{$property} );
-          }
-      }
+    $self->{actions} = $description->{actions};
 
-      if ( exists ($description->{selectMessage})) {
-          ($self->{layout} eq 'select')
-              or throw EBox::Exceptions::Internal(
-                     'Cannot use selectMessage when layout is not of select type'
-                                                 );
-
-          $self->{selectMessage} = delete ( $description->{selectMessage} );
-      }
-
-      $self->{actions} = $description->{actions};
-
-      # Set the Composite actions, do not ovewrite the user-defined actions
-      $self->_setDefaultActions();
-
-
-  }
+    # Set the Composite actions, do not ovewrite the user-defined actions
+    $self->_setDefaultActions();
+}
 
 # Method: _lookupComponents
 #
@@ -861,78 +670,75 @@ sub _setDescription
 #
 sub _lookupComponent
 {
-      my ($self, $componentName) = @_;
+    my ($self, $componentName) = @_;
 
-      my $components;
+    my $components;
+    my $manager = EBox::Model::Manager->instance();
 
-      try {
-          my $compManager = EBox::Model::CompositeManager->Instance();
-          $components = $compManager->composite($componentName);
-      } catch EBox::Exceptions::DataNotFound with {
-          # Look up the model manager
-          $components = undef;
-      };
+    try {
+        $components = $manager->composite($componentName);
+    } catch EBox::Exceptions::DataNotFound with {
+        # Look up the model manager
+        $components = undef;
+    };
 
-      unless ( defined ( $components )) {
-          try {
-              my $modelManager = EBox::Model::ModelManager->instance();
-              $components = $modelManager->model($componentName);
-          } catch EBox::Exceptions::DataNotFound with {
-             $components = undef;
-         };
-      }
+    unless (defined ($components)) {
+        try {
+            $components = $manager->model($componentName);
+        } catch EBox::Exceptions::DataNotFound with {
+            $components = undef;
+       };
+    }
 
-      if (not defined $components) {
-          return undef;
-      }
+    if (not defined $components) {
+        return undef;
+    }
 
-      # set directories and parentComposite
-      if (ref $components eq 'ARRAY') {
-          foreach my $comp (@{ $components }) {
-              $self->setComponentDirectory($comp);
-              $comp->setParentComposite($self);
-          }
-      } else {
-          $self->setComponentDirectory($components);
-          $components->setParentComposite($self);
-      }
+    # set directories and parentComposite
+    if (ref $components eq 'ARRAY') {
+        foreach my $comp (@{ $components }) {
+            $self->setComponentDirectory($comp);
+            $comp->setParentComposite($self);
+        }
+    } else {
+        $self->setComponentDirectory($components);
+        $components->setParentComposite($self);
+    }
 
-      return $components;
-  }
+    return $components;
+}
 
 # Method: _setDefaultActions
 #
 #    Set the default actions if no user defined previously
 #
 sub _setDefaultActions
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $actionsRef = $self->{actions};
+    $actionsRef = {} unless defined ($actionsRef);
+    if (defined ($self->compositeDomain())) {
+        unless (exists $actionsRef->{view}) {
+            $actionsRef->{view} = '/' . $self->compositeDomain() .
+              '/Composite/' . $self->name();
+            if ( $self->index() ) {
+                # Append the index
+                $actionsRef->{view} .= '/' . $self->index();
+            }
+        }
+        unless (exists $actionsRef->{changeView}) {
+            $actionsRef->{changeView} = '/' . $self->compositeDomain() .
+              '/Composite/' . $self->name();
+            if ( $self->index() ) {
+                $actionsRef->{changeView} .= '/' . $self->index();
+            }
+            $actionsRef->{changeView} .= '/changeView';
+        }
+    }
 
-      my $actionsRef = $self->{actions};
-      $actionsRef = {} unless defined ($actionsRef);
-      if ( defined ( $self->compositeDomain() )) {
-          unless ( exists $actionsRef->{view} ) {
-              $actionsRef->{view} = '/' . $self->compositeDomain() .
-                '/Composite/' . $self->name();
-              if ( $self->index() ) {
-                  # Append the index
-                  $actionsRef->{view} .= '/' . $self->index();
-              }
-          }
-          unless ( exists $actionsRef->{changeView} ) {
-              $actionsRef->{changeView} = '/' . $self->compositeDomain() .
-                '/Composite/' . $self->name();
-              if ( $self->index() ) {
-                  $actionsRef->{changeView} .= '/' . $self->index();
-              }
-              $actionsRef->{changeView} .= '/changeView';
-          }
-      }
-
-      $self->{actions} = $actionsRef;
-
-  }
+    $self->{actions} = $actionsRef;
+}
 
 
 sub keywords
@@ -961,7 +767,7 @@ sub setDirectory
         throw EBox::Exceptions::MissingArgument('dir');
     }
 
-    $self->{'gconfdir'} = $dir;
+    $self->{'confdir'} = $dir;
 
     if (not $self->precondition()) {
         # we dont bother to initialize components bz their wont be displayed
@@ -988,7 +794,7 @@ sub directory
 {
     my ($self) = @_;
 
-    return $self->{'gconfdir'};
+    return $self->{'confdir'};
 }
 
 # Method: setComponentDirectory
@@ -1094,36 +900,36 @@ sub restoreFiles
 
 sub pageTitle
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $desc = $self->_description();
-	if (exists $desc->{pageTitle}) {
-		return $desc->{pageTitle};
-	} else {
-		return undef;
-	}
+    my $desc = $self->_description();
+    if (exists $desc->{pageTitle}) {
+        return $desc->{pageTitle};
+    } else {
+        return undef;
+    }
 }
 
 sub headTitle
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $desc = $self->_description();
-	if (exists $desc->{headTitle}) {
-		return $desc->{headTitle};
-	} else {
-		return undef;
-	}
+    my $desc = $self->_description();
+    if (exists $desc->{headTitle}) {
+        return $desc->{headTitle};
+    } else {
+        return undef;
+    }
 }
 
 sub HTMLTitle
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $pageTitle = $self->pageTitle();
-	return undef unless ($pageTitle);
+    my $pageTitle = $self->pageTitle();
+    return undef unless ($pageTitle);
 
-	return [
+    return [
              {
                title => $pageTitle,
                link  => undef

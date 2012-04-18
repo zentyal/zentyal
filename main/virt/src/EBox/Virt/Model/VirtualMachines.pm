@@ -400,7 +400,7 @@ sub ifaceMethodChanged
 sub addedRowNotify
 {
     my ($self, $row) = @_;
-    my $virt = $self->{gconfmodule};
+    my $virt = $self->{confmodule};
 
     my $vncport = $row->valueByName('vncport');
     if (not $vncport) {
@@ -416,7 +416,7 @@ sub addedRowNotify
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
-    my $virt = $self->{gconfmodule};
+    my $virt = $self->{confmodule};
     $virt->updateFirewallService();
 
     # stop VM

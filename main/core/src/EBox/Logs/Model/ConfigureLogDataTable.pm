@@ -32,7 +32,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
 use EBox::Types::Int;
@@ -109,7 +109,7 @@ sub syncRows
     my ($self, $currentRows) = @_;
 
     my $changed = undef;
-    # Fetch the current log domains stored in gconf
+    # Fetch the current log domains stored in conf
     my %storedLogDomains;
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
@@ -123,7 +123,7 @@ sub syncRows
       $currentLogDomains{$mod->name} = $mod;
     }
 
-    # Add new domains to gconf
+    # Add new domains to conf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
 
@@ -150,7 +150,7 @@ sub syncRows
         $changed = 1;
     }
 
-    # Remove non-existing domains from gconf
+    # Remove non-existing domains from conf
     foreach my $id (@{$currentRows}) {
         my $row = $self->row($id);
         my $domain = $row->valueByName('domain');
@@ -319,7 +319,7 @@ sub acquireEventConfURL
 
     my $logDomain = $instancedType->row()->valueByName('domain');
 
-    my $modelManager = EBox::Model::ModelManager->instance();
+    my $modelManager = EBox::Model::Manager->instance();
 
     my $logConfModel  = $modelManager->model('/events/LogWatcherConfiguration');
     my $id  = $logConfModel->findValue(domain => $logDomain);

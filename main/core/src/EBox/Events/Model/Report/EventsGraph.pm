@@ -113,7 +113,7 @@ sub timePeriod
 {
     my ($self) = @_;
 
-    my $model = $self->{gconfmodule}->reportOptionsModel();
+    my $model = $self->{confmodule}->reportOptionsModel();
     my $row = $model->row();
 
     return $row->valueByName('timePeriod');

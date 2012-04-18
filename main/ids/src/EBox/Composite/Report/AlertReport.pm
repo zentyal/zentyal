@@ -28,14 +28,8 @@ use EBox::Gettext;
 #
 #         Constructor for the general events composite
 #
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
-#
 sub new
 {
-
     my ($class, @params) = @_;
 
     my $self = $class->SUPER::new(@params);
@@ -53,19 +47,11 @@ sub new
 #
 sub _description
 {
-
-    my $description =
-    {
-        components      => [
-                            'AlertReportOptions',
-                            'AlertGraph',
-                            'AlertDetails',
-                           ],
+    my $description = {
         layout          => 'top-bottom',
         name            => 'AlertReport',
         printableName   => __('IDS Alerts report'),
         compositeDomain => 'IDS',
-        #help           => __(''),
     };
 
     return $description;

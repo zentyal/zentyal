@@ -364,11 +364,11 @@ sub paramExist
 # Method: storeInHash
 #
 #      Store the given type in a GConf directory from a
-#      GConfModule. If the type is volatile, nothing will be done.
+#      Module::Config. If the type is volatile, nothing will be done.
 #
 # Parameters:
 #
-#      module - <EBox::GConfModule> the module which is in charge
+#      module - <EBox::Module::Config> the module which is in charge
 #      to store the type in GConf
 #
 #      key - String of the key where the type will be stored

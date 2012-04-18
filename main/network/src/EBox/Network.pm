@@ -18,11 +18,7 @@ package EBox::Network;
 use strict;
 use warnings;
 
-use base qw(
-            EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-           );
+use base qw(EBox::Module::Service);
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
@@ -195,47 +191,6 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         };
     }
-}
-
-sub modelClasses
-{
-  return [
-      {
-       class      => 'EBox::Network::Model::GatewayTable',
-       parameters => [
-                          directory => 'gatewaytable',
-                         ],
-      },
-      {
-           class     => 'EBox::Network::Model::MultiGwRulesDataTable',
-           parameters => [
-                          directory => 'multigwrulestable',
-                         ],
-          },
-          'EBox::Network::Model::MultiGwRulesOptions',
-          'EBox::Network::Model::StaticRoute',
-          'EBox::Network::Model::DeletedStaticRoute',
-          'EBox::Network::Model::DNSResolver',
-          'EBox::Network::Model::SearchDomain',
-          'EBox::Network::Model::DynDNS',
-          'EBox::Network::Model::WANFailoverOptions',
-          'EBox::Network::Model::WANFailoverRules',
-          'EBox::Network::Model::Proxy',
-
-     ];
-}
-
-
-sub compositeClasses
-{
-    return [
-        'EBox::Network::Composite::MultiGw',
-        'EBox::Network::Composite::DNS',
-        'EBox::Network::Composite::WANFailover',
-        'EBox::Network::Composite::Gateway',
-        'EBox::Network::Composite::GatewaysGeneral',
-        ];
-
 }
 
 # Method: _exposedMethods
