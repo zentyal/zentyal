@@ -137,25 +137,36 @@ sub initialSetup
     # Create default services, rules and conf dir
     # only if installing the first time
     unless ($version) {
+        my $services = EBox::Global->modInstance('services');
         my $firewall = EBox::Global->modInstance('firewall');
 
-        $firewall->addInternalService(
-                'name' => 'tftp',
+        my $serviceName = 'tftp';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
                 'printableName' => 'TFTP',
                 'description' => __('Trivial File Transfer Protocol'),
-                'protocol' => 'udp',
-                'sourcePort' => 'any',
-                'destinationPort' => 69,
-                );
+                'readOnly' => 1,
+                'services' => [ { protocol => 'udp',
+                                  sourcePort => 'any',
+                                  destinationPort => 69 } ] );
 
-        $firewall->addInternalService(
-                'name' => 'dhcp',
+            $firewall->setInternalService($serviceName, 'accept');
+        }
+
+        $serviceName = 'dhcp';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
                 'printableName' => 'DHCP',
                 'description' => __('Dynamic Host Configuration Protocol'),
-                'protocol' => 'udp',
-                'sourcePort' => 'any',
-                'destinationPort' => 67,
-                );
+                'readOnly' => 1,
+                'services' => [ { protocol => 'udp',
+                                  sourcePort => '67:68',
+                                  destinationPort => '67:68' } ] );
+
+            $firewall->setInternalService($serviceName, 'accept');
+        }
 
         $firewall->saveConfigRecursive();
 
