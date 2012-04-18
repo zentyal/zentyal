@@ -812,6 +812,7 @@ sub _setConf
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
     push(@array, 'sambaZone' => $sambaZone);
+    push(@array, 'noEmpty1918Zones' => {});
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);

@@ -5,7 +5,33 @@
     $confDir
     $dynamicConfDir
     $sambaZone
+    %noEmpty1918Zones
 </%args>
+<%init>
+my @zones1918 = grep {
+       not $noEmpty1918Zones{$_}
+   } qw(
+        10
+        16.172
+        17.172
+        18.172
+        19.172
+        20.172
+        21.172
+        22.172
+        23.172
+        24.172
+        25.172
+        26.172
+        27.172
+        28.172
+        29.172
+        30.172
+        31.172
+        168.192
+);
+
+</%init>
 //
 // Do any local configuration here
 //
@@ -64,8 +90,12 @@ zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
           grant local-ddns zonesub any;
         };
 %                   } else {
-        file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";            
+        file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";
 %                   }
 };
 %		}
 %	}
+
+% foreach my $zonePrefix (@zones1918) {
+zone "<% $zonePrefix %>.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
+% }
