@@ -165,15 +165,18 @@ sub save
         delete $self->{set_quota};
     }
 
+    my $passwd = delete $self->{core_changed_password};
+    if (defined $passwd) {
+        $self->_ldap->changeUserPassword($self->dn(), $passwd);
+    }
+
     $self->{modifications} = $self->{entry}->ldif(changes => 1);
 
     shift @_;
-    $self->SUPER::save(@_);
+    $self->SUPER::save(@_) if $self->{core_changed};
 
-    if ($self->{core_changed} or $self->{core_changed_password}) {
-        my $passwd = $self->{core_changed_password};
+    if ($self->{core_changed} or defined $passwd) {
         delete $self->{core_changed};
-        delete $self->{core_changed_password};
 
         my $users = EBox::Global->modInstance('users');
         $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
@@ -344,15 +347,14 @@ sub _setFilesystemQuota
 #
 sub changePassword
 {
-    my ($self, $passwd) = @_;
+    my ($self, $passwd, $lazy) = @_;
 
     $self->_checkPwdLength($passwd);
-    $self->_ldap->changeUserPassword($self->dn(), $passwd);
 
     # The password will be changed on save, save it also to
     # notify LDAP user base mods
     $self->{core_changed_password} = $passwd;
-    $self->save();
+    $self->save() unless $lazy;
 }
 
 
@@ -372,6 +374,9 @@ sub deleteObject
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
     $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
+
+    # Mark as changed to process save
+    $self->{core_changed} = 1;
 
     # Call super implementation
     shift @_;
@@ -471,6 +476,12 @@ sub create
         );
     }
 
+    # Check the password length if specified
+    my $passwd = $user->{'password'};
+    if (defined $passwd) {
+        $self->_checkPwdLength($passwd);
+    }
+
     my $uid = exists $params{uidNumber} ?
                      $params{uidNumber} :
                      $self->_newUserUidNumber($system);
@@ -479,12 +490,6 @@ sub create
     my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
     my $gid = $group->get('gidNumber');
-
-    # system user could not have passwords
-    my $passwd = $user->{'password'};
-    #if (not $passwd and not $user->{passwords} and not $system) {
-    #    throw EBox::Exceptions::MissingArgument(__('Password'));
-    #}
 
     # If fullname is not specified we build it with
     # givenname and surname
@@ -531,8 +536,8 @@ sub create
     my $res = new EBox::UsersAndGroups::User(dn => $dn);
 
     # Set the user password and kerberos keys
-    if ($passwd) {
-        $self->_ldap->changeUserPassword($dn, $passwd);
+    if (defined $passwd) {
+        $res->changePassword($dn, $passwd, 1);
     }
 
     # Init user
@@ -548,7 +553,7 @@ sub create
         $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
     }
 
-    if ($res->{core_changed}) {
+    if ($res->{core_changed} or $res->{core_changed_password}) {
         $res->save();
     }
 
