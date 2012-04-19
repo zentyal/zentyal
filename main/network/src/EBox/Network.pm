@@ -78,7 +78,6 @@ sub _create
                     printableName => __n('Network'),
                     @_);
     $self->{'actions'} = {};
-    $self->{'vifacesConf'} = {};
 
     bless($self, $class);
 
@@ -387,7 +386,7 @@ sub ifaceIsExternal # (interface)
         }
         return 0;
     }
-    return $self->get_bool("interfaces/$iface/external");
+    return $self->get_hash('interfaces')->{$iface}->{external};
 }
 
 # Method: ifaceIsBridge
@@ -425,14 +424,17 @@ sub ifaceIsBridge # (interface)
 # Returns:
 #
 #   boolean - true, if the interface is configured, otherwise false
-sub ifaceOnConfig # (interface)
+#
+sub ifaceOnConfig
 {
     my ($self, $name) = @_;
+
     defined($name) or return undef;
     if ($self->vifaceExists($name)) {
         return 1;
     }
-    return defined($self->get_string("interfaces/$name/method"));
+
+    return defined($self->get_hash('interfaces')->{$name}->{method});
 }
 
 sub _ignoreIface
@@ -490,16 +492,14 @@ sub _vlanIfaceFilterWithRemoved # (\array)
 
 sub _cleanupVlanIfaces
 {
-    # FIXME: reimplement this
-    return;
-
     my $self = shift;
     my @iflist = list_ifaces();
     my @cmds;
     foreach my $iface (@iflist) {
         if ($iface =~ /^vlan/) {
             $iface =~ s/^vlan//;
-            unless ($self->dir_exists("vlans/$iface")) {
+            my $vlans = $self->get_hash('vlans');
+            unless (exists $vlans->{$iface}) {
                 push (@cmds, "/sbin/vconfig rem vlan$iface");
             }
         }
@@ -600,7 +600,8 @@ sub ifacesWithRemoved
 # Returns:
 #
 #   an array ref - holding hashes with keys 'address' and 'netmask'
-sub ifaceAddresses # (interface)
+#
+sub ifaceAddresses
 {
     my ($self, $iface) = @_;
     my @array = ();
@@ -610,25 +611,21 @@ sub ifaceAddresses # (interface)
     }
 
     if ($self->ifaceMethod($iface) eq 'static') {
-        my $addr = $self->get_string("interfaces/$iface/address");
-        my $mask = $self->get_string("interfaces/$iface/netmask");
-        push(@array, {address=>$addr, netmask=>$mask});
-        # FIXME: reimplement this
-        my @virtual;
-        #my @virtual = $self->all_dirs("interfaces/$iface/virtual");
-        foreach (@virtual) {
-            my $name = basename($_);
-            $addr = $self->get_string("$_/address");
-            $mask = $self->get_string("$_/netmask");
-            push(@array,   {address=>$addr,
-                    netmask=>$mask,
-                    name=>$name});
+        my $addr = $self->get_hash('interfaces')->{$iface}->{address};
+        my $mask = $self->get_hash('interfaces')->{$iface}->{netmask};
+        push(@array, {address => $addr, netmask => $mask});
+        my $virtual = $self->get_hash('interfaces')->{$iface}->{virtual};
+        foreach my $name (keys %{$virtual}) {
+            my $viface = $virtual->{$name};
+            push(@array, { address => $viface->{addr},
+                           netmask => $viface->{mask},
+                           name => $name });
         }
     } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {
         my $addr = $self->DHCPAddress($iface);
         my $mask = $self->DHCPNetmask($iface);
         if ($addr) {
-            push(@array, {address=>$addr, netmask=>$mask});
+            push(@array, {address => $addr, netmask => $mask});
         }
     } elsif ($self->ifaceMethod($iface) eq 'bridged') {
         my $bridge = $self->ifaceBridge($iface);
@@ -651,39 +648,24 @@ sub ifaceAddresses # (interface)
 # Returns:
 #
 #   an array ref - holding hashes with keys 'address' and 'netmask'
-#   'name'
+#                  'name'
+#
 sub vifacesConf
 {
     my ($self, $iface) = @_;
     defined($iface) or return;
 
-    unless (exists $self->{vifacesConf}->{$iface}) {
-        $self->{vifacesConf}->{$iface} = $self->_vifacesConf($iface);
-    }
-
-    return $self->{vifacesConf}->{$iface};
-}
-
-sub _vifacesConf
-{
-    my ($self, $iface) = @_;
-
-    # FIXME: reimplement this
-    return [];
-
-    my @vifaces = $self->all_dirs("interfaces/$iface/virtual");
+    my $vifaces = $self->get_hash('interfaces')->{$iface}->{virtual};
     my @array = ();
-    foreach (@vifaces) {
-        my $hash = $self->get_hash("$_");
-        if (defined $hash->{'address'}) {
-            $hash->{'name'} = basename($_);
-            push(@array, $hash);
+    foreach my $name (keys %{$vifaces}) {
+        my $viface = $vifaces->{$name};
+        if (defined $viface->{'address'}) {
+            $viface->{name} = $name;
+            push (@array, $viface);
         }
     }
     return \@array;
 }
-
-
 
 # Method: vifaceNames
 #
@@ -698,8 +680,8 @@ sub _vifacesConf
 #       an array ref - holding the name of the virtual interfaces. Each name
 #       is a composed name like this: realinterface:virtualinterface
 #       (i.e: eth0:foo)
-# XXX TODO: This method should be calle vifacesNames instead!
-sub vifaceNames # (interface)
+#
+sub vifaceNames
 {
     my ($self, $iface) = @_;
     my @array;
@@ -808,21 +790,17 @@ sub allIfacesWithRemoved
 # throws
 #   - Internal
 #       - If real interface is not configured as static
-sub _vifaceExists # (real, virtual)
+#
+sub _vifaceExists
 {
     my ($self, $iface, $viface) = @_;
 
     unless ($self->ifaceMethod($iface) eq 'static') {
         throw EBox::Exceptions::Internal("Could not exist a virtual " .
-                      "interface in non-static interface");
+                                         "interface in non-static interface");
     }
 
-    foreach (@{$self->vifacesConf($iface)}) {
-        if ($_->{'name'} eq $viface) {
-            return 1;
-        }
-    }
-    return undef;
+    return exists $self->get_hash('interfaces')->{$iface}->{virtual}->{$viface};
 }
 
 # split a virtual iface name in real interface and virtual interface
@@ -881,7 +859,8 @@ sub vifaceExists # (interface)
 #
 #   DataExists - If interface already exists
 #   Internal - If the real interface is not configured as static
-sub setViface # (real, virtual, address, netmask)
+#
+sub setViface
 {
     my ($self, $iface, $viface, $address, $netmask) = @_;
 
@@ -913,12 +892,11 @@ sub setViface # (real, virtual, address, netmask)
         };
     }
 
-    $self->set_string("interfaces/$iface/virtual/$viface/address",$address);
-    $self->set_string("interfaces/$iface/virtual/$viface/netmask",$netmask);
-    $self->set_bool("interfaces/$iface/changed", 'true');
-
-    # clear cache as the config has changed
-    delete $self->{vifacesConf}->{$iface};
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$iface}->{virtual}->{$viface}->{address} = $address;
+    $ifaces->{$iface}->{virtual}->{$viface}->{netmask} = $netmask;
+    $ifaces->{$iface}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 }
 
 # Method: removeViface
@@ -929,6 +907,7 @@ sub setViface # (real, virtual, address, netmask)
 #
 #   iface - the name of a real network interface
 #   viface - the name of the virtual interface
+#   force - force deletion if in use
 #
 # Returns:
 #
@@ -937,7 +916,8 @@ sub setViface # (real, virtual, address, netmask)
 # Exceptions:
 #
 #   Internal - If the real interface is not configured as static
-sub removeViface # (real, virtual, force)
+#
+sub removeViface
 {
     my ($self, $iface, $viface, $force) = @_;
 
@@ -963,9 +943,10 @@ sub removeViface # (real, virtual, force)
         }
     }
 
-    $self->delete_dir("interfaces/$iface/virtual/$viface");
-    $self->set_bool("interfaces/$iface/changed", 'true');
-    delete $self->{vifacesConf}->{$iface};
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$iface}->{virtual}->{$viface};
+    $ifaces->{$iface}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 
     return 1;
 }
@@ -1043,12 +1024,16 @@ sub vifaceNetmask # (interface)
 #   iface - the name of a network interface
 #   alias - the alias for the interface
 #
-sub setIfaceAlias # (iface, alias)
+sub setIfaceAlias
 {
     my ($self, $iface, $alias) = @_;
+
+    my $ifaces = $self->get_hash('interfaces');
+
     if ($iface eq $alias) {
         # alias == iface name, no problems
-        $self->set_string("interfaces/$iface/alias", $alias);
+        $ifaces->{$iface}->{alias} = $alias;
+        $self->set('interfaces', $ifaces);
         return;
     }
 
@@ -1075,7 +1060,8 @@ sub setIfaceAlias # (iface, alias)
         }
     }
 
-    $self->set_string("interfaces/$iface/alias", $alias);
+    $ifaces->{$iface}->{alias} = $alias;
+    $self->set('interfaces', $ifaces);
 }
 
 # Method: ifaceAlias
@@ -1103,7 +1089,7 @@ sub ifaceAlias # (iface)
         $iface = $aux[0];
         $viface = $aux[1];
     }
-    my $alias = $self->get_string("interfaces/$iface/alias");
+    my $alias = $self->get_hash('interfaces')->{$iface}->{alias};
     defined($alias) or $alias = $iface;
     defined($viface) and $alias = $alias . ":" . $viface;
     return $alias;
@@ -1127,18 +1113,21 @@ sub ifaceAlias # (iface)
 #                 configured yet
 #           trunk -> vlan aware interface
 #           bridged -> bridged to other interfaces
-sub ifaceMethod # (interface)
+#
+sub ifaceMethod
 {
     my ($self, $name) = @_;
+
     unless ($self->ifaceExists($name)) {
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $name);
+                                             value => $name);
     }
     if ($self->vifaceExists($name)) {
         return 'static';
     }
     $self->ifaceOnConfig($name) or return 'notset';
-    return $self->get_string("interfaces/$name/method");
+
+    return $self->get_hash('interfaces')->{$name}->{method};
 }
 
 # Method: setIfaceDHCP
@@ -1152,9 +1141,10 @@ sub ifaceMethod # (interface)
 #   force - boolean to indicate if an exception should be raised when
 #   method is changed or it should be forced
 #
-sub setIfaceDHCP # (interface, external, force)
+sub setIfaceDHCP
 {
     my ($self, $name, $ext, $force) = @_;
+
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
@@ -1203,11 +1193,13 @@ sub setIfaceDHCP # (interface, external, force)
         }
     }
 
-    $self->set_bool("interfaces/$name/external", $ext);
-    $self->unset("interfaces/$name/address");
-    $self->unset("interfaces/$name/netmask");
-    $self->set_string("interfaces/$name/method", 'dhcp');
-    $self->set_bool("interfaces/$name/changed", 'true');
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    delete $ifaces->{$name}->{address};
+    delete $ifaces->{$name}->{netmask};
+    $ifaces->{$name}->{method} = 'dhcp';
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'dhcp') {
         $self->_notifyChangedIface(
@@ -1218,8 +1210,6 @@ sub setIfaceDHCP # (interface, external, force)
         );
     }
 }
-
-
 
 # Method: setIfaceStatic
 #
@@ -1234,15 +1224,12 @@ sub setIfaceDHCP # (interface, external, force)
 #   force - boolean to indicate if an exception should be raised when
 #   method is changed or it should be forced
 #
-sub setIfaceStatic # (interface, address, netmask, external, force)
+sub setIfaceStatic
 {
-    #action: set_iface_static
-
     my ($self, $name, $address, $netmask, $ext, $force) = @_;
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
-
 
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
 
@@ -1278,7 +1265,6 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
     } elsif ($oldm eq 'bridged') {
         $self->BridgedCleanUp($name);
     }
-
 
     # Calling observers
     my $global = EBox::Global->getInstance();
@@ -1324,11 +1310,13 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
         }
     }
 
-    $self->set_bool("interfaces/$name/external", $ext);
-    $self->set_string("interfaces/$name/method", 'static');
-    $self->set_string("interfaces/$name/address", $address);
-    $self->set_string("interfaces/$name/netmask", $netmask);
-    $self->set_bool("interfaces/$name/changed", 'true');
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    $ifaces->{$name}->{method} = 'static';
+    $ifaces->{$name}->{address} = $address;
+    $ifaces->{$name}->{netmask} = $netmask;
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'static') {
         $self->_notifyChangedIface(
@@ -1407,9 +1395,9 @@ sub _checkStaticIP
 #   ppp_pass - PPP password
 #   external - boolean to indicate if it's an external interface
 #   force - boolean to indicate if an exception should be raised when
-#   method is changed or it should be forced
+#           method is changed or it should be forced
 #
-sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
+sub setIfacePPP
 {
     my ($self, $name, $ppp_user, $ppp_pass, $ext, $force) = @_;
 
@@ -1439,7 +1427,6 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
     } elsif ($oldm eq 'bridged') {
         $self->BridgedCleanUp($name);
     }
-
 
     # Calling observers
     my $global = EBox::Global->getInstance();
@@ -1471,11 +1458,13 @@ sub setIfacePPP # (interface, ppp_user, ppp_pass, external, force)
             );
     }
 
-    $self->set_bool("interfaces/$name/external", $ext);
-    $self->set_string("interfaces/$name/method", 'ppp');
-    $self->set_string("interfaces/$name/ppp_user", $ppp_user);
-    $self->set_string("interfaces/$name/ppp_pass", $ppp_pass);
-    $self->set_bool("interfaces/$name/changed", 'true');
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    $ifaces->{$name}->{method} = 'ppp';
+    $ifaces->{$name}->{ppp_user} = $ppp_user;
+    $ifaces->{$name}->{ppp_pass} = $ppp_pass;
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'ppp') {
             $self->_notifyChangedIface(
@@ -1536,10 +1525,12 @@ sub setIfaceTrunk # (iface, force)
         );
     }
 
-    $self->unset("interfaces/$name/address");
-    $self->unset("interfaces/$name/netmask");
-    $self->set_string("interfaces/$name/method", 'trunk');
-    $self->set_bool("interfaces/$name/changed", 'true');
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$name}->{address};
+    delete $ifaces->{$name}->{netmask};
+    $ifaces->{$name}->{method} = 'trunk';
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'notset') {
         $self->_notifyChangedIface(
@@ -1650,19 +1641,21 @@ sub setIfaceBridged
     }
 
     # new bridge
-    if ( $bridge < 0 ) {
+    if ($bridge < 0) {
         my @bridges = @{$self->bridges()};
         my $last = int(pop(@bridges));
         $bridge = $last+1;
         $self->_createBridge($bridge);
     }
 
-    $self->set_bool("interfaces/$name/external", $ext);
-    $self->unset("interfaces/$name/address");
-    $self->unset("interfaces/$name/netmask");
-    $self->set_string("interfaces/$name/method", 'bridged');
-    $self->set_bool("interfaces/$name/changed", 'true');
-    $self->set_string("interfaces/$name/bridge_id", $bridge);
+    my $ifaces = $self->get_hash('interfaces');
+    $ifaces->{$name}->{external} = $ext;
+    delete $ifaces->{$name}->{address};
+    delete $ifaces->{$name}->{netmask};
+    $ifaces->{$name}->{method} = 'bridged';
+    $ifaces->{$name}->{changed} = 1;
+    $ifaces->{$name}->{bridge_id} = $bridge;
+    $self->set('interfaces', $ifaces);
 
     # mark bridge as changed
     $self->_setChanged("br$bridge");
@@ -1694,7 +1687,8 @@ sub createVlan # (id, name, iface)
     checkVlanID($id, __('VLAN Id'));
     defined($name) or $name = '';
 
-    if ($self->dir_exists("vlans/$id")) {
+    my $vlans = $self->get_hash('vlans');
+    if (exists $vlans->{$id}) {
         throw EBox::Exceptions::DataExists('data' => 'vlan',
                           'value' => "$id");
     }
@@ -1704,9 +1698,10 @@ sub createVlan # (id, name, iface)
             'to be in trunk mode before adding vlans to them.'));
     }
 
-    $self->set_int("vlans/$id/id", $id);
-    $self->set_string("vlans/$id/name", $name);
-    $self->set_string("vlans/$id/interface", $iface);
+    $vlans->{$id}->{id} = $id;
+    $vlans->{$id}->{name} = $name;
+    $vlans->{$id}->{interface} = $iface;
+    $self->set('vlans', $vlans);
 }
 
 # Method: removeVlan
@@ -1721,9 +1716,10 @@ sub removeVlan # (id)
 {
     my ($self, $id, $force) = @_;
     checkVlanID($id, __('VLAN Id'));
-    $self->dir_exists("vlans/$id") or return;
-    $self->unsetIface("vlan$id", $force);
-    $self->delete_dir("vlans/$id");
+
+    my $vlans = $self->get_hash('vlans');
+    delete $vlans->{$id};
+    $self->set_hash('vlans', $vlans);
 }
 
 # Method: vlans
@@ -1735,10 +1731,10 @@ sub removeVlan # (id)
 #   an array ref - holding the vlan ID's
 sub vlans
 {
-    my $self = shift;
-    # FIXME: reimplement this;
-    return [];
-    return $self->all_dirs_base('vlans');
+    my ($self) = @_;
+
+    my @ids = keys %{$self->get_hash('vlans')};
+    return \@ids;
 }
 
 #
@@ -1756,11 +1752,11 @@ sub vlans
 sub vlanExists # (vlanID)
 {
     my ($self, $vlan) = @_;
-    return $self->dir_exists("vlans/$vlan");
+
+    return exists $self->get_hash('vlans')->{$vlan};
 }
 
 
-#
 # Method: ifaceVlans
 #
 #   Returns information about every vlan that exists on the given trunk
@@ -1775,26 +1771,26 @@ sub vlanExists # (vlanID)
 #   array ref - The elements of the array are hashesh. The hashes contain
 #   these keys: 'id' (vlan ID), 'name' (user given description for the vlan)
 #   and 'interface' (the name of the trunk interface)
-sub ifaceVlans # (iface)
+#
+sub ifaceVlans
 {
-    # FIXME: reimplement this
     my ($self, $name) = @_;
+
     my @array = ();
-    my $vlans = $self->vlans;
-    defined($vlans) or return \@array;
-    foreach my $vlan (@{$vlans}) {
-        defined($vlan) or next;
-        if ($self->get_string("vlans/$vlan/interface") eq $name) {
-            push(@array, $self->get_hash("vlans/$vlan"));
+    my $vlans = $self->get_hash('vlans');
+    foreach my $id (keys %{$vlans}) {
+        my $vlan = $vlans->{$id};
+        if ($vlan->{interface} eq $name) {
+            $vlan->{id} = $id;
+            push(@array, $vlan);
         }
     }
     return \@array;
 }
 
-sub vlan # (vlan)
+sub vlan
 {
     my ($self, $vlan) = @_;
-    # FIXME: reimplement this
 
     defined($vlan) or return undef;
     if ($vlan =~ /^vlan/) {
@@ -1803,8 +1799,12 @@ sub vlan # (vlan)
     if ($vlan =~ /:/) {
         $vlan =~ s/:.*$//;
     }
-    $self->dir_exists("vlans/$vlan") or return undef;
-    return $self->get_hash("vlans/$vlan");
+    my $vlans = $self->get_hash('vlans');
+    unless (exists $vlans->{$vlan}) {
+        return undef;
+    }
+    $vlans->{$vlan}->{id} = $vlan;
+    return $vlans->{$vlan};
 }
 
 # Method: createBridge
@@ -1819,12 +1819,14 @@ sub _createBridge
 {
     my ($self, $id) = @_;
 
-    if ($self->dir_exists("interfaces/br$id")) {
+    my $bridge = "br$id";
+    my $interfaces = $self->get_hash('interfaces');
+    if (exists $interfaces->{$bridge}) {
         throw EBox::Exceptions::DataExists('data' => 'bridge',
-                          'value' => "$id");
+                                           'value' => $id);
     }
 
-    $self->setIfaceAlias("br$id", "br$id");
+    $self->setIfaceAlias($bridge, $bridge);
 }
 
 # Method: removeBridge
@@ -1875,10 +1877,8 @@ sub bridges
 {
     my $self = shift;
     my @bridges;
-    # FIXME: reimplement this:
-    return [];
 
-    for my $iface ( @{$self->all_dirs_base('interfaces')} ) {
+    for my $iface (keys %{$self->get_hash('interfaces')}) {
         if ($iface =~ /^br/) {
             $iface =~ s/^br//;
             push(@bridges, $iface);
@@ -1908,9 +1908,9 @@ sub bridgeIfaces
     $bridge =~ s/^br//;
 
     my @ifaces = ();
-    for my $iface ( @{$self->ifaces} ) {
-        if ( $self->ifaceMethod($iface) eq 'bridged' ) {
-            if ( $self->ifaceBridge($iface) eq $bridge ) {
+    for my $iface (@{$self->ifaces}) {
+        if ($self->ifaceMethod($iface) eq 'bridged') {
+            if ($self->ifaceBridge($iface) eq $bridge) {
                push(@ifaces, $iface);
             }
         }
@@ -1962,10 +1962,12 @@ sub unsetIface # (interface, force)
         );
     }
 
-    $self->unset("interfaces/$name/address");
-    $self->unset("interfaces/$name/netmask");
-    $self->set_string("interfaces/$name/method",'notset');
-    $self->set_bool("interfaces/$name/changed", 'true');
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$name}->{address};
+    delete $ifaces->{$name}->{netmask};
+    $ifaces->{$name}->{method} = 'notset';
+    $ifaces->{$name}->{changed} = 1;
+    $self->set('interfaces', $ifaces);
 
     if ($oldm ne 'notset') {
         $self->_notifyChangedIface(
@@ -2008,7 +2010,7 @@ sub ifaceAddress # (name)
         return $self->vifaceAddress($name);
     }
     if ($self->ifaceMethod($name) eq 'static') {
-        return $self->get_string("interfaces/$name/address");
+        return $self->get_hash('interfaces')->{$name}->{address};
     } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPAddress($name);
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
@@ -2041,7 +2043,7 @@ sub ifacePPPUser # (name)
                              value => $name);
 
     if ($self->ifaceMethod($name) eq 'ppp') {
-        return $self->get_string("interfaces/$name/ppp_user");
+        return $self->get_hash('interfaces')->{$name}->{ppp_user};
     } else {
         return undef;
     }
@@ -2068,7 +2070,7 @@ sub ifacePPPPass # (name)
                              value => $name);
 
     if ($self->ifaceMethod($name) eq 'ppp') {
-        return $self->get_string("interfaces/$name/ppp_pass");
+        return $self->get_hash('interfaces')->{$name}->{ppp_pass};
     } else {
         return undef;
     }
@@ -2095,7 +2097,7 @@ sub ifaceBridge # (name)
                              value => $name);
 
     if ($self->ifaceMethod($name) eq 'bridged') {
-        return $self->get_string("interfaces/$name/bridge_id");
+        return $self->get_hash('interfaces')->{$name}->{bridge_id};
     } else {
         return undef;
     }
@@ -2123,7 +2125,7 @@ sub realIface # (name)
                              value => $name);
 
     if ($self->ifaceMethod($name) eq 'ppp') {
-        my $ppp_iface = $self->st_get_string("interfaces/$name/ppp_iface");
+        my $ppp_iface = $self->get_state()->{interfaces}->{$name}->{ppp_iface};
         if ($ppp_iface) {
             return $ppp_iface;
         }
@@ -2153,7 +2155,7 @@ sub etherIface # (name)
 
     for my $iface (@{$self->allIfaces()}) {
         if ($self->ifaceMethod($iface) eq 'ppp') {
-            my $ppp_iface = $self->st_get_string("interfaces/$iface/ppp_iface");
+            my $ppp_iface = $self->get_state()->{interfaces}->{$iface}->{ppp_iface};
             return $iface if ($ppp_iface eq $name);
       }
     }
@@ -2176,7 +2178,8 @@ sub etherIface # (name)
 #       - undef if the interface is down
 #   - For not-yet-configured interfaces
 #       - undef
-sub ifaceNetmask # (interface)
+#
+sub ifaceNetmask
 {
     my ($self, $name) = @_;
     my $address;
@@ -2188,7 +2191,7 @@ sub ifaceNetmask # (interface)
         return $self->vifaceNetmask($name);
     }
     if ($self->ifaceMethod($name) eq 'static') {
-        return $self->get_string("interfaces/$name/netmask");
+        return $self->get_hash('interfaces')->{$name}->{netmask};
     } elsif ($self->ifaceMethod($name) eq any('dhcp', 'ppp')) {
         return $self->DHCPNetmask($name);
     } elsif ($self->ifaceMethod($name) eq 'bridged') {
@@ -2457,42 +2460,47 @@ sub gatewayDeleted
 }
 
 #returns true if the interface has been marked as changed
-sub _hasChanged # (interface)
+sub _hasChanged
 {
     my ($self, $iface) = @_;
+
     my $real = $iface;
     if ($self->vifaceExists($iface)) {
         ($real) = $self->_viface2array($iface);
     }
-    if ( $self->dir_exists("interfaces/$real") ){
-        return $self->get_bool("interfaces/$real/changed");
+    my $ifaces = $self->get_hash('interfaces');
+    if (exists $ifaces->{$real}) {
+        return $ifaces->{$real}->{changed};
     } else {
         return 1; # deleted => has changed
     }
 }
 
 #returns true if the interface is empty (ready to be removed)
-sub _isEmpty # (interface)
+sub _isEmpty
 {
     my ($self, $ifc) = @_;
+
     if ($self->vifaceExists($ifc)) {
         my ($real, $vir) = $self->_viface2array($ifc);
-        return (! defined($self->get_string(
-                "interfaces/$real/virtual/$vir/address")));
+        return (not defined($self->get_hash('interfaces')->{$real}->{virtual}->{$vir}->{address}));
     } else {
-        return (! defined($self->get_string("interfaces/$ifc/method")));
+        return (not defined($self->get_hash('interfaces')->{$ifc}->{method}));
     }
 }
 
-sub _removeIface # (interface)
+sub _removeIface
 {
     my ($self, $iface) = @_;
+
+    my $ifaces = $self->get_hash('interfaces');
     if ($self->vifaceExists($iface)) {
         my ($real, $virtual) = $self->_viface2array($iface);
-        return $self->delete_dir("interfaces/$real/virtual/$virtual");
+        delete $ifaces->{$real}->{virtual}->{$virtual};
     } else {
-        return $self->delete_dir("interfaces/$iface");
+        delete $ifaces->{$iface};
     }
+    $self->set('interfaces', $ifaces);
 }
 
 sub _unsetChanged # (interface)
@@ -2500,20 +2508,25 @@ sub _unsetChanged # (interface)
     my ($self, $iface) = @_;
     if ($self->vifaceExists($iface)) {
         return;
-    } else {
-        return $self->unset("interfaces/$iface/changed");
     }
+
+    my $ifaces = $self->get_hash('interfaces');
+    delete $ifaces->{$iface}->{changed};
+    $self->set('interfaces', $ifaces);
 }
 
 sub _setChanged # (interface)
 {
     my ($self, $iface) = @_;
+
+    my $ifaces = $self->get_hash('interfaces');
     if ($self->vifaceExists($iface)) {
         my ($real, $vir) = $self->_viface2array($iface);
-        $self->set_bool("interfaces/$real/changed",'true');
+        $ifaces->{$real}->{changed} = 1;
     } else {
-        $self->set_bool("interfaces/$iface/changed", 'true');
+        $ifaces->{$iface}->{changed} = 1;
     }
+    $self->set('interfaces', $ifaces);
 }
 
 # Generate the '/etc/resolv.conf' configuration file and modify
@@ -3302,9 +3315,6 @@ sub restoreConfig
         $self->_setChanged($iface);
     }
 
-    # Clear cached vifaces conf
-    $self->{'vifacesConf'} = {};
-
     $self->SUPER::restoreConfig();
 }
 
@@ -3469,8 +3479,11 @@ sub setDHCPAddress # (interface, ip, mask)
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
     checkIPNetmask($ip, $mask,  __("IP address"), __('Netmask'));
-    $self->st_set_string("dhcp/$iface/address", $ip);
-    $self->st_set_string("dhcp/$iface/mask", $mask);
+
+    my $state = $self->get_state();
+    $state->{dhcp}->{$iface}->{address} = $ip;
+    $state->{dhcp}->{$iface}->{mask} = $mask;
+    $self->set_state($state);
 }
 
 # Method: setDHCPGateway
@@ -3489,7 +3502,9 @@ sub setDHCPGateway # (iface, gateway)
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
 
-    $self->st_set_string("dhcp/$iface/gateway", $gw);
+    my $state = $self->get_state();
+    $state->{dhcp}->{$iface}->{gateway} = $gw;
+    $self->set_state($state);
 }
 
 # Method: setRealPPPIface
@@ -3508,10 +3523,14 @@ sub setRealPPPIface # (iface, ppp_iface, ppp_addr)
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
-    $self->st_set_string("interfaces/$iface/ppp_iface", $ppp_iface);
+
+    my $state = $self->get_state();
+    $state->{interfaces}->{$iface}->{ppp_iface} = $ppp_iface;
+    $self->set_state($state);
 
     checkIP($ppp_addr, __("IP address"));
-    $self->st_set_string("interfaces/$iface/ppp_addr", $ppp_addr);
+    $state->{interfaces}->{$iface}->{ppp_addr} = $ppp_addr;
+    $self->set_state($state);
 }
 
 # Method: DHCPCleanUp
@@ -3530,8 +3549,10 @@ sub DHCPCleanUp # (interface)
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
 
-    $self->st_delete_dir("dhcp/$iface");
-    $self->st_unset("interfaces/$iface/ppp_iface");
+    my $state = $self->get_state();
+    delete $state->{dhcp}->{$iface};
+    delete $state->{interfaces}->{$iface}->{ppp_iface};
+    $self->set_state($state);
 }
 
 # Method: BridgedCleanUp
@@ -3568,7 +3589,7 @@ sub selectedDefaultGateway
 {
     my ($self) = @_;
 
-    return $self->get_string('default/gateway');
+    return $self->get('default/gateway');
 }
 
 # Method: storeSelectedDefaultGateway
@@ -3579,10 +3600,10 @@ sub selectedDefaultGateway
 #
 #   gateway - gateway id
 #
-sub storeSelectedDefaultGateway # (gateway
+sub storeSelectedDefaultGateway
 {
     my ($self, $gateway) = @_;
-    return $self->set_string('default/gateway', $gateway);
+    return $self->set('default/gateway', $gateway);
 }
 
 # Method: DHCPGateway
@@ -3596,15 +3617,16 @@ sub storeSelectedDefaultGateway # (gateway
 # Returns:
 #
 #   string - gateway
+#
 sub DHCPGateway
 {
     my ($self, $iface) = @_;
 
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
+                                             value => $iface);
 
-    return $self->st_get_string("dhcp/$iface/gateway");
+    return $self->get_state()->{dhcp}->{$iface}->{gateway};
 }
 
 # Method: DHCPAddress
@@ -3618,13 +3640,16 @@ sub DHCPGateway
 # Returns:
 #
 #   string - IPv4 address
-sub DHCPAddress # (interface)
+#
+sub DHCPAddress
 {
     my ($self, $iface) = @_;
+
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
-    return $self->st_get_string("dhcp/$iface/address");
+                                             value => $iface);
+
+    return $self->get_state()->{dhcp}->{$iface}->{address};
 }
 
 # Method: DHCPNetmask
@@ -3638,13 +3663,16 @@ sub DHCPAddress # (interface)
 # Returns:
 #
 #   string - network mask
-sub DHCPNetmask # (interface)
+#
+sub DHCPNetmask
 {
     my ($self, $iface) = @_;
+
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
-    return $self->st_get_string("dhcp/$iface/mask");
+
+    return $self->get_state()->{dhcp}->{$iface}->{mask};
 }
 
 # Method: DHCPNetmask
@@ -3659,16 +3687,21 @@ sub DHCPNetmask # (interface)
 # Returns:
 #
 #   string - network mask
-sub setDHCPNameservers # (interface, \@nameservers)
+#
+sub setDHCPNameservers
 {
     my ($self, $iface, $servers) = @_;
+
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
     foreach (@{$servers}) {
         checkIP($_, __("IP address"));
     }
-    $self->st_set_list("dhcp/$iface/nameservers", "string", $servers);
+
+    my $state = $self->get_state();
+    $state->{dhcp}->{$iface}->{nameservers} = $servers;
+    $self->set_state($state);
 }
 
 # Method: DHCPNameservers
@@ -3682,13 +3715,16 @@ sub setDHCPNameservers # (interface, \@nameservers)
 # Returns:
 #
 #   array ref - holding the nameservers
-sub DHCPNameservers # (interface)
+#
+sub DHCPNameservers
 {
     my ($self, $iface) = @_;
+
     $self->ifaceExists($iface) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $iface);
-    return $self->st_get_list("dhcp/$iface/nameservers");
+
+    return $self->get_state()->{dhcp}->{$iface}->{nameservers};
 }
 
 # Method: ping
@@ -4023,26 +4059,6 @@ sub balanceTraffic
     my $balanceTraffic =  $multiGwOptions->balanceTrafficValue();
 
     return ($balanceTraffic and (@{$self->gateways} > 1));
-}
-
-# Method: setBalanceTraffic
-#
-#   Set the traffic balancing
-#
-# Parameters:
-#
-#   balance - bool to enable/disable
-#
-sub setBalanceTraffic
-{
-    my ($self, $balance) = @_;
-
-    unless ($balance ne $self->balanceTraffic) {
-        return;
-    }
-
-    $self->set_bool('balanceTraffic', $balance);
-
 }
 
 # Method: regenGateways
