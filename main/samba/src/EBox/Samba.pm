@@ -52,6 +52,7 @@ use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
 use constant SAMBADNSZONE         => '/var/lib/samba/private/named.conf';
+use constant SAMBA_DNS_POLICY     => '/var/lib/samba/private/named.conf.update';
 use constant SAMBADNSKEYTAB       => '/var/lib/samba/private/dns.keytab';
 use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
 use constant FSTAB_FILE           => '/etc/fstab';
@@ -158,6 +159,11 @@ sub usedFiles
         {
             'file'   => FSTAB_FILE,
             'reason' => __('To enable extended attributes and acls.'),
+            'module' => 'samba',
+        },
+        {
+            'file'   => '/etc/services',
+            'reason' => __('To add microsoft specific services'),
             'module' => 'samba',
         }
     ];
@@ -297,6 +303,22 @@ sub enableActions
     } otherwise {
         my $error = shift;
         EBox::debug("Couldn't setup filesystem options: $error");
+    };
+
+    # Add 'Global catalog' service to /etc/services
+    try {
+        my $dnsMod = EBox::Global->modInstance('dns');
+        my $srvModel = $dnsMod->model('Services');
+        my $services = $srvModel->services();
+        my %aux = map { $_->{name} => 1 } @{$services};
+        unless (exists $aux{gc}) {
+            EBox::debug('Adding Microsoft global catalog service to /etc/services');
+            my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
+            EBox::Sudo::root($cmd);
+        }
+    } otherwise {
+        my $error = shift;
+        throw EBox::Exceptions::Internal('Couldn\'t add Microsoft global catalog service');
     };
 }
 
@@ -496,7 +518,109 @@ sub provision
         my $error = shift;
         throw EBox::Exceptions::Internal("Error provisioning database: $error");
     };
-    EBox::Sudo::root('chown root:bind ' . SAMBADNSZONE);
+
+    # TODO Remove previous records
+
+    # Add the DNS records
+    EBox::debug('Adding domain DNS records');
+    try {
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $dnsMod  = EBox::Global->modInstance('dns');
+        my $hostName = $sysinfo->hostName();
+
+        # Get the domain ip
+        my $domainModel = $dnsMod->model('DomainTable');
+        my $domainRow = $domainModel->findValue(domain => $self->realm());
+        unless (defined $domainRow) {
+            throw EBox::Exceptions::DataNotFound(
+                data => __('domain'),
+                value => $self->realm(),
+            );
+        }
+        my $domainIp = $domainRow->valueByName('ipaddr');
+
+        # Get the domain GUID
+        my $args = { base   => $self->ldb->rootDN(),
+                     scope  => 'base',
+                     attrs  => 'objectGUID' };
+        my $result = $self->ldb->search($self->ldb->SAM(), $args);
+        my $entry = pop @{$result};
+        my $domainGUID = $entry->get_value('objectGUID');
+
+        # Get the server GUID
+        $args = { base => "CN=NTDS Settings," .
+                          "CN=" . uc ($hostName) . "," .
+                          "CN=Servers," .
+                          "CN=Default-First-Site-Name," .
+                          "CN=Sites," .
+                          "CN=Configuration," .
+                          $self->ldb->rootDN(),
+                  scope  => 'base',
+                  attrs  => 'objectGUID' };
+        $result = $self->ldb->search($self->ldb->SAM(), $args);
+        $entry = pop @{$result};
+        my $serverGUID = $entry->get_value('objectGUID');
+
+        my $host = { hostname => 'gc._msdcs.' . $self->realm(),
+                     ipaddr => $domainIp };
+        $domainModel->addHost($self->realm(), $host);
+
+        my $alias = "$serverGUID._msdcs";
+        $dnsMod->addAlias($self->realm(), $hostName, $alias);
+
+        my $service = { service => 'gc',
+                        protocol => 'tcp',
+                        port => 3268,
+                        priority => 0,
+                        weight => 100,
+                        target_type => 'domainHost',
+                        target => $hostName,
+                        readOnly => 1 };
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'Default-First-Site-Name._sites';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{service} = 'ldap';
+        $service->{name} = 'gc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'Default-First-Site-Name._sites.gc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = undef;
+        $service->{port} = 389;
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'dc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'pdc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = "$domainGUID.domains._msdcs";
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'Default-First-Site-Name._sites';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'Default-First-Site-Name._sites.dc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{service} = 'kerberos';
+        $service->{port} = 88;
+        $service->{name} = 'dc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'Default-First-Site-Name._sites';
+        $dnsMod->addService($self->realm(), $service);
+
+        $service->{name} = 'Default-First-Site-Name._sites.dc._msdcs';
+        $dnsMod->addService($self->realm(), $service);
+    } otherwise {
+        my $error = shift;
+        throw EBox::Exceptions::Internal("Error adding DNS records: $error");
+    };
 
     # Disable password policy
     # NOTE complexity is disabled because when changing password in

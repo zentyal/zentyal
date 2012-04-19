@@ -1,3 +1,5 @@
+HEAD
+	+ Integrate with zentyal DNS
 2.3.5
 	+ New samba4 synchronization based on LDB module and LDIF files
 	+ Depend on samba-zentyal-modules instead of libldb-perl
