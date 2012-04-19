@@ -105,8 +105,8 @@ sub search
     }
 
     my $cmd = "ldbsearch -H $file " .
-              " -b $params->{base} " .
-              " -s $params->{scope} " .
+              " -b '$params->{base}' " .
+              " -s '$params->{scope}' " .
               " '$params->{filter}' " .
               $params->{attrs};
     my $ldif = EBox::Sudo::root($cmd);
