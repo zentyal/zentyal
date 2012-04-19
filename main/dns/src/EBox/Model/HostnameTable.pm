@@ -57,55 +57,6 @@ sub new
     return $self;
 }
 
-# Method: addHostname
-#
-#   Add a hostname to the hostnames table. Note this method must exist
-#   because we must provide an easy way to migrate old dns module
-#   to this new one.
-#
-# Parameters:
-#
-#   (NAMED)
-#   hostname   - String host name
-#   ip         - String host ipaddr
-#   aliases    - array ref containing the alias names
-#
-#   Example:
-#
-#      'hostname'     => 'bar',
-#      'ip'           => '192.168.1.2',
-#      'aliases'      => [
-#                         { 'bar',
-#                           'b4r'
-#                         }
-#                        ]
-sub addHostname
-{
-   my ($self, %params) = @_;
-
-   my $name = delete $params{'hostname'};
-   my $ip = delete $params{'ip'};
-
-   return unless (defined($name) and defined($ip));
-
-   my $id = $self->addRow('hostname' => $name, 'ipaddr' => $ip);
-
-   unless (defined($id)) {
-       throw EBox::Exceptions::Internal("Couldn't add host name: $name");
-   }
-
-   my $aliases = delete $params{'aliases'};
-   return unless (defined($aliases) and @{$aliases} > 0);
-
-   my $aliasModel =
-   		EBox::Model::ModelManager::instance()->model('AliasTable');
-
-   $aliasModel->setDirectory($self->{'directory'} . "/$id/alias");
-   foreach my $alias (@{$aliases}) {
-       $aliasModel->addRow('alias' => $alias);
-   }
-}
-
 # Method: validateTypedRow
 #
 # Overrides:
@@ -260,7 +211,7 @@ sub _table
                                 'fieldName' => 'ipaddr',
                                 'printableName' => __('IP Address'),
                                 'size' => '20',
-                                'unique' => 1,
+                                # 'unique' => 1, # disabled to allow AD global catalog server record
                                 'editable' => 1
                              ),
             new EBox::Types::HasMany
@@ -346,9 +297,9 @@ sub deletedRowNotify
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->parentRow()->printableValueByName('domain');
+    return $self->parentRow()->printableValueByName('domain');
 }
 
 # Group: Private methods
@@ -367,7 +318,6 @@ sub _addToDelete
 
     push(@list, $domain);
     $mod->st_set_list($key, 'string', \@list);
-
 }
 
 1;

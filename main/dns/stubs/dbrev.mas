@@ -1,10 +1,10 @@
 <%args>
-	%rdata
+    %rdata
 </%args>
 <%init>
 my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
-my $directDomain = $rdata{'domain'}->[0]->{'name'}; 
+my $directDomain = $rdata{'domain'}->[0]->{'name'};
 </%init>
 $TTL 3D
 $ORIGIN <% $rdata{'groupip'} %>.in-addr.arpa.

@@ -3,108 +3,81 @@
 
 Parameters:
 
-  domain - hash containing the following information:
+  domain - hash ref containing the following information:
 
       name - String the domain's name
       ipaddr - String the domain's ip address
       hosts - Array ref containing hash refs with the following elements:
-         ip   - String the IP address for that host
-         name - String the host's name
-         aliases - Array ref containing hash refs with the following elements:
-             name - String the alias' name
+        ip   - String the IP address for that host
+        name - String the host's name
+        aliases - Array ref containing hash refs with the following elements:
+            name - String the alias' name
       mailExchangers - Array ref containing hash refs with the following elements:
          hostName - String the host's name which is a mail exchanger
          preference - Int the preference number for that MX record
       nameServers - Array ref containing the name servers for this domain
- 
-     txt - Array ref containing hash refs with the following
-           elements:
-       hostName - String the host's name which the TXT record belongs
-                  to. It could be the zone
-       txt_dat  - String the arbitrary data
+      txt - Array ref containing hash refs with the following elements:
+        hostName - String the host's name which the TXT record belongs
+                   to. It could be the zone
+        txt_dat  - String the arbitrary data
+      srv - Array ref containing hash refs with the following elements:
+        service_name - String the service's name
+        protocol     - String the protocol
+        name         - The domain name for which this record is valid
+        priority     - Int the priority
+        weight       - Int the weight
+        target_port  - Int the target port
+        target_host  - Int the target host name
 
-     srv - Array ref containing hash refs with the following
-           elements:
-       service_name - String the service's name
-       protocol     - String the protocol
-       priority     - Int the priority
-       weight       - Int the weight
-       target_port  - Int the target port
-       target_host  - Int the target host name
-
-  nameserverHostname - String the name used as name server
+    hostname - String the name used as name server
 </%doc>
 <%args>
-	%domain
-        $nameserverHostname
+    $domain
+    $hostname
 </%args>
 <%init>
-my @time = localtime();
-my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
-my @hosts = @{$domain{'hosts'}};
-my $firstNS = scalar(@{$domain{'nameServers'}}) == 0 ? $nameserverHostname : $domain{'nameServers'}->[0] ;
-unless ($firstNS =~ /\.$/ ) {
-   $firstNS = $firstNS . '.' . $domain{'name'} . '.';
-}
+my @time    = localtime();
+my $date    = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
+my @nsRRs   = @{$domain->{nameServers}};
+my @hostRRs = @{$domain->{hosts}};
+my @mxRRs   = @{$domain->{mailExchangers}};
+my @txtRRs  = @{$domain->{txt}};
+my @srvRRs  = @{$domain->{srv}};
 </%init>
+$ORIGIN <% $domain->{name} %>.
 $TTL 3D
-@	IN	SOA	<% $firstNS %>	hostmaster (
-			<% $date %>	;serial number
-			8H		;refresh
-			2H		;retry
-			4W		;expiration
-			1D )		;
-;
-% if($domain{'ipaddr'}) {	
-@		A	<% $domain{'ipaddr'} %>
+@   IN  SOA <% $hostname %> hostmaster (
+            <% $date %>	;serial number
+            8H		;refresh
+            2H		;retry
+            4W		;expiration
+            1D )    ;minimum
+
+% foreach my $ns (@nsRRs) {
+    IN NS <% $ns %> ;nameserver
 % }
-% if ( @{$domain{'nameServers'}} == 0 ) {
-@               NS	<% $firstNS %>	;nameserver
+% if ($domain->{ipaddr}) {
+    IN A  <% $domain->{ipaddr} %>
+% }
 ;
-<% $firstNS %>		A	127.0.0.1
-% } else {
-%   foreach my $ns (@{$domain{'nameServers'}}) {
-@               NS      <% $ns %>
+
+% foreach my $host (@hostRRs) {
+<% $host->{name} %> IN A <% $host->{ip} %>
+%   my @aliases = @{$host->{aliases}};
+%   foreach my $alias (@aliases) {
+<% $alias->{name} %> IN CNAME <% $host->{name} %>
 %   }
 % }
-<%perl>
-  if (@hosts != 0) {
-      foreach my $host (@hosts) {
-</%perl>
-<% $host->{'name'} %>		A	<% $host->{'ip'} %>
-<%perl>
- 	  my @aliases = @{$host->{'aliases'}};
-	  if (@aliases != 0) {
-	     foreach my $alias (@aliases) {
-</%perl>
-<% $alias->{'name'} %>		CNAME	<% $host->{'name'} %>
-<%perl>
-	     }
-	  }
-	}
-  }
-  my @mxRRs = @{$domain{'mailExchangers'}};
-  if (@mxRRs > 0 ) {
-     foreach my $mxRR (@mxRRs) {
-</%perl>
-@               MX      <% $mxRR->{'preference'} %> <% $mxRR->{'hostName'} %>
-<%perl>
-     }
-  }
-  my @txtRRs = @{$domain{'txt'}};
-  if (@txtRRs > 0 ) {
-     foreach my $txtRR (@txtRRs) {
-</%perl>
-<% $txtRR->{'hostName'} %>      TXT     <% $txtRR->{'txt_data'} %>
-<%perl>
-     }
-  }
-  my @srvRRs = @{$domain{'srv'}};
-  if (@srvRRs > 0 ) {
-     foreach my $srvRR (@srvRRs) {
-</%perl>
-_<% $srvRR->{'service_name'} %>._<% $srvRR->{protocol} %>.<% $domain{'name'} %>.        SRV     <% $srvRR->{'priority'} %> <% $srvRR->{'weight'} %> <% $srvRR->{'target_port'} %> <% $srvRR->{target_host} %>
-<%perl>
-     }
-  }
-</%perl>
+
+% foreach my $mxRR (@mxRRs) {
+    IN MX <% $mxRR->{preference} %> <% $mxRR->{hostName} %>
+% }
+
+% foreach my $txtRR (@txtRRs) {
+<% $txtRR->{hostName} %> IN TXT <% $txtRR->{txt_data} %>
+% }
+
+% foreach my $srvRR (@srvRRs) {
+%   my $name = length ($srvRR->{name}) > 0 ? ".$srvRR->{name}" : '';
+_<% $srvRR->{service_name} %>._<% $srvRR->{protocol} %><% $name %> IN SRV <% $srvRR->{priority} %> <% $srvRR->{weight} %> <% $srvRR->{target_port} %> <% $srvRR->{target_host} %>
+% }

@@ -61,7 +61,6 @@ use constant BIND9INIT     => "/etc/init.d/bind9";
 use constant BIND9_UPDATE_ZONES => "/var/lib/bind";
 
 use constant PIDFILE       => "/var/run/bind/run/named.pid";
-use constant NAMESERVER_HOST => 'ns';
 use constant KEYSFILE => BIND9CONFDIR . '/keys';
 
 use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
@@ -265,6 +264,40 @@ sub delText
     $model->delText($domain, $txt);
 }
 
+# Method: addHost
+#
+#   Adds a host to the domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub addHost
+{
+    my ($self, $domain, $host) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->addHost($domain, $host);
+}
+
+# Method: delHost
+#
+#   Deletes a host from the domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub delHost
+{
+    my ($self, $domain, $host) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->delHost($domain, $host);
+}
+
 # Method: addDomain
 #
 #  Add new domain to table model
@@ -426,17 +459,19 @@ sub findAlias
 
 # Method: NameserverHost
 #
-#       Return those host which is the nameserver for every domain. It
-#       is a constant
+#   Return those host which is the nameserver for every domain.
 #
 # Returns:
 #
-#       String - the nameserver host name for every eBox defined
-#       domain
+#   String - the nameserver host name for every eBox defined domain
 #
 sub NameserverHost
 {
-    return NAMESERVER_HOST;
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+
+    return $sysinfo->hostName();
 }
 
 # Method: updateReversedData
@@ -769,16 +804,16 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $sambaZone = undef;
     my $sambaKeytab = undef;
+    my $sambaPolicyFile = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled()) {
-            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBADNSZONE())) {
-                $sambaZone = EBox::Samba::SAMBADNSZONE();
-            }
             if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBADNSKEYTAB())) {
                 $sambaKeytab = EBox::Samba::SAMBADNSKEYTAB();
+            }
+            if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_POLICY())) {
+                $sambaPolicyFile = EBox::Samba::SAMBA_DNS_POLICY();
             }
         }
     }
@@ -789,8 +824,8 @@ sub _setConf
             "dns/named.conf.mas",
             \@array);
 
-    push(@array, 'forwarders' => $self->_forwarders());
-    push(@array, 'sambaKeytab' => $sambaKeytab);
+    push (@array, 'forwarders' => $self->_forwarders());
+    push (@array, 'sambaKeytab' => $sambaKeytab);
 
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
@@ -811,10 +846,10 @@ sub _setConf
     my @domainData;
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
-        push(@domainData, $domdata);
+        push (@domainData, $domdata);
 
         my $file;
-        if ( $domdata->{'dynamic'} ) {
+        if ($domdata->{'dynamic'}) {
             $file = BIND9_UPDATE_ZONES;
         } else {
             $file = BIND9CONFDIR;
@@ -822,8 +857,8 @@ sub _setConf
         $file .= '/db.' . $domdata->{'name'};
 
         @array = ();
-        push(@array, 'domain' => $domdata);
-        push(@array, 'nameserverHostname' => __PACKAGE__->NameserverHost());
+        push (@array, 'domain' => $domdata);
+        push (@array, 'hostname' => $self->NameserverHost());
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
         if ( $domdata->{'dynamic'} and -e "${file}.jnl" ) {
@@ -877,7 +912,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
-    push(@array, 'sambaZone' => $sambaZone);
+    push(@array, 'sambaPolicyFile' => $sambaPolicyFile);
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);
@@ -1171,9 +1206,9 @@ sub _formatNameServers
     }
     if ( @nameservers == 0 ) {
         # Look for any hostname whose name is 'ns'
-        my $matchedId = $hostnames->findId(hostname => __PACKAGE__->NameserverHost());
+        my $matchedId = $hostnames->findId(hostname => $self->NameserverHost());
         if ( defined($matchedId) ) {
-            push(@nameservers, __PACKAGE__->NameserverHost());
+            push(@nameservers, $self->NameserverHost());
         }
     }
 
@@ -1236,6 +1271,7 @@ sub _formatTXT
 #
 #            service_name - String the service's name
 #            protocol - String the protocol
+#            name - The domain name for which this record is valid.
 #            priority - Int the priority
 #            weight - Int the weight
 #            port - Int the target port
@@ -1248,6 +1284,7 @@ sub _formatTXT
 #
 #      service_name
 #      protocol
+#      name
 #      priority
 #      weight
 #      target_port
@@ -1274,6 +1311,7 @@ sub _formatSRV
         push (@srvRecords, {
                 service_name => $row->valueByName('service_name'),
                 protocol => $row->valueByName('protocol'),
+                name => $row->valueByName('name'),
                 priority => $row->valueByName('priority'),
                 weight => $row->valueByName('weight'),
                 target_port => $row->valueByName('port'),

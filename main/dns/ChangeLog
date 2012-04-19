@@ -1,5 +1,10 @@
 HEAD
-	+ API to add/delete SRV and TXT records to a domain
+	+ API to add/delete A, SRV and TXT records to a domain
+	+ Set the NS record to the hostname
+	+ IP Address on domain hosts is no more a unique field. This is
+	  needed by samba to add the global catalog server record
+	+ Add a field to the SRV RR's model to allow to set the domain
+	  suffix
 2.3.5
 	+ Create tables with MyISAM engine by default
 2.3.4

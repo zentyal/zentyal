@@ -76,67 +76,8 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{service_name}
-         or exists $changedFields->{protocol}
-         or exists $changedFields->{port} ) {
-        unless ( defined($self->{services}) ) {
-            my @lines = File::Slurp::read_file(SERVICE_FILE);
-            my @services = ();
-            foreach my $line (@lines) {
-                next if ($line =~ m:^#: );
-                my @fields = split(/\s+/, $line);
-                if ( defined ($fields[0]) and defined ($fields[1])) {
-                    if ( $fields[0] =~ m:[a-z\-]+: and $fields[1] =~ m:\d+/\w+: ) {
-                        my ($name, $port, $protocol) = ($fields[0],
-                                                        $fields[1] =~ m:(\d+)/(\w+):);
-                        if ( defined($name) and defined($port) and defined($protocol) ) {
-                            push(@services, { name => $name, port => $port, protocol => $protocol });
-                            foreach my $field ( @fields[ 2 .. $#fields ] ) {
-                                last if ( $field =~ m:^#: );
-                                push(@services, { name => $field, port => $port, protocol => $protocol });
-                            }
-                        }
-                    }
-                }
-            }
-            $self->{services} = \@services;
-        }
-        my $nMatch = grep {
-            ($_->{name} eq $allFields->{service_name}->value())
-#            and ($_->{port} eq $allFields->{port}->value()) # Port verification is really necessary
-            and ($_->{protocol} eq $allFields->{protocol}->value())
-                     } @{$self->{services}};
-        if ($nMatch < 1) {
-            throw EBox::Exceptions::External(
-                __x('The chosen service is not in {file}', file => SERVICE_FILE));
-        }
-    }
-
-    if ( exists $changedFields->{hostName} ) {
-        if ( $changedFields->{hostName}->selectedType() eq 'custom' ) {
-            my $val = $changedFields->{hostName}->value();
-            my @parts = split(/\./, $val);
-            unless ( @parts > 1 ) {
-                throw EBox::Exceptions::External(
-                    __x('The given host name is not a fully qualified domain '
-                        . 'name (FQDN). Do you mean {srv}.{name}?',
-                        srv => $allFields->{service_name}->value(),
-                        name => $val));
-            }
-            # Check the given custom nameserver is a CNAME record from the
-            # same zone
-            my $zoneRow = $self->parentRow();
-            my $zone    = $zoneRow->valueByName('domain');
-            my $customZone = join('.', @parts[1 .. $#parts]);
-            if ( $zone eq $customZone ) {
-                # Use ownerDomain to set the mail exchanger
-                throw EBox::Exceptions::External(__('A custom host name cannot be '
-                                                    . 'set from the same domain. '
-                                                    . 'Use "This domain" option '
-                                                    . 'instead'));
-            }
-        }
-    }
+    $self->checkService($changedFields, $allFields);
+    $self->checkHostname($changedFields, $allFields);
 
     if ( $action eq 'update' ) {
         # Add toDelete the RRs for this SRV record
@@ -149,7 +90,6 @@ sub validateTypedRow
             $self->{toDelete} = "_${srvName}._${protocol}.${zone}. SRV";
         }
     }
-
 }
 
 # Method: deletedRowNotify
@@ -200,6 +140,14 @@ sub _table
               populate      => \&_protocols,
               editable      => 1,
              ),
+          new EBox::Types::Text(
+              fieldName     => 'name',
+              printableName => __('Name'),
+              editable      => 1,
+              optional      => 1,
+              #TODO hidden        => 1,
+              #TODO hiddenOnViewer => 1,
+              ),
           new EBox::Types::Int(
               fieldName     => 'priority',
               printableName => __('Priority'),
@@ -299,6 +247,91 @@ sub _protocols
         },
        );
     return \@options;
+}
+
+sub services
+{
+    my ($self) = @_;
+
+    unless (defined $self->{services}) {
+        $self->{services} = $self->_loadServices();
+    }
+
+    return $self->{services};
+}
+
+sub _loadServices
+{
+    my ($self) = @_;
+
+    my $services = [];
+    my @lines = File::Slurp::read_file(SERVICE_FILE);
+    foreach my $line (@lines) {
+        next if ($line =~ m:^#:);
+        my @fields = split(/\s+/, $line);
+        if (defined ($fields[0]) and defined ($fields[1])) {
+            if ($fields[0] =~ m:[a-z\-]+: and $fields[1] =~ m:\d+/\w+:) {
+                my ($name, $port, $protocol) = ($fields[0],
+                        $fields[1] =~ m:(\d+)/(\w+):);
+                if (defined ($name) and defined ($port) and defined ($protocol)) {
+                    push (@{$services}, { name => $name, port => $port, protocol => $protocol });
+                    foreach my $field (@fields[ 2 .. $#fields ]) {
+                        last if ($field =~ m:^#:);
+                        push (@{$services}, { name => $field, port => $port, protocol => $protocol });
+                    }
+                }
+            }
+        }
+    }
+    return $services;
+}
+
+sub checkService
+{
+    my ($self, $changedFields, $allFields) = @_;
+
+    my $services = $self->services();
+    if (exists $changedFields->{service_name} or
+        exists $changedFields->{protocol} or
+        exists $changedFields->{port} ) {
+        my $nMatch = grep { ($_->{name} eq $allFields->{service_name}->value()) and
+                            ($_->{protocol} eq $allFields->{protocol}->value()) } @{$services};
+        if ($nMatch < 1) {
+            throw EBox::Exceptions::External(
+                __x('The chosen service is not in {file}', file => SERVICE_FILE));
+        }
+    }
+}
+
+sub checkHostname
+{
+    my ($self, $changedFields, $allFields) = @_;
+
+    if (exists $changedFields->{hostName}) {
+        if ($changedFields->{hostName}->selectedType() eq 'custom') {
+            my $val = $changedFields->{hostName}->value();
+            my @parts = split(/\./, $val);
+            unless (@parts > 1) {
+                throw EBox::Exceptions::External(
+                    __x('The given host name is not a fully qualified domain '
+                        . 'name (FQDN). Do you mean {srv}.{name}?',
+                        srv => $allFields->{service_name}->value(),
+                        name => $val));
+            }
+            # Check the given custom nameserver is a CNAME record from the
+            # same zone
+            my $zoneRow = $self->parentRow();
+            my $zone    = $zoneRow->valueByName('domain');
+            my $customZone = join('.', @parts[1 .. $#parts]);
+            if ($zone eq $customZone) {
+                # Use ownerDomain to set the mail exchanger
+                throw EBox::Exceptions::External(__('A custom host name cannot be '
+                                                    . 'set from the same domain. '
+                                                    . 'Use "This domain" option '
+                                                    . 'instead'));
+            }
+        }
+    }
 }
 
 1;

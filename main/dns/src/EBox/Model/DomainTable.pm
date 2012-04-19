@@ -125,6 +125,68 @@ sub addDomain
     }
 }
 
+# Method: addHost
+#
+#   Adds a new host to the domain
+#
+# Parameters:
+#
+#   host - A hash ref containing:
+#             - hostname
+#             - ipaddr
+#             - alias (optional)
+#             - readOnly (optional)
+#
+sub addHost
+{
+    my ($self, $domain, $host) = @_;
+
+    unless (defined ($domain)) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
+    unless (defined ($host->{hostname})) {
+        throw EBox::Exceptions::MissingArgument('hostname');
+    }
+
+    unless (defined ($host->{ipaddr})) {
+        throw EBox::Exceptions::MissingArgument('ipaddr');
+    }
+
+    my %params = ( hostname => $host->{hostname},
+                   ipaddr   => $host->{ipaddr} );
+
+    EBox::debug('Adding host record');
+    my $domainRow = $self->_getDomainRow($domain);
+    my $hostModel = $domainRow->subModel('hostnames');
+    my $hostRowId = $hostModel->addRow(%params, readOnly => $host->{readOnly});
+    my $hostRow   = $hostModel->row($hostRowId);
+
+    my $aliasModel = $hostRow->subModel('alias');
+    foreach my $alias (@{$host->{alias}}) {
+        EBox::debug('Adding host alias');
+        $aliasModel->addRow('alias' => $alias);
+    }
+}
+
+# Method: delHost
+#
+#   Deletes a host from the domain
+#
+sub delHost
+{
+    my ($self, $domain, $host) = @_;
+
+    # TODO
+    #unless (defined ($domain)) {
+    #    throw EBox::Exceptions::MissingArgument('domain');
+    #}
+
+    #my $domainRow = $self->_getDomainRow($domain);
+    #my $model = $domainRow->subModel('hostnames');
+    #$model->addHostname(%{$host});
+}
+
 # Method: addService
 #
 #   Add a new SRV record to the domain
@@ -134,6 +196,7 @@ sub addDomain
 #   service - A hash ref containing:
 #             - service (The name of the service, must match a name in /etc/services)
 #             - protocol ('tcp' or 'udp')
+#             - name (the domain name for which this record is valid)
 #             - priority (optional)
 #             - weight (optional)
 #             - port (port number)
@@ -161,10 +224,32 @@ sub addService
     my $model = $domainRow->subModel('srv');
     my %params = (service_name => $service->{service},
                   protocol => $service->{protocol},
+                  name => $service->{name},
                   priority => $service->{priority},
                   weight => $service->{weight},
                   port => $service->{port});
-    # TODO Search and do not insert if exists
+
+    # Check if the service already exists
+    my $add = 1;
+    my $ids = $model->findAll(service_name => $params{service_name});
+    foreach my $id (@{$ids}) {
+        my $row = $model->row($id);
+        my $matchAll = 1;
+        foreach my $param (keys %params) {
+            my $value = $row->valueByName($param);
+            if ($params{$param} ne $value) {
+                $matchAll = 0;
+                last;
+            }
+        }
+        if ($matchAll) {
+            $add = 0;
+            last;
+        }
+    }
+
+    return unless ($add);
+
     if ($service->{target_type} eq 'domainHost' ) {
         $params{hostName_selected} = 'ownerDomain';
         my $hostsModel = $domainRow->subModel('hostnames');
@@ -176,11 +261,11 @@ sub addService
                 $params{ownerDomain} = $id;
                 last;
             }
-            unless ($params{ownerDomain}) {
-                throw EBox::Exceptions::DataNotFound(
+        }
+        unless ($params{ownerDomain}) {
+            throw EBox::Exceptions::DataNotFound(
                     data => 'hostname',
                     value => $service->{target});
-            }
         }
     } elsif ($service->{target_type} eq 'custom' ) {
         $params{hostName_selected} = 'custom';
@@ -188,8 +273,8 @@ sub addService
     } else {
         throw EBox::Exceptions::MissingArgument('target_type');
     }
-    use Data::Dumper;
-    EBox::debug(Dumper(\%params));
+
+    EBox::debug('Adding SRV record');
     $model->addRow(%params, readOnly => $service->{readOnly});
 }
 
@@ -254,6 +339,10 @@ sub addText
 {
     my ($self, $domain, $txt) = @_;
 
+    unless (defined ($domain)) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
     my $domainRow = $self->_getDomainRow($domain);
     my $model = $domainRow->subModel('txt');
     my $id = $model->findRow(hostName => $txt->{name},
@@ -316,14 +405,17 @@ sub addedRowNotify
     $newRow->store();
 
     # Generate the NS record and its A record
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostname = $sysinfo->hostName();
+
     my $hostModel = $newRow->subModel('hostnames');
-    my $nsIPAddr  = '127.0.0.1';
+    my $ipaddr  = '127.0.0.1';
     if (defined($newRow->valueByName('ipaddr'))) {
-        $nsIPAddr = $newRow->valueByName('ipaddr');
+        $ipaddr = $newRow->valueByName('ipaddr');
     }
-    my $hostNameId = $hostModel->add(hostname => 'ns', ipaddr => $nsIPAddr);
+    my $hostNameId = $hostModel->add(hostname => $hostname, ipaddr => $ipaddr);
     my $nsModel   = $newRow->subModel('nameServers');
-    $nsModel->add(hostName => { ownerDomain => 'ns' } );
+    $nsModel->add(hostName => { ownerDomain => $hostname } );
 
 }
 
