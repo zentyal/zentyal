@@ -86,11 +86,12 @@ sub getCertificate()
 #
 sub setupMaster
 {
-    my ($self) = @_;
+    my ($self, $pass) = @_;
 
-    my $pass = EBox::Util::Random::generate(15);
+    defined $pass or
+        $pass = EBox::Util::Random::generate(15);
 
-    my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->getInstance()->modInstance('users');
     my $table = $users->model('SlavePassword');
 
     my $row = $table->row();
