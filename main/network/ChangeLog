@@ -1,4 +1,5 @@
 HEAD
+	+ Assure that we have always one gateway marked as default
 	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
 	+ Regenerate traffic shaping rules after failover event
 	+ EBox::Network::setNameservers does not fail if the same server

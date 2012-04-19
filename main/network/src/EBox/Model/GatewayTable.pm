@@ -245,6 +245,11 @@ sub _table
 
 # Method: validateRow
 #
+#  Implementation note:
+#  this is validateRow and not typedValidateRow because we dont want to execute
+#  this when failover watcher do a $row->store() call, this could be also done
+#  using the 'force' parameter but I want not to risk to break something in the ecent
+#
 #      Override <EBox::Model::DataTable::validateRow> method
 #
 sub validateRow
@@ -281,18 +286,49 @@ sub validateRow
     # Only check if gateway is reachable on static interfaces
     if ($network->ifaceMethod($params{'interface'}) eq 'static') {
         $network->gatewayReachable($params{'ip'}, 'LaunchException');
+        if (($action eq 'add' and ($self->size() == 0))) {
+            if (not $params{default}) {
+                throw EBox::Exceptions::External(__('Since you have not gateways you should add the first one as default'))
+            }
+        }
     } elsif (($action eq 'add') and (not $auto)) {
         throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
     }
 
-    return unless ($currentRow and $params{'default'});
+    my $currentIsDefault = 0;
+    if ($currentRow) {
+        $currentIsDefault = $currentRow->valueByName('default');
+    }
 
-    # Check if there's only one default gw
-    my $defaultRow = $self->find('default' => 1);
-    if (defined($defaultRow) and ($currentRow->id() ne $defaultRow->id())) {
-        my $default = $defaultRow->elementByName('default');
-        $default->setValue(undef);
-        $defaultRow->storeElementByName('default');
+    if ($params{default}) {
+        # remove existent default mark in other row if needed
+        if (not $currentIsDefault) {
+            my $defaultRow = $self->find('default' => 1);
+            if ($defaultRow) {
+                my $default = $defaultRow->elementByName('default');
+                $default->setValue(undef);
+                $defaultRow->storeElementByName('default');
+            }
+        }
+    } elsif ($currentIsDefault) {
+        throw EBox::Exceptions::External(
+            __('You cannot remove the default attribute, if you want to change it assign it to another gaterway')
+           );
+    }
+
+}
+
+sub validateRowRemoval
+{
+    my ($self, $row, $force) = @_;
+    if ((not $force) and $row->valueByName('auto')) {
+        throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
+    }
+    if ((not $force) and $row->valueByName('default')) {
+        my $size = $self->size();
+        unless ($size == 1) {
+            throw EBox::Exceptions::External(__('A gateway marked as default only could be removed if it is the last one left'));
+        }
     }
 }
 
@@ -344,10 +380,6 @@ sub updatedRowNotify
 sub deletedRowNotify
 {
     my ($self, $row, $force) = @_;
-
-    if ((not $force) and $row->valueByName('auto')) {
-        throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
-    }
 
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
