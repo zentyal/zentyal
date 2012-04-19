@@ -1,6 +1,5 @@
 HEAD
-	+ Fixed error in getting VM state with libvirt and  a
-	  language other than english
+	+ Fixed error in getting VM state with a language different than english
 2.3.1
 	+ Added printableName for VNC service
 2.3
