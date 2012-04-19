@@ -337,38 +337,25 @@ sub enableActions
         if (not exists $domains{$domain->{domain_name}}) {
             EBox::debug('Adding the domain to the DNS module');
             $dnsMod->addDomain($domain);
-            $dnsMod->addAlias($domain->{domain_name}, 'ns', $hostName);
-        } else {
-            EBox::debug('The domain already exists, checking the defined hosts');
-            my $hosts = $dnsMod->getHostnames($domain->{domain_name});
-            my %hosts = map { $_->{name} => $_ } @{$hosts};
-            my $ns = $hosts{ns};
-            my %aliases = map { $_->{name} => 1 } @{$ns->{aliases}};
-            unless (defined $aliases{$hostName}) {
-                EBox::debug('The alias is not defined, add');
-                $dnsMod->addAlias($domain->{domain_name}, 'ns', $hostName);
-            }
         }
 
         # Add the TXT record with the realm name
         my $txt = { name => '_kerberos',
                     data => $realm,
                     readOnly => 1 };
-        EBox::debug('Adding the TXT records');
         $dnsMod->addText($domain->{domain_name}, $txt);
 
         # Add the SRV records to the domain
         my $service = { service => 'kerberos',
                         protocol => 'tcp',
                         port => 88,
+                        weight => 100,
                         target_type => 'domainHost',
-                        target => 'ns', # The hostname is an alias of 'ns'
+                        target => $hostName,
                         readOnly => 1 };
-        EBox::debug('Adding SRV record');
         $dnsMod->addService($domain->{domain_name}, $service);
 
         $service->{protocol} = 'udp';
-        EBox::debug('Adding SRV record');
         $dnsMod->addService($domain->{domain_name}, $service);
 
         ## TODO Check if the server is a master or slave and adjust the target
@@ -376,7 +363,6 @@ sub enableActions
         $service->{service} = 'kerberos-adm';
         $service->{protocol} = 'tcp';
         $service->{port} = 749;
-        EBox::debug('Adding SRV record');
         $dnsMod->addService($domain->{domain_name}, $service);
     } otherwise {
         my $error = shift;
