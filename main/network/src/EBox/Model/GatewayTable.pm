@@ -321,10 +321,10 @@ sub validateRow
 sub validateRowRemoval
 {
     my ($self, $row, $force) = @_;
-    if ((not $force) and $row->valueByName('auto')) {
+    if ( $row->valueByName('auto')) {
         throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
     }
-    if ((not $force) and $row->valueByName('default')) {
+    if ($row->valueByName('default')) {
         my $size = $self->size();
         unless ($size == 1) {
             throw EBox::Exceptions::External(__('A gateway marked as default only could be removed if it is the last one left'));
