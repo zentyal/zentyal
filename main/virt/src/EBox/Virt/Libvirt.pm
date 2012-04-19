@@ -165,7 +165,7 @@ sub _state
 {
     my ($self, $name) = @_;
 
-    my ($state) = @{EBox::Sudo::silentRoot("$VIRTCMD domstate $name")};
+    my ($state) = @{EBox::Sudo::silentRoot("LANG=C $VIRTCMD domstate $name")};
     if ($? == 0) {
         chomp ($state);
     } else {

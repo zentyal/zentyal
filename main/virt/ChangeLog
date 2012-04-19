@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed error in getting VM state with a language different than english
 	+ Bugfix: custom keymap validation works properly now
 2.2.3
 	+ Internal networks now work in KVM
