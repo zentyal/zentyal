@@ -36,7 +36,7 @@ sub _print
     my ($self) = @_;
     print($self->cgi()->header(-charset=>'utf-8',-type=>'application/json'));
 
-    my $js = encode_json({'remote access'=>'yes'});
+    my $js = encode_json({'remote assistance'=>'yes'});
     print $js;
 }
 
