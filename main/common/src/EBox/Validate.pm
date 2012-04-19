@@ -588,8 +588,11 @@ sub checkDomainName # (domain, name?)
 {
     my ($domain, $name) = @_;
 
+    # According to RFC underscores are forbidden in "hostnames" but not "domainnames"
+    my $options = { domain_allow_underscore => 1 };
+
     $domain =~ s/\.$//;
-    unless (is_hostname($domain)) {
+    unless (is_hostname($domain, $options)) {
         if ($name) {
             throw EBox::Exceptions::InvalidData
                 ('data' => $name, 'value' => $domain);
