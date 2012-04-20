@@ -1,7 +1,7 @@
 class: 'EBox::Logs'
 
 models:
-    - ConfigureLogDataTable
+    - ConfigureLogTable
     - ForcePurge
     - SelectLog
 

@@ -64,7 +64,7 @@ sub _description
     my $description =
     {
         components      => [
-                            'ConfigureEventDataTable',
+                            'ConfigureEventTable',
                             'ConfigureDispatcherDataTable',
         ],
         layout          => 'tabbed',

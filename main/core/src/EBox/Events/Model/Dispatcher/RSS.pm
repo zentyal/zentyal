@@ -61,29 +61,14 @@ use XML::RSS;
 #     <EBox::Event::Dispatcher::Model::RSS>
 #
 sub new
-  {
-      my $class = shift;
+{
+    my $class = shift;
 
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless ($self, $class);
 
-      return $self;
-
-  }
-
-# Method: validateTypedRow
-#
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::validateTypedRow>
-#
-sub validateTypedRow
-  {
-
-      my ($self, $action, $params) = @_;
-
-  }
+    return $self;
+}
 
 # Method: formSubmitted
 #
@@ -97,7 +82,6 @@ sub validateTypedRow
 #
 sub formSubmitted
 {
-
     my ($self, $oldRow) = @_;
 
     # Set the restricted file in Apache-perl configuration
@@ -121,11 +105,8 @@ sub formSubmitted
     my $dynamicWWWPath = EBox::Config::dynamicwww();
     $rssFilePath =~ s:$dynamicWWWPath:/dynamic-data/:;
     if ( @ips > 0 ) {
-        $apacheMod->setRestrictedResource( $rssFilePath,
-                                           \@ips,
-                                           'location');
+        $apacheMod->setRestrictedResource($rssFilePath, \@ips, 'location');
     }
-
 }
 
 # Group: Protected methods
@@ -138,7 +119,6 @@ sub formSubmitted
 #
 sub _table
 {
-
     my ($self) = @_;
 
     my $gl = EBox::Global->getInstance();
@@ -211,7 +191,6 @@ sub _table
                    };
 
     return $dataForm;
-
 }
 
 # Group: Callback functions
@@ -227,11 +206,9 @@ sub _table
 #
 sub objectModel
 {
-
     my $obj = EBox::Global->modInstance('objects');
 
     return $obj->models()->[0];
-
 }
 
 # Function: setLinkToRSS
@@ -245,23 +222,20 @@ sub objectModel
 #
 sub setLinkToRSS
 {
-
     my ($row) = @_;
 
     my $rssPath = EBox::Event::Dispatcher::RSS::RSSFilePath();
     my $dynamicWWWPath = EBox::Config::dynamicwww();
     $rssPath =~ s:$dynamicWWWPath::;
     return '/dynamic-data/' . $rssPath;
-
 }
 
 
 # Group: Private methods
 
 # Update link shown at the RSS channel
-sub _updateLinkInRSS # (ip)
+sub _updateLinkInRSS
 {
-
     my ($self, $ip) = @_;
 
     my $rss = new XML::RSS(version => '2.0');
@@ -281,7 +255,6 @@ sub _updateLinkInRSS # (ip)
     $rss->save();
 
     EBox::Event::Dispatcher::RSS::UnlockRSSFile();
-
 }
 
 # Set the default channel link
@@ -305,8 +278,6 @@ sub _defaultChannelLink
     }
 
     return 'http://zentyal.org';
-
-
 }
 
 # Method: viewCustomizer
@@ -316,22 +287,21 @@ sub _defaultChannelLink
 #
 sub viewCustomizer
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        my $custom =  $self->SUPER::viewCustomizer();
-        $custom->setHTMLTitle([
-                {
-                title => __('Events'),
-                link  => '/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
-                },
-                {
-                title => __('RSS Dispatcher'),
-                link  => ''
-                }
-        ]);
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([
+            {
+            title => __('Events'),
+            link  => '/Events/Composite/GeneralComposite#ConfigureDispatcherDataTable',
+            },
+            {
+            title => __('RSS Dispatcher'),
+            link  => ''
+            }
+            ]);
 
-        return $custom;
+    return $custom;
 }
-
 
 1;

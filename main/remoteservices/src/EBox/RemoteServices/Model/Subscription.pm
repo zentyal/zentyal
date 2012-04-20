@@ -448,14 +448,13 @@ sub _manageEvents # (subscribing)
     }
 
     # Enable Cloud dispatcher
-    my $model = $eventMod->configureDispatcherModel();
-    my $rowId = $model->findId( eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter' );
+    my $model = $eventMod->model('ConfigureDispatcherTable');
+    my $rowId = $model->findId(eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter');
     $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
                                 $subscribing);
 
-
-    if ( $subscribing ) {
+    if ($subscribing) {
         try {
             # Enable software updates alert
             # Read-only feature depends on subscription level
@@ -464,7 +463,6 @@ sub _manageEvents # (subscribing)
             # Ignore when the event watcher is not there
         };
     }
-
 }
 
 sub _manageMonitor

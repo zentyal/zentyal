@@ -196,7 +196,7 @@ sub configurationSubModel
         throw EBox::Exceptions::MissingArgument('package');
 
     my $manager = EBox::Model::Manager->instance();
-    my $watchers = $manager->model('/events/ConfigureEventDataTable');
+    my $watchers = $manager->model('/events/ConfigureEventTable');
     my $row = $watchers->findValue('eventWatcher' => $package);
     return $row->subModel('configuration_model');
 }
