@@ -76,9 +76,9 @@ use constant LAYOUTS => qw(top-bottom tabbed select);
 #
 sub new
 {
-    my ($class, @params) = @_;
+    my ($class, %params) = @_;
 
-    my $self = { @params };
+    my $self = { %params };
     bless ($self, $class);
 
     my $description = $self->_description();
@@ -106,8 +106,7 @@ sub components
 {
     my ($self) = @_;
 
-    # FIXME: return instances instead of names
-    return EBox::Model::Manager->instance()->{composites}->{$self->{name}}->{components};
+    return $self->{components};
 }
 
 #  Method: componentByName
@@ -602,7 +601,6 @@ sub _setDescription
 {
     my ($self, $description) = @_;
 
-    $self->{components} = [];
     $self->{layout} = 'top-bottom';
     $self->{name} = ref( $self );
     $self->{printableName} = '';
@@ -649,63 +647,6 @@ sub _setDescription
 
     # Set the Composite actions, do not ovewrite the user-defined actions
     $self->_setDefaultActions();
-}
-
-# Method: _lookupComponents
-#
-#    Search for a component instance or an array of them in the model
-#    manager or in the composite manager.
-#
-# Parameters:
-#
-#    componentName - String the component's name
-#
-# Returns:
-#
-#    <EBox::Model::DataTable> - if the component refers to a model
-#    <EBox::Model::Composite> - if the component refers to a composite
-#
-#    array ref - if the component name corresponds to more than one
-#    <EBox::Model::DataTable>
-#
-sub _lookupComponent
-{
-    my ($self, $componentName) = @_;
-
-    my $components;
-    my $manager = EBox::Model::Manager->instance();
-
-    try {
-        $components = $manager->composite($componentName);
-    } catch EBox::Exceptions::DataNotFound with {
-        # Look up the model manager
-        $components = undef;
-    };
-
-    unless (defined ($components)) {
-        try {
-            $components = $manager->model($componentName);
-        } catch EBox::Exceptions::DataNotFound with {
-            $components = undef;
-       };
-    }
-
-    if (not defined $components) {
-        return undef;
-    }
-
-    # set directories and parentComposite
-    if (ref $components eq 'ARRAY') {
-        foreach my $comp (@{ $components }) {
-            $self->setComponentDirectory($comp);
-            $comp->setParentComposite($self);
-        }
-    } else {
-        $self->setComponentDirectory($components);
-        $components->setParentComposite($self);
-    }
-
-    return $components;
 }
 
 # Method: _setDefaultActions

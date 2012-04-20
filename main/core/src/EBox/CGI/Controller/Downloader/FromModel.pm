@@ -122,5 +122,5 @@ sub _process
 
     $self->SUPER::_process(@_);
 }
-1;
 
+1;

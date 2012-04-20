@@ -253,7 +253,22 @@ sub _component
 
         # FIXME: use instance_ro when needed
         # FIXME: what happens with composite directory?
-        my $instance = $class->new(confmodule => $module, parent => $parent, directory => $name);
+        my %params = (confmodule => $module, parent => $parent, directory => $name);
+        if ($kind eq 'composite') {
+            my $components = $self->{composites}->{$moduleName}->{$name}->{components};
+            my @instances;
+            foreach my $cname (@{$components}) {
+                my $component;
+                try {
+                    $component = $self->model($cname);
+                } catch EBox::Exceptions::DataNotFound with {
+                    $component = $self->composite($cname);
+                };
+                push (@instances, $component);
+            }
+            $params{components} = \@instances;
+        }
+        my $instance = $class->new(%params);
 
         $self->{$key}->{$moduleName}->{$name}->{instance} = $instance;
     }
