@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted ldapvi to changes in port
+	+ Setup master method could take an arbitrary password, this is neccesary for ANSTE
 2.3.7
 	+ New modifications() method to allow retrieving modifications made to
 	  the LDAP object in the last call to 'save'
