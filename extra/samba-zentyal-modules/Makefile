@@ -17,4 +17,5 @@ clean:
 	rm -f *.so
 
 install: all
-	install -m644 zentyal.so $(DESTDIR)/usr/lib/i386-linux-gnu/samba/ldb
+	mkdir -p $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/samba/ldb
+	install -m644 zentyal.so $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/samba/ldb
