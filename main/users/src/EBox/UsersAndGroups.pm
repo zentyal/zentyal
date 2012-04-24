@@ -75,6 +75,7 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_MAX      => 2097151;
 use constant MAX_SB_USERS   => 25;
 
 sub _create
@@ -1202,42 +1203,17 @@ sub _checkQuota
                                            );
     }
 
-    my $max = _maxFileSystemQuota($home);
-    if ($quota > $max) {
+    if ($quota > QUOTA_MAX) {
         throw EBox::Exceptions::InvalidData(
             data => __('user quota'),
             value => $quota,
             advice => __x('The maximum value is {max} MB',
-                          max => $max
+                          max => QUOTA_MAX
                          ),
 
            );
     }
 }
-
-sub _maxFileSystemQuota # in MB!
-{
-    my ($dir) = @_;
-
-    my $fsCapability = (2**42) -1;
-#     my $fs = EBox::FileSystem::dirFileSystem($dir);
-#     my $fileSystems = EBox::FileSystem::fileSystems();
-#     if (exists $fileSystems->{$fs}) {
-#         my $type = $fileSystems->{$fs}->{type};
-#         if ($type eq  any('ext4', 'ocfs2', 'xfs')) {
-#             $fsCapability = 2**64;
-#         } else {
-#             $fsCapability = 2**42; # safe side
-#         }
-#     } else {
-#         $fsCapability = 2**42; # safe side
-#     }
-
-    my $maxMB = $fsCapability /(2**20);
-    my $rounded = sprintf("%.0f", $maxMB);
-    return $rounded;
-}
-
 
 sub _setFilesystemQuota
 {
@@ -1245,6 +1221,15 @@ sub _setFilesystemQuota
 
     my $quota = $userQuota * 1024;
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
+    # check if quota has been really set
+    my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
+    my ($afterQuota) = $output->[0] =~ m/(\d+)/;
+    if ((not defined $afterQuota) or ($quota != $afterQuota)) {
+        throw EBox::Exceptions::External(
+            __x('Cannot set quota to {userQuota}. Please, choose another value',
+               userQuota => $userQuota)
+           )
+    }
 }
 
 sub _modifyUserQuota
