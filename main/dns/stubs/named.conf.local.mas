@@ -1,7 +1,7 @@
 <%args>
-	@domains
-	@inaddrs
-	@intnets
+    @domains
+    @inaddrs
+    @intnets
     $confDir
     $dynamicConfDir
     $sambaZone
