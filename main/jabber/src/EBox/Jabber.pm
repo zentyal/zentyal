@@ -26,6 +26,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
+use Error qw(:try);
 
 use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.cfg';
 use constant JABBERPORT => '5222';
@@ -33,6 +34,7 @@ use constant JABBERPORTSSL => '5223';
 use constant JABBERPORTS2S => '5269';
 use constant JABBERPORTSTUN => '3478';
 use constant JABBERPORTPROXY => '7777';
+use constant EJABBERD_CTL => '/usr/sbin/ejabberdctl';
 
 sub _create
 {
@@ -182,6 +184,32 @@ sub _daemons
     ];
 }
 
+
+# overriden because ejabberd process could be up and not be running
+sub isRunning
+{
+    my ($self) = @_;
+    my $stateCmd = 'LANG=C '. EJABBERD_CTL . ' status';
+    my $output;
+    try {
+        $output =  EBox::Sudo::root($stateCmd);
+    } catch EBox::Exceptions::Sudo::Command with {
+        # output will be undef
+    };
+
+    if (not $output) {
+        return 0;
+    }
+
+    foreach my $line (@{ $output }) {
+        if ($line =~ m/is running in that node/) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 # Method: _setConf
 #
 #       Overrides base method. It writes the jabber service configuration
@@ -210,7 +238,11 @@ sub _setConf
 
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
-    push(@array, 'ldapbase' => $ldapconf->{'dn'});
+    push(@array, 'ldapbase' => $users->usersDn());
+    push(@array, 'ldapRootDN', $ldapconf->{'rootdn'});
+    push(@array, 'ldapPasswd' => $ldap->getPassword());
+
+
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });
