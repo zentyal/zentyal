@@ -1,4 +1,5 @@
 HEAD
+	+ Model Manager is now able to properly manage read-only instances
 	+ Composites can now use parentModule() like Models
 	+ Renamed old EBox::GConfModule to EBox::Module::Config
 	+ Unified model and composite management in the new EBox::Model::Manager

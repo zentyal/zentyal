@@ -46,7 +46,6 @@ sub _new
 
     my $self = {};
 
-    # TODO: differentiate between RO and RW instances
     $self->{models} = {};
     $self->{composites} = {};
 
@@ -120,9 +119,9 @@ sub instance
 #
 sub model
 {
-    my ($self, $path) = @_;
+    my ($self, $path, $readonly) = @_;
 
-    return $self->_componentByPath('model', $path);
+    return $self->_componentByPath('model', $path, $readonly);
 }
 
 # Method: composite
@@ -162,9 +161,9 @@ sub model
 #
 sub composite
 {
-    my ($self, $path) = @_;
+    my ($self, $path, $readonly) = @_;
 
-    return $self->_componentByPath('composite', $path);
+    return $self->_componentByPath('composite', $path, $readonly);
 }
 
 sub models
@@ -191,7 +190,7 @@ sub _components
 
 sub _componentByPath
 {
-    my ($self, $kind, $path) = @_;
+    my ($self, $kind, $path, $readonly) = @_;
 
     # Check arguments
     unless (defined ($path)) {
@@ -218,8 +217,7 @@ sub _componentByPath
         }
     }
 
-    # FIXME: RW/RO
-    my $module = EBox::Global->modInstance($moduleName);
+    my $module = EBox::Global->getInstance($readonly)->modInstance($moduleName);
     return $self->_component($kind, $module, $compName);
 }
 
@@ -229,6 +227,7 @@ sub _component
 
     my $key = "${kind}s";
     my $moduleName = $module->{name};
+    my $access = $module->{ro} ? 'ro' : 'rw';
 
     unless (exists $self->{$key}->{$moduleName}->{$name}) {
         # Second try as a report component
@@ -241,8 +240,7 @@ sub _component
         }
     }
 
-    # FIXME RW/RO
-    unless (defined $self->{$key}->{$moduleName}->{$name}->{instance}) {
+    unless (defined $self->{$key}->{$moduleName}->{$name}->{instance}->{$access}) {
         my $global = EBox::Global->getInstance();
 
         my $class = $global->_className($moduleName) . '::' . ucfirst($kind) . "::$name";
@@ -251,7 +249,6 @@ sub _component
         # FIXME: set also if parent is composite??
         my $parent = $self->{$key}->{$moduleName}->{$name}->{parent};
 
-        # FIXME: use instance_ro when needed
         # FIXME: what happens with composite directory?
         my %params = (confmodule => $module, parent => $parent, directory => $name);
         if ($kind eq 'composite') {
@@ -270,10 +267,10 @@ sub _component
         }
         my $instance = $class->new(%params);
 
-        $self->{$key}->{$moduleName}->{$name}->{instance} = $instance;
+        $self->{$key}->{$moduleName}->{$name}->{instance}->{$access} = $instance;
     }
 
-    return $self->{$key}->{$moduleName}->{$name}->{instance};
+    return $self->{$key}->{$moduleName}->{$name}->{instance}->{$access};
 }
 
 # Method: modelsUsingId
@@ -544,7 +541,7 @@ sub _setupModelInfo
 
     $self->{models}->{$moduleName} = {};
     foreach my $model (@{$info->{models}}) {
-        $self->{models}->{$moduleName}->{$model} = { instance => undef, instance_ro => undef, parent => undef };
+        $self->{models}->{$moduleName}->{$model} = { instance => { rw => undef, ro => undef }, parent => undef };
 
         unless (exists $self->{modByModel}->{$model}) {
             $self->{modByModel}->{$model} = {};
