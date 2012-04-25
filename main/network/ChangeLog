@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed calculation of fail ratio
+	+ Assure that we have always one gateway marked as default
 2.2.7
 	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
 	+ Regenerate traffic shaping rules after failover event

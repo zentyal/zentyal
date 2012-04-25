@@ -2768,7 +2768,7 @@ sub generateInterfaces
             print IFACES " " . $_;
         }
     }
-    my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
+
     print IFACES "\n\niface lo inet loopback\n";
     foreach my $ifname (@{$iflist}) {
         my $method = $self->ifaceMethod($ifname);
