@@ -1,10 +1,10 @@
 class: 'EBox::Logs'
 
 models:
-    - ConfigureLogTable
+    - ConfigureLogs
     - ForcePurge
     - SelectLog
 
 composites:
     General: [SelectLog, ConfigureLog]
-    ConfigureLog: [ConfigureLogTable, ForcePurge]
+    ConfigureLog: [ConfigureLogs, ForcePurge]

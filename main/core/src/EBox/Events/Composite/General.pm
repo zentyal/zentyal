@@ -22,7 +22,7 @@
 #   layout.
 #
 
-package EBox::Events::Model::GeneralComposite;
+package EBox::Events::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -39,8 +39,7 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#       <EBox::Events::Model::GeneralComposite> - a
-#       general events composite
+#       <EBox::Events::Composite::General> - a general events composite
 #
 sub new
 {
@@ -63,12 +62,8 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                            'ConfigureEventTable',
-                            'ConfigureDispatcherDataTable',
-        ],
         layout          => 'tabbed',
-        name            => 'GeneralComposite',
+        name            => 'General',
         printableName   => __('Events'),
         pageTitle => __('Events'),
         headTitle => undef,

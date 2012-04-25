@@ -1,4 +1,5 @@
 HEAD
+	+ Simplified events module implementation
 	+ Model Manager is now able to properly manage read-only instances
 	+ Composites can now use parentModule() like Models
 	+ Renamed old EBox::GConfModule to EBox::Module::Config

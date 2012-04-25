@@ -1,8 +1,8 @@
 class: 'EBox::Events'
 
 models:
-    - ConfigureEventTable
-    - ConfigureDispatcherTable
+    - ConfigureWatchers
+    - ConfigureDispatchers
 
 composites:
-   GeneralComposite: [ConfigureEventTable, ConfigureDispatcherTable]
+   General: [ConfigureWatchers, ConfigureDispatchers]

@@ -448,7 +448,7 @@ sub _manageEvents # (subscribing)
     }
 
     # Enable Cloud dispatcher
-    my $model = $eventMod->model('ConfigureDispatcherTable');
+    my $model = $eventMod->model('ConfigureDispatchers');
     my $rowId = $model->findId(eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter');
     $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',

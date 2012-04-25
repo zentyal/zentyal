@@ -29,10 +29,8 @@ use base qw(EBox::Module::Service EBox::LogObserver);
 use strict;
 use warnings;
 
-use EBox::Common::Model::EnableForm;
 use EBox::Config;
 use EBox::Event;
-use EBox::Events::Model::GeneralComposite;
 use EBox::Events::Model::Report::EventsDetails;
 use EBox::Events::Model::Report::EventsGraph;
 use EBox::Events::Model::Report::EventsReportOptions;
@@ -97,22 +95,6 @@ sub _daemons
     return [ { 'name' => SERVICE } ];
 }
 
-# Method: _setConf
-#
-#   Regenerate the configuration for the events
-#
-# Overrides:
-#
-#       <EBox::Module::Base::_setConf>
-#
-sub _setConf
-{
-    my ($self) = @_;
-
-    $self->_enableComponents();
-
-}
-
 sub _enforceServiceState
 {
     my ($self) = @_;
@@ -155,22 +137,6 @@ sub menu
     $root->add($folder);
 }
 
-# Method: actions
-#
-#       Override EBox::Module::Service::actions
-#
-sub actions
-{
-    return [
-        {
-         'action' => __('Initialize event dispatchers table'),
-         'reason' => __('Enable default log dispatcher'),
-         'module' => 'events'
-        }
-    ];
-}
-
-
 # Method: restoreDependencies
 #
 #   Override EBox::Module::Base::restoreDependencies
@@ -186,20 +152,6 @@ sub restoreDependencies
     return \@depends;
 }
 
-
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    # Workaround to call syncRows and enable the log
-    # dispatcher under /var/lib/zentyal/conf/events
-    $self->model('ConfigureDispatcherTable')->ids();
-}
-
 # Method: _exposedMethods
 #
 # Overrides:
@@ -210,22 +162,22 @@ sub _exposedMethods
 {
     my %exposedMethods =
       ( enableDispatcher => { action   => 'set',
-                              path     => [ 'ConfigureDispatcherTable' ],
+                              path     => [ 'ConfigureDispatchers' ],
                               indexes  => [ 'eventDispatcher' ],
                               selector => [ 'enabled' ],
                             },
         isEnabledDispatcher => { action   => 'get',
-                                path     => [ 'ConfigureDispatcherTable' ],
+                                path     => [ 'ConfigureDispatchers' ],
                                 indexes  => [ 'eventDispatcher' ],
                                 selector => [ 'enabled' ],
                               },
         enableWatcher    => { action   => 'set',
-                              path     => [ 'ConfigureEventTable' ],
+                              path     => [ 'ConfigureWatchers' ],
                               indexes  => [ 'eventWatcher' ],
                               selector => [ 'enabled' ],
                             },
         isEnabledWatcher   => { action   => 'get',
-                               path     => [ 'ConfigureEventTable' ],
+                               path     => [ 'ConfigureWatchers' ],
                                indexes  => [ 'eventWatcher' ],
                                selector => [ 'enabled' ],
                              },
@@ -392,13 +344,12 @@ sub _nothingEnabled
 {
     my ($self) = @_;
 
-    # XXX TODO
     if ($self->_logIsEnabled()) {
         return undef;
     }
 
-    my $eventModel = $self->model('ConfigureEventTable');
-    my $dispatcherModel = $self->model('ConfigureDispatcherTable');
+    my $eventModel = $self->model('ConfigureWatchers');
+    my $dispatcherModel = $self->model('ConfigureDispatchers');
 
     my $match = $eventModel->find(enabled => 1);
     unless (defined ($match)) {
@@ -424,138 +375,13 @@ sub _logIsEnabled
     my ($self) = @_;
 
     my $log = EBox::Global->modInstance('logs');
-    if (not $log->isEnabled()) {
+    unless ($log->isEnabled()) {
         return undef;
     }
 
-    my $configureLogTable = $log->model('ConfigureLogTable');
+    my $configureLogTable = $log->model('ConfigureLogs');
     my $enabledLogs = $configureLogTable->enabledLogs();
     return $enabledLogs->{events};
-}
-
-
-# Create the symlinks to enable/disable watchers and dispatchers
-sub _enableComponents
-{
-    my ($self) = @_;
-
-    my @dirs = ( ENABLED_WATCHERS_DIR, ENABLED_DISPATCHERS_DIR );
-
-    # Firstly, remove everything
-    foreach my $dir (@dirs) {
-        opendir(my $dh, $dir);
-        while( my $file  = readdir($dh) ) {
-            next unless ( -l "${dir}/$file" );
-            unlink( "$dir/$file" );
-        }
-    }
-
-    my $eventModel = $self->model('ConfigureEventTable');
-    my $ids = $eventModel->enabledRows();
-    my $watchers = [];
-    foreach my $id (@{$ids}) {
-        push(@{$watchers}, $eventModel->row($id)->valueByName('eventWatcher'));
-    }
-    my $dispatcherModel = $self->model('ConfigureDispatcherTable');
-    my $dispatchers = [];
-    foreach my $id (@{$dispatcherModel->enabledRows()}) {
-        push(@{$dispatchers}, $dispatcherModel->row($id)->valueByName('eventDispatcher'));
-    }
-
-    my %enabledComponents = ($dirs[0] => $watchers,
-                             $dirs[1] => $dispatchers);
-
-    while ( my ($dir, $comps) = each(%enabledComponents) ) {
-        foreach my $comp (@{$comps}) {
-            # Transform :: to /
-            $comp =~ s/::/\//g;
-            my $filePath = EBox::Config::perlPath() . $comp . '.pm';
-            # Get the class final name
-            ($comp) = $comp =~ m:^.*/(.*)$:g;
-            my $dest = "$dir$comp.pm";
-            next if ( -l $dest );
-            symlink ( $filePath, $dest )
-              or throw EBox::Exceptions::Internal("Cannot copy from $filePath to $dir");
-        }
-    }
-
-}
-
-# Given a prefix it returns the configurationmodels within this
-# prefix in the eBox installed perl class directory.
-# Return an array ref containing the found models
-sub _obtainModelsByPrefix # (prefix)
-{
-    my ( $self, $prefix ) = @_;
-
-    my @models = ();
-
-    # The search is done by iterating through the directory where
-    # the event dispatcher configuration model should be stored as
-    # its hierarchy indicates
-
-    my $prefixDir = $prefix;
-    $prefixDir =~ s/::/\//g;
-    my $dirPath = EBox::Config::perlPath() . $prefixDir;
-
-    opendir ( my $dir, $dirPath );
-
-    while ( defined ( my $file = readdir ( $dir ))) {
-        next unless ( -f "$dirPath/$file");
-        next unless ( $file =~ m/.*\.pm/ );
-        my ($fileName) =  ( $file =~ m/(.*)\.pm/);
-
-        # Now with the prefix
-        my $className = $prefix . $fileName;
-
-        # Test loading the class
-        eval "use $className";
-        if ( $@ ) {
-            EBox::warn("Error loading class: $className");
-            next;
-        }
-
-        # It should be a model
-        next unless ( $className->isa('EBox::Model::DataTable'));
-
-        try {
-            my $model = $className->new(
-                    confmodule => $self,
-                    directory   => $fileName,
-                    );
-            push ( @models, $model);
-            # If there are submodels, created them as well
-            if ( $model->can('subModels') ) {
-                push( @models, @{$model->subModels()});
-            }
-        } catch EBox::Exceptions::Base with {
-            # XXX LogFilter is failing continously but we can recover
-            #     comment this out to not  write useless info to the log
-            # EBox::warn("model $className cannot be instantiated");
-        };
-    }
-
-    closedir ( $dir );
-
-    return \@models;
-}
-
-# Instantiate an enabled form in order to enable/disable the events
-# module
-sub _enableForm
-{
-    my ($self) = @_;
-
-    unless ( exists $self->{enableForm}) {
-        $self->{enableForm} = new EBox::Common::Model::EnableForm(
-                confmodule => $self,
-                directory   => 'EnableForm',
-                enableTitle => __('Event service status'),
-                modelDomain => 'Events',
-                );
-    }
-
-    return $self->{enableForm};
 }
 
 sub enableLog
@@ -626,7 +452,7 @@ sub _consolidateTable
                             },
     };
 
-    return {  $table => $spec };
+    return { $table => $spec };
 }
 
 

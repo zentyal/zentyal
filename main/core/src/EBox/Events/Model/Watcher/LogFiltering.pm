@@ -209,7 +209,7 @@ sub viewCustomizer
     $custom->setHTMLTitle([
             {
             title => __('Events'),
-            link  => '/Events/Composite/GeneralComposite',
+            link  => '/Events/Composite/General',
             },
             {
             title => __('Log Observer Watcher'),

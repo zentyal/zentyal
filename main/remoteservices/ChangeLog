@@ -1,6 +1,5 @@
-HEAD
-	+ Adapted to new Model management framework
 2.3
+	+ Adapted to new Model management and events frameworks
 	+ Reimplemented state and backupCredentials FIXME
 	+ New subscription wizard
 	+ Adapted messages in the UI for new editions
