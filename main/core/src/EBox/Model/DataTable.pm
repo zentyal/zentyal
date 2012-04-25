@@ -681,6 +681,33 @@ sub validateTypedRow
 
 }
 
+# Method: validateRowRemoval
+#
+#    Override this method to add your custom checks when
+#    a row is to be removed
+#
+#    It will be called just before the a row is removed
+#
+#
+# Arguments:
+#
+#     row - Row to be removed
+#     force - whether the removal is force
+#
+# Returns:
+#
+#    Nothing
+#
+# Exceptions:
+#
+#     You must throw an exception whenever you think the removal
+#     is not valid; this will abort it
+sub validateRowRemoval
+{
+
+}
+
+
 # Method: addedRowNotify
 #
 #    Override this method to be notified whenever
@@ -1166,7 +1193,7 @@ sub removeRow
 
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
-
+    $self->validateRowRemoval($row, $force);
     $self->_removeRow($id);
 
     my $userMsg = $self->message('del');

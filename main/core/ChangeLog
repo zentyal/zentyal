@@ -1,4 +1,5 @@
 HEAD
+	+ Added validateRowRemoval method to EBox::Model::DataTable
 	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
 	+ Avoid problems restarting apache when .pid file does not exist
 	+ Do not use graceful on apache to allow proper change of listen port
