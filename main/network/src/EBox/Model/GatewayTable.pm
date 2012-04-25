@@ -324,12 +324,6 @@ sub validateRowRemoval
     if ( $row->valueByName('auto')) {
         throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
     }
-    if ($row->valueByName('default')) {
-        my $size = $self->size();
-        unless ($size == 1) {
-            throw EBox::Exceptions::External(__('A gateway marked as default only could be removed if it is the last one left'));
-        }
-    }
 }
 
 # Method: addedRowNotify
@@ -358,7 +352,7 @@ sub updatedRowNotify
 {
     my ($self, $newRow, $oldRow, $force) = @_;
 
-    return if ($force); # failover event can forche changes
+    return if ($force); # failover event can force changes
 
     my $network = $self->parentModule();
     my $id = $newRow->id();
@@ -383,10 +377,25 @@ sub deletedRowNotify
 
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
-        if ($row->id() eq $network->selectedDefaultGateway()) {
+        my $size = $self->size();
+        if ($size == 0) {
+            # no preferred gateway sicne there are not gws!
             $network->storeSelectedDefaultGateway('');
+        } else {
+            # choose another gw
+            my $newDefaultRow = $self->find(enabled => 1);
+            if (not $newDefaultRow) {
+                # no enabled, gw choosing another
+                my ($id) = @{ $self->ids() };
+                $newDefaultRow = $self->row($id);
+            }
+
+            $newDefaultRow->elementByName('default')->setValue(1);
+            $newDefaultRow->store(); # this does not upgrade preferred default gw
+            $network->storeSelectedDefaultGateway($newDefaultRow->id());
         }
     }
+
 }
 
 # Method: viewCustomizer
