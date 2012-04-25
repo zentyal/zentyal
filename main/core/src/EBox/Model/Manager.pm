@@ -255,12 +255,17 @@ sub _component
             my $components = $self->{composites}->{$moduleName}->{$name}->{components};
             my @instances;
             foreach my $cname (@{$components}) {
+                unless ($cname =~ m{/}) {
+                    $cname = "$moduleName/$cname";
+                }
                 my $component;
-                try {
+                if ($self->_modelExists($cname)) {
                     $component = $self->model($cname);
-                } catch EBox::Exceptions::DataNotFound with {
+                } elsif ($self->_compositeExists($cname)) {
                     $component = $self->composite($cname);
-                };
+                } else {
+                    throw EBox::Exceptions::Internal("Component $cname referenced in $moduleName/$name does not exists");
+                }
                 push (@instances, $component);
             }
             $params{components} = \@instances;
@@ -596,6 +601,42 @@ sub _setupNotifyActions
     foreach my $model (keys %{$notify}) {
         $self->{notifyActions}->{$model} = $notify->{$model};
     }
+}
+
+sub _modelExists
+{
+    my ($self, $model) = @_;
+
+    my ($mod, $comp) = split ('/', $model);
+    if ($mod and $self->{modByModel}->{$mod}->{comp}) {
+        return 1;
+    } else {
+        $comp = $mod;
+        foreach my $module (keys %{$self->{modByModel}}) {
+            if ($self->{modByModel}->{$module}->{$comp}) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+sub _compositeExists
+{
+    my ($self, $composite) = @_;
+
+    my ($mod, $comp) = split ('/', $composite);
+    if ($mod and $self->{modByComposite}->{$mod}->{comp}) {
+        return 1;
+    } else {
+        $comp = $mod;
+        foreach my $module (keys %{$self->{modByComposite}}) {
+            if ($self->{modByComposite}->{$module}->{$comp}) {
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 # Method: _oneToOneDependencies

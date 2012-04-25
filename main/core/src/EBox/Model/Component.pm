@@ -61,7 +61,7 @@ sub setParentComposite
     defined ( $composite ) or
       throw EBox::Exceptions::MissingArgument('composite');
 
-    unless ( $composite->isa('EBox::Model::Composite') ) {
+    unless ($composite->isa('EBox::Model::Composite')) {
         throw EBox::Exceptions::InvalidType( $composite,
                 'EBox::Model::DataTable '
                 );

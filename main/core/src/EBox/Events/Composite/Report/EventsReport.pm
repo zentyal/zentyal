@@ -34,16 +34,13 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-  {
+{
+    my ($class, @params) = @_;
 
-      my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
-
+    return $self;
+}
 
 
 # Group: Protected methods

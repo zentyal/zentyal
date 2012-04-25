@@ -40,7 +40,7 @@ use base 'EBox::Model::Component';
 use strict;
 use warnings;
 
-# EBox uses
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
@@ -78,16 +78,15 @@ sub new
 {
     my ($class, %params) = @_;
 
+    unless (defined $params{components}) {
+        throw EBox::Exceptions::MissingArgument('components');
+    }
+
     my $self = { %params };
     bless ($self, $class);
 
     my $description = $self->_description();
     $self->_setDescription($description);
-
-    # confdirectory must not be null
-    if (not exists $self->{confdir}) {
-        $self->{confdir} = '';
-    }
 
     return $self;
 }
@@ -611,11 +610,6 @@ sub _setDescription
     $self->{compositeDomain} = delete ( $description->{compositeDomain} );
     $self->{menuNamespace} = delete ($description->{menuNamespace});
 
-    if (defined ($description->{components}) and
-        not ((ref ($description->{components} ) eq 'ARRAY'))) {
-        throw EBox::Exceptions::InvalidType( $description->{components}, 'array ref' );
-    }
-
     if (exists ($description->{layout})) {
         $self->setLayout( delete ( $description->{layout} ));
     }
@@ -708,7 +702,7 @@ sub setDirectory
         throw EBox::Exceptions::MissingArgument('dir');
     }
 
-    $self->{'confdir'} = $dir;
+    $self->{'directory'} = $dir;
 
     if (not $self->precondition()) {
         # we dont bother to initialize components bz their wont be displayed
@@ -735,7 +729,7 @@ sub directory
 {
     my ($self) = @_;
 
-    return $self->{'confdir'};
+    return $self->{'directory'};
 }
 
 # Method: setComponentDirectory

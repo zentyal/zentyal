@@ -42,9 +42,9 @@ use EBox::Gettext;
 #
 sub new
 {
-    my ($class) = @_;
+    my $class = shift;
 
-    my $self = $class->SUPER::new();
+    my $self = $class->SUPER::new(@_);
 
     return $self;
 }
