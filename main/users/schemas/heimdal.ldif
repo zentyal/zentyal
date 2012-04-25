@@ -4,8 +4,8 @@ dn: cn=hdb,cn=schema,cn=config
 objectClass: olcSchemaConfig
 cn: hdb
 olcAttributeTypes: {0}( 1.3.6.1.4.1.5322.10.1.1 NAME 'krb5PrincipalName' DESC 
- 'The unparsed Kerberos principal name' EQUALITY caseExactIA5Match SYNTAX 1.3.
- 6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+ 'The unparsed Kerberos principal name' EQUALITY caseIgnoreIA5Match SYNTAX 1.3
+ .6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
 olcAttributeTypes: {1}( 1.3.6.1.4.1.5322.10.1.2 NAME 'krb5KeyVersionNumber' EQ
  UALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
 olcAttributeTypes: {2}( 1.3.6.1.4.1.5322.10.1.3 NAME 'krb5MaxLife' EQUALITY in
