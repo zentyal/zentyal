@@ -310,13 +310,15 @@ sub _testRule # (row)
     my $maxFailRatio = 1 - $ratio;
     my $maxFails = $probes * $maxFailRatio;
 
-    my $successes = 0;
-    my $fails = 0;
+    my $usedProbes = 0;
+    my $successes  = 0;
+    my $fails      = 0;
 
     # Set rule for outgoing traffic through the gateway we are testing
     $self->_setIptablesRule($gw, 1);
 
     for (1..$probes) {
+        $usedProbes++;
         if ($self->_runTest($type, $host)) {
             EBox::debug("Probe number $_ succeded.");
             $successes++;
@@ -331,8 +333,7 @@ sub _testRule # (row)
     # Clean rule
     $self->_setIptablesRule($gw, 0);
 
-    my $failRatio = $fails / $probes;
-
+    my $failRatio = $fails / $usedProbes;
     if ($failRatio >= $maxFailRatio) {
         $self->{failed}->{$gw} = 1;
 
