@@ -66,13 +66,16 @@ sub start
 {
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
-	my @names = map { $_->{'name'} } @mods;
+    my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'apache' } @names;
-	push(@names, 'apache');
+    push(@names, 'apache');
 
-	foreach my $modname (@names) {
-	    moduleAction($modname, 'restartService', 'start');
-	}
+    EBox::info("Modules to restart: @names");
+    foreach my $modname (@names) {
+        moduleAction($modname, 'restartService', 'start');
+    }
+
+    EBox::info("Restart modules finished");
 }
 
 sub stop
@@ -83,9 +86,12 @@ sub stop
     @names = grep { $_ ne 'apache' } @names;
     unshift(@names, 'apache');
 
+    EBox::info("Modules to stop: @names");
     foreach my $modname (reverse @names) {
         moduleAction($modname, 'stopService', 'stop');
     }
+
+    EBox::info("Stop modules finished");
 }
 
 
@@ -145,8 +151,8 @@ sub status
 
 sub _logActionFunction
 {
-	my ($action, $success) = @_;
-	system(". /lib/lsb/init-functions; " .
+    my ($action, $success) = @_;
+    system(". /lib/lsb/init-functions; " .
 	       " log_begin_msg \"$action\"; log_end_msg $success");
 }
 
