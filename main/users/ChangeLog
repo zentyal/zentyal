@@ -1,4 +1,6 @@
 HEAD
+	+ Restart apache after changing master configuration
+	+ Removed all files + code cleaning
 	+ Disable user editing in slaves
 2.3.3
 	+ Image in initial configuration wizard is shown again
