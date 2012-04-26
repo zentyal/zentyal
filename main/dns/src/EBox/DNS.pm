@@ -807,18 +807,18 @@ sub _setConf
         my $ip = $addr_r->{ip};
         my @parts = split /\./, $ip;
         my $first = $parts[-1];
-        my $second = $parts[-2];
         defined $first or next;
-
         if ($first == 10) {
             $noEmpty1918Zones{'10'}  = 1;
         }
-        defined $second or next;
 
+        my $second = $parts[-2];
+        defined $second or next;
         if (($first == 172) and ($second >= 16) and ($second <= 31)) {
             $noEmpty1918Zones{$second . '.172'} = 1;
         } elsif (($first == 192) and ($second == 168)) {
-            $noEmpty1918Zones{'168.192'} = 1;
+            my $third = $parts[-3];
+            $noEmpty1918Zones{$third . '.168.192'} = 1;
         }
     }
 

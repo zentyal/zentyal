@@ -8,29 +8,22 @@
     %noEmpty1918Zones
 </%args>
 <%init>
-my @zones1918 = grep {
-       not $noEmpty1918Zones{$_}
-   } qw(
-        10
-        16.172
-        17.172
-        18.172
-        19.172
-        20.172
-        21.172
-        22.172
-        23.172
-        24.172
-        25.172
-        26.172
-        27.172
-        28.172
-        29.172
-        30.172
-        31.172
-        168.192
-);
-
+my @zones1918;
+unless ($noEmpty1918Zones{'10'}) {
+    push @zones1918, '10';
+}
+foreach (16 .. 31) {
+    my $z172 = $_ . '.172';
+    unless ($noEmpty1918Zones{$z172}) {
+        push @zones1918, $z172;
+    }
+}
+foreach (0 .. 255) {
+    my $z192 = $_ . '.168.192';
+    unless ($noEmpty1918Zones{$z192}) {
+        push @zones1918, $z192;
+    }
+}
 </%init>
 //
 // Do any local configuration here
@@ -54,7 +47,7 @@ acl "trusted" {
 	localnets;
 };
 
-%	if(@domains != 0) {
+% if(@domains != 0) {
 %		foreach my $dom (@domains) {
 zone "<% $dom->{'name'} %>" {
 	type master;
@@ -73,10 +66,10 @@ zone "<% $dom->{'name'} %>" {
 %                  }
 };
 %		}
-%	}
+% }
 
-%	if(@inaddrs != 0) {
-%		foreach my $inaddr (@inaddrs) {
+% if(@inaddrs != 0) {
+%   foreach my $inaddr (@inaddrs) {
 zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
 	type master;
 %                   if ( $inaddr->{'dynamic'} ) {
@@ -93,8 +86,8 @@ zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
         file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";
 %                   }
 };
-%		}
-%	}
+%   }
+% }
 
 % foreach my $zonePrefix (@zones1918) {
 zone "<% $zonePrefix %>.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
