@@ -5,33 +5,14 @@
     $confDir
     $dynamicConfDir
     $sambaZone
-    %noEmpty1918Zones
 </%args>
-<%init>
-my @zones1918;
-unless ($noEmpty1918Zones{'10'}) {
-    push @zones1918, '10';
-}
-foreach (16 .. 31) {
-    my $z172 = $_ . '.172';
-    unless ($noEmpty1918Zones{$z172}) {
-        push @zones1918, $z172;
-    }
-}
-foreach (0 .. 255) {
-    my $z192 = $_ . '.168.192';
-    unless ($noEmpty1918Zones{$z192}) {
-        push @zones1918, $z192;
-    }
-}
-</%init>
 //
 // Do any local configuration here
 //
 
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
-//include "/etc/bind/zones.rfc1918";
+
 
 % if (defined $sambaZone) {
 include "<% $sambaZone %>";
@@ -89,6 +70,5 @@ zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
 %   }
 % }
 
-% foreach my $zonePrefix (@zones1918) {
-zone "<% $zonePrefix %>.in-addr.arpa"  { type master; file "/etc/bind/db.empty"; };
-% }
+include "/etc/bind/zones.rfc1918";
+

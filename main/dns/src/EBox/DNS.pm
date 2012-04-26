@@ -802,26 +802,6 @@ sub _setConf
 
     }
 
-    my %noEmpty1918Zones;
-    foreach my $addr_r (@inaddrs) {
-        my $ip = $addr_r->{ip};
-        my @parts = split /\./, $ip;
-        my $first = $parts[-1];
-        defined $first or next;
-        if ($first == 10) {
-            $noEmpty1918Zones{'10'}  = 1;
-        }
-
-        my $second = $parts[-2];
-        defined $second or next;
-        if (($first == 172) and ($second >= 16) and ($second <= 31)) {
-            $noEmpty1918Zones{$second . '.172'} = 1;
-        } elsif (($first == 192) and ($second == 168)) {
-            my $third = $parts[-3];
-            $noEmpty1918Zones{$third . '.168.192'} = 1;
-        }
-    }
-
     my @domains = @{$self->domains()};
     my @intnets = @{$self->_intnets()};
 
@@ -832,8 +812,7 @@ sub _setConf
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
     push(@array, 'sambaZone' => $sambaZone);
-    push(@array, 'noEmpty1918Zones' => \%noEmpty1918Zones
-);
+
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",
             \@array);
