@@ -52,7 +52,7 @@ sub new
     my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -72,22 +72,37 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    return unless ( exists $changedFields->{hostname} );
+    return unless (exists $changedFields->{hostname});
 
-    # Check there is no CNAME RR in the domain with the same name
     my $newHostName = $changedFields->{hostname};
+    my $newHostIp   = $changedFields->{ipaddr};
+    my $newHostSubDomain = $changedFields->{subdomain};
+
     my $domainModel = $changedFields->{hostname}->row()->model();
 
     for my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
+        # Check there is no A RR in the domain with the same name and
+        # subdomain
+        my $rowIp = $row->elementByName('ipaddr');
+        my $rowSubdomain = $row->elementByName('subdomain');
+        if ($rowIp->isEqualTo($newHostIp) and
+                $rowSubdomain->isEqualTo($newHostSubDomain)) {
+            throw EBox::Exceptions::External(
+                    __x('There is a host name with the same ip address ' .
+                        '"{ip}" in the domain',
+                        ip     => $rowIp->value()));
+        }
+
+        # Check there is no CNAME RR in the domain with the same name
         for my $id (@{$row->subModel('alias')->ids()}) {
-           my $subRow = $row->subModel('alias')->row($id);
-           if ($newHostName->isEqualTo($subRow->elementByName('alias'))) {
+            my $subRow = $row->subModel('alias')->row($id);
+            if ($newHostName->isEqualTo($subRow->elementByName('alias'))) {
                 throw EBox::Exceptions::External(
-                    __x('There is an alias with the same name "{name}" '
-                        . 'for "{hostname}" in the same domain',
-                         name     => $subRow->valueByName('alias'),
-                         hostname => $row->valueByName('hostname')));
+                        __x('There is an alias with the same name "{name}" '
+                            . 'for "{hostname}" in the same domain',
+                            name     => $subRow->valueByName('alias'),
+                            hostname => $row->valueByName('hostname')));
             }
         }
     }
@@ -206,6 +221,15 @@ sub _table
                                 # 'unique' => 1, # disabled to allow round-robin
                                 'editable' => 1,
                              ),
+            new EBox::Types::Text
+                            (
+                                'fieldName' => 'subdomain',
+                                'printableName' => __('Sub domain'),
+                                'size' => '20',
+                                'editable' => 1,
+                                'optional' => 1,
+                                'hidden' => 1, # TODO Uncommment
+                            ),
             new EBox::Types::HostIP
                             (
                                 'fieldName' => 'ipaddr',

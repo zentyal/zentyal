@@ -1,4 +1,6 @@
 HEAD
+	+ Add new field subdomain to hostname model, needed to create some
+	  samba records
 	+ API to add/delete A, SRV and TXT records to a domain
 	+ Set the NS record to the hostname
 	+ IP Address on domain hosts is no more a unique field. This is

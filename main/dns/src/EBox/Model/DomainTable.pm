@@ -134,6 +134,7 @@ sub addDomain
 #   host - A hash ref containing:
 #             - hostname
 #             - ipaddr
+#             - subdomain (optional)
 #             - alias (optional)
 #             - readOnly (optional)
 #
@@ -154,7 +155,8 @@ sub addHost
     }
 
     my %params = ( hostname => $host->{hostname},
-                   ipaddr   => $host->{ipaddr} );
+                   ipaddr   => $host->{ipaddr},
+                   subdomain => $host->{subdomain} );
 
     EBox::debug('Adding host record');
     my $domainRow = $self->_getDomainRow($domain);
@@ -177,14 +179,37 @@ sub delHost
 {
     my ($self, $domain, $host) = @_;
 
-    # TODO
-    #unless (defined ($domain)) {
-    #    throw EBox::Exceptions::MissingArgument('domain');
-    #}
+    unless (defined ($domain)) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
 
-    #my $domainRow = $self->_getDomainRow($domain);
-    #my $model = $domainRow->subModel('hostnames');
-    #$model->addHostname(%{$host});
+    unless (defined $host->{hostname}) {
+        throw EBox::Exceptions::MissingArgument('hostname');
+    }
+
+    my $rowId = undef;
+    my $domainRow = $self->_getDomainRow($domain);
+    my $model = $domainRow->subModel('hostnames');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+
+        my $rowHostname  = $row->valueByName('hostname');
+        my $rowIpaddr    = $row->valueByName('ipaddr');
+        my $rowSubdomain = $row->valueByName('subdomain');
+
+        if ((not defined ($host->{hostname})  or $rowHostname  eq $host->{hostname})  and
+            (not defined ($host->{ipaddr})    or $rowIpaddr    eq $host->{ipaddr})    and
+            (not defined ($host->{subdomain}) or $rowSubdomain eq $host->{subdomain})) {
+            $rowId = $id;
+            last;
+        }
+    }
+
+    if (defined ($rowId)) {
+        $model->removeRow($rowId);
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'hostname', value => $host->{hostname});
+    }
 }
 
 # Method: addService
