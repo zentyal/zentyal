@@ -1,4 +1,5 @@
 HEAD
+	+ Implement new EBox::Events::WatcherProvider
 	+ Adapted to new Model management framework
 	+ Adapted Message and Size types to new framework
 2.3.3

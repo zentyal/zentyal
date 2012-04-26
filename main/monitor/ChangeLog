@@ -1,4 +1,5 @@
 HEAD
+	+ Implement new EBox::Events::WatcherProvider
 	+ Adapted to new Model management framework
 2.3.2
 	+ Do not monitorize NFS mounts disk spaces

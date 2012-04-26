@@ -454,7 +454,7 @@ sub _fetchWatchers
     my ($self) = @_;
 
     my $mods = EBox::Global->modInstancesOfType('EBox::Events::WatcherProvider');
-    my @watchers = grep { defined($_) } map { @{$mods->watcherClasses()} } @{$mods};
+    my @watchers = map { "EBox::Event::Watcher::$_" } map { @{$_->eventWatchers()} } @{$mods};
     return \@watchers;
 }
 

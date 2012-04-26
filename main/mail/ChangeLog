@@ -1,4 +1,5 @@
 HEAD
+	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management framework
 	+ Always run postmap
 2.3.3

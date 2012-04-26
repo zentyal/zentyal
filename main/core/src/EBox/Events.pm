@@ -24,7 +24,8 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::Module::Service EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::LogObserver
+            EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
 
 use strict;
 use warnings;
@@ -150,6 +151,28 @@ sub restoreDependencies
     }
 
     return \@depends;
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'Log', 'DiskFreeSpace', 'RAID', 'Runit', 'Updates', 'State' ];
+}
+
+# Method: eventDispatchers
+#
+# Overrides:
+#
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
+#
+sub eventDispatchers
+{
+    return [ 'Log', 'RSS', 'Jabber' ];
 }
 
 # Method: _exposedMethods

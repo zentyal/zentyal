@@ -22,6 +22,7 @@ package EBox::RemoteServices;
 #
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
+            EBox::Events::DispatcherProvider
             EBox::FirewallObserver);
 
 use strict;
@@ -215,6 +216,17 @@ sub wizardPages
     return [] if EBox::Config::configkey('hide_subscription_wizard');
 
     return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
+}
+
+# Method: eventDispatchers
+#
+# Overrides:
+#
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
+#
+sub eventDispatchers
+{
+    return [ 'ControlCenter' ];
 }
 
 # Group: Public methods

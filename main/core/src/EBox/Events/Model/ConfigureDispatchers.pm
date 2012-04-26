@@ -391,7 +391,7 @@ sub _fetchDispatchers
     my ($self) = @_;
 
     my $mods = EBox::Global->modInstancesOfType('EBox::Events::DispatcherProvider');
-    my @dispatchers = grep { defined ($_) } map { @{$mods->dispatcherClasses()} } @{$mods};
+    my @dispatchers = map { "EBox::Event::Dispatcher::$_" } map { @{$_->eventDispatchers()} } @{$mods};
     return \@dispatchers;
 }
 

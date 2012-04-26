@@ -20,7 +20,7 @@ package EBox::EBackup;
 #
 #
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use strict;
 use warnings;
@@ -107,6 +107,17 @@ sub postBackupHook
 {
     my ($self) = @_;
     $self->_hook('postbackup');
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'EBackup' ];
 }
 
 # Method: restoreFile

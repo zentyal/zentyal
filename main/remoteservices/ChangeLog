@@ -1,4 +1,5 @@
 2.3
+	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management and events frameworks
 	+ Reimplemented state and backupCredentials FIXME
 	+ New subscription wizard

@@ -21,7 +21,8 @@ use warnings;
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
             EBox::UserCorner::Provider EBox::FirewallObserver
-            EBox::LogObserver EBox::Report::DiskUsageProvider);
+            EBox::LogObserver EBox::Report::DiskUsageProvider
+            EBox::Events::DispatcherProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -304,6 +305,17 @@ sub enableModDepends
     my ($self) = @_;
     my @depends =  ('network', 'users');
     return \@depends;
+}
+
+# Method: eventDispatchers
+#
+# Overrides:
+#
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
+#
+sub eventDispatchers
+{
+    return [ 'Mail' ];
 }
 
 # Method: _getIfacesForAddress

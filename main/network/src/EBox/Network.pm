@@ -18,7 +18,7 @@ package EBox::Network;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
@@ -252,6 +252,17 @@ sub wizardPages
         { page => '/Network/Wizard/Ifaces', order => 100 },
         { page => '/Network/Wizard/Network', order => 101 },
     ];
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'Gateways' ];
 }
 
 

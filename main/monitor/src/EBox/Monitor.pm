@@ -31,7 +31,7 @@ package EBox::Monitor;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use EBox::Config;
 use EBox::Global;
@@ -124,6 +124,17 @@ sub usedFiles
                        daemon => 'collectd'),
         },
        ];
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'Monitor' ];
 }
 
 # Method: menu
