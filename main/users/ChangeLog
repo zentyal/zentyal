@@ -1,4 +1,5 @@
 HEAD
+	+ Added user() and group methods() to EBox::UsersAndGroups
 	+ Heimdal Kerberos integration for SSO features
 2.3.7
 	+ New modifications() method to allow retrieving modifications made to
