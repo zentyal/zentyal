@@ -75,25 +75,10 @@ sub validateTypedRow
     return unless (exists $changedFields->{hostname});
 
     my $newHostName = $changedFields->{hostname};
-    my $newHostIp   = $changedFields->{ipaddr};
-    my $newHostSubDomain = $changedFields->{subdomain};
-
-    my $domainModel = $changedFields->{hostname}->row()->model();
+    my $domainModel = $newHostName->row()->model();
 
     for my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
-        # Check there is no A RR in the domain with the same name and
-        # subdomain
-        my $rowIp = $row->elementByName('ipaddr');
-        my $rowSubdomain = $row->elementByName('subdomain');
-        if ($rowIp->isEqualTo($newHostIp) and
-                $rowSubdomain->isEqualTo($newHostSubDomain)) {
-            throw EBox::Exceptions::External(
-                    __x('There is a host name with the same ip address ' .
-                        '"{ip}" in the domain',
-                        ip     => $rowIp->value()));
-        }
-
         # Check there is no CNAME RR in the domain with the same name
         for my $id (@{$row->subModel('alias')->ids()}) {
             my $subRow = $row->subModel('alias')->row($id);
@@ -127,7 +112,6 @@ sub validateTypedRow
             $self->{toDelete} = \@toDelete;
         }
     }
-
 }
 
 # Method: updatedRowNotify
@@ -218,25 +202,26 @@ sub _table
                                 'fieldName' => 'hostname',
                                 'printableName' => __('Host name'),
                                 'size' => '20',
-                                # 'unique' => 1, # disabled to allow round-robin
+                                'unique' => 1,
                                 'editable' => 1,
                              ),
             new EBox::Types::Text
                             (
                                 'fieldName' => 'subdomain',
-                                'printableName' => __('Sub domain'),
+                                'printableName' => __('Subdomain'),
                                 'size' => '20',
+                                'unique' => 0,
                                 'editable' => 1,
                                 'optional' => 1,
-                                'hidden' => 1, # TODO Uncommment
-                            ),
-            new EBox::Types::HostIP
+                             ),
+            new EBox::Types::HasMany
                             (
-                                'fieldName' => 'ipaddr',
+                                'fieldName' => 'ipAddresses',
                                 'printableName' => __('IP Address'),
-                                'size' => '20',
-                                # 'unique' => 1, # disabled to allow AD global catalog server record
-                                'editable' => 1
+                                'foreignModel' => 'HostIpTable',
+                                'view' => '/DNS/View/HostIpTable',
+                                'backView' => '/DNS/View/HostIpTable',
+                                'size' => '1',
                              ),
             new EBox::Types::HasMany
                             (
@@ -244,7 +229,6 @@ sub _table
                                 'printableName' => __('Alias'),
                                 'foreignModel' => 'AliasTable',
                                 'view' => '/DNS/View/AliasTable',
-
                                 'backView' => '/DNS/View/AliasTable',
                                 'size' => '1',
                              )

@@ -141,8 +141,8 @@ sub _table
               editable      => 1,
              ),
           new EBox::Types::Text(
-              fieldName     => 'name',
-              printableName => __('Name'),
+              fieldName     => 'subdomain',
+              printableName => __('Subdomain'),
               editable      => 1,
               optional      => 1,
               #TODO hidden        => 1,

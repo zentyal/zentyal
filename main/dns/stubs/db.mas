@@ -6,12 +6,11 @@ Parameters:
   domain - hash ref containing the following information:
 
       name - String the domain's name
-      ipaddr - String the domain's ip address
       hosts - Array ref containing hash refs with the following elements:
-        ip   - String the IP address for that host
         name - String the host's name
-        aliases - Array ref containing hash refs with the following elements:
-            name - String the alias' name
+        subdomain - String the host subdomain
+        ip   - Array ref containing the host ip addresses
+        aliases - Array ref containing the host aliases
       mailExchangers - Array ref containing hash refs with the following elements:
          hostName - String the host's name which is a mail exchanger
          preference - Int the preference number for that MX record
@@ -28,17 +27,17 @@ Parameters:
         weight       - Int the weight
         target_port  - Int the target port
         target_host  - Int the target host name
-
-    hostname - String the name used as name server
+      primariNameServer - The primary nameserver of the domain
+      ipAddresses - Array ref containing the domain ip addresses
 </%doc>
 <%args>
     $domain
-    $hostname
 </%args>
 <%init>
 my @time    = localtime();
 my $date    = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
 my @nsRRs   = @{$domain->{nameServers}};
+my @domainIps = @{$domain->{ipAddresses}};
 my @hostRRs = @{$domain->{hosts}};
 my @mxRRs   = @{$domain->{mailExchangers}};
 my @txtRRs  = @{$domain->{txt}};
@@ -46,38 +45,40 @@ my @srvRRs  = @{$domain->{srv}};
 </%init>
 $ORIGIN <% $domain->{name} %>.
 $TTL 3D
-@   IN  SOA <% $hostname %> hostmaster (
-            <% $date %>	;serial number
-            8H		;refresh
-            2H		;retry
-            4W		;expiration
-            1D )    ;minimum
-
+@       IN      SOA     <% $domain->{primaryNameServer} %> hostmaster (
+                        <% $date %>	;serial number
+                        8H		;refresh
+                        2H		;retry
+                        4W		;expiration
+                        1D )    ;minimum
+;
 % foreach my $ns (@nsRRs) {
-    IN NS <% $ns %> ;nameserver
+@       IN      NS      <% $ns %>
 % }
-% if ($domain->{ipaddr}) {
-    IN A  <% $domain->{ipaddr} %>
+% foreach my $ip (@domainIps) {
+@       IN      A       <% $ip %>
 % }
 ;
 
 % foreach my $host (@hostRRs) {
-<% $host->{name} %> IN A <% $host->{ip} %>
-%   my @aliases = @{$host->{aliases}};
-%   foreach my $alias (@aliases) {
-<% $alias->{name} %> IN CNAME <% $host->{name} %>
+%   my $subdomain = length ($host->{subdomain}) > 0 ? ".$host->{subdomain}" : '';
+%   foreach my $ip (@{$host->{ip}}) {
+<% $host->{name} %><% $subdomain %>     IN      A       <% $ip %>
+%   }
+%   foreach my $alias (@{$host->{aliases}}) {
+<% $alias %>    IN      CNAME   <% $host->{name} %>
 %   }
 % }
 
 % foreach my $mxRR (@mxRRs) {
-    IN MX <% $mxRR->{preference} %> <% $mxRR->{hostName} %>
+@                       IN      MX      <% $mxRR->{preference} %>       <% $mxRR->{hostName} %>
 % }
 
 % foreach my $txtRR (@txtRRs) {
-<% $txtRR->{hostName} %> IN TXT <% $txtRR->{txt_data} %>
+<% $txtRR->{hostName} %>        IN      TXT         <% $txtRR->{txt_data} %>
 % }
 
 % foreach my $srvRR (@srvRRs) {
-%   my $name = length ($srvRR->{name}) > 0 ? ".$srvRR->{name}" : '';
-_<% $srvRR->{service_name} %>._<% $srvRR->{protocol} %><% $name %> IN SRV <% $srvRR->{priority} %> <% $srvRR->{weight} %> <% $srvRR->{target_port} %> <% $srvRR->{target_host} %>
+%   my $name = length ($srvRR->{subdomain}) > 0 ? ".$srvRR->{subdomain}" : '';
+_<% $srvRR->{service_name} %>._<% $srvRR->{protocol} %><% $name %>      IN      SRV     <% $srvRR->{priority} %> <% $srvRR->{weight} %> <% $srvRR->{target_port} %> <% $srvRR->{target_host} %>
 % }

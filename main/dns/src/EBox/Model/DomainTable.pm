@@ -24,7 +24,6 @@
 #
 package EBox::DNS::Model::DomainTable;
 
-use EBox::DNS::View::DomainTableCustomizer;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -38,6 +37,7 @@ use EBox::Types::HostIP;
 use EBox::Types::Text;
 
 use EBox::Model::ModelManager;
+use EBox::DNS::View::DomainTableCustomizer;
 
 # Dependencies
 use Crypt::OpenSSL::Random;
@@ -61,6 +61,31 @@ sub new
     return $self;
 }
 
+sub hostInternalIps
+{
+    my ($self) = @_;
+
+    my $ips = [];
+
+    # Get the internal interface address to use as domain ip
+    my $network = EBox::Global->modInstance('network');
+
+    my $internalInterfaces = $network->InternalIfaces();
+    unless (scalar $internalInterfaces > 0) {
+        throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
+    }
+
+    use Data::Dumper;
+    foreach my $interface (@{$internalInterfaces}) {
+        foreach my $interfaceInfo (@{$network->ifaceAddresses($interface)}) {
+            next unless (defined $interfaceInfo);
+            push ($ips, $interfaceInfo->{address});
+        }
+    }
+
+    return $ips;
+}
+
 # Method: addDomain
 #
 #   Add a domain to the domains table. Note this method must exist
@@ -69,59 +94,62 @@ sub new
 #
 # Parameters:
 #
-#   (NAMED)
 #   domain_name - String domain's name
-#   ipaddr      - String domain's IP address *(Optional)* Default value: undef
-#   hostnames  - array ref containing the following hash ref in each value:
+#   hostnames   - (optional) Array ref containing the hash refs:
+#                 name     - host's name
+#                 ip       - array ref containint host's ip addresses
+#                 aliases  - array ref containing alias names
+#                 readOnly - (optional)
+#   readOnly    - (optional)
 #
-#                name        - host's name
-#                ip          - hostr's ipaddr
-#                aliases     - array ref containing alias names;
+# Example:
 #
-#   Example:
+#   domain_name => 'subdom.foo.com',
+#   readOnly    => 0,
+#   hostnames   => [
+#                   { name     => 'bar',
+#                     ipAddresses => ['192.168.1.254', '192.168.2.254'],
+#                     aliases  => ['bar', 'b4r'],
+#                     readonly => 0
+#                   }
+#                  ]
 #
-#       domain_name => 'foo.com',
-#       hostnames   => [
-#                       { 'name'         => 'bar',
-#                         'ip'           => '192.168.1.2',
-#                         'aliases'      => [
-#                                             { 'bar',
-#                                               'b4r'
-#                                             }
-#                                           ]
-#                       }
-#                      ]
 sub addDomain
 {
     my ($self, $params) = @_;
 
-    my $name = $params->{'domain_name'};
-    unless (defined($name)) {
-        throw EBox::Exceptions::MissingArgument('name');
+    my $domainName = $params->{domain_name};
+    unless (defined ($domainName)) {
+        throw EBox::Exceptions::MissingArgument('domain_name');
     }
 
-    my $id;
-    my $address = $params->{'ipaddr'};
+    EBox::debug("Adding DNS domain $domainName");
+    my $id = $self->addRow(domain => $domainName,
+                           readOnly => $params->{readOnly});
 
-    if (defined($address)) {
-        $id = $self->addRow('domain' => $name, 'ipaddr' => $address);
-    } else {
-        $id = $self->addRow('domain' => $name);
+    unless (defined ($id)) {
+        throw EBox::Exceptions::Internal("Couldn't add domain's name: $domainName");
     }
 
-    unless (defined($id)) {
-        throw EBox::Exceptions::Internal("Couldn't add domain's name: $name");
-    }
+    # Add the hosts to the domain
+    my $domainRow = $self->_getDomainRow($domainName);
+    my $hostModel = $domainRow->subModel('hostnames');
+    foreach my $host (@{$params->{hostnames}}) {
+        my $hostRowId = $hostModel->addRow(hostname => $host->{name},
+                                           readOnly => $host->{readOnly});
+        my $hostRow = $hostModel->row($hostRowId);
 
-    my $hostnames = $params->{'hostnames'};
-    return unless (defined($hostnames) and @{$hostnames} > 0);
+        my $ipModel = $hostRow->subModel('ipAddresses');
+        foreach my $ip (@{$host->{ipAddresses}}) {
+            EBox::debug('Adding host IP');
+            $ipModel->addRow(ip => $ip);
+        }
 
-    my $hostnameModel =
-                EBox::Model::ModelManager::instance()->model('HostnameTable');
-
-    $hostnameModel->setDirectory($self->{'directory'} . "/$id/hostnames");
-    foreach my $hostname (@{$hostnames}) {
-        $hostnameModel->addHostname(%{$hostname});
+        my $aliasModel = $hostRow->subModel('alias');
+        foreach my $alias (@{$host->{aliases}}) {
+            EBox::debug('Adding host alias');
+            $aliasModel->addRow(alias => $alias);
+        }
     }
 }
 
@@ -131,60 +159,72 @@ sub addDomain
 #
 # Parameters:
 #
+#   domain - The domain where the host will be added
 #   host - A hash ref containing:
-#             - hostname
-#             - ipaddr
-#             - subdomain (optional)
-#             - alias (optional)
-#             - readOnly (optional)
+#               name - The name
+#               subdomain - (optional) The host subdomain
+#               ipAddresses - Array ref containing the ips
+#               aliases  - (optional) Array ref containing the aliases
+#               readOnly - (optional)
 #
 sub addHost
 {
     my ($self, $domain, $host) = @_;
 
-    unless (defined ($domain)) {
+    unless (defined $domain) {
         throw EBox::Exceptions::MissingArgument('domain');
     }
 
-    unless (defined ($host->{hostname})) {
-        throw EBox::Exceptions::MissingArgument('hostname');
+    unless (defined $host->{name}) {
+        throw EBox::Exceptions::MissingArgument('name');
     }
 
-    unless (defined ($host->{ipaddr})) {
-        throw EBox::Exceptions::MissingArgument('ipaddr');
+    unless (defined $host->{ipAddresses} and scalar @{$host->{ipAddresses}} > 0) {
+        throw EBox::Exceptions::MissingArgument('ipAddresses');
     }
-
-    my %params = ( hostname => $host->{hostname},
-                   ipaddr   => $host->{ipaddr},
-                   subdomain => $host->{subdomain} );
 
     EBox::debug('Adding host record');
     my $domainRow = $self->_getDomainRow($domain);
     my $hostModel = $domainRow->subModel('hostnames');
-    my $hostRowId = $hostModel->addRow(%params, readOnly => $host->{readOnly});
+    my $hostRowId = $hostModel->addRow(hostname => $host->{name},
+                                       subdomain => $host->{subdomain},
+                                       readOnly => $host->{readOnly});
     my $hostRow   = $hostModel->row($hostRowId);
 
-    my $aliasModel = $hostRow->subModel('alias');
-    foreach my $alias (@{$host->{alias}}) {
-        EBox::debug('Adding host alias');
-        $aliasModel->addRow('alias' => $alias);
+EBox::debug("FOOOO");
+    my $ipModel = $hostRow->subModel('ipAddresses');
+    foreach my $ip (@{$host->{ipAddresses}}) {
+        EBox::debug('Adding host ip');
+        $ipModel->addRow(ip => $ip);
     }
+EBox::debug("BAAAR");
+    my $aliasModel = $hostRow->subModel('alias');
+    foreach my $alias (@{$host->{aliases}}) {
+        EBox::debug('Adding host alias');
+        $aliasModel->addRow(alias => $alias);
+    }
+EBox::debug("ZAAAP");
 }
 
 # Method: delHost
 #
 #   Deletes a host from the domain
 #
+# Parameters:
+#
+#   domain - The domain where lookup the host
+#   name   - The host name to delete
+#
 sub delHost
 {
-    my ($self, $domain, $host) = @_;
+    my ($self, $domain, $name) = @_;
 
-    unless (defined ($domain)) {
+    unless (defined $domain) {
         throw EBox::Exceptions::MissingArgument('domain');
     }
 
-    unless (defined $host->{hostname}) {
-        throw EBox::Exceptions::MissingArgument('hostname');
+    unless (defined $name) {
+        throw EBox::Exceptions::MissingArgument('name');
     }
 
     my $rowId = undef;
@@ -193,22 +233,18 @@ sub delHost
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
 
-        my $rowHostname  = $row->valueByName('hostname');
-        my $rowIpaddr    = $row->valueByName('ipaddr');
-        my $rowSubdomain = $row->valueByName('subdomain');
-
-        if ((not defined ($host->{hostname})  or $rowHostname  eq $host->{hostname})  and
-            (not defined ($host->{ipaddr})    or $rowIpaddr    eq $host->{ipaddr})    and
-            (not defined ($host->{subdomain}) or $rowSubdomain eq $host->{subdomain})) {
+        my $rowHostname = $row->valueByName('hostname');
+        if ($rowHostname eq $name) {
             $rowId = $id;
             last;
         }
     }
 
-    if (defined ($rowId)) {
+    if (defined $rowId) {
+        EBox::debug("Deleting host '$name' from domain '$domain'");
         $model->removeRow($rowId);
     } else {
-        throw EBox::Exceptions::DataNotFound(data => 'hostname', value => $host->{hostname});
+        throw EBox::Exceptions::DataNotFound(data => 'hostname', value => $name);
     }
 }
 
@@ -218,16 +254,17 @@ sub delHost
 #
 # Parameters:
 #
+#   domain  - The domain where the record will be added
 #   service - A hash ref containing:
-#             - service (The name of the service, must match a name in /etc/services)
-#             - protocol ('tcp' or 'udp')
-#             - name (the domain name for which this record is valid)
-#             - priority (optional)
-#             - weight (optional)
-#             - port (port number)
-#             - target_type (custom or hostDomain)
-#             - target (The name of a host domain or a FQDN)
-#             - readOnly
+#             service  - The name of the service, must match a name in /etc/services
+#             subdomain - The domain name for which this record is valid
+#             protocol - 'tcp' or 'udp'
+#             port     - (port number)
+#             target_type - custom or hostDomain
+#             target   - The name of a host domain or a FQDN
+#             priority - (optional)
+#             weight   - (optional)
+#             readOnly - (optional)
 #
 sub addService
 {
@@ -249,7 +286,7 @@ sub addService
     my $model = $domainRow->subModel('srv');
     my %params = (service_name => $service->{service},
                   protocol => $service->{protocol},
-                  name => $service->{name},
+                  subdomain => $service->{subdomain},
                   priority => $service->{priority},
                   weight => $service->{weight},
                   port => $service->{port});
@@ -261,6 +298,7 @@ sub addService
         my $row = $model->row($id);
         my $matchAll = 1;
         foreach my $param (keys %params) {
+            next unless (defined $params{$param});
             my $value = $row->valueByName($param);
             if ($params{$param} ne $value) {
                 $matchAll = 0;
@@ -309,8 +347,13 @@ sub addService
 #
 # Parameters:
 #
-#   service - A hash ref containing the service attributes
-#             to check for deletion
+#   domain  - The domain name where lookup the record to delete
+#   service - A hash ref containing the attributes to check for deletion:
+#             service_name
+#             protocol
+#             priority
+#             weitht
+#             port
 #
 sub delService
 {
@@ -355,10 +398,11 @@ sub delService
 #
 # Parameters:
 #
-#   txt - A hash ref containing:
-#           - name
-#           - data
-#           - readOnly
+#   domain - The domain name where the record will be added
+#   txt    - A hash ref containing:
+#            name -
+#            data -
+#            readOnly - (optional)
 #
 sub addText
 {
@@ -386,35 +430,51 @@ sub addText
 #
 # Parameters:
 #
-#   name - The record name
+#   domain - The domain name where lookup the record to delete
+#   txt    - A hash ref containing the values to check for delete
+#            name - The record name
+#            data - The record value
 #
 sub delText
 {
     my ($self, $domain, $txt) = @_;
 
-    if (not defined ($txt->{name})) {
+    unless (defined ($domain)) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
+    unless (defined $txt->{name}) {
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    if (not defined ($txt->{data})) {
-        throw EBox::Exceptions::MissingArgument('data');
-    }
-
+    my $rowId = undef;
     my $domainRow = $self->_getDomainRow($domain);
     my $model = $domainRow->subModel('txt');
-    my $rowId = $model->findRow(hostName => $txt->{name}, txt_data => $txt->{data});
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+
+        my $rowName = $row->valueByName('hostName');
+        my $rowData = $row->valueByName('txt_data');
+
+        if ((not defined ($txt->{name})  or $rowName  eq $txt->{name})  and
+            (not defined ($txt->{data})  or $rowData  eq $txt->{data})) {
+            $rowId = $id;
+            last;
+        }
+    }
 
     if (defined ($rowId)) {
         $model->removeRow($rowId);
     } else {
-        throw EBox::Exceptions::DataNotFound(data => 'hostName', value => $txt->{name});
+        throw EBox::Exceptions::DataNotFound(data => 'hostname', value => $txt->{name});
     }
 }
 
 # Method: addedRowNotify
 #
-#    Override to generate the shared key but it is only used by
-#    dynamic zones
+#    Override to:
+#    - Add the NS and A records
+#    - Generate the shared key, only used by dynamic zones
 #
 # Overrides:
 #
@@ -429,28 +489,39 @@ sub addedRowNotify
     $newRow->elementByName('tsigKey')->setValue($secret);
     $newRow->store();
 
+    # Add the domain IP addresses
+    my $internalIpAddresses = $self->hostInternalIps();
+    my $ipModel = $newRow->subModel('ipAddresses');
+    foreach my $ip (@{$internalIpAddresses}) {
+        EBox::debug('Adding domain IP');
+        $ipModel->addRow(ip => $ip);
+    }
+
     # Generate the NS record and its A record
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostname = $sysinfo->hostName();
+    my $nsHost = $self->parentModule()->NameserverHost();
 
     my $hostModel = $newRow->subModel('hostnames');
-    my $ipaddr  = '127.0.0.1';
-    if (defined($newRow->valueByName('ipaddr'))) {
-        $ipaddr = $newRow->valueByName('ipaddr');
-    }
-    my $hostNameId = $hostModel->add(hostname => $hostname, ipaddr => $ipaddr);
-    my $nsModel   = $newRow->subModel('nameServers');
-    $nsModel->add(hostName => { ownerDomain => $hostname } );
+    my $hostRowId = $hostModel->addRow(hostname => $nsHost);
+    my $hostRow   = $hostModel->row($hostRowId);
 
+    $ipModel = $hostRow->subModel('ipAddresses');
+    foreach my $ip (@{$internalIpAddresses}) {
+        EBox::debug('Adding host IP');
+        $ipModel->addRow(ip => $ip);
+    }
+
+    EBox::debug('Adding name server');
+    my $nsModel = $newRow->subModel('nameServers');
+    $nsModel->add(hostName => { ownerDomain => $nsHost } )
 }
 
 # Method: viewCustomizer
 #
-#     Use our own customizer to hide dynamic field in add form
+#   Use our own customizer to hide dynamic field in add form
 #
 # Overrides:
 #
-#     <EBox::Model::Component::viewCustomizer>
+#   <EBox::Model::Component::viewCustomizer>
 #
 sub viewCustomizer
 {
@@ -459,7 +530,6 @@ sub viewCustomizer
     my $customizer = new EBox::DNS::View::DomainTableCustomizer();
     $customizer->setModel($self);
     return $customizer;
-
 }
 
 # Group: Protected methods
@@ -476,6 +546,15 @@ sub _table
                                 'size' => '20',
                                 'unique' => 1,
                                 'editable' => 1
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'ipAddresses',
+                                'printableName' => __("Domain IP Addresses"),
+                                'foreignModel' => 'DomainIpTable',
+                                'view' => '/DNS/View/DomainIpTable',
+                                'backView' => '/DNS/View/DomainTable',
+                                'size' => '1',
                              ),
             new EBox::Types::HasMany
                             (
@@ -518,20 +597,13 @@ sub _table
                                 'view' => '/DNS/View/Services',
                                 'backView' => '/DNS/View/Services',
                              ),
-            new EBox::Types::HostIP
-                            (
-                                'fieldName' => 'ipaddr',
-                                'printableName' => __('IP Address'),
-                                'size' => '20',
-                                'optional' => 1,
-                                'editable' => 1
-                            ),
             new EBox::Types::Boolean(
                 # This field indicates if the domain is dynamic, so not editable from interface
                                 'fieldName'     => 'dynamic',
                                 'printableName' => __('Dynamic'),
                                 'editable'      => 0,
                                 'hidden'        => 0,
+                                'hiddenOnViewer' => 1,
                                 'defaultValue'  => 0,
                                 'help'          => __('A domain is dynamic when the DHCP server '
                                                       . 'updates the domain'),
@@ -580,7 +652,6 @@ sub _generateSecret
 
     # Generate a key of 512 bits = 64Bytes
     return MIME::Base64::encode(Crypt::OpenSSL::Random::random_bytes(64), '');
-
 }
 
 # Method: _getDomainRow

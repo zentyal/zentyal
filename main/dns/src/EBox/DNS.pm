@@ -18,10 +18,9 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+use base qw( EBox::Module::Service
+             EBox::Model::ModelProvider
+             EBox::Model::CompositeProvider );
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -76,7 +75,7 @@ sub _create
                                       printableName => 'DNS',
                                       @_);
 
-    bless($self, $class);
+    bless ($self, $class);
     return $self;
 }
 
@@ -84,28 +83,30 @@ sub _create
 #
 # Overrides:
 #
-#       <EBox::ModelProvider::modelClasses>
+#   <EBox::ModelProvider::modelClasses>
 #
 sub modelClasses
 {
     return [
             {
-             class      => 'EBox::DNS::Model::DomainTable',
-             parameters => [
-                            directory => 'domainTable',
-                           ],
+                class      => 'EBox::DNS::Model::DomainTable',
+                parameters => [ directory => 'domainTable' ],
             },
             {
-             class      => 'EBox::DNS::Model::HostnameTable',
-             parameters => [
-                            directory => 'hostnameTable',
-                           ],
+                class      => 'EBox::DNS::Model::HostnameTable',
+                parameters => [ directory => 'hostnameTable' ],
             },
             {
-             class      => 'EBox::DNS::Model::AliasTable',
-             parameters => [
-                            directory => 'aliasTable',
-                           ],
+                class => 'EBox::DNS::Model::HostIpTable',
+                parameters => [ directory => 'hostIpTable' ],
+            },
+            {
+                class => 'EBox::DNS::Model::DomainIpTable',
+                parameters => [ directory => 'domainIpTable' ],
+            },
+            {
+                class      => 'EBox::DNS::Model::AliasTable',
+                parameters => [ directory => 'aliasTable' ],
             },
             'EBox::DNS::Model::MailExchanger',
             'EBox::DNS::Model::NameServer',
@@ -156,9 +157,9 @@ sub _exposedMethods
                             indexes => [ 'domain' ],
                           },
          'setIP'       => { action   => 'set',
-                            path     => [ 'DomainTable', 'hostnames' ],
+                            path     => [ 'DomainTable', 'hostnames', 'ipAddresses' ],
                             indexes  => [ 'domain', 'hostname' ],
-                            selector => [ 'ipaddr' ]
+                            selector => [ 'ip' ]
                           },
          'changeName'  => { action   => 'set',
                             path     => [ 'DomainTable', 'hostnames' ],
@@ -170,8 +171,8 @@ sub _exposedMethods
                                   indexes  => [ 'domain', 'hostname' ],
                                 },
          'getHostNameByIP' => { action  => 'get',
-                                path    => [ 'DomainTable', 'hostnames' ],
-                                indexes => [ 'domain', 'ipaddr' ],
+                                path    => [ 'DomainTable', 'hostnames', 'ipAddresses' ],
+                                indexes => [ 'domain', 'ip' ],
                               },
          'removeHostName' => { action => 'del',
                                path   => [ 'DomainTable', 'hostnames' ],
@@ -194,6 +195,23 @@ sub _exposedMethods
          );
 
       return \%exposedMethods;
+}
+
+# Method: addDomain
+#
+#  Add new domain to table model
+#
+# Parameters:
+#
+#  Check <EBox::DNS::Model::DomainTable> for details
+#
+sub addDomain
+{
+    my ($self, $domainData) = @_;
+
+    my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+
+    $domainModel->addDomain($domainData);
 }
 
 # Method: addService
@@ -298,22 +316,6 @@ sub delHost
     $model->delHost($domain, $host);
 }
 
-# Method: addDomain
-#
-#  Add new domain to table model
-#
-# Parameters:
-#
-#  Check <EBox::DNS::Model::DomainTable> for details
-#
-sub addDomain
-{
-    my ($self, $domainData) = @_;
-
-    my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
-
-    $domainModel->addDomain($domainData);
-}
 
 # Method: domains
 #
@@ -323,45 +325,39 @@ sub addDomain
 #
 #   Array ref - containing hash refs with the following elements:
 #    name    - String the domain's name
-#    ipaddr  - String the domain's ip address
 #    dynamic - Boolean indicating if the domain is dynamically updated
 #
 sub domains
 {
     my $self = shift;
-    my @array;
 
-    my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
-
-    foreach my $id (@{$model->ids()})
-    {
+    my $array = [];
+    my $model = $self->model('DomainTable');
+    foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
-        my $domaindata;
+        my $domaindata = { name    => $row->valueByName('domain'),
+                           dynamic => $row->valueByName('dynamic') };
 
-        $domaindata->{'name'} = $row->valueByName('domain');
-        $domaindata->{'ipaddr'} = $row->valueByName('ipaddr');
-        $domaindata->{'dynamic'} = $row->valueByName('dynamic');
-
-        push(@array, $domaindata);
+        push ($array, $domaindata);
     }
 
-    return \@array;
+    return $array;
 }
 
 
 # Method: getHostnames
 #
-#       Given a domain name, it returns an array ref of hostnames that
-#       it contains.
+#   Given a domain name, it returns an array ref of hostnames that
+#   it contains.
 #
 # Parameters:
 #
-#       domain - String the domain's name
+#   domain - String the domain's name
 #
 # Returns:
 #
-#       array ref - containing the same structure as
-#       <EBox::DNS::hostnames> returns
+#   array ref - containing the same structure as
+#               <EBox::DNS::hostnames> returns
 #
 sub getHostnames
 {
@@ -369,7 +365,7 @@ sub getHostnames
     my ($self, $domain) = @_;
 
     my $domainRow = $self->model('DomainTable')->findRow(domain => $domain);
-    unless ( defined($domainRow) ) {
+    unless (defined $domainRow) {
         throw EBox::Exceptions::DataNotFound(data  => __('domain'),
                                              value => $domain);
     }
@@ -378,32 +374,55 @@ sub getHostnames
 }
 
 # Method: aliases
-#  returns an array with all alias structure of a hostname
+#
+#   Returns an array with all alias structure of a hostname
 #
 # Parameters:
-#   model to iterate over
+#
+#   model - Model to iterate over
 #
 # Returns:
-#  array ref with this structure data:
 #
-#  'name': alias name
+#  array ref with this structure data:
+#      name - alias name
 #
 sub aliases
 {
     my ($self, $model) = @_;
-    my @array;
 
-    foreach my $id (@{$model->ids()})
-    {
-        my $alias = $model->row($id);
-        my $aliasdata;
-
-        $aliasdata->{'name'} = $alias->valueByName('alias');
-
-        push(@array, $aliasdata);
+    my $array = [];
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        push ($array, $row->valueByName('alias'));
     }
 
-    return \@array;
+    return $array;
+}
+
+# Method: hostIpAddresses
+#
+#   Returns an array with all IP of a hostname
+#
+# Parameters:
+#
+#   model - Model to iterate over
+#
+# Returns:
+#
+#  array ref with this structure data:
+#      ip - Ip address
+#
+sub hostIpAddresses
+{
+    my ($self, $model) = @_;
+
+    my $array = [];
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        push ($array, $row->valueByName('ip'));
+    }
+
+    return $array;
 }
 
 # Method: findAlias
@@ -413,7 +432,6 @@ sub aliases
 # Parameters:
 #
 #       domainName - String the domain name
-#
 #       alias - String the alias name
 #
 # Returns:
@@ -438,7 +456,7 @@ sub findAlias
     my $domModel = $self->model('DomainTable');
     $domModel->{cachedVersion} = 0;
     my $id = $domModel->find(domain => $domainName);
-    unless ( defined($id)) {
+    unless (defined ($id)) {
         throw EBox::Exceptions::DataNotFound(data => 'domain',
                                              value => $domainName);
     }
@@ -487,7 +505,7 @@ sub updateReversedData
 
     # Try to find an previously added groupip item (from other domain)
     my $pos = -1;
-    for(my $i = 0; $i < @{$reversedData}; $i++) {
+    for (my $i = 0; $i < @{$reversedData}; $i++) {
         if ($reversedData->[$i]->{'groupip'} eq $groupIPData->{'groupip'}) {
             my $jpos = -1;
             for (my $j = 0; $j < @{$reversedData->[$i]->{'domain'}}; $j++) {
@@ -534,10 +552,11 @@ sub updateReversedData
         }
     }
 
-    if($pos < 0) {
+    if ($pos < 0) {
         my $item = { 'groupip'      => $groupIPData->{'groupip'},
                      'dynamic'      => $groupIPData->{'dynamic'},
-                     'tsigKeyNames' => [ $groupIPData->{'tsigKeyName'} ] };
+                     'tsigKeyNames' => [ $groupIPData->{'tsigKeyName'} ],
+                     'primaryNameServer' => $self->NameserverHost() };
         push(@{$item->{'domain'}}, $groupIPData->{'domain'});
         push(@{$reversedData}, $item);
     }
@@ -569,53 +588,51 @@ sub updateReversedData
 sub switchToReverseInfoData
 {
     my ($self, $info) = @_;
-    my @reversedData;
 
+    my @reversedData = ();
     foreach my $domainData (@{$info}) {
-        my $domain = $domainData->{'name'};
+        my $domainName = $domainData->{'name'};
 
-        if ( $domainData->{'dynamic'} ) {
+        # TODO and not samba?
+        if ($domainData->{'dynamic'}) {
             my $groupIPs = $self->_getRanges($domainData);
 
             foreach my $groupIP (@{$groupIPs}) {
                 my $groupIPData = { 'groupip'     => $groupIP,
                                     'dynamic'     => 1,
-                                    'tsigKeyName' => $domain,
-                                    'domain'  => { 'name'  => $domain,
-                                                   'hosts' => [] }};
+                                    'tsigKeyName' => $domainName,
+                                    'domain'  => { 'name'  => $domainName,
+                                                   'hosts' => [] } };
                 $self->updateReversedData(\@reversedData, $groupIPData);
             }
-        }
-
-        # Check for IP address in domain
-        if ($domainData->{'ipaddr'}) {
-            push(@{$domainData->{'hosts'}},
-                 {
-                     'name' => '', 'ip' => $domainData->{'ipaddr'} });
         }
 
         foreach my $hostData (@{$domainData->{'hosts'}}) {
             # Remove wildcard since it is possible to set a reverse domain
             next if ($hostData->{'name'} eq '*');
-            my @ipblocks = split(/\./, $hostData->{'ip'});
 
-            #Set group ip bind format (reverse order)
-            my $groupip = join(".", $ipblocks[2], $ipblocks[1], $ipblocks[0]);
+            # Take only the first IP of each host to set the PTR record
+            my $hostIpAddresses = $hostData->{'ip'};
+            next if (scalar @{$hostIpAddresses} <= 0);
+
+            my @ipblocks = split (/\./, @{$hostIpAddresses}[0]);
+            # Set group ip bind format (reverse order)
+            my $groupip = join ('.', $ipblocks[2], $ipblocks[1], $ipblocks[0]);
             my $hostip = $ipblocks[3];
 
-            my $newDomainData;
-            $newDomainData->{'name'} = $domain;
+            my $newDomainData = {};
+            $newDomainData->{'name'} = $domainName;
             $newDomainData->{'hosts'} = [ { ip => $hostip,
                                             name => $hostData->{'name'} } ];
+            $newDomainData->{'nameServers'} = $domainData->{nameServers};
 
-            my $groupIPData;
+            my $groupIPData = {};
             $groupIPData->{'groupip'} = $groupip;
             $groupIPData->{'domain'}  = $newDomainData;
             $groupIPData->{'dynamic'} = 0;
 
             $self->updateReversedData(\@reversedData, $groupIPData);
         }
-
     }
 
     return \@reversedData;
@@ -628,28 +645,28 @@ sub switchToReverseInfoData
 sub usedFiles
 {
     my ($self) = @_;
-    my $files = [{
-            'file' => BIND9CONFFILE,
+    my $files = [
+        {
+            'file'   => BIND9CONFFILE,
             'module' => 'dns',
             'reason' => __('main bind9 configuration file'),
         },
-       {
-           'file' => BIND9CONFOPTIONSFILE,
-           'module' => 'dns',
-           'reason' => __('bind9 options configuration file'),
-       },
-       {
-           'file' => BIND9CONFLOCALFILE ,
-           'module' => 'dns',
-           'reason' => __('local bind9 configuration file'),
-       },
-       {
-           'file'   => KEYSFILE,
-           'module' => 'dns',
-           'reason' => __('Keys configuration file'),
-       },
+        {
+            'file'   => BIND9CONFOPTIONSFILE,
+            'module' => 'dns',
+            'reason' => __('bind9 options configuration file'),
+        },
+        {
+            'file' => BIND9CONFLOCALFILE ,
+            'module' => 'dns',
+            'reason' => __('local bind9 configuration file'),
+        },
+        {
+            'file'   => KEYSFILE,
+            'module' => 'dns',
+            'reason' => __('Keys configuration file'),
+        },
     ];
-
 
     my @domainIds = @{$self->_domainIds()};
 
@@ -697,16 +714,17 @@ sub usedFiles
 sub actions
 {
     return [
-        { 'action' => __x('Change the permissions for {dir} to allow writing to bind group',
-                          dir => BIND9CONFDIR),
-          'reason' => __('Let the bind daemon to be dynamically updated'),
-          'module' => 'dns'
+        {
+            'action' => __x('Change the permissions for {dir} to allow writing to bind group',
+                            dir => BIND9CONFDIR),
+            'reason' => __('Let the bind daemon to be dynamically updated'),
+            'module' => 'dns'
         },
         {
-          'action' => __('Remove bind9 init script link'),
-          'reason' => __('Zentyal will take care of starting and stopping ' .
+            'action' => __('Remove bind9 init script link'),
+            'reason' => __('Zentyal will take care of starting and stopping ' .
                         'the services.'),
-          'module' => 'dns'
+            'module' => 'dns'
         }
     ];
 }
@@ -720,8 +738,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Create default rules and services
-    # only if installing the first time
+    # Create default rules and services only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
 
@@ -747,6 +764,8 @@ sub initialSetup
 
 sub _services
 {
+    my ($self) = @_;
+
     return [
              {
               'protocol' => 'udp',
@@ -833,20 +852,18 @@ sub _setConf
 
     @array = ();
 
-    my @domainIds = @{$self->_domainIds()};
-    # Hash to store the keys indexed by name, storing the secret
-    my %keys = ();
-
     # Delete the already removed RR from dynamic zones
     $self->_removeDeletedRR();
 
     # Delete files from no longer used domains
     $self->_removeDomainsFiles();
 
-    my @domainData;
+    # Hash to store the keys indexed by name, storing the secret
+    my %keys = ();
+    my @domainData = ();
+    my @domainIds = @{$self->_domainIds()};
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
-        push (@domainData, $domdata);
 
         my $file;
         if ($domdata->{'dynamic'}) {
@@ -858,20 +875,22 @@ sub _setConf
 
         @array = ();
         push (@array, 'domain' => $domdata);
-        push (@array, 'hostname' => $self->NameserverHost());
         # Prevent to write the file again if this is dynamic and the
         # journal file has been already created
-        if ( $domdata->{'dynamic'} and -e "${file}.jnl" ) {
+        if ($domdata->{'dynamic'} and -e "${file}.jnl") {
             $self->_updateDynDirectZone($domdata);
         } else {
-            $self->writeConfFile($file,"dns/db.mas",\@array);
+            $self->writeConfFile($file, "dns/db.mas", \@array);
             EBox::Sudo::root("chown bind:bind '$file'");
         }
 
         # Add the updater key if the zone is dynamic
-        if ( $domdata->{'dynamic'} ) {
+        if ($domdata->{'dynamic'}) {
             $keys{$domdata->{'name'}} = $domdata->{'tsigKey'};
         }
+
+        # Store the domain data to create the reverse zones
+        push (@domainData, $domdata);
     }
 
     my $reversedData = $self->switchToReverseInfoData(\@domainData);
@@ -888,19 +907,19 @@ sub _setConf
             $file = BIND9CONFDIR;
         }
         $file .= "/db." . $reversedDataItem->{'groupip'};
-        push(@inaddrs, { ip      => $reversedDataItem->{'groupip'},
-                         dynamic => $reversedDataItem->{'dynamic'},
-                         keyNames => $reversedDataItem->{'tsigKeyNames'},
-                     } );
         @array = ();
-        push(@array, 'rdata' => $reversedDataItem);
+        push (@array, 'rdata' => $reversedDataItem);
         if ( $reversedDataItem->{'dynamic'} and -e "${file}.jnl" ) {
             $self->_updateDynReverseZone($reversedDataItem);
         } else {
             $self->writeConfFile($file, "dns/dbrev.mas", \@array);
             EBox::Sudo::root("chown bind:bind '$file'");
         }
-
+        # Store to write the zone in named.conf.local
+        push(@inaddrs, { ip      => $reversedDataItem->{'groupip'},
+                         dynamic => $reversedDataItem->{'dynamic'},
+                         keyNames => $reversedDataItem->{'tsigKeyNames'},
+                       } );
     }
 
     my @domains = @{$self->domains()};
@@ -922,7 +941,6 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
-
 }
 
 sub configureFirewall
@@ -1079,8 +1097,33 @@ sub _intnets
     return \@intnets;
 }
 
+# Method: _domainIpAddresses
+#
+#   Returns an array ref with all domain ip addresses
+#
+# Parameters:
+#
+#   model to iterate over
+#
+# Returns:
+#
+#  array ref
+#
+sub _domainIpAddresses
+{
+    my ($self, $model) = @_;
+
+    my @array;
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        push (@array, $row->valueByName('ip'));
+    }
+    return \@array;
+}
+
 # Method: _hostnames
-#  returns an array with all hostname structure
+#
+#   Returns an array with all hostname structure
 #
 # Parameters:
 #   model to iterate over
@@ -1089,7 +1132,8 @@ sub _intnets
 #  array ref with this structure data:
 #
 #  'name': hostname
-#  'ip': ip address of hostname
+#  'subdomain': Host subdomain, can be undefined
+#  'ip': an array ref containing the IP addresses of the host
 #  'aliases': an array ref returned by <EBox::DNS::aliases> method.
 #
 sub _hostnames
@@ -1097,15 +1141,14 @@ sub _hostnames
     my ($self, $model) = @_;
     my @array;
 
-    foreach my $id (@{$model->ids()})
-    {
+    foreach my $id (@{$model->ids()}) {
         my $hostname = $model->row($id);
         my $hostdata;
 
         $hostdata->{'name'} = $hostname->valueByName('hostname');
-        $hostdata->{'ip'} = $hostname->valueByName('ipaddr');
-        $hostdata->{'aliases'} =
-            $self->aliases($hostname->subModel('alias'));
+        $hostdata->{'subdomain'} = $hostname->valueByName('subdomain');
+        $hostdata->{'ip'} = $self->hostIpAddresses($hostname->subModel('ipAddresses'));
+        $hostdata->{'aliases'} = $self->aliases($hostname->subModel('alias'));
 
         push(@array, $hostdata);
     }
@@ -1311,7 +1354,7 @@ sub _formatSRV
         push (@srvRecords, {
                 service_name => $row->valueByName('service_name'),
                 protocol => $row->valueByName('protocol'),
-                name => $row->valueByName('name'),
+                subdomain => $row->valueByName('subdomain'),
                 priority => $row->valueByName('priority'),
                 weight => $row->valueByName('weight'),
                 target_port => $row->valueByName('port'),
@@ -1335,7 +1378,7 @@ sub _formatSRV
 # hash ref - structure data with:
 #
 #  'name': domain name
-#  'ipaddr': domain ip address
+#  'ipAddresses': array ref containing domain ip addresses
 #  'dynamic' : the domain is dynamically updated
 #  'tsigKey' : the TSIG key is the domain is dynamic
 #  'hosts': an array ref returned by <EBox::DNS::_hostnames> method.
@@ -1353,18 +1396,26 @@ sub _completeDomain # (domainId)
 
     my $domdata;
     $domdata->{'name'} = $row->valueByName('domain');
-    foreach my $key (qw(ipaddr dynamic tsigKey)) {
-        $domdata->{$key} = $row->valueByName($key);
-    }
-    $domdata->{'hosts'} = $self->_hostnames(
-            $row->subModel('hostnames'));
+    $domdata->{'dynamic'} = $row->valueByName('dynamic');
+    $domdata->{'tsigKey'} = $row->valueByName('tsigKey');
 
-    my $subModel = $row->subModel('mailExchangers');
-    $domdata->{'mailExchangers'} = $self->_formatMailExchangers($subModel);
+    $domdata->{'ipAddresses'} = $self->_domainIpAddresses(
+        $row->subModel('ipAddresses'));
+
+    $domdata->{'hosts'} = $self->_hostnames(
+        $row->subModel('hostnames'));
+
+    $domdata->{'mailExchangers'} = $self->_formatMailExchangers(
+        $row->subModel('mailExchangers'));
+
     $domdata->{'nameServers'} = $self->_formatNameServers($row->subModel('nameServers'),
                                                           $row->subModel('hostnames'));
+
     $domdata->{'txt'} = $self->_formatTXT($row->subModel('txt'));
     $domdata->{'srv'} = $self->_formatSRV($row->subModel('srv'));
+
+    # The primary name server
+    $domdata->{'primaryNameServer'} = $self->NameserverHost();
 
     return $domdata;
 }
@@ -1375,12 +1426,12 @@ sub _forwarders
     my ($self) = @_;
 
     my $fwdModel = $self->model('Forwarder');
-    my @forwarders = ();
+    my $forwarders = [];
     foreach my $id (@{$fwdModel->ids()}) {
-        push(@forwarders, $fwdModel->row($id)->valueByName('forwarder'));
+        push (@{$forwarders}, $fwdModel->row($id)->valueByName('forwarder'));
     }
 
-    return \@forwarders;
+    return $forwarders;
 }
 
 # Return the domain row ids in an array ref
@@ -1474,8 +1525,8 @@ sub _updateDynDirectZone
     # We cannot do it with dhcpd like records
     print $fh "update delete $zone A\n";
 
-    if ( $domData->{'ipaddr'} ) {
-        print $fh "update add $zone 259200 A " . $domData->{'ipaddr'} . "\n";
+    foreach my $ip (@{$domData->{'ipAddresses'}}) {
+        print $fh "update add $zone 259200 A " . $ip . "\n";
     }
 
     # print $fh "update delete $zone NS\n";

@@ -8,20 +8,21 @@ my $directDomain = $rdata{'domain'}->[0]->{'name'};
 </%init>
 $TTL 3D
 $ORIGIN <% $rdata{'groupip'} %>.in-addr.arpa.
-@	IN	SOA	ns.<% $directDomain %>.	hostmaster.<% $directDomain %>. (
+@	IN	SOA	<% $rdata{primaryNameServer} %>.<% $directDomain %>.	hostmaster.<% $directDomain %>. (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry
 			4W		;expiration
 			1D )		;
 ;
-% foreach my $groupItem(@{$rdata{'domain'}})
-% {
-		NS	ns.<% $groupItem->{'name'} %>.	;nameserver
+% foreach my $groupItem (@{$rdata{'domain'}}) {
+%   my $nameServers = $groupItem->{nameServers};
+%   foreach my $ns (@{$nameServers}) {
+		NS	<% $ns %>.<% $groupItem->{'name'} %>.
+%   }
 % }
 ;
-% foreach my $groupItem(@{$rdata{'domain'}})
-% {
+% foreach my $groupItem(@{$rdata{'domain'}}) {
 % 	foreach my $host(@{$groupItem->{'hosts'}}) {
 %            my $prefix = '';
 % 	     if ( $host->{'name'} ) {

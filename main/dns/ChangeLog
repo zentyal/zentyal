@@ -1,12 +1,12 @@
 HEAD
-	+ Add new field subdomain to hostname model, needed to create some
-	  samba records
+	+ Add new field subdomain to hostnames and services  model,
+	  needed to create some samba records
 	+ API to add/delete A, SRV and TXT records to a domain
-	+ Set the NS record to the hostname
-	+ IP Address on domain hosts is no more a unique field. This is
-	  needed by samba to add the global catalog server record
-	+ Add a field to the SRV RR's model to allow to set the domain
-	  suffix
+	+ Change the primary nameserver record from 'ns' to the hostname
+	+ Change the IP address field on domain hosts to hasmany type.
+	  This is needed by samba to add the global catalog server record
+	+ Change the domain IP address to a hasmay type. This is needed
+	  if the server has multiple internal networks attached.
 2.3.5
 	+ Create tables with MyISAM engine by default
 2.3.4
