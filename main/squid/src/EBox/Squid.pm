@@ -187,30 +187,7 @@ sub enableActions
     # Create the kerberos service princiapl in kerberos,
     # export the keytab and set the permissions
     my $users = EBox::Global->modInstance('users');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-    my $hostDomain = $sysinfo->hostDomain();
-    my $realm = $users->kerberosRealm();
-    my $principal = "HTTP/ns.$hostDomain\@$realm";
-
-    try {
-        my @cmds=();
-        push (@cmds, 'kadmin -l add -r ' .
-                     "--max-ticket-life='1 day' " .
-                     "--max-renewable-life='1 week' " .
-                     "--attributes='' " .
-                     "--expiration-time=never " .
-                     "--pw-expiration-time=never " .
-                     $principal);
-        push (@cmds, 'kadmin -l ext -k ' . KEYTAB_FILE . " $principal");
-        push (@cmds, 'chown proxy:proxy ' . KEYTAB_FILE);
-        push (@cmds, 'chmod 600 ' . KEYTAB_FILE);
-        EBox::debug('Creating kerberos service principal');
-        EBox::Sudo::root(@cmds);
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error creating kerberos service principal: $error");
-    };
+    $users->createServicePrincipal('HTTP', KEYTAB_FILE, 'proxy');
 
     try {
         my @lines = ();
