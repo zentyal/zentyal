@@ -537,7 +537,7 @@ sub create
 
     # Set the user password and kerberos keys
     if (defined $passwd) {
-        $res->changePassword($dn, $passwd, 1);
+        $res->changePassword($passwd, 1);
     }
 
     # Init user
