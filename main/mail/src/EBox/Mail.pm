@@ -284,38 +284,15 @@ sub enableActions
 
     $self->performLDAPActions();
 
+    # Remove old keytab file
+    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
+
     # Create the kerberos service princiapl in kerberos,
     # export the keytab and set the permissions
     my $users = EBox::Global->modInstance('users');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-
-    my $hostDomain = $sysinfo->hostDomain();
-    my $realm = $users->kerberosRealm();
-    my @principals = ("imap/ns.$hostDomain\@$realm",
-                      "smtp/ns.$hostDomain\@$realm",
-                      "pop/ns.$hostDomain\@$realm");
-
-    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
-    foreach my $principal (@principals) {
-        try {
-            my @cmds = ();
-            push (@cmds, 'kadmin -l add -r ' .
-                    "--max-ticket-life='1 day' " .
-                    "--max-renewable-life='1 week' " .
-                    "--attributes='' " .
-                    "--expiration-time=never " .
-                    "--pw-expiration-time=never " .
-                    $principal);
-            push (@cmds, 'kadmin -l ext -k ' . KEYTAB_FILE . " $principal");
-            push (@cmds, 'chown dovecot:dovecot ' . KEYTAB_FILE);
-            push (@cmds, 'chmod 600 ' . KEYTAB_FILE);
-            EBox::debug("Creating kerberos service principal '$principal'");
-            EBox::Sudo::root(@cmds);
-        } otherwise {
-            my $error = shift;
-            EBox::error("Error creating kerberos service principal: $error");
-        };
-    }
+    $users->createServicePrincipal('imap', KEYTAB_FILE, 'dovecot');
+    $users->createServicePrincipal('smtp', KEYTAB_FILE, 'dovecot');
+    $users->createServicePrincipal('pop', KEYTAB_FILE, 'dovecot');
 
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
