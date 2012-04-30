@@ -425,6 +425,63 @@ sub hostIpAddresses
     return $array;
 }
 
+# Method: getServices
+#
+#   Given a domain name, it returns an array ref of SRV records that
+#   it contains.
+#
+# Parameters:
+#
+#   domain - String the domain's name
+#
+# Returns:
+#
+#   array ref - containing the same structure as
+#               <EBox::DNS::_services> returns
+#
+sub getServices
+{
+
+    my ($self, $domain) = @_;
+
+    my $domainRow = $self->model('DomainTable')->findRow(domain => $domain);
+    unless (defined $domainRow) {
+        throw EBox::Exceptions::DataNotFound(data  => __('domain'),
+                                             value => $domain);
+    }
+
+    my $model = $domainRow->subModel('srv');
+    return $self->_serviceRecords($model);
+}
+
+# Method: getTexts
+#
+#   Given a domain name, it returns an array ref of TXT records that
+#   it contains.
+#
+# Parameters:
+#
+#   domain - String the domain's name
+#
+# Returns:
+#
+#   array ref - containing the same structure as
+#               <EBox::DNS::_texts> returns
+#
+sub getTexts
+{
+
+    my ($self, $domain) = @_;
+
+    my $domainRow = $self->model('DomainTable')->findRow(domain => $domain);
+    unless (defined $domainRow) {
+        throw EBox::Exceptions::DataNotFound(data  => __('domain'),
+                                             value => $domain);
+    }
+
+    return $self->_textRecords($domainRow->subModel('txt'));
+}
+
 # Method: findAlias
 #
 #       Return the hostname which the alias refers to given a domain
@@ -1154,6 +1211,98 @@ sub _hostnames
     }
 
     return \@array;
+}
+
+# Method: _serviceRecords
+#
+#   Returns an array with all SRV records of a domain
+#
+# Parameters:
+#
+#   model - Model to iterate over
+#
+# Returns:
+#
+#   array ref with this structure data:
+#   name      - Service name
+#   protocol  - Service protocol
+#   subdomain - Service subdomain, can be undefined
+#   priority  - Service priority
+#   weight    - Service weight
+#   port      - Service port
+#   target    - Service target host
+#
+sub _serviceRecords
+{
+    my ($self, $model) = @_;
+
+    my $array = [];
+    foreach my $id (@{$model->ids()}) {
+        my $service = $model->row($id);
+        my $data = {};
+        $data->{name}      = $service->valueByName('service_name');
+        $data->{protocol}  = $service->valueByName('protocol');
+        $data->{subdomain} = $service->valueByName('subdomain');
+        $data->{priority}  = $service->valueByName('priority');
+        $data->{weight}    = $service->valueByName('weight');
+        $data->{port}      = $service->valueByName('port');
+
+        my $selected = $service->elementByName('hostName')->selectedType();
+        if ($selected eq 'custom') {
+            $data->{target} = $service->valueByName('custom');
+        } elsif ($selected eq 'ownerDomain') {
+            my $rowId = $service->valueByName('ownerDomain');
+            $data->{target} = $service->parentRow()
+                ->subModel('hostnames')
+                ->row($rowId)
+                ->valueByName('hostname');
+        }
+        push($array, $data);
+    }
+
+    return $array;
+}
+
+# Method: _textRecords
+#
+#   Returns an array with all TXT records of a domain
+#
+# Parameters:
+#
+#   model - Model to iterate over
+#
+# Returns:
+#
+#   array ref with this structure data:
+#   name
+#   data
+#
+sub _textRecords
+{
+    my ($self, $model) = @_;
+
+    my $array = [];
+    foreach my $id (@{$model->ids()}) {
+        my $txt = $model->row($id);
+        my $data = {};
+        $data->{data} = $txt->valueByName('txt_data');
+        my $selected = $txt->elementByName('hostName')->selectedType();
+        if ($selected eq 'custom') {
+            $data->{target} = $txt->valueByName('custom');
+        } elsif ($selected eq 'ownerDomain') {
+            my $rowId = $txt->valueByName('ownerDomain');
+            $data->{target} = $txt->parentRow()
+                ->subModel('hostnames')
+                ->row($rowId)
+                ->valueByName('hostname');
+        } elsif ($selected eq 'domain') {
+            $data->{target} = $txt->valueByName('domain');
+        }
+
+        push($array, $data);
+    }
+
+    return $array;
 }
 
 # Method: _formatMailExchangers
