@@ -191,19 +191,16 @@ sub addHost
                                        readOnly => $host->{readOnly});
     my $hostRow   = $hostModel->row($hostRowId);
 
-EBox::debug("FOOOO");
     my $ipModel = $hostRow->subModel('ipAddresses');
     foreach my $ip (@{$host->{ipAddresses}}) {
         EBox::debug('Adding host ip');
         $ipModel->addRow(ip => $ip);
     }
-EBox::debug("BAAAR");
     my $aliasModel = $hostRow->subModel('alias');
     foreach my $alias (@{$host->{aliases}}) {
         EBox::debug('Adding host alias');
         $aliasModel->addRow(alias => $alias);
     }
-EBox::debug("ZAAAP");
 }
 
 # Method: delHost
@@ -386,6 +383,7 @@ sub delService
     }
 
     if (defined ($rowId)) {
+        EBox::debug('Removing SRV record');
         $model->removeRow($rowId);
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'service_name', value => $service->{service});
@@ -420,6 +418,7 @@ sub addText
         my %params = ( hostName_selected => 'custom',
                        custom   => $txt->{name},
                        txt_data => $txt->{data} );
+        EBox::debug('Adding TXT record');
         $model->addRow( %params, readOnly => $txt->{readOnly});
     }
 }
@@ -464,6 +463,7 @@ sub delText
     }
 
     if (defined ($rowId)) {
+        EBox::debug('Removing TXT record');
         $model->removeRow($rowId);
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'hostname', value => $txt->{name});
