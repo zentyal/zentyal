@@ -517,7 +517,7 @@ sub _setConf
     push (@array, 'realm' => $self->kerberosRealm());
     $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
 
-    my $ldapContainer = $self->usersDn();
+    my $ldapContainer = $self->ldap->dn();
     @array = ();
     push (@array, 'ldapContainer' => $ldapContainer);
     $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@array);
