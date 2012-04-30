@@ -773,7 +773,7 @@ sub _writeSquidConf
     my $cache_port = $network->model('Proxy')->portValue();
 
     my $krbRealm = $users->kerberosRealm();
-    my $krbPrincipal = 'HTTP/ns.' . $sysinfo->hostDomain();
+    my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
     push @writeParam, ('port'  => $self->port);
