@@ -1,7 +1,5 @@
 <%args>
     $realm
-    $hostname
-    $hostdomain
 </%args>
 [libdefaults]
 	default_realm = <% $realm %>
