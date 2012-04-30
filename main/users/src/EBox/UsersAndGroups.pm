@@ -23,8 +23,7 @@ use base qw(EBox::Module::Service
             EBox::Model::ModelProvider
             EBox::Model::CompositeProvider
             EBox::UserCorner::Provider
-            EBox::UsersAndGroups::SyncProvider
-          );
+            EBox::UsersAndGroups::SyncProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -57,6 +56,8 @@ use Fcntl qw(:flock);
 
 use constant USERSDN        => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
+use constant COMPUTERSDN    => 'ou=Computers';
+
 use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
 use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
@@ -215,13 +216,7 @@ sub initialSetup
                                   destinationPort => 88 },
                                 { protocol   => 'tcp/udp',
                                   sourcePort => 'any',
-                                  destinationPort => 464 },
-                                { protocol   => 'tcp',
-                                  sourcePort => 'any',
-                                  destinationPort => 544 },
-                                { protocol   => 'tcp',
-                                  sourcePort => 'any',
-                                  destinationPort => 749 } ],
+                                  destinationPort => 464 } ]
             );
 
             $fw->setInternalService($serviceName, 'accept');
@@ -232,6 +227,118 @@ sub initialSetup
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+sub _cleanDNSRecords
+{
+    my ($self, $domain) = @_;
+
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my $del = [];
+    push ($del, { type     => 'txt',
+                  name     => '_kerberos' });
+    push ($del, { type     => 'srv',
+                  protocol => 'tcp',
+                  service  => 'kerberos' });
+    push ($del, { type     => 'srv',
+                  protocol => 'tcp',
+                  service  => 'kerberos-master' });
+    push ($del, { type     => 'srv',
+                  protocol => 'tcp',
+                  service  => 'kpasswd' });
+    push ($del, { type     => 'srv',
+                  protocol => 'udp',
+                  service  => 'kerberos' });
+    push ($del, { type     => 'srv',
+                  protocol => 'udp',
+                  service  => 'kerberos-master' });
+    push ($del, { type     => 'srv',
+                  protocol => 'udp',
+                  service  => 'kpasswd' });
+    foreach my $rr (@{$del}) {
+        try {
+            if ($rr->{type} eq 'srv') {
+                $dnsMod->delService($domain, $rr);
+            } elsif ($rr->{type} eq 'txt') {
+                $dnsMod->delText($domain, $rr);
+            }
+        } otherwise {
+        };
+    }
+}
+
+sub setupKerberos
+{
+    my ($self) = @_;
+
+    # Get the FQDN
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $fqdn = $sysinfo->fqdn();
+    my $hostName = $sysinfo->hostName();
+    my $hostDomain = $sysinfo->hostDomain();
+    my $realm = uc ($hostDomain);
+
+    # Create the kerberos database
+    my @cmds = ();
+    push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
+    push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
+    push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
+    push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
+    push (@cmds, 'rm -f /etc/kpasswdd.keytab');
+    push (@cmds, 'kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw'); #TODO Only if master
+    push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
+    EBox::debug('Initializing kerberos realm');
+    EBox::Sudo::root(@cmds);
+
+    # Create the domain in the DNS module if it does not exists
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my $domain = { domain_name => $hostDomain,
+                   hostnames   => [] };
+    my $domains = $dnsMod->domains();
+    my %domains = map {$_->{name} => $_} @{$domains};
+    if (not exists $domains{$hostDomain}) {
+        $dnsMod->addDomain($domain);
+    } else {
+        $self->_cleanDNSRecords($hostDomain);
+    }
+
+    # Add the TXT record with the realm name
+    my $txtRR = { name => '_kerberos',
+                  data => $realm };
+    $dnsMod->addText($hostDomain, $txtRR);
+
+    # Add the SRV records to the domain
+    my $service = { service => 'kerberos',
+                    protocol => 'tcp',
+                    port => 88,
+                    weight => 100,
+                    target_type => 'domainHost',
+                    target => $hostName };
+    $dnsMod->addService($hostDomain, $service);
+    $service->{protocol} = 'udp';
+    $dnsMod->addService($hostDomain, $service);
+
+    ## TODO Check if the server is a master or slave and adjust the target
+    ##      to the master server
+    $service = { service => 'kerberos-master',
+                 protocol => 'tcp',
+                 port => 88,
+                 weight => 100,
+                 target_type => 'domainHost',
+                 target => $hostName };
+    $dnsMod->addService($hostDomain, $service);
+    $service->{protocol} = 'udp';
+    $dnsMod->addService($hostDomain, $service);
+
+    $service = { service => 'kpasswd',
+                 protocol => 'tcp',
+                 port => 464,
+                 weight => 100,
+                 target_type => 'domainHost',
+                 target => $hostName };
+    $dnsMod->addService($hostDomain, $service);
+    $service->{protocol} = 'udp';
+    $dnsMod->addService($hostDomain, $service);
 }
 
 # Method: enableActions
@@ -287,87 +394,8 @@ sub enableActions
         throw EBox::Exceptions::External(__('Error performing users initialization'));
     };
 
-    # Initialize Kerberos
-    try {
-        # Get the FQDN
-        my $sysinfo = EBox::Global->modInstance('sysinfo');
-        my $network = EBox::Global->modInstance('network');
-
-        my $fqdn = $sysinfo->fqdn();
-        my $hostName = $sysinfo->hostName();
-        my $hostDomain = $sysinfo->hostDomain();
-
-        my $internalInterfaces = $network->InternalIfaces();
-        my $interface = pop $internalInterfaces;
-        unless (defined $interface) {
-            throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
-        }
-        my $ifaceInfo = pop $network->ifaceAddresses($interface);
-        unless (defined $ifaceInfo) {
-            throw EBox::Exceptions::External(__('Couldn\'t get the address of the interface {i}', i => $interface));
-        }
-        my $domainIp = $ifaceInfo->{address}; # TODO What happend if more than one internal interface? Ask the user?
-
-        # Create the kerberos database
-        my $realm = $self->kerberosRealm();
-        my @cmds = ();
-        push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
-        push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
-        push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
-        push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
-        push (@cmds, 'rm -f /etc/kpasswdd.keytab');
-        push (@cmds, 'kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw'); #TODO Only if master
-        push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
-        EBox::debug('Initializing kerberos realm');
-        EBox::Sudo::root(@cmds);
-
-        # Check that the host domain and the kerberos realm are the same.
-        unless (lc ($hostDomain) eq lc ($realm)) {
-            throw EBox::Exceptions::External(
-                __('The kerberos realm should be the upper case version of the host domain for the proper operation of kerberos'));
-        }
-
-        # Create the domain in the DNS module if it does not exists
-        my $dnsMod = EBox::Global->modInstance('dns');
-        my $domain = { domain_name => lc ($realm),
-                       ipaddr      => $domainIp,
-                       hostnames   => []};
-        my $domains = $dnsMod->domains();
-        my %domains = map {$_->{name} => $_} @{$domains};
-        if (not exists $domains{$domain->{domain_name}}) {
-            EBox::debug('Adding the domain to the DNS module');
-            $dnsMod->addDomain($domain);
-        }
-
-        # Add the TXT record with the realm name
-        my $txt = { name => '_kerberos',
-                    data => $realm,
-                    readOnly => 1 };
-        $dnsMod->addText($domain->{domain_name}, $txt);
-
-        # Add the SRV records to the domain
-        my $service = { service => 'kerberos',
-                        protocol => 'tcp',
-                        port => 88,
-                        weight => 100,
-                        target_type => 'domainHost',
-                        target => $hostName,
-                        readOnly => 1 };
-        $dnsMod->addService($domain->{domain_name}, $service);
-
-        $service->{protocol} = 'udp';
-        $dnsMod->addService($domain->{domain_name}, $service);
-
-        ## TODO Check if the server is a master or slave and adjust the target
-        ##      to the master server
-        $service->{service} = 'kerberos-adm';
-        $service->{protocol} = 'tcp';
-        $service->{port} = 749;
-        $dnsMod->addService($domain->{domain_name}, $service);
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal(__("Error creating kerberos database: $error"));
-    };
+    # Setup kerberos realm and DNS
+    $self->setupKerberos();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -458,12 +486,12 @@ sub _setConf
     my @array = ();
     push (@array, 'ldap' => EBox::Ldap::LDAPI);
     push (@array, 'basedc'    => $dn);
-    push (@array, 'binddn'    => 'cn=zentyalro,' . $dn); # TODO use rootDn
+    push (@array, 'binddn'    => $ldap->roRootDn());
+    push (@array, 'rootbinddn'=> $ldap->rootDn());
     push (@array, 'bindpw'    => $nsspw);
-    push (@array, 'rootbinddn'=> 'cn=zentyal,' . $dn); # TODO use rootDn
     push (@array, 'usersdn'   => USERSDN . ',' . $dn);
     push (@array, 'groupsdn'  => GROUPSDN . ',' . $dn);
-    push (@array, 'computersdn' => 'ou=Computers,' . $dn);
+    push (@array, 'computersdn' => COMPUTERSDN . ',' . $dn);
 
     $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
             \@array);
@@ -484,14 +512,9 @@ sub _setConf
     $self->master->confSOAPService();
 
     # Get the FQDN
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostname = $sysinfo->hostName();
-    my $hostdomain = $sysinfo->hostDomain();
     my $realm = uc ($self->kerberosRealm());
     @array = ();
     push (@array, 'realm' => $self->kerberosRealm());
-    push (@array, 'hostname' => $hostname);
-    push (@array, 'hostdomain' => $hostdomain);
     $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
 
     my $ldapContainer = $self->usersDn();
@@ -509,20 +532,6 @@ sub kerberosRealm
 
     my $mode = $self->model('Mode');
     return $mode->defaultRealmValue();
-}
-
-sub kerberosKDCs
-{
-    my ($self) = @_;
-
-    return [ 'localhost' ];
-}
-
-sub kerberosAdminServer
-{
-    my ($self) = @_;
-
-    return 'localhost';
 }
 
 sub _setupNSSPAM
