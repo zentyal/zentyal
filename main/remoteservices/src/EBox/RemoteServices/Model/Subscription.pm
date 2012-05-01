@@ -684,6 +684,8 @@ sub _populateOptions
     my @options = map { { value          => $_->{id},
                           printableValue => $_->{company} . ' : ' . $_->{name} } }
       @{$options};
+    # Option to reload the available options
+    push(@options, { value => 'reload', printableValue => __('Reload available options')});
     return \@options;
 }
 

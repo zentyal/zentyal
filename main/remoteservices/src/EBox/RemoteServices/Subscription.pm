@@ -192,7 +192,7 @@ sub subscribeEBox
     # Check the WS is reachable
     $self->_checkWSConnectivity();
 
-    unless ($option) {
+    if ((not $option) or ($option eq 'reload')) {
         my $availables = $self->_getAvailable();
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
