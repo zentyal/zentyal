@@ -221,7 +221,8 @@ sub subscribeEBox
 
     my $vpnSettings;
     try {
-        $vpnSettings = $self->soapCall('vpnSettings');
+        $vpnSettings = $self->soapCall('vpnSettings',
+                                       option => $option);
     } catch EBox::Exceptions::DataNotFound with { };
     unless ( defined($vpnSettings) ) {
         throw EBox::Exceptions::External(
@@ -254,7 +255,8 @@ sub subscribeEBox
     } catch EBox::Exceptions::DataExists with {
         $bundleRawData = $self->soapCall('eBoxBundle',
                                          canonicalName => $cn,
-                                         rsVersion     => $rs->version());
+                                         rsVersion     => $rs->version(),
+                                         option        => $option);
         $new = 0;
     };
 
