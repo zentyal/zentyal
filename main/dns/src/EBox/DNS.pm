@@ -364,6 +364,10 @@ sub getHostnames
 
     my ($self, $domain) = @_;
 
+    unless (defined $domain) {
+        throw EBox::Exceptions::MissingArgument('domain');
+    }
+
     my $domainRow = $self->model('DomainTable')->findRow(domain => $domain);
     unless (defined $domainRow) {
         throw EBox::Exceptions::DataNotFound(data  => __('domain'),
