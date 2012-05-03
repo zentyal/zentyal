@@ -25,6 +25,7 @@ use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
+use Filesys::Df;
 use File::Slurp qw(read_file);
 use List::Util qw(sum);
 use Error qw(:try);
