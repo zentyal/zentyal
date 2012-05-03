@@ -306,20 +306,16 @@ sub enableActions
     };
 
     # Add 'Global catalog' service to /etc/services
-    try {
-        my $dnsMod = EBox::Global->modInstance('dns');
-        my $srvModel = $dnsMod->model('Services');
-        my $services = $srvModel->services();
-        my %aux = map { $_->{name} => 1 } @{$services};
-        unless (exists $aux{gc}) {
-            EBox::debug('Adding Microsoft global catalog service to /etc/services');
-            my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
-            EBox::Sudo::root($cmd);
-        }
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal('Couldn\'t add Microsoft global catalog service');
-    };
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my $srvModel = $dnsMod->model('Services');
+    my $services = $srvModel->services();
+    my %aux = map { $_->{name} => 1 } @{$services};
+    unless (exists $aux{gc}) {
+        EBox::debug('Adding Microsoft global catalog service to /etc/services');
+        my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
+        EBox::Sudo::root($cmd);
+    }
+
 }
 
 # Method: enableService
@@ -490,6 +486,140 @@ sub disableZentyalLdbModule
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
 }
 
+sub cleanDNS
+{
+    my ($self, $domain) = @_;
+
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my @records = (
+        {
+            type => 'host',
+            name => 'gc',
+            subdomain => '_msdcs'
+        },
+        {
+            type      => 'service',
+            service   => 'gc',
+            protocol  => 'tcp',
+            subdomain => undef,
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'gc',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites',
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'gc._msdcs',
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.gc._msdcs',
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => undef,
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'dc._msdcs',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'pdc._msdcs',
+            port      => '389',
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            subdomain => '.+\.domains._msdcs',
+            protocol  => 'tcp',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'kerberos',
+            protocol  => 'tcp',
+            subdomain => 'dc._msdcs',
+            port      => 88
+        },
+        {
+            type      => 'service',
+            service   => 'kerberos',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites',
+            port      => 88
+        },
+        {
+            type      => 'service',
+            service   => 'kerberos',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
+            port      => 88
+        },
+    );
+
+    foreach my $record (@records) {
+        try {
+            if ($record->{type} eq 'host') {
+                $dnsMod->delHost($domain, $record->{name});
+            } elsif ($record->{type} eq 'service') {
+                $dnsMod->delService($domain, $record);
+            }
+        } otherwise {
+            my $error = shift;
+            EBox::debug($error);
+        };
+    }
+
+    # Remove serverGUID._mdscs alias
+    my $hosts = $dnsMod->getHostnames($domain);
+    foreach my $host (@{$hosts}) {
+        my $aliases = $host->{aliases};
+        foreach my $alias (@{$aliases}) {
+            if ($alias =~ m/.+\._msdcs$/) {
+                try {
+                    $dnsMod->removeAlias($domain, $host->{name}, $alias);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error($error);
+                };
+            }
+        }
+    }
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -497,6 +627,13 @@ sub disableZentyalLdbModule
 sub provision
 {
     my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostName   = $sysinfo->hostName();
+    my $domainName = $sysinfo->hostDomain();
+
+    # Remove previous DNS records
+    $self->cleanDNS($domainName);
 
     # This file must be deleted or provision may fail
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
@@ -519,108 +656,90 @@ sub provision
         throw EBox::Exceptions::Internal("Error provisioning database: $error");
     };
 
-    # TODO Remove previous records
-
     # Add the DNS records
     EBox::debug('Adding domain DNS records');
-    try {
-        my $sysinfo = EBox::Global->modInstance('sysinfo');
-        my $dnsMod  = EBox::Global->modInstance('dns');
-        my $hostName = $sysinfo->hostName();
+    my $network = EBox::Global->modInstance('network');
+    my $dnsMod  = EBox::Global->modInstance('dns');
+    my $ipaddrs = $network->internalIpAddresses();
 
-        # Get the domain ip
-        my $domainModel = $dnsMod->model('DomainTable');
-        my $domainRow = $domainModel->findValue(domain => $self->realm());
-        unless (defined $domainRow) {
-            throw EBox::Exceptions::DataNotFound(
-                data => __('domain'),
-                value => $self->realm(),
-            );
-        }
-        my $domainIp = $domainRow->valueByName('ipaddr');
+    # Get the domain GUID
+    my $args = { base   => $self->ldb->rootDN(),
+                 scope  => 'base',
+                 attrs  => 'objectGUID' };
+    my $result = $self->ldb->search($self->ldb->SAM(), $args);
+    my $entry = pop @{$result};
+    my $domainGUID = $entry->get_value('objectGUID');
 
-        # Get the domain GUID
-        my $args = { base   => $self->ldb->rootDN(),
-                     scope  => 'base',
-                     attrs  => 'objectGUID' };
-        my $result = $self->ldb->search($self->ldb->SAM(), $args);
-        my $entry = pop @{$result};
-        my $domainGUID = $entry->get_value('objectGUID');
+    # Get the server GUID
+    $args = { base => "CN=NTDS Settings," .
+                      "CN=" . uc ($hostName) . "," .
+                      "CN=Servers," .
+                      "CN=Default-First-Site-Name," .
+                      "CN=Sites," .
+                      "CN=Configuration," .
+                      $self->ldb->rootDN(),
+              scope  => 'base',
+              attrs  => 'objectGUID' };
+    $result = $self->ldb->search($self->ldb->SAM(), $args);
+    $entry = pop @{$result};
+    my $serverGUID = $entry->get_value('objectGUID');
 
-        # Get the server GUID
-        $args = { base => "CN=NTDS Settings," .
-                          "CN=" . uc ($hostName) . "," .
-                          "CN=Servers," .
-                          "CN=Default-First-Site-Name," .
-                          "CN=Sites," .
-                          "CN=Configuration," .
-                          $self->ldb->rootDN(),
-                  scope  => 'base',
-                  attrs  => 'objectGUID' };
-        $result = $self->ldb->search($self->ldb->SAM(), $args);
-        $entry = pop @{$result};
-        my $serverGUID = $entry->get_value('objectGUID');
+    my $host = { name => 'gc',
+                 subdomain => '_msdcs',
+                 ipAddresses => $ipaddrs };
+    $dnsMod->addHost($domainName, $host);
 
-        my $host = { hostname => 'gc._msdcs.' . $self->realm(),
-                     ipaddr => $domainIp };
-        $domainModel->addHost($self->realm(), $host);
+    my $alias = "$serverGUID._msdcs";
+    $dnsMod->addAlias($domainName, $hostName, $alias);
 
-        my $alias = "$serverGUID._msdcs";
-        $dnsMod->addAlias($self->realm(), $hostName, $alias);
+    my $service = { service => 'gc',
+                    protocol => 'tcp',
+                    port => 3268,
+                    priority => 0,
+                    weight => 100,
+                    target_type => 'domainHost',
+                    target => $hostName };
+    $dnsMod->addService($domainName, $service);
 
-        my $service = { service => 'gc',
-                        protocol => 'tcp',
-                        port => 3268,
-                        priority => 0,
-                        weight => 100,
-                        target_type => 'domainHost',
-                        target => $hostName,
-                        readOnly => 1 };
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'Default-First-Site-Name._sites';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'Default-First-Site-Name._sites';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{service} = 'ldap';
+    $service->{subdomain} = 'gc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{service} = 'ldap';
-        $service->{name} = 'gc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'Default-First-Site-Name._sites.gc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'Default-First-Site-Name._sites.gc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = undef;
+    $service->{port} = 389;
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = undef;
-        $service->{port} = 389;
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'dc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'dc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'pdc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'pdc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = "$domainGUID.domains._msdcs";
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = "$domainGUID.domains._msdcs";
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'Default-First-Site-Name._sites';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'Default-First-Site-Name._sites';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'Default-First-Site-Name._sites.dc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{service} = 'kerberos';
+    $service->{port} = 88;
+    $service->{subdomain} = 'dc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{service} = 'kerberos';
-        $service->{port} = 88;
-        $service->{name} = 'dc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
+    $service->{subdomain} = 'Default-First-Site-Name._sites';
+    $dnsMod->addService($domainName, $service);
 
-        $service->{name} = 'Default-First-Site-Name._sites';
-        $dnsMod->addService($self->realm(), $service);
-
-        $service->{name} = 'Default-First-Site-Name._sites.dc._msdcs';
-        $dnsMod->addService($self->realm(), $service);
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal("Error adding DNS records: $error");
-    };
+    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
