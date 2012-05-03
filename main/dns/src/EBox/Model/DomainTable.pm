@@ -61,31 +61,6 @@ sub new
     return $self;
 }
 
-sub hostInternalIps
-{
-    my ($self) = @_;
-
-    my $ips = [];
-
-    # Get the internal interface address to use as domain ip
-    my $network = EBox::Global->modInstance('network');
-
-    my $internalInterfaces = $network->InternalIfaces();
-    unless (scalar $internalInterfaces > 0) {
-        throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
-    }
-
-    use Data::Dumper;
-    foreach my $interface (@{$internalInterfaces}) {
-        foreach my $interfaceInfo (@{$network->ifaceAddresses($interface)}) {
-            next unless (defined $interfaceInfo);
-            push ($ips, $interfaceInfo->{address});
-        }
-    }
-
-    return $ips;
-}
-
 # Method: addDomain
 #
 #   Add a domain to the domains table. Note this method must exist
@@ -288,28 +263,6 @@ sub addService
                   weight => $service->{weight},
                   port => $service->{port});
 
-    # Check if the service already exists
-    my $add = 1;
-    my $ids = $model->findAll(service_name => $params{service_name});
-    foreach my $id (@{$ids}) {
-        my $row = $model->row($id);
-        my $matchAll = 1;
-        foreach my $param (keys %params) {
-            next unless (defined $params{$param});
-            my $value = $row->valueByName($param);
-            if ($params{$param} ne $value) {
-                $matchAll = 0;
-                last;
-            }
-        }
-        if ($matchAll) {
-            $add = 0;
-            last;
-        }
-    }
-
-    return unless ($add);
-
     if ($service->{target_type} eq 'domainHost' ) {
         $params{hostName_selected} = 'ownerDomain';
         my $hostsModel = $domainRow->subModel('hostnames');
@@ -322,9 +275,9 @@ sub addService
                 last;
             }
         }
-        unless ($params{ownerDomain}) {
+        unless (defined $params{ownerDomain}) {
             throw EBox::Exceptions::DataNotFound(
-                    data => 'hostname',
+                    data  => 'hostname',
                     value => $service->{target});
         }
     } elsif ($service->{target_type} eq 'custom' ) {
@@ -347,6 +300,7 @@ sub addService
 #   domain  - The domain name where lookup the record to delete
 #   service - A hash ref containing the attributes to check for deletion:
 #             service_name
+#             subdomain
 #             protocol
 #             priority
 #             weitht
@@ -367,18 +321,24 @@ sub delService
         my $row = $model->row($id);
 
         my $rowService  = $row->valueByName('service_name');
+        my $rowSubdom   = $row->valueByName('subdomain');
         my $rowProtocol = $row->valueByName('protocol');
         my $rowPriority = $row->valueByName('priority');
         my $rowWeight   = $row->valueByName('weight');
         my $rowPort     = $row->valueByName('port');
 
-        if ((not defined ($service->{service})  or $rowService  eq $service->{service})  and
-            (not defined ($service->{protocol}) or $rowProtocol eq $service->{protocol}) and
-            (not defined ($service->{priority}) or $rowPriority eq $service->{priority}) and
-            (not defined ($service->{weight})   or $rowWeight   eq $service->{weight})   and
-            (not defined ($service->{port})     or $rowPort     eq $service->{port})) {
-            $rowId = $id;
-            last;
+        if ((not defined ($service->{service})   or $rowService  eq $service->{service})   and
+            (not defined ($service->{protocol})  or $rowProtocol eq $service->{protocol})  and
+            (not defined ($service->{priority})  or $rowPriority eq $service->{priority})  and
+            (not defined ($service->{weight})    or $rowWeight   eq $service->{weight})    and
+            (not defined ($service->{port})      or $rowPort     eq $service->{port})) {
+
+            if ((not defined $rowSubdom and not defined $service->{subdomain}) or
+                (defined $rowSubdom and defined $service->{subdomain} and
+                 $rowSubdom =~ m/$service->{subdomain}/)) {
+                $rowId = $id;
+                last;
+            }
         }
     }
 
@@ -490,7 +450,8 @@ sub addedRowNotify
     $newRow->store();
 
     # Add the domain IP addresses
-    my $internalIpAddresses = $self->hostInternalIps();
+    my $network = EBox::Global->modInstance('network');
+    my $internalIpAddresses = $network->internalIpAddresses();
     my $ipModel = $newRow->subModel('ipAddresses');
     foreach my $ip (@{$internalIpAddresses}) {
         EBox::debug('Adding domain IP');
