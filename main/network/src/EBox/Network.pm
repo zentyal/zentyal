@@ -377,6 +377,35 @@ sub InternalIfaces
     return \@array;
 }
 
+# Method: internalIpAddresses
+#
+#   Returs a list of internal IP addresses
+#
+# Returns:
+#
+#   array ref - Holding the internal IP's
+#
+sub internalIpAddresses
+{
+    my ($self) = @_;
+
+    my $ips = [];
+
+    my $internalInterfaces = $self->InternalIfaces();
+    unless (scalar $internalInterfaces > 0) {
+        throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
+    }
+
+    foreach my $interface (@{$internalInterfaces}) {
+        foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
+            next unless (defined $interfaceInfo);
+            push ($ips, $interfaceInfo->{address});
+        }
+    }
+
+    return $ips;
+}
+
 # Method: ifaceExists
 #
 #   Checks if a given interface exists
