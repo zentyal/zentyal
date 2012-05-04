@@ -98,10 +98,11 @@ sub check
 
     my $capable = 1;
     if ($edition eq 'sb') {
+        try {
             $self->_performSBChecks();
         } catch EBox::RemoteServices::Exceptions::NotCapable with {
             $capable = 0;
-        }
+        };
     }
     return $capable;
 }
