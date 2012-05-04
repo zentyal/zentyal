@@ -488,6 +488,12 @@ sub packageCache
     }
     $lastDpkgStatusMtime = $currentMtime;
 
+    unless (defined $_cache) {
+        throw EBox::Exceptions::External(
+            __("Cannot create software packages cache. Make sure that your sources and preferences files in /etc/apt are readable and retry")
+        );
+    }
+
     return $_cache;
 }
 
