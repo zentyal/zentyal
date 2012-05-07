@@ -80,6 +80,33 @@ sub unsubscribeIsAllowed
     return 1;
 }
 
+# Method: check
+#
+#    Check if a server is suitable for the given edition codename
+#
+# Parameters:
+#
+#    edition - String the subscription edition
+#
+# Returns:
+#
+#    True - if it is suitable
+#
+sub check
+{
+    my ($self, $edition) = @_;
+
+    my $capable = 1;
+    if ($edition eq 'sb') {
+        try {
+            $self->_performSBChecks();
+        } catch EBox::RemoteServices::Exceptions::NotCapable with {
+            $capable = 0;
+        };
+    }
+    return $capable;
+}
+
 # Method: subscribe
 #
 #    Check whether the host is able to subscribe this server according

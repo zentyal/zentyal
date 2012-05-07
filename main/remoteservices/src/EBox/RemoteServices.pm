@@ -56,6 +56,7 @@ use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
+use EBox::RemoteServices::RESTClient;
 use EBox::Sudo;
 use EBox::Validate;
 use Error qw(:try);
@@ -1972,5 +1973,24 @@ sub firewallHelper
         sshRedirect => EBox::RemoteServices::SupportAccess->sshRedirect(),
        );
 }
+
+
+# Method: REST
+#
+#   Return the REST client ready to query remote services
+#
+sub REST
+{
+    my ($self) = @_;
+
+    unless ($self->{rest}) {
+        $self->{rest} = new EBox::RemoteServices::RESTClient();
+    }
+
+    return $self->{rest};
+}
+
+
+
 
 1;
