@@ -1,3 +1,7 @@
+HEAD
+	+ Check available options before subscribing if more than option
+	  is available
+	+ Added REST client as interface with Zentyal Cloud
 2.3
 	+ New subscription wizard
 	+ Adapted messages in the UI for new editions

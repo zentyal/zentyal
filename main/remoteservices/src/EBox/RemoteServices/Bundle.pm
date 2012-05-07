@@ -51,7 +51,9 @@ sub new
 #
 # Parameters:
 #
-#     remoteServicesVersion
+#     remoteServicesVersion - String the current remoteservices version
+#                             is running
+#
 #     bundleVersion - Int the Zentyal bundle version you have
 #
 #     force - Boolean indicating the bundle must be reloaded, no
