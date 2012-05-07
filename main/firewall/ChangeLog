@@ -1,3 +1,6 @@
+HEAD
+	+ Added priorit to redirects, fixed bug with SNAT and redirects to
+	the same target
 2.3.5
 	+ Create tables with MyISAM engine by default
 2.3.4
@@ -111,7 +114,7 @@
 0.12.100
 	+ New release
 0.12.99
-	+ Add support for reporting 
+	+ Add support for reporting
 	+ Add rules to allow DHCP requests from interfaces configured via DHCP
 0.12.1
 	+ Add log decision to firewall rules
@@ -177,7 +180,7 @@
 	+ Use of ebox-sudoers-friendly
 0.7
 	+ First public release
-0.6	
+0.6
 	+ Separate module from ebox base
 	+ move to client
 	+ API documented using naturaldocs
