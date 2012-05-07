@@ -377,7 +377,8 @@ sub _table
         'defaultController' =>
             '/Firewall/Controller/RedirectsTable',
         'defaultActions' =>
-            [ 'add', 'del', 'editField', 'changeView' ],
+            [ 'add', 'del', 'editField', 'changeView', 'move' ],
+        'order' => 1,
         'tableDescription' => $self->_fieldDescription('source' => 1),
         'menuNamespace' => 'Firewall/View/RedirectsTable',
         'printableRowName' => __('forwarding'),
