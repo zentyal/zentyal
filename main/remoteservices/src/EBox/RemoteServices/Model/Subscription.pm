@@ -682,8 +682,21 @@ sub _populateOptions
     $options = $options->{options};
 
     my @options = map { { value          => $_->{id},
-                          printableValue => $_->{company} . ' : ' . $_->{name} } }
+                          printableValue => $_->{server} ? __x('Use existing server from {c}', c => $_->{company} )
+                                                          :  $_->{company} . ' : ' . $_->{name} } }
       @{$options};
+
+    # Filter out the repetitive values
+    my %seen = ();
+    my @r = ();
+    foreach my $e (@options) {
+        unless ( $seen{$e->{printableValue}} ) {
+            push(@r, $e);
+            $seen{$e->{printableValue}} = 1;
+        }
+    }
+    @options = @r;
+
     # Option to reload the available options
     push(@options, { value => 'reload', printableValue => __('Reload available options')});
     return \@options;

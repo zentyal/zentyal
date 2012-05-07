@@ -192,8 +192,10 @@ sub subscribeEBox
     # Check the WS is reachable
     $self->_checkWSConnectivity();
 
-    if ((not $option) or ($option eq 'reload')) {
-        my $availables = $self->_getAvailable();
+    $option = undef if ( $option eq 'reload' );
+
+    if (not $option) {
+        my $availables = $self->_getAvailable($cn);
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
@@ -1066,13 +1068,13 @@ sub _removePkgs
 # Get available editions for this user/pass
 sub _getAvailable
 {
-    my ($self) = @_;
+    my ($self, $server) = @_;
 
     my $client = new EBox::RemoteServices::RESTClient(
         credentials => { username => $self->{user},
                          password => $self->{password}});
 
-    my $response = $client->GET('/v1/bundle/available/');
+    my $response = $client->GET("/v1/bundle/available/$server/");
     return $response->data();
 
 }
