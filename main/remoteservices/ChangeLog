@@ -1,3 +1,7 @@
+HEAD
+	+ Check available options before subscribing if more than option
+	  is available
+	+ Added REST client as interface with Zentyal Cloud
 2.2.6
 	+ New subscription wizard
 2.2.5
