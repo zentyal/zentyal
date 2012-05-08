@@ -171,7 +171,7 @@ sub _mainWatcherLoop
 
     # Load watchers classes
     $self->_loadModules('Watcher');
-    while ('true') {
+    while (1) {
         if ( time() - $self->{lastWatcherScan} > SCANNING_INTERVAL) {
             $self->_loadModules('Watcher');
         }
