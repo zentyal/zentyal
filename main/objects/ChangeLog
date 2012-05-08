@@ -1,3 +1,5 @@
+HEAD
+	+ Unallow /32 addresses ending in zero
 2.3.4
 	+ Added the posibility to create readOnly objects
 	+ addObject method now returns the object id
@@ -48,7 +50,7 @@
 0.11
 	+ Fix bug in objectAddress when returning empty objects
 0.10.99
-	+ Bugfix. Check if a member with mac is a valid host 
+	+ Bugfix. Check if a member with mac is a valid host
 0.10
 	+ New release
 0.9.100
@@ -66,7 +68,7 @@
 	+ Added Polish translation
 	+ Added Aragonese translation
 	+ Added Dutch translation
-0.8.99	
+0.8.99
 	+ New relase
 0.8.1
 	+ New release
@@ -79,7 +81,7 @@
 	+ New release
 0.7
 	+ First public release
-0.6	
+0.6
 	+ move to client
 	+ API documented using naturaldocs
 	+ Update install
