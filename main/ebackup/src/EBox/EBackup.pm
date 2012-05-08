@@ -1404,7 +1404,7 @@ sub checkTargetStatus
     if ($storageUsage) {
         # check sizes
         my $free = $storageUsage->{available};
-        my $estimated=  $self->_estimateBackupSize($backupType); # XX TODO
+        my $estimated=  $self->_estimateBackupSize($backupType);
         if ($estimated > $free) {
             throw EBox::Exceptions::EBackup::TargetNotReady(
               __x('Free space in {target} too low. {free} Mb available and backup estimated size is  {req}',
@@ -1456,7 +1456,6 @@ sub _checkFileSystemTargetStatus
     }
 
     if (not $mountPoint or ($mountPoint eq '/')) {
-        EBox::debug("BEF def mountPoint target: $target mount point: $mountPoint");
         my @parts = split '/+', $target;
         if (($parts[1] eq 'media') or ($parts[1] eq 'mnt')) {
             $mountPoint = '/' . $parts[1] . '/' . $parts[2];
@@ -1466,7 +1465,6 @@ sub _checkFileSystemTargetStatus
         }
     }
 
-    EBox::debug("target: $target mount point: $mountPoint");
     # check if the mount poitn is mounted
     my %partitionFs = %{ EBox::FileSystem::partitionsFileSystems(1) };
     foreach my $fsAttr (values %partitionFs) {
