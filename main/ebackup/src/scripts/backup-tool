@@ -517,6 +517,7 @@ try {
         $ebackup->checkTargetStatus($type);
     } otherwise {
         my ($ex) = @_;
+        EBox::error("Error in backup target: $ex");
         _sendSuccessEvent(0, $type, "$ex");
         $ebackup->backupProcessUnlock();
         exit 1;

@@ -1404,13 +1404,13 @@ sub checkTargetStatus
     if ($storageUsage) {
         # check sizes
         my $free = $storageUsage->{available};
-        my $stimated=  0; # XX TODO
-        if ($stimated > $free) {
+        my $estimated=  $self->_estimateBackupSize($backupType); # XX TODO
+        if ($estimated > $free) {
             throw EBox::Exceptions::EBackup::TargetNotReady(
               __x('Free space in {target} too low. {free} Mb available and backup estimated size is  {req}',
                   target => $target,
                   free => $free,
-                  req => $stimated
+                  req => $estimated
                  )
              );
         }
@@ -1493,6 +1493,38 @@ sub _checkFileSystemTargetStatus
     }
 
     throw EBox::Exceptions::EBackup::TargetNotReady($msg);
+}
+
+
+sub _estimateBackupSize
+{
+    my ($self, $type) = @_;
+    my $sql = 'select size from ebackup_stats' .
+               " where type='$type'" .
+               ' order by timestamp desc limit 5';
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my $results = $db->query($sql);
+    my @lasts = map {
+        $_->{size}
+    } @{ $results };
+
+    if (not @lasts) {
+        EBox::debug("Cannot estimate backup size because we have not backup statistics yet for type: $type");
+        return 0;
+    }
+    my $average =0;
+    $average += $_ foreach @lasts;
+    $average /= scalar @lasts;
+    if ($average <= 0) {
+        EBox::debug("Estimation error. Bad average: $average.");
+        return 0;
+    }
+    # to MB
+    $average /= 1024*1024;
+    # add 20% to have some room
+    $average *= 1.2;
+    EBox::debug("Estimated backup size: $average");
+    return $average;
 }
 
 
