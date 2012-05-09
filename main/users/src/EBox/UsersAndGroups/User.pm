@@ -36,6 +36,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use Perl6::Junction qw(any);
+use Convert::ASN1;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -700,6 +701,31 @@ sub defaultQuota
     }
 
     return $value;
+}
+
+sub kerberosKeys
+{
+    my ($self) = @_;
+
+    my $keys = [];
+
+    my $syntaxFile = EBox::Config::scripts('users') . 'krb5Key.asn';
+    my $asn = Convert::ASN1->new();
+    $asn->prepare_file($syntaxFile) or
+        throw EBox::Exceptions::Internal($asn->error());
+    my $asn_key = $asn->find('Key') or
+        throw EBox::Exceptions::Internal($asn->error());
+
+    my @aux = $self->get('krb5Key');
+    foreach my $blob (@aux) {
+        my $key = $asn_key->decode($blob) or
+            throw EBox::Exceptions::Internal($asn_key->error());
+        push ($keys, { type  => $key->{key}->{value}->{keytype}->{value},
+                       value => $key->{key}->{value}->{keyvalue}->{value},
+                       salt  => $key->{salt}->{value}->{salt}->{value} });
+    }
+
+    return $keys;
 }
 
 1;

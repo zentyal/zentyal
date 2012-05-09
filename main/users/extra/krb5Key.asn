@@ -1,0 +1,32 @@
+Key ::= SEQUENCE {
+    mkvno   [0] krb5int32 OPTIONAL,
+    key     [1] EncryptionKey,
+    salt    [2] Salt OPTIONAL
+}
+
+krb5int32 ::= SEQUENCE {
+    value   INTEGER
+}
+
+krb5str ::= SEQUENCE {
+    value   OCTET STRING
+}
+
+Salt ::= SEQUENCE {
+    value   _Salt
+}
+
+_Salt ::= SEQUENCE {
+    type    [0] krb5int32,
+    salt    [1] krb5str,
+    opaque  [2] krb5str OPTIONAL
+}
+
+EncryptionKey ::= SEQUENCE {
+    value   _EncryptionKey
+}
+
+_EncryptionKey ::= SEQUENCE {
+    keytype     [0] krb5int32,
+    keyvalue    [1] krb5str
+}
