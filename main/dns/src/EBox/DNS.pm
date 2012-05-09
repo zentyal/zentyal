@@ -128,6 +128,30 @@ sub compositeClasses
     return [ 'EBox::DNS::Composite::Global' ];
 }
 
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting DNS apparmor profile');
+    my @params = ();
+    return [
+            {
+                'binary' => 'usr.sbin.named',
+                'local'  => 1,
+                'file'   => 'dns/apparmor-named.local.mas',
+                'params' => \@params,
+            }
+           ];
+}
+
 # Method: _exposedMethods
 #
 #
@@ -786,7 +810,13 @@ sub actions
             'reason' => __('Zentyal will take care of starting and stopping ' .
                         'the services.'),
             'module' => 'dns'
-        }
+        },
+        {
+            'action' => __('Override named apparmor profile'),
+            'reason' => __('To allow samba daemon load Active Directory zone'),
+            'module' => 'dns',
+        },
+
     ];
 }
 
