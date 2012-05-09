@@ -111,7 +111,6 @@ sub ldapCon
     if ((not defined $self->{ldap}) or $reconnect) {
         $self->{ldap} = $self->anonymousLdapCon();
 
-        my $global = EBox::Global->getInstance();
         my ($dn, $pass);
         my $auth_type = undef;
         try {
@@ -268,7 +267,8 @@ sub clearConn
 #
 #       string - eboxdn
 #
-sub rootDn {
+sub rootDn
+{
     my ($self, $dn) = @_;
     unless(defined($dn)) {
         $dn = $self->dn();

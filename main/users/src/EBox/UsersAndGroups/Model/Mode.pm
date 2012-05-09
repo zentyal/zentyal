@@ -85,15 +85,15 @@ sub _table
             defaultValue => \&_dnFromHostname,
             help => __('This will be the DN suffix in LDAP tree')
         ),
-        new EBox::Types::KrbRealm (
-            fieldName => 'defaultRealm',
-            printableName => __('Default authentication realm'),
-            editable => 1,
-            allowUnsafeChars => 0,
-            size => 36,
-            defaultValue => \&_realmFromHostname,
-            help => __('This will be the users authentication realm.')
-        ),
+#        new EBox::Types::KrbRealm (
+#            fieldName => 'defaultRealm',
+#            printableName => __('Default authentication realm'),
+#            editable => 1,
+#            allowUnsafeChars => 0,
+#            size => 36,
+#            defaultValue => \&_realmFromHostname,
+#            help => __('This will be the users authentication realm.')
+#        ),
     );
 
     my $dataForm = {
@@ -117,14 +117,14 @@ sub _dnFromHostname
     return $dn;
 }
 
-sub _realmFromHostname
-{
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $domain = $sysinfo->hostDomain();
-    $domain =~ s/[^A-Za-z0-9\.]/-/g;
-    $domain = uc ($domain);
-    return $domain;
-}
+#sub _realmFromHostname
+#{
+#    my $sysinfo = EBox::Global->modInstance('sysinfo');
+#    my $domain = $sysinfo->hostDomain();
+#    $domain =~ s/[^A-Za-z0-9\.]/-/g;
+#    $domain = uc ($domain);
+#    return $domain;
+#}
 
 # TODO: Move this to EBox::Validate or even create a new DN type
 sub _validateDN

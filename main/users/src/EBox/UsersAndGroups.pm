@@ -201,7 +201,7 @@ sub initialSetup
                                   destinationPort => 390 } ],
             );
 
-            $fw->setInternalService($serviceName, 'deny');
+            $fw->setInternalService($serviceName, 'accept');
         }
 
         $serviceName = 'kerberos';
@@ -280,14 +280,15 @@ sub setupKerberos
 
     # Create the kerberos database
     my @cmds = ();
+    push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
     push (@cmds, "ln -sf /etc/heimdal-kdc/kdc.conf /var/lib/heimdal-kdc/kdc.conf");
     push (@cmds, "rm -f /var/lib/heimdal-kdc/m-key");
     push (@cmds, "kadmin -l init --realm-max-ticket-life=unlimited --realm-max-renewable-life=unlimited $realm");
     push (@cmds, 'rm -f /etc/kpasswdd.keytab');
-    push (@cmds, 'kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw'); #TODO Only if master
+    push (@cmds, "kadmin -l ext -k /etc/kpasswdd.keytab kadmin/changepw\@$realm"); #TODO Only if master
     push (@cmds, 'chmod 600 /etc/kpasswdd.keytab'); # TODO Only if master
-    EBox::debug('Initializing kerberos realm');
+    EBox::debug("Initializing kerberos realm '$realm'");
     EBox::Sudo::root(@cmds);
 
     # Create the domain in the DNS module if it does not exists
@@ -512,14 +513,15 @@ sub _setConf
     $self->master->confSOAPService();
 
     # Get the FQDN
-    my $realm = uc ($self->kerberosRealm());
+    my $realm = $self->kerberosRealm();
     @array = ();
-    push (@array, 'realm' => $self->kerberosRealm());
+    push (@array, 'realm' => $realm);
     $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
 
-    my $ldapContainer = $self->ldap->dn();
+    my $ldapBase = $self->ldap->dn();
     @array = ();
-    push (@array, 'ldapContainer' => $ldapContainer);
+    push (@array, 'ldapBase' => $ldapBase);
+    push (@array, 'realm' => $realm);
     $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@array);
 
     @array = ();
@@ -530,8 +532,9 @@ sub kerberosRealm
 {
     my ($self) = @_;
 
-    my $mode = $self->model('Mode');
-    return $mode->defaultRealmValue();
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $realm = uc ($sysinfo->hostDomain());
+    return $realm;
 }
 
 sub _setupNSSPAM
@@ -568,6 +571,26 @@ sub editableMode
     return 1; # TODO check sync providers
 }
 
+# Method: isSambaDisabled
+#
+#   Returns true if samba module is not installed or
+#   disabled
+#
+sub isSambaDisabled
+{
+    my ($self) = @_;
+
+    my $ret = 1;
+
+    if (EBox::Global->modExists('samba')) {
+        my $sambaModule = EBox::Global->modInstance('samba');
+        if ($sambaModule->isEnabled()) {
+            $ret = 0;
+        }
+    }
+    return $ret;
+}
+
 # Method: _daemons
 #
 #       Override EBox::Module::Service::_daemons
@@ -577,10 +600,11 @@ sub _daemons
     my ($self) = @_;
 
     return [
-        { 'name' => 'ebox.slapd' },
-        { 'name' => 'heimdal-kdc',
-          'type' => 'init.d',
-          'pidfiles' => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'] },
+        { name => 'ebox.slapd' },
+        { name => 'heimdal-kdc',
+          type => 'init.d',
+          pidfiles => ['/var/run/heimdal-kdc.pid', '/var/run/kpasswdd.pid'],
+          precondition => \&isSambaDisabled },
     ];
 }
 
