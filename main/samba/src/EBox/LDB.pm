@@ -38,6 +38,7 @@ sub _new_instance
 
     my $self = {};
     $self->{ldb} = undef;
+    $self->{idamp} = undef;
     bless ($self, $class);
     return $self;
 }
@@ -58,6 +59,14 @@ sub instance
     }
 
     return $_instance;
+}
+
+sub idamp
+{
+    unless defined ($self->{idmap}) {
+        $self->{idmap} = EBox::LDB::IdMapDb->new();
+    }
+    return $self->{idmap};
 }
 
 # Method: ldbCon
@@ -450,7 +459,8 @@ sub getSidById
     if ($result->count() == 1) {
         my $entry = $result->entry(0);
         my $value = $entry->get_value('objectSid');
-        return $value;
+        my $string = $self->sidToString($value);
+        return $string;
     } else {
         throw EBox::Exceptions::DataNotFound( data =>'sAMAccountName', value => $objectId);
     }
@@ -468,8 +478,10 @@ sub sidToString
 
     my $sid_str = "S-1-";
 
-    $sid_str .= (unpack("C", substr($sid, 7, 1)) + (unpack("C", substr($sid, 6, 1)) << 8) +
-            (unpack("C", substr($sid, 5, 1)) << 16) + (unpack("C",substr($sid, 4, 1)) << 24));
+    $sid_str .= (unpack("C", substr($sid, 7, 1)) +
+                (unpack("C", substr($sid, 6, 1)) << 8) +
+                (unpack("C", substr($sid, 5, 1)) << 16) +
+                (unpack("C", substr($sid, 4, 1)) << 24));
 
     for my $loop (0 .. unpack("C", substr($sid, 1, 1)) - 1) {
         $sid_str .= "-" . unpack("I", substr($sid, 4 * $loop + 8, 4));
@@ -524,67 +536,13 @@ sub stringToGuid
     return undef
         unless $guidString =~ /([0-9,a-z]{8})-([0-9,a-z]{4})-([0-9,a-z]{4})-([0-9,a-z]{2})([0-9,a-z]{2})-([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})([0-9,a-z]{2})/i;
 
-    return pack("I", hex $1) . pack("S", hex $2) . pack("S", hex $3) . pack("C", hex $4) . pack("C", hex $5) .
-        pack("C", hex $6) . pack("C", hex $7) . pack("C", hex $8) . pack("C", hex $9) . pack("C", hex $10) . pack("C", hex $11);
-
-    print "$1\n$2\n$3\n$4\n$5\n$6\n$7\n$8\n$9\n$10\n$11\n";
+    return pack("I", hex $1) . pack("S", hex $2) . pack("S", hex $3) .
+           pack("C", hex $4) . pack("C", hex $5) . pack("C", hex $6) .
+           pack("C", hex $7) . pack("C", hex $8) . pack("C", hex $9) .
+           pack("C", hex $10) . pack("C", hex $11);
 }
 
-sub xidMapping
-{
-    my ($self, $id, $xid) = @_;
-    # TODO
-
-#    # Search the SID and objectClass
-#    my $params = { filter => "(sAMAccountName=$id)",
-#                   base  => $self->rootDN(),
-#                   scope => 'sub',
-#                   attrs => 'objectSid objectClass' };
-#    my $samResult = $self->search(SAM, $params);
-#    unless (scalar @{$samResult} == 1) {
-#        throw EBox::Exceptions::DataNotFound("sAMAccountName '$id' not found");
-#    }
-#    my $samEntry = pop $samResult;
-#    my $objectSid = $samEntry->get_value('objectSid');
-#
-#    # Search if it is already mapped
-#    my $dn = "CN=$objectSid";
-#    $params = { base => $dn,
-#                scope => 'base',
-#                attrs => 'xidNumber' };
-#    my $idmapResult = $self->search(IDMAP, $params);
-#    my $idmapEntry = pop $idmapResult;
-#
-#    unless (defined $idmapEntry) {
-#        # Is it a user or a group?
-#        my @objectClass = $samEntry->get_value('objectClass');
-#        my %objectClass = map { $_ => 1 } @objectClass;
-#
-#        $params = { cn => $objectSid,
-#                    objectClass => 'sidMap',
-#                    objectSid => $objectSid,
-#                    xidNumber => $xid,
-#                    distinguishedName => $dn };
-#        if (exists $objectClass{user}) {
-#            $params->{type} = 'ID_TYPE_UID';
-#        } elsif (exists $objectClass{group}) {
-#            $params->{type} = 'ID_TYPE_GID';
-#        } else {
-#            throw EBox::Exceptions::DataNotFound("objectClass not found");
-#        }
-#
-#        EBox::debug("Creating xid mapping of '$id' to '$xid'");
-#        $self->add(IDMAP, $dn, $params);
-#    } else {
-#        # Replace the xid in idmap.ldb
-#        my $changes = { replace => { xidNumber => [ $xid ] } };
-#
-#        EBox::debug("Updating xid mapping of '$id' to '$xid'");
-#        $self->modify(IDMAP, $dn, $changes);
-#    }
-}
-
-sub ldapToLdb
+sub ldapUsersToLdb
 {
     my ($self) = @_;
 
@@ -605,69 +563,90 @@ sub ldapToLdb
         EBox::info('Loading Zentyal users into samba database');
         my $users = $usersMod->users();
         foreach my $user (@{$users}) {
-            my $dn = $user->dn();
-            $dn =~ s/OU=Users/CN=Users/i;
-            $dn =~ s/uid=/CN=/i;
-
-            EBox::debug("Loading user $dn");
-            my $samAccountName = $user->get('uid');
-            my $sn = $user->get('sn');
-            my $givenName = $user->get('givenName');
-            my $principal = $user->get('krb5PrincipalName');
-            my $description = $user->get('description');
-            my $kerberosKeys = $user->kerberosKeys();
-            my $credentials = EBox::LDB::Credentials::encodeSambaCredentials($kerberosKeys);
-
-            my $attrs = [];
-            push ($attrs, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user' ]);
-            push ($attrs, sAMAccountName    => $samAccountName);
-            push ($attrs, userAccountControl => '512');
-            push ($attrs, sn                => $sn);
-            push ($attrs, givenName         => $givenName);
-            push ($attrs, userPrincipalName => $principal);
-            push ($attrs, description       => $description) if defined $description;
-            if (defined $credentials->{supplementalCredentials}) {
-                push ($attrs, supplementalCredentials => $credentials->{supplementalCredentials});
-            }
-            if (defined $credentials->{unicodePwd}) {
-                push ($attrs, unicodePwd    => $credentials->{unicodePwd});
-            }
-
             try {
+                my $dn = $user->dn();
+                $dn =~ s/OU=Users/CN=Users/i;
+                $dn =~ s/uid=/CN=/i;
+
+                EBox::debug("Loading user $dn");
+                my $samAccountName = $user->get('uid');
+                my $sn = $user->get('sn');
+                my $givenName = $user->get('givenName');
+                my $principal = $user->get('krb5PrincipalName');
+                my $description = $user->get('description');
+                my $kerberosKeys = $user->kerberosKeys();
+                my $credentials = EBox::LDB::Credentials::encodeSambaCredentials($kerberosKeys);
+
+                my $attrs = [];
+                push ($attrs, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user' ]);
+                push ($attrs, sAMAccountName    => $samAccountName);
+                push ($attrs, userAccountControl => '512');
+                push ($attrs, sn                => $sn);
+                push ($attrs, givenName         => $givenName);
+                push ($attrs, userPrincipalName => $principal);
+                push ($attrs, description       => $description) if defined $description;
+                if (defined $credentials->{supplementalCredentials}) {
+                    push ($attrs, supplementalCredentials => $credentials->{supplementalCredentials});
+                }
+                if (defined $credentials->{unicodePwd}) {
+                    push ($attrs, unicodePwd    => $credentials->{unicodePwd});
+                }
                 $self->add($dn, { attrs => $attrs, control => $bypassControl });
+
+                # Map UID
+                my $type = $self->idmap->ID_TYPE_UID();
+                my $sid = $self->getSidById($samAccountName);
+                my $uidNumber = $user->get('uidNumber');
+                $self->idmap->setupNameMapping($dn, $type, $sid, $uidNumber);
             } otherwise {
                 my $error = shift;
                 EBox::error("Error loading user '$dn': $error");
             };
-
-            # TODO Map the UID
         }
+    } otherwise {
+        my $error = shift;
+        throw EBox::Exceptions::Internal($error);
+    } finally {
+        $self->enableZentyalModule();
+    };
+}
 
+sub ldapGroupsToLdb
+{
+    my ($self) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+
+    try {
+        # Disable the Zentyal LDB module, otherwise all operations will be
+        # forwarded back to zentyal
+        $self->disableZentyalModule();
         EBox::debug('Loading Zentyal groups into samba database');
+
         my $groups = $usersMod->groups();
         foreach my $group (@{$groups}) {
-            my $dn = $group->dn();
-            my $cn = $group->get('cn');
-            my $samAccountName = $group->get('cn');
-            my $description = $group->get('description');
-
-            $dn =~ s/OU=Groups/CN=Users/i;
-            my $attrs = [];
-            push ($attrs, objectClass    => ['top', 'group']);
-            push ($attrs, sAMAccountName => $cn);
-            push ($attrs, cn             => $cn);
-            push ($attrs, description    => $description) if defined ($description);
-
-            my $groupUsers = [];
-            foreach my $user (@{$group->users()}) {
-                my $dn = $user->dn();
-                $dn =~ s/OU=Users/CN=Users/i;
-                $dn =~ s/uid=/CN=/i;
-                push ($groupUsers, $dn);
-            }
-            push ($attrs, member => $groupUsers) if scalar @{$groupUsers};
-
             try {
+                my $dn = $group->dn();
+                my $cn = $group->get('cn');
+                my $samAccountName = $group->get('cn');
+                my $description = $group->get('description');
+
+                $dn =~ s/OU=Groups/CN=Users/i;
+                my $attrs = [];
+                push ($attrs, objectClass    => ['top', 'group']);
+                push ($attrs, sAMAccountName => $cn);
+                push ($attrs, cn             => $cn);
+                push ($attrs, description    => $description) if defined ($description);
+
+                my $groupUsers = [];
+                foreach my $user (@{$group->users()}) {
+                    my $dn = $user->dn();
+                    $dn =~ s/OU=Users/CN=Users/i;
+                    $dn =~ s/uid=/CN=/i;
+                    push ($groupUsers, $dn);
+                }
+                push ($attrs, member => $groupUsers) if scalar @{$groupUsers};
+
                 EBox::debug("Loading group $dn");
                 $self->add($dn, { attrs => $attrs });
             } otherwise {
@@ -676,6 +655,10 @@ sub ldapToLdb
             };
 
             # TODO Map the gid
+            my $type = $self->idmap->ID_TYPE_GID();
+            my $sid = $self->getSidById($samAccountName);
+            my $uidNumber = $user->get('gidNumber');
+            $self->idmap->setupNameMapping($dn, $type, $sid, $uidNumber);
         }
     } otherwise {
         my $error = shift;

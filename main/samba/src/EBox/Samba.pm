@@ -696,9 +696,9 @@ sub provision
                        " --min-pwd-length=0";
     EBox::Sudo::root($cmd);
 
-    # Migrate all zentyal users and groups to ldb
-    EBox::debug('Exporting LDAP to LDB');
-    $self->ldb->migrateUsers();
+    # Load all zentyal users and groups into ldb
+    $self->ldb->ldapUsersToLdb();
+    $self->ldb->ldapGroupsToLdb();
 
     # Add the zentyal module to the LDB modules stack
     EBox::debug('Enabling Zentyal LDB module');
