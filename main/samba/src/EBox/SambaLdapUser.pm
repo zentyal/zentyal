@@ -78,14 +78,14 @@ sub _addUser
         # TODO Support multiples OU
         EBox::debug("Adding user '$uid' to LDB");
         my $dn = "CN=$uid,CN=Users," . $self->{ldb}->rootDN();
-        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($self->{ldb}->SAM(), $dn, $attrs);
         $self->{ldb}->xidMapping($uid, $uidNumber);
     } otherwise {
         my $error = shift;
         EBox::error($error);
     } finally {
-        $self->{samba}->enableZentyalLdbModule();
+        $self->{ldb}->enableZentyalModule();
     };
 }
 
@@ -129,13 +129,13 @@ sub _modifyUser
         my $entry = pop $result;
         my $dn = $entry->get_value('distinguishedName');
 
-        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->disableZentyalModule();
         $self->{ldb}->modify($self->{ldb}->SAM(), $dn, $ldbChanges);
     } otherwise {
         my $error = shift;
         EBox::error($error);
     } finally {
-        $self->{samba}->enableZentyalLdbModule();
+        $self->{ldb}->enableZentyalModule();
     };
 }
 
@@ -166,7 +166,7 @@ sub _delUser
         my $dn = $entry->get_value('distinguishedName');
 
         EBox::debug("Deleting user '$uid' from LDB");
-        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->disableZentyalModule();
         $self->{ldb}->delete($self->{ldb}->SAM(), $dn);
         # TODO Update shares ACLs
         # TODO Delete xid mapping
@@ -174,7 +174,7 @@ sub _delUser
         my $error = shift;
         EBox::error($error);
     } finally {
-        $self->{samba}->enableZentyalLdbModule();
+        $self->{ldb}->enableZentyalModule();
     };
 }
 
@@ -198,14 +198,14 @@ sub _addGroup
         # TODO Support multiples OU
         EBox::debug("Adding group '$gid' to LDB");
         my $dn = "CN=$gid,CN=Users," . $self->{ldb}->rootDN();
-        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($self->{ldb}->SAM(), $dn, $attrs);
         $self->{ldb}->xidMapping($gid, $gidNumber);
     } otherwise {
         my $error = shift;
         EBox::error($error);
     } finally {
-        $self->{samba}->enableZentyalLdbModule();
+        $self->{ldb}->enableZentyalModule();
     };
 
 }
@@ -262,13 +262,13 @@ sub _modifyGroup
         my $entry = pop $result;
         my $dn = $entry->get_value('distinguishedName');
 
-        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->disableZentyalModule();
         $self->{ldb}->modify($self->{ldb}->SAM(), $dn, $ldbChanges);
     } otherwise {
         my $error = shift;
         EBox::error($error);
     } finally {
-        $self->{samba}->enableZentyalLdbModule();
+        $self->{ldb}->enableZentyalModule();
     };
 }
 
@@ -293,7 +293,7 @@ sub _delGroup
         my $dn = $entry->get_value('distinguishedName');
 
         EBox::debug("Deleting group '$gid' from LDB");
-        $self->{samba}->disableZentyalLdbModule();
+        $self->{ldb}->disableZentyalModule();
         $self->{ldb}->delete($self->{ldb}->SAM(), $dn);
         # TODO Update shares ACLs
         # TODO Delete xid mapping
@@ -301,7 +301,7 @@ sub _delGroup
         my $error = shift;
         EBox::error($error);
     } finally {
-        $self->{samba}->enableZentyalLdbModule();
+        $self->{ldb}->enableZentyalModule();
     };
 }
 
