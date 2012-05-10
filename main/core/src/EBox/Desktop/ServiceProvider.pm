@@ -13,28 +13,30 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Desktop::Subscription;
-
-use EBox::RemoteServices::RESTClient;
-
-# Method: subscribe
+# Class: EBox::Desktop::ServiceProvider
 #
-#   Perform a subscription
+#   This is an abstract class for desktop services providers
+#
+#   'desktopActions' method should return an array reference containing, for
+#   each one of the exposed actions, a name and a reference to this action:
+#       'action_name' => \&action
+#
+package EBox::Desktop::ServiceProvider;
+
+use strict;
+use warnings;
+
+# Method: actions
+#
+#   Return an array ref with the exposed methods
 #
 # Returns:
 #
-#   Hash ref containing:
-#       uuid - uuid assigned to the subscribed desktop
-#       password - password for that desktop
+#   array ref - Containing pairs: action_name => action_ref
 #
-sub subscribe
+sub desktopActions
 {
-    my $rest = new EBox::RemoteServices::RESTClient();
-    my $ret = $rest->GET('/v1/subscription/subscribe/')->data();
-    return {
-        'uuid'      => $ret->{'uuid'},
-        'password'  => $ret->{'secret'},
-    };
+    return {};
 }
 
 1;

@@ -25,6 +25,7 @@ use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             EBox::NetworkObserver
             EBox::FirewallObserver
+            EBox::Desktop::ServiceProvider
            );
 
 use strict;
@@ -56,6 +57,7 @@ use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
+use EBox::RemoteServices::Desktop::Subscription;
 use EBox::Sudo;
 use EBox::Validate;
 use Error qw(:try);
@@ -1947,6 +1949,25 @@ sub firewallHelper
         vpnInterface => $self->ifaceVPN(),
         sshRedirect => EBox::RemoteServices::SupportAccess->sshRedirect(),
        );
+}
+
+# Method: desktopActions
+#
+#   Return an array ref with the exposed methods
+#
+# Returns:
+#
+#   array ref - Containing the exposed actions
+#
+# Overrides:
+#
+#   <EBox::Desktop::ServiceProvider::desktopActions>
+#
+sub desktopActions
+{
+    return {
+        'subscribe' => \&EBox::RemoteServices::Desktop::Subscription::subscribe,
+    };
 }
 
 1;

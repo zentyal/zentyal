@@ -23,16 +23,13 @@ use base 'EBox::CGI::ClientBase';
 use Error qw(:try);
 use JSON::XS;
 
-use EBox::RemoteServices::Desktop::Subscription;
+use EBox::Global;
 
 sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
-
-    $self->{subscription} = new EBox::RemoteServices::Desktop::Subscription();
-
     return $self;
 }
 
@@ -40,21 +37,36 @@ sub new
 #
 # Overrides:
 #
-#    <EBox::CGI::Base::actuate>
+#   <EBox::CGI::Base::actuate>
 #
 sub actuate
 {
     my ($self) = @_;
 
-    $self->_requireParam('action');
-    my $action = $self->param('action');
+    # Parse the url
+    my $url = $ENV{'script'};
+    $url =~ m:^([a-zA-Z]+)/([a-zA-Z]+)/$:;
+    my $module_name = $1;
+    my $action_name = $2;
 
-    if ($action eq 'subscribe') {
-        $self->{json} = $self->{subscription}->subscribe();
-    } elsif ($action eq 'unsubscribe') {
-        $self->{subscription}->unsubscribe();
-    } else {
-        throw EBox::Exceptions::Internal("Action '$action' not supported");
+    # List of all desktop service providers
+    my $global = EBox::Global->getInstance();
+    my @modules = @{$global->modInstancesOfType('EBox::Desktop::ServiceProvider')};
+
+    $self->{json} = undef;
+    foreach my $module ( @modules ) {
+        # If the module is the one we are looking for
+        if ($module->name() eq $module_name) {
+
+            # All the exposed actions of the module
+            my %actions = %{$module->desktopActions()};
+            foreach my $actname (keys %actions) {
+                # If the action is the one we are looking for
+                if ($actname eq $action_name) {
+                    $self->{json} = $actions{$actname}->();
+                }
+            }
+        }
     }
 }
 
