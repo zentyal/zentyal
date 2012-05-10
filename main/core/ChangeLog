@@ -1,4 +1,5 @@
 HEAD
+	+ Send an event to Zentyal Cloud when the updates are up-to-date
 	+ Send an info event when modules come back to running
 	+ Include additional info for current event watchers
 	+ Log the start and finish of start/stop modules actions

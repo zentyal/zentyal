@@ -207,10 +207,22 @@ sub run
         return [
             new EBox::Event(message => $msg,
                             source  => 'security software update',
-                            level   => 'warn'),
+                            level   => 'warn',
+                            additional => {
+                                'n_updates'     => $nUpdates,
+                                'n_sec_updates' => $nSecUpdates,
+                                'updates'       => \@packages,
+                                'sec_updates'   => \@secUpdates,
+                            }),
            ];
     }
-    return undef;
+    return [
+        new EBox::Event(message    => 'Up-to-date',
+                        source     => 'security software update',
+                        level      => 'info',
+                        dispatchTo => [ 'ControlCenter' ],
+                        additional => { 'n_updates' => 0 }),
+        ];
 }
 
 # Group: Protected methods
