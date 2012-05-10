@@ -21,6 +21,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             EBox::Model::ModelProvider
+            EBox::LdapModule
             EBox::FirewallObserver);
 
 use EBox::Global;
@@ -32,11 +33,7 @@ use EBox::SambaFirewall;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;
-use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::DataMissing;
-use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Model::ModelManager;
@@ -276,6 +273,7 @@ sub enableActions
         EBox::Sudo::root($cmd);
     }
 
+    # TODO provision here
 }
 
 # Method: enableService
@@ -463,13 +461,6 @@ sub cleanDNS
             type      => 'service',
             service   => 'ldap',
             protocol  => 'tcp',
-            subdomain => 'dc._msdcs',
-            port      => 389
-        },
-        {
-            type      => 'service',
-            service   => 'ldap',
-            protocol  => 'tcp',
             subdomain => 'pdc._msdcs',
             port      => '389',
         },
@@ -484,6 +475,13 @@ sub cleanDNS
             type      => 'service',
             service   => 'ldap',
             protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
             subdomain => 'Default-First-Site-Name._sites',
             port      => 389
         },
@@ -491,7 +489,7 @@ sub cleanDNS
             type      => 'service',
             service   => 'ldap',
             protocol  => 'tcp',
-            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
+            subdomain => 'dc._msdcs',
             port      => 389
         },
         {
@@ -693,7 +691,9 @@ sub provision
     EBox::debug('Setting password policy');
     $cmd = SAMBATOOL . " domain passwordsettings set " .
                        " --complexity=off "  .
-                       " --min-pwd-length=0";
+                       " --min-pwd-length=0" .
+                       " --min-pwd-age=0" .
+                       " --max-pwd-age=365";
     EBox::Sudo::root($cmd);
 
     # Load all zentyal users and groups into ldb
@@ -701,7 +701,6 @@ sub provision
     $self->ldb->ldapGroupsToLdb();
 
     # Add the zentyal module to the LDB modules stack
-    EBox::debug('Enabling Zentyal LDB module');
     $self->ldb->enableZentyalModule();
 
     # Mark the module as provisioned
@@ -760,11 +759,6 @@ sub _preSetConf
 sub _setConf
 {
     my ($self) = @_;
-
-# TODO uncomment
-#    unless ($self->get_bool('provisioned')) {
-#        $self->provision();
-#    }
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 

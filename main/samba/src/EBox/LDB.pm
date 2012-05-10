@@ -19,15 +19,20 @@ use strict;
 use warnings;
 
 use EBox::LDB::Credentials;
+use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 
 use Net::LDAP;
 use Net::LDAP::Control;
+use Net::LDAP::Util qw(ldap_error_name);
+use IO::Socket::UNIX;
 
 use Data::Dumper;
+use Encode;
 use Error qw( :try );
 
 use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldapi";
+use constant SOCKET_PATH => '/var/run/ldb';
 
 # Singleton variable
 my $_instance = undef;
@@ -61,9 +66,15 @@ sub instance
     return $_instance;
 }
 
-sub idamp
+# Method: idmap
+#
+#   Returns an instance of IdMapDb.
+#
+sub idmap
 {
-    unless defined ($self->{idmap}) {
+    my ($self) = @_;
+
+    unless (defined $self->{idmap}) {
         $self->{idmap} = EBox::LDB::IdMapDb->new();
     }
     return $self->{idmap};
@@ -86,20 +97,20 @@ sub ldbCon
     my ($self) = @_;
 
     # Workaround to detect if connection is broken and force reconnection
-    #my $reconnect;
-    #if ($self->{ldap}) {
-    #    my $mesg = $self->{ldap}->search(
-    #            base   => '',
-    #            scope => 'base',
-    #            filter => "(cn=*)",
-    #            );
-    #    if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
-    #        $self->{ldap}->unbind;
-    #        $reconnect = 1;
-    #    }
-    #}
+    my $reconnect = 0;
+    if (defined $self->{ldb}) {
+        my $mesg = $self->{ldb}->search(
+                base   => '',
+                scope => 'base',
+                filter => "(cn=*)",
+                );
+        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
+            $self->clearConn();
+            $reconnect = 1;
+        }
+    }
 
-    unless (defined $self->{ldb}) {
+    if (not defined $self->{ldb} or $reconnect) {
         $self->{ldb} = $self->safeConnect(LDAPI);
 
         my $dn   = $self->zentyalDn();
@@ -379,13 +390,18 @@ sub enableZentyalModule
 {
     my ($self) = @_;
 
-    EBox::debug('Adding Zentyal LDB module');
+    EBox::debug('Enabling Zentyal LDB module');
 
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: zentyal,samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
+    my $client = IO::Socket::UNIX->new(Peer  => SOCKET_PATH,
+                                       Type  => SOCK_STREAM,
+                                       Timeout => 10);
+    unless (defined $client) {
+        throw EBox::Exceptions::Internal("Unable to create socket: $!");
+    }
+
+    print $client "ENABLE\n";
+    $client->flush;
+    $client->close;
 }
 
 # Method: disableZentyalModule
@@ -398,11 +414,35 @@ sub disableZentyalModule
 
     EBox::debug('Disabling Zentyal LDB module');
 
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
+    my $client = IO::Socket::UNIX->new(Peer  => SOCKET_PATH,
+                                       Type  => SOCK_STREAM,
+                                       Timeout => 10);
+    unless (defined $client) {
+        throw EBox::Exceptions::Internal("Unable to create socket: $!");
+    }
+
+    print $client "DISABLE\n";
+    $client->flush;
+    $client->close;
+}
+
+sub changeUserPassword
+{
+    my ($self, $dn, $newPasswd, $oldPasswd) = @_;
+
+    my $ldb = $self->ldbCon();
+    my $rootdse = $ldb->root_dse();
+    if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
+        # Update the password using the LDAP extension
+        require Net::LDAP::Extension::SetPassword;
+        my $mesg = $ldb->set_password(user => $dn,
+                                      oldpasswd => $oldPasswd,
+                                      newpasswd => $newPasswd);
+        $self->_errorOnLdap($mesg);
+    } else {
+        my $unicodePwd = encode('UTF16-LE', "\"$newPasswd\"");
+        my $mesg = $ldb->modify($dn, changes => [ replace => [ unicodePwd => $unicodePwd ] ]);
+    }
 }
 
 # Method getIdByDN
@@ -563,12 +603,11 @@ sub ldapUsersToLdb
         EBox::info('Loading Zentyal users into samba database');
         my $users = $usersMod->users();
         foreach my $user (@{$users}) {
+            my $dn = $user->dn();
+            $dn =~ s/OU=Users/CN=Users/i;
+            $dn =~ s/uid=/CN=/i;
+            EBox::debug("Loading user $dn");
             try {
-                my $dn = $user->dn();
-                $dn =~ s/OU=Users/CN=Users/i;
-                $dn =~ s/uid=/CN=/i;
-
-                EBox::debug("Loading user $dn");
                 my $samAccountName = $user->get('uid');
                 my $sn = $user->get('sn');
                 my $givenName = $user->get('givenName');
@@ -594,7 +633,7 @@ sub ldapUsersToLdb
                 $self->add($dn, { attrs => $attrs, control => $bypassControl });
 
                 # Map UID
-                my $type = $self->idmap->ID_TYPE_UID();
+                my $type = $self->idmap->TYPE_UID();
                 my $sid = $self->getSidById($samAccountName);
                 my $uidNumber = $user->get('uidNumber');
                 $self->idmap->setupNameMapping($dn, $type, $sid, $uidNumber);
@@ -625,13 +664,13 @@ sub ldapGroupsToLdb
 
         my $groups = $usersMod->groups();
         foreach my $group (@{$groups}) {
+            my $dn = $group->dn();
+            $dn =~ s/OU=Groups/CN=Users/i;
+            my $cn = $group->get('cn');
+            my $samAccountName = $group->get('cn');
+            my $description = $group->get('description');
+            EBox::debug("Loading group $dn");
             try {
-                my $dn = $group->dn();
-                my $cn = $group->get('cn');
-                my $samAccountName = $group->get('cn');
-                my $description = $group->get('description');
-
-                $dn =~ s/OU=Groups/CN=Users/i;
                 my $attrs = [];
                 push ($attrs, objectClass    => ['top', 'group']);
                 push ($attrs, sAMAccountName => $cn);
@@ -647,7 +686,6 @@ sub ldapGroupsToLdb
                 }
                 push ($attrs, member => $groupUsers) if scalar @{$groupUsers};
 
-                EBox::debug("Loading group $dn");
                 $self->add($dn, { attrs => $attrs });
             } otherwise {
                 my $error = shift;
@@ -655,9 +693,9 @@ sub ldapGroupsToLdb
             };
 
             # TODO Map the gid
-            my $type = $self->idmap->ID_TYPE_GID();
+            my $type = $self->idmap->TYPE_GID();
             my $sid = $self->getSidById($samAccountName);
-            my $uidNumber = $user->get('gidNumber');
+            my $uidNumber = $group->get('gidNumber');
             $self->idmap->setupNameMapping($dn, $type, $sid, $uidNumber);
         }
     } otherwise {
