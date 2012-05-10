@@ -47,12 +47,14 @@ use Error qw(:try);
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant SAMBADNSZONE         => '/var/lib/samba/private/named.conf';
-use constant SAMBA_DNS_POLICY     => '/var/lib/samba/private/named.conf.update';
-use constant SAMBADNSKEYTAB       => '/var/lib/samba/private/dns.keytab';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
+use constant SAMBA_DIR            => '/home/ebox/samba';
+use constant SAMBADNSZONE         => PRIVATE_DIR . 'named.conf';
+use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
+use constant SAMBADNSKEYTAB       => PRIVATE_DIR . 'dns.keytab';
+use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
 use constant FSTAB_FILE           => '/etc/fstab';
-use constant SAMBA_DIR            => '/home/ebox/samba';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
 use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
@@ -272,8 +274,6 @@ sub enableActions
         my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
         EBox::Sudo::root($cmd);
     }
-
-    # TODO provision here
 }
 
 # Method: enableService
@@ -289,6 +289,10 @@ sub enableService
     if ($self->changed()) {
         EBox::Global->modChange('dns');
         EBox::Global->modChange('users');
+
+        if ($status) {
+            $self->provision();
+        }
     }
 }
 
@@ -701,7 +705,11 @@ sub provision
     $self->ldb->ldapGroupsToLdb();
 
     # Add the zentyal module to the LDB modules stack
-    $self->ldb->enableZentyalModule();
+    my $ldif = "dn: \@MODULES\n" .
+               "changetype: modify\n" .
+               "replace: \@LIST\n" .
+               "\@LIST: zentyal,samba_dsdb\n";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
 
     # Mark the module as provisioned
     EBox::debug('Setting provisioned flag');
@@ -746,14 +754,6 @@ sub sambaInterfaces
     my @moduleGeneratedIfaces = ();
     push @ifaces, @moduleGeneratedIfaces;
     return \@ifaces;
-}
-
-sub _preSetConf
-{
-    my ($self) = @_;
-
-    EBox::debug('stopping service');
-    $self->_stopService();
 }
 
 sub _setConf
