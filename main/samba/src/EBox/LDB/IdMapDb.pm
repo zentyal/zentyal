@@ -1,6 +1,7 @@
-package IdMapDb;
+package EBox::LDB::IdMapDb;
 
-use Net::LDAP::LDIF;
+use strict;
+use warnings;
 
 use constant PRIVATE_DIR => '/var/lib/samba/private/';
 use constant FILE        => 'idmap.ldb';
@@ -14,7 +15,7 @@ sub new
 {
     my $class = shift;
     my $self = {
-        file => PRIVATE_DIR . FILE;
+        file => PRIVATE_DIR . FILE
         };
     bless ($self, $class);
     return $self;
@@ -26,15 +27,31 @@ sub new
 #
 sub setupNameMapping
 {
-    my ($self, $dn, $type, $sid, $uidNumber) = @_;
+    my ($self, $sid, $type, $uidNumber) = @_;
 
-    my $ldif = "dn: $dn\n" .
+    my $file = EBox::Config::tmp() . 'idmap.ldif';
+    my $ldif = "dn: CN=$sid\n" .
+               "changetype: add\n" .
                "xidNumber: $uidNumber\n" .
                "objectSid: $sid\n" .
                "objectClass: sidMap\n" .
                "type: $type\n" .
                "cn: $sid\n";
-    EBox::Sudo::root("echo '$ldif' | ldbadd -H $self->{file}");
+    EBox::debug("Mapping XID '$uidNumber' to '$sid'");
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
+    unlink $file;
+}
+
+sub deleteMapping
+{
+    my ($self, $sid) = @_;
+
+    my $file = EBox::Config::tmp() . 'idmap.ldif';
+    my $ldif = "dn: CN=$sid\n" .
+               "changetype: delete\n";
+    EBox::debug("Unmapping XID '$sid'");
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
+    unlink $file;
 }
 
 1;
