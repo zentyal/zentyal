@@ -232,8 +232,10 @@ sub _parseEvent
 
     my $event = undef;
     try {
-        $hashRef->{message} = $self->_i18n($hashRef->{level}, $hashRef->{message},
-                                           $hashRef->{duration}, $hashRef->{other});
+        ($hashRef->{message}, $hashRef->{additional}) = $self->_i18n(
+            $hashRef->{level}, $hashRef->{message},
+            $hashRef->{duration}, $hashRef->{other},
+           );
         $event = new EBox::Event(%{$hashRef});
     } otherwise {
         my ($exc) = @_;
@@ -267,6 +269,10 @@ sub _i18n
     }
 
     my $printableMsg = '';
+    my $additionalInfo = { 'measure'          => $measureName,
+                           'measure_instance' => $measureInstance,
+                           'type_instance'    => $typeInstance,
+                       };
     if ( $severity eq 'info' ) {
         $printableMsg = __('All data sources are within range again');
     } else {
@@ -278,6 +284,11 @@ sub _i18n
             $printableDataSource = $measure->printableLabel($typeInstance, $dataSource);
         }
 
+        $additionalInfo->{data_source} = $dataSource;
+        $additionalInfo->{value}       = $currentValue;
+        $additionalInfo->{metric}      = $measure->metric();
+        $additionalInfo->{duration}    = $duration;
+
         $printableMsg .= __x('{what} "{dS}" is currently {value}.',
                              what => $what, dS => $printableDataSource,
                              value => $measure->formattedGaugeType($currentValue));
@@ -285,6 +296,8 @@ sub _i18n
 
         if ( $message =~ m:region of:g ) {
             my ($minBound, $maxBound) = $message =~ m:region of (.*?) and (.*)\.$:;
+            $additionalInfo->{min_bound} = $minBound;
+            $additionalInfo->{max_bound} = $maxBound;
             if ( defined($duration) and $duration > 0 ) {
                 $printableMsg = __x('{what} "{dS}" has been {duration} within the {severity} '
                                     . 'region of {minBound} and {maxBound}.',
@@ -302,6 +315,7 @@ sub _i18n
         if ( $message =~ m:threshold of:g ) {
             my ($adverb, $bound) = $message =~ m:That is (.*?) the.*threshold of (.*)\.$:;
             if ( $adverb eq 'above') {
+                $additionalInfo->{max_bound} = $bound;
                 if ( defined($duration) and $duration > 0 ) {
                     $printableMsg = __x('{what} "{dS}" has been {duration} above the {severity} threshold of {bound}. ',
                                         what => $what, dS => $printableDataSource,
@@ -312,6 +326,7 @@ sub _i18n
                                          severity => $severity, bound => $measure->formattedGaugeType($bound) );
                 }
             } elsif ( $adverb eq 'below') {
+                $additionalInfo->{min_bound} = $bound;
                 if ( defined($duration) and $duration > 0 ) {
                     $printableMsg = __x('{what} "{dS}" has been {duration} below the {severity} threshold of {bound}. ',
                                         what => $what, dS => $printableDataSource,
@@ -330,6 +345,7 @@ sub _i18n
         my $t = new Proc::ProcessTable();
         my $realProcNum = 0;
         my $procMsgs = "";
+        $additionalInfo->{processes} = [];
         foreach my $pid ( @{$other} ) {
             my ($proc) = grep { $_->pid() == $pid } @{$t->table()};
             next unless defined($proc);
@@ -344,6 +360,8 @@ sub _i18n
                                  $timeStr,
                                  $proc->cmndline());
             $realProcNum++;
+            push(@{$additionalInfo->{processes}},
+                 { pid => $pid, time => $timeStr, proc => $proc->cmndline() });
         }
         if ( $realProcNum > 0 ) {
             $printableMsg .= "\n\n";
@@ -353,7 +371,7 @@ sub _i18n
         } # No message
     }
 
-    return $printableMsg;
+    return ($printableMsg, $additionalInfo);
 }
 
 # Format to human-readable format a duration time
