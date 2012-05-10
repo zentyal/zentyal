@@ -161,6 +161,8 @@ sub save
 {
     my ($self) = @_;
 
+    my $changetype = $self->_entry->changetype();
+
     if ($self->{set_quota}) {
         $self->_setFilesystemQuota($self->get('quota'));
         delete $self->{set_quota};
@@ -171,21 +173,19 @@ sub save
         $self->_ldap->changeUserPassword($self->dn(), $passwd);
     }
 
-    $self->{modifications} = $self->{entry}->ldif(changes => 1);
-
     shift @_;
     $self->SUPER::save(@_) if $self->{core_changed};
 
-    if ($self->{core_changed} or defined $passwd) {
-        delete $self->{core_changed};
+    if ($changetype ne 'delete') {
+        if ($self->{core_changed} or defined $passwd) {
+            delete $self->{core_changed};
 
-        my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+            my $users = EBox::Global->modInstance('users');
+            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
 
-        delete $self->{ignoreMods};
+            delete $self->{ignoreMods};
+        }
     }
-
-    delete $self->{modifications};
 }
 
 # Method: setIgnoredModules

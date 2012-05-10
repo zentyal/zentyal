@@ -217,8 +217,6 @@ sub save
 {
     my ($self, $ignore_mods) = @_;
 
-    $self->{modifications} = $self->{entry}->ldif(changes => 1);
-
     shift @_;
     $self->SUPER::save(@_);
 
@@ -228,8 +226,6 @@ sub save
         my $users = EBox::Global->modInstance('users');
         $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods});
     }
-
-    delete $self->{modifications};
 }
 
 # Method: setIgnoredModules
