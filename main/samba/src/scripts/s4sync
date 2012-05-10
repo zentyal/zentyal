@@ -28,6 +28,7 @@ EBox::init();
 _info("Samba4 synchronizer daemon started");
 
 # Wait for clients
+my $enabled = 1;
 while (my $socket = $server->accept() ) {
     my $ret = 0;
     try {
@@ -37,6 +38,15 @@ while (my $socket = $server->accept() ) {
         }
 
         chomp (my $line = <$socket>);
+        if ($line =~ m/DISABLE/) {
+            $enabled = 0;
+            next;
+        } elsif ($line =~ m/ENABLE/) {
+            $enabled = 1;
+            next;
+        }
+        next unless $enabled;
+
         my $parameters = decode_json($line);
         my $operation = delete $parameters->{operation};
         if (defined $operation) {
@@ -106,6 +116,12 @@ sub openSocket
     if (defined $server) {
         $server->autoflush(1);
     }
+
+    # Set permissions to allow Zentyal to write on the socket
+    my $user = EBox::Config::user();
+    my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+    chown ('0', $gid, $path);
+    chmod (oct('0770'), $path);
 
     return $server;
 }
