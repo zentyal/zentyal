@@ -118,6 +118,7 @@ sub run
         my $key      = _eventKey($fs);
         my $eventHappened = $eventMod->st_get_bool($key);
 
+        my $threshold = $self->_spaceThreshold();
         my $df = df($properties->{mountPoint});
         if ($self->_isFSFull($df) and not $eventHappened) {
             $eventMod->st_set_bool($key, 1);
@@ -131,7 +132,7 @@ sub run
                             fs    => $fs,
                             mp    => $properties->{mountPoint},
                             left  => (100 - $df->{per}) . '%',
-                            thres => $self->_spaceThreshold() . '%',
+                            thres => $threshold . '%',
                            );
 
             push(@events,
@@ -139,7 +140,10 @@ sub run
                      message => $msg,
                      level   => 'error',
                      source  => 'Free storage space',
-                    ));
+                     additional => { 'file_system'          => $fs,
+                                     'mount_point'          => $properties->{mountPoint},
+                                     'user_used_percentage' => $df->{per},
+                                     'threshold'            => $threshold }));
         } elsif (not $self->_isFSFull($df) and $eventHappened) {
             # disable key bz the problem has solved
             $eventMod->st_set_bool($key, 0);
@@ -156,9 +160,13 @@ sub run
                             thres => $self->_spaceThreshold() . '%'
                            );
             push(@events,
-                 new EBox::Event(message => $msg,
-                                 level   => 'info',
-                                 source  => 'Free storage space',
+                 new EBox::Event(message    => $msg,
+                                 level      => 'info',
+                                 source     => 'Free storage space',
+                                 additional => { 'file_system' => $fs,
+                                                 'mount_point' => $properties->{mountPoint},
+                                                 'user_used_percentage' => $df->{per},
+                                                 'threshold'            => $threshold },
                                 ));
         }
     }
