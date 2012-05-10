@@ -636,7 +636,7 @@ sub ldapUsersToLdb
                 my $type = $self->idmap->TYPE_UID();
                 my $sid = $self->getSidById($samAccountName);
                 my $uidNumber = $user->get('uidNumber');
-                $self->idmap->setupNameMapping($dn, $type, $sid, $uidNumber);
+                $self->idmap->setupNameMapping($sid, $type, $uidNumber);
             } otherwise {
                 my $error = shift;
                 EBox::error("Error loading user '$dn': $error");
@@ -696,7 +696,7 @@ sub ldapGroupsToLdb
             my $type = $self->idmap->TYPE_GID();
             my $sid = $self->getSidById($samAccountName);
             my $uidNumber = $group->get('gidNumber');
-            $self->idmap->setupNameMapping($dn, $type, $sid, $uidNumber);
+            $self->idmap->setupNameMapping($sid, $type, $uidNumber);
         }
     } otherwise {
         my $error = shift;
