@@ -27,7 +27,6 @@ package EBox::Event::Watcher::Runit;
 
 use base 'EBox::Event::Watcher::Base';
 
-use constant WILD_SERVICES => EBox::Config::log() . 'runit/wild-services.log';
 use constant PERIOD => 60;
 use constant MAX_DOWN_PERIODS => 5;
 use constant DOMAIN => 'ebox';
@@ -62,21 +61,19 @@ use Fcntl qw(:flock); # Import LOCK * constants
 #        <EBox::Event::Watcher::Runit> - the newly created object
 #
 sub new
-  {
+{
+    my ($class) = @_;
 
-      my ($class) = @_;
+    my $self = $class->SUPER::new(
+                                  period      => PERIOD,
+                                  domain      => DOMAIN,
+                                 );
+    bless( $self, $class);
 
-      my $self = $class->SUPER::new(
-                                    period      => PERIOD,
-                                    domain      => DOMAIN,
-                                   );
-      bless( $self, $class);
+    $self->{downPeriods} = {};
 
-      $self->{downPeriods} = {};
-
-      return $self;
-
-  }
+    return $self;
+}
 
 # Method: ConfigurationMethod
 #
@@ -105,29 +102,37 @@ sub ConfigurationMethod
 #        Brothers!)
 #
 #        array ref - <EBox::Event> an event is sent when some service
-#        is out of control
+#        is out of control or come back to order
 #
 sub run
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    my $modules = $self->_runningAlertServices();
+    my @events = ();
+    if (@{$modules->{notRunning}->{names}}) {
+        $msg = __x("The following modules are not running but they are enabled: {modules}\n",
+                   modules => join(', ', @{$modules->{notRunning}->{printableNames}}) );
 
-      my @modules = $self->_runningAlertServices();
-      if (@modules) {
-          $msg = __x("The following modules are not running but they are enabled: {modules}\n",
-                     modules => join(', ', @modules) );
+        push(@events, new EBox::Event(
+            message     => $msg,
+            level       => 'error',
+            source      => 'service',
+            additional  => { modules => $modules->{notRunning}->{names} },
+           ));
+    }
+    if (@{$modules->{runningAgain}->{names}}) {
+        $msg = __x("The following modules are running again: {modules}\n",
+                   modules => join(', ', @{$modules->{runningAgain}->{printableNames}}) );
+        push(@events, new EBox::Event(
+            message     => $msg,
+            level       => 'info',
+            source      => 'service',
+            additional  => { modules => $modules->{runningAgain}->{names} }));
+    }
 
-          return [ new EBox::Event(
-                  message     => $msg,
-                  level       => 'error',
-                  source      => 'service',
-                  compMessage => join('_', @modules),
-                  )];
-      }
-
-      return undef;
-
-  }
+    return \@events;
+}
 
 # Group: Protected methods
 
@@ -142,11 +147,9 @@ sub run
 #        String - the event watcher name
 #
 sub _name
-  {
-
-      return __('Service');
-
-  }
+{
+    return __('Service');
+}
 
 # Method: _description
 #
@@ -159,11 +162,9 @@ sub _name
 #        String - the event watcher detailed description
 #
 sub _description
-  {
-
-      return __('Check if any Zentyal service is not running when it is enabled');
-
-  }
+{
+    return __('Check if any Zentyal service is not running when it is enabled');
+}
 
 # Method: _runningAlertServices
 #
@@ -175,7 +176,8 @@ sub _runningAlertServices
     my $gl = EBox::Global->getInstance(1);
 
     my $class = 'EBox::Module::Service';
-    my @mods;
+    my %ret = ( notRunning => { printableNames => [], names => [] },
+                runningAgain => { printableNames => [], names => [] } );
     for my $mod (@{$gl->modInstancesOfType($class)}) {
         next unless ($mod->can('isRunning'));
         my $enabled = $mod->isEnabled();
@@ -188,7 +190,8 @@ sub _runningAlertServices
             }
 
             if ($self->{downPeriods}->{$name}++ >= MAX_DOWN_PERIODS) {
-                push (@mods, $mod->printableName());
+                push (@{$ret{notRunning}->{printableNames}}, $mod->printableName());
+                push (@{$ret{notRunning}->{names}}, $name);
             }
 
             EBox::debug("Module $name is not running (" .
@@ -196,70 +199,11 @@ sub _runningAlertServices
         } elsif (exists $self->{downPeriods}->{$name}) {
             EBox::debug("Module $name is running again");
             delete $self->{downPeriods}->{$name};
+            push (@{$ret{runningAgain}->{printableNames}}, $mod->printableName());
+            push (@{$ret{runningAgain}->{names}}, $name);
         }
     }
-
-    return @mods;
-}
-
-# Method: _wildServices
-#
-#   XXX: Not used at the moment
-#
-#   Generate events for services which have been forced to stop by upstart
-#   due to too fast respawing.
-sub _wildServices
-{
-      my ($self) = @_;
-
-      # The wild services are stored within a file with the following
-      # format:
-      # wildService1\twildService2\twildService3
-
-      my @events;
-      if ( -f WILD_SERVICES ) {
-      # Check if any service has been left
-          open(my $wildServicesFile, '+<', WILD_SERVICES) or
-            throw EBox::Exceptions::Internal('Cannot open for read/writing file ' .
-                                             WILD_SERVICES . " : $!");
-
-          my $line;
-          try {
-              # Lock the file for reading/writing
-              flock( $wildServicesFile, LOCK_EX );
-              $line = <$wildServicesFile>;
-              # Truncate the file
-              truncate ( $wildServicesFile, 0 );
-          } finally {
-              # Unlock the file
-              flock( $wildServicesFile, LOCK_UN );
-              close ( $wildServicesFile );
-          };
-
-          if ( defined ( $line )) {
-              chomp($line);
-              my @wildServices = split ( '\t', $line);
-              if ( scalar ( @wildServices ) > 0 ) {
-                  my ( $restartMax, $timeInterval ) = ( EBox::Config::configkey('restart_max'),
-                                                        EBox::Config::configkey('time_interval') );
-                  foreach my $wildService (@wildServices) {
-                      push ( @events, new EBox::Event(
-                                   message => __x('The service {service} has been restarted ' .
-                                                  '{restart} times in {time} seconds and it ' .
-                                                  'has been stopped',
-                                                  service => $wildService,
-                                                  restart => $restartMax,
-                                                  time    => $timeInterval,
-                                                  ),
-                                   level   => 'error',
-                                   source  => $self->name(),
-                                                     ));
-                  }
-              }
-          }
-      }
-
-     return @events;
+    return \%ret;
 }
 
 1;
