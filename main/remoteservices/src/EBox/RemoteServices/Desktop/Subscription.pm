@@ -30,7 +30,7 @@ use EBox::RemoteServices::RESTClient;
 sub subscribe
 {
     my $rest = new EBox::RemoteServices::RESTClient();
-    my $ret = $rest->GET('/v1/subscription/subscribe/')->data();
+    my $ret = $rest->POST('/v1/subscription/subscribe/')->data();
     return {
         'uuid'      => $ret->{'uuid'},
         'password'  => $ret->{'secret'},
