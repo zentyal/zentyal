@@ -181,6 +181,7 @@ ServerTokens Min
     SSLEngine on
     SSLProtocol all
     SSLCipherSuite HIGH:MEDIUM
+    SSLInsecureRenegotiation on
     SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
     SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
 </IfModule>
