@@ -1,4 +1,4 @@
-HEAD
+2.3.8
 	+ Restart apache after changing master configuration
 	+ Removed all files + code cleaning
 	+ Disable user editing in slaves
