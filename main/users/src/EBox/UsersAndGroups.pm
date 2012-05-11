@@ -257,7 +257,6 @@ sub _loadLDAP
         EBox::Sudo::root(
             # Remove current database (if any)
             'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
-            'rm -rf ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             'mkdir -p ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             'chmod 750 ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
 
@@ -382,7 +381,19 @@ sub editableMode
 {
     my ($self) = @_;
 
-    return 1; # TODO check sync providers
+    my $global = EBox::Global->modInstance('global');
+    my @names = @{$global->modNames};
+
+    my @modules;
+    foreach my $name (@names) {
+        my $mod = EBox::Global->modInstance($name);
+
+        if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
+            return 0 unless ($mod->allowUserChanges());
+        }
+    }
+
+    return 1;
 }
 
 # Method: _daemons
@@ -1087,6 +1098,15 @@ sub slaves
 
     return \@slaves;
 }
+
+# SyncProvider implementation
+sub allowUserChanges
+{
+    my ($self) = @_;
+
+    return (not $self->master->isSlave());
+}
+
 
 
 # Master-Slave UsersSync object

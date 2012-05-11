@@ -46,8 +46,6 @@ sub schemas
 {
     return [
         EBox::Config::share() . '/zentyal-users/passwords.ldif',
-        EBox::Config::share() . '/zentyal-users/master.ldif',
-        EBox::Config::share() . '/zentyal-users/slaves.ldif',
         EBox::Config::share() . '/zentyal-users/quota.ldif',
     ];
 }
