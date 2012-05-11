@@ -1,4 +1,4 @@
-HEAD
+2.3.9
 	+ Enable SSLInsecureRenegotiation to avoid master -> slave SOAP handsake
 	  problems
 	+ Added validateRowRemoval method to EBox::Model::DataTable
