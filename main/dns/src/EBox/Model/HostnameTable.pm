@@ -236,21 +236,21 @@ sub _table
 
     my $dataTable =
         {
-            'tableName' => 'HostnameTable',
-            'printableTableName' => __('Host names'),
-            'automaticRemove' => 1,
-            'defaultController' => '/Dns/Controller/HostnameTable',
-            'HTTPUrlView'       => 'DNS/View/HostnameTable',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'help' => __('Automatic reverse resolution is done. If you '
+            tableName => 'HostnameTable',
+            printableTableName => __('Host names'),
+            automaticRemove => 1,
+            modelDomain     => 'DNS',
+            defaultActions => ['add', 'del', 'move', 'editField',  'changeView' ],
+            tableDescription => \@tableHead,
+            class => 'dataTable',
+            help => __('Automatic reverse resolution is done. If you '
                          . 'repeat an IP address in another domain, only '
                          . 'first match will be used by reverse resolution. '
                          . 'Dynamic zones may erase your manual reverse '
                          . 'resolution.'),
-            'printableRowName' => __('host name'),
-            'sortedBy' => 'hostname',
+            printableRowName => __('host name'),
+            order => 1,
+            insertPosition => 'back',
         };
 
     return $dataTable;
