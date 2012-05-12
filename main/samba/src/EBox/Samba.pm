@@ -294,6 +294,11 @@ sub enableService
             $self->provision();
         }
     }
+    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+    foreach my $module (@{$modules}) {
+        EBox::debug($module);
+        $module->kerberosCreatePrincipals();
+    }
 }
 
 # Method: modelClasses
