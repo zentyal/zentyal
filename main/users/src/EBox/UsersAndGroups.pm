@@ -1477,31 +1477,4 @@ sub mode
     return 'master';
 }
 
-sub createServicePrincipal
-{
-    my ($self, $service, $keytabPath, $serviceUser) = @_;
-
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostname = $sysinfo->hostName();
-    my $hostdomain = $sysinfo->hostDomain();
-
-    $service = uc ($service);
-    my $principal = "$service/$hostname.$hostdomain";
-
-    my @cmds=();
-    push (@cmds, 'kadmin -l add -r ' .
-                 "--max-ticket-life='1 day' " .
-                 "--max-renewable-life='1 week' " .
-                 "--attributes='' " .
-                 "--expiration-time=never " .
-                 "--pw-expiration-time=never " .
-                 "--policy=default " .
-                 "'$principal'");
-    push (@cmds, "kadmin -l ext -k '$keytabPath' '$principal'");
-    push (@cmds, "chown root:$serviceUser '$keytabPath'");
-    push (@cmds, "chmod 440 '$keytabPath'");
-    EBox::debug('Creating kerberos service principal');
-    EBox::Sudo::root(@cmds);
-}
-
 1;
