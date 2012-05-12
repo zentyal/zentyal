@@ -78,7 +78,7 @@ sub kerberosCreatePrincipals
         try {
             $sambaModule->ldb->disableZentyalModule();
             EBox::Sudo::silentRoot("$tool user delete $account");
-            EBox::debug("Creating service principal $principal");
+            EBox::debug("Creating account $account");
             EBox::Sudo::root(@cmds);
         } otherwise {
             my $error = shift;
