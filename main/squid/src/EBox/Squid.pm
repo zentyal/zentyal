@@ -17,11 +17,14 @@ package EBox::Squid;
 use strict;
 use warnings;
 
-use base qw(
-            EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
-            EBox::Report::DiskUsageProvider
+use base qw( EBox::Module::Service
+             EBox::Model::ModelProvider
+             EBox::Model::CompositeProvider
+             EBox::FirewallObserver
+             EBox::LogObserver
+             EBox::LdapModule
+             EBox::Report::DiskUsageProvider
+             EBox::KerberosModule
            );
 
 use EBox::Service;
@@ -176,6 +179,17 @@ sub compositeClasses
     ];
 }
 
+sub kerberosServicePrincipals
+{
+    my ($self) = @_;
+
+    my $data = { service    => 'proxy',
+                 principals => [ 'HTTP' ],
+                 keytab     => KEYTAB_FILE,
+                 keytabUser => 'proxy' };
+    return $data;
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -186,8 +200,7 @@ sub enableActions
 
     # Create the kerberos service princiapl in kerberos,
     # export the keytab and set the permissions
-    my $users = EBox::Global->modInstance('users');
-    $users->createServicePrincipal('HTTP', KEYTAB_FILE, 'proxy');
+    $self->kerberosCreatePrincipals();
 
     try {
         my @lines = ();
