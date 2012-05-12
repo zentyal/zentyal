@@ -286,19 +286,20 @@ sub enableService
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    if ($self->changed()) {
-        EBox::Global->modChange('dns');
-        EBox::Global->modChange('users');
-
-        if ($status) {
+    if ($self->changed() and $status) {
+        my $isProvisioned = $self->get_bool('provisioned');
+        EBox::debug("Flag: $isProvisioned");
+        unless ($isProvisioned == 1) {
             $self->provision();
         }
     }
     my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
     foreach my $module (@{$modules}) {
-        EBox::debug($module);
         $module->kerberosCreatePrincipals();
     }
+
+    EBox::Global->modChange('dns');
+    EBox::Global->modChange('users');
 }
 
 # Method: modelClasses
@@ -764,6 +765,8 @@ sub sambaInterfaces
 sub _setConf
 {
     my ($self) = @_;
+
+    return unless $self->configured() and $self->isEnabled();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
