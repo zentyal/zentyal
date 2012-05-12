@@ -30,9 +30,9 @@ zone "<% $dom->{'name'} %>." IN {
     // dynamically by Samba, based on the membership of the domain controllers
     // group. The provision just creates this file as an empty file.
     include "<% $sambaPolicyFile %>";
+%   }
     // we need to use check-names ignore so _msdcs A records can be created
     check-names ignore;
-%   }
 
 %   if (not defined $sambaPolicyFile and $dom->{'dynamic'}) {
     update-policy {
