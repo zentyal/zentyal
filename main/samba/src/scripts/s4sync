@@ -44,6 +44,9 @@ while (my $socket = $server->accept() ) {
         } elsif ($line =~ m/ENABLE/) {
             $enabled = 1;
             next;
+        } elsif ($line =~ m/PING/) {
+            print $socket "PONG";
+            next;
         }
         next unless $enabled;
 

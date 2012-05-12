@@ -80,6 +80,41 @@ sub idmap
     return $self->{idmap};
 }
 
+# Method: syncCon
+#
+#   Returns the socket connection used by the module
+#
+# Returns:
+#
+#
+# Exceptions:
+#
+#   Internal - If connection can't be created
+#
+sub syncCon
+{
+    my ($self) = @_;
+
+    # Workaround to detect if connection is broken and force reconnection
+    # NOTE this will fail always until implement threaded synchronizer
+    my $reconnect = 0;
+    if (defined $self->{sync}) {
+        my $socket = $self->{sync};
+        print $socket "PING\n";
+        my $answer = <$socket>;
+        chomp $answer;
+        if ($answer ne 'PONG') {
+            $reconnect = 1;
+        }
+    }
+
+    if (not defined $self->{sync} or $reconnect) {
+        $self->{sync} = $self->safeConnectSync(SOCKET_PATH);
+    }
+
+    return $self->{sync};
+}
+
 # Method: ldbCon
 #
 #   Returns the Net::LDAP connection used by the module
@@ -120,6 +155,40 @@ sub ldbCon
     }
 
     return $self->{ldb};
+}
+
+sub safeConnectSync
+{
+    my ($self, $uri) = @_;
+
+    my $retries = 4;
+    my $socket = undef;
+
+    local $SIG{PIPE};
+    $SIG{PIPE} = sub {
+       EBox::warn('SIGPIPE received connecting to sync socket');
+    };
+
+    while (not $socket = IO::Socket::UNIX->new(
+                Peer  => SOCKET_PATH,
+                Type  => SOCK_STREAM,
+                Timeout => 5) and $retries--) {
+        my $samba = EBox::Global->modInstance('samba');
+        $samba->_manageService('start');
+        EBox::error("Couldn't connect to synchronizer $uri, retrying");
+        sleep (5);
+    }
+
+    unless ($socket) {
+        throw EBox::Exceptions::External(
+            "FATAL: Couldn't connect to synchronizer: $uri");
+    }
+
+    if ($retries < 3) {
+        EBox::info('Synchronizer reconnect successful');
+    }
+
+    return $socket;
 }
 
 sub safeConnect
@@ -239,9 +308,14 @@ sub dn
                      filter => '(objectclass=*)',
                      attrs  => ['namingContexts'] );
         my $result = $ldb->search(%args);
-        my $entry  = ($result->entries)[0];
-        my $attr   = ($entry->attributes)[0];
-        $self->{dn} = $entry->get_value($attr);
+        if ($result->count() > 0) {
+            my $entry = ($result->entries)[0];
+            my @attributes = $entry->attributes();
+            if (scalar @attributes > 0) {
+                my $attr = $attributes[0];
+                $self->{dn} = $entry->get_value($attr);
+            }
+        }
     }
 
     return defined ($self->{dn}) ? $self->{dn} : '';
@@ -391,17 +465,10 @@ sub enableZentyalModule
     my ($self) = @_;
 
     EBox::debug('Enabling Zentyal LDB module');
-
-    my $client = IO::Socket::UNIX->new(Peer  => SOCKET_PATH,
-                                       Type  => SOCK_STREAM,
-                                       Timeout => 10);
-    unless (defined $client) {
-        throw EBox::Exceptions::Internal("Unable to create socket: $!");
-    }
-
-    print $client "ENABLE\n";
-    $client->flush;
-    $client->close;
+    my $socket = $self->syncCon();
+    print $socket "ENABLE\n";
+    $socket->flush;
+    $socket->close;
 }
 
 # Method: disableZentyalModule
@@ -413,17 +480,10 @@ sub disableZentyalModule
     my ($self) = @_;
 
     EBox::debug('Disabling Zentyal LDB module');
-
-    my $client = IO::Socket::UNIX->new(Peer  => SOCKET_PATH,
-                                       Type  => SOCK_STREAM,
-                                       Timeout => 10);
-    unless (defined $client) {
-        throw EBox::Exceptions::Internal("Unable to create socket: $!");
-    }
-
-    print $client "DISABLE\n";
-    $client->flush;
-    $client->close;
+    my $socket = $self->syncCon();
+    print $socket "DISABLE\n";
+    $socket->flush;
+    $socket->close;
 }
 
 sub changeUserPassword
