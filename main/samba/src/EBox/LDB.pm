@@ -28,6 +28,7 @@ use Net::LDAP::Util qw(ldap_error_name);
 use IO::Socket::UNIX;
 
 use Data::Dumper;
+use Date::Calc;
 use Encode;
 use Error qw( :try );
 
@@ -689,6 +690,19 @@ sub ldapUsersToLdb
                 }
                 if (defined $credentials->{unicodePwd}) {
                     push ($attrs, unicodePwd    => $credentials->{unicodePwd});
+                }
+                if (defined $credentials->{supplementalCredentials} or
+                    defined $credentials->{unicodePwd}) {
+                    # NOTE If this value is not set samba sigfault
+                    # This value is stored as a large integer that represents
+                    # the number of 100 nanosecond intervals since January 1, 1601 (UTC)
+                    my ($sec, $min, $hour, $day, $mon, $year) = gmtime(time);
+                    $year = $year + 1900;
+                    $mon += 1;
+                    my $days = Date::Calc::Delta_Days(1601, 1, 1, $year, $mon, $day);
+                    my $secs = $sec + $min * 60 + $hour * 3600 + $days * 86400;
+                    my $val = $secs * 10000000;
+                    push ($attrs, pwdLastSet => $val);
                 }
                 $self->add($dn, { attrs => $attrs, control => $bypassControl });
 
