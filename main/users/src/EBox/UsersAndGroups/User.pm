@@ -720,9 +720,11 @@ sub kerberosKeys
     foreach my $blob (@aux) {
         my $key = $asn_key->decode($blob) or
             throw EBox::Exceptions::Internal($asn_key->error());
-        push ($keys, { type  => $key->{key}->{value}->{keytype}->{value},
-                       value => $key->{key}->{value}->{keyvalue}->{value},
-                       salt  => $key->{salt}->{value}->{salt}->{value} });
+        push @{$keys}, { 
+                         type  => $key->{key}->{value}->{keytype}->{value},
+                         value => $key->{key}->{value}->{keyvalue}->{value},
+                         salt  => $key->{salt}->{value}->{salt}->{value} 
+                       };
     }
 
     return $keys;
