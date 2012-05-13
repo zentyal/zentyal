@@ -174,7 +174,7 @@ sub save
     }
 
     shift @_;
-    $self->SUPER::save(@_) if $self->{core_changed};
+    $self->SUPER::save(@_);
 
     if ($changetype ne 'delete') {
         if ($self->{core_changed} or defined $passwd) {
