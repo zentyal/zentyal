@@ -1,4 +1,5 @@
 HEAD
+	+ Authenticated sender have to use a mail address which they own
 	+ Using old sieve directories as home mail directories
 	+ Enable GSSAPI/Kerberos authentication
 2.3.3
