@@ -62,6 +62,8 @@ $submissionRecipientRestrictions .= 'permit_sasl_authenticated, permit_mynetwork
 
 my $certFile = '/etc/postfix/sasl/postfix.pem';
 my $keyFile  = '/etc/postfix/sasl/postfix.pem';
+
+my $ldapServer = 'localhost:' . $ldap->{port};
 </%init>
 
 # require helo
@@ -106,9 +108,9 @@ smtp_tls_cert_file = <% $certFile %>
 smtp_sasl_auth_enable = yes
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = noanonymous
-% if ($relayAuth->{auth} eq 'LOGIN') {
+%   if ($relayAuth->{auth} eq 'LOGIN') {
 smtp_sasl_mechanism_filter = login
-% }
+%   }
 % }
 
 mynetworks = <% $allowed %>
@@ -121,7 +123,7 @@ inet_interfaces = all
 
 # Virtual Aliases
 virtual_alias_maps = ldap:valiases
-valiases_server_host = ldapi://%2Fvar%2Frun%2Fslapd%2Fldapi
+valiases_server_host = <% $ldapServer %>
 valiases_version = 3
 valiases_search_base = <% $aliasDN %>
 valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
@@ -134,9 +136,9 @@ valiases_bind_pw = <% $bindPW %>
 dovecot_destination_recipient_limit = 1
 virtual_transport = dovecot
 virtual_mailbox_base = <% $vmaildir %>
-virtual_mailbox_maps= ldap:ldapvirtualmap
 
-ldapvirtualmap_server_host = ldapi://%2Fvar%2Frun%2Fslapd%2Fldapi
+virtual_mailbox_maps= ldap:ldapvirtualmap
+ldapvirtualmap_server_host = <% $ldapServer %>
 ldapvirtualmap_version = 3
 ldapvirtualmap_search_base = <% $usersDN %>
 ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
@@ -146,10 +148,10 @@ ldapvirtualmap_bind_dn = <% $bindDN %>
 ldapvirtualmap_bind_pw = <% $bindPW %>
 
 virtual_mailbox_domains = ldap:vmaildomains
-vmaildomains_server_host = ldapi://%2Fvar%2Frun%2Fslapd%2Fldapi
+vmaildomains_server_host = <% $ldapServer %>
 vmaildomains_version = 3
 vmaildomains_search_base =  <% $vdomainDN %>
-vmaildomains_query_filter = (|(&(objectclass=domain)(domainComponent=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
+vmaildomains_query_filter = (|(&(objectclass=domain)(dc=%s))(&(objectclass=CourierMailAlias)(mail=@%s)))
 vmaildomains_result_attribute = dc, maildrop
 vmaildomains_bind = yes
 vmaildomains_bind_dn = <% $bindDN %>
