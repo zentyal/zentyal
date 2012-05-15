@@ -234,6 +234,11 @@ sub tmp
     return $ref->{localstatedir} . 'lib/zentyal/tmp/';
 }
 
+sub shm
+{
+    return '/run/shm/zentyal';
+}
+
 # Method: downloads
 #
 #      Get the path of the directory where the files to be downloaded are put

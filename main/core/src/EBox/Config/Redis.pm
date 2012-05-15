@@ -23,15 +23,12 @@ use Redis;
 use EBox::Config;
 use EBox::Service;
 use EBox::Module::Base;
-use EBox::Util::Semaphore;
-use POSIX ':signal_h';
+use EBox::Util::SHMLock;
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
 use JSON::XS;
 use Error qw/:try/;
-
-my $SEM_KEY = 0xEBEB;
 
 my $redis = undef;
 
@@ -45,7 +42,7 @@ my %modified;
 my %deleted;
 my $cacheVersion = 0;
 my $trans = 0;
-my $sem = undef;
+my $lock = undef;
 
 # Constructor: new
 #
@@ -65,8 +62,8 @@ sub new
     $self->{pid} = $$;
     $self->{json_pretty} = JSON::XS->new->pretty;
 
-    unless ($sem) {
-        $sem = EBox::Util::Semaphore->init($SEM_KEY);
+    unless ($lock) {
+        $lock = EBox::Util::SHMLock->init('redis');
     }
 
     return $self;
@@ -295,7 +292,7 @@ sub begin
     # Do not allow nested transactions
     return if ($trans++);
 
-    $sem->wait();
+    $lock->lock();
 
     my $version = $self->_redis_call('get', 'version');
     defined ($version) or $version = 0;
@@ -316,7 +313,7 @@ sub commit
     if ($trans == 0) {
         $self->_sync();
 
-        $sem->signal();
+        $lock->unlock();
     }
 }
 
@@ -330,7 +327,7 @@ sub rollback
 
     $trans = 0;
 
-    $sem->signal();
+    $lock->unlock();
 }
 
 sub _sync
