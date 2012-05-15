@@ -1,3 +1,5 @@
+HEAD
+	+ Added usesPort() method to apache module
 2.3.9
 	+ Enable SSLInsecureRenegotiation to avoid master -> slave SOAP handsake
 	  problems

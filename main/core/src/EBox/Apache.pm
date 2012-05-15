@@ -792,4 +792,13 @@ sub restartOnTrigger
     return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
 }
 
+sub usesPort
+{
+    my ($self, $proto, $port, $iface) = @_;
+    if ($proto ne 'tcp') {
+        return 0;
+    }
+    return $port == $self->port();
+}
+
 1;

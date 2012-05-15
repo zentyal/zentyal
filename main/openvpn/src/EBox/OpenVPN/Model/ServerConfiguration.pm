@@ -13,11 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class:
-#
-#
 
-#
 package EBox::OpenVPN::Model::ServerConfiguration;
 use base 'EBox::Model::DataForm';
 
@@ -343,48 +339,44 @@ sub _uniqPortAndProtocol
 sub _checkPortIsAvailable
 {
     my ($self, $action, $params_r, $actual_r) = @_;
+    my @ifacesToCheck;
 
     my $portAndProtocolNotChanged =  (not exists $params_r->{portAndProtocol} );
     my $localIfaceNotChanged      =    (not exists $params_r->{local} );
-
     if ( $portAndProtocolNotChanged and $localIfaceNotChanged ) {
         return;
     }
 
-    my $portAndProtocol = exists $params_r->{portAndProtocol} ?
-                                   $params_r->{portAndProtocol} :
-                                   $actual_r->{portAndProtocol};
-    my $proto = $portAndProtocol->protocol();
-    my $port  = $portAndProtocol->port();
-
     my $local = exists $params_r->{local} ?
                     $params_r->{local}->value() :
                     $actual_r->{local}->value();
-
-
-    return if $self->_alreadyCheckedAvailablity($proto,
-                $port, $local, $actual_r);
-
-
-    my $firewall = EBox::Global->modInstance('firewall');
-    $firewall or # firewall may not be installed
-        return;
-
-
-    # do the check...
     if ($local eq ALL_INTERFACES) {
         $local = undef;
     }
 
-    if (not $firewall->availablePort($proto, $port, $local)) {
-        throw EBox::Exceptions::External(
-           __x(
-               'Port {p} is not available',
-               p => $portAndProtocol->printableValue()
-              )
-                                        );
-    }
+    my $portAndProtocol = exists $params_r->{portAndProtocol} ?
+                                   $params_r->{portAndProtocol} :
+                                   $actual_r->{'portAndProtocol'};
+    my $proto = $portAndProtocol->protocol();
+    my $port  = $portAndProtocol->port();
 
+    my $ownModuleName = $self->parentModule()->name();
+    my @modules = grep {
+                       ($_->can('usesPort')) and
+                      ($_->name() ne $ownModuleName)
+                  }  @{EBox::Global->getInstance()->modInstances()};
+    foreach my $mod (@modules) {
+        if ($mod->usesPort($proto, $port, $local)) {
+            throw EBox::Exceptions::External(
+                __x(
+                    'Port {p}/{pr} is in use by {mod}',
+                    p => $portAndProtocol->printableValue(),
+                    pr => $proto,
+                    mod => $mod->name()
+                       )
+               );
+        }
+    }
 }
 
 
