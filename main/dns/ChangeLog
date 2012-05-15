@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Server does not leak to the internet queries for unused rfc1918 zones
 	+ Bugfix: Delete TXT record on a dynamic domain works again
 2.2.1
