@@ -1,7 +1,7 @@
 <%args>
-	@domains
-	@inaddrs
-	@intnets
+    @domains
+    @inaddrs
+    @intnets
     $confDir
     $dynamicConfDir
     $sambaZone
@@ -12,7 +12,7 @@
 
 // Consider adding the 1918 zones here, if they are not used in your
 // organization
-//include "/etc/bind/zones.rfc1918";
+
 
 % if (defined $sambaZone) {
 include "<% $sambaZone %>";
@@ -28,7 +28,7 @@ acl "trusted" {
 	localnets;
 };
 
-%	if(@domains != 0) {
+% if(@domains != 0) {
 %		foreach my $dom (@domains) {
 zone "<% $dom->{'name'} %>" {
 	type master;
@@ -47,10 +47,10 @@ zone "<% $dom->{'name'} %>" {
 %                  }
 };
 %		}
-%	}
+% }
 
-%	if(@inaddrs != 0) {
-%		foreach my $inaddr (@inaddrs) {
+% if(@inaddrs != 0) {
+%   foreach my $inaddr (@inaddrs) {
 zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
 	type master;
 %                   if ( $inaddr->{'dynamic'} ) {
@@ -64,8 +64,11 @@ zone "<% $inaddr->{'ip'} %>.in-addr.arpa" {
           grant local-ddns zonesub any;
         };
 %                   } else {
-        file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";            
+        file "<% $confDir %>/db.<% $inaddr->{'ip'} %>";
 %                   }
 };
-%		}
-%	}
+%   }
+% }
+
+include "/etc/bind/zones.rfc1918";
+
