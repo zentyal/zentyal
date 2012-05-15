@@ -165,7 +165,7 @@ virtual_gid_maps = static:<% $gidvmail %>
 smtpd_use_tls = yes
 smtpd_tls_key_file  = <% $keyFile  %>
 smtpd_tls_cert_file = <% $certFile %>
-smtpd_tls_loglevel = 1
+smtpd_tls_loglevel = 0
 
 # recipient restrictions
 smtpd_recipient_restrictions = <% $smtpRecipientRestrictions %>
