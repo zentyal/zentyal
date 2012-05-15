@@ -1,4 +1,6 @@
 HEAD
+	+ Restricted gateway names to be sane with dyndns, also fixed dyndns configuration with old
+	incorrect gateway names, some old names will continue to fail
 	+ Fixed calculation of fail ratio
 	+ Assure that we have always one gateway marked as default
 	+ Restart traffic shaping on postinst to avoid rule loss on upgrades

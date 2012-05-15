@@ -39,6 +39,8 @@ use=linksys, fw=<% $serviceData->{fw} %>, fw-skip=<% $serviceData->{fw_skip} %>
 <% $hostname %>
 % } else {
 %    foreach my $gw (@gws) {
-use=cmd, cmd='<% "$cmd $gw" %>' <% "${gw}.$hostname" %>
+%      my $gwName = $gw->{gw};
+%      my $domain = $gw->{domain};
+use=cmd, cmd='<% "$cmd $gwName" %>' <% "${domain}.$hostname" %>
 %    }
 % }
