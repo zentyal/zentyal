@@ -48,11 +48,12 @@ sub _sendEvent
     my ($msg, $level) = @_;
 
     # Generate event
+    my $enabled = 0;
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('events')) {
         my $events = $global->modInstance('events');
         if ((defined $events)  and ($events->isRunning())) {
-            my $enabled = $events
+            $enabled = $events
                 ->isEnabledWatcher('EBox::Event::Watcher::EBackup')->value();
             if ($enabled) {
                 $events->sendEvent(message => $msg,
@@ -60,6 +61,10 @@ sub _sendEvent
                         level   => $level);
             }
         }
+    }
+
+    if (not $enabled) {
+        EBox::info("EBackup event [$level]: $msg");
     }
 }
 
@@ -135,6 +140,7 @@ sub _mangleDuplicityErrorMsg
 sub _parseSuccessMsg # (successMsg)
 {
     my ($successMsg) = @_;
+    EBox::debug("Duplicity success message: $successMsg");
 
     my %backupStats;
     foreach my $line (@{$successMsg}) {
@@ -258,7 +264,7 @@ sub _removeExpiredBackups
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift @_;
         my $errorMsg = $ex->error()->[-1];
-        chomp($errorMsg);
+        chomp($errorMsg) if $errorMsg;
         $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
         if ( $errorMsg eq 'BackendException' ) {
             $errorMsg = __('Cannot contact to the backup server. Check your '
@@ -324,7 +330,7 @@ sub _performBackup
     if ($preHookError) {
         $success = 0;
         $errorMsg = __x('Error running pre backup hook {err}',
-                        err => $preHookError); 
+                        err => $preHookError);
         return ($success, $successMsg, $errorMsg);
     }
 
@@ -337,7 +343,7 @@ sub _performBackup
             my $ex = shift @_;
             $success = 0;
             my @error = @{  $ex->error() };
-            chomp $error[-1];
+            chomp $error[-1] if @error;
             $errorMsg = "@error";
             $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
         } otherwise {
@@ -375,7 +381,7 @@ sub _performBackup
     if ($postHookError) {
         $success = 0;
         $errorMsg = __x('Error running post backup hook {err}',
-                        err => $postHookError);        
+                        err => $postHookError);
     }
 
     return ($success, $successMsg, $errorMsg);
@@ -386,7 +392,7 @@ sub _errorMessageFromDuplicityCmd
     my ($ex) = @_;
     if ($ex->isa('EBox::Exceptions::Sudo::Command')) {
         my @error = @{  $ex->error() };
-        chomp $error[-1];
+        chomp $error[-1] if @error;
         my $errorMsg = "@error";
         return _mangleDuplicityErrorMsg($errorMsg);
     }  else {
@@ -506,6 +512,16 @@ if ($usingCloud) {
 
 try {
     $type = _adjustType($ebackup, $type);
+
+    try {
+        $ebackup->checkTargetStatus($type);
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("Error in backup target: $ex");
+        _sendSuccessEvent(0, $type, "$ex");
+        $ebackup->backupProcessUnlock();
+        exit 1;
+    };
 
     if ($type eq 'full') {
         try {
