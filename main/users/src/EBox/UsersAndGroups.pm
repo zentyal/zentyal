@@ -75,6 +75,7 @@ use constant CERT           => SSL_DIR . 'master.cert';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-ebox';
 use constant LOCK_FILE      => EBox::Config::tmp() . 'ebox-users-lock';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_MAX      => 2097151;
 use constant MAX_SB_USERS   => 25;
 
 sub _create
@@ -1191,18 +1192,44 @@ sub _modifyUserPwd
 
 sub _checkQuota
 {
-    my ($quota) = @_;
+    my ($quota, $home) = @_;
 
-    ($quota =~ /^\s*$/) and return undef;
-    ($quota =~ /\D/) and return undef;
-    return 1;
+    if (not $quota =~ m/^\d+$/) {
+        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                                            'value' => $quota,
+                                            'advice' => __(
+'User quota must be an positive integer. To set an unlimited quota, enter zero.'
+                                                          ),
+                                           );
+    }
+
+    if ($quota > QUOTA_MAX) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('user quota'),
+            value => $quota,
+            advice => __x('The maximum value is {max} MB',
+                          max => QUOTA_MAX
+                         ),
+
+           );
+    }
 }
 
 sub _setFilesystemQuota
 {
     my ($self, $uid, $userQuota) = @_;
+
     my $quota = $userQuota * 1024;
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
+    # check if quota has been really set
+    my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
+    my ($afterQuota) = $output->[0] =~ m/(\d+)/;
+    if ((not defined $afterQuota) or ($quota != $afterQuota)) {
+        throw EBox::Exceptions::External(
+            __x('Cannot set quota to {userQuota}. Please, choose another value',
+               userQuota => $userQuota)
+           )
+    }
 }
 
 sub _modifyUserQuota
@@ -1277,7 +1304,7 @@ sub modifyUser # (\%user)
 #
 # Parameters:
 #
-#       user - hash ref containing: 'user' (user name), 'fullname', 'password',
+#       user - hash ref containing: 'username', 'fullname', 'password',
 #       and comment. The only mandatory parameter is 'user' the other attribute
 #       parameters would be ignored if they are missing.
 #
@@ -1294,14 +1321,12 @@ sub modifyUserLocal # (\%user)
                                              'value' => $username);
     }
 
-    if (exists $user->{'quota'} and
-        (not _checkQuota($user->{'quota'}))) {
-        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
-                                            'value' => $user->{'quota'},
-                                            'advice' => __(
-'User quota must be an integer. To set an unlimited quota, enter zero.'
-                                                          ),
-                                           );
+    if (exists $user->{'quota'}){
+        my $homedir = $self->_homeDirectory($username);
+        if (not -d $homedir) {
+            $homedir = HOMEPATH;
+        }
+        _checkQuota($user->{'quota'}, $homedir);
     }
 
     foreach my $field (keys %{$user}) {
