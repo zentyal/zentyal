@@ -24,6 +24,6 @@ scope = base
 
 base = uid=%n,<% $usersDn %>
 
-user_attrs = mailbox=mail=maildir:<% $mailboxesDir %>/%$, mailquota=quota_rule=*:storage=%$M, quota_rule2=Trash:storage=+110%%
+user_attrs = mailquota=quota_rule=*:storage=%$M, quota_rule2=Trash:storage=+110%%
 
-user_filter = (&(objectClass=posixAccount)(uid=%n))
+user_filter = (&(objectClass=CourierMailAccount)(uid=%n))

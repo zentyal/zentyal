@@ -772,6 +772,27 @@ sub reloadNSCD
    }
 }
 
+# Method: user
+#
+# Returns the object which represents a give user. Raises a excpetion if 
+# the user does not exists
+#
+#  Parameters:
+#      username
+#
+#  Returns:
+#    the appropaite EBox::UsersAndGroups::User .
+sub user
+{
+    my ($self, $username) = @_;
+    my $dn = $self->userDn($username);
+    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    if (not $user->exists()) {
+        throw EBox::Exceptions::DataNotFound(data => __('user'), value => $username);
+    }
+    return $user;
+}
+
 
 # Method: users
 #
@@ -782,8 +803,8 @@ sub reloadNSCD
 #
 # Returns:
 #
-#       array ref - holding the users. Each user is represented by a hash reference
-#       with the same format than the return value of userInfo
+#       array ref - holding the users. Each user is represented by a
+#       EBox::UsersAndGroups::User object
 #
 sub users
 {
@@ -813,6 +834,30 @@ sub users
     return \@users;
 }
 
+# Method: group
+#
+# Returns the object which represents a give group. Raises a excpetion if 
+# the group does not exists
+#
+#  Parameters:
+#      groupname
+#
+#  Returns:
+#    the appropaite EBox::UsersAndGroups::Group .
+sub group
+{
+    my ($self, $groupname) = @_;
+    my $dn = $self->groupDn($groupname);
+    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    if (not $group->exists()) {
+        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $groupname);
+    }
+    return $group;
+}
+
+
+
+
 # Method: groups
 #
 #       Returns an array containing all the groups
@@ -822,12 +867,8 @@ sub users
 #
 # Returns:
 #
-#       array - holding the groups
+#       array - holding the groups as EBox::UsersAndGroups::Group objects
 #
-# Warning:
-#
-#   the group hashes are NOT the sames that we get from groupInfo, the keys are:
-#     account(group name), desc (description) and gid
 sub groups
 {
     my ($self, $system) = @_;
