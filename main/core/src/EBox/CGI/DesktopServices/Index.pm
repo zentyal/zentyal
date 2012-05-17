@@ -33,6 +33,11 @@ sub new
     return $self;
 }
 
+sub _validateReferer
+{
+    return;
+}
+
 # Method: actuate
 #
 # Overrides:
