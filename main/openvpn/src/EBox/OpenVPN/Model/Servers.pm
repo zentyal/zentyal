@@ -185,6 +185,7 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
+    $self->_validateName($action, $params_r, $actual_r);
     if ($action eq 'add') {
         $self->_checkCertificatesAvailable(
                   __('Server creation')
@@ -193,7 +194,6 @@ sub validateTypedRow
     }
 
     $self->_validateService($action, $params_r, $actual_r);
-    $self->_validateName($action, $params_r, $actual_r);
 }
 
 sub servers
