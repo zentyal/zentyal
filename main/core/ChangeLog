@@ -1,4 +1,5 @@
 HEAD
+	+ Log the start and finish of start/stop modules actions
 	+ Added usesPort() method to apache module
 2.3.9
 	+ Enable SSLInsecureRenegotiation to avoid master -> slave SOAP handsake
