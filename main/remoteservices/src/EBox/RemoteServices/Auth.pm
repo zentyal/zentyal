@@ -67,16 +67,8 @@ sub new
 #
 sub clientNameForRemoteServices
 {
-    my ($self) = @_;
-
-    # Create the MD5sum with this and get the first 10 chars
-    my $md5 = new Digest::MD5();
-    $md5->add($self->_cn());
-    my $md5Str = $md5->hexdigest();
-
-    $md5Str = substr($md5Str, 0, 9);
-
-    return "R_D_SRVS_$md5Str";
+    # TODO: Migration script for this
+    return "Zentyal_Cloud_Client";
 }
 
 # Method: soapCall
