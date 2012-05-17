@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regresion that allowed bad server names
 	+ Fixed checks for used ports in other modules
 2.3.5
 	+ Create tables with MyISAM engine by default
