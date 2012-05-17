@@ -21,6 +21,7 @@ use warnings;
 
 use EBox::Types::Text;
 use EBox::Types::Int;
+use EBox::Global;
 
 use constant IFACE_TYPE_DEFAULT => 'tap';
 use constant IFACE_NUMBER_DEFAULT => -1;
@@ -63,7 +64,19 @@ sub addedRowNotify
     $row->elementByName('interfaceType')->setValue(IFACE_TYPE_DEFAULT);
     $row->elementByName('interfaceNumber')->setValue(IFACE_NUMBER_DEFAULT);
     $row->store();
+    # store() will call updatedRowNotify and refresh the iface cache
 }
+
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow) = @_;
+
+    # change on service, ifaceType or ifaceNumber can produce a new iface or a
+    # existent iface change
+    my $openvpn = EBox::Global->getInstance()->modInstance('openvpn');
+    $openvpn->refreshIfaceInfoCache();
+}
+
 
 sub initializeInterfaces
 {

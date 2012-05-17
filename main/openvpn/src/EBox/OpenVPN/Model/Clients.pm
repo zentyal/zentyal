@@ -222,9 +222,6 @@ sub clientExists
     return defined $row
 }
 
-
-
-
 sub addedRowNotify
 {
     my ($self, $row) = @_;
@@ -234,7 +231,7 @@ sub addedRowNotify
     my $service = $row->elementByName('service');
 
     if ($service->value()) {
-        my $openvpn = EBox::Global->modInstance('openvpn');
+        my $openvpn = $self->parentModule();
         $openvpn->notifyLogChange();
     }
 
@@ -242,11 +239,13 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldRow) = @_;
 
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldRow);
+
+    my $openvpn = $self->parentModule();
     $openvpn->notifyLogChange();
-
+    $openvpn->refreshIfaceInfoCache();
 }
 
 sub deletedRowNotify
@@ -254,7 +253,7 @@ sub deletedRowNotify
     my ($self, $row) = @_;
     my $name = $row->elementByName('name')->value();
 
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $openvpn = $self->parentModule();
     $openvpn->notifyDaemonDeletion($name, 'client');
 }
 
