@@ -397,7 +397,7 @@ sub ifaceIsExternal # (interface)
         }
         return 0;
     }
-    return $self->get_hash('interfaces')->{$iface}->{external};
+    return $self->get_hash('interfaces')->{$iface}->{external} ? 1 : 0;
 }
 
 # Method: ifaceIsBridge
