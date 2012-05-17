@@ -29,6 +29,7 @@ use warnings;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Validate;
@@ -1474,6 +1475,13 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+sub refreshIfaceInfoCache
+{
+    my ($self) = @_;
+    my $apache = EBox::Global->getInstance()->modInstance('apache');
+    $apache->setAsChanged(1);
 }
 
 sub openVPNWidget
