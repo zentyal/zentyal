@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Refresh interface info cache with an apache restart to make the
 	  widgets return updated interface information
 	+ Fixed regresion that allowed bad server names
