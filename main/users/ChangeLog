@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted ldapvi to changes in port
+	+ Setup master method can now take a custom password
 2.3.8
 	+ Restart apache after changing master configuration
 	+ Removed all files + code cleaning
