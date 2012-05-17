@@ -18,11 +18,12 @@ package EBox::Util::SHM;
 use warnings;
 use strict;
 
+use EBox::Config;
 use EBox::Exceptions::Internal;
 use File::Basename;
 use JSON::XS;
 
-my $SHM_PATH = '/run/shm/zentyal';
+my $SHM_PATH = EBox::Config::shm();
 
 sub setValue
 {

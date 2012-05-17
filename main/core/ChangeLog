@@ -24,7 +24,7 @@ HEAD
 	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
 	+ Remove indexes on DataTables to reduce complexity, no longer needed
 	+ Simplified ProgressIndicator implementation using shared memory
-	+ New EBox::Util::Semaphore package
+	+ New EBox::Util::SHMLock package
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
