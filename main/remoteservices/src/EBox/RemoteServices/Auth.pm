@@ -68,7 +68,7 @@ sub new
 sub clientNameForRemoteServices
 {
     # TODO: Migration script for this
-    return "Zentyal_Cloud_Client";
+    return "RemoteServices_Client";
 }
 
 # Method: soapCall
