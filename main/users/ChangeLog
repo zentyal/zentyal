@@ -1,3 +1,5 @@
+HEAD
+	+ Added quota limit check
 2.3.7
 	+ New modifications() method to allow retrieving modifications made to
 	  the LDAP object in the last call to 'save'
