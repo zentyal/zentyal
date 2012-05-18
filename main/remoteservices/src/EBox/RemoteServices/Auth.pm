@@ -67,7 +67,7 @@ sub new
 sub clientNameForRemoteServices
 {
     # TODO: Migration script for this
-    return "RemoteServices_Client";
+    return "remoteservices_client";
 }
 
 # Method: soapCall
