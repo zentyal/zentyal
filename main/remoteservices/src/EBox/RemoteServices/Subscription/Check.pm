@@ -199,6 +199,7 @@ sub _usersCheck
 {
     my ($self, $gl) = @_;
 
+    return; # TODO: Fix this! # Model Master and allSlaves
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
         if ( $usersMod->isEnabled() ) {

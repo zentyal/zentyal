@@ -14,7 +14,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Bundle;
-use base 'EBox::RemoteServices::Auth';
+
+use base 'EBox::RemoteServices::Cred';
 
 # Class: EBox::RemoteServices::Bundle
 #
@@ -22,6 +23,7 @@ use base 'EBox::RemoteServices::Auth';
 #      process is done.
 #
 #      This bundle can be obtained only when the server is subscribed
+#      and has the credentials
 #
 
 use strict;
@@ -45,7 +47,7 @@ sub new
     return $self;
 }
 
-# Method: eBoxBundle
+# Method: retrieveBundle
 #
 #     Get the Zentyal bundle for this Zentyal
 #
@@ -58,43 +60,17 @@ sub new
 #
 #     force - Boolean indicating the bundle must be reloaded, no
 #             matter the version you set in the previous parameter
-sub eBoxBundle
+sub retrieveBundle
 {
     my ($self, $remoteServicesVersion, $bundleVersion, $force) = @_;
 
-    return $self->soapCall('eBoxBundle',
-                           version => $bundleVersion,
-                           remoteServicesVersion => $remoteServicesVersion,
-                           force => $force
-                          );
-}
-
-# Method: serviceUrn
-#
-#     We override this method instead of the protected one in order to
-#     avoid problems with bootstrapping since the URN for bundle WS is
-#     introduced in latest package version, so migration won't work
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::serviceUrn>
-#
-sub serviceUrn
-{
-    return 'EBox/Services/Bundle';
-}
-
-# Group: Protected methods
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
+    my $response = $self->RESTClient()->GET('/v1/servers/' . $self->{cred}->{uuid} . '/',
+                                            { version => $bundleVersion,
+                                              client_version => $remoteServicesVersion,
+                                              force => $force
+                                             }
+                                           );
+    return $response->as_string();
 }
 
 1;

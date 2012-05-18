@@ -587,8 +587,30 @@ sub isConnected
 
     return 0 unless $self->eBoxSubscribed();
 
+    return 0; # FIXME
+
     my $authRS = new EBox::RemoteServices::Backup();
     return $authRS->isConnected();
+}
+
+# Method: hasBundle
+#
+#    Return if the module has the load the bundle or not
+#
+#    This state happens when we have subscribed, but we don't have the
+#    bundle yet
+#
+# Returns:
+#
+#    Boolean - whether the bundle has been loaded or not
+#
+sub hasBundle
+{
+    my ($self) = @_;
+
+    return 0 unless $self->eBoxSubscribed();
+
+    return ($self->st_get_bool('has_bundle'));
 }
 
 # Method: reloadBundle
@@ -596,7 +618,8 @@ sub isConnected
 #    Reload the bundle from Zentyal Cloud using the Web Service
 #    to do so.
 #
-#    This method must be called only from post-installation script
+#    This method must be called only from post-installation script,
+#    crontab or installation process.
 #
 # Parameters:
 #
@@ -609,7 +632,7 @@ sub isConnected
 #
 #    2 - no reload is needed (force is false)
 #
-#    0 - when subscribed, but not connected
+#    0 - when subscribed, but we cannot reach Zentyal Cloud
 #
 # Exceptions:
 #
@@ -622,33 +645,37 @@ sub reloadBundle
 
     $force = 0 unless (defined($force));
 
-    if ( $self->isConnected() ) {
-        EBox::RemoteServices::Subscription::Check->new()->subscribe(serverName => $self->eBoxCommonName());
-        my $version       = $self->version();
-        my $bundleVersion = $self->bundleVersion();
-        my $bundleGetter  = new EBox::RemoteServices::Bundle();
-        my $bundleContent = $bundleGetter->eBoxBundle($version, $bundleVersion, $force);
-        if ( $bundleContent ) {
-            my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
-            my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-            EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
+    my $retVal = 1;
+    try {
+        if ( $self->eBoxSubscribed() ) {
+            # TODO:
+            # EBox::RemoteServices::Subscription::Check->new()->subscribe(serverName => $self->eBoxCommonName());
+            my $version       = $self->version();
+            my $bundleVersion = $self->bundleVersion();
+            my $bundleGetter  = new EBox::RemoteServices::Bundle();
+            my $bundleContent = $bundleGetter->retrieveBundle($version, $bundleVersion, $force);
+            if ( $bundleContent ) {
+                my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
+                my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
+                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
+            } else {
+                $retVal = 2;
+            }
         } else {
-            return 2;
+            throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
         }
-    } elsif ( $self->eBoxSubscribed() ) {
-        return 0;
-    } else {
-        throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
-    }
-    return 1;
+        $retVal = 1;
+    } catch EBox::Exceptions::Internal with {
+        $retVal = 0;
+    };
+    return $retVal;
 }
-
 
 # Method: bundleVersion
 #
 # Returns:
 #
-#      Int - the bundle version if Zentyal is subscribed
+#      Int - the bundle version if Zentyal is subscribed and with the bundle
 #
 #      0 - otherwise
 #
@@ -660,7 +687,6 @@ sub bundleVersion
         if (not defined $bundleVersion) {
             return 0;
         }
-
         return $bundleVersion;
     } else {
         return 0;
@@ -689,7 +715,10 @@ sub subscriptionLevel
 {
     my ($self, $force) = @_;
 
+    return -1; # FIXME;
+
     $force = 0 unless defined($force);
+
 
     if ( (not $force) and ($self->st_entry_exists('subscription/level')) ) {
         return $self->st_get_int('subscription/level');
@@ -726,6 +755,8 @@ sub subscriptionLevel
 sub subscriptionCodename
 {
     my ($self, $force) = @_;
+
+    return ''; # FIXME
 
     $force = 0 unless defined($force);
 
@@ -805,6 +836,8 @@ sub technicalSupport
 sub renovationDate
 {
     my ($self, $force) = @_;
+
+    return -1; # FIXME;
 
     $force = 0 unless defined($force);
 
@@ -1175,6 +1208,8 @@ sub reportAdminPort
 {
     my ($self, $port) = @_;
 
+    return; # FIXME
+
     EBox::Validate::checkPort($port, "$port is not a valid port");
 
     # Check for a change in admin port
@@ -1264,6 +1299,27 @@ sub i18nServerEdition
     } else {
         return __('Unknown');
     }
+}
+
+# Method: subscriptionDir
+#
+#      The subscription directory path
+#
+# Returns:
+#
+#      String - the path where the bundle is untar'ed and credentials
+#      are stored
+#
+sub subscriptionDir
+{
+    my ($self) = @_;
+    my $cn = $self->eBoxCommonName();
+    # check if cn is udnef, commented bz iam not sure how it may affect _confKeys
+#     if (not defined $cn) {
+#         return undef;
+#     }
+
+    return  SUBS_DIR . $cn;
 }
 
 # Group: Public methods related to reporting
@@ -1572,20 +1628,6 @@ sub _allowedClientCNRegexp
     return "^(${mmPrefix}$nums.${mmRem}|${wwwPrefix}$nums.${wwwRem})\$";
 }
 
-
-sub subscriptionDir
-{
-    my ($self) = @_;
-    my $cn = $self->eBoxCommonName();
-    # check if cn is udnef, commented bz iam not sure how it may affect _confKeys
-#     if (not defined $cn) {
-#         return undef;
-#     }
-
-    return  SUBS_DIR . $cn;
-}
-
-
 # Return the given configuration file from the control center
 sub _confKeys
 {
@@ -1593,7 +1635,11 @@ sub _confKeys
 
     unless ( defined($self->{confFile}) ) {
         my $confDir = $self->subscriptionDir();
-        $self->{confFile} = (<$confDir/*.conf>)[0];
+        my @confFiles = <$confDir/*.conf>;
+        if (@confFiles == 0) {
+            return { }; # There may be no bundle
+        }
+        $self->{confFile} = $confFiles[0];
     }
     unless ( defined($self->{confKeys}) ) {
         $self->{confKeys} = EBox::Config::configKeysFromFile($self->{confFile});
@@ -1646,7 +1692,10 @@ sub _ccConnectionWidget
         $connValue = __x('Not connected. Check VPN logs in {path}',
                          path => '/var/log/openvpn/');
         $connValueType = 'error';
-        if ( $self->isConnected() ) {
+        if ( not $self->hasBundle() ) {
+            $connValue     = __('In process');
+            $connValueType = 'info';
+        } elsif ( $self->isConnected() ) {
             $connValue     = __('Connected');
             $connValueType = 'info';
         }

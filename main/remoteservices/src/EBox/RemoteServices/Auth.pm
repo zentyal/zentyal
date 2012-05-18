@@ -31,7 +31,6 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
 
-use Digest::MD5;
 use IO::Socket::INET;
 
 # Constants
@@ -165,15 +164,23 @@ sub valueFromBundle
 
 # Method: vpnClientForServices
 #
-#     Get the VPN client class for remote services
+#     Get the VPN client class for remote services.
 #
+#     If the client does not exist, then try to create (FIX)
+#
+# Parameters:
+#
+#     disconnect - Bool indicating we are disconnecting...
+# 
 # Returns:
 #
 #     <EBox::OpenVPN::Client> - the OpenVPN client instance
 #
 sub vpnClientForServices
 {
-    my ($self) = @_;
+    my ($self, $disc) = @_;
+
+    $disc = 0 unless ($disc);
 
     my $gl = EBox::Global->getInstance();
     my $openvpn = $gl->modInstance('openvpn');
@@ -183,7 +190,7 @@ sub vpnClientForServices
 
     if ($openvpn->clientExists($clientName)) {
         $client = $openvpn->client($clientName);
-    } else {
+    } elsif ( not $disc ) {
         my ($address, $port, $protocol, $vpnServerName) = @{$self->vpnLocation()};
 
         # Configure and enable VPN module and its dependencies
@@ -488,6 +495,7 @@ sub _serviceHostNameKey
 sub _certificates
 {
     my ($self) = @_;
+    return {};
     my $keys = EBox::Config::configKeysFromFile($self->_confFile());
 
     my $dirPath = EBox::Config::conf() . SERV_SUBDIR . '/' . $self->_cn() . '/';
@@ -554,7 +562,7 @@ sub _vpnDisconnect
   my ($self) = @_;
 
   my $openvpnMod = EBox::Global->modInstance('openvpn');
-  my $client = $self->vpnClientForServices();
+  my $client = $self->vpnClientForServices('disconnect');
   if ( $client ) {
       $client->stop() if $client->isRunning();
 #     $client->delete();

@@ -127,8 +127,8 @@ sub setTypedRow
         } else {
             # Subscribing
             my $selectedOption = exists $paramsRef->{options} ? $paramsRef->{options}->value() : undef;
-            my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value(),
-                                                    $selectedOption);
+            my $subsData = $subsServ->subscribeServer($paramsRef->{eboxCommonName}->value(),
+                                                      $selectedOption);
             # If several options are given, then we have to show them
             if ( $subsData->{availableEditions} ) {
                 my $subOptions = { 'options' => $subsData->{availableEditions},
@@ -162,6 +162,9 @@ sub setTypedRow
 
     $self->{gconfmodule}->st_set_bool('subscribed', not $subs);
 
+    # Start async the bundle retrieval
+    system(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
+
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
@@ -185,15 +188,14 @@ sub setTypedRow
         $self->setMessage(__('Done'));
     }
 
-    if ( not $subs ) {
-        try {
-            # Establish VPN connection after subscribing and store data in backend
-            EBox::RemoteServices::Backup->new()->connection();
-        } catch EBox::Exceptions::External with {
-            EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
-        };
-    }
-
+    # if ( not $subs ) {
+    #     try {
+    #         # Establish VPN connection after subscribing and store data in backend
+    #         EBox::RemoteServices::Backup->new()->connection();
+    #     } catch EBox::Exceptions::External with {
+    #         EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
+    #     };
+    # }
 }
 
 # Method: eBoxSubscribed

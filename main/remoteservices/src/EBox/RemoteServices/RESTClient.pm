@@ -36,7 +36,7 @@ use LWP::UserAgent;
 use Error qw(:try);
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
-# use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
+use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
@@ -67,7 +67,7 @@ sub new {
     # Get the server from conf
     my $key = 'rs_api';
     $self->{server} = 'https://' . EBox::Config::configkey($key);
-    #    $self->{server} = BASE_URL; # FIXME: To remove
+    $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
 }
@@ -169,11 +169,15 @@ sub request {
     if ($query) {
         my $uri = URI->new();
         $uri->query_form($query);
-
-        my $data = $uri->query();
-        $req->content_type('application/x-www-form-urlencoded');
-        $req->content($data);
-        $req->header('Content-Length', length($data));
+       if ( $method eq 'GET' ) {
+            $req = new HTTP::Request( $method => $self->{server} . $path . '?' . $uri->query() );
+            $req->header('Content-Length', 0);
+        } else {
+            my $data = $uri->query();
+            $req->content_type('application/x-www-form-urlencoded');
+            $req->content($data);
+            $req->header('Content-Length', length($data));
+        }
     } else{
         $req->header('Content-Length', 0);
     }
@@ -188,10 +192,9 @@ sub request {
         if ($res->code() == HTTP_UNAUTHORIZED) {
             throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
         }
-        throw EBox::Exceptions::Internal($res->content());
+        throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
     }
 }
-
 
 # Method: last_error
 #
