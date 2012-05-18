@@ -44,6 +44,7 @@ use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_LIMIT    => 10000;
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
                                  'homeDirectory', 'quota', 'userPassword',
@@ -158,7 +159,9 @@ sub save
     my ($self) = @_;
 
     if ($self->{set_quota}) {
-        $self->_setFilesystemQuota($self->get('quota'));
+        my $quota = $self->get('quota');
+        $self->_checkQuota($quota);
+        $self->_setFilesystemQuota($quota);
         delete $self->{set_quota};
     }
 
@@ -318,13 +321,29 @@ sub system
 
 sub _checkQuota
 {
-    my ($quota) = @_;
+    my ($self, $quota) = @_;
 
-    ($quota =~ /^\s*$/) and return undef;
-    ($quota =~ /\D/) and return undef;
-    return 1;
+    my $integer = $quota -~ m/^\d+$/;
+    if (not $integer) {
+        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                                            'value' => $quota,
+                                            'advice' => __(
+'User quota must be an positive integer. To set an unlimited quota, enter zero.'
+                                                          ),
+                                           );
+    }
+
+    if ($quota > QUOTA_LIMIT) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('user quota'),
+            value => $quota,
+            advice => __x('The maximum value is {max} MB',
+                          max => QUOTA_LIMIT
+                         ),
+
+           );
+    }
 }
-
 
 sub _setFilesystemQuota
 {
@@ -333,6 +352,17 @@ sub _setFilesystemQuota
     my $uid = $self->get('uidNumber');
     my $quota = $userQuota * 1024;
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
+
+    # check if quota has been really set
+    my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
+    my ($afterQuota) = $output->[0] =~ m/(\d+)/;
+    if ((not defined $afterQuota) or ($quota != $afterQuota)) {
+        throw EBox::Exceptions::External(
+            __x('Cannot set quota to {userQuota}. Please, choose another value',
+               userQuota => $userQuota)
+           )
+    }
+
 }
 
 # Method: changePassword
