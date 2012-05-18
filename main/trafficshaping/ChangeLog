@@ -1,4 +1,5 @@
 HEAD
+	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
 	+ Fixed duplicate rows in interfaces rates page
 2.3.1
 	+ Use printableName instead of name to select services

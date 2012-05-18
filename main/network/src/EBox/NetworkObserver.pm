@@ -28,7 +28,6 @@ sub new
 	return $self;
 }
 
-#
 # Method: staticIfaceAddressChanged
 #	Invoked when the address of an static network interface is going to
 #	be changed, this method receives the old and new addresses and masks
@@ -55,7 +54,6 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
         return undef;
 }
 
-#
 # Method: staticIfaceAddressChangedDone
 #
 #   Invoked when the change in the adddress of a static inteface has taken
@@ -72,15 +70,12 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 #       newaddr - new address
 #       newmask - new mask
 #
-
 sub staticIfaceAddressChangedDone # (iface, oldaddr, oldmask, newaddr, newmask)
 {
         # default empty implementation. Subclasses should override this as
         # needed.
 }
 
-
-#
 # Method: ifaceMethodChanged
 #
 #	Invoked when the configuration method for a network interface is
@@ -121,7 +116,7 @@ sub ifaceMethodChangeDone # (iface)
         # default empty implementation. Subclasses should override this as
         # needed.
 }
-#
+
 # Method: ifaceExternalChanged
 #
 #	Invoked when a iface is going to change from external to
@@ -146,7 +141,6 @@ sub ifaceExternalChanged # (iface)
   return undef;
 }
 
-#
 # Method: vifaceDelete
 #
 #	Invoked when a  virtual interface is going to be removed. Its
@@ -164,12 +158,12 @@ sub ifaceExternalChanged # (iface)
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
 #	false
+#
 sub vifaceDelete # (iface, viface)
 {
         return undef;
 }
 
-#
 # Method: vifaceAdded
 #
 #	Invoked when a new virtual interface is going to be created. Its
@@ -193,7 +187,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
         return undef;
 }
 
-#
 # Method: changeIfaceExternalProperty
 #
 #        Invoked when an interface is going to change from external to
@@ -216,7 +209,6 @@ sub changeIfaceExternalProperty # (iface, external)
         # needed.
   }
 
-#
 # Method: freeIface
 #
 #	Invoked when an interface is going to be removed. Its argument
@@ -233,9 +225,6 @@ sub freeIface # (iface)
         # needed.
 }
 
-
-
-#
 # Method: freeViface
 #
 #	Invoked when a virtual interface is going to be removed. Its arguments
@@ -273,6 +262,14 @@ sub gatewayDelete
     my ($self, $gwName) = @_;
 
     return 0;
+}
+
+# Method: regenGatewaysFailover
+#
+#	Invoked when the routing tables are regenerated after a failover event.
+#
+sub regenGatewaysFailover
+{
 }
 
 1;

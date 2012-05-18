@@ -38,8 +38,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+            EBox::Model::CompositeProvider);
 
 ######################################
 # Dependencies:
@@ -1841,6 +1840,17 @@ sub ifaceUniqueId
     return undef;
 }
 
+# Method: regenGatewaysFailover
+#
+# Overrides:
+#
+#    <EBox::NetworkObserver::regenGatewaysFailover>
+#
+sub regenGatewaysFailover
+{
+    my ($self) = @_;
+
+    $self->restartService();
+}
 
 1;
-
