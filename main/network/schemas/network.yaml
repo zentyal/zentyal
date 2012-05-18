@@ -17,5 +17,5 @@ composites:
     GatewaysGeneral: [Gateway, MultiGw, WANFailover]
     Gateway: [GatewayTable, Proxy]
     MultiGw: [MultiGwRulesOptions, MultiGwRulesDataTable]
-    WANFailover: [WanFailoverOptions, WANFailoverRules]
+    WANFailover: [WANFailoverOptions, WANFailoverRules]
     DNS: [DNSResolver, SearchDomain]

@@ -568,6 +568,8 @@ sub _setupCompositeInfo
         foreach my $component (@{$components}) {
             if (exists $self->{models}->{$moduleName}->{$component}) {
                 $self->{models}->{$moduleName}->{$component}->{parent} = $composite;
+            } elsif (exists $self->{composites}->{$moduleName}->{$component}) {
+                $self->{composites}->{$moduleName}->{$component}->{parent} = $composite;
             }
         }
 
@@ -608,12 +610,12 @@ sub _modelExists
     my ($self, $model) = @_;
 
     my ($mod, $comp) = split ('/', $model);
-    if ($mod and $self->{modByModel}->{$mod}->{comp}) {
+    if ($comp and $self->{modByModel}->{$comp}->{$mod}) {
         return 1;
     } else {
         $comp = $mod;
         foreach my $module (keys %{$self->{modByModel}}) {
-            if ($self->{modByModel}->{$module}->{$comp}) {
+            if ($self->{modByModel}->{$comp}->{$module}) {
                 return 1;
             }
         }
@@ -626,12 +628,12 @@ sub _compositeExists
     my ($self, $composite) = @_;
 
     my ($mod, $comp) = split ('/', $composite);
-    if ($mod and $self->{modByComposite}->{$mod}->{comp}) {
+    if ($comp and $self->{modByComposite}->{$comp}->{$mod}) {
         return 1;
     } else {
         $comp = $mod;
         foreach my $module (keys %{$self->{modByComposite}}) {
-            if ($self->{modByComposite}->{$module}->{$comp}) {
+            if ($self->{modByComposite}->{$comp}->{$module}) {
                 return 1;
             }
         }
