@@ -2,7 +2,7 @@
   @hours
   @mins
 </%args>
-# /etc/cron.d/ebox-remoteservices: crontab entries for the zentyal-remoteservices package
+# /etc/cron.d/zentyal-remoteservices: crontab entries for the zentyal-remoteservices package
 
 SHELL=/bin/sh
 PATH=/usr/bin:/bin
@@ -15,7 +15,7 @@ PATH=/usr/bin:/bin
 <% $mins[1] %> <% $hours[1] %> * * * root /usr/share/zentyal-remoteservices/automatic-conf-backup > /dev/null 2>&1
 # Get a new bundle if available from Zentyal Cloud each week
 45 4 * * 7 root /usr/share/zentyal-remoteservices/reload-bundle > /dev/null 2>&1
-# Check subscription levels and add-ons once a week
-55 4 * * 7 root /usr/share/zentyal-remoteservices/subs-level > /dev/null 2>&1
+# Check subscription levels and add-ons once a day
+55 4 * * * root /usr/share/zentyal-remoteservices/subs-level > /dev/null 2>&1
 # Perform the security audit once a week
 <% $mins[2] %> <% $hours[2] %> * * 6 root /usr/share/zentyal-remoteservices/password-checker.pl > /dev/null 2>&1
