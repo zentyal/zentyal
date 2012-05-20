@@ -351,7 +351,6 @@ sub _credentialsFilePath
     return $self->_subscriptionDirPath($name) .  'server-info.json';
 }
 
-
 # Group: Private methods
 
 sub _soapConnect

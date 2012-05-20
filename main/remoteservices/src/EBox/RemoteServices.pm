@@ -648,8 +648,7 @@ sub reloadBundle
     my $retVal = 1;
     try {
         if ( $self->eBoxSubscribed() ) {
-            # TODO:
-            # EBox::RemoteServices::Subscription::Check->new()->subscribe(serverName => $self->eBoxCommonName());
+            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud($self->eBoxCommonName());
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
             my $bundleGetter  = new EBox::RemoteServices::Bundle();
@@ -715,23 +714,15 @@ sub subscriptionLevel
 {
     my ($self, $force) = @_;
 
-    return -1; # FIXME;
-
     $force = 0 unless defined($force);
 
-
-    if ( (not $force) and ($self->st_entry_exists('subscription/level')) ) {
-        return $self->st_get_int('subscription/level');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $subsLevel = $cap->subscriptionLevel();
-            $self->_setSubscription($subsLevel);
-            return $subsLevel->{level};
-        }
-    }
-    return -1;
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{level};
+    } otherwise {
+        $ret = -1;
+    };
+    return $ret;
 }
 
 # Method: subscriptionCodename
@@ -756,24 +747,15 @@ sub subscriptionCodename
 {
     my ($self, $force) = @_;
 
-    return ''; # FIXME
-
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/codename')) ) {
-        return $self->st_get_string('subscription/codename');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $subsLevel = $cap->subscriptionLevel();
-            $self->_setSubscription($subsLevel);
-            return $subsLevel->{codename};
-        }
-    }
-    return '';
-
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{codename};
+    } otherwise {
+        $ret = '';
+    };
+    return $ret;
 }
 
 # Method: technicalSupport
@@ -801,19 +783,13 @@ sub technicalSupport
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/technical_support')) ) {
-        return $self->st_get_int('subscription/technical_support');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $techSupport = $cap->technicalSupport();
-            $self->st_set_int('subscription/technical_support', $techSupport);
-            return $techSupport;
-        }
-    }
-    return -2;
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{technical_support};
+    } otherwise {
+        $ret = -2;
+    };
+    return $ret;
 }
 
 # Method: renovationDate
@@ -837,23 +813,15 @@ sub renovationDate
 {
     my ($self, $force) = @_;
 
-    return -1; # FIXME;
-
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/renovation_date')) ) {
-        return $self->st_get_int('subscription/renovation_date');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $date = $cap->renovationDate();
-            $self->st_set_int('subscription/renovation_date', $date);
-            return $date;
-        }
-    }
-    return -1;
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
+    } otherwise {
+        $ret = -1;
+    };
+    return $ret;
 }
 
 # Method: securityUpdatesAddOn
@@ -875,19 +843,13 @@ sub securityUpdatesAddOn
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/securityUpdates')) ) {
-        return $self->st_get_bool('subscription/securityUpdates');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $secUpdates = $cap->securityUpdatesAddOn();
-            $self->st_set_bool('subscription/securityUpdates', $secUpdates);
-            return $secUpdates;
-        }
-    }
-    return '';
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{security_updates};
+    } otherwise {
+        $ret = 0;
+    };
+    return $ret;
 }
 
 # Method: disasterRecoveryAddOn
@@ -915,21 +877,13 @@ sub disasterRecoveryAddOn
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/disasterRecovery')) ) {
-        return $self->st_get_bool('subscription/disasterRecovery');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $disasterRec = $cap->disasterRecoveryAddOn();
-            $self->st_set_bool('subscription/disasterRecovery', $disasterRec);
-            return $disasterRec;
-        } else {
-            throw EBox::Exceptions::NotConnected();
-        }
-    }
-    return '';
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
+    } otherwise {
+        throw EBox::Exceptions::NotConnected();
+    };
+    return $ret;
 }
 
 # Method: backupCredentials
@@ -1773,14 +1727,27 @@ sub _ccConnectionWidget
 
 }
 
-# Set the subscription level
-sub _setSubscription
+# Set the subscription details
+# If not subscribed, an exception is raised
+sub _getSubscriptionDetails
 {
-    my ($self, $subsLevel) = @_;
+    my ($self, $force) = @_;
 
-    $self->st_set_int('subscription/level', $subsLevel->{level});
-    $self->st_set_string('subscription/codename', $subsLevel->{codename});
-
+    if ( $force or (not $self->st_entry_exists('subscription/level')) ) {
+        throw EBox::Exceptions::Internal('Not subscribed') unless ( $self->eBoxSubscribed() );
+        my $cap = new EBox::RemoteServices::Capabilities();
+        my $details = $cap->subscriptionDetails();
+        # Use st_set_dir?
+        $self->st_set_int('subscription/level', $details->{level});
+        $self->st_set_string('subscription/codename', $details->{codename});
+        $self->st_set_int('subscription/technical_support', $details->{technical_support});
+        $self->st_set_int('subscription/renovation_date', $details->{renovation_date});
+        $self->st_set_bool('subscription/security_updates', $details->{security_updates});
+        $self->st_set_bool('subscription/disaster_recovery', $details->{disaster_recovery});
+    }
+    # FIXME?
+    my $details = $self->st_hash_from_dir('subscription');
+    return $details;
 }
 
 # Get the latest backup date
