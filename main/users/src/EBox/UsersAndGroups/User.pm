@@ -554,8 +554,11 @@ sub create
         $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
     }
 
-    if ($res->{core_changed} or $res->{core_changed_password}) {
+    if ($res->{core_changed}) {
         $res->save();
+    } elsif ($res->{core_changed_password}) {
+        my $passwd = delete $res->{core_changed_password};
+        $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
 
     # Return the new created user
@@ -720,10 +723,10 @@ sub kerberosKeys
     foreach my $blob (@aux) {
         my $key = $asn_key->decode($blob) or
             throw EBox::Exceptions::Internal($asn_key->error());
-        push @{$keys}, { 
+        push @{$keys}, {
                          type  => $key->{key}->{value}->{keytype}->{value},
                          value => $key->{key}->{value}->{keyvalue}->{value},
-                         salt  => $key->{salt}->{value}->{salt}->{value} 
+                         salt  => $key->{salt}->{value}->{salt}->{value}
                        };
     }
 
