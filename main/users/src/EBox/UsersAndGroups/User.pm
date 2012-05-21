@@ -555,8 +555,10 @@ sub create
     }
 
     if ($res->{core_changed}) {
+        # save() will be take also of saving password if it is changed
         $res->save();
     } elsif ($res->{core_changed_password}) {
+        # if only password has been changed we avoid call to save() or it will abort
         my $passwd = delete $res->{core_changed_password};
         $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
