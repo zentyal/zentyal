@@ -1,4 +1,6 @@
 HEAD
+	+ Better validation of user names and groups names. Better message
+	when this validation fails
 	+ Added user() and group methods() to EBox::UsersAndGroups
 	+ Heimdal Kerberos integration for SSO features
 2.3.7

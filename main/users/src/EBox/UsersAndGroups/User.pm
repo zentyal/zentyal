@@ -452,16 +452,22 @@ sub create
                 maxuserlength => MAXUSERLENGTH));
     }
 
+    unless (_checkUserName($user->{'user'})) {
+        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
+                                            'value' => $user->{'user'},
+                                            'advice' => $advice
+                                           );
+    }
+
     my @userPwAttrs = getpwnam($user->{'user'});
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(
             __("Username already exists on the system")
         );
     }
-    unless (_checkName($user->{'user'})) {
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'});
-    }
+
 
     # Verify user exists
     if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
@@ -567,6 +573,9 @@ sub create
     return $res;
 }
 
+
+
+
 sub _checkName
 {
     my ($name) = @_;
@@ -576,6 +585,22 @@ sub _checkName
     } else {
         return undef;
     }
+}
+
+sub _checkUserName
+ {
+     my ($name) = @_;
+    if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
+        return undef;
+    }
+
+
+    # windows user names cannot end with a  period
+    if ($name =~ m/\.$/) {
+        return undef;
+    }
+
+    return 1;
 }
 
 sub _homeDirectory

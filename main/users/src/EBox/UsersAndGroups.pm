@@ -774,7 +774,7 @@ sub reloadNSCD
 
 # Method: user
 #
-# Returns the object which represents a give user. Raises a excpetion if 
+# Returns the object which represents a give user. Raises a excpetion if
 # the user does not exists
 #
 #  Parameters:
@@ -836,7 +836,7 @@ sub users
 
 # Method: group
 #
-# Returns the object which represents a give group. Raises a excpetion if 
+# Returns the object which represents a give group. Raises a excpetion if
 # the group does not exists
 #
 #  Parameters:
@@ -1516,6 +1516,22 @@ sub mode
     my ($self) = @_;
 
     return 'master';
+}
+
+# common check for user names and group names
+sub checkNameLimitations
+{
+    my ($name) = @_;
+
+    # combination of unix limitations + windows limitation characters are
+    # limited to unix portable file character + space for windows compability
+    # slash not valid as first character (unix limitation)
+    # see http://technet.microsoft.com/en-us/library/cc776019%28WS.10%29.aspx
+    if ($name =~ /^[a-zA-Z0-9\._-][a-zA-Z0-9\._[:space:]-]*$/) {
+         return 1;
+     } else {
+         return undef;
+     }
 }
 
 1;
