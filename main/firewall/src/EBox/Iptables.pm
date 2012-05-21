@@ -336,10 +336,12 @@ sub _setRemoteServices
     if ( $gl->modExists('remoteservices') ) {
         my $rsMod = $gl->modInstance('remoteservices');
         if ( $rsMod->eBoxSubscribed() ) {
-            my $vpnIface = $rsMod->ifaceVPN();
-            push(@commands,
-                pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
-            );
+            if ( $rsMod->hasBundle() ) {
+                my $vpnIface = $rsMod->ifaceVPN();
+                push(@commands,
+                     pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
+                    );
+            }
             try {
                 my %vpnSettings = %{$rsMod->vpnSettings()};
                 push(@commands,
@@ -347,7 +349,7 @@ sub _setRemoteServices
                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
                 );
 
-                # Allow communications between ns and www
+                # Allow communications between ns and www and API?
                 eval "use EBox::RemoteServices::Configuration";
                 my ($dnsServer, $publicWebServer, $mirrorCount) = (
                         EBox::RemoteServices::Configuration->DNSServer(),

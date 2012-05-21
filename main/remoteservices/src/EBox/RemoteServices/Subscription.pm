@@ -35,6 +35,7 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::RESTClient;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::Sudo;
@@ -445,11 +446,17 @@ sub extractBundle
 #
 #     params - Hash ref What is returned from <extractBundle> procedure
 #     confKeys - Hash ref the configuration keys stored in client configuration
+#     new - Boolean indicating if the connection is new or not
 #
 sub executeBundle
 {
-    my ($self, $params, $confKeys) =  @_;
+    my ($self, $params, $confKeys, $new) =  @_;
 
+    # Set to have the bundle
+    my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
+    $rs->st_set_bool('has_bundle', 1);
+
+    $self->_restartRS($new);
     # Downgrade, if necessary
     $self->_downgrade($params);
     $self->_setUpAuditEnvironment();
@@ -457,10 +464,6 @@ sub executeBundle
     $self->_setDDNSConf();
     $self->_installCloudProf($params, $confKeys);
     $self->_executeBundleScripts($params, $confKeys);
-
-    # Set to have the bundle
-    my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-    $rs->st_set_bool('has_bundle', 1);
 }
 
 # Method: deleteData
@@ -468,6 +471,8 @@ sub executeBundle
 #      Delete the data stored when a subscription is done
 #      correctly. That is, the certificates and configuration files
 #      are deleted.
+#
+#      It also performs every action required to unsubscribe
 #
 # Parameters:
 #
@@ -489,6 +494,9 @@ sub deleteData
     my ($self, $cn) = @_;
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
+
+    # Remove VPN client, if exists
+    EBox::RemoteServices::Connection->new()->disconnectAndRemove();
 
     my $dirPath = $self->_subscriptionDirPath($cn);
 
@@ -1019,6 +1027,22 @@ sub _checkUDPEchoService
     # is done before this one
     return ( $result[1] == 3 );
 
+}
+
+# Restart RS once the bundle is created
+sub _restartRS
+{
+    my ($self, $new) = @_;
+
+    if ( $new ) {
+        # This code must be locked and it is critical
+        my $global = EBox::Global->getInstance();
+        my $rs = $global->modInstance('remoteservices');
+        $rs->save();
+        # Required to set the proper iptables rules to ensure connection to Cloud
+        my $fw = $global->modInstance('firewall');
+        $fw->save();
+    }
 }
 
 # Downgrade current subscription, if necessary

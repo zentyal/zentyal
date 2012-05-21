@@ -50,6 +50,7 @@ use EBox::RemoteServices::AdminPort;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Capabilities;
+use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
@@ -134,10 +135,10 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_confSOAPService();
     if ($self->eBoxSubscribed()) {
-        $self->_confSOAPService();
-        $self->_vpnClientAdjustLocalAddress();
         $self->_establishVPNConnection();
+        $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_startupTasks();
         $self->_reportAdminPort();
@@ -164,14 +165,13 @@ sub _setRemoteSupportAccessConf
     }
 
     EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    if ($self->eBoxSubscribed()) {
-        my $authRS = new EBox::RemoteServices::Backup();
-        my $vpnClient = $authRS->vpnClientForServices();
+    if ($self->eBoxSubscribed() and $self->hasBundle()) {
+        my $conn = new EBox::RemoteServices::Connection();
+        my $vpnClient = $conn->vpnClient();
         if ($vpnClient) {
             EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
         }
     }
-
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
@@ -539,10 +539,13 @@ sub ifaceVPN
 {
     my ($self) = @_;
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    my $vpnClient = $authRS->vpnClientForServices();
-    return $vpnClient->iface();
-
+    my $connection = new EBox::RemoteServices::Connection();
+    my $vpnClient = $connection->vpnClient();
+    if ($vpnClient) {
+        return $vpnClient->iface();
+    } else {
+        throw EBox::Exceptions::Internal('No VPN client created');
+    }
 }
 
 # Method: vpnSettings
@@ -562,8 +565,8 @@ sub vpnSettings
 {
     my ($self) = @_;
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    my ($ipAddr, $port, $protocol) = @{$authRS->vpnLocation()};
+    my $conn = new EBox::RemoteServices::Connection();
+    my ($ipAddr, $port, $protocol) = @{$conn->vpnLocation()};
 
     return { ipAddr => $ipAddr,
              port => $port,
@@ -587,10 +590,8 @@ sub isConnected
 
     return 0 unless $self->eBoxSubscribed();
 
-    return 0; # FIXME
-
-    my $authRS = new EBox::RemoteServices::Backup();
-    return $authRS->isConnected();
+    my $conn = new EBox::RemoteServices::Connection();
+    return $conn->isConnected();
 }
 
 # Method: hasBundle
@@ -649,6 +650,7 @@ sub reloadBundle
     try {
         if ( $self->eBoxSubscribed() ) {
             EBox::RemoteServices::Subscription::Check->new()->checkFromCloud($self->eBoxCommonName());
+            my $new = $self->hasBundle();
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
             my $bundleGetter  = new EBox::RemoteServices::Bundle();
@@ -656,7 +658,7 @@ sub reloadBundle
             if ( $bundleContent ) {
                 my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
                 my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
+                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys, $new);
             } else {
                 $retVal = 2;
             }
@@ -1462,27 +1464,29 @@ sub _confSOAPService
     my $confFile = SERV_DIR . 'soap-loc.conf';
     my $apacheMod = EBox::Global->modInstance('apache');
     if ($self->eBoxSubscribed()) {
-        my @tmplParams = (
-            (soapHandler      => WS_DISPATCHER),
-            (caDomain         => $self->_confKeys()->{caDomain}),
-            (allowedClientCNs => $self->_allowedClientCNRegexp()),
-            (confDirPath      => EBox::Config::conf()),
-            (caPath           => CA_DIR),
-           );
-        EBox::Module::Base::writeConfFileNoCheck(
-            $confFile,
-            'remoteservices/soap-loc.mas',
-            \@tmplParams);
-        unless ( -d CA_DIR ) {
-            mkdir(CA_DIR);
-        }
-        my $caLinkPath = $self->_caLinkPath();
-        if ( -l $caLinkPath ) {
-            unlink($caLinkPath);
-        }
-        symlink($self->_caCertPath(), $caLinkPath );
+        if ( $self->hasBundle() ) {
+            my @tmplParams = (
+                (soapHandler      => WS_DISPATCHER),
+                (caDomain         => $self->_confKeys()->{caDomain}),
+                (allowedClientCNs => $self->_allowedClientCNRegexp()),
+                (confDirPath      => EBox::Config::conf()),
+                (caPath           => CA_DIR),
+               );
+            EBox::Module::Base::writeConfFileNoCheck(
+                $confFile,
+                'remoteservices/soap-loc.mas',
+                \@tmplParams);
+            unless ( -d CA_DIR ) {
+                mkdir(CA_DIR);
+            }
+            my $caLinkPath = $self->_caLinkPath();
+            if ( -l $caLinkPath ) {
+                unlink($caLinkPath);
+            }
+            symlink($self->_caCertPath(), $caLinkPath );
 
-        $apacheMod->addInclude($confFile);
+            $apacheMod->addInclude($confFile);
+        }
     } else {
         unlink($confFile);
         opendir(my $dir, CA_DIR);
@@ -1515,10 +1519,11 @@ sub _establishVPNConnection
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() ) {
+    if ( $self->eBoxSubscribed() and $self->hasBundle() ) {
         try {
-            my $authConnection = new EBox::RemoteServices::Backup();
-            $authConnection->connection();
+            my $authConnection = new EBox::RemoteServices::Connection();
+            $authConnection->create();
+            $authConnection->connect();
         } catch EBox::Exceptions::External with {
             my ($exc) = @_;
             EBox::error("Cannot contact to Zentyal Cloud: $exc");
@@ -1734,7 +1739,12 @@ sub _getSubscriptionDetails
     my ($self, $force) = @_;
 
     if ( $force or (not $self->st_entry_exists('subscription/level')) ) {
-        throw EBox::Exceptions::Internal('Not subscribed') unless ( $self->eBoxSubscribed() );
+        unless ( $self->eBoxSubscribed() ) {
+            use Devel::StackTrace;
+            my $t = new Devel::StackTrace();
+            EBox::error($t->as_string());
+            throw EBox::Exceptions::Internal('Not subscribed');
+        }
         my $cap = new EBox::RemoteServices::Capabilities();
         my $details = $cap->subscriptionDetails();
         # Use st_set_dir?
@@ -1938,14 +1948,15 @@ sub freeViface
 sub _vpnClientAdjustLocalAddress
 {
     my ($self) = @_;
-    if (not $self->eBoxSubscribed()) {
+    if ((not $self->eBoxSubscribed()) or (not $self->hasBundle())) {
         return;
     }
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    my $vpnClient = $authRS->vpnClientForServices();
-    $authRS->vpnClientAdjustLocalAddress($vpnClient);
-
+    my $conn = new EBox::RemoteServices::Connection();
+    my $vpnClient = $conn->vpnClient();
+    if ( $vpnClient ) {
+        $conn->vpnClientAdjustLocalAddress($vpnClient);
+    }
 }
 
 sub firewallHelper

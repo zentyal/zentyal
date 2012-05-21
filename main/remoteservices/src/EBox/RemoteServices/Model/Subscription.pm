@@ -122,7 +122,6 @@ sub setTypedRow
         if ( $subs ) {
             # Desubscribing
             EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
-            EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
             # Subscribing
