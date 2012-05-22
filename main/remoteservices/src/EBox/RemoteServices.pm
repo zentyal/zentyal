@@ -312,6 +312,7 @@ sub modelClasses
         'EBox::RemoteServices::Model::Subscription',
         'EBox::RemoteServices::Model::SubscriptionInfo',
         'EBox::RemoteServices::Model::TechnicalInfo',
+        'EBox::RemoteServices::Model::VPNConnectivityCheck',
        ];
 
 }
@@ -1648,7 +1649,9 @@ sub _ccConnectionWidget
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
-        $connValue = __x('Not connected. Check VPN logs in {path}',
+        $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
+                         oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
+                         ch   => '</a>',
                          path => '/var/log/openvpn/');
         $connValueType = 'error';
         if ( not $self->hasBundle() ) {

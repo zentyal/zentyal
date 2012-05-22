@@ -284,6 +284,43 @@ sub isConnected
     }
 }
 
+# Method: checkVPNConnectivity
+#
+#      Check the VPN server is reachable
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::External> - thrown if the VPN server is not reachable
+#
+sub checkVPNConnectivity
+{
+    my ($self) = @_;
+
+    # return if EBox::Config::boolean('subscription_skip_vpn_scan');
+
+    my ($ipAddr, $port, $proto, $host) = @{$self->vpnLocation()};
+
+    my $ok = 0;
+    if ( $proto eq 'tcp' ) {
+        $ok = $self->_checkHostPort($host, $proto, $port);
+    } else {
+        # we use echo service to make sure no firewall stands on our way
+         $ok = $self->_checkUDPEchoService($host, $proto, $port);
+    }
+
+    if (not $ok) {
+        throw EBox::Exceptions::External(
+            __x(
+                'Could not connect to VPN server "{addr}:{port}/{proto}". '
+                . 'Check your network firewall',
+                addr => $host,
+                port => $port,
+                proto => $proto,
+               )
+           );
+    }
+}
+
 # Group: Private methods
 
 # get local address for connect with server
