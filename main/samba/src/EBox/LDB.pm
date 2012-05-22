@@ -98,14 +98,18 @@ sub syncCon
 
     # Workaround to detect if connection is broken and force reconnection
     # NOTE this will fail always until implement threaded synchronizer
-    my $reconnect = 0;
+    my $reconnect = 1;
     if (defined $self->{sync}) {
         my $socket = $self->{sync};
-        print $socket "PING\n";
-        my $answer = <$socket>;
-        chomp $answer;
-        if ($answer ne 'PONG') {
-            $reconnect = 1;
+        if (tell ($socket) != -1) {
+            print $socket "PING\n";
+            my $answer = <$socket>;
+            if (defined $answer) {
+                chomp $answer;
+                if ($answer eq 'PONG') {
+                    $reconnect = 0;
+                }
+            }
         }
     }
 
