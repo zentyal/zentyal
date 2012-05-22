@@ -67,4 +67,19 @@ sub RESTClient
     return $self->{restClient};
 }
 
+# Method: subscribedHostname
+#
+#     Get the subscribed hostname
+#
+# Returns:
+#
+#     String - the company name + '-' + server name
+#
+sub subscribedHostname
+{
+    my ($self) = @_;
+
+    return $self->{cred}->{company} . '-' . $self->{cred}->{name};
+}
+
 1;

@@ -52,6 +52,7 @@ use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Capabilities;
 use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Cred;
 use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
@@ -483,7 +484,7 @@ sub subscribedHostname
            );
     }
 
-    my $hostName = EBox::RemoteServices::Auth->new()->valueFromBundle(COMPANY_KEY);
+    my $hostName = EBox::RemoteServices::Cred->new()->subscribedHostname();
     return $hostName;
 }
 
@@ -511,6 +512,7 @@ sub monitorGathererIPAddresses
             __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
     }
 
+    # FIXME: Use monitor outside VPN
     my $monGatherers = [];
     try {
         $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
@@ -679,13 +681,13 @@ sub reloadBundle
                 my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
                 my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
                 EBox::RemoteServices::Subscription->executeBundle($params, $confKeys, $new);
+                $retVal = 1;
             } else {
                 $retVal = 2;
             }
         } else {
             throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
         }
-        $retVal = 1;
     } catch EBox::Exceptions::Internal with {
         $retVal = 0;
     };
@@ -1982,7 +1984,7 @@ sub firewallHelper
 {
     my ($self) = @_;
 
-    my $enabled = $self->eBoxSubscribed();
+    my $enabled = ($self->eBoxSubscribed() and $self->hasBundle());
     if (not $enabled) {
         return undef;
     }

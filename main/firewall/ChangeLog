@@ -1,4 +1,5 @@
 HEAD
+	+ Set RemoteServices rules taking into account no bundle state
 	+ EBox::Firewall::availablePort now works for non-FirewallObserver modules
 	  and it uses the same readonly status as the firewall module
 2.3.5

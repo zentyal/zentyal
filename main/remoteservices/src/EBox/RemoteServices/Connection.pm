@@ -386,7 +386,7 @@ sub _confFile
 sub _certificates
 {
     my ($self) = @_;
-    return {};
+
     my $keys = EBox::Config::configKeysFromFile($self->_confFile());
 
     my $dirPath = EBox::Config::conf() . SERV_SUBDIR . '/' . $self->_cn() . '/';
