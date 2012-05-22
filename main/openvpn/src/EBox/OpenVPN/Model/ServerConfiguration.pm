@@ -61,8 +61,6 @@ sub new
 
 sub _table
 {
-    my $allowPullRoutes = (EBox::Global->edition() ne 'sb');
-
     my @tableHead =
         (
          new EBox::OpenVPN::Types::PortAndProtocol(
@@ -116,7 +114,7 @@ sub _table
          new EBox::Types::Boolean(
                  fieldName => 'pullRoutes',
                  printableName => __('Allow Zentyal-to-Zentyal tunnels'),
-                 editable => $allowPullRoutes,
+                 editable => 1,
                  defaultValue => 0,
                  help => __('Enable it if this VPN is used to connect to ' .
                             'another Zentyal')
@@ -125,7 +123,7 @@ sub _table
                  fieldName => 'ripPasswd',
                  printableName => __('Zentyal-to-Zentyal tunnel password'),
                  minLength => 6,
-                 editable => $allowPullRoutes,
+                 editable => 1,
                  optional => 1,
 
                  ),
