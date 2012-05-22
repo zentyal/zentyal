@@ -9,7 +9,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public Licensema
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
@@ -18,15 +18,17 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::LdapModule
-            EBox::ObjectsObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::UserCorner::Provider
-            EBox::FirewallObserver
-            EBox::LogObserver
-            EBox::Report::DiskUsageProvider);
+use base qw( EBox::Module::Service
+             EBox::LdapModule
+             EBox::ObjectsObserver
+             EBox::Model::ModelProvider
+             EBox::Model::CompositeProvider
+             EBox::UserCorner::Provider
+             EBox::FirewallObserver
+             EBox::LogObserver
+             EBox::Report::DiskUsageProvider
+             EBox::KerberosModule
+           );
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -274,6 +276,19 @@ sub _serviceRules
     ];
 }
 
+sub kerberosServicePrincipals
+{
+    my ($self) = @_;
+
+    my $data = { service    => 'mail',
+                 principals => [ 'imap', 'smtp', 'pop' ],
+                 keytab     => KEYTAB_FILE,
+                 keytabUser => 'dovecot' };
+    return $data;
+}
+
+
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -289,10 +304,7 @@ sub enableActions
 
     # Create the kerberos service princiapl in kerberos,
     # export the keytab and set the permissions
-    my $users = EBox::Global->modInstance('users');
-    $users->createServicePrincipal('imap', KEYTAB_FILE, 'dovecot');
-    $users->createServicePrincipal('smtp', KEYTAB_FILE, 'dovecot');
-    $users->createServicePrincipal('pop', KEYTAB_FILE, 'dovecot');
+    $self->kerberosCreatePrincipals();
 
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
