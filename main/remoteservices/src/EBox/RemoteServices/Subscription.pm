@@ -543,6 +543,7 @@ sub deleteData
     }
 
     # Remove subscription levels and disaster recovery if any
+    $rs->st_unset('admin_port');
     $rs->st_unset('has_bundle');
     $rs->st_delete_dir('subscription');
     $rs->st_delete_dir('disaster_recovery');
@@ -1010,7 +1011,6 @@ sub _checkVPNConnectivity
            );
     }
 }
-
 
 # Check UDP echo service using Net::Ping
 sub _checkUDPEchoService
