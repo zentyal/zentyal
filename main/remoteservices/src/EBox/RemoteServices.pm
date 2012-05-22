@@ -1165,19 +1165,15 @@ sub reportAdminPort
 {
     my ($self, $port) = @_;
 
-    return; # FIXME
-
     EBox::Validate::checkPort($port, "$port is not a valid port");
 
     # Check for a change in admin port
     if ( (not $self->st_entry_exists('admin_port'))
          or ($self->st_get_int('admin_port') != $port) ) {
 
-        if ( $self->isConnected() ) {
-            my $adminPortRS = new EBox::RemoteServices::AdminPort();
-            $adminPortRS->setAdminPort($port);
-            $self->st_set_int('admin_port', $port);
-        }
+        my $adminPortRS = new EBox::RemoteServices::AdminPort();
+        $adminPortRS->setAdminPort($port);
+        $self->st_set_int('admin_port', $port);
     }
 }
 
