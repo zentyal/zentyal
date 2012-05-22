@@ -32,7 +32,7 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(asterisk jabber mail mailfilter virt zarafa);
+use constant BANNED_MODULES => qw(asterisk jabber mail mailfilter zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
@@ -174,7 +174,6 @@ sub _performSBChecks
     my $gl = EBox::Global->getInstance();
     $self->_modCheck($gl);
     $self->_usersCheck($gl);
-    $self->_vpnCheck($gl);
 }
 
 # Check no communication profile, ids and virt module are enabled
@@ -216,34 +215,6 @@ sub _usersCheck
                     __sx('The maximum number of users for Small Business Edition is {max} '
                          . 'and you currently have {nUsers}',
                          max => MAX_SB_USERS, nUsers => scalar(@{$users})));
-            }
-        }
-    }
-}
-
-# Check there is no VPN-VPN tunnel
-sub _vpnCheck
-{
-    my ($self, $gl) = @_;
-
-    if ( $gl->modExists('openvpn') ) {
-        my $openvpnMod = $gl->modInstance('openvpn');
-        my @servers    = $openvpnMod->servers();
-        foreach my $server (@servers) {
-            if ( $server->pullRoutes() ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers and '
-                         . "'{name}' VPN server is configured to allow this kind of tunnels",
-                         name => $server->name()));
-            }
-        }
-        my @clients = $openvpnMod->clients();
-        foreach my $client (@clients) {
-            if ( (not $client->internal()) and $client->ripPasswd() ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers '
-                         . "and '{name}' VPN client is connected to another Zentyal server",
-                         name => $client->name()));
             }
         }
     }

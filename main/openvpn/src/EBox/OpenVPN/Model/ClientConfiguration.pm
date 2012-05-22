@@ -56,16 +56,13 @@ sub _table
     my @confOptions = (
         {
             value => 'manual',
-             printableValue => __('Manual Configuration'),
+            printableValue => __('Manual Configuration'),
         },
-    );
-
-    if (EBox::Global->edition() ne 'sb') {
-        push (@confOptions, {
+        {
             value => 'bundle',
             printableValue => __('Zentyal bundle')
-        });
-    }
+        }
+    );
 
     my @tableHead = (
          new EBox::Types::Select(
