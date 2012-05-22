@@ -158,20 +158,17 @@ sub request {
     $ua->agent("ZentyalServer $version");
     $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rs_verify_servers'));
 
-    if ( exists $self->{credentials} ) {
-        my $serverURI = new URI($self->{server});
-        $ua->credentials( $serverURI->host_port(), $self->{credentials}->{realm},
-                          $self->{credentials}->{username}, $self->{credentials}->{password});
-    }
-
     my $req = HTTP::Request->new( $method => $self->{server} . $path );
+    if ( exists $self->{credentials} ) {
+        $req->authorization_basic($self->{credentials}->{username}, $self->{credentials}->{password});
+    }
 
     #build headers
     if ($query) {
         my $uri = URI->new();
         $uri->query_form($query);
        if ( $method eq 'GET' ) {
-            $req = new HTTP::Request( $method => $self->{server} . $path . '?' . $uri->query() );
+            $req->uri( $self->{server} . $path . '?' . $uri->query() );
             $req->header('Content-Length', 0);
         } else {
             my $data = $uri->query();

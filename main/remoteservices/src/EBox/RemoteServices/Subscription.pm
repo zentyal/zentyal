@@ -958,7 +958,7 @@ sub _checkWSConnectivity
         $cmd .= $url;
 
         try {
-            my $output = EBox::Sudo::root($cmd);
+            my $output = EBox::Sudo::command($cmd);
             foreach my $line (@{ $output }) {
                 if ($line =~ m/A prudent question is one-half of wisdom/) {
                     $ok =1;
