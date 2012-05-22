@@ -59,6 +59,7 @@ use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
 use EBox::RemoteServices::RESTClient;
 use EBox::Sudo;
+use EBox::Util::Version;
 use EBox::Validate;
 use Error qw(:try);
 use Net::DNS;
@@ -147,7 +148,25 @@ sub _setConf
     $self->_setRemoteSupportAccessConf();
 }
 
+# Method: initialSetup
+#
+#     Perform the required migrations
+#
+# Overrides:
+#
+#     <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
 
+    $self->SUPER::initialSetup($version);
+
+    if ( defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
+        # Perform the migration to 2.3
+        $self->_migrateTo30();
+    }
+}
 
 sub _setRemoteSupportAccessConf
 {
@@ -1167,13 +1186,14 @@ sub reportAdminPort
 
     EBox::Validate::checkPort($port, "$port is not a valid port");
 
-    # Check for a change in admin port
-    if ( (not $self->st_entry_exists('admin_port'))
-         or ($self->st_get_int('admin_port') != $port) ) {
-
-        my $adminPortRS = new EBox::RemoteServices::AdminPort();
-        $adminPortRS->setAdminPort($port);
-        $self->st_set_int('admin_port', $port);
+    if ( $self->eBoxSubscribed() ) {
+        # Check for a change in admin port
+        if ( (not $self->st_entry_exists('admin_port'))
+               or ($self->st_get_int('admin_port') != $port) ) {
+            my $adminPortRS = new EBox::RemoteServices::AdminPort();
+            $adminPortRS->setAdminPort($port);
+            $self->st_set_int('admin_port', $port);
+        }
     }
 }
 
@@ -1976,7 +1996,6 @@ sub firewallHelper
        );
 }
 
-
 # Method: REST
 #
 #   Return the REST client ready to query remote services
@@ -1992,7 +2011,19 @@ sub REST
     return $self->{rest};
 }
 
+# Migration to 3.0
+#
+#  * Rename VPN client
+#  * Get credentials
+#
+sub _migrateTo30
+{
+    my ($self) = @_;
 
+    # Drop old VPN client
+    # Create a new one
+    # Get credentials again
+}
 
 
 1;

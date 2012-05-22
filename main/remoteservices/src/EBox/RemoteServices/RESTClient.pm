@@ -36,7 +36,7 @@ use LWP::UserAgent;
 use Error qw(:try);
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
-use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
+# use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
@@ -67,7 +67,7 @@ sub new {
     # Get the server from conf
     my $key = 'rs_api';
     $self->{server} = 'https://' . EBox::Config::configkey($key);
-    $self->{server} = BASE_URL; # FIXME: To remove
+    # $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
 }
@@ -156,6 +156,7 @@ sub request {
     my $ua = LWP::UserAgent->new;
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
+    $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rs_verify_servers'));
 
     if ( exists $self->{credentials} ) {
         my $serverURI = new URI($self->{server});
