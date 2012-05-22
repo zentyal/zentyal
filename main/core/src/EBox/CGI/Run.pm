@@ -134,11 +134,11 @@ sub run # (url, namespace)
         $cgi = new $classname();
     }
 
-    $cgi->run();
-
     try {
+        $cgi->run();
+
         $redis->commit();
-    } otherwise {
+    } finally {
         $redis->rollback();
     };
 }
