@@ -31,6 +31,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::RemoteServices::RESTResult;
 use HTTP::Status qw(HTTP_UNAUTHORIZED);
+use IO::Socket::SSL;
 use URI;
 use LWP::UserAgent;
 use Error qw(:try);
