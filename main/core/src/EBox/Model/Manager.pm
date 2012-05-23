@@ -197,7 +197,10 @@ sub _componentByPath
         throw EBox::Exceptions::MissingArgument('composite');
     }
 
-    my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
+    my ($moduleName, $compName, @other) = grep { $_ ne '' } split ( '/', $path);
+    if (@other) {
+        throw EBox::Exceptions::DataNotFound(data => $kind, value => $path, silent => 1);
+    }
     if (not defined ($compName) and $path =~ m:/:) {
         throw EBox::Exceptions::Internal("Component name can't contain slashes, valid formats are: 'component' or 'module/component'");
     }
