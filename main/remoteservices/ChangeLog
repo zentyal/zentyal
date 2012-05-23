@@ -1,4 +1,6 @@
 HEAD
+	+ RESTClient sends the query request in application/json when the
+	  data to send is an array
 	+ Use new REST API
 	+ Check subscription details everyday
 	+ Rename Zentyal Cloud VPN client to remoteServices_client

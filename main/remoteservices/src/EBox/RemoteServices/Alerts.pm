@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Alerts;
+
 use base 'EBox::RemoteServices::Auth';
 
 # Class: EBox::RemoteServices::Alerts
@@ -59,31 +60,25 @@ sub pushAlerts
 {
     my ($self, $alerts) = @_;
 
-    $self->soapCall('pushAlerts', alerts => $alerts);
+    my $restClient = $self->RESTClient();
+    foreach my $alert (@{$alerts}) {
+        $restClient->POST($self->collectionURL(), $alert);
+    }
 }
 
 # Group: Protected methods
 
-# Method: _serviceUrnKey
+# Method: _collectionURLKey
 #
-# Overrides:
+#     Get the collection URL for alerts
 #
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
+# Returns:
 #
-sub _serviceUrnKey
+#     String - the collection URL key for alerts
+#
+sub _collectionURLKey
 {
-    return 'alertsServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
+    return 'alertCollectionURL';
 }
 
 1;

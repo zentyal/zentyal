@@ -32,12 +32,13 @@ use EBox::Exceptions::MissingArgument;
 use EBox::RemoteServices::RESTResult;
 use HTTP::Status qw(HTTP_UNAUTHORIZED);
 use IO::Socket::SSL;
+use JSON::XS;
 use URI;
 use LWP::UserAgent;
 use Error qw(:try);
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
-# use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
+ use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
@@ -57,6 +58,7 @@ use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription
 #                 (Optional)
 #
 #  - Named parameters
+#
 sub new {
     my ($class, %params) = @_;
 
@@ -166,16 +168,26 @@ sub request {
 
     #build headers
     if ($query) {
-        my $uri = URI->new();
-        $uri->query_form($query);
-       if ( $method eq 'GET' ) {
-            $req->uri( $self->{server} . $path . '?' . $uri->query() );
-            $req->header('Content-Length', 0);
-        } else {
-            my $data = $uri->query();
-            $req->content_type('application/x-www-form-urlencoded');
+        if ( ref($query) eq 'ARRAY' ) {
+            throw EBox::Exceptions::Internal('Cannot send array ref as query when using GET method')
+              if ($method eq 'GET');
+            # Send data in JSON if the query is an array of elements
+            my $data = encode_json($query);
+            $req->content_type('application/json');
             $req->content($data);
             $req->header('Content-Length', length($data));
+        } else {
+            my $uri = URI->new();
+            $uri->query_form($query);
+            if ( $method eq 'GET' ) {
+                $req->uri( $self->{server} . $path . '?' . $uri->query() );
+                $req->header('Content-Length', 0);
+            } else {
+                my $data = $uri->query();
+                $req->content_type('application/x-www-form-urlencoded');
+                $req->content($data);
+                $req->header('Content-Length', length($data));
+            }
         }
     } else{
         $req->header('Content-Length', 0);
