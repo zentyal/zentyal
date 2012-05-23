@@ -119,7 +119,7 @@ sub cronJobs
 {
     my ($self, @wsParams) = @_;
 
-    my $response = $self->RESTClient()->GET('/v1/job/cron');
+    my $response = $self->RESTClient()->GET('/v1/jobs/cron/');
     return $response->data();
 }
 
