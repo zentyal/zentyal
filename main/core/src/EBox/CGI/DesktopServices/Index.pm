@@ -38,6 +38,11 @@ sub _validateReferer
     return;
 }
 
+sub _validateParams
+{
+    return;
+}
+
 # Method: actuate
 #
 # Overrides:
