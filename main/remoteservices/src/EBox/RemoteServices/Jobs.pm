@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Jobs;
-use base 'EBox::RemoteServices::Auth';
+use base qw(EBox::RemoteServices::Cred);
 
 # Class: EBox::RemoteServices::Jobs
 #
@@ -71,6 +71,9 @@ sub jobResult
 {
     my ($self, @wsParams) = @_;
 
+    # TODO: Job in new API
+    return;
+
     $self->_transmitResult('jobResult', @wsParams);
 }
 
@@ -95,6 +98,8 @@ sub cronJobResult
 {
     my ($self, @wsParams) = @_;
 
+    # TODO: Job in new API
+    return;
     $self->_transmitResult('cronJobResult', @wsParams);
 }
 
@@ -114,7 +119,8 @@ sub cronJobs
 {
     my ($self, @wsParams) = @_;
 
-    return $self->soapCall('cronJobs', @wsParams);
+    my $response = $self->RESTClient()->GET('/v1/job/cron');
+    return $response->data();
 }
 
 # Group: Protected methods

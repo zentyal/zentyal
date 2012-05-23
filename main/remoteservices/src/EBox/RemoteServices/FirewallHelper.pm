@@ -29,7 +29,7 @@ sub new
 
     my $self = $class->SUPER::new(%params);
     $self->{remoteSupport} = $params{remoteSupport};
-    $self->{sshRedirect}       = $params{sshRedirect};
+    $self->{sshRedirect}   = $params{sshRedirect};
     $self->{vpnInterface}  = $params{vpnInterface};
     bless($self, $class);
     return $self;
