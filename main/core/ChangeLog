@@ -1,4 +1,6 @@
 HEAD
+	+ New get_state() and set_state() methods, st_* methods are kept for backwards
+	  compatibility, but they are deprecated
 	+ Simplified events module implementation with Watcher and Dispatcher providers
 	+ Model Manager is now able to properly manage read-only instances
 	+ Composites can now use parentModule() like Models

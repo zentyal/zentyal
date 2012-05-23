@@ -24,8 +24,6 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Module::Config::State;
-use EBox::Module::Config::Conf;
 use EBox::Types::File;
 use EBox::Config::Redis;
 use EBox::Model::Manager;
@@ -46,9 +44,6 @@ sub _create
     unless (defined($self->{redis})) {
         throw EBox::Exceptions::Internal("Error getting Redis client");
     }
-    $self->{state} = new EBox::Module::Config::State($self, $self->{ro});
-    $self->{config} = new EBox::Module::Config::Conf($self, $self->{ro});
-    $self->{helper} = $self->{config};
 
     return $self;
 }
@@ -81,34 +76,16 @@ sub composites
     EBox::Model::Manager->instance()->composites($self);
 }
 
-sub _helper
-{
-    my $self = shift;
-    return $self->{helper};
-}
-
-sub _config
-{
-    my $self = shift;
-    $self->{helper} = $self->{config};
-}
-
-sub _state
-{
-    my $self = shift;
-    $self->{helper} = $self->{state};
-}
-
 # we override aroundRestoreconfig to save conf data before dump module config
 sub aroundRestoreConfig
 {
-  my ($self, $dir, @extraOptions) = @_;
+    my ($self, $dir, @extraOptions) = @_;
 
-  $self->_load_from_file($dir);
+    $self->_load_from_file($dir);
 
-  $self->restoreFilesFromArchive($dir);
+    $self->restoreFilesFromArchive($dir);
 
-  $self->restoreConfig($dir, @extraOptions);
+    $self->restoreConfig($dir, @extraOptions);
 }
 
 # load config entries from a file
@@ -117,7 +94,6 @@ sub _load_from_file
     my ($self, $dir, $key) = @_;
     ($dir) or $dir = EBox::Config::conf;
 
-    $self->_config();
 
     my $file =  $self->_bak_file_from_dir($dir);
     if (not -f $file)  {
@@ -142,19 +118,18 @@ sub _load_from_file
 
 sub aroundDumpConfig
 {
-  my ($self, $dir, @options) = @_;
-  $self->_dump_to_file($dir);
+    my ($self, $dir, @options) = @_;
+    $self->_dump_to_file($dir);
 
-  $self->backupFilesInArchive($dir);
+    $self->backupFilesInArchive($dir);
 
-  $self->dumpConfig($dir, @options);
+    $self->dumpConfig($dir, @options);
 }
 
 # dumps GConf entries to a file in the dir specified
 sub _dump_to_file
 {
     my ($self, $dir) = @_;
-    $self->_config();
 
     my $key = '/ebox/modules/' . $self->name;
     ($dir) or $dir = EBox::Config::conf;
@@ -226,7 +201,6 @@ sub _copy
 {
     my ($self, $src, $dst) = @_;
 
-    $self->_config();
     my $key = "/$src/modules/" . $self->name;
     $self->{redis}->backup_dir($key, "/$dst/modules/" . $self->name);
 }
@@ -245,16 +219,46 @@ sub _change
 sub _key
 {
     my ($self, $key) = @_;
-    return $self->_helper->key($key);
+
+    my $dir = $self->{ro} ? 'ebox-ro' : 'ebox';
+
+    my $ret = "/$dir/modules/" . $self->{name};
+    if ($key) {
+        $ret .= "/$key";
+    }
+
+    return $ret;
+}
+
+sub _st_key
+{
+    my ($self) = @_;
+
+    return '/ebox/state/' . $self->{name};
 }
 
 #############
 
+sub get_state
+{
+    my ($self) = @_;
+
+    $self->{redis}->get($self->_st_key(), {});
+}
+
+sub set_state
+{
+    my ($self, $hash) = @_;
+
+    $self->{redis}->set($self->_st_key(), $hash);
+}
+
+
 sub st_entry_exists
 {
     my ($self, $key) = @_;
-    $self->_state;
-    my $state = $self->get_hash('state');
+
+    my $state = $self->get_state();
     return exists $state->{$key};
 }
 
@@ -285,7 +289,6 @@ sub get_bool
 {
     my ($self, $key) = @_;
 
-    $self->_config;
     $key = $self->_key($key);
     return $self->redis->get($key, 0);
 }
@@ -312,7 +315,6 @@ sub set_bool
 {
     my ($self, $key, $val) = @_;
 
-    $self->_config;
     $key = $self->_key($key);
     $self->redis->set($key, $val ? 1 : 0);
     $self->_change();
@@ -342,7 +344,7 @@ sub st_set_bool
 sub get_int
 {
     my ($self, $key) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     return $self->redis->get($key);
 }
@@ -369,7 +371,6 @@ sub set_int
 {
     my ($self, $key, $val) = @_;
 
-    $self->_config;
     $key = $self->_key($key);
     $self->redis->set($key, $val);
     $self->_change();
@@ -400,7 +401,6 @@ sub get_string
 {
     my ($self, $key) = @_;
 
-    $self->_config;
     $key = $self->_key($key);
     return $self->redis->get($key);
 }
@@ -426,7 +426,7 @@ sub st_get_string
 sub set_string
 {
     my ($self, $key, $val) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     $self->redis->set($key, $val);
     $self->_change();
@@ -458,7 +458,7 @@ sub st_set_string
 sub get_list
 {
     my ($self, $key) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     return $self->redis->get($key, []);
 }
@@ -476,7 +476,6 @@ sub set_hash
 {
     my ($self, $key, $value) = @_;
 
-    $self->_config;
     $key = $self->_key($key);
     $self->redis->set($key, $value);
 }
@@ -485,7 +484,6 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
-    $self->_config;
     $key = $self->_key($key);
     return $self->redis->get($key, {});
 }
@@ -507,7 +505,7 @@ sub get_hash
 sub get
 {
     my ($self, $key) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     return $self->redis->get($key);
 }
@@ -515,9 +513,8 @@ sub get
 sub st_get
 {
     my ($self, $key) = @_;
-    $self->_state;
-    my $state = $self->get_hash('state');
-    return $state->{$key};
+
+    return $self->get_state()->{$key};
 }
 
 # Method: set
@@ -531,7 +528,7 @@ sub st_get
 sub set
 {
     my ($self, $key, $value) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     $self->redis->set($key, $value);
 }
@@ -539,10 +536,10 @@ sub set
 sub st_set
 {
     my ($self, $key, $value) = @_;
-    $self->_state;
-    my $state = $self->get_hash('state');
+
+    my $state = $self->get_state();
     $state->{$key} = $value;
-    $self->set('state', $state);
+    $self->set_state($state);
 }
 
 #############
@@ -559,17 +556,17 @@ sub st_set
 sub unset
 {
     my ($self, $key) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     $self->redis->unset($key);
     $self->_change();
 }
 
-sub st_unset # (key)
+sub st_unset
 {
     my ($self, $key) = @_;
-    $self->_state;
-    my $state = $self->get_hash('state');
+
+    my $state = $self->get_state();
     delete $state->{$key};
 }
 
@@ -588,7 +585,7 @@ sub st_unset # (key)
 sub set_list
 {
     my ($self, $key, $type, $val) = @_;
-    $self->_config;
+
     $key = $self->_key($key);
     $self->redis->set($key, $val);
 }
@@ -613,7 +610,7 @@ sub st_set_list
 sub delete_dir # (key)
 {
     my ($self, $dir) = @_;
-    $self->_config;
+
     $dir = $self->_key($dir);
     $self->redis->delete_dir($dir);
     $self->_change();
