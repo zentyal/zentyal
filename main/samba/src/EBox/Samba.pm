@@ -954,7 +954,7 @@ sub usesPort
 
     return undef unless($self->isEnabled());
 
-    foreach my $smbport ($self->_services()) {
+    foreach my $smbport (@{ $self->_services() }) {
         return 1 if ($port eq $smbport->{destinationPort});
     }
 
