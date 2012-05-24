@@ -1,4 +1,4 @@
-HEAD
+2.2.6
 	+ Added quota checks
 	+ Added checks for small business subscription
 	+ Bugfix: lastGid method was calling MINUID and SYSMINUID
