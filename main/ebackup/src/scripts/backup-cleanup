@@ -77,6 +77,7 @@ sub deleteAll
         EBox::EBackup::Subscribed::deleteAll();
         # regenerate collection status so we don't get false information in the
         # UI
+        $ebackup->waitForUpdateStatusInBackground();
         $ebackup->remoteGenerateStatusCache();
         $ebackup->remoteGenerateListFile();
     } finally {

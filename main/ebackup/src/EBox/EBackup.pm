@@ -46,6 +46,7 @@ use String::ShellQuote;
 use Date::Parse;
 use Error qw(:try);
 use Fcntl qw(:flock);
+use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotConnected;
@@ -56,6 +57,9 @@ use EBox::Exceptions::EBackup::TargetNotReady;
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
+
+use constant UPDATE_STATUS_IN_BACKGROUND_LOCK =>  'ebackup-collectionstatus';
+use constant UPDATE_STATUS_SCRIPT =>   EBox::Config::share() . '/zentyal-ebackup/update-status';
 
 
 # Constructor: _create
@@ -779,10 +783,16 @@ sub remoteGenerateStatusCache
 
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
+    $self->_retrieveRemoteStatus($urlParams);
 
+
+}
+
+
+sub _setCurrentStatus
+{
+    my ($self, $status) = @_;
     my $file = tmpCurrentStatus();
-    my $status = $self->_retrieveRemoteStatus($urlParams);
-
     if (defined $status) {
         File::Slurp::write_file($file, $status);
     } else {
@@ -791,9 +801,25 @@ sub remoteGenerateStatusCache
     }
 }
 
-sub _retrieveRemoteStatus
+
+sub _retrieveRemoteStatusInBackground
 {
     my ($self, $urlParams) = @_;
+    my $args = '';
+    if ($urlParams) {
+        $args = join ' ' , %{ $urlParams };
+    }
+
+    my $cmd = 'sudo ' .
+        UPDATE_STATUS_SCRIPT .
+        ' ' . $args .
+        ' &';
+    system $cmd;
+}
+
+sub _retrieveRemoteStatus
+{
+    my ($self, $urlParams,) = @_;
     defined $urlParams
         or $urlParams = {};
 
@@ -819,6 +845,68 @@ sub _retrieveRemoteStatus
 
     return $status;
 }
+
+
+sub updateStatusInBackgroundLock
+{
+    my ($self) = @_;
+
+    my $res;
+    try {
+        $res = EBox::Util::Lock::lock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
+    } otherwise {
+        throw EBox::Exceptions::External(
+__('Another process is updating the collection status. Please, wait and retry')
+           );
+    };
+
+    return $res;
+}
+
+sub updateStatusInBackgroundUnlock
+{
+    my ($self) = @_;
+    my $res = EBox::Util::Lock::unlock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
+    system "rm -f " . _updateStatusInBackgroundLockFile();
+    return $res;
+}
+
+sub updateStatusInBackgroundRunning
+{
+    my ($self) = @_;
+    return -f _updateStatusInBackgroundLockFile()
+}
+
+sub waitForUpdateStatusInBackground
+{
+    my ($self) = @_;
+
+    if (not $self->updateStatusInBackgroundRunning()) {
+        return;
+    }
+
+    EBox::info('Waiting for update status in background');
+    sleep 5;
+
+    my $maxWait = 360; # half four
+    # wait for any update status backgroud process
+    while ($self->updateStatusInBackgroundRunning()) {
+        if (not $maxWait) {
+            EBox::warn("Aborted wait for background running");
+            return;
+        }
+        sleep 5;
+        $maxWait -= 1;
+    }
+
+    EBox::info("Wait for update status in background finished");
+}
+
+sub _updateStatusInBackgroundLockFile
+{
+    return EBox::Config::tmp() .'/' . UPDATE_STATUS_IN_BACKGROUND_LOCK . '.lock';
+}
+
 
 # Method: tmpFileList
 #
@@ -1002,7 +1090,7 @@ sub _setConf
     }
 
     if ((not $usingCloud) or $cloudCredentials) {
-        $self->_syncRemoteCaches();
+        $self->_syncRemoteCachesInBackground;
     }
 
 }
@@ -1011,47 +1099,11 @@ sub _setConf
 # this calls to remoteGenerateStatusCache and if there was change it regenerates
 # also the files list
 
-sub _syncRemoteCaches
+sub _syncRemoteCachesInBackground
 {
     my ($self) = @_;
-
-    my @oldRemoteStatus = @{ $self->remoteStatus() };
-    $self->remoteGenerateStatusCache();
-    my @newRemoteStatus = @{ $self->remoteStatus() };
-
-    if ($self->configurationIsComplete()) {
-        return;
-    }
-
-    my $genListFiles = 0;
-    if (@newRemoteStatus == 0) {
-        # no files, clear fileList archive if it exists
-        my $fileList = tmpFileList();
-        (-e $fileList) and
-            unlink $fileList;
-
-        # no needed to make any file list, bz there aren't files
-        $genListFiles = 0;
-    } elsif (@oldRemoteStatus != @newRemoteStatus) {
-        $genListFiles =1;
-    } else {
-        while (@oldRemoteStatus) {
-            my $old = shift @oldRemoteStatus;
-            my $new = shift @newRemoteStatus;
-            foreach my $attr (keys %{ $new }) {
-                if ((not exists $old->{$attr}) or
-                    ($old->{$attr} ne $new->{$attr})
-                   ) {
-                    $genListFiles = 1;
-                    last;
-                }
-            }
-        }
-    }
-
-    if ($genListFiles) {
-        $self->remoteGenerateListFile();
-    }
+    $self->_clearStorageUsageCache();
+    $self->_retrieveRemoteStatusInBackground();
 }
 
 # Method: menu
@@ -1103,6 +1155,9 @@ sub unlock
     flock( $self->{lock}, LOCK_UN );
     close($self->{lock});
 }
+
+
+
 
 # XXX TODO: refactor parameters from model and/or subscription its own method
 sub _remoteUrl

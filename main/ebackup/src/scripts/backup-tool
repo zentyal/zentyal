@@ -562,6 +562,8 @@ try {
 } finally {
     try {
         if ($success) {
+            $ebackup->waitForUpdateStatusInBackground();
+
             if (not $usingCloud) {
                 $ebackup->remoteGenerateStatusCache();
             }
