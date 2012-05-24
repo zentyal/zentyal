@@ -119,7 +119,7 @@ sub run
         push(@events, new EBox::Event(
             message     => $msg,
             level       => 'error',
-            source      => 'service',
+            source      => 'networkservice',
             additional  => \%modules,
            ));
     }
@@ -132,7 +132,7 @@ sub run
         push(@events, new EBox::Event(
             message     => $msg,
             level       => 'info',
-            source      => 'service',
+            source      => 'networkservice',
             additional  => \%modules));
     }
 

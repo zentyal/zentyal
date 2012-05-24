@@ -157,7 +157,7 @@ sub run
             }
             if ($enable) {
                 my $event = new EBox::Event(message    => __x("Gateway {gw} connected again.", gw => $gwName),
-                                            level      => 'warn',
+                                            level      => 'info',
                                             source     => 'WAN Failover',
                                             additional => { 'up' => 1, gateway => $gwName });
                 push (@{$self->{eventList}}, $event);

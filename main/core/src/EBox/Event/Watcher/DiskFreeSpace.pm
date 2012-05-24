@@ -139,7 +139,7 @@ sub run
                  new EBox::Event(
                      message => $msg,
                      level   => 'error',
-                     source  => 'Free storage space',
+                     source  => 'diskusage',
                      additional => { 'file_system'          => $fs,
                                      'mount_point'          => $properties->{mountPoint},
                                      'user_used_percentage' => $df->{per},
@@ -162,7 +162,7 @@ sub run
             push(@events,
                  new EBox::Event(message    => $msg,
                                  level      => 'info',
-                                 source     => 'Free storage space',
+                                 source  => 'diskusage',
                                  additional => { 'file_system' => $fs,
                                                  'mount_point' => $properties->{mountPoint},
                                                  'user_used_percentage' => $df->{per},
