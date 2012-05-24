@@ -114,21 +114,26 @@ sub run
         $msg = __x("The following modules are not running but they are enabled: {modules}\n",
                    modules => join(', ', @{$modules->{notRunning}->{printableNames}}) );
 
+        my %modules = map { $_ => 1 } @{$modules->{notRunning}->{names}};
+
         push(@events, new EBox::Event(
             message     => $msg,
             level       => 'error',
             source      => 'service',
-            additional  => { modules => $modules->{notRunning}->{names} },
+            additional  => \%modules,
            ));
     }
     if (@{$modules->{runningAgain}->{names}}) {
         $msg = __x("The following modules are running again: {modules}\n",
                    modules => join(', ', @{$modules->{runningAgain}->{printableNames}}) );
+
+        my %modules = map { $_ => 1 } @{$modules->{runningAgain}->{names}};
+
         push(@events, new EBox::Event(
             message     => $msg,
             level       => 'info',
             source      => 'service',
-            additional  => { modules => $modules->{runningAgain}->{names} }));
+            additional  => \%modules));
     }
 
     return \@events;
