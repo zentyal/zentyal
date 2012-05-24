@@ -70,7 +70,7 @@ sub new {
     # Get the server from conf
     my $key = 'rs_api';
     $self->{server} = 'https://' . EBox::Config::configkey($key);
-    # $self->{server} = BASE_URL; # FIXME: To remove
+     $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
 }
@@ -172,7 +172,8 @@ sub request {
             throw EBox::Exceptions::Internal('Cannot send array ref as query when using GET method')
               if ($method eq 'GET');
             # Send data in JSON if the query is an array of elements
-            my $data = encode_json($query);
+            my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
+            my $data = $encoder->encode($query);
             $req->content_type('application/json');
             $req->content($data);
             $req->header('Content-Length', length($data));
