@@ -104,8 +104,18 @@ sub precondition
 {
     my ($self) = @_;
 
+    if ($self->{gconfmodule}->updateStatusInBackgroundRunning()) {
+        $self->{preconditionFailMsg} =  __('Remote Backup Status') . ': ' . __('Update process running, retry later');
+        return 0;
+    }
+
     my @status = @{$self->{gconfmodule}->remoteStatus()};
-    return (scalar(@status));
+    if (not scalar @status) {
+        $self->{preconditionFailMsg} =  __('Remote Backup Status') . ': ' . __('There are not backed up files yet');
+        return 0;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
@@ -117,8 +127,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-
-    return __('Remote Backup Status') . ': ' . __('There are not backed up files yet');
+    return $self->{preconditionFailMsg};
 }
 
 
