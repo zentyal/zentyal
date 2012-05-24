@@ -1,4 +1,5 @@
 HEAD
+	+ Added quota limit check
 	+ Added backup domain for /home
 	+ Adapted ldapvi to changes in port
 	+ Setup master method can now take a custom password
