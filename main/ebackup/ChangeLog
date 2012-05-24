@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bug with expiration of file list cache
 	+ Do not show Zentyal Cloud option if custom_prefix is defined
 2.2.4
 	+ Added selectable priority by config file to scheduled backup
