@@ -266,4 +266,19 @@ sub additional
     return $self->{additional};
 }
 
+# Method: TO_JSON
+#
+#       Call by JSON::XS::encode
+#
+# Returns:
+#
+#       Unblessed result of this object
+#
+sub TO_JSON
+{
+    my ($self) = @_;
+
+    return { %{$self} };
+}
+
 1;
