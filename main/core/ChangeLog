@@ -1,4 +1,4 @@
-HEAD
+2.3.5
 	+ Fix broken packages when dist-upgrading from old versions: stop ebox
 	  owned processes before changing home directory
 2.3.4
