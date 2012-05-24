@@ -847,17 +847,29 @@ sub remoteListFiles
     my $file = tmpFileList();
     return [] unless (-f $file);
 
-    unless ($self->{files}) {
-    my @files;
-    for my $line (File::Slurp::read_file($file)) {
-        my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
-                . '\d\d:\d\d:\d\d \d{4} )(.*)';
-        if ($line =~ /$regexp/ ) {
-            push (@files, "/$2");
-        }
+    my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size, $atime,$mtime) = stat $file;
+    my $updateCache;
+    if (not $self->{files}) {
+        $updateCache = 1 ;
+    } elsif (not $self->{files_mtime}) {
+        $updateCache = 1;
+    } elsif ($mtime > $self->{files_mtime}) {
+        $updateCache = 1;
     }
+
+    if ($updateCache) {
+        $self->{files_mtime} = $mtime;
+        my @files;
+        for my $line (File::Slurp::read_file($file)) {
+            my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
+                . '\d\d:\d\d:\d\d \d{4} )(.*)';
+            if ($line =~ /$regexp/ ) {
+                push (@files, "/$2");
+            }
+        }
         $self->{files} = \@files;
     }
+
     return $self->{files};
 }
 
