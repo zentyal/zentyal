@@ -1,4 +1,5 @@
 HEAD
+	+ Perl plugin configuration for collectd 4.10 series
 	+ Set proper permissions in postinst for monitor events
 	+ Added additional info to events from monitor
 2.3.2
