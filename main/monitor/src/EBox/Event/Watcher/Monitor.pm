@@ -271,7 +271,9 @@ sub _i18n
     my $printableMsg = '';
     my $additionalInfo = { 'measure'          => $measureName,
                            'measure_instance' => $measureInstance,
+                           'type'             => $typeName,
                            'type_instance'    => $typeInstance,
+                           'severity'         => $severity,
                        };
     if ( $severity eq 'info' ) {
         $printableMsg = __('All data sources are within range again');
