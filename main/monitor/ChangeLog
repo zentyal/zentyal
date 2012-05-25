@@ -1,4 +1,5 @@
 HEAD
+	+ Set proper permissions in postinst for monitor events
 	+ Added additional info to events from monitor
 2.3.2
 	+ Do not monitorize NFS mounts disk spaces
