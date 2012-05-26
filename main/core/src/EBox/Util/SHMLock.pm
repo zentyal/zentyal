@@ -29,7 +29,7 @@ sub init
 {
     my ($class, $name) = @_;
 
-    EBox::debug("Init lock $name (pid: $$)");
+    #EBox::debug("Init lock $name (pid: $$)");
 
     my $self = {};
     bless $self, $class;
@@ -58,7 +58,7 @@ sub unlock
 
     my $file = $self->{file};
 
-    EBox::debug("Unlocking $self->{name} (pid: $$)");
+    #EBox::debug("Unlocking $self->{name} (pid: $$)");
 
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to unlock: $file");
@@ -72,7 +72,7 @@ sub lock
 
     my $file = $self->{file};
 
-    EBox::debug("Locking $self->{name} (pid: $$)");
+    #EBox::debug("Locking $self->{name} (pid: $$)");
 
     open(LOCKFILE, ">$file") or
         throw EBox::Exceptions::Internal("Cannot open lockfile to lock: $file");
