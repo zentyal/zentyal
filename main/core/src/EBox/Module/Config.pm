@@ -315,9 +315,7 @@ sub set_bool
 {
     my ($self, $key, $val) = @_;
 
-    $key = $self->_key($key);
-    $self->redis->set($key, $val ? 1 : 0);
-    $self->_change();
+    $self->set($key, $val ? 1 : 0);
 }
 
 sub st_set_bool
@@ -371,9 +369,7 @@ sub set_int
 {
     my ($self, $key, $val) = @_;
 
-    $key = $self->_key($key);
-    $self->redis->set($key, $val);
-    $self->_change();
+    $self->set($key, $val);
 }
 
 sub st_set_int
@@ -427,9 +423,7 @@ sub set_string
 {
     my ($self, $key, $val) = @_;
 
-    $key = $self->_key($key);
-    $self->redis->set($key, $val);
-    $self->_change();
+    $self->set($key, $val);
 }
 
 sub st_set_string
@@ -531,6 +525,7 @@ sub set
 
     $key = $self->_key($key);
     $self->redis->set($key, $value);
+    $self->_change();
 }
 
 sub st_set

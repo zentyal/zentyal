@@ -253,11 +253,14 @@ sub modChange
 
     return if $self->modIsChanged($name);
 
-    # FIXME: Forbid changing anything if ro == 1
+    if ($ro) {
+        throw EBox::Exceptions::Internal("Cannot mark as changed a readonly instance of $name");
+    }
+
     my $mod = $self->modInstance($ro, $name);
     defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
 
-    $self->set_bool("modules/$name/changed", 1);
+    $self->set("modules/$name/changed", 1);
 }
 
 # Method: modRestarted
@@ -276,7 +279,7 @@ sub modRestarted
     ($name ne 'global') or return;
     $self->modExists($name) or return;
 
-    $self->set_bool("modules/$name/changed", undef);
+    $self->set("modules/$name/changed", 0);
 }
 
 # Method: modNames

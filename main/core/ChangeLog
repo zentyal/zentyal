@@ -1,4 +1,5 @@
 HEAD
+	+ EBox::Global::modChange() throws exception if instance is readonly
 	+ New get_state() and set_state() methods, st_* methods are kept for backwards
 	  compatibility, but they are deprecated
 	+ Simplified events module implementation with Watcher and Dispatcher providers
