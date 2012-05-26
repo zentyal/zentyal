@@ -29,7 +29,7 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
-use Test::Deep;
+use Test::Deep qw(eq_deeply);
 
 sub _create
 {
