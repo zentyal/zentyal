@@ -28,6 +28,7 @@ use Error qw(:try);
 use EBox::Gettext;
 use EBox::Types::Date;
 use EBox::Types::Time;
+use EBox::Types::Action;
 
 use base 'EBox::Model::DataForm';
 
