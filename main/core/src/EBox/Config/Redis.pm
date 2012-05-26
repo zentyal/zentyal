@@ -229,7 +229,7 @@ sub import_dir_from_file
     my @lines;
 
     try {
-        @lines = split ("\n\n\n", read_file($filename));
+        @lines = split ("\n\n", read_file($filename));
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     };
@@ -241,7 +241,15 @@ sub import_dir_from_file
         if ($dest) {
             $key = $dest . $key;
         }
-        $value = $self->{json_pretty}->decode($value);
+        # XXX: this can be problematic if we store a string
+        # starting with '[' or '{', but decode_json fails to decode
+        # regular strings some times, even with allow_nonref
+        # An alternative could be to try always the decode
+        # ignoring the exception
+        my $firstChar = substr ($value, 0, 1);
+        if (($firstChar eq '[') or ($firstChar eq '{')) {
+            $value = $self->{json_pretty}->decode($value);
+        }
         $self->set($key, $value);
     }
 
