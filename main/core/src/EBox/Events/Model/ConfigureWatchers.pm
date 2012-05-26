@@ -119,10 +119,11 @@ sub syncRows
         next if ($removed);
         my $stored = $row->valueByName('watcher');
         $storedEventWatchers{$stored} = 1;
-        if ( exists ( $currentEventWatchers{$stored} )) {
+        if (exists ($currentEventWatchers{$stored})) {
+            eval "use $stored";
             # Check its ability
             my $able = $self->_checkWatcherAbility($stored);
-            if ( not $able and $self->_checkWatcherHidden($stored) ) {
+            if (not $able and $self->_checkWatcherHidden($stored)) {
                 $self->removeRow($id);
             } else {
                 $self->setTypedRow($id, undef, readOnly => not $able);
