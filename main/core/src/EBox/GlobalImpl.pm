@@ -260,7 +260,8 @@ sub modChange
     my $mod = $self->modInstance($ro, $name);
     defined($mod) or throw EBox::Exceptions::Internal("Module $name does not exist");
 
-    $self->set("modules/$name/changed", 1);
+    # Set without mark as changed using _set() instead of set()
+    $self->_set("modules/$name/changed", 1);
 }
 
 # Method: modRestarted
@@ -279,7 +280,8 @@ sub modRestarted
     ($name ne 'global') or return;
     $self->modExists($name) or return;
 
-    $self->set("modules/$name/changed", 0);
+    # Set without mark as changed using _set() instead of set()
+    $self->_set("modules/$name/changed", 0);
 }
 
 # Method: modNames

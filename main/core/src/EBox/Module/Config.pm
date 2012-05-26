@@ -210,9 +210,7 @@ sub _change
 {
     my ($self) = @_;
 
-    return if ($self->{ro});
-
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance($self->{ro});
     $global->modChange($self->name);
 }
 
@@ -235,6 +233,13 @@ sub _st_key
     my ($self) = @_;
 
     return '/ebox/state/' . $self->{name};
+}
+
+sub _ro_key
+{
+    my ($self, $key) = @_;
+
+    return '/ebox-ro/modules/' . $self->{name} . "/$key";
 }
 
 #############
@@ -513,19 +518,47 @@ sub st_get
 
 # Method: set
 #
-#      Set an arbitrary key
+#      Set an arbitrary key and mark the module as changed if not readonly
 #
 # Parameters:
 #
-#       key -
+#       key - string with the key
+#       value - scalar or ref with the value
 #
 sub set
 {
     my ($self, $key, $value) = @_;
 
-    $key = $self->_key($key);
-    $self->redis->set($key, $value);
-    $self->_change();
+    my $oldvalue = undef;
+    unless ($self->{ro}) {
+        $oldvalue = $self->redis->get($self->_ro_key($key));
+    }
+
+    $self->_set($key, $value);
+
+    unless ($self->{ro}) {
+        # Only mark as changed if stored value in ebox-ro is different
+        if ((defined ($oldvalue) and defined($value) and ($oldvalue ne $value))
+            or (defined ($oldvalue) xor defined ($value))) {
+            $self->_change();
+        }
+    }
+}
+
+# Method: _set
+#
+#      Set an arbitrary key without marking the module as changed
+#
+# Parameters:
+#
+#       key - string with the key
+#       value - scalar or ref with the value
+#
+sub _set
+{
+    my ($self, $key, $value) = @_;
+
+    $self->redis->set($self->_key($key), $value);
 }
 
 sub st_set
@@ -554,7 +587,7 @@ sub unset
 
     $key = $self->_key($key);
     $self->redis->unset($key);
-    $self->_change();
+    $self->_change() unless $self->{ro};
 }
 
 sub st_unset
@@ -608,7 +641,7 @@ sub delete_dir # (key)
 
     $dir = $self->_key($dir);
     $self->redis->delete_dir($dir);
-    $self->_change();
+    $self->_change() unless $self->{ro};
 }
 
 #############
