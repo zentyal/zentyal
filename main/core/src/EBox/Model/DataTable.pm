@@ -3450,16 +3450,19 @@ sub _newId
     my ($self) = @_;
 
     my $model = $self->modelName();
-    my $leadingText = lc($model);
-    $leadingText =~ tr/aeiou//d;
-    $leadingText = substr($leadingText, 0, length($leadingText) / 2);
+    my $leadingText = lc ($model);
+    my $firstLetter = substr ($leadingText, 0, 1);
+    my $rest = substr ($leadingText, 1, length ($leadingText) - 1);
+    $rest =~ tr/aeiou//d;
+    $leadingText = $firstLetter . $rest;
+    $leadingText = substr($leadingText, 0, length ($leadingText) / 2);
 
     my $id = 1;
-    my $maxId = $self->{confmodule}->get_string("$model/max_id");
+    my $maxId = $self->{confmodule}->get("$model/max_id");
     if ($maxId) {
         $id = $maxId + 1;
     }
-    $self->{confmodule}->set_string("$model/max_id", $id);
+    $self->{confmodule}->set("$model/max_id", $id);
 
     return $leadingText . $id;
 }
