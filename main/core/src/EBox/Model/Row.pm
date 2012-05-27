@@ -623,7 +623,7 @@ sub subModel
 
     my $model;
     try {
-        $model =  $element->foreignModelInstance();
+        $model = $element->foreignModelInstance();
     } catch EBox::Exceptions::DataNotFound with {
         EBox::warn("Couldn't fetch foreign model: " . $element->foreignModel());
     };

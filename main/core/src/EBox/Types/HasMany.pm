@@ -147,6 +147,8 @@ sub foreignModelInstance
 
     $model->setDirectory($directory);
 
+    $model->{parent} = $self->model();
+
     return $model;
 }
 

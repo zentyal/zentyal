@@ -4507,12 +4507,6 @@ sub filesPathsForRow
 #
 #       row object or undef if there is not
 #
-# Warning:
-#
-#     this method is affected by the bug in
-#     EBox::Model::Composite::parent() in case that the datatable is
-#     contained in a Composite
-#
 sub parentRow
 {
     my ($self) = @_;
@@ -4522,14 +4516,7 @@ sub parentRow
         return undef;
     }
 
-    my $dirsToRowId;
-    my $parentComposite = $self->parentComposite();
-    if ($parentComposite) {
-        $dirsToRowId = 3;
-    }
-    else {
-        $dirsToRowId = 2;
-    }
+    my $dirsToRowId = 2;
 
     my $dir = $self->directory();
     my @parts = split '/', $dir;
@@ -4537,7 +4524,7 @@ sub parentRow
 
     my $row =  $parent->row($rowId);
     $row or
-        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite: $parentComposite");
+        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir.");
 
     return $row;
 }

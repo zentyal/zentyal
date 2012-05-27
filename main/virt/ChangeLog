@@ -1,4 +1,5 @@
 HEAD
+	+ Remove no longer necessary parentComposite workarounds
 	+ Adapted to new Model management framework
 	+ Adapted Status type to new framework
 2.3.1

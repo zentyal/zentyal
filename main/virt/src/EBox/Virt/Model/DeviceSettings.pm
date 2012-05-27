@@ -40,31 +40,6 @@ use constant HDDS_DIR => '/var/lib/zentyal';
 use constant MAX_IDE_NUM => 4;
 use constant MAX_SCSI_NUM => 16;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Create the new DeviceSettings model.
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Virt::Model::DeviceSettings> - the recently created model.
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Group: Private methods
 
 sub _populateDriveTypes
@@ -309,10 +284,6 @@ sub viewCustomizer
     my ($self) = @_;
 
     my $customizer = new EBox::View::Customizer();
-    # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{confmodule}->composite('VMSettings');
-    $self->setParentComposite($composite);
-
     $customizer->setModel($self);
 
     $customizer->setHTMLTitle([]);
