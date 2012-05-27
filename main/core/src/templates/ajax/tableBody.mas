@@ -55,6 +55,8 @@ use POSIX;
   my $printableRowName = $model->table()->{'printableRowName'};
   my $tableName = $model->table()->{'tableName'};
   my $printableTableName = $model->table()->{'printableTableName'};
+  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
+  my $withoutActions = $model->table()->{'withoutActions'};
   my @ids;
   if (not $model->customFilter()) {
     @ids =  @{$model->ids()};
@@ -137,8 +139,10 @@ $pageSize or
    title => $model->headTitle()
 &>
 %    }
-%    if ($changeView and exists $actions->{'add'})
+%    unless ((defined $onlyCustomActions) and $onlyCustomActions)
 %    {
+%        if ($changeView and exists $actions->{'add'})
+%        {
   <a href='#' class='addNew'
       name='add'
          onClick="<%
@@ -149,12 +153,15 @@ $pageSize or
                 %>;return false"><% __('Add new') %></a>
    <br/>
    <br/>
-%    }
+%        }
+%   }
   <span id="<% 'creatingForm_' . $tableName %>"></span>
 %  }
 
-%  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
-%   if ( $action eq 'changeAdd' )  {
+%  unless ((defined $onlyCustomActions) and $onlyCustomActions)
+%  {
+%   if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
+%    if ( $action eq 'changeAdd' )  {
 %     my $addingStr = __x('Adding a new {row}', row => $printableRowName);
 <& PARENT:title, title => $addingStr &>
 %    } elsif ( $action eq 'changeEdit' )  {
@@ -162,7 +169,7 @@ $pageSize or
 
 %     my $editingStr = __x('Editing {row}', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
-%   }
+%    }
 
 <& PARENT:editForm,
     modelName => $tableName,
@@ -170,17 +177,20 @@ $pageSize or
     sections => $model->sections(),
 &>
 
-%   my $customizer = $formData[0]->model()->viewCustomizer();
-%   if ($customizer) {
+%    my $customizer = $formData[0]->model()->viewCustomizer();
+%    if ($customizer) {
 <script>
 <%   $customizer->onChangeActionsJS() %>
 </script>
 %    }
+%   }
 %  }
 
 
 % if (@ids or length($filter) > 0)
 %  {
+%   unless ((defined $onlyCustomActions) and $onlyCustomActions)
+%   {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
 %    {
 <h3>
@@ -189,6 +199,7 @@ $pageSize or
   %>
 </h3>
 %    }
+%   }
 
 <table class="bDataTable">
     <tr>
@@ -233,7 +244,8 @@ $pageSize or
                $model->table()->{'class'}
               %>'>
 
-<& SELF:tableHead, tableHead => \@tableHead &>
+<& SELF:tableHead, tableHead => \@tableHead,
+                   actions   => ((defined $withoutActions) ? not $withoutActions : 1) &>
 
     <tbody>
 <%perl>
@@ -272,6 +284,7 @@ $pageSize or
 
 %    }
 
+% unless ((defined $withoutActions) and $withoutActions) {
 <& SELF:actionCell, model => $model,
                     actions => $actions,
 
@@ -283,6 +296,7 @@ $pageSize or
                     changeView => $changeView,
                     page => $page
                     &>
+% }
       </tr>
 %     if ($displayRows == $pageSize and not (defined($filter) and length($filter) > 0) ) {
 %       $matches = scalar(@ids);
@@ -318,10 +332,11 @@ $pageSize or
 >
 % }
 
-% if ( $action eq 'changeEdit' and $editid ) {
+% unless ((defined $onlyCustomActions) and $onlyCustomActions) {
+%  if ( $action eq 'changeEdit' and $editid ) {
 <script>highlightRow('<% $editid %>', 1);</script>
+%  }
 % }
-
 % # End body method
 </%method>
 
@@ -346,18 +361,23 @@ $pageSize or
   my $page   = $requestArgs->{page};
   my $tpages = $requestArgs->{tpages};
   my $changeView = $model->action('changeView');
+  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
+  my $withoutActions = $model->table()->{'withoutActions'};
 
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
       $action = 'changeEdit' if ( $editid );
   }
 </%init>
+% unless ((defined $withoutActions) and $withoutActions) {
 <tr>
   <td id="applyChanges">
   </td>
   <td id="<% 'buttons_' . $model->modelName() %>">
-% if ( $action eq 'changeAdd' )
+% unless ((defined $onlyCustomActions) and $onlyCustomActions)
 % {
+%  if ( $action eq 'changeAdd' )
+%  {
     <& /input/submit.mas,
         class => 'inputButton',
         type => 'submit',
@@ -366,9 +386,9 @@ $pageSize or
         title => 'Add',
         onclick => $model->addNewRowJS($page) . '; return false'
     &>
-% }
-% elsif ($action eq 'changeEdit')
-% {
+%  }
+%  elsif ($action eq 'changeEdit')
+%  {
     <& /input/submit.mas,
         class => 'inputButton',
         type => 'submit',
@@ -377,9 +397,9 @@ $pageSize or
         title => 'Change',
         onclick => $model->changeRowJS($editid, $page) . '; return false'
     &>
-% }
-% if ($changeView)
-% {
+%  }
+%  if ($changeView)
+%  {
     <& /input/submit.mas,
         class => 'inputButton',
         type => 'submit',
@@ -391,12 +411,11 @@ $pageSize or
                           page => $page,
                           isFilter => 0) . '; return false'
     &>
+%  }
 % }
   </td>
 </tr>
-
-
-
+% }
 </%method>
 
 
@@ -409,9 +428,11 @@ Method: tableHead
 
 Parameteres:
   @tableHead - list with the types of the fields of the tale's rows
+  $actions   - whether to show Action row or not
 </%doc>
 <%args>
 @tableHead
+$actions
 </%args>
     <thead>
 %    foreach my $th (@tableHead)
@@ -426,11 +447,13 @@ Parameteres:
       </th>
 %    }
 
+%    if ($actions) {
       <th class='thOptions'>
         <%
           __('Action')
         %>
       </th>
+%    }
     </thead>
 </%method>
 
@@ -477,9 +500,12 @@ $page
           $edit_msg = __('Read-only row: edit disabled');
           $delete_msg = __('Read-only row: delete disabled');
       }
+      my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
 </%perl>
 <& /ajax/customActions.mas, model => $model, id => $row->{id}, type => 'image' &>
 
+%    unless ((defined $onlyCustomActions) and $onlyCustomActions)
+%    {
 %      if ($actions->{'del'})
 %      {
           <input class='inputButton'
@@ -533,6 +559,7 @@ $page
             page => $page,
         &>
 %      }
+%    }
         </td>
 </%method>
 

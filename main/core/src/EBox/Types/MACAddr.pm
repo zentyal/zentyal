@@ -15,7 +15,7 @@
 
 package EBox::Types::MACAddr;
 
-use EBox::Validate qw( checkMAC );
+use EBox::Validate qw(checkMAC);
 use EBox::Gettext;
 
 use strict;
@@ -38,12 +38,12 @@ use EBox::Gettext;
 #
 sub new
 {
-        my $class = shift;
-    	my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'macaddr';
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    $self->{'type'} = 'macaddr';
+    bless($self, $class);
+    return $self;
 }
 
 # Group: Protected methods
@@ -70,17 +70,16 @@ sub new
 #                                       MAC address
 #
 sub _paramIsValid
-  {
-      my ($self, $params) = @_;
+{
+    my ($self, $params) = @_;
 
-      my $value = $params->{$self->fieldName()};
+    my $value = $params->{$self->fieldName()};
 
-      if (defined ( $value )) {
-	  checkMAC($value, $self->printableName());
-      }
+    if (defined ( $value )) {
+        checkMAC($value, $self->printableName());
+    }
 
-      return 1;
-
-  }
+    return 1;
+}
 
 1;

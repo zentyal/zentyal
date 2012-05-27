@@ -19,19 +19,15 @@ use strict;
 use warnings;
 
 #use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
-#            EBox::Report::DiskUsageProvider EBox::Model::CompositeProvider
-#            EBox::Model::ModelProvider EBox::LogObserver);
-use base qw(EBox::Module::Service EBox::Model::CompositeProvider EBox::Model::ModelProvider
-            EBox::FirewallObserver EBox::LdapModule);
+#            EBox::Report::DiskUsageProvider EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule);
 
-use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
+use EBox::Sudo;
 use EBox::SambaLdapUser;
-#use EBox::UsersAndGroups;
 use EBox::Network;
 use EBox::SambaFirewall;
-#use EBox::SambaLogHelper;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;
@@ -42,13 +38,11 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::Model::ModelManager;
 use EBox::DBEngineFactory;
-
-use EBox::Ldb;
+use EBox::LDB;
+use EBox::Util::Random qw( generate );
 
 use Net::Domain qw(hostdomain);
-use Sys::Hostname;
 use Error qw(:try);
 
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
@@ -65,68 +59,6 @@ use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
-my $PORTS = [
-    { # kerberos
-        'protocol' => 'tcp/udp',
-        'sourcePort' => 'any',
-        'destinationPort' => '88',
-    },
-    { # DCE endpoint resolution
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '135',
-    },
-    { # netbios-ns
-        'protocol' => 'udp',
-        'sourcePort' => 'any',
-        'destinationPort' => '137',
-    },
-    { # netbios-dgm
-        'protocol' => 'udp',
-        'sourcePort' => 'any',
-        'destinationPort' => '138',
-    },
-    { # netbios-ssn
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '139',
-    },
-    { # samba LDAP
-        'protocol' => 'tcp/udp',
-        'sourcePort' => 'any',
-        'destinationPort' => '389',
-    },
-    { # microsoft-ds
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '445',
-    },
-    { # kerberos change/set password
-        'protocol' => 'tcp/udp',
-        'sourcePort' => 'any',
-        'destinationPort' => '464',
-    },
-    { # LDAP over TLS/SSL
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '636',
-    },
-    { # unknown???
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '1024',
-    },
-    { # msft-gc
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '3268',
-    },
-    { # msft-gc-ssl
-        'protocol' => 'tcp',
-        'sourcePort' => 'any',
-        'destinationPort' => '3269',
-    },
-];
 
 sub _create
 {
@@ -175,6 +107,7 @@ sub appArmorProfiles
 {
     my ($self) = @_;
 
+    EBox::info('Setting DNS apparmor profile');
     my @params = ();
     return [
             {
@@ -237,8 +170,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Create default rules and services
-    # only if installing the first time
+    # Create default rules and services only if enabling the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
         my $serviceName = 'samba';
@@ -249,7 +181,7 @@ sub initialSetup
                 'description' => __('File sharing (Samba) protocol'),
                 'internal' => 1,
                 'readOnly' => 1,
-                'services' => $PORTS,
+                'services' => $self->_services(),
             );
         }
 
@@ -257,6 +189,83 @@ sub initialSetup
         $firewall->setInternalService('samba', 'accept');
         $firewall->saveConfigRecursive();
     }
+}
+
+sub _services
+{
+    return [
+            { # kerberos
+                'protocol' => 'tcp/udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '88',
+                'description' => 'Kerberos authentication',
+            },
+            { # DCE endpoint resolution
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '135',
+                'description' => 'DCE endpoint resolution',
+            },
+            { # netbios-ns
+                'protocol' => 'udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '137',
+                'description' => 'NETBIOS name service',
+            },
+            { # netbios-dgm
+                'protocol' => 'udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '138',
+                'description' => 'NETBIOS datagram service',
+            },
+            { # netbios-ssn
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '139',
+                'description' => 'NETBIOS session service',
+            },
+            { # samba LDAP
+                'protocol' => 'tcp/udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '389',
+                'description' => 'Lightweight Directory Access Protocol',
+            },
+            { # microsoft-ds
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '445',
+                'description' => 'Microsoft directory services',
+            },
+            { # kerberos change/set password
+                'protocol' => 'tcp/udp',
+                'sourcePort' => 'any',
+                'destinationPort' => '464',
+                'description' => 'Kerberos set/change password',
+            },
+            { # LDAP over TLS/SSL
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '636',
+                'description' => 'LDAP over TLS/SSL',
+            },
+            { # unknown???
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '1024',
+            },
+            { # msft-gc
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '3268',
+                'description' => 'Microsoft global catalog',
+            },
+            { # msft-gc-ssl
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '3269',
+                'description' => 'Microsoft global catalog over SSL',
+            },
+        ];
 }
 
 # Method: enableActions
@@ -286,21 +295,6 @@ sub enableActions
         my $error = shift;
         EBox::debug("Couldn't setup filesystem options: $error");
     };
-
-    # Disable apparmor profile
-    # NOTE This is a temporary fix until ubuntu publish the fix for bug
-    #      https://bugs.launchpad.net/ubuntu/+source/bind9/+bug/929563
-    EBox::debug('Disabling named apparmor profile');
-    @cmds = ('rm -f /etc/apparmor.d/disable/usr.sbin.named',
-             'ln -s /etc/apparmor.d/usr.sbin.named /etc/apparmor.d/disable/usr.sbin.named',
-             'touch /etc/apparmor.d/local/usr.sbin.named',
-             'service apparmor restart');
-    try {
-        EBox::Sudo::root(@cmds);
-    } otherwise {
-        my $error = shift;
-        EBox::debug("Couldn't disable named profile: $error");
-    };
 }
 
 # Method: enableService
@@ -316,40 +310,6 @@ sub enableService
     if ($self->changed()) {
         EBox::Global->modChange('dns');
     }
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-
-    my ($self) = @_;
-
-    return [
-               'EBox::Samba::Model::GeneralSettings',
-               'EBox::Samba::Model::SambaShares',
-               'EBox::Samba::Model::SambaSharePermissions',
-               'EBox::Samba::Model::SambaDeletedShares',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [
-             'EBox::Samba::Composite::General',
-           ];
 }
 
 # Method: shares
@@ -437,6 +397,40 @@ sub shares
     return \@shares;
 }
 
+# Method: addZentyalLdbModule
+#
+#   Adds the zentyal module to LDB
+#
+sub enableZentyalLdbModule
+{
+    my ($self) = @_;
+
+    EBox::debug('Adding Zentyal LDB module');
+
+    my $ldif = "dn: \@MODULES\n" .
+               "changetype: modify\n" .
+               "replace: \@LIST\n" .
+               "\@LIST: zentyal,samba_dsdb\n";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
+}
+
+# Method: disableZentyalLdbModule
+#
+#   Disable the zentyal module to LDB
+#
+sub disableZentyalLdbModule
+{
+    my ($self) = @_;
+
+    EBox::debug('Disabling Zentyal LDB module');
+
+    my $ldif = "dn: \@MODULES\n" .
+               "changetype: modify\n" .
+               "replace: \@LIST\n" .
+               "\@LIST: samba_dsdb\n";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
+}
+
 # Method: provision
 #
 #   This method provision the database
@@ -444,7 +438,6 @@ sub shares
 sub provision
 {
     my ($self) = @_;
-
 
     # This file must be deleted or provision may fail
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
@@ -455,7 +448,7 @@ sub provision
         ' --dns-backend=BIND9_FLATFILE' .
         ' --server-role=' . $self->mode();
 
-    EBox::debug("Provisioning database '$cmd --adminpass=***'");
+    EBox::debug("Provisioning database '$cmd'");
 
     $cmd .= ' --adminpass=' . $self->administratorPassword();
 
@@ -468,26 +461,15 @@ sub provision
     };
     EBox::Sudo::root('chown root:bind ' . SAMBADNSZONE);
 
-    # Enable reversible encryption to sync passwords
+    # Disable password policy
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
     #      ending with different passwords
     EBox::debug('Setting password policy');
-    $cmd = SAMBATOOL . " domain passwordsettings set" .
-                       " --store-plaintext=on " .
+    $cmd = SAMBATOOL . " domain passwordsettings set " .
                        " --complexity=off "  .
                        " --min-pwd-length=0";
     EBox::Sudo::root($cmd);
-
-    # Set the proper permissions to allow 'ebox' user read the ldb files
-    my @cmds = ();
-    push (@cmds, 'chown root:ebox /var/lib/samba/private/idmap.ldb');
-    push (@cmds, 'chmod 660 /var/lib/samba/private/idmap.ldb');
-    push (@cmds, 'chown root:ebox /var/lib/samba/private/sam.ldb.d');
-    push (@cmds, 'chmod 670 /var/lib/samba/private/sam.ldb.d');
-    push (@cmds, 'chown root:ebox /var/lib/samba/private/sam.ldb.d/*');
-    push (@cmds, 'chmod 660 /var/lib/samba/private/sam.ldb.d/*');
-    EBox::Sudo::root(@cmds);
 
     # Update the "Domain Users" xid mapping to the gid of __USERS__
     EBox::debug("Mapping 'Domain Users' group to __USERS__");
@@ -496,48 +478,22 @@ sub provision
     my $gid = new EBox::UsersAndGroups::Group(dn => $dn)->get('gidNumber');
     $self->ldb()->xidMapping('Domain Users', $gid);
 
-    # Export all zentyal users and groups to ldb
+    # TODO Export all zentyal users and groups to ldb
     EBox::debug('Exporting LDAP to LDB');
     try {
-        #$self->ldb()->ldapToLdb(); TODO
+        #$self->ldb()->ldapToLdb()
     } otherwise {
         my $error = shift;
         throw EBox::Exceptions::Internal("Error exporting LDAP to LDB: $error");
     };
 
+    # Add the zentyal module to the LDB modules stack
+    $self->enableZentyalLdbModule();
+
     # Mark the module as provisioned
-    # TODO Flag is failing
     EBox::debug('Setting provisioned flag');
     $self->set_bool('provisioned', 1);
 }
-
-#sub _exposedMethods
-#{
-#    return {
-#            'getPathByShareName' => {
-#            'action' => 'get',
-#                'path' => [ 'SambaShares'],
-#                'indexes' => [ 'share'],
-#                'selector' => [ 'path']
-#            },
-#            'getUserByIndex' => {
-#                'action' => 'get',
-#                'path' => [ 'SambaShares',
-#                'access'
-#                    ],
-#                'indexes' => ['share', 'id'],
-#                'selector' => ['user_group']
-#            },
-#            'getPermissionsByIndex' => {
-#                'action' => 'get',
-#                'path' => [ 'SambaShares',
-#                'access'
-#                    ],
-#                'indexes' => ['share', 'id'],
-#                'selector' => ['permissions']
-#            }
-#    };
-#}
 
 # Return interfaces upon samba should listen
 sub sambaInterfaces
@@ -575,16 +531,6 @@ sub sambaInterfaces
     }
 
     my @moduleGeneratedIfaces = ();
-
-    # XXX temporal fix until #529 is fixed
-    #if ($global->modExists('openvpn')) {
-    #    my $openvpn = $global->modInstance('openvpn');
-    #    my @openvpnDaemons = $openvpn->activeDaemons();
-    #    my @openvpnIfaces  = map { $_->iface() }  @openvpnDaemons;
-
-    #    push @moduleGeneratedIfaces, @openvpnIfaces;
-    #}
-
     push @ifaces, @moduleGeneratedIfaces;
     return \@ifaces;
 }
@@ -600,8 +546,6 @@ sub _preSetConf
 sub _setConf
 {
     my ($self) = @_;
-
-    # TODO Check user_xattr in fstab and remount if necessary
 
     unless ($self->get_bool('provisioned')) {
         $self->provision();
@@ -775,25 +719,25 @@ sub _daemons
 {
     return [
         {
-            'name' => 'samba4',
+            'name' => 'zentyal.s4sync',
         },
         {
-            'name' => 'zentyal.s4sync',
+            'name' => 'samba4',
         },
     ];
 }
 
 # Function: usesPort
 #
-#       Implements EBox::FirewallObserver interface
+#   Implements EBox::FirewallObserver interface
 #
-sub usesPort # (protocol, port, iface)
+sub usesPort
 {
     my ($self, $protocol, $port, $iface) = @_;
 
     return undef unless($self->isEnabled());
 
-    foreach my $smbport (@{$PORTS}) {
+    foreach my $smbport ($self->_services()) {
         return 1 if ($port eq $smbport->{destinationPort});
     }
 
@@ -1040,7 +984,9 @@ sub printers
 
     my @printers;
     my $readOnly = $self->isReadOnly();
-    foreach my $printer (@{$self->array_from_dir('printers')}) {
+    # FIXME: reimplement this
+    #foreach my $printer (@{$self->array_from_dir('printers')}) {
+    foreach my $printer (@{[]}) {
         my $name = $printer->{'_dir'};
         if (exists $external{$name}) {
             $external{$name} = 'exists';
@@ -1809,16 +1755,29 @@ sub restoreDependencies
 #    return \@shares;
 #}
 
+# Generate, store in the given file and return a password
+sub _genPassword
+{
+    my ($self, $file) = @_;
+
+    my $pass = EBox::Util::Random::generate(20);
+    my ($login, $password, $uid, $gid) = getpwnam('ebox');
+    EBox::Module::Base::writeFile($file, $pass,
+            { mode => '0600', uid => $uid, gid => $gid });
+
+    return $pass;
+}
+
 # Method: ldb
 #
-#   Provides an EBox::Ldb object with the proper settings
+#   Provides an EBox::LDB object with the proper settings
 #
 sub ldb
 {
     my ($self) = @_;
 
-    unless(defined($self->{ldb})) {
-        $self->{ldb} = EBox::Ldb->new();
+    unless (defined($self->{ldb})) {
+        $self->{ldb} = EBox::LDB->instance();
     }
     return $self->{ldb};
 }

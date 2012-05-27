@@ -41,7 +41,7 @@ my $_instance = undef;
 #
 # Returns:
 #
-#   object of class <EBox::ModelManager>
+#   object of class <EBox::Monitor::Measure::Manager>
 #
 sub Instance
 {

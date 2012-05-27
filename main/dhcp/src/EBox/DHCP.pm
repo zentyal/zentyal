@@ -20,9 +20,7 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
-            EBox::LogObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+            EBox::LogObserver);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -35,8 +33,7 @@ use EBox::Menu::Folder;
 use EBox::Objects;
 use EBox::Validate qw(:all);
 
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
+use EBox::Model::Manager;
 
 use EBox::Sudo;
 use EBox::NetWrappers qw(:all);
@@ -261,7 +258,6 @@ sub depends
 #
 sub modelClasses
 {
-
     my ($self) = @_;
 
     return [ 'EBox::DHCP::Model::Interfaces',
@@ -770,7 +766,8 @@ sub ranges # (iface)
               { name    => $row->valueByName('name'),
                 from    => $row->valueByName('from'),
                 to      => $row->valueByName('to'),
-                options => $self->_thinClientOptions($iface, $row->valueByName('name'))
+                # TODO: Restore this when more than one config per interface is possible
+                options => {}, #$self->_thinClientOptions($iface, $row->valueByName('name'))
                });
     }
 
@@ -835,7 +832,8 @@ sub fixedAddresses # (interface, readOnly)
         my $row   = $model->row($id);
         my $objId = $row->valueByName('object');
         my $mbs   = $objMod->objectMembers($objId);
-        $addrs{$objId} = { options => $self->_thinClientOptions($iface, $objId),
+        # TODO: Restore this when more than one config per interface is possible
+        $addrs{$objId} = { options => {},#$self->_thinClientOptions($iface, $objId),
                            members => [] };
 
         foreach my $member (@{$mbs}) {
@@ -989,9 +987,7 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
     # Mark managers as changed every time we attempt to change the
     # iface method from/to static
     if ($old_method eq 'static' or $new_method eq 'static') {
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->markAsChanged();
-        $manager = EBox::Model::CompositeManager->Instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->markAsChanged();
     }
 
@@ -1030,7 +1026,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
     my $net = EBox::Global->modInstance('network');
     my $ip = new Net::IP($address);
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
 
     my @rangeModels = @{$manager->model('/dhcp/RangeTable/*')};
     # Check that the new IP for the virtual interface isn't in any range
@@ -1077,8 +1073,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
     }
     # Mark managers as changed
     $manager->markAsChanged();
-    my $compManager = EBox::Model::CompositeManager->Instance();
-    $compManager->markAsChanged();
 }
 
 # Method:  vifaceDelete
@@ -1097,7 +1091,7 @@ sub vifaceDelete # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
 
     foreach my $modelName (qw(RangeTable FixedAddressTable Options)) {
         my $model = $manager->model("/dhcp/$modelName/$iface:$viface");
@@ -1139,7 +1133,7 @@ sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
     my $netIP = new Net::IP("$network/$bits");
 
         # Check ranges
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
         foreach my $id (@{$rangeModel->ids()}) {
             my $rangeRow = $rangeModel->row($id);
@@ -1185,16 +1179,14 @@ sub freeIface #( self, iface )
 {
     my ( $self, $iface ) = @_;
 #   $self->delete_dir("$iface");
-        $self->_removeDataModelsAttached($iface);
+    $self->_removeDataModelsAttached($iface);
 
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->markAsChanged();
-        $manager = EBox::Model::CompositeManager->Instance();
-        $manager->markAsChanged();
+    my $manager = EBox::Model::Manager->instance();
+    $manager->markAsChanged();
 
     my $net = EBox::Global->modInstance('network');
     if ($net->ifaceMethod($iface) eq 'static') {
-      $self->_checkStaticIfaces(-1);
+        $self->_checkStaticIfaces(-1);
     }
 }
 
@@ -1212,16 +1204,14 @@ sub freeViface #( self, iface, viface )
 {
     my ( $self, $iface, $viface ) = @_;
 #   $self->delete_dir("$iface:$viface");
-        $self->_removeDataModelsAttached("$iface:$viface");
+    $self->_removeDataModelsAttached("$iface:$viface");
 
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->markAsChanged();
-        $manager = EBox::Model::CompositeManager->Instance();
-        $manager->markAsChanged();
+    my $manager = EBox::Model::Manager->instance();
+    $manager->markAsChanged();
 
 #   my $net = EBox::Global->modInstance('network');
 #   if ($net->ifaceMethod($viface) eq 'static') {
-      $self->_checkStaticIfaces(-1);
+    $self->_checkStaticIfaces(-1);
 #   }
 }
 
@@ -1290,9 +1280,20 @@ sub _dhcpLeases
     }
 
     if ($refresh) {
-        my $leases = Text::DHCPLeases->new(file => LEASEFILE);
-
         $self->{'leases'} = {};
+
+        my $leases;
+        try {
+            $leases = Text::DHCPLeases->new(file => LEASEFILE);
+        } otherwise {
+           my $ex = shift;
+           EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $ex");
+        };
+
+        if (not $leases) {
+            return $self->{'leases'};
+        }
+
         foreach my $lease ($leases->get_objects()) {
             my $id = _leaseIDFromIP($lease->ip_address());
             $self->{'leases'}->{$id} = $lease;
@@ -1482,6 +1483,9 @@ sub _ifacesInfo
                 $iflist{$iface}->{'staticDomain'}  = $self->_dynamicDNS('static', $iface);
                 $iflist{$iface}->{'reverseZones'}  = $self->_reverseZones($iface);
             }
+
+            # TODO: Remove this when more than one config per interface is possible
+            $iflist{$iface}->{'options'}  = $self->_thinClientOptions($iface);
         }
     }
 
@@ -1536,16 +1540,22 @@ sub _areThereThinClientOptions
 {
     my ($self, $ifacesInfo) = @_;
 
+# TODO: Restore this when more than one config per interface is possible
+#     foreach my $ifaceInfo (values %{$ifacesInfo}) {
+#         foreach my $range (@{$ifaceInfo->{ranges}}) {
+#             if ( values %{$range->{options}} > 0 ) {
+#                 return 1;
+#             }
+#         }
+#         foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
+#             if ( values %{$objFixed->{options}} > 0 ) {
+#                 return 1;
+#             }
+#         }
+#     }
     foreach my $ifaceInfo (values %{$ifacesInfo}) {
-        foreach my $range (@{$ifaceInfo->{ranges}}) {
-            if ( values %{$range->{options}} > 0 ) {
-                return 1;
-            }
-        }
-        foreach my $objFixed (values %{$ifaceInfo->{fixed}}) {
-            if ( values %{$objFixed->{options}} > 0 ) {
-                return 1;
-            }
+        if ( values %{$ifaceInfo->{options}} > 0 ) {
+            return 1;
         }
     }
     return 0;
@@ -1576,12 +1586,15 @@ sub _thinClientOptions # (iface, element)
     my $thinClientModel = $self->_getModel('thinClientModel', $iface);
 
     my $ret = {};
-    my $row = $thinClientModel->findValue(hosts => $element);
-    if ( defined($row) ) {
-        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal($row->id());
-        $ret->{nextServer} = $thinClientModel->nextServer($row->id());
-        $ret->{filename}   = $thinClientModel->remoteFilename($row->id());
-        $ret->{architecture} = $thinClientModel->architecture($row->id());
+# TODO: Restore this when more than one config per interface is possible
+#    my $row = $thinClientModel->findValue(hosts => $element);
+#    if ( defined($row) ) {
+    if ($thinClientModel->row()->valueByName('nextServer') ne 'none') {
+        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();#$row->id());
+        $ret->{nextServer} = $thinClientModel->nextServer();#$row->id());
+        $ret->{filename}   = $thinClientModel->remoteFilename();#$row->id());
+        $ret->{architecture} = $thinClientModel->architecture();#$row->id());
+        $ret->{fat} = $thinClientModel->fat();#$row->id());
     }
     return $ret;
 
@@ -1831,7 +1844,7 @@ sub _allowedMemberInFixedAddress
     }
 
     # Check the given member is unique within the object realm
-    my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model('/dhcp/FixedAddressTable/*')};
+    my @fixedAddressTables = @{EBox::Model::Manager->instance()->model('/dhcp/FixedAddressTable/*')};
     # Delete the self model
     @fixedAddressTables = grep { $_->index() ne $iface } @fixedAddressTables;
 

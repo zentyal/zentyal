@@ -1,3 +1,5 @@
+// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+
 /* 
    This bunch of function are JS function to improve the development
    of /ajax/image.mas template.

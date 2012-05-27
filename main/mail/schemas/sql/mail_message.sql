@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS mail_message (
         message TEXT,
         event VARCHAR(255) NOT NULL,
         INDEX(timestamp)
-);
+) ENGINE = MyISAM;

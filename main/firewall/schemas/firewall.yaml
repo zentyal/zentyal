@@ -7,3 +7,18 @@ depends:
 
 enabledepends:
     - network
+
+models:
+    - ToInternetRuleTable
+    - InternalToEBoxRuleTable
+    - ExternalToEBoxRuleTable
+    - EBoxOutputRuleTable
+    - ExternalToInternalRuleTable
+    - EBoxServicesRuleTable
+    - RedirectsTable
+    - Report::PacketTrafficDetails
+    - Report::PacketTrafficGraph
+    - Report::PacketTrafficReportOptions
+
+composites:
+    Report::PacketTrafficReport: [/firewall/PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]

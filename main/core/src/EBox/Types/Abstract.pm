@@ -48,18 +48,18 @@ sub new
     }
 
     if (not $self->{printableName}) {
-        $self->{printableName} = $self->{fieldName};
+        $self->{printableName} = undef;
     }
 
     bless($self, $class);
 
-    if ( defined ( $self->{'defaultValue'} )) {
+    if ( defined ( $self->defaultValue() )) {
         if ( $self->optional() ) {
             throw EBox::Exceptions::Internal(
              'Defined default value to an optional field ' . $self->fieldName()
                                             );
         }
-        $self->_setValue($self->{'defaultValue'});
+        $self->_setValue($self->defaultValue());
     }
 
     return $self;
@@ -183,7 +183,15 @@ sub fields
 {
     my ($self) = @_;
 
-    return ($self->fieldName());
+    my $field = $self->fieldName();
+
+    my @fields = @{$self->_attrs()};
+    unless (@fields) {
+        return ($field);
+    }
+    @fields = map { $field . '_' . $_ } @fields;
+
+    return @fields;
 }
 
 sub section
@@ -244,8 +252,14 @@ sub defaultValue
 {
     my ($self) = @_;
 
-    return $self->{'defaultValue'};
+    my $value = $self->{defaultValue};
 
+    # Check if it is a reference. It can be a function that returns the value
+    if (ref ($value)) {
+        $value = &$value();
+    }
+
+    return $value;
 }
 
 # Method: help
@@ -347,71 +361,29 @@ sub paramExist
 
 }
 
-# Method: storeInGConf
+# Method: storeInHash
 #
 #      Store the given type in a GConf directory from a
-#      GConfModule. If the type is volatile, nothing will be done.
+#      Module::Config. If the type is volatile, nothing will be done.
 #
 # Parameters:
 #
-#      module - <EBox::GConfModule> the module which is in charge
+#      module - <EBox::Module::Config> the module which is in charge
 #      to store the type in GConf
 #
 #      key - String of the key where the type will be stored
 #
-sub storeInGConf
+sub storeInHash
 {
-    my ($self, $module, $key) = @_;
+    my ($self, $hash) = @_;
 
     if ($self->volatile()) {
         if ($self->storer()) {
             my $storerProc = $self->storer();
-            &$storerProc($self, $module, $key);
+            &$storerProc($self, $hash);
         }
     } else {
-        my $field = $self->fieldName();
-
-        # Retrieve old value to remove outdated indexes
-        my $oldValue = $module->get("$key/$field");
-
-        $self->_storeInGConf($module, $key);
-
-        # Update index only if they already exists
-        # They are created on-the-fly in DataTable::_find
-
-        my $value = $self->value();
-        return unless defined ($value);
-
-        my $indexName = dirname($key) . "/$field";
-        my $row = basename($key);
-
-        my $valIndex = "$indexName.idx";
-        if ($module->index_exists($valIndex)) {
-            if (defined ($oldValue)) {
-                # Delete this row from the old index
-                my $oldValueRows = $module->hash_value($valIndex, $oldValue);
-                if (delete $oldValueRows->{$row}) {
-                    $module->set_hash_value($valIndex, $oldValue => $oldValueRows);
-                }
-            }
-
-            # Add this row to the new value index
-            my $indexRows = $module->hash_value($valIndex, $value);
-            $indexRows->{$row} = 1;
-            $module->set_hash_value($valIndex, $value => $indexRows);
-        }
-
-        my $printableValue = $self->printableValue();
-        return unless defined ($printableValue);
-
-        # Same for the printableValue index
-
-        my $pvalIndex = "$indexName.pdx";
-        if ($module->index_exists($pvalIndex)) {
-            my $indexRows = $module->hash_value($pvalIndex, $printableValue);
-            $indexRows->{$row} = 1;
-            $module->set_hash_value($pvalIndex, $printableValue => $indexRows);
-        }
+        $self->_storeInHash($hash);
     }
 }
 
@@ -457,22 +429,21 @@ sub setMemValue
 
     # Set the memory value only if persistent kind of type
     my $toSet = $self->volatile() ? 0 : 1;
-    $toSet = ($toSet or ( $self->volatile() and (ref($self->storer()) eq 'CODE')));
+    $toSet = ($toSet or ($self->volatile() and (ref($self->storer()) eq 'CODE')));
 
-    if ( $toSet ) {
+    if ($toSet) {
         # Check if the parameters hasn't had an empty value
-        if ( $self->_paramIsSet($params) ) {
+        if ($self->_paramIsSet($params)) {
             # Check if the parameter is valid
             $self->_paramIsValid($params);
             # Set finally the value
             $self->_setMemValue($params);
         } else {
-            if ( $self->optional() ) {
+            if ($self->optional()) {
                 # set type to empty
                 if ($self->memValue()) {
                     $self->_setMemValue($params);
                 }
-
             } else {
                 throw EBox::Exceptions::MissingArgument( $self->printableName() );
             }
@@ -534,14 +505,13 @@ sub restoreFromHash
 {
     my ($self, $hashRef) = @_;
 
-    if ( $self->volatile() ) {
+    if ($self->volatile()) {
         my $volatileFunc = $self->{acquirer};
-        $volatileFunc = \&_identity unless defined ( $volatileFunc );
+        $volatileFunc = \&_identity unless defined ($volatileFunc);
         $self->{value} = &$volatileFunc($self);
     } else {
         $self->_restoreFromHash($hashRef);
     }
-
 }
 
 # Method: acquirer
@@ -565,7 +535,6 @@ sub acquirer
     my ($self) = @_;
 
     return $self->{acquirer};
-
 }
 
 # Method: storer
@@ -702,37 +671,61 @@ sub typeRowLayout
 #
 #       params - hash ref with the fields to fill the type with its
 #       appropiate values
+#
 sub _setMemValue
 {
+    my ($self, $params) = @_;
 
+    my @attrs = @{$self->_attrs()};
+    return unless @attrs;
+
+    my $field = $self->fieldName();
+
+    foreach my $attr (@attrs) {
+        $self->{$attr} = $params->{"${field}_$attr"};
+    }
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
-#      Store the given type in a GConf directory from a
-#      GConfModule. The expected behaviour is if it has no value to
-#      store, remove any previous data stored.
-#
-#      This method should be overridden from non volatile types.
+#      Store this type in the given row hash
 #
 # Parameters:
 #
-#      gconfmodule - <EBox::GConfModule> the module which is in charge
-#      to store the type in GConf
+#      hash - reference to row hash
 #
-#      directory - String the directory where the type will be stored
-#      from
-#
-sub _storeInGConf
+sub _storeInHash
 {
+    my ($self, $hash) = @_;
 
+    my @attrs = @{$self->_attrs()};
+    return unless @attrs;
+
+    my $field = $self->fieldName();
+    foreach my $attr (@attrs) {
+        my $full_attr = "${field}_$attr";
+        if ($self->{$attr}) {
+            $hash->{$full_attr} = $self->{$attr};
+        } else {
+            delete $hash->{$full_attr};
+        }
+    }
+}
+
+# Method: _attrs
+#
+#      This should be overriden by complex types which store more than
+#      one value, so _restoreFromHash doesn't need to be implemented
+#
+sub _attrs
+{
+    return [];
 }
 
 # Method: _restoreFromHash
 #
-#      Restore the type value from a hash reference which usually
-#      comes from a <EBox::GConfModule::hash_from_dir> returned
-#      value. This method should be overridden from non volatile types.
+#      Restore the type value from a hash reference.
+#      This method should be overridden from non volatile types.
 #
 # Parameters:
 #
@@ -741,7 +734,18 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
+    my ($self, $hash) = @_;
 
+    my @attrs = @{$self->_attrs()};
+    return unless @attrs;
+
+    my $row = $self->row();
+    return unless ($row);
+
+    my $field = $self->fieldName();
+    for my $attr (@attrs) {
+        $self->{$attr} = $hash->{"${field}_${attr}"};
+    }
 }
 
 # Method: _paramIsValid
@@ -802,40 +806,6 @@ sub _setValue # (value)
     return;
 }
 
-# Method: _fetchFromCache
-#
-#   Return the stored data within the cache associtated to this element
-#
-sub _fetchFromCache
-{
-    my ($self) = @_;
-    my $row = $self->row();
-    return undef unless ($row);
-    my $id = $self->_path();
-    my $name = $self->fieldName();
-    my $model = $self->model();
-    if (exists $model->{dataCache}->{$id}->{$name}) {
-        return $model->{dataCache}->{$id}->{$name};
-    } else {
-        return undef;
-    }
-}
-
-# Method: _path
-#
-#   Return the whole path as in:
-#
-#       directory + row id
-sub _path
-{
-    my ($self) = @_;
-    my $path = $self->row()->dir();
-    my $id = $self->row()->id();
-    if ($id) {
-        $path .= "/$id";
-    }
-    return $path;
-}
 # Group: Private functions
 
 # Function: _identity
@@ -851,28 +821,11 @@ sub _identity
       return '';
 }
 
-# Method: _addToCache
-#
-#   Cache a data structure using the element directory + id as a key
-#
-# Parameters:
-#
-#   data - data to store within the cache
-sub _addToCache
-{
-    my ($self, $data) = @_;
-
-    my $model = $self->model();
-    my $rowId = $self->row()->id();
-    $rowId = '1' unless (defined ($rowId));
-    my $id = $self->row()->dir() . "/$rowId";
-    $model->{dataCache}->{$id}->{$self->fieldName()} = $data;
-}
-
 sub DESTROY
 {
     my ($self) = @_;
     $self->{model} = undef;
     $self->{row} = undef;
 }
+
 1;

@@ -1,11 +1,42 @@
-#!/bin/bash
-echo "Please, choose the architecture:"
-select arch in i386 amd64 hppa powerpc;
-do
-    if [ $arch ]; then
-        echo "Building $arch image..."
-        ltsp-build-client --arch $arch --purge-chroot;
-        service nbd-server restart
-        break;
-    fi
-done
+#!/usr/bin/perl -s
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Gettext;
+use EBox::Global;
+use Error qw(:try);
+
+if (scalar @ARGV >= 1) {
+    my $arch = $ARGV[0];
+    my $fat  = $ARGV[1];
+    my $chroot = ($fat ? "fat-$arch" : $arch);
+
+    EBox::init();
+
+    my $ltsp = EBox::Global->modInstance('ltsp');
+
+    $ltsp->st_set_string('work', 'build');
+    $ltsp->st_set_string('error', '');
+
+    print "Building $chroot image...\n";
+
+    my $buildCmd = "ltsp-build-client --arch $arch --purge-chroot";
+    if ($fat) {
+        $buildCmd .= " --chroot $chroot --fat-client";
+    }
+    try {
+        # TODO: add more messages to ltsp.log (with timestamps)
+        EBox::Sudo::root("$buildCmd >> /var/log/zentyal/ltsp.log");
+        EBox::Sudo::root('service nbd-server restart');
+    } otherwise {
+        $ltsp->st_set_string('error', __('Build image failed'));
+        print "Build image failed. Check /var/log/zentyal/zentyal.log for details.\n";
+    } finally {
+        $ltsp->st_set_string('work', 'none');
+    };
+
+} else {
+    print "Usage: build-image arch fat?\n";
+}

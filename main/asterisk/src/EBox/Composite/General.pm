@@ -55,12 +55,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'asterisk/Settings',
-                               'asterisk/Provider',
-                               'asterisk/NAT',
-                               'asterisk/Localnets',
-                           ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('Asterisk module'),

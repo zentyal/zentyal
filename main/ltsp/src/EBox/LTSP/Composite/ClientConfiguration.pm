@@ -67,16 +67,35 @@ sub _description
     {
         components      => [
                 '/ltsp/GeneralClientOpts',
-                '/ltsp/OtherOpts',
+                '/ltsp/OtherClientOpts',
             ],
         layout          => 'top-bottom',
         name            => 'ClientConfiguration',
-        printableName   => __('Client configuration'),
+        printableName   => __('Client Configuration'),
         compositeDomain => 'LTSP',
-        help            => __(''), # FIXME
+        #help            => __(''), # FIXME
     };
 
     return $description;
+}
+
+sub HTMLTitle
+{
+    my ($self) = @_;
+
+    my $row  = $self->parentRow();
+    my $profile = $row->printableValueByName('name');
+
+    return [
+        {
+            title => $profile,
+            link  => '/LTSP/Composite/Composite#Profiles',
+        },
+        {
+            title => $self->printableName(),
+            link  => ''
+        }
+    ];
 }
 
 1;

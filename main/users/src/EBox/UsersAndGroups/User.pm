@@ -139,7 +139,7 @@ sub set
     $self->SUPER::set(@_);
 }
 
-# Catch some of the set ops which need special actions
+# Catch some of the delete ops which need special actions
 sub delete
 {
     my ($self, $attr, $value) = @_;
@@ -155,27 +155,49 @@ sub delete
 
 sub save
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     if ($self->{set_quota}) {
         $self->_setFilesystemQuota($self->get('quota'));
         delete $self->{set_quota};
     }
 
+    $self->{modifications} = $self->{entry}->ldif(changes => 1);
+
     shift @_;
     $self->SUPER::save(@_);
 
     if ($self->{core_changed}) {
-
         my $passwd = $self->{core_changed_password};
         delete $self->{core_changed};
         delete $self->{core_changed_password};
 
         my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $ignore_mods);
+        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+
+        delete $self->{ignoreMods};
     }
+
+    delete $self->{modifications};
 }
 
+# Method: setIgnoredModules
+#
+#   Set the modules that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining module names
+#
+sub setIgnoredModules
+{
+    my ($self, $mods) = @_;
+
+    if (defined $mods) {
+        $self->{ignoreMods} = $mods;
+    }
+}
 
 # Method: addGroup
 #
@@ -321,22 +343,29 @@ sub changePassword
 {
     my ($self, $passwd, $lazy) = @_;
 
-    $self->_checkPwdLength($passwd);
-    my $hash = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
+    my $hashes = {};
+    if (ref($passwd) ne 'ARRAY') {
+        # build addtional passwords using not-hashed pasword
+        if (isHashed($passwd)) {
+            throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
+        }
+
+        $self->_checkPwdLength($passwd);
+        $hashes = EBox::UsersAndGroups::Passwords::additionalPasswords($self->get('uid'), $passwd);
+        $hashes->{userPassword} = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
+    } else {
+        # Already hashed passwors received
+        $hashes = @{ $passwd }
+    }
 
     #remove old passwords
-    my $delattrs = [];
     foreach my $attr ($self->_entry->attributes) {
         if ($attr =~ m/^ebox(.*)Password$/) {
             $self->delete($attr, 1);
         }
     }
 
-    $self->set('userPassword', $hash, 1);
-
-    my $hashes = EBox::UsersAndGroups::Passwords::additionalPasswords($self->get('uid'), $passwd);
-    foreach my $attr (keys %$hashes)
-    {
+    foreach my $attr (keys %{$hashes}) {
         $self->set($attr, $hashes->{$attr}, 1);
     }
 
@@ -352,7 +381,7 @@ sub changePassword
 #
 sub deleteObject
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     # remove this user from all its grups
     foreach my $group (@{$self->groups()}) {
@@ -361,7 +390,7 @@ sub deleteObject
 
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delUser', $self, $ignore_mods);
+    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
 
     # Call super implementation
     shift @_;
@@ -399,16 +428,14 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   user - hash ref containing: 'user'(user name), 'fullname', 'password',
-#   'givenname', 'surname' and 'comment'
-#       if password is not given, a 'passwords' array ref to passwords attribute
-#       should be present
+#   user - hash ref containing: 'user'(user name), 'fullname', 'givenname',
+#                               'surname' and 'comment'
 #   system - boolean: if true it adds the user as system user, otherwise as
 #   normal user
 #   params hash (all optional):
 #      uidNumber - user UID numberer
-#      ignore_mods - ldap modules to be ignored on addUser notify
 #      ou (multiple_ous enabled only)
+#      ignoreMods - modules that should not be notified about the user creation
 #
 # Returns:
 #
@@ -467,38 +494,15 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-
     my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
     my $gid = $group->get('gidNumber');
 
-    my $passwd = $user->{'password'};
-
     # system user could not have passwords
-    if (not $passwd and not $user->{passwords} and not $system) {
-        throw EBox::Exceptions::MissingArgument(__('Password'));
-    }
-    my @passwords = ();
-    if (ref($passwd) ne 'ARRAY') {
-        # build addtional passwords using not-hashed pasword
-        if (isHashed($passwd)) {
-            throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
-        }
-
-        $self->_checkPwdLength($passwd);
-
-        if (not isHashed($passwd)) {
-            $passwd = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
-        }
-
-        my %passwords = %{EBox::UsersAndGroups::Passwords::additionalPasswords($user->{'user'}, $user->{'password'})};
-        @passwords = map { $_ => $passwords{$_} } keys %passwords;
-        push (@passwords, 'userPassword'  => $passwd);
-
-    } else {
-        # Already hashed passwors received
-        @passwords = @{ $user->{password} }
-    }
+    my $passwd = $user->{'password'};
+    #if (not $passwd and not $user->{passwords} and not $system) {
+    #    throw EBox::Exceptions::MissingArgument(__('Password'));
+    #}
 
     # If fullname is not specified we build it with
     # givenname and surname
@@ -527,7 +531,6 @@ sub create
             'passwordHolder',
             'systemQuotas',
         ],
-        @passwords
     );
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
@@ -537,17 +540,25 @@ sub create
     my $r = $self->_ldap->add($dn, \%args);
     my $res = new EBox::UsersAndGroups::User(dn => $dn);
 
+    if (defined $passwd) {
+        $res->changePassword($passwd, 1);
+    }
+
     # Init user
     unless ($system) {
         # only default OU users are initializated
         if ($isDefaultOU) {
             $users->reloadNSCD();
-            $users->initUser($res, $user->{'password'});
+            $users->initUser($res, $passwd);
             $res->_setFilesystemQuota($quota);
         }
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addUser', [ $res, $user->{'password'} ], $params{ignore_mods});
+        $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods});
+    }
+
+    if ($res->{core_changed}) {
+        $res->save();
     }
 
     # Return the new created user
@@ -703,7 +714,5 @@ sub defaultQuota
 
     return $value;
 }
-
-
 
 1;

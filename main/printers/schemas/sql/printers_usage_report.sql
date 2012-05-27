@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS printers_usage_report(
          pages INT,
          users INT,
          INDEX(`date`)
-);
+) ENGINE = MyISAM;

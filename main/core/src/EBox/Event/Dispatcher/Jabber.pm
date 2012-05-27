@@ -30,7 +30,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 
@@ -201,7 +201,7 @@ sub _confClient
             connectiontype => 'tcpip',
             componentname => $comp,
             );
-    
+
     unless ( defined ($status) ) {
         throw EBox::Exceptions::External(__x('Jabber server {serverName}' .
                   ' is down or connection is not allowed.',

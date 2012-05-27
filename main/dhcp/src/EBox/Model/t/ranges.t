@@ -27,7 +27,7 @@ use Test::MockObject;
 
 use EBox;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Network;
 
 BEGIN {
@@ -85,7 +85,7 @@ sub _ifaceMethod
 
 EBox::init();
 _fakeNetwork();
-my $manager = EBox::Model::ModelManager->instance();
+my $manager = EBox::Model::Manager->instance();
 my $objMod  = EBox::Global->modInstance('objects');
 my $dhcpMod = EBox::Global->modInstance('dhcp');
 

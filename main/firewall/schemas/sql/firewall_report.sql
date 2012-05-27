@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS firewall_report (
     proto VARCHAR(16),
     dport INT,
     packets BIGINT
-);
+) ENGINE = MyISAM;

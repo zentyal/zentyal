@@ -48,10 +48,6 @@ sub new
 sub _description
 {
     my $description = {
-        components      => [
-                              'GatewayTable',
-                              'Proxy',
-                           ],
         layout          => 'top-bottom',
         printableName   => __('Gateways and Proxy'),
         headTitle       => undef,

@@ -37,7 +37,7 @@ EBox::TestStubs::activateTestStubs();
 EBox::TestStubs::fakeEBoxModule(name => 'fakemodule');
 
 
-my $gconfmodule  = EBox::Global->modInstance('fakemodule');
+my $confmodule  = EBox::Global->modInstance('fakemodule');
 my $dir          = 'storeDir';
 
 my $timePeriod;
@@ -122,9 +122,9 @@ sub _setValue
         $expectedValue = $value;
 
     $timePeriod->setValue($value);
-    $timePeriod->storeInGConf($gconfmodule, $dir);
+    $timePeriod->storeInConfig($confmodule, $dir);
     $timePeriod = _newTimePeriod();
-    $timePeriod->restoreFromHash($gconfmodule->hash_from_dir($dir));
+    $timePeriod->restoreFromHash($confmodule->hash_from_dir($dir));
 
 
     is $timePeriod->value(), $expectedValue;

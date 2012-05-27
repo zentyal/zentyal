@@ -1,1 +1,6 @@
 class: 'EBox::L7Protocols'
+
+models:
+    - Protocols
+    - Groups
+    - GroupProtocols

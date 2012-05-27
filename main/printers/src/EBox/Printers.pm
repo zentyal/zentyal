@@ -18,9 +18,7 @@ package EBox::Printers;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver
-            EBox::Model::ModelProvider EBox::LogObserver
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -155,32 +153,6 @@ sub restoreDependencies
     return [ 'network' ];
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [ 'EBox::Printers::Model::CUPS' ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [ 'EBox::Printers::Composite::General' ];
-}
-
 sub firewallHelper
 {
     my ($self) = @_;
@@ -221,9 +193,9 @@ sub _ifaceAddresses
     my @addresses;
     foreach my $row (@{$ifacesModel->enabledRows()}) {
         my $iface = $ifacesModel->row($row)->valueByName('iface');
-        my $address = $net->ifaceAddress($iface);
-        next unless $address;
-        push (@addresses, $address);
+        my $iaddresses = $net->ifaceAddresses($iface);
+        next unless $iaddresses;
+        push (@addresses, map { $_->{address} } @{$iaddresses});
     }
 
     return \@addresses;

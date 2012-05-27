@@ -35,7 +35,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Events::Model::Watcher::LogFiltering;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
 
@@ -152,7 +152,7 @@ sub syncRows
     # Set up every model
     $self->_setUpModels();
 
-    # Fetch the current log domains stored in gconf
+    # Fetch the current log domains stored in conf
     my %storedLogDomains;
     foreach my $id (@{$currentIds}) {
         my $row = $self->row($id);
@@ -170,14 +170,14 @@ sub syncRows
         $currentLogDomains{$table} = 1;
     }
 
-    # Add new domains to gconf
+    # Add new domains to conf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
         $self->addRow('domain' => $domain, 'enabled' => 0);
         $anyChange = 1;
     }
 
-    # Remove non-existing domains from gconf
+    # Remove non-existing domains from conf
     foreach my $id (@{$currentIds}) {
         my $row = $self->row($id);
         my $domain = $row->valueByName('domain');
@@ -204,8 +204,8 @@ sub updatedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ( $row->valueByName('enabled') ) {
-        my $manager = EBox::Model::ModelManager->instance();
-        my $eventModel = $manager->model('ConfigureEventDataTable');
+        my $manager = EBox::Model::Manager->instance();
+        my $eventModel = $manager->model('ConfigureEventTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ( $logConfRow->valueByName('enabled') ) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
@@ -227,8 +227,8 @@ sub addedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ( $row->valueByName('enabled') ) {
-        my $manager = EBox::Model::ModelManager->instance();
-        my $eventModel = $manager->model('ConfigureEventDataTable');
+        my $manager = EBox::Model::Manager->instance();
+        my $eventModel = $manager->model('ConfigureEventTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ( $logConfRow->valueByName('enabled') ) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
@@ -338,8 +338,8 @@ sub _createFilteringModel # (domain)
 
 
     my $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
-                                                                     gconfmodule => $self->{gconfmodule},
-                                                                     directory   => $self->{gconfdir},
+                                                                     confmodule => $self->{confmodule},
+                                                                     directory   => $self->{confdir},
                                                                      tableInfo => $domainTableInfo,
                                                                     );
 
@@ -352,7 +352,7 @@ sub _removeFilteringModel # (domain)
 {
     my ($self, $domain) = @_;
 
-    my $modelManager = EBox::Model::ModelManager->instance();
+    my $modelManager = EBox::Model::Manager->instance();
 
     $modelManager->removeModel('/events/' . FILTERING_MODEL_NAME . "/$domain");
 }
@@ -370,7 +370,7 @@ sub viewCustomizer
     $custom->setHTMLTitle([
                 {
                     title => __('Events'),
-                    link  => '/Events/Composite/GeneralComposite',
+                    link  => '/Events/Composite/General',
                 },
                 {
                     title => __('Log Observer Watcher'),

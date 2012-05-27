@@ -2,8 +2,11 @@ Source: zbuildtools
 Section: devel
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: cdbs
-Standards-Version: 3.7.3
+Build-Depends: cdbs, debhelper (>= 7)
+Standards-Version: 3.9.3
+Homepage: http://www.zentyal.org/
+Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/extra/zbuildtools
+Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zbuildtools
 Architecture: all

@@ -61,11 +61,6 @@ sub _description
 
     my $description =
       {
-       components      => [
-           '/dns/Settings',
-           'Forwarder',
-           'DomainTable',
-          ],
        layout          => 'top-bottom',
        name            => 'Global',
        pageTitle       => $pageTitle,

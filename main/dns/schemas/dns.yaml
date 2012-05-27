@@ -2,3 +2,17 @@ class: 'EBox::DNS'
 depends:
     - network
     - samba
+
+models:
+    - DomainTable
+    - HostnameTable
+    - AliasTable
+    - MailExchanger
+    - NameServer
+    - Text
+    - Services
+    - Forwarder
+    - Settings
+
+composites:
+    Global: [/dns/Settings, Forwarder, DomainTable]

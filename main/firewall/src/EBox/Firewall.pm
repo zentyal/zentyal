@@ -21,9 +21,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::ObjectsObserver
             EBox::NetworkObserver
-            EBox::LogObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+            EBox::LogObserver);
 
 use EBox::Objects;
 use EBox::Global;
@@ -45,7 +43,6 @@ use EBox::Firewall::Model::Report::PacketTrafficReportOptions;
 
 
 use EBox::FirewallLogHelper;
-use EBox::Order;
 use EBox::Gettext;
 
 sub _create
@@ -94,33 +91,6 @@ sub actions
 
         }
         ];
-}
-
-# Method: modelClasses
-#
-#      Overrides <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-            'EBox::Firewall::Model::ToInternetRuleTable',
-            'EBox::Firewall::Model::InternalToEBoxRuleTable',
-            'EBox::Firewall::Model::ExternalToEBoxRuleTable',
-            'EBox::Firewall::Model::EBoxOutputRuleTable',
-            'EBox::Firewall::Model::ExternalToInternalRuleTable',
-            'EBox::Firewall::Model::EBoxServicesRuleTable',
-            'EBox::Firewall::Model::RedirectsTable',
-            'EBox::Firewall::Model::Report::PacketTrafficDetails',
-            'EBox::Firewall::Model::Report::PacketTrafficGraph',
-            'EBox::Firewall::Model::Report::PacketTrafficReportOptions'
-           ];
-}
-
-sub compositeClasses
-{
-    return [ 'EBox::Firewall::Composite::Report::PacketTrafficReport' ]
 }
 
 # Method: initialSetup
@@ -423,115 +393,6 @@ sub requestAvailablePort
     return $port;
 }
 
-# Method: localRedirects
-#
-#       Returns a list of local redirections
-#
-# Returns:
-#
-#       array ref - holding the local redirections
-#
-sub localRedirects
-{
-    my ($self) = @_;
-    return $self->array_from_dir("localredirects");
-}
-
-#
-# Method: addLocalRedirect
-#
-#       Adds a local redirection. Packets directed at certain port to
-#       the local machine are redirected to the given port
-#
-# Parameters:
-#
-#       service - string: name of a service to redirect packets
-#       port - port to redirect from
-#
-#
-sub addLocalRedirect # (service, port)
-{
-    my ($self, $name, $port) = @_;
-    checkName($name) or throw EBox::Exceptions::Internal(
-                                __x("Name '{name}' is invalid", name => $name));
-    checkPort($port, __("port"));
-
-    my $protocol = $self->serviceProtocol($name);
-    ($protocol && $protocol ne "") or
-        throw EBox::Exceptions::Internal("Unknown service: $name");
-
-    my @redirects = $self->all_dirs("localredirects");
-    foreach (@redirects) {
-        my $tmpsrv = $self->get_string("$_/service");
-        if ($tmpsrv eq $name) {
-            if ($self->get_int("$_/port") eq $port) {
-                return;
-            } else {
-                next;
-            }
-        }
-        my $tmpproto = $self->serviceProtocol($tmpsrv);
-        ($tmpproto eq $protocol) or next;
-        if ($self->get_int("$_/port") eq $port) {
-            throw EBox::Exceptions::Internal
-                ("Port $port already redirected to service $tmpsrv");
-                }
-    }
-
-    my $id = $self->get_unique_id("r","localredirects");
-
-    $self->set_string("localredirects/$id/service", $name);
-    $self->set_int("localredirects/$id/port", $port);
-}
-
-#
-# Method: removeLocalRedirects
-#
-#       Removes all local redirections for a service
-#
-# Parameters:
-#
-#       service - string: name of a service to remove local redirections
-#
-#
-sub removeLocalRedirects # (service)
-{
-    my ($self, $name) = @_;
-    checkName($name) or throw EBox::Exceptions::Internal(
-                                __x("Name '{name}' is invalid", name => $name));
-
-    my @redirects = $self->all_dirs("localredirects");
-    foreach (@redirects) {
-        if ($self->get_string("$_/service") eq $name) {
-            $self->delete_dir("$_");
-        }
-    }
-}
-
-#
-# Method: removeLocalRedirect
-#
-#       Removes a local redirection for a service
-#
-# Parameters:
-#
-#       service - string: name of a service to remove local redirections
-#
-#
-sub removeLocalRedirect # (service, port)
-{
-    my ($self, $name, $port) = @_;
-    checkName($name) or throw EBox::Exceptions::Internal(
-                                __x("Name '{name}' is invalid", name => $name));
-
-    my @redirects = $self->all_dirs("localredirects");
-    foreach (@redirects) {
-        ($self->get_string("$_/service") eq $name) or next;
-        ($self->get_int("$_/port") eq $port) or next;
-        $self->delete_dir("$_");
-    }
-}
-
 # Method: usesIface
 #
 #       Implements EBox::NetworkObserver interface.
@@ -613,7 +474,10 @@ sub freeViface # (iface, viface)
 sub OutputRules
 {
     my ($self) = @_;
-    return $self->array_from_dir("rules/output");
+
+    # FIXME: reimplement this
+    #return $self->array_from_dir("rules/output");
+    return [];
 }
 
 # Method: removeOutputRule
@@ -631,6 +495,9 @@ sub OutputRules
 sub removeOutputRule # (protocol, port)
 {
     my ($self, $protocol, $port) = @_;
+
+    # FIXME: reimplement this
+    return;
 
     checkProtocol($protocol, __("protocol"));
     checkPort($port, __("port"));
@@ -656,6 +523,9 @@ sub removeOutputRule # (protocol, port)
 sub addOutputRule # (protocol, port)
 {
     my ($self, $protocol, $port) = @_;
+
+    # FIXME: migrate this
+    return;
 
     checkProtocol($protocol, __("protocol"));
     checkPort($port, __("port"));
@@ -982,6 +852,7 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
+                'description' => $params{description},
                 'internal' => 1,
                 'readOnly' => 1
                 );
@@ -991,6 +862,7 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
+                'description' => $params{description},
                 'internal' => 1,
                 'readOnly' => 1);
 

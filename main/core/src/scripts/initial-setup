@@ -54,6 +54,8 @@ if (EBox::Sudo::fileTest('-f', $purgeSrc) ) {
 
 my $module = EBox::Global->modInstance($modname);
 
+$module->redis->begin();
+
 $module->initialSetup($version);
 
 # Run migrations only if upgrading
@@ -67,7 +69,9 @@ try {
     } else {
         $module->saveConfig();
     }
+    $module->redis->commit();
 } otherwise {
+    $module->redis->rollback();
     EBox::warn("Restart for $modname failed");
 };
 

@@ -38,9 +38,6 @@ sub new
     return $self;
 }
 
-
-
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -54,8 +51,7 @@ sub _paramIsValid
     my $value = $params->{$self->fieldName()};
     EBox::Validate::checkEmailAddress($value, $self->printableName());
 
-   return 1;
+    return 1;
 }
-
 
 1;

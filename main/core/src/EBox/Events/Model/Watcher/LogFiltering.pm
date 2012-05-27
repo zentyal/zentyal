@@ -48,7 +48,7 @@ use EBox::Types::Text;
 #
 # Parameters:
 #
-#       gconfmodule -
+#       confmodule -
 #       directory   -
 #
 #       tableInfo - hash ref the table info giving with the same
@@ -209,7 +209,7 @@ sub viewCustomizer
     $custom->setHTMLTitle([
             {
             title => __('Events'),
-            link  => '/Events/Composite/GeneralComposite',
+            link  => '/Events/Composite/General',
             },
             {
             title => __('Log Observer Watcher'),

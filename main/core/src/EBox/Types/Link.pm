@@ -46,31 +46,29 @@ use EBox::Validate;
 #      <EBox::Types::Link> - the newly created type
 #
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my %opts = @_;
 
-      my %opts = @_;
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/hasManyViewer.mas';
+    }
 
-      unless (exists $opts{'HTMLViewer'}) {
-          $opts{'HTMLViewer'} ='/ajax/viewer/hasManyViewer.mas';
-      }
+    $opts{'type'}     = 'link';
+    $opts{'editable'} = 0;
+    $opts{'optional'} = 1;
 
-      $opts{'type'}     = 'link';
-      $opts{'editable'} = 0;
-      $opts{'optional'} = 1;
+    my $self = $class->SUPER::new(%opts);
 
-      my $self = $class->SUPER::new(%opts);
+    bless ( $self, $class );
 
-      bless ( $self, $class );
+    unless (exists $opts{'HTMLSetter'}) {
+        $self->{'HTMLSetter'} = undef;
+    }
 
-      unless (exists $opts{'HTMLSetter'}) {
-          $self->{'HTMLSetter'} = undef;
-      }
-
-      return $self;
-
-  }
+    return $self;
+}
 
 
 # Method: linkToView
@@ -83,13 +81,11 @@ sub new
 #     String - the relative path to the eBox template
 #
 sub linkToView
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      return $self->value();
-
-  }
+    return $self->value();
+}
 
 # Group: Protected methods
 
@@ -115,20 +111,17 @@ sub linkToView
 #                                       link
 #
 sub _paramIsValid
-  {
+{
+    my ($self, $params) = @_;
 
-      my ($self, $params) = @_;
+    my $value = $params->{$self->fieldName()};
 
-      my $value = $params->{$self->fieldName()};
+    if ( defined ( $value )) {
+        EBox::Validate::checkFilePath($value,
+                $self->printableName());
+    }
 
-      if ( defined ( $value )) {
-          EBox::Validate::checkFilePath($value,
-                                        $self->printableName());
-      }
-
-      return 1;
-
-  }
-
+    return 1;
+}
 
 1;

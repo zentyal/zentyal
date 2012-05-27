@@ -108,6 +108,7 @@ sub _table
             'rowUnique' => 0,
             'printableRowName' => __('event'),
             'sortedBy' => 'date',
+            'withoutActions' => 1,
         };
 
     return $dataTable;
@@ -126,7 +127,7 @@ sub timePeriod
     my ($self) = @_;
 
 
-    my $model = $self->{gconfmodule}->reportOptionsModel();
+    my $model = $self->{confmodule}->reportOptionsModel();
     my $row = $model->row();
 
     return $row->valueByName('timePeriod');

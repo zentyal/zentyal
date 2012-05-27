@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS ebackup_stats (
     errors INT,
     type ENUM ('full', 'incremental'),
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

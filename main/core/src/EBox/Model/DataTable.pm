@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Model::DataTable;
+
 use base 'EBox::Model::Component';
 
 use strict;
@@ -21,8 +22,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Model::Row;
 use EBox::View::Customizer;
 use EBox::Gettext;
@@ -44,53 +44,27 @@ use Encode;
 use Error qw(:try);
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
-
-
-use base 'EBox::Model::Component';
-
-# TODO
-#
-#    Factor findValue, find, findAll and findAllValue
-#
-#    Use EBox::Model::Row all over the place
-#
-#    Fix issue with values and printableValues fetched
-#    from foreign tables
-
-
-# Caching:
-#
-#     To speed up the process of returning rows, the access to the
-#     data stored in gconf is now cached. To keep data coherence amongst
-#     the several apache processes, we add a mark in the gconf structure
-#     whenever a write operation takes place. This mark is fetched by
-#     a process returning its rows, if it has changed then it has
-#     a old copy, otherwise its cached data can be returned.
-#
-#     Note that this caching process is very basic. Next step could be
-#     caching at row level, and keeping coherence at that level, modifying
-#     just the affected rows in the memory stored structure.
+use List::Util;
 
 sub new
 {
     my $class = shift;
 
     my %opts = @_;
-    my $gconfmodule = delete $opts{'gconfmodule'};
-    $gconfmodule or
-        throw EBox::Exceptions::MissingArgument('gconfmodule');
+    my $confmodule = delete $opts{'confmodule'};
+    $confmodule or
+        throw EBox::Exceptions::MissingArgument('confmodule');
     my $directory   = delete $opts{'directory'};
     $directory or
         throw EBox::Exceptions::MissingArgument('directory');
 
     my $self =
     {
-        'gconfmodule' => $gconfmodule,
-        'gconfdir' => $directory,
+        'confmodule' => $confmodule,
+        'confdir' => $directory,
         'directory' => "$directory/keys",
         'order' => "$directory/order",
         'table' => undef,
-        'cachedVersion' => 0,
     };
 
     bless($self, $class);
@@ -131,7 +105,7 @@ sub _setupTable
     # Set the needed controller and undef setters
     $self->_setControllers();
     # This is useful for submodels
-    $self->{'table'}->{'gconfdir'} = $self->{'gconfdir'};
+    $self->{'table'}->{'confdir'} = $self->{'confdir'};
     # Add enabled field if desired
     if ( $self->isEnablePropertySet() ) {
         $self->_setEnabledAsFieldInTable();
@@ -283,7 +257,7 @@ sub contextName
 {
     my ($self) = @_;
 
-    my $path = '/' . $self->{'gconfmodule'}->name() . '/' .
+    my $path = '/' . $self->{'confmodule'}->name() . '/' .
       $self->name() . '/';
 
     my $index = $self->index();
@@ -308,7 +282,7 @@ sub printableContextName
     my ($self) = @_;
     my $printableContextName = __x( '{model} in {module} module',
                                     model  => $self->printableName(),
-                                    module => $self->{'gconfmodule'}->printableName());
+                                    module => $self->{'confmodule'}->printableName());
     if ( $self->index() ) {
         $printableContextName .= ' ' . __('at') . ' ';
         if ( $self->printableIndex() ) {
@@ -850,27 +824,26 @@ sub addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
 
-    my $tableName = $self->tableName();
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
     my $readOnly = delete $optParams{'readOnly'};
     my $id = delete $optParams{'id'};
 
-    my $leadingText = substr( $tableName, 0, 4);
-    # Changing text to be lowercase
-    $leadingText = "\L$leadingText";
-
     unless (defined ($id) and length ($id) > 0) {
-        $id = $gconfmod->get_unique_id($leadingText, $dir);
+        $id = $self->_newId();
     }
 
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setReadOnly($readOnly);
     $row->setModel($self);
     $row->setId($id);
 
     # Check compulsory fields
     $self->_checkCompulsoryFields($paramsRef);
+
+    try {
+
+    $self->_beginTransaction();
 
     my $checkRowUnique = $self->rowUnique();
 
@@ -897,8 +870,9 @@ sub addTypedRow
         $self->_checkRowIsUnique(undef, $paramsRef);
     }
 
+    my $hash = {};
     foreach my $data (@userData) {
-        $data->storeInGConf($gconfmod, "$dir/$id");
+        $data->storeInHash($hash);
         $data = undef;
     }
 
@@ -915,25 +889,36 @@ sub addTypedRow
         }
         $self->_insertPos($id, $pos);
     } else {
-        $gconfmod->set_list($self->{'order'}, 'string', []);
+        my $order = $confmod->get_list($self->{'order'});
+        push (@{$order}, $id);
+        $confmod->set($self->{'order'}, $order);
     }
 
-    $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
+    if ($readOnly) {
+        $hash->{readOnly} = 1;
+    }
+
+    $confmod->set("$dir/$id", $hash);
 
     my $newRow = $self->row($id);
 
     $self->setMessage($self->message('add'));
     $self->addedRowNotify($newRow);
-    $self->_notifyModelManager('add', $newRow);
-    $self->_notifyCompositeManager('add', $newRow);
+    $self->_notifyManager('add', $newRow);
 
     # check if there are files to delete if revoked
     my $filesToRemove =   $self->filesPathsForRow($newRow);
     foreach my $file (@{  $filesToRemove }) {
-        $self->{gconfmodule}->addFileToRemoveIfRevoked($file);
+        $self->{confmodule}->addFileToRemoveIfRevoked($file);
     }
 
-    $self->_setCacheDirty();
+    $self->_commitTransaction();
+
+    } otherwise {
+        my $ex = shift;
+        $self->_rollbackTransaction();
+        throw $ex;
+    };
 
     return $id;
 }
@@ -955,22 +940,18 @@ sub row
     my ($self, $id)  = @_;
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $confmod = $self->{'confmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
 
-    unless (defined($id)) {
-        return undef;
-    }
-
-    unless ($gconfmod->dir_exists("$dir/$id")) {
+    unless (defined($id) and $self->_rowExists($id)) {
         return undef;
     }
 
     $self->{'cacheOptions'} = {};
 
     $row->setId($id);
-    # TODO ReadOnly rows
-    $row->setReadOnly($gconfmod->get_bool("$dir/$id/readOnly"));
+    my $hash = $confmod->get_hash("$dir/$id");
+    $row->setReadOnly($hash->{'readOnly'});
     $row->setModel($self);
 
     # If element is volatile we set its value after the rest
@@ -982,12 +963,12 @@ sub row
         if ($element->volatile()) {
             push (@volatileElements, $element);
         } else {
-            _setRowElement($element, $row);
+            _setRowElement($element, $row, $hash);
         }
         $row->addElement($element);
     }
     foreach my $element (@volatileElements) {
-        _setRowElement($element, $row);
+        _setRowElement($element, $row, $hash);
     }
 
     return $row;
@@ -995,10 +976,10 @@ sub row
 
 sub _setRowElement
 {
-    my ($element, $row) = @_;
+    my ($element, $row, $hash) = @_;
 
     $element->setRow($row);
-    $element->restoreFromHash();
+    $element->restoreFromHash($hash);
     if ((not defined($element->value())) and $element->defaultValue()) {
         $element->setValue($element->defaultValue());
     }
@@ -1052,8 +1033,7 @@ sub moveUp
 
     $self->setMessage($self->message('moveUp'));
     $self->movedUpRowNotify($self->row($id));
-    $self->_notifyModelManager('moveUp', $self->row($id));
-    $self->_notifyCompositeManager('moveUp', $self->row($id));
+    $self->_notifyManager('moveUp', $self->row($id));
 }
 
 sub moveDown
@@ -1072,34 +1052,7 @@ sub moveDown
 
     $self->setMessage($self->message('moveDown'));
     $self->movedDownRowNotify($self->row($id));
-    $self->_notifyModelManager('moveDown', $self->row($id));
-    $self->_notifyCompositeManager('moveDown', $self->row($id));
-}
-
-sub _reorderCachedRows
-{
-    my ($self, $posa, $posb) = @_;
-
-    unless ($self->{'cachedRows'})  {
-        return;
-    }
-
-    my $storedVersion = $self->_storedVersion();
-    if ($self->{'cachedVersion'} + 1  != $storedVersion) {
-        return;
-    }
-
-    my $rows = $self->{'cachedRows'};
-
-    my $auxrow = @{$rows}[$posa];
-    my $ordera = @{$rows}[$posa]->{'order'};
-    $auxrow->{'order'} = @{$rows}[$posb]->{'order'};
-    @{$rows}[$posb]->{'order'} = $ordera;
-    @{$rows}[$posa] = @{$rows}[$posb];
-    @{$rows}[$posb] = $auxrow;
-
-    $self->{'cachedRows'} = $rows;
-    $self->{'cachedVersion'} = $storedVersion;
+    $self->_notifyManager('moveDown', $self->row($id));
 }
 
 # Method: _removeRow
@@ -1115,15 +1068,11 @@ sub _removeRow
 {
     my ($self, $id) = @_;
 
-    if ($self->table()->{'order'}) {
-        $self->_removeOrderId($id);
-    } else {
-        $self->{'gconfmodule'}->set_list($self->{'order'}, 'string', []);
-    }
-
-    $self->_setCacheDirty();
-
-    $self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
+    my $confmod = $self->{'confmodule'};
+    $confmod->unset("$self->{'directory'}/$id");
+    my @order = @{$confmod->get_list($self->{'order'})};
+    @order = grep ($_ ne $id, @order);
+    $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -1154,13 +1103,17 @@ sub removeRow
                 "Missing row identifier to remove")
     }
 
+    try {
+
+    $self->_beginTransaction();
+
     # If force != true and automaticRemove is enabled it means
     # the model has to automatically check if the row which is
     # about to removed is referenced elsewhere. In that
     # case throw a DataInUse exceptions to iform the user about
     # the effects its actions will have.
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnIfIdIsUsed($self->contextName(), $id);
     }
 
@@ -1171,8 +1124,8 @@ sub removeRow
 
     my $userMsg = $self->message('del');
     # Dependant models may return some message to inform the user
-    my $depModelMsg = $self->_notifyModelManager('del', $row);
-    $self->_notifyCompositeManager('del', $row);
+    my $depModelMsg = $self->_notifyManager('del', $row);
+    $self->_notifyManager('del', $row);
     if ( defined( $depModelMsg ) and $depModelMsg ne ''
        and $depModelMsg ne '<br><br>') {
         $userMsg .= "<br><br>$depModelMsg";
@@ -1180,7 +1133,7 @@ sub removeRow
     # If automaticRemove is enabled then remove all rows using referencing
     # this row in other models
     if ($self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
                                                    $id);
         if ( defined( $depModelMsg ) and $depModelMsg ne ''
@@ -1192,13 +1145,19 @@ sub removeRow
     # check if there are files to delete
     my $filesToRemove =   $self->filesPathsForRow($row);
     foreach my $file (@{  $filesToRemove }) {
-        $self->{gconfmodule}->addFileToRemoveIfCommitted($file);
+        $self->{confmodule}->addFileToRemoveIfCommitted($file);
     }
 
     $self->setMessage($userMsg);
     $self->deletedRowNotify($row, $force);
 
-    $self->_setCacheDirty();
+    $self->_commitTransaction();
+
+    } otherwise {
+        my $ex = shift;
+        $self->_rollbackTransaction();
+        throw $ex;
+    };
 }
 
 # Method: removeAll
@@ -1212,11 +1171,9 @@ sub removeRow
 sub removeAll
 {
     my ($self, $force) = @_;
+    $force = 0 unless defined ($force);
 
-    $force = 0 unless defined ( $force );
-
-    my @ids = @{$self->{'gconfmodule'}->all_dirs_base($self->{'directory'})};
-    foreach my $id (@ids) {
+    foreach my $id (@{$self->_ids(1)}) {
         $self->removeRow($id, $force);
     }
 }
@@ -1354,11 +1311,15 @@ sub setTypedRow
     $self->_checkRowExist($id, '');
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     my $oldRow = $self->row($id);
 
     my @setterTypes = @{$self->setterTypes()};
+
+    try {
+
+    $self->_beginTransaction();
 
     my $checkRowUnique = $self->rowUnique();
 
@@ -1403,124 +1364,50 @@ sub setTypedRow
     # about to be changed is referenced elsewhere and this change
     # produces an inconsistent state
     if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
     }
 
-    my $modified = undef;
+    my $key = "$dir/$id";
+    my $hash = $confmod->get_hash($key);
+
+    my $modified = @changedElements;
     for my $data (@changedElements) {
-        $data->storeInGConf($gconfmod, "$dir/$id");
-        $modified = 1;
+        $data->storeInHash($hash);
     }
 
     # update readonly if change
-    my $rdOnlyKey = "$dir/$id/readOnly";
-    if (defined ( $readOnly )
-            and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
+    my $oldRO = $hash->{readOnly};
+    if (defined ($readOnly) and $readOnly) {
+        $hash->{readOnly} = 1;
+    } else {
+        delete $hash->{readOnly};
+    }
 
-        $gconfmod->set_bool("$rdOnlyKey", $readOnly);
+    # Update row hash if needed
+    if ($modified or ($hash->{readOnly} xor $oldRO)) {
+        $confmod->set($key, $hash);
     }
 
     if ($modified) {
-        $self->_setCacheDirty();
-        $self->{'dataCache'} = undef;
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
-        my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
+        my $depModelMsg = $self->_notifyManager('update', $self->row($id));
         if ( defined ($depModelMsg)
                 and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
             $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
-        $self->_notifyCompositeManager('update', $self->row($id));
+        $self->_notifyManager('update', $self->row($id));
         $self->updatedRowNotify($self->row($id), $oldRow, $force);
     }
-}
 
-sub _storedVersion
-{
-    my ($self) = @_;
+    $self->_commitTransaction();
 
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVerKey = $self->{'directory'} . '/version';
-    my $storedVer = $gconfmod->get_int($storedVerKey);
-
-    if (defined($storedVer)) {
-        return $storedVer;
-    } else {
-        return 0;
-    }
-}
-
-sub _cachedVersion
-{
-    my ($self) = @_;
-
-    return $self->{'cachedVersion'};
-}
-
-
-# Method: rows
-#
-#     Return a list containing the table rows
-#
-# Parameters:
-#
-#     filter - string to filter result
-#       page   - int the page to show the result from
-#
-# Returns:
-#
-#    Array ref containing the rows
-sub rows
-{
-    my ($self, $filter, $page)  = @_;
-
-    throw EBox::Exceptions::DeprecatedMethod();
-
-    if (defined $page and ($page < 0)) {
-        throw EBox::Exceptions::InvalidData(
-                                            data => __('page'),
-                                            value => $page,
-                                            advice =>
-                          __('Page must be a number equal or greater than zero')
-                                           )
-    }
-
-    # The method which takes care of loading the rows
-    # from gconf is _rows().
-    #
-    # rows() tries to cache the data to avoid extra access
-    # to gconf
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVersion = $self->_storedVersion();
-    my $cachedVersion = $self->_cachedVersion();;
-
-    if (not defined($storedVersion)) {
-        $storedVersion = 0;
-    }
-
-    # If the model is volatile, don't check the cached version since
-    # it should exist
-    if ( $self->_volatile() ) {
-        $self->{'cachedRows'} = $self->_rows();
-    } elsif (not defined($cachedVersion)) {
-        $self->{'cachedRows'} = $self->_rows();
-        $self->{'cachedVersion'} = 0;
-    } else {
-        if ($storedVersion != $cachedVersion) {
-            $self->{'cachedRows'} = $self->_rows();
-            $self->{'cachedVersion'} = $storedVersion;
-        }
-    }
-
-    if ( $self->order() == 1) {
-        return $self->_filterRows($self->{'cachedRows'}, $filter,
-                $page);
-    } else {
-        return $self->_filterRows(
-                $self->_tailoredOrder($self->{'cachedRows'}),
-                $filter, $page);
-    }
+    } otherwise {
+        my $ex = shift;
+        $self->_rollbackTransaction();
+        throw $ex;
+    };
 }
 
 # Method: enabledRows
@@ -1559,7 +1446,7 @@ sub size
 {
     my ($self) = @_;
 
-    return scalar( @{ $self->{'gconfmodule'}->all_dirs_base($self->{'directory'})});
+    return scalar(@{$self->_ids(1)});
 }
 
 # Method: syncRows
@@ -1607,14 +1494,25 @@ sub ids
     my $currentIds = $self->_ids();
     my $changed = 0;
 
-    unless ($self->{'gconfmodule'}->isReadOnly()) {
-        my $modAlreadyChanged = $self->{'gconfmodule'}->changed();
-        $changed = $self->syncRows($currentIds);
-        if ($changed and (not $modAlreadyChanged)) {
-            # save changes but don't mark it as changed
-            $self->{gconfmodule}->_saveConfig();
-            $self->{gconfmodule}->setAsChanged(0);
-        }
+    unless ($self->{'confmodule'}->isReadOnly()) {
+        my $modAlreadyChanged = $self->{'confmodule'}->changed();
+
+        try {
+            $self->_beginTransaction();
+
+            $changed = $self->syncRows($currentIds);
+            if ($changed and (not $modAlreadyChanged)) {
+                # save changes but don't mark it as changed
+                $self->{confmodule}->_saveConfig();
+                $self->{confmodule}->setAsChanged(0);
+            }
+
+            $self->_commitTransaction();
+        } otherwise {
+            my $ex = shift;
+            $self->_rollbackTransaction();
+            throw $ex;
+        };
     }
 
     if ($changed) {
@@ -1668,32 +1566,24 @@ sub customFilterIds
 sub _ids
 {
     my ($self, $notOrder) =  @_;
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
-    my $storedVersion = $self->_storedVersion();
-    my $cachedVersion = $self->_cachedVersion();;
-    if ((not defined($cachedVersion)) or $storedVersion != $cachedVersion) {
-        $self->{'dataCache'} = undef;
-        $self->{'cachedVersion'} = $storedVersion;
-    }
+    my $ids = $confmod->get_list($self->{'order'});
 
-    my $ids = $gconfmod->get_list($self->{'order'});
-    unless (@{$ids}) {
-        $ids = $gconfmod->all_dirs_base($self->{'directory'});
-        return $ids if ($notOrder);
+    unless ($notOrder) {
         my $sortedBy = $self->sortedBy();
-        my %idsToOrder;
         if (@{$ids} and $sortedBy) {
+            my %idsToOrder;
             for my $id (@{$ids}) {
-                $idsToOrder{$id} = $self->row($id)
-                        ->printableValueByName($sortedBy);
+                $idsToOrder{$id} = $self->row($id)->printableValueByName($sortedBy);
             }
             $ids = [ sort {$idsToOrder{$a} cmp $idsToOrder{$b}} keys %idsToOrder];
-        }
-        my $global = EBox::Global->getInstance();
-        my $modChanged = $global->modIsChanged($gconfmod->name());
-        if ( not $gconfmod->isReadOnly() and (@{$ids} and $modChanged)) {
-            $gconfmod->set_list($self->{'order'}, 'string', $ids);
+
+            my $global = EBox::Global->getInstance();
+            my $modChanged = $global->modIsChanged($confmod->name());
+            if (not $confmod->isReadOnly() and (@{$ids} and $modChanged)) {
+                $confmod->set_list($self->{'order'}, 'string', $ids);
+            }
         }
     }
     return $ids;
@@ -1702,55 +1592,9 @@ sub _ids
 sub _rows
 {
     my ($self) = @_;
-    my $gconfmod = $self->{'gconfmodule'};
 
-    my  %order;
-    if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};
-        my $i = 0;
-        foreach my $id (@order) {
-            $order{$id} = $i;
-            $i++;
-        }
-    }
-
-    my @rows;
-    for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
-        my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-
-        my $row = $self->row($id);
-        if (%order) {
-            $hash->{'order'} = $order{$id};
-            $rows[$order{$id}] = $row;
-        } else {
-            push(@rows, $row);
-        }
-    }
-
+    my @rows = map { $self->row($_) } @{$self->_ids()};
     return \@rows;
-}
-
-sub _setCacheDirty
-{
-    my ($self) = @_;
-
-    # If the model is volatile, just return
-    if ( $self->_volatile() ) {
-        return;
-    }
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $storedVerKey = $self->{'directory'} . '/version';
-    my $storedVersion = $gconfmod->get_int($storedVerKey);
-    my $newVersion;
-
-    if (defined($storedVersion)) {
-        $newVersion = $storedVersion + 1;
-    } else {
-        $newVersion = 1;
-    }
-
-    $gconfmod->set_int($storedVerKey, $newVersion);
 }
 
 # Method: _tailoredOrder
@@ -1825,43 +1669,13 @@ sub setDirectory
         throw EBox::Exceptions::MissingArgument('dir');
     }
 
-    my $olddir = $self->{'gconfdir'};
+    my $olddir = $self->{'confdir'};
     return if ($dir eq $olddir);
 
-    # If there's a directory change we try to keep cached the last
-    # directory as it is likely we are asked again for it
-    my $cachePerDir = $self->{'cachePerDirectory'};
-    $cachePerDir->{$olddir}->{'cachedRows'} = $self->{'cachedRows'};
-    $cachePerDir->{$olddir}->{'cachedVersion'} = $self->{'cachedVersion'};
-
-    if ($cachePerDir->{$dir}) {
-        $self->{'cachedRows'} = $cachePerDir->{$dir}->{'cachedRows'};
-        $self->{'cachedVersion'} =
-            $cachePerDir->{$dir}->{'cachedVersion'};
-    } else {
-        $self->{'cachedRows'} = undef;
-        $self->{'cachedVersion'} = undef;
-    }
-
-    $self->{'gconfdir'} = $dir;
+    $self->{'confdir'} = $dir;
     $self->{'directory'} = "$dir/keys";
     $self->{'order'} = "$dir/order";
-    $self->{'table'}->{'gconfdir'} = $dir;
-}
-
-# Method: parentModule
-#
-#        Get the parent gconfmodule for the model
-#
-# Returns:
-#
-#        <EBox::Module> - the module
-#
-sub parentModule
-{
-    my ($self) = @_;
-
-    return $self->{'gconfmodule'};
+    $self->{'table'}->{'confdir'} = $dir;
 }
 
 # Method: tableName
@@ -1952,7 +1766,7 @@ sub directory
 {
     my ($self) = @_;
 
-    return $self->{'gconfdir'};
+    return $self->{'confdir'};
 }
 
 
@@ -1974,7 +1788,7 @@ sub menuNamespace
         # This is autogenerated menuNamespace got from the model
         # domain and the table name
         my $menuNamespace = $self->modelDomain() . '/View/' . $self->tableName();
-        if ( $self->index() ) {
+        if ($self->index()) {
             return $menuNamespace . '/' . $self->index();
         } else {
             return $menuNamespace;
@@ -1997,7 +1811,7 @@ sub order
 {
     my ($self) = @_;
 
-    return $self->{'gconfmodule'}->get_list( $self->{'order'} );
+    return $self->{'confmodule'}->get_list( $self->{'order'} );
 }
 
 # Method: insertPosition
@@ -2381,40 +2195,6 @@ sub filter
 {
     my ($self) = @_;
     return $self->{'filter'};
-}
-
-# Method: pages
-#
-#    Return the number of pages
-#
-# Parameters:
-#
-#     $rows - hash ref containing the rows, if undef it will use
-#         those returned by rows()
-# Returns:
-#
-#    integer - containing the value
-sub pages
-{
-    my ($self, $filter) = @_;
-
-    # FIXME: is this method no longer needed?
-    return 1;
-
-    my $pageSize = $self->pageSize();
-    unless (defined($pageSize) and ($pageSize =~ /^\d+/) and ($pageSize > 0)) {
-        return 1;
-    }
-
-    my $rows = $self->rows($filter);
-
-    my $nrows = @{$rows};
-
-    if ($nrows == 0) {
-        return 0;
-    } else {
-        return  ceil($nrows / $pageSize) - 1;
-    }
 }
 
 # Method: find
@@ -2841,6 +2621,7 @@ sub Viewer
 sub modalViewer
 {
     my ($self, $showTable) = @_;
+
     if ($showTable) {
         return  '/ajax/tableModalView.mas';
     } else {
@@ -2968,18 +2749,17 @@ sub changeViewJS
             $args{isFilter},
             );
 
-    my  $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
+    my $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
 
     my $table = $self->table();
-    return  sprintf ($function,
-            $table->{'actions'}->{'changeView'},
-            $table->{'tableName'},
-            $table->{'gconfdir'},
-            $type,
-            $editId,
-            $page,
-            $isFilter
-            );
+    return sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $type,
+                    $editId,
+                    $page,
+                    $isFilter);
 }
 
 # Method: modalChangeViewJS
@@ -3022,7 +2802,7 @@ sub modalChangeViewJS
     my $js =  sprintf ($function,
             $url,
             $tableId,
-            $table->{'gconfdir'},
+            $table->{'confdir'},
             $actionType,
             $editId,
             $extraParamsJS,
@@ -3030,7 +2810,6 @@ sub modalChangeViewJS
 
     return $js;
 }
-
 
 sub modalCancelAddJS
 {
@@ -3080,7 +2859,7 @@ sub addNewRowJS
             $table->{'actions'}->{'add'},
             $table->{'tableName'},
             $fields,
-            $table->{'gconfdir'},
+            $table->{'confdir'},
             $page);
 }
 
@@ -3102,14 +2881,14 @@ sub modalAddNewRowJS
 
     my $tableId = $table->{'tableName'} . '_modal';
 
-     my $fields = $self->_paramsWithSetterJS();
-     return  sprintf ($function,
-             $url,
-             $tableId,
-             $fields,
-             $table->{'gconfdir'},
-             $nextPage,
-             $extraParamsJS);
+    my $fields = $self->_paramsWithSetterJS();
+    return sprintf ($function,
+                    $url,
+                    $tableId,
+                    $fields,
+                    $table->{'confdir'},
+                    $nextPage,
+                    $extraParamsJS);
 }
 
 
@@ -3145,16 +2924,16 @@ sub changeRowJS
     my $force =0;
     my $extraParamsJS = _paramsToJSON(@extraParams);
     my $fields = $self->_paramsWithSetterJS();
-    return  sprintf ($function,
-            $actionUrl,
-            $tablename,
-            $fields,
-            $table->{'gconfdir'},
-            $editId,
-            $page,
-            $force,
-            $modalResize,
-            $extraParamsJS);
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $fields,
+                    $table->{'confdir'},
+                    $editId,
+                    $page,
+                    $force,
+                    $modalResize,
+                    $extraParamsJS);
 }
 
 sub _paramsToJSON
@@ -3217,15 +2996,15 @@ sub actionClickedJS
     my $extraParamsJS =  _paramsToJSON(@extraParams);
 
     my $fields = $self->_paramsWithSetterJS();
-    return  sprintf ($function,
-            $actionUrl,
-            $tablename,
-            $action,
-            $editId,
-            $direction,
-            $table->{'gconfdir'},
-            $page,
-            $extraParamsJS);
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $action,
+                    $editId,
+                    $direction,
+                    $table->{'confdir'},
+                    $page,
+                    $extraParamsJS);
 }
 
 sub actionHandlerUrl
@@ -3258,14 +3037,14 @@ sub customActionClickedJS
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
     $page = 0 unless $page;
-    return  sprintf ($function,
-            $action,
-            $self->actionHandlerUrl(),
-            $table->{'tableName'},
-            $fields,
-            $table->{'gconfdir'},
-            $id,
-            $page);
+    return sprintf ($function,
+                    $action,
+                    $self->actionHandlerUrl(),
+                    $table->{'tableName'},
+                    $fields,
+                    $table->{'confdir'},
+                    $id,
+                    $page);
 }
 
 # Method: backupFiles
@@ -3289,7 +3068,6 @@ sub backupFiles
     }
 }
 
-
 # Method: restoreFiles
 #
 #  Restores the actual configuration backup of files, thus discarding last
@@ -3302,7 +3080,6 @@ sub restoreFiles
     # XXX Disable restoreFiles as this is messing with the directories
     # and making eBox fail
     return;
-
 
     $self->_hasFileFields() or
         return;
@@ -3361,7 +3138,7 @@ sub _prepareRow
     my ($self) = @_;
 
     my $row = EBox::Model::Row->new(dir => $self->directory(),
-            gconfmodule => $self->{gconfmodule});
+                                    confmodule => $self->{confmodule});
     $row->setModel($self);
     foreach my $type (@{$self->table()->{'tableDescription'}}) {
         my $data = $type->clone();
@@ -3422,6 +3199,7 @@ sub _setDefaultMessages
         }
     }
 }
+
 # Method: _setCustomMessages
 #
 #      Set the custom messages based on possibel custom actions
@@ -3429,6 +3207,7 @@ sub _setDefaultMessages
 sub _setCustomMessages
 {
     my ($self, $actions, $id) = @_;
+
     my $table = $self->{'table'};
     $table->{'messages'} = {} unless ( $table->{'messages'} );
 
@@ -3442,7 +3221,7 @@ sub _setCustomMessages
 # Method: _volatile
 #
 #       Check if this model is volatile. That is, the data is not
-#       stored in GConf but it is done by the storer and restored by
+#       stored in disk but it is done by the storer and restored by
 #       the acquirer. Every type must be volatile in order to have a
 #       model as volatile
 #
@@ -3458,13 +3237,6 @@ sub _volatile
 }
 
 # Group: Private helper functions
-
-sub _isSyncRowsOverriden
-{
-    my ($self) = @_;
-
-    return __PACKAGE__->can('syncRows') != $self->can('syncRows');
-}
 
 # Method: _find
 #
@@ -3503,56 +3275,15 @@ sub _find
     unless (defined ($fieldName)) {
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
-    my $conf = $self->{gconfmodule};
+    my $conf = $self->{confmodule};
 
     $kind = 'value' unless defined ($kind);
 
-    my $index = $self->{directory} . "/$fieldName";
-    if ($kind eq 'printableValue') {
-        $index .= '.pdx';
-    } else {
-        $index .= '.idx';
-    }
+    my @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
 
-    my @rows;
-    # sync rows
-    if ($self->_isSyncRowsOverriden() and not $nosync) {
-        @rows = @{$self->ids()};
-    }
-
-    my $indexRows;
-    my $firstIndexation = 1;
-    if ($conf->index_exists($index)) {
-        $indexRows = $conf->hash_value($index, $value);
-        if (defined ($indexRows)) {
-            @rows = keys (%{$indexRows});
-            if (@rows) {
-                $firstIndexation = 0;
-            }
-        }
-    }
-
-    if ($firstIndexation) {
-        # No index found, we search on the entire table
-        @rows = @{$nosync ? $self->_ids(1) : $self->ids()};
-        unless (@rows) {
-            return [];
-        }
-        # From now on, the index will be updated when storing values
-        $conf->create_index($index);
-    }
-
-    my $updateIndex = 0;
-    my %valueIndexes;
+    my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        # Remove deleted rows from index
-        unless (defined $row) {
-            if (delete $indexRows->{$id}) {
-                $updateIndex = 1;
-            }
-            next;
-        }
         my $element = $row->elementByName($fieldName);
         if (defined ($element)) {
             my $eValue;
@@ -3561,53 +3292,17 @@ sub _find
             } else {
                 $eValue = $element->value();
             }
-            if ($firstIndexation) {
-                # Set indexes for all the values the first time
-                unless (exists $valueIndexes{$eValue}) {
-                    $valueIndexes{$eValue} = {};
-                }
-                $valueIndexes{$eValue}->{$id} = 1;
-            } else {
-                if ($eValue ne $value) {
-                    # Discard invalid rows when using a index
-                    delete $indexRows->{$id};
-                    $updateIndex = 1;
+            if ($eValue eq $value) {
+                if ($allMatches) {
+                    push (@matched, $id);
+                } else {
+                    return [ $id ];
                 }
             }
         }
     }
 
-    my $readOnly = $conf->isReadOnly();
-    my @matched;
-    if ($firstIndexation) {
-        # Set indexes for all the values the first time
-        unless ($readOnly) {
-            foreach my $otherValue (keys %valueIndexes) {
-                $conf->set_hash_value(
-                    $index,
-                    $otherValue => $valueIndexes{$otherValue}
-                );
-            }
-        }
-        @matched = keys (%{$valueIndexes{$value}});
-    } else {
-        # Update existing index if needed
-        if ($updateIndex and not $readOnly) {
-            $conf->set_hash_value($index, $value => $indexRows);
-        }
-        @matched = keys (%{$indexRows});
-    }
-    return [] unless (@matched);
-
-    if ($allMatches) {
-        return \@matched;
-    } else {
-        # Return only the first match
-        # FIXME: this is not really the first, it is a random one
-        # if we want the real first we should get all rows
-        # and check which is the first one in the 'order' list
-        return [ $matched[0] ];
-    }
+    return \@matched;
 }
 
 sub _checkFieldIsUnique
@@ -3684,8 +3379,7 @@ sub _checkAllFieldsExist
     foreach my $field (@{$types}) {
 
         unless ($field->paramExist($params)) {
-            throw
-                Exceptions::MissingArgument($field->printableName());
+            throw Exceptions::MissingArgument($field->printableName());
         }
     }
 }
@@ -3730,14 +3424,47 @@ sub _checkRowExist
 {
     my ($self, $id, $text) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
-    my $dir = $self->{'directory'};
-
-    unless ($gconfmod->dir_exists("$dir/$id")) {
+    unless ($self->_rowExists($id)) {
         throw EBox::Exceptions::DataNotFound(
                 data => $text,
                 value => $id);
     }
+}
+
+sub _rowExists
+{
+    my ($self, $id) = @_;
+
+    # TODO: is it worth implementing this with redis ZSET to get O(1)
+    #       and easy ordering ?
+    foreach my $row (@{$self->_ids(1)}) {
+        if ($row eq $id) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+sub _newId
+{
+    my ($self) = @_;
+
+    my $model = $self->modelName();
+    my $leadingText = lc ($model);
+    my $firstLetter = substr ($leadingText, 0, 1);
+    my $rest = substr ($leadingText, 1, length ($leadingText) - 1);
+    $rest =~ tr/aeiou//d;
+    $leadingText = $firstLetter . $rest;
+    $leadingText = substr($leadingText, 0, length ($leadingText) / 2);
+
+    my $id = 1;
+    my $maxId = $self->{confmodule}->get("$model/max_id");
+    if ($maxId) {
+        $id = $maxId + 1;
+    }
+    $self->{confmodule}->set("$model/max_id", $id);
+
+    return $leadingText . $id;
 }
 
 # Insert the id element in selected position, if the position is the
@@ -3746,9 +3473,9 @@ sub _insertPos #(id, position)
 {
     my ($self, $id, $pos) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
-    my @order = @{$gconfmod->get_list($self->{'order'})};
+    my @order = @{$confmod->get_list($self->{'order'})};
 
     if (@order == 0) {
         push (@order, $id);
@@ -3760,45 +3487,31 @@ sub _insertPos #(id, position)
         splice (@order, $pos, 1, ($id, $order[$pos]));
     }
 
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
-}
-
-sub _removeOrderId
-{
-    my ($self, $id) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my @order = @{$gconfmod->get_list($self->{'order'})};
-
-    @order = grep (!/$id/, @order);
-
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
+    $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 sub _swapPos
 {
     my ($self, $posA, $posB ) = @_;
 
-    my $gconfmod = $self->{'gconfmodule'};
-    my @order = @{$gconfmod->get_list($self->{'order'})};
+    my $confmod = $self->{'confmodule'};
+    my @order = @{$confmod->get_list($self->{'order'})};
 
     my $temp = $order[$posA];
     $order[$posA] =  $order[$posB];
     $order[$posB] = $temp;
 
-    $gconfmod->set_list($self->{'order'}, 'string', \@order);
-    $self->_setCacheDirty();
-    $self->_reorderCachedRows($posA, $posB);
+    $confmod->set_list($self->{'order'}, 'string', \@order);
 }
 
 sub _orderHash
 {
     my $self = shift;
-    my $gconfmod = $self->{'gconfmodule'};
+    my $confmod = $self->{'confmodule'};
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$gconfmod->get_list($self->{'order'})};
+        my @order = @{$confmod->get_list($self->{'order'})};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -3822,60 +3535,16 @@ sub _rowOrder
     return $order{$id};
 }
 
-sub _hashFromDir
-{
-    my ($self, $id) = @_;
-
-    my $gconfmod = $self->{'gconfmodule'};
-    my $dir = $self->{'directory'};
-
-    unless (defined($id)) {
-        return;
-    }
-
-    my $row = $gconfmod->hash_from_dir("$dir/$id");
-    $row->{'id'} = $id;
-    $row->{'order'} = $self->_rowOrder($id);
-
-    return $row;
-}
-
-sub _removeHasManyTables
-{
-    my ($self, $id) = @_;
-
-    foreach my $type (@{$self->table()->{'tableDescription'}}) {
-        my $dir = "$id/" . $type->fieldName();
-        next unless ($self->{'gconfmodule'}->dir_exists($dir));
-        $self->{'gconfmodule'}->delete_dir("$id/$dir");
-    }
-}
-
-# Method: _notifyModelManager
+# Method: _notifyManager
 #
 #     Notify to the model manager that an action has been performed on
 #     this model
 #
-sub _notifyModelManager
+sub _notifyManager
 {
     my ($self, $action, $row) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
-    my $modelName = $self->modelName();
-
-    return $manager->modelActionTaken($modelName, $action, $row);
-}
-
-# Method: _nofityCompositeManager
-#
-#     Notify to the composite manager that an action has been performed on
-#     this model
-#
-sub _notifyCompositeManager
-{
-    my ($self, $action, $row) = @_;
-
-    my $manager = EBox::Model::CompositeManager->Instance();
+    my $manager = EBox::Model::Manager->instance();
     my $modelName = $self->modelName();
 
     return $manager->modelActionTaken($modelName, $action, $row);
@@ -4132,7 +3801,7 @@ sub _autoloadGet
     # It will possibly launch an internal exception
     $self->_checkMethodSignature( 'get', $methodName, $paramsRef);
 
-    if ( $self->_actionAppliedToModel( 'get', $methodName) ) {
+    if ($self->_actionAppliedToModel( 'get', $methodName)) {
         # Get the identifier
         my $getId = $self->_autoloadGetId($self, $paramsRef);
         # Simple del (del a row to a model)
@@ -4237,7 +3906,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
             $newMethodName =~ s/To$tableNameInModel$//;
             my $foreignModelName =
                 $self->fieldHeader($subModelInMethod)->foreignModel();
-            my $manager = EBox::Model::ModelManager->instance();
+            my $manager = EBox::Model::Manager->instance();
             my $foreignModel = $manager->model($foreignModelName);
             # In order to decrease the number of calls
             if ( scalar ( @modelNames ) > 2 ) {
@@ -4411,7 +4080,7 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
     my $userField = $hasManyField->clone();
     my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
     my $foreignModelName = $userField->foreignModel();
-    my $submodel = EBox::Model::ModelManager->instance()->model(
+    my $submodel = EBox::Model::Manager->instance()->model(
             $foreignModelName
             );
     $submodel->setDirectory($directory);
@@ -4455,7 +4124,7 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
     my $userField = $hasManyField->clone();
     my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
     my $foreignModelName = $userField->foreignModel();
-    my $submodel = EBox::Model::ModelManager->instance()->model(
+    my $submodel = EBox::Model::Manager->instance()->model(
             $foreignModelName
             );
     $submodel->setDirectory($directory);
@@ -4509,7 +4178,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
         shift ( @{$paramsRef} );
         my $directory = $model->directory() . "/keys/$id/$subModelField";
         my $foreignModelName = $userField->foreignModel();
-        $model = EBox::Model::ModelManager->instance()->model(
+        $model = EBox::Model::Manager->instance()->model(
                 $foreignModelName,
                 );
         $model->setDirectory($directory);
@@ -4703,7 +4372,7 @@ sub _filterFields
     }
 
     my $newRow = EBox::Model::Row->new(dir => $row->dir(),
-                                       gconfmodule => $row->GConfModule());
+                                       confmodule => $row->configModule());
     $newRow->setId($row->id());
     $newRow->setOrder($row->order());
 
@@ -4763,6 +4432,7 @@ sub _setIfVolatile
 sub _parse_words
 {
     my ($str) = @_;
+
     my @w = ();
     if(defined($str)) {
         Encode::_utf8_on($str);
@@ -4810,7 +4480,7 @@ sub filesPaths
         return [];
 
     my @files = map {
-        @{ $self->row($_)->filesPaths()  }
+        @{ $self->row($_)->filesPaths() }
     } @{ $self->ids() };
 
     return \@files;
@@ -4870,6 +4540,27 @@ sub parentRow
         throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite: $parentComposite");
 
     return $row;
+}
+
+sub _beginTransaction
+{
+    my ($self) = @_;
+
+    $self->parentModule()->{redis}->begin();
+}
+
+sub _commitTransaction
+{
+    my ($self) = @_;
+
+    $self->parentModule()->{redis}->commit();
+}
+
+sub _rollbackTransaction
+{
+    my ($self) = @_;
+
+    $self->parentModule()->{redis}->rollback();
 }
 
 1;

@@ -31,7 +31,7 @@ package EBox::Monitor;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use EBox::Config;
 use EBox::Global;
@@ -88,21 +88,6 @@ sub _create
 
 # Group: Public methods
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return
-      [
-          'EBox::Monitor::Model::MeasureWatchers',
-          'EBox::Monitor::Model::ThresholdConfiguration',
-         ];
-}
-
 # Method: actions
 #
 # Overrides:
@@ -139,6 +124,17 @@ sub usedFiles
                        daemon => 'collectd'),
         },
        ];
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'Monitor' ];
 }
 
 # Method: menu

@@ -226,10 +226,11 @@ sub _storedArrayRaidInfo
 {
     my ($self, $arrayRaidName) = @_;
 
-    my $arrayInfoSeqNums = $self->{events}->st_all_dirs_base(RAID_ARRAY_KEY);
+    my $state = $self->{events}->get_state();
+    my $arrayInfo = $state->{RAID_ARRAY_KEY};
 
     my $matchedStoredInfo;
-    foreach my $arraySeqNum ( @{$arrayInfoSeqNums} ) {
+    foreach my $arraySeqNum (keys %{$state->{RAID_ARRAY_KEY}}) {
         my $arrayName = $self->{events}->st_get_string(RAID_ARRAY_KEY . '/'
                                                        . "$arraySeqNum/name");
         if ( $arrayName eq $arrayRaidName ) {
@@ -285,11 +286,11 @@ sub _storeNewRAIDState
 {
     my ($self, $raidInfo) = @_;
 
-    my $evMod = $self->{events};
-    $evMod->st_delete_dir(RAID_ARRAY_KEY);
+    my $state = $self->{events}->get_state();
+    $state->{RAID_ARRAY_KEY} = {};
 
-    while ( my ($raidArrayName, $raidArrayInfo) = each %{$raidInfo} ) {
-        next if ( $raidArrayName eq 'unusedDevices' );
+    while (my ($raidArrayName, $raidArrayInfo) = each %{$raidInfo}) {
+        next if ($raidArrayName eq 'unusedDevices');
         my $id = $evMod->st_get_unique_id('array', RAID_ARRAY_KEY);
         my $rootKey = RAID_ARRAY_KEY . "/$id/";
         $evMod->st_set_string($rootKey . 'name', $raidArrayName);
@@ -303,7 +304,7 @@ sub _storeNewRAIDState
             $evMod->st_set_string( $compKey . 'state', $raidCompInfo->{state});
         }
     }
-
+    $self->{events}->set_state($state);
 }
 
 # Check if any of the stored RAID array has dissappeared

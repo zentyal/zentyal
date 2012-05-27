@@ -121,7 +121,7 @@ sub changeRowJS
                          $table->{'actions'}->{'editField'},
                          $table->{'tableName'},
                          $fields,
-                         $table->{'gconfdir'},
+                         $table->{'confdir'},
                          0, # force
                         );
 

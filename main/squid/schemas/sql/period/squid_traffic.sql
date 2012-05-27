@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS squid_traffic (
         filtered_size BIGINT DEFAULT 0,
 
         INDEX(`date`)
-);
+) ENGINE = MyISAM;

@@ -32,16 +32,17 @@ use EBox::Types::IPAddr;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Types::Time;
+use EBox::Types::Int;
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 #
@@ -55,27 +56,24 @@ sub new
 #
 sub _select_options
 {
-
-        return [
-                 {
-                        value => 'default',
-                        printableValue => __('Default'),
-                 },
-                 {
-                        value => 'True',
-                        printableValue => __('True'),
-                 },
-                 {
-                        value => 'False',
-                        printableValue => __('False'),
-                 },
-        ];
-
+    return [
+             {
+               value => 'default',
+               printableValue => __('Default'),
+             },
+             {
+               value => 'True',
+               printableValue => __('Enabled'),
+             },
+             {
+               value => 'False',
+               printableValue => __('Disabled'),
+             },
+    ];
 }
 
 sub _table
 {
-
     my @fields =
     (
         new EBox::Types::Select(
@@ -83,35 +81,30 @@ sub _table
             printableName   => __('Local applications'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'local_dev',
             printableName   => __('Local devices'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'autologin',
             printableName   => __('AutoLogin'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'guestlogin',
             printableName   => __('Guest Login'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::Select(
             fieldName       => 'sound',
-            printableName   => __('Sound enabled'),
+            printableName   => __('Sound'),
             populate        => \&_select_options,
             editable        => 1,
-            help            => __(''),
         ),
         new EBox::Types::IPAddr(
             fieldName       => 'server',
@@ -140,11 +133,18 @@ sub _table
                 ),
                 new EBox::Types::Time(
                     fieldName       => 'shutdown_time',
-                    printableName   => __('Time'),
+                    printableName   => __('At'),
                     editable        => 1,
                 ),
             ],
-            help            => __('Time when clients will be automatically shutdown.'),
+            help => __('Time when clients will be automatically shutdown.'),
+        ),
+        new EBox::Types::Int(
+            fieldName       => 'fat_ram_threshold',
+            printableName   => __('Fat Client RAM Threshold (MB)'),
+            editable        => 1,
+            optional        => 1,
+            help            => __('Below this amount of RAM memory a Fat Client will behave as a Thin Client.'),
         ),
     );
 

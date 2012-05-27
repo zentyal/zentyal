@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS mailfilter_smtp (
         spam_hits FLOAT,
 
         INDEX(timestamp)
-);
+) ENGINE = MyISAM;

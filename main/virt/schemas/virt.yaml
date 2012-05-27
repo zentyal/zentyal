@@ -1,1 +1,11 @@
 class: 'EBox::Virt'
+
+models:
+    - VirtualMachines
+    - SystemSettings
+    - NetworkSettings
+    - DeviceSettings
+    - DeletedDisks
+
+composites:
+    VMSettings: [virt/SystemSettings, virt/NetworkSettings, virt/DeviceSettings]

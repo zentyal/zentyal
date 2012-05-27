@@ -98,10 +98,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                            'ids/Interfaces',
-                            'ids/Rules',
-                           ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('Intrusion Detection System'),

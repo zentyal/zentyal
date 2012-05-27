@@ -29,7 +29,7 @@ sub fakeModules
   Test::MockObject->fake_module('EBox::Simple',  
 				_create => sub {     
 				  my ($class, @params) = @_;
-				  my $self =  EBox::GConfModule->_create(name => 'simple', @params);
+				  my $self =  EBox::Module::Config->_create(name => 'simple', @params);
 				  bless $self, $class;
 				  return $self;
 				}
@@ -47,7 +47,7 @@ sub fakeModules
   Test::MockObject->fake_module('EBox::BadCreate',  
 				_create =>    sub {
 				  my ($class, @params) = @_;
-				  my $self = EBox::GConfModule->_create(name => 'badCreate', @params);
+				  my $self = EBox::Module::Config->_create(name => 'badCreate', @params);
 				  bless $self, 'EBox::Macaco';
 				  return $self;
 				}

@@ -38,8 +38,7 @@ use warnings;
 
 use base 'EBox::Types::Abstract';
 
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
+use EBox::Model::Manager;
 
 use Error qw(:try);
 
@@ -82,7 +81,6 @@ sub value
     return '' unless (exists $self->{'foreignModel'});
     return { 'model' => $self->{'foreignModel'}, ,
              'directory' => $self->directory() };
-
 }
 
 # Method: foreignModelIsComposite
@@ -140,12 +138,12 @@ sub foreignModelInstance
         return undef;
 
     my $model;
+    my $manager = EBox::Model::Manager->instance();
     if ($self->foreignModelIsComposite()) {
-        $model = EBox::Model::CompositeManager->Instance()->composite($modelName);
+        $model = $manager->composite($modelName);
     } else {
-        $model = EBox::Model::ModelManager->instance()->model($modelName);
+        $model = $manager->model($modelName);
     }
-
 
     $model->setDirectory($directory);
 
@@ -200,11 +198,11 @@ sub view
 {
     my ($self) = @_;
 
-   if (exists $self->{'view'}) {
+    if (exists $self->{'view'}) {
         return $self->{'view'};
-   } else {
+    } else {
         return undef;
-   }
+    }
 }
 
 # Method: backView
@@ -218,11 +216,11 @@ sub backView
 {
     my ($self) = @_;
 
-   if (exists $self->{'backView'}) {
+    if (exists $self->{'backView'}) {
         return $self->{'backView'};
-   } else {
+    } else {
         return undef;
-   }
+    }
 }
 
 # Method: linkToView
@@ -260,21 +258,17 @@ sub linkToView
 #      function ref - the reference to the callback function
 #
 sub foreignModelAcquirer
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
-
-      # This function is called at the _restoreFromHash
-      return $self->{'foreignModelAcquirer'};
-
-  }
+    # This function is called at the _restoreFromHash
+    return $self->{'foreignModelAcquirer'};
+}
 
 sub paramExist
 {
 
 }
-
-
 
 sub setMemValue
 {
@@ -304,13 +298,13 @@ sub modelView
 
 # Group: Protected methods
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
 
 }
@@ -322,28 +316,25 @@ sub _storeInGConf
 #       <EBox::Types::Abstract::_restoreFromHash>
 #
 sub _restoreFromHash
-  {
+{
+    my ($self, $hashRef) = @_;
 
-      my ($self, $hashRef) = @_;
+    if (defined ($self->foreignModelAcquirer())) {
+        my $acquirerFunc = $self->foreignModelAcquirer();
+        $self->{'foreignModel'} = &$acquirerFunc($self->row());
+        try {
+            my $model = $self->foreignModelInstance();
+            if (not $model) {
+                throw  EBox::Exceptions::DataNotFound();
+            }
 
-      if ( defined ( $self->foreignModelAcquirer() )) {
-          my $acquirerFunc = $self->foreignModelAcquirer();
-          $self->{'foreignModel'} = &$acquirerFunc($self->row());
-          try {
-              my $model = $self->foreignModelInstance();
-              if (not $model) {
-                  throw  EBox::Exceptions::DataNotFound();
-              }
-
-
-              $self->{'view'} = '/' . $model->menuNamespace();
-              $self->setDirectory($model->directory());
-          } catch EBox::Exceptions::DataNotFound with {
-              $self->{'view'} = '/';
-          };
-      }
-
-  }
+            $self->{'view'} = '/' . $model->menuNamespace();
+            $self->setDirectory($model->directory());
+        } catch EBox::Exceptions::DataNotFound with {
+            $self->{'view'} = '/';
+        };
+    }
+}
 
 # Method: _paramIsValid
 #
@@ -352,11 +343,9 @@ sub _restoreFromHash
 #       <EBox::Types::Abstract::_paramIsValid>
 #
 sub _paramIsValid
-  {
-
-      return 1;
-
-  }
+{
+    return 1;
+}
 
 # Method: _paramIsSet
 #
@@ -365,11 +354,9 @@ sub _paramIsValid
 #       <EBox::Types::Abstract::_paramIsSet>
 #
 sub _paramIsSet
-  {
-
-      return 1;
-
-  }
+{
+    return 1;
+}
 
 # Method: filesPaths
 #
@@ -436,7 +423,7 @@ sub setModel
 
     if (defined $model) {
         $self->{modelName} = $model->name();
-        $self->{moduleName} =$model->{gconfmodule}->name(),
+        $self->{moduleName} =$model->{confmodule}->name(),
     } else {
         delete $self->{modelName} ;
         delete $self->{moduleName} ;
@@ -485,7 +472,6 @@ sub setRow
     } else {
         delete $self->{rowId};
     }
-
 }
 
 

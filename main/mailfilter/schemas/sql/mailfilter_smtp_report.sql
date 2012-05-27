@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS mailfilter_smtp_report (
         from_domain VARCHAR(320) NOT NULL,
         to_domain VARCHAR(320) NOT NULL,
         messages BIGINT NOT NULL
-);
+) ENGINE = MyISAM;

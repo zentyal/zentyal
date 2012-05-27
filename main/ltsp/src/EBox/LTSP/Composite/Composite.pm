@@ -50,7 +50,7 @@ sub new
 #
 sub pageTitle
 {
-    return 'Thin Clients Configuration';
+    return __('Thin Clients Configuration');
 }
 
 # Group: Protected methods
@@ -66,6 +66,7 @@ sub _description
     my $description =
     {
         components      => [
+                'ClientImages',
                 'Configuration',
                 '/ltsp/AutoLogin',
                 '/ltsp/Profiles',
@@ -74,9 +75,12 @@ sub _description
         name            => 'Composite',
         printableName   => __('Thin Clients Configuration'),
         compositeDomain => 'LTSP',
-        help            => __('You will probably need to install some kind of '
+        help            => __x('You will probably need to install some '
                               . 'desktop environment in your server so that '
-                              . 'your Thin Clients can do something useful.'),
+                              . 'your Thin Clients can do something useful. '
+                              . 'To install the default Ubuntu desktop run the '
+                              . 'following command: {cmd}',
+                              cmd => 'sudo apt-get install ubuntu-desktop network-manager-'),
     };
 
     return $description;

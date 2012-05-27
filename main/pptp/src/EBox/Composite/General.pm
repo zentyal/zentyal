@@ -55,10 +55,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'pptp/Config',
-                               'pptp/Users',
-                           ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('PPTP'),

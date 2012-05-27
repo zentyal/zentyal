@@ -1,6 +1,13 @@
 HEAD
 	+ Use a regular model instead of a select composite which is
 	  going to be deprecated
+	+ Adapted to new Model management framework
+2.3.5
+	+ Create tables with MyISAM engine by default
+2.3.4
+	+ Packaging fixes for precise
+2.3.3
+	+ Recover from excepcion when parsing leases file
 	+ Modifications in the Thin Client options to allow an easy
 	  configuration of Zentyal LTSP
 2.3.2

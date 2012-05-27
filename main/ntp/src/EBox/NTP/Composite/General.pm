@@ -54,10 +54,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'ntp/Settings',
-                               'ntp/Servers',
-                           ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('NTP'),

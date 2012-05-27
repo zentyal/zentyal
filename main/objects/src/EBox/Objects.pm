@@ -17,7 +17,7 @@ package EBox::Objects;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::Module::Config);
 
 use Net::IP;
 use EBox::Validate qw( :all );
@@ -48,29 +48,15 @@ sub _create
     $self->{'actions'}->{'removeFromObject'} =
         __n('Removed {nname} from object {object}');
 
-    $self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
-                                                    'gconfmodule' => $self,
-                                                    'directory' => 'objectTable',
-                                                                  );
-    $self->{'memberModel'} = new EBox::Objects::Model::MemberTable(
-                                                                   'gconfmodule' => $self,
-                                                                   'directory' => 'memberTable');
-
     bless($self, $class);
+
+    $self->{'objectModel'} = $self->model('ObjectTable');
+    $self->{'memberModel'} = $self->model('MemberTable');
+
     return $self;
 }
 
 ## api functions
-
-# Method: models
-#
-#      Overrides <EBox::Model::ModelProvider::models>
-#
-sub models {
-       my ($self) = @_;
-
-       return [$self->{'objectModel'}, $self->{'memberModel'}];
-}
 
 # Method: _exposedMethods
 #
@@ -134,7 +120,7 @@ sub objects
 
     my @objects;
     for my $id (@{$self->{objectModel}->ids()}) {
-	my $object = $self->{objectModel}->row($id);
+    my $object = $self->{objectModel}->row($id);
         push (@objects, {
                             id => $id,
                             name => $object->valueByName('name')
@@ -356,6 +342,8 @@ sub removeObjectForce # (object)
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
+#   readOnly   - boolean, set the row unremovable from the UI *(optional)*
+#
 # Example:
 #
 #       name => 'administration',
@@ -370,7 +358,7 @@ sub addObject
 {
     my ($self, %params) = @_;
 
-    $self->{'objectModel'}->addObject(%params);
+    return $self->{'objectModel'}->addObject(%params);
 }
 
 # add( name => 'administration',

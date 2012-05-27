@@ -32,7 +32,6 @@ use EBox::Types::Union;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
-use EBox::Model::ModelManager;
 
 use EBox::Exceptions::External;
 

@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Html;
 use POSIX qw(ceil);
 
@@ -213,7 +213,7 @@ sub _saveAsEvent
     my $selected = $self->param('selected');
 
     # TODO Use new row/ids API
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $logConfModel = $manager->model('/events/LogWatcherConfiguration');
     my $loggerConfRow = $logConfModel->findValue(domain => $selected);
     my $logFilteringDirectory = $loggerConfRow->{filters}->{directory};

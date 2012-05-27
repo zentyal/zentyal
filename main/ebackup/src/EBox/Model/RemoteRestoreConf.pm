@@ -58,7 +58,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    my @status = @{$self->{confmodule}->remoteStatus()};
     return (scalar(@status));
 }
 

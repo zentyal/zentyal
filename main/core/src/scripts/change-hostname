@@ -1,10 +1,11 @@
 #!/bin/bash
 
 NEW=$1
+DOMAIN=$2
 
 if [ -z $NEW ]
 then
-    echo "Usage: $0 <new_hostname>"
+    echo "Usage: $0 <new_hostname> [new_domain]"
     exit 1
 fi
 
@@ -14,3 +15,9 @@ sed -i "s/$CURRENT/$NEW/" /etc/hostname
 sed -i "s/\s$CURRENT$/\t$NEW/" /etc/hosts
 sed -i "s/\s$CURRENT\s/\t$NEW/g" /etc/hosts
 hostname $NEW
+
+if [ -n "$DOMAIN" ]
+then
+    sed -i "s/^127.0.0.1.*/127.0.0.1\tlocalhost.$DOMAIN localhost/" /etc/hosts
+    sed -i "s/^127.0.1.1.*/127.0.1.1\t$NEW.$DOMAIN $NEW/" /etc/hosts
+fi

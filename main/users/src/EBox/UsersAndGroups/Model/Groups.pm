@@ -80,6 +80,7 @@ sub _table
         'help' => '',
         'printableRowName' => __('group'),
         'sortedBy' => 'name',
+        'withoutActions' => 1,
     };
 
     return $dataTable;
@@ -180,11 +181,6 @@ sub row
     $row->setId($id);
     $row->setReadOnly(1);
     return $row;
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 1;

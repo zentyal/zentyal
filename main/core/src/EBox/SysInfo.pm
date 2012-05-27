@@ -18,15 +18,13 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider);
+use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use Filesys::Df;
 use List::Util qw(sum);
 use Error qw(:try);
 
@@ -57,30 +55,139 @@ sub _create
     return $self;
 }
 
-# Method: initialSetup
+# Method: menu
+#
+#   Overriden method that returns the core menu entries:
+#
+#   - Summary
+#   - Save/Cancel
+#   - Logout
+#   - SysInfo/General
+#   - SysInfo/Backup
+#   - SysInfo/Halt
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
+                                    'text' => __('Dashboard'),
+                                    'separator' => 'Core',
+                                    'order' => 10));
+
+    $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
+                                    'text' => __('Module Status'),
+                                    'separator' => 'Core',
+                                    'order' => 20));
+
+
+    my $system = new EBox::Menu::Folder('name' => 'SysInfo',
+                                        'text' => __('System'),
+                                        'order' => 30);
+
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Composite/General',
+                                      'text' => __('General'),
+                                      'order' => 10));
+
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
+                                      'text' => __('Import/Export Configuration'),
+                                      'order' => 50));
+
+    $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
+                                      'text' => __('Halt/Reboot'),
+                                      'order' => 60));
+    $root->add($system);
+
+    my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
+                                       'text' => __('Maintenance'),
+                                       'separator' => 'Core',
+                                       'order' => 70);
+
+    $maint->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
+                                     'order' => 40,
+                                     'text' => __('Disk Usage')));
+
+    $maint->add(new EBox::Menu::Item('url' => 'Report/RAID',
+                                     'order' => 50,
+                                     'text' => __('RAID')));
+    $root->add($maint);
+}
+
+# Method: _setConf
 #
 # Overrides:
-#   EBox::Module::Base::initialSetup
 #
-sub initialSetup
+#   <EBox::Module::Base::_setConf>
+#
+sub _setConf
 {
-    my ($self, $version) = @_;
+    my ($self) = @_;
 
-    # Import timezone only if installing the first time
-    unless ($version) {
-        $self->importTimezone();
+    # Time zone
+    my $timezoneModel = $self->model('TimeZone');
+    my $tz = $timezoneModel->timezoneValue();
+    my $tzStr = $tz->printableValue();
+    EBox::Sudo::root("echo $tzStr > /etc/timezone",
+                     "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
+
+    # Host name
+    my $hostNameModel = $self->model('HostName');
+    my $hostname = $hostNameModel->value('hostname');
+    if ($hostname) {
+        my $cmd = EBox::Config::scripts() . "change-hostname $hostname";
+        my $domain = $hostNameModel->value('hostdomain');
+        if ($domain) {
+            $cmd .= " $domain";
+        }
+        EBox::Sudo::root($cmd);
     }
 }
 
-sub _facilitiesForDiskUsage
+# Method: widgets
+#
+#   Overriden method that returns the widgets offered by this module
+#
+# Overrides:
+#
+#       <EBox::Module::widgets>
+#
+sub widgets
 {
-    my ($self, @params) = @_;
-    return EBox::Backup->_facilitiesForDiskUsage(@params);
+    my $widgets = {
+        'modules' => {
+            'title' => __("Module Status"),
+            'widget' => \&modulesWidget,
+            'order' => 6,
+            'default' => 1
+        },
+        'general' => {
+            'title' => __("General Information"),
+            'widget' => \&generalWidget,
+            'order' => 1,
+            'default' => 1
+        },
+        'processes' => {
+            'title' => __("Process List"),
+            'widget' => \&processesWidget
+        },
+    };
+
+    unless (EBox::Config::boolean('disable_links_widget')) {
+        $widgets->{'links'} = {
+            'title' => __('Resources'),
+            'widget' => \&linksWidget,
+            'order' => 2,
+            'default' => 1
+        };
+    }
+
+    return $widgets;
 }
 
 sub modulesWidget
 {
     my ($self, $widget) = @_;
+
     my $section = new EBox::Dashboard::Section('status');
     $widget->add($section);
 
@@ -98,6 +205,7 @@ sub modulesWidget
 sub generalWidget
 {
     my ($self, $widget) = @_;
+
     my $section = new EBox::Dashboard::Section('info');
     $widget->add($section);
     my $time_command = "LC_TIME=" . EBox::locale() . " /bin/date";
@@ -217,182 +325,62 @@ sub linksWidget
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
-#
-# Method: widgets
-#
-#   Overriden method that returns the widgets offered by this module
-#
-# Overrides:
-#
-#       <EBox::Module::widgets>
-#
-sub widgets
-{
-    my $widgets = {
-        'modules' => {
-            'title' => __("Module Status"),
-            'widget' => \&modulesWidget,
-            'order' => 6,
-            'default' => 1
-        },
-        'general' => {
-            'title' => __("General Information"),
-            'widget' => \&generalWidget,
-            'order' => 1,
-            'default' => 1
-        },
-        'processes' => {
-            'title' => __("Process List"),
-            'widget' => \&processesWidget
-        },
-    };
-
-    unless (EBox::Config::boolean('disable_links_widget')) {
-        $widgets->{'links'} = {
-            'title' => __('Resources'),
-            'widget' => \&linksWidget,
-            'order' => 2,
-            'default' => 1
-        };
-    }
-
-    return $widgets;
-}
-
-# Method: modelClasses
-#
-#       Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::SysInfo::Model::Halt',
-    ];
-}
-
-sub addKnownWidget()
-{
-    my ($self,$wname) = @_;
-    my $list = $self->st_get_list("known/widgets");
-    push(@{$list},$wname);
-    $self->st_set_list("known/widgets", "string", $list);
-}
-
-sub isWidgetKnown()
+sub addKnownWidget
 {
     my ($self, $wname) = @_;
-    my $list = $self->st_get_list("known/widgets");
-    my @results = grep(/^$wname$/,@{$list});
-    if(@results) {
-        return 1;
-    } else {
-        return undef;
-    }
+
+    my $hash = $self->get_hash('known/widgets');
+    $hash->{$wname} = 1;
+    $self->set('known/widgets', $hash);
 }
 
-sub getDashboard()
+sub isWidgetKnown
 {
-    my ($self,$dashboard) = @_;
-    return $self->st_get_list("$dashboard/widgets");
+    my ($self, $wname) = @_;
+
+    my $hash = $self->get_hash('known/widgets');
+    return exists $hash->{$wname};
 }
 
-sub setDashboard()
+sub getDashboard
 {
-    my ($self,$dashboard,$widgets) = @_;
-    $self->st_set_list("$dashboard/widgets", "string", $widgets);
+    my ($self, $dashboard) = @_;
+
+    return $self->get_list($dashboard);
 }
 
-sub toggleElement()
+sub setDashboard
 {
-    my ($self,$element) = @_;
-    my $toggled = $self->st_get_bool("toggled/$element");
-    $self->st_set_bool("toggled/$element",!$toggled);
+    my ($self, $dashboard, $widgets) = @_;
+
+    $self->set($dashboard, $widgets);
 }
 
-sub toggledElements()
+sub toggleElement
+{
+    my ($self, $element) = @_;
+
+    my $hash = $self->get_hash($element);
+    $hash->{toggled} = not $hash->{toggled};
+    $self->set($element, $hash);
+}
+
+sub toggledElements
 {
     my ($self) = @_;
-    return $self->st_hash_from_dir("toggled");
+
+    my @toggled = keys %{$self->get_hash('toggled')};
+    return \@toggled;
 }
 
-# Method: setNewTimeZone
-#
-#   Sets the system's time zone
-#
-# Parameters:
-#
-#   continent
-#   country
-#
-sub setNewTimeZone
+sub _facilitiesForDiskUsage
 {
-    my ($self, $continent, $country) = @_;
+    my ($self, @params) = @_;
 
-    $self->set_string('continent', $continent);
-    $self->set_string('country', $country);
-    EBox::Sudo::root("echo $continent/$country > /etc/timezone");
-    EBox::Sudo::root("cp -f /usr/share/zoneinfo/$continent/$country /etc/localtime");
+    return EBox::Backup->_facilitiesForDiskUsage(@params);
 }
 
-# Method: menu
-#
-#   Overriden method that returns the core menu entries:
-#
-#   - Summary
-#   - Save/Cancel
-#   - Logout
-#   - SysInfo/General
-#   - SysInfo/Backup
-#   - SysInfo/Halt
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-    $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
-                    'text' => __('Dashboard'),
-                    'separator' => 'Core',
-                    'order' => 10));
-
-    $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
-                    'text' => __('Module Status'),
-                    'separator' => 'Core',
-                    'order' => 20));
-
-
-    my $system = new EBox::Menu::Folder('name' => 'SysInfo',
-                        'text' => __('System'),
-                        'order' => 30);
-
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/General',
-                      'order' => 10,
-                      'text' => __('General')));
-
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
-                      'order' => 50,
-                      'text' => __('Import/Export Configuration')));
-
-    $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
-                      'order' => 60,
-                      'text' => __('Halt/Reboot')));
-
-    $root->add($system);
-
-    my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
-                                        'text' => __('Maintenance'),
-                                        'separator' => 'Core',
-                                        'order' => 70);
-
-    $maint->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
-                                     'order' => 40,
-                                     'text' => __('Disk Usage')));
-
-    $maint->add(new EBox::Menu::Item('url' => 'Report/RAID',
-                                     'order' => 50,
-                                     'text' => __('RAID')));
-    $root->add($maint);
-}
-
+# TODO Check if the subs below are needed
 sub logReportInfo
 {
     my ($self) = @_;
@@ -461,31 +449,6 @@ sub report
     return $report;
 }
 
-# Method: setNewDate
-#
-#   Sets the system date
-#
-# Parameters:
-#
-#   day
-#   month
-#   year
-#   hour
-#   minute
-#   second
-#
-sub setNewDate
-{
-    my ($self, $day, $month, $year, $hour, $minute, $second) = @_;
-
-    my $newdate = "$year-$month-$day $hour:$minute:$second";
-    my $command = "/bin/date --set \"$newdate\"";
-    EBox::Sudo::root($command);
-
-    my $global = EBox::Global->getInstance(1);
-    $self->_restartAllServices;
-}
-
 sub _restartAllServices
 {
     my ($self) = @_;
@@ -515,23 +478,6 @@ sub _restartAllServices
                          'service cron restart');
     } catch EBox::Exceptions::Internal with {
     };
-}
-
-# Method: importTimezone
-#
-#   Reads timezone from /etc/timezone and saves it into the module config
-#
-sub importTimezone
-{
-    my ($self) = @_;
-
-    my $timezone = `cat /etc/timezone`;
-    chomp($timezone);
-
-    my ($continent, $country) = split ('/', $timezone);
-
-    $self->set_string('continent', $continent);
-    $self->set_string('country', $country);
 }
 
 # Return commercial message for QA updates

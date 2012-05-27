@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS printers_jobs_by_user_report(
     event VARCHAR(20) NOT NULL,
     nJobs INT,
     INDEX(`date`)
-);
+) ENGINE = MyISAM;

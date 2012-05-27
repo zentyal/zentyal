@@ -20,8 +20,6 @@ package EBox::PPTP;
 #
 
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::FirewallObserver
             EBox::LogObserver);
 
@@ -63,35 +61,6 @@ sub _create
 
     bless($self, $class);
     return $self;
-}
-
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::PPTP::Model::Config',
-        'EBox::PPTP::Model::Users',
-    ];
-}
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::PPTP::Composite::General',
-    ];
 }
 
 # Method: usedFiles

@@ -37,7 +37,7 @@ use EBox::Gettext;
 #
 # Parameters:
 #
-#       gconfmodule - <EBox::GConfModule> the GConf eBox module which
+#       confmodule - <EBox::Module::Config> the GConf eBox module which
 #       gives the environment where to store data
 #
 #       directory - String the subdirectory within the environment
@@ -51,10 +51,9 @@ sub new
 
     my $self = $class->SUPER::new(@params);
 
-    bless ( $self, $class );
+    bless ($self, $class);
 
     return $self;
-
 }
 
 # Method: setRow
@@ -74,7 +73,6 @@ sub setRow
 {
     throw EBox::Exceptions::Internal('It is not possible to set a row to ' .
                                      'an read only form');
-
 }
 
 # Method: setTypedRow
@@ -94,7 +92,6 @@ sub setTypedRow
 {
     throw EBox::Exceptions::Internal('It is not possible to set a row to ' .
                                      'an read only form');
-
 }
 
 # Method: row
@@ -107,7 +104,6 @@ sub setTypedRow
 #
 sub row
 {
-
     my ($self) = @_;
 
     unless ( $self->{readOnlyed} ) {
@@ -136,7 +132,6 @@ sub row
         # Call SUPER::_row
         return $self->_row();
     }
-
 }
 
 # Group: Class methods
@@ -149,9 +144,7 @@ sub row
 #
 sub Viewer
 {
-
     return '/readOnlyForm.mas';
-
 }
 
 # Group: Protected methods
@@ -178,9 +171,7 @@ sub Viewer
 #
 sub _content
 {
-
     return undef;
-
 }
 
 1;

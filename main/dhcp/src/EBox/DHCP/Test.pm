@@ -49,8 +49,8 @@ sub _moduleInstantiationTest : Test
 sub setDHCPEBoxModule : Test(setup)
 {
   EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
-  EBox::GConfModule::TestStub::setEntry('/ebox/modules/dhcp/active', 0);
-  EBox::GConfModule::TestStub::setEntry('/ebox/modules/global/modules/dhcp/depends', ['network']);
+  EBox::Module::Config::TestStub::setEntry('/ebox/modules/dhcp/active', 0);
+  EBox::Module::Config::TestStub::setEntry('/ebox/modules/global/modules/dhcp/depends', ['network']);
 
 }
 

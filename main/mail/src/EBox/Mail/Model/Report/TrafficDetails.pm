@@ -97,6 +97,7 @@ sub _table
             'rowUnique' => 0,
             'printableRowName' => __('traffic'),
             'sortedBy' => 'date',
+            'withoutActions' => 1,
         };
 
     return $dataTable;
@@ -115,7 +116,7 @@ sub timePeriod
     my ($self) = @_;
 
 
-    my $model = $self->{gconfmodule}->model('TrafficReportOptions');
+    my $model = $self->{confmodule}->model('TrafficReportOptions');
     my $row = $model->row();
 
     return $row->valueByName('timePeriod');

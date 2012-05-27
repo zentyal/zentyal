@@ -35,10 +35,7 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::NetworkObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service EBox::NetworkObserver);
 
 ######################################
 # Dependencies:
@@ -47,9 +44,9 @@ use base qw(EBox::Module::Service
 use Perl6::Junction qw( any );
 
 use EBox::Gettext;
-
 use EBox::Global;
 use EBox::Validate qw( checkProtocol checkPort );
+use EBox::Model::Manager;
 
 # Used exceptions
 use EBox::Exceptions::InvalidData;
@@ -61,10 +58,6 @@ use EBox::Iptables;
 # Concrete builders
 use EBox::TrafficShaping::TreeBuilder::Default;
 use EBox::TrafficShaping::TreeBuilder::HTB;
-
-# Model managers
-use EBox::Model::ModelManager;
-use EBox::Model::CompositeManager;
 
 # Dependencies
 use Error qw(:try);
@@ -258,12 +251,6 @@ sub _resetInterfacesChains
     }
 }
 
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::compositeClasses>
-#
 sub compositeClasses
 {
     my ($self) = @_;
@@ -281,31 +268,11 @@ sub modelClasses
 {
     my ($self) = @_;
 
-# FIXME: move this > 0 check to validateRow or probably better to iface select's populate
-#    foreach my $iface (@extIfaces) {
-#        if ( $self->uploadRate($iface) > 0) {
-#            push (@availableIfaces, $iface);
-#        }
-#    }
-
     return [
             'EBox::TrafficShaping::Model::InternalRules',
             'EBox::TrafficShaping::Model::ExternalRules',
             'EBox::TrafficShaping::Model::InterfaceRate',
            ];
-}
-
-# Method: reloadModelsOnChange
-#
-# Overrides:
-#
-#     <EBox::Model::ModelProvider::reloadModelsOnChange>
-#
-sub reloadModelsOnChange
-{
-
-    return [ 'InterfaceRate' ];
-
 }
 
 # Method: _exposedMethods
@@ -536,7 +503,7 @@ sub checkRule
       $self->_buildRule( $ruleParams{interface}, \%ruleParams, 'test');
     }
 
-    # If it works correctly, the write to gconf is done afterwards by
+    # If it works correctly, the write to conf is done afterwards by
     # TrafficShapingModel
 
     return 1;
@@ -619,6 +586,55 @@ sub getLowestPriority # (interface, search?)
     }
 
     return $self->{lowestPriority};
+}
+
+# FIXME: reimplement this
+# Method: ruleModel
+#
+#       Return the model associated to the rules table
+#
+# Parameters:
+#
+#       interface - String interface attached to the rule table model
+#
+# Returns:
+#
+#       <EBox::TrafficShaping::Model::RuleTable> - if there is a model
+#       associated with the given interface
+#
+#       undef - if there is no model associated with the given
+#       interface
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - throw if parameter is not
+#      passed
+#
+sub ruleModel
+{
+    my ($self, $iface) = @_;
+
+    throw EBox::Exceptions::MissingArgument( __('Interface') )
+        unless defined( $iface );
+
+    if ( not defined ($self->{ruleModels}->{$iface})) {
+        try {
+            $self->_checkInterface($iface);
+            # Create the rule model if it's not already created
+            $self->{ruleModels}->{$iface}
+            = new EBox::TrafficShaping::Model::RuleTable(
+                    'confmodule' => $self,
+                    'directory'   => "$iface/user_rules",
+                    'tablename'   => 'rule',
+                    'interface'   => $iface,
+                    );
+        } catch EBox::Exceptions::External with {
+            # If the interface cannot be shaped, then return undef
+            ;
+        };
+    }
+
+    return $self->{ruleModels}->{$iface};
 }
 
 # Method:   interfaceRateModel
@@ -712,6 +728,78 @@ sub ifaceMethodChanged
         return 1 if ( $self->{network}->ifaceIsExternal($iface));
     }
     return 0;
+}
+
+
+# Method: ifaceExternalChanged
+#
+# Implements:
+#
+#    <EBox::NetworkObserver::ifaceExternalChanged>.
+#
+# Returns:
+#
+#    true - if there are rules on the model associated to the given
+#    interface or the change provokes not enough interfaces to shape
+#    the traffic
+#
+#    false - otherwise
+#
+sub ifaceExternalChanged # (iface, external)
+{
+
+    my ($self, $iface, $external) = @_;
+
+    # XXX Disabled until network observers work properly.
+    #     We need to be notified when there's a change
+    #     from external to internal, not only  interntal
+    #     to external
+    return 0;
+
+    # Check if any interface is being shaped
+    # if ( defined ( $self->{ruleModels}->{$iface} )) {
+    #    return not $self->enoughInterfaces();
+    # }
+    # return 0;
+
+}
+
+# Method: changeIfaceExternalProperty
+#
+#    Remove every rule associated to the given interface
+#
+# Implements:
+#
+#    <EBox::NetworkObserver::changeIfaceExternalProperty>
+#
+sub changeIfaceExternalProperty # (iface, external)
+{
+    my ($self, $iface, $external) = @_;
+
+    my $manager = EBox::Model::Manager->instance();
+    $manager->markAsChanged();
+}
+
+
+# Method: freeIface
+#
+#        See <EBox::NetworkObserver::freeIface>.
+#
+# Parameters:
+#
+#       iface - interface name
+#
+# Returns:
+#
+#       boolean -
+#
+sub freeIface # (iface)
+{
+    my ($self, $iface) = @_;
+
+    $self->_deleteIface($iface);
+    my $manager = EBox::Model::Manager->instance();
+    $manager->markAsChanged();
 }
 
 ###
@@ -813,15 +901,17 @@ sub _setNewLowestPriority # (iface, priority?)
         # Check all priority entries from within given interface
         my $ruleDir = $self->_ruleDirectory($iface);
 
-        my $dirs_ref = $self->array_from_dir($ruleDir);
+      # FIXME: reimplement this
+#      my $dirs_ref = $self->array_from_dir($ruleDir);
+      my $dirs_ref = [];
 
-        # Search for the lowest at array
-        my $lowest = 0;
-        foreach my $rule_ref (@{$dirs_ref}) {
-            $lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
-        }
-        # Set lowest
-        $self->_setLowestPriority($iface, $lowest);
+      # Search for the lowest at array
+      my $lowest = 0;
+      foreach my $rule_ref (@{$dirs_ref}) {
+	    $lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
+      }
+      # Set lowest
+      $self->_setLowestPriority($iface, $lowest);
     }
 }
 
@@ -961,7 +1051,7 @@ sub _createTree # (interface, type)
     }
 }
 
-# Build the tree from gconf variables stored.
+# Build the tree from conf variables stored.
 # It assumes rules are correct
 sub _buildGConfRules # (iface, regenConfig)
 {
@@ -991,7 +1081,7 @@ sub _buildGConfRules # (iface, regenConfig)
         $ruleRef->{priority} = $row->valueByName('priority');
 
         # Rates
-        # Transform from gconf to camelCase and set if they're null
+        # Transform from conf to camelCase and set if they're null
         # since they're optional parameters
         $ruleRef->{guaranteedRate} = $row->valueByName('guaranteed_rate');
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
@@ -1034,7 +1124,7 @@ sub _createBuilders
             # If there's any rule, for now use an HTBTreeBuilder
             $self->_createTree($iface, "HTB", $regenConfig);
 
-            # Build every rule and stores the identifier in gconf to destroy
+            # Build every rule and stores the identifier in conf to destroy
             # them afterwards
             $self->_buildGConfRules($iface, $regenConfig);
         }
@@ -1356,7 +1446,19 @@ sub _mapRuleToClassId # (ruleId)
     if (defined ( $self->{classIdMap})) {
       return $self->{classIdMap}->{$ruleId};
     } else {
-      return undef;
+        $nInt--;
+        $nExt++;
+    }
+    if ( $nExt == 0 or $nInt == 0 ) {
+        my $manager = EBox::Model::Manager->instance();
+        foreach my $ifaceWithModel ( keys %{$self->{ruleModels}} ) {
+            my $model = $self->{ruleModels}->{$ifaceWithModel};
+            if ( defined ( $model )) {
+                $model->removeAll(1);
+                # FIXME: this has been deleted, reimplement in a different way
+                $manager->removeModel($model->contextName());
+            }
+        }
     }
 }
 
@@ -1440,6 +1542,9 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
 sub _configuredInterfaces
 {
     my ($self) = @_;
+
+    # FIXME: reimplement this
+    return [];
 
     my @ifaces;
     # FIXME: is this low-levelness necessary?

@@ -30,7 +30,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
@@ -290,26 +290,12 @@ sub _checkVPN
             }
         }
     }
-
-    # check advertised networks
-    my $advertisedNetwork =
-    $self->parentRow()->elementByName('advertisedNetworks')->foreignModelInstance();
-    foreach my $id (@{ $advertisedNetwork->ids() }) {
-        my $row = $advertisedNetwork->row($id);
-        my $net = $row->elementByName('network')->printableValue();
-
-        if ($vpnAddress eq $net) {
-            throw EBox::Exceptions::External(
-__('The VPN address could not be the same than one of its advertised networks')
-                                            );
-        }
-    }
 }
 
 sub _uniqVPNAddress
 {
     my ($self, $vpnAddress) = @_;
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $serverList = $manager->model('/openvpn/Servers');
 
     my $olddir = $self->directory();
@@ -336,7 +322,7 @@ sub _uniqPortAndProtocol
 
     my $portAndProtocol = $params_r->{portAndProtocol};
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $serverList = $manager->model('/openvpn/Servers');
 
     my $olddir = $self->directory();

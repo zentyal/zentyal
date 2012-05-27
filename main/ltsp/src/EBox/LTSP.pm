@@ -19,9 +19,7 @@
 
 package EBox::LTSP;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service);
 
 use strict;
 use warnings;
@@ -44,8 +42,8 @@ use Net::IP;
 
 use constant CONF_DIR  => '/var/lib/tftpboot/ltsp';
 use constant CONF_FILE => 'lts.conf';
-use constant ARCHITECTURES => ['i386', 'amd64', 'hppa', 'powerpc'];
-
+use constant ARCHITECTURES => ['i386', 'amd64',]; #['i386', 'amd64', 'hppa', 'powerpc'];
+use constant IMG_DIR => '/opt/ltsp/images';
 
 # Method: _create
 #
@@ -57,79 +55,55 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ltsp',
-            printableName => __('Thin Clients'),
-            @_);
+                                      printableName => __('Thin Clients'),
+                                      @_);
     bless ($self, $class);
     return $self;
 }
 
-# Method: modelClasses
+# Method: initialSetup
 #
 # Overrides:
+#   EBox::Module::Base::initialSetup
 #
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
+sub initialSetup
 {
-    return [
-        'EBox::LTSP::Model::GeneralOpts',
-        'EBox::LTSP::Model::Clients',
-        'EBox::LTSP::Model::Profiles',
-        'EBox::LTSP::Model::OtherOpts',
-        'EBox::LTSP::Model::GeneralClientOpts',
-        'EBox::LTSP::Model::AutoLogin',
-    ];
-}
+    my ($self, $version) = @_;
 
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::LTSP::Composite::Composite',
-        'EBox::LTSP::Composite::Configuration',
-        'EBox::LTSP::Composite::ClientConfiguration',
-    ];
-}
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        my $fw = EBox::Global->modInstance('firewall');
 
-# Method: actions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::actions>
-#
-sub actions
-{
-    return [
-#        {
-#            'action' => __('Add LTSP LDAP schema'),
-#            'reason' => __('Zentyal will need this schema to store LTSP users.'),
-#            'module' => 'ebox-ltsp'
-#        },
-    ];
-}
-
-# Method: enableActions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::enableActions>
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    # Execute enable-module script
-    $self->SUPER::enableActions();
+        my $port = 8888;
+        $fw->addInternalService(
+                'name'            => 'ltsp',
+                'printableName' => __('Thin Clients'),
+                'description' => __('Thin Clients (NBD protocol)'),
+                'protocol'        => 'tcp',
+                'sourcePort'      => 'any',
+                'destinationPort' => 10809,
+        );
+        $fw->saveConfigRecursive();
+    }
 }
 
 sub architectures
 {
     return ARCHITECTURES;
+}
+
+sub images
+{
+    my ($self) = @_;
+
+    my @images;
+
+    for my $arch (@{$self->architectures}) {
+        push (@images, IMG_DIR . "/$arch.img");
+    }
+
+    return \@images;
 }
 
 sub _confFiles
@@ -139,7 +113,8 @@ sub _confFiles
     my @conf_files;
 
     for my $arch (@{$self->architectures}) {
-        push( @conf_files, CONF_DIR . "/$arch/" . CONF_FILE);
+        push (@conf_files, CONF_DIR . "/$arch/" . CONF_FILE);
+        push (@conf_files, CONF_DIR . "/fat-$arch/" . CONF_FILE);
     }
 
     return \@conf_files;
@@ -152,7 +127,8 @@ sub _confDirs
     my @conf_dirs;
 
     for my $arch (@{$self->architectures}) {
-        push( @conf_dirs, CONF_DIR . "/$arch/");
+        push (@conf_dirs, CONF_DIR . "/$arch/");
+        push (@conf_dirs, CONF_DIR . "/fat-$arch/");
     }
 
     return \@conf_dirs;
@@ -171,12 +147,13 @@ sub usedFiles
     my @used_files;
 
     for my $file (@{$self->_confFiles}) {
-        push( @used_files,
+        push (@used_files,
               {
                 'file' => $file,
                 'module' => 'ltsp',
                 'reason' => __('To configure the Thin Clients.')
-              });
+              }
+        );
     }
 
     return \@used_files;
@@ -284,17 +261,19 @@ sub _getGeneralOptions
     my $time_server         = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
-    if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
+    if ($model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
         $shutdown_time = $model->row()->printableValueByName('shutdown_time');
     } else {
         $shutdown_time = undef;
     }
 
+    my $fat_ram_threshold = $model->row()->valueByName('fat_ram_threshold');
+
     my %opts;
 
-    $opts{'LDM_LIMIT_ONE_SESSION'} = $one_session;
+    $opts{'LDM_LIMIT_ONE_SESSION'} = ($one_session ? 'True' : 'False');
 
-    if ( $network_compression eq 'True' ) {
+    if ($network_compression) {
         $opts{'LDM_DIRECTX'}         = 'False';
         $opts{'NETWORK_COMPRESSION'} = 'True';
     } else {
@@ -302,7 +281,7 @@ sub _getGeneralOptions
         $opts{'NETWORK_COMPRESSION'} = 'False';
     }
 
-    if ( $local_apps eq 'True' ) {
+    if ($local_apps) {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
     } else {
@@ -310,26 +289,30 @@ sub _getGeneralOptions
         $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
-    $opts{'LOCALDEV'} = $local_dev;
-    $opts{'LDM_AUTOLOGIN'} = $autologin;
-    $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
-    $opts{'SOUND'} = $sound;
+    $opts{'LOCALDEV'} = ($local_dev ? 'True' : 'False');
+    $opts{'LDM_AUTOLOGIN'} = ($autologin ? 'True' : 'False');
+    $opts{'LDM_ALLOW_GUEST'} = ($guestlogin ? 'True' : 'False');
+    $opts{'SOUND'} = ($sound ? 'True' : 'False');
 
-    if ( defined $kb_layout ) {
+    if (defined $kb_layout) {
         $opts{'XKBLAYOUT'}      = $kb_layout;
         $opts{'CONSOLE_KEYMAP'} = $kb_layout;
     }
 
-    if ( defined $server ) {
+    if (defined $server) {
         $opts{'SERVER'} = $server;
     }
 
-    if ( defined $time_server ) {
+    if (defined $time_server) {
         $opts{'TIMESERVER'} = $time_server;
     }
 
-    if ( defined $shutdown_time ) {
+    if (defined $shutdown_time) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
+    }
+
+    if (defined $fat_ram_threshold) {
+        $opts{'FAT_RAM_THRESHOLD'} = $fat_ram_threshold;
     }
 
     return \%opts;
@@ -344,7 +327,7 @@ sub _getOtherOptions
     for my $id (@{$model->ids()}) {
         my $row = $model->row($id);
 
-        if ( $row->valueByName('enabled') ) {
+        if ($row->valueByName('enabled')) {
             my $option = $row->valueByName('option');
             my $value  = $row->valueByName('value');
 
@@ -355,7 +338,7 @@ sub _getOtherOptions
     return \%otherOpt;
 }
 
-sub _getGlobalOptions()
+sub _getGlobalOptions
 {
     my ($self) = @_;
 
@@ -382,15 +365,17 @@ sub _getGeneralProfileOptions
     my $time_server = $model->row()->elementByName('time_server')->ip();
 
     my $shutdown_time;
-    if ( $model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
+    if ($model->row()->elementByName('shutdown')->selectedType() eq 'shutdown_time') {
         $shutdown_time = $model->row()->printableValueByName('shutdown_time');
     } else {
         $shutdown_time = undef;
     }
 
+    my $fat_ram_threshold = $model->row()->valueByName('fat_ram_threshold');
+
     my %opts;
 
-    if ( $local_apps  eq 'True' ) {
+    if ($local_apps eq 'True') {
         $opts{'LOCAL_APPS'}      = 'True';
         $opts{'LOCAL_APPS_MENU'} = 'True';
     } elsif ( $local_apps  eq 'False' ) {
@@ -398,32 +383,36 @@ sub _getGeneralProfileOptions
         $opts{'LOCAL_APPS_MENU'} = 'False';
     }
 
-    if ( $local_dev ne 'default' ) {
+    if ($local_dev ne 'default') {
         $opts{'LOCALDEV'} = $local_dev;
     }
 
-    if ( $autologin ne 'default' ) {
+    if ($autologin ne 'default') {
         $opts{'LDM_AUTOLOGIN'} = $autologin;
     }
 
-    if ( $guestlogin ne 'default' ) {
+    if ($guestlogin ne 'default') {
         $opts{'LDM_ALLOW_GUEST'} = $guestlogin;
     }
 
-    if ( $sound ne 'default' ) {
+    if ($sound ne 'default') {
         $opts{'SOUND'} = $sound;
     }
 
-    if ( defined $server ) {
+    if (defined $server) {
         $opts{'SERVER'} = $server;
     }
 
-    if ( defined $time_server ) {
+    if (defined $time_server) {
         $opts{'TIMESERVER'} = $time_server;
     }
 
-    if ( defined $shutdown_time ) {
+    if (defined $shutdown_time) {
         $opts{'SHUTDOWN_TIME'} = $shutdown_time;
+    }
+
+    if (defined $fat_ram_threshold) {
+        $opts{'FAT_RAM_THRESHOLD'} = $fat_ram_threshold;
     }
 
     return \%opts;
@@ -471,13 +460,13 @@ sub _getProfilesOptions
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
 
-        if ( $row->valueByName('enabled') ) {
+        if ($row->valueByName('enabled')) {
             my $name = $row->valueByName('name');
 
             my $submodel = $row->subModel('configuration');
 
             my $model_general = $submodel->componentByName('GeneralClientOpts');
-            my $model_other   = $submodel->componentByName('OtherOpts');
+            my $model_other   = $submodel->componentByName('OtherClientOpts');
 
             my $general = $self->_getGeneralProfileOptions($model_general);
             my $other   = $self->_getOtherOptions($model_other);
@@ -660,12 +649,38 @@ sub _lstpClients
     return \%clients;
 }
 
+sub _ltspWidgetStatus
+{
+    my ($self, $num_clients) = @_;
+
+    my $error = $self->st_get_string('error');
+    if ($error) {
+        return new EBox::Dashboard::Value(__('Status'), $error);
+    }
+    my $work = $self->st_get_string('work');
+    if ((defined $work) and ($work ne 'none')) {
+        if ($work eq 'build') {
+            return new EBox::Dashboard::Value(__('Status'), __('Building image...'));
+        } elsif ($work eq 'update') {
+            return new EBox::Dashboard::Value(__('Status'), __('Updating image...'));
+        } elsif ($work eq 'install') {
+            return new EBox::Dashboard::Value(__('Status'), __('Installing applications on an image...'));
+        } else {
+            return new EBox::Dashboard::Value(__('Status'), __('Some work is being done on an image'));
+        }
+    } else {
+        return new EBox::Dashboard::Value(__('Status'), __("$num_clients users logged"));
+    }
+}
+
 sub ltspClientsWidget
 {
     my ($self, $widget) = @_;
+
     my $section = new EBox::Dashboard::Section('ltspclients');
-    $widget->add($section);
-    my $titles = [__('Username'),__('IP address'),];
+    my $section_status = new EBox::Dashboard::Section('ltspstatus');
+
+    my $titles = [__('Username'), __('IP address')];
 
     my $clients = $self->_lstpClients();
 
@@ -674,10 +689,14 @@ sub ltspClientsWidget
     foreach my $id (sort keys %{$clients}) {
         my $client = $clients->{$id};
         push(@{$ids}, $id);
-        $rows->{$id} = [$client->{user},$client->{ip},];
+        $rows->{$id} = [$client->{user}, $client->{ip}];
     }
 
-    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No user connected in any thin client.'));
+    $section_status->add($self->_ltspWidgetStatus(scalar(keys %{$clients})));
+    $widget->add($section_status);
+
+    $section->add(new EBox::Dashboard::List(undef, $titles, $ids, $rows, 'No users connected.'));
+    $widget->add($section);
 }
 
 ### Method: widgets
@@ -686,9 +705,11 @@ sub ltspClientsWidget
 #
 sub widgets
 {
+    my ($self) = @_;
+
     return {
         'ltspclients' => {
-            'title' => __("LTSP Clients"),
+            'title' => $self->printableName(),
             'widget' => \&ltspClientsWidget,
             'order' => 15,
             'default' => 1

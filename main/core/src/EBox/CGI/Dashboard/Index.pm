@@ -32,11 +32,11 @@ use Error qw(:try);
 # the design of the interface, but this could be incremented in the future
 my $NUM_DASHBOARDS = 2;
 
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_, title => __('Dashboard'),
-                    'template' => '/dashboard/index.mas');
+                                 'template' => '/dashboard/index.mas');
 	bless($self, $class);
 	return $self;
 }

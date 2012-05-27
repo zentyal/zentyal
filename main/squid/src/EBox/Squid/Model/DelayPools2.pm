@@ -33,7 +33,6 @@ use EBox::Types::Int;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-use EBox::Model::ModelManager;
 
 use Math::BigInt;
 

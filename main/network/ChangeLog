@@ -1,7 +1,34 @@
 HEAD
+	+ Implement new EBox::Events::WatcherProvider
+	+ Remove no longer necessary ad-hoc vifacesConf cache
+	+ Adapted to new Model management framework
+	+ Reimplemented Ifaces/Vifaces/VLANs storage according to new conf backend
+	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
+	+ Regenerate traffic shaping rules after failover event
+	+ EBox::Network::setNameservers does not fail if the same server
+	  is already in the list
+	+ Fixed calls to storeSelectedDefaultGateway with undef argument
+	+ EBox::Network::importInterfacesFile skips gateway adition instead of
+	  aborting if already exists one
+	+ Insert fwmark ip rules before from ones
+	+ Remove no longer necessary mark rules when having several interfaces
+	+ Pre-create failover and check-ip chains on network start to always ensure
+	  that rules are inserted in the proper position
+	+ Remove obsolete import of EBox::Order
+	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
+2.3.6
+	+ Create tables with MyISAM engine by default
+	+ Fixed path of dhclient.conf
+2.3.5
+	+ Fixed path of dhclient hooks
+2.3.4
 	+ Not allowed to attach static interfaces to a network which
 	  has already another interface atached
 	+ Fixed restore of default gateway in failover event
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Adapted messages in the UI for new editions
 	+ Use printableName instead of name to select services

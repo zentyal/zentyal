@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS ids_report (
     priority3 BIGINT DEFAULT 0,
     priority4 BIGINT DEFAULT 0,
     priority5 BIGINT DEFAULT 0
-);
+) ENGINE = MyISAM;

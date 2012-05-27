@@ -57,42 +57,6 @@ sub new
 
 # Group: Protected methods
 
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Int::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $fieldKey ="$key/" . $self->fieldName();
-
-    if (defined($self->memValue()) and $self->memValue() ne '') {
-        $gconfmod->set_string($fieldKey, $self->memValue());
-    } else {
-        $gconfmod->unset($fieldKey);
-    }
-
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self, $hash) = @_;
-
-    # Using basic one (get_string from GConf)
-    $self->EBox::Types::Basic::_restoreFromHash($hash);
-
-}
-
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -131,7 +95,6 @@ sub _paramIsValid
     }
 
     return 1;
-
 }
 
 1;

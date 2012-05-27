@@ -53,7 +53,7 @@ sub _table
             'size' => '8',
             'unique' => 1,
             'editable' => 1,
-            'help' => '', # FIXME
+            #'help' => __(''), # FIXME
         ),
         new EBox::Types::HasMany(
             'fieldName' => 'configuration',

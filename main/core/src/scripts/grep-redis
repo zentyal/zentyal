@@ -37,7 +37,7 @@ EBox::init();
 
 my $redis = new EBox::Config::Redis();
 
-my @keys = $redis->_redis_call('keys', "$dir/*");
+my @keys = $redis->_keys("$dir/*");
 
 foreach my $key (@keys) {
     my $value = $redis->get($key);

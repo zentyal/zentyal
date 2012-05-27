@@ -32,7 +32,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
 use EBox::Event;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Constructor: new
 #
@@ -172,7 +172,7 @@ sub configurationSubModel
     defined ( $package ) or
         throw EBox::Exceptions::MissingArgument('package');
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $watchers = $manager->model('/events/ConfigureDispatcherDataTable');
     for my $id (@{$watchers->ids()}) {
 	my $row = $watchers->row($id);

@@ -158,7 +158,7 @@ sub viewCustomizer
 
     unless ($self->{viewCustomizer}) {
         # XXX workaround for parentComposite with viewCustomizer bug
-        my $composite  = $self->{gconfmodule}->composite('VMSettings');
+        my $composite  = $self->{confmodule}->composite('VMSettings');
         $self->setParentComposite($composite);
 
         my $viewCustom = new EBox::View::Customizer();

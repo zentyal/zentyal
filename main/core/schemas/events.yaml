@@ -1,1 +1,8 @@
 class: 'EBox::Events'
+
+models:
+    - ConfigureWatchers
+    - ConfigureDispatchers
+
+composites:
+   General: [ConfigureWatchers, ConfigureDispatchers]

@@ -16,8 +16,6 @@
 package EBox::OpenVPN;
 use base qw(
              EBox::Module::Service
-             EBox::Model::ModelProvider
-             EBox::Model::CompositeProvider
              EBox::NetworkObserver
              EBox::LogObserver
              EBox::FirewallObserver
@@ -71,43 +69,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::OpenVPN::Model::Servers',
-        'EBox::OpenVPN::Model::ServerConfiguration',
-        {
-          class => 'EBox::OpenVPN::Model::ExposedNetworks',
-          parameters => [
-                         directory => 'AdvertisedNetworks',
-                        ],
-         },
-        'EBox::OpenVPN::Model::DownloadClientBundle',
-
-        'EBox::OpenVPN::Model::Clients',
-        'EBox::OpenVPN::Model::ClientConfiguration',
-
-        'EBox::OpenVPN::Model::DeletedDaemons',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [];
 }
 
 #TODO: this method needs to be splitted in setConf and enforceServiceState

@@ -1,1 +1,5 @@
-CREATE TABLE IF NOT EXISTS ids_alert(`date` TIMESTAMP NOT NULL, alert BIGINT DEFAULT 0, INDEX(`date`));
+CREATE TABLE IF NOT EXISTS ids_alert(
+    `date` TIMESTAMP NOT NULL,
+    alert BIGINT DEFAULT 0,
+    INDEX(`date`)
+) ENGINE = MyISAM;

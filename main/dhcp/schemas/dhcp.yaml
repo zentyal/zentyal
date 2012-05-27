@@ -6,3 +6,6 @@ depends:
 
 enabledepends:
     - network
+
+notifyactions:
+    ThinClientOptions: [FixedAddressTable, RangeTable]

@@ -21,11 +21,9 @@ package EBox::RemoteServices;
 #      services offered
 #
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::NetworkObserver
-            EBox::FirewallObserver
-           );
+            EBox::Events::DispatcherProvider
+            EBox::FirewallObserver);
 
 use strict;
 use warnings;
@@ -220,6 +218,17 @@ sub wizardPages
     return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
 }
 
+# Method: eventDispatchers
+#
+# Overrides:
+#
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
+#
+sub eventDispatchers
+{
+    return [ 'ControlCenter' ];
+}
+
 # Group: Public methods
 
 # Method: addModuleStatus
@@ -287,49 +296,6 @@ sub menu
         'text' => __('Disaster Recovery'),
        ));
     $root->add($folder);
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-
-    my ($self) = @_;
-
-    return [
-        'EBox::RemoteServices::Model::AccessSettings',
-        'EBox::RemoteServices::Model::AdvancedSecurityUpdates',
-        'EBox::RemoteServices::Model::AlertsInfo',
-        'EBox::RemoteServices::Model::DisasterRecovery',
-        'EBox::RemoteServices::Model::QAUpdatesInfo',
-        'EBox::RemoteServices::Model::RemoteSupportAccess',
-        'EBox::RemoteServices::Model::ReportsInfo',
-        'EBox::RemoteServices::Model::Subscription',
-        'EBox::RemoteServices::Model::SubscriptionInfo',
-        'EBox::RemoteServices::Model::TechnicalInfo',
-       ];
-
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [
-        'EBox::RemoteServices::Composite::General',
-        'EBox::RemoteServices::Composite::SubscriptionInfos',
-        'EBox::RemoteServices::Composite::Technical',
-            ];
 }
 
 # Method: widgets
@@ -932,6 +898,9 @@ sub disasterRecoveryAddOn
 sub backupCredentials
 {
     my ($self, %args) = @_;
+
+    # FIXME: reimplement this
+    return {};
 
     if ( $args{force} or not $self->st_entry_exists('disaster_recovery/username')  ) {
         my $cred;
@@ -1824,6 +1793,9 @@ sub _statusKeysAndValuesString
 {
     my ($self) = @_;
     my $stringConf;
+
+    # FIXME: reimplement this
+    return '';
 
     my $type = 'string';
     my @dirsToLook = ('');

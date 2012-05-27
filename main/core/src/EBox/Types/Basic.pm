@@ -104,14 +104,10 @@ sub _setMemValue
 sub _restoreFromHash
 {
     my ($self, $hash) = @_;
+
     return unless ($self->row());
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get_string($self->_path() . '/' . $self->fieldName());
-        $self->_addToCache($value);
-    }
-    $self->{'value'} = $value;
+
+    $self->{'value'} = $hash->{$self->fieldName()};
 }
 
 # Method: _setValue
@@ -135,7 +131,24 @@ sub _setValue # (value)
                  };
 
     $self->setMemValue($params);
+}
 
+# Method: _storeInHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInHash>
+#
+sub _storeInHash
+{
+    my ($self, $hash) = @_;
+
+    my $field = $self->fieldName();
+    if (defined($self->memValue()) and $self->memValue() ne '') {
+        $hash->{$field} = $self->memValue();
+    } else {
+        delete $hash->{$field};
+    }
 }
 
 1;

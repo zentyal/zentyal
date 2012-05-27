@@ -87,25 +87,6 @@ sub cmp
 
 # Group: Protected methods
 
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $keyField = "$key/" . $self->fieldName();
-
-    if ($self->memValue()) {
-        $gconfmod->set_string($keyField, $self->memValue());
-    } else {
-        $gconfmod->unset($keyField);
-    }
-}
-
 # Method: _paramIsValid
 #
 # Overrides:

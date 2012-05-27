@@ -25,7 +25,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
 use EBox::UsersAndGroups;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use Perl6::Junction qw(any);
 
 sub new
@@ -128,7 +128,7 @@ sub setHasAccount
         $user->delete('zarafaQuotaHard', 1);
         $user->save();
 
-        my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
+        my $model = EBox::Model::Manager::instance()->model('zarafa/ZarafaUser');
         $self->setHasContact($user, $model->contactValue());
 
         $self->{zarafa}->_hook('unsetacc', $user->name());
@@ -144,7 +144,7 @@ sub _addUser
    unless ($self->{zarafa}->configured()) {
        return;
    }
-   my $model = EBox::Model::ModelManager::instance()->model('zarafa/ZarafaUser');
+   my $model = EBox::Model::Manager::instance()->model('zarafa/ZarafaUser');
 
    $self->setHasAccount($user, $model->enabledValue());
    $self->setHasContact($user, $model->contactValue());

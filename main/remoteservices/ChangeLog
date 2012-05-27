@@ -1,5 +1,8 @@
 2.3
-	+ Allow to subscribe to Zentyal Newsletter from wizard
+	+ Implement new EBox::Events::DispatcherProvider
+	+ Adapted to new Model management and events frameworks
+	+ Reimplemented state and backupCredentials FIXME
+	+ New subscription wizard
 	+ Adapted messages in the UI for new editions
 	+ Add new server editions
 	+ New checks for Small Business edition

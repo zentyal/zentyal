@@ -72,12 +72,9 @@ sub _paramIsValid
 
     if (defined ( $value )) {
         EBox::Validate::checkPort($value, $self->printableName());
-      }
+    }
 
     return 1;
-
 }
-
-
 
 1;

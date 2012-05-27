@@ -3,3 +3,25 @@ depends:
     - users
     - network
     - objects
+
+models:
+    - SMTPOptions
+    - RetrievalServices
+    - ObjectPolicy
+    - VDomains
+    - VDomainAliases
+    - ExternalAliases
+    - VDomainSettings
+    - ExternalFilter
+    - MailUser
+    - Dispatcher::Mail
+    - GreylistConfiguration
+    - Report::TrafficGraph
+    - Report::TrafficDetails
+    - Report::TrafficReportOptions
+    - ExternalAccounts
+
+composites:
+    ServiceConfiguration: [FIXME]
+    General: [FIXME]
+    Report::TrafficReport: [FIXME]

@@ -36,11 +36,11 @@ use EBox::Gettext;
 #
 sub new
 {
-      my ($class) = @_;
+    my ($class) = @_;
 
-      my $self = $class->SUPER::new();
+    my $self = $class->SUPER::new();
 
-      return $self;
+    return $self;
 }
 
 # Group: Protected methods
@@ -53,21 +53,14 @@ sub new
 #
 sub _description
 {
-
-    my $wsMod = EBox::Global->modInstance('jabber');
-
-    my $description =
-      {
-       components      => [
-                           '/' . $wsMod->name() . '/GeneralSettings',
-                          ],
+    my $description = {
        layout          => 'top-bottom',
        name            => 'General',
        printableName   => __('Configuration'),
        pageTitle       => __('Jabber'),
        compositeDomain => 'Jabber',
        #help            => __(''),
-      };
+    };
 
     return $description;
 }

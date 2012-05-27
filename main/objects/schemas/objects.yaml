@@ -1,1 +1,10 @@
 class: 'EBox::Objects'
+
+models:
+    - ObjectTable
+    - MemberTable
+
+relations:
+    - ObjectTable:
+        - many: MemberTable
+

@@ -114,7 +114,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $dhcp = $self->{gconfmodule};
+    my $dhcp = $self->{confmodule};
     my $net  = EBox::Global->modInstance('network');
 
     my $interface = $self->parentRow()->valueByName('iface');

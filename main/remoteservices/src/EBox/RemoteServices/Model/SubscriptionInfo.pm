@@ -140,7 +140,7 @@ sub _content
 {
     my ($self) = @_;
 
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
 
     my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
       ( __('None'), __('Not using Zentyal Cloud DynDNS service'),

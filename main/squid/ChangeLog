@@ -1,3 +1,16 @@
+HEAD
+	+ Adapted to new Model management framework
+	+ Use new _keys() which takes cache into account instead of _redis_call()
+	+ Adapted TimePeriod type to the changes in the types framework
+2.3.5
+	+ Create tables with MyISAM engine by default
+2.3.4
+	+ Use new tableBody.mas in TrafficDetails.pm
+	+ Fixed regresion which broke the apply all button for MIME and extensions
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standard-Versions to 3.9.2
 2.3.1
 	+ Adapted messages in the UI for new editions
 	+ Uniformize config boolean values (from true/false to yes/no)

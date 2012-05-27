@@ -1,3 +1,18 @@
 class: 'EBox::EBackup'
 depends:
     - events
+
+models:
+    - RemoteSettings
+    - RemoteExcludes
+    - RemoteStatus
+    - RemoteFileList
+    - RemoteRestoreLogs
+    - RemoteRestoreConf
+    - RemoteStorage
+    - BackupDomains
+
+composites:
+    RemoteGeneral: [FIXME]
+    Remote: [FIXME]
+    ServicesRestore: [FIXME]

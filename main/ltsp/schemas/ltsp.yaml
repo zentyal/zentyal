@@ -1,1 +1,17 @@
 class: EBox::LTSP
+models:
+    - AvailableImages
+    - LocalApps
+    - GeneralOpts
+    - Clients
+    - Profiles
+    - OtherClientOpts
+    - OtherOpts
+    - GeneralClientOpts
+    - ImageCreation
+    - AutoLogin
+composites:
+    Composite: [ FIXME ]
+    ClientImages: [ FIXME ]
+    ClientConfiguration: [ FIXME ]
+    Configuration: [ FIXME ]
