@@ -125,6 +125,43 @@ sub parent
     return $self->{'parent'};
 }
 
+# Method: parentRow
+#
+#    Is the component is a submodel of a DataTable return the row where the
+#    parent model resides
+#
+# Returns:
+#
+#       row object or undef if there is not
+#
+sub parentRow
+{
+    my ($self) = @_;
+
+    unless ($self->{parent}) {
+        return undef;
+    }
+
+    my $dir = $self->directory();
+    my @parts = split ('/', $dir);
+
+    my $rowId = undef;
+    for (my $i = scalar (@parts) - 1; $i > 0; $i--) {
+        if (($parts[$i] eq 'form') or ($parts[$i - 1] eq 'keys')) {
+            $rowId = $parts[$i];
+            last;
+        }
+    }
+
+    my $row = $self->{parent}->row($rowId);
+    unless ($row) {
+        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir.");
+    }
+
+    return $row;
+}
+
+
 # Method: menuFolder
 #
 #   Override this function if you model is placed within a folder

@@ -4498,37 +4498,6 @@ sub filesPathsForRow
     return $row->filesPaths();
 }
 
-# Method: parentRow
-#
-#    if the DataTable is a submodel of a DataTable return the row where the
-#    submodel resides
-#
-# Returns:
-#
-#       row object or undef if there is not
-#
-sub parentRow
-{
-    my ($self) = @_;
-
-    my $parent = $self->parent();
-    if (not $parent) {
-        return undef;
-    }
-
-    my $dirsToRowId = 2;
-
-    my $dir = $self->directory();
-    my @parts = split '/', $dir;
-    my $rowId = $parts[-$dirsToRowId];
-
-    my $row =  $parent->row($rowId);
-    $row or
-        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir.");
-
-    return $row;
-}
-
 sub _beginTransaction
 {
     my ($self) = @_;

@@ -684,15 +684,13 @@ sub keywords
     return [@{$self->SUPER::keywords()}, map { @{$_->keywords()} } @{$self->components()}];
 }
 
-# XXX seemes neccesary
 # Method: setDirectory
 #
-#    Use this method to set the current directory. This method
-#    comes in handy to manage several tables with same model
+#    Sets directory on its child components
 #
 # Parameters:
 #
-#     directory - string containing the name
+#     directory - string containing the directory key
 #
 sub setDirectory
 {
@@ -702,20 +700,12 @@ sub setDirectory
         throw EBox::Exceptions::MissingArgument('dir');
     }
 
-    $self->{'directory'} = $dir;
+    $self->{directory} = $dir;
 
-    if (not $self->precondition()) {
-        # we dont bother to initialize components bz their wont be displayed
-        # moreover some variable components may not be able to initialize if the
-        # precondition fails
-        return;
-    }
-
-    foreach my $component (@{ $self->components() }) {
-        $self->setComponentDirectory($component);
+    foreach my $component (@{$self->components()}) {
+        $self->_setComponentDirectory($component, $dir);
     }
 }
-
 
 # Method: directory
 #
@@ -729,60 +719,20 @@ sub directory
 {
     my ($self) = @_;
 
-    return $self->{'directory'};
+    return $self->{directory};
 }
 
-# Method: setComponentDirectory
-#
-#      set the correct diectory for a componnent
-#
-#   Parameterss:
-#        comp - component
-sub setComponentDirectory
+sub _setComponentDirectory
 {
-    my ($self, $comp) = @_;
-    my $compositeDir = $self->directory();
+    my ($self, $comp, $dir) = @_;
 
-    return if not $compositeDir;
+    $comp->{parent} = $self->{parent};
 
-    my $compDir = '' ;
-
-    if ($comp->isa('EBox::Model::Composite')) {
-        # this strange hack is for backwards compability:
-        #  before the composites never have directory so we
-        # must take care to not set nested directories here
-        $compDir = $compositeDir;
-    } else {
-        $compDir = $compositeDir . '/' . $comp->name();
+    if ($comp->isa('EBox::Model::DataTable')) {
+        $dir .= '/' . $comp->name();
     }
 
-    $comp->setDirectory($compDir);
-}
-
-#  Method: parentRow
-#
-#    if the composite is a submodel of a DataTable (or nested inside one),
-#    return the row where the submodel resides
-#
-#   Returns:
-#       row object or undef if there is not
-#
-#   Warning:
-#      this method is affected fby the bug in ::Composite::parent()
-sub parentRow
-{
-    my ($self) = @_;
-
-    my $parent = $self->parent();
-    if (not $parent) {
-        return undef;
-    }
-
-    my $dir = $self->directory();
-    my @parts = split '/', $dir;
-    my $rowId = $parts[-2];
-
-    return $parent->row($rowId);
+    $comp->setDirectory($dir);
 }
 
 # Method: filesPaths

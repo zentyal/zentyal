@@ -9,3 +9,6 @@ models:
 
 composites:
     VMSettings: [SystemSettings, NetworkSettings, DeviceSettings]
+
+foreign:
+    VirtualMachines: [VMSettings]
