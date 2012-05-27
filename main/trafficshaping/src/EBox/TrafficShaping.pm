@@ -482,6 +482,19 @@ sub confDir
 }
 
 
+sub ifaceIsShapeable
+{
+    my ($self, $iface) = @_;
+    my $method = $self->{network}->ifaceMethod($iface);
+    if ($method eq 'notset') {
+        return 0;
+    } elsif ($method eq 'ppp') {
+        return 0;
+    }
+
+    return 1;
+}
+
 # Method: checkRule
 #
 #       Check if the rule passed can be added or updated. The guaranteed rate
@@ -534,6 +547,12 @@ sub checkRule
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
+
+    if (not $self->ifaceIsShapeable($ruleParams{interface})) {
+        throw EBox::Exceptions::External(__x('Iface {if} cannot be traffic shaped',
+                                             if => $ruleParams{interface})
+                                        );
+    }
 
     # Setting standard rates if not defined
     $ruleParams{guaranteedRate} = 0 unless defined ( $ruleParams{guaranteedRate} );
@@ -1762,6 +1781,12 @@ sub _configuredInterfaces
     for my $iface (@{ $self->all_dirs_base('')}) {
         push (@ifaces, $iface) if ($iface ne 'InterfaceRate');
     }
+    
+    # exclude interfaces that cannot be shaped
+    @ifaces = grep {
+        $self->ifaceIsShapeable($_)
+    } @ifaces;
+    
     return \@ifaces;
 }
 

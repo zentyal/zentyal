@@ -27,7 +27,6 @@ package EBox::TrafficShaping::Model::RuleTable;
 use strict;
 use warnings;
 
-# Its parent is the EBox::Model::DataTable
 use base 'EBox::Model::DataTable';
 
 use integer;
@@ -87,6 +86,30 @@ sub new
     bless($self, $class);
 
     return $self;
+}
+
+sub precondition
+{
+    my ($self) = @_;
+    my $iface = $self->{interface};
+    my $network = EBox::Global->getInstance($self->{ts}->isReadOnly())->modInstance('network');
+    my $method = $network->ifaceMethod($iface);
+    if ($method eq 'unset') {
+        $self->{preconditionFailMsg} = __('Unset interfaces cannot have traffic shapingrules');
+        return 0;
+    } elsif ($method eq 'ppp') {
+        $self->{preconditionFailMsg} = __('PPP interfaces cannot have traffic shaping rules');
+        return 0;
+    } 
+
+    return 1;
+}
+
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+    return $self->{preconditionFailMsg};
 }
 
 # Method: priority

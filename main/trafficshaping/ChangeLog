@@ -1,4 +1,5 @@
 HEAD
+	+ Disabled rules for ppp and not set interfaces
 	+ Fixed duplicate rows in interfaces rates page
 2.3.1
 	+ Use printableName instead of name to select services
