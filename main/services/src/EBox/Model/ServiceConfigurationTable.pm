@@ -173,7 +173,7 @@ sub _table
                 'defaultController' =>
                         '/Services/Controller/ServiceConfigurationTable',
                 'defaultActions' =>
-                        [	'add', 'del', 'move',  'editField', 'changeView' ],
+                        ['add', 'del', 'move',  'editField', 'changeView', 'clone' ],
                 'tableDescription' => \@tableHead,
                 'menuNamespace' => 'Services/View/ServiceConfigurationTable',
                 'HTTPUrlView' => 'Services/View/ServiceConfigurationTable',

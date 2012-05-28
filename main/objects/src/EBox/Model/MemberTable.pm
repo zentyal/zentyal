@@ -100,7 +100,7 @@ sub _table
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
             'defaultController' => '/Objects/Controller/MemberTable',
-            'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
+            'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'help' => __('For the IP addresses you can use CIDR notation (address/netmask) or specify the first and last addresses of a range that will also include all the IP addresses between them.'),

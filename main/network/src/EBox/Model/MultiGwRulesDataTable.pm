@@ -184,7 +184,7 @@ sub _table
         'defaultController' => '/Network/Controller/MultiGwRulesDataTable',
         'defaultActions' =>
             [
-                'add', 'del',
+                'add', 'del', 'clone',
                 'move', 'editField',
                 'changeView'
             ],

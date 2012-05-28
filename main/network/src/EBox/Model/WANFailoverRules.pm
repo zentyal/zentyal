@@ -123,7 +123,7 @@ sub _table
     {
         'tableName' => 'WANFailoverRules',
         'printableTableName' => __('Test rules'),
-        'defaultActions' => [ 'add', 'del', 'editField', 'changeView' ],
+        'defaultActions' => [ 'add', 'del', 'editField', 'clone', 'changeView' ],
         'modelDomain' => 'Network',
         'tableDescription' => \@tableHead,
         'class' => 'dataTable',
