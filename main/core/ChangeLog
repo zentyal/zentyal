@@ -1,4 +1,5 @@
 HEAD
+	+ Fix EventDaemon in the transition to MySQL
 	+ Send EventDaemon errors to new rotated log file /var/log/zentyal/events.err
 	+ Send an event to Zentyal Cloud when the updates are up-to-date
 	+ Send an info event when modules come back to running
