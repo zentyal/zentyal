@@ -50,9 +50,6 @@ sub _create
 
     bless($self, $class);
 
-    $self->{'objectModel'} = $self->model('ObjectTable');
-    $self->{'memberModel'} = $self->model('MemberTable');
-
     return $self;
 }
 
@@ -172,7 +169,7 @@ sub objectMembers # (object)
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->{'objectModel'}->row($id);
+    my $object = $self->model('ObjectTable')->row($id);
     return undef unless defined($object);
 
     return $object->subModel('members')->members();
@@ -203,7 +200,7 @@ sub objectAddresses
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->{'objectModel'}->row($id);
+    my $object = $self->model('ObjectTable')->row($id);
     return undef unless defined($object);
 
     return $object->subModel('members')->addresses(@params);
@@ -235,7 +232,7 @@ sub objectDescription  # (object)
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->{'objectModel'}->row($id);
+    my $object = $self->model('ObjectTable')->row($id);
     unless (defined($object)) {
         throw EBox::Exceptions::DataNotFound('data' => __('Object'),
                 'value' => $object);
@@ -295,7 +292,7 @@ sub objectExists
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    return defined($self->{'objectModel'}->row($id));
+    return defined($self->model('ObjectTable')->row($id));
 }
 
 
@@ -358,7 +355,7 @@ sub addObject
 {
     my ($self, %params) = @_;
 
-    return $self->{'objectModel'}->addObject(%params);
+    return $self->model('ObjectTable')->addObject(%params);
 }
 
 # add( name => 'administration',
