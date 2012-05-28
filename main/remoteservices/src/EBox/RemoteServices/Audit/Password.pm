@@ -409,9 +409,11 @@ sub _sendEvent
             }
 
             $evtsMod->sendEvent(message    => $message,
-                                source     => 'password checker',
+                                source     => 'password-checker',
                                 level      => $level,
                                 dispatchTo => [ 'ControlCenter' ],
+                                additional => { 'users'       => \@users,
+                                                'level_check' => $info{level} },
                                );
 
         } catch EBox::Exceptions::External with {

@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted Events to send additional info
 	+ RESTClient sends the query request in application/json when the
 	  data to send is an array
 	+ Use new REST API

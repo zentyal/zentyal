@@ -111,6 +111,9 @@ sub new
     $self->{level} = 'info' unless defined ( $self->{level} );
     $self->{dispatchers} = delete ( $args{dispatchTo} );
     $self->{dispatchers} = ['any'] unless defined ( $self->{dispatchers} );
+    unless ( ref($self->{dispatchers}) eq 'ARRAY' ) {
+        throw EBox::Exceptions::InvalidType('dispatchTo', 'array ref');
+    }
     $self->{timestamp} = delete ( $args{timestamp} );
     $self->{timestamp} = time() unless defined ( $self->{timestamp} );
     $self->{duration}  = delete ( $args{duration} );
