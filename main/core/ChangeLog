@@ -1,4 +1,5 @@
 HEAD
+	+ Added new type EBox::Types::KrbRealm
 	+ Fix broken packages when dist-upgrading from old versions: stop ebox
 	  owned processes before changing home directory
 	+ Log the start and finish of start/stop modules actions

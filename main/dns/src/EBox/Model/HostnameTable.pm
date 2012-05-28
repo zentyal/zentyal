@@ -52,58 +52,9 @@ sub new
     my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
-    bless($self, $class);
+    bless ($self, $class);
 
     return $self;
-}
-
-# Method: addHostname
-#
-#   Add a hostname to the hostnames table. Note this method must exist
-#   because we must provide an easy way to migrate old dns module
-#   to this new one.
-#
-# Parameters:
-#
-#   (NAMED)
-#   hostname   - String host name
-#   ip         - String host ipaddr
-#   aliases    - array ref containing the alias names
-#
-#   Example:
-#
-#      'hostname'     => 'bar',
-#      'ip'           => '192.168.1.2',
-#      'aliases'      => [
-#                         { 'bar',
-#                           'b4r'
-#                         }
-#                        ]
-sub addHostname
-{
-   my ($self, %params) = @_;
-
-   my $name = delete $params{'hostname'};
-   my $ip = delete $params{'ip'};
-
-   return unless (defined($name) and defined($ip));
-
-   my $id = $self->addRow('hostname' => $name, 'ipaddr' => $ip);
-
-   unless (defined($id)) {
-       throw EBox::Exceptions::Internal("Couldn't add host name: $name");
-   }
-
-   my $aliases = delete $params{'aliases'};
-   return unless (defined($aliases) and @{$aliases} > 0);
-
-   my $aliasModel =
-   		EBox::Model::ModelManager::instance()->model('AliasTable');
-
-   $aliasModel->setDirectory($self->{'directory'} . "/$id/alias");
-   foreach my $alias (@{$aliases}) {
-       $aliasModel->addRow('alias' => $alias);
-   }
 }
 
 # Method: validateTypedRow
@@ -121,22 +72,22 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    return unless ( exists $changedFields->{hostname} );
+    return unless (exists $changedFields->{hostname});
 
-    # Check there is no CNAME RR in the domain with the same name
     my $newHostName = $changedFields->{hostname};
-    my $domainModel = $changedFields->{hostname}->row()->model();
+    my $domainModel = $newHostName->row()->model();
 
     for my $id (@{$domainModel->ids()}) {
         my $row = $domainModel->row($id);
+        # Check there is no CNAME RR in the domain with the same name
         for my $id (@{$row->subModel('alias')->ids()}) {
-           my $subRow = $row->subModel('alias')->row($id);
-           if ($newHostName->isEqualTo($subRow->elementByName('alias'))) {
+            my $subRow = $row->subModel('alias')->row($id);
+            if ($newHostName->isEqualTo($subRow->elementByName('alias'))) {
                 throw EBox::Exceptions::External(
-                    __x('There is an alias with the same name "{name}" '
-                        . 'for "{hostname}" in the same domain',
-                         name     => $subRow->valueByName('alias'),
-                         hostname => $row->valueByName('hostname')));
+                        __x('There is an alias with the same name "{name}" '
+                            . 'for "{hostname}" in the same domain',
+                            name     => $subRow->valueByName('alias'),
+                            hostname => $row->valueByName('hostname')));
             }
         }
     }
@@ -161,7 +112,6 @@ sub validateTypedRow
             $self->{toDelete} = \@toDelete;
         }
     }
-
 }
 
 # Method: updatedRowNotify
@@ -252,16 +202,26 @@ sub _table
                                 'fieldName' => 'hostname',
                                 'printableName' => __('Host name'),
                                 'size' => '20',
-                                # 'unique' => 1, # disabled to allow round-robin
+                                'unique' => 1,
                                 'editable' => 1,
                              ),
-            new EBox::Types::HostIP
+            new EBox::Types::Text
                             (
-                                'fieldName' => 'ipaddr',
-                                'printableName' => __('IP Address'),
+                                'fieldName' => 'subdomain',
+                                'printableName' => __('Subdomain'),
                                 'size' => '20',
-                                'unique' => 1,
-                                'editable' => 1
+                                'unique' => 0,
+                                'editable' => 1,
+                                'optional' => 1,
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'ipAddresses',
+                                'printableName' => __('IP Address'),
+                                'foreignModel' => 'HostIpTable',
+                                'view' => '/DNS/View/HostIpTable',
+                                'backView' => '/DNS/View/HostIpTable',
+                                'size' => '1',
                              ),
             new EBox::Types::HasMany
                             (
@@ -269,7 +229,6 @@ sub _table
                                 'printableName' => __('Alias'),
                                 'foreignModel' => 'AliasTable',
                                 'view' => '/DNS/View/AliasTable',
-
                                 'backView' => '/DNS/View/AliasTable',
                                 'size' => '1',
                              )
@@ -277,21 +236,21 @@ sub _table
 
     my $dataTable =
         {
-            'tableName' => 'HostnameTable',
-            'printableTableName' => __('Host names'),
-            'automaticRemove' => 1,
-            'defaultController' => '/Dns/Controller/HostnameTable',
-            'HTTPUrlView'       => 'DNS/View/HostnameTable',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'help' => __('Automatic reverse resolution is done. If you '
+            tableName => 'HostnameTable',
+            printableTableName => __('Host names'),
+            automaticRemove => 1,
+            modelDomain     => 'DNS',
+            defaultActions => ['add', 'del', 'move', 'editField',  'changeView' ],
+            tableDescription => \@tableHead,
+            class => 'dataTable',
+            help => __('Automatic reverse resolution is done. If you '
                          . 'repeat an IP address in another domain, only '
                          . 'first match will be used by reverse resolution. '
                          . 'Dynamic zones may erase your manual reverse '
                          . 'resolution.'),
-            'printableRowName' => __('host name'),
-            'sortedBy' => 'hostname',
+            printableRowName => __('host name'),
+            order => 1,
+            insertPosition => 'back',
         };
 
     return $dataTable;
@@ -346,9 +305,9 @@ sub deletedRowNotify
 #   to show the name of the domain
 sub pageTitle
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->parentRow()->printableValueByName('domain');
+    return $self->parentRow()->printableValueByName('domain');
 }
 
 # Group: Private methods
@@ -367,7 +326,6 @@ sub _addToDelete
 
     push(@list, $domain);
     $mod->st_set_list($key, 'string', \@list);
-
 }
 
 1;

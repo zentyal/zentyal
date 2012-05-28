@@ -1,4 +1,5 @@
 HEAD
+	+ Integrate with zentyal DNS
 	+ Fix loop over array reference in funcion usesPort
 2.3.5
 	+ New samba4 synchronization based on LDB module and LDIF files

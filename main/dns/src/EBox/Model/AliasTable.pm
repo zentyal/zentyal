@@ -95,20 +95,19 @@ sub validateTypedRow
                              name     => $hostname->valueByName('hostname')));
         }
 
-        foreach my $aliasId (@{$hostname->subModel('alias')->ids()}) { 
-            my $anAlias = $hostname->subModel('alias')->row($aliasId); 
-            next if ($aliasId eq $alias->row()->id()); 
-            if ($anAlias->elementByName('alias')->isEqualTo($alias)) { 
-                throw EBox::Exceptions::External( 
-                  __x('There is an alias for {hostname} hostname ' 
-                          . 'with the same name "{name}" ' 
-                              . 'in the same domain', 
-                      hostname => $hostname->valueByName('hostname'), 
-                      name     => $anAlias->valueByName('alias'))); 
-            } 
-        }          
+        foreach my $aliasId (@{$hostname->subModel('alias')->ids()}) {
+            my $anAlias = $hostname->subModel('alias')->row($aliasId);
+            next if ($aliasId eq $alias->row()->id());
+            if ($anAlias->elementByName('alias')->isEqualTo($alias)) {
+                throw EBox::Exceptions::External(
+                  __x('There is an alias for {hostname} hostname '
+                          . 'with the same name "{name}" '
+                              . 'in the same domain',
+                      hostname => $hostname->valueByName('hostname'),
+                      name     => $anAlias->valueByName('alias')));
+            }
+        }
     }
-
 
     $self->setDirectory($olddir);
 
@@ -121,7 +120,6 @@ sub validateTypedRow
             $self->{toDelete} = "$alias.$zone";
         }
     }
-
 }
 
 # Method: updatedRowNotify

@@ -25,6 +25,7 @@ use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
+use Filesys::Df;
 use File::Slurp qw(read_file);
 use List::Util qw(sum);
 use Error qw(:try);
@@ -168,6 +169,36 @@ sub _setConf
     }
 }
 
+sub fqdn
+{
+    my ($self) = @_;
+
+    my $model = $self->model('HostName');
+    my $name = $model->hostnameValue();
+    my $domain = $model->hostdomainValue();
+    my $fqdn = $name . '.' . $domain;
+    return $fqdn;
+}
+
+sub hostName
+{
+    my ($self) = @_;
+
+    my $model = $self->model('HostName');
+    my $name = $model->hostnameValue();
+    return $name;
+}
+
+sub hostDomain
+{
+    my ($self) = @_;
+
+    my $model = $self->model('HostName');
+    my $domain = $model->hostdomainValue();
+    return $domain;
+}
+
+#
 # Method: widgets
 #
 #   Overriden method that returns the widgets offered by this module

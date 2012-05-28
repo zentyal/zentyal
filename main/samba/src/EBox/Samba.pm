@@ -21,8 +21,8 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             EBox::Model::ModelProvider
-            EBox::FirewallObserver
-            EBox::LdapModule);
+            EBox::LdapModule
+            EBox::FirewallObserver);
 
 use EBox::Global;
 use EBox::Service;
@@ -33,11 +33,7 @@ use EBox::SambaFirewall;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;
-use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::DataMissing;
-use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Model::ModelManager;
@@ -51,11 +47,14 @@ use Error qw(:try);
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant SAMBADNSZONE         => '/var/lib/samba/private/named.conf';
-use constant SAMBADNSKEYTAB       => '/var/lib/samba/private/dns.keytab';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
+use constant SAMBA_DIR            => '/home/ebox/samba';
+use constant SAMBADNSZONE         => PRIVATE_DIR . 'named.conf';
+use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
+use constant SAMBADNSKEYTAB       => PRIVATE_DIR . 'dns.keytab';
+use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBADNSAPPARMOR     => '/etc/apparmor.d/local/usr.sbin.named';
 use constant FSTAB_FILE           => '/etc/fstab';
-use constant SAMBA_DIR            => '/home/ebox/samba';
 use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . '/shares';
 use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
@@ -98,30 +97,6 @@ sub bootDepends
     return $dependsList;
 }
 
-# Method: appArmorProfiles
-#
-#   Overrides to set the own AppArmor profile
-#
-# Overrides:
-#
-#   <EBox::Module::Base::appArmorProfiles>
-#
-sub appArmorProfiles
-{
-    my ($self) = @_;
-
-    EBox::info('Setting DNS apparmor profile');
-    my @params = ();
-    return [
-            {
-                'binary' => 'usr.sbin.named',
-                'local'  => 1,
-                'file'   => 'samba/apparmor-named.local.mas',
-                'params' => \@params,
-            }
-           ];
-}
-
 # Method: actions
 #
 #   Override EBox::Module::Service::actions
@@ -133,11 +108,6 @@ sub actions
             'action' => __('Create Samba home directory for shares and groups'),
             'reason' => __('Zentyal will create the directories for Samba ' .
                            'shares and groups under /home/samba.'),
-            'module' => 'samba',
-        },
-        {
-            'action' => __('Override named apparmor profile'),
-            'reason' => __('To allow samba daemon load Active Directory zone'),
             'module' => 'samba',
         },
     ];
@@ -158,6 +128,11 @@ sub usedFiles
         {
             'file'   => FSTAB_FILE,
             'reason' => __('To enable extended attributes and acls.'),
+            'module' => 'samba',
+        },
+        {
+            'file'   => '/etc/services',
+            'reason' => __('To add microsoft specific services'),
             'module' => 'samba',
         }
     ];
@@ -196,6 +171,8 @@ sub initialSetup
 
 sub _services
 {
+    my ($self) = @_;
+
     return [
             { # kerberos
                 'protocol' => 'tcp/udp',
@@ -282,37 +259,47 @@ sub enableActions
     my @cmds = ();
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    EBox::debug("Executing @cmds");
-    try {
-        EBox::Sudo::root(@cmds);
-    } otherwise {
-        my $error = shift;
-        EBox::debug("Couldn't create directories: $error");
-    };
+    EBox::Sudo::root(@cmds);
 
     # Remount filesystem with user_xattr and acl options
-    EBox::debug('Setting up filesystem');
-    try {
-        EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
-    } otherwise {
-        my $error = shift;
-        EBox::debug("Couldn't setup filesystem options: $error");
-    };
+    EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
+
+    # Add 'Global catalog' service to /etc/services
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my $srvModel = $dnsMod->model('Services');
+    my $services = $srvModel->services();
+    my %aux = map { $_->{name} => 1 } @{$services};
+    unless (exists $aux{gc}) {
+        EBox::debug('Adding Microsoft global catalog service to /etc/services');
+        my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
+        EBox::Sudo::root($cmd);
+    }
 }
 
 # Method: enableService
 #
 #   Override EBox::Module::Service::enableService to
-#   set DNS module as changed
+#   set DNS and users modules as changed
 #
 sub enableService
 {
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    if ($self->changed()) {
-        EBox::Global->modChange('dns');
+    if ($self->changed() and $status) {
+        my $isProvisioned = $self->get_bool('provisioned');
+        EBox::debug("Flag: $isProvisioned");
+        unless ($isProvisioned == 1) {
+            $self->provision();
+        }
     }
+    my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+    foreach my $module (@{$modules}) {
+        $module->kerberosCreatePrincipals();
+    }
+
+    EBox::Global->modChange('dns');
+    EBox::Global->modChange('users');
 }
 
 # Method: modelClasses
@@ -434,38 +421,138 @@ sub shares
     return \@shares;
 }
 
-# Method: addZentyalLdbModule
-#
-#   Adds the zentyal module to LDB
-#
-sub enableZentyalLdbModule
+sub cleanDNS
 {
-    my ($self) = @_;
+    my ($self, $domain) = @_;
 
-    EBox::debug('Adding Zentyal LDB module');
+    my $dnsMod = EBox::Global->modInstance('dns');
+    my @records = (
+        {
+            type => 'host',
+            name => 'gc',
+            subdomain => '_msdcs'
+        },
+        {
+            type      => 'service',
+            service   => 'gc',
+            protocol  => 'tcp',
+            subdomain => undef,
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'gc',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites',
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'gc._msdcs',
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.gc._msdcs',
+            port      => 3268
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => undef,
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'pdc._msdcs',
+            port      => '389',
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            subdomain => '.+\.domains._msdcs',
+            protocol  => 'tcp',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'ldap',
+            protocol  => 'tcp',
+            subdomain => 'dc._msdcs',
+            port      => 389
+        },
+        {
+            type      => 'service',
+            service   => 'kerberos',
+            protocol  => 'tcp',
+            subdomain => 'dc._msdcs',
+            port      => 88
+        },
+        {
+            type      => 'service',
+            service   => 'kerberos',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites',
+            port      => 88
+        },
+        {
+            type      => 'service',
+            service   => 'kerberos',
+            protocol  => 'tcp',
+            subdomain => 'Default-First-Site-Name._sites.dc._msdcs',
+            port      => 88
+        },
+    );
 
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: zentyal,samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
-}
+    foreach my $record (@records) {
+        try {
+            if ($record->{type} eq 'host') {
+                $dnsMod->delHost($domain, $record->{name});
+            } elsif ($record->{type} eq 'service') {
+                $dnsMod->delService($domain, $record);
+            }
+        } otherwise {
+            my $error = shift;
+            EBox::debug($error);
+        };
+    }
 
-# Method: disableZentyalLdbModule
-#
-#   Disable the zentyal module to LDB
-#
-sub disableZentyalLdbModule
-{
-    my ($self) = @_;
-
-    EBox::debug('Disabling Zentyal LDB module');
-
-    my $ldif = "dn: \@MODULES\n" .
-               "changetype: modify\n" .
-               "replace: \@LIST\n" .
-               "\@LIST: samba_dsdb\n";
-    EBox::Sudo::root("echo '$ldif' | ldbmodify -H /var/lib/samba/private/sam.ldb");
+    # Remove serverGUID._mdscs alias
+    my $hosts = $dnsMod->getHostnames($domain);
+    foreach my $host (@{$hosts}) {
+        my $aliases = $host->{aliases};
+        foreach my $alias (@{$aliases}) {
+            if ($alias =~ m/.+\._msdcs$/) {
+                try {
+                    $dnsMod->removeAlias($domain, $host->{name}, $alias);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error($error);
+                };
+            }
+        }
+    }
 }
 
 # Method: provision
@@ -476,14 +563,25 @@ sub provision
 {
     my ($self) = @_;
 
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $users   = EBox::Global->modInstance('users');
+    my $hostName   = $sysinfo->hostName();
+    my $domainName = $sysinfo->hostDomain();
+    my $realm      = uc ($domainName); # TODO Create a function realm() in sysinfo
+
+    # Remove previous DNS records
+    $self->cleanDNS($domainName);
+
     # This file must be deleted or provision may fail
     EBox::Sudo::root('rm -f ' . SAMBACONFFILE);
     my $cmd = SAMBAPROVISION .
         ' --domain=' . $self->workgroup() .
         ' --workgroup=' . $self->workgroup() .
-        ' --realm=' . $self->realm() .
+        ' --realm=' . $realm .
         ' --dns-backend=BIND9_FLATFILE' .
-        ' --server-role=' . $self->mode();
+        ' --server-role=' . $self->mode() .
+        ' --users=' . $users->DEFAULTGROUP() .
+        ' --host-name=' . $sysinfo->hostName();
 
     EBox::debug("Provisioning database '$cmd'");
 
@@ -496,7 +594,105 @@ sub provision
         my $error = shift;
         throw EBox::Exceptions::Internal("Error provisioning database: $error");
     };
-    EBox::Sudo::root('chown root:bind ' . SAMBADNSZONE);
+
+    # The administrator password is also the password for the 'Zentyal' user,
+    # save it to a file to connect LDB
+    $self->_savePassword($self->administratorPassword(),
+                         EBox::Config->conf() . "ldb.passwd");
+
+    # Once provisioned start the service to make queries
+    $self->_manageService('start');
+
+    # Add the DNS records
+    EBox::debug('Adding domain DNS records');
+    my $network = EBox::Global->modInstance('network');
+    my $dnsMod  = EBox::Global->modInstance('dns');
+    my $ipaddrs = $network->internalIpAddresses();
+
+    # Get the domain GUID
+    my $args = { base   => $self->ldb->dn(),
+                 scope  => 'base',
+                 filter => '(objectClass=*)',
+                 attrs  => ['objectGUID'] };
+    my $result = $self->ldb->search($args);
+    my $entry = $result->entry(0);
+    my $domainGUID = $entry->get_value('objectGUID');
+    $domainGUID = $self->ldb->guidToString($domainGUID);
+    EBox::debug("Domain GUID: $domainGUID"); # TODO remove
+
+    # Get the server GUID
+    $args = { base => "CN=NTDS Settings," .
+                      "CN=" . uc ($hostName) . "," .
+                      "CN=Servers," .
+                      "CN=Default-First-Site-Name," .
+                      "CN=Sites," .
+                      "CN=Configuration," .
+                      $self->ldb->dn(),
+              scope  => 'base',
+              filter => '(objectClass=*)',
+              attrs  => ['objectGUID'] };
+    $result = $self->ldb->search($args);
+    $entry = $result->entry(0);
+    my $serverGUID = $entry->get_value('objectGUID');
+    $serverGUID = $self->ldb->guidToString($serverGUID);
+    EBox::debug("Server GUID: $serverGUID"); # TODO remove
+
+    my $host = { name => 'gc',
+                 subdomain => '_msdcs',
+                 ipAddresses => $ipaddrs };
+    $dnsMod->addHost($domainName, $host);
+
+    my $alias = "$serverGUID._msdcs";
+    $dnsMod->addAlias($domainName, $hostName, $alias);
+
+    my $service = { service => 'gc',
+                    protocol => 'tcp',
+                    port => 3268,
+                    priority => 0,
+                    weight => 100,
+                    target_type => 'domainHost',
+                    target => $hostName };
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'Default-First-Site-Name._sites';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{service} = 'ldap';
+    $service->{subdomain} = 'gc._msdcs';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'Default-First-Site-Name._sites.gc._msdcs';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = undef;
+    $service->{port} = 389;
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'dc._msdcs';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'pdc._msdcs';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = "$domainGUID.domains._msdcs";
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'Default-First-Site-Name._sites';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{service} = 'kerberos';
+    $service->{port} = 88;
+    $service->{subdomain} = 'dc._msdcs';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'Default-First-Site-Name._sites';
+    $dnsMod->addService($domainName, $service);
+
+    $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
+    $dnsMod->addService($domainName, $service);
 
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
@@ -505,27 +701,21 @@ sub provision
     EBox::debug('Setting password policy');
     $cmd = SAMBATOOL . " domain passwordsettings set " .
                        " --complexity=off "  .
-                       " --min-pwd-length=0";
+                       " --min-pwd-length=0" .
+                       " --min-pwd-age=0" .
+                       " --max-pwd-age=365";
     EBox::Sudo::root($cmd);
 
-    # Update the "Domain Users" xid mapping to the gid of __USERS__
-    EBox::debug("Mapping 'Domain Users' group to __USERS__");
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
-    my $gid = new EBox::UsersAndGroups::Group(dn => $dn)->get('gidNumber');
-    $self->ldb()->xidMapping('Domain Users', $gid);
-
-    # TODO Export all zentyal users and groups to ldb
-    EBox::debug('Exporting LDAP to LDB');
-    try {
-        #$self->ldb()->ldapToLdb()
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal("Error exporting LDAP to LDB: $error");
-    };
+    # Load all zentyal users and groups into ldb
+    $self->ldb->ldapUsersToLdb();
+    $self->ldb->ldapGroupsToLdb();
 
     # Add the zentyal module to the LDB modules stack
-    $self->enableZentyalLdbModule();
+    my $ldif = "dn: \@MODULES\n" .
+               "changetype: modify\n" .
+               "replace: \@LIST\n" .
+               "\@LIST: zentyal,samba_dsdb\n";
+    EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
 
     # Mark the module as provisioned
     EBox::debug('Setting provisioned flag');
@@ -572,21 +762,11 @@ sub sambaInterfaces
     return \@ifaces;
 }
 
-sub _preSetConf
-{
-    my ($self) = @_;
-
-    EBox::debug('stopping service');
-    $self->_stopService();
-}
-
 sub _setConf
 {
     my ($self) = @_;
 
-    unless ($self->get_bool('provisioned')) {
-        $self->provision();
-    }
+    return unless $self->configured() and $self->isEnabled();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
@@ -1791,11 +1971,10 @@ sub restoreDependencies
 #}
 
 # Generate, store in the given file and return a password
-sub _genPassword
+sub _savePassword
 {
-    my ($self, $file) = @_;
+    my ($self, $pass, $file) = @_;
 
-    my $pass = EBox::Util::Random::generate(20);
     my ($login, $password, $uid, $gid) = getpwnam('ebox');
     EBox::Module::Base::writeFile($file, $pass,
             { mode => '0600', uid => $uid, gid => $gid });
@@ -1811,7 +1990,7 @@ sub ldb
 {
     my ($self) = @_;
 
-    unless (defined($self->{ldb})) {
+    unless (defined ($self->{ldb})) {
         $self->{ldb} = EBox::LDB->instance();
     }
     return $self->{ldb};

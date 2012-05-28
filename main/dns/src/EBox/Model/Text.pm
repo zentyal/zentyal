@@ -161,6 +161,11 @@ sub _table
                         fieldName     => 'domain',
                         printableName => __('Domain'),
                        ),
+                    new EBox::Types::Text(
+                        fieldName     => 'custom',
+                        printableName => __('Custom owner'),
+                        editable      => 1,
+                        ),
                    ],
              ),
           new EBox::Types::Text(

@@ -1,0 +1,4 @@
+dn: cn=module{0},cn=config
+changetype: modify
+add: olcModuleLoad
+olcModuleLoad: {1}smbk5pwd.so

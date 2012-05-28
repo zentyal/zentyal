@@ -9,7 +9,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public Licensema
+# You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
@@ -18,12 +18,16 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-
-use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::UserCorner::Provider
-            EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider
+use base qw( EBox::Module::Service
+             EBox::LdapModule
+             EBox::ObjectsObserver
+             EBox::Model::ModelProvider
+             EBox::Model::CompositeProvider
+             EBox::UserCorner::Provider
+             EBox::FirewallObserver
+             EBox::LogObserver
+             EBox::Report::DiskUsageProvider
+             EBox::KerberosModule
            );
 
 use EBox::Sudo;
@@ -46,48 +50,34 @@ use EBox::Dashboard::ModuleStatus;
 use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 
-
+use Error qw( :try );
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;
 
-use constant {
- MAILMAINCONFFILE         => '/etc/postfix/main.cf',
- MAILMASTERCONFFILE       => '/etc/postfix/master.cf',
- MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid',
- MAIL_ALIAS_FILE          => '/etc/aliases',
-
- DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf',
- DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf',
-
- MAILINIT                 => 'postfix',
-
- BYTES                    => '1048576',
-
- DOVECOT_SERVICE          => 'dovecot',
-
- TRANSPORT_FILE           => '/etc/postfix/transport',
-
- SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd',
-
- MAILNAME_FILE            => '/etc/mailname',
-
- VDOMAINS_MAILBOXES_DIR   => '/var/vmail',
-
- ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail',
-
- FETCHMAIL_SERVICE        => 'ebox.fetchmail',
-
- ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc',
-
- SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve',
-
- BOUNCE_ADDRESS_KEY       => 'SMTPOptions/bounceReturnAddress',
- BOUNCE_ADDRESS_DEFAULT   => 'noreply@example.com',
-};
+use constant MAILMAINCONFFILE         => '/etc/postfix/main.cf';
+use constant MAILMASTERCONFFILE       => '/etc/postfix/master.cf';
+use constant MASTER_PID_FILE          => '/var/spool/postfix/pid/master.pid';
+use constant MAIL_ALIAS_FILE          => '/etc/aliases';
+use constant DOVECOT_CONFFILE         => '/etc/dovecot/dovecot.conf';
+use constant DOVECOT_LDAP_CONFFILE    =>  '/etc/dovecot/dovecot-ldap.conf';
+use constant MAILINIT                 => 'postfix';
+use constant BYTES                    => '1048576';
+use constant DOVECOT_SERVICE          => 'dovecot';
+use constant TRANSPORT_FILE           => '/etc/postfix/transport';
+use constant SASL_PASSWD_FILE         => '/etc/postfix/sasl_passwd';
+use constant MAILNAME_FILE            => '/etc/mailname';
+use constant VDOMAINS_MAILBOXES_DIR   => '/var/vmail';
+use constant ARCHIVEMAIL_CRON_FILE    => '/etc/cron.daily/archivemail';
+use constant FETCHMAIL_SERVICE        => 'ebox.fetchmail';
+use constant ALWAYS_BCC_TABLE_FILE    => '/etc/postfix/alwaysbcc';
+use constant SIEVE_SCRIPTS_DIR        => '/var/vmail/sieve';
+use constant BOUNCE_ADDRESS_KEY       => 'SMTPOptions/bounceReturnAddress';
+use constant BOUNCE_ADDRESS_DEFAULT   => 'noreply@example.com';
+use constant KEYTAB_FILE              => '/etc/dovecot/dovecot.keytab';
+use constant DOVECOT_PAM              => '/etc/pam.d/dovecot';
 
 use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
-
 
 sub _create
 {
@@ -197,8 +187,6 @@ sub usedFiles
               'reason' => __('To configure postfix aliases'),
               'module' => 'mail'
             },
-
-
             {
               'file' => DOVECOT_CONFFILE,
               'reason' => __('To configure dovecot'),
@@ -219,7 +207,11 @@ sub usedFiles
               'reason' => __('To configure mail transports'),
               'module' => 'mail'
             },
-
+            {
+                file   => DOVECOT_PAM,
+                reason => __('To let dovecot authenticate users using PAM'),
+                module => 'mail',
+            },
             @greylistFiles
     ];
 }
@@ -284,6 +276,19 @@ sub _serviceRules
     ];
 }
 
+sub kerberosServicePrincipals
+{
+    my ($self) = @_;
+
+    my $data = { service    => 'mail',
+                 principals => [ 'imap', 'smtp', 'pop' ],
+                 keytab     => KEYTAB_FILE,
+                 keytabUser => 'dovecot' };
+    return $data;
+}
+
+
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -293,6 +298,19 @@ sub enableActions
     my ($self) = @_;
 
     $self->performLDAPActions();
+
+    # Remove old keytab file
+    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
+
+    # Create the kerberos service princiapl in kerberos,
+    # export the keytab and set the permissions
+    $self->kerberosCreatePrincipals();
+
+    try {
+        my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
+        EBox::Sudo::root($cmd);
+    } otherwise {
+    };
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -416,17 +434,16 @@ sub _setMailConf
 
     my @array = ();
     my $users = EBox::Global->modInstance('users');
-    my $ldap = EBox::Ldap->instance();
 
     my $allowedaddrs = "127.0.0.0/8";
     foreach my $addr (@{ $self->allowedAddresses }) {
         $allowedaddrs .= " $addr";
     }
 
-    push (@array, 'bindDN', $ldap->rootDn());
+    push (@array, 'bindDN', $users->ldap->roRootDn());
+    push (@array, 'bindPW', $users->ldap->getRoPassword());
     push (@array, 'hostname' , $self->_fqdn());
     push (@array, 'mailname' , $self->mailname());
-    push (@array, 'ldapport', $self->ldap->ldapConf->{'port'});
     push (@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
     push (@array, 'relay', $self->relay());
     push (@array, 'relayAuth', $self->relayAuth());
@@ -439,7 +456,7 @@ sub _setMailConf
     push (@array, 'gidvmail', $self->{musers}->gidvmail());
     push (@array, 'popssl', $self->pop3s());
     push (@array, 'imapssl', $self->imaps());
-    push (@array, 'ldap', $ldap->ldapConf());
+    push (@array, 'ldap', $users->ldap->ldapConf());
     push (@array, 'filter', $self->service('filter'));
     push (@array, 'ipfilter', $self->ipfilter());
     push (@array, 'portfilter', $self->portfilter());
@@ -633,34 +650,37 @@ sub _setDovecotConf
 {
     my ($self) = @_;
 
-    my @params;
-
     # main dovecot conf file
-    @params = ();
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $users = EBox::Global->modInstance('users');
+
     my $uid =  scalar(getpwnam('ebox'));
     my $gid = scalar(getgrnam('ebox'));
+    my $gssapiHostname = 'ns.' . $sysinfo->hostDomain();
 
-    push @params, (uid => $uid);
-    push @params, (gid => $gid);
-    push @params, (protocols => $self->_retrievalProtocols());
-    push @params, (firstValidUid => $uid);
-    push @params, (firstValidGid => $gid);
-    push @params, (mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
-    push @params, (postmasterAddress => $self->postmasterAddress(0, 1));
-    push @params, (antispamPlugin => $self->_getDovecotAntispamPluginConf());
+    my @params = ();
+    push (@params, uid => $uid);
+    push (@params, gid => $gid);
+    push (@params, protocols => $self->_retrievalProtocols());
+    push (@params, firstValidUid => $uid);
+    push (@params, firstValidGid => $gid);
+    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
+    push (@params, postmasterAddress => $self->postmasterAddress(0, 1));
+    push (@params, antispamPlugin => $self->_getDovecotAntispamPluginConf());
+    push (@params, keytabPath => KEYTAB_FILE);
+    push (@params, gssapiHostname => $gssapiHostname);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 
+    my $roPwd = $users->ldap->getRoPassword();
+
     # ldap dovecot conf file
     @params = ();
-    my $users = EBox::Global->modInstance('users');
-
-    push(@params, 'ldapport', $self->ldap->ldapConf->{'port'});
-    push @params, ('usersDn', $users->usersDn());
-    push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);
-    push @params, ('mailboxesDir' =>  VDOMAINS_MAILBOXES_DIR);
+    push (@params, usersDn      => $users->usersDn());
+    push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
+    push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
+    push (@params, zentyalROPwd => $roPwd);
     $self->writeConfFile(DOVECOT_LDAP_CONFFILE, "mail/dovecot-ldap.conf.mas",\@params);
-
 }
 
 

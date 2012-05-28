@@ -1,4 +1,5 @@
 HEAD
+	+ Added EBox::Network::internalIpAddresses()
 	+ Added regenGatewaysFailover() to NetworkObserver so modules can
 	  implement actions to be done after failover regenerates routing tables
 	+ Fixed calculation of fail ratio

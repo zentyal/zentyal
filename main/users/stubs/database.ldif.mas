@@ -22,6 +22,14 @@ dn: ou=Groups,<% $dn %>
 objectClass: organizationalUnit
 ou: Groups
 
+dn: ou=Computers,<% $dn %>
+objectClass: organizationalUnit
+ou: Computers
+
+dn: ou=Kerberos,<% $dn %>
+objectClass: organizationalUnit
+ou: Kerberos
+
 dn: cn=zentyal,<% $dn %>
 objectClass: organizationalRole
 objectClass: simpleSecurityObject

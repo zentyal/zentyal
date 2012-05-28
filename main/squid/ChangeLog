@@ -1,4 +1,5 @@
 HEAD
+	+ Kerberized authentication
 	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
 2.3.5
 	+ Create tables with MyISAM engine by default

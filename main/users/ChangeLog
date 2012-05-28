@@ -1,4 +1,8 @@
 HEAD
+	+ Heimdal Kerberos integration for SSO features
+	+ Better validation of user names and groups names. Better message
+	  when this validation fails
+	+ Added user() and group methods() to EBox::UsersAndGroups
 	+ Added quota limit check
 	+ Added backup domain for /home
 	+ Adapted ldapvi to changes in port

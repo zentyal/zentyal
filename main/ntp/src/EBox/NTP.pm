@@ -128,16 +128,23 @@ sub initialSetup
             $servers->add(server => "$i.pool.ntp.org");
         }
 
-        my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->addInternalService(
-                    'name' => 'ntp',
-                    'description' => 'NTP',
-                    'protocol' => 'udp',
-                    'sourcePort' => 'any',
-                    'destinationPort' => 123,
-                );
+        my $services = EBox::Global->modInstance('services');
+        my $fw = EBox::Global->modInstance('firewall');
 
-        $firewall->saveConfigRecursive();
+        my $serviceName = 'ntp';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'printableName' => 'NTP',
+                'description' => __('Network Time Protocol'),
+                'readOnly' => 1,
+                'services' => [ { protocol => 'udp',
+                                  sourcePort => 'any',
+                                  destinationPort => 123 } ] );
+
+            $fw->setInternalService($serviceName, 'deny');
+        }
+        $fw->saveConfigRecursive();
     }
 }
 
