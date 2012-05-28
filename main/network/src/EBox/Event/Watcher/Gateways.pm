@@ -240,7 +240,7 @@ sub run
                 };
             }
             if ($timeout <= 0) {
-                EBox::error("WAN Failover: $mod->{name} module has been locked for 60 seconds.");
+                EBox::error("WAN Failover: $module->{name} module has been locked for 60 seconds.");
             }
         }
     } else {
