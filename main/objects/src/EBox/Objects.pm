@@ -116,8 +116,9 @@ sub objects
     my ($self) = @_;
 
     my @objects;
-    for my $id (@{$self->{objectModel}->ids()}) {
-    my $object = $self->{objectModel}->row($id);
+    my $model = $self->model('ObjectTable');
+    for my $id (@{$model->ids()}) {
+    my $object = $model->row($id);
         push (@objects, {
                             id => $id,
                             name => $object->valueByName('name')
