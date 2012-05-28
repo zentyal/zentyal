@@ -21,7 +21,7 @@ use base qw(
             EBox::Module::Service
             EBox::Model::ModelProvider EBox::Model::CompositeProvider
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
-            EBox::Report::DiskUsageProvider
+            EBox::Report::DiskUsageProvider EBox::NetworkObserver
            );
 
 use EBox::Service;
@@ -1564,6 +1564,19 @@ sub consolidateReportQueries
 sub _ldapModImplementation
 {
     return new EBox::Squid::LdapUserImplementation();
+}
+
+# Method: regenGatewaysFailover
+#
+# Overrides:
+#
+#    <EBox::NetworkObserver::regenGatewaysFailover>
+#
+sub regenGatewaysFailover
+{
+    my ($self) = @_;
+
+    $self->restartService();
 }
 
 1;

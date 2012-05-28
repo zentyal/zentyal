@@ -1,4 +1,6 @@
 HEAD
+	+ Added regenGatewaysFailover() to NetworkObserver so modules can
+	  implement actions to be done after failover regenerates routing tables
 	+ Fixed calculation of fail ratio
 	+ Assure that we have always one gateway marked as default
 	+ Restart traffic shaping on postinst to avoid rule loss on upgrades

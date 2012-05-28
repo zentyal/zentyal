@@ -228,14 +228,11 @@ sub run
         EBox::debug('Regenerating rules for the gateways');
         $network->regenGateways();
 
-        # TODO: implement this better
-        foreach my $mod ('squid', 'trafficshaping') {
-            next unless $global->modExists($mod);
-            my $module = $global->modInstance($mod);
+        foreach my $module ($global->modInstancesOfType('EBox::NetworkObserver')) {
             my $timeout = 60;
             while ($timeout) {
                 try {
-                    $module->restartService();
+                    $module->regenGatewaysFailover();
                     last;
                 } catch EBox::Exceptions::Lock with {
                     sleep 5;
@@ -243,7 +240,7 @@ sub run
                 };
             }
             if ($timeout <= 0) {
-                EBox::error("WAN Failover: $mod module has been locked for 60 seconds.");
+                EBox::error("WAN Failover: $mod->{name} module has been locked for 60 seconds.");
             }
         }
     } else {
