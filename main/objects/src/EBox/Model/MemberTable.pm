@@ -127,9 +127,16 @@ sub validateTypedRow
         my $ip = $ipaddr->ip();
         my $mask = $ipaddr->mask();
 
-        if (defined($mac) and $mask ne '32') {
-            throw EBox::Exceptions::External(
-            __('You can only use MAC addresses with hosts'));
+        if ($mask eq '32') {
+            if ($ip =~ /\.0+$/) {
+                throw EBox::Exceptions::External(
+                        __('Only network addresses can end with a zero'));
+            }
+        } else {
+            if (defined ($mac)) {
+                throw EBox::Exceptions::External(
+                        __('You can only use MAC addresses with hosts'));
+            }
         }
 
         $printableValue = $ipaddr->printableValue();
