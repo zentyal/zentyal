@@ -29,3 +29,6 @@ composites:
     Antispam: [FIXME]
     Report::FilterReport: [FIXME]
     Report::POPProxyReport: [FIXME]
+
+foreign:
+    VDomains: [AntispamVDomainACL]

@@ -57,10 +57,6 @@ sub _description
 {
       my $description =
       {
-         components      => [
-                            'ConfPhase1',
-                            'ConfPhase2',
-                            ],
          layout          => 'top-bottom',
          name            => 'Auth',
          compositeDomain => 'IPsec',
