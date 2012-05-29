@@ -66,7 +66,7 @@ sub _table
         'defaultController' =>
             '/Firewall/Controller/EBoxOutputRuleTable',
         'defaultActions' =>
-            [ 'add', 'del', 'move',  'editField', 'changeView' ],
+            [ 'add', 'del', 'move',  'editField', 'changeView', 'clone' ],
         'tableDescription' => $self->_fieldDescription('destination' => 1),
         'menuNamespace' => 'Firewall/View/EBoxOutputRuleTable',
         'order' => 1,

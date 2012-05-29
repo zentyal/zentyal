@@ -1,4 +1,6 @@
 HEAD
+	+ Added clone action to data tables
+	+ Fixed regression in modal popup when showing element table
 	+ Added new type EBox::Types::KrbRealm
 	+ Fix broken packages when dist-upgrading from old versions: stop ebox
 	  owned processes before changing home directory

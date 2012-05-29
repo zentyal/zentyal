@@ -955,7 +955,7 @@ sub keywords
 #
 sub setDirectory
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $force) = @_;
 
     unless (defined $dir) {
         throw EBox::Exceptions::MissingArgument('dir');
@@ -963,7 +963,7 @@ sub setDirectory
 
     $self->{'gconfdir'} = $dir;
 
-    if (not $self->precondition()) {
+    if (not $self->precondition() and not $force) {
         # we dont bother to initialize components bz their wont be displayed
         # moreover some variable components may not be able to initialize if the
         # precondition fails
@@ -1129,6 +1129,29 @@ sub HTMLTitle
                link  => undef
              }
            ];
+}
+
+sub clone
+{
+    my ($self, $srcDir, $dstDir) = @_;
+    my $origDir = $self->directory();
+
+    try {
+        # we need to do this operation in each component with the correct
+        # directories for src and dst component
+        my @components = @{ $self->components()  };
+        foreach my $comp (@components) {
+            $self->setDirectory($srcDir, 1);
+            my $compSrcDir = $comp->directory();
+
+            $self->setDirectory($dstDir, 1);
+            my $compDstDir = $comp->directory();
+
+            $comp->clone($compSrcDir, $compDstDir);
+        }
+    } finally {
+        $self->setDirectory($origDir, 1);
+    };
 }
 
 1;

@@ -64,7 +64,7 @@ sub _table
         'defaultController' =>
             '/Firewall/Controller/ToInternetRuleTable',
         'defaultActions' =>
-            [ 'add', 'del', 'move',  'editField', 'changeView' ],
+            [ 'add', 'del', 'move',  'editField', 'changeView', 'clone' ],
         'tableDescription' => $self->_fieldDescription('source' => 1,
                                                        'destination' => 1),
         'menuNamespace' => 'Firewall/View/ToInternetRuleTable',

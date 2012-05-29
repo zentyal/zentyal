@@ -3097,12 +3097,16 @@ sub modalCancelAddJS
 #     string - holding a javascript funcion
 sub addNewRowJS
 {
-    my ($self, $page) = @_;
+    my ($self, $page, %params) = @_;
+    my $cloneId = $params{cloneId};
 
     my  $function = "addNewRow('%s','%s',%s,'%s',%s)";
 
     my $table = $self->table();
-    my $fields = $self->_paramsWithSetterJS();
+    my @extraFields;
+    push @extraFields, 'cloneId' if $cloneId;
+
+    my $fields = $self->_paramsWithSetterJS(@extraFields);
     return  sprintf ($function,
             $table->{'actions'}->{'add'},
             $table->{'tableName'},
@@ -3215,7 +3219,7 @@ sub actionClickedJS
 {
     my ($self, $action, $editId, $direction, $page, $modal, @extraParams) = @_;
 
-    unless ($action eq 'move' or $action eq 'del') {
+    unless (($action eq 'move') or ($action eq 'del') or ($action eq 'clone')) {
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
@@ -4028,7 +4032,7 @@ sub _setControllers
 #
 sub _paramsWithSetterJS
 {
-    my ($self) = @_;
+    my ($self, @additionalParams) = @_;
 
     my $table = $self->table();
     my @parameters;
@@ -4039,6 +4043,7 @@ sub _paramsWithSetterJS
     my $fieldsWithOutSetter = $self->fieldsWithUndefSetter();
     my @paramsWithSetter = grep {!$fieldsWithOutSetter->{$_}} @parameters;
     push (@paramsWithSetter, 'filter', 'page');
+    push @paramsWithSetter, @additionalParams;
     my $paramsArray = '[' . "'" . pop(@paramsWithSetter) . "'";
     foreach my $param (@paramsWithSetter) {
         $paramsArray .= ', ' . "'" . $param . "'";
@@ -4897,6 +4902,31 @@ sub parentRow
         throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir. Parent composite: $parentComposite");
 
     return $row;
+}
+
+sub clone
+{
+    my ($self, $srcDir, $dstDir) = @_;
+    my $selfDir = $self->directory();
+
+    try {
+        $self->setDirectory($srcDir);
+
+        my @srcRows = map {
+            $self->row($_)
+        } @{$self->ids()};
+
+        $self->setDirectory($dstDir);
+        $self->removeAll(1);
+        foreach my $srcRow (@srcRows) {
+            my $newId = $self->addTypedRow($srcRow->hashElements());
+
+            my $newRow = $self->row($newId);
+            $newRow->cloneSubModelsFrom($srcRow)
+        }
+    } finally {
+        $self->setDirectory($selfDir);
+    };
 }
 
 1;
