@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Events::Model::Watcher::Log
+# Class: EBox::Events::Model::LogWatcherConfiguration
 #
 # This class is the model to configurate Log watcher. It has as many
 # rows as logger exist in eBox
@@ -25,14 +25,14 @@
 #    - enabled - enabled the event notification for that logger
 #
 
-package EBox::Events::Model::Watcher::Log;
+package EBox::Events::Model::LogWatcherConfiguration;
 use strict;
 use warnings;
 
 use base 'EBox::Model::DataTable';
 
 use EBox::Exceptions::DataNotFound;
-use EBox::Events::Model::Watcher::LogFiltering;
+use EBox::Events::Model::LogFiltering;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
@@ -57,7 +57,7 @@ use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';
 #
 # Returns:
 #
-#     <EBox::Events::Model::Watcher::Log>
+#     <EBox::Events::Model::LogWatcherConfiguration>
 #
 sub new
 {
@@ -336,12 +336,9 @@ sub _createFilteringModel # (domain)
       $domainTableInfo = $self->{logs}->getTableInfo($domain);
     }
 
-
-    my $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
-                                                                     confmodule => $self->{confmodule},
-                                                                     directory   => $self->{confdir},
-                                                                     tableInfo => $domainTableInfo,
-                                                                    );
+    my $filteringModel = new EBox::Events::Model::LogFiltering(confmodule => $self->{confmodule},
+                                                               directory   => $self->{confdir},
+                                                               tableInfo => $domainTableInfo);
 
     return $filteringModel;
 }

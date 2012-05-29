@@ -35,7 +35,7 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#      <EBox::Types::Link> - the newly created type
+#      <EBox::Types::HTML> - the newly created type
 #
 sub new
 {

@@ -3,6 +3,8 @@ class: 'EBox::Events'
 models:
     - ConfigureWatchers
     - ConfigureDispatchers
+    - LogWatcherConfiguration
+    - DiskFreeWatcherConfiguration
 
 composites:
-   General: [ConfigureWatchers, ConfigureDispatchers]
+    General: [ConfigureWatchers, ConfigureDispatchers]

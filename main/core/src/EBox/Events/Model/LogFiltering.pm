@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Events::Model::Watcher::LogFiltering
+# Class: EBox::Events::Model::LogFiltering
 #
 # This class is used to set those filters that you may want to be
 # informed. This model is used as template given a set of filters (all
@@ -27,7 +27,7 @@
 #     - event      - Selection between the given selections from tableInfo
 #
 
-package EBox::Events::Model::Watcher::LogFiltering;
+package EBox::Events::Model::LogFiltering;
 
 use strict;
 use warnings;
@@ -43,7 +43,7 @@ use EBox::Types::Text;
 
 # Constructor: new
 #
-#       Constructor for <EBox::Events::Model::Watcher::LogFiltering>
+#       Constructor for <EBox::Events::Model::LogFiltering>
 #       object instance
 #
 # Parameters:
@@ -58,7 +58,7 @@ use EBox::Types::Text;
 #
 # Returns :
 #
-#      A recently created <EBox::Events::Model::Watcher::LogFiltering>
+#      A recently created <EBox::Events::Model::LogFiltering>
 #      object
 #
 sub new

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Events::Model::Watcher::DiskFreeSpace
+# Class: EBox::Events::Model::DiskFreeWatcherConfiguration
 #
 # This class is the model to configurate DiskFreeSpace watcher. It has
 # a single field in a form:
@@ -26,7 +26,7 @@
 use strict;
 use warnings;
 
-package EBox::Events::Model::Watcher::DiskFreeSpace;
+package EBox::Events::Model::DiskFreeWatcherConfiguration;
 
 use base 'EBox::Model::DataForm';
 
