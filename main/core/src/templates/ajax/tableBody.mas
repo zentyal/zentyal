@@ -151,10 +151,9 @@ $pageSize or
 %  }
 
 
-% if (@ids or length($filter) > 0)
-%  {
-%   unless ((defined $onlyCustomActions) and $onlyCustomActions)
-%   {
+% if (@ids or length($filter) > 0)  {
+%
+%   unless ((defined $onlyCustomActions) and $onlyCustomActions)   {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
 <h3>
   <%
@@ -208,7 +207,9 @@ $pageSize or
               %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead,
-                   actions   => ((defined $withoutActions) ? not $withoutActions : 1) &>
+                   actions   => ((defined $withoutActions) ? not  $withoutActions: 1),
+                   model => $model
+ &>
 
     <tbody>
 <%perl>
@@ -484,10 +485,19 @@ Parameteres:
 <%args>
 @tableHead
 $actions
+$model
 </%args>
+<%init>
+my %checkAll;
+my $checkAllProperty =  $model->checkAllProperty();
+if ($checkAllProperty) {
+   %checkAll = map {
+        $_ => 1
+    } @{ $checkAllProperty } ;
+}
+</%init>
     <thead>
-%    foreach my $th (@tableHead)
-%    {
+%    foreach my $th (@tableHead)  {
 %      next unless ($th->HTMLViewer());
       <th class='<%
                    $th->class()
@@ -495,6 +505,13 @@ $actions
         <%
           $th->printableName()
         %>
+%      my $fieldName = $th->fieldName();
+%      if ($checkAll{$fieldName} and $th->isa('EBox::Types::Boolean')) {
+          <& SELF:checkAllControl,
+              fieldName => $fieldName,
+              model     => $model,
+          &>
+%      }
       </th>
 %    }
 
@@ -506,6 +523,36 @@ $actions
       </th>
 %    }
     </thead>
+</%method>
+
+<%method checkAllControl>
+<%args>
+$fieldName
+$model
+$page => 1
+</%args>
+<%init>
+my $tableName = $model->name();
+my $name = $tableName . '_'. $fieldName . '_CheckAll';
+
+my $checkAllJS=  $model->changeViewJS( changeType => "checkboxSetAll",
+                      editId =>  $fieldName,
+                      page => $page,
+                      isFilter => 0);
+my $uncheckAllJS=  $model->changeViewJS( changeType => "checkboxUnsetAll",
+                      editId => $fieldName,
+                      page => $page,
+                      isFilter => 0);
+my $onChangeJS =qq|if (this.checked) {$checkAllJS } else {$uncheckAllJS;} |;
+my @htmlAttrs = (onchange => $onChangeJS);
+if ( $model->checkAllControlValue($fieldName)) {
+  push @htmlAttrs, ('checked' => 'checked');
+}
+
+</%init>
+<input  type='checkbox' name='<% $name %>'
+ <& /htmlAttributes.mas, @htmlAttrs &>
+/>
 </%method>
 
 <%method tableActionLinks>
@@ -530,27 +577,6 @@ my $checkAll  = $model->checkAllProperty();
                       isFilter => 0)
                 %>;return false"><% __('Add new') %></a>
 % }
-
-% if ($checkAll) {
-  <a href='#' class='checkAll'
-      name='<% $tableName %>_checkAll'
-         onClick="<%
-                 $model->changeViewJS( changeType => "checkAll",
-                      editId => "$checkAll",
-                      page => $page,
-                      isFilter => 0)
-                %>;return false"><% __('Check all') %></a>
-  <a href='#' class='uncheckAll'
-      name='<% $tableName %>_uncheckAll'
-         onClick="<%
-                 $model->changeViewJS( changeType => "uncheckAll",
-                      editId => "$checkAll",
-                      page => $page,
-                      isFilter => 0)
-                %>;return false"><% __('Uncheck all') %></a>
-
-% }
-
 
 % if ($actionLinksAdded) {
     <br/>

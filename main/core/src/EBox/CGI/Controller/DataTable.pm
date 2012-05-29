@@ -416,10 +416,10 @@ sub _process
         $self->refreshTable();
     } elsif ($action eq 'clone') {
         $self->refreshTable();
-    } elsif ($action eq 'checkAll') {
+    } elsif ($action eq 'checkboxSetAll') {
         $self->setAllChecks(1);
         $self->refreshTable();
-    } elsif ($action eq 'uncheckAll') {
+    } elsif ($action eq 'checkboxUnsetAll') {
         $self->setAllChecks(0);
         $self->refreshTable();
     } else {

@@ -4970,7 +4970,7 @@ sub setAll
     }
 }
 
-# Methos: checkAllProperty
+# Method: checkAllProperty
 #
 #  return the value of the 'checkAll' property
 #
@@ -4981,5 +4981,19 @@ sub checkAllProperty
     my ($self) = @_;
     return $self->{'table'}->{'checkAll'};
 }
+
+sub checkAllControlValue
+{
+    my ($self, $fieldName) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if (not $row->valueByName($fieldName)) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 
 1;

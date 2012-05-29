@@ -464,9 +464,9 @@ function changeView(url, table, directory, action, id, page, isFilter)
             evalScripts: true,
             onComplete: function(t) {
               // Highlight the element
-                          if (id != undefined) {
+              if (id != undefined) {
                 highlightRow(id, true);
-                          }
+              }
               // Stripe again the table
               stripe('dataTable', 'even', 'odd');
               if ( action == 'changeEdit' ) {
@@ -485,6 +485,8 @@ function changeView(url, table, directory, action, id, page, isFilter)
               }
               else if ( action == 'changeEdit' ) {
                 restoreHidden('actionsCell_' + id, table);
+              } else {
+                restoreHidden('creatingForm_' + table, table);
               }
             }
 
@@ -500,6 +502,8 @@ function changeView(url, table, directory, action, id, page, isFilter)
     }
     else if ( action == 'changeEdit' ) {
       setLoading('actionsCell_' + id, table, true);
+    } else {
+      setLoading('creatingForm_' + table, table, true);
     }
 
 }
