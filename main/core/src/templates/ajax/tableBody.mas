@@ -15,6 +15,7 @@
 use EBox::Gettext;
 use EBox::Model::DataTable;
 use POSIX;
+use Perl6::Junction qw(any);
 </%init>
 <& PARENT:view,
    model      => $model,
@@ -66,24 +67,7 @@ use POSIX;
   unless ($page) {
     $page = 0;
   }
-  # Fetch the edited row if we are editing one
-  my $rowEdit;
-  if ($editid and ($editid ne 'undefined')) {
-          $rowEdit = $model->row($editid);
-  }
 
-  # Fetch the data to be displayed in setters, if we are editing a row
-  # we should show the contents of the current fields. If we are
-  # adding a new row, the fields are empty except for a preset values
-  # adding where preset contents must be shown
-  my @formData = @tableHead;
-  if ($rowEdit) {
-      @formData = @{$rowEdit->elements()};
-  } elsif ( ((keys %presetParams) > 0)
-            and $action eq 'presetUpdate') {
-      # The preset is not empty
-      @formData = values(%presetParams);
-  }
   # If the action is a preset update, choose for an edition or an
   # addition whether the editid is set or not
   if ( $action eq 'presetUpdate' ) {
@@ -130,9 +114,8 @@ $pageSize or
   <% $disabledModuleWarning %>
 </div>
 % }
-
-%  if ( $action ne 'changeAdd' and $action ne 'changeEdit' )
-%  {
+%  my $showEditForm =  $action eq any('changeAdd', 'changeEdit', 'clone');
+%  if (not $showEditForm)  {
 %    if ( $model->printableModelName() )
 %    {
 <& PARENT:title,
@@ -158,31 +141,19 @@ $pageSize or
   <span id="<% 'creatingForm_' . $tableName %>"></span>
 %  }
 
-%  unless ((defined $onlyCustomActions) and $onlyCustomActions)
-%  {
-%   if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
-%    if ( $action eq 'changeAdd' )  {
-%     my $addingStr = __x('Adding a new {row}', row => $printableRowName);
-<& PARENT:title, title => $addingStr &>
-%    } elsif ( $action eq 'changeEdit' )  {
-<h3>
 
-%     my $editingStr = __x('Editing {row}', row => $printableRowName);
-<& PARENT:title, title => $editingStr &>
-%    }
-
-<& PARENT:editForm,
-    modelName => $tableName,
-    formData => \@formData,
-    sections => $model->sections(),
+%  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
+%   if ($showEditForm) {
+<& SELF:editFormTitle,
+   action => $action,
+   printableRowName => $printableRowName,
 &>
-
-%    my $customizer = $formData[0]->model()->viewCustomizer();
-%    if ($customizer) {
-<script>
-<%   $customizer->onChangeActionsJS() %>
-</script>
-%    }
+<& SELF:editFormPopulated,
+   action => $action,
+   model  => $model,
+   editid => $editid,
+   presetParams  => \%presetParams
+&>
 %   }
 %  }
 
@@ -191,8 +162,7 @@ $pageSize or
 %  {
 %   unless ((defined $onlyCustomActions) and $onlyCustomActions)
 %   {
-%    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
-%    {
+%    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
 <h3>
   <%
     $printableTableName
@@ -340,6 +310,80 @@ $pageSize or
 % # End body method
 </%method>
 
+<%method editFormTitle>
+<%args>
+$action
+$printableRowName
+</%args>
+%    my $formTitle;
+%    if ( $action eq 'changeAdd' )  {
+%      $formTitle = __x('Adding a new {row}', row => $printableRowName);
+%    } elsif ( $action eq 'changeEdit' )  {
+<h3>
+%     $formTitle = __x('Editing {row}', row => $printableRowName);
+%    } elsif ($action eq 'clone') {
+<h3>
+%     $formTitle = __x('Cloning {row}', row => $printableRowName);
+%    }
+<& PARENT:title, title => $formTitle &>
+</%method>
+
+<%method editFormPopulated>
+<%args>
+$action
+$model
+$editid
+%presetParams  => ()
+@customizerParams => ()
+</%args>
+<%init>
+  my $tableName = $model->table()->{'tableName'};
+  my @tableHead = @{$model->table()->{'tableDescription'}};
+
+  # Fetch the data to be displayed in setters, if we are editing a row
+  # we should show the contents of the current fields. If we are
+  # adding a new row, the fields are empty except for a preset values
+  # adding where preset contents must be shown
+  my @formData;
+  my @extraComponents;
+  if ($editid and ($editid ne 'undefined')) {
+      my  $fetchRow = $model->row($editid);
+      @formData = @{$fetchRow->elements()};
+      if ($action eq 'clone') {
+          # unique fields should not be cloned
+          my @uniqFields = grep { $_->unique()  } @tableHead;
+          foreach my $uniqField (@uniqFields) {
+              foreach my $clonedField (@formData) {
+                  if ($uniqField->fieldName() eq $clonedField->fieldName()) {
+                      $clonedField = $uniqField;
+                      last;
+                  }
+              }
+          }
+
+      }
+  } elsif ( ((keys %presetParams) > 0)
+            and $action eq 'presetUpdate') {
+      # The preset is not empty
+      @formData = values(%presetParams);
+  } else {
+      @formData = @tableHead;
+ }
+</%init>
+<& PARENT:editForm,
+    modelName => $tableName,
+    formData => \@formData,
+    sections => $model->sections(),
+&>
+
+%    my $customizer = $formData[0]->model()->viewCustomizer(@customizerParams);
+%    if ($customizer) {
+<script>
+<%   $customizer->onChangeActionsJS() %>
+</script>
+%     }
+</%method>
+
 <%doc>
    Method: buttons
 
@@ -360,31 +404,45 @@ $pageSize or
   my $filter = $requestArgs->{filter};
   my $page   = $requestArgs->{page};
   my $tpages = $requestArgs->{tpages};
+
+  my $modelName  = $model->modelName();
   my $changeView = $model->action('changeView');
   my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
   my $withoutActions = $model->table()->{'withoutActions'};
+  my $cloneId;
 
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
       $action = 'changeEdit' if ( $editid );
+  } elsif ($action eq 'clone') {
+      $action = 'changeAdd';
+      $cloneId = $editid;
   }
 </%init>
 % unless ((defined $withoutActions) and $withoutActions) {
 <tr>
   <td id="applyChanges">
   </td>
-  <td id="<% 'buttons_' . $model->modelName() %>">
+  <td id="<% 'buttons_' .  $modelName %>">
 % unless ((defined $onlyCustomActions) and $onlyCustomActions)
 % {
 %  if ( $action eq 'changeAdd' )
 %  {
+%    # extra input for cloneId
+%    if ($cloneId)  {
+        <&/input/hidden.mas,
+              name => $modelName . '_cloneId',
+              id => $modelName . '_cloneId',
+              value => $cloneId
+         &>
+%    }
     <& /input/submit.mas,
         class => 'inputButton',
         type => 'submit',
         name => 'add',
         value => __('Add'),
         title => 'Add',
-        onclick => $model->addNewRowJS($page) . '; return false'
+        onclick => $model->addNewRowJS($page, cloneId => $cloneId) . '; return false'
     &>
 %  }
 %  elsif ($action eq 'changeEdit')
@@ -489,16 +547,24 @@ $page
       my $rowReadOnly = $row->readOnly()   ;
 
       my $disabled = '';
-      my $edit = 'edit';
-      my $edit_msg = __('Edit');
-      my $delete = 'delete';
-      my $delete_msg = __('Delete');
-      if ($rowReadOnly) {
+      my ($edit, $edit_msg);
+      my ($delete, $delete_msg);
+      my ($clone, $clone_msg);
+      if (not $rowReadOnly) {
+          $edit = 'edit';
+          $edit_msg = __('Edit');
+          $delete = 'delete';
+          $delete_msg = __('Delete');
+          $clone = 'clone';
+          $clone_msg = __('Clone');
+      } else {
           $disabled = 'disabled';
           $edit = 'edit-inactive';
           $delete = 'delete-inactive';
           $edit_msg = __('Read-only row: edit disabled');
           $delete_msg = __('Read-only row: delete disabled');
+          $clone = 'clone-inactive';
+          $clone_msg = __('Read-only row: clone disabled');
       }
       my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
 </%perl>
@@ -547,6 +613,28 @@ $page
           />
 %      }
 
+%      if ($actions->{'clone'})
+%      {
+          <input class='inputButton'
+              <%
+                $disabled
+              %>
+              type='image'
+              name='clone'
+              value="Clone"
+              title="<% $clone_msg  %>"
+              alt="Clone"
+              src='/data/images/<% $clone %>.png'
+              onClick="<%
+                          $model->actionClickedJS('clone',
+                             $row->{id},
+                              '',
+                              $page)
+                       %>"
+          />
+
+%      }
+
 %      if ($model->table()->{'order'} == 1)
 %      {
         <& SELF:.moveRowActions,
@@ -559,6 +647,7 @@ $page
             page => $page,
         &>
 %      }
+
 %    }
         </td>
 </%method>
@@ -732,7 +821,8 @@ $changeView
 %       }
 
 %# Not custom actions
-%# Currently they does not show, reenable them if you want they to appear in the legend
+%# Currently they does not show, reenable them if you want they to appear in the
+%# legend. Also add the clone action if we want to show it
 
 <%perl>
     my $edit = 'edit';

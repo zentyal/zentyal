@@ -29,7 +29,6 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Passwords;
 use EBox::UsersAndGroups::Group;
 
 use EBox::Exceptions::External;
@@ -37,6 +36,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
 use Perl6::Junction qw(any);
+use Convert::ASN1;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -44,6 +44,7 @@ use constant SYSMINUID      => 1900;
 use constant MINUID         => 2000;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
+use constant QUOTA_LIMIT    => 2097151;
 use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
                                  'loginShell', 'uidNumber', 'gidNumber',
                                  'homeDirectory', 'quota', 'userPassword',
@@ -112,12 +113,16 @@ sub comment
     return $self->get('description');
 }
 
-
-
 # Catch some of the set ops which need special actions
 sub set
 {
     my ($self, $attr, $value) = @_;
+
+    if ($attr =~ m/^krb5Key$/ or
+        $attr =~ m/^userPassword$/) {
+        throw EBox::Exceptions::Internal(
+            __('The user password and kerberos keys cannot be modified directly. Please use the changePassword method.'));
+    }
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any CORE_ATTRS) {
@@ -157,28 +162,33 @@ sub save
 {
     my ($self) = @_;
 
+    my $changetype = $self->_entry->changetype();
+
     if ($self->{set_quota}) {
-        $self->_setFilesystemQuota($self->get('quota'));
+        my $quota = $self->get('quota');
+        $self->_checkQuota($quota);
+        $self->_setFilesystemQuota($quota);
         delete $self->{set_quota};
     }
 
-    $self->{modifications} = $self->{entry}->ldif(changes => 1);
+    my $passwd = delete $self->{core_changed_password};
+    if (defined $passwd) {
+        $self->_ldap->changeUserPassword($self->dn(), $passwd);
+    }
 
     shift @_;
     $self->SUPER::save(@_);
 
-    if ($self->{core_changed}) {
-        my $passwd = $self->{core_changed_password};
-        delete $self->{core_changed};
-        delete $self->{core_changed_password};
+    if ($changetype ne 'delete') {
+        if ($self->{core_changed} or defined $passwd) {
+            delete $self->{core_changed};
 
-        my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
+            my $users = EBox::Global->modInstance('users');
+            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods});
 
-        delete $self->{ignoreMods};
+            delete $self->{ignoreMods};
+        }
     }
-
-    delete $self->{modifications};
 }
 
 # Method: setIgnoredModules
@@ -318,13 +328,27 @@ sub system
 
 sub _checkQuota
 {
-    my ($quota) = @_;
+    my ($self, $quota) = @_;
 
-    ($quota =~ /^\s*$/) and return undef;
-    ($quota =~ /\D/) and return undef;
-    return 1;
+    my $integer = $quota -~ m/^\d+$/;
+    if (not $integer) {
+        throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                                            'value' => $quota,
+                                            'advice' => __(
+'User quota must be a positive integer. To set an unlimited quota, enter zero.'
+                                                          ),
+                                           );
+    }
+
+    if ($quota > QUOTA_LIMIT) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('user quota'),
+            value => $quota,
+            advice => __x('The maximum value is {max} MB',
+                          max => QUOTA_LIMIT),
+        );
+    }
 }
-
 
 sub _setFilesystemQuota
 {
@@ -333,6 +357,17 @@ sub _setFilesystemQuota
     my $uid = $self->get('uidNumber');
     my $quota = $userQuota * 1024;
     EBox::Sudo::root(QUOTA_PROGRAM . " -s $uid $quota");
+
+    # check if quota has been really set
+    my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
+    my ($afterQuota) = $output->[0] =~ m/(\d+)/;
+    if ((not defined $afterQuota) or ($quota != $afterQuota)) {
+        throw EBox::Exceptions::External(
+            __x('Cannot set quota to {userQuota}. Please, choose another value',
+               userQuota => $userQuota)
+           )
+    }
+
 }
 
 # Method: changePassword
@@ -343,35 +378,12 @@ sub changePassword
 {
     my ($self, $passwd, $lazy) = @_;
 
-    my $hashes = {};
-    if (ref($passwd) ne 'ARRAY') {
-        # build addtional passwords using not-hashed pasword
-        if (isHashed($passwd)) {
-            throw EBox::Exceptions::Internal('The supplied user password is already hashed, you must supply an additional password list');
-        }
+    $self->_checkPwdLength($passwd);
 
-        $self->_checkPwdLength($passwd);
-        $hashes = EBox::UsersAndGroups::Passwords::additionalPasswords($self->get('uid'), $passwd);
-        $hashes->{userPassword} = EBox::UsersAndGroups::Passwords::defaultPasswordHash($passwd);
-    } else {
-        # Already hashed passwors received
-        $hashes = @{ $passwd }
-    }
-
-    #remove old passwords
-    foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/^ebox(.*)Password$/) {
-            $self->delete($attr, 1);
-        }
-    }
-
-    foreach my $attr (keys %{$hashes}) {
-        $self->set($attr, $hashes->{$attr}, 1);
-    }
-
-    # save password for later LDAP user base mods on save()
+    # The password will be changed on save, save it also to
+    # notify LDAP user base mods
     $self->{core_changed_password} = $passwd;
-    $self->save() unless ($lazy);
+    $self->save() unless $lazy;
 }
 
 
@@ -392,6 +404,9 @@ sub deleteObject
     my $users = EBox::Global->modInstance('users');
     $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods});
 
+    # Mark as changed to process save
+    $self->{core_changed} = 1;
+
     # Call super implementation
     shift @_;
     $self->SUPER::deleteObject(@_);
@@ -410,7 +425,8 @@ sub passwordHashes
 
     my @res;
     foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/^Password$/) {
+        if ($attr =~ m/^userPassword$/ or
+            $attr =~ m/^krb5Key$/) {
             push (@res, $attr => $self->get($attr));
         }
     }
@@ -431,7 +447,7 @@ sub passwordHashes
 #   user - hash ref containing: 'user'(user name), 'fullname', 'givenname',
 #                               'surname' and 'comment'
 #   system - boolean: if true it adds the user as system user, otherwise as
-#   normal user
+#                     normal user
 #   params hash (all optional):
 #      uidNumber - user UID numberer
 #      ou (multiple_ous enabled only)
@@ -464,16 +480,22 @@ sub create
                 maxuserlength => MAXUSERLENGTH));
     }
 
+    unless (_checkUserName($user->{'user'})) {
+        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
+                                            'value' => $user->{'user'},
+                                            'advice' => $advice
+                                           );
+    }
+
     my @userPwAttrs = getpwnam($user->{'user'});
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(
             __("Username already exists on the system")
         );
     }
-    unless (_checkName($user->{'user'})) {
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'});
-    }
+
 
     # Verify user exists
     if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
@@ -489,6 +511,12 @@ sub create
         );
     }
 
+    # Check the password length if specified
+    my $passwd = $user->{'password'};
+    if (defined $passwd) {
+        $self->_checkPwdLength($passwd);
+    }
+
     my $uid = exists $params{uidNumber} ?
                      $params{uidNumber} :
                      $self->_newUserUidNumber($system);
@@ -497,12 +525,6 @@ sub create
     my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
     my $gid = $group->get('gidNumber');
-
-    # system user could not have passwords
-    my $passwd = $user->{'password'};
-    #if (not $passwd and not $user->{passwords} and not $system) {
-    #    throw EBox::Exceptions::MissingArgument(__('Password'));
-    #}
 
     # If fullname is not specified we build it with
     # givenname and surname
@@ -514,6 +536,7 @@ sub create
         $user->{'fullname'} .= $user->{'surname'};
     }
 
+    my $realm = $users->kerberosRealm();
     my $quota = $self->defaultQuota();
     my @attr =  (
         'cn'            => $user->{fullname},
@@ -530,7 +553,14 @@ sub create
             'posixAccount',
             'passwordHolder',
             'systemQuotas',
+            'krb5Principal',
+            'krb5KDCEntry'
         ],
+        'krb5PrincipalName'    => $user->{user} . '@' . $realm,
+        'krb5KeyVersionNumber' => 0,
+        'krb5MaxLife'          => 86400,  # TODO
+        'krb5MaxRenew'         => 604800, # TODO
+        'krb5KDCFlags'         => 126,    # TODO
     );
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
@@ -540,6 +570,7 @@ sub create
     my $r = $self->_ldap->add($dn, \%args);
     my $res = new EBox::UsersAndGroups::User(dn => $dn);
 
+    # Set the user password and kerberos keys
     if (defined $passwd) {
         $res->changePassword($passwd, 1);
     }
@@ -558,18 +589,20 @@ sub create
     }
 
     if ($res->{core_changed}) {
+        # save() will be take also of saving password if it is changed
         $res->save();
+    } elsif ($res->{core_changed_password}) {
+        # if only password has been changed we avoid call to save() or it will abort
+        my $passwd = delete $res->{core_changed_password};
+        $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
 
     # Return the new created user
     return $res;
 }
 
-sub isHashed
-{
-    my ($pwd) = @_;
-    return ($pwd =~ /^\{[0-9A-Z]+\}/);
-}
+
+
 
 sub _checkName
 {
@@ -580,6 +613,22 @@ sub _checkName
     } else {
         return undef;
     }
+}
+
+sub _checkUserName
+ {
+     my ($name) = @_;
+    if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
+        return undef;
+    }
+
+
+    # windows user names cannot end with a  period
+    if ($name =~ m/\.$/) {
+        return undef;
+    }
+
+    return 1;
 }
 
 sub _homeDirectory
@@ -629,8 +678,6 @@ sub lastUid
     }
 }
 
-
-
 sub _newUserUidNumber
 {
     my ($self, $systemUser) = @_;
@@ -675,7 +722,6 @@ sub _checkUid
     }
 }
 
-
 sub _checkPwdLength
 {
     my ($self, $pwd) = @_;
@@ -713,6 +759,33 @@ sub defaultQuota
     }
 
     return $value;
+}
+
+sub kerberosKeys
+{
+    my ($self) = @_;
+
+    my $keys = [];
+
+    my $syntaxFile = EBox::Config::scripts('users') . 'krb5Key.asn';
+    my $asn = Convert::ASN1->new();
+    $asn->prepare_file($syntaxFile) or
+        throw EBox::Exceptions::Internal($asn->error());
+    my $asn_key = $asn->find('Key') or
+        throw EBox::Exceptions::Internal($asn->error());
+
+    my @aux = $self->get('krb5Key');
+    foreach my $blob (@aux) {
+        my $key = $asn_key->decode($blob) or
+            throw EBox::Exceptions::Internal($asn_key->error());
+        push @{$keys}, {
+                         type  => $key->{key}->{value}->{keytype}->{value},
+                         value => $key->{key}->{value}->{keyvalue}->{value},
+                         salt  => $key->{salt}->{value}->{salt}->{value}
+                       };
+    }
+
+    return $keys;
 }
 
 1;

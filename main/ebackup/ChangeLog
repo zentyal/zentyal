@@ -2,6 +2,10 @@ HEAD
 	+ Implement new EBox::Events::WatcherProvider
 	+ Adapted to new Model management framework
 	+ Adapted Message and Size types to new framework
+	+ Initial collection status done in background
+	+ Fixed bug with expiration of file list cache
+	+ Improved precondition message for restore logs model
+	+ Added backup target checks: mounted and size
 2.3.3
 	+ Create tables with MyISAM engine by default
 2.3.2

@@ -2,6 +2,9 @@ HEAD
 	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management framework
 	+ Always run postmap
+	+ Authenticated sender have to use a mail address which they own
+	+ Using old sieve directories as home mail directories
+	+ Enable GSSAPI/Kerberos authentication
 2.3.3
 	+ Create tables with MyISAM engine by default
 2.3.2
@@ -230,7 +233,7 @@ HEAD
 	+ added catch-all account per domain
 	+ added external mail accounts aliases
 	+ added 'remove all' and 'flush all' options to mail queue
-	management 
+	management
 	+ bugfix, in mail queue management now the mail recipients and th
 	messages being delivered appears correctly
 	+ added multiples alias for groups
@@ -318,7 +321,7 @@ HEAD
 0.10
 	+ New release
 0.9.100
-	+ Fix some typos 
+	+ Fix some typos
 0.9.99
 	+ Fixed bug in configuration backup
 	+ Allow other modules to define mail filters
@@ -326,17 +329,17 @@ HEAD
 0.9.3
 	+ New release
 0.9.2
-	+ Create sasl configuration which contains password with 0600 mask 
+	+ Create sasl configuration which contains password with 0600 mask
 0.9.1
 	+ Extended backup
-	+ Use host's FQDN. 
-	+ Helo restrictions 
+	+ Use host's FQDN.
+	+ Helo restrictions
 0.9
 	+ Added Polish translation
 	+ Added German translation
 0.8.1
 	+  Added dependency on sasl2-bin for secure SMTP authentication
-0.8 
+0.8
 	+ Small GUI fix
 	+ Added firewall rule to access smtp hosts for all interfaces
 0.7.99
@@ -346,6 +349,6 @@ HEAD
 	+ Added queue management support
 	+ Use EBox::LDAP singleton
 	+ Added update/clean actions to ebox-mail-ldap
-	+ Use of ebox-sudoers-friendly 
+	+ Use of ebox-sudoers-friendly
 0.7
-	+ First public release 
+	+ First public release

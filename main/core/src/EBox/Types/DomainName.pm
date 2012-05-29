@@ -126,7 +126,9 @@ sub memValue
     my ($self) = @_;
 
     my $value = $self->{'value'};
-    $value =~ s/\.$//;
+    if ($value) {
+        $value =~ s/\.$//;
+    }
     return $value;
 }
 

@@ -71,6 +71,11 @@ sub getParams
     $params{'id'} = $self->unsafeParam('id');
     $params{'filter'} = $self->param('filter');
 
+    my $cloneId = $self->unsafeParam('cloneId');
+    if ($cloneId) {
+        $params{cloneId} = $cloneId;
+    }
+
     return %params;
 }
 
@@ -121,6 +126,13 @@ sub addRow
     }
 
     my $id = $model->addRow(%params);
+
+    my $cloneId =delete $params{cloneId};
+    if ($cloneId) {
+        my $newRow = $model->row($id);
+        my $clonedRow = $model->row($cloneId);
+        $newRow->cloneSubModelsFrom($clonedRow);
+    }
 
     my $auditId = $self->_getAuditId($id);
 
@@ -304,20 +316,29 @@ sub refreshTable
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
+    my $action =  $self->{'action'};
     my $filter = $self->param('filter');
     my $page = $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined ( $pageSize )) {
         $model->setPageSize($pageSize);
     }
+
+    my $editId;
+    if ($action eq 'clone') {
+        $editId = $self->param('id');
+    } else {
+        $editId = $self->param('editid');
+    }
+
     my $rows = undef;
     my $tpages = 1000;
     my @params;
     push(@params, 'data' => $rows);
     push(@params, 'dataTable' => $model->table());
     push(@params, 'model' => $model);
-    push(@params, 'action' => $self->{'action'});
-    push(@params, 'editid' => $self->param('editid'));
+    push(@params, 'action' => $action);
+    push(@params, 'editid' => $editId);
     push(@params, 'hasChanged' => $global->unsaved());
     push(@params, 'filter' => $filter);
     push(@params, 'page' => $page);
@@ -349,10 +370,8 @@ sub _process
     }
 
     if ($action eq 'edit') {
-
         $self->editField();
         $self->refreshTable();
-
     } elsif ($action eq 'add') {
         my $rowId = $self->addRow();
         if ($json) {
@@ -363,27 +382,17 @@ sub _process
             $self->refreshTable();
         }
     } elsif ($action eq 'del') {
-
         $self->removeRow();
         $self->refreshTable();
-
     } elsif ($action eq 'move') {
-
         $self->moveRow();
         $self->refreshTable();
-
     } elsif ($action eq 'changeAdd') {
-
         $self->refreshTable();
-
     } elsif ($action eq 'changeList') {
-
         $self->refreshTable();
-
     } elsif ($action eq 'changeEdit') {
-
         $self->refreshTable();
-
     } elsif ($action eq 'view') {
         # This action will show the whole table (including the
         # table header similarly View Base CGI but inheriting
@@ -395,6 +404,8 @@ sub _process
         $self->editBoolean();
     } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);
+        $self->refreshTable();
+    } elsif ($action eq 'clone') {
         $self->refreshTable();
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");

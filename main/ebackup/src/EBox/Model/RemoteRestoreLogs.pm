@@ -72,9 +72,31 @@ sub new
 sub precondition
 {
     my ($self) = @_;
+    $self->{_precondition_msg} = undef;
 
     my @status = @{$self->{confmodule}->remoteStatus()};
-    return (scalar(@status));
+    return 0 if not @status;
+    my $logs = EBox::Global->getInstance()->modInstance('logs');
+    if (not $logs) {
+        $self->{_precondition_msg} = __('To be able to restore logs you need the logs module installed and enabled');
+        return 0;
+    }
+    if (not $logs->configured()) {
+        $self->{_precondition_msg} = __('To be able to restore logs you need the logs module enabled');
+        return 0;
+
+    }
+
+    return 1;
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+    my $msg = $self->{_precondition_msg};
+    defined $msg or
+        $msg = '';
+    return $msg;
 }
 
 # Group: Protected methods

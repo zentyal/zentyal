@@ -9,6 +9,8 @@
     $ldapsrv
     $ldapport
     $ldapbase
+    $ldapRootDN
+    $ldapPasswd
 </%args>
 {hosts, ["<% $domain %>"]}.
 
@@ -54,12 +56,14 @@
 {ldap_port, <% $ldapport %>}.
 {ldap_base, "<% $ldapbase %>"}.
 {ldap_filter, "(objectClass=userJabberAccount)"}.
+{ldap_rootdn, "<% $ldapRootDN %>"}.
+{ldap_password, "<% $ldapPasswd %>"}.
 
 {shaper, normal, {maxrate, 1000}}.
 {shaper, fast, {maxrate, 50000}}.
 {acl, local, {user_regexp, ""}}.
 {access, max_user_sessions, [{10, all}]}.
-{access, max_user_offline_messages, [{5000, admin}, {100, all}]}. 
+{access, max_user_offline_messages, [{5000, admin}, {100, all}]}.
 {access, local, [{allow, local}]}.
 {access, c2s, [{deny, blocked},
 	       {allow, all}]}.

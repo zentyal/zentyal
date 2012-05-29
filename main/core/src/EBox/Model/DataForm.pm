@@ -710,4 +710,29 @@ sub _defaultRow
     return $row;
 }
 
+
+sub clone
+{
+    my ($self, $srcDir, $dstDir) = @_;
+    my $origDir = $self->directory();
+
+    try {
+        $self->setDirectory($srcDir);
+        my $srcRow = $self->row();
+        my $srcHashElements = $srcRow->hashElements();
+
+        $self->setDirectory($dstDir);
+        my $dstRow = $self->row();
+        while (my ($name, $srcElement) = each %{ $srcHashElements }) {
+            $dstRow->elementByName($name)->setValue($srcElement->value());
+        }
+
+        $dstRow->store();
+        $dstRow->cloneSubModelsFrom($srcRow)
+    } finally {
+        $self->setDirectory($origDir);
+    };
+
+}
+
 1;

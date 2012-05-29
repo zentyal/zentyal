@@ -99,7 +99,7 @@ sub _table
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
             'defaultController' => '/Objects/Controller/MemberTable',
-            'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
+            'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'help' => __('For the IP addresses you can use CIDR notation (address/netmask) or specify the first and last addresses of a range that will also include all the IP addresses between them.'),
@@ -126,9 +126,16 @@ sub validateTypedRow
         my $ip = $ipaddr->ip();
         my $mask = $ipaddr->mask();
 
-        if (defined($mac) and $mask ne '32') {
-            throw EBox::Exceptions::External(
-            __('You can only use MAC addresses with hosts'));
+        if ($mask eq '32') {
+            if ($ip =~ /\.0+$/) {
+                throw EBox::Exceptions::External(
+                        __('Only network addresses can end with a zero'));
+            }
+        } else {
+            if (defined ($mac)) {
+                throw EBox::Exceptions::External(
+                        __('You can only use MAC addresses with hosts'));
+            }
         }
 
         $printableValue = $ipaddr->printableValue();

@@ -1,6 +1,18 @@
 HEAD
 	+ Adapted to new Model management framework
 	+ Adapted Password type to new framework
+	+ Heimdal Kerberos integration for SSO features
+	+ Better validation of user names and groups names. Better message
+	  when this validation fails
+	+ Added user() and group methods() to EBox::UsersAndGroups
+	+ Added quota limit check
+	+ Added backup domain for /home
+	+ Adapted ldapvi to changes in port
+	+ Setup master method can now take a custom password
+2.3.8
+	+ Restart apache after changing master configuration
+	+ Removed all files + code cleaning
+	+ Disable user editing in slaves
 2.3.7
 	+ New modifications() method to allow retrieving modifications made to
 	  the LDAP object in the last call to 'save'

@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use Error qw(:try);
+
+my %urlParams = @ARGV;
+
+EBox::init();
+
+my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+
+$ebackup or
+    die 'No ebackup module';
+$ebackup->isEnabled() or
+    die 'Backup module disabled';
+
+
+$ebackup->updateStatusInBackgroundLock();
+try {
+    my $oldStatus  = _oldStatus($ebackup);
+    my $status = $ebackup->_retrieveRemoteStatus(\%urlParams);
+    $ebackup->_setCurrentStatus($status);
+
+    # look if we need to regenearate files list
+    my $genListFiles = 0;
+    my @newStatus = @{ $ebackup->remoteStatus() };
+    if (@newStatus == 0) {
+        # no files, clear fileList archive if it exists
+        my $fileList = $ebackup->tmpFileList();
+        (-e $fileList) and
+            unlink $fileList;
+        # no needed to make any file list, bz there aren't files
+        $genListFiles = 0;
+    } elsif (@{ $oldStatus} != @newStatus) {
+        $genListFiles =1;
+    } else {
+        foreach my $old (@{ $oldStatus }) {
+            my $new = shift @newStatus;
+            foreach my $attr (keys %{ $new }) {
+                if ((not exists $old->{$attr}) or
+                    ($old->{$attr} ne $new->{$attr})
+                   ) {
+                    $genListFiles = 1;
+                    last;
+                }
+            }
+        }
+    }
+
+    if ($genListFiles) {
+        $ebackup->remoteGenerateListFile();
+    }
+
+} finally {
+    $ebackup->updateStatusInBackgroundUnlock;
+};
+
+
+
+sub _oldStatus
+{
+    my ($ebackup) = @_;
+    if (not -f $ebackup->tmpCurrentStatus()) {
+        # if not cache avoid create the status cache another time
+        return [];
+    }
+
+
+    my @oldStatus = @{ $ebackup->remoteStatus() };
+    return \@oldStatus;
+}
+
+
+1;

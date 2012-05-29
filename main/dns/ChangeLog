@@ -1,5 +1,14 @@
 HEAD
 	+ Adapted to new Model management framework
+	+ Add new field subdomain to hostnames and services  model,
+	  needed to create some samba records
+	+ API to add/delete A, SRV and TXT records to a domain
+	+ Change the primary nameserver record from 'ns' to the hostname
+	+ Change the IP address field on domain hosts to hasmany type.
+	  This is needed by samba to add the global catalog server record
+	+ Change the domain IP address to a hasmay type. This is needed
+	  if the server has multiple internal networks attached.
+	+ Server does not leak to the internet queries for unused rfc1918 zones
 2.3.5
 	+ Create tables with MyISAM engine by default
 2.3.4
@@ -137,7 +146,7 @@ HEAD
 0.11
 	+ New release
 0.10.99
-	+ Expose methods in module's API 
+	+ Expose methods in module's API
 	+ Fix bug in migration pre0.9.100 installations
 0.10
 	+ New release
@@ -159,10 +168,10 @@ HEAD
 
 0.8.99
         * Add DNS server functionality
-0.7.1	
+0.7.1
 	* Allow TCP queries
 	* Use of ebox-sudoers-friendly
-0.7	
+0.7
 	* First public release
 0.6
 	* API documented using naturaldocs

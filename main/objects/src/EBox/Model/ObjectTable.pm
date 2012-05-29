@@ -84,7 +84,7 @@ sub _table
             'automaticRemove' => 1,
             'defaultController' => '/Objects/Controller/ObjectTable',
             'HTTPUrlView'   => 'Objects/View/ObjectTable',
-            'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
+            'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'help' => _objectHelp(),

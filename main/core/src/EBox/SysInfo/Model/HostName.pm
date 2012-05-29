@@ -31,6 +31,8 @@ use EBox::Types::Host;
 
 use base 'EBox::Model::DataForm';
 
+use constant RESOLV_FILE => '/etc/resolv.conf';
+
 sub new
 {
     my $class = shift;
@@ -80,9 +82,34 @@ sub _getHostdomain
     my $hostdomain = `hostname -d`;
     chomp ($hostdomain);
     unless ($hostdomain) {
-        $hostdomain = 'zentyal.lan';
+        my ($searchDomain) = @{_readResolv()};
+        $hostdomain = defined ($searchDomain) ? $searchDomain : 'zentyal.lan';
     }
     return $hostdomain;
+}
+
+sub _readResolv
+{
+    my $resolvFH;
+    unless (open ($resolvFH, RESOLV_FILE)) {
+        EBox::warn ("Couldn't open " . RESOLV_FILE);
+        return [];
+    }
+
+    my $searchdomain = undef;
+    my @dns = ();
+    for my $line (<$resolvFH>) {
+        $line =~ s/^\s+//g;
+        my @toks = split (/\s+/, $line);
+        if ($toks[0] eq 'nameserver') {
+            push (@dns, $toks[1]);
+        } elsif ($toks[0] eq 'search') {
+            $searchdomain = $toks[1];
+        }
+    }
+    close ($resolvFH);
+
+    return [$searchdomain, @dns];
 }
 
 1;

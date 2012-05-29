@@ -321,7 +321,7 @@ sub availablePort # (proto, port, interface)
     ($proto ne "") or return undef;
     defined($port) or return undef;
     ($port ne "") or return undef;
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance($self->isReadOnly());
     my $network = $global->modInstance('network');
     my $services = $global->modInstance('services');
 
@@ -352,8 +352,10 @@ sub availablePort # (proto, port, interface)
         }
     }
 
-    my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
+    my @mods = @{$global->modInstances()};
     foreach my $mod (@mods) {
+        $mod->can('usesPort') or
+            next;
         if ($mod->usesPort($proto, $port, $iface)) {
             return undef;
         }

@@ -1,5 +1,8 @@
 class: 'EBox::UsersAndGroups'
 
+enabledepends:
+    - dns
+
 models:
     - Mode
     - Users
@@ -14,6 +17,6 @@ models:
     - SlavePassword
 
 composites:
-    Settings: [FIXME]
+    Settings: [LdapInfo, PAM]
     UserTemplate: [FIXME]
-    Sync: [FIXME]
+    Sync: [Master, SlavePassword, Slaves]

@@ -28,7 +28,7 @@
 # -q: query
 # -s: set
 # uid: user uid
-# quota: quota size in MB
+# quota: quota size in KB
 use Quota;
 
 sub currentQuota
@@ -37,7 +37,7 @@ sub currentQuota
 
     my @quotaValues = Quota::query( Quota::getqcarg('/home'), $uid);
     if (@quotaValues) {
-        return ($quotaValues[1] / 1024);
+        return $quotaValues[1];
     } else {
         return -1;
     }
@@ -47,8 +47,12 @@ sub setCurrentQuota
 {
     my ($uid, $quota) = @_;
 
-    Quota::setqlim(Quota::getqcarg('/home'),
+    my $ok = Quota::setqlim(Quota::getqcarg('/home'),
                    $uid, $quota, $quota, 0, 0);
+    if (not defined $ok) {
+        my $err = Quota::strerr();
+        die $err;
+    }
 }
 
 if ($ARGV[0] eq '-s') {

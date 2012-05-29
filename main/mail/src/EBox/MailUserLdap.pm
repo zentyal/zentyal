@@ -72,7 +72,6 @@ sub mailboxesDir
 sub setUserAccount
 {
     my ($self, $user, $lhs, $rhs)  = @_;
-
     my $mail = EBox::Global->modInstance('mail');
     my $email = $lhs.'@'.$rhs;
 
@@ -120,16 +119,12 @@ sub setUserAccount
 sub delUserAccount
 {
     my ($self, $user, $usermail) = @_;
-
     ($self->_accountExists($user)) or return;
-
     if (not defined $usermail) {
         $usermail = $self->userAccount($user);
     }
 
     my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
-
     # First we remove all mail aliases asociated with the user account.
     foreach my $alias ($mail->{malias}->accountAlias($usermail)) {
                 $mail->{malias}->delAlias($alias);
@@ -385,8 +380,8 @@ sub _modifyGroup
 #
 # Parameters:
 #
-#               username - username
-# Returnss:
+#               user - user object
+# Returns:
 #
 #               bool - true if user have mail account
 sub _accountExists

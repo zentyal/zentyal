@@ -5,6 +5,8 @@ depends:
 
 models:
     - DomainTable
+    - HostIpTable
+    - DomainIpTable
     - HostnameTable
     - AliasTable
     - MailExchanger
@@ -15,4 +17,4 @@ models:
     - Settings
 
 composites:
-    Global: [/dns/Settings, Forwarder, DomainTable]
+    Global: [Settings, Forwarder, DomainTable]

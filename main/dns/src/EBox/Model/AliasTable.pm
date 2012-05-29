@@ -109,7 +109,6 @@ sub validateTypedRow
         }
     }
 
-
     $self->setDirectory($olddir);
 
     if ( $action eq 'update' ) {
@@ -121,7 +120,6 @@ sub validateTypedRow
             $self->{toDelete} = "$alias.$zone";
         }
     }
-
 }
 
 # Method: updatedRowNotify

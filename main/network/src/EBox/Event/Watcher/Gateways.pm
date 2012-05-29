@@ -228,14 +228,11 @@ sub run
         EBox::debug('Regenerating rules for the gateways');
         $network->regenGateways();
 
-        # TODO: implement this better
-        foreach my $mod ('squid', 'trafficshaping') {
-            next unless $global->modExists($mod);
-            my $module = $global->modInstance($mod);
+        foreach my $module ($global->modInstancesOfType('EBox::NetworkObserver')) {
             my $timeout = 60;
             while ($timeout) {
                 try {
-                    $module->restartService();
+                    $module->regenGatewaysFailover();
                     last;
                 } catch EBox::Exceptions::Lock with {
                     sleep 5;
@@ -243,7 +240,7 @@ sub run
                 };
             }
             if ($timeout <= 0) {
-                EBox::error("WAN Failover: $mod module has been locked for 60 seconds.");
+                EBox::error("WAN Failover: $module->{name} module has been locked for 60 seconds.");
             }
         }
     } else {
@@ -310,13 +307,15 @@ sub _testRule # (row)
     my $maxFailRatio = 1 - $ratio;
     my $maxFails = $probes * $maxFailRatio;
 
-    my $successes = 0;
-    my $fails = 0;
+    my $usedProbes = 0;
+    my $successes  = 0;
+    my $fails      = 0;
 
     # Set rule for outgoing traffic through the gateway we are testing
     $self->_setIptablesRule($gw, 1);
 
     for (1..$probes) {
+        $usedProbes++;
         if ($self->_runTest($type, $host)) {
             EBox::debug("Probe number $_ succeded.");
             $successes++;
@@ -331,8 +330,7 @@ sub _testRule # (row)
     # Clean rule
     $self->_setIptablesRule($gw, 0);
 
-    my $failRatio = $fails / $probes;
-
+    my $failRatio = $fails / $usedProbes;
     if ($failRatio >= $maxFailRatio) {
         $self->{failed}->{$gw} = 1;
 

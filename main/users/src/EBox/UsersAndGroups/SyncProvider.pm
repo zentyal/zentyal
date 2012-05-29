@@ -46,4 +46,14 @@ sub slaves
 }
 
 
+# Method: allowUserChanges
+#
+#   Return 1 if the user should be allowed to make changes
+#   to the users. 0 if not (usually slave machines)
+#
+sub allowUserChanges
+{
+    throw EBox::Exceptions::NotImplemented();
+}
+
 1;

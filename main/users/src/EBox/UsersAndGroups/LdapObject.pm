@@ -295,49 +295,4 @@ sub as_ldif
     return $self->_entry->ldif(change => 0);
 }
 
-# Method: modifications
-#
-#   Return the last modifications made to the object
-#   when 'save' was called. This allow
-#   the notified modules to see what has changed.
-#
-sub modifications
-{
-    my ($self) = @_;
-
-    my $changes = {};
-    my $ldif = $self->{modifications};
-    if (defined $ldif) {
-        my @lines = split('\n', $ldif);
-
-        shift @lines;
-        my $dn = shift @lines;
-        my $changetype = shift @lines;
-        $dn =~ s/dn: //;
-        $changetype =~ s/changetype: //;
-        $changes->{dn} = $dn;
-        $changes->{changetype} = $changetype;
-
-        my $change;
-        my $attribute;
-        my $value;
-        foreach my $line (@lines) {
-            if ($line =~ m/^-/) {
-                next;
-            } elsif ($line =~ m/^(replace:|delete:)/) {
-                ($change, $attribute) = split (': ', $line);
-                unless (defined $changes->{$change}) {
-                    $changes->{$change} = {};
-                }
-                $changes->{$change}->{$attribute} = [];
-                next;
-            }
-            ($attribute, $value) = split (': ', $line);
-            push ($changes->{$change}->{$attribute}, $value);
-            #$change = $attribute = $value = undef;
-        }
-    }
-    return $changes;
-}
-
 1;

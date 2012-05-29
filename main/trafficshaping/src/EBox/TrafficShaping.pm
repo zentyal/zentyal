@@ -1819,6 +1819,17 @@ sub ifaceUniqueId
     return undef;
 }
 
+# Method: regenGatewaysFailover
+#
+# Overrides:
+#
+#    <EBox::NetworkObserver::regenGatewaysFailover>
+#
+sub regenGatewaysFailover
+{
+    my ($self) = @_;
+
+    $self->restartService();
+}
 
 1;
-

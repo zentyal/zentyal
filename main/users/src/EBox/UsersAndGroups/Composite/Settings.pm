@@ -50,18 +50,16 @@ sub new
 #
 sub _description
 {
-      my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
 
-      my $description =
-        {
-         components      => [ 'LdapInfo', 'PAM' ],
-         layout          => 'top-bottom',
-         name            => 'Settings',
-         compositeDomain => 'Users',
-         #help => __('')
-        };
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'Settings',
+        compositeDomain => 'Users',
+        #help => __('')
+    };
 
-      return $description;
+    return $description;
 }
 
 sub pageTitle

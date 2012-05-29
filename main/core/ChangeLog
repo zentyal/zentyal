@@ -33,6 +33,17 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+	+ Added clone action to data tables
+	+ Fixed regression in modal popup when showing element table
+	+ Added new type EBox::Types::KrbRealm
+	+ Fix broken packages when dist-upgrading from old versions: stop ebox
+	  owned processes before changing home directory
+	+ Log the start and finish of start/stop modules actions
+	+ Added usesPort() method to apache module
+2.3.9
+	+ Enable SSLInsecureRenegotiation to avoid master -> slave SOAP handsake
+	  problems
+	+ Added validateRowRemoval method to EBox::Model::DataTable
 	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
 	+ Avoid problems restarting apache when .pid file does not exist
 	+ Do not use graceful on apache to allow proper change of listen port

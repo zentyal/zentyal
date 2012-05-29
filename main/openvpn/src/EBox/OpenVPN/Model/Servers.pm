@@ -185,6 +185,7 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
+    $self->_validateName($action, $params_r, $actual_r);
     if ($action eq 'add') {
         $self->_checkCertificatesAvailable(
                   __('Server creation')
@@ -193,7 +194,6 @@ sub validateTypedRow
     }
 
     $self->_validateService($action, $params_r, $actual_r);
-    $self->_validateName($action, $params_r, $actual_r);
 }
 
 sub servers
@@ -249,7 +249,7 @@ sub addedRowNotify
     my $service = $row->elementByName('service');
 
     if ($service->value()) {
-        my $openvpn = EBox::Global->modInstance('openvpn');
+        my $openvpn = $self->parentModule();
         $openvpn->notifyLogChange();
     }
 
@@ -257,11 +257,12 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldRow) = @_;
 
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldRow);
+
+    my $openvpn = $self->parentModule();
     $openvpn->notifyLogChange();
-
 }
 
 sub deletedRowNotify
@@ -269,9 +270,9 @@ sub deletedRowNotify
     my ($self, $row) = @_;
     my $name = $row->elementByName('name')->value();
 
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $openvpn = $self->parentModule();
     $openvpn->notifyDaemonDeletion($name, 'server');
-
+    $openvpn->refreshIfaceInfoCache();
 }
 
 # Group: Private methods
@@ -315,7 +316,7 @@ sub _validateName
     }
 
     my $name =  $params_r->{name}->value();
-    my $openvpn = EBox::Global->modInstance('openvpn');
+    my $openvpn = $self->parentModule();
     $openvpn->checkNewDaemonName($name, 'server');
 }
 

@@ -67,13 +67,10 @@ use Error qw(:try);
 #   dir - row's directory
 #   confmodule - confmodule
 #
-# Overrides:
-#
-#     <EBox::Model::DataTable::new>
 #
 # Returns:
 #
-#     <EBox::Samba::Model::SambaShares> - the newly created object
+#     <EBox::model::Row> - the newly created object
 #     instance
 #
 sub new
@@ -704,6 +701,30 @@ sub restoreFiles
         if ($element->can('restoreFiles')) {
             $element->restoreFiles();
         }
+    }
+}
+
+sub cloneSubModelsFrom
+{
+    my ($self, $otherRow) = @_;
+    my @hasMany = grep { $_->isa('EBox::Types::HasMany') } @{$self->elements()};
+
+    @hasMany or
+        return;
+
+    my $id = $self->id();
+    my $otherId0 = $otherRow->id();
+
+    foreach my $hasMany (@hasMany) {
+        my $fieldName = $hasMany->fieldName();
+
+        my $subModel   = $self->subModel($fieldName);
+        my $subDir = $subModel->directory();
+
+        my $otherSubModel = $otherRow->subModel($fieldName);
+        my $otherSubDir = $otherSubModel->directory();
+
+        $subModel->clone($otherSubDir, $subDir);
     }
 }
 

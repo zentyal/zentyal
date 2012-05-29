@@ -7,7 +7,7 @@ Standards-Version: 3.7.3
 
 Package: samba-zentyal-modules
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, zentyal-samba, libldb1, libjansson4
+Depends: ${shlibs:Depends}, ${misc:Depends}, libldb1, libjansson4
 Description: Zentyal LDB module
  This module is used to forward the LDB operations to a script that
  keeps the zentyal LDAP and the samba LDB synchronized.

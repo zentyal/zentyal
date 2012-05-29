@@ -265,7 +265,7 @@ sub modifyUser
             $pwd = decode_base64($pwd->{values}[0]);
             $user->setIgnoredModules(['samba']);
             _info("Updating '$userName' password");
-            $user->changePassword($pwd);
+            $user->changePassword($pwd, 1);
         }
 
         foreach my $attr (keys $attrs) {
@@ -276,7 +276,8 @@ sub modifyUser
             }
         }
 
-        if (defined $user->{core_changed}) {
+        if (defined $user->{core_changed} or
+            defined $user->{core_changed_password}) {
             $user->setIgnoredModules(['samba']);
             $user->save();
         }

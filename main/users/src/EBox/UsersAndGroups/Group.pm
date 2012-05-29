@@ -28,6 +28,7 @@ use warnings;
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::UsersAndGroups;
 use EBox::UsersAndGroups::User;
 
 use EBox::Exceptions::External;
@@ -217,8 +218,6 @@ sub save
 {
     my ($self, $ignore_mods) = @_;
 
-    $self->{modifications} = $self->{entry}->ldif(changes => 1);
-
     shift @_;
     $self->SUPER::save(@_);
 
@@ -228,8 +227,6 @@ sub save
         my $users = EBox::Global->modInstance('users');
         $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods});
     }
-
-    delete $self->{modifications};
 }
 
 # Method: setIgnoredModules
@@ -278,10 +275,13 @@ sub create
                 maxGroupLength => MAXGROUPLENGTH));
     }
 
-    unless (_checkName($group)) {
+    unless (_checkGroupName($group)) {
+        my $advice = __('To avoid problems, the group name should consist only of letters, digits, underscores, spaces, periods, dashs and not start with a dash. They could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
-            'value' => $group);
+            'value' => $group,
+            'advice' => $advice
+           );
     }
 
     # Verify group exists
@@ -318,16 +318,19 @@ sub create
     return $res;
 }
 
-
-sub _checkName
+sub _checkGroupName
 {
-    my ($name) = @_;
-
-    if ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
-        return 1;
-    } else {
+    my ($name)= @_;
+    if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
         return undef;
     }
+
+    # windows group names could not be only numbers, spaces and dots
+    if ($name =~ m/^[[:space:]0-9\.]+$/) {
+        return undef;
+    }
+
+    return 1;
 }
 
 

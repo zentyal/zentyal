@@ -1,5 +1,10 @@
 HEAD
 	+ Adapted to new Model management framework
+	+ Site-to-site VPN is now supported on all editions
+	+ Refresh interface info cache with an apache restart to make the
+	  widgets return updated interface information
+	+ Fixed regresion that allowed bad server names
+	+ Fixed checks for used ports in other modules
 2.3.5
 	+ Create tables with MyISAM engine by default
 2.3.4
@@ -208,4 +213,4 @@ HEAD
 	+ Added Polish translation
         + Client bundle generator for Windows and Linux
 0.8.99
-	+ First public release 
+	+ First public release

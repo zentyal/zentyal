@@ -3,6 +3,12 @@ HEAD
 	+ Remove no longer necessary ad-hoc vifacesConf cache
 	+ Adapted to new Model management framework
 	+ Reimplemented Ifaces/Vifaces/VLANs storage according to new conf backend
+	+ Added clone action to multi gw and wan failover tables
+	+ Added EBox::Network::internalIpAddresses()
+	+ Added regenGatewaysFailover() to NetworkObserver so modules can
+	  implement actions to be done after failover regenerates routing tables
+	+ Fixed calculation of fail ratio
+	+ Assure that we have always one gateway marked as default
 	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
 	+ Regenerate traffic shaping rules after failover event
 	+ EBox::Network::setNameservers does not fail if the same server
