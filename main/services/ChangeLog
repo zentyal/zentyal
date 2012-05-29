@@ -1,4 +1,6 @@
 HEAD
+	+ setService method does not fail if the existent service has not
+	any configuration
 	+ Added clone action to service configuration table
 2.3.4
 	+ Packaging fixes for precise
