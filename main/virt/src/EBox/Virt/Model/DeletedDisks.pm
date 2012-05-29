@@ -19,17 +19,6 @@ use base 'EBox::Model::DataTable';
 use strict;
 use warnings;
 
-sub new
-{
-    my $class = shift;
-    my %parms = @_;
-
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-
-    return $self;
-}
-
 sub _table
 {
     my $dataTable =

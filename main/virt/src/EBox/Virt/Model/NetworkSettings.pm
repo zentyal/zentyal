@@ -34,33 +34,7 @@ use EBox::Types::MACAddr;
 
 use constant MAX_IFACES => 8;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Create the new NetworkSettings model.
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Virt::Model::NetworkSettings> - the recently created model.
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Group: Private methods
-
 
 sub _populateIfaceTypes
 {
@@ -213,10 +187,6 @@ sub validateTypedRow
 sub viewCustomizer
 {
     my ($self) = @_;
-
-    # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{confmodule}->composite('VMSettings');
-    $self->setParentComposite($composite);
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);

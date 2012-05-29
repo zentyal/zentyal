@@ -4,3 +4,6 @@ models:
     - Protocols
     - Groups
     - GroupProtocols
+
+foreign:
+    Groups: [GroupProtocols]

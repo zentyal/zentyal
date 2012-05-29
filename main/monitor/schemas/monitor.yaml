@@ -5,3 +5,6 @@ depends:
 models:
     - MeasureWatchers
     - ThresholdConfiguration
+
+foreign:
+    MeasureWatchers: [ThresholdConfiguration]

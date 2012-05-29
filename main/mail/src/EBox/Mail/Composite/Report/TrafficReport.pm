@@ -22,30 +22,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general mail composite
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general mail composite
-#
-sub new
-  {
-
-      my ($class, @params) = @_;
-
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
-
-
-
 # Group: Protected methods
 
 # Method: _description
@@ -55,25 +31,16 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+       layout          => 'top-bottom',
+       name            => 'TrafficReport',
+       printableName   => __('Mail traffic reports'),
+       pageTitle   => __('Mail traffic report'),
+       compositeDomain => 'Mail',
+    };
 
-      my $description =
-        {
-         components      => [
-                             '/mail/TrafficReportOptions',
-                             '/mail/TrafficGraph',
-                             '/mail/TrafficDetails',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'TrafficReport',
-         printableName   => __('Mail traffic reports'),
-         pageTitle   => __('Mail traffic report'),
-         compositeDomain => 'Mail',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

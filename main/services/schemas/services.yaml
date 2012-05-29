@@ -4,6 +4,5 @@ models:
     - ServiceTable
     - ServiceConfigurationTable
 
-relations:
-    ServiceTable:
-        many: ServiceConfigurationTable
+foreign:
+    ServiceTable: [ServiceConfiguraitonTable]

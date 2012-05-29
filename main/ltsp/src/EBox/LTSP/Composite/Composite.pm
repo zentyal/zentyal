@@ -65,12 +65,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                'ClientImages',
-                'Configuration',
-                '/ltsp/AutoLogin',
-                '/ltsp/Profiles',
-            ],
         layout          => 'tabbed',
         name            => 'Composite',
         printableName   => __('Thin Clients Configuration'),

@@ -48,9 +48,11 @@ sub _new
 
     $self->{models} = {};
     $self->{composites} = {};
+    $self->{foreign} = {};
 
     $self->{modByModel} = {};
     $self->{modByComposite} = {};
+    $self->{parentByComponent} = {};
 
     $self->{notifyActions} = {};
     $self->{revModelDeps} = {};
@@ -166,6 +168,24 @@ sub composite
     return $self->_componentByPath('composite', $path, $readonly);
 }
 
+# Method: component
+#
+#     Given a component name it returns an instance of this component
+#     No need to specify if it's a model or a composite
+#
+sub component
+{
+    my ($self, $path, $readonly) = @_;
+
+    if ($self->_modelExists($path)) {
+        return $self->model($path, $readonly);
+    } elsif ($self->_compositeExists($path)) {
+        return $self->composite($path, $readonly);
+    } else {
+        throw EBox::Exceptions::Internal("Component $path does not exists");
+    }
+}
+
 sub models
 {
     my ($self, $module) = @_;
@@ -249,10 +269,12 @@ sub _component
         my $class = $global->_className($moduleName) . '::' . ucfirst($kind) . "::$name";
         eval "use $class";
 
-        # FIXME: set also if parent is composite??
-        my $parent = $self->{$key}->{$moduleName}->{$name}->{parent};
+        my $parent = undef;
+        my $parentName = $self->{parentByComponent}->{$moduleName}->{$name};
+        if ($parentName) {
+            $parent = $self->component("$moduleName/$parentName");
+        }
 
-        # FIXME: what happens with composite directory?
         my %params = (confmodule => $module, parent => $parent, directory => $name);
         if ($kind eq 'composite') {
             my $components = $self->{composites}->{$moduleName}->{$name}->{components};
@@ -261,14 +283,7 @@ sub _component
                 unless ($cname =~ m{/}) {
                     $cname = "$moduleName/$cname";
                 }
-                my $component;
-                if ($self->_modelExists($cname)) {
-                    $component = $self->model($cname);
-                } elsif ($self->_compositeExists($cname)) {
-                    $component = $self->composite($cname);
-                } else {
-                    throw EBox::Exceptions::Internal("Component $cname referenced in $moduleName/$name does not exists");
-                }
+                my $component = $self->component($cname, $module->{ro});
                 push (@instances, $component);
             }
             $params{components} = \@instances;
@@ -536,6 +551,7 @@ sub _setupInfo
         my $info = $global->readModInfo($moduleName);
         $self->_setupModelInfo($moduleName, $info);
         $self->_setupCompositeInfo($moduleName, $info);
+        $self->_setupForeignInfo($moduleName, $info);
         $self->_setupModelDepends($moduleName, $info);
         $self->_setupNotifyActions($moduleName, $info);
     }
@@ -580,6 +596,23 @@ sub _setupCompositeInfo
             $self->{modByComposite}->{$composite} = {};
         }
         $self->{modByComposite}->{$composite}->{$moduleName} = 1;
+    }
+}
+
+sub _setupForeignInfo
+{
+    my ($self, $moduleName, $info) = @_;
+
+    return unless exists $info->{foreign};
+
+    $self->{foreign}->{$moduleName} = {};
+    foreach my $component (keys %{$info->{foreign}}) {
+        my $foreings = $info->{foreign}->{$component};
+        $self->{foreign}->{$moduleName}->{$component} = $foreings;
+
+        foreach my $foreign (@{$foreings}) {
+            $self->{parentByComponent}->{$moduleName}->{$foreign} = $component;
+        }
     }
 }
 

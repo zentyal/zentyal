@@ -22,6 +22,9 @@ models:
     - ExternalAccounts
 
 composites:
-    ServiceConfiguration: [FIXME]
-    General: [FIXME]
-    Report::TrafficReport: [FIXME]
+    ServiceConfiguration: [SMTPOptions, RetrievalServices]
+    General: [ServiceConfiguration, ObjectPolicy, ExternalFilter]
+    Report::TrafficReport: [Report::TrafficReportOptions, Report::TrafficGraph, Report::TrafficDetails]
+
+foreign:
+    VDomains: [VDomainAliases, ExternalAliases, VDomainSettings ]

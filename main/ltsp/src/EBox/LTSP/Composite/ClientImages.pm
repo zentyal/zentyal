@@ -1,4 +1,4 @@
-# Copyright (C)
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,21 +27,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for composite
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -54,10 +39,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                                '/ltsp/ImageCreation',
-                                '/ltsp/AvailableImages',
-                           ],
         layout          => 'top-bottom', # or tabbed
         name            => 'ClientImages',
         printableName   => __('Thin Clients Image Management'),

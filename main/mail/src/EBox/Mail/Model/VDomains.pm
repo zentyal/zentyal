@@ -195,7 +195,7 @@ __x(
     ' with the same name',
    vd => $vdomain)
                                         );
-    } 
+    }
 
     $self->_checkVDomainIsNotInExternalAliases($vdomain);
 
@@ -210,7 +210,7 @@ q{'sieve' is a reserved name in this context, please choose another name}
             throw EBox::Exceptions::InvalidData(
                                data => __('Mail virtual domain'),
                                value => $vdomain,
-                               advice => 
+                               advice =>
 __('The virtual domain name cannot be equal to the mailname')
                                            );
     }

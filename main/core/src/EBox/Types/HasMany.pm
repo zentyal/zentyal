@@ -137,6 +137,7 @@ sub foreignModelInstance
     $directory or
         return undef;
 
+    # FIXME: instance with correct RO/RW flag...
     my $model;
     my $manager = EBox::Model::Manager->instance();
     if ($self->foreignModelIsComposite()) {
@@ -146,6 +147,8 @@ sub foreignModelInstance
     }
 
     $model->setDirectory($directory);
+
+    $model->{parent} = $self->model();
 
     return $model;
 }
