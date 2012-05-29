@@ -145,7 +145,7 @@ sub nUsers
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
         if ( $usersMod->isEnabled() and ($usersMod->mode() eq 'master') ) {
-            push(@users, @{$usersMod->uidList()});
+            push(@users, @{$usersMod->users()});
         }
     }
 
@@ -230,7 +230,6 @@ sub _systemUserFiles
 # Return the files where to crack from LDAP user files
 sub _ldapUserFiles
 {
-
     my ($recreate) = @_;
 
     my $files = undef;
@@ -239,15 +238,15 @@ sub _ldapUserFiles
         my $usersMod = $gl->modInstance('users');
         if ( $usersMod->isEnabled() and ($usersMod->mode() eq 'master') ) {
             if ( $recreate ) {
-                my $usersIds = $usersMod->uidList();
                 my $passListFile = LDAP_USERS_PASS_LIST;
                 my $singlePassListFile = LDAP_SINGLE_USERS_PASS_LIST;
                 open(my $fh, '>', $passListFile);
                 open(my $fh2, '>', $singlePassListFile);
-                foreach my $userId (@{$usersIds}) {
-                    my $user = $usersMod->userInfo($userId);
-                    print $fh $user->{username} . ':' . $user->{extra_passwords}->{lm} . "\n";
-                    print $fh2 $user->{username} . ':' . $user->{extra_passwords}->{lm} . "\n";
+                foreach my $user (@{$usersMod->users()}) {
+                    my %hashes = @{$user->passwordHashes()}; # Returns an array ref...
+                    my $lmPasswd = $hashes{eboxLmPassword};
+                    print $fh $user->name() . ':' . $lmPasswd . "\n";
+                    print $fh2 $user->name() . ':' . $lmPasswd . "\n";
                 }
                 close($fh);
                 close($fh2);
