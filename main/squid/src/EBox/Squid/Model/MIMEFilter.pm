@@ -69,6 +69,7 @@ sub _table
          update => __('MIME type updated'),
      },
      sortedBy           => 'MIMEType',
+     checkAll => 'allowed',
     };
 
 }
