@@ -260,6 +260,8 @@ sub _i18n
     my ($measureInstance) = $message =~ m/plugin.*?\(instance (.*?)\) type/g;
     my ($typeInstance)    = $message =~ m/type.*?\(instance (.*?)\):/g;
 
+    my ($dataSource, $currentValue) = $message =~ m/Data source "(.*?)" is currently (.*?)\. /g;
+
     my $monMod = EBox::Global->modInstance('monitor');
     my $measure = $monMod->measure($measureName);
 
@@ -274,11 +276,12 @@ sub _i18n
                            'type'             => $typeName,
                            'type_instance'    => $typeInstance,
                            'severity'         => $severity,
+                           'data_source'      => $dataSource,
+                           'value'            => $currentValue,
                        };
     if ( $severity eq 'info' ) {
         $printableMsg = __('All data sources are within range again');
     } else {
-        my ($dataSource, $currentValue) = $message =~ m/Data source "(.*?)" is currently (.*?)\. /g;
         my $printableDataSource;
         if ( defined($typeInstance) and  $dataSource eq 'value' ) {
             $printableDataSource = $measure->printableTypeInstance($typeInstance);
@@ -286,8 +289,6 @@ sub _i18n
             $printableDataSource = $measure->printableLabel($typeInstance, $dataSource);
         }
 
-        $additionalInfo->{data_source} = $dataSource;
-        $additionalInfo->{value}       = $currentValue;
         $additionalInfo->{metric}      = $measure->metric();
         $additionalInfo->{duration}    = $duration;
 
