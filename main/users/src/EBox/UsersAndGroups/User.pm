@@ -425,7 +425,7 @@ sub passwordHashes
 
     my @res;
     foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/^userPassword$/ or
+        if ($attr =~ m/Password$/ or
             $attr =~ m/^krb5Key$/) {
             push (@res, $attr => $self->get($attr));
         }
