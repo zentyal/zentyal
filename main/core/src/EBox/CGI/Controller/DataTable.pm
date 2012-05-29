@@ -286,6 +286,15 @@ sub editBoolean
     $self->_auditLog('set', "$id/$field", $value, $oldValue);
 }
 
+sub setAllChecks
+{
+    my ($self, $value) = @_;
+    my $model = $self->{'tableModel'};
+    my $field = $self->param('editid');
+    $model->setAll($field, $value);
+
+}
+
 # prints a HTML response to enable the 'Save changes' web element
 # don't p[ritn any other HTML if you use this
 sub _responseToEnableChangesMenuElement
@@ -406,6 +415,12 @@ sub _process
         $self->customAction($action);
         $self->refreshTable();
     } elsif ($action eq 'clone') {
+        $self->refreshTable();
+    } elsif ($action eq 'checkAll') {
+        $self->setAllChecks(1);
+        $self->refreshTable();
+    } elsif ($action eq 'uncheckAll') {
+        $self->setAllChecks(0);
         $self->refreshTable();
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");

@@ -116,28 +116,21 @@ $pageSize or
 % }
 %  my $showEditForm =  $action eq any('changeAdd', 'changeEdit', 'clone');
 %  if (not $showEditForm)  {
-%    if ( $model->printableModelName() )
-%    {
-<& PARENT:title,
-   title => $model->headTitle()
-&>
+%    if ( $model->printableModelName() )  {
+       <& PARENT:title,
+          title => $model->headTitle()
+        &>
 %    }
-%    unless ((defined $onlyCustomActions) and $onlyCustomActions)
-%    {
-%        if ($changeView and exists $actions->{'add'})
-%        {
-  <a href='#' class='addNew'
-      name='add'
-         onClick="<%
-                 $model->changeViewJS( changeType => "changeAdd",
-                      editId => "undefined",
-                      page => $page,
-                      isFilter => 0)
-                %>;return false"><% __('Add new') %></a>
-   <br/>
-   <br/>
+%    unless ((defined $onlyCustomActions) and $onlyCustomActions)  {
+%        if ($changeView) {
+           <& SELF:tableActionLinks,
+               model => $model,
+               addAction =>  (exists $actions->{'add'}),
+               page => $page,
+           &>
+
 %        }
-%   }
+%     }
   <span id="<% 'creatingForm_' . $tableName %>"></span>
 %  }
 
@@ -513,6 +506,56 @@ $actions
       </th>
 %    }
     </thead>
+</%method>
+
+<%method tableActionLinks>
+<%args>
+$model
+$addAction
+$page
+</%args>
+<%init>
+my $actionLinksAdded = 0;
+my $tableName = $model->name();
+my $checkAll  = $model->checkAllProperty();
+</%init>
+% if ($addAction)  {
+%   $actionLinksAdded = 1;
+  <a href='#' class='addNew'
+      name='add'
+         onClick="<%
+                 $model->changeViewJS( changeType => "changeAdd",
+                      editId => "undefined",
+                      page => $page,
+                      isFilter => 0)
+                %>;return false"><% __('Add new') %></a>
+% }
+
+% if ($checkAll) {
+  <a href='#' class='checkAll'
+      name='<% $tableName %>_checkAll'
+         onClick="<%
+                 $model->changeViewJS( changeType => "checkAll",
+                      editId => "$checkAll",
+                      page => $page,
+                      isFilter => 0)
+                %>;return false"><% __('Check all') %></a>
+  <a href='#' class='uncheckAll'
+      name='<% $tableName %>_uncheckAll'
+         onClick="<%
+                 $model->changeViewJS( changeType => "uncheckAll",
+                      editId => "$checkAll",
+                      page => $page,
+                      isFilter => 0)
+                %>;return false"><% __('Uncheck all') %></a>
+
+% }
+
+
+% if ($actionLinksAdded) {
+    <br/>
+% }
+
 </%method>
 
 <%method actionCell>

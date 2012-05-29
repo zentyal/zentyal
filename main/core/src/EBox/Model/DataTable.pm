@@ -4946,4 +4946,40 @@ sub clone
     };
 }
 
+# Method: setAll
+#
+#   set the specified field in all rows to the fiven value
+#
+#  Parameters:
+#       fieldName - field to set
+#       value     - value to set
+sub setAll
+{
+    my ($self, $fieldName, $value) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $field = $row->elementByName($fieldName);
+        if (not $field) {
+            throw EBox::Exceptions::Internal(
+                  "Field $field is not present in table " .  $self->name(),
+            );
+        }
+
+        $field->setValue($value);
+        $row->store();
+    }
+}
+
+# Methos: checkAllProperty
+#
+#  return the value of the 'checkAll' property
+#
+#  This property should be set to the name of a checkbox field to enable it
+#   or to undef to not use the check all option (default: disabled)
+sub checkAllProperty
+{
+    my ($self) = @_;
+    return $self->{'table'}->{'checkAll'};
+}
+
 1;
