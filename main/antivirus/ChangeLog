@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Use freshclam log file to find update events
 	+ Depend on clamav-data to avoid Stopped module problems
 2.2.1
