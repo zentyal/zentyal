@@ -29,13 +29,16 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::RESTResult;
+use Error qw(:try);
+use File::Temp;
 use HTTP::Status qw(HTTP_UNAUTHORIZED);
 use IO::Socket::SSL;
 use JSON::XS;
-use URI;
 use LWP::UserAgent;
-use Error qw(:try);
+use Time::HiRes;
+use URI;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
  use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
@@ -204,6 +207,7 @@ sub request {
         if ($res->code() == HTTP_UNAUTHORIZED) {
             throw EBox::Exceptions::External($self->_invalidCredentialsMsg());
         }
+        $self->_storeInJournal($method, $path, $query, $res);
         throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
     }
 }
@@ -240,6 +244,25 @@ sub _invalidCredentialsMsg
                ohp       => '<a href="' . $forgottenURL . '" target="_blank">',
                closehref => '</a>');
 
+}
+
+# Store the op in the journal
+sub _storeInJournal
+{
+    my ($self, $method, $path, $query, $res) = @_;
+
+    my $journalDir = EBox::RemoteServices::Configuration::JournalOpsDirPath();
+    my $time = join('', Time::HiRes::gettimeofday());
+    my $tmpFile = new File::Temp(TEMPLATE => "$time-XXXX", DIR => $journalDir,
+                                 UNLINK => 0);
+
+    my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
+    my $action = { 'method' => $method,
+                   'path'   => $path,
+                   'query'  => $query,
+                   'res_code' => $res->code(),
+                   'res_content' => $res->decoded_content() };
+    print $tmpFile $encoder->encode($action);
 }
 
 1;

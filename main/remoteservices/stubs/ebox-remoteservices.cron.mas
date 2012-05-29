@@ -19,3 +19,5 @@ PATH=/usr/bin:/bin
 55 4 * * * root /usr/share/zentyal-remoteservices/subs-level > /dev/null 2>&1
 # Perform the security audit once a week
 <% $mins[2] %> <% $hours[2] %> * * 6 root /usr/share/zentyal-remoteservices/password-checker.pl > /dev/null 2>&1
+# Run unattended operations every X minutes
+*/5 * * * * root /usr/share/zentyal-remoteservices/run-pending-ops > /dev/null 2>&1

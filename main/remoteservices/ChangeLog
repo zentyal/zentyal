@@ -1,4 +1,5 @@
 HEAD
+	+ Added journaling for REST requests
 	+ Adapted Events to send additional info
 	+ RESTClient sends the query request in application/json when the
 	  data to send is an array
