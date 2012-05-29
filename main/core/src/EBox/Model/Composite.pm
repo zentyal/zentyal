@@ -1131,6 +1131,11 @@ sub HTMLTitle
            ];
 }
 
+
+# Method: clone
+#
+#  This works as the EBox::DataTable::clone method it does the operation in all
+#  composite's component
 sub clone
 {
     my ($self, $srcDir, $dstDir) = @_;

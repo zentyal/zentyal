@@ -4904,6 +4904,23 @@ sub parentRow
     return $row;
 }
 
+
+# Method: clone
+#
+#    clone the contents on one DataTable into another. Due to
+#    the impossibilit of having two instances with different directories
+#    the databases are reffered as directories. This must called on a DataTable
+#    instance of the same class as the source and the destination.
+#
+#
+# Parameters:
+#
+#       srcDir - conf directory of the datatable to be clone.
+#       dstDir - conf directory of the datatable to receive the clone
+#
+# Returns:
+#      nothing
+
 sub clone
 {
     my ($self, $srcDir, $dstDir) = @_;

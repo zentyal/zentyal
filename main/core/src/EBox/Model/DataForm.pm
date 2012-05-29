@@ -982,6 +982,11 @@ sub _defaultRow
   }
 
 
+# Method: clone
+#
+# Overrides: EBox::Model::DataTable::clone
+#
+# Adaptation of the overriden method to DataForm class
 sub clone
 {
     my ($self, $srcDir, $dstDir) = @_;

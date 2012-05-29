@@ -712,6 +712,9 @@ sub restoreFiles
 
 }
 
+# Method: cloneSubModelsFrom
+#
+#  Auxiliary method for EBox::Model::DataTable to help it to clone the submodels
 sub cloneSubModelsFrom
 {
     my ($self, $otherRow) = @_;
