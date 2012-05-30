@@ -18,7 +18,7 @@
 #   This class is used to manage traffic shaping rule models in a
 #   single element using a dynamic view
 #
-package EBox::TrafficShaping::Composite::DynamicGeneral;
+package EBox::TrafficShaping::Composite::Rules;
 
 use base 'EBox::Model::Composite';
 
@@ -41,13 +41,11 @@ use EBox::Global;
 #
 sub new
 {
-
       my ($class) = @_;
 
       my $self = $class->SUPER::new();
 
       return $self;
-
 }
 
 # Method: precondition
@@ -98,7 +96,6 @@ sub preconditionFailMsg
                    openhref => '<a href="/Network/View/GatewayTable">',
                    closehref => '</a>')
     }
-
 }
 
 # Group: Protected methods
@@ -111,26 +108,21 @@ sub preconditionFailMsg
 #
 sub _description
 {
-
-    my $printableName = __('Rules list per interface');
-    my $description =
-      {
+    my $printableName = __('Traffic Shaping');
+    my $description = {
        components      => [
-                           '/trafficshaping/tsTable/*',
+                           'InternalRules',
+                           'ExternalRules',
                           ],
-       layout          => 'select',
-       name            => 'DynamicGeneral',
+       layout          => 'top-bottom',
+       name            => 'Rules',
        printableName   => $printableName,
        pageTitle       => $printableName,
        compositeDomain => 'TrafficShaping',
-       help            => __('Select an interface to add traffic shaping rules. Keep in mind that if you are ' .
-                             'shaping an internal interface, you are doing ingress shaping.'),
-       selectMessage   => __('Choose an interface to shape'),
-      };
+       help            => __('Here you can add the traffic shaping rules for your internal and external interfaces'),
+    };
 
     return $description;
-
 }
 
 1;
-

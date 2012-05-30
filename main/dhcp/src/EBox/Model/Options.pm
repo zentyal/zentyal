@@ -57,11 +57,6 @@ use Net::IP;
 #
 #     <EBox::Model::DataForm::new>
 #
-# Parameters:
-#
-#     interface - String the interface where the DHCP server is
-#     attached
-#
 # Returns:
 #
 #     <EBox::DHCP::Model::Options>
@@ -72,52 +67,15 @@ use Net::IP;
 #     argument is missing
 #
 sub new
-  {
-
-      my $class = shift;
-      my %opts = @_;
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
-
-      throw EBox::Exceptions::MissingArgument('interface')
-        unless defined ( $opts{interface} );
-
-      $self->{interface} = $opts{interface};
-      $self->{netMod} = EBox::Global->modInstance('network');
-
-      return $self;
-
-  }
-
-# Method: index
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::index>
-#
-sub index
 {
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless ( $self, $class);
 
-    my ($self) = @_;
+    $self->{netMod} = EBox::Global->modInstance('network');
 
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
+    return $self;
 }
 
 # Method: validateTypedRow
@@ -130,29 +88,31 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    my $interface = $self->_interface();
+
     # Validate default gateway
     if ( exists $changedFields->{default_gateway} ) {
         # Check the given gateway is in the current network
         my $networkCIDR =
           EBox::NetWrappers::to_network_with_mask(
-                                                  $self->{netMod}->ifaceNetwork($self->{interface}),
-                                                  $self->{netMod}->ifaceNetmask($self->{interface}),
+                                                  $self->{netMod}->ifaceNetwork($interface),
+                                                  $self->{netMod}->ifaceNetmask($interface),
                                                  );
         my $networkIP = new Net::IP($networkCIDR);
         my $defaultGwType = $changedFields->{default_gateway};
         my $selectedTypeName = $defaultGwType->selectedType();
         my ($defaultGwIP, $gwName);
-        if ( $selectedTypeName eq 'ip' ) {
+        if ($selectedTypeName eq 'ip') {
             $defaultGwIP = new Net::IP($defaultGwType->value());
             $gwName = $defaultGwIP->print();
-        } elsif ( $selectedTypeName eq 'name' ) {
+        } elsif ($selectedTypeName eq 'name') {
             my $gwModel = $defaultGwType->foreignModel();
             my $row = $gwModel->row( $defaultGwType->value() );
             $defaultGwIP = new Net::IP($row->{plainValueHash}->{ip});
             $gwName = $defaultGwType->printableValue();
         }
-        if ( defined ( $defaultGwIP )) {
-            unless ( $defaultGwIP->overlaps($networkIP) == $IP_A_IN_B_OVERLAP ) {
+        if (defined ($defaultGwIP)) {
+            unless ($defaultGwIP->overlaps($networkIP) == $IP_A_IN_B_OVERLAP ) {
                 throw EBox::Exceptions::External(__x('{gateway} is not in the '
                                                     . 'current network',
                                                     gateway => $gwName));
@@ -160,11 +120,11 @@ sub validateTypedRow
         }
     }
     # Validate primary Nameserver
-    if ( exists $changedFields->{primary_ns} ) {
+    if (exists $changedFields->{primary_ns}) {
         # Check if chosen is DNS to check if it's enabled
-        if ( $changedFields->{primary_ns}->selectedType() eq 'eboxDNS' ) {
+        if ($changedFields->{primary_ns}->selectedType() eq 'eboxDNS') {
             my $dns = EBox::Global->modInstance('dns');
-            unless ( $dns->isEnabled() ) {
+            unless ($dns->isEnabled()) {
                 throw EBox::Exceptions::External(__('DNS module must be enabled to be able to select Zentyal as primary DNS server'));
             }
         }
@@ -204,8 +164,7 @@ sub validateTypedRow
 #
 sub defaultGateway
 {
-
-    my ( $self ) = @_;
+    my ($self) = @_;
 
     my $row = $self->row();
 
@@ -220,9 +179,8 @@ sub defaultGateway
     } elsif ( $selectedTypeName eq 'none' ) {
         return '';
     } elsif ( $selectedTypeName eq 'ebox' ) {
-        return $self->{netMod}->ifaceAddress($self->{interface});
+        return $self->{netMod}->ifaceAddress($self->_interface());
     }
-
 }
 
 # Method: gatewayName
@@ -291,7 +249,7 @@ sub nameserver
         if ( $selectedType eq 'none' ) {
             return undef;
         } elsif ( $selectedType eq 'eboxDNS' ) {
-            my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+            my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
             return $ifaceAddr;
         } else {
             return $row->elementByName('primary_ns')->subtype()->printableValue();
@@ -299,7 +257,6 @@ sub nameserver
     } else {
             return $row->printableValueByName('secondary_ns');
     }
-
 }
 
 # Method: ntpServer
@@ -318,15 +275,14 @@ sub ntpServer
 
     my $selectedType = $row->elementByName('ntp_server')->selectedType();
 
-    if ( $selectedType eq 'none' ) {
+    if ($selectedType eq 'none') {
         return undef;
-    } elsif ( $selectedType eq 'eboxNTP' ) {
-        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+    } elsif ($selectedType eq 'eboxNTP') {
+        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
         return $ifaceAddr;
-    } elsif ( $selectedType eq 'custom_ntp' ) {
+    } elsif ($selectedType eq 'custom_ntp') {
         return $row->valueByName('custom_ntp');
     }
-
 }
 
 # Method: winsServer
@@ -345,26 +301,14 @@ sub winsServer
 
     my $selectedType = $row->elementByName('wins_server')->selectedType();
 
-    if ( $selectedType eq 'none' ) {
+    if ($selectedType eq 'none') {
         return undef;
-    } elsif ( $selectedType eq 'eboxWINS' ) {
-        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+    } elsif ($selectedType eq 'eboxWINS') {
+        my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
         return $ifaceAddr;
-    } elsif ( $selectedType eq 'custom_wins' ) {
+    } elsif ($selectedType eq 'custom_wins') {
         return $row->valueByName('custom_wins');
     }
-
-}
-
-# Method: headTitle
-#
-# Overrides:
-#
-#   <EBox::Model::Component::headTitle>
-#
-sub headTitle
-{
-    return undef;
 }
 
 # Group: Protected methods
@@ -564,33 +508,57 @@ sub _fetchIfaceAddress
 {
     my ($self) = @_;
 
-    my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+    my $ifaceAddr = $self->{netMod}->ifaceAddress($self->_interface());
     ($ifaceAddr) or return undef;
     return $ifaceAddr;
-
 }
 
 # Fetch primary nameserver from Network module
 sub _fetchPrimaryNS
 {
-
     my ($self) = @_;
 
     my $nsOne = $self->{netMod}->nameserverOne();
     ($nsOne) or return undef;
     return $nsOne;
-
 }
 
 # Fetch secondary nameserver from Network module
 sub _fetchSecondaryNS
 {
-
     my ($self) = @_;
 
     my $nsTwo = $self->{netMod}->nameserverTwo();
     ($nsTwo) or return undef;
     return $nsTwo;
+}
+
+sub _interface
+{
+    my ($self) = @_;
+
+    return $self->parentRow()->valueByName('iface');
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    # XXX workaround for the bug of parentComposite with viewCustomizer
+    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
+    $self->setParentComposite($composite);
+
+    $customizer->setModel($self);
+
+    $customizer->setHTMLTitle([]);
+
+    return $customizer;
 }
 
 1;

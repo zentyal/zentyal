@@ -44,11 +44,6 @@ use EBox::Types::Text;
 #
 #     <EBox::Model::DataForm::new>
 #
-# Parameters:
-#
-#     interface - String the interface where the DHCP server is
-#     attached
-#
 # Returns:
 #
 #     <EBox::DHCP::Model::Options>
@@ -59,69 +54,13 @@ use EBox::Types::Text;
 #     argument is missing
 #
 sub new
-  {
-      my $class = shift;
-      my %opts = @_;
-      my $self = $class->SUPER::new(@_);
-      bless ( $self, $class);
-
-      throw EBox::Exceptions::MissingArgument('interface')
-        unless defined ( $opts{interface} );
-      $self->{interface} = $opts{interface};
-
-      return $self;
-
-  }
-
-sub domain
 {
-    return 'ebox-dhcp';
-}
+    my $class = shift;
+    my %opts = @_;
+    my $self = $class->SUPER::new(@_);
+    bless ( $self, $class);
 
-# Method: index
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::index>
-#
-sub index
-{
-
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
-}
-
-# Method: formSubmitted
-#
-#       When the form is submitted, the model must set up the jabber
-#       dispatcher client service and sets the output rule in the
-#       firewall
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-{
-
+    return $self;
 }
 
 # Group: Protected methods
@@ -173,29 +112,48 @@ sub _table
 #
 sub _content
 {
-
     my ($self) = @_;
 
     my $dhcp = $self->{confmodule};
     my $net  = EBox::Global->modInstance('network');
 
-    my $ifaceAddr = $net->ifaceAddress($self->{interface});
+    my $interface = $self->parentRow()->valueByName('iface');
+    my $ifaceAddr = $net->ifaceAddress($interface);
 
     my $subnet = EBox::NetWrappers::to_network_with_mask(
-                            $net->ifaceNetwork($self->{interface}),
-                            $net->ifaceNetmask($self->{interface})
+                            $net->ifaceNetwork($interface),
+                            $net->ifaceNetmask($interface)
                                                         );
 
-    my $availableRange = $dhcp->initRange($self->{interface}) . ' - '
-      . $dhcp->endRange($self->{interface});
+    my $availableRange = $dhcp->initRange($interface) . ' - '
+      . $dhcp->endRange($interface);
 
-    return
-      {
+    return {
        iface_address   => $ifaceAddr,
        subnet          => $subnet,
        available_range => $availableRange,
-      };
+    };
+}
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    # XXX workaround for the bug of parentComposite with viewCustomizer
+    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
+    $self->setParentComposite($composite);
+
+    $customizer->setModel($self);
+
+    $customizer->setHTMLTitle([]);
+
+    return $customizer;
 }
 
 1;

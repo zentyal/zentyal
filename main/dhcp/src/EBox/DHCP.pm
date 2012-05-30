@@ -43,20 +43,6 @@ use EBox::DHCPLogHelper;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 
-# Models & Composites
-use EBox::Common::Model::EnableForm;
-use EBox::DHCP::Composite::AdvancedOptions;
-use EBox::DHCP::Composite::InterfaceConfiguration;
-use EBox::DHCP::Composite::General;
-use EBox::DHCP::Composite::Interfaces;
-use EBox::DHCP::Composite::OptionsTab;
-use EBox::DHCP::Model::DynamicDNS;
-use EBox::DHCP::Model::FixedAddressTable;
-use EBox::DHCP::Model::LeaseTimes;
-use EBox::DHCP::Model::Options;
-use EBox::DHCP::Model::RangeInfo;
-use EBox::DHCP::Model::RangeTable;
-use EBox::DHCP::Model::ThinClientOptions;
 use Net::IP;
 use Error qw(:try);
 use Perl6::Junction qw(any);
@@ -247,7 +233,7 @@ sub _setConf
 sub menu
 {
         my ($self, $root) = @_;
-        $root->add(new EBox::Menu::Item('url' => 'DHCP/Composite/General',
+        $root->add(new EBox::Menu::Item('url' => 'DHCP/View/Interfaces',
                                         'text' => $self->printableName(),
                                         'separator' => 'Infrastructure',
                                         'order' => 410));
@@ -275,68 +261,24 @@ sub depends
 
 }
 
-# Method: modelInstances
+# Method: modelClasses
 #
 # Overrides:
 #
-#     <EBox::Model::ModelProvider::modelInstances>
+#     <EBox::Model::ModelProvider::modelClasses>
 #
-sub modelInstances
+sub modelClasses
 {
     my ($self) = @_;
 
-    my @models;
-    my $net = EBox::Global->modInstance('network');
-    foreach my $iface (@{$net->allIfaces()}) {
-        if ( $net->ifaceMethod($iface) eq 'static' ) {
-            # Create models
-            $self->{rangeModel}->{$iface} =
-              new EBox::DHCP::Model::RangeTable(
-                                                confmodule => $self,
-                                                directory   => "RangeTable/$iface",
-                                                interface   => $iface
-                                               );
-            push ( @models, $self->{rangeModel}->{$iface} );
-            $self->{fixedAddrModel}->{$iface} =
-              new EBox::DHCP::Model::FixedAddressTable(
-                                                       confmodule => $self,
-                                                       directory   => "FixedAddressTable/$iface",
-                                                       interface   => $iface);
-            push ( @models, $self->{fixedAddrModel}->{$iface} );
-            $self->{optionsModel}->{$iface} =
-              new EBox::DHCP::Model::Options(
-                                             confmodule => $self,
-                                             directory   => "Options/$iface",
-                                             interface   => $iface);
-            push ( @models, $self->{optionsModel}->{$iface} );
-            $self->{leaseTimesModel}->{$iface} =
-              new EBox::DHCP::Model::LeaseTimes(
-                                                confmodule => $self,
-                                                directory   => "LeaseTimes/$iface",
-                                                interface   => $iface);
-            push ( @models, $self->{leaseTimesModel}->{$iface} );
-            $self->{thinClientModel}->{$iface} =
-              new EBox::DHCP::Model::ThinClientOptions(
-                                                       confmodule => $self,
-                                                       directory   => "ThinClientOptions/$iface",
-                                                       interface   => $iface);
-            push ( @models, $self->{thinClientModel}->{$iface} );
-            $self->{dynamicDNSModel}->{$iface} =
-              new EBox::DHCP::Model::DynamicDNS(
-                                                confmodule => $self,
-                                                directory   => "DynamicDNS/$iface",
-                                                interface   => $iface);
-            push ( @models, $self->{dynamicDNSModel}->{$iface} );
-            $self->{rangeInfoModel}->{$iface} =
-              new EBox::DHCP::Model::RangeInfo(
-                                               confmodule => $self,
-                                               directory   => "RangeInfo/$iface",
-                                               interface   => $iface);
-            push ( @models, $self->{rangeInfoModel}->{$iface});
-        }
-    }
-
-    return \@models;
+    return [ 'EBox::DHCP::Model::Interfaces',
+             'EBox::DHCP::Model::RangeTable',
+             'EBox::DHCP::Model::FixedAddressTable',
+             'EBox::DHCP::Model::Options',
+             'EBox::DHCP::Model::LeaseTimes',
+             'EBox::DHCP::Model::ThinClientOptions',
+             'EBox::DHCP::Model::DynamicDNS',
+             'EBox::DHCP::Model::RangeInfo' ];
 }
 
 # Method: _exposedMethods
@@ -398,35 +340,20 @@ sub _exposedMethods
 #  $dhcp->setFixedAddress('eth0', 'object-name', description => 'new desc');
 #  $dhcp->addFixedAddress('eth0', object => 'objName', description => 'new desc');
 
-# Method: composites
+# Method: compositeClasses
 #
 # Overrides:
 #
-#     <EBox::Model::CompositeProvider::composites>
+#     <EBox::Model::CompositeProvider::compositeClasses>
 #
-sub composites
+sub compositeClasses
 {
     my ($self) = @_;
 
-    my @composites;
-    my $net = EBox::Global->modInstance('network');
-    foreach my $iface (@{$net->allIfaces()}) {
-        if ( $net->ifaceMethod($iface) eq 'static' ) {
-            # Create models
-            push ( @composites,
-                   new EBox::DHCP::Composite::InterfaceConfiguration(interface => $iface));
-            push ( @composites,
-                   new EBox::DHCP::Composite::OptionsTab(interface => $iface));
-            push ( @composites,
-                   new EBox::DHCP::Composite::AdvancedOptions(interface => $iface));
-        }
-    }
-    push ( @composites,
-           new EBox::DHCP::Composite::Interfaces());
-    push ( @composites,
-           new EBox::DHCP::Composite::General());
-
-    return \@composites;
+    return [ 'EBox::DHCP::Composite::InterfaceConfiguration',
+             'EBox::DHCP::Composite::OptionsTab',
+             'EBox::DHCP::Composite::AdvancedOptions',
+             'EBox::DHCP::Composite::General' ];
 }
 
 # Method: initRange

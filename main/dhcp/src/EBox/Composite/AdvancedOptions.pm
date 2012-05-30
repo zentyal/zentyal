@@ -36,14 +36,6 @@ use EBox::Global;
 #
 #         Constructor for the advanced options composite
 #
-#
-# Parameters:
-#
-#       interface - String the interface attached to do the
-#       configuration on the DHCP server
-#
-#       - Named parameters
-#
 # Returns:
 #
 #       <EBox::DHCP::Composite::AdvancedOptions> - an options tab
@@ -51,58 +43,12 @@ use EBox::Global;
 #
 sub new
 {
+    my ($class, @params) = @_;
 
-   my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
 
-   my $self = $class->SUPER::new(@params);
-
-   return $self;
-
+    return $self;
 }
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::index>
-#
-sub index
-{
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::printableIndex>
-#
-sub printableIndex
-{
-    my ($self) = @_;
-
-    return __x('interface {iface}',
-               iface => $self->{interface});
-
-}
-
-# Method: pageTitle
-#
-#   Overrides:
-#
-#       <EBox::Model::Composite::headTitle>
-#
-# Returns:
-#
-#
-#   undef
-sub pageTitle
-  {
-    return undef;
-  }
 
 # Group: Protected methods
 
@@ -114,26 +60,18 @@ sub pageTitle
 #
 sub _description
 {
-
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
-    my $dhcp = $gl->modInstance('dhcp');
-
-    my $description =
-      {
-       components      => [
-                           '/' . $dhcp->name() . '/LeaseTimes/' . $self->{interface},
-                           '/' . $dhcp->name() . '/ThinClientOptions/' . $self->{interface},
-                          ],
+    my $description = {
+       components      => [ 'LeaseTimes',
+                            'ThinClientOptions', ],
        layout          => 'top-bottom',
        name            => 'AdvancedOptions',
        compositeDomain => 'DHCP',
        printableName   => __('Advanced options'),
-      };
+    };
 
     return $description;
-
 }
 
 1;

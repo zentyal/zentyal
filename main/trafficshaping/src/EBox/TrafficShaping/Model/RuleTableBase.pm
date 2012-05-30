@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::TrafficShaping::Model::RuleTable
+# Class: EBox::TrafficShaping::Model::RuleTableBase
 #
 #   This class describes a model which contains rule to do traffic
 #   shaping on a given interface. It serves as a model template which
@@ -22,12 +22,11 @@
 #   <EBox::TrafficShaping> module itself.
 #
 
-package EBox::TrafficShaping::Model::RuleTable;
+package EBox::TrafficShaping::Model::RuleTableBase;
 
 use strict;
 use warnings;
 
-# Its parent is the EBox::Model::DataTable
 use base 'EBox::Model::DataTable';
 
 use integer;
@@ -99,8 +98,7 @@ sub new
 #
 sub priority
 {
-
-    my  @options;
+    my @options;
 
     foreach my $i (qw(0 1 2 3 4 5 6 7)) {
         push (@options, {
@@ -146,40 +144,6 @@ sub notifyForeignModelAction
     }
     return $userNotes;
 }
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::index>
-#
-sub index
-{
-    my ($self) = @_;
-
-    return $self->{interface};
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-    my ($self) = @_;
-
-    my $netMod = EBox::Global->modInstance('network');
-    if ( $self->{interfaceType} eq 'internal' ) {
-        return __x('{iface} (internal interface)',
-                iface => $netMod->etherIface($self->{interface}));
-    } else {
-        return __x('{iface} (external interface)',
-                iface => $netMod->etherIface($self->{interface}));
-    }
-}
-
 
 # Method: validateTypedRow
 #
@@ -262,77 +226,7 @@ sub validateTypedRow
             ruleId         => $params->{id}, # undef on addition
             enabled        => $params->{enabled},
             );
-
 }
-
-
-# Method: addedRowNotify
-#
-#	Call whenever a row is added. We should add the rule
-#       to the interface in dynamic structure
-#
-# Arguments:
-#
-#       row - hash ref with all the fields rows and their values
-#
-#
-sub addedRowNotify
-  {
-
-#    my ($self, $row_ref) = @_;
-#
-#    my $guaranteedRate = $row_ref->{valueHash}->{'guaranteed_rate'}->value();
-#    my $limitedRate = $row_ref->{valueHash}->{'limited_rate'}->value();
-##    my $enabled        = $row_ref->{valueHash}->{enabled}->value();
-#
-#    # Get priority from order
-#    my $priority = $row_ref->{priority};
-#
-#    # Now addRule doesn't need any argument since it's already done by model
-#
-#    $self->{ts}->addRule(
-#			 interface      => $self->{interface},
-#			 guaranteedRate => $guaranteedRate,
-#			 limitedRate    => $limitedRate,
-#			 enabled        => 'enabled',
-#			);
-#
-  }
-
-# Method: deletedRowNotify
-#
-#        See <EBox::Model::DataTable::deletedRowNotify>
-#
-sub deletedRowNotify
-  {
-
-#    my ($self, $row_ref, $force) = @_;
-#
-#    unless ( $force ) {
-#        $self->{ts}->removeRule(
-#                                interface      => $self->{interface},
-#                               );
-#    }
-
-  }
-
-# Method: updatedRowNotify
-#
-#        See <EBox::Model::DataTable::updatedRowNotify>
-#
-sub updatedRowNotify
-  {
-
-    my ($self, $row_ref, $force) = @_;
-
-#    unless ( $force ) {
-#        my $ruleId = $row_ref->{id};
-#        $self->{ts}->updateRule( interface      => $self->{interface},
-#                                 ruleId         => $ruleId,
-#                               );
-#    }
-
-  }
 
 # Method: committedLimitRate
 #
@@ -348,7 +242,6 @@ sub committedLimitRate
     my ($self) = @_;
 
     return $self->_stateRate();
-
 }
 
 # Group: Protected methods
@@ -359,15 +252,16 @@ sub committedLimitRate
 #
 # Returns:
 #
-# 	hash ref - table's description
+#	hash ref - table's description
 #
 sub _table
 {
-
     my ($self) = @_;
 
     my @tableHead =
         (
+         # FIXME: add interface select
+
          new EBox::Types::Union(
             fieldName   => 'service',
             printableName => __('Service'),
@@ -477,9 +371,8 @@ sub _table
       );
 
     my $dataTable = {
-        'tableName'          => 'tsTable',
-        'printableTableName' => __x('Rules list for {printableIndex}',
-                                    printableIndex => $self->printableIndex()),
+        'tableName'          => $self->{tableName},
+        'printableTableName' => $self->{printableTableName},
         'defaultActions'     =>
             [ 'add', 'del', 'editField', 'changeView', 'move' ],
         'modelDomain'        => 'TrafficShaping',
@@ -541,7 +434,6 @@ sub _l7Group
 # Remove every rule from the model since no limit rate are possible
 sub _removeRules
 {
-
     my ($self) = @_;
 
     my $removedRows = 0;
@@ -562,7 +454,6 @@ sub _removeRules
 # Normalize the current rates (guaranteed and limited)
 sub _normalize
 {
-
     my ($self, $oldLimitRate, $currentLimitRate) = @_;
 
     my ($limitNum, $guaranNum, $removeNum) = (0, 0, 0);
@@ -598,7 +489,7 @@ sub _normalize
         }
     }
 
-    if ( $limitNum > 0 or $guaranNum > 0 ){
+    if ($limitNum > 0 or $guaranNum > 0) {
         return __x( 'Normalizing rates: {limitNum} rules have decreased its ' .
             'limit rate to {limitRate}, {guaranNum} rules have normalized ' .
             'its guaranteed rate to maintain ' .
@@ -608,7 +499,6 @@ sub _normalize
             limitNum => $limitNum, limitRate => $currentLimitRate,
             guaranNum => $guaranNum, removeNum => $removeNum);
     }
-
 }
 
 ######################
@@ -638,7 +528,6 @@ sub _stateRate
     my ($self) = @_;
 
     return $self->{confmodule}->st_get_int($self->{directory} . LIMIT_RATE_KEY);
-
 }
 
 # Set the rate into GConf state in order to work when interface rate changes
@@ -649,7 +538,6 @@ sub _setStateRate
 
     $self->{confmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
             $rate);
-
 }
 
 sub _serviceHelp
@@ -658,8 +546,6 @@ sub _serviceHelp
               'while Application based protocols are slower but more ' .
               'effective as they check the content of any ' .
               'packet to match a service.');
-
-
 }
 
 # If l7filter capabilities are not enabled return dummy types which
@@ -705,6 +591,5 @@ sub _l7Types
                     ));
     }
 }
-
 
 1;

@@ -40,10 +40,6 @@ use base 'EBox::Model::DataTable';
 #
 #       Constructor for Rule table
 #
-# Parameters:
-#
-#       interface   - the interface where the table is attached to
-#
 # Returns :
 #
 #      A recently created <EBox::DHCP::Model::RangeTable> object
@@ -56,40 +52,7 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
 
-    $self->{interface} = $opts{interface};
-
     return $self;
-}
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::index>
-#
-sub index
-{
-
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
 }
 
 # Method: validateTypedRow
@@ -197,6 +160,13 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     $customizer->setPermanentMessage(_message());
+
+    # XXX workaround for the bug of parentComposite with viewCustomizer
+    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
+    $self->setParentComposite($composite);
+
+    $customizer->setHTMLTitle([]);
+
     return $customizer;
 }
 

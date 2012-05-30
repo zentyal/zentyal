@@ -35,8 +35,7 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::NetworkObserver);
+use base qw(EBox::Module::Service EBox::NetworkObserver);
 
 ######################################
 # Dependencies:
@@ -59,10 +58,6 @@ use EBox::Iptables;
 # Concrete builders
 use EBox::TrafficShaping::TreeBuilder::Default;
 use EBox::TrafficShaping::TreeBuilder::HTB;
-
-# Rule model
-use EBox::TrafficShaping::Model::RuleTable;
-use EBox::TrafficShaping::Model::InterfaceRate;
 
 # Dependencies
 use Error qw(:try);
@@ -91,7 +86,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name   => 'trafficshaping',
                       printableName => __n('Traffic Shaping'),
-				      @_);
+                      @_);
 
     $self->{network} = EBox::Global->modInstance('network');
     $self->{objects} = EBox::Global->modInstance('objects');
@@ -120,21 +115,21 @@ sub startUp
 
 # Method: actions
 #
-# 	Override EBox::Module::Service::actions
+#   Override EBox::Module::Service::actions
 #
 sub actions
 {
     return [
-	{
+    {
             'action' => __('Add iptables rules to mangle table'),
             'reason' => __('To mark packets with different priorities and rates'),
             'module' => 'trafficshaping'
-	},
+    },
         {
             'action' => __('Add tc rules'),
             'reason' => __('To implement the traffic shaping rules'),
             'module' => 'trafficshaping'
-	}
+    }
        ];
 }
 
@@ -256,52 +251,28 @@ sub _resetInterfacesChains
     }
 }
 
-# FIXME: this is currently not supported
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub modelInstances
+sub compositeClasses
 {
     my ($self) = @_;
 
-    my $netMod = $self->{'network'};
-
-    my @currentModels = ($self->interfaceRateModel());
-    my @extIfaces = @{$netMod->ExternalIfaces()};
-    my @intIfaces = @{$netMod->InternalIfaces()};
-
-    my @availableIfaces = ();
-
-    foreach my $iface (@extIfaces) {
-        if ( $self->uploadRate($iface) > 0) {
-            push (@availableIfaces, $iface);
-        }
-    }
-
-    push( @availableIfaces, @intIfaces);
-
-    foreach my $iface ( @availableIfaces ) {
-        push ( @currentModels, $self->ruleModel($netMod->realIface($iface)));
-    }
-
-    return \@currentModels;
+    return [ 'EBox::TrafficShaping::Composite::Rules' ];
 }
 
-# FIXME: this is broken now
-# Method: reloadModelsOnChange
+# Method: modelClasses
 #
 # Overrides:
 #
-#     <EBox::Model::ModelProvider::reloadModelsOnChange>
+#       <EBox::Model::ModelProvider::modelClasses>
 #
-sub reloadModelsOnChange
+sub modelClasses
 {
+    my ($self) = @_;
 
-    return [ 'InterfaceRate' ];
-
+    return [
+            'EBox::TrafficShaping::Model::InternalRules',
+            'EBox::TrafficShaping::Model::ExternalRules',
+            'EBox::TrafficShaping::Model::InterfaceRate',
+           ];
 }
 
 # Method: _exposedMethods
@@ -323,7 +294,7 @@ sub _exposedMethods
       enableRule => { action     => 'set',
                       path       => [ 'tsTable' ],
                       selector   => [ 'enabled' ],
-		     },
+             },
       isEnabledRule => { action   => 'get',
                          path     => [ 'tsTable' ],
                          selector => [ 'enabled' ],
@@ -338,20 +309,6 @@ sub _exposedMethods
     );
 
   return \%exposedMethods;
-
-}
-
-# FIXME: this is broken now
-# Method: reloadCompositesOnChange
-#
-# Overrides:
-#
-#     <EBox::Model::CompositeProvider::reloadCompositesOnChange>
-#
-sub reloadCompositesOnChange
-{
-
-    return [ 'InterfaceRate' ];
 
 }
 
@@ -413,8 +370,8 @@ sub _stopService
 # Method: summary
 #
 sub summary
-  {
-  }
+{
+}
 
 # Method: menu
 #
@@ -426,14 +383,13 @@ sub summary
 #
 sub menu # (root)
 {
-
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
                                         'text' => $self->printableName(),
                                         'separator' => 'Gateway',
                                         'order' => 220);
-    $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
+    $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/Rules',
                                       'text' => __('Rules')));
     $folder->add(new EBox::Menu::Item('url'  => 'TrafficShaping/View/InterfaceRate',
                                       'text' => __('Interface Rates')));
@@ -506,8 +462,7 @@ sub confDir
 #       or the rule cannot be built
 #
 sub checkRule
-  {
-
+{
     my ($self, %ruleParams) = @_;
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
@@ -520,13 +475,15 @@ sub checkRule
     $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
 
     # Check rule availability
-    my @ruleModels = grep {$_->name() eq 'tsTable' } @{$self->models()};
-    my $nRules     = List::Util::sum(map { scalar(@{$_->ids()}) } @ruleModels);
-    if ( $nRules >= MAX_RULE_NUM and (not defined ($ruleParams{ruleId}))) {
+    #my @ruleModels = grep {$_->name() eq 'tsTable' } @{$self->models()};
+    #my $nRules = List::Util::sum(map { scalar(@{$_->ids()}) } @ruleModels);
+    # FIXME reimplement this properly
+    my $nRules = 0;
+    if ($nRules >= MAX_RULE_NUM and (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(
             __x('The maximum rule account {max} is reached, ' .
-		'please delete at least one in order to to add a new one',
-		max => MAX_RULE_NUM));
+        'please delete at least one in order to to add a new one',
+        max => MAX_RULE_NUM));
     }
 
     unless ( defined ( $ruleParams{priority} )) {
@@ -538,11 +495,10 @@ sub checkRule
     # access in memory is done
     $self->_createBuilders(regenConfig => 0);
 
-    if ( defined( $ruleParams{ruleId} )) {
+    if (defined ($ruleParams{ruleId})) {
       # Try to update the rule
       $self->_updateRule( $ruleParams{interface}, $ruleParams{ruleId}, \%ruleParams, 'test' );
-    }
-    else {
+    } else {
       # Try to build the rule
       $self->_buildRule( $ruleParams{interface}, \%ruleParams, 'test');
     }
@@ -551,8 +507,7 @@ sub checkRule
     # TrafficShapingModel
 
     return 1;
-
-  }
+}
 
 # Method: listRules
 #
@@ -584,6 +539,7 @@ sub listRules
 {
     my ($self, $iface) = @_;
 
+    # FIXME
     my $ruleModel = $self->ruleModel($iface);
 
     my @rules = ();
@@ -604,8 +560,7 @@ sub listRules
     }
 
     return \@rules;
-
-  }
+}
 
 # Method: getLowestPriority
 #
@@ -622,8 +577,7 @@ sub listRules
 #       Integer - the lowest priority (the highest number)
 #
 sub getLowestPriority # (interface, search?)
-  {
-
+{
     my ($self, $iface, $search) = @_;
 
     if ( $search or
@@ -632,9 +586,9 @@ sub getLowestPriority # (interface, search?)
     }
 
     return $self->{lowestPriority};
+}
 
-  }
-
+# FIXME: reimplement this
 # Method: ruleModel
 #
 #       Return the model associated to the rules table
@@ -656,26 +610,24 @@ sub getLowestPriority # (interface, search?)
 #      <EBox::Exceptions::MissingArgument> - throw if parameter is not
 #      passed
 #
-
-sub ruleModel # (iface)
+sub ruleModel
 {
-
     my ($self, $iface) = @_;
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
-      unless defined( $iface );
+        unless defined( $iface );
 
     if ( not defined ($self->{ruleModels}->{$iface})) {
         try {
             $self->_checkInterface($iface);
             # Create the rule model if it's not already created
             $self->{ruleModels}->{$iface}
-              = new EBox::TrafficShaping::Model::RuleTable(
-                                                           'confmodule' => $self,
-                                                           'directory'   => "$iface/user_rules",
-                                                           'tablename'   => 'rule',
-                                                           'interface'   => $iface,
-                                                          );
+            = new EBox::TrafficShaping::Model::RuleTable(
+                    'confmodule' => $self,
+                    'directory'   => "$iface/user_rules",
+                    'tablename'   => 'rule',
+                    'interface'   => $iface,
+                    );
         } catch EBox::Exceptions::External with {
             # If the interface cannot be shaped, then return undef
             ;
@@ -683,7 +635,6 @@ sub ruleModel # (iface)
     }
 
     return $self->{ruleModels}->{$iface};
-
 }
 
 # Method:   interfaceRateModel
@@ -698,14 +649,7 @@ sub interfaceRateModel
 {
     my ($self) = @_;
 
-    if ( not defined ($self->{rateModel})) {
-        $self->{rateModel}
-            = new EBox::TrafficShaping::Model::InterfaceRate(
-                confmodule => $self,
-                directory   => 'InterfaceRate',
-                tablename   => 'InterfaceRate',
-        );
-    };
+    $self->{rateModel} = $self->model('InterfaceRate');
 
     return $self->{rateModel};
 }
@@ -727,7 +671,6 @@ sub interfaceRateModel
 #
 sub ShaperChain
 {
-
     my ($class, $iface, $where) = @_;
 
     $where = 'egress' unless defined ( $where );
@@ -737,7 +680,6 @@ sub ShaperChain
     } elsif ( $where eq 'ingress' ) {
         return 'EBOX-SHAPER-IN-' . $iface;
     }
-
 }
 
 # Method: MaxIdValue
@@ -771,39 +713,21 @@ sub MaxIdValue
 #     false - otherwise
 #
 sub ifaceMethodChanged
-  {
-
-      my ($self, $iface, $oldMethod, $newMethod) = @_;
-
-      my @others = qw(notset trunk);
-      if ( grep { $_ eq $oldMethod } @others
-           and (grep { $_ ne $newMethod } @others )) {
-          return 1 unless ( $self->{network}->ifaceIsExternal($iface));
-      } elsif ( grep { $_ eq $newMethod } @others
-                and (grep { $_ ne $oldMethod } @others )) {
-          return 1;
-      } elsif ( $newMethod eq 'dhcp'
-               and $oldMethod eq 'static' ) {
-          return 1 if ( $self->{network}->ifaceIsExternal($iface));
-      }
-      return 0;
-
-  }
-
-# Method: ifaceMethodChangeDone
-#
-# Implements:
-#
-#     <EBox::NetworkObserver::ifaceMethodChangeDone>
-#
-sub ifaceMethodChangeDone
 {
-    my ($self) = @_;
-    my $manager = EBox::Model::Manager->instance();
-    # Mark manager as changed and force a resetup of the
-    # models by asking for InterfaceRate
-    $manager->markAsChanged();
-    $manager->model('trafficshaping/InterfaceRate');
+    my ($self, $iface, $oldMethod, $newMethod) = @_;
+
+    my @others = qw(notset trunk);
+    if ( grep { $_ eq $oldMethod } @others
+            and (grep { $_ ne $newMethod } @others )) {
+        return 1 unless ( $self->{network}->ifaceIsExternal($iface));
+    } elsif ( grep { $_ eq $newMethod } @others
+            and (grep { $_ ne $oldMethod } @others )) {
+        return 1;
+    } elsif ( $newMethod eq 'dhcp'
+            and $oldMethod eq 'static' ) {
+        return 1 if ( $self->{network}->ifaceIsExternal($iface));
+    }
+    return 0;
 }
 
 
@@ -941,7 +865,6 @@ sub totalDownloadRate
 #
 sub enoughInterfaces
 {
-
     my ($self) = @_;
 
     my $netMod = $self->{network};
@@ -949,8 +872,7 @@ sub enoughInterfaces
     my @extIfaces = @{$netMod->ExternalIfaces()};
     my @intIfaces = @{$netMod->InternalIfaces()};
 
-    return ( @extIfaces > 0 ) && (@intIfaces > 0);
-
+    return (@extIfaces > 0) && (@intIfaces > 0);
 }
 
 ###################################
@@ -965,19 +887,19 @@ sub enoughInterfaces
 # If priority is given, it just checks with the currently lowest
 # priority
 sub _setNewLowestPriority # (iface, priority?)
-  {
-
+{
     my ($self, $iface, $priority) = @_;
 
-    if ( defined( $priority ) ){
-      # Check only with the currently lowest priority
-      if ( $priority > $self->getLowestPriority($iface) ){
-	$self->_setLowestPriority($iface, $priority);
-      }
+    if (defined ($priority)) {
+        # Check only with the currently lowest priority
+        if ($priority > $self->getLowestPriority($iface)) {
+            $self->_setLowestPriority($iface, $priority);
+        }
     }
     else {
-      # Check all priority entries from within given interface
-      my $ruleDir = $self->_ruleDirectory($iface);
+        # FIXME: is this low-levelness really needed?
+        # Check all priority entries from within given interface
+        my $ruleDir = $self->_ruleDirectory($iface);
 
       # FIXME: reimplement this
 #      my $dirs_ref = $self->array_from_dir($ruleDir);
@@ -991,8 +913,7 @@ sub _setNewLowestPriority # (iface, priority?)
       # Set lowest
       $self->_setLowestPriority($iface, $lowest);
     }
-
-  }
+}
 
 # Method: _setLowestPriority
 #
@@ -1004,56 +925,13 @@ sub _setNewLowestPriority # (iface, priority?)
 #       priority  - the lowest priority
 #
 sub _setLowestPriority # (interface, priority)
-  {
-
+{
     my ($self, $iface, $priority) = @_;
 
     $self->{lowestPriority} = $priority;
 #    $self->set_int("$iface/user_rules/lowest_priority", $priority);
 
     return;
-
-  }
-
-###
-# Rule model helper methods
-###
-
-# set every external interface to have a model
-sub _createRuleModels
-  {
-
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'};
-
-    my $ifaces_ref = $self->_realIfaces();
-    foreach my $iface (@{$ifaces_ref}) {
-      $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
-				    'confmodule' => $self,
-				    'directory'   => "$iface/user_rules",
-				    'tablename'   => 'rule',
-				    'interface'   => $iface,
-										);
-    }
-
-  }
-
-# Delete those models which are not used
-sub _deleteIface # (usedIfaces)
-{
-    my ($self, $iface) = @_;
-
-    my $rateModel = $self->interfaceRateModel();
-    my $row = $rateModel->findRow(interface => $iface);
-    $rateModel->removeRow($row->id(), 1) if ($row);
-
-    my $model = $self->{ruleModels}->{$iface};
-    if ( defined ( $model )) {
-        $model->removeAll(1);
-        $self->{ruleModels}->{$iface} = undef;
-    }
 }
 
 ###
@@ -1064,8 +942,7 @@ sub _deleteIface # (usedIfaces)
 # Throw External exception if not enough gateways to the external interface
 # Throw DataNotFound if the interface doesn't exist
 sub _checkInterface # (iface)
-  {
-
+{
     my ($self, $iface) = @_;
 
     my $global = EBox::Global->getInstance();
@@ -1084,13 +961,12 @@ sub _checkInterface # (iface)
     if ($network->ifaceMethod($iface) eq 'notset') {
         throw EBox::Exceptions::External("Iface not configured $iface");
     }
-
-  }
+}
 
 # Check if there are rules are active within a given interface
 # Returns true if any, false otherwise
 sub _areRulesActive # (iface, countDisabled)
-  {
+{
     my ($self, $iface, $countDisabled) = @_;
 
     $countDisabled = 0 unless (defined($countDisabled));
@@ -1107,31 +983,7 @@ sub _areRulesActive # (iface, countDisabled)
     } else {
         return 0;
     }
-
-  }
-
-###
-# GConf related functions
-###
-
-# Given an interface and optionally a rule returns the directory
-# within GConf
-sub _ruleDirectory # (iface, ruleId?)
-  {
-
-    my ($self, $iface, $ruleId) = @_;
-
-    my $dir = $self->ruleModel($iface)->directory() . '/keys';
-
-
-    if ( defined ($ruleId) ) {
-      return "$dir/$ruleId";
-    }
-    else {
-      return $dir;
-    }
-
-  }
+}
 
 # Underlying stuff (Come to the mud)
 
@@ -1156,8 +1008,7 @@ sub _ruleDirectory # (iface, ruleId?)
 #      every external interface
 #
 sub _createTree # (interface, type)
-  {
-
+{
     my ($self, $iface, $type) = @_;
 
     # Check arguments
@@ -1189,23 +1040,21 @@ sub _createTree # (interface, type)
       $linkRate = $model->committedLimitRate();
 
       if ( not defined($linkRate) or $linkRate == 0) {
-	throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
-					     "bandwidth rate in order to do traffic shaping",
-					     iface => $iface));
+    throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
+                         "bandwidth rate in order to do traffic shaping",
+                         iface => $iface));
       }
       $self->{builders}->{$iface}->buildRoot(DEFAULT_CLASS_ID, $linkRate);
     }
     elsif ( $type eq "HFSC" ) {
       ;
     }
-
-  }
+}
 
 # Build the tree from conf variables stored.
 # It assumes rules are correct
 sub _buildGConfRules # (iface, regenConfig)
 {
-
     my ($self, $iface, $regenConfig) = @_;
 
     my $model = $self->ruleModel($iface);
@@ -1292,8 +1141,7 @@ sub _createBuilders
 # Build a new rule to the tree
 # If not rules has been set or they're not enabled no added is made
 sub _buildRule # ($iface, $rule_ref, $test)
-  {
-
+{
     my ( $self, $iface, $rule_ref, $test ) = @_;
 
     if ( $self->{builders}->{$iface}->isa('EBox::TrafficShaping::TreeBuilder::Default') ) {
@@ -1303,15 +1151,13 @@ sub _buildRule # ($iface, $rule_ref, $test)
 
     # Actually build the rule in the builder or just test if it's possible
     $self->_buildANewRule($iface, $rule_ref, $test);
-
-  }
+}
 
 # Finally, adds from GConf rules to tree builder
 # Throws Internal exception if not normal builder
 # is asked to build the rule
 sub _buildANewRule # ($iface, $rule_ref, $test?)
 {
-
     my ($self, $iface, $rule_ref, $test) = @_;
 
     my $htbBuilder = $self->{builders}->{$iface};
@@ -1342,12 +1188,12 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
         # The same related to destination
         my $dst = undef;
         my $dstObj = undef;
-        if ( ( defined ( $rule_ref->{destination} ) and
+        if ((defined ( $rule_ref->{destination} ) and
                $rule_ref->{destination} ne '' ) and
-             ( $rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
+             ($rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
             $dst = $rule_ref->{destination};
             $dstObj = undef;
-        } elsif ( not defined ( $rule_ref->{destination} )
+        } elsif (not defined ( $rule_ref->{destination})
                   or ($rule_ref->{destination}->isa('EBox::Types::Union::Text'))) {
             $dst = undef;
             $dstObj = undef;
@@ -1411,7 +1257,6 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                                      );
             }
         }
-
     } else {
         throw EBox::Exceptions::Internal('Tree builder which is not HTB ' .
                                          'which actually builds the rules');
@@ -1439,8 +1284,8 @@ sub _buildObjMembers
     my $where = $args{where};
     my $rulePriority = $args{rulePriority};
 
-    unless ( $objectName ) {
-      return;
+    unless ($objectName) {
+        return;
     }
 
     # Get the object's addresses
@@ -1491,7 +1336,6 @@ sub _buildObjMembers
         #      }
         # Just adding one could be a solution to have different filter identifiers
     }
-
 }
 
 # Build a n x m rules among each member of the both object with each other
@@ -1544,24 +1388,22 @@ sub _buildObjToObj
 
 # Update a rule from the builder taking arguments from GConf
 sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
-  {
-
+{
     my ($self, $iface, $ruleId, $ruleParams_ref, $test) = @_;
 
     my $minorNumber = $self->_mapRuleToClassId($ruleId);
     # Update the rule stating the same leaf class id (If test not do)
     $self->{builders}->{$iface}->updateRule(
-					    identifier     => $minorNumber,
-					    service        => $ruleParams_ref->{service},
-					    source         => $ruleParams_ref->{source},
-					    destination    => $ruleParams_ref->{destination},
-					    guaranteedRate => $ruleParams_ref->{guaranteedRate},
-					    limitedRate    => $ruleParams_ref->{limitedRate},
-					    priority       => $ruleParams_ref->{priority},
-					    testing        => $test,
-					   );
-
-  }
+                        identifier     => $minorNumber,
+                        service        => $ruleParams_ref->{service},
+                        source         => $ruleParams_ref->{source},
+                        destination    => $ruleParams_ref->{destination},
+                        guaranteedRate => $ruleParams_ref->{guaranteedRate},
+                        limitedRate    => $ruleParams_ref->{limitedRate},
+                        priority       => $ruleParams_ref->{priority},
+                        testing        => $test,
+                       );
+}
 
 
 ###
@@ -1573,63 +1415,36 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 # Returns a Int among MIN_ID_VALUE and MAX_ID_VALUE
 sub _nextMap # (ruleId?, test?)
 {
-
     my ($self, $ruleId, $test) = @_;
 
-    if ( not defined ( $self->{nextIdentifier} ) ) {
+    if (not defined ($self->{nextIdentifier})) {
         $self->{nextIdentifier} = MIN_ID_VALUE;
         $self->{classIdMap} = {};
     }
 
     my $retValue = $self->{nextIdentifier};
 
-    if ( defined ( $ruleId ) and not $test ) {
+    if (defined ($ruleId) and not $test) {
         # We store at a hash the ruleId vs. class id
         $self->{classIdMap}->{$ruleId} = $retValue;
     }
 
-    if ( $self->{nextIdentifier} < MAX_ID_VALUE and
-           (not $test)) {
+    if ($self->{nextIdentifier} < MAX_ID_VALUE and (not $test)) {
         # Sums step value -> 0x100
         $self->{nextIdentifier} += STEP_ID_VALUE;
     }
 
     return $retValue;
-
 }
 
 # Returns the class id mapped at a rule identifier
 # Undef if no map has been created
 sub _mapRuleToClassId # (ruleId)
-  {
-
+{
     my ($self, $ruleId) = @_;
 
-    if ( defined ( $self->{classIdMap} )) {
+    if (defined ( $self->{classIdMap})) {
       return $self->{classIdMap}->{$ruleId};
-    }
-    else {
-      return undef;
-    }
-
-  }
-
-###
-# Network observer helper functions
-###
-
-# Remove remainder models if there are no enough interfaces
-sub _removeIfNotEnoughRemainderModels
-{
-
-    my ($self, $iface) = @_;
-
-    my $nExt = @{$self->{network}->ExternalIfaces()};
-    my $nInt = @{$self->{network}->InternalIfaces()};
-
-    if ( $self->{network}->ifaceIsExternal($iface) ) {
-        $nExt--;
-        $nInt++;
     } else {
         $nInt--;
         $nExt++;
@@ -1645,7 +1460,6 @@ sub _removeIfNotEnoughRemainderModels
             }
         }
     }
-
 }
 
 ###################################
@@ -1683,7 +1497,6 @@ sub _deletePostroutingChain # (iface)
 
 sub _createPostroutingChain # (iface)
 {
-
     my ($self) = @_;
 
     my @cmds;
@@ -1695,8 +1508,6 @@ sub _createPostroutingChain # (iface)
     push (@cmds, "$iptablesCmd -t mangle -I FORWARD -j EBOX-L7SHAPER");
     EBox::Sudo::silentRoot(@cmds);
 }
-
-
 
 sub _resetChain # (iface)
 {
@@ -1727,7 +1538,6 @@ sub _executeIptablesCmds # (iptablesCmds_ref)
     EBox::Sudo::root(@cmds);
 }
 
-
 # Fetch configured interfaces in this module
 sub _configuredInterfaces
 {
@@ -1737,13 +1547,14 @@ sub _configuredInterfaces
     return [];
 
     my @ifaces;
-    for my $iface (@{ $self->all_dirs_base('')}) {
+    # FIXME: is this low-levelness necessary?
+    for my $iface (@{$self->all_dirs_base('')}) {
         push (@ifaces, $iface) if ($iface ne 'InterfaceRate');
     }
     return \@ifaces;
 }
 
-# For all those ppp ifaces fetch its  ethernet iface
+# For all those ppp ifaces fetch its ethernet iface
 sub _realIfaces
 {
     my ($self) = @_;
@@ -1770,25 +1581,6 @@ sub l7FilterEnabled
 {
     return 0 unless (EBox::Global->getInstance()->modExists('l7-protocols'));
 }
-
-# Method: modelsBackupFiles
-#
-#   Override <EBox::Model::ModelProvider::modelsBackupFiles>
-#   to avoid nasty issues with InterfaceRate and recursive loops
-sub modelsBackupFiles
-{
-
-}
-
-# Method: modelsRestoreFiles
-#
-#   Override <EBox::Model::ModelProvider::modelsRestoreFiles>
-#   to avoid nasty issues with InterfaceRate and recursive loops
-sub modelsRestoreFiles
-{
-
-}
-
 
 # Method: ifaceUniqueId
 #

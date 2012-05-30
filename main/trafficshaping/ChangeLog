@@ -1,4 +1,6 @@
 HEAD
+	+ Separate rules in internal (download) and external (upload)
+	+ Use regular models instead of a dynamic select composite
 	+ Adapted to new Model management framework
 	+ Reimplemented FIXME
 	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
