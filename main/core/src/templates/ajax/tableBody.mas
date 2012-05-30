@@ -208,7 +208,8 @@ $pageSize or
 
 <& SELF:tableHead, tableHead => \@tableHead,
                    actions   => ((defined $withoutActions) ? not  $withoutActions: 1),
-                   model => $model
+                   model => $model,
+                   page  => $page,
  &>
 
     <tbody>
@@ -482,6 +483,7 @@ Parameteres:
 @tableHead
 $actions
 $model
+$page
 </%args>
 <%init>
 my %checkAll;
@@ -506,6 +508,7 @@ if ($checkAllProperty) {
           <& SELF:checkAllControl,
               fieldName => $fieldName,
               model     => $model,
+              page      => $page,
           &>
 %      }
       </th>
@@ -525,7 +528,7 @@ if ($checkAllProperty) {
 <%args>
 $fieldName
 $model
-$page => 1
+$page
 </%args>
 <%init>
 my $tableName = $model->name();
