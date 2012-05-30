@@ -41,6 +41,7 @@ use EBox::UsersAndGroups::Group;
 use EBox::UsersAndGroups::OU;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
+use EBox::CloudSync::Slave;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -402,8 +403,8 @@ sub enableActions
     $self->SUPER::enableActions();
 
     # Configure SOAP to listen for new slaves
-    $self->master->confSOAPService();
-    $self->master->setupMaster();
+    $self->masterConf->confSOAPService();
+    $self->masterConf->setupMaster();
 
     # mark apache as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
@@ -506,10 +507,10 @@ sub _setConf
 
 
     # Configure as slave if enabled
-    $self->master->setupSlave() unless ($noSlaveSetup);
+    $self->masterConf->setupSlave() unless ($noSlaveSetup);
 
     # Configure soap service
-    $self->master->confSOAPService();
+    $self->masterConf->confSOAPService();
 
     # Get the FQDN
     my $realm = $self->kerberosRealm();
@@ -1051,6 +1052,7 @@ sub notifyModsLdapUserBase
 
     # Notify slaves
     foreach my $slave (@{$self->allSlaves}) {
+        my $name = $slave->name();
         $slave->sync($signal, $args);
     }
 }
@@ -1345,21 +1347,42 @@ sub slaves
         push (@slaves, new EBox::UsersSync::Slave($host, $port, $id));
     }
 
+    my $g = EBox::Global->getInstance(1);
+    my $u = $g->modInstance('users');
+    if ($u->master() eq 'cloud') {
+        push (@slaves, new EBox::CloudSync::Slave());
+    }
+
     return \@slaves;
 }
+
+
+# Method: master
+#
+#   Return configured master as string, undef in none
+#
+#   Options: 'zentyal', 'cloud' or None
+#
+sub master
+{
+    my ($self) = @_;
+    my $row = $self->model('Master')->row();
+    return $row->elementByName('master')->value();
+}
+
 
 # SyncProvider implementation
 sub allowUserChanges
 {
     my ($self) = @_;
 
-    return (not $self->master->isSlave());
+    return (not $self->masterConf->isSlave());
 }
 
 
 
 # Master-Slave UsersSync object
-sub master
+sub masterConf
 {
     my ($self) = @_;
 

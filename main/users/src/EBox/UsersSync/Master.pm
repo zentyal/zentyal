@@ -201,7 +201,7 @@ sub setupSlave
     my $users = EBox::Global->modInstance('users');
     my $master = $users->model('Master');
 
-    if ($master->enabledValue()) {
+    if ($users->master() eq 'zentyal') {
         # return if already configured
         return if ($self->isSlave());
 
