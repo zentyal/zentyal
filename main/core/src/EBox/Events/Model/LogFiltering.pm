@@ -90,7 +90,7 @@ sub index
 
     my ($self) = @_;
 
-    return $self->{tableInfo}->{index};
+    return $self->{tableInfo}->{tablename};
 
 }
 
@@ -174,16 +174,15 @@ sub _table
     my $dataTable = {
              'tableName'          => 'LogWatcherFiltering',
              'printableTableName' => __x('Filters to apply to notify logs from '
-                         . '{logDomain}',
-                         logDomain => $self->{tableInfo}->{name}),
-                     'defaultActions'     =>
-                           [ 'add', 'del', 'editField', 'changeView' ],
-                     'modelDomain'        => 'Events',
+                                         . '{logDomain}',
+                                         logDomain => $self->{tableInfo}->{name}),
+             'defaultActions'     => [ 'add', 'del', 'editField', 'changeView' ],
+             'modelDomain'        => 'Events',
              'tableDescription'   => \@tableDesc,
              'class'              => 'dataTable',
              'help'               => __('Every filter added is cumulative.'
-                           . 'Then every log line which matches '
-                           . 'with any filter given will be notified'),
+                                        . 'Then every log line which matches '
+                                        . 'with any filter given will be notified'),
              'rowUnique'          => 1,  # Set each row is unique
              'printableRowName'   => __('filter'),
             };
