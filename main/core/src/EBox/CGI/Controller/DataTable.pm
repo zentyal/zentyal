@@ -295,6 +295,15 @@ sub setAllChecks
 
 }
 
+sub checkAllControlValue
+{
+    my ($self) = @_;
+    my $model = $self->{'tableModel'};
+    my $field = $self->param('field');
+    my $value = $model->checkAllControlValue($field) ? 1 : 0;
+    $self->{json} = { success => $value  };
+}
+
 # prints a HTML response to enable the 'Save changes' web element
 # don't p[ritn any other HTML if you use this
 sub _responseToEnableChangesMenuElement
@@ -422,6 +431,8 @@ sub _process
     } elsif ($action eq 'checkboxUnsetAll') {
         $self->setAllChecks(0);
         $self->refreshTable();
+    } elsif ($action eq 'checkAllControlValue') {
+        $self->checkAllControlValue();
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }

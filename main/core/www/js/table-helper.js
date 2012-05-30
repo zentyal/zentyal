@@ -1141,6 +1141,30 @@ function removeSelectChoice(id, value, selectedIndex)
 
 }
 
+function checkAllControlValue(url, table, directory, controlId, field)
+{
+    var pars = 'action=checkAllControlValue&tablename=' + table + '&directory=' + directory;
+    pars += '&controlId=' + controlId  + '&field=' + field;
+    pars +=  '&json=1';
+
+    AjaxParams =  {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+              completedAjaxRequest();
+              var json = t.responseText.evalJSON(true);
+              $(controlId).checked = json.success;
+            }
+    };
+
+    MyAjax = new Ajax.Request(
+      url,
+      AjaxParams
+    );
+}
+
+
 // Detect session loss on ajax request:
 Ajax.Responders.register({
  onComplete: function(x,response) {

@@ -27,7 +27,11 @@ my $onChange = qq{sendInPlaceBooleanValue("$controller",
                                          );
                  };
 if ($checkAllId) {
-    $onChange .= qq(if (this.checked) {} else { \$("$checkAllId").checked= false;  }   )
+    $onChange .= qq|if (this.checked) {
+                       checkAllControlValue("$controller", "$tableName", "$dir",
+                                            "$checkAllId", "$fieldName");
+                      } else { \$("$checkAllId").checked= false;  }
+                |;
 }
 
 </%init>
