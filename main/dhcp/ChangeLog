@@ -1,4 +1,6 @@
 HEAD
+	+ Remove old workarounds in viewCustomizers no longer necessary
+	  with foreign in yaml schema
 	+ Use a regular model instead of a select composite which is
 	  going to be deprecated
 	+ Adapted to new Model management framework

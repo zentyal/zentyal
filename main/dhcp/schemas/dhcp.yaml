@@ -7,5 +7,23 @@ depends:
 enabledepends:
     - network
 
+models:
+    - Interfaces
+    - DynamicDNS
+    - LeaseTimes
+    - RangeInfo
+    - FixedAddressTable
+    - Options
+    - RangeTable
+    - ThinClientOptions
+
+composites:
+    InterfaceConfiguration: [OptionsTab, RangeInfo, RangeTable, FixedAddressTable]
+    OptionsTab: [Options, DynamicDNS, AdvancedOptions]
+    AdvancedOptions: [LeaseTimes, ThinClientOptions]
+
+foreign:
+    Interfaces: [InterfaceConfiguration]
+
 notifyactions:
     ThinClientOptions: [FixedAddressTable, RangeTable]

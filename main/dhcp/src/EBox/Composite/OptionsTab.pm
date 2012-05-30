@@ -29,36 +29,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the options tab
-#
-#
-# Parameters:
-#
-#       interface - String the interface attached to do the
-#       configuration on the DHCP server
-#
-#       - Named parameters
-#
-# Returns:
-#
-#       <EBox::DHCP::Composite::OptionsTab> - an options tab
-#        composite
-#
-sub new
-{
-
-   my ($class, @params) = @_;
-
-   my $self = $class->SUPER::new(@params);
-
-   return $self;
-
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -69,23 +39,13 @@ sub new
 #
 sub _description
 {
-
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
-    my $dhcp = $gl->modInstance('dhcp');
-
-    my $description =
-      {
-       components      => [
-                           'dhcp/Options',
-                           'dhcp/DynamicDNS',
-                           'dhcp/AdvancedOptions',
-                          ],
-       layout          => 'tabbed',
-       name            => 'OptionsTab',
-       compositeDomain => 'DHCP',
-      };
+    my $description = {
+        layout          => 'tabbed',
+        name            => 'OptionsTab',
+        compositeDomain => 'DHCP',
+    };
 
     return $description;
 }

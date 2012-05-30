@@ -29,36 +29,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the interface configuration
-#
-#
-# Parameters:
-#
-#       interface - String the interface attached to do the
-#       configuration on the DHCP server
-#
-#       - Named parameters
-#
-# Returns:
-#
-#       <EBox::DHCP:::Model::InterfaceConfiguration> - a
-#       interface configuration composite
-#
-sub new
-{
-
-   my ($class, @params) = @_;
-
-   my $self = $class->SUPER::new(@params);
-
-   return $self;
-
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -72,12 +42,6 @@ sub _description
     my ($self) = @_;
 
     my $description = {
-       components      => [
-                           'dhcp/OptionsTab',
-                           'dhcp/RangeInfo',
-                           'dhcp/RangeTable',
-                           'dhcp/FixedAddressTable',
-                          ],
        layout          => 'top-bottom',
        name            => 'InterfaceConfiguration',
        printableName   => __('DHCP Configuration'),

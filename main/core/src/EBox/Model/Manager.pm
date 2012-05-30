@@ -706,4 +706,9 @@ sub _oneToOneDependencies
     return $self->{revModelDeps}->{$model};
 }
 
+# FIXME: Is this needed?
+sub markAsChanged
+{
+}
+
 1;

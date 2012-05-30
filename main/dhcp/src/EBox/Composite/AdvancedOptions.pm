@@ -32,22 +32,19 @@ use EBox::Global;
 
 # Group: Public methods
 
-# Constructor: new
+# Method: pageTitle
 #
-#         Constructor for the advanced options composite
+#   Overrides:
+#
+#       <EBox::Model::Composite::headTitle>
 #
 # Returns:
 #
-#       <EBox::DHCP::Composite::AdvancedOptions> - an options tab
-#        composite
+#   undef
 #
-sub new
+sub pageTitle
 {
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
+    return undef;
 }
 
 # Group: Protected methods
@@ -63,12 +60,10 @@ sub _description
     my ($self) = @_;
 
     my $description = {
-       components      => [ 'LeaseTimes',
-                            'ThinClientOptions', ],
-       layout          => 'top-bottom',
-       name            => 'AdvancedOptions',
-       compositeDomain => 'DHCP',
-       printableName   => __('Advanced options'),
+        layout          => 'top-bottom',
+        name            => 'AdvancedOptions',
+        compositeDomain => 'DHCP',
+        printableName   => __('Advanced options'),
     };
 
     return $description;

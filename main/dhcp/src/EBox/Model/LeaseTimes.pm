@@ -191,9 +191,6 @@ sub viewCustomizer
     my ($self) = @_;
 
     my $customizer = new EBox::View::Customizer();
-    # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
-    $self->setParentComposite($composite);
 
     $customizer->setModel($self);
 

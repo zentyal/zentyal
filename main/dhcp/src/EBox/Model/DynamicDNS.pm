@@ -194,10 +194,6 @@ sub viewCustomizer
         }
     }
 
-    # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{gconfmodule}->composite('InterfaceConfiguration');
-    $self->setParentComposite($composite);
-
     $customizer->setHTMLTitle([]);
 
     return $customizer;
