@@ -1,5 +1,6 @@
 <%args>
 $data
+$checkAllId => undef;
 </%args>
 <%init>
 my $checked = '';
@@ -15,18 +16,37 @@ my $disabled = '';
 if ($data->row()->readOnly() or (not $data->editable()) ) {
 	$disabled = 'disabled';
 }
+
+my $fieldName = $data->fieldName();
+my $onChange = qq{sendInPlaceBooleanValue("$controller",
+                                          "$tableName",
+                                           "$rowId",
+                                           "$dir",
+                                           "$fieldName",
+                                            this
+                                         );
+                 };
+if ($checkAllId) {
+    $onChange .= qq(if (this.checked) {} else { \$("$checkAllId").checked= false;  }   )
+}
+
 </%init>
-<input 
-	type='checkbox' <% $checked %> 
-	id='<% $id %>' 
-	onChange='sendInPlaceBooleanValue(
-		"<% $controller %>", 
-		"<% $tableName %>", 
-		"<% $rowId %>", 
-		"<% $dir %>", 
-		"<% $data->fieldName() %>",
-		this
-	)'
+<input
+	type='checkbox' <% $checked %>
+	id='<% $id %>'
+        onChange='<% $onChange %>'
 	<% $disabled %>
 />
 <div id='<% $id %>_loading'></div>
+
+<%doc>
+	onChange='(
+		"<% $controller %>",
+		"<% $tableName %>",
+		"<% $rowId %>",
+		"<% $dir %>",
+		"<% $data->fieldName() %>",
+		this
+	)'
+
+</%doc>
