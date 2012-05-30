@@ -83,9 +83,10 @@ Function: checkAll
 Parameters:
 
         id - identifier where all checkboxs should be checked
-        allElementName - name for the all check box 
+        allElementName - name for the all check box
 
 */
+/* disabled: not called in any place
 function checkAll(id, allElementName){
 
         var form = document.getElementById(id);
@@ -99,6 +100,7 @@ function checkAll(id, allElementName){
         }
     }
 }
+*/
 
 /*
  */

@@ -485,10 +485,16 @@ function changeView(url, table, directory, action, id, page, isFilter)
               }
               else if ( action == 'changeEdit' ) {
                 restoreHidden('actionsCell_' + id, table);
-              } else {
-                restoreHidden('creatingForm_' + table, table);
-              }
-            }
+              } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+                var selector = 'input[id^="' + table + '_' + id + '_"]';
+                var checkboxes = $$(selector);
+                checkboxes.each(function(e) {
+                                  restoreHidden(e.parentNode.identify(), table);
+                                });
+
+                restoreHidden(table + '_' + id + '_div_CheckAll', table);
+             }
+         }
 
         });
 
@@ -502,8 +508,14 @@ function changeView(url, table, directory, action, id, page, isFilter)
     }
     else if ( action == 'changeEdit' ) {
       setLoading('actionsCell_' + id, table, true);
-    } else {
-      setLoading('creatingForm_' + table, table, true);
+   } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+       var selector = 'input[id^="' + table + '_' + id + '_"]';
+       var checkboxes = $$(selector);
+       checkboxes.each(function(e) {
+                         setLoading(e.parentNode.identify(), table, true);
+                      });
+
+      setLoading(table + '_' + id + '_div_CheckAll', table, true);
     }
 
 }
@@ -845,14 +857,19 @@ Parameters:
 
 */
 var savedElements = {};
+
+
 function setLoading (elementId, modelName, isSaved)
 {
-  if ( isSaved ) {
-    savedElements[elementId] = $(elementId).innerHTML;
+  var element = $(elementId);
+  if (isSaved) {
+    savedElements[elementId] = element.innerHTML;
   }
 
-  $(elementId).innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
+  element.innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
 }
+
+
 
 /*
 Function: setDone
@@ -892,6 +909,16 @@ function restoreHidden (elementId, modelName)
         $(elementId).innerHTML = savedElements[elementId];
     } else {
         $(elementId).innerHTML = '';
+    }
+}
+
+function restoreHiddenElement (element)
+{
+  var elementId = element.id;
+  if (savedElements[elementId] != null) {
+        element.innerHTML = savedElements[elementId];
+    } else {
+        element.innerHTML = '';
     }
 }
 

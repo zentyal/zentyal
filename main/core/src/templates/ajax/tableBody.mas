@@ -231,13 +231,9 @@ $pageSize or
         $row = $model->row($ids[$idx]);
       }
 </%perl>
-      <tr class='border'
-          id="<%
-                $row->id()
-              %>">
+      <tr class='border' id="<% $row->id() %>">
 
-%      foreach my $td (@{$row->elements()})
-%      {
+%      foreach my $td (@{$row->elements()})      {
 %        next unless ($td->HTMLViewer());
         <td class='tcenter'>
           <&
@@ -533,7 +529,9 @@ $page => 1
 </%args>
 <%init>
 my $tableName = $model->name();
-my $name = $tableName . '_'. $fieldName . '_CheckAll';
+my $prefix =  $tableName . '_'. $fieldName;
+my $id= $prefix . '_CheckAll';
+my $divId = $prefix . '_div_CheckAll';
 
 my $checkAllJS=  $model->changeViewJS( changeType => "checkboxSetAll",
                       editId =>  $fieldName,
@@ -545,14 +543,17 @@ my $uncheckAllJS=  $model->changeViewJS( changeType => "checkboxUnsetAll",
                       isFilter => 0);
 my $onChangeJS =qq|if (this.checked) {$checkAllJS } else {$uncheckAllJS;} |;
 my @htmlAttrs = (onchange => $onChangeJS);
+push @htmlAttrs, (id => $id);
 if ( $model->checkAllControlValue($fieldName)) {
   push @htmlAttrs, ('checked' => 'checked');
 }
 
 </%init>
-<input  type='checkbox' name='<% $name %>'
+<div id=<% $divId %> >
+<input  type='checkbox'
  <& /htmlAttributes.mas, @htmlAttrs &>
 />
+</div>
 </%method>
 
 <%method tableActionLinks>
