@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed log purge, SQL call must be a statement not a query
+	+ Fixed regex syntax in user log queries
+	+ Added missing "use Filesys::Df" to SysInfo
 	+ Disabled consolidation by default until is fixed or reimplemented
 	+ Fixed regresion in full log page for events
 	+ Added clone action to data tables

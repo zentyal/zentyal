@@ -694,7 +694,7 @@ sub _sqlStmnt
 
     if ($sql->{'regexp'}) {
         foreach my $field (keys %{$sql->{'regexp'}}) {
-            $stmt .= "$and CAST($field as text) ~ ? ";
+            $stmt .= "$and CAST($field as CHAR CHARACTER SET utf8) LIKE ? ";
             $and = 'AND';
             push @params, $sql->{'regexp'}->{$field};
         }
@@ -966,7 +966,7 @@ sub _purgeTable
   }
 
   my $sqlStatement = "DELETE FROM $table WHERE $timeCol < '$finalThreshold'";
-  $dbengine->query($sqlStatement);
+  $dbengine->do($sqlStatement);
 }
 
 sub archiveBackupSlices
