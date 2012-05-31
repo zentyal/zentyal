@@ -85,8 +85,8 @@ sub _create
   {
     my $class = shift;
     my $self = $class->SUPER::_create(name   => 'trafficshaping',
-                      printableName => __n('Traffic Shaping'),
-                      @_);
+                                      printableName => __('Traffic Shaping'),
+                                      @_);
 
     $self->{network} = EBox::Global->modInstance('network');
     $self->{objects} = EBox::Global->modInstance('objects');
@@ -256,23 +256,6 @@ sub compositeClasses
     my ($self) = @_;
 
     return [ 'EBox::TrafficShaping::Composite::Rules' ];
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-            'EBox::TrafficShaping::Model::InternalRules',
-            'EBox::TrafficShaping::Model::ExternalRules',
-            'EBox::TrafficShaping::Model::InterfaceRate',
-           ];
 }
 
 # Method: _exposedMethods
@@ -1444,23 +1427,13 @@ sub _mapRuleToClassId # (ruleId)
     my ($self, $ruleId) = @_;
 
     if (defined ( $self->{classIdMap})) {
-      return $self->{classIdMap}->{$ruleId};
-    } else {
-        $nInt--;
-        $nExt++;
+        return $self->{classIdMap}->{$ruleId};
     }
-    if ( $nExt == 0 or $nInt == 0 ) {
-        my $manager = EBox::Model::Manager->instance();
-        foreach my $ifaceWithModel ( keys %{$self->{ruleModels}} ) {
-            my $model = $self->{ruleModels}->{$ifaceWithModel};
-            if ( defined ( $model )) {
-                $model->removeAll(1);
-                # FIXME: this has been deleted, reimplement in a different way
-                $manager->removeModel($model->contextName());
-            }
-        }
+    else {
+        return undef;
     }
 }
+
 
 ###################################
 # Iptables related functions

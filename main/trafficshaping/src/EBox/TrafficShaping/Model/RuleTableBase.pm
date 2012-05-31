@@ -65,7 +65,6 @@ use constant LIMIT_RATE_KEY => '/limitRate';
 #
 sub new
 {
-
     my $class = shift;
     my (%params) = @_;
 
@@ -100,12 +99,12 @@ sub priority
 {
     my @options;
 
-    foreach my $i (qw(0 1 2 3 4 5 6 7)) {
+    foreach my $i (0 .. 7) {
         push (@options, {
                 value => $i,
                 printableValue => $i
                 }
-             );
+        );
     }
 
     return \@options;
@@ -121,7 +120,6 @@ sub priority
 #
 sub notifyForeignModelAction
 {
-
     my ($self, $modelName, $action, $row) = @_;
 
     my $userNotes = '';
@@ -260,8 +258,13 @@ sub _table
 
     my @tableHead =
         (
-         # FIXME: add interface select
-
+         new EBox::Types::Select(
+                    fieldName => 'iface',
+                    printableName => __('Interface'),
+                    populate => \&_populateIfaces,
+                    editable => 1,
+                    help => __('Interface connected to this gateway')
+         ),
          new EBox::Types::Union(
             fieldName   => 'service',
             printableName => __('Service'),
@@ -280,7 +283,7 @@ sub _table
                ],
              editable => 1,
              help => _serviceHelp()
-             ),
+         ),
          new EBox::Types::Union(
              fieldName     => 'source',
              printableName => __('Source'),
@@ -407,13 +410,13 @@ sub _table
 # Get the object model from Objects module
 sub _objectModel
 {
-    return EBox::Global->modInstance('objects')->{objectModel};
+    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Get the object model from Service module
 sub _serviceModel
 {
-    return EBox::Global->modInstance('services')->{serviceModel};
+    return EBox::Global->modInstance('services')->model('ServiceTable');
 }
 
 # Get the object model from l7-protocol
@@ -590,6 +593,18 @@ sub _l7Types
                     cmpContext      => 'group',
                     ));
     }
+}
+
+sub _populateIfaces
+{
+    my $network = EBox::Global->modInstance('network');
+    my @ifaces = __PACKAGE__ =~ /InternalRules$/ ?
+                    @{$network->InternalIfaces()} :
+                    @{$network->ExternalIfaces()};
+
+    my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
+
+    return \@options;
 }
 
 1;

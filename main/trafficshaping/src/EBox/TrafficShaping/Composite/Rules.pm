@@ -30,24 +30,6 @@ use EBox::Global;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the general traffic shaping composite
-#
-# Returns:
-#
-#       <EBox::TrafficShaping::Model::DynamicGeneral> - a
-#       general traffic shaping composite
-#
-sub new
-{
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-}
-
 # Method: precondition
 #
 #    Check there are enough interfaces to shape the traffic in Zentyal
@@ -77,7 +59,7 @@ sub preconditionFailMsg
 {
     my $tsMod = EBox::Global->modInstance('trafficshaping');
     my $enough = $tsMod->enoughInterfaces();
-    if ( not $enough ) {
+    if (not $enough) {
         return __x('Traffic Shaping is applied when Zentyal is acting as '
                    . 'a gateway. To achieve this, you need at least an internal '
                    . 'and an external interface. Check your interface '
@@ -110,10 +92,6 @@ sub _description
 {
     my $printableName = __('Traffic Shaping');
     my $description = {
-       components      => [
-                           'InternalRules',
-                           'ExternalRules',
-                          ],
        layout          => 'top-bottom',
        name            => 'Rules',
        printableName   => $printableName,

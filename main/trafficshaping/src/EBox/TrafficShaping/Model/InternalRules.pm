@@ -29,6 +29,8 @@ use warnings;
 
 use base 'EBox::TrafficShaping::Model::RuleTableBase';
 
+use EBox::Gettext;
+
 # Constructor: new
 #
 #       Constructor for Traffic Shaping Table Model

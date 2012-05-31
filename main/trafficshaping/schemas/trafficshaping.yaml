@@ -9,8 +9,13 @@ enabledepends:
     - network
     - firewall
 
+models:
+    - InternalRules
+    - ExternalRules
+    - InterfaceRate
+
 composites:
-    DynamicGeneral: [FIXME]
+    Rules: [InternalRules, ExternalRules]
 
 notifyactions:
     RuleTable: InterfaceRate
