@@ -16,11 +16,12 @@
 use strict;
 use warnings;
 
-use Test::More tests => 16;
+use Test::More qw(no_plan);#tests => 16;
 use Test::Exception;
 use Test::MockObject;
 use Test::Differences;
 use File::Slurp qw(read_file);
+use Data::Dumper;
 
 use lib '../../..';
 use EBox::Report::RAID;
@@ -72,9 +73,9 @@ push @cases,  {
 			       state => 'spare',
 			     },
 
-			
+
 		    },
-		     
+
 		  },
 	       },
 
@@ -113,9 +114,9 @@ push @cases,  {
 			       state => 'spare',
 			     },
 
-			
+
 		    },
-		     
+
 		  },
 	       },
 
@@ -148,10 +149,9 @@ push @cases,  {
                                device => '/dev/sda1',
                                state  => 'up',
                              },
-                        
+
                     },
-                   'bitmap' => '0/187 pages [0KB], 512KB chunk'
-                     
+                   bitmap => '6/150 pages [24KB], 128KB chunk',
                   },
 
 
@@ -176,11 +176,12 @@ push @cases,  {
                                state => 'up',
 
                              },
-                        
+
                                    },
-                     
+                     bitmap => '0/153 pages [0KB], 32KB chunk',
+
                   },
-                  
+
                  '/dev/md3' => {
                      active => 1,
                      state  => 'active',
@@ -201,9 +202,10 @@ push @cases,  {
                                state => 'up',
 
                              },
-                        
+
                                    },
-                     
+                     bitmap => '0/175 pages [0KB], 2048KB chunk',
+
                   },
 
                  '/dev/md2' => {
@@ -226,9 +228,10 @@ push @cases,  {
                                state => 'up',
 
                              },
-                        
+
                                    },
-                     
+                     bitmap => '0/187 pages [0KB], 512KB chunk',
+
                   },
 
 
@@ -275,9 +278,9 @@ push @cases,  {
                                state => 'failure',
                              },
 
-                        
+
                     },
-                     
+
                   },
                },
 
@@ -316,9 +319,9 @@ push @cases,  {
                                state => 'failure',
                              },
 
-                        
+
                     },
-                     
+
                   },
                },
 
@@ -357,9 +360,9 @@ push @cases,  {
 			       state => 'spare',
 			     },
 
-			
+
 		    },
-		     
+
 		  },
 
 		 '/dev/md1' => {
@@ -421,9 +424,9 @@ push @cases,  {
 
 			     },
 
-			
+
 		    },
-		     
+
 		  },
 	       },
 
@@ -468,9 +471,9 @@ push @cases,  {
 			       device => '/dev/hdb1',
 			       state => 'spare',
 			     },
-			
+
 		    },
-		     
+
 		  },
 	       },
 
@@ -478,8 +481,55 @@ push @cases,  {
 };
 
 
+# RAID5, spare device
+push @cases,  {
+               mdstatFile => './testdata/raid5-spare-mdstat.txt',
+               expectedRaidInfo => {
+                 unusedDevices => [],
+
+                 '/dev/md0' => {
+                     active => 1,
+                     state  => 'active',
+                     type   => 'raid5',
+                     algorithm => 2,
+
+                     activeDevices       => 3,
+                     activeDevicesNeeded => 3,
+                     blocks              => 1949615104,
+                     chunkSize           => '512k',
+
+                     operation => 'none',
+
+                    raidDevices => {
+                        2 => {
+                               device => '/dev/sdc2',
+                               state  => 'up',
+                             },
+                        1 => {
+                               device => '/dev/sdb2',
+                               state => 'up',
+                             },
+                        3 => {
+                               device => '/dev/sdd2',
+                               state => 'spare',
+                             },
+                        0 => {
+                               device => '/dev/sda2',
+                               state => 'up',
+                             },
+
+                    },
+
+                  },
+               },
+
+
+};
+
+
+
 foreach my $case (@cases) {
-  setFakeMdInfo( 
+  setFakeMdInfo(
 		$case->{mdstatFile},
 
 	       );
@@ -494,9 +544,10 @@ foreach my $case (@cases) {
     $actualInfo      = EBox::Report::RAID::info();
   } 'getting RAID and MD devices information';
 
-#    use Data::Dumper;
-#   diag "about tou dump\n";
-#    diag Dumper $actualInfo;
+  if ($case->{dump}) {
+      diag "about to dump\n";
+      diag Dumper $actualInfo;
+  }
 
  SKIP: {
   skip  'Error getting RAID information' unless defined $actualInfo;
