@@ -268,6 +268,9 @@ sub _component
 
         my $class = $global->_className($moduleName) . '::' . ucfirst($kind) . "::$name";
         eval "use $class";
+        if ($@) {
+            throw EBox::Exceptions::Internal("Error loading $class: $@");
+        }
 
         my $parent = undef;
         my $parentName = $self->{parentByComponent}->{$moduleName}->{$name};
