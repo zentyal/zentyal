@@ -15,7 +15,10 @@
 
 package EBox::RemoteServices::Desktop::Subscription;
 
-use EBox::RemoteServices::RESTClient;
+use strict;
+use warnings;
+
+use EBox::RemoteServices::Cred;
 
 # Method: subscribe
 #
@@ -29,8 +32,8 @@ use EBox::RemoteServices::RESTClient;
 #
 sub subscribe
 {
-    my $rest = new EBox::RemoteServices::RESTClient();
-    my $ret = $rest->POST('/v1/desktops/')->data();
+    my $cred = new EBox::RemoteServices::Cred();
+    my $ret = $cred->RESTClient()->POST('/v1/desktops/')->data();
     return {
         'uuid'      => $ret->{'uuid'},
         'password'  => $ret->{'secret'},
