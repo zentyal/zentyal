@@ -152,6 +152,7 @@ sub _setConf
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setDesktopServicesPort();
     $self->enableRestartOnTrigger();
 }
 
@@ -290,6 +291,44 @@ sub _reportAdminPort
 sub _httpdConfFile
 {
     return '/var/lib/zentyal/conf/apache2.conf';
+}
+
+sub _setDesktopServicesPort()
+{
+    my $desktop_services_port = (EBox::Config::configkey('desktop_services_port') or 6895);
+    checkPort($desktop_services_port, __("Desktop services port"));
+
+    my $fw = EBox::Global->modInstance('firewall');
+    if (defined($fw)) {
+        $fw->addInternalService(
+            'name'              => 'dasktop_services',
+            'printableName'     => 'Desktop Services',
+            'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+            'protocol'          => 'tcp',
+            'sourcePort'        => 'any',
+            'destinationPort'   => $desktop_services_port,
+            );
+        $fw->saveConfigRecursive();
+    }
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        $self->_setDesktopServicesPort();
+    }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 sub port
