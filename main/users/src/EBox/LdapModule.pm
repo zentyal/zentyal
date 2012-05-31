@@ -149,6 +149,11 @@ sub _loadACLDirectory
     );
     my $result = $ldap->search(%args);
     my $entry = ($result->entries)[0];
+    if ($result->count()== 0) {
+        throw EBox::Exceptions::Internal("LDAP object not found: $dn")
+    }
+
+
     my $attr = ($entry->attributes)[0];
     my $found = undef;
     my @rules = $entry->get_value($attr);
