@@ -1,4 +1,5 @@
 HEAD
+	+ Disabled consolidation by default until is fixed or reimplemented
 	+ Fixed regresion in full log page for events
 	+ Added clone action to data tables
 	+ Fixed regression in modal popup when showing element table
