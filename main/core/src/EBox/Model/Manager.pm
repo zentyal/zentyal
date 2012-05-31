@@ -543,6 +543,49 @@ sub warnOnChangeOnId
     }
 }
 
+# Method: addModel
+#
+#       Adds an already instanced model to the manager.
+#
+# Parameters:
+#
+#       model - instance of the model
+#
+sub addModel
+{
+    my ($self, $model) = @_;
+
+    my $module = $model->parentModule();
+    my $moduleName = $module->name();
+    my $modelName = $model->modelName();
+    unless (exists $self->{models}->{$moduleName}->{$modelName}) {
+        $self->{models}->{$moduleName}->{$modelName} = { instance => { rw => undef, ro => undef }, parent => undef };
+    }
+    if ($module->isReadOnly()) {
+        $self->{models}->{$moduleName}->{$modelName}->{instance}->{ro} = $model;
+    } else {
+        $self->{models}->{$moduleName}->{$modelName}->{instance}->{rw} = $model;
+    }
+    $self->{modByModel}->{$modelName}->{$moduleName} = 1;
+}
+
+# Method: removeModel
+#
+#       Remove a model from the manager
+#
+# Parameters:
+#
+#       module - name of the module
+#       model  - name of the model
+#
+sub removeModel
+{
+    my ($self, $module, $model) = @_;
+
+    delete $self->{models}->{$module}->{$model};
+    delete $self->{modByModel}->{$model}->{$module};
+}
+
 # Group: Private methods
 
 sub _setupInfo

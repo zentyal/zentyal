@@ -63,51 +63,18 @@ use EBox::Types::Text;
 #
 sub new
 {
+    my ($class, %params) = @_;
 
-  my ($class, %params) = @_;
+    if (not defined ($params{tableInfo})) {
+        throw EBox::Exceptions::MissingArgument('tableInfo', silent => 1);
+    }
 
-  if ( not defined ($params{tableInfo})) {
-    throw EBox::Exceptions::MissingArgument('tableInfo', silent => 1);
-  }
+    my $self = $class->SUPER::new(%params);
 
-  my $self = $class->SUPER::new(%params);
+    bless($self, $class);
+    $self->{tableInfo} = $params{tableInfo};
 
-  bless($self, $class);
-  $self->{tableInfo} = $params{tableInfo};
-
-  return $self;
-
-}
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::index>
-#
-sub index
-{
-
-    my ($self) = @_;
-
-    return $self->{tableInfo}->{tablename};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x('Log domain {logDomain}',
-           logDomain => $self->{tableInfo}->{name});
-
+    return $self;
 }
 
 # Group: Protected methods
@@ -122,7 +89,6 @@ sub printableIndex
 #
 sub _table
 {
-
     my ($self) = @_;
 
     my @tableDesc = ();
@@ -144,10 +110,7 @@ sub _table
 
     # Create the options
     my %events = %{$self->{tableInfo}->{events}};
-    my @eventOptions = ( {
-                          value => 'any',
-                          printableValue => __('Any')
-                         });
+    my @eventOptions = ({ value => 'any', printableValue => __('Any') });
     my $defaultEventOptionValue = 'any';
     foreach my $eventName (keys %events) {
         push ( @eventOptions,
@@ -171,11 +134,11 @@ sub _table
                    defaultValue => $defaultEventOptionValue,
                   ));
 
+    my $domain = $self->{tableInfo}->{tablename};
     my $dataTable = {
-             'tableName'          => 'LogWatcherFiltering',
+             'tableName'          => "LogWatcherFiltering_$domain",
              'printableTableName' => __x('Filters to apply to notify logs from '
-                                         . '{logDomain}',
-                                         logDomain => $self->{tableInfo}->{name}),
+                                         . '{logDomain}', logDomain => $domain),
              'defaultActions'     => [ 'add', 'del', 'editField', 'changeView' ],
              'modelDomain'        => 'Events',
              'tableDescription'   => \@tableDesc,
@@ -185,10 +148,9 @@ sub _table
                                         . 'with any filter given will be notified'),
              'rowUnique'          => 1,  # Set each row is unique
              'printableRowName'   => __('filter'),
-            };
+    };
 
     return $dataTable;
-
 }
 
 # Method: viewCustomizer
