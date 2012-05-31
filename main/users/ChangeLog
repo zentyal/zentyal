@@ -1,4 +1,6 @@
 HEAD
+	+ Better control of slapd instances in enableActions, better error
+	control in _loadACLDirectory
 	+ Added checks for small business subscription
 	+ Bugfix: lastGid method was calling MINUID and SYSMINUID
 	+ Reload nscd before trying to init users and groups
