@@ -186,6 +186,11 @@ sub _writeHttpdConfFile
     push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
     push @confFileParams, ( includes => $self->_includes(1) );
 
+    my $desktop_services_enabled = EBox::Config::configkey('desktop_services_enabled');
+    my $desktop_services_port = EBox::Config::configkey('desktop_services_port');
+    push @confFileParams, ( desktop_services_enabled => $desktop_services_enabled );
+    push @confFileParams, ( desktop_services_port => $desktop_services_port );
+
     my $debugMode = EBox::Config::boolean('debug');
     push @confFileParams, ( debug => $debugMode);
 

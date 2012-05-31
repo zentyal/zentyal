@@ -41,7 +41,7 @@ use Time::HiRes;
 use URI;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
- use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
+# use constant BASE_URL => 'http://192.168.56.1:8000/'; #FIXME
 
 # Method: new
 #
@@ -73,7 +73,7 @@ sub new {
     # Get the server from conf
     my $key = 'rs_api';
     $self->{server} = 'https://' . EBox::Config::configkey($key);
-     $self->{server} = BASE_URL; # FIXME: To remove
+    # $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
 }
@@ -266,4 +266,3 @@ sub _storeInJournal
 }
 
 1;
-

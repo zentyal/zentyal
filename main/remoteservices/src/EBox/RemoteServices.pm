@@ -25,6 +25,7 @@ use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             EBox::NetworkObserver
             EBox::FirewallObserver
+            EBox::Desktop::ServiceProvider
            );
 
 use strict;
@@ -53,6 +54,7 @@ use EBox::RemoteServices::Capabilities;
 use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
+use EBox::RemoteServices::Desktop::Subscription;
 use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
@@ -2027,5 +2029,24 @@ sub _migrateTo30
     # Get credentials again
 }
 
+
+# Method: desktopActions
+#
+#   Return an array ref with the exposed methods
+#
+# Returns:
+#
+#   array ref - Containing the exposed actions
+#
+# Overrides:
+#
+#   <EBox::Desktop::ServiceProvider::desktopActions>
+#
+sub desktopActions
+{
+    return {
+        'subscribe' => \&EBox::RemoteServices::Desktop::Subscription::subscribe,
+    };
+}
 
 1;
