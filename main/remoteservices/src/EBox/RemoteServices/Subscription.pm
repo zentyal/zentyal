@@ -45,6 +45,7 @@ use AptPkg::Cache;
 use Archive::Tar;
 use Cwd;
 use Error qw(:try);
+use File::Copy::Recursive;
 use File::Slurp;
 use File::Temp;
 use JSON::XS;
@@ -504,8 +505,12 @@ sub deleteData
         return 0;
     }
 
+    # Remove subscription dir
     opendir(my $dir, $dirPath);
     while(my $filePath = readdir($dir)) {
+        if ( -d "$dirPath/$filePath" ) {
+            File::Copy::Recursive::pathrmdir( "$dirPath/$filePath" );
+        }
         next unless -f "$dirPath/$filePath";
         unlink("$dirPath/$filePath");
     }

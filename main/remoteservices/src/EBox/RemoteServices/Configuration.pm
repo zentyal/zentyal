@@ -197,6 +197,7 @@ sub JohnHomeDirPath
 sub JournalOpsDirPath
 {
     my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
+    return unless ( $rs->eBoxSubscribed() );
     my $dir = EBox::Config::conf() . 'remoteservices/subscription/' . $rs->eBoxCommonName() . '/ops-journal/';
 
     unless ( -d $dir ) {
