@@ -47,86 +47,6 @@ use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';
 
 # Group: Public methods
 
-# Constructor: new
-#
-#     Create the configure the log watchers
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#     <EBox::Events::Model::LogWatcherConfiguration>
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-    bless ( $self, $class);
-
-    $self->{logs} = EBox::Global->modInstance('logs');
-    $self->{models} = [];
-
-    return $self;
-}
-
-# Method: subModels
-#
-#     Return the list of models which has to be included in model
-#     manager
-#
-# Returns:
-#
-#     array ref - containing all models
-#
-sub subModels
-{
-    my ($self) = @_;
-
-    $self->_setUpModels();
-    return $self->{models};
-}
-
-# Method: _ids
-#
-# Overrides:
-#
-#        <EBox::Model::DataTable::_ids>
-#
-#   It is overriden to work around an issue that affects
-#   the removal of unexisting rows.
-#
-#   It returns ids which actually exist
-sub _ids
-{
-    my ($self) = @_;
-
-    my $currentIds = $self->SUPER::_ids();
-
-    my $logs = $self->{logs};
-
-    # Set up every model
-    $self->_setUpModels();
-
-    # Fetch the current available log domains
-    my %currentLogDomains;
-    my $currentTables = $logs->getAllTables(1);
-    foreach my $table (keys (%{$currentTables})) {
-        $currentLogDomains{$table} = 1;
-    }
-
-    my @realIds;
-    foreach my $id (@{$currentIds}) {
-        my $row = $self->row($id);
-        my $domain = $row->valueByName('domain');
-        push (@realIds, $id) if (exists $currentLogDomains{$domain});
-    }
-
-    return \@realIds;
-}
-
 # Method: syncrows
 #
 # Overrides:
@@ -147,7 +67,7 @@ sub syncRows
     my ($self, $currentIds) = @_;
 
     my $anyChange = undef;
-    my $logs = $self->{logs};
+    my $logs = EBox::Global->modInstance('logs');
 
     # Set up every model
     $self->_setUpModels();
@@ -163,10 +83,7 @@ sub syncRows
     my %currentLogDomains;
     my $currentTables = $logs->getAllTables(1);
     foreach my $table (keys (%{$currentTables})) {
-        # ignore events table
-        if ($table eq 'events') {
-            next;
-        }
+        next if ($table eq 'events'); # ignore events table
         $currentLogDomains{$table} = 1;
     }
 
@@ -203,11 +120,10 @@ sub updatedRowNotify
     my $row = $self->row($oldRow->id());
 
     # Warn if the parent log observer is not enabled
-    if ( $row->valueByName('enabled') ) {
-        my $manager = EBox::Model::Manager->instance();
-        my $eventModel = $manager->model('ConfigureEventTable');
+    if ($row->valueByName('enabled') ) {
+        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureEventTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
-        unless ( $logConfRow->valueByName('enabled') ) {
+        unless ($logConfRow->valueByName('enabled')) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
                                  . 'Enable to be notified when logs happen. '
                                  . $self->message()));
@@ -227,8 +143,7 @@ sub addedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ( $row->valueByName('enabled') ) {
-        my $manager = EBox::Model::Manager->instance();
-        my $eventModel = $manager->model('ConfigureEventTable');
+        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureEventTable');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ( $logConfRow->valueByName('enabled') ) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
@@ -303,7 +218,7 @@ sub acquireFilteringModel
 
     my $logDomain = $row->valueByName('domain');
 
-    return '/events/' . FILTERING_MODEL_NAME . "/$logDomain";
+    return 'events/' . FILTERING_MODEL_NAME . "_$logDomain";
 }
 
 # Group: Private methods
@@ -313,45 +228,43 @@ sub _setUpModels
 {
     my ($self) = @_;
 
-    my $logDomainTables = $self->{logs}->getAllTables(1);
-    if ( defined ( $logDomainTables )) {
-        while (my ($domain, $tableInfo) = each %{$logDomainTables}) {
-            if ($domain eq 'events') {
-                # avoid observe recuservely itself!
-                next;
-            }
-            push ( @{$self->{models}},
-                   $self->_createFilteringModel($domain, $tableInfo));
+    my $manager = EBox::Model::Manager->instance();
 
+    my $logs = EBox::Global->modInstance('logs');
+    my $logDomainTables = $logs->getAllTables(1);
+    if (defined ( $logDomainTables)) {
+        while (my ($domain, $tableInfo) = each %{$logDomainTables}) {
+            next if ($domain eq 'events'); # avoid observe recursively itself!
+            $manager->addModel($self->_createFilteringModel($domain, $tableInfo));
         }
     }
 }
 
 # Create a new filtering model given a
 # log domain and notify this new model to model manager
-sub _createFilteringModel # (domain)
+sub _createFilteringModel
 {
     my ($self, $domain, $domainTableInfo) = @_;
+
     if (not defined $domainTableInfo) {
-      $domainTableInfo = $self->{logs}->getTableInfo($domain);
+        my $logs = EBox::Global->modInstance('logs');
+        $domainTableInfo = $logs->getTableInfo($domain);
     }
 
     my $filteringModel = new EBox::Events::Model::LogFiltering(confmodule => $self->{confmodule},
-                                                               directory   => $self->{confdir},
-                                                               tableInfo => $domainTableInfo);
-
+                                                               directory  => $self->{confdir},
+                                                               tableInfo  => $domainTableInfo);
     return $filteringModel;
 }
 
 # Remove an existing filtering model given a
 # log domain and notify this removal to model manager
-sub _removeFilteringModel # (domain)
+sub _removeFilteringModel
 {
     my ($self, $domain) = @_;
 
     my $modelManager = EBox::Model::Manager->instance();
-
-    $modelManager->removeModel('/events/' . FILTERING_MODEL_NAME . "/$domain");
+    $modelManager->removeModel('events/' . FILTERING_MODEL_NAME . "_$domain");
 }
 
 # Method: viewCustomizer

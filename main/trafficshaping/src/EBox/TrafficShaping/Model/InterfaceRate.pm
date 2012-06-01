@@ -121,7 +121,7 @@ sub _table
         {
             tableName => 'InterfaceRate',
             printableTableName => __('External Interface Rates'),
-            pageTitle => __('External Interface Rates'),
+            pageTitle => __('Traffic Shaping'),
             defaultController =>
                 '/TrafficShaping/Controller/InterfaceRate',
             defaultActions => [ 'editField', 'changeView' ],

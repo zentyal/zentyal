@@ -356,17 +356,19 @@ sub setService
     }
 
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
-    my @ids = @{$serviceConf->ids()};
-    unless (@ids) {
-        throw EBox::Exceptions::External(
-                "This service has no protocols configured");
-    }
-
-    my $idConf = $ids[0];
 
     my %confParams = _serviceConfParams(%params);
-    $confParams{'id'} = $idConf;
-    $serviceConf->setRow(1, %confParams);
+
+    my @ids = @{$serviceConf->ids()};
+    if (@ids) {
+        my $idConf = $ids[0];
+        $confParams{'id'} = $idConf;
+        $serviceConf->setRow(1, %confParams);
+    } else {
+        $serviceConf->addRow(%confParams);
+    }
+
+
 }
 
 # Method: addMultipleService

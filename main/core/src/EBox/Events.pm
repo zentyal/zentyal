@@ -418,14 +418,14 @@ sub tableInfo
     my ($self) = @_;
     my $titles =  {
         timestamp => __('Date of first event'),
-        lasttimestamp  => __('Date of last event'),
-        nrepeated     => __('Repetitions'),
+        lastTimestamp  => __('Date of last event'),
+        nRepeated     => __('Repetitions'),
         level     => __('Level'),
         source   => __('Source'),
         message  => __('Message'),
        };
 
-    my @order =qw(firsttimestamp lasttimestamp nrepeated level source message);
+    my @order =qw(timestamp lastTimestamp nRepeated level source message);
 
     my $levels = {
         info => __('Informative'),
@@ -462,7 +462,7 @@ sub _consolidateTable
                                             },
                                         conversor => sub {
                                                 my ($v, $row) = @_;
-                                                return $row->{nrepeated};
+                                                return $row->{nRepeated};
                                             },
                                         },
                                 source => { destination => 'source' },

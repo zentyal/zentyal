@@ -74,12 +74,12 @@ sub decision
 
 sub serviceModel
 {
-   return  EBox::Global->modInstance('services')->{'serviceModel'};
+   return  EBox::Global->modInstance('services')->model('ServiceTable');
 }
 
 sub objectModel
 {
-    return EBox::Global->modInstance('objects')->{'objectModel'};
+    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Method: _fieldDescription

@@ -218,9 +218,9 @@ sub _saveAsEvent
     my $loggerConfRow = $logConfModel->findValue(domain => $selected);
     my $logFilteringDirectory = $loggerConfRow->{filters}->{directory};
 
-    my $url = "Events/View/LogWatcherFiltering/$selected";
-    my $params = '?action=presetUpdate&tablename=LogWatcherFiltering&'
-      . "directory=$logFilteringDirectory&page=0&filter=&pagesize=10";
+    my $modelName = "LogWatcherFiltering_$selected";
+    my $url = "Events/View/$modelName";
+    my $params = "?action=presetUpdate&tablename=$modelName&directory=$logFilteringDirectory&page=0&filter=&pagesize=10";
     while (my ($key, $value) = each %{$hfilters}) {
         if ( $key eq 'event' and not $value) {
             $value = 'any';
