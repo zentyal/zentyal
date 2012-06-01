@@ -500,11 +500,10 @@ sub getAdBlockPostMatch
 {
     my ($self) = @_;
 
-    if ( $self->entry_exists('ad_block_post_match') ) {
-        return $self->get_string('ad_block_post_match');
-    } else {
-        return '';
-    }
+    my $adBlockPostMatch = $self->get_string('ad_block_post_match');
+    defined $adBlockPostMatch or
+        $adBlockPostMatch = '';
+    return $adBlockPostMatch;
 }
 
 # Method: setAdBlockPostMatch

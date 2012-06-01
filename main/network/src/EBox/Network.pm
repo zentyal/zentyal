@@ -2947,13 +2947,14 @@ sub _writeCronFile
 {
     my ($self) = @_;
 
-    unless ( $self->entry_exists('rand_mins') ) {
+    my $mins = $self->get_list('rand_mins');
+    unless ($mins) {
         # Set the random times when scripts must be run
         my @randMins = map { int(rand(60)) } 0 .. 10;
-        $self->set_list('rand_mins', 'int', \@randMins);
-    }
+        $mins = \@randMins;
+        $self->set_list('rand_mins', 'int', $mins);
 
-    my $mins = $self->get_list('rand_mins');
+    }
 
     my @tmplParams = ( (mins => $mins) );
 
