@@ -293,22 +293,38 @@ sub _httpdConfFile
     return '/var/lib/zentyal/conf/apache2.conf';
 }
 
-sub _setDesktopServicesPort()
+sub _setDesktopServicesPort
 {
     my $desktop_services_port = (EBox::Config::configkey('desktop_services_port') or 6895);
     checkPort($desktop_services_port, __("Desktop services port"));
 
     my $fw = EBox::Global->modInstance('firewall');
+    my $services = EBox::Global->modInstance('services');
     if (defined($fw)) {
-        $fw->addInternalService(
-            'name'              => 'dasktop_services',
-            'printableName'     => 'Desktop Services',
-            'description'       => __('Desktop Services (API for Zentyal Desktop)'),
-            'protocol'          => 'tcp',
-            'sourcePort'        => 'any',
-            'destinationPort'   => $desktop_services_port,
-            );
-        $fw->saveConfigRecursive();
+        my $serviceName = 'desktop-services';
+        unless ( $services->serviceExists(name => $serviceName) ) {
+            $fw->addInternalService(
+                'name'              => $serviceName,
+                'printableName'     => __('Desktop Services'),
+                'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+                'protocol'          => 'tcp',
+                'sourcePort'        => 'any',
+                'destinationPort'   => $desktop_services_port,
+               );
+            $fw->saveConfigRecursive();
+        } else {
+            my $currentConf = $services->serviceConfiguration($services->serviceId($serviceName));
+            if ( $currentConf->[0]->{destination} ne $desktop_services_port ) {
+                $services->setService(name          => $serviceName,
+                                      printableName => __('Desktop Services'),
+                                      description   => __('Desktop Services (API for Zentyal Desktop)'),
+                                      protocol      => 'tcp',
+                                      sourcePort    => 'any',
+                                      destinationPort => $desktop_services_port,
+                                      internal => 1, readOnly => 1);
+                $services->saveConfigRecursive();
+            }
+        }
     }
 }
 
