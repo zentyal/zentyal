@@ -78,7 +78,9 @@ LoadPlugin network
 #LoadPlugin ntpd
 #LoadPlugin nut
 % if ( $loadPerlPlugin ) {
-LoadPlugin perl
+<LoadPlugin perl>
+   Globals true
+</LoadPlugin>
 % }
 #LoadPlugin ping
 #LoadPlugin processes

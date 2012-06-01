@@ -25,6 +25,7 @@ use base qw(EBox::Module::Service
             EBox::Model::CompositeProvider
             EBox::NetworkObserver
             EBox::FirewallObserver
+            EBox::Desktop::ServiceProvider
            );
 
 use strict;
@@ -50,13 +51,18 @@ use EBox::RemoteServices::AdminPort;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Capabilities;
+use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Cred;
+use EBox::RemoteServices::Desktop::Subscription;
 use EBox::RemoteServices::DisasterRecovery;
 use EBox::RemoteServices::DisasterRecoveryProxy;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
+use EBox::RemoteServices::RESTClient;
 use EBox::Sudo;
+use EBox::Util::Version;
 use EBox::Validate;
 use Error qw(:try);
 use Net::DNS;
@@ -133,10 +139,10 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_confSOAPService();
     if ($self->eBoxSubscribed()) {
-        $self->_confSOAPService();
-        $self->_vpnClientAdjustLocalAddress();
         $self->_establishVPNConnection();
+        $self->_vpnClientAdjustLocalAddress();
         $self->_writeCronFile();
         $self->_startupTasks();
         $self->_reportAdminPort();
@@ -145,7 +151,25 @@ sub _setConf
     $self->_setRemoteSupportAccessConf();
 }
 
+# Method: initialSetup
+#
+#     Perform the required migrations
+#
+# Overrides:
+#
+#     <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
 
+    $self->SUPER::initialSetup($version);
+
+    if ( defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
+        # Perform the migration to 2.3
+        $self->_migrateTo30();
+    }
+}
 
 sub _setRemoteSupportAccessConf
 {
@@ -163,14 +187,13 @@ sub _setRemoteSupportAccessConf
     }
 
     EBox::RemoteServices::SupportAccess->setEnabled($supportAccess, $fromAnyAddress);
-    if ($self->eBoxSubscribed()) {
-        my $authRS = new EBox::RemoteServices::Backup();
-        my $vpnClient = $authRS->vpnClientForServices();
+    if ($self->eBoxSubscribed() and $self->hasBundle()) {
+        my $conn = new EBox::RemoteServices::Connection();
+        my $vpnClient = $conn->vpnClient();
         if ($vpnClient) {
             EBox::RemoteServices::SupportAccess->setClientRouteUp($supportAccess, $vpnClient);
         }
     }
-
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
@@ -311,6 +334,7 @@ sub modelClasses
         'EBox::RemoteServices::Model::Subscription',
         'EBox::RemoteServices::Model::SubscriptionInfo',
         'EBox::RemoteServices::Model::TechnicalInfo',
+        'EBox::RemoteServices::Model::VPNConnectivityCheck',
        ];
 
 }
@@ -462,7 +486,7 @@ sub subscribedHostname
            );
     }
 
-    my $hostName = EBox::RemoteServices::Auth->new()->valueFromBundle(COMPANY_KEY);
+    my $hostName = EBox::RemoteServices::Cred->new()->subscribedHostname();
     return $hostName;
 }
 
@@ -490,6 +514,7 @@ sub monitorGathererIPAddresses
             __('The monitor gatherer IP addresses are only available if the host is subscribed to Zentyal Cloud'));
     }
 
+    # FIXME: Use monitor outside VPN
     my $monGatherers = [];
     try {
         $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
@@ -538,10 +563,13 @@ sub ifaceVPN
 {
     my ($self) = @_;
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    my $vpnClient = $authRS->vpnClientForServices();
-    return $vpnClient->iface();
-
+    my $connection = new EBox::RemoteServices::Connection();
+    my $vpnClient = $connection->vpnClient();
+    if ($vpnClient) {
+        return $vpnClient->iface();
+    } else {
+        throw EBox::Exceptions::Internal('No VPN client created');
+    }
 }
 
 # Method: vpnSettings
@@ -561,8 +589,8 @@ sub vpnSettings
 {
     my ($self) = @_;
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    my ($ipAddr, $port, $protocol) = @{$authRS->vpnLocation()};
+    my $conn = new EBox::RemoteServices::Connection();
+    my ($ipAddr, $port, $protocol) = @{$conn->vpnLocation()};
 
     return { ipAddr => $ipAddr,
              port => $port,
@@ -586,8 +614,28 @@ sub isConnected
 
     return 0 unless $self->eBoxSubscribed();
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    return $authRS->isConnected();
+    my $conn = new EBox::RemoteServices::Connection();
+    return $conn->isConnected();
+}
+
+# Method: hasBundle
+#
+#    Return if the module has the load the bundle or not
+#
+#    This state happens when we have subscribed, but we don't have the
+#    bundle yet
+#
+# Returns:
+#
+#    Boolean - whether the bundle has been loaded or not
+#
+sub hasBundle
+{
+    my ($self) = @_;
+
+    return 0 unless $self->eBoxSubscribed();
+
+    return ($self->st_get_bool('has_bundle'));
 }
 
 # Method: reloadBundle
@@ -595,7 +643,8 @@ sub isConnected
 #    Reload the bundle from Zentyal Cloud using the Web Service
 #    to do so.
 #
-#    This method must be called only from post-installation script
+#    This method must be called only from post-installation script,
+#    crontab or installation process.
 #
 # Parameters:
 #
@@ -608,7 +657,7 @@ sub isConnected
 #
 #    2 - no reload is needed (force is false)
 #
-#    0 - when subscribed, but not connected
+#    0 - when subscribed, but we cannot reach Zentyal Cloud
 #
 # Exceptions:
 #
@@ -621,33 +670,37 @@ sub reloadBundle
 
     $force = 0 unless (defined($force));
 
-    if ( $self->isConnected() ) {
-        EBox::RemoteServices::Subscription::Check->new()->subscribe(serverName => $self->eBoxCommonName());
-        my $version       = $self->version();
-        my $bundleVersion = $self->bundleVersion();
-        my $bundleGetter  = new EBox::RemoteServices::Bundle();
-        my $bundleContent = $bundleGetter->eBoxBundle($version, $bundleVersion, $force);
-        if ( $bundleContent ) {
-            my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
-            my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-            EBox::RemoteServices::Subscription->executeBundle($params, $confKeys);
+    my $retVal = 1;
+    try {
+        if ( $self->eBoxSubscribed() ) {
+            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud($self->eBoxCommonName());
+            my $new = $self->hasBundle();
+            my $version       = $self->version();
+            my $bundleVersion = $self->bundleVersion();
+            my $bundleGetter  = new EBox::RemoteServices::Bundle();
+            my $bundleContent = $bundleGetter->retrieveBundle($version, $bundleVersion, $force);
+            if ( $bundleContent ) {
+                my $params = EBox::RemoteServices::Subscription->extractBundle($self->eBoxCommonName(), $bundleContent);
+                my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
+                EBox::RemoteServices::Subscription->executeBundle($params, $confKeys, $new);
+                $retVal = 1;
+            } else {
+                $retVal = 2;
+            }
         } else {
-            return 2;
+            throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
         }
-    } elsif ( $self->eBoxSubscribed() ) {
-        return 0;
-    } else {
-        throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
-    }
-    return 1;
+    } catch EBox::Exceptions::Internal with {
+        $retVal = 0;
+    };
+    return $retVal;
 }
-
 
 # Method: bundleVersion
 #
 # Returns:
 #
-#      Int - the bundle version if Zentyal is subscribed
+#      Int - the bundle version if Zentyal is subscribed and with the bundle
 #
 #      0 - otherwise
 #
@@ -659,7 +712,6 @@ sub bundleVersion
         if (not defined $bundleVersion) {
             return 0;
         }
-
         return $bundleVersion;
     } else {
         return 0;
@@ -690,18 +742,13 @@ sub subscriptionLevel
 
     $force = 0 unless defined($force);
 
-    if ( (not $force) and ($self->st_entry_exists('subscription/level')) ) {
-        return $self->st_get_int('subscription/level');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $subsLevel = $cap->subscriptionLevel();
-            $self->_setSubscription($subsLevel);
-            return $subsLevel->{level};
-        }
-    }
-    return -1;
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{level};
+    } otherwise {
+        $ret = -1;
+    };
+    return $ret;
 }
 
 # Method: subscriptionCodename
@@ -728,20 +775,13 @@ sub subscriptionCodename
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/codename')) ) {
-        return $self->st_get_string('subscription/codename');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $subsLevel = $cap->subscriptionLevel();
-            $self->_setSubscription($subsLevel);
-            return $subsLevel->{codename};
-        }
-    }
-    return '';
-
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{codename};
+    } otherwise {
+        $ret = '';
+    };
+    return $ret;
 }
 
 # Method: technicalSupport
@@ -769,19 +809,13 @@ sub technicalSupport
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/technical_support')) ) {
-        return $self->st_get_int('subscription/technical_support');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $techSupport = $cap->technicalSupport();
-            $self->st_set_int('subscription/technical_support', $techSupport);
-            return $techSupport;
-        }
-    }
-    return -2;
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{technical_support};
+    } otherwise {
+        $ret = -2;
+    };
+    return $ret;
 }
 
 # Method: renovationDate
@@ -807,19 +841,13 @@ sub renovationDate
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/renovation_date')) ) {
-        return $self->st_get_int('subscription/renovation_date');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $date = $cap->renovationDate();
-            $self->st_set_int('subscription/renovation_date', $date);
-            return $date;
-        }
-    }
-    return -1;
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
+    } otherwise {
+        $ret = -1;
+    };
+    return $ret;
 }
 
 # Method: securityUpdatesAddOn
@@ -841,19 +869,13 @@ sub securityUpdatesAddOn
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/securityUpdates')) ) {
-        return $self->st_get_bool('subscription/securityUpdates');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $secUpdates = $cap->securityUpdatesAddOn();
-            $self->st_set_bool('subscription/securityUpdates', $secUpdates);
-            return $secUpdates;
-        }
-    }
-    return '';
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{security_updates};
+    } otherwise {
+        $ret = 0;
+    };
+    return $ret;
 }
 
 # Method: disasterRecoveryAddOn
@@ -881,21 +903,13 @@ sub disasterRecoveryAddOn
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/disasterRecovery')) ) {
-        return $self->st_get_bool('subscription/disasterRecovery');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $disasterRec = $cap->disasterRecoveryAddOn();
-            $self->st_set_bool('subscription/disasterRecovery', $disasterRec);
-            return $disasterRec;
-        } else {
-            throw EBox::Exceptions::NotConnected();
-        }
-    }
-    return '';
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{disaster_recovery};
+    } otherwise {
+        throw EBox::Exceptions::NotConnected();
+    };
+    return $ret;
 }
 
 # Method: backupCredentials
@@ -1176,11 +1190,10 @@ sub reportAdminPort
 
     EBox::Validate::checkPort($port, "$port is not a valid port");
 
-    # Check for a change in admin port
-    if ( (not $self->st_entry_exists('admin_port'))
-         or ($self->st_get_int('admin_port') != $port) ) {
-
-        if ( $self->isConnected() ) {
+    if ( $self->eBoxSubscribed() ) {
+        # Check for a change in admin port
+        if ( (not $self->st_entry_exists('admin_port'))
+               or ($self->st_get_int('admin_port') != $port) ) {
             my $adminPortRS = new EBox::RemoteServices::AdminPort();
             $adminPortRS->setAdminPort($port);
             $self->st_set_int('admin_port', $port);
@@ -1263,6 +1276,27 @@ sub i18nServerEdition
     } else {
         return __('Unknown');
     }
+}
+
+# Method: subscriptionDir
+#
+#      The subscription directory path
+#
+# Returns:
+#
+#      String - the path where the bundle is untar'ed and credentials
+#      are stored
+#
+sub subscriptionDir
+{
+    my ($self) = @_;
+    my $cn = $self->eBoxCommonName();
+    # check if cn is udnef, commented bz iam not sure how it may affect _confKeys
+#     if (not defined $cn) {
+#         return undef;
+#     }
+
+    return  SUBS_DIR . $cn;
 }
 
 # Group: Public methods related to reporting
@@ -1451,27 +1485,29 @@ sub _confSOAPService
     my $confFile = SERV_DIR . 'soap-loc.conf';
     my $apacheMod = EBox::Global->modInstance('apache');
     if ($self->eBoxSubscribed()) {
-        my @tmplParams = (
-            (soapHandler      => WS_DISPATCHER),
-            (caDomain         => $self->_confKeys()->{caDomain}),
-            (allowedClientCNs => $self->_allowedClientCNRegexp()),
-            (confDirPath      => EBox::Config::conf()),
-            (caPath           => CA_DIR),
-           );
-        EBox::Module::Base::writeConfFileNoCheck(
-            $confFile,
-            'remoteservices/soap-loc.mas',
-            \@tmplParams);
-        unless ( -d CA_DIR ) {
-            mkdir(CA_DIR);
-        }
-        my $caLinkPath = $self->_caLinkPath();
-        if ( -l $caLinkPath ) {
-            unlink($caLinkPath);
-        }
-        symlink($self->_caCertPath(), $caLinkPath );
+        if ( $self->hasBundle() ) {
+            my @tmplParams = (
+                (soapHandler      => WS_DISPATCHER),
+                (caDomain         => $self->_confKeys()->{caDomain}),
+                (allowedClientCNs => $self->_allowedClientCNRegexp()),
+                (confDirPath      => EBox::Config::conf()),
+                (caPath           => CA_DIR),
+               );
+            EBox::Module::Base::writeConfFileNoCheck(
+                $confFile,
+                'remoteservices/soap-loc.mas',
+                \@tmplParams);
+            unless ( -d CA_DIR ) {
+                mkdir(CA_DIR);
+            }
+            my $caLinkPath = $self->_caLinkPath();
+            if ( -l $caLinkPath ) {
+                unlink($caLinkPath);
+            }
+            symlink($self->_caCertPath(), $caLinkPath );
 
-        $apacheMod->addInclude($confFile);
+            $apacheMod->addInclude($confFile);
+        }
     } else {
         unlink($confFile);
         opendir(my $dir, CA_DIR);
@@ -1504,10 +1540,11 @@ sub _establishVPNConnection
 {
     my ($self) = @_;
 
-    if ( $self->eBoxSubscribed() ) {
+    if ( $self->eBoxSubscribed() and $self->hasBundle() ) {
         try {
-            my $authConnection = new EBox::RemoteServices::Backup();
-            $authConnection->connection();
+            my $authConnection = new EBox::RemoteServices::Connection();
+            $authConnection->create();
+            $authConnection->connect();
         } catch EBox::Exceptions::External with {
             my ($exc) = @_;
             EBox::error("Cannot contact to Zentyal Cloud: $exc");
@@ -1571,20 +1608,6 @@ sub _allowedClientCNRegexp
     return "^(${mmPrefix}$nums.${mmRem}|${wwwPrefix}$nums.${wwwRem})\$";
 }
 
-
-sub subscriptionDir
-{
-    my ($self) = @_;
-    my $cn = $self->eBoxCommonName();
-    # check if cn is udnef, commented bz iam not sure how it may affect _confKeys
-#     if (not defined $cn) {
-#         return undef;
-#     }
-
-    return  SUBS_DIR . $cn;
-}
-
-
 # Return the given configuration file from the control center
 sub _confKeys
 {
@@ -1592,7 +1615,11 @@ sub _confKeys
 
     unless ( defined($self->{confFile}) ) {
         my $confDir = $self->subscriptionDir();
-        $self->{confFile} = (<$confDir/*.conf>)[0];
+        my @confFiles = <$confDir/*.conf>;
+        if (@confFiles == 0) {
+            return { }; # There may be no bundle
+        }
+        $self->{confFile} = $confFiles[0];
     }
     unless ( defined($self->{confKeys}) ) {
         $self->{confKeys} = EBox::Config::configKeysFromFile($self->{confFile});
@@ -1642,10 +1669,15 @@ sub _ccConnectionWidget
                            ch => '</a>');
 
     if ( $self->eBoxSubscribed() ) {
-        $connValue = __x('Not connected. Check VPN logs in {path}',
+        $connValue = __x('Not connected. {oh}Check VPN connection{ch} and logs in {path}',
+                         oh   => '<a href="/RemoteServices/View/VPNConnectivityCheck">',
+                         ch   => '</a>',
                          path => '/var/log/openvpn/');
         $connValueType = 'error';
-        if ( $self->isConnected() ) {
+        if ( not $self->hasBundle() ) {
+            $connValue     = __('In process');
+            $connValueType = 'info';
+        } elsif ( $self->isConnected() ) {
             $connValue     = __('Connected');
             $connValueType = 'info';
         }
@@ -1723,14 +1755,32 @@ sub _ccConnectionWidget
 
 }
 
-# Set the subscription level
-sub _setSubscription
+# Set the subscription details
+# If not subscribed, an exception is raised
+sub _getSubscriptionDetails
 {
-    my ($self, $subsLevel) = @_;
+    my ($self, $force) = @_;
 
-    $self->st_set_int('subscription/level', $subsLevel->{level});
-    $self->st_set_string('subscription/codename', $subsLevel->{codename});
-
+    if ( $force or (not $self->st_entry_exists('subscription/level')) ) {
+        unless ( $self->eBoxSubscribed() ) {
+            use Devel::StackTrace;
+            my $t = new Devel::StackTrace();
+            EBox::error($t->as_string());
+            throw EBox::Exceptions::Internal('Not subscribed');
+        }
+        my $cap = new EBox::RemoteServices::Capabilities();
+        my $details = $cap->subscriptionDetails();
+        # Use st_set_dir?
+        $self->st_set_int('subscription/level', $details->{level});
+        $self->st_set_string('subscription/codename', $details->{codename});
+        $self->st_set_int('subscription/technical_support', $details->{technical_support});
+        $self->st_set_int('subscription/renovation_date', $details->{renovation_date});
+        $self->st_set_bool('subscription/security_updates', $details->{security_updates});
+        $self->st_set_bool('subscription/disaster_recovery', $details->{disaster_recovery});
+    }
+    # FIXME?
+    my $details = $self->st_hash_from_dir('subscription');
+    return $details;
 }
 
 # Get the latest backup date
@@ -1921,21 +1971,22 @@ sub freeViface
 sub _vpnClientAdjustLocalAddress
 {
     my ($self) = @_;
-    if (not $self->eBoxSubscribed()) {
+    if ((not $self->eBoxSubscribed()) or (not $self->hasBundle())) {
         return;
     }
 
-    my $authRS = new EBox::RemoteServices::Backup();
-    my $vpnClient = $authRS->vpnClientForServices();
-    $authRS->vpnClientAdjustLocalAddress($vpnClient);
-
+    my $conn = new EBox::RemoteServices::Connection();
+    my $vpnClient = $conn->vpnClient();
+    if ( $vpnClient ) {
+        $conn->vpnClientAdjustLocalAddress($vpnClient);
+    }
 }
 
 sub firewallHelper
 {
     my ($self) = @_;
 
-    my $enabled = $self->eBoxSubscribed();
+    my $enabled = ($self->eBoxSubscribed() and $self->hasBundle());
     if (not $enabled) {
         return undef;
     }
@@ -1947,6 +1998,55 @@ sub firewallHelper
         vpnInterface => $self->ifaceVPN(),
         sshRedirect => EBox::RemoteServices::SupportAccess->sshRedirect(),
        );
+}
+
+# Method: REST
+#
+#   Return the REST client ready to query remote services
+#
+sub REST
+{
+    my ($self) = @_;
+
+    unless ($self->{rest}) {
+        $self->{rest} = new EBox::RemoteServices::RESTClient();
+    }
+
+    return $self->{rest};
+}
+
+# Migration to 3.0
+#
+#  * Rename VPN client
+#  * Get credentials
+#
+sub _migrateTo30
+{
+    my ($self) = @_;
+
+    # Drop old VPN client
+    # Create a new one
+    # Get credentials again
+}
+
+
+# Method: desktopActions
+#
+#   Return an array ref with the exposed methods
+#
+# Returns:
+#
+#   array ref - Containing the exposed actions
+#
+# Overrides:
+#
+#   <EBox::Desktop::ServiceProvider::desktopActions>
+#
+sub desktopActions
+{
+    return {
+        'subscribe' => \&EBox::RemoteServices::Desktop::Subscription::subscribe,
+    };
 }
 
 1;

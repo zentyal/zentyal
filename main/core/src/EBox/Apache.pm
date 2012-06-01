@@ -152,6 +152,7 @@ sub _setConf
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setDesktopServicesPort();
     $self->enableRestartOnTrigger();
 }
 
@@ -185,6 +186,11 @@ sub _writeHttpdConfFile
 
     push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
     push @confFileParams, ( includes => $self->_includes(1) );
+
+    my $desktop_services_enabled = EBox::Config::configkey('desktop_services_enabled');
+    my $desktop_services_port = EBox::Config::configkey('desktop_services_port');
+    push @confFileParams, ( desktop_services_enabled => $desktop_services_enabled );
+    push @confFileParams, ( desktop_services_port => $desktop_services_port );
 
     my $debugMode = EBox::Config::boolean('debug');
     push @confFileParams, ( debug => $debugMode);
@@ -285,6 +291,60 @@ sub _reportAdminPort
 sub _httpdConfFile
 {
     return '/var/lib/zentyal/conf/apache2.conf';
+}
+
+sub _setDesktopServicesPort
+{
+    my $desktop_services_port = (EBox::Config::configkey('desktop_services_port') or 6895);
+    checkPort($desktop_services_port, __("Desktop services port"));
+
+    my $fw = EBox::Global->modInstance('firewall');
+    my $services = EBox::Global->modInstance('services');
+    if (defined($fw)) {
+        my $serviceName = 'desktop-services';
+        unless ( $services->serviceExists(name => $serviceName) ) {
+            $fw->addInternalService(
+                'name'              => $serviceName,
+                'printableName'     => __('Desktop Services'),
+                'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+                'protocol'          => 'tcp',
+                'sourcePort'        => 'any',
+                'destinationPort'   => $desktop_services_port,
+               );
+            $fw->saveConfigRecursive();
+        } else {
+            my $currentConf = $services->serviceConfiguration($services->serviceId($serviceName));
+            if ( $currentConf->[0]->{destination} ne $desktop_services_port ) {
+                $services->setService(name          => $serviceName,
+                                      printableName => __('Desktop Services'),
+                                      description   => __('Desktop Services (API for Zentyal Desktop)'),
+                                      protocol      => 'tcp',
+                                      sourcePort    => 'any',
+                                      destinationPort => $desktop_services_port,
+                                      internal => 1, readOnly => 1);
+                $services->saveConfigRecursive();
+            }
+        }
+    }
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        $self->_setDesktopServicesPort();
+    }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
 }
 
 sub port

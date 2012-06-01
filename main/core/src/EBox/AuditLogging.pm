@@ -145,7 +145,6 @@ sub tableInfo
         'logout' => __('Logout'),
         'fail' => __('Failed login'),
         'expired' => __('Expired session'),
-        'disabledByDefault' => 1,
     };
     my $session_table = {
         'name' => __('Administrator sessions'),

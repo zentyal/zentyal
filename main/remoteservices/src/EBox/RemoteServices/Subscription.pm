@@ -25,6 +25,8 @@ use base 'EBox::RemoteServices::Base';
 use strict;
 use warnings;
 
+use feature qw(switch);
+
 use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -33,6 +35,8 @@ use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Connection;
+use EBox::RemoteServices::RESTClient;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::Sudo;
 use EBox::Util::Nmap;
@@ -41,15 +45,16 @@ use AptPkg::Cache;
 use Archive::Tar;
 use Cwd;
 use Error qw(:try);
+use File::Copy::Recursive;
 use File::Slurp;
 use File::Temp;
+use JSON::XS;
 use HTML::Mason;
 use Net::Ping;
 
 # Constants
 use constant {
     SERV_CONF_DIR => 'remoteservices',
-    SERV_SUBDIR => 'remoteservices/subscription',
     SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'zentyal-cloud-prof',
     SEC_UPD_PKG    => 'zentyal-security-updates',
@@ -82,6 +87,11 @@ sub new
 
     $self->{user} = $params{user};
     $self->{password} = $params{password};
+
+    # Set the REST client
+    $self->{restClient} = new EBox::RemoteServices::RESTClient(
+        credentials => { username => $params{user},
+                         password => $params{password} });
 
     bless $self, $class;
     return $self;
@@ -137,43 +147,48 @@ sub soapCall
                        );
 }
 
-# Method: subscribeEBox
+# Method: subscribeServer
 #
-#      Given a name trying to subscribe an eBox for that user using
-#      that name. If it is already registered, the process will
-#      fail. If the process works nicely, a bundle is got which is
-#      used to set the parameters to connect to the eBox remote
+#      Given a name trying to subscribe a server for that user using
+#      that name. If it is already registered, the process will reset
+#      the server password. If the process works nicely, a set of
+#      basic parameters are stored. In order to get the full
+#      functionality, it is required to get the bundle in a separated
+#      process to set the parameters to connect to the Zentyal Cloud
 #      infrastructure including the required certificates.
 #
 # Parameters:
 #
 #      name - String the name which the user uses to describe this
-#      eBox
+#             server
+#
+#      option - String the selected option if available
+#               (Optional) : if not given, then it will try with one
+#                            of the available ones
 #
 # Returns:
 #
 #      hash ref - containing the following keys and values:
 #
-#        ca - the CA certificate path
-#        cert - the certificate path for this eBox
-#        key - the private key path for this eBox
-#
-#        confFile - the configuration file to be used to connect to
-#        the infrastructure
+#        confFile - the configuration file to be used to connect to#        the infrastructure
 #
 #        new - Boolean indicating if the subscription was done or just
 #        the file getting
+#
+#        availableEditions - Array ref containing the available options
+#                            to subscribe your server, if this value is set
+#                            then we do not have subscribed yet
 #
 # Exceptions:
 #
 #      <EBox::Exceptions::MissingArgument> - thrown if the compulsory
 #      argument is missing
 #
-sub subscribeEBox
+sub subscribeServer
 {
-    my ($self, $cn) = @_;
+    my ($self, $name, $option) = @_;
 
-    $cn or throw EBox::Exceptions::MissingArgument('cn');
+    $name or throw EBox::Exceptions::MissingArgument('name');
 
     # Ensure firewall rules are opened
     $self->_openHTTPSConnection();
@@ -181,63 +196,99 @@ sub subscribeEBox
     # Check the WS is reachable
     $self->_checkWSConnectivity();
 
-    # Check the available edition is suitable for this server
-    EBox::RemoteServices::Subscription::Check->new()->subscribe(
-        user => $self->{user},
-        password => $self->{password});
+    $option = undef if ( defined($option) and ( $option eq 'reload' ));
 
-    my $vpnSettings;
-    try {
-        $vpnSettings = $self->soapCall('vpnSettings');
-    } catch EBox::Exceptions::DataNotFound with { };
-    unless ( defined($vpnSettings) ) {
-        throw EBox::Exceptions::External(
-            __x(
-                'Cannot retrieve VPN settings needed for subscription. Check your {openurl}{brand} profile{closeurl} to check your VPN server settings.',
-                brand    => 'Zentyal Cloud',
-                openurl  => q{<a href='https://cloud.zentyal.com/services/profile/'>},
-                closeurl => q{</a>}
-               )
-           );
+    if (not $option) {
+        my $availables = $self->_getAvailable($name);
+
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        # Check the available editions are suitable for this server
+        my @availables = grep { $checker->check($_->{subscription}) } @{$availables};
+
+        given ( scalar(@availables) ) {
+            when (0) {
+                if (@{$availables} > 0) {
+                    # There were some available options but the server is not suitable
+                    # for the available options
+                    throw EBox::RemoteServices::Exceptions::NotCapable(
+                        __('None of the available bundles are valid for this server')
+                       );
+                }
+            }
+            when ( 1 ) {
+                # Just one is purchased
+                $option = $availables[0]->{id};
+            }
+            when ($_ > 1 ) {
+                return { 'availableEditions' => \@availables };
+            }
+        }
     }
 
-    # Check the selected VPN server is reachable
-    $self->_checkVPNConnectivity(
-                                 $vpnSettings->{ipAddr},
-                                 $vpnSettings->{protocol},
-                                 $vpnSettings->{port},
-                                );
+    # my $vpnSettings;
+    # try {
+    #     $vpnSettings = $self->soapCall('vpnSettings',
+    #                                    option => $option);
+    # } catch EBox::Exceptions::DataNotFound with { };
+    # unless ( defined($vpnSettings) ) {
+    #     throw EBox::Exceptions::External(
+    #         __x(
+    #             'Cannot retrieve VPN settings needed for subscription. Check your {openurl}{brand} profile{closeurl} to check your VPN server settings.',
+    #             brand    => 'Zentyal Cloud',
+    #             openurl  => q{<a href='https://cloud.zentyal.com/services/profile/'>},
+    #             closeurl => q{</a>}
+    #            )
+    #        );
+    # }
+
+    # # Check the selected VPN server is reachable
+    # $self->_checkVPNConnectivity(
+    #                              $vpnSettings->{ipAddr},
+    #                              $vpnSettings->{protocol},
+    #                              $vpnSettings->{port},
+    #                             );
+
+    # my $conf;
+    my $response = $self->{restClient}->POST("/v1/servers/",
+                                             { 'name' => $name, 'bundle' => $option} );
+    my $serverInfoRaw = $response->as_string();
+    my $serverInfo = $response->data();
+
+    # Write this info to a file only readable by Zentyal
+    $self->_writeCredentials($name, $serverInfoRaw);
+
+    return { 'new' => $serverInfo->{created} };
+
+    # my $new = 0;
+    # my $rs = EBox::Global->modInstance('remoteservices');
+    # try {
+    #     $ = $self->soapCall('subscribeEBox',
+    #                                      canonicalName => $name,
+    #                                      rsVersion     => $rs->version(),
+    #                                      option        => $option);
+    #     $new = 1;
+    # } catch EBox::Exceptions::DataExists with {
+    #     $bundleRawData = $self->soapCall('eBoxBundle',
+    #                                      canonicalName => $name,
+    #                                      rsVersion     => $rs->version(),
+    #                                      option        => $option);
+    #     $new = 0;
+    # };
+
+    # my $params = $self->extractBundle($name, $bundleRawData);
+
+    # my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
+    # $self->_openVPNConnection(
+    #     $confKeys->{vpnServer},
+    #     $confKeys->{vpnPort},
+    #     $confKeys->{vpnProtocol},
+    #    );
 
 
-    my $bundleRawData;
-    my $new = 0;
-    my $rs = EBox::Global->modInstance('remoteservices');
-    try {
-        $bundleRawData = $self->soapCall('subscribeEBox',
-                                         canonicalName => $cn,
-                                         rsVersion     => $rs->version());
-        $new = 1;
-    } catch EBox::Exceptions::DataExists with {
-        $bundleRawData = $self->soapCall('eBoxBundle',
-                                         canonicalName => $cn,
-                                         rsVersion     => $rs->version());
-        $new = 0;
-    };
+    # $self->executeBundle($params, $confKeys);
 
-    my $params = $self->extractBundle($cn, $bundleRawData);
-
-    my $confKeys = EBox::Config::configKeysFromFile($params->{confFile});
-    $self->_openVPNConnection(
-        $confKeys->{vpnServer},
-        $confKeys->{vpnPort},
-        $confKeys->{vpnProtocol},
-       );
-
-
-    $self->executeBundle($params, $confKeys);
-
-    $params->{new} = $new;
-    return $params;
+    # $params->{new} = $new;
+    # return $params;
 }
 
 # Method: serversList
@@ -317,20 +368,8 @@ sub extractBundle
     my @files = $tar->list_files();
     my $cwd = Cwd::getcwd();
 
-    my $dirPath = EBox::Config::conf() . SERV_CONF_DIR;
-    unless ( -d $dirPath ) {
-        mkdir($dirPath);
-    }
-    $dirPath = EBox::Config::conf() . SERV_SUBDIR;
-    unless (chdir($dirPath)) {
-        mkdir($dirPath);
-        chdir($dirPath);
-    }
-    $dirPath .= "/$cn";
-    unless (chdir($dirPath)) {
-        mkdir($dirPath);
-        chdir($dirPath);
-    }
+    my $dirPath = $class->_createSubscriptionDir($cn);
+    chdir($dirPath);
 
     my ($confFile, $keyFile, $certFile, $qaSources, $qaGpg, $qaPreferences, $installCloudProf);
     my @scripts;
@@ -408,11 +447,17 @@ sub extractBundle
 #
 #     params - Hash ref What is returned from <extractBundle> procedure
 #     confKeys - Hash ref the configuration keys stored in client configuration
+#     new - Boolean indicating if the connection is new or not
 #
 sub executeBundle
 {
-    my ($self, $params, $confKeys) =  @_;
+    my ($self, $params, $confKeys, $new) =  @_;
 
+    # Set to have the bundle
+    my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
+    $rs->st_set_bool('has_bundle', 1);
+
+    $self->_restartRS($new);
     # Downgrade, if necessary
     $self->_downgrade($params);
     $self->_setUpAuditEnvironment();
@@ -427,6 +472,8 @@ sub executeBundle
 #      Delete the data stored when a subscription is done
 #      correctly. That is, the certificates and configuration files
 #      are deleted.
+#
+#      It also performs every action required to unsubscribe
 #
 # Parameters:
 #
@@ -449,49 +496,60 @@ sub deleteData
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
 
-    my $dirPath = EBox::Config::conf() . SERV_SUBDIR . "/$cn";
+    # Remove VPN client, if exists
+    EBox::RemoteServices::Connection->new()->disconnectAndRemove();
+
+    my $dirPath = $self->_subscriptionDirPath($cn);
 
     unless ( -d $dirPath ) {
         return 0;
     }
 
+    # Remove subscription dir
     opendir(my $dir, $dirPath);
     while(my $filePath = readdir($dir)) {
+        if ( -d "$dirPath/$filePath" ) {
+            File::Copy::Recursive::pathrmdir( "$dirPath/$filePath" );
+        }
         next unless -f "$dirPath/$filePath";
         unlink("$dirPath/$filePath");
     }
     closedir($dir);
     rmdir($dirPath);
 
-    # Remove QA updates configuration
-    $self->_removeQAUpdates();
-    # Remove DDNS autoconfiguration
-    $self->_removeDDNSConf();
-    # Remove alert autoconfiguration
-    # FIXME: Do by alertAutoconfiguration script?
-    my $events = EBox::Global->modInstance('events');
-    $events->unset('alert_autoconfiguration');
-    # TODO: Remove zentyal-cloud-prof package
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->hasBundle() ) {
+        # Remove QA updates configuration
+        $self->_removeQAUpdates();
+        # Remove DDNS autoconfiguration
+        $self->_removeDDNSConf();
+        # Remove alert autoconfiguration
+        # FIXME: Do by alertAutoconfiguration script?
+        my $events = EBox::Global->modInstance('events');
+        $events->unset('alert_autoconfiguration');
+        # TODO: Remove zentyal-cloud-prof package
 
-    # Remove jobs
-    my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
-    $dirPath = EBox::Config::conf() . SERV_CONF_DIR . '/jobs';
-    if ( -d $dirPath ) {
-        opendir($dir, $dirPath);
-        while(my $filePath = readdir($dir)) {
-            next unless -d "$dirPath/$filePath";
-            if ($filePath =~ m/^[0-9]+$/g or $filePath =~ m/^$cronPrefix/g) {
-                EBox::Sudo::command("rm -rf '$dirPath/$filePath'");
-            } elsif ( $filePath =~ m/incoming|outcoming/g ) {
-                # Remove any left incoming/outcoming job
-                EBox::Sudo::command("rm -f '$dirPath/$filePath/*'");
+        # Remove jobs
+        my $cronPrefix = EBox::RemoteServices::Configuration::CronJobPrefix();
+        $dirPath = EBox::Config::conf() . SERV_CONF_DIR . '/jobs';
+        if ( -d $dirPath ) {
+            opendir($dir, $dirPath);
+            while(my $filePath = readdir($dir)) {
+                next unless -d "$dirPath/$filePath";
+                if ($filePath =~ m/^[0-9]+$/g or $filePath =~ m/^$cronPrefix/g) {
+                    EBox::Sudo::command("rm -rf '$dirPath/$filePath'");
+                } elsif ( $filePath =~ m/incoming|outcoming/g ) {
+                    # Remove any left incoming/outcoming job
+                    EBox::Sudo::command("rm -f '$dirPath/$filePath/*'");
+                }
             }
+            closedir($dir);
         }
-        closedir($dir);
     }
 
     # Remove subscription levels and disaster recovery if any
-    my $rs = EBox::Global->modInstance('remoteservices');
+    $rs->st_unset('admin_port');
+    $rs->st_unset('has_bundle');
     $rs->st_delete_dir('subscription');
     $rs->st_delete_dir('disaster_recovery');
 
@@ -905,7 +963,7 @@ sub _checkWSConnectivity
         $cmd .= $url;
 
         try {
-            my $output = EBox::Sudo::root($cmd);
+            my $output = EBox::Sudo::command($cmd);
             foreach my $line (@{ $output }) {
                 if ($line =~ m/A prudent question is one-half of wisdom/) {
                     $ok =1;
@@ -959,7 +1017,6 @@ sub _checkVPNConnectivity
     }
 }
 
-
 # Check UDP echo service using Net::Ping
 sub _checkUDPEchoService
 {
@@ -975,6 +1032,22 @@ sub _checkUDPEchoService
     # is done before this one
     return ( $result[1] == 3 );
 
+}
+
+# Restart RS once the bundle is created
+sub _restartRS
+{
+    my ($self, $new) = @_;
+
+    if ( $new ) {
+        # This code must be locked and it is critical
+        my $global = EBox::Global->getInstance();
+        my $rs = $global->modInstance('remoteservices');
+        $rs->save();
+        # Required to set the proper iptables rules to ensure connection to Cloud
+        my $fw = $global->modInstance('firewall');
+        $fw->save();
+    }
 }
 
 # Downgrade current subscription, if necessary
@@ -1021,5 +1094,46 @@ sub _removePkgs
         EBox::debug($exc->stringify());
     };
 }
+
+# Get available editions for this user/pass
+sub _getAvailable
+{
+    my ($self, $server) = @_;
+
+    my $response = $self->{restClient}->GET("/v1/bundle/available/$server/");
+    return $response->data();
+}
+
+# Write received credentials into the proper directory and set proper permissions
+sub _writeCredentials
+{
+    my ($self, $name, $serverInfoRaw) = @_;
+
+    $self->_createSubscriptionDir($name);
+
+    my $credentialsFilePath = $self->_credentialsFilePath($name);
+
+    File::Slurp::write_file($credentialsFilePath, $serverInfoRaw);
+    chmod(0600, $credentialsFilePath);
+}
+
+# Create the subscription directory structure based on the given name
+# Return the newly created directory
+sub _createSubscriptionDir
+{
+    my ($self, $name) = @_;
+
+    my $dirPath = $self->_subscriptionDirPath($name);
+    unless ( -d $dirPath ) {
+        my @dirs;
+        my @path = split(/\//, $dirPath);
+        foreach my $dir (@path) {
+            push(@dirs, $dir);
+            mkdir(join('/', @dirs));
+        }
+    }
+    return $dirPath;
+}
+
 
 1;

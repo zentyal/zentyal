@@ -1,4 +1,5 @@
 HEAD
+	+ Send additional info in Gateways watcher
 	+ Added clone action to multi gw and wan failover tables
 	+ Added EBox::Network::internalIpAddresses()
 	+ Added regenGatewaysFailover() to NetworkObserver so modules can

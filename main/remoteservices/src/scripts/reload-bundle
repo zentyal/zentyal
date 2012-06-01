@@ -47,7 +47,7 @@ my $rs = $global->modInstance('remoteservices');
 try {
     my $rv = $rs->reloadBundle($force);
     if ( $rv == 0 ) {
-        print STDERR __('Cannot reload the bundle since Zentyal is not connected but subscribed') . "\n";
+        print STDERR __('Cannot reload the bundle since Zentyal is not connected to the Internet') . "\n";
     } elsif ( $rv == 1 ) {
         print STDOUT __('Bundle reload successfully') . "\n";
     } elsif ( $rv == 2 ) {
@@ -86,6 +86,6 @@ reload-bundle [--usage|help] [--force]
 
    -- force       Force to reload the bundle although Zentyal may have the latest available version
 
-This script "must" be called only from the post-installation script and crontab
+This script "must" be called only from the post-installation script, crontab or installation process
 
 =cut

@@ -127,7 +127,7 @@ sub _ids
     return \@realIds;
 }
 
-# Method: syncrows
+# Method: syncRows
 #
 # Overrides:
 #

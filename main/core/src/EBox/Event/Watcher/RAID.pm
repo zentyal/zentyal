@@ -190,7 +190,7 @@ sub _description
 
 # Group: Private methods
 
-# Check any event that may ocurr in the RAID array
+# Check any event that may occur in the RAID array
 sub _checkRaidArray # (arrayRaidName, raidInfo)
 {
     my ($self, $arrayRaidName, $raidArrayInfo) = @_;
@@ -247,7 +247,6 @@ sub _storedArrayRaidInfo
 # Create the event from the raid info
 sub _createEventArrayRaid # (arrayName, raidInfo)
 {
-
     my ($self, $arrayName, $raidArrayInfo) = @_;
 
     my $msg = __x('New array RAID device {devName} information:',

@@ -1,4 +1,12 @@
 HEAD
+	+ Added Desktop::ServiceProvider to allow modules to implement
+	  requests from Zentyal desktop
+	+ Added VirtualHost to manage desktop requests to Zentyal server
+	+ Fix EventDaemon in the transition to MySQL
+	+ Send EventDaemon errors to new rotated log file /var/log/zentyal/events.err
+	+ Send an event to Zentyal Cloud when the updates are up-to-date
+	+ Send an info event when modules come back to running
+	+ Include additional info for current event watchers
 	+ Fixed RAID report for some cases of spare devices and bitmaps
 	+ Fixed log purge, SQL call must be a statement not a query
 	+ Fixed regex syntax in user log queries
