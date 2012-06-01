@@ -252,6 +252,8 @@ sub _storeInJournal
     my ($self, $method, $path, $query, $res) = @_;
 
     my $journalDir = EBox::RemoteServices::Configuration::JournalOpsDirPath();
+    # Store only in the journal if the server is subscribed
+    return unless (defined($journalDir));
     my $time = join('', Time::HiRes::gettimeofday());
     my $tmpFile = new File::Temp(TEMPLATE => "$time-XXXX", DIR => $journalDir,
                                  UNLINK => 0);
