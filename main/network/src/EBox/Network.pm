@@ -4199,7 +4199,7 @@ sub _multipathCommand
 
     if (scalar(@gateways) == 0) {
         # If WAN failover is enabled we put the default one
-        my $ev = EBox::Global->getInstance()->modInstance('events');
+        my $ev = EBox::Global->getInstance($self->isReadOnly())->modInstance('events');
         if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')->value()) {
             my $row = $self->model('GatewayTable')->findValue(default => 1);
             unless ($row) {
