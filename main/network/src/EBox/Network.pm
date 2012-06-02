@@ -2947,13 +2947,14 @@ sub _writeCronFile
 {
     my ($self) = @_;
 
-    unless ( $self->entry_exists('rand_mins') ) {
+    my $mins = $self->get_list('rand_mins');
+    unless ($mins) {
         # Set the random times when scripts must be run
         my @randMins = map { int(rand(60)) } 0 .. 10;
-        $self->set_list('rand_mins', 'int', \@randMins);
-    }
+        $mins = \@randMins;
+        $self->set_list('rand_mins', 'int', $mins);
 
-    my $mins = $self->get_list('rand_mins');
+    }
 
     my @tmplParams = ( (mins => $mins) );
 
@@ -4198,7 +4199,7 @@ sub _multipathCommand
 
     if (scalar(@gateways) == 0) {
         # If WAN failover is enabled we put the default one
-        my $ev = EBox::Global->getInstance()->modInstance('events');
+        my $ev = EBox::Global->getInstance($self->isReadOnly())->modInstance('events');
         if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')->value()) {
             my $row = $self->model('GatewayTable')->findValue(default => 1);
             unless ($row) {

@@ -56,6 +56,28 @@ sub new
     return $self;
 }
 
+
+sub precondition
+{
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance($self->parentModule->isReadOnly());
+    my $net = $global->modInstance('network');
+    my @ifaces = @{$net->allIfaces()};
+    foreach my $iface (@ifaces) {
+        if ($net->ifaceMethod($iface) eq 'static') {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+    return __('You need at least one static interface to serve DHCP');
+}
+
 # Method: syncRows
 #
 #   Overrides <EBox::Model::DataTable::syncRows>
@@ -64,7 +86,8 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $net = EBox::Global->modInstance('network');
+    my $global = EBox::Global->getInstance($self->parentModule()->isReadOnly());
+    my $net = $global->modInstance('network');
 
     my @ifaces = @{$net->allIfaces()};
     @ifaces = grep { $net->ifaceMethod($_) eq 'static' } @ifaces;
@@ -124,6 +147,7 @@ sub _table
        enableProperty => 1,
        defaultEnabledValue => 1,
        help            => __('Here you can configure the DHCP server for each internal interface, and enable or disable them'),
+       printableRowName => __('interface'),
     };
 
     return $dataTable;
