@@ -1069,7 +1069,7 @@ sub initialSlaveSync
     my ($self, $slave) = @_;
 
     foreach my $user (@{$self->users()}) {
-        $slave->savePendingSync('addUser', [ $user, $user->passwordHashes() ]);
+        $slave->savePendingSync('addUser', [ $user ]);
     }
 
     foreach my $group (@{$self->groups()}) {

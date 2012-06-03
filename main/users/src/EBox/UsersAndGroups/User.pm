@@ -415,23 +415,16 @@ sub deleteObject
 
 # Method: passwordHashes
 #
-#   Return an array ref to all hashed passwords as:
+#   Return an array ref to all krb hashed passwords as:
 #
-#   [ name => hash, ... ]
+#   [ hash, hash, ... ]
 #
 sub passwordHashes
 {
     my ($self) = @_;
 
-    my @res;
-    foreach my $attr ($self->_entry->attributes) {
-        if ($attr =~ m/Password$/ or
-            $attr =~ m/^krb5Key$/) {
-            push (@res, $attr => $self->get($attr));
-        }
-    }
-
-    return \@res;
+    my @keys = $self->get('krb5Key');
+    return \@keys;
 }
 
 
@@ -573,6 +566,11 @@ sub create
     # Set the user password and kerberos keys
     if (defined $passwd) {
         $res->changePassword($passwd, 1);
+        delete $res->{core_changed_password};
+        $res->_ldap->changeUserPassword($res->dn(), $passwd);
+    }
+    elsif (defined($user->{passwords})) {
+        $res->setPasswordFromHashes($user->{passwords}, 1);
     }
 
     # Init user
@@ -591,10 +589,6 @@ sub create
     if ($res->{core_changed}) {
         # save() will be take also of saving password if it is changed
         $res->save();
-    } elsif ($res->{core_changed_password}) {
-        # if only password has been changed we avoid call to save() or it will abort
-        my $passwd = delete $res->{core_changed_password};
-        $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
 
     # Return the new created user

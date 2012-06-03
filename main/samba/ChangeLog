@@ -1,4 +1,5 @@
 HEAD
+	+ Sync passwords from LDAP to LDB directly from hashes
 	+ Integrate with zentyal DNS
 	+ Fix loop over array reference in funcion usesPort
 2.3.5
