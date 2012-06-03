@@ -156,9 +156,10 @@ sub run
                 $needSave = 1;
             }
             if ($enable) {
-                my $event = new EBox::Event(message => __x("Gateway {gw} connected again.", gw => $gwName),
-                                            level   => 'warn',
-                                            source  => 'WAN Failover');
+                my $event = new EBox::Event(message    => __x("Gateway {gw} connected again.", gw => $gwName),
+                                            level      => 'info',
+                                            source     => 'WAN Failover',
+                                            additional => { 'up' => 1, gateway => $gwName });
                 push (@{$self->{eventList}}, $event);
             }
         }
@@ -344,7 +345,15 @@ sub _testRule # (row)
         my $explanation = __('This gateway will be connected again if the test are passed.');
         my $event = new EBox::Event(message => "$disconnectMsg\n\n$reason\n$explanation",
                                     level   => 'error',
-                                    source  => 'WAN Failover');
+                                    source  => 'WAN Failover',
+                                    additional => { down => 1,
+                                                    gateway => $gwName,
+                                                    type => $type,
+                                                    host => $host,
+                                                    fail_ratio => $failRatio,
+                                                    max_fail_ratio => $maxFailRatio,
+                                                }
+                                   );
         push (@{$self->{eventList}}, $event);
     }
 }

@@ -47,7 +47,7 @@ use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';
 
 # Group: Public methods
 
-# Method: syncrows
+# Method: syncRows
 #
 # Overrides:
 #

@@ -1,5 +1,6 @@
 HEAD
 	+ Added new EBox::Config::shm() to get Zentyal shared memory dir
+	+ Added additional() and TO_JSON() to EBox::Event
 	+ Allow underscores in domain names
 2.3.4
 	+ Temporary download files are now stored in tmp directory

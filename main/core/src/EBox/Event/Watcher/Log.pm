@@ -247,13 +247,11 @@ sub _createEvents
         # Remove timestamp field from row to add the source category
         my $msg = $helperMod->humanEventMessage($row);
         delete($row->{timestamp});
-        my @keys = sort { $a <=> $b } keys(%{$row});
-        my @values = map { $row->{$_} } @keys;
         push(@retEvents, new EBox::Event(
                                          message     => $msg,
                                          level       => 'info',
-                                         source  => "Log observer-$loggerName",
-                                         compMessage => join('_', @values),
+                                         source      => "log-observer-$loggerName",
+                                         additional  => $row,
                                         )
             );
     }

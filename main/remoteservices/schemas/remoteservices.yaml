@@ -11,8 +11,9 @@ models:
     - Subscription
     - SubscriptionInfo
     - TechnicalInfo
+    - VPNConnectivityCheck
 
 composites:
-    General: [FIXME]
-    SubscriptionInfos: [FIXME]
-    Technical: [FIXME]
+    General: [Subscription, SubscriptionInfos]
+    SubscriptionInfos: [SubscriptionInfo, QAUpdatesInfo, AlertsInfo, ReportsInfo]
+    Technical: [Technicalinfo, RemoteSupportAccess]

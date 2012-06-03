@@ -330,6 +330,21 @@ sub typeInstances
     return $self->{typeInstances};
 }
 
+# Method: metric
+#
+#      Return the metric used to collect the information for this issue
+#
+# Returns:
+#
+#      String - One of the available metrics
+#
+sub metric
+{
+    my ($self) = @_;
+
+    return $self->{type};
+}
+
 # Method: printableTypeInstance
 #
 #      Get the printable type instance for this measure given the type
@@ -570,7 +585,6 @@ sub formattedGaugeType
         when ( 'byte' ) { return _formatSize($count) }
         default { return "$count " . $self->{type} . 's' }
     }
-
 }
 
 # Group: Class methods

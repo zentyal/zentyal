@@ -134,11 +134,10 @@ sub _table
                    defaultValue => $defaultEventOptionValue,
                   ));
 
-    my $domain = $self->{tableInfo}->{tablename};
     my $dataTable = {
-             'tableName'          => "LogWatcherFiltering_$domain",
+             'tableName'          => 'LogWatcherFiltering_' . $self->{tableInfo}->{tablename},
              'printableTableName' => __x('Filters to apply to notify logs from '
-                                         . '{logDomain}', logDomain => $domain),
+                                         . '{logDomain}', logDomain => $self->{tableInfo}->{name}),
              'defaultActions'     => [ 'add', 'del', 'editField', 'changeView' ],
              'modelDomain'        => 'Events',
              'tableDescription'   => \@tableDesc,

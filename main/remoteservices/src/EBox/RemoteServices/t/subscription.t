@@ -33,11 +33,11 @@ EBox::init();
 my $subsServ = EBox::RemoteServices::Subscription->new(user => 'zentyal',
                                                        password => 'zentyal');
 
-print 'Subscribing an eBox... ';
-$subsServ->subscribeEBox('foobar');
+print 'Subscribing a server... ';
+$subsServ->subscribeServer('foobar');
 print "[Done]$RS";
-print 'Subscribing the same eBox... ';
-$subsServ->subscribeEBox('foobar');
+print 'Subscribing the same server... ';
+$subsServ->subscribeServer('foobar');
 print "[Done]$RS";
 print 'Deleting the stored data... ';
 $subsServ->deleteData();

@@ -14,12 +14,12 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Capabilities;
-use base 'EBox::RemoteServices::Auth';
+use base 'EBox::RemoteServices::Cred';
 
 # Class: EBox::RemoteServices::Capabilities
 #
 #      This class requests to the Cloud about the capabilities of this
-#      Zentyal server
+#      Zentyal server (Subscription details)
 #
 
 use strict;
@@ -46,141 +46,29 @@ sub new
     return $self;
 }
 
-# Method: subscriptionLevel
+# Method: subscriptionDetails
 #
-#     Check the subscription level with the cloud
-#
-sub subscriptionLevel
-{
-    my ($self) = @_;
-
-    my $result = { level => -1, codename => ''};
-
-    try {
-        $result = $self->soapCall('subscriptionLevel');
-    } otherwise {
-        EBox::warn("SOAP call subscriptionLevel failed: $@");
-    };
-
-    return $result;
-}
-
-# Method: availableEdition
-#
-#     Get the available edition for this Zentyal
+#     Get the subscription details from Zentyal Cloud once authentication is done
 #
 # Returns:
 #
-#     String - the available edition for this server
+#     Hash ref - containing the following info
 #
-sub availableEdition
+#          codename - String the subscription codename
+#          level    - Int the subscription level
+#          security_updates - Boolean the security updates are on
+#          disaster_recovery - Boolean the disaster recovery is on
+#          technical_support - Int the technical support level
+#          renovation_date  - Int the renovation date in seconds from epoch
+#
+sub subscriptionDetails
 {
     my ($self) = @_;
 
-    return $self->soapCall('availableEdition');
-}
-
-# Method: securityUpdatesAddOn
-#
-#     Check the if securityUpdates addon is available in the cloud
-#
-sub securityUpdatesAddOn
-{
-    my ($self) = @_;
-
-    my $result = '';
-
-    try {
-        $result = $self->soapCall('securityUpdatesAddOn');
-    } otherwise {
-        EBox::warn("SOAP call securityUpdatesAddOn failed: $@");
-    };
-
-    return $result;
-}
-
-# Method: disasterRecoveryAddOn
-#
-#     Check the if disaster recovery addon is available in the cloud
-#     for this company
-#
-sub disasterRecoveryAddOn
-{
-    my ($self) = @_;
-
-    my $result = '';
-
-    try {
-        $result = $self->soapCall('disasterRecoveryAddOn');
-    } otherwise {
-        EBox::warn("SOAP call disasterRecoveryAddOn failed: $@");
-    };
-
-    return $result;
-}
-
-# Method: technicalSupport
-#
-#     Check the if the zentyal server has technical support
-#     for this company
-#
-sub technicalSupport
-{
-    my ($self) = @_;
-
-    my $result = -2;
-
-    try {
-        $result = $self->soapCall('technicalSupport');
-    } otherwise {
-        EBox::warn("SOAP call technicalSupport failed: $@");
-    };
-
-    return $result;
-}
-
-# Method: renovationDate
-#
-#     Check the if the zentyal server has technical support
-#     for this company
-#
-sub renovationDate
-{
-    my ($self) = @_;
-
-    my $result = -1;
-
-    try {
-        $result = $self->soapCall('renovationDate');
-    } otherwise {
-        EBox::warn("SOAP call renovationDate failed: $@");
-    };
-
-    return $result;
-}
-
-# Group: Protected methods
-
-# Method: _serviceUrnKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
-#
-sub _serviceUrnKey
-{
-    return 'capabilitiesServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
+    my $uuid = $self->{cred}->{uuid};
+    my $response = $self->RESTClient()->GET("/v1/servers/$uuid/subscription/");
+    $self->{details} = $response->data();
+    return $self->{details};
 }
 
 1;

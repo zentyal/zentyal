@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,38 +13,30 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::RemoteServices::Composite::Technical
+# Class: EBox::Desktop::ServiceProvider
 #
-#    Display the form and information about technical support
+#   This is an abstract class for desktop services providers
 #
-
-package EBox::RemoteServices::Composite::Technical;
-
-use base 'EBox::Model::Composite';
+#   'desktopActions' method should return an array reference containing, for
+#   each one of the exposed actions, a name and a reference to this action:
+#       'action_name' => \&action
+#
+package EBox::Desktop::ServiceProvider;
 
 use strict;
 use warnings;
 
-use EBox::Gettext;
-
-# Group: Protected methods
-
-# Method: _description
+# Method: actions
 #
-# Overrides:
+#   Return an array ref with the exposed methods
 #
-#     <EBox::Model::Composite::_description>
+# Returns:
 #
-sub _description
+#   array ref - Containing pairs: action_name => action_ref
+#
+sub desktopActions
 {
-    my $description = {
-          layout          => 'top-bottom',
-          name            => __PACKAGE__->nameFromClass(),
-          pageTitle       => __('Technical Support'),
-          compositeDomain => 'RemoteServices',
-    };
-
-    return $description;
+    return {};
 }
 
 1;

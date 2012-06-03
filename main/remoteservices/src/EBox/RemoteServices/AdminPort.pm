@@ -15,11 +15,11 @@
 
 # Class: EBox::RemoteServices::AdminPort
 #
-#     This class is intended as the client side of the AdminPort WS
+#     This class is intended as the client side to notify on server changes
 #
 
 package EBox::RemoteServices::AdminPort;
-use base 'EBox::RemoteServices::Auth';
+use base 'EBox::RemoteServices::Cred';
 
 use strict;
 use warnings;
@@ -59,60 +59,11 @@ sub setAdminPort
 {
     my ($self, $port) = @_;
 
-    try {
-        $self->soapCall('setAdminPort', port => $port);
-    } otherwise {
-        EBox::warn("SOAP call setAdminPort failed: $@");
-    };
+    my $uuid = $self->{cred}->{uuid};
+    my $response = $self->RESTClient()->PUT("/v1/servers/$uuid/adminport/",
+                                            { port => $port });
 
+    return ($response->{result}->is_success());
 }
-
-# Method: serviceUrn
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::serviceUrn>
-#
-sub serviceUrn
-{
-    my ($self) = @_;
-
-    my $urn;
-    try {
-        $urn = $self->SUPER::serviceUrn();
-    } catch EBox::Exceptions::External with {
-        # Hardcore the value since the bundle may be updated in a week
-        # and this is not called in a cron job
-        $urn = 'Zentyal/Cloud/AdminPort';
-    };
-
-    return $urn;
-}
-
-# Group: Protected methods
-
-# Method: _serviceUrnKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
-#
-sub _serviceUrnKey
-{
-    return 'adminPortServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
-}
-
-# Group: Private methods
 
 1;

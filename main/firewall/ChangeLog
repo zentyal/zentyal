@@ -3,6 +3,7 @@ HEAD
 	+ Reimplement OutputRules FIXME
 	+ Remove obsolete localredirects methods
 	+ Remove obsolete import of EBox::Order
+	+ Set RemoteServices rules taking into account no bundle state
 	+ Added clone action to tables
 	+ EBox::Firewall::availablePort now works for non-FirewallObserver modules
 	  and it uses the same readonly status as the firewall module

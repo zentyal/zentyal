@@ -1,4 +1,7 @@
 #!/bin/bash
 
 # Set proper permissions for /var/run/zentyal directory
-chown -R ebox.ebox /var/run/zentyal
+chown -R ebox:ebox /var/run/zentyal
+
+# Set proper permissions for plugin configuration directory
+chown -R ebox:ebox /var/lib/zentyal/conf/monitor
