@@ -102,7 +102,7 @@ sub _load_from_file
         return;
     }
 
-    ($key) or $key = $self->_key("");
+    ($key) or $key = $self->_key('');
 
     open(my $fh, "<$file") or EBox::error("Can't open backup file $file: $!");
     my $line = <$fh>;
@@ -110,10 +110,10 @@ sub _load_from_file
 
     return unless (defined ($line));
 
-    # Import to /temp dir and convert paths to $key dest
-    $self->{redis}->import_dir_from_file($file, '/temp');
-    $self->{redis}->backup_dir('/temp/ebox/modules/' . $self->name, $key);
-    $self->{redis}->delete_dir('/temp');
+    # Import to tmp dir and convert paths to $key dest
+    $self->{redis}->import_dir_from_file($file, 'tmp');
+    $self->{redis}->backup_dir('tmp/' . $self->name() . '/conf', $key);
+    $self->{redis}->delete_dir('tmp');
 }
 
 
@@ -132,7 +132,7 @@ sub _dump_to_file
 {
     my ($self, $dir) = @_;
 
-    my $key = '/ebox/modules/' . $self->name;
+    my $key = $self->name() . '/conf';
     ($dir) or $dir = EBox::Config::conf;
     my $file = $self->_bak_file_from_dir($dir);
     $self->{redis}->export_dir_to_file($key, $file);
@@ -188,22 +188,22 @@ sub _copy_to_ro
 {
     my ($self) = @_;
 
-    $self->_copy('ebox', 'ebox-ro');
+    $self->_copy('conf', 'ro');
 }
 
 sub _copy_from_ro
 {
     my ($self) = @_;
 
-    $self->_copy('ebox-ro', 'ebox');
+    $self->_copy('ro', 'conf');
 }
 
 sub _copy
 {
     my ($self, $src, $dst) = @_;
 
-    my $key = "/$src/modules/" . $self->name;
-    $self->{redis}->backup_dir($key, "/$dst/modules/" . $self->name);
+    my $name = $self->name();
+    $self->{redis}->backup_dir("$name/$src", "$name/$dst");
 }
 
 # TODO: remove all the low-level _change calls here if at some point everything is modelized
@@ -219,9 +219,9 @@ sub _key
 {
     my ($self, $key) = @_;
 
-    my $dir = $self->{ro} ? 'ebox-ro' : 'ebox';
+    my $dir = $self->{ro} ? 'ro' : 'conf';
 
-    my $ret = "/$dir/modules/" . $self->{name};
+    my $ret = $self->{name} . "/$dir";
     if ($key) {
         $ret .= "/$key";
     }
@@ -233,14 +233,14 @@ sub _st_key
 {
     my ($self) = @_;
 
-    return '/ebox/state/' . $self->{name};
+    return $self->{name} . '/state';
 }
 
 sub _ro_key
 {
     my ($self, $key) = @_;
 
-    return '/ebox-ro/modules/' . $self->{name} . "/$key";
+    return $self->{name} . "/ro/$key";
 }
 
 #############
@@ -295,8 +295,7 @@ sub get_bool
 {
     my ($self, $key) = @_;
 
-    $key = $self->_key($key);
-    return $self->redis->get($key, 0);
+    return $self->get($key, 0);
 }
 
 sub st_get_bool
@@ -349,8 +348,7 @@ sub get_int
 {
     my ($self, $key) = @_;
 
-    $key = $self->_key($key);
-    return $self->redis->get($key);
+    return $self->get($key);
 }
 
 sub st_get_int
@@ -403,8 +401,7 @@ sub get_string
 {
     my ($self, $key) = @_;
 
-    $key = $self->_key($key);
-    return $self->redis->get($key);
+    return $self->get($key);
 }
 
 sub st_get_string
@@ -459,8 +456,7 @@ sub get_list
 {
     my ($self, $key) = @_;
 
-    $key = $self->_key($key);
-    return $self->redis->get($key, []);
+    return $self->get($key, []);
 }
 
 sub st_get_list
@@ -484,8 +480,7 @@ sub get_hash
 {
     my ($self, $key) = @_;
 
-    $key = $self->_key($key);
-    return $self->redis->get($key, {});
+    return $self->get($key, {});
 }
 
 #############
@@ -504,10 +499,10 @@ sub get_hash
 #
 sub get
 {
-    my ($self, $key) = @_;
+    my ($self, $key, $defaultValue) = @_;
 
     $key = $self->_key($key);
-    return $self->redis->get($key);
+    return $self->redis->get($key, $defaultValue);
 }
 
 sub st_get
@@ -532,7 +527,7 @@ sub set
 
     $self->_set($key, $value);
 
-    # Only mark as changed if stored value in ebox-ro is different
+    # Only mark as changed if stored value in ro is different
     unless ($self->{ro}) {
         my $oldvalue = $self->{redis}->get($self->_ro_key($key));
         unless (eq_deeply($value, $oldvalue)) {
@@ -836,7 +831,7 @@ sub AUTOLOAD
 
     if (UNIVERSAL::can($self, '_exposedMethods')) {
         my $exposedMethods = $self->_exposedMethods();
-        if ( exists $exposedMethods->{$methodName} ) {
+        if (exists $exposedMethods->{$methodName}) {
             return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
         } else {
             use Devel::StackTrace;

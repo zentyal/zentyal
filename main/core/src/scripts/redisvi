@@ -22,7 +22,7 @@ use EBox::Config::Redis;
 use EBox::Sudo;
 use Error qw(:try);
 
-my $dir = '/ebox';
+my $dir = '';
 
 if ($ARGV[0]) {
     $dir = $ARGV[0];

@@ -1,4 +1,6 @@
 HEAD
+	+ New redis key naming, with $mod/conf/*, $mod/state and $mod/ro/* replacing
+	  /ebox/modules/$mod/*, /ebox/state/$mod/* and /ebox-ro/modules/$mod/*
 	+ Removed unnecessary parentComposite methods in EBox::Model::Component
 	+ Only mark modules as changed when data has really changed
 	+ EBox::Global::modChange() throws exception if instance is readonly

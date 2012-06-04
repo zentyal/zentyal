@@ -22,22 +22,18 @@ use EBox::Config::Redis;
 use EBox::Sudo;
 use Error qw(:try);
 
-my $dir = '/ebox';
-my $pattern = $ARGV[0];
+my ($pattern, $dir) = @ARGV;
 
 unless ($pattern) {
     print STDERR "Usage: $0 pattern [path]\n";
     exit 1;
-}
-if ($ARGV[1]) {
-    $dir = $ARGV[1];
 }
 
 EBox::init();
 
 my $redis = new EBox::Config::Redis();
 
-my @keys = $redis->_keys("$dir/*");
+my @keys = $redis->_keys($dir ? "$dir/*" : '*');
 
 foreach my $key (@keys) {
     my $value = $redis->get($key);

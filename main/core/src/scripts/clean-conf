@@ -1,6 +1,8 @@
 #!/usr/bin/perl
+
 use strict;
 use warnings;
+
 use EBox;
 use EBox::Config;
 use EBox::GlobalImpl;
@@ -12,14 +14,10 @@ EBox::init();
 
 my $global = EBox::GlobalImpl->instance();
 
-my $globalConf = "/ebox/modules/global/modules/$module";
-my $globalState = "/ebox/state/global/ServiceModule/$module";
-my $moduleConf = "/ebox/modules/$module";
-my $moduleState = "/ebox/state/$module";
-
-$global->delete_dir($globalConf);
-$global->{redis}->delete_dir($globalState);
-$global->{redis}->delete_dir($moduleConf);
-$global->{redis}->delete_dir($moduleState);
+$global->delete_dir("global/conf/modules/$module");
+$global->{redis}->delete_dir("global/state/ServiceModule/$module");
+$global->{redis}->delete_dir("$module/conf");
+$global->{redis}->delete_dir("$module/ro");
+$global->{redis}->unset("$module/$state");
 
 1;
