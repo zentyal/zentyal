@@ -113,8 +113,13 @@ sub run # (url, namespace)
             $cgi = _lookupViewController($classname, $namespace);
         }
         catch EBox::Exceptions::DataNotFound with {
+            $redis->rollback();
             # path not valid
             $cgi = undef;
+        } otherwise {
+            my ($ex) = @_;
+            $redis->rollback();
+            $ex->throw();
         };
 
         if (not $cgi) {
