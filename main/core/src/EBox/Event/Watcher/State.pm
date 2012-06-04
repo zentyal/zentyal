@@ -104,15 +104,17 @@ sub run
     my $event;
     if ( $up ) {
         $event = new EBox::Event(
-                message => __('Zentyal is up and running'),
-                level   => 'info',
-                source  => 'state',
+                message    => __('Zentyal UI is up and running'),
+                level      => 'info',
+                source     => 'state',
+                additional => { 'up' => 1 },
                 );
     } else {
         $event = new EBox::Event(
-                message => __('Zentyal is critically down'),
+                message => __('Zentyal UI is critically down'),
                 level   => 'fatal',
                 source  => 'state',
+                additional => { 'down' => 1 },
                 );
     }
 

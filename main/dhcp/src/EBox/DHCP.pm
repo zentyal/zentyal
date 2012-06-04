@@ -815,7 +815,7 @@ sub ranges # (iface)
 #
 #       <EBox::Exceptions::External> - Interface is not static
 #
-sub fixedAddresses # (interface, readOnly)
+sub fixedAddresses
 {
     my ($self,$iface, $readOnly) = @_;
 
@@ -836,7 +836,10 @@ sub fixedAddresses # (interface, readOnly)
                                              iface => $iface));
     }
 
-    my $model = $self->_getModel('fixedAddrModel', $iface);
+    my $ifaceModel = $self->model('Interfaces');
+    my $ifaceRow = $ifaceModel->findRow(iface => $iface);
+    my $ifaceConf = $ifaceRow->subModel('configuration');
+    my $model = $ifaceConf->componentByName('FixedAddressTable');
     my %addrs;
     my $objMod = $global->modInstance('objects');
     for my $id (@{$model->ids()}) {

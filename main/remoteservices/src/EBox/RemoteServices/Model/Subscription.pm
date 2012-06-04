@@ -46,12 +46,14 @@ use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::Subscription::Check;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Password;
+use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::View::Customizer;
 
 # Core modules
 use Error qw(:try);
+use JSON::XS;
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
@@ -120,11 +122,22 @@ sub setTypedRow
         if ( $subs ) {
             # Desubscribing
             EBox::RemoteServices::Subscription::Check::unsubscribeIsAllowed();
-            EBox::RemoteServices::Backup->new()->cleanDaemons();
             $subsServ->deleteData($paramsRef->{eboxCommonName}->value());
         } else {
             # Subscribing
-            my $subsData = $subsServ->subscribeEBox($paramsRef->{eboxCommonName}->value());
+            my $selectedOption = exists $paramsRef->{options} ? $paramsRef->{options}->value() : undef;
+            my $subsData = $subsServ->subscribeServer($paramsRef->{eboxCommonName}->value(),
+                                                      $selectedOption);
+            # If several options are given, then we have to show them
+            if ( $subsData->{availableEditions} ) {
+                my $subOptions = { 'options' => $subsData->{availableEditions},
+                                   'pass'    => $password };
+                $self->{gconfmodule}->st_set_string('sub_options', encode_json($subOptions));
+                $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
+                $self->reloadTable();
+                $self->setMessage(__('Select one of the available options'));
+                return; # Come back to show the form again
+            }
             # Indicate if the necessary to wait for a second or not
             if ( $subsData->{new} ) {
                 $self->{returnedMsg} = __('Subscription was done correctly. Save changes and then, '
@@ -136,7 +149,12 @@ sub setTypedRow
                 $self->{returnedMsg} = __('Subscription data retrieved correctly.');
             }
             $self->{returnedMsg} .= ' ' . __('Please, save changes');
+<<<<<<< HEAD
             $self->{confmodule}->st_set_bool('just_subscribed', 1);
+=======
+            $self->{gconfmodule}->st_set_bool('just_subscribed', 1);
+            $self->{gconfmodule}->st_unset('sub_options');
+>>>>>>> master
         }
     }
     # Call the parent method to store data in our conf storage
@@ -146,6 +164,9 @@ sub setTypedRow
     $self->{confmodule}->setAsChanged();
 
     $self->{confmodule}->st_set_bool('subscribed', not $subs);
+
+    # Start async the bundle retrieval
+    system(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
 
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
@@ -170,15 +191,14 @@ sub setTypedRow
         $self->setMessage(__('Done'));
     }
 
-    if ( not $subs ) {
-        try {
-            # Establish VPN connection after subscribing and store data in backend
-            EBox::RemoteServices::Backup->new()->connection();
-        } catch EBox::Exceptions::External with {
-            EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
-        };
-    }
-
+    # if ( not $subs ) {
+    #     try {
+    #         # Establish VPN connection after subscribing and store data in backend
+    #         EBox::RemoteServices::Backup->new()->connection();
+    #     } catch EBox::Exceptions::External with {
+    #         EBox::warn('Impossible to establish the connection to the name server. Firewall is not restarted yet');
+    #     };
+    # }
 }
 
 # Method: eBoxSubscribed
@@ -196,6 +216,21 @@ sub eBoxSubscribed
     my $subs = $self->{confmodule}->st_get_bool('subscribed');
     $subs = 0 if not defined($subs);
     return $subs;
+}
+
+# Method: showAvailable
+#
+#      Check if we have options available to show them to the user
+#
+# Returns:
+#
+#      Boolean - indicating if there are options available or not
+#
+sub showAvailable
+{
+    my ($self) = @_;
+
+    return $self->{gconfmodule}->st_entry_exists('sub_options');
 }
 
 # Method: unsubscribe
@@ -342,12 +377,14 @@ sub _table
                                            # the hostname to make it a
                                            # valid subdomain name
 
+    my $subscribed = $self->eBoxSubscribed();
+
     my @tableDesc =
       (
        new EBox::Types::Text(
                              fieldName     => 'username',
                              printableName => __('User Name or Email Address'),
-                             editable      => (not $self->eBoxSubscribed()),
+                             editable      => (not $subscribed),
                              volatile      => 1,
                              acquirer      => \&_acquireFromState,
                              storer        => \&_storeInConfigState,
@@ -355,7 +392,7 @@ sub _table
        new EBox::RemoteServices::Types::EBoxCommonName(
                              fieldName      => 'eboxCommonName',
                              printableName  => __('Server Name'),
-                             editable       => (not $self->eBoxSubscribed()),
+                             editable       => (not $subscribed),
                              volatile       => 1,
                              acquirer       => \&_acquireFromState,
                              storer         => \&_storeInConfigState,
@@ -371,7 +408,19 @@ sub _table
         editable      => 1,
         volatile      => 1,
         storer        => \&_emptyFunc,
+        acquirer      => \&_tempPasswd,
        );
+
+    if ( $self->showAvailable() ) {
+        push(@tableDesc,
+             new EBox::Types::Select(fieldName     => 'options',
+                                     printableName => __('Available Options'),
+                                     populate      => \&_populateOptions,
+                                     help          => __('Select one of your purchases'),
+                                     editable      => 1,
+                                     volatile      => 1,
+                                     storer        => \&_emptyFunc));
+    }
 
     my ($actionName, $printableTableName);
     if ( $self->eBoxSubscribed() ) {
@@ -431,6 +480,22 @@ sub _storeInConfigState
     } else {
         $confModule->st_unset($keyField);
     }
+}
+
+# Store the password temporary when selecting the options
+sub _tempPasswd
+{
+    my ($type) = @_;
+
+    my $module = EBox::Global->instance()->modInstance('remoteservices');
+    my $pass = undef;
+    if ( $module->st_entry_exists('sub_options') ) {
+        # Store the password temporary
+        my $options = decode_json($module->st_get_string('sub_options'));
+        $pass = $options->{pass};
+    }
+    return $pass;
+
 }
 
 # Manage the event control center dispatcher and events module
@@ -609,6 +674,35 @@ sub _commercialMsg
                 ohs => '<a href="' . SB_URL . '" target="_blank">',
                 ohe => '<a href="' . ENT_URL . '" target="_blank">',
                 ch => '</a>');
+}
+
+# Populate the available options from the cloud
+sub _populateOptions
+{
+    my $rs = EBox::Global->instance()->modInstance('remoteservices');
+
+    my $options = decode_json($rs->st_get_string('sub_options'));
+    $options = $options->{options};
+
+    my @options = map { { value          => $_->{id},
+                          printableValue => $_->{server} ? __x('Use existing server from {c}', c => $_->{company} )
+                                                          :  $_->{company} . ' : ' . $_->{name} } }
+      @{$options};
+
+    # Filter out the repetitive values
+    my %seen = ();
+    my @r = ();
+    foreach my $e (@options) {
+        unless ( $seen{$e->{printableValue}} ) {
+            push(@r, $e);
+            $seen{$e->{printableValue}} = 1;
+        }
+    }
+    @options = @r;
+
+    # Option to reload the available options
+    push(@options, { value => 'reload', printableValue => __('Reload available options')});
+    return \@options;
 }
 
 1;

@@ -309,6 +309,7 @@ sub _dispatchEventByDispatcher
     foreach my $dispatcher (@requestedDispatchers) {
         try {
             $dispatcher->enable();
+            EBox::info("Send event to $dispatcher");
             $dispatcher->send($event);
         } catch EBox::Exceptions::External with {
             my ($exc) = @_;
@@ -363,7 +364,7 @@ sub _foldingEventInLog
         return undef;
     }
 
-    my ($year, $mon, $mday, $hour, $min, $sec) = split /[\s\-:]/, $storedEvent->{lasttimestamp};
+    my ($year, $mon, $mday, $hour, $min, $sec) = split /[\s\-:]/, $storedEvent->{lastTimestamp};
     $year -= 1900;
     $mon -= 1;
     my $storedTimestamp = timelocal($sec,$min,$hour,$mday,$mon,$year);

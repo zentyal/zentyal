@@ -133,7 +133,7 @@ sub validateTypedRow
         }
 
         # Check fixed addresses
-        my $fixedAddresses = $self->{confmodule}->fixedAddresses($self->index(), 0);
+        my $fixedAddresses = $self->{confmodule}->fixedAddresses($interface, 0);
         foreach my $fixedAddr (@{$fixedAddresses}) {
             my $fixedIP = new Net::IP($fixedAddr->{ip});
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {

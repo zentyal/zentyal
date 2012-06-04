@@ -1,5 +1,6 @@
 HEAD
 	+ Adapted to new Model management framework
+	+ Take into account the VPN internal client renaming
 	+ Site-to-site VPN is now supported on all editions
 	+ Refresh interface info cache with an apache restart to make the
 	  widgets return updated interface information

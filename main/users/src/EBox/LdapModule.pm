@@ -149,10 +149,9 @@ sub _loadACLDirectory
     );
     my $result = $ldap->search(%args);
     my $entry = ($result->entries)[0];
-    if ($result->count()== 0) {
+    if ($result->count() == 0) {
         throw EBox::Exceptions::Internal("LDAP object not found: $dn")
     }
-
 
     my $attr = ($entry->attributes)[0];
     my $found = undef;
@@ -163,7 +162,7 @@ sub _loadACLDirectory
             last;
         }
     }
-    if(not $found) {
+    if (not $found) {
         # place the new rule *before* the last 'catch-all' one
         my $last = pop(@rules);
         $last =~ s/^{\d+}//;

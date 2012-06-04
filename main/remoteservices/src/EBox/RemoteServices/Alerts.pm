@@ -14,22 +14,16 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::RemoteServices::Alerts;
-use base 'EBox::RemoteServices::Auth';
+
+use base 'EBox::RemoteServices::Cred';
 
 # Class: EBox::RemoteServices::Alerts
 #
-#      This class sends events to the Control Panel using the SOAP
-#      client through VPN. It already takes into account to establish
-#      the VPN connection and the required data to auth data
+#      This class sends events to the Control Panel using the REST API
 #
 
 use strict;
 use warnings;
-
-use EBox::Config;
-use EBox::Exceptions::DataNotFound;
-
-use Error qw(:try);
 
 # Group: Public methods
 
@@ -59,31 +53,8 @@ sub pushAlerts
 {
     my ($self, $alerts) = @_;
 
-    $self->soapCall('pushAlerts', alerts => $alerts);
-}
-
-# Group: Protected methods
-
-# Method: _serviceUrnKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
-#
-sub _serviceUrnKey
-{
-    return 'alertsServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'managementProxy';
+    my $response = $self->RESTClient()->POST("/v1/alerts/servers/",
+                                             $alerts);
 }
 
 1;

@@ -336,24 +336,28 @@ sub _setRemoteServices
     if ( $gl->modExists('remoteservices') ) {
         my $rsMod = $gl->modInstance('remoteservices');
         if ( $rsMod->eBoxSubscribed() ) {
-            my $vpnIface = $rsMod->ifaceVPN();
-            push(@commands,
-                pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
-            );
-            try {
-                my %vpnSettings = %{$rsMod->vpnSettings()};
+            if ( $rsMod->hasBundle() ) {
+                my $vpnIface = $rsMod->ifaceVPN();
                 push(@commands,
-                     pf("-A ointernal $statenew -p $vpnSettings{protocol} "
-                          . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
-                );
+                     pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
+                    );
+            }
+            try {
+                if ( $rsMod->hasBundle() ) {
+                    my %vpnSettings = %{$rsMod->vpnSettings()};
+                    push(@commands,
+                         pf("-A ointernal $statenew -p $vpnSettings{protocol} "
+                              . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
+                        );
+                }
 
-                # Allow communications between ns and www
+                # Allow communications between ns and www and API?
                 eval "use EBox::RemoteServices::Configuration";
                 my ($dnsServer, $publicWebServer, $mirrorCount) = (
-                        EBox::RemoteServices::Configuration->DNSServer(),
-                        EBox::RemoteServices::Configuration->PublicWebServer(),
-                        EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
-                        );
+                    EBox::RemoteServices::Configuration->DNSServer(),
+                    EBox::RemoteServices::Configuration->PublicWebServer(),
+                    EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
+                   );
                 # We are assuming just one name server
                 push(@commands,
                     pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j ACCEPT || true"),

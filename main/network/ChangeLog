@@ -3,6 +3,7 @@ HEAD
 	+ Remove no longer necessary ad-hoc vifacesConf cache
 	+ Adapted to new Model management framework
 	+ Reimplemented Ifaces/Vifaces/VLANs storage according to new conf backend
+	+ Send additional info in Gateways watcher
 	+ Added clone action to multi gw and wan failover tables
 	+ Added EBox::Network::internalIpAddresses()
 	+ Added regenGatewaysFailover() to NetworkObserver so modules can

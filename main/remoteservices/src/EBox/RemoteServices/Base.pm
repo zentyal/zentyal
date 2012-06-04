@@ -36,6 +36,7 @@ use Net::DNS;
 
 # Constants
 use constant SRV_CONF_FILE => 'remoteservices.conf';
+use constant RS_SUBDIR     => 'remoteservices/subscription';
 
 # Group: Public methods
 
@@ -239,6 +240,8 @@ sub _queryServicesNameserver
 
     my $response = $resolver->query($hostname);
     if (not defined $response) {
+        my $trace = Devel::StackTrace->new;
+        EBox::error($trace->as_string());
         throw EBox::Exceptions::External(
             __x(
                 'Server {s} not found via DNS server {d}. Reason: {r}',
@@ -314,6 +317,38 @@ sub _sortableDate
                                $h, $m, $s);
     return $date->mktime();
 
+}
+
+# Method: _subscriptionDirPath
+#
+#      Return the subscription path
+#
+#      This is required because it may not have the bundle yet.
+#
+# Returns:
+#
+#      String - the path
+#
+sub _subscriptionDirPath
+{
+    my ($self, $name) = @_;
+
+    return EBox::Config::conf() . RS_SUBDIR . "/$name/";
+}
+
+# Method: _credentialsFilePath
+#
+#      Return the credentials file path
+#
+# Returns:
+#
+#      String - the path
+#
+sub _credentialsFilePath
+{
+    my ($self, $name) = @_;
+
+    return $self->_subscriptionDirPath($name) .  'server-info.json';
 }
 
 # Group: Private methods
