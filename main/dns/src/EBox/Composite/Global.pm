@@ -40,9 +40,9 @@ use EBox::Global;
 #
 sub new
 {
-    my ($class) = @_;
+    my ($class, @params) = @_;
 
-    my $self = $class->SUPER::new();
+    my $self = $class->SUPER::new(@params);
 
     return $self;
 }
