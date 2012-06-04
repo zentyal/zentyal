@@ -505,9 +505,6 @@ sub _foldingEventInLog
         return undef;
     }
 
-    use Data::Dumper;
-    print STDERR Dumper($storedEvent);
-
     my ($year, $mon, $mday, $hour, $min, $sec) = split /[\s\-:]/, $storedEvent->{lastTimestamp};
     $year -= 1900;
     $mon -= 1;
