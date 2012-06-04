@@ -340,7 +340,7 @@ sub setRow
         $changedData->{$fieldName} = $newData;
     }
 
-    $self->setTypedRow('',
+    $self->setTypedRow($ROW_ID,
                        $changedData,
                        force => $force,
                        readOnly => $params{'readOnly'});
