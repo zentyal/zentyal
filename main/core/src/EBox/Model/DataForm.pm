@@ -355,7 +355,7 @@ sub setRow
 #
 #       <EBox::Model::DataTable::setTypedRow>
 #
-sub setTypedRow
+sub setTypedRowx
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
@@ -403,7 +403,7 @@ sub set
 
     my $typedParams = $self->_fillTypes(\%params, 1);
 
-    $self->setTypedRow(0, $typedParams, force => $force,
+    $self->setTypedRow($ROW_ID, $typedParams, force => $force,
                        readOnly => $readOnly);
 }
 
@@ -442,6 +442,8 @@ sub sortedBy
 
 # Method: rowUnique
 #
+# Since we have only one row we return false to disable
+# row-uniqueness tests
 #
 # Overrides:
 #
@@ -449,7 +451,7 @@ sub sortedBy
 #
 sub rowUnique
 {
-    return 1;
+    return 0;
 }
 
 # Method: setFilter
@@ -734,5 +736,7 @@ sub clone
     };
 
 }
+
+
 
 1;
