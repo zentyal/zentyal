@@ -1695,27 +1695,6 @@ sub _dynamicDNSEnabled # (ifacesInfo)
     }
 }
 
-# Configure the firewall rules to add
-# XXX maybe this is dead code?
-sub _configureFirewall
-{
-    my ($self) = @_;
-
-    my $fw = EBox::Global->modInstance('firewall');
-    try {
-        $fw->removeOutputRule('udp', 67);
-        $fw->removeOutputRule('udp', 68);
-        $fw->removeOutputRule('tcp', 67);
-        $fw->removeOutputRule('tcp', 68);
-    } catch EBox::Exceptions::Internal with { };
-
-    if ($self->isEnabled()) {
-        $fw->addOutputRule('tcp', 67);
-        $fw->addOutputRule('tcp', 68);
-        $fw->addOutputRule('udp', 67);
-        $fw->addOutputRule('udp', 68);
-    }
-}
 
 # Returns those model instances attached to the given interface
 sub _removeDataModelsAttached
