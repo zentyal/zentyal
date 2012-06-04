@@ -101,47 +101,35 @@ sub run # (url, namespace)
     my ($self, $url, $namespace) = @_;
 
     my $redis = EBox::Global->modInstance('global')->redis();
-
     $redis->begin();
 
-    my $classname = classFromUrl($url, $namespace);
-
-    my $cgi;
-    eval "use $classname";
-    if ($@) {
-        try {
-            $cgi = _lookupViewController($classname, $namespace);
-        }
-        catch EBox::Exceptions::DataNotFound with {
-            $redis->rollback();
-            # path not valid
-            $cgi = undef;
-        } otherwise {
-            my ($ex) = @_;
-            $redis->rollback();
-            $ex->throw();
-        };
-
-        if (not $cgi) {
-            my $log = EBox::logger;
-            $log->error("Unable to import cgi: "
-                    . "$classname Eval error: $@");
-
-            my $error_cgi = 'EBox::CGI::SysInfo::PageNotFound';
-            eval "use $error_cgi";
-            $cgi = new $error_cgi('namespace' => $namespace);
-        } else {
-            #  EBox::debug("$classname mapped to "
-            #  . " Controller/Viewer CGI");
-        }
-    }
-    else {
-        $cgi = new $classname();
-    }
-
     try {
-        $cgi->run();
+        my $classname = classFromUrl($url, $namespace);
 
+        my $cgi;
+        eval "use $classname";
+        if ($@) {
+            try{
+                $cgi = _lookupViewController($classname, $namespace);
+            }  catch EBox::Exceptions::DataNotFound with {
+                # path not valid
+                $cgi = undef;
+            };
+
+            if (not $cgi) {
+                my $log = EBox::logger;
+                $log->error("Unable to import cgi: "
+                                . "$classname Eval error: $@");
+
+                my $error_cgi = 'EBox::CGI::SysInfo::PageNotFound';
+                eval "use $error_cgi";
+                $cgi = new $error_cgi('namespace' => $namespace);
+            }
+        } else {
+            $cgi = new $classname();
+        }
+
+        $cgi->run();
         $redis->commit();
     } finally {
         $redis->rollback();
