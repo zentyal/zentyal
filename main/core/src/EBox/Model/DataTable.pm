@@ -1096,7 +1096,7 @@ sub _removeRow
     my ($self, $id) = @_;
 
     my $confmod = $self->{'confmodule'};
-    $confmod->unset("$self->{'directory'}/$id");
+    $confmod->delete_dir("$self->{'directory'}/$id");
     my @order = @{$confmod->get_list($self->{'order'})};
     @order = grep ($_ ne $id, @order);
     $confmod->set_list($self->{'order'}, 'string', \@order);
