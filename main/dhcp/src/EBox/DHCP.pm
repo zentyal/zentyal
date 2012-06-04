@@ -231,11 +231,11 @@ sub _setConf
 #
 sub menu
 {
-        my ($self, $root) = @_;
-        $root->add(new EBox::Menu::Item('url' => 'DHCP/View/Interfaces',
-                                        'text' => $self->printableName(),
-                                        'separator' => 'Infrastructure',
-                                        'order' => 410));
+    my ($self, $root) = @_;
+    $root->add(new EBox::Menu::Item('url' => 'DHCP/View/Interfaces',
+                                    'text' => $self->printableName(),
+                                    'separator' => 'Infrastructure',
+                                    'order' => 410));
 }
 
 # Method: depends
@@ -257,7 +257,6 @@ sub depends
     }
 
     return $dependsList;
-
 }
 
 # Method: modelClasses
@@ -1701,7 +1700,7 @@ sub _removeDataModelsAttached
 {
     my ($self, $iface) = @_;
     my $ifacesModel = $self->model('Interfaces');
-    my $rowId       = $ifacesModel->findId(interface => $iface);
+    my $rowId       = $ifacesModel->findId(iface => $iface);
     $ifacesModel->removeRow($rowId, 1);
 
 #     # RangeTable/Options/FixedAddressTable
