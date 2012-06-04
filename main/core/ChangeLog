@@ -1,4 +1,4 @@
-HEAD
+2.3.10
 	+ Added Desktop::ServiceProvider to allow modules to implement
 	  requests from Zentyal desktop
 	+ Added VirtualHost to manage desktop requests to Zentyal server

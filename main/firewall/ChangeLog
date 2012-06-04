@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Set RemoteServices rules taking into account no bundle state
 	+ Added clone action to tables
 	+ EBox::Firewall::availablePort now works for non-FirewallObserver modules

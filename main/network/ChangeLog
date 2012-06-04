@@ -1,4 +1,4 @@
-HEAD
+2.3.7
 	+ Send additional info in Gateways watcher
 	+ Added clone action to multi gw and wan failover tables
 	+ Added EBox::Network::internalIpAddresses()
