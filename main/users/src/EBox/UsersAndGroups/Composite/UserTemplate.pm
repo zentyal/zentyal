@@ -25,19 +25,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the default user template
-#
-sub new
-{
-    my ($class) = @_;
-    my $self = $class->SUPER::new();
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -57,7 +44,7 @@ sub _description
         compositeDomain => 'Users',
         help => __('These configuration options are used when a new user ' .
             'account is created.')
-        };
+    };
 
     return $description;
 }

@@ -25,21 +25,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the Settings composite
-#
-sub new
-{
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description

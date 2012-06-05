@@ -35,24 +35,6 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the composite
-#
-# Returns:
-#
-#       <EBox::IDS::Model::Composite> - a
-#       composite
-#
-sub new
-{
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
 # Method: permanentMessage
 #
 #     Override to show a message depending on the subscription status
