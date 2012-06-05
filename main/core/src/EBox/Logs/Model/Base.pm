@@ -134,12 +134,15 @@ sub reportRows
     my $timePeriod = $self->timePeriod();
 
     my $table  = $self->dbTable($timePeriod) ;
-    my @fields = keys %{ $self->dbFields()  };
+    my @fields = map {
+        q{`} . $_ . q{`}
+    }  keys %{ $self->dbFields()  };
+    push @fields, q{`date`};
 
     my $dbEngine =  EBox::DBEngineFactory::DBEngine();
 
     my $orderMode = $limit ? 'DESC' : 'ASC';
-    my $columns = join ',', ('date', @fields);
+    my $columns = join ',', @fields;
     my $query = "SELECT $columns FROM $table ORDER BY date $orderMode";
     if ($limit) {
         $query .= " LIMIT $limit";
