@@ -1804,12 +1804,16 @@ sub _unionQuery
 }
 
 
-#  Method: getGlobal
+# Method: global
 #
-#   get a EBox::Global isntance with the same read-only status than the module
-sub getGlobal
+#  Gets an EBox::Global instance with the same read-only status as the module
+#
+#  As EBox::Module::Base does not store config, this always returns a regular instance
+#
+sub global
 {
     my ($self) = @_;
+
     return EBox::Global->getInstance();
 }
 

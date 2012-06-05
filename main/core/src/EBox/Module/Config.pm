@@ -1069,11 +1069,15 @@ sub restoreFilesFromArchive
     EBox::Sudo::root($restoreCmd);
 }
 
-sub getGlobal
+# Method: global
+#
+#  Gets an EBox::Global instance with the same read-only status as the module
+#
+sub global
 {
     my ($self) = @_;
-    my $readOnly = $self->isReadOnly();
-    return EBox::Global->getInstance($readOnly);
+
+    return EBox::Global->getInstance($self->{ro});
 }
 
 

@@ -49,13 +49,15 @@ sub parentModule
 }
 
 
-# Method: getGlobal
+# Method: global
 #
 # returns a EBox::Global instance with the correct read-only status
-sub getGlobal
+#
+sub global
 {
     my ($self) = @_;
-    return $self->{'confmodule'}->getGlobal();
+
+    return $self->{'confmodule'}->global();
 }
 
 # Method: pageTitle

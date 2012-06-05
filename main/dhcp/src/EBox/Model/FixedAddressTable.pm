@@ -224,8 +224,9 @@ sub _table
 sub objectModelGetter
 {
     my ($self) = @_;
-    my $global = $self->getGlobal();
-    return sub{
+
+    my $global = $self->global();
+    return sub {
         return $global->modInstance('objects')->model('ObjectTable');
     };
 }
