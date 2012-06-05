@@ -26,7 +26,7 @@ use base qw(
 
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
-use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet);
+use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 use constant INTERFACES_FILE => '/etc/network/interfaces';
 use constant DDCLIENT_FILE => '/etc/ddclient.conf';
