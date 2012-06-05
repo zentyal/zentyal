@@ -6,4 +6,4 @@ description     "Zentyal Files Sync daemon"
 author          "eBox Technologies S.L."
 
 respawn
-exec zentyal-files-sync /var/lib/zentyal/conf/files-sync/sync.conf
+exec zentyal-files-sync /var/lib/zentyal/conf/files-sync/sync.conf >> /var/log/zentyal/filesync.log
