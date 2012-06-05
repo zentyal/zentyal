@@ -40,10 +40,10 @@ models:
     - FilterGroupAntiVirus
     - DelayPools1
     - DelayPools2
-    - Report::RequestsGraph
-    - Report::TrafficSizeGraph
-    - Report::TrafficDetails
-    - Report::TrafficReportOptions
+    - RequestsGraph
+    - TrafficSizeGraph
+    - TrafficDetails
+    - TrafficReportOptions
 
 composites:
     General: [FIXME]
@@ -58,4 +58,4 @@ composites:
     FilterGroupMIME: [FIXME]
     FilterGroupDomains: [FIXME]
     DelayPools: [FIXME]
-    Report::TrafficReport: [FIXME]
+    TrafficReport: [FIXME]

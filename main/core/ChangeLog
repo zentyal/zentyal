@@ -1,6 +1,10 @@
 HEAD
 	+ Removed any message set in the model in syncRows method
 	+ Added getGlobal()  method to modules and components
+	+ Removed Model::Report and Composite::Report namespaces to simplify model
+	  management and specification
+	+ New redis key naming, with $mod/conf/*, $mod/state and $mod/ro/* replacing
+	  /ebox/modules/$mod/*, /ebox/state/$mod/* and /ebox-ro/modules/$mod/*
 	+ Removed unnecessary parentComposite methods in EBox::Model::Component
 	+ Only mark modules as changed when data has really changed
 	+ EBox::Global::modChange() throws exception if instance is readonly

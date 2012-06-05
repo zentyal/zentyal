@@ -37,9 +37,9 @@ use EBox::Firewall::Model::ExternalToInternalRuleTable;
 use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
-use EBox::Firewall::Model::Report::PacketTrafficDetails;
-use EBox::Firewall::Model::Report::PacketTrafficGraph;
-use EBox::Firewall::Model::Report::PacketTrafficReportOptions;
+use EBox::Firewall::Model::PacketTrafficDetails;
+use EBox::Firewall::Model::PacketTrafficGraph;
+use EBox::Firewall::Model::PacketTrafficReportOptions;
 
 
 use EBox::FirewallLogHelper;

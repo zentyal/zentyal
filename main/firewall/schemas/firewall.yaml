@@ -16,9 +16,9 @@ models:
     - ExternalToInternalRuleTable
     - EBoxServicesRuleTable
     - RedirectsTable
-    - Report::PacketTrafficDetails
-    - Report::PacketTrafficGraph
-    - Report::PacketTrafficReportOptions
+    - PacketTrafficDetails
+    - PacketTrafficGraph
+    - PacketTrafficReportOptions
 
 composites:
-    Report::PacketTrafficReport: [/firewall/PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]
+    PacketTrafficReport: [PacketTrafficReportOptions, PacketTrafficGraph, PacketTrafficDetails]

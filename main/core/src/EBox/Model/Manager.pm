@@ -253,14 +253,7 @@ sub _component
     my $access = $module->{ro} ? 'ro' : 'rw';
 
     unless (exists $self->{$key}->{$moduleName}->{$name}) {
-        # Second try as a report component
-        if (exists $self->{$key}->{$moduleName}->{"Report::$name"}) {
-            $name = "Report::$name";
-        } else {
-            throw EBox::Exceptions::DataNotFound(data  => $kind,
-                                                 value => $name,
-                                                 silent => 1);
-        }
+        throw EBox::Exceptions::DataNotFound(data  => $kind, value => $name, silent => 1);
     }
 
     unless (defined $self->{$key}->{$moduleName}->{$name}->{instance}->{$access}) {

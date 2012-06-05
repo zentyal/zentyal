@@ -1,5 +1,4 @@
-#!/usr/bin/perl
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,30 +13,34 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-use warnings;
+package EBox::Mail::Composite::TrafficReport;
+
+use base 'EBox::Model::Composite';
+
 use strict;
+use warnings;
 
-use EBox;
-use EBox::Config::Redis;
-use EBox::Sudo;
-use Error qw(:try);
+use EBox::Gettext;
 
-my ($pattern, $dir) = @ARGV;
+# Group: Protected methods
 
-unless ($pattern) {
-    print STDERR "Usage: $0 pattern [path]\n";
-    exit 1;
+# Method: _description
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::_description>
+#
+sub _description
+{
+    my $description = {
+       layout          => 'top-bottom',
+       name            => 'TrafficReport',
+       printableName   => __('Mail traffic reports'),
+       pageTitle   => __('Mail traffic report'),
+       compositeDomain => 'Mail',
+    };
+
+    return $description;
 }
 
-EBox::init();
-
-my $redis = new EBox::Config::Redis();
-
-my @keys = $redis->_keys($dir ? "$dir/*" : '*');
-
-foreach my $key (@keys) {
-    my $value = $redis->get($key);
-    if (($key =~ /$pattern/) or ($value =~ /$pattern/)) {
-        print "$key: $value\n";
-    }
-}
+1;

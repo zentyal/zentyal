@@ -266,7 +266,7 @@ sub _backup_dir
     my $destinationType = $args{destination_type};
     my $dest = $args{destination};
 
-    my @keys = $self->_keys("$key/*");
+    my @keys = $self->_keys($key ? "$key/*" : '*');
 
     for my $entry (@keys) {
         my $destKey = $entry;

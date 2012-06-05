@@ -15,20 +15,20 @@ models:
     - AntispamTraining
     - AntispamVDomainACL
     - POPProxyConfiguration
-    - Report::FilterDetails
-    - Report::FilterGraph
-    - Report::FilterReportOptions
-    - Report::POPProxyDetails
-    - Report::POPProxyGraph
-    - Report::POPProxyReportOptions
+    - FilterDetails
+    - FilterGraph
+    - FilterReportOptions
+    - POPProxyDetails
+    - POPProxyGraph
+    - POPProxyReportOptions
 
 composites:
     Amavis: [FIXME]
     ExternalConnections: [FIXME]
     FileFilter: [FIXME]
     Antispam: [FIXME]
-    Report::FilterReport: [FIXME]
-    Report::POPProxyReport: [FIXME]
+    FilterReport: [FIXME]
+    POPProxyReport: [FIXME]
 
 foreign:
     VDomains: [AntispamVDomainACL]
