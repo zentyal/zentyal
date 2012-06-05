@@ -355,7 +355,7 @@ sub setRow
 #
 #       <EBox::Model::DataTable::setTypedRow>
 #
-sub setTypedRowx
+sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
@@ -736,7 +736,5 @@ sub clone
     };
 
 }
-
-
 
 1;
