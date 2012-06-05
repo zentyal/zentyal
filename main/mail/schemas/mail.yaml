@@ -1,4 +1,5 @@
 class: 'EBox::Mail'
+
 depends:
     - users
     - network
@@ -16,15 +17,15 @@ models:
     - MailUser
     - Dispatcher::Mail
     - GreylistConfiguration
-    - Report::TrafficGraph
-    - Report::TrafficDetails
-    - Report::TrafficReportOptions
     - ExternalAccounts
+    - TrafficGraph
+    - TrafficDetails
+    - TrafficReportOptions
 
 composites:
     ServiceConfiguration: [SMTPOptions, RetrievalServices]
     General: [ServiceConfiguration, ObjectPolicy, ExternalFilter]
-    Report::TrafficReport: [Report::TrafficReportOptions, Report::TrafficGraph, Report::TrafficDetails]
+    TrafficReport: [TrafficReportOptions, TrafficGraph, TrafficDetails]
 
 foreign:
-    VDomains: [VDomainAliases, ExternalAliases, VDomainSettings ]
+    VDomains: [VDomainAliases, ExternalAliases, VDomainSettings]

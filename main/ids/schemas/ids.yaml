@@ -9,10 +9,10 @@ enabledepends:
 models:
     - Interfaces
     - Rules
-    - Report::AlertDetails
-    - Report::AlertGraph
-    - Report::AlertReportOptions
+    - AlertDetails
+    - AlertGraph
+    - AlertReportOptions
 
 composites:
-    General: [ids/Interfaces, ids/Rules]
-    Report::AlertReport: [AlertReportOptions, AlertGraph, AlertDetails]
+    General: [Interfaces, Rules]
+    AlertReport: [AlertReportOptions, AlertGraph, AlertDetails]

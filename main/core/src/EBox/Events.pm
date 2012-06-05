@@ -32,10 +32,10 @@ use warnings;
 
 use EBox::Config;
 use EBox::Event;
-use EBox::Events::Model::Report::EventsDetails;
-use EBox::Events::Model::Report::EventsGraph;
-use EBox::Events::Model::Report::EventsReportOptions;
-use EBox::Events::Composite::Report::EventsReport;
+use EBox::Events::Model::EventsDetails;
+use EBox::Events::Model::EventsGraph;
+use EBox::Events::Model::EventsReportOptions;
+use EBox::Events::Composite::EventsReport;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -217,7 +217,7 @@ sub reportDetailsModel
     # Check if it is already cached
     unless ( exists $self->{EventsDetailsModel} ) {
         $self->{EventsDetailsModel} =
-            new EBox::Events::Model::Report::EventsDetails(
+            new EBox::Events::Model::EventsDetails(
                                               confmodule => $self,
                                               directory   => 'EventsDetails'
                                              );
@@ -233,7 +233,7 @@ sub reportGraphModel
     # Check if it is already cached
     unless ( exists $self->{EventsGraphModel} ) {
         $self->{EventsGraphModel} =
-            new EBox::Events::Model::Report::EventsGraph(
+            new EBox::Events::Model::EventsGraph(
                                               confmodule => $self,
                                               directory   => 'EventsGraph'
                                              );
@@ -251,7 +251,7 @@ sub reportOptionsModel
     # Check if it is already cached
     unless ( exists $self->{EventsOptionModel} ) {
         $self->{EventsOptionModel} =
-            new EBox::Events::Model::Report::EventsReportOptions(
+            new EBox::Events::Model::EventsReportOptions(
                                               confmodule => $self,
                                               directory   => 'EventsReportOptions'
                                              );
