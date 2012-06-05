@@ -67,6 +67,8 @@ use POSIX;
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
 use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
+use constant FILES_SYNC_DIR      => EBox::Config::conf() . 'filesync/';
+use constant FILES_SYNC_UPSTART  => 'zentyal.filesync';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -143,6 +145,7 @@ sub _setConf
         $self->_reportAdminPort();
     }
 
+    $self->_setFilesSyncConf();
     $self->_setRemoteSupportAccessConf();
 }
 
@@ -175,6 +178,31 @@ sub _setRemoteSupportAccessConf
     EBox::Sudo::root(EBox::Config::scripts() . 'sudoers-friendly');
 }
 
+
+sub _setFilesSyncConf
+{
+    my ($self) = @_;
+
+    my @shares;
+    # TODO
+
+    my @params;
+    push (@params, store_dir => FILES_SYNC_DIR);
+    push (@params, access_id => 'foo'); # TODO
+    push (@params, access_key => 'bar'); # TODO
+    push (@params, shares => \@shares);
+
+    unless (-d FILES_SYNC_DIR) {
+        mkdir(FILES_SYNC_DIR);
+    }
+
+    $self->writeConfFile(
+            FILES_SYNC_DIR . 'sync.conf',
+            'remoteservices/files.conf.mas',
+            \@params,
+            { 'uid' => 0, 'gid' => 0, mode => '500' });
+}
+
 # Method: _daemons
 #
 # Overrides:
@@ -186,6 +214,10 @@ sub _daemons
     return [
         {
             'name'         => RUNNERD_SERVICE,
+            'precondition' => \&eBoxSubscribed,
+        }
+        {
+            'name'         => FILES_SYNC_UPSTART,
             'precondition' => \&eBoxSubscribed,
         }
        ];
@@ -821,6 +853,21 @@ sub renovationDate
         }
     }
     return -1;
+}
+
+# Method: filesSyncAvailable
+#
+#   Returns 1 if file syncrhonization is available
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+sub filesSyncAvailable
+{
+    # TODO implement this in capabilities (+convert that to REST?)
+    return 1;
 }
 
 # Method: securityUpdatesAddOn
