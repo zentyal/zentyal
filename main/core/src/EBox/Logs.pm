@@ -451,7 +451,10 @@ sub search
         $self->_addDateFilter($timecol, $to, '<');
     }
     if ($filters and %{$filters}) {
-        foreach my $field (keys %{$filters}) {
+        while (my ($field, $filterValue) = each %{$filters}) {
+            $field or next;
+            $filterValue or next;
+
             unless (exists $tableinfo->{'titles'}->{$field}) {
                            throw  EBox::Exceptions::Internal(
                            "Field $field does not appear in tableinfo's titles field");
@@ -459,15 +462,14 @@ sub search
 
 
             if ($field eq 'event') {
-                $self->_addFilter($field, $filters->{$field});
+                $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
             } else {
                 my $type = exists $tableinfo->{types}->{$field} ?
                                   $tableinfo->{types}->{$field} : undef;
-                if ($type eq 'IPAddr') {
-                    $self->_addIPFilter($field, $filters->{$field});
-                } else {
-                    $self->_addRegExp($field, $filters->{$field});
+                if ($type) {
+                    $field = EBox::Util::SQLTypes::stringifier($type, $field);
                 }
+                $self->{'sqlselect'}->{'regexp'}->{$field} = $filterValue;
             }
         }
     }
@@ -593,13 +595,6 @@ sub yesterdayDate
     return "$year-$mon-$mday 00:00:00";
 }
 
-sub _addRegExp
-{
-    my ($self, $field, $regexp) = @_;
-    return unless (defined($field) and defined($regexp)
-                   and length($regexp) > 0);
-    $self->{'sqlselect'}->{'regexp'}->{$field} = $regexp;
-}
 
 sub _addFilter
 {
@@ -609,13 +604,6 @@ sub _addFilter
     $self->{'sqlselect'}->{'filter'}->{$field} = $filter;
 }
 
-sub _addIPFilter
-{
-    my ($self, $field, $regexp) = @_;
-    return unless (defined($field) and defined($regexp)
-                   and length($regexp) > 0);
-    $self->{'sqlselect'}->{'filterIP'}->{$field} = $regexp;
-}
 
 sub _addDateFilter
 {
@@ -687,14 +675,6 @@ sub _sqlStmnt
             $stmt .= "$and $field = ? ";
             $and = 'AND';
             push @params, $sql->{'filter'}->{$field};
-        }
-    }
-
-    if ($sql->{filterIP}) {
-        foreach my $field (keys %{$sql->{'filterIP'}}) {
-            $stmt .= "$and CAST(INET_NTOA($field) as CHAR CHARACTER SET utf8) REGEXP ? ";
-            $and = 'AND';
-            push @params, $sql->{'filterIP'}->{$field};
         }
     }
 
