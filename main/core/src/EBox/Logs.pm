@@ -675,7 +675,7 @@ sub _sqlStmnt
 
     if ($sql->{'regexp'}) {
         foreach my $field (keys %{$sql->{'regexp'}}) {
-            $stmt .= "$and CAST($field as CHAR CHARACTER SET utf8) LIKE ? ";
+            $stmt .= "$and CAST($field as CHAR CHARACTER SET utf8) REGEXP ? ";
             $and = 'AND';
             push @params, $sql->{'regexp'}->{$field};
         }
@@ -692,7 +692,7 @@ sub _sqlStmnt
 
     if ($sql->{filterIP}) {
         foreach my $field (keys %{$sql->{'filterIP'}}) {
-            $stmt .= "$and INET_NTOA($field) LIKE ? ";
+            $stmt .= "$and CAST(INET_NTOA($field) as CHAR CHARACTER SET utf8) REGEXP ? ";
             $and = 'AND';
             push @params, $sql->{'filterIP'}->{$field};
         }
