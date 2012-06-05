@@ -456,10 +456,18 @@ sub search
                            throw  EBox::Exceptions::Internal(
                            "Field $field does not appear in tableinfo's titles field");
                         }
+
+
             if ($field eq 'event') {
                 $self->_addFilter($field, $filters->{$field});
             } else {
-                $self->_addRegExp($field, $filters->{$field});
+                my $type = exists $tableinfo->{types}->{$field} ?
+                                  $tableinfo->{types}->{$field} : undef;
+                if ($type eq 'IPAddr') {
+                    $self->_addIPFilter($field, $filters->{$field});
+                } else {
+                    $self->_addRegExp($field, $filters->{$field});
+                }
             }
         }
     }
@@ -585,8 +593,6 @@ sub yesterdayDate
     return "$year-$mon-$mday 00:00:00";
 }
 
-
-
 sub _addRegExp
 {
     my ($self, $field, $regexp) = @_;
@@ -601,6 +607,14 @@ sub _addFilter
     return unless (defined($field) and defined($filter)
                    and length($filter) > 0);
     $self->{'sqlselect'}->{'filter'}->{$field} = $filter;
+}
+
+sub _addIPFilter
+{
+    my ($self, $field, $regexp) = @_;
+    return unless (defined($field) and defined($regexp)
+                   and length($regexp) > 0);
+    $self->{'sqlselect'}->{'filterIP'}->{$field} = $regexp;
 }
 
 sub _addDateFilter
@@ -666,11 +680,21 @@ sub _sqlStmnt
             push @params, $sql->{'regexp'}->{$field};
         }
     }
+
+
     if ($sql->{'filter'}) {
         foreach my $field (keys %{$sql->{'filter'}}) {
             $stmt .= "$and $field = ? ";
             $and = 'AND';
             push @params, $sql->{'filter'}->{$field};
+        }
+    }
+
+    if ($sql->{filterIP}) {
+        foreach my $field (keys %{$sql->{'filterIP'}}) {
+            $stmt .= "$and INET_NTOA($field) LIKE ? ";
+            $and = 'AND';
+            push @params, $sql->{'filterIP'}->{$field};
         }
     }
 
