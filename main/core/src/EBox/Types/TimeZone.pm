@@ -51,6 +51,11 @@ sub new
         $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
     }
 
+    unless (exists $opts{printableName}) {
+        $opts{printableName} = __('Time zone');
+    }
+
+
     $opts{'type'} = 'timezone' unless defined ($opts{'type'});
     my $self = $class->SUPER::new(%opts);
 
@@ -227,7 +232,7 @@ sub _paramIsValid
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $countryValue,
-            'advice' => __('This country does not exists.'));
+            'advice' => __('This city does not exists.'));
     }
 
     throw EBox::Exceptions::InvalidData(
