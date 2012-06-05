@@ -1,4 +1,6 @@
 HEAD
+	+ Removed any message set in the model in syncRows method
+	+ Added getGlobal()  method to modules and components
 	+ Removed Model::Report and Composite::Report namespaces to simplify model
 	  management and specification
 	+ New redis key naming, with $mod/conf/*, $mod/state and $mod/ro/* replacing

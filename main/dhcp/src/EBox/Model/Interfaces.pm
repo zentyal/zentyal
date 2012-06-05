@@ -143,7 +143,7 @@ sub _table
        pageTitle => 'DHCP',
        printableTableName => __('Interfaces'),
        tableDescription  => \@tableDesc,
-       defaultActions => [ 'changeView' ],
+       defaultActions => [ 'changeView', 'editField' ],
        enableProperty => 1,
        defaultEnabledValue => 1,
        help            => __('Here you can configure the DHCP server for each internal interface, and enable or disable them'),

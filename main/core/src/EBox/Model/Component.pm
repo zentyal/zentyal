@@ -24,6 +24,7 @@ package EBox::Model::Component;
 use strict;
 use warnings;
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
@@ -45,6 +46,16 @@ sub parentModule
     my ($self) = @_;
 
     return $self->{'confmodule'};
+}
+
+
+# Method: getGlobal
+#
+# returns a EBox::Global instance with the correct read-only status
+sub getGlobal
+{
+    my ($self) = @_;
+    return $self->{'confmodule'}->getGlobal();
 }
 
 # Method: pageTitle

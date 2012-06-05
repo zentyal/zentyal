@@ -1803,4 +1803,14 @@ sub _unionQuery
     return $dbengine->query($sql);
 }
 
+
+#  Method: getGlobal
+#
+#   get a EBox::Global isntance with the same read-only status than the module
+sub getGlobal
+{
+    my ($self) = @_;
+    return EBox::Global->getInstance();
+}
+
 1;

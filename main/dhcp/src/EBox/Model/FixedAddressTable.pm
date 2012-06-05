@@ -185,7 +185,7 @@ sub _table
       (
        new EBox::Types::Select(
                                fieldName     => 'object',
-                               foreignModel  => \&objectModel,
+                               foreignModel  => $self->objectModelGetter(),
                                foreignField  => 'name',
                                foreignNextPageField => 'members',
 
@@ -220,10 +220,14 @@ sub _table
 
 }
 
-# Closures
-sub objectModel
+
+sub objectModelGetter
 {
-    return EBox::Global->modInstance('objects')->{'objectModel'};
+    my ($self) = @_;
+    my $global = $self->getGlobal();
+    return sub{
+        return $global->modInstance('objects')->model('ObjectTable');
+    };
 }
 
 sub _message

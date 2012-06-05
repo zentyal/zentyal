@@ -1096,7 +1096,7 @@ sub _removeRow
     my ($self, $id) = @_;
 
     my $confmod = $self->{'confmodule'};
-    $confmod->unset("$self->{'directory'}/$id");
+    $confmod->delete_dir("$self->{'directory'}/$id");
     my @order = @{$confmod->get_list($self->{'order'})};
     @order = grep ($_ ne $id, @order);
     $confmod->set_list($self->{'order'}, 'string', \@order);
@@ -1527,11 +1527,18 @@ sub ids
         try {
             $self->_beginTransaction();
 
+            my $msgBeforeSyncRows = $self->message();
             $changed = $self->syncRows($currentIds);
-            if ($changed and (not $modAlreadyChanged)) {
-                # save changes but don't mark it as changed
-                $self->{confmodule}->_saveConfig();
-                $self->{confmodule}->setAsChanged(0);
+            if ($changed) {
+                # restore any previous message, hiding any message caused by
+                # sync Rows
+                $self->setMessage($msgBeforeSyncRows);
+
+                if (not $modAlreadyChanged) {
+                    # save changes but don't mark it as changed
+                    $self->{confmodule}->_saveConfig();
+                    $self->{confmodule}->setAsChanged(0);
+                }
             }
 
             $self->_commitTransaction();

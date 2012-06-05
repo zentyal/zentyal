@@ -1069,4 +1069,12 @@ sub restoreFilesFromArchive
     EBox::Sudo::root($restoreCmd);
 }
 
+sub getGlobal
+{
+    my ($self) = @_;
+    my $readOnly = $self->isReadOnly();
+    return EBox::Global->getInstance($readOnly);
+}
+
+
 1;
