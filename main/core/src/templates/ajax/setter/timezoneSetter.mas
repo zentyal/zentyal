@@ -52,37 +52,42 @@ my $id = $tableName . '_' . $data->fieldName();
     </select>
 </span>
 <script type="text/javascript">
-	var a = new Array();
-	var temp = 0;
-    var continentselect = document.getElementById( "<% $id . '_continent' %>" );
-    var countryselect = document.getElementById( "<% $id . '_country' %>" );
-
-%	foreach my $group (keys $zones) {
-		a["<% $group %>"] = new Array();
-%		foreach (sort(@{$zones->{$group}})) {
-			a["<%$group%>"][temp++] = "<%$_%>";
-%		}
-		temp = 0;
-%	}
+<%perl>
+my $varPrefix = $data->fieldName();
+my $varCountry = $varPrefix . '_country';
+my $varA       = $varPrefix . '_a';
+my $varTmp     = $varPrefix . '_tmp';
+</%perl>
+    var <% $varPrefix %>_country = "<% $data->country() %>";
+    var <% $varA %> = new Array();
+    var <% $varTmp %> = 0;
+%       foreach my $group (keys $zones) {
+                <% $varA %>["<% $group %>"] = new Array();
+%               foreach (sort(@{$zones->{$group}})) {
+                        <% $varA %>["<%$group%>"][<% $varTmp %>++] = "<%$_%>";
+%               }
+                <% $varTmp %> = 0;
+%       }
 
     function continentChanged(select){
-		countryselect.options.length = 0;
-		continent = continentselect.value;
-		var countries = new Array();
-		countries = a[continent].sort();
-		for(var c=0; c < countries.length; c++){
-			var length = countryselect.options.length;
-			var option;
+                var countryselect = document.getElementById( "<% $id . '_country' %>" );
+                countryselect.options.length = 0;
+                continent = select.value;
+                var countries = new Array();
+                countries = <% $varA %>[continent].sort();
+                for(var c=0; c < countries.length; c++){
+                        var length = countryselect.options.length;
+                        var option;
 
-			if(countries[c] == "<% $data->country() %>"){
-				option = new Option(countries[c], countries[c], true,true);
-			}else{
-				option = new Option(countries[c], countries[c], false,false);
-			}
-			countryselect.options[length] = option;
-		}
-	}
+                        if(countries[c] == <% $varCountry %>){
+                                option = new Option(countries[c], countries[c], true,true);
+                        }else{
+                                option = new Option(countries[c], countries[c], false,false);
+                        }
+                        countryselect.options[length] = option;
+                }
+        }
 
-continentChanged(continentselect);
+continentChanged(document.getElementById( "<% $id . '_continent' %>" ));
 </script>
 </%method>
