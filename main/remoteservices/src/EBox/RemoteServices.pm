@@ -215,7 +215,7 @@ sub _daemons
         {
             'name'         => RUNNERD_SERVICE,
             'precondition' => \&eBoxSubscribed,
-        }
+        },
         {
             'name'         => FILES_SYNC_UPSTART,
             'precondition' => \&eBoxSubscribed,

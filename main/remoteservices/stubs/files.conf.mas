@@ -7,7 +7,7 @@
     $access_key
     @shares => ()
 </%args>
-    {
+{
     "store_dir" : "<% $store_dir %>",
     "access_id" : "<% $access_id %>",
     "access_key" : "<% $access_key %>",
