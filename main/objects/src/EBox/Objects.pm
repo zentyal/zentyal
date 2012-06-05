@@ -38,68 +38,12 @@ sub _create
                                       printableName => __('Objects'),
                                       @_);
 
-    $self->{'actions'} = {};
-    $self->{'actions'}->{'addObject'} = __n('Added object {object}');
-        $self->{'actions'}->{'addToObject'} =
-            __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
-    $self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
-    $self->{'actions'}->{'removeObjectForce'} =
-        __n('Forcefully removed object {object}');
-    $self->{'actions'}->{'removeFromObject'} =
-        __n('Removed {nname} from object {object}');
-
     bless($self, $class);
 
     return $self;
 }
 
 ## api functions
-
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my ($self) = @_;
-
-    my %exposedMethods =
-        (
-         'objectDescription1' => { action   => 'get',
-                                   path     => [ 'ObjectTable' ],
-                                   indexes  => [ 'id' ],
-                                   selector => [ 'name' ],
-                                 },
-         'addObject1' => { action => 'add',
-                           path   => [ 'ObjectTable' ],
-                         },
-         'setMemberIP' => { action   => 'set',
-                            path     => [ 'ObjectTable', 'members' ],
-                            indexes  => [ 'name', 'name' ],
-                            selector => [ 'ipaddr' ]
-                          },
-         'addMember' => { action  => 'add',
-                          path    => [ 'ObjectTable', 'members' ],
-                          indexes => [ 'name' ],
-                        },
-         'removeMember' => { action  => 'del',
-                             path    => [ 'ObjectTable', 'members' ],
-                             indexes => [ 'name', 'name' ],
-                           },
-         'getMember'    => { action   => 'get',
-                             path     => [ 'ObjectTable', 'members' ],
-                             indexes  => [ 'name', 'name' ],
-                           },
-         'removeObject' => { action  => 'del',
-                             path    => ['ObjectTable' ],
-                             indexes => [ 'name' ],
-                           },
-         );
-
-    return \%exposedMethods;
-}
 
 # Method: objects
 #
@@ -176,8 +120,6 @@ sub objectMembers # (object)
     return $object->subModel('members')->members();
 }
 
-# getMembersToObjectTable($id)
-
 # objectAddresses
 #
 #       Return the network addresses of a object
@@ -205,10 +147,7 @@ sub objectAddresses
     return undef unless defined($object);
 
     return $object->subModel('members')->addresses(@params);
-
 }
-
-# getMembersToObjectTable($id, [ 'ipaddr' ])
 
 # Method: objectDescription
 #
@@ -238,6 +177,7 @@ sub objectDescription  # (object)
         throw EBox::Exceptions::DataNotFound('data' => __('Object'),
                 'value' => $object);
     }
+
     return $object->valueByName('name');
 }
 
@@ -295,8 +235,6 @@ sub objectExists
 
     return defined($self->model('ObjectTable')->row($id));
 }
-
-
 
 # Method: removeObjectForce
 #

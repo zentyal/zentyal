@@ -1,4 +1,5 @@
 HEAD
+	+ Remove _exposedMethods() feature to reduce use of AUTOLOAD
 	+ Removed any message set in the model in syncRows method
 	+ Added global() method to modules and components to get a coherent
 	  read-write or read-only instance depending on the context
