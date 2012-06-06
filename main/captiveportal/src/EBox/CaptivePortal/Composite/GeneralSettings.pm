@@ -23,14 +23,6 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
-sub new
-{
-    my ($class) = @_;
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
 # Method: _description
 #
 # Overrides:
