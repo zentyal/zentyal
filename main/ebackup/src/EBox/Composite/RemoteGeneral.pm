@@ -35,12 +35,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'ebackup/RemoteSettings',
-                               'ebackup/RemoteStorage',
-                               'ebackup/RemoteStatus',
-                               'ebackup/BackupDomains',
-                           ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('Configuration and Status'),

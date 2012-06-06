@@ -35,10 +35,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                              'ebackup/RemoteRestoreConf',
-                              'ebackup/RemoteRestoreLogs',
-                           ],
         layout          => 'top-bottom',
         name            => __PACKAGE__->nameFromClass,
         printableName   => __('Services Restore'),

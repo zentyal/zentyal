@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Composite::FileFilter;
 
 use base 'EBox::Model::Composite';
@@ -23,18 +21,6 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-
-# Group: Public methods
-
-
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
 
 # Group: Protected methods
 
@@ -46,21 +32,16 @@ sub new
 #
 sub _description
 {
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            =>  'FileFilter',
+        pageTitle       => __('Attached Files Filter'),
+        compositeDomain => 'MailFilter',
+        help            => __('Filter mail messages according attached files. The transparent POP proxy only filters by extension'),
+    };
 
-     my $description =
-        {
-         components      => [
-                             'FileExtensionACL',
-                             'MIMETypeACL',
-                            ],
-         layout          => 'top-bottom',
-         name            =>  __PACKAGE__->nameFromClass,
-         pageTitle => __('Attached Files Filter'),
-         compositeDomain => 'MailFilter',
-         help            => __('Filter mail messages according attached files. The transparent POP proxy only filters by extension'),
-        };
-
-      return $description;
+    return $description;
 }
 
 1;

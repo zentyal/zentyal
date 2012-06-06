@@ -19,5 +19,6 @@ models:
     - SecondaryLDAP
 
 composites:
-    GeneralSettings: [captiveportal/Settings, captiveportal/BWSettings, captiveportal/Interfaces]
-    General: [captiveportal/GeneralSettings, captiveportal/SecondaryLDAP, captiveportal/Users]
+    GeneralSettings: [Settings, BWSettings, Interfaces]
+    General: [GeneralSettings, Users]
+    GeneralWithLDAP: [GeneralSettings, SecondaryLDAP, Users]

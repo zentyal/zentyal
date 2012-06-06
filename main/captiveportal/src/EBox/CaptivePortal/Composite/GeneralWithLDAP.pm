@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::Composite::ExternalConnections;
-
-use base 'EBox::Model::Composite';
-
 use strict;
 use warnings;
 
-use EBox::Gettext;
+package EBox::CaptivePortal::Composite::GeneralWithLDAP;
 
-# Group: Protected methods
+use base 'EBox::Model::Composite';
+
+use EBox::Gettext;
+use EBox::Global;
 
 # Method: _description
 #
@@ -32,26 +31,17 @@ use EBox::Gettext;
 #
 sub _description
 {
-    my $description =
-    {
-        layout          => 'top-bottom',
-        name            =>  __PACKAGE__->nameFromClass,
-        printableName   => __('External connections'),
-        compositeDomain => 'MailFilter',
+    my ($self) = @_;
+
+    my $description = {
+        layout          => 'tabbed',
+        name            => 'GeneralWithLDAP',
+        pageTitle       => __('Captive Portal'),
+        headTitle       => undef,
+        compositeDomain => 'CaptivePortal',
     };
 
     return $description;
-}
-
-# Method: pageTitle
-#
-#   we override this method to avoid repeating the tab's titles
-#
-#  Overrides:
-#   <EBox::Model::Composite::pageTitle>
-sub pageTitle
-{
-    return undef;
 }
 
 1;

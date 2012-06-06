@@ -23,12 +23,12 @@ models:
     - POPProxyReportOptions
 
 composites:
-    Amavis: [FIXME]
-    ExternalConnections: [FIXME]
-    FileFilter: [FIXME]
-    Antispam: [FIXME]
-    FilterReport: [FIXME]
-    POPProxyReport: [FIXME]
+    Amavis: [AmavisConfiguration, AmavisPolicy, VDomains, ExternalConnections]
+    ExternalConnections: [ExternalMTA, ExternalDomain]
+    FileFilter: [FileExtensionACL, MIMETypeACL]
+    Antispam: [AntispamConfiguration, AntispamACL, AntispamTraining]
+    FilterReport: [FilterReportOptions, FilterGraph, FilterDetails]
+    POPProxyReport: [POPProxyReportOptions, POPProxyGraph, POPProxyDetails]
 
 foreign:
     VDomains: [AntispamVDomainACL]

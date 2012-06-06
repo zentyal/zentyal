@@ -23,20 +23,6 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#     Constructor for the Gateway composite.
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-    return $self;
-}
-
 # Method: _description
 #
 # Overrides:
@@ -47,20 +33,7 @@ sub _description
 {
     my ($self) = @_;
 
-    my @components;
-    # FIXME: hack manager to lookup first in the module to avoid explicit prefix of captiveportal/ ?
-    push (@components, 'captiveportal/GeneralSettings');
-
-    # FIXME: check this does not collide with composites specification in yaml
-    # show secondary ldap configuration if enabled
-    if (EBox::Config::configkey('captive_secondary_ldap')) {
-        push (@components, 'captiveportal/SecondaryLDAP');
-    }
-
-    push (@components, 'captiveportal/Users');
-
     my $description = {
-        components      => \@components,
         layout          => 'tabbed',
         name            => 'General',
         pageTitle       => __('Captive Portal'),
