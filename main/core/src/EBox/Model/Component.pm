@@ -72,8 +72,9 @@ sub modelGetter
 {
     my ($self, $module, $model) = @_;
     my $global = $self->global();
+    my $modelInstance = $global->modInstance($module)->model($model);
     return sub{
-        return $global->modInstance($module)->model($model);
+        return $modelInstance;
     };
 }
 
