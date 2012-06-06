@@ -1,6 +1,6 @@
 HEAD
 	+ Adapted to new Model management framework
-	+ Fetch printers FIXME
+	+ Store printers in redis using the new JSON config objects
 	+ Integrate with zentyal DNS
 	+ Fix loop over array reference in funcion usesPort
 2.3.5

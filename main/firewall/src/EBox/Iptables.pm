@@ -562,16 +562,6 @@ sub start
 
     push(@commands, pf("-A ftoexternalonly -j fdrop"));
 
-    my $rules = $self->{firewall}->OutputRules();
-    foreach my $rule (@{$rules}) {
-        defined($rule) or next;
-        my $port = $rule->{port};
-        my $proto = $rule->{protocol};
-        push(@commands,
-                pf("-A ointernal $statenew -p $proto --dport $port -j ACCEPT")
-            );
-    }
-
     push(@commands, @{$self->_fglobal()});
 
     push(@commands, @{$self->_ffwdrules()});

@@ -1,7 +1,7 @@
 2.3
 	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management and events frameworks
-	+ Reimplemented state and backupCredentials FIXME
+	+ Adapted storage of state info to the new JSON objects
 	+ Added subscribe desktop action as Desktop::ServiceProvider
 	+ Added journaling for REST requests
 	+ Adapted Events to send additional info

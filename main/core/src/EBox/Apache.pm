@@ -168,7 +168,7 @@ sub _writeHttpdConfFile
     push @confFileParams, ( tmpdir => EBox::Config::tmp());
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
-    push @confFileParams, ( restrictedResources => $self->get_hash('restricted_resources') );
+    push @confFileParams, ( restrictedResources => $self->get_list('restricted_resources') );
     push @confFileParams, ( includes => $self->_includes(1) );
 
     my $desktop_services_enabled = EBox::Config::configkey('desktop_services_enabled');

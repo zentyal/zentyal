@@ -696,70 +696,69 @@ sub _addFileToList
     $self->set_string($fullKey, $file);
 }
 
-sub _fileList
-{
-    my ($self, $dir) = @_;
+# FIXME: reimplement this
+#sub _fileList
+#{
+#    my ($self, $dir) = @_;
+#
+#
+#    if (not $self->dir_exists($dir)) {
+#         return [];
+#    }
+#
+#    my @files  = map {
+#        $self->get_string($_);
+#    } @{$self->all_entries($dir)};
+#
+#    return \@files;
+#}
 
-    # FIXME: reimplement this
-    return [];
-
-    if (not $self->dir_exists($dir)) {
-        return [];
-    }
-
-    my @files  = map {
-        $self->get_string($_);
-    } @{$self->all_entries($dir)};
-
-    return \@files;
-}
-
-sub _saveConfigFiles
-{
-    my ($self) = @_;
-    my $dir = $self->_filesToRemoveIfCommittedDir();
-    $self->_removeFilesFromList($dir);
-}
+#sub _saveConfigFiles
+#{
+#    my ($self) = @_;
+#    my $dir = $self->_filesToRemoveIfCommittedDir();
+#    $self->_removeFilesFromList($dir);
+#}
 
 
-sub _clearFilesToRemoveLists
-{
-    my ($self) = @_;
+# FIXME: reimplement this
+#sub _clearFilesToRemoveLists
+#{
+#    my ($self) = @_;
+#
+#    return;
+#
+#    my @dirs = @{ $self->_fileListDirs() };
+#
+#    foreach my $dir (@dirs) {
+#        if ($self->dir_exists($dir)) {
+#            $self->delete_dir($dir);
+#        }
+#    }
+#}
 
-    # FIXME: reimplement this
-    return;
+#sub _revokeConfigFiles
+#{
+#    my ($self) = @_;
+#
+#    my $dir = $self->_filesToRemoveIfRevokedDir();
+#    $self->_removeFilesFromList($dir);
+#}
 
-    my @dirs = @{ $self->_fileListDirs() };
-
-    foreach my $dir (@dirs) {
-        if ($self->dir_exists($dir)) {
-            $self->delete_dir($dir);
-        }
-    }
-}
-
-sub _revokeConfigFiles
-{
-    my ($self) = @_;
-
-    my $dir = $self->_filesToRemoveIfRevokedDir();
-    $self->_removeFilesFromList($dir);
-}
-
-sub _removeFilesFromList
-{
-    my ($self, $dir) = @_;
-
-    my @files = @{ $self->_fileList($dir) };
-    foreach my $file ( @files  ) {
-        my $backupPath         = EBox::Types::File->backupPath($file);
-        my $noPreviousFilePath = EBox::Types::File->noPreviousFilePath($file);
-
-        EBox::Sudo::root("rm -rf '$file' '$backupPath' '$noPreviousFilePath'");
-    }
-
-    $self->_clearFilesToRemoveLists();
-}
+#sub _removeFilesFromList
+#{
+#    my ($self, $dir) = @_;
+#
+#    my @files = @{ $self->_fileList($dir) };
+#    foreach my $file ( @files  ) {
+#        my $backupPath         = EBox::Types::File->backupPath($file);
+#        my $noPreviousFilePath = EBox::Types::File->noPreviousFilePath($file);
+#
+#        EBox::Sudo::root("rm -rf '$file' '$backupPath' '$noPreviousFilePath'");
+#    }
+#
+#    $self->_clearFilesToRemoveLists();
+#}
 
 # Method: _exposedMethods
 #
@@ -964,7 +963,7 @@ sub modelsSaveConfig
 {
     my ($self) = @_;
 
-    $self->modelsBackupFiles();
+#    $self->modelsBackupFiles();
 }
 
 # Method: modelsRevokeConfig
@@ -974,7 +973,7 @@ sub modelsRevokeConfig
 {
     my ($self) = @_;
 
-    $self->modelsRestoreFiles();
+#    $self->modelsRestoreFiles();
 }
 
 # Method: backupFiles
@@ -985,11 +984,11 @@ sub modelsBackupFiles
 {
     my ($self) = @_;
 
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('backupFiles')) {
-            $model->backupFiles();
-        }
-    }
+#    foreach my $model ( @{ $self->models() } ) {
+#        if ($model->can('backupFiles')) {
+#            $model->backupFiles();
+#        }
+#    }
 }
 
 # Method: restoreFiles
@@ -1000,18 +999,18 @@ sub modelsRestoreFiles
 {
     my ($self) = @_;
 
-    foreach my $model ( @{ $self->models() } ) {
-        if ($model->can('restoreFiles')) {
-            $model->restoreFiles();
-        }
-    }
+#    foreach my $model ( @{ $self->models() } ) {
+#        if ($model->can('restoreFiles')) {
+#            $model->restoreFiles();
+#        }
+#    }
 }
 
-sub _filesArchive
-{
-    my ($self, $dir) = @_;
-    return "$dir/modelsFiles.tar";
-}
+#sub _filesArchive
+#{
+#    my ($self, $dir) = @_;
+#    return "$dir/modelsFiles.tar";
+#}
 
 
 # Method: backupFilesInArchive
@@ -1079,6 +1078,5 @@ sub global
 
     return EBox::Global->getInstance($self->{ro});
 }
-
 
 1;
