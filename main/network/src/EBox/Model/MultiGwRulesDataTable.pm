@@ -53,14 +53,6 @@ sub gatewayModel
 }
 
 
-
-
-sub serviceModel
-{
-    return EBox::Global->modInstance('services')->{'serviceModel'};
-}
-
-
 sub ifaces
 {
     my $self = shift;
@@ -159,7 +151,7 @@ sub _table
         new EBox::Types::Select(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => \&serviceModel,
+                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),,
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,

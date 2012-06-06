@@ -47,10 +47,6 @@ sub _create
                                       printableName => __('Services'),
                                       @_);
     bless($self, $class);
-
-    $self->{'serviceModel'} = $self->model('ServiceTable');
-    $self->{'serviceConfigurationModel'} = $self->model('ServiceConfigurationTable');
-
     return $self;
 }
 
@@ -214,7 +210,7 @@ sub serviceNames
 {
     my ($self) = @_;
 
-    my $servicesModel = $self->{'serviceModel'};
+    my $servicesModel = $self->model('ServiceTable');
     my @services;
 
     foreach my $id (@{$servicesModel->ids()}) {
@@ -258,7 +254,7 @@ sub serviceConfiguration
 
     throw EBox::Exceptions::ArgumentMissing("id") unless defined($id);
 
-    my $row = $self->{'serviceModel'}->row($id);
+    my $row = $self->model('ServiceTable')->row($id);
 
     unless (defined($row)) {
         throw EBox::Exceptions::DataNotFound('data' => 'id',
@@ -314,7 +310,7 @@ sub addService
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->addService(%params);
+    return $self->model('ServiceTable')->addService(%params);
 }
 
 # Method: addMultipleService
@@ -364,7 +360,7 @@ sub addMultipleService
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->addMultipleService(%params);
+    return $self->model('ServiceTable')->addMultipleService(%params);
 }
 
 # Method: setService
@@ -397,7 +393,7 @@ sub setService
 {
     my ($self, %params) = @_;
 
-    $self->{'serviceModel'}->setService(%params);
+    $self->model('ServiceTable')->setService(%params);
 }
 
 # Method: setMultipleService
@@ -448,7 +444,7 @@ sub setMultipleService
 {
     my ($self, %params) = @_;
 
-    $self->{'serviceModel'}->setMultipleService(%params);
+    $self->model('ServiceTable')->setMultipleService(%params);
 }
 
 # Method: setAdministrationPort
@@ -495,7 +491,7 @@ sub availablePort
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->availablePort(%params);
+    return $self->model('ServiceTable')->availablePort(%params);
 }
 
 # Method: serviceFromPort
@@ -515,7 +511,7 @@ sub serviceFromPort
 {
     my ($self, %params) = @_;
 
-    return $self->{'serviceModel'}->serviceFromPort(%params);
+    return $self->model('ServiceTable')->serviceFromPort(%params);
 }
 
 # Method: removeService
@@ -538,7 +534,7 @@ sub removeService
         throw EBox::Exceptions::MissingArgument('service');
     }
 
-    my $model =  $self->{'serviceModel'};
+    my $model =  $self->model('ServiceTable');
     my $id = $params{'id'};
 
     if (not defined($id)) {
@@ -572,7 +568,7 @@ sub serviceExists
         throw EBox::Exceptions::MissingArgument('service id or name');
     }
 
-    my $model =  $self->{'serviceModel'};
+    my $model =  $self->model('ServiceTable');
     my $id = $params{'id'};
 
     my $row;
@@ -607,7 +603,7 @@ sub serviceId
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    my $model = $self->{'serviceModel'};
+    my $model = $self->model('ServiceTable');
     my $row = $model->findValue('name' => $name);
     if (not defined $row) {
         return undef;
