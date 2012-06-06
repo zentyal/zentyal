@@ -67,11 +67,12 @@ sub new
 #
 sub _table
 {
-  my @tableHeader =
-    (
+    my ($self) = @_;
+
+    my @tableHeader = (
      new EBox::Types::Select(
          fieldName     => 'object',
-         foreignModel  => \&objectModel,
+         foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
          foreignField  => 'name',
          foreignNextPageField => 'members',
 
@@ -105,7 +106,7 @@ sub _table
 
                              foreignModel  => \&filterGroupModel,
                              foreignField  => 'name',
-                             
+
                              defaultValue  => 'default',
                              editable      => 1,
                             ),
@@ -139,12 +140,6 @@ sub _table
       },
   };
 
-}
-
-sub objectModel
-{
-    my $objects = EBox::Global->getInstance()->modInstance('objects');
-    return $objects->{'objectModel'};
 }
 
 sub filterGroupModel
@@ -253,7 +248,7 @@ sub _checkFilterProfile
       # default group is ocmpatible with all policies
       return;
   }
-  
+
   my $policyElement = exists $params_r->{policy} ?
                      $params_r->{policy} :
                      $actual_r->{policy} ;

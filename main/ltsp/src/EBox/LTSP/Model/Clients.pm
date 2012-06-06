@@ -41,10 +41,6 @@ sub new
     return $self;
 }
 
-sub objectModel
-{
-    return EBox::Global->modInstance('objects')->{'objectModel'};
-}
 
 # Method: pageTitle
 #
@@ -59,13 +55,14 @@ sub pageTitle
 
 sub _table
 {
+    my ($self) = @_;
 
     my @fields =
     (
         new EBox::Types::Select(
             'fieldName' => 'object',
             'printableName' => __('Object'),
-            'foreignModel' => \&objectModel,
+            'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
             'foreignField' => 'name',
             'foreignNextPageField' => 'members',
             'editable' => 1,
