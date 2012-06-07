@@ -5,4 +5,4 @@ models:
     - ServiceConfigurationTable
 
 foreign:
-    ServiceTable: [ServiceConfiguraitonTable]
+    ServiceTable: [ServiceConfigurationTable]

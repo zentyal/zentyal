@@ -89,8 +89,6 @@ sub syncRows
         my $gw = $conf->st_get_string("dhcp/$iface/gateway");
         if ($gw) {
             $dynamicGws{$iface} = $gw;
-        } else {
-            $dynamicGws{$iface} = '';
         }
     }
     foreach my $iface (@{$network->pppIfaces()}) {
@@ -98,8 +96,6 @@ sub syncRows
         my $ppp_iface = $conf->st_get_string("interfaces/$iface/ppp_iface");
         if ($addr and $ppp_iface) {
             $dynamicGws{$iface} = "$ppp_iface/$addr";
-        } else {
-            $dynamicGws{$iface} = '';
         }
     }
 
@@ -321,7 +317,7 @@ sub validateRow
 sub validateRowRemoval
 {
     my ($self, $row, $force) = @_;
-    if ( $row->valueByName('auto')) {
+    if ( $row->valueByName('auto') and not $force) {
         throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
     }
 }

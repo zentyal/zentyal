@@ -79,11 +79,13 @@ sub headTitle
 #
 sub _table
 {
+    my ($self) = @_;
+
   my @tableHeader =
     (
      new EBox::Types::Select(
          fieldName     => 'object',
-         foreignModel  => \&objectModel,
+         foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
          foreignField  => 'name',
          foreignNextPageField => 'members',
 
@@ -122,14 +124,6 @@ sub _table
     };
 
 }
-
-sub objectModel
-{
-    my $objects = EBox::Global->getInstance()->modInstance('objects');
-    return $objects->{'objectModel'};
-}
-
-
 
 # Method: allowedAddresses
 #

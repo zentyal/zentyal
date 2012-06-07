@@ -25,7 +25,7 @@
 use strict;
 use warnings;
 
-package EBox::Events::Model::Dispatcher::RSS;
+package EBox::Events::Model::RSSDispatcherConfiguration;
 
 use base 'EBox::Model::DataForm';
 
@@ -139,7 +139,7 @@ sub _table
                                      fieldName     => 'allowedObject',
                                      printableName => __('Object'),
                                      editable      => 1,
-                                     foreignModel  => \&objectModel,
+                                     foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
                                      foreignField  => 'name',
                                     ));
     }
@@ -194,22 +194,6 @@ sub _table
 }
 
 # Group: Callback functions
-
-# Function: objectModel
-#
-#     Getter for the object model using model manager
-#
-# Returns:
-#
-#     <EBox::Objects::Model::ObjectTable> - an instance of the object
-#     model
-#
-sub objectModel
-{
-    my $obj = EBox::Global->modInstance('objects');
-
-    return $obj->models()->[0];
-}
 
 # Function: setLinkToRSS
 #

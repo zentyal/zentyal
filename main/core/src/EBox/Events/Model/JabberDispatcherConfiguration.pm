@@ -17,7 +17,7 @@
 #
 #
 
-package EBox::Events::Model::Dispatcher::Jabber;
+package EBox::Events::Model::JabberDispatcherConfiguration;
 
 use base 'EBox::Model::DataForm';
 
@@ -120,7 +120,7 @@ sub _table
 
     my $dataForm =
         {
-            tableName          => 'JabberDispatcherForm',
+            tableName          => 'JabberDispatcherConfiguration',
             printableTableName => __('Configure Jabber Dispatcher'),
             modelDomain        => 'Events',
             defaultActions     => [ 'editField' ],

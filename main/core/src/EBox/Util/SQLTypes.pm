@@ -17,8 +17,6 @@ package EBox::Util::SQLTypes;
 
 use warnings;
 use strict;
-no strict 'refs';
-
 use Socket;
 
 sub storer
@@ -26,15 +24,35 @@ sub storer
     my ($type, $value) = @_;
 
     my $storer = "_${type}_storer";
-    return &$storer($value);
+    my $ref = __PACKAGE__->can($storer);
+    if ($ref) {
+        return $ref->($value);
+    } else {
+        return $value;
+    }
+}
+
+sub stringifier
+{
+    my ($type, $field) = @_;
+    my $stringifier = "_${type}_stringifier";
+    my $ref = __PACKAGE__->can($stringifier);
+    if ($ref) {
+        return $ref->($field);
+    } else {
+        return $field;
+    }
 }
 
 sub acquirer
 {
     my ($type, $field) = @_;
-
-    my $acquirer = "_${type}_acquirer";
-    return &$acquirer($field);
+    my $stringifier = stringifier($type, $field);
+    if ($stringifier eq $field) {
+        return $field;
+    } else {
+        return "$stringifier AS $field";
+    }
 }
 
 sub _IPAddr_storer
@@ -44,11 +62,11 @@ sub _IPAddr_storer
     return unpack ('N', inet_aton($value));
 }
 
-sub _IPAddr_acquirer
+sub _IPAddr_stringifier
 {
     my ($field) = @_;
 
-    return "INET_NTOA($field) AS $field";
+    return "INET_NTOA($field)";
 }
 
 sub _MACAddr_storer
@@ -59,7 +77,7 @@ sub _MACAddr_storer
     return pack ('H*', $value);
 }
 
-sub _MACAddr_acquirer
+sub _MACAddr_stringifier
 {
     my ($field) = @_;
 
@@ -68,7 +86,7 @@ sub _MACAddr_acquirer
     for my $i (0..5) {
         $concat .= ", MID($hex, " . ($i*2 + 1) . ', 2)';
     }
-    $concat .= ") AS $field";
+    $concat .= ")";
 
     return $concat;
 }

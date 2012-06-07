@@ -236,10 +236,10 @@ sub import_dir_from_file
 
     $self->begin();
     foreach my $line (@lines) {
-        my ($key, $value) = $line =~ /(.+): (.*)/s;
+        my ($key, $value) = $line =~ /^(.+?): (.*)$/s;
 
         if ($dest) {
-            $key = $dest . $key;
+            $key = $dest . '/' .  $key;
         }
         # XXX: this can be problematic if we store a string
         # starting with '[' or '{', but decode_json fails to decode

@@ -273,13 +273,13 @@ sub _table
                 new EBox::Types::Select(
                     fieldName       => 'service_port',
                     printableName   => __('Port based service'),
-                    foreignModel    => \&_serviceModel,
+                    foreignModel    => $self->modelGetter('services', 'ServiceTable'),
                     foreignField    => 'printableName',
                     foreignNextPageField => 'configuration',
                     editable        => 1,
                     cmpContext      => 'port',
                     ),
-                _l7Types(),
+                $self->_l7Types(),
                ],
              editable => 1,
              help => _serviceHelp()
@@ -308,7 +308,7 @@ sub _table
                      fieldName     => 'source_object',
                      printableName => __('Source object'),
                      editable      => 1,
-                     foreignModel => \&_objectModel,
+                     foreignModel => $self->modelGetter('objects', 'ObjectTable'),
                      foreignField => 'name',
                      foreignNextPageField => 'members',
                      )
@@ -332,7 +332,7 @@ sub _table
                      fieldName     => 'destination_object',
                      printableName => __('Destination object'),
                      type          => 'select',
-                     foreignModel => \&_objectModel,
+                     foreignModel => $self->modelGetter('objects', 'ObjectTable'),
                      foreignField => 'name',
                      foreignNextPageField => 'members',
                      editable      => 1 ),
@@ -405,34 +405,6 @@ sub _table
 ####################################################
 # Group: Private methods
 ####################################################
-
-
-# Get the object model from Objects module
-sub _objectModel
-{
-    return EBox::Global->modInstance('objects')->model('ObjectTable');
-}
-
-# Get the object model from Service module
-sub _serviceModel
-{
-    return EBox::Global->modInstance('services')->model('ServiceTable');
-}
-
-# Get the object model from l7-protocol
-sub _l7Protocol
-{
-    my $global = EBox::Global->getInstance();
-    return $global->modInstance('l7-protocols')->model('Protocols');
-}
-
-# Get the object model from l7-groups
-sub _l7Group
-{
-    my $global = EBox::Global->getInstance();
-    return $global->modInstance('l7-protocols')->model('Groups');
-}
-
 
 # Remove every rule from the model since no limit rate are possible
 sub _removeRules
@@ -555,12 +527,14 @@ sub _serviceHelp
 # are disabled
 sub _l7Types
 {
+    my ($self) = @_;
+
     if (EBox::TrafficShaping::l7FilterEnabled()) {
         return (
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Protocol',
                     printableName   => __('Application based service'),
-                    foreignModel    => \&_l7Protocol,
+                    foreignModel    => $self->modelGetter('l7-protocols', 'Protocols'),
                     foreignField    => 'protocol',
                     editable        => 1,
                     cmpContext      => 'protocol',
@@ -569,7 +543,7 @@ sub _l7Types
                     fieldName       => 'service_l7Group',
                     printableName   =>
                     __('Application based service group'),
-                    foreignModel    => \&_l7Group,
+                    foreignModel    =>   $self->modelGetter('l7-protocols', 'Groups'),
                     foreignField    => 'group',
                     editable        => 1,
                     cmpContext      => 'group',

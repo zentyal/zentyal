@@ -17,7 +17,7 @@
 #
 #
 
-package EBox::Mail::Model::Dispatcher::Mail;
+package EBox::Mail::Model::MailDispatcherConfiguration;
 
 use base 'EBox::Model::DataForm';
 
@@ -109,7 +109,7 @@ sub _table
                       defaultActions     => [ 'editField' ],
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
-                      help               => __('This dispatcher will send events to a mail account. In order to use it' 
+                      help               => __('This dispatcher will send events to a mail account. In order to use it'
                                                . 'you need to enable the mail service on Zentyal.'),
                       messages           => {
                                              update => __('Mail dispatcher configuration updated.'),

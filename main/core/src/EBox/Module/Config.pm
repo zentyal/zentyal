@@ -92,27 +92,23 @@ sub aroundRestoreConfig
 # load config entries from a file
 sub _load_from_file
 {
-    my ($self, $dir, $key) = @_;
+    my ($self, $dir, $dst) = @_;
     ($dir) or $dir = EBox::Config::conf;
 
 
     my $file =  $self->_bak_file_from_dir($dir);
     if (not -f $file)  {
-        EBox::error("Backup file missing for module " . $self->name);
+        EBox::error("Backup file '$file' missing for module " . $self->name);
         return;
+    } elsif (not -r $file) {
+        EBox::error("Cannot read backup file '$file' for module " . $self->name);
     }
 
-    ($key) or $key = $self->_key('');
+    ($dst) or $dst = $self->_key('');
 
-    open(my $fh, "<$file") or EBox::error("Can't open backup file $file: $!");
-    my $line = <$fh>;
-    close($fh);
-
-    return unless (defined ($line));
-
-    # Import to tmp dir and convert paths to $key dest
+    # Import to tmp dir and convert paths to $dst dest
     $self->{redis}->import_dir_from_file($file, 'tmp');
-    $self->{redis}->backup_dir('tmp/' . $self->name() . '/conf', $key);
+    $self->{redis}->backup_dir('tmp/' . $self->name() . '/conf', $dst);
     $self->{redis}->delete_dir('tmp');
 }
 
@@ -161,7 +157,8 @@ sub revokeConfig
 
     $self->modelsRevokeConfig();
 
-    $self->_revokeConfigFiles();
+# Disabled until method si reimplemented
+#    $self->_revokeConfigFiles();
 
     $global->modRestarted($self->name);
 
@@ -181,7 +178,9 @@ sub _saveConfig
     $self->modelsSaveConfig();
 
     $self->_copy_to_ro();
-    $self->_saveConfigFiles();
+
+# Disabled until method si reimplemented
+#    $self->_saveConfigFiles();
 }
 
 sub _copy_to_ro

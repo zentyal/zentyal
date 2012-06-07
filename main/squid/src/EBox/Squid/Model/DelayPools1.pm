@@ -140,7 +140,7 @@ sub _table
          new EBox::Types::Select(
                  fieldName     => 'acl_object',
                  printableName => __('Network object'),
-                 foreignModel  => \&_objectModel,
+                 foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
                  foreignField  => 'name',
                  foreignNextPageField => 'members',
                  editable      => 1,
@@ -189,12 +189,6 @@ sub _table
     return $dataTable;
 }
 
-
-# Get the object model from Objects module
-sub _objectModel
-{
-    return EBox::Global->modInstance('objects')->{objectModel};
-}
 
 
 sub delayPools1

@@ -116,14 +116,14 @@ sub initialSetup
         }
 
         # Allow any Zentyal output by default
-        $self->addOutputService(
+        $self->model('EBoxOutputRuleTable')->add(
             decision => 'accept',
             destination =>  { destination_any => undef },
             service => $any,
         );
 
         # Allow any Internet access from internal networks
-        $self->addToInternetService(
+        $self->model('ToInternetRuleTable')->add(
             decision => 'accept',
             source => { source_any => undef },
             destination =>  { destination_any => undef },
@@ -694,13 +694,13 @@ sub addServiceRules
             } elsif ($table eq 'external') {
                 $self->setExternalService($name, $decision);
             } elsif ($table eq 'output') {
-                $self->addOutputService(
+                $self->model('EBoxOutputTable')->add(
                         decision => $decision,
                         destination => { destination_any => undef },
                         service => $servicesMod->serviceId($name),
                 );
             } elsif ($table eq 'internet') {
-                $self->addToInternetService(
+                $self->model('ToInternetRuleTable')->add(
                         decision => $decision,
                         source => { source_any => undef },
                         destination =>  { destination_any => undef },

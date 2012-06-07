@@ -15,7 +15,7 @@ models:
     - VDomainSettings
     - ExternalFilter
     - MailUser
-    - Dispatcher::Mail
+    - MailDispatcherConfiguration
     - GreylistConfiguration
     - ExternalAccounts
     - TrafficGraph

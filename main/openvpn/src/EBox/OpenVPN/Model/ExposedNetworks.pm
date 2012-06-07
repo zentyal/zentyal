@@ -53,11 +53,14 @@ sub name
 
 sub _table
 {
+    my ($self) = @_;
+
+
     my @tableHead =
     (
         new EBox::Types::Select(
                                fieldName     => 'object',
-                               foreignModel  => \&objectModel,
+                               foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
                                foreignField  => 'name',
                                foreignNextPageField => 'members',
 
@@ -98,12 +101,6 @@ sub pageTitle
 }
 
 
-# Group: Private methods
-
-sub objectModel
-{
-    return EBox::Global->modInstance('objects')->{'objectModel'};
-}
 
 # Return the help message
 sub _help

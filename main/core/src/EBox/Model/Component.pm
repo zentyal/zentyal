@@ -60,6 +60,26 @@ sub global
     return $self->{'confmodule'}->global();
 }
 
+# Method: modelGetter
+#
+# return a sub which is a getter of the specified model from the specified
+# module. Useful for foreignModel attribute
+#
+#  Parameters:
+#    module
+#    model
+sub modelGetter
+{
+    my ($self, $module, $model) = @_;
+    my $global = $self->global();
+    my $modelInstance = $global->modInstance($module)->model($model);
+    return sub{
+        return $modelInstance;
+    };
+}
+
+
+
 # Method: pageTitle
 #
 #   This method must be overriden by the component to show a page title

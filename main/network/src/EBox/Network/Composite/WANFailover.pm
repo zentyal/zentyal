@@ -87,7 +87,7 @@ sub _isWatcherEnabled
 {
     my $events = EBox::Global->getInstance()->modInstance('events');
 
-    return $events->isEnabledWatcher('EBox::Event::Watcher::Gateways')->value();
+    return $events->isEnabledWatcher('EBox::Event::Watcher::Gateways');
 }
 
 1;

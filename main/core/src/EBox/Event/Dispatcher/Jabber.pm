@@ -98,7 +98,7 @@ sub ConfigurationMethod
 #
 sub ConfigureModel
 {
-    return 'JabberDispatcherForm';
+    return 'JabberDispatcherConfiguration';
 }
 
 # Method: send
