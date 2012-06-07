@@ -157,7 +157,8 @@ sub revokeConfig
 
     $self->modelsRevokeConfig();
 
-    $self->_revokeConfigFiles();
+# Disabled until method si reimplemented
+#    $self->_revokeConfigFiles();
 
     $global->modRestarted($self->name);
 
@@ -177,7 +178,9 @@ sub _saveConfig
     $self->modelsSaveConfig();
 
     $self->_copy_to_ro();
-    $self->_saveConfigFiles();
+
+# Disabled until method si reimplemented
+#    $self->_saveConfigFiles();
 }
 
 sub _copy_to_ro
