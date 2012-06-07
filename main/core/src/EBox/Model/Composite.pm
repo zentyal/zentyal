@@ -78,10 +78,6 @@ sub new
 {
     my ($class, %params) = @_;
 
-    unless (defined $params{components}) {
-        throw EBox::Exceptions::MissingArgument('components');
-    }
-
     my $self = { %params };
     bless ($self, $class);
 
@@ -145,6 +141,21 @@ sub componentByName
     return undef;
 }
 
+# Method: componentNames
+#
+#      Override this to dynamically calculate which components should
+#      be included in the composite
+#
+# Returns:
+#
+#      array ref - containing the names of the components
+#
+sub componentNames
+{
+    my ($self) = @_;
+
+    return [];
+}
 
 # Method: setLayout
 #

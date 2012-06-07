@@ -75,12 +75,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $url = 'CaptivePortal/Composite/General';
-    if (EBox::Config::configkey('captive_secondary_ldap')) {
-        $url .= 'WithLDAP';
-    }
-
-    $root->add(new EBox::Menu::Item('url' => $url,
+    $root->add(new EBox::Menu::Item('url' => 'CaptivePortal/Composite/General',
                                     'text' => $self->printableName(),
                                     'separator' => 'Gateway',
                                     'order' => 226));

@@ -20,5 +20,6 @@ models:
 
 composites:
     GeneralSettings: [Settings, BWSettings, Interfaces]
-    General: [GeneralSettings, Users]
-    GeneralWithLDAP: [GeneralSettings, SecondaryLDAP, Users]
+    General: []
+
+# NOTE: General composite components are dynamic in componentNames()

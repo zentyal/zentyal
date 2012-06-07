@@ -20,3 +20,5 @@ composites:
     Settings: [LdapInfo, PAM]
     Sync: [Master, SlavePassword, Slaves]
     UserTemplate: []
+
+# NOTE: UserTemplate composite components are dynamic in componentNames()
