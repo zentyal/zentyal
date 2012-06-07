@@ -315,7 +315,7 @@ sub internalIpAddresses
     foreach my $interface (@{$internalInterfaces}) {
         foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
             next unless (defined $interfaceInfo);
-            push ($ips, $interfaceInfo->{address});
+            push @{$ips}, $interfaceInfo->{address};
         }
     }
 
@@ -2348,11 +2348,13 @@ sub setNameservers # (one, two)
             # remove it to insert it back in the wanted order
             $resolverModel->removeRow($existentRow->id(), 1);
         }
-        if ( $idx <= $nNSS - 1) {
+        if ( $idx < $nNSS ) {
+            print "replace $idx $newNS\n";
             # There is a nameserver in the position
-            $self->setNS($idx, $newNS);
+            $resolverModel->replace($idx, $newNS);
         } else {
             # Add a new one to the end of the list
+            print "add $newNS\n";
             $resolverModel->add(nameserver => $newNS);
         }
     }
@@ -4151,8 +4153,8 @@ sub _multipathCommand
 
     if (scalar(@gateways) == 0) {
         # If WAN failover is enabled we put the default one
-        my $ev = EBox::Global->getInstance($self->isReadOnly())->modInstance('events');
-        if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')->value()) {
+        my $ev = $self->global()->modInstance('events');
+        if ($ev->isEnabledWatcher('EBox::Event::Watcher::Gateways')) {
             my $row = $self->model('GatewayTable')->findValue(default => 1);
             unless ($row) {
                 return undef;
