@@ -242,7 +242,6 @@ sub _storedArrayRaidInfo
     }
 
     return $matchedStoredInfo;
-
 }
 
 # Create the event from the raid info

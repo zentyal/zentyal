@@ -35,12 +35,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'ebackup/RemoteGeneral',
-                               'ebackup/RemoteFileList',
-                               'ebackup/ServicesRestore',
-                               'ebackup/RemoteExcludes',
-                           ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('Backup'),

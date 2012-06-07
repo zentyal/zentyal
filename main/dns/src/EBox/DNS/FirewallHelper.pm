@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,35 +13,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::Composite::FileFilter;
+package EBox::DNS::FirewallHelper;
 
-use base 'EBox::Model::Composite';
+use base 'EBox::FirewallHelper';
 
 use strict;
 use warnings;
 
-use EBox::Gettext;
-
-# Group: Protected methods
-
-# Method: _description
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::_description>
-#
-sub _description
+sub output
 {
-    my $description =
-    {
-        layout          => 'top-bottom',
-        name            =>  'FileFilter',
-        pageTitle       => __('Attached Files Filter'),
-        compositeDomain => 'MailFilter',
-        help            => __('Filter mail messages according attached files. The transparent POP proxy only filters by extension'),
-    };
+    my ($self) = @_;
+    my @rules;
 
-    return $description;
+    push (@rules, '--protocol udp --dport 53 -j ACCEPT');
+    push (@rules, '--protocol tcp --dport 53 -j ACCEPT');
+
+    return \@rules;
 }
 
 1;

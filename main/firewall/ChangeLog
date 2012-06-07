@@ -1,6 +1,6 @@
 HEAD
 	+ Adapted to new Model management framework
-	+ Reimplement OutputRules FIXME
+	+ Remove obsolete OutputRules code
 	+ Remove obsolete localredirects methods
 	+ Remove obsolete import of EBox::Order
 	+ Set RemoteServices rules taking into account no bundle state

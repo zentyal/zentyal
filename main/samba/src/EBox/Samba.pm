@@ -1144,9 +1144,12 @@ sub _addPrinter
 {
     my ($self, $name) = @_;
 
-    $self->set_list("printers/$name/users", 'string', []);
-    $self->set_list("printers/$name/groups", 'string', []);
-    $self->set_bool("printers/$name/external", 1);
+    my $printers = $self->get_hash('printers');
+    $printers->{$name} = {};
+    $printers->{$name}->{users} = [];
+    $printers->{$name}->{groups} = [];
+    $printers->{$name}->{external} = 1;
+    $self->set('printers', $printers);
 }
 
 sub printers
@@ -1164,17 +1167,15 @@ sub printers
 
     my @printers;
     my $readOnly = $self->isReadOnly();
-    # FIXME: reimplement this
-    #foreach my $printer (@{$self->array_from_dir('printers')}) {
-    foreach my $printer (@{[]}) {
-        my $name = $printer->{'_dir'};
+    my $printers = $self->get_hash('printers');
+    foreach my $name (keys %{$printers}) {
         if (exists $external{$name}) {
             $external{$name} = 'exists';
         } else {
             $self->delPrinter($name) unless ($readOnly);
             $external{$name} = 'removed';
         }
-        push (@printers,  $printer->{'_dir'});
+        push (@printers,  $name);
     }
 
     unless ($readOnly) {
@@ -1208,7 +1209,8 @@ sub _setPrinterUsers
 {
     my ($self, $printer, $users) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return;
     }
@@ -1218,14 +1220,16 @@ sub _setPrinterUsers
         $usermod->userExists($_)
     } @{ $users };
 
-    $self->set_list("printers/$printer/users", "string", \@okUsers);
+    $printers->{$printer}->{users} = \@okUsers;
+    $self->set('printers', $printers);
 }
 
 sub _setPrinterGroups
 {
     my ($self, $printer, $groups) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return;
     }
@@ -1235,41 +1239,45 @@ sub _setPrinterGroups
         $groupmod->groupExists($_)
     } @{ $groups };
 
-    $self->set_list("printers/$printer/groups", "string", \@okGroups);
+    $printers->{$printer}->{groups} = \@okGroups;
+    $self->set('printers', $printers);
 }
 
-sub _printerUsers # (printer)
+sub _printerUsers
 {
     my ($self, $printer) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return [];
     }
 
-    return $self->get_list("printers/$printer/users");
+    return $printers->{$printer}->{users};
 }
 
-sub _printerGroups # (group)
+sub _printerGroups
 {
     my ($self, $printer) = @_;
 
-    unless ($self->dir_exists("printers/$printer")) {
+    my $printers = $self->get_hash('printers');
+    unless (exists $printers->{$printer}) {
         $self->_printerNotFound($printer);
         return [];
     }
 
-    return $self->get_list("printers/$printer/groups");
+    return $printers->{$printer}->{groups};
 }
 
-sub _printersForUser # (user)
+sub _printersForUser
 {
     my ($self, $user) = @_;
 
+    my $printPerms = $self->get_hash('printers');
     my @printers;
     for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
-        my $users = $self->get_list("printers/$name/users");
+        my $users = $printPerms->{$name}->{users};
         if (@{$users}) {
             $print->{'allowed'} = 1 if (grep(/^$user$/, @{$users}));
         }
@@ -1304,16 +1312,17 @@ sub setPrintersForUser
     }
 }
 
-sub _printersForGroup # (group)
+sub _printersForGroup
 {
     my ($self, $group) = @_;
 
     $self->_checkGroupExists($group);
 
+    my $printPerms = $self->get_hash('printers');
     my @printers;
     for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
-        my $groups = $self->get_list("printers/$name/groups");
+        my $groups = $printPerms->{$name}->{groups};
         if (@{$groups}) {
             $print->{'allowed'} = 1 if (grep(/^$group$/, @{$groups}));
         }

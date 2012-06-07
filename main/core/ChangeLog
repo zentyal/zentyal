@@ -20,7 +20,7 @@ HEAD
 	+ Model and composite information is now stored in .yaml schemas
 	+ ModelProvider and CompositeProvider are no longer necessary
 	+ Simplified DataForm using more code from DataTable
-	+ Reimplemented RAID and restrictedResources() FIXME
+	+ Adapted RAID and restrictedResources() to the new JSON objects in redis
 	+ Remove unused override modifications code
 	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
 	+ Use simpler "key: value" format for dumps instead of YAML

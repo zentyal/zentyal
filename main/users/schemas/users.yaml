@@ -18,5 +18,5 @@ models:
 
 composites:
     Settings: [LdapInfo, PAM]
-    UserTemplate: [FIXME]
     Sync: [Master, SlavePassword, Slaves]
+    UserTemplate: []

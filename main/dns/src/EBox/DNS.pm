@@ -18,7 +18,7 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -33,6 +33,7 @@ use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
 use EBox::Model::Manager;
 use EBox::Sudo;
+use EBox::DNS::FirewallHelper;
 
 use Error qw(:try);
 use File::Temp;
@@ -844,7 +845,6 @@ sub enableService
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    $self->configureFirewall();
 
     # Mark network module as changed to set localhost as the primary resolver
     if ($self->changed()) {
@@ -982,21 +982,6 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
-}
-
-sub configureFirewall
-{
-    my ($self) = @_;
-
-    my $fw = EBox::Global->modInstance('firewall');
-
-    if ($self->isEnabled()) {
-        $fw->addOutputRule('udp', 53);
-        $fw->addOutputRule('tcp', 53);
-    } else {
-        $fw->removeOutputRule('udp', 53);
-        $fw->removeOutputRule('tcp', 53);
-    }
 }
 
 # Method: menu
@@ -2017,6 +2002,17 @@ sub removeAlias
             value => $alias
            );
     }
+}
+
+sub firewallHelper
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled()) {
+        return EBox::DNS::FirewallHelper->new();
+    }
+
+    return undef;
 }
 
 1;
