@@ -45,13 +45,31 @@ sub new
     my (%params) = @_;
 
     my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
     $self->{tableName} = 'ExternalRules';
     $self->{printableTableName} = __('Rules for external interfaces (upload)');
 
-    bless($self, $class);
+    my $network = $self->global()->modInstance('network');
+    foreach my $iface (@{ $network->ExternalIfaces }) {
+        $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
+    }
 
     return $self;
 }
+
+sub _populateIfacesSub
+{
+    my ($self) = @_;
+
+    my $network = $self->global()->modInstance('network');
+
+    return sub {
+        my @ifaces =   @{$network->ExternalIfaces()};
+        my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
+        return \@options;
+    };
+}
+
 
 1;

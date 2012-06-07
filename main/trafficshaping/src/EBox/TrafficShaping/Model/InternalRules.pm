@@ -45,13 +45,31 @@ sub new
     my (%params) = @_;
 
     my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
     $self->{tableName} = 'InternalRules';
     $self->{printableTableName} = __('Rules for internal interfaces (download)');
 
-    bless($self, $class);
+    my $network = $self->global()->modInstance('network');
+    foreach my $iface (@{ $network->InternalIfaces }) {
+        $self->_setStateRate($iface, $self->{ts}->totalDownloadRate());
+    }
 
     return $self;
 }
+
+sub _populateIfacesSub
+{
+    my ($self) = @_;
+
+    my $network = $self->global()->modInstance('network');
+
+    return sub {
+        my @ifaces =   @{$network->InternalIfaces()};
+        my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
+        return \@options;
+    };
+}
+
 
 1;
