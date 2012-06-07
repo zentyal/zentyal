@@ -251,50 +251,6 @@ sub _resetInterfacesChains
     }
 }
 
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [ 'EBox::TrafficShaping::Composite::Rules' ];
-}
-
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#    <EBox::Model::DataTable::_exposedMethods>
-#
-sub _exposedMethods
-{
-
-  my %exposedMethods =
-    ( addRule    => { action     => 'add',
-                      path       => [ 'tsTable' ],
-                    },
-      removeRule => { action     => 'del',
-                      path       => [ 'tsTable' ],
-                    },
-      enableRule => { action     => 'set',
-                      path       => [ 'tsTable' ],
-                      selector   => [ 'enabled' ],
-             },
-      isEnabledRule => { action   => 'get',
-                         path     => [ 'tsTable' ],
-                         selector => [ 'enabled' ],
-                       },
-      updateRule => { action     => 'set',
-                      path       => [ 'tsTable' ],
-                    },
-      getRule    => { action     => 'get',
-                      path       => [ 'tsTable' ],
-                      selector   => [ 'id' ],
-                    },
-    );
-
-  return \%exposedMethods;
-
-}
-
 # Method: _daemons
 #
 # Overrides:

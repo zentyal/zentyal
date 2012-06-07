@@ -175,40 +175,42 @@ sub eventDispatchers
     return [ 'Log', 'RSS', 'Jabber' ];
 }
 
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my %exposedMethods =
-      ( enableDispatcher => { action   => 'set',
-                              path     => [ 'ConfigureDispatchers' ],
-                              indexes  => [ 'eventDispatcher' ],
-                              selector => [ 'enabled' ],
-                            },
-        isEnabledDispatcher => { action   => 'get',
-                                path     => [ 'ConfigureDispatchers' ],
-                                indexes  => [ 'eventDispatcher' ],
-                                selector => [ 'enabled' ],
-                              },
-        enableWatcher    => { action   => 'set',
-                              path     => [ 'ConfigureWatchers' ],
-                              indexes  => [ 'watcher' ],
-                              selector => [ 'enabled' ],
-                            },
-        isEnabledWatcher   => { action   => 'get',
-                               path     => [ 'ConfigureWatchers' ],
-                               indexes  => [ 'watcher' ],
-                               selector => [ 'enabled' ],
-                             },
-      );
 
-    return \%exposedMethods;
+# # Method: _exposedMethods
+# #
+# # Overrides:
+# #
+# #       <EBox::Model::ModelProvider::_exposedMethods>
+# #
+# sub _exposedMethods
+# {
+#     my %exposedMethods =
+#       ( enableDispatcher => { action   => 'set',
+#                               path     => [ 'ConfigureDispatchers' ],
+#                               indexes  => [ 'eventDispatcher' ],
+#                               selector => [ 'enabled' ],
+#                             },
+#         isEnabledDispatcher => { action   => 'get',
+#                                 path     => [ 'ConfigureDispatchers' ],
+#                                 indexes  => [ 'eventDispatcher' ],
+#                                 selector => [ 'enabled' ],
+#                               },
+#         enableWatcher    => { action   => 'set',
+#                               path     => [ 'ConfigureWatchers' ],
+#                               indexes  => [ 'watcher' ],
+#                               selector => [ 'enabled' ],
+#                             },
+#         isEnabledWatcher   => { action   => 'get',
+#                                path     => [ 'ConfigureWatchers' ],
+#                                indexes  => [ 'watcher' ],
+#                                selector => [ 'enabled' ],
+#                              },
+#       );
 
-}
+#     return \%exposedMethods;
+
+# }
+
 
 sub reportDetailsModel
 {

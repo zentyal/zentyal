@@ -192,54 +192,6 @@ sub initialSetup
     }
 }
 
-# Method: _exposedMethods
-#
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-# Returns:
-#
-#      hash ref - the list of the exposes method in a hash ref every
-#      component
-#
-sub _exposedMethods
-{
-    my %exposedMethods =
-      (
-       'addRoute' => { action => 'add',
-                       path   => [ 'StaticRoute' ],
-                     },
-       'delRoute' => { action  => 'del',
-                       path    => [ 'StaticRoute' ],
-                       indexes => [ 'network' ],
-                       separator => ':',
-                   },
-       'changeGateway' => { action   => 'set',
-                            path     => [ 'StaticRoute' ],
-                            indexes  => [ 'network' ],
-                            selector => [ 'gateway' ],
-                            separator => ':'
-                          },
-       'addNS'    => { action => 'add',
-                       path   => [ 'DNSResolver' ],
-                     },
-       'setNS'    => { action   => 'set',
-                       path     => [ 'DNSResolver' ],
-                       indexes  => [ 'position' ],
-                       selector => [ 'nameserver' ],
-                     },
-       'removeNS' => { action  => 'del',
-                       path    => [ 'DNSResolver' ],
-                       indexes => [ 'position' ],
-                     },
-      );
-    return \%exposedMethods;
-}
-
-
-
 # Method: wizardPages
 #
 #   Override EBox::Module::Base::wizardPages
