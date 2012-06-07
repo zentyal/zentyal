@@ -137,57 +137,6 @@ sub _defaultServices
     ];
 }
 
-# Method: exposedMethods
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-# Returns:
-#
-#      hash ref - the list of the exposes method in a hash ref every
-#      component
-#
-sub _exposedMethods
-{
-    my %exposedMethods =
-       (
-        'serviceName'     => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'id' ],
-                               selector => [ 'name' ],
-                             },
-        'serviceId'       => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'name' ],
-                               selector => [ 'id' ],
-                             },
-        'service'         => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'id' ],
-                             },
-         'updateDestPort' => { action   => 'set',
-                               path     => [ 'ServiceTable', 'configuration' ],
-                               indexes  => [ 'name', 'id' ],
-                               selector => [ 'destination' ],
-                             },
-         'addSrvConf'     => { action   => 'add',
-                               path     => [ 'ServiceTable', 'configuration' ],
-                               indexes  => [ 'name' ],
-                             },
-         'delSrvConf'     => { action   => 'del',
-                               path     => [ 'ServiceTable', 'configuration' ],
-                               indexes  => [ 'name', 'id' ],
-                             },
-         'srvConf'        => { action   => 'get',
-                               path     => [ 'ServiceTable' ],
-                               indexes  => [ 'name' ],
-                             },
-       );
-
-    return \%exposedMethods;
-}
-
 # Method: serviceNames
 #
 #       Fetch all the service identifiers and names

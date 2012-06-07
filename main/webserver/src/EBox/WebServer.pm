@@ -233,47 +233,6 @@ sub menu
       $root->add($item);
 }
 
-################
-# API exposed
-################
-
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#        <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my ($self) = @_;
-
-    my %exposedMethods =
-      (
-       'addVHost'       => { action   => 'add',
-                             path     => [ 'VHostTable' ],
-                           },
-       'removeVHost'    => { action   => 'del',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                           },
-       'updateVHost'    => { action   => 'set',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                           },
-       'vHost'          => { action   => 'get',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                           },
-       'isVHostEnabled' => { action   => 'get',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                             selector => [ 'enabled' ],
-                           },
-       );
-
-    return \%exposedMethods;
-}
-
 #  Method: _daemons
 #
 #   Override <EBox::Module::Service::_daemons>

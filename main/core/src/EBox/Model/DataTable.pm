@@ -1884,60 +1884,6 @@ sub rowUnique
     return $self->table()->{'rowUnique'};
 }
 
-# Method: indexField
-#
-#       Get the index field name used to index the model, if any
-#
-# Returns:
-#
-#       String - the field name used as index, or undef if it is not
-#       defined
-#
-sub indexField
-{
-    my ($self) = @_;
-
-    my $indexField = $self->table()->{'index'};
-    if ( defined ( $indexField )) {
-        # Check the index field name exists
-        my $fieldType = $self->fieldHeader($indexField);
-        # Check if it is unique
-        unless ( $fieldType->unique() ) {
-            throw EBox::Exceptions::Internal('Declared index field ' .
-                    $indexField . ' is not unique.' .
-                    'Please, declare an index which ' .
-                    'is unique at ' . $self->tableName() .
-                    'description');
-        }
-    }
-
-    return $indexField;
-}
-
-# Method: setIndexField
-#
-#      Set the index field name used to index the model, if any
-#
-# Parameters:
-#
-#       indexField - String the field name used as index
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::DataNotFound> - thrown if the selected field is
-#       not in the model description
-#
-#       <EBox::Exceptions::Internal> - thrown if the selected field is
-#       not unique
-#
-sub setIndexField
-{
-    my ($self, $indexField) = @_;
-
-    $self->table()->{'index'} = $indexField;
-    $self->indexField();
-}
-
 # Method: action
 #
 #       Accessor to the URLs where the actions are published to be

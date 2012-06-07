@@ -132,42 +132,10 @@ sub initialSetup
     }
 }
 
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my %exposedMethods = (
-                addOutputService => {
-                            action => 'add',
-                            path   => [ 'EBoxOutputRuleTable' ]
-                        },
-                removeOutputService => {
-                            action => 'del',
-                            path   => [ 'EBoxOutputRuleTable' ],
-                            indexes => [ 'id' ]
-                        },
-                getOutputService => {
-                            action  => 'get',
-                            path    => [ 'EBoxOutputRuleTable' ],
-                            indexes => [ 'position' ],
-                        },
-                addToInternetService => {
-                            action => 'add',
-                            path   => [ 'ToInternetRuleTable' ]
-                        },
-            );
-
-    return \%exposedMethods;
-}
-
-
 sub restoreDependencies
 {
     my ($self) = @_;
+
     return ['services'];
 }
 
@@ -182,7 +150,6 @@ sub externalIfaceExists
 }
 
 ## internal utility functions
-
 
 sub _checkAction # (action, name?)
 {
