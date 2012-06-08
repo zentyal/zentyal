@@ -398,7 +398,7 @@ sub _table
 # Group: Private methods
 ####################################################
 
-# Remove every rule from the model since no limit rate are possible
+# Remove every rulefor iface  from the model since no limit rate are possible
 sub _removeRules
 {
     my ($self, $iface) = @_;
@@ -624,6 +624,20 @@ sub lowestPriority
     }
 
     return $lowest;
+}
+
+
+sub ifaceHasRules
+{
+    my ($self, $iface)= @_;
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('iface') eq $iface ) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 

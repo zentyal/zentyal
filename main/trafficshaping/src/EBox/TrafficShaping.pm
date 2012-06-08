@@ -97,12 +97,10 @@ sub _create
     return $self;
   }
 
-# FIXME
+
 sub startUp
 {
     my ($self) = @_;
-    # Create rule models
-    #$self->_createRuleModels();
 
     # Create wrappers
     $self->{tc} = EBox::TC->new();
@@ -652,19 +650,27 @@ sub ifaceExternalChanged # (iface, external)
 {
 
     my ($self, $iface, $external) = @_;
+    my $model = $self->ruleModel($iface);
+    if ($model->ifaceHasRules($iface)) {
+        return 1;
+    }
 
-    # XXX Disabled until network observers work properly.
-    #     We need to be notified when there's a change
-    #     from external to internal, not only  interntal
-    #     to external
+    my $netMod = $self->global()->modInstance('network');
+    my $extIfaces = @{$netMod->ExternalIfaces()};
+    my $intIfaces = @{$netMod->InternalIfaces()};
+    if ($external) {
+        $extIfaces += 1;
+        $intIfaces -= 1;
+    } else {
+        $extIfaces -= 1;
+        $intIfaces += 1;
+    }
+
+    if (($extIfaces == 0) or ($intIfaces == 0)) {
+        return 1;
+    }
+
     return 0;
-
-    # Check if any interface is being shaped
-    # if ( defined ( $self->{ruleModels}->{$iface} )) {
-    #    return not $self->enoughInterfaces();
-    # }
-    # return 0;
-
 }
 
 # Method: changeIfaceExternalProperty
@@ -748,9 +754,6 @@ sub uploadRate # (iface)
 #
 sub totalDownloadRate
 {
-
-# FIXME: Change when the ticket #373
-
     my ($self) = @_;
 
     my $sumDownload = 0;
