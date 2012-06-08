@@ -151,7 +151,7 @@ sub _objectsByAllowPolicy
 
   my $rows_r  =  $self->findAll(allow => $allowPolicy);
 
-  my $objectsModel = $self->objectModel();
+  my $objectsModel = $self->global()->modInstance('objects')->model('ObjectTable');
   my @objects = map {
       my $id  = $self->row($_)->elementByName('object')->value();
       $id
@@ -194,7 +194,7 @@ sub _findRowByObjectName
 {
     my ($self, $objectName) = @_;
 
-    my $objectModel = $self->objectModel();
+    my $objectModel = $self->global()->modInstance('objects')->model('ObjectTable');
     my $objectRowId = $objectModel->findId(name => $objectName);
 
     my $row = $self->findRow(object => $objectRowId);

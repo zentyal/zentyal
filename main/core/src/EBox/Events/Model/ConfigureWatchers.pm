@@ -446,6 +446,29 @@ sub viewCustomizer
     return $customizer;
 }
 
+sub enableWatcher
+{
+    my ($self, $watcher, $enabled) = @_;
+    my $row = $self->findRow(watcher => $watcher);
+    if (not $row) {
+        throw EBox::Exceptions::Internal("Watcher $watcher does not exists");
+    }
+
+    $row->elementByName('enabled')->setValue($enabled);
+    $row->store();
+}
+
+sub isEnabledWatcher
+{
+    my ($self, $watcher) = @_;
+    my $row = $self->findRow(watcher => $watcher);
+    if (not $row) {
+        throw EBox::Exceptions::Internal("Watcher $watcher does not exists");
+    }
+
+    return $row->valueByName('enabled');
+}
+
 # Group: Private methods
 
 # Fetch the current watchers on the system

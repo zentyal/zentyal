@@ -88,10 +88,11 @@ sub _create
                                       printableName => __('Traffic Shaping'),
                                       @_);
 
-    $self->{network} = EBox::Global->modInstance('network');
-    $self->{objects} = EBox::Global->modInstance('objects');
-
     bless($self, $class);
+
+    my $global = $self->global();
+    $self->{network} = $global->modInstance('network');
+    $self->{objects} = $global->modInstance('objects');
 
     return $self;
   }
@@ -414,10 +415,9 @@ sub checkRule
     $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
 
     # Check rule availability
-    #my @ruleModels = grep {$_->name() eq 'tsTable' } @{$self->models()};
-    #my $nRules = List::Util::sum(map { scalar(@{$_->ids()}) } @ruleModels);
-    # FIXME reimplement this properly
-    my $nRules = 0;
+    my $nRules =  $self->model('InternalRules')->size();
+    $nRules    += $self->model('ExternalRules')->size();
+
     if ($nRules >= MAX_RULE_NUM and (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(
             __x('The maximum rule account {max} is reached, ' .
@@ -477,28 +477,8 @@ sub checkRule
 sub listRules
 {
     my ($self, $iface) = @_;
-
-    # FIXME
     my $ruleModel = $self->ruleModel($iface);
-
-    my @rules = ();
-    foreach my $id (@{$ruleModel->ids()}) {
-        my $row = $ruleModel->row($id);
-        my $ruleRef =
-          {
-           ruleId      => $id,
-           service     => $row->elementByName('service'),
-           source      => $row->elementByName('source')->subtype(),
-           destination => $row->elementByName('destination')->subtype(),
-           priority    => $row->valueByName('priority'),
-           guaranteed_rate => $row->valueByName('guaranteed_rate'),
-           limited_rate => $row->valueByName('limited_rate'),
-           enabled     => $row->valueByName('enabled'),
-          };
-        push ( @rules, $ruleRef );
-    }
-
-    return \@rules;
+    return $ruleModel->rulesForIface($iface);
 }
 
 # Method: getLowestPriority
@@ -527,7 +507,6 @@ sub getLowestPriority # (interface, search?)
     return $self->{lowestPriority};
 }
 
-# FIXME: reimplement this
 # Method: ruleModel
 #
 #       Return the model associated to the rules table
@@ -552,28 +531,12 @@ sub getLowestPriority # (interface, search?)
 sub ruleModel
 {
     my ($self, $iface) = @_;
-
-    throw EBox::Exceptions::MissingArgument( __('Interface') )
-        unless defined( $iface );
-
-    if ( not defined ($self->{ruleModels}->{$iface})) {
-        try {
-            $self->_checkInterface($iface);
-            # Create the rule model if it's not already created
-            $self->{ruleModels}->{$iface}
-            = new EBox::TrafficShaping::Model::RuleTable(
-                    'confmodule' => $self,
-                    'directory'   => "$iface/user_rules",
-                    'tablename'   => 'rule',
-                    'interface'   => $iface,
-                    );
-        } catch EBox::Exceptions::External with {
-            # If the interface cannot be shaped, then return undef
-            ;
-        };
+    my $network= $self->global()->modInstance('network');
+    if ($network->ifaceIsExternal($iface)) {
+        return $self->model('ExternalRules');
+    } else {
+        return $self->model('InternalRules');
     }
-
-    return $self->{ruleModels}->{$iface};
 }
 
 # Method:   interfaceRateModel
@@ -684,6 +647,7 @@ sub ifaceMethodChanged
 #
 #    false - otherwise
 #
+# FIXME
 sub ifaceExternalChanged # (iface, external)
 {
 
@@ -836,20 +800,8 @@ sub _setNewLowestPriority # (iface, priority?)
         }
     }
     else {
-        # FIXME: is this low-levelness really needed?
-        # Check all priority entries from within given interface
-        my $ruleDir = $self->_ruleDirectory($iface);
-
-      # FIXME: reimplement this
-#      my $dirs_ref = $self->array_from_dir($ruleDir);
-      my $dirs_ref = [];
-
-      # Search for the lowest at array
-      my $lowest = 0;
-      foreach my $rule_ref (@{$dirs_ref}) {
-	    $lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
-      }
-      # Set lowest
+      my $ruleModel = $self->ruleModel($iface);
+      my $lowest  = $ruleModel->lowestPriority($iface);
       $self->_setLowestPriority($iface, $lowest);
     }
 }
@@ -907,20 +859,11 @@ sub _checkInterface # (iface)
 sub _areRulesActive # (iface, countDisabled)
 {
     my ($self, $iface, $countDisabled) = @_;
-
-    $countDisabled = 0 unless (defined($countDisabled));
-    # Only check if there is a model
-    my $model = $self->ruleModel($iface);
-
-    if ( defined ($model) ) {
-        if ( $countDisabled ) {
-            return ($model->size() > 0);
-        } else {
-            my $enabledRows = $model->enabledRows();
-            return (scalar(@{$enabledRows}) > 0);
-        }
+    my $rules = $self->listRules($iface);
+    if ($countDisabled) {
+        return scalar @{ $rules } > 0;
     } else {
-        return 0;
+        return scalar @{ $rules };
     }
 }
 
@@ -976,10 +919,10 @@ sub _createTree # (interface, type)
       # Get the rate from Network
       my $linkRate;
       my $model = $self->ruleModel($iface);
-      $linkRate = $model->committedLimitRate();
+      $linkRate = $model->committedLimitRate($iface);
 
       if ( not defined($linkRate) or $linkRate == 0) {
-    throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
+          throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
                          "bandwidth rate in order to do traffic shaping",
                          iface => $iface));
       }
@@ -1002,6 +945,10 @@ sub _buildGConfRules # (iface, regenConfig)
 
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
+        if ($iface ne $row->valueByName('iface')) {
+            next;
+        }
+
         my $ruleRef = {};
         $ruleRef->{identifier} = $self->_nextMap($row->{id});
         $ruleRef->{service} = $row->elementByName('service');
@@ -1044,19 +991,12 @@ sub _buildGConfRules # (iface, regenConfig)
 sub _createBuilders
 {
     my ($self, %params) = @_;
-
     # Don't do anything if there aren't enough ifaces
     return unless ($self->enoughInterfaces());
 
-
-
     my $regenConfig = $params{regenConfig};
 
-    my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'};
-
     my @ifaces = @{$self->_realIfaces()};
-
     foreach my $iface (@ifaces) {
         $self->{builders}->{$iface} = {};
         if ( $self->_areRulesActive($iface, not $regenConfig) ) {

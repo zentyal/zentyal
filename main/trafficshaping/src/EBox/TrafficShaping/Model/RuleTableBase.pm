@@ -44,7 +44,7 @@ use EBox::Types::Union::Text;
 
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
-use EBox::TrafficShaping;
+
 
 # Constants
 use constant LIMIT_RATE_KEY => '/limitRate';
@@ -69,17 +69,7 @@ sub new
     my (%params) = @_;
 
     my $self = $class->SUPER::new(@_);
-
-    $self->{interface} = $params{interface};
     $self->{ts} = $params{confmodule};
-    my $netMod = EBox::Global->modInstance('network');
-    if ($netMod->ifaceIsExternal($netMod->etherIface($self->{interface})) ) {
-        $self->{interfaceType} = 'external';
-        $self->_setStateRate($self->{ts}->uploadRate($self->{interface}));
-    } else {
-        $self->{interfaceType} = 'internal';
-        $self->_setStateRate($self->{ts}->totalDownloadRate());
-    }
 
     bless($self, $class);
 
@@ -121,24 +111,25 @@ sub priority
 sub notifyForeignModelAction
 {
     my ($self, $modelName, $action, $row) = @_;
+    my $iface = $row->valueByName('interface');
 
     my $userNotes = '';
     if ($action eq 'update') {
+        my $netMod = $self->global()->modInstance('network');
             # Check new bandwidth
-            my $netMod = EBox::Global->modInstance('network');
             my $limitRate;
-            if ( $self->{interfaceType} eq 'external' ) {
-                $limitRate = $self->{ts}->uploadRate($self->{interface});
+            if ( $netMod->ifaceIsExternal($iface)) {
+                $limitRate = $self->{ts}->uploadRate($iface);
             } else {
                 # Internal interface
-                $limitRate = $self->{ts}->totalDownloadRate();
+                $limitRate = $self->{ts}->totalDownloadRate($iface);
             }
             if ( $limitRate == 0 or (not $self->{ts}->enoughInterfaces())) {
-                $userNotes = $self->_removeRules();
+                $userNotes = $self->_removeRules($iface);
             } else {
-                $userNotes = $self->_normalize($self->_stateRate(), $limitRate);
+                $userNotes = $self->_normalize($iface, $self->_stateRate($iface), $limitRate);
             }
-            $self->_setStateRate( $limitRate );
+            $self->_setStateRate($iface, $limitRate );
     }
     return $userNotes;
 }
@@ -172,7 +163,7 @@ sub validateTypedRow
     }
 
     # Check objects have members
-    my $objMod = EBox::Global->modInstance('objects');
+    my $objMod = $self->global()->modInstance('objects');
     foreach my $target (qw(source destination)) {
         if ( defined ( $params->{$target} )) {
             if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
@@ -189,7 +180,7 @@ sub validateTypedRow
 
     my $service = $params->{service}->subtype();
     if ($service->fieldName() eq 'port') {
-        my $servMod = EBox::Global->modInstance('services');
+        my $servMod = $self->global()->modInstance('services');
         # Check if service is any, any source or destination is given
         if ($service->value() eq 'any'
            and $params->{source}->subtype()->isa('EBox::Types::Union::Text')
@@ -214,7 +205,8 @@ sub validateTypedRow
     }
 
     # Check the memory structure works as well
-    $self->{ts}->checkRule(interface      => $self->{interface},
+    $self->{ts}->checkRule(
+            interface      => $params->{iface}->value(),
             service        => $params->{service}->value(),
             source         => $targets{source},
             destination    => $targets{destination},
@@ -237,9 +229,9 @@ sub validateTypedRow
 #
 sub committedLimitRate
 {
-    my ($self) = @_;
+    my ($self, $iface) = @_;
 
-    return $self->_stateRate();
+    return $self->_stateRate($iface);
 }
 
 # Group: Protected methods
@@ -261,7 +253,7 @@ sub _table
          new EBox::Types::Select(
                     fieldName => 'iface',
                     printableName => __('Interface'),
-                    populate => \&_populateIfaces,
+                    populate => $self->_populateIfacesSub(),
                     editable => 1,
                     help => __('Interface connected to this gateway')
          ),
@@ -409,18 +401,17 @@ sub _table
 # Remove every rule from the model since no limit rate are possible
 sub _removeRules
 {
-    my ($self) = @_;
+    my ($self, $iface) = @_;
 
-    my $removedRows = 0;
-    foreach my $id (@{$self->ids()}) {
+    my @idsToRemove = @{ $self->findAll(iface => $iface)};
+    foreach my $id (@idsToRemove) {
         $self->removeRow( $id, 1);
-        $removedRows++;
     }
 
     my $msg = '';
-    if ($removedRows > 0) {
+    if (@idsToRemove) {
         $msg = __x('Remove {num} rules at {modelName}',
-               num => $removedRows,
+               num => scalar @idsToRemove,
                modelName => $self->printableContextName());
     }
     return $msg;
@@ -429,14 +420,19 @@ sub _removeRules
 # Normalize the current rates (guaranteed and limited)
 sub _normalize
 {
-    my ($self, $oldLimitRate, $currentLimitRate) = @_;
+    my ($self, $iface, $oldLimitRate, $currentLimitRate) = @_;
 
     my ($limitNum, $guaranNum, $removeNum) = (0, 0, 0);
 
     if ( $oldLimitRate > $currentLimitRate ) {
         # The bandwidth has been decreased
-        for (my $pos = 0; $pos < $self->size(); $pos++ ) {
-            my $row = $self->get( $pos );
+        foreach my $id (@{  $self->ids() }) {
+            my $row = $self->row($id);
+            my $rowIface = $row->valueByName('iface');
+            if ($iface ne $rowIface) {
+                next;
+            }
+
             my $guaranteedRate = $row->valueByName('guaranteed_rate');
             my $limitedRate = $row->valueByName('limited_rate');
             if ( $limitedRate > $currentLimitRate ) {
@@ -450,17 +446,17 @@ sub _normalize
                 $guaranNum++;
             }
             try {
-                $self->set( $pos, guaranteed_rate => $guaranteedRate,
-                        limited_rate => $limitedRate);
-            } catch EBox::Exceptions::External with {
+                $row->elementByName('guaranteed_rate')->setValue($guaranteedRate);
+                $row->elementByName('limited-rate')->setValue($limitedRate);
+                $row->store();
+            } otherwise {
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
                 my ($exc) = @_;
-                EBox::warn($row->id() . " is being removed. Reason: $exc");
-                $self->removeRow( $row->id(), 1);
+                EBox::warn('Row ' . $id . " is being removed. Reason: $exc");
+                $self->removeRow($id, 1);
                 $removeNum++;
-                $pos--;
-            }
+            };
         }
     }
 
@@ -500,19 +496,27 @@ sub _checkRate # (rate, printableName)
 # are produced
 sub _stateRate
 {
-    my ($self) = @_;
+    my ($self, $iface) = @_;
+    $iface or throw EBox::Exceptions::MissingArgument('iface');
 
-    return $self->{confmodule}->st_get_int($self->{directory} . LIMIT_RATE_KEY);
+    return $self->{confmodule}->st_get_int(_stateRateKey($iface));
 }
 
 # Set the rate into GConf state in order to work when interface rate changes
 # are produced
 sub _setStateRate
 {
-    my ($self, $rate) = @_;
+    my ($self, $iface, $rate) = @_;
+    $iface or throw EBox::Exceptions::MissingArgument('iface');
+    EBox::debug("setState rate $iface $rate");
 
-    $self->{confmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
-            $rate);
+    $self->{confmodule}->st_set_int(_stateRateKey($iface), $rate);
+}
+
+sub _stateRateKey
+{
+    my ($iface) = @_;
+    return 'state_rate/' . "$iface/" . LIMIT_RATE_KEY;
 }
 
 sub _serviceHelp
@@ -529,7 +533,7 @@ sub _l7Types
 {
     my ($self) = @_;
 
-    if (EBox::TrafficShaping::l7FilterEnabled()) {
+    if ($self->parentModule()->l7FilterEnabled()) {
         return (
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Protocol',
@@ -553,32 +557,74 @@ sub _l7Types
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Protocol',
                     printableName   => __('Application based service'),
-                    options	    => [],
+                    options         => [],
                     editable        => 1,
-                    disabled	    => 1,
+                    disabled        => 1,
                     cmpContext      => 'protocol',
                     ),
                 new EBox::Types::Select(
                     fieldName       => 'service_l7Group',
                     printableName   => __('Application based service group'),
-                    options	    => [],
+                    options         => [],
                     editable        => 1,
-                    disabled	    => 1,
+                    disabled        => 1,
                     cmpContext      => 'group',
                     ));
     }
 }
 
-sub _populateIfaces
+sub rulesForIface
 {
-    my $network = EBox::Global->modInstance('network');
-    my @ifaces = __PACKAGE__ =~ /InternalRules$/ ?
-                    @{$network->InternalIfaces()} :
-                    @{$network->ExternalIfaces()};
+    my ($self, $iface)= @_;
 
-    my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
+    my @rules = ();
 
-    return \@options;
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        $row->valueByName('enabled') or next;
+        if ($row->valueByName('iface') ne $iface ) {
+            next;
+        }
+
+        my $ruleRef =
+          {
+           ruleId      => $id,
+           service     => $row->elementByName('service'),
+           source      => $row->elementByName('source')->subtype(),
+           destination => $row->elementByName('destination')->subtype(),
+           priority    => $row->valueByName('priority'),
+           guaranteed_rate => $row->valueByName('guaranteed_rate'),
+           limited_rate => $row->valueByName('limited_rate'),
+           enabled     => $row->valueByName('enabled'),
+          };
+        push ( @rules, $ruleRef );
+    }
+
+    return \@rules;
+
 }
+
+# it seems that higher numbers are lowest priority
+sub lowestPriority
+{
+    my ($self, $iface) = @_;
+    my $lowest = 0;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if ($row->valueByName('iface') ne $iface) {
+            next;
+        }
+        if (not $row->valueByName('enabled')) {
+            next;
+        }
+        my $rowPriority = $row->valueByName('priority');
+        if ($rowPriority > $lowest)  {
+            $lowest = $rowPriority;
+        }
+    }
+
+    return $lowest;
+}
+
 
 1;
