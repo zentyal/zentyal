@@ -382,6 +382,31 @@ sub acquireConfModel
     return $className->ConfigureModel();
 }
 
+
+sub enableDispatcher
+{
+    my ($self, $dispatcher, $enabled) = @_;
+    my $row = $self->findRow(dispatcher => $dispatcher);
+    if (not $row) {
+        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exists");
+    }
+
+    $row->elementByName('enabled')->setValue($enabled);
+    $row->store();
+}
+
+sub isEnabledDispatcher
+{
+    my ($self, $dispatcher) = @_;
+    my $row = $self->findRow(dispatcher => $dispatcher);
+    if (not $row) {
+        throw EBox::Exceptions::Internal("Dispatcher $dispatcher does not exists");
+    }
+
+    return $row->valueByName('enabled');
+}
+
+
 # Group: Private methods
 
 # Fetch the current dispatchers on the system

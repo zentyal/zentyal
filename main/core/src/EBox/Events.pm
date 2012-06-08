@@ -276,6 +276,33 @@ sub isRunning
     return $self->isEnabled();
 }
 
+
+sub enableDispatcher
+{
+    my ($self, $dispatcher, $enabled) = @_;
+    $self->model('ConfigureDispatchers')->enableDispatcher($dispatcher, $enabled);
+}
+
+sub isEnabledDispatcher
+{
+    my ($self, $dispatcher) = @_;
+    $self->model('ConfigureDispatchers')->enableDispatcher($dispatcher);
+}
+
+
+sub enableWatcher
+{
+    my ($self, $watcher, $enabled) = @_;
+    $self->model('ConfigureWatchers')->enableWatcher($watcher, $enabled);
+}
+
+sub isEnabledWatcher
+{
+    my ($self, $watcher) = @_;
+    $self->model('ConfigureWatchers')->enableWatcher($watcher);
+}
+
+
 # Method: sendEvent
 #
 #       Send an event to the event daemon to be dispatched to enabled
@@ -600,5 +627,8 @@ sub lastEventsReport
 
     return \%result;
 }
+
+
+
 
 1;
