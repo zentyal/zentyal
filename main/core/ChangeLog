@@ -42,6 +42,9 @@ HEAD
 	+ Implemented transactions for redis operations
 	+ Replace old MVC cache system with a new low-level redis one
 	+ Delete no longer necessary regen-redis-db tool
+	+ Added new checkAll property to DataTable description to allow
+	  multiple check/uncheck of boolean columns
+2.3.10
 	+ Added Desktop::ServiceProvider to allow modules to implement
 	  requests from Zentyal desktop
 	+ Added VirtualHost to manage desktop requests to Zentyal server

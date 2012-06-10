@@ -4504,6 +4504,23 @@ sub _rollbackTransaction
     $self->parentModule()->{redis}->rollback();
 }
 
+
+# Method: clone
+#
+#    clone the contents on one DataTable into another. Due to
+#    the impossibilit of having two instances with different directories
+#    the databases are reffered as directories. This must called on a DataTable
+#    instance of the same class as the source and the destination.
+#
+#
+# Parameters:
+#
+#       srcDir - conf directory of the datatable to be clone.
+#       dstDir - conf directory of the datatable to receive the clone
+#
+# Returns:
+#      nothing
+
 sub clone
 {
     my ($self, $srcDir, $dstDir) = @_;
@@ -4528,5 +4545,55 @@ sub clone
         $self->setDirectory($selfDir);
     };
 }
+
+# Method: setAll
+#
+#   set the specified field in all rows to the fiven value
+#
+#  Parameters:
+#       fieldName - field to set
+#       value     - value to set
+sub setAll
+{
+    my ($self, $fieldName, $value) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        my $field = $row->elementByName($fieldName);
+        if (not $field) {
+            throw EBox::Exceptions::Internal(
+                  "Field $field is not present in table " .  $self->name(),
+            );
+        }
+
+        $field->setValue($value);
+        $row->store();
+    }
+}
+
+# Method: checkAllProperty
+#
+#  return the value of the 'checkAll' property
+#
+#  This property should be set to the name of a checkbox field to enable it
+#   or to undef to not use the check all option (default: disabled)
+sub checkAllProperty
+{
+    my ($self) = @_;
+    return $self->{'table'}->{'checkAll'};
+}
+
+sub checkAllControlValue
+{
+    my ($self, $fieldName) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        my $row = $self->row($id);
+        if (not $row->valueByName($fieldName)) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 
 1;

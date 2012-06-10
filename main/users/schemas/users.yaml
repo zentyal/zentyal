@@ -2,6 +2,7 @@ class: 'EBox::UsersAndGroups'
 
 enabledepends:
     - dns
+    - ntp
 
 models:
     - Mode

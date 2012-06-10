@@ -2,6 +2,8 @@ HEAD
 	+ Better error control in _loadACLDirectory
 	+ Adapted to new Model management framework
 	+ Adapted Password type to new framework
+	+ Added NTP as enable dependency
+2.3.9
 	+ Heimdal Kerberos integration for SSO features
 	+ Better validation of user names and groups names. Better message
 	  when this validation fails
