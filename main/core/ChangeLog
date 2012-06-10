@@ -1,3 +1,6 @@
+HEAD
+	+ Added new checkAll property to DataTable description to allow
+	  multiple check/uncheck of boolean columns
 2.3.10
 	+ Added Desktop::ServiceProvider to allow modules to implement
 	  requests from Zentyal desktop
