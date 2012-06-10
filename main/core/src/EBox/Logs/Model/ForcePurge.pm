@@ -30,6 +30,7 @@ use warnings;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Boolean;
+use EBox::Types::Select;
 use EBox::Logs::Model::ConfigureLogDataTable;
 use EBox::Logs::Consolidate;
 
@@ -73,7 +74,8 @@ sub formSubmitted
     my $lifeTime = $row->valueByName('lifeTime');
 
     # we consolidate before to avoid any data loss
-    EBox::Logs::Consolidate->consolidate('all');
+    # XXX consolidation disablewd until we rework it
+#    EBox::Logs::Consolidate->consolidate('all');
 
     my $logs = EBox::Global->modInstance('logs');
     $logs->forcePurge($lifeTime);

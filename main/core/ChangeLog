@@ -1,4 +1,6 @@
 HEAD
+	+ Disabled logs consolidation on purge until it is reworked, fixed
+	missing use in purge logs model
 	+ Added Desktop::ServiceProvider to allow modules to implement
 	  requests from Zentyal desktop
 	+ Added VirtualHost to manage desktop requests to Zentyal server
