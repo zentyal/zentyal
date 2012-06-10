@@ -1,4 +1,5 @@
 HEAD
+	+ External commands called through EBox::Sudo are logged in debug mode
 	+ Added additional() and TO_JSON() to EBox::Event
 	+ Allow underscores in domain names
 2.3.4

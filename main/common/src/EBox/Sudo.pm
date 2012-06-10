@@ -79,7 +79,8 @@ sub command # (command)
     my ($cmd) = @_;
     validate_pos(@_, 1);
 
-    my @output = `$cmd 2> $STDERR_FILE`;
+    EBox::debug("command: $cmd");
+    my @output = `cmd 2> $STDERR_FILE`;
 
     if ($? != 0) {
         my @error;
@@ -160,6 +161,7 @@ sub _root
 
     unshift (@cmds, 'set -e') if (@cmds > 1);
     my $commands = join("\n", @cmds);
+    EBox::debug("sudo commands: $commands");
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');
