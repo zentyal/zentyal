@@ -128,7 +128,7 @@ sub setHasAccount
         $user->delete('zarafaQuotaHard', 1);
         $user->save();
 
-        my $model = EBox::Model::Manager::instance()->model('zarafa/ZarafaUser');
+        my $model = $self->{zarafa}->model('ZarafaUser');
         $self->setHasContact($user, $model->contactValue());
 
         $self->{zarafa}->_hook('unsetacc', $user->name());
@@ -144,7 +144,7 @@ sub _addUser
    unless ($self->{zarafa}->configured()) {
        return;
    }
-   my $model = EBox::Model::Manager::instance()->model('zarafa/ZarafaUser');
+   my $model = $self->{zarafa}->model('ZarafaUser');
 
    $self->setHasAccount($user, $model->enabledValue());
    $self->setHasContact($user, $model->contactValue());

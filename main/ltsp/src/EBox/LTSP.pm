@@ -342,8 +342,8 @@ sub _getGlobalOptions
 {
     my ($self) = @_;
 
-    my $model_general = $self->model('ltsp/GeneralOpts');
-    my $model_other   = $self->model('ltsp/OtherOpts');
+    my $model_general = $self->model('GeneralOpts');
+    my $model_other   = $self->model('OtherOpts');
 
     my $general = $self->_getGeneralOptions($model_general);
     my $other   = $self->_getOtherOptions($model_other);
@@ -424,7 +424,7 @@ sub _getClientsOptions
 
     my %clients;
 
-    my $client_list = $self->model('ltsp/Clients');
+    my $client_list = $self->model('Clients');
 
     my $global  = EBox::Global->getInstance();
     my $objMod = $global->modInstance('objects');
@@ -455,7 +455,7 @@ sub _getProfilesOptions
     my @profiles;
     my %clients;
 
-    my $profile_list = $self->model('ltsp/Profiles');
+    my $profile_list = $self->model('Profiles');
 
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
@@ -492,7 +492,7 @@ sub _addAutoLoginConf
 {
     my ($self,$clients) = @_;
 
-    my $autologin_list = $self->model('ltsp/AutoLogin');
+    my $autologin_list = $self->model('AutoLogin');
 
     for my $id (@{$autologin_list->ids()}) {
         my $row = $autologin_list->row($id);

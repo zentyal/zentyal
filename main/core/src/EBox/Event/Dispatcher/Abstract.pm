@@ -173,11 +173,11 @@ sub configurationSubModel
         throw EBox::Exceptions::MissingArgument('package');
 
     my $manager = EBox::Model::Manager->instance();
-    my $watchers = $manager->model('/events/ConfigureDispatcherDataTable');
+    my $watchers = $manager->model('events/ConfigureDispatcherDataTable');
     for my $id (@{$watchers->ids()}) {
-	my $row = $watchers->row($id);
-	next unless ($row->valueByName('eventDispatcher') eq $package);
-	return $row->subModel('configuration_model');
+        my $row = $watchers->row($id);
+        next unless ($row->valueByName('eventDispatcher') eq $package);
+        return $row->subModel('configuration_model');
     }
 }
 

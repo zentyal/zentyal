@@ -247,7 +247,7 @@ sub _addUser
     my @vdomains = $mail->{vdomains}->vdomains();
     return unless (@vdomains);
 
-    my $model = EBox::Model::Manager::instance()->model('mail/MailUser');
+    my $model = $mail->model('MailUser');
     return unless ($model->enabledValue());
     my $vdomain = $model->domainValue();
     return unless ($vdomain and $mail->{vdomains}->vdomainExists($vdomain));

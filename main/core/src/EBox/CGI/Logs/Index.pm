@@ -214,7 +214,7 @@ sub _saveAsEvent
 
     # TODO Use new row/ids API
     my $manager = EBox::Model::Manager->instance();
-    my $logConfModel = $manager->model('/events/LogWatcherConfiguration');
+    my $logConfModel = $manager->model('events/LogWatcherConfiguration');
     my $loggerConfRow = $logConfModel->findValue(domain => $selected);
     my $logFilteringDirectory = $loggerConfRow->{filters}->{directory};
 

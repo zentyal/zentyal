@@ -154,7 +154,7 @@ sub _addUser
    unless ($self->{jabber}->configured()) {
        return;
    }
-   my $model = EBox::Model::Manager::instance()->model('jabber/JabberUser');
+   my $model = $self->{jabber}->model('JabberUser');
    $self->setHasAccount($user, $model->enabledValue());
 }
 

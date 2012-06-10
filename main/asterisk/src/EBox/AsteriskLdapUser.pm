@@ -82,8 +82,7 @@ sub _addUser
     }
 
     unless ($skipDefault) {
-        my $model = EBox::Model::Manager->instance()
-            ->model('asterisk/AsteriskUser');
+        my $model = $self->model('AsteriskUser');
         return unless ($model->enabledValue());
     }
 

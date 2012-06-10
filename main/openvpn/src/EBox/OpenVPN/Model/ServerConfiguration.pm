@@ -26,8 +26,6 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
 
-use EBox::Model::Manager;
-
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
@@ -289,8 +287,7 @@ sub _checkVPN
 sub _uniqVPNAddress
 {
     my ($self, $vpnAddress) = @_;
-    my $manager = EBox::Model::Manager->instance();
-    my $serverList = $manager->model('/openvpn/Servers');
+    my $serverList = $self->parentModule()->model('Servers');
 
     my $olddir = $self->directory();
     foreach my $id ( @{ $serverList->ids()}) {
@@ -316,8 +313,7 @@ sub _uniqPortAndProtocol
 
     my $portAndProtocol = $params_r->{portAndProtocol};
 
-    my $manager = EBox::Model::Manager->instance();
-    my $serverList = $manager->model('/openvpn/Servers');
+    my $serverList = $self->parentModule()->model('Servers');
 
     my $olddir = $self->directory();
     foreach my $id ( @{ $serverList->ids()}) {
