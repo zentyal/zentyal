@@ -1,4 +1,6 @@
 HEAD
+	+ Check to assure that quota has been really assignes logs an
+	error instead raising a execption, because some file systems does not support quota
 	+ Heimdal Kerberos integration for SSO features
 	+ Better validation of user names and groups names. Better message
 	  when this validation fails

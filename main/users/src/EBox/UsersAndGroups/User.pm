@@ -362,12 +362,12 @@ sub _setFilesystemQuota
     my $output =   EBox::Sudo::root(QUOTA_PROGRAM . " -q $uid");
     my ($afterQuota) = $output->[0] =~ m/(\d+)/;
     if ((not defined $afterQuota) or ($quota != $afterQuota)) {
-        throw EBox::Exceptions::External(
-            __x('Cannot set quota to {userQuota}. Please, choose another value',
-               userQuota => $userQuota)
-           )
+        EBox::error(
+            __x('Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does not support quota?',
+                uid      => $uid,
+                userQuota => $userQuota)
+           );
     }
-
 }
 
 # Method: changePassword
