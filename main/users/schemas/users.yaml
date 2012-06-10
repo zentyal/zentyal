@@ -2,3 +2,4 @@ class: 'EBox::UsersAndGroups'
 
 enabledepends:
     - dns
+    - ntp
