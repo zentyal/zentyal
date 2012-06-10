@@ -1,4 +1,4 @@
-HEAD
+2.3.5
 	+ setService method does not fail if the existent service has not
 	  any configuration
 	+ Added clone action to service configuration table
