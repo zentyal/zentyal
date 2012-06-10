@@ -1,3 +1,6 @@
+HEAD
+	+ Check to assure that quota has been really assignes logs an
+	error instead raising a execption, because some file systems does not support quota
 2.2.6
 	+ Added quota checks
 	+ Added checks for small business subscription
