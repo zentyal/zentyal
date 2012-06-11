@@ -1262,20 +1262,17 @@ sub setIfaceStatic
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ( defined ( $ext ) ){
-      # External attribute is not set by netcfg-import script
-      if ($ext != $self->ifaceIsExternal($name) ) {
+    if ($ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
-          if ($obs->ifaceExternalChanged($name, $ext)) {
-        if ($force) {
-          $obs->changeIfaceExternalProperty($name, $ext);
-        } else {
-          throw EBox::Exceptions::DataInUse();
+            if ($obs->ifaceExternalChanged($name, $ext)) {
+                if ($force) {
+                    $obs->changeIfaceExternalProperty($name, $ext);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
         }
-          }
-        }
-      }
     }
 
     if ($oldm ne 'static') {
@@ -1424,21 +1421,19 @@ sub setIfacePPP
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ( defined ( $ext ) ){
-      # External attribute is not set by netcfg-import script
-      if ($ext != $self->ifaceIsExternal($name) ) {
+    if ($ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
-          if ($obs->ifaceExternalChanged($name, $ext)) {
-        if ($force) {
-          $obs->changeIfaceExternalProperty($name, $ext);
-        } else {
-          throw EBox::Exceptions::DataInUse();
+            if ($obs->ifaceExternalChanged($name, $ext)) {
+                if ($force) {
+                    $obs->changeIfaceExternalProperty($name, $ext);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
         }
-          }
-        }
-      }
     }
+
 
     if ($oldm ne 'ppp') {
             $self->_notifyChangedIface(

@@ -1,4 +1,6 @@
 HEAD
+	+ ifaceExternalChanged is now called when static or PPP interfaces
+	changes from external to internal
 	+ Implement new EBox::Events::WatcherProvider
 	+ Remove no longer necessary ad-hoc vifacesConf cache
 	+ Adapted to new Model management framework
