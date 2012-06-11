@@ -740,7 +740,8 @@ sub _setComponentDirectory
     $comp->{parent} = $self->{parent};
 
     if ($comp->isa('EBox::Model::DataTable')) {
-        $dir .= '/' . $comp->name();
+        $dir .= '/' if $dir;
+        $dir .=  $comp->name();
     }
 
     $comp->setDirectory($dir);
