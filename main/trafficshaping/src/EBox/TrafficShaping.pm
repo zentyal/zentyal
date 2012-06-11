@@ -647,8 +647,8 @@ sub ifaceExternalChanged # (iface, external)
 {
 
     my ($self, $iface, $external) = @_;
-    my $model = $self->ruleModel($iface);
-    if ($model->ifaceHasRules($iface)) {
+    my $ruleModel = $self->ruleModel($iface);
+    if ($ruleModel->ifaceHasRules($iface)) {
         return 1;
     }
 
@@ -867,7 +867,6 @@ sub _deleteIface
     my ($self, $iface) = @_;
     $self->model('InternalRules')->_removeRules($iface);
     $self->model('ExternalRules')->_removeRules($iface);
-    $self->model('InterfaceRate')->removeRates($iface);
 }
 
 # Underlying stuff (Come to the mud)
