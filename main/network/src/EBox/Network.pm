@@ -3380,7 +3380,7 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
         }
         ($reachable) or throw EBox::Exceptions::External(
             __('The requested operation will cause one of the '.
-               'configured gateways to become unreachable. ' .
+               'configured gateways or static routes to become unreachable. ' .
                'Please remove it first if you really want to '.
                'make this change.'));
     }
