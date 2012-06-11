@@ -1,6 +1,7 @@
 HEAD
 	+ Use FirewallObserver instead of deprecated addOutputRule
 	+ Adapted to new Model management framework
+2.3.6
 	+ Add new field subdomain to hostnames and services  model,
 	  needed to create some samba records
 	+ API to add/delete A, SRV and TXT records to a domain
