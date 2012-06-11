@@ -1262,20 +1262,17 @@ sub setIfaceStatic
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ( defined ( $ext ) ){
-      # External attribute is not set by netcfg-import script
-      if ($ext != $self->ifaceIsExternal($name) ) {
+    if ($ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
-          if ($obs->ifaceExternalChanged($name, $ext)) {
-        if ($force) {
-          $obs->changeIfaceExternalProperty($name, $ext);
-        } else {
-          throw EBox::Exceptions::DataInUse();
+            if ($obs->ifaceExternalChanged($name, $ext)) {
+                if ($force) {
+                    $obs->changeIfaceExternalProperty($name, $ext);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
         }
-          }
-        }
-      }
     }
 
     if ($oldm ne 'static') {
@@ -1424,21 +1421,19 @@ sub setIfacePPP
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ( defined ( $ext ) ){
-      # External attribute is not set by netcfg-import script
-      if ($ext != $self->ifaceIsExternal($name) ) {
+    if ($ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
-          if ($obs->ifaceExternalChanged($name, $ext)) {
-        if ($force) {
-          $obs->changeIfaceExternalProperty($name, $ext);
-        } else {
-          throw EBox::Exceptions::DataInUse();
+            if ($obs->ifaceExternalChanged($name, $ext)) {
+                if ($force) {
+                    $obs->changeIfaceExternalProperty($name, $ext);
+                } else {
+                    throw EBox::Exceptions::DataInUse();
+                }
+            }
         }
-          }
-        }
-      }
     }
+
 
     if ($oldm ne 'ppp') {
             $self->_notifyChangedIface(
@@ -3380,7 +3375,7 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
         }
         ($reachable) or throw EBox::Exceptions::External(
             __('The requested operation will cause one of the '.
-               'configured gateways to become unreachable. ' .
+               'configured gateways or static routes to become unreachable. ' .
                'Please remove it first if you really want to '.
                'make this change.'));
     }

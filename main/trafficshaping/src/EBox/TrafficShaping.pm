@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# FIXME:  Get rid of unnecessary stuff already provided by the framework
-#
 
 # Class: EBox::TrafficShaping
 #
@@ -97,12 +95,10 @@ sub _create
     return $self;
   }
 
-# FIXME
+
 sub startUp
 {
     my ($self) = @_;
-    # Create rule models
-    #$self->_createRuleModels();
 
     # Create wrappers
     $self->{tc} = EBox::TC->new();
@@ -199,7 +195,6 @@ sub _enforceServiceState
 
     my ($self) = @_;
 
-    # FIXME
     # Clean up stuff
     $self->_stopService();
     return unless ($self->isEnabled());
@@ -220,6 +215,7 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
+
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
@@ -647,24 +643,31 @@ sub ifaceMethodChanged
 #
 #    false - otherwise
 #
-# FIXME
 sub ifaceExternalChanged # (iface, external)
 {
 
     my ($self, $iface, $external) = @_;
+    my $ruleModel = $self->ruleModel($iface);
+    if ($ruleModel->ifaceHasRules($iface)) {
+        return 1;
+    }
 
-    # XXX Disabled until network observers work properly.
-    #     We need to be notified when there's a change
-    #     from external to internal, not only  interntal
-    #     to external
+    my $netMod = $self->global()->modInstance('network');
+    my $extIfaces = @{$netMod->ExternalIfaces()};
+    my $intIfaces = @{$netMod->InternalIfaces()};
+    if ($external) {
+        $extIfaces += 1;
+        $intIfaces -= 1;
+    } else {
+        $extIfaces -= 1;
+        $intIfaces += 1;
+    }
+
+    if (($extIfaces == 0) or ($intIfaces == 0)) {
+        return 1;
+    }
+
     return 0;
-
-    # Check if any interface is being shaped
-    # if ( defined ( $self->{ruleModels}->{$iface} )) {
-    #    return not $self->enoughInterfaces();
-    # }
-    # return 0;
-
 }
 
 # Method: changeIfaceExternalProperty
@@ -678,9 +681,7 @@ sub ifaceExternalChanged # (iface, external)
 sub changeIfaceExternalProperty # (iface, external)
 {
     my ($self, $iface, $external) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    $manager->markAsChanged();
+    $self->_deleteIface($iface);
 }
 
 
@@ -699,10 +700,7 @@ sub changeIfaceExternalProperty # (iface, external)
 sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
-
     $self->_deleteIface($iface);
-    my $manager = EBox::Model::Manager->instance();
-    $manager->markAsChanged();
 }
 
 ###
@@ -748,9 +746,6 @@ sub uploadRate # (iface)
 #
 sub totalDownloadRate
 {
-
-# FIXME: Change when the ticket #373
-
     my ($self) = @_;
 
     my $sumDownload = 0;
@@ -820,9 +815,6 @@ sub _setLowestPriority # (interface, priority)
     my ($self, $iface, $priority) = @_;
 
     $self->{lowestPriority} = $priority;
-#    $self->set_int("$iface/user_rules/lowest_priority", $priority);
-
-    return;
 }
 
 ###
@@ -865,6 +857,13 @@ sub _areRulesActive # (iface, countDisabled)
     } else {
         return scalar @{ $rules };
     }
+}
+
+sub _deleteIface
+{
+    my ($self, $iface) = @_;
+    $self->model('InternalRules')->_removeRules($iface);
+    $self->model('ExternalRules')->_removeRules($iface);
 }
 
 # Underlying stuff (Come to the mud)
@@ -1412,14 +1411,12 @@ sub _configuredInterfaces
 {
     my ($self) = @_;
 
-    # FIXME: reimplement this
-    return [];
-
+    # FIXME: interfaces external with rates should be also returned or not
     my @ifaces;
-    # FIXME: is this low-levelness necessary?
-    for my $iface (@{$self->all_dirs_base('')}) {
-        push (@ifaces, $iface) if ($iface ne 'InterfaceRate');
-    }
+    push @ifaces, @{ $self->model('ExternalRules')->configuredInterfaces()  };
+    push @ifaces ,@{ $self->model('InternalRules')->configuredInterfaces()  };
+
+
     return \@ifaces;
 }
 

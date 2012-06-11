@@ -47,7 +47,7 @@ use EBox::Validate qw( checkProtocol checkPort );
 
 
 # Constants
-use constant LIMIT_RATE_KEY => '/limitRate';
+use constant LIMIT_RATE_KEY => 'limitRate';
 
 # Constructor: new
 #
@@ -398,7 +398,7 @@ sub _table
 # Group: Private methods
 ####################################################
 
-# Remove every rule from the model since no limit rate are possible
+# Remove every rulefor iface  from the model since no limit rate are possible
 sub _removeRules
 {
     my ($self, $iface) = @_;
@@ -508,7 +508,6 @@ sub _setStateRate
 {
     my ($self, $iface, $rate) = @_;
     $iface or throw EBox::Exceptions::MissingArgument('iface');
-    EBox::debug("setState rate $iface $rate");
 
     $self->{confmodule}->st_set_int(_stateRateKey($iface), $rate);
 }
@@ -624,6 +623,38 @@ sub lowestPriority
     }
 
     return $lowest;
+}
+
+
+sub ifaceHasRules
+{
+    my ($self, $iface)= @_;
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('iface') eq $iface ) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub configuredInterfaces
+{
+    my ($self) = @_;
+    my %ifaces;
+
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('enabled')) {
+            next;
+        }
+
+        my $iface = $row->valueByName('iface');
+        $ifaces{$iface} = 1;
+    }
+
+    return [keys %ifaces];
 }
 
 
