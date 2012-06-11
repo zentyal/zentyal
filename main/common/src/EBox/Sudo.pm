@@ -80,7 +80,7 @@ sub command # (command)
     validate_pos(@_, 1);
 
     EBox::debug("command: $cmd");
-    my @output = `cmd 2> $STDERR_FILE`;
+    my @output = `$cmd 2> $STDERR_FILE`;
 
     if ($? != 0) {
         my @error;
