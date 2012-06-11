@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# FIXME:  Get rid of unnecessary stuff already provided by the framework
-#
 
 # Class: EBox::TrafficShaping
 #
@@ -197,7 +195,6 @@ sub _enforceServiceState
 
     my ($self) = @_;
 
-    # FIXME
     # Clean up stuff
     $self->_stopService();
     return unless ($self->isEnabled());
@@ -218,11 +215,6 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
-
-            # DDD
-            use Data::Dumper;
-            print Dumper($tcCommands_ref);
-            print Dumper ($ipTablesCommands_ref);
 
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
@@ -651,7 +643,6 @@ sub ifaceMethodChanged
 #
 #    false - otherwise
 #
-# FIXME
 sub ifaceExternalChanged # (iface, external)
 {
 
@@ -690,9 +681,7 @@ sub ifaceExternalChanged # (iface, external)
 sub changeIfaceExternalProperty # (iface, external)
 {
     my ($self, $iface, $external) = @_;
-
-    my $manager = EBox::Model::Manager->instance();
-    $manager->markAsChanged();
+    $self->_deleteIface($iface);
 }
 
 
@@ -711,10 +700,7 @@ sub changeIfaceExternalProperty # (iface, external)
 sub freeIface # (iface)
 {
     my ($self, $iface) = @_;
-
     $self->_deleteIface($iface);
-    my $manager = EBox::Model::Manager->instance();
-    $manager->markAsChanged();
 }
 
 ###
