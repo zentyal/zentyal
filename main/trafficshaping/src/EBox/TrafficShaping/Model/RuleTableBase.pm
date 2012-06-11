@@ -508,7 +508,6 @@ sub _setStateRate
 {
     my ($self, $iface, $rate) = @_;
     $iface or throw EBox::Exceptions::MissingArgument('iface');
-    EBox::debug("setState rate $iface $rate");
 
     $self->{confmodule}->st_set_int(_stateRateKey($iface), $rate);
 }
