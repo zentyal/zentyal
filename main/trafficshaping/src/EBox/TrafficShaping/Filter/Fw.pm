@@ -413,7 +413,7 @@ sub dumpIptablesCommands
             my $trafficshaping = EBox::Global->modInstance('trafficshaping');
             my $queue = $trafficshaping->ifaceUniqueId($self->{parent}->getInterface());
 
-            $ipTablesRule->setDecision("NFQUEUE --queue $queue");
+            $ipTablesRule->setDecision("NFQUEUE --queue-num $queue");
             push(@ipTablesCommands, @{$ipTablesRule->strings()});
 
             # Set the mark to remove l7filter mark when the result is

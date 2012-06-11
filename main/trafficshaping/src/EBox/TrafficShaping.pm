@@ -218,6 +218,12 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
+
+            # DDD
+            use Data::Dumper;
+            print Dumper($tcCommands_ref);
+            print Dumper ($ipTablesCommands_ref);
+
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
@@ -870,6 +876,14 @@ sub _areRulesActive # (iface, countDisabled)
     }
 }
 
+sub _deleteIface
+{
+    my ($self, $iface) = @_;
+    $self->model('InternalRules')->_removeRules($iface);
+    $self->model('ExternalRules')->_removeRules($iface);
+    $self->model('InterfaceRate')->removeRates($iface);
+}
+
 # Underlying stuff (Come to the mud)
 
 # Method: _createTree
@@ -1415,14 +1429,12 @@ sub _configuredInterfaces
 {
     my ($self) = @_;
 
-    # FIXME: reimplement this
-    return [];
-
+    # FIXME: interfaces external with rates should be also returned or not
     my @ifaces;
-    # FIXME: is this low-levelness necessary?
-    for my $iface (@{$self->all_dirs_base('')}) {
-        push (@ifaces, $iface) if ($iface ne 'InterfaceRate');
-    }
+    push @ifaces, @{ $self->model('ExternalRules')->configuredInterfaces()  };
+    push @ifaces ,@{ $self->model('InternalRules')->configuredInterfaces()  };
+
+
     return \@ifaces;
 }
 

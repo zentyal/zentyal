@@ -134,6 +134,15 @@ sub _table
     return $dataTable;
 }
 
+sub removeRates
+{
+    my ($self, $iface) = @_;
+    my $id = $self->find(interface => $iface);
+    if ($id) {
+        $self->removeRow($id);
+    }
+}
+
 # Method: precondition
 #
 #   Overrid <EBox::Model::DataTable::precondition>

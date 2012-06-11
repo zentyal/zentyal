@@ -47,7 +47,7 @@ use EBox::Validate qw( checkProtocol checkPort );
 
 
 # Constants
-use constant LIMIT_RATE_KEY => '/limitRate';
+use constant LIMIT_RATE_KEY => 'limitRate';
 
 # Constructor: new
 #
@@ -638,6 +638,24 @@ sub ifaceHasRules
     }
 
     return 0;
+}
+
+sub configuredInterfaces
+{
+    my ($self) = @_;
+    my %ifaces;
+
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if (not $row->valueByName('enabled')) {
+            next;
+        }
+
+        my $iface = $row->valueByName('iface');
+        $ifaces{$iface} = 1;
+    }
+
+    return [keys %ifaces];
 }
 
 
