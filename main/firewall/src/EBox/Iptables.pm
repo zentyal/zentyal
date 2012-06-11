@@ -55,7 +55,6 @@ sub new
     $self->{firewall} = EBox::Global->modInstance('firewall');
     $self->{objects} = EBox::Global->modInstance('objects');
     $self->{net} = EBox::Global->modInstance('network');
-    $self->{deny} = $self->{firewall}->denyAction;
 
     bless($self, $class);
     return $self;

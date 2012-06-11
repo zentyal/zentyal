@@ -201,51 +201,6 @@ sub _stopService
     $ipt->stop();
 }
 
-
-#
-# Method: denyAction
-#
-#       Returns the deny action
-#
-# Returns:
-#
-#       string - holding the deny action, DROP or REJECT
-#
-sub denyAction
-{
-    my ($self) = @_;
-    my $deny = $self->get_string("deny");
-    if(not defined($deny)) {
-        $deny = 'DROP';
-    }
-    return $deny;
-}
-
-#
-# Method: setDenyAction
-#
-#       Sets the deny action
-#
-# Parameters:
-#
-#       action - 'DROP' or 'REJECT'
-#
-# Exceptions:
-#
-#       InvalidData - action not valid
-#
-sub setDenyAction # (action)
-{
-    my ($self, $action) = @_;
-    if ($action ne "DROP" && $action ne "REJECT") {
-        throw EBox::Exceptions::InvalidData('data' => __('action'),
-                'value' => $action);
-    } elsif ($action eq $self->denyAction()) {
-        return;
-    }
-    $self->set_string("deny", $action);
-}
-
 # Method: removePortRedirectionsOnIface
 #
 #       Removes all the port redirections on a given interface
