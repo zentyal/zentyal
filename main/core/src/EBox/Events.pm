@@ -276,7 +276,6 @@ sub isRunning
     return $self->isEnabled();
 }
 
-
 sub enableDispatcher
 {
     my ($self, $dispatcher, $enabled) = @_;
@@ -627,8 +626,5 @@ sub lastEventsReport
 
     return \%result;
 }
-
-
-
 
 1;

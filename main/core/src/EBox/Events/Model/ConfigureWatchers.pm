@@ -469,8 +469,6 @@ sub isEnabledWatcher
     return $row->valueByName('enabled');
 }
 
-
-
 # Group: Private methods
 
 # Fetch the current watchers on the system

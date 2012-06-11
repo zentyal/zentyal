@@ -382,7 +382,6 @@ sub acquireConfModel
     return $className->ConfigureModel();
 }
 
-
 sub enableDispatcher
 {
     my ($self, $dispatcher, $enabled) = @_;
@@ -405,7 +404,6 @@ sub isEnabledDispatcher
 
     return $row->valueByName('enabled');
 }
-
 
 # Group: Private methods
 

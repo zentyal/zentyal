@@ -23,6 +23,27 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
+# Method: componentNames
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::componentNames>
+#
+sub componentNames
+{
+    my ($self) = @_;
+
+    my @components;
+
+    push (@components, 'GeneralSettings');
+    if (EBox::Config::configkey('captive_secondary_ldap')) {
+        push (@components, 'SecondaryLDAP');
+    }
+    push (@components, 'Users');
+
+    return \@components;
+}
+
 # Method: _description
 #
 # Overrides:

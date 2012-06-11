@@ -272,8 +272,13 @@ sub _component
         }
 
         my %params = (confmodule => $module, parent => $parent, directory => $name);
+        my $instance = $class->new(%params);
+
         if ($kind eq 'composite') {
             my $components = $self->{composites}->{$moduleName}->{$name}->{components};
+            unless (@{$components}) {
+                $components = $instance->componentNames();
+            }
             my @instances;
             foreach my $cname (@{$components}) {
                 unless ($cname =~ m{/}) {
@@ -282,9 +287,8 @@ sub _component
                 my $component = $self->component($cname, $module->{ro});
                 push (@instances, $component);
             }
-            $params{components} = \@instances;
+            $instance->{components} = \@instances;
         }
-        my $instance = $class->new(%params);
 
         $self->{$key}->{$moduleName}->{$name}->{instance}->{$access} = $instance;
     }

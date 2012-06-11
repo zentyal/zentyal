@@ -38,7 +38,6 @@ sub _description
     my $users = EBox::Global->modInstance('users');
 
     my $description = {
-        components      => [ _userModels() ],
         layout          => 'top-bottom',
         name            => 'UserTemplate',
         compositeDomain => 'Users',
@@ -49,11 +48,17 @@ sub _description
     return $description;
 }
 
-sub _userModels
+# Method: componentNames
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::componentNames>
+#
+sub componentNames
 {
     my $users = EBox::Global->modInstance('users');
     my @models = ('AccountSettings', @{$users->defaultUserModels()});
-    return @models;
+    return \@models;
 }
 
 sub pageTitle
@@ -64,23 +69,6 @@ sub pageTitle
 sub menuFolder
 {
     return 'UsersAndGroups';
-}
-
-# Method: components
-#
-#   Overrides <EBox::Model::Composite::components> as a workaround to
-#   avoid the components being cached.
-#
-#   We need to skip that cache as some ldap modules can be unconfigured the
-#   first time this composite is called. Without this workaround components are
-#   called just once, that is during the life time of an apache process a given
-#   ldap module is enabled it won't  show up until we restart apache
-#
-sub components
-{
-    my ($self) = @_;
-    $self->_setDescription($self->_description());
-    return $self->SUPER::components();
 }
 
 1;
