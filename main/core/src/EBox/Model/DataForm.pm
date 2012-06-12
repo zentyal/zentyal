@@ -94,8 +94,7 @@ sub setValue
 {
     my ($self, $element, $value) = @_;
 
-# FIXME: row or _row ?
-    my $row = $self->_row();
+    my $row = $self->row();
     $row->elementByName($element)->setValue($value);
     $row->store();
 }
@@ -107,9 +106,7 @@ sub setValue
 sub value
 {
     my ($self, $element) = @_;
-
-# FIXME: row or _row ?
-    return $self->_row()->valueByName($element);
+    return $self->row()->valueByName($element);
 }
 
 # Method: _checkTable
@@ -665,34 +662,7 @@ sub Viewer
 
 # Return a row from within the model. It's a reimplementation of
 # SUPER::row so it should take care about any change at superclass
-sub _row
-{
-    my ($self) = @_;
 
-# FIXME: what happens with this
-
-    my $dir = $self->{'directory'};
-    my $confmod = $self->{'confmodule'};
-    my $hash = $confmod->get_hash($dir);
-
-    unless (keys (%{$hash}) or $self->_volatile()) {
-        # Return default values instead
-        return $self->_defaultRow();
-    }
-
-    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
-    $row->setModel($self);
-
-    my @values;
-    $self->{'cacheOptions'} = {};
-    foreach my $type (@{$self->table()->{'tableDescription'}}) {
-        my $element = $type->clone();
-        $self->_setRowElement($element, $row, $hash);
-        $row->addElement($element);
-    }
-    $row->setId($ROW_ID);
-    return $row;
-}
 
 # Return a row with only default values
 sub _defaultRow
