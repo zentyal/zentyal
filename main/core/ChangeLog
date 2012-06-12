@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression which dont updated the administration service
+	port when it was changed in the interface
 	+ New EBox::Model::Composite::componentNames() for dynamic composites
 	+ Remove _exposedMethods() feature to reduce use of AUTOLOAD
 	+ Removed any message set in the model in syncRows method

@@ -357,6 +357,17 @@ sub setPort # (port)
 
     return if ($oldPort == $port);
 
+    $self->checkAdminPort($port);
+
+    $adminPortModel->setValue('port', $port);
+    $self->updateAdminPortService($port);
+}
+
+
+sub checkAdminPort
+{
+    my ($self, $port) = @_;
+
     my $global = EBox::Global->getInstance();
     my $fw = $global->modInstance('firewall');
     if (defined($fw)) {
@@ -383,12 +394,17 @@ q{Port {p} is already in use by program '{pr}'. Choose another port or free it a
         }
     }
 
+
+}
+
+sub updateAdminPortService
+{
+    my ($self, $port) = @_;
+    my $global = $self->global();
     if ($global->modExists('services')) {
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
     }
-
-    $adminPortModel->setValue('port', $port);
 }
 
 sub logs
