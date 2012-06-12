@@ -2,6 +2,8 @@
     $ldapsrv
     $ldapport
     $ldapbase
+    $ldapuser
+    $ldappwd
     $zarafa7
 </%args>
 ##############################################################
@@ -35,11 +37,11 @@ ldap_server_charset = utf-8
 # Optional, default = empty (anonymous bind)
 # The userPassword attribute must be readable for this user if the
 # ldap_authentication_method option is set to password.
-ldap_bind_user = 
+ldap_bind_user = <% $ldapuser %>
 
 # LDAP bind password
 # Optional, default = empty (no password)
-ldap_bind_passwd = 
+ldap_bind_passwd = <% $ldappwd %>
 
 # The timeout for network operations in seconds
 ldap_network_timeout = 30
@@ -156,7 +158,7 @@ ldap_isadmin_attribute = zarafaAdmin
 # Optional, default = empty
 # Active directory: zarafaSharedStoreOnly
 # LDAP: zarafaSharedStoreOnly
-ldap_nonactive_attribute = 
+ldap_nonactive_attribute =
 
 # A nonactive store, or resource, can be specified to be a user, room or equipment.
 # Set it to 'room' or 'equipment' to make such types. If set to empty,
@@ -182,10 +184,10 @@ ldap_sendas_attribute = zarafaSendAsPrivilege
 # LDAP: text
 ldap_sendas_attribute_type = text
 
-# The attribute of the user and group which is listed in 
+# The attribute of the user and group which is listed in
 # the ldap_sendas_attribute
 # Empty default, using ldap_user_unique_attribute
-ldap_sendas_relation_attribute = 
+ldap_sendas_relation_attribute =
 
 # Optional, default = userCertificate
 # Active directory: userCertificate
@@ -314,7 +316,7 @@ ldap_company_admin_attribute_type = text
 # The attribute of the company which is listed in the
 # ldap_company_admin_attribute
 # Empty default, using ldap_user_unique_attribute
-ldap_company_admin_relation_attribute = 
+ldap_company_admin_relation_attribute =
 
 # The attribute which indicates which user is the system administrator
 # for the specified company.
@@ -370,7 +372,7 @@ ldap_addresslist_name_attribute = cn
 # Hint: Use the zarafaAccount attribute in the filter to differentiate
 # between non-zarafa and zarafa dynamic groups.
 # Optional, default = empty (match everything)
-ldap_dynamicgroup_search_filter = 
+ldap_dynamicgroup_search_filter =
 
 # This is the unique attribute of a dynamicgroup which is never going
 # to change, unless the dynamicgroup is removed from LDAP. When this
@@ -446,7 +448,7 @@ ldap_quota_multiplier = 1048576*1024
 # Misc. settings
 
 # Attribute which indicates if the user should be hidden from addressbook
-ldap_addressbook_hide_attribute = zarafaHidden 
+ldap_addressbook_hide_attribute = zarafaHidden
 
 # LDAP object search filter. %s in this filter will be replaced with
 # the object being searched.
@@ -455,7 +457,7 @@ ldap_addressbook_hide_attribute = zarafaHidden
 # Default: empty
 # ADS recommended: (anr=%s)
 # OpenLDAP optional: (|(mail=%s*)(uid=%s*)(cn=*%s*)(fullname=*%s*)(givenname=*%s*)(lastname=*%s*)(sn=*%s*))
-ldap_object_search_filter = 
+ldap_object_search_filter =
 
 % if ($zarafa7) {
 # If a request want more objects than this value, it will download the

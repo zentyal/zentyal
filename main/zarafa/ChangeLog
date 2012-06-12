@@ -1,4 +1,5 @@
 2.3
+	+ Bind to LDAP with the new read-only user for normal operations
 	+ zarafa-indexer is now zarafa-search
 	+ Adapted to new Model management framework
 	+ Install en_US.UTF-8 locale when enabling module for first time;

@@ -377,6 +377,8 @@ sub _setConf
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
+    push(@array, 'ldapuser' => $ldap->roRootDn());
+    push(@array, 'ldappwd' => $ldap->getRoPassword());
     push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFALDAPCONFFILE,
                  "zarafa/ldap.openldap.cfg.mas",
