@@ -40,7 +40,6 @@ use constant ZARAFAGATEWAYCONFFILE => '/etc/zarafa/gateway.cfg';
 use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
 use constant ZARAFAICALCONFFILE => '/etc/zarafa/ical.cfg';
-use constant ZARAFAINDEXERCONFFILE => '/etc/zarafa/indexer.cfg';
 use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_WEBACCESS_DIR => '/usr/share/zarafa-webaccess';
@@ -155,11 +154,6 @@ sub usedFiles
             'file' => ZARAFAICALCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa ical server.')
-        },
-        {
-            'file' => ZARAFAINDEXERCONFFILE,
-            'module' => 'zarafa',
-            'reason' => __('To properly configure Zarafa indexing server.')
         },
         {
             'file' => ZARAFADAGENTCONFFILE,
@@ -433,11 +427,6 @@ sub _setConf
     push(@array, 'timezone' => $self->_timezone());
     $self->writeConfFile(ZARAFAICALCONFFILE,
                  "zarafa/ical.cfg.mas",
-                 \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
-
-    @array = ();
-    $self->writeConfFile(ZARAFAINDEXERCONFFILE,
-                 "zarafa/indexer.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
