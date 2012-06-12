@@ -983,6 +983,11 @@ sub addUser # (user, system)
         }
     }
 
+    unless (_checkName($user->{'user'})) {
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
+                                            'value' => $user->{'user'});
+    }
+
     if (length($user->{'user'}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
@@ -995,10 +1000,7 @@ sub addUser # (user, system)
             __("Username already exists on the system")
         );
     }
-    unless (_checkName($user->{'user'})) {
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'});
-    }
+
 
     # Verify user exists
     if ($self->userExists($user->{'user'})) {
