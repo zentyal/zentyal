@@ -24,8 +24,6 @@ use EBox::Types::Text;
 use strict;
 use warnings;
 
-
-
 use constant DEFAULT_KB => 16384;
 
 sub new
@@ -158,4 +156,3 @@ sub preconditionFailMsg
 }
 
 1;
-
