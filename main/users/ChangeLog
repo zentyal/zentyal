@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed user name check refs #3619
 	+ Heimdal Kerberos integration for SSO features
 	+ Better validation of user names and groups names. Better message
 	  when this validation fails

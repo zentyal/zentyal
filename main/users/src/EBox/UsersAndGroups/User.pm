@@ -463,6 +463,15 @@ sub create
 
     my $users = EBox::Global->modInstance('users');
 
+    unless (_checkUserName($user->{'user'})) {
+        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
+
+        throw EBox::Exceptions::InvalidData('data' => __('user name'),
+                                            'value' => $user->{'user'},
+                                            'advice' => $advice
+                                           );
+    }
+
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
     my $dn;
@@ -478,15 +487,6 @@ sub create
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
-    }
-
-    unless (_checkUserName($user->{'user'})) {
-        my $advice = __('To avoid problems, the username should consist only of letters, digits, underscores, spaces, periods, dashs, not start with a dash and not end with dot');
-
-        throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'},
-                                            'advice' => $advice
-                                           );
     }
 
     my @userPwAttrs = getpwnam($user->{'user'});
