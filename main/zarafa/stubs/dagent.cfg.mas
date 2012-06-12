@@ -1,5 +1,4 @@
 <%args>
-    $zarafa7
 </%args>
 ##############################################################
 # DAGENT SETTINGS
@@ -9,7 +8,7 @@ server_socket	=	file:///var/run/zarafa
 
 ##############################################################
 # DAGENT SSL LOGIN SETTINGS
-# 
+#
 # Note: server_socket must be set to https://servername:portname/zarafa
 #       to use this type of login method
 
@@ -35,14 +34,12 @@ log_file	=	-
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode
 log_timestamp	=	0
 
-% if ($zarafa7) {
 # Log raw message to a file
 log_raw_message = no
 
 # Log raw messages path
 log_raw_message_path = /tmp
 
-% }
 ##############################################################
 # DAGENT LMTP SETTINGS
 #  start dagent with -d to create an lmtp daemon of the zarafa-dagent
@@ -80,7 +77,7 @@ spam_header_name = X-Spam-Status
 
 # If the above header is found, and contains the following value
 # the mail will be considered as spam.
-# Notes: 
+# Notes:
 #  - The value is case insensitive.
 #  - Leading and trailing spaces are stripped.
 #  - The word 'bayes' also contains the word 'yes'.

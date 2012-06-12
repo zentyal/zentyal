@@ -4,7 +4,6 @@
     $ldapbase
     $ldapuser
     $ldappwd
-    $zarafa7
 </%args>
 ##############################################################
 #  LDAP/ACTIVE DIRECTORY USER PLUGIN SETTINGS
@@ -459,11 +458,9 @@ ldap_addressbook_hide_attribute = zarafaHidden
 # OpenLDAP optional: (|(mail=%s*)(uid=%s*)(cn=*%s*)(fullname=*%s*)(givenname=*%s*)(lastname=*%s*)(sn=*%s*))
 ldap_object_search_filter =
 
-% if ($zarafa7) {
 # If a request want more objects than this value, it will download the
 # full ldap tree (from the base with the search filter) and discard
 # wat was not required. This is faster for large requests.
 # Default: 1000
 ldap_filter_cutoff_elements = 1000
 
-% }

@@ -57,10 +57,6 @@ sub _create
                       printableName => 'Groupware',
                       @_);
 
-    my $output = `zarafa-admin -V`;
-    my ($version) = $output =~ /Product version:\s+(\d+),/;
-    $self->{version} = $version;
-
     bless($self, $class);
     return $self;
 }
@@ -362,8 +358,6 @@ sub _setConf
 
     my @array = ();
 
-    my $zarafa7 = $self->{'version'} eq 7;
-
     my $users = EBox::Global->modInstance('users');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
@@ -373,7 +367,6 @@ sub _setConf
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
     push(@array, 'ldapuser' => $ldap->roRootDn());
     push(@array, 'ldappwd' => $ldap->getRoPassword());
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFALDAPCONFFILE,
                  "zarafa/ldap.openldap.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -393,7 +386,6 @@ sub _setConf
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
     push(@array, 'indexer' => $zarafa_indexer);
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '640' });
@@ -403,7 +395,6 @@ sub _setConf
     push(@array, 'pop3s' => $self->model('Gateways')->pop3sValue() ? 'yes' : 'no');
     push(@array, 'imap' => $self->model('Gateways')->imapValue() ? 'yes' : 'no');
     push(@array, 'imaps' => $self->model('Gateways')->imapsValue() ? 'yes' : 'no');
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFAGATEWAYCONFFILE,
                  "zarafa/gateway.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -416,7 +407,6 @@ sub _setConf
     @array = ();
     my $always_send_delegates = EBox::Config::configkey('zarafa_always_send_delegates');
     push(@array, 'always_send_delegates' => $always_send_delegates);
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFASPOOLERCONFFILE,
                  "zarafa/spooler.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -430,7 +420,6 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFADAGENTCONFFILE,
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
