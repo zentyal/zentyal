@@ -269,9 +269,9 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-dagent.pid']
         },
         {
-            'name' => 'zarafa-indexer',
+            'name' => 'zarafa-search',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-indexer.pid'],
+            'pidfiles' => ['/var/run/zarafa-search.pid'],
             'precondition' => \&indexerEnabled
         },
         {
