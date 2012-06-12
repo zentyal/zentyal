@@ -1,6 +1,5 @@
-HEAD
-	+ Adapted to new Model management framework
 2.3
+	+ Adapted to new Model management framework
 	+ Install en_US.UTF-8 locale when enabling module for first time;
 	  otherwise users stores will not be created
 	+ Added message about Zarafa small business add-on
