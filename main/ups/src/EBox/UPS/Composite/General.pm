@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UPS::Composite::Settings;
+package EBox::UPS::Composite::General;
 
 use strict;
 use warnings;
@@ -26,7 +26,7 @@ use EBox::Gettext;
 
 # Constructor: new
 #
-#         Constructor for composite
+#   Constructor for composite
 #
 sub new
 {
@@ -50,11 +50,11 @@ sub _description
     my $description = {
         components      => [ 'ups/Settings' ],
         layout          => 'top-bottom',
-        name            => 'Settings',
-        pageTitle       => __('Foo'),
-        printableName   => __('Bar'),
+        name            => 'General',
+        #pageTitle       => __('Foo'),
+        printableName   => __('UPS'),
         compositeDomain => 'UPS',
-        help            => __('fooo'),
+        #help            => __(''),
     };
 
     return $description;

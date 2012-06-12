@@ -54,11 +54,11 @@ sub _table
     my $dataForm = {
         tableName          => 'Settings',
         printableTableName => __('General configuration settings'),
-        pageTitle          => __('FTP Server'),
+        pageTitle          => __('UPS'),
         modelDomain        => 'UPS',
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
-        help               => __('foo'),
+        #help               => __(''),
     };
 
     return $dataForm;

@@ -22,11 +22,13 @@ use base qw( EBox::Module::Service
              EBox::Model::ModelProvider
              EBox::Model::CompositeProvider );
 
+use EBox::Gettext;
+
 sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'ups',
-                                      printableName => 'UPS',
+                                      printableName => __('UPS'),
                                       @_);
     bless ($self, $class);
     return $self;
@@ -44,21 +46,16 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'UPS/Composite/Settings',
-                                    'text'  => $self->printableName(),
-                                    'separator' => 'Infrastructure',
-                                    'order' => 10));
+    my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
+                                        'text' => __('Maintenance'),
+                                        'separator' => 'Core',
+                                        'order' => 70);
 
-    #my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
-    #                                    'text' => __('Maintenance'),
-    #                                    'separator' => 'Core',
-    #                                    'order' => 70);
-
-    #my $item = new EBox::Menu::Item('url' => 'UPS/View/Options',
-    #                                'text' => $self->printableName(),
-    #                                'order' => 50);
-    #$folder->add($item);
-    #$root->add($folder);
+    my $item = new EBox::Menu::Item('url' => 'UPS/Composite/General',
+                                    'text' => $self->printableName(),
+                                    'order' => 50);
+    $folder->add($item);
+    $root->add($folder);
 }
 
 # Method: modelClasses
@@ -85,7 +82,7 @@ sub modelClasses
 sub compositeClasses
 {
     return [
-        'EBox::UPS::Composite::Settings',
+        'EBox::UPS::Composite::General',
     ];
 }
 
