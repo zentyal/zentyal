@@ -137,13 +137,13 @@ sub foreignModelInstance
     $directory or
         return undef;
 
-    # FIXME: instance with correct RO/RW flag...
     my $model;
     my $manager = EBox::Model::Manager->instance();
+    my $ro = $self->row()->configModule->isReadOnly();
     if ($self->foreignModelIsComposite()) {
-        $model = $manager->composite($modelName);
+        $model = $manager->composite($modelName, $ro);
     } else {
-        $model = $manager->model($modelName);
+        $model = $manager->model($modelName, $ro);
     }
 
     $model->setDirectory($directory);
@@ -244,7 +244,6 @@ sub linkToView
     my $backview = $self->backView();
     my $params="?directory=$directory" . "&backview=$backview";
 
-    my $printableName = $self->printableName();
     my $url = $view . $params;
 
     return $url;
