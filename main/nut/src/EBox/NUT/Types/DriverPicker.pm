@@ -72,6 +72,29 @@ sub printableValue
     return $self->{'manufacturer'} . ' ' . $self->{'upsmodel'};
 }
 
+# Method: value
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::value>
+#
+# Returns:
+#
+#   Hash ref containing the values (manufacturer, upsmodel, $driver)
+#
+sub value
+{
+    EBox::debug("On value");
+    my ($self) = @_;
+
+    my $value = {};
+    $value->{manufacturer} = $self->{manufacturer};
+    $value->{upsmodel}     = $self->{upsmodel};
+    $value->{driver}       = $self->{driver};
+
+    return $value;
+}
+
 # Method: cmp
 #
 # Overrides:
@@ -132,11 +155,11 @@ sub compareToHash
     my $oldDriver       = $self->{'driver'};
 
     my $manufacturer = $self->fieldName() . '_manufacturer';
-    my $model        = $self->fieldName() . '_upsmodel';
+    my $upsmodel     = $self->fieldName() . '_upsmodel';
     my $driver       = $self->fieldName() . '_driver';
 
     if (($oldManufacturer ne $hash->{$manufacturer}  ) or
-        ($oldModel        ne $hash->{$model}) or
+        ($oldModel        ne $hash->{$upsmodel}) or
         ($oldDriver       ne $hash->{$driver})) {
         return 0;
     }
@@ -147,29 +170,6 @@ sub compareToHash
 sub _attrs
 {
     return [ 'manufacturer', 'upsmodel', 'driver' ];
-}
-
-# Method: value
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::value>
-#
-# Returns:
-#
-#   Hash ref containing the values (manufacturer, upsmodel, $driver)
-#
-sub value
-{
-    EBox::debug("On value");
-    my ($self) = @_;
-
-    my $value = {};
-    $value->{manufacturer} = $self->{manufacturer};
-    $value->{upsmodel}     = $self->{upsmodel};
-    $value->{driver}       = $self->{driver};
-
-    return $value;
 }
 
 sub manufacturer
@@ -184,8 +184,8 @@ sub upsmodel
 {
     my ($self) = @_;
 
-    my $model = $self->{'upsmodel'};
-    EBox::debug("On upsmodel, return $model");
+    my $upsmodel = $self->{'upsmodel'};
+    EBox::debug("On upsmodel, return $upsmodel");
 
     return $self->{'upsmodel'};
 }
@@ -310,11 +310,11 @@ sub _setValue
     my ($self, $value) = @_;
 
     # There are countries America/Indiana/Indianapolis
-    my ($manufacturer, $model, $driver) = split(/\|\|\|/, $value);
+    my ($manufacturer, $upsmodel, $driver) = split(/\|\|\|/, $value);
 
     my $params = {
         $self->fieldName() . '_manufacturer' => $manufacturer,
-        $self->fieldName() . '_upsmodel'        => $model,
+        $self->fieldName() . '_upsmodel'     => $upsmodel,
         $self->fieldName() . '_driver'       => $driver
     };
     EBox::debug(Dumper($params));
@@ -344,12 +344,12 @@ sub _loadDriverTable
         my $manufacturer = $fields[0];
         my $deviceType   = $fields[1];
         my $supportLevel = $fields[2];
-        my $model        = $fields[3];
+        my $upsmodel     = $fields[3];
         my $modelExtra   = $fields[4];
         my $driver       = $fields[5];
 
-        unless ($model ne '') {
-            $model = "(all)";
+        unless ($upsmodel ne '') {
+            $upsmodel = "(all)";
         }
 
         unless (exists $table->{$manufacturer}) {
@@ -357,7 +357,7 @@ sub _loadDriverTable
         }
         my $entry = { deviceType => $deviceType,
                       supportLevel => $supportLevel,
-                      model => $model,
+                      model => $upsmodel,
                       modelExtra => $modelExtra,
                       driver => [],
                       driverOptions => [],

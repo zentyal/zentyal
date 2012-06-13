@@ -45,8 +45,8 @@ my $aux = undef;
             value="<% $key %>"><% $key %></option>
 %   }
     </select>
-    <select name=<% $id . '_model' %>
-            id=<% $id . '_model' %>
+    <select name=<% $id . '_upsmodel' %>
+            id=<% $id . '_upsmodel' %>
             onChange='modelChanged(this)'
 % unless ( $data->editable() ) {
             disabled='disabled'
@@ -83,7 +83,7 @@ my $aux = undef;
     </div>
 <script type="text/javascript">
     var manufacturerselect = document.getElementById( "<% $id . '_manufacturer' %>" );
-    var modelselect = document.getElementById( "<% $id . '_model' %>" );
+    var modelselect = document.getElementById( "<% $id . '_upsmodel' %>" );
     var driverselect = document.getElementById( "<% $id . '_driver' %>" );
 
 	var a = new Array();
@@ -159,7 +159,7 @@ my $aux = undef;
             if (a[manufacturer][modelIndex]["driver"].hasOwnProperty(driver)) {
                 var l = driverselect.options.length;
                 var d = a[manufacturer][modelIndex]["driver"][driver];
-                driverselect.options[length] = new Option(d, d, false, false);
+                driverselect.options[l] = new Option(d, d, false, false);
             }
         }
         updateExtra();
