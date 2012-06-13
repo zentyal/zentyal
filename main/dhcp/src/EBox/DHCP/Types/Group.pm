@@ -28,7 +28,7 @@ use base 'EBox::Types::Select';
 
 # uses
 use EBox::Exceptions::MissingArgument;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Group: Public methods
 
@@ -77,7 +77,7 @@ sub _options
 
     my $modelName = $self->{foreignModelName};
     my $iface = $self->{index};
-    my $model = EBox::Model::ModelManager->instance()->model("/dhcp/$modelName/$iface");
+    my $model = EBox::Model::Manager->instance()->model("/dhcp/$modelName/$iface");
 
     my @options;
     foreach my $id (@{$model->ids()}) {

@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-zarafa
 Architecture: all
 Replaces: ebox-zarafa (<< 2.0.100)
-Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-mail, zentyal-webserver, mysql-server, zarafa, zarafa-webaccess, zarafa-webaccess-mobile, zarafa-indexer, aspell, z-push, ${misc:Depends}
+Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-mail, zentyal-webserver, mysql-server, zarafa, aspell, ${misc:Depends}
 Description: Zentyal - Groupware (Zarafa)
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

@@ -5,9 +5,7 @@ SOURCES_LIST=/etc/apt/sources.list
 PPA_URL="http://ppa.launchpad.net/zentyal/2.3/ubuntu"
 ZENTYAL_SOURCES="deb $PPA_URL precise main"
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 2.3 main"
-EXTRA_URL="http://archive.zentyal.com/zentyal"
-EXTRA_SOURCES="deb $EXTRA_URL 2.3 extra"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 2.3 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -79,15 +77,10 @@ then
     echo ${ZENTYAL_SOURCES} >> ${SOURCES_LIST} # add ppa sources
 fi
 
-#if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
-#then
-#    echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
-#fi
-
-#if ! grep -q ${EXTRA_URL} ${SOURCES_LIST}
-#then
-#    echo ${EXTRA_SOURCES} >> ${SOURCES_LIST} # add zentyal extra sources
-#fi
+if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
+then
+    echo ${ARCHIVE_SOURCES} >> ${SOURCES_LIST} # add zentyal archive sources
+fi
 
 update_if_network # apt-get update if we are connected to the internet
 

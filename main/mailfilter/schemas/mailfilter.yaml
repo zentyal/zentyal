@@ -1,3 +1,34 @@
 class: 'EBox::MailFilter'
 depends:
     - firewall
+
+models:
+    - AmavisConfiguration
+    - AmavisPolicy
+    - ExternalMTA
+    - ExternalDomain
+    - VDomains
+    - FileExtensionACL
+    - MIMETypeACL
+    - AntispamConfiguration
+    - AntispamACL
+    - AntispamTraining
+    - AntispamVDomainACL
+    - POPProxyConfiguration
+    - FilterDetails
+    - FilterGraph
+    - FilterReportOptions
+    - POPProxyDetails
+    - POPProxyGraph
+    - POPProxyReportOptions
+
+composites:
+    Amavis: [AmavisConfiguration, AmavisPolicy, VDomains, ExternalConnections]
+    ExternalConnections: [ExternalMTA, ExternalDomain]
+    FileFilter: [FileExtensionACL, MIMETypeACL]
+    Antispam: [AntispamConfiguration, AntispamACL, AntispamTraining]
+    FilterReport: [FilterReportOptions, FilterGraph, FilterDetails]
+    POPProxyReport: [POPProxyReportOptions, POPProxyGraph, POPProxyDetails]
+
+foreign:
+    VDomains: [AntispamVDomainACL]

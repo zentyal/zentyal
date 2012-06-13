@@ -1,4 +1,6 @@
 HEAD
+	+ Implement new EBox::Events::WatcherProvider
+	+ Adapted to new Model management framework
 	+ Perl plugin configuration for collectd 4.10 series
 	+ Set proper permissions in postinst for monitor events
 	+ Added additional info to events from monitor

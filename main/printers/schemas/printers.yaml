@@ -9,3 +9,9 @@ enabledepends:
 
 bootdepends:
     - network
+
+models:
+    - CUPS
+
+composites:
+    General: [ CUPS ]

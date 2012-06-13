@@ -41,13 +41,13 @@ use Net::IP;
 #
 sub new
 {
-        my $class = shift;
-        my $self = $class->SUPER::new(
-                                      @_,
-                                     );
-        $self->{'type'} = 'host';
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(
+            @_,
+            );
+    $self->{'type'} = 'host';
+    bless($self, $class);
+    return $self;
 }
 
 # Method: cmp
@@ -80,7 +80,6 @@ sub cmp
 
 }
 
-
 sub _cmpIP
 {
     my ($self, $compareType) = @_;
@@ -95,7 +94,6 @@ sub _cmpIP
     } else {
         return 0;
     }
-
 }
 
 sub _cmpHostname

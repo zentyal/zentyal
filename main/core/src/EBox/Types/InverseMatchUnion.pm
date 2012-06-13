@@ -15,8 +15,8 @@
 
 # Class: EBox::Types::InverseMatchUnion
 #
-# 	This class inherits from <EBox::Types:Union> to add
-# 	inverse match support
+#	This class inherits from <EBox::Types:Union> to add
+#	inverse match support
 #
 #   FIXME: This package shouldn't exist as we should provide inverse match
 #   feature form abstract types and provide a real OO approach, not this
@@ -55,25 +55,6 @@ sub inverseMatchField
 
     return $self->fieldName() . '_inverseMatch';
 }
-
-#sub restoreFromHash
-#{
-#    my ($self, $hash) = @_;
-#
-#    $self->SUPER::restoreFromHash($hash);
-#
-#    $self->{'inverseMatch'} = $hash->{$self->fieldName() . '_inverseMatch'};
-#}
-#
-#sub storeInGconf
-#{
-#    my ($self, $gconfmod, $key) = @_;
-#
-#    $self->SUPER::storeInGconf($gconfmod, $key);
-#    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-#            $self->inverseMatch());
-#}
-
 
 sub compareToHash
 {
@@ -124,8 +105,8 @@ sub inverseMatch
 {
     my ($self) = @_;
 
+    return 0 unless defined ($self->{'inverseMatch'});
     return $self->{'inverseMatch'};
-
 }
 
 # Group: Protected methods
@@ -145,19 +126,18 @@ sub _setMemValue
     $self->{'inverseMatch'} = $params->{$self->inverseMatchField()};
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
-    $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-            $self->inverseMatch());
+    $self->SUPER::_storeInHash($hash);
+    $hash->{$self->inverseMatchField()} = $self->inverseMatch();
 }
 
 # Method: _restoreFromHash
@@ -195,21 +175,20 @@ sub _restoreFromHash
 #     value - hash ref or a basic value to pass
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my ($selectedField, $selectedValue, $invMatch);
+    if ( exists ( $value->{'inverse'} )) {
+        $invMatch = delete ( $value->{'inverse'} );
+    } else {
+        $invMatch = 0;
+    }
 
-      my ($selectedField, $selectedValue, $invMatch);
-      if ( exists ( $value->{'inverse'} )) {
-          $invMatch = delete ( $value->{'inverse'} );
-      } else {
-          $invMatch = 0;
-      }
+    # FIXME: It should be a method to do so
+    $self->{'inverseMatch'} = $invMatch;
 
-      # FIXME: It should be a method to do so
-      $self->{'inverseMatch'} = $invMatch;
-
-      $self->SUPER::_setValue( $value );
-  }
+    $self->SUPER::_setValue( $value );
+}
 
 1;

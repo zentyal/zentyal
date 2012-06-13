@@ -1,1 +1,19 @@
 class: EBox::RemoteServices
+
+models:
+    - AccessSettings
+    - AdvancedSecurityUpdates
+    - AlertsInfo
+    - DisasterRecovery
+    - QAUpdatesInfo
+    - RemoteSupportAccess
+    - ReportsInfo
+    - Subscription
+    - SubscriptionInfo
+    - TechnicalInfo
+    - VPNConnectivityCheck
+
+composites:
+    General: [Subscription, SubscriptionInfos]
+    SubscriptionInfos: [SubscriptionInfo, QAUpdatesInfo, AlertsInfo, ReportsInfo]
+    Technical: [Technicalinfo, RemoteSupportAccess]

@@ -18,8 +18,7 @@ package EBox::NTP;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -41,33 +40,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::NTP::Model::Settings',
-        'EBox::NTP::Model::Servers',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::NTP::Composite::General',
-    ];
 }
 
 sub isRunning

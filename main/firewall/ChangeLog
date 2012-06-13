@@ -1,3 +1,9 @@
+HEAD
+	+ Remove obsolete denyAction code
+	+ Adapted to new Model management framework
+	+ Remove obsolete OutputRules code
+	+ Remove obsolete localredirects methods
+	+ Remove obsolete import of EBox::Order
 2.3.6
 	+ Set RemoteServices rules taking into account no bundle state
 	+ Added clone action to tables

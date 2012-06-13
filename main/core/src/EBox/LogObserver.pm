@@ -202,7 +202,7 @@ sub reportUrls
 
 
       my @reportComposites = grep {
-          ((ref $_) =~ m/::Report::/) and
+          ((ref $_) =~ /Report$/) and
               ($self->_compositeUsesDbTable($_, \@consolidateTables) )
       } @{ $self->composites };
 

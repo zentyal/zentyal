@@ -36,7 +36,7 @@ use EBox::Types::HasMany;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::DNS::View::DomainTableCustomizer;
 
 # Dependencies

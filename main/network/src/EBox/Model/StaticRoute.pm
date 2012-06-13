@@ -191,7 +191,7 @@ sub _addToDelete
     my ($self, $net, $gw) = @_;
 
     # Store the deleted static route
-    my $modelManager = EBox::Model::ModelManager->instance();
+    my $modelManager = EBox::Model::Manager->instance();
     my $deletedModel = $modelManager->model('DeletedStaticRoute');
     my $result = $deletedModel->findRow( network => $net );
     if ( defined($result)

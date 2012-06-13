@@ -18,9 +18,7 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw( EBox::Module::Service
-             EBox::Model::ModelProvider
-             EBox::Model::CompositeProvider );
+use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -33,8 +31,9 @@ use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Sudo;
+use EBox::DNS::FirewallHelper;
 
 use Error qw(:try);
 use File::Temp;
@@ -79,55 +78,6 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#   <EBox::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            {
-                class      => 'EBox::DNS::Model::DomainTable',
-                parameters => [ directory => 'domainTable' ],
-            },
-            {
-                class      => 'EBox::DNS::Model::HostnameTable',
-                parameters => [ directory => 'hostnameTable' ],
-            },
-            {
-                class => 'EBox::DNS::Model::HostIpTable',
-                parameters => [ directory => 'hostIpTable' ],
-            },
-            {
-                class => 'EBox::DNS::Model::DomainIpTable',
-                parameters => [ directory => 'domainIpTable' ],
-            },
-            {
-                class      => 'EBox::DNS::Model::AliasTable',
-                parameters => [ directory => 'aliasTable' ],
-            },
-            'EBox::DNS::Model::MailExchanger',
-            'EBox::DNS::Model::NameServer',
-            'EBox::DNS::Model::Text',
-            'EBox::DNS::Model::Services',
-            'EBox::DNS::Model::Forwarder',
-            'EBox::DNS::Model::Settings',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [ 'EBox::DNS::Composite::Global' ];
-}
-
 # Method: appArmorProfiles
 #
 #   Overrides to set the own AppArmor profile
@@ -152,75 +102,6 @@ sub appArmorProfiles
            ];
 }
 
-# Method: _exposedMethods
-#
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-# Returns:
-#
-#      hash ref - the list of the exposes method in a hash ref every
-#      component
-#
-sub _exposedMethods
-  {
-
-      my %exposedMethods =
-        (
-         'addDomain1' => { action   => 'add',
-                          path     => [ 'DomainTable' ],
-                        },
-         'removeDomain' => { action  => 'del',
-                             path    => [ 'DomainTable' ],
-                             indexes => [ 'domain' ],
-                           },
-         'addHostName' => { action  => 'add',
-                            path    => [ 'DomainTable', 'hostnames' ],
-                            indexes => [ 'domain' ],
-                          },
-         'setIP'       => { action   => 'set',
-                            path     => [ 'DomainTable', 'hostnames', 'ipAddresses' ],
-                            indexes  => [ 'domain', 'hostname' ],
-                            selector => [ 'ip' ]
-                          },
-         'changeName'  => { action   => 'set',
-                            path     => [ 'DomainTable', 'hostnames' ],
-                            indexes  => [ 'domain', 'hostname' ],
-                            selector => [ 'hostname' ]
-                          },
-         'getHostNameByName' => { action   => 'get',
-                                  path     => [ 'DomainTable', 'hostnames' ],
-                                  indexes  => [ 'domain', 'hostname' ],
-                                },
-         'getHostNameByIP' => { action  => 'get',
-                                path    => [ 'DomainTable', 'hostnames', 'ipAddresses' ],
-                                indexes => [ 'domain', 'ip' ],
-                              },
-         'removeHostName' => { action => 'del',
-                               path   => [ 'DomainTable', 'hostnames' ],
-                               indexes => [ 'domain', 'hostname' ],
-                             },
-         'addMailExchanger' => { action  => 'add',
-                                 path    => [ 'DomainTable', 'mailExchangers' ],
-                                 indexes => [ 'domain' ],
-                               },
-         # Both following two methods are only working with custom MX records
-         'changeMXPreference' => { action  => 'set',
-                                   path    => [ 'DomainTable', 'mailExchangers' ],
-                                   indexes => [ 'domain', 'hostName' ],
-                                   selector => [ 'preference' ]
-                                 },
-         'removeMailExchanger' => { action  => 'del',
-                                    path    => [ 'DomainTable', 'mailExchangers' ],
-                                    indexes => [ 'domain', 'hostName' ],
-                                  },
-         );
-
-      return \%exposedMethods;
-}
-
 # Method: addDomain
 #
 #  Add new domain to table model
@@ -233,7 +114,7 @@ sub addDomain
 {
     my ($self, $domainData) = @_;
 
-    my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
+    my $domainModel = EBox::Model::Manager->instance()->model('DomainTable');
 
     $domainModel->addDomain($domainData);
 }
@@ -895,7 +776,6 @@ sub enableService
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-    $self->configureFirewall();
 
     # Mark network module as changed to set localhost as the primary resolver
     if ($self->changed()) {
@@ -1033,21 +913,6 @@ sub _setConf
 
     # Set transparent DNS cache
     $self->_setTransparentCache();
-}
-
-sub configureFirewall
-{
-    my ($self) = @_;
-
-    my $fw = EBox::Global->modInstance('firewall');
-
-    if ($self->isEnabled()) {
-        $fw->addOutputRule('udp', 53);
-        $fw->addOutputRule('tcp', 53);
-    } else {
-        $fw->removeOutputRule('udp', 53);
-        $fw->removeOutputRule('tcp', 53);
-    }
 }
 
 # Method: menu
@@ -2068,6 +1933,17 @@ sub removeAlias
             value => $alias
            );
     }
+}
+
+sub firewallHelper
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled()) {
+        return EBox::DNS::FirewallHelper->new();
+    }
+
+    return undef;
 }
 
 1;

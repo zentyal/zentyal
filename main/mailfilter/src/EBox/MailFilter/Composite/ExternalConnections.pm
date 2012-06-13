@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Composite::ExternalConnections;
 
 use base 'EBox::Model::Composite';
@@ -23,19 +21,6 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-
-# Group: Public methods
-
-
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
 
 # Group: Protected methods
 
@@ -47,21 +32,15 @@ sub new
 #
 sub _description
 {
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            =>  __PACKAGE__->nameFromClass,
+        printableName   => __('External connections'),
+        compositeDomain => 'MailFilter',
+    };
 
-     my $description =
-        {
-         components      => [
-                             'ExternalMTA',
-                             'ExternalDomain',
-                            ],
-         layout          => 'top-bottom',
-         name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('External connections'),
-         compositeDomain => 'MailFilter',
-#         help            => __(''),
-        };
-
-      return $description;
+    return $description;
 }
 
 # Method: pageTitle
@@ -74,6 +53,5 @@ sub pageTitle
 {
     return undef;
 }
-
 
 1;

@@ -22,13 +22,13 @@ use base 'EBox::Types::Text';
 
 sub new
 {
-        my $class = shift;
-        my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        my $self = $class->SUPER::new(%opts);
+    my $self = $class->SUPER::new(%opts);
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 
@@ -81,21 +81,21 @@ sub printableValue
 #
 #     Overrides <EBox::Types::Text::restoreFromHash>
 #
-#     We don’t need to restore anything from GConf so we leave this method empty.
+#     We don’t need to restore anything from hash so we leave this method empty.
 #
 sub restoreFromHash
 {
 }
 
 
-# Method: storeInGConf
+# Method: storeInHash
 #
-#    Overrides <EBox::Types::Text::storeInGConf>
+#    Overrides <EBox::Types::Text::storeInHash>
 #
 #    Following the same reasoning as restoreFromHash, we don’t need to store
-#    anything in GConf.
+#    anything in hash.
 #
-sub storeInGConf
+sub storeInHash
 {
 }
 

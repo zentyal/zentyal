@@ -53,7 +53,7 @@ sub setUpTestDir : Test(setup)
 #                   '/ebox/modules/mailfilter/file_filter/holder' => 1,
 #                   );
 
-#     EBox::GConfModule::TestStub::setConfig(@config);
+#     EBox::Module::Config::TestStub::setConfig(@config);
      EBox::Global::TestStub::setEBoxModule('antivirus' => 'EBox::AntiVirus');
 
      EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
@@ -62,7 +62,7 @@ sub setUpTestDir : Test(setup)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Config::TestStub::setConfig();
 }
 
 

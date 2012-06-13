@@ -263,8 +263,6 @@ sub value
     return $self->AUTOLOAD();
 }
 
-
-
 sub memValue
 {
 
@@ -290,7 +288,6 @@ sub isEqualTo
     } else {
         return 0;
     }
-
 }
 
 # Method: HTMLSetter
@@ -327,7 +324,6 @@ sub HTMLSetter
     } else {
         return undef;
     }
-
 }
 
 sub HTMLViewer
@@ -394,8 +390,7 @@ sub AUTOLOAD
                                              'in type ' . $subtype->type());
         }
     }
-
-  }
+}
 
 # Group: Protected methods
 
@@ -412,36 +407,35 @@ sub _setMemValue
     my $selPar = $self->fieldName() . '_selected';
     my $selected = $params->{$selPar};
 
-    if ( defined ( $selected )) {
+    if (defined ($selected)) {
         foreach my $type (@{$self->{'subtypes'}}) {
             if ($type->fieldName() eq $selected) {
-                    $type->setMemValue($params);
-                    $self->setSelectedType($selected);
-                }
+                $type->setMemValue($params);
+                $self->setSelectedType($selected);
+            }
         }
     }
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
     my $selected = $self->selectedType();
 
     foreach my $type (@{$self->{'subtypes'}}) {
         # Every union type should be stored in order to unset its
         # value if it has not got one
-        $type->storeInGConf($gconfmod, $key);
+        $type->storeInHash($hash);
         if ($type->fieldName() eq $selected) {
-              my $selKey = "$key/" . $self->fieldName()
-                  . '_selected';
-              $gconfmod->set_string($selKey, $self->selectedType());
+              my $selected = $self->fieldName() . '_selected';
+              $hash->{$selected} = $self->selectedType();
           }
     }
 }
@@ -456,25 +450,18 @@ sub _restoreFromHash
 {
     my ($self, $hash) = @_;
 
-    my $selPar = $self->fieldName() . '_selected';
-
     return unless ($self->row());
-    my $selected;
-    unless ($selected = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $selected =  $gconf->get_string($path . '/' . $selPar);
-        $self->_addToCache($selected);
-    }
+
+    my $selPar = $self->fieldName() . '_selected';
+    my $selected = $hash->{$selPar};
 
     return unless (defined($selected));
 
     foreach my $type (@{$self->{'subtypes'}}) {
         next unless ($type->fieldName() eq $selected);
-        $type->restoreFromHash();
+        $type->restoreFromHash($hash);
         $self->setSelectedType($selected);
     }
-
 }
 
 # Method: _paramIsValid
@@ -513,7 +500,6 @@ sub _paramIsSet
     }
 
     return 0;
-
 }
 
 # Method: _setValue
@@ -533,7 +519,7 @@ sub _setValue
     # Call AUTOLOAD method in order not to repeat code
     $AUTOLOAD = '_setValue';
     return $self->AUTOLOAD($selectedValue);
- }
+}
 
 # Method: cmp
 #

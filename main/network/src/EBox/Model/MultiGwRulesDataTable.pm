@@ -53,18 +53,6 @@ sub gatewayModel
 }
 
 
-sub objectModel
-{
-    return EBox::Global->modInstance('objects')->{'objectModel'};
-}
-
-
-sub serviceModel
-{
-    return EBox::Global->modInstance('services')->{'serviceModel'};
-}
-
-
 sub ifaces
 {
     my $self = shift;
@@ -94,6 +82,8 @@ sub ifaces
 #
 sub _table
 {
+    my ($self) = @_;
+
     my @tableHead =
     (
         new EBox::Types::Select(
@@ -121,7 +111,7 @@ sub _table
                 new EBox::Types::Select(
                     'fieldName' => 'source_object',
                     'printableName' => __('Source object'),
-                    'foreignModel' => \&objectModel,
+                    'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                     'foreignField' => 'name',
                     'foreignNextPageField' => 'members',
                     'editable' => 1),
@@ -149,7 +139,7 @@ sub _table
                 new EBox::Types::Select(
                     'fieldName' => 'destination_object',
                     'printableName' => __('Destination object'),
-                    'foreignModel' => \&objectModel,
+                    'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                     'foreignField' => 'name',
                     'foreignNextPageField' => 'members',
                     'editable' => 1)
@@ -161,7 +151,7 @@ sub _table
         new EBox::Types::Select(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => \&serviceModel,
+                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),,
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,

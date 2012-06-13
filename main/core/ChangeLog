@@ -1,4 +1,49 @@
 HEAD
+	+ Fixed regression which prevented update of the administration service
+	  port when it was changed in the interface
+	+ New EBox::Model::Composite::componentNames() for dynamic composites
+	+ Remove _exposedMethods() feature to reduce use of AUTOLOAD
+	+ Removed any message set in the model in syncRows method
+	+ Added global() method to modules and components to get a coherent
+	  read-write or read-only instance depending on the context
+	+ Removed Model::Report and Composite::Report namespaces to simplify model
+	  management and specification
+	+ New redis key naming, with $mod/conf/*, $mod/state and $mod/ro/* replacing
+	  /ebox/modules/$mod/*, /ebox/state/$mod/* and /ebox-ro/modules/$mod/*
+	+ Removed unnecessary parentComposite methods in EBox::Model::Component
+	+ Only mark modules as changed when data has really changed
+	+ EBox::Global::modChange() throws exception if instance is readonly
+	+ New get_state() and set_state() methods, st_* methods are kept for
+	  backwards compatibility, but they are deprecated
+	+ Simplified events module internals with Watcher and Dispatcher providers
+	+ Model Manager is now able to properly manage read-only instances
+	+ Composites can now use parentModule() like Models
+	+ Renamed old EBox::GConfModule to EBox::Module::Config
+	+ Unified model and composite management in the new EBox::Model::Manager
+	+ Model and composites are loaded on demand to reduce memory consumption
+	+ Model and composite information is now stored in .yaml schemas
+	+ ModelProvider and CompositeProvider are no longer necessary
+	+ Simplified DataForm using more code from DataTable
+	+ Adapted RAID and restrictedResources() to the new JSON objects in redis
+	+ Remove unused override modifications code
+	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
+	+ Use simpler "key: value" format for dumps instead of YAML
+	+ Row id prefixes are now better chosen to avoid confusion
+	+ Use JSON instead of list and hash redis types (some operations,
+	  specially on lists, are up to 50% faster and caching is much simpler)
+	+ Store rows as hashes instead of separated keys
+	+ Remove deprecated all_dirs and all_entries methods
+	+ Remove obsolete EBox::Order package
+	+ Remove no longer needed redis directory tree sets
+	+ Fixed isEqualTo() method on EBox::Types::Time
+	+ EBox::Types::Abstract now provides default implementations of fields(),
+	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
+	+ Remove indexes on DataTables to reduce complexity, no longer needed
+	+ Simplified ProgressIndicator implementation using shared memory
+	+ New EBox::Util::SHMLock package
+	+ Implemented transactions for redis operations
+	+ Replace old MVC cache system with a new low-level redis one
+	+ Delete no longer necessary regen-redis-db tool
 	+ Added new checkAll property to DataTable description to allow
 	  multiple check/uncheck of boolean columns
 2.3.10

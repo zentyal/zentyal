@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Types::Time;
+
 use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
@@ -63,13 +64,12 @@ sub paramExist
 #
 sub printableValue
 {
-
     my ($self) = @_;
 
     if (defined($self->{'hour'}) and defined($self->{'min'}) and defined($self->{'sec'})) {
         return "$self->{'hour'}:$self->{'min'}:$self->{'sec'}";
     } else   {
-        return "";
+        return '';
     }
 }
 
@@ -150,18 +150,6 @@ sub compareToHash
     return 1;
 }
 
-sub fields
-{
-    my ($self) = @_;
-
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    return ($hour, $min, $sec);
-}
-
-
 sub value
 {
     my ($self) = @_;
@@ -170,99 +158,36 @@ sub value
 
 sub hour
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'hour'};
+    return $self->{'hour'};
 }
 
 sub minute
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'min'};
+    return $self->{'min'};
 }
 
 sub second
 {
-        my ($self) = @_;
+    my ($self) = @_;
 
-        return $self->{'sec'};
+    return $self->{'sec'};
 }
 
 # Group: Protected methods
 
-# Method: _setMemValue
+# Method: _attrs
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_setMemValue>
+#       <EBox::Types::Abstract::_attrs>
 #
-sub _setMemValue
+sub _attrs
 {
-    my ($self, $params) = @_;
-
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    $self->{'hour'} = $params->{$hour};
-    $self->{'min'}  = $params->{$min};
-    $self->{'sec'}  = $params->{$sec};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $hourKey = "$key/" . $self->fieldName() . '_hour';
-    my $minKey  = "$key/" . $self->fieldName() . '_min';
-    my $secKey  = "$key/" . $self->fieldName() . '_sec';
-
-    if ($self->{'hour'}) {
-        $gconfmod->set_string($hourKey, $self->{'hour'});
-        $gconfmod->set_string($minKey,  $self->{'min'} );
-        $gconfmod->set_string($secKey,  $self->{'sec'} );
-    } else {
-        $gconfmod->unset($hourKey);
-        $gconfmod->unset($minKey);
-        $gconfmod->unset($secKey);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $hour = $self->fieldName() . '_hour';
-    my $min  = $self->fieldName() . '_min';
-    my $sec  = $self->fieldName() . '_sec';
-
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{hour} = $gconf->get_string($path . '/' . $hour);
-        $value->{min}  = $gconf->get_string($path . '/' . $min);
-        $value->{sec}  = $gconf->get_string($path . '/' . $sec);
-        $self->_addToCache($value);
-    }
-
-    $self->{'hour'} = $value->{hour};
-    $self->{'min'}  = $value->{min};
-    $self->{'sec'}  = $value->{sec};
+    return [ 'hour', 'min', 'sec' ];
 }
 
 # Method: _paramIsValid
@@ -314,7 +239,6 @@ sub _setValue # (value)
     $self->setMemValue($params);
 }
 
-
 sub isEqualTo
 {
     my ($self, $other) = @_;
@@ -323,8 +247,8 @@ sub isEqualTo
     }
 
     if (($self->hour() ne $other->hour()) or
-        ($self->min()  ne $other->min() ) or
-        ($self->sec()  ne $other->sec() )) {
+        ($self->minute() ne $other->minute()) or
+        ($self->second() ne $other->second())) {
         return undef;
     }
 

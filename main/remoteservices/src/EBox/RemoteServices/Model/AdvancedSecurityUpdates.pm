@@ -86,7 +86,7 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    my $rs = $self->{gconfmodule};
+    my $rs = $self->{confmodule};
     unless ( $rs->securityUpdatesAddOn() ) {
         $customizer->setPermanentMessage(_message(), 'ad');
     }

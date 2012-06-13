@@ -51,61 +51,44 @@ use EBox::Gettext;
 #       <EBox::CGI::Controller::Composite> - the recently created CGI
 #
 sub new
-  {
+{
+    my ($class, %params) = @_;
 
-      my ($class, %params) = @_;
+    my $composite = delete $params{composite};
+    my $self = $class->SUPER::new('template' => $composite->Viewer(), @_);
+    $self->{composite} = $composite;
+    $self->{action}    = delete $params{action};
 
-      my $composite = delete $params{composite};
-      my $self = $class->SUPER::new('template' => $composite->Viewer(),
-                                    @_);
-      $self->{composite} = $composite;
-      $self->{action}    = delete $params{action};
+    bless($self, $class);
 
-      bless( $self, $class);
-
-      return $self;
-
-  }
+    return $self;
+}
 
 sub _process
 {
     my ($self) = @_;
 
-    my $composite = $self->{composite};
-
-    my $directory = $self->param('directory');
-
-    if (defined $directory) {
-        $composite->setDirectory($directory);
-    }
-    else {
-        $composite->setDirectory('');
-    }
-
     $self->{params} = $self->masonParameters();
 }
-
 
 # Method: masonParameters
 #
 #      Overrides <EBox::CGI::ClientBase::masonParameters>
 #
 sub masonParameters
-  {
+{
+    my ($self) = @_;
 
-      my ($self) = @_;
+    if ( $self->{action} eq 'changeView' ) {
+        my $global = EBox::Global->getInstance();
 
-      if ( $self->{action} eq 'changeView' ) {
-          my $global = EBox::Global->getInstance();
-
-          return [
-                  model  => $self->{composite},
-                  hasChanged => $global->unsaved(),
-                 ];
-      } else {
-          return [];
-      }
-
-  }
+        return [
+                model  => $self->{composite},
+                hasChanged => $global->unsaved(),
+               ];
+    } else {
+        return [];
+    }
+}
 
 1;

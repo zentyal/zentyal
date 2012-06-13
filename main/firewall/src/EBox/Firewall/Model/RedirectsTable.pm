@@ -105,7 +105,7 @@ sub protocol
 
 sub objectModel
 {
-    return EBox::Global->modInstance('objects')->{'objectModel'};
+    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Method: validateTypedRow

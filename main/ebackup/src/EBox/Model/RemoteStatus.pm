@@ -66,7 +66,7 @@ sub ids
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    my @status = @{$self->{confmodule}->remoteStatus()};
     return [] unless (@status);
 
     return [0 .. (scalar(@status) -1)];
@@ -83,7 +83,7 @@ sub row
     my ($self, $id) = @_;
 
     # the reverse is for antichronological order
-    my @status = reverse @{$self->{gconfmodule}->remoteStatus()};
+    my @status = reverse @{$self->{confmodule}->remoteStatus()};
     my $type = $status[$id]->{'type'};
     my $date = $status[$id]->{'date'};
 
@@ -104,12 +104,12 @@ sub precondition
 {
     my ($self) = @_;
 
-    if ($self->{gconfmodule}->updateStatusInBackgroundRunning()) {
+    if ($self->{confmodule}->updateStatusInBackgroundRunning()) {
         $self->{preconditionFailMsg} =  __('Remote Backup Status') . ': ' . __('Update process running, retry later');
         return 0;
     }
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    my @status = @{$self->{confmodule}->remoteStatus()};
     if (not scalar @status) {
         $self->{preconditionFailMsg} =  __('Remote Backup Status') . ': ' . __('There are not backed up files yet');
         return 0;

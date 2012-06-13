@@ -31,7 +31,7 @@ use EBox::Ldap;
 use EBox::UsersAndGroups;
 use EBox::UsersAndGroups::User;
 use EBox::Asterisk::Extensions;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 use Perl6::Junction qw(any);
 
@@ -82,8 +82,7 @@ sub _addUser
     }
 
     unless ($skipDefault) {
-        my $model = EBox::Model::ModelManager::instance()
-            ->model('asterisk/AsteriskUser');
+        my $model = $self->model('AsteriskUser');
         return unless ($model->enabledValue());
     }
 

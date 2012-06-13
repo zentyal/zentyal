@@ -9,7 +9,6 @@
   $quota_soft
   $quota_hard
   $indexer
-  $zarafa7
 </%args>
 ##############################################################
 # SERVER SETTINGS
@@ -30,6 +29,9 @@ server_pipe_enabled	= yes
 
 # Unix socket location
 server_pipe_name	= /var/run/zarafa
+
+# Priority unix socket location
+server_pipe_priority	= /var/run/zarafa-prio
 
 # Name for identifying the server in a multi-server environment
 server_name = Zarafa
@@ -52,10 +54,10 @@ local_admin_users	= root vmail
 system_email_address	= postmaster@<% $hostname %>
 
 # drop privileges and run the process as this user
-run_as_user		= 
+run_as_user		=
 
 # drop privileges and run the process as this group
-run_as_group		= 
+run_as_group		=
 
 # create a pid file for stopping the service via the init.d scripts
 pid_file		= /var/run/zarafa-server.pid
@@ -71,7 +73,7 @@ session_timeout		= 300
 # Socket to connect to license server
 license_socket		= /var/run/zarafa-licensed
 
-# Time (in seconds) to wait for a connection to the license server before 
+# Time (in seconds) to wait for a connection to the license server before
 # terminating the request.
 license_timeout = 10
 
@@ -123,12 +125,10 @@ mysql_user		= <% $mysql_user %>
 # The password for the user (leave empty for no password)
 mysql_password		= <% $mysql_password %>
 
-% if ($zarafa7) {
 # Override the default MySQL socket to access mysql locally
 # Works only if the mysql_host value is empty or 'localhost'
 mysql_socket		=
 
-% }
 # Database to connect to
 mysql_database		= zarafa
 
@@ -186,9 +186,13 @@ watchdog_max_age	=	500
 # default: 100
 server_max_keep_alive_requests	=	100
 
-# SOAP recv timeout value
+# SOAP recv timeout value (time between requests)
 # default: 5
 server_recv_timeout	=	5
+
+# SOAP read timeout value (time during requests)
+# default: 60
+server_read_timeout	=	60
 
 # SOAP send timeout value
 # default: 60
@@ -352,7 +356,7 @@ storename_format = %f
 #
 # Allowed variables:
 #  %u Username
-#  %c Teantname 
+#  %c Teantname
 #
 # default: %u
 loginname_format = %u
@@ -365,6 +369,12 @@ client_update_enabled = false
 # Windows clients to download through the Zarafa server
 client_update_path = /var/lib/zarafa/client
 
+# Recieve update information from the client (0 = disabled, 1 = only on error, 2 = log always)
+client_update_log_level = 1
+
+# Log location for the client auto update files
+client_update_log_path = /var/log/zarafa/autoupdate
+
 # Everyone is a special internal group, which contains every user and group
 # You may want to disable this group from the Global Addressbook by setting
 # this option to 'yes'. Administrators will still be able to see the group.
@@ -376,15 +386,15 @@ hide_everyone = no
 hide_system = no
 
 # Use Indexing service for faster searching.
-# Enabling this option requires the zarafa-indexer service to
+# Enabling this option requires the zarafa-search service to
 # be running.
 index_services_enabled = <% $indexer %>
 
-# Path to the zarafa-indexer service, this option is only required
+# Path to the zarafa-search service, this option is only required
 # if the server is going to make use of the indexing service.
-index_services_path = file:///var/run/zarafa-indexer
+index_services_path = file:///var/run/zarafa-search
 
-# Time (in seconds) to wait for a connection to the zarafa-indexer service
+# Time (in seconds) to wait for a connection to the zarafa-search service
 # before terminating the indexed search request.
 index_services_search_timeout = 10
 
@@ -392,13 +402,11 @@ index_services_search_timeout = 10
 # default: yes
 enable_enhanced_ics = yes
 
-# Synchronize GAB users on every open of the GAB (otherwise, only on 
+# Synchronize GAB users on every open of the GAB (otherwise, only on
 # zarafa-admin --sync)
 sync_gab_realtime = yes
 
-% if ($zarafa7) {
 # Disable features for users. Default all features are enabled. This
 # list is space separated. Currently valid values: imap
-disabled_features = 
+disabled_features =
 
-% }

@@ -55,7 +55,6 @@ sub new
     $self->{firewall} = EBox::Global->modInstance('firewall');
     $self->{objects} = EBox::Global->modInstance('objects');
     $self->{net} = EBox::Global->modInstance('network');
-    $self->{deny} = $self->{firewall}->denyAction;
 
     bless($self, $class);
     return $self;
@@ -415,36 +414,6 @@ sub _nospoof # (interface, \@addresses)
     return \@commands;
 }
 
-# Method: _localRedirects
-#
-#       Do effective local redirections. Done via
-#       <EBox::Firewall::addLocalRedirect> using NAT.
-#
-sub _localRedirects
-{
-    my $self = shift;
-    my $redirects = $self->{firewall}->localRedirects();
-    my @commands;
-    foreach my $redir (@{$redirects}) {
-        my $service = $redir->{service};
-        my $protocol = $self->{firewall}->serviceProtocol($service);
-        my $dport = $self->{firewall}->servicePort($service);
-        my $eport = $redir->{port};
-        my @ifaces = @{$self->{net}->InternalIfaces()};
-        foreach my $ifc (@ifaces) {
-            my $addr = $self->{net}->ifaceAddress($ifc);
-            $ifc = $self->{net}->realIface($ifc);
-            (defined($addr) && $addr ne "") or next;
-            push(@commands,
-                    pf("-t nat -A PREROUTING -i $ifc -p $protocol ".
-                        "! -d $addr --dport $eport " .
-                        "-j REDIRECT --to-ports $dport")
-                );
-        }
-    }
-    return \@commands;
-}
-
 # Method: stop
 #
 #       Stop iptables service, stop forwarding from kernel
@@ -592,23 +561,11 @@ sub start
 
     push(@commands, pf("-A ftoexternalonly -j fdrop"));
 
-    my $rules = $self->{firewall}->OutputRules();
-    foreach my $rule (@{$rules}) {
-        defined($rule) or next;
-        my $port = $rule->{port};
-        my $proto = $rule->{protocol};
-        push(@commands,
-                pf("-A ointernal $statenew -p $proto --dport $port -j ACCEPT")
-            );
-    }
-
     push(@commands, @{$self->_fglobal()});
 
     push(@commands, @{$self->_ffwdrules()});
 
     push(@commands, @{$self->_oglobal()});
-
-    push(@commands, @{$self->_localRedirects()});
 
     push(@commands, @{_startIPForward()});
 

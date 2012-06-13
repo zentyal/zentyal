@@ -29,8 +29,7 @@ use EBox::Exceptions::InvalidType;
 #
 # Exceptions:
 sub new
-  {
-
+{
     my $class = shift;
     my %params = @_;
 
@@ -38,9 +37,7 @@ sub new
 
     bless( $self, $class );
     return $self;
-
-  }
-
+}
 
 # Method: tableModel
 #
@@ -61,11 +58,9 @@ sub new
 #      does NOT exist
 #
 sub tableModel # (id)
-  {
-
+{
     throw EBox::Exceptions::NotImplemented();
-
-  }
+}
 
 # Method: selectOptions
 #
@@ -79,11 +74,9 @@ sub tableModel # (id)
 #                - printableId - the table's printable identifier
 #
 sub selectOptions
-  {
-
+{
     throw EBox::Exceptions::NotImplemented();
-
-  }
+}
 
 # Method: multiTable
 #
@@ -94,18 +87,16 @@ sub selectOptions
 #      hash ref with the table description
 #
 sub multiTable
-  {
-
+{
     my ($self) = @_;
 
     # It's a singleton method
-    unless( defined( $self->{multiTable} ) ){
-      $self->{multiTable} = $self->_multiTable();
+    unless (defined ($self->{multiTable})) {
+        $self->{multiTable} = $self->_multiTable();
     }
 
     return $self->{multiTable};
-
-  }
+}
 
 # Method: _multiTable
 #
@@ -114,14 +105,12 @@ sub multiTable
 #
 # Returns:
 #
-# 	table description. See example on
-# 	<EBox::TrafficShaping::Model::RuleDataMultiTable::_multiTable>.
+#	table description. See example on
+#	<EBox::TrafficShaping::Model::RuleDataMultiTable::_multiTable>.
 #
 sub _multiTable
 {
-
-  throw EBox::Exceptions::NotImplemented();
-
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: selectedTableNotify
@@ -134,9 +123,9 @@ sub _multiTable
 #      table - <EBox::Model::DataTable>
 #
 sub selectedTableNotify
-  {
+{
 
-  }
+}
 
 # Method: action
 #
@@ -155,21 +144,18 @@ sub selectedTableNotify
 #      <EBox::Exceptions::DataNotFound> - throw if there is no action
 #
 sub action # (action)
-  {
-
+{
     my ($self, $action) = @_;
 
     my $actions_ref = $self->multiTable()->{actions};
 
-    if ( exists ($actions_ref->{$action}) ){
-      return $actions_ref->{$action};
+    if (exists ($actions_ref->{$action})){
+        return $actions_ref->{$action};
+    } else {
+        throw EBox::Exceptions::DataNotFound( data => __('Action'),
+                value => $action);
     }
-    else {
-      throw EBox::Exceptions::DataNotFound( data => __('Action'),
-					    value => $action);
-    }
-
-  }
+}
 
 # Method: printableName
 #
@@ -180,13 +166,11 @@ sub action # (action)
 #      String - the printable name
 #
 sub printableName
-  {
-
+{
     my ($self) = @_;
 
     return $self->multiTable()->{printableName};
-
-  }
+}
 
 # Method: helpMessage
 #
@@ -197,13 +181,11 @@ sub printableName
 #      String - the help message
 #
 sub helpMessage
-  {
-
+{
     my ($self) = @_;
 
     return $self->multiTable()->{help};
-
-  }
+}
 
 # Method: optionMessage
 #
@@ -214,13 +196,11 @@ sub helpMessage
 #      String - the option message
 #
 sub optionMessage
-  {
-
+{
     my ($self) = @_;
 
     return $self->multiTable()->{optionMessage};
-
-  }
+}
 
 ###
 # Private helper methods
@@ -228,16 +208,14 @@ sub optionMessage
 
 # Check all models
 sub _checkModels
-  {
-
+{
     my ($self) = @_;
 
     foreach my $model (@{$self->{tables}}) {
-      if ( not $model->isa('EBox::Model::DataTable') ) {
-	throw EBox::Exception::InvalidType( 'model', 'EBox::Model::DataTable' );
-      }
+        if (not $model->isa('EBox::Model::DataTable')) {
+            throw EBox::Exception::InvalidType( 'model', 'EBox::Model::DataTable' );
+        }
     }
-
-  }
+}
 
 1;

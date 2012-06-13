@@ -28,7 +28,7 @@ use warnings;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::RemoteServices::Alerts;
 use EBox::Gettext;
 
@@ -66,12 +66,7 @@ sub configured
 
     my ($self) = @_;
 
-#     my $eBoxSubscribed = EBox::Model::ModelManager->instance()
-#       ->model('Subscription')->eBoxSubscribed();
-
-#     return $eBoxSubscribed;
     return 1;
-
 }
 
 
@@ -83,9 +78,7 @@ sub configured
 #
 sub ConfigurationMethod
 {
-
     return 'link';
-
 }
 
 # Method: ConfigureURL

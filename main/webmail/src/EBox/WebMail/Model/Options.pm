@@ -66,9 +66,7 @@ __('Virtual host where the webmail will be installed. This will disable the defa
                       pageTitle          => __('Webmail'),
                       modelDomain        => 'WebMail',
                       defaultActions     => [ 'editField', 'changeView' ],
-                      notifyActions      => [ 'VHostTable' ],
                       tableDescription   => \@tableDesc,
-
                      };
 
     return $dataForm;

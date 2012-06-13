@@ -36,7 +36,6 @@ use constant ADD_NEW_MODAL_VALUE => '_addNew';
 
 sub new
 {
-
     my $class = shift;
     my %opts = @_;
 
@@ -153,7 +152,6 @@ sub options
     }
 
     return $self->{'options'};
-
 }
 
 # Method: printableValue
@@ -176,7 +174,6 @@ sub printableValue
             return $option->{'printableValue'};
         }
     }
-
 }
 
 # Method: value
@@ -216,7 +213,6 @@ sub foreignModel
     return undef unless (defined($foreignModel));
     my $model = &$foreignModel($self);
     return $model;
-
 }
 
 
@@ -313,44 +309,6 @@ sub isValueSet
 
 # Group: Protected methods
 
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    if ( defined ( $self->memValue() )) {
-        $gconfmod->set("$key/" . $self->fieldName(), $self->memValue());
-    } else {
-        $gconfmod->unset("$key/" . $self->fieldName());
-    }
-
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Basic::_restoreFromHash>
-#
-#   We need to use get instead of get_string as basic type does
-sub _restoreFromHash
-{
-    my ($self, $hash) = @_;
-    return unless ($self->row());
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        $value =  $gconf->get($self->_path() . '/' . $self->fieldName());
-        $self->_addToCache($value);
-    }
-    $self->{'value'} = $value;
-}
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -408,7 +366,6 @@ sub _paramIsSet
     my $param =  $params->{$self->fieldName()};
 
     return defined ( $params->{$self->fieldName()} );
-
 }
 
 # Method: _setValue
@@ -444,7 +401,6 @@ sub _setValue
     $params = { $self->fieldName() => $mappedValue };
 
     $self->setMemValue($params);
-
 }
 
 # Group: Private helper functions
@@ -506,7 +462,6 @@ sub _filterOptions
     }
 
     return \@filteredOptions;
-
 }
 
 1;

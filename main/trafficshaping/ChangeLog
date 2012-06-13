@@ -1,4 +1,7 @@
 HEAD
+	+ Separate rules in internal (download) and external (upload)
+	+ Use regular models instead of a dynamic select composite
+	+ Adapted to new Model management framework
 	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
 	+ Fixed duplicate rows in interfaces rates page
 2.3.1

@@ -24,25 +24,18 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::LogObserver
-            );
+use base qw(EBox::Module::Service EBox::LogObserver
+            EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
 
 use strict;
 use warnings;
 
-use EBox::Common::Model::EnableForm;
 use EBox::Config;
 use EBox::Event;
-use EBox::Events::Model::GeneralComposite;
-use EBox::Events::Model::ConfigureEventDataTable;
-use EBox::Events::Model::ConfigureDispatcherDataTable;
-use EBox::Events::Model::Report::EventsDetails;
-use EBox::Events::Model::Report::EventsGraph;
-use EBox::Events::Model::Report::EventsReportOptions;
-use EBox::Events::Composite::Report::EventsReport;
+use EBox::Events::Model::EventsDetails;
+use EBox::Events::Model::EventsGraph;
+use EBox::Events::Model::EventsReportOptions;
+use EBox::Events::Composite::EventsReport;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -103,28 +96,12 @@ sub _daemons
     return [ { 'name' => SERVICE } ];
 }
 
-# Method: _setConf
-#
-#   Regenerate the configuration for the events
-#
-# Overrides:
-#
-#       <EBox::Module::Base::_setConf>
-#
-sub _setConf
-{
-    my ($self) = @_;
-
-    $self->_enableComponents();
-
-}
-
 sub _enforceServiceState
 {
     my ($self) = @_;
 
     # Check for admin dumbness, it can throw an exception
-    if ($self->_adminDumbness()) {
+    if ($self->_nothingEnabled()) {
         $self->_stopService();
         return;
     }
@@ -161,50 +138,6 @@ sub menu
     $root->add($folder);
 }
 
-# Method: models
-#
-#       Return the models used by events eBox module
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::models>
-#
-sub models
-{
-    my ($self) = @_;
-
-    my @models = (
-            $self->configureEventModel(),
-            $self->configureDispatcherModel(),
-            $self->_enableForm(),
-
-            $self->reportDetailsModel(),
-            $self->reportGraphModel(),
-            $self->reportOptionsModel(),
-            );
-
-    push ( @models, @{$self->_obtainModelsByPrefix(CONF_DISPATCHER_MODEL_PREFIX)});
-    push ( @models, @{$self->_obtainModelsByPrefix(CONF_WATCHER_MODEL_PREFIX)});
-
-    return \@models;
-}
-
-# Method: actions
-#
-#       Override EBox::Module::Service::actions
-#
-sub actions
-{
-    return [
-        {
-         'action' => __('Initialize event dispatchers table'),
-         'reason' => __('Enable default log dispatcher'),
-         'module' => 'events'
-        }
-    ];
-}
-
-
 # Method: restoreDependencies
 #
 #   Override EBox::Module::Base::restoreDependencies
@@ -213,128 +146,33 @@ sub restoreDependencies
 {
     my @depends = ();
 
-    if ( EBox::Global->modExists('mail') )  {
+    if (EBox::Global->modExists('mail'))  {
         push(@depends, 'mail');
     }
 
     return \@depends;
 }
 
-
-# Method: enableActions
-#
-#       Override EBox::Module::Service::enableActions
-#
-sub enableActions
-{
-    my ($self) = @_;
-
-    # Workaround to call syncRows and enable the log
-    # dispatcher under /var/lib/zentyal/conf/events
-    $self->configureDispatcherModel()->ids();
-}
-
-# Method: _exposedMethods
+# Method: eventWatchers
 #
 # Overrides:
 #
-#       <EBox::Model::ModelProvider::_exposedMethods>
+#      <EBox::Events::WatcherProvider::eventWatchers>
 #
-sub _exposedMethods
+sub eventWatchers
 {
-    my %exposedMethods =
-      ( enableDispatcher => { action   => 'set',
-                              path     => [ 'ConfigureDispatcherDataTable' ],
-                              indexes  => [ 'eventDispatcher' ],
-                              selector => [ 'enabled' ],
-                            },
-        isEnabledDispatcher => { action   => 'get',
-                                path     => [ 'ConfigureDispatcherDataTable' ],
-                                indexes  => [ 'eventDispatcher' ],
-                                selector => [ 'enabled' ],
-                              },
-        enableWatcher    => { action   => 'set',
-                              path     => [ 'ConfigureEventDataTable' ],
-                              indexes  => [ 'eventWatcher' ],
-                              selector => [ 'enabled' ],
-                            },
-        isEnabledWatcher   => { action   => 'get',
-                               path     => [ 'ConfigureEventDataTable' ],
-                               indexes  => [ 'eventWatcher' ],
-                               selector => [ 'enabled' ],
-                             },
-      );
-
-    return \%exposedMethods;
-
+    return [ 'Log', 'DiskFreeSpace', 'RAID', 'Runit', 'Updates', 'State' ];
 }
 
-# Method: composites
-#
-#       Return the composites used by events eBox module
+# Method: eventDispatchers
 #
 # Overrides:
 #
-#       <EBox::Model::CompositeProvider::composites>
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
 #
-sub composites
+sub eventDispatchers
 {
-    my ($self) = @_;
-
-    return [
-        $self->_eventsComposite(),
-        $self->_reportComposite(),
-       ];
-}
-
-# Method: configureEventModel
-#
-#       Get the model for the configure events.
-#
-# Returns:
-#
-#       <EBox::Events::Model::ConfigureEventDataTable> - the
-#       configurated event model
-#
-sub configureEventModel
-{
-    my ( $self ) = @_;
-
-    # Check if it is already cached
-    unless ( exists $self->{configureEventModel} ) {
-        $self->{configureEventModel} =
-            new EBox::Events::Model::ConfigureEventDataTable(
-                    'gconfmodule' => $self,
-                    'directory'   => 'configureEventTable'
-                    );
-    }
-
-    return $self->{configureEventModel};
-}
-
-# Method: configureDispatcherModel
-#
-#       Get the model for the event dispatcher configuration
-#
-# Returns:
-#
-#       <EBox::Events::Model::ConfigureDispatcherDataTable> - the
-#       configurated dispatcher model
-#
-sub configureDispatcherModel
-{
-    my ( $self ) = @_;
-
-    # Check if it is already cached
-    unless ( exists $self->{configureDispatcherModel} ) {
-        $self->{configureDispatcherModel} =
-            new EBox::Events::Model::ConfigureDispatcherDataTable(
-                    gconfmodule => $self,
-                    directory   => 'configureDispatcherTable'
-                    );
-    }
-
-    return $self->{configureDispatcherModel};
+    return [ 'Log', 'RSS', 'Jabber' ];
 }
 
 sub reportDetailsModel
@@ -344,8 +182,8 @@ sub reportDetailsModel
     # Check if it is already cached
     unless ( exists $self->{EventsDetailsModel} ) {
         $self->{EventsDetailsModel} =
-            new EBox::Events::Model::Report::EventsDetails(
-                                              gconfmodule => $self,
+            new EBox::Events::Model::EventsDetails(
+                                              confmodule => $self,
                                               directory   => 'EventsDetails'
                                              );
     }
@@ -360,8 +198,8 @@ sub reportGraphModel
     # Check if it is already cached
     unless ( exists $self->{EventsGraphModel} ) {
         $self->{EventsGraphModel} =
-            new EBox::Events::Model::Report::EventsGraph(
-                                              gconfmodule => $self,
+            new EBox::Events::Model::EventsGraph(
+                                              confmodule => $self,
                                               directory   => 'EventsGraph'
                                              );
     }
@@ -378,8 +216,8 @@ sub reportOptionsModel
     # Check if it is already cached
     unless ( exists $self->{EventsOptionModel} ) {
         $self->{EventsOptionModel} =
-            new EBox::Events::Model::Report::EventsReportOptions(
-                                              gconfmodule => $self,
+            new EBox::Events::Model::EventsReportOptions(
+                                              confmodule => $self,
                                               directory   => 'EventsReportOptions'
                                              );
     }
@@ -400,6 +238,32 @@ sub isRunning
     my ($self) = @_;
     return $self->isEnabled();
 }
+
+sub enableDispatcher
+{
+    my ($self, $dispatcher, $enabled) = @_;
+    $self->model('ConfigureDispatchers')->enableDispatcher($dispatcher, $enabled);
+}
+
+sub isEnabledDispatcher
+{
+    my ($self, $dispatcher) = @_;
+    $self->model('ConfigureDispatchers')->enableDispatcher($dispatcher);
+}
+
+
+sub enableWatcher
+{
+    my ($self, $watcher, $enabled) = @_;
+    $self->model('ConfigureWatchers')->enableWatcher($watcher, $enabled);
+}
+
+sub isEnabledWatcher
+{
+    my ($self, $watcher) = @_;
+    $self->model('ConfigureWatchers')->enableWatcher($watcher);
+}
+
 
 # Method: sendEvent
 #
@@ -490,26 +354,25 @@ sub sendEvent
 
 # Check either if at least one watcher and one dispatcher are enabled or the
 # logs are enabled
-sub _adminDumbness
+sub _nothingEnabled
 {
     my ($self) = @_;
 
-    # XXX TODO
     if ($self->_logIsEnabled()) {
         return undef;
     }
 
-    my $eventModel = $self->configureEventModel();
-    my $dispatcherModel = $self->configureDispatcherModel();
+    my $eventModel = $self->model('ConfigureWatchers');
+    my $dispatcherModel = $self->model('ConfigureDispatchers');
 
-    my $match = $eventModel->find( enabled => 1);
-    unless ( defined ( $match )) {
+    my $match = $eventModel->find(enabled => 1);
+    unless (defined ($match)) {
         EBox::warn('No event watchers have been enabled');
         return 1;
     }
 
-    $match = $dispatcherModel->find( enabled => 1);
-    unless ( defined ( $match )) {
+    $match = $dispatcherModel->find(enabled => 1);
+    unless (defined ($match)) {
         EBox::warn('No event dispatchers have been enabled');
         return 1;
     }
@@ -526,159 +389,13 @@ sub _logIsEnabled
     my ($self) = @_;
 
     my $log = EBox::Global->modInstance('logs');
-    if (not $log->isEnabled()) {
+    unless ($log->isEnabled()) {
         return undef;
     }
 
-    my $configureLogTable = $log->model('ConfigureLogTable');
+    my $configureLogTable = $log->model('ConfigureLogs');
     my $enabledLogs = $configureLogTable->enabledLogs();
     return $enabledLogs->{events};
-}
-
-
-# Create the symlinks to enable/disable watchers and dispatchers
-sub _enableComponents
-{
-    my ($self) = @_;
-
-    my @dirs = ( ENABLED_WATCHERS_DIR, ENABLED_DISPATCHERS_DIR );
-
-    # Firstly, remove everything
-    foreach my $dir (@dirs) {
-        opendir(my $dh, $dir);
-        while( my $file  = readdir($dh) ) {
-            next unless ( -l "${dir}/$file" );
-            unlink( "$dir/$file" );
-        }
-    }
-
-    my $ids = $self->configureEventModel()->enabledRows();
-    my $watchers = [];
-    foreach my $id ( @{$ids} ) {
-        push(@{$watchers}, $self->configureEventModel()->row($id)->valueByName('eventWatcher'));
-    }
-    my $dispatchers = [];
-    foreach my $id ( @{$self->configureDispatcherModel()->enabledRows()} ) {
-        push(@{$dispatchers}, $self->configureDispatcherModel()->row($id)->valueByName('eventDispatcher'));
-    }
-
-    my %enabledComponents = ($dirs[0] => $watchers,
-                             $dirs[1] => $dispatchers);
-
-    while ( my ($dir, $comps) = each(%enabledComponents) ) {
-        foreach my $comp (@{$comps}) {
-            # Transform :: to /
-            $comp =~ s/::/\//g;
-            my $filePath = EBox::Config::perlPath() . $comp . '.pm';
-            # Get the class final name
-            ($comp) = $comp =~ m:^.*/(.*)$:g;
-            my $dest = "$dir$comp.pm";
-            next if ( -l $dest );
-            symlink ( $filePath, $dest )
-              or throw EBox::Exceptions::Internal("Cannot copy from $filePath to $dir");
-        }
-    }
-
-}
-
-# Given a prefix it returns the configurationmodels within this
-# prefix in the eBox installed perl class directory.
-# Return an array ref containing the found models
-sub _obtainModelsByPrefix # (prefix)
-{
-    my ( $self, $prefix ) = @_;
-
-    my @models = ();
-
-    # The search is done by iterating through the directory where
-    # the event dispatcher configuration model should be stored as
-    # its hierarchy indicates
-
-    my $prefixDir = $prefix;
-    $prefixDir =~ s/::/\//g;
-    my $dirPath = EBox::Config::perlPath() . $prefixDir;
-
-    opendir ( my $dir, $dirPath );
-
-    while ( defined ( my $file = readdir ( $dir ))) {
-        next unless ( -f "$dirPath/$file");
-        next unless ( $file =~ m/.*\.pm/ );
-        my ($fileName) =  ( $file =~ m/(.*)\.pm/);
-
-        # Now with the prefix
-        my $className = $prefix . $fileName;
-
-        # Test loading the class
-        eval "use $className";
-        if ( $@ ) {
-            EBox::warn("Error loading class: $className");
-            next;
-        }
-
-        # It should be a model
-        next unless ( $className->isa('EBox::Model::DataTable'));
-
-        try {
-            my $model = $className->new(
-                    gconfmodule => $self,
-                    directory   => $fileName,
-                    );
-            push ( @models, $model);
-            # If there are submodels, created them as well
-            if ( $model->can('subModels') ) {
-                push( @models, @{$model->subModels()});
-            }
-        } catch EBox::Exceptions::Base with {
-            # XXX LogFilter is failing continously but we can recover
-            #     comment this out to not  write useless info to the log
-            # EBox::warn("model $className cannot be instantiated");
-        };
-    }
-
-    closedir ( $dir );
-
-    return \@models;
-}
-
-# Instantiate an enabled form in order to enable/disable the events
-# module
-sub _enableForm
-{
-    my ($self) = @_;
-
-    unless ( exists $self->{enableForm}) {
-        $self->{enableForm} = new EBox::Common::Model::EnableForm(
-                gconfmodule => $self,
-                directory   => 'EnableForm',
-                enableTitle => __('Event service status'),
-                modelDomain => 'Events',
-                );
-    }
-
-    return $self->{enableForm};
-}
-
-# Instantiate the events composite in order to manage events module
-sub _eventsComposite
-{
-    my ($self) = @_;
-
-    unless ( exists $self->{eventsComposite}) {
-        $self->{eventsComposite} = new EBox::Events::Model::GeneralComposite();
-    }
-
-    return $self->{eventsComposite};
-}
-
-sub _reportComposite
-{
-    my ($self) = @_;
-
-    unless ( exists $self->{reportComposite}) {
-        $self->{reportComposite} = new EBox::Events::Composite::Report::EventsReport( );
-      }
-
-    return $self->{reportComposite};
 }
 
 sub enableLog
@@ -749,7 +466,7 @@ sub _consolidateTable
                             },
     };
 
-    return {  $table => $spec };
+    return { $table => $spec };
 }
 
 

@@ -52,7 +52,7 @@ sub setUpConfiguration : Test(setup)
 		  '/ebox/modules/mailfilter/file_filter/holder' => 1,
 		  );
 
-    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Module::Config::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('mailfilter' => 'EBox::MailFilter');
 
     EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
@@ -61,7 +61,7 @@ sub setUpConfiguration : Test(setup)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Config::TestStub::setConfig();
 }
 
 

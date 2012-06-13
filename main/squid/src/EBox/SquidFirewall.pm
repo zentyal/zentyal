@@ -25,8 +25,6 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-
-
 sub new
 {
     my $class = shift;
@@ -36,15 +34,12 @@ sub new
     return $self;
 }
 
-
 sub _objectsPolicies
 {
     my $sq = EBox::Global->modInstance('squid');
     my $objPolicy = $sq->model('ObjectPolicy');
     return $objPolicy->objectsPolicies();
 }
-
-
 
 sub _normal_prerouting
 {
@@ -81,7 +76,6 @@ sub _normal_prerouting
 
     return \@rules;
 }
-
 
 sub _normal_prerouting_object_rules
 {
@@ -155,7 +149,6 @@ sub _trans_prerouting
     return \@rules;
 }
 
-
 sub _normal_trans_prerouting_object_rules
 {
     my ($self, $obPolicy, $ifc, $addr) = @_;
@@ -184,13 +177,13 @@ sub _normal_trans_prerouting_object_rules
         }
     }
 
-
     return \@rules;
 }
 
 sub prerouting
 {
     my ($self) = @_;
+
     my $sq = EBox::Global->modInstance('squid');
     if ($sq->transproxy()) {
         return $self->_trans_prerouting();
@@ -202,6 +195,7 @@ sub prerouting
 sub input
 {
     my ($self) = @_;
+
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
@@ -231,7 +225,6 @@ sub input
     return \@rules;
 }
 
-
 sub _input_object_rules
 {
     my ($self, $obPolicy, $ifc, $addr) = @_;
@@ -244,7 +237,6 @@ sub _input_object_rules
 
     my @rules;
 
-
     if (not $obPolicy->{filter}) {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
             my $r = "-m state --state NEW $input -s $client ".
@@ -255,8 +247,7 @@ sub _input_object_rules
                 "-p tcp --dport $dgport -j DROP";
             push @rules, $r;
         }
-    }
-    else {
+    } else {
         foreach my $client ( @{ $obPolicy->{addresses}  } ) {
             my $r = "-m state --state NEW $input -s $client ".
                 "-p tcp --dport $dgport -j ACCEPT";
@@ -268,11 +259,8 @@ sub _input_object_rules
         }
     }
 
-
     return \@rules;
 }
-
-
 
 sub output
 {

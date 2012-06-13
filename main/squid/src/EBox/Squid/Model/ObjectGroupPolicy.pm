@@ -12,11 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Squid::Model::ObjectGroupPolicy;
+
 use base 'EBox::Squid::Model::GroupPolicyBase';
+
 # Class:
 #
 #    EBox::Squid::Model::ObjectGroupPolicy
@@ -56,10 +59,7 @@ sub new
 
     bless $self, $class;
     return $self;
-
 }
-
-
 
 # Method: _table
 #
@@ -68,39 +68,26 @@ sub _table
 {
     my ($self) = @_;
 
-  my $dataTable =
-  {
-      tableName          => name(),
-#      pageTitle          => __(q{Configure object's user groups policies}),
-      printableTableName => __('List of groups'),
-      modelDomain        => 'Squid',
-      'defaultController' => '/Squid/Controller/ObjectGroupPolicy',
-      'defaultActions' => [
-          'add', 'del',
-      'editField',
-      'changeView',
-      'move',
-          ],
-      tableDescription   => $self->tableHeader(),
-      class              => 'dataTable',
-      order              => 1,
-      rowUnique          => 1,
-      automaticRemove    => 1,
-      printableRowName   => __("group's policy"),
-      help               => __("Here you can deny or allow access depending on the user group. Filtering would occur if the object policy requires it"),
-      messages           => {
-          add => __(q{Added group's policy}),
-          del =>  __(q{Removed group's policy}),
-          update => __(q{Updated group's policy}),
-      },
-  };
-
+    my $dataTable = {
+        tableName          => name(),
+        printableTableName => __('List of groups'),
+        modelDomain        => 'Squid',
+        defaultController  => '/Squid/Controller/ObjectGroupPolicy',
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
+        tableDescription   => $self->tableHeader(),
+        class              => 'dataTable',
+        order              => 1,
+        rowUnique          => 1,
+        automaticRemove    => 1,
+        printableRowName   => __("group's policy"),
+        help               => __("Here you can deny or allow access depending on the user group. Filtering would occur if the object policy requires it"),
+        messages           => {
+            add => __(q{Added group's policy}),
+            del =>  __(q{Removed group's policy}),
+            update => __(q{Updated group's policy}),
+        },
+    };
 }
-
-
-
-
-
 
 sub name
 {
@@ -109,70 +96,55 @@ sub name
 
 sub validateTypedRow
 {
-  my ($self, $action, $params_r, $actual_r) = @_;
-  $self->_checkTransProxy($params_r, $actual_r);
-  $self->_checkObjectPolicy();
+    my ($self, $action, $params_r, $actual_r) = @_;
+    $self->_checkTransProxy($params_r, $actual_r);
+    $self->_checkObjectPolicy();
 }
-
 
 sub _checkTransProxy
 {
-  my ($self, $params_r, $actual_r) = @_;
+    my ($self, $params_r, $actual_r) = @_;
 
-  my $squid = EBox::Global->modInstance('squid');
-  if (not $squid->transproxy()) {
-    return;
-  }
+    my $squid = EBox::Global->modInstance('squid');
+    if (not $squid->transproxy()) {
+        return;
+    }
 
-  if ($self->existsGroupPolicy()) {
-    throw EBox::Exceptions::External(
-       __('User group policies are not compatible with transparent proxy mode')
-                                    );
-  }
+    if ($self->existsGroupPolicy()) {
+        throw EBox::Exceptions::External(
+                __('User group policies are not compatible with transparent proxy mode')
+        );
+    }
 }
-
 
 sub _checkObjectPolicy
 {
     my ($self) = @_;
 
-
     my $row = $self->parentRow();
     EBox::debug("ObjectGroupPolicy parentRow $row");
-
 
     my $policy = $row->elementByName('policy');
     if (not $policy->usesAuth()) {
         throw EBox::Exceptions::External(
-  __('The object needs to be set to a policy with authorization in order to to use group policies')
-                                        );
+                __('The object needs to be set to a policy with authorization in order to to use group policies')
+        );
     }
 }
-
-
-
-
 
 sub pageTitle
 {
     my ($self) = @_;
     my $parentRow = $self->parentRow();
     my $objectPrintableName = $parentRow->elementByName('object')->printableValue();
-    my $title = __x(
-            'Configure object {ob} user groups policies',
-                    ob => $objectPrintableName,
-                   );
-
+    my $title = __x('Configure object {ob} user groups policies', ob => $objectPrintableName);
 
     return $title;
 }
 
-
 sub _timePeriodHelp
 {
-    return
-  __('Time period when the access is allowed. It is ignored if the group has a deny policy, time constraints of parent object are always ignored');
+    return __('Time period when the access is allowed. It is ignored if the group has a deny policy, time constraints of parent object are always ignored');
 }
 
 1;
-

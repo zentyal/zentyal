@@ -31,27 +31,6 @@ use EBox::Global;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Constructor for the general remote services composite
-#
-# Returns:
-#
-#       <EBox::RemoteServices::Composite::General> - the general composite
-#
-sub new
-{
-
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -64,19 +43,13 @@ sub _description
 {
     my $printableName = __('Zentyal Cloud');
 
-    my $description =
-      {
-          components      => [
-              'Subscription',
-              'SubscriptionInfos',
-              # 'AccessSettings',
-             ],
+    my $description = {
           layout          => 'top-bottom',
           name            => 'General',
           compositeDomain => 'RemoteServices',
           printableName   => $printableName,
           pageTitle       => $printableName,
-        };
+    };
 
     my $rs = EBox::Global->modInstance('remoteservices');
     unless ( $rs->eBoxSubscribed() ) {
@@ -85,7 +58,6 @@ sub _description
     }
 
     return $description;
-
 }
 
 # Group: Private methods

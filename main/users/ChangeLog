@@ -1,4 +1,8 @@
 HEAD
+	+ Delete obsolete daemons and attributes regarding old replication
+	+ Better error control in _loadACLDirectory
+	+ Adapted to new Model management framework
+	+ Adapted Password type to new framework
 	+ Added NTP as enable dependency
 2.3.9
 	+ Heimdal Kerberos integration for SSO features

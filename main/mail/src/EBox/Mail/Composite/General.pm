@@ -31,28 +31,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
-#
-sub new
-  {
-
-      my ($class, @params) = @_;
-
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
-
 # Group: Protected methods
 
 # Method: _description
@@ -62,25 +40,16 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+       layout          => 'tabbed',
+       name            =>  __PACKAGE__->nameFromClass,
+       printableName   => __('Mail server options'),
+       pageTitle       => __('Mail server'),
+       compositeDomain => 'Mail',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'ServiceConfiguration',
-                             'mail/ObjectPolicy',
-                             'ExternalFilter',
-                            ],
-         layout          => 'tabbed',
-         name            =>  __PACKAGE__->nameFromClass,
-         printableName   => __('Mail server options'),
-         pageTitle       => __('Mail server'),
-         compositeDomain => 'Mail',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

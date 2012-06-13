@@ -1,6 +1,5 @@
 <%args>
     $always_send_delegates
-    $zarafa7
 </%args>
 ##############################################################
 # SPOOLER SETTINGS
@@ -12,10 +11,10 @@ smtp_server	=	localhost
 server_socket	=	file:///var/run/zarafa
 
 # drop privileges and run the process as this user
-run_as_user = 
+run_as_user =
 
 # drop privileges and run the process as this group
-run_as_group = 
+run_as_group =
 
 # create a pid file for stopping the service via the init.d scripts
 pid_file = /var/run/zarafa-spooler.pid
@@ -41,7 +40,7 @@ log_timestamp	=	1
 
 ##############################################################
 # SPOOLER SSL LOGIN SETTINGS
-# 
+#
 # Note: server_socket must be set to https://servername:portname/zarafa
 #       to use this type of login method
 
@@ -100,12 +99,10 @@ allow_delegate_meeting_request = yes
 # iCalendar (calendar.ics attachment).
 always_send_tnef = no
 
-% if ($zarafa7) {
 # Send all e-mail always using the UTF-8 charset.
 # Normally, the requested charset is used, which can be any charset.
 always_send_utf8 = no
 
-% }
 ##############################################################
 # SPOOLER GROUP EXPANSION
 

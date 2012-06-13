@@ -172,7 +172,7 @@ sub _newServerConfiguration
     my ($self) = @_;
 
     return EBox::OpenVPN::Model::ServerConfiguration->new(
-                      gconfmodule => $self->{openvpnModInstance},
+                      confmodule => $self->{openvpnModInstance},
                       directory   => 'ServerConfiguration'
                                                          );
 

@@ -40,7 +40,7 @@ sub setUpConfiguration : Test(setup)
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Config::TestStub::setConfig();
 }
 
 sub _moduleInstantiationTest : Test

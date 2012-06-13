@@ -1214,7 +1214,7 @@ sub _configureModules
         my $module = EBox::Global->modInstance($name);
         $module->setInstalled();
         $module->setConfigured(1);
-        $mgr->updateModuleDigests($name);
+        #$mgr->updateModuleDigests($name);
 
         try {
             $module->enableActions();
@@ -1230,7 +1230,7 @@ sub _configureModules
             warning($msg, noBlocking => 1);
         };
 
-        $mgr->updateModuleDigests($name); # in ConfigureModuleController this is
+        #$mgr->updateModuleDigests($name); # in ConfigureModuleController this is
             # call bef and after the enableActions
         print "Finished configuring $name\n"; # DDDD
     }

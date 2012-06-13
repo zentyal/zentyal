@@ -29,13 +29,13 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::DomainName;
 use EBox::Types::HasMany;
 use EBox::Types::HostIP;
 use EBox::Sudo;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 use Net::IP;
 
@@ -150,7 +150,7 @@ sub removeRow
 
     if ( $force and $self->table()->{automaticRemove} ) {
         # Trying to remove the pointed elements first
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         $manager->removeRowsUsingId($self->contextName(), $id);
     }
     return $self->SUPER::removeRow($id, $force);
@@ -317,7 +317,7 @@ sub _addToDelete
 {
     my ($self, $domain) = @_;
 
-    my $mod = $self->{gconfmodule};
+    my $mod = $self->{confmodule};
     my $key = $mod->deletedRRsKey();
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
