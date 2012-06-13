@@ -1,0 +1,182 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled => undef
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& SELF:setter,
+    tableName   => $tableName,
+    data        => $data,
+    cssClass    => $cssClass,
+    disabled    => $disabled
+&>
+
+<%method setter>
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled => undef
+</%args>
+<%init>
+my $driverTable = $data->driverTable();
+my $id = $tableName . '_' . $data->fieldName();
+my $manufacturerValue = $data->manufacturer();
+my $modelValue = $data->upsmodel();
+my $driverValue = $data->driver();
+my $aux = undef;
+</%init>
+<span id="<% $id %>" class="<% $cssClass %>">
+    <select name=<% $id . '_manufacturer' %>
+            id=<% $id . '_manufacturer' %>
+            onChange='manufacturerChanged(this)'
+% unless ( $data->editable() ) {
+            disabled='disabled'
+% }
+    >
+%   foreach my $key (sort keys %{$driverTable}) {
+        <option
+%   if ($key eq $manufacturerValue) {
+            selected
+%   }
+            value="<% $key %>"><% $key %></option>
+%   }
+    </select>
+    <select name=<% $id . '_model' %>
+            id=<% $id . '_model' %>
+            onChange='modelChanged(this)'
+% unless ( $data->editable() ) {
+            disabled='disabled'
+% }
+    >
+% my @sortedModels = sort { lc $a->{model} cmp lc $b->{model} } @{$driverTable->{$manufacturerValue}};
+% foreach my $entry (@sortedModels) {
+        <option
+%   if ($entry->{model} eq $modelValue) {
+%       $aux = $entry;
+        selected
+%   }
+        value="<% $entry->{model} %>"><% $entry->{model} %></option>
+% }
+    </select>
+    <select name=<% $id . '_driver' %>
+            id=<% $id . '_driver' %>
+% unless ( $data->editable() ) {
+            disabled='disabled'
+% }
+    >
+% if (defined $aux) {
+%   foreach my $driver (@{$aux->{driver}}) {
+          <option
+%     if ($driver eq $driverValue) {
+          selected
+%     }
+          value="<% $driver %>"><% $driver %></option>
+%   }
+% }
+    </select>
+    <div id="extrainfo" style="margin: 10px">
+        <b>Model extra information:</b> <span id="<% $id . '_modelextra' %>" name="<% $id . '_modelextra' %>"></span><br/>
+        <b>Driver comments:</b> <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"></span><br/>
+    </div>
+<script type="text/javascript">
+    var manufacturerselect = document.getElementById( "<% $id . '_manufacturer' %>" );
+    var modelselect = document.getElementById( "<% $id . '_model' %>" );
+    var driverselect = document.getElementById( "<% $id . '_driver' %>" );
+
+	var a = new Array();
+    var index = 0;
+
+    // Fill this struct
+    //  a = [
+    //          "APC" : [
+    //                     0 :  [
+    //                              "model"  :  "AP79xx"
+    //                              "driver" :  [
+    //                                             0 : "apcsmart"
+    //                                             1 : "otherdriver"
+    //                                         ]
+    //                              "extra"  : ""
+    //                              "comments" : ""
+    //                         ]
+    //                     1 : [
+    //                              "model"  :  "Back-UPS Pro"
+    //                              "driver" :  [
+    //                                             0 : "usbhid"
+    //                                         ]
+    //                              "extra"  : ""
+    //                              "comments" : ""
+    //                         ]
+    //                     ...
+    //                  ]
+    //          ...
+    //      ];
+
+%	foreach my $manufacturer (sort keys %{$driverTable}) {
+		a["<% $manufacturer %>"] = new Array();
+%       my @sortedModels =  sort { lc $a->{model} cmp lc $b->{model} } @{$driverTable->{$manufacturer}};
+%		foreach my $entry (@sortedModels) {
+            l = a["<% $manufacturer %>"].length;
+			a["<% $manufacturer %>"][l] = new Array();
+			a["<% $manufacturer %>"][l]["model"]       = "<% $entry->{model} %>";
+            a["<% $manufacturer %>"][l]["modelextra"]  = "<% $entry->{modelExtra} %>";
+            a["<% $manufacturer %>"][l]["driverextra"] = "<% $entry->{driverComments} %>";
+            a["<% $manufacturer %>"][l]["driver"]      = new Array();
+%           foreach my $driver (sort (@{$entry->{driver}})) {
+                a["<% $manufacturer %>"][l]["driver"][index++] = "<% $driver %>";
+%           }
+            index = 0;
+%		}
+%	}
+
+    manufacturerChanged = function(select) {
+		modelselect.options.length = 0;
+		manufacturer = manufacturerselect.value;
+        for (model in a[manufacturer]) {
+            if (a[manufacturer].hasOwnProperty(model)) {
+                var l = modelselect.options.length;
+                var m = a[manufacturer][model];
+                modelselect.options[l] = new Option(m["model"], model, false, false);
+            }
+		}
+        modelselect.selectedIndex = 0;
+        modelChanged(modelselect);
+	}
+
+    modelChanged = function(select) {
+        driverselect.options.length = 0;
+        manufacturer = manufacturerselect.value;
+        model = modelselect.value;
+        for (driver in a[manufacturer][model]["driver"]) {
+            if (a[manufacturer][model]["driver"].hasOwnProperty(driver)) {
+                var l = driverselect.options.length;
+                var d = a[manufacturer][model]["driver"][driver];
+                driverselect.options[length] = new Option(d, d, false, false);
+            }
+        }
+        updateExtra();
+    }
+
+    updateExtra = function() {
+        manufacturer = manufacturerselect.value;
+        model = modelselect.value;
+
+        var sec = document.getElementById("extrainfo");
+        var modelextra_info = a[manufacturer][model]["modelextra"];
+        var driverextra_info = a[manufacturer][model]["driverextra"];
+        if (modelextra_info != "" || driverextra_info != "") {
+            var modelextra = document.getElementById( "<% $id . '_modelextra' %>" );
+            var driverextra = document.getElementById( "<% $id . '_driverextra' %>" );
+            modelextra.innerHTML = modelextra_info;
+            driverextra.innerHTML = driverextra_info;
+            sec.style.visibility = 'visible';
+        } else {
+            sec.style.visibility = 'hidden';
+        }
+    }
+</script>
+</span>
+</%method>

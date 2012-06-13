@@ -18,9 +18,14 @@ package EBox::UPS::Model::Settings;
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataForm';
+use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
+use EBox::UPS::Types::DriverPicker;
+
+use File::Slurp;
+
+use constant DRIVER_LIST_FILE => '/usr/share/nut/driver.list';
 
 sub new
 {
@@ -35,20 +40,19 @@ sub new
 sub _table
 {
     my @tableDesc = (
-        new EBox::Types::Boolean(
-                fieldName => 'userHomes',
-                printableName => __('Personal directories'),
-                editable => 1,
-                defaultValue => 1,
-                #help => __('Enable authenticated FTP access to each user home directory.'),
-               ),
-        new EBox::Types::Boolean(
-                fieldName => 'chrootUsers',
-                printableName => __('Restrict to personal directories'),
-                editable => 1,
-                defaultValue => 1,
-                #help => __('Restrict access to each user home directory. Take into account that this restriction can be circumvented under some conditions.'),
-               ),
+        new EBox::Types::Text(
+            fieldName => 'label',
+            printableName => 'UPS label',
+            editable => 1,
+            unique => 1,
+        ),
+        new EBox::UPS::Types::DriverPicker(
+                fieldName => 'driver',
+                printableName => __('Driver'),
+                editable     => 1,
+                defaultValue => 'APC|||Back-UPS RS USB|||usbhid-ups',
+                help => __('The manufacturer of your UPS.'),
+        ),
     );
 
     my $dataForm = {
@@ -56,9 +60,9 @@ sub _table
         printableTableName => __('General configuration settings'),
         pageTitle          => __('UPS'),
         modelDomain        => 'UPS',
-        defaultActions     => [ 'editField', 'changeView' ],
+        defaultActions     => [ 'add', 'delete', 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
-        #help               => __(''),
+        help               => __('List of attached UPS'),
     };
 
     return $dataForm;
