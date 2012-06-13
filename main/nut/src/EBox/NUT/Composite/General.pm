@@ -22,21 +22,6 @@ use base qw ( EBox::Model::Composite );
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#   Constructor for composite
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -48,13 +33,11 @@ sub new
 sub _description
 {
     my $description = {
-        components      => [ 'nut/Settings' ],
         layout          => 'top-bottom',
         name            => 'General',
-        #pageTitle       => __('Foo'),
-        printableName   => __('UPS'),
+        pageTitle       => __('UPS'),
         compositeDomain => 'NUT',
-        #help            => __(''),
+        help            => __('FIXME'),
     };
 
     return $description;

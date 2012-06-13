@@ -1,5 +1,7 @@
 class: 'EBox::NUT'
 
-depends:
+models:
+    - Settings
 
-enabledepends:
+composites:
+    General: [Settings]

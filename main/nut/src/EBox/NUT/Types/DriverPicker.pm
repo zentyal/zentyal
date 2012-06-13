@@ -26,7 +26,7 @@ use EBox::Exceptions::MissingArgument;
 
 use Data::Dumper;
 use File::Slurp;
-use Text::CSV;
+use Text::CSV_XS;
 
 use constant DRIVER_LIST_FILE => '/usr/share/nut/driver.list';
 
@@ -69,15 +69,7 @@ sub printableValue
     EBox::debug('On printableValue');
     my ($self) = @_;
 
-    my $ret = "";
-
-    if ( defined ($self->{'manufacturer'}) and
-         defined ($self->{'upsmodel'}) and
-         defined ($self->{'driver'})) {
-        $ret = "$self->{'manufacturer'}|||$self->{'upsmodel'}|||$self->{'driver'}";
-    }
-
-    return $ret;
+    return $self->{'manufacturer'} . ' ' . $self->{'upsmodel'};
 }
 
 # Method: cmp
@@ -140,7 +132,7 @@ sub compareToHash
     my $oldDriver       = $self->{'driver'};
 
     my $manufacturer = $self->fieldName() . '_manufacturer';
-    my $model        = $self->fieldName() . '_model';
+    my $model        = $self->fieldName() . '_upsmodel';
     my $driver       = $self->fieldName() . '_driver';
 
     if (($oldManufacturer ne $hash->{$manufacturer}  ) or
@@ -152,26 +144,9 @@ sub compareToHash
     return 1;
 }
 
-# Method: fields
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::fields>
-#
-# Returns:
-#
-#   Array containing the fields
-#
-sub fields
+sub _attrs
 {
-    EBox::debug("On fields");
-    my ($self) = @_;
-
-    my $manufacturer = $self->fieldName() . '_manufacturer';
-    my $model        = $self->fieldName() . '_model';
-    my $driver       = $self->fieldName() . '_driver';
-
-    return ($manufacturer, $model, $driver);
+    return [ 'manufacturer', 'upsmodel', 'driver' ];
 }
 
 # Method: value
@@ -182,7 +157,7 @@ sub fields
 #
 # Returns:
 #
-#   Hash ref containing the values (manufacturer, model, $driver)
+#   Hash ref containing the values (manufacturer, upsmodel, $driver)
 #
 sub value
 {
@@ -237,86 +212,6 @@ sub driverTable
 
 # Group: Protected methods
 
-# Method: _setMemValue
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_setMemValue>
-#
-sub _setMemValue
-{
-    my ($self, $params) = @_;
-
-    EBox::debug("On _setMemValue:");
-    EBox::debug(Dumper($params));
-
-    my $manufacturer = $self->fieldName() . '_manufacturer';
-    my $model        = $self->fieldName() . '_model';
-    my $driver       = $self->fieldName() . '_driver';
-
-    $self->{'manufacturer'} = $params->{$manufacturer};
-    $self->{'upsmodel'}     = $params->{$model};
-    $self->{'driver'}       = $params->{$driver};
-    EBox::debug("$self->{manufacturer}, $self->{upsmodel}, $self->{driver}");
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    EBox::debug("On _storeInGConf");
-    my ($self, $gconfmod, $key) = @_;
-
-    my $manufacturerKey = "$key/" . $self->fieldName() . '_manufacturer';
-    my $modelKey        = "$key/" . $self->fieldName() . '_model';
-    my $driverKey       = "$key/" . $self->fieldName() . '_driver';
-
-    if ($self->{'manufacturer'} and $self->{'upsmodel'} and $self->{'driver'}) {
-        $gconfmod->set_string($manufacturerKey, $self->{'manufacturer'}  );
-        $gconfmod->set_string($modelKey, $self->{'upsmodel'});
-        $gconfmod->set_string($driverKey, $self->{'driver'});
-    } else {
-        $gconfmod->unset($manufacturerKey);
-        $gconfmod->unset($modelKey);
-        $gconfmod->unset($driverKey);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    EBox::debug("On _restoreFromHash");
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $manufacturer = $self->fieldName() . '_manufacturer';
-    my $model        = $self->fieldName() . '_model';
-    my $driver       = $self->fieldName() . '_driver';
-
-    my $value = {};
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{'manufacturer'} = $gconf->get_string($path . '/' . $manufacturer);
-        $value->{'upsmodel'}     = $gconf->get_string($path . '/' . $model);
-        $value->{'driver'}       = $gconf->get_string($path . '/' . $driver);
-        $self->_addToCache($value);
-    }
-
-    $self->{'manufacturer'} = $value->{'manufacturer'};
-    $self->{'upsmodel'}     = $value->{'upsmodel'};
-    $self->{'driver'}       = $value->{'driver'};
-}
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -331,28 +226,28 @@ sub _paramIsValid
     EBox::debug(Dumper($params));
 
     my $manufacturer = $self->fieldName() . '_manufacturer';
-    my $model        = $self->fieldName() . '_model';
+    my $upsmodel     = $self->fieldName() . '_upsmodel';
     my $driver       = $self->fieldName() . '_driver';
 
     my $manufacturerValue = $params->{$manufacturer};
-    my $modelValue        = $params->{$model};
+    my $upsmodelValue        = $params->{$upsmodel};
     my $driverValue       = $params->{$driver};
 
-    EBox::debug("$manufacturerValue, $modelValue, $driverValue");
+    EBox::debug("$manufacturerValue, $upsmodelValue, $driverValue");
 
     unless (defined ($driverTable)) {
         $driverTable = $self->_loadDriverTable();
     }
 
     my $manufacturerExists = 0;
-    my $modelExists = 0;
+    my $upsmodelExists = 0;
     my $driverExists = 0;
 
     if (exists $driverTable->{$manufacturerValue}) {
         $manufacturerExists = 1;
         foreach my $entry (@{$driverTable->{$manufacturerValue}}) {
-            if ($entry->{model} eq $modelValue) {
-                $modelExists = 1;
+            if ($entry->{model} eq $upsmodelValue) {
+                $upsmodelExists = 1;
                 foreach my $driver (@{$entry->{driver}}) {
                     if ($driver eq $driverValue) {
                         $driverExists = 1;
@@ -361,18 +256,18 @@ sub _paramIsValid
             }
         }
     }
-    EBox::debug("$manufacturerValue, $modelValue, $driverValue");
-    EBox::debug("$manufacturerExists, $modelExists, $driverExists");
+    EBox::debug("$manufacturerValue, $upsmodelValue, $driverValue");
+    EBox::debug("$manufacturerExists, $upsmodelExists, $driverExists");
     unless ($manufacturerExists) {
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $manufacturerValue,
             'advice' => __('This manufacturer does not exists.'));
     }
-    unless ($modelExists) {
+    unless ($upsmodelExists) {
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
-            'value'  => $modelValue,
+            'value'  => $upsmodelValue,
             'advice' => __('This model does not exists.'));
     }
     unless ($driverExists) {
@@ -419,7 +314,7 @@ sub _setValue
 
     my $params = {
         $self->fieldName() . '_manufacturer' => $manufacturer,
-        $self->fieldName() . '_model'        => $model,
+        $self->fieldName() . '_upsmodel'        => $model,
         $self->fieldName() . '_driver'       => $driver
     };
     EBox::debug(Dumper($params));
@@ -437,7 +332,7 @@ sub _loadDriverTable
     return $driverTable if (defined $driverTable);
 
     my $table = {};
-    my $csv = Text::CSV->new({sep_char => "\t"});
+    my $csv = Text::CSV_XS->new({sep_char => "\t"});
 
     my @lines = read_file(DRIVER_LIST_FILE);
     foreach my $line (@lines) {

@@ -18,9 +18,7 @@ package EBox::NUT;
 use strict;
 use warnings;
 
-use base qw( EBox::Module::Service
-             EBox::Model::ModelProvider
-             EBox::Model::CompositeProvider );
+use base qw(EBox::Module::Service);
 
 use EBox::Gettext;
 
@@ -53,39 +51,10 @@ sub menu
 
     my $item = new EBox::Menu::Item('url' => 'NUT/Composite/General',
                                     'text' => $self->printableName(),
-                                    'order' => 50);
+                                    'order' => 55);
     $folder->add($item);
     $root->add($folder);
 }
-
-# Method: modelClasses
-#
-#   Return the model classes used by the module.
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::NUT::Model::Settings'
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::NUT::Composite::General',
-    ];
-}
-
 
 # Method: initialSetup
 #

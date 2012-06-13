@@ -21,6 +21,7 @@ use warnings;
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
+use EBox::Types::Text;
 use EBox::NUT::Types::DriverPicker;
 
 use File::Slurp;
