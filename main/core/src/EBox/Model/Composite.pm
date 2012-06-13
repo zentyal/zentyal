@@ -30,9 +30,6 @@
 #      bottom in the given order
 #      - tabbed     - the components will be shown in a tab way
 #
-#      - select - the components will be shown in a select entry to
-#      choose which one is shown to be watched or edited
-#
 
 package EBox::Model::Composite;
 use base 'EBox::Model::Component';
@@ -57,7 +54,7 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 
 # Constants
-use constant LAYOUTS => qw(top-bottom tabbed select);
+use constant LAYOUTS => qw(top-bottom tabbed);
 
 # Group: Public methods
 
@@ -169,9 +166,6 @@ sub componentNames
 #      - top-bottom - the elements will be shown sequentially
 #
 #      - tabbed - every element will be shown in a tab
-#
-#      - select - the user selects which component is shown in a
-#      select entry
 #
 # Exceptions:
 #
@@ -401,25 +395,6 @@ sub permanentMessageType
     return $self->{permanentMessageType};
 }
 
-
-# Method: selectMessage
-#
-#     Get the string message shown when the must select one of the
-#     components given
-#
-#     Default value is 'Choose one of the following'
-#
-# Returns:
-#
-#     String - the i18ned string which contents the select message
-#
-sub selectMessage
-{
-    my ($self) = @_;
-
-    return $self->{selectMessage};
-}
-
 # Method: compositeDomain
 #
 #     Get the domain where the model is handled. That is, the eBox
@@ -556,11 +531,6 @@ sub Viewer
 #       how to use the composite content. *(Optional)* Default value:
 #       empty string
 #
-#       selectMessage - String the localisated select message to show
-#       when a user must choose one of the given components. Only
-#       applicable to select layaou. *(Optional)* Default value:
-#       'Choose one of the following'
-#
 #       actions - array ref containing hash ref whose elements has a
 #       String as a key which is the action name and the value is
 #       another String which represents the URL which takes the
@@ -617,7 +587,6 @@ sub _setDescription
     $self->{help} = '';
     $self->{permanentMessage} = '';
     $self->{permanentMessageType} = 'note';
-    $self->{selectMessage} = __('Choose one of the following:');
     $self->{compositeDomain} = delete ( $description->{compositeDomain} );
     $self->{menuNamespace} = delete ($description->{menuNamespace});
 
@@ -637,15 +606,6 @@ sub _setDescription
         if (exists ($description->{$property})) {
             $self->{$property} = delete ( $description->{$property} );
         }
-    }
-
-    if (exists ($description->{selectMessage})) {
-        ($self->{layout} eq 'select')
-            or throw EBox::Exceptions::Internal(
-                   'Cannot use selectMessage when layout is not of select type'
-                                               );
-
-        $self->{selectMessage} = delete ( $description->{selectMessage} );
     }
 
     $self->{actions} = $description->{actions};
