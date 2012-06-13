@@ -21,6 +21,7 @@ use EBox;
 use EBox::Config::Redis;
 use EBox::Sudo;
 use Error qw(:try);
+use JSON::XS;
 
 my ($pattern, $dir) = @ARGV;
 
@@ -37,6 +38,9 @@ my @keys = $redis->_keys($dir ? "$dir/*" : '*');
 
 foreach my $key (@keys) {
     my $value = $redis->get($key);
+    if (ref $value) {
+        $value = encode_json($value);
+    }
     if (($key =~ /$pattern/) or ($value =~ /$pattern/)) {
         print "$key: $value\n";
     }
