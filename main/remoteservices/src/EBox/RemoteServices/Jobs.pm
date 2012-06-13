@@ -18,9 +18,7 @@ use base qw(EBox::RemoteServices::Cred);
 
 # Class: EBox::RemoteServices::Jobs
 #
-#      This class sends job results to the Control Panel using the SOAP
-#      client through VPN. It already takes into account to establish
-#      the VPN connection and the required data to auth data
+#      This class sends job results to the Control Panel using the REST client
 #
 
 use strict;
@@ -69,12 +67,9 @@ sub new
 #
 sub jobResult
 {
-    my ($self, @wsParams) = @_;
+    my ($self, %wsParams) = @_;
 
-    # TODO: Job in new API
-    return;
-
-    $self->_transmitResult('jobResult', @wsParams);
+    $self->RESTClient()->POST("/v1/jobs/$wsParams{'jobId'}/result/", %wsParams);
 }
 
 # Method: cronJobResult
@@ -96,11 +91,9 @@ sub jobResult
 #
 sub cronJobResult
 {
-    my ($self, @wsParams) = @_;
+    my ($self, %wsParams) = @_;
 
-    # TODO: Job in new API
-    return;
-    $self->_transmitResult('cronJobResult', @wsParams);
+    $self->RESTClient()->POST("/v1/jobs/cron/$wsParams{'jobId'}/result/", %wsParams);
 }
 
 # Method: cronJobs
@@ -145,37 +138,6 @@ sub _serviceUrnKey
 sub _serviceHostNameKey
 {
     return 'managementProxy';
-}
-
-# Group: Private methods
-
-# Upload the job result separated in tracks if required
-sub _transmitResult
-{
-    my ($self, $type, @wsParams) = @_;
-
-    my %originalWSParams = @wsParams;
-    my $lengthStdOut = length($originalWSParams{stdout});
-    my $lengthStdErr = length($originalWSParams{stderr});
-    if ( $lengthStdOut > MAX_SIZE or $lengthStdErr > MAX_SIZE) {
-        my %wsParams = %originalWSParams;
-        my $startPos = 0;
-        $wsParams{stdout} = substr($wsParams{stdout}, $startPos, MAX_SIZE);
-        $wsParams{stderr} = substr($wsParams{stderr}, $startPos, MAX_SIZE);
-        my $jobResultId = $self->soapCall($type, %wsParams);
-        while ( $lengthStdOut > $startPos or $lengthStdErr > $startPos) {
-            $startPos += MAX_SIZE;
-            my $stdout = $startPos > $lengthStdOut ? '' : substr($originalWSParams{stdout}, $startPos, MAX_SIZE);
-            my $stderr = $startPos > $lengthStdErr ? '' : substr($originalWSParams{stderr}, $startPos, MAX_SIZE);
-            $self->soapCall('appendJobResult',
-                            jobInstanceResultId => $jobResultId,
-                            stdout => $stdout,
-                            stderr => $stderr);
-        }
-    } else {
-        $self->soapCall($type, @wsParams);
-    }
-
 }
 
 1;
