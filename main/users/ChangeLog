@@ -1,4 +1,5 @@
 HEAD
+	+ Delete obsolete daemons and attributes regarding old replication
 	+ Better error control in _loadACLDirectory
 	+ Adapted to new Model management framework
 	+ Adapted Password type to new framework

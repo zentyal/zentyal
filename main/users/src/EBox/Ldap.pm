@@ -307,8 +307,6 @@ sub ldapConf {
         'ldapi'  => LDAPI,
         'ldap'   => LDAP,
         'port' => 390,
-        'replicaport' => 1389,
-        'translucentport' => 1390,
         'rootdn' => $self->rootDn(),
     };
     return $conf;
