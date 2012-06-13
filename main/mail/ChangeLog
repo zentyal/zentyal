@@ -1,4 +1,7 @@
 HEAD
+	+ Implement new EBox::Events::DispatcherProvider
+	+ Adapted to new Model management framework
+	+ Always run postmap
 	+ Authenticated sender have to use a mail address which they own
 	+ Using old sieve directories as home mail directories
 	+ Enable GSSAPI/Kerberos authentication

@@ -8,3 +8,14 @@ depends:
 enabledepends:
     - network
     - firewall
+
+models:
+    - InternalRules
+    - ExternalRules
+    - InterfaceRate
+
+composites:
+    Rules: [InternalRules, ExternalRules]
+
+notifyactions:
+    RuleTable: InterfaceRate

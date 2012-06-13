@@ -18,12 +18,7 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::LdapModule
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            EBox::UserCorner::Provider
-            EBox::UsersAndGroups::SyncProvider);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::UserCorner::Provider EBox::UsersAndGroups::SyncProvider);
 
 use EBox::Global;
 use EBox::Util::Random;
@@ -631,41 +626,6 @@ sub _enforceServiceState
     # Clear LDAP connection
     $self->ldap->clearConn();
 }
-
-# Method: modelClasses
-#
-#       Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::UsersAndGroups::Model::Mode',
-        'EBox::UsersAndGroups::Model::Users',
-        'EBox::UsersAndGroups::Model::Groups',
-        'EBox::UsersAndGroups::Model::Password',
-        'EBox::UsersAndGroups::Model::LdapInfo',
-        'EBox::UsersAndGroups::Model::PAM',
-        'EBox::UsersAndGroups::Model::AccountSettings',
-        'EBox::UsersAndGroups::Model::OUs',
-        'EBox::UsersAndGroups::Model::Slaves',
-        'EBox::UsersAndGroups::Model::Master',
-        'EBox::UsersAndGroups::Model::SlavePassword',
-    ];
-}
-
-# Method: compositeClasses
-#
-#       Override <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::UsersAndGroups::Composite::Settings',
-        'EBox::UsersAndGroups::Composite::UserTemplate',
-        'EBox::UsersAndGroups::Composite::Sync',
-    ];
-}
-
 
 # Method: groupsDn
 #

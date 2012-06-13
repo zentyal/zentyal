@@ -158,7 +158,6 @@ sub _table
         'printableTableName' => __('Virtual mail domain'),
         'modelDomain' => 'Zarafa',
         'defaultActions' => [ 'editField', 'changeView' ],
-        'notifyActions' => [ 'VDomains' ],
         'tableDescription' => \@tableHead,
         'help' => __('Select the virtual mail domain to be used for Zarafa.'),
     };

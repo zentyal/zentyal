@@ -29,66 +29,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the interface configuration
-#
-#
-# Parameters:
-#
-#       interface - String the interface attached to do the
-#       configuration on the DHCP server
-#
-#       - Named parameters
-#
-# Returns:
-#
-#       <EBox::DHCP:::Model::InterfaceConfiguration> - a
-#       interface configuration composite
-#
-sub new
-{
-
-   my ($class, @params) = @_;
-
-   my $self = $class->SUPER::new(@params);
-
-   return $self;
-
-}
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::index>
-#
-sub index
-{
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::printableIndex>
-#
-sub printableIndex
-{
-    my ($self) = @_;
-
-    return __x('interface {iface}',
-               iface => $self->{interface});
-
-}
-
-
 # Group: Protected methods
 
 # Method: _description
@@ -99,38 +39,35 @@ sub printableIndex
 #
 sub _description
 {
-
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
-    my $dhcp = $gl->modInstance('dhcp');
-    my $net = $gl->modInstance('network');
-
-    my $helpMsg = '';
-    if ( $net->ifaceIsExternal($self->{interface})) {
-        $helpMsg = __x('In order to serve IP addresses on a external interface, '
-                       . 'you must open the service on {openhref}firewall module{closehref}',
-                       openhref => '<a href="/Firewall/View/ExternalToEBoxRuleTable">',
-                       closehref => '</a>');
-    }
-
-
-    my $description =
-      {
-       components      => [
-                           '/' . $dhcp->name() . '/OptionsTab/' . $self->{interface},
-                           '/' . $dhcp->name() . '/RangeInfo/' . $self->{interface},
-                           '/' . $dhcp->name() . '/RangeTable/' . $self->{interface},
-                           '/' . $dhcp->name() . '/FixedAddressTable/' . $self->{interface},
-                          ],
+    my $description = {
        layout          => 'top-bottom',
        name            => 'InterfaceConfiguration',
+       printableName   => __('DHCP Configuration'),
        compositeDomain => 'DHCP',
-       help            => $helpMsg,
+       help            => __('In order to serve IP addresses on an interface, '
+                            . 'it is required to set at least a range or a '
+                            . 'fixed address.'),
       };
 
     return $description;
+}
 
+sub HTMLTitle
+{
+    my ($self) = @_;
+
+    return ([
+             {
+              title => 'DHCP',
+              link  => '/DHCP/View/Interfaces',
+             },
+             {
+              title => $self->parentRow()->valueByName('iface'),
+              link => '',
+             },
+    ]);
 }
 
 1;

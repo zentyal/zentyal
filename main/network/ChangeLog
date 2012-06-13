@@ -1,4 +1,10 @@
 HEAD
+	+ ifaceExternalChanged() is now called when static or PPP interfaces
+	  changes from external to internal
+	+ Implement new EBox::Events::WatcherProvider
+	+ Remove no longer necessary ad-hoc vifacesConf cache
+	+ Adapted to new Model management framework
+	+ Reimplemented Ifaces/Vifaces/VLANs storage according to new conf backend
 	+ Added vnet to the ignored interfaces list
 2.3.7
 	+ Send additional info in Gateways watcher
@@ -19,6 +25,7 @@ HEAD
 	+ Remove no longer necessary mark rules when having several interfaces
 	+ Pre-create failover and check-ip chains on network start to always ensure
 	  that rules are inserted in the proper position
+	+ Remove obsolete import of EBox::Order
 	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
 2.3.6
 	+ Create tables with MyISAM engine by default

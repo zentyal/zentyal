@@ -31,7 +31,7 @@ use EBox::Event::Watcher::Base;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 # Dependencies
 use POSIX;

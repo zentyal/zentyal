@@ -56,21 +56,14 @@ sub _description
 {
     my $samba = EBox::Global->modInstance('samba');
 
-    my $description =
-        {
-            components      => [
-                                'samba/GeneralSettings',
-#                                'PDC',
-                                'SambaShares',
-#                                'RecycleBin',
-                               ],
-            layout          => 'tabbed',
-            name            =>  __PACKAGE__->nameFromClass,
-            pageTitle       => __('File Sharing'),
-            printableName   => __('File sharing options'),
-            compositeDomain => 'Samba',
-           help            => __(''),
-        };
+    my $description = {
+       layout          => 'tabbed',
+       name            =>  __PACKAGE__->nameFromClass,
+       pageTitle       => __('File Sharing'),
+       printableName   => __('File sharing options'),
+       compositeDomain => 'Samba',
+       help            => __('FIXME HELP'),
+    };
 
 #    if ($samba->isAntivirusPresent()) {
 #        push(@{$description->{'components'}}, 'samba/Antivirus');

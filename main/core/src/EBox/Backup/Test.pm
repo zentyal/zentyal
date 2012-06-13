@@ -166,7 +166,7 @@ sub setupMixedConfCanary
 			  canary => sub { my ($self) = @_; return $self->{canary} },
 			  dumpConfig => sub {
 			    my ($self, $dir, %options) = @_;
-			    EBox::GConfModule::_dump_to_file($self, $dir);
+			    EBox::Module::Config::_dump_to_file($self, $dir);
 			    if ($options{bug}) {
 			      write_file ("$dir/canary", BUG_BACKUP_VALUE );
 			    }
@@ -177,7 +177,7 @@ sub setupMixedConfCanary
 			  },
 			  restoreConfig => sub {
 			    my ($self, $dir) = @_;
-			    EBox::GConfModule::_load_from_file($self, $dir);
+			    EBox::Module::Config::_load_from_file($self, $dir);
 			    my $backedUpData =  read_file ("$dir/canary" );
 			    $self->setCanary($backedUpData);
 			  },

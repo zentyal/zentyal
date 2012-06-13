@@ -23,26 +23,6 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#      Constructor for the RemoteGeneral composite
-#
-# Returns:
-#
-#      <EBox::EBackup::Composite::RemoteGeneral> - the recently created model
-#
-sub new
-{
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
-
 # Group: Protected methods
 
 # Method: _description
@@ -55,12 +35,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                               'ebackup/RemoteGeneral',
-                               'ebackup/RemoteFileList',
-                               'ebackup/ServicesRestore',
-                               'ebackup/RemoteExcludes',
-                           ],
         layout          => 'tabbed',
         name            => __PACKAGE__->nameFromClass,
         pageTitle       => __('Backup'),

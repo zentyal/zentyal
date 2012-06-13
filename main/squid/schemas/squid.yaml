@@ -7,3 +7,55 @@ depends:
 enabledepends:
     - firewall
     - users
+
+models:
+    - GeneralSettings
+    - ContentFilterThreshold
+    - ExtensionFilter
+    - ApplyAllowToAllExtensions
+    - MIMEFilter
+    - ApplyAllowToAllMIME
+    - DomainFilterSettings
+    - DomainFilter
+    - DomainFilterFiles
+    - DomainFilterCategories
+    - GlobalGroupPolicy
+    - ObjectPolicy
+    - ObjectGroupPolicy
+    - NoCacheDomains
+    - FilterGroup
+    - FilterGroupContentFilterThreshold
+    - UseDefaultExtensionFilter
+    - FilterGroupExtensionFilter
+    - FilterGroupApplyAllowToAllExtensions
+    - UseDefaultMIMEFilter
+    - FilterGroupMIMEFilter
+    - FilterGroupApplyAllowToAllMIME
+    - UseDefaultDomainFilter
+    - FilterGroupDomainFilter
+    - FilterGroupDomainFilterFiles
+    - FilterGroupDomainFilterCategories
+    - FilterGroupDomainFilterSettings
+    - DefaultAntiVirus
+    - FilterGroupAntiVirus
+    - DelayPools1
+    - DelayPools2
+    - RequestsGraph
+    - TrafficSizeGraph
+    - TrafficDetails
+    - TrafficReportOptions
+
+composites:
+    General: [FIXME]
+    FilterTabs: [FIXME]
+    FilterSettings: [FIXME]
+    Extensions: [FIXME]
+    MIME: [FIXME]
+    Domains: [FIXME]
+    FilterGroupTabs: [FIXME]
+    FilterGroupSettings: [FIXME]
+    FilterGroupExtensions: [FIXME]
+    FilterGroupMIME: [FIXME]
+    FilterGroupDomains: [FIXME]
+    DelayPools: [FIXME]
+    TrafficReport: [FIXME]

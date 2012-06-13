@@ -21,12 +21,10 @@ package EBox::RemoteServices;
 #      services offered
 #
 use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
             EBox::NetworkObserver
-            EBox::FirewallObserver
+            EBox::Events::DispatcherProvider
             EBox::Desktop::ServiceProvider
-           );
+            EBox::FirewallObserver);
 
 use strict;
 use warnings;
@@ -243,6 +241,17 @@ sub wizardPages
     return [{ page => '/RemoteServices/Wizard/Subscription', order => 10000 }];
 }
 
+# Method: eventDispatchers
+#
+# Overrides:
+#
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
+#
+sub eventDispatchers
+{
+    return [ 'ControlCenter' ];
+}
+
 # Group: Public methods
 
 # Method: addModuleStatus
@@ -310,50 +319,6 @@ sub menu
         'text' => __('Disaster Recovery'),
        ));
     $root->add($folder);
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-
-    my ($self) = @_;
-
-    return [
-        'EBox::RemoteServices::Model::AccessSettings',
-        'EBox::RemoteServices::Model::AdvancedSecurityUpdates',
-        'EBox::RemoteServices::Model::AlertsInfo',
-        'EBox::RemoteServices::Model::DisasterRecovery',
-        'EBox::RemoteServices::Model::QAUpdatesInfo',
-        'EBox::RemoteServices::Model::RemoteSupportAccess',
-        'EBox::RemoteServices::Model::ReportsInfo',
-        'EBox::RemoteServices::Model::Subscription',
-        'EBox::RemoteServices::Model::SubscriptionInfo',
-        'EBox::RemoteServices::Model::TechnicalInfo',
-        'EBox::RemoteServices::Model::VPNConnectivityCheck',
-       ];
-
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    my ($self) = @_;
-
-    return [
-        'EBox::RemoteServices::Composite::General',
-        'EBox::RemoteServices::Composite::SubscriptionInfos',
-        'EBox::RemoteServices::Composite::Technical',
-            ];
 }
 
 # Method: widgets
@@ -947,7 +912,9 @@ sub backupCredentials
 {
     my ($self, %args) = @_;
 
-    if ( $args{force} or not $self->st_entry_exists('disaster_recovery/username')  ) {
+    my $state = $self->get_state();
+
+    if ($args{force} or not exists $state->{disaster_recovery}->{username}) {
         my $cred;
         if ( $self->isConnected() ) {
             my $disRecAgent = new EBox::RemoteServices::DisasterRecovery();
@@ -967,18 +934,20 @@ sub backupCredentials
                );
             $cred = $disRecAgent->credentials(commonName => $args{commonName});
         }
-        if ( defined($cred->{username}) ) {
-            $self->st_set_string('disaster_recovery/username', $cred->{username});
-            $self->st_set_string('disaster_recovery/password', $cred->{password});
-            $self->st_set_string('disaster_recovery/server',   $cred->{server});
-            $self->st_set_int('disaster_recovery/quota', $cred->{quota});
+        if (defined($cred->{username})) {
+            $state->{disaster_recovery}->{username} = $cred->{username};
+            $state->{disaster_recovery}->{password} = $cred->{password};
+            $state->{disaster_recovery}->{server} = $cred->{server};
+            $state->{disaster_recovery}->{quota} = $cred->{quota};
+            $self->set_state($state);
         } else {
-            $self->st_delete_dir('disaster_recovery');
+            $state->{disaster_recovery} = {};
+            $self->set_state($state);
             return {};
         }
     }
 
-    return $self->st_hash_from_dir('disaster_recovery');
+    return $state->{disaster_recovery};
 }
 
 # Method: serverList
@@ -1770,17 +1739,20 @@ sub _getSubscriptionDetails
         }
         my $cap = new EBox::RemoteServices::Capabilities();
         my $details = $cap->subscriptionDetails();
-        # Use st_set_dir?
-        $self->st_set_int('subscription/level', $details->{level});
-        $self->st_set_string('subscription/codename', $details->{codename});
-        $self->st_set_int('subscription/technical_support', $details->{technical_support});
-        $self->st_set_int('subscription/renovation_date', $details->{renovation_date});
-        $self->st_set_bool('subscription/security_updates', $details->{security_updates});
-        $self->st_set_bool('subscription/disaster_recovery', $details->{disaster_recovery});
+
+        my $state = $self->get_state();
+        $state->{subscription} = {
+            level => $details->{level},
+            codename => $details->{codename},
+            technical_support => $details->{technical_support},
+            renovation_date => $details->{renovation_date},
+            security_updates => $details->{security_updates},
+            disaster_recovery => $details->{disaster_recovery}
+        };
+        $self->set_state($state);
     }
-    # FIXME?
-    my $details = $self->st_hash_from_dir('subscription');
-    return $details;
+
+    return $state->{subscription};
 }
 
 # Get the latest backup date
@@ -1874,6 +1846,9 @@ sub _statusKeysAndValuesString
 {
     my ($self) = @_;
     my $stringConf;
+
+    # FIXME: reimplement this
+    return '';
 
     my $type = 'string';
     my @dirsToLook = ('');

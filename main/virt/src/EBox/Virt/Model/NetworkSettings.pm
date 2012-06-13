@@ -34,33 +34,7 @@ use EBox::Types::MACAddr;
 
 use constant MAX_IFACES => 8;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Create the new NetworkSettings model.
-#
-# Overrides:
-#
-#       <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#       <EBox::Virt::Model::NetworkSettings> - the recently created model.
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Group: Private methods
-
 
 sub _populateIfaceTypes
 {
@@ -197,7 +171,7 @@ sub validateTypedRow
         my $iface = exists $changedFields->{iface} ?
             $changedFields->{iface}->value() : $allFields->{iface}->value();
         if ($iface eq 'none') {
-            if (not $self->{gconfmodule}->allowsNoneIface()) {
+            if (not $self->{confmodule}->allowsNoneIface()) {
                 throw EBox::Exceptions::External(
                     __("'None' interface is not allowed in your virtual machine backend")
                    );
@@ -213,10 +187,6 @@ sub validateTypedRow
 sub viewCustomizer
 {
     my ($self) = @_;
-
-    # XXX workaround for the bug of parentComposite with viewCustomizer
-    my $composite  = $self->{gconfmodule}->composite('VMSettings');
-    $self->setParentComposite($composite);
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
@@ -273,7 +243,7 @@ sub freeIface
     }
 
     if ($rowId) {
-        if ($self->{gconfmodule}->allowsNoneIface()) {
+        if ($self->{confmodule}->allowsNoneIface()) {
             my $row = $self->row($rowId);
             my $iface = $row->elementByName('iface');
             $iface->setValue('none');

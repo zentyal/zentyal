@@ -18,9 +18,7 @@ package EBox::Logs;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
-            EBox::Report::DiskUsageProvider);
+use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -154,37 +152,6 @@ sub cleanup
 {
     my ($self) = @_;
     $self->SUPER::revokeConfig();
-}
-
-#       Module API
-sub modelClasses
-{
-    return [
-            {
-             class => 'EBox::Logs::Model::ConfigureLogDataTable',
-             parameters => [
-                            directory => 'configureLogTable',
-                           ],
-            },
-            {
-             class => 'EBox::Logs::Model::ForcePurge',
-             parameters => [
-                            directory => 'forcePurge',
-                           ],
-            },
-            {
-             class => 'EBox::Logs::Model::SelectLog',
-            },
-           ];
-}
-
-
-sub compositeClasses
-{
-    return [
-            'EBox::Logs::Composite::General',
-            'EBox::Logs::Composite::ConfigureLog',
-           ];
 }
 
 # Method: allEnabledLogHelpers
@@ -484,15 +451,25 @@ sub search
         $self->_addDateFilter($timecol, $to, '<');
     }
     if ($filters and %{$filters}) {
-        foreach my $field (keys %{$filters}) {
+        while (my ($field, $filterValue) = each %{$filters}) {
+            $field or next;
+            $filterValue or next;
+
             unless (exists $tableinfo->{'titles'}->{$field}) {
                            throw  EBox::Exceptions::Internal(
                            "Field $field does not appear in tableinfo's titles field");
                         }
+
+
             if ($field eq 'event') {
-                $self->_addFilter($field, $filters->{$field});
+                $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
             } else {
-                $self->_addRegExp($field, $filters->{$field});
+                my $type = exists $tableinfo->{types}->{$field} ?
+                                  $tableinfo->{types}->{$field} : undef;
+                if ($type) {
+                    $field = EBox::Util::SQLTypes::stringifier($type, $field);
+                }
+                $self->{'sqlselect'}->{'regexp'}->{$field} = $filterValue;
             }
         }
     }
@@ -619,15 +596,6 @@ sub yesterdayDate
 }
 
 
-
-sub _addRegExp
-{
-    my ($self, $field, $regexp) = @_;
-    return unless (defined($field) and defined($regexp)
-                   and length($regexp) > 0);
-    $self->{'sqlselect'}->{'regexp'}->{$field} = $regexp;
-}
-
 sub _addFilter
 {
     my ($self, $field, $filter) = @_;
@@ -635,6 +603,7 @@ sub _addFilter
                    and length($filter) > 0);
     $self->{'sqlselect'}->{'filter'}->{$field} = $filter;
 }
+
 
 sub _addDateFilter
 {
@@ -694,11 +663,13 @@ sub _sqlStmnt
 
     if ($sql->{'regexp'}) {
         foreach my $field (keys %{$sql->{'regexp'}}) {
-            $stmt .= "$and CAST($field as CHAR CHARACTER SET utf8) LIKE ? ";
+            $stmt .= "$and CAST($field as CHAR CHARACTER SET utf8) REGEXP ? ";
             $and = 'AND';
             push @params, $sql->{'regexp'}->{$field};
         }
     }
+
+
     if ($sql->{'filter'}) {
         foreach my $field (keys %{$sql->{'filter'}}) {
             $stmt .= "$and $field = ? ";
@@ -723,8 +694,6 @@ sub _sqlStmnt
 
     return $stmt, @params;
 }
-
-# Implement GConfModule interface
 
 # Method: menu
 #
@@ -763,7 +732,7 @@ sub _saveEnabledLogsModules
 {
     my ($self) = @_;
 
-    my $enabledLogs = $self->model('ConfigureLogTable')->enabledLogs();
+    my $enabledLogs = $self->model('ConfigureLogs')->enabledLogs();
 
     unless (-d ENABLED_LOG_CONF_DIR) {
         mkdir (ENABLED_LOG_CONF_DIR);
@@ -879,7 +848,7 @@ sub forcePurge
 #
 #      Purge every table used to log data in eBox with the threshold
 #      lifetime defined by 'lifetime' field in
-#      <EBox::Logs::Model::ConfigureLogDataTable> model
+#      <EBox::Logs::Model::ConfigureLogs> model
 #
 #     This method is called by a cron job.
 #
@@ -890,41 +859,37 @@ sub forcePurge
 #
 sub purge
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $now = time();
-  my %thresholdByModule = ();
+    my $now = time();
+    my %thresholdByModule = ();
 
-  # get the threshold date for each domain
+    # get the threshold date for each domain
+    my $model = $self->model('ConfigureLogs');
+    foreach my $id (@{$model->ids()}) {
+        my $row_r = $model->row($id);
+        my $lifeTime = $row_r->valueByName('lifeTime');
 
-  foreach my $id ( @{ $self->model('ConfigureLogTable')->ids() } ) {
-    my $row_r = $self->model('ConfigureLogTable')->row($id);
-    my $lifeTime = $row_r->valueByName('lifeTime');
+        # if lifeTime == 0, it should never expire
+        $lifeTime or
+            next;
 
-    # if lifeTime == 0, it should never expire
-    $lifeTime or
-      next;
+        my $threshold = $self->_thresholdDate($lifeTime, $now);
+        $thresholdByModule{$row_r->valueByName('domain')} = $threshold;
+    }
 
-    my $threshold = $self->_thresholdDate($lifeTime, $now);
-    $thresholdByModule{$row_r->valueByName('domain')} = $threshold;
-  }
+    # purge each module
+    while (my ($modName, $threshold) = each %thresholdByModule) {
+        my $mod = EBox::Global->modInstance($modName);
+        my @logTables = @{ $self->getModTableInfos($mod) };
 
-  # purge each module
+        foreach my $table (@logTables) {
+            my $dbTable = $table->{tablename};
+            my $timeCol = 'timestamp';
 
-
-  while (my ($modName, $threshold) = each %thresholdByModule) {
-      my $mod = EBox::Global->modInstance($modName);
-      my @logTables = @{ $self->getModTableInfos($mod) };
-
-      foreach my $table (@logTables) {
-          my $dbTable = $table->{tablename};
-          my $timeCol = 'timestamp';
-
-          $self->_purgeTable($dbTable, $timeCol, $threshold);
-      }
-
-
-  }
+            $self->_purgeTable($dbTable, $timeCol, $threshold);
+        }
+    }
 }
 
 

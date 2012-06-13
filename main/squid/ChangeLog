@@ -1,4 +1,7 @@
 HEAD
+	+ Adapted to new Model management framework
+	+ Use new _keys() which takes cache into account instead of _redis_call()
+	+ Adapted TimePeriod type to the changes in the types framework
 	+ Kerberized authentication
 	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
 2.3.5

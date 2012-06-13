@@ -1,4 +1,16 @@
 class: 'EBox::WebMail'
+
 enabledepends:
     - mail
     - webserver
+
+models:
+    - Options
+    - OperationMode
+    - RemoteServerConfiguration
+
+composites:
+    Backend: [webmail/OperationMode, webmail/RemoteServerConfiguration]
+
+notifyactions:
+    Options: VHostTable

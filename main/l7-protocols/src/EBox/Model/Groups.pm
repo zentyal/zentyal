@@ -32,13 +32,13 @@ use base 'EBox::Model::DataTable';
 
 sub new
 {
-        my $class = shift;
-        my %parms = @_;
+    my $class = shift;
+    my %parms = @_;
 
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
+    my $self = $class->SUPER::new(@_);
+    bless($self, $class);
 
-        return $self;
+    return $self;
 }
 
 sub _table
@@ -59,7 +59,6 @@ sub _table
             'foreignModel' => 'GroupProtocols',
             'view' => '/L7-Protocols/View/GroupProtocols',
         )
-
     );
 
     my $dataTable =

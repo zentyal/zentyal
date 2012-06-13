@@ -27,6 +27,7 @@ use Error qw(:try);
 
 use EBox::Gettext;
 use EBox::Types::Password;
+use EBox::Types::Action;
 
 use base 'EBox::Model::DataForm';
 

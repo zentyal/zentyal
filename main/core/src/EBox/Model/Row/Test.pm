@@ -168,7 +168,7 @@ sub parentRowTest : Test(3)
 
     is $row->parentRow(), undef,
     'checking that calling parentRow when the model has not parent returns undef';
-    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+    my $confmodule = EBox::Global->modInstance('fakeModule');
 
     my $parentDirectory = '/ebox/modules/fakeModule/Parent';
     my $rowWithChildId     = 'ParentRow';
@@ -178,7 +178,7 @@ sub parentRowTest : Test(3)
 
     my $parentModel =  Test::MockObject::Extends->new(
                                EBox::Model::DataTable->new(
-                                                 gconfmodule => $gconfmodule,
+                                                 confmodule => $confmodule,
                                                  directory   => $parentDirectory,
                                                  domain      => 'domain',
                                                  )
@@ -200,12 +200,12 @@ sub parentRowTest : Test(3)
 
 
     my $childModel = EBox::Model::DataTable->new(
-                                                 gconfmodule => $gconfmodule,
+                                                 confmodule => $confmodule,
                                                  directory   => $parentDirectory,
                                                  domain      => 'domain',
                                                  );
     $row = EBox::Model::Row->new(
-                                 gconfmodule => $gconfmodule,
+                                 confmodule => $confmodule,
                                  dir         => $rowDirectory
                                 );
 
@@ -230,9 +230,9 @@ sub subModelTest : Test(3)
     my $row= $self->_newRow();
     $self->_populateRow($row);
 
-    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+    my $confmodule = EBox::Global->modInstance('fakeModule');
     my $subModelObject = EBox::Model::DataTable->new(
-                                                 gconfmodule => $gconfmodule,
+                                                 confmodule => $confmodule,
                                                  directory   => 'Submodel',
                                                  domain      => 'domain',
                                                 );
@@ -438,14 +438,14 @@ sub _populateRow
 
 sub _newRow
 {
-    my $gconfmodule = EBox::Global->modInstance('fakeModule');
+    my $confmodule = EBox::Global->modInstance('fakeModule');
 
     my $dataTableDir = 'DataTable';
     my $rowDir = "$dataTableDir/Row";
 
     my $row = EBox::Model::Row->new(
 
-                                 gconfmodule => $gconfmodule,
+                                 confmodule => $confmodule,
                                  dir         => $rowDir,
                                 );
 
@@ -453,7 +453,7 @@ sub _newRow
 
 
     my $dataTable  = EBox::Model::DataTable->new(
-                                                 gconfmodule => $gconfmodule,
+                                                 confmodule => $confmodule,
                                                  directory   => $dataTableDir,
                                                  domain      => 'domain',
                                                 );

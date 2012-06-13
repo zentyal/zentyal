@@ -39,9 +39,9 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
               loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
-            if ( 'errorMsg' in response.statevars ) {
+            if ('errorMsg' in response) {
                 $('warning-progress-messages').update(
-                    response.statevars.errorMsg);
+                    response.errorMsg);
 
                 $('done').removeClassName('note');
                 $('done').addClassName('warning');
@@ -60,9 +60,9 @@ function updatePage (xmlHttp, nextStepTimeout, nextStepUrl) {
             Element.hide('progressing');
             Element.show('error-progress');
             pe.stop();
-            if ( 'errorMsg' in response.statevars ) {
+            if ('errorMsg' in response) {
                 $('error-progress-message').update(
-                    response.statevars.errorMsg);
+                    response.errorMsg);
             }
         }
     }

@@ -33,26 +33,6 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
-# Returns:
-#
-#       <EBox::Squid::Model::GeneralComposite> - a
-#       general events composite
-#
-sub new
-  {
-
-      my ($class, @params) = @_;
-
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
-
 # Method: pageTitle
 #
 # Overrides:
@@ -73,23 +53,15 @@ sub pageTitle
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+       layout          => 'top-bottom',
+       name            => __PACKAGE__->nameFromClass(),
+       printableName   => __('Mail server options'),
+       compositeDomain => 'Mail',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'SMTPOptions',
-                             'RetrievalServices',
-                            ],
-         layout          => 'top-bottom',
-         name            => __PACKAGE__->nameFromClass(),
-         printableName   => __('Mail server options'),
-         compositeDomain => 'Mail',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

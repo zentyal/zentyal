@@ -30,29 +30,27 @@ use Error qw(:try);
 use JSON;
 
 ## arguments:
-##	title [required]
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('Upgrading'),
-				      'template' => 'none',
-				      @_);
-	bless($self, $class);
-	return $self;
+##  title [required]
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title'    => __('Upgrading'),
+                                  'template' => 'none',
+                                  @_);
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
+sub _process
+{
+    my ($self) = @_;
 
-	$self->{params} = [];
+    $self->{params} = [];
 }
 
-sub _menu {
-    print "Step 2";
-    return;
-}
-
-sub _print($) {
-    my $self = shift;
+sub _print
+{
+    my ($self) = @_;
 
     my $progressId = $self->param('progress');
     my $progress = EBox::ProgressIndicator->retrieve($progressId);

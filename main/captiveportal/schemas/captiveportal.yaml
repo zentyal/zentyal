@@ -10,3 +10,16 @@ enabledepends:
     - firewall
     - users
 
+models:
+    - Interfaces
+    - Settings
+    - BWSettings
+    - Users
+    - CaptiveUser
+    - SecondaryLDAP
+
+composites:
+    GeneralSettings: [Settings, BWSettings, Interfaces]
+    General: []
+
+# NOTE: General composite components are dynamic in componentNames()

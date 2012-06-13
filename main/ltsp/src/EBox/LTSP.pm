@@ -19,9 +19,7 @@
 
 package EBox::LTSP;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service);
 
 use strict;
 use warnings;
@@ -88,44 +86,6 @@ sub initialSetup
         );
         $fw->saveConfigRecursive();
     }
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::LTSP::Model::AvailableImages',
-        'EBox::LTSP::Model::LocalApps',
-        'EBox::LTSP::Model::GeneralOpts',
-        'EBox::LTSP::Model::Clients',
-        'EBox::LTSP::Model::Profiles',
-        'EBox::LTSP::Model::OtherClientOpts',
-        'EBox::LTSP::Model::OtherOpts',
-        'EBox::LTSP::Model::GeneralClientOpts',
-        'EBox::LTSP::Model::ImageCreation',
-        'EBox::LTSP::Model::AutoLogin',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::LTSP::Composite::Composite',
-        'EBox::LTSP::Composite::ClientImages',
-        'EBox::LTSP::Composite::ClientConfiguration',
-        'EBox::LTSP::Composite::Configuration',
-    ];
 }
 
 sub architectures
@@ -382,8 +342,8 @@ sub _getGlobalOptions
 {
     my ($self) = @_;
 
-    my $model_general = $self->model('ltsp/GeneralOpts');
-    my $model_other   = $self->model('ltsp/OtherOpts');
+    my $model_general = $self->model('GeneralOpts');
+    my $model_other   = $self->model('OtherOpts');
 
     my $general = $self->_getGeneralOptions($model_general);
     my $other   = $self->_getOtherOptions($model_other);
@@ -464,7 +424,7 @@ sub _getClientsOptions
 
     my %clients;
 
-    my $client_list = $self->model('ltsp/Clients');
+    my $client_list = $self->model('Clients');
 
     my $global  = EBox::Global->getInstance();
     my $objMod = $global->modInstance('objects');
@@ -495,7 +455,7 @@ sub _getProfilesOptions
     my @profiles;
     my %clients;
 
-    my $profile_list = $self->model('ltsp/Profiles');
+    my $profile_list = $self->model('Profiles');
 
     for my $id (@{$profile_list->ids()}) {
         my $row = $profile_list->row($id);
@@ -532,7 +492,7 @@ sub _addAutoLoginConf
 {
     my ($self,$clients) = @_;
 
-    my $autologin_list = $self->model('ltsp/AutoLogin');
+    my $autologin_list = $self->model('AutoLogin');
 
     for my $id (@{$autologin_list->ids()}) {
         my $row = $autologin_list->row($id);

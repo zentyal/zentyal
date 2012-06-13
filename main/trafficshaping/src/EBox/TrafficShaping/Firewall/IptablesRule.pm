@@ -30,7 +30,7 @@ package EBox::TrafficShaping::Firewall::IptablesRule;
 use warnings;
 use strict;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw( any );

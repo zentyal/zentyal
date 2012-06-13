@@ -89,7 +89,7 @@ sub viewCustomizer
 {
         my ($self) = @_;
 
-        my $manager = EBox::Model::ModelManager->instance();
+        my $manager = EBox::Model::Manager->instance();
         my $custom = $self->SUPER::viewCustomizer();
         $custom->setHTMLTitle([
                 {

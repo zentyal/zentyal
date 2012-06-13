@@ -23,26 +23,6 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general jabber server composite.
-#
-# Returns:
-#
-#       <EBox::WebService::Model::GeneralComposite> - the
-#       web service general composite.
-#
-sub new
-{
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -53,21 +33,14 @@ sub new
 #
 sub _description
 {
-
-    my $wsMod = EBox::Global->modInstance('jabber');
-
-    my $description =
-      {
-       components      => [
-                           '/' . $wsMod->name() . '/GeneralSettings',
-                          ],
+    my $description = {
        layout          => 'top-bottom',
        name            => 'General',
        printableName   => __('Configuration'),
        pageTitle       => __('Jabber'),
        compositeDomain => 'Jabber',
        #help            => __(''),
-      };
+    };
 
     return $description;
 }

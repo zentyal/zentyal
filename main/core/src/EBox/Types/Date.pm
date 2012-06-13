@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Types::Date;
+
 use base 'EBox::Types::Abstract';
 
 use EBox::Validate qw(:all);
@@ -173,27 +174,6 @@ sub compareToHash
     return 1;
 }
 
-# Method: fields
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::fields>
-#
-# Returns:
-#
-#   Array containing the fields
-#
-sub fields
-{
-    my ($self) = @_;
-
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    return ($day, $month, $year);
-}
-
 # Method: value
 #
 # Overrides:
@@ -230,78 +210,15 @@ sub year
 
 # Group: Protected methods
 
-# Method: _setMemValue
+# Method: _attrs
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_setMemValue>
+#       <EBox::Types::Abstract::_attrs>
 #
-sub _setMemValue
+sub _attrs
 {
-    my ($self, $params) = @_;
-
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    $self->{'day'}   = $params->{$day};
-    $self->{'month'} = $params->{$month};
-    $self->{'year'}  = $params->{$year};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $dayKey   = "$key/" . $self->fieldName() . '_day';
-    my $monthKey = "$key/" . $self->fieldName() . '_month';
-    my $yearKey  = "$key/" . $self->fieldName() . '_year';
-
-    if ($self->{'day'}) {
-        $gconfmod->set_string($dayKey,   $self->{'day'}  );
-        $gconfmod->set_string($monthKey, $self->{'month'});
-        $gconfmod->set_string($yearKey,  $self->{'year'} );
-    } else {
-        $gconfmod->unset($dayKey);
-        $gconfmod->unset($monthKey);
-        $gconfmod->unset($yearKey);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $day   = $self->fieldName() . '_day';
-    my $month = $self->fieldName() . '_month';
-    my $year  = $self->fieldName() . '_year';
-
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{'day'}   = $gconf->get_string($path . '/' . $day);
-        $value->{'month'} = $gconf->get_string($path . '/' . $month);
-        $value->{'year'}  = $gconf->get_string($path . '/' . $year);
-        $self->_addToCache($value);
-    }
-
-    $self->{'day'}   = $value->{'day'};
-    $self->{'month'} = $value->{'month'};
-    $self->{'year'}  = $value->{'year'};
+    return [ 'day', 'month', 'year' ];
 }
 
 # Method: _paramIsValid

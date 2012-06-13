@@ -79,11 +79,13 @@ sub headTitle
 #
 sub _table
 {
+    my ($self) = @_;
+
   my @tableHeader =
     (
      new EBox::Types::Select(
          fieldName     => 'object',
-         foreignModel  => \&objectModel,
+         foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
          foreignField  => 'name',
          foreignNextPageField => 'members',
 
@@ -123,14 +125,6 @@ sub _table
 
 }
 
-sub objectModel
-{
-    my $objects = EBox::Global->getInstance()->modInstance('objects');
-    return $objects->{'objectModel'};
-}
-
-
-
 # Method: allowedAddresses
 #
 # Returns:
@@ -157,7 +151,7 @@ sub _objectsByAllowPolicy
 
   my $rows_r  =  $self->findAll(allow => $allowPolicy);
 
-  my $objectsModel = $self->objectModel();
+  my $objectsModel = $self->global()->modInstance('objects')->model('ObjectTable');
   my @objects = map {
       my $id  = $self->row($_)->elementByName('object')->value();
       $id
@@ -200,7 +194,7 @@ sub _findRowByObjectName
 {
     my ($self, $objectName) = @_;
 
-    my $objectModel = $self->objectModel();
+    my $objectModel = $self->global()->modInstance('objects')->model('ObjectTable');
     my $objectRowId = $objectModel->findId(name => $objectName);
 
     my $row = $self->findRow(object => $objectRowId);

@@ -44,14 +44,12 @@ use EBox::Global;
 use EBox::DBEngineFactory;
 
 # Core modules
-use Data::Dumper;
-use File::stat;
+use JSON::XS;
 use File::Slurp;
 use IO::Handle;
 use IO::Select;
 use Error qw(:try);
 use POSIX;
-use UNIVERSAL;
 use Time::Local qw(timelocal);
 
 # Constants:
@@ -63,9 +61,7 @@ use Time::Local qw(timelocal);
 #      SCANNING_INTERVAL - Integer interval between scannings
 #
 use constant LOG_TABLE => 'events';
-use constant WATCHERS_DIR      => EBox::Config::conf() . 'events/WatcherEnabled/';
-use constant DISPATCHERS_DIR   => EBox::Config::conf() . 'events/DispatcherEnabled/';
-use constant EVENTS_FIFO       => EBox::Config::tmp() . 'events-fifo';
+use constant EVENTS_FIFO => EBox::Config::tmp() . 'events-fifo';
 use constant SCANNING_INTERVAL => 60;
 use constant EVENT_FOLDING_INTERVAL => 30 * 60; # half hour
 use constant MAX_MSG_LENGTH => 256;
@@ -96,10 +92,8 @@ sub new
         # class name with two fields: deadOut (the number of
         # seconds till next run) and instance (with an
         # instance of the method).
-        registeredEvents => {},
-        registeredDispatchers => {},
-        lastWatcherScan => time(),
-        lastDispatcherScan => time(),
+        watchers => {},
+        dispatchers => {},
     };
     bless ($self, $class);
 
@@ -171,12 +165,9 @@ sub _mainWatcherLoop
 
     # Load watchers classes
     $self->_loadModules('Watcher');
-    while ('true') {
-        if ( time() - $self->{lastWatcherScan} > SCANNING_INTERVAL) {
-            $self->_loadModules('Watcher');
-        }
-        foreach my $registeredEvent (keys %{$self->{registeredEvents}}) {
-            my $queueElementRef = $self->{registeredEvents}->{$registeredEvent};
+    while (1) {
+        foreach my $registeredEvent (keys %{$self->{watchers}}) {
+            my $queueElementRef = $self->{watchers}->{$registeredEvent};
             $queueElementRef->{deadOut} -= $self->{granularity};
             if ( $queueElementRef->{deadOut} <= 0 ) {
                 my $eventsRef = undef;
@@ -187,7 +178,7 @@ sub _mainWatcherLoop
                     my $exception = shift;
                     EBox::warn("Error executing run from $registeredEvent: $exception");
                     # Deleting from registered events
-                    delete ($self->{registeredEvents}->{$registeredEvent});
+                    delete ($self->{watchers}->{$registeredEvent});
                 };
                 # An event has happened
                 if ( defined ( $eventsRef )) {
@@ -219,7 +210,7 @@ sub _mainDispatcherLoop
     }
 
     # Load dispatcher classes
-    $self->_loadModules('Dispatcher');
+    $self->_loadModules('dispatchers');
     # Start main loop with a select
     open(my $fifo, '+<', EVENTS_FIFO);
     my $select = new IO::Select();
@@ -234,10 +225,7 @@ sub _mainDispatcherLoop
                 $data = readline($fh);
             }
 
-            my $event;
-            {
-                no strict 'vars'; $event = eval $data;
-            }
+            my $event = decode_json($data);
 
             # log the event if log is enabled
             if (exists $self->{dbengine}) {
@@ -250,9 +238,6 @@ sub _mainDispatcherLoop
                 $self->_dispatchEventByDispatcher($event);
             }
         }
-        if ( time() - $self->{lastDispatcherScan} > SCANNING_INTERVAL ) {
-            $self->_loadModules('Dispatcher');
-        }
     }
 }
 
@@ -260,152 +245,35 @@ sub _mainDispatcherLoop
 
 # Method: _loadModules
 #
-#       Load dinamically the modules which lays on a directory given a
-#       prefix. This could be: 'Watcher' or 'Dispatcher'.
+#       Load installed watchers or dispatchers.
 #
 # Parameters:
 #
-#       prefix - String the prefix could 'Watcher' or 'Dispatcher'
+#       type - can be 'watcher' or 'dispatcher'
 #
 sub _loadModules
 {
-    my ($self, $prefix) = @_;
+    my ($self, $type) = @_;
 
-    my ($prefixPath, $registeredField);
-    if ( $prefix eq 'Watcher' ) {
-        $prefixPath = WATCHERS_DIR;
-        $registeredField = 'registeredEvents';
-    } elsif ( $prefix eq 'Dispatcher' ) {
-        $prefixPath = DISPATCHERS_DIR;
-        $registeredField = 'registeredDispatchers';
-    } else {
-        return undef;
-    }
+    my $events = EBox::Global->getInstance(1)->modInstance('events');
+    my $model = $type eq 'watcher' ? $events->model('ConfigureWatchers') : $events->model('ConfigureDispatchers');
 
-    opendir ( my $dir, $prefixPath );
+    foreach my $id (@{$model->enabledRows()}) {
+        my $row = $model->row($id);
+        my $className = $row->valueByName($type);
 
-    while ( defined ( my $file = readdir ( $dir ))) {
-        unless ( -e "$prefixPath/$file" ) {
-            if ( -l "$prefixPath/$file" ) {
-                EBox::info("Unlinking broken link $prefixPath/$file");
-                unlink ( "$prefixPath/$file" )
-                    or throw EBox::Exceptions::Internal("Cannot unlink $prefixPath/$file");
-            }
+        eval "use $className";
+        if ($@) {
+            EBox::error("Error loading $type class: $className $@");
             next;
         }
-        next unless ( $file =~ m/.*\.pm/g );
-        my ($className) = ($file =~ m/(.*)\.pm/);
-        $className = 'EBox::Event::' . $prefix . '::' . $className;
-        my $instance;
-        # The class may not be included
-        if (not defined ($self->{$registeredField}->{$className})) {
-            eval qq{require "$prefixPath/$file"};
-            if ( $@ ) {
-                EBox::warn("Error loading class: $className $@");
-                next;
-            }
-            EBox::info("$className loaded from $registeredField");
-            if ($prefix eq 'Watcher') {
-                if ($className->isa('EBox::Event::Watcher::Base') and
-                        (not ($className eq 'EBox::Event::Watcher::Base')) ) {
-                    $instance = $className->new();
-                    $self->{$registeredField}->{$className} = {
-                        instance => $instance,
-                        deadOut  => 0,
-                    };
-                } else {
-                    EBox::info("Class $className not derived from EBox::Event::Watcher::Base");
-                }
-            } else {
-                if ($className->isa('EBox::Event::Dispatcher::Abstract') and
-                        (not ($className eq 'EBox::Event::Dispatcher::Abstract')) ) {
-                    $instance = $className->new();
-                    $self->{$registeredField}->{$className} = $instance;
-                } else {
-                    EBox::info("Class $className not derived from EBox::Event::Dispatcher::Abstract");
-                }
-            }
+        $instance = $className->new();
+        if ($type eq 'watcher') {
+            $self->{watchers}->{$className} = { instance => $instance, deadOut  => 0 };
         } else {
-            # Check its last modification time in order to reload
-            # the module
-            my $statFile = stat ("$prefixPath/$file");
-            my $lastScan;
-            if (  $prefix eq 'Watcher' ) {
-                $lastScan = $self->{lastWatcherScan};
-            } else {
-                $lastScan = $self->{lastDispatcherScan};
-            }
-            if ( $statFile->mtime() > $lastScan ) {
-                EBox::info("$className reloaded from $registeredField");
-                $self->_deleteFromINC($className);
-                eval qq{require "$prefixPath/$file";};
-                if ( $@ ) {
-                    EBox::warn("Error loading class: $className");
-                    next;
-                }
-                $instance = $className->new();
-                if ( $prefix eq 'Watcher' ) {
-                    my $registeredEvent = $self->{$registeredField}->{$className};
-                    $registeredEvent->{instance} = $instance;
-                    # If the period has plummered to be lower than
-                    # current dead out, set the new period
-                    if ( $registeredEvent->{deadOut} > $registeredEvent->{instance}->period() ) {
-                        $registeredEvent->{deadOut} = $registeredEvent->{instance}->period();
-                    }
-                } elsif ($prefix eq 'Dispatcher') {
-                    $self->{$registeredField}->{$className} = $instance;
-                }
-            }
+            $self->{dispatchers}->{$className} = $instance;
         }
     }
-    closedir ($dir);
-
-    # Check for deletion
-    foreach my $className ( keys (%{$self->{$registeredField}}) ){
-        my ($fileName) = $className =~ m/.*::(.*)$/g;
-        $fileName .= '.pm';
-        unless ( -e "$prefixPath/$fileName" ) {
-            EBox::info("$className deleted from $registeredField");
-            $self->_deleteFromINC($className);
-            if ( -l "$prefixPath/$fileName" ) {
-                # Delete broken links
-                EBox::info("Unlinking broken link $prefixPath/$fileName");
-                unlink( "$prefixPath/$fileName" )
-                    or throw EBox::Exceptions::Internal("Cannot unlink $prefixPath/$fileName");
-            }
-        }
-
-#       unless ( -f ( readlink ( "$prefixPath/$fileName" ))) {
-#           EBox::info("$className deleted from $registeredField since the link is broken");
-#           $self->_deleteFromINC($className);
-#           # Remove broken links
-#       }
-    }
-
-    # Updating timestamp
-    if ($prefix eq 'Watcher') {
-        $self->{lastWatcherScan} = time();
-    } else {
-        $self->{lastDispatcherScan} = time();
-    }
-
-}
-
-# Method: _deleteFromINC
-#
-#     Delete a class from the loaded modules
-#
-# Parameters:
-#
-#     className - String the class name in :: format
-#
-sub _deleteFromINC
-{
-    my ($self, $className) = @_;
-
-    my $pathName = $className;
-    $pathName =~ s/::/\//g;
-    delete $INC{$pathName};
 }
 
 # Method: _dispatchEventByDispatcher
@@ -426,13 +294,13 @@ sub _dispatchEventByDispatcher
     my $reqByEventRef = $event->dispatchTo();
 
     if ( grep { 'any' } @{$reqByEventRef} ) {
-        @requestedDispatchers = values ( %{$self->{registeredDispatchers}} );
+        @requestedDispatchers = values ( %{$self->{dispatchers}} );
     } else {
         my @reqByEvent = map { "EBox::Dispatcher::$_" } @{$reqByEventRef};
-        foreach my $dispatcherName (keys (%{$self->{registeredDispatchers}})) {
+        foreach my $dispatcherName (keys (%{$self->{dispatchers}})) {
             if ( grep { $dispatcherName } @reqByEvent ) {
                 push ( @requestedDispatchers,
-                        $self->{registeredDispatchers}->{$dispatcherName});
+                        $self->{dispatchers}->{$dispatcherName});
             }
         }
     }
@@ -447,15 +315,6 @@ sub _dispatchEventByDispatcher
             my ($exc) = @_;
             EBox::warn($dispatcher->name() . ' is not enabled to send messages');
             EBox::error($exc->stringify());
-            # Disable dispatcher since it's not enabled to
-            # send events: This is a non-sense after months of testing
-            # eval { require 'EBox::Global'};
-            # my $events = EBox::Global->modInstance('events');
-            # # Disable the model
-            # $events->enableDispatcher( ref ( $dispatcher ), 0);
-            # $events->configureDispatcherModel()->setMessage(
-            #         __x('Dispatcher {name} disabled since it is not able to '
-            #             . 'send events', name => $dispatcher->name()));
         };
     }
 }
@@ -508,7 +367,7 @@ sub _foldingEventInLog
     my ($year, $mon, $mday, $hour, $min, $sec) = split /[\s\-:]/, $storedEvent->{lastTimestamp};
     $year -= 1900;
     $mon -= 1;
-    my $storedTimestamp =  timelocal($sec,$min,$hour,$mday,$mon,$year);
+    my $storedTimestamp = timelocal($sec,$min,$hour,$mday,$mon,$year);
 
     if (($storedTimestamp + EVENT_FOLDING_INTERVAL) >  $event->timestamp()) {
         # Last event of the same type happened before last
@@ -607,9 +466,9 @@ sub _addToDispatch
 {
     my ($self, $eventPipe, $event) = @_;
 
-    $Data::Dumper::Indent = 0; # turn off pretty print (\n)
-    my $eventStr = Dumper($event);
+    my $eventStr = encode_json($event);
 
+    # FIXME: is this needed with JSON?
     # Remove null characters
     $eventStr =~ tr/\0//d;
 

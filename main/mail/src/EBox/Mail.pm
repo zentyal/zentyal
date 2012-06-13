@@ -18,17 +18,10 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw( EBox::Module::Service
-             EBox::LdapModule
-             EBox::ObjectsObserver
-             EBox::Model::ModelProvider
-             EBox::Model::CompositeProvider
-             EBox::UserCorner::Provider
-             EBox::FirewallObserver
-             EBox::LogObserver
-             EBox::Report::DiskUsageProvider
-             EBox::KerberosModule
-           );
+use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
+            EBox::UserCorner::Provider EBox::FirewallObserver
+            EBox::LogObserver EBox::Report::DiskUsageProvider
+            EBox::KerberosModule EBox::Events::DispatcherProvider);
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -327,55 +320,16 @@ sub enableModDepends
     return \@depends;
 }
 
-# Method: modelClasses
+# Method: eventDispatchers
 #
 # Overrides:
 #
-#    <EBox::Model::ModelProvider::modelClasses>
+#      <EBox::Events::DispatcherProvider::eventDispatchers>
 #
-sub modelClasses
+sub eventDispatchers
 {
-    return [
-            'EBox::Mail::Model::SMTPOptions',
-            'EBox::Mail::Model::RetrievalServices',
-            'EBox::Mail::Model::ObjectPolicy',
-            'EBox::Mail::Model::VDomains',
-            'EBox::Mail::Model::VDomainAliases',
-            'EBox::Mail::Model::ExternalAliases',
-            'EBox::Mail::Model::VDomainSettings',
-            'EBox::Mail::Model::ExternalFilter',
-            'EBox::Mail::Model::MailUser',
-
-            'EBox::Mail::Model::Dispatcher::Mail',
-
-            'EBox::Mail::Model::GreylistConfiguration',
-
-            'EBox::Mail::Model::Report::TrafficGraph',
-            'EBox::Mail::Model::Report::TrafficDetails',
-            'EBox::Mail::Model::Report::TrafficReportOptions',
-
-            # user corner classes
-            'EBox::Mail::Model::ExternalAccounts',
-           ];
+    return [ 'Mail' ];
 }
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-            'EBox::Mail::Composite::ServiceConfiguration',
-            'EBox::Mail::Composite::General',
-
-            'EBox::Mail::Composite::Report::TrafficReport',
-           ];
-}
-
 
 # Method: _getIfacesForAddress
 #
@@ -413,7 +367,7 @@ sub _getIfacesForAddress
 
 # Method: _setMailConf
 #
-#  This method creates all configuration files from gconf data.
+#  This method creates all configuration files from conf data.
 #
 sub _setMailConf
 {
@@ -509,11 +463,11 @@ sub _setMailConf
 
     $self->_setArchivemailConf();
 
-    my $manager = new EBox::ServiceManager;
+    #my $manager = new EBox::ServiceManager;
     # Do not run postmap if we can't overwrite SASL_PASSWD_FILE
-    unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
-        EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
-    }
+    #unless ($manager->skipModification('mail', SASL_PASSWD_FILE)) {
+    EBox::Sudo::root('/usr/sbin/postmap ' . SASL_PASSWD_FILE);
+    #}
 
     my $zarafaEnabled = $self->zarafaEnabled();
     my $zarafaDomain = '';
@@ -521,7 +475,6 @@ sub _setMailConf
 
     $self->{fetchmail}->writeConf(zarafa => $zarafaEnabled, zarafaDomain => $zarafaDomain);
     $self->_setZarafaConf($zarafaEnabled, $zarafaDomain);
-
 }
 
 
@@ -567,10 +520,10 @@ sub _setZarafaConf
                          ],
                          { uid  => 0, gid  => 0, mode => '0600', },
                         );
-    my $manager = new EBox::ServiceManager;
-    unless ($manager->skipModification('mail', TRANSPORT_FILE)) {
-        EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
-    }
+    #my $manager = new EBox::ServiceManager;
+    #unless ($manager->skipModification('mail', TRANSPORT_FILE)) {
+    EBox::Sudo::root('/usr/sbin/postmap ' . TRANSPORT_FILE);
+    #}
 }
 
 

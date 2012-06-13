@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::MailFilter::Composite::Amavis;
 
 use base 'EBox::Model::Composite';
@@ -23,18 +21,6 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-
-# Group: Public methods
-
-
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
 
 # Group: Protected methods
 
@@ -46,25 +32,15 @@ sub new
 #
 sub _description
 {
+    my $description =
+    {
+        layout          => 'tabbed',
+        name            =>  'Amavis',
+        pageTitle       => __('SMTP Mail Filter'),
+        compositeDomain => 'MailFilter',
+    };
 
-     my $description =
-        {
-         components      => [
-                             'mailfilter/AmavisConfiguration',
-                             'mailfilter/AmavisPolicy',
-                             'mailfilter/VDomains',
-                             'mailfilter/ExternalConnections',
-                            ],
-         layout          => 'tabbed',
-         name            =>  __PACKAGE__->nameFromClass,
-         pageTitle       => __('SMTP Mail Filter'),
-         compositeDomain => 'MailFilter',
-#         help            => __(''),
-        };
-
-      return $description;
+    return $description;
 }
-
-
 
 1;

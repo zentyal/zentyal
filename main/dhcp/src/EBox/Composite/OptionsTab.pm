@@ -29,66 +29,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the options tab
-#
-#
-# Parameters:
-#
-#       interface - String the interface attached to do the
-#       configuration on the DHCP server
-#
-#       - Named parameters
-#
-# Returns:
-#
-#       <EBox::DHCP::Composite::OptionsTab> - an options tab
-#        composite
-#
-sub new
-{
-
-   my ($class, @params) = @_;
-
-   my $self = $class->SUPER::new(@params);
-
-   return $self;
-
-}
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::index>
-#
-sub index
-{
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::printableIndex>
-#
-sub printableIndex
-{
-    my ($self) = @_;
-
-    return __x('interface {iface}',
-               iface => $self->{interface});
-
-}
-
-
 # Group: Protected methods
 
 # Method: _description
@@ -99,26 +39,15 @@ sub printableIndex
 #
 sub _description
 {
-
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
-    my $dhcp = $gl->modInstance('dhcp');
-
-    my $description =
-      {
-       components      => [
-                           '/' . $dhcp->name() . '/Options/' . $self->{interface},
-                           '/' . $dhcp->name() . '/DynamicDNS/' . $self->{interface},
-                           '/' . $dhcp->name() . '/AdvancedOptions/' . $self->{interface},
-                          ],
-       layout          => 'tabbed',
-       name            => 'OptionsTab',
-       compositeDomain => 'DHCP',
-      };
+    my $description = {
+        layout          => 'tabbed',
+        name            => 'OptionsTab',
+        compositeDomain => 'DHCP',
+    };
 
     return $description;
-
 }
 
 1;

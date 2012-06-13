@@ -32,26 +32,6 @@ use EBox::Global;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#         Constructor for the general dhcp composite
-#
-# Returns:
-#
-#       <EBox::DHCP::Composite::General> - a
-#       general dhcp composite
-#
-sub new
-  {
-
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-
-  }
-
 # Method: precondition
 #
 # Overrides:
@@ -62,8 +42,7 @@ sub precondition
 {
     my $netMod = EBox::Global->modInstance('network');
     my @allIfaces = @{$netMod->allIfaces()};
-    my $nStatic = grep { $netMod->ifaceMethod($_) eq 'static' }
-      @allIfaces;
+    my $nStatic = grep { $netMod->ifaceMethod($_) eq 'static' } @allIfaces;
     return ($nStatic > 0);
 }
 
@@ -103,22 +82,15 @@ sub pageTitle
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'General',
+        printableName   => 'DHCP',
+        compositeDomain => 'DHCP',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'Interfaces',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'General',
-         printableName   => 'DHCP',
-         compositeDomain => 'DHCP',
-        };
-
-      return $description;
-
-  }
-
+    return $description;
+}
 
 1;

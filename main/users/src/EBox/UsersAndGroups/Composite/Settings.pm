@@ -25,21 +25,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the Settings composite
-#
-sub new
-{
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -50,18 +35,16 @@ sub new
 #
 sub _description
 {
-      my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
 
-      my $description =
-        {
-         components      => [ 'LdapInfo', 'PAM' ],
-         layout          => 'top-bottom',
-         name            => 'Settings',
-         compositeDomain => 'Users',
-         #help => __('')
-        };
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'Settings',
+        compositeDomain => 'Users',
+        #help => __('')
+    };
 
-      return $description;
+    return $description;
 }
 
 sub pageTitle

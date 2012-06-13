@@ -478,7 +478,7 @@ sub dumpConfig
 # Method: aroundDumpConfig
 #
 # Wraps the dumpConfig call; the purpose of this sub is to allow
-# specila types of modules (GConfModule p.e) to call another method
+# special types of modules like Module::Config to call another method
 # alongside with dumConfig transparently.
 #
 # Normally, ebox modules does not need to override this
@@ -513,7 +513,7 @@ sub restoreConfig
 #  Method: aroundRestoreConfig
 #
 # wraps the restoreConfig call; the purpose of this sub is to allow specila
-# types of modules (GConfModule p.e) to call another method alongside with
+# types of modules like Module::Config to call another method alongside with
 # restoreConfig transparently
 # normally ebox modules does not need to override this
 #
@@ -1630,7 +1630,6 @@ sub _consolidateReportFromDB
     }
 }
 
-
 sub _consolidationValuesForMonth
 {
     my ($self, $db, $query, $beginTime, $beginMonth) = @_;
@@ -1655,7 +1654,6 @@ sub _consolidationValuesForMonth
     my $results = $db->query_hash($query);
     return $results;
 }
-
 
 sub _lastConsolidationValuesForMonth
 {
@@ -1784,7 +1782,7 @@ sub consolidateReportInfo
                                    );
 }
 
-# if this is neccesary in more places we will move it to PgDbEngine
+# if this is neccesary in more places we will move it to MyDbEngine
 sub _unionQuery
 {
     my ($self, $dbengine, $orig_query) = @_;
@@ -1803,6 +1801,20 @@ sub _unionQuery
     $sql .= ';';
 
     return $dbengine->query($sql);
+}
+
+
+# Method: global
+#
+#  Gets an EBox::Global instance with the same read-only status as the module
+#
+#  As EBox::Module::Base does not store config, this always returns a regular instance
+#
+sub global
+{
+    my ($self) = @_;
+
+    return EBox::Global->getInstance();
 }
 
 1;

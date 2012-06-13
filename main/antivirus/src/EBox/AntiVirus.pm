@@ -18,9 +18,7 @@ package EBox::AntiVirus;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service
-            EBox::Model::ModelProvider
-            EBox::FirewallObserver);
+use base qw(EBox::Module::Service EBox::FirewallObserver);
 
 use EBox::Gettext;
 use EBox::Service;
@@ -98,19 +96,6 @@ sub menu
                                    );
 
     $root->add($item);
-}
-
-# Method: modelClasses
-#
-#       Return the model classes used by the module.
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [ 'EBox::AntiVirus::Model::FreshclamStatus' ];
 }
 
 # Method: enableService

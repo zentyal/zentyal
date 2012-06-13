@@ -18,9 +18,7 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule
-            );
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -138,35 +136,6 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-        'EBox::Jabber::Model::GeneralSettings',
-        'EBox::Jabber::Model::JabberUser',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::Jabber::Composite::General',
-    ];
 }
 
 #  Method: _daemons

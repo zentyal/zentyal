@@ -27,21 +27,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for composite
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -54,10 +39,6 @@ sub _description
 {
     my $description =
     {
-        components      => [
-                '/ltsp/GeneralOpts',
-                '/ltsp/OtherOpts',
-            ],
         layout          => 'top-bottom',
         name            => 'Configuration',
         printableName   => __('General Configuration'),

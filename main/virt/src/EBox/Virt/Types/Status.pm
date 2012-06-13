@@ -104,11 +104,11 @@ sub restoreFromHash
 
 }
 
-# Method: storeInGConf
+# Method: storeInHash
 #
-#   Overrides <EBox::Types::Basic::storeInGConf>
+#   Overrides <EBox::Types::Basic::storeInHash>
 #
-sub storeInGConf
+sub storeInHash
 {
 
 }

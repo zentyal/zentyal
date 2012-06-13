@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted to new Model management framework
+	+ Store printers in redis using the new JSON config objects
 2.3.6
 	+ Integrate with zentyal DNS
 	+ Fix loop over array reference in funcion usesPort

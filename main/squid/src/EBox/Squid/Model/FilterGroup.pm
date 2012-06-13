@@ -153,7 +153,7 @@ sub _initDefaultRow
     my $dir   = $self->directory();
     $defaultRow = new EBox::Model::Row(
                                        dir => $dir,
-                                       gconfmodule => $self->{gconfmodule}
+                                       confmodule => $self->{confmodule}
                                       );
 
     $defaultRow->setModel($self);

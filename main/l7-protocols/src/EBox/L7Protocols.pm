@@ -23,7 +23,7 @@ package EBox::L7Protocols;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::Module::Config);
 
 
 use EBox::Validate qw( :all );
@@ -55,25 +55,6 @@ sub _create
 }
 
 ## api functions
-
-# Method: models
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-
-    my ($self) = @_;
-
-    return  [
-               'EBox::L7Protocols::Model::Protocols',
-               'EBox::L7Protocols::Model::Groups',
-               'EBox::L7Protocols::Model::GroupProtocols',
-           ];
-
-}
 
 # Method: menu
 #

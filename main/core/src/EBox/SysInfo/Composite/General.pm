@@ -52,15 +52,14 @@ sub new
 #
 sub _description
 {
-    my $description = { components      => [ 'sysinfo/AdminUser', 'apache/Language',
-                                             'sysinfo/TimeZone',  'sysinfo/DateTime',
-                                             'apache/AdminPort', 'sysinfo/HostName' ],
+    my $description = {
                         layout          => 'top-bottom',
                         name            => __PACKAGE__->nameFromClass,
                         printableName   => __('General configuration'),
                         pageTitle       => __('General configuration'),
                         compositeDomain => 'SysInfo',
-                        help => __('On this page you can set different general system settings')};
+                        help => __('On this page you can set different general system settings')
+    };
 
     return $description;
 }

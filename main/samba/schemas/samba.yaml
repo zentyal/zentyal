@@ -8,3 +8,15 @@ enabledepends:
     - network
     - users
     - dns
+
+models:
+    - GeneralSettings
+    - SambaShares
+    - SambaSharePermissions
+    - SambaDeletedShares
+
+composites:
+    General: [GeneralSettings, SambaShares]
+
+foreign:
+    SambaShares: [SambaSharePermissions]

@@ -39,11 +39,11 @@ use EBox::Gettext;
 #
 sub new
 {
-        my $class = shift;
-        my $self = $class->SUPER::new(@_);
-        $self->{'type'} = 'domainname';
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    $self->{'type'} = 'domainname';
+    bless($self, $class);
+    return $self;
 }
 
 # Method: isEqualTo
@@ -74,7 +74,6 @@ sub cmp
     }
 
     return uc($self->value()) cmp uc($compareType->value());
-
 }
 
 # Group: Protected methods

@@ -18,18 +18,17 @@ package EBox::ProgressIndicator;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule::StatePartition';
-
-use EBox::Config;
 use EBox::Gettext;
-use EBox::Global;
 use EBox::Apache;
+use EBox::Util::SHM;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 
 use POSIX ":sys_wait_h";
 use Error qw(:try);
-use Encode;
 
-use constant HOST_MODULE => 'apache';
+my $KEY = 'progress_indicator';
 
 sub create
 {
@@ -38,50 +37,28 @@ sub create
     # check parameter correctness..
     exists $params{totalTicks} or
         throw EBox::Exceptions::MissingArgument('totalTicks named parameter not found');
+
     ($params{totalTicks} > 0) or
         throw EBox::Exceptions::InvalidData(
                 data  => __('Total ticks'),
                 value => $params{totalTicks},
                 advice => __('It must be a non-zero positive number'),
-                );
+        );
+
     exists $params{executable} or
         throw EBox::Exceptions::MissingArgument('executable named parameter not found');
 
-    my $message = __('To solve it you can try to execute the following commands:');
-    $message .= ' sudo apt-get update &&' .
-        ' sudo dpkg --configure -a &&' .
-        ' sudo apt-get install -f';
     my ($executableWoArguments) = split '\s', $params{executable};
     (-x $executableWoArguments) or
-        throw EBox::Exceptions::External(
-                __x("Cannot execute {exe}",
-                    exe => "$params{executable}\n$message"
-                   )
-                );
+        throw EBox::Exceptions::External(__x("Cannot execute {exe}", exe => $params{executable}));
 
-    # get unique id
-    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-    my $id = $hostMod->st_get_unique_id('', $class->_baseDir);
+    my $id = _unique_id();
 
-    # create instance
-    my $idKey = $class->_baseDir($id) . '/id';
-    $hostMod->st_set_string($idKey, $id);
-
-    # Remove those instances which have finished
     $class->_cleanupFinished();
 
     my $self = $class->retrieve($id);
 
-    # store data
-    $self->setConfString('executable', $params{executable});
-    $self->setConfInt('totalTicks', $params{totalTicks});
-
-    $self->setConfInt('ticks', 0);
-    $self->setConfString('message', '');
-    $self->setConfBool('started', 0);
-    $self->setConfBool('finished', 0);
-    # retValue==-1, not finished
-    $self->setConfInt('retValue', -1);
+    $self->_init($params{executable}, $params{totalTicks});
 
     return $self;
 }
@@ -92,40 +69,10 @@ sub retrieve
     defined $id or
         throw EBox::Exceptions::MissingArgument('id');
 
-    #  EBox::debug("retieving progress indicator wit hid $id");
-
-    my $baseDir  =  $class->_baseDir($id);
-    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-    defined $hostMod or
-        throw EBox::Exceptions::Internal(HOST_MODULE
-                . ' module cannot be instantiated');
-
-    unless ( $hostMod->st_dir_exists($baseDir) ) {
-        throw EBox::Exceptions::External(
-                __x('Progress indicator with id {id} not found', id => $id,)
-                );
-    }
-
-    my $self   = $class->SUPER::new($baseDir, $hostMod);
+    my $self = { id => $id };
     bless $self, $class;
 
     return $self;
-}
-
-sub new
-{
-    throw EBox::Exceptions::Internal('Incorrect method: use create or retrieve');
-}
-
-sub _baseDir
-{
-    my ($class, $id) = @_;
-
-    my $dir =  "progress_indicator";
-    if ($id) {
-        $dir .= "/$id";
-    }
-    return $dir;
 }
 
 sub notifyTick
@@ -143,21 +90,25 @@ sub notifyTick
                 );
     }
 
-    if (not $self->started) {
+    if (not $self->started()) {
         throw EBox::Exceptions::External(
                 __('Executable has not been run')
                 );
     }
 
-    my $newValue = $self->ticks() + $nTicks;
-    $self->setConfInt('ticks', $newValue);
+    my $ticks = $self->_get('ticks');
+    $ticks += $nTicks;
+    $self->_set('ticks', $ticks);
 }
 
 sub ticks
 {
     my ($self) = @_;
-    my $ticks =  $self->getConfInt('ticks');
-    my $totalTicks = $self->totalTicks();
+
+    my $data = $self->_data();
+    my $ticks =  $data->{ticks};
+    my $totalTicks = $data->{totalTicks};
+
     if ($ticks >= $totalTicks) {
         # safeguard against bad counts and zombies process
         _collectChildrens();
@@ -170,13 +121,15 @@ sub ticks
 sub setTotalTicks
 {
     my ($self, $nTTicks) = @_;
-    $self->setConfInt('totalTicks', $nTTicks);
+
+    $self->_set('totalTicks', $nTTicks);
 }
 
 sub totalTicks
 {
     my ($self) = @_;
-    return $self->getConfInt('totalTicks');
+
+    return $self->_get('totalTicks');
 }
 
 # Method: percentage
@@ -198,11 +151,11 @@ sub percentage
 
     my $totalTicks = $self->totalTicks();
     # Workaround to avoid illegal division by zero
-    if ($totalTicks  == 0 ) {
+    if ($totalTicks == 0) {
         return 100;
     }
 
-    my $per = $self->ticks / $totalTicks;
+    my $per = $self->ticks() / $totalTicks;
     $per = sprintf("%.2f", $per); # round to two decimals
     $per *= 100;
 
@@ -212,19 +165,15 @@ sub percentage
 sub setMessage
 {
     my ($self, $message) = @_;
-    $self->setConfString('message', $message);
+
+    $self->_set('message', $message);
 }
 
 sub message
 {
     my ($self) = @_;
-    return $self->getConfString('message');
-}
 
-sub id
-{
-    my ($self) = @_;
-    return $self->getConfString('id');
+    return $self->_get('message');
 }
 
 # Method: started
@@ -239,13 +188,8 @@ sub id
 sub started
 {
     my ($self) = @_;
-    return $self->getConfBool('started');
-}
 
-sub _setAsStarted
-{
-    my ($self) = @_;
-    return $self->setConfBool('started', 1);
+    return $self->_get('started');
 }
 
 # Method: finished
@@ -260,7 +204,8 @@ sub _setAsStarted
 sub finished
 {
     my ($self) = @_;
-    my $finished =  $self->getConfBool('finished');
+
+    my $finished = $self->_get('finished');
     if ($finished) {
         _collectChildrens();
     }
@@ -292,16 +237,14 @@ sub setAsFinished
     defined $retValue or $retValue = 0;
 
     if (not $self->started()) {
-        throw EBox::Exceptions::External(
-                __('The executable has not run')
-                );
+        throw EBox::Exceptions::External(__('The executable has not run'));
     }
 
-    $self->setConfBool('finished', 1);
+    $self->_set('finished', 1);
     $self->setRetValue($retValue);
 
     if (defined($errorMsg)) {
-        $self->setConfString('errorMsg', $errorMsg);
+        $self->_set('errorMsg', $errorMsg);
     }
 }
 
@@ -318,7 +261,8 @@ sub setAsFinished
 sub retValue
 {
     my ($self) = @_;
-    return $self->getConfInt('retValue');
+
+    return $self->_get('retValue');
 }
 
 # Method: setRetValue
@@ -339,12 +283,11 @@ sub setRetValue
 {
     my ($self, $retValue) = @_;
 
-    unless ( $self->finished() ) {
+    unless ($self->finished()) {
         throw EBox::Exceptions::Internal('Cannot set a return value to '
-                . 'a not finished task');
+                                       . 'a not finished task');
     }
-    return $self->setConfInt('retValue', $retValue);
-
+    $self->_set('retValue', $retValue);
 }
 
 # Method: errorMsg
@@ -361,46 +304,40 @@ sub errorMsg
 {
     my ($self) = @_;
 
-    return $self->getConfString('errorMsg');
+    return $self->_get('errorMsg');
 }
 
 sub stateAsHash
 {
     my ($self) = @_;
 
-    my $status;
-    my $statevars  = {};
+    my $data = $self->_data();
 
-    if (not $self->started()) {
+    my $status;
+    if (not $data->{started}) {
         $status = 'not running';
-    }
-    elsif ($self->finished()) {
-        my $retValue = $self->retValue();
+    } elsif ($data->{finished}) {
+        my $retValue = $data->{retValue};
         if ($retValue == 0) {
             $status = 'done';
         }
         elsif ($retValue != 0 ) {
             $status = 'error';
-            $statevars->{retValue} = $retValue;
         }
-        my $errorMsg = $self->errorMsg();
-        if ($errorMsg) {
-            $statevars->{errorMsg} = $errorMsg;
-        }
-    }
-    else {
+    } else {
         $status = 'running';
     }
 
-    my $state = {
-        state => $status,
-        statevars => $statevars,
-        message => $self->message(),
-        ticks => $self->ticks(),
-        totalTicks => $self->totalTicks(),
-    };
+    $data->{state} = $status;
 
-    return $state;
+    return $data;
+}
+
+sub id
+{
+    my ($self) = @_;
+
+    return $self->{id};
 }
 
 sub destroy
@@ -415,24 +352,17 @@ sub destroy
             }
             sleep 1;
         }
-
     }
 
-    my $piDir = $self->confKeysBase();
+    $self->_delete();
 
-    $self->fullModule->st_delete_dir($piDir);
     $_[0] = undef; # to cancel the self value
-}
-
-sub _executable
-{
-    my ($self) = @_;
-    return $self->getConfString('executable');
 }
 
 sub runExecutable
 {
     my ($self) = @_;
+
     if ($self->started) {
         throw EBox::Exceptions::External(
                 __('The executable has already been started')
@@ -442,7 +372,7 @@ sub runExecutable
         __('The executable has already finished');
     }
 
-    $self->_setAsStarted;
+    $self->_set('started', 1);
 
     $self->_fork();
 }
@@ -452,6 +382,7 @@ sub _fork
     my ($self) = @_;
 
     my $pid = fork();
+    my $id = $self->{id};
 
     unless (defined $pid) {
         throw EBox::Exceptions::Internal("Cannot fork().");
@@ -460,51 +391,80 @@ sub _fork
     if ($pid) {
         $self->{childPid} = $pid;
         return; # parent returns immediately
-    }
-    else {
-
-        $self->_childExec();
+    } else {
+        EBox::Apache::cleanupForExec();
+        my $executable = $self->_get('executable');
+        exec ("$executable --progress-id $id");
     }
 }
 
-sub _childExec
+sub _set
+{
+    my ($self, $key, $value) = @_;
+
+    my $id = $self->{id};
+    EBox::Util::SHM::setValue("$KEY/$id", $key, $value);
+}
+
+sub _get
+{
+    my ($self, $key) = @_;
+
+    my $id = $self->{id};
+    return EBox::Util::SHM::value("$KEY/$id", $key);
+}
+
+sub _data
 {
     my ($self) = @_;
 
-    my $cmd = $self->_executable() .
-        ' ' .
-        $self->execProgressIdParamName() .
-        ' ' .
-        $self->id();
-
-    EBox::Apache::cleanupForExec();
-    exec($cmd);
+    my $id = $self->{id};
+    return EBox::Util::SHM::hash("$KEY/$id");
 }
 
-sub execProgressIdParamName
+sub _delete
 {
-    my ($self) = @_;
+    my ($self, $key) = @_;
 
-    return '--progress-id';
+    my $id = $self->{id};
+    EBox::Util::SHM::deletekey("$KEY/$id");
 }
+
+sub _init
+{
+    my ($self, $executable, $totalTicks) = @_;
+
+    my $id = $self->{id};
+    my $data = {};
+
+    $data->{executable} = $executable;
+    $data->{totalTicks} = $totalTicks;
+    $data->{ticks} = 0;
+    $data->{message} = '';
+    $data->{started} = 0;
+    $data->{finished} = 0;
+    $data->{retValue} = -1; # retValue == -1, not finished
+
+    EBox::Util::SHM::setHash("$KEY/$id", $data);
+}
+
+sub _currentIds
+{
+    EBox::Util::SHM::subkeys($KEY);
+}
+
 
 # Method to clean up the rubbish regarding to the progress indicator
-# stored in GConf state. It must be called when a new progress
-# indicator is created, that suppossed a single ProgressIndicator
-# alives on Apache
+# It must be called when a new progress indicator is created, because
+# a single ProgressIndicator should be alive on Apache
 sub _cleanupFinished
 {
     my ($class) = @_;
 
-    my $baseDir = $class->_baseDir();
-    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
-
-    my $allIDs = $hostMod->st_all_dirs_base($baseDir);
-
-    foreach my $id (@{$allIDs}) {
+    foreach my $id (_currentIds()) {
         try {
             my $pI = $class->retrieve($id);
-            if ( $pI->finished() ) {
+            if ($pI->finished()) {
                 $pI->destroy();
             }
         } catch EBox::Exceptions::Base with {
@@ -516,13 +476,24 @@ sub _cleanupFinished
     _collectChildrens();
 }
 
-
 sub _collectChildrens
 {
     my $child;
     do {
         $child = waitpid(-1, WNOHANG);
     } while ($child > 0);
+}
+
+sub _unique_id
+{
+    my %ids = map { $_ => 1 } _currentIds();
+
+    my $id;
+    do {
+        $id = int(rand(1000));
+    } while (exists $ids{$id});
+
+    return $id;
 }
 
 1;

@@ -462,7 +462,7 @@ __('Cannot retrieve mail from external accounts because you do not have a email 
 # Method: _checkRowExist
 #
 #   Override <EBox::Model::DataTable::_checkRowExist> as DataTable try to check
-#   if a row exists checking the existance of the gconf directory
+#   if a row exists checking the existance of the conf directory
 sub _checkRowExist
 {
     my ($self, $id) = @_;

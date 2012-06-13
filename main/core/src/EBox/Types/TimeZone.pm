@@ -51,6 +51,11 @@ sub new
         $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
     }
 
+    unless (exists $opts{printableName}) {
+        $opts{printableName} = __('Time zone');
+    }
+
+
     $opts{'type'} = 'timezone' unless defined ($opts{'type'});
     my $self = $class->SUPER::new(%opts);
 
@@ -143,24 +148,9 @@ sub compareToHash
     return 1;
 }
 
-# Method: fields
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::fields>
-#
-# Returns:
-#
-#   Array containing the fields
-#
-sub fields
+sub _attrs
 {
-    my ($self) = @_;
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    return ($continent, $country);
+    return [ 'continent', 'country' ];
 }
 
 # Method: value
@@ -211,72 +201,6 @@ sub zones
 
 # Group: Protected methods
 
-# Method: _setMemValue
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_setMemValue>
-#
-sub _setMemValue
-{
-    my ($self, $params) = @_;
-
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    $self->{'continent'}   = $params->{$continent};
-    $self->{'country'} = $params->{$country};
-}
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $continentKey   = "$key/" . $self->fieldName() . '_continent';
-    my $countryKey = "$key/" . $self->fieldName() . '_country';
-
-    if ($self->{'continent'} and $self->{'country'}) {
-        $gconfmod->set_string($continentKey,   $self->{'continent'}  );
-        $gconfmod->set_string($countryKey, $self->{'country'});
-    } else {
-        $gconfmod->unset($continentKey);
-        $gconfmod->unset($countryKey);
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $continent = $self->fieldName() . '_continent';
-    my $country   = $self->fieldName() . '_country';
-
-    my $value = {};
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-        $value->{'continent'} = $gconf->get_string($path . '/' . $continent);
-        $value->{'country'}   = $gconf->get_string($path . '/' . $country);
-        $self->_addToCache($value);
-    }
-
-    $self->{'continent'} = $value->{'continent'};
-    $self->{'country'}   = $value->{'country'};
-}
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -293,6 +217,8 @@ sub _paramIsValid
     my $continentValue = $params->{$continent};
     my $countryValue   = $params->{$country};
 
+    return 0 unless ($continentValue and $countryValue);
+
     unless (defined ($zones)) {
         $zones = $self->_loadZones();
     }
@@ -306,7 +232,7 @@ sub _paramIsValid
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
             'value'  => $countryValue,
-            'advice' => __('This country does not exists.'));
+            'advice' => __('This city does not exists.'));
     }
 
     throw EBox::Exceptions::InvalidData(
@@ -325,6 +251,8 @@ sub _paramIsValid
 #
 sub _paramIsSet
 {
+    my ($self, $params) = @_;
+
     return 1;
 }
 

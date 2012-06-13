@@ -194,7 +194,7 @@ sub pageTitle
 {
     my ($self) = @_;
 
-    return $self->parentRow()->printableValueByName('name');
+    return $self->parentRow()->printableValueByName('printableName');
 }
 
 1;

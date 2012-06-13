@@ -2,3 +2,16 @@ class: 'EBox::IPsec'
 depends:
     - network
     - firewall
+
+models:
+    - Connections
+    - ConfGeneral
+    - ConfPhase1
+    - ConfPhase2
+
+composites:
+    Conf: [ConfGeneral, Auth]
+    Auth: [ConfPhase1, ConfPhase2]
+
+foreign:
+    Connections: [Conf]

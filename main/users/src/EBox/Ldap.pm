@@ -22,7 +22,6 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
-use EBox::Model::ModelManager;
 
 use EBox::Gettext;
 
@@ -308,8 +307,6 @@ sub ldapConf {
         'ldapi'  => LDAPI,
         'ldap'   => LDAP,
         'port' => 390,
-        'replicaport' => 1389,
-        'translucentport' => 1390,
         'rootdn' => $self->rootDn(),
     };
     return $conf;

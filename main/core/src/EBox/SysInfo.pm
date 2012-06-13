@@ -18,8 +18,7 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Module::Base EBox::Report::DiskUsageProvider
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
 use HTML::Entities;
@@ -56,30 +55,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-#   Override <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [ 'EBox::SysInfo::Model::Halt',
-             'EBox::SysInfo::Model::AdminUser',
-             'EBox::SysInfo::Model::TimeZone',
-             'EBox::SysInfo::Model::DateTime',
-             'EBox::SysInfo::Model::HostName' ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#   <EBox::Model::ModelProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [ 'EBox::SysInfo::Composite::General' ];
 }
 
 # Method: menu
@@ -153,7 +128,7 @@ sub _setConf
     # Time zone
     my $timezoneModel = $self->model('TimeZone');
     my $tz = $timezoneModel->timezoneValue();
-    my $tzStr = $tz->{continent} . '/' . $tz->{country};
+    my $tzStr = $tz->printableValue();
     EBox::Sudo::root("echo $tzStr > /etc/timezone",
                      "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
 
@@ -382,49 +357,52 @@ sub linksWidget
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
-sub addKnownWidget()
-{
-    my ($self,$wname) = @_;
-    my $list = $self->st_get_list("known/widgets");
-    push(@{$list},$wname);
-    $self->st_set_list("known/widgets", "string", $list);
-}
-
-sub isWidgetKnown()
+sub addKnownWidget
 {
     my ($self, $wname) = @_;
-    my $list = $self->st_get_list("known/widgets");
-    my @results = grep(/^$wname$/,@{$list});
-    if(@results) {
-        return 1;
-    } else {
-        return undef;
-    }
+
+    my $hash = $self->get_hash('known/widgets');
+    $hash->{$wname} = 1;
+    $self->set('known/widgets', $hash);
 }
 
-sub getDashboard()
+sub isWidgetKnown
 {
-    my ($self,$dashboard) = @_;
-    return $self->st_get_list("$dashboard/widgets");
+    my ($self, $wname) = @_;
+
+    my $hash = $self->get_hash('known/widgets');
+    return exists $hash->{$wname};
 }
 
-sub setDashboard()
+sub getDashboard
 {
-    my ($self,$dashboard,$widgets) = @_;
-    $self->st_set_list("$dashboard/widgets", "string", $widgets);
+    my ($self, $dashboard) = @_;
+
+    return $self->get_list($dashboard);
 }
 
-sub toggleElement()
+sub setDashboard
 {
-    my ($self,$element) = @_;
-    my $toggled = $self->st_get_bool("toggled/$element");
-    $self->st_set_bool("toggled/$element",!$toggled);
+    my ($self, $dashboard, $widgets) = @_;
+
+    $self->set($dashboard, $widgets);
 }
 
-sub toggledElements()
+sub toggleElement
+{
+    my ($self, $element) = @_;
+
+    my $hash = $self->get_hash($element);
+    $hash->{toggled} = not $hash->{toggled};
+    $self->set($element, $hash);
+}
+
+sub toggledElements
 {
     my ($self) = @_;
-    return $self->st_hash_from_dir("toggled");
+
+    my @toggled = keys %{$self->get_hash('toggled')};
+    return \@toggled;
 }
 
 sub _facilitiesForDiskUsage

@@ -74,7 +74,7 @@ sub precondition
     my ($self) = @_;
     $self->{_precondition_msg} = undef;
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
+    my @status = @{$self->{confmodule}->remoteStatus()};
     return 0 if not @status;
     my $logs = EBox::Global->getInstance()->modInstance('logs');
     if (not $logs) {

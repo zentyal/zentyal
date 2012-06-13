@@ -39,7 +39,7 @@ use EBox::Gettext;
 #
 # Parameters:
 #
-#       gconfmodule - <EBox::GConfModule> the GConf eBox module which
+#       confmodule - <EBox::Module::Config> the GConf eBox module which
 #       gives the environment where to store data
 #
 #       directory - String the subdirectory within the environment
@@ -53,10 +53,9 @@ sub new
 
     my $self = $class->SUPER::new(@params);
 
-    bless ( $self, $class );
+    bless ($self, $class);
 
     return $self;
-
 }
 
 # Method: setTypedRow
@@ -80,8 +79,8 @@ sub setTypedRow
     $self->validateTypedRow('update', $paramsRef, $paramsRef, $force);
 
     # Notify remainder elements
-    if ( (not $force) and $self->table()->{automaticRemove}) {
-        my $manager = EBox::Model::ModelManager->instance();
+    if ((not $force) and $self->table()->{automaticRemove}) {
+        my $manager = EBox::Model::Manager->instance();
         $manager->warnOnChangeOnId($self->tableName(), 0, $paramsRef, undef);
     }
 
@@ -89,8 +88,8 @@ sub setTypedRow
     my @values = values(%{$paramsRef});
 
     my $dir = $self->{'directory'};
-    my $gconfmod = $self->{'gconfmodule'};
-    my $row = EBox::Model::Row->new(dir => $dir, gconfmodule => $gconfmod);
+    my $confmod = $self->{'confmodule'};
+    my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setModel($self);
     $row->setId('dummy');
     for my $value (@values) {
@@ -98,14 +97,13 @@ sub setTypedRow
     }
 
     $self->setMessage($self->message('update'));
-    my $depModelMsg = $self->_notifyModelManager('update', $row);
-    if ( defined ($depModelMsg)
-         and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
+    my $depModelMsg = $self->_notifyManager('update', $row);
+    if (defined ($depModelMsg)
+        and ($depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
         $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
     }
-    $self->_notifyCompositeManager('update', $row);
+    $self->_notifyManager('update', $row);
     $self->updatedRowNotify($row, $force);
-
 }
 
 1;

@@ -27,27 +27,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Constructor for the subscription composite
-#
-# Returns:
-#
-#       <EBox::RemoteServices::Composite::Subscriptions> - the subscription composite
-#
-sub new
-{
-
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -58,22 +37,13 @@ sub new
 #
 sub _description
 {
-
-    my $description =
-      {
-          components      => [
-              'SubscriptionInfo',
-              'QAUpdatesInfo',
-              'AlertsInfo',
-              'ReportsInfo',
-             ],
-          layout          => 'tabbed',
-          name            => 'SubscriptionInfos',
-          compositeDomain => 'RemoteServices',
-        };
+    my $description = {
+        layout          => 'tabbed',
+        name            => 'SubscriptionInfos',
+        compositeDomain => 'RemoteServices',
+    };
 
     return $description;
-
 }
 
 1;

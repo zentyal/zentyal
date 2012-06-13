@@ -32,7 +32,7 @@ use EBox::TestStubs qw(fakeEBoxModule);
 EBox::TestStubs::activateTestStubs();
 fakeEBoxModule(name => 'testMod');
 
-my $dir = '/tmp/gconfmodule_files.t';
+my $dir = '/tmp/confmodule_files.t';
 
 
 

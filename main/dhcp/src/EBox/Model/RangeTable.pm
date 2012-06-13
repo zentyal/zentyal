@@ -29,7 +29,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
 
@@ -44,12 +44,6 @@ use Net::IP;
 #
 #       Constructor for Rule table
 #
-# Parameters:
-#
-#       interface   - the interface where the table is attached to
-#
-#       - Named parameters
-#
 # Returns :
 #
 #      A recently created <EBox::DHCP::Model::RangeTable> object
@@ -61,40 +55,7 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
 
-    $self->{interface} = $opts{interface};
-
     return $self;
-}
-
-# Method: index
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::index>
-#
-sub index
-{
-
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
 }
 
 # Method: validateTypedRow
@@ -107,7 +68,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( (exists $changedFields->{from})
+    if ((exists $changedFields->{from})
          or (exists $changedFields->{to})) {
         my $from = $allFields->{from}->value();
         my $to   = $allFields->{to}->value();
@@ -120,22 +81,23 @@ sub validateTypedRow
                                                 ));
         }
         # Check the range is within the available range
-        my $dhcp = $self->{gconfmodule};
+        my $dhcp = $self->{confmodule};
         my $net  = EBox::Global->modInstance('network');
-        my $availableRange = new Net::IP( $dhcp->initRange($self->{interface}) . '-'
-                                          . $dhcp->endRange($self->{interface}));
+        my $interface = $self->parentRow()->valueByName('iface');
+        my $availableRange = new Net::IP($dhcp->initRange($interface) . '-'
+                                         . $dhcp->endRange($interface));
         unless ( $range->overlaps($availableRange) == $IP_A_IN_B_OVERLAP ) {
             throw EBox::Exceptions::External(__x('Range {from}-{to} is not in '
                                                  . 'network {net}',
                                                  from => $from,
                                                  to   => $to,
                                                  net  => EBox::NetWrappers::to_network_with_mask(
-                                                         $net->ifaceNetwork($self->{interface}),
-                                                         $net->ifaceNetmask($self->{interface}))
+                                                         $net->ifaceNetwork($interface),
+                                                         $net->ifaceNetmask($interface))
                                                  ));
         }
         # Check the range does not contain the interface address
-        my $ifaceAddr = $net->ifaceAddress($self->{interface});
+        my $ifaceAddr = $net->ifaceAddress($interface);
         my $ifaceIPObj = new Net::IP($ifaceAddr);
         unless ( $ifaceIPObj->overlaps($range) == $IP_NO_OVERLAP ) {
             throw EBox::Exceptions::External(__x('Range {from}-{to} includes interface '
@@ -171,7 +133,7 @@ sub validateTypedRow
         }
 
         # Check fixed addresses
-        my $fixedAddresses = $self->{gconfmodule}->fixedAddresses($self->index(), 0);
+        my $fixedAddresses = $self->{confmodule}->fixedAddresses($interface, 0);
         foreach my $fixedAddr (@{$fixedAddresses}) {
             my $fixedIP = new Net::IP($fixedAddr->{ip});
             unless ( $fixedIP->overlaps($range) == $IP_NO_OVERLAP ) {
@@ -187,7 +149,6 @@ sub validateTypedRow
             }
         }
     }
-
 }
 
 # Group: Protected methods
@@ -198,7 +159,7 @@ sub validateTypedRow
 #
 # Returns:
 #
-# 	hash ref - table's description
+#	hash ref - table's description
 #
 sub _table
 {
@@ -240,7 +201,24 @@ sub _table
 		    };
 
     return $dataTable;
+}
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+
+    $customizer->setModel($self);
+
+    $customizer->setHTMLTitle([]);
+
+    return $customizer;
 }
 
 1;

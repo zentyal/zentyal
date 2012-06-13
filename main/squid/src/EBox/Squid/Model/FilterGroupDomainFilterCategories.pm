@@ -20,6 +20,8 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Model::Manager;
+
 # Group: Public methods
 
 # Constructor: new
@@ -84,7 +86,7 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
+    my $manager = EBox::Model::Manager->instance();
     my $rowId = [split('/', $self->parentRow()->dir())]->[2];
     my $profile = $manager->model('squid/FilterGroup')
         ->row($rowId)
