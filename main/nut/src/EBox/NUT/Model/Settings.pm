@@ -60,7 +60,7 @@ sub _table
         printableTableName => __('General configuration settings'),
         pageTitle          => __('UPS'),
         modelDomain        => 'NUT',
-        defaultActions     => [ 'add', 'delete', 'editField', 'changeView' ],
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
         help               => __('List of attached UPS'),
     };

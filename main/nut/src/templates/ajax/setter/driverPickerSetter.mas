@@ -79,8 +79,7 @@ my $aux = undef;
 % }
     </select>
     <div id="extrainfo" style="margin: 10px">
-        <b>Model extra information:</b> <span id="<% $id . '_modelextra' %>" name="<% $id . '_modelextra' %>"></span><br/>
-        <b>Driver comments:</b> <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"></span><br/>
+        <b>Additional information:</b> <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"></span><br/>
     </div>
 <script type="text/javascript">
     var manufacturerselect = document.getElementById( "<% $id . '_manufacturer' %>" );
@@ -139,21 +138,27 @@ my $aux = undef;
             if (a[manufacturer].hasOwnProperty(model)) {
                 var l = modelselect.options.length;
                 var m = a[manufacturer][model];
-                modelselect.options[l] = new Option(m["model"], model, false, false);
+                var optionText = m["model"];
+                if (m["modelextra"] != "") {
+                    optionText = optionText + ' (' + m["modelextra"] + ')';
+                }
+                modelselect.options[l] = new Option(optionText, m["model"], false, false);
             }
 		}
         modelselect.selectedIndex = 0;
         modelChanged(modelselect);
 	}
 
+    var selectedModelIndex = 0;
     modelChanged = function(select) {
+        selectedModelIndex = modelselect.selectedIndex;
         driverselect.options.length = 0;
         manufacturer = manufacturerselect.value;
-        model = modelselect.value;
-        for (driver in a[manufacturer][model]["driver"]) {
-            if (a[manufacturer][model]["driver"].hasOwnProperty(driver)) {
+        modelIndex = modelselect.selectedIndex;
+        for (driver in a[manufacturer][modelIndex]["driver"]) {
+            if (a[manufacturer][modelIndex]["driver"].hasOwnProperty(driver)) {
                 var l = driverselect.options.length;
-                var d = a[manufacturer][model]["driver"][driver];
+                var d = a[manufacturer][modelIndex]["driver"][driver];
                 driverselect.options[length] = new Option(d, d, false, false);
             }
         }
@@ -162,15 +167,12 @@ my $aux = undef;
 
     updateExtra = function() {
         manufacturer = manufacturerselect.value;
-        model = modelselect.value;
 
         var sec = document.getElementById("extrainfo");
-        var modelextra_info = a[manufacturer][model]["modelextra"];
-        var driverextra_info = a[manufacturer][model]["driverextra"];
-        if (modelextra_info != "" || driverextra_info != "") {
-            var modelextra = document.getElementById( "<% $id . '_modelextra' %>" );
+        var modelextra_info = a[manufacturer][selectedModelIndex]["modelextra"];
+        var driverextra_info = a[manufacturer][selectedModelIndex]["driverextra"];
+        if (driverextra_info != "") {
             var driverextra = document.getElementById( "<% $id . '_driverextra' %>" );
-            modelextra.innerHTML = modelextra_info;
             driverextra.innerHTML = driverextra_info;
             sec.style.visibility = 'visible';
         } else {

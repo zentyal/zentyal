@@ -453,6 +453,10 @@ sub _loadDriverTable
         my $modelExtra   = $fields[4];
         my $driver       = $fields[5];
 
+        unless ($model ne '') {
+            $model = "(all)";
+        }
+
         unless (exists $table->{$manufacturer}) {
             $table->{$manufacturer} = [];
         }
