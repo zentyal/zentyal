@@ -104,7 +104,6 @@ sub setHasAccount
     my ($self, $user, $option) = @_;
 
     if (not $self->hasAccount($user) and $option) {
-
         $self->setHasContact($user, 0);
         $user->add('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->set('zarafaAccount', 1, 1);
@@ -116,9 +115,7 @@ sub setHasAccount
         $user->save();
 
         $self->{zarafa}->_hook('setacc', $user->name());
-
-    } elsif ($self->hasAccount($user) and not $option)) {
-
+    } elsif ($self->hasAccount($user) and not $option) {
         $user->remove('objectClass', [ 'zarafa-user', 'zarafa-contact' ], 1);
         $user->delete('zarafaAccount', 1);
         $user->delete('zarafaAdmin', 1);

@@ -40,7 +40,6 @@ use constant ZARAFAGATEWAYCONFFILE => '/etc/zarafa/gateway.cfg';
 use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
 use constant ZARAFAICALCONFFILE => '/etc/zarafa/ical.cfg';
-use constant ZARAFAINDEXERCONFFILE => '/etc/zarafa/indexer.cfg';
 use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_WEBACCESS_DIR => '/usr/share/zarafa-webaccess';
@@ -57,10 +56,6 @@ sub _create
     my $self = $class->SUPER::_create(name => 'zarafa',
                       printableName => 'Groupware',
                       @_);
-
-    my $output = `zarafa-admin -V`;
-    my ($version) = $output =~ /Product version:\s+(\d+),/;
-    $self->{version} = $version;
 
     bless($self, $class);
     return $self;
@@ -155,11 +150,6 @@ sub usedFiles
             'file' => ZARAFAICALCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa ical server.')
-        },
-        {
-            'file' => ZARAFAINDEXERCONFFILE,
-            'module' => 'zarafa',
-            'reason' => __('To properly configure Zarafa indexing server.')
         },
         {
             'file' => ZARAFADAGENTCONFFILE,
@@ -269,9 +259,9 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-dagent.pid']
         },
         {
-            'name' => 'zarafa-indexer',
+            'name' => 'zarafa-search',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-indexer.pid'],
+            'pidfiles' => ['/var/run/zarafa-search.pid'],
             'precondition' => \&indexerEnabled
         },
         {
@@ -368,8 +358,6 @@ sub _setConf
 
     my @array = ();
 
-    my $zarafa7 = $self->{'version'} eq 7;
-
     my $users = EBox::Global->modInstance('users');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
@@ -377,7 +365,8 @@ sub _setConf
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
-    push(@array, 'zarafa7' => $zarafa7);
+    push(@array, 'ldapuser' => $ldap->roRootDn());
+    push(@array, 'ldappwd' => $ldap->getRoPassword());
     $self->writeConfFile(ZARAFALDAPCONFFILE,
                  "zarafa/ldap.openldap.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -397,7 +386,6 @@ sub _setConf
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
     push(@array, 'indexer' => $zarafa_indexer);
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '640' });
@@ -407,7 +395,6 @@ sub _setConf
     push(@array, 'pop3s' => $self->model('Gateways')->pop3sValue() ? 'yes' : 'no');
     push(@array, 'imap' => $self->model('Gateways')->imapValue() ? 'yes' : 'no');
     push(@array, 'imaps' => $self->model('Gateways')->imapsValue() ? 'yes' : 'no');
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFAGATEWAYCONFFILE,
                  "zarafa/gateway.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -420,7 +407,6 @@ sub _setConf
     @array = ();
     my $always_send_delegates = EBox::Config::configkey('zarafa_always_send_delegates');
     push(@array, 'always_send_delegates' => $always_send_delegates);
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFASPOOLERCONFFILE,
                  "zarafa/spooler.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -434,12 +420,6 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
-    $self->writeConfFile(ZARAFAINDEXERCONFFILE,
-                 "zarafa/indexer.cfg.mas",
-                 \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
-
-    @array = ();
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFADAGENTCONFFILE,
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
