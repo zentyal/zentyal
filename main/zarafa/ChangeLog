@@ -1,4 +1,5 @@
 2.3
+	+ Enable InnoDB and restart MySQL server if needed
 	+ Bind to LDAP with the new read-only user for normal operations
 	+ zarafa-indexer is now zarafa-search
 	+ Adapted to new Model management framework

@@ -426,6 +426,7 @@ sub _setConf
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
+    $self->_enableInnoDBIfNeeded();
 }
 
 # Method: _postServiceHook
@@ -692,6 +693,18 @@ sub _setSpellChecking
 
     EBox::Sudo::root(EBox::Config::scripts('zarafa') .
                      'zarafa-spell ' . ($spell ? 'enable' : 'disable'));
+}
+
+sub _enableInnoDBIfNeeded
+{
+    my ($self) = @_;
+
+    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
+        EBox::Sudo::root(
+            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
+            "restart mysql"
+        );
+    }
 }
 
 # Method: addModuleStatus
