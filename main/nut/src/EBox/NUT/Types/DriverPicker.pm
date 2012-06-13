@@ -174,8 +174,12 @@ sub _attrs
 
 sub manufacturer
 {
-    EBox::debug("On manufacturer");
     my ($self) = @_;
+
+    unless ($self->{'manufacturer'}) {
+        my @keys = keys %{$driverTable};
+        return $keys[0];
+    }
 
     return $self->{'manufacturer'};
 }
@@ -184,16 +188,23 @@ sub upsmodel
 {
     my ($self) = @_;
 
-    my $upsmodel = $self->{'upsmodel'};
-    EBox::debug("On upsmodel, return $upsmodel");
+    unless ($self->{'upsmodel'}) {
+        my $manufacturer = $self->manufacturer();
+        return $driverTable->{$manufacturer}[0]->{model};
+    }
 
     return $self->{'upsmodel'};
 }
 
 sub driver
 {
-    EBox::debug("On driver");
     my ($self) = @_;
+
+    unless ($self->{'driver'}) {
+        my $manufacturer = $self->manufacturer();
+        my $upsmodel = $self->upsmodel();
+        return $driverTable->{$manufacturer}[0]->{driver}[0];
+    }
 
     return $self->{'driver'};
 }

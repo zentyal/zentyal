@@ -27,6 +27,7 @@ my $id = $tableName . '_' . $data->fieldName();
 my $manufacturerValue = $data->manufacturer();
 my $modelValue = $data->upsmodel();
 my $driverValue = $data->driver();
+
 my $aux = undef;
 </%init>
 <span id="<% $id %>" class="<% $cssClass %>">
@@ -59,7 +60,10 @@ my $aux = undef;
 %       $aux = $entry;
         selected
 %   }
-        value="<% $entry->{model} %>"><% $entry->{model} %></option>
+%       my $extra = $entry->{modelExtra};
+%       my $str = $entry->{model};
+%       $str .= "($extra)" if length($extra);
+        value="<% $entry->{model} %>"><% "$str" %></option>
 % }
     </select>
     <select name=<% $id . '_driver' %>
@@ -79,7 +83,11 @@ my $aux = undef;
 % }
     </select>
     <div id="extrainfo" style="margin: 10px">
-        <b>Additional information:</b> <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"></span><br/>
+%       my $str = '---';
+%       if (defined $aux) {
+%           my $str = $aux->{driverComments};
+%       }
+        <b>Additional information:</b> <span id="<% $id . '_driverextra' %>" name="<% $id . '_driverextra' %>"><% $str %></span><br/>
     </div>
 <script type="text/javascript">
     var manufacturerselect = document.getElementById( "<% $id . '_manufacturer' %>" );
@@ -167,16 +175,12 @@ my $aux = undef;
 
     updateExtra = function() {
         manufacturer = manufacturerselect.value;
-
-        var sec = document.getElementById("extrainfo");
-        var modelextra_info = a[manufacturer][selectedModelIndex]["modelextra"];
         var driverextra_info = a[manufacturer][selectedModelIndex]["driverextra"];
+        var driverextra = document.getElementById( "<% $id . '_driverextra' %>" );
         if (driverextra_info != "") {
-            var driverextra = document.getElementById( "<% $id . '_driverextra' %>" );
             driverextra.innerHTML = driverextra_info;
-            sec.style.visibility = 'visible';
         } else {
-            sec.style.visibility = 'hidden';
+            driverextra.innerHTML = "---";
         }
     }
 </script>

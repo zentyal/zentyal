@@ -22,6 +22,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Types::Select;
 use EBox::NUT::Types::DriverPicker;
 
 use File::Slurp;
@@ -46,13 +47,29 @@ sub _table
             printableName => 'UPS label',
             editable => 1,
             unique => 1,
+            help => __('The label to identify this UPS in case you define more than one'),
         ),
         new EBox::NUT::Types::DriverPicker(
                 fieldName => 'driver',
                 printableName => __('Driver'),
                 editable     => 1,
-                defaultValue => 'APC|||Back-UPS RS USB|||usbhid-ups',
                 help => __('The manufacturer of your UPS.'),
+        ),
+        new EBox::Types::Select(
+            fieldName => 'port',
+            printableName => __('Port'),
+            defaultValue => 'auto',
+            populate => \&_ports,
+            editable => 1,
+            help => __('The port where the UPS is connected to (UPS on serial ports cannot be autodected)'),
+        ),
+        new EBox::Types::Text(
+            fieldName => 'serial',
+            printableName => 'Serial number',
+            editable => 1,
+            optional => 1,
+            unique => 1,
+            help => __('The UPS serial number, used to distingish between USB units'),
         ),
     );
 
@@ -67,6 +84,17 @@ sub _table
     };
 
     return $dataForm;
+}
+
+sub _ports
+{
+    return [
+        { value => 'auto', printableValue => 'Autodetect' },
+        { value => '/dev/ttyS0', printableValue => 'Serial 1' },
+        { value => '/dev/ttyS1', printableValue => 'Serial 2' },
+        { value => '/dev/ttyS2', printableValue => 'Serial 3' },
+        { value => '/dev/ttyS3', printableValue => 'Serial 4' },
+    ];
 }
 
 1;
