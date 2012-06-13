@@ -15,12 +15,10 @@
 
 package EBox::Squid::Types::WeightedPhrasesThreshold;
 
-
 use strict;
 use warnings;
 
 use base 'EBox::Types::Select';
-
 
 use EBox::Gettext;
 
@@ -40,32 +38,27 @@ sub new
         $params{help} = _thresholdHelp();
     }
 
-
     my $self = $class->SUPER::new(%params);
     bless $self, $class;
 
     return $self;
 }
 
-
-
 sub _populateContentFilterThreshold
-  {
-      return [
-      { value => 0, printableValue => __('Disabled'),  },
-      { value => 200, printableValue => __('Very permissive'),  },
-      { value => 160, printableValue => __('Permissive'),  },
-      { value => 120, printableValue => __('Medium'),  },
-      { value => 80, printableValue => __('Strict'),  },
-      { value => 50, printableValue => __('Very strict'),  },
-      ];
-
-  }
+{
+    return [
+        { value => 0, printableValue => __('Disabled'),  },
+        { value => 200, printableValue => __('Very permissive'),  },
+        { value => 160, printableValue => __('Permissive'),  },
+        { value => 120, printableValue => __('Medium'),  },
+        { value => 80, printableValue => __('Strict'),  },
+        { value => 50, printableValue => __('Very strict'),  },
+    ];
+}
 
 sub _thresholdHelp
 {
     return __('This specifies how strict the content filter is.');
 }
-
 
 1;

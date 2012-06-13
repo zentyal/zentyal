@@ -135,9 +135,7 @@ sub validateTypedRow
                                                  net_rate => $allFields->{rate}->printableName()));
         }
     }
-
 }
-
 
 # Group: Protected methods
 

@@ -102,20 +102,17 @@ sub value
     return $st;
 }
 
-
 sub isAllTime
 {
     my ($self) = @_;
     return $self->value() eq ALL_DAYS;
 }
 
-
 sub isAllWeek
 {
     my ($self) = @_;
     return $self->weekDays() eq ALL_DAYS;
 }
-
 
 sub printableValue
 {
@@ -139,8 +136,6 @@ sub printableValue
 
     return $st;
 }
-
-
 
 #  Method: compareToHash
 #
@@ -252,7 +247,6 @@ sub cmp
     if ((ref $self) ne (ref $other)) {
         return undef;
     }
-
 
     return ($self->value() cmp $other->value());
 }
@@ -375,7 +369,7 @@ sub _hoursParamsAreValid
     elsif ($to eq $from) {
         throw EBox::Exceptions::External(
              __('You must specify two diffrent hours to the range')
-                                        );
+        );
     }
 
     my @hourParams = ($name . '_from', $name . '_to');
@@ -435,7 +429,6 @@ sub _hoursParamsAreValid
     }
 }
 
-
 sub _daysParamsAreValid
 {
     my ($self, $params) = @_;
@@ -458,8 +451,6 @@ sub _daysParamsAreValid
     }
 }
 
-
-
 # Method: _paramIsSet
 #
 # Overrides:
@@ -469,8 +460,6 @@ sub _daysParamsAreValid
 sub _paramIsSet
 {
     my ($self, $params) = @_;
-
-#    my $name = $self->fieldName();
 
     return 1;
 }
@@ -515,7 +504,6 @@ sub _setValue # (defaultValue)
         $memValueParams{$name . '_from'} = $from;
         $memValueParams{$name . '_to'}   = $to;
     }
-
 
     my %lettersToDays = reverse (%daysToLetters);
     my @letters = split //, $days;

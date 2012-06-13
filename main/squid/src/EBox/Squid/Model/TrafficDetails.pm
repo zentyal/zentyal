@@ -16,13 +16,10 @@
 package EBox::Squid::Model::TrafficDetails;
 use base 'EBox::Logs::Model::Details';
 
-#
-
 use strict;
 use warnings;
 
 use EBox::Gettext;
-
 
 sub new
 {
@@ -34,56 +31,21 @@ sub new
     return $self;
 }
 
-
-
-
-
-
 sub dbFields
 {
-   my ($package) = @_;
+    my ($package) = @_;
 
-   return  {
-        requests => {
-                     printableName => __('Requests')
-                    },
-       rfc931 => {
-                  printableName => __('User')
-                  },
-        accepted => {
-                     printableName => __('Accepted requests')
-                    },
-
-        accepted_size => {
-                          printableName => __('Accepted traffic size (Kb)')
-                         },
-
-
-        denied   => {
-                     printableName => __('Denied requests')
-                    },
-
-        denied_size => {
-                        printableName => __('Denied traffic size (Kb)')
-                       },
-
-
-        filtered => {
-                     printableName => __('Filtered requests')
-                    },
-
-        filtered_size => {
-                          printableName => __('Filtered traffic size (Kb))')
-                         },
-
-
-
-           }
-
+    return  {
+        requests      => { printableName => __('Requests') },
+        rfc931        => { printableName => __('User') },
+        accepted      => { printableName => __('Accepted requests') },
+        accepted_size => { printableName => __('Accepted traffic size (Kb)') },
+        denied        => { printableName => __('Denied requests') },
+        denied_size   => { printableName => __('Denied traffic size (Kb)') },
+        filtered      => { printableName => __('Filtered requests') },
+        filtered_size => { printableName => __('Filtered traffic size (Kb))') },
+    }
 }
-
-
-
 
 sub _table
 {
@@ -102,18 +64,14 @@ sub _table
                                             fieldName => 'requests',
                                             printableName => __('Requests')
                                            ),
-
                      new EBox::Types::Text (
                                             fieldName => 'accepted',
                                             printableName => __('Accepted requests')
                                            ),
-
                      new EBox::Types::Text (
                                             fieldName => 'accepted_size',
                                             printableName => __('Accepted traffic size (Kb)')
                                            ),
-
-
                      new EBox::Types::Text (
                                             fieldName => 'denied',
                                             printableName => __('Denied requests')
@@ -123,8 +81,6 @@ sub _table
                                             fieldName => 'denied_size',
                                             printableName => __('Denied traffic size (Kb)')
                                            ),
-
-
                      new EBox::Types::Text (
                                             fieldName => 'filtered',
                                             printableName => __('Filtered requests')
@@ -134,12 +90,9 @@ sub _table
                                             fieldName => 'filtered_size',
                                             printableName => __('Filtered traffic size (Kb))')
                                            ),
-
                     ];
 
-
-    my $dataTable =
-        {
+    my $dataTable = {
             'tableName' =>__PACKAGE__->tableName(),
             'printableTableName' => __('Web traffic details'),
             'defaultController' => '/Squid/Controller/TrafficDetails',
@@ -151,7 +104,7 @@ sub _table
             'printableRowName' => __('traffic'),
             'sortedBy' => 'date',
             'withoutActions' => 1,
-        };
+    };
 
     return $dataTable;
 }

@@ -10,34 +10,19 @@ enabledepends:
 
 models:
     - GeneralSettings
-    - ContentFilterThreshold
-    - ExtensionFilter
-    - ApplyAllowToAllExtensions
-    - MIMEFilter
-    - ApplyAllowToAllMIME
-    - DomainFilterSettings
-    - DomainFilter
-    - DomainFilterFiles
-    - DomainFilterCategories
     - GlobalGroupPolicy
     - ObjectPolicy
     - ObjectGroupPolicy
     - NoCacheDomains
-    - FilterGroup
-    - FilterGroupContentFilterThreshold
-    - UseDefaultExtensionFilter
-    - FilterGroupExtensionFilter
-    - FilterGroupApplyAllowToAllExtensions
-    - UseDefaultMIMEFilter
-    - FilterGroupMIMEFilter
-    - FilterGroupApplyAllowToAllMIME
-    - UseDefaultDomainFilter
-    - FilterGroupDomainFilter
-    - FilterGroupDomainFilterFiles
-    - FilterGroupDomainFilterCategories
-    - FilterGroupDomainFilterSettings
-    - DefaultAntiVirus
-    - FilterGroupAntiVirus
+    - FilterProfiles
+    - ContentFilterThreshold
+    - Extensions
+    - MIME
+    - DomainFilter
+    - DomainFilterFiles
+    - DomainFilterCategories
+    - DomainFilterSettings
+    - AntiVirus
     - DelayPools1
     - DelayPools2
     - RequestsGraph
@@ -46,16 +31,15 @@ models:
     - TrafficReportOptions
 
 composites:
-    General: [FIXME]
-    FilterTabs: [FIXME]
-    FilterSettings: [FIXME]
-    Extensions: [FIXME]
-    MIME: [FIXME]
-    Domains: [FIXME]
-    FilterGroupTabs: [FIXME]
-    FilterGroupSettings: [FIXME]
-    FilterGroupExtensions: [FIXME]
-    FilterGroupMIME: [FIXME]
-    FilterGroupDomains: [FIXME]
-    DelayPools: [FIXME]
-    TrafficReport: [FIXME]
+    General: [GeneralSettings, NoCacheDomains]
+    ProfileConfiguration: [AntiVirus, ContentFilterThreshold, ProfileConfigTabs]
+    ProfileConfigTabs: [Domains, MIME, Extensions]
+    Domains: [DomainFilterSettings, DomainFilter, DomainFilterFiles]
+    DelayPools: [DelayPools1, DelayPools2]
+    TrafficReport: [TrafficReportOptions, RequestsGraph, TrafficSizeGraph, TrafficDetails]
+
+foreign:
+    FilterProfiles: [ProfileConfiguration]
+    DomainFilterFiles: [DomainFilterCategories]
+    ObjectPolicy: [ObjectGroupPolicy]
+

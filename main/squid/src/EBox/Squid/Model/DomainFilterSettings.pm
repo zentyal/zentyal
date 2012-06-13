@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,48 +14,30 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid::Model::DomainFilterSettings;
-use base 'EBox::Squid::Model::DomainFilterSettingsBase';
 
+use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
 
 use EBox;
-
-use EBox::Exceptions::Internal;
 use EBox::Gettext;
+use EBox::Validate;
 use EBox::Squid::Types::Policy;
 use EBox::Types::Text;
-use EBox::Validate;
+use EBox::Exceptions::Internal;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#       Create the new  model
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#       <EBox::Squid::Model::DomainFilterSettings - the recently
-#       created model
-#
 sub new
-  {
+{
+    my $class = shift;
 
-      my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-      my $self = $class->SUPER::new(@_);
-
-      bless $self, $class;
-      return $self;
-
-  }
-
-
+    bless $self, $class;
+    return $self;
+}
 
 # Method: _table
 #
@@ -64,25 +46,53 @@ sub _table
 {
     my ($self) = @_;
 
+    my @tableDesc = (
+        new EBox::Types::Boolean(
+            fieldName     => 'blanketBlock',
+            printableName => __('Block not listed domains and URLs'),
+            defaultValue     => 0,
+            editable         => 1,
+            help             => __('If this is enabled, ' .
+                                   'any domain or URL which is neither present neither in the ' .
+                                   '<i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections below will be ' .
+                                   'forbidden.'),
+                              ),
+        new EBox::Types::Boolean(
+            fieldName     => 'blockIp',
+            printableName => __('Block sites specified only as IP'),
+            defaultValue  => 0,
+            editable      => 1,
+           ),
+    );
 
     my $dataForm = {
-                    tableName          => 'DomainFilterSettings',
-                    printableTableName => __('Domain filter settings'),
-                    modelDomain        => 'Squid',
-                    defaultActions     => [ 'editField', 'changeView' ],
-                    tableDescription   => $self->_tableHeader(),
+        tableName          => 'DomainFilterSettings',
+        printableTableName => __('Domain filter settings'),
+        modelDomain        => 'Squid',
+        defaultActions     => [ 'editField', 'changeView' ],
+        tableDescription   => \@tableDesc,
 
-
-                    messages           => {
-                                update => __('Filtering settings changed'),
-                                          },
-                     };
-
+        messages           => {
+            update => __('Filtering settings changed'),
+        },
+    };
 
     return $dataForm;
 }
 
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#   to show breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
 
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([]);
+
+    return $custom;
+}
 
 1;
-

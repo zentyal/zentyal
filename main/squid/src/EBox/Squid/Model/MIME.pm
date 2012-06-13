@@ -13,18 +13,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Squid::Model::MIMEFilterBase;
+package EBox::Squid::Model::MIME;
+
 use base 'EBox::Model::DataTable';
 
 use strict;
 use warnings;
 
 use EBox;
-
-use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
+use EBox::Exceptions::Internal;
 
 use Perl6::Junction qw(all);
 
@@ -171,6 +171,47 @@ sub checkMimeType
     }
 
     return 1;
+}
+
+sub _table
+{
+    my ($self) = @_;
+
+    my $dataTable =
+    {
+        tableName          => 'MIME',
+        modelDomain        => 'Squid',
+        printableTableName => __('MIME types'),
+        defaultController  => '/Squid/Controller/MIME',
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => $self->_tableHeader(),
+        class              => 'dataTable',
+        order              => 0,
+        rowUnique          => 1,
+        printableRowName   => __('MIME type'),
+        help               => __("Allow/Deny the HTTP traffic of the files which the given MIME types. MIME types not listed here are allowed.\nThe filter needs a 'filter' policy to be in effect"),
+
+        messages           => {
+            add => __('MIME type added'),
+            del =>  __('MIME type removed'),
+            update => __('MIME type updated'),
+        },
+        sortedBy           => 'MIMEType',
+    };
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#   to show breadcrumbs
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom = $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([]);
+
+    return $custom;
 }
 
 1;

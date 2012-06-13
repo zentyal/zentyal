@@ -13,16 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Squid::Composite::General
-#
-#   This class is used to manage the events module within a single
-#   element whose components
-#   are: <EBox::Events::Model::ConfigurationComposite> and
-#   <EBox::Common::Model::EnableFrom> inside a top-bottom
-#   layout.
+# Class: EBox::Squid::Composite::ProfileConfigTabs
 #
 
-package EBox::Squid::Composite::FilterGroupTabs;
+package EBox::Squid::Composite::ProfileConfigTabs;
 
 use base 'EBox::Model::Composite';
 
@@ -39,7 +33,7 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#       <EBox::Squid::Model::FilterGroupTabs> - a
+#       <EBox::Squid::Model::ProfileConfigTabs> - a
 #       general events composite
 #
 sub new
@@ -61,15 +55,9 @@ sub new
 #
 sub _description
 {
-    my $description =
-    {
-        components      => [
-                            'FilterGroupDomains',
-                            'FilterGroupMIME',
-                            'FilterGroupExtensions',
-                           ],
+    my $description = {
         layout          => 'tabbed',
-        name            => 'FilterGroupTabs',
+        name            => 'ProfileConfigTabs',
         compositeDomain => 'Squid',
     };
 

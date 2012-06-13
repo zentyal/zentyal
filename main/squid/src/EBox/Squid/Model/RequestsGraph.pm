@@ -13,15 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 package EBox::Squid::Model::RequestsGraph;
 use base 'EBox::Logs::Model::Graph';
-#
+
 use strict;
 use warnings;
 
 use EBox::Gettext;
-
 
 sub new
 {
@@ -31,99 +29,67 @@ sub new
 
     bless $self, $class;
     return $self;
-
 }
-
-
 
 sub dbTableName
 {
     return 'squid_traffic';
 }
 
-
-
 sub altText
 {
     return __('Squid traffic requests graph');
 }
-
 
 sub dbFields
 {
    my ($package) = @_;
 
    return  {
-        requests => {
-                     printableName => __('Requests')
-                    },
-
-        accepted => {
-                     printableName => __('Accepted requests')
-                    },
-
-
-
-
-        denied   => {
-                     printableName => __('Denied requests')
-                    },
-
-
-        filtered => {
-                     printableName => __('Filtered requests')
-                    },
-
-
-           }
-
+        requests => { printableName => __('Requests') },
+        accepted => { printableName => __('Accepted requests') },
+        denied   => { printableName => __('Denied requests') },
+        filtered => { printableName => __('Filtered requests') },
+   }
 }
-
-
-
 
 
 # Method: _table
 #
 #       The table description which consists of three fields:
 #
-
 #       You can only edit enabled and configuration fields. The event
 #       name and description are read-only fields.
 #
 sub _table
 {
+    my $dataTable = {
+        tableDescription   => [],
+        tableName          => 'RequestsGraph',
+        printableTableName => __('Access requests'),
 
-  my $dataTable = {
-                   tableDescription => [],
-                   tableName          => 'RequestsGraph',
-                   printableTableName => __('Access requests'),
+        modelDomain        => 'Squid',
 
-                   modelDomain        => 'Squid',
-                   #         help               => __(''),
+        defaultActions => [
+            'editField',
+            'changeView',
+        ],
 
-                   defaultActions => [
-                                     'editField',
-                                     'changeView',
-                                    ],
+        messages => {
+            'add'       => undef,
+            'del'       => undef,
+            'update'    => undef,
+            'moveUp'    => undef,
+            'moveDown'  => undef,
+        }
+    };
 
-                   messages => {
-                                'add'       => undef,
-                                'del'       => undef,
-                                'update'    => undef,
-                                'moveUp'    => undef,
-                                'moveDown'  => undef,
-                               }
-                  };
-
-
-  return $dataTable;
+    return $dataTable;
 }
 
 sub timePeriodModelPath
 {
     return '/squid/TrafficReportOptions';
 }
-
 
 1;

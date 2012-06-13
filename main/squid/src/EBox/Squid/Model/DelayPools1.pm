@@ -75,7 +75,7 @@ sub validateTypedRow
 {
     my ($self, $action, $params, $allFields) = @_;
 
-    if ( defined ( $params->{acl_object} ) ) {
+    if (defined ($params->{acl_object})) {
         # check objects have members
         my $srcObjId = $params->{acl_object}->value();
         my $objects = EBox::Global->modInstance('objects');
@@ -88,7 +88,7 @@ sub validateTypedRow
     }
 
     # Check if the row to edit/add is enabled prior to check this
-    if ( defined ( $params->{enabled} ) and $params->{enabled}->value() ) {
+    if (defined ($params->{enabled}) and $params->{enabled}->value()) {
         # Check the same object is not used in second delay pool table
         my $srcObjId = $allFields->{acl_object}->value();
         my $squidMod = $self->parentModule();
@@ -119,7 +119,6 @@ sub validateTypedRow
             }
         }
     }
-
 }
 
 
@@ -135,8 +134,7 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead =
-        (
+    my @tableHead = (
          new EBox::Types::Select(
                  fieldName     => 'acl_object',
                  printableName => __('Network object'),
@@ -166,7 +164,7 @@ sub _table
                  min           => -1,
                  help => __('Maximum unthrottled download file size for this network. Use -1 to disable this option.')
              ),
-      );
+    );
 
     my $dataTable = {
         'tableName'          => 'DelayPools1',
@@ -188,8 +186,6 @@ sub _table
 
     return $dataTable;
 }
-
-
 
 sub delayPools1
 {

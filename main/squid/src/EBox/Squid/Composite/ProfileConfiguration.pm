@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Squid::Composite::General
-#
-#   This class is used to manage the events module within a single
-#   element whose components
-#   are: <EBox::Events::Model::ConfigurationComposite> and
-#   <EBox::Common::Model::EnableFrom> inside a top-bottom
-#   layout.
+# Class: EBox::Squid::Composite::ProfileConfiguration
 #
 
-package EBox::Squid::Composite::MIME;
+package EBox::Squid::Composite::ProfileConfiguration;
 
 use base 'EBox::Model::Composite';
 
@@ -30,7 +24,6 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-
 
 # Group: Public methods
 
@@ -44,29 +37,12 @@ use EBox::Gettext;
 #       general events composite
 #
 sub new
-  {
-
-      my ($class, @params) = @_;
-
-      my $self = $class->SUPER::new(@params);
-
-      return $self;
-
-  }
-
-# Method: pageTitle
-#
-#   Overrides:
-#
-#       <EBox::Model::Composite::headTitle>
-#
-# Returns:
-#
-#
-#   undef
-sub pageTitle
 {
-    return undef;
+    my ($class, @params) = @_;
+
+    my $self = $class->SUPER::new(@params);
+
+    return $self;
 }
 
 # Group: Protected methods
@@ -78,24 +54,34 @@ sub pageTitle
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            => 'ProfileConfiguration',
+        compositeDomain => 'Squid',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'MIMEFilter',
-                             'ApplyAllowToAllMIME',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'MIME',
-         printableName   => __('MIME types filtering'),
-         compositeDomain => 'Squid',
-#         help            => __(''),
-        };
+    return $description;
+}
 
-      return $description;
+sub HTMLTitle
+{
+    my ($self) = @_;
 
-  }
+    my $parentRow = $self->parentRow();
+    my $profile = $parentRow->elementByName('name')->printableValue();
 
+    return ([
+            {
+                title => __('Filter Profiles'),
+                link  => '/Squid/View/FilterProfiles',
+            },
+            {
+                title => $profile,
+                link => '',
+            },
+            ]);
+}
 
 1;

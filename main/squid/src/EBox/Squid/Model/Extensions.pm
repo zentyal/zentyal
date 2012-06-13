@@ -13,21 +13,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Squid::Model::ExtensionFilterBase;
+package EBox::Squid::Model::Extensions;
+
 use base 'EBox::Model::DataTable';
 
 use strict;
 use warnings;
 
 use EBox;
-
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 
-# FIXME: This takes about 40 seconds to populate and show
-# the first time. Try to see if it can be improved.
 use constant DEFAULT_EXTENSIONS => qw(
         ade adp asx bas bat cab chm cmd com cpl crt dll exe hlp
         ini hta inf ins isp lnk mda mdb mde mdt mdw mdz msc msi
@@ -37,6 +35,8 @@ use constant DEFAULT_EXTENSIONS => qw(
         ogg wmf cue sxw stw stc sxi sti sxd sxg odt ott ods
         ots odp otp odg otg odm odf odc odb odi pdf
 );
+
+# Group: Public methods
 
 sub new
 {
@@ -125,4 +125,48 @@ sub _tableHeader
     return \@tableHeader;
 }
 
+sub _table
+{
+    my ($self) = @_;
+    my $warnMsg = q{The extension filter needs a 'filter' policy to take effect};
+
+    my $dataTable =
+    {
+        tableName          => 'Extensions',
+        printableTableName => __('File extensions'),
+        modelDomain        => 'Squid',
+        defaultController  => '/Squid/Controller/Extensions',
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => $self->_tableHeader(),
+        class              => 'dataTable',
+        order              => 0,
+        rowUnique          => 1,
+        printableRowName   => __('extension'),
+        help               => __("Allow/Deny the HTTP traffic of the files which the given extensions.\nExtensions not listed here are allowed.\nThe extension filter needs a 'filter' policy to be in effect"),
+
+        messages           => {
+            add    => __('Extension added'),
+            del    => __('Extension removed'),
+            update => __('Extension updated'),
+        },
+        sortedBy           => 'extension',
+    };
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#   to show breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([]);
+
+    return $custom;
+}
+
 1;
+

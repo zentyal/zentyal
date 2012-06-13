@@ -13,8 +13,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
 package EBox::Squid::Composite::TrafficReport;
 
 use base 'EBox::Model::Composite';
@@ -54,26 +52,17 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            => __PACKAGE__->nameFromClass(),
+        printableName   => __('HTTP proxy traffic report'),
+        pageTitle   => __('HTTP proxy traffic report'),
+        compositeDomain => 'Squid',
+    };
 
-      my $description =
-        {
-         components      => [
-                             'squid/TrafficReportOptions',
-                             'squid/RequestsGraph',
-                             'squid/TrafficSizeGraph',
-                             'squid/TrafficDetails',
-                            ],
-         layout          => 'top-bottom',
-         name            => __PACKAGE__->nameFromClass(),
-         printableName   => __('HTTP proxy traffic report'),
-         pageTitle   => __('HTTP proxy traffic report'),
-         compositeDomain => 'Squid',
-#         help            => __(''),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

@@ -18,8 +18,7 @@ package EBox::Squid;
 use strict;
 use warnings;
 
-use base qw(
-            EBox::Module::Service EBox::KerberosModule
+use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
             EBox::Report::DiskUsageProvider EBox::NetworkObserver);
 
@@ -234,16 +233,16 @@ sub usedFiles
              'reason' => __('Configuration of adzapper'),
             },
             {
-                file => SQUID3_DEFAULT_FILE,
-                module => 'squid',
-                reason => __('Set the kerberos keytab path'),
+             'file' => SQUID3_DEFAULT_FILE,
+             'module' => 'squid',
+             'reason' => __('Set the kerberos keytab path'),
             },
             {
-                file => KEYTAB_FILE,
-                module => 'squid',
-                reason => __('Extract the service principal key'),
+             'file' => KEYTAB_FILE,
+             'module' => 'squid',
+             'reason' => __('Extract the service principal key'),
             }
-           ];
+    ];
 }
 
 
@@ -536,7 +535,6 @@ sub setAdBlockExecFile
     if ( $file ) {
         EBox::Sudo::root("cp -f $file " . BLOCK_ADS_EXEC_FILE);
     }
-
 }
 
 sub _dgNeeded
@@ -619,7 +617,7 @@ sub _antivirusNeeded
     my ($self, $filterGroups_r) = @_;
 
     if (not $filterGroups_r) {
-        my $filterGroups = $self->model('FilterGroup');
+        my $filterGroups = $self->model('FilterProfiles');
         return $filterGroups->antivirusNeeded();
     }
 
@@ -851,8 +849,7 @@ sub _writeDgIpGroups
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                        'squid/ipgroups.mas',
                        [
-                        filterGroups =>
-                           $objects->objectsFilterGroups()
+                        filterGroups => $objects->objectsFilterGroups()
                        ]);
 }
 
@@ -905,6 +902,9 @@ sub _cleanDomainFilterFiles
 {
     my ($self) = @_;
 
+    # FIXME: reimplement this together with the new files management
+    return 0;
+
     # purge empty file list directories and orphaned files/directories
     # XXX is not the ideal place to
     # do this but we don't have options bz deletedRowNotify is called before
@@ -914,9 +914,7 @@ sub _cleanDomainFilterFiles
     # should be implemented better someday
     # This avoids the bug of deleting list files in the second restart
     my $dir = $self->isReadOnly() ? 'ebox-ro' : 'ebox';
-    my @keys = $self->{redis}->_keys("/$dir/modules/squid/*/FilterGroupDomainFilterFiles/*/fileList_path");
-    # default profile
-    push @keys, $self->{redis}->_keys("/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
+    my @keys = $self->{redis}->_keys("/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
 
     my %fgDirs;
     foreach my $key (@keys) {
@@ -930,19 +928,7 @@ sub _cleanDomainFilterFiles
         $fgDirs{$profileDir} = 1;
     }
 
-    #foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-        # FIXME: _domainFilterFilesComponents returns a wrong list
-        # that's why this is workarounded with _keys
-        # $fgDirs{$domainFilterFiles->listFileDir} = 1;
-
-        #$domainFilterFiles->setupArchives();
-
-        # No need to clean files separately, we will clean
-        # the whole non-referenced dirs in the next loop
-        #$domainFilterFiles->cleanOrphanedFiles();
-    #}
-
-    my $defaultListFileDir = EBox::Squid::Model::DomainFilterFiles->listFileDir();
+    my $defaultListFileDir = $self->model('DomainFilterFiles')->listFileDir();
 
     # As now the directories for each profile are not deleted separately with
     # cleanOrphanedFiles, we change the depth of the find to remove them here
@@ -966,21 +952,14 @@ sub _domainFilterFilesComponents
 
     my @components;
 
-    my $filterGroups = $self->model('FilterGroup');
+    my $filterGroups = $self->model('FilterProfiles');
     my $defaultGroupName = $filterGroups->defaultGroupName();
     foreach my $id ( @{ $filterGroups->ids() } ) {
         my $row = $filterGroups->row($id);
         my $filterPolicy =   $row->elementByName('filterPolicy');
         my $fSettings = $filterPolicy->foreignModelInstance();
 
-        my $domainFilterFiles;
-        if ($row->valueByName('name') eq $defaultGroupName) {
-            push @components,
-                $fSettings->componentByName('DomainFilterFiles', 1);
-        } else {
-            push @components,
-                $fSettings->componentByName('FilterGroupDomainFilterFiles', 1);
-        }
+        push @components, $fSettings->componentByName('DomainFilterFiles', 1);
     }
 
     return \@components;
@@ -1013,7 +992,7 @@ sub _dgFilterGroups
 {
     my ($self) = @_;
 
-    my $filterGroupModel = $self->model('FilterGroup');
+    my $filterGroupModel = $self->model('FilterProfiles');
     return $filterGroupModel->filterGroups();
 }
 
@@ -1125,7 +1104,7 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/GlobalGroupPolicy',
                                       'text' => __(q{Groups' Policy})));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterGroup',
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
 
     $root->add($folder);
@@ -1228,15 +1207,11 @@ sub _consolidateConfiguration
            };
 }
 
-
-
 sub logHelper
 {
     my ($self) = @_;
     return (new EBox::Squid::LogHelper);
 }
-
-
 
 # Overrides:
 #   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
@@ -1348,7 +1323,7 @@ sub report
         key => 'main_code',
         keyGenerator => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END AS main_code",
        }
-                                        );
+    );
 
     my $newtraffic;
     for my $fk (keys(%{$traffic})) {

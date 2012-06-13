@@ -16,7 +16,6 @@
 package EBox::Squid::Model::TrafficReportOptions;
 use base 'EBox::Logs::Model::OptionsBase';
 
-#
 use strict;
 use warnings;
 
@@ -28,10 +27,7 @@ sub new
 
     bless $self, $class;
     return $self;
-
 }
-
-
 
 sub tableName
 {
@@ -43,13 +39,9 @@ sub modelDomain
     return 'Squid';
 }
 
-
-
-
 sub reportUrl
 {
     return '/Squid/Composite/TrafficReport';
 }
-
 
 1;
