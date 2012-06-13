@@ -127,7 +127,7 @@ sub _setConf
 
     # Time zone
     my $timezoneModel = $self->model('TimeZone');
-    my $tz = $timezoneModel->timezoneValue();
+    my $tz = $timezoneModel->row()->elementByName('timezone');
     my $tzStr = $tz->printableValue();
     EBox::Sudo::root("echo $tzStr > /etc/timezone",
                      "cp -f /usr/share/zoneinfo/$tzStr /etc/localtime");
