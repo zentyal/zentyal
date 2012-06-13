@@ -174,6 +174,16 @@ sub hostDomain
     return $domain;
 }
 
+
+# we override aroundRestoreconfig to restore also state data (for the widget)
+sub aroundRestoreConfig
+{
+    my ($self, $dir, @extraOptions) = @_;
+    $self->SUPER::aroundRestoreConfig($dir, @extraOptions);
+    $self->_load_state_from_file($dir);
+}
+
+
 #
 # Method: widgets
 #
@@ -361,16 +371,22 @@ sub addKnownWidget
 {
     my ($self, $wname) = @_;
 
-    my $hash = $self->get_hash('known/widgets');
-    $hash->{$wname} = 1;
-    $self->set('known/widgets', $hash);
+    my $widgets = $self->st_get('known/widgets');
+    if (not $widgets) {
+        $widgets  = {};
+    }
+    $widgets->{$wname} = 1;
+    $self->st_set('known/widgets', $widgets);
 }
 
 sub isWidgetKnown
 {
     my ($self, $wname) = @_;
 
-    my $hash = $self->get_hash('known/widgets');
+    my $hash = $self->st_get('known/widgets');
+    defined $hash or
+        return 0;
+
     return exists $hash->{$wname};
 }
 
@@ -378,30 +394,34 @@ sub getDashboard
 {
     my ($self, $dashboard) = @_;
 
-    return $self->get_list($dashboard);
+    return $self->st_get_list($dashboard);
 }
 
 sub setDashboard
 {
     my ($self, $dashboard, $widgets) = @_;
 
-    $self->set($dashboard, $widgets);
+    $self->st_set($dashboard, $widgets);
 }
 
 sub toggleElement
 {
     my ($self, $element) = @_;
 
-    my $hash = $self->get_hash($element);
+    my $hash = $self->st_get($element);
     $hash->{toggled} = not $hash->{toggled};
-    $self->set($element, $hash);
+    $self->st_set($element, $hash);
 }
 
 sub toggledElements
 {
     my ($self) = @_;
+    my $toggled = $self->st_get('toggled');
+    if (not defined $toggled) {
+        return []
+    }
 
-    my @toggled = keys %{$self->get_hash('toggled')};
+    my @toggled = keys %{ $toggled };
     return \@toggled;
 }
 
