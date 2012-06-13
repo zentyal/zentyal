@@ -809,11 +809,11 @@ sub modelsRestoreFiles
 #    }
 }
 
-#sub _filesArchive
-#{
-#    my ($self, $dir) = @_;
-#    return "$dir/modelsFiles.tar";
-#}
+sub _filesArchive
+{
+    my ($self, $dir) = @_;
+    return "$dir/modelsFiles.tar";
+}
 
 
 # Method: backupFilesInArchive
