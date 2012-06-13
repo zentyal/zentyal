@@ -393,8 +393,6 @@ q{Port {p} is already in use by program '{pr}'. Choose another port or free it a
             );
         }
     }
-
-
 }
 
 sub updateAdminPortService

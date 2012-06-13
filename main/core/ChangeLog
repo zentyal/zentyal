@@ -1,6 +1,6 @@
 HEAD
-	+ Fixed regression which dont updated the administration service
-	port when it was changed in the interface
+	+ Fixed regression which prevented update of the administration service
+	  port when it was changed in the interface
 	+ New EBox::Model::Composite::componentNames() for dynamic composites
 	+ Remove _exposedMethods() feature to reduce use of AUTOLOAD
 	+ Removed any message set in the model in syncRows method
@@ -13,9 +13,9 @@ HEAD
 	+ Removed unnecessary parentComposite methods in EBox::Model::Component
 	+ Only mark modules as changed when data has really changed
 	+ EBox::Global::modChange() throws exception if instance is readonly
-	+ New get_state() and set_state() methods, st_* methods are kept for backwards
-	  compatibility, but they are deprecated
-	+ Simplified events module implementation with Watcher and Dispatcher providers
+	+ New get_state() and set_state() methods, st_* methods are kept for
+	  backwards compatibility, but they are deprecated
+	+ Simplified events module internals with Watcher and Dispatcher providers
 	+ Model Manager is now able to properly manage read-only instances
 	+ Composites can now use parentModule() like Models
 	+ Renamed old EBox::GConfModule to EBox::Module::Config

@@ -660,10 +660,6 @@ sub Viewer
 
 # Group: Private methods
 
-# Return a row from within the model. It's a reimplementation of
-# SUPER::row so it should take care about any change at superclass
-
-
 # Return a row with only default values
 sub _defaultRow
 {

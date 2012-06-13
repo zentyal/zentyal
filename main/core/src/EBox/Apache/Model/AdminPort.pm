@@ -62,7 +62,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub validateTypedRow
 {
     my ($self, $action, $changedValues, $allValues) = @_;
@@ -76,6 +75,5 @@ sub updatedRowNotify
     my $port = $row->valueByName('port');
     $self->parentModule()->updateAdminPortService($port);
 }
-
 
 1;
