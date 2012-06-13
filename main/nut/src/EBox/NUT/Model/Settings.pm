@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UPS::Model::Settings;
+package EBox::NUT::Model::Settings;
 
 use strict;
 use warnings;
@@ -21,7 +21,7 @@ use warnings;
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
-use EBox::UPS::Types::DriverPicker;
+use EBox::NUT::Types::DriverPicker;
 
 use File::Slurp;
 
@@ -46,7 +46,7 @@ sub _table
             editable => 1,
             unique => 1,
         ),
-        new EBox::UPS::Types::DriverPicker(
+        new EBox::NUT::Types::DriverPicker(
                 fieldName => 'driver',
                 printableName => __('Driver'),
                 editable     => 1,
@@ -59,7 +59,7 @@ sub _table
         tableName          => 'Settings',
         printableTableName => __('General configuration settings'),
         pageTitle          => __('UPS'),
-        modelDomain        => 'UPS',
+        modelDomain        => 'NUT',
         defaultActions     => [ 'add', 'delete', 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
         help               => __('List of attached UPS'),

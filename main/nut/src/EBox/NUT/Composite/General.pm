@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UPS::Composite::General;
+package EBox::NUT::Composite::General;
 
 use strict;
 use warnings;
@@ -48,12 +48,12 @@ sub new
 sub _description
 {
     my $description = {
-        components      => [ 'ups/Settings' ],
+        components      => [ 'nut/Settings' ],
         layout          => 'top-bottom',
         name            => 'General',
         #pageTitle       => __('Foo'),
         printableName   => __('UPS'),
-        compositeDomain => 'UPS',
+        compositeDomain => 'NUT',
         #help            => __(''),
     };
 

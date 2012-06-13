@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UPS;
+package EBox::NUT;
 
 use strict;
 use warnings;
@@ -27,7 +27,7 @@ use EBox::Gettext;
 sub _create
 {
     my $class = shift;
-    my $self = $class->SUPER::_create(name => 'ups',
+    my $self = $class->SUPER::_create(name => 'nut',
                                       printableName => __('UPS'),
                                       @_);
     bless ($self, $class);
@@ -51,7 +51,7 @@ sub menu
                                         'separator' => 'Core',
                                         'order' => 70);
 
-    my $item = new EBox::Menu::Item('url' => 'UPS/Composite/General',
+    my $item = new EBox::Menu::Item('url' => 'NUT/Composite/General',
                                     'text' => $self->printableName(),
                                     'order' => 50);
     $folder->add($item);
@@ -69,7 +69,7 @@ sub menu
 sub modelClasses
 {
     return [
-        'EBox::UPS::Model::Settings'
+        'EBox::NUT::Model::Settings'
     ];
 }
 
@@ -82,7 +82,7 @@ sub modelClasses
 sub compositeClasses
 {
     return [
-        'EBox::UPS::Composite::General',
+        'EBox::NUT::Composite::General',
     ];
 }
 

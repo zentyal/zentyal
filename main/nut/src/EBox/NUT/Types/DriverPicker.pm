@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UPS::Types::DriverPicker;
+package EBox::NUT::Types::DriverPicker;
 
 use strict;
 use warnings;
@@ -45,7 +45,7 @@ sub new
     }
 
     unless (exists $opts{'HTMLSetter'}) {
-        $opts{'HTMLSetter'} ='/ups/ajax/setter/driverPickerSetter.mas';
+        $opts{'HTMLSetter'} ='/nut/ajax/setter/driverPickerSetter.mas';
     }
     unless (exists $opts{'HTMLViewer'}) {
         $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
