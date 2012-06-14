@@ -579,7 +579,6 @@ sub _setAddress
 
     if (defined($obj)) {
         foreach my $member (@{ $objMembers }) {
-            # XXX cambiar aqui para soportar ranges
             if ($member->{type} eq 'ipaddr') {
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
             } elsif ($member->{type} eq 'iprange') {
