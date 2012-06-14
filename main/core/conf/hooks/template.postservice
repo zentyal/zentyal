@@ -12,6 +12,6 @@
 # Copy this file or create a script with the appropriate name if you want
 # to run some customization script after a module runs its services.
 
-# Ensure that scripts are executable by root (note that examples are not).
+# Hook scripts need to be executable by root (note that examples are not).
 
 exit 0
