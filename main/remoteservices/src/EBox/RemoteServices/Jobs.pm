@@ -69,7 +69,7 @@ sub jobResult
 {
     my ($self, %wsParams) = @_;
 
-    $self->RESTClient()->POST("/v1/jobs/$wsParams{'jobId'}/result/", %wsParams);
+    $self->_transmitResult("/v1/jobs/$wsParams{'jobId'}/result/", %wsParams);
 }
 
 # Method: cronJobResult
@@ -93,7 +93,7 @@ sub cronJobResult
 {
     my ($self, %wsParams) = @_;
 
-    $self->RESTClient()->POST("/v1/jobs/cron/$wsParams{'jobId'}/result/", %wsParams);
+    $self->_transmitResult("/v1/jobs/cron/$wsParams{'jobId'}/result/", %wsParams);
 }
 
 # Method: cronJobs
@@ -138,6 +138,41 @@ sub _serviceUrnKey
 sub _serviceHostNameKey
 {
     return 'managementProxy';
+}
+
+# Group: Private methods
+
+# Upload the job result separated in tracks if required
+sub _transmitResult
+{
+    my ($self, $url, %wsParams) = @_;
+
+    my %originalWSParams = %wsParams;
+    my $lengthStdOut = length($originalWSParams{stdout});
+    my $lengthStdErr = length($originalWSParams{stderr});
+    if ( $lengthStdOut > MAX_SIZE or $lengthStdErr > MAX_SIZE) {
+        my %wsParams = %originalWSParams;
+        my $startPos = 0;
+        $wsParams{stdout} = substr($wsParams{stdout}, $startPos, MAX_SIZE);
+        $wsParams{stderr} = substr($wsParams{stderr}, $startPos, MAX_SIZE);
+        # Create the job result and get its id
+        my $ret = $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", %wsParams)->data();
+        my $jobResultId = $ret->{'job_result_id'};
+
+        # Append all the remaining data
+        while ( $lengthStdOut > $startPos or $lengthStdErr > $startPos) {
+            $startPos += MAX_SIZE;
+            my $stdout = $startPos > $lengthStdOut ? '' : substr($originalWSParams{stdout}, $startPos, MAX_SIZE);
+            my $stderr = $startPos > $lengthStdErr ? '' : substr($originalWSParams{stderr}, $startPos, MAX_SIZE);
+            $self->RESTClient()->PUT($url . "$jobResultId/result/",
+                                     {jobInstanceResultId => $jobResultId,
+                                      stdout => $stdout,
+                                      stderr => $stderr});
+        }
+    } else {
+        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", %wsParams);
+    }
+
 }
 
 1;
