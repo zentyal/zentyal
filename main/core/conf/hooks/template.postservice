@@ -3,7 +3,7 @@
 # This is a sample postservice script.
 
 # postservice scripts are run after the services associated to a given service
-# module are run. The module will check if an executable file called
+# module are run. The module will check if an _executable_ file called
 # <module>.postservice exists in /etc/zentyal/hooks and will try to run it.
 
 # The script will receive a command line argument indicating whether the
@@ -11,5 +11,7 @@
 
 # Copy this file or create a script with the appropriate name if you want
 # to run some customization script after a module runs its services.
+
+# Ensure that scripts are executable by root (note that examples are not).
 
 exit 0
