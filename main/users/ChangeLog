@@ -1,4 +1,4 @@
-HEAD
+2.3.10
 	+ Delete obsolete daemons and attributes regarding old replication
 	+ Better error control in _loadACLDirectory
 	+ Adapted to new Model management framework

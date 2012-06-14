@@ -1,4 +1,4 @@
-HEAD
+2.3.8
 	+ ifaceExternalChanged() is now called when static or PPP interfaces
 	  changes from external to internal
 	+ Implement new EBox::Events::WatcherProvider

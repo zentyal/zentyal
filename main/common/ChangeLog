@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Added new EBox::Config::shm() to get Zentyal shared memory dir
 2.3.5
 	+ Added additional() and TO_JSON() to EBox::Event

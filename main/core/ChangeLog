@@ -1,4 +1,4 @@
-HEAD
+2.3.11
 	+ Fixed regression which prevented update of the administration service
 	  port when it was changed in the interface
 	+ New EBox::Model::Composite::componentNames() for dynamic composites

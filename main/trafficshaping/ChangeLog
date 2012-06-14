@@ -1,4 +1,4 @@
-HEAD
+2.3.2
 	+ Separate rules in internal (download) and external (upload)
 	+ Use regular models instead of a dynamic select composite
 	+ Adapted to new Model management framework

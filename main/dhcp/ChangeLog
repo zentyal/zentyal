@@ -1,4 +1,4 @@
-HEAD
+2.3.6
 	+ Remove old workarounds in viewCustomizers no longer necessary
 	  with foreign in yaml schema
 	+ Use a regular model instead of a select composite which is
