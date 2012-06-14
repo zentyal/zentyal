@@ -63,12 +63,6 @@ sub new
     my $self = $class->SUPER::new(@_);
 
     bless ($self, $class);
-
-    # Change the directory to store the form data since it's not
-    # required a lot complexity
-    $self->{directory} = $self->{confdir};
-    $self->{rowdir} = $self->{directory} . "/$ROW_ID";
-
     return $self;
 }
 
@@ -85,6 +79,7 @@ sub _ids
 {
     return [ $ROW_ID ];
 }
+
 
 # Method: setValue
 #
@@ -186,8 +181,21 @@ sub row
 {
     my ($self, $id) = @_;
 
-    return $self->SUPER::row($ROW_ID);
+    if ($self->_rowStored()) {
+        return $self->SUPER::row($ROW_ID);
+    } else {
+        $self->_defaultRow();
+    }
+
 }
+
+sub _rowStored
+{
+    my ($self) = @_;
+    my $rowDir = $self->{directory} . "/$ROW_ID";
+    return defined $self->{'confmodule'}->get($rowDir);
+}
+
 
 # Method: moveUp
 #
@@ -243,7 +251,7 @@ sub moveDown
 #
 sub removeRow
 {
-    my ($self, $id, $force ) = @_;
+    my ($self, $id, $force) = @_;
 
     if ($force) {
         $self->removeAll($force);
@@ -271,7 +279,7 @@ sub removeAll
 
     if ( $force ) {
         # Remove the data
-        $self->{confmodule}->delete_dir($self->{rowdir});
+        $self->{confmodule}->delete_dir($self->{confdir});
     } else {
         throw EBox::Exceptions::Internal('Cannot remove data unless force specified');
     }
@@ -356,7 +364,7 @@ sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
 
-    if (defined ($self->{'confmodule'}->get($self->{'rowdir'}))) {
+    if ($self->_rowStored()) {
         $self->SUPER::setTypedRow($ROW_ID, $paramsRef, %optParams);
     } else {
         $optParams{id} = $ROW_ID;
