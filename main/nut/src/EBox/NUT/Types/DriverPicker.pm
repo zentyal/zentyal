@@ -87,10 +87,24 @@ sub value
     EBox::debug("On value");
     my ($self) = @_;
 
+    my $manufacturer = $self->manufacturer();
+    my $upsmodel     = $self->upsmodel();
+    my $driver       = $self->driver();
+
     my $value = {};
-    $value->{manufacturer} = $self->{manufacturer};
-    $value->{upsmodel}     = $self->{upsmodel};
-    $value->{driver}       = $self->{driver};
+    $value->{manufacturer} = $manufacturer;
+    $value->{upsmodel}     = $upsmodel;
+    $value->{driver}       = $driver;
+    $value->{options}      = undef;
+
+    # Get the model options
+    my $modelList = $driverTable->{$manufacturer};
+    foreach my $entry (@{$modelList}) {
+        if ($entry->{model} eq $upsmodel) {
+            $value->{options} = $entry->{driverOptions};
+            last;
+        }
+    }
 
     return $value;
 }
@@ -391,7 +405,6 @@ sub _loadDriverTable
         my %hash = map { $_ => 1 } @driverList;
         @{$entry->{driver}} = keys %hash;
     }
-    EBox::debug(Dumper($table));
     return $table;
 }
 

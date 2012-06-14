@@ -136,16 +136,73 @@ sub _setConf
 {
     my ($self) = @_;
 
-    #$self->writeConfFile('/etc/pam.d/vsftpd',
-    #                     '/ftp/vsftpd.mas',
-    #                     [ enabled => $userHomes ]);
+    my $nutMode = $self->model('Mode')->modeValue();
+    $self->writeConfFile('/etc/nut/nut.conf',
+                         '/nut/nut.conf.mas',
+                         [ mode => $nutMode ]);
+
+    my $upsList = $self->model('UPS')->upsList();
+    use Data::Dumper;
+    EBox::debug(Dumper($upsList));
+    $self->writeConfFile('/etc/nut/ups.conf',
+                         '/nut/ups.conf.mas',
+                         [ upsList => $upsList ]);
+
+    my $listen = [ '127.0.0.1' ]; # TODO If server, the addresses where listen
+    my $port   = 3493;
+    $self->writeConfFile('/etc/nut/upsd.conf',
+                         '/nut/upsd.conf.mas',
+                         [ listen => $listen,
+                           port   => $port ]);
+
+    # TODO Modelize upsd users
+    my $upsdUsers = [
+        {
+            name     => 'upsmon',
+            password => 'upsmon',
+            upsmon   => 'master',
+        }
+    ];
+    $self->writeConfFile('/etc/nut/upsd.users',
+                         '/nut/upsd.users.mas',
+                         [ users => $upsdUsers ]);
+
+    # TODO Modelize upsmon users
+    my $monitoredList = [];
+    foreach my $entry (@{$upsList}) {
+        my $monitored = {
+            label    => $entry->{label},
+            host     => 'localhost',
+            nPSU     => 1,
+            user     => 'upsmon',
+            password => 'upsmon',
+            upsmon   => 'master',
+        };
+        push (@{$monitoredList}, $monitored);
+    }
+    $self->writeConfFile('/etc/nut/upsmon.conf',
+                         '/nut/upsmon.conf.mas',
+                         [ monitoredList => $monitoredList ]);
+
+    # Ensure files security
+    my @cmds;
+    push (@cmds, 'chown root:nut /etc/nut/ups.conf');
+    push (@cmds, 'chmod 640 /etc/nut/ups.conf');
+    push (@cmds, 'chown root:nut /etc/nut/upsd.conf');
+    push (@cmds, 'chmod 640 /etc/nut/upsd.conf');
+    push (@cmds, 'chown root:nut /etc/nut/upsd.users');
+    push (@cmds, 'chmod 640 /etc/nut/upsd.users');
+    push (@cmds, 'chown root:nut /etc/nut/upsmon.conf');
+    push (@cmds, 'chmod 640 /etc/nut/upsmon.conf');
+    push (@cmds, 'addgroup nut dialout');
+    EBox::Sudo::root(@cmds);
 }
 
 sub _daemons
 {
     return [
         #{
-        #    'name' => 'vsftpd',
+        #    'name' => 'nut',
         #},
     ];
 }

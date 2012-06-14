@@ -33,11 +33,11 @@ use EBox::Gettext;
 sub _description
 {
     my $description = {
-        layout          => 'top-bottom',
+        layout          => 'tabbed',
         name            => 'General',
         pageTitle       => __('UPS'),
         compositeDomain => 'NUT',
-        help            => __('FIXME'),
+        help            => __(''), # FIXME
     };
 
     return $description;

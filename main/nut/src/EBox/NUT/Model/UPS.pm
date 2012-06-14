@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::NUT::Model::Settings;
+package EBox::NUT::Model::UPS;
 
 use strict;
 use warnings;
@@ -25,10 +25,6 @@ use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::NUT::Types::DriverPicker;
 
-use File::Slurp;
-
-use constant DRIVER_LIST_FILE => '/usr/share/nut/driver.list';
-
 sub new
 {
     my $class = shift;
@@ -37,6 +33,42 @@ sub new
     bless ($self, $class);
 
     return $self;
+}
+
+sub upsList
+{
+    my ($self) = @_;
+
+    my $list = [];
+    foreach my $id (@{$self->ids()}) {
+        my $ups = {};
+        my $row = $self->row($id);
+        $ups->{label}       = $row->valueByName('label');
+        $ups->{data}        = $row->valueByName('driver');
+        $ups->{port}        = $row->valueByName('port');
+        $ups->{serial}      = $row->valueByName('serial');
+        $ups->{description} = $row->valueByName('description');
+        push (@{$list}, $ups);
+    }
+    return $list;
+}
+
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    my $label = exists $changedFields->{label} ?
+        $changedFields->{label}->value() : $allFields->{label}->value();
+    if ($label =~ m/\s+/) {
+        throw EBox::Exceptions::External(__("'Label' can not contain spaces"));
+
+    }
 }
 
 sub _table
@@ -49,11 +81,19 @@ sub _table
             unique => 1,
             help => __('The label to identify this UPS in case you define more than one'),
         ),
+        new EBox::Types::Text(
+            fieldName => 'description',
+            printableName => __('Description'),
+            editable => 1,
+            optional => 1,
+            help => __('Optional UPS description'),
+        ),
         new EBox::NUT::Types::DriverPicker(
-                fieldName => 'driver',
-                printableName => __('Driver'),
-                editable     => 1,
-                help => __('The manufacturer of your UPS.'),
+            fieldName => 'driver',
+            printableName => __('Driver'),
+            editable     => 1,
+            allowUnsafeChars => 1,
+            help => __('The manufacturer of your UPS.'),
         ),
         new EBox::Types::Select(
             fieldName => 'port',
@@ -74,13 +114,13 @@ sub _table
     );
 
     my $dataForm = {
-        tableName          => 'Settings',
-        printableTableName => __('General configuration settings'),
-        pageTitle          => __('UPS'),
+        tableName          => 'UPS',
+        printableTableName => __('Attached UPSs'),
+        printableRowName   => __('UPS'),
         modelDomain        => 'NUT',
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
-        help               => __('List of attached UPS'),
+        help               => __('List of locally attached UPS'),
     };
 
     return $dataForm;

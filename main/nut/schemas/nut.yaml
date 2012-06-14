@@ -1,7 +1,8 @@
 class: 'EBox::NUT'
 
 models:
-    - Settings
+    - Mode
+    - UPS
 
 composites:
-    General: [Settings]
+    General: [Mode, UPS]
