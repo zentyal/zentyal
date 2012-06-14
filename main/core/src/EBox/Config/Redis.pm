@@ -267,6 +267,7 @@ sub _backup_dir
     my $dest = $args{destination};
 
     my @keys = $self->_keys($key ? "$key/*" : '*');
+    push @keys, $self->_keys($key); # add own key itself
 
     for my $entry (@keys) {
         my $destKey = $entry;
