@@ -273,6 +273,9 @@ sub _backup_dir
         my $destKey = $entry;
 
         my $value = $self->get($entry);
+        defined $value or
+            next;
+
         if ($destinationType eq 'redis') {
             $destKey =~ s/^$key/$dest/;
             $self->set($destKey, $value);
