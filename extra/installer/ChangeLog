@@ -1,4 +1,6 @@
-HEAD
+2.3-1
+    + Link packages to cache to avoid downloading them
+2.3
     + Zentyal desktop launcher now works if server port has changed
     + Install zentyal on second stage to workaround lack of upstart
     + New autobuild script for a more clean and automated generation

@@ -19,6 +19,14 @@ create_repository()
     apt-ftparchive packages . | gzip > Packages.gz 2>>$LOG
     popd
 
+    # Link .deb files to cache to avoid downloading them
+    pushd /var/cache/apt/archives
+    for i in $PKG_DIR/*.deb
+    do
+        ln -s $i .
+    done
+    popd
+
     # Update the package database with only the local repository
     # just in case we are installing without internet connection
     mv ${SOURCES_LIST} /tmp/sources.list.orig
