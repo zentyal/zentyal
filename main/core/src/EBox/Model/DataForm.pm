@@ -319,10 +319,8 @@ sub warnIfIdUsed
 sub setRow
 {
     my ($self, $force, %params) = @_;
-
-# FIXME: check what happens with this
-
     $self->validateRow('update', \%params);
+
     # We can only set those types which have setters
     my @newValues = @{$self->setterTypes()};
 
