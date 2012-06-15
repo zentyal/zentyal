@@ -32,6 +32,20 @@ sub new
 }
 
 
+# Method: addresses
+#
+#       Return the network addresses of all members
+#
+# Parameters:
+#
+#       mask - return also addresses' mask (named optional, default false)
+#
+# Returns:
+#
+#       list reference - containing strings  with ip mask, empty list if
+#       there are no addresses in the object
+#       In case mask is wanted the elements of the array would be  [ip, mask]
+#
 sub addresses
 {
     my ($self, %params) = @_;
@@ -65,9 +79,17 @@ sub addresses
     return \@ips;
 }
 
+# Method: iptablesSrcParams
+#
+#  returns a list with the iptables source parameters needed to match all
+#  members
+#  Each parameter is intended to be used in a different iptables command
+#
+#  Return:
+#   - list reference
 sub iptablesSrcParams
 {
-    my ($self) =@_;
+    my ($self) = @_;
     my @params;
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipaddr') {
@@ -80,9 +102,17 @@ sub iptablesSrcParams
     return \@params;
 }
 
+# Method: iptablesDstParams
+#
+#  returns a list with the iptables destination parameters needed to match all
+#  members
+#  Each parameter is intended to be used in a different iptables command
+#
+#  Return:
+#   - list reference
 sub iptablesDstParams
 {
-    my ($self) =@_;
+    my ($self) = @_;
     my @params;
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipaddr') {
