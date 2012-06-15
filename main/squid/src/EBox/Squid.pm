@@ -1255,7 +1255,8 @@ sub _DGLang
     return $lang;
 }
 
-sub aroundDumpConfig
+# FIXME
+sub aroundDumpConfigDISABLED
 {
     my ($self, $dir, %options) = @_;
 
@@ -1273,7 +1274,8 @@ sub aroundDumpConfig
 }
 
 
-sub aroundRestoreConfig
+# FIXME
+sub aroundRestoreConfigDISABLED
 {
     my ($self, $dir, %options) = @_;
     my $archive = $self->_filesArchive($dir);
@@ -1289,9 +1291,11 @@ sub aroundRestoreConfig
     }
 }
 
-sub restoreConfig
+# FIXME
+sub restoreConfigDISABLED
 {
     my ($self, $dir, %options) = @_;
+
     my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
     if ($removeCategorizedDomainLists) {
         foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
