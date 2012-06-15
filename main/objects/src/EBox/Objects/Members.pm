@@ -116,9 +116,9 @@ sub iptablesDstParams
     my @params;
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipaddr') {
-            push @params,  ' --source ' .  $member->{ipaddr};
+            push @params,  ' --destination ' .  $member->{ipaddr};
         } elsif ($member->{type} eq 'iprange') {
-            push @params, ' -m iprange --src-range ' . $member->{begin} . '-' . $member->{end};
+            push @params, ' -m iprange --dst-range ' . $member->{begin} . '-' . $member->{end};
         }
     }
 
