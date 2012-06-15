@@ -23,6 +23,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
+use EBox::Types::HasMany;
 use EBox::NUT::Types::DriverPicker;
 
 sub new
@@ -110,6 +111,14 @@ sub _table
             optional => 1,
             unique => 1,
             help => __('The UPS serial number, used to distingish between USB units'),
+        ),
+        new EBox::Types::HasMany(
+            fieldName => 'variables',
+            printableName => __('Variables'),
+            foreignModel => 'UPSVariables',
+            foreignModelIsComposite => 0,
+            view => '/NUT/View/UPSVariables',
+            backView => '/NUT/View/UPS',
         ),
     );
 

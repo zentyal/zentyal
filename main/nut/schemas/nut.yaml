@@ -3,6 +3,7 @@ class: 'EBox::NUT'
 models:
     - Mode
     - UPS
+    - UPSVariables
 
 composites:
     General: [Mode, UPS]
