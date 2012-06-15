@@ -57,12 +57,10 @@ sub _process
     my $manager = new EBox::ServiceManager();
     my $module = EBox::Global->modInstance($modName);
 
-    $module->setConfigured(1);
-    $module->enableService(1);
-    #$manager->updateModuleDigests($modName);
-
     try {
         $module->enableActions();
+        $module->setConfigured(1);
+        $module->enableService(1);
     } otherwise {
         my ($excep) = @_;
         $module->setConfigured(undef);
@@ -75,12 +73,7 @@ sub _process
                 $excep->stringify());
         }
     };
-
-    #$manager->updateModuleDigests($modName);
-
-
     $self->{redirect} = "ServiceModule/StatusView";
-
 }
 
 1;
