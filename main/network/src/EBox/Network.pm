@@ -1219,6 +1219,8 @@ sub setIfaceDHCP
 sub setIfaceStatic
 {
     my ($self, $name, $address, $netmask, $ext, $force) = @_;
+    defined $ext or $ext = 0;
+
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
@@ -1389,6 +1391,7 @@ sub _checkStaticIP
 sub setIfacePPP
 {
     my ($self, $name, $ppp_user, $ppp_pass, $ext, $force) = @_;
+    defined $ext or $ext = 0;
 
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -1568,6 +1571,7 @@ sub _trunkIfaceIsUsed # (iface)
 sub setIfaceBridged
 {
     my ($self, $name, $ext, $bridge, $force) = @_;
+    defined $ext or $ext = 0;
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
