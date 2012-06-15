@@ -1135,7 +1135,8 @@ sub ifaceMethod
 #
 sub setIfaceDHCP
 {
-    my ($self, $name, $ext, $force) = @_;
+    my ($self, $ext, $name, $ext, $force) = @_;
+    defined $ext or $ext = 0;
 
     $self->ifaceExists($name) or
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
