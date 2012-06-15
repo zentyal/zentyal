@@ -1,4 +1,5 @@
 2.3.7
+	+ Fixed problems with provision in fresh install
 	+ Adapted to new Model management framework
 	+ Store printers in redis using the new JSON config objects
 2.3.6

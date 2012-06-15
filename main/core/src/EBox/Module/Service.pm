@@ -410,10 +410,11 @@ sub isRunning
     for my $daemon (@{$daemons}) {
         my $check = 1;
         my $pre = $daemon->{'precondition'};
-        if(defined($pre)) {
+        if (defined ($pre)) {
             $check = $pre->($self);
         }
-        $check or next;
+        # If precondition does not meet the daemon should not be running.
+        $check or return 0;
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }

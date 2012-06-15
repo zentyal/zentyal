@@ -308,10 +308,6 @@ sub internalIpAddresses
     my $ips = [];
 
     my $internalInterfaces = $self->InternalIfaces();
-    unless (scalar $internalInterfaces > 0) {
-        throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
-    }
-
     foreach my $interface (@{$internalInterfaces}) {
         foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
             next unless (defined $interfaceInfo);
