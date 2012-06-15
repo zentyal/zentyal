@@ -1135,7 +1135,7 @@ sub ifaceMethod
 #
 sub setIfaceDHCP
 {
-    my ($self, $ext, $name, $ext, $force) = @_;
+    my ($self, $name, $ext, $force) = @_;
     defined $ext or $ext = 0;
 
     $self->ifaceExists($name) or
