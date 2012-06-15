@@ -269,6 +269,7 @@ sub enableActions
     my $services = $srvModel->services();
     my %aux = map { $_->{name} => 1 } @{$services};
     unless (exists $aux{gc}) {
+        push (@{$services}, { name => 'gc', port => 3268, protocol => 'tcp' });
         EBox::debug('Adding Microsoft global catalog service to /etc/services');
         my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
         EBox::Sudo::root($cmd);
