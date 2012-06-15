@@ -572,10 +572,10 @@ sub saveAllModules
             next unless ($enable);
 
             $module->setInstalled();
-            $module->setConfigured(1);
-            $module->enableService(1);
             try {
                 $module->enableActions();
+                $module->setConfigured(1);
+                $module->enableService(1);
             } otherwise {
                 my ($ex) = @_;
                 my $err = $ex->text();
