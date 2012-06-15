@@ -1022,12 +1022,13 @@ sub _writeDgDomainsConf
 sub firewallHelper
 {
     my ($self) = @_;
+    my $ro = $self->isReadOnly();
 
     if ($self->isEnabled()) {
         if ($self->_dgNeeded()) {
-            return new EBox::SquidFirewall();
+            return new EBox::SquidFirewall(ro => $ro);
         } else  {
-            return new EBox::SquidOnlyFirewall();
+            return new EBox::SquidOnlyFirewall(ro => $ro);
         }
     }
 
