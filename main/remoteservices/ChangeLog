@@ -1,3 +1,6 @@
+HEAD
+    + Use Apache mod API to include Cloud CA certificate
+    + Remove Apache2 configuration which is only in the main file
 2.3
 	+ Added subscribe desktop action as Desktop::ServiceProvider
 	+ Added journaling for REST requests

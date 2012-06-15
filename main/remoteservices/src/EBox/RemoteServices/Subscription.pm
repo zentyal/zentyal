@@ -1047,6 +1047,9 @@ sub _restartRS
         # Required to set the proper iptables rules to ensure connection to Cloud
         my $fw = $global->modInstance('firewall');
         $fw->save();
+        # Required to set the CA correctly
+        my $apache = $global->modInstance('apache');
+        $apache-save();
     }
 }
 

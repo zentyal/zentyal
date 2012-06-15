@@ -6,13 +6,7 @@
    $soapHandler
    $caDomain
    $allowedClientCNs
-   $confDirPath
-   $caPath
 </%args>
-<IfModule mod_ssl.c>
-   SSLCACertificatePath <% $caPath %>
-   SSLInsecureRenegotiation on
-</IfModule>
 <Location /soap>
    SetHandler perl-script
    PerlHandler <% $soapHandler %>
@@ -29,8 +23,6 @@
    AllowOverride None
 </Location>
 <IfModule mod_rewrite.c>
-   RewriteLock <% $confDirPath %>rewrite.lck
-
    RewriteCond %{HTTP:Via}    .
    RewriteCond %{HTTP_COOKIE} !Auth_EBox
    RewriteRule /ebox           /LOGIN_CC [L]

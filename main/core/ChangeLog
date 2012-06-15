@@ -1,4 +1,5 @@
 HEAD
+    + The Includes directives are set just for the main virtual host
 	+ Added new checkAll property to DataTable description to allow
 	  multiple check/uncheck of boolean columns
 2.3.10

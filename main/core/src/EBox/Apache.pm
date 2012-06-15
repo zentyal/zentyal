@@ -609,6 +609,8 @@ sub addModuleStatus
 #
 #      Add an "include" directive to the apache configuration
 #
+#      Added only in the main virtual host
+#
 # Parameters:
 #
 #      includeFilePath - String the configuration file path to include

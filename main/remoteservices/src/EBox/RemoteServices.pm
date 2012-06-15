@@ -1490,39 +1490,19 @@ sub _confSOAPService
                 (soapHandler      => WS_DISPATCHER),
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
-                (confDirPath      => EBox::Config::conf()),
-                (caPath           => CA_DIR),
                );
             EBox::Module::Base::writeConfFileNoCheck(
                 $confFile,
                 'remoteservices/soap-loc.mas',
                 \@tmplParams);
-            unless ( -d CA_DIR ) {
-                mkdir(CA_DIR);
-            }
-            my $caLinkPath = $self->_caLinkPath();
-            if ( -l $caLinkPath ) {
-                unlink($caLinkPath);
-            }
-            symlink($self->_caCertPath(), $caLinkPath );
 
             $apacheMod->addInclude($confFile);
+            $apacheMod->addCA($self->_caCertPath());
         }
     } else {
-        unlink($confFile);
-        opendir(my $dir, CA_DIR);
-        while(my $file = readdir($dir)) {
-            # Check if it is a symbolic link file to remove it
-            next unless (-l CA_DIR . $file);
-            my $link = readlink (CA_DIR . $file);
-            # avoid removing the master CA certificate if this is a slavd
-            if ($link ne 'masterca.pem') {
-                unlink(CA_DIR . $file);
-            }
-        }
-        closedir($dir);
         try {
             $apacheMod->removeInclude($confFile);
+            $apacheMod->removeCA($self->_caCertPath());
         } catch EBox::Exceptions::Internal with {
             # Do nothing if it's already remove
             ;
@@ -1532,7 +1512,7 @@ sub _confSOAPService
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
     # $apacheMod->save();
-
+    EBox::Global->modChange('apache');
 }
 
 # Assure the VPN connection with our VPN servers is established
