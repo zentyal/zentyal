@@ -53,6 +53,7 @@ sub _processWizard
 
     my $net = EBox::Global->modInstance('network');
 
+    my $interfaces = $net->get_hash('interfaces');
     foreach my $iface ( @{$net->ifaces()} ) {
         my $scope = $self->param($iface . '_scope');
 
@@ -61,9 +62,10 @@ sub _processWizard
             if ($scope eq 'external') {
                 $isExternal = 1;
             }
-            $net->set_bool("interfaces/$iface/external", $isExternal);
+            $interfaces->{$iface}->{external} = $isExternal;
         }
     }
+    $net->set('interfaces', $interfaces);
 }
 
 1;

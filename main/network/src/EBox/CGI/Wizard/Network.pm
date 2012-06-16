@@ -68,6 +68,8 @@ sub _processWizard
     # Remove possible gateways introduced by network-import script
     $gwModel->removeAll();
 
+    my $interfaces = $net->get_hash('interfaces');
+
     foreach my $iface ( @{$net->ifaces} ) {
         my $method = $self->param($iface . '_method');
 
@@ -78,7 +80,7 @@ sub _processWizard
             # As after the installation the method is already set
             # to DHCP, we need to force the change in order to
             # execute ifup during the first save changes
-            $net->set_bool("interfaces/$iface/changed", 'true');
+            $interfaces->{$iface}->{changed} = 1;
         } elsif ($method eq 'static') {
             my $ext =  $net->ifaceIsExternal($iface);
             my $addr = $self->param($iface . '_address');
@@ -114,6 +116,8 @@ sub _processWizard
             }
         }
     }
+
+    $net->set('interfaces', $interfaces);
 }
 
 1;
