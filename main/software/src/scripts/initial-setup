@@ -2,7 +2,7 @@
 
 # Add extra repository if not added by the installer
 REPO="deb http://archive.zentyal.org/zentyal 2.3 main extra"
-if ! grep $REPO /etc/apt/sources.list
+if ! grep "$REPO" /etc/apt/sources.list
 then
-    echo $REPO > /etc/apt/sources.list.d/zentyal-archive.list
+    echo "$REPO" > /etc/apt/sources.list.d/zentyal-archive.list
 fi
