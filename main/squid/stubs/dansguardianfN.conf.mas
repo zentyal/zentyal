@@ -16,8 +16,7 @@ my @groupConfigFiles = (
       'exceptionurllist',
       'bannedextensionlist',
       'bannedmimetypelist',
-                        
-    );
+);
 
 defined $groupName or
      $groupName = 'group' . $group;
@@ -103,7 +102,7 @@ bannedregexpheaderlist = '/etc/dansguardian/lists/bannedregexpheaderlist'
 # 50 is for young children,  100 for old children,  160 for young adults.
 % if ($threshold == 0) {
 # weighted phrase list is disabled in this filter grouo, sos we put here a
-# big value 
+# big value
 naughtynesslimit = 9999
 % } else {
 naughtynesslimit = <% $threshold %>
