@@ -88,11 +88,11 @@ sub _content
     my $users = $self->parentModule();
 
     return {
-        dn => $users->ldap()->dn();
-        rootDn => $users->ldap()->rootDn();
-        password => $users->ldap()->getPassword();
-        usersDn => $users->usersDn();
-        groupsDn => $users->groupsDn();
+        dn => $users->ldap()->dn(),
+        rootDn => $users->ldap()->rootDn(),
+        password => $users->ldap()->getPassword(),
+        usersDn => $users->usersDn(),
+        groupsDn => $users->groupsDn(),
     }
 }
 
