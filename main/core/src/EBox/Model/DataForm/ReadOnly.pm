@@ -31,31 +31,6 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#      Create a new <EBox::Model::DataForm::ReadOnly> model instance
-#
-# Parameters:
-#
-#       confmodule - <EBox::Module::Config> the GConf eBox module which
-#       gives the environment where to store data
-#
-#       directory - String the subdirectory within the environment
-#       where the data will be stored
-#
-#       domain    - String the Gettext domain
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Method: setRow
 #
 #      It has non sense in a read only form
@@ -117,7 +92,7 @@ sub row
 
     $self->{content} = $self->_content();
 
-    if ( defined ( $self->{content} )) {
+    if (defined ($self->{content})) {
         my $types = $self->_fillTypes($self->{content});
         my %printableValueHash = map { $_->fieldName() => $_->printableValue() }
           values (%{$types});
@@ -129,8 +104,7 @@ sub row
                  printableValueHash => \%printableValueHash,
                };
     } else {
-        # Call SUPER::_row
-        return $self->_row();
+        return $self->SUPER::row();
     }
 }
 
