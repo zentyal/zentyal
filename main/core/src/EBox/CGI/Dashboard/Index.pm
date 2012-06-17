@@ -84,7 +84,7 @@ sub masonParameters
             if (delete $widgets->{$wname}) {
                 my ($module, $name) = split (/:/, $wname);
 
-                my $mod = EBox::Global->modInstance($module);
+                my $mod = $global->modInstance($module);
                 next unless defined ($mod);
 
                 my $widget = $mod->widget($name);
