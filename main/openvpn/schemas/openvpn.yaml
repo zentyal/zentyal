@@ -11,3 +11,6 @@ models:
     - Clients
     - ClientConfiguration
     - DeletedDaemons
+
+foreign:
+    Clients: [ClientConfiguration]
