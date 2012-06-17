@@ -53,7 +53,6 @@ use EBox::View::Customizer;
 
 # Core modules
 use Error qw(:try);
-use JSON::XS;
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';
@@ -61,30 +60,6 @@ use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&
 use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
 
 # Group: Public methods
-
-# Constructor: new
-#
-#     Create the subscription form
-#
-# Overrides:
-#
-#     <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#     <EBox::RemoteServices::Model::Subscription>
-#
-sub new
-{
-
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless ( $self, $class);
-
-    return $self;
-
-}
 
 # Method: setTypedRow
 #
@@ -132,7 +107,9 @@ sub setTypedRow
             if ( $subsData->{availableEditions} ) {
                 my $subOptions = { 'options' => $subsData->{availableEditions},
                                    'pass'    => $password };
-                $self->{gconfmodule}->st_set_string('sub_options', encode_json($subOptions));
+                my $state = $self->{confmodule}->get_state();
+                $state->{sub_options} = $subOptions;
+                $self->{confmodule}->set_state($state);
                 $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
                 $self->reloadTable();
                 $self->setMessage(__('Select one of the available options'));
@@ -149,12 +126,9 @@ sub setTypedRow
                 $self->{returnedMsg} = __('Subscription data retrieved correctly.');
             }
             $self->{returnedMsg} .= ' ' . __('Please, save changes');
-<<<<<<< HEAD
+
             $self->{confmodule}->st_set_bool('just_subscribed', 1);
-=======
-            $self->{gconfmodule}->st_set_bool('just_subscribed', 1);
-            $self->{gconfmodule}->st_unset('sub_options');
->>>>>>> master
+            $self->{confmodule}->st_unset('sub_options');
         }
     }
     # Call the parent method to store data in our conf storage
@@ -230,7 +204,7 @@ sub showAvailable
 {
     my ($self) = @_;
 
-    return $self->{gconfmodule}->st_entry_exists('sub_options');
+    return exists $self->{confmodule}->get_state()->{'sub_options'};
 }
 
 # Method: unsubscribe
@@ -489,9 +463,10 @@ sub _tempPasswd
 
     my $module = EBox::Global->instance()->modInstance('remoteservices');
     my $pass = undef;
-    if ( $module->st_entry_exists('sub_options') ) {
+    my $state = $module->get_state();
+    if (exists $state->{'sub_options'}) {
         # Store the password temporary
-        my $options = decode_json($module->st_get_string('sub_options'));
+        my $options = $module->{'sub_options'};
         $pass = $options->{pass};
     }
     return $pass;
@@ -681,7 +656,7 @@ sub _populateOptions
 {
     my $rs = EBox::Global->instance()->modInstance('remoteservices');
 
-    my $options = decode_json($rs->st_get_string('sub_options'));
+    my $options = $rs->get_state()->{'sub_options'};
     $options = $options->{options};
 
     my @options = map { { value          => $_->{id},

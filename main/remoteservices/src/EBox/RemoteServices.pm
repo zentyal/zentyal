@@ -65,6 +65,7 @@ use EBox::Validate;
 use Error qw(:try);
 use Net::DNS;
 use File::Slurp;
+use JSON::XS;
 use POSIX;
 
 # Constants
@@ -163,7 +164,11 @@ sub initialSetup
 
     $self->SUPER::initialSetup($version);
 
-    if ( defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
+    unless (-e '/var/lib/zentyal/tmp/upgrade-from-CC') {
+        $self->restartService();
+    }
+
+    if (defined($version) and EBox::Util::Version::compare($version, '2.3') < 0) {
         # Perform the migration to 2.3
         $self->_migrateTo30();
     }
@@ -1078,12 +1083,12 @@ sub lastGeneratedReport
 {
     my ($self) = @_;
 
-    if ( $self->st_entry_exists('subscription/report_generated_at') ) {
-        return $self->st_get_int('subscription/report_generated_at');
+    my $state = $self->get_state();
+    if (exists $state->{subscription}->{report_generated_at}) {
+        return $state->{subscription}->{report_generated_at};
     } else {
         return undef;
     }
-
 }
 
 # Method: latestSecurityUpdates
@@ -1100,13 +1105,13 @@ sub latestSecurityUpdates
 {
     my ($self) = @_;
 
-    if ( $self->st_entry_exists('subscription/securityUpdates_last_update') ) {
-        my $curr = $self->st_get_int('subscription/securityUpdates_last_update');
+    my $state = $self->get_state();
+    if (exists $state->{subscription}->{securityUpdates_last_update}) {
+        my $curr = $state->{subscription}->{securityUpdates_last_update};
         return POSIX::strftime("%c", localtime($curr));
     } else {
         return 'unknown';
     }
-
 }
 
 # Method: latestSecurityUpdates
@@ -1159,13 +1164,15 @@ sub reportAdminPort
 
     EBox::Validate::checkPort($port, "$port is not a valid port");
 
-    if ( $self->eBoxSubscribed() ) {
+    my $state = $self->get_state();
+
+    if ($self->eBoxSubscribed()) {
         # Check for a change in admin port
-        if ( (not $self->st_entry_exists('admin_port'))
-               or ($self->st_get_int('admin_port') != $port) ) {
+        if ((not $state->{'admin_port'}) or ($state->{'admin_port'} != $port)) {
             my $adminPortRS = new EBox::RemoteServices::AdminPort();
             $adminPortRS->setAdminPort($port);
-            $self->st_set_int('admin_port', $port);
+            $state->{admin_port} = $port;
+            $self->set_state($state);
         }
     }
 }
@@ -1710,8 +1717,10 @@ sub _getSubscriptionDetails
 {
     my ($self, $force) = @_;
 
-    if ( $force or (not $self->st_entry_exists('subscription/level')) ) {
-        unless ( $self->eBoxSubscribed() ) {
+    my $state = $self->get_state();
+
+    if ($force or (not exists $state->{subscription}->{level})) {
+        unless ($self->eBoxSubscribed()) {
             use Devel::StackTrace;
             my $t = new Devel::StackTrace();
             EBox::error($t->as_string());
@@ -1720,7 +1729,6 @@ sub _getSubscriptionDetails
         my $cap = new EBox::RemoteServices::Capabilities();
         my $details = $cap->subscriptionDetails();
 
-        my $state = $self->get_state();
         $state->{subscription} = {
             level => $details->{level},
             codename => $details->{codename},
@@ -1785,8 +1793,6 @@ sub extraSudoerUsers
     return @users;
 }
 
-
-
 sub _backupSubscritionConf
 {
     my ($self, $dir) = @_;
@@ -1799,8 +1805,6 @@ sub _backupSubscritionTar
     return "$dir/subscription.tar.gz";
 }
 
-
-
 sub dumpConfig
 {
     my ($self, $dir) = @_;
@@ -1812,7 +1816,7 @@ sub dumpConfig
 
     # file with subscription and cache conf parameters
     my $subscriptionConfFile = $self->_backupSubscritionConf($dir);
-    my $stringConf = $self->_statusKeysAndValuesString();
+    my $stringConf = encode_json($self->get_state());
     File::Slurp::write_file($subscriptionConfFile, $stringConf);
 
     # tar with subscription files directory
@@ -1821,31 +1825,6 @@ sub dumpConfig
     my $tarCmd = 'tar  cf ' . $tarPath . ' ' . $subscriptionDir;
     EBox::Sudo::root($tarCmd);
 }
-
-sub _statusKeysAndValuesString
-{
-    my ($self) = @_;
-    my $stringConf;
-
-    # FIXME: reimplement this
-    return '';
-
-    my $type = 'string';
-    my @dirsToLook = ('');
-    while (@dirsToLook) {
-        my $dir = shift @dirsToLook;
-        push @dirsToLook, $self->st_all_dirs($dir);
-
-        my @entries = @{   $self->st_all_entries($dir) };
-        foreach my $entry (@entries) {
-            my $value = $self->st_get_string($entry);
-            $stringConf .= "$entry,$type,$value\n";
-        }
-    }
-
-    return $stringConf;
-}
-
 
 sub restoreConfig
 {
@@ -1860,18 +1839,9 @@ sub restoreConfig
         return;
     }
 
-    # restore st conf
-    my @lines = File::Slurp::read_file($subscriptionConf);
-    foreach my $line  (@lines) {
-        chomp $line;
-        my ($key,$type,$value) = split ',', $line;
-        my $setter = "st_set_" . $type;
-        if (defined $value) {
-            $self->$setter($key, $value);
-        } else {
-            $self->unset($key); # remove previous key..
-        }
-    }
+    # restore state conf
+    my $state = decode_json(File::Slurp::read_file($subscriptionConf));
+    $self->set_state($state);
 
     # restore subscription files and ownerhsip
     my $subscriptionDir = SUBS_DIR;
