@@ -1,3 +1,5 @@
+HEAD
+	+ The Includes directives are set just for the main virtual host
 2.3.11
 	+ Dashboard widgets now always read the information from RO
 	+ Enable actions are now executed before enableService()
