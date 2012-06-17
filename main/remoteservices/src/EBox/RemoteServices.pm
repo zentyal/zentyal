@@ -1730,8 +1730,10 @@ sub _getSubscriptionDetails
 {
     my ($self, $force) = @_;
 
-    if ( $force or (not $self->st_entry_exists('subscription/level')) ) {
-        unless ( $self->eBoxSubscribed() ) {
+    my $state = $self->get_state();
+
+    if ($force or (not $self->st_entry_exists('subscription/level'))) {
+        unless ($self->eBoxSubscribed()) {
             use Devel::StackTrace;
             my $t = new Devel::StackTrace();
             EBox::error($t->as_string());
@@ -1740,7 +1742,6 @@ sub _getSubscriptionDetails
         my $cap = new EBox::RemoteServices::Capabilities();
         my $details = $cap->subscriptionDetails();
 
-        my $state = $self->get_state();
         $state->{subscription} = {
             level => $details->{level},
             codename => $details->{codename},
