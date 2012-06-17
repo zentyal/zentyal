@@ -177,14 +177,14 @@ sub idByRowId
     return \%idByRowId;
 }
 
-sub filterGroups
+sub profiles
 {
     my ($self) = @_;
-    my @filterGroups = ();
+    my @profiles = ();
 
     my $squid = EBox::Global->modInstance('squid');
     my $usergroupPolicies = $squid->model('GlobalGroupPolicy');
-    my %usersByFilterGroupId = %{ $usergroupPolicies->usersByFilterGroup()  };
+    my %usersByProfileId = %{ $usergroupPolicies->usersByProfile()  };
 
     # groups will have ids greater that this number
     my $id = 0;
@@ -202,8 +202,8 @@ sub filterGroups
         }
 
         my $users;
-        if (exists $usersByFilterGroupId{$rowId}) {
-            $users = $usersByFilterGroupId{$rowId};
+        if (exists $usersByProfileId{$rowId}) {
+            $users = $usersByProfileId{$rowId};
         } else {
             $users = [];
         }
@@ -225,16 +225,16 @@ sub filterGroups
 
         $group{bannedMIMETypes} = $policy->componentByName('MIME', 1)->banned();
 
-        $self->_setFilterGroupDomainsPolicy(\%group, $policy);
+        $self->_setProfileDomainsPolicy(\%group, $policy);
 
-        push @filterGroups, \%group;
+        push @profiles, \%group;
     }
 
-    return \@filterGroups;
+    return \@profiles;
 }
 
 
-sub _setFilterGroupDomainsPolicy
+sub _setProfileDomainsPolicy
 {
     my ($self, $group, $policy) = @_;
 

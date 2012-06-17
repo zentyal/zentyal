@@ -91,10 +91,10 @@ sub _table
             editable => 1,
         ),
         new EBox::Types::Select(
-            fieldName => 'filterGroup',
+            fieldName => 'profile',
             printableName => __('Filter profile'),
 
-            foreignModel  => 'squid/FilterProfiles',
+            foreignModel  => $self->modelGetter('squid', 'FilterProfiles'),
             foreignField  => 'name',
 
             editable      => 1,
@@ -121,12 +121,11 @@ sub _table
 sub populateGroups
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @groups = map (
-                {
-                    value            => $_->{account},
-                    printableValue   => $_->{account},
-                }, $userMod->groups()
-            );
+    my @groups;
+    foreach my $group (@{$userMod->groups()}) {
+        my $name = $group->name();
+        push (@groups, { value => $name, printableValue => $name });
+    }
     return \@groups;
 }
 
@@ -162,20 +161,20 @@ sub _checkTransProxy
     }
 }
 
-sub usersByFilterGroup
+sub usersByProfile
 {
     my ($self) = @_;
 
     my %usersSeen;
-    my %usersByFilterGroup;
+    my %usersByProfile;
 
     my $usersMod = EBox::Global->modInstance('users');
-    my $filterGroupsModel = EBox::Global->modInstance('squid')->model('FilterProfiles');
+    my $profilesModel = EBox::Global->modInstance('squid')->model('FilterProfiles');
 
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         my $userGroup   = $row->elementByName('group')->printableValue();
-        my $filterGroup = $row->valueByName('filterGroup');
+        my $profile = $row->valueByName('profile');
 
         my @users;
         foreach my $user ( @{ $usersMod->usersInGroup($userGroup) } ) {
@@ -187,15 +186,15 @@ sub usersByFilterGroup
             push @users, $user;
         }
 
-        if (not exists $usersByFilterGroup{$filterGroup}) {
-            $usersByFilterGroup{$filterGroup} = \@users;
+        if (not exists $usersByProfile{$profile}) {
+            $usersByProfile{$profile} = \@users;
         }
         else {
-            push @{ $usersByFilterGroup{$filterGroup} }, @users;
+            push @{ $usersByProfile{$profile} }, @users;
         }
     }
 
-    return \%usersByFilterGroup;
+    return \%usersByProfile;
 }
 
 sub groupsPolicies
@@ -312,19 +311,19 @@ sub objectsPolicies
     return \@obsPol;
 }
 
-sub objectsFilterGroups
+sub objectsProfiles
 {
     my ($self) = @_;
 
-    my %filterGroupIdByRowId = %{ $self->filterGroupModel->idByRowId() };
+    my %profileIdByRowId = %{ $self->profileModel->idByRowId() };
 
     my $objectMod = EBox::Global->modInstance('objects');
 
-    my @filterGroups;
+    my @profiles;
     # object policies have priority by position in table
     foreach my $id (@{ $self->ids()  }) {
         my $row = $self->row($id);
-        my $filterGroup = $row->valueByName('filterGroup');
+        my $profile = $row->valueByName('profile');
         if ($row->valueByName('policy') ne 'filter') {
             EBox::debug("Object row with id $id has a custom filter group and a policy that is not 'filter'");
             next;
@@ -336,14 +335,14 @@ sub objectsFilterGroups
             my ($addr, $netmask) = ($cidrAddress->[0],
                                     EBox::NetWrappers::mask_from_bits($cidrAddress->[1]));
             my $address = "$addr/$netmask";
-            push @filterGroups, {
+            push @profiles, {
                                  address => $address,
-                                 group   => $filterGroupIdByRowId{$filterGroup}
+                                 group   => $profileIdByRowId{$profile}
                                 };
         }
     }
 
-    return \@filterGroups;
+    return \@profiles;
 }
 
 sub existsAuthObjects

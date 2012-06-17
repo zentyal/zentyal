@@ -359,7 +359,7 @@ sub port
 {
     my ($self) = @_;
 
-    my $port = $self->model->('GeneralSettings')->value('port');
+    my $port = $self->model('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
         return SQUIDPORT;
@@ -494,15 +494,15 @@ sub _setConf
 
 sub _antivirusNeeded
 {
-    my ($self, $filterGroups_r) = @_;
+    my ($self, $profiles_r) = @_;
 
-    if (not $filterGroups_r) {
-        my $filterGroups = $self->model('FilterProfiles');
-        return $filterGroups->antivirusNeeded();
+    if (not $profiles_r) {
+        my $profiles = $self->model('FilterProfiles');
+        return $profiles->antivirusNeeded();
     }
 
-    foreach my $filterGroup (@{ $filterGroups_r }) {
-        if ($filterGroup->{antivirus}) {
+    foreach my $profile (@{ $profiles_r }) {
+        if ($profile->{antivirus}) {
             return 1;
         }
     }
@@ -613,7 +613,7 @@ sub _writeDgConf
     # FIXME - get a proper lang name for the current locale
     my $lang = $self->_DGLang();
 
-    my @dgFilterGroups = @{ $self->_dgFilterGroups };
+    my @dgProfiles = @{ $self->_dgProfiles };
 
     my @writeParam = ();
 
@@ -621,9 +621,9 @@ sub _writeDgConf
     push(@writeParam, 'lang' => $lang);
     push(@writeParam, 'squidport' => $self->port);
     push(@writeParam, 'weightedPhraseThreshold' => $self->_banThresholdActive);
-    push(@writeParam, 'nGroups' => scalar @dgFilterGroups);
+    push(@writeParam, 'nGroups' => scalar @dgProfiles);
 
-    my $antivirus = $self->_antivirusNeeded(\@dgFilterGroups);
+    my $antivirus = $self->_antivirusNeeded(\@dgProfiles);
     push(@writeParam, 'antivirus' => $antivirus);
 
     my $maxchildren = EBox::Config::configkey('maxchildren');
@@ -650,7 +650,7 @@ sub _writeDgConf
     # write group lists
     $self->writeConfFile(DGLISTSDIR . "/filtergroupslist",
                          'squid/filtergroupslist.mas',
-                         [ groups => \@dgFilterGroups ]);
+                         [ groups => \@dgProfiles ]);
 
     # disable banned, exception phrases lists, regex URLs and PICS ratings
     $self->writeConfFile(DGLISTSDIR . '/bannedphraselist',
@@ -674,7 +674,7 @@ sub _writeDgConf
                              [ clamdSocket => $avMod->localSocket() ]);
     }
 
-    foreach my $group (@dgFilterGroups) {
+    foreach my $group (@dgProfiles) {
         my $number = $group->{number};
 
         @writeParam = ();
@@ -719,7 +719,7 @@ sub _writeDgIpGroups
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                        'squid/ipgroups.mas',
                        [
-                        filterGroups => $objects->objectsFilterGroups()
+                        profiles => $objects->objectsProfiles()
                        ]);
 }
 
@@ -814,10 +814,10 @@ sub _domainFilterFilesComponents
 
     my @components;
 
-    my $filterGroups = $self->model('FilterProfiles');
-    my $defaultGroupName = $filterGroups->defaultGroupName();
-    foreach my $id ( @{ $filterGroups->ids() } ) {
-        my $row = $filterGroups->row($id);
+    my $profiles = $self->model('FilterProfiles');
+    my $defaultGroupName = $profiles->defaultGroupName();
+    foreach my $id ( @{ $profiles->ids() } ) {
+        my $row = $profiles->row($id);
         my $filterPolicy =   $row->elementByName('filterPolicy');
         my $fSettings = $filterPolicy->foreignModelInstance();
 
@@ -832,8 +832,8 @@ sub _banThresholdActive
 {
     my ($self) = @_;
 
-    my @dgFilterGroups = @{ $self->_dgFilterGroups };
-    foreach my $group (@dgFilterGroups) {
+    my @dgProfiles = @{ $self->_dgProfiles };
+    foreach my $group (@dgProfiles) {
         if ($group->{threshold} > 0) {
             return 1;
         }
@@ -850,12 +850,12 @@ sub _notCachedDomains
     return $model->notCachedDomains();
 }
 
-sub _dgFilterGroups
+sub _dgProfiles
 {
     my ($self) = @_;
 
-    my $filterGroupModel = $self->model('FilterProfiles');
-    return $filterGroupModel->filterGroups();
+    my $profileModel = $self->model('FilterProfiles');
+    return $profileModel->profiles();
 }
 
 sub _writeDgDomainsConf
