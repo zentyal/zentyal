@@ -80,3 +80,5 @@ server_timezone = <% $timezone %>
 # The charset of data to expect when the client doesn't specify any
 default_charset = utf-8
 
+# Enable the iCalendar GET method for downloading calendars
+enable_ical_get = yes

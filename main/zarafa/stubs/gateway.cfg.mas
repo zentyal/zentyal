@@ -65,6 +65,9 @@ imap_generate_utf8 = no
 # Internally issue the expunge command to directly delete e-mail marked for deletion in IMAP.
 imap_expunge_on_delete = no
 
+# Store full rfc822 message during APPEND
+imap_store_rfc822 = yes
+
 # File with RSA key for SSL
 ssl_private_key_file	=	/etc/zarafa/ssl/ssl.pem
 
@@ -90,7 +93,7 @@ log_method	=	file
 # Loglevel (0=no logging, 5=full logging)
 log_level	=	2
 
-# Logfile for log_method = file
+# Logfile for log_method = file, use '-' for stderr
 log_file	=	/var/log/zarafa/gateway.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode

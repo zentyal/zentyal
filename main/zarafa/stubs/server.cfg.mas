@@ -83,7 +83,7 @@ license_timeout = 10
 # Logging method (syslog, file), syslog facility is 'mail'
 log_method		= file
 
-# Logfile (for log_method = file
+# Logfile (for log_method = file, '-' for stderr)
 log_file		= /var/log/zarafa/server.log
 
 # Loglevel (0=no logging, 5=full logging)
@@ -101,8 +101,8 @@ audit_log_enabled	= no
 # Audit logging method (syslog, file), syslog facility is 'authpriv'
 audit_log_method	= file
 
-# Audit logfile (for log_method = file
-audit_log_file		= /var/log/zarafa/server.log
+# Audit logfile (for log_method = file, '-' for stderr)
+audit_log_file		= /var/log/zarafa/audit.log
 
 # Audit loglevel (0=no logging, 1=full logging)
 audit_log_level		= 1
@@ -205,7 +205,7 @@ server_send_timeout	=	60
 softdelete_lifetime	= 30
 
 # Sync lifetime, removes all changes remembered for a client after x days of inactivity
-sync_lifetime		= 365
+sync_lifetime		= 90
 
 # Set to 'yes' if all changes (for synchronization) to messages should be logged to the database
 sync_log_all_changes = yes
@@ -226,11 +226,10 @@ pam_service = passwd
 #############################################################
 # CACHE SETTINGS
 #
-# To see the live cache usage, use 'zarafa-stats --system',
-# or send a USR1 signal to the server, and read the logfile.
+# To see the live cache usage, use 'zarafa-stats --system'.
 
 # Size in bytes of the 'cell' cache (should be set as high as you can afford to set it)
-cache_cell_size				= 16777216
+cache_cell_size				= 268435456 
 
 # Size in bytes of the 'object' cache
 cache_object_size			= 5242880
@@ -283,7 +282,7 @@ quota_soft		= <% $quota_soft %>
 # Value is in Mb. Default value is 0.
 quota_hard		= <% $quota_hard %>
 
-# The default Warning Quota Level. Set to 0 to disable this level.
+# The default Warning Quota Level for multitenant public stores. Set to 0 to disable this level.
 # The tenant administrator will receive an email when this level is reached. Value is in Mb. Default value is 0.
 companyquota_warn      = 0
 
@@ -383,7 +382,7 @@ hide_everyone = no
 # System is a special internal user, which has super-admin privileges
 # You may want to disable this user from the Global Addressbook by setting
 # this option to 'yes'. Administrators will still be able to see the user.
-hide_system = no
+hide_system = yes
 
 # Use Indexing service for faster searching.
 # Enabling this option requires the zarafa-search service to
@@ -406,7 +405,30 @@ enable_enhanced_ics = yes
 # zarafa-admin --sync)
 sync_gab_realtime = yes
 
-# Disable features for users. Default all features are enabled. This
+# Disable features for users. Default all features are disabled. This
 # list is space separated. Currently valid values: imap
 disabled_features =
 
+# Maximum number of deferred records in total
+max_deferred_records = 0
+
+# Maximum number of deferred records per folder
+max_deferred_records_folder = 20
+
+# Restrict the permissions that admins receive to folder permissions only. Please
+# read the server.cfg manpage before enabling this option so you really understand
+# the implications
+restrict_admin_permissions = no
+
+# The maximum level of attachment recursion; Defines the number of
+# attachment-in-attachment in-attachment levels are allowed when saving and
+# replicating objects in the database. If you really want a higher level of
+# recursion than about 20, you probably have to increase MySQL's stack_size
+# to allow replication to work properly.
+embedded_attachment_limit = 20
+
+# Header to detect whether a connection has been received through a proxy. The
+# value of the header is not inspected. If the header exists then the connection
+# is taken to be received via a proxy. An empty value disables proxy detection
+# and the value of '*' is used to indicate that all connections are proxied
+proxy_header = 

@@ -92,7 +92,7 @@ __('Enable Active Sync (Microsoft Exchange syncronization protocol).'),
                                 disableCache => 1,
                                 defaultValue => 'disabled',
                                 help =>
-__('Enable Zarafa access only on this virtual host under /webaccess and /webaccess-mobile.'),
+__('Enable Zarafa access only on this virtual host under /webaccess and /webapp.'),
                                ),
       );
 
