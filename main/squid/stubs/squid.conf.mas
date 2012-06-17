@@ -8,8 +8,6 @@
 <%args>
     $port
     $transparent
-    $authNeeded
-    $allowAll
     @localnets
     @objectsPolicies
     @objectsDelayPools
@@ -37,7 +35,6 @@
 our $maxAclNameLength = 31;
 our %longAclNames = ();
 
-
 sub _timeAclsInPolicy
 {
    my ($policy, @ids) = @_;
@@ -57,7 +54,6 @@ sub _timeAclsInPolicy
    return $acls;
 }
 
-
 # needed because space scape doesnt work in acl names
 sub _escapeWS
 {
@@ -65,7 +61,6 @@ sub _escapeWS
     $string =~ s{ }{__}g;
     return $string;
 }
-
 
 # needed to avoid log acl problems
 sub _aclName
@@ -88,7 +83,7 @@ sub _aclName
 </%perl>
 # <EBOX> TAG_HTTPORT #
 % my $transKey = '';
-% if ($transparent eq 'yes') {
+% if ($transparent) {
 %   $transKey = 'transparent';
 % }
 http_port <% $port %> <% $transKey %>
@@ -241,20 +236,8 @@ cache deny noCached
 
 
 # default policy section
-
-
-% if ( $authNeeded ) {
-%#     if (not @groupsPolicies ) {
-%#      we force auth here to not force to authorize objects
-%#      which dont need auth
-http_access allow authorized all
-%#     }
-% }
-% if ($allowAll) {
-http_access allow all
-% } else {
+# All denied by default if no other allow rule matchs
 http_access deny all
-% }
 
 
 # END_TAG #

@@ -316,50 +316,6 @@ sub setService # (enabled)
     $self->enableService($active);
 }
 
-sub _setGeneralSetting
-{
-    my ($self, $setting, $value) = @_;
-
-    my $model = $self->model('GeneralSettings');
-
-    my $oldValueGetter = $setting . 'Value';
-    my $oldValue       = $model->$oldValueGetter;
-
-    ($value xor $oldValue) or return;
-
-    my $row = $model->row();
-    my %fields = %{ $row->{plainValueHash} };
-    $fields{$setting} = $value;
-
-    $model->setRow(0, %fields);
-}
-
-sub _generalSetting
-{
-    my ($self, $setting, $value) = @_;
-
-    my $model = $self->model('GeneralSettings');
-
-    my $valueGetter = $setting . 'Value';
-    return $model->$valueGetter();
-}
-
-
-# Method: setTransproxy
-#
-#      Sets the transparent proxy mode.
-#
-# Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setTransproxy # (enabled)
-{
-    my ($self, $trans) = @_;
-
-    $self->_setGeneralSetting('transparentProxy', $trans);
-}
-
 # Method: transproxy
 #
 #       Returns if the transparent proxy mode is enabled
@@ -372,7 +328,7 @@ sub transproxy
 {
     my ($self) = @_;
 
-    return $self->_generalSetting('transparentProxy');
+    return $self->model('GeneralSettings')->value('transparentProxy');
 }
 
 # Method: setPort
@@ -383,11 +339,11 @@ sub transproxy
 #
 #       port - string: port number
 #
-sub setPort # (port)
+sub setPort
 {
     my ($self, $port) = @_;
 
-    $self->_setGeneralSetting('port', $port);
+    $self->model('GeneralSettings')->setValue('port', $port);
 }
 
 
@@ -403,73 +359,13 @@ sub port
 {
     my ($self) = @_;
 
-    # FIXME Workaround. It seems that in some migrations the
-    # port variable gets ereased and returns an empty value
-
-    my $port = $self->_generalSetting('port');
+    my $port = $self->model->('GeneralSettings')->value('port');
 
     unless (defined($port) and ($port =~ /^\d+$/)) {
         return SQUIDPORT;
     }
 
     return $port;
-}
-
-# Method: globalPolicy
-#
-#       Returns the global policy
-#
-# Returns:
-#
-#       string - allow | deny | filter | auth | authAndFilter
-#
-sub globalPolicy #
-{
-    my ($self) = @_;
-    return $self->_generalSetting('globalPolicy');
-}
-
-# Method: setGlobalPolicy
-#
-#       Sets the global policy. This is the policy that will be used for those
-#       objects without an own policy.
-#
-# Parameters:
-#
-#       policy  - allow | deny | filter | auth | authAndFilter
-#
-sub setGlobalPolicy # (policy)
-{
-    my ($self, $policy) = @_;
-    $self->_setGeneralSetting('globalPolicy', $policy);
-}
-
-
-sub globalPolicyUsesFilter
-{
-    my ($self) = @_;
-
-    my $generalSettingsRow = $self->model('GeneralSettings')->row();
-    my $globalPolicy = $generalSettingsRow->elementByName('globalPolicy');
-    return $globalPolicy->usesFilter();
-}
-
-sub globalPolicyUsesAllowAll
-{
-    my ($self) = @_;
-
-    my $generalSettingsRow = $self->model('GeneralSettings')->row();
-    my $globalPolicy = $generalSettingsRow->elementByName('globalPolicy');
-    return $globalPolicy->usesAllowAll();
-}
-
-sub globalPolicyUsesAuth
-{
-    my ($self) = @_;
-
-    my $generalSettingsRow = $self->model('GeneralSettings')->row();
-    my $globalPolicy = $generalSettingsRow->elementByName('globalPolicy');
-    return $globalPolicy->usesAuth();
 }
 
 # Function: banThreshold
@@ -537,20 +433,16 @@ sub setAdBlockExecFile
     }
 }
 
-sub _dgNeeded
+sub filterNeeded
 {
     my ($self) = @_;
 
-    if (not $self->isEnabled()) {
-        return undef;
+    unless ($self->isEnabled()) {
+        return 0;
     }
 
-    if ($self->globalPolicyUsesFilter()) {
-        return 1;
-    }
-
-    my $objectPolicy = $self->model('ObjectPolicy');
-    if ( $objectPolicy->existsFilteredObjects() ) {
+    my $rules = $self->model('AccessRules');
+    if ($rules->existsFilteredObjects()) {
         return 1;
     }
 
@@ -561,7 +453,7 @@ sub _dgNeeded
 #
 #       Implements EBox::FirewallObserver interface
 #
-sub usesPort # (protocol, port, iface)
+sub usesPort
 {
     my ($self, $protocol, $port, $iface) = @_;
 
@@ -595,21 +487,9 @@ sub _setConf
     my ($self) = @_;
     $self->_writeSquidConf();
 
-    if ($self->_dgNeeded()) {
+    if ($self->filterNeeded()) {
         $self->_writeDgConf();
     }
-}
-
-# Function: dansguardianPort
-#
-#       Returns the listening port for dansguardian
-#
-# Returns:
-#
-#       string - listening port
-sub dansguardianPort
-{
-    return DGPORT;
 }
 
 sub _antivirusNeeded
@@ -634,20 +514,20 @@ sub _antivirusNeeded
 sub notifyAntivirusEnabled
 {
     my ($self, $enabled) = @_;
-    $self->_dgNeeded() or
+    $self->filterNeeded() or
         return;
 
     $self->setAsChanged();
 }
 
-
 sub _writeSquidConf
 {
     my ($self) = @_;
 
-    my $trans = $self->transproxy() ? 'yes' : 'no';
-    my $groupsPolicies = $self->model('GlobalGroupPolicy')->groupsPolicies();
-    my $objectsPolicies = $self->model('ObjectPolicy')->objectsPolicies();
+    my $rules = $self->model('AccessRules');
+    # FIXME: pass just a single array of rules to the templates in the proper order
+    my $groupsPolicies = $rules->groupsPolicies();
+    my $objectsPolicies = $rules->objectsPolicies();
 
     my $generalSettings = $self->model('GeneralSettings');
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
@@ -665,10 +545,8 @@ sub _writeSquidConf
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
-    push @writeParam, ('port'  => $self->port);
-    push @writeParam, ('transparent'  => $trans);
-    push @writeParam, ('authNeeded'  => $self->globalPolicyUsesAuth);
-    push @writeParam, ('allowAll'  => $self->globalPolicyUsesAllowAll);
+    push @writeParam, ('port'  => $self->port());
+    push @writeParam, ('transparent'  => $self->transproxy());
     push @writeParam, ('localnets' => $self->_localnets());
     push @writeParam, ('groupsPolicies' => $groupsPolicies);
     push @writeParam, ('objectsPolicies' => $objectsPolicies);
@@ -687,7 +565,7 @@ sub _writeSquidConf
     push @writeParam, ('realm'     => $krbRealm);
 
     my $global = EBox::Global->getInstance(1);
-    if ( $global->modExists('remoteservices') ) {
+    if ($global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         push(@writeParam, ('snmpEnabled' => $rs->eBoxSubscribed() ));
     }
@@ -695,27 +573,19 @@ sub _writeSquidConf
         push @writeParam, (urlRewriteProgram => BLOCK_ADS_PROGRAM);
         my @adsParams = ();
         push(@adsParams, ('postMatch' => $self->getAdBlockPostMatch()));
-        $self->writeConfFile(ADZAPPER_CONF, "squid/adzapper.conf.mas", \@adsParams);
+        $self->writeConfFile(ADZAPPER_CONF, 'squid/adzapper.conf.mas', \@adsParams);
     }
 
-    $self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
+    $self->writeConfFile(SQUIDCONFFILE, 'squid/squid.conf.mas', \@writeParam);
 }
-
 
 sub _objectsDelayPools
 {
     my ($self) = @_;
 
-    my @delayPools1 = @{$self->model('DelayPools1')->delayPools1()};
-    my @delayPools2 = @{$self->model('DelayPools2')->delayPools2()};
-
-    my @delayPools;
-    push (@delayPools, @delayPools1);
-    push (@delayPools, @delayPools2);
-
+    my @delayPools = @{$self->model('DelayPools')->delayPools()};
     return \@delayPools;
 }
-
 
 sub _localnets
 {
@@ -836,7 +706,7 @@ sub _writeDgConf
 
     $self->_writeDgTemplates();
 
-    $self->_writeDgLogrotate();
+    $self->writeConfFile(DG_LOGROTATE_CONF, 'squid/dansguardian.logrotate', []);
 }
 
 
@@ -876,14 +746,6 @@ sub _writeDgTemplates
                                                 extra_messages => $extra_messages,
                                                 image_name => "zentyal-$edition.png",
                                              ]);
-}
-
-sub _writeDgLogrotate
-{
-    my ($self) = @_;
-    $self->writeConfFile(DG_LOGROTATE_CONF,
-                        'squid/dansguardian.logrotate',
-                        []);
 }
 
 sub revokeConfig
@@ -1007,9 +869,7 @@ sub _writeDgDomainsConf
                         'exceptionsitelist', 'exceptionurllist');
 
     foreach my $file (@domainsFiles) {
-        if (exists $group->{defaults}->{$file}) {
-            next;
-        }
+        next if (exists $group->{defaults}->{$file});
 
         my $path = DGLISTSDIR . '/' . $file . $number;
         my $template = "squid/$file.mas";
@@ -1024,7 +884,7 @@ sub firewallHelper
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        if ($self->_dgNeeded()) {
+        if ($self->filterNeeded()) {
             return new EBox::SquidFirewall();
         } else  {
             return new EBox::SquidOnlyFirewall();
@@ -1032,50 +892,6 @@ sub firewallHelper
     }
 
     return undef;
-}
-
-sub proxyWidget
-{
-    my ($self, $widget) = @_;
-    $self->isRunning() or return;
-
-    my $section = new EBox::Dashboard::Section('proxy');
-
-    my $status;
-    $widget->add($section);
-
-    if ($self->transproxy) {
-        $status = __("Enabled");
-    } else {
-        $status = __("Disabled");
-    }
-    $section->add(new EBox::Dashboard::Value(__("Transparent proxy"),$status));
-
-    if ($self->globalPolicy eq 'allow') {
-        $status = __("Allow");
-    } elsif ($self->globalPolicy eq 'deny') {
-        $status = __("Deny");
-    } elsif ($self->globalPolicy eq 'filter') {
-        $status = __("Filter");
-    }
-
-    $section->add(new EBox::Dashboard::Value(__("Global policy"), $status));
-
-    $section->add(new EBox::Dashboard::Value(__("Listening port"), $self->port));
-}
-
-### Method: widgets
-#
-#   Overrides <EBox::Module::widgets>
-#
-sub widgets
-{
-    return {
-        'proxy' => {
-            'title' => __("HTTP Proxy"),
-            'widget' => \&proxyWidget
-        }
-    };
 }
 
 # Method: menu
@@ -1093,16 +909,13 @@ sub menu
                                         'order' => 210);
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
-                                      'text' => __('General')));
+                                      'text' => __('General Settings')));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/DelayPools',
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/AccessRules',
+                                      'text' => __(q{Access Rules})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DelayPools',
                                       'text' => __(q{Bandwidth Throttling})));
-
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
-                                      'text' => __(q{Objects' Policy})));
-
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/GlobalGroupPolicy',
-                                      'text' => __(q{Groups' Policy})));
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
@@ -1123,7 +936,7 @@ sub _daemons
         },
         {
             'name' => 'ebox.dansguardian',
-            'precondition' => \&_dgNeeded
+            'precondition' => \&filterNeeded
         }
     ];
 }

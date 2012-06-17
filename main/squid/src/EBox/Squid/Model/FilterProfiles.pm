@@ -26,7 +26,6 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Text;
-use EBox::Squid::Types::Policy;
 use EBox::Squid::Types::TimePeriod;
 use EBox::Types::HasMany;
 use EBox::Squid::Model::DomainFilterFiles;
@@ -98,8 +97,8 @@ sub _table
     my $dataTable =
     {
         tableName          => 'FilterProfiles',
-        pageTitle          => __('Filter profiles'),
-        printableTableName => __('List of profiles'),
+        pageTitle          => __('HTTP Proxy'),
+        printableTableName => __('Filter Profiles'),
         modelDomain        => 'Squid',
         defaultActions => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => $self->tableHeader(),

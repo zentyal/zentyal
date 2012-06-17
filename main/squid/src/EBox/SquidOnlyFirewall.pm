@@ -43,7 +43,6 @@ sub _trans_prerouting
     my @rules = ();
 
     my @ifaces = @{$net->InternalIfaces()};
-    my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
         my $addrs = $net->ifaceAddresses($ifc);
         my $input = $self->_inputIface($ifc);
@@ -80,7 +79,6 @@ sub input
     my @rules = ();
 
     my @ifaces = @{$net->InternalIfaces()};
-    my $pol = $sq->globalPolicy();
     foreach my $ifc (@ifaces) {
         my $input = $self->_inputIface($ifc);
         my $r = "-m state --state NEW $input -p tcp --dport $sqport ".

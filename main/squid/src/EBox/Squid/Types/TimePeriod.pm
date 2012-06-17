@@ -74,13 +74,11 @@ sub new
         $params{type} = 'squid-timeperiod';
     }
 
-
     my $self = $class->SUPER::new(%params);
 
     bless $self, $class;
     return $self;
 }
-
 
 sub value
 {
@@ -221,7 +219,6 @@ sub printableWeekDays
     return $st;
 }
 
-
 sub hourlyPeriod
 {
     my ($self) = @_;
@@ -234,7 +231,6 @@ sub hourlyPeriod
 
     return $from . '-' . $to;
 }
-
 
 # Method: cmp
 #
@@ -348,7 +344,6 @@ sub _paramIsValid
 
     return 1;
 }
-
 
 sub _hoursParamsAreValid
 {
@@ -518,7 +513,6 @@ sub _setValue # (defaultValue)
     }
 
     $self->setMemValue(\%memValueParams);
-
 }
 
 1;

@@ -13,13 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Squid::Model::DelayPools2;
+package EBox::Squid::Model::DelayPools;
 
-# Class: EBox::Squid::Model::DelayPools2
+# Class: EBox::Squid::Model::DelayPools
 #
 #      Form to set the configuration for the delay pools class 2.
 #
-
 use base 'EBox::Model::DataTable';
 
 use strict;
@@ -37,30 +36,6 @@ use EBox::Types::Union::Text;
 use Math::BigInt;
 
 # Group: Public methods
-
-# Constructor: new
-#
-#      Create the new DelayPools2 model.
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#      <EBox::Squid::Model::DelayPools2> - the recently created model.
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless( $self, $class );
-
-    return $self;
-}
-
 
 # Method: validateTypedRow
 #
@@ -203,15 +178,16 @@ sub _table
       );
 
     my $dataTable = {
-        'tableName'          => 'DelayPools2',
-        'printableTableName' => __x('Client bandwidth rules (class 2 delay pools)'),
+        'tableName'          => 'DelayPools',
+        'printableTableName' => __('Bandwidth Throttling Rules'),
         'defaultActions'     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
         'modelDomain'        => 'Squid',
         'tableDescription'   => \@tableHead,
         'class'              => 'dataTable',
         # Priority field set the ordering through _order function
         'order'              => 1,
-        'help'               => __('Once the download exceeds the file size then the HTTP Proxy will slow down the connection to the specified download rate. Both parameters can be defined for the whole network and on a per client basis. The client number is limited to 256.'),
+        'pageTitle'          => __('HTTP Proxy'),
+        'help'               => __("Bandwith throttling allows you to control download rates for connections going though the HTTP proxy. The first rule to match is applied. If a connection doesn't match any rule, then no bandwidth throttling is applied."),
         'rowUnique'          => 1,
         'printableRowName'   => __('rule'),
         'automaticRemove'    => 1,
@@ -223,7 +199,7 @@ sub _table
     return $dataTable;
 }
 
-sub delayPools2
+sub delayPools
 {
     my ($self) = @_;
 

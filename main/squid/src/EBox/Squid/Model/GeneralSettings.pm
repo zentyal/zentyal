@@ -29,7 +29,6 @@ use EBox::Types::Boolean;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
 use EBox::Types::Port;
-use EBox::Squid::Types::Policy;
 use EBox::Sudo;
 
 use EBox::Exceptions::External;
@@ -78,17 +77,11 @@ sub _table
                   min  => 10,
                   defaultValue   => 100,
                ),
-          new EBox::Squid::Types::Policy(
-                  fieldName => 'globalPolicy',
-                  printableName => __('Default policy'),
-                  defaultValue => 'deny',
-                  help => _policyHelp(),
-             ),
     );
 
     my $dataForm = {
                     tableName          => 'GeneralSettings',
-                    printableTableName => __('General Settings '),
+                    printableTableName => __('General Settings'),
                     modelDomain        => 'Squid',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
@@ -137,9 +130,7 @@ sub validateTypedRow
 
     if (exists $params_r->{transparentProxy} or
             exists $params_r->{globalPolicy}) {
-
         $self->_checkPolicyWithTransProxy($params_r, $actual_r);
-        $self->_checkNoAuthPolicy($params_r, $actual_r);
     }
 }
 
@@ -176,44 +167,12 @@ sub _checkPolicyWithTransProxy
         $params_r->{globalPolicy} :
         $actual_r->{globalPolicy} ;
 
-    if ($pol->usesAuth()) {
-        throw EBox::Exceptions::External(
-                __('Transparent proxy option is not compatible with authorization policy')
-        );
-    }
-
-    my $objectPolicy = $self->parentModule()->model('ObjectPolicy');
-    if ($objectPolicy->existsAuthObjects()) {
+    my $rules = $self->parentModule()->model('AccessRules');
+    if ($rules->existsAuthObjects()) {
         throw EBox::Exceptions::External(
                 __('Transparent proxy is incompatible with the authorization policy found in some objects')
         );
     }
-}
-
-
-sub _checkNoAuthPolicy
-{
-    my ($self, $params_r, $actual_r) = @_;
-    my $pol = exists $params_r->{globalPolicy} ?
-        $params_r->{globalPolicy} :
-            $actual_r->{globalPolicy} ;
-
-    if (not $pol->usesAuth()) {
-        my $groupsPolicies = $self->parentModule()->model('GlobalGroupPolicy')->groupsPolicies();
-        if (@{ $groupsPolicies }) {
-            throw EBox::Exceptions::External(
-                __('An authorization policy is required because you are using global group policies')
-            );
-        }
-    }
-}
-
-
-sub _policyHelp
-{
-    return __('<i>Filter</i> means that HTTP requests will go through the ' .
-              'content filter and they might be rejected if the content is ' .
-              'not considered valid.');
 }
 
 sub _transparentHelp
@@ -232,4 +191,3 @@ sub _commercialMsg
 }
 
 1;
-

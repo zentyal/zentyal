@@ -48,7 +48,7 @@ sub _normal_prerouting
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
-    my $dgport = $sq->dansguardianPort();
+    my $dgport = $sq->DGPORT();
     my @rules = ();
 
     my @objsPolicies = @{ $self->_objectsPolicies() };
@@ -65,7 +65,7 @@ sub _normal_prerouting
                   @{ $self->_normal_prerouting_object_rules($obPolicy, $ifc, $addr) };
             }
 
-            if ($sq->globalPolicyUsesFilter()) {
+            if ($sq->filterNeeded()) {
                 my $r = "$input -d $addr -p tcp --dport $sqport ".
                   "-j REDIRECT --to-ports $dgport";
                 push @rules, $r;
@@ -84,7 +84,7 @@ sub _normal_prerouting_object_rules
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
-    my $dgport = $sq->dansguardianPort();
+    my $dgport = $sq->DGPORT();
     my $input = $self->_inputIface($ifc);
 
     my @rules;
@@ -113,7 +113,7 @@ sub _trans_prerouting
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
-    my $dgport = $sq->dansguardianPort();
+    my $dgport = $sq->DGPORT();
     my @rules = ();
 
     my @objsPolicies = @{ $self->_objectsPolicies() };
@@ -135,7 +135,7 @@ sub _trans_prerouting
                                                                  ) };
             }
 
-            if ($sq->globalPolicyUsesFilter()) {
+            if ($sq->filterNeeded()) {
                 my $r = "$input ! -d $addr -p tcp --dport 80 "
                         . "-j REDIRECT --to-ports $dgport";
                 push(@rules, $r);
@@ -156,7 +156,7 @@ sub _normal_trans_prerouting_object_rules
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
-    my $dgport = $sq->dansguardianPort();
+    my $dgport = $sq->DGPORT();
     my $input = $self->_inputIface($ifc);
 
     my @rules;
@@ -199,7 +199,7 @@ sub input
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
-    my $dgport = $sq->dansguardianPort();
+    my $dgport = $sq->DGPORT();
     my @rules = ();
 
     my @objsPolicies = @{ $self->_objectsPolicies() };
@@ -211,7 +211,7 @@ sub input
         }
         my $input = $self->_inputIface($ifc);
 
-        if ($sq->globalPolicyUsesFilter()) {
+        if ($sq->filterNeeded()) {
             my $r = "-m state --state NEW $input ".
                 "-p tcp --dport $dgport -j ACCEPT";
             push(@rules, $r);
@@ -232,7 +232,7 @@ sub _input_object_rules
     my $sq = EBox::Global->modInstance('squid');
     my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
-    my $dgport = $sq->dansguardianPort();
+    my $dgport = $sq->DGPORT();
     my $input = $self->_inputIface($ifc);
 
     my @rules;
