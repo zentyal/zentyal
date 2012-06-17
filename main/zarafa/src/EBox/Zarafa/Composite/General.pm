@@ -42,7 +42,7 @@ sub _description
        printableName   => __('Configuration'),
        pageTitle       => __('Groupware (Zarafa)'),
        compositeDomain => 'Zarafa',
-       help            => __('You can access the Zarafa web interface at http://zentyal_ip/webaccess and the mobile version at http://zentyal_ip/webaccess-mobile.'),
+       help            => __('You can access the Zarafa web interface at http://zentyal_ip/webaccess and the new version at http://zentyal_ip/webapp.'),
     };
 
     return $description;

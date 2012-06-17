@@ -1,4 +1,6 @@
 2.3
+	+ Added new webapp and removed webaccess-mobile support
+	+ Updated configuration templates to Zarafa 7.1
 	+ Enable InnoDB and restart MySQL server if needed
 	+ Bind to LDAP with the new read-only user for normal operations
 	+ zarafa-indexer is now zarafa-search
