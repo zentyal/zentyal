@@ -215,12 +215,6 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
-        use Data::Dumper;
-                print "IFACe $iface\n";
-                print Dumper($tcCommands_ref);
-                print Dumper($ipTablesCommands_ref);
-                print "\n";
-
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
