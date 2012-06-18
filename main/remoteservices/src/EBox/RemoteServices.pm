@@ -1592,20 +1592,6 @@ sub _caCertPath
 
 }
 
-# Return the link name for the CA certificate in the given format
-# hashValue.0 - hash value is the output from openssl ciphering
-sub _caLinkPath
-{
-    my ($self) = @_;
-
-    my $caCertPath = $self->_caCertPath();
-    my $hashRet = EBox::Sudo::command("openssl x509 -hash -noout -in $caCertPath");
-
-    my $hashValue = $hashRet->[0];
-    chomp($hashValue);
-    return CA_DIR . "${hashValue}.0";
-}
-
 # Return the Zentyal Cloud connection widget to be shown in the dashboard
 sub _ccConnectionWidget
 {
