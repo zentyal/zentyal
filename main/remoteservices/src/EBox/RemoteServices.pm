@@ -1981,4 +1981,31 @@ sub desktopActions
     };
 }
 
+
+# Method: subscribedUUID
+#
+#        Return the server UUID if this is subscribed to Zentyal Cloud
+#
+# Returns:
+#
+#        String - the UUID
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub subscribedUUID
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The UUID is only available if the host is subscribed to Zentyal Cloud')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->subscribedUUID();
+}
+
 1;

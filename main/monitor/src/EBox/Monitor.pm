@@ -566,7 +566,7 @@ sub _setMainConf
     if ( $global->modExists('remoteservices') ) {
         my $rs = $global->modInstance('remoteservices');
         if ( $rs->eBoxSubscribed() ) {
-            $hostname = $rs->subscribedHostname();
+            $hostname = $rs->subscribedUUID();
             @networkServers = @{$rs->monitorGathererIPAddresses()};
             $self->_linkRRDs($hostname);
         } else {

@@ -82,4 +82,20 @@ sub subscribedHostname
     return $self->{cred}->{company} . '-' . $self->{cred}->{name};
 }
 
+# Method: subscribedUUID
+#
+#     Get the subscribed UUID
+#
+# Returns:
+#
+#     String - the UUID
+#
+sub subscribedUUID
+{
+    my ($self) = @_;
+
+    # Already in string format
+    return $self->{cred}->{uuid};
+}
+
 1;
