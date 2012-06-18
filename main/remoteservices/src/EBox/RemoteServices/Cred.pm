@@ -82,4 +82,35 @@ sub subscribedHostname
     return $self->{cred}->{company} . '-' . $self->{cred}->{name};
 }
 
+# Method: subscribedUUID
+#
+#     Get the subscribed UUID
+#
+# Returns:
+#
+#     String - the UUID
+#
+sub subscribedUUID
+{
+    my ($self) = @_;
+
+    # Already in string format
+    return $self->{cred}->{uuid};
+}
+
+# Method: cloudDomain
+#
+#     Get the Zentyal Cloud Domain
+#
+# Returns:
+#
+#     String - the Zentyal Cloud Domain
+#
+sub cloudDomain
+{
+    my ($self) = @_;
+
+    return $self->{cred}->{cloud_domain};
+}
+
 1;
