@@ -1,4 +1,5 @@
 HEAD
+	+ Some improvements to runnerd daemonisation
 	+ Use RESTful API to send the jobs results to Zentyal Cloud
 	+ Adapted to latest changes in core
 	+ Use Apache mod API to include Cloud CA certificate
