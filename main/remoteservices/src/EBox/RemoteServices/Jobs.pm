@@ -69,7 +69,7 @@ sub jobResult
 {
     my ($self, %wsParams) = @_;
 
-    $self->_transmitResult("/v1/jobs/$wsParams{'jobId'}/result/", %wsParams);
+    $self->_transmitResult('/v1/jobs/', %wsParams);
 }
 
 # Method: cronJobResult
@@ -93,7 +93,7 @@ sub cronJobResult
 {
     my ($self, %wsParams) = @_;
 
-    $self->_transmitResult("/v1/jobs/cron/$wsParams{'jobId'}/result/", %wsParams);
+    $self->_transmitResult('/v1/jobs/cron/', %wsParams);
 }
 
 # Method: cronJobs
@@ -156,7 +156,7 @@ sub _transmitResult
         $wsParams{stdout} = substr($wsParams{stdout}, $startPos, MAX_SIZE);
         $wsParams{stderr} = substr($wsParams{stderr}, $startPos, MAX_SIZE);
         # Create the job result and get its id
-        my $ret = $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", %wsParams)->data();
+        my $ret = $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", \%wsParams)->data();
         my $jobResultId = $ret->{'job_result_id'};
 
         # Append all the remaining data
@@ -170,7 +170,7 @@ sub _transmitResult
                                       stderr => $stderr});
         }
     } else {
-        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", %wsParams);
+        $self->RESTClient()->POST($url . "$wsParams{'jobId'}/result/", \%wsParams);
     }
 
 }
