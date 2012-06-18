@@ -62,8 +62,8 @@ sub _mode
 {
     return [
         { value => 'standalone', printableValue => __('Standalone') },
-        { value => 'server',     printableValue => __('Server') },
-        { value => 'client',     printableValue => __('Client') },
+        { value => 'netserver',  printableValue => __('Server') },
+        { value => 'netclient',  printableValue => __('Client') },
     ];
 }
 
