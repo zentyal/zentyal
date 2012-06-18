@@ -85,7 +85,7 @@
     upsmon <% $u->{upsmon} %>
 % }
 % foreach my $a (@{$u->{actions}}) {
-    actions  = $a
+    actions  = <% $a %>
 % }
 % foreach my $cmd (@{$u->{cmds}}) {
     instcmds = $cmd

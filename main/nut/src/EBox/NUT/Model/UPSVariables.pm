@@ -61,42 +61,70 @@ sub upsVariables
     return $vars;
 }
 
-sub syncRows
+sub ids
 {
-    my ($self, $currentIds) = @_;
-
-    my $modified = 0;
+    my ($self) = @_;
 
     my $row = $self->parentRow();
     my $label = $row->valueByName('label');
     my $variables = $self->upsVariables($label);
+    $self->{variables} = $variables;
 
-    foreach my $id (@{$currentIds}) {
-        my $row = $self->row($id);
-        my $var = $row->valueByName('variable');
-        my $val = $row->elementByName('value');
-        if (exists $variables->{$var}) {
-            my $value = $variables->{$var};
-            if ($value) {
-                $val->setValue($value);
-            } else {
-                $val->setValue('---');
-            }
-            delete $variables->{$var};
-        } else {
-            $self->removeRow($id);
-            $modified = 1;
-        }
+    my $ids = [];
+    foreach my $key (sort keys %{$variables}) {
+        push (@{$ids}, $key);
+    }
+    return $ids;
+}
+
+sub row
+{
+    my ($self, $id) = @_;
+
+    my $var = '';
+    my $value = '';
+
+    my $variables = $self->{variables};
+    if ($variables) {
+        $var = $id;
+        $value = $variables->{$id};
     }
 
-    foreach my $key (keys %{$variables}) {
-        my $value = $variables->{$key};
-        $self->addRow(variable => $key,
-                      value => $value,
-                      readOnly => 1);
-        $modified = 1;
-    }
-    return $modified;
+    my $row = $self->_setValueRow(
+        variable => $var,
+        value => $value,
+    );
+    $row->setId($id);
+    $row->setReadOnly(1);
+    return $row;
+}
+
+
+# Method: precondition
+#
+#   Check if there is at least one vdomain.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    my $mod = $self->parentModule();
+    return $mod->isRunning();
+}
+
+# Method: preconditionFailMsg
+#
+#   Returns message to be shown on precondition fail
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('The UPS service is not running. Ensure that changes are saved and the module enabled.');
 }
 
 sub _table
@@ -122,6 +150,7 @@ sub _table
         printableRowName => __('variable'),
         insertPosition => 'back',
         sortedBy => 'variable',
+        withoutActions     => 1,
         help => __('This is the list of the variables published by the UPS. ' .
                    'Some of them may be read only'),
     };

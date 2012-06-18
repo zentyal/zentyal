@@ -160,6 +160,7 @@ sub _setConf
         {
             name     => 'upsmon',
             password => 'upsmon',
+            actions  => ['set'],
             upsmon   => 'master',
         }
     ];
@@ -201,9 +202,11 @@ sub _setConf
 sub _daemons
 {
     return [
-        #{
-        #    'name' => 'nut',
-        #},
+        {
+            'name' => 'nut',
+            'type' => 'init.d',
+            'pidfiles' => ['/var/run/nut/upsd.pid', '/var/run/nut/upsmon.pid'],
+        },
     ];
 }
 

@@ -66,7 +66,6 @@ sub new
 #
 sub printableValue
 {
-    EBox::debug('On printableValue');
     my ($self) = @_;
 
     return $self->{'manufacturer'} . ' ' . $self->{'upsmodel'};
@@ -84,7 +83,6 @@ sub printableValue
 #
 sub value
 {
-    EBox::debug("On value");
     my ($self) = @_;
 
     my $manufacturer = $self->manufacturer();
@@ -127,7 +125,6 @@ sub value
 #
 sub cmp
 {
-    EBox::debug('On cmp');
     my ($self, $compareType) = @_;
 
     unless ( (ref $self) eq (ref $compareType) ) {
@@ -161,7 +158,6 @@ sub cmp
 #
 sub compareToHash
 {
-    EBox::debug("On compareToHash");
     my ($self, $hash) = @_;
 
     my $oldManufacturer = $self->{'manufacturer'};
@@ -225,7 +221,6 @@ sub driver
 
 sub driverTable
 {
-    EBox::debug("On driverTable");
     my ($self) = @_;
 
     unless (defined ($driverTable)) {
@@ -245,10 +240,7 @@ sub driverTable
 #
 sub _paramIsValid
 {
-    EBox::debug("On _paramIsValid");
     my ($self, $params) = @_;
-
-    EBox::debug(Dumper($params));
 
     my $manufacturer = $self->fieldName() . '_manufacturer';
     my $upsmodel     = $self->fieldName() . '_upsmodel';
@@ -257,8 +249,6 @@ sub _paramIsValid
     my $manufacturerValue = $params->{$manufacturer};
     my $upsmodelValue        = $params->{$upsmodel};
     my $driverValue       = $params->{$driver};
-
-    EBox::debug("$manufacturerValue, $upsmodelValue, $driverValue");
 
     unless (defined ($driverTable)) {
         $driverTable = $self->_loadDriverTable();
@@ -281,8 +271,6 @@ sub _paramIsValid
             }
         }
     }
-    EBox::debug("$manufacturerValue, $upsmodelValue, $driverValue");
-    EBox::debug("$manufacturerExists, $upsmodelExists, $driverExists");
     unless ($manufacturerExists) {
         throw EBox::Exceptions::InvalidData(
             'data'   => $self->printableName(),
@@ -313,7 +301,6 @@ sub _paramIsValid
 #
 sub _paramIsSet
 {
-    EBox::debug("On _paramIsSet");
     return 1;
 }
 
@@ -331,7 +318,6 @@ sub _paramIsSet
 #
 sub _setValue
 {
-    EBox::debug("On _setValue");
     my ($self, $value) = @_;
 
     # There are countries America/Indiana/Indianapolis
@@ -342,7 +328,6 @@ sub _setValue
         $self->fieldName() . '_upsmodel'     => $upsmodel,
         $self->fieldName() . '_driver'       => $driver
     };
-    EBox::debug(Dumper($params));
 
     $self->setMemValue($params);
 }
@@ -351,7 +336,6 @@ sub _setValue
 
 sub _loadDriverTable
 {
-    EBox::debug("On _loadDriverTable");
     my ($self) = @_;
 
     return $driverTable if (defined $driverTable);

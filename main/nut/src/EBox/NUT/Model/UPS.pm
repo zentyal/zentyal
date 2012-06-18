@@ -113,10 +113,10 @@ sub _table
         ),
         new EBox::Types::HasMany(
             fieldName => 'variables',
-            printableName => __('Variables'),
-            foreignModel => 'UPSVariables',
-            foreignModelIsComposite => 0,
-            view => '/NUT/View/UPSVariables',
+            printableName => __('Settings'),
+            foreignModel => 'nut/Variables',
+            foreignModelIsComposite => 1,
+            view => '/NUT/Composite/Variables',
             backView => '/NUT/View/UPS',
         ),
     );
