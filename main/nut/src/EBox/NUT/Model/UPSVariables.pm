@@ -34,18 +34,81 @@ sub new
     return $self;
 }
 
+sub upsVariables
+{
+    my ($self, $label) = @_;
+
+    unless (defined $label) {
+        throw EBox::Exceptions::MissingArgument('label');
+    }
+    my $allVars = EBox::Sudo::root("upsc $label");
+    my $rwVars = EBox::Sudo::root("upsrw $label");
+
+    my $vars = {};
+    foreach my $line (@{$allVars}) {
+        $line =~ s/\s*//g;
+        my ($var, $value) = split(/:/, $line);
+        $vars->{$var} = $value,
+    }
+
+    # Remove RW vars
+    foreach my $line (@{$rwVars}) {
+        if ($line =~ /^\[(.+)\]$/) {
+            delete $vars->{$1};
+        }
+    }
+
+    return $vars;
+}
+
+sub syncRows
+{
+    my ($self, $currentIds) = @_;
+
+    my $modified = 0;
+
+    my $row = $self->parentRow();
+    my $label = $row->valueByName('label');
+    my $variables = $self->upsVariables($label);
+
+    foreach my $id (@{$currentIds}) {
+        my $row = $self->row($id);
+        my $var = $row->valueByName('variable');
+        my $val = $row->elementByName('value');
+        if (exists $variables->{$var}) {
+            my $value = $variables->{$var};
+            if ($value) {
+                $val->setValue($value);
+            } else {
+                $val->setValue('---');
+            }
+            delete $variables->{$var};
+        } else {
+            $self->removeRow($id);
+            $modified = 1;
+        }
+    }
+
+    foreach my $key (keys %{$variables}) {
+        my $value = $variables->{$key};
+        $self->addRow(variable => $key,
+                      value => $value,
+                      readOnly => 1);
+        $modified = 1;
+    }
+    return $modified;
+}
+
 sub _table
 {
     my $tableHead = [
         new EBox::Types::Text(
             fieldName => 'variable',
             printableName => __('Variable'),
-            editable => 0,
         ),
         new EBox::Types::Text(
             fieldName => 'value',
             printableName => __('Value'),
-            editable => 0,
         ),
     ];
 
@@ -53,7 +116,7 @@ sub _table
         tableName => 'UPSVariables',
         printableTableName => __('UPS Variables'),
         modelDomain => 'NUT',
-        defaultActions => [ 'editField', 'changeView' ],
+        defaultActions => [ 'changeView' ],
         tableDescription => $tableHead,
         class => 'dataTable',
         printableRowName => __('variable'),

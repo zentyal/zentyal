@@ -68,7 +68,6 @@ sub validateTypedRow
         $changedFields->{label}->value() : $allFields->{label}->value();
     if ($label =~ m/\s+/) {
         throw EBox::Exceptions::External(__("'Label' can not contain spaces"));
-
     }
 }
 

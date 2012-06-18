@@ -6,4 +6,7 @@ models:
     - UPSVariables
 
 composites:
-    General: [Mode, UPS]
+    General: [UPS]
+
+foreign:
+    UPS: [UPSVariables]
