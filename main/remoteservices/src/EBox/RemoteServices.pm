@@ -1859,14 +1859,20 @@ sub restoreConfig
     };
 }
 
+# Method: clearCache
+#
+#     Remove cached information stored in module state
+#
 sub clearCache
 {
     my ($self) = @_;
 
+    my $state = $self->get_state();
     my @cacheDirs = qw(subscription disaster_recovery);
     foreach my $dir (@cacheDirs) {
-        $self->st_delete_dir($dir);
+        delete $state->{$dir};
     }
+    $self->set_state($state);
 }
 
 sub staticIfaceAddressChangedDone
@@ -1942,6 +1948,7 @@ sub REST
 
 # Migration to 3.0
 #
+#  * Migrate current subscription data in state to new structure
 #  * Rename VPN client
 #  * Get credentials
 #
