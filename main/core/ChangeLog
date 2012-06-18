@@ -1,4 +1,5 @@
 HEAD
+	+ Fix typo in ConfigureLogs model
 	+ Mark files for removing before deleting the row from backend in
 	  removeRow
 	+ The Includes directives are set just for the main virtual host
