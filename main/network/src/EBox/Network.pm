@@ -2878,17 +2878,20 @@ sub generateInterfaces
 sub _generateRoutes
 {
     my ($self) = @_;
-    # Delete those routes which are not useful anymore
+
+    # clean up all routes
+    $self->_removeRoutes();
+
     my @routes = @{$self->routes()};
-    $self->_removeRoutes(\@routes);
     (@routes) or return;
     my @cmds;
     foreach (@routes) {
         my $net = $_->{network};
         my $router = $_->{gateway};
-        push (@cmds, "/sbin/ip route add $net via $router table main");
+        my $cmd = "/sbin/ip route add $net via $router table main";
+        push @cmds, $cmd;
     }
-    EBox::Sudo::silentRoot(@cmds);
+    EBox::Sudo::root(@cmds);
 }
 
 # Write cron file

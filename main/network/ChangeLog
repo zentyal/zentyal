@@ -1,3 +1,6 @@
+HEAD
+	+ Remove all gateway based routes before adding the configured one
+	and raise exception if the route addition command fails
 2.3.8
 	+ ifaceExternalChanged() is now called when static or PPP interfaces
 	  changes from external to internal
