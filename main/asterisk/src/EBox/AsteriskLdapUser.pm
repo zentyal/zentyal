@@ -82,7 +82,7 @@ sub _addUser
     }
 
     unless ($skipDefault) {
-        my $model = $self->model('AsteriskUser');
+        my $model = $self->{asterisk}->model('AsteriskUser');
         return unless ($model->enabledValue());
     }
 
