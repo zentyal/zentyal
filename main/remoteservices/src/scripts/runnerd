@@ -102,16 +102,12 @@ sub _daemonise
         }
     }
 
-    my $hcFD; # Highest closed file descriptor
-    foreach (0 .. 64) {
-        given($_) {
-            when (0) { close(STDIN); }
-            when (1) { close(STDOUT); }
-            when (2) { close(STDERR); }
-            default {
-                $hcFD = $_ if POSIX::close( $_ );
-            }
-        }
+    close(STDIN);
+    close(STDOUT);
+    close(STDERR);
+    my @fd; # Closed file descriptors
+    foreach (3 .. 64) {
+        push(@fd,  $_) if POSIX::close( $_ );
     }
 
     open( STDIN, '<', '/dev/null');
@@ -120,7 +116,7 @@ sub _daemonise
 
     if ( $hcFD ) {
         my @fh;
-        open( $fh[$_], "</dev/null") foreach ( 3 .. $hcFD );
+        open( $fh[$_], "</dev/null") foreach ( @fd );
         # Perl will try to close all handles when @fh leaves scope here
     }
 
