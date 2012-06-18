@@ -77,7 +77,7 @@ sub composites
     EBox::Model::Manager->instance()->composites($self);
 }
 
-# we override aroundRestoreconfig to save conf data before dump module config
+# we override aroundRestoreconfig to restore conf data before restoring config
 sub aroundRestoreConfig
 {
     my ($self, $dir, @extraOptions) = @_;
@@ -89,14 +89,44 @@ sub aroundRestoreConfig
     $self->restoreConfig($dir, @extraOptions);
 }
 
+sub _state_bak_file_from_dir
+{
+    my ($self, $dir) = @_;
+    $dir =~ s{/+$}{};
+    my $file = "$dir/" . $self->name . ".state";
+    return $file;
+}
+
 # load config entries from a file
 sub _load_from_file
 {
     my ($self, $dir, $dst) = @_;
     ($dir) or $dir = EBox::Config::conf;
+    my $file = $self->_bak_file_from_dir($dir);
+    my $src =  $self->name() . '/conf';
 
+    if (not $dst) {
+        $dst = $self->_key('');
+    }
 
-    my $file =  $self->_bak_file_from_dir($dir);
+    $self->_load_redis_from_file($file, $src, $dst);
+}
+
+sub _load_state_from_file
+{
+    my ($self, $dir, $dst) = @_;
+    ($dir) or $dir = EBox::Config::conf;
+    my $file = $self->_state_bak_file_from_dir($dir);
+    my  $src =  $self->_st_key('');
+    if (not $dst) {
+        $dst = $self->_st_key('');
+    }
+    $self->_load_redis_from_file($file, $src, $dst);
+}
+
+sub _load_redis_from_file
+{
+   my ($self, $file, $src, $dst) = @_;
     if (not -f $file)  {
         EBox::error("Backup file '$file' missing for module " . $self->name);
         return;
@@ -104,19 +134,18 @@ sub _load_from_file
         EBox::error("Cannot read backup file '$file' for module " . $self->name);
     }
 
-    ($dst) or $dst = $self->_key('');
-
     # Import to tmp dir and convert paths to $dst dest
     $self->{redis}->import_dir_from_file($file, 'tmp');
-    $self->{redis}->backup_dir('tmp/' . $self->name() . '/conf', $dst);
+    $self->{redis}->backup_dir('tmp/' . $src, $dst);
     $self->{redis}->delete_dir('tmp');
 }
-
 
 sub aroundDumpConfig
 {
     my ($self, $dir, @options) = @_;
     $self->_dump_to_file($dir);
+    # dump also state, it will not be restored as default
+    $self->_dump_state_to_file($dir);
 
     $self->backupFilesInArchive($dir);
 
@@ -127,11 +156,21 @@ sub aroundDumpConfig
 sub _dump_to_file
 {
     my ($self, $dir) = @_;
+    ($dir) or $dir = EBox::Config::conf;
 
     my $key = $self->name() . '/conf';
-    ($dir) or $dir = EBox::Config::conf;
     my $file = $self->_bak_file_from_dir($dir);
     $self->{redis}->export_dir_to_file($key, $file);
+}
+
+sub _dump_state_to_file
+{
+     my ($self, $dir) =  @_;
+     ($dir) or $dir = EBox::Config::conf;
+
+     my $key = $self->_st_key();
+     my $file = $self->_state_bak_file_from_dir($dir);
+     $self->{redis}->export_dir_to_file($key, $file);
 }
 
 sub isReadOnly
@@ -271,9 +310,8 @@ sub st_entry_exists
 
 sub redis
 {
-	my ($self) = @_;
-
-	return $self->{redis};
+    my ($self) = @_;
+    return $self->{redis};
 }
 
 #############
@@ -301,7 +339,7 @@ sub st_get_bool
 {
     my ($self, $key) = @_;
 
-    return $self->st_get($key);
+    return $self->st_get($key, 0);
 }
 
 #############
@@ -462,7 +500,7 @@ sub st_get_list
 {
     my ($self, $key) = @_;
 
-    return $self->st_get($key);
+    return $self->st_get($key, []);
 }
 
 #############
@@ -506,9 +544,13 @@ sub get
 
 sub st_get
 {
-    my ($self, $key) = @_;
+    my ($self, $key, $defaultValue) = @_;
 
-    return $self->get_state()->{$key};
+    my $state = $self->get_state();
+    if (not exists $state->{$key}) {
+        return $defaultValue;
+    }
+    return $state->{$key};
 }
 
 # Method: set

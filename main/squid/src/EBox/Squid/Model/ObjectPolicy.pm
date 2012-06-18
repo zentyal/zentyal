@@ -219,30 +219,7 @@ sub _checkPolicyWithGroupsPolicy
 
 sub _checkFilterProfile
 {
-<<<<<<< HEAD
-  my ($self, $params_r, $actual_r) = @_;
-
-  my $filterGroup = exists $params_r->{filterGroup} ?
-                     $params_r->{filterGroup} :
-                     $actual_r->{filterGroup} ;
-  if ($filterGroup->value() eq 'default') {
-      # default group is ocmpatible with all policies
-      return;
-  }
-
-  my $policyElement = exists $params_r->{policy} ?
-                     $params_r->{policy} :
-                     $actual_r->{policy} ;
-
-  my $policy = $policyElement->value();
-  if ($policy ne 'filter') {
-      throw EBox::Exceptions::External(
-   __(q{You can only use a custom profile with the 'Filter' policy})
-                                      );
-  }
-=======
     my ($self, $params_r, $actual_r) = @_;
->>>>>>> proxy-rewrite
 
     my $filterGroup = exists $params_r->{filterGroup} ?
         $params_r->{filterGroup} :

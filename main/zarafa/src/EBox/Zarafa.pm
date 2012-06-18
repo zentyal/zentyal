@@ -426,6 +426,7 @@ sub _setConf
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
+    $self->_enableInnoDBIfNeeded();
 }
 
 # Method: _postServiceHook
@@ -664,7 +665,7 @@ sub _setWebServerConf
 
     if ($vhost eq 'disabled') {
         push(@cmds, 'a2ensite zarafa-webaccess');
-        push(@cmds, 'a2ensite zarafa-webaccess-mobile');
+        push(@cmds, 'a2ensite zarafa-webapp');
         if ($activesync) {
             push(@cmds, 'a2ensite z-push');
         } else {
@@ -672,7 +673,7 @@ sub _setWebServerConf
         }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
-        push(@cmds, 'a2dissite zarafa-webaccess-mobile');
+        push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite z-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
@@ -692,6 +693,18 @@ sub _setSpellChecking
 
     EBox::Sudo::root(EBox::Config::scripts('zarafa') .
                      'zarafa-spell ' . ($spell ? 'enable' : 'disable'));
+}
+
+sub _enableInnoDBIfNeeded
+{
+    my ($self) = @_;
+
+    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
+        EBox::Sudo::root(
+            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
+            "restart mysql"
+        );
+    }
 }
 
 # Method: addModuleStatus

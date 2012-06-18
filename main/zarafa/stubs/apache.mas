@@ -12,15 +12,73 @@ Alias /webaccess /usr/share/zarafa-webaccess
     Allow from all
 </Directory>
 
-Alias /webaccess-mobile /usr/share/zarafa-webaccess-mobile
+Alias /webapp /usr/share/zarafa-webapp
 
-<Directory /usr/share/zarafa-webaccess-mobile/>
+# Modules to enable for the caching instructions to work:
+#   mod_expires
+#   mod_headers
+#   mod_setenvif - for Internet Explorer quirks
+#
+# For compression:
+#   mod_deflate
+<Directory /usr/share/zarafa-webapp/>
     DirectoryIndex index.php
     Options -Indexes +FollowSymLinks
     AllowOverride Options
 
     Order allow,deny
     Allow from all
+
+    FileETag All
+
+    # Manipulate the cache control headers if mod_expires and
+    # mod_headers are both enabled; otherwise the client will depend
+    # on the ETag header.  However, you can set FileETag to "None" if
+    # you have multiple servers serving WebApp to the same user.  In
+    # that case, apache will fall back to the config below so make
+    # sure these two modules are loaded!
+    <IfModule expires_module>
+        <IfModule headers_module>
+            ExpiresActive On
+            ExpiresDefault "now"
+    
+            <filesMatch "\.(jpg|gif|png)$">
+                # All (static) resources set to 2 months expiration time.
+                ExpiresDefault "access plus 2 months"
+                Header append Cache-Control "public"
+            </filesMatch>
+    
+            <FilesMatch "\.(js|css)$">
+                # All non-dynamic files set to 2 weeks expiration time.
+                ExpiresDefault "access plus 2 weeks"
+                # User agents are requested to revalidate for each resource
+                # so that the server can always serve a newer version if
+                # necessary.
+                Header append Cache-Control "no-cache, must-revalidate"
+
+                # Treat IE a little differently due to the remarks on no-cache
+                # on http://support.microsoft.com/kb/234067
+                <IfModule setenvif_module>
+                    BrowserMatch MSIE ie_bug
+                </IfModule>
+                Header set Cache-Control "must-revalidate, private" env=ie_bug
+            </FilesMatch>
+
+            <filesMatch "\.(php)$">
+                # PHP files must always be retrieved from the server.
+                ExpiresActive Off
+                Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
+                Header set Pragma "no-cache"
+            </filesMatch>
+        </IfModule>
+    </IfModule>
+
+    # Enable gzip compression if the module is available
+    <IfModule deflate_module>
+        <filesMatch "\.(js|css)$">
+            SetOutputFilter DEFLATE
+        </filesMatch>
+    </IfModule>
 </Directory>
 
 % if ($activesync) {

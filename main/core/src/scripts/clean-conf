@@ -18,6 +18,6 @@ $global->delete_dir("global/conf/modules/$module");
 $global->{redis}->delete_dir("global/state/ServiceModule/$module");
 $global->{redis}->delete_dir("$module/conf");
 $global->{redis}->delete_dir("$module/ro");
-$global->{redis}->unset("$module/$state");
+$global->{redis}->unset("$module/state");
 
 1;

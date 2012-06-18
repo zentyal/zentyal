@@ -11,3 +11,7 @@ models:
     - Clients
     - ClientConfiguration
     - DeletedDaemons
+
+foreign:
+    Clients: [ClientConfiguration]
+    Servers: [ServerConfiguration, ExposedNetworks, DownloadClientBundle]

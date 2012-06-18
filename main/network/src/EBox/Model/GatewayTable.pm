@@ -85,15 +85,17 @@ sub syncRows
 
     my %dynamicGws;
 
+    my $state = $conf->get_state();
+
     foreach my $iface (@{$network->dhcpIfaces()}) {
-        my $gw = $conf->st_get_string("dhcp/$iface/gateway");
+        my $gw = $state->{dhcp}->{$iface}->{gateway};
         if ($gw) {
             $dynamicGws{$iface} = $gw;
         }
     }
     foreach my $iface (@{$network->pppIfaces()}) {
-        my $addr = $conf->st_get_string("interfaces/$iface/ppp_addr");
-        my $ppp_iface = $conf->st_get_string("interfaces/$iface/ppp_iface");
+        my $addr = $state->{interfaces}->{$iface}->{ppp_addr};
+        my $ppp_iface = $state->{interfaces}->{$iface}->{ppp_iface};
         if ($addr and $ppp_iface) {
             $dynamicGws{$iface} = "$ppp_iface/$addr";
         }

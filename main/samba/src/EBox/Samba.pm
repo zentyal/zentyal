@@ -256,9 +256,11 @@ sub enableActions
     my @cmds = ();
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
+    EBox::debug('Creating directories');
     EBox::Sudo::root(@cmds);
 
     # Remount filesystem with user_xattr and acl options
+    EBox::debug('Setting up filesystem options');
     EBox::Sudo::root(EBox::Config::scripts('samba') . 'setup-filesystem');
 
     # Add 'Global catalog' service to /etc/services
@@ -267,10 +269,19 @@ sub enableActions
     my $services = $srvModel->services();
     my %aux = map { $_->{name} => 1 } @{$services};
     unless (exists $aux{gc}) {
+        push (@{$services}, { name => 'gc', port => 3268, protocol => 'tcp' });
         EBox::debug('Adding Microsoft global catalog service to /etc/services');
         my $cmd = "echo 'gc\t\t3268/tcp\t\t\t# Microsoft Global Catalog' >> /etc/services";
         EBox::Sudo::root($cmd);
     }
+}
+
+sub isProvisioned
+{
+    my $samba = EBox::Global->modInstance('samba');
+    my $isProvisioned = $samba->get_bool('provisioned');
+    EBox::debug("Samba provisioned flag: $isProvisioned");
+    return $isProvisioned;
 }
 
 # Method: enableService
@@ -284,10 +295,19 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed() and $status) {
-        my $isProvisioned = $self->get_bool('provisioned');
-        EBox::debug("Flag: $isProvisioned");
+        my $isProvisioned = isProvisioned();
         unless ($isProvisioned == 1) {
-            $self->provision();
+            try {
+                $self->provision();
+            } otherwise {
+                my $error = shift;
+                EBox::error($error);
+
+                # Disable the module if not provisioned
+                $self->SUPER::enableService(0);
+
+                throw $error;
+            };
         }
     }
     my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
@@ -295,8 +315,10 @@ sub enableService
         $module->kerberosCreatePrincipals();
     }
 
-    EBox::Global->modChange('dns');
-    EBox::Global->modChange('users');
+    if ($self->changed()) {
+        EBox::Global->modChange('dns');
+        EBox::Global->modChange('users');
+    }
 }
 
 # Method: shares
@@ -526,6 +548,15 @@ sub provision
 {
     my ($self) = @_;
 
+    # Check that there are internal IP addresses configured
+    my $network = EBox::Global->modInstance('network');
+    my $ipaddrs = $network->internalIpAddresses();
+    unless (scalar @{$ipaddrs} > 0) {
+        throw EBox::Exceptions::External(__('There are not any interanl IP address configured, ' .
+                                            'cannot continue with database provision. The module ' .
+                                            'will remain disabled.'));
+    }
+
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $users   = EBox::Global->modInstance('users');
     my $hostName   = $sysinfo->hostName();
@@ -553,6 +584,9 @@ sub provision
     try {
         my $output = EBox::Sudo::root($cmd);
         EBox::debug("Provision result: @{$output}");
+        # Mark the module as provisioned
+        EBox::debug('Setting provisioned flag');
+        $self->set_bool('provisioned', 1);
     } otherwise {
         my $error = shift;
         throw EBox::Exceptions::Internal("Error provisioning database: $error");
@@ -564,13 +598,12 @@ sub provision
                          EBox::Config->conf() . "ldb.passwd");
 
     # Once provisioned start the service to make queries
+    EBox::debug('Starting service');
     $self->_manageService('start');
 
     # Add the DNS records
     EBox::debug('Adding domain DNS records');
-    my $network = EBox::Global->modInstance('network');
     my $dnsMod  = EBox::Global->modInstance('dns');
-    my $ipaddrs = $network->internalIpAddresses();
 
     # Get the domain GUID
     my $args = { base   => $self->ldb->dn(),
@@ -680,9 +713,6 @@ sub provision
                "\@LIST: zentyal,samba_dsdb\n";
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H " . SAM_DB);
 
-    # Mark the module as provisioned
-    EBox::debug('Setting provisioned flag');
-    $self->set_bool('provisioned', 1);
 }
 
 # Return interfaces upon samba should listen
@@ -729,7 +759,7 @@ sub _setConf
 {
     my ($self) = @_;
 
-    return unless $self->configured() and $self->isEnabled();
+    return unless $self->configured() and $self->isEnabled() and isProvisioned();
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
@@ -899,10 +929,13 @@ sub _daemons
 {
     return [
         {
-            'name' => 'zentyal.s4sync',
+            name => 'samba4',
+            precondition => \&isProvisioned,
+            pidfiles => ['/var/run/samba.pid'],
         },
         {
-            'name' => 'samba4',
+            name => 'zentyal.s4sync',
+            precondition => \&isProvisioned,
         },
     ];
 }

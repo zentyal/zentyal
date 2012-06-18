@@ -1,4 +1,5 @@
-HEAD
+2.3.10
+	+ Use DataForm::ReadOnly::_content instead of acquirers in LdapInfo
 	+ Delete obsolete daemons and attributes regarding old replication
 	+ Better error control in _loadACLDirectory
 	+ Adapted to new Model management framework

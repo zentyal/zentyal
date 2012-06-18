@@ -308,10 +308,6 @@ sub internalIpAddresses
     my $ips = [];
 
     my $internalInterfaces = $self->InternalIfaces();
-    unless (scalar $internalInterfaces > 0) {
-        throw EBox::Exceptions::External(__('There are no internal interfaces configured'));
-    }
-
     foreach my $interface (@{$internalInterfaces}) {
         foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
             next unless (defined $interfaceInfo);
@@ -3253,6 +3249,7 @@ sub _enforceServiceState
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
+        $self->redis()->commit();
         open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
@@ -3262,6 +3259,7 @@ sub _enforceServiceState
                 }
         }
         unlink (IFUP_LOCK_FILE);
+        $self->redis()->begin();
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',

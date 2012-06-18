@@ -649,7 +649,7 @@ sub addServiceRules
             } elsif ($table eq 'external') {
                 $self->setExternalService($name, $decision);
             } elsif ($table eq 'output') {
-                $self->model('EBoxOutputTable')->add(
+                $self->model('EBoxOutputRuleTable')->add(
                         decision => $decision,
                         destination => { destination_any => undef },
                         service => $servicesMod->serviceId($name),

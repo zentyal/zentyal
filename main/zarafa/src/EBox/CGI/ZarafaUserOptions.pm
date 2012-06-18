@@ -42,25 +42,27 @@ sub _process
 
 	my $zarafaldap = new EBox::ZarafaLdapUser;
 
-	$self->_requireParam('username', __('username'));
-	my $username = $self->param('username');
-	$self->{redirect} = "UsersAndGroups/User?username=$username";
+	$self->_requireParam('user', __('user'));
+	my $user = $self->unsafeParam('user');
+	$self->{redirect} = "UsersAndGroups/User?user=$user";
 
-	$self->keepParam('username');
+	$self->keepParam('user');
+
+    $user = new EBox::UsersAndGroups::User(dn => $user);
 
     if ($self->param('active') eq 'yes') {
-        $zarafaldap->setHasAccount($username, 1);
+        $zarafaldap->setHasAccount($user, 1);
         if (defined($self->param('is_admin'))) {
-            $zarafaldap->setIsAdmin($username, 1);
+            $zarafaldap->setIsAdmin($user, 1);
         } else {
-            $zarafaldap->setIsAdmin($username, 0);
+            $zarafaldap->setIsAdmin($user, 0);
         }
     } else {
-        $zarafaldap->setHasAccount($username, 0);
+        $zarafaldap->setHasAccount($user, 0);
         if (defined($self->param('contact'))) {
-            $zarafaldap->setHasContact($username, 1);
+            $zarafaldap->setHasContact($user, 1);
         } else {
-            $zarafaldap->setHasContact($username, 0);
+            $zarafaldap->setHasContact($user, 0);
         }
     }
 }

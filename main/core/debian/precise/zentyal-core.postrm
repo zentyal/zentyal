@@ -22,6 +22,9 @@ case "$1" in
 
         # delete ebox user
         deluser --remove-home ebox
+
+        # delete shared memory data
+        rm -rf /run/shm/zentyal
     ;;
 esac
 

@@ -1,4 +1,7 @@
-HEAD
+2.3.11
+	+ Mark files for removing before deleting the row from backend in removeRow
+	+ Dashboard widgets now always read the information from RO
+	+ Enable actions are now executed before enableService()
 	+ Fixed regression which prevented update of the administration service
 	  port when it was changed in the interface
 	+ New EBox::Model::Composite::componentNames() for dynamic composites

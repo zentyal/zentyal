@@ -267,11 +267,14 @@ sub _backup_dir
     my $dest = $args{destination};
 
     my @keys = $self->_keys($key ? "$key/*" : '*');
+    push @keys, $self->_keys($key); # add own key itself
 
     for my $entry (@keys) {
         my $destKey = $entry;
 
         my $value = $self->get($entry);
+        next unless defined ($value);
+
         if ($destinationType eq 'redis') {
             $destKey =~ s/^$key/$dest/;
             $self->set($destKey, $value);

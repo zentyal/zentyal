@@ -7,6 +7,9 @@
 # Outgoing mailserver name or IP address
 smtp_server	=	localhost
 
+# Port number for outgoing mailserver
+smtp_port = 25
+
 # Server unix socket location
 server_socket	=	file:///var/run/zarafa
 
@@ -31,7 +34,7 @@ log_method	=	file
 # Loglevel (0=no logging, 5=full logging)
 log_level	=	3
 
-# Logfile for log_method = file
+# Logfile for log_method = file, use '-' for stderr
 log_file	=	/var/log/zarafa/spooler.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode
@@ -90,6 +93,9 @@ copy_delegate_mails = yes
 # SMTP user.
 allow_delegate_meeting_request = yes
 
+# Allow users to send email to the 'everyone' group
+allow_send_to_everyone = yes
+
 ##############################################################
 # SPOOLER OUTPUT SETTINGS
 
@@ -103,6 +109,13 @@ always_send_tnef = no
 # Normally, the requested charset is used, which can be any charset.
 always_send_utf8 = no
 
+# The us-ascii charset will be upgraded to this charset, to allow more
+# use of high-characters. Not used when always_send_utf8 is enabled. 
+charset_upgrade = windows-1252
+
+# Request SMTP Delivery Status Notifications if the MTA support it
+enable_dsn = yes
+
 ##############################################################
 # SPOOLER GROUP EXPANSION
 
@@ -113,3 +126,28 @@ always_send_utf8 = no
 #
 # Note: groups with email addresses are never expanded
 expand_groups = no
+
+##############################################################
+# SPOOLER ARCHIVING SETTINGS
+
+# Enable archive_on_send to automatically archive all outgoing
+# messages.
+# This will do nothing if no archive is attached to the source mailbox.
+archive_on_send = no
+##############################################################
+# SPOOLER PLUGIN SETTINGS
+
+# Enable the spooler plugin framework
+plugin_enabled = yes
+
+# Path to the spooler plugin manager
+plugin_manager_path = /usr/share/zarafa-spooler/python
+
+# Path to the activated spooler plugins.
+#   This folder contains symlinks to the zarafa plugins and custom scripts. The plugins are
+#   installed in '/usr/share/zarafa-spooler/python/plugins/'. To activate a plugin create a symbolic
+#   link in the 'plugin_path' directory.
+#
+# Example:
+#  $ ln -s /usr/share/zarafa-spooler/python/plugins/disclaimer.py /var/lib/zarafa/spooler/plugins/disclaimer.py
+plugin_path = /var/lib/zarafa/spooler/plugins
