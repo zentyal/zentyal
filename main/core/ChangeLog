@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed EBox::Model::DataTable::_checkFieldIsUnique, it failed when the printableValue of the
+	element was different to its value
 2.3.11
 	+ Fixed regression which prevented update of the administration service
 	  port when it was changed in the interface
