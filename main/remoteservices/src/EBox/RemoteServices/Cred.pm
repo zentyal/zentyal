@@ -98,4 +98,19 @@ sub subscribedUUID
     return $self->{cred}->{uuid};
 }
 
+# Method: cloudDomain
+#
+#     Get the Zentyal Cloud Domain
+#
+# Returns:
+#
+#     String - the Zentyal Cloud Domain
+#
+sub cloudDomain
+{
+    my ($self) = @_;
+
+    return $self->{cred}->{cloud_domain};
+}
+
 1;
