@@ -267,7 +267,7 @@ sub _loadModules
             EBox::error("Error loading $type class: $className $@");
             next;
         }
-        $instance = $className->new();
+        my $instance = $className->new();
         if ($type eq 'watcher') {
             $self->{watchers}->{$className} = { instance => $instance, deadOut  => 0 };
         } else {

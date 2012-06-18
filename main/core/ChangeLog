@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed EventDaemon crash
 2.3.11
 	+ Mark files for removing before deleting the row from backend in removeRow
 	+ Dashboard widgets now always read the information from RO
