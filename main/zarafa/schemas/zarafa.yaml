@@ -15,7 +15,7 @@ models:
     - ZarafaUser
 
 composites:
-    General: [zarafa/GeneralSettings, zarafa/Gateways, zarafa/Quota]
+    General: [GeneralSettings, Gateways, Quota]
 
 notifyactions:
-    VMailDomains: VDomains
+    VMailDomains: [VDomains]

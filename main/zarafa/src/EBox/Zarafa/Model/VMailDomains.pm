@@ -29,17 +29,6 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
-sub new
-{
-        my $class = shift;
-        my %parms = @_;
-
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-
-        return $self;
-}
-
 # Method: precondition
 #
 #   Check if there is at least one vdomain.
@@ -115,28 +104,25 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $mail = EBox::Global->modInstance('mail');
-    my @vdomains = $mail->{vdomains}->vdomains();
-    my %newVDomains =
-        map { $_ => 1 } @vdomains;
-    my %currentVDomains =
-        map { $self->row($_)->valueByName('vdomain') => 1 } @{$currentRows};
+    my $mail = $self->global()->modInstance('mail');
+    my $mailModel = $mail->model('VDomains');
+    my $mailRows = $mailModel->ids();
+
+    my %mailVDomains = map { $mailModel->row($_)->valueByName('vdomain') => $_ } @{$mailRows};
+    my %currentVDomains = map { $self->row($_)->valueByName('vdomain') => $_ } @{$currentRows};
 
     my $modified = 0;
 
-    my @vdomainsToAdd = grep { not exists $currentVDomains{$_} } @vdomains;
+    my @vdomainsToAdd = grep { not exists $currentVDomains{$_} } keys %mailVDomains;
     foreach my $vdomain (@vdomainsToAdd) {
         $self->add(vdomain => $vdomain);
         # TODO Try to add the domain ou here if doesn't exist
         $modified = 1;
     }
 
-    # Remove old rows
-    foreach my $id (@{$currentRows}) {
-        my $row = $self->row($id);
-        my $vdomain = $row->valueByName('vdomain');
-        next if exists $newVDomains{$vdomain};
-        $self->removeRow($id);
+    my @vdomainsToDelete = grep { not exists $mailVDomains{$_} } keys %currentVDomains;
+    foreach my $vdomain (@vdomainsToDelete) {
+        $self->removeRow($currentVDomains{$vdomain});
         # TODO Try to remove the domain here if empty, otherwise try to show a message
         $modified = 1;
     }
@@ -171,7 +157,6 @@ sub _table
         'sortedBy' => 'vdomain',
         'enableProperty' => 1,
         'defaultEnabledValue' => 1,
-
     };
 
     return $dataTable;
