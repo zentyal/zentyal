@@ -126,7 +126,7 @@ sub _register
              ->encoding('iso-8859-1')
              ->register_basic($self->param('firstname'),
                               $self->param('lastname'),
-                              $self->param('country'),
+                              '', # country no longer sent
                               $self->param('username'),
                               $self->param('password'),
                               $self->param('phone'),
