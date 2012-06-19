@@ -1,5 +1,6 @@
 HEAD
-	+ Remove not very useful here bandwidth test
+	+ Fix deadlock in preSetConf when DHCP is used
+	+ Moved bandwidth test to remoteservices
 2.3.8
 	+ internalIpAddresses() does not throw exception if there are no ifaces
 	+ ifaceExternalChanged() is now called when static or PPP interfaces
