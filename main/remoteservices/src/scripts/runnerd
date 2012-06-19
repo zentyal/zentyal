@@ -15,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use v5.10;
+
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Command;
@@ -24,12 +26,14 @@ use EBox::RemoteServices::Configuration;
 use Error qw(:try);
 use Getopt::Long;
 use Linux::Inotify2;
+use Log::Log4perl;
 use POSIX qw(SIG_IGN SIGHUP);
 use Pod::Usage;
 
 use constant JOBS_DIR      => EBox::RemoteServices::Configuration::JobsDir();
 use constant INCOMING_DIR  => EBox::RemoteServices::Configuration::IncomingJobDir();
 use constant OUTCOMING_DIR => JOBS_DIR . 'outcoming/';
+
 
 # Common variables in the daemon processes
 
@@ -64,25 +68,8 @@ sub _daemonise
 {
     my ($foreground) = @_;
 
-    # Clear the file creation mask
-    umask(0);
-
     unless ( $foreground ) {
     # Become a session leader to lose controlling TTY
-        my $pid = fork();
-        if ( $pid < 0 ) {
-            throw EBox::Exceptions::External( "Cannot fork: $!");
-        } elsif ( $pid != 0 ) {
-            # Parent must die
-            exit(0);
-        }
-    }
-    POSIX::setsid();
-
-    # Ensure future opens won't allocate controlling TTYs
-    POSIX::sigaction(POSIX::SIGHUP, POSIX::SigAction->new( POSIX::SIG_IGN ))
-        or throw EBox::Exceptions::External( "Cannot ignore SIGHUP: $!");
-    unless ( $foreground ) {
         my $pid = fork();
         if ( $pid < 0 ) {
             throw EBox::Exceptions::External( "Cannot fork: $!");
@@ -96,12 +83,46 @@ sub _daemonise
     # systems from being unmounted
     chdir('/') or throw EBox::Exceptions::External( "Cannot change directory to / $!" );
 
-    POSIX::close($_) foreach (0 .. 64);
+    # Clear the file creation mask
+    umask(0);
+
+    POSIX::setsid();
+
+    # Ensure future opens won't allocate controlling TTYs
+    # Proc::Daemon code has the explanation
+    # POSIX::sigaction(POSIX::SIGHUP, POSIX::SigAction->new( POSIX::SIG_IGN ))
+    #     or throw EBox::Exceptions::External( "Cannot ignore SIGHUP: $!");
+    unless ( $foreground ) {
+        my $pid = fork();
+        if ( $pid < 0 ) {
+            throw EBox::Exceptions::External( "Cannot fork: $!");
+        } elsif ( $pid != 0 ) {
+            # Parent must die
+            exit(0);
+        }
+    }
+
+    close(STDIN);
+    close(STDOUT);
+    close(STDERR);
+    my @fd; # Closed file descriptors
+    foreach (3 .. 64) {
+        push(@fd,  $_) if POSIX::close( $_ );
+    }
 
     open( STDIN, '<', '/dev/null');
-    open( STDOUT, '+>', '/dev/null');
-    open( STDERR, '+>', '/dev/null');
+    open( STDOUT, '+>', '/tmp/stdout');
+    open( STDERR, '+>', '/tmp/stderr');
 
+    if ( $hcFD ) {
+        my @fh;
+        open( $fh[$_], "</dev/null") foreach ( @fd );
+        # Perl will try to close all handles when @fh leaves scope here
+    }
+
+    # FIXME: Do this in EBox.pm
+    # Init again logger to open the new descriptor
+    Log::Log4perl->init(EBox::Config::conf() . '/eboxlog.conf');
 }
 
 # Procedure: _callbackDispatcher
@@ -164,8 +185,15 @@ sub _run
         }
 
 
-        system( "$call > $jobDir/stdout 2> $jobDir/stderr");
-        my $retValue = $?;
+        my $retValue = system( "$call > $jobDir/stdout 2> $jobDir/stderr");
+        if ( $retValue == -1 ) {
+            throw EBox::Exceptions::Internal("Failed to execute: $!");
+        } elsif ( $retValue & 127 ) {
+            my ($signal, $coredump) = ( ($retValue & 127), ( ($? & 128) ? 'with' : 'without' ) );
+            throw EBox::Exceptions::Internal("Died with signal $signal, $coredump coredump");
+        } else {
+            $retValue = $retValue >> 8;
+        }
         open (my $returnedFile,  '>', "$jobDir/exitValue")
           or throw EBox::Exceptions::External( "Cannot open file:$jobDir/exitValue: $!");
         print $returnedFile $retValue;

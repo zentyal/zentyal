@@ -139,9 +139,13 @@ sub setTypedRow
 
     $self->{confmodule}->st_set_bool('subscribed', not $subs);
 
+    # Commit current data as valid
+    $self->{confmodule}->redis()->commit();
     # Start async the bundle retrieval
-    system(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
+    EBox::Sudo::command(EBox::Config::scripts('remoteservices') . 'reload-bundle &');
 
+    # Start a new transaction
+    $self->{confmodule}->redis()->begin();
     $self->_manageEvents(not $subs);
     $self->_manageMonitor(not $subs);
     $self->_manageLogs(not $subs);
@@ -431,29 +435,31 @@ sub _acquireFromState
 {
     my ($type) = @_;
 
-    my $model    = $type->model();
-    my $confmod = EBox::Global->modInstance('remoteservices');
-    my $keyField = $model->name() . '/' . $type->fieldName();
-    my $value    = $confmod->st_get_string($keyField);
+    my $model = $type->model();
+    my $value = $model->parentModule()->get_state()->{$model->name()}->{$type->fieldName()};
     if ( defined($value) and ($value ne '') ) {
         return $value;
     }
 
     return undef;
-
 }
 
 # Only applicable to text types, whose value is store in state config
 sub _storeInConfigState
 {
-    my ($type, $confModule, $directory) = @_;
+    my ($type, $hash) = @_;
 
-    my $keyField = "$directory/" . $type->fieldName();
+    my $model     = $type->model();
+    my $module    = $model->parentModule();
+    my $state     = $module->get_state();
+    my $modelName = $model->name();
+    my $keyField  = $type->fieldName();
     if ( $type->memValue() ) {
-        $confModule->st_set_string($keyField, $type->memValue());
+        $state->{$modelName}->{$keyField} = $type->memValue();
     } else {
-        $confModule->st_unset($keyField);
+        delete $state->{$modelName}->{$keyField};
     }
+    $module->set_state($state)
 }
 
 # Store the password temporary when selecting the options
@@ -489,7 +495,7 @@ sub _manageEvents # (subscribing)
 
     # Enable Cloud dispatcher
     my $model = $eventMod->model('ConfigureDispatchers');
-    my $rowId = $model->findId(eventDispatcher => 'EBox::Event::Dispatcher::ControlCenter');
+    my $rowId = $model->findId(dispatcher => 'EBox::Event::Dispatcher::ControlCenter');
     $model->setTypedRow($rowId, {}, readOnly => not $subscribing);
     $eventMod->enableDispatcher('EBox::Event::Dispatcher::ControlCenter',
                                 $subscribing);

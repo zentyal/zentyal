@@ -24,25 +24,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the configure logs composite
-#
-# Returns:
-#
-#       <EBox::Logs::Composite::ConfigureLog> - the configure logs composite
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description

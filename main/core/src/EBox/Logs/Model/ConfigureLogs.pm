@@ -387,9 +387,9 @@ sub _table
 
     my $dataTable =
         {
-            'tableName' => 'ConfigureLogTable',
+            'tableName' => 'ConfigureLogs',
             'printableTableName' => __('Current configuration'),
-            'defaultController' => '/Logs/Controller/ConfigureLogTable',
+            'defaultController' => '/Logs/Controller/ConfigureLogs',
             'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
