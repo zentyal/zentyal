@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed Componet::parentRow, it not longer tries to get a row with
+	  undefined id
 	+ Fix typo in ConfigureLogs model
 	+ Mark files for removing before deleting the row from backend in
 	  removeRow
