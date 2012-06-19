@@ -52,7 +52,9 @@ sub _table
         modelDomain        => 'NUT',
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
-        help               => __(''), # FIXME
+        help               => __('Standalone mode addresses a local only configuration, with one UPS protecting the local system. ' .
+                                 'If you want to protect more than one server, you have to setup server/client modes. The Zentyal box that has ' .
+                                 'the UPS monitoring port connected will be the server and the rest of them will be the clients.');
     };
 
     return $dataForm;

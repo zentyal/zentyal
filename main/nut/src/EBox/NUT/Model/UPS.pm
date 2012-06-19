@@ -128,7 +128,7 @@ sub _table
         modelDomain        => 'NUT',
         defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
         tableDescription   => \@tableDesc,
-        help               => __('List of locally attached UPS'),
+        help               => __('List of locally attached UPS.'),
     };
 
     return $dataForm;

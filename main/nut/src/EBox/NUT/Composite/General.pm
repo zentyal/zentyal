@@ -37,7 +37,6 @@ sub _description
         name            => 'General',
         pageTitle       => __('UPS'),
         compositeDomain => 'NUT',
-        help            => __(''), # FIXME
     };
 
     return $description;

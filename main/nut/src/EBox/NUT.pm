@@ -67,7 +67,7 @@ sub initialSetup
     my ($self, $version) = @_;
 
     unless ($version) {
-        # FIXME Does UPS need firewall rules?
+        # TODO Setup firewall rules when server/client modes will be supported
         #my $services = EBox::Global->modInstance('services');
         #my $serviceName = 'FTP';
         #unless($services->serviceExists(name => $serviceName)) {

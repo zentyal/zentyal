@@ -37,7 +37,7 @@ sub _description
         name            => 'Variables',
         pageTitle       => __('UPS settings and variables'),
         compositeDomain => 'NUT',
-        help            => __(''), # FIXME
+        help            => __('These are the settings and variables provided by the UPS. The settings are read-write while the variables are read-only.'),
     };
 
     return $description;

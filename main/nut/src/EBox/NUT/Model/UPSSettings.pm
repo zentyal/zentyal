@@ -246,8 +246,6 @@ sub _table
         printableRowName => __('setting'),
         insertPosition => 'back',
         sortedBy => 'setting',
-        help => __('This is the list of the variables published by the UPS. ' .
-                   'Some of them may be read only'),
     };
 
     return $dataTable;

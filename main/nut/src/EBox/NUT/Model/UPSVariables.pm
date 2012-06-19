@@ -151,8 +151,6 @@ sub _table
         insertPosition => 'back',
         sortedBy => 'variable',
         withoutActions     => 1,
-        help => __('This is the list of the variables published by the UPS. ' .
-                   'Some of them may be read only'),
     };
 
     return $dataTable;
