@@ -1,4 +1,5 @@
 HEAD
+	+ Use new module to calc average bandwidth from a day
 	+ Some improvements to runnerd daemonisation
 	+ Use RESTful API to send the jobs results to Zentyal Cloud
 	+ Adapted to latest changes in core
