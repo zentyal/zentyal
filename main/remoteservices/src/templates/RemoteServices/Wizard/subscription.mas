@@ -249,7 +249,7 @@ th {
                 $('promo').hide();
                 $('subs_firstname').hide();
                 $('subs_lastname').hide();
-                $('subs_country').hide();
+                $('subs_sector').hide();
                 $('subs_company').hide();
                 $('subs_position').hide();
                 $('subs_phone').hide();
@@ -261,7 +261,7 @@ th {
                 $('promo').show();
                 $('subs_firstname').show();
                 $('subs_lastname').show();
-                $('subs_country').show();
+                $('subs_sector').show();
                 $('subs_company').show();
                 $('subs_position').show();
                 $('subs_phone').show();
