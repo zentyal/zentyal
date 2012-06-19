@@ -1,4 +1,6 @@
 HEAD
+	+ Disabled logs consolidation on purge until it is reworked, fixed
+	  missing use in purge logs model
 	+ Fixed Componet::parentRow, it not longer tries to get a row with
 	  undefined id
 	+ Fix typo in ConfigureLogs model
