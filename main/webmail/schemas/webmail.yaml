@@ -13,4 +13,4 @@ composites:
     Backend: [webmail/OperationMode, webmail/RemoteServerConfiguration]
 
 notifyactions:
-    Options: VHostTable
+    Options: [VHostTable]
