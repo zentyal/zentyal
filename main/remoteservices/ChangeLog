@@ -1,3 +1,5 @@
+HEAD
+	+ Use new module to calc average bandwidth from a day
 2.3
 	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management and events frameworks

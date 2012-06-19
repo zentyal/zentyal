@@ -241,12 +241,13 @@ sub _content
                 $domains = join(', ', @printableDomains);
 
                 # Calculated the ETA
-                my $net = EBox::Global->modInstance('network');
-                if ( $net->can('averageBWDay') ) {
+                my $global = EBox::Global->getInstance();
+                if ( $global->modExists('cloud-prof') ) {
+                    my $cloudProf = $global->modInstance('cloud-prof');
                     my $date = Date::Calc->gmtime();
                     foreach my $try (1 .. 5) {
                         my ($year, $month, $day) = $date->date();
-                        my $downAvg = $net->averageBWDay("$year-$month-$day");
+                        my $downAvg = $cloudProf->averageBWDay("$year-$month-$day");
                         if ( defined($downAvg) ) {
                             $size = $self->_estimatedBackupSize($ebackupMod);
                             if ( defined($size) ) {
