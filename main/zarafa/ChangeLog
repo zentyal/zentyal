@@ -1,6 +1,14 @@
 HEAD
+	+ Added support for enabled/disabled features (pop3, imap) per user
+	  with default values from UserTemple
+	+ Added support for Shared Store Only users and meeting requests
+	  management
+	+ Allow to configure Outlook Access (zarafa-server bind to all ifaces
+	  and enable SSL support), deleted option in zarafa.conf
+	+ Updated to zarfa-search and do not use indexing services by default
+	  in zarafa.conf
 	+ Added new webapp and removed webaccess-mobile support
-	+ Updated configuration templates to Zarafa 7.1
+	+ Updated configuration templates and LDAP schema to Zarafa 7.1
 2.3
 	+ Enable InnoDB and restart MySQL server if needed
 	+ Bind to LDAP with the new read-only user for normal operations

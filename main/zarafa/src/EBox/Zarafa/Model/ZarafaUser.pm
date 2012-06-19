@@ -57,6 +57,18 @@ sub _table
             'editable' => 1,
             'defaultValue' => 1
         ),
+        new EBox::Types::Boolean(
+            'fieldName' => 'pop3',
+            'printableName' => __('Enable POP3 Access'),
+            'editable' => 1,
+            'defaultValue' => 1
+        ),
+        new EBox::Types::Boolean(
+            'fieldName' => 'imap',
+            'printableName' => __('Enable IMAP Access'),
+            'editable' => 1,
+            'defaultValue' => 1
+        ),
     );
     my $dataTable =
     {

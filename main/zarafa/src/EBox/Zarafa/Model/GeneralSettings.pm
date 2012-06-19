@@ -70,6 +70,13 @@ sub _table
     my @tableHeader =
       (
        new EBox::Types::Boolean(
+                                fieldName     => 'soap',
+                                printableName => __('Enable Outlook Access'),
+                                editable      => 1,
+                                defaultValue => 0,
+                                help => __('Enable SOAP connections for Outlook access.'),
+                               ),
+       new EBox::Types::Boolean(
                                 fieldName     => 'spellChecking',
                                 printableName => __('Enable Spell Checking'),
                                 editable      => 1,

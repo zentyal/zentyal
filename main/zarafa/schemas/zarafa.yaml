@@ -8,14 +8,14 @@ depends:
     - mail
 
 models:
-    - VMailDomain
+    - VMailDomains
     - GeneralSettings
     - Gateways
     - Quota
     - ZarafaUser
 
 composites:
-    General: [zarafa/VMailDomain, zarafa/GeneralSettings, zarafa/Gateways, zarafa/Quota]
+    General: [zarafa/GeneralSettings, zarafa/Gateways, zarafa/Quota]
 
 notifyactions:
-    VMailDomain: VDomains
+    VMailDomains: VDomains

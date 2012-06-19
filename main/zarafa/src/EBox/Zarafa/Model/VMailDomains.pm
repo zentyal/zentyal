@@ -13,21 +13,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Zarafa::Model::VMailDomain
+# Class: EBox::Zarafa::Model::VMailDomains
 #
 #   TODO: Document class
 #
 
-package EBox::Zarafa::Model::VMailDomain;
+package EBox::Zarafa::Model::VMailDomains;
 
 use EBox::Config;
 use EBox::Gettext;
-use EBox::Types::Select;
+use EBox::Types::DomainName;
 
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataForm';
+use base 'EBox::Model::DataTable';
 
 sub new
 {
@@ -38,25 +38,6 @@ sub new
         bless($self, $class);
 
         return $self;
-}
-
-sub vdomains
-{
-    my $mail = EBox::Global->getInstance()->modInstance('mail');
-    my $model = $mail->model('VDomains');
-
-    my @vdomains;
-
-    push (@vdomains, { value => '_none_', printableValue => __('No domain selected') });
-
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        my $vdomain = $row->valueByName('vdomain');
-
-        push (@vdomains, { value => $vdomain, printableValue => $vdomain });
-    }
-
-    return \@vdomains;
 }
 
 # Method: precondition
@@ -126,40 +107,71 @@ sub notifyForeignModelAction
     return '';
 }
 
-# Method: formSubmitted
+# Method: syncRows
 #
-# Overrides:
+#   Overrides <EBox::Model::DataTable::syncRows>
 #
-#       <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
+sub syncRows
 {
-    my ($self) = @_;
+    my ($self, $currentRows) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    $mail->setAsChanged();
+    my @vdomains = $mail->{vdomains}->vdomains();
+    my %newVDomains =
+        map { $_ => 1 } @vdomains;
+    my %currentVDomains =
+        map { $self->row($_)->valueByName('vdomain') => 1 } @{$currentRows};
+
+    my $modified = 0;
+
+    my @vdomainsToAdd = grep { not exists $currentVDomains{$_} } @vdomains;
+    foreach my $vdomain (@vdomainsToAdd) {
+        $self->add(vdomain => $vdomain);
+        # TODO Try to add the domain ou here if doesn't exist
+        $modified = 1;
+    }
+
+    # Remove old rows
+    foreach my $id (@{$currentRows}) {
+        my $row = $self->row($id);
+        my $vdomain = $row->valueByName('vdomain');
+        next if exists $newVDomains{$vdomain};
+        $self->removeRow($id);
+        # TODO Try to remove the domain here if empty, otherwise try to show a message
+        $modified = 1;
+    }
+
+    return $modified;
 }
 
 sub _table
 {
+    # TODO if hosted_zarafa and multi_ou are disabled, only allow to select one and advise to enable
+    # experimental hosted_zarafa and multi_ou
+    # TODO show a warning is multi_ou is disabled but hosted_zarafa is enabled
+    # TODO write postfix transport using all enabled domains here
     my @tableHead =
     (
-        new EBox::Types::Select(
+        new EBox::Types::DomainName(
             'fieldName' => 'vdomain',
             'printableName' => __('Virtual domain'),
-            'disableCache' => 1,
-            'populate' => \&vdomains,
-            'editable' => 1,
+            'editable' => 0,
         ),
     );
     my $dataTable =
     {
-        'tableName' => 'VMailDomain',
-        'printableTableName' => __('Virtual mail domain'),
+        'tableName' => 'VMailDomains',
+        'printableTableName' => __('List of Domains'),
         'modelDomain' => 'Zarafa',
         'defaultActions' => [ 'editField', 'changeView' ],
         'tableDescription' => \@tableHead,
         'help' => __('Select the virtual mail domain to be used for Zarafa.'),
+        'automaticRemove'  => 1,
+        'printableRowName' => __('virtual domain'),
+        'sortedBy' => 'vdomain',
+        'enableProperty' => 1,
+        'defaultEnabledValue' => 1,
+
     };
 
     return $dataTable;

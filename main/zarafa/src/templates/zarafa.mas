@@ -41,6 +41,74 @@
         </td>
     </tr>
     <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Enable POP3 access') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="has_pop3" id="external" value="yes"
+%            if ($params->{'has_pop3'}) {
+                checked
+%            }
+            />
+        </td>
+        <td class="tright">
+            <span class="ftitle"><% __('Enable IMAP access') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="has_imap" id="external" value="yes"
+%            if ($params->{'has_imap'}) {
+                checked
+%            }
+            />
+        </td>
+    </tr>
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Shared store only') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="is_store" id="external" value="yes"
+%            if ($params->{'is_store'}) {
+                checked
+%            }
+            />
+        </td>
+    </tr>
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Auto accept meeting requests') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="meeting_autoaccept" id="external" value="yes"
+%            if ($params->{'meeting_autoaccept'}) {
+                checked
+%            }
+            />
+        </td>
+    </tr>
+    <tr>
+        <td class="tright">
+            <span class="ftitle"><% __('Decline meetings requests with conflicting times') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="meeting_declineconflict" id="external" value="yes"
+%            if ($params->{'meeting_declineconflict'}) {
+                checked
+%            }
+            />
+        </td>
+        <td class="tright">
+            <span class="ftitle"><% __('Decline recurring meeting requests') %>:</span>
+        </td>
+        <td>
+            <input type="checkbox" name="meeting_declinerecurring" id="external" value="yes"
+%            if ($params->{'meeting_declinerecurring'}) {
+                checked
+%            }
+            />
+        </td>
+    </tr>
+    <tr>
         <td>
             <span class="ftitle"><% __('Zarafa takes quota settings from mail account settings.') %></span>
         </td>
