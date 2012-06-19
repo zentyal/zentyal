@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed Componet::parentRow, its not longer tries to get a row with
+	undefined id
 	+ Fixed EventDaemon crash
 2.3.11
 	+ Mark files for removing before deleting the row from backend in removeRow

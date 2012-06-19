@@ -186,6 +186,10 @@ sub parentRow
         }
     }
 
+    if (not defined $rowId) {
+        return undef;
+    }
+
     my $row = $self->{parent}->row($rowId);
     unless ($row) {
         throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir.");
