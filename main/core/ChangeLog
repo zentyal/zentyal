@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed separation between Add table link and table body
 	+ Adaptation of EventDaemon to model and field changes
 	+ Disabled logs consolidation on purge until it is reworked, fixed
 	  missing use in purge logs model
