@@ -3159,7 +3159,8 @@ sub _preSetConf
             '/sbin/modprobe 8021q',
             '/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD'
         );
-    } catch EBox::Exceptions::Internal with {};
+    } catch EBox::Exceptions::Internal with {
+    };
 
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
@@ -3180,8 +3181,11 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+                $self->redis()->commit();
                 EBox::Sudo::root(@cmds);
-            } catch EBox::Exceptions::Internal with {};
+            } catch EBox::Exceptions::Internal with {
+            };
+            $self->redis()->begin();
             #remove if empty
             if ($self->_isEmpty($if)) {
                 unless ($self->isReadOnly()) {

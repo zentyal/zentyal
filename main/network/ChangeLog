@@ -1,3 +1,5 @@
+HEAD
+	+ Fix deadlock in preSetConf when DHCP is used
 2.3.8
 	+ internalIpAddresses() does not throw exception if there are no ifaces
 	+ ifaceExternalChanged() is now called when static or PPP interfaces
