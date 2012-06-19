@@ -46,7 +46,7 @@ use EBox::ServiceManager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataInUse;
-use EBox::Exceptions::Insternal;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
