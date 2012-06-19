@@ -1466,39 +1466,19 @@ sub _confSOAPService
                 (soapHandler      => WS_DISPATCHER),
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
-                (confDirPath      => EBox::Config::conf()),
-                (caPath           => CA_DIR),
                );
             EBox::Module::Base::writeConfFileNoCheck(
                 $confFile,
                 'remoteservices/soap-loc.mas',
                 \@tmplParams);
-            unless ( -d CA_DIR ) {
-                mkdir(CA_DIR);
-            }
-            my $caLinkPath = $self->_caLinkPath();
-            if ( -l $caLinkPath ) {
-                unlink($caLinkPath);
-            }
-            symlink($self->_caCertPath(), $caLinkPath );
 
             $apacheMod->addInclude($confFile);
+            $apacheMod->addCA($self->_caCertPath());
         }
     } else {
-        unlink($confFile);
-        opendir(my $dir, CA_DIR);
-        while(my $file = readdir($dir)) {
-            # Check if it is a symbolic link file to remove it
-            next unless (-l CA_DIR . $file);
-            my $link = readlink (CA_DIR . $file);
-            # avoid removing the master CA certificate if this is a slavd
-            if ($link ne 'masterca.pem') {
-                unlink(CA_DIR . $file);
-            }
-        }
-        closedir($dir);
         try {
             $apacheMod->removeInclude($confFile);
+            $apacheMod->removeCA($self->_caCertPath());
         } catch EBox::Exceptions::Internal with {
             # Do nothing if it's already remove
             ;
@@ -1508,7 +1488,7 @@ sub _confSOAPService
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
     # $apacheMod->save();
-
+    EBox::Global->modChange('apache');
 }
 
 # Assure the VPN connection with our VPN servers is established
@@ -1610,20 +1590,6 @@ sub _caCertPath
 
     return $self->subscriptionDir() . '/cacert.pem';
 
-}
-
-# Return the link name for the CA certificate in the given format
-# hashValue.0 - hash value is the output from openssl ciphering
-sub _caLinkPath
-{
-    my ($self) = @_;
-
-    my $caCertPath = $self->_caCertPath();
-    my $hashRet = EBox::Sudo::command("openssl x509 -hash -noout -in $caCertPath");
-
-    my $hashValue = $hashRet->[0];
-    chomp($hashValue);
-    return CA_DIR . "${hashValue}.0";
 }
 
 # Return the Zentyal Cloud connection widget to be shown in the dashboard
@@ -1879,14 +1845,20 @@ sub restoreConfig
     };
 }
 
+# Method: clearCache
+#
+#     Remove cached information stored in module state
+#
 sub clearCache
 {
     my ($self) = @_;
 
+    my $state = $self->get_state();
     my @cacheDirs = qw(subscription disaster_recovery);
     foreach my $dir (@cacheDirs) {
-        $self->st_delete_dir($dir);
+        delete $state->{$dir};
     }
+    $self->set_state($state);
 }
 
 sub staticIfaceAddressChangedDone
@@ -1962,6 +1934,7 @@ sub REST
 
 # Migration to 3.0
 #
+#  * Migrate current subscription data in state to new structure
 #  * Rename VPN client
 #  * Get credentials
 #

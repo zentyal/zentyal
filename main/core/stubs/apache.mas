@@ -133,10 +133,6 @@ if ( @restrictedResources > 0 ) {
 %   }
 % }
 
-% foreach my $includeFile (@includes) {
-Include <% $includeFile %>
-% }
-
 UseCanonicalName Off
 TypesConfig /etc/mime.types
 DefaultType text/plain
@@ -182,6 +178,10 @@ ServerTokens Min
 
 <VirtualHost *:<% $port %> >
     DocumentRoot /usr/share/zentyal/www/
+
+% foreach my $includeFile (@includes) {
+     Include <% $includeFile %>
+% }
 
     <IfModule mod_ssl.c>
         SSLEngine on

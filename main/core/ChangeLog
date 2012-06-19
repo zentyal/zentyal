@@ -1,4 +1,8 @@
 HEAD
+	+ Fix typo in ConfigureLogs model
+	+ Mark files for removing before deleting the row from backend in
+	  removeRow
+	+ The Includes directives are set just for the main virtual host
 	+ Fixed EventDaemon crash
 2.3.11
 	+ Mark files for removing before deleting the row from backend in removeRow
