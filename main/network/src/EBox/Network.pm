@@ -2883,8 +2883,9 @@ sub _generateRoutes
     my @cmds;
     foreach my $route (@routes) {
         my $net    = $route->{network};
+        $net =~ s[/32$][]; # route_is_up needs no /24 mask
         my $gw     = $route->{gateway};
-        # check if route laready is up
+        # check if route already is up
         if (route_is_up($net, $gw)) {
             next;
         }
@@ -2906,7 +2907,12 @@ sub _removeRoutes
     my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
         my $network = $currentRoute->{network};
-        my $gw      = $currentRoute->{router};
+        if (not $network =~ m{/}) {
+            # add /32 mask to ips without it so we can compare same format
+            $network .= '/32';
+        }
+
+        my $gw   = $currentRoute->{router};
 
         if ((exists $toKeep{$network}) and
             ($toKeep{$network}->{gateway} eq $gw)) {
