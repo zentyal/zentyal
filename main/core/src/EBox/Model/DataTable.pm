@@ -3297,14 +3297,14 @@ sub _checkFieldIsUnique
     if ($newData->optional() and not defined($newData->value())) {
         return 0;
     }
-    my $value = $newData->printableValue();
+    my $printableValue = $newData->printableValue();
     my @matched =
-        @{$self->_find($newData->fieldName(), $value, undef, 'value', 1)};
+        @{$self->_find($newData->fieldName(), $printableValue, undef, 'printableValue', 1)};
 
     if (@matched) {
         throw EBox::Exceptions::DataExists(
             'data'  => $newData->printableName(),
-            'value' => $newData->printableValue(),
+            'value' => $printableValue,
         );
     }
     return 0;

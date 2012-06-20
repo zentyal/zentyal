@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed EBox::Model::DataTable::_checkFieldIsUnique, it failed when the
+	  printableValue of the element was different to its value
 	+ Fixed separation between Add table link and table body
 	+ Adaptation of EventDaemon to model and field changes
 	+ Disabled logs consolidation on purge until it is reworked, fixed
