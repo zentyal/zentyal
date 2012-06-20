@@ -28,6 +28,7 @@ use warnings;
 use feature qw(switch);
 
 use EBox::Config;
+use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -971,7 +972,7 @@ sub _checkWSConnectivity
                     last;
                 }
             }
-        } catch EBox::Exceptions::External with {
+        } catch EBox::Exceptions::Command with {
             $ok = 0;
         };
         last if ($ok);

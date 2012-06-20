@@ -595,7 +595,9 @@ sub _setThresholdConf
     my %thresholds = ();
     my %persistAfterThresholds;
 
-    my $gl = EBox::Global->getInstance(1);
+    # FIXME: workaround to avoid crash saving changes after first enable
+    #my $gl = EBox::Global->getInstance(1);
+    my $gl = EBox::Global->getInstance();
     if ( $gl->modExists('events') ) {
         my $evtsMod = $gl->modInstance('events');
         if ( $evtsMod->isEnabled() and $evtsMod->isEnabledWatcher('EBox::Event::Watcher::Monitor') ) {

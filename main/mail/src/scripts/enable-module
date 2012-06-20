@@ -64,5 +64,3 @@ newaliases
 # set a valid shell for fetchmail user
 chsh -s /bin/sh fetchmail
 
-# restart mail to generate configuration files
-invoke-rc.d zentyal mail restart

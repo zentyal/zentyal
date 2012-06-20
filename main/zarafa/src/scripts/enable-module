@@ -44,4 +44,6 @@ fi
 FIRST_RUN_FILE='/var/lib/zentyal/conf/zentyal-zarafa.first'
 touch $FIRST_RUN_FILE
 
+chown www-data:www-data /var/lib/zarafa-webapp/tmp
+
 exit 0

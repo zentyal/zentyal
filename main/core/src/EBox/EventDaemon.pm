@@ -164,7 +164,7 @@ sub _mainWatcherLoop
     my ($self, $eventPipe) = @_;
 
     # Load watchers classes
-    $self->_loadModules('Watcher');
+    $self->_loadModules('watcher');
     while (1) {
         foreach my $registeredEvent (keys %{$self->{watchers}}) {
             my $queueElementRef = $self->{watchers}->{$registeredEvent};
@@ -210,7 +210,7 @@ sub _mainDispatcherLoop
     }
 
     # Load dispatcher classes
-    $self->_loadModules('dispatchers');
+    $self->_loadModules('dispatcher');
     # Start main loop with a select
     open(my $fifo, '+<', EVENTS_FIFO);
     my $select = new IO::Select();
@@ -267,7 +267,7 @@ sub _loadModules
             EBox::error("Error loading $type class: $className $@");
             next;
         }
-        $instance = $className->new();
+        my $instance = $className->new();
         if ($type eq 'watcher') {
             $self->{watchers}->{$className} = { instance => $instance, deadOut  => 0 };
         } else {
