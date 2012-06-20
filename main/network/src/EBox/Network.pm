@@ -2874,69 +2874,48 @@ sub generateInterfaces
 sub _generateRoutes
 {
     my ($self) = @_;
-
-    # clean up all routes
-    $self->_removeRoutes();
-
     my @routes = @{$self->routes()};
-    (@routes) or return;
+
+    # clean up unnecesary rotues
+    $self->_removeRoutes(\@routes);
+    @routes or return;
+
     my @cmds;
-    foreach (@routes) {
-        my $net = $_->{network};
-        my $router = $_->{gateway};
-        my $cmd = "/sbin/ip route add $net via $router table main";
-        push @cmds, $cmd;
+    foreach my $route (@routes) {
+        my $net    = $route->{network};
+        my $gw     = $route->{gateway};
+        # check if route laready is up
+        if (route_is_up($net, $gw)) {
+            next;
+        }
+
+        my $cmd = "/sbin/ip route add $net via $gw table main";
+        EBox::Sudo::root($cmd)
     }
-    EBox::Sudo::root(@cmds);
 }
 
-# Remove those static routes which user has marked as deleted
+# Remove not configured routes
 sub _removeRoutes
 {
     my ($self, $storedRoutes) = @_;
-
-    my @cmds;
+    my %toKeep = map {
+        $_->{network} => $_
+    } @{ $storedRoutes  };
 
     # Delete those routes which are not defined by Zentyal
-    my @currentRoutes = list_routes('viaGateway');
+    my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
-        my $found = 0;
-        foreach my $storedRoute (@{$storedRoutes}) {
-            if ($currentRoute->{network} eq $storedRoute->{network}
-                and $currentRoute->{router} eq $storedRoute->{gateway}) {
-                $found = 1;
-                last;
-            }
-        }
-        # If not found, delete it
-        unless ($found) {
-            if (route_is_up($currentRoute->{network}, $currentRoute->{router})) {
-                push (@cmds, '/sbin/ip route del ' . $currentRoute->{network}
-                             . ' via ' . $currentRoute->{router});
-            }
-        }
-    }
+        my $network = $currentRoute->{network};
+        my $gw      = $currentRoute->{router};
 
-    # Return here since we are not able to modify our data
-    return if ($self->isReadOnly());
-    my $deletedModel = $self->model('DeletedStaticRoute');
-    foreach my $id (@{$deletedModel->ids()}) {
-        my $row = $deletedModel->row($id);
-        my $network = $row->elementByName('network')->printableValue();
-        my $gateway = $row->elementByName('gateway')->printableValue();
-        if (route_is_up($network, $gateway)) {
-            push (@cmds, "/sbin/ip route del $network via $gateway");
+        if ((exists $toKeep{$network}) and
+            ($toKeep{$network}->{gateway} eq $gw)) {
+                next;
         }
-        # Perform deletion in two phases to let Zentyal perform sync correctly
-        if ( $row->elementByName('deleted')->value() ) {
-            $deletedModel->removeRow($row->id(), 1);
-        } else {
-            $row->elementByName('deleted')->setValue(1);
-            $row->storeElementByName('deleted');
-        }
-    }
 
-    EBox::Sudo::root(@cmds);
+        my $cmd =  "/sbin/ip route del $network via $gw";
+        EBox::Sudo::root($cmd);
+    }
 }
 
 # disable reverse path for gateway interfaces
