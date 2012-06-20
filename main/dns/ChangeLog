@@ -1,3 +1,6 @@
+HEAD
+	+ Fix foreign models in yaml
+	+ Fix help strings
 2.3.7
 	+ Use FirewallObserver instead of deprecated addOutputRule
 	+ Adapted to new Model management framework

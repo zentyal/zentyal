@@ -202,7 +202,7 @@ sub _table
             'defaultActions' => ['add', 'del', 'editField',  'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
-            'help' => __('Alias'),
+            'help' => __("This is the list of host name aliases. All of them will be resolved to the host's IP addresses list."),
             'printableRowName' => __('alias'),
             'sortedBy' => 'alias',
         };

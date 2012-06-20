@@ -18,3 +18,7 @@ models:
 
 composites:
     Global: [Settings, Forwarder, DomainTable]
+
+foreign:
+    DomainTable: [DomainIpTable, HostnameTable, MailExchanger, NameServer, Text, Services]
+    HostnameTable: [HostIpTable, AliasTable]
