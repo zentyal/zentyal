@@ -1,4 +1,4 @@
-HEAD
+2.3.12
 	+ Fixed problem with watchers and dispatchers after a module deletion
 	+ Fixed EBox::Model::DataTable::_checkFieldIsUnique, it failed when the
 	  printableValue of the element was different to its value
