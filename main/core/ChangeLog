@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed problem with watchers and dispatchers after a module deletion
 	+ Fixed EBox::Model::DataTable::_checkFieldIsUnique, it failed when the
 	  printableValue of the element was different to its value
 	+ Fixed separation between Add table link and table body
