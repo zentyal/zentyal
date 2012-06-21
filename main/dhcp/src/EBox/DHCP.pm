@@ -119,8 +119,8 @@ sub initialSetup
     # Create default services, rules and conf dir
     # only if installing the first time
     unless ($version) {
-        my $services = EBox::Global->modInstance('services');
-        my $firewall = EBox::Global->modInstance('firewall');
+        my $services = $self->global()->modInstance('services');
+        my $firewall = $self->global()->modInstance('firewall');
 
         my $serviceName = 'tftp';
         unless ($services->serviceExists(name => $serviceName)) {
@@ -275,7 +275,7 @@ sub initRange # (interface)
 {
     my ($self, $iface) = @_;
 
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
     my $address = $net->ifaceAddress($iface);
     my $netmask = $net->ifaceNetmask($iface);
 
@@ -301,7 +301,7 @@ sub endRange # (interface)
 {
     my ($self, $iface) = @_;
 
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
     my $address = $net->ifaceAddress($iface);
     my $netmask = $net->ifaceNetmask($iface);
 
@@ -336,7 +336,7 @@ sub defaultGateway # (iface)
 {
     my ($self, $iface) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
 
     #if iface doesn't exists throw exception
     if (not $iface or not $network->ifaceExists($iface)) {
@@ -372,7 +372,7 @@ sub searchDomain # (iface)
 {
     my ($self, $iface) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
 
     #if iface doesn't exists throw exception
     if (not $iface or not $network->ifaceExists($iface)) {
@@ -422,7 +422,7 @@ sub nameserver # (iface,number)
     if ( not defined ( $number )) {
         throw EBox::Exceptions::MissingArgument('number');
     }
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
 
     #if iface doesn't exists throw exception
     if (not $iface or not $network->ifaceExists($iface)) {
@@ -469,7 +469,7 @@ sub ntpServer # (iface)
 {
     my ($self, $iface) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
     #if iface doesn't exists throw exception
     if (not $iface or not $network->ifaceExists($iface)) {
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -514,7 +514,7 @@ sub winsServer # (iface)
 {
     my ($self, $iface) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
     #if iface doesn't exists throw exception
     if (not $iface or not $network->ifaceExists($iface)) {
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -547,7 +547,7 @@ sub staticRoutes
     my ($self) = @_;
     my %staticRoutes = ();
 
-    my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
+    my @modules = @{ $self->global()->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
     foreach  my $mod (@modules) {
         my @modStaticRoutes = @{ $mod->staticRoutes() };
         while (@modStaticRoutes) {
@@ -610,7 +610,7 @@ sub rangeAction # (iface, name, from, to)
                     . 'are available'));
     }
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
 
     #if iface doesn't exists throw exception
     if (not $iface or not $network->ifaceExists($iface)) {
@@ -664,8 +664,7 @@ sub ranges # (iface)
 {
     my ($self, $iface) = @_;
 
-    my $global = EBox::Global->getInstance();
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
 
     if (not $iface or not $network->ifaceExists($iface)) {
         throw EBox::Exceptions::DataNotFound('data' => __('Interface'),
@@ -934,7 +933,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
 {
     my ( $self, $iface, $viface, $address, $netmask) = @_;
 
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
     my $ip = new Net::IP($address);
 
     my @rangeModels = @{$self->_getAllModelInstances('RangeTable')};
@@ -1086,7 +1085,7 @@ sub freeIface #( self, iface )
 #   $self->delete_dir("$iface");
     $self->_removeDataModelsAttached($iface);
 
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
     if ($net->ifaceMethod($iface) eq 'static') {
         $self->_checkStaticIfaces(-1);
     }
@@ -1109,7 +1108,7 @@ sub freeViface #( self, iface, viface )
     $self->_removeDataModelsAttached("$iface:$viface");
 
 
-#   my $net = EBox::Global->modInstance('network');
+#   my $net = $self->global()->modInstance('network');
 #   if ($net->ifaceMethod($viface) eq 'static') {
     $self->_checkStaticIfaces(-1);
 #   }
@@ -1264,7 +1263,7 @@ sub _setDHCPConf
     my ($self) = @_;
 
     # Write general configuration
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
     my $staticRoutes_r =  $self->staticRoutes();
 
     my $ifacesInfo = $self->_ifacesInfo($staticRoutes_r);
@@ -1405,7 +1404,7 @@ sub _ifacesInfo
 sub _realIfaces
 {
     my ($self) = @_;
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
 
     my $real_ifaces = $net->ifaces();
     my %realifs;
@@ -1563,9 +1562,9 @@ sub _keysFile
 {
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
+    my $gl = $self->global();
     if ( $gl->modExists('dns') ) {
-        my $dnsMod = EBox::Global->modInstance('dns');
+        my $dnsMod = $gl->modInstance('dns');
         if ( $dnsMod->configured() ) {
             return $dnsMod->keysFile();
         }
@@ -1585,7 +1584,7 @@ sub _dynamicDNSEnabled # (ifacesInfo)
         my $nDynamicOptionsOn = grep { defined($ifacesInfo->{$_}->{'dynamicDomain'}) } keys %{$ifacesInfo};
         return ($nDynamicOptionsOn > 0);
     } else {
-        my $net = EBox::Global->modInstance('network');
+        my $net = $self->global()->modInstance('network');
         my $ifaces = $net->allIfaces();
         foreach my $iface (@{$ifaces}) {
             if ( $net->ifaceMethod($iface) eq 'static' ) {
@@ -1669,7 +1668,7 @@ sub _nStaticIfaces
 {
     my ($self) = @_;
 
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->global()->modInstance('network');
     my $ifaces = $net->allIfaces();
     my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
 
@@ -1742,9 +1741,15 @@ sub _allowedMemberInFixedAddress
     }
 
     # Check the given member is unique within the object realm
-    my @fixedAddressTables = @{EBox::Model::Manager->instance()->model('/dhcp/FixedAddressTable/*')};
-    # Delete the self model
-    @fixedAddressTables = grep { $_->index() ne $iface } @fixedAddressTables;
+    my $network = $self->global()->modInstance('network');
+    my @otherDHCPIfaces = grep {
+        my $other = $_;
+        ($network->ifaceMethod($other) eq 'static') and
+        ($other ne $iface)
+    } @{ $network->InternalIfaces()  };
+    my @fixedAddressTables = map {
+        $self->_getModel('FixedAddressTable', $_)
+    } @otherDHCPIfaces;
 
     foreach my $model (@fixedAddressTables) {
         my $ids = $model->ids();
