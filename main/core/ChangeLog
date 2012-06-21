@@ -1,4 +1,5 @@
 HEAD
+	+ EBox::Config::Redis singleton has now a instance() method instead of new()
 	+ Deleted wrong use in ForcePurge model
 2.3.12
 	+ Fixed problem with watchers and dispatchers after a module deletion

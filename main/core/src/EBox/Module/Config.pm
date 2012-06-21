@@ -41,7 +41,7 @@ sub _create
         $self->{ro} = 1;
     }
     bless($self, $class);
-    $self->{redis} = EBox::Config::Redis->new();
+    $self->{redis} = EBox::Config::Redis->instance();
     unless (defined($self->{redis})) {
         throw EBox::Exceptions::Internal("Error getting Redis client");
     }

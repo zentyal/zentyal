@@ -38,7 +38,7 @@ if (defined $ENV{VISUAL}) {
 
 EBox::init();
 
-my $redis = new EBox::Config::Redis();
+my $redis = EBox::Config::Redis->instance();
 
 my $dumpfile = "/var/lib/zentyal/conf/redisvi-dump-$$";
 
