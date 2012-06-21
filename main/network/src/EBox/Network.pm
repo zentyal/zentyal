@@ -2684,14 +2684,17 @@ sub _generateDDClient
             my $gl = EBox::Global->getInstance(1);
             if ( $gl->modExists('remoteservices') ) {
                 my $rs = $gl->modInstance('remoteservices');
-                if ( $rs->eBoxSubscribed() and $rs->can('DDNSServerIP') ) {
+                if ( $rs->eBoxSubscribed() ) {
                     $login = $rs->subscriberUsername();
                     $password = '123456'; # Password is useless here
                     $hostname = $rs->dynamicHostname();
-                    $server = $rs->DDNSServerIP();
-                    unless ( $server ) {
+                    my $cloud_domain = $rs->cloudDomain()
+                    if ( $cloud_domain ) {
+                        # TODO: Do not hardcode
+                        $server = 'ddns.' . $cloud_domain;
+                    } else {
                         EBox::warn('Zentyal Cloud cannot be used if we cannot '
-                                   . 'get the DynDNS server');
+                                   . 'get domain name');
                         $enabled = 0;
                     }
                     # Check for multi-output gateways
