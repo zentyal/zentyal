@@ -956,7 +956,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
             }
         }
 
-        my @fixedAddrModels = @{$self->getAllModelInstances('FixedAddressTable')};
+        my @fixedAddrModels = @{$self->_getAllModelInstances('FixedAddressTable')};
         # Check the new IP for the virtual interface is not a fixed address
         foreach my $model (@fixedAddrModels) {
             next unless ($model->size() > 0);
