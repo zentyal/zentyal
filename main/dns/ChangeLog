@@ -1,3 +1,5 @@
+HEAD
+	+ Added foreign declarations in module schema
 2.3.7
 	+ Use FirewallObserver instead of deprecated addOutputRule
 	+ Adapted to new Model management framework
