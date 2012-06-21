@@ -1,4 +1,5 @@
 HEAD
+	+ Added function cloudDomain to get Zentyal Cloud domain name
 	+ Added function subscribedUUID to get server UUID
 	+ Use new module to calc average bandwidth from a day
 	+ Some improvements to runnerd daemonisation
