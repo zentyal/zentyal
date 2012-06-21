@@ -1,4 +1,4 @@
-HEAD
+2.3.4
 	+ Avoid 'port in use' error when setting port for first time to
 	  its default value
 	+ Users public HTML directory adapted to changes in LDAP
