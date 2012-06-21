@@ -2691,7 +2691,7 @@ sub _generateDDClient
                     $password = $cred->{password};
 
                     $hostname = $rs->dynamicHostname();
-                    my $cloud_domain = $rs->cloudDomain()
+                    my $cloud_domain = $rs->cloudDomain();
                     if ( $cloud_domain ) {
                         # TODO: Do not hardcode
                         $server = 'ddns.' . $cloud_domain;
