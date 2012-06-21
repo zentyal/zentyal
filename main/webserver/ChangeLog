@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid 'port in use' error when setting port for first time to
+	  its default value
 	+ Users public HTML directory adapted to changes in LDAP
 	+ Adapted to changes in DNS module
 2.3.3
