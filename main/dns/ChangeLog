@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed and improved facade method for management of domains,
+	  hostname and alias
 	+ Added foreign declarations in module schema
 2.3.7
 	+ Use FirewallObserver instead of deprecated addOutputRule
