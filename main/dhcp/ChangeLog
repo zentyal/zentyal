@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing dynamicDNSDomains() method
 	+ Removed deprecated calls to EBox::Model::Manager::model with wildcards
 2.3.6
 	+ Remove old workarounds in viewCustomizers no longer necessary

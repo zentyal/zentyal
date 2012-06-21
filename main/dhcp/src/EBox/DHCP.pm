@@ -1617,15 +1617,13 @@ sub _removeDataModelsAttached
 }
 
 # Model getter, check if there are any model with the given
-# description, if not, calling models again to create. Done until
-# model provider works correctly with model method overriding models
-# instead of modelClasses
+# description, if not returns undef
 sub _getModel
 {
     my ($self, $modelName, $iface) = @_;
     my $row = $self->model('Interfaces')->findRow(iface => $iface);
     if (not $row) {
-        throw EBox::Exceptions::Internal("Inextent row for  iface $iface")
+        throw EBox::Exceptions::Internal("Inexistent row for iface $iface")
     }
 
     my $configuration = $row->subModel('configuration');
@@ -1647,6 +1645,15 @@ sub _getAllModelInstances
 
     return \@models;
 }
+
+# return the Dynamic DNS configutation row for the given iface
+sub dynamicDNSDomains
+{
+    my ($self, $iface) = @_;
+    my $ddModel= $self->_getModel('DynamicDNS', $iface);
+    return $ddModel->row();
+}
+
 
 # Check there are enough static interfaces to have DHCP service enabled
 sub _checkStaticIfaces
