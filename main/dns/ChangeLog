@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted DHCP ranges to reverse ip fix in Net::IP
 	+ Fixed and improved facade method for management of domains,
 	  hostname and alias
 	+ Added foreign declarations in module schema
