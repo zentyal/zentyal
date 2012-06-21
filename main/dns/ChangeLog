@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed and improved facade method for management of domains,
+	hostname and alias
 2.3.7
 	+ Use FirewallObserver instead of deprecated addOutputRule
 	+ Adapted to new Model management framework

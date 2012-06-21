@@ -114,7 +114,7 @@ sub addDomain
 {
     my ($self, $domainData) = @_;
 
-    my $domainModel = EBox::Model::Manager->instance()->model('DomainTable');
+    my $domainModel = $self->model('DomainTable');
 
     $domainModel->addDomain($domainData);
 }
@@ -1812,57 +1812,17 @@ sub _setTransparentCache
 # Parameters:
 # - domain
 # - hostname
-# - alias
+# - alias: can be a string or a list of string to add more then one alias
 #
 # Warning:
-# alias is added to the first found matching hostame
-# Note:
-#  we implement this because vhosttable does not allow exposed method
+# alias is added to the first found matching hostname
 sub addAlias
 {
     my ($self, $domain, $hostname, $alias) = @_;
     $domain or
         throw EBox::Exceptions::MissingArgument('domain');
-    $hostname or
-        throw EBox::Exceptions::MissingArgument('hostname');
-    $alias or
-        throw EBox::Exceptions::MissingArgument('alias');
-
-
     my $domainModel = $self->model('DomainTable');
-    my $domainRow;
-    foreach my $id (@{  $domainModel->ids() }) {
-        my $row = $domainModel->row($id);
-        if ($row->valueByName('domain') eq $domain) {
-            $domainRow = $row;
-            last;
-        }
-    }
-    if (not $domainRow) {
-        throw EBox::Exceptions::DataNotFound(
-            data => __('domain'),
-            value => $domain
-           );
-    }
-
-
-    my $hostnamesModel = $domainRow->subModel('hostnames');
-    my $aliasModel;
-    foreach my $id (@{  $hostnamesModel->ids() }) {
-        my $row = $hostnamesModel->row($id);
-        if ($row->valueByName('hostname') eq $hostname) {
-            $aliasModel = $row->subModel('alias');
-            last;
-        }
-    }
-    if (not $aliasModel) {
-        throw EBox::Exceptions::DataNotFound(
-            data => __('hostname'),
-            value => $hostname
-           );
-    }
-
-    $aliasModel->addRow(alias => $alias);
+    $domainModel->addHostAlias($domain, $hostname, $alias);
 }
 
 # Method: removeAlias
