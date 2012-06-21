@@ -1,3 +1,5 @@
+HEAD
+	+ Added function cloudCredentials to get server uuid and pass
 2.3.1
 	+ Use new module to calc average bandwidth from a day
 	+ Some improvements to runnerd daemonisation

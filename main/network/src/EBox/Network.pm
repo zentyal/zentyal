@@ -2685,8 +2685,11 @@ sub _generateDDClient
             if ( $gl->modExists('remoteservices') ) {
                 my $rs = $gl->modInstance('remoteservices');
                 if ( $rs->eBoxSubscribed() ) {
-                    $login = $rs->subscriberUsername();
-                    $password = '123456'; # Password is useless here
+                    # Server subscription credentials as user and pass
+                    my $cred = $rs->cloudCredentials();
+                    $login = $cred->{uuid};
+                    $password = $cred->{password};
+
                     $hostname = $rs->dynamicHostname();
                     my $cloud_domain = $rs->cloudDomain()
                     if ( $cloud_domain ) {

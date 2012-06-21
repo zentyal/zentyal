@@ -113,4 +113,20 @@ sub cloudDomain
     return $self->{cred}->{cloud_domain};
 }
 
+# Method: cloudCredentials
+#
+#     Get the Zentyal Cloud Credentials
+#
+# Returns:
+#
+#        Hash ref - 'uuid' and 'password'
+#
+sub cloudCredentials
+{
+    my ($self) = @_;
+
+    return { 'uuid'     => $self->{cred}->{uuid},
+             'password' => $self->{cred}->{password} };
+}
+
 1;
