@@ -22,7 +22,7 @@ try {
 try {
     my $logs = EBox::Global->modInstance('logs');
     defined $logs or
-        die 'Cannot instanstiate eBox logs module';
+        die 'Cannot instantiate Zentyal logs module';
 
     unless (EBox::Config::boolean('disable_consolidation')) {
         # we consolidate before the purge to not lose any data

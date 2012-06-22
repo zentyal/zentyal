@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::RemoteServices::Reporter;
+
+EBox::init();
+
+my $reporter = EBox::RemoteServices::Reporter->instance();
+$reporter->consolidate();
+
