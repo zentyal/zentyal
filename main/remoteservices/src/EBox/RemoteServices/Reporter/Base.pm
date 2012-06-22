@@ -28,6 +28,8 @@ use EBox::Config;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::NotImplemented;
 use EBox::Global;
+use EBox::RemoteServices::Report;
+use Error qw(:try);
 use File::Slurp;
 use File::Temp;
 use JSON::XS;
@@ -43,7 +45,10 @@ sub new
 {
     my ($class) = @_;
 
-    my $self = { db => EBox::DBEngineFactory::DBEngine() };
+    my $self = {
+        db     => EBox::DBEngineFactory::DBEngine(),
+        sender => new EBox::RemoteServices::Report(),
+    };
     bless($self, $class);
     return $self;
 }
@@ -123,8 +128,32 @@ sub consolidate
     my $endTime   = time();
     # TODO: Do not store all the result in a single var
     my $result = $self->_consolidate($beginTime, $endTime);
-    $self->_storeResult($result);
+    $self->_storeResult($result) if ($result);
     $self->_beginTime($endTime);
+}
+
+# Method: send
+#
+#    Send the results stored in JSON to the endpoint
+#
+#    Then, remove the file
+#
+sub send
+{
+    my ($self) = @_;
+
+    my $dir = $self->_subdir();
+    my @files = <${dir}rep-*json>;
+    foreach my $file ( @files ) {
+        my $result = File::Slurp::read_file($file);
+        try {
+            $self->{sender}->report($self->name(), $result);
+        } finally {
+            # If it fails, there is a journal ops to finish up the
+            # sending at some point
+            unlink($file);
+        };
+    }
 }
 
 # Group: Protected methods
@@ -247,8 +276,8 @@ sub _storeResult
 
     my $dirPath = $self->_subdir();
     my $time = join("", Time::HiRes::gettimeofday());
-    my $tmpFile = new File::Temp(TEMPLATE => "rep-$time-XXXX.json", DIR => $dirPath,
-                                 UNLINK => 0);
+    my $tmpFile = new File::Temp(TEMPLATE => "rep-$time-XXXX", DIR => $dirPath,
+                                 SUFFIX => '.json', UNLINK => 0);
     print $tmpFile encode_json($result);
 }
 

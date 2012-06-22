@@ -10,4 +10,4 @@ EBox::init();
 
 my $reporter = EBox::RemoteServices::Reporter->instance();
 $reporter->consolidate();
-
+$reporter->send();

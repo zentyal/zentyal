@@ -110,6 +110,7 @@ sub consolidate
 {
     my ($self) = @_;
 
+    # Easily to parallel
     foreach my $helper (@{$self->{helpers}}) {
         $helper->consolidate();
     }
