@@ -40,7 +40,6 @@ use File::Basename;
 sub new
 {
     my $class = shift;
-    my %opts = @_;
     my $self = {@_};
 
     if (not $self->{fieldName}) {
