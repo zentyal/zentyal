@@ -2848,16 +2848,14 @@ sub _generateRoutes
 
     my @cmds;
     foreach my $route (@routes) {
-        my $net    = $route->{network};
+        my $net = $route->{network};
         $net =~ s[/32$][]; # route_is_up needs no /24 mask
-        my $gw     = $route->{gateway};
-        # check if route already is up
-        if (route_is_up($net, $gw)) {
-            next;
-        }
+        my $gw = $route->{gateway};
+        # skip if route already is up
+        next if (route_is_up($net, $gw));
 
         my $cmd = "/sbin/ip route add $net via $gw table main";
-        EBox::Sudo::root($cmd)
+        EBox::Sudo::rootWithoutException($cmd)
     }
 }
 
@@ -2899,15 +2897,15 @@ sub _removeRoutes
             $network .= '/32';
         }
 
-        my $gw   = $currentRoute->{router};
+        my $gw = $currentRoute->{router};
 
         if ((exists $toKeep{$network}) and
             ($toKeep{$network}->{gateway} eq $gw)) {
                 next;
         }
 
-        my $cmd =  "/sbin/ip route del $network via $gw";
-        EBox::Sudo::root($cmd);
+        my $cmd = "/sbin/ip route del $network via $gw";
+        EBox::Sudo::rootWithoutException($cmd);
     }
 }
 
