@@ -262,7 +262,7 @@ sub filterName
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
     my $dispatcher = $className->new();
 
@@ -291,7 +291,7 @@ sub filterReceiver
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
     my $dispatcher = $className->new();
 
@@ -320,7 +320,7 @@ sub acquireURL
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
 
     return $className->ConfigureURL();

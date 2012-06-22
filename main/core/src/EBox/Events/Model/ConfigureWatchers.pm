@@ -296,8 +296,7 @@ sub filterName
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
-        return;
+        return undef;
     }
     my $watcher = $className->new();
 
@@ -326,7 +325,7 @@ sub filterDescription
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
     my $watcher = $className->new();
 
@@ -383,7 +382,7 @@ sub acquireURL
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
 
     return $className->ConfigureURL();
