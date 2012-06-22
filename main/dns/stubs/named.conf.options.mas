@@ -18,12 +18,12 @@ options {
 	// If your ISP provided one or more IP addresses for stable
 	// nameservers, you probably want to use them as forwarders.
 % if ( @forwarders > 0 ) {
-        forward first;
-	forwarders {
-%    foreach my $forwarder (@forwarders) {
-             <% $forwarder %>;
-%    }
-	};
+    forward first;
+    forwarders {
+%   foreach my $forwarder (@forwarders) {
+        <% $forwarder %>;
+%   }
+    };
 % }
 
 % if (defined $sambaKeytab) {
