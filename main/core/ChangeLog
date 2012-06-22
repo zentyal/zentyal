@@ -1,4 +1,5 @@
 HEAD
+	+ Allowed error class in msg template
 	+ Better form validation message when there are no ids for
 	  foreign rows in select control with add new popup
 2.2.7
