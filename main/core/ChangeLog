@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed problems in EventDaemon with JSON and blessed references
 	+ More crashes avoided when watchers or dispatchers doesn't exist
 	+ Proper RAID watcher reimplementation using the new state API
 	+ EBox::Config::Redis singleton has now a instance() method instead of new()
