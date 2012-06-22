@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed unconfigured gateway removal, raise exception if the route
+	  addition command fails
 	+ Fixed calculation of fail ratio
 	+ Assure that we have always one gateway marked as default
 2.2.7
