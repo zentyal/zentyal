@@ -80,6 +80,9 @@ sub _processWizard
 
     # Registration
     if ($self->param('action') eq 'register') {
+        $self->_requireParam('firstname', __('First name'));
+        $self->_requireParam('lastname', __('Last name'));
+        $self->_requireParam('phone', __('Phone number'));
         $self->_requireParam('password2', __('Repeated password'));
 
         unless ($self->param('password') eq $self->param('password2')) {
@@ -107,6 +110,10 @@ sub _register
 
     my $position   = $self->param('position');
     $position = "" unless (defined($position));
+
+    my $sector   = $self->param('sector');
+    $sector = "" unless (defined($sector));
+
     my $newsletter = $self->param('newsletter');
     $newsletter = "off" unless(defined($newsletter));
 
@@ -119,13 +126,14 @@ sub _register
              ->encoding('iso-8859-1')
              ->register_basic($self->param('firstname'),
                               $self->param('lastname'),
-                              $self->param('country'),
+                              '', # country no longer sent
                               $self->param('username'),
                               $self->param('password'),
                               $self->param('phone'),
                               $self->param('company'),
                               $newsletter,
                               $position,
+                              $sector,
                               );
     } otherwise {
         throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
