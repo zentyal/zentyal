@@ -944,7 +944,7 @@ sub _buildGConfRules # (iface, regenConfig)
         # transofrmations needed for the ubilder
         # get identifier for builder
         my $id = delete $ruleRef->{ruleId};
-        $ruleRef->{ruleId} = $self->_nextMap($id);
+        $ruleRef->{identifier} = $self->_nextMap($id);
         # Source and destination
         foreach my $targetName (qw(source destination)) {
             my $target = delete $ruleRef->{$targetName};
