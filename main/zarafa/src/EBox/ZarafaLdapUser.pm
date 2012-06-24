@@ -102,7 +102,8 @@ sub hasFeature
 {
     my ($self, $user, $feature) = @_;
 
-    return ($feature eq any $user->get('zarafaEnabledFeatures'));
+    my @enabled = split(/ /, $user->get('zarafaEnabledFeatures'));
+    return ($feature eq any @enabled);
 }
 
 sub setHasFeature
@@ -116,7 +117,6 @@ sub setHasFeature
     $new =~ s/\s+$//;
     $user->set('zarafaEnabledFeatures', $new);
 }
-
 
 sub isAdmin
 {
@@ -132,7 +132,7 @@ sub setIsAdmin
 
     return unless ($self->isAdmin($user) xor $option);
 
-    $user->set('isAdmin', $option);
+    $user->set('zarafaAdmin', $option);
 }
 
 sub isStore
@@ -312,6 +312,16 @@ sub _delUserWarning
 sub defaultUserModel
 {
     return 'zarafa/ZarafaUser';
+}
+
+# Method: multipleOUSupport
+#
+#   Returns 1 if this module supports users in multiple OU's,
+#   0 otherwise
+#
+sub multipleOUSupport
+{
+    return 1;
 }
 
 1;

@@ -77,6 +77,13 @@ sub _table
                                 help => __('Enable SOAP connections for Outlook access.'),
                                ),
        new EBox::Types::Boolean(
+                                fieldName     => 'jabber',
+                                printableName => __('Enable Instant Messaging integration'),
+                                editable      => 1,
+                                defaultValue  => 0,
+                                help => __('Enable Instant Messaging integration Zarafa Webapp.'),
+                               ),
+       new EBox::Types::Boolean(
                                 fieldName     => 'spellChecking',
                                 printableName => __('Enable Spell Checking'),
                                 editable      => 1,

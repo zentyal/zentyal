@@ -20,7 +20,7 @@ use warnings;
 
 use feature qw(switch);
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::KerberosModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -160,6 +160,17 @@ sub usedFiles
     return $files;
 }
 
+sub kerberosServicePrincipals
+{
+    my ($self) = @_;
+
+    my $data = { service    => 'zarafa',
+                 principals => [ 'http' ],
+                 keytab     => KEYTAB_FILE,
+                 keytabUser => 'www-data' };
+    return $data;
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -169,6 +180,9 @@ sub enableActions
     my ($self) = @_;
 
     $self->performLDAPActions();
+
+    EBox::Sudo::root('rm -f ' . KEYTAB_FILE);
+    $self->kerberosServicePrincipals();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -354,6 +368,8 @@ sub _setConf
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
 
+    my $gssapiHostname = 'ns.' . $sysinfo->hostDomain();
+
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
@@ -428,8 +444,10 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     $self->_setSpellChecking();
+    # TODO configure xmpp plugin too once zarafa fixes packaging
     $self->_setWebServerConf();
     $self->_enableInnoDBIfNeeded();
+    $self->_createVMailDomainsOUs();
 }
 
 # Method: _postServiceHook
@@ -663,6 +681,10 @@ sub _setWebServerConf
 
     my $vhost = $self->model('GeneralSettings')->vHostValue();
     my $activesync = $self->model('GeneralSettings')->activeSyncValue();
+    my $jabber = $self->model('GeneralSettings')->jabberValue();
+
+    my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . '/zarafa-webapp-xmpp';
+    $self->writeConfFile($destFile, 'zarafa/zarafa-webapp-xmpp.mas');
 
     my @cmds = ();
 
@@ -674,13 +696,20 @@ sub _setWebServerConf
         } else {
             push(@cmds, 'a2dissite z-push');
         }
+        if ($jabber) {
+            push(@cmds, 'a2ensite zarafa-webapp-xmpp');
+            push(@cmds, 'a2enmod proxy_http');
+        } else {
+            push(@cmds, 'a2dissite zarafa-webapp-xmpp');
+        }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
         push(@cmds, 'a2dissite zarafa-webapp');
+        push(@cmds, 'a2dissite zarafa-webapp-xmpp');
         push(@cmds, 'a2dissite z-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
-        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync ]);
+        $self->writeConfFile($destFile, 'zarafa/apache.mas', [ activesync => $activesync, jabber => $jabber ]);
     }
     try {
         EBox::Sudo::root(@cmds);
@@ -710,6 +739,17 @@ sub _enableInnoDBIfNeeded
     }
 }
 
+sub _createVMailDomainsOUs
+{
+    my ($self) = @_;
+
+    my @vdomains = @{$self->model('VMailDomains')->vdomains()};
+
+    foreach my $vdomain (@vdomains) {
+        $self->_addVMailDomainOU($vdomain);
+    }
+}
+
 sub _addVMailDomainOU
 {
     my ($self, $vdomain) = @_;
@@ -719,31 +759,12 @@ sub _addVMailDomainOU
     my $ldapconf = $ldap->ldapConf;
     my $dn =  "ou=$vdomain," . $users->usersDn();
 
-    # TODO add if doesnt exist
-    my $result = $ldap->add($dn, attr => [
-        'ou' => $vdomain,
-        'cn' => $vdomain,
-        'objectClass' => 'top',
-        'objectClass' => 'organizationalUnit',
-        'objectClass' => 'zarafa-company'
-   ]);
+    my $group = new EBox::UsersAndGroups::OU(dn => $dn);
+    return if $group->exists();
 
-   ($result->is_error) and warn "Cant initialize virtual domain leaf."; 
-}
-
-sub _delVMailDomainOU
-{
-    my ($self, $vdomain) = @_;
-
-    my $users = EBox::Global->modInstance('users');
-    my $ldap = $users->ldap();
-    my $ldapconf = $ldap->ldapConf;
-    my $dn =  "ou=$vdomain," . $users->usersDn();
-
-    my $result = $ldap->delete($dn);
-
-    # TODO delete only if we don't have users inside
-    ($result->is_error) and warn "Cant initialize virtual domain leaf."; 
+    $group->create($dn);
+    $group->add('objectClass', [ 'zarafa-company' ], 1);
+    $group->save();
 }
 
 # Method: addModuleStatus

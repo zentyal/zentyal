@@ -148,7 +148,7 @@ attachment_compression	= 6
 #  SSL SETTINGS
 
 # enable SSL support in server
-server_ssl_enabled	= <% $server_ssl_enabled $>
+server_ssl_enabled	= <% $server_ssl_enabled %>
 
 # Listen for SSL connections on this port
 server_ssl_port		= 237
@@ -344,7 +344,7 @@ enable_distributed_zarafa = false
 #  %f Fullname
 #  %c Teantname
 # default: %f
-% if ($enable_hosted_zarafa) {
+% if ($enable_hosted_zarafa eq 'yes') {
 storename_format = %f@%c
 % } else {
 storename_format = %f
@@ -364,7 +364,7 @@ storename_format = %f
 #  %c Teantname
 #
 # default: %u
-% if ($enable_hosted_zarafa) {
+% if ($enable_hosted_zarafa eq 'yes') {
 loginname_format = %u@%c
 % } else {
 loginname_format = %u

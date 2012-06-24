@@ -29,6 +29,21 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
+sub vdomains
+{
+    my ($self) = @_;
+
+    my @vdomains;
+
+    foreach my $domain (@{$self->enabledRows()}) {
+        my $row = $self->row($domain);
+        my $vdomain = $row->valueByName('vdomain');
+        push (@vdomains, $vdomain);
+    }
+
+    return \@vdomains;
+}
+
 # Method: precondition
 #
 #   Check if there is at least one vdomain.
@@ -135,7 +150,6 @@ sub _table
     # TODO if hosted_zarafa and multi_ou are disabled, only allow to select one and advise to enable
     # experimental hosted_zarafa and multi_ou
     # TODO show a warning is multi_ou is disabled but hosted_zarafa is enabled
-    # TODO write postfix transport using all enabled domains here
     my @tableHead =
     (
         new EBox::Types::DomainName(

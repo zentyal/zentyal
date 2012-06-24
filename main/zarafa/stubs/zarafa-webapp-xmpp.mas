@@ -1,0 +1,4 @@
+<IfModule mod_proxy_http.c>
+    ProxyPass /http-bind http://localhost:5280/http-bind/
+    ProxyPassReverse /http-bind http://localhost:5280/http-bind/
+</IfModule>
