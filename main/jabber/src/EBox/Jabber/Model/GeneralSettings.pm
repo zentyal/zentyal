@@ -186,7 +186,7 @@ sub _table
                               update => __('General Jabber server configuration settings updated.'),
                              },
        modelDomain        => 'Jabber',
-       help               => __('Here you can configure Jabber settings. Make sure the clients can resolve the Jabber domain.'),
+       help               => __('Make sure the clients can resolve the Jabber domain. If you want other servers to send messages to your users, make sure they can resolve the same domain.'),
       };
 
     return $dataTable;

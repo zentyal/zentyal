@@ -129,6 +129,7 @@
 % if ($proxy) {
   {mod_proxy65, [
     {access, local},
+    {ip, {0,0,0,0}},
     {max_connections, 10},
     {shaper, c2s_shaper}
   ]},
