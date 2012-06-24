@@ -26,6 +26,7 @@
 {loglevel, 4}.
 
 {listen, [
+  {{3478, udp}, ejabberd_stun, []},
 % if ($s2s) {
   {5269, ejabberd_s2s_in, [
     {shaper, s2s_shaper},
@@ -61,6 +62,8 @@
 % if ($zarafa) {
 {auth_method, [ldap, external]}.
 {extauth_program, "/usr/share/zentyal-zarafa/ejabberd-extauth.php"}.
+{extauth_cache, 60}.
+{extauth_instances, 10}.
 % } else {
 {auth_method, ldap}.
 % }
