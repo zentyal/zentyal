@@ -122,7 +122,7 @@ sub tableHeader
     my @header = (
             new EBox::Types::Text(
                 fieldName => 'name',
-                printableName => __('Filter group'),
+                printableName => __('Name'),
                 editable      => 1,
             ),
             new EBox::Types::HasMany(

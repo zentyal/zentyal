@@ -27,7 +27,6 @@ use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
 use EBox::Types::IPAddr;
-use EBox::Types::Union;
 use EBox::Types::Port;
 use EBox::Sudo;
 

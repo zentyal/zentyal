@@ -33,6 +33,9 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Types::Select;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
@@ -51,26 +54,36 @@ sub _table
                 help => __('Time period when the this rule is applied'),
                 editable => 1,
         ),
-        new EBox::Types::Select(
-            fieldName     => 'object',
-            foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
-            foreignField  => 'name',
-            foreignNextPageField => 'members',
-            printableName => __('Object'),
-            unique        => 1,
-            editable      => 1,
-            optional      => 0,
-        ),
-        new EBox::Types::Select(
-            fieldName     => 'group',
-            printableName => __('Group'),
+        new EBox::Types::Union(
+            fieldName     => 'source',
+            printableName => __('Source'),
+            subtypes => [
+                new EBox::Types::Select(
+                    fieldName     => 'object',
+                    foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
+                    foreignField  => 'name',
+                    foreignNextPageField => 'members',
+                    printableName => __('Network Object'),
+                    unique        => 1,
+                    editable      => 1,
+                    optional      => 0,
+                ),
+                # FIXME: Only if users is installed
+                new EBox::Types::Select(
+                    fieldName     => 'group',
+                    printableName => __('Users Group'),
 
-            populate      => \&populateGroups,
-            unique        => 1,
-            editable      => 1,
-            optional      => 0,
-            disableCache  => 1,
-
+                    populate      => \&populateGroups,
+                    unique        => 1,
+                    editable      => 1,
+                    optional      => 0,
+                    disableCache  => 1,
+                ),
+                new EBox::Types::Union::Text(
+                    fieldName => 'any',
+                    printableName => __('Any'),
+                )
+            ]
         ),
         new EBox::Types::Select(
             fieldName     => 'policy',
@@ -85,6 +98,10 @@ sub _table
                           value => 'deny',
                           printableValue => __('Deny')
                         },
+                        {
+                          value => 'filter',
+                          printableValue => __('Filter')
+                        },
                       ]
             },
             defaultValue => 'allow',
@@ -96,6 +113,8 @@ sub _table
 
             foreignModel  => $self->modelGetter('squid', 'FilterProfiles'),
             foreignField  => 'name',
+            # FIXME: this does not seem to work with composites
+            #foreignNextPageField => 'filterPolicy',
 
             editable      => 1,
         ),
@@ -449,6 +468,29 @@ sub _findRowByObjectName
     my $row = $self->findRow(object => $objectRowId);
 
     return $row;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    $customizer->setOnChangeActions({
+        policy => {
+            'allow' => { hide => [ 'profile' ] },
+            'deny' => { hide => [ 'profile' ] },
+            'filter' => { show  => [ 'profile' ] },
+        },
+    });
+
+    return $customizer;
 }
 
 1;
