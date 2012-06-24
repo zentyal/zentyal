@@ -140,6 +140,8 @@ sub _table
 sub populateGroups
 {
     my $userMod = EBox::Global->modInstance('users');
+    return [] unless ($userMod->isEnabled());
+
     my @groups;
     foreach my $group (@{$userMod->groups()}) {
         my $name = $group->name();
@@ -188,6 +190,8 @@ sub usersByProfile
     my %usersByProfile;
 
     my $usersMod = EBox::Global->modInstance('users');
+    return [] unless ($usersMod->isEnabled());
+
     my $profilesModel = EBox::Global->modInstance('squid')->model('FilterProfiles');
 
     foreach my $id (@{ $self->ids() }) {
@@ -221,6 +225,7 @@ sub groupsPolicies
     my ($self) = @_;
 
     my $userMod = EBox::Global->modInstance('users');
+    return [] unless ($userMod->isEnabled());
 
     my @groupsPol = map {
         my $row = $self->row($_);

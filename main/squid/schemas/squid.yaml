@@ -6,7 +6,6 @@ depends:
 
 enabledepends:
     - firewall
-    - users
 
 models:
     - GeneralSettings

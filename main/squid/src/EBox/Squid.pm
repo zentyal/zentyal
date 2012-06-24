@@ -268,22 +268,6 @@ sub actions
            ];
 }
 
-#  Method: enableModDepends
-#
-#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
-#
-sub enableModDepends
-{
-    my ($self) = @_;
-
-    my @mods = ('firewall', 'users');
-    if ($self->_antivirusNeeded()) {
-        push @mods,  'antivirus';
-    }
-
-    return \@mods;
-}
-
 sub _cache_mem
 {
     my $cache_mem = EBox::Config::configkey('cache_mem');
@@ -496,6 +480,9 @@ sub _antivirusNeeded
 {
     my ($self, $profiles_r) = @_;
 
+    return 0 unless EBox::Global->modExists('antivirus');
+    return 0 unless EBox::Global->modInstance('antivirus')->isEnabled();
+
     if (not $profiles_r) {
         my $profiles = $self->model('FilterProfiles');
         return $profiles->antivirusNeeded();
@@ -533,7 +520,6 @@ sub _writeSquidConf
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
     my $removeAds    = $generalSettings->removeAdsValue();
 
-    my $users = EBox::Global->modInstance('users');
     my $network = EBox::Global->modInstance('network');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
 
@@ -541,7 +527,11 @@ sub _writeSquidConf
     my $cache_host = $network->model('Proxy')->serverValue();
     my $cache_port = $network->model('Proxy')->portValue();
 
-    my $krbRealm = $users->kerberosRealm();
+    my $krbRealm = '';
+    my $users = EBox::Global->modInstance('users');
+    if ($users->isEnabled()) {
+        $krbRealm = $users->kerberosRealm();
+    }
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
@@ -559,8 +549,6 @@ sub _writeSquidConf
     push @writeParam, ('max_object_size' => $self->_max_object_size);
     push @writeParam, ('notCachedDomains'=> $self->_notCachedDomains());
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
-    push @writeParam, ('dn'     => $users->ldap()->dn());
-    push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
 
