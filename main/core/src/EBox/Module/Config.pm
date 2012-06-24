@@ -628,6 +628,7 @@ sub st_unset
 
     my $state = $self->get_state();
     delete $state->{$key};
+    $self->set_state($state);
 }
 
 #############

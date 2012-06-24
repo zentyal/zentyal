@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed EBox::Module::Config::st_unset()
 	+ Allowed error class in msg template
 2.3.13
 	+ Fixed problems in EventDaemon with JSON and blessed references
