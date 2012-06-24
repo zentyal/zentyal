@@ -657,9 +657,9 @@ sub lastUid
     my ($self, $system) = @_;
 
     my $lastUid = -1;
-    while (my ($name, undef, $uid) = getpwent()) {
-        next if ($name eq 'nobody');
-
+    my $users = EBox::Global->modInstance('users');
+    foreach my $user (@{$users->users($system)}) {
+        my $uid = $user->get('uidNumber');
         if ($system) {
             last if ($uid >= MINUID);
         } else {
@@ -669,8 +669,6 @@ sub lastUid
             $lastUid = $uid;
         }
     }
-    endpwent();
-
     if ($system) {
         return ($lastUid < SYSMINUID ? SYSMINUID : $lastUid);
     } else {
