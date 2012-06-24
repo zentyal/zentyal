@@ -1,3 +1,5 @@
+HEAD
+	+ Added Zarafa multitenancy support
 2.3.4
 	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management framework
