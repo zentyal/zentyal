@@ -1,3 +1,7 @@
+2.3.7
+	+ Adapted reverse zones to reverse ip fix in Net::IP
+	+ Added missing dynamicDNSDomains() method
+	+ Removed deprecated calls to EBox::Model::Manager::model with wildcards
 2.3.6
 	+ Remove old workarounds in viewCustomizers no longer necessary
 	  with foreign in yaml schema
@@ -141,7 +145,7 @@
 	options anymore
 0.11.100
 	+ onInstall() functionality moved to migration script
-	+ Do not remove dhcpd3 rc links 
+	+ Do not remove dhcpd3 rc links
 	+ Stop dhcpd3 in pre-start in upstart script
 0.11.99
 	+ Added thin client general options: filename and next-server
@@ -155,7 +159,7 @@
 	+ Show eBox domain server if DNS is installed
 	+ Show eBox IPs on default gateway selection
 0.9.100
-	+ Use new services API 
+	+ Use new services API
 0.9.99
 	+ New release
 
@@ -185,11 +189,11 @@
 0.7
 	+ First public release
 	+ Log leases/releases
-0.6	
+0.6
 	+ API documented using naturaldocs
 	+ move to client
 	+ Use NetworkObserver
-	   
+
 0.5.2
 	+ Fix some packaging issues
 0.5.1

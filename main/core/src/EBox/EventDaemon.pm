@@ -94,6 +94,7 @@ sub new
         # instance of the method).
         watchers => {},
         dispatchers => {},
+        json => JSON::XS->new()->allow_blessed(1)->convert_blessed(1),
     };
     bless ($self, $class);
 
@@ -164,7 +165,7 @@ sub _mainWatcherLoop
     my ($self, $eventPipe) = @_;
 
     # Load watchers classes
-    $self->_loadModules('Watcher');
+    $self->_loadModules('watcher');
     while (1) {
         foreach my $registeredEvent (keys %{$self->{watchers}}) {
             my $queueElementRef = $self->{watchers}->{$registeredEvent};
@@ -210,7 +211,7 @@ sub _mainDispatcherLoop
     }
 
     # Load dispatcher classes
-    $self->_loadModules('dispatchers');
+    $self->_loadModules('dispatcher');
     # Start main loop with a select
     open(my $fifo, '+<', EVENTS_FIFO);
     my $select = new IO::Select();
@@ -225,7 +226,8 @@ sub _mainDispatcherLoop
                 $data = readline($fh);
             }
 
-            my $event = decode_json($data);
+            my $event = $self->{json}->decode($data);
+            bless ($event, 'EBox::Event');
 
             # log the event if log is enabled
             if (exists $self->{dbengine}) {
@@ -234,7 +236,7 @@ sub _mainDispatcherLoop
 
             # dispatch event to its watchers
             # skip the given data if it is not a valid EBox::Event object
-            if ( defined($event) and $event->isa('EBox::Event') ) {
+            if (defined($event) and $event->isa('EBox::Event')) {
                 $self->_dispatchEventByDispatcher($event);
             }
         }
@@ -267,7 +269,7 @@ sub _loadModules
             EBox::error("Error loading $type class: $className $@");
             next;
         }
-        $instance = $className->new();
+        my $instance = $className->new();
         if ($type eq 'watcher') {
             $self->{watchers}->{$className} = { instance => $instance, deadOut  => 0 };
         } else {
@@ -466,11 +468,7 @@ sub _addToDispatch
 {
     my ($self, $eventPipe, $event) = @_;
 
-    my $eventStr = encode_json($event);
-
-    # FIXME: is this needed with JSON?
-    # Remove null characters
-    $eventStr =~ tr/\0//d;
+    my $eventStr = $self->{json}->encode($event);
 
     # Sending the dumpered event with a null char
     print $eventPipe ( $eventStr . "\0" );

@@ -665,7 +665,7 @@ sub _setWebServerConf
 
     if ($vhost eq 'disabled') {
         push(@cmds, 'a2ensite zarafa-webaccess');
-        push(@cmds, 'a2ensite zarafa-webaccess-mobile');
+        push(@cmds, 'a2ensite zarafa-webapp');
         if ($activesync) {
             push(@cmds, 'a2ensite z-push');
         } else {
@@ -673,7 +673,7 @@ sub _setWebServerConf
         }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
-        push(@cmds, 'a2dissite zarafa-webaccess-mobile');
+        push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite z-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';

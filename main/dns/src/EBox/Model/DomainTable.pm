@@ -70,11 +70,9 @@ sub new
 # Parameters:
 #
 #   domain_name - String domain's name
-#   hostnames   - (optional) Array ref containing the hash refs:
-#                 name     - host's name
-#                 ip       - array ref containint host's ip addresses
-#                 aliases  - array ref containing alias names
-#                 readOnly - (optional)
+#   ipAddresses - (optional) Array ref with ipAddresses for the domain
+#   hostnames   - (optional) Array ref containing host information with the
+#                            same format than addHost method
 #   readOnly    - (optional)
 #
 # Example:
@@ -106,26 +104,23 @@ sub addDomain
         throw EBox::Exceptions::Internal("Couldn't add domain's name: $domainName");
     }
 
-    # Add the hosts to the domain
-    my $domainRow = $self->_getDomainRow($domainName);
-    my $hostModel = $domainRow->subModel('hostnames');
-    foreach my $host (@{$params->{hostnames}}) {
-        my $hostRowId = $hostModel->addRow(hostname => $host->{name},
-                                           readOnly => $host->{readOnly});
-        my $hostRow = $hostModel->row($hostRowId);
 
-        my $ipModel = $hostRow->subModel('ipAddresses');
-        foreach my $ip (@{$host->{ipAddresses}}) {
-            EBox::debug('Adding host IP');
+    if (exists $params->{ipAddresses}) {
+        my $domainRow = $self->_getDomainRow($domainName);
+        my $ipModel = $domainRow->subModel('ipAddresses');
+        foreach my $ip (@{$params->{ipAddresses}}) {
             $ipModel->addRow(ip => $ip);
         }
-
-        my $aliasModel = $hostRow->subModel('alias');
-        foreach my $alias (@{$host->{aliases}}) {
-            EBox::debug('Adding host alias');
-            $aliasModel->addRow(alias => $alias);
-        }
     }
+
+    # Add the hosts to the domain
+    if (exists $params->{hostnames}) {
+        foreach my $host (@{$params->{hostnames}}) {
+            $self->addHost($domainName, $host);
+        }
+
+    }
+
 }
 
 # Method: addHost
@@ -150,7 +145,7 @@ sub addHost
         throw EBox::Exceptions::MissingArgument('domain');
     }
 
-    unless (defined $host->{name}) {
+    unless ($host->{name}) {
         throw EBox::Exceptions::MissingArgument('name');
     }
 
@@ -199,26 +194,53 @@ sub delHost
         throw EBox::Exceptions::MissingArgument('name');
     }
 
-    my $rowId = undef;
     my $domainRow = $self->_getDomainRow($domain);
-    my $model = $domainRow->subModel('hostnames');
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-
-        my $rowHostname = $row->valueByName('hostname');
-        if ($rowHostname eq $name) {
-            $rowId = $id;
-            last;
-        }
-    }
-
-    if (defined $rowId) {
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $name);
+    if (defined $hostRow) {
+        my $rowId = $hostRow->id();
         EBox::debug("Deleting host '$name' from domain '$domain'");
-        $model->removeRow($rowId);
+        $hostsModel->removeRow($rowId);
     } else {
-        throw EBox::Exceptions::DataNotFound(data => 'hostname', value => $name);
+        throw EBox::Exceptions::DataNotFound(data => $name, value => $name);
     }
 }
+
+# Method: addHostAlias
+#
+# Parameters:
+# - domain
+# - hostname
+# - alias : can be a string or a list of string to add more then one alias
+#
+# Warning:
+# alias is added to the first found matching hostname
+sub addHostAlias
+{
+    my ($self, $domain, $hostname, $alias) = @_;
+    $domain or
+        throw EBox::Exceptions::MissingArgument('domain');
+    $hostname or
+        throw EBox::Exceptions::MissingArgument('hostname');
+    $alias or
+        throw EBox::Exceptions::MissingArgument('alias');
+
+    my $domainRow = $self->_getDomainRow($domain);
+    my $hostsModel = $domainRow->subModel('hostnames');
+    my $hostRow = $hostsModel->find(hostname => $hostname);
+    if (not $hostRow) {
+        throw EBox::Exceptions::DataNotFound(data => $hostname, value => $hostname);
+    }
+
+    my $aliasModel = $hostRow->subModel('alias');
+    my @aliases = ref $alias eq 'ARRAY' ? @{ $alias } : ($alias);
+    foreach my $alias (@aliases) {
+        EBox::debug('Adding host alias $alias');
+        $aliasModel->addRow(alias => $alias);
+    }
+}
+
+
 
 # Method: addService
 #

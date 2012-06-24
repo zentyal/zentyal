@@ -40,7 +40,6 @@ use File::Basename;
 sub new
 {
     my $class = shift;
-    my %opts = @_;
     my $self = {@_};
 
     if (not $self->{fieldName}) {
@@ -540,7 +539,7 @@ sub acquirer
 # Method: storer
 #
 #      Get the procedure which stores the value to somewhere
-#      instead of GConf. This method is useful for volatile instances
+#      instead of default backend. This method is useful for volatile instances
 #      of types.
 #
 #      The procedure has one argument: the type itself

@@ -1147,6 +1147,13 @@ sub removeRow
     $self->_checkRowExist($id, '');
     my $row = $self->row($id);
     $self->validateRowRemoval($row, $force);
+
+    # check if there are files to delete
+    my $filesToRemove =   $self->filesPathsForRow($row);
+    foreach my $file (@{  $filesToRemove }) {
+        $self->{confmodule}->addFileToRemoveIfCommitted($file);
+    }
+
     $self->_removeRow($id);
 
     my $userMsg = $self->message('del');
@@ -1167,12 +1174,6 @@ sub removeRow
            and $depModelMsg ne '<br><br>') {
             $userMsg .= "<br><br>$depModelMsg";
         }
-    }
-
-    # check if there are files to delete
-    my $filesToRemove =   $self->filesPathsForRow($row);
-    foreach my $file (@{  $filesToRemove }) {
-        $self->{confmodule}->addFileToRemoveIfCommitted($file);
     }
 
     $self->setMessage($userMsg);
@@ -3296,14 +3297,14 @@ sub _checkFieldIsUnique
     if ($newData->optional() and not defined($newData->value())) {
         return 0;
     }
-    my $value = $newData->printableValue();
+    my $printableValue = $newData->printableValue();
     my @matched =
-        @{$self->_find($newData->fieldName(), $value, undef, 'value', 1)};
+        @{$self->_find($newData->fieldName(), $printableValue, undef, 'printableValue', 1)};
 
     if (@matched) {
         throw EBox::Exceptions::DataExists(
             'data'  => $newData->printableName(),
-            'value' => $newData->printableValue(),
+            'value' => $printableValue,
         );
     }
     return 0;

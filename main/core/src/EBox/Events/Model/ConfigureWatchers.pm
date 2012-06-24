@@ -48,30 +48,6 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 # Group: Public methods
 
-# Constructor: new
-#
-#       Create the new ConfigureWatchers model
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#       <EBox::Events::Model::ConfigureWatchers> - the recently
-#       created model
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Method: syncRows
 #
 #      This method is overridden since the showed data is managed
@@ -100,53 +76,49 @@ sub syncRows
         $currentEventWatchers{$watcherFetched} = 'true';
     }
 
-    my $modified = undef;
+    my $modified = 0;
+
     # Removing old ones
     foreach my $id (@{$currentIds}) {
         my $row;
-        my $removed = 0;
+        my $remove = 0;
         try {
             $row = $self->row($id);
-        } catch EBox::Exceptions::Base with {
-            $self->removeRow( $id );
-            $modified = 1;
-            $removed  = 1;
-        };
-        unless ( defined($row) ) {
-            $modified = 1;
-            $removed  = 1;
-        }
-        next if ($removed);
-        my $stored = $row->valueByName('watcher');
-        $storedEventWatchers{$stored} = 1;
-        if (exists ($currentEventWatchers{$stored})) {
+            my $stored = $row->valueByName('watcher');
+            $storedEventWatchers{$stored} = 1;
             eval "use $stored";
-            # Check its ability
-            my $able = $self->_checkWatcherAbility($stored);
-            if (not $able and $self->_checkWatcherHidden($stored)) {
-                $self->removeRow($id);
+            if (exists $currentEventWatchers{$stored}) {
+                # Check its ability
+                my $able = $self->_checkWatcherAbility($stored);
+                if (not $able and $self->_checkWatcherHidden($stored)) {
+                    $remove = 1;
+                } else {
+                    $self->setTypedRow($id, undef, readOnly => not $able);
+                }
             } else {
-                $self->setTypedRow($id, undef, readOnly => not $able);
+                $remove = 1;
             }
-        } else {
-            $self->removeRow( $id );
+        } otherwise {
+            $remove = 1;
+        };
+        if ($remove) {
+            $self->removeRow($id);
+            $modified = 1;
         }
-        $modified = 1;
     }
 
     # Adding new ones
-    foreach my $watcher (keys ( %currentEventWatchers )) {
-        next if ( exists ( $storedEventWatchers{$watcher} ));
+    foreach my $watcher (keys (%currentEventWatchers)) {
+        next if (exists $storedEventWatchers{$watcher});
         eval "use $watcher";
         my $able = $self->_checkWatcherAbility($watcher);
-        next if ( not $able and $self->_checkWatcherHidden($watcher) );
+        next if (not $able and $self->_checkWatcherHidden($watcher));
         my $enabled = not $watcher->DisabledByDefault();
         my %params = ('watcher' => $watcher,
                 # The value is obtained dynamically
                 'description'  => undef,
                 'enabled'      => $enabled,
-                'configuration_selected' => 'configuration_'
-                . $watcher->ConfigurationMethod(),
+                'configuration_selected' => 'configuration_' . $watcher->ConfigurationMethod(),
                 'readOnly'     => not $able,
                 );
         if ( $watcher->ConfigurationMethod() eq 'none' ) {
@@ -324,8 +296,7 @@ sub filterName
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
-        return;
+        return undef;
     }
     my $watcher = $className->new();
 
@@ -354,7 +325,7 @@ sub filterDescription
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
     my $watcher = $className->new();
 
@@ -383,7 +354,7 @@ sub acquireConfModel
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
 
     return $className->ConfigureModel();
@@ -411,7 +382,7 @@ sub acquireURL
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
 
     return $className->ConfigureURL();

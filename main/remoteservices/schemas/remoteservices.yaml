@@ -16,4 +16,4 @@ models:
 composites:
     General: [Subscription, SubscriptionInfos]
     SubscriptionInfos: [SubscriptionInfo, QAUpdatesInfo, AlertsInfo, ReportsInfo]
-    Technical: [Technicalinfo, RemoteSupportAccess]
+    Technical: [TechnicalInfo, RemoteSupportAccess]

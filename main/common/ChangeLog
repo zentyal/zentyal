@@ -1,3 +1,5 @@
+HEAD
+	+ Removed redundant messages when logging sudo commands in debug
 2.3.6
 	+ External commands called through EBox::Sudo are logged in debug mode
 	+ Added new EBox::Config::shm() to get Zentyal shared memory dir

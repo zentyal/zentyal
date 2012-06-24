@@ -1,3 +1,12 @@
+HEAD
+	+ New registration form on subscription wizard
+2.3.1
+	+ Use new module to calc average bandwidth from a day
+	+ Some improvements to runnerd daemonisation
+	+ Use RESTful API to send the jobs results to Zentyal Cloud
+	+ Adapted to latest changes in core
+	+ Use Apache mod API to include Cloud CA certificate
+	+ Remove Apache2 configuration which is only in the main file
 2.3
 	+ Implement new EBox::Events::DispatcherProvider
 	+ Adapted to new Model management and events frameworks

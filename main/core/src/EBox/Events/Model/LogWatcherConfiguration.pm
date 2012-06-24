@@ -121,7 +121,7 @@ sub updatedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ($row->valueByName('enabled') ) {
-        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureEventTable');
+        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureWatchers');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ($logConfRow->valueByName('enabled')) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '
@@ -143,7 +143,7 @@ sub addedRowNotify
 
     # Warn if the parent log observer is not enabled
     if ( $row->valueByName('enabled') ) {
-        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureEventTable');
+        my $eventModel = EBox::Global->modInstance('events')->model('ConfigureWatchers');
         my $logConfRow = $eventModel->findValue( eventWatcher => 'EBox::Event::Watcher::Log' );
         unless ( $logConfRow->valueByName('enabled') ) {
             $self->setMessage(__('Warning! The log watcher is not enabled. '

@@ -27,7 +27,7 @@ log_method	=	file
 # Loglevel (0=no logging, 5=full logging)
 log_level	=	2
 
-# Logfile for log_method = file
+# Logfile for log_method = file, use '-' for stderr
 log_file	=	/var/log/zarafa/monitor.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode

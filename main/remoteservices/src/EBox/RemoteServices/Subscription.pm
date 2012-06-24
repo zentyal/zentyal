@@ -28,6 +28,7 @@ use warnings;
 use feature qw(switch);
 
 use EBox::Config;
+use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
@@ -436,6 +437,7 @@ sub extractBundle
 #
 #     Current actions:
 #
+#        - Restart remoteservices, firewall and apache modules
 #        - Downgrade, if necessary
 #        - Create John home directory (Security audit)
 #        - Set QA updates (QA repository and its preferences)
@@ -547,12 +549,12 @@ sub deleteData
         }
     }
 
-    # Remove subscription levels and disaster recovery if any
-    $rs->st_unset('admin_port');
-    $rs->st_unset('has_bundle');
-    $rs->st_delete_dir('subscription');
-    $rs->st_delete_dir('disaster_recovery');
-
+    # Remove subscription cached info and disaster recovery if any
+    my $state = $rs->get_state();
+    foreach my $key (qw(admin_port has_bundle subscription disaster_recovery)) {
+        delete $state->{$key};
+    }
+    $rs->set_state($state);
 }
 
 # Group: Private methods
@@ -970,7 +972,7 @@ sub _checkWSConnectivity
                     last;
                 }
             }
-        } catch EBox::Exceptions::External with {
+        } catch EBox::Exceptions::Command with {
             $ok = 0;
         };
         last if ($ok);
@@ -1047,6 +1049,9 @@ sub _restartRS
         # Required to set the proper iptables rules to ensure connection to Cloud
         my $fw = $global->modInstance('firewall');
         $fw->save();
+        # Required to set the CA correctly
+        my $apache = $global->modInstance('apache');
+        $apache-save();
     }
 }
 

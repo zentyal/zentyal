@@ -1,4 +1,30 @@
+HEAD
+	+ Fixed EBox::Module::Config::st_unset()
+	+ Allowed error class in msg template
+2.3.13
+	+ Fixed problems in EventDaemon with JSON and blessed references
+	+ More crashes avoided when watchers or dispatchers doesn't exist
+	+ Proper RAID watcher reimplementation using the new state API
+	+ EBox::Config::Redis singleton has now a instance() method instead of new()
+	+ Deleted wrong use in ForcePurge model
+2.3.12
+	+ Fixed problem with watchers and dispatchers after a module deletion
+	+ Fixed EBox::Model::DataTable::_checkFieldIsUnique, it failed when the
+	  printableValue of the element was different to its value
+	+ Fixed separation between Add table link and table body
+	+ Adaptation of EventDaemon to model and field changes
+	+ Disabled logs consolidation on purge until it is reworked, fixed
+	  missing use in purge logs model
+	+ Fixed Componet::parentRow, it not longer tries to get a row with
+	  undefined id
+	+ Fix typo in ConfigureLogs model
+	+ Mark files for removing before deleting the row from backend in
+	  removeRow
+	+ The Includes directives are set just for the main virtual host
+	+ Fixed EventDaemon crash
 2.3.11
+	+ Mark files for removing before deleting the row from backend in removeRow
+	+ Dashboard widgets now always read the information from RO
 	+ Enable actions are now executed before enableService()
 	+ Fixed regression which prevented update of the administration service
 	  port when it was changed in the interface

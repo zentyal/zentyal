@@ -46,7 +46,7 @@ d-i console-setup/ask_detect boolean false
 #d-i netcfg/get_domain string unassigned-domain
 
 # to create a normal user account
-#d-i passwd/user-fullname string 'eBox Administrator'
+d-i passwd/user-fullname string  
 #d-i passwd/username string eboxadmin
 #d-i passwd/user-password password eboxadmin
 #d-i passwd/user-password-again password eboxadmin

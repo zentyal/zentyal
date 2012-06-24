@@ -598,7 +598,7 @@ my $checkAll  = $model->checkAllProperty();
 % }
 
 % if ($actionLinksAdded) {
-    <br/>
+    <br/><br/>
 % }
 
 </%method>

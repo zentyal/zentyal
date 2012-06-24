@@ -12,11 +12,14 @@ Parameters:
      dnPass - String the LDAP password to look up into the database
 </%doc>
 <%args>
+  $ldapServer
+  $ldapPort
   $rootDN
   $usersDN
   $dnPass
 </%args>
 <IfModule mod_ldap_userdir.c>
+        LDAPUserDirServer <% $ldapServer %>:<% $ldapPort %>
         LDAPUserDir public_html
         LDAPUserDirDNInfo <% $rootDN %> <% $dnPass %>
         LDAPUserDirBaseDN <% $usersDN %>

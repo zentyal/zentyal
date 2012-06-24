@@ -35,7 +35,6 @@ use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
 use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
-use constant CRON_FILE      => '/etc/cron.d/zentyal-network';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -190,6 +189,7 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         };
     }
+    # TODO: Migration to remove zentyal-network cron tab and obsolete tables
 }
 
 # Method: wizardPages
@@ -2874,89 +2874,54 @@ sub generateInterfaces
 sub _generateRoutes
 {
     my ($self) = @_;
-    # Delete those routes which are not useful anymore
     my @routes = @{$self->routes()};
+
+    # clean up unnecesary rotues
     $self->_removeRoutes(\@routes);
-    (@routes) or return;
+    @routes or return;
+
     my @cmds;
-    foreach (@routes) {
-        my $net = $_->{network};
-        my $router = $_->{gateway};
-        push (@cmds, "/sbin/ip route add $net via $router table main");
+    foreach my $route (@routes) {
+        my $net    = $route->{network};
+        $net =~ s[/32$][]; # route_is_up needs no /24 mask
+        my $gw     = $route->{gateway};
+        # check if route already is up
+        if (route_is_up($net, $gw)) {
+            next;
+        }
+
+        my $cmd = "/sbin/ip route add $net via $gw table main";
+        EBox::Sudo::root($cmd)
     }
-    EBox::Sudo::silentRoot(@cmds);
 }
 
-# Write cron file
-sub _writeCronFile
-{
-    my ($self) = @_;
-
-    my $mins = $self->get_list('rand_mins');
-    unless ($mins) {
-        # Set the random times when scripts must be run
-        my @randMins = map { int(rand(60)) } 0 .. 10;
-        $mins = \@randMins;
-        $self->set_list('rand_mins', 'int', $mins);
-
-    }
-
-    my @tmplParams = ( (mins => $mins) );
-
-    EBox::Module::Base::writeConfFileNoCheck(
-        CRON_FILE,
-        'network/zentyal-network.cron.mas',
-        \@tmplParams);
-
-}
-
-# Remove those static routes which user has marked as deleted
+# Remove not configured routes
 sub _removeRoutes
 {
     my ($self, $storedRoutes) = @_;
-
-    my @cmds;
+    my %toKeep = map {
+        $_->{network} => $_
+    } @{ $storedRoutes  };
 
     # Delete those routes which are not defined by Zentyal
-    my @currentRoutes = list_routes('viaGateway');
+    my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
-        my $found = 0;
-        foreach my $storedRoute (@{$storedRoutes}) {
-            if ($currentRoute->{network} eq $storedRoute->{network}
-                and $currentRoute->{router} eq $storedRoute->{gateway}) {
-                $found = 1;
-                last;
-            }
+        my $network = $currentRoute->{network};
+        if (not $network =~ m{/}) {
+            # add /32 mask to ips without it so we can compare same format
+            $network .= '/32';
         }
-        # If not found, delete it
-        unless ($found) {
-            if (route_is_up($currentRoute->{network}, $currentRoute->{router})) {
-                push (@cmds, '/sbin/ip route del ' . $currentRoute->{network}
-                             . ' via ' . $currentRoute->{router});
-            }
-        }
-    }
 
-    # Return here since we are not able to modify our data
-    return if ($self->isReadOnly());
-    my $deletedModel = $self->model('DeletedStaticRoute');
-    foreach my $id (@{$deletedModel->ids()}) {
-        my $row = $deletedModel->row($id);
-        my $network = $row->elementByName('network')->printableValue();
-        my $gateway = $row->elementByName('gateway')->printableValue();
-        if (route_is_up($network, $gateway)) {
-            push (@cmds, "/sbin/ip route del $network via $gateway");
-        }
-        # Perform deletion in two phases to let Zentyal perform sync correctly
-        if ( $row->elementByName('deleted')->value() ) {
-            $deletedModel->removeRow($row->id(), 1);
-        } else {
-            $row->elementByName('deleted')->setValue(1);
-            $row->storeElementByName('deleted');
-        }
-    }
+        my $gw   = $currentRoute->{router};
 
-    EBox::Sudo::root(@cmds);
+        if ((exists $toKeep{$network}) and
+            ($toKeep{$network}->{gateway} eq $gw)) {
+                next;
+        }
+
+        my $cmd =  "/sbin/ip route del $network via $gw";
+        EBox::Sudo::root($cmd);
+    }
 }
 
 # disable reverse path for gateway interfaces
@@ -3159,7 +3124,8 @@ sub _preSetConf
             '/sbin/modprobe 8021q',
             '/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD'
         );
-    } catch EBox::Exceptions::Internal with {};
+    } catch EBox::Exceptions::Internal with {
+    };
 
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
@@ -3180,8 +3146,11 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+                $self->redis()->commit();
                 EBox::Sudo::root(@cmds);
-            } catch EBox::Exceptions::Internal with {};
+            } catch EBox::Exceptions::Internal with {
+            };
+            $self->redis()->begin();
             #remove if empty
             if ($self->_isEmpty($if)) {
                 unless ($self->isReadOnly()) {
@@ -3221,7 +3190,6 @@ sub _setConf
     $self->_generateDDClient();
     $self->_generateDNSConfig();
     $self->_generateProxyConfig();
-    $self->_writeCronFile();
 }
 
 # Method: _enforceServiceState
@@ -4348,144 +4316,6 @@ sub _readResolv
     close ($resolvFH);
 
     return [$searchdomain, @dns];
-}
-
-# Group: report-related files
-
-# Method: gatherReportInfo
-#
-#     Gather the report information
-#
-# Parameters:
-#
-#     downloadRate - Int the download rate for a test in bits per second
-#
-sub gatherReportInfo
-{
-    my ($self, $downloadRate) = @_;
-
-    my $dbh = EBox::DBEngineFactory::DBEngine();
-
-    my @time = gmtime();
-    my ($year, $month, $day) = ($time[5] + 1900, $time[4] + 1, $time[3]);
-    my ($hour, $min, $sec) = ($time[2], $time[1], $time[0]);
-    my $timestamp = "$year-$month-$day $hour:$min:$sec";
-
-    $dbh->unbufferedInsert('network_bw_test',
-                           { timestamp => $timestamp,
-                             bps_down  => $downloadRate });
-}
-
-# Method: consolidateReportInfo
-#
-#    Overrides this to consolidate test done daily in a single value
-#
-# Overrides:
-#
-#    <EBox::Module::Base::consolidateReportInfo>
-#
-sub consolidateReportInfo
-{
-    my ($self) = @_;
-
-    # Firstly call the SUPER to follow standard framework
-    $self->SUPER::consolidateReportInfo();
-
-    my $dbh = EBox::DBEngineFactory::DBEngine();
-
-    my $date = $self->_consolidateReportStartDate($dbh,
-                                                  'network_bw_test_report',
-                                                  { 'from' => 'network_bw_test' });
-
-    return unless (defined($date));
-
-    my @time = localtime($date);
-    my ($year, $month, $day, $hour) =
-      ($time[5]+1900, $time[4]+1, $time[3], $time[2] . ':' . $time[1] . ':' . $time[0]);
-
-    my $beginTime  = "$year-$month-$day $hour";
-    my $beginMonth = "$year-$month-01 00:00:00";
-
-    my $query = qq{INSERT INTO network_bw_test_report
-                   SELECT DATE(timestamp) AS date,
-                          MAX(bps_down) AS maximum_down,
-                          MIN(bps_down) AS minimum_down,
-                          AVG(bps_down) AS mean_down
-                   FROM network_bw_test
-                   WHERE timestamp >= '$beginTime'
-                         AND timestamp < DATE '$beginMonth' + INTERVAL '1 MONTH'
-                   GROUP BY date};
-    $dbh->query($query);
-
-    # Store the consolidation time
-    my $gmConsolidationStartTime = gmtime(time());
-    $dbh->update('report_consolidation',
-                 { 'last_date' => "'$gmConsolidationStartTime'" },
-                 [ "report_table = 'network_bw_test_report'" ]);
-}
-
-# Method: report
-#
-# Overrides:
-#
-#    <EBox::Module::Base::report>
-#
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    $report->{'bandwidth_speed'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'MAX(maximum_down) AS maximum_down, '
-                    . 'MIN(minimum_down) AS minimum_down, '
-                    . 'CAST(AVG(mean_down) AS bigint) AS mean_down',
-        'from'   => 'network_bw_test_report',
-        'group'  => 'date',
-        });
-
-    return $report;
-}
-
-# Method: averageBWDay
-#
-#    Get the average download time for a day
-#
-# Parameters:
-#
-#    day - String the day in "year-month-day" format
-#
-# Returns:
-#
-#    Int - the average download bps for that day
-#
-#    undef - if there is no data
-#
-# Exceptions:
-#
-#    <EBox::Exceptions::Internal> - thrown if the day is not correctly
-#    formatted
-#
-sub averageBWDay
-{
-    my ($self, $day) = @_;
-
-    unless ( $day =~ m:[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}:g ) {
-        throw EBox::Exceptions::Internal("$day must follow this format: yyyy-mm-dd");
-    }
-
-    my $dbh = EBox::DBEngineFactory::DBEngine();
-
-    my $res = $dbh->query_hash({
-        'select' => 'DISTINCT mean_down',
-        'from'   => 'network_bw_test_report',
-        'where'  => "date = '$day'"});
-
-    if ( @{$res} ) {
-        return $res->[0]->{'mean_down'};
-    } else {
-        return undef;
-    }
 }
 
 1;
