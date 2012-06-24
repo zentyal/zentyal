@@ -2,6 +2,11 @@
     $domain
     @admins
 
+    $zarafa
+    $vcard
+    $sharedroster
+    $groupsdn
+
     $ssl
     $s2s
     $muc
@@ -22,6 +27,9 @@
 
 {listen,
  [
+% if ($zarafa) {
+  {5280, ejabberd_http, [http_bind]},
+% }
 % if ($ssl ne 'disabled') {
   {5223, ejabberd_c2s, [
   			{access, c2s},
@@ -51,7 +59,12 @@
 {s2s_use_starttls, true}.
 {s2s_certfile, "/etc/ejabberd/ejabberd.pem"}.
 
+% if ($zarafa) {
+{auth_method, [ldap, external]}.
+{extauth_program, "/usr/share/zentyal-zarafa/ejabberd-extauth.php"}.
+% } else {
 {auth_method, ldap}.
+% }
 {ldap_servers, ["<% $ldapsrv %>"]}.
 {ldap_port, <% $ldapport %>}.
 {ldap_base, "<% $ldapbase %>"}.
@@ -88,6 +101,60 @@
   {mod_admin_extra, []},
   {mod_disco,    []},
   {mod_last,     []},
+% if ($zarafa) {
+  {mod_http_bind, []},
+% }
+% if ($vcard) {
+  {mod_vcard_ldap,
+   [{ldap_vcard_map,
+     [{"NICKNAME", "%u", []},
+      {"GIVEN", "%s", ["givenName"]},
+      {"MIDDLE", "%s", ["initials"]},
+      {"FAMILY", "%s", ["sn"]},
+      {"FN", "%s", ["cn"]},
+      {"EMAIL", "%s", ["mail"]},
+      {"ORGNAME", "%s", ["company"]},
+      {"ORGUNIT", "%s", ["department"]},
+      {"CTRY", "%s", ["c"]},
+      {"LOCALITY", "%s", ["l"]},
+      {"STREET", "%s", ["streetAddress"]},
+      {"REGION", "%s", ["st"]},
+      {"PCODE", "%s", ["postalCode"]},
+      {"TITLE", "%s", ["title"]},
+      {"URL", "%s", ["wWWHomePage"]},
+      {"DESC", "%s", ["description"]},
+      {"TEL/CELL", "%s", ["mobile"]},
+      {"TEL/NUMBER", "%s", ["telephoneNumber"]}]},
+    {ldap_search_fields,
+     [{"User", "%u"},
+      {"Name", "givenName"},
+      {"Family Name", "sn"},
+      {"Email", "mail"},
+      {"Company", "company"},
+      {"Department", "department"},
+      {"Role", "title"},
+      {"Description", "description"},
+      {"Phone", "telephoneNumber"}]},
+    {ldap_search_reported,
+     [{"Full Name", "FN"},
+      {"Nickname", "NICKNAME"},
+      {"Email", "EMAIL"}]}]},
+% }
+% if ($sharedroster) {
+  {mod_shared_roster_ldap,
+    [
+      {ldap_base, "<% $groupsdn %>"},
+      {ldap_rfilter, "(objectClass=posixGroup)"},
+      {ldap_filter, ""},
+      {ldap_ufilter, "(uid=%u)"},
+      {ldap_groupattr, "cn"},
+      {ldap_groupdesc, "description"},
+      {ldap_memberattr, "memberUid"},
+      {ldap_memberattr_format, "%u"},
+      {ldap_useruid, "uid"},
+      {ldap_userdesc, "cn"}
+    ]},
+% }
 % if ($muc) {
   {mod_muc,      [
 		  {host, "conference.@HOST@"},

@@ -201,6 +201,12 @@ sub _setConf
 
     push(@array, 'domain' => $settings->domainValue());
     push(@array, 'admins' => $jabberldap->getJabberAdmins());
+
+    push(@array, 'zarafa' => $self->zarafaEnabled());
+    push(@array, 'vcard' => $settings->vcardValue());
+    push(@array, 'sharedroster' => $settings->sharedrosterValue());
+    push(@array, 'groupsdn' => $users->groupsDn());
+
     push(@array, 'ssl' => $settings->sslValue());
     push(@array, 's2s' => $settings->s2sValue());
     push(@array, 'muc' => $settings->mucValue());
@@ -215,6 +221,19 @@ sub _setConf
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });
+}
+
+sub zarafaEnabled
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('zarafa') ) {
+        my $zarafa = $gl->modInstance('zarafa');
+        my $jabber = $zarafa->model('GeneralSettings')->jabberValue();
+        return ($zarafa->isEnabled() and $jabber);
+    }
+    return 0;
 }
 
 # Method: menu

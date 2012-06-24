@@ -133,6 +133,20 @@ sub _table
                                 editable      => 1,
                                 defaultValue  => 1,
                                ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'vcard',
+                                printableName => __('Enable VCard information'),
+                                help => __('Import users VCard information from LDAP.'),
+                                editable      => 1,
+                                defaultValue  => 1,
+                               ),
+       new EBox::Types::Boolean(
+                                fieldName     => 'sharedroster',
+                                printableName => __('Enable shared roster'),
+                                help => __('Populate users contact list with other the other system users.'),
+                                editable      => 1,
+                                defaultValue  => 1,
+                               ),
       );
 
     my $dataTable =
