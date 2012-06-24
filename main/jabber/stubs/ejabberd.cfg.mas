@@ -13,6 +13,8 @@
     @admins
 
     $muc
+    $stun
+    $proxy
     $zarafa
     $sharedroster
     $vcard
@@ -26,7 +28,9 @@
 {loglevel, 4}.
 
 {listen, [
+% if ($stun) {
   {{3478, udp}, ejabberd_stun, []},
+% }
 % if ($s2s) {
   {5269, ejabberd_s2s_in, [
     {shaper, s2s_shaper},
@@ -122,10 +126,13 @@
   {mod_pres_counter,  [{count, 5}, {interval, 60}]},
   {mod_privacy, []},
   {mod_private, []},
+% if ($proxy) {
   {mod_proxy65, [
     {access, local},
+    {max_connections, 10},
     {shaper, c2s_shaper}
   ]},
+% }
   {mod_pubsub, [
     {access_createnode, pubsub_createnode},
     {pep_sendlast_offline, false},

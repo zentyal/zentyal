@@ -1,4 +1,6 @@
 HEAD
+	+ Improved help
+	+ Added STUN and Proxy configuration
 	+ Updated ejabberd.cfg.mas
 	+ Added shared_roster and VCard LDAP modules configuration
 	+ Added integration with Zarafa Webapp

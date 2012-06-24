@@ -213,6 +213,8 @@ sub _setConf
     push(@array, 'admins' => $jabberldap->getJabberAdmins());
 
     push(@array, 'muc' => $settings->mucValue());
+    push(@array, 'stun' => $settings->stunValue());
+    push(@array, 'proxy' => $settings->proxyValue());
     push(@array, 'zarafa' => $self->zarafaEnabled());
     push(@array, 'sharedroster' => $settings->sharedrosterValue());
     push(@array, 'vcard' => $settings->vcardValue());
