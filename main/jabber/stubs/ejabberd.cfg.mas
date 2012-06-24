@@ -1,21 +1,21 @@
 <%args>
+    $ldapHost
+    $ldapPort
+    $ldapBase
+    $ldapRoot
+    $ldapPasswd
+    $usersDn
+
     $domain
-    @admins
-
-    $zarafa
-    $vcard
-    $sharedroster
-    $groupsdn
-
     $ssl
     $s2s
-    $muc
 
-    $ldapsrv
-    $ldapport
-    $ldapbase
-    $ldapRootDN
-    $ldapPasswd
+    @admins
+
+    $muc
+    $zarafa
+    $sharedroster
+    $vcard
 </%args>
 {hosts, ["<% $domain %>"]}.
 
@@ -25,36 +25,35 @@
 
 {loglevel, 4}.
 
-{listen,
- [
+{listen, [
+% if ($s2s) {
+  {5269, ejabberd_s2s_in, [
+    {shaper, s2s_shaper},
+    {max_stanza_size, 131072}
+  ]},
+% }
 % if ($zarafa) {
   {5280, ejabberd_http, [http_bind]},
 % }
 % if ($ssl ne 'disabled') {
   {5223, ejabberd_c2s, [
-  			{access, c2s},
-  			{shaper, c2s_shaper},
-  			{max_stanza_size, 65536},
-  			tls, {certfile, "/etc/ejabberd/ejabberd.pem"}
-  		       ]},
-% }
-% if ($s2s) {
-  {5269, ejabberd_s2s_in, [
-			   {shaper, s2s_shaper},
-			   {max_stanza_size, 131072}
-			  ]},
+     {access, c2s},
+     {shaper, c2s_shaper},
+     {max_stanza_size, 65536},
+     tls, {certfile, "/etc/ejabberd/ejabberd.pem"}
+  ]},
 % }
   {5222, ejabberd_c2s, [
 % if ($ssl eq 'allowssl') {
-			starttls, {certfile, "/etc/ejabberd/ejabberd.pem"},
+    starttls, {certfile, "/etc/ejabberd/ejabberd.pem"},
 % } elsif ($ssl eq 'forcessl') {
-			starttls_required, {certfile, "/etc/ejabberd/ejabberd.pem"},
+    starttls_required, {certfile, "/etc/ejabberd/ejabberd.pem"},
 % }
-			{access, c2s},
-			{shaper, c2s_shaper},
-			{max_stanza_size, 65536}
-		       ]}
- ]}.
+    {access, c2s},
+    {shaper, c2s_shaper},
+    {max_stanza_size, 65536}
+  ]}
+]}.
 
 {s2s_use_starttls, true}.
 {s2s_certfile, "/etc/ejabberd/ejabberd.pem"}.
@@ -65,11 +64,11 @@
 % } else {
 {auth_method, ldap}.
 % }
-{ldap_servers, ["<% $ldapsrv %>"]}.
-{ldap_port, <% $ldapport %>}.
-{ldap_base, "<% $ldapbase %>"}.
+{ldap_servers, ["<% $ldapHost %>"]}.
+{ldap_port, <% $ldapPort %>}.
+{ldap_base, "<% $ldapBase %>"}.
 {ldap_filter, "(objectClass=userJabberAccount)"}.
-{ldap_rootdn, "<% $ldapRootDN %>"}.
+{ldap_rootdn, "<% $ldapRoot %>"}.
 {ldap_password, "<% $ldapPasswd %>"}.
 
 {shaper, normal, {maxrate, 1000}}.
@@ -78,10 +77,8 @@
 {access, max_user_sessions, [{10, all}]}.
 {access, max_user_offline_messages, [{5000, admin}, {100, all}]}.
 {access, local, [{allow, local}]}.
-{access, c2s, [{deny, blocked},
-	       {allow, all}]}.
-{access, c2s_shaper, [{none, admin},
-		      {normal, all}]}.
+{access, c2s, [{deny, blocked}, {allow, all}]}.
+{access, c2s_shaper, [{none, admin}, {normal, all}]}.
 {access, s2s_shaper, [{fast, all}]}.
 {access, announce, [{allow, admin}]}.
 {access, configure, [{allow, admin}]}.
@@ -92,18 +89,58 @@
 
 {language, "en"}.
 
-{modules,
- [
-  {mod_adhoc,    []},
+{modules, [
+  {mod_adhoc, []},
   {mod_announce, [{access, announce}]},
-  {mod_caps,     []},
-  {mod_configure,[]},
+  {mod_caps, []},
+  {mod_configure, []},
   {mod_admin_extra, []},
-  {mod_disco,    []},
-  {mod_last,     []},
+  {mod_disco, []},
+  {mod_last, []},
 % if ($zarafa) {
   {mod_http_bind, []},
 % }
+% if ($muc) {
+  {mod_muc, [
+    {host, "conference.@HOST@"},
+    {access, muc},
+    {access_create, muc},
+    {access_persistent, muc},
+    {access_admin, muc_admin},
+    {max_users, 500}
+  ]},
+% }
+  {mod_offline, [{access_max_user_messages, max_user_offline_messages}]},
+  {mod_privacy, []},
+  {mod_private, []},
+  {mod_proxy65, [
+    {access, local},
+    {shaper, c2s_shaper}
+  ]},
+  {mod_pubsub, [
+    {access_createnode, pubsub_createnode},
+    {pep_sendlast_offline, false},
+    {last_item_cache, false},
+    {plugins, ["flat", "hometree", "pep"]}
+  ]},
+  {mod_roster, []},
+% if ($sharedroster) {
+  {mod_shared_roster_ldap, [
+    {ldap_filter, ""},                              
+    {ldap_rfilter, "(objectClass=posixGroup)"},     
+    {ldap_gfilter, "(&(objectClass=posixGroup)(cn=%g))"},  
+    {ldap_ufilter, "(uid=%u)"},
+    {ldap_groupattr, "cn"},                         
+    {ldap_groupdesc, "description"},                
+    {ldap_memberattr, "member"},                    
+    {ldap_memberattr_format, "uid=%u,<% $usersDn %>"},
+    {ldap_useruid, "uid"},                          
+    {ldap_userdesc, "cn"}                           
+  ]},
+% }
+  {mod_stats, []},
+  {mod_time, []},
+  {mod_vcard, []},
 % if ($vcard) {
   {mod_vcard_ldap,
    [{ldap_vcard_map,
@@ -140,47 +177,5 @@
       {"Nickname", "NICKNAME"},
       {"Email", "EMAIL"}]}]},
 % }
-% if ($sharedroster) {
-  {mod_shared_roster_ldap,
-    [
-      {ldap_base, "<% $groupsdn %>"},
-      {ldap_rfilter, "(objectClass=posixGroup)"},
-      {ldap_filter, ""},
-      {ldap_ufilter, "(uid=%u)"},
-      {ldap_groupattr, "cn"},
-      {ldap_groupdesc, "description"},
-      {ldap_memberattr, "memberUid"},
-      {ldap_memberattr_format, "%u"},
-      {ldap_useruid, "uid"},
-      {ldap_userdesc, "cn"}
-    ]},
-% }
-% if ($muc) {
-  {mod_muc,      [
-		  {host, "conference.@HOST@"},
-		  {access, muc},
-		  {access_create, muc},
-		  {access_persistent, muc},
-		  {access_admin, muc_admin},
-		  {max_users, 500}
-		 ]},
-% }
-  {mod_offline,  [{access_max_user_messages, max_user_offline_messages}]},
-  {mod_privacy,  []},
-  {mod_private,  []},
-  {mod_proxy65,  [
-		  {access, local},
-		  {shaper, c2s_shaper}
-		 ]},
-  {mod_pubsub,   [
-		  {access_createnode, pubsub_createnode},
-		  {pep_sendlast_offline, false},
-		  {last_item_cache, false},
-		  {plugins, ["flat", "hometree", "pep"]}
-		 ]},
-  {mod_roster,   []},
-  {mod_stats,    []},
-  {mod_time,     []},
-  {mod_vcard,    []},
   {mod_version,  []}
  ]}.
