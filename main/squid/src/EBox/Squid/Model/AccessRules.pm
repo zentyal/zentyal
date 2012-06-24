@@ -85,38 +85,28 @@ sub _table
                 )
             ]
         ),
-        new EBox::Types::Select(
-            fieldName     => 'policy',
-            printableName => __('Policy'),
-            populate => sub {
-               return [
-                        {
-                          value => 'allow',
-                          printableValue => __('Allow')
-                        },
-                        {
-                          value => 'deny',
-                          printableValue => __('Deny')
-                        },
-                        {
-                          value => 'filter',
-                          printableValue => __('Filter')
-                        },
-                      ]
-            },
-            defaultValue => 'allow',
-            editable => 1,
-        ),
-        new EBox::Types::Select(
-            fieldName => 'profile',
-            printableName => __('Filter profile'),
-
-            foreignModel  => $self->modelGetter('squid', 'FilterProfiles'),
-            foreignField  => 'name',
-            # FIXME: this does not seem to work with composites
-            #foreignNextPageField => 'filterPolicy',
-
-            editable      => 1,
+        new EBox::Types::Union(
+            fieldName     => 'decision',
+            printableName => __('Decision'),
+            subtypes => [
+                new EBox::Types::Union::Text(
+                    fieldName => 'allow',
+                    printableName => __('Allow All'),
+                ),
+                new EBox::Types::Union::Text(
+                    fieldName => 'deny',
+                    printableName => __('Deny All'),
+                ),
+                new EBox::Types::Select(
+                    fieldName => 'filter',
+                    printableName => __('Apply Filter Profile'),
+                    foreignModel  => $self->modelGetter('squid', 'FilterProfiles'),
+                    foreignField  => 'name',
+                    # FIXME: this does not seem to work with composites
+                    #foreignNextPageField => 'filterPolicy',
+                    editable      => 1,
+                )
+            ]
         ),
     );
 
@@ -473,29 +463,6 @@ sub _findRowByObjectName
     my $row = $self->findRow(object => $objectRowId);
 
     return $row;
-}
-
-# Method: viewCustomizer
-#
-#   Overrides <EBox::Model::DataTable::viewCustomizer>
-#
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
-
-    my $customizer = new EBox::View::Customizer();
-    $customizer->setModel($self);
-
-    $customizer->setOnChangeActions({
-        policy => {
-            'allow' => { hide => [ 'profile' ] },
-            'deny' => { hide => [ 'profile' ] },
-            'filter' => { show  => [ 'profile' ] },
-        },
-    });
-
-    return $customizer;
 }
 
 1;
