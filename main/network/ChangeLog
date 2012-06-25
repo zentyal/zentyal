@@ -1,3 +1,5 @@
+HEAD
+	+ Multigw rules more robust when no-static interfaces are down
 2.3.9
 	+ Remove all gateway based routes before adding the configured one
 	  and raise exception if the route addition command fails
