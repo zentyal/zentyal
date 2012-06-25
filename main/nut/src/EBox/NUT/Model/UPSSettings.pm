@@ -23,6 +23,8 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 
+use Error qw( :try );
+
 sub new
 {
     my $class = shift;
@@ -41,7 +43,14 @@ sub upsVariables
     unless (defined $label) {
         throw EBox::Exceptions::MissingArgument('label');
     }
-    my $rwVars = EBox::Sudo::root("upsrw $label");
+    my $rwVars = [];
+    try {
+        $rwVars = EBox::Sudo::root("upsrw $label");
+    } otherwise {
+        my $error = shift;
+        my $text = join ('', @{$error->{error}});
+        $self->setMessage("There was a problem reading settings. $text", 'warning');
+    };
 
     my $vars = {};
 
@@ -127,9 +136,13 @@ sub setTypedRow
 
     # TODO Get the user when it is modelized
     EBox::debug("Set variable $var to $value");
-    EBox::Sudo::root("upsrw -s '$var=$value' -u upsmon -p upsmon '$label'");
+    try {
+        EBox::Sudo::root("upsrw -s '$var=$value' -u upsmon -p upsmon '$label'");
+        $self->setMessage(__x('Setting {s} successfully updated. It may take some seconds to reflect the change.', s => $id));
+    } otherwise {
+        $self->setMessage(__x('There was a problem updating setting {s}.', s => $id), 'warning');
+    };
 
-    $self->setMessage(__x('Setting {s} successfully updated. It may take some seconds to reflect the change.', s => $id));
 }
 
 sub _checkRowExist

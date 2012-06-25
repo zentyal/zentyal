@@ -116,8 +116,6 @@ sub _setConf
                          [ mode => $nutMode ]);
 
     my $upsList = $self->model('UPS')->upsList();
-    use Data::Dumper;
-    EBox::debug(Dumper($upsList));
     $self->writeConfFile('/etc/nut/ups.conf',
                          '/nut/ups.conf.mas',
                          [ upsList => $upsList ]);

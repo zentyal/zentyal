@@ -23,6 +23,8 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 
+use Error qw( :try );
+
 sub new
 {
     my $class = shift;
@@ -41,8 +43,17 @@ sub upsVariables
     unless (defined $label) {
         throw EBox::Exceptions::MissingArgument('label');
     }
-    my $allVars = EBox::Sudo::root("upsc $label");
-    my $rwVars = EBox::Sudo::root("upsrw $label");
+
+    my $allVars = [];
+    my $rwVars = [];
+    try {
+        $allVars = EBox::Sudo::root("upsc $label");
+        $rwVars = EBox::Sudo::root("upsrw $label");
+    } otherwise {
+        my $error = shift;
+        my $text = join ('', @{$error->{error}});
+        $self->setMessage("There was a problem reading variables. $text", 'warning');
+    };
 
     my $vars = {};
     foreach my $line (@{$allVars}) {
