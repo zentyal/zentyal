@@ -37,6 +37,7 @@ use EBox::DNS::FirewallHelper;
 
 use Error qw(:try);
 use File::Temp;
+use File::Slurp;
 use Fcntl qw(:seek);
 use IO::Socket::INET;
 use Net::IP;
@@ -213,6 +214,22 @@ sub delHost
     $model->delHost($domain, $host);
 }
 
+# Method: setDynamic
+#
+#   Set the dynamic flag of a domain
+#
+# Parameters:
+#
+#   Check <EBox::DNS::Model::DomainTable> for details
+#
+sub setDynamic
+{
+    my ($self, $domain, $dynamic) = @_;
+
+    my $model = $self->model('DomainTable');
+
+    $model->setDynamic($domain, $dynamic);
+}
 
 # Method: domains
 #
@@ -788,7 +805,7 @@ sub _setConf
     my ($self) = @_;
 
     my $sambaKeytab = undef;
-    my $sambaPolicyFile = undef;
+    my @sambaPolicy = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
         if ($sambaModule->isEnabled()) {
@@ -796,7 +813,9 @@ sub _setConf
                 $sambaKeytab = EBox::Samba::SAMBADNSKEYTAB();
             }
             if (EBox::Sudo::fileTest('-f', EBox::Samba::SAMBA_DNS_POLICY())) {
-                $sambaPolicyFile = EBox::Samba::SAMBA_DNS_POLICY();
+                @sambaPolicy = read_file(EBox::Samba::SAMBA_DNS_POLICY());
+                @sambaPolicy = grep (/grant/, @sambaPolicy);
+                @sambaPolicy = grep (s/[\n]|^\s*//g, @sambaPolicy);
             }
         }
     }
@@ -891,7 +910,7 @@ sub _setConf
     push(@array, 'domains' => \@domains);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
-    push(@array, 'sambaPolicyFile' => $sambaPolicyFile);
+    push(@array, 'sambaPolicy' => \@sambaPolicy);
 
     $self->writeConfFile(BIND9CONFLOCALFILE,
             "dns/named.conf.local.mas",

@@ -1,6 +1,8 @@
 HEAD
 	+ Fix foreign models in yaml
 	+ Fix help strings
+	+ Add method to set the domain's dynamic flag
+	+ Read and apply the samba domain update policy
 2.3.7
 	+ Use FirewallObserver instead of deprecated addOutputRule
 	+ Adapted to new Model management framework
