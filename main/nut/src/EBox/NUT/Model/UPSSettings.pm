@@ -144,52 +144,6 @@ sub _checkRowExist
     }
 }
 
-#sub syncRowsDISABLE
-#{
-#    my ($self, $currentIds) = @_;
-#
-#    my $modified = 0;
-#
-#    my $row = $self->parentRow();
-#    my $label = $row->valueByName('label');
-#    my $variables = $self->upsVariables($label);
-#
-#    foreach my $id (@{$currentIds}) {
-#        my $row = $self->row($id);
-#        my $var = $row->valueByName('setting');
-#        my $val = $row->elementByName('value');
-#        if (exists $variables->{$var}) {
-#            my $oldVar = $val->value();
-#            my $value = $variables->{$var}->{value};
-#            if ($value) {
-#                if ($value ne $oldVar) {
-#                    EBox::debug("Set variable $var to $value");
-#                    $val->setValue($value);
-##                    $row->store();
-#                }
-#            } else {
-#                $val->setValue('');
-##                $row->store();
-#            }
-#            delete $variables->{$var};
-#        } else {
-##            $self->removeRow($id);
-##            $modified = 1;
-#        }
-#    }
-#
-#    foreach my $key (keys %{$variables}) {
-#        my $value = $variables->{$key}->{value};
-#        my $desc = $variables->{$key}->{description};
-#        $self->addRow(setting => $key,
-#                      description => $desc,
-#                      value => $value);
-#        $modified = 1;
-#    }
-#
-#    return $modified;
-#}
-
 # Method: precondition
 #
 #   Check if there is at least one vdomain.

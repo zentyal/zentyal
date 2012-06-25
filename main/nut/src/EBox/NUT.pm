@@ -68,38 +68,7 @@ sub initialSetup
 
     unless ($version) {
         # TODO Setup firewall rules when server/client modes will be supported
-        #my $services = EBox::Global->modInstance('services');
-        #my $serviceName = 'FTP';
-        #unless($services->serviceExists(name => $serviceName)) {
-        #    $services->addMultipleService(
-        #        'name' => $serviceName,
-        #        'description' => __('Zentyal FTP Server'),
-        #        'internal' => 1,
-        #        'readOnly' => 1,
-        #        'services' => $self->_services(),
-        #    );
-        #}
-        #my $firewall = EBox::Global->modInstance('firewall');
-        #$firewall->setInternalService($serviceName, 'accept');
-        #$firewall->saveConfigRecursive();
     }
-}
-
-# Method: actions
-#
-# Overrides:
-#
-#   <Override EBox::Module::Service::actions>
-#
-sub actions
-{
-    return [
-        #{
-        #    'action' => __('Generate SSL certificates'),
-        #    'reason' => __('Zentyal will self-signed SSL certificates for FTP service.'),
-        #    'module' => 'ftp'
-        #},
-    ];
 }
 
 # Method: usedFiles
@@ -111,16 +80,21 @@ sub actions
 sub usedFiles
 {
     return [
-        #my @usedFiles;
-        #push (@usedFiles, { 'file' => '/etc/vsftpd.conf',
-        #                    'module' => 'ftp',
-        #                    'reason' => __('To configure vsftpd.')
-        #                  });
-        #push (@usedFiles, { 'file' => '/etc/pam.d/vsftpd',
-        #                    'module' => 'ftp',
-        #                    'reason' => __('To configure vsftpd with LDAP authentication.')
-        #                  });
-        #return \@usedFiles;
+        { file => '/etc/nut/nut.conf',
+          module => 'nut',
+          reason => __('To configure the NUT daemon mode.') },
+        { file => '/etc/nut/ups.conf',
+          module => 'nut',
+          reason => __("To configure the UPS's drivers.") },
+        { file => '/etc/nut/upsd.conf',
+          module => 'nut',
+          reason => __('To configure the NUT daemon') },
+        { file => '/etc/nut/upsd.users',
+          module => 'nut',
+          reason => __('To configure the authorized NUT daemon users') },
+        { file => '/etc/nut/upsmon.conf',
+          module => 'nut',
+          reason => __('To configure the NUT client') },
     ];
 }
 
