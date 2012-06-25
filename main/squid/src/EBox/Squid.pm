@@ -105,6 +105,8 @@ sub enableActions
     $self->kerberosCreatePrincipals();
 
     try {
+        # FIXME: this should probably be moved to _setConf
+        # only if users is enabled and needed
         my @lines = ();
         push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
         push (@lines, 'export KRB5_KTNAME');
@@ -123,11 +125,6 @@ sub enableActions
 sub isRunning
 {
     return EBox::Service::running('squid3');
-}
-
-sub DGIsRunning
-{
-    return EBox::Service::running('ebox.dansguardian');
 }
 
 # Method: usedFiles
@@ -286,20 +283,6 @@ sub _max_object_size
     return $max_object_size;
 }
 
-# Method: setService
-#
-#       Enable/Disable the proxy service
-#
-# Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setService # (enabled)
-{
-    my ($self, $active) = @_;
-    $self->enableService($active);
-}
-
 # Method: transproxy
 #
 #       Returns if the transparent proxy mode is enabled
@@ -412,7 +395,7 @@ sub setAdBlockExecFile
 {
     my ($self, $file) = @_;
 
-    if ( $file ) {
+    if ($file) {
         EBox::Sudo::root("cp -f $file " . BLOCK_ADS_EXEC_FILE);
     }
 }
@@ -426,11 +409,27 @@ sub filterNeeded
     }
 
     my $rules = $self->model('AccessRules');
-    if ($rules->existsFilteredObjects()) {
+    if ($rules->rulesUseFilter()) {
         return 1;
     }
 
-    return undef;
+    return 0;
+}
+
+sub authNeeded
+{
+    my ($self) = @_;
+
+    unless ($self->isEnabled()) {
+        return 0;
+    }
+
+    my $rules = $self->model('AccessRules');
+    if ($rules->rulesAuthh()) {
+        return 1;
+    }
+
+    return 0;
 }
 
 # Function: usesPort
@@ -469,6 +468,7 @@ sub restartService
 sub _setConf
 {
     my ($self) = @_;
+
     $self->_writeSquidConf();
 
     if ($self->filterNeeded()) {
@@ -512,6 +512,7 @@ sub _writeSquidConf
     my ($self) = @_;
 
     my $rules = $self->model('AccessRules');
+
     # FIXME: pass just a single array of rules to the templates in the proper order
     my $groupsPolicies = $rules->groupsPolicies();
     my $objectsPolicies = $rules->objectsPolicies();
@@ -702,15 +703,15 @@ sub _writeDgIpGroups
 {
     my ($self) = @_;
 
-    my $objects = $self->model('ObjectPolicy');
-
-    $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
-                       'squid/ipgroups.mas',
-                       [
-                        profiles => $objects->objectsProfiles()
-                       ]);
+    my $rules = $self->model('AccessRules');
+    $self->writeConfFile(
+        DGLISTSDIR . '/authplugins/ipgroups',
+        'squid/ipgroups.mas',
+        [ profiles => $rules->objectsProfiles() ]
+    );
 }
 
+# FIXME: template format has changed, reimplement this
 sub _writeDgTemplates
 {
     my ($self) = @_;

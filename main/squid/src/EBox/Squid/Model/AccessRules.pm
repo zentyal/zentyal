@@ -145,71 +145,13 @@ sub validateTypedRow
     my ($self, $action, $params_r, $actual_r) = @_;
 
     my $squid = $self->parentModule();
-    if ($squid->transproxy()) {
-        #FIXME: do not allow auth by group in transparent proxy
-        #throw EBox::Exceptions::External(__('Authorization policy is not compatible with transparent proxy mode'));
-    }
-}
 
-sub existsGroupPolicy
-{
-    my ($self) = @_;
-    my $nPolicies = @{ $self->ids() };
-    return ($nPolicies > 0);
-}
-
-sub _checkTransProxy
-{
-    my ($self, $params_r, $actual_r) = @_;
-
-    my $squid = EBox::Global->modInstance('squid');
-    if (not $squid->transproxy()) {
-        return;
-    }
-
-    if ($self->existsGroupPolicy()) {
+    if ($squid->transproxy() and $squid->authNeeded()) {
         throw EBox::Exceptions::External(__('Source matching by user group is not compatible with transparent proxy mode'));
     }
 }
 
-sub usersByProfile
-{
-    my ($self) = @_;
-
-    my %usersSeen;
-    my %usersByProfile;
-
-    my $usersMod = EBox::Global->modInstance('users');
-    return [] unless ($usersMod->isEnabled());
-
-    my $profilesModel = EBox::Global->modInstance('squid')->model('FilterProfiles');
-
-    foreach my $id (@{ $self->ids() }) {
-        my $row = $self->row($id);
-        my $userGroup   = $row->elementByName('group')->printableValue();
-        my $profile = $row->valueByName('profile');
-
-        my @users;
-        foreach my $user ( @{ $usersMod->usersInGroup($userGroup) } ) {
-            if (exists $usersSeen{$user}) {
-                next;
-            }
-
-            $usersSeen{$user} = 1;
-            push @users, $user;
-        }
-
-        if (not exists $usersByProfile{$profile}) {
-            $usersByProfile{$profile} = \@users;
-        }
-        else {
-            push @{ $usersByProfile{$profile} }, @users;
-        }
-    }
-
-    return \%usersByProfile;
-}
-
+# FIXME: adapt to union
 sub groupsPolicies
 {
     my ($self) = @_;
@@ -219,12 +161,12 @@ sub groupsPolicies
 
     my @groupsPol = map {
         my $row = $self->row($_);
-        my $group =  $row->valueByName('group');
+        my $group = $row->valueByName('group');
         my $allow = $row->valueByName('policy') eq 'allow';
         my $time = $row->elementByName('timePeriod');
         my $users =  $userMod->usersInGroup($group);
 
-        if (@{ $users }) {
+        if (@{$users}) {
             my $grPol = { group => $group, users => $users, allow => $allow };
             if (not $time->isAllTime) {
                 if (not $time->isAllWeek()) {
@@ -248,6 +190,7 @@ sub groupsPolicies
     return \@groupsPol;
 }
 
+# FIXME: adapt to union
 sub existsPoliciesForGroup
 {
     my ($self, $group) = @_;
@@ -262,6 +205,7 @@ sub existsPoliciesForGroup
     return 0;
 }
 
+# FIXME: adapt to union
 sub delPoliciesForGroup
 {
     my ($self, $group) = @_;
@@ -275,6 +219,7 @@ sub delPoliciesForGroup
     }
 }
 
+# FIXME: adapt to union
 sub objectsPolicies
 {
     my ($self) = @_;
@@ -325,6 +270,7 @@ sub objectsPolicies
     return \@obsPol;
 }
 
+# FIXME: adapt to union
 sub objectsProfiles
 {
     my ($self) = @_;
@@ -359,11 +305,12 @@ sub objectsProfiles
     return \@profiles;
 }
 
-sub existsAuthObjects
+# FIXME: adapt to union
+sub rulesUseAuth
 {
     my ($self) = @_;
 
-    foreach my $id ( @{ $self->ids() } )  {
+    foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $obPolicy = $row->valueByName('policy');
         my $groupPolicy = $row->subModel('groupPolicy');
@@ -374,95 +321,21 @@ sub existsAuthObjects
         return 1 if @{ $groupPolicy->groupsPolicies() } > 0;
     }
 
-    return undef;
+    return 0;
 }
 
-sub existsFilteredObjects
+# FIXME: adapt to union
+sub rulesUseFilter
 {
     my ($self) = @_;
 
-    foreach my $id ( @{ $self->ids() } )  {
+    foreach my $id (@{$self->ids()}) {
         my $obPolicy = $self->row($id)->valueByName('policy');
         return 1 if $obPolicy eq 'filter';
         return 1 if $obPolicy eq 'authAndFilter';
     }
 
     return undef;
-}
-
-sub _objectsByPolicy
-{
-    my ($self, $policy) = @_;
-
-    my @objects = map {
-        my $row = $self->row($_);
-        my $obPolicy = $row->valueByName('policy');
-        ($obPolicy eq $policy) ? $row->valueByName('object') : ()
-
-    } @{ $self->ids()  };
-
-    return \@objects;
-}
-
-sub _objectHasPolicy
-{
-    my ($self, $object, $policy) = @_;
-
-    my $objectRow = $self->_findRowByObjectName($object);
-    if (not defined $objectRow) {
-        throw EBox::Exceptions::External('{o} does not exists', o => $object );
-    }
-
-    return $objectRow->valueByName('policy') eq $policy;
-}
-
-# Method: isUnfiltered
-#
-#       Checks if a given object is set as unfiltered
-#
-# Parameters:
-#
-#       object - object name
-#
-# Returns:
-#
-#       boolean - true if it's set as unfiltered, otherwise false
-#
-sub isUnfiltered
-{
-    my ($self, $object) = @_;
-    return $self->_objectHasPolicy($object, 'allow') or
-           $self->_objectHasPolicy($object, 'auth');
-}
-
-# Method: isBanned
-#
-#       Checks if a given object is banned
-#
-# Parameters:
-#
-#       object - object name
-#
-# Returns:
-#
-#       boolean - true if it's set as banned, otherwise false
-#
-sub isBanned
-{
-    my ($self, $object) = @_;
-    $self->_objectHasPolicy($object, 'deny');
-}
-
-sub _findRowByObjectName
-{
-    my ($self, $objectName) = @_;
-
-    my $objectModel = $self->objectModel();
-    my $objectRowId = $objectModel->findId(name => $objectName);
-
-    my $row = $self->findRow(object => $objectRowId);
-
-    return $row;
 }
 
 1;

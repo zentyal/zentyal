@@ -182,10 +182,6 @@ sub profiles
     my ($self) = @_;
     my @profiles = ();
 
-    my $squid = EBox::Global->modInstance('squid');
-    my $usergroupPolicies = $squid->model('GlobalGroupPolicy');
-    my %usersByProfileId = %{ $usergroupPolicies->usersByProfile()  };
-
     # groups will have ids greater that this number
     my $id = 0;
 
@@ -201,17 +197,9 @@ sub profiles
             last;
         }
 
-        my $users;
-        if (exists $usersByProfileId{$rowId}) {
-            $users = $usersByProfileId{$rowId};
-        } else {
-            $users = [];
-        }
-
         my %group = (
                 number => $id,
                 groupName => $name,
-                users  => $users,
                 defaults => {},
                 );
 

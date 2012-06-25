@@ -166,10 +166,9 @@ sub _checkPolicyWithTransProxy
         $params_r->{globalPolicy} :
         $actual_r->{globalPolicy} ;
 
-    my $rules = $self->parentModule()->model('AccessRules');
-    if ($rules->existsAuthObjects()) {
+    if ($self->parentModule()->authNeeded()) {
         throw EBox::Exceptions::External(
-                __('Transparent proxy is incompatible with the authorization policy found in some objects')
+                __('Transparent proxy is incompatible with the users group authorization policy found in some access rules')
         );
     }
 }

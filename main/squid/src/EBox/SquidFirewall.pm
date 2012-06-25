@@ -25,20 +25,11 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-sub new
-{
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-    return $self;
-}
-
 sub _objectsPolicies
 {
     my $sq = EBox::Global->modInstance('squid');
-    my $objPolicy = $sq->model('ObjectPolicy');
-    return $objPolicy->objectsPolicies();
+    my $rules = $sq->model('AccessRules');
+    return $rules->objectsPolicies();
 }
 
 sub _normal_prerouting
