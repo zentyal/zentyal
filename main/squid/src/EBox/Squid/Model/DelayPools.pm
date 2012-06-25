@@ -17,7 +17,7 @@ package EBox::Squid::Model::DelayPools;
 
 # Class: EBox::Squid::Model::DelayPools
 #
-#      Form to set the configuration for the delay pools class 2.
+#      Rules to set the configuration for the delay pools
 #
 use base 'EBox::Model::DataTable';
 
@@ -28,10 +28,9 @@ use integer;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Types::Select;
+use EBox::Types::Boolean;
 use EBox::Types::Int;
-use EBox::Types::IPAddr;
-use EBox::Types::Union;
-use EBox::Types::Union::Text;
 
 use Math::BigInt;
 
@@ -69,15 +68,15 @@ sub validateTypedRow
         # Check the same object is not used in first delay pool table
         my $srcObjId = $allFields->{acl_object}->value();
         my $squidMod = $self->parentModule();
-        my $delayPools1 = $squidMod->model('DelayPools1');
-        my $row = $delayPools1->findRow('acl_object' => $srcObjId);
+        my $delayPools = $squidMod->model('DelayPools');
+        my $row = $delayPools->findRow('acl_object' => $srcObjId);
         if ( defined($row) and $row->valueByName('enabled') ) {
             throw EBox::Exceptions::External(
                 __x('Object {object} has an enabled {row} in {table}. Delete it first '
                     . 'from there to add it here',
                     object => $allFields->{acl_object}->printableValue(),
-                    row    => $delayPools1->printableRowName(),
-                    table  => $delayPools1->printableName()));
+                    row    => $delayPools->printableRowName(),
+                    table  => $delayPools->printableName()));
         }
     }
 
@@ -124,58 +123,75 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead =
-        (
-         new EBox::Types::Select(
-                 fieldName     => 'acl_object',
-                 printableName => __('Network object'),
-                 foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
-                 foreignField  => 'name',
-                 foreignNextPageField => 'members',
-                 editable      => 1,
-                 unique        => 1,
-             ),
-         new EBox::Types::Int(
-                 fieldName     => 'rate',
-                 printableName => __('Newtork download rate'),
-                 size          => 3,
-                 editable      => 1,
-                 trailingText  => __('KB/s'),
-                 defaultValue  => 0,
-                 min           => -1,
-                 help => __('Maximum download rate for this network. Use -1 to disable this option.')
-             ),
-         new EBox::Types::Int(
-                 fieldName     => 'size',
-                 printableName => __('Network file size'),
-                 size          => 3,
-                 editable      => 1,
-                 trailingText  => __('KB'),
-                 defaultValue  => 0,
-                 min           => -1,
-                 help => __('Maximum unthrottled download file size for this network. Use -1 to disable this option.')
-             ),
-         new EBox::Types::Int(
-                 fieldName     => 'clt_rate',
-                 printableName => __('Client download rate'),
-                 size          => 3,
-                 editable      => 1,
-                 trailingText  => __('KB/s'),
-                 defaultValue  => 0,
-                 min           => -1,
-                 help => __('Maximum download rate per client. Use -1 to disable this option.')
-             ),
-         new EBox::Types::Int(
-                 fieldName     => 'clt_size',
-                 printableName => __('Client file size'),
-                 size          => 3,
-                 editable      => 1,
-                 trailingText  => __('KB'),
-                 defaultValue  => 0,
-                 min           => -1,
-                 help => __('Maximum unthrottled download file size per client. Use -1 to disable this option.')
-             ),
-      );
+    my @tableHead = (
+        new EBox::Types::Select(
+            fieldName     => 'acl_object',
+            printableName => __('Network object'),
+            foreignModel  => $self->modelGetter('objects', 'ObjectTable'),
+            foreignField  => 'name',
+            foreignNextPageField => 'members',
+            editable      => 1,
+            unique        => 1,
+        ),
+        new EBox::Types::Boolean(
+            fieldName      => 'global_enabled',
+            printableName  => __('Enable global limit for the object'),
+            editable       => 1,
+            hiddenOnViewer => 1,
+            defaultValue   => 0,
+        ),
+        new EBox::Types::Int(
+            fieldName     => 'size',
+            printableName => __('Maximum unlimited size'),
+            help          => __('Maximum unthrottled download size for the whole network object.'),
+            size          => 3,
+            editable      => 1,
+            trailingText  => __('MB'),
+            defaultValue  => 0,
+            min           => 0,
+            filter        => \&_unlimitedFilter,
+        ),
+        new EBox::Types::Int(
+            fieldName     => 'rate',
+            printableName => __('Maximum download rate'),
+            help          => __('Limited download rate after maximum size is reached for the whole network object.'),
+            size          => 3,
+            editable      => 1,
+            trailingText  => __('KB/s'),
+            defaultValue  => 0,
+            min           => 0,
+            filter        => \&_unlimitedFilter,
+        ),
+        new EBox::Types::Boolean(
+            fieldName      => 'clt_enabled',
+            printableName  => __('Enable per client limit'),
+            editable       => 1,
+            hiddenOnViewer => 1,
+            defaultValue   => 0,
+        ),
+        new EBox::Types::Int(
+            fieldName     => 'clt_size',
+            printableName => __('Maximum unlimited size per client'),
+            help          => __('Maximum unthrottled download size for each client.'),
+            size          => 3,
+            editable      => 1,
+            trailingText  => __('MB'),
+            defaultValue  => 0,
+            min           => 0,
+            filter        => \&_unlimitedFilter,
+        ),
+        new EBox::Types::Int(
+            fieldName     => 'clt_rate',
+            printableName => __('Maximum download rate per client'),
+            help          => __('Limited download rate after maximum size is reached for each client.'),
+            size          => 3,
+            editable      => 1,
+            trailingText  => __('KB/s'),
+            defaultValue  => 0,
+            min           => 0,
+            filter        => \&_unlimitedFilter,
+        ),
+    );
 
     my $dataTable = {
         'tableName'          => 'DelayPools',
@@ -227,6 +243,51 @@ sub delayPools
     }
 
     return \@pools;
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    $customizer->setOnChangeActions(
+            {
+              global_enabled =>
+                {
+                  'on' => { show => [ 'size', 'rate' ] },
+                  'off' => { hide  => [ 'size', 'rate' ] },
+                },
+              clt_enabled =>
+                {
+                  'on' => { show => [ 'clt_size', 'clt_rate' ] },
+                  'off' => { hide  => [ 'clt_size', 'clt_rate' ] },
+                },
+            });
+
+    return $customizer;
+}
+
+# FIXME: this doesn't work properly, because it doesn't remove trailingText
+# probably we need to create a subclassed type with a custom viewer...
+sub _unlimitedFilter
+{
+    my ($type) = @_;
+
+    my $value = $type->value();
+
+    # this should be -1 instead of 0
+    if ($value == 0) {
+        return __('Unlimited');
+    } else {
+        return $type->printableValue();
+    }
 }
 
 1;

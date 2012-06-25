@@ -424,7 +424,7 @@ delay_access 1 allow eboxlocalnets
      }
      my $size = $objPool->{size};
      if ($size > 0) {
-         $size *= 1024;
+         $size *= 1024 * 1024;
      }
 </%perl>
 delay_class <% $id %> <% $objPool->{class} %>
@@ -438,7 +438,7 @@ delay_parameters <% $id %> <% $rate %>/<% $size %>
      }
      my $clt_size = $objPool->{clt_size};
      if ($clt_size > 0) {
-         $clt_size *= 1024;
+         $clt_size *= 1024 * 1024;
      }
 </%perl>
 delay_parameters <% $id %> <% $rate %>/<% $size %> <% $clt_rate %>/<% $clt_size %>

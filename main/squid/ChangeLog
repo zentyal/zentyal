@@ -1,4 +1,5 @@
 HEAD
+	+ Download sizes for Bandwidth Throttling now use MB instead of KB
 	+ Users and Antivirus enable dependencies are now optional
 	+ Default policy if no other allow or filter rules are present is deny
 	+ There is no need of manually specify global authorize or filter policy
