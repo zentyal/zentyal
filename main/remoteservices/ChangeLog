@@ -1,4 +1,6 @@
 HEAD
+	+ Added confKey monitoring_inside_vpn to configure whether the monitoring
+	  stats should be sent using the VPN or not
 	+ Added function cloudDomain to get Zentyal Cloud domain name
 	+ Added function subscribedUUID to get server UUID
 	+ Use new module to calc average bandwidth from a day

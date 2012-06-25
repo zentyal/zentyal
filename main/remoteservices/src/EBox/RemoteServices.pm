@@ -485,12 +485,22 @@ sub monitorGathererIPAddresses
     }
 
     my $monGatherers = [];
-    try {
-        # TODO: Do not hardcode
-        $monGatherers = ['mon.' . $self->cloudDomain()];
-    } catch EBox::Exceptions::External with {
-        ;
-    };
+
+    # If conf key says so, monitoring goes inside the VPN
+    if (EBox::Config::boolean('monitoring_inside_vpn')) {
+        try {
+            $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+        } catch EBox::Exceptions::Base with {
+            ;
+        };
+    } else {
+        try {
+            # TODO: Do not hardcode
+            $monGatherers = ['mon.' . $self->cloudDomain()];
+        } catch EBox::Exceptions::External with {
+            ;
+        };
+    }
     return $monGatherers;
 
 }
