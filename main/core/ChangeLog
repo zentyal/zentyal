@@ -1,3 +1,6 @@
+HEAD
+	+ Do not do a redis transaction for network module init actions
+	+ st_unset changes are bw commited to redis
 2.3.13
 	+ Fixed problems in EventDaemon with JSON and blessed references
 	+ More crashes avoided when watchers or dispatchers doesn't exist
