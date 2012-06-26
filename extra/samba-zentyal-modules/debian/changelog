@@ -1,3 +1,10 @@
+samba-zentyal-modules (0.4) precise; urgency=low
+
+  * Detect broken pipe on socket and reconnect.
+  * Remove trailing new line char on synchronizer response.
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Tue, 26 Jun 2012 21:14:31 +0200
+
 samba-zentyal-modules (0.3) precise; urgency=low
 
   * Remove zentyal-samba dep
