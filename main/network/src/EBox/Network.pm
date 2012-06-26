@@ -66,6 +66,7 @@ use EBox::Util::Lock;
 use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
+use Data::UUID;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
@@ -2687,14 +2688,21 @@ sub _generateDDClient
                 if ( $rs->eBoxSubscribed() ) {
                     # Server subscription credentials as user and pass
                     my $cred = $rs->cloudCredentials();
-                    $login = $cred->{uuid};
+
+                    # UUID Format for login: Hexadecimal without '0x'
+                    my $ug = new Data::UUID;
+                    my $bin_uuid = $ug->from_string($cred->{uuid});
+                    my $hex_uuid = $ug->to_hexstring($bin_uuid);
+                    $login = substr($hex_uuid, 2);      # Remove the '0x'
+
                     $password = $cred->{password};
 
                     $hostname = $rs->dynamicHostname();
                     my $cloud_domain = $rs->cloudDomain();
                     if ( $cloud_domain ) {
                         # TODO: Do not hardcode
-                        $server = 'ddns.' . $cloud_domain;
+#                        $server = 'ddns.' . $cloud_domain;
+                        $server = 'ws2.' . $cloud_domain;
                     } else {
                         EBox::warn('Zentyal Cloud cannot be used if we cannot '
                                    . 'get domain name');
