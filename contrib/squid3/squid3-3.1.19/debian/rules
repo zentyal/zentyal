@@ -4,13 +4,13 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 include /usr/share/dpkg/buildflags.mk
- 
+
 INSTALLDIR := $(CURDIR)/debian/tmp
 datadir=/usr/share/squid3
 
 DEB_DH_INSTALL_SOURCEDIR := $(INSTALLDIR)
 DEB_INSTALL_DOCS_squid3-common := CONTRIBUTORS CREDITS QUICKSTART RELEASENOTES.html \
-						SPONSORS 
+						SPONSORS
 
 DEB_CONFIGURE_EXTRA_FLAGS := --datadir=/usr/share/squid3 \
 		--sysconfdir=/etc/squid3 \
@@ -40,7 +40,8 @@ DEB_CONFIGURE_EXTRA_FLAGS := --datadir=/usr/share/squid3 \
 		--with-pidfile=/var/run/squid3.pid \
 		--with-filedescriptors=65536 \
 		--with-large-files \
-		--with-default-user=proxy
+		--with-default-user=proxy \
+		--enable-ssl
 
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
 
