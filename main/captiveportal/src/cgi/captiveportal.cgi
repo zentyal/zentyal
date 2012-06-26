@@ -62,7 +62,7 @@ try {
     );
 
     # template params
-    my $theme = EBox::Global::_readTheme();
+    my $theme = EBox::GlobalImpl::_readTheme();
     my $templateFile;
     my $params = {};
     $params->{image_title} = $theme->{image_title};
