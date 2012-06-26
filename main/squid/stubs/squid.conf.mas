@@ -91,7 +91,7 @@ sub _aclName
 % if ($transparent eq 'yes') {
 %   $transKey = 'transparent';
 % }
-http_port <% $port %> <% $transKey %>
+http_port <% $port %> <% $transKey %> ssl-bump
 # END_TAG #
 
 visible_hostname localhost
@@ -207,6 +207,10 @@ http_reply_access allow all
 % if ($cache_host and $cache_port) {
 never_direct allow all
 % }
+
+# bump-ssl options
+always_direct allow SSL_ports
+ssl_bump allow SSL_ports
 
 
 # <EBOX> TAG_DELAYPOOLS #
