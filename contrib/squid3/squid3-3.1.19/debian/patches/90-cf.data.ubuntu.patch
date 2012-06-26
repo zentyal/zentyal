@@ -1,0 +1,13 @@
+diff -Naurp squid-3.1.15.orig/src/cf.data.pre squid-3.1.15/src/cf.data.pre
+--- squid-3.1.15.orig/src/cf.data.pre	2011-08-28 03:53:14.000000000 -0400
++++ squid-3.1.15/src/cf.data.pre	2011-11-10 11:33:21.214156035 -0500
+@@ -3458,6 +3458,9 @@ NOCOMMENT_START
+ refresh_pattern ^ftp:		1440	20%	10080
+ refresh_pattern ^gopher:	1440	0%	1440
+ refresh_pattern -i (/cgi-bin/|\?) 0	0%	0
++refresh_pattern (Release|Packages(.gz)*)$      0       20%     2880
++# example lin deb packages
++#refresh_pattern (\.deb|\.udeb)$   129600 100% 129600
+ refresh_pattern .		0	20%	4320
+ NOCOMMENT_END
+ DOC_END

@@ -1,0 +1,240 @@
+.TH squid_ldap_auth 8 "14 January 2005" "Squid LDAP Auth"
+.
+.SH NAME
+squid_ldap_auth - Squid LDAP authentication helper
+.
+.SH SYNOPSIS
+.B squid_ldap_auth
+-b "base DN" [-u attribute] [options] [ldap_server_name[:port]|URI]...
+.br
+.B squid_ldap_auth
+-b "base DN" -f "LDAP search filter" [options] [ldap_server_name[:port]|URI]...
+.
+.SH DESCRIPTION
+This helper allows Squid to connect to a LDAP directory to
+validate the user name and password of Basic HTTP authentication.
+LDAP options are specified as parameters on the command line,
+while the username(s) and password(s) to be checked against the
+LDAP directory are specified on subsequent lines of input to the
+helper, one username/password pair per line separated by a space.
+.P
+As expected by the basic authentication construct of Squid, after
+specifying a username and password followed by a new line, this
+helper will produce either OK or ERR on the following line
+to show if the specified credentials are correct according to
+the LDAP directory.
+.P
+The program has two major modes of operation. In the default mode
+of operation the users DN is constructed using the base DN and
+user attribute. In the other mode of operation a search
+filter is used to locate valid user DN's below the base DN.
+.
+.TP
+.BI "-b " "basedn " (REQUIRED)
+Specifies the base DN under which the users are located.
+.
+.TP
+.BI "-f " filter
+LDAP search filter to locate the user DN. Required if the users
+are in a hierarchy below the base DN, or if the login name is
+not what builds the user specific part of the users DN.
+.IP
+The search filter can contain up to 15 occurrences of %s
+which will be replaced by the username, as in "uid=%s" for
+RFC2037 directories. For a detailed description of LDAP search
+filter syntax see RFC2254.
+.
+.TP
+.BI "-u " userattr
+Specifies the name of the DN attribute that contains the username/login.
+Combined with the base DN to construct the users DN when no search filter
+is specified (-f option). Defaults to 'uid'
+.IP
+Note: This can only be done if all your users are located directly under
+the same position in the LDAP tree and the login name is used for naming
+each user object. If your LDAP tree does not match these criterias or if
+you want to filter who are valid users then you need to use a search filter
+to search for your users DN (-f option).
+.
+.TP
+.BI "-U " passwordattr
+Use ldap_compare instead of ldap_simple_bind to verify the users password.
+passwordattr is the LDAP attribute storing the users password.
+.
+.TP
+.BI "-s " base|one|sub
+search scope when performing user DN searches specified
+by the -f option. Defaults to 'sub'.
+.IP
+.B base
+object only,
+.B one
+level below the base object or
+.BR sub tree
+below the base object
+.
+.TP
+.BI "-D " "binddn " "-w " password
+The DN and password to bind as while performing searches. Required by the
+.BI -f
+flag if the directory does not allow anonymous searches.
+.IP
+As the password needs to be printed in plain text in your Squid configuration
+it is strongly recommended to use a account with minimal associated privileges.
+This to limit the damage in case someone could get hold of a copy of your
+Squid configuration file.
+.
+.TP
+.BI "-D " "binddn " "-W " "secretfile "
+The DN and the name of a file containing the password
+to bind as while performing searches. 
+.IP
+Less insecure version of the former parameter pair with two advantages:
+The password does not occur in the process listing, 
+and the password is not being compromised if someone gets the squid 
+configuration file without getting the secretfile.
+.
+.TP
+.BI -P
+Use a persistent LDAP connection. Normally the LDAP connection
+is only open while validating a username to preserve resources
+at the LDAP server. This option causes the LDAP connection to
+be kept open, allowing it to be reused for further user
+validations. Recommended for larger installations.
+.
+.TP
+.BI -O
+Only bind once per LDAP connection. Some LDAP servers do not
+allow re-binding as another user after a successful ldap_bind.
+The use of this option always opens a new connection for each
+login attempt. If combined with the -P option for persistent
+LDAP connection then the connection used for searching for the
+user DN is kept persistent but a new connection is opened
+to verify each users password once the DN is found.
+.
+.TP
+.BI -R
+do not follow referrals
+.
+.TP
+.BI "-a " never|always|search|find
+when to dereference aliases. Defaults to 'never'
+.IP
+.BI never
+dereference aliases (default),
+.BI always
+dereference aliases, only while
+.BR search ing
+or only to
+.B find
+the base object
+.
+.TP
+.BI -H " ldapuri"
+Specity the LDAP server to connect to by LDAP URI (requires OpenLDAP libraries).
+Servers can also be specified last on the command line.
+.
+.TP
+.BI -h " ldapserver"
+Specify the LDAP server to connect to. Servers can also be specified last
+on the command line.
+.TP
+.BI -p " ldapport"
+Specify an alternate TCP port where the ldap server is listening if
+other than the default LDAP port 389. Can also be specified within the
+server specificiation by using servername:port syntax.
+.
+.TP
+.BI -v " 2|3"
+LDAP protocol version. Defaults to 3 if not specified.
+.
+.TP
+.BI -Z
+Use TLS encryption
+.
+.TP
+.BI -S certpath
+Enable LDAP over SSL (requires Netscape LDAP API libraries)
+.
+.TP
+.BI -c connect_timeout
+Specify timeout used when connecting to LDAP servers (requires
+Netscape LDAP API libraries)
+.TP
+.BI -t search_timeout
+Specify time limit on LDAP search operations
+.
+.TP
+.BI -d
+Debug mode where each step taken will get reported in detail.
+Useful for understanding what goes wrong if the results is
+not what is expected.
+.
+.SH EXAMPLES
+For directories using the RFC2307 layout with a single domain, all
+you need to specify is usually the base DN under where your users
+are located and the server name:
+.IP
+squid_ldap_auth -b "ou=people,dc=your,dc=domain" ldapserver
+.P
+If you have sub-domains then you need to use a search filter approach
+to locate your user DNs as these can no longer be constructed direcly
+from the base DN and login name alone:
+.IP
+squid_ldap_auth -b "dc=your,dc=domain" -f "uid=%s" ldapserver
+.P
+And similarily if you only want to allow access to users having a
+specific attribute
+.IP
+squid_ldap_auth -b "dc=your,dc=domain" -f "(&(uid=%s)(specialattribute=value))" ldapserver
+.P
+Or if the user attribute of the user DN is "cn" instead of "uid" and
+you do not want to have to search for the users then you could use something
+like the following example for Active Directory:
+.IP
+squid_ldap_auth -u cn -b "cn=Users,dc=your,dc=domain" ldapserver
+.P
+If you want to search for the user DN and your directory does not allow
+anonymous searches then you must also use the -D and -w flags to specify
+a user DN and password to log in as to perform the searches, as in the
+following complex Active Directory example
+.IP
+squid_ldap_auth -P -R -b "dc=your,dc=domain" -D "cn=squid,cn=users,dc=your,dc=domain" -w "secretsquidpassword" -f "(&(userPrincipalName=%s)(objectClass=Person))" activedirectoryserver
+.
+.SH NOTES
+.
+When constructing search filters it is strongly recommended to test the filter
+using ldapsearch before you attempt to use squid_ldap_auth. This to verify
+that the filter matches what you expect.
+.
+.SH AUTHOR
+This manual page was written by 
+.I Henrik Nordstrom <hno@squid-cache.org>
+.P
+squid_ldap_auth is written by 
+.I Glenn Newton <gnewton@wapiti.cisti.nrc.ca>
+and
+.I Henrik Nordstrom <hno@squid-cache.org>
+.
+.SH KNOWN ISSUES
+Will crash if other % values than %s is used in -f, or if more than 15 %s
+is used.
+.
+.SH QUESTIONS
+Any questions on usage can be sent to 
+.IR "Squid Users <squid-users@squid-cache.org>" ,
+or to your favorite LDAP list/friend if the question is more related to
+LDAP than Squid.
+.
+.SH REPORTING BUGS
+Report bugs or bug-fixes to
+.I Squid Bugs <squid-bugs@squid-cache.org>
+or ideas for new improvements to 
+.I Squid Developers <squid-dev@squid-cache.org>
+.
+.SH "SEE ALSO"
+.BR ldapsearch ( 1 ),
+.br
+Your favorite LDAP documentation
+.br
+.BR RFC2254 " - The String Representation of LDAP Search Filters,"

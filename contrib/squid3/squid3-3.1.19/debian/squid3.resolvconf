@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PATH="/usr/sbin:/usr/bin:/sbin:/bin"
+
+# Make squid aware of changes to resolv.conf
+if status squid3 | grep "start/running" > /dev/null; then
+	reload squid3
+fi

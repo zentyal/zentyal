@@ -1,0 +1,26 @@
+squid3 (3.1.19-1ubuntu2) precise; urgency=low
+
+  Ubuntu 12.04 has transition from the deprecated squid package to squid3.
+  The squid package is now a transitional package for squid3.  While many
+  of the original squid configuration options are supported on squid3, some
+  are not and original configuration file formats may not be supported. As a 
+  result, /etc/squid/squid.conf needs to be migrated to /etc/squid3/squid.conf
+  manually.
+
+  Please see the squid 3.1.9 release notes to find out more:
+
+  http://squidcache.cybermirror.org/squid/squid-3.1.19-RELEASENOTES.html#ss6.1
+
+ -- Adam Gandelman <adamg@canonical.com>  Thu, 12 Apr 2012 13:53:26 -0700
+
+squid3 (3.0.STABLE15-1) unstable; urgency=low
+
+  Since version 3.0.STABLE15-1 error pages are not included in squid3-common
+  anymore, but are instead shipped in a separate package (squid-langpack).
+
+  If the error_directory option in /etc/squid3/squid.conf was customized, it
+  should be checked against the new directory layout of squid-langpack; if
+  it is not set correctly, squid3 will refuse to start.
+
+ -- Luigi Gangitano <luigi@debian.org>  Mon,  6 Jul 2009 13:29:10 +0200
+

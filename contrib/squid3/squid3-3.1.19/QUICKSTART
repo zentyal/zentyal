@@ -1,0 +1,104 @@
+
+Squid QUICKSTART
+
+$Id$
+
+This document is intended only for people who want to get Squid running
+quickly It is not a substitute for the real documentation.  Squid has
+many features, but only a few of them are useful at the beginning.  Use
+this only if you have quite a simple setup.
+
+After you retrieved, compiled and installed the Squid software (see
+INSTALL in the same directory), you have to configure the squid.conf
+file. This is the list of the values you *need* to change, because no
+sensible defaults could be defined. Do not touch the other variables
+for now.  We assume you have installed Squid in the default location:
+/usr/local/squid
+
+Uncomment and edit the following lines in /usr/local/squid/etc/squid.conf:
+
+==============================================================================
+
+acl, http_access
+
+    Access control lists.  This is important because it prevents people
+    from stealing your network resources.  To fill in the
+    "localnet" ACL, use your network address (for instance 192.168.10.0
+    your CIDR network mask (for instance 255.255.255.0 or /24):
+
+        acl manager proto cache_object
+        acl localhost src 127.0.0.1
+        acl localnet src 192.168.10.0/24
+
+        http_access deny manager all
+        http_access allow localnet
+        http_access deny all
+
+cache_mgr
+
+    Put here the e-mail address of the manager:
+
+visible_hostname
+
+    The host name you advertise for the cache.
+
+cache_effective_user
+
+    If building your own squid; use ./configure --with-default-user=X
+
+    If you must start Squid as root, find a safe user and group to run
+    as after startup (typically "nobody" and "nogroup").  Do not use
+    "root", for security reasons.
+
+
+==============================================================================
+
+Some configuration lines which are optional but may be needed.
+
+
+cache_dir ufs /usr/local/squid/var/cache 100 16 256
+
+    Add here (first number, here 100) the amount of hard disk space 
+    (in megabytes) to devote to caching.
+    The default is to store files in 256 MB of memory instead of disk
+
+    Linux :  use aufs instead of ufs
+    BSD   :  use diskd instead of ufs
+
+cache_mem 256 MB
+
+    How much memory to allocate for cached files in-memory.
+    The default is shown.
+
+cache_peer, never_direct/always_direct
+
+    If you have a parent cache, put it here.  The administrators of the
+    parent cache typically provided you with instructions.  You should
+    always ask permission before adding a parent cache. See also the
+    never_direct/always_direct directives.
+
+
+==============================================================================
+
+After editing squid.conf to your liking, run Squid from the command
+line TWICE:
+
+To create any disk cache_dir configured:
+    % /usr/local/squid/sbin/squid -z
+
+To start squid:
+    % /usr/local/squid/sbin/squid 
+
+Check in the cache.log (/usr/local/squid/var/logs/cache.log) that
+everything is all right.
+
+Once Squid created all its files (it can take several minutes on some
+systems), test it with echoping or a regular Web client. By default,
+your Squid will run on port 3128. See the Squid FAQ for more details.
+
+Once you have Squid working from the command line, tell your Unix to
+start Squid at startup (it depends heavily on the Unix you use, you'll
+typically have to modify something in a /etc/rc_something).
+
+This quick start file written by: Stephane Bortzmeyer and Duane
+Wessels.

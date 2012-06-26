@@ -1,0 +1,23 @@
+diff -Naurp squid-3.1.15.orig/src/cf.data.pre squid-3.1.15/src/cf.data.pre
+--- squid-3.1.15.orig/src/cf.data.pre	2011-08-28 03:53:14.000000000 -0400
++++ squid-3.1.15/src/cf.data.pre	2011-11-10 11:45:59.322157017 -0500
+@@ -1990,6 +1990,19 @@ DOC_START
+ 			If 'sslkey' is not specified 'sslcert' is assumed to
+ 			reference a combined file containing both the
+ 			certificate and the key.
++
++	Notes:
++	
++	On Debian/Ubuntu systems a default snakeoil certificate is
++    available in /etc/ss and users can set:
++
++		cert=/etc/ssl/certs/ssl-cert-snakeoil.pem
++
++	and
++
++		key=/etc/ssl/private/ssl-cert-snakeoil.key
++
++	for testing.
+ 	
+ 	sslversion=1|2|3|4
+ 			The SSL version to use when connecting to this peer

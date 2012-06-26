@@ -1,0 +1,22 @@
+
+This is the next-generation Squid. In version 3.x squid has been ported to C++
+for code manageability. Since squid 2.x is not developed anymore except for bug
+fixing, this package is where new features will be added.
+
+Squid 3.1 supports IPv6, WCCPv2, ICAP, Edge Side Include, SSL offloading, etc. Please
+note that not all of the new feature have been enabled in Debian package.
+
+Squid 3.1 is configured by the /etc/squid3/squid.conf file. Syntax of that
+file is the same of previous versions of squid and each directive is largely
+commented there. Configuration files from 2.x versions of squid will mostly
+work in squid 3.1. Changes to the configuration file are reported in
+/usr/share/doc/squid3-common/RELEASENOTES.html
+
+This package can be installed alongside a squid-2.x package, for testing and
+migration purpose. Please note that the default http_port for both packages is
+3128 and at least one has to be changed.
+
+The squid homepage is at http://www.squid-cache.org/
+Squid was downloaded from that site with HTTP.
+
+ -- Luigi Gangitano <luigi@debian.org>, Mon, 21 Sep 2009 20:27:00 +0200

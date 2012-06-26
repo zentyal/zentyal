@@ -1,0 +1,89 @@
+#! /usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
+include /usr/share/dpkg/buildflags.mk
+ 
+INSTALLDIR := $(CURDIR)/debian/tmp
+datadir=/usr/share/squid3
+
+DEB_DH_INSTALL_SOURCEDIR := $(INSTALLDIR)
+DEB_INSTALL_DOCS_squid3-common := CONTRIBUTORS CREDITS QUICKSTART RELEASENOTES.html \
+						SPONSORS 
+
+DEB_CONFIGURE_EXTRA_FLAGS := --datadir=/usr/share/squid3 \
+		--sysconfdir=/etc/squid3 \
+		--mandir=/usr/share/man \
+		--with-cppunit-basedir=/usr \
+		--enable-inline \
+		--enable-async-io=8 \
+		--enable-storeio="ufs,aufs,diskd" \
+		--enable-removal-policies="lru,heap" \
+		--enable-delay-pools \
+		--enable-cache-digests \
+		--enable-underscores \
+		--enable-icap-client \
+		--enable-follow-x-forwarded-for \
+		--enable-auth="basic,digest,ntlm,negotiate" \
+		--enable-basic-auth-helpers="LDAP,MSNT,NCSA,PAM,SASL,SMB,YP,DB,POP3,getpwnam,squid_radius_auth,multi-domain-NTLM" \
+		--enable-ntlm-auth-helpers="smb_lm," \
+		--enable-digest-auth-helpers="ldap,password" \
+		--enable-negotiate-auth-helpers="squid_kerb_auth" \
+		--enable-external-acl-helpers="ip_user,ldap_group,session,unix_group,wbinfo_group" \
+		--enable-arp-acl \
+		--enable-esi \
+		--enable-zph-qos \
+		--enable-wccpv2 \
+		--disable-translation \
+		--with-logdir=/var/log/squid3 \
+		--with-pidfile=/var/run/squid3.pid \
+		--with-filedescriptors=65536 \
+		--with-large-files \
+		--with-default-user=proxy
+
+DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
+
+ifeq ($(DEB_HOST_ARCH_OS), kfreebsd)
+		DEB_CONFIGURE_EXTRA_FLAGS += --enable-kqueue
+else
+		DEB_CONFIGURE_EXTRA_FLAGS += --enable-linux-netfilter
+endif
+
+DEB_MAKE_CLEAN_TARGET = distclean
+
+
+install/squid3::
+	install -m 755 -g root -d $(INSTALLDIR)/usr/lib/cgi-bin
+	mv $(INSTALLDIR)/etc/squid3/squid.conf.documented $(INSTALLDIR)/etc/squid3/squid.conf
+	mv $(INSTALLDIR)/usr/lib/squid3/cachemgr.cgi $(INSTALLDIR)/usr/lib/cgi-bin/cachemgr.cgi
+	mv $(INSTALLDIR)/usr/sbin/squid $(INSTALLDIR)/usr/sbin/squid3
+	mv $(INSTALLDIR)/usr/share/man/man8/squid.8 $(INSTALLDIR)/usr/share/man/man8/squid3.8
+	mv $(INSTALLDIR)/usr/share/man/man8/pam_auth.8 $(INSTALLDIR)/usr/share/man/man8/squid3_pam_auth.8
+	mv $(INSTALLDIR)/usr/share/man/man8/squid_ldap_auth.8 $(INSTALLDIR)/usr/share/man/man8/squid3_ldap_auth.8
+	mv $(INSTALLDIR)/usr/share/man/man8/squid_ldap_group.8 $(INSTALLDIR)/usr/share/man/man8/squid3_ldap_group.8
+	mv $(INSTALLDIR)/usr/share/man/man8/squid_session.8 $(INSTALLDIR)/usr/share/man/man8/squid3_session.8
+	mv $(INSTALLDIR)/usr/share/man/man8/squid_unix_group.8 $(INSTALLDIR)/usr/share/man/man8/squid3_unix_group.8
+	mv $(INSTALLDIR)/usr/share/man/man8/ncsa_auth.8 $(INSTALLDIR)/usr/share/man/man8/squid3_ncsa_auth.8
+	mv $(INSTALLDIR)/usr/share/man/man8/squid_db_auth.8 $(INSTALLDIR)/usr/share/man/man8/squid3_db_auth.8
+	mv $(INSTALLDIR)/usr/share/man/man8/squid_radius_auth.8 $(INSTALLDIR)/usr/share/man/man8/squid3_radius_auth.8
+	install -m 755 -g root -d $(INSTALLDIR)/etc/init.d
+	install -m 755 -g root -d $(INSTALLDIR)/etc/init
+	install -m 755 -g root -d $(INSTALLDIR)/etc/logrotate.d
+	install -m 755 -g root -d $(INSTALLDIR)/etc/resolvconf
+	install -m 755 -g root -d $(INSTALLDIR)/etc/resolvconf/update-libc.d
+	install -m 755 -g root -d $(INSTALLDIR)/etc/ufw/applications.d
+	install -m 755 -g root debian/squid3.rc $(INSTALLDIR)/etc/init.d/squid3
+	install -m 644 -g root debian/squid3.upstart $(INSTALLDIR)/etc/init/squid3.conf
+	install -m 755 -g root debian/squid3.resolvconf $(INSTALLDIR)/etc/resolvconf/update-libc.d/squid3
+	install -m 644 -g root debian/squid3.logrotate $(INSTALLDIR)/etc/logrotate.d/squid3
+	install -m 644 -g root debian/squid3.ufw.profile $(INSTALLDIR)/etc/ufw/applications.d/squid3
+	install -m 755 -g root -d debian/squid3/var/log
+	install -m 755 -g root -d debian/squid3/var/spool
+	install -m 755 -g root -d debian/squid3/var/run
+	install -m 750 -o proxy -g proxy -d debian/squid3/var/log/squid3
+	install -m 750 -o proxy -g proxy -d debian/squid3/var/spool/squid3
+	install -m 755 -g root -d $(INSTALLDIR)/usr/share/man/man1
+
+clean::
+	# nothing to do

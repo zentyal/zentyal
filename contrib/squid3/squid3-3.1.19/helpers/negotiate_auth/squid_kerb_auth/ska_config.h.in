@@ -1,0 +1,257 @@
+/* ska_config.h.in.  Generated from configure.ac by autoheader.  */
+
+/*
+ * -----------------------------------------------------------------------------
+ *
+ * Author: Markus Moeller (|MAIL|)
+ *
+ * Copyright (C) 2007 Markus Moeller. All rights reserved.
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307, USA.
+ *
+ *   As a special exemption, M Moeller gives permission to link this program
+ *   with MIT, Heimdal or other GSS/Kerberos libraries, and distribute
+ *   the resulting executable, without including the source code for
+ *   the Libraries in the source distribution.
+ *
+ * -----------------------------------------------------------------------------
+ */
+
+
+ /* This is building inside Squid. We need their config as well. */
+/* bit of autoconf magic hack */
+#undef HAVE_SQUID
+
+#if HAVE_SQUID
+#include "squid_compat.h"
+#endif /* HAVE_SQUID */
+
+
+/* Define if building universal (internal helper macro) */
+#undef AC_APPLE_UNIVERSAL_BUILD
+
+/* Define to 1 if you have the declaration of `xfree', and to 0 if you don't.
+   */
+#undef HAVE_DECL_XFREE
+
+/* Define to 1 if you have the declaration of `xfreeaddrinfo', and to 0 if you
+   don't. */
+#undef HAVE_DECL_XFREEADDRINFO
+
+/* Define to 1 if you have the declaration of `xgai_strerror', and to 0 if you
+   don't. */
+#undef HAVE_DECL_XGAI_STRERROR
+
+/* Define to 1 if you have the declaration of `xgetaddrinfo', and to 0 if you
+   don't. */
+#undef HAVE_DECL_XGETADDRINFO
+
+/* Define to 1 if you have the declaration of `xgetnameinfo', and to 0 if you
+   don't. */
+#undef HAVE_DECL_XGETNAMEINFO
+
+/* Define to 1 if you have the declaration of `xmalloc', and to 0 if you
+   don't. */
+#undef HAVE_DECL_XMALLOC
+
+/* Define to 1 if you have the declaration of `xstrdup', and to 0 if you
+   don't. */
+#undef HAVE_DECL_XSTRDUP
+
+/* Define to 1 if you have the <errno.h> header file. */
+#undef HAVE_ERRNO_H
+
+/* Define to 1 if you have the <getaddrinfo.h> header file. */
+#undef HAVE_GETADDRINFO_H
+
+/* Define to 1 if you have the <getnameinfo.h> header file. */
+#undef HAVE_GETNAMEINFO_H
+
+/* Define to 1 if you have the <gssapi/gssapi_ext.h> header file. */
+#undef HAVE_GSSAPI_GSSAPI_EXT_H
+
+/* Define to 1 if you have the <gssapi/gssapi_generic.h> header file. */
+#undef HAVE_GSSAPI_GSSAPI_GENERIC_H
+
+/* Define to 1 if you have the <gssapi/gssapi.h> header file. */
+#undef HAVE_GSSAPI_GSSAPI_H
+
+/* Define to 1 if you have the <gssapi/gssapi_krb5.h> header file. */
+#undef HAVE_GSSAPI_GSSAPI_KRB5_H
+
+/* Define to 1 if you have the <gssapi.h> header file. */
+#undef HAVE_GSSAPI_H
+
+/* Define to 1 if you have Heimdal Kerberos */
+#undef HAVE_HEIMDAL_KERBEROS
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `m' library (-lm). */
+#undef HAVE_LIBM
+
+/* Define to 1 if you have the `mw' library (-lmw). */
+#undef HAVE_LIBMW
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have MIT Kerberos */
+#undef HAVE_MIT_KERBEROS
+
+/* Define to 1 if you have NAS Kerberos */
+#undef HAVE_NAS_KERBEROS
+
+/* Define to 1 if you have the <netdb.h> header file. */
+#undef HAVE_NETDB_H
+
+/* Define to 1 if you have New Solaris 10/OpenSolaris Kerberos */
+#undef HAVE_NEW_SEAM_KERBEROS
+
+/* Define to 1 if you have SEAM Kerberos */
+#undef HAVE_SEAM_KERBEROS
+
+/* Define to 1 if you have SQUID */
+#undef HAVE_SQUID
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#undef HAVE_STDIO_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/time.h> header file. */
+#undef HAVE_SYS_TIME_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <time.h> header file. */
+#undef HAVE_TIME_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Define to 1 if you have the <util.h> header file. */
+#undef HAVE_UTIL_H
+
+/* Name of package */
+#undef PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Version number of package */
+#undef VERSION
+
+/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+   significant byte first (like Motorola and SPARC, unlike Intel). */
+#if defined AC_APPLE_UNIVERSAL_BUILD
+# if defined __BIG_ENDIAN__
+#  define WORDS_BIGENDIAN 1
+# endif
+#else
+# ifndef WORDS_BIGENDIAN
+#  undef WORDS_BIGENDIAN
+# endif
+#endif
+
+
+/* Squid provides a few compat libraries */
+#ifdef HAVE_SQUID
+#ifdef HAVE_GETADDRINFO_H
+#include "getaddrinfo.h"
+#endif
+#ifdef HAVE_GETNAMEINFO_H
+#include "getnameinfo.h"
+#endif
+#ifdef HAVE_UTIL_H
+#include "util.h"
+#endif
+#endif /* HAVE_SQUID */
+
+
+
+#ifdef HAVE_HEIMDAL_KERBEROS
+#ifdef HAVE_GSSAPI_GSSAPI_H
+#include <gssapi/gssapi.h>
+#elif defined(HAVE_GSSAPI_H)
+#include <gssapi.h>
+#else
+#error "GSSAPI header required"
+#endif
+#define gss_nt_service_name GSS_C_NT_HOSTBASED_SERVICE
+#else
+#ifdef HAVE_SEAM_KERBEROS
+#ifdef HAVE_GSSAPI_GSSAPI_H
+#include <gssapi/gssapi.h>
+#elif defined(HAVE_GSSAPI_H)
+#include <gssapi.h>
+#else
+#error "GSSAPI header required"
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_EXT_H
+#include <gssapi/gssapi_ext.h>
+#endif
+#define gss_nt_service_name GSS_C_NT_HOSTBASED_SERVICE
+#else /*MIT*/
+#ifdef HAVE_GSSAPI_GSSAPI_H
+#include <gssapi/gssapi.h>
+#elif defined(HAVE_GSSAPI_H)
+#include <gssapi.h>
+#else
+#error "GSSAPI header required"
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_KRB5_H
+#include <gssapi/gssapi_krb5.h>
+#endif
+#ifdef HAVE_GSSAPI_GSSAPI_GENERIC_H
+#include <gssapi/gssapi_generic.h>
+#endif
+#endif
+#endif
+
+

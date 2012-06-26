@@ -1,0 +1,96 @@
+Author: Luigi Gangitano <luigi@debian.org>
+Description: Default configuration file for debian
+Index: squid3-3.1.18/src/cf.data.pre
+===================================================================
+--- squid3-3.1.18.orig/src/cf.data.pre	2011-12-26 22:10:23.000000000 +0100
++++ squid3-3.1.18/src/cf.data.pre	2011-12-26 22:35:01.000000000 +0100
+@@ -178,7 +178,7 @@
+ 	If you want to use the traditional NCSA proxy authentication, set
+ 	this line to something like
+ 
+-	auth_param basic program @DEFAULT_PREFIX@/libexec/ncsa_auth @DEFAULT_PREFIX@/etc/passwd
++	auth_param basic program @DEFAULT_PREFIX@/lib/squid3/ncsa_auth @DEFAULT_PREFIX@/etc/passwd
+ 
+ 	"utf8" on|off
+ 	HTTP uses iso-latin-1 as characterset, while some authentication
+@@ -246,7 +246,7 @@
+ 	If you want to use a digest authenticator, set this line to
+ 	something like
+ 
+-	auth_param digest program @DEFAULT_PREFIX@/bin/digest_pw_auth @DEFAULT_PREFIX@/etc/digpass
++	auth_param digest program @DEFAULT_PREFIX@/lib/squid3/digest_pw_auth @DEFAULT_PREFIX@/etc/digpass
+ 
+ 	"utf8" on|off
+ 	HTTP uses iso-latin-1 as characterset, while some authentication
+@@ -308,7 +308,7 @@
+ 	of type proxy_auth.  By default, the NTLM authenticator_program
+ 	is not used.
+ 
+-	auth_param ntlm program @DEFAULT_PREFIX@/bin/ntlm_auth
++	auth_param ntlm program @DEFAULT_PREFIX@/lib/squid3/ntlm_auth
+ 
+ 	"children" numberofchildren
+ 	The number of authenticator processes to spawn (no default).
+@@ -343,7 +343,7 @@
+ 	The only supported program for this role is the ntlm_auth
+ 	program distributed as part of Samba, version 4 or later.
+ 
+-	auth_param negotiate program @DEFAULT_PREFIX@/bin/ntlm_auth --helper-protocol=gss-spnego
++	auth_param negotiate program @DEFAULT_PREFIX@/lib/squid3/ntlm_auth --helper-protocol=gss-spnego
+ 
+ 	"children" numberofchildren
+ 	The number of authenticator processes to spawn (no default).
+@@ -761,11 +761,11 @@
+ # Example rule allowing access from your local networks.
+ # Adapt to list your (internal) IP networks from where browsing
+ # should be allowed
+-acl localnet src 10.0.0.0/8	# RFC1918 possible internal network
+-acl localnet src 172.16.0.0/12	# RFC1918 possible internal network
+-acl localnet src 192.168.0.0/16	# RFC1918 possible internal network
+-acl localnet src fc00::/7       # RFC 4193 local private network range
+-acl localnet src fe80::/10      # RFC 4291 link-local (directly plugged) machines
++#acl localnet src 10.0.0.0/8	# RFC1918 possible internal network
++#acl localnet src 172.16.0.0/12	# RFC1918 possible internal network
++#acl localnet src 192.168.0.0/16	# RFC1918 possible internal network
++#acl localnet src fc00::/7       # RFC 4193 local private network range
++#acl localnet src fe80::/10      # RFC 4291 link-local (directly plugged) machines
+ 
+ acl SSL_ports port 443
+ acl Safe_ports port 80		# http
+@@ -924,7 +924,7 @@
+ # Example rule allowing access from your local networks.
+ # Adapt localnet in the ACL section to list your (internal) IP networks
+ # from where browsing should be allowed
+-http_access allow localnet
++#http_access allow localnet
+ http_access allow localhost
+ 
+ # And finally deny all other access to this proxy
+@@ -2845,7 +2845,7 @@
+ 
+ NAME: logfile_rotate
+ TYPE: int
+-DEFAULT: 10
++DEFAULT: 0
+ LOC: Config.Log.rotateNumber
+ DOC_START
+ 	Specifies the number of logfile rotations to make when you
+@@ -2864,6 +2864,9 @@
+ 
+ 	Note, from Squid-3.1 this option has no effect on the cache.log,
+ 	that log can be rotated separately by using debug_options
++
++ 	Note2, for Debian/Linux the default of logfile_rotate is
++ 	zero, since it includes external logfile-rotation methods.
+ DOC_END
+ 
+ NAME: emulate_httpd_log
+@@ -4285,7 +4288,7 @@
+ NAME: visible_hostname
+ TYPE: string
+ LOC: Config.visibleHostname
+-DEFAULT: none
++DEFAULT: localhost
+ DOC_START
+ 	If you want to present a special hostname in error messages, etc,
+ 	define this.  Otherwise, the return value of gethostname()
