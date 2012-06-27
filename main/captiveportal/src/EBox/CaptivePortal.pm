@@ -37,7 +37,6 @@ use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
-use constant EXPIRATION_TIME => 60;
 
 sub _create
 {
@@ -246,6 +245,13 @@ sub httpsPort
     return $settings->https_portValue(),
 }
 
+sub expirationTime
+{
+    my ($self) = @_;
+    my $settings = $self->model('Settings');
+    return $settings->expirationValue(),
+}
+
 
 # Function: ifaces
 #
@@ -343,6 +349,12 @@ sub exceptionsFirewallRules
     my $exceptionsModel = $self->model('Exceptions');
     push @rules, @{ $exceptionsModel->firewallRules() };
 
+    my $global = $self->global();
+    foreach my $mod (@{ $global->modInstances()}) {
+        if ($mod->can('firewallCaptivePortalExceptions')) {
+            push @rules, @{ $mod->firewallCaptivePortalExceptions()  };
+        }
+    }
 
     return \@rules;
 }
@@ -359,7 +371,7 @@ sub sessionExpired
 {
     my ($self, $time) = @_;
 
-    return time() > ($time + EXPIRATION_TIME + 30);
+    return time() > ($time + $self->expirationTime() + 30);
 }
 
 

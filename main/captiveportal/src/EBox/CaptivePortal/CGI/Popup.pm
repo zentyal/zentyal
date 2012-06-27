@@ -20,26 +20,28 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::CaptivePortal;
 use Apache2::RequestUtil;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => '',
-				      'template' => '/captiveportal/popup.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => '',
+                                  'template' => '/captiveportal/popup.mas',
+                                  @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _print
 {
-	my $self = shift;
-	print($self->cgi()->header(-charset=>'utf-8'));
-    $self->{params} = [ interval => EBox::CaptivePortal->EXPIRATION_TIME ];
-	$self->_body;
+    my $self = shift;
+
+    print($self->cgi()->header(-charset=>'utf-8'));
+    $self->{params} = [ interval => 60 ];
+    $self->_body;
 }
 
 sub _top
@@ -48,12 +50,12 @@ sub _top
 
 sub _loggedIn
 {
-	return 1;
+    return 1;
 }
 
 sub _menu
 {
-	return;
+    return;
 }
 
 1;

@@ -91,7 +91,8 @@ sub run
         EBox::Util::Lock::unlock('firewall');
 
         # Sleep expiration interval
-        alarm(EBox::CaptivePortal->EXPIRATION_TIME);
+        my $captive = EBox::Global->getInstance(1)->modInstance('captiveportal');
+        alarm($captive->expirationTime());
         $notifier->poll; # execution stalls here until alarm or login/out event
     }
 }
