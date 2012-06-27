@@ -27,7 +27,6 @@ use warnings;
 use base qw(EBox::Module::Config);
 
 use EBox::Validate qw( :all );
-use EBox::Global;
 use EBox::Services::Model::ServiceConfigurationTable;
 use EBox::Services::Model::ServiceTable;
 use EBox::Gettext;
@@ -76,7 +75,7 @@ sub _defaultServices
 
     my $apachePort;
     try {
-        $apachePort = EBox::Global->modInstance('apache')->port();
+        $apachePort = $self->global()->modInstance('apache')->port();
     } otherwise {
         $apachePort = 443;
     };
