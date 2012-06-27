@@ -27,10 +27,13 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
+    my %params = @_;
     my $self = $class->SUPER::new(@_);
 
-    $self->{network} = EBox::Global->modInstance('network');
-    $self->{captiveportal} = EBox::Global->modInstance('captiveportal');
+    my $ro = $params{readOnly};
+    my $global = EBox::Global->getInstance($ro);
+    $self->{network} = $global->modInstance('network');
+    $self->{captiveportal} = $global->modInstance('captiveportal');
 
     bless($self, $class);
     return $self;
@@ -63,6 +66,7 @@ sub prerouting
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
         push(@rules, @{$self->_usersRules('captive')});
+        push(@rules, @{$self->_exceptionsRules('captive')});
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
         push(@rules, { 'rule' => $r, 'chain' => 'captive' });
@@ -78,7 +82,7 @@ sub postrouting
 
     my $port = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
-    my $net = EBox::Global->modInstance('network');
+    my $net = $self->{network};
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -178,5 +182,20 @@ sub _usersRules
     }
     return \@rules;
 }
+
+sub _exceptionsRules
+{
+    my ($self, $chain) = @_;
+
+    my @rules = map {
+        { 'rule' => $_, 'chain' => $chain }
+    } @{  $self->{captiveportal}->exceptionsFirewallRules() };
+
+
+    return \@rules;
+}
+
+
+
 
 1;

@@ -335,6 +335,19 @@ sub userFirewallRule
 }
 
 
+sub exceptionsFirewallRules
+{
+    my ($self) = @_;
+    my @rules;
+
+    my $exceptionsModel = $self->model('Exceptions');
+    push @rules, @{ $exceptionsModel->firewallRules() };
+
+
+    return \@rules;
+}
+
+
 # Function: sessionExpired
 #
 #   returns 1 if the session has expired
