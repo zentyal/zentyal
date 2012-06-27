@@ -57,6 +57,7 @@ sub prerouting
     # Redirect HTTP traffic to redirecter
     my $port = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
+    my @exRules =  @{$self->_exceptionsRules('captive')};
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -66,7 +67,10 @@ sub prerouting
         push(@rules, { 'priority' => 5, 'rule' => $r });
 
         push(@rules, @{$self->_usersRules('captive')});
-        push(@rules, @{$self->_exceptionsRules('captive')});
+        push @rules, map {
+            $_->{rule} = $input . ' ' . $_->{rule};
+            ($_)
+        } @exRules;
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
         push(@rules, { 'rule' => $r, 'chain' => 'captive' });
@@ -144,6 +148,7 @@ sub forward
     my $port = $self->{captiveportal}->httpPort();
     my $captiveport = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
+    my @exRules =  @{$self->_exceptionsRules('fcaptive')};
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -153,7 +158,10 @@ sub forward
         push(@rules, { 'priority' => 6, 'rule' => $r });
 
         push(@rules, @{$self->_usersRules('fcaptive')});
-
+        push @rules, map {
+            $_->{rule} = $input . ' ' . $_->{rule};
+            ($_)
+        } @exRules;
         # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
         push(@rules, { 'rule' => $r, priority => 5 });
