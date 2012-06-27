@@ -22,7 +22,7 @@ use Error qw(:try);
 use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
 
 try {
-    use EBox::CGI::Run;
+    use EBox::CGI::CaptivePortal::Run;
     use EBox;
     EBox::initLogger('captiveportal-log.conf');
     POSIX::setlocale(LC_ALL, EBox::locale());
@@ -33,7 +33,7 @@ try {
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
-    EBox::CGI::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
+    EBox::CGI::CaptivePortal::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
 } otherwise  {
     my $ex = shift;
     use Devel::StackTrace;
