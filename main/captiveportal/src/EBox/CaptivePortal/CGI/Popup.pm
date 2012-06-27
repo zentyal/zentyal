@@ -20,7 +20,7 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
-use EBox::Global;
+
 use EBox::Gettext;
 use EBox::CaptivePortal;
 use Apache2::RequestUtil;
@@ -39,9 +39,26 @@ sub _print
 {
     my $self = shift;
 
+    my $interval = _readInterval();
+    if (not $interval) {
+        $interval = 60;
+    }
+
     print($self->cgi()->header(-charset=>'utf-8'));
-    $self->{params} = [ interval => 60 ];
+    $self->{params} = [ interval => $interval ];
     $self->_body;
+}
+
+sub _readInterval
+{
+    my $interval;
+
+    my $path =  EBox::CaptivePortal::PERIOD_FILE;
+    open my $FH, '<', $path  or
+        return undef;
+    $interval = <$FH>;
+    close $FH;
+    return $interval;
 }
 
 sub _top

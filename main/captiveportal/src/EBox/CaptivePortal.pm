@@ -37,6 +37,9 @@ use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
+use constant PERIOD_FILE => CAPTIVE_DIR . 'period';
+use constant CAPTIVE_USER  => 'zentyal-captiveportal';
+use constant CAPTIVE_GROUP => 'zentyal-captiveportal';
 
 sub _create
 {
@@ -134,6 +137,8 @@ sub _setConf
 
     # Write css file
     $self->_writeCSS();
+
+    $self->_writePeriodFile();
 }
 
 
@@ -410,6 +415,20 @@ sub removeSession
     }
 }
 
+sub _writePeriodFile
+{
+    my ($self) = @_;
+    my $period = $self->expirationTime();
+    EBox::Module::Base::writeFile(PERIOD_FILE,
+                                  "$period",
+                                  {
+                                      mode => '0600',
+                                      uid  => CAPTIVE_USER,
+                                      gid  => CAPTIVE_GROUP,
+                                  }
+                                 );
+
+}
 
 sub _bwmonitor {
     my $bwmonitor = EBox::Global->modInstance('bwmonitor');
