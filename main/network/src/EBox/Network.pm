@@ -2695,7 +2695,8 @@ sub _generateDDClient
                     my $hex_uuid = $ug->to_hexstring($bin_uuid);
                     $login = substr($hex_uuid, 2);      # Remove the '0x'
 
-                    $password = $cred->{password};
+                    # Get DynDNS password
+                    $password = $rs->getServicePassword('dyndns');
 
                     $hostname = $rs->dynamicHostname();
                     my $cloud_domain = $rs->cloudDomain();

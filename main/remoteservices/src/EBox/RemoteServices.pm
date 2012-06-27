@@ -59,6 +59,7 @@ use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
 use EBox::RemoteServices::RESTClient;
+use EBox::RemoteServices::Services;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -2045,6 +2046,43 @@ sub cloudCredentials
     }
 
     return EBox::RemoteServices::Cred->new()->cloudCredentials();
+}
+
+# Method: getServicePassword
+#
+#       Gets the password the given service must use for the connections to
+#       Zentyal Cloud
+#
+# Parameters:
+#
+#       service_name - String the name of the service
+#
+# Returns:
+#
+#       password - String the newly generated password
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if the compulsory
+#       argument is missing
+#
+#       <EBox::Exceptions::InvalidData> - thrown if asked for the password
+#       of a not implemented service
+#
+sub getServicePassword
+{
+    my $self = shift;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Services->new()->getPassword(@_);
 }
 
 1;
