@@ -66,7 +66,7 @@ sub getPassword
         unless $service_name eq any(SERVICES);
 
     # FIXME: Do not ask Zentyal Cloud every time
-    my $response = $self->RESTClient()->GET("v1/services/$service_name/password/");
+    my $response = $self->RESTClient()->GET("/v1/services/$service_name/password/");
 
     return $response->data()->{password};
 }
