@@ -51,9 +51,6 @@ use EBox::Report::RAID;
 
 # Core modules
 
-# Constants
-use constant RAID_ARRAY_KEY => 'raid/arrays';
-
 # Group: Public methods
 
 # Constructor: new
@@ -218,7 +215,6 @@ sub _checkRaidArray # (arrayRaidName, raidInfo)
     }
 
     return \@updatedEvents;
-
 }
 
 # Get stored info from the raid array
@@ -227,21 +223,7 @@ sub _storedArrayRaidInfo
     my ($self, $arrayRaidName) = @_;
 
     my $state = $self->{events}->get_state();
-    my $arrayInfo = $state->{RAID_ARRAY_KEY};
-
-    my $matchedStoredInfo;
-    foreach my $arraySeqNum (keys %{$state->{RAID_ARRAY_KEY}}) {
-        my $arrayName = $self->{events}->st_get_string(RAID_ARRAY_KEY . '/'
-                                                       . "$arraySeqNum/name");
-        if ( $arrayName eq $arrayRaidName ) {
-            $matchedStoredInfo = $self->{events}->st_hash_from_dir(RAID_ARRAY_KEY
-                                                                   . "/$arraySeqNum");
-            $matchedStoredInfo->{components}
-              = $self->{events}->st_array_from_dir(RAID_ARRAY_KEY . "/$arraySeqNum/components");
-        }
-    }
-
-    return $matchedStoredInfo;
+    return $state->{raid_arrays}->{$arrayRaidName};
 }
 
 # Create the event from the raid info
@@ -285,28 +267,12 @@ sub _storeNewRAIDState
     my ($self, $raidInfo) = @_;
 
     my $state = $self->{events}->get_state();
-    $state->{RAID_ARRAY_KEY} = {};
-
-    while (my ($raidArrayName, $raidArrayInfo) = each %{$raidInfo}) {
-        next if ($raidArrayName eq 'unusedDevices');
-        my $id = $evMod->st_get_unique_id('array', RAID_ARRAY_KEY);
-        my $rootKey = RAID_ARRAY_KEY . "/$id/";
-        $evMod->st_set_string($rootKey . 'name', $raidArrayName);
-        $evMod->st_set_string($rootKey . 'state', $raidArrayInfo->{state});
-        $evMod->st_set_int($rootKey . 'deviceNumber', $raidArrayInfo->{activeDevices});
-        $evMod->st_set_string($rootKey . 'operation', $raidArrayInfo->{operation});
-        while (my ($raidCompNum, $raidCompInfo) = each %{$raidArrayInfo->{raidDevices}}) {
-            my $compId = $evMod->st_get_unique_id('comp', $rootKey . 'components');
-            my $compKey = $rootKey . "components/$compId/";
-            $evMod->st_set_string( $compKey . 'device', $raidCompInfo->{device});
-            $evMod->st_set_string( $compKey . 'state', $raidCompInfo->{state});
-        }
-    }
+    $state->{raid_arrays} = $raidInfo;
     $self->{events}->set_state($state);
 }
 
 # Check if any of the stored RAID array has dissappeared
-sub _checkRemoveArray # (raidInfo)
+sub _checkRemoveArray
 {
     my ($self, $raidInfo) = @_;
 
@@ -315,10 +281,9 @@ sub _checkRemoveArray # (raidInfo)
     my @currentArrays = grep { $_ ne 'unusedDevices' } keys %{$raidInfo};
     my %currentArrays = map { $_ => 1 } @currentArrays;
 
-    my $dirs = $evMod->st_all_dirs_base(RAID_ARRAY_KEY);
-    foreach my $dir (@{$dirs}) {
-        my $devName = $evMod->st_get_string(RAID_ARRAY_KEY . "/$dir/name");
-        next if ( exists ( $currentArrays{$devName} ));
+    my $state = $self->{events}->get_state();
+    foreach my $devName (keys %{$state->{raid_array}}) {
+        next if (exists ($currentArrays{$devName}));
         my $evtMsg = __x('RAID device {name} has dissappeared: A RAID array '
                          . 'which previously was configured appears to no '
                          . 'longer be configured', name => $devName);
@@ -328,7 +293,6 @@ sub _checkRemoveArray # (raidInfo)
     }
 
     return \@removeEvents;
-
 }
 
 # Group: Checkers update in RAID subsystem

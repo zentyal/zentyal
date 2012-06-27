@@ -1,4 +1,11 @@
 HEAD
+	+ Fixed EBox::Module::Config::st_unset()
+	+ Allowed error class in msg template
+2.3.13
+	+ Fixed problems in EventDaemon with JSON and blessed references
+	+ More crashes avoided when watchers or dispatchers doesn't exist
+	+ Proper RAID watcher reimplementation using the new state API
+	+ EBox::Config::Redis singleton has now a instance() method instead of new()
 	+ Deleted wrong use in ForcePurge model
 2.3.12
 	+ Fixed problem with watchers and dispatchers after a module deletion

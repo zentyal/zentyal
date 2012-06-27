@@ -1,4 +1,4 @@
-HEAD
+2.3.7
 	+ Adapted reverse zones to reverse ip fix in Net::IP
 	+ Added missing dynamicDNSDomains() method
 	+ Removed deprecated calls to EBox::Model::Manager::model with wildcards

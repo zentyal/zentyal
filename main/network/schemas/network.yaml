@@ -5,7 +5,6 @@ models:
     - MultiGwRulesDataTable
     - MultiGwRulesOptions
     - StaticRoute
-    - DeletedStaticRoute
     - DNSResolver
     - SearchDomain
     - DynDNS
