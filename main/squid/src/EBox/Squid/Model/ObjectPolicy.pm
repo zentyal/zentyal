@@ -134,7 +134,7 @@ sub _table
 sub filterGroupModel
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
+    my $sq = $self->parentModule();
     return $sq->model('FilterProfiles');
 }
 
@@ -156,7 +156,7 @@ sub _checkPolicyWithTransProxy
 {
     my ($self, $params_r, $actual_r) = @_;
 
-    my $squid = EBox::Global->modInstance('squid');
+    my $squid = $self->parentModule();
     if (not $squid->transproxy()) {
         return;
     }
@@ -241,14 +241,14 @@ sub objectsPolicies
 {
     my ($self) = @_;
 
-    my $objectMod = EBox::Global->modInstance('objects');
+    my $objectMod = $self->global()->modInstance('objects');
 
     my @obsPol = map {
         my $row = $self->row($_);
 
         my $obj           = $row->valueByName('object');
-        my $addresses     = $objectMod->objectAddresses($obj);
-
+ #       my $addresses     = $objectMod->objectAddresses($obj);
+        my $members        = $objectMod->objectMembers($obj);
         my $policy        = $row->elementByName('policy');
         my $auth          = $policy->usesAuth();
         my $allowAll      = $policy->usesAllowAll();
@@ -257,10 +257,12 @@ sub objectsPolicies
         my $timePeriod    = $row->elementByName('timePeriod');
         my $groupPolicy   = $row->subModel('groupPolicy');
 
-        if (@{ $addresses }) {
+#        if (@{ $addresses }) {
+        if (@{ $members }) {
             my $obPol = {
                 object    => $obj,
-                addresses => $addresses,
+#                addresses => $addresses,
+                members   => $members,
                 auth      => $auth,
                 allowAll  => $allowAll,
                 filter    => $filter,
@@ -296,7 +298,7 @@ sub objectsFilterGroups
 
     my %filterGroupIdByRowId = %{ $self->filterGroupModel->idByRowId() };
 
-    my $objectMod = EBox::Global->modInstance('objects');
+    my $objectMod = $self->global()->modInstance('objects');
 
     my @filterGroups;
     # object policies have priority by position in table
@@ -462,7 +464,7 @@ sub delPoliciesForGroup
 sub precondition
 {
     my ($self) = @_;
-    my $objects = EBox::Global->modInstance('objects');
+    my $objects = $self->global()->modInstance('objects');
 
     return @{ $objects->objects() } > 0;
 }
