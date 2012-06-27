@@ -980,11 +980,16 @@ sub firewallCaptivePortalExceptions
        return [];
     }
 
-    my @services = @{ $self->_services() };
+     my @services = @{ $self->_services() };
     foreach my $conf (@services) {
         my $args = '';
+        my $tcpAndUdp = 0;
         if ($conf->{protocol} ne 'any') {
-            $args .= '--protocol ' . $conf->{protocol};
+            if ($conf->{protocol} eq 'tcp/udp') {
+                $tcpAndUdp = 1;
+            } else {
+                $args .= '--protocol ' . $conf->{protocol};
+            }
         }
         if ($conf->{sourcePort} ne 'any') {
             $args .= ' --sport ' . $conf->{sourcePort};
@@ -993,12 +998,15 @@ sub firewallCaptivePortalExceptions
             $args .= ' --dport ' . $conf->{destinationPort};
         }
 
-        push @rules, $args if $args;
+        if ($args) {
+            if ($tcpAndUdp) {
+                push @rules, "--protocol tcp $args -j RETURN";
+                push @rules, "--protocol udp $args -j RETURN";
+            } else {
+                push @rules, "$args -j RETURN";
+            }
+        }
     }
-
-    @rules = map {
-        $_ . ' -j RETURN'
-    } @rules;
 
     return \@rules;
 }
