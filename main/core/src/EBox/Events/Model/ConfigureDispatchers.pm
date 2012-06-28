@@ -46,30 +46,6 @@ use Error qw(:try);
 
 # Group: Public methods
 
-# Constructor: new
-#
-#       Create the new ConfigureDispatchers model
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::new>
-#
-# Returns:
-#
-#       <EBox::Events::Model::ConfigureDispatchers> - the recently
-#       created model
-#
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ($self, $class);
-
-    return $self;
-}
-
 # Method: headTitle
 #
 #       Get the i18ned name of the header where the model is contained, if any
@@ -113,29 +89,26 @@ sub syncRows
         $currentEventDispatchers{$dispatcherFetched} = 1;
     }
 
-    my $modified = undef;
+    my $modified = 0;
 
     # Removing old ones
     foreach my $id (@{$currentIds}) {
         my $row;
-        my $removed = 0;
+        my $remove = 0;
         try {
             $row = $self->row($id);
-        } catch EBox::Exceptions::Base with {
+            my $stored = $row->valueByName('dispatcher');
+            $storedEventDispatchers{$stored} = 1;
+            if (not exists $currentEventDispatchers{$stored}) {
+                $remove = 1;
+            }
+        } otherwise {
+            $remove = 1;
+        };
+        if ($remove) {
             $self->removeRow($id);
             $modified = 1;
-            $removed = 1;
-        };
-        unless (defined($row)) {
-            $modified = 1;
-            $removed  = 1;
         }
-        next if ($removed);
-        my $stored = $row->valueByName('dispatcher');
-        $storedEventDispatchers{$stored} = 1;
-        next if ( exists ( $currentEventDispatchers{$stored} ));
-        $self->removeRow( $id );
-        $modified = 1;
     }
 
     # Adding new ones
@@ -151,8 +124,7 @@ sub syncRows
                 'receiver'               => '',
                 # The dispatchers are disabled by default
                 'enabled'                => $enabled,
-                'configuration_selected' => 'configuration_' .
-                $dispatcher->ConfigurationMethod(),
+                'configuration_selected' => 'configuration_' . $dispatcher->ConfigurationMethod(),
                 'readOnly'               => not $dispatcher->EditableByUser(),
                 );
 
@@ -290,7 +262,7 @@ sub filterName
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
     my $dispatcher = $className->new();
 
@@ -319,7 +291,7 @@ sub filterReceiver
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
     my $dispatcher = $className->new();
 
@@ -348,7 +320,7 @@ sub acquireURL
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
 
     return $className->ConfigureURL();
@@ -376,7 +348,7 @@ sub acquireConfModel
 
     eval "use $className";
     if ($@) {
-        throw EBox::Exceptions::Internal("Cannot load $className");
+        return undef;
     }
 
     return $className->ConfigureModel();

@@ -16,7 +16,8 @@ Parameters:
 </%args>
 <%init>
   if ($class ne 'note' and $class ne 'warning' and
-      $class ne 'ad' and $class ne 'adwarning') {
+      $class ne 'ad' and $class ne 'adwarning' and
+      $class ne 'error') {
     $class = 'note';
   }
 </%init>

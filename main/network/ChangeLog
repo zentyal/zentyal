@@ -1,4 +1,9 @@
 HEAD
+	+ Fixed unconfigured gateway removal, raise exception if the route
+	  addition command fails
+2.3.9
+	+ Remove all gateway based routes before adding the configured one
+	  and raise exception if the route addition command fails
 	+ Fix deadlock in preSetConf when DHCP is used
 	+ Moved bandwidth test to remoteservices
 2.3.8

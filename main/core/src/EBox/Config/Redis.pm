@@ -30,8 +30,6 @@ use Perl6::Junction qw(any);
 use JSON::XS;
 use Error qw/:try/;
 
-my $redis = undef;
-
 # Constants
 use constant REDIS_CONF => 'conf/redis.conf';
 use constant REDIS_PASS => 'conf/redis.passwd';
@@ -44,21 +42,19 @@ my $cacheVersion = 0;
 my $trans = 0;
 my $lock = undef;
 
-# Constructor: new
-#
-sub new
+# Singleton variable
+my $_instance = undef;
+
+sub _new
 {
     my ($class, %args) = @_;
 
     my $self = {};
     bless($self, $class);
 
-    # Launch daemon if it does not exists
-    unless (defined $redis) {
-        $self->_initRedis;
-        $self->_respawn;
-    }
-    $self->{redis} = $redis;
+    $self->_initRedis;
+    $self->_respawn;
+
     $self->{pid} = $$;
     $self->{json_pretty} = JSON::XS->new->pretty;
 
@@ -67,6 +63,24 @@ sub new
     }
 
     return $self;
+}
+
+# Method: instance
+#
+#   Return a singleton instance of class <EBox::Config::Redis>
+#
+#
+# Returns:
+#
+#   object of class <EBox::Config::Redis>
+#
+sub instance
+{
+    unless (defined ($_instance)) {
+        $_instance = EBox::Config::Redis->_new();
+    }
+
+    return $_instance;
 }
 
 # Method: set
@@ -456,17 +470,11 @@ sub _respawn
 {
     my ($self) = @_;
 
-    # try {
-    #     $self->{redis}->quit();
-    # } otherwise { ; };
-    $self->{redis} = undef;
-    $redis = undef;
-
     my $user = $self->_user();
     my $home = $self->_home();
     my $filepasswd = $self->_passwd();
 
-    $redis = Redis->new(sock => "$home/redis.$user.sock");
+    my $redis = Redis->new(sock => "$home/redis.$user.sock");
     $redis->auth($filepasswd);
     $self->{redis} = $redis;
     $self->{pid} = $$;

@@ -31,7 +31,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
-use EBox::Logs::Model::ConfigureLogDataTable;
 use EBox::Logs::Consolidate;
 
 # Core modules

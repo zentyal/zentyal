@@ -29,7 +29,8 @@ use EBox::Gettext;
 use EBox::Types::Host;
 use EBox::Types::IPAddr;
 use EBox::Types::Password;
-
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 # Group: Public methods
 
 # Constructor: new
@@ -88,13 +89,25 @@ sub _table
                                    editable => 1,
                                    help => __('Local subnet available through the tunnel.'),
                                 ),
-         new EBox::Types::Host(
-                                   fieldName => 'right_ipaddr',
-                                   printableName => __('Remote IP Address'),
-                                   unique => 1,
-                                   editable => 1,
-                                   help => __('Remote endpoint public IP address.'),
-                                ),
+         new EBox::Types::Union(
+                              fieldName => 'right',
+                              printableName => __('Remote Address'),
+                              editable => 1,
+                              subtypes => [
+                                  new EBox::Types::Host(
+                                      fieldName => 'right_ipaddr',
+                                      printableName => __('IP Address'),
+                                      unique => 1,
+                                      editable => 1,
+                                      help => __('Remote endpoint public IP address.'),
+                                     ),
+                                  new EBox::Types::Union::Text(
+                                              fieldName => 'right_any',
+                                              printableName => __('Any address'),
+                                             ),
+                                 ]
+                             ),
+
          new EBox::Types::IPAddr(
                                    fieldName => 'right_subnet',
                                    printableName => __('Remote Subnet'),
