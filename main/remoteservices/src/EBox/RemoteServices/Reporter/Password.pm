@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::DiskUsage;
+package EBox::RemoteServices::Reporter::Password;
 
-# Class: EBox::RemoteServices::Reporter::DiskUsage
+# Class: EBox::RemoteServices::Reporter::Password
 #
-#      Perform the disk usage report code
+#      Perform the weak password reporting
 #
 
 use warnings;
@@ -25,9 +25,7 @@ use strict;
 
 use base 'EBox::RemoteServices::Reporter::Base';
 
-use EBox::FileSystem;
-use Filesys::Df qw(df);
-use List::Util qw(sum);
+use EBox::RemoteServices::Audit::Password;
 
 # Group: Public methods
 
@@ -39,7 +37,7 @@ use List::Util qw(sum);
 #
 sub module
 {
-    return 'sysinfo';
+    return 'remoteservices';
 }
 
 # Method: name
@@ -50,10 +48,12 @@ sub module
 #
 sub name
 {
-    return 'sysinfo_disk_usage';
+    return 'remoteservices_passwd_report';
 }
 
 # Method: logPeriod
+#
+#      The password guessing is done weekly
 #
 # Overrides:
 #
@@ -61,7 +61,7 @@ sub name
 #
 sub logPeriod
 {
-    return 60 * 60 * 24;
+    return 60 * 60 * 24 * 7;
 }
 
 # Group: Protected methods
@@ -76,10 +76,9 @@ sub _consolidate
 {
     my ($self, $begin, $end) = @_;
 
-    my $res = $self->{db}->query_hash( { select => $self->_hourSQLStr() . ',mountpoint, used, free',
+    my $res = $self->{db}->query_hash( { select => $self->_hourSQLStr() . ', username, level, source',
                                          from   => $self->name(),
-                                         where  => $self->_rangeSQLStr($begin, $end),
-                                         group  => $self->_groupSQLStr() . ', mountpoint' });
+                                         where  => $self->_rangeSQLStr($begin, $end) });
     return $res;
 }
 
@@ -93,28 +92,21 @@ sub _log
 {
     my ($self) = @_;
 
-    my @data;
+    my $weakPasswdUsers = EBox::RemoteServices::Audit::Password::reportUserCheck();
 
-    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
-    foreach my $fileSys (keys %{$fileSysS}) {
-        my $entry = {};
-        $entry = {};
-        my $mount = $fileSysS->{$fileSys}->{mountPoint};
-        $entry->{'mountpoint'} = $mount;
-        my $info = df($mount, 1);
-        $entry->{'used'} = $info->{'used'};
-        $entry->{'free'} = $info->{'bavail'};
-        push(@data, $entry)
+    unless (defined($weakPasswdUsers)) {
+        # This happens when the audit is being done. Wait for next day to report
+        return [];
     }
 
-    # Add the total disk usage column
-    my $totalEntry = {};
-    $totalEntry = {};
-    $totalEntry->{'mountpoint'} = 'total';
-    $totalEntry->{'used'} = sum(map { $_->{'values'}->{'used'} ? $_->{'values'}->{'used'} : 0 } @data);
-    $totalEntry->{'free'} = sum(map { $_->{'values'}->{'free'} ? $_->{'values'}->{'free'} : 0 } @data);
-    unshift(@data, $totalEntry);
-
+    my @data = ();
+    foreach my $user ( @{$weakPasswdUsers} ) {
+        my $entry = {};
+        $entry->{username} = $user->{username};
+        $entry->{level} = $user->{level};
+        $entry->{source} = $user->{from};
+        push(@data, $entry);
+    }
     return \@data;
 }
 

@@ -3,6 +3,5 @@ CREATE TABLE IF NOT EXISTS remoteservices_passwd_report (
     username VARCHAR(256),
     level ENUM ('weak', 'average'),
     source ENUM ('LDAP', 'system'),
-    `date` DATE,
     INDEX(timestamp)
 ) ENGINE = MyISAM;

@@ -163,9 +163,29 @@ sub send
 sub log
 {
     my ($self) = @_;
-    # TODO: Implement here the different times to perform the log
 
-    $self->_log();
+    my $logTime = $self->_logTime();
+    my $ret = [];
+    if ( $logTime + $self->logPeriod() < time() ) {
+        $ret = $self->_log();
+        $self->_logTime(time());
+    }
+    return $ret;
+}
+
+# Method: logPeriod
+#
+#      Return the log period in seconds to perform the logging
+#
+#      Default value: 1 hour
+#
+# Returns:
+#
+#      Int - seconds among logging ops
+#
+sub logPeriod
+{
+    return 60 * 60;
 }
 
 # Group: Protected methods
@@ -292,6 +312,29 @@ sub _beginTime
         } else {
             return time() - 30 * 24 * 60 * 60;
         }
+    }
+}
+
+# Return the last time the logging was done
+# If a time is given, then it will be stored in that file
+sub _logTime
+{
+    my ($self, $time) = @_;
+
+    my $filePath = $self->_subdir() . 'log.time';
+
+    if (defined($time)) {
+        open(my $fh, '>', $filePath);
+        print $fh $time;
+        close($fh);
+    } elsif (-r $filePath) {
+        open(my $fh, '<', $filePath);
+        my $content = <$fh>;
+        chomp($content);
+        close($fh);
+        return $content;
+    } else {
+        return 0;
     }
 }
 
