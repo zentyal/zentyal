@@ -1,3 +1,5 @@
+HEAD
+	+ Remove unused report sub
 2.3.8
 	+ Adapted DHCP ranges to reverse ip fix in Net::IP
 	+ Fixed and improved facade method for management of domains,
