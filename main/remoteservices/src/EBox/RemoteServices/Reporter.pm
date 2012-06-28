@@ -17,7 +17,11 @@ package EBox::RemoteServices::Reporter;
 
 # Class: EBox::RemoteServices::Reporter
 #
-#       Initial class to perform the consolidation for reports
+#       Initial class to perform everything related to reports.
+#
+#       - Log data for reporting
+#       - Perform the consolidation
+#       - Send consolidated results to the cloud
 #
 
 use warnings;
@@ -25,6 +29,7 @@ use strict;
 
 use EBox;
 use EBox::Config;
+use EBox::DBEngineFactory;
 
 # Singleton variable
 my $_instance = undef;
@@ -127,6 +132,27 @@ sub send
     foreach my $helper (@{$self->{helpers}}) {
         $helper->send();
     }
+}
+
+# Method: log
+#
+#    Log the data for the reports from any helper
+#
+sub log
+{
+    my ($self) = @_;
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+
+    foreach my $helper (@{$self->{helpers}}) {
+        my $data = $helper->log();
+        # Not necessary to add the timestamp (Auto-added by DB)
+        foreach my $row ( @{$data} ) {
+            $db->insert( $helper->name(), $row);
+        }
+    }
+    # Perform the buffered inserts done above
+    $db->multiInsert();
 }
 
 # Group: Private methods

@@ -25,6 +25,10 @@ use strict;
 
 use base 'EBox::RemoteServices::Reporter::Base';
 
+use EBox::FileSystem;
+use Filesys::Df qw(df);
+use List::Util qw(sum);
+
 # Group: Public methods
 
 # Method: module
@@ -66,6 +70,41 @@ sub _consolidate
                                          where  => $self->_rangeSQLStr($begin, $end),
                                          group  => $self->_groupSQLStr() . ', mountpoint' });
     return $res;
+}
+
+# Method: _log
+#
+# Overrides:
+#
+#     <EBox::Exceptions::Reporter::Base::_log>
+#
+sub _log
+{
+    my ($self) = @_;
+
+    my @data;
+
+    my $fileSysS = EBox::FileSystem::partitionsFileSystems();
+    foreach my $fileSys (keys %{$fileSysS}) {
+        my $entry = {};
+        $entry = {};
+        my $mount = $fileSysS->{$fileSys}->{mountPoint};
+        $entry->{'mountpoint'} = $mount;
+        my $info = df($mount, 1);
+        $entry->{'used'} = $info->{'used'};
+        $entry->{'free'} = $info->{'bavail'};
+        push(@data, $entry)
+    }
+
+    # Add the total disk usage column
+    my $totalEntry = {};
+    $totalEntry = {};
+    $totalEntry->{'mountpoint'} = 'total';
+    $totalEntry->{'used'} = sum(map { $_->{'values'}->{'used'} ? $_->{'values'}->{'used'} : 0 } @data);
+    $totalEntry->{'free'} = sum(map { $_->{'values'}->{'free'} ? $_->{'values'}->{'free'} : 0 } @data);
+    unshift(@data, $totalEntry);
+
+    return \@data;
 }
 
 1;

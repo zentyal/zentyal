@@ -156,6 +156,18 @@ sub send
     }
 }
 
+# Method: log
+#
+#    Log the data to consolidate afterwards
+#
+sub log
+{
+    my ($self) = @_;
+    # TODO: Implement here the different times to perform the log
+
+    $self->_log();
+}
+
 # Group: Protected methods
 
 # Method: _consolidate
@@ -173,6 +185,20 @@ sub send
 sub _consolidate
 {
     throw EBox::Exceptions::NotImplemented();
+}
+
+# Method: _log
+#
+#      Perform the data logging
+#
+#      Override this if you want to log something
+#
+# Returns:
+#
+#      Array ref - containing the rows to insert in <name> table
+#
+sub _log
+{
 }
 
 # Method: _hourSQLStr
