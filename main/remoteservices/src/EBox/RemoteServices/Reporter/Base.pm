@@ -59,7 +59,7 @@ sub new
 #     consolidation.
 #
 #     Currently it checks whether the given module <module> exists or
-#     not
+#     not. Override this behaviour if you need some kind of customisation
 #
 sub enabled
 {
@@ -118,7 +118,7 @@ sub timestampField
 #    The begin time is stored in name/times.json
 #    The result is stored as name/rep-$time-XXX.json
 #
-#    Every subclass must implement <consolidate>
+#    Every subclass must implement <_consolidate>
 #
 sub consolidate
 {
@@ -128,7 +128,7 @@ sub consolidate
     my $endTime   = time();
     # TODO: Do not store all the result in a single var
     my $result = $self->_consolidate($beginTime, $endTime);
-    $self->_storeResult($result) if ($result);
+    $self->_storeResult($result) if ($result and (@{$result} > 0));
     $self->_beginTime($endTime);
 }
 
@@ -201,6 +201,11 @@ sub logPeriod
 #      begin - Int the begin time
 #
 #      end   - Int the end time
+#
+# Returns:
+#
+#      Array ref - the reported data for the given range splitted in
+#      hour frames
 #
 sub _consolidate
 {
