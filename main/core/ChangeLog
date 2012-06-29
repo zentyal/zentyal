@@ -1,4 +1,5 @@
 HEAD
+	+ Remove all report code from core
 	+ Move SysInfo report related to remoteservices module
 	+ Fixed EBox::Module::Config::st_unset()
 	+ Allowed error class in msg template
