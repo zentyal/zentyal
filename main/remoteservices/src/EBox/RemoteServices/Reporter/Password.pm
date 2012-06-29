@@ -76,9 +76,10 @@ sub _consolidate
 {
     my ($self, $begin, $end) = @_;
 
-    my $res = $self->{db}->query_hash( { select => $self->_hourSQLStr() . ', username, level, source',
+    my $res = $self->{db}->query_hash( { select => $self->_hourSQLStr() . ', username, fullname, email, level, source',
                                          from   => $self->name(),
-                                         where  => $self->_rangeSQLStr($begin, $end) });
+                                         where  => $self->_rangeSQLStr($begin, $end),
+                                         order  => $self->_groupSQLStr() . ', username' });
     return $res;
 }
 
@@ -105,6 +106,9 @@ sub _log
         $entry->{username} = $user->{username};
         $entry->{level} = $user->{level};
         $entry->{source} = $user->{from};
+        my $additionalInfo = EBox::RemoteServices::Audit::Password::additionalInfo($entry->{username});
+        $entry->{fullname} = $additionalInfo->{fullname};
+        $entry->{email}    = $additionalInfo->{email};
         push(@data, $entry);
     }
     return \@data;

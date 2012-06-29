@@ -111,8 +111,8 @@ sub _log
     my $totalEntry = {};
     $totalEntry = {};
     $totalEntry->{'mountpoint'} = 'total';
-    $totalEntry->{'used'} = sum(map { $_->{'values'}->{'used'} ? $_->{'values'}->{'used'} : 0 } @data);
-    $totalEntry->{'free'} = sum(map { $_->{'values'}->{'free'} ? $_->{'values'}->{'free'} : 0 } @data);
+    $totalEntry->{'used'} = sum(map { $_->{'used'} ? $_->{'used'} : 0 } @data);
+    $totalEntry->{'free'} = sum(map { $_->{'free'} ? $_->{'free'} : 0 } @data);
     unshift(@data, $totalEntry);
 
     return \@data;
