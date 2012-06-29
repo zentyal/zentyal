@@ -17,7 +17,7 @@ package EBox::RemoteServices::Reporter::BWMonitor;
 
 # Class: EBox::RemoteServices::Reporter::BWMonitor
 #
-#      Perform the mail consolidation
+#      Perform the bwmonitor consolidation
 #
 
 use warnings;
@@ -38,15 +38,43 @@ sub module
     return 'bwmonitor';
 }
 
-# Method: consolidate
+# Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::consolidate>
+#      <EBox::RemoteServices::Reporter::Base::name>
 #
-sub consolidate
+sub name
 {
+    return 'bwmonitor_usage';
+}
 
+# Group: Protected methods
+
+# Method: _consolidate
+#
+# Overrides:
+#
+#     <EBox::Exceptions::Reporter::Base::_consolidate>
+#
+sub _consolidate
+{
+    my ($self, $begin, $end) = @_;
+
+    my $res = $self->{db}->query_hash(
+        { select => $self->_hourSQLStr() . ','
+                    . q{client, username, SUM(inttotalrecv) AS inttotalrecv,
+                        SUM(inttotalsent) AS inttotalsent, SUM(inttcp) AS inttcp,
+                        SUM(intudp) AS intudp, SUM(inticmp) AS inticmp,
+                        SUM(exttotalrecv) AS exttotalrecv,
+                        SUM(exttotalsent) AS exttotalsent,
+                        SUM(exttcp) AS exttcp, SUM(extudp) AS extudp,
+                        SUM(exticmp) AS exticmp},
+          from   => $self->name(),
+          where  => $self->_rangeSQLStr($begin, $end),
+          group  => $self->_groupSQLStr() . ', client, username' }
+       );
+    return $res;
 }
 
 1;
