@@ -1742,11 +1742,6 @@ sub consolidateReportQueries
     return [];
 }
 
-sub logReportInfo
-{
-    return [];
-}
-
 # Method: consolidateReportInfoQueries
 #
 # This method is used to consolidate data from data tables which has been
