@@ -1,4 +1,5 @@
 HEAD
+	+ Password list files are now stored in module conf
 	+ RESTClient now supports raw JSON as query param
 	+ New registration form on subscription wizard
 2.3.1

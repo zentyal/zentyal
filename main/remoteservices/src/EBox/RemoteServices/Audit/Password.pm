@@ -28,12 +28,14 @@ use File::Temp;
 use Perl6::Junction qw(any);
 use User::pwent;
 
+use constant RS_SUBDIR => EBox::Config::conf() . 'remoteservices/john/';
+
 use constant {
     JOHN                 => 'nice john',
-    LDAP_USERS_PASS_LIST => EBox::Config::tmp() . 'lupl.jtrf',
-    SYSTEM_USERS_PASS_LIST => EBox::Config::tmp() . 'supl.jtrf',
-    LDAP_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'lsupl.jtrf',
-    SYSTEM_SINGLE_USERS_PASS_LIST => EBox::Config::tmp() . 'ssupl.jtrf',
+    LDAP_USERS_PASS_LIST          => RS_SUBDIR . 'lupl.jtrf',
+    SYSTEM_USERS_PASS_LIST        => RS_SUBDIR . 'supl.jtrf',
+    LDAP_SINGLE_USERS_PASS_LIST   => RS_SUBDIR . 'lsupl.jtrf',
+    SYSTEM_SINGLE_USERS_PASS_LIST => RS_SUBDIR . 'ssupl.jtrf',
     DOING_CRACKING_FILE    => EBox::Config::tmp() . 'jtr.lock',
     JOHN_WRAPPER         => EBox::Config::scripts('remoteservices') . 'john-wrapper',
     HOME_DIR             => EBox::RemoteServices::Configuration::JohnHomeDirPath(),
