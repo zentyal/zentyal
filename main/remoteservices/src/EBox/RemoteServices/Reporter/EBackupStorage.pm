@@ -13,11 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::OpenVPN;
+package EBox::RemoteServices::Reporter::EBackupStorage;
 
-# Class: EBox::RemoteServices::Reporter::OpenVPN
+# Class: EBox::RemoteServices::Reporter::EBackupStorage
 #
-#      Perform the OpenVPN consolidation
+#      Perform the ebackup storage usage consolidation
 #
 
 use warnings;
@@ -33,7 +33,7 @@ use base 'EBox::RemoteServices::Reporter::Base';
 #
 sub module
 {
-    return 'openvpn';
+    return 'ebackup';
 }
 
 # Method: name
@@ -44,7 +44,7 @@ sub module
 #
 sub name
 {
-    return 'openvpn';
+    return 'ebackup_storage_usage';
 }
 
 # Group: Protected methods
@@ -61,12 +61,10 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{daemon_name, daemon_type, from_cert AS certificate,
-                        COUNT(event) AS connections},
+                    . q{used, available},
           from   => $self->name(),
-          where  => $self->_rangeSQLStr($begin, $end) . q{ AND event = 'connectionInitiated'},
-          group  => $self->_groupSQLStr() . ', daemon_name, daemon_type, certificate' }
-       );
+          where  => $self->_rangeSQLStr($begin, $end),
+        });
     return $res;
 }
 

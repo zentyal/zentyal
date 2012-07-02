@@ -13,17 +13,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::OpenVPN;
+package EBox::RemoteServices::Reporter::EBackupSettings;
 
-# Class: EBox::RemoteServices::Reporter::OpenVPN
+# Class: EBox::RemoteServices::Reporter::EBackupSettings
 #
-#      Perform the OpenVPN consolidation
+#      Perform the ebackup settings (backup domains and settings)
+#      consolidation
 #
 
 use warnings;
 use strict;
 
 use base 'EBox::RemoteServices::Reporter::Base';
+
+use EBox::Global;
+use POSIX;
+
+# Method: enabled
+#
+#      Overrided to return values only if configuration is completed
+#
+# Overrides:
+#
+#      <EBox::RemoteServices::Reporter::Base::enabled>
+#
+sub enabled
+{
+    my ($self) = @_;
+
+    my $enabled = $self->SUPER::enabled();
+    if ( $enabled ) {
+        my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+        $enabled = ($ebackup->configurationIsComplete());
+    }
+    return $enabled;
+}
 
 # Method: module
 #
@@ -33,7 +57,7 @@ use base 'EBox::RemoteServices::Reporter::Base';
 #
 sub module
 {
-    return 'openvpn';
+    return 'ebackup';
 }
 
 # Method: name
@@ -44,7 +68,7 @@ sub module
 #
 sub name
 {
-    return 'openvpn';
+    return 'ebackup_settings';
 }
 
 # Group: Protected methods
@@ -59,15 +83,16 @@ sub _consolidate
 {
     my ($self, $begin, $end) = @_;
 
-    my $res = $self->{db}->query_hash(
-        { select => $self->_hourSQLStr() . ','
-                    . q{daemon_name, daemon_type, from_cert AS certificate,
-                        COUNT(event) AS connections},
-          from   => $self->name(),
-          where  => $self->_rangeSQLStr($begin, $end) . q{ AND event = 'connectionInitiated'},
-          group  => $self->_groupSQLStr() . ', daemon_name, daemon_type, certificate' }
-       );
-    return $res;
+    my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
+
+    my $res = {};
+    $res->{backup_domains} = $ebackup->model('BackupDomains')->report();
+    my $settings = $ebackup->model('RemoteSettings')->report();
+    foreach my $k (keys(%{$settings})) {
+        $res->{$k} = $settings->{$k};
+    }
+    $res->{hour} = POSIX::strftime("%Y-%m-%d %H:00:00", localtime(time()));
+    return [ $res ];
 }
 
 1;

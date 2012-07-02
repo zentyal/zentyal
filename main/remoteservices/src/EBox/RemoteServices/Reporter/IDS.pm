@@ -17,7 +17,7 @@ package EBox::RemoteServices::Reporter::IDS;
 
 # Class: EBox::RemoteServices::Reporter::IDS
 #
-#      Perform the mail consolidation
+#      Perform the IDS consolidation
 #
 
 use warnings;
