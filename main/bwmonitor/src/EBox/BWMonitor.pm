@@ -309,15 +309,10 @@ sub ifaces
 {
     my ($self) = @_;
     my $model = $self->model('Interfaces');
-    my @ifaces;
-
-    for my $id (@{$model->enabledRows()}) {
-        my $row = $model->row($id);
-        push(@ifaces, $row->valueByName('interface'));
-    }
-
-    return \@ifaces;
+    return $model->enabledInterfaces();
 }
+
+
 
 # Group: Report related methods
 

@@ -42,7 +42,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
+    $self->{bwmonitor} = $self->global()->modInstance('bwmonitor');
 
     $self->{bwmonitor_enabled} = defined($self->{bwmonitor}) and
                                  $self->{bwmonitor}->isEnabled();
@@ -156,7 +156,8 @@ sub _table
         tableName          => 'Users',
         printableTableName => __('Current users'),
         printableRowName   => __('user'),
-        defaultActions     => [ 'editField', 'changeView' ],
+#        defaultActions     => [ 'editField', 'changeView' ],
+        defaultActions     => [ 'changeView' ],
         tableDescription   => \@tableHeader,
         customActions      => \@customActions,
         help               => __('List of current logged in users.'),
@@ -296,7 +297,7 @@ sub _bwusage
     my ($self, $user) = @_;
 
     my $since = time() - $self->periodInfo()->{period};
-    return int($self->{bwmonitor}->userExtBWUsage($user, $since) / (1024*1024));
+    return int($self->{bwmonitor}->userExtBWUsage($user, $since) / 1048576);
 }
 
 

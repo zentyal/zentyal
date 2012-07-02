@@ -40,11 +40,15 @@ sub new
     return $self;
 }
 
-
-sub precondition
+sub _bwModEnabled
 {
     return 0 unless (EBox::Global->modExists('bwmonitor'));
     return EBox::Global->modInstance('bwmonitor')->isEnabled();
+}
+
+sub precondition
+{
+    return _bwModEnabled
 }
 
 
@@ -56,6 +60,17 @@ sub preconditionFailMsg
 
     # Not enabled:
     return __x('If you want to limit bandwidth usage enable Bandwidth Monitor in {begina}Module Status{enda} section.', begina => '<a href="/ServiceModule/StatusView">', enda => '</a>');
+}
+
+
+sub limitBWValue
+{
+    my ($self) = @_;
+    if (not $self->_bwModEnabled()) {
+        return 0;
+    }
+
+    return $self->row()->valueByName('limitBW');
 }
 
 # Method: _table
@@ -127,5 +142,22 @@ sub _table
 
     return $dataTable;
 }
+
+
+# reimplement this with model changed notifier when it works again
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+    if ($row->valueByName('limitBW')) {
+        my $interfaces = $self->parentModule()->model('Interfaces');
+        my $anySync = $interfaces->bwMonitorEnabled();
+        if ($anySync) {
+            $self->setMessage(
+                __('All the enabled interfaces have been also enabled in bandwith monitor module')
+               );
+        }
+    }
+}
+
 
 1;
