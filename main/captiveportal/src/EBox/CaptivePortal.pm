@@ -23,6 +23,7 @@ use base qw(EBox::Module::Service
             EBox::LdapModule);
 
 use EBox;
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
 use Error qw(:try);
@@ -303,26 +304,7 @@ sub currentUsers
 {
     my ($self) = @_;
     my $model = $self->model('Users');
-    my $ids = $model->ids();
-    my @users;
-    for my $id (@{$ids}) {
-        my $row = $model->row($id);
-        my $bwusage = 0;
-
-        if ($self->_bwmonitor()) {
-            $bwusage = $row->valueByName('bwusage');
-        }
-
-        push(@users, {
-            user => $row->valueByName('user'),
-            ip => $row->valueByName('ip'),
-            mac => $row->valueByName('mac'),
-            sid => $row->valueByName('sid'),
-            time => $row->valueByName('time'),
-            bwusage => $bwusage,
-        });
-    }
-    return \@users;
+    return $model->currentUsers();
 }
 
 
@@ -390,12 +372,14 @@ sub sessionExpired
 #
 sub quotaExceeded
 {
-    my ($self, $username, $bwusage) = @_;
-
-    my $quota = $self->{cpldap}->getQuota($username);
+    my ($self, $username, $bwusage, $extension) = @_;
+    my $user = EBox::Global->modInstance('users')->user($username);
+    my $quota = $self->{cpldap}->getQuota($user);
 
     # No limit
     return 0 if ($quota == 0);
+
+    $quota += $extension;
 
     # check quota
     return $bwusage > $quota;

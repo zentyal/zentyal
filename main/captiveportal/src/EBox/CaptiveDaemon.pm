@@ -131,7 +131,7 @@ sub _updateSessions
 
         # Expired or quota exceeded
         if ($self->{module}->sessionExpired($user->{time}) or
-            $self->{module}->quotaExceeded($user->{user}, $user->{bwusage})) {
+            $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension})) {
 
             $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
