@@ -25,8 +25,6 @@ use strict;
 
 use base 'EBox::RemoteServices::Reporter::Base';
 
-use EBox::RemoteServices::Reporter;
-
 # Method: module
 #
 # Overrides:
@@ -38,15 +36,42 @@ sub module
     return 'mail';
 }
 
-# Method: consolidate
+# Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::consolidate>
+#      <EBox::RemoteServices::Reporter::Base::name>
 #
-sub consolidate
+sub name
 {
+    return 'mail_message';
+}
 
+# Group: Protected methods
+
+# Method: _consolidate
+#
+# Overrides:
+#
+#     <EBox::Exceptions::Reporter::Base::_consolidate>
+#
+sub _consolidate
+{
+    my ($self, $begin, $end) = @_;
+
+    my $res = $self->{db}->query_hash(
+        { select => $self->_hourSQLStr() . ','
+                    . q{client_host_ip, SUBSTRING_INDEX(from_address, '@', 1) AS user_from,
+                        SUBSTRING_INDEX(from_address, '@', -1) AS domain_from,
+                        SUBSTRING_INDEX(to_address, '@', 1) AS user_to,
+                        SUBSTRING_INDEX(to_address, '@', -1) AS domain_to,
+                        SUM(COALESCE(message_size,0)) AS bytes, COUNT(*) AS messages,
+                        message_type, status, event},
+          from   => $self->name(),
+          where  => $self->_rangeSQLStr($begin, $end),
+          group  => $self->_groupSQLStr() . ', client_host_ip, user_from, domain_from, user_to, domain_to, message_type, status, event' }
+       );
+    return $res;
 }
 
 1;
