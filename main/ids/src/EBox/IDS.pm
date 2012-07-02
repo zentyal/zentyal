@@ -304,55 +304,6 @@ sub _consolidate
     return { $table => $spec };
 }
 
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    $report->{'alerts'} = $self->runMonthlyQuery($beg, $end, {
-        'select' => 'SUM(priority1) AS priority1, ' .
-                    'SUM(priority2) AS priority2, ' .
-                    'SUM(priority3) AS priority3, ' .
-                    'SUM(priority4) AS priority4, ' .
-                    'SUM(priority5) AS priority5',
-        'from' => 'ids_report',
-    }, { 'name' => 'alerts'});
-
-    $report->{'top_alert_sources'} = $self->runQuery($beg, $end, {
-        'select' => 'source, '.
-                    'SUM(priority1) AS priority1, ' .
-                    'SUM(priority2) AS priority2, ' .
-                    'SUM(priority3) AS priority3, ' .
-                    'SUM(priority4) AS priority4, ' .
-                    'SUM(priority5) AS priority5',
-        'from' => 'ids_report',
-        'group' => 'source',
-        'limit' => $options->{'max_top_alert_sources'},
-        'order' => 'priority1,priority2,priority3,priority4,priority5 DESC'
-    });
-    return $report;
-}
-
-sub consolidateReportQueries
-{
-    return [
-        {
-            'target_table' => 'ids_report',
-            'query' => {
-                'select' => "split_part(source, ':', 1) AS source," .
-     ' COUNT(CASE WHEN priority=1 THEN 1 ELSE NULL END  ) AS priority1, ' .
-     ' COUNT(CASE WHEN priority=2 THEN 1 ELSE NULL END  ) AS priority2, ' .
-     ' COUNT(CASE WHEN priority=3 THEN 1 ELSE NULL END  ) AS priority3, ' .
-     ' COUNT(CASE WHEN priority=4 THEN 1 ELSE NULL END  ) AS priority4, ' .
-     ' COUNT(CASE WHEN priority=5 THEN 1 ELSE NULL END  ) AS priority5 ',
-                'from' => 'ids_event',
-                'group' => "source"
-            }
-        }
-    ];
-}
-
 # Method: usingASU
 #
 #    Get if the module is using ASU or not.
