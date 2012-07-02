@@ -1,0 +1,286 @@
+# Copyright (C) 2012 eBox Technologies S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+package EBox::RemoteServices::QAUpdates;
+
+# Class: EBox::RemoteServices::QAUpdates
+#
+#       Class to manage the Zentyal QA Updates
+#
+
+use strict;
+use warnings;
+
+use HTML::Mason;
+use File::Slurp;
+use File::Temp;
+
+use EBox::Config;
+use EBox::Exceptions::Command;
+use EBox::Global;
+use EBox::Module::Base;
+use EBox::RemoteServices::Configuration;
+use EBox::RemoteServices::Cred;
+use EBox::Sudo;
+
+# Constants
+use constant {
+    PROF_PKG       => 'zentyal-cloud-prof',
+    SEC_UPD_PKG    => 'zentyal-security-updates',
+    REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
+};
+
+# Group: Public methods
+
+# Method: 
+#
+# Parameters:
+#
+# Returns:
+#
+sub set
+{
+    # Downgrade, if necessary
+#    $self->_downgrade();  # FIXME
+
+    # TODO: $confKeys
+    $self->_setQAUpdates($confKeys);
+}
+
+# Group: Private methods
+
+sub _setQAUpdates
+{
+    my ($self, $confKeys) = @_;
+
+    $self->_setQASources($confKeys);
+    $self->_setQAAptPreferences();
+    $self->_setQARepoConf($confKeys);
+
+    my $softwareMod = EBox::Global->modInstance('software');
+    if ($softwareMod) {
+        if ( $softwareMod->can('setQAUpdates') ) {
+            $softwareMod->setQAUpdates(1);
+        }
+    } else {
+        EBox::info('No software module installed QA updates should be done by hand');
+    }
+}
+
+# Set the QA source list
+sub _setQASources
+{
+    my ($self, $confKeys) = @_;
+
+    my $ubuntuVersion = _ubuntuVersion();
+    my $archive = $self->_archive($ubuntuVersion);
+    my $repositoryAddr = $self->_repositoryAddr($confKeys);
+
+    my $output;
+    my $interp = new HTML::Mason::Interp(out_method => \$output);
+    my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
+    my $comp = $interp->make_component(comp_file => $sourcesFile);
+    my $cred = EBox::RemoteServices::Cred->new()->{cred}
+    $interp->exec($comp, ( (repositoryIPAddr => $repositoryAddr),
+                           (archive          => $archive),
+                           (user             => $cred->{name}),
+                           (pass             => $cred->{uuid})) );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    my $tmpFile = $fh->filename();
+    File::Slurp::write_file($tmpFile, $output);
+    my $destination = EBox::RemoteServices::Configuration::aptQASourcePath();
+    EBox::Sudo::root("install -m 0644 '$tmpFile' '$destination'");
+}
+
+# Get the ubuntu version
+sub _ubuntuVersion
+{
+    my @releaseInfo = File::Slurp::read_file('/etc/lsb-release');
+    foreach my $line (@releaseInfo) {
+        next unless ($line =~ m/^DISTRIB_CODENAME=/ );
+        chomp $line;
+        my ($key, $version) = split '=', $line;
+        return $version;
+    }
+
+}
+
+# Get the QA archive to look
+sub _archive
+{
+    my ($self, $ubuntuVersion) = @_;
+
+    return "zentyal-qa-$ubuntuVersion";
+
+}
+
+# Get the suite of archives to set preferences
+sub _suite
+{
+    return 'zentyal-qa';
+}
+
+# Set the QA apt repository public key
+sub _setQAAptPubKey
+{
+    my ($self) = @_;
+#    my $keyFile = ..... TODO
+#    EBox::Sudo::root("apt-key add $keyFile");
+}
+
+sub _setQAAptPreferences
+{
+    my ($self) = @_;
+
+    my $preferences = '/etc/apt/preferences';
+    my $fromCCPreferences = $preferences . '.zentyal.fromzc'; # file to store CC preferences
+
+    my $output;
+    my $interp = new HTML::Mason::Interp(out_method => \$output);
+    my $prefsFile = EBox::Config::stubs . 'remoteservices/qa-preferences.mas';
+    my $comp = $interp->make_component(comp_file  => $prefsFile);
+    $interp->exec($comp, ( (archive => $self->_suite() )));
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    my $tmpFile = $fh->filename();
+    File::Slurp::write_file($tmpFile, $output);
+
+    EBox::Sudo::root("cp '$tmpFile' '$fromCCPreferences'");
+
+    return unless EBox::Config::boolean('qa_updates_exclusive_source');
+
+    my $preferencesDirFile = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
+    EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
+}
+
+# Set not to use HTTP proxy for QA repository
+sub _setQARepoConf
+{
+    my ($self, $confKeys) = @_;
+
+    my $repoAddr = $self->_repositoryAddr($confKeys);
+    EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
+                                             '/remoteservices/qa-conf.mas',
+                                             [ repoAddr => $repoAddr ]);
+}
+
+# Get the repository IP address
+sub _repositoryAddr
+{
+    my ($self, $confKeys) = @_;
+
+    my $retVal = '';
+    my $rs = EBox::Global->modInstance('remoteservices');
+    if ( $rs->isConnected() ) {
+        $retVal = $self->_queryServicesNameserver($confKeys->{repositoryHost},
+                                                  [$confKeys->{'dnsServer'}]);
+    } else {
+        $retVal = $confKeys->{repositoryAddress};
+    }
+
+    return $retVal;
+}
+
+# Remove QA updates
+sub _removeQAUpdates
+{
+    my ($self) = @_;
+
+    $self->_removeAptQASources();
+    $self->_removeAptPubKey();
+    $self->_removeAptQAPreferences();
+    $self->_removeAptQAConf();
+
+    my $softwareMod = EBox::Global->modInstance('software');
+    if ($softwareMod) {
+        if ( $softwareMod->can('setQAUpdates') ) {
+            $softwareMod->setQAUpdates(0);
+        }
+    }
+}
+
+sub _removeAptQASources
+{
+    my $path = EBox::RemoteServices::Configuration::aptQASourcePath();
+    EBox::Sudo::root("rm -f '$path'");
+}
+
+sub _removeAptPubKey
+{
+    my $id = 'ebox-qa';
+    try {
+        EBox::Sudo::root("apt-key del $id");
+    } otherwise {
+        EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
+    };
+}
+
+sub _removeAptQAPreferences
+{
+    my $path = '/etc/apt/preferences.zentyal.fromzc';
+    EBox::Sudo::root("rm -f '$path'");
+    $path = EBox::RemoteServices::Configuration::aptQAPreferencesPath();
+    EBox::Sudo::root("rm -f '$path'");
+}
+
+sub _removeAptQAConf
+{
+    my $path = EBox::RemoteServices::Configuration::aptQAConfPath();
+    EBox::Sudo::root("rm -f '$path'");
+}
+
+# Downgrade current subscription, if necessary
+# Things to be done:
+#   * Remove QA updates configuration
+#   * Uninstall zentyal-cloud-prof and zentyal-security-updates packages
+#
+sub _downgrade
+{
+    my ($self) = @_;
+
+    if (  ) { # TODO: DOWNGRADE???
+        if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
+            or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
+            # Requires to downgrade
+            $self->_removeQAUpdates();
+        }
+        $self->_removePkgs();
+    }
+}
+
+# Remove private packages
+sub _removePkgs
+{
+    my ($self) = @_;
+
+    # Remove pkgs using at to avoid problems when doing so from Zentyal UI
+    my @pkgs = (PROF_PKG, SEC_UPD_PKG);
+    @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
+
+    return unless ( @pkgs > 0 );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    $fh->unlink_on_destroy(0);
+    print $fh 'exec ' . REMOVE_PKG_SCRIPT . ' ' . join(' ', @pkgs) . "\n";
+    close($fh);
+
+    try {
+        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
+    } catch EBox::Exceptions::Command with {
+        my ($exc) = @_;
+        EBox::debug($exc->stringify());
+    };
+}

@@ -59,6 +59,7 @@ use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
 use EBox::RemoteServices::RESTClient;
+use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -145,6 +146,7 @@ sub _setConf
         $self->_writeCronFile();
         $self->_startupTasks();
         $self->_reportAdminPort();
+# TODO: QAUpdates
     }
 
     $self->_setRemoteSupportAccessConf();
