@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::OpenVPN;
+package EBox::RemoteServices::Reporter::IDS;
 
-# Class: EBox::RemoteServices::Reporter::OpenVPN
+# Class: EBox::RemoteServices::Reporter::IDS
 #
 #      Perform the mail consolidation
 #
@@ -25,6 +25,20 @@ use strict;
 
 use base 'EBox::RemoteServices::Reporter::Base';
 
+# Method: enabled
+#
+#      Currently, this reporter is disabled as it seems useless at
+#      this moment
+#
+# Overrides:
+#
+#      <EBox::RemoteServices::Reporter::Base::enabled>
+#
+sub enabled
+{
+    return 0;
+}
+
 # Method: module
 #
 # Overrides:
@@ -33,7 +47,7 @@ use base 'EBox::RemoteServices::Reporter::Base';
 #
 sub module
 {
-    return 'openvpn';
+    return 'ids';
 }
 
 # Method: name
@@ -44,7 +58,7 @@ sub module
 #
 sub name
 {
-    return 'openvpn';
+    return 'ids_event';
 }
 
 # Group: Protected methods
@@ -61,11 +75,16 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{daemon_name, daemon_type, from_cert AS certificate,
-                        COUNT(event) AS connections},
+                    . q{SUBSTRING_INDEX(source, ':', 1) AS source_host,
+                        COUNT(CASE WHEN priority = 1 THEN 1 ELSE NULL END) AS priority1,
+                        COUNT(CASE WHEN priority = 2 THEN 1 ELSE NULL END) AS priority2,
+                        COUNT(CASE WHEN priority = 3 THEN 1 ELSE NULL END) AS priority3,
+                        COUNT(CASE WHEN priority = 4 THEN 1 ELSE NULL END) AS priority4,
+                        COUNT(CASE WHEN priority = 5 THEN 1 ELSE NULL END) AS priority5
+                       },
           from   => $self->name(),
-          where  => $self->_rangeSQLStr($begin, $end) . q{ AND event = 'connectionInitiated'},
-          group  => $self->_groupSQLStr() . ', daemon_name, daemon_type, certificate' }
+          where  => $self->_rangeSQLStr($begin, $end),
+          group  => $self->_groupSQLStr() . ', source_host' }
        );
     return $res;
 }
