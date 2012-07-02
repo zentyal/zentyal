@@ -13,17 +13,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::BWMonitor;
+package EBox::RemoteServices::Reporter::OpenVPN;
 
-# Class: EBox::RemoteServices::Reporter::BWMonitor
+# Class: EBox::RemoteServices::Reporter::OpenVPN
 #
-#      Perform the bwmonitor consolidation
+#      Perform the mail consolidation
 #
 
 use warnings;
 use strict;
 
 use base 'EBox::RemoteServices::Reporter::Base';
+
+# FIXME: disabled until tested
+sub enabled
+{
+    return 1;
+}
+
 
 # Method: module
 #
@@ -33,7 +40,7 @@ use base 'EBox::RemoteServices::Reporter::Base';
 #
 sub module
 {
-    return 'bwmonitor';
+    return 'openvpn';
 }
 
 # Method: name
@@ -44,7 +51,7 @@ sub module
 #
 sub name
 {
-    return 'bwmonitor_usage';
+    return 'openvpn';
 }
 
 # Group: Protected methods
@@ -61,16 +68,11 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{client, username, SUM(inttotalrecv) AS inttotalrecv,
-                        SUM(inttotalsent) AS inttotalsent, SUM(inttcp) AS inttcp,
-                        SUM(intudp) AS intudp, SUM(inticmp) AS inticmp,
-                        SUM(exttotalrecv) AS exttotalrecv,
-                        SUM(exttotalsent) AS exttotalsent,
-                        SUM(exttcp) AS exttcp, SUM(extudp) AS extudp,
-                        SUM(exticmp) AS exticmp},
+                    . q{daemon_name, daemon_type, from_cert AS certificate,
+                        COUNT(event) AS connections},
           from   => $self->name(),
-          where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', client, username' }
+          where  => $self->_rangeSQLStr($begin, $end) . q{ AND event = 'connectionInitiated'},
+          group  => $self->_groupSQLStr() . ', daemon_name, daemon_type, certificate' }
        );
     return $res;
 }
