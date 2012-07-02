@@ -1750,7 +1750,7 @@ sub consolidateReportQueries
             'query' => {
                 'select' => 'daemon_name, daemon_type, from_ip AS ip, from_cert AS certificate, COUNT(event) AS connections',
                 'from' => 'openvpn',
-                'where' => "event = 'serverConnectionInitiated'",
+                'where' => "event = 'connectionInitiated'",
                 'group' => 'daemon_name, daemon_type, ip, certificate'
             }
         },
