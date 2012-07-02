@@ -1,0 +1,23 @@
+<%doc>
+  The template to set the source list for QA updates
+</%doc>
+<%args>
+  $repositoryIPAddr
+  $archive => 'ebox-qa'
+  $user
+  $pass
+</%args>
+<%init>
+  use v5.10;
+</%init>
+% given ( $archive ) {
+%    when ( 'zentyal-qa-precise' ) {
+deb http://<% $user %>:<% $pass %>@<% $repositoryIPAddr %>/ <% $archive %> main universe multiverse partner
+%    }
+%    when ( 'ebox-qa-lucid' ) {
+deb http://<% $user %>:<% $pass %>@<% $repositoryIPAddr %>/ <% $archive %> main universe multiverse partner
+%    }
+%    default {
+deb http://<% $user %>:<% $pass %>@<% $repositoryIPAddr %>/ <% $archive %> main universe multiverse
+%    }
+% }
