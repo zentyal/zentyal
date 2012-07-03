@@ -43,6 +43,8 @@ use EBox::Sudo;
 #
 sub set
 {
+    my ($self) = @_;
+
     # Downgrade, if necessary
     $self->_downgrade();
 
@@ -86,7 +88,7 @@ sub _setQASources
     my $interp = new HTML::Mason::Interp(out_method => \$output);
     my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
     my $comp = $interp->make_component(comp_file => $sourcesFile);
-    my $cred = EBox::RemoteServices::Cred->new()->{cred}
+    my $cred = EBox::RemoteServices::Cred->new()->{cred};
     $interp->exec($comp, ( (repositoryHostname  => $repositoryHostname),
                            (archive             => $archive),
                            (user                => $cred->{name}),
@@ -255,3 +257,5 @@ sub _downgrade
         }
     }
 }
+
+1;
