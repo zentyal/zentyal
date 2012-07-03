@@ -37,11 +37,9 @@ use EBox::Sudo;
 
 # Group: Public methods
 
-# Method: 
+# Method: set
 #
-# Parameters:
-#
-# Returns:
+#       Turn the QA Updates ON or OFF depending on the subscription level
 #
 sub set
 {
@@ -56,6 +54,10 @@ sub set
 sub _setQAUpdates
 {
     my ($self) = @_;
+
+    # Set the QA Updates if the subscription level is greater than basic
+    my $rs = EBox::Global->modInstance('remoteservices');
+    return unless ($rs->subscriptionLevel(1) > 0);
 
     $self->_setQASources();
     $self->_setQAAptPubKey();

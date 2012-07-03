@@ -146,7 +146,7 @@ sub _setConf
         $self->_writeCronFile();
         $self->_startupTasks();
         $self->_reportAdminPort();
-# TODO: QAUpdates
+        $self->_setQAUpdates();
     }
 
     $self->_setRemoteSupportAccessConf();
@@ -2021,6 +2021,16 @@ sub cloudDomain
     }
 
     return EBox::RemoteServices::Cred->new()->cloudDomain();
+}
+
+
+# Method: cloudDomain
+#
+#       Turn the QA Updates ON or OFF depending on the subscription level
+#
+sub _setQAUpdates
+{
+    EBox::RemoteServices::QAUpdates::set();
 }
 
 1;
