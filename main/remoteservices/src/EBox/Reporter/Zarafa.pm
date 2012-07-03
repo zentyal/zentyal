@@ -13,41 +13,43 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::PrintersJobs;
+package EBox::Reporter::Zarafa;
 
-# Class: EBox::RemoteServices::Reporter::PrintersJobs
+# Class: EBox::Reporter::Zarafa
 #
-#      Perform the consolidation of printer jobs by printer
+#      Perform the zarafa report code
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
 
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
+use EBox::Global;
+use POSIX;
+
+# Group: Public methods
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'printers';
+    return 'zarafa';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'printers_users';
+    return 'zarafa_user_storage';
 }
 
 # Group: Protected methods
@@ -63,13 +65,31 @@ sub _consolidate
     my ($self, $begin, $end) = @_;
 
     my $res = $self->{db}->query_hash(
-        { select => $self->_hourSQLStr() . ','
-                    . q{username, event, COUNT(*) AS jobs},
-          from   => 'printers_jobs',
+        { select => $self->_hourSQLStr() . ', username, fullname, email, soft_quota, hard_quota, size',
+          from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', username, event',
-         });
+          order  => $self->_groupSQLStr() . ', username' });
     return $res;
+}
+
+# Method: _log
+#
+# Overrides:
+#
+#     <EBox::Exceptions::Reporter::Base::_log>
+#
+sub _log
+{
+    my ($self) = @_;
+
+    my $zarafaMod = EBox::Global->getInstance(1)->modInstance($self->module());
+
+    return [] unless ( $zarafaMod->isEnabled() );
+
+    my $stats = $zarafaMod->stats();
+
+    my @data = values(%{$stats});
+    return \@data;
 }
 
 1;

@@ -13,43 +13,52 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::Zarafa;
+package EBox::Reporter::IDS;
 
-# Class: EBox::RemoteServices::Reporter::Zarafa
+# Class: EBox::Reporter::IDS
 #
-#      Perform the zarafa report code
+#      Perform the IDS consolidation
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
 
-use EBox::Global;
-use POSIX;
-
-# Group: Public methods
+# Method: enabled
+#
+#      Currently, this reporter is disabled as it seems useless at
+#      this moment
+#
+# Overrides:
+#
+#      <EBox::Reporter::Base::enabled>
+#
+sub enabled
+{
+    return 0;
+}
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'zarafa';
+    return 'ids';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'zarafa_user_storage';
+    return 'ids_event';
 }
 
 # Group: Protected methods
@@ -65,31 +74,19 @@ sub _consolidate
     my ($self, $begin, $end) = @_;
 
     my $res = $self->{db}->query_hash(
-        { select => $self->_hourSQLStr() . ', username, fullname, email, soft_quota, hard_quota, size',
+        { select => $self->_hourSQLStr() . ','
+                    . q{SUBSTRING_INDEX(source, ':', 1) AS source_host,
+                        COUNT(CASE WHEN priority = 1 THEN 1 ELSE NULL END) AS priority1,
+                        COUNT(CASE WHEN priority = 2 THEN 1 ELSE NULL END) AS priority2,
+                        COUNT(CASE WHEN priority = 3 THEN 1 ELSE NULL END) AS priority3,
+                        COUNT(CASE WHEN priority = 4 THEN 1 ELSE NULL END) AS priority4,
+                        COUNT(CASE WHEN priority = 5 THEN 1 ELSE NULL END) AS priority5
+                       },
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          order  => $self->_groupSQLStr() . ', username' });
+          group  => $self->_groupSQLStr() . ', source_host' }
+       );
     return $res;
-}
-
-# Method: _log
-#
-# Overrides:
-#
-#     <EBox::Exceptions::Reporter::Base::_log>
-#
-sub _log
-{
-    my ($self) = @_;
-
-    my $zarafaMod = EBox::Global->getInstance(1)->modInstance($self->module());
-
-    return [] unless ( $zarafaMod->isEnabled() );
-
-    my $stats = $zarafaMod->stats();
-
-    my @data = values(%{$stats});
-    return \@data;
 }
 
 1;

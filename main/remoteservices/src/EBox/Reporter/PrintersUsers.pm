@@ -13,38 +13,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::Mail;
+package EBox::Reporter::PrintersUsers;
 
-# Class: EBox::RemoteServices::Reporter::Mail
+# Class: EBox::Reporter::PrintersUsers
 #
-#      Perform the mail consolidation
+#      Perform the consolidation of printer jobs by printer
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
+
+# TODO: Disabled until tested with samba4
+sub enabled { return 0; }
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'mail';
+    return 'printers';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'mail_message';
+    return 'printers_users';
 }
 
 # Group: Protected methods
@@ -61,16 +64,11 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{client_host_ip, SUBSTRING_INDEX(from_address, '@', 1) AS user_from,
-                        SUBSTRING_INDEX(from_address, '@', -1) AS domain_from,
-                        SUBSTRING_INDEX(to_address, '@', 1) AS user_to,
-                        SUBSTRING_INDEX(to_address, '@', -1) AS domain_to,
-                        SUM(COALESCE(message_size,0)) AS bytes, COUNT(*) AS messages,
-                        message_type, status, event},
-          from   => $self->name(),
+                    . q{username, event, COUNT(*) AS jobs},
+          from   => 'printers_jobs',
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', client_host_ip, user_from, domain_from, user_to, domain_to, message_type, status, event' }
-       );
+          group  => $self->_groupSQLStr() . ', username, event',
+         });
     return $res;
 }
 

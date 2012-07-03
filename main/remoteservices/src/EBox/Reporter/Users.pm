@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::Password;
+package EBox::Reporter::Users;
 
-# Class: EBox::RemoteServices::Reporter::Password
+# Class: EBox::Reporter::Users
 #
 #      Perform the weak password reporting
 #
@@ -23,9 +23,10 @@ package EBox::RemoteServices::Reporter::Password;
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
 
 use EBox::RemoteServices::Audit::Password;
+use EBox::Reporter::Password;
 
 # Group: Public methods
 
@@ -33,7 +34,7 @@ use EBox::RemoteServices::Audit::Password;
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
@@ -44,11 +45,24 @@ sub module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'remoteservices_passwd_report';
+    return 'remoteservices_passwd_users';
+}
+
+# Method: timestampField
+#
+# Overrides:
+#
+#     <EBox::Exceptions::Reporter::Base::timestampField>
+#
+sub timestampField
+{
+    my ($self) = @_;
+
+    return $self->name() . '.' . $self->SUPER::timestampField();
 }
 
 # Method: logPeriod
@@ -57,7 +71,7 @@ sub name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::logPeriod>
+#      <EBox::Reporter::Base::logPeriod>
 #
 sub logPeriod
 {
@@ -76,10 +90,19 @@ sub _consolidate
 {
     my ($self, $begin, $end) = @_;
 
-    my $res = $self->{db}->query_hash( { select => $self->_hourSQLStr() . ', username, fullname, email, level, source',
-                                         from   => $self->name(),
-                                         where  => $self->_rangeSQLStr($begin, $end),
-                                         order  => $self->_groupSQLStr() . ', username' });
+    my $passwordTableName = EBox::Reporter::Password->name();
+    my $passwordTSF       = EBox::Reporter::Password->timestampField();
+    my $res = $self->{db}->query_hash(
+        { select => $self->_hourSQLStr()
+            . q{, COUNT(CASE level WHEN 'weak' THEN 1 ELSE NULL END) AS weak,
+                  COUNT(CASE level WHEN 'average' THEN 1 ELSE NULL END) AS average,
+                  nUsers },
+          from   => $self->name() . qq{ LEFT JOIN $passwordTableName ON DATE_FORMAT(} . $self->timestampField()
+                    . q{, '%y-%m-%d %H:00:00')}
+                    . " = DATE_FORMAT(${passwordTableName}.$passwordTSF, " . q{'%y-%m-%d %H:00:00')},
+          where  => $self->_rangeSQLStr($begin, $end),
+          group  => $self->_groupSQLStr(),
+      });
     return $res;
 }
 
@@ -93,24 +116,8 @@ sub _log
 {
     my ($self) = @_;
 
-    my $weakPasswdUsers = EBox::RemoteServices::Audit::Password::reportUserCheck();
-
-    unless (defined($weakPasswdUsers)) {
-        # This happens when the audit is being done. Wait for next day to report
-        return [];
-    }
-
-    my @data = ();
-    foreach my $user ( @{$weakPasswdUsers} ) {
-        my $entry = {};
-        $entry->{username} = $user->{username};
-        $entry->{level} = $user->{level};
-        $entry->{source} = $user->{from};
-        my $additionalInfo = EBox::RemoteServices::Audit::Password::additionalInfo($entry->{username});
-        $entry->{fullname} = $additionalInfo->{fullname};
-        $entry->{email}    = $additionalInfo->{email};
-        push(@data, $entry);
-    }
+    my $nUsers = EBox::RemoteServices::Audit::Password::nUsers();
+    my @data = ( { nusers => $nUsers } );
     return \@data;
 }
 

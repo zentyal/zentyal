@@ -13,41 +13,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::SambaAccess;
+package EBox::Reporter::EBackupStorage;
 
-# Class: EBox::RemoteServices::Reporter::SambaAccess
+# Class: EBox::Reporter::EBackupStorage
 #
-#      Perform the samba access (operations) consolidation
+#      Perform the ebackup storage usage consolidation
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
-
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
+use base 'EBox::Reporter::Base';
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'samba';
+    return 'ebackup';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'samba_access';
+    return 'ebackup_storage_usage';
 }
 
 # Group: Protected methods
@@ -64,11 +61,10 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{username, COUNT(event) AS operations},
+                    . q{used, available},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', username'
-         });
+        });
     return $res;
 }
 

@@ -162,14 +162,14 @@ sub _getHelpers
 {
     my ($self) = @_;
 
-    my $path = EBox::Config::perlPath() . 'EBox/RemoteServices/Reporter/';
+    my $path = EBox::Config::perlPath() . 'EBox/Reporter/';
 
     opendir(my $dir, $path);
     while( my $file = readdir($dir) ) {
         next unless $file =~ '.pm$';
         $file =~ s:\.pm$::g;
         # This will register the class
-        my $className = "EBox::RemoteServices::Reporter::$file";
+        my $className = "EBox::Reporter::$file";
         $self->register($className);
     }
     closedir($dir);

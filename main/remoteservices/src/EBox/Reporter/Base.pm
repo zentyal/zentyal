@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::Base;
+package EBox::Reporter::Base;
 
-# Class: EBox::RemoteServices::Reporter::Base
+# Class: EBox::Reporter::Base
 #
 #      Base class to perform the consolidation and send the result to
 #      the cloud

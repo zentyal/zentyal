@@ -13,52 +13,42 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::IDS;
+package EBox::Reporter::SambaVirus;
 
-# Class: EBox::RemoteServices::Reporter::IDS
+# Class: EBox::Reporter::SambaVirus
 #
-#      Perform the IDS consolidation
+#      Perform the samba virus (number of virus per client IP address)
+#      consolidation
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
 
-# Method: enabled
-#
-#      Currently, this reporter is disabled as it seems useless at
-#      this moment
-#
-# Overrides:
-#
-#      <EBox::RemoteServices::Reporter::Base::enabled>
-#
-sub enabled
-{
-    return 0;
-}
+# TODO: Disabled until tested with samba4
+sub enabled { return 0; }
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'ids';
+    return 'samba';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'ids_event';
+    return 'samba_virus';
 }
 
 # Group: Protected methods
@@ -75,17 +65,11 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{SUBSTRING_INDEX(source, ':', 1) AS source_host,
-                        COUNT(CASE WHEN priority = 1 THEN 1 ELSE NULL END) AS priority1,
-                        COUNT(CASE WHEN priority = 2 THEN 1 ELSE NULL END) AS priority2,
-                        COUNT(CASE WHEN priority = 3 THEN 1 ELSE NULL END) AS priority3,
-                        COUNT(CASE WHEN priority = 4 THEN 1 ELSE NULL END) AS priority4,
-                        COUNT(CASE WHEN priority = 5 THEN 1 ELSE NULL END) AS priority5
-                       },
+                    . q{client, COUNT(event) AS virus},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', source_host' }
-       );
+          group  => $self->_groupSQLStr() . ', client'
+         });
     return $res;
 }
 

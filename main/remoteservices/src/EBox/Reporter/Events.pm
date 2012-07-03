@@ -13,38 +13,43 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::EBackupStorage;
+package EBox::Reporter::Events;
 
-# Class: EBox::RemoteServices::Reporter::EBackupStorage
+# Class: EBox::Reporter::Events
 #
-#      Perform the ebackup storage usage consolidation
+#      Perform the events consolidation
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
+
+use EBox::RemoteServices::Reporter;
+
+# Group: Public methods
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'ebackup';
+    return 'events';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'ebackup_storage_usage';
+    my ($self) = @_;
+    return $self->module();
 }
 
 # Group: Protected methods
@@ -60,11 +65,11 @@ sub _consolidate
     my ($self, $begin, $end) = @_;
 
     my $res = $self->{db}->query_hash(
-        { select => $self->_hourSQLStr() . ','
-                    . q{used, available},
+        { select => $self->_hourSQLStr() . ', source, level, SUM(nRepeated) AS nEvents',
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-        });
+          group  => $self->_groupSQLStr() . ', source, level' }
+       );
     return $res;
 }
 

@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::OpenVPN;
+package EBox::Reporter::OpenVPN;
 
-# Class: EBox::RemoteServices::Reporter::OpenVPN
+# Class: EBox::Reporter::OpenVPN
 #
 #      Perform the OpenVPN consolidation
 #
@@ -23,13 +23,13 @@ package EBox::RemoteServices::Reporter::OpenVPN;
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
@@ -40,7 +40,7 @@ sub module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {

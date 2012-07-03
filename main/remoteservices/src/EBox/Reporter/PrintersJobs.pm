@@ -13,38 +13,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::Squid;
+package EBox::Reporter::PrintersJobs;
 
-# Class: EBox::RemoteServices::Reporter::Squid
+# Class: EBox::Reporter::PrintersJobs
 #
-#      Perform the squid consolidation
+#      Perform the consolidation of printer jobs by printer
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
+
+# TODO: Disabled until tested with samba4
+sub enabled { return 0; }
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'squid';
+    return 'printers';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'squid_access';
+    return 'printers_usage';
 }
 
 # Group: Protected methods
@@ -61,11 +64,11 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{rfc931 AS username, remotehost AS ip, domain, event, code,
-                        SUM(bytes) AS bytes, COUNT(event) AS hits},
-          from   => $self->name(),
-          where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', username, ip, domain, event, code'
+                    . q{pj.printer, COUNT(*) AS jobs,
+                        SUM(pages) AS pages, COUNT(DISTINCT pp.username) AS users},
+          from   => 'printers_jobs AS pj JOIN printers_pages AS pp ON pj.job = pp.job',
+          where  => $self->_rangeSQLStr($begin, $end) . q{ AND event = 'queued' },
+          group  => $self->_groupSQLStr() . ', pj.printer'
          });
     return $res;
 }

@@ -13,20 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::SambaDiskUsage;
+package EBox::Reporter::SambaAccess;
 
-# Class: EBox::RemoteServices::Reporter::SambaDiskUsage
+# Class: EBox::Reporter::SambaAccess
 #
-#      Perform the samba average usage per hour per share
-#      consolidation
+#      Perform the samba access (operations) consolidation
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
-
-use EBox::Global;
+use base 'EBox::Reporter::Base';
 
 # TODO: Disabled until tested with samba4
 sub enabled { return 0; }
@@ -35,7 +32,7 @@ sub enabled { return 0; }
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
@@ -46,22 +43,11 @@ sub module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'samba_disk_usage';
-}
-
-# Method: logPeriod
-#
-# Overrides:
-#
-#      <EBox::RemoteServices::Reporter::Base::logPeriod>
-#
-sub logPeriod
-{
-    return 60 * 60 * 24;
+    return 'samba_access';
 }
 
 # Group: Protected methods
@@ -78,31 +64,12 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{share, type, CAST(AVG(size) AS UNSIGNED INTEGER) AS size},
+                    . q{username, COUNT(event) AS operations},
           from   => $self->name(),
           where  => $self->_rangeSQLStr($begin, $end),
-          group  => $self->_groupSQLStr() . ', share, type',
+          group  => $self->_groupSQLStr() . ', username'
          });
     return $res;
 }
-
-# Method: _log
-#
-# Overrides:
-#
-#     <EBox::Exceptions::Reporter::Base::_log>
-#
-sub _log
-{
-    my ($self) = @_;
-
-    my $sambaMod = EBox::Global->getInstance(1)->modInstance($self->module());
-
-    # TODO: Implement this in Samba module
-    my $stats = $sambaMod->diskUsageStats();
-
-    return $stats;
-}
-
 
 1;

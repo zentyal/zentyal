@@ -13,41 +13,38 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::PrintersJobs;
+package EBox::Reporter::BWMonitor;
 
-# Class: EBox::RemoteServices::Reporter::PrintersJobs
+# Class: EBox::Reporter::BWMonitor
 #
-#      Perform the consolidation of printer jobs by printer
+#      Perform the bwmonitor consolidation
 #
 
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
-
-# TODO: Disabled until tested with samba4
-sub enabled { return 0; }
+use base 'EBox::Reporter::Base';
 
 # Method: module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
-    return 'printers';
+    return 'bwmonitor';
 }
 
 # Method: name
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
-    return 'printers_usage';
+    return 'bwmonitor_usage';
 }
 
 # Group: Protected methods
@@ -64,12 +61,17 @@ sub _consolidate
 
     my $res = $self->{db}->query_hash(
         { select => $self->_hourSQLStr() . ','
-                    . q{pj.printer, COUNT(*) AS jobs,
-                        SUM(pages) AS pages, COUNT(DISTINCT pp.username) AS users},
-          from   => 'printers_jobs AS pj JOIN printers_pages AS pp ON pj.job = pp.job',
-          where  => $self->_rangeSQLStr($begin, $end) . q{ AND event = 'queued' },
-          group  => $self->_groupSQLStr() . ', pj.printer'
-         });
+                    . q{client, username, SUM(inttotalrecv) AS inttotalrecv,
+                        SUM(inttotalsent) AS inttotalsent, SUM(inttcp) AS inttcp,
+                        SUM(intudp) AS intudp, SUM(inticmp) AS inticmp,
+                        SUM(exttotalrecv) AS exttotalrecv,
+                        SUM(exttotalsent) AS exttotalsent,
+                        SUM(exttcp) AS exttcp, SUM(extudp) AS extudp,
+                        SUM(exticmp) AS exticmp},
+          from   => $self->name(),
+          where  => $self->_rangeSQLStr($begin, $end),
+          group  => $self->_groupSQLStr() . ', client, username' }
+       );
     return $res;
 }
 

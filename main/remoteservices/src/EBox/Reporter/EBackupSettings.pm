@@ -13,9 +13,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Reporter::EBackupSettings;
+package EBox::Reporter::EBackupSettings;
 
-# Class: EBox::RemoteServices::Reporter::EBackupSettings
+# Class: EBox::Reporter::EBackupSettings
 #
 #      Perform the ebackup settings (backup domains and settings)
 #      consolidation
@@ -24,7 +24,7 @@ package EBox::RemoteServices::Reporter::EBackupSettings;
 use warnings;
 use strict;
 
-use base 'EBox::RemoteServices::Reporter::Base';
+use base 'EBox::Reporter::Base';
 
 use EBox::Global;
 use POSIX;
@@ -35,7 +35,7 @@ use POSIX;
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::enabled>
+#      <EBox::Reporter::Base::enabled>
 #
 sub enabled
 {
@@ -53,7 +53,7 @@ sub enabled
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::module>
+#      <EBox::Reporter::Base::module>
 #
 sub module
 {
@@ -64,7 +64,7 @@ sub module
 #
 # Overrides:
 #
-#      <EBox::RemoteServices::Reporter::Base::name>
+#      <EBox::Reporter::Base::name>
 #
 sub name
 {
