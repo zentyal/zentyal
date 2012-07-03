@@ -1133,15 +1133,16 @@ sub tableInfo
 {
     my ($self) = @_;
 
-    my $titles = { 'timestamp' => __('Date'),
+    my $titles = { 'timestamp'  => __('Date'),
                    'remotehost' => __('Host'),
                    'rfc931'     => __('User'),
-                   'url'   => __('URL'),
-                   'bytes' => __('Bytes'),
-                   'mimetype' => __('Mime/type'),
-                   'event' => __('Event')
+                   'url'        => __('URL'),
+                   'domain'     => __('Domain'),
+                   'bytes'      => __('Bytes'),
+                   'mimetype'   => __('Mime/type'),
+                   'event'      => __('Event')
                  };
-    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url',
+    my @order = ( 'timestamp', 'remotehost', 'rfc931', 'url', 'domain',
                   'bytes', 'mimetype', 'event');
 
     my $events = { 'accepted' => __('Accepted'),
@@ -1152,7 +1153,7 @@ sub tableInfo
             'tablename' => 'squid_access',
             'titles' => $titles,
             'order' => \@order,
-            'filter' => ['url', 'remotehost', 'rfc931'],
+            'filter' => ['url', 'domain', 'remotehost', 'rfc931'],
             'events' => $events,
             'eventcol' => 'event',
             'consolidate' => $self->_consolidateConfiguration(),
