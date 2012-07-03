@@ -46,7 +46,7 @@ use EBox::Sudo;
 sub set
 {
     # Downgrade, if necessary
-#    $self->_downgrade();  # FIXME
+    $self->_downgrade();
 
     $self->_setQAUpdates();
 }
@@ -242,7 +242,9 @@ sub _downgrade
 {
     my ($self) = @_;
 
-    if (  ) { # TODO: DOWNGRADE???
+    my $rs = EBox::Global->modInstance('remoteservices');
+    # If Basic subscription or no subscription at all
+    if ($rs->subscriptionLevel() <= 0) {
         if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
             or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
             # Requires to downgrade
