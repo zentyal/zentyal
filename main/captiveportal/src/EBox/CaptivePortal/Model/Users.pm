@@ -250,10 +250,9 @@ sub syncRows
         push (@user, time => $sessions->{$sid}->{time});
         push (@user, ip => $sessions->{$sid}->{ip});
         push (@user, mac => $sessions->{$sid}->{mac});
-        push (@user, loggedAt => time());
+
 
         if ($self->_bwmonitorEnabled()) {
-
             push (@user, bwusage => $self->_bwusage($user));
         }
 
