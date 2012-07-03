@@ -58,6 +58,7 @@ sub _setQAUpdates
     my ($self) = @_;
 
     $self->_setQASources();
+    $self->_setQAAptPubKey();
     $self->_setQAAptPreferences();
     $self->_setQARepoConf();
 
@@ -135,8 +136,8 @@ sub _suite
 sub _setQAAptPubKey
 {
     my ($self) = @_;
-#    my $keyFile = ..... TODO
-#    EBox::Sudo::root("apt-key add $keyFile");
+    my $keyFile = '/var/lib/zentyal/conf/remoteservices/ebox-qa.pub';
+    EBox::Sudo::root("apt-key add $keyFile");
 }
 
 sub _setQAAptPreferences
