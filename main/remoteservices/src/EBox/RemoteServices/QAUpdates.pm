@@ -48,19 +48,18 @@ sub set
     # Downgrade, if necessary
 #    $self->_downgrade();  # FIXME
 
-    # TODO: $confKeys
-    $self->_setQAUpdates($confKeys);
+    $self->_setQAUpdates();
 }
 
 # Group: Private methods
 
 sub _setQAUpdates
 {
-    my ($self, $confKeys) = @_;
+    my ($self) = @_;
 
-    $self->_setQASources($confKeys);
+    $self->_setQASources();
     $self->_setQAAptPreferences();
-    $self->_setQARepoConf($confKeys);
+    $self->_setQARepoConf();
 
     my $softwareMod = EBox::Global->modInstance('software');
     if ($softwareMod) {
@@ -75,21 +74,20 @@ sub _setQAUpdates
 # Set the QA source list
 sub _setQASources
 {
-    my ($self, $confKeys) = @_;
+    my ($self) = @_;
 
-    my $ubuntuVersion = _ubuntuVersion();
-    my $archive = $self->_archive($ubuntuVersion);
-    my $repositoryAddr = $self->_repositoryAddr($confKeys);
+    my $archive = $self->_archive();
+    my $repositoryHostname = $self->_repositoryHostname();
 
     my $output;
     my $interp = new HTML::Mason::Interp(out_method => \$output);
     my $sourcesFile = EBox::Config::stubs . 'remoteservices/qa-sources.mas';
     my $comp = $interp->make_component(comp_file => $sourcesFile);
     my $cred = EBox::RemoteServices::Cred->new()->{cred}
-    $interp->exec($comp, ( (repositoryIPAddr => $repositoryAddr),
-                           (archive          => $archive),
-                           (user             => $cred->{name}),
-                           (pass             => $cred->{uuid})) );
+    $interp->exec($comp, ( (repositoryHostname  => $repositoryHostname),
+                           (archive             => $archive),
+                           (user                => $cred->{name}),
+                           (pass                => $cred->{uuid})) );
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     my $tmpFile = $fh->filename();
@@ -108,15 +106,22 @@ sub _ubuntuVersion
         my ($key, $version) = split '=', $line;
         return $version;
     }
+}
 
+# Get the Zentyal version to use in the archive
+sub _zentyalVersion
+{
+    return substr(EBox::Config::version(),0,3);
 }
 
 # Get the QA archive to look
 sub _archive
 {
-    my ($self, $ubuntuVersion) = @_;
+    my ($self) = @_;
+    my $ubuntuVersion = _ubuntuVersion();
+    my $zentyalVersion = _zentyalVersion();
 
-    return "zentyal-qa-$ubuntuVersion";
+    return "zentyal-qa-$zentyalVersion-$ubuntuVersion";
 
 }
 
@@ -162,29 +167,21 @@ sub _setQAAptPreferences
 # Set not to use HTTP proxy for QA repository
 sub _setQARepoConf
 {
-    my ($self, $confKeys) = @_;
+    my ($self) = @_;
 
-    my $repoAddr = $self->_repositoryAddr($confKeys);
+    my $repoHostname = $self->_repositoryHostname();
     EBox::Module::Base::writeConfFileNoCheck(EBox::RemoteServices::Configuration::aptQAConfPath(),
                                              '/remoteservices/qa-conf.mas',
-                                             [ repoAddr => $repoAddr ]);
+                                             [ repoHostname => $repoHostname ]);
 }
 
-# Get the repository IP address
-sub _repositoryAddr
+# Get the repository hostname
+sub _repositoryHostname
 {
-    my ($self, $confKeys) = @_;
+    my ($self) = @_;
 
-    my $retVal = '';
     my $rs = EBox::Global->modInstance('remoteservices');
-    if ( $rs->isConnected() ) {
-        $retVal = $self->_queryServicesNameserver($confKeys->{repositoryHost},
-                                                  [$confKeys->{'dnsServer'}]);
-    } else {
-        $retVal = $confKeys->{repositoryAddress};
-    }
-
-    return $retVal;
+    return 'qa.' . $rs->cloudDomain();
 }
 
 # Remove QA updates
