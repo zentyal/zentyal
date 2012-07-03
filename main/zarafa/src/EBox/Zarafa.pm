@@ -450,105 +450,16 @@ sub _postServiceHook
     return $self->SUPER::_postServiceHook($enabled);
 }
 
-# Group: Report methods
-
-# Method: logReportInfo
+# Method: stats
 #
-# Overrides:
+#     Get the data from zarafa stats command
 #
-#     <EBox::Module::Base::logReportInfo>
+# Returns:
 #
-sub logReportInfo
-{
-    my ($self) = @_;
-
-    return [] unless ($self->isEnabled());
-
-    my $users = $self->_stats();
-
-    my @reportData;
-    foreach my $user (values(%{$users})) {
-        my $entry = {
-            table  => 'zarafa_user_storage',
-            values => $user,
-            };
-        push(@reportData, $entry);
-    }
-
-    return \@reportData;
-}
-
-# Method: consolidateReportInfoQueries
+#     Hash ref - containing the user stats whose key is the username
+#     containing as value a hash ref with user data
 #
-# Overrides:
-#
-#     <EBox::Module::Base::consolidateReportInfoQueries>
-#
-sub consolidateReportInfoQueries
-{
-    return [
-        {
-            'target_table' => 'zarafa_user_storage_report',
-            'query'        => {
-                'select' => 'username, fullname, email, soft_quota, hard_quota, size',
-                'from'   => 'zarafa_user_storage',
-                'key'    => 'username',
-            },
-            'quote' => { username => 1,
-                         fullname => 1,
-                         email    => 1, },
-        },
-     ];
-
-}
-
-# Method: report
-#
-# Overrides:
-#
-#   <EBox::Module::Base::report>
-sub report
-{
-    my ($self, $beg, $end, $options) = @_;
-
-    my $report = {};
-
-    $report->{storage_size} = $self->runMonthlyQuery(
-        $beg, $end,
-        {
-            select => 'SUM(size) AS size_bytes',
-            from   => 'zarafa_user_storage_report',
-        },
-       );
-
-    my $maxTop = 5;
-    if (exists $options->{'max_top_user_zarafa_storage'}) {
-        $maxTop = $options->{'max_top_user_zarafa_storage'};
-    }
-
-    $report->{top_storage_usage} = $self->runQuery(
-        $beg, $end,
-        {
-            select => 'username, CAST ( AVG(size) AS BIGINT) AS size_bytes',
-            from   => 'zarafa_user_storage_report',
-            group  => 'username',
-            limit  => $maxTop,
-            order  => 'size DESC',
-        });
-
-    $report->{latest_storage_usage} = $self->runQuery(
-        $end, $end,
-        {
-            select => 'username, fullname, email, soft_quota AS soft_quota_bytes, hard_quota AS hard_quota_bytes, size AS size_bytes',
-            from   => 'zarafa_user_storage_report',
-            order  => 'size DESC'
-        });
-
-    return $report;
-}
-
-# Get the data from zarafa stats command
-sub _stats
+sub stats
 {
     my ($self) = @_;
 
