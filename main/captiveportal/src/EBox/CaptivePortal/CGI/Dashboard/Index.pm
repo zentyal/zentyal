@@ -18,7 +18,7 @@ package EBox::CaptivePortal::CGI::Dashboard::Index;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CaptivePortal::CGI::Base';
 
 use EBox::Gettext;
 use Apache2::RequestUtil;
@@ -44,9 +44,7 @@ sub _print
 sub _process
 {
 	my $self = shift;
-	my $r = Apache2::RequestUtil->request;
-
-	my @htmlParams = ();
+        my @htmlParams = ();
 	$self->{params} = \@htmlParams;
 }
 

@@ -13,66 +13,29 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CaptivePortal::CGI::Popup;
+package EBox::CaptivePortal::CGI::Base;
 
 use strict;
 use warnings;
 
-use base 'EBox::CaptivePortal::CGI::Base';
-
+use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
-use EBox::CaptivePortal;
 use Apache2::RequestUtil;
 
-sub new # (error=?, msg=?, cgi=?)
+
+sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => '',
-                                  'template' => '/captiveportal/popup.mas',
-                                  @_);
+    my $self = $class->SUPER::new(
+        htmlblocks => 'EBox::HtmlBlocks',
+        @_);
     bless($self, $class);
     return $self;
 }
 
-sub _print
+sub _validateReferer
 {
-    my $self = shift;
-
-    my $interval = _readInterval();
-    if (not $interval) {
-        $interval = 60;
-    }
-
-    print($self->cgi()->header(-charset=>'utf-8'));
-    $self->{params} = [ interval => $interval ];
-    $self->_body;
-}
-
-sub _readInterval
-{
-    my $interval;
-
-    my $path =  EBox::CaptivePortal::PERIOD_FILE;
-    open my $FH, '<', $path  or
-        return undef;
-    $interval = <$FH>;
-    close $FH;
-    return $interval;
-}
-
-sub _top
-{
-}
-
-sub _loggedIn
-{
-    return 1;
-}
-
-sub _menu
-{
-    return;
 }
 
 1;
