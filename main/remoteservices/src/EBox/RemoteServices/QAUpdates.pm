@@ -244,7 +244,7 @@ sub _downgrade
 
     my $rs = EBox::Global->modInstance('remoteservices');
     # If Basic subscription or no subscription at all
-    if ($rs->subscriptionLevel() <= 0) {
+    if ($rs->subscriptionLevel(1) <= 0) {
         if ( -f EBox::RemoteServices::Configuration::aptQASourcePath()
             or -f EBox::RemoteServices::Configuration::aptQAPreferencesPath() ) {
             # Requires to downgrade

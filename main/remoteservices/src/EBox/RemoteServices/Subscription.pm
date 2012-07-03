@@ -442,7 +442,7 @@ sub executeBundle
 
     $self->_restartRS($new);
     # Downgrade, if necessary
-    $self->_downgrade($params);
+    $self->_downgrade();
     $self->_setUpAuditEnvironment();
     $self->_setDDNSConf();
     $self->_installCloudProf($params, $confKeys);
@@ -855,11 +855,11 @@ sub _restartRS
 #
 sub _downgrade
 {
-    my ($self, $params) = @_;
+    my ($self) = @_;
 
-    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
-    my $nParamsNeeded = grep { exists $params->{$_} } @paramsNeeded;
-    if ( $nParamsNeeded < scalar(@paramsNeeded) ) {
+    my $rs = EBox::Global->modInstance('remoteservices');
+    # Remove packages if basic subscription or no subscription at all
+    if ($rs->subscriptionLevel(1) <= 0) {
         $self->_removePkgs();
     }
 }
