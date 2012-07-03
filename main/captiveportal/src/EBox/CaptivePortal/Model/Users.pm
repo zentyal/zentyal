@@ -133,8 +133,7 @@ sub _table
             'fieldName' => 'quotaExtension',
             'printableName' => 'quotaExtension',
             'editable' => 0,
-#            'hidden' => 1,
-            'hidden' => 0, # DDD
+            'hidden' => 1,
             'defaultValue' => 0,
         ),
     );
