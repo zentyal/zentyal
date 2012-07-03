@@ -35,13 +35,6 @@ use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
 use EBox::Sudo;
 
-# Constants
-use constant {
-    PROF_PKG       => 'zentyal-cloud-prof',
-    SEC_UPD_PKG    => 'zentyal-security-updates',
-    REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
-};
-
 # Group: Public methods
 
 # Method: 
@@ -257,30 +250,5 @@ sub _downgrade
             # Requires to downgrade
             $self->_removeQAUpdates();
         }
-        $self->_removePkgs();
     }
-}
-
-# Remove private packages
-sub _removePkgs
-{
-    my ($self) = @_;
-
-    # Remove pkgs using at to avoid problems when doing so from Zentyal UI
-    my @pkgs = (PROF_PKG, SEC_UPD_PKG);
-    @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
-
-    return unless ( @pkgs > 0 );
-
-    my $fh = new File::Temp(DIR => EBox::Config::tmp());
-    $fh->unlink_on_destroy(0);
-    print $fh 'exec ' . REMOVE_PKG_SCRIPT . ' ' . join(' ', @pkgs) . "\n";
-    close($fh);
-
-    try {
-        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
-    } catch EBox::Exceptions::Command with {
-        my ($exc) = @_;
-        EBox::debug($exc->stringify());
-    };
 }

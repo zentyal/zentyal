@@ -58,6 +58,8 @@ use constant {
     SERV_CONF_DIR => 'remoteservices',
     SERV_CONF_FILE => 'remoteservices.conf',
     PROF_PKG       => 'zentyal-cloud-prof',
+    SEC_UPD_PKG    => 'zentyal-security-updates',
+    REMOVE_PKG_SCRIPT => EBox::Config::scripts('remoteservices') . 'remove-pkgs',
 };
 
 # Group: Public methods
@@ -439,6 +441,8 @@ sub executeBundle
     $rs->st_set_bool('has_bundle', 1);
 
     $self->_restartRS($new);
+    # Downgrade, if necessary
+    $self->_downgrade($params);
     $self->_setUpAuditEnvironment();
     $self->_setDDNSConf();
     $self->_installCloudProf($params, $confKeys);
@@ -843,6 +847,45 @@ sub _restartRS
         my $apache = $global->modInstance('apache');
         $apache-save();
     }
+}
+
+# Downgrade current subscription, if necessary
+# Things to be done:
+#   * Uninstall zentyal-cloud-prof and zentyal-security-updates packages
+#
+sub _downgrade
+{
+    my ($self, $params) = @_;
+
+    my @paramsNeeded = qw(QASources QAAptPubKey QAAptPreferences);
+    my $nParamsNeeded = grep { exists $params->{$_} } @paramsNeeded;
+    if ( $nParamsNeeded < scalar(@paramsNeeded) ) {
+        $self->_removePkgs();
+    }
+}
+
+# Remove private packages
+sub _removePkgs
+{
+    my ($self) = @_;
+
+    # Remove pkgs using at to avoid problems when doing so from Zentyal UI
+    my @pkgs = (PROF_PKG, SEC_UPD_PKG);
+    @pkgs = grep { $self->_pkgInstalled($_) } @pkgs;
+
+    return unless ( @pkgs > 0 );
+
+    my $fh = new File::Temp(DIR => EBox::Config::tmp());
+    $fh->unlink_on_destroy(0);
+    print $fh 'exec ' . REMOVE_PKG_SCRIPT . ' ' . join(' ', @pkgs) . "\n";
+    close($fh);
+
+    try {
+        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
+    } catch EBox::Exceptions::Command with {
+        my ($exc) = @_;
+        EBox::debug($exc->stringify());
+    };
 }
 
 # Get available editions for this user/pass
