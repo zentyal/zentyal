@@ -2030,7 +2030,7 @@ sub cloudDomain
 #
 sub _setQAUpdates
 {
-    EBox::RemoteServices::QAUpdates->new()->set();
+    EBox::RemoteServices::QAUpdates::set();
 }
 
 1;
