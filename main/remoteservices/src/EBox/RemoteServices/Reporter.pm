@@ -155,6 +155,40 @@ sub log
     $db->multiInsert();
 }
 
+# Method: helpersNum
+#
+# Returns:
+#
+#     Int - the number of available helpers
+#
+sub helpersNum
+{
+    my ($self) = @_;
+
+    return scalar(@{$self->{helpers}});
+}
+
+# Method: lastConsolidationTime
+#
+#     Check any enabled helper to get the last consolidation value
+#
+# Returns:
+#
+#     Int - the number of seconds since epoch from the last
+#     consolidation time
+#
+sub lastConsolidationTime
+{
+    my ($self) = @_;
+
+    my $last = undef;
+    foreach my $helper (@{$self->{helpers}}) {
+        my $helperTime = $helper->consolidationTime();
+        $last = $helperTime if ( defined($helperTime) and ($helperTime > $last));
+    }
+    return $last;
+}
+
 # Group: Private methods
 
 # Return the available report classes

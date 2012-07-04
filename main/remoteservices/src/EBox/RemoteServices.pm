@@ -1069,28 +1069,6 @@ sub confKey
     return undef;
 }
 
-# Method: lastGeneratedReport
-#
-#      Get the last generated report date if any
-#
-# Returns:
-#
-#      Int - seconds since epoch when last report was generated
-#
-#      undef - if there is no info about it
-#
-sub lastGeneratedReport
-{
-    my ($self) = @_;
-
-    my $state = $self->get_state();
-    if (exists $state->{subscription}->{report_generated_at}) {
-        return $state->{subscription}->{report_generated_at};
-    } else {
-        return undef;
-    }
-}
-
 # Method: latestSecurityUpdates
 #
 #      Get the last time when the security updates were applied

@@ -188,6 +188,21 @@ sub logPeriod
     return 60 * 60;
 }
 
+# Method: consolidationTime
+#
+# Returns:
+#
+#      Int - return the latest consolidation time in seconds from
+#      epoch
+#
+sub consolidationTime
+{
+    my ($self) = @_;
+
+    return undef unless (-r $self->_subdir() . 'times.json');
+    return $self->_beginTime();
+}
+
 # Group: Protected methods
 
 # Method: _consolidate
