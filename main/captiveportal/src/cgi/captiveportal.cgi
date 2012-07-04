@@ -17,6 +17,125 @@
 use strict;
 use warnings;
 
+# use EBox::Config::Redis;
+# package  EBox::Config::Redis;
+
+# sub _passwd
+# {
+#     my ($self, $home) = @_;
+#     print STDERR "REdis passwd in home $home\n";
+#     use Devel::StackTrace;
+#     my $st = Devel::StackTrace->new();
+#     print STDERR $st->as_string();
+#     print STDERR "\n";
+#
+# }
+
+# use EBox::Sudo;
+# package EBox::Sudo;
+
+
+
+
+# sub _root
+# {
+#     my ($wantError, @cmds) = @_;
+
+#     unshift (@cmds, 'set -e') if (@cmds > 1);
+#     my $commands = join("\n", @cmds);
+#     use Devel::StackTrace;
+#     my $st = Devel::StackTrace->new(());
+#     print STDERR "sudo called in captiveportal webserver: $commands\n";
+#     print STDERR  $st->as_string(), "\n";
+
+#     my $cmds = join '; ', @cmds;;
+
+#     my @output = `$cmds 2> $EBox::Sudo::STDERR_FILE`;
+#     my $ret = $?;
+
+#     if ($ret != 0) {
+#         if ($wantError) {
+#             my @error;
+#             if ( -r $EBox::Sudo::STDERR_FILE) {
+#                 @error = read_file($EBox::Sudo::STDERR_FILE);
+#             }
+#             _rootError($cmds, $commands, $ret, \@output, \@error);
+#         }
+#     }
+
+#     return \@output;
+
+# }
+
+
+use EBox::Config::Redis;
+package EBox::Config::Redis;
+sub _new
+{
+    my ($class, %args) = @_;
+    my $self = {};
+    bless($self, $class);
+    $self->{pid} = $$;
+    $self->{json_pretty} = JSON::XS->new->pretty;
+
+    return $self;
+}
+
+
+sub begin
+{
+    my ($self) = @_;
+
+     use Devel::StackTrace;
+     my $st = Devel::StackTrace->new(());
+     print STDERR "REDIS begin\n";
+     print STDERR  $st->as_string(), "\n";
+
+    # Do not allow nested transactions
+#    return if ($trans++);
+
+ #   $lock->lock();
+
+#     my $version = $self->_redis_call('get', 'version');
+#     defined ($version) or $version = 0;
+#     if ($version > $cacheVersion) {
+#         %cache = ();
+#         $cacheVersion = $version;
+#     }
+
+    return 1;
+}
+
+sub commit
+{
+    my ($self) = @_;
+
+#     $trans--;
+
+#     if ($trans == 0) {
+#         $self->_sync();
+
+#        $lock->unlock();
+#    }
+}
+
+sub rollback
+{
+    my ($self) = @_;
+
+#     if ($self->{multi}) {
+#         $self->_redis_call('discard');
+#     }
+
+#     $trans = 0;
+
+ #   $lock->unlock();
+}
+
+
+package main;
+
+
 use EBox::Gettext;
 use Error qw(:try);
 use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
@@ -33,7 +152,8 @@ try {
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
-    EBox::CGI::CaptivePortal::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
+   EBox::CGI::CaptivePortal::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
+#   EBox::CGI::Run->run($ENV{'script'}, 'EBox::CaptivePortal');
 } otherwise  {
     my $ex = shift;
     use Devel::StackTrace;

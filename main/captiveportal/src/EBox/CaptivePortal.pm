@@ -20,7 +20,9 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
-            EBox::LdapModule);
+            EBox::LdapModule
+            EBox::Events::WatcherProvider
+          );
 
 use EBox;
 use EBox::Global;
@@ -419,5 +421,10 @@ sub _bwmonitor {
     return defined($bwmonitor) and $bwmonitor->isEnabled();
 }
 
+
+sub eventWatchers
+{
+    return ['CaptivePortalQuota'];
+}
 
 1;

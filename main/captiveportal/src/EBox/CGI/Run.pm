@@ -23,7 +23,7 @@ use base 'EBox::CGI::Run';
 use Error qw(:try);
 use EBox;
 
-
+use EBox::CaptivePortal::CGI::Login;
 
 
 # this is the same version of EBox::CGI::Run::run() but without redis transactions
@@ -48,9 +48,12 @@ sub run # (url, namespace)
             $log->error("Unable to import cgi: "
                             . "$classname Eval error: $@");
 
-            my $error_cgi = 'EBox::CGI::SysInfo::PageNotFound';
-            eval "use $error_cgi";
-            $cgi = new $error_cgi('namespace' => $namespace);
+#            my $error_cgi = 'EBox::CGI::PageNotFound';
+
+#            my $error_cgi = 'EBox::CaptivePortal::CGI::Login';
+#            eval "use $error_cgi";
+#            $cgi = $error_cgi->new('namespace' => $namespace);
+             $cgi = EBox::CaptivePortal::CGI::Login->new(namespace => $namespace);
         }
     } else {
         $cgi = new $classname();
