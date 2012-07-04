@@ -262,7 +262,7 @@ sub enableWatcher
 sub isEnabledWatcher
 {
     my ($self, $watcher) = @_;
-    $self->model('ConfigureWatchers')->enableWatcher($watcher);
+    $self->model('ConfigureWatchers')->isEnabledWatcher($watcher);
 }
 
 
