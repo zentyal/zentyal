@@ -500,7 +500,7 @@ sub addedRowNotify
     my $addrs = join(', ', @{$internalIpAddresses});
     $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
                           . 'these IP addresses {ips}, this host name has been also set as '
-                          . 'nameserver record. Moreover, the same IP addresses has been assigned '
+                          . 'nameserver record. Moreover, the same IP addresses have been assigned '
                           . 'to this new domain. You can always rename it or create alias for it.',
                           nshost => $nsHost, ips => $addrs));
 
