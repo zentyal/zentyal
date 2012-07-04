@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::Config;
 use EBox::Global;
 
 use EBox::Logs::Consolidate;
@@ -26,13 +27,8 @@ try {
 
     unless (EBox::Config::boolean('disable_consolidation')) {
         # we consolidate before the purge to not lose any data
+        # This is intended for summarised reports
         EBox::Logs::Consolidate->consolidate('all');
-
-        # do report consolidation
-        my @mods =  @{ EBox::Global->modInstancesOfType('EBox::LogObserver')  };
-        for my $mod (@mods) {
-            $mod->consolidateReportFromLogs();
-        }
     }
 
     $logs->archiveBackupSlices();
