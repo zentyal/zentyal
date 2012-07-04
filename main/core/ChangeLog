@@ -1,4 +1,5 @@
 HEAD
+	+ Enable consolidation after reviewing and pruning
 	+ Code typo fix in Events::isEnabledWatcher
 	+ Remove all report code from core
 	+ Move SysInfo report related to remoteservices module
