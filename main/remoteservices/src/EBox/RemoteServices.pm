@@ -146,9 +146,9 @@ sub _setConf
         $self->_writeCronFile();
         $self->_startupTasks();
         $self->_reportAdminPort();
-        $self->_setQAUpdates();
     }
 
+    $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
 }
 

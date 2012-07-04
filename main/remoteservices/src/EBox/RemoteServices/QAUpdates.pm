@@ -32,6 +32,8 @@ use EBox::RemoteServices::Cred;
 use EBox::Sudo;
 use Data::UUID;
 
+use Error qw(:try);
+
 # Group: Public methods
 
 # Method: set
