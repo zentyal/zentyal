@@ -7,4 +7,4 @@
   $user
   $pass
 </%args>
-deb http://<% $user %>:<% $pass %>@<% $repositoryIPAddr %>/ <% $archive %> main universe multiverse partner
+deb http://<% $user %>:<% $pass %>@<% $repositoryHostname %>/ <% $archive %> main universe multiverse partner
