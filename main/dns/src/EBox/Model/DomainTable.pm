@@ -495,7 +495,15 @@ sub addedRowNotify
 
     EBox::debug('Adding name server');
     my $nsModel = $newRow->subModel('nameServers');
-    $nsModel->add(hostName => { ownerDomain => $nsHost } )
+    $nsModel->add(hostName => { ownerDomain => $nsHost } );
+
+    my $addrs = join(', ', @{$internalIpAddresses});
+    $self->setMessage(__x('Domain added. The host name {nshost} has been added to this domain with '
+                          . 'these IP addresses {ips}, this host name has been also set as '
+                          . 'nameserver record. Moreover, the same IP addresses has been assigned '
+                          . 'to this new domain. You can always rename it or create alias for it.',
+                          nshost => $nsHost, ips => $addrs));
+
 }
 
 # Method: viewCustomizer
