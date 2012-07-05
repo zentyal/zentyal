@@ -496,6 +496,8 @@ Method: tableHead
 Parameteres:
   @tableHead - list with the types of the fields of the tale's rows
   $actions   - whether to show Action row or not
+  $model
+  $page
 </%doc>
 <%args>
 @tableHead

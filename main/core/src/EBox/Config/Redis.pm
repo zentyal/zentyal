@@ -489,7 +489,7 @@ sub _initRedis
     my ($self) = @_;
 
     # User corner redis server is managed by service
-    return if ( $self->_user eq 'ebox-usercorner' );
+    return if ( $self->_user ne 'ebox' );
 
     unless (EBox::Service::running('ebox.redis')) {
         EBox::info('Starting redis server');

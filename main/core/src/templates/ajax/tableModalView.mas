@@ -222,7 +222,12 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
                $model->table()->{'class'}
               %>'>
 
-<& SELF:tableHead, tableHead => \@tableHead, actions => 1 &>
+<& SELF:tableHead,
+    model => $model,
+    tableHead => \@tableHead,
+    actions => 1,
+    page => $page
+ &>
 
     <tbody>
 <%perl>
