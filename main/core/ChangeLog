@@ -1,4 +1,5 @@
 HEAD
+	+ Do not do a redis transaction for network module init actions
 	+ Fixed EBox::Module::Config::st_unset()
 	+ Allowed error class in msg template
 2.3.13

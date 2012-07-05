@@ -1,4 +1,5 @@
 HEAD
+	+ Removed redis transaction workarounds in _setConf
 	+ Fixed unconfigured gateway removal, raise exception if the route
 	  addition command fails
 2.3.9

@@ -3146,11 +3146,9 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
-                $self->redis()->commit();
                 EBox::Sudo::root(@cmds);
             } catch EBox::Exceptions::Internal with {
             };
-            $self->redis()->begin();
             #remove if empty
             if ($self->_isEmpty($if)) {
                 unless ($self->isReadOnly()) {
@@ -3217,7 +3215,6 @@ sub _enforceServiceState
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
-        $self->redis()->commit();
         open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
@@ -3227,7 +3224,6 @@ sub _enforceServiceState
                 }
         }
         unlink (IFUP_LOCK_FILE);
-        $self->redis()->begin();
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
