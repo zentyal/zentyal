@@ -1,5 +1,5 @@
 HEAD
-	+ Cloud-server communication goes outside the VPN
+	+ QA Updates go outside the VPN
 	+ QA apt configuration files are now generated or removed when
 	  setting the configuration for the module (_setConf method)
 	+ QA repository public key included in the package
