@@ -61,15 +61,17 @@ our %SERVICES = (
         web_skip => 'Current IP Address:',
         require_info => 1,
     },
-    dnspark => {
-        printableValue => 'dnspark.com',
-        protocol => 'dnspark',
-        server => 'www.dnspark.com',
-        use => 'web',
-        web => 'ipdetect.dnspark.com',
-        web_skip => 'Current Address:',
-        require_info => 1,
-    },
+#    disabled until ddclient bug #30 is fixed
+#       http://sourceforge.net/apps/trac/ddclient/ticket/30
+#     dnspark => {
+#         printableValue => 'dnspark.com',
+#         protocol => 'dnspark',
+#         server => 'www.dnspark.com',
+#         use => 'web',
+#         web => 'ipdetect.dnspark.com',
+#         web_skip => 'Current Address:',
+#         require_info => 1,
+#     },
     joker => {
         printableValue => 'Joker.com',
         protocol => 'dyndns2',

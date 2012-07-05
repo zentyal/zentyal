@@ -1,4 +1,5 @@
 HEAD
+	+ Disabled dnspark until ddclient upstream fix a bug with this provideer
 	+ Multigw rules more robust when no-static interfaces are down
 	+ Removed redis transaction workarounds in _setConf
 	+ Fixed unconfigured gateway removal, raise exception if the route
