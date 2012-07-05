@@ -265,7 +265,7 @@ sub partitionsFileSystems
 
     while (my ($fs, $attrs) = each %fileSys) {
         # remove non-device filesystems
-        if ($fs eq 'none') {
+        unless ($fs =~ m{^/}) {
                 delete $fileSys{$fs};
                 next;
         }
