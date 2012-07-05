@@ -141,7 +141,6 @@ sub CronJobPrefix
 #
 sub aptQASourcePath
 {
-    # TODO: zentyal-qa instead of ebox-qa
     return '/etc/apt/sources.list.d/ebox-qa.list';
 }
 

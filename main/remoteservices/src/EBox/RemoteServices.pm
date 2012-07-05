@@ -1939,6 +1939,7 @@ sub REST
 #  * Migrate current subscription data in state to new structure
 #  * Rename VPN client
 #  * Get credentials
+#  * Rename file ebox-qa.list to zentyal-qa.list
 #
 sub _migrateTo30
 {
@@ -1947,6 +1948,7 @@ sub _migrateTo30
     # Drop old VPN client
     # Create a new one
     # Get credentials again
+    # Rename file ebox-qa.list to zentyal-qa.list
 }
 
 
