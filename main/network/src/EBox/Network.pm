@@ -2998,24 +2998,28 @@ sub _multigwRoutes
 
         $iface = $self->realIface($iface);
 
-        my $if = new IO::Interface::Simple($iface);
-        next unless $if->address;
-
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
+        unless ($address) {
+            EBox::error("Interface $iface used by gateway " .
+                            $router ->{name} . " has not address." .
+                        " Not adding multi-gateway rules for this gateway.");
+            next;
+        }
+
         my $route = "via $ip dev $iface src $address";
         if ($method eq 'ppp') {
             $route = "dev $iface";
             (undef, $ip) = split ('/', $ip);
         }
 
-	    # Write mark rules first to avoid local output problems
+        # Write mark rules first to avoid local output problems
         push(@cmds, "/sbin/ip route flush table $table");
         push(@markRules, "/sbin/ip rule add fwmark $mark/0xFF table $table");
         push(@addrRules, "/sbin/ip rule add from $ip table $table");
 
         # Add rule by source in multi interface configuration
-        if ( scalar keys %interfaces > 1 ) {
+        if (scalar keys %interfaces > 1) {
             push(@addrRules, "/sbin/ip rule add from $address table $table");
         }
 
