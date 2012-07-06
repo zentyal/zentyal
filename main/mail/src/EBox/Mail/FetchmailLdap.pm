@@ -177,14 +177,16 @@ sub allExternalAccountsByLocalAccount
         }
 
 
-        my $externalAccounts = $self->_externalAccountsForLdapEntry($entry);
-        if (@{$externalAccounts} == 0) {
+        my @externalAccounts = map {
+            $self->_externalAccountHash($_)
+        } $entry->get_value('fetchmailAccount');
+        if (@externalAccounts == 0) {
             next;
         }
 
         $accountsByLocalAccount{$localAccount} = {
                                localAccount => $localAccount,
-                               externalAccounts => $externalAccounts,
+                               externalAccounts => \@externalAccounts,
                                mda => undef,
                            };
     }
