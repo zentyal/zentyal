@@ -31,6 +31,11 @@ my %printableName = (
 <% __('The user can change this settings through the user corner') %>
 </div>
 <& .addAccount, params => $params &>
+<a href='#' class='addNew'
+   name='add'
+         onClick='this.style.display = "none"; $("add_external_account").show();return false'>
+    <% __('Add new') %>
+  </a>
 % if (@externalAccounts){
 <& .accountsTable,
    externalAccounts => \@externalAccounts,
@@ -80,12 +85,7 @@ my @columnTitles = map {
 } @tableOrder;
 push @columnTitles, __('Action');
 </%init>
-<a href='#' class='addNew'
-   name='add'
-         onClick='this.style.display = "none"; $("add_external_account").show();return false'>
-    <% __('Add new') %>
-  </a>
-<br/>
+<br/><br/>
 <& /dataTable.mas,
   columnTitles => \@columnTitles,
   rows => \@rows,
