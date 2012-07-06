@@ -1,4 +1,4 @@
-HEAD
+2.3.10
 	+ Restricted gateway names to be sane with dyndns and fixed dyndns
 	  configuration with old incorrect gateway names
 	+ Disabled dnspark until ddclient upstream fix a bug with this provideer

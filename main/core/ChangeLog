@@ -1,4 +1,4 @@
-HEAD
+2.3.14
 	+ Error message for failure in package cache creation
 	+ Fixed regression when showing a data table in a modal view
 	+ Do not do a redis transaction for network module init actions
