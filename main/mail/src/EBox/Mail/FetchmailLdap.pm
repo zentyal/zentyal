@@ -406,5 +406,84 @@ sub setFetchmailRegenTs
 }
 
 
+sub checkExternalAccount
+{
+    my ($self, $externalAccount) = @_;
+    if ($externalAccount =~ m/\@/) {
+        EBox::Validate::checkEmailAddress(
+                $externalAccount,
+                __('External account')
+               );
+    } else {
+        # no info found on valid usernames for fetchmail..
+        if ($externalAccount =~ m/\s/) {
+            throw EBox::Exceptions::InvalidData (
+                    'data' => __('External account username'),
+                    'value' => $externalAccount,
+                    'advice' => __('No spaces allowed')
+                   );
+        }
+        unless ($externalAccount =~ m/^[\w.\-_]+$/) {
+            throw EBox::Exceptions::InvalidData (
+                'data' => __('External account username'),
+                'value' => $externalAccount);
+        }
+    }
+}
+
+sub checkPassword
+{
+    my ($self, $password) = @_;
+        if ($password =~ m/'/) {
+            throw EBox::Exceptions::External(
+  __(q{Character "'" is forbidden for external})
+                                            );
+        }
+}
+
+sub externalAccountRowValues
+{
+    my ($self, $account) = @_;
+   # direct correspondende values
+    my %values      =  (
+        externalAccount => $account->{user},
+        password => $account->{password},
+        server => $account->{server},
+        port => $account->{port},
+       );
+
+    my $mailProtocol = $account->{mailProtocol};
+    my $ssl = 0;
+    my $keep = 0;
+    if (exists $account->{options}) {
+        if (ref $account->{options}) {
+            foreach my $opt (@{ $account->{options} }) {
+                if ($opt eq 'ssl') {
+                    $ssl = 1;
+                } elsif ($opt eq 'keep') {
+                    $keep = 1;
+                }
+            }
+        } else {
+            $ssl = $account->{options} eq 'ssl';
+        }
+    }
+
+    my $rowProtocol;
+    if ($mailProtocol eq 'pop3') {
+        $rowProtocol = $ssl ? 'pop3s' : 'pop3';
+    } elsif ($mailProtocol eq 'imap') {
+        $rowProtocol = $ssl ? 'imaps' : 'imap';
+    }else {
+        throw EBox::Exceptions::Internal(
+         "Unknown mail protocol: $mailProtocol"
+           );
+    }
+    $values{protocol} = $rowProtocol;
+    $values{keep}     = $keep;
+    return \%values;
+
+}
+
 
 1;

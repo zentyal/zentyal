@@ -8,11 +8,12 @@ use EBox::Gettext;
 <& .noVdomains &>
 % }
 %elsif($params->{'mail'} eq undef) {
-	<& /mail/createaccount.mas, title => __('Create mail account'), 
-		params => $params &>
+%#	<& /mail/createaccount.mas, title => __('Create mail account'),
+	<& /mail/createaccount.mas,params => $params &>
 %} else {
-	<& /mail/alias.mas, title => __('Create mail alias to mail account'), 
-		params => $params &>
+%#	<& /mail/alias.mas, title => __('Create mail alias to mail account'),
+	<& /mail/alias.mas,  params => $params &>
+        <& /mail/externalAccounts.mas, params => $params &>
 %}
 
 <%def .noVdomains>
@@ -21,8 +22,8 @@ my $vdomainUrl = '/Mail/View/VDomains';
 </%init>
 <h3><% __('Mail account') %></h3>
 <div class='warning'>
-<% __(q{Mail account  is unavailable because either there isn't  any mail virtual 
+<% __(q{Mail account  is unavailable because either there isn't  any mail virtual
  domain created or you need to save changes in order to activate the new domains.} ) %><br/>
 <a href='<% $vdomainUrl %>'><% __('Click here to create a new mail virtual domain') %></a>
-</div> 
+</div>
 </%def>
