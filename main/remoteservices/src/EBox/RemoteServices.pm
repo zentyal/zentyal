@@ -882,6 +882,40 @@ sub disasterRecoveryAddOn
     return $ret;
 }
 
+# Method: sbMailAddOn
+#
+#      Get if server has SB mail add-on
+#
+# Parameters:
+#
+#      force - Boolean check against the cloud
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      Boolean - indicating whether it has SB mail add-on or not
+#
+sub sbMailAddOn
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and ($self->st_entry_exists('subscription/sbMail')) ) {
+        return $self->st_get_bool('subscription/sbMail');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $sbMail = $cap->sbMailAddOn();
+            $self->st_set_bool('subscription/sbMail', $sbMail);
+            return $sbMail;
+        }
+    }
+    return '';
+}
+
 # Method: backupCredentials
 #
 #     Get the backup credentials if the server is connected to Zentyal
@@ -1247,8 +1281,13 @@ sub i18nServerEdition
 
     $level = $self->subscriptionLevel() unless (defined($level));
 
+
     if ( exists($i18nLevels{$level}) ) {
-        return $i18nLevels{$level};
+        my $ret = $i18nLevels{$level};
+        if ( $self->sbMailAddOn() ) {
+            $ret .= ' + ' . __s('Zarafa Small Business (25 users)');
+        }
+        return $ret;
     } else {
         return __('Unknown');
     }
@@ -1600,8 +1639,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
-      ( __('None'), '', '', 'info', '', '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $sbMailAddOn) =
+      ( __('None'), '', '', 'info', '', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1654,7 +1693,7 @@ sub _ccConnectionWidget
         } catch EBox::Exceptions::NotConnected with { };
 
         if ( $drOn ) {
-            $DRValue = __x('Enabled');
+            $DRValue = __('Enabled');
             my $date = $self->_latestBackup();
             if ( $date ne 'unknown' ) {
                 $DRValue .= ' ' . __x('- Latest backup: {date}', date => $date);
@@ -1666,6 +1705,8 @@ sub _ccConnectionWidget
                 $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
             }
         }
+
+        $sbMailAddOn = $self->sbMailAddOn();
 
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
@@ -1694,7 +1735,10 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
-
+    if ( $sbMailAddOn ) {
+        $section->add(new EBox::Dashboard::Value(__s('Zarafa Small Business'),
+                                                 __('Enabled')));
+    }
 }
 
 # Set the subscription details
