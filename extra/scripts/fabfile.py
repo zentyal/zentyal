@@ -2,7 +2,8 @@ from fabric.api import local, put, run, sudo
 import os.path, re
 
 def pbuild(pkgs):
-    local('../extra/scripts/zpr ../extra/zbuildtools/zentyal-package %s' % ' '.join(pkgs))
+    for pkg in pkgs:
+        local('../extra/scripts/zentyal-package %s' % pkg)
 
 def install(pkg):
     version = __get_version(pkg)
@@ -35,5 +36,5 @@ def copy(path):
 
 # Private functions
 def __get_version(pkg):
-    output = local('head -n 1 %s/debian/precise/changelog | grep -o -P " \((.*?)\)" | tr -d "()[:space:]"' % pkg, capture=True)
+    output = local('head -n 1 %s/debian/lucid/changelog | grep -o -P " \((.*?)\)" | tr -d "()[:space:]"' % pkg, capture=True)
     return output
