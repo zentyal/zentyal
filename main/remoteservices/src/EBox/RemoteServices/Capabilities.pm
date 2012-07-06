@@ -101,7 +101,7 @@ sub securityUpdatesAddOn
 
 # Method: disasterRecoveryAddOn
 #
-#     Check the if disaster recovery addon is available in the cloud
+#     Check if disaster recovery addon is available in the cloud
 #     for this company
 #
 sub disasterRecoveryAddOn
@@ -114,6 +114,26 @@ sub disasterRecoveryAddOn
         $result = $self->soapCall('disasterRecoveryAddOn');
     } otherwise {
         EBox::warn("SOAP call disasterRecoveryAddOn failed: $@");
+    };
+
+    return $result;
+}
+
+# Method: sbMailAddOn
+#
+#     Check whether the SB mail add-on is available for this server or
+#     not
+#
+sub sbMailAddOn
+{
+    my ($self) = @_;
+
+    my $result = 0;
+
+    try {
+        $result = $self->soapCall('sbMailAddOn');
+    } otherwise {
+        EBox::warn("SOAP call sbMailAddOn failed: $@");
     };
 
     return $result;
