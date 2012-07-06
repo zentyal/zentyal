@@ -50,7 +50,15 @@ my @rows;
 foreach my $account (@externalAccounts) {
     my @accountRow;
     foreach my $field (@tableOrder) {
-        push @accountRow, $account->{$field};
+        if ($field eq 'keep') {
+          if ($account->{$field}) {
+             push @accountRow, q{<div class='tcenter'><img src="/data/images/apply.gif" alt="yes"/></div>};
+          } else {
+             push @accountRow, q{<div class='tcenter'><img src="/data/images/deny-active.gif" alt="no"/></div>};
+          }
+        } else {
+          push @accountRow, $account->{$field};
+        }
     }
     # push action element
     my $link = '/Mail/DelExternalAccount';
