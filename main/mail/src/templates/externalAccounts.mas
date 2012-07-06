@@ -7,12 +7,13 @@ my @externalAccounts = @{ $params->{externalAccounts} };
 </%init>
 <%shared>
 my %printableName = (
-    externalAccount => __('Mail account'),
+    externalAccount => __('External account'),
     password        => __('Password'),
     server          => __('Server'),
     port            => __('Port'),
-    keep            => __('Keep mail'),
+    keep            => __("Don't delete retrieved mail from external server"),
     protocol        => __('Protocol'),
+    fetchall        => __('Fetch already read messages'),
    );
 
 
@@ -49,13 +50,13 @@ my %printableName = (
 $params
 </%args>
 <%init>
-my @tableOrder = qw(externalAccount server protocol port keep);
+my @tableOrder = qw(externalAccount server protocol port keep fetchall);
 my @rows;
 
 foreach my $account (@externalAccounts) {
     my @accountRow;
     foreach my $field (@tableOrder) {
-        if ($field eq 'keep') {
+        if (($field eq 'keep') or ($field eq'fetchall')) {
           if ($account->{$field}) {
              push @accountRow, q{<div class='tcenter'><img src="/data/images/apply.gif" alt="yes"/></div>};
           } else {
@@ -129,6 +130,7 @@ $params
     ],
     [ name => 'port', printableName => $printableName{'port'} ],
     [ name => 'keep', input => 'checkbox', printableName => $printableName{'keep'}],
+    [ name => 'fetchall', input => 'checkbox', printableName => $printableName{'fetchall'}],
     [ name => 'addExternalAccount', input => 'submit', value => __('Add')],
   ]
 &>

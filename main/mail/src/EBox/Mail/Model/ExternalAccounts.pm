@@ -117,6 +117,12 @@ sub _table
             defaultValue => 0,
             editable => 1,
            ),
+        new EBox::Types::Boolean(
+            fieldName => 'fetchall',
+            printableName => (q{Fetch already read messages}),
+            defaultValue => 0,
+            editable => 1,
+           ),
     );
     my $dataTable =
     {
@@ -346,6 +352,7 @@ sub _elementsToParamsForFetchmailLdapCall
         mailServer     => $params_r->{server}->value(),
         port           => $params_r->{port}->value(),
         keep           => $params_r->{keep}->value(),
+        fetchall       => $params_r->{fetchall}->value(),
        );
 
 

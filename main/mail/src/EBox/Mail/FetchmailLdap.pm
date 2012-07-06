@@ -75,6 +75,9 @@ sub _optionsStr
     if ($params{keep}) {
         push @optionParts, 'keep';
     }
+    if ($params{fetchall}) {
+        push @optionParts, 'fetchall';
+    }
 
     my $optionsStr = "@optionParts";
     return $optionsStr;
@@ -457,6 +460,7 @@ sub externalAccountRowValues
     my $mailProtocol = $account->{mailProtocol};
     my $ssl = 0;
     my $keep = 0;
+    my $fetchall = 0;
     if (exists $account->{options}) {
         if (ref $account->{options}) {
             foreach my $opt (@{ $account->{options} }) {
@@ -464,6 +468,8 @@ sub externalAccountRowValues
                     $ssl = 1;
                 } elsif ($opt eq 'keep') {
                     $keep = 1;
+                } elsif ($opt eq 'fetchall') {
+                    $fetchall = 1;
                 }
             }
         } else {
@@ -483,6 +489,7 @@ sub externalAccountRowValues
     }
     $values{protocol} = $rowProtocol;
     $values{keep}     = $keep;
+    $values{fetchall} = $fetchall;
     return \%values;
 
 }
