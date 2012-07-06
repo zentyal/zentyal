@@ -1,0 +1,129 @@
+<%args>
+$params
+</%args>
+<%init>
+use EBox::Gettext;
+my @externalAccounts = @{ $params->{externalAccounts} };
+</%init>
+<%shared>
+my %printableName = (
+    externalAccount => __('Mail account'),
+    password        => __('Password'),
+    server          => __('Server'),
+    port            => __('Port'),
+    keep            => __('Keep mail'),
+    protocol        => __('Protocol'),
+   );
+
+
+</%shared>
+<h3><% __('Mail retrieval from external accounts') %></h3>
+% if (not $params->{externalRetrievalEnabled} ){
+<div class='warning'>
+<% __x(q{Mail retrieval from external accounts service is not enabled; until you {ub}enable it{ue} your changes won't have any effect.},
+        ub => "<a href=''>",
+        ue => "</a>"
+      )
+%>
+</div>
+% }
+<div class='note'>
+<% __('The user can change this settings through the user corner') %>
+</div>
+<& .addAccount, params => $params &>
+% if (@externalAccounts){
+<& .accountsTable,
+   externalAccounts => \@externalAccounts,
+   params           => $params,
+&>
+% }
+
+<%def .accountsTable>
+<%args>
+@externalAccounts
+$params
+</%args>
+<%init>
+my @tableOrder = qw(externalAccount server protocol port keep);
+my @rows;
+
+foreach my $account (@externalAccounts) {
+    my @accountRow;
+    foreach my $field (@tableOrder) {
+        push @accountRow, $account->{$field};
+    }
+    # push action element
+    my $link = '/Mail/DelExternalAccount';
+    $link .= '?user='  . $params->{'user'}->dn();
+    $link .='&account=' . $account->{externalAccount};
+    push @accountRow, [
+        {
+           url => $link,
+           text => __('Delete external account'),
+           icon => '/data/images/delete.gif',
+        }
+
+     ];
+
+    push @rows, \@accountRow;
+}
+my @columnTitles = map {
+   $printableName{$_}
+} @tableOrder;
+push @columnTitles, __('Action');
+</%init>
+<a href='#' class='addNew'
+   name='add'
+         onClick='this.style.display = "none"; $("add_external_account").show();return false'>
+    <% __('Add new') %>
+  </a>
+<br/>
+<& /dataTable.mas,
+  columnTitles => \@columnTitles,
+  rows => \@rows,
+&>
+</%def>
+
+
+<%def .addAccount>
+<%args>
+$params
+</%args>
+<form action='/Mail/AddExternalAccount' method='POST' id='add_external_account' style='display:none;'>
+<& /formTable.mas,
+   rows => [
+    [ name => 'user', input => 'hidden', value => $params->{'user'}->dn() ],
+    [ name => 'localAccount', input => 'hidden', value => $params->{'mail'}],
+    [ name => 'externalAccount', printableName => $printableName{'externalAccount'} ],
+    [ name => 'password', input =>'password', printableName => $printableName{'password'}  ],
+    [ name => 'mailServer', printableName => $printableName{'server'}],
+    [
+      name => 'mailProtocol', input => 'select',
+      printableName => $printableName{'protocol'},
+      options => [
+        {
+            value => 'pop3',
+            printableValue => 'POP3',
+        },
+        {
+            value => 'pop3s',
+            printableValue => __('Secure POP3'),
+        },
+        {
+            value => 'imap',
+            printableValue => 'IMAP',
+        },
+        {
+            value => 'imaps',
+            printableValue => __('Secure IMAP'),
+        },
+          ],
+    ],
+    [ name => 'port', printableName => $printableName{'port'} ],
+    [ name => 'keep', input => 'checkbox', printableName => $printableName{'keep'}],
+    [ name => 'addExternalAccount', input => 'submit', value => __('Add')],
+  ]
+&>
+
+</form>
+</%def>
