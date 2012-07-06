@@ -261,6 +261,11 @@ sub validateRow
         $auto = $currentRow->valueByName('auto');
         $oldIP = $currentRow->valueByName('ip');
     }
+
+    if (exists $params{name}) {
+        $self->checkGWName($params{name});
+    }
+
     my $network = EBox::Global->modInstance('network');
 
     # Do not check for valid IP in case of auto-added ifaces
@@ -541,6 +546,30 @@ sub removeRow
     }
 
     $self->SUPER::removeRow($id, $force);
+}
+
+
+sub checkGWName
+{
+    my ($self, $name) = @_;
+
+    if (($name =~ m/^-/) or ($name =~ m/-$/)) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Gateway name'),
+            value => $name,
+            advice => __(q{Gateways names cannot begin or end with '-'})
+
+           );
+    }
+
+    unless ($name =~ m/^[^a-z0-9\-]+$/) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Gateway name'),
+            value => $name,
+            advice => __(q{Gateways names can only be composed of lowercase ASCII english letters, digits and '-'}),
+
+           );
+    }
 }
 
 1;
