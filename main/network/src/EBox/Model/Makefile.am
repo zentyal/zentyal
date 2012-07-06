@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/Network/Model
 
 nobase_perl_DATA = GatewayTable.pm Proxy.pm MultiGwRulesOptions.pm \
         MultiGwRulesDataTable.pm StaticRoute.pm DNSResolver.pm \
-        DeletedStaticRoute.pm DynDNS.pm SearchDomain.pm \
+        DynDNS.pm SearchDomain.pm \
         WANFailoverOptions.pm WANFailoverRules.pm
 
 DISTCLEANFILES =

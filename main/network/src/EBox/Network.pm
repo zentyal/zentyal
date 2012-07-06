@@ -215,7 +215,6 @@ sub modelClasses
           },
           'EBox::Network::Model::MultiGwRulesOptions',
           'EBox::Network::Model::StaticRoute',
-          'EBox::Network::Model::DeletedStaticRoute',
           'EBox::Network::Model::DNSResolver',
           'EBox::Network::Model::SearchDomain',
           'EBox::Network::Model::DynDNS',
