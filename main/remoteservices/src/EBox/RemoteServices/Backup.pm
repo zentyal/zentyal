@@ -26,6 +26,8 @@ use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::RemoteServices::Cred;
 use File::Glob ':globally';
 use File::Slurp;
 use File::Temp;
@@ -46,6 +48,13 @@ sub new
     my ($class, @params) = @_;
 
     my $self = $class->SUPER::new(@params);
+
+    my $rs = EBox::Global->modInstance('remoteservices');
+    my $cloud_domain = $rs->cloudDomain();
+    # TODO: Check $cloud_domain is not undef or ''
+
+    $self->{cloud} = 'confbackup.' . $cloud_domain;
+    # TODO: Use this url in the REST calls
 
     bless($self, $class);
     return $self;
@@ -246,30 +255,6 @@ sub remoteBackupInfo
     return  $allBackups->{$name};
 }
 
-# Group: Protected methods
-
-# Method: _serviceUrnKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceUrnKey>
-#
-sub _serviceUrnKey
-{
-    return 'backupServiceUrn';
-}
-
-# Method: _serviceHostNameKey
-#
-# Overrides:
-#
-#     <EBox::RemoteServices::Auth::_serviceHostNameKey>
-#
-sub _serviceHostNameKey
-{
-    return 'backupServiceProxy';
-}
-
 # Group: Private methods
 
 sub _metainfoFromServer
@@ -368,10 +353,13 @@ sub _setMetainfoFootprint
 sub _pushConfBackup
 {
     my ($self, $archive, @p) = @_;
-    my $rv = $self->soapCall('pushConfBackup', @p);
+
+    my $cred = new EBox::RemoteServices::Cred();
+    my $ret = $cred->RESTClient()->PUT('/conf-backup/meta/push/', \@p);
+
     # Send the file using curl
     my %p = @p;
-    my $url = new URI('https://' . $self->_servicesServer() . '/conf-backup/put/' . $p{fileName});
+    my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
     my $output = EBox::Sudo::command(CURL . " --insecure --upload-file '$archive' "
                                      . "'" . $url->as_string() . "'"
                                      . ' --cacert ' . $self->{caCertificate}
@@ -399,7 +387,7 @@ sub _pullConfBackup
 {
     my ($self, %p) = @_;
 
-    my $url = new URI('https://' . $self->_servicesServer() . '/conf-backup/get/' . $p{fileName});
+    my $url = new URI('https://' . $self->{cloud} . '/conf-backup/get/' . $p{fileName});
 
     my $ua = new LWP::UserAgent();
     $ENV{HTTPS_CERT_FILE} = $self->{certificate};
@@ -425,19 +413,25 @@ sub _pullConfBackup
 sub _pullAllMetaConfBackup
 {
     my ($self, @p) = @_;
-    return $self->soapCall('pullAllMetaConfBackup', @p);
+
+    my $cred = new EBox::RemoteServices::Cred();
+    my $ret = $cred->RESTClient()->GET('/conf-backup/meta/pullall/', \@p);
 }
 
 sub _pullFootprintMetaConf
 {
     my ($self, @p) = @_;
-    return $self->soapCall('pullFootprintMetaConf', @p);
+
+    my $cred = new EBox::RemoteServices::Cred();
+    my $ret = $cred->RESTClient()->GET('/conf-backup/meta/pullfootprint/', \@p);
 }
 
 sub _removeConfBackup
 {
     my ($self, @p) = @_;
-    return $self->soapCall('removeConfBackup', @p);
+
+    my $cred = new EBox::RemoteServices::Cred();
+    my $ret = $cred->RESTClient()->DELETE('/conf-backup/meta/delete/', \@p);
 }
 
 1;
