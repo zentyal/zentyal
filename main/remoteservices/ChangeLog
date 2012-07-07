@@ -1,4 +1,6 @@
 HEAD
+	+ Give support for 400 errors in REST Client as external
+	  exceptions
 	+ Added logic for new mail add-on for SB edition
 	+ New registration form on subscription wizard
 2.3.1
