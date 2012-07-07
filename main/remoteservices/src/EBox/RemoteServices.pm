@@ -643,7 +643,7 @@ sub reloadBundle
     my $retVal = 1;
     try {
         if ( $self->eBoxSubscribed() ) {
-            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud($self->eBoxCommonName());
+            EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
             my $new = $self->hasBundle();
             my $version       = $self->version();
             my $bundleVersion = $self->bundleVersion();
@@ -901,19 +901,13 @@ sub sbMailAddOn
 
     $force = 0 unless defined($force);
 
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/sbMail')) ) {
-        return $self->st_get_bool('subscription/sbMail');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $sbMail = $cap->sbMailAddOn();
-            $self->st_set_bool('subscription/sbMail', $sbMail);
-            return $sbMail;
-        }
-    }
-    return '';
+    my $ret;
+    try {
+        $ret = $self->_getSubscriptionDetails($force)->{sb_mail_add_on};
+    } otherwise {
+        $ret = 0;
+    };
+    return $ret;
 }
 
 # Method: backupCredentials
@@ -1760,12 +1754,13 @@ sub _getSubscriptionDetails
         my $details = $cap->subscriptionDetails();
 
         $state->{subscription} = {
-            level => $details->{level},
-            codename => $details->{codename},
+            level             => $details->{level},
+            codename          => $details->{codename},
             technical_support => $details->{technical_support},
-            renovation_date => $details->{renovation_date},
-            security_updates => $details->{security_updates},
-            disaster_recovery => $details->{disaster_recovery}
+            renovation_date   => $details->{renovation_date},
+            security_updates  => $details->{security_updates},
+            disaster_recovery => $details->{disaster_recovery},
+            sb_mail_add_on    => $details->{sb_mail_add_on},
         };
         $self->set_state($state);
     }

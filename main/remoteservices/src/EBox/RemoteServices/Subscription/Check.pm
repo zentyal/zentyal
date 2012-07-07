@@ -115,10 +115,6 @@ sub check
 #    Check whether the host is able to subscribe this server according
 #    to its capabilities from cloud data
 #
-# Parameters:
-#
-#    serverName - String the server name
-#
 # Returns:
 #
 #    True - if there is no problem in subscribing
@@ -130,7 +126,7 @@ sub check
 #
 sub checkFromCloud
 {
-    my ($self, $serverName) = @_;
+    my ($self) = @_;
 
     my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
     my $det = $capabilitiesGetter->subscriptionDetails();
