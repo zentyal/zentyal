@@ -502,7 +502,6 @@ sub monitorGathererIPAddresses
         };
     }
     return $monGatherers;
-
 }
 
 
@@ -2029,6 +2028,32 @@ sub cloudDomain
     }
 
     return EBox::RemoteServices::Cred->new()->cloudDomain();
+}
+
+# Method: cloudCredentials
+#
+#        Return the Zentyal Cloud Credentials if the server is subscribed
+#
+# Returns:
+#
+#        Hash ref - 'uuid' and 'password'
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub cloudCredentials
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->cloudCredentials();
 }
 
 1;

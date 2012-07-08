@@ -1,3 +1,6 @@
+HEAD
+	+ Zentyal Cloud DynDNS updates are now done outside the VPN and using
+	  the credentials obtained when the server is subscribed
 2.3.10
 	+ Restricted gateway names to be sane with dyndns and fixed dyndns
 	  configuration with old incorrect gateway names

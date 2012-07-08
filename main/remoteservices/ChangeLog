@@ -1,4 +1,5 @@
 HEAD
+	+ Added function cloudCredentials to get server uuid and pass
 	+ Added confKey monitoring_inside_vpn to configure whether the monitoring
 	  stats should be sent using the VPN or not
 	+ Added function cloudDomain to get Zentyal Cloud domain name
