@@ -696,21 +696,11 @@ sub _linkRRDs
     pop(@directories);
     my $parentPath = File::Spec->catdir(@directories);
 
-    if ( $subscribedHostname ) {
-        my $subDirPath = "$parentPath/$subscribedHostname";
-        # -e will fail if it is a sym link, we want this
-        if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
-            EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
-        } # else, collectd creates the directory
-    } else {
-        opendir(my $dh, $parentPath);
-        while ( defined(my $subdir = readdir($dh)) ) {
-            if ( -l "$parentPath/$subdir" ) {
-                EBox::Sudo::root("rm $parentPath/$subdir");
-            }
-        }
-        closedir($dh);
-    }
+    my $subDirPath = "$parentPath/$subscribedHostname";
+    # -e will fail if it is a sym link, we want this
+    if ( -d $rrdBaseDirPath and (not -e $subDirPath) ) {
+        EBox::Sudo::root("ln -sf $rrdBaseDirPath $subDirPath");
+    } # else, collectd creates the directory
 }
 
 # Check if there is threshold configuration and it is enabled or not
