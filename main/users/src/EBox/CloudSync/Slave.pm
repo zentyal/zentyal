@@ -97,9 +97,12 @@ sub _addGroup
 
     my $groupinfo = {
         name     => $group->name(),
-        comment  => $group->get('description'),
         gid      => $group->get('gidNumber'),
     };
+
+    if ($group->get('description')) {
+        $groupinfo->{description} = $group->get('description');
+    }
 
     my $name = $group->name();
     $self->REST->POST("groups/$name", $groupinfo);
@@ -111,12 +114,16 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
-    my @members = $group->get('member');
+    my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {
         name     => $group->name(),
         gid      => $group->get('gidNumber'),
         members  => \@members,
     };
+
+    if ($group->get('description')) {
+        $groupinfo->{description} = $group->get('description');
+    }
 
     my $cn = $group->get('cn');
     $self->REST->PUT("groups/$cn", $groupinfo);
