@@ -215,7 +215,6 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
-
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
@@ -648,7 +647,7 @@ sub ifaceExternalChanged # (iface, external)
 
     my ($self, $iface, $external) = @_;
     my $ruleModel = $self->ruleModel($iface);
-    if ($ruleModel->ifaceHasRules($iface)) {
+    if ($ruleModel->explicitIfaceHasRules($iface)) {
         return 1;
     }
 
@@ -940,20 +939,15 @@ sub _buildGConfRules # (iface, regenConfig)
 
     my $model = $self->ruleModel($iface);
 
-    my $rulesRef = [];
 
-    foreach my $id (@{$model->ids()}) {
-        my $row = $model->row($id);
-        if ($iface ne $row->valueByName('iface')) {
-            next;
-        }
-
-        my $ruleRef = {};
-        $ruleRef->{identifier} = $self->_nextMap($row->{id});
-        $ruleRef->{service} = $row->elementByName('service');
+    foreach my $ruleRef (@{$model->rulesForIface($iface)}) {
+        # transofrmations needed for the ubilder
+        # get identifier for builder
+        my $id = delete $ruleRef->{ruleId};
+        $ruleRef->{identifier} = $self->_nextMap($id);
         # Source and destination
-        for my $targetName (qw(source destination)) {
-            my $target = $row->elementByName($targetName)->subtype();
+        foreach my $targetName (qw(source destination)) {
+            my $target = delete $ruleRef->{$targetName};
             if ( $target->isa('EBox::Types::Union::Text')) {
                 $target = undef;
             } elsif ( $target->isa('EBox::Types::Select')) {
@@ -962,26 +956,20 @@ sub _buildGConfRules # (iface, regenConfig)
             }
             $ruleRef->{$targetName}  = $target;
         }
-        # Priority
-        $ruleRef->{priority} = $row->valueByName('priority');
-
         # Rates
         # Transform from conf to camelCase and set if they're null
         # since they're optional parameters
-        $ruleRef->{guaranteedRate} = $row->valueByName('guaranteed_rate');
+        $ruleRef->{guaranteedRate} = delete $ruleRef->{'guaranteed_rate'};
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
-        $ruleRef->{limitedRate} = $row->valueByName('limited_rate');
+        $ruleRef->{limitedRate} = delete $ruleRef->{'limited_rate'};
         $ruleRef->{limitedRate} = 0 unless defined ($ruleRef->{limitedRate});
+
         # Take care of enabled value only if regenConfig is enabled
-        if ( $regenConfig ) {
-            $ruleRef->{enabled} = $row->valueByName('enabled');
-            $ruleRef->{enabled} = 1 unless defined ($ruleRef->{enabled});
-        } else {
+        if (not $regenConfig) {
             $ruleRef->{enabled} = 1;
         }
 
         $self->_buildANewRule( $iface, $ruleRef, undef );
-
     }
 
 }

@@ -48,6 +48,7 @@ use EBox::Validate qw( checkProtocol checkPort );
 
 # Constants
 use constant LIMIT_RATE_KEY => 'limitRate';
+use constant ALL_IFACES      => '_ALL';
 
 # Constructor: new
 #
@@ -205,8 +206,16 @@ sub validateTypedRow
     }
 
     # Check the memory structure works as well
-    $self->{ts}->checkRule(
-            interface      => $params->{iface}->value(),
+    my @ifacesToCheck;
+    my $ifaceValue = $params->{iface}->value();
+    if ($ifaceValue eq ALL_IFACES) {
+        @ifacesToCheck = @{ $self->allIfacesForRuleTable()  };
+    } else {
+        @ifacesToCheck = ($ifaceValue);
+    }
+    foreach my $ifCheck (@ifacesToCheck) {
+        $self->{ts}->checkRule(
+            interface      => $ifCheck,
             service        => $params->{service}->value(),
             source         => $targets{source},
             destination    => $targets{destination},
@@ -216,6 +225,7 @@ sub validateTypedRow
             ruleId         => $params->{id}, # undef on addition
             enabled        => $params->{enabled},
             );
+    }
 }
 
 # Method: committedLimitRate
@@ -238,11 +248,11 @@ sub committedLimitRate
 
 # Method: _table
 #
-#	Describe the traffic shaping table
+#       Describe the traffic shaping table
 #
 # Returns:
 #
-#	hash ref - table's description
+#       hash ref - table's description
 #
 sub _table
 {
@@ -429,8 +439,8 @@ sub _normalize
         foreach my $id (@{  $self->ids() }) {
             my $row = $self->row($id);
             my $rowIface = $row->valueByName('iface');
-            if ($iface ne $rowIface) {
-                next;
+            if (($iface ne $rowIface) and ($iface ne ALL_IFACES)) {
+                    next;
             }
 
             my $guaranteedRate = $row->valueByName('guaranteed_rate');
@@ -572,6 +582,22 @@ sub _l7Types
     }
 }
 
+
+sub _populateIfacesSub
+{
+    my ($self) = @_;
+
+    return sub {
+        my @ifaces =   @{$self->allIfacesForRuleTable()};
+        my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
+        push @options,  {
+            value => ALL_IFACES,
+            printableValue => __('All')
+           };;
+        return \@options;
+    };
+}
+
 sub rulesForIface
 {
     my ($self, $iface)= @_;
@@ -581,7 +607,8 @@ sub rulesForIface
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         $row->valueByName('enabled') or next;
-        if ($row->valueByName('iface') ne $iface ) {
+        my $rowIface = $row->valueByName('iface');
+        if (($rowIface ne $iface) and ($rowIface ne ALL_IFACES) ) {
             next;
         }
 
@@ -610,12 +637,12 @@ sub lowestPriority
     my $lowest = 0;
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
-        if ($row->valueByName('iface') ne $iface) {
+        $row->valueByName('enabled') or next;
+        my $rowIface = $row->valueByName('iface');
+        if (($rowIface ne $iface) and ($rowIface ne ALL_IFACES) ) {
             next;
         }
-        if (not $row->valueByName('enabled')) {
-            next;
-        }
+
         my $rowPriority = $row->valueByName('priority');
         if ($rowPriority > $lowest)  {
             $lowest = $rowPriority;
@@ -626,7 +653,8 @@ sub lowestPriority
 }
 
 
-sub ifaceHasRules
+# this is for NetworkObserver so dont count the ALL ifaces rules here
+sub explicitIfaceHasRules
 {
     my ($self, $iface)= @_;
     foreach my $id (@{$self->ids()}) {
@@ -638,6 +666,7 @@ sub ifaceHasRules
 
     return 0;
 }
+
 
 sub configuredInterfaces
 {
@@ -651,6 +680,10 @@ sub configuredInterfaces
         }
 
         my $iface = $row->valueByName('iface');
+        if ($iface eq ALL_IFACES) {
+            return $self->allIfacesForRuleTable();
+        }
+
         $ifaces{$iface} = 1;
     }
 
