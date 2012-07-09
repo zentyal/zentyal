@@ -29,7 +29,6 @@ use base 'EBox::Squid::Model::GroupPolicyBase';
 #
 
 use EBox;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Text;
@@ -105,7 +104,7 @@ sub _checkTransProxy
 {
     my ($self, $params_r, $actual_r) = @_;
 
-    my $squid = EBox::Global->modInstance('squid');
+    my $squid = $self->parentModule();
     if (not $squid->transproxy()) {
         return;
     }

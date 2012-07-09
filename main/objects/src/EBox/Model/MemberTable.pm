@@ -23,6 +23,7 @@
 #
 package EBox::Objects::Model::MemberTable;
 
+use EBox::Objects::Members;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -32,6 +33,7 @@ use EBox::Types::Union;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
+
 
 use EBox::Exceptions::External;
 
@@ -207,10 +209,7 @@ sub _alreadyInSameObject
 #       id - object's id
 #
 # Returns:
-#
-#       array ref - each element contains a hash with the member keys 'name'
-#       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
-#       'macaddr', (mac address' member)
+#       <EBox::Objects::Members>
 #
 # Exceptions:
 #
@@ -248,7 +247,9 @@ sub members
         push @members, \%member;
     }
 
-    return \@members;
+    my $membersObject = \@members;
+    bless $membersObject, 'EBox::Objects::Members';
+    return $membersObject;
 }
 
 
@@ -269,36 +270,10 @@ sub members
 #
 sub addresses
 {
-    my ($self, %params) = @_;
-    my $mask = $params{mask};
+    my ($self, @params) = @_;
+
     my $members = $self->members();
-
-    return [] unless defined ( $members );
-
-    my @ips = map {
-        my $type = $_->{type};
-        if ($type eq 'ipaddr') {
-            if ($mask) {
-                my $ipAddr = $_->{'ipaddr'};
-                $ipAddr =~ s:/.*$::g;
-                [ $ipAddr =>  $_->{'mask'}]
-            } else {
-               $_->{'ipaddr'}
-           }
-        } elsif ($type eq 'iprange') {
-            if ($mask) {
-                map {
-                    [$_ => 32 ]
-               }@{ $_->{addresses} }
-            } else {
-                @{  $_->{addresses} }
-            }
-        } else {
-            ()
-        }
-    } @{ $members };
-
-    return \@ips;
+    return $members->addresses(@params);
 }
 
 

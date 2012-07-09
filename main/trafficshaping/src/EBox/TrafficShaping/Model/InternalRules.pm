@@ -58,18 +58,14 @@ sub new
     return $self;
 }
 
-sub _populateIfacesSub
+sub allIfacesForRuleTable
 {
     my ($self) = @_;
-
     my $network = $self->global()->modInstance('network');
-
-    return sub {
-        my @ifaces =   @{$network->InternalIfaces()};
-        my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
-        return \@options;
-    };
+    my $ifaces =   $network->InternalIfaces();
+    return $ifaces;
 }
+
 
 
 1;

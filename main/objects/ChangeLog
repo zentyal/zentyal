@@ -1,3 +1,6 @@
+HEAD
+	+ Added EBox::Object::Members class. ObjectAddresses are always
+	  with mask, before, addresses from a range were without it
 2.3.5
 	+ Adapted to new Model management framework
 	+ Added clone options
