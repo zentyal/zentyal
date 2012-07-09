@@ -30,9 +30,6 @@ sub new
     my $class = shift;
     my %opts = @_;
 
-    unless (exists $opts{'HTMLSetter'}) {
-        $opts{'HTMLSetter'} ='/squid/ajax/setter/unlimitedIntSetter.mas';
-    }
     unless (exists $opts{'HTMLViewer'}) {
         $opts{'HTMLViewer'} ='/squid/ajax/viewer/unlimitedIntViewer.mas';
     }
