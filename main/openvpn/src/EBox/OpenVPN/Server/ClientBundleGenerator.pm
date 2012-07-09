@@ -81,6 +81,12 @@ sub _generateClientConf
     EBox::Module::Base::writeConfFileNoCheck($file,
                                      'openvpn/noebox-openvpn-client.conf.mas',
                                      \@confParams, $fileOptions);
+    $class->mangleConfFile($file);
+}
+
+sub mangleConfFile
+{
+    # no mangling by default
 }
 
 sub serversAddr

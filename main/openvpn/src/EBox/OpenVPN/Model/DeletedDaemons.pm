@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Types::Text;
 
 sub new
 {
