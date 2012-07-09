@@ -2701,9 +2701,7 @@ sub _generateDDClient
                     $hostname = $rs->dynamicHostname();
                     my $cloud_domain = $rs->cloudDomain();
                     if ( $cloud_domain ) {
-                        # TODO: Do not hardcode
-#                        $server = 'ddns.' . $cloud_domain;
-                        $server = 'ws2.' . $cloud_domain;
+                        $server = 'ddns.' . $cloud_domain;
                     } else {
                         EBox::warn('Zentyal Cloud cannot be used if we cannot '
                                    . 'get domain name');
