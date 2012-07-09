@@ -3165,7 +3165,9 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+                $self->redis()->commit();
                 EBox::Sudo::root(@cmds);
+                $self->redis()->begin();
             } catch EBox::Exceptions::Internal with {
             };
             #remove if empty
@@ -3236,11 +3238,13 @@ sub _enforceServiceState
     if (exists $ENV{'USER'}) {
         open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
         foreach my $iface (@ifups) {
+            $self->redis()->commit();
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
-                unless ($self->isReadOnly()) {
-                    $self->_unsetChanged($iface);
-                }
+            $self->redis()->begin();
+            unless ($self->isReadOnly()) {
+                $self->_unsetChanged($iface);
+            }
         }
         unlink (IFUP_LOCK_FILE);
     }
@@ -3312,7 +3316,9 @@ sub _stopService
         } catch EBox::Exceptions::Internal with {};
     }
 
+    $self->redis()->commit();
     EBox::Sudo::root(@cmds);
+    $self->redis()->begin();
 
     $self->SUPER::_stopService();
 }
