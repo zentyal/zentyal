@@ -1,3 +1,6 @@
+HEAD
+	+ EBox::Firewall::IPRule can accept now IPRange objects as source
+	or destination
 2.3.7
 	+ Remove obsolete denyAction code
 	+ Adapted to new Model management framework

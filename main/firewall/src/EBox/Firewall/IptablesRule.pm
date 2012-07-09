@@ -527,6 +527,7 @@ sub _setAddress
 
     my $src = delete $params{$addressType . 'Address'};
     my $obj = delete $params{$addressType . 'Object'};
+    my $range = delete $params{$addressType . 'Range'};
     my $objMembers;
     my $inverse = '';
     if ($params{'inverseMatch'}) {
@@ -587,6 +588,9 @@ sub _setAddress
             }
 
         }
+    } elsif (defined $range) {
+        my $range = $range->begin() . '-' . $range->end();
+        $self->{$addressType} = [' -m iprange ' . $inverse . $rangeFlag .  $range];
     } else {
         if (defined ($src) and $src->isa('EBox::Types::IPAddr')
             and defined($src->ip())) {
