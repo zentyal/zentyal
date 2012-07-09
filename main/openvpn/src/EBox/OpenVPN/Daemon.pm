@@ -98,7 +98,7 @@ sub _configAttr
     my $config =
       $self->{row}->elementByName('configuration')->foreignModelInstance();
 
-    return $config->$name();
+    return $config->value($name);
 }
 
 #

@@ -345,6 +345,8 @@ sub tlsRemote
     return $tlsRemote ? $tlsRemote : undef;
 }
 
+
+
 # Method: pullRoutes
 #
 # Returns:
@@ -408,11 +410,18 @@ sub confFileParams
     push @templateParams, (dev => $self->iface());
 
     my @paramsNeeded =
-      qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
+      qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify
+         clientToClient user group proto dh tlsRemote
+         searchDomain dns1 dns2 wins
+       );
     foreach  my $param (@paramsNeeded) {
         my $accessor_r = $self->can($param);
-        defined $accessor_r or die "Cannot found accesor for param $param";
-        my $value = $accessor_r->($self);
+        my $value;
+        if ($accessor_r) {
+            $value = $accessor_r->($self);
+        } else {
+            $value = $self->_configAttr($param);
+        }
         defined $value or next;
         push @templateParams, ($param => $value);
     }

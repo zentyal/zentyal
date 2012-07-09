@@ -23,6 +23,11 @@ $statusLogFile
 $ippFile
 
 @advertisedNets => ()
+
+$dns1 => undef
+$dns2 => undef
+$searchDomain => undef
+$wins => undef
 </%args>
 <%init>
 my $multihome = 0;
@@ -157,6 +162,21 @@ verb 3
 # sequential messages of the same message
 # category will be output to the log.
 ;mute 20
+
+% if ($dns1) {
+push "dhcp-option DNS <% $dns1 %>"
+% }
+% if ($dns2) {
+push "dhcp-option DNS <% $dns2 %>"
+% }
+% if ($wins) {
+push "dhcp-option WINS <% $wins %>"
+% }
+% if ($searchDomain) {
+push "dhcp-option DOMAIN <% $searchDomain %>"
+% }
+
+
 <& advertisedNets, nets => \@advertisedNets &>
 
 
@@ -186,6 +206,6 @@ $value
 </%args>
 % foreach my $net (@nets) {
 %   my ($net, $netmask) = @{ $net };
-   push "route <% $net %> <% $netmask %>"
+push "route <% $net %> <% $netmask %>"
 %}
 </%def>

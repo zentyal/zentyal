@@ -1,4 +1,5 @@
 HEAD
+	+ Added push dhcp-options to server: dns, searchdomain and wins
 	+ Configuration files in windows bundle now use typical window's
 	line termination
 2.3.7
