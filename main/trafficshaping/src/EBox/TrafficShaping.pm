@@ -1172,24 +1172,7 @@ sub _buildObjMembers
     # Set a different filter identifier for each object's member
     my $filterId = $ruleRelated;
     foreach my $member (@{$members_r}) {
-        my $addressObject;
-        if ($member->{type} eq 'ipaddr') {
-            my $ipAddr = $member->{'ipaddr'};
-            $ipAddr =~ s:/.*$::g;
-            $addressObject = new EBox::Types::IPAddr(
-                ip => $ipAddr,
-                mask => $member->{mask},
-                fieldName => 'ip'
-               );
-        } elsif ($member->{type} eq 'iprange') {
-            $addressObject = new EBox::Types::IPRange(
-                begin => $member->{begin},
-                end => $member->{end},
-                fieldName => 'iprange'
-               );
-        } else {
-            throw EBox::Exceptions::Internal("Unexpected member type: " . $member->{type})
-        }
+        my $addressObject = _addressFromObjectMember($member);
 
         my $srcAddr;
         my $dstAddr;
@@ -1239,26 +1222,15 @@ sub _buildObjToObj
     my ($self, %args) = @_;
     my $objs = $self->{'objects'};
 
-    my $srcAddrs_ref = $objs->objectAddresses($args{srcObject}, mask => 1);
-    my $dstAddrs_ref = $objs->objectAddresses($args{dstObject}, mask => 1);
+    my $srcMembers_ref = $objs->objectMembers($args{srcObject});
+    my $dstMembers_ref = $objs->objectMembers($args{dstObject});
 
     my $filterId = $args{ruleRelated};
 
-    foreach my $srcAddr_r (@{$srcAddrs_ref}) {
-        my ($srcIP, $srcMask) = @{$srcAddr_r};
-        my $srcAddr = new EBox::Types::IPAddr(
-                                            ip   => $srcIP,
-                                            mask => $srcMask,
-                                            fieldName => 'srcAddr',
-                                             );
-
-        foreach my $dstAddr_r (@{$dstAddrs_ref}) {
-            my ($dstIP, $dstMask) = @{$dstAddr_r};
-            my $dstAddr = new EBox::Types::IPAddr(
-                                              ip   => $dstIP,
-                                              mask => $dstMask,
-                                              fieldName => 'dstAddr',
-                                             );
+    foreach my $srcMember (@{$srcMembers_ref}) {
+        my $srcAddr = _addressFromObjectMember($srcMember);
+        foreach my $dstMember (@{$dstMembers_ref}) {
+            my $dstAddr = _addressFromObjectMember($dstMember);
             $args{treeBuilder}->addFilter(
                                       leafClassId => $args{ruleRelated},
                                       priority    => $args{rulePriority},
@@ -1272,6 +1244,33 @@ sub _buildObjToObj
         }
     }
 }
+
+
+sub _addressFromObjectMember
+{
+    my ($member) = @_;
+    my $address;
+    if ($member->{type} eq 'ipaddr') {
+        my $ipAddr = $member->{'ipaddr'};
+        $ipAddr =~ s:/.*$::g;
+        $address = new EBox::Types::IPAddr(
+            ip => $ipAddr,
+            mask => $member->{mask},
+            fieldName => 'ip'
+           );
+    } elsif ($member->{type} eq 'iprange') {
+        $address = new EBox::Types::IPRange(
+            begin => $member->{begin},
+            end => $member->{end},
+                fieldName => 'iprange'
+               );
+    } else {
+        throw EBox::Exceptions::Internal("Unexpected member type: " . $member->{type})
+    }
+
+    return $address;
+}
+
 
 
 # Update a rule from the builder taking arguments from GConf
