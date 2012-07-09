@@ -215,16 +215,6 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
-            # DDD
-            use Data::Dumper;
-            my $db = sub { my ($msg) = @_; print $msg, "\n"; EBox::debug($msg)   };
-            $db->("Interface $iface");
-            $db->("tcCommands\n" . Dumper($tcCommands_ref));
-            $db->("iptablesCmds\n" . Dumper($ipTablesCommands_ref));
-            # END DDD
-
-
-
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!

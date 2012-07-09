@@ -178,11 +178,6 @@ sub new
           $self->{srcMAC} = $args{srcAddr}->value();
       } elsif ( $args{srcAddr}->isa('EBox::Types::IPRange')) {
           $self->{srcRange} = $args{srcAddr};
-          # XXX
-#          $self->{srcRange} = {
-#             begin => $args{srcAddr}->begin(),
-#             end => $args{srcAddr}->end(),
-#           };
       }
     }
 
@@ -192,12 +187,7 @@ sub new
           $self->{dstIP} = $args{dstAddr}->ip();
           $self->{dstNetMask} = $args{dstAddr}->mask();
       } elsif ( $args{dstAddr}->isa('EBox::Types::IPRange')) {
-          # XXX
           $self->{dstRange} = $args{dstAddr};
-#         $self->{dstRange} = {
-#              begin => $args{dstAddr}->begin(),
-#              end => $args{dstAddr}->end(),
-#          };
       }
     }
 
