@@ -55,9 +55,10 @@ sub options
     my $openVPN = EBox::Global->modInstance('openvpn');
     my @certs = @{ $openVPN->availableCertificates() };
 
-    my $excluded = $self->_excludeCertificate;
-    if ($excluded) {
-        @certs = grep {$_ ne $excluded} @certs;
+    my $excludeSub = $self->_excludeCertificateSub;
+    if ($excludeSub) {
+        my $excludedCert = $excludeSub->(); # XXX
+        @certs = grep {$_ ne $excludedCert} @certs;
     }
 
     my @options= map {{ value => $_ }} @certs;
@@ -70,10 +71,10 @@ sub options
 
 }
 
-sub _excludeCertificate
+sub _excludeCertificateSub
 {
     my ($self) = @_;
-    return $self->{excludeCertificate};
+    return $self->{excludeCertificateSub};
 
 }
 

@@ -1,4 +1,6 @@
 HEAD
+	+ Unavailable certificates and type options are hidden in download
+	client bundle form
 	+ Added push dhcp-options to server: dns, searchdomain and wins
 	+ Configuration files in windows bundle now use typical window's
 	line termination
