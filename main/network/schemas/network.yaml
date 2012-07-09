@@ -1,1 +1,20 @@
 class: 'EBox::Network'
+
+models:
+    - GatewayTable
+    - MultiGwRulesDataTable
+    - MultiGwRulesOptions
+    - StaticRoute
+    - DNSResolver
+    - SearchDomain
+    - DynDNS
+    - WANFailoverOptions
+    - WANFailoverRules
+    - Proxy
+
+composites:
+    GatewaysGeneral: [Gateway, MultiGw, WANFailover]
+    Gateway: [GatewayTable, Proxy]
+    MultiGw: [MultiGwRulesOptions, MultiGwRulesDataTable]
+    WANFailover: [WANFailoverOptions, WANFailoverRules]
+    DNS: [DNSResolver, SearchDomain]

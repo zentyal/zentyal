@@ -12,11 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Squid::Model::GlobalGroupPolicy;
+
 use base 'EBox::Squid::Model::GroupPolicyBase';
+
 # Class:
 #
 #    EBox::Squid::Model::GroupPolicy
@@ -32,7 +35,6 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Squid::Types::Policy;
 use EBox::Squid::Types::TimePeriod;
-use EBox::Types::HasMany;
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
 
@@ -59,10 +61,7 @@ sub new
 
     bless $self, $class;
     return $self;
-
 }
-
-
 
 # Method: _table
 #
@@ -71,33 +70,27 @@ sub _table
 {
     my ($self) = @_;
 
-  my $dataTable =
-  {
-      tableName          => name(),
-      pageTitle          => __('Group policies'),
-      printableTableName => __('List of groups'),
-      modelDomain        => 'Squid',
-      'defaultController' => '/Squid/Controller/GlobalGroupPolicy',
-      'defaultActions' => [
-          'add', 'del',
-      'editField',
-      'changeView',
-      'move',
-          ],
-      tableDescription   => $self->tableHeader(),
-      class              => 'dataTable',
-      order              => 1,
-      rowUnique          => 1,
-      automaticRemove    => 1,
-      printableRowName   => __("group's policy"),
-      help               => __("Here you can globally block or allow access by user group. Filter options will be by global policy or by object policy"),
-      messages           => {
-          add => __(q{Added group's policy}),
-          del =>  __(q{Removed group's policy}),
-          update => __(q{Updated group's policy}),
-      },
-  };
-
+    my $dataTable =
+    {
+        tableName          => name(),
+        pageTitle          => __('Group policies'),
+        printableTableName => __('List of groups'),
+        modelDomain        => 'Squid',
+        defaultController  => '/Squid/Controller/GlobalGroupPolicy',
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView', 'move' ],
+        tableDescription   => $self->tableHeader(),
+        class              => 'dataTable',
+        order              => 1,
+        rowUnique          => 1,
+        automaticRemove    => 1,
+        printableRowName   => __("group's policy"),
+        help               => __("Here you can globally block or allow access by user group. Filter options will be by global policy or by object policy"),
+        messages           => {
+            add => __(q{Added group's policy}),
+            del =>  __(q{Removed group's policy}),
+            update => __(q{Updated group's policy}),
+        },
+    };
 }
 
 
@@ -112,14 +105,12 @@ sub tableHeader
                               fieldName => 'filterGroup',
                               printableName => __('Filter profile'),
 
-                              foreignModel  => \&filterGroupModel,
+                              foreignModel  => 'squid/FilterProfiles',
                               foreignField  => 'name',
 
-                               defaultValue  => 'default',
-                               editable      => 1,
-                                                 ),
-
-                         );
+                              editable      => 1,
+                          ),
+    );
 
     push @{ $header }, @policyElements;
 
@@ -131,38 +122,29 @@ sub name
     return 'GlobalGroupPolicy';
 }
 
-
-sub filterGroupModel
-{
-    my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
-    return $sq->model('FilterGroup');
-}
-
 sub validateTypedRow
 {
-  my ($self, $action, $params_r, $actual_r) = @_;
-  $self->_checkTransProxy($params_r, $actual_r);
-  $self->_checkGlobalPolicy();
+    my ($self, $action, $params_r, $actual_r) = @_;
+    $self->_checkTransProxy($params_r, $actual_r);
+    $self->_checkGlobalPolicy();
 }
 
 
 sub _checkTransProxy
 {
-  my ($self, $params_r, $actual_r) = @_;
+    my ($self, $params_r, $actual_r) = @_;
 
-  my $squid = EBox::Global->modInstance('squid');
-  if (not $squid->transproxy()) {
-    return;
-  }
+    my $squid = EBox::Global->modInstance('squid');
+    if (not $squid->transproxy()) {
+        return;
+    }
 
-  if ($self->existsGroupPolicy()) {
-    throw EBox::Exceptions::External(
-       __('User group policies are not compatible with transparent proxy mode')
-                                    );
-  }
+    if ($self->existsGroupPolicy()) {
+        throw EBox::Exceptions::External(
+                __('User group policies are not compatible with transparent proxy mode')
+        );
+    }
 }
-
 
 sub _checkGlobalPolicy
 {
@@ -170,9 +152,9 @@ sub _checkGlobalPolicy
 
     my $squid = EBox::Global->modInstance('squid');
     if (not $squid->globalPolicyUsesAuth()) {
-    throw EBox::Exceptions::External(
-       __('Global group policy need a global policy with authentication')
-                                    );
+        throw EBox::Exceptions::External(
+                __('Global group policy need a global policy with authentication')
+        );
     }
 }
 
@@ -185,15 +167,11 @@ sub usersByFilterGroup
     my %usersByFilterGroup;
 
     my $usersMod = EBox::Global->modInstance('users');
-    my $filterGroupsModel = EBox::Global->modInstance('squid')->model('FilterGroup');
+    my $filterGroupsModel = EBox::Global->modInstance('squid')->model('FilterProfiles');
 
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);
         my $userGroup   = $row->elementByName('group')->printableValue();
-#         my $filterGroupRowId = $row->valueByName('filterGroup');
-#         my $filterGroup  = $filterGroupsModel->row($filterGroupRowId)->valueByName('name');
-#         EBox::debug("userGroup $userGroup");
-#         EBox::debug("filterGroup $filterGroup");
         my $filterGroup = $row->valueByName('filterGroup');
 
         my @users;
@@ -205,12 +183,6 @@ sub usersByFilterGroup
             $usersSeen{$user} = 1;
             push @users, $user;
         }
-
-
-        if ($filterGroup eq 'default') {
-            next;
-        }
-
 
         if (not exists $usersByFilterGroup{$filterGroup}) {
             $usersByFilterGroup{$filterGroup} = \@users;
@@ -224,4 +196,3 @@ sub usersByFilterGroup
 }
 
 1;
-

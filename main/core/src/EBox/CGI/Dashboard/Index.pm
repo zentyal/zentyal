@@ -32,11 +32,11 @@ use Error qw(:try);
 # the design of the interface, but this could be incremented in the future
 my $NUM_DASHBOARDS = 2;
 
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_, title => __('Dashboard'),
-                    'template' => '/dashboard/index.mas');
+                                 'template' => '/dashboard/index.mas');
 	bless($self, $class);
 	return $self;
 }
@@ -84,7 +84,7 @@ sub masonParameters
             if (delete $widgets->{$wname}) {
                 my ($module, $name) = split (/:/, $wname);
 
-                my $mod = EBox::Global->modInstance($module);
+                my $mod = $global->modInstance($module);
                 next unless defined ($mod);
 
                 my $widget = $mod->widget($name);

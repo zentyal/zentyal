@@ -1,5 +1,61 @@
 HEAD
+	+ Using EBox::Object::Members to generate multigw iptables rules
+2.3.10
+	+ Restricted gateway names to be sane with dyndns and fixed dyndns
+	  configuration with old incorrect gateway names
+	+ Disabled dnspark until ddclient upstream fix a bug with this provideer
+	+ Multigw rules more robust when no-static interfaces are down
+	+ Removed redis transaction workarounds in _setConf
+	+ Fixed unconfigured gateway removal, raise exception if the route
+	  addition command fails
+2.3.9
+	+ Remove all gateway based routes before adding the configured one
+	  and raise exception if the route addition command fails
+	+ Fix deadlock in preSetConf when DHCP is used
+	+ Moved bandwidth test to remoteservices
+2.3.8
+	+ internalIpAddresses() does not throw exception if there are no ifaces
+	+ ifaceExternalChanged() is now called when static or PPP interfaces
+	  changes from external to internal
+	+ Implement new EBox::Events::WatcherProvider
+	+ Remove no longer necessary ad-hoc vifacesConf cache
+	+ Adapted to new Model management framework
+	+ Reimplemented Ifaces/Vifaces/VLANs storage according to new conf backend
+	+ Added vnet to the ignored interfaces list
+2.3.7
+	+ Send additional info in Gateways watcher
+	+ Added clone action to multi gw and wan failover tables
+	+ Added EBox::Network::internalIpAddresses()
+	+ Added regenGatewaysFailover() to NetworkObserver so modules can
+	  implement actions to be done after failover regenerates routing tables
+	+ Fixed calculation of fail ratio
+	+ Assure that we have always one gateway marked as default
+	+ Restart traffic shaping on postinst to avoid rule loss on upgrades
+	+ Regenerate traffic shaping rules after failover event
+	+ EBox::Network::setNameservers does not fail if the same server
+	  is already in the list
+	+ Fixed calls to storeSelectedDefaultGateway with undef argument
+	+ EBox::Network::importInterfacesFile skips gateway adition instead of
+	  aborting if already exists one
+	+ Insert fwmark ip rules before from ones
+	+ Remove no longer necessary mark rules when having several interfaces
+	+ Pre-create failover and check-ip chains on network start to always ensure
+	  that rules are inserted in the proper position
+	+ Remove obsolete import of EBox::Order
+	+ Do not add gateways to /etc/network/interfaces to avoid conflicts
+2.3.6
+	+ Create tables with MyISAM engine by default
+	+ Fixed path of dhclient.conf
+2.3.5
+	+ Fixed path of dhclient hooks
+2.3.4
+	+ Not allowed to attach static interfaces to a network which
+	  has already another interface atached
 	+ Fixed restore of default gateway in failover event
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Adapted messages in the UI for new editions
 	+ Use printableName instead of name to select services
@@ -271,9 +327,9 @@ O.11.100
 	+ Disable network traffic monitor due to a bug in perl and RRDs module
 	+ Use /etc/network/interfaces and not /var/lib/zentyal/tmp/interfaces
 	+ Run saveConfig() after importing network configuration and not save()
-	  which forced a restart of the interfaces stored 
+	  which forced a restart of the interfaces stored
 	  in /etc/network/interfaces at package installation time
-	+ Add default gateway to /etc/network/interfaces 
+	+ Add default gateway to /etc/network/interfaces
 0.11.99
 	+ Added traffic rate monitoring done on demand and in
 	real-time. The monitoring may be filter by source address and
@@ -322,7 +378,7 @@ O.11.100
 O.8.1
 	+ New release
 0.8
-	+ Add netmask /30 (Patch from rampa at encomix.org) 
+	+ Add netmask /30 (Patch from rampa at encomix.org)
 0.7.99
 	+ New release
 0.7.1
@@ -330,9 +386,9 @@ O.8.1
 	+ Use of ebox-sudoers-friendly
 0.7
 	+ First public release
-0.6	
+0.6
 	+ Separate module from ebox base
 	+ move to client
 	+ API documented using naturaldocs
-	+ Update INSTALL 
+	+ Update INSTALL
 	+ Update debian scripts

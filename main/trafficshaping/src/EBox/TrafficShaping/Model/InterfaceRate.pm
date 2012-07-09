@@ -14,8 +14,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::TrafficShaping::Model::InterfaceRate;
+use base 'EBox::Model::DataTable';
 
-use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Types::Int;
@@ -23,8 +23,6 @@ use EBox::Types::Text;
 
 use strict;
 use warnings;
-
-use base 'EBox::Model::DataTable';
 
 use constant DEFAULT_KB => 16384;
 
@@ -49,7 +47,7 @@ sub syncRows
 {
     my ($self, $currentIds) = @_;
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->global()->modInstance('network');
     my %currentIfaces = map { $_ => 1 } @{$network->ExternalIfaces()};
 
     my $anyChange = 0;
@@ -59,8 +57,8 @@ sub syncRows
         my $row = $self->row($id);
         next unless ($row);
         my $iface = $row->valueByName('interface');
-        if (not exists $currentIfaces{$iface}) {
-            $self->removeRow($id);
+        if (not exists $currentIfaces{$iface} or exists $storedIfaces{$iface}) {
+            $self->removeRow($id, 1);
             $anyChange = 1;
         } else {
             $storedIfaces{$iface} = 1;
@@ -97,6 +95,7 @@ sub _table
                 fieldName => 'interface',
                 printableName => __('External Interface'),
                 size => '4',
+                unique => 1,
             ),
             new EBox::Types::Int(
                 fieldName => 'upload',
@@ -120,7 +119,7 @@ sub _table
         {
             tableName => 'InterfaceRate',
             printableTableName => __('External Interface Rates'),
-            pageTitle => __('External Interface Rates'),
+            pageTitle => __('Traffic Shaping'),
             defaultController =>
                 '/TrafficShaping/Controller/InterfaceRate',
             defaultActions => [ 'editField', 'changeView' ],
@@ -140,7 +139,8 @@ sub _table
 #   Num of external interfaces > 0
 sub precondition
 {
-    my $network = EBox::Global->modInstance('network');
+    my ($self) = @_;
+    my $network = $self->global()->modInstance('network');
     return ((scalar(@{$network->ExternalIfaces()}) > 0)
             and (scalar(@{$network->InternalIfaces()}) > 0)
     );
@@ -156,4 +156,3 @@ sub preconditionFailMsg
 }
 
 1;
-

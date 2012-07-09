@@ -18,14 +18,13 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule
-            );
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
+use Error qw(:try);
 
 use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.cfg';
 use constant JABBERPORT => '5222';
@@ -33,6 +32,7 @@ use constant JABBERPORTSSL => '5223';
 use constant JABBERPORTS2S => '5269';
 use constant JABBERPORTSTUN => '3478';
 use constant JABBERPORTPROXY => '7777';
+use constant EJABBERD_CTL => '/usr/sbin/ejabberdctl';
 
 sub _create
 {
@@ -138,35 +138,6 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-        'EBox::Jabber::Model::GeneralSettings',
-        'EBox::Jabber::Model::JabberUser',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::Jabber::Composite::General',
-    ];
-}
-
 #  Method: _daemons
 #
 #   Override <EBox::Module::Service::_daemons>
@@ -180,6 +151,32 @@ sub _daemons
             'pidfiles' => ['/var/run/ejabberd/ejabberd.pid']
         }
     ];
+}
+
+
+# overriden because ejabberd process could be up and not be running
+sub isRunning
+{
+    my ($self) = @_;
+    my $stateCmd = 'LANG=C '. EJABBERD_CTL . ' status';
+    my $output;
+    try {
+        $output =  EBox::Sudo::root($stateCmd);
+    } catch EBox::Exceptions::Sudo::Command with {
+        # output will be undef
+    };
+
+    if (not $output) {
+        return 0;
+    }
+
+    foreach my $line (@{ $output }) {
+        if ($line =~ m/is running in that node/) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 # Method: _setConf
@@ -210,7 +207,11 @@ sub _setConf
 
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
-    push(@array, 'ldapbase' => $ldapconf->{'dn'});
+    push(@array, 'ldapbase' => $users->usersDn());
+    push(@array, 'ldapRootDN', $ldapconf->{'rootdn'});
+    push(@array, 'ldapPasswd' => $ldap->getPassword());
+
+
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });

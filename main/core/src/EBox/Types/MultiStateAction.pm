@@ -29,7 +29,11 @@ sub new
         throw EBox::Exceptions::MissingArgument('acquirer');
     }
 
-    bless($self, $class);
+    unless (defined ($self->{enabled})) {
+        $self->{enabled} = 1;
+    }
+
+    bless ($self, $class);
 
     return $self;
 }
@@ -63,6 +67,7 @@ sub action
         handler => $state->{handler},
         image => $state->{image},
         message => $state->{message},
+        enabled => $state->{enabled},
         model => $self->{model},
     );
 
@@ -99,6 +104,18 @@ sub image
     my $image = $self->action($id)->{image};
     $image = '/data/images/run.gif' unless ($image);
     return $image;
+}
+
+sub enabled
+{
+    my ($self, $id) = @_;
+
+    my $action = $self->action($id);
+    my $enabled = $action->{enabled};
+    if (ref $enabled) {
+        $enabled = &$enabled;
+    }
+    return $enabled;
 }
 
 sub onclick

@@ -1,3 +1,132 @@
+2.3.14
+	+ Error message for failure in package cache creation
+	+ Fixed regression when showing a data table in a modal view
+	+ Do not do a redis transaction for network module init actions
+	+ Fixed EBox::Module::Config::st_unset()
+	+ Allowed error class in msg template
+2.3.13
+	+ Fixed problems in EventDaemon with JSON and blessed references
+	+ More crashes avoided when watchers or dispatchers doesn't exist
+	+ Proper RAID watcher reimplementation using the new state API
+	+ EBox::Config::Redis singleton has now a instance() method instead of new()
+	+ Deleted wrong use in ForcePurge model
+2.3.12
+	+ Fixed problem with watchers and dispatchers after a module deletion
+	+ Fixed EBox::Model::DataTable::_checkFieldIsUnique, it failed when the
+	  printableValue of the element was different to its value
+	+ Fixed separation between Add table link and table body
+	+ Adaptation of EventDaemon to model and field changes
+	+ Disabled logs consolidation on purge until it is reworked, fixed
+	  missing use in purge logs model
+	+ Fixed Componet::parentRow, it not longer tries to get a row with
+	  undefined id
+	+ Fix typo in ConfigureLogs model
+	+ Mark files for removing before deleting the row from backend in
+	  removeRow
+	+ The Includes directives are set just for the main virtual host
+	+ Fixed EventDaemon crash
+2.3.11
+	+ Mark files for removing before deleting the row from backend in removeRow
+	+ Dashboard widgets now always read the information from RO
+	+ Enable actions are now executed before enableService()
+	+ Fixed regression which prevented update of the administration service
+	  port when it was changed in the interface
+	+ New EBox::Model::Composite::componentNames() for dynamic composites
+	+ Remove _exposedMethods() feature to reduce use of AUTOLOAD
+	+ Removed any message set in the model in syncRows method
+	+ Added global() method to modules and components to get a coherent
+	  read-write or read-only instance depending on the context
+	+ Removed Model::Report and Composite::Report namespaces to simplify model
+	  management and specification
+	+ New redis key naming, with $mod/conf/*, $mod/state and $mod/ro/* replacing
+	  /ebox/modules/$mod/*, /ebox/state/$mod/* and /ebox-ro/modules/$mod/*
+	+ Removed unnecessary parentComposite methods in EBox::Model::Component
+	+ Only mark modules as changed when data has really changed
+	+ EBox::Global::modChange() throws exception if instance is readonly
+	+ New get_state() and set_state() methods, st_* methods are kept for
+	  backwards compatibility, but they are deprecated
+	+ Simplified events module internals with Watcher and Dispatcher providers
+	+ Model Manager is now able to properly manage read-only instances
+	+ Composites can now use parentModule() like Models
+	+ Renamed old EBox::GConfModule to EBox::Module::Config
+	+ Unified model and composite management in the new EBox::Model::Manager
+	+ Model and composites are loaded on demand to reduce memory consumption
+	+ Model and composite information is now stored in .yaml schemas
+	+ ModelProvider and CompositeProvider are no longer necessary
+	+ Simplified DataForm using more code from DataTable
+	+ Adapted RAID and restrictedResources() to the new JSON objects in redis
+	+ Remove unused override modifications code
+	+ Added /usr/share/zentyal/redis-cli wrapper for low-level debugging
+	+ Use simpler "key: value" format for dumps instead of YAML
+	+ Row id prefixes are now better chosen to avoid confusion
+	+ Use JSON instead of list and hash redis types (some operations,
+	  specially on lists, are up to 50% faster and caching is much simpler)
+	+ Store rows as hashes instead of separated keys
+	+ Remove deprecated all_dirs and all_entries methods
+	+ Remove obsolete EBox::Order package
+	+ Remove no longer needed redis directory tree sets
+	+ Fixed isEqualTo() method on EBox::Types::Time
+	+ EBox::Types::Abstract now provides default implementations of fields(),
+	  _storeInGConf() and _restoreFromHash() using the new _attrs() method
+	+ Remove indexes on DataTables to reduce complexity, no longer needed
+	+ Simplified ProgressIndicator implementation using shared memory
+	+ New EBox::Util::SHMLock package
+	+ Implemented transactions for redis operations
+	+ Replace old MVC cache system with a new low-level redis one
+	+ Delete no longer necessary regen-redis-db tool
+	+ Added new checkAll property to DataTable description to allow
+	  multiple check/uncheck of boolean columns
+2.3.10
+	+ Added Desktop::ServiceProvider to allow modules to implement
+	  requests from Zentyal desktop
+	+ Added VirtualHost to manage desktop requests to Zentyal server
+	+ Fix EventDaemon in the transition to MySQL
+	+ Send EventDaemon errors to new rotated log file /var/log/zentyal/events.err
+	+ Send an event to Zentyal Cloud when the updates are up-to-date
+	+ Send an info event when modules come back to running
+	+ Include additional info for current event watchers
+	+ Fixed RAID report for some cases of spare devices and bitmaps
+	+ Fixed log purge, SQL call must be a statement not a query
+	+ Fixed regex syntax in user log queries
+	+ Added missing "use Filesys::Df" to SysInfo
+	+ Disabled consolidation by default until is fixed or reimplemented
+	+ Fixed regresion in full log page for events
+	+ Added clone action to data tables
+	+ Fixed regression in modal popup when showing element table
+	+ Added new type EBox::Types::KrbRealm
+	+ Fix broken packages when dist-upgrading from old versions: stop ebox
+	  owned processes before changing home directory
+	+ Log the start and finish of start/stop modules actions
+	+ Added usesPort() method to apache module
+2.3.9
+	+ Enable SSLInsecureRenegotiation to avoid master -> slave SOAP handsake
+	  problems
+	+ Added validateRowRemoval method to EBox::Model::DataTable
+	+ Use rm -rf instead of remove_tree to avoid chdir permission problems
+	+ Avoid problems restarting apache when .pid file does not exist
+	+ Do not use graceful on apache to allow proper change of listen port
+	+ Simplified apache restart mechanism and avoid some problems
+2.3.8
+	+ Create tables using MyISAM engine by default
+	+ Delete obsolete 'admin' table
+2.3.7
+	+ Fixed printableName for apache module and remove entry in status widget
+	+ Merged tableBodyWithoutActions.mas into tableBody.mas
+	+ Removed tableBodyWithoutEdit.mas because it is no longer used
+	+ Better form validation message when there are no ids for
+	  foreign rows in select control with add new popup
+	+ Fixed branding of RSS channel items
+	+ Fixed destination path when copying zentyal.cnf to /etc/mysql/conf.d
+	+ Packaging fixes for precise
+2.3.6
+	+ Switch from CGIs to models in System -> General
+	+ New value() and setValue() methods in DataForm::setValue() for cleaner
+	  code avoiding use of AUTOLOAD
+	+ Added new EBox::Types::Time, EBox::Types::Date and EBox::Types::TimeZone
+	+ Added new attribute 'enabled' to the Action and MultiStateAction types
+	  to allow disabling an action. Accepts a scalar or a CODE ref
+	+ The 'defaultValue' parameter of the types now accept a CODE ref that
+	  returns the default value.
 2.3.5
 	+ Added force parameter in validateTypedRow
 	+ Fixed 'hidden' on types when using method references

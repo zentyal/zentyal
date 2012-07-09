@@ -69,8 +69,21 @@ sub tunnels
             my $elements = $conf->componentByName($name, 1)->row()->elements();
             foreach my $element (@{ $elements }) {
                 my $fieldName = $element->fieldName();
-                # Value returns array with (ip, netmask)
-                my $fieldValue = join ('/', $element->value());
+                my $fieldValue;
+                if (($fieldName eq 'right')) {
+                    if ($element->selectedType() eq 'right_any') {
+                        $fieldValue = '%any';
+                    } else {
+                        # Value returns array with (ip, netmask)
+                        $fieldValue = join ('/', $element->value());
+                    }
+                    $fieldName = 'right_ipaddr'; # this must be the property
+                                                 # value name
+                } else {
+                    # Value returns array with (ip, netmask)
+                    $fieldValue = join ('/', $element->value());
+                }
+
                 $settings{$fieldName} = $fieldValue;
             }
         }

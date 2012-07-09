@@ -1,10 +1,5 @@
-<%doc>
-  This template is indicated to view the EBox::Model::Image. 
-
-  The original overridden call at /ajax/image.mas
-</%doc>
 <%flags>
- inherit =>  '/ajax/tableBody.mas'   
+ inherit =>  '/ajax/tableBody.mas'
 </%flags>
 <%args>
   $model
@@ -22,31 +17,31 @@
 
       if ($timePeriod eq 'monthly') {
           return  <<END
-              function(ts) { 
+              function(ts) {
                   var date;
                   if (ts > 1000) {
                      date  = new Date(ts*1000);
                   }
                   else {
                      date = new Date();
-                  }        
+                  }
 
                   var dateParts =  date.toDateString().split(' ', 4);
                   var dateSt = dateParts[1] + ' ' + dateParts[3];
-                 return dateSt;
+                  return dateSt;
               }
 END
       }
       elsif ($timePeriod eq 'weekly') {
           return  <<END
-              function(ts) { 
+              function(ts) {
                   var date;
                   if (ts > 1000) {
                      date  = new Date(ts*1000);
                   }
                   else {
                      date = new Date();
-                  }        
+                  }
 
                    return date.toDateString();
               }
@@ -54,14 +49,14 @@ END
       }
       elsif ($timePeriod eq 'daily') {
           return  <<END
-              function(ts) { 
+              function(ts) {
                   var date;
                   if (ts > 1000) {
                      date  = new Date(ts*1000);
                   }
                   else {
                      date = new Date();
-                  }        
+                  }
 
                    return date.toDateString();
               }
@@ -69,14 +64,14 @@ END
       }
       elsif ($timePeriod eq 'hourly') {
           return  <<END
-              function(ts) { 
+              function(ts) {
                   var date;
                   if (ts > 1000) {
                      date  = new Date(ts*1000);
                   }
                   else {
                      date = new Date();
-                  }        
+                  }
 
 
                   var dateSt = date.toDateString();
@@ -87,14 +82,14 @@ END
       }
       else {
           return  <<END
-              function(ts) { 
+              function(ts) {
                   var date;
                   if (ts > 1000) {
                      date  = new Date(ts*1000);
                   }
                   else {
                      date = new Date();
-                  }    
+                  }
                   return date.toDateString();
               }
 END
@@ -152,7 +147,7 @@ my @labels   = @{ $model->datasetsLabels };
 my $noTicks = (scalar  @{ $dataSets[0] }) - 1;
 ($noTicks < 1) and
     $noTicks = 1;
-    
+
 
 my $timeTickFormatter = timeTickFormatter($model->timePeriod());
 
@@ -173,7 +168,7 @@ foreach my $ds (@dataSets) {
      if (@{ $ds } < 2) {
           $graphData .= 'points: {show: true, },';
      }
-      
+
 #      $graphData .= 'mouse: {  track: true, trackDecimals: 0, },';
 
       $graphData .= "   },\n";
@@ -198,12 +193,10 @@ END
 			 */
 			document.observe('dom:loaded', function(){
 			    var f = Flotr.draw($('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
-			});	
+			});
 </script>
 
 </%method>
-
-
 
 <%method headerScriptSection>
 
@@ -221,5 +214,4 @@ $m->abort('images cannot be edited');
 <%method editRowFields>
 $m->abort('images cannot be edited');
 </%method>
-
 

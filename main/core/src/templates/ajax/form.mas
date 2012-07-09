@@ -106,7 +106,7 @@
 <%init>
   # Getting the arguments from the first request
   my $model = $m->caller_args(2)->{model};
-  my $id = $m->caller_args(2)->{editid};
+  my $id = $model->row()->id();
   my $actions = $model->table()->{actions};
 </%init>
 <td id="<% 'buttons_' . $model->modelName() %>">
@@ -114,7 +114,7 @@
   <& /input/submit.mas,
      name => 'change',
      value => $model->printableActionName(),
-     onclick => $model->changeRowJS(0, 0) . '; return false',
+     onclick => $model->changeRowJS($id, 0) . '; return false',
   &>
 % }
 <& /ajax/customActions.mas, model => $model, id => $id &>

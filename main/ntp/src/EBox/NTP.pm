@@ -18,8 +18,7 @@ package EBox::NTP;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -41,33 +40,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::NTP::Model::Settings',
-        'EBox::NTP::Model::Servers',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::NTP::Composite::General',
-    ];
 }
 
 sub isRunning
@@ -128,16 +100,23 @@ sub initialSetup
             $servers->add(server => "$i.pool.ntp.org");
         }
 
-        my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->addInternalService(
-                    'name' => 'ntp',
-                    'description' => 'NTP',
-                    'protocol' => 'udp',
-                    'sourcePort' => 'any',
-                    'destinationPort' => 123,
-                );
+        my $services = EBox::Global->modInstance('services');
+        my $fw = EBox::Global->modInstance('firewall');
 
-        $firewall->saveConfigRecursive();
+        my $serviceName = 'ntp';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                'name' => $serviceName,
+                'printableName' => 'NTP',
+                'description' => __('Network Time Protocol'),
+                'readOnly' => 1,
+                'services' => [ { protocol => 'udp',
+                                  sourcePort => 'any',
+                                  destinationPort => 123 } ] );
+
+            $fw->setInternalService($serviceName, 'deny');
+        }
+        $fw->saveConfigRecursive();
     }
 }
 

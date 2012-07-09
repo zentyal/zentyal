@@ -28,25 +28,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#       Constructor for the general printers composite
-#
-# Returns:
-#
-#       <EBox::Printers::Composite::General> - the general composite
-#
-sub new
-{
-    my ($class) = @_;
-
-    my $self = $class->SUPER::new();
-
-    return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -59,9 +40,9 @@ sub _description
 {
     my $printableName = __('Printer Sharing');
 
+    # FIXME: does this have any sense? a composite for just one model??
     my $description =
       {
-          components      => [ 'CUPS' ],
           layout          => 'top-bottom',
           name            => 'General',
           compositeDomain => 'Printers',

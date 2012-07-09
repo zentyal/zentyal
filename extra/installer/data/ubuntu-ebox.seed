@@ -6,13 +6,9 @@
 
 # add zentyal repository
 d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/2.3/ubuntu precise main
-# FIXME: uncomment this once problems when no Internet available are solved
-#d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.3-ppa.asc
-# FIXME: delete this once uncommented the above line
-d-i debian-installer/allow_unauthenticated boolean true
-
-#d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 2.3 main
-#d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-2.3-archive.asc
+d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-2.3-ppa.asc
+d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 2.3 main extra
+d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-2.3-archive.asc
 
 # Ignore error downloading key if not Internet connection available
 d-i apt-setup/local/key-error select Ignore
@@ -50,7 +46,7 @@ d-i console-setup/ask_detect boolean false
 #d-i netcfg/get_domain string unassigned-domain
 
 # to create a normal user account
-#d-i passwd/user-fullname string 'eBox Administrator'
+d-i passwd/user-fullname string  
 #d-i passwd/username string eboxadmin
 #d-i passwd/user-password password eboxadmin
 #d-i passwd/user-password-again password eboxadmin

@@ -72,14 +72,9 @@ sub decision
     return \@options;
 }
 
-sub serviceModel
-{
-   return  EBox::Global->modInstance('services')->{'serviceModel'};
-}
-
 sub objectModel
 {
-    return EBox::Global->modInstance('objects')->{'objectModel'};
+    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Method: _fieldDescription
@@ -175,7 +170,7 @@ sub _fieldDescription
             new EBox::Types::InverseMatchSelect(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => \&serviceModel,
+                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,

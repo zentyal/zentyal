@@ -20,6 +20,7 @@ use warnings;
 
 use base 'EBox::CGI::WizardPage';
 
+use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::External;
@@ -28,7 +29,8 @@ use SOAP::Lite;
 use Error qw(:try);
 
 use constant SOAP_URI => 'http://www.zentyal.com';
-use constant SOAP_PROXY => 'https://api.zentyal.com/';
+use constant SOAP_PROXY => 'https://api.zentyal.com/2.3/';
+use constant PROMO_AVAILABLE => 'https://api.zentyal.com/2.3/promo_available';
 
 sub new # (cgi=?)
 {
@@ -45,8 +47,23 @@ sub _masonParameters
 
     my @params = ();
     my $global = EBox::Global->getInstance();
-    my $image = $global->theme()->{'image_title'};
-    push (@params, image_title => $image);
+
+    # check if subscription promo is available (to show the banner)
+    my $res;
+    try {
+        $res = join('', @{EBox::Sudo::command('curl --connect-timeout 5 ' . PROMO_AVAILABLE)});
+        chomp($res);
+    } otherwise {
+        EBox::error("Could not retrieve subscription promo status: $res");
+    };
+
+    my $promo = ($res eq '1');
+
+    my ($lang) = split ('_', EBox::locale());
+    $lang = 'en' unless ($lang eq 'es');
+
+    push (@params, promo_available => $promo);
+    push (@params, lang => $lang);
     return \@params;
 }
 
@@ -63,7 +80,6 @@ sub _processWizard
     if ($self->param('action') eq 'register') {
         $self->_requireParam('firstname', __('First name'));
         $self->_requireParam('lastname', __('Last name'));
-        $self->_requireParam('country', __('Country'));
         $self->_requireParam('phone', __('Phone number'));
         $self->_requireParam('password2', __('Repeated password'));
 
@@ -86,6 +102,15 @@ sub _register
     my $user = $self->param('username');
     EBox::info("Registering a new basic subscription ($user)");
 
+    my $position   = $self->param('position');
+    $position = "" unless (defined($position));
+
+    my $sector   = $self->param('sector');
+    $sector = "" unless (defined($sector));
+
+    my $newsletter = $self->param('newsletter');
+    $newsletter = "off" unless(defined($newsletter));
+
     my $result;
     try {
         $result  = SOAP::Lite
@@ -95,11 +120,14 @@ sub _register
              ->encoding('iso-8859-1')
              ->register_basic($self->param('firstname'),
                               $self->param('lastname'),
-                              $self->param('country'),
+                              '', # country no longer sent
                               $self->param('username'),
                               $self->param('password'),
                               $self->param('phone'),
-                              $self->param('company'));
+                              $self->param('company'),
+                              $newsletter,
+                              $position,
+                              $sector);
     } otherwise {
         throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
     };

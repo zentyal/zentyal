@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS printers_pages(
          printer VARCHAR(255) NOT NULL,
          pages INT,
          INDEX(timestamp)
-);
+) ENGINE = MyISAM;

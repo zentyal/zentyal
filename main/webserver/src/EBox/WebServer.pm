@@ -18,9 +18,7 @@ package EBox::WebServer;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider
-            );
+use base qw(EBox::Module::Service);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -235,72 +233,6 @@ sub menu
       $root->add($item);
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#        <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-            'EBox::WebServer::Model::GeneralSettings',
-            'EBox::WebServer::Model::VHostTable',
-           ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#        <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return ['EBox::WebServer::Composite::General'];
-}
-
-################
-# API exposed
-################
-
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#        <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my ($self) = @_;
-
-    my %exposedMethods =
-      (
-       'addVHost'       => { action   => 'add',
-                             path     => [ 'VHostTable' ],
-                           },
-       'removeVHost'    => { action   => 'del',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                           },
-       'updateVHost'    => { action   => 'set',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                           },
-       'vHost'          => { action   => 'get',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                           },
-       'isVHostEnabled' => { action   => 'get',
-                             path     => [ 'VHostTable' ],
-                             indexes  => [ 'name' ],
-                             selector => [ 'enabled' ],
-                           },
-       );
-
-    return \%exposedMethods;
-}
-
 #  Method: _daemons
 #
 #   Override <EBox::Module::Service::_daemons>
@@ -488,12 +420,16 @@ sub _setUserDir
     if ( $generalConf->enableDirValue() and $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
         my $ldap = $usersMod->ldap();
+        my $ldapServer = '127.0.0.1';
+        my $ldapPort   = $ldap->ldapConf()->{port};
         my $rootDN = $ldap->rootDn();
         my $ldapPass = $ldap->getPassword();
         my $usersDN = $usersMod->usersDn();
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                              'webserver/ldap_userdir.conf.mas',
                              [
+                               ldapServer => $ldapServer,
+                               ldapPort  => $ldapPort,
                                rootDN  => $rootDN,
                                usersDN => $usersDN,
                                dnPass  => $ldapPass,

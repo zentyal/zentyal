@@ -35,30 +35,28 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#      <EBox::Types::Link> - the newly created type
+#      <EBox::Types::HTML> - the newly created type
 #
 sub new
 {
+    my ($class, %opts) = @_;
 
-      my ($class, %opts) = @_;
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/rawHTML.mas';
+    }
 
-      unless (exists $opts{'HTMLViewer'}) {
-          $opts{'HTMLViewer'} ='/ajax/viewer/rawHTML.mas';
-      }
+    $opts{'type'}     = 'html';
+    $opts{'editable'} = 0;
 
-      $opts{'type'}     = 'html';
-      $opts{'editable'} = 0;
+    my $self = $class->SUPER::new(%opts);
 
-      my $self = $class->SUPER::new(%opts);
+    bless ( $self, $class );
 
-      bless ( $self, $class );
+    unless (exists $opts{'HTMLSetter'}) {
+        $self->{'HTMLSetter'} = '/ajax/viewer/rawHTML.mas';
+    }
 
-      unless (exists $opts{'HTMLSetter'}) {
-          $self->{'HTMLSetter'} = '/ajax/viewer/rawHTML.mas';
-      }
-
-      return $self;
-
+    return $self;
 }
 
 
@@ -87,7 +85,6 @@ sub new
 #
 sub _paramIsValid
 {
-
     my ($self, $params) = @_;
 
     my $value = $params->{$self->fieldName()};
@@ -104,8 +101,6 @@ sub _paramIsValid
     }
 
     return 1;
-
 }
-
 
 1;

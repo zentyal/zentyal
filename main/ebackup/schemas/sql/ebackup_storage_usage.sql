@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS ebackup_storage_usage (
     used BIGINT,
     available BIGINT,
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

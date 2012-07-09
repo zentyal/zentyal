@@ -117,8 +117,9 @@ sub URI {
 sub _setReportAsGenerated
 {
     my $rs = EBox::Global->modInstance('remoteservices');
-    $rs->st_set_int('subscription/report_generated_at', time());
-
+    my $state = $rs->get_state();
+    $state->{subscription}->{report_generated_at} = time();
+    $rs->set_state($state);
 }
 
 1;

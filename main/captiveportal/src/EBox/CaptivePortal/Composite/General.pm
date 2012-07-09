@@ -23,18 +23,25 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
+# Method: componentNames
 #
-#     Constructor for the Gateway composite.
+# Overrides:
 #
-sub new
+#     <EBox::Model::Composite::componentNames>
+#
+sub componentNames
 {
-    my ($class, @params) = @_;
+    my ($self) = @_;
 
-    my $self = $class->SUPER::new(@params);
-    return $self;
+    my @components;
+
+    push (@components, 'GeneralSettings');
+    if (EBox::Config::configkey('captive_secondary_ldap')) {
+        push (@components, 'SecondaryLDAP');
+    }
+    push (@components, 'Users');
+
+    return \@components;
 }
 
 # Method: _description
@@ -47,18 +54,7 @@ sub _description
 {
     my ($self) = @_;
 
-    my @components;
-    push (@components, 'captiveportal/GeneralSettings');
-
-    # show secondary ldap configuration if enabled
-    if (EBox::Config::configkey('captive_secondary_ldap')) {
-        push (@components, 'captiveportal/SecondaryLDAP');
-    }
-
-    push (@components, 'captiveportal/Users');
-
     my $description = {
-        components      => \@components,
         layout          => 'tabbed',
         name            => 'General',
         pageTitle       => __('Captive Portal'),

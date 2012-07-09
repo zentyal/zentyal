@@ -1,6 +1,21 @@
 class: 'EBox::Zarafa'
+
 enabledepends:
     - mail
     - webserver
+
 depends:
     - mail
+
+models:
+    - VMailDomain
+    - GeneralSettings
+    - Gateways
+    - Quota
+    - ZarafaUser
+
+composites:
+    General: [zarafa/VMailDomain, zarafa/GeneralSettings, zarafa/Gateways, zarafa/Quota]
+
+notifyactions:
+    VMailDomain: VDomains

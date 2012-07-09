@@ -1,0 +1,17 @@
+samba-zentyal-modules (0.3) precise; urgency=low
+
+  * Remove zentyal-samba dep
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 28 May 2012 16:23:35 +0200
+
+samba-zentyal-modules (0.2) precise; urgency=low
+
+  * Add support for multiarch
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Fri, 20 Apr 2012 18:24:59 +0200
+
+samba-zentyal-modules (0.1) precise; urgency=low
+
+  * Initial release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 11 Apr 2012 13:15:23 +0200

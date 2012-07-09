@@ -15,10 +15,7 @@
 
 package EBox::Module::Service;
 
-#FIXME: as the only way to store stuff in gconf is to inherit from GConfModule
-# we'll do it for now, but GConfModule has to go soon and the storage system
-# reworked
-use base qw(EBox::GConfModule);
+use base qw(EBox::Module::Config);
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -213,7 +210,7 @@ sub bootDepends
 #   to carry out the actions and file modifications that enabling a
 #   service implies.
 #
-#   If you must store this value in the status branch of gconf in case
+#   If you must store this value in the status branch of conf in case
 #   you decide to override it.
 #
 # Returns:
@@ -244,7 +241,7 @@ sub configured
 #   to carry out the actions and file modifications that enabling a
 #   service implies.
 #
-#   If you must store this value in the status branch of gconf in case
+#   If you must store this value in the status branch of conf in case
 #   you decide to override it.
 #
 # Parameters:
@@ -413,10 +410,11 @@ sub isRunning
     for my $daemon (@{$daemons}) {
         my $check = 1;
         my $pre = $daemon->{'precondition'};
-        if(defined($pre)) {
+        if (defined ($pre)) {
             $check = $pre->($self);
         }
-        $check or next;
+        # If precondition does not meet the daemon should not be running.
+        $check or return 0;
         unless ($self->_isDaemonRunning($daemon->{'name'})) {
             return 0;
         }
@@ -780,14 +778,14 @@ sub writeConfFile # (file, component, params, defaults)
     my $manager;
 
     $manager = new EBox::ServiceManager();
-    if ($manager->skipModification($self->{'name'}, $file)) {
-        EBox::info("Skipping modification of $file");
-        return;
-    }
+#    if ($manager->skipModification($self->{'name'}, $file)) {
+#        EBox::info("Skipping modification of $file");
+#        return;
+#    }
 
     EBox::Module::Base::writeConfFileNoCheck($file, $compname, $params, $defaults);
 
-    $manager->updateFileDigest($self->{'name'}, $file);
+#    $manager->updateFileDigest($self->{'name'}, $file);
 }
 
 # Method: certificates

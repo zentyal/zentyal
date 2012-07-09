@@ -20,9 +20,7 @@ use warnings;
 
 use feature qw(switch);
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider EBox::LdapModule
-            );
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -42,7 +40,6 @@ use constant ZARAFAGATEWAYCONFFILE => '/etc/zarafa/gateway.cfg';
 use constant ZARAFAMONITORCONFFILE => '/etc/zarafa/monitor.cfg';
 use constant ZARAFASPOOLERCONFFILE => '/etc/zarafa/spooler.cfg';
 use constant ZARAFAICALCONFFILE => '/etc/zarafa/ical.cfg';
-use constant ZARAFAINDEXERCONFFILE => '/etc/zarafa/indexer.cfg';
 use constant ZARAFADAGENTCONFFILE => '/etc/zarafa/dagent.cfg';
 
 use constant ZARAFA_WEBACCESS_DIR => '/usr/share/zarafa-webaccess';
@@ -59,10 +56,6 @@ sub _create
     my $self = $class->SUPER::_create(name => 'zarafa',
                       printableName => 'Groupware',
                       @_);
-
-    my $output = `zarafa-admin -V`;
-    my ($version) = $output =~ /Product version:\s+(\d+),/;
-    $self->{version} = $version;
 
     bless($self, $class);
     return $self;
@@ -159,11 +152,6 @@ sub usedFiles
             'reason' => __('To properly configure Zarafa ical server.')
         },
         {
-            'file' => ZARAFAINDEXERCONFFILE,
-            'module' => 'zarafa',
-            'reason' => __('To properly configure Zarafa indexing server.')
-        },
-        {
             'file' => ZARAFADAGENTCONFFILE,
             'module' => 'zarafa',
             'reason' => __('To properly configure Zarafa dagent LMTP delivering server.')
@@ -243,38 +231,6 @@ sub _serviceRules
     ];
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-        'EBox::Zarafa::Model::VMailDomain',
-        'EBox::Zarafa::Model::GeneralSettings',
-        'EBox::Zarafa::Model::Gateways',
-        'EBox::Zarafa::Model::Quota',
-        'EBox::Zarafa::Model::ZarafaUser',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::Zarafa::Composite::General',
-    ];
-}
-
 #  Method: _daemons
 #
 #   Override <EBox::Module::Service::_daemons>
@@ -303,9 +259,9 @@ sub _daemons
             'pidfiles' => ['/var/run/zarafa-dagent.pid']
         },
         {
-            'name' => 'zarafa-indexer',
+            'name' => 'zarafa-search',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/zarafa-indexer.pid'],
+            'pidfiles' => ['/var/run/zarafa-search.pid'],
             'precondition' => \&indexerEnabled
         },
         {
@@ -402,8 +358,6 @@ sub _setConf
 
     my @array = ();
 
-    my $zarafa7 = $self->{'version'} eq 7;
-
     my $users = EBox::Global->modInstance('users');
     my $ldap = $users->ldap();
     my $ldapconf = $ldap->ldapConf;
@@ -411,7 +365,8 @@ sub _setConf
     push(@array, 'ldapsrv' => '127.0.0.1');
     push(@array, 'ldapport', $ldapconf->{'port'});
     push(@array, 'ldapbase' => $ldapconf->{'dn'});
-    push(@array, 'zarafa7' => $zarafa7);
+    push(@array, 'ldapuser' => $ldap->roRootDn());
+    push(@array, 'ldappwd' => $ldap->getRoPassword());
     $self->writeConfFile(ZARAFALDAPCONFFILE,
                  "zarafa/ldap.openldap.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -431,7 +386,6 @@ sub _setConf
     push(@array, 'quota_soft' => $self->model('Quota')->softQuota());
     push(@array, 'quota_hard' => $self->model('Quota')->hardQuota());
     push(@array, 'indexer' => $zarafa_indexer);
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFACONFFILE,
                  "zarafa/server.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '640' });
@@ -441,7 +395,6 @@ sub _setConf
     push(@array, 'pop3s' => $self->model('Gateways')->pop3sValue() ? 'yes' : 'no');
     push(@array, 'imap' => $self->model('Gateways')->imapValue() ? 'yes' : 'no');
     push(@array, 'imaps' => $self->model('Gateways')->imapsValue() ? 'yes' : 'no');
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFAGATEWAYCONFFILE,
                  "zarafa/gateway.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -454,7 +407,6 @@ sub _setConf
     @array = ();
     my $always_send_delegates = EBox::Config::configkey('zarafa_always_send_delegates');
     push(@array, 'always_send_delegates' => $always_send_delegates);
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFASPOOLERCONFFILE,
                  "zarafa/spooler.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
@@ -468,18 +420,13 @@ sub _setConf
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     @array = ();
-    $self->writeConfFile(ZARAFAINDEXERCONFFILE,
-                 "zarafa/indexer.cfg.mas",
-                 \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
-
-    @array = ();
-    push(@array, 'zarafa7' => $zarafa7);
     $self->writeConfFile(ZARAFADAGENTCONFFILE,
                  "zarafa/dagent.cfg.mas",
                  \@array, { 'uid' => '0', 'gid' => '0', mode => '644' });
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
+    $self->_enableInnoDBIfNeeded();
 }
 
 # Method: _postServiceHook
@@ -718,7 +665,7 @@ sub _setWebServerConf
 
     if ($vhost eq 'disabled') {
         push(@cmds, 'a2ensite zarafa-webaccess');
-        push(@cmds, 'a2ensite zarafa-webaccess-mobile');
+        push(@cmds, 'a2ensite zarafa-webapp');
         if ($activesync) {
             push(@cmds, 'a2ensite z-push');
         } else {
@@ -726,7 +673,7 @@ sub _setWebServerConf
         }
     } else {
         push(@cmds, 'a2dissite zarafa-webaccess');
-        push(@cmds, 'a2dissite zarafa-webaccess-mobile');
+        push(@cmds, 'a2dissite zarafa-webapp');
         push(@cmds, 'a2dissite z-push');
         my $destFile = EBox::WebServer::SITES_AVAILABLE_DIR . 'user-' .
                        EBox::WebServer::VHOST_PREFIX. $vhost .'/ebox-zarafa';
@@ -746,6 +693,18 @@ sub _setSpellChecking
 
     EBox::Sudo::root(EBox::Config::scripts('zarafa') .
                      'zarafa-spell ' . ($spell ? 'enable' : 'disable'));
+}
+
+sub _enableInnoDBIfNeeded
+{
+    my ($self) = @_;
+
+    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
+        EBox::Sudo::root(
+            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
+            "restart mysql"
+        );
+    }
 }
 
 # Method: addModuleStatus

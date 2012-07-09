@@ -16,8 +16,6 @@
 package EBox::OpenVPN;
 use base qw(
              EBox::Module::Service
-             EBox::Model::ModelProvider
-             EBox::Model::CompositeProvider
              EBox::NetworkObserver
              EBox::LogObserver
              EBox::FirewallObserver
@@ -29,6 +27,7 @@ use warnings;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Validate;
@@ -49,7 +48,7 @@ use File::Slurp;
 
 use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
 # correctly in ifconfig
-use constant RESERVED_PREFIX => 'R_D_';
+use constant RESERVED_PREFIX => 'remoteservices_';
 
 use constant USER  => 'nobody';
 use constant GROUP => 'nogroup';
@@ -71,43 +70,6 @@ sub _create
                                       @_);
     bless($self, $class);
     return $self;
-}
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#       <EBox::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::OpenVPN::Model::Servers',
-        'EBox::OpenVPN::Model::ServerConfiguration',
-        {
-          class => 'EBox::OpenVPN::Model::ExposedNetworks',
-          parameters => [
-                         directory => 'AdvertisedNetworks',
-                        ],
-         },
-        'EBox::OpenVPN::Model::DownloadClientBundle',
-
-        'EBox::OpenVPN::Model::Clients',
-        'EBox::OpenVPN::Model::ClientConfiguration',
-
-        'EBox::OpenVPN::Model::DeletedDaemons',
-    ];
-}
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [];
 }
 
 #TODO: this method needs to be splitted in setConf and enforceServiceState
@@ -635,7 +597,7 @@ sub _serversToConnect
 #  Parameters:
 #          $name       - name to be checked
 #          $daemonType - new daemon's type
-#          $internal   = wether is a internal daemon
+#          $internal   - whether is a internal daemon
 sub checkNewDaemonName
 {
     my ($self, $name, $daemonType, $internal) = @_;
@@ -645,7 +607,6 @@ sub checkNewDaemonName
             __x(
               q{Invalid name {name}. Only alpahanumeric  and '-', '_', '.' characters are allowed},
                 name => $name,
-
             )
                                         )
     }
@@ -698,7 +659,7 @@ sub _checkNamePrefix
     }elsif (not $isReservedName and $internalDaemon) {
         throw EBox::Exceptions::External(
             __x(
-'Invalid name {name}. A internal daemon must have a name which begins with the prefix {pf}',
+'Invalid name {name}. An internal daemon must have a name which begins with the prefix {pf}',
                 name => $name,
                 pf => $reservedPrefix,
             )
@@ -1474,6 +1435,13 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+sub refreshIfaceInfoCache
+{
+    my ($self) = @_;
+    my $apache = EBox::Global->getInstance()->modInstance('apache');
+    $apache->setAsChanged(1);
 }
 
 sub openVPNWidget

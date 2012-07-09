@@ -29,12 +29,14 @@ use EBox::Sudo;
 use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
+use Date::Calc;
 
 # Constants
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=enterprise_edition';
 
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
+use constant FRESHCLAM_LOG_FILE => '/var/log/clamav/freshclam.log';
 
 sub new
 {
@@ -126,10 +128,11 @@ sub _content
 {
     my ($self) = @_;
 
-    my $antivirus  = $self->{'gconfmodule'};
+    my $antivirus  = $self->{'confmodule'};
     my $state      = $antivirus->freshclamState();
 
     my $date       = delete $state->{date};
+    my $logDate = 0;
 
     my $event;
     my $eventInfo;
@@ -141,7 +144,7 @@ sub _content
                 last;
             }
         }
-        $nSig = $self->_nSig();
+        ($nSig, $logDate) = $self->_nSigsAndLastDate();
     }
     else {
         $date  = time();
@@ -151,8 +154,14 @@ sub _content
             $event = 'disabled';
         } else {
             $event = 'uninitialized';
-            $nSig  = $self->_nSig();
+            ($nSig, $logDate)  = $self->_nSigsAndLastDate();
         }
+    }
+
+    if ($nSig and ($logDate > $date)) {
+        $date = $logDate;
+        # adjust  event to reflect the last succesful update
+        $event = 'update';
     }
 
     # build appropiate msg
@@ -200,20 +209,37 @@ sub _commercialMsg
 }
 
 # Get the number of signatures from clamav log file
-sub _nSig
+sub _nSigsAndLastDate
 {
-    my $cmd = 'grep Loaded.*signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
+    # get last update date
+    my $date = 0;
+    my $cmd = q{grep  'Database updated' } . FRESHCLAM_LOG_FILE . '| tail -n 1';
     my $output = EBox::Sudo::root($cmd);
-
     my $line = $output->[0];
-    return 0 unless (defined($line));
-
-    my ($nSig) = $line =~ m/([0-9]+)\ssignatures/;
-    if (not defined $nSig) {
-        return 0;
+    if (defined $line) {
+        my ($dateStr) = $line =~ m/^(.*?)\s+->\s+Database\s+updated/;
+        if ($dateStr) {
+            my ($ignoredWday, $monthStr, $mday, $timeString, $year) = split '\s+', $dateStr;
+            my $month = Date::Calc::Decode_Month($monthStr);
+            my ($hour, $min, $sec)= split ':', $timeString, 3;
+            $date = Date::Calc::Date_to_Time($year,$month,$mday, $hour,$min,$sec);
+            defined $date or $date = 0;
+        }
     }
 
-    return $nSig;
+    # get n signatures
+    my $nSig = 0;
+    $cmd = 'grep Loaded.*signatures ' . CLAMAV_LOG_FILE . ' | tail -n 1';
+    $output = EBox::Sudo::root($cmd);
+
+    $line = $output->[0];
+    if (defined $line) {
+        ($nSig) = $line =~ m/([0-9]+)\ssignatures/;
+        defined $nSig or
+            $nSig = 0;
+    }
+
+    return ($nSig, $date);
 
 }
 

@@ -1,3 +1,25 @@
+HEAD
+	+ EBox::Firewall::IPRule can accept now IPRange objects as source
+	  or destination
+2.3.7
+	+ Remove obsolete denyAction code
+	+ Adapted to new Model management framework
+	+ Remove obsolete OutputRules code
+	+ Remove obsolete localredirects methods
+	+ Remove obsolete import of EBox::Order
+2.3.6
+	+ Set RemoteServices rules taking into account no bundle state
+	+ Added clone action to tables
+	+ EBox::Firewall::availablePort now works for non-FirewallObserver modules
+	  and it uses the same readonly status as the firewall module
+2.3.5
+	+ Create tables with MyISAM engine by default
+2.3.4
+	+ Use new unified tableBody.mas in PacketTrafficDetails.pm
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Use printableName instead of name to select services
 	+ Remove firewall hook template as examples are already included in core
@@ -103,7 +125,7 @@
 0.12.100
 	+ New release
 0.12.99
-	+ Add support for reporting 
+	+ Add support for reporting
 	+ Add rules to allow DHCP requests from interfaces configured via DHCP
 0.12.1
 	+ Add log decision to firewall rules
@@ -169,7 +191,7 @@
 	+ Use of ebox-sudoers-friendly
 0.7
 	+ First public release
-0.6	
+0.6
 	+ Separate module from ebox base
 	+ move to client
 	+ API documented using naturaldocs

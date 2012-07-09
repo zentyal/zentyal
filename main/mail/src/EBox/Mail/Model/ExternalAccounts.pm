@@ -117,6 +117,12 @@ sub _table
             defaultValue => 0,
             editable => 1,
            ),
+        new EBox::Types::Boolean(
+            fieldName => 'fetchall',
+            printableName => (q{Fetch already read messages}),
+            defaultValue => 0,
+            editable => 1,
+           ),
     );
     my $dataTable =
     {
@@ -217,49 +223,9 @@ sub row
     }
 
     my $account =  $userAccounts->[$id - 1];
-
-    # direct correspondende values
-    my %values      =  (
-        externalAccount => $account->{user},
-        password => $account->{password},
-        server => $account->{server},
-        port => $account->{port},
-       );
-
-    my $mailProtocol = $account->{mailProtocol};
-    my $ssl = 0;
-    my $keep = 0;
-    if (exists $account->{options}) {
-        if (ref $account->{options}) {
-            foreach my $opt (@{ $account->{options} }) {
-                if ($opt eq 'ssl') {
-                    $ssl = 1;
-                } elsif ($opt eq 'keep') {
-                    $keep = 1;
-                }
-            }
-        } else {
-            $ssl = $account->{options} eq 'ssl';
-        }
-
-    }
-
-    my $rowProtocol;
-    if ($mailProtocol eq 'pop3') {
-        $rowProtocol = $ssl ? 'pop3s' : 'pop3';
-    } elsif ($mailProtocol eq 'imap') {
-        $rowProtocol = $ssl ? 'imaps' : 'imap';
-    }else {
-        throw EBox::Exceptions::Internal(
-         "Unknown mail protocol: $mailProtocol"
-           );
-    }
-    $values{protocol} = $rowProtocol;
-    $values{keep}     = $keep;
-
+    my %values = %{ $self->{mailMod}->{fetchmail}->externalAccountRowValues($account) };
     my $row = $self->_setValueRow(%values);
     $row->setId($id);
-
     return $row;
 }
 
@@ -271,35 +237,12 @@ sub validateTypedRow
 
     if (exists $params_r->{externalAccount}) {
         my $externalAccount =  $params_r->{externalAccount}->value();
-        if ($externalAccount =~ m/\@/) {
-            EBox::Validate::checkEmailAddress(
-                $externalAccount,
-                __('External account')
-               );
-        } else {
-            # no info found on valid usernames for fetchmail..
-            if ($externalAccount =~ m/\s/) {
-                throw EBox::Exceptions::InvalidData (
-                    'data' => __('External account username'),
-                    'value' => $externalAccount,
-                    'advice' => __('No spaces allowed')
-                   );
-            }
-            unless ($externalAccount =~ m/^[\w.\-_]+$/) {
-                throw EBox::Exceptions::InvalidData (
-                    'data' => __('External account username'),
-                    'value' => $externalAccount);
-            }
-        }
+        $self->{mailMod}->{fetchmail}->checkExternalAccount($externalAccount);
     }
 
     if (exists $params_r->{password}) {
         my $password = $params_r->{password}->value();
-        if ($password =~ m/'/) {
-            throw EBox::Exceptions::External(
-  __(q{Character "'" is forbidden for external})
-                                            );
-        }
+        $self->{mailMod}->{fetchmail}->checkPassword($password);
     }
 }
 
@@ -409,6 +352,7 @@ sub _elementsToParamsForFetchmailLdapCall
         mailServer     => $params_r->{server}->value(),
         port           => $params_r->{port}->value(),
         keep           => $params_r->{keep}->value(),
+        fetchall       => $params_r->{fetchall}->value(),
        );
 
 
@@ -462,7 +406,7 @@ __('Cannot retrieve mail from external accounts because you do not have a email 
 # Method: _checkRowExist
 #
 #   Override <EBox::Model::DataTable::_checkRowExist> as DataTable try to check
-#   if a row exists checking the existance of the gconf directory
+#   if a row exists checking the existance of the conf directory
 sub _checkRowExist
 {
     my ($self, $id) = @_;

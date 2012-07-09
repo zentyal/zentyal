@@ -10,6 +10,13 @@ set -e
 
 #DEBHELPER#
 
+stop_ebox_processes() {
+  stop ebox.redis || true
+  OLD_APACHE_PID=`ps aux|grep 'apache2.* -f /var/lib/ebox'|grep -v grep| awk '/^root/{print $2;exit}'`;
+  kill $OLD_APACHE_PID || true
+  killall -u ebox || true
+}
+
 ZENTYAL_HOME=/var/lib/zentyal/
 FIRST_FILE=$ZENTYAL_HOME/.first
 
@@ -33,14 +40,20 @@ case "$1" in
             # create the .first file only if we are on the first install
             touch $FIRST_FILE
         fi
-        if ! getent passwd ebox > /dev/null 2>&1
+
+        ENT_EBOX=`getent passwd ebox` || /bin/true
+        if [ -z "$ENT_EBOX" ];
         then
             adduser --system --home $ZENTYAL_HOME \
                 --disabled-password --ingroup ebox ebox
             adduser ebox adm
+        elif [[ "$ENT_EBOX" =~ ":/var/lib/zentyal/:" ]]
+        then
+            /bin/true # user exists and has correct directory, do nothing
         else
             # override old Zentyal <= 2.0 home if the user ebox already exists
             chown ebox:ebox $ZENTYAL_HOME
+            stop_ebox_processes
             usermod --home $ZENTYAL_HOME ebox > /dev/null 2>&1
         fi
         # to allow PAM authentication

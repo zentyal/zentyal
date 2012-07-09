@@ -22,7 +22,7 @@ use warnings;
 use Test::MockObject;
 use Params::Validate;
 use EBox::Global;
-use EBox::GConfModule::TestStub;
+use EBox::Module::Config::TestStub;
 
 
 my %modulesInfo;
@@ -88,7 +88,7 @@ sub _fakedModNames
 
 sub fake
 {
-    EBox::GConfModule::TestStub::fake(); # needed by some method, like changed
+    EBox::Module::Config::TestStub::fake(); # needed by some method, like changed
                                          # state of modules
     Test::MockObject->fake_module('EBox::Global',
                                   readModInfo => \&_fakedReadModInfo,

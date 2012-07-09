@@ -32,7 +32,6 @@ use Pod::Usage;
 use YAML::XS;
 use EBox::RemoteServices::Server::JobReceiver;
 
-
 # Get the cron jobs from the CC
 sub _getCronJobs
 {
@@ -91,7 +90,7 @@ if ( $usage or (not $correct)) {
 EBox::init();
 
 my $rs = EBox::Global->modInstance('remoteservices');
-if ( $rs->isConnected() ) {
+if ( $rs->eBoxSubscribed() ) {
     _getCronJobs();
 }
 

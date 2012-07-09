@@ -1,3 +1,21 @@
+2.3.7
+	+ Adapted to new Model management framework
+2.3.6
+	+ Take into account the VPN internal client renaming
+	+ Site-to-site VPN is now supported on all editions
+	+ Refresh interface info cache with an apache restart to make the
+	  widgets return updated interface information
+	+ Fixed regresion that allowed bad server names
+	+ Fixed checks for used ports in other modules
+2.3.5
+	+ Create tables with MyISAM engine by default
+2.3.4
+	+ Advertised networks are now defined by objects instead of by
+	  manually specified networks
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Added checks for small business subscription
 	+ Give support to use general proxy in OpenVPN clients
@@ -197,4 +215,4 @@
 	+ Added Polish translation
         + Client bundle generator for Windows and Linux
 0.8.99
-	+ First public release 
+	+ First public release

@@ -21,26 +21,26 @@ use EBox;
 use EBox::Config::Redis;
 use EBox::Sudo;
 use Error qw(:try);
+use JSON::XS;
 
-my $dir = '/ebox';
-my $pattern = $ARGV[0];
+my ($pattern, $dir) = @ARGV;
 
 unless ($pattern) {
     print STDERR "Usage: $0 pattern [path]\n";
     exit 1;
 }
-if ($ARGV[1]) {
-    $dir = $ARGV[1];
-}
 
 EBox::init();
 
-my $redis = new EBox::Config::Redis();
+my $redis = EBox::Config::Redis->instance();
 
-my @keys = $redis->_redis_call('keys', "$dir/*");
+my @keys = $redis->_keys($dir ? "$dir/*" : '*');
 
 foreach my $key (@keys) {
     my $value = $redis->get($key);
+    if (ref $value) {
+        $value = encode_json($value);
+    }
     if (($key =~ /$pattern/) or ($value =~ /$pattern/)) {
         print "$key: $value\n";
     }

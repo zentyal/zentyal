@@ -43,3 +43,17 @@ dpkg-deb -b . ../$PKG_UDEB
 cd ..
 rm -rf tmp
 popd
+
+# Fix apt-setup because it ignores the key-error preseed
+pushd $CD_BUILD_DIR/pool/main/a/apt-setup/
+APT_UDEB=`ls apt-setup-udeb_*.udeb`
+mkdir tmp
+cd tmp
+dpkg-deb -e ../$APT_UDEB
+dpkg-deb -x ../$APT_UDEB .
+sed -i "s/Retry/Ignore/g" usr/lib/apt-setup/generators/60local
+dpkg-deb -b . ../$APT_UDEB
+cd ..
+rm -rf tmp
+popd
+

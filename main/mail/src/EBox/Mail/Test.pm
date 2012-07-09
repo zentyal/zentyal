@@ -63,7 +63,7 @@ sub setUpConfiguration : Test(setup)
                   '/ebox/modules/mail/external_filter_name'  => 'custom',
                   );
 
-    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Module::Config::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('mail' => 'EBox::Mail');
 
     EBox::TestStubs::fakeEBoxModule(name => 'firewall',
@@ -88,7 +88,7 @@ sub fakeGetIfacesForAddress
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::TestStub::setConfig();
+    EBox::Module::Config::TestStub::setConfig();
 }
 
 sub _moduleTest : Test(4)

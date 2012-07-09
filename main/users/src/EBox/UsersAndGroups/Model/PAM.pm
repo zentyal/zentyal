@@ -28,7 +28,7 @@ use File::Basename;
 use strict;
 use warnings;
 
-use constant DEFAULT_SHELL => '/usr/sbin/nologin';
+use constant DEFAULT_SHELL => '/bin/bash';
 
 # Group: Public methods
 

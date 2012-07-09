@@ -26,7 +26,7 @@ use Error qw(:try);
 
 use EBox;
 use EBox::Global;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 EBox::init();
 
@@ -95,7 +95,7 @@ sub parse_internal_commands
     my ($model) = $cmd =~ /^model (\w+);*/;
     if ($model) {
         my $var = lc($model);
-        return "my \$$var; try { \$$var = EBox::Model::ModelManager->instance()->model('$model'); print '\$$var\n'; } otherwise { print \"Error: Model '$model' not found\n\" };";
+        return "my \$$var; try { \$$var = EBox::Model::Manager->instance()->model('$model'); print '\$$var\n'; } otherwise { print \"Error: Model '$model' not found\n\" };";
     }
     my ($call) = $cmd =~ /^call (.+);*/;
     if ($call) {

@@ -25,7 +25,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ProgressIndicator;
-use EBox::ProgressIndicator::Dummy;
 
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
@@ -747,14 +746,11 @@ sub makeBackup
     $options{description} or
         $options{description} = __('Backup');
     my $progress = $options{progress};
-    if (not $progress) {
-        $progress = EBox::ProgressIndicator::Dummy->create();
-        $options{progress} = $progress;
-    }
 
     EBox::info('Backing up configuration');
-    $progress->started or
+    if ($progress and not $progress->started()) {
         throw EBox::Exceptions::Internal("ProgressIndicator's executable has not been run");
+    }
 
     my $backupdir = backupDir();
     my $time = time();
@@ -771,14 +767,16 @@ sub makeBackup
     }
     otherwise {
         my $ex = shift @_;
-        $progress->setAsFinished(1, $ex->text);
+        $progress->setAsFinished(1, $ex->text) if $progress;
         $ex->throw();
     };
 
     my $backupFinalPath;
     try {
-        $progress->notifyTick();
-        $progress->setMessage(__('Writing backup file to hard disk'));
+        if ($progress) {
+            $progress->notifyTick();
+            $progress->setMessage(__('Writing backup file to hard disk'));
+        }
 
         my $dest = $options{destination};
         if (not defined $dest) {
@@ -787,11 +785,11 @@ sub makeBackup
 
         $backupFinalPath = $self->_moveToArchives($filename, $backupdir, $dest);
 
-        $progress->setAsFinished();
+        $progress->setAsFinished() if $progress;
     }
     otherwise {
         my $ex = shift @_;
-        $progress->setAsFinished(1, $ex->text);
+        $progress->setAsFinished(1, $ex->text) if $progress;
         $ex->throw();
     };
 
@@ -1157,14 +1155,11 @@ sub restoreBackup
     exists $options{modsToExclude} or
         $options{modsToExclude} = [];
     my $progress = $options{progress};
-    if (not $progress) {
-        $progress = EBox::ProgressIndicator::Dummy->create;
-        $options{progress} = $progress;
-    }
 
     # EBox::debug("restore backup id: " . $progress->id);
-    $progress->started or
+    if ($progress and not $progress->started()) {
         throw EBox::Exceptions::Internal("ProgressIndicator's executable has not been run");
+    }
 
     my $tempdir;
     try {
@@ -1219,7 +1214,7 @@ sub restoreBackup
 
             my $errorMsg = 'Error while restoring: ' . $ex->text();
             EBox::error($errorMsg);
-            $progress->setAsFinished(1, $errorMsg);
+            $progress->setAsFinished(1, $errorMsg) if $progress;
 
             if ($options{revokeAllOnModuleFail}) {
                 $self->_revokeRestore(\@restored);
@@ -1245,7 +1240,7 @@ sub restoreBackup
             EBox::info("Restore finished. The following modules have been successfuly restored: @restored. But the following ones have failed: @failed.");
         }
 
-        $progress->setAsFinished();
+        $progress->setAsFinished() if $progress;
     }
     finally {
         if ($tempdir) {
@@ -1335,8 +1330,11 @@ sub _restoreModule
 
     # update progress indicator
     my $progress = $options_r->{progress};
-    $progress->notifyTick();
-    $progress->setMessage($modname);
+
+    if ($progress) {
+        $progress->notifyTick();
+        $progress->setMessage($modname);
+    }
 
     if (not -e "$tempdir/eboxbackup/$modname.bak") {
         EBox::error("Restore data not found for module $modname. Skipping $modname restore");
@@ -1365,7 +1363,7 @@ sub _revokeRestore
         my $restmod = EBox::Global->modInstance($restname);
         try {
             $restmod->revokeConfig();
-            # XXX remember no-gconf changes are not revoked!
+            # XXX remember non-redis changes are not revoked!
             EBox::debug("Revoked changes in $restname module");
         }
         otherwise {

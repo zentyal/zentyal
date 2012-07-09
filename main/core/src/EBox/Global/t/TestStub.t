@@ -30,7 +30,7 @@ sub testStubsSetup
 
       MOCK_CLASS:{
 	  package EBox::Baboon;
-	  use base 'EBox::GConfModule';
+	  use base 'EBox::Module::Config';
 	  $INC{'EBox/Baboon.pm'} =1;
 	  sub _create
 	  {
@@ -58,7 +58,7 @@ sub modInstanceTest
 	my $baboonModule;
 	lives_ok { $baboonModule = $global->modInstance('baboon') } 'modInstance';
 	ok defined $baboonModule, 'Checking module returned by modInstance';
-	isa_ok $baboonModule, 'EBox::GConfModule';
+	isa_ok $baboonModule, 'EBox::Module::Config';
 	isa_ok $baboonModule, 'EBox::Baboon';
    }
 
@@ -97,14 +97,14 @@ sub clearTest
 		      '/ebox/unrelatedToGlobal/integer' => 100,
 		      '/anotherApp/string'              => 'a string',
 	  );
-    EBox::GConfModule::TestStub::setConfig(%originalConfig); 
+    EBox::Module::Config::TestStub::setConfig(%originalConfig); 
 
     EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
     EBox::Global::TestStub::setEBoxModule('mandrill', 'EBox::Mandrill');
 
 
     EBox::Global::TestStub::clear();
-    my %actualConfig = @{ EBox::GConfModule::TestStub::dumpConfig() };
+    my %actualConfig = @{ EBox::Module::Config::TestStub::dumpConfig() };
     is_deeply(\%actualConfig, \%originalConfig, 'Checking that all keys of module global are remvoed from the config and the rest is left untouched');
 }
 

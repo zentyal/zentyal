@@ -105,7 +105,7 @@ sub protocol
 
 sub objectModel
 {
-    return EBox::Global->modInstance('objects')->{'objectModel'};
+    return EBox::Global->modInstance('objects')->model('ObjectTable');
 }
 
 # Method: validateTypedRow
@@ -377,7 +377,7 @@ sub _table
         'defaultController' =>
             '/Firewall/Controller/RedirectsTable',
         'defaultActions' =>
-            [ 'add', 'del', 'editField', 'changeView' ],
+            [ 'add', 'del', 'editField', 'changeView', 'clone' ],
         'tableDescription' => $self->_fieldDescription('source' => 1),
         'menuNamespace' => 'Firewall/View/RedirectsTable',
         'printableRowName' => __('forwarding'),

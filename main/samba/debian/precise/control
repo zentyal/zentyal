@@ -11,9 +11,10 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-samba
 Architecture: all
 Replaces: ebox-samba (<< 2.0.100)
+Breaks: ebox-samba (<< 2.0.100)
 Depends: zentyal-core (>= 2.3), zentyal-core (<< 2.3.100), zentyal-network, ldb-tools,
          zentyal-firewall, zentyal-users, zentyal-dns, acl, samba4, samba-dsdb-modules,
-         libarray-diff-perl, libalgorithm-diff-xs-perl, libldb-perl, ${misc:Depends}
+         samba-zentyal-modules, libdate-calc-perl, ${misc:Depends}
 Description: Zentyal - File Sharing and Domain Services
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

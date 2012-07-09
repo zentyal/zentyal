@@ -1,0 +1,93 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled => undef
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& SELF:setter,
+    tableName   => $tableName,
+    data        => $data,
+    cssClass    => $cssClass,
+    disabled    => $disabled
+&>
+
+<%method setter>
+<%args>
+$tableName
+$data
+$cssClass => ''
+$disabled
+</%args>
+<%init>
+my $zones = $data->zones();
+my $id = $tableName . '_' . $data->fieldName();
+</%init>
+<span id="<% $id %>" class="<% $cssClass %>">
+    <select name=<% $id . '_continent' %>
+            id=<% $id . '_continent' %>
+            onChange='continentChanged(this)'
+% unless ( $data->editable() ) {
+            disabled='disabled'
+% }
+    >
+%   foreach my $key (sort(keys $zones)) {
+        <option
+%   if ($key eq $data->continent()) {
+            selected
+%   }
+            value="<% $key %>"><% $key %></option>
+%   }
+    </select>
+    <span>/</span>
+    <select name=<% $id . '_country' %>
+            id=<% $id . '_country' %>
+% unless ( $data->editable() ) {
+            disabled='disabled'
+% }
+    >
+        <option selected value="<% $data->country() %>"><% $data->country() %></option>
+    </select>
+</span>
+<script type="text/javascript">
+<%perl>
+my $varPrefix = 'v_' . $data->fieldName();
+my $varCountry = $varPrefix . '_country';
+my $varA       = $varPrefix . '_a';
+my $varTmp     = $varPrefix . '_tmp';
+</%perl>
+    var <% $varCountry %> = "<% $data->country() %>";
+    var <% $varA %> = new Array();
+    var <% $varTmp %> = 0;
+%       foreach my $group (keys $zones) {
+                <% $varA %>["<% $group %>"] = new Array();
+%               foreach (sort(@{$zones->{$group}})) {
+                        <% $varA %>["<%$group%>"][<% $varTmp %>++] = "<%$_%>";
+%               }
+                <% $varTmp %> = 0;
+%       }
+
+    function continentChanged(select){
+                var countryselect = document.getElementById( "<% $id . '_country' %>" );
+                countryselect.options.length = 0;
+                continent = select.value;
+                var countries = new Array();
+                countries = <% $varA %>[continent].sort();
+                for(var c=0; c < countries.length; c++){
+                        var length = countryselect.options.length;
+                        var option;
+
+                        if(countries[c] == <% $varCountry %>){
+                                option = new Option(countries[c], countries[c], true,true);
+                        }else{
+                                option = new Option(countries[c], countries[c], false,false);
+                        }
+                        countryselect.options[length] = option;
+                }
+        }
+
+continentChanged(document.getElementById( "<% $id . '_continent' %>" ));
+</script>
+</%method>

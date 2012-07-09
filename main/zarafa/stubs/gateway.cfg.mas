@@ -3,7 +3,6 @@
     $pop3s
     $imap
     $imaps
-    $zarafa7
 </%args>
 ##############################################################
 # GATEWAY SETTINGS
@@ -15,16 +14,16 @@ server_socket	=	http://localhost:236/zarafa
 
 # Set this value to a name to show in the logon greeting to clients.
 # Leave empty to use DNS to find this name.
-server_hostname = 
+server_hostname =
 
 # Whether to show the hostname in the logon greeting to clients.
 server_hostname_greeting = no
 
 # drop privileges and run the process as this user
-run_as_user = 
+run_as_user =
 
 # drop privileges and run the process as this group
-run_as_group = 
+run_as_group =
 
 # create a pid file for stopping the service via the init.d scripts
 pid_file = /var/run/zarafa-gateway.pid
@@ -60,14 +59,15 @@ imap_capability_idle = yes
 # The maximum size of an email that can be uploaded to the gateway
 imap_max_messagesize = 134217728
 
-% if ($zarafa7) {
 # Override the e-mail charset and generate using utf-8 (when imap data is not present on the item)
 imap_generate_utf8 = no
 
 # Internally issue the expunge command to directly delete e-mail marked for deletion in IMAP.
 imap_expunge_on_delete = no
 
-% }
+# Store full rfc822 message during APPEND
+imap_store_rfc822 = yes
+
 # File with RSA key for SSL
 ssl_private_key_file	=	/etc/zarafa/ssl/ssl.pem
 
@@ -78,7 +78,7 @@ ssl_certificate_file	=	/etc/zarafa/ssl/ssl.pem
 ssl_verify_client	=	no
 
 # Client verify file and/or path
-ssl_verify_file		=	
+ssl_verify_file		=
 ssl_verify_path		=
 
 # Process model, using pthreads (thread) or processes (fork)
@@ -93,7 +93,7 @@ log_method	=	file
 # Loglevel (0=no logging, 5=full logging)
 log_level	=	2
 
-# Logfile for log_method = file
+# Logfile for log_method = file, use '-' for stderr
 log_file	=	/var/log/zarafa/gateway.log
 
 # Log timestamp - prefix each log line with timestamp in 'file' logging mode

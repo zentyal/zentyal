@@ -2,3 +2,16 @@ class: 'EBox::OpenVPN'
 depends:
     - ca
     - network
+
+models:
+    - Servers
+    - ServerConfiguration
+    - ExposedNetworks
+    - DownloadClientBundle
+    - Clients
+    - ClientConfiguration
+    - DeletedDaemons
+
+foreign:
+    Clients: [ClientConfiguration]
+    Servers: [ServerConfiguration, ExposedNetworks, DownloadClientBundle]

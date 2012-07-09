@@ -55,7 +55,6 @@ sub new
     $self->{firewall} = EBox::Global->modInstance('firewall');
     $self->{objects} = EBox::Global->modInstance('objects');
     $self->{net} = EBox::Global->modInstance('network');
-    $self->{deny} = $self->{firewall}->denyAction;
 
     bless($self, $class);
     return $self;
@@ -336,24 +335,28 @@ sub _setRemoteServices
     if ( $gl->modExists('remoteservices') ) {
         my $rsMod = $gl->modInstance('remoteservices');
         if ( $rsMod->eBoxSubscribed() ) {
-            my $vpnIface = $rsMod->ifaceVPN();
-            push(@commands,
-                pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
-            );
-            try {
-                my %vpnSettings = %{$rsMod->vpnSettings()};
+            if ( $rsMod->hasBundle() ) {
+                my $vpnIface = $rsMod->ifaceVPN();
                 push(@commands,
-                     pf("-A ointernal $statenew -p $vpnSettings{protocol} "
-                          . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
-                );
+                     pf("-A ointernal $statenew -o $vpnIface -j ACCEPT")
+                    );
+            }
+            try {
+                if ( $rsMod->hasBundle() ) {
+                    my %vpnSettings = %{$rsMod->vpnSettings()};
+                    push(@commands,
+                         pf("-A ointernal $statenew -p $vpnSettings{protocol} "
+                              . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j ACCEPT")
+                        );
+                }
 
-                # Allow communications between ns and www
+                # Allow communications between ns and www and API?
                 eval "use EBox::RemoteServices::Configuration";
                 my ($dnsServer, $publicWebServer, $mirrorCount) = (
-                        EBox::RemoteServices::Configuration->DNSServer(),
-                        EBox::RemoteServices::Configuration->PublicWebServer(),
-                        EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
-                        );
+                    EBox::RemoteServices::Configuration->DNSServer(),
+                    EBox::RemoteServices::Configuration->PublicWebServer(),
+                    EBox::RemoteServices::Configuration->eBoxServicesMirrorCount(),
+                   );
                 # We are assuming just one name server
                 push(@commands,
                     pf("-A ointernal $statenew -p udp -d $dnsServer --dport 53 -j ACCEPT || true"),
@@ -407,36 +410,6 @@ sub _nospoof # (interface, \@addresses)
                 pf("-A inospoof -s $addr/$mask ! -i $iface -j idrop"),
                # pf("-A inospoof ! -i $iface -d $addr -j idrop"),
             );
-    }
-    return \@commands;
-}
-
-# Method: _localRedirects
-#
-#       Do effective local redirections. Done via
-#       <EBox::Firewall::addLocalRedirect> using NAT.
-#
-sub _localRedirects
-{
-    my $self = shift;
-    my $redirects = $self->{firewall}->localRedirects();
-    my @commands;
-    foreach my $redir (@{$redirects}) {
-        my $service = $redir->{service};
-        my $protocol = $self->{firewall}->serviceProtocol($service);
-        my $dport = $self->{firewall}->servicePort($service);
-        my $eport = $redir->{port};
-        my @ifaces = @{$self->{net}->InternalIfaces()};
-        foreach my $ifc (@ifaces) {
-            my $addr = $self->{net}->ifaceAddress($ifc);
-            $ifc = $self->{net}->realIface($ifc);
-            (defined($addr) && $addr ne "") or next;
-            push(@commands,
-                    pf("-t nat -A PREROUTING -i $ifc -p $protocol ".
-                        "! -d $addr --dport $eport " .
-                        "-j REDIRECT --to-ports $dport")
-                );
-        }
     }
     return \@commands;
 }
@@ -588,23 +561,11 @@ sub start
 
     push(@commands, pf("-A ftoexternalonly -j fdrop"));
 
-    my $rules = $self->{firewall}->OutputRules();
-    foreach my $rule (@{$rules}) {
-        defined($rule) or next;
-        my $port = $rule->{port};
-        my $proto = $rule->{protocol};
-        push(@commands,
-                pf("-A ointernal $statenew -p $proto --dport $port -j ACCEPT")
-            );
-    }
-
     push(@commands, @{$self->_fglobal()});
 
     push(@commands, @{$self->_ffwdrules()});
 
     push(@commands, @{$self->_oglobal()});
-
-    push(@commands, @{$self->_localRedirects()});
 
     push(@commands, @{_startIPForward()});
 

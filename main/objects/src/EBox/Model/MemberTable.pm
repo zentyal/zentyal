@@ -23,6 +23,7 @@
 #
 package EBox::Objects::Model::MemberTable;
 
+use EBox::Objects::Members;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -32,7 +33,7 @@ use EBox::Types::Union;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
-use EBox::Model::ModelManager;
+
 
 use EBox::Exceptions::External;
 
@@ -100,7 +101,7 @@ sub _table
             'printableTableName' => __('Members'),
             'automaticRemove' => 1,
             'defaultController' => '/Objects/Controller/MemberTable',
-            'defaultActions' => ['add', 'del', 'editField', 'changeView' ],
+            'defaultActions' => ['add', 'del', 'editField', 'changeView', 'clone' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'help' => __('For the IP addresses you can use CIDR notation (address/netmask) or specify the first and last addresses of a range that will also include all the IP addresses between them.'),
@@ -127,9 +128,16 @@ sub validateTypedRow
         my $ip = $ipaddr->ip();
         my $mask = $ipaddr->mask();
 
-        if (defined($mac) and $mask ne '32') {
-            throw EBox::Exceptions::External(
-            __('You can only use MAC addresses with hosts'));
+        if ($mask eq '32') {
+            if ($ip =~ /\.0+$/) {
+                throw EBox::Exceptions::External(
+                        __('Only network addresses can end with a zero'));
+            }
+        } else {
+            if (defined ($mac)) {
+                throw EBox::Exceptions::External(
+                        __('You can only use MAC addresses with hosts'));
+            }
         }
 
         $printableValue = $ipaddr->printableValue();
@@ -201,10 +209,7 @@ sub _alreadyInSameObject
 #       id - object's id
 #
 # Returns:
-#
-#       array ref - each element contains a hash with the member keys 'name'
-#       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
-#       'macaddr', (mac address' member)
+#       <EBox::Objects::Members>
 #
 # Exceptions:
 #
@@ -242,7 +247,9 @@ sub members
         push @members, \%member;
     }
 
-    return \@members;
+    my $membersObject = \@members;
+    bless $membersObject, 'EBox::Objects::Members';
+    return $membersObject;
 }
 
 
@@ -263,36 +270,10 @@ sub members
 #
 sub addresses
 {
-    my ($self, %params) = @_;
-    my $mask = $params{mask};
+    my ($self, @params) = @_;
+
     my $members = $self->members();
-
-    return [] unless defined ( $members );
-
-    my @ips = map {
-        my $type = $_->{type};
-        if ($type eq 'ipaddr') {
-            if ($mask) {
-                my $ipAddr = $_->{'ipaddr'};
-                $ipAddr =~ s:/.*$::g;
-                [ $ipAddr =>  $_->{'mask'}]
-            } else {
-               $_->{'ipaddr'}
-           }
-        } elsif ($type eq 'iprange') {
-            if ($mask) {
-                map {
-                    [$_ => 32 ]
-               }@{ $_->{addresses} }
-            } else {
-                @{  $_->{addresses} }
-            }
-        } else {
-            ()
-        }
-    } @{ $members };
-
-    return \@ips;
+    return $members->addresses(@params);
 }
 
 

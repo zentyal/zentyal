@@ -1,6 +1,20 @@
 HEAD
+	+ Better exclusion of no-device filesystems in EBox::FileSystem::partitionsFileSystems
+	+ Removed redundant messages when logging sudo commands in debug
+2.3.6
+	+ External commands called through EBox::Sudo are logged in debug mode
+	+ Added new EBox::Config::shm() to get Zentyal shared memory dir
+2.3.5
+	+ Added additional() and TO_JSON() to EBox::Event
+	+ Allow underscores in domain names
+2.3.4
+	+ Temporary download files are now stored in tmp directory
 	+ EBox::FileSystem ignore all fuse daemon filesystem (type begins
 	  with 'fuse.')
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ New EBox::Config::boolean() to avoid string comparisons all over
 	  the code to check if the key is set to 'yes' or 'no'

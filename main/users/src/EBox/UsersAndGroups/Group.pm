@@ -28,6 +28,7 @@ use warnings;
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::UsersAndGroups;
 use EBox::UsersAndGroups::User;
 
 use EBox::Exceptions::External;
@@ -98,7 +99,7 @@ sub removeMember
 
     my @members;
     foreach my $dn ($self->get('member')) {
-        push (@members, $dn) if ($dn ne $user->dn());
+        push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
     }
 
     $self->set('member', \@members, $lazy);
@@ -198,12 +199,12 @@ sub delete
 #
 sub deleteObject
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
 
     # Notify group deletion to modules
     my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delGroup', $self, $ignore_mods);
+    $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods});
 
     # Call super implementation
     shift @_;
@@ -224,7 +225,25 @@ sub save
         delete $self->{core_changed};
 
         my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyGroup', [$self], $ignore_mods);
+        $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods});
+    }
+}
+
+# Method: setIgnoredModules
+#
+#   Set the modules that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining module names
+#
+sub setIgnoredModules
+{
+    my ($self, $mods) = @_;
+
+    if (defined $mods) {
+        $self->{ignoreMods} = $mods;
     }
 }
 
@@ -241,7 +260,7 @@ sub save
 #   comment - comment's group
 #   system - boolan: if true it adds the group as system group,
 #   otherwise as normal group
-#   ignore_mods - ldap modules to be ignored on addUser notify
+#   ignoreMods - ldap modules to be ignored on addUser notify
 #
 sub create
 {
@@ -256,10 +275,13 @@ sub create
                 maxGroupLength => MAXGROUPLENGTH));
     }
 
-    unless (_checkName($group)) {
+    unless (_checkGroupName($group)) {
+        my $advice = __('To avoid problems, the group name should consist only of letters, digits, underscores, spaces, periods, dashs and not start with a dash. They could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
-            'value' => $group);
+            'value' => $group,
+            'advice' => $advice
+           );
     }
 
     # Verify group exists
@@ -290,22 +312,25 @@ sub create
 
     unless ($system) {
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignore_mods});
+        $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods});
     }
 
     return $res;
 }
 
-
-sub _checkName
+sub _checkGroupName
 {
-    my ($name) = @_;
-
-    if ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
-        return 1;
-    } else {
+    my ($name)= @_;
+    if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
         return undef;
     }
+
+    # windows group names could not be only numbers, spaces and dots
+    if ($name =~ m/^[[:space:]0-9\.]+$/) {
+        return undef;
+    }
+
+    return 1;
 }
 
 
@@ -411,6 +436,5 @@ sub _checkGid
         }
     }
 }
-
 
 1;

@@ -30,7 +30,7 @@ use strict;
 use Clone;
 
 use EBox::Validate qw( checkCIDR );
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 use Perl6::Junction qw( any );
 
@@ -331,9 +331,8 @@ sub table
 #   inverseMatch - whether or not to do inverse match
 #   The source it can either:
 #   sourceAdddress - <EBox::Types::IPAddr>
+#   sourceRange - <EBox::Types::IPRange>
 #   sourceObject - object's id
-#
-#
 #
 sub setSourceAddress
 {
@@ -373,6 +372,7 @@ sub sourceAddress
 #   inverseMatch - whether or not to do inverse match
 #   The destination it can either:
 #   destinationAdddress - <EBox::Types::IPAddr>
+#   destinationRange - <EBox::Types::IPRange>
 #   destinationObject - object's id
 #
 #
@@ -527,6 +527,7 @@ sub _setAddress
 
     my $src = delete $params{$addressType . 'Address'};
     my $obj = delete $params{$addressType . 'Object'};
+    my $range = delete $params{$addressType . 'Range'};
     my $objMembers;
     my $inverse = '';
     if ($params{'inverseMatch'}) {
@@ -579,15 +580,17 @@ sub _setAddress
 
     if (defined($obj)) {
         foreach my $member (@{ $objMembers }) {
-            # XXX cambiar aqui para soportar ranges
             if ($member->{type} eq 'ipaddr') {
                 push (@{$self->{$addressType}}, $inverse . $flag .  $member->{ipaddr});
             } elsif ($member->{type} eq 'iprange') {
                 my $range = $member->{begin} . '-' . $member->{end};
-                push (@{$self->{$addressType}}, ' -m iprange ' . $inverse . $rangeFlag .  $range);                
+                push (@{$self->{$addressType}}, ' -m iprange ' . $inverse . $rangeFlag .  $range);
             }
 
         }
+    } elsif (defined $range) {
+        my $range = $range->begin() . '-' . $range->end();
+        $self->{$addressType} = [' -m iprange ' . $inverse . $rangeFlag .  $range];
     } else {
         if (defined ($src) and $src->isa('EBox::Types::IPAddr')
             and defined($src->ip())) {

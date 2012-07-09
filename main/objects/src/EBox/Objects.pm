@@ -17,7 +17,7 @@ package EBox::Objects;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::Module::Config);
 
 use Net::IP;
 use EBox::Validate qw( :all );
@@ -38,85 +38,12 @@ sub _create
                                       printableName => __('Objects'),
                                       @_);
 
-    $self->{'actions'} = {};
-    $self->{'actions'}->{'addObject'} = __n('Added object {object}');
-        $self->{'actions'}->{'addToObject'} =
-            __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
-    $self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
-    $self->{'actions'}->{'removeObjectForce'} =
-        __n('Forcefully removed object {object}');
-    $self->{'actions'}->{'removeFromObject'} =
-        __n('Removed {nname} from object {object}');
-
-    $self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
-                                                    'gconfmodule' => $self,
-                                                    'directory' => 'objectTable',
-                                                                  );
-    $self->{'memberModel'} = new EBox::Objects::Model::MemberTable(
-                                                                   'gconfmodule' => $self,
-                                                                   'directory' => 'memberTable');
-
     bless($self, $class);
+
     return $self;
 }
 
 ## api functions
-
-# Method: models
-#
-#      Overrides <EBox::Model::ModelProvider::models>
-#
-sub models {
-       my ($self) = @_;
-
-       return [$self->{'objectModel'}, $self->{'memberModel'}];
-}
-
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my ($self) = @_;
-
-    my %exposedMethods =
-        (
-         'objectDescription1' => { action   => 'get',
-                                   path     => [ 'ObjectTable' ],
-                                   indexes  => [ 'id' ],
-                                   selector => [ 'name' ],
-                                 },
-         'addObject1' => { action => 'add',
-                           path   => [ 'ObjectTable' ],
-                         },
-         'setMemberIP' => { action   => 'set',
-                            path     => [ 'ObjectTable', 'members' ],
-                            indexes  => [ 'name', 'name' ],
-                            selector => [ 'ipaddr' ]
-                          },
-         'addMember' => { action  => 'add',
-                          path    => [ 'ObjectTable', 'members' ],
-                          indexes => [ 'name' ],
-                        },
-         'removeMember' => { action  => 'del',
-                             path    => [ 'ObjectTable', 'members' ],
-                             indexes => [ 'name', 'name' ],
-                           },
-         'getMember'    => { action   => 'get',
-                             path     => [ 'ObjectTable', 'members' ],
-                             indexes  => [ 'name', 'name' ],
-                           },
-         'removeObject' => { action  => 'del',
-                             path    => ['ObjectTable' ],
-                             indexes => [ 'name' ],
-                           },
-         );
-
-    return \%exposedMethods;
-}
 
 # Method: objects
 #
@@ -133,8 +60,9 @@ sub objects
     my ($self) = @_;
 
     my @objects;
-    for my $id (@{$self->{objectModel}->ids()}) {
-	my $object = $self->{objectModel}->row($id);
+    my $model = $self->model('ObjectTable');
+    for my $id (@{$model->ids()}) {
+    my $object = $model->row($id);
         push (@objects, {
                             id => $id,
                             name => $object->valueByName('name')
@@ -171,9 +99,7 @@ sub objectIds # (object)
 #
 # Returns:
 #
-#       array ref - each element contains a hash with the member keys 'name'
-#       (member's name), 'ipaddr' (ip's member), 'mask' (network mask's member),
-#       'macaddr', (mac address' member)
+#       <EBox::Objects::Members>
 #
 # Exceptions:
 #
@@ -186,13 +112,11 @@ sub objectMembers # (object)
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->{'objectModel'}->row($id);
+    my $object = $self->model('ObjectTable')->row($id);
     return undef unless defined($object);
 
     return $object->subModel('members')->members();
 }
-
-# getMembersToObjectTable($id)
 
 # objectAddresses
 #
@@ -217,14 +141,11 @@ sub objectAddresses
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->{'objectModel'}->row($id);
+    my $object = $self->model('ObjectTable')->row($id);
     return undef unless defined($object);
 
     return $object->subModel('members')->addresses(@params);
-
 }
-
-# getMembersToObjectTable($id, [ 'ipaddr' ])
 
 # Method: objectDescription
 #
@@ -249,11 +170,12 @@ sub objectDescription  # (object)
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->{'objectModel'}->row($id);
+    my $object = $self->model('ObjectTable')->row($id);
     unless (defined($object)) {
         throw EBox::Exceptions::DataNotFound('data' => __('Object'),
                 'value' => $object);
     }
+
     return $object->valueByName('name');
 }
 
@@ -309,10 +231,8 @@ sub objectExists
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    return defined($self->{'objectModel'}->row($id));
+    return defined($self->model('ObjectTable')->row($id));
 }
-
-
 
 # Method: removeObjectForce
 #
@@ -356,6 +276,8 @@ sub removeObjectForce # (object)
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
+#   readOnly   - boolean, set the row unremovable from the UI *(optional)*
+#
 # Example:
 #
 #       name => 'administration',
@@ -370,7 +292,7 @@ sub addObject
 {
     my ($self, %params) = @_;
 
-    $self->{'objectModel'}->addObject(%params);
+    return $self->model('ObjectTable')->addObject(%params);
 }
 
 # add( name => 'administration',

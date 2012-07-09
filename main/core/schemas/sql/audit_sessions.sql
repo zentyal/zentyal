@@ -3,4 +3,4 @@ CREATE TABLE IF NOT EXISTS audit_sessions(
     username    VARCHAR(40),
     ip          INT UNSIGNED,
     event       ENUM('login', 'logout', 'fail', 'expired')
-);
+) ENGINE = MyISAM;

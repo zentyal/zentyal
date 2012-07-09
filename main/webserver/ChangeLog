@@ -1,3 +1,12 @@
+2.3.4
+	+ Avoid 'port in use' error when setting port for first time to
+	  its default value
+	+ Users public HTML directory adapted to changes in LDAP
+	+ Adapted to changes in DNS module
+2.3.3
+	+ Adapted to new Model management framework
+2.3.2
+	+ When creating virtual host DNS records use configured domains first
 2.3.1
 	+ New translatable printableName for the webserver service
 2.3

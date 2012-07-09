@@ -20,8 +20,7 @@ package EBox::EBackup;
 #
 #
 
-use base qw(EBox::Module::Service EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use strict;
 use warnings;
@@ -34,6 +33,7 @@ use EBox::Backup;
 use EBox::Sudo;
 use EBox::Logs::SlicedBackup;
 use File::Slurp;
+use File::Basename;
 use EBox::FileSystem;
 use Filesys::Df;
 use EBox::DBEngineFactory;
@@ -45,15 +45,20 @@ use String::ShellQuote;
 use Date::Parse;
 use Error qw(:try);
 use Fcntl qw(:flock);
+use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotConnected;
 use EBox::Exceptions::EBackup::FileNotFoundInBackup;
 use EBox::Exceptions::EBackup::BadSymmetricKey;
+use EBox::Exceptions::EBackup::TargetNotReady;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
 use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
+
+use constant UPDATE_STATUS_IN_BACKGROUND_LOCK =>  'ebackup-collectionstatus';
+use constant UPDATE_STATUS_SCRIPT =>   EBox::Config::share() . '/zentyal-ebackup/update-status';
 
 
 # Constructor: _create
@@ -74,43 +79,6 @@ sub _create
 
     bless($self, $class);
     return $self;
-}
-
-
-# Method: modelClasses
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    return [
-        'EBox::EBackup::Model::RemoteSettings',
-        'EBox::EBackup::Model::RemoteExcludes',
-        'EBox::EBackup::Model::RemoteStatus',
-        'EBox::EBackup::Model::RemoteFileList',
-        'EBox::EBackup::Model::RemoteRestoreLogs',
-        'EBox::EBackup::Model::RemoteRestoreConf',
-        'EBox::EBackup::Model::RemoteStorage',
-        'EBox::EBackup::Model::BackupDomains',
-    ];
-}
-
-
-# Method: compositeClasses
-#
-# Overrides:
-#
-#      <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
-{
-    return [
-        'EBox::EBackup::Composite::RemoteGeneral',
-        'EBox::EBackup::Composite::Remote',
-        'EBox::EBackup::Composite::ServicesRestore',
-    ];
 }
 
 # Method: addModuleStatus
@@ -145,6 +113,17 @@ sub postBackupHook
 {
     my ($self) = @_;
     $self->_hook('postbackup');
+}
+
+# Method: eventWatchers
+#
+# Overrides:
+#
+#      <EBox::Events::WatcherProvider::eventWatchers>
+#
+sub eventWatchers
+{
+    return [ 'EBackup' ];
 }
 
 # Method: restoreFile
@@ -777,10 +756,16 @@ sub remoteGenerateStatusCache
 
     my ($self, $urlParams) = @_;
     $self->_clearStorageUsageCache();
+    $self->_retrieveRemoteStatus($urlParams);
 
+
+}
+
+
+sub _setCurrentStatus
+{
+    my ($self, $status) = @_;
     my $file = tmpCurrentStatus();
-    my $status = $self->_retrieveRemoteStatus($urlParams);
-
     if (defined $status) {
         File::Slurp::write_file($file, $status);
     } else {
@@ -789,9 +774,25 @@ sub remoteGenerateStatusCache
     }
 }
 
-sub _retrieveRemoteStatus
+
+sub _retrieveRemoteStatusInBackground
 {
     my ($self, $urlParams) = @_;
+    my $args = '';
+    if ($urlParams) {
+        $args = join ' ' , %{ $urlParams };
+    }
+
+    my $cmd = 'sudo ' .
+        UPDATE_STATUS_SCRIPT .
+        ' ' . $args .
+        ' &';
+    system $cmd;
+}
+
+sub _retrieveRemoteStatus
+{
+    my ($self, $urlParams,) = @_;
     defined $urlParams
         or $urlParams = {};
 
@@ -817,6 +818,68 @@ sub _retrieveRemoteStatus
 
     return $status;
 }
+
+
+sub updateStatusInBackgroundLock
+{
+    my ($self) = @_;
+
+    my $res;
+    try {
+        $res = EBox::Util::Lock::lock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
+    } otherwise {
+        throw EBox::Exceptions::External(
+__('Another process is updating the collection status. Please, wait and retry')
+           );
+    };
+
+    return $res;
+}
+
+sub updateStatusInBackgroundUnlock
+{
+    my ($self) = @_;
+    my $res = EBox::Util::Lock::unlock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
+    system "rm -f " . _updateStatusInBackgroundLockFile();
+    return $res;
+}
+
+sub updateStatusInBackgroundRunning
+{
+    my ($self) = @_;
+    return -f _updateStatusInBackgroundLockFile()
+}
+
+sub waitForUpdateStatusInBackground
+{
+    my ($self) = @_;
+
+    if (not $self->updateStatusInBackgroundRunning()) {
+        return;
+    }
+
+    EBox::info('Waiting for update status in background');
+    sleep 5;
+
+    my $maxWait = 360; # half four
+    # wait for any update status backgroud process
+    while ($self->updateStatusInBackgroundRunning()) {
+        if (not $maxWait) {
+            EBox::warn("Aborted wait for background running");
+            return;
+        }
+        sleep 5;
+        $maxWait -= 1;
+    }
+
+    EBox::info("Wait for update status in background finished");
+}
+
+sub _updateStatusInBackgroundLockFile
+{
+    return EBox::Config::tmp() .'/' . UPDATE_STATUS_IN_BACKGROUND_LOCK . '.lock';
+}
+
 
 # Method: tmpFileList
 #
@@ -845,17 +908,29 @@ sub remoteListFiles
     my $file = tmpFileList();
     return [] unless (-f $file);
 
-    unless ($self->{files}) {
-    my @files;
-    for my $line (File::Slurp::read_file($file)) {
-        my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
-                . '\d\d:\d\d:\d\d \d{4} )(.*)';
-        if ($line =~ /$regexp/ ) {
-            push (@files, "/$2");
-        }
+    my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size, $atime,$mtime) = stat $file;
+    my $updateCache;
+    if (not $self->{files}) {
+        $updateCache = 1 ;
+    } elsif (not $self->{files_mtime}) {
+        $updateCache = 1;
+    } elsif ($mtime > $self->{files_mtime}) {
+        $updateCache = 1;
     }
+
+    if ($updateCache) {
+        $self->{files_mtime} = $mtime;
+        my @files;
+        for my $line (File::Slurp::read_file($file)) {
+            my $regexp = '^\s*(\w+\s+\w+\s+\d\d? '
+                . '\d\d:\d\d:\d\d \d{4} )(.*)';
+            if ($line =~ /$regexp/ ) {
+                push (@files, "/$2");
+            }
+        }
         $self->{files} = \@files;
     }
+
     return $self->{files};
 }
 
@@ -988,7 +1063,7 @@ sub _setConf
     }
 
     if ((not $usingCloud) or $cloudCredentials) {
-        $self->_syncRemoteCaches();
+        $self->_syncRemoteCachesInBackground;
     }
 
 }
@@ -997,47 +1072,11 @@ sub _setConf
 # this calls to remoteGenerateStatusCache and if there was change it regenerates
 # also the files list
 
-sub _syncRemoteCaches
+sub _syncRemoteCachesInBackground
 {
     my ($self) = @_;
-
-    my @oldRemoteStatus = @{ $self->remoteStatus() };
-    $self->remoteGenerateStatusCache();
-    my @newRemoteStatus = @{ $self->remoteStatus() };
-
-    if ($self->configurationIsComplete()) {
-        return;
-    }
-
-    my $genListFiles = 0;
-    if (@newRemoteStatus == 0) {
-        # no files, clear fileList archive if it exists
-        my $fileList = tmpFileList();
-        (-e $fileList) and
-            unlink $fileList;
-
-        # no needed to make any file list, bz there aren't files
-        $genListFiles = 0;
-    } elsif (@oldRemoteStatus != @newRemoteStatus) {
-        $genListFiles =1;
-    } else {
-        while (@oldRemoteStatus) {
-            my $old = shift @oldRemoteStatus;
-            my $new = shift @newRemoteStatus;
-            foreach my $attr (keys %{ $new }) {
-                if ((not exists $old->{$attr}) or
-                    ($old->{$attr} ne $new->{$attr})
-                   ) {
-                    $genListFiles = 1;
-                    last;
-                }
-            }
-        }
-    }
-
-    if ($genListFiles) {
-        $self->remoteGenerateListFile();
-    }
+    $self->_clearStorageUsageCache();
+    $self->_retrieveRemoteStatusInBackground();
 }
 
 # Method: menu
@@ -1089,6 +1128,9 @@ sub unlock
     flock( $self->{lock}, LOCK_UN );
     close($self->{lock});
 }
+
+
+
 
 # XXX TODO: refactor parameters from model and/or subscription its own method
 sub _remoteUrl
@@ -1280,12 +1322,14 @@ sub backupProcessUnlock
     EBox::Util::Lock::unlock($name);
 }
 
-## Report methods
 
 # Method: storageUsage
 #
 #   get the available and used space in the storage place used to save the
 #   backup collection
+#
+# Parameters:
+#   force - dont use cached results
 #
 #  Returns:
 #    hash ref with the keys:
@@ -1299,13 +1343,13 @@ sub backupProcessUnlock
 #
 sub storageUsage
 {
-    my ($self) = @_;
+    my ($self, $force) = @_;
     if (not $self->configurationIsComplete()) {
         return undef;
     }
 
     my $file = _storageUsageCacheFile();
-    if (-f $file) {
+    if (not $force and -f $file) {
         my $cacheContents = File::Slurp::read_file($file);
         my ($usedCache,$availableCache, $totalCache) =
             split ',', $cacheContents;
@@ -1317,6 +1361,7 @@ sub storageUsage
                     total    => $totalCache,
                    }
         } else {
+            # incorrect cache file, we get rid of it
             $self->_clearStorageUsageCache();
         }
     }
@@ -1328,14 +1373,12 @@ sub storageUsage
     my $target = $model->row()->valueByName('target');
 
     if ($method eq 'cloud') {
-        if (not EBox::EBackup::Subscribed->isSubscribed()) {
-            return undef;
+        if (EBox::EBackup::Subscribed->isSubscribed()) {
+            my $quota;
+            ($used, $quota) = EBox::EBackup::Subscribed::quota();
+            $total = $quota;
+            $available = $quota - $used;
         }
-
-        my $quota;
-        ($used, $quota) = EBox::EBackup::Subscribed::quota();
-        $total = $quota;
-        $available = $quota - $used;
     } elsif ($method eq 'file') {
         my $blockSize = 1024*1024; # 1024*1024 - 1Mb blocks
         my $df = df($target, $blockSize);
@@ -1347,6 +1390,7 @@ sub storageUsage
     # XXX TODO SCP, FTP
 
     if (not defined $used) {
+        $self->_clearStorageUsageCache();
         return undef;
     }
 
@@ -1378,6 +1422,151 @@ sub _clearStorageUsageCache
     my $file = _storageUsageCacheFile();
     system "rm -f $file";
 }
+
+
+sub checkTargetStatus
+{
+    my ($self, $backupType) = @_;
+    if (not $self->configurationIsComplete()) {
+        throw EBox::Exceptions::External(__('Backup configuration not complete'));
+    }
+
+    my $model  = $self->model('RemoteSettings');
+    my $method = $model->row()->valueByName('method');
+    my $target = $model->row()->valueByName('target');
+    my $checkSize;
+
+    if ($method eq 'file') {
+        $self->_checkFileSystemTargetStatus($target);
+    }
+
+    my $storageUsage = $self->storageUsage(1);
+    if ($storageUsage) {
+        # check sizes
+        my $free = $storageUsage->{available};
+        my $estimated=  $self->_estimateBackupSize($backupType);
+        if ($estimated > $free) {
+            throw EBox::Exceptions::EBackup::TargetNotReady(
+              __x('Free space in {target} too low. {free} Mb available and backup estimated size is  {req}',
+                  target => $target,
+                  free => $free,
+                  req => $estimated
+                 )
+             );
+        }
+    }
+
+    return 1;
+}
+
+
+sub _checkFileSystemTargetStatus
+{
+    my ($self, $target) = @_;
+
+    if (EBox::Sudo::fileTest('-e', $target) and not (EBox::Sudo::fileTest('-d', $target))) {
+        throw EBox::Exceptions::EBackup::TargetNotReady(
+          __x(' {target} exists and is not longer a directory',
+              target => $target
+             )
+           );
+    }
+
+    my $mountPoint;
+    my %staticFs = %{ EBox::FileSystem::staticFileSystems() };
+    foreach my $fsAttr (values %staticFs) {
+        my $fsMountPoint = $fsAttr->{mountPoint};
+        if ($fsMountPoint eq 'none') {
+            next;
+        }
+        if ($fsMountPoint eq $target) {
+            $mountPoint = $fsMountPoint;
+            last;
+        }
+        EBox::FileSystem::isSubdir($target, $fsMountPoint) or
+              next;
+        if ($mountPoint) {
+            # check if the mount point is more specific
+            my $mpComponents = split '/+', $mountPoint;
+            my $fsMpComponents = split '/+', $fsMountPoint;
+            ($fsMountPoint > $mpComponents) or
+                next;
+        }
+        $mountPoint = $fsMountPoint;
+    }
+
+    if (not $mountPoint or ($mountPoint eq '/')) {
+        my @parts = split '/+', $target;
+        if (($parts[1] eq 'media') or ($parts[1] eq 'mnt')) {
+            $mountPoint = '/' . $parts[1] . '/' . $parts[2];
+        } else {
+            # no mount point, so we don't check if it is  mounted
+            return;
+        }
+    }
+
+    # check if the mount poitn is mounted
+    my %partitionFs = %{ EBox::FileSystem::partitionsFileSystems(1) };
+    foreach my $fsAttr (values %partitionFs) {
+        if ($mountPoint eq $fsAttr->{mountPoint}) {
+            return;
+        }
+    }
+
+    # no mounted
+    my $msg;
+    if ($mountPoint eq $target) {
+        throw EBox::Exceptions::EBackup::TargetNotReady(
+          __x('{target} is not mounted',
+              target => $target
+             )
+           );
+    } else {
+        throw EBox::Exceptions::EBackup::TargetNotReady(
+          __x('{{mp} is not mounted and {target} is inside it',
+              mp => $mountPoint,
+              target => $target
+             )
+           );
+    }
+
+    throw EBox::Exceptions::EBackup::TargetNotReady($msg);
+}
+
+
+sub _estimateBackupSize
+{
+    my ($self, $type) = @_;
+    my $sql = 'select size from ebackup_stats' .
+               " where type='$type'" .
+               ' order by timestamp desc limit 5';
+    my $db = EBox::DBEngineFactory::DBEngine();
+    my $results = $db->query($sql);
+    my @lasts = map {
+        $_->{size}
+    } @{ $results };
+
+    if (not @lasts) {
+        EBox::debug("Cannot estimate backup size because we have not backup statistics yet for type: $type");
+        return 0;
+    }
+    my $average =0;
+    $average += $_ foreach @lasts;
+    $average /= scalar @lasts;
+    if ($average <= 0) {
+        EBox::debug("Estimation error. Bad average: $average.");
+        return 0;
+    }
+    # to MB
+    $average /= 1024*1024;
+    # add 20% to have some room
+    $average *= 1.2;
+    EBox::debug("Estimated backup size: $average");
+    return $average;
+}
+
+
+## Report methods
 
 # Method: gatherReportInfo
 #

@@ -18,6 +18,7 @@ cn: module{0}
 olcModulePath: /usr/lib/ldap
 olcModuleLoad: back_hdb
 olcModuleLoad: memberof
+olcModuleLoad: smbk5pwd.so
 
 # Load schemas
 dn: cn=schema,cn=config
@@ -28,6 +29,7 @@ include: file:///etc/ldap/schema/core.ldif
 include: file:///etc/ldap/schema/cosine.ldif
 include: file:///usr/share/zentyal-users/rfc2307bis.ldif
 include: file:///etc/ldap/schema/inetorgperson.ldif
+include: file:///usr/share/zentyal-users/heimdal.ldif
 
 # Set defaults for the backend
 dn: olcBackend=hdb,cn=config
@@ -42,6 +44,7 @@ olcDatabase: {-1}frontend
 olcSizeLimit: 500
 olcAccess: {1}to dn.exact="" by * read
 olcAccess: {2}to dn.base="cn=Subschema" by * read
+olcPasswordHash: {K5KEY}
 
 # Config db settings
 dn: olcDatabase=config,cn=config
@@ -96,4 +99,13 @@ olcMemberOfRefInt: TRUE
 olcMemberOfGroupOC: zentyalGroup
 olcMemberOfMemberAD: member
 olcMemberOfMemberOfAD: memberOf
+
+# smbk5pwd overlay
+dn: olcOverlay=smbk5pwd,olcDatabase={1}hdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSmbK5PwdConfig
+olcOverlay: smbk5pwd
+olcSmbK5PwdEnable: krb5
+olcSmbK5PwdMustChange: 0
+olcSmbK5PwdCanChange: 0
 

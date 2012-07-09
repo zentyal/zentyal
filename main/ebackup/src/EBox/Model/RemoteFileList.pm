@@ -70,7 +70,7 @@ sub ids
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteListFiles()};
+    my @status = @{$self->{confmodule}->remoteListFiles()};
     return [] unless (@status);
     return [1 .. (scalar(@status))];
 }
@@ -89,7 +89,7 @@ sub customFilterIds
         return $self->ids();
     }
 
-    my @status = @{$self->{gconfmodule}->remoteListFiles()};
+    my @status = @{$self->{confmodule}->remoteListFiles()};
     return [] unless (@status);
     my @filtered;
     for my $id (1 .. (scalar(@status))) {
@@ -109,7 +109,7 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteListFiles()};
+    my @status = @{$self->{confmodule}->remoteListFiles()};
 
     my $row = $self->_setValueRow(file => $status[$id - 1]);
     $row->setId($id);
@@ -126,8 +126,18 @@ sub precondition
 {
     my ($self) = @_;
 
-    my @status = @{$self->{gconfmodule}->remoteStatus()};
-    return (scalar(@status));
+    if ($self->{confmodule}->updateStatusInBackgroundRunning()) {
+        $self->{preconditionFailMsg} =   __('Update file list process running, retry later');
+        return 0;
+    }
+
+    my @status = @{$self->{confmodule}->remoteStatus()};
+    if (not scalar @status) {
+        $self->{preconditionFailMsg} =  __('There are not backed up files yet');
+        return 0;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
@@ -139,8 +149,7 @@ sub precondition
 sub preconditionFailMsg
 {
     my ($self) = @_;
-
-    return __('There are not backed up files yet');
+    return $self->{preconditionFailMsg};
 }
 
 

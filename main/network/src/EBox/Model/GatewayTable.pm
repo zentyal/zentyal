@@ -80,26 +80,24 @@ sub syncRows
 {
     my ($self, $currentRows) = @_;
 
-    my $gconf = $self->{'gconfmodule'};
+    my $conf = $self->{'confmodule'};
     my $network = EBox::Global->modInstance('network');
 
     my %dynamicGws;
 
+    my $state = $conf->get_state();
+
     foreach my $iface (@{$network->dhcpIfaces()}) {
-        my $gw = $gconf->st_get_string("dhcp/$iface/gateway");
+        my $gw = $state->{dhcp}->{$iface}->{gateway};
         if ($gw) {
             $dynamicGws{$iface} = $gw;
-        } else {
-            $dynamicGws{$iface} = '';
         }
     }
     foreach my $iface (@{$network->pppIfaces()}) {
-        my $addr = $gconf->st_get_string("interfaces/$iface/ppp_addr");
-        my $ppp_iface = $gconf->st_get_string("interfaces/$iface/ppp_iface");
+        my $addr = $state->{interfaces}->{$iface}->{ppp_addr};
+        my $ppp_iface = $state->{interfaces}->{$iface}->{ppp_iface};
         if ($addr and $ppp_iface) {
             $dynamicGws{$iface} = "$ppp_iface/$addr";
-        } else {
-            $dynamicGws{$iface} = '';
         }
     }
 
@@ -245,6 +243,11 @@ sub _table
 
 # Method: validateRow
 #
+#  Implementation note:
+#  this is validateRow and not typedValidateRow because we dont want to execute
+#  this when failover watcher do a $row->store() call, this could be also done
+#  using the 'force' parameter but I want not to risk to break something in the ecent
+#
 #      Override <EBox::Model::DataTable::validateRow> method
 #
 sub validateRow
@@ -258,6 +261,11 @@ sub validateRow
         $auto = $currentRow->valueByName('auto');
         $oldIP = $currentRow->valueByName('ip');
     }
+
+    if (exists $params{name}) {
+        $self->checkGWName($params{name});
+    }
+
     my $network = EBox::Global->modInstance('network');
 
     # Do not check for valid IP in case of auto-added ifaces
@@ -281,18 +289,43 @@ sub validateRow
     # Only check if gateway is reachable on static interfaces
     if ($network->ifaceMethod($params{'interface'}) eq 'static') {
         $network->gatewayReachable($params{'ip'}, 'LaunchException');
+        if (($action eq 'add' and ($self->size() == 0))) {
+            if (not $params{default}) {
+                throw EBox::Exceptions::External(__('Since you have not gateways you should add the first one as default'))
+            }
+        }
     } elsif (($action eq 'add') and (not $auto)) {
         throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
     }
 
-    return unless ($currentRow and $params{'default'});
+    my $currentIsDefault = 0;
+    if ($currentRow) {
+        $currentIsDefault = $currentRow->valueByName('default');
+    }
 
-    # Check if there's only one default gw
-    my $defaultRow = $self->find('default' => 1);
-    if (defined($defaultRow) and ($currentRow->id() ne $defaultRow->id())) {
-        my $default = $defaultRow->elementByName('default');
-        $default->setValue(undef);
-        $defaultRow->storeElementByName('default');
+    if ($params{default}) {
+        # remove existent default mark in other row if needed
+        if (not $currentIsDefault) {
+            my $defaultRow = $self->find('default' => 1);
+            if ($defaultRow) {
+                my $default = $defaultRow->elementByName('default');
+                $default->setValue(undef);
+                $defaultRow->storeElementByName('default');
+            }
+        }
+    } elsif ($currentIsDefault) {
+        throw EBox::Exceptions::External(
+            __('You cannot remove the default attribute, if you want to change it assign it to another gaterway')
+           );
+    }
+
+}
+
+sub validateRowRemoval
+{
+    my ($self, $row, $force) = @_;
+    if ( $row->valueByName('auto') and not $force) {
+        throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
     }
 }
 
@@ -322,7 +355,7 @@ sub updatedRowNotify
 {
     my ($self, $newRow, $oldRow, $force) = @_;
 
-    return if ($force); # failover event can forche changes
+    return if ($force); # failover event can force changes
 
     my $network = $self->parentModule();
     my $id = $newRow->id();
@@ -330,7 +363,7 @@ sub updatedRowNotify
         $network->storeSelectedDefaultGateway($id);
     } else {
         if ($id eq $network->selectedDefaultGateway()) {
-            $network->storeSelectedDefaultGateway(undef);
+            $network->storeSelectedDefaultGateway('');
         }
     }
 }
@@ -345,16 +378,27 @@ sub deletedRowNotify
 {
     my ($self, $row, $force) = @_;
 
-    if ((not $force) and $row->valueByName('auto')) {
-        throw EBox::Exceptions::External(__('Automatically added gateways can not be manually deleted'));
-    }
-
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
-        if ($row->id() eq $network->selectedDefaultGateway()) {
-            $network->storeSelectedDefaultGateway(undef);
+        my $size = $self->size();
+        if ($size == 0) {
+            # no preferred gateway sicne there are not gws!
+            $network->storeSelectedDefaultGateway('');
+        } else {
+            # choose another gw
+            my $newDefaultRow = $self->find(enabled => 1);
+            if (not $newDefaultRow) {
+                # no enabled, gw choosing another
+                my ($id) = @{ $self->ids() };
+                $newDefaultRow = $self->row($id);
+            }
+
+            $newDefaultRow->elementByName('default')->setValue(1);
+            $newDefaultRow->store(); # this does not upgrade preferred default gw
+            $network->storeSelectedDefaultGateway($newDefaultRow->id());
         }
     }
+
 }
 
 # Method: viewCustomizer
@@ -487,7 +531,7 @@ sub removeRow
         $row or
             throw EBox::Exceptions::Internal("Invalid row id $id");
         my $gw = $row->valueByName('name');
-        my $global = EBox::Global->getInstance($self->{gconfmodule}->{ro});
+        my $global = EBox::Global->getInstance($self->{confmodule}->{ro});
         my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
         foreach my $mod (@mods) {
             if ($mod->gatewayDelete($gw)) {
@@ -502,6 +546,30 @@ sub removeRow
     }
 
     $self->SUPER::removeRow($id, $force);
+}
+
+
+sub checkGWName
+{
+    my ($self, $name) = @_;
+
+    if (($name =~ m/^-/) or ($name =~ m/-$/)) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Gateway name'),
+            value => $name,
+            advice => __(q{Gateways names cannot begin or end with '-'})
+
+           );
+    }
+
+    unless ($name =~ m/^[^a-z0-9\-]+$/) {
+        throw EBox::Exceptions::InvalidData(
+            data => __('Gateway name'),
+            value => $name,
+            advice => __(q{Gateways names can only be composed of lowercase ASCII english letters, digits and '-'}),
+
+           );
+    }
 }
 
 1;

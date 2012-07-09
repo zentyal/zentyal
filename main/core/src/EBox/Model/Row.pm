@@ -44,7 +44,7 @@ package EBox::Model::Row;
 use strict;
 use warnings;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
@@ -65,20 +65,16 @@ use Error qw(:try);
 #   (NAMED)
 #
 #   dir - row's directory
-#   gconfmodule - gconfmodule
+#   confmodule - confmodule
 #
-# Overrides:
-#
-#     <EBox::Model::DataTable::new>
 #
 # Returns:
 #
-#     <EBox::Samba::Model::SambaShares> - the newly created object
+#     <EBox::model::Row> - the newly created object
 #     instance
 #
 sub new
 {
-
     my ($class, %opts) = @_;
 
     my $self;
@@ -87,17 +83,16 @@ sub new
     }
     $self->{'dir'} = $opts{dir};
 
-    unless (exists $opts{gconfmodule}) {
-        throw EBox::Exceptions::MissingArgument('gconfmodule');
+    unless (exists $opts{confmodule}) {
+        throw EBox::Exceptions::MissingArgument('confmodule');
     }
-    $self->{'gconfmodule'} = $opts{gconfmodule};
+    $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
 
 
     bless ( $self, $class);
 
     return $self;
-
 }
 
 # Group: Public methods
@@ -217,7 +212,7 @@ sub setReadOnly
 
 # Method: dir
 #
-#   GConf directory
+#   configuration directory
 #
 # Returns:
 #
@@ -288,22 +283,21 @@ sub setOrder
     $self->{order} = $order;
 }
 
-# Method: GConfModule
+# Method: configModule
 #
 #   Return the GConf module this row is stored in
 #
 # Returns:
 #
-#   A class implementing <EBox::GConfModule>
+#   A class implementing <EBox::Module::Config>
 #
 #
-sub GConfModule
+sub configModule
 {
     my ($self) = @_;
 
-    return $self->{gconfmodule};
+    return $self->{confmodule};
 }
-
 
 
 # Method: addElement
@@ -322,7 +316,6 @@ sub addElement
     unless (defined($element) and $element->isa('EBox::Types::Abstract')) {
         throw EBox::Exceptions::Internal('element is not a valid type');
     }
-
 
     my $fieldName = $element->fieldName();
     if (not $fieldName) {
@@ -433,8 +426,8 @@ sub elementByIndex
         throw EBox::Exceptions::MissingArgument('index');
     }
 
-    unless ($index  <  $self->size()) {
-        throw EBox::Exceptions::DataNotFound( data => 'index',
+    unless ($index < $self->size()) {
+        throw EBox::Exceptions::DataNotFound(data => 'index',
                                              value => $index);
     }
 
@@ -479,7 +472,6 @@ sub hashElements
 #   return element->value().
 #
 #   Element is a subclass of <EBox::Types::Abstract>
-#
 #
 # Returns:
 #
@@ -527,7 +519,6 @@ sub printableValueByName
 # Return:
 #
 #   size - integer
-#
 #
 sub size
 {
@@ -629,7 +620,7 @@ sub subModel
 
     my $model;
     try {
-        $model =  $element->foreignModelInstance();
+        $model = $element->foreignModelInstance();
     } catch EBox::Exceptions::DataNotFound with {
         EBox::warn("Couldn't fetch foreign model: " . $element->foreignModel());
     };
@@ -689,14 +680,13 @@ sub filesPaths
 #   needed
 sub backupFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  foreach my $element ( @{ $self->elements() } ) {
-      if ($element->can('backupFiles')) {
-          $element->backupFiles();
-      }
-  }
-
+    foreach my $element ( @{ $self->elements() } ) {
+        if ($element->can('backupFiles')) {
+            $element->backupFiles();
+        }
+    }
 }
 
 # Method: restoreFiles
@@ -705,15 +695,40 @@ sub backupFiles
 #  changes in files
 sub restoreFiles
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  foreach my $element ( @{ $self->elements() } ) {
-      if ($element->can('restoreFiles')) {
-          $element->restoreFiles();
-      }
-  }
-
+    foreach my $element (@{$self->elements()}) {
+        if ($element->can('restoreFiles')) {
+            $element->restoreFiles();
+        }
+    }
 }
 
+# Method: cloneSubModelsFrom
+#
+#  Auxiliary method for EBox::Model::DataTable to help it to clone the submodels
+sub cloneSubModelsFrom
+{
+    my ($self, $otherRow) = @_;
+    my @hasMany = grep { $_->isa('EBox::Types::HasMany') } @{$self->elements()};
+
+    @hasMany or
+        return;
+
+    my $id = $self->id();
+    my $otherId0 = $otherRow->id();
+
+    foreach my $hasMany (@hasMany) {
+        my $fieldName = $hasMany->fieldName();
+
+        my $subModel   = $self->subModel($fieldName);
+        my $subDir = $subModel->directory();
+
+        my $otherSubModel = $otherRow->subModel($fieldName);
+        my $otherSubDir = $otherSubModel->directory();
+
+        $subModel->clone($otherSubDir, $subDir);
+    }
+}
 
 1;

@@ -1,3 +1,6 @@
+2.3.2
+	+ Adapted to new Model management framework
+	+ Use freshclam log file to find update events
 2.3.1
 	+ More robust signature count
 	+ Adapted messages in the UI for new editions

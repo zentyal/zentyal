@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HostIP::BCast;
+use Error qw(:try);
 
 # Group: Public methods
 
@@ -89,14 +90,10 @@ sub _table
         noDataMsg          => __('There is no data to show yet, the values are updated every 10 minutes'),
         help               => __('Bandwidth usage for each connected client.'),
         modelDomain        => 'BWMonitor',
+        withoutActions     => 1,
     };
 
     return $dataTable;
-}
-
-sub Viewer
-{
-    return '/ajax/tableBodyWithoutActions.mas';
 }
 
 sub precondition
@@ -124,12 +121,23 @@ sub syncRows
 
     my $clients = $module->allUsersExtBWUsage($time);
 
+    my $error;
     foreach my $client (@{$clients}) {
-        $self->add(ip => $client->{ip},
+        try {
+            $self->add(ip => $client->{ip},
                    extrecv => $self->_format($client->{extrecv}),
                    extsent => $self->_format($client->{extsent}),
                    intrecv => $self->_format($client->{intrecv}),
                    intsent => $self->_format($client->{intsent}));
+        } catch EBox::Exceptions::InvalidData with {
+            my ($ex) = @_;
+            $error = "$ex";
+        };
+    }
+
+    if ($error) {
+        my $message = __x('Error when extracting usage data: {err}', err => $error);
+        $self->setMessage($message, 'error');
     }
 
     return 1;

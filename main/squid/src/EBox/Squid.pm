@@ -14,15 +14,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Squid;
+
 use strict;
 use warnings;
 
-use base qw(
-            EBox::Module::Service
-            EBox::Model::ModelProvider EBox::Model::CompositeProvider
+use base qw(EBox::Module::Service EBox::KerberosModule
             EBox::FirewallObserver EBox::LogObserver EBox::LdapModule
-            EBox::Report::DiskUsageProvider
-           );
+            EBox::Report::DiskUsageProvider EBox::NetworkObserver);
 
 use EBox::Service;
 use EBox::Objects;
@@ -68,6 +66,8 @@ use constant {
     BLOCK_ADS_PROGRAM => '/usr/bin/adzapper.wrapper',
     BLOCK_ADS_EXEC_FILE => '/usr/bin/adzapper',
     ADZAPPER_CONF => '/etc/adzapper.conf',
+    KEYTAB_FILE => '/etc/squid3/HTTP.keytab',
+    SQUID3_DEFAULT_FILE => '/etc/default/squid3',
 };
 
 sub _create
@@ -81,97 +81,43 @@ sub _create
     return $self;
 }
 
-# Method: modelClasses
-#
-# Overrides:
-#
-#    <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
+sub kerberosServicePrincipals
 {
-    return [
-        'EBox::Squid::Model::GeneralSettings',
+    my ($self) = @_;
 
-        'EBox::Squid::Model::ContentFilterThreshold',
-
-        'EBox::Squid::Model::ExtensionFilter',
-        'EBox::Squid::Model::ApplyAllowToAllExtensions',
-
-        'EBox::Squid::Model::MIMEFilter',
-        'EBox::Squid::Model::ApplyAllowToAllMIME',
-
-        'EBox::Squid::Model::DomainFilterSettings',
-        'EBox::Squid::Model::DomainFilter',
-        'EBox::Squid::Model::DomainFilterFiles',
-        'EBox::Squid::Model::DomainFilterCategories',
-
-        'EBox::Squid::Model::GlobalGroupPolicy',
-
-        'EBox::Squid::Model::ObjectPolicy',
-        'EBox::Squid::Model::ObjectGroupPolicy',
-
-        'EBox::Squid::Model::NoCacheDomains',
-
-        'EBox::Squid::Model::FilterGroup',
-
-        'EBox::Squid::Model::FilterGroupContentFilterThreshold',
-
-        'EBox::Squid::Model::UseDefaultExtensionFilter',
-        'EBox::Squid::Model::FilterGroupExtensionFilter',
-        'EBox::Squid::Model::FilterGroupApplyAllowToAllExtensions',
-
-        'EBox::Squid::Model::UseDefaultMIMEFilter',
-        'EBox::Squid::Model::FilterGroupMIMEFilter',
-        'EBox::Squid::Model::FilterGroupApplyAllowToAllMIME',
-
-        'EBox::Squid::Model::UseDefaultDomainFilter',
-        'EBox::Squid::Model::FilterGroupDomainFilter',
-        'EBox::Squid::Model::FilterGroupDomainFilterFiles',
-        'EBox::Squid::Model::FilterGroupDomainFilterCategories',
-        'EBox::Squid::Model::FilterGroupDomainFilterSettings',
-
-        'EBox::Squid::Model::DefaultAntiVirus',
-        'EBox::Squid::Model::FilterGroupAntiVirus',
-
-        'EBox::Squid::Model::DelayPools1',
-        'EBox::Squid::Model::DelayPools2',
-
-        # Report clases
-        'EBox::Squid::Model::Report::RequestsGraph',
-        'EBox::Squid::Model::Report::TrafficSizeGraph',
-        'EBox::Squid::Model::Report::TrafficDetails',
-        'EBox::Squid::Model::Report::TrafficReportOptions',
-    ];
+    my $data = { service    => 'proxy',
+                 principals => [ 'HTTP' ],
+                 keytab     => KEYTAB_FILE,
+                 keytabUser => 'proxy' };
+    return $data;
 }
 
-
-# Method: compositeClasses
+# Method: enableActions
 #
-# Overrides:
+#   Override EBox::Module::Service::enableActions
 #
-#    <EBox::Model::CompositeProvider::compositeClasses>
-#
-sub compositeClasses
+sub enableActions
 {
-    return [
-        'EBox::Squid::Composite::General',
+    my ($self) = @_;
 
-        'EBox::Squid::Composite::FilterTabs',
-        'EBox::Squid::Composite::FilterSettings',
-        'EBox::Squid::Composite::Extensions',
-        'EBox::Squid::Composite::MIME',
-        'EBox::Squid::Composite::Domains',
+    # Create the kerberos service princiapl in kerberos,
+    # export the keytab and set the permissions
+    $self->kerberosCreatePrincipals();
 
-        'EBox::Squid::Composite::FilterGroupTabs',
-        'EBox::Squid::Composite::FilterGroupSettings',
-        'EBox::Squid::Composite::FilterGroupExtensions',
-        'EBox::Squid::Composite::FilterGroupMIME',
-        'EBox::Squid::Composite::FilterGroupDomains',
+    try {
+        my @lines = ();
+        push (@lines, 'KRB5_KTNAME=' . KEYTAB_FILE);
+        push (@lines, 'export KRB5_KTNAME');
+        my $lines = join ('\n', @lines);
+        my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
+        EBox::Sudo::root($cmd);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error creating squid default file: $error");
+    };
 
-        'EBox::Squid::Composite::DelayPools',
-
-        'EBox::Squid::Composite::Report::TrafficReport',
-    ];
+    # Execute enable-module script
+    $self->SUPER::enableActions();
 }
 
 sub isRunning
@@ -286,7 +232,17 @@ sub usedFiles
              'module' => 'squid',
              'reason' => __('Configuration of adzapper'),
             },
-           ];
+            {
+             'file' => SQUID3_DEFAULT_FILE,
+             'module' => 'squid',
+             'reason' => __('Set the kerberos keytab path'),
+            },
+            {
+             'file' => KEYTAB_FILE,
+             'module' => 'squid',
+             'reason' => __('Extract the service principal key'),
+            }
+    ];
 }
 
 
@@ -327,7 +283,6 @@ sub enableModDepends
 
     return \@mods;
 }
-
 
 sub _cache_mem
 {
@@ -544,11 +499,10 @@ sub getAdBlockPostMatch
 {
     my ($self) = @_;
 
-    if ( $self->entry_exists('ad_block_post_match') ) {
-        return $self->get_string('ad_block_post_match');
-    } else {
-        return '';
-    }
+    my $adBlockPostMatch = $self->get_string('ad_block_post_match');
+    defined $adBlockPostMatch or
+        $adBlockPostMatch = '';
+    return $adBlockPostMatch;
 }
 
 # Method: setAdBlockPostMatch
@@ -581,7 +535,6 @@ sub setAdBlockExecFile
     if ( $file ) {
         EBox::Sudo::root("cp -f $file " . BLOCK_ADS_EXEC_FILE);
     }
-
 }
 
 sub _dgNeeded
@@ -664,7 +617,7 @@ sub _antivirusNeeded
     my ($self, $filterGroups_r) = @_;
 
     if (not $filterGroups_r) {
-        my $filterGroups = $self->model('FilterGroup');
+        my $filterGroups = $self->model('FilterProfiles');
         return $filterGroups->antivirusNeeded();
     }
 
@@ -702,10 +655,14 @@ sub _writeSquidConf
 
     my $users = EBox::Global->modInstance('users');
     my $network = EBox::Global->modInstance('network');
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
 
     my $append_domain = $network->model('SearchDomain')->domainValue();
     my $cache_host = $network->model('Proxy')->serverValue();
     my $cache_port = $network->model('Proxy')->portValue();
+
+    my $krbRealm = $users->kerberosRealm();
+    my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
     my @writeParam = ();
     push @writeParam, ('port'  => $self->port);
@@ -726,6 +683,8 @@ sub _writeSquidConf
     push @writeParam, ('cacheDirSize'     => $cacheDirSize);
     push @writeParam, ('dn'     => $users->ldap()->dn());
     push @writeParam, ('ldapport' => $users->ldap()->ldapConf()->{'port'});
+    push @writeParam, ('principal' => $krbPrincipal);
+    push @writeParam, ('realm'     => $krbRealm);
 
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
@@ -890,8 +849,7 @@ sub _writeDgIpGroups
     $self->writeConfFile(DGLISTSDIR . '/authplugins/ipgroups',
                        'squid/ipgroups.mas',
                        [
-                        filterGroups =>
-                           $objects->objectsFilterGroups()
+                        filterGroups => $objects->objectsFilterGroups()
                        ]);
 }
 
@@ -944,6 +902,9 @@ sub _cleanDomainFilterFiles
 {
     my ($self) = @_;
 
+    # FIXME: reimplement this together with the new files management
+    return 0;
+
     # purge empty file list directories and orphaned files/directories
     # XXX is not the ideal place to
     # do this but we don't have options bz deletedRowNotify is called before
@@ -953,11 +914,7 @@ sub _cleanDomainFilterFiles
     # should be implemented better someday
     # This avoids the bug of deleting list files in the second restart
     my $dir = $self->isReadOnly() ? 'ebox-ro' : 'ebox';
-    my @keys = $self->{redis}->_redis_call('keys',
-        "/$dir/modules/squid/*/FilterGroupDomainFilterFiles/*/fileList_path");
-    # default profile
-    push @keys, $self->{redis}->_redis_call('keys',
-        "/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
+    my @keys = $self->{redis}->_keys("/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
 
     my %fgDirs;
     foreach my $key (@keys) {
@@ -971,19 +928,7 @@ sub _cleanDomainFilterFiles
         $fgDirs{$profileDir} = 1;
     }
 
-    #foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-        # FIXME: _domainFilterFilesComponents returns a wrong list
-        # that's why this is workarounded with _redis_call
-        # $fgDirs{$domainFilterFiles->listFileDir} = 1;
-
-        #$domainFilterFiles->setupArchives();
-
-        # No need to clean files separately, we will clean
-        # the whole non-referenced dirs in the next loop
-        #$domainFilterFiles->cleanOrphanedFiles();
-    #}
-
-    my $defaultListFileDir = EBox::Squid::Model::DomainFilterFiles->listFileDir();
+    my $defaultListFileDir = $self->model('DomainFilterFiles')->listFileDir();
 
     # As now the directories for each profile are not deleted separately with
     # cleanOrphanedFiles, we change the depth of the find to remove them here
@@ -1007,21 +952,14 @@ sub _domainFilterFilesComponents
 
     my @components;
 
-    my $filterGroups = $self->model('FilterGroup');
+    my $filterGroups = $self->model('FilterProfiles');
     my $defaultGroupName = $filterGroups->defaultGroupName();
     foreach my $id ( @{ $filterGroups->ids() } ) {
         my $row = $filterGroups->row($id);
         my $filterPolicy =   $row->elementByName('filterPolicy');
         my $fSettings = $filterPolicy->foreignModelInstance();
 
-        my $domainFilterFiles;
-        if ($row->valueByName('name') eq $defaultGroupName) {
-            push @components,
-                $fSettings->componentByName('DomainFilterFiles', 1);
-        } else {
-            push @components,
-                $fSettings->componentByName('FilterGroupDomainFilterFiles', 1);
-        }
+        push @components, $fSettings->componentByName('DomainFilterFiles', 1);
     }
 
     return \@components;
@@ -1054,7 +992,7 @@ sub _dgFilterGroups
 {
     my ($self) = @_;
 
-    my $filterGroupModel = $self->model('FilterGroup');
+    my $filterGroupModel = $self->model('FilterProfiles');
     return $filterGroupModel->filterGroups();
 }
 
@@ -1084,12 +1022,13 @@ sub _writeDgDomainsConf
 sub firewallHelper
 {
     my ($self) = @_;
+    my $ro = $self->isReadOnly();
 
     if ($self->isEnabled()) {
         if ($self->_dgNeeded()) {
-            return new EBox::SquidFirewall();
+            return new EBox::SquidFirewall(ro => $ro);
         } else  {
-            return new EBox::SquidOnlyFirewall();
+            return new EBox::SquidOnlyFirewall(ro => $ro);
         }
     }
 
@@ -1166,7 +1105,7 @@ sub menu
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/GlobalGroupPolicy',
                                       'text' => __(q{Groups' Policy})));
 
-    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterGroup',
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
 
     $root->add($folder);
@@ -1269,15 +1208,11 @@ sub _consolidateConfiguration
            };
 }
 
-
-
 sub logHelper
 {
     my ($self) = @_;
     return (new EBox::Squid::LogHelper);
 }
-
-
 
 # Overrides:
 #   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
@@ -1321,7 +1256,8 @@ sub _DGLang
     return $lang;
 }
 
-sub aroundDumpConfig
+# FIXME
+sub aroundDumpConfigDISABLED
 {
     my ($self, $dir, %options) = @_;
 
@@ -1339,7 +1275,8 @@ sub aroundDumpConfig
 }
 
 
-sub aroundRestoreConfig
+# FIXME
+sub aroundRestoreConfigDISABLED
 {
     my ($self, $dir, %options) = @_;
     my $archive = $self->_filesArchive($dir);
@@ -1355,9 +1292,11 @@ sub aroundRestoreConfig
     }
 }
 
-sub restoreConfig
+# FIXME
+sub restoreConfigDISABLED
 {
     my ($self, $dir, %options) = @_;
+
     my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
     if ($removeCategorizedDomainLists) {
         foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
@@ -1389,7 +1328,7 @@ sub report
         key => 'main_code',
         keyGenerator => "CASE WHEN code ~ 'HIT' THEN 'hit' ELSE 'miss' END AS main_code",
        }
-                                        );
+    );
 
     my $newtraffic;
     for my $fk (keys(%{$traffic})) {
@@ -1564,6 +1503,19 @@ sub consolidateReportQueries
 sub _ldapModImplementation
 {
     return new EBox::Squid::LdapUserImplementation();
+}
+
+# Method: regenGatewaysFailover
+#
+# Overrides:
+#
+#    <EBox::NetworkObserver::regenGatewaysFailover>
+#
+sub regenGatewaysFailover
+{
+    my ($self) = @_;
+
+    $self->restartService();
 }
 
 1;

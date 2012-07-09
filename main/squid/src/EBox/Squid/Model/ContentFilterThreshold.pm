@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,10 +22,9 @@
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-#
-#
 
 package EBox::Squid::Model::ContentFilterThreshold;
+
 use base 'EBox::Model::DataForm';
 
 use strict;
@@ -33,10 +32,8 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-
-use  EBox::Squid::Types::WeightedPhrasesThreshold;
-
-
+use EBox::Types::Boolean;
+use EBox::Squid::Types::WeightedPhrasesThreshold;
 use EBox::Exceptions::External;
 
 sub new
@@ -49,27 +46,21 @@ sub new
     return $self;
 }
 
-
 # Method:  _table
 #
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-
 #
 sub _table
 {
-    my @tableDesc =
-        (
-
-         new  EBox::Squid::Types::WeightedPhrasesThreshold(
+    my @tableDesc = (
+         new EBox::Squid::Types::WeightedPhrasesThreshold(
              fieldName => 'contentFilterThreshold',
              printableName => __('Threshold'),
              editable => 1,
-             ),
-
-
-        );
+         ),
+    );
 
     my $dataForm = {
         tableName          => 'ContentFilterThreshold',
@@ -83,19 +74,29 @@ sub _table
         },
     };
 
-
-
     return $dataForm;
 }
 
+sub threshold
+{
+    my ($self) = @_;
 
+    return $self->contentFilterThresholdValue();
+}
 
+# Method: viewCustomizer
+#
+#    Overrides <EBox::Model::DataTable::viewCustomizer>
+#    to show breadcrumbs
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
 
+    my $custom =  $self->SUPER::viewCustomizer();
+    $custom->setHTMLTitle([]);
 
-
-
-
-
+    return $custom;
+}
 
 1;
-

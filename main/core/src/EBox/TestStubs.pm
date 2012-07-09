@@ -30,7 +30,7 @@ use Test::MockObject::Extends;
 use EBox::Sudo::TestStub;
 use EBox::TestStub;
 use EBox::Config::TestStub;
-use EBox::GConfModule::TestStub;
+use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
 
@@ -63,7 +63,7 @@ our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 sub activateTestStubs
 {
     my %params = @_;
-    my @components = qw(EBox Sudo Config GConfModule Global NetWrappers); # they will be faked in this order
+    my @components = qw(EBox Sudo Config ModuleConfig Global NetWrappers); # they will be faked in this order
     # set default parameters
     foreach my $stub (@components) {
       my $fakeSwitch = "fake$stub";
@@ -76,7 +76,7 @@ sub activateTestStubs
 			   'EBox'        => \&EBox::TestStub::fake,
 			   'Sudo'        => \&EBox::Sudo::TestStub::fake,
 			   'Config'      => \&EBox::Config::TestStub::fake,
-			   'GConfModule' => \&EBox::GConfModule::TestStub::fake,
+			   'ModuleConfig' => \&EBox::Module::Config::TestStub::fake,
 			   'Global'      => \&EBox::Global::TestStub::fake,
 			   'NetWrappers' => \&EBox::NetWrappers::TestStub::fake,
 			  );
@@ -97,7 +97,7 @@ sub activateTestStubs
 #
 # Function: setConfig
 #
-#    Set EBox config keys. (Currently stored in GConf)
+#    Set EBox config keys. (Currently stored in redis)
 #    Please do NOT confuse this sub with setEBoxConfigKeys
 #
 # Parameters:
@@ -116,13 +116,13 @@ sub activateTestStubs
 #
 sub setConfig
 {
-  return EBox::GConfModule::TestStub::setConfig(@_);
+  return EBox::Module::Config::TestStub::setConfig(@_);
 }
 
 #
 # Function: setConfigKey
 #
-#    set a EBox config key and his value. (Currently stored in GConf)
+#    set a EBox config key and his value. (Currently stored in redis)
 #    Plese do not confuse this sub with setEBoxConfigKeys
 #
 # Parameters:
@@ -134,7 +134,7 @@ sub setConfig
 #       setConfigKey( '/ebox/modules/openvpn/user'  => $UID)
 sub setConfigKey
 {
-  return EBox::GConfModule::TestStub::setEntry(@_);
+  return EBox::Module::Config::TestStub::setEntry(@_);
 }
 
 #
@@ -190,7 +190,7 @@ sub setEBoxConfigKeys
 #       (named parameters)
 #       name     - the name of the ebox module (required)
 #       package  - the perl package of the ebox module (optional)
-#       isa      - the parents of the package in addtion of EBox::GConfModule.
+#       isa      - the parents of the package in addtion of EBox::Module::Config.
 #                  May be a scalar (one addtional parent) or a reference to a
 #                   list of parents (optional)
 #       subs - the subs to be installed in the package; in the form of
@@ -218,7 +218,7 @@ sub fakeEBoxModule
 
   exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
 
-  my @isa = ('EBox::GConfModule');
+  my @isa = ('EBox::Module::Config');
   if (exists $params{isa} ) {
     my @extraIsa = ref $params{isa} ? @{ $params{isa} }  : ($params{isa});
     push @isa,  @extraIsa;
@@ -238,7 +238,7 @@ sub fakeEBoxModule
 
   Test::MockObject->fake_module($params{package},
 				_create => sub {
-				  my $self = EBox::GConfModule->_create(name => $params{name});
+				  my $self = EBox::Module::Config->_create(name => $params{name});
 				  bless $self, $params{package};
 				  $self = $initializerSub->($self);
 				  return $self;

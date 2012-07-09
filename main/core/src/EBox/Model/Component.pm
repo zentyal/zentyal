@@ -24,6 +24,7 @@ package EBox::Model::Component;
 use strict;
 use warnings;
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
@@ -32,74 +33,52 @@ use Encode;
 use Error qw(:try);
 use POSIX qw(getuid);
 
-# Method: setParentComposite
+# Method: parentModule
 #
-#   Set the parent composite of this composite object
-#
-# Parameters:
-#
-#      component - an instance of <EBox::Model::Composite>
-sub setParentComposite
-{
-    my ($self, $composite) = @_;
-
-    defined ( $composite ) or
-      throw EBox::Exceptions::MissingArgument('composite');
-
-    unless ( $composite->isa('EBox::Model::Composite') ) {
-        throw EBox::Exceptions::InvalidType( $composite,
-                'EBox::Model::DataTable '
-                );
-    }
-
-    $self->{'parentComposite'} = $composite;
-}
-
-# Method: parentComposite
-#
-#   Return the parent composite of this component object
+#        Get the parent confmodule for the model
 #
 # Returns:
 #
-#      component - an instance of <EBox::Model::Composite>
-#      or undef if there's any
-sub parentComposite
+#        <EBox::Module::Config> - the module
+#
+sub parentModule
 {
     my ($self) = @_;
 
-    if (exists $self->{'parentComposite'}) {
-        return $self->{'parentComposite'};
-    } else {
-        return undef;
-    }
+    return $self->{'confmodule'};
 }
 
-# Method: topParentComposite
+
+# Method: global
 #
-#   Return the top parent of the composite hierarchy where this component is
-#   containded
+# returns a EBox::Global instance with the correct read-only status
 #
-# Returns:
-#
-#      component - an instance of <EBox::Model::Composite>
-#      or undef if there's any
-sub topParentComposite
+sub global
 {
     my ($self) = @_;
 
-    my $parentComposite = $self->parentComposite();
-    if (not defined $parentComposite) {
-        return undef;
-    }
-
-    while (1) {
-        my $newParent = $parentComposite->parentComposite();
-        if (not defined $newParent) {
-            return $parentComposite;
-        }
-        $parentComposite = $newParent;
-    }
+    return $self->{'confmodule'}->global();
 }
+
+# Method: modelGetter
+#
+# return a sub which is a getter of the specified model from the specified
+# module. Useful for foreignModel attribute
+#
+#  Parameters:
+#    module
+#    model
+sub modelGetter
+{
+    my ($self, $module, $model) = @_;
+    my $global = $self->global();
+    my $modelInstance = $global->modInstance($module)->model($model);
+    return sub{
+        return $modelInstance;
+    };
+}
+
+
 
 # Method: pageTitle
 #
@@ -108,6 +87,7 @@ sub topParentComposite
 # Return:
 #
 #   string or undef
+#
 sub pageTitle
 {
     my ($self) = @_;
@@ -122,6 +102,7 @@ sub pageTitle
 # Return:
 #
 #   string or undef
+#
 sub headTitle
 {
     my ($self) = @_;
@@ -136,6 +117,7 @@ sub headTitle
 # Returns:
 #
 #     string - containing the i18n help message
+#
 sub help
 {
     return '';
@@ -167,50 +149,61 @@ sub keywords
 #
 # Returns:
 #
-#   An instance of a class implementing <EBox::Model::DataTable>
+#   An instance of a class implementing <EBox::Model::DataTable> or <EBox::Model::Composite>
 #
-#  Warning: there are bug with this method for composites which are submodel of
-#  a DataTable. A workaround is to reimplement this method in the class in a
-#  less-general fashion
 sub parent
 {
     my ($self) = @_;
-    my $parentComposite = $self->parentComposite();
-    if ($parentComposite) {
-        return $parentComposite->parent();
-    }
 
     return $self->{'parent'};
 }
 
-
-# Method: setParent
+# Method: parentRow
 #
-#   Set model's parent
+#    Is the component is a submodel of a DataTable return the row where the
+#    parent model resides
 #
-# Parameters:
+# Returns:
 #
-#   An instance of a class implementing <EBox::Model::DataTable>
+#       row object or undef if there is not
 #
-# Exceptions:
-#
-#   <EBox::Exceptions::InvalidType>
-sub setParent
+sub parentRow
 {
-    my ($self, $parent) = @_;
+    my ($self) = @_;
 
-    if (defined($parent) and (not $parent->isa('EBox::Model::DataTable'))) {
-        throw EBox::Exceptions::InvalidType( 'argument' => 'parent',
-                                             'type' => ref $parent);
+    unless ($self->{parent}) {
+        return undef;
     }
 
-    $self->{'parent'} = $parent;
+    my $dir = $self->directory();
+    my @parts = split ('/', $dir);
+
+    my $rowId = undef;
+    for (my $i = scalar (@parts) - 1; $i > 0; $i--) {
+        if (($parts[$i] eq 'form') or ($parts[$i - 1] eq 'keys')) {
+            $rowId = $parts[$i];
+            last;
+        }
+    }
+
+    if (not defined $rowId) {
+        return undef;
+    }
+
+    my $row = $self->{parent}->row($rowId);
+    unless ($row) {
+        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId. Component directory: $dir.");
+    }
+
+    return $row;
 }
+
 
 # Method: menuFolder
 #
 #   Override this function if you model is placed within a folder
 #   from other module
+#
 sub menuFolder
 {
     return undef;
@@ -234,21 +227,18 @@ sub disabledModuleWarning
     return '' unless (getuid() == getpwnam(EBox::Config::user()));
 
     my $pageTitle = $self->pageTitle();
-    my $module;
 
     if ($self->isa('EBox::Model::DataTable')) {
         my $htmlTitle = @{$self->viewCustomizer()->HTMLTitle()};
         # Do not show warning on nested components
-        unless ($pageTitle or $htmlTitle) {
-            return '';
-        }
-        $module = $self->parentModule();
-    } elsif ($self->isa('EBox::Model::Composite') and $pageTitle) {
-        $module = EBox::Global->modInstance(lc($self->compositeDomain()));
+        return '' unless ($pageTitle or $htmlTitle);
+    } elsif ($self->isa('EBox::Model::Composite')) {
+        return '' unless ($pageTitle);
     } else {
         return '';
     }
 
+    my $module = $self->parentModule();;
     unless (defined ($module) and $module->isa('EBox::Module::Service')) {
         return '';
     }

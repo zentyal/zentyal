@@ -16,12 +16,10 @@
 use strict;
 use warnings;
 
-
 package EBox::Squid::LdapUserImplementation;
 use base 'EBox::LdapUserBase';
 
 use EBox::Global;
-
 
 sub _delGroup
 {
@@ -52,7 +50,5 @@ sub _delGroupWarning
     }
     return ();
 }
-
-
 
 1;

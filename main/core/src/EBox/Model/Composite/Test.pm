@@ -34,8 +34,7 @@ use EBox::Types::Abstract;
 use EBox::Model::Row;
 use EBox::Model::DataTable;
 use EBox::Model::Composite;
-use EBox::Model::CompositeManager;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
@@ -46,7 +45,7 @@ use EBox::Types::Text;
     my $rowIdUsed;
 
     no warnings 'redefine';
-    sub EBox::Model::ModelManager::warnIfIdIsUsed
+    sub EBox::Model::Manager::warnIfIdIsUsed
     {
         my ($self, $context, $id) = @_;
         if (not defined $rowIdUsed) {
@@ -58,7 +57,7 @@ use EBox::Types::Text;
 
     }
 
-    sub EBox::Model::ModelManager::warnOnChangeOnId
+    sub EBox::Model::Manager::warnOnChangeOnId
     {
         my ($self, $tableName, $id) = @_;
         if (not defined $rowIdUsed) {
@@ -69,12 +68,12 @@ use EBox::Types::Text;
         }
     }
 
-    sub EBox::Model::ModelManager::removeRowsUsingId
+    sub EBox::Model::Manager::removeRowsUsingId
     {
         # do nothing
     }
 
-    sub EBox::Model::ModelManager::modelActionTaken
+    sub EBox::Model::Manager::modelActionTaken
     {
         # do nothing
     }
@@ -82,7 +81,7 @@ use EBox::Types::Text;
 
     my %models;
 
-    sub EBox::Model::ModelManager::model
+    sub EBox::Model::Manager::model
     {
         my ($self, $path) = @_;
 
@@ -120,7 +119,7 @@ use EBox::Types::Text;
 
     my %composites;
 
-    sub EBox::Model::CompositeManager::composite
+    sub EBox::Model::Manager::composite
     {
         my ($self, $path) = @_;
 
@@ -193,12 +192,12 @@ sub standardSetupForModelsAndComposites
                          defined $dir or
                              die 'no dir';
 
-                         $self->{gconfdir} = $dir;
+                         $self->{confdir} = $dir;
                      }
                     );
         $composite->mock('directory' => sub {
                              my ($self) = @_;
-                             return $self->{gconfdir};
+                             return $self->{confdir};
                             }
                         );
         $composite->mock('addComponent' => sub {
@@ -249,12 +248,12 @@ sub _setMockModel
                      $dir or
                          die 'no dir';
 
-                     $self->{gconfdir} = $dir;
+                     $self->{confdir} = $dir;
                  }
                 );
     $model->mock('directory' => sub {
                      my ($self) = @_;
-                     return $self->{gconfdir};
+                     return $self->{confdir};
                  }
                 );
     $model->mock('setParent' => \&EBox::Model::Component::setParent);
@@ -363,7 +362,7 @@ sub componentsTest  : Test(17)
     my $nestedComponentName = 'nested1';
     $self->_setMockModel($nestedComponentName);
 
-    my $modelManager =  EBox::Model::ModelManager->instance();
+    my $modelManager =  EBox::Model::Manager->instance();
     my $nestedModel = $modelManager->model($nestedComponentName);
     $composite1->addComponent($nestedModel);
     defined($composite1->componentByName($nestedComponentName)) or

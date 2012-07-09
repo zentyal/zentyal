@@ -1,3 +1,11 @@
+2.3.6
+	+ Adapted to new Model management framework
+2.3.5
+	+ setService method does not fail if the existent service has not
+	  any configuration
+	+ Added clone action to service configuration table
+2.3.4
+	+ Packaging fixes for precise
 2.3.2
 	+ Now name is just an internal id, it is optional and hidden and defaults
 	  to printableName in case of services manually added by the user

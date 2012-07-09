@@ -46,30 +46,11 @@ sub new
     return $self;
 }
 
-
-sub gatewayModel
+sub ifacesSub
 {
-    return EBox::Global->modInstance('network')->model('GatewayTable');
-}
+    my ($self) = @_;
 
-
-sub objectModel
-{
-    return EBox::Global->modInstance('objects')->{'objectModel'};
-}
-
-
-sub serviceModel
-{
-    return EBox::Global->modInstance('services')->{'serviceModel'};
-}
-
-
-sub ifaces
-{
-    my $self = shift;
-
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->parentModule();
 
     my @options;
     push (@options, {
@@ -83,7 +64,9 @@ sub ifaces
         });
     }
 
-    return \@options;
+    return sub {
+        return \@options
+    };
 }
 
 # Method: _table
@@ -94,13 +77,15 @@ sub ifaces
 #
 sub _table
 {
+    my ($self) = @_;
+
     my @tableHead =
     (
         new EBox::Types::Select(
            'fieldName' => 'iface',
            'printableName' => __('Interface'),
            'editable' => 1,
-           'populate' => \&ifaces,
+           'populate' => $self->ifacesSub(),
            'help' => __('Incoming interface to match packets. If you '.
                         ' want to match a whole subnet you can ' .
                         ' select the interface of that subnet')
@@ -121,7 +106,7 @@ sub _table
                 new EBox::Types::Select(
                     'fieldName' => 'source_object',
                     'printableName' => __('Source object'),
-                    'foreignModel' => \&objectModel,
+                    'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                     'foreignField' => 'name',
                     'foreignNextPageField' => 'members',
                     'editable' => 1),
@@ -149,7 +134,7 @@ sub _table
                 new EBox::Types::Select(
                     'fieldName' => 'destination_object',
                     'printableName' => __('Destination object'),
-                    'foreignModel' => \&objectModel,
+                    'foreignModel' => $self->modelGetter('objects', 'ObjectTable'),
                     'foreignField' => 'name',
                     'foreignNextPageField' => 'members',
                     'editable' => 1)
@@ -161,7 +146,7 @@ sub _table
         new EBox::Types::Select(
                 'fieldName' => 'service',
                 'printableName' => __('Service'),
-                'foreignModel' => \&serviceModel,
+                'foreignModel' => $self->modelGetter('services', 'ServiceTable'),,
                 'foreignField' => 'printableName',
                 'foreignNextPageField' => 'configuration',
                 'editable' => 1,
@@ -169,7 +154,7 @@ sub _table
         new EBox::Types::Select(
             'fieldName' => 'gateway',
             'printableName' => 'Gateway',
-            'foreignModel' => \&gatewayModel,
+            'foreignModel' => $self->modelGetter('network', 'GatewayTable'),
             'foreignField' => 'name',
             'editable' => 1,
             'help' => __('Gateway to route packets matching ' .
@@ -184,7 +169,7 @@ sub _table
         'defaultController' => '/Network/Controller/MultiGwRulesDataTable',
         'defaultActions' =>
             [
-                'add', 'del',
+                'add', 'del', 'clone',
                 'move', 'editField',
                 'changeView'
             ],
@@ -226,7 +211,7 @@ sub _ifacesForRule
         return [$iface];
     }
 
-    my $network = EBox::Global->modInstance('network');
+    my $network = $self->parentModule();
     my @ifaces;
     foreach my $iface (@{$network->InternalIfaces()}) {
         push (@ifaces, $iface)
@@ -236,12 +221,12 @@ sub _ifacesForRule
 }
 
 
-sub _addressesForObject
+sub _objectMembers
 {
-    my ($self, $object) = @_;
-
-    my $objects = EBox::Global->modInstance('objects');
-    return $objects->objectAddresses($object);
+    my ($self, $row, $elementName) = @_;
+    my $oid = $row->elementByName($elementName)->subtype()->value();
+    my $objects = $self->global()->modInstance('objects');
+    return $objects->objectMembers($oid);
 }
 
 
@@ -249,8 +234,8 @@ sub _buildIptablesRule
 {
     my ($self, $row) = @_;
 
-    my $network = EBox::Global->modInstance('network');
-    my $services = EBox::Global->modInstance('services');
+    my $network = $self->parentModule();
+    my $services = $self->global()->modInstance('services');
     my $marks = $network->marksForRouters();
 
     my $iface = $row->valueByName('iface');
@@ -260,7 +245,7 @@ sub _buildIptablesRule
     my $gw = $row->valueByName('gateway');
 
     # Return if the gateway for this rule is disabled
-    my $gwRow = gatewayModel()->row($gw);
+    my $gwRow = $self->parentModule()->model('GatewayTable')->row($gw);
     return unless (defined $gwRow);
     return unless ($gwRow->valueByName('enabled'));
 
@@ -274,7 +259,7 @@ sub _buildIptablesRule
         my $ipaddr = $row->elementByName('source')->subtype();
         my $ip;
         if ($ipaddr->ip()) {
-            $ip = $ipaddr->ip() . '/' . $ipaddr->mask();
+            $ip = ' --source ' . $ipaddr->ip() . '/' . $ipaddr->mask();
         } else {
             $ip = '';
         }
@@ -282,8 +267,8 @@ sub _buildIptablesRule
     } elsif  ($srcType eq 'source_ebox') {
         @src = ('');
     } else {
-        my $object = $row->elementByName('source')->subtype();
-        @src = @{$self->_addressesForObject($object->value())};
+        my $members = $self->_objectMembers($row, 'source');
+        @src = @{$members->iptablesSrcParams()};
     }
 
     # prepare dsts into @dst array
@@ -294,14 +279,14 @@ sub _buildIptablesRule
         my $ipaddr = $row->elementByName('destination')->subtype();
         my $ip;
         if ($ipaddr->ip()) {
-            $ip = $ipaddr->ip() . '/' . $ipaddr->mask();
+            $ip = ' --destination ' . $ipaddr->ip() . '/' . $ipaddr->mask();
         } else {
             $ip = '';
         }
         @dst = ($ip);
     } else {
-        my $object = $row->elementByName('destination')->subtype();
-        @dst = @{$self->_addressesForObject($object->value())};
+        my $members = $self->_objectMembers($row, 'destination');
+        @dst = @{$members->iptablesDstParams()};
     }
 
     my @chains;
@@ -359,13 +344,7 @@ sub _buildIptablesRule
             for my $rule (@prerules) {
                 for my $rsrc (@src) {
                     for my $rdst (@dst) {
-                        my $wrule = $rule;
-                        if ($rsrc ne '') {
-                            $wrule .= " -s $rsrc";
-                        }
-                        if ($rdst ne '') {
-                            $wrule .= " -d $rdst";
-                        }
+                        my $wrule = $rule . "$rsrc $rdst";
                         my $mrule  = "$wrule -m mark --mark 0/0xff "
                             . "-j MARK "
                             . "--set-mark $marks->{$gw}";
@@ -380,12 +359,7 @@ sub _buildIptablesRule
                         for my $rdst (@dst) {
                             $riface = $network->realIface($riface);
                             my $wrule = $rule . " -i $riface";
-                            if ($rsrc ne '') {
-                                $wrule .= " -s $rsrc";
-                            }
-                            if ($rdst ne '') {
-                                $wrule .= " -d $rdst";
-                            }
+                            $wrule .= " $rsrc $rdst";
                             my $mrule  = "$wrule -m mark --mark 0/0xff "
                                 . "-j MARK "
                                 . "--set-mark $marks->{$gw}";

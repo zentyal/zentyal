@@ -1,4 +1,17 @@
-HEAD
+2.3.5
+	+ Implement new EBox::Events::WatcherProvider
+	+ Adapted to new Model management framework
+	+ Adapted Message and Size types to new framework
+2.3.4
+	+ Send additional info in backup events
+	+ Initial collection status done in background
+	+ Fixed bug with expiration of file list cache
+	+ Improved precondition message for restore logs model
+	+ Added backup target checks: mounted and size
+2.3.3
+	+ Create tables with MyISAM engine by default
+2.3.2
+	+ Use new unified tableBody.mas in RemoteStatus.pm
 	+ Do not show Zentyal Cloud option if custom_prefix is defined
 	+ Added selectable priority by config file to scheduled backup
 2.3.1

@@ -1,3 +1,9 @@
+2.3.4
+	+ Adapted to new Model management framework
+2.3.3
+	+ Create tables with MyISAM engine by default
+2.3.2
+	+ withoutActions property in AlertDetails.pm for the new tableBody.mas
 2.3.1
 	+ Adapted messages in the UI for new editions
 2.3

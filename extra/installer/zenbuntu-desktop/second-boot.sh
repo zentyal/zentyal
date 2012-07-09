@@ -9,6 +9,7 @@ then
     # Remove temporal local repository
     sed -i "/deb file.*zentyal-packages/d" /etc/apt/sources.list
     rm -rf /var/tmp/zentyal-packages
+    apt-get clean
 
     # Restore default rc.local
     cp /usr/share/zenbuntu-desktop/rc.local /etc/rc.local

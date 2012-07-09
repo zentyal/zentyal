@@ -32,7 +32,7 @@ use  EBox::EBackup::Subscribed;
 sub syncRows
 {
     my ($self, $currentRows) = @_;
-    my $ebackup  = $self->{'gconfmodule'};
+    my $ebackup  = $self->{'confmodule'};
 
     my %domains = %{ $ebackup->selectableBackupDomains() };
     my $modified;

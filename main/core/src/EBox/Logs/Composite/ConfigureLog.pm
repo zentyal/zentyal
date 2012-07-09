@@ -24,27 +24,6 @@ use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the configure logs composite
-#
-# Returns:
-#
-#       <EBox::Logs::Composite::ConfigureLog> - the configure logs composite
-#
-sub new
-  {
-
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-
-  }
-
 # Group: Protected methods
 
 # Method: _description
@@ -54,22 +33,15 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
+    my $description = {
+       layout          => 'top-bottom',
+       name            => 'ConfigureLog',
+       compositeDomain => 'Logs',
+       printableName   => __('Configure Logs'),
+    };
 
-      my $description =
-        {
-         components      => [
-			     'ConfigureLogTable',
-			     'ForcePurge',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'ConfigureLog',
-         compositeDomain => 'Logs',
-         printableName   => __('Configure Logs'),
-        };
-
-      return $description;
-
-  }
+    return $description;
+}
 
 1;

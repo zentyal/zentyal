@@ -1,3 +1,12 @@
+HEAD
+	+ iptables range option used in commands upon object range members
+	+ Added all interfaces option in rule select interface option
+2.3.2
+	+ Separate rules in internal (download) and external (upload)
+	+ Use regular models instead of a dynamic select composite
+	+ Adapted to new Model management framework
+	+ Implement new EBox::NetworkObserver::regenGatewaysFailover()
+	+ Fixed duplicate rows in interfaces rates page
 2.3.1
 	+ Use printableName instead of name to select services
 2.3
@@ -78,7 +87,7 @@ at once
 0.12.101
 	+ Detect if there's a l7 capable kernel using modinfo xt_layer7
 0.12.100
-	+ Add traffic shaping rules to POSTROUTING 
+	+ Add traffic shaping rules to POSTROUTING
 0.12.99
 	+ New release
 0.12.2
@@ -107,11 +116,11 @@ at once
 	+ Exposing API from models
 	+ Removing old code to decrease the module complexity and LOC by
 	more than 500 lines
-	+ Traffic shaping rules may be enabled/disabled by user 
+	+ Traffic shaping rules may be enabled/disabled by user
 0.11
 	+ Difference easily internal/external interfaces through GUI
 	+ Normalizing guaranteed rates from two or more rules now works
-	correctly under rate decreasing 
+	correctly under rate decreasing
 	+ Warning about a change on gateways when there is at least a rule
 	on internal interfaces models
 	+ Bugfix: Rates are now checked if the source or destination is an

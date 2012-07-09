@@ -122,7 +122,7 @@ sub info
         next if $line =~ m/^\s*$/;
 
         my @parts =  split '\s*:\s*', $line, 2;
-        if (@parts == 2) { # begins a new section
+        if (@parts == 2 and $parts[0] ne 'bitmap') { # begins a new section
             my @sectionInfo = @{
                 _processSection($currentSection, \@currentSectionData)
             };
@@ -180,21 +180,19 @@ sub _calculateDevicesStatus
     my @devNumbers = sort keys  %{ $raidDevices };
     foreach my $number (@devNumbers) {
         my $devAttrs = $raidDevices->{$number};
-
-        my $spare = 0;
         my $up    = 0;
 
         $devAttrs->{state} = '' unless (defined($devAttrs->{state}));
         if ($devAttrs->{state} eq 'failure') {
             next;
-        }
-        elsif (not defined $activeDevicesNeeded or (not @statusArray)) {
+        } elsif ($devAttrs->{state} eq 'spare') {
+            next;
+        } elsif (not defined $activeDevicesNeeded or (not @statusArray)) {
             $devAttrs->{state} = 'up';  # XXX need more test..
         }
         elsif (($number >= $activeDevicesNeeded)  ) {
             $devAttrs->{state} = 'spare';
-        }
-        else {
+        } else {
             my $status =  $statusArray[$number];
             defined $status or
                 EBox::warn("Undefined array status item for raid device $number");
@@ -251,7 +249,7 @@ sub _setArrayStatus
 
 my %processBySection = ('Personalities'  => \&_processPersonalitiesSection,
                         'unused devices' => \&_processUnusedDevicesSection,
-                        'bitmap'         => \&_processBitmapSection);
+                        );
 
 sub _processSection
 {
@@ -280,13 +278,6 @@ sub _processPersonalitiesSection
     return [];
 }
 
-sub _processBitmapSection
-{
-    my ($sectionName, $sectionLines_r) = @_;
-    my ($line) = @{ $sectionLines_r };
-    return [ bitmap => $line ];
-}
-
 sub _processUnusedDevicesSection
 {
     my ($sectionName, $sectionLines_r) = @_;
@@ -308,7 +299,6 @@ sub _processDeviceSection
     $device = '/dev/' . $device;
 
     my @lines = @{ $deviceLines_r };
-
     my %deviceInfo; # hash  with all the parsed information
 
     %deviceInfo = (
@@ -316,22 +306,25 @@ sub _processDeviceSection
         _processDeviceMainLine(shift @lines)
     );
 
-    my $processDeviceArrayLineSub = __PACKAGE__->can('_processDeviceArrayLineOfType' . ucfirst $deviceInfo{type});
-    if ($processDeviceArrayLineSub) {
+    %deviceInfo = (%deviceInfo, _processDeviceArrayLine(shift @lines));
+
+    foreach my $line (@lines) {
+        my @newDeviceInfo;
+        if ($line =~ m/^bitmap:/) {
+            @newDeviceInfo = _processDeviceBitmapLine($line)
+        } else {
+            @newDeviceInfo = _processDeviceOperationLine($line);
+       }
         %deviceInfo = (
             %deviceInfo,
-            $processDeviceArrayLineSub->(shift @lines),
-        );
+            @newDeviceInfo,
+           );
+
     }
-    else {
-        EBox::debug('no _processDeciveArrayLineOfType method for type ' . $deviceInfo{type});
-        shift @lines;
+    if (not $deviceInfo{operation}) {
+        $deviceInfo{operation} = 'none';
     }
 
-    %deviceInfo = (
-        %deviceInfo,
-        _processDeviceOperationLine(shift @lines),
-    );
 
     return [$device => \%deviceInfo];
 }
@@ -353,79 +346,32 @@ sub _processDeviceMainLine
 }
 
 
-sub _processDeviceArrayLineOfTypeRaid0
+sub _processDeviceArrayLine
 {
     my ($line) = @_;
 
     my %deviceInfo;
-    my $lineRe = qr{
-        ^(\d+)\sblocks\s+  # $1 blocks count
-        (.*?)\s+chunks     # $2 chunkSize
-    }x;
-
-    if ($line =~ m/$lineRe/) {
+    if ($line =~ m/(\d+)\sblocks\s+/) {
         $deviceInfo{blocks}= $1;
-        $deviceInfo{chunkSize} = $2;
     }
-    else {
-        EBox::debug("not match for RAID0 regex: $line");
-    }
-
-    return %deviceInfo;
-}
-
-sub _processDeviceArrayLineOfTypeRaid1
-{
-    my ($line) = @_;
-
-    my %deviceInfo;
-
-    my $lineRe =  qr{
-            ^(\d+)\sblocks\s+  # $1 blocks size
-            \[(\d+)/(\d+)\]\s+ # $2, $3 the number of active devices needed
-                               # and the number of active devices
-            \[(.*?)\]          # $4 status array ej: [UU]
-    }x;
-
-    if ($line =~ m/$lineRe/) {
-        $deviceInfo{blocks}= $1;
-        $deviceInfo{activeDevicesNeeded}= $2;
-        $deviceInfo{activeDevices}=  $3;
-        $deviceInfo{statusArray}= [ split //, $4  ];
-    }
-    else {
-        EBox::debug("not match for RAID1 regex: $line");
+    if ($line =~ m/\s([^\s]+?)\s+chunk/) {
+        $deviceInfo{chunkSize}= $1;
     }
 
-    return %deviceInfo;
-}
+    if ($line =~ m{\s\[(\d+)/(\d+)\]\s+\[(.*?)\]}) {
+        # $4, $5 the number of active devices needed and the number of active
+        $deviceInfo{activeDevicesNeeded}= $1;
+        $deviceInfo{activeDevices}=  $2;
+        $deviceInfo{statusArray}= [ split //, $3  ];
 
-sub _processDeviceArrayLineOfTypeRaid5
-{
-    my ($line) = @_;
-
-    my %deviceInfo;
-
-    my $lineRe =  qr{
-             ^(\d+)\sblocks\s+   # $1 blocks size
-             level\s+\d+,\s+     # ignored level line
-             (.*?)\s+chunk,\s+   # $2 chunk size
-             algorithm\s+(.*?)\s # $3 algorithm
-             \[(\d+)/(\d+)\]\s+  # $4, $5 the number of active devices needed
-                                 # and the number of active devices
-             \[(.*?)\]           # $6 status array ej: [UU]
-    }x;
-
-    if ($line =~ m/$lineRe/ ) {
-        $deviceInfo{blocks}= $1;
-        $deviceInfo{chunkSize} = $2;
-        $deviceInfo{algorithm} = $3;
-        $deviceInfo{activeDevicesNeeded}= $4;
-        $deviceInfo{activeDevices}=  $5;
-        $deviceInfo{statusArray}= [ split //, $6  ];
     }
-    else {
-        EBox::debug("not match for RAID5 regex: $line");
+
+    if ($line =~ m{\salgorithm\s+(.*?)\s}) {
+        $deviceInfo{algorithm} = $1;
+    }
+
+    if (not keys %deviceInfo) {
+        EBox::debug("not match for device array line regexes: $line");
     }
 
     return %deviceInfo;
@@ -468,16 +414,20 @@ sub _processRaidDevicesTags
     my $devTagRe = qr{
             ^(.*?)     # $1 device filename
             \[(\d)\]   # $2 device RAID number
+            (\(\w\))?  # $3 state mark (optional)
     }x;
 
     foreach my $tag (@tags) {
         my $raidDevice;
         my $device;
+        my $stateMark;
         my $failure = 0;
+        my $spare  = 0;
 
         if ($tag =~ m/$devTagRe/) {
             $device = $1;
             $raidDevice =$2;
+            $stateMark = $3;
 
             if (not $device =~ m{/}) {
                 # if it is 'relative' device we may infer that it is in the /dev dir
@@ -489,20 +439,29 @@ sub _processRaidDevicesTags
             next;
         }
 
-        if ($tag =~ m/\(F\)/) {
-            $failure = 1;
-        }
-
         $devices{$raidDevice} = {
             device  => $device,
         };
 
-        if ($failure) {
-            $devices{$raidDevice}->{state} = 'failure';
+        if ($stateMark) {
+            if ($stateMark eq '(F)') {
+                $devices{$raidDevice}->{state} = 'failure';
+            } elsif ($stateMark eq '(S)') {
+                $devices{$raidDevice}->{state} = 'spare';
+            }
+
         }
     }
 
     return (raidDevices => \%devices);
+}
+
+
+sub _processDeviceBitmapLine
+{
+    my ($line) = @_;
+    my ($title, $data) = split '\s*:\s*', $line, 2;
+    return (bitmap => $data);
 }
 
 1;

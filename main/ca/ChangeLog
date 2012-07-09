@@ -1,3 +1,11 @@
+2.3.5
+	+ Adapted to new Model management framework
+2.3.4
+	+ Fixed quoting in generate p12 command
+2.3.3
+	+ Packaging fixes for precise
+2.3.2
+	+ Updated Standards-Version to 3.9.2
 2.3.1
 	+ Fixed executable permissions in src/scripts
 2.3

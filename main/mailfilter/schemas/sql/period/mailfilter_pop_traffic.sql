@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS mailfilter_pop_traffic (
         virus     BIGINT DEFAULT 0,
 
         INDEX(`date`)
-);
+) ENGINE = MyISAM;

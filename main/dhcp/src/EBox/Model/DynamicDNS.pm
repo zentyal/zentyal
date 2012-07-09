@@ -50,11 +50,6 @@ use EBox::View::Customizer;
 #
 #     <EBox::Model::DataForm::new>
 #
-# Parameters:
-#
-#     interface - String the interface where the DHCP server is
-#     attached
-#
 # Returns:
 #
 #     <EBox::DHCP::Model::DynamicDNS>
@@ -66,52 +61,14 @@ use EBox::View::Customizer;
 #
 sub new
 {
-
     my $class = shift;
+
     my %opts = @_;
     my $self = $class->SUPER::new(@_);
-    bless ( $self, $class);
-
-    throw EBox::Exceptions::MissingArgument('interface')
-      unless defined ( $opts{interface} );
-
-    $self->{interface} = $opts{interface};
+    bless ($self, $class);
 
     return $self;
-
 }
-
-# Method: index
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::index>
-#
-sub index
-{
-
-    my ($self) = @_;
-
-    return $self->{interface};
-
-}
-
-# Method: printableIndex
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::printableIndex>
-#
-sub printableIndex
-{
-
-    my ($self) = @_;
-
-    return __x("interface {iface}",
-              iface => $self->{interface});
-
-}
-
 
 # Method: formSubmitted
 #
@@ -235,20 +192,11 @@ sub viewCustomizer
             my $msg = __('DNS module must be enabled to make this feature work.');
             $customizer->setPermanentMessage($msg);
         }
-
     }
-    return $customizer;
-}
 
-# Method: headTitle
-#
-# Overrides:
-#
-#   <EBox::Model::Component::headTitle>
-#
-sub headTitle
-{
-    return undef;
+    $customizer->setHTMLTitle([]);
+
+    return $customizer;
 }
 
 # Method: notifyForeignModelAction

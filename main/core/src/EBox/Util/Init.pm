@@ -47,6 +47,7 @@ sub moduleList
 sub checkModule
 {
     my ($modname) = @_;
+
     my $global = EBox::Global->getInstance(1);
     my $mod = $global->modInstance($modname);
     if (!defined $mod) {
@@ -66,13 +67,16 @@ sub start
 {
     my $serviceManager = new EBox::ServiceManager;
     my @mods = @{$serviceManager->modulesInDependOrder()};
-	my @names = map { $_->{'name'} } @mods;
+    my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'apache' } @names;
-	push(@names, 'apache');
+    push(@names, 'apache');
 
-	foreach my $modname (@names) {
-	    moduleAction($modname, 'restartService', 'start');
-	}
+    EBox::info("Modules to start: @names");
+    foreach my $modname (@names) {
+        moduleAction($modname, 'restartService', 'start');
+    }
+
+    EBox::info("Start modules finished");
 }
 
 sub stop
@@ -83,9 +87,12 @@ sub stop
     @names = grep { $_ ne 'apache' } @names;
     unshift(@names, 'apache');
 
+    EBox::info("Modules to stop: @names");
     foreach my $modname (reverse @names) {
         moduleAction($modname, 'stopService', 'stop');
     }
+
+    EBox::info("Stop modules finished");
 }
 
 
@@ -100,20 +107,26 @@ sub moduleAction
                    $ENV{'EBOX_SOFTWARE'} == 1 );
     }
 
+    my $redisTrans = $modname ne 'network';
+
     my $success;
     my $errorMsg;
+    my $redis = $mod->redis();
     try {
+        $redis->begin() if ($redisTrans);
         $mod->$action();
+        $redis->commit() if ($redisTrans);
         $success = 0;
-    }
-    catch EBox::Exceptions::Base with {
+    } catch EBox::Exceptions::Base with {
         my $ex = shift;
         $success = 1;
         $errorMsg =  $ex->text();
+        $redis->rollback() if ($redisTrans);
     } otherwise {
         my ($ex) = @_;
         $success = 1;
         $errorMsg = "$ex";
+        $redis->rollback() if ($redisTrans);
     };
 
     printModuleMessage($modname, $actionName, $success, $errorMsg);
@@ -145,8 +158,8 @@ sub status
 
 sub _logActionFunction
 {
-	my ($action, $success) = @_;
-	system(". /lib/lsb/init-functions; " .
+    my ($action, $success) = @_;
+    system(". /lib/lsb/init-functions; " .
 	       " log_begin_msg \"$action\"; log_end_msg $success");
 }
 

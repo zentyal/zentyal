@@ -1,11 +1,8 @@
 #!/bin/sh
 
-# Add zarafa6 repository to avoid broken packages
-# We do not add zarafa7 to not broke migrations from 2.2
-# But if the zarafa7 has been already added by the installer
-# there is no need to add the zarafa6 one
-ZARAFA_SOURCES=/etc/apt/sources.list.d/zentyal-zarafa.list
-if ! grep "deb http://archive.zentyal.com/zentyal 2.2 extra" /etc/apt/sources.list
+# Add extra repository if not added by the installer
+REPO="deb http://archive.zentyal.org/zentyal 2.3 main extra"
+if ! grep "$REPO" /etc/apt/sources.list
 then
-    echo "deb http://archive.canonical.com/ubuntu lucid partner" > $ZARAFA_SOURCES
+    echo "$REPO" > /etc/apt/sources.list.d/zentyal-archive.list
 fi

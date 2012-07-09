@@ -189,6 +189,12 @@ sub refreshTable
 
     my $rows = undef;
 
+    my $editId;
+    if ($action eq 'clone') {
+        $editId = $self->param('id');
+    } else {
+        $editId = $self->param('editid');
+    }
     my $page     = $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined $pageSize) {
@@ -210,7 +216,7 @@ sub refreshTable
         'dataTable' => $model->table(),
         'model' => $model,
         'action' => $action,
-        'editid' => $self->param('editid'),
+        'editid' => $editId,
         'hasChanged' => $global->unsaved(),
         'filter' => $filter,
         'page' => $page,
@@ -276,7 +282,6 @@ sub _process
         $self->removeRow();
         $self->refreshTable(1, $action);
     } elsif ($action eq 'move') {
-
         $self->moveRow();
         $self->refreshTable(1, $action);
    } elsif ($action eq 'changeAdd') {
@@ -295,7 +300,8 @@ sub _process
         $self->refreshTable(1, $action);
     } elsif ($action eq 'changeEdit') {
         $self->refreshTable(1, $action);
-
+    } elsif ($action eq 'clone') {
+        $self->refreshTable(1, $action);
     } elsif ($action eq 'view') {
         # This action will show the whole table (including the
         # table header similarly View Base CGI but inheriting

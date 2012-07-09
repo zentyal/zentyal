@@ -59,28 +59,27 @@ my %printableDays = (
 
 sub new
 {
-  my ($class, %params) = @_;
+    my ($class, %params) = @_;
 
-  unless (exists $params{'HTMLSetter'}) {
-      $params{'HTMLSetter'} = '/squid/ajax/setter/timePeriod.mas';
-  }
-  unless (exists $params{'HTMLViewer'}) {
-      $params{'HTMLViewer'} = '/ajax/viewer/textViewer.mas';
-  }
-  unless (exists $params{defaultValue}) {
-      $params{defaultValue} = ALL_DAYS;
-  }
-  unless (exists $params{type}) {
-      $params{type} = 'squid-timeperiod';
-  }
+    unless (exists $params{'HTMLSetter'}) {
+        $params{'HTMLSetter'} = '/squid/ajax/setter/timePeriod.mas';
+    }
+    unless (exists $params{'HTMLViewer'}) {
+        $params{'HTMLViewer'} = '/ajax/viewer/textViewer.mas';
+    }
+    unless (exists $params{defaultValue}) {
+        $params{defaultValue} = ALL_DAYS;
+    }
+    unless (exists $params{type}) {
+        $params{type} = 'squid-timeperiod';
+    }
 
 
-  my $self = $class->SUPER::new(%params);
+    my $self = $class->SUPER::new(%params);
 
-  bless $self, $class;
-  return $self;
+    bless $self, $class;
+    return $self;
 }
-
 
 
 sub value
@@ -103,20 +102,17 @@ sub value
     return $st;
 }
 
-
 sub isAllTime
 {
     my ($self) = @_;
     return $self->value() eq ALL_DAYS;
 }
 
-
 sub isAllWeek
 {
     my ($self) = @_;
     return $self->weekDays() eq ALL_DAYS;
 }
-
 
 sub printableValue
 {
@@ -141,8 +137,6 @@ sub printableValue
     return $st;
 }
 
-
-
 #  Method: compareToHash
 #
 #    Overrides <EBox::Types::Abstract::compareToHash> method
@@ -161,13 +155,13 @@ sub compareToHash
         }
     }
 
-
     return 1;
 }
 
 sub weekDays
 {
     my ($self) = @_;
+
     my $st = '';
 
     my $activeDays = 0;
@@ -178,12 +172,8 @@ sub weekDays
         }
     }
 
-
     return $st;
 }
-
-
-
 
 sub days
 {
@@ -228,13 +218,8 @@ sub printableWeekDays
         }
     }
 
-
-
-
-
     return $st;
 }
-
 
 
 sub hourlyPeriod
@@ -263,33 +248,13 @@ sub cmp
         return undef;
     }
 
-
     return ($self->value() cmp $other->value());
 }
 
-
-# Method: fields
-#
-#    Overrides <EBox::Types::Abstract::fields> method
-#
-sub fields
+sub _attrs
 {
-    my ($self) = @_;
-
-    my $name = $self->fieldName();
-    my @fields = (
-                  $name . '_from',
-                  $name . '_to',
-                 );
-
-    push @fields, map {
-        $name . '_' . $_
-     } @days;
-
-
-    return @fields;
+    return ['from', 'to', @days];
 }
-
 
 # Method: from
 #
@@ -368,93 +333,6 @@ sub sunday
     return $self->{'sunday'};
 }
 
-
-sub _setMemValue
-{
-    my ($self, $params) = @_;
-
-    my $name = $self->fieldName();
-    my @fields = ('from', 'to', @days);
-
-    foreach my $field (@fields) {
-        my $paramName = $name . '_' . $field;
-        $self->{$field} = $params->{$paramName};
-    }
-
-}
-
-
-# Method: _storeInGConf
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_storeInGConf>
-#
-sub _storeInGConf
-{
-    my ($self, $gconfmod, $key) = @_;
-
-    my $name = $self->fieldName();
-
-    my @stringFields = qw(from to);
-    my @boolFields   = @days;
-
-
-    foreach my $field (@stringFields, @boolFields) {
-        my $fieldKey = "$key/" . $name . '_' . $field;
-        $gconfmod->unset($fieldKey);
-    }
-
-    foreach my $field (@stringFields) {
-        my $fieldKey = "$key/" . $name . '_' . $field;
-        my $stValue = $self->$field();
-        $stValue or
-            $stValue = '';
-        $gconfmod->set_string($fieldKey, $stValue);
-    }
-
-    foreach my $field (@boolFields) {
-        my $fieldKey = "$key/" . $name . '_' . $field;
-        $gconfmod->set_bool($fieldKey, $self->$field());
-    }
-}
-
-# Method: _restoreFromHash
-#
-# Overrides:
-#
-#       <EBox::Types::Abstract::_restoreFromHash>
-#
-sub _restoreFromHash
-{
-    my ($self) = @_;
-
-    return unless ($self->row());
-    my $name = $self->fieldName();
-    my $from = $name . '_from';
-    my $to = $name . '_to';
-
-    my $value;
-    unless ($value = $self->_fetchFromCache()) {
-        my $gconf = $self->row()->GConfModule();
-        my $path = $self->_path();
-
-        $value->{'from'} = $gconf->get_string("$path/$from");
-        $value->{'to'} = $gconf->get_string("$path/$to");
-        foreach my $day (@days) {
-            $value->{$day} = $gconf->get_bool("$path/$name" . '_' . $day);
-        }
-        $self->_addToCache($value);
-    }
-
-    $self->{'from'} = $value->{from};
-    $self->{'to'} = $value->{to};
-    foreach my $day (@days) {
-        $self->{$day} = $value->{$day};
-    }
-}
-
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -491,7 +369,7 @@ sub _hoursParamsAreValid
     elsif ($to eq $from) {
         throw EBox::Exceptions::External(
              __('You must specify two diffrent hours to the range')
-                                        );
+        );
     }
 
     my @hourParams = ($name . '_from', $name . '_to');
@@ -551,7 +429,6 @@ sub _hoursParamsAreValid
     }
 }
 
-
 sub _daysParamsAreValid
 {
     my ($self, $params) = @_;
@@ -574,8 +451,6 @@ sub _daysParamsAreValid
     }
 }
 
-
-
 # Method: _paramIsSet
 #
 # Overrides:
@@ -585,8 +460,6 @@ sub _daysParamsAreValid
 sub _paramIsSet
 {
     my ($self, $params) = @_;
-
-#    my $name = $self->fieldName();
 
     return 1;
 }
@@ -632,7 +505,6 @@ sub _setValue # (defaultValue)
         $memValueParams{$name . '_to'}   = $to;
     }
 
-
     my %lettersToDays = reverse (%daysToLetters);
     my @letters = split //, $days;
     foreach my $letter (@letters) {
@@ -645,15 +517,8 @@ sub _setValue # (defaultValue)
         $memValueParams{$name . '_' . $day} = 0;
     }
 
-
-
-
-#     use Data::Dumper;
-#     print Dumper \%memValueParams;
     $self->setMemValue(\%memValueParams);
 
 }
-
-
 
 1;

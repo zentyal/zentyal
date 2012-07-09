@@ -21,9 +21,7 @@ use warnings;
 use base qw(EBox::Module::Service
             EBox::ObjectsObserver
             EBox::NetworkObserver
-            EBox::LogObserver
-            EBox::Model::ModelProvider
-            EBox::Model::CompositeProvider);
+            EBox::LogObserver);
 
 use EBox::Objects;
 use EBox::Global;
@@ -39,13 +37,12 @@ use EBox::Firewall::Model::ExternalToInternalRuleTable;
 use EBox::Firewall::Model::EBoxServicesRuleTable;
 use EBox::Firewall::Model::RedirectsTable;
 
-use EBox::Firewall::Model::Report::PacketTrafficDetails;
-use EBox::Firewall::Model::Report::PacketTrafficGraph;
-use EBox::Firewall::Model::Report::PacketTrafficReportOptions;
+use EBox::Firewall::Model::PacketTrafficDetails;
+use EBox::Firewall::Model::PacketTrafficGraph;
+use EBox::Firewall::Model::PacketTrafficReportOptions;
 
 
 use EBox::FirewallLogHelper;
-use EBox::Order;
 use EBox::Gettext;
 
 sub _create
@@ -96,33 +93,6 @@ sub actions
         ];
 }
 
-# Method: modelClasses
-#
-#      Overrides <EBox::Model::ModelProvider::modelClasses>
-#
-sub modelClasses
-{
-    my ($self) = @_;
-
-    return [
-            'EBox::Firewall::Model::ToInternetRuleTable',
-            'EBox::Firewall::Model::InternalToEBoxRuleTable',
-            'EBox::Firewall::Model::ExternalToEBoxRuleTable',
-            'EBox::Firewall::Model::EBoxOutputRuleTable',
-            'EBox::Firewall::Model::ExternalToInternalRuleTable',
-            'EBox::Firewall::Model::EBoxServicesRuleTable',
-            'EBox::Firewall::Model::RedirectsTable',
-            'EBox::Firewall::Model::Report::PacketTrafficDetails',
-            'EBox::Firewall::Model::Report::PacketTrafficGraph',
-            'EBox::Firewall::Model::Report::PacketTrafficReportOptions'
-           ];
-}
-
-sub compositeClasses
-{
-    return [ 'EBox::Firewall::Composite::Report::PacketTrafficReport' ]
-}
-
 # Method: initialSetup
 #
 # Overrides:
@@ -146,14 +116,14 @@ sub initialSetup
         }
 
         # Allow any Zentyal output by default
-        $self->addOutputService(
+        $self->model('EBoxOutputRuleTable')->add(
             decision => 'accept',
             destination =>  { destination_any => undef },
             service => $any,
         );
 
         # Allow any Internet access from internal networks
-        $self->addToInternetService(
+        $self->model('ToInternetRuleTable')->add(
             decision => 'accept',
             source => { source_any => undef },
             destination =>  { destination_any => undef },
@@ -162,42 +132,10 @@ sub initialSetup
     }
 }
 
-# Method: _exposedMethods
-#
-# Overrides:
-#
-#      <EBox::Model::ModelProvider::_exposedMethods>
-#
-sub _exposedMethods
-{
-    my %exposedMethods = (
-                addOutputService => {
-                            action => 'add',
-                            path   => [ 'EBoxOutputRuleTable' ]
-                        },
-                removeOutputService => {
-                            action => 'del',
-                            path   => [ 'EBoxOutputRuleTable' ],
-                            indexes => [ 'id' ]
-                        },
-                getOutputService => {
-                            action  => 'get',
-                            path    => [ 'EBoxOutputRuleTable' ],
-                            indexes => [ 'position' ],
-                        },
-                addToInternetService => {
-                            action => 'add',
-                            path   => [ 'ToInternetRuleTable' ]
-                        },
-            );
-
-    return \%exposedMethods;
-}
-
-
 sub restoreDependencies
 {
     my ($self) = @_;
+
     return ['services'];
 }
 
@@ -212,7 +150,6 @@ sub externalIfaceExists
 }
 
 ## internal utility functions
-
 
 sub _checkAction # (action, name?)
 {
@@ -264,51 +201,6 @@ sub _stopService
     $ipt->stop();
 }
 
-
-#
-# Method: denyAction
-#
-#       Returns the deny action
-#
-# Returns:
-#
-#       string - holding the deny action, DROP or REJECT
-#
-sub denyAction
-{
-    my ($self) = @_;
-    my $deny = $self->get_string("deny");
-    if(not defined($deny)) {
-        $deny = 'DROP';
-    }
-    return $deny;
-}
-
-#
-# Method: setDenyAction
-#
-#       Sets the deny action
-#
-# Parameters:
-#
-#       action - 'DROP' or 'REJECT'
-#
-# Exceptions:
-#
-#       InvalidData - action not valid
-#
-sub setDenyAction # (action)
-{
-    my ($self, $action) = @_;
-    if ($action ne "DROP" && $action ne "REJECT") {
-        throw EBox::Exceptions::InvalidData('data' => __('action'),
-                'value' => $action);
-    } elsif ($action eq $self->denyAction()) {
-        return;
-    }
-    $self->set_string("deny", $action);
-}
-
 # Method: removePortRedirectionsOnIface
 #
 #       Removes all the port redirections on a given interface
@@ -351,7 +243,7 @@ sub availablePort # (proto, port, interface)
     ($proto ne "") or return undef;
     defined($port) or return undef;
     ($port ne "") or return undef;
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance($self->isReadOnly());
     my $network = $global->modInstance('network');
     my $services = $global->modInstance('services');
 
@@ -382,8 +274,10 @@ sub availablePort # (proto, port, interface)
         }
     }
 
-    my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
+    my @mods = @{$global->modInstances()};
     foreach my $mod (@mods) {
+        $mod->can('usesPort') or
+            next;
         if ($mod->usesPort($proto, $port, $iface)) {
             return undef;
         }
@@ -421,115 +315,6 @@ sub requestAvailablePort
     } until ($available);
 
     return $port;
-}
-
-# Method: localRedirects
-#
-#       Returns a list of local redirections
-#
-# Returns:
-#
-#       array ref - holding the local redirections
-#
-sub localRedirects
-{
-    my ($self) = @_;
-    return $self->array_from_dir("localredirects");
-}
-
-#
-# Method: addLocalRedirect
-#
-#       Adds a local redirection. Packets directed at certain port to
-#       the local machine are redirected to the given port
-#
-# Parameters:
-#
-#       service - string: name of a service to redirect packets
-#       port - port to redirect from
-#
-#
-sub addLocalRedirect # (service, port)
-{
-    my ($self, $name, $port) = @_;
-    checkName($name) or throw EBox::Exceptions::Internal(
-                                __x("Name '{name}' is invalid", name => $name));
-    checkPort($port, __("port"));
-
-    my $protocol = $self->serviceProtocol($name);
-    ($protocol && $protocol ne "") or
-        throw EBox::Exceptions::Internal("Unknown service: $name");
-
-    my @redirects = $self->all_dirs("localredirects");
-    foreach (@redirects) {
-        my $tmpsrv = $self->get_string("$_/service");
-        if ($tmpsrv eq $name) {
-            if ($self->get_int("$_/port") eq $port) {
-                return;
-            } else {
-                next;
-            }
-        }
-        my $tmpproto = $self->serviceProtocol($tmpsrv);
-        ($tmpproto eq $protocol) or next;
-        if ($self->get_int("$_/port") eq $port) {
-            throw EBox::Exceptions::Internal
-                ("Port $port already redirected to service $tmpsrv");
-                }
-    }
-
-    my $id = $self->get_unique_id("r","localredirects");
-
-    $self->set_string("localredirects/$id/service", $name);
-    $self->set_int("localredirects/$id/port", $port);
-}
-
-#
-# Method: removeLocalRedirects
-#
-#       Removes all local redirections for a service
-#
-# Parameters:
-#
-#       service - string: name of a service to remove local redirections
-#
-#
-sub removeLocalRedirects # (service)
-{
-    my ($self, $name) = @_;
-    checkName($name) or throw EBox::Exceptions::Internal(
-                                __x("Name '{name}' is invalid", name => $name));
-
-    my @redirects = $self->all_dirs("localredirects");
-    foreach (@redirects) {
-        if ($self->get_string("$_/service") eq $name) {
-            $self->delete_dir("$_");
-        }
-    }
-}
-
-#
-# Method: removeLocalRedirect
-#
-#       Removes a local redirection for a service
-#
-# Parameters:
-#
-#       service - string: name of a service to remove local redirections
-#
-#
-sub removeLocalRedirect # (service, port)
-{
-    my ($self, $name, $port) = @_;
-    checkName($name) or throw EBox::Exceptions::Internal(
-                                __x("Name '{name}' is invalid", name => $name));
-
-    my @redirects = $self->all_dirs("localredirects");
-    foreach (@redirects) {
-        ($self->get_string("$_/service") eq $name) or next;
-        ($self->get_int("$_/port") eq $port) or next;
-        $self->delete_dir("$_");
-    }
 }
 
 # Method: usesIface
@@ -598,74 +383,6 @@ sub freeViface # (iface, viface)
 {
     my ($self, $iface, $viface) = @_;
     $self->removePortRedirectionsOnIface("$iface:$viface");
-}
-
-#
-# Method: OutputRules
-#
-#       Returns the output rules
-#
-# Return:
-#
-#       array ref - each element contains the following elements:
-#            - protocol - string: protocol (tcp|udp)
-#            - port - string: port number
-sub OutputRules
-{
-    my ($self) = @_;
-    return $self->array_from_dir("rules/output");
-}
-
-# Method: removeOutputRule
-#
-#       Removes an output rule
-#
-# Parameters:
-#
-#       protocol - string: protocol (tcp|udp)
-#       port - string: port number
-#
-# Returns:
-#
-#       boolean - true if it's deleted, otherwise undef
-sub removeOutputRule # (protocol, port)
-{
-    my ($self, $protocol, $port) = @_;
-
-    checkProtocol($protocol, __("protocol"));
-    checkPort($port, __("port"));
-
-    my @rules = $self->all_dirs("rules/output");
-    foreach (@rules) {
-        ($self->get_string("$_/protocol") eq $protocol) or next;
-        ($self->get_int("$_/port") eq $port) or next;
-        $self->delete_dir($_);
-        return 1;
-    }
-    return;
-}
-
-# Method: addOutputRule
-#
-#       Adds an output rule
-#
-# Parameters:
-#
-#       protocol - string: protocol (tcp|udp)
-#       port - string: port number
-sub addOutputRule # (protocol, port)
-{
-    my ($self, $protocol, $port) = @_;
-
-    checkProtocol($protocol, __("protocol"));
-    checkPort($port, __("port"));
-
-    $self->removeOutputRule($protocol, $port);
-
-    my $id = $self->get_unique_id("r","rules/output");
-
-    $self->set_string("rules/output/$id/protocol", $protocol);
-    $self->set_int("rules/output/$id/port", $port);
 }
 
 # Method: setInternalService
@@ -932,13 +649,13 @@ sub addServiceRules
             } elsif ($table eq 'external') {
                 $self->setExternalService($name, $decision);
             } elsif ($table eq 'output') {
-                $self->addOutputService(
+                $self->model('EBoxOutputRuleTable')->add(
                         decision => $decision,
                         destination => { destination_any => undef },
                         service => $servicesMod->serviceId($name),
                 );
             } elsif ($table eq 'internet') {
-                $self->addToInternetService(
+                $self->model('ToInternetRuleTable')->add(
                         decision => $decision,
                         source => { source_any => undef },
                         destination =>  { destination_any => undef },
@@ -982,6 +699,7 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
+                'description' => $params{description},
                 'internal' => 1,
                 'readOnly' => 1
                 );
@@ -991,6 +709,7 @@ sub _addService
                 'protocol' => $params{protocol},
                 'sourcePort' => $params{sourcePort},
                 'destinationPort' => $params{destinationPort},
+                'description' => $params{description},
                 'internal' => 1,
                 'readOnly' => 1);
 

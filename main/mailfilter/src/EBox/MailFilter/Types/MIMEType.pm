@@ -38,9 +38,6 @@ sub new
     return $self;
 }
 
-
-
-
 # Method: _paramIsValid
 #
 # Overrides:
@@ -66,23 +63,21 @@ sub _paramIsValid
 }
 
 
-
 my $ESCAPED_MIME_SEPARATOR = '_';
 
 sub _escapeMimeType
 {
-  my ($self, $mimeType) = @_;
-  $mimeType =~ s{/}{$ESCAPED_MIME_SEPARATOR};
+    my ($self, $mimeType) = @_;
+    $mimeType =~ s{/}{$ESCAPED_MIME_SEPARATOR};
 
-  return $mimeType;
+    return $mimeType;
 }
 
 sub _unescapeMimeType
 {
-  my ($self, $mimeType) = @_;
-  $mimeType =~ s{$ESCAPED_MIME_SEPARATOR}{/};
-  return $mimeType;
+    my ($self, $mimeType) = @_;
+    $mimeType =~ s{$ESCAPED_MIME_SEPARATOR}{/};
+    return $mimeType;
 }
-
 
 1;

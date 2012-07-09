@@ -25,21 +25,6 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the Sync composite
-#
-sub new
-{
-      my ($class) = @_;
-
-      my $self = $class->SUPER::new();
-
-      return $self;
-}
-
 # Group: Protected methods
 
 # Method: _description
@@ -50,19 +35,16 @@ sub new
 #
 sub _description
 {
-      my $users = EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
 
-      my $description =
-        {
-         components      => [ 'Master', 'SlavePassword', 'Slaves' ],
-         layout          => 'top-bottom',
-         name            => 'Sync',
-         compositeDomain => 'Users',
-         help =>
-             __('')
-        };
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'Sync',
+        compositeDomain => 'Users',
+        #help => __('')
+    };
 
-      return $description;
+    return $description;
 }
 
 sub pageTitle
@@ -108,6 +90,5 @@ sub preconditionFailMsg
     return __('You must enable the module Users in the module ' .
               'status section in order to use it.');
 }
-
 
 1;

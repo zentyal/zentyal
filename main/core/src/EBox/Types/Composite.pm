@@ -51,26 +51,25 @@ use Perl6::Junction qw(none);
 #
 sub new
 {
-        my $class = shift;
-    	my %opts = @_;
+    my $class = shift;
+    my %opts = @_;
 
-        unless (exists $opts{'HTMLSetter'}) {
-            $opts{'HTMLSetter'} ='/ajax/setter/composite.mas';
-        }
-        unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/composite.mas';
-        }
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/composite.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/composite.mas';
+    }
 
-        my $self = $class->SUPER::new(%opts);
-        $self->{'type'} = 'composite';
-        $self->{'types'} = $opts{'types'};
-        if ( not defined ( $self->{'types'} )) {
-            throw EBox::Exceptions::Internal('Composite types must have '
-                                             . '"types" attribute');
-        }
+    my $self = $class->SUPER::new(%opts);
+    $self->{'type'} = 'composite';
+    $self->{'types'} = $opts{'types'};
+    if (not defined ( $self->{'types'})) {
+        throw EBox::Exceptions::Internal('Composite types must have "types" attribute');
+    }
 
-        bless($self, $class);
-        return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: clone
@@ -104,7 +103,6 @@ sub clone
     }
 
     return $clonedType;
-
 }
 
 # Method: fields
@@ -123,7 +121,6 @@ sub fields
     }
 
     return @fields;
-
 }
 
 # Method: value
@@ -146,7 +143,6 @@ sub value
       $values{$simpleType->fieldName()} = $simpleType->value();
     }
     return \%values;
-
 }
 
 # Method: cmp
@@ -187,7 +183,6 @@ sub cmp
     }
 
     return $returnValue;
-
 }
 
 # Method: types
@@ -220,11 +215,9 @@ sub types
 #
 sub showTypeName
 {
-
     my ($self) = @_;
 
     return $self->{showTypeName};
-
 }
 
 
@@ -238,7 +231,6 @@ sub showTypeName
 #
 sub _setMemValue
 {
-
     my ($self, $params) = @_;
 
     $self->_callTypeMethod('_setMemValue', $params);
@@ -252,24 +244,22 @@ sub _setMemValue
 #
 sub _restoreFromHash
 {
-
     my ($self, $hash) = @_;
 
     $self->_callTypeMethod('_restoreFromHash', $hash);
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#      <EBox::Types::Text::_storeInGConf>
+#      <EBox::Types::Text::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
-    $self->_callTypeMethod('_storeInGConf', $gconfmod, $key);
-
+    $self->_callTypeMethod('_storeInHash', $hash);
 }
 
 # Method: _paramIsValid
@@ -280,13 +270,11 @@ sub _storeInGConf
 #
 sub _paramIsValid
 {
-
     my ($self, $params) = @_;
 
     $self->_callTypeMethod('_paramIsValid', $params);
 
     return 1;
-
 }
 
 # Method: _paramIsSet
@@ -303,7 +291,6 @@ sub _paramIsValid
 #
 sub _paramIsSet
 {
-
     my ($self, $params) = @_;
 
     foreach my $type ( @{$self->types()} ) {
@@ -312,8 +299,8 @@ sub _paramIsSet
             return 0;
         }
     }
-    return 1;
 
+    return 1;
 }
 
 # Method: _setValue
@@ -353,7 +340,6 @@ sub _callTypeMethod # (methodName, args)
     }
 
     return;
-
 }
 
 1;

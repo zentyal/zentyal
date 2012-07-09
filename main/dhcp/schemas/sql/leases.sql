@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS leases(
     timestamp TIMESTAMP,
     event VARCHAR(255),
     INDEX(timestamp)
-);
+) ENGINE = MyISAM;

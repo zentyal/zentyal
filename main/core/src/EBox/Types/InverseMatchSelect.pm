@@ -15,8 +15,8 @@
 
 # Class: EBox::Types::InverseMatchSelect
 #
-# 	This class inherits from <EBox::Types::Select> to add
-# 	inverse match support
+#	This class inherits from <EBox::Types::Select> to add
+#	inverse match support
 #
 #   FIXME: This package shouldn't exist as we should provide inverse match
 #   feature form abstract types and provide a real OO approach, not this
@@ -111,8 +111,8 @@ sub inverseMatch
 {
     my ($self) = @_;
 
+    return 0 unless defined ($self->{'inverseMatch'});
     return $self->{'inverseMatch'};
-
 }
 
 # Group: Protected methods
@@ -132,19 +132,18 @@ sub _setMemValue
     $self->{'inverseMatch'} = $params->{$self->inverseMatchField()};
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Abstract::_storeInGConf>
+#       <EBox::Types::Abstract::_storeInHash>
 #
-sub _storeInGConf
+sub _storeInHash
 {
-    my ($self, $gconfmod, $key) = @_;
+    my ($self, $hash) = @_;
 
-    $self->SUPER::_storeInGConf($gconfmod, $key);
-    $gconfmod->set_bool("$key/" . $self->inverseMatchField(),
-            $self->inverseMatch());
+    $self->SUPER::_storeInHash($hash);
+    $self->{$self->inverseMatchField()} = $self->inverseMatch();
 }
 
 # Method: _restoreFromHash
@@ -155,15 +154,13 @@ sub _storeInGConf
 #
 sub _restoreFromHash
 {
-    my ($self) = @_;
+    my ($self, $hash) = @_;
 
-    $self->SUPER::_restoreFromHash();
+    $self->SUPER::_restoreFromHash($hash);
     return unless ($self->row());
 
-    my $gconf = $self->row()->GConfModule();
-    my $path = $self->_path();
-    my $field = $self->fieldName();
-    $self->{'inverseMatch'} = $gconf->get_bool("$path/${field}_inverseMatch");
+    my $field = $self->fieldName() . '_inverseMatch';
+    $self->{'inverseMatch'} = $hash->{$field};
 }
 
 # Method: _setValue
@@ -184,26 +181,24 @@ sub _restoreFromHash
 #     value - hash ref or a basic value to pass
 #
 sub _setValue # (value)
-  {
+{
+    my ($self, $value) = @_;
 
-      my ($self, $value) = @_;
+    my ($selectedValue, $invMatch);
+    if ( ref ( $value ) eq 'HASH' ) {
+        $selectedValue = $value->{'value'};
+        $invMatch = $value->{'inverse'};
+    } else {
+        $selectedValue = $value;
+        $invMatch = 0;
+    }
 
-      my ($selectedValue, $invMatch);
-      if ( ref ( $value ) eq 'HASH' ) {
-          $selectedValue = $value->{'value'};
-          $invMatch = $value->{'inverse'};
-      } else {
-          $selectedValue = $value;
-          $invMatch = 0;
-      }
+    my $params = {
+        $self->fieldName() => $selectedValue,
+        $self->inverseMatchField => $invMatch,
+    };
 
-      my $params = {
-                    $self->fieldName() => $selectedValue,
-                    $self->inverseMatchField => $invMatch,
-                   };
-
-      $self->setMemValue($params);
-
-  }
+    $self->setMemValue($params);
+}
 
 1;

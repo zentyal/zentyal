@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS events(
                       level  VARCHAR(6),
                       source VARCHAR(256),
                       message VARCHAR(256)
-);
+) ENGINE = MyISAM;

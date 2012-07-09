@@ -40,7 +40,7 @@ use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Types::Union;
 
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 
 use constant {
     MIN_PREFERENCE_NUM => 0,
@@ -243,10 +243,6 @@ sub _hostnameModel
         $model->setDirectory($dir);
         return $model;
     # }
-
 }
-
-
-
 
 1;

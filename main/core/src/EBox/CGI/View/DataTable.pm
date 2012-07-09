@@ -72,9 +72,6 @@ sub _process
         if ( $self->param('action') eq 'presetUpdate' ) {
             $self->_presetUpdate();
         } else {
-#            my $rows = $model->rows(undef, 0);
-
- #           my $tpages = $model->pages(undef);
             my @params;
             push(@params, 'data' => undef );
             push(@params, 'dataTable' => $model->table());

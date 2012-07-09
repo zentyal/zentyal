@@ -36,7 +36,6 @@ use Perl6::Junction qw(any);
 
 sub new
 {
-
     my $class = shift;
     my %opts = @_;
 
@@ -206,15 +205,15 @@ sub _paramIsValid
     return 1;
 }
 
-# Method: _storeInGConf
+# Method: _storeInHash
 #
 # Overrides:
 #
-#       <EBox::Types::Basic::_storeInGConf>
+#       <EBox::Types::Basic::_storeInHash>
 #
 # TODO: It's currently used in LDAP-stored models, implement this if used in
 # redis-stored models.
-sub _storeInGConf
+sub _storeInHash
 {
     throw EBox::Exceptions::NotImplemented();
 }

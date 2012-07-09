@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
-use EBox::Model::ModelManager;
+use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::UsersAndGroups::User;
 use Error qw( :try );
@@ -72,7 +72,6 @@ sub mailboxesDir
 sub setUserAccount
 {
     my ($self, $user, $lhs, $rhs)  = @_;
-
     my $mail = EBox::Global->modInstance('mail');
     my $email = $lhs.'@'.$rhs;
 
@@ -120,16 +119,12 @@ sub setUserAccount
 sub delUserAccount
 {
     my ($self, $user, $usermail) = @_;
-
     ($self->_accountExists($user)) or return;
-
     if (not defined $usermail) {
         $usermail = $self->userAccount($user);
     }
 
     my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
-
     # First we remove all mail aliases asociated with the user account.
     foreach my $alias ($mail->{malias}->accountAlias($usermail)) {
                 $mail->{malias}->delAlias($alias);
@@ -252,7 +247,7 @@ sub _addUser
     my @vdomains = $mail->{vdomains}->vdomains();
     return unless (@vdomains);
 
-    my $model = EBox::Model::ModelManager::instance()->model('mail/MailUser');
+    my $model = $mail->model('MailUser');
     return unless ($model->enabledValue());
     my $vdomain = $model->domainValue();
     return unless ($vdomain and $mail->{vdomains}->vdomainExists($vdomain));
@@ -332,6 +327,12 @@ sub _userAddOns
     my $quotaType = $self->maildirQuotaType($user);
     my $quota   = $self->maildirQuota($user);
 
+    my $externalRetrievalEnabled = $mail->model('RetrievalServices')->value('fetchmail');
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+
+
     my @paramsList = (
             user        => $user,
             mail        => $usermail,
@@ -342,6 +343,9 @@ sub _userAddOns
             maildirQuota => $quota,
 
             service => $mail->service,
+
+            externalRetrievalEnabled => $externalRetrievalEnabled,
+            externalAccounts => \@externalAccounts,
     );
 
     return { path => '/mail/account.mas', params => { @paramsList } };
@@ -385,8 +389,8 @@ sub _modifyGroup
 #
 # Parameters:
 #
-#               username - username
-# Returnss:
+#               user - user object
+# Returns:
 #
 #               bool - true if user have mail account
 sub _accountExists

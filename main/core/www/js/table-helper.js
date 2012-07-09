@@ -1,3 +1,5 @@
+// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+
 // TODO
 //      - Use Form.serialize stuff to get params
 //      - Refactor addNewRow and actionClicked, they do almost the same
@@ -423,6 +425,9 @@ function customActionClicked(action, url, table, fields, directory, id, page)
             onComplete: function(t) {
                 highlightRow(id, false);
                 stripe('dataTable', 'even', 'odd');
+                $$('.customActions').each(function(e) {
+                        restoreHidden(e.identify(), table);
+                });
             },
             onFailure: function(t) {
                 $$('.customActions').each(function(e) {
@@ -459,9 +464,9 @@ function changeView(url, table, directory, action, id, page, isFilter)
             evalScripts: true,
             onComplete: function(t) {
               // Highlight the element
-                          if (id != undefined) {
+              if (id != undefined) {
                 highlightRow(id, true);
-                          }
+              }
               // Stripe again the table
               stripe('dataTable', 'even', 'odd');
               if ( action == 'changeEdit' ) {
@@ -480,8 +485,16 @@ function changeView(url, table, directory, action, id, page, isFilter)
               }
               else if ( action == 'changeEdit' ) {
                 restoreHidden('actionsCell_' + id, table);
-              }
-            }
+              } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+                var selector = 'input[id^="' + table + '_' + id + '_"]';
+                var checkboxes = $$(selector);
+                checkboxes.each(function(e) {
+                                  restoreHidden(e.parentNode.identify(), table);
+                                });
+
+                restoreHidden(table + '_' + id + '_div_CheckAll', table);
+             }
+         }
 
         });
 
@@ -495,6 +508,14 @@ function changeView(url, table, directory, action, id, page, isFilter)
     }
     else if ( action == 'changeEdit' ) {
       setLoading('actionsCell_' + id, table, true);
+   } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+       var selector = 'input[id^="' + table + '_' + id + '_"]';
+       var checkboxes = $$(selector);
+       checkboxes.each(function(e) {
+                         setLoading(e.parentNode.identify(), table, true);
+                      });
+
+      setLoading(table + '_' + id + '_div_CheckAll', table, true);
     }
 
 }
@@ -836,14 +857,19 @@ Parameters:
 
 */
 var savedElements = {};
+
+
 function setLoading (elementId, modelName, isSaved)
 {
-  if ( isSaved ) {
-    savedElements[elementId] = $(elementId).innerHTML;
+  var element = $(elementId);
+  if (isSaved) {
+    savedElements[elementId] = element.innerHTML;
   }
 
-  $(elementId).innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
+  element.innerHTML = '<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>';
 }
+
+
 
 /*
 Function: setDone
@@ -883,6 +909,16 @@ function restoreHidden (elementId, modelName)
         $(elementId).innerHTML = savedElements[elementId];
     } else {
         $(elementId).innerHTML = '';
+    }
+}
+
+function restoreHiddenElement (element)
+{
+  var elementId = element.id;
+  if (savedElements[elementId] != null) {
+        element.innerHTML = savedElements[elementId];
+    } else {
+        element.innerHTML = '';
     }
 }
 
@@ -992,7 +1028,7 @@ Parameters:
     controller - url
     model - model
     id - row id
-    dir - gconf dir
+    dir - conf dir
     field - field name
     element - HTML element
 */
@@ -1104,6 +1140,30 @@ function removeSelectChoice(id, value, selectedIndex)
    }
 
 }
+
+function checkAllControlValue(url, table, directory, controlId, field)
+{
+    var pars = 'action=checkAllControlValue&tablename=' + table + '&directory=' + directory;
+    pars += '&controlId=' + controlId  + '&field=' + field;
+    pars +=  '&json=1';
+
+    AjaxParams =  {
+            method: 'post',
+            parameters: pars,
+            evalScripts: true,
+            onComplete: function(t) {
+              completedAjaxRequest();
+              var json = t.responseText.evalJSON(true);
+              $(controlId).checked = json.success;
+            }
+    };
+
+    MyAjax = new Ajax.Request(
+      url,
+      AjaxParams
+    );
+}
+
 
 // Detect session loss on ajax request:
 Ajax.Responders.register({

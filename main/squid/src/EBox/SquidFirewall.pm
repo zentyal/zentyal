@@ -25,8 +25,6 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
-
-
 sub new
 {
     my $class = shift;
@@ -36,22 +34,28 @@ sub new
     return $self;
 }
 
+sub _global
+{
+    my ($self) = @_;
+    my $ro = $self->{ro};
+    return EBox::Global->getInstance($ro);
+}
 
 sub _objectsPolicies
 {
-    my $sq = EBox::Global->modInstance('squid');
+    my ($self) = @_;
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
     my $objPolicy = $sq->model('ObjectPolicy');
     return $objPolicy->objectsPolicies();
 }
 
-
-
 sub _normal_prerouting
 {
     my ($self) = @_;
-
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
@@ -82,42 +86,45 @@ sub _normal_prerouting
     return \@rules;
 }
 
-
 sub _normal_prerouting_object_rules
 {
     my ($self, $obPolicy, $ifc, $addr) = @_;
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
 
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my $input = $self->_inputIface($ifc);
 
     my @rules;
-
+    my $members = $obPolicy->{members};
     if (not $obPolicy->{filter}) {
-        foreach my $client ( @{ $obPolicy->{addresses}  }) {
-            my $r = "$input -d $addr -s $client -p tcp " .
+        foreach my $clientSrc ( @{ $members->iptablesSrcParams() } ) {
+            my $r = "$input -d $addr $clientSrc -p tcp " .
                 "--dport $sqport -j RETURN";
             push @rules, $r;
         }
     }
     else {
-        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "$input -d $addr -s $client -p tcp " .
+        foreach my $clientSrc ( @{ $members->iptablesSrcParams() } ) {
+            my $r = "$input -d $addr $clientSrc -p tcp " .
                 "--dport $sqport -j REDIRECT --to-ports $dgport";
             push @rules, $r;
         }
     }
 
+    EBox::debug("RULES @rules"); # DDD
     return \@rules;
 }
 
 sub _trans_prerouting
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
+
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
@@ -155,35 +162,35 @@ sub _trans_prerouting
     return \@rules;
 }
 
-
 sub _normal_trans_prerouting_object_rules
 {
     my ($self, $obPolicy, $ifc, $addr) = @_;
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
 
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my $input = $self->_inputIface($ifc);
 
     my @rules;
 
+    my $members = $obPolicy->{members};
     my $policy = $obPolicy->{policy};
     if (not $obPolicy->{filter}) {
-        foreach my $client ( @{ $obPolicy->{addresses}  }) {
-            my $r = "$input -d ! $addr -s $client -p tcp " .
+        foreach my $srcClient ( @{ $members->iptablesSrcParams() }) {
+            my $r = "$input -d ! $addr $srcClient -p tcp " .
                 "--dport 80 -j REDIRECT --to-ports $sqport";
             push @rules, $r;
         }
     }
     else {
-        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "$input -d ! $addr -s $client -p tcp " .
+        foreach my $srcClient ( @{ $members->iptablesSrcParams()  } ) {
+            my $r = "$input -d ! $addr $srcClient -p tcp " .
                 "--dport 80 -j REDIRECT --to-ports $dgport";
             push @rules, $r;
         }
     }
-
 
     return \@rules;
 }
@@ -191,7 +198,8 @@ sub _normal_trans_prerouting_object_rules
 sub prerouting
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
     if ($sq->transproxy()) {
         return $self->_trans_prerouting();
     } else {
@@ -202,8 +210,10 @@ sub prerouting
 sub input
 {
     my ($self) = @_;
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
+
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my @rules = ();
@@ -231,48 +241,44 @@ sub input
     return \@rules;
 }
 
-
 sub _input_object_rules
 {
     my ($self, $obPolicy, $ifc, $addr) = @_;
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
 
-    my $sq = EBox::Global->modInstance('squid');
-    my $net = EBox::Global->modInstance('network');
     my $sqport = $sq->port();
     my $dgport = $sq->dansguardianPort();
     my $input = $self->_inputIface($ifc);
 
     my @rules;
 
-
+    my $members = $obPolicy->{members};
     if (not $obPolicy->{filter}) {
-        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-m state --state NEW $input -s $client ".
+        foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
+            my $r = "-m state --state NEW $input $srcClient ".
                 "-p tcp --dport $sqport -j ACCEPT";
             push @rules, $r;
 
-            $r = "-m state --state NEW $input -s $client ".
+            $r = "-m state --state NEW $input $srcClient ".
                 "-p tcp --dport $dgport -j DROP";
             push @rules, $r;
         }
-    }
-    else {
-        foreach my $client ( @{ $obPolicy->{addresses}  } ) {
-            my $r = "-m state --state NEW $input -s $client ".
+    } else {
+        foreach my $srcClient ( @{ $members->iptablesSrcParams() } ) {
+            my $r = "-m state --state NEW $input $srcClient ".
                 "-p tcp --dport $dgport -j ACCEPT";
             push @rules, $r;
 
-            $r = "-m state --state NEW $input -s $client ".
+            $r = "-m state --state NEW $input $srcClient ".
                 "-p tcp --dport $sqport -j DROP";
             push @rules, $r;
         }
     }
 
-
     return \@rules;
 }
-
-
 
 sub output
 {

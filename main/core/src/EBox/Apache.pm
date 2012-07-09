@@ -17,12 +17,13 @@ package EBox::Apache;
 use strict;
 use warnings;
 
-use base 'EBox::Module::Service';
+use base qw(EBox::Module::Service);
 
 use EBox::Validate qw( :all );
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
+use EBox::Menu;
 use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
@@ -35,20 +36,13 @@ use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename;
-use POSIX qw(setsid);
+use File::Slurp;
+use POSIX qw(setsid setlocale LC_ALL);
 use Error qw(:try);
-use File::Path qw(remove_tree);
 
 # Constants
-use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
-use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
-use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
-use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
 use constant INCLUDE_KEY => 'includes';
 use constant CAS_KEY => 'cas';
-use constant ABS_PATH => 'absolute';
-use constant REL_PATH => 'relative';
-use constant APACHE_PORT => 443;
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant NO_RESTART_ON_TRIGGER => EBox::Config::tmp() . 'apache_no_restart_on_trigger';
 
@@ -56,7 +50,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name   => 'apache',
-                                      printableName => 'apache',
+                                      printableName => __('Zentyal Webadmin'),
                                       @_);
     bless($self, $class);
     return $self;
@@ -88,30 +82,38 @@ sub cleanupForExec
     open(STDIN, '/dev/null');
 }
 
-# restarting apache from inside apache could be problematic, so we fork() and
-# detach the child from the process group.
-sub _daemon # (action)
+
+# restarting apache from inside apache could be problematic, so we fork()
+sub _daemon
 {
-    my $self = shift;
-    my $action = shift;
+    my ($self, $action) = @_;
+
+    my $conf = EBox::Config::conf();
+    my $ctl = "APACHE_CONFDIR=$conf apache2ctl";
+
+    # Sometimes apache is running but for some reason apache.pid does not
+    # exist, with this workaround we always ensure a successful restart
+    my $pidfile = EBox::Config::tmp() . 'apache.pid';
     my $pid;
-    my $scripts = EBox::Config::scripts();
+    unless (-f $pidfile) {
+        $pid = `ps aux|grep 'apache2 -d $conf'|awk '/^root/{print \$2;exit}'`;
+        write_file($pidfile, $pid) if $pid;
+    }
 
     if ($action eq 'stop') {
-        EBox::Sudo::root($scripts . 'apache2ctl graceful-stop');
+        EBox::Sudo::root("$ctl stop");
     } elsif ($action eq 'start') {
-        EBox::Sudo::root($scripts . 'apache2ctl start');
+        EBox::Sudo::root("$ctl start");
     } elsif ($action eq 'restart') {
         unless (defined($pid = fork())) {
             throw EBox::Exceptions::Internal("Cannot fork().");
         }
-
         if ($pid) {
             return; # parent returns inmediately
+        } else {
+            EBox::Sudo::root("$ctl restart");
+            exit ($?);
         }
-        cleanupForExec();
-
-        exec(EBox::Config::scripts() . 'apache-restart');
     }
 
     if ($action eq 'stop') {
@@ -130,10 +132,11 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_changeHostname();
+    $self->_setLanguage();
     $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
+    $self->_setDesktopServicesPort();
     $self->enableRestartOnTrigger();
 }
 
@@ -165,8 +168,13 @@ sub _writeHttpdConfFile
     push @confFileParams, ( tmpdir => EBox::Config::tmp());
     push @confFileParams, ( eboxconfdir => EBox::Config::conf());
 
-    push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
+    push @confFileParams, ( restrictedResources => $self->get_list('restricted_resources') );
     push @confFileParams, ( includes => $self->_includes(1) );
+
+    my $desktop_services_enabled = EBox::Config::configkey('desktop_services_enabled');
+    my $desktop_services_port = EBox::Config::configkey('desktop_services_port');
+    push @confFileParams, ( desktop_services_enabled => $desktop_services_enabled );
+    push @confFileParams, ( desktop_services_port => $desktop_services_port );
 
     my $debugMode = EBox::Config::boolean('debug');
     push @confFileParams, ( debug => $debugMode);
@@ -181,7 +189,19 @@ sub _writeHttpdConfFile
     close(HTTPD);
 
     EBox::Sudo::root("/bin/mv $confile $httpdconf");
+}
 
+sub _setLanguage
+{
+    my ($self) = @_;
+
+    my $languageModel = $self->model('Language');
+
+    # TODO: do this only if language has changed?
+    my $lang = $languageModel->value('language');
+    EBox::setLocale($lang);
+    POSIX::setlocale(LC_ALL, EBox::locale());
+    EBox::Menu::regenCache();
 }
 
 sub _writeCSSFiles
@@ -215,7 +235,7 @@ sub _writeCAPath
 {
     my ($self) = @_;
 
-    remove_tree(CA_CERT_PATH);
+    system('rm -rf ' . CA_CERT_PATH);
     mkdir(CA_CERT_PATH);
 
     # Write links for each CA
@@ -257,26 +277,65 @@ sub _httpdConfFile
     return '/var/lib/zentyal/conf/apache2.conf';
 }
 
+sub _setDesktopServicesPort
+{
+    my $desktop_services_port = (EBox::Config::configkey('desktop_services_port') or 6895);
+    checkPort($desktop_services_port, __("Desktop services port"));
+
+    my $fw = EBox::Global->modInstance('firewall');
+    my $services = EBox::Global->modInstance('services');
+    if (defined($fw)) {
+        my $serviceName = 'desktop-services';
+        unless ( $services->serviceExists(name => $serviceName) ) {
+            $fw->addInternalService(
+                'name'              => $serviceName,
+                'printableName'     => __('Desktop Services'),
+                'description'       => __('Desktop Services (API for Zentyal Desktop)'),
+                'protocol'          => 'tcp',
+                'sourcePort'        => 'any',
+                'destinationPort'   => $desktop_services_port,
+               );
+            $fw->saveConfigRecursive();
+        } else {
+            my $currentConf = $services->serviceConfiguration($services->serviceId($serviceName));
+            if ( $currentConf->[0]->{destination} ne $desktop_services_port ) {
+                $services->setService(name          => $serviceName,
+                                      printableName => __('Desktop Services'),
+                                      description   => __('Desktop Services (API for Zentyal Desktop)'),
+                                      protocol      => 'tcp',
+                                      sourcePort    => 'any',
+                                      destinationPort => $desktop_services_port,
+                                      internal => 1, readOnly => 1);
+                $services->saveConfigRecursive();
+            }
+        }
+    }
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Create default rules and services
+    # only if installing the first time
+    unless ($version) {
+        $self->_setDesktopServicesPort();
+    }
+
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+}
 
 sub port
 {
-    my $self = shift;
-    my $port = $self->get_int('port');
-    $port or $port = APACHE_PORT;
-    return $port;
-}
-
-sub _changeHostname
-{
     my ($self) = @_;
 
-    my $hostname = $self->get_string('hostname');
-
-    if ($hostname) {
-        EBox::Sudo::root(EBox::Config::scripts() .
-                         "change-hostname $hostname");
-        $self->set_string('hostname', '');
-    }
+    return $self->model('AdminPort')->value('port');
 }
 
 # Method: setPort
@@ -292,9 +351,22 @@ sub setPort # (port)
     my ($self, $port) = @_;
 
     checkPort($port, __("port"));
-    if ($self->port() == $port) {
-        return;
-    }
+
+    my $adminPortModel = $self->model('AdminPort');
+    my $oldPort = $adminPortModel->value('port');
+
+    return if ($oldPort == $port);
+
+    $self->checkAdminPort($port);
+
+    $adminPortModel->setValue('port', $port);
+    $self->updateAdminPortService($port);
+}
+
+
+sub checkAdminPort
+{
+    my ($self, $port) = @_;
 
     my $global = EBox::Global->getInstance();
     my $fw = $global->modInstance('firewall');
@@ -321,13 +393,16 @@ q{Port {p} is already in use by program '{pr}'. Choose another port or free it a
             );
         }
     }
+}
 
+sub updateAdminPortService
+{
+    my ($self, $port) = @_;
+    my $global = $self->global();
     if ($global->modExists('services')) {
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
     }
-
-    $self->set_int('port', $port);
 }
 
 sub logs
@@ -409,21 +484,9 @@ sub setRestrictedResource
         }
     }
 
-    my $nSubs = ($resourceName =~ s:^/::);
-    my $rootKey = RESTRICTED_RESOURCES_KEY . "/$resourceName/";
-    if ( $nSubs > 0 ) {
-        $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
-                           ABS_PATH );
-    } else {
-        $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
-                           REL_PATH );
-    }
-
-    # Set the current list
-    $self->set_list( $rootKey . RESTRICTED_IP_LIST_KEY,
-                     'string', $allowedIPs );
-    $self->set_string( $rootKey . RESTRICTED_RESOURCE_TYPE_KEY,
-                       $resourceType);
+    my $resources = $self->get_list('restricted_resources');
+    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs, type => $resourceType});
+    $self->set('restricted_resources', $resources);
 }
 
 # Method: delRestrictedResource
@@ -448,49 +511,19 @@ sub delRestrictedResource
     my ($self, $resourcename) = @_;
 
     throw EBox::Exceptions::MissingArgument('resourcename')
-      unless defined ( $resourcename );
+        unless defined ($resourcename);
 
     $resourcename =~ s:^/::;
 
-    my $resourceKey = RESTRICTED_RESOURCES_KEY . "/$resourcename";
+    my $resources = $self->get_list('restricted_resources');
 
-    unless ( $self->dir_exists($resourceKey) ) {
-        throw EBox::Exceptions::DataNotFound( data  => 'resourcename',
-                                              value => $resourcename);
+    unless (exists $resources->{$resourcename}) {
+        throw EBox::Exceptions::DataNotFound(data  => 'resourcename',
+                                             value => $resourcename);
     }
 
-    $self->delete_dir($resourceKey);
-}
-
-# Get the structure for the apache.mas.in template to restrict a
-# certain number of resources for a set of ip addresses
-sub _restrictedResources
-{
-    my ($self) = @_;
-
-    my @restrictedResources = ();
-    foreach my $dir (@{$self->all_dirs_base(RESTRICTED_RESOURCES_KEY)}) {
-        my $resourcename = $dir;
-        my $compKey = RESTRICTED_RESOURCES_KEY . "/$dir";
-        while ( @{$self->all_dirs_base($compKey)} > 0 ) {
-            my ($subdir) = @{$self->all_dirs_base($compKey)};
-            $compKey .= "/$subdir";
-            $resourcename .= "/$subdir";
-        }
-        # Add first slash if the added resource name is absolute
-        if ( $self->get_string("$compKey/" . RESTRICTED_PATH_TYPE_KEY )
-             eq ABS_PATH ) {
-            $resourcename = "/$resourcename";
-        }
-        my $restrictedResource = {
-                              allowedIPs => $self->get_list("$compKey/" . RESTRICTED_IP_LIST_KEY),
-                              name       => $resourcename,
-                              type       => $self->get_string( "$compKey/"
-                                                               . RESTRICTED_RESOURCE_TYPE_KEY),
-                             };
-        push ( @restrictedResources, $restrictedResource );
-    }
-    return \@restrictedResources;
+    my @deleted = grep { $_ ne $resourcename} @{$resources};
+    $self->set('restricted_resources', \@deleted);
 }
 
 # Method: isEnabled
@@ -517,21 +550,22 @@ sub showModuleStatus
     return undef;
 }
 
-# Method: _supportActions
+# Method: addModuleStatus
 #
-#   Overrides <EBox::Module::Service>
+#   Do not show entry in the module status widget
 #
-#   This method determines if the service will have a button to start/restart
-#   it in the module status widget. By default services will have the button
-#   unless this method is overriden to return undef
-sub _supportActions
+# Overrides:
+#   EBox::Module::Service::addModuleStatus
+#
+sub addModuleStatus
 {
-    return undef;
 }
 
 # Method: addInclude
 #
 #      Add an "include" directive to the apache configuration
+#
+#      Added only in the main virtual host
 #
 # Parameters:
 #
@@ -774,6 +808,15 @@ sub enableRestartOnTrigger
 sub restartOnTrigger
 {
     return not EBox::Sudo::fileTest('-e', NO_RESTART_ON_TRIGGER);
+}
+
+sub usesPort
+{
+    my ($self, $proto, $port, $iface) = @_;
+    if ($proto ne 'tcp') {
+        return 0;
+    }
+    return $port == $self->port();
 }
 
 1;

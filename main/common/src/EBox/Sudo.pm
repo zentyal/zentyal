@@ -79,6 +79,7 @@ sub command # (command)
     my ($cmd) = @_;
     validate_pos(@_, 1);
 
+    EBox::debug($cmd);
     my @output = `$cmd 2> $STDERR_FILE`;
 
     if ($? != 0) {
@@ -92,7 +93,6 @@ sub command # (command)
 
     return \@output;
 }
-
 
 sub _commandError
 {
@@ -160,6 +160,7 @@ sub _root
 
     unshift (@cmds, 'set -e') if (@cmds > 1);
     my $commands = join("\n", @cmds);
+    EBox::debug($commands);
 
     # Create a tempfile to run commands afterwards
     my ($fhCmdFile, $cmdFile) = tempfile(DIR => EBox::Config::tmp(), SUFFIX => '.cmd');

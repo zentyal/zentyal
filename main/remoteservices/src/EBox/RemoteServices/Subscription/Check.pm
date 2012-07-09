@@ -32,7 +32,7 @@ use EBox::RemoteServices::Subscription;
 use Error qw(:try);
 
 # Constants
-use constant BANNED_MODULES => qw(asterisk jabber mail mailfilter virt zarafa);
+use constant BANNED_MODULES => qw(asterisk jabber mail mailfilter zarafa);
 # FIXME? To be provided by users mod?
 use constant MAX_SB_USERS   => 25;
 
@@ -80,24 +80,41 @@ sub unsubscribeIsAllowed
     return 1;
 }
 
-# Method: subscribe
+# Method: check
 #
-#    Check whether the host is able to subscribe this server according
-#    to its capabilities and the available subscription from the cloud.
-#
-#    If the server is already connected, then only serverName must be
-#    provided, if the server is not connected it requires the user and
-#    password pair instead
+#    Check if a server is suitable for the given edition codename
 #
 # Parameters:
 #
-#    user - String the username
+#    edition - String the subscription edition
 #
-#    password - String the password
+# Returns:
+#
+#    True - if it is suitable
+#
+sub check
+{
+    my ($self, $edition) = @_;
+
+    my $capable = 1;
+    if ($edition eq 'sb') {
+        try {
+            $self->_performSBChecks();
+        } catch EBox::RemoteServices::Exceptions::NotCapable with {
+            $capable = 0;
+        };
+    }
+    return $capable;
+}
+
+# Method: checkFromCloud
+#
+#    Check whether the host is able to subscribe this server according
+#    to its capabilities from cloud data
+#
+# Parameters:
 #
 #    serverName - String the server name
-#
-#    - Named parameters
 #
 # Returns:
 #
@@ -108,31 +125,15 @@ sub unsubscribeIsAllowed
 #    <EBox::RemoteServices::Exceptions::NotCapable> - thrown if it is not possible to
 #    subscribe your server
 #
-sub subscribe
+sub checkFromCloud
 {
-    my ($self, %params) = @_;
+    my ($self, $serverName) = @_;
 
-    my $availableEditions;
-    if ( exists($params{serverName})) {
-        my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
-        $availableEditions = $capabilitiesGetter->availableEdition();
-    } else {
-        my $subscriber     = new EBox::RemoteServices::Subscription(user     => $params{user},
-                                                                    password => $params{password});
-        $availableEditions = $subscriber->availableEdition();
-    }
+    my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
+    my $det = $capabilitiesGetter->subscriptionDetails();
 
-    foreach my $edition (@{$availableEditions}) {
-        if ( $edition eq 'sb' ) {
-            try {
-                $self->_performSBChecks();
-            } catch EBox::RemoteServices::Exceptions::NotCapable with {
-                my ($exc) = @_;
-                if ( $availableEditions->[-1] eq 'sb' ) {
-                    throw $exc;
-                }
-            };
-        }
+    if ( $det->{codename} eq 'sb' ) {
+        $self->_performSBChecks();
     }
     return 1;
 }
@@ -147,7 +148,6 @@ sub _performSBChecks
     my $gl = EBox::Global->getInstance();
     $self->_modCheck($gl);
     $self->_usersCheck($gl);
-    $self->_vpnCheck($gl);
 }
 
 # Check no communication profile, ids and virt module are enabled
@@ -172,6 +172,7 @@ sub _usersCheck
 {
     my ($self, $gl) = @_;
 
+    return; # TODO: Fix this! # Model Master and allSlaves
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
         if ( $usersMod->isEnabled() ) {
@@ -189,34 +190,6 @@ sub _usersCheck
                     __sx('The maximum number of users for Small Business Edition is {max} '
                          . 'and you currently have {nUsers}',
                          max => MAX_SB_USERS, nUsers => scalar(@{$users})));
-            }
-        }
-    }
-}
-
-# Check there is no VPN-VPN tunnel
-sub _vpnCheck
-{
-    my ($self, $gl) = @_;
-
-    if ( $gl->modExists('openvpn') ) {
-        my $openvpnMod = $gl->modInstance('openvpn');
-        my @servers    = $openvpnMod->servers();
-        foreach my $server (@servers) {
-            if ( $server->pullRoutes() ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers and '
-                         . "'{name}' VPN server is configured to allow this kind of tunnels",
-                         name => $server->name()));
-            }
-        }
-        my @clients = $openvpnMod->clients();
-        foreach my $client (@clients) {
-            if ( (not $client->internal()) and $client->ripPasswd() ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('The Small Business Edition cannot have VPN tunnels among Zentyal servers '
-                         . "and '{name}' VPN client is connected to another Zentyal server",
-                         name => $client->name()));
             }
         }
     }
