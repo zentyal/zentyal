@@ -215,6 +215,16 @@ sub _enforceServiceState
             # Dump tc and iptables commands
             my $tcCommands_ref = $self->{builders}->{$iface}->dumpTcCommands();
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
+            # DDD
+            use Data::Dumper;
+            my $db = sub { my ($msg) = @_; print $msg, "\n"; EBox::debug($msg)   };
+            $db->("Interface $iface");
+            $db->("tcCommands\n" . Dumper($tcCommands_ref));
+            $db->("iptablesCmds\n" . Dumper($ipTablesCommands_ref));
+            # END DDD
+
+
+
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
@@ -1157,26 +1167,38 @@ sub _buildObjMembers
     # Get the object's addresses
     my $objs = $self->{'objects'};
 
-    my $addresses_r = $objs->objectAddresses($objectName, mask => 1);
+    my $members_r = $objs->objectMembers($objectName);
 
     # Set a different filter identifier for each object's member
     my $filterId = $ruleRelated;
-    foreach my $addr_r (@{$addresses_r}) {
-        my ($memberIP, $memberMask) = @{ $addr_r };
+    foreach my $member (@{$members_r}) {
+        my $addressObject;
+        if ($member->{type} eq 'ipaddr') {
+            my $ipAddr = $member->{'ipaddr'};
+            $ipAddr =~ s:/.*$::g;
+            $addressObject = new EBox::Types::IPAddr(
+                ip => $ipAddr,
+                mask => $member->{mask},
+                fieldName => 'ip'
+               );
+        } elsif ($member->{type} eq 'iprange') {
+            $addressObject = new EBox::Types::IPRange(
+                begin => $member->{begin},
+                end => $member->{end},
+                fieldName => 'iprange'
+               );
+        } else {
+            throw EBox::Exceptions::Internal("Unexpected member type: " . $member->{type})
+        }
 
-        my $ip = new EBox::Types::IPAddr(
-                                         ip => $memberIP,
-                                         mask => $memberMask,
-                                         fieldName => 'ip'
-                                        );
         my $srcAddr;
         my $dstAddr;
         if ( $what eq 'source' ) {
-            $srcAddr = $ip;
+            $srcAddr = $addressObject;
             $dstAddr = $where;
         } elsif ( $what eq 'destination') {
             $srcAddr = $where;
-            $dstAddr = $ip;
+            $dstAddr = $addressObject;
         }
         $treeBuilder->addFilter(
                                 leafClassId => $ruleRelated,
