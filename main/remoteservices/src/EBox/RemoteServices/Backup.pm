@@ -54,7 +54,11 @@ sub new
     # TODO: Check $cloud_domain is not undef or ''
 
     $self->{cloud} = 'confbackup.' . $cloud_domain;
-    # TODO: Use this url in the REST calls
+
+    # Personalized RESTClient
+    my $cred = new EBox::RemoteServices::Cred();
+    $self->{restClient} = $cred->RESTClient();
+    $self->{restClient}->setServer($self->{cloud});
 
     bless($self, $class);
     return $self;
@@ -354,8 +358,7 @@ sub _pushConfBackup
 {
     my ($self, $archive, @p) = @_;
 
-    my $cred = new EBox::RemoteServices::Cred();
-    my $ret = $cred->RESTClient()->PUT('/conf-backup/meta/push/', \@p);
+    my $ret = $self->{restClient}->PUT('/conf-backup/meta/push/', \@p);
 
     # Send the file using curl
     my %p = @p;
@@ -414,24 +417,21 @@ sub _pullAllMetaConfBackup
 {
     my ($self, @p) = @_;
 
-    my $cred = new EBox::RemoteServices::Cred();
-    my $ret = $cred->RESTClient()->GET('/conf-backup/meta/pullall/', \@p);
+    return $self->{restClient}->GET('/conf-backup/meta/pullall/', \@p);
 }
 
 sub _pullFootprintMetaConf
 {
     my ($self, @p) = @_;
 
-    my $cred = new EBox::RemoteServices::Cred();
-    my $ret = $cred->RESTClient()->GET('/conf-backup/meta/pullfootprint/', \@p);
+    return $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', \@p);
 }
 
 sub _removeConfBackup
 {
     my ($self, @p) = @_;
 
-    my $cred = new EBox::RemoteServices::Cred();
-    my $ret = $cred->RESTClient()->DELETE('/conf-backup/meta/delete/', \@p);
+    return $self->{restClient}->DELETE('/conf-backup/meta/delete/', \@p);
 }
 
 1;

@@ -31,6 +31,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::RESTResult;
+use EBox::Validate;
 use Error qw(:try);
 use File::Temp;
 use HTTP::Status qw(HTTP_UNAUTHORIZED);
@@ -76,6 +77,26 @@ sub new {
     # $self->{server} = BASE_URL; # FIXME: To remove
 
     return $self;
+}
+
+# Method: setServer
+#
+#   Set the server the RESTClient must connect to
+#
+# Parameters:
+#
+#   server - IP or Domain Name the RESTClient must connect to
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::InvalidData> - thrown if the server is not a valid.
+#
+sub setServer {
+    my ($self, $server) = @_;
+
+    EBox::Validate::checkHost($host, "RESTClient Server");
+
+    $self->{server} = $server;
 }
 
 # Method: GET

@@ -1,4 +1,6 @@
 HEAD
+	+ Communications go outside the VPN using the new Cloud RESTful API
+	+ Added method setServer to RESTClient
 	+ New registration form on subscription wizard
 2.3.1
 	+ Use new module to calc average bandwidth from a day
