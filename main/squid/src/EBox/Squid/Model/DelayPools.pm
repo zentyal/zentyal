@@ -30,84 +30,86 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Select;
 use EBox::Types::Boolean;
-use EBox::Types::Int;
+use EBox::Squid::Types::UnlimitedInt;
 
 use Math::BigInt;
 
 # Group: Public methods
 
-# Method: validateTypedRow
+# Method: validateRow
 #
 # Overrides:
 #
-#       <EBox::Model::DataTable::validateTypedRow>
+#       <EBox::Model::DataTable::validateRow>
 #
-# Exceptions:
-#
-#       <EBox::Exceptions::InvalidData> - throw if parameter has
-#       invalid data.
-#
-sub validateTypedRow
+sub validateRow
 {
-    my ($self, $action, $params, $allFields) = @_;
+    my ($self, $action, %params) = @_;
 
-    if ( defined ( $params->{acl_object} ) ) {
+    if ($params{acl_object}) {
         # check objects have members
-        my $srcObjId = $params->{acl_object}->value();
+        my $srcObjId = $params{acl_object};
         my $objects = EBox::Global->modInstance('objects');
-        unless ( @{$objects->objectAddresses($srcObjId)} > 0 ) {
+        unless (@{$objects->objectAddresses($srcObjId)} > 0) {
             throw EBox::Exceptions::External(
                     __x('Object {object} has no members. Please add at ' .
                         'least one to add rules using this object.',
-                        object => $params->{acl_object}->printableValue()));
+                        object => $params{acl_object}));
         }
     }
 
-    # Check if the row to edit/add is enabled prior to check this
-    if ( defined( $params->{enabled} ) and $params->{enabled}->value() ) {
-        # Check the same object is not used in first delay pool table
-        my $srcObjId = $allFields->{acl_object}->value();
-        my $squidMod = $self->parentModule();
-        my $delayPools = $squidMod->model('DelayPools');
-        my $row = $delayPools->findRow('acl_object' => $srcObjId);
-        if ( defined($row) and $row->valueByName('enabled') ) {
-            throw EBox::Exceptions::External(
-                __x('Object {object} has an enabled {row} in {table}. Delete it first '
-                    . 'from there to add it here',
-                    object => $allFields->{acl_object}->printableValue(),
-                    row    => $delayPools->printableRowName(),
-                    table  => $delayPools->printableName()));
+    if ($params{global_enabled}) {
+        unless ($params{size} and $params{rate}) {
+            throw EBox::Exceptions::External(__('If global limit is enabled you need to specifiy its size and rate values'));
         }
     }
 
-    # Check the rate/size are set both if unlimited
-    my @allParams = ( [qw(size rate)], [qw(rate size)], [qw(clt_rate clt_size)],
-                      [qw(clt_size clt_rate)]);
-
-    foreach my $paramNames (@allParams) {
-        if ( defined( $params->{$paramNames->[0]} ) ) {
-            # Check the size is unlimited and the rate is unlimited
-            if ( $params->{$paramNames->[0]}->value() == -1
-                 and $allFields->{$paramNames->[1]}->value() != -1) {
-                throw EBox::Exceptions::External(__x('If {first} is set unlimited, '
-                                                     . 'then {second} must be set to unlimited as well',
-                                                     first => $params->{$paramNames->[0]}->printableName(),
-                                                     second => $allFields->{$paramNames->[1]}->printableName()));
-            }
+    if ($params{clt_enabled}) {
+        unless ($params{clt_size} and $params{clt_rate}) {
+            throw EBox::Exceptions::External(__('If per-client limit is enabled you need to specifiy its size and rate values'));
         }
     }
 
     # Check the clt_rate is always lower than rate (network)
-    if ( defined( $params->{rate} ) or defined( $params->{clt_rate} )) {
-        my $netRate = $allFields->{rate}->value();
-        $netRate = Math::BigInt->binf() if ($netRate == -1);
-        my $cltRate = $allFields->{clt_rate}->value();
-        $cltRate = Math::BigInt->binf() if ($cltRate == -1);
-        if ( $cltRate > $netRate ) {
-            throw EBox::Exceptions::External(__x('{clt_rate} is greater than {net_rate}',
-                                                 clt_rate => $allFields->{clt_rate}->printableName(),
-                                                 net_rate => $allFields->{rate}->printableName()));
+    if ($params{global_enabled} and $params{clt_enabled}) {
+        my $netRate = defined ($params{rate}) ? $params{rate} : Math::BigInt->binf();
+        my $cltRate = defined ($params{clt_rate}) ? $params{clt_rate} : Math::BigInt->binf();
+        if ($cltRate > $netRate) {
+            throw EBox::Exceptions::External(__x('Per-client rate ({clt_rate} KB/s) cannot be greater than global rate ({net_rate} KB/s)',
+                                                 clt_rate => $cltRate,
+                                                 net_rate => $netRate));
         }
+    }
+}
+
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    $self->_setUndefinedValues($row);
+}
+
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+
+    $self->_setUndefinedValues($row);
+}
+
+sub _setUndefinedValues
+{
+    my ($self, $row) = @_;
+
+    unless ($row->valueByName('global_enabled')) {
+        $row->elementByName('size')->setValue(undef);
+        $row->elementByName('rate')->setValue(undef);
+        $row->store();
+    }
+
+    unless ($row->valueByName('clt_enabled')) {
+        $row->elementByName('clt_size')->setValue(undef);
+        $row->elementByName('clt_rate')->setValue(undef);
+        $row->store();
     }
 }
 
@@ -140,27 +142,22 @@ sub _table
             hiddenOnViewer => 1,
             defaultValue   => 0,
         ),
-        new EBox::Types::Int(
+        new EBox::Squid::Types::UnlimitedInt(
             fieldName     => 'size',
             printableName => __('Maximum unlimited size'),
             help          => __('Maximum unthrottled download size for the whole network object.'),
             size          => 3,
             editable      => 1,
             trailingText  => __('MB'),
-            defaultValue  => 0,
             min           => 0,
-            filter        => \&_unlimitedFilter,
         ),
-        new EBox::Types::Int(
+        new EBox::Squid::Types::UnlimitedInt(
             fieldName     => 'rate',
             printableName => __('Maximum download rate'),
             help          => __('Limited download rate after maximum size is reached for the whole network object.'),
             size          => 3,
             editable      => 1,
             trailingText  => __('KB/s'),
-            defaultValue  => 0,
-            min           => 0,
-            filter        => \&_unlimitedFilter,
         ),
         new EBox::Types::Boolean(
             fieldName      => 'clt_enabled',
@@ -169,27 +166,21 @@ sub _table
             hiddenOnViewer => 1,
             defaultValue   => 0,
         ),
-        new EBox::Types::Int(
+        new EBox::Squid::Types::UnlimitedInt(
             fieldName     => 'clt_size',
             printableName => __('Maximum unlimited size per client'),
             help          => __('Maximum unthrottled download size for each client.'),
             size          => 3,
             editable      => 1,
             trailingText  => __('MB'),
-            defaultValue  => 0,
-            min           => 0,
-            filter        => \&_unlimitedFilter,
         ),
-        new EBox::Types::Int(
+        new EBox::Squid::Types::UnlimitedInt(
             fieldName     => 'clt_rate',
             printableName => __('Maximum download rate per client'),
             help          => __('Limited download rate after maximum size is reached for each client.'),
             size          => 3,
             editable      => 1,
             trailingText  => __('KB/s'),
-            defaultValue  => 0,
-            min           => 0,
-            filter        => \&_unlimitedFilter,
         ),
     );
 
@@ -224,7 +215,6 @@ sub delayPools
     my @pools;
 
     foreach my $pool (@{$self->enabledRows()}) {
-
         my $row = $self->row($pool);
         my $rate = $row->valueByName('rate');
         my $size = $row->valueByName('size');
@@ -234,10 +224,10 @@ sub delayPools
         my $addresses = $objects->objectAddresses($obj);
         push (@pools, { id => $pool,
                         class => '2',
-                        rate => $rate,
-                        size => $size,
-                        clt_rate => $clt_rate,
-                        clt_size => $clt_size,
+                        rate => defined ($rate) ? $rate : -1,
+                        size => defined ($size) ? $size : -1,
+                        clt_rate => defined ($clt_rate) ? $clt_rate : -1,
+                        clt_size => defined ($clt_size) ? $clt_size : -1,
                         object => $obj,
                         addresses => $addresses });
     }
@@ -261,33 +251,17 @@ sub viewCustomizer
             {
               global_enabled =>
                 {
-                  'on' => { show => [ 'size', 'rate' ] },
-                  'off' => { hide  => [ 'size', 'rate' ] },
+                  'on' => { enable => [ 'size', 'rate' ] },
+                  'off' => { disable  => [ 'size', 'rate' ] },
                 },
               clt_enabled =>
                 {
-                  'on' => { show => [ 'clt_size', 'clt_rate' ] },
-                  'off' => { hide  => [ 'clt_size', 'clt_rate' ] },
+                  'on' => { enable => [ 'clt_size', 'clt_rate' ] },
+                  'off' => { disable  => [ 'clt_size', 'clt_rate' ] },
                 },
             });
 
     return $customizer;
-}
-
-# FIXME: this doesn't work properly, because it doesn't remove trailingText
-# probably we need to create a subclassed type with a custom viewer...
-sub _unlimitedFilter
-{
-    my ($type) = @_;
-
-    my $value = $type->value();
-
-    # this should be -1 instead of 0
-    if ($value == 0) {
-        return __('Unlimited');
-    } else {
-        return $type->printableValue();
-    }
 }
 
 1;
