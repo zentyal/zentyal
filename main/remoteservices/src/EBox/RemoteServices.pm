@@ -487,7 +487,7 @@ sub monitorGathererIPAddresses
     my $monGatherers = [];
     try {
         # TODO: Do not hardcode
-        $monGatherers = ['mon.' . $self->cloudDomain())];
+        $monGatherers = ['mon.' . $self->cloudDomain()];
     } catch EBox::Exceptions::External with {
         ;
     };

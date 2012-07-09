@@ -94,7 +94,7 @@ sub new {
 sub setServer {
     my ($self, $server) = @_;
 
-    EBox::Validate::checkHost($host, "RESTClient Server");
+    EBox::Validate::checkHost($server, "RESTClient Server");
 
     $self->{server} = $server;
 }
