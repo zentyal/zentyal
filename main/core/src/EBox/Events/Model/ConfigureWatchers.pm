@@ -422,7 +422,7 @@ sub enableWatcher
     my ($self, $watcher, $enabled) = @_;
     my $row = $self->findRow(watcher => $watcher);
     if (not $row) {
-        throw EBox::Exceptions::DataNotFound("Watcher $watcher does not exists");
+        throw EBox::Exceptions::DataNotFound(data => 'watcher', value => $watcher);
     }
 
     $row->elementByName('enabled')->setValue($enabled);
@@ -434,7 +434,7 @@ sub isEnabledWatcher
     my ($self, $watcher) = @_;
     my $row = $self->findRow(watcher => $watcher);
     if (not $row) {
-        throw EBox::Exceptions::DataNotFound("Watcher $watcher does not exists");
+        throw EBox::Exceptions::DataNotFound(data => 'watcher', value => $watcher);
     }
 
     return $row->valueByName('enabled');
