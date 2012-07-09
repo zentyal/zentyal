@@ -99,7 +99,7 @@ sub objectIds # (object)
 #
 # Returns:
 #
-#       EBox::Objects::Members
+#       <EBox::Objects::Members>
 #
 # Exceptions:
 #

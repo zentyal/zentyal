@@ -209,7 +209,7 @@ sub _alreadyInSameObject
 #       id - object's id
 #
 # Returns:
-#       EBox::Objects::Members
+#       <EBox::Objects::Members>
 #
 # Exceptions:
 #
