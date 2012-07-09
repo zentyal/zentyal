@@ -14,6 +14,21 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
+# Class EBox::Objects::Members
+#
+#  This class represents the members of a object. It is an array with a element
+#  for each member. Each member contains a hash with this keys:
+#
+#            'name' - member name
+#            'type' - either 'ipaddr' or 'iprange;
+#             ipaddr type additional keys:
+#               'ipaddr' - ip/s member (CIDR notation)
+#               'mask'   -  network mask's member
+#               'macaddr' -  mac address' membe (could be empty if not deifned for the member)
+#             iprange type additional keys:
+#               'begin' - ip which marks the begins of the range (no mask)
+#               'end' - ip which marks the begins of the range (no mask)
+
 package EBox::Objects::Members;
 
 use strict;
