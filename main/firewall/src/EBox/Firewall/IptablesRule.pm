@@ -331,9 +331,8 @@ sub table
 #   inverseMatch - whether or not to do inverse match
 #   The source it can either:
 #   sourceAdddress - <EBox::Types::IPAddr>
+#   sourceRange - <EBox::Types::IPRange>
 #   sourceObject - object's id
-#
-#
 #
 sub setSourceAddress
 {
@@ -373,6 +372,7 @@ sub sourceAddress
 #   inverseMatch - whether or not to do inverse match
 #   The destination it can either:
 #   destinationAdddress - <EBox::Types::IPAddr>
+#   destinationRange - <EBox::Types::IPRange>
 #   destinationObject - object's id
 #
 #
