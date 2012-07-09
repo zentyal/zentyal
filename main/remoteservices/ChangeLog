@@ -1,4 +1,8 @@
 HEAD
+	+ QA Updates go outside the VPN
+	+ QA apt configuration files are now generated or removed when
+	  setting the configuration for the module (_setConf method)
+	+ QA repository public key included in the package
 	+ Added function cloudCredentials to get server uuid and pass
 	+ Added confKey monitoring_inside_vpn to configure whether the monitoring
 	  stats should be sent using the VPN or not

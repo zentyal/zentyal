@@ -2,8 +2,8 @@
   APT configuration for QA repository
 </%doc>
 <%args>
-  $repoAddr
+  $repoHostname
 </%args>
 Acquire::http::Proxy {
-   <% $repoAddr %> DIRECT;
+   <% $repoHostname %> DIRECT;
 };

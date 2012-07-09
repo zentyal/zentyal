@@ -1,0 +1,14 @@
+<%args>
+  $archive
+</%args>
+Package: *
+Pin: release a=<% $archive %>
+Pin-Priority: 900
+
+Package: *
+Pin: release a=now
+Pin-Priority: 500
+
+Package: *
+Pin: release *
+Pin-Priority: 50

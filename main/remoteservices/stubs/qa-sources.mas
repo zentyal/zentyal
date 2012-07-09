@@ -1,0 +1,10 @@
+<%doc>
+  The template to set the source list for QA updates
+</%doc>
+<%args>
+  $repositoryHostname
+  $archive => 'zentyal-qa'
+  $user
+  $pass
+</%args>
+deb http://<% $user %>:<% $pass %>@<% $repositoryHostname %>/ <% $archive %> main universe multiverse partner

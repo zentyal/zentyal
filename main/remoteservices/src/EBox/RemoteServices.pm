@@ -59,6 +59,7 @@ use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
 use EBox::RemoteServices::FirewallHelper;
 use EBox::RemoteServices::RESTClient;
+use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
@@ -147,6 +148,7 @@ sub _setConf
         $self->_reportAdminPort();
     }
 
+    $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
 }
 
@@ -1946,6 +1948,7 @@ sub REST
 #  * Migrate current subscription data in state to new structure
 #  * Rename VPN client
 #  * Get credentials
+#  * Rename file ebox-qa.list to zentyal-qa.list
 #
 sub _migrateTo30
 {
@@ -1954,6 +1957,7 @@ sub _migrateTo30
     # Drop old VPN client
     # Create a new one
     # Get credentials again
+    # Rename file ebox-qa.list to zentyal-qa.list
 }
 
 
@@ -2054,6 +2058,16 @@ sub cloudCredentials
     }
 
     return EBox::RemoteServices::Cred->new()->cloudCredentials();
+}
+
+# Method: _setQAUpdates
+#
+#       Turn the QA Updates ON or OFF depending on the subscription level
+#
+sub _setQAUpdates
+{
+    EBox::RemoteServices::QAUpdates::set();
+
 }
 
 1;
