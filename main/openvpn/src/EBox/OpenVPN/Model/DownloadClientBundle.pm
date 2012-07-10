@@ -32,7 +32,6 @@ use Error qw(:try);
 
 #   - addresses must be filled with the dafault addresses obtained from
 #    the serversAddr class method in EBox::OpenVPN::Server::ClientBundleGenerator
-#   - installer option should be only availble for windows clients
 sub new
 {
     my $class = shift;
@@ -361,6 +360,27 @@ sub preconditionFailMsg
     }
 
     return $msg;
+}
+
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $disableInstaller => {disable => ['installer']};
+    $customizer->setOnChangeActions(
+           {
+              clientType => {
+                  windows => { enable => ['installer'] },
+                  linux   => {disable => ['installer']},
+                  mac     => {disable => ['installer']},
+                  EBoxToEBox => {disable => ['installer']},
+                 }
+           }  );
+    return $customizer;
 }
 
 
