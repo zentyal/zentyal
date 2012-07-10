@@ -33,6 +33,7 @@ use File::Slurp;
 use File::Temp;
 use LWP::UserAgent;
 use URI;
+use HTTP::Status;
 
 # Constants
 use constant CURL => 'curl';
@@ -425,7 +426,13 @@ sub _pullFootprintMetaConf
 {
     my ($self, @p) = @_;
     # Transform p into a hash ref
-    return $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', {@p});
+    my $res = $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', {@p});
+
+    if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
+        throw EBox::Exceptions::DataNotFound();
+    }
+
+    return $res;
 }
 
 sub _removeConfBackup
