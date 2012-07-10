@@ -1,4 +1,5 @@
 HEAD
+	+ Sync kerberos hashes on master-slave
 	+ Resolve slave hostname during registering
 	+ Fixed framework changes related regression
 2.3.10

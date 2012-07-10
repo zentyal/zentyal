@@ -118,12 +118,6 @@ sub set
 {
     my ($self, $attr, $value) = @_;
 
-    if ($attr =~ m/^krb5Key$/ or
-        $attr =~ m/^userPassword$/) {
-        throw EBox::Exceptions::Internal(
-            __('The user password and kerberos keys cannot be modified directly. Please use the changePassword method.'));
-    }
-
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any CORE_ATTRS) {
         $self->{core_changed} = 1;
@@ -387,6 +381,24 @@ sub changePassword
 }
 
 
+# Method: setPasswordFromHashes
+#
+#   Configure user password directly from its kerberos hashes
+#
+# Parameters:
+#
+#   passwords - array ref of krb5keys
+#
+sub setPasswordFromHashes
+{
+    my ($self, $passwords) = @_;
+
+    $self->set('userPassword', '{K5KEY}');
+    $self->set('krb5Key', $passwords);
+    $self->set('krb5KeyVersionNumber', 1);
+}
+
+
 # Method: deleteObject
 #
 #   Delete the user
@@ -565,12 +577,11 @@ sub create
 
     # Set the user password and kerberos keys
     if (defined $passwd) {
-        $res->changePassword($passwd, 1);
-        delete $res->{core_changed_password};
+        $self->_checkPwdLength($passwd);
         $res->_ldap->changeUserPassword($res->dn(), $passwd);
     }
     elsif (defined($user->{passwords})) {
-        $res->setPasswordFromHashes($user->{passwords}, 1);
+        $res->setPasswordFromHashes($user->{passwords});
     }
 
     # Init user
