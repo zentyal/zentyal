@@ -36,6 +36,7 @@ use EBox::Gettext;
 use URI::Escape;
 use File::Slurp;
 use Error qw(:try);
+use MIME::Base64;
 
 sub new
 {
@@ -51,14 +52,15 @@ sub new
 
 sub _addUser
 {
-    my ($self, $user, $pass) = @_;
+    my ($self, $user) = @_;
 
+    my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
         user       => $user->get('uid'),
         fullname   => $user->get('cn'),
         surname    => $user->get('sn'),
         givenname  => $user->get('givenName'),
-        password   => $pass,
+        passwords  => \@passwords
     };
 
     if ($user->get('description')) {

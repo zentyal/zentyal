@@ -1,3 +1,5 @@
+HEAD
+	+ Sync passwords from LDAP to LDB directly from hashes
 2.3.7
 	+ Fixed problems with provision in fresh install
 	+ Adapted to new Model management framework
