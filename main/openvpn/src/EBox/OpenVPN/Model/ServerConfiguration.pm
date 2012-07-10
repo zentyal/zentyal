@@ -96,6 +96,12 @@ sub _table
                            )
                  ),
          new EBox::Types::Boolean(
+                 fieldName =>  'tunInterface',
+                 printableName => __('TUN interface'),
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
+         new EBox::Types::Boolean(
                  fieldName =>  'masquerade',
                  printableName => __('Network Address Translation'),
                  editable => 1,
@@ -587,6 +593,23 @@ sub _checkTunnelForbiddenParams
         }
     }
 }
+
+
+#  the interface type resides in the ServerModels so we must set it in the
+#  parentRow
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow) = @_;
+
+    my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
+    my $parentRow = $self->parentRow();
+    my $ifaceType = $parentRow->elementByName('interfaceType');
+    if ($ifaceType->value() ne $toSet) {
+        $ifaceType->setValue($toSet);
+        $parentRow->store();
+    }
+}
+
 
 
 sub configured

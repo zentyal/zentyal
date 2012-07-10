@@ -1,4 +1,5 @@
 HEAD
+	+ Servers can use a TUN interface
 	+ Using cloud DDNS address as defautl for client bundle
 	+ Added connection strategy option to client bundle
 	+ Unavailable options are hidden in download client bundle form
