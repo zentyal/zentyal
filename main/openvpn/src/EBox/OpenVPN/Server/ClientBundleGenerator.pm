@@ -34,7 +34,7 @@ use File::Slurp qw(read_file);
 
 sub _generateClientConf
 {
-    my ($class, $server, $file, $certificatesPath_r, $serversAddr_r) = @_;
+    my ($class, $server, $file, $certificatesPath_r, $serversAddr_r, %extraParams) = @_;
 
     my @confParams;
 
@@ -57,7 +57,9 @@ sub _generateClientConf
                   name => $server->name
               )
       );
+    push @confParams, (connStrategy => $extraParams{connStrategy});
     push @confParams, (servers => \@servers);
+
 
     my %certificates = %{$certificatesPath_r};
 
@@ -249,7 +251,7 @@ sub _createBundleContents
     # client configuration file
     my $confFile = $class->_confFile($server, $tmpDir);
     $class->_generateClientConf($server, $confFile, $certificatesPath_r,
-                                $serversAddr_r);
+                                $serversAddr_r, %params);
 
     $class->_copyCertFilesToDir($certificatesPath_r, $tmpDir);
 }

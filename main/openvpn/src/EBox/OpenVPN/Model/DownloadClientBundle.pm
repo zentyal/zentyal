@@ -72,6 +72,12 @@ sub _table
              editable => 1,
              help => __('OpenVPN installer for Microsoft Windows'),
              ),
+         new EBox::Types::Select(
+             fieldName => 'connStrategy',
+             printableName => __(q{Connection strategy}),
+             editable => 1,
+             populate => \&_connStrategyOptions,
+             ),
          new EBox::Types::Host(
                  fieldName => 'addr1',
                  printableName => __('Server address'),
@@ -112,6 +118,13 @@ sub _table
 }
 
 
+sub _connStrategyOptions
+{
+    return [
+        { value => 'random', printableValue => __('Random')},
+        { value => 'failover', printableValue => __('Failover')},
+       ];
+}
 
 
 sub _clientTypeOptions
@@ -260,7 +273,7 @@ sub formSubmitted
     my $type = $row->elementByName('clientType')->value();
     my $certificate = $row->elementByName('certificate')->value();
     my $installer = $row->elementByName('installer')->value();
-
+    my $connStrategy = $row->elementByName('connStrategy')->value();
 
     my @serverAddr;
     foreach my $field (qw(addr1 addr2 addr3)) {
@@ -276,6 +289,7 @@ sub formSubmitted
     my $bundle= $server->clientBundle(
                                       clientType => $type,
                                       clientCertificate => $certificate,
+                                      connStrategy => $connStrategy,
                                       addresses => \@serverAddr,
                                       installer => $installer,
                                          );
@@ -377,7 +391,7 @@ sub viewCustomizer
                   windows => { enable => ['installer'] },
                   linux   => {disable => ['installer']},
                   mac     => {disable => ['installer']},
-                  EBoxToEBox => {disable => ['installer']},
+                  EBoxToEBox => {disable => ['installer', 'connStrategy']},
                  }
            }  );
     return $customizer;

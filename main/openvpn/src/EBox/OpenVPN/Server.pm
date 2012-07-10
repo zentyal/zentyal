@@ -604,6 +604,7 @@ sub clientBundle
                clientCertificate => 1,
                addresses         => { type => ARRAYREF },
                installer         => 0,
+               connStrategy      => { default => 'random' },
              }
     );
 
