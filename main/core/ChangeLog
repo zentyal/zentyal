@@ -1,3 +1,5 @@
+HEAD
+	+ Fix exception raising when no event component is found
 2.3.14
 	+ Error message for failure in package cache creation
 	+ Fixed regression when showing a data table in a modal view

@@ -485,14 +485,23 @@ sub monitorGathererIPAddresses
     }
 
     my $monGatherers = [];
-    try {
-        # TODO: Do not hardcode
-        $monGatherers = ['mon.' . $self->cloudDomain()];
-    } catch EBox::Exceptions::External with {
-        ;
-    };
-    return $monGatherers;
 
+    # If conf key says so, monitoring goes inside the VPN
+    if (EBox::Config::boolean('monitoring_inside_vpn')) {
+        try {
+            $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
+        } catch EBox::Exceptions::Base with {
+            ;
+        };
+    } else {
+        try {
+            # TODO: Do not hardcode
+            $monGatherers = ['mon.' . $self->cloudDomain()];
+        } catch EBox::Exceptions::External with {
+            ;
+        };
+    }
+    return $monGatherers;
 }
 
 
@@ -2019,6 +2028,32 @@ sub cloudDomain
     }
 
     return EBox::RemoteServices::Cred->new()->cloudDomain();
+}
+
+# Method: cloudCredentials
+#
+#        Return the Zentyal Cloud Credentials if the server is subscribed
+#
+# Returns:
+#
+#        Hash ref - 'uuid' and 'password'
+#
+# Exceptions:
+#
+#        <EBox::Exceptions::External> - thrown if the host is not
+#        subscribed to Zentyal Cloud
+#
+sub cloudCredentials
+{
+    my ($self) = @_;
+
+    unless ( $self->eBoxSubscribed() ) {
+        throw EBox::Exceptions::External(
+            __('The Zentyal Cloud Credentials are only available if the host is subscribed')
+           );
+    }
+
+    return EBox::RemoteServices::Cred->new()->cloudCredentials();
 }
 
 1;
