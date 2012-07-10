@@ -98,12 +98,10 @@ sub _table
                     printableName => __('Deny All'),
                 ),
                 new EBox::Types::Select(
-                    fieldName => 'filter',
+                    fieldName => 'profile',
                     printableName => __('Apply Filter Profile'),
                     foreignModel  => $self->modelGetter('squid', 'FilterProfiles'),
                     foreignField  => 'name',
-                    # FIXME: this does not seem to work with composites
-                    #foreignNextPageField => 'filterPolicy',
                     editable      => 1,
                 )
             ]
@@ -284,7 +282,8 @@ sub objectsProfiles
     foreach my $id (@{ $self->ids()  }) {
         my $row = $self->row($id);
         my $profile = $row->valueByName('profile');
-        if ($row->valueByName('policy') ne 'filter') {
+        if ($row->valueByName('policy') ne 'profile') {
+            # FIXME
             EBox::debug("Object row with id $id has a custom filter group and a policy that is not 'filter'");
             next;
         }
@@ -331,7 +330,7 @@ sub rulesUseFilter
 
     foreach my $id (@{$self->ids()}) {
         my $obPolicy = $self->row($id)->valueByName('policy');
-        return 1 if $obPolicy eq 'filter';
+        return 1 if $obPolicy eq 'profile';
         return 1 if $obPolicy eq 'authAndFilter';
     }
 
