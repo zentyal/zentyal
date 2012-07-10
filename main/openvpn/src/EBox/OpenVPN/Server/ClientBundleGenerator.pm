@@ -91,88 +91,34 @@ sub mangleConfFile
     # no mangling by default
 }
 
-sub serversAddr
+sub serverAddr
 {
-    my ($class, $server,) = @_;
-    validate_pos(@_, 1, 1);
+    my ($class, $server, $globalRW) = @_;
+    $server or
+        throw EBox::Exceptions::MissingArgument('server');
 
-    # get local addresses
-    my @localAddr;
-    if ($server->localAddress()) {
-        push @localAddr, $server->localAddress();
-    }else {
-        my $network = EBox::Global->modInstance('network');
-        @localAddr =
-          map { $network->ifaceAddress($_) } @{ $network->ExternalIfaces()};
-        @localAddr
-          or throw EBox::Exceptions::External(
-            __(
-q{Can't get address for this server: no external interfaces present}
-            )
-          );
+    my $global = EBox::Global->getInstance($globalRW);
+    my $network = $global->modInstance('network');
+    unless ($network->DDNSUsingCloud() and $network->isDDNSEnabled()) {
+        return [];
     }
 
-    my @externalAddr = $class->_resolveExternalAddr(@localAddr);
-    return \@externalAddr;
+    my $rs = $global->modInstance('remoteservices');
+    $rs or return [];
+
+    my $hostname = $rs->dynamicHostname();
+    if ($hostname) {
+        return [$hostname]
+    }
+    return [];
 }
 
-sub IPResolvUrl
-{
-    return 'http://www.showmyip.com/simple/';
-}
 
 sub confFileExtraParameters
 {
     return ();
 }
 
-sub _resolveExternalAddr
-{
-    my ($class, @localAddr) = @_;
-
-    my $addrFile = EBox::Config::tmp() . '/openvpn-wget.html';
-    if (-e $addrFile) {
-        unlink $addrFile
-          or throw EBox::Exceptions::Internal(
-                                       "Cannot remove temporal file $addrFile");
-    }
-
-    my %externalAddr;
-    foreach my $local (@localAddr) {
-        my $cmd = _getHtmlPageCmd($addrFile, $local);
-        system $cmd;
-
-    # we check -z because some http errrors don't cause wget to singal error but
-    #  in these cases it does not write nothing in the output file (but cretes
-    #  it) Maybe exists some case that doesn't signal error AND it writes
-    #  something in the file, in that case we can
-        if ($? == 0 and (not -z $addrFile))  {
-            my $contents = read_file($addrFile);
-            my ($ipAddr) = split '\s', $contents, 2;
-            if (EBox::Validate::checkIP($ipAddr)) {
-                $externalAddr{$ipAddr} = 1;
-            }else {
-                EBox::error("Invalid IP address: $ipAddr. Discarding it");
-            }
-        }
-
-        if (-e $addrFile) {
-            unlink $addrFile
-              or throw EBox::Exceptions::Internal(
-                                       "Cannot remove temporal file $addrFile");
-        }
-    }
-
-    return keys %externalAddr;
-}
-
-sub _getHtmlPageCmd
-{
-    my ($addrFile, $local) = @_;
-    my $cmd = "wget -O '$addrFile' --bind-address=$local --tries=1 --timeout=6 "
-      . IPResolvUrl();
-    return $cmd;
-}
 
 sub _copyCertFilesToDir
 {

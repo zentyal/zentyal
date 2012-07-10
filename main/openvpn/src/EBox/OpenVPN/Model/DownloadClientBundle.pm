@@ -347,7 +347,7 @@ sub precondition
         }
     } otherwise {
         my $ex = shift;
-        $self->{addPreconditionMsg} = $ex->text();
+        $self->{addPreconditionMsg} = "$ex";
         $configured = 0;
     };
 }
@@ -367,7 +367,7 @@ sub _defaultServerAddr
 {
     my ($self) = @_;
     my $server = $self->parentRow()->printableValueByName('name');
-    return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server);
+    return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server, $self->parentModule()->isReadOnly());
 }
 
 # Method: preconditionFailMsg
