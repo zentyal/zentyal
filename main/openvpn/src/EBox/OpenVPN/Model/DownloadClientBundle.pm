@@ -30,8 +30,6 @@ use EBox::OpenVPN::Types::Certificate;
 
 use Error qw(:try);
 
-#   - addresses must be filled with the dafault addresses obtained from
-#    the serversAddr class method in EBox::OpenVPN::Server::ClientBundleGenerator
 sub new
 {
     my $class = shift;
@@ -42,8 +40,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub _table
 {
