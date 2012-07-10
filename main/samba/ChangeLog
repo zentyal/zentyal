@@ -1,3 +1,9 @@
+HEAD
+	+ Avoid showing admin password if provision command fails
+	+ Add domain name validation, cannot be equal to host name
+	+ Fix provision bug caused by passwords containing spaces
+	+ Threaded synchronizer script
+	+ Roaming profiles implementation
 2.3.7
 	+ Fixed problems with provision in fresh install
 	+ Adapted to new Model management framework

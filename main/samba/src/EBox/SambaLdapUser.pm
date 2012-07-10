@@ -74,27 +74,40 @@ sub _addUser
     my $description = $user->get('description');
 
     my $attrs = [];
-    push ($attrs, objectClass       => 'user');
+    push ($attrs, objectClass       => ['user', 'posixAccount']);
     push ($attrs, sAMAccountName    => $samAccountName);
+    push ($attrs, uidNumber         => $uidNumber);
     push ($attrs, sn                => $sn);
     push ($attrs, givenName         => $givenName);
     push ($attrs, userPrincipalName => $principal);
     push ($attrs, description       => $description) if defined $description;
 
-    EBox::debug("Creating roaming profile directory for samba user '$samAccountName'");
-    my $profileDir = PROFILESPATH . "/$samAccountName";
-    $self->_createDir($profileDir, $uidNumber, $gidNumber, '0700');
+    # Set the romaing profile attribute if enabled
+    if ($self->{samba}->roamingProfiles()) {
+        my $netbiosName = $self->{samba}->netbiosName();
+        my $realmName = $self->{samba}->realm();
+        my $profilePath = "\\\\$netbiosName.$realmName\\profiles\\$samAccountName";
+        push ($attrs, profilePath => $profilePath);
+    }
 
     try {
         $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($dn, { attrs => $attrs });
         $self->{ldb}->changeUserPassword($dn, $password);
-        $self->{ldb}->modify($dn, { changes => [ replace => [ userAccountControl => 512 ] ] });
 
-        # Map UID to SID
-        my $sid   = $self->{ldb}->getSidById($samAccountName);
-        my $idmap = $self->{ldb}->idmap();
-        $idmap->setupNameMapping($sid, $idmap->TYPE_UID(), $uidNumber);
+        # Get the entry from samba LDAP to read the SID and create the roaming profile dir
+        my $args = { base   => $self->{ldb}->dn(),
+                     scope  => 'sub',
+                     filter => "(samAccountName=$samAccountName)",
+                     attrs  => []};
+        my $result = $self->{ldb}->search($args);
+        if ($result->count() == 1) {
+            my $entry = $result->entry(0);
+            $self->{ldb}->createRoamingProfileDirectory($entry);
+        }
+
+        # Finally enable the account
+        $self->{ldb}->modify($dn, { changes => [ replace => [ userAccountControl => 512 ] ] });
     } otherwise {
         my $error = shift;
         EBox::error($error);
@@ -165,12 +178,7 @@ sub _delUser
         EBox::debug("Deleting user '$dn' from LDB");
         $self->{ldb}->disableZentyalModule();
         $self->{ldb}->delete($dn);
-
         # TODO Update shares ACLs to delete the SID
-
-        # Delete uid mapping
-        my $idmap = $self->{ldb}->idmap();
-        $idmap->deleteMapping($sid);
     } otherwise {
         my $error = shift;
         EBox::error($error);
@@ -197,16 +205,12 @@ sub _addGroup
     my $attrs = [];
     push ($attrs, objectClass    => 'group');
     push ($attrs, sAMAccountName => $samAccountName);
+    push ($attrs, gidNumber      => $gidNumber);
     push ($attrs, description    => $description) if defined $description;
 
     try {
         $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($dn, { attrs => $attrs });
-
-        # Map GID to SID
-        my $sid   = $self->{ldb}->getSidById($samAccountName);
-        my $idmap = $self->{ldb}->idmap();
-        $idmap->setupNameMapping($sid, $idmap->TYPE_GID(), $gidNumber);
     } otherwise {
         my $error = shift;
         EBox::error($error);
@@ -286,32 +290,12 @@ sub _delGroup
         $self->{ldb}->delete($dn);
 
         # TODO Update shares ACLs to delete the SID
-
-        # Delete gid mapping
-        my $idmap = $self->{ldb}->idmap();
-        $idmap->deleteMapping($sid);
     } otherwise {
         my $error = shift;
         EBox::error($error);
     } finally {
         $self->{ldb}->enableZentyalModule();
     };
-}
-
-sub _createDir
-{
-    my ($self, $path, $uid, $gid, $chmod) = @_;
-
-    my @cmds;
-    push (@cmds, "mkdir -p \'$path\'");
-    push (@cmds, "chown $uid:$gid \'$path\'");
-
-    if ($chmod) {
-        push (@cmds, "chmod $chmod \'$path\'");
-    }
-
-    EBox::debug("Executing @cmds");
-    EBox::Sudo::root(@cmds);
 }
 
 sub _directoryEmpty

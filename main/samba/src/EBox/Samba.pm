@@ -40,6 +40,7 @@ use EBox::Util::Random qw( generate );
 
 use Net::Domain qw(hostdomain);
 use Error qw(:try);
+use File::Slurp;
 
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBAPROVISION       => '/usr/share/samba/setup/provision';
@@ -573,23 +574,30 @@ sub provision
         ' --workgroup=' . $self->workgroup() .
         ' --realm=' . $realm .
         ' --dns-backend=BIND9_FLATFILE' .
+        ' --use-xattrs=yes ' .
         ' --server-role=' . $self->mode() .
         ' --users=' . $users->DEFAULTGROUP() .
         ' --host-name=' . $sysinfo->hostName();
 
     EBox::debug("Provisioning database '$cmd'");
 
-    $cmd .= ' --adminpass=' . $self->administratorPassword();
+    $cmd .= " --adminpass='" . $self->administratorPassword() . "'";
 
-    try {
-        my $output = EBox::Sudo::root($cmd);
+    # Use silent root to avoid showing the admin pass in the logs if
+    # provision command fails.
+    my $output = EBox::Sudo::silentRoot($cmd);
+    if ($? == 0) {
         EBox::debug("Provision result: @{$output}");
         # Mark the module as provisioned
         EBox::debug('Setting provisioned flag');
         $self->set_bool('provisioned', 1);
-    } otherwise {
-        my $error = shift;
-        throw EBox::Exceptions::Internal("Error provisioning database: $error");
+    } else {
+        my @error = ();
+        my $stderr = EBox::Config::tmp() . 'stderr';
+        if (-r $stderr) {
+            @error = read_file($stderr);
+        }
+        throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
     };
 
     # The administrator password is also the password for the 'Zentyal' user,
@@ -690,6 +698,9 @@ sub provision
     $service->{subdomain} = 'Default-First-Site-Name._sites.dc._msdcs';
     $dnsMod->addService($domainName, $service);
 
+    # Set the domain as dynamic. Otherwise apparmor deny the updates.
+    $dnsMod->setDynamic($domainName, 1);
+
     # Disable password policy
     # NOTE complexity is disabled because when changing password in
     #      zentyal the command may fail if it do not meet requirements,
@@ -763,18 +774,22 @@ sub _setConf
 
     my $interfaces = join (',', @{$self->sambaInterfaces()});
 
+    my $netbiosName = $self->netbiosName();
+    my $realmName   = $self->realm();
+
     my @array = ();
     push(@array, 'workgroup'   => $self->workgroup());
-    push(@array, 'netbiosName' => $self->netbiosName());
+    push(@array, 'netbiosName' => $netbiosName);
     push(@array, 'description' => $self->description());
     push(@array, 'ifaces'      => $interfaces);
     push(@array, 'mode'        => $self->mode());
-    push(@array, 'realm'       => $self->realm());
-    #push(@array, 'roamingProfiles' => $self->roamingProfiles());
+    push(@array, 'realm'       => $realmName);
+    push(@array, 'roamingProfiles' => $self->roamingProfiles());
     #push(@array, 'drive'       => $self->drive());
 
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
+
     my $guestShares = 0;
     foreach my $share (@{$shares}) {
         if ($share->{'guest'}) {
@@ -800,6 +815,22 @@ sub _setConf
     $self->model('SambaDeletedShares')->removeDirs();
     # Create samba shares
     $self->model('SambaShares')->createDirs();
+
+    # Set roaming profiles
+    if ($self->roamingProfiles()) {
+        my $path = "\\\\$netbiosName.$realmName\\profiles";
+        $self->ldb()->setRoamingProfiles(1, $path);
+    } else {
+        $self->ldb()->setRoamingProfiles(0);
+    }
+
+    # Mount user home on network drive
+    my $drive = $self->drive();
+    if ($drive ne 'disabled') {
+        EBox::debug('Enabling drive');
+    } else {
+        EBox::debug('Disabling drive');
+    }
 }
 
 sub _shareUsers
