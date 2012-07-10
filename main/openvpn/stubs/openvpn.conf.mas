@@ -24,6 +24,8 @@ $ippFile
 
 @advertisedNets => ()
 
+$clientConfigDir => undef
+
 $dns1 => undef
 $dns2 => undef
 $searchDomain => undef
@@ -176,6 +178,9 @@ push "dhcp-option WINS <% $wins %>"
 push "dhcp-option DOMAIN <% $searchDomain %>"
 % }
 
+% if ($clientConfigDir) {
+client-config-dir <% $clientConfigDir %>
+% }
 
 <& advertisedNets, nets => \@advertisedNets &>
 

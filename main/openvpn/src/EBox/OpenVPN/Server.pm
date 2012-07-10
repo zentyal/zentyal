@@ -67,10 +67,15 @@ sub daemonFiles
 
     my @files = $class->SUPER::daemonFiles($name);
     my $confDir = $class->_openvpnModule->confDir();
-    my $ippFile = $class->_ippFileForDaemon($confDir, $name);
 
+    my $ippFile = $class->_ippFileForDaemon($confDir, $name);
     if (-f $ippFile) {
-        push (@files, $ippFile);
+        push @files, $ippFile;
+    }
+
+    my $serverConfigDir = $class->serverConfigDirPath($confDir, $name);
+    if (-d $serverConfigDir) {
+        push @files, $serverConfigDir;
     }
 
     return @files;
@@ -412,6 +417,7 @@ sub confFileParams
     my @paramsNeeded =
       qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify
          clientToClient user group proto dh tlsRemote
+         clientConfigDir
          searchDomain dns1 dns2 wins
        );
     foreach  my $param (@paramsNeeded) {
@@ -572,6 +578,28 @@ sub advertisedNets
     }
 
     return @nets;
+}
+
+
+# return the clientConfigDir path and creates the directory if it does not exists
+sub clientConfigDir
+{
+    my ($self) = @_;
+    my $vpnDir = $self->_openvpnModule->confDir();
+    my $path = $self->serverConfigDirPath($vpnDir, $self->name()) . '/client-config.d';
+    if (-d $path) {
+        return $path;
+    }
+
+    EBox::Sudo::root("mkdir -p $path");
+    EBox::Sudo::root("chmod -R 644 $path");
+    return $path;
+}
+
+sub serverConfigDirPath
+{
+    my ($self, $vpnDir, $name) = @_;
+    return $vpnDir . '/' . "$name.d";
 }
 
 # Method: setInternal
