@@ -96,7 +96,7 @@ sub setServer {
 
     EBox::Validate::checkHost($server, "RESTClient Server");
 
-    $self->{server} = $server;
+    $self->{server} = 'https://' . $server;
 }
 
 # Method: GET
