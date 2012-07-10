@@ -151,7 +151,8 @@ sub viewCustomizer
 sub _locked
 {
     my $users = EBox::Global->modInstance('users');
-    return ($users->get_hash('Master/keys/form')->{master} eq 'zentyal');
+    my $master = $users->get_hash('Master/keys/form');
+    return (defined($master) and $master->{master} eq 'zentyal');
 }
 
 sub _unlocked
