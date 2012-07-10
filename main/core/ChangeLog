@@ -1,3 +1,5 @@
+HEAD
+	+ Only try to clean tmp dir on global system start
 2.3.14
 	+ Error message for failure in package cache creation
 	+ Fixed regression when showing a data table in a modal view
