@@ -39,11 +39,11 @@ use Error qw(:try);
 
 sub new
 {
-    my ($class, $host, $port, $cert) = @_;
-    my $self = $class->SUPER::new(name => "users-$host-$port");
+    my ($class, $host, $port, $id) = @_;
+    my $self = $class->SUPER::new(name => $id);
     $self->{host} = $host;
     $self->{port} = $port;
-    $self->{cert} = SLAVES_CERTS_DIR . $cert;
+    $self->{cert} = SLAVES_CERTS_DIR . $id;
     bless($self, $class);
     return $self;
 }

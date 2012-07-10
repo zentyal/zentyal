@@ -1,4 +1,5 @@
 HEAD
+	+ Resolve slave hostname during registering
 	+ Fixed framework changes related regression
 2.3.10
 	+ Use DataForm::ReadOnly::_content instead of acquirers in LdapInfo
