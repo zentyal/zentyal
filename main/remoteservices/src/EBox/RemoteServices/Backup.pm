@@ -53,6 +53,7 @@ sub new
     my $cloud_domain = $rs->cloudDomain();
     # TODO: Check $cloud_domain is not undef or ''
 
+    # TODO: Do not hardcode
     $self->{cloud} = 'confbackup.' . $cloud_domain;
 
     # Personalized RESTClient
@@ -416,22 +417,22 @@ sub _pullConfBackup
 sub _pullAllMetaConfBackup
 {
     my ($self, @p) = @_;
-
-    return $self->{restClient}->GET('/conf-backup/meta/pullall/', \@p);
+    # Transform p into a hash ref
+    return $self->{restClient}->GET('/conf-backup/meta/pullall/', {@p});
 }
 
 sub _pullFootprintMetaConf
 {
     my ($self, @p) = @_;
-
-    return $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', \@p);
+    # Transform p into a hash ref
+    return $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', {@p});
 }
 
 sub _removeConfBackup
 {
     my ($self, @p) = @_;
-
-    return $self->{restClient}->DELETE('/conf-backup/meta/delete/', \@p);
+    # Transform p into a hash ref
+    return $self->{restClient}->DELETE('/conf-backup/meta/delete/', {@p});
 }
 
 1;
