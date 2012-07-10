@@ -90,7 +90,7 @@ sub _table
                  fieldName => 'addr2',
                  printableName => __('Additional server address (optional)'),
                  editable => 1,
-                 optional => 1,
+                 optional => ,
                  ),
          new EBox::Types::Host(
                  fieldName => 'addr3',
@@ -263,7 +263,18 @@ sub _validateInstaller
     }
 }
 
-
+# overriden to be able to put the defualt address for server
+sub _defaultRow
+{
+    my ($self) = @_;
+    my $row = $self->SUPER::_defaultRow();
+    my ($serverAddr) = @{ $self->_defaultServerAddr() };
+    if ($serverAddr) {
+        EBox::debug("DEFAULT SERVER $serverAddr"); # DDD
+        $row->elementByName('addr1')->setValue($serverAddr);
+    }
+    return $row;
+}
 
 sub formSubmitted
 {
@@ -352,6 +363,12 @@ sub pageTitle
         return $self->parentRow()->printableValueByName('name');
 }
 
+sub _defaultServerAddr
+{
+    my ($self) = @_;
+    my $server = $self->parentRow()->printableValueByName('name');
+    return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server);
+}
 
 # Method: preconditionFailMsg
 #
@@ -383,8 +400,6 @@ sub viewCustomizer
 
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-
-    my $disableInstaller => {disable => ['installer']};
     $customizer->setOnChangeActions(
            {
               clientType => {
