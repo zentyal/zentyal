@@ -605,8 +605,8 @@ sub ifaceAddresses
         my $virtual = $self->get_hash('interfaces')->{$iface}->{virtual};
         foreach my $name (keys %{$virtual}) {
             my $viface = $virtual->{$name};
-            push(@array, { address => $viface->{addr},
-                           netmask => $viface->{mask},
+            push(@array, { address => $viface->{address},
+                           netmask => $viface->{netmask},
                            name => $name });
         }
     } elsif ($self->ifaceMethod($iface) eq any('dhcp', 'ppp')) {

@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed typo which make EBox::Network::ifaceAddress return empty
+	addresses for virtual interfaces
 	+ Using EBox::Object::Members to generate multigw iptables rules
 2.3.10
 	+ Restricted gateway names to be sane with dyndns and fixed dyndns
