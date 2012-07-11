@@ -47,25 +47,21 @@ use EBox::Samba::Types::Select;
 #
 sub new
 {
+    my ($class, %opts) = @_;
+    my $self = $class->SUPER::new(%opts);
+    bless ( $self, $class);
 
-      my ($class, %opts) = @_;
-      my $self = $class->SUPER::new(%opts);
-      bless ( $self, $class);
-
-      return $self;
-
+    return $self;
 }
 
 sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
-    my @groups = map (
-                {
-                    value => $_->{gid},
-                    printableValue => $_->{account}
-                }, $userMod->groups()
-            );
-    return \@groups;
+    my $groups = [];
+    foreach my $group (@{$userMod->groups()}) {
+        push (@{$groups}, { value => $group->get('gidNumber'), printableValue => $group->get('cn')});
+    }
+    return $groups;
 }
 
 sub shareModel
