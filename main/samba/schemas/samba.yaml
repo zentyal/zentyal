@@ -7,7 +7,6 @@ depends:
 enabledepends:
     - network
     - users
-    - dns
 
 models:
     - GeneralSettings
