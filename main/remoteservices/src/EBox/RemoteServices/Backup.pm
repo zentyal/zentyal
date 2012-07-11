@@ -361,7 +361,7 @@ sub _pushConfBackup
 {
     my ($self, $archive, %p) = @_;
 
-    my $ret = $self->{restClient}->PUT('/conf-backup/meta/push/', \%p);
+    my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, \%p);
 
     # Send the file using curl
     my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
@@ -419,7 +419,7 @@ sub _pullAllMetaConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/pullall/', \%p);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/all/', \%p);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
         throw EBox::Exceptions::DataNotFound(
@@ -435,7 +435,7 @@ sub _pullFootprintMetaConf
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', \%p);
+    my $res = $self->{restClient}->GET('/conf-backup/meta/footprint/', \%p);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
         throw EBox::Exceptions::DataNotFound(
@@ -451,7 +451,7 @@ sub _removeConfBackup
 {
     my ($self, %p) = @_;
 
-    my $res = $self->{restClient}->DELETE('/conf-backup/meta/delete/' . $p{fileName});
+    my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName});
 
     unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
         if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT ) {
