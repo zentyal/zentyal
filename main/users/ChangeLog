@@ -1,4 +1,5 @@
 HEAD
+	+ Removed deprecated conf keys (password hashes selection)
 	+ Sync kerberos hashes on master-slave
 	+ Resolve slave hostname during registering
 	+ Fixed framework changes related regression
