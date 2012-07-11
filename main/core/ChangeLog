@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed slient error in EBox::Type::File templates for no-readable
+	by ebox files
 	+ Only try to clean tmp dir on global system start
 2.3.14
 	+ Error message for failure in package cache creation
