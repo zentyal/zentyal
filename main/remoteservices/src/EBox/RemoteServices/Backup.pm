@@ -25,6 +25,7 @@ use Error qw(:try);
 use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Cred;
@@ -421,7 +422,10 @@ sub _pullAllMetaConfBackup
     my $res = $self->{restClient}->GET('/conf-backup/meta/pullall/', \%p);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
-        throw EBox::Exceptions::DataNotFound();
+        throw EBox::Exceptions::DataNotFound(
+            data => 'Configuration backup',
+            value => $p{fileName}
+            );
     }
 
     return $res->as_string();
@@ -434,7 +438,10 @@ sub _pullFootprintMetaConf
     my $res = $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', \%p);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
-        throw EBox::Exceptions::DataNotFound();
+        throw EBox::Exceptions::DataNotFound(
+            data => 'Configuration backup',
+            value => $p{fileName}
+            );
     }
 
     return $res->as_string();
@@ -444,7 +451,18 @@ sub _removeConfBackup
 {
     my ($self, %p) = @_;
 
-    $self->{restClient}->DELETE('/conf-backup/meta/delete/' . $p{fileName});
+    my $res = $self->{restClient}->DELETE('/conf-backup/meta/delete/' . $p{fileName});
+
+    unless ( $res->{result}->code == HTTP::Status::HTTP_OK ) {
+        if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT ) {
+            throw EBox::Exceptions::DataNotFound(
+                data => 'Configuration backup',
+                value => $p{fileName}
+                );
+        } else {
+            throw EBox::Exceptions::Internal();
+        }
+    }
 }
 
 1;
