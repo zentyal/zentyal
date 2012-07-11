@@ -592,7 +592,7 @@ sub clientConfigDir
     }
 
     EBox::Sudo::root("mkdir -p $path");
-    EBox::Sudo::root("chmod -R 644 $path");
+    EBox::Sudo::root("chmod -R 755 $path");
     return $path;
 }
 
