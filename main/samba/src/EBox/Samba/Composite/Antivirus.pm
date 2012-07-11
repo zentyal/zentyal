@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba::Composite::General;
+package EBox::Samba::Composite::Antivirus;
 
 use base 'EBox::Model::Composite';
 
@@ -21,44 +21,45 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Global;
 
 # Group: Public methods
 
 # Constructor: new
 #
-#         Constructor for the general events composite
+#      Constructor for the Antivirus composite
 #
 # Returns:
 #
-#       <EBox::Samba::Model::General> - a
-#       general events composite
+#      <EBox::Samba::Composite::Antivirus> - the recently created model
 #
 sub new
 {
+    my ($class) = @_;
 
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
+    my $self = $class->SUPER::new();
 
     return $self;
-
 }
+
+
+# Group: Protected methods
 
 # Method: _description
 #
 # Overrides:
 #
-#     <EBox::Model::Composite::_description>
+#       <EBox::Model::Composite::_description>
 #
 sub _description
 {
-    my $description = {
-       layout          => 'tabbed',
-       name            =>  __PACKAGE__->nameFromClass,
-       pageTitle       => __('File Sharing'),
-       printableName   => __('File sharing options'),
-       compositeDomain => 'Samba',
-       help            => __(''), # TODO
+    my $description =
+    {
+        layout          => 'top-bottom',
+        name            => __PACKAGE__->nameFromClass,
+        printableName   => __('Antivirus'),
+        pageTitle       => undef,
+        compositeDomain => 'Samba',
     };
 
     return $description;

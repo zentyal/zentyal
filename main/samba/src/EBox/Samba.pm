@@ -18,8 +18,6 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-#use base qw(EBox::Module::Service EBox::LdapModule EBox::FirewallObserver
-#            EBox::Report::DiskUsageProvider EBox::LogObserver);
 use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule);
 
 use EBox::Global;
@@ -59,6 +57,7 @@ use constant PROFILES_DIR         => SAMBA_DIR . '/profiles';
 use constant LOGON_SCRIPT         => 'logon.bat';
 use constant LOGON_DEFAULT_SCRIPT => 'zentyal-logon.bat';
 
+use constant CLAMAVSMBCONFFILE    => '/etc/samba/vscan-clamav.conf';
 
 sub _create
 {
@@ -85,10 +84,11 @@ sub bootDepends
 
     my $dependsList = $self->depends();
 
-    if (EBox::Global->modExists('printers')) {
-        my $printers = EBox::Global->modInstance('printers');
+    my $module = 'printers';
+    if (EBox::Global->modExists($module)) {
+        my $printers = EBox::Global->modInstance($module);
         if ($printers->isEnabled()) {
-            push (@{$dependsList}, 'printers');
+            push (@{$dependsList}, $module);
         }
     }
 
@@ -105,7 +105,7 @@ sub actions
         {
             'action' => __('Create Samba home directory for shares and groups'),
             'reason' => __('Zentyal will create the directories for Samba ' .
-                           'shares and groups under /home/samba.'),
+                           'shares and groups under /home/ebox/samba.'),
             'module' => 'samba',
         },
     ];
@@ -132,7 +132,12 @@ sub usedFiles
             'file'   => '/etc/services',
             'reason' => __('To add microsoft specific services'),
             'module' => 'samba',
-        }
+        },
+        {
+            'file' => CLAMAVSMBCONFFILE,
+            'reason' => __('To set the antivirus settings for Samba.'),
+            'module' => 'samba'
+        },
     ];
 }
 
@@ -149,6 +154,7 @@ sub initialSetup
     # Create default rules and services only if enabling the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
+
         my $serviceName = 'samba';
         unless($services->serviceExists(name => $serviceName)) {
             $services->addMultipleService(
@@ -162,7 +168,7 @@ sub initialSetup
         }
 
         my $firewall = EBox::Global->modInstance('firewall');
-        $firewall->setInternalService('samba', 'accept');
+        $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
 }
@@ -401,10 +407,93 @@ sub shares
         $shareConf->{'validUsers'} = join (', ', @readOnly,
                                                  @readWrite,
                                                  @administrators);
+
         push (@shares, $shareConf);
     }
 
     return \@shares;
+}
+
+sub defaultAntivirusSettings
+{
+    my ($self) = @_;
+
+    my $antivirus = $self->model('AntivirusDefault');
+    return $antivirus->row()->valueByName('scan');
+}
+
+sub antivirusExceptions
+{
+    my ($self) = @_;
+
+    my $model = $self->model('AntivirusExceptions');
+    my $exceptions = {
+        'share' => {},
+        'group' => {},
+    };
+
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $element = $row->elementByName('user_group_share');
+        my $type = $element->selectedType();
+        if ($type eq 'users') {
+            $exceptions->{'users'} = 1;
+        } else {
+            my $value = $element->printableValue();
+            $exceptions->{$type}->{$value} = 1;
+        }
+    }
+    return $exceptions;
+}
+
+sub defaultRecycleSettings
+{
+    my ($self) = @_;
+
+    my $recycle = $self->model('RecycleDefault');
+    return $recycle->row()->valueByName('enabled');
+}
+
+sub recycleExceptions
+{
+    my ($self) = @_;
+
+    my $model = $self->model('RecycleExceptions');
+    my $exceptions = {
+        'share' => {},
+        'group' => {},
+    };
+
+    for my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $element = $row->elementByName('user_group_share');
+        my $type = $element->selectedType();
+        if ($type eq 'users') {
+            $exceptions->{'users'} = 1;
+        } else {
+            my $value = $element->printableValue();
+            $exceptions->{$type}->{$value} = 1;
+        }
+    }
+    return $exceptions;
+}
+
+sub recycleConfig
+{
+    my ($self) = @_;
+
+    my $conf = {};
+    my @keys = ('repository', 'directory_mode', 'keeptree', 'versions', 'touch', 'minsize',
+                'maxsize', 'exclude', 'excludedir', 'noversions');
+
+    foreach my $key (@keys) {
+        my $value = EBox::Config::configkey($key);
+        if ($value) {
+            $conf->{$key} = $value;
+        }
+    }
+
+    return $conf;
 }
 
 sub cleanDNS
@@ -726,12 +815,15 @@ sub provision
 
 }
 
-# Return interfaces upon samba should listen
+# Method: sambaInterfaces
+#
+#   Return interfaces upon samba should listen
+#
 sub sambaInterfaces
 {
     my ($self) = @_;
-    my @ifaces;
 
+    my @ifaces = ();
     # Always listen on loopback interface
     push (@ifaces, 'lo');
 
@@ -777,18 +869,33 @@ sub _setConf
     my $netbiosName = $self->netbiosName();
     my $realmName   = $self->realm();
 
+    my $prefix = EBox::Config::configkey('custom_prefix');
+    $prefix = 'zentyal' unless $prefix;
+
     my @array = ();
-    push(@array, 'workgroup'   => $self->workgroup());
-    push(@array, 'netbiosName' => $netbiosName);
-    push(@array, 'description' => $self->description());
-    push(@array, 'ifaces'      => $interfaces);
-    push(@array, 'mode'        => $self->mode());
-    push(@array, 'realm'       => $realmName);
-    push(@array, 'roamingProfiles' => $self->roamingProfiles());
-    #push(@array, 'drive'       => $self->drive());
+    push (@array, 'prefix'      => $prefix);
+    push (@array, 'workgroup'   => $self->workgroup());
+    push (@array, 'netbiosName' => $netbiosName);
+    push (@array, 'description' => $self->description());
+    push (@array, 'ifaces'      => $interfaces);
+    push (@array, 'mode'        => $self->mode());
+    push (@array, 'realm'       => $realmName);
+    push (@array, 'roamingProfiles' => $self->roamingProfiles());
+
+    my $driveEnabled = $self->drive() ne 'disabled';
+    push (@array, 'homeDrive' => 1) if $driveEnabled;
+
+    #push(@array, 'printers'  => $self->_sambaPrinterConf());
+    #push(@array, 'active_printer' => $self->printerService());
+
+    #push(@array, 'backup_path' => EBox::Config::conf() . 'backups');
+    #push(@array, 'quarantine_path' => EBox::Config::var() . 'lib/zentyal/quarantine');
 
     my $shares = $self->shares();
     push(@array, 'shares' => $shares);
+
+    #my $groupShares = $self->groupShareDirectories();
+    #push(@array, 'dirgroup'  => $groupShares);
 
     my $guestShares = 0;
     foreach my $share (@{$shares}) {
@@ -797,6 +904,13 @@ sub _setConf
             last;
         }
     }
+    #push(@array, 'guest_shares' => $guestShares);
+
+    #push(@array, 'antivirus' => $self->defaultAntivirusSettings());
+    #push(@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    #push(@array, 'recycle' => $self->defaultRecycleSettings());
+    #push(@array, 'recycle_exceptions' => $self->recycleExceptions());
+    #push(@array, 'recycle_config' => $self->recycleConfig());
 
     #my $netlogonDir = "/var/lib/samba/sysvol/" . $self->realm() . "/scripts";
     #if ($self->mode() eq 'dc') {
@@ -813,8 +927,12 @@ sub _setConf
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
-    # Create samba shares
+    # Create shares
     $self->model('SambaShares')->createDirs();
+
+    # Change group ownership of quarantine_dir to __USERS__
+    my $quarantine_dir = EBox::Config::var() . '/lib/zentyal/quarantine';
+    EBox::Sudo::silentRoot("chown root:__USERS__ $quarantine_dir");
 
     # Set roaming profiles
     if ($self->roamingProfiles()) {
@@ -825,11 +943,10 @@ sub _setConf
     }
 
     # Mount user home on network drive
-    my $drive = $self->drive();
-    if ($drive ne 'disabled') {
-        EBox::debug('Enabling drive');
+    if ($driveEnabled) {
+        $self->ldb()->setHomeDrive(1);
     } else {
-        EBox::debug('Disabling drive');
+        $self->ldb()->setHomeDrive(0);
     }
 }
 
@@ -1666,16 +1783,7 @@ sub restoreDependencies
 #
 #    return (new EBox::SambaLogHelper);
 #}
-#
-#sub isAntivirusPresent
-#{
-#
-#    my $global = EBox::Global->getInstance();
-#
-#    return ($global->modExists('antivirus')
-#             and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
-#}
-#
+
 #sub report
 #{
 #    my ($self, $beg, $end, $options) = @_;

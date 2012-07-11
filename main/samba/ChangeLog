@@ -4,6 +4,7 @@ HEAD
 	+ Fix provision bug caused by passwords containing spaces
 	+ Threaded synchronizer script
 	+ Roaming profiles implementation
+	+ Home drive implementation
 2.3.7
 	+ Fixed problems with provision in fresh install
 	+ Adapted to new Model management framework

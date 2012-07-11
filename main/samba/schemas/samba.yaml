@@ -14,9 +14,15 @@ models:
     - SambaShares
     - SambaSharePermissions
     - SambaDeletedShares
+    - AntivirusDefault
+    - AntivirusExceptions
+    - RecycleDefault
+    - RecycleExceptions
 
 composites:
-    General: [GeneralSettings, SambaShares]
+    RecycleBin: [RecycleDefault, RecycleExceptions]
+    Antivirus: [AntivirusDefault, AntivirusExceptions]
+    General: [GeneralSettings, SambaShares, RecycleBin, Antivirus]
 
 foreign:
     SambaShares: [SambaSharePermissions]

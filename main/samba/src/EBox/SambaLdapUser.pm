@@ -90,6 +90,15 @@ sub _addUser
         push ($attrs, profilePath => $profilePath);
     }
 
+    # Set a network drive to the user's home if enabled
+    if ($self->{samba}->drive() ne 'disabled') {
+        my $netbiosName = $self->{samba}->netbiosName();
+        my $realmName = $self->{samba}->realm();
+        my $path = "\\\\$netbiosName.$realmName\\$samAccountName";
+        push ($attrs, homeDirectory => $path);
+        push ($attrs, homeDrive => $self->{samba}->drive());
+    }
+
     try {
         $self->{ldb}->disableZentyalModule();
         $self->{ldb}->add($dn, { attrs => $attrs });

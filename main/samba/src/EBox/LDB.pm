@@ -823,16 +823,72 @@ sub setRoamingProfiles
     my $result = $self->search($args);
     foreach my $entry ($result->entries) {
         my $userName = $entry->get_value('samAccountName');
-        if ($enable and not $entry->exists('profilePath')) {
+        if ($enable) {
             $self->createRoamingProfileDirectory($entry);
             my $path .= "$profilesPath\\$userName";
             EBox::debug("Enabling roaming profile for user '$userName'");
             $entry->replace(profilePath => $path);
-            $entry->update($self->ldbCon());
-        } elsif (not $enable and $entry->exists('profilePath')) {
+            try {
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
+        } else {
             EBox::debug("Disabling roaming profile for user '$userName'");
             $entry->delete(profilePath => undef);
-            $entry->update($self->ldbCon());
+            try {
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
+        }
+    }
+}
+
+sub setHomeDrive
+{
+    my ($self, $enable) = @_;
+
+    my $args = { base   => $self->dn(),
+                 scope  => 'sub',
+                 filter => "(&(objectClass=user)(userAccountControl=512)(!(isCriticalSystemObject=*)))",
+                 attrs  => [] };
+    my $result = $self->search($args);
+    foreach my $entry ($result->entries) {
+        my $userName = $entry->get_value('samAccountName');
+        if ($enable) {
+            my $sambaMod = EBox::Global->modInstance('samba');
+            my $netbiosName = $sambaMod->netbiosName();
+            my $realm = $sambaMod->realm();
+            my $drive = $sambaMod->drive();
+            my $path = "\\\\$netbiosName.$realm\\$userName";
+            $entry->replace(homeDrive => $drive);
+            $entry->replace(homeDirectory => $path);
+            try {
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
+        } else {
+            $entry->delete(homeDrive => undef);
+            $entry->delete(homeDirectory => undef);
+            try {
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
         }
     }
 }
