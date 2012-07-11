@@ -169,12 +169,6 @@ sub addTypedRow
                                      'an one-rowed table');
 }
 
-sub addedRowNotify
-{
-    throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
-                                     'an one-rowed table');
-}
-
 # Method: row
 #
 #       Return the row. It ignores any additional parameter
