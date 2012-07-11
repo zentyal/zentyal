@@ -38,8 +38,7 @@ use EBox::Sudo;
 
 use Error qw(:try);
 
-# TODO Fix
-use constant EBOX_SHARE_DIR => '/home/ebox/shares/'; #EBox::SambaLdapUser::basePath() . '/shares/';
+use constant EBOX_SHARE_DIR => '/home/ebox/samba/shares/';
 
 # Dependencies
 

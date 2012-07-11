@@ -73,6 +73,10 @@ sub _addUser
     my $principal = $user->get('krb5PrincipalName');
     my $description = $user->get('description');
 
+    my $netbiosName = $self->{samba}->netbiosName();
+    my $realmName = $self->{samba}->realm();
+    my $path = "\\\\$netbiosName.$realmName\\$samAccountName";
+
     my $attrs = [];
     push ($attrs, objectClass       => ['user', 'posixAccount']);
     push ($attrs, sAMAccountName    => $samAccountName);
@@ -81,6 +85,8 @@ sub _addUser
     push ($attrs, givenName         => $givenName);
     push ($attrs, userPrincipalName => $principal);
     push ($attrs, description       => $description) if defined $description;
+    push ($attrs, homeDirectory     => $path);
+    push ($attrs, homeDrive         => $self->{samba}->drive());
 
     # Set the romaing profile attribute if enabled
     if ($self->{samba}->roamingProfiles()) {
@@ -88,15 +94,6 @@ sub _addUser
         my $realmName = $self->{samba}->realm();
         my $profilePath = "\\\\$netbiosName.$realmName\\profiles\\$samAccountName";
         push ($attrs, profilePath => $profilePath);
-    }
-
-    # Set a network drive to the user's home if enabled
-    if ($self->{samba}->drive() ne 'disabled') {
-        my $netbiosName = $self->{samba}->netbiosName();
-        my $realmName = $self->{samba}->realm();
-        my $path = "\\\\$netbiosName.$realmName\\$samAccountName";
-        push ($attrs, homeDirectory => $path);
-        push ($attrs, homeDrive => $self->{samba}->drive());
     }
 
     try {

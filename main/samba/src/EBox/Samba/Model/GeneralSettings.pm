@@ -340,7 +340,6 @@ sub _drive_letters
 {
     my $letters;
 
-    push (@{$letters}, { value => 'disabled', printableValue => __('Disabled') });
     foreach my $letter ('H'..'Z') {
         $letter .= ':';
         push (@{$letters}, { value => $letter, printableValue => $letter });

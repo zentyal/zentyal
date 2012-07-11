@@ -884,9 +884,6 @@ sub _setConf
     push (@array, 'realm'       => $realmName);
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
 
-    my $driveEnabled = $self->drive() ne 'disabled';
-    push (@array, 'homeDrive' => 1) if $driveEnabled;
-
     #push(@array, 'printers'  => $self->_sambaPrinterConf());
     #push(@array, 'active_printer' => $self->printerService());
 
@@ -939,11 +936,7 @@ sub _setConf
     }
 
     # Mount user home on network drive
-    if ($driveEnabled) {
-        $self->ldb()->setHomeDrive(1);
-    } else {
-        $self->ldb()->setHomeDrive(0);
-    }
+    $self->ldb()->setHomeDrive($self->drive());
 }
 
 sub _shareUsers

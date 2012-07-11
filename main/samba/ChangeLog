@@ -11,6 +11,8 @@ HEAD
 	+ Threaded synchronizer script
 	+ Roaming profiles implementation
 	+ Home drive implementation
+	+ Guest access implementation
+	+ Delete directories from disk when shares are removed
 2.3.7
 	+ Fixed problems with provision in fresh install
 	+ Adapted to new Model management framework
