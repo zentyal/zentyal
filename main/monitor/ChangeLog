@@ -1,4 +1,5 @@
 HEAD
+	+ Added support for last week graphs
 	+ Fixed URL in breadcrumbs
 2.3.3
 	+ Implement new EBox::Events::WatcherProvider
