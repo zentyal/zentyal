@@ -81,7 +81,7 @@ sub _table
             new EBox::Types::HasMany
                             (
                                 'fieldName' => 'upload',
-                                'printableName' => __('Uplaod client bundle'),
+                                'printableName' => __('Upload client bundle'),
                                 'foreignModel' => 'UploadClientBundle',
                                 'view' => '/OpenVPN/View/UploadClientBundle',
                                 'backView' => '/OpenVPN/View/Clients',

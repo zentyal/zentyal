@@ -53,13 +53,11 @@ sub new
 
 sub _table
 {
-
-
     my @tableHead = (
          new EBox::Types::File(
                                fieldName => 'configurationBundle',
                                printableName =>
-                                  __(q{Upload configuration's bundle}),
+                                  __(q{Upload configuration bundle}),
                                editable => 1,
                                dynamicPath => \&_bundlePath,
                               ),
@@ -88,10 +86,6 @@ sub name
     __PACKAGE__->nameFromClass(),
 }
 
-
-
-
-
 sub _bundlePath
 {
     my ($file) = @_;
@@ -107,8 +101,6 @@ sub _bundlePath
 
     return EBox::Config::tmp() . "$clientName.bundle";
 }
-
-
 
 sub formSubmitted
 {

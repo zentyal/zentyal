@@ -15,7 +15,6 @@
 
 package EBox::OpenVPN::Model::DownloadClientBundle;
 use base 'EBox::Model::DataForm::Download';
-#
 
 use strict;
 use warnings;
@@ -266,7 +265,6 @@ sub _defaultRow
     my $row = $self->SUPER::_defaultRow();
     my ($serverAddr) = @{ $self->_defaultServerAddr() };
     if ($serverAddr) {
-        EBox::debug("DEFAULT SERVER $serverAddr"); # DDD
         $row->elementByName('addr1')->setValue($serverAddr);
     }
     return $row;

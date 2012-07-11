@@ -59,13 +59,11 @@ sub _table
                                fieldName => 'server',
                                printableName => __('Server'),
                                editable => 1,
-                               optional => 1,
                               ),
          new EBox::OpenVPN::Types::PortAndProtocol(
                                                     fieldName => 'serverPortAndProtocol',
                                                     printableName => __('Server port'),
                                                     editable => 1,
-                                                    optional => 1,
                                                   ),
          new EBox::Types::File(
                                fieldName => 'caCertificate',
@@ -75,7 +73,6 @@ sub _table
                                showFileWhenEditing => 1,
                                allowDownload => 1,
                                user          => 'root',
-                               optional => 1,
                                allowUnsafeChars => 1,
                               ),
          new EBox::Types::File(
@@ -86,7 +83,6 @@ sub _table
                                showFileWhenEditing => 1,
                                allowDownload => 1,
                                user          => 'root',
-                               optional => 1,
                                allowUnsafeChars => 1,
                               ),
          new EBox::Types::File(
@@ -97,7 +93,6 @@ sub _table
                                showFileWhenEditing => 1,
                                allowDownload => 1,
                                user          => 'root',
-                               optional => 1,
                                allowUnsafeChars => 1,
                               ),
          new EBox::Types::Boolean(
@@ -111,7 +106,6 @@ sub _table
                                   printableName => __('Server tunnel password'),
                                   minLength => 6,
                                   editable => 1,
-                                  optional => 1,
                                  ),
           new EBox::Types::Port(
                                   fieldName => 'lport',
@@ -285,13 +279,10 @@ sub updatedRowNotify
 
     #  the interface type resides in the ServerModels so we must set it in the
     #  parentRow
-
     my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
     my $parentRow = $self->parentRow();
     my $ifaceType = $parentRow->elementByName('interfaceType');
-    EBox::debug("toSetset $toSet row type " .$ifaceType->value() );
     if ($ifaceType->value() ne $toSet) {
-       EBox::debug("iface typ to set $toSet");
         $ifaceType->setValue($toSet);
         $parentRow->store();
     }
