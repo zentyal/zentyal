@@ -1357,6 +1357,7 @@ sub _setClientConf
                        server => $server,
                        serverPortAndProtocol =>  $serverPortAndProtocol,
                        ripPasswd             => $params{ripPasswd},
+                       tunInterface          => $params{tunInterface},
                        %{$certPaths},
                       );
 

@@ -124,6 +124,12 @@ sub _table
                                optional => 1,
                                allowUnsafeChars => 1,
                               ),
+         new EBox::Types::Boolean(
+                 fieldName =>  'tunInterface',
+                 printableName => __('TUN interface'),
+                 editable => 1,
+                 defaultValue => 0,
+                 ),
         new EBox::Types::Password(
                                   fieldName => 'ripPasswd',
                                   printableName => __('Server tunnel password'),
@@ -190,9 +196,12 @@ sub viewCustomizer
             { configuration =>
                 {
                   manual => { enable => $fields,
-                  disable => ['configurationBundle'] },
-                  bundle => { disable => $fields,
-                  enable => ['configurationBundle'] },
+                              disable => ['configurationBundle']
+                             },
+                  bundle => {
+                      disable => $fields,
+                      enable => ['configurationBundle']
+                     },
                 }
             });
     return $customizer;
@@ -231,8 +240,13 @@ sub validateTypedRow
     if (exists $params_r->{configurationBundle}) {
         if (not $params_r->{configurationBundle}->toRemove()) {
             # other parameters would be ignored
+        EBox::debug("Bundle ocnf ORIG");
             return;
         }
+    } elsif ($actual_r->{'configuration'}->value() eq 'bundle') {
+        # bundle configuration do not check nothing there
+        EBox::debug("Bundle ocnf");
+        return;
     }
 
     if (exists $params_r->{server}) {
@@ -355,9 +369,27 @@ sub updatedRowNotify
 {
     my ($self, $row) = @_;
 
+    EBox::debug("UPDATE ROW");
 
-   my $bundleField  = $row->elementByName('configurationBundle');
-    $bundleField or
+    $self->_processBundle($row);
+    #  the interface type resides in the ServerModels so we must set it in the
+    #  parentRow
+
+    my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
+    my $parentRow = $self->parentRow();
+    my $ifaceType = $parentRow->elementByName('interfaceType');
+    if ($ifaceType->value() ne $toSet) {
+        EBox::debug("iface typ to set $ifaceType");
+        $ifaceType->setValue($toSet);
+        $parentRow->store();
+    }
+}
+
+sub _processBundle
+{
+    my ($self, $row) = @_;
+    my $bundleField  = $row->elementByName('configurationBundle');
+    $bundleField->value() or
         return;
 
     my $bundle = $bundleField->path();
@@ -377,7 +409,6 @@ sub updatedRowNotify
             unlink $bundle;
         }
     };
-
 }
 
 # Method: pageTitle
@@ -402,5 +433,8 @@ sub _clientName
 
     return $parent->elementByName('name')->value();
 }
+
+
+
 
 1;

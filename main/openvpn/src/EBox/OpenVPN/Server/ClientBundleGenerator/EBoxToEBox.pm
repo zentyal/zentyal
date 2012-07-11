@@ -80,6 +80,7 @@ sub _serverConfiguration
 
     my $confString;
     $confString .= 'proto,' . $server->proto() . ',';
+    $confString .= 'ifaceType,' . $server->ifaceType() . ',';
     $confString .= 'ripPasswd,' . $server->ripPasswd() . ',';
 
     my $port = $server->port();
@@ -201,6 +202,14 @@ sub _serverConfigurationFromFile
 
     my $contents = read_file($file);
     my %conf = split ',', $contents;
+
+    # convert ifaceType to tunInterface
+    my $ifaceType = delete $conf{ifaceType};
+    if ($ifaceType and ($ifaceType eq 'tun')) {
+        $conf{tunInterface} = 1;
+    } else {
+        $conf{tunInterface} = 0;
+    }
 
     # server parameters need special treatment
     my %portByAddr = split ':', $conf{servers};

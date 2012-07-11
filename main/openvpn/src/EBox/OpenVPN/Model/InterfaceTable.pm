@@ -39,7 +39,7 @@ sub interfaceFields
                   (
                    'fieldName' => 'interfaceType',
                    'printableName'  => 'interfaceType',
-                   'hidden'    => 1,
+#                   'hidden'    => 1,
                    'editable'  => 0,
                    'optional'     => 1,
                   ),
@@ -47,7 +47,7 @@ sub interfaceFields
                   (
                    'fieldName' => 'interfaceNumber',
                    'printableName' => 'interfaceNumber',
-                   'hidden' => 1,
+ #                  'hidden' => 1,
                    'editable' => 0,
                    'min'      => -1,
                    'optional'     => 1,
