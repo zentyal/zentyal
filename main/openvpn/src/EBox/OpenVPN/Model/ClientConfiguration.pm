@@ -53,7 +53,8 @@ sub new
 
 sub _table
 {
-
+    # allowDownload option is disabled until the bug with allowDownload +
+    # DataForm is fixed (syntoms: undef $type->row())
     my @tableHead = (
          new EBox::Types::Host(
                                fieldName => 'server',
@@ -71,7 +72,7 @@ sub _table
                                editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
-                               allowDownload => 1,
+#                               allowDownload => 1,
                                user          => 'root',
                                allowUnsafeChars => 1,
                               ),
@@ -81,7 +82,7 @@ sub _table
                                editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
-                               allowDownload => 1,
+#                               allowDownload => 1,
                                user          => 'root',
                                allowUnsafeChars => 1,
                               ),
@@ -91,7 +92,7 @@ sub _table
                                editable => 1,
                                dynamicPath => \&_privateFilePath,
                                showFileWhenEditing => 1,
-                               allowDownload => 1,
+#                               allowDownload => 1,
                                user          => 'root',
                                allowUnsafeChars => 1,
                               ),
