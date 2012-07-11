@@ -26,6 +26,7 @@ use EBox::Sudo;
 use EBox::SambaLdapUser;
 use EBox::Network;
 use EBox::SambaFirewall;
+use EBox::SambaLogHelper;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::List;
 use EBox::Menu::Item;
