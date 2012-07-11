@@ -67,8 +67,9 @@ sub precondition
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    return ($global->modExists('antivirus')
-        and (-f '/usr/lib/samba/vfs/vscan-clamav.so'));
+    return ($global->modExists('antivirus') and
+           ((-f '/usr/lib/i386-linux-gnu/samba/vfs/vscan-clamav.so') or
+            (-f '/usr/lib/x86_64-linux-gnu/samba/vfs/vscan-clamav.so')));
 }
 
 sub preconditionFailMsg

@@ -1,3 +1,15 @@
+samba-vscan (0.3.6cbeta5+zentyal3) precise; urgency=low
+
+  * Fix library installation path
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 11 Jul 2012 23:33:34 +0200
+
+samba-vscan (0.3.6cbeta5+zentyal2) precise; urgency=low
+
+  * Build for samba4
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 11 Jul 2012 22:34:01 +0200
+
 samba-vscan (0.3.6cbeta5+zentyal1) precise; urgency=low
 
   * Precise build
