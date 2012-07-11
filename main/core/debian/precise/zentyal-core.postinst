@@ -12,9 +12,9 @@ set -e
 
 stop_ebox_processes() {
   stop ebox.redis || true
-  OLD_APACHE_PID=`ps aux|grep 'apache2.* -f /var/lib/ebox'|grep -v grep| awk '/^root/{print $2;exit}'`;
+  OLD_APACHE_PID=`ps aux | grep 'apache2.* -f /var/lib/ebox' | grep -v grep | awk '/^root/{print $2;exit}'`;
   kill $OLD_APACHE_PID || true
-  killall -u ebox || true
+  pkill -u ebox || true
 }
 
 ZENTYAL_HOME=/var/lib/zentyal/
@@ -41,7 +41,7 @@ case "$1" in
             touch $FIRST_FILE
         fi
 
-        ENT_EBOX=`getent passwd ebox` || /bin/true
+        ENT_EBOX=`getent passwd ebox` || true
         if [ -z "$ENT_EBOX" ];
         then
             adduser --system --home $ZENTYAL_HOME \
@@ -49,7 +49,7 @@ case "$1" in
             adduser ebox adm
         elif [[ "$ENT_EBOX" =~ ":/var/lib/zentyal/:" ]]
         then
-            /bin/true # user exists and has correct directory, do nothing
+            true # user exists and has correct directory, do nothing
         else
             # override old Zentyal <= 2.0 home if the user ebox already exists
             chown ebox:ebox $ZENTYAL_HOME

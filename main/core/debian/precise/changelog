@@ -1,3 +1,10 @@
+zentyal-core (2.3.4precise1) precise-proposed; urgency=low
+
+  * Fix broken packages when dist-upgrading from old versions: stop ebox
+    owned processes before changing home directory, closes LP:#987446
+
+ -- Jorge Salamero Sanz <jsalamero@zentyal.com>  Wed, 11 Jul 2012 10:36:23 +0200
+
 zentyal-core (2.3.4) precise; urgency=low
 
   * Add transitional dummy package for ebox
