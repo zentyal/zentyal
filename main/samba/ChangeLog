@@ -1,4 +1,5 @@
 HEAD
+	+ Added LogObserver support
 	+ Avoid showing admin password if provision command fails
 	+ Add domain name validation, cannot be equal to host name
 	+ Fix provision bug caused by passwords containing spaces

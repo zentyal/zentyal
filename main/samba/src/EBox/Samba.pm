@@ -18,7 +18,7 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LdapModule EBox::LogObserver);
 
 use EBox::Global;
 use EBox::Service;
@@ -64,7 +64,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'samba',
-        printableName => __n('File Sharing'),
+        printableName => __('File Sharing'),
         @_);
     bless ($self, $class);
     return $self;
@@ -1700,89 +1700,89 @@ sub restoreDependencies
 #}
 
 # Implement LogHelper interface
-#sub tableInfo
-#{
-#    my ($self) = @_;
-#
-#    my $access_titles = {
-#        'timestamp' => __('Date'),
-#        'client' => __('Client address'),
-#        'username' => __('User'),
-#        'event' => __('Action'),
-#        'resource' => __('Resource'),
-#    };
-#    my @access_order = qw(timestamp client username event resource);;
-#    my $access_events = {
-#        'connect' => __('Connect'),
-#        'opendir' => __('Access to directory'),
-#        'readfile' => __('Read file'),
-#        'writefile' => __('Write file'),
-#        'disconnect' => __('Disconnect'),
-#        'unlink' => __('Remove'),
-#        'mkdir' => __('Create directory'),
-#        'rmdir' => __('Remove directory'),
-#        'rename' => __('Rename'),
-#    };
-#
-#    my $virus_titles = {
-#        'timestamp' => __('Date'),
-#        'client' => __('Client address'),
-#        'filename' => __('File name'),
-#        'virus' => __('Virus'),
-#        'event' => __('Type'),
-#    };
-#    my @virus_order = qw(timestamp client filename virus event);;
-#    my $virus_events = { 'virus' => __('Virus') };
-#
-#    my $quarantine_titles = {
-#        'timestamp' => __('Date'),
-#        'filename' => __('File name'),
-#        'qfilename' => __('Quarantined file name'),
-#        'event' => __('Quarantine'),
-#    };
-#    my @quarantine_order = qw(timestamp filename qfilename event);
-#    my $quarantine_events = { 'quarantine' => __('Quarantine') };
-#
-#    return [{
-#        'name' => __('Samba access'),
-#        'tablename' => 'samba_access',
-#        'titles' => $access_titles,
-#        'order' => \@access_order,
-#        'timecol' => 'timestamp',
-#        'filter' => ['client', 'username', 'resource'],
-#        'types' => { 'client' => 'IPAddr' },
-#        'events' => $access_events,
-#        'eventcol' => 'event'
-#    },
-#    {
-#        'name' => __('Samba virus'),
-#        'tablename' => 'samba_virus',
-#        'titles' => $virus_titles,
-#        'order' => \@virus_order,
-#        'timecol' => 'timestamp',
-#        'filter' => ['client', 'filename', 'virus'],
-#        'types' => { 'client' => 'IPAddr' },
-#        'events' => $virus_events,
-#        'eventcol' => 'event'
-#    },
-#    {
-#        'name' => __('Samba quarantine'),
-#        'tablename' => 'samba_quarantine',
-#        'titles' => $quarantine_titles,
-#        'order' => \@quarantine_order,
-#        'timecol' => 'timestamp',
-#        'filter' => ['filename'],
-#        'events' => $quarantine_events,
-#        'eventcol' => 'event'
-#    }];
-#}
-#
-#sub logHelper
-#{
-#    my ($self) = @_;
-#
-#    return (new EBox::SambaLogHelper);
-#}
+sub tableInfo
+{
+    my ($self) = @_;
+
+    my $access_titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'username' => __('User'),
+        'event' => __('Action'),
+        'resource' => __('Resource'),
+    };
+    my @access_order = qw(timestamp client username event resource);;
+    my $access_events = {
+        'connect' => __('Connect'),
+        'opendir' => __('Access to directory'),
+        'readfile' => __('Read file'),
+        'writefile' => __('Write file'),
+        'disconnect' => __('Disconnect'),
+        'unlink' => __('Remove'),
+        'mkdir' => __('Create directory'),
+        'rmdir' => __('Remove directory'),
+        'rename' => __('Rename'),
+    };
+
+    my $virus_titles = {
+        'timestamp' => __('Date'),
+        'client' => __('Client address'),
+        'filename' => __('File name'),
+        'virus' => __('Virus'),
+        'event' => __('Type'),
+    };
+    my @virus_order = qw(timestamp client filename virus event);;
+    my $virus_events = { 'virus' => __('Virus') };
+
+    my $quarantine_titles = {
+        'timestamp' => __('Date'),
+        'filename' => __('File name'),
+        'qfilename' => __('Quarantined file name'),
+        'event' => __('Quarantine'),
+    };
+    my @quarantine_order = qw(timestamp filename qfilename event);
+    my $quarantine_events = { 'quarantine' => __('Quarantine') };
+
+    return [{
+        'name' => __('Samba access'),
+        'tablename' => 'samba_access',
+        'titles' => $access_titles,
+        'order' => \@access_order,
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'username', 'resource'],
+        'types' => { 'client' => 'IPAddr' },
+        'events' => $access_events,
+        'eventcol' => 'event'
+    },
+    {
+        'name' => __('Samba virus'),
+        'tablename' => 'samba_virus',
+        'titles' => $virus_titles,
+        'order' => \@virus_order,
+        'timecol' => 'timestamp',
+        'filter' => ['client', 'filename', 'virus'],
+        'types' => { 'client' => 'IPAddr' },
+        'events' => $virus_events,
+        'eventcol' => 'event'
+    },
+    {
+        'name' => __('Samba quarantine'),
+        'tablename' => 'samba_quarantine',
+        'titles' => $quarantine_titles,
+        'order' => \@quarantine_order,
+        'timecol' => 'timestamp',
+        'filter' => ['filename'],
+        'events' => $quarantine_events,
+        'eventcol' => 'event'
+    }];
+}
+
+sub logHelper
+{
+    my ($self) = @_;
+
+    return (new EBox::SambaLogHelper);
+}
 
 #sub report
 #{
