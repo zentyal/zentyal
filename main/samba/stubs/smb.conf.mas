@@ -77,7 +77,7 @@ use EBox::Gettext;
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
-% my $objects = 'full_audit';
+% my $objects = 'acl_xattr full_audit';
 % if ($av) {
 %   $objects .= ' vscan-clamav';
 % }
@@ -113,7 +113,7 @@ use EBox::Gettext;
  force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'group'}->{$group->{'sharename'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'group'}->{$group->{'sharename'}}));
-% my $objects = 'full_audit';
+% my $objects = 'acl_xattr full_audit';
 % if ($av) {
 %   $objects .= ' vscan-clamav';
 % }
@@ -141,9 +141,11 @@ use EBox::Gettext;
     path = <% $share->{path} %>
     browseable = Yes
     read only = No
+    force create mode = 0660
+    force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
-% my $objects = 'full_audit';
+% my $objects = 'acl_xattr full_audit';
 % if ($av) {
 %   $objects .= ' vscan-clamav';
 % }
