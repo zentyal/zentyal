@@ -432,7 +432,7 @@ sub antivirusExceptions
         'group' => {},
     };
 
-    for my $id (@{$model->ids()}) {
+    foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $element = $row->elementByName('user_group_share');
         my $type = $element->selectedType();
@@ -443,6 +443,7 @@ sub antivirusExceptions
             $exceptions->{$type}->{$value} = 1;
         }
     }
+
     return $exceptions;
 }
 
@@ -897,20 +898,11 @@ sub _setConf
     #my $groupShares = $self->groupShareDirectories();
     #push(@array, 'dirgroup'  => $groupShares);
 
-    my $guestShares = 0;
-    foreach my $share (@{$shares}) {
-        if ($share->{'guest'}) {
-            $guestShares = 1;
-            last;
-        }
-    }
-    #push(@array, 'guest_shares' => $guestShares);
-
-    #push(@array, 'antivirus' => $self->defaultAntivirusSettings());
-    #push(@array, 'antivirus_exceptions' => $self->antivirusExceptions());
-    #push(@array, 'recycle' => $self->defaultRecycleSettings());
-    #push(@array, 'recycle_exceptions' => $self->recycleExceptions());
-    #push(@array, 'recycle_config' => $self->recycleConfig());
+    push (@array, 'antivirus' => $self->defaultAntivirusSettings());
+    push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
+    push (@array, 'recycle' => $self->defaultRecycleSettings());
+    push (@array, 'recycle_exceptions' => $self->recycleExceptions());
+    push (@array, 'recycle_config' => $self->recycleConfig());
 
     #my $netlogonDir = "/var/lib/samba/sysvol/" . $self->realm() . "/scripts";
     #if ($self->mode() eq 'dc') {
@@ -924,6 +916,9 @@ sub _setConf
 
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
+
+    $self->writeConfFile(CLAMAVSMBCONFFILE,
+                         'samba/vscan-clamav.conf.mas', []);
 
     # Remove shares
     $self->model('SambaDeletedShares')->removeDirs();
