@@ -74,7 +74,7 @@ sub processLine # (file, line, logger)
 
     my %dataToInsert;
 
-    my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
+    my $timestamp = $self->_convertTimestamp('%b %e %H:%M:%S %Y', $date);
     $dataToInsert{timestamp} = $timestamp;
 
     if ($message =~ /^ALERT - Scan result: '(.*?)' infected with virus '(.*?)', client: '[^0-9]*(.*?)'$/) {
