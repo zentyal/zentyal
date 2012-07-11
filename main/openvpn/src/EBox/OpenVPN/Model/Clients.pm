@@ -78,6 +78,15 @@ sub _table
                                 'backView' => '/OpenVPN/View/Clients',
                                 'size' => '1',
                              ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'upload',
+                                'printableName' => __('Uplaod client bundle'),
+                                'foreignModel' => 'UploadClientBundle',
+                                'view' => '/OpenVPN/View/UploadClientBundle',
+                                'backView' => '/OpenVPN/View/Clients',
+                                'size' => '1',
+                             ),
          new EBox::Types::Boolean
                             (
                              fieldName => 'internal',

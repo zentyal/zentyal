@@ -203,13 +203,19 @@ sub _serverConfigurationFromFile
     my $contents = read_file($file);
     my %conf = split ',', $contents;
 
+    use Data::Dumper;
+    EBox::debug('bef tunInterface ' . Dumper(\%conf));
+
     # convert ifaceType to tunInterface
     my $ifaceType = delete $conf{ifaceType};
+
     if ($ifaceType and ($ifaceType eq 'tun')) {
         $conf{tunInterface} = 1;
     } else {
         $conf{tunInterface} = 0;
     }
+
+    EBox::debug('adt tunInterface ' . Dumper(\%conf));
 
     # server parameters need special treatment
     my %portByAddr = split ':', $conf{servers};

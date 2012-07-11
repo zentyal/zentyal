@@ -1,6 +1,7 @@
 HEAD
+	+ Different model for upload client bundles for clients
 	+ Added client config directory option to servers
-	+ Servers can use a TUN interface
+	+ Daemons can use a TUN interface
 	+ Using cloud DDNS address as defautl for client bundle
 	+ Added connection strategy option to client bundle
 	+ Unavailable options are hidden in download client bundle form

@@ -10,8 +10,9 @@ models:
     - DownloadClientBundle
     - Clients
     - ClientConfiguration
+    - UploadClientBundle
     - DeletedDaemons
 
 foreign:
-    Clients: [ClientConfiguration]
+    Clients: [ClientConfiguration, UploadClientBundle]
     Servers: [ServerConfiguration, ExposedNetworks, DownloadClientBundle]

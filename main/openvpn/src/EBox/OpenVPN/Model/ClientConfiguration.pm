@@ -53,32 +53,8 @@ sub new
 
 sub _table
 {
-    my @confOptions = (
-        {
-            value => 'manual',
-            printableValue => __('Manual Configuration'),
-        },
-        {
-            value => 'bundle',
-            printableValue => __('Zentyal bundle')
-        }
-    );
 
     my @tableHead = (
-         new EBox::Types::Select(
-                                 fieldName => 'configuration',
-                                 printableName => __('Configuration'),
-                                 editable => 1,
-                                 options => \@confOptions,
-                                 ),
-         new EBox::Types::File(
-                               fieldName => 'configurationBundle',
-                               printableName =>
-                                  __(q{Upload configuration's bundle}),
-                               editable => 1,
-                               dynamicPath => \&_bundlePath,
-                               optional => 1,
-                              ),
          new EBox::Types::Host(
                                fieldName => 'server',
                                printableName => __('Server'),
@@ -177,35 +153,7 @@ sub _table
     return $dataTable;
 }
 
-# Method: viewCustomizer
-#
-#   Overrides <EBox::Model::DataTable::viewCustomizer> to implement
-#   a custom behaviour to enable and disable fields
-#   depending on the 'Configuration' value
-#
-#
-sub viewCustomizer
-{
-    my ($self) = @_;
 
-    my $customizer = new EBox::View::Customizer();
-    my $fields = [qw/server serverPortAndProtocol caCertificate
-        certificate certificateKey ripPasswd/];
-    $customizer->setModel($self);
-    $customizer->setOnChangeActions(
-            { configuration =>
-                {
-                  manual => { enable => $fields,
-                              disable => ['configurationBundle']
-                             },
-                  bundle => {
-                      disable => $fields,
-                      enable => ['configurationBundle']
-                     },
-                }
-            });
-    return $customizer;
-}
 
 sub name
 {
@@ -237,28 +185,16 @@ sub validateTypedRow
     my ($self, $action, $params_r, $actual_r) = @_;
 
 
-    if (exists $params_r->{configurationBundle}) {
-        if (not $params_r->{configurationBundle}->toRemove()) {
-            # other parameters would be ignored
-        EBox::debug("Bundle ocnf ORIG");
-            return;
-        }
-    } elsif ($actual_r->{'configuration'}->value() eq 'bundle') {
-        # bundle configuration do not check nothing there
-        EBox::debug("Bundle ocnf");
-        return;
-    }
-
     if (exists $params_r->{server}) {
         EBox::OpenVPN::Client->checkServer($params_r->{server}->value());
     }
 
-    $self->_validateManualParams($action, $params_r, $actual_r);
+    $self->_validateNoCertParams($action, $params_r, $actual_r);
     $self->_validateCerts($action, $params_r, $actual_r);
 }
 
 
-sub _validateManualParams
+sub _validateNoCertParams
 {
     my ($self, $action, $params_r, $actual_r) = @_;
     my @mandatoryParams = qw(server serverPortAndProtocol ripPasswd);
@@ -285,37 +221,30 @@ sub _validateCerts
 
     my %path;
 
-    my $conf;
-    if (exists $params_r->{'configuration'}) {
-        $conf = $params_r->{'configuration'}->value();
-    } else {
-        $conf = $actual_r->{'configuration'}->value();
-    }
-
     my $path;
     my $noChanges = 1;
-    if ($conf eq 'manual') {
-        my @fieldNames = qw(caCertificate certificate certificateKey);
-        foreach my $fieldName (@fieldNames) {
-            my $certPath;
-            if ( exists $params_r->{$fieldName} ) {
-                $noChanges = 0;
-                $certPath =  $params_r->{$fieldName}->tmpPath();
-            } else {
+
+    my @fieldNames = qw(caCertificate certificate certificateKey);
+    foreach my $fieldName (@fieldNames) {
+        my $certPath;
+        if ( exists $params_r->{$fieldName} ) {
+            $noChanges = 0;
+            $certPath =  $params_r->{$fieldName}->tmpPath();
+        } else {
                 my $file =  $actual_r->{$fieldName};
                 if (not $file->exist()) {
                     throw EBox::Exceptions::External(
-                            __x(
-                                'No file supplied or already set for {f}',
-                                f => $file->printableName
-                               )
-                            );
+                        __x(
+                            'No file supplied or already set for {f}',
+                            f => $file->printableName
+                           )
+                       );
                 }
                 $certPath = $file->path();
             }
-            $path{$fieldName} = $certPath;
-        }
+        $path{$fieldName} = $certPath;
     }
+
 
     return if ($noChanges);
 
@@ -348,68 +277,26 @@ sub _privateFilePath
 }
 
 
-sub _bundlePath
-{
-    my ($file) = @_;
-    return unless (defined($file));
-    return unless (defined($file->model()));
-
-    my $row     = $file->row();
-    return unless defined $row;
-
-    my $clientName = __PACKAGE__->_clientName($row);
-    $clientName or
-        return;
-
-    return EBox::Config::tmp() . "$clientName.bundle";
-}
 
 
 sub updatedRowNotify
 {
     my ($self, $row) = @_;
 
-    EBox::debug("UPDATE ROW");
-
-    $self->_processBundle($row);
     #  the interface type resides in the ServerModels so we must set it in the
     #  parentRow
 
     my $toSet = $row->valueByName('tunInterface') ? 'tun' : 'tap';
     my $parentRow = $self->parentRow();
     my $ifaceType = $parentRow->elementByName('interfaceType');
+    EBox::debug("toSetset $toSet row type " .$ifaceType->value() );
     if ($ifaceType->value() ne $toSet) {
-        EBox::debug("iface typ to set $ifaceType");
+       EBox::debug("iface typ to set $toSet");
         $ifaceType->setValue($toSet);
         $parentRow->store();
     }
 }
 
-sub _processBundle
-{
-    my ($self, $row) = @_;
-    my $bundleField  = $row->elementByName('configurationBundle');
-    $bundleField->value() or
-        return;
-
-    my $bundle = $bundleField->path();
-    ( -r $bundle) or
-          return;
-
-    my $clientName = __PACKAGE__->_clientName($row);
-    $clientName or
-        return;
-
-    my $openvpn = EBox::Global->modInstance('openvpn');
-    try {
-        $openvpn->setClientConfFromBundle($clientName, $bundle);
-    }
-    finally {
-        if (-f $bundle) {
-            unlink $bundle;
-        }
-    };
-}
 
 # Method: pageTitle
 #
