@@ -1,4 +1,7 @@
 HEAD
+	+ Integration with samba 4.0 beta2 which uses samba4 for
+	  the Active Directory domain services and the samba3 daemon
+	  for the file sharing and printing services
 	+ Added LogObserver support
 	+ Avoid showing admin password if provision command fails
 	+ Add domain name validation, cannot be equal to host name
