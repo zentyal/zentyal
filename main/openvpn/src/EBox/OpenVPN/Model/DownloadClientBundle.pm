@@ -86,7 +86,7 @@ sub _table
                  fieldName => 'addr2',
                  printableName => __('Additional server address (optional)'),
                  editable => 1,
-                 optional => ,
+                 optional => 1,
                  ),
          new EBox::Types::Host(
                  fieldName => 'addr3',
