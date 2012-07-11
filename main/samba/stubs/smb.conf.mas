@@ -149,6 +149,8 @@ use EBox::Gettext;
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
+    full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
+    full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($av) {
     vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
 % }

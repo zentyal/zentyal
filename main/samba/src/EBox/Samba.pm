@@ -1700,7 +1700,7 @@ sub tableInfo
         'event' => __('Action'),
         'resource' => __('Resource'),
     };
-    my @access_order = qw(timestamp client username event resource);;
+    my @access_order = qw(timestamp client username event resource);
     my $access_events = {
         'connect' => __('Connect'),
         'opendir' => __('Access to directory'),
