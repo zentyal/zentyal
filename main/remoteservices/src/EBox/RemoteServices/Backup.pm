@@ -358,12 +358,11 @@ sub _setMetainfoFootprint
 
 sub _pushConfBackup
 {
-    my ($self, $archive, @p) = @_;
+    my ($self, $archive, %p) = @_;
 
-    my $ret = $self->{restClient}->PUT('/conf-backup/meta/push/', \@p);
+    my $ret = $self->{restClient}->PUT('/conf-backup/meta/push/', \%p);
 
     # Send the file using curl
-    my %p = @p;
     my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
     my $output = EBox::Sudo::command(CURL . " --insecure --upload-file '$archive' "
                                      . "'" . $url->as_string() . "'"
@@ -417,29 +416,35 @@ sub _pullConfBackup
 
 sub _pullAllMetaConfBackup
 {
-    my ($self, @p) = @_;
-    # Transform p into a hash ref
-    return $self->{restClient}->GET('/conf-backup/meta/pullall/', {@p});
-}
+    my ($self, %p) = @_;
 
-sub _pullFootprintMetaConf
-{
-    my ($self, @p) = @_;
-    # Transform p into a hash ref
-    my $res = $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', {@p});
+    my $res = $self->{restClient}->GET('/conf-backup/meta/pullall/', \%p);
 
     if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
         throw EBox::Exceptions::DataNotFound();
     }
 
-    return $res;
+    return $res->as_string();
+}
+
+sub _pullFootprintMetaConf
+{
+    my ($self, %p) = @_;
+
+    my $res = $self->{restClient}->GET('/conf-backup/meta/pullfootprint/', \%p);
+
+    if ( $res->{result}->code == HTTP::Status::HTTP_NO_CONTENT) {
+        throw EBox::Exceptions::DataNotFound();
+    }
+
+    return $res->as_string();
 }
 
 sub _removeConfBackup
 {
-    my ($self, @p) = @_;
-    # Transform p into a hash ref
-    return $self->{restClient}->DELETE('/conf-backup/meta/delete/', {@p});
+    my ($self, %p) = @_;
+
+    $self->{restClient}->DELETE('/conf-backup/meta/delete/' . $p{fileName});
 }
 
 1;
