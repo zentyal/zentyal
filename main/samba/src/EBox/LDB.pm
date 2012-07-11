@@ -853,35 +853,19 @@ sub setRoamingProfiles
 
 sub setHomeDrive
 {
-    my ($self, $enable) = @_;
+    my ($self, $drive) = @_;
 
     my $args = { base   => $self->dn(),
                  scope  => 'sub',
                  filter => "(&(objectClass=user)(userAccountControl=512)(!(isCriticalSystemObject=*)))",
-                 attrs  => [] };
+                 attrs  => ['samAccountName', 'homeDrive'] };
     my $result = $self->search($args);
     foreach my $entry ($result->entries) {
+        my $sambaMod = EBox::Global->modInstance('samba');
         my $userName = $entry->get_value('samAccountName');
-        if ($enable) {
-            my $sambaMod = EBox::Global->modInstance('samba');
-            my $netbiosName = $sambaMod->netbiosName();
-            my $realm = $sambaMod->realm();
-            my $drive = $sambaMod->drive();
-            my $path = "\\\\$netbiosName.$realm\\$userName";
-            $entry->replace(homeDrive => $drive);
-            $entry->replace(homeDirectory => $path);
+        if ($entry->get_value('homeDrive') ne $drive) {
             try {
-                $self->disableZentyalModule();
-                $entry->update($self->ldbCon());
-                $self->enableZentyalModule();
-            } otherwise {
-                my $error = shift;
-                EBox::error("Error updating database: $error");
-            };
-        } else {
-            $entry->delete(homeDrive => undef);
-            $entry->delete(homeDirectory => undef);
-            try {
+                $entry->replace(homeDrive => $drive);
                 $self->disableZentyalModule();
                 $entry->update($self->ldbCon());
                 $self->enableZentyalModule();

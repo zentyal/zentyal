@@ -8,8 +8,6 @@
     @shares
     $roamingProfiles => 0
 
-    $homeDrive => 0
-
     $antivirus => 0
     $antivirus_exceptions => {}
 
@@ -68,7 +66,6 @@ use EBox::Gettext;
     read only = no
 % }
 
-% if ($homeDrive) {
 [homes]
     comment = <% __('Home Directories') %>
     read only = no
@@ -93,7 +90,6 @@ use EBox::Gettext;
 %       next unless $key;
     recycle: <% $key %> = <% $recycle_config->{$key} %>
 %   }
-% }
 % }
 
 # Group shares
