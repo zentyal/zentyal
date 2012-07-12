@@ -363,13 +363,16 @@ sub _pushConfBackup
 
     my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, \%p);
 
+    my $user = $self->{restClient}->{credentials}->{username};
+    my $pass = $self->{restClient}->{credentials}->{password};
+
     # Send the file using curl
     my $url = new URI('https://' . $self->{cloud} . '/conf-backup/put/' . $p{fileName});
+
+    # TODO: Move the password to an environment variable (HTTPS_PASSWORD??)
     my $output = EBox::Sudo::command(CURL . " --insecure --upload-file '$archive' "
-                                     . "'" . $url->as_string() . "'"
-                                     . ' --cacert ' . $self->{caCertificate}
-                                     . ' --cert ' . $self->{certificate}
-                                     . ' --key ' . $self->{certificateKey});
+                                     . " --user $user:$pass "
+                                     . "'" . $url->as_string() . "'");
 
 }
 
