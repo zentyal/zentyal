@@ -73,7 +73,7 @@ sub daemonFiles
         push @files, $ippFile;
     }
 
-    my $serverConfigDir = $class->serverConfigDirPath($confDir, $name);
+    my $serverConfigDir = $class->serverConfigDirByName($confDir, $name);
     if (-d $serverConfigDir) {
         push @files, $serverConfigDir;
     }
@@ -387,7 +387,7 @@ sub confFileTemplate
 sub _ippFileForDaemon
 {
     my ($class, $confDir, $name) = @_;
-    my $daemonDir = $class->serverConfigDirPath($confDir, $name);
+    my $daemonDir = $class->serverConfigDirByName($confDir, $name);
     return "$daemonDir/$name-ipp.txt";
 }
 
@@ -600,11 +600,11 @@ sub clientConfigDir
 {
     my ($self) = @_;
     my $vpnDir = $self->_openvpnModule->confDir();
-    my $path = $self->serverConfigDirPath($vpnDir, $self->name()) . '/client-config.d';
+    my $path = $self->serverConfigDirByName($vpnDir, $self->name()) . '/client-config.d';
     return $path;
 }
 
-sub serverConfigDirPath
+sub serverConfigDirByName
 {
     my ($self, $vpnDir, $name) = @_;
     return $vpnDir . '/' . "$name.d";
@@ -678,12 +678,14 @@ sub backupFiles
     EBox::FileSystem::makePrivateDir($dst);
 
     my $vpnDir = $self->_openvpnModule->confDir();
-    my $serverConfigDirPath = $self->serverConfigDirPath($vpnDir, $name);
-    if (EBox::FileSystem::dirIsEmpty($serverConfigDirPath)) {
+    my $serverConfigDir = $self->serverConfigDirByName($vpnDir, $name);
+    if (EBox::FileSystem::dirIsEmpty($serverConfigDir)) {
         return;
     }
 
-    EBox::Sudo::root("cp -af $serverConfigDirPath/* $dst/");
+    EBox::Sudo::root("cp -af $serverConfigDir/* $dst/");
+    # dont store config file
+    EBox::Sudo::root("rm  $dst/$name.conf");
 }
 
 sub restoreFiles
@@ -702,15 +704,15 @@ sub restoreFiles
     }
 
     my $vpnDir = $self->_openvpnModule->confDir();
-    my $serverConfigDirPath = $self->serverConfigDirPath($vpnDir, $name);
+    my $serverConfigDir = $self->serverConfigDirByName($vpnDir, $name);
     # clean and make directory
-    EBox::Sudo::root("rm -rf $serverConfigDirPath");
+    EBox::Sudo::root("rm -rf $serverConfigDir");
     $self->createDirectories();
 
-    EBox::Sudo::root("cp -af $src/* $serverConfigDirPath/");
+    EBox::Sudo::root("cp -af $src/* $serverConfigDir/");
     # XXX this is bz the tar file cannot preserve ownership this should be fixed
     # in EBox::Backup
-    EBox::Sudo::root("chown -R root.root $serverConfigDirPath/*");
+    EBox::Sudo::root("chown -R root.root $serverConfigDir/*");
 }
 
 

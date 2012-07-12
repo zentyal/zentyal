@@ -1,4 +1,5 @@
 HEAD
+	+ Configuration file reside under daemon directory
 	+ ipp files are now in server own directory
 	+ Client now drop prvilegies after initialization
 	+ Different model for upload client bundles for clients

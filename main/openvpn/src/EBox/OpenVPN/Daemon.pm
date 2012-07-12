@@ -324,9 +324,7 @@ sub confFileForName
       or throw EBox::Exceptions::MissingArgument('name');
 
     my $confFile = $name . '.conf';
-    my $confFilePath = defined $confDir ? "$confDir/$confFile" : $confFile;
-
-    return $confFilePath;
+    return "$confDir/$name.d/" . $confFile;
 }
 
 #
