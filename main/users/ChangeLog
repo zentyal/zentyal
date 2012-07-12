@@ -1,4 +1,4 @@
-HEAD
+2.3.11
 	+ Remove deprecated reference to AD Sync in wizard
 	+ Check to make sure that quota has been really assigned logs an error
 	  instead of raising an exeception, because some file systems does not

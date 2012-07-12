@@ -1,4 +1,4 @@
-HEAD
+2.3.11
 	+ Fixed typo which made EBox::Network::ifaceAddress return empty
 	  addresses for virtual interfaces
 	+ Fixed validation of gateway names
