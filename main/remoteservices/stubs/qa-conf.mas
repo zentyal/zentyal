@@ -7,3 +7,6 @@
 Acquire::http::Proxy {
    <% $repoHostname %> DIRECT;
 };
+Acquire::https::<% $repoHostname %> {
+   Verify-Peer "false";
+};

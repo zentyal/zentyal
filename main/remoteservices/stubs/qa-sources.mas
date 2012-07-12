@@ -6,5 +6,12 @@
   $archive => 'zentyal-qa'
   $user
   $pass
+  $ssl => 1
+  $port => 443
 </%args>
-deb http://<% $user %>:<% $pass %>@<% $repositoryHostname %>/ <% $archive %> main universe multiverse partner
+<%init>
+  my $proto = 'http';
+  $proto .= 's' if ($ssl);
+  $repositoryHostname .= ":$port" if ($port != 80 and $port != 443);
+</%init>
+deb <% $proto %>://<% $user %>:<% $pass %>@<% $repositoryHostname %>/ <% $archive %> main universe multiverse

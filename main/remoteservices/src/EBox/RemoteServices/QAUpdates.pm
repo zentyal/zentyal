@@ -89,10 +89,20 @@ sub _setQASources
     my $hex_uuid = $ug->to_hexstring($bin_uuid);
     my $pass = substr($hex_uuid, 2);                # Remove the '0x'
 
-    $interp->exec($comp, ( (repositoryHostname  => $repositoryHostname),
-                           (archive             => $archive),
-                           (user                => $user),
-                           (pass                => $pass)) );
+    my @tmplParams = ( (repositoryHostname  => $repositoryHostname),
+                       (archive             => $archive),
+                       (user                => $user),
+                       (pass                => $pass));
+    # Secret variables for testing
+    if ( EBox::Config::configkey('qa_updates_repo_port') ) {
+        push(@tmplParams, (port => EBox::Config::configkey('qa_updates_repo_port')));
+    }
+    if ( EBox::Config::boolean('qa_updates_repo_no_ssl') ) {
+        push(@tmplParams, (ssl => (not EBox::Config::boolean('qa_updates_repo_no_ssl'))));
+    }
+
+
+    $interp->exec($comp, @tmplParams);
 
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     my $tmpFile = $fh->filename();
@@ -116,7 +126,9 @@ sub _ubuntuVersion
 # Get the Zentyal version to use in the archive
 sub _zentyalVersion
 {
-    return substr(EBox::Config::version(),0,3);
+    # Comment out when stable is launched
+    # return substr(EBox::Config::version(),0,3);
+    return '3.0';
 }
 
 # Get the QA archive to look
@@ -165,7 +177,9 @@ sub _setQAAptPreferences
     EBox::Sudo::root("install -m 0644 '$fromCCPreferences' '$preferencesDirFile'");
 }
 
-# Set not to use HTTP proxy for QA repository
+# Set up the APT conf
+#  * No use HTTP proxy for QA repository
+#  * No verify server certificate
 sub _setQARepoConf
 {
     my $repoHostname = _repositoryHostname();
