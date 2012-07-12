@@ -119,6 +119,7 @@ sub _updateSessions
 {
     my ($self, $currentUsers, $events, $exceededEvent) = @_;
     my @rules;
+    my @removeRules;
 
     # firewall already inserted rules, checked to avoid duplicates
     my $iptablesRules = {
@@ -161,7 +162,7 @@ sub _updateSessions
         if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
             $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
-            push (@rules, @{$self->_removeRule($user)});
+            push (@removeRules, @{$self->_removeRule($user)});
 
             # bwmonitor...
             $self->_unmatchUser($user);
@@ -206,7 +207,18 @@ sub _updateSessions
         }
     }
 
-    EBox::Sudo::root(@rules) if @rules;
+    EBox::Sudo::root(@rules, @removeRules) if (@rules or @removeRules);
+    # remove again to be sure that we don't have left any duplicate rule
+    foreach my $remove (@removeRules) {
+        my $failed = 0;
+        while (not $failed) {
+            try {
+                EBox::Sudo::root($remove);
+            } otherwise {
+                $failed = 1;
+            };
+        }
+    }
 }
 
 
