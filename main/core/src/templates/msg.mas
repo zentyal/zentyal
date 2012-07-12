@@ -12,6 +12,11 @@ Parameters:
 </%doc>
 <%args>
   $msg
-  $class => 'note'
+  $class
 </%args>
+<%init>
+    unless ($class) {
+        $class = 'note';
+    }
+</%init>
 <div class="<% $class %>"><% $msg %></div>

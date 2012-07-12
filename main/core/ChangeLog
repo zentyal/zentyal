@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed regression setting default CSS class in notes
 2.3.15
 	+ Added missing call to updateRowNotify in DataForms
 	+ Fixed silent error in EBox::Types::File templates for non-readable
