@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed typo which made EBox::Network::ifaceAddress return empty
+	  addresses for virtual interfaces
 	+ Fixed validation of gateway names
 	+ Removed undefined value warning in setIfaceStatic()
 	+ Using EBox::Object::Members to generate multigw iptables rules
