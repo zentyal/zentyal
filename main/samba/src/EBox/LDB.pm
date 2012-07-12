@@ -97,11 +97,10 @@ sub syncCon
     my ($self) = @_;
 
     # Workaround to detect if connection is broken and force reconnection
-    # NOTE this will fail always until implement threaded synchronizer
     my $reconnect = 1;
     if (defined $self->{sync}) {
         my $socket = $self->{sync};
-        if (tell ($socket) != -1) {
+        if (tell ($socket)) {
             print $socket "PING\n";
             my $answer = <$socket>;
             if (defined $answer) {
@@ -113,7 +112,7 @@ sub syncCon
         }
     }
 
-    if (not defined $self->{sync} or $reconnect) {
+    if ($reconnect) {
         $self->{sync} = $self->safeConnectSync(SOCKET_PATH);
     }
 
@@ -472,8 +471,11 @@ sub enableZentyalModule
     EBox::debug('Enabling Zentyal LDB module');
     my $socket = $self->syncCon();
     print $socket "ENABLE\n";
-    $socket->flush;
-    $socket->close;
+    $socket->flush();
+    # Wait for answer
+    my $r = <$socket>;
+    chomp $r;
+    EBox::debug("Response from synchronizer: $r");
 }
 
 # Method: disableZentyalModule
@@ -487,8 +489,10 @@ sub disableZentyalModule
     EBox::debug('Disabling Zentyal LDB module');
     my $socket = $self->syncCon();
     print $socket "DISABLE\n";
-    $socket->flush;
-    $socket->close;
+    $socket->flush();
+    my $r = <$socket>;
+    chomp $r;
+    EBox::debug("Response from synchronizer: $r");
 }
 
 sub changeUserPassword
@@ -674,6 +678,7 @@ sub ldapUsersToLdb
             EBox::debug("Loading user $dn");
             try {
                 my $samAccountName = $user->get('uid');
+                my $uidNumber = $user->get('uidNumber');
                 my $sn = $user->get('sn');
                 my $givenName = $user->get('givenName');
                 my $principal = $user->get('krb5PrincipalName');
@@ -682,9 +687,10 @@ sub ldapUsersToLdb
                 my $credentials = EBox::LDB::Credentials::encodeSambaCredentials($kerberosKeys);
 
                 my $attrs = [];
-                push ($attrs, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user' ]);
+                push ($attrs, objectClass       => [ 'top', 'person', 'organizationalPerson', 'user', 'posixAccount' ]);
                 push ($attrs, sAMAccountName    => $samAccountName);
                 push ($attrs, userAccountControl => '512');
+                push ($attrs, uidNumber         => $uidNumber);
                 push ($attrs, sn                => $sn);
                 push ($attrs, givenName         => $givenName);
                 push ($attrs, userPrincipalName => $principal);
@@ -711,9 +717,11 @@ sub ldapUsersToLdb
                 $self->add($dn, { attrs => $attrs, control => $bypassControl });
 
                 # Map UID
+                # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
+                # it is not working when the user init session as DOMAIN/user but user@domain.com
+                # remove this when fixed
                 my $type = $self->idmap->TYPE_UID();
                 my $sid = $self->getSidById($samAccountName);
-                my $uidNumber = $user->get('uidNumber');
                 $self->idmap->setupNameMapping($sid, $type, $uidNumber);
             } otherwise {
                 my $error = shift;
@@ -746,12 +754,14 @@ sub ldapGroupsToLdb
             $dn =~ s/OU=Groups/CN=Users/i;
             my $cn = $group->get('cn');
             my $samAccountName = $group->get('cn');
+            my $gidNumber = $group->get('gidNumber');
             my $description = $group->get('description');
             EBox::debug("Loading group $dn");
             try {
                 my $attrs = [];
-                push ($attrs, objectClass    => ['top', 'group']);
+                push ($attrs, objectClass    => ['top', 'group', 'posixGroup']);
                 push ($attrs, sAMAccountName => $cn);
+                push ($attrs, gidNumber      => $gidNumber);
                 push ($attrs, cn             => $cn);
                 push ($attrs, description    => $description) if defined ($description);
 
@@ -765,16 +775,18 @@ sub ldapGroupsToLdb
                 push ($attrs, member => $groupUsers) if scalar @{$groupUsers};
 
                 $self->add($dn, { attrs => $attrs });
+
+                # Map the gid
+                # TODO Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
+                # it is not working when the user init session as DOMAIN/user but user@domain.com
+                # remove this when fixed
+                my $type = $self->idmap->TYPE_GID();
+                my $sid = $self->getSidById($samAccountName);
+                $self->idmap->setupNameMapping($sid, $type, $gidNumber);
             } otherwise {
                 my $error = shift;
                 EBox::error("Error loading group '$dn': $error");
             };
-
-            # TODO Map the gid
-            my $type = $self->idmap->TYPE_GID();
-            my $sid = $self->getSidById($samAccountName);
-            my $uidNumber = $group->get('gidNumber');
-            $self->idmap->setupNameMapping($sid, $type, $uidNumber);
         }
     } otherwise {
         my $error = shift;
@@ -782,6 +794,103 @@ sub ldapGroupsToLdb
     } finally {
         $self->enableZentyalModule();
     };
+}
+
+sub createRoamingProfileDirectory
+{
+    my ($self, $entry) = @_;
+
+    my $samAccountName  = $entry->get_value('samAccountName');
+    my $uidNumber       = $entry->get_value('uidNumber');
+    my $userSID         = $self->getSidById($samAccountName);
+    my $domainAdminsSID = $self->getSidById('Domain Admins');
+    my $domainUsersSID  = $self->getSidById('Domain Users');
+
+    # Create the directory if it does not exists
+    my $samba = EBox::Global->modInstance('samba');
+    my $path = EBox::SambaLdapUser::PROFILESPATH() . "/$samAccountName";
+    my $gid = EBox::UsersAndGroups::DEFAULTGROUP();
+
+    my @cmds = ();
+    # Create the directory if it does not exists
+    push (@cmds, "mkdir -p \'$path\'") unless -d $path;
+
+    # Set unix permissions on directory
+    push (@cmds, "chown $uidNumber:$gid \'$path\'");
+    push (@cmds, "chmod 0700 \'$path\'");
+
+    # Set native NT permissions on directory
+    my $sdString = '';
+    $sdString .= "O:$userSID"; # Object's owner
+    $sdString .= "G:$domainUsersSID"; # Object's primary group
+    $sdString .= "D:(A;;0x001f01ff;;;SY)(A;;0x001f01ff;;;$domainAdminsSID)(A;OICI;0x001301BF;;;$userSID)";
+    push (@cmds, "samba-tool ntacl set '$sdString' '$path'");
+    EBox::Sudo::root(@cmds);
+}
+
+sub setRoamingProfiles
+{
+    my ($self, $enable, $profilesPath) = @_;
+
+    my $args = { base   => $self->dn(),
+                 scope  => 'sub',
+                 filter => "(&(objectClass=user)(userAccountControl=512)(!(isCriticalSystemObject=*)))",
+                 attrs  => [] };
+    my $result = $self->search($args);
+    foreach my $entry ($result->entries) {
+        my $userName = $entry->get_value('samAccountName');
+        if ($enable) {
+            $self->createRoamingProfileDirectory($entry);
+            my $path .= "$profilesPath\\$userName";
+            EBox::debug("Enabling roaming profile for user '$userName'");
+            $entry->replace(profilePath => $path);
+            try {
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
+        } else {
+            EBox::debug("Disabling roaming profile for user '$userName'");
+            $entry->delete(profilePath => undef);
+            try {
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
+        }
+    }
+}
+
+sub setHomeDrive
+{
+    my ($self, $drive) = @_;
+
+    my $args = { base   => $self->dn(),
+                 scope  => 'sub',
+                 filter => "(&(objectClass=user)(userAccountControl=512)(!(isCriticalSystemObject=*)))",
+                 attrs  => ['samAccountName', 'homeDrive'] };
+    my $result = $self->search($args);
+    foreach my $entry ($result->entries) {
+        my $sambaMod = EBox::Global->modInstance('samba');
+        my $userName = $entry->get_value('samAccountName');
+        if ($entry->get_value('homeDrive') ne $drive) {
+            try {
+                $entry->replace(homeDrive => $drive);
+                $self->disableZentyalModule();
+                $entry->update($self->ldbCon());
+                $self->enableZentyalModule();
+            } otherwise {
+                my $error = shift;
+                EBox::error("Error updating database: $error");
+            };
+        }
+    }
 }
 
 1;

@@ -7,16 +7,21 @@ depends:
 enabledepends:
     - network
     - users
-    - dns
 
 models:
     - GeneralSettings
     - SambaShares
     - SambaSharePermissions
     - SambaDeletedShares
+    - AntivirusDefault
+    - AntivirusExceptions
+    - RecycleDefault
+    - RecycleExceptions
 
 composites:
-    General: [GeneralSettings, SambaShares]
+    RecycleBin: [RecycleDefault, RecycleExceptions]
+    Antivirus: [AntivirusDefault, AntivirusExceptions]
+    General: [GeneralSettings, SambaShares, RecycleBin] # FIXME: Add Antivirus when samba-vscan is ready
 
 foreign:
     SambaShares: [SambaSharePermissions]

@@ -234,7 +234,8 @@ static int open_socket(struct ldb_module *module)
 	data = talloc_get_type(ldb_module_get_private(module), struct private_data);
 
     if ((data->socket = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
-        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
+        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal (socket): %s", strerror(errno));
+        data->socket = -1;
         return -1;
     }
 
@@ -242,7 +243,8 @@ static int open_socket(struct ldb_module *module)
     strcpy(remote.sun_path, socket_path);
     len = strlen(remote.sun_path) + sizeof(remote.sun_family);
     if (connect(data->socket, (struct sockaddr *)&remote, len) == -1) {
-        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
+        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal (connect): %s", strerror(errno));
+        data->socket = -1;
         return -1;
     }
 
@@ -250,7 +252,7 @@ static int open_socket(struct ldb_module *module)
     struct timeval tv;
     tv.tv_sec  = 5;
     tv.tv_usec = 0;
-    setsockopt( data->socket, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+    setsockopt(data->socket, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 
     return 0;
 }
@@ -276,36 +278,40 @@ static int socket_send(struct ldb_module *module, const char *json_str)
     ldb = ldb_module_get_ctx(module);
 	data = talloc_get_type(ldb_module_get_private(module), struct private_data);
 
-    ret = open_socket(module);
-    if (ret) {
-        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
+    char response[1024];
+    ret = recv(data->socket, response, 1, MSG_DONTWAIT | MSG_PEEK);
+    if (errno != 11) {
+        close_socket(module);
+        open_socket(module);
+    }
+
+    if (data->socket == -1) {
         return -1;
     }
 
     if (send(data->socket, json_str, strlen(json_str), 0) == -1) {
-        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
+        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal (send): %s (code %i)", strerror(errno), errno);
         return -1;
     }
     if (send(data->socket, "\n", 1, 0) == -1) {
-        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal: %s", strerror(errno));
+        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal (send): %s (code %i)", strerror(errno), errno);
         return -1;
     }
 
     // Wait for response
     int nbytes;
-    char response[1024];
     if ((nbytes = recv(data->socket, &response, 1024, 0)) > 0) {
         response[nbytes] = '\0';
-        ldb_debug(ldb, LDB_DEBUG_TRACE, "zentyal: Response from synchronizer: %s", response);
+        ldb_debug(ldb, LDB_DEBUG_TRACE, "zentyal (recv): Response from synchronizer: '%s'", response);
     } else {
-        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal error %i: %s", errno, strerror(errno));
+        ldb_debug(ldb, LDB_DEBUG_ERROR, "zentyal (recv): %s (code %i)", strerror(errno), errno);
         return errno;
     }
 
-    // Close socket
-    close_socket(module);
-
     // Check return code from synchronizer
+    if (response[strlen(response) - 1] == '\n'){
+        response[strlen(response) - 1] = '\0';
+    }
     ret = strcmp(response, "OK");
 
     return ret;

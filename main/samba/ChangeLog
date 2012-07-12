@@ -1,3 +1,18 @@
+HEAD
+	+ Recycle Bin feature is now working with samba4
+	+ Remove unnecessary dns enable depend as users already depend on it
+	+ Integration with samba 4.0 beta2 which uses samba4 for
+	  the Active Directory domain services and the samba3 daemon
+	  for the file sharing and printing services
+	+ Added LogObserver support
+	+ Avoid showing admin password if provision command fails
+	+ Add domain name validation, cannot be equal to host name
+	+ Fix provision bug caused by passwords containing spaces
+	+ Threaded synchronizer script
+	+ Roaming profiles implementation
+	+ Home drive implementation
+	+ Guest access implementation
+	+ Delete directories from disk when shares are removed
 2.3.7
 	+ Fixed problems with provision in fresh install
 	+ Adapted to new Model management framework

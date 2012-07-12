@@ -1258,7 +1258,7 @@ sub setIfaceStatic
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-    if ($ext != $self->ifaceIsExternal($name) ) {
+    if (defined $ext and $ext != $self->ifaceIsExternal($name) ) {
         # Tell observers the interface way has changed
         foreach my $obs (@observers) {
             if ($obs->ifaceExternalChanged($name, $ext)) {

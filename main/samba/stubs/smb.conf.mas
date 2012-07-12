@@ -6,41 +6,129 @@
     $mode
     $realm
     @shares
+    $roamingProfiles => 0
+
+    $antivirus => 0
+    $antivirus_exceptions => {}
+
+    $recycle => 0
+    $recycle_exceptions => {}
+    $recycle_config => {}
+
+    $prefix => 'Zentyal'
+    $backup_path => '/tmp'
+    $quarantine_path => '/tmp'
+
+    @dirgroup => ()
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-# Global parameters
 [global]
-    workgroup = <% $workgroup %>
     netbios name = <% $netbiosName %>
+    workgroup = <% $workgroup %>
     server string = <% $description %>
+
+    wins support = yes
+    dns proxy = yes
+    name resolve order = wins bcast host
+
     interfaces = <% $ifaces %>
     bind interfaces only = yes
-    passdb backend = samba4
-    log level = 1
-    log file = /var/log/samba/samba.log
-    name resolve order = wins, host, bcast
+
     server role = <% $mode %>
     realm = <% $realm %>
 
-[sysvol]
-    path = /var/lib/samba/sysvol
-    read only = No
+    log level = 1
+    log file = /var/log/samba/samba.log
+
+    idmap_ldb:use rfc2307 = yes
+
+#    load printers = yes
+#    printing = cups
+#    printcap name = cups
+
+% if ($mode eq 'dc') {
+%   if ($roamingProfiles) {
+[profiles]
+    path = /home/ebox/samba/profiles
+    browseable = no
+    read only = no
+%   }
 
 [netlogon]
     path = /var/lib/samba/sysvol/<% $realm %>/scripts
-    read only = No
+    browseable = no
+    read only = yes
 
-% #if ($roamingProfiles) {
-% ## Roaming profiles
-% #[profiles]
-% #    path = /home/ebox/samba/profiles
-% #    browseable = No
-% #    read only = No
-% #    create mask = 0611
-% #    directory mask = 0711
-% #}
+[sysvol]
+    path = /var/lib/samba/sysvol
+    read only = no
+% }
+
+[homes]
+    comment = <% __('Home Directories') %>
+    read only = no
+    browseable = yes
+    create mask = 0611
+    directory mask = 0711
+% my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
+% my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
+% my $objects = 'acl_xattr full_audit';
+% if ($av) {
+%   $objects .= ' vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+    vfs objects = <% $objects %>
+% if ($av) {
+    vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+%   foreach my $key (keys %{$recycle_config}) {
+%       next unless $key;
+    recycle: <% $key %> = <% $recycle_config->{$key} %>
+%   }
+% }
+
+# Group shares
+% foreach my $group (@dirgroup) {
+[<% $group->{'sharename'} %>]
+% if ($group->{'groupcomment'}) {
+ comment = "<% $group->{'groupcomment'} %>"
+% } else {
+ comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
+% }
+ path = <% $group->{'path'} %>
+ browseable = yes
+ read only = no
+ valid users = @"<% $group->{'groupname'} %>"
+ force group = "<% $group->{'groupname'} %>"
+ force create mode = 0660
+ force directory mode = 0660
+% my $av = ($antivirus xor defined($antivirus_exceptions->{'group'}->{$group->{'sharename'}}));
+% my $rb = ($recycle xor defined($recycle_exceptions->{'group'}->{$group->{'sharename'}}));
+% my $objects = 'acl_xattr full_audit';
+% if ($av) {
+%   $objects .= ' vscan-clamav';
+% }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+ vfs objects = <% $objects %>
+% if ($av) {
+ vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+%   foreach my $key (keys %{$recycle_config}) {
+%     next unless $key;
+ recycle: <% $key %> = <% $recycle_config->{$key} %>
+%    }
+% }
+%
+% }
+
 
 % foreach my $share (@shares) {
 # Shares
@@ -51,4 +139,60 @@ use EBox::Gettext;
     read only = No
     force create mode = 0660
     force directory mode = 0660
+% my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
+% my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
+% my $objects = 'acl_xattr full_audit';
+% if ($av) {
+%   $objects .= ' vscan-clamav';
 % }
+% if ($rb) {
+%   $objects .= ' recycle';
+% }
+    vfs objects = <% $objects %>
+    full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
+    full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
+% if ($av) {
+    vscan-clamav: config-file = /etc/samba/vscan-clamav.conf
+% }
+% if ($rb) {
+%   foreach my $key (keys %{$recycle_config}) {
+%       next unless $key;
+    recycle: <% $key %> = <% $recycle_config->{$key} %>
+%   }
+% }
+% }
+
+#[printers]
+#   comment = All Printers
+#   browseable = yes
+#   path = /var/spool/samba
+#   printable = yes
+#   guest ok = yes
+#   read only = yes
+#   create mask = 0700
+#
+#[<% $prefix %>-internal-backups]
+# path = <% $backup_path %>
+# browseable = yes
+# read only = yes
+# valid users = @"Domain Admins"
+# admin users = @"Domain Admins"
+# force group = ebox
+# force user = ebox
+#
+#[<% $prefix %>-quarantine]
+# path = <% $quarantine_path %>
+# browseable = yes
+# read only = no
+# valid users = @"Domain Admins"
+# admin users = @"Domain Admins"
+#
+#[print$]
+# comment = "Printer Drivers"
+# path = /var/lib/samba/printers
+# browseable = yes
+# read only = yes
+# guest ok = no
+# write list = @"Domain Admins"
+# valid users = @"Domain Users"
+

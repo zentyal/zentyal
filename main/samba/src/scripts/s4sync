@@ -7,6 +7,8 @@ use IO::Socket::UNIX qw( SOCK_STREAM SOMAXCONN );
 use JSON::XS;
 use MIME::Base64;
 use Error qw(:try);
+use threads;
+use threads::shared;
 
 use Samba4Sync::LDAP;
 
@@ -15,79 +17,108 @@ use EBox::Exceptions::Internal;
 
 use constant SOCK_PATH => '/var/run/ldb';
 
-my $server = undef;
-
 # Open socket to receive the messages from the Zentyal LDB module
-$server = openSocket(SOCK_PATH);
-unless (defined $server) {
-    die ("Can't create server socket: $!\n");
-}
+my $server = openSocket(SOCK_PATH) or die ("Can't create server socket: $!\n");
 
 # Init Zentyal framework after create the socket to avoid permission denied
 EBox::init();
 _info("Samba4 synchronizer daemon started");
 
-# Wait for clients
+# This variable is shared by all threads and used to serialize them locking it
 my $enabled = 1;
-while (my $socket = $server->accept() ) {
-    my $ret = 0;
-    try {
-        unless (defined $socket) {
-            _error("Can't accept connection: $!\n");
-            next;
-        }
+share($enabled);
 
-        chomp (my $line = <$socket>);
-        if ($line =~ m/DISABLE/) {
-            $enabled = 0;
-            next;
-        } elsif ($line =~ m/ENABLE/) {
-            $enabled = 1;
-            next;
-        } elsif ($line =~ m/PING/) {
-            print $socket "PONG";
-            next;
-        }
-        next unless $enabled;
-
-        my $parameters = decode_json($line);
-        my $operation = delete $parameters->{operation};
-        if (defined $operation) {
-            if ($operation eq "LDB_ADD") {
-                my $dn    = delete $parameters->{dn};
-                my $mods  = delete $parameters->{mods};
-                debugMessage($operation, $dn, $mods);
-                $ret = Samba4Sync::LDAP::add($dn, $mods);
-            } elsif ($operation eq "LDB_MODIFY") {
-                my $dn     = delete $parameters->{dn};
-                my $mods   = delete $parameters->{mods};
-                my $object = delete $parameters->{object};
-                debugMessage($operation, $dn, $mods, $object);
-                $ret = Samba4Sync::LDAP::modify($dn, $mods, $object);
-            } elsif ($operation eq "LDB_DELETE") {
-                my $dn     = delete $parameters->{dn};
-                my $object = delete $parameters->{object};
-                debugMessage($operation, $dn, $object);
-                $ret = Samba4Sync::LDAP::del($dn, $object);
-            } else {
-                _warning("Unknown operation: $operation");
-            }
-        } else {
-            _warning("Undefined operation");
-        }
-    } otherwise {
-        my $error = shift;
-        _error($error);
-        $ret = -1;
-    };
-
-    if ($ret == 0) {
-        _debug("Returning 'OK' to LDB");
-        print $socket "OK";
-    } else {
-        _debug("Returning 'NOK' to LDB");
-        print $socket "NOK";
+# Wait for clients
+while (1) {
+    my $client = $server->accept();
+    unless (defined $client) {
+        _error("Can't accept client connection: $!\n");
+        die $!;
     }
+
+    # Run a thread to attend the client
+    my $thr = threads->create(\&handler, $client);
+    $thr->detach();
+}
+
+sub handler
+{
+    my ($client) = @_;
+
+    _debug("Client thread enter");
+    while (1) {
+        my $line = <$client>;
+        last unless defined $line;
+
+        # Remove trailing new line
+        chomp $line;
+
+        # Serialize the threads
+        lock ($enabled);
+
+        my $ret = 0;
+        try {
+            if ($line =~ m/DISABLE/) {
+                $enabled = 0;
+                print $client "OK\n";
+                next;
+            } elsif ($line =~ m/ENABLE/) {
+                $enabled = 1;
+                print $client "OK\n";
+                next;
+            } elsif ($line =~ m/PING/) {
+                print $client "PONG\n";
+                next;
+            }
+
+            unless ($enabled) {
+                _debug("Synchronizer disabled so return OK");
+                print $client "OK\n";
+                next;
+            }
+
+            my $parameters = decode_json($line);
+            my $operation = delete $parameters->{operation};
+            if (defined $operation) {
+                if ($operation eq "LDB_ADD") {
+                    my $dn    = delete $parameters->{dn};
+                    my $mods  = delete $parameters->{mods};
+                    debugMessage($operation, $dn, $mods);
+                    $ret = Samba4Sync::LDAP::add($dn, $mods);
+                } elsif ($operation eq "LDB_MODIFY") {
+                    my $dn     = delete $parameters->{dn};
+                    my $mods   = delete $parameters->{mods};
+                    my $object = delete $parameters->{object};
+                    debugMessage($operation, $dn, $mods, $object);
+                    $ret = Samba4Sync::LDAP::modify($dn, $mods, $object);
+                } elsif ($operation eq "LDB_DELETE") {
+                    my $dn     = delete $parameters->{dn};
+                    my $object = delete $parameters->{object};
+                    debugMessage($operation, $dn, $object);
+                    $ret = Samba4Sync::LDAP::del($dn, $object);
+                } else {
+                    _warning("Unknown operation: $operation");
+                }
+            } else {
+                _warning("Undefined operation");
+            }
+        } otherwise {
+            my $error = shift;
+            _error($error);
+            $ret = -1;
+        };
+
+        if ($ret == 0) {
+            _debug("Returning 'OK' to LDB");
+            print $client "OK\n";
+        } else {
+            _debug("Returning 'NOK' to LDB");
+            print $client "NOK\n";
+        }
+    }
+
+    close ($client);
+    _debug("Client thread exit");
 }
 
 _info("Samba4 synchronizer daemon stopped");
@@ -112,19 +143,20 @@ sub openSocket
     my ($path) = @_;
 
     # Open unix socket
-    unlink $path;
+    unlink $path if -e $path;
     $server = IO::Socket::UNIX->new(Type   => SOCK_STREAM,
                                     Local  => $path,
                                     Listen => SOMAXCONN);
+
     if (defined $server) {
         $server->autoflush(1);
-    }
 
-    # Set permissions to allow Zentyal to write on the socket
-    my $user = EBox::Config::user();
-    my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
-    chown ('0', $gid, $path);
-    chmod (oct('0770'), $path);
+        # Set permissions to allow Zentyal to write on the socket
+        my $user = EBox::Config::user();
+        my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+        chown ('0', $gid, $path);
+        chmod (oct('0770'), $path);
+    }
 
     return $server;
 }
