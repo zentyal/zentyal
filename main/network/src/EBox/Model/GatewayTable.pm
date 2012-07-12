@@ -562,7 +562,7 @@ sub checkGWName
            );
     }
 
-    unless ($name =~ m/^[^a-z0-9\-]+$/) {
+    unless ($name =~ m/^[a-z0-9\-]+$/) {
         throw EBox::Exceptions::InvalidData(
             data => __('Gateway name'),
             value => $name,
