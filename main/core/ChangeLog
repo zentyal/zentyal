@@ -1,4 +1,4 @@
-HEAD
+2.3.15
 	+ Added missing call to updateRowNotify in DataForms
 	+ Fixed silent error in EBox::Types::File templates for non-readable
 	  by ebox files

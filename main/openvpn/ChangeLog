@@ -1,4 +1,4 @@
-HEAD
+2.3.8
 	+ Configuration file reside under daemon directory
 	+ ipp files are now in server own directory
 	+ Client now drop prvilegies after initialization
