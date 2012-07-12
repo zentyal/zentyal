@@ -26,6 +26,7 @@ $ippFile
 
 $clientConfigDir => undef
 
+$redirectGw => undef
 $dns1 => undef
 $dns2 => undef
 $searchDomain => undef
@@ -165,6 +166,9 @@ verb 3
 # category will be output to the log.
 ;mute 20
 
+% if ($redirectGw) {
+push "redirect-gateway def1"
+% }
 % if ($dns1) {
 push "dhcp-option DNS <% $dns1 %>"
 % }

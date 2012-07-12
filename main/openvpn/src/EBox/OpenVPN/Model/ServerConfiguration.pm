@@ -139,6 +139,13 @@ sub _table
                  populate      => \&_populateLocal,
                  defaultValue => ALL_INTERFACES,
                  ),
+         new EBox::Types::Boolean(
+             fieldName => 'redirectGw',
+             printableName => __('Redirect gateway'),
+             editable => 1,
+             defaultValue => 0,
+             help => __('Makes Zentyal the default gateway for the client'),
+            ),
          new EBox::Types::Host(
              fieldName => 'dns1',
              printableName => __('First nameserver'),
@@ -196,11 +203,19 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
+    my $tunnelParams = [qw/ripPasswd/];
+    my $noTunnelParams = [qw/redirectGw dns1 dns2 searchDomain wins/];
+
     $customizer->setOnChangeActions(
             { pullRoutes =>
                 {
-                on  => { enable => [qw/ripPasswd/] },
-                off => { disable => [qw/ripPasswd/] },
+                on  => { enable  => $tunnelParams,
+                         disable => $noTunnelParams,
+                        },
+                off => {
+                        enable  => $noTunnelParams,
+                        disable => $tunnelParams
+                       },
                 }
             });
     return $customizer;
