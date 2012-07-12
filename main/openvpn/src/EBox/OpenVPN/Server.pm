@@ -143,7 +143,7 @@ sub _checkPortIsAvailable
 # Method: port
 #
 #  Returns:
-#   the port used by the server to receive conenctions.
+#   the port used by the server to receive connections.
 sub port
 {
     my ($self) = @_;
@@ -387,7 +387,8 @@ sub confFileTemplate
 sub _ippFileForDaemon
 {
     my ($class, $confDir, $name) = @_;
-    return "$confDir/$name-ipp.txt";
+    my $daemonDir = $class->serverConfigDirPath($confDir, $name);
+    return "$daemonDir/$name-ipp.txt";
 }
 
 # Method: ippFile
@@ -581,18 +582,25 @@ sub advertisedNets
 }
 
 
+
+sub createDirectories
+{
+    my ($self) = @_;
+
+    my $path = $self->clientConfigDir();
+    if (-d $path) {
+        return;
+    }
+    EBox::Sudo::root("mkdir -p $path");
+    EBox::Sudo::root("chmod -R 755 $path");
+}
+
 # return the clientConfigDir path and creates the directory if it does not exists
 sub clientConfigDir
 {
     my ($self) = @_;
     my $vpnDir = $self->_openvpnModule->confDir();
     my $path = $self->serverConfigDirPath($vpnDir, $self->name()) . '/client-config.d';
-    if (-d $path) {
-        return $path;
-    }
-
-    EBox::Sudo::root("mkdir -p $path");
-    EBox::Sudo::root("chmod -R 755 $path");
     return $path;
 }
 
@@ -659,6 +667,52 @@ sub clientBundle
 
     return $class->clientBundle(%params);
 }
+
+
+sub backupFiles
+{
+    my ($self, $dir) = @_;
+
+    my $name = $self->name();
+    my $dst = "$dir/$name";
+    EBox::FileSystem::makePrivateDir($dst);
+
+    my $vpnDir = $self->_openvpnModule->confDir();
+    my $serverConfigDirPath = $self->serverConfigDirPath($vpnDir, $name);
+    if (EBox::FileSystem::dirIsEmpty($serverConfigDirPath)) {
+        return;
+    }
+
+    EBox::Sudo::root("cp -af $serverConfigDirPath/* $dst/");
+}
+
+sub restoreFiles
+{
+    my ($self, $dir) = @_;
+
+    my $name = $self->name();
+    my $src = "$dir/" . $name;
+    if (not EBox::Sudo::fileTest('-d', $src)) {
+        EBox::warn('No backup directory $src for server ' . $name);
+        return;
+    }
+    if (EBox::FileSystem::dirIsEmpty($src)) {
+        EBox::warn('No files in backup directory $src for server ' . $name);
+        return;
+    }
+
+    my $vpnDir = $self->_openvpnModule->confDir();
+    my $serverConfigDirPath = $self->serverConfigDirPath($vpnDir, $name);
+    # clean and make directory
+    EBox::Sudo::root("rm -rf $serverConfigDirPath");
+    $self->createDirectories();
+
+    EBox::Sudo::root("cp -af $src/* $serverConfigDirPath/");
+    # XXX this is bz the tar file cannot preserve ownership this should be fixed
+    # in EBox::Backup
+    EBox::Sudo::root("chown -R root.root $serverConfigDirPath/*");
+}
+
 
 sub certificateRevoked # (commonName, isCACert)
 {

@@ -207,6 +207,7 @@ sub _writeConfFiles
 
     my @daemons = $self->daemons();
     foreach my $daemon (@daemons) {
+        $daemon->createDirectories();
         $daemon->writeConfFile($confDir);
         $daemon->writeUpstartFile();
     }
@@ -1545,14 +1546,20 @@ sub _backupClientCertificatesDir
     return $dir .'/clientCertificates';
 }
 
+
 sub dumpConfig
 {
     my ($self, $dir) = @_;
 
+    my $backupServersDir = "$dir/servers";
+    EBox::FileSystem::makePrivateDir($backupServersDir);
+    foreach my $server ($self->servers()) {
+        $server->backupFiles($backupServersDir);
+    }
+
     # save client's certificates
     my $certificatesDir = $self->_backupClientCertificatesDir($dir);
     EBox::FileSystem::makePrivateDir($certificatesDir);
-
     foreach my $client ($self->clients) {
         $client->backupCertificates($certificatesDir);
     }
@@ -1562,9 +1569,13 @@ sub restoreConfig
 {
     my ($self, $dir, %extraParams) = @_;
 
+    my $backupServersDir = "$dir/servers";
+    foreach my $server ($self->servers()) {
+        $server->restoreFiles($backupServersDir);
+    }
+
     # restore client certificates
     my $certificatesDir = $self->_backupClientCertificatesDir($dir);
-
     my @clients = $self->clients();
     foreach my $client (@clients) {
         $client->restoreCertificates($certificatesDir);

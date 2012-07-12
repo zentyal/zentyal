@@ -1,4 +1,5 @@
 HEAD
+	+ Added method EBox::FileSystem::isDirEmpty
 	+ Better exclusion of no-device filesystems in EBox::FileSystem::partitionsFileSystems
 	+ Removed redundant messages when logging sudo commands in debug
 2.3.6

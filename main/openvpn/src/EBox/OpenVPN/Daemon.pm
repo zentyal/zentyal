@@ -288,6 +288,15 @@ sub internal
                                           'Must be immplemented in subclasses');
 }
 
+# Method: createDirectories
+#
+#  Create the directory structure needed for the daemon if it does not exists.
+#  Default empty implementation
+sub createDirectories
+{
+
+}
+
 #
 # Method: confFile
 #
