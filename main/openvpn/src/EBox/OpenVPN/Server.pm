@@ -419,7 +419,7 @@ sub confFileParams
       qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify
          clientToClient user group proto dh tlsRemote
          clientConfigDir
-         searchDomain dns1 dns2 wins
+         redirectGw searchDomain dns1 dns2 wins
        );
     foreach  my $param (@paramsNeeded) {
         my $accessor_r = $self->can($param);
