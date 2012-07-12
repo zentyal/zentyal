@@ -35,6 +35,7 @@ use Error qw(:try);
 use EBox::Exceptions::DataExists;
 use EBox::Util::Lock;
 use Linux::Inotify2;
+use EBox::Gettext;
 
 # iptables command
 use constant IPTABLES => '/sbin/iptables';
@@ -76,22 +77,35 @@ sub run
     EBox::Sudo::root('touch ' . EBox::CaptivePortal->LOGOUT_FILE);
 
     # wakeup on new session and logout events
+    $notifier->blocking(0);
     $notifier->watch(EBox::CaptivePortal->SIDS_DIR, IN_CREATE, sub {});
     $notifier->watch(EBox::CaptivePortal->LOGOUT_FILE, IN_CLOSE, sub {});
 
     # Don't die on ALARM signal
     local $SIG{ALRM} = sub {};
 
+    my $global = EBox::Global->getInstance(1);
+    my $captive = $global->modInstance('captiveportal');
+    my $expirationTime = $captive->expirationTime();
+
+    my $exceededEvent = 0;
+    my $events = $global->getInstance(1)->modInstance('events');
+    if ((defined $events)  and ($events->isRunning())) {
+        $exceededEvent =
+            $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
+    }
+
     while (1) {
         EBox::Util::Lock::lock('firewall');
 
         my @users = @{$self->{module}->currentUsers()};
-        $self->_updateSessions(\@users);
+        $self->_updateSessions(\@users, $events, $exceededEvent);
 
         EBox::Util::Lock::unlock('firewall');
 
+
         # Sleep expiration interval
-        alarm(EBox::CaptivePortal->EXPIRATION_TIME);
+        alarm($expirationTime);
         $notifier->poll; # execution stalls here until alarm or login/out event
     }
 }
@@ -103,8 +117,9 @@ sub run
 #
 sub _updateSessions
 {
-    my ($self, $currentUsers) = @_;
+    my ($self, $currentUsers, $events, $exceededEvent) = @_;
     my @rules;
+    my @removeRules;
 
     # firewall already inserted rules, checked to avoid duplicates
     my $iptablesRules = {
@@ -126,18 +141,48 @@ sub _updateSessions
             $self->_matchUser($user);
 
             $new = 1;
+            if ($exceededEvent) {
+                    $events->sendEvent(
+                        message => __x('{user} has logged in captive portal and has quota left',
+                                       user => $user->{'user'},
+                                      ),
+                        source  => 'captiveportal-quota',
+                        level   => 'info',
+                        dispatchTo => [ 'ControlCenter' ],
+                        additional => {
+                            outOfQuota => 0,
+                            %{ $user }, # all fields from CaptivePortal::Model::Users::currentUsers
+                           }
+                       );
+                }
         }
 
-        # Expired or quota exceeded
-        if ($self->{module}->sessionExpired($user->{time}) or
-            $self->{module}->quotaExceeded($user->{user}, $user->{bwusage})) {
-
+        # Check for expiration or quota exceeded
+        my $quotaExceeded = $self->{module}->quotaExceeded($user->{user}, $user->{bwusage}, $user->{quotaExtension});
+        if ($quotaExceeded or $self->{module}->sessionExpired($user->{time})  ) {
             $self->{module}->removeSession($user->{sid});
             delete $self->{sessions}->{$sid};
-            push (@rules, @{$self->_removeRule($user)});
+            push (@removeRules, @{$self->_removeRule($user)});
 
             # bwmonitor...
             $self->_unmatchUser($user);
+
+            if ($quotaExceeded) {
+                if ($exceededEvent) {
+                    $events->sendEvent(
+                        message => __x('{user} is out of quota in captive portal with a usage of {bwusage} Mb',
+                                       user => $user->{'user'},
+                                       bwusage => $user->{'bwusage'}
+                                      ),
+                        source  => 'captiveportal-quota',
+                        level   => 'warn',
+                        additional => {
+                             outOfQuota => 1,
+                            %{ $user }, # all fields from CaptivePortal::Model::Users::currentUsers
+                        }
+                       );
+                }
+            }
 
             next;
         }
@@ -162,7 +207,18 @@ sub _updateSessions
         }
     }
 
-    EBox::Sudo::root(@rules);
+    EBox::Sudo::root(@rules, @removeRules) if (@rules or @removeRules);
+    # remove again to be sure that we don't have left any duplicate rule
+    foreach my $remove (@removeRules) {
+        my $failed = 0;
+        while (not $failed) {
+            try {
+                EBox::Sudo::root($remove);
+            } otherwise {
+                $failed = 1;
+            };
+        }
+    }
 }
 
 

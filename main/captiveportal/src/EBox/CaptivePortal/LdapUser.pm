@@ -133,7 +133,8 @@ sub getQuota
         return 0;
     }
 
-    if ($user->get('captiveQuotaOverride') eq 'TRUE') {
+    my $captiveQuotaOverride =  $user->get('captiveQuotaOverride');
+    if ((defined $captiveQuotaOverride) and ($captiveQuotaOverride eq 'TRUE')) {
         return $user->get('captiveQuota');
     }
 

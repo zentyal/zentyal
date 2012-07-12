@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2012 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,9 +20,12 @@ use warnings;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
-            EBox::LdapModule);
+            EBox::LdapModule
+            EBox::Events::WatcherProvider
+          );
 
 use EBox;
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
 use Error qw(:try);
@@ -37,7 +40,9 @@ use constant SIDS_DIR => CAPTIVE_DIR . 'sessions/';
 use constant LOGOUT_FILE => CAPTIVE_DIR . 'logout';
 use constant APACHE_CONF => CAPTIVE_DIR . 'apache2.conf';
 use constant LDAP_CONF => CAPTIVE_DIR . 'ldap.conf';
-use constant EXPIRATION_TIME => 60;
+use constant PERIOD_FILE => CAPTIVE_DIR . 'period';
+use constant CAPTIVE_USER  => 'zentyal-captiveportal';
+use constant CAPTIVE_GROUP => 'zentyal-captiveportal';
 
 sub _create
 {
@@ -135,6 +140,8 @@ sub _setConf
 
     # Write css file
     $self->_writeCSS();
+
+    $self->_writePeriodFile();
 }
 
 
@@ -246,6 +253,13 @@ sub httpsPort
     return $settings->https_portValue(),
 }
 
+sub expirationTime
+{
+    my ($self) = @_;
+    my $settings = $self->model('Settings');
+    return $settings->expirationValue(),
+}
+
 
 # Function: ifaces
 #
@@ -292,26 +306,7 @@ sub currentUsers
 {
     my ($self) = @_;
     my $model = $self->model('Users');
-    my $ids = $model->ids();
-    my @users;
-    for my $id (@{$ids}) {
-        my $row = $model->row($id);
-        my $bwusage = 0;
-
-        if ($self->_bwmonitor()) {
-            $bwusage = $row->valueByName('bwusage');
-        }
-
-        push(@users, {
-            user => $row->valueByName('user'),
-            ip => $row->valueByName('ip'),
-            mac => $row->valueByName('mac'),
-            sid => $row->valueByName('sid'),
-            time => $row->valueByName('time'),
-            bwusage => $bwusage,
-        });
-    }
-    return \@users;
+    return $model->currentUsers();
 }
 
 
@@ -335,6 +330,25 @@ sub userFirewallRule
 }
 
 
+sub exceptionsFirewallRules
+{
+    my ($self) = @_;
+    my @rules;
+
+    my $exceptionsModel = $self->model('Exceptions');
+    push @rules, @{ $exceptionsModel->firewallRules() };
+
+    my $global = $self->global();
+    foreach my $mod (@{ $global->modInstances()}) {
+        if ($mod->can('firewallCaptivePortalExceptions')) {
+            push @rules, @{ $mod->firewallCaptivePortalExceptions()  };
+        }
+    }
+
+    return \@rules;
+}
+
+
 # Function: sessionExpired
 #
 #   returns 1 if the session has expired
@@ -346,7 +360,7 @@ sub sessionExpired
 {
     my ($self, $time) = @_;
 
-    return time() > ($time + EXPIRATION_TIME + 30);
+    return time() > ($time + $self->expirationTime() + 30);
 }
 
 
@@ -360,12 +374,14 @@ sub sessionExpired
 #
 sub quotaExceeded
 {
-    my ($self, $username, $bwusage) = @_;
-
-    my $quota = $self->{cpldap}->getQuota($username);
+    my ($self, $username, $bwusage, $extension) = @_;
+    my $user = EBox::Global->modInstance('users')->user($username);
+    my $quota = $self->{cpldap}->getQuota($user);
 
     # No limit
     return 0 if ($quota == 0);
+
+    $quota += $extension;
 
     # check quota
     return $bwusage > $quota;
@@ -385,11 +401,30 @@ sub removeSession
     }
 }
 
+sub _writePeriodFile
+{
+    my ($self) = @_;
+    my $period = $self->expirationTime();
+    EBox::Module::Base::writeFile(PERIOD_FILE,
+                                  "$period",
+                                  {
+                                      mode => '0600',
+                                      uid  => CAPTIVE_USER,
+                                      gid  => CAPTIVE_GROUP,
+                                  }
+                                 );
+
+}
 
 sub _bwmonitor {
     my $bwmonitor = EBox::Global->modInstance('bwmonitor');
     return defined($bwmonitor) and $bwmonitor->isEnabled();
 }
 
+
+sub eventWatchers
+{
+    return ['CaptivePortalQuota'];
+}
 
 1;

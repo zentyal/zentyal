@@ -42,7 +42,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    $self->{bwmonitor} = EBox::Global->modInstance('bwmonitor');
+    $self->{bwmonitor} = $self->global()->modInstance('bwmonitor');
 
     $self->{bwmonitor_enabled} = defined($self->{bwmonitor}) and
                                  $self->{bwmonitor}->isEnabled();
@@ -129,6 +129,13 @@ sub _table
             'hidden' => 1,
             'optional' => 1,
         ),
+        new EBox::Types::Int(
+            'fieldName' => 'quotaExtension',
+            'printableName' => 'quotaExtension',
+            'editable' => 0,
+            'hidden' => 1,
+            'defaultValue' => 0,
+        ),
     );
 
     my @customActions = (
@@ -138,6 +145,14 @@ sub _table
             model => $self,
             handler => \&_kickUser,
             message => __('Finish user session in Captive Portal'),
+            image => '/data/images/deny-active.gif',
+        ),
+        new EBox::Types::Action(
+            name => 'extend',
+            printableValue => __('Extend bandwit limit'),
+            model => $self,
+            handler => \&_extendUser,
+            message => __('Reset nbandwith limit'),
             image => '/data/images/deny-active.gif',
         ),
     );
@@ -156,7 +171,8 @@ sub _table
         tableName          => 'Users',
         printableTableName => __('Current users'),
         printableRowName   => __('user'),
-        defaultActions     => [ 'editField', 'changeView' ],
+#        defaultActions     => [ 'editField', 'changeView' ],
+        defaultActions     => [ 'changeView' ],
         tableDescription   => \@tableHeader,
         customActions      => \@customActions,
         help               => __('List of current logged in users.'),
@@ -234,6 +250,7 @@ sub syncRows
         push (@user, ip => $sessions->{$sid}->{ip});
         push (@user, mac => $sessions->{$sid}->{mac});
 
+
         if ($self->_bwmonitorEnabled()) {
             push (@user, bwusage => $self->_bwusage($user));
         }
@@ -282,6 +299,28 @@ sub _kickUser
 }
 
 
+sub _extendUser
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $row = $self->row($id);
+    my $sid = $row->valueByName('sid');
+    my $ip = $row->valueByName('ip');
+    my $username= $row->valueByName('user');
+    my $user = EBox::Global->modInstance('users')->user($username);
+
+    my $quota = $self->parentModule()->{cpldap}->getQuota($user);
+    if ($quota == 0) {
+        return;
+    }
+
+    my $extension = $row->elementByName('quotaExtension');
+    my $newValue  =  $extension->value() + $quota;
+    $extension->setValue($newValue);
+    $row->store();
+}
+
+
 # return 1 if bwmonitor is enabled
 sub _bwmonitorEnabled
 {
@@ -296,7 +335,35 @@ sub _bwusage
     my ($self, $user) = @_;
 
     my $since = time() - $self->periodInfo()->{period};
-    return int($self->{bwmonitor}->userExtBWUsage($user, $since) / (1024*1024));
+    return int($self->{bwmonitor}->userExtBWUsage($user, $since) / 1048576);
+}
+
+sub currentUsers
+{
+    my ($self) = @_;
+    my $ids = $self->ids();
+    my @users;
+    for my $id (@{$ids}) {
+        my $row = $self->row($id);
+        my $bwusage = 0;
+        my $quotaExtension = 0;
+
+        if ($self->{bwmonitor_enabled}) {
+            $bwusage = $row->valueByName('bwusage');
+            $quotaExtension = $row->valueByName('quotaExtension');
+        }
+
+        push(@users, {
+            user => $row->valueByName('user'),
+            ip => $row->valueByName('ip'),
+            mac => $row->valueByName('mac'),
+            sid => $row->valueByName('sid'),
+            time => $row->valueByName('time'),
+            quotaExtension => $quotaExtension,
+            bwusage => $bwusage,
+        });
+    }
+    return \@users;
 }
 
 

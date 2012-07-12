@@ -1104,6 +1104,51 @@ sub firewallHelper
     return undef;
 }
 
+# Method: firewallCaptivePortalExceptions
+#
+#  this method gives firewall ruels to add to the captive portal module.
+#  They purpose is to allow domain joins without captive portal interference
+sub firewallCaptivePortalExceptions
+{
+    my ($self) = @_;
+    my @rules;
+
+    if (not $self->isEnabled()) {
+       return [];
+    }
+
+     my @services = @{ $self->_services() };
+    foreach my $conf (@services) {
+        my $args = '';
+        my $tcpAndUdp = 0;
+        if ($conf->{protocol} ne 'any') {
+            if ($conf->{protocol} eq 'tcp/udp') {
+                $tcpAndUdp = 1;
+            } else {
+                $args .= '--protocol ' . $conf->{protocol};
+            }
+        }
+        if ($conf->{sourcePort} ne 'any') {
+            $args .= ' --sport ' . $conf->{sourcePort};
+        }
+        if ($conf->{destinationPort} ne 'any') {
+            $args .= ' --dport ' . $conf->{destinationPort};
+        }
+
+        if ($args) {
+            if ($tcpAndUdp) {
+                push @rules, "--protocol tcp $args -j RETURN";
+                push @rules, "--protocol udp $args -j RETURN";
+            } else {
+                push @rules, "$args -j RETURN";
+            }
+        }
+    }
+
+    return \@rules;
+}
+
+
 sub menu
 {
     my ($self, $root) = @_;

@@ -1,3 +1,6 @@
+HEAD
+	+ Added method to give captive portal module firewall rules to
+	  allow domain joins
 2.3.8
 	+ Recycle Bin feature is now working with samba4
 	+ Remove unnecessary dns enable depend as users already depend on it
