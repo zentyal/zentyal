@@ -28,12 +28,8 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Squid::Types::TimePeriod;
 use EBox::Types::HasMany;
-use EBox::Squid::Model::DomainFilterFiles;
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
-
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
 
 # Group: Public methods
 
@@ -75,13 +71,13 @@ sub viewCustomizer
     my $customizer = $self->SUPER::viewCustomizer();
 
     my $securityUpdatesAddOn = 0;
-    if ( EBox::Global->modExists('remoteservices') ) {
+    if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
         $securityUpdatesAddOn = $rs->securityUpdatesAddOn();
     }
 
-    unless ( $securityUpdatesAddOn ) {
-        $customizer->setPermanentMessage($self->_commercialMsg(), 'ad');
+    unless ($securityUpdatesAddOn) {
+        $customizer->setPermanentMessage($self->parentModule()->_commercialMsg(), 'ad');
     }
 
     return $customizer;
@@ -227,6 +223,7 @@ sub _setProfileDomainsPolicy
     my ($self, $group, $policy) = @_;
 
     my $domainFilter      = $policy->componentByName('DomainFilter', 1);
+    # FIXME!
     my $domainFilterFiles = $policy->componentByName('DomainFilterFiles', 1);
 
     $group->{exceptionsitelist} = [
@@ -303,15 +300,6 @@ sub restoreConfig
 {
     my ($class, $dir)  = @_;
     EBox::Squid::Model::DomainFilterFiles->restoreConfig($dir);
-}
-
-# Security Updates Add-On message
-sub _commercialMsg
-{
-    return __sx('Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that include the Content Filtering feature in the automatic security updates.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
 }
 
 1;

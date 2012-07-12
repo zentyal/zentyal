@@ -36,7 +36,6 @@ use EBox::SquidFirewall;
 use EBox::Squid::LogHelper;
 use EBox::SquidOnlyFirewall;
 use EBox::Squid::LdapUserImplementation;
-use EBox::Squid::Model::DomainFilterFiles;
 
 use EBox::DBEngineFactory;
 use EBox::Dashboard::Value;
@@ -70,11 +69,14 @@ use constant {
     SQUID3_DEFAULT_FILE => '/etc/default/squid3',
 };
 
+use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
+use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
+
 sub _create
 {
     my $class = shift;
     my $self  = $class->SUPER::_create(name => 'squid',
-                                       printableName => __n('HTTP Proxy'),
+                                       printableName => __('HTTP Proxy'),
                                        @_);
     $self->{logger} = EBox::logger();
     bless ($self, $class);
@@ -451,20 +453,6 @@ sub usesPort
     return undef;
 }
 
-
-# we override this because we want to call _cleanDomainFilterFiles regardless of
-# th enable state of the service. why?. We dont want to have orphaned domain
-# filter files bz they can spend a lot of space and for this we need to call
-# _cleanDomainFilterFiles after each restart or revokation
-sub restartService
-{
-    my ($self, @params) = @_;
-
-    $self->_cleanDomainFilterFiles();
-
-    $self->SUPER::restartService(@params);
-}
-
 sub _setConf
 {
     my ($self) = @_;
@@ -737,86 +725,6 @@ sub _writeDgTemplates
                                              ]);
 }
 
-sub revokeConfig
-{
-    my ($self) = @_;
-
-    my $res = $self->SUPER::revokeConfig();
-
-    $self->_cleanDomainFilterFiles();
-
-    return $res;
-}
-
-
-sub _cleanDomainFilterFiles
-{
-    my ($self) = @_;
-
-    # FIXME: reimplement this together with the new files management
-    return 0;
-
-    # purge empty file list directories and orphaned files/directories
-    # XXX is not the ideal place to
-    # do this but we don't have options bz deletedRowNotify is called before
-    # deleting the file so the directory is not empty
-
-    # FIXME: This is a workaround, as there are bugs with parentComposite
-    # should be implemented better someday
-    # This avoids the bug of deleting list files in the second restart
-    my $dir = $self->isReadOnly() ? 'ebox-ro' : 'ebox';
-    my @keys = $self->{redis}->_keys("/$dir/modules/squid/*/DomainFilterFiles/*/fileList_path");
-
-    my %fgDirs;
-    foreach my $key (@keys) {
-        my $path = $self->get_string($key);
-        next unless $path;
-        my $basename = basename($path);
-        $fgDirs{$path} = 1;
-        $fgDirs{"$path/archives"} = 1;
-        $fgDirs{"$path/archives/$basename"} = 1;
-        my $profileDir = dirname($path);
-        $fgDirs{$profileDir} = 1;
-    }
-
-    my $defaultListFileDir = $self->model('DomainFilterFiles')->listFileDir();
-
-    # As now the directories for each profile are not deleted separately with
-    # cleanOrphanedFiles, we change the depth of the find to remove them here
-    # my $findCmd = 'find ' .  $defaultListFileDir  . ' -maxdepth 1 -type d';
-    my $findCmd = 'find ' .  $defaultListFileDir  . ' -mindepth 1 -maxdepth 3';
-    my @dirs = `$findCmd`;
-    chomp @dirs;
-
-    my @deleteCmds;
-    foreach my $dir (@dirs) {
-        next if exists $fgDirs{$dir};
-
-        push (@deleteCmds, "rm -rf $dir");
-    }
-    EBox::Sudo::root(@deleteCmds);
-}
-
-sub _domainFilterFilesComponents
-{
-    my ($self) = @_;
-
-    my @components;
-
-    my $profiles = $self->model('FilterProfiles');
-    my $defaultGroupName = $profiles->defaultGroupName();
-    foreach my $id ( @{ $profiles->ids() } ) {
-        my $row = $profiles->row($id);
-        my $filterPolicy =   $row->elementByName('filterPolicy');
-        my $fSettings = $filterPolicy->foreignModelInstance();
-
-        push @components, $fSettings->componentByName('DomainFilterFiles', 1);
-    }
-
-    return \@components;
-}
-
-
 sub _banThresholdActive
 {
     my ($self) = @_;
@@ -908,6 +816,9 @@ sub menu
 
     $folder->add(new EBox::Menu::Item('url' => 'Squid/View/FilterProfiles',
                                       'text' => __(q{Filter Profiles})));
+
+    $folder->add(new EBox::Menu::Item('url' => 'Squid/View/CategorizedLists',
+                                      'text' => __(q{Categorized Lists})));
 
     $root->add($folder);
 }
@@ -1055,57 +966,6 @@ sub _DGLang
     }
 
     return $lang;
-}
-
-# FIXME
-sub aroundDumpConfigDISABLED
-{
-    my ($self, $dir, %options) = @_;
-
-    my $backupCategorizedDomainLists =
-        EBox::Config::boolean('backup_domain_categorized_lists');
-
-    my $bugReport = $options{bug};
-    if (not $bugReport and $backupCategorizedDomainLists) {
-        $self->SUPER::aroundDumpConfig($dir, %options);
-    } else {
-        # we don't save archive files
-        $self->_dump_to_file($dir);
-        $self->dumpConfig($dir, %options);
-    }
-}
-
-
-# FIXME
-sub aroundRestoreConfigDISABLED
-{
-    my ($self, $dir, %options) = @_;
-    my $archive = $self->_filesArchive($dir);
-    my $archiveExists = (-r $archive);
-    if ($archiveExists) {
-        # normal procedure with restore files
-        $self->SUPER::aroundRestoreConfig($dir, %options);
-    } else {
-        EBox::info("Backup without domains categorized lists. Domain categorized list configuration will be removed");
-        $self->_load_from_file($dir);
-        $options{removeCategorizedDomainLists} = 1;
-        $self->restoreConfig($dir, %options);
-    }
-}
-
-# FIXME
-sub restoreConfigDISABLED
-{
-    my ($self, $dir, %options) = @_;
-
-    my $removeCategorizedDomainLists = $options{removeCategorizedDomainLists};
-    if ($removeCategorizedDomainLists) {
-        foreach my $domainFilterFiles ( @{ $self->_domainFilterFilesComponents() } ) {
-            $domainFilterFiles->removeAll();
-        }
-    }
-
-    $self->_cleanDomainFilterFiles(orphanedCheck => 1);
 }
 
 sub report
@@ -1317,6 +1177,15 @@ sub regenGatewaysFailover
     my ($self) = @_;
 
     $self->restartService();
+}
+
+# Security Updates Add-On message
+sub _commercialMsg
+{
+    return __sx('Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that include the Content Filtering feature in the automatic security updates.',
+                ohs => '<a href="' . SB_URL . '" target="_blank">',
+                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+                ch => '</a>');
 }
 
 1;

@@ -1,4 +1,6 @@
 HEAD
+	+ Rearranged components on filter profile configuration
+	+ New Categorized Lists model to upload the lists archives
 	+ Download sizes for Bandwidth Throttling now use MB instead of KB
 	+ Users and Antivirus enable dependencies are now optional
 	+ Default policy if no other allow or filter rules are present is deny
