@@ -1,4 +1,5 @@
 HEAD
+	+ Added method EBox::FileSystem::isDirEmpty
 	+ Better logging of sudo commands in debug including process name and PID
 	+ Better exclusion of non-device filesystems in
 	  EBox::FileSystem::partitionsFileSystems

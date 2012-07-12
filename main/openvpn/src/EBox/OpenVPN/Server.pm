@@ -67,10 +67,15 @@ sub daemonFiles
 
     my @files = $class->SUPER::daemonFiles($name);
     my $confDir = $class->_openvpnModule->confDir();
-    my $ippFile = $class->_ippFileForDaemon($confDir, $name);
 
+    my $ippFile = $class->_ippFileForDaemon($confDir, $name);
     if (-f $ippFile) {
-        push (@files, $ippFile);
+        push @files, $ippFile;
+    }
+
+    my $serverConfigDir = $class->serverConfigDirByName($confDir, $name);
+    if (-d $serverConfigDir) {
+        push @files, $serverConfigDir;
     }
 
     return @files;
@@ -138,7 +143,7 @@ sub _checkPortIsAvailable
 # Method: port
 #
 #  Returns:
-#   the port used by the server to receive conenctions.
+#   the port used by the server to receive connections.
 sub port
 {
     my ($self) = @_;
@@ -345,6 +350,8 @@ sub tlsRemote
     return $tlsRemote ? $tlsRemote : undef;
 }
 
+
+
 # Method: pullRoutes
 #
 # Returns:
@@ -380,7 +387,8 @@ sub confFileTemplate
 sub _ippFileForDaemon
 {
     my ($class, $confDir, $name) = @_;
-    return "$confDir/$name-ipp.txt";
+    my $daemonDir = $class->serverConfigDirByName($confDir, $name);
+    return "$daemonDir/$name-ipp.txt";
 }
 
 # Method: ippFile
@@ -408,11 +416,19 @@ sub confFileParams
     push @templateParams, (dev => $self->iface());
 
     my @paramsNeeded =
-      qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
+      qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify
+         clientToClient user group proto dh tlsRemote
+         clientConfigDir
+         searchDomain dns1 dns2 wins
+       );
     foreach  my $param (@paramsNeeded) {
         my $accessor_r = $self->can($param);
-        defined $accessor_r or die "Cannot found accesor for param $param";
-        my $value = $accessor_r->($self);
+        my $value;
+        if ($accessor_r) {
+            $value = $accessor_r->($self);
+        } else {
+            $value = $self->_configAttr($param);
+        }
         defined $value or next;
         push @templateParams, ($param => $value);
     }
@@ -565,6 +581,35 @@ sub advertisedNets
     return @nets;
 }
 
+
+
+sub createDirectories
+{
+    my ($self) = @_;
+
+    my $path = $self->clientConfigDir();
+    if (-d $path) {
+        return;
+    }
+    EBox::Sudo::root("mkdir -p $path");
+    EBox::Sudo::root("chmod -R 755 $path");
+}
+
+# return the clientConfigDir path and creates the directory if it does not exists
+sub clientConfigDir
+{
+    my ($self) = @_;
+    my $vpnDir = $self->_openvpnModule->confDir();
+    my $path = $self->serverConfigDirByName($vpnDir, $self->name()) . '/client-config.d';
+    return $path;
+}
+
+sub serverConfigDirByName
+{
+    my ($self, $vpnDir, $name) = @_;
+    return $vpnDir . '/' . "$name.d";
+}
+
 # Method: setInternal
 #
 #
@@ -595,6 +640,7 @@ sub clientBundle
                clientCertificate => 1,
                addresses         => { type => ARRAYREF },
                installer         => 0,
+               connStrategy      => { default => 'random' },
              }
     );
 
@@ -621,6 +667,54 @@ sub clientBundle
 
     return $class->clientBundle(%params);
 }
+
+
+sub backupFiles
+{
+    my ($self, $dir) = @_;
+
+    my $name = $self->name();
+    my $dst = "$dir/$name";
+    EBox::FileSystem::makePrivateDir($dst);
+
+    my $vpnDir = $self->_openvpnModule->confDir();
+    my $serverConfigDir = $self->serverConfigDirByName($vpnDir, $name);
+    if (EBox::FileSystem::dirIsEmpty($serverConfigDir)) {
+        return;
+    }
+
+    EBox::Sudo::root("cp -af $serverConfigDir/* $dst/");
+    # dont store config file
+    EBox::Sudo::root("rm  $dst/$name.conf");
+}
+
+sub restoreFiles
+{
+    my ($self, $dir) = @_;
+
+    my $name = $self->name();
+    my $src = "$dir/" . $name;
+    if (not EBox::Sudo::fileTest('-d', $src)) {
+        EBox::warn('No backup directory $src for server ' . $name);
+        return;
+    }
+    if (EBox::FileSystem::dirIsEmpty($src)) {
+        EBox::warn('No files in backup directory $src for server ' . $name);
+        return;
+    }
+
+    my $vpnDir = $self->_openvpnModule->confDir();
+    my $serverConfigDir = $self->serverConfigDirByName($vpnDir, $name);
+    # clean and make directory
+    EBox::Sudo::root("rm -rf $serverConfigDir");
+    $self->createDirectories();
+
+    EBox::Sudo::root("cp -af $src/* $serverConfigDir/");
+    # XXX this is bz the tar file cannot preserve ownership this should be fixed
+    # in EBox::Backup
+    EBox::Sudo::root("chown -R root.root $serverConfigDir/*");
+}
+
 
 sub certificateRevoked # (commonName, isCACert)
 {

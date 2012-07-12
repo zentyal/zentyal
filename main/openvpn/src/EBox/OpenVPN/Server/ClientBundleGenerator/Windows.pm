@@ -24,6 +24,7 @@ use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 use EBox::Config;
 
 use File::Glob ':glob';
+use File::Slurp;
 
 use constant ZIP_PATH => '/usr/bin/zip';
 
@@ -58,6 +59,18 @@ sub confFileExtension
 {
     my ($class) = @_;
     return '.ovpn';
+}
+
+sub mangleConfFile
+{
+    my ($class, $file) = @_;
+    # convert to windowa format
+    my @lines = File::Slurp::read_file($file);
+    @lines = map {
+        $_ =~ s{\n}{\r\n};
+        $_
+    } @lines;
+    File::Slurp::write_file($file, \@lines);
 }
 
 sub _installerCmd

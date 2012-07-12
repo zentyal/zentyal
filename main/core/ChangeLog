@@ -1,4 +1,7 @@
 HEAD
+	+ Added missing call to updateRowNotify in DataForms
+	+ Fixed silent error in EBox::Types::File templates for non-readable
+	  by ebox files
 	+ Use pkill instead of killall in postinst
 	+ Use unset instead of delete_dir when removing rows
 	+ Do not set order list for DataForms

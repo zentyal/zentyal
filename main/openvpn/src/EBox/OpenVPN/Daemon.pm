@@ -98,7 +98,7 @@ sub _configAttr
     my $config =
       $self->{row}->elementByName('configuration')->foreignModelInstance();
 
-    return $config->$name();
+    return $config->value($name);
 }
 
 #
@@ -288,7 +288,15 @@ sub internal
                                           'Must be immplemented in subclasses');
 }
 
+# Method: createDirectories
 #
+#  Create the directory structure needed for the daemon if it does not exists.
+#  Default empty implementation
+sub createDirectories
+{
+
+}
+
 # Method: confFile
 #
 #   get the configuration file for this daemon
@@ -314,10 +322,7 @@ sub confFileForName
     defined $name
       or throw EBox::Exceptions::MissingArgument('name');
 
-    my $confFile = $name . '.conf';
-    my $confFilePath = defined $confDir ? "$confDir/$confFile" : $confFile;
-
-    return $confFilePath;
+    return "$confDir/$name.d/$name.conf";
 }
 
 #

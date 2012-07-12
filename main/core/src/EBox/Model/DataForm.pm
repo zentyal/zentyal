@@ -368,6 +368,8 @@ sub setTypedRow
         $optParams{id} = $ROW_ID;
         $optParams{noOrder} = 1;
         $self->SUPER::addTypedRow($paramsRef, %optParams);
+        # since we have used addTypedRow updatedRowNotify has not been called automatically
+        $self->updatedRowNotify($self->row());
     }
 }
 
