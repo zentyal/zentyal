@@ -330,4 +330,238 @@ sub _directoryEmpty
     return ($#ent == 1);
 }
 
+# User and group addons
+
+# Method: accountEnabled
+#
+#   Check if the samba account is enabled, reading the userAccountControl
+#   attribute. For a description of this attribute check:
+#   http://support.microsoft.com/kb/305144/es
+#
+# Returns:
+#
+#   boolean - 1 if enabled, 0 if disabled
+#
+sub accountEnabled
+{
+    my ($self, $user) = @_;
+
+    my $samAccountName = $user->get('uid');
+    my $ldb = $self->{ldb};
+    my $args = {
+        base   => $ldb->dn(),
+        scope  => 'sub',
+        filter => "(samAccountName=$samAccountName)",
+        attrs  => ['userAccountControl'],
+    };
+    my $result = $ldb->search($args);
+    return undef unless ($result->count() == 1);
+    my $entry = $result->entry(0);
+    my $flags = $entry->get_value('userAccountControl');
+    return not ($flags & 2);
+}
+
+# Method: setAccountEnabled
+#
+#   Enables or Disables the samba account modifying the userAccountControl
+#   attribute. For a description of this attribute check:
+#   http://support.microsoft.com/kb/305144/es
+#
+# Parameters:
+#
+#   enable - 1 to enable, 0 to disable
+#
+sub setAccountEnabled
+{
+    my ($self, $user, $enable) = @_;
+
+    return unless (defined $user and defined $enable);
+
+    my $ldb = $self->{ldb};
+    my $samAccountName = $user->get('uid');
+    my $params = {
+        base => $ldb->dn(),
+        scope => 'sub',
+        filter => "(samAccountName=$samAccountName)",
+        attrs => ['userAccountControl']
+    };
+    my $result = $ldb->search($params);
+    return unless ($result->count() == 1);
+    my $entry = $result->entry(0);
+    my $flags = $entry->get_value('userAccountControl');
+    if ($enable) {
+        $flags = $flags & ~2;
+    } else {
+        $flags = $flags | 2;
+    }
+    try {
+        EBox::debug("Setting user account control for user $samAccountName to $flags");
+        $ldb->disableZentyalModule();
+        $entry->replace(userAccountControl => $flags);
+        $entry->update($ldb->ldbCon());
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $ldb->enableZentyalModule();
+    };
+}
+
+# Method: isAdminUser
+#
+#   Check if the user is a domain administrator with rights
+#   to join computers to the domain
+#
+# Returns:
+#
+#   boolean - 1 if the user has admin rights, 0 otherwise
+#
+sub isAdminUser
+{
+    my ($self, $user) = @_;
+
+    my $samAccountName = $user->get('uid');
+    my $ldb = $self->{ldb};
+    my $args = {
+        base   => $ldb->dn(),
+        scope  => 'sub',
+        filter => "(samAccountName=$samAccountName)",
+        attrs  => ['memberOf'],
+    };
+    my $result = $ldb->search($args);
+    return undef unless ($result->count() == 1);
+    my $entry = $result->entry(0);
+
+    my $domainAdminsDn   = $ldb->getDnById('Domain Admins');
+    my $administratorsDn = $ldb->getDnById('Administrators');
+
+    my %userGroups = map { $_ => 1 } ($entry->get_value('memberof'));
+    my $isDomainAdmin   = exists $userGroups{$domainAdminsDn};
+    my $isAdministrator = exists $userGroups{$administratorsDn};
+
+    if ($isDomainAdmin and $isAdministrator) {
+        return 1;
+    } elsif ((not $isDomainAdmin) and (not $isAdministrator)) {
+        return 0;
+    } else {
+        EBox::error("The user has incomplete group memberships; to be administrator " .
+                    "he must be both member of domain Admins and Administrators group");
+    }
+    return undef;
+}
+
+# Method: setAdminUser
+#
+#   Set the user as a domain administrator with rights
+#   to join computers to the domain
+#
+# Parameters:
+#
+#   user  - EBox::UsersAndGroups::User instance
+#   admin - If true admin rights will be granted to the user,
+#           otherwise rights will be revoked.
+#
+sub setAdminUser
+{
+    my ($self, $user, $admin) = @_;
+
+    return unless (defined $user and defined $admin);
+
+    my $ldb = $self->{ldb};
+    my $samAccountName = $user->get('uid');
+    my $params = {
+        base => $ldb->dn(),
+        scope => 'sub',
+        filter => "(samAccountName=$samAccountName)",
+        attrs => []
+    };
+    my $result = $ldb->search($params);
+    return unless ($result->count() == 1);
+    my $userEntry = $result->entry(0);
+    my $userDn = $userEntry->get_value('distinguishedName');
+
+    $params->{filter} = "(samAccountName=Domain Admins)";
+    $result = $ldb->search($params);
+    return unless ($result->count() == 1);
+    my $domainAdminsEntry = $result->entry(0);
+    my %domainAdminsMembers = map { $_ => 1 } ($domainAdminsEntry->get_value('member'));
+
+    $params->{filter} = "(samAccountName=Administrators)";
+    $result = $ldb->search($params);
+    return unless ($result->count() == 1);
+    my $administratorsEntry = $result->entry(0);
+    my %administratorsMembers = map { $_ => 1 } ($administratorsEntry->get_value('member'));
+
+    if ($admin) {
+        $domainAdminsMembers{$userDn} = 1;
+        $administratorsMembers{$userDn} = 1;
+    } else {
+        delete $domainAdminsMembers{$userDn};
+        delete $administratorsMembers{$userDn};
+    }
+
+    my @domainAdminsMembers = keys %domainAdminsMembers;
+    my @administratorsMembers = keys %administratorsMembers;
+    try {
+        $ldb->disableZentyalModule();
+        $domainAdminsEntry->replace(member => \@domainAdminsMembers);
+        $administratorsEntry->replace(member => \@administratorsMembers);
+        $domainAdminsEntry->update($ldb->ldbCon());
+        $administratorsEntry->update($ldb->ldbCon());
+    } otherwise {
+        my $error = shift;
+        EBox::error($error);
+    } finally {
+        $ldb->enableZentyalModule();
+    };
+}
+
+sub _userAddOns
+{
+    my ($self, $user) = @_;
+
+    return unless ($self->{samba}->configured());
+
+    my $serviceEnabled = $self->{samba}->isEnabled();
+    my $accountEnabled = $self->accountEnabled($user);
+    my $isAdminUser    = $self->isAdminUser($user);
+#    my $printers = $samba->_printersForUser($user);
+
+    my $args = {
+        'username'       => $user->dn(),
+        'accountEnabled' => $accountEnabled,
+        'isAdminUser'    => $isAdminUser,
+        'service'        => $serviceEnabled,
+
+        'printers' => [], #$printers,
+        'printerService' => undef, #$samba->printerService(),
+    };
+
+    return { path => '/samba/samba.mas', params => $args };
+}
+
+sub _groupAddOns
+{
+    my ($self, $groupname) = @_;
+
+    return unless ($self->{samba}->configured());
+
+    my $samba = EBox::Global->modInstance('samba');
+
+    my @args;
+    my $share = $self->_groupSharing($groupname) ? "yes" : "no";
+    my $printers = $samba->_printersForGroup($groupname);
+    my $args =  {
+        'groupname' => $groupname,
+        'share'     => $share,
+        'sharename' => $self->sharingName($groupname),
+        'service'   => $samba->isEnabled(),
+
+        'printers' => $printers,
+        'printerService' => $samba->printerService(),
+    };
+
+    return { path => '/samba/samba.mas', params => $args };
+}
+
 1;

@@ -544,6 +544,36 @@ sub getIdByDN
     }
 }
 
+# Method getDnById
+#
+#   Get DN by object's samAccountName
+#
+# Parameters:
+#
+#   sam - The samAccountName of the object
+#
+# Returns:
+#
+#   dn - The DN of the object
+#
+sub getDnById
+{
+    my ($self, $sam) = @_;
+
+    my $args = { base   => $self->dn(),
+                 scope  => 'sub',
+                 filter => "(samAccountName=$sam)",
+                 attrs  => ['distinguishedName'] };
+    my $result = $self->search($args);
+    if ($result->count() == 1) {
+        my $entry = $result->entry(0);
+        my $value = $entry->get_value('distinguishedName');
+        return $value;
+    } else {
+        throw EBox::Exceptions::DataNotFound( data=> 'samAccountName', value => $sam);
+    }
+}
+
 # Method getSidById
 #
 #   Get SID by object's sAMAccountName
@@ -858,10 +888,11 @@ sub setRoamingProfiles
             try {
                 $self->disableZentyalModule();
                 $entry->update($self->ldbCon());
-                $self->enableZentyalModule();
             } otherwise {
                 my $error = shift;
                 EBox::error("Error updating database: $error");
+            } finally {
+                $self->enableZentyalModule();
             };
         }
     }
@@ -884,10 +915,11 @@ sub setHomeDrive
                 $entry->replace(homeDrive => $drive);
                 $self->disableZentyalModule();
                 $entry->update($self->ldbCon());
-                $self->enableZentyalModule();
             } otherwise {
                 my $error = shift;
                 EBox::error("Error updating database: $error");
+            } finally {
+                $self->enableZentyalModule();
             };
         }
     }

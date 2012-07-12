@@ -1,0 +1,185 @@
+<%args>
+    $params
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if ($params->{'username'}) {
+	<h3><% __('Active Directory/File sharing account') %></h3>
+	<& .sambaDisabled, $params &>
+	<table class="formTable">
+	<form action='/Samba/ActiveSharing' method='post'>
+	    <input type="hidden" name="user" value="<% $params->{'username'} %>">
+	<tr>
+	<td class="tright" width="170px">
+		<% __('User account') %>:
+	</td>
+	<td>
+        <select name="accountEnabled" enabled>
+%       if ($params->{'accountEnabled'} == 1) {
+            <option value='no' ><% __('Disabled') %></option>
+            <option selected value='yes' ><% __('Enabled') %></option>
+%       } else {
+            <option selected value='no' ><% __('Disabled') %></option>
+            <option value='yes' ><% __('Enabled') %></option>
+%       }
+        </select>
+	</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Administration rights') %>:</span>
+		</td>
+		<td>
+			<input type='checkbox' name='isAdminUser' id='external' value='yes'
+%			if ($params->{'isAdminUser'} == 1) {
+				checked
+%			}
+			>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+					value="<% __('Change') %>"
+					alt="<% __('Change') %>">
+		</td>
+	</tr>
+	</form>
+	</table>
+
+%  } else {
+
+	<h3> <% __('Sharing directory for this group') %> </h3>
+	<form action='/Samba/ActiveSharing' method='post'>
+    <div class='help'>
+        <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
+    </div>
+
+    <& .sambaDisabled, $params &>
+
+    <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
+%           if (length($params->{'sharename'}) > 12) {
+                <div class='warning'>
+                <%   __("This resource name is longer than 12 characters.") %>
+                </div>
+%           }
+    <span class="ftitle"><% __('Directory name')%>:</span>
+    <input  type="text"
+            name="sharename"
+            class="inputText"
+            value="<% $params->{'sharename'} %>">
+%       if (length($params->{'sharename'}) > 0)  {
+            <input class='inputButton' type='submit' name='namechange'
+                value="<% __('Change') %>"
+                 alt="<% __('Change') %>">
+            <input class='inputButton' type='submit' name='remove'
+                value="<% __('Delete') %>"
+                 alt="<% __('Delete') %>">
+%       } else {
+            <input class='inputButton' type='submit' name='add'
+                value="<% __('Add') %>"
+                 alt="<% __('Add') %>">
+%       }
+	</form>
+%  }
+
+
+% if (@{$params->{'printers'}})  {
+	<h3><% __('Printers') %></h3>
+
+	    <& .printersDisabled, $params &>
+
+	<p><% __('Select the printers this user will have access to.') %></p>
+	<form id='printers' action='/Samba/ActivePrinting' method='POST'>
+% if ($params->{'username'}) {
+    <input type="hidden" name="user" value="<% $params->{'username'} %>">
+% } else {
+    <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
+% }
+			<table class='dataTable' cellspacing='0'>
+			<thead>
+				<tr>
+					<th class='tleft' width='90%'><% __('Printer') %></th>
+					<th class='thOptionsFwd'><% __('Allow') %></th>
+				</tr>
+			</thead>
+			<tbody>
+%                               my $allTrue = 1;
+%				foreach my $printer (@{$params->{printers}}) {
+				<tr>
+					<td><% $printer->{'name'} %></td>
+%					if ($printer->{'allowed'}) {
+						<td class='tcenter'>
+							<input type='checkbox' checked name='<% $printer->{'name'} %>' value='<% $printer->{'name'} %>'>
+						</td>
+%					} else {
+%                                               $allTrue = undef;
+						<td class='tcenter'>
+							<input type='checkbox' name='<% $printer->{'name'} %>' value='<% $printer->{'name'} %>'>
+						</td>
+%					}
+				</tr>
+%				}
+ <tr class='trimp'>
+					<td>
+						<strong><% __('Allow all printers') %></strong>
+					</td>
+					<td class='tcenter'>
+						<input type='checkbox' value='on'
+							onclick='checkAll("printers", "allbox");'
+							name='allbox'/>
+					</td>
+				</tr>
+%                               if ($allTrue) {
+                                  <script>
+                                     document.getElementById("printers").elements["allbox"].checked=true;
+				     checkAll("printers", "allbox");
+				  </script>
+%                               }
+
+			</tbody>
+			</table>
+		<p>
+		<input class='inputButton' type='submit' name='change'
+        	    value="<% __('Change') %>"
+           		 alt="<% __('Change') %>" />
+		</p>
+	</form>
+% }
+
+<%def .printersDisabled>
+<%init>
+my ($params) = @_;
+return if $params->{printerService};
+
+my $mod = __('printers module');
+</%init>
+<& .modWarn, mod => $mod &>
+</%def>
+
+
+<%def .sambaDisabled>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+
+my $mod = __('file sharing module');
+</%init>
+<& .modWarn, mod => $mod &>
+</%def>
+
+
+<%def .modWarn>
+<%args>
+$mod
+</%args>
+<div class='warning'>
+<% __x(
+       q{The following settings will take effect only when the {mod} is enabled},
+    mod => $mod,
+    )
+%>
+</div>
+</%def>

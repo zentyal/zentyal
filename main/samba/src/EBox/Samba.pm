@@ -37,6 +37,7 @@ use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::Util::Random qw( generate );
 
+use Perl6::Junction qw( any );
 use Net::Domain qw(hostdomain);
 use Error qw(:try);
 use File::Slurp;
@@ -1131,13 +1132,13 @@ sub setPrinterService # (enabled)
     $self->set_bool('printer_active', $active);
 }
 
-#   Method: servicePrinter
+# Method: servicePrinter
 #
-#       Returns if the printer sharing service is enabled
+#   Returns if the printer sharing service is enabled
 #
-#   Returns:
+# Returns:
 #
-#       boolean - true if enabled, otherwise undef
+#   boolean - true if enabled, otherwise undef
 #
 sub printerService
 {
@@ -1443,13 +1444,14 @@ sub _printersForUser
 {
     my ($self, $user) = @_;
 
+    my $username = $user->get('uid');
     my $printPerms = $self->get_hash('printers');
     my @printers;
     for my $name (@{$self->printers()}) {
         my $print = { 'name' => $name, 'allowed' => undef };
         my $users = $printPerms->{$name}->{users};
         if (@{$users}) {
-            $print->{'allowed'} = 1 if (grep(/^$user$/, @{$users}));
+            $print->{'allowed'} = 1 if (grep(/^$username$/, @{$users}));
         }
         push (@printers, $print);
     }
